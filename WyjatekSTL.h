@@ -1,0 +1,32 @@
+#pragma once
+#include "OgolnyWyjatek.h"
+
+class WyjatekSTL :
+	public LoggerInterface<WyjatekSTL> ,
+	public OgolnyWyjatek
+{
+public:
+	typedef LoggerInterface<WyjatekSTL> LogWyjSTL;
+
+	static const IdType idWyjatekSTL;
+	
+	WyjatekSTL( const Tekst& tPlik, const IdType& iLinia );
+	WyjatekSTL( const Tekst& tPlik, const IdType& iLinia, const Tekst& , const std::exception& );
+	WyjatekSTL( const Tekst& tPlik, const IdType& iLinia, const std::exception& );
+	WyjatekSTL( const WyjatekSTL& );
+	virtual ~WyjatekSTL();
+
+	Tekst getPowod() const;
+	void setPowod( const Tekst& );
+
+	Tekst generujKomunikat() const override;
+
+	string toString() const override;
+
+private:
+	Tekst powod;
+
+	static const Tekst tytulWyjatekSTL;
+	static const Tekst trescWyjatekSTL;
+};
+
