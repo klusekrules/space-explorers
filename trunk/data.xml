@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="windows-1250"?>
+<SpaceGame nazwa="Domyslny" maska="0x80000000">
+  <!-- Opis Surowców wykorzystanych w aplikacji -->
+  <Surowce nazwa="Surowce" maska="0x00800000">
+
+    <Klasa nazwa="Metale" maska="0x00008000">
+      <Surowiec nazwa="Stal" maska="0x00000001" poziom="1" masa="1" objetosc="2" powierzchnia="0">Opis Stali</Surowiec>
+      <Surowiec nazwa="Tytan" maska="0x00000002" poziom="1" masa="1" objetosc="1" powierzchnia="0">Opis Tytanu</Surowiec>
+      <Surowiec nazwa="Naquadah" maska="0x00000004" poziom="1" masa="1" objetosc="1" powierzchnia="0">Opis Naquadah</Surowiec>
+    </Klasa>
+
+    <Klasa nazwa="Elektronika" maska="0x00004000">
+      <Surowiec nazwa="Miedź" maska="0x00000001" poziom="1" masa="1" objetosc="1" powierzchnia="0">Opis Miedzi</Surowiec>
+      <Surowiec nazwa="Krzem" maska="0x00000002" poziom="1" masa="1" objetosc="1" powierzchnia="0">Opis Krzemu</Surowiec>
+      <Surowiec nazwa="Kryształ" maska="0x00000004" poziom="1" masa="1" objetosc="1" powierzchnia="0">Opis Kryształu</Surowiec>
+    </Klasa>
+
+    <Klasa nazwa="Paliwo" maska="0x00002000">
+      <Surowiec nazwa="Wodór" maska="0x00000001" poziom="1" masa="1" objetosc="1" powierzchnia="0">Opis Wodoru</Surowiec>
+      <Surowiec nazwa="Deuter" maska="0x00000002" poziom="1" masa="1" objetosc="1" powierzchnia="0">Opis Deuteru</Surowiec>
+      <Surowiec nazwa="Tryt" maska="0x00000004" poziom="1" masa="1" objetosc="1" powierzchnia="0">Opis Trytu</Surowiec>
+    </Klasa>
+
+  </Surowce>
+  <Statki nazwa="Statki" maska="0x00400000">
+    
+    <Statek maska="0x00000001" poziom="1" masa="1" objetosc="1300" powierzchnia="0" pojemnosc="1000" atak="1" pancerz="1" tarcza="1" rodzajNapedu="1" mocSilnika="1" zuzyciePaliwa="1">
+      <Info nazwa="Transportowiec" >Opis</Info>
+      <Cena>
+        <Surowiec id="0x80808001" poziom="1" ilosc="1000" ></Surowiec>
+        <Surowiec id="0x80804001" poziom="1" ilosc="500" ></Surowiec>
+      </Cena>
+    </Statek>
+
+    <Statek maska="0x00000002" poziom="1" masa="2" objetosc="700" powierzchnia="0" pojemnosc="500" atak="1" pancerz="1" tarcza="1" rodzajNapedu="1" mocSilnika="1" zuzyciePaliwa="1">
+      <Info nazwa="Myśliwiec" >Opis</Info>
+      <Cena>
+        <Surowiec id="0x80808001" poziom="1" ilosc="2000" ></Surowiec>
+        <Surowiec id="0x80804001" poziom="1" ilosc="1000" ></Surowiec>
+      </Cena>
+    </Statek>
+    
+  </Statki>
+</SpaceGame>
+

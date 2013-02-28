@@ -1,0 +1,8 @@
+Za³o¿enie projektowe:
+	- Funkcja o przedrostku set pobieraj¹ca wskaŸnik zapamiêtuje go bez tworzenia kopi obiektu.
+	- Funkcja o przedrostku set pobieraj¹ca referencje zapamiêtuje kopie obiektu przekazanego przez referencje.
+	- Funkcja o przedrostku get zrwaca zawsze kopie obiektów.
+
+	-Klasa class - reprezentuje obiekt
+	-Klasa classInfo - reprezentuje fabrykê obiektów typu class
+	-Klasa classBO - reprezentuje operacje biznesowe na obiektach typu class i classInfo.
