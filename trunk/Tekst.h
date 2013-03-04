@@ -21,6 +21,8 @@ public:
 	bool operator==( const Tekst& ) const;
 	bool operator!=( const Tekst& ) const;
 
+	bool isEmpty() const;
+
 	type_name getTekst()const;
 	void setTekst( const type_name& );
 

@@ -18,6 +18,9 @@ Tekst::Tekst( const Tekst& tekst)
 
 Tekst::~Tekst(){
 }
+bool Tekst::isEmpty() const{
+	return tekst.size() == 0;
+}
 
 Tekst Tekst::operator+( const Tekst& a ) const{
 	return Tekst( tekst + a.tekst );
