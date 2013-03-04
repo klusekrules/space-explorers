@@ -2,7 +2,7 @@
 #include "Logger.h"
 
 IdType::IdType()
-	: id(idDomyslny)
+	: id(domyslny.id)
 {
 }
 

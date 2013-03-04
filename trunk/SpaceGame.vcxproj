@@ -145,6 +145,7 @@
     <ClCompile Include="BrakAtrybutuXML.cpp" />
     <ClCompile Include="BrakMaski.cpp" />
     <ClCompile Include="Cena.cpp" />
+    <ClCompile Include="Constants.cpp" />
     <ClCompile Include="Dystans.cpp" />
     <ClCompile Include="Fluktuacja.cpp" />
     <ClCompile Include="IdType.cpp" />

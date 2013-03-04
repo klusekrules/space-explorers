@@ -1,7 +1,7 @@
 #pragma once
 
 //Domyœlna wartoœæ id, dla klasy IdType
-#define idDomyslny -1
+//#define idDomyslny -1  // Przeniesione do Constants.cpp
 
 //Domyœlna wartoœæ poziomu, dla klasu Poziom
 #define poziomDomyslny 0x1
