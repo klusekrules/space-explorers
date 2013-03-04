@@ -9,6 +9,9 @@ class IdType :
 protected:
 	type_name id;
 public:
+
+	static const IdType domyslny;
+
 	IdType();
 	explicit IdType( const type_name& ID );
 	IdType( const IdType& a );
