@@ -1,20 +1,11 @@
 #include "BrakMaski.h"
 #include "Logger.h"
 
-BrakMaski::BrakMaski( const Tekst& tPlik, const IdType& iLinia)
-	: WyjatekParseraXML(tPlik, iLinia)
-{
-	this->setNumerWyjatku(idBrakMaski);
-	this->setTytul(tytulBrakMaski);
-	this->setTresc(trescBrakMaski);
-}
-
 BrakMaski::BrakMaski( const Tekst& tPlik, const IdType& iLinia, const Tekst& nazwa )
-	: WyjatekParseraXML(tPlik, iLinia), nazwaMaski(nazwa)
+	: WyjatekParseraXML( tPlik, iLinia, exception(), trescBrakMaski ), nazwaMaski(nazwa)
 {
 	this->setNumerWyjatku(idBrakMaski);
 	this->setTytul(tytulBrakMaski);
-	this->setTresc(trescBrakMaski);
 }
 
 BrakMaski::BrakMaski( const BrakMaski& e )

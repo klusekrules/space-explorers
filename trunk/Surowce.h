@@ -56,6 +56,10 @@ public:
 	Ilosc getIlosc() const;
 	
 	void setIlosc( const Ilosc& );
+
+	SurowceInfo* getSurowceInfo() const;
+	
+	void setSurowceInfo( SurowceInfo* );
 		
 	string toString() const override;
 
@@ -66,4 +70,7 @@ private:
 	Surowce( const Ilosc& , const SurowceInfo&  );
 	
 	Ilosc ilosc;
+
+	SurowceInfo* info;
+
 };

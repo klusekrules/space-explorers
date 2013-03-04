@@ -9,13 +9,13 @@ class SurowceInfo :
 {
 public:
 	typedef LoggerInterface<SurowceInfo> LogSurowceInfo;
-	/*static const Tekst typSurowcaNazwaDomyslny;
-	static const Tekst typSurowcaOpisDomyslny;
-	static const IdType typSurowcaMaska;*/
 
 	SurowceInfo();
+
 	explicit SurowceInfo( const ObiektInfo& );
+
 	SurowceInfo( const SurowceInfo& );
+
 	virtual ~SurowceInfo();
 	
 	Surowce* TworzEgzemplarz( const Ilosc& ) const override;

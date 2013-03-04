@@ -2,26 +2,8 @@
 #include "Logger.h"
 #include "Aplikacja.h"
 
-OgolnyWyjatek::OgolnyWyjatek()
-	: numerWyjatku( domyslnyOgolnyWyjatekID ), tytul( domyslnyOgolnyWyjatekTytul ) , tresc( domyslnyOgolnyWyjatekTresc )
-{
-	ustawSzczegoly( Tekst() , IdType() );
-}
-
-OgolnyWyjatek::OgolnyWyjatek( const Tekst& tPlik, const IdType& iLinia )
-	: numerWyjatku( domyslnyOgolnyWyjatekID ), tytul( domyslnyOgolnyWyjatekTytul ) , tresc( domyslnyOgolnyWyjatekTresc )
-{
-	ustawSzczegoly( tPlik, iLinia );
-}
-
-OgolnyWyjatek::OgolnyWyjatek( const Tekst& tPlik, const IdType& iLinia, const IdType& itId )
-	: numerWyjatku( itId ), tytul( domyslnyOgolnyWyjatekTytul ) , tresc( domyslnyOgolnyWyjatekTresc )
-{
-	ustawSzczegoly( tPlik, iLinia );
-}
-
 OgolnyWyjatek::OgolnyWyjatek( const Tekst& tPlik, const IdType& iLinia, const IdType& itId , const Tekst& wwTytul , const Tekst& wwTresc )
-	: numerWyjatku( itId ) , tytul( wwTytul ) , tresc( wwTresc )
+	: numerWyjatku( itId != IdType::domyslny ? itId : domyslnyOgolnyWyjatekID ) , tytul( wwTytul.isEmpty() ? domyslnyOgolnyWyjatekTytul : wwTytul ) , tresc( wwTresc.isEmpty() ? domyslnyOgolnyWyjatekTresc : wwTresc )
 {
 	ustawSzczegoly( tPlik, iLinia );
 }

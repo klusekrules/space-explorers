@@ -9,7 +9,6 @@
 #include "ObiektList.hpp"
 #include "ObiektInfo.h"
 #include "Ladownia.h"
-
 Testy::Testy(){
 	locale pl ("Polish");
 	locale::global (pl);
@@ -25,7 +24,26 @@ void Testy::run(){
 	test_KlasaObiektList();
 	test_tworzenieObiektow();
 	test_KlasaLadownia();
+	test_KlasaNiepoprawneParametryFunkcji();
 }
+
+bool Testy::test_KlasaNiepoprawneParametryFunkcji(){
+	bool result = false;
+	bool error = false;
+	Log::debug("Test Klasy NiepoprawneParametryFunkcji!");
+	try{
+		Ilosc temp(5);
+		Objetosc tmp( 10.7 );
+		throw NiepoprawneParametryFunkcji( EXCEPTION_PLACE , tmp , temp );
+	}
+	catch( const NiepoprawneParametryFunkcji& e ){
+		Log::debug("Zawartosc klasy NiepoprawneParametryFunkcji = ");
+		Log::debug(e.generujKomunikat());
+	}
+	Log::debug("Test Klasy NiepoprawneParametryFunkcji zakoñczony powodzeniem.");
+	return true;
+}
+
 bool Testy::test_KlasaLadownia(){
 	bool result = false;
 	bool error = false;

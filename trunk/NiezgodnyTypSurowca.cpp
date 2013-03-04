@@ -1,11 +1,6 @@
 #include "NiezgodnyTypSurowca.h"
 #include "Logger.h"
 
-NiezgodnyTypSurowca::NiezgodnyTypSurowca( const Tekst& tPlik, const IdType& iLinia )
-	: OgolnyWyjatek ( tPlik, iLinia, idNiezgodnyTypSurowca , tytulNiezgodnyTypSurowcaDomyslny , trescNiezgodnyTypSurowcaDomyslny )
-{
-}
-
 NiezgodnyTypSurowca::NiezgodnyTypSurowca( const Tekst& tPlik, const IdType& iLinia, const Klucz & tsP, const Klucz & tsD )
 	: OgolnyWyjatek (  tPlik, iLinia, idNiezgodnyTypSurowca , tytulNiezgodnyTypSurowcaDomyslny , Tekst() )
 {

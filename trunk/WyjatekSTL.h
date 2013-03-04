@@ -10,9 +10,7 @@ public:
 
 	static const IdType idWyjatekSTL;
 	
-	WyjatekSTL( const Tekst& tPlik, const IdType& iLinia );
-	WyjatekSTL( const Tekst& tPlik, const IdType& iLinia, const Tekst& , const std::exception& );
-	WyjatekSTL( const Tekst& tPlik, const IdType& iLinia, const std::exception& );
+	WyjatekSTL( const Tekst& tPlik, const IdType& iLinia, const std::exception&, const Tekst& = Tekst() );
 	WyjatekSTL( const WyjatekSTL& );
 	virtual ~WyjatekSTL();
 

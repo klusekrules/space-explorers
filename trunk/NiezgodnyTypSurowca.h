@@ -11,7 +11,6 @@ public:
 
 	static const IdType idNiezgodnyTypSurowca;
 	
-	NiezgodnyTypSurowca( const Tekst& tPlik, const IdType& iLinia );
 	NiezgodnyTypSurowca( const Tekst& tPlik, const IdType& iLinia, const Klucz& , const Klucz& );
 	NiezgodnyTypSurowca( const NiezgodnyTypSurowca& );
 	virtual ~NiezgodnyTypSurowca();

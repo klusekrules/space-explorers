@@ -25,18 +25,8 @@ void main(){
     _CrtSetReportMode( _CRT_ASSERT, _CRTDBG_MODE_FILE );
     _CrtSetReportFile( _CRT_ASSERT, _CRTDBG_FILE_STDOUT );
 	
-	cout << endl << Aplikacja::getInstance().getStackTrace();
-
-	locale pl ("Polish");
-	locale::global (pl);
-	try{
-		throw OgolnyWyjatek(EXCEPTION_PLACE, IdType(15) );
-	}catch(OgolnyWyjatek & a){
-		cout << a.generujKomunikat().toString();
-	}
-
-	//Testy test2;
-	//test2.run();
+	Testy test;
+	test.run();
 
 	/*ALLEGRO_DISPLAY *display = NULL;
  

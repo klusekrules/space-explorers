@@ -10,10 +10,8 @@ public:
 
 	static const IdType idWyjatekParseraXML;
 
-	WyjatekParseraXML( const Tekst& tPlik, const IdType& iLinia );
 	WyjatekParseraXML( const WyjatekParseraXML& );
-	WyjatekParseraXML( const Tekst& tPlik, const IdType& iLinia, const Tekst&, const std::exception& );
-	WyjatekParseraXML( const Tekst& tPlik, const IdType& iLinia, const std::exception& );
+	WyjatekParseraXML( const Tekst& tPlik, const IdType& iLinia, const std::exception&, const Tekst& = Tekst() );
 	virtual ~WyjatekParseraXML();
 
 	Tekst getPowod() const;

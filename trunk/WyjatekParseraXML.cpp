@@ -1,10 +1,6 @@
 #include "WyjatekParseraXML.h"
 #include "Logger.h"
 
-WyjatekParseraXML::WyjatekParseraXML( const Tekst& tPlik, const IdType& iLinia )
-	: OgolnyWyjatek(tPlik, iLinia, idWyjatekParseraXML)
-{
-}
 
 WyjatekParseraXML::~WyjatekParseraXML(){
 }
@@ -14,13 +10,8 @@ WyjatekParseraXML::WyjatekParseraXML( const WyjatekParseraXML& a )
 {
 }
 
-WyjatekParseraXML::WyjatekParseraXML( const Tekst& tPlik, const IdType& iLinia, const Tekst& str, const std::exception& ex)
-	: OgolnyWyjatek( tPlik, iLinia, idWyjatekParseraXML, tytulWyjatekParseraXML, str ), powod(ex.what())
-{
-}
-
-WyjatekParseraXML::WyjatekParseraXML( const Tekst& tPlik, const IdType& iLinia, const std::exception& ex )
-	: OgolnyWyjatek( tPlik, iLinia, idWyjatekParseraXML, tytulWyjatekParseraXML, trescWyjatekParseraXML ), powod(ex.what())
+WyjatekParseraXML::WyjatekParseraXML( const Tekst& tPlik, const IdType& iLinia, const std::exception& ex, const Tekst& str)
+	: OgolnyWyjatek( tPlik, iLinia, idWyjatekParseraXML, tytulWyjatekParseraXML, str.isEmpty() ? trescWyjatekParseraXML : str ), powod(ex.what())
 {
 }
 

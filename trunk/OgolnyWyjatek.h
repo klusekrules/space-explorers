@@ -13,10 +13,7 @@ class OgolnyWyjatek:
 public:
 	static const IdType domyslnyOgolnyWyjatekID; /// Domyœlna wartoœæ id klasy.
 	
-	OgolnyWyjatek();
-	OgolnyWyjatek( const Tekst& tPlik, const IdType& iLinia );
-	OgolnyWyjatek( const Tekst& tPlik, const IdType& iLinia, const IdType& itId, const Tekst& wwTytul, const Tekst& wwTresc );
-	OgolnyWyjatek( const Tekst& tPlik, const IdType& iLinia, const IdType& itId);
+	OgolnyWyjatek( const Tekst& tPlik, const IdType& iLinia, const IdType& itId = IdType(), const Tekst& wwTytul = Tekst(), const Tekst& wwTresc = Tekst() );
 	OgolnyWyjatek( const OgolnyWyjatek& a );
 	virtual ~OgolnyWyjatek();
 
