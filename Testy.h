@@ -14,6 +14,7 @@ public:
 	bool test_tworzenieObiektow();
 	bool test_KlasaObiektList();
 	bool test_KlasaLadownia();
+	bool test_KlasaNiepoprawneParametryFunkcji();
 
 	//void test_ladowaniePlikuXML();
 	//void test_podzialuStatku();

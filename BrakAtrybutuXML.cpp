@@ -1,20 +1,11 @@
 #include "BrakAtrybutuXML.h"
 #include "Logger.h"
 
-BrakAtrybutuXML::BrakAtrybutuXML( const Tekst& tPlik, const IdType& iLinia )
-	:WyjatekParseraXML( tPlik, iLinia)
-{
-	this->setNumerWyjatku(idBrakAtrybutuXML);
-	this->setTytul(tytulBrakAtrybutuXML);
-	this->setTresc(trescBrakAtrybutuXML);
-}
-
 BrakAtrybutuXML::BrakAtrybutuXML( const Tekst& tPlik, const IdType& iLinia, const Tekst& str )
-	: WyjatekParseraXML( tPlik, iLinia), atrybut(str)
+	: WyjatekParseraXML( tPlik, iLinia, exception(), trescBrakAtrybutuXML ), atrybut(str)
 {
 	this->setNumerWyjatku(idBrakAtrybutuXML);
 	this->setTytul(tytulBrakAtrybutuXML);
-	this->setTresc(trescBrakAtrybutuXML);
 }
 
 BrakAtrybutuXML::BrakAtrybutuXML( const BrakAtrybutuXML& e )

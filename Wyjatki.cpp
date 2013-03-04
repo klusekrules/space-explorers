@@ -41,8 +41,8 @@ const Tekst		NiezainicjalizowanaKlasa::tytulNiezainicjalizowanaKlasa	= "Nie zain
 const Tekst		NiezainicjalizowanaKlasa::trescNiezainicjalizowanaKlasa	= "Klasa nie zosta³a zainicjalizowana.";
 
 const IdType	NiepoprawnaIloscObiektow::idNiepoprawnaIloscObiektow	( 0x07 );
-const Tekst		NiepoprawnaIloscObiektow::tytulNiepoprawnaIloscObiektow = "Nie poprawna iloœæ obiektów.";
-const Tekst		NiepoprawnaIloscObiektow::trescNiepoprawnaIloscObiektow = "U¿yta iloœæ obiektów jest zbyt du¿a lub nie poprawna.";
+const Tekst		NiepoprawnaIloscObiektow::tytulNiepoprawnaIloscObiektow = "Niepoprawna iloœæ obiektów.";
+const Tekst		NiepoprawnaIloscObiektow::trescNiepoprawnaIloscObiektow = "U¿yta iloœæ obiektów jest zbyt du¿a lub niepoprawna.";
 
 const IdType	BladLaczeniaObiektow::idBladLaczeniaObiektow			( 0x08 );
 const Tekst		BladLaczeniaObiektow::tytulBladLaczeniaObiektow			= "B³¹d ³¹czenia obiektów.";
@@ -53,12 +53,12 @@ const Tekst		NieznalezionoObiektu::tytulNieznalezionoObiektu			= "Nie znaleziono
 const Tekst		NieznalezionoObiektu::trescNieznalezionoObiektu			= "Obiekt o podanych kluczu nie zosta³ znaleziony.";
 
 const IdType	NiepoprawneParametryFunkcji::idNiepoprawneParametryFunkcji ( 0x0A );
-const Tekst		NiepoprawneParametryFunkcji::tytulNiepoprawneParametryFunkcji = "Nie poprawne parametry funkcji.";
+const Tekst		NiepoprawneParametryFunkcji::tytulNiepoprawneParametryFunkcji = "Niepoprawne parametry funkcji.";
 const Tekst		NiepoprawneParametryFunkcji::trescNiepoprawneParametryFunkcji = "Do funkcji zosta³y przekazane niepoprawne parametry.";
 
 const IdType	BladDzieleniaLadowni::idBladDzieleniaLadowni			( 0x0B );
 const Tekst		BladDzieleniaLadowni::tytulBladDzieleniaLadowni			= "B³¹d podczas dzielenia ³adowni.";
-const Tekst		BladDzieleniaLadowni::trescBladDzieleniaLadowni			= "Podczas podzia³u ³adowni wyst¹pi³ nie oczekiwany b³¹d.";
+const Tekst		BladDzieleniaLadowni::trescBladDzieleniaLadowni			= "Podczas podzia³u ³adowni wyst¹pi³ nieoczekiwany b³¹d.";
 /*
 const IdType	idBrakElementu											( 0x06 );
 const Tekst		tytulBrakElementu										= "Brak Elementu.";

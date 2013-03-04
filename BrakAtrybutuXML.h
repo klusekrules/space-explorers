@@ -10,8 +10,7 @@ public:
 
 	static const IdType idBrakAtrybutuXML;
 	
-	BrakAtrybutuXML( const Tekst& tPlik, const IdType& iLinia );
-	BrakAtrybutuXML( const Tekst& tPlik, const IdType& iLinia, const Tekst& );
+	BrakAtrybutuXML( const Tekst& tPlik, const IdType& iLinia, const Tekst& = Tekst() );
 	BrakAtrybutuXML( const BrakAtrybutuXML& );
 	virtual ~BrakAtrybutuXML();
 

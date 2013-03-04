@@ -1,21 +1,12 @@
 #include "WyjatekSTL.h"
 #include "Logger.h"
 
-WyjatekSTL::WyjatekSTL( const Tekst& tPlik, const IdType& iLinia )
-	: OgolnyWyjatek(tPlik, iLinia,idWyjatekSTL,tytulWyjatekSTL,trescWyjatekSTL)
-{
-}
 
 WyjatekSTL::~WyjatekSTL(){
 }
 
-WyjatekSTL::WyjatekSTL( const Tekst& tPlik, const IdType& iLinia, const Tekst& str , const std::exception& e )
-	: OgolnyWyjatek(tPlik, iLinia,idWyjatekSTL , tytulWyjatekSTL ,str), powod(e.what())
-{
-}
-
-WyjatekSTL::WyjatekSTL( const Tekst& tPlik, const IdType& iLinia, const std::exception& e )
-	: OgolnyWyjatek(tPlik, iLinia,idWyjatekSTL , tytulWyjatekSTL ,trescWyjatekSTL), powod(e.what())
+WyjatekSTL::WyjatekSTL( const Tekst& tPlik, const IdType& iLinia, const std::exception& e, const Tekst& str )
+	: OgolnyWyjatek(tPlik, iLinia,idWyjatekSTL , tytulWyjatekSTL ,str.isEmpty() ? trescWyjatekSTL : str), powod(e.what())
 {
 }
 

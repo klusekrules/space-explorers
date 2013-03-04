@@ -141,6 +141,14 @@ Ilosc Surowce::getIlosc() const{
 void Surowce::setIlosc( const Ilosc& isIlosc ) {
 	ilosc = isIlosc;
 }
+
+SurowceInfo* Surowce::getSurowceInfo() const{
+	return info;
+}
+	
+void Surowce::setSurowceInfo( SurowceInfo* sInfo ) {
+	info = sInfo;
+}
 	
 string Surowce::toString() const{
 	Logger str(LogSurowce::className());

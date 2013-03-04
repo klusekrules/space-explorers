@@ -111,7 +111,7 @@ Ladownia::Zbiornik* Ladownia::PodzielLadownie( const Objetosc& max , const Objet
 		//Je¿eli objêtoœæ oczekiwana mniejsza od 0 lub objêtoœæ minimalna wiêksza od pojemnoœci 
 		//lub objêtoœæ minimalna wiêksza od objêtoœci docelowej. Wyj¹tek
 		if( max < tObj || min > zajete || min > max )
-			throw NiepoprawneParametryFunkcji( EXCEPTION_PLACE , Tekst("Ladownia::Zbiornik* Ladownia::PodzielLadownie( const Objetosc& max , const Objetosc& min )") );
+			throw NiepoprawneParametryFunkcji( EXCEPTION_PLACE , max , min );
 	
 		/*
 			Przechodzimy po elementach zbiornika i przepisujemy tyle ile siê da. Dopuszczamy dzielenie grup obiektów jeœli mo¿liwe.
