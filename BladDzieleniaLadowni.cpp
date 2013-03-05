@@ -14,7 +14,7 @@ Tekst BladDzieleniaLadowni::generujKomunikat() const{
 	return OgolnyWyjatek::generujKomunikat() + Tekst("Ladownia:")  + ladownia + Tekst("\n");
 }
 
-Tekst BladDzieleniaLadowni::getLadownia() const{
+const Tekst& BladDzieleniaLadowni::getLadownia() const{
 	return ladownia;
 }
 

@@ -9,7 +9,7 @@ BladLaczeniaObiektow::BladLaczeniaObiektow( const Tekst& tPlik, const IdType& iL
 BladLaczeniaObiektow::~BladLaczeniaObiektow(){
 }
 
-Tekst BladLaczeniaObiektow::getObiektA() const{
+const Tekst& BladLaczeniaObiektow::getObiektA() const{
 	return obiektA;
 }
 
@@ -17,7 +17,7 @@ void BladLaczeniaObiektow::setObiektA( const Tekst& a ){
 	obiektA = a;
 }
 
-Tekst BladLaczeniaObiektow::getObiektB() const{
+const Tekst& BladLaczeniaObiektow::getObiektB() const{
 	return obiektB;
 }
 

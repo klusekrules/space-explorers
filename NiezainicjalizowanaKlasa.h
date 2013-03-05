@@ -12,7 +12,7 @@ public:
 	NiezainicjalizowanaKlasa(const Tekst& tPlik, const IdType& iLinia, const Tekst& tNazwa);
 	virtual ~NiezainicjalizowanaKlasa(void);
 	
-	Tekst getNazwaKlasy() const;
+	const Tekst& getNazwaKlasy() const;
 	void setNazwaKlasy( const Tekst& );
 
 	Tekst generujKomunikat() const override;

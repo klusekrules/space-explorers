@@ -14,7 +14,7 @@ public:
 	BrakMaski( const BrakMaski& );
 	virtual ~BrakMaski();
 
-	Tekst getNazwaMaski() const;
+	const Tekst& getNazwaMaski() const;
 	void setNazwaMaski( const Tekst& );
 
 	Tekst generujKomunikat() const override;

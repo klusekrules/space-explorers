@@ -25,8 +25,8 @@ public:
 	
 	virtual ~NiepoprawneParametryFunkcji();
 
-	Tekst getFuncName() const;
-	void setFuncName ( const Tekst& wwTresc );
+	const Tekst& getParametry() const;
+	void setParametry ( const Tekst& wwTresc );
 	
 	Tekst generujKomunikat() const override;
 

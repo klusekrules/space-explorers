@@ -15,7 +15,7 @@ WyjatekSTL::WyjatekSTL( const WyjatekSTL& e )
 {
 }
 
-Tekst WyjatekSTL::getPowod() const{
+const Tekst& WyjatekSTL::getPowod() const{
 	return powod;
 }
 

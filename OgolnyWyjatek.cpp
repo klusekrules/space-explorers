@@ -37,7 +37,7 @@ void OgolnyWyjatek::setNumerWyjatku( const IdType& itId ){
 	numerWyjatku = itId;
 }
 	
-Tekst OgolnyWyjatek::getTytul() const{
+const Tekst& OgolnyWyjatek::getTytul() const{
 	return tytul;
 }
 
@@ -45,7 +45,7 @@ void OgolnyWyjatek::setTytul( const Tekst& wwTytul ){
 	tytul = wwTytul;
 }
 	
-Tekst OgolnyWyjatek::getTresc() const{
+const Tekst& OgolnyWyjatek::getTresc() const{
 	return tresc;
 }
 

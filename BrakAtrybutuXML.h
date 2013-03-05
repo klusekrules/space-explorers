@@ -14,7 +14,7 @@ public:
 	BrakAtrybutuXML( const BrakAtrybutuXML& );
 	virtual ~BrakAtrybutuXML();
 
-	Tekst getAtrybut() const;
+	const Tekst& getAtrybut() const;
 	void setAtrybut( const Tekst& );
 
 	Tekst generujKomunikat() const override;

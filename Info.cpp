@@ -17,7 +17,7 @@ Info::Info( const Info& a )
 Info::~Info(){
 }
 
-Tekst Info::getNazwa() const{
+const Tekst& Info::getNazwa() const{
 	return nazwa;
 }
 
@@ -25,7 +25,7 @@ void Info::setNazwa( const Tekst& tNazwa ){
 	nazwa = tNazwa;
 }
 
-Tekst Info::getOpis() const{
+const Tekst& Info::getOpis() const{
 	return opis;
 }
 

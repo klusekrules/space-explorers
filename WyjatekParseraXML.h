@@ -14,7 +14,7 @@ public:
 	WyjatekParseraXML( const Tekst& tPlik, const IdType& iLinia, const std::exception&, const Tekst& = Tekst() );
 	virtual ~WyjatekParseraXML();
 
-	Tekst getPowod() const;
+	const Tekst& getPowod() const;
 	void setPowod( const Tekst& );
 
 	Tekst generujKomunikat() const override;

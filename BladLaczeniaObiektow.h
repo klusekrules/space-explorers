@@ -12,10 +12,10 @@ public:
 	BladLaczeniaObiektow( const Tekst& tPlik, const IdType& iLinia, const Tekst& obiektA , const Tekst& obiektB );
 	virtual ~BladLaczeniaObiektow();
 	
-	Tekst getObiektA() const;
+	const Tekst& getObiektA() const;
 	void setObiektA( const Tekst& );
 
-	Tekst getObiektB() const;
+	const Tekst& getObiektB() const;
 	void setObiektB( const Tekst& );
 
 	Tekst generujKomunikat() const override;

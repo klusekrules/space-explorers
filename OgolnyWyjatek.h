@@ -22,10 +22,10 @@ public:
 	IdType getNumerWyjaku() const;
 	void setNumerWyjatku( const IdType& itId );
 	
-	Tekst getTytul() const;
+	const Tekst& getTytul() const;
 	void setTytul( const Tekst& wwTytul );
 	
-	Tekst getTresc() const;
+	const Tekst& getTresc() const;
 	void setTresc ( const Tekst& wwTresc );	
 	
 	string toString() const override;

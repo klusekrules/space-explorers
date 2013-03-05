@@ -15,7 +15,7 @@ WyjatekParseraXML::WyjatekParseraXML( const Tekst& tPlik, const IdType& iLinia, 
 {
 }
 
-Tekst WyjatekParseraXML::getPowod() const{
+const Tekst& WyjatekParseraXML::getPowod() const{
 	return powod;
 }
 void WyjatekParseraXML::setPowod( const Tekst& powod ){
