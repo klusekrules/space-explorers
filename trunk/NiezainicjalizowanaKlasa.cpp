@@ -9,7 +9,7 @@ NiezainicjalizowanaKlasa::NiezainicjalizowanaKlasa(const Tekst& tPlik, const IdT
 NiezainicjalizowanaKlasa::~NiezainicjalizowanaKlasa(){
 }
 
-Tekst NiezainicjalizowanaKlasa::getNazwaKlasy() const{
+const Tekst& NiezainicjalizowanaKlasa::getNazwaKlasy() const{
 	return nazwaKlasy;
 }
 

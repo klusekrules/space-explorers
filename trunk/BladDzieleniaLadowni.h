@@ -12,7 +12,7 @@ public:
 	BladDzieleniaLadowni( const Tekst& tPlik, const IdType& iLinia, const Tekst& tLadownia );
 	virtual ~BladDzieleniaLadowni(void);
 		
-	Tekst getLadownia() const;
+	const Tekst& getLadownia() const;
 	void setLadownia ( const Tekst& tLadownia );
 	
 	Tekst generujKomunikat() const override;

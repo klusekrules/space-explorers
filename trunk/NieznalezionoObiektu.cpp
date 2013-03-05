@@ -9,7 +9,7 @@ NieznalezionoObiektu::NieznalezionoObiektu(const Tekst& tPlik, const IdType& iLi
 NieznalezionoObiektu::~NieznalezionoObiektu(){
 }
 
-Tekst NieznalezionoObiektu::getIdentyfikator() const{
+const Tekst& NieznalezionoObiektu::getIdentyfikator() const{
 	return identyfikator;
 }
 

@@ -16,7 +16,7 @@ BrakMaski::BrakMaski( const BrakMaski& e )
 BrakMaski::~BrakMaski(){
 }
 
-Tekst BrakMaski::getNazwaMaski() const{
+const Tekst& BrakMaski::getNazwaMaski() const{
 	return nazwaMaski;
 }
 

@@ -14,7 +14,7 @@ public:
 	WyjatekSTL( const WyjatekSTL& );
 	virtual ~WyjatekSTL();
 
-	Tekst getPowod() const;
+	const Tekst& getPowod() const;
 	void setPowod( const Tekst& );
 
 	Tekst generujKomunikat() const override;

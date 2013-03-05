@@ -16,7 +16,7 @@ BrakAtrybutuXML::BrakAtrybutuXML( const BrakAtrybutuXML& e )
 BrakAtrybutuXML::~BrakAtrybutuXML(){
 }
 
-Tekst BrakAtrybutuXML::getAtrybut() const{
+const Tekst& BrakAtrybutuXML::getAtrybut() const{
 	return atrybut;
 }
 

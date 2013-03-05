@@ -12,7 +12,7 @@ public:
 	NieznalezionoObiektu(const Tekst& tPlik, const IdType& iLinia, const Tekst& tNazwa);
 	virtual ~NieznalezionoObiektu(void);
 	
-	Tekst getIdentyfikator() const;
+	const Tekst& getIdentyfikator() const;
 	void setIdentyfikator( const Tekst& );
 
 	Tekst generujKomunikat() const override;

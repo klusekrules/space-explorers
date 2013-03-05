@@ -14,10 +14,10 @@ public:
 	Info( const Info& );
 	virtual ~Info();
 
-	Tekst getNazwa() const;
+	const Tekst& getNazwa() const;
 	void setNazwa( const Tekst& );
 
-	Tekst getOpis() const;
+	const Tekst& getOpis() const;
 	void setOpis( const Tekst& );
 	
 	string toString() const override;

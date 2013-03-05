@@ -9,11 +9,11 @@ Tekst NiepoprawneParametryFunkcji::generujKomunikat() const{
 	return OgolnyWyjatek::generujKomunikat() + Tekst("Lista parametrów:\n")  + parametry + Tekst("\n");
 }
 
-Tekst NiepoprawneParametryFunkcji::getFuncName() const{
+const Tekst& NiepoprawneParametryFunkcji::getParametry() const{
 	return parametry;
 }
 
-void NiepoprawneParametryFunkcji::setFuncName ( const Tekst& wwTresc ){
+void NiepoprawneParametryFunkcji::setParametry ( const Tekst& wwTresc ){
 	parametry = wwTresc;
 }
 
