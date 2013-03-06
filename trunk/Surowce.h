@@ -4,6 +4,7 @@
 #include "OgolnyWyjatek.h"
 #include "NiezgodnyTypSurowca.h"
 #include "NiepoprawnaIloscObiektow.h"
+#include "BladLaczeniaObiektow.h"
 
 class SurowceInfo;
 
@@ -19,41 +20,41 @@ public:
 
 	Obiekt* Kopia() const override;
 
-	Obiekt* Podziel( const Ilosc& ) throw( OgolnyWyjatek ) ;
+	Obiekt* Podziel( const Ilosc& ) throw( NiepoprawnaIloscObiektow ) ;
 
-	bool Polacz( const Obiekt& ) throw ( std::bad_cast ) ;
+	bool Polacz( const Obiekt& ) throw ( BladLaczeniaObiektow ) ;
 
 	Objetosc Objetosc() const ;
 
 	Masa Masa() const ;
 		
-	Surowce& operator=( const Surowce& );
+	const Surowce& operator=( const Surowce& );
 	
-	bool operator==( const Surowce& ) const;
+	bool operator==( const Surowce& ) const throw ( NiezgodnyTypSurowca );
 	
-	bool operator!=( const Surowce& ) const;
+	bool operator!=( const Surowce& ) const throw ( NiezgodnyTypSurowca );
 	
-	bool operator>( const Surowce& ) const;
+	bool operator>( const Surowce& ) const throw ( NiezgodnyTypSurowca );
 	
-	bool operator<( const Surowce& ) const;
+	bool operator<( const Surowce& ) const throw ( NiezgodnyTypSurowca );
 	
-	bool operator>=( const Surowce& ) const;
+	bool operator>=( const Surowce& ) const throw ( NiezgodnyTypSurowca );
 	
-	bool operator<=( const Surowce& ) const;
+	bool operator<=( const Surowce& ) const throw ( NiezgodnyTypSurowca );
 	
 	Surowce operator+( const Surowce& ) const throw ( NiezgodnyTypSurowca );
 	
-	Surowce operator+=( const Surowce& ) throw ( NiezgodnyTypSurowca );
+	const Surowce& operator+=( const Surowce& ) throw ( NiezgodnyTypSurowca );
 	
 	Surowce operator-( const Surowce& ) const throw ( NiezgodnyTypSurowca );
 	
-	Surowce operator-=( const Surowce& ) throw ( NiezgodnyTypSurowca );
+	const Surowce& operator-=( const Surowce& ) throw ( NiezgodnyTypSurowca );
 	
 	bool Dodaj( const Surowce& );
 	
 	bool Usun( const Surowce& );
 	
-	Ilosc getIlosc() const;
+	const Ilosc& getIlosc() const;
 	
 	void setIlosc( const Ilosc& );
 

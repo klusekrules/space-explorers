@@ -30,7 +30,7 @@ Masa JednostkaLatajaca::CalkowitaMasaJednostki() const{
 	return Masa();
 }
 
-Fluktuacja JednostkaLatajaca::getPrzyrostMocySilnika() const{
+const Fluktuacja& JednostkaLatajaca::getPrzyrostMocySilnika() const{
 	return przyrostMocySilnika;
 }
 
@@ -38,7 +38,7 @@ void JednostkaLatajaca::setPrzyrostMocySilnika( const Fluktuacja& f ){
 	przyrostMocySilnika = f;
 }
 
-Fluktuacja JednostkaLatajaca::getPrzyrostZuzyciaPaliwa() const{
+const Fluktuacja& JednostkaLatajaca::getPrzyrostZuzyciaPaliwa() const{
 	return przyrostZuzyciaPaliwa;
 }
 

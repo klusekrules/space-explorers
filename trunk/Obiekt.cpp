@@ -78,21 +78,21 @@ Masa Obiekt::getMasa() const{
 	return info == nullptr ? Masa() : Masa(*info) *( Fluktuacja(1.0) + zmObjetosc ) * Ilosc(*this);
 }
 		
-Fluktuacja Obiekt::getZmianaPowierzchnia() const{
+const Fluktuacja& Obiekt::getZmianaPowierzchnia() const{
 	return zmPowierzchnia;
 }
 void Obiekt::setZmianaPowierzchnia( const Fluktuacja& pPrzyrostPowierzchnia ){
 	zmPowierzchnia = pPrzyrostPowierzchnia;
 }
 
-Fluktuacja Obiekt::getZmianaObjetosc() const{
+const Fluktuacja& Obiekt::getZmianaObjetosc() const{
 	return zmObjetosc;
 }
 void Obiekt::setZmianaObjetosc( const Fluktuacja& pPrzyrostObjetosc ){
 	zmObjetosc = pPrzyrostObjetosc;
 }
 
-Fluktuacja Obiekt::getZmianaMasa() const{
+const Fluktuacja& Obiekt::getZmianaMasa() const{
 	return zmMasa;
 }
 void Obiekt::setZmianaMasa( const Fluktuacja& pPrzyrostMasa ){

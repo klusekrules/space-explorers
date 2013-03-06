@@ -19,7 +19,7 @@ JednostkaLatajacaInfo::~JednostkaLatajacaInfo()
 {
 }
 
-Klucz JednostkaLatajacaInfo::getRodzajNapedu() const{
+const Klucz& JednostkaLatajacaInfo::getRodzajNapedu() const{
 	return rodzajNapedu;
 }
 
@@ -27,7 +27,7 @@ void JednostkaLatajacaInfo::setRodzajNapedu( const Klucz& k ){
 	rodzajNapedu = k;
 }
 
-MocSilnika	JednostkaLatajacaInfo::getMocSilnika() const{
+const MocSilnika& JednostkaLatajacaInfo::getMocSilnika() const{
 	return mocSilnika;
 }
 
@@ -35,16 +35,17 @@ void JednostkaLatajacaInfo::setMocSilnika( const MocSilnika& m ){
 	mocSilnika = m;
 }
 
-ZuzyciePaliwa JednostkaLatajacaInfo::getZuzyciePaliwa() const{
+const ZuzyciePaliwa& JednostkaLatajacaInfo::getZuzyciePaliwa() const{
 	return zuzyciePaliwa;
 }
 void JednostkaLatajacaInfo::setZuzyciePaliwa( const ZuzyciePaliwa& z ){
 	zuzyciePaliwa = z;
 }
 
-Masa JednostkaLatajacaInfo::getMasaNapedu() const{
+const Masa& JednostkaLatajacaInfo::getMasaNapedu() const{
 	return masaNapedu;
 }
+
 void JednostkaLatajacaInfo::setMasaNapedu( const Masa& m ){
 	masaNapedu = m;
 }

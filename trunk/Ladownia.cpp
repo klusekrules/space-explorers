@@ -168,14 +168,15 @@ Ladownia::ListaKluczy Ladownia::PobierzListeIdObiektow() const{
 	return obiekty.rawKluczList();
 }
 
-Ladownia::Zbiornik Ladownia::getPrzewozoneObiekty() const{
+const Ladownia::Zbiornik& Ladownia::getPrzewozoneObiekty() const{
 	return obiekty;
 }
+
 void Ladownia::setPrzeworzoneObiekty( const Zbiornik& a ){
 	obiekty = a;
 }
 
-Objetosc Ladownia::getZajeteMiejsce() const{
+const Objetosc& Ladownia::getZajeteMiejsce() const{
 	return zajete;
 }
 
@@ -183,7 +184,7 @@ void Ladownia::setZajeteMiejsce( const Objetosc& isPojemnosc ){
 	zajete = isPojemnosc;
 }
 
-Objetosc Ladownia::getPojemnoscMax() const{
+const Objetosc& Ladownia::getPojemnoscMax() const{
 	return pojemnoscMax;
 }
 
@@ -191,7 +192,7 @@ void Ladownia::setPojemnoscMax( const Objetosc& isPojemnoscMax ){
 	pojemnoscMax=isPojemnoscMax;
 }
 
-Fluktuacja Ladownia::getPrzyrostPojemnoscMax() const{
+const Fluktuacja& Ladownia::getPrzyrostPojemnoscMax() const{
 	return przyrostPojemnoscMax;
 }
 

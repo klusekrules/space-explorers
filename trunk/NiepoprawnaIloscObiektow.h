@@ -17,7 +17,7 @@ public:
 	NiepoprawnaIloscObiektow( const Tekst& tPlik, const IdType& iLinia, const Ilosc& ilosc );
 	virtual ~NiepoprawnaIloscObiektow(void);
 	
-	Ilosc getIlosc() const;
+	const Ilosc& getIlosc() const;
 	void setIlosc( const Ilosc& ilosc );
 	
 	Tekst generujKomunikat() const override;

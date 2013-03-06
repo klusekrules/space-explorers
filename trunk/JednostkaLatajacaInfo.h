@@ -46,7 +46,7 @@ public:
 	* Metoda zwracaj¹ca rodzaj napêdu jednostki.
 	* \return Rodzaj napêdu jednostki.
 	*/
-	Klucz getRodzajNapedu() const;
+	const Klucz& getRodzajNapedu() const;
 
 	/**
 	* Metoda ustawiaj¹ca rodzaj napêdu jednostki.
@@ -58,7 +58,7 @@ public:
 	* Metoda zwracaj¹ca moc silnika jednostki.
 	* \return Moc silnika jednostki.
 	*/
-	MocSilnika	getMocSilnika() const;
+	const MocSilnika& getMocSilnika() const;
 
 	/**
 	* Metoda ustawiaj¹ca moc silnika jednostki.
@@ -70,7 +70,7 @@ public:
 	* Metoda zwracaj¹ca zu¿ycie paliwa jednostki.
 	* \return Zu¿ycie paliwa jednostki.
 	*/
-	ZuzyciePaliwa getZuzyciePaliwa() const;
+	const ZuzyciePaliwa& getZuzyciePaliwa() const;
 
 	/**
 	* Metoda ustawiaj¹ca zu¿ycie paliwa jednostki.
@@ -82,7 +82,7 @@ public:
 	* Metoda zwracaj¹ca masê napêdu jednostki.
 	* \return Masa napêdu jednostki.
 	*/
-	Masa getMasaNapedu() const;
+	const Masa& getMasaNapedu() const;
 
 	/**
 	* Metoda ustawiaj¹ca masê napêdu jednostki.

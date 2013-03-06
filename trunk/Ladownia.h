@@ -44,17 +44,17 @@ public:
 	Item& PobierzObiekt( const Klucz& , const Ilosc& ) throw ( NieznalezionoObiektu, NiepoprawnaIloscObiektow );
 	ListaKluczy PobierzListeIdObiektow() const;
 
-	Zbiornik getPrzewozoneObiekty() const;
+	const Zbiornik& getPrzewozoneObiekty() const;
 	void setPrzeworzoneObiekty( const Zbiornik& );
 	Zbiornik* PodzielLadownie( const Objetosc&, const Objetosc& ) throw( BladDzieleniaLadowni, NiepoprawneParametryFunkcji  );
 
-	Objetosc getZajeteMiejsce() const;
+	const Objetosc& getZajeteMiejsce() const;
 	void setZajeteMiejsce( const Objetosc& );
 
-	Objetosc getPojemnoscMax() const;
+	const Objetosc& getPojemnoscMax() const;
 	void setPojemnoscMax( const Objetosc& );
 
-	Fluktuacja getPrzyrostPojemnoscMax() const;
+	const Fluktuacja& getPrzyrostPojemnoscMax() const;
 	void setPrzyrostPojemnoscMax( const Fluktuacja& );
 
 	string toString() const override;

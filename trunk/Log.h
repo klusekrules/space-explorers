@@ -25,7 +25,7 @@ private:
 	* Funkcja wysy³aj¹ca napis do strumienia.
 	* \param p Napis wysy³any do strumienia.
 	*/
-	static void print( string p );
+	static void print( const string p );
 	static bool blogEnable; /**< Zmmienna blokuj¹ca wysy³anie wszystkich komunikatów do strumienia */
 	static bool blogDebugEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Debug do strumienia */
 	static bool blogInfoEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Info do strumienia */
@@ -257,7 +257,7 @@ public:
 	* \sa logInfoDisable()
 	* \sa isLogInfoEnable()
 	*/
-	static void info( string p ){
+	static void info( const string p ){
 		if(blogEnable && blogInfoEnable){
 			print("[Info] ");
 			print(p);
@@ -274,7 +274,7 @@ public:
 	* \sa isLogInfoEnable()
 	*/
 	template< typename T >
-	static void info( LoggerInterface<T> &p ){
+	static void info( const LoggerInterface<T> &p ){
 		if(blogEnable && blogInfoEnable){
 			print("[Info] ");
 			print(p.toString());
@@ -290,7 +290,7 @@ public:
 	* \sa logWarnDisable()
 	* \sa isLogWarnEnable()
 	*/
-	static void warn( string p ){
+	static void warn( const string p ){
 		if(blogEnable && blogWarnEnable){
 			print("[Warning] ");
 			print(p);
@@ -307,7 +307,7 @@ public:
 	* \sa isLogWarnEnable()
 	*/
 	template< typename T >
-	static void warn( LoggerInterface<T> &p ){
+	static void warn( const LoggerInterface<T> &p ){
 		if(blogEnable && blogWarnEnable){
 			print("[Warning] ");
 			print(p.toString());
@@ -323,7 +323,7 @@ public:
 	* \sa logErrorDisable()
 	* \sa isLogErrorEnable()
 	*/
-	static void error( string p ){
+	static void error( const string p ){
 		if(blogEnable && blogErrorEnable){
 			print("[Error] ");
 			print(p);
@@ -340,7 +340,7 @@ public:
 	* \sa isLogErrorEnable()
 	*/
 	template< typename T >
-	static void error( LoggerInterface<T> &p ){
+	static void error( const LoggerInterface<T> &p ){
 		if(blogEnable && blogErrorEnable){
 			print("[Error] ");
 			print(p.toString());
@@ -356,7 +356,7 @@ public:
 	* \sa logDebugDisable()
 	* \sa isLogDebugEnable()
 	*/
-	static void debug( string p ){
+	static void debug( const string p ){
 		if(blogEnable && blogDebugEnable){
 			print("[Debug] ");
 			print(p);
@@ -373,7 +373,7 @@ public:
 	* \sa isLogDebugEnable()
 	*/
 	template< typename T >
-	static void debug( LoggerInterface<T> &p ){
+	static void debug( const LoggerInterface<T> &p ){
 		if(blogEnable && blogDebugEnable){
 			print("[Debug] ");
 			print(p.toString());

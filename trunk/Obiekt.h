@@ -36,15 +36,15 @@ public:
 
 	Masa getMasa() const;
 		
-	Fluktuacja getZmianaPowierzchnia() const;
+	const Fluktuacja& getZmianaPowierzchnia() const;
 
 	void setZmianaPowierzchnia( const Fluktuacja& pPrzyrostPowierzchnia );
 
-	Fluktuacja getZmianaObjetosc() const;
+	const Fluktuacja& getZmianaObjetosc() const;
 
 	void setZmianaObjetosc( const Fluktuacja& pPrzyrostObjetosc );
 
-	Fluktuacja getZmianaMasa() const;
+	const Fluktuacja& getZmianaMasa() const;
 
 	void setZmianaMasa( const Fluktuacja& pPrzyrostMasa );
 
