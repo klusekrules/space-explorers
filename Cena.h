@@ -1,21 +1,33 @@
 #pragma once
-/*
-class Cena 
+#include "Main.h"
+#include "CenaInterfejs.h"
+#include "LoggerInterface.h"
+
+class Cena :
+	public CenaInterfejs,
+	public LoggerInterface < Cena >
 {
 public:
+	typedef LoggerInterface < Cena > LogCena;
+
 	Cena();
-	Cena( const SPG::ZbiornikObiektow& );
+	Cena( const Zbiornik& );
 	Cena( const Cena& );
+	Cena& operator=(const Cena&);
 	virtual ~Cena();
 
-	SPG::ZbiornikObiektow PobierzKoszty(/*Poziom Technologii) const;
+	Cena* Kopia() const override;
 
-	SPG::ZbiornikObiektow getKoszty() const;
-	void setKoszty( const SPG::ZbiornikObiektow& );
+	Zbiornik PobierzKoszty( ) const override;
 
-	virtual string toString() const;
+	bool czySpelniaWymagania( const Zbiornik& ) const override;
+
+	const Zbiornik& getKoszty() const;
+	void setKoszty( const Zbiornik& );
+
+	string toString() const override;
+
 private:
-	SPG::ZbiornikObiektow koszty;
+	Zbiornik obiekty;
 };
 
-*/

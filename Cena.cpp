@@ -1,53 +1,60 @@
+#include "Cena.h"
+#include "Logger.h"
 
-#include "Biblioteki.h"
-/*
 Cena::Cena()
-	: koszty()
+	: obiekty()
 {
 }
 
-Cena::Cena( const SPG::ZbiornikObiektow& zsKoszty )
-	: koszty(zsKoszty)
+Cena::Cena( const Zbiornik & zsKoszty )
+	: obiekty(zsKoszty)
 {
 }
 
-Cena::Cena( const Cena& a ){
-	for( auto iter = a.koszty.begin(); iter != a.koszty.end(); iter++){
-		koszty.insert(make_pair( iter->first , iter->second->Kopia() ));
-	}
+Cena::Cena( const Cena& a )
+	: obiekty(a.obiekty)
+{
 }
 
 Cena::~Cena(){
-	for( auto iter = koszty.begin(); iter != koszty.end(); iter++){
-		delete iter->second;
-	}
 }
 
-SPG::ZbiornikObiektow Cena::PobierzKoszty() const{
-	SPG::ZbiornikObiektow zbiornik;
-	for( auto iter = koszty.begin(); iter != koszty.end(); iter++){
-		zbiornik.insert(make_pair( iter->first , iter->second->Kopia() ));
-	}
-	return zbiornik;
+Cena::Zbiornik Cena::PobierzKoszty() const{
+	return obiekty;
 }
 
-SPG::ZbiornikObiektow Cena::getKoszty() const{
-	SPG::ZbiornikObiektow zbiornik;
-	for( auto iter = koszty.begin(); iter != koszty.end(); iter++){
-		zbiornik.insert(make_pair( iter->first , iter->second->Kopia() ));
-	}
-	return zbiornik;
+const Cena::Zbiornik& Cena::getKoszty() const{
+	return obiekty;
 }
 
-void Cena::setKoszty( const SPG::ZbiornikObiektow& zsKoszty ){
-	for( auto iter = koszty.begin(); iter != koszty.end(); iter++){
-		delete iter->second;
+Cena& Cena::operator=(const Cena& a){
+	this->obiekty=a.obiekty;
+	return *this;
+}
+
+Cena* Cena::Kopia() const{
+	return new Cena(*this);
+}
+
+bool Cena::czySpelniaWymagania( const Zbiornik& z ) const{
+	for(auto a : obiekty){
+		try{
+			Surowce& o = z.get(a.second->ID());
+			if(a.second->getIlosc() > o.getIlosc() )
+				return false;
+		}catch( const NieznalezionoObiektu& ){
+			return false;
+		}
 	}
-	koszty = zsKoszty;
+	return true;
+}
+
+void Cena::setKoszty( const Zbiornik& zsKoszty ){
+	obiekty = zsKoszty;
 }
 
 string Cena::toString() const{
-	Logger str("Cena");
-	str.dodajMapaParKC("Zawartosc",koszty);
+	Logger str(LogCena::className());
+	str.addField("ZbiornikSurowcow",obiekty);
 	return str.toString();
-}*/
+}
