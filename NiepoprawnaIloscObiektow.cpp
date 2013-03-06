@@ -9,7 +9,7 @@ NiepoprawnaIloscObiektow::NiepoprawnaIloscObiektow( const Tekst& tPlik, const Id
 NiepoprawnaIloscObiektow::~NiepoprawnaIloscObiektow(void){
 }
 
-Ilosc NiepoprawnaIloscObiektow::getIlosc() const{
+const Ilosc& NiepoprawnaIloscObiektow::getIlosc() const{
 	return i;
 }
 

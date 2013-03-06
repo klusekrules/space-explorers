@@ -31,7 +31,7 @@ public:
 	* Metoda zwraca podstawowe obra¿enia zadawane przez obiekt.
 	* \return Podstawowe obra¿enia zadawane przez obiekt.
 	*/
-	Obrazenia getAtak() const;	
+	const Obrazenia& getAtak() const;	
 
 	/**
 	* Metoda ustawia podstawowe obra¿enia zadawane przez obiekt.
@@ -43,7 +43,7 @@ public:
 	* Metoda zwraca podstawowe obra¿enia jakie zniszcz¹ obiekt.
 	* \return Podstawowe obra¿enia jakie zniszcz¹ obiekt.
 	*/
-	Obrazenia getPancerz() const;	
+	const Obrazenia& getPancerz() const;	
 
 	/**
 	* Metoda ustawia podstawowe obra¿enia jakie zniszcz¹ obiekt.
@@ -55,7 +55,7 @@ public:
 	* Metoda zwraca podstawowe obra¿enia jakie mo¿e poch³on¹æ os³ona obiektu.
 	* \return Podstawowe obra¿enia jakie mo¿e poch³on¹æ os³ona obiektu.
 	*/
-	Obrazenia getOslona() const;	
+	const Obrazenia& getOslona() const;	
 
 	/**
 	* Metoda ustawia podstawowe obra¿enia jakie mo¿e poch³on¹æ os³ona obiektu.

@@ -29,7 +29,7 @@ Tekst OgolnyWyjatek::generujKomunikat() const
 		Tekst( "\nStos wywo³añ: " ) + stack + Tekst( "\n" ); 
 }
 	
-IdType OgolnyWyjatek::getNumerWyjaku() const{
+const IdType& OgolnyWyjatek::getNumerWyjaku() const{
 	return numerWyjatku;
 }
 

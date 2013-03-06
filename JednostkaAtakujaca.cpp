@@ -41,7 +41,7 @@ Obrazenia JednostkaAtakujaca::Oslona( const Obrazenia& a ) const throw ( Niezain
 	return a > info->getOslona() ? a - info->getOslona() : Obrazenia(0) ;
 }
 
-Fluktuacja JednostkaAtakujaca::getPrzyrostAtaku() const{
+const Fluktuacja& JednostkaAtakujaca::getPrzyrostAtaku() const{
 	return przyrostAtaku;
 }
 
@@ -57,7 +57,7 @@ void JednostkaAtakujaca::setJednostkaAtakujacaInfo( JednostkaAtakujacaInfo* i){
 	info = i;
 }
 
-Fluktuacja JednostkaAtakujaca::getPrzyrostPancerza() const{
+const Fluktuacja& JednostkaAtakujaca::getPrzyrostPancerza() const{
 	return przyrostPancerza;
 }	
 
@@ -65,7 +65,7 @@ void JednostkaAtakujaca::setPrzyrostPancerza( const Fluktuacja& wzPrzyrostPancer
 	przyrostPancerza = wzPrzyrostPancerza;
 }
 	
-Fluktuacja JednostkaAtakujaca::getPrzyrostOslony() const{
+const Fluktuacja& JednostkaAtakujaca::getPrzyrostOslony() const{
 	return przyrostOslony;
 }
 

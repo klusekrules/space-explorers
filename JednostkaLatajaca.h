@@ -56,7 +56,7 @@ public:
 	* Metoda zwraca procentowy wspó³czynnik mocy silnika.
 	* \return Procentowy wpó³czynnik mocy silnika.
 	*/
-	Fluktuacja getPrzyrostMocySilnika() const;
+	const Fluktuacja& getPrzyrostMocySilnika() const;
 
 	/**
 	* Metoda ustawia procentowy wspó³czynnik mocy silnika.
@@ -68,7 +68,7 @@ public:
 	* Metoda zwraca procentowy wspó³czynnik zu¿ycia paliwa.
 	* \return Procentowy wpó³czynnik zau¿ycia paliwa.
 	*/
-	Fluktuacja getPrzyrostZuzyciaPaliwa() const;
+	const Fluktuacja& getPrzyrostZuzyciaPaliwa() const;
 
 	/**
 	* Metoda ustawia procentowy wspó³czynnik zu¿ycia paliwa.

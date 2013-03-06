@@ -24,11 +24,16 @@ Surowce::Surowce( const Surowce& sSurowce )
 Surowce::~Surowce( ){
 }
 
-bool Surowce::Polacz( const Obiekt& obiekt ){
+bool Surowce::Polacz( const Obiekt& obiekt ) throw ( BladLaczeniaObiektow ){
 	if( obiekt.ID() == this->ID() && obiekt.getPoziom() == this->getPoziom() ){
-		const Surowce& sur = dynamic_cast< const Surowce& >(obiekt);
-		ilosc+=sur.ilosc;
-		return true;
+		try
+        {
+			const Surowce& sur = dynamic_cast< const Surowce& >(obiekt);
+			ilosc+=sur.ilosc;
+			return true;
+		}catch(const std::bad_cast&){
+			throw BladLaczeniaObiektow(EXCEPTION_PLACE,this->toString(),obiekt.toString() );
+		}
 	}
 	return false;
 }
@@ -37,7 +42,7 @@ Obiekt* Surowce::Kopia() const{
 	return new Surowce( *this );
 }
 
-Obiekt* Surowce::Podziel( const Ilosc& ilosc ){
+Obiekt* Surowce::Podziel( const Ilosc& ilosc ) throw ( NiepoprawnaIloscObiektow ){
 	if( ilosc <= Ilosc(0.0l) || ilosc >= this->ilosc )
 		throw NiepoprawnaIloscObiektow(EXCEPTION_PLACE,ilosc);
 	this->ilosc -= ilosc;
@@ -52,45 +57,45 @@ Masa Surowce::Masa() const{
 	return getMasa() * ilosc;
 }
 
-Surowce& Surowce::operator=( const Surowce& sSurowce ){
+const Surowce& Surowce::operator=( const Surowce& sSurowce ){
 	ilosc = sSurowce.ilosc;
 	Obiekt::operator=(sSurowce);
 	return *this;
 }
 
-bool Surowce::operator==( const Surowce& sSurowce ) const{
+bool Surowce::operator==( const Surowce& sSurowce ) const throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
-		return false;
+		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
 	return ilosc == sSurowce.ilosc;
 }
 	
-bool Surowce::operator!=( const Surowce& sSurowce ) const{
+bool Surowce::operator!=( const Surowce& sSurowce ) const throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
-		return false;
+		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
 	return ilosc != sSurowce.ilosc;
 }
 	
-bool Surowce::operator>( const Surowce& sSurowce ) const{
+bool Surowce::operator>( const Surowce& sSurowce ) const throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
-		return false;
+		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
 	return ilosc > sSurowce.ilosc;
 }
 	
-bool Surowce::operator<( const Surowce& sSurowce ) const{
+bool Surowce::operator<( const Surowce& sSurowce ) const throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
-		return false;
+		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
 	return ilosc < sSurowce.ilosc;
 }
 	
-bool Surowce::operator>=( const Surowce& sSurowce ) const{
+bool Surowce::operator>=( const Surowce& sSurowce ) const throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
-		return false;
+		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
 	return ilosc >= sSurowce.ilosc;
 }
 	
-bool Surowce::operator<=( const Surowce& sSurowce ) const{
+bool Surowce::operator<=( const Surowce& sSurowce ) const throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
-		return false;
+		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
 	return ilosc <= sSurowce.ilosc ;
 }
 
@@ -100,7 +105,7 @@ Surowce Surowce::operator+( const Surowce& sSurowce ) const throw ( NiezgodnyTyp
 	return Surowce( ilosc + sSurowce.ilosc , sSurowce );
 }
 	
-Surowce Surowce::operator+=( const Surowce& sSurowce )  throw ( NiezgodnyTypSurowca ){
+const Surowce& Surowce::operator+=( const Surowce& sSurowce )  throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
 		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
 	ilosc += sSurowce.ilosc;
@@ -113,7 +118,7 @@ Surowce Surowce::operator-( const Surowce& sSurowce ) const throw ( NiezgodnyTyp
 	return Surowce( ilosc - sSurowce.ilosc, sSurowce  );
 }
 
-Surowce Surowce::operator-=( const Surowce& sSurowce ) throw ( NiezgodnyTypSurowca ){
+const Surowce& Surowce::operator-=( const Surowce& sSurowce ) throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
 		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
 	ilosc -= sSurowce.ilosc;
@@ -134,7 +139,7 @@ bool Surowce::Usun( const Surowce& sSurowce ){
 	return true;
 }
 	
-Ilosc Surowce::getIlosc() const{
+const Ilosc& Surowce::getIlosc() const{
 	return ilosc;
 }
 	

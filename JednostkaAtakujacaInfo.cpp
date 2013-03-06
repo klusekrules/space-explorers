@@ -12,7 +12,7 @@ JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const Info& info, const Obrazenia
 JednostkaAtakujacaInfo::~JednostkaAtakujacaInfo(){
 }
 
-Obrazenia JednostkaAtakujacaInfo::getAtak() const{
+const Obrazenia& JednostkaAtakujacaInfo::getAtak() const{
 	return atak;
 }
 	
@@ -20,7 +20,7 @@ void JednostkaAtakujacaInfo::setAtak( const Obrazenia& wzAtak ){
 	atak = wzAtak;
 }
 	
-Obrazenia JednostkaAtakujacaInfo::getPancerz() const{
+const Obrazenia& JednostkaAtakujacaInfo::getPancerz() const{
 	return pancerz;
 }
 	
@@ -28,7 +28,7 @@ void JednostkaAtakujacaInfo::setPancerz( const Obrazenia& wzPancerz ){
 	pancerz = wzPancerz;
 }
 	
-Obrazenia JednostkaAtakujacaInfo::getOslona() const{
+const Obrazenia& JednostkaAtakujacaInfo::getOslona() const{
 	return oslona;
 }
 	

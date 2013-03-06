@@ -20,7 +20,7 @@ public:
 
 	virtual Tekst generujKomunikat() const;
 	
-	IdType getNumerWyjaku() const;
+	const IdType& getNumerWyjaku() const;
 	void setNumerWyjatku( const IdType& itId );
 	
 	const Tekst& getTytul() const;

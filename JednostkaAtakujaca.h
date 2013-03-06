@@ -74,7 +74,7 @@ public:
 	* Metoda zwraca procentow¹ zmianê ataku wzglêdem wartoœci podstawowej.
 	* \return Procent z wartoœci podstawowej.
 	*/
-	Fluktuacja getPrzyrostAtaku() const;
+	const Fluktuacja& getPrzyrostAtaku() const;
 
 	/**
 	* Metoda ustawia procentow¹ zmianê ataku wzglêdem wartoœci podstawowej.
@@ -86,7 +86,7 @@ public:
 	* Metoda zwraca procentow¹ zmianê pancerza wzglêdem wartoœci podstawowej.
 	* \return Procent z wartoœci podstawowej.
 	*/
-	Fluktuacja getPrzyrostPancerza() const;	
+	const Fluktuacja& getPrzyrostPancerza() const;	
 
 	/**
 	* Metoda ustawia procentow¹ zmianê pancerza wzglêdem wartoœci podstawowej.
@@ -98,7 +98,7 @@ public:
 	* Metoda zwraca procentow¹ zmianê os³ony wzglêdem wartoœci podstawowej.
 	* \return Procent z wartoœci podstawowej.
 	*/
-	Fluktuacja getPrzyrostOslony() const;	
+	const Fluktuacja& getPrzyrostOslony() const;	
 
 	/**
 	* Metoda ustawia procentow¹ zmianê os³ony wzglêdem wartoœci podstawowej.
