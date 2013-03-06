@@ -1,6 +1,9 @@
 #pragma once
 #include "WyjatekParseraXML.h"
 
+/**
+* Wyj¹tek s³u¿y do informowania, ¿e w pliku xml w aktualnej ga³êzi nie ma podanego atrybutu.
+*/
 class BrakAtrybutuXML :
 	public LoggerInterface<BrakAtrybutuXML>,
 	public WyjatekParseraXML

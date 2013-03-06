@@ -1,6 +1,10 @@
 #pragma once
 #include "OgolnyWyjatek.h"
 #include <vector>
+
+/**
+* Wyj¹tek informuje, ¿e parametry maj¹ nie poprawne wartoœci.
+*/
 class NiepoprawneParametryFunkcji :
 	public LoggerInterface<NiepoprawneParametryFunkcji>,
 	public OgolnyWyjatek

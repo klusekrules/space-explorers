@@ -1,5 +1,9 @@
 #pragma once
 #include "OgolnyWyjatek.h"
+
+/**
+* Wyj¹tek infomuje, ¿e obiekt nie zosta³ znaleziony.
+*/
 class NieznalezionoObiektu :
 	public LoggerInterface<NieznalezionoObiektu>,
 	public OgolnyWyjatek

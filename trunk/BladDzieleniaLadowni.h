@@ -1,5 +1,8 @@
 #pragma once
 #include "OgolnyWyjatek.h"
+/**
+* Wyj¹tek informuje, ¿e nie uda³o siê podzieliæ ³adowni wed³ug podanych wymagañ.
+*/
 class BladDzieleniaLadowni :
 	public LoggerInterface<BladDzieleniaLadowni>,
 	public OgolnyWyjatek

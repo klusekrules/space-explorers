@@ -1,5 +1,9 @@
 #pragma once
 #include "OgolnyWyjatek.h"
+
+/**
+* Wyj¹tek informuje, ¿e klasa zosta³a niepoprawnie zainicjalizowana lub w ogóle nie zosta³a zainicjalizowana.
+*/
 class NiezainicjalizowanaKlasa :
 	public LoggerInterface<NiezainicjalizowanaKlasa>,
 	public OgolnyWyjatek

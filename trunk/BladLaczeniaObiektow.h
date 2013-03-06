@@ -1,5 +1,9 @@
 #pragma once
 #include "OgolnyWyjatek.h"
+
+/**
+* Wyj¹tek informuje, ¿e nie uda³o sie po³¹czyæ obiektów.
+*/
 class BladLaczeniaObiektow :
 	public LoggerInterface<BladLaczeniaObiektow>,
 	public OgolnyWyjatek

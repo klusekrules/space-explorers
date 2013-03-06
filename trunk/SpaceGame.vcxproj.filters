@@ -343,7 +343,7 @@
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
     <ClInclude Include="MakeVector.h">
-      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -412,6 +412,9 @@
     </Filter>
     <Filter Include="SourceFile\Testy">
       <UniqueIdentifier>{1c0fed80-f9b0-4747-a983-e68789314d60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\KlasyPomocnicze">
+      <UniqueIdentifier>{6a43f607-5cee-48af-be60-d2eb6e1b0e2b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
