@@ -5,7 +5,8 @@
 
 
 /**
-* Podstawowa klasa wyj¹tku.
+* Podstawowa klasa wyj¹tku. S³u¿¹ca jako klasa bazowa dla pozosta³ych wyj¹tków
+* lub jako klasa do tworzenia wyj¹tków nie posiadaj¹cych w³asnego typu.
 */
 class OgolnyWyjatek:
 	public LoggerInterface<OgolnyWyjatek>

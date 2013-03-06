@@ -10,7 +10,6 @@
 #include "Main.h"
 #include "Biblioteki.h"
 #include "Aplikacja.h"
-#include "OgolnyWyjatek.h"
 
 #ifdef TESTS
 

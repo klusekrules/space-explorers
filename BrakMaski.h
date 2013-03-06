@@ -1,6 +1,8 @@
 #pragma once
 #include "WyjatekParseraXML.h"
-
+/**
+* Wyj¹tek informuje o braku elementu o podanej masce we wczytanych danych.
+*/
 class BrakMaski :
 	public LoggerInterface<BrakMaski>,
 	public WyjatekParseraXML

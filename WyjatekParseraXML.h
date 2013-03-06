@@ -1,6 +1,8 @@
 #pragma once
 #include "OgolnyWyjatek.h"
-
+/**
+* Klasa bazowa dla wyj¹tków generowanych przez modu³ parsuj¹cy xml.
+*/
 class WyjatekParseraXML :	
 	public LoggerInterface<WyjatekParseraXML> ,
 	public OgolnyWyjatek

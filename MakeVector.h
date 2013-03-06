@@ -17,11 +17,12 @@ public:
 	{
 	}
 
-	vector< string >& get() {
+	const vector< string >& get() {
 		return a;
 	}
-private:	
+private:
 	vector< string > a;
+
 	template< class T, class... V >
 	void step( vector< string >& v, T &c ,V&... tail ){
 		v.push_back(c);

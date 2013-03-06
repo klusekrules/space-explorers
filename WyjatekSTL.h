@@ -1,6 +1,9 @@
 #pragma once
 #include "OgolnyWyjatek.h"
 
+/**
+* Klasa bazowa nadbudowuj¹ca wyj¹tki z biblioteki stl.
+*/
 class WyjatekSTL :
 	public LoggerInterface<WyjatekSTL> ,
 	public OgolnyWyjatek

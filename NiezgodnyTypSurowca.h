@@ -1,7 +1,9 @@
 #pragma once
 #include "OgolnyWyjatek.h"
 #include "Klucz.h"
-
+/**
+* Porównywane surowce maj¹ ró¿ne typy.
+*/
 class NiezgodnyTypSurowca :
 	public LoggerInterface<NiezgodnyTypSurowca>,
 	public OgolnyWyjatek

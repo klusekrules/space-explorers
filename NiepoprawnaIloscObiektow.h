@@ -2,6 +2,9 @@
 #include "OgolnyWyjatek.h"
 #include "Ilosc.h"
 
+/**
+* Wyj¹tek informuje, ze przekazana iloœæ obiektów jest nie poprawna dla danej operacji.
+*/
 class NiepoprawnaIloscObiektow :
 	public LoggerInterface<NiepoprawnaIloscObiektow>,
 	public OgolnyWyjatek
