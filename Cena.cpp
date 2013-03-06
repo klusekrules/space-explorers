@@ -16,7 +16,8 @@ Cena::Cena( const Cena& a )
 {
 }
 
-Cena::~Cena(){
+Cena::~Cena()
+{
 }
 
 Cena::Zbiornik Cena::PobierzKoszty() const{

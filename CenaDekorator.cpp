@@ -37,5 +37,6 @@ bool CenaDekorator::czySpelniaWymagania( const Zbiornik& z ) const {
 
 string CenaDekorator::toString() const{
 	Logger str(LogCenaDekorator::className());
+	str.addClass(dekorator->toString());
 	return str.toString();
 }
