@@ -13,7 +13,9 @@ public:
 	Cena();
 	Cena( const Zbiornik& );
 	Cena( const Cena& );
+
 	Cena& operator=(const Cena&);
+
 	virtual ~Cena();
 
 	Cena* Kopia() const override;
