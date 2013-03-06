@@ -18,7 +18,7 @@ public:
 	Surowce( const Surowce& );
 	virtual ~Surowce( );
 
-	Obiekt* Kopia() const override;
+	Surowce* Kopia() const override;
 
 	Obiekt* Podziel( const Ilosc& ) throw( NiepoprawnaIloscObiektow ) ;
 

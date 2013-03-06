@@ -14,6 +14,7 @@ class ObiektList:
 	static_assert(is_base_of< ObiektBase , T >::value, "Uzyto typ niezgodny z ObiektBase* ");
 public:
 	typedef typename Mapa< Klucz , T >::iterator iterator;
+	typedef typename Mapa< Klucz , T >::const_iterator const_iterator;
 	
 	ObiektList(){
 	}
@@ -132,6 +133,14 @@ public:
 
 	iterator end(){
 		return  lista.end();
+	}
+
+	const_iterator begin() const{
+		return  lista.cbegin();
+	}
+
+	const_iterator end() const{
+		return  lista.cend();
 	}
 	
 	template < class N >

@@ -38,7 +38,7 @@ bool Surowce::Polacz( const Obiekt& obiekt ) throw ( BladLaczeniaObiektow ){
 	return false;
 }
 
-Obiekt* Surowce::Kopia() const{
+Surowce* Surowce::Kopia() const{
 	return new Surowce( *this );
 }
 
