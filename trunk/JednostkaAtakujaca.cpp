@@ -26,19 +26,21 @@ JednostkaAtakujaca::~JednostkaAtakujaca(){
 Obrazenia JednostkaAtakujaca::Atak() const throw ( NiezainicjalizowanaKlasa ) {
 	if(info==nullptr)
 		throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,JednostkaAtakujacaInfo::LogJednostkaAtakujacaInfo::className());
-	return info->getAtak();
+	return Obrazenia(info->getAtak().getObrazenia() * przyrostAtaku.getFluktuacja());
 }
 
 Obrazenia JednostkaAtakujaca::Pancerz( const Obrazenia& a ) const throw ( NiezainicjalizowanaKlasa ){
 	if(info==nullptr)
 		throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,JednostkaAtakujacaInfo::LogJednostkaAtakujacaInfo::className());
-	return a > info->getPancerz() ? a - info->getPancerz() : Obrazenia(0) ;
+	Obrazenia o (info->getPancerz().getObrazenia() * przyrostPancerza.getFluktuacja());
+	return a > o ? a - o : Obrazenia(0);
 }		
 
 Obrazenia JednostkaAtakujaca::Oslona( const Obrazenia& a ) const throw ( NiezainicjalizowanaKlasa ){
 	if(info==nullptr)
 		throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,JednostkaAtakujacaInfo::LogJednostkaAtakujacaInfo::className());
-	return a > info->getOslona() ? a - info->getOslona() : Obrazenia(0) ;
+	Obrazenia o (info->getOslona().getObrazenia() * przyrostOslony.getFluktuacja());
+	return a > o ? a - o : Obrazenia(0);
 }
 
 const Fluktuacja& JednostkaAtakujaca::getPrzyrostAtaku() const{
