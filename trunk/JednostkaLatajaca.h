@@ -4,7 +4,7 @@
 #include "Predkosc.h"
 #include "Dystans.h"
 #include "JednostkaLatajacaInfo.h"
-
+#include "NiezainicjalizowanaKlasa.h"
 
 /**
 * Klasa implementuj¹ca interfejs, s³u¿¹cy do lotów statków kosmiczych.
@@ -44,13 +44,27 @@ public:
 	* \param p - Prêdkoœæ, któr¹ ma lecieæ statek.
 	* \return Paliwo zu¿yte przez statek.
 	*/
-	ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const;
+	ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const throw ( NiezainicjalizowanaKlasa );
 
 	/**
 	* Maksymalna prêkoœæ jak¹ mo¿e rozwin¹æ statek.
+	* locale pl ("Polish");
+	* locale::global (pl);
+	* cout.imbue(pl);
+	* long double P = 50000000 , eta_m = 0.80 , m = 1000000, a = 0.01 , V = 0, rs=9500000000000;
+	* for(double i = 10 ;  i < 30 ; i+=0.5){
+	* 	double j = 0.00005;
+	* 	for( int c = 1 ;  c <=5; c++ ){
+	* 		j*=(double)c / 10;
+	* 	V = ((P*i)*eta_m)/(m*a);
+	* 	cout << "\nWspolczynnik zakrzywienia przestrzeni: "<< setprecision(10)<< fixed<< j << endl;
+	* 	cout << "Moc: " << setw(10) <<(long long)((P*i)/735.5) << " KM, Vmax: " << setw(10)<< (long long) (V * 3.6) 
+	* 		<<" km/h, Czas lotu rs: "<< setw(8) << ((100*rs*j)/(V*3.6))/(60) << " min"<< endl;
+	* 	}
+	* }
 	* \return prêdkoœæ jak¹ mo¿e rozwin¹æ statek.
 	*/
-	Predkosc PredkoscMaksymalna() const;
+	Predkosc PredkoscMaksymalna() const throw ( NiezainicjalizowanaKlasa );
 	
 	/**
 	* Metoda zwraca procentowy wspó³czynnik mocy silnika.
@@ -77,6 +91,19 @@ public:
 	void setPrzyrostZuzyciaPaliwa( const Fluktuacja& f );
 
 	/**
+	* Metoda zwraca procentowy wspó³czynnik sprawnosci silnika.
+	* \return Procentowy wpó³czynnik sprawnosci silnika.
+	*/
+	const Fluktuacja& getPrzyrostSprawnosciSilnika() const;
+
+	/**
+	* Metoda ustawia procentowy wspó³czynnik sprawnosci silnika.
+	* \param f - Procentowy wpó³czynnik sprawnosci silnika.
+	*/
+	void setPrzyrostSprawnosciSilnika( const Fluktuacja& f );
+
+
+	/**
 	* Metoda opisuj¹ca zawartoœæ klasy.
 	* \return CI¹g znaków opisuj¹cy klasê.
 	*/
@@ -93,6 +120,7 @@ protected:
 private:
 	JednostkaLatajacaInfo * info; /// WskaŸnika na klase opisuj¹c¹.
 	Fluktuacja	przyrostMocySilnika; /// Procentowa wartoœæ mocy silnika.
+	Fluktuacja	przyrostSprawnosciSilnika; /// Procentowa wartoœæ sprawnosci silnika.
 	Fluktuacja	przyrostZuzyciaPaliwa; /// Procentowa wartoœæ zu¿ycia paliwa.
 
 };

@@ -91,6 +91,18 @@ public:
 	void setMasaNapedu( const Masa& m );
 
 	/**
+	* Metoda zwracaj¹ca Sprawnosc Silnika jednostki.
+	* \return Sprawnosc Silnika jednostki.
+	*/
+	const Fluktuacja& getSprawnoscSilnika() const;
+
+	/**
+	* Metoda ustawiaj¹ca Sprawnosc Silnika jednostki.
+	* \param k - Sprawnosc Silnika jednostki.
+	*/
+	void setSprawnoscSilnika( const Fluktuacja& m );
+
+	/**
 	* Metoda opisuj¹ca zawartoœæ klasy.
 	* \return CI¹g znaków opisuj¹cy klasê.
 	*/
@@ -101,5 +113,6 @@ private:
 	MocSilnika			mocSilnika; /// Moc silnika statku
 	ZuzyciePaliwa		zuzyciePaliwa; /// Zu¿ycie paliwa przez statek
 	Masa				masaNapedu; /// Masa uk³adu napêdowego
+	Fluktuacja			sprawnoscSilnika; /// Sprawnoœæ silnika.
 };
 

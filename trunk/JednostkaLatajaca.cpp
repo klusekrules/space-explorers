@@ -18,12 +18,19 @@ JednostkaLatajaca::JednostkaLatajaca( const JednostkaLatajaca& a )
 JednostkaLatajaca::~JednostkaLatajaca(){
 }
 
-ZuzyciePaliwa JednostkaLatajaca::WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const{
-	return ZuzyciePaliwa();
+ZuzyciePaliwa JednostkaLatajaca::WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const throw ( NiezainicjalizowanaKlasa ){
+	if(info==nullptr)
+		throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,JednostkaLatajacaInfo::LogJednostkaLatajacaInfo::className());
+	return ZuzyciePaliwa(info->getZuzyciePaliwa().getZuzyciePaliwa()*przyrostZuzyciaPaliwa.getFluktuacja());
 }
 
-Predkosc JednostkaLatajaca::PredkoscMaksymalna() const{
-	return Predkosc();
+Predkosc JednostkaLatajaca::PredkoscMaksymalna() const throw ( NiezainicjalizowanaKlasa ){
+	if(info==nullptr)
+		throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,JednostkaLatajacaInfo::LogJednostkaLatajacaInfo::className());
+	long double eta_m = info->getSprawnoscSilnika().getFluktuacja() * przyrostSprawnosciSilnika.getFluktuacja();
+	long double a = 0.01;
+	long double P = info->getMocSilnika().getMocSilnika() * przyrostMocySilnika.getFluktuacja();
+	return Predkosc( ( P * eta_m )/(CalkowitaMasaJednostki().getMasa() * a) );
 }
 
 Masa JednostkaLatajaca::CalkowitaMasaJednostki() const{
@@ -46,9 +53,18 @@ void JednostkaLatajaca::setPrzyrostZuzyciaPaliwa( const Fluktuacja& f ){
 	przyrostZuzyciaPaliwa = f;
 }
 
+const Fluktuacja& JednostkaLatajaca::getPrzyrostSprawnosciSilnika() const{
+	return przyrostSprawnosciSilnika;
+}
+
+void JednostkaLatajaca::setPrzyrostSprawnosciSilnika( const Fluktuacja& f ){
+	przyrostSprawnosciSilnika = f;
+}
+
 string JednostkaLatajaca::toString() const{
 	Logger str(className());
 	str.addField("PrzyrostMocySilnika",przyrostMocySilnika);
+	str.addField("PrzyrostSprawnosciSilnika",przyrostSprawnosciSilnika);
 	str.addField("PrzyrostZuzyciaPaliwa",przyrostZuzyciaPaliwa);
 	return str.toString();
 }
