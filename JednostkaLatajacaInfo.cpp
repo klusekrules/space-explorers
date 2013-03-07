@@ -50,11 +50,20 @@ void JednostkaLatajacaInfo::setMasaNapedu( const Masa& m ){
 	masaNapedu = m;
 }
 
+const Fluktuacja& JednostkaLatajacaInfo::getSprawnoscSilnika() const{
+	return sprawnoscSilnika;
+}
+
+void JednostkaLatajacaInfo::setSprawnoscSilnika( const Fluktuacja& m ){
+	sprawnoscSilnika = m; 
+}
+
 string JednostkaLatajacaInfo::toString() const{
 	Logger str(LogJednostkaLatajacaInfo::className());
 	str.addClass(Info::toString());
 	str.addField("RodzajNapedu",rodzajNapedu);
 	str.addField("MocSilnika",mocSilnika);
+	str.addField("SprawnoscSilnika",sprawnoscSilnika);
 	str.addField("ZuzyciePaliwa",zuzyciePaliwa);
 	str.addField("MasaNapedu",masaNapedu);
 	return str.toString();
