@@ -59,7 +59,7 @@ public:
 	* 	V = ((P*i)*eta_m)/(m*a);
 	* 	cout << "\nWspolczynnik zakrzywienia przestrzeni: "<< setprecision(10)<< fixed<< j << endl;
 	* 	cout << "Moc: " << setw(10) <<(long long)((P*i)/735.5) << " KM, Vmax: " << setw(10)<< (long long) (V * 3.6) 
-	* 		<<" km/h, Czas lotu rs: "<< setw(8) << ((100*rs*j)/(V*3.6))/(60) << " min"<< endl;
+	* 		<<" km/h, Czas lotu rs: "<< setw(8) << ((100*rs*j)/(V*3.6)) << " h"<< endl;
 	* 	}
 	* }
 	* \return prêdkoœæ jak¹ mo¿e rozwin¹æ statek.
