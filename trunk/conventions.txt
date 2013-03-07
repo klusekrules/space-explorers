@@ -3,6 +3,10 @@ Za³o¿enie projektowe:
 	- Funkcja o przedrostku set pobieraj¹ca referencje zapamiêtuje kopie obiektu przekazanego przez referencje.
 	- Funkcja o przedrostku get zrwaca zawsze kopie obiektów.
 
+	- Metody publiczne s³u¿ace do dodawania w³aœciwoœci do obiektu klasy ZAWSZE zajmuj¹ siê zwolnieniem pamiêci z tego wskaŸnika.
+		Czyli wszelkiego rodzaju konstruktory, metody: add, set, put, dodaj i tym podobne maj¹ zapewniaæ zwolnienie pamiêci przekazanej przez wskaŸnik.
+		Natomiast metody pobieraj¹ce argumenty przez referencje NIE ZWALNIAJ¥ pamieci obiektu przekazanego.
+
 	-Klasa class - reprezentuje obiekt
 	-Klasa classInfo - reprezentuje fabrykê obiektów typu class
 	-Klasa classBO - reprezentuje operacje biznesowe na obiektach typu class i classInfo.

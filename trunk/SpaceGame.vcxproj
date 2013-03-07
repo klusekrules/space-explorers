@@ -135,8 +135,10 @@
     <ClInclude Include="Tekst.h" />
     <ClInclude Include="Testy.h" />
     <ClInclude Include="BaseTypes.h" />
+    <ClInclude Include="Warunek.h" />
     <ClInclude Include="WyjatekParseraXML.h" />
     <ClInclude Include="WyjatekSTL.h" />
+    <ClInclude Include="Wymagania.h" />
     <ClInclude Include="ZuzyciePaliwa.h" />
   </ItemGroup>
   <ItemGroup>
@@ -189,9 +191,11 @@
     <ClCompile Include="SurowceInfo.cpp" />
     <ClCompile Include="Tekst.cpp" />
     <ClCompile Include="Testy.cpp" />
+    <ClCompile Include="Warunek.cpp" />
     <ClCompile Include="WyjatekParseraXML.cpp" />
     <ClCompile Include="WyjatekSTL.cpp" />
     <ClCompile Include="Wyjatki.cpp" />
+    <ClCompile Include="Wymagania.cpp" />
     <ClCompile Include="ZuzyciePaliwa.cpp" />
   </ItemGroup>
   <ItemGroup>
