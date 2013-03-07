@@ -21,7 +21,7 @@ JednostkaLatajaca::~JednostkaLatajaca(){
 ZuzyciePaliwa JednostkaLatajaca::WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const throw ( NiezainicjalizowanaKlasa ){
 	if(info==nullptr)
 		throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,JednostkaLatajacaInfo::LogJednostkaLatajacaInfo::className());
-	return ZuzyciePaliwa(info->getZuzyciePaliwa().getZuzyciePaliwa()*przyrostZuzyciaPaliwa.getFluktuacja());
+	return ZuzyciePaliwa(info->getZuzyciePaliwa().getZuzyciePaliwa()*przyrostZuzyciaPaliwa.getFluktuacja()* ( d.getDystans() / p.getPredkosc() ) );
 }
 
 Predkosc JednostkaLatajaca::PredkoscMaksymalna() const throw ( NiezainicjalizowanaKlasa ){
