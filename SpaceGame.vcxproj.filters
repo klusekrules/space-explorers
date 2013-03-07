@@ -160,6 +160,12 @@
     <ClCompile Include="CenaDekorator.cpp">
       <Filter>SourceFile\Surowce\Cena</Filter>
     </ClCompile>
+    <ClCompile Include="Warunek.cpp">
+      <Filter>SourceFile\Surowce\Cena</Filter>
+    </ClCompile>
+    <ClCompile Include="Wymagania.cpp">
+      <Filter>SourceFile\Surowce\Cena</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -352,6 +358,12 @@
       <Filter>SourceFile\Surowce\Cena</Filter>
     </ClInclude>
     <ClInclude Include="CenaDekorator.h">
+      <Filter>SourceFile\Surowce\Cena</Filter>
+    </ClInclude>
+    <ClInclude Include="Warunek.h">
+      <Filter>SourceFile\Surowce\Cena</Filter>
+    </ClInclude>
+    <ClInclude Include="Wymagania.h">
       <Filter>SourceFile\Surowce\Cena</Filter>
     </ClInclude>
   </ItemGroup>
