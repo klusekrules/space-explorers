@@ -1,25 +1,36 @@
 #pragma once
 #include "Main.h"
 #include "Info.h"
-#include "Masa.h"
-#include "Objetosc.h"
-#include "Powierzchnia.h"
 #include "Obiekt.h"
+#include "NiezainicjalizowanaKlasa.h"
+#include "ZmianaInterfejs.h"
 
 class ObiektInfo :
 	public Info,
 	virtual public Base,
 	public ObiektBase,
-	public Masa,
-	public Objetosc,
-	public Powierzchnia,
 	public LoggerInterface<ObiektInfo>
 {
+private:
+	Powierzchnia powierzchnia;
+	ZmianaInterfejs<Powierzchnia>* zmPowierzchnia;
+
+	Objetosc objetosc;
+	ZmianaInterfejs<Objetosc>* zmObjetosc;
+
+	Masa masa;
+	ZmianaInterfejs<Masa>* zmMasa;
+
 public:
 	typedef LoggerInterface<ObiektInfo> LogObiektInfo;
-	ObiektInfo( );
-	ObiektInfo( const Masa&, const Objetosc&, const Powierzchnia&, const Info& ,const ObiektBase& );
+	ObiektInfo( const Masa&, const Objetosc&, const Powierzchnia&, const Poziom& ,  const Info& );
 	~ObiektInfo( );
+
+	Powierzchnia getPowierzchnia() const;
+
+	Objetosc getObjetosc() const;
+
+	Masa getMasa() const;
 	
 	virtual Obiekt* TworzEgzemplarz( const Ilosc& ) const;
 

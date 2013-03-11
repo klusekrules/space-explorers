@@ -15,12 +15,7 @@ public:
 	* Definicja typu klasy loguj¹cej dla klasy Base.
 	*/
 	typedef LoggerInterface<Base> LogBase;
-
-	/**
-	* Konstruktor domyœlny.
-	*/
-	explicit Base();
-	
+		
 	/**
 	* Konstruktor klasy Base z podan¹ wartoœci¹ ID.
 	* \param id - Id przechowywane przez klase.

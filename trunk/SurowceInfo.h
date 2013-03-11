@@ -4,18 +4,15 @@
 #include "Surowce.h"
 
 class SurowceInfo : 
+	virtual public Base,
 	public ObiektInfo,
 	public LoggerInterface<SurowceInfo>
 {
 public:
 	typedef LoggerInterface<SurowceInfo> LogSurowceInfo;
-
-	SurowceInfo();
-
+	
 	explicit SurowceInfo( const ObiektInfo& );
-
-	SurowceInfo( const SurowceInfo& );
-
+	
 	virtual ~SurowceInfo();
 	
 	Surowce* TworzEgzemplarz( const Ilosc& ) const override;

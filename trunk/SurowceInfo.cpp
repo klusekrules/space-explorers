@@ -2,21 +2,11 @@
 #include "SurowceInfo.h"
 #include "Logger.h"
 
-SurowceInfo::SurowceInfo()
-	: ObiektInfo( )
-{
-}
-
 SurowceInfo::~SurowceInfo(){
 }
 
 SurowceInfo::SurowceInfo( const ObiektInfo& o )
-	: ObiektInfo(o)
-{
-}
-
-SurowceInfo::SurowceInfo( const SurowceInfo& a )
-	: ObiektInfo(a)
+	: Base(o), ObiektInfo(o)
 {
 }
 

@@ -16,7 +16,9 @@ public:
 	typedef typename Mapa< Klucz , T >::iterator iterator;
 	typedef typename Mapa< Klucz , T >::const_iterator const_iterator;
 	
-	ObiektList(){
+	ObiektList()
+		: lista(IdType(-1))
+	{
 	}
 
 	~ObiektList(){
@@ -25,7 +27,9 @@ public:
 		}
 	}
 
-	ObiektList(const ObiektList& a){
+	ObiektList(const ObiektList& a)
+		: lista(IdType(-1))
+	{
 		lista.clear();
 		for( auto i : a.lista){
 			lista.put(i.first,i.second->Kopia());

@@ -1,5 +1,6 @@
 #pragma once
 #include "Main.h"
+#include "ObiektBase.h"
 #include <Windows.h>
 
 
@@ -39,6 +40,8 @@ protected:
 	HMODULE hLibrary;
 	bool isDbgHelpInit;
 
+	ObiektBase pustyObiekt;
+
 public:
 
 	static Aplikacja& getInstance(){
@@ -50,6 +53,11 @@ public:
 
 	~Aplikacja();
 
-
+	const ObiektBase& getObiekt(IdType id){
+		return pustyObiekt;
+	}
+	const ObiektBase& getObiekt(Klucz k){
+		return pustyObiekt;
+	}
 };
 
