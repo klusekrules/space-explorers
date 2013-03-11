@@ -18,12 +18,7 @@ class Obiekt:
 public:
 	typedef LoggerInterface<Obiekt> LogObiekt;
 
-	Obiekt();
-	explicit Obiekt( const ObiektBase& );
 	explicit Obiekt( const ObiektInfo& );
-	Obiekt( const Obiekt& );
-	Obiekt( const Fluktuacja& , const Fluktuacja& , const Fluktuacja& , const ObiektBase& );
-	Obiekt( const Fluktuacja& , const Fluktuacja& , const Fluktuacja& , const ObiektInfo& );
 	virtual ~Obiekt();
 
 	Obiekt* Kopia() const override;
@@ -35,24 +30,9 @@ public:
 	Objetosc getObjetosc() const;
 
 	Masa getMasa() const;
-		
-	const Fluktuacja& getZmianaPowierzchnia() const;
-
-	void setZmianaPowierzchnia( const Fluktuacja& pPrzyrostPowierzchnia );
-
-	const Fluktuacja& getZmianaObjetosc() const;
-
-	void setZmianaObjetosc( const Fluktuacja& pPrzyrostObjetosc );
-
-	const Fluktuacja& getZmianaMasa() const;
-
-	void setZmianaMasa( const Fluktuacja& pPrzyrostMasa );
 
 	string toString() const override;
-
-protected:
-	Fluktuacja zmPowierzchnia;
-	Fluktuacja zmObjetosc;
-	Fluktuacja zmMasa;
+private:
+	const ObiektInfo& obiektInfoClass; 
 };
 

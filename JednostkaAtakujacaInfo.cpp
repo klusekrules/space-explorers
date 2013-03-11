@@ -1,11 +1,8 @@
 #include "JednostkaAtakujacaInfo.h"
 #include "Logger.h"
 
-JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(){
-}
-
 JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const Info& info, const Obrazenia& oAtak,const Obrazenia& oPancerz, const Obrazenia& oOslona)
-	: Info(info), atak(oAtak), pancerz(oPancerz), oslona(oOslona)
+	: Base(info), Info(info), atak(oAtak), pancerz(oPancerz), oslona(oOslona)
 {
 }
 

@@ -15,11 +15,7 @@ class Mapa:
 public:
 	typedef LoggerInterface< Mapa< Klucz, Wartosc > > LogMapa;
 	typedef hash_map<Klucz,Wartosc* > HashMapa;
-	explicit Mapa()
-		: Base(), hash_map()
-	{
-	}
-
+	
 	explicit Mapa( const IdType& id )
 		: Base(id), hash_map()
 	{

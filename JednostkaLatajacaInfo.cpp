@@ -1,17 +1,8 @@
 #include "JednostkaLatajacaInfo.h"
 #include "Logger.h"
 
-JednostkaLatajacaInfo::JednostkaLatajacaInfo()
-{
-}
-
-JednostkaLatajacaInfo::JednostkaLatajacaInfo( const Klucz& k, const MocSilnika& moc, const ZuzyciePaliwa& z, const Masa& masa )
-	: rodzajNapedu(k), mocSilnika(moc), zuzyciePaliwa(z), masaNapedu(masa)
-{
-}
-
-JednostkaLatajacaInfo::JednostkaLatajacaInfo( const JednostkaLatajacaInfo& a )
-	: rodzajNapedu(a.rodzajNapedu), mocSilnika(a.mocSilnika), zuzyciePaliwa(a.zuzyciePaliwa), masaNapedu(a.masaNapedu)
+JednostkaLatajacaInfo::JednostkaLatajacaInfo( const Info& info,const Klucz& k, const MocSilnika& moc, const ZuzyciePaliwa& z, const Masa& masa )
+	: Base(info), Info(info), rodzajNapedu(k), mocSilnika(moc), zuzyciePaliwa(z), masaNapedu(masa)
 {
 }
 

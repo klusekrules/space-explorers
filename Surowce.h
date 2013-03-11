@@ -9,6 +9,7 @@
 class SurowceInfo;
 
 class Surowce :
+	virtual public Base,
 	public Obiekt,
 	public LoggerInterface<Surowce>
 {
@@ -27,8 +28,8 @@ public:
 	Objetosc Objetosc() const ;
 
 	Masa Masa() const ;
-		
-	const Surowce& operator=( const Surowce& );
+	
+	const Surowce& operator=( const Surowce& ) throw ( NiezgodnyTypSurowca );
 	
 	bool operator==( const Surowce& ) const throw ( NiezgodnyTypSurowca );
 	
@@ -66,7 +67,6 @@ public:
 
 private:
 
-	Surowce( );
 	Surowce( const Ilosc& , const Surowce& );
 	Surowce( const Ilosc& , const SurowceInfo&  );
 	

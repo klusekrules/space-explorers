@@ -2,16 +2,16 @@
 #include "Main.h"
 #include "Base.h"
 #include "Tekst.h"
-#include "ObiektBase.h"
+#include "IdType.h"
 
 class Info:
 	virtual public Base,
 	public LoggerInterface<Info>
 {
 public:
-	Info();
-	Info( const Tekst& , const Tekst& );
-	Info( const Info& );
+	typedef LoggerInterface<Info> LogInfo;
+
+	Info( const Tekst& , const Tekst& , const IdType& );
 	virtual ~Info();
 
 	const Tekst& getNazwa() const;
@@ -23,7 +23,6 @@ public:
 	string toString() const override;
 
 private:
-	typedef LoggerInterface<Info> LogInfo;
 
 	Tekst nazwa;
 	Tekst opis;

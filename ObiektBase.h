@@ -4,9 +4,7 @@
 #include "Ilosc.h"
 #include "Poziom.h"
 #include "Klucz.h"
-
-class ObiektInfo;
-
+#include "Info.h"
 /**
 * Klasa bazowa dla obiektów gry. Zawiera informacje o id obiektu,
 * poziomie obiektu, iloœci obiektów przypisanych do tej klasy.
@@ -23,46 +21,18 @@ class ObiektBase :
 	public LoggerInterface<ObiektBase>
 {
 protected:
-	const ObiektInfo *info; /**< Wskazanie na obiekt opisuj¹cy dan¹ klasê*/
+	const Info& info; /**< Wskazanie na obiekt opisuj¹cy dan¹ klasê*/
 
 public:
 	typedef LoggerInterface<ObiektBase> LogObiektBase;
-
-	/**
-	* Konstruktor domyœlny.
-	*/
-	ObiektBase();
-
-	/**
-	* Konstruktor klasy na podstawie obiektu opisuj¹cego.
-	* \param obiektInfo - Klasa opisuj¹ca obiekt. 
-	*/
-	explicit ObiektBase( const ObiektInfo& obiektInfo );
-
+	
 	/**
 	* Konstruktor z parametrami inicjalizuj¹cymi.
 	* \param ilosc - Informacja o iloœci obiektów reprezentowanych przez klasê.
 	* \param poziom - Poziom obiektów opisywanych przez klasê.
-	* \param obiektInfo - Wskazanie na klasê opisuj¹c¹ reprezentowany obiekt.
-	* \param base - Klasa przehocwuj¹ca informacje o id obiektu.
+	* \param iInfo - Wskazanie na klasê opisuj¹c¹ reprezentowany obiekt.
 	*/
-	ObiektBase( const Ilosc& ilosc, const Poziom & poziom, const ObiektInfo* obiektInfo, const Base& base );
-
-	/**
-	* Konstruktor z parametrami inicjalizuj¹cymi.
-	* \param ilosc - Informacja o iloœci obiektów reprezentowanych przez klasê.
-	* \param poziom - Poziom obiektów opisywanych przez klasê.
-	* \param obiektInfo - Wskazanie na klasê opisuj¹c¹ reprezentowany obiekt.
-	* \param id - Id obiektu.
-	*/
-	ObiektBase( const Ilosc& ilosc, const Poziom & poziom, const ObiektInfo* obiektInfo, const IdType& id );
-
-	/**
-	* Konstruktor z parametrami inicjalizuj¹cymi. Inicjalizacja pól wymaganych tylko do identyfikacji obiektów.
-	* \param poziom - Poziom obiektów opisywanych przez klasê.
-	* \param id - Id obiektu.
-	*/
-	ObiektBase( const IdType& id, const Poziom & poziom);
+	ObiektBase( const Ilosc& ilosc, const Poziom & poziom, const Info& iInfo);
 
 	/**
 	* Destruktor domyœlny.
@@ -114,18 +84,6 @@ public:
 	*/
 	virtual bool czyMoznaPodzielic( const Ilosc& ilosc) const;
 	
-	/**
-	* Metoda zwracaj¹ca wskazanie na obiekt opisuj¹cy.
-	* \return Wskazanie na obiekt opisij¹cy.
-	*/
-	ObiektInfo* getObiektInfo() const;
-
-	/**
-	* Metoda ustawiaj¹ca obiekt opisuj¹cy klasê.
-	* \param iInfo - Obiekt opisuj¹cy.
-	*/
-	void setObiektInfo( const ObiektInfo* iInfo );
-
 	/**
 	* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
 	* \return Napis zwieraj¹cy opis klasy.

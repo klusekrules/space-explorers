@@ -4,6 +4,7 @@
 #include "MocSilnika.h"
 #include "ZuzyciePaliwa.h"
 #include "Masa.h"
+#include "Klucz.h"
 
 
 /**
@@ -17,10 +18,6 @@ class JednostkaLatajacaInfo :
 public:
 	typedef LoggerInterface<JednostkaLatajacaInfo> LogJednostkaLatajacaInfo; ///  Typ loggera klasy
 
-	/**
-	* Konstruktor domyœlny
-	*/
-	JednostkaLatajacaInfo();
 
 	/**
 	* Konstruktor parametryczny
@@ -29,14 +26,8 @@ public:
 	* \param z - Zu¿ycia paliwa przez silnik
 	* \param masa - Masa uk³adu napêdowego
 	*/
-	JednostkaLatajacaInfo( const Klucz& k, const MocSilnika& moc, const ZuzyciePaliwa& z, const Masa& masa );
-	
-	/**
-	* Domyœlny konstruktor kopiuj¹cy
-	* \param a - Obiekt na podstawie którego zostanie utworzona kopia.
-	*/
-	JednostkaLatajacaInfo( const JednostkaLatajacaInfo& a );
-	
+	JednostkaLatajacaInfo(const Info& info, const Klucz& k, const MocSilnika& moc, const ZuzyciePaliwa& z, const Masa& masa );
+		
 	/**
 	* Destruktor domyœlny
 	*/

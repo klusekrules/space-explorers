@@ -1,11 +1,6 @@
 #include "Base.h"
 #include "Logger.h"
 
-Base::Base()
-	: IdType(-1)
-{
-}
-
 Base::Base( const IdType& itID )
 	: IdType(itID)
 {

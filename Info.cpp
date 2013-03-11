@@ -1,16 +1,8 @@
 #include "Info.h"
 #include "Logger.h"
 
-Info::Info(){
-}
-
-Info::Info( const Tekst& tNazwa , const Tekst& tOpis )
-	: nazwa( tNazwa ), opis( tOpis )
-{
-}
-
-Info::Info( const Info& a )
-	: nazwa( a.nazwa ), opis( a.opis )
+Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const IdType& id )
+	: Base(id), nazwa( tNazwa ), opis( tOpis )
 {
 }
 

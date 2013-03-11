@@ -4,7 +4,7 @@
 #include <iomanip>
 
 Aplikacja::Aplikacja()
-	: isDbgHelpInit(false)
+	: isDbgHelpInit(false), pustyObiekt(Ilosc(0), Poziom(0), Info(Tekst(""),Tekst(""),IdType(0)))
 {
 	hLibrary = LoadLibrary("Dbghelp.dll");
 	if(hLibrary!=NULL){		

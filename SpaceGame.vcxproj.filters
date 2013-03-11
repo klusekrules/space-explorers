@@ -366,6 +366,15 @@
     <ClInclude Include="Wymagania.h">
       <Filter>SourceFile\Surowce\Cena</Filter>
     </ClInclude>
+    <ClInclude Include="ZmianaInterfejs.h">
+      <Filter>SourceFile\BaseClass\Zmiana</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaDekorator.h">
+      <Filter>SourceFile\BaseClass\Zmiana</Filter>
+    </ClInclude>
+    <ClInclude Include="Zmiana.h">
+      <Filter>SourceFile\BaseClass\Zmiana</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -439,6 +448,9 @@
     </Filter>
     <Filter Include="SourceFile\Surowce\Cena">
       <UniqueIdentifier>{0ba97365-2fd4-45b2-a51a-a22b61df8a88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\BaseClass\Zmiana">
+      <UniqueIdentifier>{f6b91d8c-19dc-4861-8f28-6364f2a77fbb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

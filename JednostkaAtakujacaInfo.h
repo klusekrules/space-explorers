@@ -10,10 +10,7 @@ class JednostkaAtakujacaInfo :
 {
 public:
 	typedef LoggerInterface<JednostkaAtakujacaInfo> LogJednostkaAtakujacaInfo;
-	/**
-	* Konstruktor domyœlny.
-	*/
-	JednostkaAtakujacaInfo();
+	
 	/**
 	* Konstruktor parametryczny.
 	* \param oAtak - podstawowny atak obiektu

@@ -1,23 +1,18 @@
 #include "Surowce.h"
 #include "Logger.h"
 
-Surowce::Surowce( )
-	: ilosc(  )
-{
-}
-
 Surowce::Surowce( const Ilosc& isIlosc , const SurowceInfo& s )
-	: ilosc( isIlosc ), Obiekt( reinterpret_cast< const ObiektInfo& >(s) )
+	: Base(reinterpret_cast< const Base& >(s) ), ilosc( isIlosc ), Obiekt( reinterpret_cast< const ObiektInfo& >(s) )
 {
 }
 
 Surowce::Surowce( const Ilosc& isIlosc , const Surowce& s )
-	: ilosc( isIlosc ), Obiekt( s )
+	: Base(s), ilosc( isIlosc ), Obiekt( s )
 {
 }
 
 Surowce::Surowce( const Surowce& sSurowce )
-	: ilosc( sSurowce.ilosc ), Obiekt( sSurowce )
+	: Base(sSurowce), ilosc( sSurowce.ilosc ), Obiekt( sSurowce )
 {
 }
 
@@ -57,9 +52,10 @@ Masa Surowce::Masa() const{
 	return getMasa() * ilosc;
 }
 
-const Surowce& Surowce::operator=( const Surowce& sSurowce ){
+const Surowce& Surowce::operator=( const Surowce& sSurowce )  throw ( NiezgodnyTypSurowca ) {
+	if( this->ID() != sSurowce.ID() )
+		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
 	ilosc = sSurowce.ilosc;
-	Obiekt::operator=(sSurowce);
 	return *this;
 }
 
