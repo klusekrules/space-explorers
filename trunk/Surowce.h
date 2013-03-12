@@ -9,7 +9,6 @@
 class SurowceInfo;
 
 class Surowce :
-	virtual public Base,
 	public Obiekt,
 	public LoggerInterface<Surowce>
 {

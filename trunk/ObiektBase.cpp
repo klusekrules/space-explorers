@@ -3,7 +3,7 @@
 #include "Logger.h"
 
 ObiektBase::ObiektBase( const Ilosc& i, const Poziom & pPoziom, const Info& iInfo)
-	: Base(iInfo), Ilosc(i), Poziom(pPoziom), info(iInfo)
+	: Base(iInfo), ilosc(i), poziom(pPoziom), info(iInfo)
 {
 }
 
@@ -16,15 +16,15 @@ ObiektBase* ObiektBase::Kopia() const{
 
 ObiektBase* ObiektBase::Podziel( const Ilosc& i ){
 	if( czyMoznaPodzielic(i) ){
-		Ilosc::operator-=(i);
-		return new ObiektBase( i ,*this, info );
+		ilosc-=i;
+		return new ObiektBase( i , poziom , info );
 	}
 	return nullptr;
 }
 
 bool ObiektBase::Polacz( const ObiektBase& obj ){
 	if(czyMoznaPolaczyc(obj)){
-		Ilosc::operator+=(obj);
+		ilosc+=obj.getIlosc();
 		return true;
 	}else{
 		return false;
@@ -32,7 +32,7 @@ bool ObiektBase::Polacz( const ObiektBase& obj ){
 }
 		
 Klucz ObiektBase::ID() const{
-	return Klucz( *this , *this );
+	return Klucz( getId() , poziom );
 }
 
 
@@ -41,14 +41,29 @@ bool ObiektBase::czyMoznaPolaczyc( const ObiektBase& objBase )const{
 }
 
 bool ObiektBase::czyMoznaPodzielic( const Ilosc& i ) const{
-	return Ilosc::operator>( i );
+	return ilosc>i;
+}
+
+const Ilosc& ObiektBase::getIlosc() const{
+	return ilosc;
+}
+
+void ObiektBase::setIlosc( const Ilosc& i ){
+	ilosc = i;
+}
+
+void ObiektBase::setPoziom( const Poziom& p ){
+	poziom = p;
+}
+const Poziom& ObiektBase::getPoziom() const{
+	return poziom;
 }
 
 string ObiektBase::toString() const{
 	Logger str(LogObiektBase::className());
 	str.addClass(Base::toString());
-	str.addClass(Logger::reMakeSimpleClassString(Ilosc::className(),Ilosc::toString()));
-	str.addClass(Logger::reMakeSimpleClassString(Poziom::className(),Poziom::toString()));
-	str.addClass( info.Base::toString() );
+	str.addField(ilosc.className(),ilosc);
+	str.addField(poziom.className(),poziom);
+	str.addField(Info::LogInfo::className(),info.getId());
 	return str.toString();
 }

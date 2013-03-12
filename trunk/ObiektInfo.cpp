@@ -2,7 +2,7 @@
 #include "Logger.h"
 
 ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& obj, const Powierzchnia& pow, const Poziom& p , const Info& info )
-	: Base(info),Info(info), masa(masa), objetosc(obj), powierzchnia(pow), ObiektBase(Ilosc(),p,*this), zmMasa(nullptr), zmObjetosc(nullptr), zmPowierzchnia(nullptr)
+	: Info(info), masa(masa), objetosc(obj), powierzchnia(pow), ObiektBase(Ilosc(),p,*this), zmMasa(nullptr), zmObjetosc(nullptr), zmPowierzchnia(nullptr)
 {
 }
 
@@ -29,7 +29,7 @@ Masa ObiektInfo::getMasa() const {
 
 Obiekt* ObiektInfo::TworzEgzemplarz( const Ilosc& iIlosc ) const {
 	Obiekt* o = new Obiekt( *this );
-	o->setIlosc(iIlosc.value());
+	o->setIlosc(iIlosc);
 	return o;
 }
 
