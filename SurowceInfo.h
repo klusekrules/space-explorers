@@ -3,8 +3,7 @@
 #include "ObiektInfo.h"
 #include "Surowce.h"
 
-class SurowceInfo : 
-	virtual public Base,
+class SurowceInfo :
 	public ObiektInfo,
 	public LoggerInterface<SurowceInfo>
 {

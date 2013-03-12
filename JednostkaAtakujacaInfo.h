@@ -3,6 +3,7 @@
 #include "Main.h"
 #include "Obrazenia.h"
 #include "Info.h"
+#include "ZmianaInterfejs.h"
 
 class JednostkaAtakujacaInfo :
 	public Info,
@@ -31,35 +32,17 @@ public:
 	const Obrazenia& getAtak() const;	
 
 	/**
-	* Metoda ustawia podstawowe obra¿enia zadawane przez obiekt.
-	* \param a - Nowe podstawowe obra¿enia obiektu.
-	*/
-	void setAtak( const Obrazenia& a );
-	
-	/**
 	* Metoda zwraca podstawowe obra¿enia jakie zniszcz¹ obiekt.
 	* \return Podstawowe obra¿enia jakie zniszcz¹ obiekt.
 	*/
 	const Obrazenia& getPancerz() const;	
 
 	/**
-	* Metoda ustawia podstawowe obra¿enia jakie zniszcz¹ obiekt.
-	* \param p - Nowe podstawowe obra¿enia jakie zniszcz¹ obiekt.
-	*/
-	void setPancerz( const Obrazenia&  p );
-	
-	/**
 	* Metoda zwraca podstawowe obra¿enia jakie mo¿e poch³on¹æ os³ona obiektu.
 	* \return Podstawowe obra¿enia jakie mo¿e poch³on¹æ os³ona obiektu.
 	*/
 	const Obrazenia& getOslona() const;	
 
-	/**
-	* Metoda ustawia podstawowe obra¿enia jakie mo¿e poch³on¹æ os³ona obiektu.
-	* \param o - Nowe podstawowe obra¿enia jakie mo¿e poch³on¹æ os³ona obiektu.
-	*/
-	void setOslona( const Obrazenia& o );
-	
 	/**
 	* Przeci¹¿ona funkcja generuj¹ca tekstowy opis klasy.
 	* \return Napis zawieraj¹cy opis klasy.
@@ -68,7 +51,12 @@ public:
 
 private:
 	Obrazenia atak; /// Podstawowa wartoœæ ataku obiektu.
+	ZmianaInterfejs<Obrazenia>* zmAtak; /// Procentowa zmiana ataku wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
+
 	Obrazenia pancerz; /// Podstawowa wartoœæ pancerza obiektu.
+	ZmianaInterfejs<Obrazenia>* zmPancerz; /// Procentowa zmiana pancerza wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
+
 	Obrazenia oslona; /// Podstawowa wartoœæ os³ony obiektu.
+	ZmianaInterfejs<Obrazenia>* zmOslona; /// Procentowa zmiana os³ony wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
 };
 

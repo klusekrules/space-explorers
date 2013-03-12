@@ -6,7 +6,7 @@ SurowceInfo::~SurowceInfo(){
 }
 
 SurowceInfo::SurowceInfo( const ObiektInfo& o )
-	: Base(o), ObiektInfo(o)
+	: ObiektInfo(o)
 {
 }
 

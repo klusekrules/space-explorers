@@ -15,11 +15,13 @@
 * ewentualnie podzieliæ. Pozwala tak¿e na stworzeni kopii obiektu.
 */
 class ObiektBase :
-	virtual public Base,
-	public Ilosc,
-	public Poziom,
+	public Base,
 	public LoggerInterface<ObiektBase>
 {
+private:
+	Ilosc ilosc;
+	Poziom poziom;
+
 protected:
 	const Info& info; /**< Wskazanie na obiekt opisuj¹cy dan¹ klasê*/
 
@@ -83,7 +85,31 @@ public:
 	* \return Je¿eli mo¿na podzieliæ, zwracana jest wartoœæ true, w przeciwnym wypadku zwrócona wartoœæ to false.
 	*/
 	virtual bool czyMoznaPodzielic( const Ilosc& ilosc) const;
-	
+
+	/**
+	* Metoda zwraca iloœæ elementów opisywanych przez klasê
+	* \return Iloœæ elementów.
+	*/
+	const Ilosc& getIlosc() const;
+
+	/**
+	* Metoda ustawia iloœæ elementów opisywanych przez klasê.
+	* \param i - Nowa iloœæ elementów.
+	*/
+	void setIlosc( const Ilosc& i );
+
+	/**
+	* Metoda ustawia poziom elementów opisywanych przez klasê.
+	* \param p - Nowa poziom elementów.
+	*/
+	void setPoziom( const Poziom& p );
+
+	/**
+	* Metoda zwraca poziom elementów opisywanych przez klasê
+	* \return Poziom elementów.
+	*/
+	const Poziom& getPoziom() const;
+
 	/**
 	* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
 	* \return Napis zwieraj¹cy opis klasy.

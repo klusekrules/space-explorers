@@ -15,18 +15,12 @@ class JednostkaAtakujaca :
 {
 public:
 	typedef LoggerInterface<JednostkaAtakujaca> LogJednostkaAtakujaca;
-	/**
-	* Konstruktor domyœlny.
-	*/
-	JednostkaAtakujaca();
-
+	
 	/**
 	* Konstruktor parametryczny.
-	* \param wzPrzyrostAtaku - przyrost ataku
-	* \param wzPrzyrostPancerza - przyrost pancerza
-	* \param wzPrzyrostOslony - przyrost oslony
+	* /param jInfo - Wskazanie na klasê reprezentuj¹c¹ opis jednostki atakuj¹cej.
 	*/
-	JednostkaAtakujaca::JednostkaAtakujaca( JednostkaAtakujacaInfo* jInfo , const Fluktuacja& wzPrzyrostAtaku, const Fluktuacja& wzPrzyrostPancerza, const Fluktuacja& wzPrzyrostOslony );
+	JednostkaAtakujaca( JednostkaAtakujacaInfo* jInfo );
 	/**
 	* Konstruktor kopiuj¹cy.
 	* \param a - obiekt do skopiowania
@@ -71,52 +65,12 @@ public:
 	void setJednostkaAtakujacaInfo( JednostkaAtakujacaInfo* i);
 
 	/**
-	* Metoda zwraca procentow¹ zmianê ataku wzglêdem wartoœci podstawowej.
-	* \return Procent z wartoœci podstawowej.
-	*/
-	const Fluktuacja& getPrzyrostAtaku() const;
-
-	/**
-	* Metoda ustawia procentow¹ zmianê ataku wzglêdem wartoœci podstawowej.
-	* \param a - Nowy procent z wartoœci podstawowej.
-	*/
-	void setPrzyrostAtaku( const Fluktuacja& a );
-	
-	/**
-	* Metoda zwraca procentow¹ zmianê pancerza wzglêdem wartoœci podstawowej.
-	* \return Procent z wartoœci podstawowej.
-	*/
-	const Fluktuacja& getPrzyrostPancerza() const;	
-
-	/**
-	* Metoda ustawia procentow¹ zmianê pancerza wzglêdem wartoœci podstawowej.
-	* \param p - Nowy procent z wartoœci podstawowej.
-	*/
-	void setPrzyrostPancerza( const Fluktuacja& p );
-	
-	/**
-	* Metoda zwraca procentow¹ zmianê os³ony wzglêdem wartoœci podstawowej.
-	* \return Procent z wartoœci podstawowej.
-	*/
-	const Fluktuacja& getPrzyrostOslony() const;	
-
-	/**
-	* Metoda ustawia procentow¹ zmianê os³ony wzglêdem wartoœci podstawowej.
-	* \param o - Nowy procent z wartoœci podstawowej.
-	*/
-	void setPrzyrostOslony( const Fluktuacja& o );
-	
-	/**
 	* Przeci¹¿ona funkcja generuj¹ca tekstowy opis klasy.
 	* \return Napis zawieraj¹cy opis klasy.
 	*/
 	string toString() const override;
 
 private:
-	JednostkaAtakujacaInfo * info; /// WskaŸnik na klasê opisuj¹c¹. Wymagany do poprawnego dzia³ania.
-
-	Fluktuacja przyrostAtaku; /// Procentowa zmiana ataku wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
-	Fluktuacja przyrostPancerza; /// Procentowa zmiana pancerza wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
-	Fluktuacja przyrostOslony; /// Procentowa zmiana os³ony wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
+	JednostkaAtakujacaInfo * jednostkaAtakujacaInfo; /// WskaŸnik na klasê opisuj¹c¹. Wymagany do poprawnego dzia³ania.
 	
 };

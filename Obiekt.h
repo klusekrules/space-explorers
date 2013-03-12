@@ -11,7 +11,6 @@
 class ObiektInfo;
 
 class Obiekt:
-	virtual public Base,
 	public ObiektBase,
 	public LoggerInterface<Obiekt>
 {

@@ -39,7 +39,7 @@ Objetosc Ladownia::MaksymalnaPojemnosc() const{
 
 Ilosc Ladownia::SprawdzIloscObiektow( const Klucz& itID ) const{
 	try{
-		return obiekty.get(itID);
+		return obiekty.get(itID).getIlosc();
 	} catch( OgolnyWyjatek& ){
 		return Ilosc();
 	}
@@ -67,13 +67,13 @@ Ladownia::Item& Ladownia::PobierzObiekt( const Klucz& itID, const Ilosc& isIlosc
 
 	try{
 		Obiekt& o = obiekty.get(itID);
-		if( isIlosc == o ){
+		if( isIlosc == o.getIlosc() ){
 			obiekty.getAndDel(itID);
 			przeliczZajeteMiejsce();
 			return o;
 		}
 
-		if( isIlosc < o ){
+		if( isIlosc < o.getIlosc() ){
 			Obiekt *k = o.Podziel(isIlosc);
 			przeliczZajeteMiejsce();
 			return *k;
@@ -83,7 +83,7 @@ Ladownia::Item& Ladownia::PobierzObiekt( const Klucz& itID, const Ilosc& isIlosc
 			throw NieznalezionoObiektu(EXCEPTION_PLACE,o.toString());
 		}
 
-		if( isIlosc > o ){
+		if( isIlosc > o.getIlosc() ){
 			throw NiepoprawnaIloscObiektow(EXCEPTION_PLACE,isIlosc);
 		}
 	}catch( OgolnyWyjatek& ){
@@ -123,7 +123,7 @@ Ladownia::Zbiornik* Ladownia::PodzielLadownie( const Objetosc& max , const Objet
 					tObj += objElementu;
 				}
 			}else{
-				Objetosc objPojedyncza( objElementu.value() / o.second->getIlosc() );
+				Objetosc objPojedyncza( objElementu.value() / o.second->getIlosc().value() );
 				if( max - tObj >= objPojedyncza ){
 					Ilosc liczbaElementow( floorl(( max.value() - tObj.value() ) / objPojedyncza.value()) );
 					if( liczbaElementow >= Ilosc(1.0) ){

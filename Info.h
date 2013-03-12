@@ -5,7 +5,7 @@
 #include "IdType.h"
 
 class Info:
-	virtual public Base,
+	public Base,
 	public LoggerInterface<Info>
 {
 public:

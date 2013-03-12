@@ -5,7 +5,7 @@
 
 
 Obiekt::Obiekt( const ObiektInfo& obiekt )
-	: Base( obiekt ), ObiektBase( obiekt ), obiektInfoClass( obiekt )
+	: ObiektBase( obiekt ), obiektInfoClass( obiekt )
 {
 }
 
@@ -17,24 +17,24 @@ Obiekt* Obiekt::Kopia() const{
 }
 
 Obiekt* Obiekt::Podziel( const Ilosc& i ){
-	if( Ilosc::operator>(i) ){
+	if( getIlosc()>i ){
 		Obiekt* o = new Obiekt( *this );
-		Ilosc::operator-=(i);
-		o->setIlosc(i.value());
+		setIlosc(getIlosc()-i);
+		o->setIlosc(i);
 		return o; 
 	}
 	return nullptr;
 }	
 Powierzchnia Obiekt::getPowierzchnia() const{
-	return Powierzchnia(obiektInfoClass.getPowierzchnia().value()*(this->getIlosc()));
+	return Powierzchnia(obiektInfoClass.getPowierzchnia().value()*(this->getIlosc().value()));
 }
 
 Objetosc Obiekt::getObjetosc() const{
-	return Objetosc(obiektInfoClass.getObjetosc().value()*(this->getIlosc()));
+	return Objetosc(obiektInfoClass.getObjetosc().value()*(this->getIlosc().value()));
 }
 
 Masa Obiekt::getMasa() const{
-	return Masa(obiektInfoClass.getMasa().value()*(this->getIlosc()));
+	return Masa(obiektInfoClass.getMasa().value()*(this->getIlosc().value()));
 }
 		
 

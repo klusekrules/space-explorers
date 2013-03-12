@@ -2,17 +2,17 @@
 #include "Logger.h"
 
 Surowce::Surowce( const Ilosc& isIlosc , const SurowceInfo& s )
-	: Base(reinterpret_cast< const Base& >(s) ), ilosc( isIlosc ), Obiekt( reinterpret_cast< const ObiektInfo& >(s) )
+	: ilosc( isIlosc ), Obiekt( reinterpret_cast< const ObiektInfo& >(s) )
 {
 }
 
 Surowce::Surowce( const Ilosc& isIlosc , const Surowce& s )
-	: Base(s), ilosc( isIlosc ), Obiekt( s )
+	: ilosc( isIlosc ), Obiekt( s )
 {
 }
 
 Surowce::Surowce( const Surowce& sSurowce )
-	: Base(sSurowce), ilosc( sSurowce.ilosc ), Obiekt( sSurowce )
+	: ilosc( sSurowce.ilosc ), Obiekt( sSurowce )
 {
 }
 

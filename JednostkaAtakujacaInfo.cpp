@@ -2,7 +2,7 @@
 #include "Logger.h"
 
 JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const Info& info, const Obrazenia& oAtak,const Obrazenia& oPancerz, const Obrazenia& oOslona)
-	: Base(info), Info(info), atak(oAtak), pancerz(oPancerz), oslona(oOslona)
+	: Info(info), atak(oAtak), pancerz(oPancerz), oslona(oOslona), zmAtak(nullptr), zmPancerz(nullptr), zmOslona(nullptr)
 {
 }
 
@@ -13,24 +13,12 @@ const Obrazenia& JednostkaAtakujacaInfo::getAtak() const{
 	return atak;
 }
 	
-void JednostkaAtakujacaInfo::setAtak( const Obrazenia& wzAtak ){
-	atak = wzAtak;
-}
-	
 const Obrazenia& JednostkaAtakujacaInfo::getPancerz() const{
 	return pancerz;
 }
-	
-void JednostkaAtakujacaInfo::setPancerz( const Obrazenia& wzPancerz ){
-	pancerz = wzPancerz;
-}
-	
+
 const Obrazenia& JednostkaAtakujacaInfo::getOslona() const{
 	return oslona;
-}
-	
-void JednostkaAtakujacaInfo::setOslona( const Obrazenia& wzOslona ){
-	oslona = wzOslona;
 }
 
 string JednostkaAtakujacaInfo::toString() const{
@@ -38,5 +26,11 @@ string JednostkaAtakujacaInfo::toString() const{
 	str.addField("Atak",atak);
 	str.addField("Pancerz",pancerz);
 	str.addField("Oslona",oslona);
+	if(zmAtak!=nullptr)
+		str.addField("ZmianaMasy",*zmAtak);
+	if(zmPancerz!=nullptr)
+		str.addField("ZmianaObjetosci",*zmPancerz);
+	if(zmOslona!=nullptr)
+		str.addField("ZmianaPowierzchni",*zmOslona);
 	return str.toString();
 }
