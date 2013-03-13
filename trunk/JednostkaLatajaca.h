@@ -40,7 +40,7 @@ public:
 	* \param p - Prêdkoœæ, któr¹ ma lecieæ statek.
 	* \return Paliwo zu¿yte przez statek.
 	*/
-	ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const;
+	virtual ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const;
 
 	/**
 	* Maksymalna prêkoœæ jak¹ mo¿e rozwin¹æ statek.
@@ -76,7 +76,6 @@ protected:
 	*/
 	virtual Masa CalkowitaMasaJednostki() const;
 
-private:
 	const JednostkaLatajacaInfo& jednostkaLatajacaInfo; /// WskaŸnika na klase opisuj¹c¹.
 
 };

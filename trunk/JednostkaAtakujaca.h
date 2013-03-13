@@ -58,7 +58,7 @@ public:
 	*/
 	string toString() const override;
 
-private:
+protected:
 	const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo; /// WskaŸnik na klasê opisuj¹c¹. Wymagany do poprawnego dzia³ania.
 	
 };
