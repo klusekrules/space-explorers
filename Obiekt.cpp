@@ -41,5 +41,6 @@ Masa Obiekt::getMasa() const{
 string Obiekt::toString() const{
 	Logger str(LogObiekt::className());
 	str.addClass(ObiektBase::toString());
+	str.addField(ObiektInfo::LogObiektInfo::className()+"ID",obiektInfoClass.getId());
 	return str.toString();
 }

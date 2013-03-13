@@ -47,7 +47,7 @@ string JednostkaLatajacaInfo::toString() const{
 	Logger str(LogJednostkaLatajacaInfo::className());
 	str.addClass(Info::toString());
 	str.addField("RodzajNapedu",rodzajNapedu);
-	str.addField("MocSilnika",mocSilnika);
+	str.addField(mocSilnika.className(),mocSilnika);
 	if(przyrostMocySilnika!=nullptr){
 		str.addField("ZmianaMocySilnika",*przyrostMocySilnika);
 	}
@@ -55,7 +55,7 @@ string JednostkaLatajacaInfo::toString() const{
 	if(przyrostSprawnosciSilnika!=nullptr){
 		str.addField("ZmianaSprawnosciSilnika",*przyrostSprawnosciSilnika);
 	}
-	str.addField("ZuzyciePaliwa",zuzyciePaliwa);
+	str.addField(zuzyciePaliwa.className(),zuzyciePaliwa);
 	if(przyrostZuzyciaPaliwa!=nullptr){
 		str.addField("ZmianaZuzyciaPaliwa",*przyrostZuzyciaPaliwa);
 	}

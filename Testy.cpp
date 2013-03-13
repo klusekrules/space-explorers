@@ -9,6 +9,8 @@
 #include "ObiektList.hpp"
 #include "ObiektInfo.h"
 #include "Ladownia.h"
+#include "LadowniaInfo.h"
+
 Testy::Testy(){
 	locale pl ("Polish");
 	locale::global (pl);
@@ -49,15 +51,15 @@ bool Testy::test_KlasaLadownia(){
 	bool error = false;
 	Log::debug("Test Klasy £adownia!");
 	Log::debug("Zawartoœæ Klasy po utworzeniu");
-	Ladownia ladownia( Objetosc(100) , Fluktuacja(0.5) );
+	Info iladInfo(Tekst("Ladownia"),Tekst("Opis Ladowni"),IdType(54));
+	LadowniaInfo ladInfo(Objetosc(100),iladInfo);
+	Ladownia ladownia( ladInfo );
 	Log::debug(ladownia);
 	Log::debug("Pobieranie wlasnosci ladowi");
 	Log::debug("Zajete miejsce:");
 	Log::debug(ladownia.getZajeteMiejsce());
 	Log::debug("Pojemnosc Maksymalna:");
 	Log::debug(ladownia.getPojemnoscMax());
-	Log::debug("Fluktuacja pojemnosci:");
-	Log::debug(ladownia.getPrzyrostPojemnoscMax());
 	Log::debug("Test dodawania elementów do ³adowni.");
 	Info iInfo(Tekst("Tytul"),Tekst("Opis"),IdType(14));
 	ObiektInfo *ptr = new ObiektInfo( Masa(1) , Objetosc(1) , Powierzchnia(1), Poziom(0) , iInfo);

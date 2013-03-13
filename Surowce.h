@@ -15,7 +15,6 @@ class Surowce :
 	friend class SurowceInfo;
 public:
 	typedef LoggerInterface<Surowce> LogSurowce;
-	Surowce( const Surowce& );
 	virtual ~Surowce( );
 
 	Surowce* Kopia() const override;
@@ -58,10 +57,8 @@ public:
 	
 	void setIlosc( const Ilosc& );
 
-	SurowceInfo* getSurowceInfo() const;
-	
-	void setSurowceInfo( SurowceInfo* );
-		
+	const SurowceInfo& getSurowceInfo() const;
+			
 	string toString() const override;
 
 private:
@@ -71,6 +68,6 @@ private:
 	
 	Ilosc ilosc;
 
-	SurowceInfo* info;
+	const SurowceInfo& surowceInfo;
 
 };

@@ -1,40 +1,23 @@
 #include "Ladownia.h"
+#include "LadowniaInfo.h"
 
-Ladownia::Ladownia( )
-	: zajete( ) 
-	, pojemnoscMax( ), obiekty()
-	, przyrostPojemnoscMax( )
+Ladownia::Ladownia( const LadowniaInfo& l )
+	: zajete(), obiekty(), ladowniaInfo(l)
 {
 }
 
-Ladownia::Ladownia( const Objetosc& isPojemnoscMax )
-	: zajete( ) 
-	, pojemnoscMax( isPojemnoscMax ), obiekty()
-	, przyrostPojemnoscMax(  )
+Ladownia::Ladownia( Zbiornik& z , const LadowniaInfo& l )
+	: zajete(), obiekty() , ladowniaInfo(l)
 {
-}
-
-Ladownia::Ladownia( const Objetosc& isPojemnoscMax , const Fluktuacja& wzPrzyrost )
-	: zajete( Stale::objetoscDomyslny ) 
-	, pojemnoscMax( isPojemnoscMax ), obiekty(), przyrostPojemnoscMax( wzPrzyrost )
-{
-}
-
-Ladownia::Ladownia( const Ladownia& lLadownia )
-	: zajete( lLadownia.zajete) , pojemnoscMax( lLadownia.pojemnoscMax ) 
-	, obiekty( lLadownia.obiekty ), przyrostPojemnoscMax( lLadownia.przyrostPojemnoscMax )
-{
+	obiekty.moveAll(z);
+	przeliczZajeteMiejsce();
 }
 
 Ladownia::~Ladownia( ){
 }
 
 Fluktuacja Ladownia::WolneMiejsce() const{
-	return Fluktuacja( 1.0 ) - ( zajete / pojemnoscMax );
-}
-
-Objetosc Ladownia::MaksymalnaPojemnosc() const{
-	return Objetosc( pojemnoscMax * ( Fluktuacja(1.0) + przyrostPojemnoscMax ) );
+	return Fluktuacja( 1.0 ) - ( zajete / getPojemnoscMax() );
 }
 
 Ilosc Ladownia::SprawdzIloscObiektow( const Klucz& itID ) const{
@@ -46,10 +29,10 @@ Ilosc Ladownia::SprawdzIloscObiektow( const Klucz& itID ) const{
 }
 	
 bool Ladownia::DodajObiektDoLadowni( const Item& obiekt ){
-	if( obiekt.getObjetosc() > MaksymalnaPojemnosc() ){
+	if( obiekt.getObjetosc() > getPojemnoscMax() ){
 		return false;
 	}
-	if( (obiekt.getObjetosc() + zajete) > MaksymalnaPojemnosc()){
+	if( (obiekt.getObjetosc() + zajete) > getPojemnoscMax()){
 		return false;
 	}
 	try{
@@ -172,39 +155,19 @@ const Ladownia::Zbiornik& Ladownia::getPrzewozoneObiekty() const{
 	return obiekty;
 }
 
-void Ladownia::setPrzeworzoneObiekty( const Zbiornik& a ){
-	obiekty = a;
-}
-
 const Objetosc& Ladownia::getZajeteMiejsce() const{
 	return zajete;
 }
 
-void Ladownia::setZajeteMiejsce( const Objetosc& isPojemnosc ){
-	zajete = isPojemnosc;
-}
 
-const Objetosc& Ladownia::getPojemnoscMax() const{
-	return pojemnoscMax;
-}
-
-void Ladownia::setPojemnoscMax( const Objetosc& isPojemnoscMax ){
-	pojemnoscMax=isPojemnoscMax;
-}
-
-const Fluktuacja& Ladownia::getPrzyrostPojemnoscMax() const{
-	return przyrostPojemnoscMax;
-}
-
-void Ladownia::setPrzyrostPojemnoscMax( const Fluktuacja& wzPrzyrost ){
-	przyrostPojemnoscMax = wzPrzyrost;
+Objetosc Ladownia::getPojemnoscMax() const{
+	return ladowniaInfo.getPojemnoscMaksymalna();
 }
 
 string Ladownia::toString() const{
-	Logger str("Ladownia");
+	Logger str(className());
 	str.addField("Zajete Miejsce",zajete);
-	str.addField("Pojemnosc Maksymalna",pojemnoscMax);
-	str.addField("Przyrost Pojemnosci",przyrostPojemnoscMax);
-	str.addField("Zawartosc Ladowni",obiekty);
+	str.addField(obiekty.className(),obiekty);
+	str.addField(LadowniaInfo::LogLadowniaInfo::className()+"ID",ladowniaInfo.getId());
 	return str.toString();
 }

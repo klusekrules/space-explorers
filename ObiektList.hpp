@@ -146,6 +146,12 @@ public:
 	const_iterator end() const{
 		return  lista.cend();
 	}
+
+	void moveAll( ObiektList<T>& s ){
+		for(auto k : s.rawKluczList()){
+			add(s.getAndDel(k));
+		}
+	}
 	
 	template < class N >
 	static bool move( const Klucz& k , ObiektList<N> & z , ObiektList<N>& d ){

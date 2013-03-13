@@ -22,6 +22,8 @@
 #include "Masa.h"
 #include "ObiektList.hpp"
 
+class LadowniaInfo;
+
 class Ladownia:
 	public LoggerInterface<Ladownia>
 {
@@ -30,32 +32,27 @@ public:
 	typedef ObiektList< Item > Zbiornik;
 	typedef list < Klucz > ListaKluczy;
 
-	Ladownia( );
-	Ladownia( const Objetosc& );
-	Ladownia( const Objetosc& , const Fluktuacja& );
-	Ladownia( const Ladownia& );	
+	Ladownia( const LadowniaInfo& );
+	Ladownia( Zbiornik& , const LadowniaInfo& );
 	virtual ~Ladownia( );	
 	
 	Fluktuacja WolneMiejsce() const;
-	virtual Objetosc MaksymalnaPojemnosc() const;
+
 	Ilosc SprawdzIloscObiektow( const Klucz& ) const;
 	
 	bool DodajObiektDoLadowni( const Item& );
+
 	Item& PobierzObiekt( const Klucz& , const Ilosc& ) throw ( NieznalezionoObiektu, NiepoprawnaIloscObiektow );
+
 	ListaKluczy PobierzListeIdObiektow() const;
 
 	const Zbiornik& getPrzewozoneObiekty() const;
-	void setPrzeworzoneObiekty( const Zbiornik& );
+
 	Zbiornik* PodzielLadownie( const Objetosc&, const Objetosc& ) throw( BladDzieleniaLadowni, NiepoprawneParametryFunkcji  );
 
 	const Objetosc& getZajeteMiejsce() const;
-	void setZajeteMiejsce( const Objetosc& );
 
-	const Objetosc& getPojemnoscMax() const;
-	void setPojemnoscMax( const Objetosc& );
-
-	const Fluktuacja& getPrzyrostPojemnoscMax() const;
-	void setPrzyrostPojemnoscMax( const Fluktuacja& );
+	Objetosc getPojemnoscMax() const;
 
 	string toString() const override;
 
@@ -66,7 +63,7 @@ protected:
 
 	Zbiornik obiekty;
 	Objetosc zajete;
-	Objetosc pojemnoscMax;
-	Fluktuacja przyrostPojemnoscMax;
+private:
+	const LadowniaInfo& ladowniaInfo;
 };
 
