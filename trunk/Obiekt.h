@@ -17,7 +17,7 @@ class Obiekt:
 public:
 	typedef LoggerInterface<Obiekt> LogObiekt;
 
-	explicit Obiekt( const ObiektInfo& );
+	Obiekt( const Ilosc&, const ObiektInfo& );
 	virtual ~Obiekt();
 
 	Obiekt* Kopia() const override;

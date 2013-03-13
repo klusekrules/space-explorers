@@ -4,8 +4,8 @@
 
 
 
-Obiekt::Obiekt( const ObiektInfo& obiekt )
-	: ObiektBase( Ilosc(), obiekt ), obiektInfoClass( obiekt )
+Obiekt::Obiekt( const Ilosc& i, const ObiektInfo& obiekt )
+	: ObiektBase( i, obiekt ), obiektInfoClass( obiekt )
 {
 }
 
@@ -17,10 +17,9 @@ Obiekt* Obiekt::Kopia() const{
 }
 
 Obiekt* Obiekt::Podziel( const Ilosc& i ){
-	if( getIlosc()>i ){
-		Obiekt* o = new Obiekt( *this );
-		setIlosc(getIlosc()-i);
-		o->setIlosc(i);
+	if( ilosc>i ){
+		Obiekt* o = new Obiekt( i , this->obiektInfoClass );
+		ilosc-=i;
 		return o; 
 	}
 	return nullptr;

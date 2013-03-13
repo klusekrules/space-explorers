@@ -19,8 +19,9 @@ class ObiektBase :
 	public Base,
 	public LoggerInterface<ObiektBase>
 {
-private:
+protected:	
 	Ilosc ilosc;
+private:
 	const ObiektBaseInfo& obiektBaseInfo; /**< Wskazanie na obiekt opisuj¹cy dan¹ klasê*/
 
 public:

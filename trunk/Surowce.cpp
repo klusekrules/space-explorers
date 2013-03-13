@@ -3,12 +3,12 @@
 #include "Logger.h"
 
 Surowce::Surowce( const Ilosc& isIlosc , const SurowceInfo& s )
-	: ilosc( isIlosc ), Obiekt( reinterpret_cast< const ObiektInfo& >(s) ), surowceInfo(s)
+	:  Obiekt( isIlosc , s ), surowceInfo(s)
 {
 }
 
 Surowce::Surowce( const Ilosc& isIlosc , const Surowce& s )
-	: ilosc( isIlosc ), Obiekt( s ), surowceInfo(s.surowceInfo)
+	:  Obiekt( s ), surowceInfo(s.surowceInfo)
 {
 }
 
