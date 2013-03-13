@@ -1,6 +1,6 @@
 #include "Warunek.h"
 #include "Logger.h"
-
+#include "Aplikacja.h"
 Warunek::Warunek()
 {
 }
@@ -61,11 +61,10 @@ Warunek::~Warunek()
 	}
 }
 
-bool Warunek::sprawdzWarunki( ListaWarunkow& a ){
+bool Warunek::sprawdzWarunki( const IdType& idPlanety ){
+	const ObiektBase& ob = Aplikacja::getInstance().getObiekt(idPlanety); // TODO: Pobieranie planety zamiast obiektu, nastêpnie pobieranie obiektu z planety.
 	for( auto w : warunki ){
-		if( !spelnienieWarunku (*w, a ) ){
-			return false;
-		}
+		w->getPoziom() <= ob.getPoziom();
 	}
 	return true;
 }

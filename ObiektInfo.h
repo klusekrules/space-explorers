@@ -1,17 +1,15 @@
 #pragma once
 #include "Main.h"
-#include "Info.h"
+#include "ObiektBaseInfo.h"
 #include "Obiekt.h"
 #include "NiezainicjalizowanaKlasa.h"
 #include "ZmianaInterfejs.h"
 
 class ObiektInfo :
-	public Info,
+	public ObiektBaseInfo,
 	public LoggerInterface<ObiektInfo>
 {
 private:
-	ObiektBase obObiekt;
-
 	Powierzchnia powierzchnia;
 	ZmianaInterfejs<Powierzchnia>* zmPowierzchnia;
 
@@ -31,10 +29,8 @@ public:
 	Objetosc getObjetosc() const;
 
 	Masa getMasa() const;
-
-	const ObiektBase& getObiektBase() const;
 	
-	virtual Obiekt* TworzEgzemplarz( const Ilosc& ) const;
+	Obiekt* TworzEgzemplarz( const Ilosc& ) const override;
 
 	string toString() const override;
 };

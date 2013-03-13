@@ -30,8 +30,8 @@ CenaDekorator::Zbiornik CenaDekorator::PobierzKoszty( ) const {
 	return dekorator->PobierzKoszty();
 }
 
-bool CenaDekorator::czySpelniaWymagania( const Zbiornik& z ) const {
-	return dekorator->czySpelniaWymagania(z);
+bool CenaDekorator::czySpelniaWymagania( const Ilosc& i, const IdType& idPlanety ) const {
+	return dekorator->czySpelniaWymagania(i,idPlanety);
 }
 
 

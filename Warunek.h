@@ -21,21 +21,11 @@ public:
 	bool dodajWarunek( const ObiektBase& );
 	bool usunWarunek( const ObiektBase& );
 
-	bool sprawdzWarunki( ListaWarunkow& a );
+	bool sprawdzWarunki( const IdType& idPlanety ); //TODO: uzale¿niæ od id planety
 
 	string toString() const override;
 
 private:
-
-	static bool spelnienieWarunku(const ObiektBase& warunek, const ListaWarunkow& zrodlo){
-		for( auto z : zrodlo ){
-			if( warunek.getId() == z->getId() ){
-				return warunek.getPoziom() <= z->getPoziom();
-			}
-		}
-		return false;
-	}
-
 	ListaWarunkow warunki;
 };
 

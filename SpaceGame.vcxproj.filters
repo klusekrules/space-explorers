@@ -64,9 +64,6 @@
     <ClCompile Include="Info.cpp">
       <Filter>SourceFile\BaseClass\Info</Filter>
     </ClCompile>
-    <ClCompile Include="ObiektInfo.cpp">
-      <Filter>SourceFile\BaseClass\Info</Filter>
-    </ClCompile>
     <ClCompile Include="Powierzchnia.cpp">
       <Filter>SourceFile\BaseTypes</Filter>
     </ClCompile>
@@ -166,6 +163,12 @@
     <ClCompile Include="Wymagania.cpp">
       <Filter>SourceFile\Surowce\Cena</Filter>
     </ClCompile>
+    <ClCompile Include="ObiektInfo.cpp">
+      <Filter>SourceFile\BaseClass\Obiekt</Filter>
+    </ClCompile>
+    <ClCompile Include="ObiektBaseInfo.cpp">
+      <Filter>SourceFile\BaseClass\Info</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -253,9 +256,6 @@
       <Filter>SourceFile\BaseTypes</Filter>
     </ClInclude>
     <ClInclude Include="Info.h">
-      <Filter>SourceFile\BaseClass\Info</Filter>
-    </ClInclude>
-    <ClInclude Include="ObiektInfo.h">
       <Filter>SourceFile\BaseClass\Info</Filter>
     </ClInclude>
     <ClInclude Include="Powierzchnia.h">
@@ -374,6 +374,12 @@
     </ClInclude>
     <ClInclude Include="Zmiana.h">
       <Filter>SourceFile\BaseClass\Zmiana</Filter>
+    </ClInclude>
+    <ClInclude Include="ObiektInfo.h">
+      <Filter>SourceFile\BaseClass\Obiekt</Filter>
+    </ClInclude>
+    <ClInclude Include="ObiektBaseInfo.h">
+      <Filter>SourceFile\BaseClass\Info</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
