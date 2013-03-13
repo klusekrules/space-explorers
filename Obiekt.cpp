@@ -5,7 +5,7 @@
 
 
 Obiekt::Obiekt( const ObiektInfo& obiekt )
-	: ObiektBase( obiekt ), obiektInfoClass( obiekt )
+	: ObiektBase( obiekt.getObiektBase() ), obiektInfoClass( obiekt )
 {
 }
 

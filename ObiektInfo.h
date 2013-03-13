@@ -7,10 +7,11 @@
 
 class ObiektInfo :
 	public Info,
-	public ObiektBase,
 	public LoggerInterface<ObiektInfo>
 {
 private:
+	ObiektBase obObiekt;
+
 	Powierzchnia powierzchnia;
 	ZmianaInterfejs<Powierzchnia>* zmPowierzchnia;
 
@@ -30,6 +31,8 @@ public:
 	Objetosc getObjetosc() const;
 
 	Masa getMasa() const;
+
+	const ObiektBase& getObiektBase() const;
 	
 	virtual Obiekt* TworzEgzemplarz( const Ilosc& ) const;
 
