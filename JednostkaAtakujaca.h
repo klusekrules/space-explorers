@@ -20,7 +20,7 @@ public:
 	* Konstruktor parametryczny.
 	* /param jInfo - Wskazanie na klasê reprezentuj¹c¹ opis jednostki atakuj¹cej.
 	*/
-	JednostkaAtakujaca( JednostkaAtakujacaInfo* jInfo );
+	explicit JednostkaAtakujaca( const JednostkaAtakujacaInfo& jInfo );
 	/**
 	* Konstruktor kopiuj¹cy.
 	* \param a - obiekt do skopiowania
@@ -36,34 +36,22 @@ public:
 	* Metoda atak s³u¿y do wyliczania obra¿eñ zadawanych przez obiekt.
 	* \return Obra¿enia zadane przez obiekt.
 	*/
-	virtual Obrazenia Atak() const throw (NiezainicjalizowanaKlasa);	
+	virtual Obrazenia Atak() const;	
 
 	/**
 	* Metoda obliczaj¹ca obra¿enia przyjête przez pancerz. Metoda zwraca obra¿enia, które nie przyj¹³ pancerz.
 	* \param o - Obra¿enia przes³ane do obiektu.
 	* \return Obra¿enia, które nie zosta³y przyjête przez obiekt.
 	*/
-	virtual Obrazenia Pancerz( const Obrazenia& o ) const throw (NiezainicjalizowanaKlasa);
+	virtual Obrazenia Pancerz( const Obrazenia& o ) const;
 
 	/**
 	* Metoda obliczaj¹ca obra¿enia przyjête przez oslone. Metoda zwraca obra¿enia, które nie przyje³a os³ona
 	* \param o - Obra¿enia przes³ane do obiektu.
 	* \return Obra¿enia, które nie zosta³y przyjête przez obiekt.
 	*/
-	virtual Obrazenia Oslona( const Obrazenia& o ) const throw (NiezainicjalizowanaKlasa);
+	virtual Obrazenia Oslona( const Obrazenia& o ) const;
 	
-	/**
-	* Metoda zwraca wskazanie na klasê opisuj¹c¹.
-	* \return WskaŸnik na klasê opisuj¹c¹.
-	*/
-	JednostkaAtakujacaInfo* getJednostkaAtakujacaInfo() const;
-
-	/**
-	* Metoda ustawia wskazanie na klasê opisuj¹c¹.
-	* \param i - Nowy wskaŸnik na klasê opisuj¹c¹.
-	*/
-	void setJednostkaAtakujacaInfo( JednostkaAtakujacaInfo* i);
-
 	/**
 	* Przeci¹¿ona funkcja generuj¹ca tekstowy opis klasy.
 	* \return Napis zawieraj¹cy opis klasy.
@@ -71,6 +59,6 @@ public:
 	string toString() const override;
 
 private:
-	JednostkaAtakujacaInfo * jednostkaAtakujacaInfo; /// WskaŸnik na klasê opisuj¹c¹. Wymagany do poprawnego dzia³ania.
+	const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo; /// WskaŸnik na klasê opisuj¹c¹. Wymagany do poprawnego dzia³ania.
 	
 };

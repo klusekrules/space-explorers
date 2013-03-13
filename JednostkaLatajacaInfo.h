@@ -5,6 +5,7 @@
 #include "ZuzyciePaliwa.h"
 #include "Masa.h"
 #include "Klucz.h"
+#include "ZmianaInterfejs.h"
 
 
 /**
@@ -40,59 +41,29 @@ public:
 	const Klucz& getRodzajNapedu() const;
 
 	/**
-	* Metoda ustawiaj¹ca rodzaj napêdu jednostki.
-	* \param k - Rodzaj napêdu jednostki.
-	*/
-	void setRodzajNapedu( const Klucz& k );
-
-	/**
 	* Metoda zwracaj¹ca moc silnika jednostki.
 	* \return Moc silnika jednostki.
 	*/
-	const MocSilnika& getMocSilnika() const;
-
-	/**
-	* Metoda ustawiaj¹ca moc silnika jednostki.
-	* \param m - Moc silnika jednostki.
-	*/
-	void setMocSilnika( const MocSilnika& m );
+	MocSilnika getMocSilnika() const;
 
 	/**
 	* Metoda zwracaj¹ca zu¿ycie paliwa jednostki.
 	* \return Zu¿ycie paliwa jednostki.
 	*/
-	const ZuzyciePaliwa& getZuzyciePaliwa() const;
-
-	/**
-	* Metoda ustawiaj¹ca zu¿ycie paliwa jednostki.
-	* \param k - Zu¿ycie paliwa jednostki.
-	*/
-	void setZuzyciePaliwa( const ZuzyciePaliwa& z );
-
+	ZuzyciePaliwa getZuzyciePaliwa() const;
+	
 	/**
 	* Metoda zwracaj¹ca masê napêdu jednostki.
 	* \return Masa napêdu jednostki.
 	*/
-	const Masa& getMasaNapedu() const;
-
-	/**
-	* Metoda ustawiaj¹ca masê napêdu jednostki.
-	* \param k - Masa napêdu jednostki.
-	*/
-	void setMasaNapedu( const Masa& m );
-
+	Masa getMasaNapedu() const;
+	
 	/**
 	* Metoda zwracaj¹ca Sprawnosc Silnika jednostki.
 	* \return Sprawnosc Silnika jednostki.
 	*/
-	const Fluktuacja& getSprawnoscSilnika() const;
-
-	/**
-	* Metoda ustawiaj¹ca Sprawnosc Silnika jednostki.
-	* \param k - Sprawnosc Silnika jednostki.
-	*/
-	void setSprawnoscSilnika( const Fluktuacja& m );
-
+	Fluktuacja getSprawnoscSilnika() const;
+	
 	/**
 	* Metoda opisuj¹ca zawartoœæ klasy.
 	* \return CI¹g znaków opisuj¹cy klasê.
@@ -105,5 +76,11 @@ private:
 	ZuzyciePaliwa		zuzyciePaliwa; /// Zu¿ycie paliwa przez statek
 	Masa				masaNapedu; /// Masa uk³adu napêdowego
 	Fluktuacja			sprawnoscSilnika; /// Sprawnoœæ silnika.
+
+	
+	ZmianaInterfejs<MocSilnika>*	przyrostMocySilnika; /// Klasa dekoratora wyliczaj¹ca zmianê mocy silnika
+	ZmianaInterfejs<Fluktuacja>*	przyrostSprawnosciSilnika; /// Klasa dekoratora wyliczaj¹ca zmianê sprawnoœci silnika
+	ZmianaInterfejs<ZuzyciePaliwa>*	przyrostZuzyciaPaliwa; /// Klasa dekoratora wyliczaj¹ca zmianê zu¿ycia paliwa
+	ZmianaInterfejs<Masa>*			przyrostMasyNapedu; /// Klasa dekoratora wyliczaj¹ca zmianê masy napêdu
 };
 
