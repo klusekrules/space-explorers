@@ -31,7 +31,7 @@ public:
 	Masa getMasa() const;
 
 	string toString() const override;
-private:
+protected:
 	const ObiektInfo& obiektInfoClass; 
 };
 

@@ -18,6 +18,14 @@ public:
 	typedef LoggerInterface<Statek> LogStatek;
 	virtual ~Statek();
 
+	ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const override;
+
+	Obrazenia Atak() const override;
+
+	Obrazenia Pancerz( const Obrazenia& o ) const override;
+
+	Obrazenia Oslona( const Obrazenia& o ) const override;
+
 	string toString() const override;
 private:
 
