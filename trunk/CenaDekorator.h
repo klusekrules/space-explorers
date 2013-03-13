@@ -22,7 +22,7 @@ public:
 
 	Zbiornik PobierzKoszty( ) const override;
 
-	bool czySpelniaWymagania( const Zbiornik& ) const override;
+	bool czySpelniaWymagania( const Ilosc&, const IdType& ) const override;
 
 	string toString() const override;
 private:

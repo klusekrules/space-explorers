@@ -5,7 +5,7 @@
 #include "Poziom.h"
 #include "Klucz.h"
 
-class Info;
+class ObiektBaseInfo;
 /**
 * Klasa bazowa dla obiektów gry. Zawiera informacje o id obiektu,
 * poziomie obiektu, iloœci obiektów przypisanych do tej klasy.
@@ -21,8 +21,7 @@ class ObiektBase :
 {
 private:
 	Ilosc ilosc;
-	Poziom poziom;
-	const Info& info; /**< Wskazanie na obiekt opisuj¹cy dan¹ klasê*/
+	const ObiektBaseInfo& obiektBaseInfo; /**< Wskazanie na obiekt opisuj¹cy dan¹ klasê*/
 
 public:
 	typedef LoggerInterface<ObiektBase> LogObiektBase;
@@ -33,7 +32,7 @@ public:
 	* \param poziom - Poziom obiektów opisywanych przez klasê.
 	* \param iInfo - Wskazanie na klasê opisuj¹c¹ reprezentowany obiekt.
 	*/
-	ObiektBase( const Ilosc& ilosc, const Poziom & poziom, const Info& iInfo);
+	ObiektBase( const Ilosc& ilosc, const ObiektBaseInfo& iInfo);
 
 	/**
 	* Destruktor domyœlny.
@@ -96,12 +95,6 @@ public:
 	* \param i - Nowa iloœæ elementów.
 	*/
 	void setIlosc( const Ilosc& i );
-
-	/**
-	* Metoda ustawia poziom elementów opisywanych przez klasê.
-	* \param p - Nowa poziom elementów.
-	*/
-	void setPoziom( const Poziom& p );
 
 	/**
 	* Metoda zwraca poziom elementów opisywanych przez klasê

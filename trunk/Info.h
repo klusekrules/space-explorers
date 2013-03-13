@@ -23,7 +23,7 @@ public:
 
 	const Wymagania& getWymagania() const;
 
-	bool sprawdzWymagania(/*TODO: ID PLANETY*/) const;
+	bool sprawdzWymagania(const Ilosc& i , const IdType& idPlanety) const;
 	
 	string toString() const override;
 

@@ -37,11 +37,12 @@ Cena* Cena::Kopia() const{
 	return new Cena(*this);
 }
 
-bool Cena::czySpelniaWymagania( const Zbiornik& z ) const{
+bool Cena::czySpelniaWymagania( const Ilosc& i, const IdType& z ) const{
+	const Zbiornik& zb = Zbiornik(); //TODO: Pobieranie zbiornika z planety
 	for(auto a : obiekty){
 		try{
-			Surowce& o = z.get(a.second->ID());
-			if(a.second->getIlosc() > o.getIlosc() )
+			Surowce& o = zb.get(a.second->ID());
+			if((a.second->getIlosc() * i)> o.getIlosc() )
 				return false;
 		}catch( const NieznalezionoObiektu& ){
 			return false;

@@ -233,12 +233,14 @@ bool Testy::test_podstawoweDzialaniaKlas(){
 	
 	cout << "\nTest klasy: ObiektBase\n";
 	Info iA( Tekst("A"), Tekst("A"), IdType(1),Wymagania() );
+	ObiektBaseInfo iobA( iA, Poziom(20) );
 	Info iB( Tekst("B"), Tekst("B"), IdType(2),Wymagania() );
-	ObiektBase objbase1( Ilosc(14), Poziom(20), iA );
+	ObiektBaseInfo iobB( iB, Poziom(10) );
+	ObiektBase objbase1( Ilosc(14), iobA );
 	cout << "Zawartoœæ utworzonej klasy: " << objbase1.toString() << endl;
-	ObiektBase objbase2( Ilosc(1), Poziom(20), iA );
+	ObiektBase objbase2( Ilosc(1), iobA );
 	cout << "Zawartoœæ utworzonej klasy: " << objbase2.toString() << endl;
-	ObiektBase objbase3( Ilosc(2), Poziom(10), iB );
+	ObiektBase objbase3( Ilosc(2), iobB );
 	cout << "Zawartoœæ utworzonej klasy: " << objbase3.toString() << endl;
 	cout << "Klucz dla pierwszego elementu: " << objbase1.ID().toString()<<endl;
 	cout << "Próba dzielenia objbase1 wzg 5: "<< objbase1.czyMoznaPodzielic(Ilosc(5))<<endl;

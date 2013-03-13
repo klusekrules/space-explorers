@@ -25,8 +25,8 @@ void Info::setOpis( const Tekst& tOpis ){
 	opis = tOpis;
 }
 
-bool Info::sprawdzWymagania(/*TODO: ID PLANETY*/) const{
-	return true;
+bool Info::sprawdzWymagania(const Ilosc& i, const IdType& idPlanety) const{
+	return wymagania.sprawdzWymagania(i,idPlanety);
 }
 
 const Wymagania& Info::getWymagania() const{

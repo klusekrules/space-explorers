@@ -11,6 +11,13 @@ Wymagania::Wymagania( CenaInterfejs* c, Warunek* w )
 	: koszty(c), wymogi(w)
 {
 }
+
+bool Wymagania::sprawdzWymagania( const Ilosc& i, const IdType& idPlanety ) const{
+	if(koszty==nullptr || wymogi==nullptr)
+		return false;
+	return koszty->czySpelniaWymagania(i,idPlanety) && wymogi->sprawdzWarunki(idPlanety);
+}
+
 Wymagania::Wymagania( const Wymagania& w )
 {
 	if(w.koszty!=nullptr)

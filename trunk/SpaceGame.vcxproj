@@ -198,6 +198,7 @@
     <ClInclude Include="NieznalezionoObiektu.h" />
     <ClInclude Include="Obiekt.h" />
     <ClInclude Include="ObiektBase.h" />
+    <ClInclude Include="ObiektBaseInfo.h" />
     <ClInclude Include="ObiektInfo.h" />
     <ClInclude Include="ObiektList.hpp" />
     <ClInclude Include="Objetosc.h" />
@@ -263,6 +264,7 @@
     <ClCompile Include="NieznalezionoObiektu.cpp" />
     <ClCompile Include="Obiekt.cpp" />
     <ClCompile Include="ObiektBase.cpp" />
+    <ClCompile Include="ObiektBaseInfo.cpp" />
     <ClCompile Include="ObiektInfo.cpp" />
     <ClCompile Include="Objetosc.cpp" />
     <ClCompile Include="Obrazenia.cpp" />

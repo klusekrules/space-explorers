@@ -15,7 +15,7 @@ public:
 
 	virtual CenaInterfejs* Kopia() const = 0 ;
 
-	virtual bool czySpelniaWymagania( const Zbiornik& ) const = 0 ;
+	virtual bool czySpelniaWymagania( const Ilosc&, const IdType& ) const = 0 ;
 
 	virtual ~CenaInterfejs(){}
 

@@ -27,6 +27,8 @@ public:
 	Ilosc& operator-=( const Ilosc& );
 	Ilosc& operator=( const Ilosc& );
 
+	Ilosc operator*( const Ilosc& )const;
+
 	type_name getIlosc()const;
 
 	void setIlosc( const type_name& );

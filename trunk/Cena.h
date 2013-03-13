@@ -22,7 +22,7 @@ public:
 
 	Zbiornik PobierzKoszty( ) const override;
 
-	bool czySpelniaWymagania( const Zbiornik& ) const override;
+	bool czySpelniaWymagania( const Ilosc& i, const IdType& idPlanety ) const override;
 
 	const Zbiornik& getKoszty() const;
 	void setKoszty( const Zbiornik& );

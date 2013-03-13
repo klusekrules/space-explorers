@@ -2,7 +2,7 @@
 #include "Logger.h"
 
 ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& obj, const Powierzchnia& pow, const Poziom& p , const Info& info )
-	: Info(info), masa(masa), objetosc(obj), powierzchnia(pow), obObiekt(Ilosc(),p,*this), zmMasa(nullptr), zmObjetosc(nullptr), zmPowierzchnia(nullptr)
+	: ObiektBaseInfo(info,p), masa(masa), objetosc(obj), powierzchnia(pow), zmMasa(nullptr), zmObjetosc(nullptr), zmPowierzchnia(nullptr)
 {
 }
 
@@ -27,10 +27,6 @@ Masa ObiektInfo::getMasa() const {
 	return zmMasa->value(masa);
 }
 
-const ObiektBase& ObiektInfo::getObiektBase() const{
-	return obObiekt;
-}
-
 Obiekt* ObiektInfo::TworzEgzemplarz( const Ilosc& iIlosc ) const {
 	Obiekt* o = new Obiekt( *this );
 	o->setIlosc(iIlosc);
@@ -39,7 +35,7 @@ Obiekt* ObiektInfo::TworzEgzemplarz( const Ilosc& iIlosc ) const {
 
 string ObiektInfo::toString() const{
 	Logger str(LogObiektInfo::className());
-	str.addField(ObiektBase::LogObiektBase::className(),static_cast< const ObiektBase::LogObiektBase& >(obObiekt));
+	str.addClass(ObiektBaseInfo::toString());
 	str.addField(Masa::className(),masa);
 	str.addField(Objetosc::className(),objetosc);
 	str.addField(Powierzchnia::className(),powierzchnia);
