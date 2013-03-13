@@ -9,16 +9,25 @@ JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const Info& info, const Obrazenia
 JednostkaAtakujacaInfo::~JednostkaAtakujacaInfo(){
 }
 
-const Obrazenia& JednostkaAtakujacaInfo::getAtak() const{
-	return atak;
+Obrazenia JednostkaAtakujacaInfo::getAtak() const{
+	if(zmAtak==nullptr)
+		return atak;
+	else
+		return zmAtak->value(atak);
 }
 	
-const Obrazenia& JednostkaAtakujacaInfo::getPancerz() const{
-	return pancerz;
+Obrazenia JednostkaAtakujacaInfo::getPancerz() const{
+	if(zmPancerz==nullptr)
+		return pancerz;
+	else
+		return zmPancerz->value(pancerz);
 }
 
-const Obrazenia& JednostkaAtakujacaInfo::getOslona() const{
-	return oslona;
+Obrazenia JednostkaAtakujacaInfo::getOslona() const{
+	if(zmOslona==nullptr)
+		return oslona;
+	else
+		return zmOslona->value(oslona);
 }
 
 string JednostkaAtakujacaInfo::toString() const{

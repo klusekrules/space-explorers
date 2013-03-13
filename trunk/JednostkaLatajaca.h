@@ -14,10 +14,6 @@ class JednostkaLatajaca :
 	public LoggerInterface < JednostkaLatajaca >
 {
 public:
-	/**
-	* Konstruktor domyœlny
-	*/
-	JednostkaLatajaca();
 
 	/**
 	* Konstruktor parametryczny
@@ -25,7 +21,7 @@ public:
 	* \param mocSilnika - Procentowa wartoœæ mocy w klasie opisuj¹cej. Domyœlnie 1.0 
 	* \param zuzyciePaliwa - Procentowa wartoœæ zu¿ycia paliwa w klasie opisuj¹cej. Domyœlnie 1.0 
 	*/
-	JednostkaLatajaca( JednostkaLatajacaInfo * jInfo , const Fluktuacja& mocSilnika , const Fluktuacja& zuzyciePaliwa );
+	explicit JednostkaLatajaca( const JednostkaLatajacaInfo& jInfo );
 	
 	/**
 	* Domyœlny konstruktor kopiuj¹cy
@@ -44,7 +40,7 @@ public:
 	* \param p - Prêdkoœæ, któr¹ ma lecieæ statek.
 	* \return Paliwo zu¿yte przez statek.
 	*/
-	ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const throw ( NiezainicjalizowanaKlasa );
+	ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const;
 
 	/**
 	* Maksymalna prêkoœæ jak¹ mo¿e rozwin¹æ statek.
@@ -64,45 +60,8 @@ public:
 	* }
 	* \return prêdkoœæ jak¹ mo¿e rozwin¹æ statek.
 	*/
-	Predkosc PredkoscMaksymalna() const throw ( NiezainicjalizowanaKlasa );
+	Predkosc PredkoscMaksymalna() const;
 	
-	/**
-	* Metoda zwraca procentowy wspó³czynnik mocy silnika.
-	* \return Procentowy wpó³czynnik mocy silnika.
-	*/
-	const Fluktuacja& getPrzyrostMocySilnika() const;
-
-	/**
-	* Metoda ustawia procentowy wspó³czynnik mocy silnika.
-	* \param f - Procentowy wpó³czynnik mocy silnika.
-	*/
-	void setPrzyrostMocySilnika( const Fluktuacja& f );
-
-	/**
-	* Metoda zwraca procentowy wspó³czynnik zu¿ycia paliwa.
-	* \return Procentowy wpó³czynnik zau¿ycia paliwa.
-	*/
-	const Fluktuacja& getPrzyrostZuzyciaPaliwa() const;
-
-	/**
-	* Metoda ustawia procentowy wspó³czynnik zu¿ycia paliwa.
-	* \param f - Procentowy wpó³czynnik zu¿ycia paliwa.
-	*/
-	void setPrzyrostZuzyciaPaliwa( const Fluktuacja& f );
-
-	/**
-	* Metoda zwraca procentowy wspó³czynnik sprawnosci silnika.
-	* \return Procentowy wpó³czynnik sprawnosci silnika.
-	*/
-	const Fluktuacja& getPrzyrostSprawnosciSilnika() const;
-
-	/**
-	* Metoda ustawia procentowy wspó³czynnik sprawnosci silnika.
-	* \param f - Procentowy wpó³czynnik sprawnosci silnika.
-	*/
-	void setPrzyrostSprawnosciSilnika( const Fluktuacja& f );
-
-
 	/**
 	* Metoda opisuj¹ca zawartoœæ klasy.
 	* \return CI¹g znaków opisuj¹cy klasê.
@@ -118,10 +77,7 @@ protected:
 	virtual Masa CalkowitaMasaJednostki() const;
 
 private:
-	JednostkaLatajacaInfo * info; /// WskaŸnika na klase opisuj¹c¹.
-	Fluktuacja	przyrostMocySilnika; /// Procentowa wartoœæ mocy silnika.
-	Fluktuacja	przyrostSprawnosciSilnika; /// Procentowa wartoœæ sprawnosci silnika.
-	Fluktuacja	przyrostZuzyciaPaliwa; /// Procentowa wartoœæ zu¿ycia paliwa.
+	const JednostkaLatajacaInfo& jednostkaLatajacaInfo; /// WskaŸnika na klase opisuj¹c¹.
 
 };
 

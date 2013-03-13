@@ -2,7 +2,8 @@
 #include "Logger.h"
 
 JednostkaLatajacaInfo::JednostkaLatajacaInfo( const Info& info,const Klucz& k, const MocSilnika& moc, const ZuzyciePaliwa& z, const Masa& masa )
-	: Info(info), rodzajNapedu(k), mocSilnika(moc), zuzyciePaliwa(z), masaNapedu(masa)
+	: Info(info), rodzajNapedu(k), mocSilnika(moc), zuzyciePaliwa(z), masaNapedu(masa), przyrostZuzyciaPaliwa(nullptr), przyrostSprawnosciSilnika(nullptr),
+	przyrostMocySilnika(nullptr), przyrostMasyNapedu(nullptr)
 {
 }
 
@@ -14,39 +15,32 @@ const Klucz& JednostkaLatajacaInfo::getRodzajNapedu() const{
 	return rodzajNapedu;
 }
 
-void JednostkaLatajacaInfo::setRodzajNapedu( const Klucz& k ){
-	rodzajNapedu = k;
+MocSilnika JednostkaLatajacaInfo::getMocSilnika() const{
+	if(przyrostMocySilnika==nullptr)
+		return mocSilnika;
+	else
+		return przyrostMocySilnika->value(mocSilnika);
 }
 
-const MocSilnika& JednostkaLatajacaInfo::getMocSilnika() const{
-	return mocSilnika;
+ZuzyciePaliwa JednostkaLatajacaInfo::getZuzyciePaliwa() const{
+	if(przyrostZuzyciaPaliwa==nullptr)
+		return zuzyciePaliwa;
+	else
+		return przyrostZuzyciaPaliwa->value(zuzyciePaliwa);
 }
 
-void JednostkaLatajacaInfo::setMocSilnika( const MocSilnika& m ){
-	mocSilnika = m;
+Masa JednostkaLatajacaInfo::getMasaNapedu() const{
+	if(przyrostMasyNapedu==nullptr)
+		return masaNapedu;
+	else
+		return przyrostMasyNapedu->value(masaNapedu);
 }
 
-const ZuzyciePaliwa& JednostkaLatajacaInfo::getZuzyciePaliwa() const{
-	return zuzyciePaliwa;
-}
-void JednostkaLatajacaInfo::setZuzyciePaliwa( const ZuzyciePaliwa& z ){
-	zuzyciePaliwa = z;
-}
-
-const Masa& JednostkaLatajacaInfo::getMasaNapedu() const{
-	return masaNapedu;
-}
-
-void JednostkaLatajacaInfo::setMasaNapedu( const Masa& m ){
-	masaNapedu = m;
-}
-
-const Fluktuacja& JednostkaLatajacaInfo::getSprawnoscSilnika() const{
-	return sprawnoscSilnika;
-}
-
-void JednostkaLatajacaInfo::setSprawnoscSilnika( const Fluktuacja& m ){
-	sprawnoscSilnika = m; 
+Fluktuacja JednostkaLatajacaInfo::getSprawnoscSilnika() const{
+	if(przyrostSprawnosciSilnika==nullptr)
+		return sprawnoscSilnika;
+	else
+		return przyrostSprawnosciSilnika->value(sprawnoscSilnika);
 }
 
 string JednostkaLatajacaInfo::toString() const{
@@ -54,8 +48,21 @@ string JednostkaLatajacaInfo::toString() const{
 	str.addClass(Info::toString());
 	str.addField("RodzajNapedu",rodzajNapedu);
 	str.addField("MocSilnika",mocSilnika);
+	if(przyrostMocySilnika!=nullptr){
+		str.addField("ZmianaMocySilnika",*przyrostMocySilnika);
+	}
 	str.addField("SprawnoscSilnika",sprawnoscSilnika);
+	if(przyrostSprawnosciSilnika!=nullptr){
+		str.addField("ZmianaSprawnosciSilnika",*przyrostSprawnosciSilnika);
+	}
 	str.addField("ZuzyciePaliwa",zuzyciePaliwa);
+	if(przyrostZuzyciaPaliwa!=nullptr){
+		str.addField("ZmianaZuzyciaPaliwa",*przyrostZuzyciaPaliwa);
+	}
 	str.addField("MasaNapedu",masaNapedu);
+	if(przyrostMasyNapedu!=nullptr){
+		str.addField("ZmianaMasyNapedu",*przyrostMasyNapedu);
+	}
+	
 	return str.toString();
 }
