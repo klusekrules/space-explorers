@@ -2,9 +2,10 @@
 #include <time.h>
 #include <sstream>
 #include <iomanip>
+#include "Info.h"
 
 Aplikacja::Aplikacja()
-	: isDbgHelpInit(false), pustyObiekt(Ilosc(0), Poziom(0), Info(Tekst(""),Tekst(""),IdType(0)))
+	: isDbgHelpInit(false), pustyObiekt(Ilosc(0), Poziom(0), Info(Tekst(""),Tekst(""),IdType(0),Wymagania()))
 {
 	hLibrary = LoadLibrary("Dbghelp.dll");
 	if(hLibrary!=NULL){		

@@ -51,7 +51,7 @@ bool Testy::test_KlasaLadownia(){
 	bool error = false;
 	Log::debug("Test Klasy £adownia!");
 	Log::debug("Zawartoœæ Klasy po utworzeniu");
-	Info iladInfo(Tekst("Ladownia"),Tekst("Opis Ladowni"),IdType(54));
+	Info iladInfo(Tekst("Ladownia"),Tekst("Opis Ladowni"),IdType(54),Wymagania());
 	LadowniaInfo ladInfo(Objetosc(100),iladInfo);
 	Ladownia ladownia( ladInfo );
 	Log::debug(ladownia);
@@ -61,7 +61,7 @@ bool Testy::test_KlasaLadownia(){
 	Log::debug("Pojemnosc Maksymalna:");
 	Log::debug(ladownia.getPojemnoscMax());
 	Log::debug("Test dodawania elementów do ³adowni.");
-	Info iInfo(Tekst("Tytul"),Tekst("Opis"),IdType(14));
+	Info iInfo(Tekst("Tytul"),Tekst("Opis"),IdType(14),Wymagania());
 	ObiektInfo *ptr = new ObiektInfo( Masa(1) , Objetosc(1) , Powierzchnia(1), Poziom(0) , iInfo);
 	Obiekt *o = ptr->TworzEgzemplarz(Ilosc(30));
 	ObiektInfo *ptr2 = new ObiektInfo( Masa(1) , Objetosc(5) , Powierzchnia(1), Poziom(0) , iInfo);
@@ -89,7 +89,7 @@ bool Testy::test_tworzenieObiektow(){
 	bool result = false;
 	bool error = false;
 	Log::debug("Test tworzenia egzemplazy obiektow");
-	ObiektInfo * ptr = new ObiektInfo( Masa(0) , Objetosc(0) , Powierzchnia(0) , Poziom( 2 ), Info(Tekst("Napis"), Tekst("Opis"), IdType(1)) );
+	ObiektInfo * ptr = new ObiektInfo( Masa(0) , Objetosc(0) , Powierzchnia(0) , Poziom( 2 ), Info(Tekst("Napis"), Tekst("Opis"), IdType(1),Wymagania()) );
 	Log::debug( "Klasa info:");
 	Log::debug<ObiektInfo>(*ptr);
 	Obiekt *o = ptr->TworzEgzemplarz(Ilosc(8));
@@ -108,10 +108,10 @@ bool Testy::test_KlasaObiektList(){
 	Log::debug(ObiektList<Obiekt>::className());
 	ObiektList<Obiekt> lista;
 	ObiektList<Obiekt> listaDruga;
-	ObiektInfo oiA( Masa(0), Objetosc(0), Powierzchnia(0), Poziom(2), Info(Tekst("A"),Tekst("A"),IdType(10)));
-	ObiektInfo oiB( Masa(0), Objetosc(0), Powierzchnia(0), Poziom(3), Info(Tekst("B"),Tekst("B"),IdType(10)));
-	ObiektInfo oiC( Masa(0), Objetosc(0), Powierzchnia(0), Poziom(2), Info(Tekst("C"),Tekst("C"),IdType(10)));
-	ObiektInfo oiD( Masa(0), Objetosc(0), Powierzchnia(0), Poziom(2), Info(Tekst("D"),Tekst("D"),IdType(11)));
+	ObiektInfo oiA( Masa(0), Objetosc(0), Powierzchnia(0), Poziom(2), Info(Tekst("A"),Tekst("A"),IdType(10),Wymagania()));
+	ObiektInfo oiB( Masa(0), Objetosc(0), Powierzchnia(0), Poziom(3), Info(Tekst("B"),Tekst("B"),IdType(10),Wymagania()));
+	ObiektInfo oiC( Masa(0), Objetosc(0), Powierzchnia(0), Poziom(2), Info(Tekst("C"),Tekst("C"),IdType(10),Wymagania()));
+	ObiektInfo oiD( Masa(0), Objetosc(0), Powierzchnia(0), Poziom(2), Info(Tekst("D"),Tekst("D"),IdType(11),Wymagania()));
 	Obiekt *a = oiA.TworzEgzemplarz(Ilosc(4));
 	Obiekt *b = oiB.TworzEgzemplarz(Ilosc(4));
 	Obiekt *c = oiC.TworzEgzemplarz(Ilosc(4));
@@ -232,8 +232,8 @@ bool Testy::test_podstawoweDzialaniaKlas(){
 	cout << "Test Zakoñczony powodzeniem.\n";
 	
 	cout << "\nTest klasy: ObiektBase\n";
-	Info iA( Tekst("A"), Tekst("A"), IdType(1) );
-	Info iB( Tekst("B"), Tekst("B"), IdType(2) );
+	Info iA( Tekst("A"), Tekst("A"), IdType(1),Wymagania() );
+	Info iB( Tekst("B"), Tekst("B"), IdType(2),Wymagania() );
 	ObiektBase objbase1( Ilosc(14), Poziom(20), iA );
 	cout << "Zawartoœæ utworzonej klasy: " << objbase1.toString() << endl;
 	ObiektBase objbase2( Ilosc(1), Poziom(20), iA );
