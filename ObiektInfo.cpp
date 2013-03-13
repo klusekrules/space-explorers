@@ -28,9 +28,7 @@ Masa ObiektInfo::getMasa() const {
 }
 
 Obiekt* ObiektInfo::TworzEgzemplarz( const Ilosc& iIlosc ) const {
-	Obiekt* o = new Obiekt( *this );
-	o->setIlosc(iIlosc);
-	return o;
+	return new Obiekt( iIlosc, *this );
 }
 
 string ObiektInfo::toString() const{

@@ -1,40 +1,26 @@
 #pragma once
-/*
+#include "Main.h"
+#include "ObiektInfo.h"
+#include "LadowniaInfo.h"
+#include "JednostkaLatajacaInfo.h"
+#include "JednostkaAtakujacaInfo.h"
+#include "Statek.h"
+
 class StatekInfo:
-	public JednostkaAtakujaca,
-	public JednostkaLatajaca,
-	public Ladownia,
-	public Cena,
-	public Obiekt,
-	public Info
+	public ObiektInfo,
+	public JednostkaLatajacaInfo,
+	public JednostkaAtakujacaInfo,
+	public LadowniaInfo,
+	public LoggerInterface < StatekInfo >
 {
 public:	
-	static const SPG::IdType idStatekMaska;
-	StatekInfo();
+	typedef LoggerInterface < StatekInfo > LogStatekInfo;
 
-	StatekInfo(	const Obiekt&,
-		const Cena&,
-		const Info&,
-		const Ladownia&,
-		const SPG::RodzajNapedu&,
-		const SPG::MocSilnika&,
-		const SPG::ZuzyciePaliwa&,
-		const SPG::Obrazenia&,
-		const SPG::Obrazenia&,
-		const SPG::Obrazenia&
-		);
-
-	StatekInfo( const StatekInfo& );
+	StatekInfo(	const ObiektInfo& o , const JednostkaLatajacaInfo& j , const JednostkaAtakujacaInfo& a , const LadowniaInfo& l );
 
 	virtual ~StatekInfo();
-	
-	SPG::ZuzyciePaliwa ZuzyciePaliwa( const SPG::Dystans& , const SPG::Predkosc& ) const override;
-	SPG::Predkosc PredkoscMaksymalna() const override;
-	SPG::Obrazenia Atak() const override;	
-	SPG::Obrazenia Pancerz( const SPG::Obrazenia& ) const override;		
-	SPG::Obrazenia Oslona( const SPG::Obrazenia& ) const override;
-	
-	Statek* TworzEgzemplarz( const SPG::IloscJednostek& ) const;
+		
+	Statek* TworzEgzemplarz( const Ilosc& ) const override;
 
 	string toString() const override;
-};*/
+};

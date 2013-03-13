@@ -66,8 +66,6 @@ private:
 	Surowce( const Ilosc& , const Surowce& );
 	Surowce( const Ilosc& , const SurowceInfo&  );
 	
-	Ilosc ilosc;
-
 	const SurowceInfo& surowceInfo;
 
 };
