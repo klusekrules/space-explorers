@@ -3,7 +3,8 @@
 #include <vector>
 #include "ObiektBase.h"
 
-class Warunek
+class Warunek :
+	public LoggerInterface< Warunek >
 {
 public:
 	typedef vector< ObiektBase* > ListaWarunkow;
@@ -22,10 +23,12 @@ public:
 
 	bool sprawdzWarunki( ListaWarunkow& a );
 
+	string toString() const override;
+
 private:
 
 	static bool spelnienieWarunku(const ObiektBase& warunek, const ListaWarunkow& zrodlo){
-		for( auto z : zrodlo){
+		for( auto z : zrodlo ){
 			if( warunek.getId() == z->getId() ){
 				return warunek.getPoziom() <= z->getPoziom();
 			}

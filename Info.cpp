@@ -1,8 +1,8 @@
 #include "Info.h"
 #include "Logger.h"
 
-Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const IdType& id )
-	: Base(id), nazwa( tNazwa ), opis( tOpis )
+Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const IdType& id , const Wymagania& w )
+	: Base(id), nazwa( tNazwa ), opis( tOpis ), wymagania(w)
 {
 }
 
@@ -25,9 +25,18 @@ void Info::setOpis( const Tekst& tOpis ){
 	opis = tOpis;
 }
 
+bool Info::sprawdzWymagania(/*TODO: ID PLANETY*/) const{
+	return true;
+}
+
+const Wymagania& Info::getWymagania() const{
+	return wymagania;
+}
+
 string Info::toString() const{
 	Logger str(LogInfo::className());
 	str.addField("Nazwa",nazwa);
 	str.addField("Opis",opis);
+	str.addField(Wymagania::className(),wymagania);
 	return str.toString();
 }

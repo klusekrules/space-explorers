@@ -3,6 +3,7 @@
 #include "Base.h"
 #include "Tekst.h"
 #include "IdType.h"
+#include "Wymagania.h"
 
 class Info:
 	public Base,
@@ -11,7 +12,7 @@ class Info:
 public:
 	typedef LoggerInterface<Info> LogInfo;
 
-	Info( const Tekst& , const Tekst& , const IdType& );
+	Info( const Tekst& , const Tekst& , const IdType&, const Wymagania& );
 	virtual ~Info();
 
 	const Tekst& getNazwa() const;
@@ -19,10 +20,16 @@ public:
 
 	const Tekst& getOpis() const;
 	void setOpis( const Tekst& );
+
+	const Wymagania& getWymagania() const;
+
+	bool sprawdzWymagania(/*TODO: ID PLANETY*/) const;
 	
 	string toString() const override;
 
 private:
+	
+	Wymagania wymagania;
 
 	Tekst nazwa;
 	Tekst opis;

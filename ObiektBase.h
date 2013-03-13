@@ -4,7 +4,8 @@
 #include "Ilosc.h"
 #include "Poziom.h"
 #include "Klucz.h"
-#include "Info.h"
+
+class Info;
 /**
 * Klasa bazowa dla obiektów gry. Zawiera informacje o id obiektu,
 * poziomie obiektu, iloœci obiektów przypisanych do tej klasy.

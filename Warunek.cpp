@@ -1,5 +1,5 @@
 #include "Warunek.h"
-
+#include "Logger.h"
 
 Warunek::Warunek()
 {
@@ -68,4 +68,11 @@ bool Warunek::sprawdzWarunki( ListaWarunkow& a ){
 		}
 	}
 	return true;
+}
+
+string Warunek::toString() const{
+	Logger str(className());
+	for(auto a : warunki)
+		str.addField("ID Warunku",a->getId());
+	return str.toString();
 }
