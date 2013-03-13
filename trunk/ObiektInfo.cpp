@@ -2,7 +2,7 @@
 #include "Logger.h"
 
 ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& obj, const Powierzchnia& pow, const Poziom& p , const Info& info )
-	: Info(info), masa(masa), objetosc(obj), powierzchnia(pow), obObiekt(Ilosc(),p,info), zmMasa(nullptr), zmObjetosc(nullptr), zmPowierzchnia(nullptr)
+	: Info(info), masa(masa), objetosc(obj), powierzchnia(pow), obObiekt(Ilosc(),p,*this), zmMasa(nullptr), zmObjetosc(nullptr), zmPowierzchnia(nullptr)
 {
 }
 
@@ -39,10 +39,10 @@ Obiekt* ObiektInfo::TworzEgzemplarz( const Ilosc& iIlosc ) const {
 
 string ObiektInfo::toString() const{
 	Logger str(LogObiektInfo::className());
-	str.addField("ObiektBase",static_cast< const ObiektBase::LogObiektBase& >(obObiekt));
-	str.addField("Masa",masa);
-	str.addField("Objetosc",objetosc);
-	str.addField("Powierzchnia",powierzchnia);
+	str.addField(ObiektBase::LogObiektBase::className(),static_cast< const ObiektBase::LogObiektBase& >(obObiekt));
+	str.addField(Masa::className(),masa);
+	str.addField(Objetosc::className(),objetosc);
+	str.addField(Powierzchnia::className(),powierzchnia);
 	if(zmMasa!=nullptr)
 		str.addField("ZmianaMasy",*zmMasa);
 	if(zmObjetosc!=nullptr)

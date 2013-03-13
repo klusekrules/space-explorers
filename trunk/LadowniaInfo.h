@@ -1,15 +1,26 @@
-#pragma once/*
+#pragma once
+#include "Main.h"
+#include "Info.h"
+#include "Ladownia.h"
+#include "ZmianaInterfejs.h"
+
 class LadowniaInfo :
-	virtual public Base,
-	public Info
+	public Info,
+	public LoggerInterface<LadowniaInfo>
 {
+private:
+	
+	Objetosc pojemnoscMax;
+	ZmianaInterfejs<Objetosc>* przyrostPojemnoscMax;
+
 public:
-	LadowniaInfo();
+	typedef LoggerInterface<LadowniaInfo> LogLadowniaInfo;
+
+	LadowniaInfo( const Objetosc& max, const Info& i );
 	virtual ~LadowniaInfo();
 
-	Ladownia* TworzEgzemplarz( SPG::IloscJednostek& ) const override;
-	
+	Objetosc getPojemnoscMaksymalna() const;
+		
 	string toString() const override;
 };
 
-*/

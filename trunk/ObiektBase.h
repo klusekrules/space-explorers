@@ -21,8 +21,6 @@ class ObiektBase :
 private:
 	Ilosc ilosc;
 	Poziom poziom;
-
-protected:
 	const Info& info; /**< Wskazanie na obiekt opisuj¹cy dan¹ klasê*/
 
 public:

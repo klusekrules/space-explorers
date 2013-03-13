@@ -1,18 +1,14 @@
 #include "Surowce.h"
+#include "SurowceInfo.h"
 #include "Logger.h"
 
 Surowce::Surowce( const Ilosc& isIlosc , const SurowceInfo& s )
-	: ilosc( isIlosc ), Obiekt( reinterpret_cast< const ObiektInfo& >(s) )
+	: ilosc( isIlosc ), Obiekt( reinterpret_cast< const ObiektInfo& >(s) ), surowceInfo(s)
 {
 }
 
 Surowce::Surowce( const Ilosc& isIlosc , const Surowce& s )
-	: ilosc( isIlosc ), Obiekt( s )
-{
-}
-
-Surowce::Surowce( const Surowce& sSurowce )
-	: ilosc( sSurowce.ilosc ), Obiekt( sSurowce )
+	: ilosc( isIlosc ), Obiekt( s ), surowceInfo(s.surowceInfo)
 {
 }
 
@@ -143,17 +139,14 @@ void Surowce::setIlosc( const Ilosc& isIlosc ) {
 	ilosc = isIlosc;
 }
 
-SurowceInfo* Surowce::getSurowceInfo() const{
-	return info;
-}
-	
-void Surowce::setSurowceInfo( SurowceInfo* sInfo ) {
-	info = sInfo;
+const SurowceInfo& Surowce::getSurowceInfo() const{
+	return surowceInfo;
 }
 	
 string Surowce::toString() const{
 	Logger str(LogSurowce::className());
 	str.addField(ilosc.className(),ilosc);
-	str.addClass(Obiekt::toString());
+	str.addClass(Obiekt::toString());	
+	str.addField(SurowceInfo::LogSurowceInfo::className(),static_cast< const SurowceInfo::LogSurowceInfo& >(surowceInfo));
 	return str.toString();
 }

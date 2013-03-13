@@ -31,6 +31,6 @@ Masa JednostkaLatajaca::CalkowitaMasaJednostki() const{
 
 string JednostkaLatajaca::toString() const{
 	Logger str(className());
-	str.addField("IdJednostkiLatajacej",jednostkaLatajacaInfo.getId());
+	str.addField(JednostkaLatajacaInfo::LogJednostkaLatajacaInfo::className()+"ID",jednostkaLatajacaInfo.getId());
 	return str.toString();
 }

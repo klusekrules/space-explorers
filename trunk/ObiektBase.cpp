@@ -64,6 +64,6 @@ string ObiektBase::toString() const{
 	str.addClass(Base::toString());
 	str.addField(ilosc.className(),ilosc);
 	str.addField(poziom.className(),poziom);
-	str.addField(Info::LogInfo::className(),info.getId());
+	str.addField(Info::LogInfo::className()+"ID",info.getId());
 	return str.toString();
 }
