@@ -35,6 +35,7 @@ const Wymagania& Info::getWymagania() const{
 
 string Info::toString() const{
 	Logger str(LogInfo::className());
+	str.addClass(Base::toString());
 	str.addField("Nazwa",nazwa);
 	str.addField("Opis",opis);
 	str.addField(Wymagania::className(),wymagania);

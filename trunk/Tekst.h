@@ -8,6 +8,8 @@ class Tekst:
 {
 private:
 	type_name tekst;
+
+	type_name dodajCudzyslow()const;
 public:
 	Tekst();
 	Tekst( const type_name& );
