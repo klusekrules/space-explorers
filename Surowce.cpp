@@ -147,6 +147,6 @@ string Surowce::toString() const{
 	Logger str(LogSurowce::className());
 	str.addField(ilosc.className(),ilosc);
 	str.addClass(Obiekt::toString());	
-	str.addField(SurowceInfo::LogSurowceInfo::className(),static_cast< const SurowceInfo::LogSurowceInfo& >(surowceInfo));
+	str.addField(SurowceInfo::LogSurowceInfo::className()+"ID",surowceInfo.getId());
 	return str.toString();
 }
