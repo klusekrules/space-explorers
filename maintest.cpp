@@ -14,7 +14,8 @@
 #ifdef TESTS
 
 #include "Testy.h"
-
+#include <chrono>
+#include <iomanip>
 
 void main(){
 	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
@@ -24,9 +25,22 @@ void main(){
     _CrtSetReportFile( _CRT_ERROR, _CRTDBG_FILE_STDOUT );
     _CrtSetReportMode( _CRT_ASSERT, _CRTDBG_MODE_FILE );
     _CrtSetReportFile( _CRT_ASSERT, _CRTDBG_FILE_STDOUT );
+
+	chrono::steady_clock::time_point t1 = chrono::steady_clock::now();
+	chrono::steady_clock::duration dtn = t1.time_since_epoch();
+	long double l = dtn.count();
 	
+	long double pSekundy = (long double)chrono::steady_clock::period::num / (long double)chrono::steady_clock::period::den;
+	long double pMilisekundy = pSekundy / 1000 ;
+	long double pMinuty = 60 * pSekundy;
+	long double pGodziny = 60 * pMinuty;
+	long double pDni = 24 * pGodziny;
+	cout << "preriod: " <<  l << endl << "Time: ";
+	cout << " Dni: " << l*pDni;
+
+
 	Testy test;
-	test.run();
+	//test.run();
 
 	/*ALLEGRO_DISPLAY *display = NULL;
  
