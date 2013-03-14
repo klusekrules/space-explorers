@@ -9,6 +9,10 @@ StatekInfo::StatekInfo( const ObiektInfo& o , const JednostkaLatajacaInfo& j , c
 StatekInfo::~StatekInfo(){
 }
 
+const IdType& StatekInfo::getId() const{
+	return ObiektInfo::getId();
+}
+
 Statek* StatekInfo::TworzEgzemplarz( const Ilosc& i ) const{
 	return new Statek(i,*this);
 }

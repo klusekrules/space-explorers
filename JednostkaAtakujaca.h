@@ -21,12 +21,7 @@ public:
 	* /param jInfo - Wskazanie na klasê reprezentuj¹c¹ opis jednostki atakuj¹cej.
 	*/
 	explicit JednostkaAtakujaca( const JednostkaAtakujacaInfo& jInfo );
-	/**
-	* Konstruktor kopiuj¹cy.
-	* \param a - obiekt do skopiowania
-	*/
-	JednostkaAtakujaca( const JednostkaAtakujaca& a );
-
+	
 	/**
 	* Wirtualny destruktor
 	*/

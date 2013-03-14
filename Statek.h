@@ -19,6 +19,10 @@ public:
 	virtual ~Statek();
 
 	ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const override;
+		
+	Statek* Kopia() const override;
+
+	Statek* Podziel( const Ilosc& ) override;
 
 	Obrazenia Atak() const override;
 
@@ -26,9 +30,15 @@ public:
 
 	Obrazenia Oslona( const Obrazenia& o ) const override;
 
+	Objetosc getPojemnoscMax() const override;
+
 	string toString() const override;
 private:
 
 	Statek( const Ilosc& ,const StatekInfo& );
+
+protected:
+
+	const StatekInfo& statekinfo;
 
 };

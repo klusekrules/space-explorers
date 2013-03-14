@@ -19,6 +19,8 @@ public:
 	StatekInfo(	const ObiektInfo& o , const JednostkaLatajacaInfo& j , const JednostkaAtakujacaInfo& a , const LadowniaInfo& l );
 
 	virtual ~StatekInfo();
+
+	const IdType& getId() const;
 		
 	Statek* TworzEgzemplarz( const Ilosc& ) const override;
 

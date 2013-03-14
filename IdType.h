@@ -19,6 +19,10 @@ public:
 
 	bool operator==( const IdType& )const;
 	bool operator!=( const IdType& )const;
+
+	bool operator<( const IdType& )const;
+
+	operator size_t()const;
 	
 	type_name getId()const;
 	void setId( const type_name & ID );
