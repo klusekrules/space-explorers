@@ -381,6 +381,18 @@
     <ClInclude Include="ObiektBaseInfo.h">
       <Filter>SourceFile\BaseClass\Info</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="afxres.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="svn_version.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="version.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -458,6 +470,9 @@
     <Filter Include="SourceFile\BaseClass\Zmiana">
       <UniqueIdentifier>{f6b91d8c-19dc-4861-8f28-6364f2a77fbb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{f809a59c-3db4-40e4-baa6-d18e46644843}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="parser\build_instructions.txt">
@@ -478,5 +493,13 @@
     <None Include="conventions.txt">
       <Filter>Doc</Filter>
     </None>
+    <None Include="svn_version.h.tmpl">
+      <Filter>Resource</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SpaceGame.rc">
+      <Filter>Resource</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
