@@ -3,7 +3,11 @@
 #include <string>
 #include <time.h>
 #include <iostream>
+#include <chrono>
+#include <iomanip>
+#include <sstream>
 using namespace std;
+using namespace std::chrono;
 #include "LoggerInterface.h"
 
 /**
@@ -259,7 +263,8 @@ public:
 	*/
 	static void info( const string p ){
 		if(blogEnable && blogInfoEnable){
-			print("[Info] ");
+			print(getTimeStamp());
+			print(" [INFO] ");
 			print(p);
 			print("\n");
 		}
@@ -276,7 +281,8 @@ public:
 	template< typename T >
 	static void info( const LoggerInterface<T> &p ){
 		if(blogEnable && blogInfoEnable){
-			print("[Info] ");
+			print(getTimeStamp());
+			print(" [INFO] ");
 			print(p.toString());
 			print("\n");
 		}
@@ -292,7 +298,8 @@ public:
 	*/
 	static void warn( const string p ){
 		if(blogEnable && blogWarnEnable){
-			print("[Warning] ");
+			print(getTimeStamp());
+			print(" [WARN] ");
 			print(p);
 			print("\n");
 		}
@@ -309,7 +316,8 @@ public:
 	template< typename T >
 	static void warn( const LoggerInterface<T> &p ){
 		if(blogEnable && blogWarnEnable){
-			print("[Warning] ");
+			print(getTimeStamp());
+			print(" [WARN] ");
 			print(p.toString());
 			print("\n");
 		}
@@ -325,7 +333,8 @@ public:
 	*/
 	static void error( const string p ){
 		if(blogEnable && blogErrorEnable){
-			print("[Error] ");
+			print(getTimeStamp());
+			print(" [ERROR] ");
 			print(p);
 			print("\n");
 		}
@@ -342,7 +351,8 @@ public:
 	template< typename T >
 	static void error( const LoggerInterface<T> &p ){
 		if(blogEnable && blogErrorEnable){
-			print("[Error] ");
+			print(getTimeStamp());
+			print(" [ERROR] ");
 			print(p.toString());
 			print("\n");
 		}
@@ -358,7 +368,8 @@ public:
 	*/
 	static void debug( const string p ){
 		if(blogEnable && blogDebugEnable){
-			print("[Debug] ");
+			print(getTimeStamp());
+			print(" [DEBUG] ");
 			print(p);
 			print("\n");
 		}
@@ -375,17 +386,24 @@ public:
 	template< typename T >
 	static void debug( const LoggerInterface<T> &p ){
 		if(blogEnable && blogDebugEnable){
-			print("[Debug] ");
+			print(getTimeStamp());
+			print(" [DEBUG] ");
 			print(p.toString());
 			print("\n");
 		}
 	}
 
 	static string getTimeStamp(){
-		time_t rawtime;
-		char buf [30];
-		time(&rawtime);
-		ctime_s(buf,30,&rawtime);
-		return buf;
+		steady_clock::time_point t1 = steady_clock::now();
+		steady_clock::duration dtn = t1.time_since_epoch();
+		time_t pSekundy = dtn.count() * steady_clock::period::num / steady_clock::period::den;
+		struct tm timeinfo;
+		localtime_s(&timeinfo,&pSekundy);
+		short unsigned int pMilisekundy = static_cast<long long>( dtn.count() * ( static_cast<long double>(steady_clock::period::num) / static_cast<long double>(steady_clock::period::den) ) * 1000 ) % 1000;
+		char s[20];
+		strftime(s,20,"%Y-%m-%d %H:%M:%S",&timeinfo);
+		stringstream str;
+		str << s << "." << setw (3) << setfill ('0') << pMilisekundy;
+		return str.str();
 	}
 };
