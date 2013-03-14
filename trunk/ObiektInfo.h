@@ -21,7 +21,7 @@ private:
 
 public:
 	typedef LoggerInterface<ObiektInfo> LogObiektInfo;
-	ObiektInfo( const Masa&, const Objetosc&, const Powierzchnia&, const Poziom& ,  const Info& );
+	ObiektInfo( const Masa&, const Objetosc&, const Powierzchnia&, const ObiektBaseInfo& );
 	~ObiektInfo( );
 
 	Powierzchnia getPowierzchnia() const;

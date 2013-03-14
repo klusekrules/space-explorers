@@ -52,7 +52,7 @@ public:
 
 	const Objetosc& getZajeteMiejsce() const;
 
-	Objetosc getPojemnoscMax() const;
+	virtual Objetosc getPojemnoscMax() const;
 
 	string toString() const override;
 
@@ -63,7 +63,7 @@ protected:
 
 	Zbiornik obiekty;
 	Objetosc zajete;
-private:
+
 	const LadowniaInfo& ladowniaInfo;
 };
 

@@ -1,8 +1,8 @@
 ﻿#include "ObiektInfo.h"
 #include "Logger.h"
 
-ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& obj, const Powierzchnia& pow, const Poziom& p , const Info& info )
-	: ObiektBaseInfo(info,p), masa(masa), objetosc(obj), powierzchnia(pow), zmMasa(nullptr), zmObjetosc(nullptr), zmPowierzchnia(nullptr)
+ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& obj, const Powierzchnia& pow, const ObiektBaseInfo& info )
+	: ObiektBaseInfo(info), masa(masa), objetosc(obj), powierzchnia(pow), zmMasa(nullptr), zmObjetosc(nullptr), zmPowierzchnia(nullptr)
 {
 }
 

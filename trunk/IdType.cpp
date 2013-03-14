@@ -28,6 +28,14 @@ bool IdType::operator!=( const IdType& a )const{
 	return id!=a.id;
 }
 
+bool IdType::operator<( const IdType& a )const{
+	return id<a.id;
+}
+
+IdType::operator size_t()const{
+	return id;
+}
+
 IdType::type_name IdType::getId()const{
 	return id;
 }
