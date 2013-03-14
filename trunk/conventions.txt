@@ -10,3 +10,6 @@ Za³o¿enie projektowe:
 	-Klasa class - reprezentuje obiekt
 	-Klasa classInfo - reprezentuje fabrykê obiektów typu class
 	-Klasa classBO - reprezentuje operacje biznesowe na obiektach typu class i classInfo.
+
+
+	-Wzorzec do odczytu logów(Log4j pattern): %d{yyyy-mm-dd HH:mm:ss.SSS} [%p] %m
