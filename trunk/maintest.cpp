@@ -27,8 +27,8 @@ void main(){
     _CrtSetReportFile( _CRT_ASSERT, _CRTDBG_FILE_STDOUT );
 	
 	Testy test;
-	test.run();
-
+	//test.run();
+	Aplikacja::getInstance().WczytajDane();
 	/*ALLEGRO_DISPLAY *display = NULL;
  
    if(!al_init()) {

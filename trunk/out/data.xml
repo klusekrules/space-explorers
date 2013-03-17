@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="windows-1250"?>
 <SpaceGame nazwa="Domyslny" maska="0x80000000">
-  <!-- Opis Surowców wykorzystanych w aplikacji -->
+  
+  <Info nazwa="Nazwa obiektu">Opis Obiektu
+  tak działa
+  <Wymagania>Dziala</Wymagania>
+  </Info>
+  <SurowceInfo>
+    <ObiektInfo masa="2355" objetosc="143150" powierzchnia="86341">
+      <ObiektBaseInfo poziom="12135">
+        <Info id="0xfff1" nazwa="Hahahah">Jazzda</Info>
+      </ObiektBaseInfo>
+    </ObiektInfo>
+  </SurowceInfo>
+  <SurowceInfo>
+    <ObiektInfo masa="2355" objetosc="143150" powierzchnia="86341">
+      <ObiektBaseInfo poziom="12135">
+        <Info id="0xfff3" nazwa="Hahahah">Jazzda
+          <Wymagania>
+            <Cena>
+              
+            </Cena>
+            <Warunek>
+              
+            </Warunek>
+          </Wymagania>
+        </Info>
+      </ObiektBaseInfo>
+    </ObiektInfo>
+  </SurowceInfo>
+
+  <StatekInfo>
+    <ObiektInfo masa="2355" objetosc="143150" powierzchnia="86341">
+      <ObiektBaseInfo poziom="4">
+        <Info id="0x002" nazwa="Nazwa statku">
+          Opis statku
+          <Wymagania>
+            <Cena>
+
+            </Cena>
+            <Warunek>
+
+            </Warunek>
+          </Wymagania>
+        </Info>
+      </ObiektBaseInfo>
+    </ObiektInfo>
+    <JednostkaLatajacaInfo rodzajSilnikaId="0x03" rodzajSilnikaPoziom="1" mocSilnika="30000" zuzyciePaliwa="1233" masaSilnika="12309" sprawnoscSilnika="0,97">
+      <Info id="0x012" nazwa="Nazwa jednostki latajacej">Opis jednoscki latajacej</Info>
+    </JednostkaLatajacaInfo>
+    <JednostkaAtakujacaInfo atak="90" pancerz="250" oslona="300">
+      <Info id="0x022" nazwa="Nazwa Jednostki atakujacej">Opis jednostki atakujacej</Info>
+    </JednostkaAtakujacaInfo>
+    <LadowniaInfo pojemnoscMaksymalna="1300">
+      <Info id="0x032" nazwa="Nazwa ladowni">Opis ladowni</Info>
+    </LadowniaInfo>
+  </StatekInfo>
+  
   <Surowce nazwa="Surowce" maska="0x00800000">
 
     <Klasa nazwa="Metale" maska="0x00008000">
@@ -22,6 +77,8 @@
     </Klasa>
 
   </Surowce>
+
+  
   <Statki nazwa="Statki" maska="0x00400000">
     
     <Statek maska="0x00000001" poziom="1" masa="1" objetosc="1300" powierzchnia="0" pojemnosc="1000" atak="1" pancerz="1" tarcza="1" rodzajNapedu="1" mocSilnika="1" zuzyciePaliwa="1">

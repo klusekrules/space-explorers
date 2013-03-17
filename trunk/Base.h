@@ -1,6 +1,8 @@
 #pragma once
 #include "Main.h"
 #include "IdType.h"
+#include "parser\ticpp.h"
+#include "WyjatekParseraXML.h"
 
 /**
 * Klasa bazowa przechowuj¹ca informacje o ID klasy pochodnej.
@@ -20,6 +22,7 @@ public:
 	* \param id - Id przechowywane przez klase.
 	*/
 	explicit Base( const IdType& id );
+	explicit Base( ticpp::Node* );
 	
 	/**
 	* Destruktor domyœlny.

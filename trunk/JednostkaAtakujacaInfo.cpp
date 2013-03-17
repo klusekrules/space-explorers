@@ -1,9 +1,25 @@
 #include "JednostkaAtakujacaInfo.h"
 #include "Logger.h"
+#include "XmlBO.h"
 
 JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const Info& info, const Obrazenia& oAtak,const Obrazenia& oPancerz, const Obrazenia& oOslona)
 	: Info(info), atak(oAtak), pancerz(oPancerz), oslona(oOslona), zmAtak(nullptr), zmPancerz(nullptr), zmOslona(nullptr)
 {
+}
+JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( ticpp::Node* n )
+	: Info(XmlBO::InterateChildren(n,Info::LogInfo::className())),zmAtak(nullptr), zmPancerz(nullptr), zmOslona(nullptr)
+{
+	if(n!=nullptr){
+		try{
+			ticpp::Element* e = n->ToElement();
+			atak.setObrazenia(stold(e->GetAttribute("atak")));
+			pancerz.setObrazenia(stold(e->GetAttribute("pancerz")));
+			oslona.setObrazenia(stold(e->GetAttribute("oslona")));
+		}catch(exception& e){
+			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
+		}
+	}
+
 }
 
 JednostkaAtakujacaInfo::~JednostkaAtakujacaInfo(){
@@ -32,6 +48,7 @@ Obrazenia JednostkaAtakujacaInfo::getOslona() const{
 
 string JednostkaAtakujacaInfo::toString() const{
 	Logger str(LogJednostkaAtakujacaInfo::className());
+	str.addClass(Info::toString());
 	str.addField("Atak",atak);
 	str.addField("Pancerz",pancerz);
 	str.addField("Oslona",oslona);

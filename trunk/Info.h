@@ -4,6 +4,7 @@
 #include "Tekst.h"
 #include "IdType.h"
 #include "Wymagania.h"
+#include "WyjatekParseraXML.h"
 
 class Info:
 	public Base,
@@ -13,6 +14,7 @@ public:
 	typedef LoggerInterface<Info> LogInfo;
 
 	Info( const Tekst& , const Tekst& , const IdType&, const Wymagania& );
+	explicit Info( ticpp::Node* );
 	virtual ~Info();
 
 	const Tekst& getNazwa() const;

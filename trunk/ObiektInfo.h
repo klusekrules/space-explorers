@@ -22,6 +22,9 @@ private:
 public:
 	typedef LoggerInterface<ObiektInfo> LogObiektInfo;
 	ObiektInfo( const Masa&, const Objetosc&, const Powierzchnia&, const ObiektBaseInfo& );
+
+	explicit ObiektInfo( ticpp::Node* );
+
 	~ObiektInfo( );
 
 	Powierzchnia getPowierzchnia() const;

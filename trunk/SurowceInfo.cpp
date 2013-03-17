@@ -1,6 +1,7 @@
 
 #include "SurowceInfo.h"
 #include "Logger.h"
+#include "XmlBO.h"
 
 SurowceInfo::~SurowceInfo(){
 }
@@ -8,6 +9,12 @@ SurowceInfo::~SurowceInfo(){
 SurowceInfo::SurowceInfo( const ObiektInfo& o )
 	: ObiektInfo(o)
 {
+}
+
+SurowceInfo::SurowceInfo( ticpp::Node* n )
+	: ObiektInfo(XmlBO::InterateChildren(n,ObiektInfo::LogObiektInfo::className()))
+{
+
 }
 
 Surowce* SurowceInfo::TworzEgzemplarz( const Ilosc& ilosc ) const{
