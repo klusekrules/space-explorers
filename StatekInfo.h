@@ -5,6 +5,7 @@
 #include "JednostkaLatajacaInfo.h"
 #include "JednostkaAtakujacaInfo.h"
 #include "Statek.h"
+#include "parser\ticpp.h"
 
 class StatekInfo:
 	public ObiektInfo,
@@ -17,6 +18,8 @@ public:
 	typedef LoggerInterface < StatekInfo > LogStatekInfo;
 
 	StatekInfo(	const ObiektInfo& o , const JednostkaLatajacaInfo& j , const JednostkaAtakujacaInfo& a , const LadowniaInfo& l );
+
+	StatekInfo( ticpp::Node* );
 
 	virtual ~StatekInfo();
 

@@ -6,7 +6,7 @@
 #include "Masa.h"
 #include "Klucz.h"
 #include "ZmianaInterfejs.h"
-
+#include "WyjatekParseraXML.h"
 
 /**
 * Klasa opisuj¹ca statek pod k¹tem przemieszczania siê.
@@ -28,7 +28,8 @@ public:
 	* \param masa - Masa uk³adu napêdowego
 	*/
 	JednostkaLatajacaInfo(const Info& info, const Klucz& k, const MocSilnika& moc, const ZuzyciePaliwa& z, const Masa& masa );
-		
+	
+	JednostkaLatajacaInfo( ticpp::Node* );
 	/**
 	* Destruktor domyœlny
 	*/

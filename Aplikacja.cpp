@@ -2,19 +2,61 @@
 #include <time.h>
 #include <sstream>
 #include <iomanip>
-#include "Info.h"
-
+#include "StatekInfo.h"
 Aplikacja::Aplikacja()
 	: isDbgHelpInit(false), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania()) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
 {
 	hLibrary = LoadLibrary("Dbghelp.dll");
-	if(hLibrary!=NULL){		
+	if(hLibrary!=nullptr){		
 		symInitialize = (SymInitializeS)GetProcAddress(hLibrary,"SymInitialize");
 		symFromAddr = (SymFromAddrS)GetProcAddress(hLibrary,"SymFromAddr");
-		if(symFromAddr!=NULL && symInitialize!= NULL )
+		if(symFromAddr!=nullptr && symInitialize!= nullptr )
 			isDbgHelpInit = true;
 		//_set_purecall_handler(myPurecallHandler);
 	}
+}
+
+bool Aplikacja::WczytajDane(){
+	ticpp::Document opcje;
+	ticpp::Document dane;
+	ticpp::Document komunikaty;
+	try{
+		opcje.LoadFile("options.xml");
+		auto root = opcje.IterateChildren("SpaceGame",nullptr);
+		auto b = root->IterateChildren("data",nullptr);
+		if(b!=nullptr){
+			string s = b->ToElement()->GetText();
+			cout << s << endl;
+			dane.LoadFile(s);
+			auto root2 = dane.IterateChildren("SpaceGame",nullptr);
+			WczytajSurowce(root2);
+			auto c = root2->IterateChildren("StatekInfo",nullptr);
+			if(c!=nullptr)
+			{
+				StatekInfo* ptr = new StatekInfo(c);
+				cout << ptr->toString()<<endl;
+				delete ptr;
+			}
+
+		}
+	}catch(ticpp::Exception& e){
+		cout<< e.what();
+		Log::error("Nie uda³o siê otworzyæ pliku!");
+	}
+	return true;
+}
+
+bool Aplikacja::WczytajSurowce(ticpp::Node* root){
+	ticpp::Node* ptr = nullptr;
+	do{
+		ptr = root->IterateChildren("SurowceInfo",ptr);
+		if(ptr){
+			SurowceInfo* t = new SurowceInfo(ptr);
+			cout<<t->toString()<<endl;
+			listaSurowcowInfo[t->ID()]=t;
+		}
+	}while(ptr);
+	return false;
 }
 
 string Aplikacja::getStackTrace() const{
@@ -56,6 +98,9 @@ string Aplikacja::getStackTrace() const{
 
 Aplikacja::~Aplikacja()
 {
+	for(auto s : listaSurowcowInfo)
+		if(s.second)
+			delete s.second;
 	if(hLibrary!=NULL)
 		FreeLibrary(hLibrary);
 }

@@ -1,8 +1,16 @@
 #include "StatekInfo.h"
-
+#include "XmlBO.h"
 
 StatekInfo::StatekInfo( const ObiektInfo& o , const JednostkaLatajacaInfo& j , const JednostkaAtakujacaInfo& a , const LadowniaInfo& l  )
 	: ObiektInfo(o), JednostkaLatajacaInfo(j), JednostkaAtakujacaInfo(a), LadowniaInfo(l)
+{
+}
+
+StatekInfo::StatekInfo( ticpp::Node* n )
+	: ObiektInfo(XmlBO::InterateChildren(n,ObiektInfo::LogObiektInfo::className())),
+	JednostkaLatajacaInfo(XmlBO::InterateChildren(n,JednostkaLatajacaInfo::LogJednostkaLatajacaInfo::className())),
+	JednostkaAtakujacaInfo(XmlBO::InterateChildren(n,JednostkaAtakujacaInfo::LogJednostkaAtakujacaInfo::className())),
+	LadowniaInfo(XmlBO::InterateChildren(n,LadowniaInfo::LogLadowniaInfo::className()))
 {
 }
 

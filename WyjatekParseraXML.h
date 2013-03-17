@@ -11,6 +11,7 @@ public:
 	typedef LoggerInterface<WyjatekParseraXML> LogWyjBibTICPP;
 
 	static const IdType idWyjatekParseraXML;
+	static const Tekst trescBladStrukturyXml;
 
 	WyjatekParseraXML( const WyjatekParseraXML& );
 	WyjatekParseraXML( const Tekst& tPlik, const IdType& iLinia, const std::exception&, const Tekst& = Tekst() );

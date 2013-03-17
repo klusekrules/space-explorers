@@ -1,10 +1,31 @@
 #include "JednostkaLatajacaInfo.h"
 #include "Logger.h"
+#include "XmlBO.h"
 
 JednostkaLatajacaInfo::JednostkaLatajacaInfo( const Info& info,const Klucz& k, const MocSilnika& moc, const ZuzyciePaliwa& z, const Masa& masa )
 	: Info(info), rodzajNapedu(k), mocSilnika(moc), zuzyciePaliwa(z), masaNapedu(masa), przyrostZuzyciaPaliwa(nullptr), przyrostSprawnosciSilnika(nullptr),
 	przyrostMocySilnika(nullptr), przyrostMasyNapedu(nullptr)
 {
+}
+
+JednostkaLatajacaInfo::JednostkaLatajacaInfo( ticpp::Node* n )
+	: Info(XmlBO::InterateChildren(n,Info::LogInfo::className())), przyrostZuzyciaPaliwa(nullptr), przyrostSprawnosciSilnika(nullptr),
+	przyrostMocySilnika(nullptr), przyrostMasyNapedu(nullptr)
+{
+	if(n!=nullptr){
+		try{
+			ticpp::Element* e = n->ToElement();
+			IdType id(stoi(e->GetAttribute("rodzajSilnikaId"),nullptr,0));
+			Poziom poziom(stoi(e->GetAttribute("rodzajSilnikaPoziom")));
+			rodzajNapedu.setKlucz(Klucz(id,poziom).getKlucz());
+			mocSilnika.setMocSilnika(stold(e->GetAttribute("mocSilnika")));
+			zuzyciePaliwa.setZuzyciePaliwa(stold(e->GetAttribute("zuzyciePaliwa")));
+			masaNapedu.setMasa(stold(e->GetAttribute("masaSilnika")));
+			sprawnoscSilnika.setFluktuacja(stof(e->GetAttribute("sprawnoscSilnika")));
+		}catch(exception& e){
+			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
+		}
+	}
 }
 
 JednostkaLatajacaInfo::~JednostkaLatajacaInfo()

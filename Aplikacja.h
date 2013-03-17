@@ -3,7 +3,9 @@
 #include "ObiektBase.h"
 #include "ObiektBaseInfo.h"
 #include <Windows.h>
-
+#include "Info.h"
+#include "Biblioteki.h"
+#include "SurowceInfo.h"
 
 typedef struct _SYMBOL_INFO {
 	ULONG       SizeOfStruct;
@@ -44,7 +46,13 @@ protected:
 	ObiektBaseInfo pustyobiekBaseInfo;
 	ObiektBase pustyObiektBase;
 
+	hash_map<Klucz, SurowceInfo* > listaSurowcowInfo;
+
+	bool WczytajSurowce(ticpp::Node* root);
+
 public:
+
+	bool WczytajDane();
 
 	static Aplikacja& getInstance(){
 		static Aplikacja app;

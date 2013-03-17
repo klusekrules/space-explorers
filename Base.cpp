@@ -6,6 +6,17 @@ Base::Base( const IdType& itID )
 {
 }
 
+Base::Base( ticpp::Node* n ){
+	if(n!=nullptr){
+		try{
+			id.setId( stoi(n->ToElement()->GetAttribute("id"),nullptr,0) );
+		}catch(exception& e){
+			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
+		}
+	}
+	
+}
+
 Base::~Base(){
 }
 

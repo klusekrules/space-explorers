@@ -23,6 +23,7 @@ const Tekst		NiezgodnyTypSurowca::trescNiezgodnyTypSurowcaDomyslny	= "Brak zgodn
 const IdType	WyjatekParseraXML::idWyjatekParseraXML					( 0x02 );
 const Tekst		WyjatekParseraXML::tytulWyjatekParseraXML				= "Wyjatek przechwycony z biblioteki ticpp.";
 const Tekst		WyjatekParseraXML::trescWyjatekParseraXML				= "Wykryto wyjatek wyrzucony z biblioteki ticpp o nastepujacej tresci:";
+const Tekst		WyjatekParseraXML::trescBladStrukturyXml				= "Blad struktury pliku xml: ";
 
 const IdType	WyjatekSTL::idWyjatekSTL								( 0x03 );
 const Tekst		WyjatekSTL::tytulWyjatekSTL								= "Przechwycono wyjatek STL.";

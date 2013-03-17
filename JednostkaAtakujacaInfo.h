@@ -4,6 +4,7 @@
 #include "Obrazenia.h"
 #include "Info.h"
 #include "ZmianaInterfejs.h"
+#include "WyjatekParseraXML.h"
 
 class JednostkaAtakujacaInfo :
 	public Info,
@@ -19,6 +20,8 @@ public:
 	* \param oOslona - postawowa oslona obiektu
 	*/
 	JednostkaAtakujacaInfo(const Info& info, const Obrazenia& oAtak,const Obrazenia& oPancerz, const Obrazenia& oOslona );
+
+	JednostkaAtakujacaInfo( ticpp::Node* );
 
 	/**
 	* Destruktor domyœlny.

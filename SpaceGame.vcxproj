@@ -202,6 +202,7 @@
     <ClInclude Include="Biblioteki.h" />
     <ClInclude Include="BladDzieleniaLadowni.h" />
     <ClInclude Include="BladLaczeniaObiektow.h" />
+    <ClInclude Include="BladStrukturyPlikuXML.h" />
     <ClInclude Include="BrakAtrybutuXML.h" />
     <ClInclude Include="BrakMaski.h" />
     <ClInclude Include="Cena.h" />
@@ -265,6 +266,7 @@
     <ClInclude Include="WyjatekParseraXML.h" />
     <ClInclude Include="WyjatekSTL.h" />
     <ClInclude Include="Wymagania.h" />
+    <ClInclude Include="XmlBO.h" />
     <ClInclude Include="Zmiana.h" />
     <ClInclude Include="ZmianaDekorator.h" />
     <ClInclude Include="ZmianaInterfejs.h" />
@@ -275,6 +277,7 @@
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="BladDzieleniaLadowni.cpp" />
     <ClCompile Include="BladLaczeniaObiektow.cpp" />
+    <ClCompile Include="BladStrukturyPlikuXML.cpp" />
     <ClCompile Include="BrakAtrybutuXML.cpp" />
     <ClCompile Include="BrakMaski.cpp" />
     <ClCompile Include="Cena.cpp" />
@@ -330,19 +333,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="conventions.txt" />
-    <None Include="data.xml">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="message.xml" />
-    <None Include="options.xml">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="parser\build_instructions.txt" />
     <None Include="svn_version.h.tmpl" />
     <None Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SpaceGame.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="out\data.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="out\message.xml" />
+    <Xml Include="out\options.xml">
+      <SubType>Designer</SubType>
+    </Xml>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
