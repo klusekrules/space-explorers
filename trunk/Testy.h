@@ -4,36 +4,33 @@
 #include "ObiektList.hpp"
 #include "StatekInfo.h"
 #include "SurowceInfo.h"
+#include "Aplikacja.h"
 
 class Testy
 {
 private:
-	hash_map<IdType,StatekInfo*> statki;
-	bool setStatek(StatekInfo* statek);
-	StatekInfo& getStatek(const IdType& id)const throw (NieznalezionoObiektu);
-	Statek* tworzStatek(const IdType& id,const Ilosc& i)const throw (OgolnyWyjatek,NieznalezionoObiektu);
-
-	hash_map<IdType,SurowceInfo*> surowce;
-	bool setSurowce(SurowceInfo* surowiec);
-	SurowceInfo& getSurowce(const IdType& id)const throw (NieznalezionoObiektu);
-	Surowce* tworzSurowce(const IdType& id,const Ilosc& i)const throw (OgolnyWyjatek,NieznalezionoObiektu);
-
-
+	Statek* tworzStatek(const Klucz& id,const Ilosc& i)const throw (OgolnyWyjatek,NieznalezionoObiektu);
+	Surowce* tworzSurowce(const Klucz& id,const Ilosc& i)const throw (OgolnyWyjatek,NieznalezionoObiektu);
+	
 	bool ladowanie_danych();
 
 	/* */
 	static unsigned int bledy;
 	static unsigned int testy;
+	static unsigned int fatalError;
 	static unsigned int bledyGlobal;
 	static unsigned int testyGlobal;
+	static unsigned int fatalErrorGlobal;
 	static string modulName;
 	
 	static void startTest();
 	static void endTest();
+	
 	static void startTestModul(string name);
 	static bool assert_false( const Tekst& tPlik, const IdType& iLinia, bool a );
 	static bool assert_true( const Tekst& tPlik, const IdType& iLinia, bool a );
 	static bool endTestModul();
+	static bool endTestModulImidaite();
 	/* */
 
 public:

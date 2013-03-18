@@ -70,24 +70,28 @@
     <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)out\</OutDir>
     <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
     <LibraryPath>$(SolutionDir)\parser\lib;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)out\</OutDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)out\</OutDir>
     <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
     <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\parser\lib;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)out\</OutDir>
     <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
     <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\parser\lib;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -154,6 +158,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -178,6 +183,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -202,7 +208,6 @@
     <ClInclude Include="Biblioteki.h" />
     <ClInclude Include="BladDzieleniaLadowni.h" />
     <ClInclude Include="BladLaczeniaObiektow.h" />
-    <ClInclude Include="BladStrukturyPlikuXML.h" />
     <ClInclude Include="BrakAtrybutuXML.h" />
     <ClInclude Include="BrakMaski.h" />
     <ClInclude Include="Cena.h" />
@@ -277,7 +282,6 @@
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="BladDzieleniaLadowni.cpp" />
     <ClCompile Include="BladLaczeniaObiektow.cpp" />
-    <ClCompile Include="BladStrukturyPlikuXML.cpp" />
     <ClCompile Include="BrakAtrybutuXML.cpp" />
     <ClCompile Include="BrakMaski.cpp" />
     <ClCompile Include="Cena.cpp" />
@@ -348,6 +352,7 @@
     <Xml Include="out\options.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="out\test.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

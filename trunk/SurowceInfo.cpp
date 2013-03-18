@@ -12,7 +12,7 @@ SurowceInfo::SurowceInfo( const ObiektInfo& o )
 }
 
 SurowceInfo::SurowceInfo( ticpp::Node* n )
-	: ObiektInfo(XmlBO::InterateChildren(n,ObiektInfo::LogObiektInfo::className()))
+	: ObiektInfo(XmlBO::IterateChildren(n,ObiektInfo::LogObiektInfo::className()))
 {
 
 }

@@ -7,7 +7,7 @@ JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const Info& info, const Obrazenia
 {
 }
 JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( ticpp::Node* n )
-	: Info(XmlBO::InterateChildren(n,Info::LogInfo::className())),zmAtak(nullptr), zmPancerz(nullptr), zmOslona(nullptr)
+	: Info(XmlBO::IterateChildren(n,Info::LogInfo::className())),zmAtak(nullptr), zmPancerz(nullptr), zmOslona(nullptr)
 {
 	if(n!=nullptr){
 		try{

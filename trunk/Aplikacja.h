@@ -6,6 +6,7 @@
 #include "Info.h"
 #include "Biblioteki.h"
 #include "SurowceInfo.h"
+#include "StatekInfo.h"
 
 typedef struct _SYMBOL_INFO {
 	ULONG       SizeOfStruct;
@@ -34,6 +35,7 @@ typedef BOOL (WINAPI *SymFromAddrS)( _In_ HANDLE hProcess, _In_ DWORD64 Address,
 */
 class Aplikacja
 {
+	friend class Testy;
 protected:
 
 	Aplikacja();
@@ -47,12 +49,14 @@ protected:
 	ObiektBase pustyObiektBase;
 
 	hash_map<Klucz, SurowceInfo* > listaSurowcowInfo;
+	hash_map<Klucz, StatekInfo* > listaStatkowInfo;
 
 	bool WczytajSurowce(ticpp::Node* root);
+	bool WczytajStatki(ticpp::Node* root);
 
 public:
 
-	bool WczytajDane();
+	bool WczytajDane( const string& sFile );
 
 	static Aplikacja& getInstance(){
 		static Aplikacja app;
@@ -66,6 +70,21 @@ public:
 	const ObiektBase& getObiekt(IdType id){
 		return pustyObiektBase;
 	}
+
+	StatekInfo& getStatek(const Klucz& id)const throw (NieznalezionoObiektu) {
+		auto iter = listaStatkowInfo.find(id);
+		if(iter==listaStatkowInfo.end())
+			throw NieznalezionoObiektu(EXCEPTION_PLACE,id.toString());
+		return *(iter->second);
+	}
+
+	SurowceInfo& getSurowce(const Klucz& id)const throw (NieznalezionoObiektu) {
+	auto iter = listaSurowcowInfo.find(id);
+	if(iter==listaSurowcowInfo.end())
+		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.toString());
+	return *(iter->second);
+	}
+
 	const ObiektBase& getObiekt(Klucz k){
 		return pustyObiektBase;
 	}

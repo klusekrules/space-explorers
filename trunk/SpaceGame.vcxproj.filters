@@ -169,9 +169,6 @@
     <ClCompile Include="ObiektBaseInfo.cpp">
       <Filter>SourceFile\BaseClass\Info</Filter>
     </ClCompile>
-    <ClCompile Include="BladStrukturyPlikuXML.cpp">
-      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -399,9 +396,6 @@
     <ClInclude Include="XmlBO.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
-    <ClInclude Include="BladStrukturyPlikuXML.h">
-      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -510,6 +504,9 @@
       <Filter>Data</Filter>
     </Xml>
     <Xml Include="out\options.xml">
+      <Filter>Data</Filter>
+    </Xml>
+    <Xml Include="out\test.xml">
       <Filter>Data</Filter>
     </Xml>
   </ItemGroup>

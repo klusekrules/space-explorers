@@ -8,7 +8,7 @@ LadowniaInfo::LadowniaInfo( const Objetosc& max, const Info& i )
 }
 
 LadowniaInfo::LadowniaInfo( ticpp::Node* n )
-	: Info(XmlBO::InterateChildren(n,Info::LogInfo::className())), przyrostPojemnoscMax(nullptr)
+	: Info(XmlBO::IterateChildren(n,Info::LogInfo::className())), przyrostPojemnoscMax(nullptr)
 {
 	if(n!=nullptr){
 		try{

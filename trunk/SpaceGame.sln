@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpaceGame", "SpaceGame.vcxproj", "{A8B6EFB3-277C-42D6-A05E-78516E547F38}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FE80B5AD-627F-2F44-AFEF-B553AE8CFECB} = {FE80B5AD-627F-2F44-AFEF-B553AE8CFECB}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TiCPP", "parser\TiCPP.vcxproj", "{FE80B5AD-627F-2F44-AFEF-B553AE8CFECB}"
 EndProject
@@ -23,10 +26,12 @@ Global
 		{A8B6EFB3-277C-42D6-A05E-78516E547F38}.Release|x64.Build.0 = Release|x64
 		{FE80B5AD-627F-2F44-AFEF-B553AE8CFECB}.Debug|Win32.ActiveCfg = Debug|Win32
 		{FE80B5AD-627F-2F44-AFEF-B553AE8CFECB}.Debug|Win32.Build.0 = Debug|Win32
-		{FE80B5AD-627F-2F44-AFEF-B553AE8CFECB}.Debug|x64.ActiveCfg = Debug|Win32
+		{FE80B5AD-627F-2F44-AFEF-B553AE8CFECB}.Debug|x64.ActiveCfg = Debug|x64
+		{FE80B5AD-627F-2F44-AFEF-B553AE8CFECB}.Debug|x64.Build.0 = Debug|x64
 		{FE80B5AD-627F-2F44-AFEF-B553AE8CFECB}.Release|Win32.ActiveCfg = Release|Win32
 		{FE80B5AD-627F-2F44-AFEF-B553AE8CFECB}.Release|Win32.Build.0 = Release|Win32
-		{FE80B5AD-627F-2F44-AFEF-B553AE8CFECB}.Release|x64.ActiveCfg = Release|Win32
+		{FE80B5AD-627F-2F44-AFEF-B553AE8CFECB}.Release|x64.ActiveCfg = Release|x64
+		{FE80B5AD-627F-2F44-AFEF-B553AE8CFECB}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

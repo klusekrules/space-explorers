@@ -7,41 +7,38 @@ Aplikacja::Aplikacja()
 	: isDbgHelpInit(false), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania()) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
 {
 	hLibrary = LoadLibrary("Dbghelp.dll");
-	if(hLibrary!=nullptr){		
+	if(hLibrary){		
 		symInitialize = (SymInitializeS)GetProcAddress(hLibrary,"SymInitialize");
 		symFromAddr = (SymFromAddrS)GetProcAddress(hLibrary,"SymFromAddr");
-		if(symFromAddr!=nullptr && symInitialize!= nullptr )
+		if(symFromAddr && symInitialize)
 			isDbgHelpInit = true;
 		//_set_purecall_handler(myPurecallHandler);
 	}
 }
 
-bool Aplikacja::WczytajDane(){
+bool Aplikacja::WczytajDane( const string& sFile ){
 	ticpp::Document opcje;
 	ticpp::Document dane;
-	ticpp::Document komunikaty;
+	//ticpp::Document komunikaty;
 	try{
-		opcje.LoadFile("options.xml");
+		/* TODO: £adowanie opcji przenieœæ do innej funkcji
+ 
+		opcje.LoadFile(sFile);
 		auto root = opcje.IterateChildren("SpaceGame",nullptr);
 		auto b = root->IterateChildren("data",nullptr);
 		if(b!=nullptr){
 			string s = b->ToElement()->GetText();
-			cout << s << endl;
-			dane.LoadFile(s);
-			auto root2 = dane.IterateChildren("SpaceGame",nullptr);
-			WczytajSurowce(root2);
-			auto c = root2->IterateChildren("StatekInfo",nullptr);
-			if(c!=nullptr)
-			{
-				StatekInfo* ptr = new StatekInfo(c);
-				cout << ptr->toString()<<endl;
-				delete ptr;
-			}
-
+			*/
+		dane.LoadFile(sFile);
+		auto root_data = dane.IterateChildren("SpaceGame",nullptr);
+		if(root_data){
+			WczytajSurowce(root_data);
+			WczytajStatki(root_data);
 		}
 	}catch(ticpp::Exception& e){
 		cout<< e.what();
 		Log::error("Nie uda³o siê otworzyæ pliku!");
+		return false;
 	}
 	return true;
 }
@@ -49,11 +46,34 @@ bool Aplikacja::WczytajDane(){
 bool Aplikacja::WczytajSurowce(ticpp::Node* root){
 	ticpp::Node* ptr = nullptr;
 	do{
-		ptr = root->IterateChildren("SurowceInfo",ptr);
-		if(ptr){
-			SurowceInfo* t = new SurowceInfo(ptr);
-			cout<<t->toString()<<endl;
-			listaSurowcowInfo[t->ID()]=t;
+		try{
+			ptr = root->IterateChildren(SurowceInfo::LogSurowceInfo::className(),ptr);
+			if(ptr){
+				SurowceInfo* t = new SurowceInfo(ptr);
+				Log::info<SurowceInfo>(*t);
+				listaSurowcowInfo[t->ID()]=t;
+			}
+		}catch(OgolnyWyjatek& e){
+			Log::warn(e.generujKomunikat());
+			Log::debug(e);
+		}
+	}while(ptr);
+	return false;
+}
+
+bool Aplikacja::WczytajStatki(ticpp::Node* root){
+	ticpp::Node* ptr = nullptr;
+	do{
+		try{
+			ptr = root->IterateChildren(StatekInfo::LogStatekInfo::className(),ptr);
+			if(ptr){
+				StatekInfo* t = new StatekInfo(ptr);
+				Log::info<StatekInfo>(*t);
+				listaStatkowInfo[t->ID()]=t;
+			}
+		}catch(OgolnyWyjatek& e){
+			Log::warn(e.generujKomunikat());
+			Log::debug(e);
 		}
 	}while(ptr);
 	return false;
@@ -70,8 +90,8 @@ string Aplikacja::getStackTrace() const{
 		locale l("C");
 		stackTrace.imbue(l);
 		hProcess = GetCurrentProcess ();
-		symInitialize (hProcess, NULL, TRUE);
-		frames = CaptureStackBackTrace( 0, 150, stack, NULL );
+		symInitialize (hProcess, nullptr, true );
+		frames = CaptureStackBackTrace( 0, 150, stack, nullptr );
 		symbol = (SYMBOL_INFO *) calloc (sizeof (SYMBOL_INFO) + 256 * sizeof (char), 1);
 		symbol->MaxNameLen = 255;
 		symbol->SizeOfStruct = sizeof (SYMBOL_INFO);
@@ -101,6 +121,9 @@ Aplikacja::~Aplikacja()
 	for(auto s : listaSurowcowInfo)
 		if(s.second)
 			delete s.second;
-	if(hLibrary!=NULL)
+	for(auto s : listaStatkowInfo)
+		if(s.second)
+			delete s.second;
+	if(hLibrary)
 		FreeLibrary(hLibrary);
 }

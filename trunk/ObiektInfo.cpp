@@ -8,7 +8,7 @@ ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& obj, const Powierzchni
 }
 
 ObiektInfo::ObiektInfo( ticpp::Node* n )
-	: ObiektBaseInfo(XmlBO::InterateChildren(n,ObiektBaseInfo::LogObiektBaseInfo::className())), zmMasa(nullptr), zmObjetosc(nullptr), zmPowierzchnia(nullptr)
+	: ObiektBaseInfo(XmlBO::IterateChildren(n,ObiektBaseInfo::LogObiektBaseInfo::className())), zmMasa(nullptr), zmObjetosc(nullptr), zmPowierzchnia(nullptr)
 {
 	if(n!=nullptr){
 		try{

@@ -8,7 +8,7 @@ ObiektBaseInfo::ObiektBaseInfo(const Info& i , const Poziom& p)
 }
 
 ObiektBaseInfo::ObiektBaseInfo( ticpp::Node* n )
-	: Info(XmlBO::InterateChildren(n,Info::LogInfo::className()))
+	: Info(XmlBO::IterateChildren(n,Info::LogInfo::className()))
 {
 	if(n!=nullptr){
 		try{

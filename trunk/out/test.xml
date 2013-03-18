@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1250"?>
 <SpaceGame nazwa="Domyslny" maska="0x80000000">
-  <!-- Surowce typu metale -->
+  
   <SurowceInfo>
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="1">
@@ -18,7 +18,7 @@
       </ObiektBaseInfo>
     </ObiektInfo>
   </SurowceInfo>
-  
+
   <SurowceInfo>
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="2">
@@ -36,7 +36,7 @@
       </ObiektBaseInfo>
     </ObiektInfo>
   </SurowceInfo>
-  
+
   <SurowceInfo>
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="3">
@@ -73,7 +73,7 @@
       </ObiektBaseInfo>
     </ObiektInfo>
   </SurowceInfo>
-  
+
   <SurowceInfo>
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="2">
@@ -91,7 +91,7 @@
       </ObiektBaseInfo>
     </ObiektInfo>
   </SurowceInfo>
-  
+
   <SurowceInfo>
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="3">
@@ -219,6 +219,59 @@
       <Info id="0x022" nazwa="Nazwa ladowni myśliwca">Opis ladowni myśliwca.</Info>
     </LadowniaInfo>
   </StatekInfo>
+
+  <StatekInfo>
+    <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
+      <ObiektBaseInfo poziom="1">
+        <Info id="0x003" nazwa="Myśliwiec 2">
+          Opis Myśliwca 2.
+          <Wymagania>
+            <Cena>
+
+            </Cena>
+            <Warunek>
+
+            </Warunek>
+          </Wymagania>
+        </Info>
+      </ObiektBaseInfo>
+    </ObiektInfo>
+    <JednostkaLatajacaInfo rodzajSilnikaId="0x03" rodzajSilnikaPoziom="1" mocSilnika="1" zuzyciePaliwa="1" masaSilnika="1" sprawnoscSilnika="0,97">
+      <Info id="0x030" nazwa="Nazwa jednostki latajacej myśliwca 2">Opis jednoscki latajacej myśliwca 2.</Info>
+    </JednostkaLatajacaInfo>
+    <JednostkaAtakujacaInfo atak="90" pancerz="250" oslona="300">
+      <Info id="0x031" nazwa="Nazwa Jednostki atakujacej myśliwca 2">Opis jednostki atakujacej myśliwca 2.</Info>
+    </JednostkaAtakujacaInfo>
+    <LadowniaInfo pojemnoscMaksymalna="1300">
+      <Info id="0x032" nazwa="Nazwa ladowni myśliwca 2">Opis ladowni myśliwca 2.</Info>
+    </LadowniaInfo>
+  </StatekInfo>
+  
+  <StatekInfo>
+    <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
+      <ObiektBaseInfo poziom="1">
+        <Info id="0x004" nazwa="Transportowiec 2">
+          Opis Transportowca 2.
+          <Wymagania>
+            <Cena>
+
+            </Cena>
+            <Warunek>
+
+            </Warunek>
+          </Wymagania>
+        </Info>
+      </ObiektBaseInfo>
+    </ObiektInfo>
+    <JednostkaLatajacaInfo rodzajSilnikaId="0x01" rodzajSilnikaPoziom="1" mocSilnika="1" zuzyciePaliwa="1" masaSilnika="1" sprawnoscSilnika="0,97">
+      <Info id="0x040" nazwa="Nazwa jednostki latajacej transportowca 2">Opis jednoscki latajacej transportowca 2.</Info>
+    </JednostkaLatajacaInfo>
+    <JednostkaAtakujacaInfo atak="90" pancerz="250" oslona="300">
+      <Info id="0x041" nazwa="Nazwa Jednostki atakujacej transportowca 2">Opis jednostki atakujacej transportowca 2.</Info>
+    </JednostkaAtakujacaInfo>
+    <LadowniaInfo pojemnoscMaksymalna="13000">
+      <Info id="0x042" nazwa="Nazwa ladowni transportowca 2">Opis ladowni transportowca 2.</Info>
+    </LadowniaInfo>
+  </StatekInfo>
   
 </SpaceGame>
-
