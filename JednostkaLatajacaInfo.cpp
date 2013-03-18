@@ -9,7 +9,7 @@ JednostkaLatajacaInfo::JednostkaLatajacaInfo( const Info& info,const Klucz& k, c
 }
 
 JednostkaLatajacaInfo::JednostkaLatajacaInfo( ticpp::Node* n )
-	: Info(XmlBO::InterateChildren(n,Info::LogInfo::className())), przyrostZuzyciaPaliwa(nullptr), przyrostSprawnosciSilnika(nullptr),
+	: Info(XmlBO::IterateChildren(n,Info::LogInfo::className())), przyrostZuzyciaPaliwa(nullptr), przyrostSprawnosciSilnika(nullptr),
 	przyrostMocySilnika(nullptr), przyrostMasyNapedu(nullptr)
 {
 	if(n!=nullptr){
