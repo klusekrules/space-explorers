@@ -7,9 +7,9 @@
         <Info id="0x0001" nazwa="Stal">
           Opis Stali.
           <Wymagania>
-            <Cena>
+            <Cennik>
 
-            </Cena>
+            </Cennik>
             <Warunek>
 
             </Warunek>
@@ -25,9 +25,9 @@
         <Info id="0x0001" nazwa="Tytan">
           Opis Tytanu.
           <Wymagania>
-            <Cena>
+            <Cennik>
 
-            </Cena>
+            </Cennik>
             <Warunek>
 
             </Warunek>
@@ -43,13 +43,14 @@
         <Info id="0x0001" nazwa="Naquadah">
           Opis Naquadah'u.
           <Wymagania>
-            <Cena>
+            <Cennik>
 
-            </Cena>
+            </Cennik>
             <Warunek>
 
             </Warunek>
-          </Wymagania>
+          
+        </Wymagania>
         </Info>
       </ObiektBaseInfo>
     </ObiektInfo>
@@ -62,9 +63,9 @@
         <Info id="0x0002" nazwa="MiedŸ">
           Opis miedzi.
           <Wymagania>
-            <Cena>
+            <Cennik>
 
-            </Cena>
+            </Cennik>
             <Warunek>
 
             </Warunek>
@@ -80,9 +81,9 @@
         <Info id="0x0002" nazwa="Krzem">
           Opis krzemu.
           <Wymagania>
-            <Cena>
+            <Cennik>
 
-            </Cena>
+            </Cennik>
             <Warunek>
 
             </Warunek>
@@ -98,9 +99,9 @@
         <Info id="0x0002" nazwa="Kryszta³">
           Opis kryszta³u.
           <Wymagania>
-            <Cena>
+            <Cennik>
 
-            </Cena>
+            </Cennik>
             <Warunek>
 
             </Warunek>
@@ -117,9 +118,9 @@
         <Info id="0x0003" nazwa="Wodór">
           Opis wodoru.
           <Wymagania>
-            <Cena>
+            <Cennik>
 
-            </Cena>
+            </Cennik>
             <Warunek>
 
             </Warunek>
@@ -135,9 +136,9 @@
         <Info id="0x0003" nazwa="Deuter">
           Opis deuteru.
           <Wymagania>
-            <Cena>
+            <Cennik>
 
-            </Cena>
+            </Cennik>
             <Warunek>
 
             </Warunek>
@@ -153,9 +154,9 @@
         <Info id="0x0003" nazwa="Tryt">
           Opis trytu.
           <Wymagania>
-            <Cena>
+            <Cennik>
 
-            </Cena>
+            </Cennik>
             <Warunek>
 
             </Warunek>
@@ -172,9 +173,9 @@
         <Info id="0x001" nazwa="Transportowiec">
           Opis Transportowca.
           <Wymagania>
-            <Cena>
+            <Cennik>
 
-            </Cena>
+            </Cennik>
             <Warunek>
 
             </Warunek>
@@ -199,9 +200,9 @@
         <Info id="0x002" nazwa="Myœliwiec">
           Opis Myœliwca.
           <Wymagania>
-            <Cena>
+            <Cennik>
 
-            </Cena>
+            </Cennik>
             <Warunek>
 
             </Warunek>

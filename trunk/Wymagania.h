@@ -1,6 +1,6 @@
 #pragma once
 #include "Main.h"
-#include "CenaInterfejs.h"
+#include "Cennik.h"
 #include "Warunek.h"
 #include "LoggerInterface.h"
 
@@ -8,8 +8,8 @@ class Wymagania :
 	public LoggerInterface < Wymagania >
 {
 public:
-	Wymagania( );
-	Wymagania( CenaInterfejs* , Warunek* );
+	explicit Wymagania( ticpp::Node* );
+	Wymagania( const Cennik& , Warunek* );
 	Wymagania( const Wymagania& );
 	const Wymagania& operator=( const Wymagania& );
 	~Wymagania();
@@ -24,6 +24,6 @@ public:
 
 private:
 
-	CenaInterfejs* koszty;
+	Cennik koszty;
 	Warunek* wymogi;
 };

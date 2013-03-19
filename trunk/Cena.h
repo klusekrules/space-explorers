@@ -2,6 +2,7 @@
 #include "Main.h"
 #include "CenaInterfejs.h"
 #include "LoggerInterface.h"
+#include "parser\ticpp.h"
 
 class Cena :
 	public CenaInterfejs,
@@ -10,8 +11,8 @@ class Cena :
 public:
 	typedef LoggerInterface < Cena > LogCena;
 
-	Cena();
-	Cena( const Zbiornik& );
+	explicit Cena( ticpp::Node* );
+	explicit Cena( const Item& );
 	Cena( const Cena& );
 
 	Cena& operator=(const Cena&);
@@ -20,16 +21,16 @@ public:
 
 	Cena* Kopia() const override;
 
-	Zbiornik PobierzKoszty( ) const override;
+	Item PobierzKoszty( ) const override;
 
 	bool czySpelniaWymagania( const Ilosc& i, const IdType& idPlanety ) const override;
 
-	const Zbiornik& getKoszty() const;
-	void setKoszty( const Zbiornik& );
+	const Item& getKoszty() const;
+	void setKoszty( const Item& );
 
 	string toString() const override;
 
 private:
-	Zbiornik obiekty;
+	Item* obiekty;
 };
 

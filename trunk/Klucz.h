@@ -3,6 +3,8 @@
 #include "BaseTypes.h"
 #include "Poziom.h"
 #include "IdType.h"
+#include "parser\ticpp.h"
+#include "WyjatekParseraXML.h"
 
 class Klucz:
 	public LoggerInterface<Klucz>,
@@ -11,6 +13,7 @@ class Klucz:
 	type_name values;
 public:
 	Klucz();
+	Klucz( ticpp::Node* );
 	Klucz( const IdType& , const Poziom& );
 	explicit Klucz( const type_name& );
 	Klucz( const Klucz& );

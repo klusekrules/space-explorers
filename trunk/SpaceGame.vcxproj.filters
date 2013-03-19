@@ -157,17 +157,26 @@
     <ClCompile Include="CenaDekorator.cpp">
       <Filter>SourceFile\Surowce\Cena</Filter>
     </ClCompile>
-    <ClCompile Include="Warunek.cpp">
-      <Filter>SourceFile\Surowce\Cena</Filter>
-    </ClCompile>
-    <ClCompile Include="Wymagania.cpp">
-      <Filter>SourceFile\Surowce\Cena</Filter>
-    </ClCompile>
     <ClCompile Include="ObiektInfo.cpp">
       <Filter>SourceFile\BaseClass\Obiekt</Filter>
     </ClCompile>
     <ClCompile Include="ObiektBaseInfo.cpp">
       <Filter>SourceFile\BaseClass\Info</Filter>
+    </ClCompile>
+    <ClCompile Include="Warunek.cpp">
+      <Filter>SourceFile\Surowce\Warunek</Filter>
+    </ClCompile>
+    <ClCompile Include="Wymagania.cpp">
+      <Filter>SourceFile\Surowce</Filter>
+    </ClCompile>
+    <ClCompile Include="Cennik.cpp">
+      <Filter>SourceFile\Surowce</Filter>
+    </ClCompile>
+    <ClCompile Include="CenaLiniowyDekorator.cpp">
+      <Filter>SourceFile\Surowce\Cena</Filter>
+    </ClCompile>
+    <ClCompile Include="CenaInterface.cpp">
+      <Filter>SourceFile\Surowce\Cena</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -360,12 +369,6 @@
     <ClInclude Include="CenaDekorator.h">
       <Filter>SourceFile\Surowce\Cena</Filter>
     </ClInclude>
-    <ClInclude Include="Warunek.h">
-      <Filter>SourceFile\Surowce\Cena</Filter>
-    </ClInclude>
-    <ClInclude Include="Wymagania.h">
-      <Filter>SourceFile\Surowce\Cena</Filter>
-    </ClInclude>
     <ClInclude Include="ZmianaInterfejs.h">
       <Filter>SourceFile\BaseClass\Zmiana</Filter>
     </ClInclude>
@@ -395,6 +398,18 @@
     </ClInclude>
     <ClInclude Include="XmlBO.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClInclude>
+    <ClInclude Include="Warunek.h">
+      <Filter>SourceFile\Surowce\Warunek</Filter>
+    </ClInclude>
+    <ClInclude Include="Wymagania.h">
+      <Filter>SourceFile\Surowce</Filter>
+    </ClInclude>
+    <ClInclude Include="Cennik.h">
+      <Filter>SourceFile\Surowce</Filter>
+    </ClInclude>
+    <ClInclude Include="CenaLiniowyDekorator.h">
+      <Filter>SourceFile\Surowce\Cena</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -475,6 +490,9 @@
     </Filter>
     <Filter Include="Resource">
       <UniqueIdentifier>{f809a59c-3db4-40e4-baa6-d18e46644843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Surowce\Warunek">
+      <UniqueIdentifier>{4cc8f7a4-b9e2-44ab-bf66-771acc1a298b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

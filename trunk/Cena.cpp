@@ -1,35 +1,49 @@
 #include "Cena.h"
 #include "Logger.h"
+#include "Aplikacja.h"
 
-Cena::Cena()
-	: obiekty()
+Cena::Cena( ticpp::Node* n )
+	: obiekty(nullptr)
 {
+	if(n!=nullptr){
+		ticpp::Node* a = n->IterateChildren(CenaInterfejs::Item::LogSurowce::className(),nullptr);
+		try{
+			Klucz k(a);
+			obiekty= Aplikacja::getInstance().getSurowce(k).TworzEgzemplarz(Ilosc(stoi(n->ToElement()->GetAttribute("ilosc"))));
+		}catch(exception& e){
+			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
+		}
+	}
 }
 
-Cena::Cena( const Zbiornik & zsKoszty )
-	: obiekty(zsKoszty)
+Cena::Cena( const Item & zsKoszty )
+	: obiekty(zsKoszty.Kopia())
 {
 }
 
 Cena::Cena( const Cena& a )
-	: obiekty(a.obiekty)
+	: obiekty(a.obiekty->Kopia())
 {
 }
 
 Cena::~Cena()
 {
+	if(obiekty)
+		delete obiekty;
 }
 
-Cena::Zbiornik Cena::PobierzKoszty() const{
-	return obiekty;
+Cena::Item Cena::PobierzKoszty() const{
+	return *obiekty;
 }
 
-const Cena::Zbiornik& Cena::getKoszty() const{
-	return obiekty;
+const Cena::Item& Cena::getKoszty() const{
+	return *obiekty;
 }
 
 Cena& Cena::operator=(const Cena& a){
-	this->obiekty=a.obiekty;
+	if(obiekty)
+		delete obiekty;
+	this->obiekty=a.obiekty->Kopia();
 	return *this;
 }
 
@@ -38,25 +52,17 @@ Cena* Cena::Kopia() const{
 }
 
 bool Cena::czySpelniaWymagania( const Ilosc& i, const IdType& z ) const{
-	const Zbiornik& zb = Zbiornik(); //TODO: Pobieranie zbiornika z planety
-	for(auto a : obiekty){
-		try{
-			Surowce& o = zb.get(a.second->ID());
-			if((a.second->getIlosc() * i)> o.getIlosc() )
-				return false;
-		}catch( const NieznalezionoObiektu& ){
-			return false;
-		}
-	}
+	//return (zasób na planecie) >= (i.value() * obiekty.getIlosc().value()));
+	//TODO:Zimplementowanie wymaga istnienia klasy planeta z mo¿liwoœci¹ pobieranie iloœci surowców.
 	return true;
 }
 
-void Cena::setKoszty( const Zbiornik& zsKoszty ){
-	obiekty = zsKoszty;
+void Cena::setKoszty( const Item& zsKoszty ){
+	obiekty = zsKoszty.Kopia();
 }
 
 string Cena::toString() const{
 	Logger str(LogCena::className());
-	str.addField("ZbiornikSurowcow",obiekty);
+	str.addField<Surowce>("Surowiec",*obiekty);
 	return str.toString();
 }

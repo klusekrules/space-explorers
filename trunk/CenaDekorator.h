@@ -2,6 +2,8 @@
 #include "Main.h"
 #include "CenaInterfejs.h"
 #include "LoggerInterface.h"
+#include "NiezainicjalizowanaKlasa.h"
+#include "parser\ticpp.h"
 
 class CenaDekorator:
 	public CenaInterfejs,
@@ -10,6 +12,10 @@ class CenaDekorator:
 public:	
 	typedef LoggerInterface < CenaDekorator > LogCenaDekorator;
 
+	static CenaDekorator* TworzDekorator( ticpp::Node* n );
+	
+	explicit CenaDekorator( ticpp::Node* n );
+	
 	explicit CenaDekorator( CenaInterfejs* );
 
 	CenaDekorator( const CenaDekorator& );
@@ -20,13 +26,13 @@ public:
 
 	CenaDekorator* Kopia() const override;
 
-	Zbiornik PobierzKoszty( ) const override;
+	Item PobierzKoszty( ) const override;
 
 	bool czySpelniaWymagania( const Ilosc&, const IdType& ) const override;
 
-	string toString() const override;
-private:
+	virtual string toString() const override;
 
+private:
 	CenaInterfejs* dekorator;
 
 };
