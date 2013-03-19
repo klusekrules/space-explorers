@@ -1,30 +1,27 @@
 #include "Wymagania.h"
 #include "Logger.h"
+#include "XmlBO.h"
 
-Wymagania::Wymagania( )
-	: koszty(nullptr), wymogi(nullptr)
+Wymagania::Wymagania( ticpp::Node* n  )
+	: koszty( XmlBO::IterateChildren(n,Cennik::LogCennik::className()) ), wymogi(nullptr)
 {
 
 }
 
-Wymagania::Wymagania( CenaInterfejs* c, Warunek* w )
+Wymagania::Wymagania( const Cennik& c, Warunek* w )
 	: koszty(c), wymogi(w)
 {
 }
 
 bool Wymagania::sprawdzWymagania( const Ilosc& i, const IdType& idPlanety ) const{
-	if(koszty==nullptr || wymogi==nullptr)
+	if(wymogi==nullptr)
 		return false;
-	return koszty->czySpelniaWymagania(i,idPlanety) && wymogi->sprawdzWarunki(idPlanety);
+	return koszty.czySpelniaWymagania(i,idPlanety) && wymogi->sprawdzWarunki(idPlanety);
 }
 
 Wymagania::Wymagania( const Wymagania& w )
-{
-	if(w.koszty!=nullptr)
-		koszty = w.koszty->Kopia();
-	else
-		koszty = nullptr;
-	
+	: koszty(w.koszty)
+{	
 	if(w.wymogi!=nullptr)
 		wymogi = w.wymogi->Kopia();
 	else
@@ -32,12 +29,7 @@ Wymagania::Wymagania( const Wymagania& w )
 }
 
 const Wymagania& Wymagania::operator=( const Wymagania& w ){
-	if(koszty!=nullptr)
-		delete koszty;
-	if(w.koszty!=nullptr)
-		koszty = w.koszty->Kopia();
-	else
-		koszty = nullptr;
+	koszty = w.koszty;	
 	if(wymogi!=nullptr)
 		delete wymogi;
 	if(w.wymogi!=nullptr)
@@ -47,18 +39,14 @@ const Wymagania& Wymagania::operator=( const Wymagania& w ){
 	return *this;
 }
 
-Wymagania::~Wymagania()
-{
-	if(koszty!=nullptr)
-		delete koszty;
+Wymagania::~Wymagania(){
 	if(wymogi!=nullptr)
 		delete wymogi;
 }
 
 string Wymagania::toString() const{
 	Logger str(className());
-	if(koszty!=nullptr)
-		str.addField("Koszty",*koszty);
+	str.addField("Koszty",koszty);
 	if(wymogi!=nullptr)
 		str.addField("Warunki",*wymogi);
 	return str.toString();

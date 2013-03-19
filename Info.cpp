@@ -1,12 +1,13 @@
 #include "Info.h"
 #include "Logger.h"
+#include "XmlBO.h"
 
 Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const IdType& id , const Wymagania& w )
 	: Base(id), nazwa( tNazwa ), opis( tOpis ), wymagania(w)
 {
 }
 Info::Info( ticpp::Node* n )
-	: Base( n )
+	: Base( n ) , wymagania( XmlBO::IterateChildren(n,Wymagania::className())  )
 {
 	if(n!=nullptr){
 		try{

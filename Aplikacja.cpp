@@ -4,7 +4,7 @@
 #include <iomanip>
 #include "StatekInfo.h"
 Aplikacja::Aplikacja()
-	: isDbgHelpInit(false), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania()) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
+	: isDbgHelpInit(false), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
 {
 	hLibrary = LoadLibrary("Dbghelp.dll");
 	if(hLibrary){		
