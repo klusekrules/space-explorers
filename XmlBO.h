@@ -5,9 +5,13 @@
 
 class XmlBO{
 public:
-	static ticpp::Node* IterateChildren(ticpp::Node* n , const string& s){
+	static ticpp::Node* IterateChildren(ticpp::Node* n , const string& s, bool throwifInvArg = true){
 		if(n==nullptr || s.empty())
-			throw WyjatekParseraXML(EXCEPTION_PLACE,exception((s + to_string(n==nullptr)).c_str()),WyjatekParseraXML::trescBladStrukturyXml);
+			if(throwifInvArg)
+				throw WyjatekParseraXML(EXCEPTION_PLACE,exception((s + " isNull=" + to_string(n==nullptr)).c_str()),WyjatekParseraXML::trescBladStrukturyXml);
+			else
+				return nullptr;
+
 		return n->IterateChildren(s,nullptr);
 	}
 };

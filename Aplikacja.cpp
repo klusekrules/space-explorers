@@ -4,7 +4,7 @@
 #include <iomanip>
 #include "StatekInfo.h"
 Aplikacja::Aplikacja()
-	: isDbgHelpInit(false), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
+	: isDbgHelpInit(false), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(Cennik(nullptr),nullptr)) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
 {
 	hLibrary = LoadLibrary("Dbghelp.dll");
 	if(hLibrary){		
@@ -32,8 +32,10 @@ bool Aplikacja::WczytajDane( const string& sFile ){
 		dane.LoadFile(sFile);
 		auto root_data = dane.IterateChildren("SpaceGame",nullptr);
 		if(root_data){
-			WczytajSurowce(root_data);
-			WczytajStatki(root_data);
+			if(!WczytajSurowce(root_data))
+				return false;
+			if(!WczytajStatki(root_data))
+				return false;
 		}
 	}catch(ticpp::Exception& e){
 		cout<< e.what();
@@ -56,9 +58,10 @@ bool Aplikacja::WczytajSurowce(ticpp::Node* root){
 		}catch(OgolnyWyjatek& e){
 			Log::warn(e.generujKomunikat());
 			Log::debug(e);
+			return false;
 		}
 	}while(ptr);
-	return false;
+	return true;
 }
 
 bool Aplikacja::WczytajStatki(ticpp::Node* root){
@@ -74,9 +77,10 @@ bool Aplikacja::WczytajStatki(ticpp::Node* root){
 		}catch(OgolnyWyjatek& e){
 			Log::warn(e.generujKomunikat());
 			Log::debug(e);
+			return false;
 		}
 	}while(ptr);
-	return false;
+	return true;
 }
 
 string Aplikacja::getStackTrace() const{

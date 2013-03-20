@@ -7,14 +7,13 @@ Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const IdType& id , const W
 {
 }
 Info::Info( ticpp::Node* n )
-	: Base( n ) , wymagania( XmlBO::IterateChildren(n,Wymagania::className())  )
+	: Base( n ) , wymagania( XmlBO::IterateChildren(n,Wymagania::className(),false)  )
 {
 	if(n!=nullptr){
 		try{
 			ticpp::Element* e = n->ToElement();
 			setNazwa(e->GetAttribute("nazwa"));
 			setOpis(e->GetText(false));
-			//TODO: Odczyt wymagañ
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

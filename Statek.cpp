@@ -52,5 +52,6 @@ string Statek::toString() const{
 	str.addClass(JednostkaAtakujaca::toString());
 	str.addClass(JednostkaLatajaca::toString());
 	str.addClass(Ladownia::toString());
+	str.addField(StatekInfo::LogStatekInfo::className()+"ID",statekinfo.ID());
 	return str.toString();
 }
