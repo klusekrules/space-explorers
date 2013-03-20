@@ -60,6 +60,6 @@ string ObiektBase::toString() const{
 	Logger str(LogObiektBase::className());
 	str.addClass(Base::toString());
 	str.addField(ilosc.className(),ilosc);
-	str.addField(ObiektBaseInfo::LogObiektBaseInfo::className()+"ID",obiektBaseInfo.getId());
+	str.addField(ObiektBaseInfo::LogObiektBaseInfo::className()+"ID",obiektBaseInfo.ID());
 	return str.toString();
 }

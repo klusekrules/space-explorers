@@ -9,7 +9,7 @@ Cena::Cena( ticpp::Node* n )
 		ticpp::Node* a = n->IterateChildren(CenaInterfejs::Item::LogSurowce::className(),nullptr);
 		try{
 			Klucz k(a);
-			obiekty= Aplikacja::getInstance().getSurowce(k).TworzEgzemplarz(Ilosc(stoi(n->ToElement()->GetAttribute("ilosc"))));
+			obiekty= Aplikacja::getInstance().getSurowce(k).TworzEgzemplarz(Ilosc(stoi(a->ToElement()->GetAttribute("ilosc"),nullptr,0)));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

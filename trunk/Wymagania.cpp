@@ -3,9 +3,11 @@
 #include "XmlBO.h"
 
 Wymagania::Wymagania( ticpp::Node* n  )
-	: koszty( XmlBO::IterateChildren(n,Cennik::LogCennik::className()) ), wymogi(nullptr)
+	: koszty( XmlBO::IterateChildren(n,Cennik::LogCennik::className(),false) ), wymogi(nullptr)
 {
-
+	if(n){
+		//TODO wczytywanie wymogów.
+	}
 }
 
 Wymagania::Wymagania( const Cennik& c, Warunek* w )

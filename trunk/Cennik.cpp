@@ -8,6 +8,7 @@ Cennik::Cennik( ticpp::Node* n )
 	if(n){
 		auto e = n->FirstChildElement(false);
 		while(e){
+			//Wyniesc to do nowej klasy, ( fabryka obiektów)
 			if(e->Value() == Cena::LogCena::className())
 				elementy.push_back(new Cena(e));
 			if(e->Value() == CenaLiniowyDekorator::LogCenaLiniowyDekorator::className())
@@ -31,7 +32,8 @@ Cennik::~Cennik(){
 
 string Cennik::toString()const{
 	Logger str(LogCennik::className());
-	//TODO: logowanie wektora
-	//str.addField("Elementy",elementy);
+	for(auto i : elementy)
+		if(i)
+			str.addField("Element",*i);
 	return str.toString();
 }
