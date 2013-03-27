@@ -29,21 +29,21 @@ Obrazenia JednostkaAtakujacaInfo::getAtak() const{
 	if(zmAtak==nullptr)
 		return atak;
 	else
-		return zmAtak->value(atak);
+		return Obrazenia(zmAtak->value(atak.value()));
 }
 	
 Obrazenia JednostkaAtakujacaInfo::getPancerz() const{
 	if(zmPancerz==nullptr)
 		return pancerz;
 	else
-		return zmPancerz->value(pancerz);
+		return Obrazenia(zmPancerz->value(pancerz.value()));
 }
 
 Obrazenia JednostkaAtakujacaInfo::getOslona() const{
 	if(zmOslona==nullptr)
 		return oslona;
 	else
-		return zmOslona->value(oslona);
+		return Obrazenia(zmOslona->value(oslona.value()));
 }
 
 string JednostkaAtakujacaInfo::toString() const{

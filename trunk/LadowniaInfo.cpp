@@ -27,7 +27,7 @@ Objetosc LadowniaInfo::getPojemnoscMaksymalna() const{
 	if(przyrostPojemnoscMax==nullptr)
 		return pojemnoscMax;
 	else
-		return przyrostPojemnoscMax->value(pojemnoscMax);
+		return Objetosc(przyrostPojemnoscMax->value(pojemnoscMax.value()));
 }
 		
 string LadowniaInfo::toString() const{

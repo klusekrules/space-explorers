@@ -1,24 +1,23 @@
 #pragma once
-
 #include "ZmianaInterfejs.h"
 #include "Logger.h"
+#include "parser\ticpp.h"
 
-template < class T >
 class Zmiana:
-	public ZmianaInterfejs<T>,
-	public LoggerInterface<Zmiana<T>>
+	public ZmianaInterfejs,
+	public LoggerInterface<Zmiana>
 {
 public:
-	typedef LoggerInterface<Zmiana<T>> LogZmiana;
-	T value( const T& ) const override {
-		return T();
+	typedef LoggerInterface<Zmiana> LogZmiana;
+	long double value( const long double& ) const override {
+		return long double();
 	}
-	Zmiana(){}
+	Zmiana( const ticpp::Element* ){}
 	virtual ~Zmiana(){}
 
 	string toString() const override{
 		Logger str(LogZmiana::className());
-		str.addClass(ZmianaInterfejs<T>::toString());
+		str.addClass(ZmianaInterfejs::toString());
 		return str.toString();
 	}
 };

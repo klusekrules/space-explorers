@@ -12,7 +12,7 @@ class LadowniaInfo :
 private:
 	
 	Objetosc pojemnoscMax;
-	ZmianaInterfejs<Objetosc>* przyrostPojemnoscMax;
+	ZmianaInterfejs* przyrostPojemnoscMax;
 
 public:
 	typedef LoggerInterface<LadowniaInfo> LogLadowniaInfo;

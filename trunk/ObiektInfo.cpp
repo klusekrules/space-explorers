@@ -29,19 +29,19 @@ ObiektInfo::~ObiektInfo(){
 Powierzchnia ObiektInfo::getPowierzchnia() const {
 	if(zmPowierzchnia == nullptr)
 		return powierzchnia;			
-	return zmPowierzchnia->value(powierzchnia);
+	return Powierzchnia(zmPowierzchnia->value(powierzchnia.value()));
 }
 
 Objetosc ObiektInfo::getObjetosc() const {
 	if(zmPowierzchnia == nullptr)
 		return objetosc;
-	return zmObjetosc->value(objetosc);
+	return Objetosc(zmObjetosc->value(objetosc.value()));
 }
 
 Masa ObiektInfo::getMasa() const {
 	if(zmPowierzchnia == nullptr)
 		return masa;
-	return zmMasa->value(masa);
+	return Masa(zmMasa->value(masa.value()));
 }
 
 Obiekt* ObiektInfo::TworzEgzemplarz( const Ilosc& iIlosc ) const {
