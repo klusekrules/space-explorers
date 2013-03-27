@@ -1,33 +1,33 @@
 #pragma once
-
+#include <memory>
 #include "ZmianaInterfejs.h"
 #include "Logger.h"
+#include "parser\ticpp.h"
 
-template < class T >
 class ZmianaDekorator:
-	public ZmianaInterfejs<T>,
-	public LoggerInterface<ZmianaDekorator<T>>
+	public ZmianaInterfejs,
+	public LoggerInterface<ZmianaDekorator>
 {
 private:
-	ZmianaInterfejs* next;
+	shared_ptr<ZmianaInterfejs> next;
 public:
-	typedef LoggerInterface<ZmianaDekorator<T>> LogZmianaDekorator;
+	typedef LoggerInterface<ZmianaDekorator> LogZmianaDekorator;
 	//Metoda docelowo do usuniêcia
-	T value(const T&) const override {
-		return T();
+	long double value(const long double&) const override {
+		return long double(0);
 	}
 	//-------------------------------------------
 
-	ZmianaDekorator( ZmianaInterfejs* a ) : next(a) {}
+	ZmianaDekorator(  const ticpp::Element* e ){
 
-	virtual ~ZmianaDekorator(){
-		if(next!=nullptr)
-			delete next;
 	}
 
-	string toString const override{
+	virtual ~ZmianaDekorator(){
+	}
+
+	string toString () const override{
 		Logger str(LogZmianaDekorator::className());
-		str.addClass(ZmianaInterfejs<T>::toString());
+		str.addClass(ZmianaInterfejs::toString());
 		return str.toString();
 	}
 };

@@ -275,7 +275,9 @@
     <ClInclude Include="Wymagania.h" />
     <ClInclude Include="XmlBO.h" />
     <ClInclude Include="Zmiana.h" />
+    <ClInclude Include="ZmianaAgregacja.h" />
     <ClInclude Include="ZmianaDekorator.h" />
+    <ClInclude Include="ZmianaFabryka.h" />
     <ClInclude Include="ZmianaInterfejs.h" />
     <ClInclude Include="ZuzyciePaliwa.h" />
   </ItemGroup>
@@ -338,6 +340,8 @@
     <ClCompile Include="WyjatekSTL.cpp" />
     <ClCompile Include="Wyjatki.cpp" />
     <ClCompile Include="Wymagania.cpp" />
+    <ClCompile Include="ZmianaAgregacja.cpp" />
+    <ClCompile Include="ZmianaFabryka.cpp" />
     <ClCompile Include="ZuzyciePaliwa.cpp" />
   </ItemGroup>
   <ItemGroup>

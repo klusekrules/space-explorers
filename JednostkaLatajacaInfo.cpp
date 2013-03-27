@@ -40,28 +40,28 @@ MocSilnika JednostkaLatajacaInfo::getMocSilnika() const{
 	if(przyrostMocySilnika==nullptr)
 		return mocSilnika;
 	else
-		return przyrostMocySilnika->value(mocSilnika);
+		return MocSilnika(przyrostMocySilnika->value(mocSilnika.value()));
 }
 
 ZuzyciePaliwa JednostkaLatajacaInfo::getZuzyciePaliwa() const{
 	if(przyrostZuzyciaPaliwa==nullptr)
 		return zuzyciePaliwa;
 	else
-		return przyrostZuzyciaPaliwa->value(zuzyciePaliwa);
+		return ZuzyciePaliwa(przyrostZuzyciaPaliwa->value(zuzyciePaliwa.value()));
 }
 
 Masa JednostkaLatajacaInfo::getMasaNapedu() const{
 	if(przyrostMasyNapedu==nullptr)
 		return masaNapedu;
 	else
-		return przyrostMasyNapedu->value(masaNapedu);
+		return Masa(przyrostMasyNapedu->value(masaNapedu.value()));
 }
 
 Fluktuacja JednostkaLatajacaInfo::getSprawnoscSilnika() const{
 	if(przyrostSprawnosciSilnika==nullptr)
 		return sprawnoscSilnika;
 	else
-		return przyrostSprawnosciSilnika->value(sprawnoscSilnika);
+		return Fluktuacja(static_cast<float>(przyrostSprawnosciSilnika->value(sprawnoscSilnika.value())));
 }
 
 string JednostkaLatajacaInfo::toString() const{

@@ -11,13 +11,13 @@ class ObiektInfo :
 {
 private:
 	Powierzchnia powierzchnia;
-	ZmianaInterfejs<Powierzchnia>* zmPowierzchnia;
+	ZmianaInterfejs* zmPowierzchnia;
 
 	Objetosc objetosc;
-	ZmianaInterfejs<Objetosc>* zmObjetosc;
+	ZmianaInterfejs* zmObjetosc;
 
 	Masa masa;
-	ZmianaInterfejs<Masa>* zmMasa;
+	ZmianaInterfejs* zmMasa;
 
 public:
 	typedef LoggerInterface<ObiektInfo> LogObiektInfo;

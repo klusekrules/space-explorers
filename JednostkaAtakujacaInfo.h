@@ -54,12 +54,12 @@ public:
 
 private:
 	Obrazenia atak; /// Podstawowa wartoœæ ataku obiektu.
-	ZmianaInterfejs<Obrazenia>* zmAtak; /// Procentowa zmiana ataku wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
+	ZmianaInterfejs* zmAtak; /// Procentowa zmiana ataku wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
 
 	Obrazenia pancerz; /// Podstawowa wartoœæ pancerza obiektu.
-	ZmianaInterfejs<Obrazenia>* zmPancerz; /// Procentowa zmiana pancerza wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
+	ZmianaInterfejs* zmPancerz; /// Procentowa zmiana pancerza wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
 
 	Obrazenia oslona; /// Podstawowa wartoœæ os³ony obiektu.
-	ZmianaInterfejs<Obrazenia>* zmOslona; /// Procentowa zmiana os³ony wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
+	ZmianaInterfejs* zmOslona; /// Procentowa zmiana os³ony wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
 };
 
