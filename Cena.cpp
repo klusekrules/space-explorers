@@ -8,7 +8,7 @@ Cena::Cena( ticpp::Node* n )
 	: obiekty(nullptr),zmiana(nullptr)
 {
 	if(n!=nullptr){
-		ticpp::Node* a = n->IterateChildren(CenaInterfejs::Item::LogSurowce::className(),nullptr);
+		ticpp::Node* a = n->IterateChildren(Cena::Item::LogSurowce::className(),nullptr);
 		try{
 			Klucz k(a);
 			obiekty= shared_ptr<Item>(Aplikacja::getInstance().getSurowce(k).TworzEgzemplarz(Ilosc(stoi(a->ToElement()->GetAttribute("ilosc"),nullptr,0))));
@@ -35,8 +35,12 @@ Cena::~Cena()
 {
 }
 
-Cena::Item Cena::PobierzKoszty() const{
-	return *obiekty;
+shared_ptr<Cena::Item> Cena::PobierzKoszty(const Ilosc& i, const Poziom& p ) const{
+	shared_ptr<Item> tmp(obiekty->Kopia());
+	if(zmiana.get()){
+		tmp->setIlosc(Ilosc(i.value()* zmiana->value(obiekty->getIlosc().value(),p)));
+	}
+	return tmp;
 }
 
 const Cena::Item& Cena::getKoszty() const{
@@ -52,7 +56,7 @@ Cena* Cena::Kopia() const{
 	return new Cena(*this);
 }
 
-bool Cena::czySpelniaWymagania( const Ilosc& i, const IdType& z ) const{
+bool Cena::czySpelniaWymagania( const Ilosc& i, const Poziom& p, const IdType& z ) const{
 	//return (zasób na planecie) >= (i.value() * obiekty.getIlosc().value()));
 	//TODO:Zimplementowanie wymaga istnienia klasy planeta z mo¿liwoœci¹ pobieranie iloœci surowców.
 	return true;

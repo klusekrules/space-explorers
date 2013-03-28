@@ -40,7 +40,7 @@ public:
 	* \param p - Prêdkoœæ, któr¹ ma lecieæ statek.
 	* \return Paliwo zu¿yte przez statek.
 	*/
-	virtual ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const;
+	virtual ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p,const Poziom& pz  ) const;
 
 	/**
 	* Maksymalna prêkoœæ jak¹ mo¿e rozwin¹æ statek.
@@ -60,7 +60,7 @@ public:
 	* }
 	* \return prêdkoœæ jak¹ mo¿e rozwin¹æ statek.
 	*/
-	Predkosc PredkoscMaksymalna() const;
+	Predkosc PredkoscMaksymalna(const Poziom& p ) const;
 	
 	/**
 	* Metoda opisuj¹ca zawartoœæ klasy.

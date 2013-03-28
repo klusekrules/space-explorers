@@ -36,11 +36,11 @@ public:
 	Ladownia( Zbiornik& , const LadowniaInfo& );
 	virtual ~Ladownia( );	
 	
-	Fluktuacja WolneMiejsce() const;
+	virtual Fluktuacja WolneMiejsce( const Poziom& pz ) const;
 
 	Ilosc SprawdzIloscObiektow( const Klucz& ) const;
 	
-	bool DodajObiektDoLadowni( const Item& );
+	virtual bool DodajObiektDoLadowni( const Item& , const Poziom& pz );
 
 	Item& PobierzObiekt( const Klucz& , const Ilosc& ) throw ( NieznalezionoObiektu, NiepoprawnaIloscObiektow );
 
@@ -52,7 +52,7 @@ public:
 
 	const Objetosc& getZajeteMiejsce() const;
 
-	virtual Objetosc getPojemnoscMax() const;
+	virtual Objetosc getPojemnoscMax( const Poziom& pz ) const;
 
 	string toString() const override;
 

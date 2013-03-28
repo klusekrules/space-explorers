@@ -10,8 +10,8 @@ Statek::Statek( const Ilosc& i ,const StatekInfo& s )
 Statek::~Statek(){
 }
 
-ZuzyciePaliwa Statek::WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const {
-	return ZuzyciePaliwa( ilosc.value() * JednostkaLatajaca::WyliczZuzyciePaliwa(d,p).value()  );
+ZuzyciePaliwa Statek::WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p, const Poziom& pz ) const {
+	return ZuzyciePaliwa( ilosc.value() * JednostkaLatajaca::WyliczZuzyciePaliwa(d,p,getPoziom()).value()  );
 }
 
 Statek* Statek::Kopia() const{
@@ -28,22 +28,33 @@ Statek* Statek::Podziel( const Ilosc& i ){
 }	
 
 
-Obrazenia Statek::Atak() const {
-	return Obrazenia( ilosc.value() * JednostkaAtakujaca::Atak().value() );
+Obrazenia Statek::Atak( const Poziom& pz ) const {
+	return Obrazenia( ilosc.value() * JednostkaAtakujaca::Atak(getPoziom()).value() );
 }
 
-Obrazenia Statek::Pancerz( const Obrazenia& a ) const {
-	Obrazenia o (jednostkaAtakujacaInfo.getPancerz().value() * ilosc.value());
+Obrazenia Statek::Pancerz( const Obrazenia& a, const Poziom& pz ) const {
+	Obrazenia o (jednostkaAtakujacaInfo.getPancerz(getPoziom()).value() * ilosc.value());
 	return a > o ? a - o : Obrazenia(0);
 }
 
-Obrazenia Statek::Oslona( const Obrazenia& a ) const {
-	Obrazenia o (jednostkaAtakujacaInfo.getOslona().value() * ilosc.value());
+Obrazenia Statek::Oslona( const Obrazenia& a, const Poziom& pz ) const {
+	Obrazenia o (jednostkaAtakujacaInfo.getOslona(getPoziom()).value() * ilosc.value());
 	return a > o ? a - o : Obrazenia(0);
 }
 
-Objetosc Statek::getPojemnoscMax() const{
-	return ladowniaInfo.getPojemnoscMaksymalna()*getIlosc();
+Objetosc Statek::getPojemnoscMax(  const Poziom& pz ) const{
+	return ladowniaInfo.getPojemnoscMaksymalna(getPoziom())*getIlosc();
+}
+
+Fluktuacja Statek::WolneMiejsce( const Poziom& pz ) const{
+	return Ladownia::WolneMiejsce(getPoziom());
+}
+
+bool Statek::DodajObiektDoLadowni( const Item& i, const Poziom& pz ){
+	return Ladownia::DodajObiektDoLadowni(i,getPoziom());
+}
+Cennik::ListaSurowcow Statek::PobierzKoszty() const{
+	return obiektInfoClass.PobierzKoszty(getIlosc(),getPoziom());
 }
 
 string Statek::toString() const{

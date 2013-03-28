@@ -211,9 +211,6 @@
     <ClInclude Include="BrakAtrybutuXML.h" />
     <ClInclude Include="BrakMaski.h" />
     <ClInclude Include="Cena.h" />
-    <ClInclude Include="CenaDekorator.h" />
-    <ClInclude Include="CenaInterfejs.h" />
-    <ClInclude Include="CenaLiniowyDekorator.h" />
     <ClInclude Include="Cennik.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Dystans.h" />
@@ -291,9 +288,6 @@
     <ClCompile Include="BrakAtrybutuXML.cpp" />
     <ClCompile Include="BrakMaski.cpp" />
     <ClCompile Include="Cena.cpp" />
-    <ClCompile Include="CenaDekorator.cpp" />
-    <ClCompile Include="CenaInterface.cpp" />
-    <ClCompile Include="CenaLiniowyDekorator.cpp" />
     <ClCompile Include="Cennik.cpp" />
     <ClCompile Include="Constants.cpp" />
     <ClCompile Include="Dystans.cpp" />
@@ -369,7 +363,9 @@
     <Xml Include="out\options.xml">
       <SubType>Designer</SubType>
     </Xml>
-    <Xml Include="out\test.xml" />
+    <Xml Include="out\test.xml">
+      <SubType>Designer</SubType>
+    </Xml>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

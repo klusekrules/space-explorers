@@ -11,17 +11,17 @@ JednostkaAtakujaca::~JednostkaAtakujaca(){
 }
 
 
-Obrazenia JednostkaAtakujaca::Atak() const {
-	return jednostkaAtakujacaInfo.getAtak();
+Obrazenia JednostkaAtakujaca::Atak(const Poziom& p ) const {
+	return jednostkaAtakujacaInfo.getAtak(p);
 }
 
-Obrazenia JednostkaAtakujaca::Pancerz( const Obrazenia& a ) const{
-	Obrazenia o (jednostkaAtakujacaInfo.getPancerz());
+Obrazenia JednostkaAtakujaca::Pancerz( const Obrazenia& a ,const Poziom& p  ) const{
+	Obrazenia o (jednostkaAtakujacaInfo.getPancerz(p));
 	return a > o ? a - o : Obrazenia(0);
 }		
 
-Obrazenia JednostkaAtakujaca::Oslona( const Obrazenia& a ) const{
-	Obrazenia o (jednostkaAtakujacaInfo.getOslona());
+Obrazenia JednostkaAtakujaca::Oslona( const Obrazenia& a ,const Poziom& p  ) const{
+	Obrazenia o (jednostkaAtakujacaInfo.getOslona(p));
 	return a > o ? a - o : Obrazenia(0);
 }
 

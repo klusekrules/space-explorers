@@ -45,6 +45,7 @@ public:
 	bool test_KlasaObiektList();
 	bool test_KlasaLadownia();
 	bool test_KlasaNiepoprawneParametryFunkcji();
+	bool test_wymagan();
 
 	//void test_ladowaniePlikuXML();
 	//void test_podzialuStatku();

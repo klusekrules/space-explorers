@@ -45,25 +45,25 @@ public:
 	* Metoda zwracaj¹ca moc silnika jednostki.
 	* \return Moc silnika jednostki.
 	*/
-	MocSilnika getMocSilnika() const;
+	MocSilnika getMocSilnika(const Poziom& p ) const;
 
 	/**
 	* Metoda zwracaj¹ca zu¿ycie paliwa jednostki.
 	* \return Zu¿ycie paliwa jednostki.
 	*/
-	ZuzyciePaliwa getZuzyciePaliwa() const;
+	ZuzyciePaliwa getZuzyciePaliwa(const Poziom& p ) const;
 	
 	/**
 	* Metoda zwracaj¹ca masê napêdu jednostki.
 	* \return Masa napêdu jednostki.
 	*/
-	Masa getMasaNapedu() const;
+	Masa getMasaNapedu(const Poziom& p ) const;
 	
 	/**
 	* Metoda zwracaj¹ca Sprawnosc Silnika jednostki.
 	* \return Sprawnosc Silnika jednostki.
 	*/
-	Fluktuacja getSprawnoscSilnika() const;
+	Fluktuacja getSprawnoscSilnika(const Poziom& p ) const;
 	
 	/**
 	* Metoda opisuj¹ca zawartoœæ klasy.

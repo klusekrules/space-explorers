@@ -24,7 +24,7 @@ private:
 public:
 	typedef LoggerInterface<ZmianaDekorator> LogZmianaDekorator;
 	
-	long double value( const long double& )const override;
+	long double value( const long double& , const Poziom&)const override;
 
 	explicit ZmianaDekorator( const ticpp::Element* e );
 	ZmianaDekorator( const ZmianaDekorator& e );

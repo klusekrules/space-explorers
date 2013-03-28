@@ -3,11 +3,11 @@
 #include "XmlBO.h"
 
 Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const IdType& id , const Wymagania& w )
-	: Base(id), nazwa( tNazwa ), opis( tOpis ), wymagania(w)
+	: Base(id), nazwa( tNazwa ), opis( tOpis ), Wymagania(w)
 {
 }
 Info::Info( ticpp::Node* n )
-	: Base( n ) , wymagania( XmlBO::IterateChildren(n,Wymagania::className(),false)  )
+	: Base( n ) , Wymagania( XmlBO::IterateChildren(n,Wymagania::LogWymagania::className(),false)  )
 {
 	if(n!=nullptr){
 		try{
@@ -39,19 +39,11 @@ void Info::setOpis( const Tekst& tOpis ){
 	opis = tOpis;
 }
 
-bool Info::sprawdzWymagania(const Ilosc& i, const IdType& idPlanety) const{
-	return wymagania.sprawdzWymagania(i,idPlanety);
-}
-
-const Wymagania& Info::getWymagania() const{
-	return wymagania;
-}
-
 string Info::toString() const{
 	Logger str(LogInfo::className());
 	str.addClass(Base::toString());
+	str.addClass(Wymagania::toString());
 	str.addField("Nazwa",nazwa);
 	str.addField("Opis",opis);
-	str.addField(Wymagania::className(),wymagania);
 	return str.toString();
 }

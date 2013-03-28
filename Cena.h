@@ -1,17 +1,16 @@
 #pragma once
 #include "Main.h"
-#include "CenaInterfejs.h"
 #include "LoggerInterface.h"
 #include "parser\ticpp.h"
 #include "ZmianaInterfejs.h"
+#include "Surowce.h"
 
 class Cena :
-	public CenaInterfejs,
 	public LoggerInterface < Cena >
 {
 public:
 	typedef LoggerInterface < Cena > LogCena;
-
+	typedef Surowce Item;
 	explicit Cena( ticpp::Node* );
 	explicit Cena( const Item& );
 	Cena( const Cena& );
@@ -20,11 +19,11 @@ public:
 
 	virtual ~Cena();
 
-	Cena* Kopia() const override;
+	Cena* Kopia() const;
 
-	Item PobierzKoszty( ) const override;
+	shared_ptr<Item> PobierzKoszty( const Ilosc&, const Poziom& ) const;
 
-	bool czySpelniaWymagania( const Ilosc& i, const IdType& idPlanety ) const override;
+	bool czySpelniaWymagania( const Ilosc& i, const Poziom& p, const IdType& idPlanety ) const;
 
 	const Item& getKoszty() const;
 	void setKoszty( const Item& );

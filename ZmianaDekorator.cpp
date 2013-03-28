@@ -15,9 +15,9 @@ ZmianaDekorator::ZmianaDekorator( const ZmianaDekorator& e )
 ZmianaDekorator::~ZmianaDekorator(){
 }
 
-long double ZmianaDekorator::value( const long double& d )const{
+long double ZmianaDekorator::value( const long double& d, const Poziom& p )const{
 	if(next.get())
-		return next->value(d);
+		return next->value(d,p);
 	return d;
 }
 
@@ -32,7 +32,6 @@ ZmianaDekorator* ZmianaDekorator::Kopia()const{
 
 string ZmianaDekorator::toString () const{
 	Logger str(LogZmianaDekorator::className());
-	str.addClass(ZmianaInterfejs::toString());
 	if(next.get())
 		str.addField("Dziecko",*next);
 	return str.toString();
