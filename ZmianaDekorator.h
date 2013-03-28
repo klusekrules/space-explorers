@@ -1,34 +1,40 @@
 #pragma once
 #include <memory>
+#include "Main.h"
 #include "ZmianaInterfejs.h"
 #include "Logger.h"
 #include "parser\ticpp.h"
+#include "IdType.h"
 
 class ZmianaDekorator:
 	public ZmianaInterfejs,
 	public LoggerInterface<ZmianaDekorator>
 {
 private:
+	static const IdType idKlasy;
+	static ZmianaInterfejs* TworzZmianaDekorator( const ticpp::Element* e ){
+		return new ZmianaDekorator(e);
+	}
+public:	
+	static bool RejestrujZmianaDekotor();
+	
+private:
 	shared_ptr<ZmianaInterfejs> next;
+
 public:
 	typedef LoggerInterface<ZmianaDekorator> LogZmianaDekorator;
-	//Metoda docelowo do usuniêcia
-	long double value(const long double&) const override {
-		return long double(0);
-	}
-	//-------------------------------------------
+	
+	long double value( const long double& )const override;
 
-	ZmianaDekorator(  const ticpp::Element* e ){
+	explicit ZmianaDekorator( const ticpp::Element* e );
+	ZmianaDekorator( const ZmianaDekorator& e );
 
-	}
+	ZmianaDekorator* Kopia()const override;
 
-	virtual ~ZmianaDekorator(){
-	}
+	ZmianaDekorator& operator=(const ZmianaDekorator& );
 
-	string toString () const override{
-		Logger str(LogZmianaDekorator::className());
-		str.addClass(ZmianaInterfejs::toString());
-		return str.toString();
-	}
+	virtual ~ZmianaDekorator();
+	
+	string toString () const override;
 };
 

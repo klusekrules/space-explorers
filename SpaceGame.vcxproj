@@ -218,6 +218,7 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Dystans.h" />
     <ClInclude Include="Fluktuacja.h" />
+    <ClInclude Include="Parametr.h" />
     <ClInclude Include="version.h" />
     <ClInclude Include="IdType.h" />
     <ClInclude Include="Ilosc.h" />
@@ -274,11 +275,12 @@
     <ClInclude Include="WyjatekSTL.h" />
     <ClInclude Include="Wymagania.h" />
     <ClInclude Include="XmlBO.h" />
-    <ClInclude Include="Zmiana.h" />
     <ClInclude Include="ZmianaAgregacja.h" />
     <ClInclude Include="ZmianaDekorator.h" />
     <ClInclude Include="ZmianaFabryka.h" />
     <ClInclude Include="ZmianaInterfejs.h" />
+    <ClInclude Include="ZmianaLiniowa.h" />
+    <ClInclude Include="ZmianaParametr.h" />
     <ClInclude Include="ZuzyciePaliwa.h" />
   </ItemGroup>
   <ItemGroup>
@@ -325,6 +327,7 @@
     <ClCompile Include="Objetosc.cpp" />
     <ClCompile Include="Obrazenia.cpp" />
     <ClCompile Include="OgolnyWyjatek.cpp" />
+    <ClCompile Include="Parametr.cpp" />
     <ClCompile Include="Powierzchnia.cpp" />
     <ClCompile Include="Poziom.cpp" />
     <ClCompile Include="Predkosc.cpp" />
@@ -341,7 +344,12 @@
     <ClCompile Include="Wyjatki.cpp" />
     <ClCompile Include="Wymagania.cpp" />
     <ClCompile Include="ZmianaAgregacja.cpp" />
+    <ClCompile Include="ZmianaDekorator.cpp" />
     <ClCompile Include="ZmianaFabryka.cpp" />
+    <ClCompile Include="ZmianaIdKlas.cpp" />
+    <ClCompile Include="ZmianaInterfejs.cpp" />
+    <ClCompile Include="ZmianaLiniowa.cpp" />
+    <ClCompile Include="ZmianaParametr.cpp" />
     <ClCompile Include="ZuzyciePaliwa.cpp" />
   </ItemGroup>
   <ItemGroup>
