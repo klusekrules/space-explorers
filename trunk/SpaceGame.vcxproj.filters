@@ -178,10 +178,28 @@
     <ClCompile Include="CenaInterface.cpp">
       <Filter>SourceFile\Surowce\Cena</Filter>
     </ClCompile>
-    <ClCompile Include="ZmianaFabryka.cpp">
-      <Filter>SourceFile\BaseClass\Zmiana</Filter>
+    <ClCompile Include="ZmianaLiniowa.cpp">
+      <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
     </ClCompile>
     <ClCompile Include="ZmianaAgregacja.cpp">
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaFabryka.cpp">
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaParametr.cpp">
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
+    </ClCompile>
+    <ClCompile Include="Parametr.cpp">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaInterfejs.cpp">
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaDekorator.cpp">
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaIdKlas.cpp">
       <Filter>SourceFile\BaseClass\Zmiana</Filter>
     </ClCompile>
   </ItemGroup>
@@ -375,15 +393,6 @@
     <ClInclude Include="CenaDekorator.h">
       <Filter>SourceFile\Surowce\Cena</Filter>
     </ClInclude>
-    <ClInclude Include="ZmianaInterfejs.h">
-      <Filter>SourceFile\BaseClass\Zmiana</Filter>
-    </ClInclude>
-    <ClInclude Include="ZmianaDekorator.h">
-      <Filter>SourceFile\BaseClass\Zmiana</Filter>
-    </ClInclude>
-    <ClInclude Include="Zmiana.h">
-      <Filter>SourceFile\BaseClass\Zmiana</Filter>
-    </ClInclude>
     <ClInclude Include="ObiektInfo.h">
       <Filter>SourceFile\BaseClass\Obiekt</Filter>
     </ClInclude>
@@ -417,11 +426,26 @@
     <ClInclude Include="CenaLiniowyDekorator.h">
       <Filter>SourceFile\Surowce\Cena</Filter>
     </ClInclude>
-    <ClInclude Include="ZmianaFabryka.h">
-      <Filter>SourceFile\BaseClass\Zmiana</Filter>
+    <ClInclude Include="ZmianaLiniowa.h">
+      <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaInterfejs.h">
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
     </ClInclude>
     <ClInclude Include="ZmianaAgregacja.h">
-      <Filter>SourceFile\BaseClass\Zmiana</Filter>
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaDekorator.h">
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaFabryka.h">
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaParametr.h">
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
+    </ClInclude>
+    <ClInclude Include="Parametr.h">
+      <Filter>SourceFile\BaseTypes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -505,6 +529,12 @@
     </Filter>
     <Filter Include="SourceFile\Surowce\Warunek">
       <UniqueIdentifier>{4cc8f7a4-b9e2-44ab-bf66-771acc1a298b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\BaseClass\Zmiana\Instancje">
+      <UniqueIdentifier>{8e907574-8f7f-47e0-a603-8b59c2a5f507}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\BaseClass\Zmiana\Szkielet">
+      <UniqueIdentifier>{cc29475b-1b3d-43ed-ab37-5c839aafb0fe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

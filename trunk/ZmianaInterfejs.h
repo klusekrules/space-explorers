@@ -1,18 +1,15 @@
 #pragma once
-#include "LoggerInterface.h"
-#include "Logger.h"
+#include "Main.h"
 
 class ZmianaInterfejs: 
 	public LoggerInterface<ZmianaInterfejs>
 {
 public:
+	typedef LoggerInterface<ZmianaInterfejs> LogZmianaInterfejs;
 	virtual long double value(const long double&) const = 0;
-	ZmianaInterfejs(){}
-	virtual ~ZmianaInterfejs(){}
-
-	string toString() const override{
-		Logger str(className());
-		return str.toString();
-	}
+	virtual ZmianaInterfejs* Kopia() const = 0;
+	ZmianaInterfejs();
+	virtual ~ZmianaInterfejs();
+	string toString() const override;
 };
 

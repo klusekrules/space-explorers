@@ -3,6 +3,7 @@
 #include "CenaInterfejs.h"
 #include "LoggerInterface.h"
 #include "parser\ticpp.h"
+#include "ZmianaInterfejs.h"
 
 class Cena :
 	public CenaInterfejs,
@@ -31,6 +32,7 @@ public:
 	string toString() const override;
 
 private:
-	Item* obiekty;
+	shared_ptr<Item> obiekty;
+	shared_ptr<ZmianaInterfejs> zmiana;
 };
 

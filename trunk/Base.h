@@ -45,7 +45,7 @@ public:
 	* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
 	* \return Napis zwieraj¹cy opis klasy.
 	*/
-	virtual string toString() const override;
+	string toString() const override;
 private:
 
 	IdType id; /// Wartoœæ id obiektu.

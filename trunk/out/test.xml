@@ -171,6 +171,16 @@
             <Cennik>
               <Cena>
                 <Surowce id="0x1" poziom="1" ilosc="1000"></Surowce>
+                <Zmiana id="2">
+                  <ZmianaNext id="3">
+                    <Param id="1" Wspolczynnik="3.0">
+                    </Param>
+                  </ZmianaNext>
+                  <Zmiana id="3">
+                    <Param id="2" Wspolczynnik="5.0">
+                    </Param>
+                  </Zmiana>
+                </Zmiana>
               </Cena>
               <Cena>
                 <Surowce id="0x2" poziom="1" ilosc="500"></Surowce>

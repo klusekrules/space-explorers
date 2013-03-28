@@ -15,11 +15,15 @@ namespace SPG{
 	typedef double				Dystans; //+
 	typedef double				Predkosc; //+
 	typedef double				Powierzchnia; //+
+	typedef double				Parametr;//+
+
 
 	/* Flota */
 	typedef double	Obrazenia; //+
 	typedef double	ZuzyciePaliwa; //+
 	typedef double	MocSilnika; //+
+
+	//TODO: Analiza czy potrzebne.
 	typedef enum	RodzajNapedu{
 		NiepoprawnyRodzaj,
 		Spalinowy,
