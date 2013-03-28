@@ -38,12 +38,12 @@ ZmianaAgregacja::~ZmianaAgregacja()
 {
 }
 
-long double ZmianaAgregacja::value( const long double& d )const{
-	long double v = ZmianaDekorator::value(d);
+long double ZmianaAgregacja::value( const long double& d, const Poziom& p )const{
+	long double v = ZmianaDekorator::value(d,p);
 	long double suma = 0;
 	for(auto e : list){
 		if(e.get())
-			suma+=e->value(v);
+			suma+=e->value(v,p);
 	}
 	return suma;
 }

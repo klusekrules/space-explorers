@@ -24,7 +24,7 @@ private:
 public:
 	typedef LoggerInterface<ZmianaAgregacja> LogZmianaAgregacja;
 	
-	long double value( const long double& )const override;
+	long double value( const long double& , const Poziom& )const override;
 
 	explicit ZmianaAgregacja( const ticpp::Element* );
 

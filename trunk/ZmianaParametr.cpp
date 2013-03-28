@@ -6,8 +6,7 @@ ZmianaParametr::ZmianaParametr( const ticpp::Element* e )
 {
 	if(e){
 		idObiektu.setId(stoi(e->GetAttribute("id"),nullptr,0));
-		auto str = e->GetAttribute("Wspolczynnik");
-		wspolczynnikObiektu.setParametr(stold(str));
+		wspolczynnikObiektu.setParametr(stold(e->GetAttribute("Wspolczynnik")));
 	}
 }
 

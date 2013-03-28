@@ -32,7 +32,6 @@ ZmianaFabryka& ZmianaFabryka::pobierzInstancje(){
 shared_ptr<ZmianaInterfejs> ZmianaFabryka::Tworz( const ticpp::Element* e ){
 	if(e){
 		string str = e->GetAttribute("id");
-		Log::debug(str);
 		if(str.empty())
 			throw BrakAtrybutuXML(EXCEPTION_PLACE,Tekst("id"));
 		IdType id( stoi( str, nullptr, 0 ));

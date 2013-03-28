@@ -23,11 +23,11 @@ LadowniaInfo::~LadowniaInfo()
 {
 }
 
-Objetosc LadowniaInfo::getPojemnoscMaksymalna() const{
+Objetosc LadowniaInfo::getPojemnoscMaksymalna(const Poziom& p) const{
 	if(przyrostPojemnoscMax==nullptr)
 		return pojemnoscMax;
 	else
-		return Objetosc(przyrostPojemnoscMax->value(pojemnoscMax.value()));
+		return Objetosc(przyrostPojemnoscMax->value(pojemnoscMax.value(),p));
 }
 		
 string LadowniaInfo::toString() const{

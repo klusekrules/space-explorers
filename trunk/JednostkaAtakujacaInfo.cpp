@@ -25,25 +25,25 @@ JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( ticpp::Node* n )
 JednostkaAtakujacaInfo::~JednostkaAtakujacaInfo(){
 }
 
-Obrazenia JednostkaAtakujacaInfo::getAtak() const{
+Obrazenia JednostkaAtakujacaInfo::getAtak(const Poziom& p ) const{
 	if(zmAtak==nullptr)
 		return atak;
 	else
-		return Obrazenia(zmAtak->value(atak.value()));
+		return Obrazenia(zmAtak->value(atak.value(),p));
 }
 	
-Obrazenia JednostkaAtakujacaInfo::getPancerz() const{
+Obrazenia JednostkaAtakujacaInfo::getPancerz( const Poziom& p ) const{
 	if(zmPancerz==nullptr)
 		return pancerz;
 	else
-		return Obrazenia(zmPancerz->value(pancerz.value()));
+		return Obrazenia(zmPancerz->value(pancerz.value(),p));
 }
 
-Obrazenia JednostkaAtakujacaInfo::getOslona() const{
+Obrazenia JednostkaAtakujacaInfo::getOslona(const Poziom& p ) const{
 	if(zmOslona==nullptr)
 		return oslona;
 	else
-		return Obrazenia(zmOslona->value(oslona.value()));
+		return Obrazenia(zmOslona->value(oslona.value(),p));
 }
 
 string JednostkaAtakujacaInfo::toString() const{

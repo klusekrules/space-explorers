@@ -16,8 +16,8 @@ Ladownia::Ladownia( Zbiornik& z , const LadowniaInfo& l )
 Ladownia::~Ladownia( ){
 }
 
-Fluktuacja Ladownia::WolneMiejsce() const{
-	return Fluktuacja( 1.0 ) - ( zajete / getPojemnoscMax() );
+Fluktuacja Ladownia::WolneMiejsce( const Poziom& pz ) const{
+	return Fluktuacja( 1.0 ) - ( zajete / getPojemnoscMax(pz) );
 }
 
 Ilosc Ladownia::SprawdzIloscObiektow( const Klucz& itID ) const{
@@ -28,11 +28,11 @@ Ilosc Ladownia::SprawdzIloscObiektow( const Klucz& itID ) const{
 	}
 }
 	
-bool Ladownia::DodajObiektDoLadowni( const Item& obiekt ){
-	if( obiekt.getObjetosc() > getPojemnoscMax() ){
+bool Ladownia::DodajObiektDoLadowni( const Item& obiekt , const Poziom& pz ){
+	if( obiekt.getObjetosc() > getPojemnoscMax(pz) ){
 		return false;
 	}
-	if( (obiekt.getObjetosc() + zajete) > getPojemnoscMax()){
+	if( (obiekt.getObjetosc() + zajete) > getPojemnoscMax(pz)){
 		return false;
 	}
 	try{
@@ -161,8 +161,8 @@ const Objetosc& Ladownia::getZajeteMiejsce() const{
 }
 
 
-Objetosc Ladownia::getPojemnoscMax() const{
-	return ladowniaInfo.getPojemnoscMaksymalna();
+Objetosc Ladownia::getPojemnoscMax( const Poziom& pz ) const{
+	return ladowniaInfo.getPojemnoscMaksymalna( pz );
 }
 
 string Ladownia::toString() const{

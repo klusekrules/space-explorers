@@ -8,6 +8,7 @@
 
 class Info:
 	public Base,
+	public Wymagania,
 	public LoggerInterface<Info>
 {
 public:
@@ -22,16 +23,10 @@ public:
 
 	const Tekst& getOpis() const;
 	void setOpis( const Tekst& );
-
-	const Wymagania& getWymagania() const;
-
-	bool sprawdzWymagania(const Ilosc& i , const IdType& idPlanety) const;
 	
 	string toString() const override;
 
 private:
-	
-	Wymagania wymagania;
 
 	Tekst nazwa;
 	Tekst opis;

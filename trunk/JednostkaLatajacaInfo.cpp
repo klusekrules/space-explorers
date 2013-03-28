@@ -36,32 +36,32 @@ const Klucz& JednostkaLatajacaInfo::getRodzajNapedu() const{
 	return rodzajNapedu;
 }
 
-MocSilnika JednostkaLatajacaInfo::getMocSilnika() const{
+MocSilnika JednostkaLatajacaInfo::getMocSilnika(const Poziom& p ) const{
 	if(przyrostMocySilnika==nullptr)
 		return mocSilnika;
 	else
-		return MocSilnika(przyrostMocySilnika->value(mocSilnika.value()));
+		return MocSilnika(przyrostMocySilnika->value(mocSilnika.value(),p));
 }
 
-ZuzyciePaliwa JednostkaLatajacaInfo::getZuzyciePaliwa() const{
+ZuzyciePaliwa JednostkaLatajacaInfo::getZuzyciePaliwa(const Poziom& p ) const{
 	if(przyrostZuzyciaPaliwa==nullptr)
 		return zuzyciePaliwa;
 	else
-		return ZuzyciePaliwa(przyrostZuzyciaPaliwa->value(zuzyciePaliwa.value()));
+		return ZuzyciePaliwa(przyrostZuzyciaPaliwa->value(zuzyciePaliwa.value(),p));
 }
 
-Masa JednostkaLatajacaInfo::getMasaNapedu() const{
+Masa JednostkaLatajacaInfo::getMasaNapedu( const Poziom& p ) const{
 	if(przyrostMasyNapedu==nullptr)
 		return masaNapedu;
 	else
-		return Masa(przyrostMasyNapedu->value(masaNapedu.value()));
+		return Masa(przyrostMasyNapedu->value(masaNapedu.value(),p));
 }
 
-Fluktuacja JednostkaLatajacaInfo::getSprawnoscSilnika() const{
+Fluktuacja JednostkaLatajacaInfo::getSprawnoscSilnika( const Poziom& p ) const{
 	if(przyrostSprawnosciSilnika==nullptr)
 		return sprawnoscSilnika;
 	else
-		return Fluktuacja(static_cast<float>(przyrostSprawnosciSilnika->value(sprawnoscSilnika.value())));
+		return Fluktuacja(static_cast<float>(przyrostSprawnosciSilnika->value(sprawnoscSilnika.value(),p)));
 }
 
 string JednostkaLatajacaInfo::toString() const{

@@ -32,19 +32,19 @@ public:
 	* Metoda zwraca podstawowe obra¿enia zadawane przez obiekt.
 	* \return Podstawowe obra¿enia zadawane przez obiekt.
 	*/
-	Obrazenia getAtak() const;	
+	Obrazenia getAtak(const Poziom& p ) const;	
 
 	/**
 	* Metoda zwraca podstawowe obra¿enia jakie zniszcz¹ obiekt.
 	* \return Podstawowe obra¿enia jakie zniszcz¹ obiekt.
 	*/
-	Obrazenia getPancerz() const;	
+	Obrazenia getPancerz(const Poziom& p ) const;	
 
 	/**
 	* Metoda zwraca podstawowe obra¿enia jakie mo¿e poch³on¹æ os³ona obiektu.
 	* \return Podstawowe obra¿enia jakie mo¿e poch³on¹æ os³ona obiektu.
 	*/
-	Obrazenia getOslona() const;	
+	Obrazenia getOslona(const Poziom& p ) const;	
 
 	/**
 	* Przeci¹¿ona funkcja generuj¹ca tekstowy opis klasy.

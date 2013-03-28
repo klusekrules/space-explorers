@@ -14,14 +14,14 @@ JednostkaLatajaca::JednostkaLatajaca( const JednostkaLatajaca& a )
 JednostkaLatajaca::~JednostkaLatajaca(){
 }
 
-ZuzyciePaliwa JednostkaLatajaca::WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const{
-	return ZuzyciePaliwa(jednostkaLatajacaInfo.getZuzyciePaliwa().value()* ( d.value() / p.value() ) );
+ZuzyciePaliwa JednostkaLatajaca::WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ,const Poziom& pz  ) const{
+	return ZuzyciePaliwa(jednostkaLatajacaInfo.getZuzyciePaliwa(pz).value()* ( d.value() / p.value() ) );
 }
 
-Predkosc JednostkaLatajaca::PredkoscMaksymalna() const{
-	long double eta_m = jednostkaLatajacaInfo.getSprawnoscSilnika().value();
+Predkosc JednostkaLatajaca::PredkoscMaksymalna( const Poziom& p ) const{
+	long double eta_m = jednostkaLatajacaInfo.getSprawnoscSilnika(p).value();
 	long double a = 0.01;
-	long double P = jednostkaLatajacaInfo.getMocSilnika().value();
+	long double P = jednostkaLatajacaInfo.getMocSilnika(p).value();
 	return Predkosc( ( P * eta_m )/(CalkowitaMasaJednostki().value() * a) );
 }
 

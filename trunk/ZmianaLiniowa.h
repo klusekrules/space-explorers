@@ -22,7 +22,7 @@ private:
 public:
 	typedef LoggerInterface< ZmianaLiniowa > LogZmianaLiniowa;
 
-	long double value(const long double&) const override;
+	long double value(const long double&, const Poziom&) const override;
 
 	ZmianaLiniowa* Kopia()const override;
 

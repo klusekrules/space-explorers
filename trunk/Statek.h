@@ -18,19 +18,25 @@ public:
 	typedef LoggerInterface<Statek> LogStatek;
 	virtual ~Statek();
 
-	ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const override;
+	ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p , const Poziom& pz = Poziom() ) const override;
 		
 	Statek* Kopia() const override;
 
 	Statek* Podziel( const Ilosc& ) override;
 
-	Obrazenia Atak() const override;
+	Obrazenia Atak( const Poziom& pz = Poziom() ) const override;
 
-	Obrazenia Pancerz( const Obrazenia& o ) const override;
+	Obrazenia Pancerz( const Obrazenia& o , const Poziom& pz = Poziom()  ) const override;
 
-	Obrazenia Oslona( const Obrazenia& o ) const override;
+	Obrazenia Oslona( const Obrazenia& o , const Poziom& pz = Poziom()  ) const override;
 
-	Objetosc getPojemnoscMax() const override;
+	Objetosc getPojemnoscMax(  const Poziom& pz = Poziom() ) const override;
+
+	Fluktuacja WolneMiejsce( const Poziom& pz = Poziom() ) const override;
+
+	bool DodajObiektDoLadowni( const Item& , const Poziom& pz = Poziom() ) override;
+
+	Cennik::ListaSurowcow PobierzKoszty() const;
 
 	string toString() const override;
 private:

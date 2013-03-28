@@ -1,7 +1,5 @@
 #include "Cennik.h"
 #include "Logger.h"
-#include "Cena.h"
-#include "CenaLiniowyDekorator.h"
 
 Cennik::Cennik( ticpp::Node* n )
 {
@@ -10,24 +8,37 @@ Cennik::Cennik( ticpp::Node* n )
 		while(e){
 			//Wyniesc to do nowej klasy, ( fabryka obiektów)
 			if(e->Value() == Cena::LogCena::className())
-				elementy.push_back(new Cena(e));
-			if(e->Value() == CenaLiniowyDekorator::LogCenaLiniowyDekorator::className())
-				elementy.push_back(new CenaLiniowyDekorator(e));
+				elementy.push_back(shared_ptr<Cena>(new Cena(e)));
 			e = e->NextSiblingElement(false);
 		}
 	}
 }
-bool Cennik::czySpelniaWymagania( const Ilosc& i, const IdType& id ) const{
+
+Cennik::~Cennik(){
+}
+
+Cennik& Cennik::operator=( const Cennik& c){
+	Zbiornik tmp;
+	for(auto e : c.elementy){
+		tmp.push_back(shared_ptr<Cena>(e->Kopia()));
+	}
+	elementy = tmp;
+	return *this;
+}
+
+bool Cennik::czySpelniaWymagania( const Ilosc& i, const Poziom& p, const IdType& id ) const{
 	for( auto e : elementy )
-		if(!e->czySpelniaWymagania(i,id))
+		if(!e->czySpelniaWymagania(i,p,id))
 			return false;
 	return true;
 }
 
-Cennik::~Cennik(){
-	for( auto e : elementy)
-		if(e)
-			delete e;
+Cennik::ListaSurowcow Cennik::PobierzKoszty(const Ilosc& il, const Poziom& p) const{
+	ListaSurowcow tmp;
+	for( auto i : elementy ){
+		tmp.push_back(i->PobierzKoszty(il,p));
+	}
+	return tmp;
 }
 
 string Cennik::toString()const{

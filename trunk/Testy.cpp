@@ -115,6 +115,26 @@ bool Testy::ladowanie_danych(){
 	return endTestModul();
 }
 
+bool Testy::test_wymagan(){
+	startTestModul("Test Wymagan");
+	Statek* a;
+	try{
+		a = tworzStatek(Klucz(IdType(1),Poziom(1)),Ilosc(8));
+		auto t = a->PobierzKoszty();
+		for(auto e : t){
+			Log::debug<Surowce>(*e);
+		}
+		assert_false(EXCEPTION_PLACE,t[0]->getIlosc()==Ilosc(120000.0));
+		delete a;
+	}catch(OgolnyWyjatek& e){
+		delete a;
+		Log::error("Wykryto wyjatek:");
+		Log::error(e);
+		return endTestModulImidaite();
+	}
+	return endTestModul();
+}
+
 Statek* Testy::tworzStatek(const Klucz& id,const Ilosc& i)const throw (OgolnyWyjatek,NieznalezionoObiektu){
 	Statek* s = Aplikacja::getInstance().getStatek(id).TworzEgzemplarz(i);
 	if(assert_false(EXCEPTION_PLACE, s!=nullptr))
@@ -154,6 +174,9 @@ void Testy::run(){
 		test_KlasaObiektList();
 		
 		test_KlasaLadownia();
+
+		test_wymagan();
+
 	}else{
 		Log::warn("Nie mozna kontynuowac testow!");
 	}

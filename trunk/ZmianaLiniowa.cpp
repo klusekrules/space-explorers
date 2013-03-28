@@ -4,7 +4,7 @@
 #include "XmlBO.h"
 
 ZmianaLiniowa::ZmianaLiniowa( const ticpp::Element* e )
-	: parametr(XmlBO::IterateChildrenElement(e,"Parametr"))
+	: parametr(XmlBO::IterateChildrenElement(e,"Param"))
 {
 }
 
@@ -12,8 +12,8 @@ ZmianaLiniowa::~ZmianaLiniowa(void)
 {
 }
 
-long double ZmianaLiniowa::value(const long double& d) const{
-	return d * parametr.getWspolczynnik().value();
+long double ZmianaLiniowa::value(const long double& d, const Poziom& p) const{
+	return d * parametr.getWspolczynnik().value() * p.value(); //TODO: dodaæ zale¿noœæ miêdzy id a kosztem;
 }
 
 ZmianaLiniowa* ZmianaLiniowa::Kopia()const{
@@ -26,7 +26,6 @@ bool ZmianaLiniowa::RejestrujZmianaLiniowa(){
 
 string ZmianaLiniowa::toString()const{
 	Logger str(LogZmianaLiniowa::className());
-	str.addClass(ZmianaInterfejs::toString());
 	str.addField("Parametr",parametr);
 	return str.toString();
 }

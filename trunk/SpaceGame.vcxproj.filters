@@ -154,9 +154,6 @@
     <ClCompile Include="Cena.cpp">
       <Filter>SourceFile\Surowce\Cena</Filter>
     </ClCompile>
-    <ClCompile Include="CenaDekorator.cpp">
-      <Filter>SourceFile\Surowce\Cena</Filter>
-    </ClCompile>
     <ClCompile Include="ObiektInfo.cpp">
       <Filter>SourceFile\BaseClass\Obiekt</Filter>
     </ClCompile>
@@ -171,12 +168,6 @@
     </ClCompile>
     <ClCompile Include="Cennik.cpp">
       <Filter>SourceFile\Surowce</Filter>
-    </ClCompile>
-    <ClCompile Include="CenaLiniowyDekorator.cpp">
-      <Filter>SourceFile\Surowce\Cena</Filter>
-    </ClCompile>
-    <ClCompile Include="CenaInterface.cpp">
-      <Filter>SourceFile\Surowce\Cena</Filter>
     </ClCompile>
     <ClCompile Include="ZmianaLiniowa.cpp">
       <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
@@ -387,12 +378,6 @@
     <ClInclude Include="Cena.h">
       <Filter>SourceFile\Surowce\Cena</Filter>
     </ClInclude>
-    <ClInclude Include="CenaInterfejs.h">
-      <Filter>SourceFile\Surowce\Cena</Filter>
-    </ClInclude>
-    <ClInclude Include="CenaDekorator.h">
-      <Filter>SourceFile\Surowce\Cena</Filter>
-    </ClInclude>
     <ClInclude Include="ObiektInfo.h">
       <Filter>SourceFile\BaseClass\Obiekt</Filter>
     </ClInclude>
@@ -422,9 +407,6 @@
     </ClInclude>
     <ClInclude Include="Cennik.h">
       <Filter>SourceFile\Surowce</Filter>
-    </ClInclude>
-    <ClInclude Include="CenaLiniowyDekorator.h">
-      <Filter>SourceFile\Surowce\Cena</Filter>
     </ClInclude>
     <ClInclude Include="ZmianaLiniowa.h">
       <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
