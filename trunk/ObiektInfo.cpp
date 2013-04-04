@@ -10,7 +10,7 @@ ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& obj, const Powierzchni
 ObiektInfo::ObiektInfo( ticpp::Node* n )
 	: ObiektBaseInfo(XmlBO::IterateChildren(n,ObiektBaseInfo::LogObiektBaseInfo::className())), zmMasa(nullptr), zmObjetosc(nullptr), zmPowierzchnia(nullptr)
 {
-	if(n!=nullptr){
+	if(n){
 		try{
 			ticpp::Element* e = n->ToElement();
 			masa.setMasa(stold(e->GetAttribute("masa")));

@@ -23,7 +23,7 @@ public:
 
 	shared_ptr<Item> PobierzKoszty( const Ilosc&, const Poziom& ) const;
 
-	bool czySpelniaWymagania( const Ilosc& i, const Poziom& p, const IdType& idPlanety ) const;
+	bool czySpelniaKoszty( const Ilosc& i, const Poziom& p, const IdType& idPlanety ) const;
 
 	const Item& getKoszty() const;
 	void setKoszty( const Item& );

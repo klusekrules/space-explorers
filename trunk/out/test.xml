@@ -190,7 +190,18 @@
               </Cena>
             </Cennik>
             <Warunek>
-
+              <ObiektBaseInfo poziom="2">
+                <Info id="0x3">
+                </Info>
+              </ObiektBaseInfo>
+              <ObiektBaseInfo poziom="5">
+                <Info id="0x10">
+                </Info>
+              </ObiektBaseInfo>
+              <ObiektBaseInfo poziom="1">
+                <Info id="0x20">
+                </Info>
+              </ObiektBaseInfo>
             </Warunek>
           </Wymagania>
         </Info>

@@ -1,31 +1,33 @@
 #pragma once
 #include "Main.h"
 #include <vector>
-#include "ObiektBase.h"
+#include <memory>
+#include "parser\ticpp.h"
+#include "IdType.h"
+
+class ObiektBaseInfo;
 
 class Warunek :
 	public LoggerInterface< Warunek >
 {
 public:
-	typedef vector< ObiektBase* > ListaWarunkow;
+	typedef shared_ptr< ObiektBaseInfo > Item;
+	typedef vector< Item > ListaWarunkow;
 
 	Warunek();
+	Warunek( ticpp::Node* n );
 	Warunek(const Warunek& w);
 	const Warunek& operator=(const Warunek& w);
 	~Warunek();
 
-	Warunek* Kopia(){
-		return new Warunek(*this);
-	}
-
-	bool dodajWarunek( const ObiektBase& );
-	bool usunWarunek( const ObiektBase& );
-
-	bool sprawdzWarunki( const IdType& idPlanety ); //TODO: uzale¿niæ od id planety
+	bool czySpelniaWarunki( const IdType& idPlanety ) const;
 
 	string toString() const override;
 
 private:
+	
+	bool dodajWarunek( Item o );
+
 	ListaWarunkow warunki;
 };
 

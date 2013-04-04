@@ -10,7 +10,7 @@ ObiektBaseInfo::ObiektBaseInfo(const Info& i , const Poziom& p)
 ObiektBaseInfo::ObiektBaseInfo( ticpp::Node* n )
 	: Info(XmlBO::IterateChildren(n,Info::LogInfo::className()))
 {
-	if(n!=nullptr){
+	if(n){
 		try{
 			poziom.setPoziom(stoi(n->ToElement()->GetAttribute("poziom")));
 		}catch(exception& e){

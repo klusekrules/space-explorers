@@ -9,7 +9,7 @@ JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const Info& info, const Obrazenia
 JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( ticpp::Node* n )
 	: Info(XmlBO::IterateChildren(n,Info::LogInfo::className())),zmAtak(nullptr), zmPancerz(nullptr), zmOslona(nullptr)
 {
-	if(n!=nullptr){
+	if(n){
 		try{
 			ticpp::Element* e = n->ToElement();
 			atak.setObrazenia(stold(e->GetAttribute("atak")));
