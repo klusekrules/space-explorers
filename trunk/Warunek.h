@@ -4,6 +4,7 @@
 #include <memory>
 #include "parser\ticpp.h"
 #include "IdType.h"
+#include "ZmianaInterfejs.h"
 
 class ObiektBaseInfo;
 
@@ -11,7 +12,7 @@ class Warunek :
 	public LoggerInterface< Warunek >
 {
 public:
-	typedef shared_ptr< ObiektBaseInfo > Item;
+	typedef pair < shared_ptr< ObiektBaseInfo > , shared_ptr< ZmianaInterfejs > > Item;
 	typedef vector< Item > ListaWarunkow;
 
 	Warunek();
