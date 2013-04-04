@@ -3,53 +3,31 @@
 #include "XmlBO.h"
 
 Wymagania::Wymagania( ticpp::Node* n  )
-	: Cennik( XmlBO::IterateChildren(n,Cennik::LogCennik::className(),false) ), wymogi(nullptr)
-{
-	if(n){
-		//TODO wczytywanie wymogów.
-	}
-}
-
-Wymagania::Wymagania( const Cennik& c, Warunek* w )
-	: Cennik(c), wymogi(w)
+	: Cennik( XmlBO::IterateChildren(n,Cennik::LogCennik::className(),false) ), Warunek( XmlBO::IterateChildren(n,Warunek::className(),false) )
 {
 }
 
-bool Wymagania::sprawdzWymagania( const Ilosc& i, const Poziom& p, const IdType& idPlanety ) const{
-	if(wymogi==nullptr)
-		return false;
-	return czySpelniaWymagania(i,p,idPlanety) && wymogi->sprawdzWarunki(idPlanety);
+bool Wymagania::czySpelniaWymagania( const Ilosc& i, const Poziom& p, const IdType& idPlanety ) const{
+	return czySpelniaKoszty(i,p,idPlanety) && czySpelniaWarunki(idPlanety);
 }
 
 Wymagania::Wymagania( const Wymagania& w )
-	: Cennik(w)
+	: Cennik(w), Warunek(w)
 {	
-	if(w.wymogi!=nullptr)
-		wymogi = w.wymogi->Kopia();
-	else
-		wymogi = nullptr;
 }
 
 const Wymagania& Wymagania::operator=( const Wymagania& w ){
 	Cennik::operator=(w);
-	if(wymogi!=nullptr)
-		delete wymogi;
-	if(w.wymogi!=nullptr)
-		wymogi = w.wymogi->Kopia();
-	else
-		wymogi = nullptr;
+	Warunek::operator=(w);
 	return *this;
 }
 
 Wymagania::~Wymagania(){
-	if(wymogi!=nullptr)
-		delete wymogi;
 }
 
 string Wymagania::toString() const{
 	Logger str(LogWymagania::className());
 	str.addClass(Cennik::toString());
-	if(wymogi!=nullptr)
-		str.addField("Warunki",*wymogi);
+	str.addClass(Warunek::toString());
 	return str.toString();
 }

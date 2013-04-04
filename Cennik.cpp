@@ -26,9 +26,9 @@ Cennik& Cennik::operator=( const Cennik& c){
 	return *this;
 }
 
-bool Cennik::czySpelniaWymagania( const Ilosc& i, const Poziom& p, const IdType& id ) const{
+bool Cennik::czySpelniaKoszty( const Ilosc& i, const Poziom& p, const IdType& id ) const{
 	for( auto e : elementy )
-		if(!e->czySpelniaWymagania(i,p,id))
+		if(!e->czySpelniaKoszty(i,p,id))
 			return false;
 	return true;
 }

@@ -24,7 +24,7 @@ public:
 	ListaSurowcow PobierzKoszty(const Ilosc&, const Poziom&) const;
 
 	//IdType - id planety w kontekœcie której maj¹ byæ sprawdzane wymagania.
-	bool czySpelniaWymagania( const Ilosc&, const Poziom&, const IdType& ) const;
+	bool czySpelniaKoszty( const Ilosc&, const Poziom&, const IdType& ) const;
 
 	string toString()const override;
 private:

@@ -12,7 +12,7 @@ JednostkaLatajacaInfo::JednostkaLatajacaInfo( ticpp::Node* n )
 	: Info(XmlBO::IterateChildren(n,Info::LogInfo::className())), przyrostZuzyciaPaliwa(nullptr), przyrostSprawnosciSilnika(nullptr),
 	przyrostMocySilnika(nullptr), przyrostMasyNapedu(nullptr)
 {
-	if(n!=nullptr){
+	if(n){
 		try{
 			ticpp::Element* e = n->ToElement();
 			IdType id(stoi(e->GetAttribute("rodzajSilnikaId"),nullptr,0));

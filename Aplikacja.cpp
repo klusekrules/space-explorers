@@ -3,8 +3,13 @@
 #include <sstream>
 #include <iomanip>
 #include "StatekInfo.h"
+
+#include "ZmianaDekorator.h"
+#include "ZmianaAgregacja.h"
+#include "ZmianaLiniowa.h"
+
 Aplikacja::Aplikacja()
-	: isDbgHelpInit(false), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(Cennik(nullptr),nullptr)) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
+	: isDbgHelpInit(false), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
 {
 	hLibrary = LoadLibrary("Dbghelp.dll");
 	if(hLibrary){		
@@ -14,6 +19,13 @@ Aplikacja::Aplikacja()
 			isDbgHelpInit = true;
 		//_set_purecall_handler(myPurecallHandler);
 	}
+
+	// Rejestracja zmian w fabryce 
+	ZmianaLiniowa::RejestrujZmianaLiniowa();
+	ZmianaDekorator::RejestrujZmianaDekotor();
+	ZmianaAgregacja::RejestrujZmianaAgregacja();
+	// -----------------------------------------
+
 }
 
 bool Aplikacja::WczytajDane( const string& sFile ){

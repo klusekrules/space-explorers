@@ -9,7 +9,7 @@ Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const IdType& id , const W
 Info::Info( ticpp::Node* n )
 	: Base( n ) , Wymagania( XmlBO::IterateChildren(n,Wymagania::LogWymagania::className(),false)  )
 {
-	if(n!=nullptr){
+	if(n){
 		try{
 			ticpp::Element* e = n->ToElement();
 			setNazwa(e->GetAttribute("nazwa"));

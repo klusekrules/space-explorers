@@ -56,7 +56,7 @@ Cena* Cena::Kopia() const{
 	return new Cena(*this);
 }
 
-bool Cena::czySpelniaWymagania( const Ilosc& i, const Poziom& p, const IdType& z ) const{
+bool Cena::czySpelniaKoszty( const Ilosc& i, const Poziom& p, const IdType& idPlanety ) const{
 	//return (zasób na planecie) >= (i.value() * obiekty.getIlosc().value()));
 	//TODO:Zimplementowanie wymaga istnienia klasy planeta z mo¿liwoœci¹ pobieranie iloœci surowców.
 	return true;

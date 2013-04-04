@@ -10,7 +10,7 @@ LadowniaInfo::LadowniaInfo( const Objetosc& max, const Info& i )
 LadowniaInfo::LadowniaInfo( ticpp::Node* n )
 	: Info(XmlBO::IterateChildren(n,Info::LogInfo::className())), przyrostPojemnoscMax(nullptr)
 {
-	if(n!=nullptr){
+	if(n){
 		try{
 			pojemnoscMax.setObjetosc(stold(n->ToElement()->GetAttribute("pojemnoscMaksymalna")));
 		}catch(exception& e){
