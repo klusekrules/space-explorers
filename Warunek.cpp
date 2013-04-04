@@ -2,6 +2,8 @@
 #include "Logger.h"
 #include "Aplikacja.h"
 #include "ObiektBaseInfo.h"
+#include "XmlBO.h"
+#include "ZmianaFabryka.h"
 
 Warunek::Warunek(){
 }
@@ -16,8 +18,14 @@ Warunek::Warunek( ticpp::Node* n ){
 		try{
 			auto e = n->FirstChildElement(false);
 			while(e){
-				if(e->Value() == ObiektBaseInfo::LogObiektBaseInfo::className())
-					dodajWarunek(shared_ptr<ObiektBaseInfo>(new ObiektBaseInfo(e)));
+				if(e->Value() == string("Wymog") ){
+					ticpp::Element* firstElement = XmlBO::IterateChildrenElement(e,ObiektBaseInfo::LogObiektBaseInfo::className(),false);
+					if(firstElement){
+						auto first = shared_ptr<ObiektBaseInfo>(new ObiektBaseInfo(firstElement));
+						auto second = ZmianaFabryka::pobierzInstancje().Tworz(XmlBO::IterateChildrenElement(e,"Zmiana",false));
+						dodajWarunek(make_pair(first,second));
+					}
+				}
 				e = e->NextSiblingElement(false);
 			}
 		}catch(exception& e){
@@ -33,8 +41,8 @@ const Warunek& Warunek::operator=(const Warunek& w){
 
 bool Warunek::dodajWarunek( Item o ){
 	for(auto iter = warunki.begin() ; iter != warunki.end() ; ++iter ){
-		if((*iter)->getId() == o->getId()){
-			if( (*iter)->getPoziom() < o->getPoziom() ){
+		if((*iter).first->getId() == o.first->getId()){
+			if( (*iter).first->getPoziom() < o.first->getPoziom() ){
 				warunki.erase(iter);
 				warunki.push_back(o);
 				return true;
@@ -63,7 +71,11 @@ bool Warunek::czySpelniaWarunki( const IdType& idPlanety ) const{
 
 string Warunek::toString() const{
 	Logger str(className());
-	for(auto a : warunki)
-		str.addField("ID Warunku",a->getId());
+	for(auto a : warunki){
+		str.startSubClass("Wymog");		
+		str.addField<ObiektBaseInfo>("Wymog",*(a.first));
+		str.addField<ZmianaInterfejs>("Wymog",*(a.second));
+		str.endSubClass();
+	}
 	return str.toString();
 }
