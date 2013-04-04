@@ -125,6 +125,7 @@ bool Testy::test_wymagan(){
 			Log::debug<Surowce>(*e);
 		}
 		assert_false(EXCEPTION_PLACE,t[0]->getIlosc()==Ilosc(120000.0));
+		assert_false(EXCEPTION_PLACE,t[1]->getIlosc()==Ilosc(4000.0));
 		delete a;
 	}catch(OgolnyWyjatek& e){
 		delete a;

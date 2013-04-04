@@ -184,6 +184,10 @@
               </Cena>
               <Cena>
                 <Surowce id="0x2" poziom="1" ilosc="500"></Surowce>
+                <Zmiana id="4">
+                  <Param1 id="0" Wspolczynnik="1.0"></Param1>
+                  <Param2 id="0" Wspolczynnik="2.0"></Param2>
+                </Zmiana>
               </Cena>
               <Cena>
                 <Surowce id="0x3" poziom="1" ilosc="200"></Surowce>

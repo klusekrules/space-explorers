@@ -193,6 +193,9 @@
     <ClCompile Include="ZmianaIdKlas.cpp">
       <Filter>SourceFile\BaseClass\Zmiana</Filter>
     </ClCompile>
+    <ClCompile Include="ZmianaPotegowa.cpp">
+      <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -428,6 +431,9 @@
     </ClInclude>
     <ClInclude Include="Parametr.h">
       <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaPotegowa.h">
+      <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

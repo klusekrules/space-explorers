@@ -278,6 +278,7 @@
     <ClInclude Include="ZmianaInterfejs.h" />
     <ClInclude Include="ZmianaLiniowa.h" />
     <ClInclude Include="ZmianaParametr.h" />
+    <ClInclude Include="ZmianaPotegowa.h" />
     <ClInclude Include="ZuzyciePaliwa.h" />
   </ItemGroup>
   <ItemGroup>
@@ -344,6 +345,7 @@
     <ClCompile Include="ZmianaInterfejs.cpp" />
     <ClCompile Include="ZmianaLiniowa.cpp" />
     <ClCompile Include="ZmianaParametr.cpp" />
+    <ClCompile Include="ZmianaPotegowa.cpp" />
     <ClCompile Include="ZuzyciePaliwa.cpp" />
   </ItemGroup>
   <ItemGroup>

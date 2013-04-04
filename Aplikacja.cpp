@@ -7,6 +7,7 @@
 #include "ZmianaDekorator.h"
 #include "ZmianaAgregacja.h"
 #include "ZmianaLiniowa.h"
+#include "ZmianaPotegowa.h"
 
 Aplikacja::Aplikacja()
 	: isDbgHelpInit(false), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
@@ -23,7 +24,8 @@ Aplikacja::Aplikacja()
 	// Rejestracja zmian w fabryce 
 	ZmianaLiniowa::RejestrujZmianaLiniowa();
 	ZmianaDekorator::RejestrujZmianaDekotor();
-	ZmianaAgregacja::RejestrujZmianaAgregacja();
+	ZmianaAgregacja::RejestrujZmianaAgregacja();	
+	ZmianaPotegowa::RejestrujZmianaPotegowa();
 	// -----------------------------------------
 
 }

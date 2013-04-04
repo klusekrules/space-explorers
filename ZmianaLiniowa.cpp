@@ -13,7 +13,7 @@ ZmianaLiniowa::~ZmianaLiniowa(void)
 }
 
 long double ZmianaLiniowa::value(const long double& d, const Poziom& p) const{
-	return d * parametr.getWspolczynnik().value() * p.value(); //TODO: dodaæ zale¿noœæ miêdzy id a kosztem;
+	return d * parametr.getWspolczynnik().value() * p.value();
 }
 
 ZmianaLiniowa* ZmianaLiniowa::Kopia()const{
