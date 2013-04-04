@@ -1,5 +1,6 @@
 #include "IdType.h"
 #include "Logger.h"
+#include <iomanip>
 
 IdType::IdType()
 	: id(domyslny.id)
@@ -50,5 +51,8 @@ IdType::type_name IdType::value()const{
 
 
 string IdType::toString()const{
-	return Logger::field(className(),id);
+	stringstream str;
+	str.imbue(locale::classic());
+	str << "0x"<< uppercase << hex << id;
+	return str.str();
 }
