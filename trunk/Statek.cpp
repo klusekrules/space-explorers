@@ -27,7 +27,6 @@ Statek* Statek::Podziel( const Ilosc& i ){
 	return nullptr;
 }	
 
-
 Obrazenia Statek::Atak( const Poziom& pz ) const {
 	return Obrazenia( ilosc.value() * JednostkaAtakujaca::Atak(getPoziom()).value() );
 }
@@ -52,9 +51,6 @@ Fluktuacja Statek::WolneMiejsce( const Poziom& pz ) const{
 
 bool Statek::DodajObiektDoLadowni( const Item& i, const Poziom& pz ){
 	return Ladownia::DodajObiektDoLadowni(i,getPoziom());
-}
-Cennik::ListaSurowcow Statek::PobierzKoszty() const{
-	return obiektInfoClass.PobierzKoszty(getIlosc(),getPoziom());
 }
 
 string Statek::toString() const{

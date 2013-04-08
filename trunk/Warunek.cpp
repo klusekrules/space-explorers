@@ -39,7 +39,7 @@ const Warunek& Warunek::operator=(const Warunek& w){
 	return *this;
 }
 
-bool Warunek::dodajWarunek( Item o ){
+bool Warunek::dodajWarunek( Item& o ){
 	for(auto iter = warunki.begin() ; iter != warunki.end() ; ++iter ){
 		if((*iter).first->getId() == o.first->getId()){
 			if( (*iter).first->getPoziom() < o.first->getPoziom() ){
@@ -67,6 +67,18 @@ bool Warunek::czySpelniaWarunki( const IdType& idPlanety ) const{
 		w->getPoziom() <= ob.getPoziom();
 	}*/
 	return true;
+}
+
+Warunek::PrzetworzoneWarunki Warunek::listaWarunkow( const Poziom& p ) const{
+	PrzetworzoneWarunki tmp;
+	for (auto a : warunki)
+		tmp.push_back(przeliczWarunek(a,p));
+	return tmp;
+}
+
+
+shared_ptr< ObiektBaseInfo > Warunek::przeliczWarunek( Item& o , const Poziom& p ) const{
+	return shared_ptr< ObiektBaseInfo > ( new ObiektBaseInfo( *(o.first), Poziom( static_cast<Poziom::type_name>(floorl(o.second->value( o.first->getPoziom().value() , p ))) ) ) );
 }
 
 string Warunek::toString() const{

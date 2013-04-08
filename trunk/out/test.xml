@@ -195,16 +195,6 @@
             </Cennik>
             <Warunek>
               <Wymog>
-                <ObiektBaseInfo poziom="2">
-                  <Info id="0x3">
-                  </Info>
-                </ObiektBaseInfo>
-                <Zmiana id="4">
-                  <Param1 id="0" Wspolczynnik="1.0"></Param1>
-                  <Param2 id="0" Wspolczynnik="2.0"></Param2>
-                </Zmiana>
-              </Wymog>
-              <Wymog>
                 <ObiektBaseInfo poziom="5">
                   <Info id="0x10">
                   </Info>

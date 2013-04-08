@@ -3,6 +3,7 @@
 #include "Aplikacja.h"
 #include "ZmianaFabryka.h"
 #include "XmlBO.h"
+#include "Surowce.h"
 
 Cena::Cena( ticpp::Node* n )
 	: obiekty(nullptr),zmiana(nullptr)

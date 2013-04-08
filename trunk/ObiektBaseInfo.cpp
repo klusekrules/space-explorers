@@ -1,6 +1,7 @@
 #include "ObiektBaseInfo.h"
 #include "Logger.h"
 #include "XmlBO.h"
+#include "ObiektBase.h"
 
 ObiektBaseInfo::ObiektBaseInfo(const Info& i , const Poziom& p)
 	: Info(i), poziom(p)

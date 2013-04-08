@@ -56,6 +56,15 @@ const Poziom& ObiektBase::getPoziom() const{
 	return obiektBaseInfo.getPoziom();
 }
 
+Cennik::ListaSurowcow ObiektBase::PobierzKoszty() const{
+	return obiektBaseInfo.PobierzKoszty(getIlosc(),getPoziom());
+}
+
+
+Warunek::PrzetworzoneWarunki ObiektBase::PobierzWarunki()const{
+	return obiektBaseInfo.listaWarunkow(getPoziom());
+}
+
 string ObiektBase::toString() const{
 	Logger str(LogObiektBase::className());
 	str.addClass(Base::toString());
