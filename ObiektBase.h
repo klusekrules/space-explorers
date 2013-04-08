@@ -4,6 +4,8 @@
 #include "Ilosc.h"
 #include "Poziom.h"
 #include "Klucz.h"
+#include "Warunek.h"
+#include "Cennik.h"
 
 class ObiektBaseInfo;
 /**
@@ -107,5 +109,18 @@ public:
 	* \return Napis zwieraj¹cy opis klasy.
 	*/
 	string toString() const override;
+
+	/**
+	* Metoda pobieraj¹ca przetworzone warunki dostêpnoœci obiektu
+	* \return Warunki po przetworzeniu przez klasy zmieniaj¹ce
+	*/
+	Warunek::PrzetworzoneWarunki PobierzWarunki()const;
+	
+	
+	/**
+	* Metoda pobieraj¹ca przetworzone koszty dostêpnoœci obiektu
+	* \return Koszty po przetworzeniu przez klasy zmieniaj¹ce
+	*/
+	Cennik::ListaSurowcow PobierzKoszty() const;
 };
 

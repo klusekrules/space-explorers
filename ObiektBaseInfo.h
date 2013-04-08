@@ -2,6 +2,9 @@
 #include "Main.h"
 #include "Info.h"
 #include "Poziom.h"
+#include "Klucz.h"
+
+class ObiektBase;
 
 class ObiektBaseInfo:
 	public Info,

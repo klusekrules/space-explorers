@@ -3,7 +3,11 @@
 #include "LoggerInterface.h"
 #include "parser\ticpp.h"
 #include "ZmianaInterfejs.h"
-#include "Surowce.h"
+#include "Ilosc.h"
+#include "Poziom.h"
+#include "IdType.h"
+
+class Surowce;
 
 class Cena :
 	public LoggerInterface < Cena >

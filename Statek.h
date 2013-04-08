@@ -35,9 +35,7 @@ public:
 	Fluktuacja WolneMiejsce( const Poziom& pz = Poziom() ) const override;
 
 	bool DodajObiektDoLadowni( const Item& , const Poziom& pz = Poziom() ) override;
-
-	Cennik::ListaSurowcow PobierzKoszty() const;
-
+	
 	string toString() const override;
 private:
 

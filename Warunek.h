@@ -14,6 +14,7 @@ class Warunek :
 public:
 	typedef pair < shared_ptr< ObiektBaseInfo > , shared_ptr< ZmianaInterfejs > > Item;
 	typedef vector< Item > ListaWarunkow;
+	typedef vector< shared_ptr< ObiektBaseInfo > > PrzetworzoneWarunki;
 
 	Warunek();
 	Warunek( ticpp::Node* n );
@@ -21,13 +22,17 @@ public:
 	const Warunek& operator=(const Warunek& w);
 	~Warunek();
 
+	PrzetworzoneWarunki listaWarunkow( const Poziom& p ) const;
+
 	bool czySpelniaWarunki( const IdType& idPlanety ) const;
 
 	string toString() const override;
 
 private:
 	
-	bool dodajWarunek( Item o );
+	bool dodajWarunek( Item& o );
+
+	shared_ptr< ObiektBaseInfo > przeliczWarunek( Item& o, const Poziom& p  ) const;
 
 	ListaWarunkow warunki;
 };
