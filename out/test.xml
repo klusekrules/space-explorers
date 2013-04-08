@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="windows-1250"?>
 <SpaceGame nazwa="Domyslny" maska="0x80000000">
   
-  <SurowceInfo>
+  <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="1">
         <Info id="0x0001" nazwa="Stal">
@@ -15,7 +15,7 @@
     </ObiektInfo>
   </SurowceInfo>
 
-  <SurowceInfo>
+  <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="2">
         <Info id="0x0001" nazwa="Tytan">
@@ -33,7 +33,7 @@
     </ObiektInfo>
   </SurowceInfo>
 
-  <SurowceInfo>
+  <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="3">
         <Info id="0x0001" nazwa="Naquadah">
@@ -52,7 +52,7 @@
   </SurowceInfo>
 
   <!-- Surowce typu elektronika -->
-  <SurowceInfo>
+  <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="1">
         <Info id="0x0002" nazwa="Miedź">
@@ -70,7 +70,7 @@
     </ObiektInfo>
   </SurowceInfo>
 
-  <SurowceInfo>
+  <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="2">
         <Info id="0x0002" nazwa="Krzem">
@@ -88,7 +88,7 @@
     </ObiektInfo>
   </SurowceInfo>
 
-  <SurowceInfo>
+  <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="3">
         <Info id="0x0002" nazwa="Kryształ">
@@ -107,7 +107,7 @@
   </SurowceInfo>
 
   <!-- Surowce typu paliwo -->
-  <SurowceInfo>
+  <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="1">
         <Info id="0x0003" nazwa="Wodór">
@@ -125,7 +125,7 @@
     </ObiektInfo>
   </SurowceInfo>
 
-  <SurowceInfo>
+  <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="2">
         <Info id="0x0003" nazwa="Deuter">
@@ -143,7 +143,7 @@
     </ObiektInfo>
   </SurowceInfo>
 
-  <SurowceInfo>
+  <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="3">
         <Info id="0x0003" nazwa="Tryt">

@@ -142,6 +142,10 @@ void Surowce::setIlosc( const Ilosc& isIlosc ) {
 const SurowceInfo& Surowce::getSurowceInfo() const{
 	return surowceInfo;
 }
+
+bool Surowce::czyTypPrzyrostowy()const{
+	return surowceInfo.czyTypPrzyrostowy();
+}
 	
 string Surowce::toString() const{
 	Logger str(LogSurowce::className());

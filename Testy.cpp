@@ -188,6 +188,7 @@ bool Testy::test_KlasaLadownia(){
 		shared_ptr<Statek> b (tworzStatek(Klucz(IdType(1),Poziom(1)),Ilosc(150)));
 		assert_false(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*b));
 		shared_ptr<Surowce> c (tworzSurowce(Klucz(IdType(2),Poziom(3)),Ilosc(20)));
+		assert_false(EXCEPTION_PLACE,c->czyTypPrzyrostowy());
 		assert_false(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*c));
 		Log::debug("Zawartosc po dodaniu obiektu: ");
 		Log::debug<Ladownia>(*a);

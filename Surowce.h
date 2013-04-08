@@ -58,6 +58,8 @@ public:
 	void setIlosc( const Ilosc& );
 
 	const SurowceInfo& getSurowceInfo() const;
+		
+	bool czyTypPrzyrostowy()const;
 			
 	string toString() const override;
 
