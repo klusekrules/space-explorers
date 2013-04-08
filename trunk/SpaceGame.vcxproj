@@ -208,6 +208,7 @@
     <ClInclude Include="Biblioteki.h" />
     <ClInclude Include="BladDzieleniaLadowni.h" />
     <ClInclude Include="BladLaczeniaObiektow.h" />
+    <ClInclude Include="Bool.h" />
     <ClInclude Include="BrakAtrybutuXML.h" />
     <ClInclude Include="BrakMaski.h" />
     <ClInclude Include="Cena.h" />
@@ -286,6 +287,7 @@
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="BladDzieleniaLadowni.cpp" />
     <ClCompile Include="BladLaczeniaObiektow.cpp" />
+    <ClCompile Include="Bool.cpp" />
     <ClCompile Include="BrakAtrybutuXML.cpp" />
     <ClCompile Include="BrakMaski.cpp" />
     <ClCompile Include="Cena.cpp" />

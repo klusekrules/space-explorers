@@ -6,15 +6,29 @@
 SurowceInfo::~SurowceInfo(){
 }
 
-SurowceInfo::SurowceInfo( const ObiektInfo& o )
-	: ObiektInfo(o)
+SurowceInfo::SurowceInfo( const ObiektInfo& o , bool bCzyPrzyrostowy )
+	: ObiektInfo(o) , czyPrzyrostowy(bCzyPrzyrostowy)
 {
 }
 
 SurowceInfo::SurowceInfo( ticpp::Node* n )
-	: ObiektInfo(XmlBO::IterateChildren(n,ObiektInfo::LogObiektInfo::className()))
+	: ObiektInfo(XmlBO::IterateChildren(n,ObiektInfo::LogObiektInfo::className())) , czyPrzyrostowy (false)
 {
+	if(n){
+		auto s = n->ToElement()->GetAttribute("typ");
+		auto i = stoi(s);
+		switch(i){
+		case 1 : czyPrzyrostowy = true;
+			break;
+		case 2 : czyPrzyrostowy = false;
+			break;
+		default: throw WyjatekParseraXML(EXCEPTION_PLACE,exception( (string("typ=") + s).c_str() ),WyjatekParseraXML::trescBladStrukturyXml);
+		}
+	}
+}
 
+bool SurowceInfo::czyTypPrzyrostowy()const{
+	return czyPrzyrostowy.value();
 }
 
 Surowce* SurowceInfo::TworzEgzemplarz( const Ilosc& ilosc ) const{
@@ -24,5 +38,6 @@ Surowce* SurowceInfo::TworzEgzemplarz( const Ilosc& ilosc ) const{
 string SurowceInfo::toString() const{
 	Logger str(LogSurowceInfo::className());
 	str.addClass(ObiektInfo::toString());
+	str.addField("CzyPrzyrostowy",czyPrzyrostowy);
 	return str.toString();
 }
