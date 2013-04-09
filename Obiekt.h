@@ -9,6 +9,7 @@
 #include "Masa.h"
 
 class ObiektInfo;
+class Ladownia;
 
 class Obiekt:
 	public ObiektBase,
@@ -23,6 +24,8 @@ public:
 	Obiekt* Kopia() const override;
 
 	Obiekt* Podziel( const Ilosc& ) override;
+
+	virtual bool czMoznaDodacDoLadownii( const Ladownia& c ) const;
 	
 	Powierzchnia getPowierzchnia() const;
 

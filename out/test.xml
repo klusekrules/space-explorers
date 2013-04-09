@@ -160,6 +160,24 @@
       </ObiektBaseInfo>
     </ObiektInfo>
   </SurowceInfo>
+  
+  <SurowceInfo typ="2">
+    <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
+      <ObiektBaseInfo poziom="1">
+        <Info id="0x0004" nazwa="Energia">
+          Opis energii.
+          <Wymagania>
+            <Cennik>
+
+            </Cennik>
+            <Warunek>
+
+            </Warunek>
+          </Wymagania>
+        </Info>
+      </ObiektBaseInfo>
+    </ObiektInfo>
+  </SurowceInfo>
 
   <!-- Statki -->
   <StatekInfo>

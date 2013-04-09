@@ -1,8 +1,7 @@
 #include "Obiekt.h"
 #include "ObiektInfo.h"
 #include "Logger.h"
-
-
+#include "Ladownia.h"
 
 Obiekt::Obiekt( const Ilosc& i, const ObiektInfo& obiekt )
 	: ObiektBase( i, obiekt ), obiektInfoClass( obiekt )
@@ -35,7 +34,10 @@ Objetosc Obiekt::getObjetosc() const{
 Masa Obiekt::getMasa() const{
 	return Masa(obiektInfoClass.getMasa().value()*(this->getIlosc().value()));
 }
-		
+
+bool Obiekt::czMoznaDodacDoLadownii( const Ladownia& c ) const{
+	return false;
+}
 
 string Obiekt::toString() const{
 	Logger str(LogObiekt::className());

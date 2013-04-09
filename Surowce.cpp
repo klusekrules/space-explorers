@@ -1,6 +1,7 @@
 #include "Surowce.h"
 #include "SurowceInfo.h"
 #include "Logger.h"
+#include "Ladownia.h"
 
 Surowce::Surowce( const Ilosc& isIlosc , const SurowceInfo& s )
 	:  Obiekt( isIlosc , s ), surowceInfo(s)
@@ -145,6 +146,10 @@ const SurowceInfo& Surowce::getSurowceInfo() const{
 
 bool Surowce::czyTypPrzyrostowy()const{
 	return surowceInfo.czyTypPrzyrostowy();
+}
+
+bool Surowce::czMoznaDodacDoLadownii( const Ladownia& c ) const{
+	return c.czMoznaDodacDoLadownii(*this);
 }
 	
 string Surowce::toString() const{

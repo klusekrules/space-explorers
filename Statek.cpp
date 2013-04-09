@@ -53,6 +53,10 @@ bool Statek::DodajObiektDoLadowni( const Item& i, const Poziom& pz ){
 	return Ladownia::DodajObiektDoLadowni(i,getPoziom());
 }
 
+bool Statek::czMoznaDodacDoLadownii( const Ladownia& c ) const{
+	return c.czMoznaDodacDoLadownii(*this);
+}
+
 string Statek::toString() const{
 	Logger str(LogStatek::className());
 	str.addClass(Obiekt::toString());

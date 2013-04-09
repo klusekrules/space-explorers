@@ -22,7 +22,9 @@
 #include "Masa.h"
 #include "ObiektList.hpp"
 
+class Surowce;
 class LadowniaInfo;
+class Statek;
 
 class Ladownia:
 	public LoggerInterface<Ladownia>
@@ -53,6 +55,10 @@ public:
 	const Objetosc& getZajeteMiejsce() const;
 
 	virtual Objetosc getPojemnoscMax( const Poziom& pz ) const;
+
+	bool czMoznaDodacDoLadownii( const Statek& c ) const;
+
+	bool czMoznaDodacDoLadownii( const Surowce& c ) const;
 
 	string toString() const override;
 
