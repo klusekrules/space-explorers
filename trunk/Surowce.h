@@ -7,6 +7,7 @@
 #include "BladLaczeniaObiektow.h"
 
 class SurowceInfo;
+class Ladownia;
 
 class Surowce :
 	public Obiekt,
@@ -60,6 +61,8 @@ public:
 	const SurowceInfo& getSurowceInfo() const;
 		
 	bool czyTypPrzyrostowy()const;
+
+	bool czMoznaDodacDoLadownii( const Ladownia& c ) const override;
 			
 	string toString() const override;
 

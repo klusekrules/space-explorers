@@ -1,5 +1,7 @@
 #include "Ladownia.h"
 #include "LadowniaInfo.h"
+#include "Statek.h"
+#include "Surowce.h"
 
 Ladownia::Ladownia( const LadowniaInfo& l )
 	: zajete(), obiekty(), ladowniaInfo(l)
@@ -27,8 +29,19 @@ Ilosc Ladownia::SprawdzIloscObiektow( const Klucz& itID ) const{
 		return Ilosc();
 	}
 }
-	
+
+bool Ladownia::czMoznaDodacDoLadownii( const Statek& c ) const {
+	return true;
+}
+
+bool Ladownia::czMoznaDodacDoLadownii( const Surowce& c ) const {
+	return c.czyTypPrzyrostowy();
+}
+
 bool Ladownia::DodajObiektDoLadowni( const Item& obiekt , const Poziom& pz ){
+	if(!obiekt.czMoznaDodacDoLadownii(*this)){
+		return false;
+	}
 	if( obiekt.getObjetosc() > getPojemnoscMax(pz) ){
 		return false;
 	}

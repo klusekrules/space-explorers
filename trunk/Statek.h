@@ -35,6 +35,8 @@ public:
 	Fluktuacja WolneMiejsce( const Poziom& pz = Poziom() ) const override;
 
 	bool DodajObiektDoLadowni( const Item& , const Poziom& pz = Poziom() ) override;
+
+	bool czMoznaDodacDoLadownii( const Ladownia& c ) const override;
 	
 	string toString() const override;
 private:
