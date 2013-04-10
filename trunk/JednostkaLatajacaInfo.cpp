@@ -2,13 +2,13 @@
 #include "Logger.h"
 #include "XmlBO.h"
 
-JednostkaLatajacaInfo::JednostkaLatajacaInfo( const Info& info,const Klucz& k, const MocSilnika& moc, const ZuzyciePaliwa& z, const Masa& masa )
+JednostkaLatajacaInfo::JednostkaLatajacaInfo( const Info& info,const Klucz& k, const MocSilnika& moc, const ZuzyciePaliwa& z, const Masa& masa ) throw()
 	: Info(info), rodzajNapedu(k), mocSilnika(moc), zuzyciePaliwa(z), masaNapedu(masa), przyrostZuzyciaPaliwa(nullptr), przyrostSprawnosciSilnika(nullptr),
 	przyrostMocySilnika(nullptr), przyrostMasyNapedu(nullptr)
 {
 }
 
-JednostkaLatajacaInfo::JednostkaLatajacaInfo( ticpp::Node* n )
+JednostkaLatajacaInfo::JednostkaLatajacaInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
 	: Info(XmlBO::IterateChildren(n,Info::LogInfo::className())), przyrostZuzyciaPaliwa(nullptr), przyrostSprawnosciSilnika(nullptr),
 	przyrostMocySilnika(nullptr), przyrostMasyNapedu(nullptr)
 {

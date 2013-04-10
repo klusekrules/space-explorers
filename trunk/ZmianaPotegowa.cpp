@@ -3,7 +3,7 @@
 #include "ZmianaFabryka.h"
 #include "XmlBO.h"
 
-ZmianaPotegowa::ZmianaPotegowa( const ticpp::Element * e )
+ZmianaPotegowa::ZmianaPotegowa( const ticpp::Element * e ) throw(WyjatekParseraXML)
 	: wspolczynnik(XmlBO::IterateChildrenElement(e,"Param1")), wykladnik(XmlBO::IterateChildrenElement(e,"Param2"))
 {
 }

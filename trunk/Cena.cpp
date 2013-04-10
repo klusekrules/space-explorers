@@ -5,7 +5,7 @@
 #include "XmlBO.h"
 #include "Surowce.h"
 
-Cena::Cena( ticpp::Node* n )
+Cena::Cena( ticpp::Node* n ) throw(WyjatekParseraXML)
 	: obiekty(nullptr),zmiana(nullptr)
 {
 	if(n!=nullptr){
@@ -21,7 +21,7 @@ Cena::Cena( ticpp::Node* n )
 	}
 }
 
-Cena::Cena( const Item & zsKoszty )
+Cena::Cena( const Item & zsKoszty ) throw()
 	: obiekty(zsKoszty.Kopia()) , zmiana(nullptr)
 {
 }

@@ -2,7 +2,7 @@
 #include "ObiektBaseInfo.h"
 #include "Logger.h"
 
-ObiektBase::ObiektBase( const Ilosc& i, const ObiektBaseInfo& iInfo)
+ObiektBase::ObiektBase( const Ilosc& i, const ObiektBaseInfo& iInfo) throw()
 	: Base(iInfo), ilosc(i), obiektBaseInfo(iInfo)
 {
 }

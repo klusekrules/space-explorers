@@ -11,7 +11,7 @@ class Wymagania :
 {
 public:
 	typedef LoggerInterface < Wymagania > LogWymagania;
-	explicit Wymagania( ticpp::Node* );
+	explicit Wymagania( ticpp::Node* ) throw(WyjatekParseraXML);
 	Wymagania( const Wymagania& );
 	const Wymagania& operator=( const Wymagania& );
 	~Wymagania();

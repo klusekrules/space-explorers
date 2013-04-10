@@ -6,12 +6,12 @@
 SurowceInfo::~SurowceInfo(){
 }
 
-SurowceInfo::SurowceInfo( const ObiektInfo& o , bool bCzyPrzyrostowy )
+SurowceInfo::SurowceInfo( const ObiektInfo& o , bool bCzyPrzyrostowy ) throw()
 	: ObiektInfo(o) , czyPrzyrostowy(bCzyPrzyrostowy)
 {
 }
 
-SurowceInfo::SurowceInfo( ticpp::Node* n )
+SurowceInfo::SurowceInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
 	: ObiektInfo(XmlBO::IterateChildren(n,ObiektInfo::LogObiektInfo::className())) , czyPrzyrostowy (false)
 {
 	if(n){

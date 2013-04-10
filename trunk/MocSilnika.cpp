@@ -1,8 +1,9 @@
 #include "MocSilnika.h"
 #include "Logger.h"
+#include "Stale.h"
 
 MocSilnika::MocSilnika()
-	: mocSilnika( 0.0f )
+	: mocSilnika( Stale::mocSilnikaDomyslny )
 {
 }
 

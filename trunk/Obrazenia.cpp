@@ -1,8 +1,9 @@
 #include "Obrazenia.h"
 #include "Logger.h"
+#include "Stale.h"
 
 Obrazenia::Obrazenia()
-	: obrazenia( 0.0f )
+	: obrazenia( Stale::obrazeniaDomyslny )
 {
 }
 

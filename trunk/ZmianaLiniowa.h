@@ -5,6 +5,8 @@
 
 #include "parser\ticpp.h"
 
+class WyjatekParseraXML;
+
 class ZmianaLiniowa:
 	public ZmianaInterfejs,
 	public LoggerInterface< ZmianaLiniowa >
@@ -26,7 +28,7 @@ public:
 
 	ZmianaLiniowa* Kopia()const override;
 
-	ZmianaLiniowa( const ticpp::Element * e );
+	explicit ZmianaLiniowa( const ticpp::Element * e ) throw(WyjatekParseraXML);
 	virtual ~ZmianaLiniowa(void);
 
 	string toString () const override;

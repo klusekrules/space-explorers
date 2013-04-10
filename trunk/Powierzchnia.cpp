@@ -1,8 +1,9 @@
 #include "Powierzchnia.h"
 #include "Logger.h"
+#include "Stale.h"
 
 Powierzchnia::Powierzchnia()
-	: powierzchnia( 0.0f )
+	: powierzchnia( Stale::powierzchniaDomyslny )
 {
 }
 

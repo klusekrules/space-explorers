@@ -1,12 +1,12 @@
 #include "StatekInfo.h"
 #include "XmlBO.h"
 
-StatekInfo::StatekInfo( const ObiektInfo& o , const JednostkaLatajacaInfo& j , const JednostkaAtakujacaInfo& a , const LadowniaInfo& l  )
+StatekInfo::StatekInfo( const ObiektInfo& o , const JednostkaLatajacaInfo& j , const JednostkaAtakujacaInfo& a , const LadowniaInfo& l  ) throw()
 	: ObiektInfo(o), JednostkaLatajacaInfo(j), JednostkaAtakujacaInfo(a), LadowniaInfo(l)
 {
 }
 
-StatekInfo::StatekInfo( ticpp::Node* n )
+StatekInfo::StatekInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
 	: ObiektInfo(XmlBO::IterateChildren(n,ObiektInfo::LogObiektInfo::className())),
 	JednostkaLatajacaInfo(XmlBO::IterateChildren(n,JednostkaLatajacaInfo::LogJednostkaLatajacaInfo::className())),
 	JednostkaAtakujacaInfo(XmlBO::IterateChildren(n,JednostkaAtakujacaInfo::LogJednostkaAtakujacaInfo::className())),

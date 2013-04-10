@@ -1,12 +1,12 @@
 #include "Base.h"
 #include "Logger.h"
 
-Base::Base( const IdType& itID )
+Base::Base( const IdType& itID )throw()
 	: id(itID)
 {
 }
 
-Base::Base( ticpp::Node* n ){
+Base::Base( ticpp::Node* n ) throw(WyjatekParseraXML){
 	if(n){
 		try{
 			id.setId( stoi(n->ToElement()->GetAttribute("id"),nullptr,0) );

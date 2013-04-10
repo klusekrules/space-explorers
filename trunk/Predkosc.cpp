@@ -1,8 +1,9 @@
 #include "Predkosc.h"
 #include "Logger.h"
+#include "Stale.h"
 
 Predkosc::Predkosc()
-	: predkosc( 0.0f )
+	: predkosc( Stale::predkoscDOmyslny )
 {
 }
 

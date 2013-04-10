@@ -13,9 +13,9 @@ class ObiektBaseInfo:
 public:
 	typedef LoggerInterface<ObiektBaseInfo> LogObiektBaseInfo;
 
-	ObiektBaseInfo( const Info& i , const Poziom& p );
+	ObiektBaseInfo( const Info& i , const Poziom& p ) throw();
 
-	explicit ObiektBaseInfo( ticpp::Node* );
+	explicit ObiektBaseInfo( ticpp::Node* ) throw(WyjatekParseraXML);
 
 	virtual ~ObiektBaseInfo();
 	

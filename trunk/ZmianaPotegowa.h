@@ -3,6 +3,8 @@
 #include "ZmianaInterfejs.h"
 #include "ZmianaParametr.h"
 
+class WyjatekParseraXML;
+
 class ZmianaPotegowa:
 	public ZmianaInterfejs,
 	public LoggerInterface< ZmianaPotegowa >
@@ -25,7 +27,7 @@ public:
 
 	ZmianaPotegowa* Kopia()const override;
 
-	ZmianaPotegowa( const ticpp::Element * e );
+	explicit ZmianaPotegowa( const ticpp::Element * e ) throw(WyjatekParseraXML);
 	virtual ~ZmianaPotegowa(void);
 
 	string toString () const override;

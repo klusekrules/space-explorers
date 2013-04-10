@@ -3,12 +3,12 @@
 #include "XmlBO.h"
 #include "ObiektBase.h"
 
-ObiektBaseInfo::ObiektBaseInfo(const Info& i , const Poziom& p)
+ObiektBaseInfo::ObiektBaseInfo(const Info& i , const Poziom& p) throw()
 	: Info(i), poziom(p)
 {
 }
 
-ObiektBaseInfo::ObiektBaseInfo( ticpp::Node* n )
+ObiektBaseInfo::ObiektBaseInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
 	: Info(XmlBO::IterateChildren(n,Info::LogInfo::className()))
 {
 	if(n){

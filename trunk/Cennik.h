@@ -16,7 +16,7 @@ public:
 	
 	typedef vector< shared_ptr<Cena> > Zbiornik;
 	typedef vector< shared_ptr<Surowce> > ListaSurowcow;
-	explicit Cennik( ticpp::Node* );
+	explicit Cennik( ticpp::Node* ) throw(WyjatekParseraXML);
 	virtual ~Cennik();
 
 	Cennik& operator=( const Cennik& );

@@ -1,8 +1,9 @@
 #include "Tekst.h"
 #include "Logger.h"
+#include "Stale.h"
 
 Tekst::Tekst()
-	: tekst()
+	: tekst( Stale::tekstDomyslny )
 {
 }
 

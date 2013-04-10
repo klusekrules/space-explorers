@@ -2,7 +2,7 @@
 #include "Logger.h"
 #include "XmlBO.h"
 
-Wymagania::Wymagania( ticpp::Node* n  )
+Wymagania::Wymagania( ticpp::Node* n  ) throw(WyjatekParseraXML)
 	: Cennik( XmlBO::IterateChildren(n,Cennik::LogCennik::className(),false) ), Warunek( XmlBO::IterateChildren(n,Warunek::className(),false) )
 {
 }

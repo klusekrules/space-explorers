@@ -3,7 +3,7 @@
 #include "ZmianaFabryka.h"
 #include "XmlBO.h"
 
-ZmianaLiniowa::ZmianaLiniowa( const ticpp::Element* e )
+ZmianaLiniowa::ZmianaLiniowa( const ticpp::Element* e ) throw(WyjatekParseraXML)
 	: parametr(XmlBO::IterateChildrenElement(e,"Param"))
 {
 }

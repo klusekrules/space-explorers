@@ -19,9 +19,9 @@ public:
 	* \param oPancerz - podstawowy pancerz obiektu
 	* \param oOslona - postawowa oslona obiektu
 	*/
-	JednostkaAtakujacaInfo(const Info& info, const Obrazenia& oAtak,const Obrazenia& oPancerz, const Obrazenia& oOslona );
+	JednostkaAtakujacaInfo(const Info& info, const Obrazenia& oAtak,const Obrazenia& oPancerz, const Obrazenia& oOslona ) throw();
 
-	JednostkaAtakujacaInfo( ticpp::Node* );
+	explicit JednostkaAtakujacaInfo( ticpp::Node* ) throw(WyjatekParseraXML);
 
 	/**
 	* Destruktor domyœlny.

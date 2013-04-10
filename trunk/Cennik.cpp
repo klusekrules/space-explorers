@@ -1,7 +1,7 @@
 #include "Cennik.h"
 #include "Logger.h"
 
-Cennik::Cennik( ticpp::Node* n )
+Cennik::Cennik( ticpp::Node* n ) throw(WyjatekParseraXML)
 {
 	if(n){
 		auto e = n->FirstChildElement(false);
