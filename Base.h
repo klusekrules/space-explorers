@@ -21,8 +21,8 @@ public:
 	* Konstruktor klasy Base z podan¹ wartoœci¹ ID.
 	* \param id - Id przechowywane przez klase.
 	*/
-	explicit Base( const IdType& id );
-	explicit Base( ticpp::Node* );
+	explicit Base( const IdType& id ) throw();
+	explicit Base( ticpp::Node* ) throw(WyjatekParseraXML);
 	
 	/**
 	* Destruktor domyœlny.

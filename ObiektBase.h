@@ -34,7 +34,7 @@ public:
 	* \param poziom - Poziom obiektów opisywanych przez klasê.
 	* \param iInfo - Wskazanie na klasê opisuj¹c¹ reprezentowany obiekt.
 	*/
-	ObiektBase( const Ilosc& ilosc, const ObiektBaseInfo& iInfo);
+	ObiektBase( const Ilosc& ilosc, const ObiektBaseInfo& iInfo) throw();
 
 	/**
 	* Destruktor domyœlny.

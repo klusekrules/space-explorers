@@ -8,6 +8,7 @@
 #include "IdType.h"
 
 class Surowce;
+class WyjatekParseraXML;
 
 class Cena :
 	public LoggerInterface < Cena >
@@ -15,8 +16,8 @@ class Cena :
 public:
 	typedef LoggerInterface < Cena > LogCena;
 	typedef Surowce Item;
-	explicit Cena( ticpp::Node* );
-	explicit Cena( const Item& );
+	explicit Cena( ticpp::Node* ) throw(WyjatekParseraXML);
+	explicit Cena( const Item& ) throw();
 	Cena( const Cena& );
 
 	Cena& operator=(const Cena&);

@@ -7,6 +7,7 @@
 #include "ZmianaInterfejs.h"
 
 class ObiektBaseInfo;
+class WyjatekParseraXML;
 
 class Warunek :
 	public LoggerInterface< Warunek >
@@ -17,8 +18,8 @@ public:
 	typedef vector< shared_ptr< ObiektBaseInfo > > PrzetworzoneWarunki;
 
 	Warunek();
-	Warunek( ticpp::Node* n );
-	Warunek(const Warunek& w);
+	explicit Warunek( ticpp::Node* n ) throw(WyjatekParseraXML);
+	explicit Warunek(const Warunek& w) throw();
 	const Warunek& operator=(const Warunek& w);
 	~Warunek();
 

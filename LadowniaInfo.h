@@ -17,9 +17,9 @@ private:
 public:
 	typedef LoggerInterface<LadowniaInfo> LogLadowniaInfo;
 
-	LadowniaInfo( const Objetosc& max, const Info& i );
+	LadowniaInfo( const Objetosc& max, const Info& i ) throw();
 
-	LadowniaInfo( ticpp::Node* );
+	explicit LadowniaInfo( ticpp::Node* ) throw(WyjatekParseraXML);
 
 	virtual ~LadowniaInfo();
 

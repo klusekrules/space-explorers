@@ -2,11 +2,11 @@
 #include "Logger.h"
 #include "XmlBO.h"
 
-JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const Info& info, const Obrazenia& oAtak,const Obrazenia& oPancerz, const Obrazenia& oOslona)
+JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const Info& info, const Obrazenia& oAtak,const Obrazenia& oPancerz, const Obrazenia& oOslona) throw()
 	: Info(info), atak(oAtak), pancerz(oPancerz), oslona(oOslona), zmAtak(nullptr), zmPancerz(nullptr), zmOslona(nullptr)
 {
 }
-JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( ticpp::Node* n )
+JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
 	: Info(XmlBO::IterateChildren(n,Info::LogInfo::className())),zmAtak(nullptr), zmPancerz(nullptr), zmOslona(nullptr)
 {
 	if(n){

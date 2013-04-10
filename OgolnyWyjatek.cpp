@@ -1,9 +1,10 @@
 #include "OgolnyWyjatek.h"
 #include "Logger.h"
 #include "Aplikacja.h"
+#include "Stale.h"
 
 OgolnyWyjatek::OgolnyWyjatek( const Tekst& tPlik, const IdType& iLinia, const IdType& itId , const Tekst& wwTytul , const Tekst& wwTresc )
-	: numerWyjatku( itId != IdType::domyslny ? itId : domyslnyOgolnyWyjatekID ) , tytul( wwTytul.isEmpty() ? domyslnyOgolnyWyjatekTytul : wwTytul ) , tresc( wwTresc.isEmpty() ? domyslnyOgolnyWyjatekTresc : wwTresc )
+	: numerWyjatku( itId.value() != Stale::idDomyslny ? itId : domyslnyOgolnyWyjatekID ) , tytul( wwTytul.isEmpty() ? domyslnyOgolnyWyjatekTytul : wwTytul ) , tresc( wwTresc.isEmpty() ? domyslnyOgolnyWyjatekTresc : wwTresc )
 {
 	ustawSzczegoly( tPlik, iLinia );
 }

@@ -23,8 +23,6 @@
 //Makro wstawiajace nazwe pliku i liniê i datê pliku.
 #define EXCEPTION_PLACE Tekst(__FILE__) , IdType(__LINE__)
 
-#include "Constants.h"
-
 #ifdef TESTS
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>

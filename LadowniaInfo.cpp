@@ -2,12 +2,12 @@
 #include "Logger.h"
 #include "XmlBO.h"
 
-LadowniaInfo::LadowniaInfo( const Objetosc& max, const Info& i )
+LadowniaInfo::LadowniaInfo( const Objetosc& max, const Info& i ) throw()
 	: Info(i),pojemnoscMax(max), przyrostPojemnoscMax(nullptr)
 {
 }
 
-LadowniaInfo::LadowniaInfo( ticpp::Node* n )
+LadowniaInfo::LadowniaInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
 	: Info(XmlBO::IterateChildren(n,Info::LogInfo::className())), przyrostPojemnoscMax(nullptr)
 {
 	if(n){

@@ -1,8 +1,9 @@
 #include "Ilosc.h"
 #include "Logger.h"
+#include "Stale.h"
 
 Ilosc::Ilosc()
-	: ilosc( iloscDomyslny )
+	: ilosc( Stale::iloscJednostekDomyslny )
 {
 }
 

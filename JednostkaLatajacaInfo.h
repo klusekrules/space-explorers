@@ -27,9 +27,9 @@ public:
 	* \param z - Zu¿ycia paliwa przez silnik
 	* \param masa - Masa uk³adu napêdowego
 	*/
-	JednostkaLatajacaInfo(const Info& info, const Klucz& k, const MocSilnika& moc, const ZuzyciePaliwa& z, const Masa& masa );
+	JednostkaLatajacaInfo(const Info& info, const Klucz& k, const MocSilnika& moc, const ZuzyciePaliwa& z, const Masa& masa ) throw();
 	
-	JednostkaLatajacaInfo( ticpp::Node* );
+	explicit JednostkaLatajacaInfo( ticpp::Node* ) throw(WyjatekParseraXML);
 	/**
 	* Destruktor domyœlny
 	*/

@@ -17,9 +17,9 @@ class StatekInfo:
 public:	
 	typedef LoggerInterface < StatekInfo > LogStatekInfo;
 
-	StatekInfo(	const ObiektInfo& o , const JednostkaLatajacaInfo& j , const JednostkaAtakujacaInfo& a , const LadowniaInfo& l );
+	StatekInfo(	const ObiektInfo& o , const JednostkaLatajacaInfo& j , const JednostkaAtakujacaInfo& a , const LadowniaInfo& l ) throw();
 
-	StatekInfo( ticpp::Node* );
+	explicit StatekInfo( ticpp::Node* ) throw(WyjatekParseraXML);
 
 	virtual ~StatekInfo();
 

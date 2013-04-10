@@ -1,8 +1,9 @@
 #include "Parametr.h"
 #include "Logger.h"
+#include "Stale.h"
 
 Parametr::Parametr()
-	: parametr(0)
+	: parametr(Stale::parametrDomyslny)
 {
 }
 

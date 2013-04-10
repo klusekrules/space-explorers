@@ -3,7 +3,7 @@
 #include "Logger.h"
 #include "Ladownia.h"
 
-Obiekt::Obiekt( const Ilosc& i, const ObiektInfo& obiekt )
+Obiekt::Obiekt( const Ilosc& i, const ObiektInfo& obiekt ) throw()
 	: ObiektBase( i, obiekt ), obiektInfoClass( obiekt )
 {
 }

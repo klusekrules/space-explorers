@@ -2,11 +2,11 @@
 #include "Logger.h"
 #include "XmlBO.h"
 
-Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const IdType& id , const Wymagania& w )
+Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const IdType& id , const Wymagania& w ) throw()
 	: Base(id), nazwa( tNazwa ), opis( tOpis ), Wymagania(w)
 {
 }
-Info::Info( ticpp::Node* n )
+Info::Info( ticpp::Node* n ) throw(WyjatekParseraXML)
 	: Base( n ) , Wymagania( XmlBO::IterateChildren(n,Wymagania::LogWymagania::className(),false)  )
 {
 	if(n){

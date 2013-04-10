@@ -1,8 +1,9 @@
 #include "Masa.h"
 #include "Logger.h"
+#include "Stale.h"
 
 Masa::Masa()
-	: masa( 0.0f )
+	: masa( Stale::masaDomyslny )
 {
 }
 

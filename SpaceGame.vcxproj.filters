@@ -19,9 +19,6 @@
     <ClCompile Include="Ladownia.cpp">
       <Filter>SourceFile\Flota\Ladownia</Filter>
     </ClCompile>
-    <ClCompile Include="LadowniaBO.cpp">
-      <Filter>SourceFile\Flota\Ladownia</Filter>
-    </ClCompile>
     <ClCompile Include="LadowniaInfo.cpp">
       <Filter>SourceFile\Flota\Ladownia</Filter>
     </ClCompile>
@@ -106,9 +103,6 @@
     <ClCompile Include="WyjatekParseraXML.cpp">
       <Filter>SourceFile\Wyjatki\ParserXML</Filter>
     </ClCompile>
-    <ClCompile Include="Wyjatki.cpp">
-      <Filter>SourceFile\Wyjatki</Filter>
-    </ClCompile>
     <ClCompile Include="BladLaczeniaObiektow.cpp">
       <Filter>SourceFile\Wyjatki</Filter>
     </ClCompile>
@@ -136,38 +130,17 @@
     <ClCompile Include="Aplikacja.cpp">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClCompile>
-    <ClCompile Include="Inicjalizacja.cpp">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClCompile>
     <ClCompile Include="maintest.cpp">
       <Filter>SourceFile\Testy</Filter>
     </ClCompile>
     <ClCompile Include="Testy.cpp">
       <Filter>SourceFile\Testy</Filter>
     </ClCompile>
-    <ClCompile Include="Stale.cpp">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClCompile>
-    <ClCompile Include="Constants.cpp">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClCompile>
-    <ClCompile Include="Cena.cpp">
-      <Filter>SourceFile\Surowce\Cena</Filter>
-    </ClCompile>
     <ClCompile Include="ObiektInfo.cpp">
       <Filter>SourceFile\BaseClass\Obiekt</Filter>
     </ClCompile>
     <ClCompile Include="ObiektBaseInfo.cpp">
       <Filter>SourceFile\BaseClass\Info</Filter>
-    </ClCompile>
-    <ClCompile Include="Warunek.cpp">
-      <Filter>SourceFile\Surowce\Warunek</Filter>
-    </ClCompile>
-    <ClCompile Include="Wymagania.cpp">
-      <Filter>SourceFile\Surowce</Filter>
-    </ClCompile>
-    <ClCompile Include="Cennik.cpp">
-      <Filter>SourceFile\Surowce</Filter>
     </ClCompile>
     <ClCompile Include="ZmianaLiniowa.cpp">
       <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
@@ -190,14 +163,32 @@
     <ClCompile Include="ZmianaDekorator.cpp">
       <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
     </ClCompile>
-    <ClCompile Include="ZmianaIdKlas.cpp">
-      <Filter>SourceFile\BaseClass\Zmiana</Filter>
-    </ClCompile>
     <ClCompile Include="ZmianaPotegowa.cpp">
       <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
     </ClCompile>
     <ClCompile Include="Bool.cpp">
       <Filter>SourceFile\BaseTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Wymagania.cpp">
+      <Filter>SourceFile\Wymagania</Filter>
+    </ClCompile>
+    <ClCompile Include="Cennik.cpp">
+      <Filter>SourceFile\Wymagania</Filter>
+    </ClCompile>
+    <ClCompile Include="Cena.cpp">
+      <Filter>SourceFile\Wymagania\Cena</Filter>
+    </ClCompile>
+    <ClCompile Include="Warunek.cpp">
+      <Filter>SourceFile\Wymagania\Warunek</Filter>
+    </ClCompile>
+    <ClCompile Include="Wyjatki.cpp">
+      <Filter>SourceFile\DomysleWartosci</Filter>
+    </ClCompile>
+    <ClCompile Include="Stale.cpp">
+      <Filter>SourceFile\DomysleWartosci</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaIdKlas.cpp">
+      <Filter>SourceFile\DomysleWartosci</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -227,9 +218,6 @@
     </ClInclude>
     <ClInclude Include="BrakMaski.h">
       <Filter>SourceFile\Wyjatki\ParserXML</Filter>
-    </ClInclude>
-    <ClInclude Include="LadowniaBO.h">
-      <Filter>SourceFile\Flota\Ladownia</Filter>
     </ClInclude>
     <ClInclude Include="Ladownia.h">
       <Filter>SourceFile\Flota\Ladownia</Filter>
@@ -360,19 +348,10 @@
     <ClInclude Include="Aplikacja.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
-    <ClInclude Include="Inicjalizacja.h">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClInclude>
     <ClInclude Include="Testy.h">
       <Filter>SourceFile\Testy</Filter>
     </ClInclude>
-    <ClInclude Include="Stale.h">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClInclude>
     <ClInclude Include="Biblioteki.h">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClInclude>
-    <ClInclude Include="Constants.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
     <ClInclude Include="Main.h">
@@ -380,9 +359,6 @@
     </ClInclude>
     <ClInclude Include="MakeVector.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
-    </ClInclude>
-    <ClInclude Include="Cena.h">
-      <Filter>SourceFile\Surowce\Cena</Filter>
     </ClInclude>
     <ClInclude Include="ObiektInfo.h">
       <Filter>SourceFile\BaseClass\Obiekt</Filter>
@@ -404,15 +380,6 @@
     </ClInclude>
     <ClInclude Include="XmlBO.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
-    </ClInclude>
-    <ClInclude Include="Warunek.h">
-      <Filter>SourceFile\Surowce\Warunek</Filter>
-    </ClInclude>
-    <ClInclude Include="Wymagania.h">
-      <Filter>SourceFile\Surowce</Filter>
-    </ClInclude>
-    <ClInclude Include="Cennik.h">
-      <Filter>SourceFile\Surowce</Filter>
     </ClInclude>
     <ClInclude Include="ZmianaLiniowa.h">
       <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
@@ -440,6 +407,21 @@
     </ClInclude>
     <ClInclude Include="Bool.h">
       <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Wymagania.h">
+      <Filter>SourceFile\Wymagania</Filter>
+    </ClInclude>
+    <ClInclude Include="Cennik.h">
+      <Filter>SourceFile\Wymagania</Filter>
+    </ClInclude>
+    <ClInclude Include="Cena.h">
+      <Filter>SourceFile\Wymagania\Cena</Filter>
+    </ClInclude>
+    <ClInclude Include="Warunek.h">
+      <Filter>SourceFile\Wymagania\Warunek</Filter>
+    </ClInclude>
+    <ClInclude Include="Stale.h">
+      <Filter>SourceFile\DomysleWartosci</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -512,23 +494,35 @@
     <Filter Include="SourceFile\KlasyPomocnicze">
       <UniqueIdentifier>{6a43f607-5cee-48af-be60-d2eb6e1b0e2b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\Surowce\Cena">
-      <UniqueIdentifier>{0ba97365-2fd4-45b2-a51a-a22b61df8a88}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SourceFile\BaseClass\Zmiana">
       <UniqueIdentifier>{f6b91d8c-19dc-4861-8f28-6364f2a77fbb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource">
       <UniqueIdentifier>{f809a59c-3db4-40e4-baa6-d18e46644843}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\Surowce\Warunek">
-      <UniqueIdentifier>{4cc8f7a4-b9e2-44ab-bf66-771acc1a298b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SourceFile\BaseClass\Zmiana\Instancje">
       <UniqueIdentifier>{8e907574-8f7f-47e0-a603-8b59c2a5f507}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\BaseClass\Zmiana\Szkielet">
       <UniqueIdentifier>{cc29475b-1b3d-43ed-ab37-5c839aafb0fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Wymagania">
+      <UniqueIdentifier>{b4bdf8e7-69d8-42b7-828c-db385f251073}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Wymagania\Warunek">
+      <UniqueIdentifier>{4cc8f7a4-b9e2-44ab-bf66-771acc1a298b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Wymagania\Cena">
+      <UniqueIdentifier>{0ba97365-2fd4-45b2-a51a-a22b61df8a88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Technologia">
+      <UniqueIdentifier>{bc5c5a03-cd07-44c7-aded-44408c5cf55e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Budynek">
+      <UniqueIdentifier>{7e323fa0-ec8d-4092-a64b-064d0ff758f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\DomysleWartosci">
+      <UniqueIdentifier>{6f405ef5-dac8-4c81-a144-5dde19dd7b2b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

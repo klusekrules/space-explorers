@@ -1,8 +1,9 @@
 #include "Objetosc.h"
 #include "Logger.h"
+#include "Stale.h"
 
 Objetosc::Objetosc()
-	: objetosc( 0.0f )
+	: objetosc( Stale::objetoscDomyslny )
 {
 }
 

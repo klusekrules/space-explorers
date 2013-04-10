@@ -22,12 +22,4 @@ namespace SPG{
 	typedef double	Obrazenia; //+
 	typedef double	ZuzyciePaliwa; //+
 	typedef double	MocSilnika; //+
-
-	//TODO: Analiza czy potrzebne.
-	typedef enum	RodzajNapedu{
-		NiepoprawnyRodzaj,
-		Spalinowy,
-		Jonowy,
-		Nadswietlny
-	};
 }

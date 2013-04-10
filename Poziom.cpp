@@ -1,8 +1,9 @@
 #include "Poziom.h"
 #include "Logger.h"
+#include "Stale.h"
 
 Poziom::Poziom()
-	: pPoziom(0)
+	: pPoziom(Stale::poziomDomyslny)
 {
 }
 

@@ -14,8 +14,8 @@ class Info:
 public:
 	typedef LoggerInterface<Info> LogInfo;
 
-	Info( const Tekst& , const Tekst& , const IdType&, const Wymagania& );
-	explicit Info( ticpp::Node* );
+	Info( const Tekst& , const Tekst& , const IdType&, const Wymagania& ) throw();
+	explicit Info( ticpp::Node* ) throw(WyjatekParseraXML);
 	virtual ~Info();
 
 	const Tekst& getNazwa() const;

@@ -1,8 +1,9 @@
 #include "ZuzyciePaliwa.h"
 #include "Logger.h"
+#include "Stale.h"
 
 ZuzyciePaliwa::ZuzyciePaliwa()
-	: zuzyciePaliwa( 0.0f )
+	: zuzyciePaliwa( Stale::zuzyciePaliwaDomyslny )
 {
 }
 

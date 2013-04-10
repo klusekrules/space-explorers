@@ -1,8 +1,9 @@
 #include "Bool.h"
 #include "Logger.h"
+#include "Stale.h"
 
 Bool::Bool()
-	: bBool(false)
+	: bBool( Stale::boolDomyslny	)
 {
 }
 

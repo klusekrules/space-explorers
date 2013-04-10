@@ -1,8 +1,9 @@
 #include "Fluktuacja.h"
 #include "Logger.h"
+#include "Stale.h"
 
 Fluktuacja::Fluktuacja()
-	: fluktuacja( fluktuacjaDomyslny )
+	: fluktuacja( Stale::fluktuacjaDomyslny )
 {
 }
 

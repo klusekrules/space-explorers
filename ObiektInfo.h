@@ -21,9 +21,9 @@ private:
 
 public:
 	typedef LoggerInterface<ObiektInfo> LogObiektInfo;
-	ObiektInfo( const Masa&, const Objetosc&, const Powierzchnia&, const ObiektBaseInfo& );
+	ObiektInfo( const Masa&, const Objetosc&, const Powierzchnia&, const ObiektBaseInfo& ) throw();
 
-	explicit ObiektInfo( ticpp::Node* );
+	explicit ObiektInfo( ticpp::Node* ) throw(WyjatekParseraXML);
 
 	~ObiektInfo( );
 

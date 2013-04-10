@@ -1,9 +1,10 @@
 #include "IdType.h"
 #include "Logger.h"
 #include <iomanip>
+#include "Stale.h"
 
 IdType::IdType()
-	: id(domyslny.id)
+	: id(Stale::idDomyslny)
 {
 }
 

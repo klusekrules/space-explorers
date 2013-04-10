@@ -1,8 +1,9 @@
 #include "Dystans.h"
 #include "Logger.h"
+#include "Stale.h"
 
 Dystans::Dystans()
-	: dystans( 0.0f )
+	: dystans( Stale::dystansDomyslny )
 {
 }
 

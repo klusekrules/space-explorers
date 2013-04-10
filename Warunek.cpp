@@ -8,12 +8,13 @@
 Warunek::Warunek(){
 }
 
-Warunek::Warunek(const Warunek& w)
+Warunek::Warunek(const Warunek& w) throw()
 	: warunki(w.warunki)
 {
 }
 
-Warunek::Warunek( ticpp::Node* n ){
+Warunek::Warunek( ticpp::Node* n ) throw(WyjatekParseraXML)
+{
 	if(n){
 		try{
 			auto e = n->FirstChildElement(false);

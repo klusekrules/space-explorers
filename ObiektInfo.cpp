@@ -2,12 +2,12 @@
 #include "Logger.h"
 #include "XmlBO.h"
 
-ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& obj, const Powierzchnia& pow, const ObiektBaseInfo& info )
+ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& obj, const Powierzchnia& pow, const ObiektBaseInfo& info ) throw()
 	: ObiektBaseInfo(info), masa(masa), objetosc(obj), powierzchnia(pow), zmMasa(nullptr), zmObjetosc(nullptr), zmPowierzchnia(nullptr)
 {
 }
 
-ObiektInfo::ObiektInfo( ticpp::Node* n )
+ObiektInfo::ObiektInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
 	: ObiektBaseInfo(XmlBO::IterateChildren(n,ObiektBaseInfo::LogObiektBaseInfo::className())), zmMasa(nullptr), zmObjetosc(nullptr), zmPowierzchnia(nullptr)
 {
 	if(n){
