@@ -4,7 +4,7 @@
 #include "Surowce.h"
 
 Ladownia::Ladownia( const LadowniaInfo& l )
-	: zajete(), obiekty(), ladowniaInfo(l)
+	: obiekty(), zajete(), ladowniaInfo(l)
 {
 }
 

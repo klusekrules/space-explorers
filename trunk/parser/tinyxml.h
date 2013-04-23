@@ -363,7 +363,7 @@ protected:
 		{
 			//strncpy( _value, p, *length );	// lots of compilers don't like this function (unsafe),
 												// and the null terminator isn't needed
-			for( int i=0; p[i] && i<*length; ++i ) {
+			for( int i=0; i<*length && p[i]; ++i ) {
 				_value[i] = p[i];
 			}
 			return p + (*length);
@@ -809,21 +809,15 @@ public:
 	#ifdef TIXML_USE_STL
 	/// std::string constructor.
 	TiXmlAttribute( const std::string& _name, const std::string& _value )
-	{
-		name = _name;
-		value = _value;
-		document = 0;
-		prev = next = 0;
+		: document(nullptr), name(_name), value(_value), prev(nullptr), next(nullptr)
+	{		
 	}
 	#endif
 
 	/// Construct an attribute with a name and value.
 	TiXmlAttribute( const char * _name, const char * _value )
+		: document(nullptr), name(_name), value(_value), prev(nullptr), next(nullptr)
 	{
-		name = _name;
-		value = _value;
-		document = 0;
-		prev = next = 0;
 	}
 
 	const char*		Name()  const		{ return name.c_str(); }		///< Return the name of this attribute.
@@ -925,7 +919,7 @@ public:
 	~TiXmlAttributeSet();
 
 	void Add( TiXmlAttribute* attribute );
-	void Remove( TiXmlAttribute* attribute );
+	void Remove( TiXmlAttribute* attribute ) const;
 
 	const TiXmlAttribute* First()	const	{ return ( sentinel.next == &sentinel ) ? 0 : sentinel.next; }
 	TiXmlAttribute* First()					{ return ( sentinel.next == &sentinel ) ? 0 : sentinel.next; }
@@ -971,7 +965,7 @@ public:
 
 	TiXmlElement( const TiXmlElement& );
 
-	void operator=( const TiXmlElement& base );
+	TiXmlElement& operator=( const TiXmlElement& base );
 
 	virtual ~TiXmlElement();
 
@@ -1178,7 +1172,7 @@ public:
 		SetValue( _value );
 	}
 	TiXmlComment( const TiXmlComment& );
-	void operator=( const TiXmlComment& base );
+	TiXmlComment& operator=( const TiXmlComment& base );
 
 	virtual ~TiXmlComment()	{}
 
@@ -1243,7 +1237,7 @@ public:
 	#endif
 
 	TiXmlText( const TiXmlText& copy ) : TiXmlNode( TiXmlNode::TEXT )	{ copy.CopyTo( this ); }
-	void operator=( const TiXmlText& base )							 	{ base.CopyTo( this ); }
+	TiXmlText& operator=( const TiXmlText& base )							 	{ base.CopyTo( this ); return *this; }
 
 	// Write this text object to a FILE stream.
 	virtual void Print( FILE* cfile, int depth ) const;
@@ -1310,7 +1304,7 @@ public:
 						const char* _standalone );
 
 	TiXmlDeclaration( const TiXmlDeclaration& copy );
-	void operator=( const TiXmlDeclaration& copy );
+	TiXmlDeclaration& operator=( const TiXmlDeclaration& copy );
 
 	virtual ~TiXmlDeclaration()	{}
 
@@ -1378,7 +1372,7 @@ public:
 								const char* _href );
 
 	TiXmlStylesheetReference( const TiXmlStylesheetReference& copy );
-	void operator=( const TiXmlStylesheetReference& copy );
+	TiXmlStylesheetReference& operator=( const TiXmlStylesheetReference& copy );
 
 	virtual ~TiXmlStylesheetReference()	{}
 
@@ -1431,7 +1425,7 @@ public:
 	virtual ~TiXmlUnknown() {}
 
 	TiXmlUnknown( const TiXmlUnknown& copy ) : TiXmlNode( TiXmlNode::UNKNOWN )		{ copy.CopyTo( this ); }
-	void operator=( const TiXmlUnknown& copy )										{ copy.CopyTo( this ); }
+	TiXmlUnknown& operator=( const TiXmlUnknown& copy )								{ copy.CopyTo( this ); return *this; }
 
 	/// Creates a copy of this Unknown and returns it.
 	virtual TiXmlNode* Clone() const;
@@ -1477,7 +1471,7 @@ public:
 	#endif
 
 	TiXmlDocument( const TiXmlDocument& copy );
-	void operator=( const TiXmlDocument& copy );
+	TiXmlDocument& operator=( const TiXmlDocument& copy );
 
 	virtual ~TiXmlDocument() {}
 
@@ -1719,7 +1713,7 @@ public:
 	TiXmlHandle( TiXmlNode* _node )					{ this->node = _node; }
 	/// Copy constructor
 	TiXmlHandle( const TiXmlHandle& ref )			{ this->node = ref.node; }
-	TiXmlHandle operator=( const TiXmlHandle& ref ) { this->node = ref.node; return *this; }
+	TiXmlHandle& operator=( const TiXmlHandle& ref ) { this->node = ref.node; return *this; }
 
 	/// Return a handle to the first child node.
 	TiXmlHandle FirstChild() const;
@@ -1834,14 +1828,14 @@ public:
 	*/
 	void SetIndent( const char* _indent )			{ indent = _indent ? _indent : "" ; }
 	/// Query the indention string.
-	const char* Indent()							{ return indent.c_str(); }
+	const char* Indent() const						{ return indent.c_str(); }
 	/** Set the line breaking string. By default set to newline (\n).
 		Some operating systems prefer other characters, or can be
 		set to the null/empty string for no indenation.
 	*/
 	void SetLineBreak( const char* _lineBreak )		{ lineBreak = _lineBreak ? _lineBreak : ""; }
 	/// Query the current line breaking string.
-	const char* LineBreak()							{ return lineBreak.c_str(); }
+	const char* LineBreak()	const					{ return lineBreak.c_str(); }
 
 	/** Switch over to "stream printing" which is the most dense formatting without
 		linebreaks. Common when the XML is needed for network transmission.
@@ -1850,13 +1844,13 @@ public:
 													  lineBreak = "";
 													}
 	/// Return the result.
-	const char* CStr()								{ return buffer.c_str(); }
+	const char* CStr() const							{ return buffer.c_str(); }
 	/// Return the length of the result string.
-	size_t Size()									{ return buffer.size(); }
+	size_t Size() const								{ return buffer.size(); }
 
 	#ifdef TIXML_USE_STL
 	/// Return the result.
-	const std::string& Str()						{ return buffer; }
+	const std::string& Str() const					{ return buffer; }
 	#endif
 
 private:

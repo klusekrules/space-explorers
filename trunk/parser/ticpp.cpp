@@ -96,7 +96,7 @@ Attribute::Attribute( const std::string& name, const std::string& value )
 	m_impRC->InitRef();
 }
 
-void Attribute::operator=( const Attribute& copy )
+Attribute& Attribute::operator=( const Attribute& copy )
 {
 	// Dropping the reference to the old object
 	this->m_impRC->DecRef();
@@ -106,6 +106,8 @@ void Attribute::operator=( const Attribute& copy )
 
 	// The internal tixml pointer changed in the above line
 	this->m_impRC->IncRef();
+
+	return *this;
 }
 
 Attribute::Attribute( const Attribute& copy ) : Base()

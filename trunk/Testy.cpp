@@ -100,13 +100,15 @@ void Testy::endTest(){
 	Log::info("----------------------------------------------");
 }
 
-bool Testy::ladowanie_danych(){
+bool Testy::ladowanie_danych()const{
 	/* Generowanie danych */
 
 	//Statek
 	startTestModul("Ladowanie Danych");
 	try{
 		assert_false( EXCEPTION_PLACE , Aplikacja::getInstance().WczytajDane("test.xml") );
+		shared_ptr<Statek> t( this->tworzStatek(Klucz(IdType(1),Poziom(1)),Ilosc(1)));
+		Log::debug<Statek>(*t);
 	}catch(OgolnyWyjatek& e){
 		Log::error("Wykryto wyjatek:");
 		Log::error(e);
@@ -143,7 +145,7 @@ Surowce* Testy::tworzSurowce(const Klucz& id,const Ilosc& i)const throw (OgolnyW
 	return s;
 }
 
-void Testy::run(){
+void Testy::run() const{
 	startTest();
 	if(ladowanie_danych())
 	{
@@ -163,11 +165,12 @@ void Testy::run(){
 	endTest();
 }
 
-bool Testy::test_KlasaNiepoprawneParametryFunkcji(){
+bool Testy::test_KlasaNiepoprawneParametryFunkcji()const{
 	startTestModul("Test klasy NiepoprawneParametryFunkcji");
 	try{
 		Ilosc temp(5);
-		Objetosc tmp( 10.7 );
+		shared_ptr<Statek> t( this->tworzStatek(Klucz(IdType(1),Poziom(1)),Ilosc(1)));
+		Statek& tmp = *t;
 		throw NiepoprawneParametryFunkcji( EXCEPTION_PLACE , tmp , temp );
 	}
 	catch( const NiepoprawneParametryFunkcji& e ){
@@ -179,7 +182,7 @@ bool Testy::test_KlasaNiepoprawneParametryFunkcji(){
 	return endTestModul();
 }
 
-bool Testy::test_KlasaLadownia(){
+bool Testy::test_KlasaLadownia()const{
 	startTestModul("Test Klasy Ladownia");
 	try{
 		shared_ptr<Statek> a (tworzStatek(Klucz(IdType(4),Poziom(1)),Ilosc(8)));
@@ -212,7 +215,7 @@ bool Testy::test_KlasaLadownia(){
 	return endTestModul();
 }
 
-bool Testy::test_tworzenieObiektow(){
+bool Testy::test_tworzenieObiektow()const{
 	startTestModul("Tworzenie Obiektow");
 	try{
 		ObiektInfo& p = Aplikacja::getInstance().getStatek(Klucz(IdType(1),Poziom(1)));
@@ -232,17 +235,17 @@ bool Testy::test_tworzenieObiektow(){
 	}
 	return endTestModul();
 }
-bool Testy::test_KlasaObiektList(){
+bool Testy::test_KlasaObiektList()const{
 	startTestModul("Operacje na klasie ObiektList");
 	ObiektList<Statek> lista;
 	ObiektList<Statek> listaDruga;
-	Statek *a = nullptr;
-	Statek *b = nullptr;
-	Statek *c = nullptr;
-	Statek *d = nullptr;
 	try{
+		Statek *a = nullptr;
+		Statek *b = nullptr;
+		Statek *c = nullptr;
+		Statek *d = nullptr;
 		a = tworzStatek(Klucz(IdType(1),Poziom(1)),Ilosc(8));
-		lista.add(a);	
+		lista.add(a);
 		Log::debug("Dodano do kontenera");
 		Log::debug<Statek>(*a);
 
@@ -349,7 +352,7 @@ bool Testy::test_KlasaObiektList(){
 	return endTestModul();
 }
 
-bool Testy::test_wymagan(){
+bool Testy::test_wymagan()const{
 	startTestModul("Test Wymagan");
 	try{
 		shared_ptr<Statek> a( tworzStatek(Klucz(IdType(1),Poziom(1)),Ilosc(8)) );

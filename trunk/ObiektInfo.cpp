@@ -3,12 +3,12 @@
 #include "XmlBO.h"
 
 ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& obj, const Powierzchnia& pow, const ObiektBaseInfo& info ) throw()
-	: ObiektBaseInfo(info), masa(masa), objetosc(obj), powierzchnia(pow), zmMasa(nullptr), zmObjetosc(nullptr), zmPowierzchnia(nullptr)
+	: ObiektBaseInfo(info),powierzchnia(pow), zmPowierzchnia(nullptr), objetosc(obj), zmObjetosc(nullptr), masa(masa), zmMasa(nullptr)
 {
 }
 
 ObiektInfo::ObiektInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
-	: ObiektBaseInfo(XmlBO::IterateChildren(n,ObiektBaseInfo::LogObiektBaseInfo::className())), zmMasa(nullptr), zmObjetosc(nullptr), zmPowierzchnia(nullptr)
+	: ObiektBaseInfo(XmlBO::IterateChildren(n,ObiektBaseInfo::LogObiektBaseInfo::className())), zmPowierzchnia(nullptr), zmObjetosc(nullptr), zmMasa(nullptr)
 {
 	if(n){
 		try{

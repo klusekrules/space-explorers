@@ -35,7 +35,7 @@ Warunek::Warunek( ticpp::Node* n ) throw(WyjatekParseraXML)
 	}
 }
 
-const Warunek& Warunek::operator=(const Warunek& w){
+Warunek& Warunek::operator=(const Warunek& w){
 	warunki=w.warunki;
 	return *this;
 }

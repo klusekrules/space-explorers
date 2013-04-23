@@ -79,7 +79,6 @@ private:
 	}
 
 	stringstream napis;
-	int poziom;
 	stack<bool> stos;
 };
 

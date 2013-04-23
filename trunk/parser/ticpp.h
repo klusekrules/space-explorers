@@ -159,7 +159,7 @@ namespace ticpp
 		@throws Exception When value cannot be converted to a std::string
 		*/
 		template < class T >
-			std::string ToString( const T& value ) const
+		static std::string ToString( const T& value )
 		{
 			std::stringstream convert;
 			convert << value;
@@ -170,7 +170,7 @@ namespace ticpp
 			return convert.str();
 		}
 
-		std::string ToString( const std::string& value ) const
+		static std::string ToString( const std::string& value )
 		{
 			return value;
 		}
@@ -182,7 +182,7 @@ namespace ticpp
 		@throws Exception When temp cannot be converted to the target type
 		*/
 		template < class T >
-			void FromString( const std::string& temp, T* out ) const
+		static void FromString( const std::string& temp, T* out )
 		{
 			std::istringstream val( temp );
 			val >> *out;
@@ -196,7 +196,7 @@ namespace ticpp
 		/**
 		Specialization for std::string
 		*/
-		void FromString( const std::string& temp, std::string* out ) const
+		static void FromString( const std::string& temp, std::string* out )
 		{
 			*out = temp;
 		}
@@ -241,6 +241,7 @@ namespace ticpp
 		std::string BuildDetailedErrorString() const
 		{
 			std::ostringstream full_message;
+			GetBasePointer();
 			#ifndef TICPP_NO_RTTI
 			TiXmlNode* node = dynamic_cast< TiXmlNode* >( GetBasePointer() );
 			if ( node != 0 )
@@ -277,7 +278,7 @@ namespace ticpp
 
 		@param node TiXmlBase containing the new reference counter
 		*/
-		void SetImpRC( TiXmlBase* node )
+		void SetImpRC( TiXmlBase* node ) const
 		{
 			m_impRC = node->m_tiRC;
 		}
@@ -406,7 +407,7 @@ namespace ticpp
 		@internal
 		Updates the reference count for the old and new pointers.
 		*/
-		void operator=( const Attribute& copy );
+		Attribute& operator=( const Attribute& copy );
 
 		/**
 		@internal
@@ -499,7 +500,7 @@ namespace ticpp
 		@param value The value to set
 		*/
 		template < class T >
-			void SetValue( const T& value )
+			void SetValue( const T& value ) const
 		{
 			GetTiXmlPointer()->SetValue( ToString( value ) );
 		}

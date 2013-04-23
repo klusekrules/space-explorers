@@ -6,7 +6,7 @@ bool Log::blogInfoEnable = true;
 bool Log::blogWarnEnable = true;
 bool Log::blogErrorEnable = true;
 
-void Log::print( const string p ){
+void Log::print( const string& p ){
 	static fstream file("file.log",ios_base::app);
 	cout << p;
 	file << p;

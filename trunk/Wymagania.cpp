@@ -16,7 +16,7 @@ Wymagania::Wymagania( const Wymagania& w )
 {	
 }
 
-const Wymagania& Wymagania::operator=( const Wymagania& w ){
+Wymagania& Wymagania::operator=( const Wymagania& w ){
 	Cennik::operator=(w);
 	Warunek::operator=(w);
 	return *this;

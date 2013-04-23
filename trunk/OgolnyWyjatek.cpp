@@ -10,8 +10,9 @@ OgolnyWyjatek::OgolnyWyjatek( const Tekst& tPlik, const IdType& iLinia, const Id
 }
 
 OgolnyWyjatek::OgolnyWyjatek( const OgolnyWyjatek& owWyjatek )
-	: plik(owWyjatek.plik), linia(owWyjatek.linia), data(owWyjatek.data),
-	numerWyjatku( owWyjatek.numerWyjatku ), tytul( owWyjatek.tytul ), tresc( owWyjatek.tresc )
+	: numerWyjatku( owWyjatek.numerWyjatku ), tytul( owWyjatek.tytul ), tresc( owWyjatek.tresc ), 
+	plik(owWyjatek.plik), linia(owWyjatek.linia), data(owWyjatek.data), stack( owWyjatek.stack )
+	
 {
 }
 
