@@ -1,0 +1,4 @@
+#labels Phase-Implementation
+Lista dodatkowych aplikacji używanych w projekcie:
+
+[http://sourceforge.net/projects/cppcheck/]
