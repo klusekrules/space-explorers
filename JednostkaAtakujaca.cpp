@@ -27,7 +27,7 @@ Obrazenia JednostkaAtakujaca::Oslona( const Obrazenia& a ,const Poziom& p  ) con
 
 
 string JednostkaAtakujaca::toString() const{
-	Logger str(LogJednostkaAtakujaca::className());
-	str.addField(JednostkaAtakujacaInfo::LogJednostkaAtakujacaInfo::className()+"ID",jednostkaAtakujacaInfo.getId());
+	Logger str(CLASSNAME(JednostkaAtakujaca));
+	str.addField(CLASSNAME(JednostkaAtakujacaInfo)+"ID",jednostkaAtakujacaInfo.getId());
 	return str.toString();
 }

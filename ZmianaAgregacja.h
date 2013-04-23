@@ -8,7 +8,7 @@
 
 class ZmianaAgregacja :
 	public ZmianaDekorator,
-	public LoggerInterface<ZmianaAgregacja>
+	virtual public LoggerInterface
 {
 private:
 	static const IdType idKlasy;
@@ -22,7 +22,6 @@ private:
 	vector<shared_ptr < ZmianaInterfejs > > list;
 
 public:
-	typedef LoggerInterface<ZmianaAgregacja> LogZmianaAgregacja;
 	
 	long double value( const long double& , const Poziom& )const override;
 

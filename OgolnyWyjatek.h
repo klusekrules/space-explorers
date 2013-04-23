@@ -9,7 +9,7 @@
 * lub jako klasa do tworzenia wyj¹tków nie posiadaj¹cych w³asnego typu.
 */
 class OgolnyWyjatek:
-	public LoggerInterface<OgolnyWyjatek>
+	virtual public LoggerInterface
 {
 public:
 	static const IdType domyslnyOgolnyWyjatekID; /// Domyœlna wartoœæ id klasy.

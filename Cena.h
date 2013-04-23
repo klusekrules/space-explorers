@@ -11,10 +11,9 @@ class Surowce;
 class WyjatekParseraXML;
 
 class Cena :
-	public LoggerInterface < Cena >
+	virtual public LoggerInterface
 {
 public:
-	typedef LoggerInterface < Cena > LogCena;
 	typedef Surowce Item;
 	explicit Cena( ticpp::Node* ) throw(WyjatekParseraXML);
 	explicit Cena( const Item& ) throw();

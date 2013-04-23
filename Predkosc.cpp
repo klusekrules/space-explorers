@@ -80,5 +80,5 @@ Predkosc::type_name Predkosc::value() const{
 }
 
 string Predkosc::toString() const{
-	return Logger::field(className(),predkosc);
+	return Logger::field(CLASSNAME(Predkosc),predkosc);
 } 

@@ -3,7 +3,7 @@
 #include "BaseTypes.h"
 
 class Parametr:
-	public LoggerInterface<Parametr>,
+	virtual public LoggerInterface,
 	public BaseInterface<SPG::Parametr>
 {
 private:

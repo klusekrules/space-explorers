@@ -12,11 +12,9 @@ class StatekInfo:
 	public JednostkaLatajacaInfo,
 	public JednostkaAtakujacaInfo,
 	public LadowniaInfo,
-	public LoggerInterface < StatekInfo >
+	virtual public LoggerInterface
 {
-public:	
-	typedef LoggerInterface < StatekInfo > LogStatekInfo;
-
+public:
 	StatekInfo(	const ObiektInfo& o , const JednostkaLatajacaInfo& j , const JednostkaAtakujacaInfo& a , const LadowniaInfo& l ) throw();
 
 	explicit StatekInfo( ticpp::Node* ) throw(WyjatekParseraXML);

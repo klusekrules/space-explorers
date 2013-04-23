@@ -3,7 +3,7 @@
 #include "BaseTypes.h"
 
 class Obrazenia:
-	public LoggerInterface<Obrazenia>,
+	virtual public LoggerInterface,
 	public BaseInterface<SPG::Obrazenia>
 {
 private:

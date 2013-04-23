@@ -66,9 +66,9 @@ Warunek::PrzetworzoneWarunki ObiektBase::PobierzWarunki()const{
 }
 
 string ObiektBase::toString() const{
-	Logger str(LogObiektBase::className());
+	Logger str(CLASSNAME(ObiektBase));
 	str.addClass(Base::toString());
-	str.addField(ilosc.className(),ilosc);
-	str.addField(ObiektBaseInfo::LogObiektBaseInfo::className()+"ID",obiektBaseInfo.ID());
+	str.addField(CLASSNAME(Ilosc),ilosc);
+	str.addField(CLASSNAME(ObiektBaseInfo)+"ID",obiektBaseInfo.ID());
 	return str.toString();
 }

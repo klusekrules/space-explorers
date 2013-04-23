@@ -3,7 +3,7 @@
 #include "BaseTypes.h"
 
 class MocSilnika:
-	public LoggerInterface<MocSilnika>,
+	virtual public LoggerInterface,
 	public BaseInterface<SPG::MocSilnika>
 {
 private:

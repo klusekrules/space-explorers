@@ -13,10 +13,9 @@ class Ladownia;
 
 class Obiekt:
 	public ObiektBase,
-	public LoggerInterface<Obiekt>
+	virtual public LoggerInterface
 {
 public:
-	typedef LoggerInterface<Obiekt> LogObiekt;
 
 	Obiekt( const Ilosc&, const ObiektInfo& ) throw();
 	virtual ~Obiekt();

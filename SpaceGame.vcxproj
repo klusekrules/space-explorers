@@ -215,6 +215,7 @@
     <ClInclude Include="Cennik.h" />
     <ClInclude Include="Dystans.h" />
     <ClInclude Include="Fluktuacja.h" />
+    <ClInclude Include="LoggerClassName.h" />
     <ClInclude Include="Parametr.h" />
     <ClInclude Include="version.h" />
     <ClInclude Include="IdType.h" />

@@ -7,10 +7,9 @@
 class Wymagania :
 	public Cennik,
 	public Warunek,
-	public LoggerInterface < Wymagania >
+	virtual public LoggerInterface
 {
 public:
-	typedef LoggerInterface < Wymagania > LogWymagania;
 	explicit Wymagania( ticpp::Node* ) throw(WyjatekParseraXML);
 	Wymagania( const Wymagania& );
 	Wymagania& operator=( const Wymagania& );

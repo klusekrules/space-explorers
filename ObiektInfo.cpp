@@ -8,7 +8,7 @@ ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& obj, const Powierzchni
 }
 
 ObiektInfo::ObiektInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
-	: ObiektBaseInfo(XmlBO::IterateChildren(n,ObiektBaseInfo::LogObiektBaseInfo::className())), zmPowierzchnia(nullptr), zmObjetosc(nullptr), zmMasa(nullptr)
+	: ObiektBaseInfo(XmlBO::IterateChildren(n,CLASSNAME(ObiektBaseInfo))), zmPowierzchnia(nullptr), zmObjetosc(nullptr), zmMasa(nullptr)
 {
 	if(n){
 		try{
@@ -49,11 +49,11 @@ Obiekt* ObiektInfo::TworzEgzemplarz( const Ilosc& iIlosc ) const {
 }
 
 string ObiektInfo::toString() const{
-	Logger str(LogObiektInfo::className());
+	Logger str(CLASSNAME(ObiektInfo));
 	str.addClass(ObiektBaseInfo::toString());
-	str.addField(Masa::className(),masa);
-	str.addField(Objetosc::className(),objetosc);
-	str.addField(Powierzchnia::className(),powierzchnia);
+	str.addField(CLASSNAME(Masa),masa);
+	str.addField(CLASSNAME(Objetosc),objetosc);
+	str.addField(CLASSNAME(Powierzchnia),powierzchnia);
 	if(zmMasa!=nullptr)
 		str.addField("ZmianaMasy",*zmMasa);
 	if(zmObjetosc!=nullptr)

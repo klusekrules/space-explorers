@@ -3,7 +3,7 @@
 #include "BaseTypes.h"
 
 class Fluktuacja:
-	public LoggerInterface<Fluktuacja>,
+	virtual public LoggerInterface,
 	public BaseInterface<SPG::Fluktuacja>
 {
 private:

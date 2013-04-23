@@ -7,10 +7,10 @@ StatekInfo::StatekInfo( const ObiektInfo& o , const JednostkaLatajacaInfo& j , c
 }
 
 StatekInfo::StatekInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
-	: ObiektInfo(XmlBO::IterateChildren(n,ObiektInfo::LogObiektInfo::className())),
-	JednostkaLatajacaInfo(XmlBO::IterateChildren(n,JednostkaLatajacaInfo::LogJednostkaLatajacaInfo::className())),
-	JednostkaAtakujacaInfo(XmlBO::IterateChildren(n,JednostkaAtakujacaInfo::LogJednostkaAtakujacaInfo::className())),
-	LadowniaInfo(XmlBO::IterateChildren(n,LadowniaInfo::LogLadowniaInfo::className()))
+	: ObiektInfo(XmlBO::IterateChildren(n,CLASSNAME(ObiektInfo))),
+	JednostkaLatajacaInfo(XmlBO::IterateChildren(n,CLASSNAME(JednostkaLatajacaInfo))),
+	JednostkaAtakujacaInfo(XmlBO::IterateChildren(n,CLASSNAME(JednostkaAtakujacaInfo))),
+	LadowniaInfo(XmlBO::IterateChildren(n,CLASSNAME(LadowniaInfo)))
 {
 }
 
@@ -26,7 +26,7 @@ Statek* StatekInfo::TworzEgzemplarz( const Ilosc& i ) const{
 }
 
 string StatekInfo::toString() const{
-	Logger str(LogStatekInfo::className());
+	Logger str(CLASSNAME(StatekInfo));
 	str.addClass(ObiektInfo::toString());
 	str.addClass(JednostkaLatajacaInfo::toString());
 	str.addClass(JednostkaAtakujacaInfo::toString());

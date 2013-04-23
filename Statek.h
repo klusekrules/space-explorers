@@ -11,11 +11,10 @@ class Statek :
 	public JednostkaLatajaca,
 	public Ladownia,
 	public Obiekt,
-	public LoggerInterface<Statek>
+	virtual public LoggerInterface
 {
 	friend class StatekInfo;
 public:
-	typedef LoggerInterface<Statek> LogStatek;
 	virtual ~Statek();
 
 	ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p , const Poziom& pz = Poziom() ) const override;

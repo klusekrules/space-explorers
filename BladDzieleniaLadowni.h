@@ -4,12 +4,10 @@
 * Wyj¹tek informuje, ¿e nie uda³o siê podzieliæ ³adowni wed³ug podanych wymagañ.
 */
 class BladDzieleniaLadowni :
-	public LoggerInterface<BladDzieleniaLadowni>,
+	virtual public LoggerInterface,
 	public OgolnyWyjatek
 {
 public:
-	typedef LoggerInterface<BladDzieleniaLadowni> LogBladDzieleniaLadowni;
-
 	static const IdType idBladDzieleniaLadowni;
 	
 	BladDzieleniaLadowni( const Tekst& tPlik, const IdType& iLinia, const Tekst& tLadownia );

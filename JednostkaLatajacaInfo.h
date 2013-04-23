@@ -14,12 +14,9 @@
 */
 class JednostkaLatajacaInfo :
 	public Info,
-	public LoggerInterface<JednostkaLatajacaInfo>
+	virtual public LoggerInterface
 {
 public:
-	typedef LoggerInterface<JednostkaLatajacaInfo> LogJednostkaLatajacaInfo; ///  Typ loggera klasy
-
-
 	/**
 	* Konstruktor parametryczny
 	* \param k - Rodzaj napêdu ( silnika )

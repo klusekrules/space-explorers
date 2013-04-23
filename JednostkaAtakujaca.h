@@ -11,11 +11,9 @@
 *
 */
 class JednostkaAtakujaca :
-	public LoggerInterface < JednostkaAtakujaca >
+	virtual public LoggerInterface
 {
-public:
-	typedef LoggerInterface<JednostkaAtakujaca> LogJednostkaAtakujaca;
-	
+public:	
 	/**
 	* Konstruktor parametryczny.
 	* /param jInfo - Wskazanie na klasê reprezentuj¹c¹ opis jednostki atakuj¹cej.
