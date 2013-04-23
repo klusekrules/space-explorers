@@ -423,6 +423,9 @@
     <ClInclude Include="Stale.h">
       <Filter>SourceFile\DomysleWartosci</Filter>
     </ClInclude>
+    <ClInclude Include="LoggerClassName.h">
+      <Filter>SourceFile\Logger</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">

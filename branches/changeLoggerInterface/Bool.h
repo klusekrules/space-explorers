@@ -3,7 +3,7 @@
 #include "BaseTypes.h"
 
 class Bool:
-	public LoggerInterface<Bool>,
+	virtual public LoggerInterface,
 	public BaseInterface<bool>
 {
 private:

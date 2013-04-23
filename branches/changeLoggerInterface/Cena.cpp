@@ -9,7 +9,7 @@ Cena::Cena( ticpp::Node* n ) throw(WyjatekParseraXML)
 	: obiekty(nullptr),zmiana(nullptr)
 {
 	if(n!=nullptr){
-		ticpp::Node* a = n->IterateChildren(Cena::Item::LogSurowce::className(),nullptr);
+		ticpp::Node* a = n->IterateChildren(CLASSNAME(Cena::Item),nullptr);
 		try{
 			Klucz k(a);
 			obiekty= shared_ptr<Item>(Aplikacja::getInstance().getSurowce(k).TworzEgzemplarz(Ilosc(stoi(a->ToElement()->GetAttribute("ilosc"),nullptr,0))));
@@ -71,9 +71,9 @@ void Cena::setKoszty( const Item& zsKoszty ){
 }
 
 string Cena::toString() const{
-	Logger str(LogCena::className());
+	Logger str(CLASSNAME(Cena));
 	if(obiekty.get())
-		str.addField<Surowce>("Surowiec",*obiekty);
+		str.addField("Surowiec",*obiekty);
 	if(zmiana.get())
 		str.addField("Zmiana",*zmiana);
 	return str.toString();

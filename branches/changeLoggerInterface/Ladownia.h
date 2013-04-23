@@ -27,7 +27,7 @@ class LadowniaInfo;
 class Statek;
 
 class Ladownia:
-	public LoggerInterface<Ladownia>
+	virtual public LoggerInterface
 {
 public:
 	typedef Obiekt Item;

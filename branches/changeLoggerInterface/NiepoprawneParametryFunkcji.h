@@ -6,12 +6,10 @@
 * Wyj¹tek informuje, ¿e parametry maj¹ nie poprawne wartoœci.
 */
 class NiepoprawneParametryFunkcji :
-	public LoggerInterface<NiepoprawneParametryFunkcji>,
+	virtual public LoggerInterface,
 	public OgolnyWyjatek
 {
 public:
-	typedef LoggerInterface<NiepoprawneParametryFunkcji> LogNiepoprawneParametryFunkcji;
-
 	static const IdType idNiepoprawneParametryFunkcji;
 		
 	template< class... V >

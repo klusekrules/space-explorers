@@ -5,7 +5,7 @@
 #include <stack>
 
 class Logger:
-	public LoggerInterface<Logger>
+	public LoggerInterface
 {
 public:
 	Logger();
@@ -19,8 +19,7 @@ public:
 		return str.str();
 	}
 
-	template< typename T , typename W >
-	static string field( const string& name, const LoggerInterface<T> &liClassF, const LoggerInterface<W>   &liClassS ){
+	static string field( const string& name, const LoggerInterface& liClassF, const LoggerInterface& liClassS ){
 		stringstream str;
 		if(name.size() > 0){
 			str << name;
@@ -33,16 +32,14 @@ public:
 		return string(className + "[ " + tekst +" ]");
 	}
 
-	template< typename T >
-	void addField( const string& name, const LoggerInterface<T>& liClass ){
+	void addField( const string& name, const LoggerInterface& liClass ){
 
 		testPierwszy(); 
 
 		napis << " "  << name << "=" << liClass.toString();
 	}
 
-	template< typename T , typename W >
-	void addField( const string& name, const LoggerInterface<T> &liClassF, const LoggerInterface<W>   &liClassS ){
+	void addField( const string& name, const LoggerInterface& liClassF, const LoggerInterface& liClassS ){
 
 		testPierwszy();
 

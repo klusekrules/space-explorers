@@ -7,11 +7,9 @@
 
 class SurowceInfo :
 	public ObiektInfo,
-	public LoggerInterface<SurowceInfo>
+	virtual public LoggerInterface
 {
 public:
-	typedef LoggerInterface<SurowceInfo> LogSurowceInfo;
-	
 	SurowceInfo( const ObiektInfo& , bool bCzyPrzyrostowy) throw();
 
 	explicit SurowceInfo( ticpp::Node* ) throw(WyjatekParseraXML);

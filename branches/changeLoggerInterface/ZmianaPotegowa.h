@@ -7,7 +7,7 @@ class WyjatekParseraXML;
 
 class ZmianaPotegowa:
 	public ZmianaInterfejs,
-	public LoggerInterface< ZmianaPotegowa >
+	virtual public LoggerInterface
 {
 private:
 	static const IdType idKlasy;
@@ -21,7 +21,6 @@ private:
 	ZmianaParametr wspolczynnik;
 	ZmianaParametr wykladnik;
 public:
-	typedef LoggerInterface< ZmianaPotegowa > LogZmianaPotegowa;
 
 	long double value(const long double&, const Poziom&) const override;
 

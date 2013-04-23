@@ -28,7 +28,7 @@ void Base::setId( const IdType& id ){
 }
 
 string Base::toString() const{
-	Logger str(LogBase::className());
+	Logger str(CLASSNAME(Base));
 	str.addField("ID",id);
 	return str.toString();
 }

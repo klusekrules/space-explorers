@@ -5,7 +5,7 @@
 #include "Ilosc.h"
 
 class Powierzchnia:	
-	public LoggerInterface<Powierzchnia>,
+	virtual public LoggerInterface,
 	public BaseInterface<SPG::Powierzchnia>
 {
 private:

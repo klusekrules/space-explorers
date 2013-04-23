@@ -11,7 +11,7 @@
 * Pozwala na wyliczenie wszystkich parametrów lotu.
 */
 class JednostkaLatajaca :
-	public LoggerInterface < JednostkaLatajaca >
+	virtual public LoggerInterface
 {
 public:
 

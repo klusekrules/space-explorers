@@ -3,7 +3,7 @@
 #include "BaseTypes.h"
 
 class Predkosc:
-	public LoggerInterface<Predkosc>,
+	virtual public LoggerInterface,
 	public BaseInterface<SPG::Predkosc>
 {
 private:

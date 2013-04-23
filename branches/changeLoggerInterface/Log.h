@@ -278,8 +278,7 @@ public:
 	* \sa logInfoDisable()
 	* \sa isLogInfoEnable()
 	*/
-	template< typename T >
-	static void info( const LoggerInterface<T> &p ){
+	static void info( const LoggerInterface& p ){
 		if(blogEnable && blogInfoEnable){
 			print(getTimeStamp());
 			print(" [INFO] ");
@@ -313,8 +312,7 @@ public:
 	* \sa logWarnDisable()
 	* \sa isLogWarnEnable()
 	*/
-	template< typename T >
-	static void warn( const LoggerInterface<T> &p ){
+	static void warn( const LoggerInterface& p ){
 		if(blogEnable && blogWarnEnable){
 			print(getTimeStamp());
 			print(" [WARN] ");
@@ -348,8 +346,7 @@ public:
 	* \sa logErrorDisable()
 	* \sa isLogErrorEnable()
 	*/
-	template< typename T >
-	static void error( const LoggerInterface<T> &p ){
+	static void error( const LoggerInterface& p ){
 		if(blogEnable && blogErrorEnable){
 			print(getTimeStamp());
 			print(" [ERROR] ");
@@ -383,8 +380,7 @@ public:
 	* \sa logDebugDisable()
 	* \sa isLogDebugEnable()
 	*/
-	template< typename T >
-	static void debug( const LoggerInterface<T> &p ){
+	static void debug( const LoggerInterface& p ){
 		if(blogEnable && blogDebugEnable){
 			print(getTimeStamp());
 			print(" [DEBUG] ");

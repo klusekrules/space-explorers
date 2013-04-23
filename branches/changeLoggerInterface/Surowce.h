@@ -11,11 +11,10 @@ class Ladownia;
 
 class Surowce :
 	public Obiekt,
-	public LoggerInterface<Surowce>
+	virtual public LoggerInterface
 {
 	friend class SurowceInfo;
 public:
-	typedef LoggerInterface<Surowce> LogSurowce;
 	virtual ~Surowce( );
 
 	Surowce* Kopia() const override;

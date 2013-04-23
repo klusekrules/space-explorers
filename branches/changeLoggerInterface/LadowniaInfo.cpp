@@ -8,7 +8,7 @@ LadowniaInfo::LadowniaInfo( const Objetosc& max, const Info& i ) throw()
 }
 
 LadowniaInfo::LadowniaInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
-	: Info(XmlBO::IterateChildren(n,Info::LogInfo::className())), przyrostPojemnoscMax(nullptr)
+	: Info(XmlBO::IterateChildren(n,CLASSNAME(Info))), przyrostPojemnoscMax(nullptr)
 {
 	if(n){
 		try{
@@ -31,7 +31,7 @@ Objetosc LadowniaInfo::getPojemnoscMaksymalna(const Poziom& p) const{
 }
 		
 string LadowniaInfo::toString() const{
-	Logger str(LogLadowniaInfo::className());
+	Logger str(CLASSNAME(LadowniaInfo));
 	str.addClass(Info::toString());
 	str.addField("MaksymalnaPojemnosc",pojemnoscMax);
 	if(przyrostPojemnoscMax!=nullptr)

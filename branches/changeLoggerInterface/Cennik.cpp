@@ -7,7 +7,7 @@ Cennik::Cennik( ticpp::Node* n ) throw(WyjatekParseraXML)
 		auto e = n->FirstChildElement(false);
 		while(e){
 			//Wyniesc to do nowej klasy, ( fabryka obiektów)
-			if(e->Value() == Cena::LogCena::className())
+			if(e->Value() == CLASSNAME(Cena))
 				elementy.push_back(shared_ptr<Cena>(new Cena(e)));
 			e = e->NextSiblingElement(false);
 		}
@@ -42,7 +42,7 @@ Cennik::ListaSurowcow Cennik::PobierzKoszty(const Ilosc& il, const Poziom& p) co
 }
 
 string Cennik::toString()const{
-	Logger str(LogCennik::className());
+	Logger str(CLASSNAME(Cennik));
 	for(auto i : elementy)
 		if(i)
 			str.addField("Element",*i);

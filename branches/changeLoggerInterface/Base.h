@@ -8,15 +8,10 @@
 * Klasa bazowa przechowuj¹ca informacje o ID klasy pochodnej.
 */
 class Base:
-	public LoggerInterface<Base>
+	virtual public LoggerInterface
 {
 public:	
-	
-	/**
-	* Definicja typu klasy loguj¹cej dla klasy Base.
-	*/
-	typedef LoggerInterface<Base> LogBase;
-		
+			
 	/**
 	* Konstruktor klasy Base z podan¹ wartoœci¹ ID.
 	* \param id - Id przechowywane przez klase.

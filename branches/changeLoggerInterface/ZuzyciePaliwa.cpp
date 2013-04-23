@@ -80,5 +80,5 @@ ZuzyciePaliwa::type_name ZuzyciePaliwa::value() const{
 }
 
 string ZuzyciePaliwa::toString() const{
-	return Logger::field(className(),zuzyciePaliwa);
+	return Logger::field(CLASSNAME(ZuzyciePaliwa),zuzyciePaliwa);
 } 

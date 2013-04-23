@@ -3,7 +3,7 @@
 #include "BaseTypes.h"
 
 class Ilosc:	
-	public LoggerInterface<Ilosc>,
+	virtual public LoggerInterface,
 	public BaseInterface<SPG::IloscJednostek>
 {
 private:

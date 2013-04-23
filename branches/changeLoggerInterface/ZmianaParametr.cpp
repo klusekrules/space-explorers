@@ -16,7 +16,7 @@ ZmianaParametr::~ZmianaParametr()
 }
 
 string ZmianaParametr::toString()const{
-	Logger str(className());
+	Logger str(CLASSNAME(ZmianaParametr));
 	str.addField("IdObiektu",idObiektu);
 	str.addField("Parametr",wspolczynnikObiektu);
 	return str.toString();

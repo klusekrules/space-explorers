@@ -19,14 +19,13 @@ class ObiektBaseInfo;
 */
 class ObiektBase :
 	public Base,
-	public LoggerInterface<ObiektBase>
+	virtual public LoggerInterface
 {
 protected:	
 	Ilosc ilosc;
 	const ObiektBaseInfo& obiektBaseInfo; /**< Wskazanie na obiekt opisuj¹cy dan¹ klasê*/
 
 public:
-	typedef LoggerInterface<ObiektBase> LogObiektBase;
 	
 	/**
 	* Konstruktor z parametrami inicjalizuj¹cymi.

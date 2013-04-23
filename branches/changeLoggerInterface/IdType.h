@@ -3,7 +3,7 @@
 #include "BaseTypes.h"
 
 class IdType :
-	public LoggerInterface<IdType>,
+	virtual public LoggerInterface,
 	public BaseInterface<SPG::IdType>
 {
 protected:

@@ -4,12 +4,10 @@
 * Klasa bazowa dla wyj¹tków generowanych przez modu³ parsuj¹cy xml.
 */
 class WyjatekParseraXML :	
-	public LoggerInterface<WyjatekParseraXML> ,
+	virtual public LoggerInterface,
 	public OgolnyWyjatek
 {
-public:	
-	typedef LoggerInterface<WyjatekParseraXML> LogWyjBibTICPP;
-
+public:
 	static const IdType idWyjatekParseraXML;
 	static const Tekst trescBladStrukturyXml;
 
