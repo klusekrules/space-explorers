@@ -20,7 +20,7 @@ public:
 	Warunek();
 	explicit Warunek( ticpp::Node* n ) throw(WyjatekParseraXML);
 	explicit Warunek(const Warunek& w) throw();
-	const Warunek& operator=(const Warunek& w);
+	Warunek& operator=(const Warunek& w);
 	~Warunek();
 
 	PrzetworzoneWarunki listaWarunkow( const Poziom& p ) const;

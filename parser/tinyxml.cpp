@@ -145,10 +145,10 @@ TiXmlNode::TiXmlNode( NodeType _type ) : TiXmlBase()
 TiXmlNode::~TiXmlNode()
 {
 	TiXmlNode* node = firstChild;
-	TiXmlNode* temp = 0;
 
 	while ( node )
-	{
+	{		
+		TiXmlNode* temp = 0;
 		temp = node;
 		node = node->next;
 		delete temp;
@@ -166,10 +166,10 @@ void TiXmlNode::CopyTo( TiXmlNode* target ) const
 void TiXmlNode::Clear()
 {
 	TiXmlNode* node = firstChild;
-	TiXmlNode* temp = 0;
 
 	while ( node )
 	{
+		TiXmlNode* temp = 0;
 		temp = node;
 		node = node->next;
 		delete temp;
@@ -526,10 +526,11 @@ TiXmlElement::TiXmlElement( const TiXmlElement& copy)
 }
 
 
-void TiXmlElement::operator=( const TiXmlElement& base )
+TiXmlElement& TiXmlElement::operator=( const TiXmlElement& base )
 {
 	ClearThis();
 	base.CopyTo( this );
+	return *this;
 }
 
 
@@ -913,10 +914,11 @@ TiXmlDocument::TiXmlDocument( const TiXmlDocument& copy ) : TiXmlNode( TiXmlNode
 }
 
 
-void TiXmlDocument::operator=( const TiXmlDocument& copy )
+TiXmlDocument& TiXmlDocument::operator=( const TiXmlDocument& copy )
 {
 	Clear();
 	copy.CopyTo( this );
+	return *this;
 }
 
 
@@ -1289,10 +1291,11 @@ TiXmlComment::TiXmlComment( const TiXmlComment& copy ) : TiXmlNode( TiXmlNode::C
 }
 
 
-void TiXmlComment::operator=( const TiXmlComment& base )
+TiXmlComment& TiXmlComment::operator=( const TiXmlComment& base )
 {
 	Clear();
 	base.CopyTo( this );
+	return *this;
 }
 
 
@@ -1381,11 +1384,8 @@ TiXmlNode* TiXmlText::Clone() const
 TiXmlDeclaration::TiXmlDeclaration( const char * _version,
 									const char * _encoding,
 									const char * _standalone )
-	: TiXmlNode( TiXmlNode::DECLARATION )
+	: TiXmlNode( TiXmlNode::DECLARATION ), version(_version), encoding (_encoding), standalone (_standalone)
 {
-	version = _version;
-	encoding = _encoding;
-	standalone = _standalone;
 }
 
 
@@ -1393,11 +1393,9 @@ TiXmlDeclaration::TiXmlDeclaration( const char * _version,
 TiXmlDeclaration::TiXmlDeclaration(	const std::string& _version,
 									const std::string& _encoding,
 									const std::string& _standalone )
-	: TiXmlNode( TiXmlNode::DECLARATION )
+	: TiXmlNode( TiXmlNode::DECLARATION ), version(_version), encoding (_encoding), standalone (_standalone)
+
 {
-	version = _version;
-	encoding = _encoding;
-	standalone = _standalone;
 }
 #endif
 
@@ -1409,10 +1407,11 @@ TiXmlDeclaration::TiXmlDeclaration( const TiXmlDeclaration& copy )
 }
 
 
-void TiXmlDeclaration::operator=( const TiXmlDeclaration& copy )
+TiXmlDeclaration& TiXmlDeclaration::operator=( const TiXmlDeclaration& copy )
 {
 	Clear();
 	copy.CopyTo( this );
+	return *this;
 }
 
 
@@ -1467,20 +1466,16 @@ TiXmlNode* TiXmlDeclaration::Clone() const
 
 TiXmlStylesheetReference::TiXmlStylesheetReference( const char * _type,
 													const char * _href )
-	: TiXmlNode( TiXmlNode::STYLESHEETREFERENCE )
+	: TiXmlNode( TiXmlNode::STYLESHEETREFERENCE ),type (_type), href (_href)
 {
-	type = _type;
-	href = _href;
 }
 
 
 #ifdef TIXML_USE_STL
 TiXmlStylesheetReference::TiXmlStylesheetReference(	const std::string& _type,
 													const std::string& _href )
-	: TiXmlNode( TiXmlNode::STYLESHEETREFERENCE )
+	: TiXmlNode( TiXmlNode::STYLESHEETREFERENCE ),type (_type), href (_href)
 {
-	type = _type;
-	href = _href;
 }
 #endif
 
@@ -1492,10 +1487,11 @@ TiXmlStylesheetReference::TiXmlStylesheetReference( const TiXmlStylesheetReferen
 }
 
 
-void TiXmlStylesheetReference::operator=( const TiXmlStylesheetReference& copy )
+TiXmlStylesheetReference& TiXmlStylesheetReference::operator=( const TiXmlStylesheetReference& copy )
 {
 	Clear();
 	copy.CopyTo( this );
+	return *this;
 }
 
 
@@ -1602,7 +1598,7 @@ void TiXmlAttributeSet::Add( TiXmlAttribute* addMe )
 	sentinel.prev      = addMe;
 }
 
-void TiXmlAttributeSet::Remove( TiXmlAttribute* removeMe )
+void TiXmlAttributeSet::Remove( TiXmlAttribute* removeMe ) const
 {
 	TiXmlAttribute* node;
 

@@ -13,7 +13,7 @@ public:
 	typedef LoggerInterface < Wymagania > LogWymagania;
 	explicit Wymagania( ticpp::Node* ) throw(WyjatekParseraXML);
 	Wymagania( const Wymagania& );
-	const Wymagania& operator=( const Wymagania& );
+	Wymagania& operator=( const Wymagania& );
 	~Wymagania();
 
 	/**

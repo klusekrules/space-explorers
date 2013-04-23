@@ -9,6 +9,7 @@ ZmianaFabryka::ZmianaFabryka( const ZmianaFabryka& a)
 }
 
 ZmianaFabryka& ZmianaFabryka::operator=(const ZmianaFabryka& a){
+	callbacks_ = a.callbacks_;
 	return *this;
 }
 

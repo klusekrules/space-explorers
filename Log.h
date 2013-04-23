@@ -29,7 +29,7 @@ private:
 	* Funkcja wysy³aj¹ca napis do strumienia.
 	* \param p Napis wysy³any do strumienia.
 	*/
-	static void print( const string p );
+	static void print( const string& p );
 	static bool blogEnable; /**< Zmmienna blokuj¹ca wysy³anie wszystkich komunikatów do strumienia */
 	static bool blogDebugEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Debug do strumienia */
 	static bool blogInfoEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Info do strumienia */
@@ -261,7 +261,7 @@ public:
 	* \sa logInfoDisable()
 	* \sa isLogInfoEnable()
 	*/
-	static void info( const string p ){
+	static void info( const string& p ){
 		if(blogEnable && blogInfoEnable){
 			print(getTimeStamp());
 			print(" [INFO] ");
@@ -296,7 +296,7 @@ public:
 	* \sa logWarnDisable()
 	* \sa isLogWarnEnable()
 	*/
-	static void warn( const string p ){
+	static void warn( const string& p ){
 		if(blogEnable && blogWarnEnable){
 			print(getTimeStamp());
 			print(" [WARN] ");
@@ -331,7 +331,7 @@ public:
 	* \sa logErrorDisable()
 	* \sa isLogErrorEnable()
 	*/
-	static void error( const string p ){
+	static void error( const string& p ){
 		if(blogEnable && blogErrorEnable){
 			print(getTimeStamp());
 			print(" [ERROR] ");
@@ -366,7 +366,7 @@ public:
 	* \sa logDebugDisable()
 	* \sa isLogDebugEnable()
 	*/
-	static void debug( const string p ){
+	static void debug( const string& p ){
 		if(blogEnable && blogDebugEnable){
 			print(getTimeStamp());
 			print(" [DEBUG] ");

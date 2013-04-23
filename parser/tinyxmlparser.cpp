@@ -174,7 +174,7 @@ class TiXmlParsingData
   public:
 	void Stamp( const char* now, TiXmlEncoding encoding );
 
-	const TiXmlCursor& Cursor()	{ return cursor; }
+	const TiXmlCursor& Cursor() const { return cursor; }
 
   private:
 	// Only used by the document!
@@ -438,7 +438,7 @@ const char* TiXmlBase::ReadName( const char* p, TIXML_STRING * name, TiXmlEncodi
 const char* TiXmlBase::GetEntity( const char* p, char* value, int* length, TiXmlEncoding encoding )
 {
 	// Presume an entity, and pull it out.
-    TIXML_STRING ent;
+    //TIXML_STRING ent;
 	int i;
 	*length = 0;
 
@@ -1307,9 +1307,9 @@ const char* TiXmlUnknown::Parse( const char* p, TiXmlParsingData* data, TiXmlEnc
 	if ( !p )
 	{
 		if ( document )	document->SetError( TIXML_ERROR_PARSING_UNKNOWN, 0, 0, encoding );
-	}
-	if ( *p == '>' )
-		return p+1;
+	} else
+		if ( *p == '>' )
+			return p+1;
 	return p;
 }
 
@@ -1516,10 +1516,10 @@ const char* TiXmlText::Parse( const char* p, TiXmlParsingData* data, TiXmlEncodi
 	}
 
 	const char* const startTag = "<![CDATA[";
-	const char* const endTag   = "]]>";
 
 	if ( cdata || StringEqual( p, startTag, false, encoding ) )
 	{
+		const char* const endTag   = "]]>";
 		cdata = true;
 
 		if ( !StringEqual( p, startTag, false, encoding ) )

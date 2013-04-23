@@ -28,7 +28,7 @@ public:
 
 	Masa Masa() const ;
 	
-	const Surowce& operator=( const Surowce& ) throw ( NiezgodnyTypSurowca );
+	Surowce& operator=( const Surowce& ) throw ( NiezgodnyTypSurowca );
 	
 	bool operator==( const Surowce& ) const throw ( NiezgodnyTypSurowca );
 	
@@ -44,11 +44,11 @@ public:
 	
 	Surowce operator+( const Surowce& ) const throw ( NiezgodnyTypSurowca );
 	
-	const Surowce& operator+=( const Surowce& ) throw ( NiezgodnyTypSurowca );
+	Surowce& operator+=( const Surowce& ) throw ( NiezgodnyTypSurowca );
 	
 	Surowce operator-( const Surowce& ) const throw ( NiezgodnyTypSurowca );
 	
-	const Surowce& operator-=( const Surowce& ) throw ( NiezgodnyTypSurowca );
+	Surowce& operator-=( const Surowce& ) throw ( NiezgodnyTypSurowca );
 	
 	bool Dodaj( const Surowce& );
 	

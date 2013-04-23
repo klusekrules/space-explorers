@@ -67,7 +67,7 @@ public:
 
 	~Aplikacja();
 
-	const ObiektBase& getObiekt(IdType id){
+	const ObiektBase& getObiekt(IdType id)const{
 		return pustyObiektBase;
 	}
 
@@ -85,7 +85,7 @@ public:
 	return *(iter->second);
 	}
 
-	const ObiektBase& getObiekt(Klucz k){
+	const ObiektBase& getObiekt(Klucz k) const{
 		return pustyObiektBase;
 	}
 };

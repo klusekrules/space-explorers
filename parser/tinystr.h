@@ -250,7 +250,7 @@ class TiXmlString
 		}
 	}
 
-	void quit()
+	void quit() const
 	{
 		if (rep_ != &nullrep_)
 		{

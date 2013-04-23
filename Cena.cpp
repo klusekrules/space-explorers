@@ -49,7 +49,10 @@ const Cena::Item& Cena::getKoszty() const{
 }
 
 Cena& Cena::operator=(const Cena& a){
-	this->obiekty=shared_ptr<Item>(a.obiekty->Kopia());
+	if(a.obiekty!=nullptr)
+		this->obiekty=shared_ptr<Item>(a.obiekty->Kopia());
+	if(a.zmiana!=nullptr)
+		this->zmiana=shared_ptr<ZmianaInterfejs>(a.zmiana->Kopia());
 	return *this;
 }
 

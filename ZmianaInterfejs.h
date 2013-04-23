@@ -11,6 +11,5 @@ public:
 	virtual ZmianaInterfejs* Kopia() const = 0;
 	ZmianaInterfejs();
 	virtual ~ZmianaInterfejs();
-	string toString() const override;
 };
 

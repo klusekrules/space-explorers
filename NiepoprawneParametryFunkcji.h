@@ -39,13 +39,13 @@ public:
 private:
 
 	template< class T, class... V >
-	void step( vector< string >& v, const LoggerInterface<T> &c , const V&... tail ){
+	static void step( vector< string >& v, const LoggerInterface<T> &c , const V&... tail ){
 		v.push_back(c.toString());
 		step(v, tail... );
 	}
 
 	template< class T >
-	void step( vector< string >& v, const LoggerInterface<T> &c ){
+	static void step( vector< string >& v, const LoggerInterface<T> &c ){
 		v.push_back(c.toString());
 	}
 

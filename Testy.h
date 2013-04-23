@@ -12,7 +12,7 @@ private:
 	Statek* tworzStatek(const Klucz& id,const Ilosc& i)const throw (OgolnyWyjatek,NieznalezionoObiektu);
 	Surowce* tworzSurowce(const Klucz& id,const Ilosc& i)const throw (OgolnyWyjatek,NieznalezionoObiektu);
 	
-	bool ladowanie_danych();
+	bool ladowanie_danych() const;
 
 	/* */
 	static unsigned int bledy;
@@ -39,13 +39,13 @@ public:
 
 	Testy();
 	~Testy();
-	void run();
+	void run() const;
 
-	bool test_tworzenieObiektow();
-	bool test_KlasaObiektList();
-	bool test_KlasaLadownia();
-	bool test_KlasaNiepoprawneParametryFunkcji();
-	bool test_wymagan();
+	bool test_tworzenieObiektow()const;
+	bool test_KlasaObiektList()const;
+	bool test_KlasaLadownia()const;
+	bool test_KlasaNiepoprawneParametryFunkcji() const;
+	bool test_wymagan()const;
 
 	//void test_ladowaniePlikuXML();
 	//void test_podzialuStatku();

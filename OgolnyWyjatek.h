@@ -38,7 +38,6 @@ protected:
 	Tekst plik;
 	IdType linia;
 	Tekst data;
-
 	Tekst stack;
 	
 private:

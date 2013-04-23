@@ -49,7 +49,7 @@ Masa Surowce::Masa() const{
 	return getMasa() * ilosc;
 }
 
-const Surowce& Surowce::operator=( const Surowce& sSurowce )  throw ( NiezgodnyTypSurowca ) {
+Surowce& Surowce::operator=( const Surowce& sSurowce )  throw ( NiezgodnyTypSurowca ) {
 	if( this->ID() != sSurowce.ID() )
 		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
 	ilosc = sSurowce.ilosc;
@@ -98,7 +98,7 @@ Surowce Surowce::operator+( const Surowce& sSurowce ) const throw ( NiezgodnyTyp
 	return Surowce( ilosc + sSurowce.ilosc , sSurowce );
 }
 	
-const Surowce& Surowce::operator+=( const Surowce& sSurowce )  throw ( NiezgodnyTypSurowca ){
+Surowce& Surowce::operator+=( const Surowce& sSurowce )  throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
 		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
 	ilosc += sSurowce.ilosc;
@@ -111,7 +111,7 @@ Surowce Surowce::operator-( const Surowce& sSurowce ) const throw ( NiezgodnyTyp
 	return Surowce( ilosc - sSurowce.ilosc, sSurowce  );
 }
 
-const Surowce& Surowce::operator-=( const Surowce& sSurowce ) throw ( NiezgodnyTypSurowca ){
+Surowce& Surowce::operator-=( const Surowce& sSurowce ) throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
 		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
 	ilosc -= sSurowce.ilosc;
