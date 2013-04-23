@@ -1,12 +1,4 @@
-﻿/*
-
-	Autor: Daniel Wojdak
-	Wersja: 0.0.0.1
-	Plik: Biblioteki.h
-	Opis: Sta³e, biblioteki, definicje u¿ywane w projekcie
-	
-*/
-#pragma once
+﻿#pragma once
 #include <cstdlib>
 //#include <list>
 #include <string>
