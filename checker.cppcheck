@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="1">
+    <exclude>
+        <path name="C:/Prywatne/svn/Space-explorers/trunk/allegro/"/>
+        <path name="C:/Prywatne/svn/Space-explorers/trunk/SFML/"/>
+        <path name="C:/Prywatne/svn/Space-explorers/trunk/out/"/>
+        <path name="C:/Prywatne/svn/Space-explorers/trunk/obj/"/>
+        <path name="C:/Prywatne/svn/Space-explorers/trunk/doc/"/>
+        <path name="C:/Prywatne/svn/Space-explorers/trunk/.sonar/"/>
+    </exclude>
+</project>

@@ -1,12 +1,3 @@
-/*
-
-	Autor: Daniel Wojdak
-	Wersja: 0.0.0.1
-	Plik: maintest.cpp
-	Opis: Testy aplikacji
-	
-*/
-
 #include "Main.h"
 #include "Biblioteki.h"
 #include "Aplikacja.h"

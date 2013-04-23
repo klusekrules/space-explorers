@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results version="2">
+    <cppcheck version="1.59"/>
+    <errors>
+        <error id="arrayIndexThenCheck" severity="style" msg="Array index &amp;#039;i&amp;#039; is used before limits check." verbose="Defensive programming: The variable &amp;#039;i&amp;#039; is used as an array index before it is check that is within limits. This can mean that the array might be accessed out of bounds. Reorder conditions such as &amp;#039;(a[i] &amp;amp;&amp;amp; i &amp;lt; 10)&amp;#039; to &amp;#039;(i &amp;lt; 10 &amp;amp;&amp;amp; a[i])&amp;#039;. That way the array will not be accessed if the index is out of limits.">
+            <location file="parser\tinyxml.h" line="366"/>
+        </error>
+        <error id="operatorEq" severity="style" msg="&amp;#039;TiXmlElement::operator=&amp;#039; should return &amp;#039;TiXmlElement &amp;amp;&amp;#039;." verbose="&amp;#039;TiXmlElement::operator=&amp;#039; should return &amp;#039;TiXmlElement &amp;amp;&amp;#039;.">
+            <location file="parser\tinyxml.h" line="974"/>
+        </error>
+        <error id="operatorEq" severity="style" msg="&amp;#039;TiXmlComment::operator=&amp;#039; should return &amp;#039;TiXmlComment &amp;amp;&amp;#039;." verbose="&amp;#039;TiXmlComment::operator=&amp;#039; should return &amp;#039;TiXmlComment &amp;amp;&amp;#039;.">
+            <location file="parser\tinyxml.h" line="1181"/>
+        </error>
+        <error id="operatorEq" severity="style" msg="&amp;#039;TiXmlText::operator=&amp;#039; should return &amp;#039;TiXmlText &amp;amp;&amp;#039;." verbose="&amp;#039;TiXmlText::operator=&amp;#039; should return &amp;#039;TiXmlText &amp;amp;&amp;#039;.">
+            <location file="parser\tinyxml.h" line="1246"/>
+        </error>
+        <error id="operatorEq" severity="style" msg="&amp;#039;TiXmlDeclaration::operator=&amp;#039; should return &amp;#039;TiXmlDeclaration &amp;amp;&amp;#039;." verbose="&amp;#039;TiXmlDeclaration::operator=&amp;#039; should return &amp;#039;TiXmlDeclaration &amp;amp;&amp;#039;.">
+            <location file="parser\tinyxml.h" line="1313"/>
+        </error>
+        <error id="operatorEq" severity="style" msg="&amp;#039;TiXmlStylesheetReference::operator=&amp;#039; should return &amp;#039;TiXmlStylesheetReference &amp;amp;&amp;#039;." verbose="&amp;#039;TiXmlStylesheetReference::operator=&amp;#039; should return &amp;#039;TiXmlStylesheetReference &amp;amp;&amp;#039;.">
+            <location file="parser\tinyxml.h" line="1381"/>
+        </error>
+        <error id="operatorEq" severity="style" msg="&amp;#039;TiXmlUnknown::operator=&amp;#039; should return &amp;#039;TiXmlUnknown &amp;amp;&amp;#039;." verbose="&amp;#039;TiXmlUnknown::operator=&amp;#039; should return &amp;#039;TiXmlUnknown &amp;amp;&amp;#039;.">
+            <location file="parser\tinyxml.h" line="1434"/>
+        </error>
+        <error id="operatorEq" severity="style" msg="&amp;#039;TiXmlDocument::operator=&amp;#039; should return &amp;#039;TiXmlDocument &amp;amp;&amp;#039;." verbose="&amp;#039;TiXmlDocument::operator=&amp;#039; should return &amp;#039;TiXmlDocument &amp;amp;&amp;#039;.">
+            <location file="parser\tinyxml.h" line="1480"/>
+        </error>
+        <error id="operatorEq" severity="style" msg="&amp;#039;TiXmlHandle::operator=&amp;#039; should return &amp;#039;TiXmlHandle &amp;amp;&amp;#039;." verbose="&amp;#039;TiXmlHandle::operator=&amp;#039; should return &amp;#039;TiXmlHandle &amp;amp;&amp;#039;.">
+            <location file="parser\tinyxml.h" line="1722"/>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &amp;#039;name&amp;#039; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&amp;#039;t explicitly write them to the initialization list. You could avoid assigning &amp;#039;name&amp;#039; a value by passing the value to the constructor in the initialization list.">
+            <location file="parser\tinyxml.h" line="813"/>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &amp;#039;value&amp;#039; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&amp;#039;t explicitly write them to the initialization list. You could avoid assigning &amp;#039;value&amp;#039; a value by passing the value to the constructor in the initialization list.">
+            <location file="parser\tinyxml.h" line="814"/>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &amp;#039;name&amp;#039; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&amp;#039;t explicitly write them to the initialization list. You could avoid assigning &amp;#039;name&amp;#039; a value by passing the value to the constructor in the initialization list.">
+            <location file="parser\tinyxml.h" line="823"/>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &amp;#039;value&amp;#039; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&amp;#039;t explicitly write them to the initialization list. You could avoid assigning &amp;#039;value&amp;#039; a value by passing the value to the constructor in the initialization list.">
+            <location file="parser\tinyxml.h" line="824"/>
+        </error>
+        <error id="operatorEq" severity="style" msg="&amp;#039;Attribute::operator=&amp;#039; should return &amp;#039;Attribute &amp;amp;&amp;#039;." verbose="&amp;#039;Attribute::operator=&amp;#039; should return &amp;#039;Attribute &amp;amp;&amp;#039;.">
+            <location file="parser\ticpp.h" line="409"/>
+        </error>
+        <error id="operatorEq" severity="style" msg="&amp;#039;Warunek::operator=&amp;#039; should return &amp;#039;Warunek &amp;amp;&amp;#039;." verbose="&amp;#039;Warunek::operator=&amp;#039; should return &amp;#039;Warunek &amp;amp;&amp;#039;.">
+            <location file="Warunek.h" line="23"/>
+        </error>
+        <error id="operatorEq" severity="style" msg="&amp;#039;Wymagania::operator=&amp;#039; should return &amp;#039;Wymagania &amp;amp;&amp;#039;." verbose="&amp;#039;Wymagania::operator=&amp;#039; should return &amp;#039;Wymagania &amp;amp;&amp;#039;.">
+            <location file="Wymagania.h" line="16"/>
+        </error>
+        <error id="operatorEq" severity="style" msg="&amp;#039;Surowce::operator=&amp;#039; should return &amp;#039;Surowce &amp;amp;&amp;#039;." verbose="&amp;#039;Surowce::operator=&amp;#039; should return &amp;#039;Surowce &amp;amp;&amp;#039;.">
+            <location file="Surowce.h" line="31"/>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &amp;#039;p&amp;#039; should be passed by reference." verbose="Parameter &amp;#039;p&amp;#039; is passed by value. It could be passed as a (const) reference which is usually faster and recommended in C++.">
+            <location file="Log.h" line="264"/>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &amp;#039;p&amp;#039; should be passed by reference." verbose="Parameter &amp;#039;p&amp;#039; is passed by value. It could be passed as a (const) reference which is usually faster and recommended in C++.">
+            <location file="Log.h" line="299"/>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &amp;#039;p&amp;#039; should be passed by reference." verbose="Parameter &amp;#039;p&amp;#039; is passed by value. It could be passed as a (const) reference which is usually faster and recommended in C++.">
+            <location file="Log.h" line="334"/>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &amp;#039;p&amp;#039; should be passed by reference." verbose="Parameter &amp;#039;p&amp;#039; is passed by value. It could be passed as a (const) reference which is usually faster and recommended in C++.">
+            <location file="Log.h" line="369"/>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &amp;#039;p&amp;#039; should be passed by reference." verbose="Parameter &amp;#039;p&amp;#039; is passed by value. It could be passed as a (const) reference which is usually faster and recommended in C++.">
+            <location file="Log.cpp" line="9"/>
+        </error>
+        <error id="uninitMemberVar" severity="warning" msg="Member variable &amp;#039;Logger::poziom&amp;#039; is not initialized in the constructor." verbose="Member variable &amp;#039;Logger::poziom&amp;#039; is not initialized in the constructor.">
+            <location file="Logger.cpp" line="3"/>
+        </error>
+        <error id="uninitMemberVar" severity="warning" msg="Member variable &amp;#039;Logger::poziom&amp;#039; is not initialized in the constructor." verbose="Member variable &amp;#039;Logger::poziom&amp;#039; is not initialized in the constructor.">
+            <location file="Logger.cpp" line="11"/>
+        </error>
+        <error id="uninitMemberVar" severity="warning" msg="Member variable &amp;#039;OgolnyWyjatek::stack&amp;#039; is not initialized in the constructor." verbose="Member variable &amp;#039;OgolnyWyjatek::stack&amp;#039; is not initialized in the constructor.">
+            <location file="OgolnyWyjatek.cpp" line="12"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;a&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;a&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="Testy.cpp" line="239"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;b&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;b&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="Testy.cpp" line="240"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;c&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;c&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="Testy.cpp" line="241"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;d&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;d&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="Testy.cpp" line="242"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;temp&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;temp&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="parser\tinyxml.cpp" line="148"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;temp&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;temp&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="parser\tinyxml.cpp" line="169"/>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &amp;#039;version&amp;#039; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&amp;#039;t explicitly write them to the initialization list. You could avoid assigning &amp;#039;version&amp;#039; a value by passing the value to the constructor in the initialization list.">
+            <location file="parser\tinyxml.cpp" line="1386"/>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &amp;#039;encoding&amp;#039; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&amp;#039;t explicitly write them to the initialization list. You could avoid assigning &amp;#039;encoding&amp;#039; a value by passing the value to the constructor in the initialization list.">
+            <location file="parser\tinyxml.cpp" line="1387"/>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &amp;#039;standalone&amp;#039; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&amp;#039;t explicitly write them to the initialization list. You could avoid assigning &amp;#039;standalone&amp;#039; a value by passing the value to the constructor in the initialization list.">
+            <location file="parser\tinyxml.cpp" line="1388"/>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &amp;#039;type&amp;#039; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&amp;#039;t explicitly write them to the initialization list. You could avoid assigning &amp;#039;type&amp;#039; a value by passing the value to the constructor in the initialization list.">
+            <location file="parser\tinyxml.cpp" line="1472"/>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &amp;#039;href&amp;#039; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&amp;#039;t explicitly write them to the initialization list. You could avoid assigning &amp;#039;href&amp;#039; a value by passing the value to the constructor in the initialization list.">
+            <location file="parser\tinyxml.cpp" line="1473"/>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &amp;#039;version&amp;#039; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&amp;#039;t explicitly write them to the initialization list. You could avoid assigning &amp;#039;version&amp;#039; a value by passing the value to the constructor in the initialization list.">
+            <location file="parser\tinyxml.cpp" line="1398"/>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &amp;#039;encoding&amp;#039; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&amp;#039;t explicitly write them to the initialization list. You could avoid assigning &amp;#039;encoding&amp;#039; a value by passing the value to the constructor in the initialization list.">
+            <location file="parser\tinyxml.cpp" line="1399"/>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &amp;#039;standalone&amp;#039; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&amp;#039;t explicitly write them to the initialization list. You could avoid assigning &amp;#039;standalone&amp;#039; a value by passing the value to the constructor in the initialization list.">
+            <location file="parser\tinyxml.cpp" line="1400"/>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &amp;#039;type&amp;#039; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&amp;#039;t explicitly write them to the initialization list. You could avoid assigning &amp;#039;type&amp;#039; a value by passing the value to the constructor in the initialization list.">
+            <location file="parser\tinyxml.cpp" line="1482"/>
+        </error>
+        <error id="useInitializationList" severity="performance" msg="Variable &amp;#039;href&amp;#039; is assigned in constructor body. Consider performing initialization in initialization list." verbose="When an object of a class is created, the constructors of all member variables are called consecutively in the order the variables are declared, even if you don&amp;#039;t explicitly write them to the initialization list. You could avoid assigning &amp;#039;href&amp;#039; a value by passing the value to the constructor in the initialization list.">
+            <location file="parser\tinyxml.cpp" line="1483"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;endTag&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;endTag&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="parser\tinyxmlparser.cpp" line="1519"/>
+        </error>
+        <error id="unusedVariable" severity="style" msg="Unused variable: ent" verbose="Unused variable: ent">
+            <location file="parser\tinyxmlparser.cpp" line="441"/>
+        </error>
+    </errors>
+</results>
