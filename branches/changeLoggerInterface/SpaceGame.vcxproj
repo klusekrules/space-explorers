@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A8B6EFB3-277C-42D6-A05E-78516E547F38}</ProjectGuid>
+    <RootNamespace>SpaceGame</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LibraryPath>$(SolutionDir)\parser\lib;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)out\</OutDir>
+    <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
+    <LibraryPath>$(SolutionDir)\parser\lib;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)out\</OutDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)out\</OutDir>
+    <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
+    <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\parser\lib;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)out\</OutDir>
+    <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
+    <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\parser\lib;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+      <ShowProgress>
+      </ShowProgress>
+      <LinkStatus>
+      </LinkStatus>
+      <Version>
+      </Version>
+    </Link>
+    <ResourceCompile>
+      <Culture>0x0015</Culture>
+    </ResourceCompile>
+    <ResourceCompile>
+      <ShowProgress>false</ShowProgress>
+    </ResourceCompile>
+    <PreBuildEvent>
+      <Command>SubWCRev.exe $(SolutionDir) $(ProjectDir)\svn_version.h.tmpl $(ProjectDir)\svn_version.h</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+      <ShowProgress>
+      </ShowProgress>
+      <LinkStatus>
+      </LinkStatus>
+    </Link>
+    <PreBuildEvent>
+      <Command>SubWCRev.exe $(SolutionDir) $(ProjectDir)\svn_version.h.tmpl $(ProjectDir)\svn_version.h</Command>
+    </PreBuildEvent>
+    <ResourceCompile>
+      <Culture>0x0015</Culture>
+    </ResourceCompile>
+    <ResourceCompile>
+      <ShowProgress>false</ShowProgress>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PreBuildEvent>
+      <Command>SubWCRev.exe $(SolutionDir) $(ProjectDir)\svn_version.h.tmpl $(ProjectDir)\svn_version.h</Command>
+    </PreBuildEvent>
+    <ResourceCompile>
+      <Culture>0x0015</Culture>
+    </ResourceCompile>
+    <ResourceCompile>
+      <ShowProgress>false</ShowProgress>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <PreBuildEvent>
+      <Command>SubWCRev.exe $(SolutionDir) $(ProjectDir)\svn_version.h.tmpl $(ProjectDir)\svn_version.h</Command>
+    </PreBuildEvent>
+    <ResourceCompile>
+      <Culture>0x0015</Culture>
+    </ResourceCompile>
+    <ResourceCompile>
+      <ShowProgress>false</ShowProgress>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="afxres.h" />
+    <ClInclude Include="Aplikacja.h" />
+    <ClInclude Include="Base.h" />
+    <ClInclude Include="BaseInterface.h" />
+    <ClInclude Include="Biblioteki.h" />
+    <ClInclude Include="BladDzieleniaLadowni.h" />
+    <ClInclude Include="BladLaczeniaObiektow.h" />
+    <ClInclude Include="Bool.h" />
+    <ClInclude Include="BrakAtrybutuXML.h" />
+    <ClInclude Include="BrakMaski.h" />
+    <ClInclude Include="Cena.h" />
+    <ClInclude Include="Cennik.h" />
+    <ClInclude Include="Dystans.h" />
+    <ClInclude Include="Fluktuacja.h" />
+    <ClInclude Include="Parametr.h" />
+    <ClInclude Include="version.h" />
+    <ClInclude Include="IdType.h" />
+    <ClInclude Include="Ilosc.h" />
+    <ClInclude Include="Info.h" />
+    <ClInclude Include="JednostkaAtakujaca.h" />
+    <ClInclude Include="JednostkaAtakujacaInfo.h" />
+    <ClInclude Include="JednostkaLatajaca.h" />
+    <ClInclude Include="JednostkaLatajacaInfo.h" />
+    <ClInclude Include="Klucz.h" />
+    <ClInclude Include="Ladownia.h" />
+    <ClInclude Include="LadowniaInfo.h" />
+    <ClInclude Include="Log.h" />
+    <ClInclude Include="Logger.h" />
+    <ClInclude Include="LoggerInterface.h" />
+    <ClInclude Include="Main.h" />
+    <ClInclude Include="MakeVector.h" />
+    <ClInclude Include="Mapa.h" />
+    <ClInclude Include="Masa.h" />
+    <ClInclude Include="MocSilnika.h" />
+    <ClInclude Include="NiepoprawnaIloscObiektow.h" />
+    <ClInclude Include="NiepoprawneParametryFunkcji.h" />
+    <ClInclude Include="NiezainicjalizowanaKlasa.h" />
+    <ClInclude Include="NiezgodnyTypSurowca.h" />
+    <ClInclude Include="NieznalezionoObiektu.h" />
+    <ClInclude Include="Obiekt.h" />
+    <ClInclude Include="ObiektBase.h" />
+    <ClInclude Include="ObiektBaseInfo.h" />
+    <ClInclude Include="ObiektInfo.h" />
+    <ClInclude Include="ObiektList.hpp" />
+    <ClInclude Include="Objetosc.h" />
+    <ClInclude Include="Obrazenia.h" />
+    <ClInclude Include="OgolnyWyjatek.h" />
+    <ClInclude Include="parser\ticpp.h" />
+    <ClInclude Include="parser\ticpprc.h" />
+    <ClInclude Include="parser\tinystr.h" />
+    <ClInclude Include="parser\tinyxml.h" />
+    <ClInclude Include="Powierzchnia.h" />
+    <ClInclude Include="Poziom.h" />
+    <ClInclude Include="Predkosc.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Stale.h" />
+    <ClInclude Include="Statek.h" />
+    <ClInclude Include="StatekInfo.h" />
+    <ClInclude Include="Surowce.h" />
+    <ClInclude Include="SurowceInfo.h" />
+    <ClInclude Include="svn_version.h" />
+    <ClInclude Include="Tekst.h" />
+    <ClInclude Include="Testy.h" />
+    <ClInclude Include="BaseTypes.h" />
+    <ClInclude Include="Warunek.h" />
+    <ClInclude Include="WyjatekParseraXML.h" />
+    <ClInclude Include="WyjatekSTL.h" />
+    <ClInclude Include="Wymagania.h" />
+    <ClInclude Include="XmlBO.h" />
+    <ClInclude Include="ZmianaAgregacja.h" />
+    <ClInclude Include="ZmianaDekorator.h" />
+    <ClInclude Include="ZmianaFabryka.h" />
+    <ClInclude Include="ZmianaInterfejs.h" />
+    <ClInclude Include="ZmianaLiniowa.h" />
+    <ClInclude Include="ZmianaParametr.h" />
+    <ClInclude Include="ZmianaPotegowa.h" />
+    <ClInclude Include="ZuzyciePaliwa.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Aplikacja.cpp" />
+    <ClCompile Include="Base.cpp" />
+    <ClCompile Include="BladDzieleniaLadowni.cpp" />
+    <ClCompile Include="BladLaczeniaObiektow.cpp" />
+    <ClCompile Include="Bool.cpp" />
+    <ClCompile Include="BrakAtrybutuXML.cpp" />
+    <ClCompile Include="BrakMaski.cpp" />
+    <ClCompile Include="Cena.cpp" />
+    <ClCompile Include="Cennik.cpp" />
+    <ClCompile Include="Dystans.cpp" />
+    <ClCompile Include="Fluktuacja.cpp" />
+    <ClCompile Include="IdType.cpp" />
+    <ClCompile Include="Ilosc.cpp" />
+    <ClCompile Include="Info.cpp" />
+    <ClCompile Include="JednostkaAtakujaca.cpp" />
+    <ClCompile Include="JednostkaAtakujacaInfo.cpp" />
+    <ClCompile Include="JednostkaLatajaca.cpp" />
+    <ClCompile Include="JednostkaLatajacaInfo.cpp" />
+    <ClCompile Include="Klucz.cpp" />
+    <ClCompile Include="Ladownia.cpp" />
+    <ClCompile Include="LadowniaInfo.cpp" />
+    <ClCompile Include="Log.cpp" />
+    <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="maintest.cpp" />
+    <ClCompile Include="Masa.cpp" />
+    <ClCompile Include="MocSilnika.cpp" />
+    <ClCompile Include="NiepoprawnaIloscObiektow.cpp" />
+    <ClCompile Include="NiepoprawneParametryFunkcji.cpp" />
+    <ClCompile Include="NiezainicjalizowanaKlasa.cpp" />
+    <ClCompile Include="NiezgodnyTypSurowca.cpp" />
+    <ClCompile Include="NieznalezionoObiektu.cpp" />
+    <ClCompile Include="Obiekt.cpp" />
+    <ClCompile Include="ObiektBase.cpp" />
+    <ClCompile Include="ObiektBaseInfo.cpp" />
+    <ClCompile Include="ObiektInfo.cpp" />
+    <ClCompile Include="Objetosc.cpp" />
+    <ClCompile Include="Obrazenia.cpp" />
+    <ClCompile Include="OgolnyWyjatek.cpp" />
+    <ClCompile Include="Parametr.cpp" />
+    <ClCompile Include="Powierzchnia.cpp" />
+    <ClCompile Include="Poziom.cpp" />
+    <ClCompile Include="Predkosc.cpp" />
+    <ClCompile Include="Stale.cpp" />
+    <ClCompile Include="Statek.cpp" />
+    <ClCompile Include="StatekInfo.cpp" />
+    <ClCompile Include="Surowce.cpp" />
+    <ClCompile Include="SurowceInfo.cpp" />
+    <ClCompile Include="Tekst.cpp" />
+    <ClCompile Include="Testy.cpp" />
+    <ClCompile Include="Warunek.cpp" />
+    <ClCompile Include="WyjatekParseraXML.cpp" />
+    <ClCompile Include="WyjatekSTL.cpp" />
+    <ClCompile Include="Wyjatki.cpp" />
+    <ClCompile Include="Wymagania.cpp" />
+    <ClCompile Include="ZmianaAgregacja.cpp" />
+    <ClCompile Include="ZmianaDekorator.cpp" />
+    <ClCompile Include="ZmianaFabryka.cpp" />
+    <ClCompile Include="ZmianaIdKlas.cpp" />
+    <ClCompile Include="ZmianaInterfejs.cpp" />
+    <ClCompile Include="ZmianaLiniowa.cpp" />
+    <ClCompile Include="ZmianaParametr.cpp" />
+    <ClCompile Include="ZmianaPotegowa.cpp" />
+    <ClCompile Include="ZuzyciePaliwa.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="conventions.txt" />
+    <None Include="parser\build_instructions.txt" />
+    <None Include="svn_version.h.tmpl" />
+    <None Include="TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SpaceGame.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="out\data.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="out\message.xml" />
+    <Xml Include="out\options.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="out\test.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
