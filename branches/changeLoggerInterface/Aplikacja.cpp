@@ -12,14 +12,25 @@
 Aplikacja::Aplikacja()
 	: isDbgHelpInit(false), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
 {
+	//Wyswietlanie informacji o aplikacji
+	LogApInfo();
+
+	//Ladowanie potrzebnych bibliotek
 	hLibrary = LoadLibrary("Dbghelp.dll");
-	if(hLibrary){		
+	if(hLibrary){
+		Log::info("Za³adowano biblioteke Dbghelp.dll");
 		symInitialize = (SymInitializeS)GetProcAddress(hLibrary,"SymInitialize");
 		symFromAddr = (SymFromAddrS)GetProcAddress(hLibrary,"SymFromAddr");
-		if(symFromAddr && symInitialize)
+		if(symFromAddr && symInitialize){
 			isDbgHelpInit = true;
-		//_set_purecall_handler(myPurecallHandler);
+		}else{
+			Log::warn("Nie zanaleziono funkcji SymInitialize i/lub SymFromAddr.");
+		}
+	}else{
+		Log::warn("Nie za³adowano biblioteki Dbghelp.dll");
 	}
+	//_set_purecall_handler(myPurecallHandler);
+	//TODO: zaimplementowanie logoowania podczas ka¿dej sytuacji wyj¹tkowej takiej jak wy¿ej
 
 	// Rejestracja zmian w fabryce 
 	ZmianaLiniowa::RejestrujZmianaLiniowa();
@@ -66,7 +77,7 @@ bool Aplikacja::WczytajSurowce(ticpp::Node* root){
 			ptr = root->IterateChildren(CLASSNAME(SurowceInfo),ptr);
 			if(ptr){
 				SurowceInfo* t = new SurowceInfo(ptr);
-				Log::info(*t);
+				Log::debug(*t);
 				listaSurowcowInfo[t->ID()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
@@ -85,7 +96,7 @@ bool Aplikacja::WczytajStatki(ticpp::Node* root){
 			ptr = root->IterateChildren(CLASSNAME(StatekInfo),ptr);
 			if(ptr){
 				StatekInfo* t = new StatekInfo(ptr);
-				Log::info(*t);
+				Log::debug(*t);
 				listaStatkowInfo[t->ID()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
