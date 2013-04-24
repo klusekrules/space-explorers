@@ -7,6 +7,7 @@
 #include "Testy.h"
 #include <chrono>
 #include <iomanip>
+#include <fstream>
 
 void main(){
 	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
@@ -17,9 +18,10 @@ void main(){
     _CrtSetReportMode( _CRT_ASSERT, _CRTDBG_MODE_FILE );
     _CrtSetReportFile( _CRT_ASSERT, _CRTDBG_FILE_STDOUT );
 
+	Log::getInstance().dodajGniazdoWyjsciowe(shared_ptr<ostream>(new fstream ("file.log",ios_base::app)));
 	Aplikacja::getInstance();//Inicjalizacja singletona
 
-	Log::logDebugDisable();
+	Log::getInstance().logDebugDisable();
 
 	Testy test;
 	test.run();

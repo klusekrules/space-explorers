@@ -52,7 +52,7 @@ bool Ladownia::DodajObiektDoLadowni( const Item& obiekt , const Poziom& pz ){
 		obiekty.add(obiekt);
 		przeliczZajeteMiejsce();
 	}catch(OgolnyWyjatek& e){
-		Log::warn(e.generujKomunikat());
+		Log::getInstance().warn(e.generujKomunikat());
 		return false;
 	}
 	return true;		
