@@ -34,5 +34,5 @@ Parametr::type_name Parametr::value() const{
 }
 
 string Parametr::toString() const{
-	return Logger::field(className(),parametr);
+	return Logger::field(CLASSNAME(Parametr),parametr);
 }

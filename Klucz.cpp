@@ -62,5 +62,5 @@ Klucz::type_name Klucz::value()const{
 }
 
 string Klucz::toString()const{
-	return Logger::field(className(),values.first,values.second);
+	return Logger::field(CLASSNAME(Klucz),values.first,values.second);
 }

@@ -30,7 +30,7 @@ Tekst BladLaczeniaObiektow::generujKomunikat() const{
 }
 
 string BladLaczeniaObiektow::toString() const{
-	Logger str(LogBladLaczeniaObiektow::className());	
+	Logger str(CLASSNAME(BladLaczeniaObiektow));	
 	str.addClass(OgolnyWyjatek::toString());
 	str.addField("ObiektA",obiektA);
 	str.addField("ObiektA",obiektB);
