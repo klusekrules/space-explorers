@@ -108,7 +108,7 @@ bool Testy::ladowanie_danych()const{
 	try{
 		assert_false( EXCEPTION_PLACE , Aplikacja::getInstance().WczytajDane("test.xml") );
 		shared_ptr<Statek> t( this->tworzStatek(Klucz(IdType(1),Poziom(1)),Ilosc(1)));
-		Log::debug<Statek>(*t);
+		Log::debug(*t);
 	}catch(OgolnyWyjatek& e){
 		Log::error("Wykryto wyjatek:");
 		Log::error(e);
@@ -124,7 +124,7 @@ Statek* Testy::tworzStatek(const Klucz& id,const Ilosc& i)const throw (OgolnyWyj
 		assert_false(EXCEPTION_PLACE, s->getIlosc()==i);
 		assert_false(EXCEPTION_PLACE, s->ID()==id);
 		Log::debug( "Stworzony obiekt:");
-		Log::debug<Statek>(*s);
+		Log::debug(*s);
 	}else{
 		throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("Tworzenie Obiektu"),Tekst("Nie udalo sie utworzyc obiektu"));
 	}
@@ -138,7 +138,7 @@ Surowce* Testy::tworzSurowce(const Klucz& id,const Ilosc& i)const throw (OgolnyW
 		assert_false(EXCEPTION_PLACE, s->getIlosc()==i);
 		assert_false(EXCEPTION_PLACE, s->ID()==id);
 		Log::debug( "Stworzony obiekt:");
-		Log::debug<Surowce>(*s);
+		Log::debug(*s);
 	}else{
 		throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("Tworzenie Obiektu"),Tekst("Nie udalo sie utworzyc obiektu"));
 	}
@@ -196,7 +196,7 @@ bool Testy::test_KlasaLadownia()const{
 		shared_ptr<Surowce> d (tworzSurowce(Klucz(IdType(4),Poziom(1)),Ilosc(20)));
 		assert_true(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*d));
 		Log::debug("Zawartosc po dodaniu obiektu: ");
-		Log::debug<Ladownia>(*a);
+		Log::debug(*a);
 		assert_false(EXCEPTION_PLACE,a->getZajeteMiejsce()!=Objetosc(0));
 		Log::debug("Zajete miejsce: ");
 		Log::debug(a->getZajeteMiejsce());
@@ -206,7 +206,7 @@ bool Testy::test_KlasaLadownia()const{
 		Log::debug("Zbiornik odlaczony od ladowni: ");
 		Log::debug(*zb);
 		Log::debug("Ladownia po podzieleniu: ");
-		Log::debug<Ladownia>(*a);
+		Log::debug(*a);
 	}catch(OgolnyWyjatek& e){
 		Log::error("Wykryto wyjatek:");
 		Log::error(e);
@@ -220,13 +220,13 @@ bool Testy::test_tworzenieObiektow()const{
 	try{
 		ObiektInfo& p = Aplikacja::getInstance().getStatek(Klucz(IdType(1),Poziom(1)));
 		Log::debug( "Klasa info:");
-		Log::debug<ObiektInfo>(p);
+		Log::debug(p);
 		shared_ptr<Obiekt>o (p.TworzEgzemplarz(Ilosc(8)));
 		if(assert_false(EXCEPTION_PLACE, o!=nullptr))
 		{
 			assert_false(EXCEPTION_PLACE, o->getIlosc()==Ilosc(8));
 			Log::debug( "Stworzony obiekt:");
-			Log::debug<Obiekt>(*o);
+			Log::debug(*o);
 		}
 	}catch(OgolnyWyjatek& e){
 		Log::error("Wykryto wyjatek:");
@@ -247,22 +247,22 @@ bool Testy::test_KlasaObiektList()const{
 		a = tworzStatek(Klucz(IdType(1),Poziom(1)),Ilosc(8));
 		lista.add(a);
 		Log::debug("Dodano do kontenera");
-		Log::debug<Statek>(*a);
+		Log::debug(*a);
 
 		b = tworzStatek(Klucz(IdType(2),Poziom(1)),Ilosc(8));
 		lista.add(b);	
 		Log::debug("Dodano do kontenera");
-		Log::debug<Statek>(*b);
+		Log::debug(*b);
 
 		c = tworzStatek(Klucz(IdType(3),Poziom(1)),Ilosc(8));
 		lista.add(c);
 		Log::debug("Dodano do kontenera");
-		Log::debug<Statek>(*c);
+		Log::debug(*c);
 
 		d = tworzStatek(Klucz(IdType(4),Poziom(1)),Ilosc(8));
 		lista.add(d);
 		Log::debug("Dodano do kontenera");
-		Log::debug<Statek>(*d);
+		Log::debug(*d);
 
 		Log::debug("Zawartoœæ kontenera");
 		Log::debug(lista);
@@ -272,7 +272,7 @@ bool Testy::test_KlasaObiektList()const{
 		Log::debug("Ilosc elementow:");
 		Log::debug(Ilosc(static_cast<long double>(l.size())));
 		for( auto a : l ){
-			Log::debug<Statek>(*a);
+			Log::debug(*a);
 		}
 		Log::debug("Pobranie listy kluczy");
 		auto r = lista.rawKluczList();
@@ -287,7 +287,7 @@ bool Testy::test_KlasaObiektList()const{
 		assert_false(EXCEPTION_PLACE,sTmp1.getId()==IdType( 2 ));
 		assert_false(EXCEPTION_PLACE,sTmp1.getPoziom()==Poziom( 1 ));
 		Log::debug("Pobranie z kontenera: ");
-		Log::debug<Statek>(sTmp1);
+		Log::debug(sTmp1);
 		Log::debug("Usuniecie z kontenera wartosci o kluczu: ");
 		Log::debug(Klucz(IdType( 1 ),Poziom( 1 )));
 		assert_false(EXCEPTION_PLACE,lista.del(Klucz(IdType( 1 ),Poziom( 1 ))));
@@ -298,7 +298,7 @@ bool Testy::test_KlasaObiektList()const{
 		Statek* sTmp2 = lista.getAndDel(Klucz(IdType( 4 ),Poziom( 1 )));
 		assert_false(EXCEPTION_PLACE,sTmp2->getId()==IdType( 4 ));
 		assert_false(EXCEPTION_PLACE,sTmp2->getPoziom()==Poziom( 1 ));
-		Log::debug<Statek>(*sTmp2);
+		Log::debug(*sTmp2);
 		delete sTmp2;
 		Log::debug("Zawartoœæ kontenera");
 		Log::debug(lista);
@@ -308,7 +308,7 @@ bool Testy::test_KlasaObiektList()const{
 		Log::debug("Ilosc elementow:");
 		Log::debug(Ilosc(static_cast<long double>(l.size())));
 		for( auto a : l ){
-			Log::debug<Statek>(*a);
+			Log::debug(*a);
 		}
 		Log::debug("Pobranie listy kluczy");
 		r = lista.rawKluczList();
@@ -358,13 +358,13 @@ bool Testy::test_wymagan()const{
 		shared_ptr<Statek> a( tworzStatek(Klucz(IdType(1),Poziom(1)),Ilosc(8)) );
 		auto t = a->PobierzKoszty();
 		for(auto e : t){
-			Log::debug<Surowce>(*e);
+			Log::debug(*e);
 		}
 		assert_false(EXCEPTION_PLACE,t[0]->getIlosc()==Ilosc(120000.0));
 		assert_false(EXCEPTION_PLACE,t[1]->getIlosc()==Ilosc(4000.0));
 		auto w = a->PobierzWarunki();
 		for(auto e : w){
-			Log::debug<ObiektBaseInfo>(*e);
+			Log::debug(*e);
 		}
 		assert_false(EXCEPTION_PLACE,w[0]->getPoziom()==Poziom(25));
 		assert_false(EXCEPTION_PLACE,w[1]->getPoziom()==Poziom(5));

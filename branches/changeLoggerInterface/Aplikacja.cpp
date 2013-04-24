@@ -63,10 +63,10 @@ bool Aplikacja::WczytajSurowce(ticpp::Node* root){
 	ticpp::Node* ptr = nullptr;
 	do{
 		try{
-			ptr = root->IterateChildren(SurowceInfo::LogSurowceInfo::className(),ptr);
+			ptr = root->IterateChildren(CLASSNAME(SurowceInfo),ptr);
 			if(ptr){
 				SurowceInfo* t = new SurowceInfo(ptr);
-				Log::info<SurowceInfo>(*t);
+				Log::info(*t);
 				listaSurowcowInfo[t->ID()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
@@ -82,10 +82,10 @@ bool Aplikacja::WczytajStatki(ticpp::Node* root){
 	ticpp::Node* ptr = nullptr;
 	do{
 		try{
-			ptr = root->IterateChildren(StatekInfo::LogStatekInfo::className(),ptr);
+			ptr = root->IterateChildren(CLASSNAME(StatekInfo),ptr);
 			if(ptr){
 				StatekInfo* t = new StatekInfo(ptr);
-				Log::info<StatekInfo>(*t);
+				Log::info(*t);
 				listaStatkowInfo[t->ID()]=t;
 			}
 		}catch(OgolnyWyjatek& e){

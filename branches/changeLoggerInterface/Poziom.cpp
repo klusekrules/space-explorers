@@ -84,5 +84,5 @@ Poziom::type_name Poziom::value() const {
 }
 
 string Poziom::toString() const {
-	return Logger::field(className(),pPoziom);
+	return Logger::field(CLASSNAME(Poziom),pPoziom);
 }

@@ -80,5 +80,5 @@ Fluktuacja::type_name Fluktuacja::value() const{
 }
 
 string Fluktuacja::toString() const{
-	return Logger::field(className(),fluktuacja);
+	return Logger::field(CLASSNAME(Fluktuacja),fluktuacja);
 } 

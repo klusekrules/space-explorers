@@ -82,6 +82,6 @@ Ilosc::type_name Ilosc::value() const{
 }
 
 string Ilosc::toString() const{
-	return Logger::field(className(),ilosc);
+	return Logger::field(CLASSNAME(Ilosc),ilosc);
 }
 
