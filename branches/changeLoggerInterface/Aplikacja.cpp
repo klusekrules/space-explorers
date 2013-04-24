@@ -18,16 +18,16 @@ Aplikacja::Aplikacja()
 	//Ladowanie potrzebnych bibliotek
 	hLibrary = LoadLibrary("Dbghelp.dll");
 	if(hLibrary){
-		Log::info("Za³adowano biblioteke Dbghelp.dll");
+		Log::getInstance().info("Za³adowano biblioteke Dbghelp.dll");
 		symInitialize = (SymInitializeS)GetProcAddress(hLibrary,"SymInitialize");
 		symFromAddr = (SymFromAddrS)GetProcAddress(hLibrary,"SymFromAddr");
 		if(symFromAddr && symInitialize){
 			isDbgHelpInit = true;
 		}else{
-			Log::warn("Nie zanaleziono funkcji SymInitialize i/lub SymFromAddr.");
+			Log::getInstance().warn("Nie zanaleziono funkcji SymInitialize i/lub SymFromAddr.");
 		}
 	}else{
-		Log::warn("Nie za³adowano biblioteki Dbghelp.dll");
+		Log::getInstance().warn("Nie za³adowano biblioteki Dbghelp.dll");
 	}
 	//_set_purecall_handler(myPurecallHandler);
 	//TODO: zaimplementowanie logoowania podczas ka¿dej sytuacji wyj¹tkowej takiej jak wy¿ej
@@ -64,7 +64,7 @@ bool Aplikacja::WczytajDane( const string& sFile ){
 		}
 	}catch(ticpp::Exception& e){
 		cout<< e.what();
-		Log::error("Nie uda³o siê otworzyæ pliku!");
+		Log::getInstance().error("Nie uda³o siê otworzyæ pliku!");
 		return false;
 	}
 	return true;
@@ -77,12 +77,12 @@ bool Aplikacja::WczytajSurowce(ticpp::Node* root){
 			ptr = root->IterateChildren(CLASSNAME(SurowceInfo),ptr);
 			if(ptr){
 				SurowceInfo* t = new SurowceInfo(ptr);
-				Log::debug(*t);
+				Log::getInstance().debug(*t);
 				listaSurowcowInfo[t->ID()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
-			Log::warn(e.generujKomunikat());
-			Log::debug(e);
+			Log::getInstance().warn(e.generujKomunikat());
+			Log::getInstance().debug(e);
 			return false;
 		}
 	}while(ptr);
@@ -96,12 +96,12 @@ bool Aplikacja::WczytajStatki(ticpp::Node* root){
 			ptr = root->IterateChildren(CLASSNAME(StatekInfo),ptr);
 			if(ptr){
 				StatekInfo* t = new StatekInfo(ptr);
-				Log::debug(*t);
+				Log::getInstance().debug(*t);
 				listaStatkowInfo[t->ID()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
-			Log::warn(e.generujKomunikat());
-			Log::debug(e);
+			Log::getInstance().warn(e.generujKomunikat());
+			Log::getInstance().debug(e);
 			return false;
 		}
 	}while(ptr);
