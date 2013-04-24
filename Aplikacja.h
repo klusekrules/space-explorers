@@ -36,6 +36,9 @@ typedef BOOL (WINAPI *SymFromAddrS)( _In_ HANDLE hProcess, _In_ DWORD64 Address,
 class Aplikacja
 {
 	friend class Testy;
+private:
+	void LogApInfo();
+
 protected:
 
 	Aplikacja();

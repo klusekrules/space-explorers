@@ -190,6 +190,9 @@
     <ClCompile Include="ZmianaIdKlas.cpp">
       <Filter>SourceFile\DomysleWartosci</Filter>
     </ClCompile>
+    <ClCompile Include="ApInfo.cpp">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
