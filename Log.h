@@ -35,12 +35,20 @@ private:
 	bool blogInfoEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Info do strumienia */
 	bool blogWarnEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Warning do strumienia */
 	bool blogErrorEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Error do strumienia */
-	
+	string formatCzasu;
 	Log();
 
 public:
 
+	enum FormatCzasu{
+		Data,
+		Czas,
+		DataCzas
+	};
+
 	void dodajGniazdoWyjsciowe(shared_ptr<ostream> &t);
+
+	void ustawFormatCzasu( FormatCzasu format );
 
 	static Log& getInstance();
 
@@ -310,5 +318,5 @@ public:
 	*/
 	void debug( const LoggerInterface& p );
 
-	static string getTimeStamp();
+	string getTimeStamp() const;
 };
