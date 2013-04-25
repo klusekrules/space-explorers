@@ -3,6 +3,7 @@
 Testy::Testy(){
 	locale pl ("Polish");
 	locale::global (pl);
+	Aplikacja::getInstance();
 }
 
 
