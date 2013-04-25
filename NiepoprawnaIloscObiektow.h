@@ -6,12 +6,10 @@
 * Wyj¹tek informuje, ze przekazana iloœæ obiektów jest nie poprawna dla danej operacji.
 */
 class NiepoprawnaIloscObiektow :
-	public LoggerInterface<NiepoprawnaIloscObiektow>,
+	virtual public LoggerInterface,
 	public OgolnyWyjatek
 {
 public:
-	typedef LoggerInterface<NiepoprawnaIloscObiektow> LogNiepoprawnaIloscObiektow;
-
 	static const IdType idNiepoprawnaIloscObiektow;
 	
 	NiepoprawnaIloscObiektow( const Tekst& tPlik, const IdType& iLinia, const Ilosc& ilosc );

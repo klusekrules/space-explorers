@@ -80,5 +80,5 @@ Obrazenia::type_name Obrazenia::value() const{
 }
 
 string Obrazenia::toString() const{
-	return Logger::field(className(),obrazenia);
+	return Logger::field(CLASSNAME(Obrazenia),obrazenia);
 } 

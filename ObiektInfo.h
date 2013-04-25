@@ -7,7 +7,7 @@
 
 class ObiektInfo :
 	public ObiektBaseInfo,
-	public LoggerInterface<ObiektInfo>
+	virtual public LoggerInterface
 {
 private:
 	Powierzchnia powierzchnia;
@@ -20,7 +20,6 @@ private:
 	ZmianaInterfejs* zmMasa;
 
 public:
-	typedef LoggerInterface<ObiektInfo> LogObiektInfo;
 	ObiektInfo( const Masa&, const Objetosc&, const Powierzchnia&, const ObiektBaseInfo& ) throw();
 
 	explicit ObiektInfo( ticpp::Node* ) throw(WyjatekParseraXML);

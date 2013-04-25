@@ -53,7 +53,7 @@ bool ZmianaAgregacja::RejestrujZmianaAgregacja(){
 }
 
 string ZmianaAgregacja::toString() const{
-	Logger str(LogZmianaAgregacja::className());
+	Logger str(CLASSNAME(ZmianaAgregacja));
 	str.addClass(ZmianaDekorator::toString());
 	for( auto a : list){
 		if(a.get())

@@ -7,7 +7,7 @@
 #include "WyjatekParseraXML.h"
 
 class Klucz:
-	public LoggerInterface<Klucz>,
+	virtual public LoggerInterface,
 	public BaseInterface< pair < IdType, Poziom > >
 {
 	type_name values;

@@ -27,7 +27,7 @@ Tekst WyjatekParseraXML::generujKomunikat() const{
 }
 
 string WyjatekParseraXML::toString() const{
-	Logger str(LogWyjBibTICPP::className());
+	Logger str(CLASSNAME(WyjatekParseraXML));
 	str.addClass(OgolnyWyjatek::toString());
 	str.addField("Powod",powod);
 	return str.toString();

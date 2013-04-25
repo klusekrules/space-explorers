@@ -12,14 +12,25 @@
 Aplikacja::Aplikacja()
 	: isDbgHelpInit(false), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
 {
+	//Wyswietlanie informacji o aplikacji
+	LogApInfo();
+
+	//Ladowanie potrzebnych bibliotek
 	hLibrary = LoadLibrary("Dbghelp.dll");
-	if(hLibrary){		
+	if(hLibrary){
+		Log::getInstance().info("Za³adowano biblioteke Dbghelp.dll");
 		symInitialize = (SymInitializeS)GetProcAddress(hLibrary,"SymInitialize");
 		symFromAddr = (SymFromAddrS)GetProcAddress(hLibrary,"SymFromAddr");
-		if(symFromAddr && symInitialize)
+		if(symFromAddr && symInitialize){
 			isDbgHelpInit = true;
-		//_set_purecall_handler(myPurecallHandler);
+		}else{
+			Log::getInstance().warn("Nie zanaleziono funkcji SymInitialize i/lub SymFromAddr.");
+		}
+	}else{
+		Log::getInstance().warn("Nie za³adowano biblioteki Dbghelp.dll");
 	}
+	//_set_purecall_handler(myPurecallHandler);
+	//TODO: zaimplementowanie logoowania podczas ka¿dej sytuacji wyj¹tkowej takiej jak wy¿ej
 
 	// Rejestracja zmian w fabryce 
 	ZmianaLiniowa::RejestrujZmianaLiniowa();
@@ -53,7 +64,7 @@ bool Aplikacja::WczytajDane( const string& sFile ){
 		}
 	}catch(ticpp::Exception& e){
 		cout<< e.what();
-		Log::error("Nie uda³o siê otworzyæ pliku!");
+		Log::getInstance().error("Nie uda³o siê otworzyæ pliku!");
 		return false;
 	}
 	return true;
@@ -63,15 +74,15 @@ bool Aplikacja::WczytajSurowce(ticpp::Node* root){
 	ticpp::Node* ptr = nullptr;
 	do{
 		try{
-			ptr = root->IterateChildren(SurowceInfo::LogSurowceInfo::className(),ptr);
+			ptr = root->IterateChildren(CLASSNAME(SurowceInfo),ptr);
 			if(ptr){
 				SurowceInfo* t = new SurowceInfo(ptr);
-				Log::info<SurowceInfo>(*t);
+				Log::getInstance().debug(*t);
 				listaSurowcowInfo[t->ID()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
-			Log::warn(e.generujKomunikat());
-			Log::debug(e);
+			Log::getInstance().warn(e.generujKomunikat());
+			Log::getInstance().debug(e);
 			return false;
 		}
 	}while(ptr);
@@ -82,15 +93,15 @@ bool Aplikacja::WczytajStatki(ticpp::Node* root){
 	ticpp::Node* ptr = nullptr;
 	do{
 		try{
-			ptr = root->IterateChildren(StatekInfo::LogStatekInfo::className(),ptr);
+			ptr = root->IterateChildren(CLASSNAME(StatekInfo),ptr);
 			if(ptr){
 				StatekInfo* t = new StatekInfo(ptr);
-				Log::info<StatekInfo>(*t);
+				Log::getInstance().debug(*t);
 				listaStatkowInfo[t->ID()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
-			Log::warn(e.generujKomunikat());
-			Log::debug(e);
+			Log::getInstance().warn(e.generujKomunikat());
+			Log::getInstance().debug(e);
 			return false;
 		}
 	}while(ptr);

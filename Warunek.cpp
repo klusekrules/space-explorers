@@ -20,7 +20,7 @@ Warunek::Warunek( ticpp::Node* n ) throw(WyjatekParseraXML)
 			auto e = n->FirstChildElement(false);
 			while(e){
 				if(e->Value() == string("Wymog") ){
-					ticpp::Element* firstElement = XmlBO::IterateChildrenElement(e,ObiektBaseInfo::LogObiektBaseInfo::className(),false);
+					ticpp::Element* firstElement = XmlBO::IterateChildrenElement(e,CLASSNAME(ObiektBaseInfo),false);
 					if(firstElement){
 						auto first = shared_ptr<ObiektBaseInfo>(new ObiektBaseInfo(firstElement));
 						auto second = ZmianaFabryka::pobierzInstancje().Tworz(XmlBO::IterateChildrenElement(e,"Zmiana",false));
@@ -83,11 +83,11 @@ shared_ptr< ObiektBaseInfo > Warunek::przeliczWarunek( Item& o , const Poziom& p
 }
 
 string Warunek::toString() const{
-	Logger str(className());
+	Logger str(CLASSNAME(Warunek));
 	for(auto a : warunki){
 		str.startSubClass("Wymog");		
-		str.addField<ObiektBaseInfo>("Wymog",*(a.first));
-		str.addField<ZmianaInterfejs>("Wymog",*(a.second));
+		str.addField("Wymog",*(a.first));
+		str.addField("Wymog",*(a.second));
 		str.endSubClass();
 	}
 	return str.toString();

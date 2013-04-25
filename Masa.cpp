@@ -98,5 +98,5 @@ Masa::type_name Masa::value() const{
 }
 
 string Masa::toString() const{
-	return Logger::field(className(),masa);
+	return Logger::field(CLASSNAME(Masa),masa);
 } 

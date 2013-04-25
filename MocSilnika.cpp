@@ -80,5 +80,5 @@ MocSilnika::type_name MocSilnika::value() const{
 }
 
 string MocSilnika::toString() const{
-	return Logger::field(className(),mocSilnika);
+	return Logger::field(CLASSNAME(MocSilnika),mocSilnika);
 } 

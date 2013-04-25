@@ -8,7 +8,7 @@ JednostkaLatajacaInfo::JednostkaLatajacaInfo( const Info& info,const Klucz& k, c
 }
 
 JednostkaLatajacaInfo::JednostkaLatajacaInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
-	: Info(XmlBO::IterateChildren(n,Info::LogInfo::className())), przyrostMocySilnika(nullptr), przyrostSprawnosciSilnika(nullptr), przyrostZuzyciaPaliwa(nullptr), przyrostMasyNapedu(nullptr)
+	: Info(XmlBO::IterateChildren(n,CLASSNAME(Info))), przyrostMocySilnika(nullptr), przyrostSprawnosciSilnika(nullptr), przyrostZuzyciaPaliwa(nullptr), przyrostMasyNapedu(nullptr)
 {
 	if(n){
 		try{
@@ -63,10 +63,10 @@ Fluktuacja JednostkaLatajacaInfo::getSprawnoscSilnika( const Poziom& p ) const{
 }
 
 string JednostkaLatajacaInfo::toString() const{
-	Logger str(LogJednostkaLatajacaInfo::className());
+	Logger str(CLASSNAME(JednostkaLatajacaInfo));
 	str.addClass(Info::toString());
 	str.addField("RodzajNapedu",rodzajNapedu);
-	str.addField(mocSilnika.className(),mocSilnika);
+	str.addField(CLASSNAME(MocSilnika),mocSilnika);
 	if(przyrostMocySilnika!=nullptr){
 		str.addField("ZmianaMocySilnika",*przyrostMocySilnika);
 	}
@@ -74,7 +74,7 @@ string JednostkaLatajacaInfo::toString() const{
 	if(przyrostSprawnosciSilnika!=nullptr){
 		str.addField("ZmianaSprawnosciSilnika",*przyrostSprawnosciSilnika);
 	}
-	str.addField(zuzyciePaliwa.className(),zuzyciePaliwa);
+	str.addField(CLASSNAME(ZuzyciePaliwa),zuzyciePaliwa);
 	if(przyrostZuzyciaPaliwa!=nullptr){
 		str.addField("ZmianaZuzyciaPaliwa",*przyrostZuzyciaPaliwa);
 	}

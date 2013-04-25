@@ -52,7 +52,7 @@ bool Ladownia::DodajObiektDoLadowni( const Item& obiekt , const Poziom& pz ){
 		obiekty.add(obiekt);
 		przeliczZajeteMiejsce();
 	}catch(OgolnyWyjatek& e){
-		Log::warn(e.generujKomunikat());
+		Log::getInstance().warn(e.generujKomunikat());
 		return false;
 	}
 	return true;		
@@ -179,9 +179,9 @@ Objetosc Ladownia::getPojemnoscMax( const Poziom& pz ) const{
 }
 
 string Ladownia::toString() const{
-	Logger str(className());
+	Logger str(CLASSNAME(Ladownia));
 	str.addField("Zajete Miejsce",zajete);
-	str.addField(obiekty.className(),obiekty);
-	str.addField(LadowniaInfo::LogLadowniaInfo::className()+"ID",ladowniaInfo.getId());
+	str.addField(CLASSNAME(Zbiornik),obiekty);
+	str.addField(CLASSNAME(LadowniaInfo)+"ID",ladowniaInfo.getId());
 	return str.toString();
 }

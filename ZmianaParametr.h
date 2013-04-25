@@ -5,7 +5,7 @@
 #include "parser\ticpp.h"
 
 class ZmianaParametr:
-	public LoggerInterface< ZmianaParametr >
+	virtual public LoggerInterface
 {
 private:
 	IdType idObiektu;

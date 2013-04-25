@@ -29,7 +29,7 @@ Tekst BrakAtrybutuXML::generujKomunikat() const{
 }
 
 string BrakAtrybutuXML::toString() const{
-	Logger str(LogBrakAtrXML::className());	
+	Logger str(CLASSNAME(BrakAtrybutuXML));	
 	str.addClass(WyjatekParseraXML::toString());
 	str.addField("Atrybut",atrybut);
 	return str.toString();

@@ -5,7 +5,7 @@
 #include "Ilosc.h"
 
 class Objetosc:
-	public LoggerInterface<Objetosc>,
+	virtual public LoggerInterface,
 	public BaseInterface<SPG::Objetosc>
 {
 private:

@@ -58,11 +58,11 @@ bool Statek::czMoznaDodacDoLadownii( const Ladownia& c ) const{
 }
 
 string Statek::toString() const{
-	Logger str(LogStatek::className());
+	Logger str(CLASSNAME(Statek));
 	str.addClass(Obiekt::toString());
 	str.addClass(JednostkaAtakujaca::toString());
 	str.addClass(JednostkaLatajaca::toString());
 	str.addClass(Ladownia::toString());
-	str.addField(StatekInfo::LogStatekInfo::className()+"ID",statekinfo.ID());
+	str.addField(CLASSNAME(StatekInfo)+"ID",statekinfo.ID());
 	return str.toString();
 }

@@ -7,7 +7,7 @@ JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const Info& info, const Obrazenia
 {
 }
 JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
-	: Info(XmlBO::IterateChildren(n,Info::LogInfo::className())),zmAtak(nullptr), zmPancerz(nullptr), zmOslona(nullptr)
+	: Info(XmlBO::IterateChildren(n,CLASSNAME(Info))),zmAtak(nullptr), zmPancerz(nullptr), zmOslona(nullptr)
 {
 	if(n){
 		try{
@@ -47,7 +47,7 @@ Obrazenia JednostkaAtakujacaInfo::getOslona(const Poziom& p ) const{
 }
 
 string JednostkaAtakujacaInfo::toString() const{
-	Logger str(LogJednostkaAtakujacaInfo::className());
+	Logger str(CLASSNAME(JednostkaAtakujacaInfo));
 	str.addClass(Info::toString());
 	str.addField("Atak",atak);
 	str.addField("Pancerz",pancerz);

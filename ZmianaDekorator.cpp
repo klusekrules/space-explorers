@@ -31,7 +31,7 @@ ZmianaDekorator* ZmianaDekorator::Kopia()const{
 }
 
 string ZmianaDekorator::toString () const{
-	Logger str(LogZmianaDekorator::className());
+	Logger str(CLASSNAME(ZmianaDekorator));
 	if(next.get())
 		str.addField("Dziecko",*next);
 	return str.toString();

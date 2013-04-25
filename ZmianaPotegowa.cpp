@@ -25,7 +25,7 @@ bool ZmianaPotegowa::RejestrujZmianaPotegowa(){
 }
 
 string ZmianaPotegowa::toString()const{
-	Logger str(LogZmianaPotegowa::className());
+	Logger str(CLASSNAME(ZmianaPotegowa));
 	str.addField("wspolczynnik",wspolczynnik);
 	str.addField("wykladnik",wykladnik);
 	return str.toString();

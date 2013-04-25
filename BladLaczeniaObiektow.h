@@ -5,12 +5,10 @@
 * Wyj¹tek informuje, ¿e nie uda³o sie po³¹czyæ obiektów.
 */
 class BladLaczeniaObiektow :
-	public LoggerInterface<BladLaczeniaObiektow>,
+	virtual public LoggerInterface,
 	public OgolnyWyjatek
 {
 public:
-	typedef LoggerInterface<BladLaczeniaObiektow> LogBladLaczeniaObiektow;
-
 	static const IdType idBladLaczeniaObiektow;
 	
 	BladLaczeniaObiektow( const Tekst& tPlik, const IdType& iLinia, const Tekst& obiektA , const Tekst& obiektB );

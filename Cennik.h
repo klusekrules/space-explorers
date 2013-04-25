@@ -9,11 +9,9 @@
 #include "IdType.h"
 
 class Cennik:
-	public LoggerInterface < Cennik >
+	virtual public LoggerInterface
 {
 public:
-	typedef LoggerInterface < Cennik > LogCennik;
-	
 	typedef vector< shared_ptr<Cena> > Zbiornik;
 	typedef vector< shared_ptr<Surowce> > ListaSurowcow;
 	explicit Cennik( ticpp::Node* ) throw(WyjatekParseraXML);
