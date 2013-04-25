@@ -18,6 +18,11 @@ void main(){
     _CrtSetReportMode( _CRT_ASSERT, _CRTDBG_MODE_FILE );
     _CrtSetReportFile( _CRT_ASSERT, _CRTDBG_FILE_STDOUT );
 
+	/* Ustawianie polskich znaków */
+	locale pl ("Polish");
+	locale::global (pl);
+	/* ------------------------------------ */
+	
 	/* ------- Konfiguracja Loggera -------*/
 	struct tm timeinfo;
 	time_t t = time(nullptr);
@@ -27,15 +32,13 @@ void main(){
 	stringstream sfile;
 	sfile << "space-explorers-" << s << ".log"; 
 	string filename = sfile.str();
-	locale pl ("Polish");
-	locale::global (pl);
 	Log::getInstance().ustawFormatCzasu(Log::Czas);
 	Log::getInstance().dodajGniazdoWyjsciowe(shared_ptr<ostream>(new fstream (filename,ios_base::app)));
 	/* ------------------------------------ */
 
-	Aplikacja::getInstance(); //Inicjalizacja singletona
-
+	/* Wylaczenie logow typu debug na potrzeby ograniczenia logow testow*/
 	Log::getInstance().logDebugDisable();
+	/* ------------------------------------ */
 
 	Testy test;
 	test.run();
