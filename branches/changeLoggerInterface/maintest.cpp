@@ -18,8 +18,22 @@ void main(){
     _CrtSetReportMode( _CRT_ASSERT, _CRTDBG_MODE_FILE );
     _CrtSetReportFile( _CRT_ASSERT, _CRTDBG_FILE_STDOUT );
 
-	Log::getInstance().dodajGniazdoWyjsciowe(shared_ptr<ostream>(new fstream ("file.log",ios_base::app)));
-	Aplikacja::getInstance();//Inicjalizacja singletona
+	/* ------- Konfiguracja Loggera -------*/
+	struct tm timeinfo;
+	time_t t = time(nullptr);
+	localtime_s(&timeinfo, &t);
+	char s[20];
+	strftime(s,20,"%Y-%m-%d",&timeinfo);
+	stringstream sfile;
+	sfile << "space-explorers-" << s << ".log"; 
+	string filename = sfile.str();
+	locale pl ("Polish");
+	locale::global (pl);
+	Log::getInstance().ustawFormatCzasu(Log::Czas);
+	Log::getInstance().dodajGniazdoWyjsciowe(shared_ptr<ostream>(new fstream (filename,ios_base::app)));
+	/* ------------------------------------ */
+
+	Aplikacja::getInstance(); //Inicjalizacja singletona
 
 	Log::getInstance().logDebugDisable();
 

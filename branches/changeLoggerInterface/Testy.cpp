@@ -22,7 +22,7 @@ void Testy::startTest(){
 	bledyGlobal=0;
 	testyGlobal=0;
 	Log::getInstance().info("----------------------------------------------");
-	Log::getInstance().info("              Rozpoczecie testow               ");
+	Log::getInstance().info("              Rozpoczêcie testów               ");
 	Log::getInstance().info("----------------------------------------------");
 }
 
@@ -31,7 +31,7 @@ void Testy::startTestModul(string name){
 	bledy=0;
 	testy=0;
 	Log::getInstance().info("----------------------------------------------");
-	Log::getInstance().info("           Rozpoczecie testow modulu           ");
+	Log::getInstance().info("           Rozpoczêcie testów modu³u           ");
 	Log::getInstance().info(Testy::modulName);
 	Log::getInstance().info("----------------------------------------------");
 }
@@ -68,9 +68,9 @@ bool Testy::assert_true( const Tekst& tPlik, const IdType& iLinia, bool a ){
 
 bool Testy::endTestModul(){	
 	stringstream s;
-	s<<"Liczba Testow: "<<testy<<" , Liczba Bledow: "<<bledy;
+	s<<"Liczba Testów: "<<testy<<" , Liczba B³êdów: "<<bledy;
 	Log::getInstance().info("----------------------------------------------");
-	Log::getInstance().info("           Zakonczenie testow modulu           ");
+	Log::getInstance().info("           Zakoñczenie testów modu³u           ");
 	Log::getInstance().info(modulName);
 	Log::getInstance().info(s.str());
 	Log::getInstance().info("----------------------------------------------");
@@ -81,7 +81,7 @@ bool Testy::endTestModulImidaite(){
 	stringstream s;
 	s<<"Wykryto b³¹d krytyczny.\nPrzerwno dalsze dzia³anie metody testujacej.";
 	Log::getInstance().info("----------------------------------------------");
-	Log::getInstance().info("           Zakonczenie testow modulu           ");
+	Log::getInstance().info("           Zakoñczenie testów modu³u           ");
 	Log::getInstance().info(modulName);
 	Log::getInstance().info(s.str());
 	Log::getInstance().info("----------------------------------------------");
@@ -91,10 +91,10 @@ bool Testy::endTestModulImidaite(){
 
 void Testy::endTest(){
 	stringstream s,t;
-	s<<"Przeprowadzono Testow: "<<testyGlobal<<" , Wykryto Bledow: "<<bledyGlobal;
-	t << "Bledy krytyczne: " << fatalErrorGlobal;
+	s<<"Przeprowadzono Testów: "<<testyGlobal<<" , Wykryto B³êdów: "<<bledyGlobal;
+	t << "B³êdy krytyczne: " << fatalErrorGlobal;
 	Log::getInstance().info("----------------------------------------------");
-	Log::getInstance().info("              Zakonczenie testow               ");
+	Log::getInstance().info("              Zakoñczenie testów               ");
 	Log::getInstance().info(s.str());
 	Log::getInstance().info(t.str());
 	Log::getInstance().info("----------------------------------------------");
@@ -104,13 +104,13 @@ bool Testy::ladowanie_danych()const{
 	/* Generowanie danych */
 
 	//Statek
-	startTestModul("Ladowanie Danych");
+	startTestModul("£adowanie Danych");
 	try{
 		assert_false( EXCEPTION_PLACE , Aplikacja::getInstance().WczytajDane("test.xml") );
 		shared_ptr<Statek> t( this->tworzStatek(Klucz(IdType(1),Poziom(1)),Ilosc(1)));
 		Log::getInstance().debug(*t);
 	}catch(OgolnyWyjatek& e){
-		Log::getInstance().error("Wykryto wyjatek:");
+		Log::getInstance().error("Wykryto wyj¹tek:");
 		Log::getInstance().error(e);
 		return endTestModulImidaite();
 	}
@@ -126,7 +126,7 @@ Statek* Testy::tworzStatek(const Klucz& id,const Ilosc& i)const throw (OgolnyWyj
 		Log::getInstance().debug( "Stworzony obiekt:");
 		Log::getInstance().debug(*s);
 	}else{
-		throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("Tworzenie Obiektu"),Tekst("Nie udalo sie utworzyc obiektu"));
+		throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("Tworzenie Obiektu"),Tekst("Nie uda³o siê utworzyæ obiektu"));
 	}
 	return s;
 }
@@ -140,7 +140,7 @@ Surowce* Testy::tworzSurowce(const Klucz& id,const Ilosc& i)const throw (OgolnyW
 		Log::getInstance().debug( "Stworzony obiekt:");
 		Log::getInstance().debug(*s);
 	}else{
-		throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("Tworzenie Obiektu"),Tekst("Nie udalo sie utworzyc obiektu"));
+		throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("Tworzenie Obiektu"),Tekst("Nie uda³o siê utworzyæ obiektu"));
 	}
 	return s;
 }
@@ -160,7 +160,7 @@ void Testy::run() const{
 		test_wymagan();
 
 	}else{
-		Log::getInstance().warn("Nie mozna kontynuowac testow!");
+		Log::getInstance().warn("Nie mo¿na kontynuowaæ testów!");
 	}
 	endTest();
 }

@@ -17,8 +17,22 @@ void Log::dodajGniazdoWyjsciowe(shared_ptr<ostream> &t){
 }
 
 Log::Log()
-	:blogEnable(true), blogDebugEnable(true), blogInfoEnable(true), blogWarnEnable(true), blogErrorEnable(true)
+	:blogEnable(true), blogDebugEnable(true), blogInfoEnable(true), blogWarnEnable(true), blogErrorEnable(true),formatCzasu("%Y-%m-%d %H:%M:%S")
 {
+}
+
+void Log::ustawFormatCzasu( FormatCzasu format ){
+	switch (format)
+	{
+	case Log::Data: formatCzasu="%Y-%m-%d";
+		break;
+	case Log::Czas: formatCzasu="%H:%M:%S";
+		break;
+	case Log::DataCzas: formatCzasu="%Y-%m-%d %H:%M:%S";
+		break;
+	default:
+		break;
+	}
 }
 
 Log& Log::getInstance(){
@@ -171,7 +185,7 @@ void Log::debug( const LoggerInterface& p ){
 	}
 }
 
-string Log::getTimeStamp(){
+string Log::getTimeStamp() const{
 	steady_clock::time_point t1 = steady_clock::now();
 	steady_clock::duration dtn = t1.time_since_epoch();
 	time_t pSekundy = dtn.count() * steady_clock::period::num / steady_clock::period::den;
@@ -179,7 +193,7 @@ string Log::getTimeStamp(){
 	localtime_s(&timeinfo,&pSekundy);
 	short unsigned int pMilisekundy = static_cast<long long>( dtn.count() * ( static_cast<long double>(steady_clock::period::num) / static_cast<long double>(steady_clock::period::den) ) * 1000 ) % 1000;
 	char s[20];
-	strftime(s,20,"%Y-%m-%d %H:%M:%S",&timeinfo);
+	strftime(s,20,formatCzasu.c_str(),&timeinfo);
 	stringstream str;
 	str << s << "." << setw (3) << setfill ('0') << pMilisekundy;
 	return str.str();
