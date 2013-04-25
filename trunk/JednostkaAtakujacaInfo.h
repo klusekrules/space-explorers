@@ -8,11 +8,9 @@
 
 class JednostkaAtakujacaInfo :
 	public Info,
-	public LoggerInterface < JednostkaAtakujacaInfo >
+	virtual public LoggerInterface
 {
 public:
-	typedef LoggerInterface<JednostkaAtakujacaInfo> LogJednostkaAtakujacaInfo;
-	
 	/**
 	* Konstruktor parametryczny.
 	* \param oAtak - podstawowny atak obiektu

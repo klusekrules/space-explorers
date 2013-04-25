@@ -9,7 +9,7 @@ class WyjatekParseraXML;
 
 class ZmianaLiniowa:
 	public ZmianaInterfejs,
-	public LoggerInterface< ZmianaLiniowa >
+	virtual public LoggerInterface
 {
 private:
 	static const IdType idKlasy;
@@ -22,8 +22,6 @@ public:
 private:
 	ZmianaParametr parametr;
 public:
-	typedef LoggerInterface< ZmianaLiniowa > LogZmianaLiniowa;
-
 	long double value(const long double&, const Poziom&) const override;
 
 	ZmianaLiniowa* Kopia()const override;

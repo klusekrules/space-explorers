@@ -4,12 +4,10 @@
 * Wyj¹tek informuje o braku elementu o podanej masce we wczytanych danych.
 */
 class BrakMaski :
-	public LoggerInterface<BrakMaski>,
+	virtual public LoggerInterface,
 	public WyjatekParseraXML
 {
 public:
-	typedef LoggerInterface<BrakMaski> LogBrakMaski;
-
 	static const IdType idBrakMaski;
 
 	BrakMaski( const Tekst& tPlik, const IdType& iLinia, const Tekst& = Tekst() );

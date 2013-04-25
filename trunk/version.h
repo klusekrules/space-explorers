@@ -1,6 +1,5 @@
 #pragma once
 #include "svn_version.h"
-#include <verrsrc.h>
 
 #define STRINGIZE2(s) #s
 #define STRINGIZE(s) STRINGIZE2(s)
@@ -23,7 +22,12 @@
                                     "." STRINGIZE(VERSION_REVISION) \
                                     "." STRINGIZE(VERSION_BUILD)
  
-#define VER_PRODUCTNAME_STR         "Space Explorers"
+#ifdef _WIN64
+	#define VER_PRODUCTNAME_STR         "Space Explorers (64-bit)"
+#else
+	#define VER_PRODUCTNAME_STR         "Space Explorers (32-bit)"
+#endif
+
 #define VER_PRODUCTINTERNALNAME_STR "SpaceExplorers"
 #define VER_PRODUCT_VERSION         VER_FILE_VERSION
 #define VER_PRODUCT_VERSION_STR     VER_FILE_VERSION_STR
@@ -36,7 +40,9 @@
 #define VER_INTERNAL_NAME_STR       VER_ORIGINAL_FILENAME_STR
  
 #define VER_COPYRIGHT_STR           "Copyright (C) 2012-2013"
- 
+
+#define VER_COMPANY_NAME_STR        "N/A"
+
 #ifdef _DEBUG
   #define VER_VER_DEBUG             VS_FF_DEBUG
 #else

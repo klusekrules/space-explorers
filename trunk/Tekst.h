@@ -3,7 +3,7 @@
 #include "BaseTypes.h"
 
 class Tekst:
-	public LoggerInterface<Tekst>,
+	virtual public LoggerInterface,
 	public BaseInterface<SPG::Tekst>
 {
 private:

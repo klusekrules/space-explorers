@@ -23,7 +23,7 @@ Tekst NieznalezionoObiektu::generujKomunikat() const{
 
 
 string NieznalezionoObiektu::toString() const{
-	Logger str(LogNieznalezionoObiektu::className());	
+	Logger str(CLASSNAME(NieznalezionoObiektu));	
 	str.addClass(OgolnyWyjatek::toString());
 	str.addField("Identyfikator",identyfikator);
 	return str.toString();

@@ -40,8 +40,8 @@ bool Obiekt::czMoznaDodacDoLadownii( const Ladownia& c ) const{
 }
 
 string Obiekt::toString() const{
-	Logger str(LogObiekt::className());
+	Logger str(CLASSNAME(Obiekt));
 	str.addClass(ObiektBase::toString());
-	str.addField(ObiektInfo::LogObiektInfo::className()+"ID",obiektInfoClass.ID());
+	str.addField(CLASSNAME(ObiektInfo)+"ID",obiektInfoClass.ID());
 	return str.toString();
 }

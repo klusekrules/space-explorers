@@ -8,10 +8,9 @@ class ObiektBase;
 
 class ObiektBaseInfo:
 	public Info,
-	public LoggerInterface<ObiektBaseInfo>
+	virtual public LoggerInterface
 {
 public:
-	typedef LoggerInterface<ObiektBaseInfo> LogObiektBaseInfo;
 
 	ObiektBaseInfo( const Info& i , const Poziom& p ) throw();
 

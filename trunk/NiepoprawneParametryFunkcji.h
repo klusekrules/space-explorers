@@ -6,12 +6,10 @@
 * Wyj¹tek informuje, ¿e parametry maj¹ nie poprawne wartoœci.
 */
 class NiepoprawneParametryFunkcji :
-	public LoggerInterface<NiepoprawneParametryFunkcji>,
+	virtual public LoggerInterface,
 	public OgolnyWyjatek
 {
 public:
-	typedef LoggerInterface<NiepoprawneParametryFunkcji> LogNiepoprawneParametryFunkcji;
-
 	static const IdType idNiepoprawneParametryFunkcji;
 		
 	template< class... V >
@@ -38,14 +36,13 @@ public:
 
 private:
 
-	template< class T, class... V >
-	static void step( vector< string >& v, const LoggerInterface<T> &c , const V&... tail ){
+	template< class... V >
+	static void step( vector< string >& v, const LoggerInterface &c , const V&... tail ){
 		v.push_back(c.toString());
 		step(v, tail... );
 	}
-
-	template< class T >
-	static void step( vector< string >& v, const LoggerInterface<T> &c ){
+	
+	static void step( vector< string >& v, const LoggerInterface &c ){
 		v.push_back(c.toString());
 	}
 

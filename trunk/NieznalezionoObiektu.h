@@ -5,12 +5,10 @@
 * Wyj¹tek infomuje, ¿e obiekt nie zosta³ znaleziony.
 */
 class NieznalezionoObiektu :
-	public LoggerInterface<NieznalezionoObiektu>,
+	virtual public LoggerInterface,
 	public OgolnyWyjatek
 {
 public:
-	typedef LoggerInterface<NieznalezionoObiektu> LogNieznalezionoObiektu;
-
 	static const IdType idNieznalezionoObiektu;
 
 	NieznalezionoObiektu(const Tekst& tPlik, const IdType& iLinia, const Tekst& tNazwa);

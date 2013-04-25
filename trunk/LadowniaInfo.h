@@ -7,7 +7,7 @@
 
 class LadowniaInfo :
 	public Info,
-	public LoggerInterface<LadowniaInfo>
+	virtual public LoggerInterface
 {
 private:
 	
@@ -15,8 +15,6 @@ private:
 	ZmianaInterfejs* przyrostPojemnoscMax;
 
 public:
-	typedef LoggerInterface<LadowniaInfo> LogLadowniaInfo;
-
 	LadowniaInfo( const Objetosc& max, const Info& i ) throw();
 
 	explicit LadowniaInfo( ticpp::Node* ) throw(WyjatekParseraXML);

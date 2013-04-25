@@ -5,12 +5,10 @@
 * Wyj¹tek informuje, ¿e klasa zosta³a niepoprawnie zainicjalizowana lub w ogóle nie zosta³a zainicjalizowana.
 */
 class NiezainicjalizowanaKlasa :
-	public LoggerInterface<NiezainicjalizowanaKlasa>,
+	virtual public LoggerInterface,
 	public OgolnyWyjatek
 {
 public:
-	typedef LoggerInterface<NiezainicjalizowanaKlasa> LogNiezainicjalizowanaKlasa;
-
 	static const IdType idNiezainicjalizowanaKlasa;
 
 	NiezainicjalizowanaKlasa(const Tekst& tPlik, const IdType& iLinia, const Tekst& tNazwa);

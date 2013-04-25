@@ -5,7 +5,7 @@
 #include "Ilosc.h"
 
 class Masa:
-	public LoggerInterface<Masa>,
+	virtual public LoggerInterface,
 	public BaseInterface<SPG::Masa>
 {
 private:

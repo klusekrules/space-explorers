@@ -8,7 +8,7 @@
 
 class ZmianaDekorator:
 	public ZmianaInterfejs,
-	public LoggerInterface<ZmianaDekorator>
+	virtual public LoggerInterface
 {
 private:
 	static const IdType idKlasy;
@@ -21,9 +21,7 @@ public:
 private:
 	shared_ptr<ZmianaInterfejs> next;
 
-public:
-	typedef LoggerInterface<ZmianaDekorator> LogZmianaDekorator;
-	
+public:	
 	long double value( const long double& , const Poziom&)const override;
 
 	explicit ZmianaDekorator( const ticpp::Element* e );

@@ -1,13 +1,10 @@
 #pragma once
 
 #include <string>
-#include <time.h>
-#include <iostream>
-#include <chrono>
-#include <iomanip>
-#include <sstream>
+#include <vector>
+#include <memory>
 using namespace std;
-using namespace std::chrono;
+
 #include "LoggerInterface.h"
 
 /**
@@ -25,17 +22,35 @@ class Log
 {
 private:
 
+	vector< shared_ptr<ostream> > outstream;
+
 	/**
 	* Funkcja wysy³aj¹ca napis do strumienia.
 	* \param p Napis wysy³any do strumienia.
 	*/
-	static void print( const string& p );
-	static bool blogEnable; /**< Zmmienna blokuj¹ca wysy³anie wszystkich komunikatów do strumienia */
-	static bool blogDebugEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Debug do strumienia */
-	static bool blogInfoEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Info do strumienia */
-	static bool blogWarnEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Warning do strumienia */
-	static bool blogErrorEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Error do strumienia */
+	void print( const string& p );
+
+	bool blogEnable; /**< Zmmienna blokuj¹ca wysy³anie wszystkich komunikatów do strumienia */
+	bool blogDebugEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Debug do strumienia */
+	bool blogInfoEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Info do strumienia */
+	bool blogWarnEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Warning do strumienia */
+	bool blogErrorEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Error do strumienia */
+	string formatCzasu;
+	Log();
+
 public:
+
+	enum FormatCzasu{
+		Data,
+		Czas,
+		DataCzas
+	};
+
+	void dodajGniazdoWyjsciowe(shared_ptr<ostream> &t);
+
+	void ustawFormatCzasu( FormatCzasu format );
+
+	static Log& getInstance();
 
 	/**
 	* Funkcja informuj¹ca czy wysy³anie logów jest odblokowane
@@ -47,9 +62,7 @@ public:
 	* \sa logEnable()
 	* \sa logDisable()
 	*/
-	static bool isLogEnable(){
-		return blogEnable;
-	}
+	bool isLogEnable()const;
 
 	/**
 	* Funkcja informuj¹ca czy wysy³anie logów typu Debug jest odblokowane
@@ -61,9 +74,7 @@ public:
 	* \sa logDebugEnable()
 	* \sa logDebugDisable()
 	*/
-	static bool isLogDebugEnable(){
-		return blogEnable ? blogDebugEnable : false;
-	}
+	bool isLogDebugEnable()const;
 
 	/**
 	* Funkcja informuj¹ca czy wysy³anie logów typu Info jest odblokowane
@@ -75,9 +86,7 @@ public:
 	* \sa logInfoEnable()
 	* \sa logInfoDisable()
 	*/
-	static bool isLogInfoEnable(){
-		return blogEnable ? blogInfoEnable : false;
-	}
+	bool isLogInfoEnable()const;
 
 	/**
 	* Funkcja informuj¹ca czy wysy³anie logów typu Warning jest odblokowane
@@ -89,9 +98,7 @@ public:
 	* \sa logWarnEnable()
 	* \sa logWarnDisable()
 	*/
-	static bool isLogWarnEnable(){
-		return blogEnable ? blogWarnEnable : false;
-	}
+	bool isLogWarnEnable()const;
 
 	/**
 	* Funkcja informuj¹ca czy wysy³anie logów typu Error jest odblokowane
@@ -103,9 +110,7 @@ public:
 	* \sa logErrorEnable()
 	* \sa logErrorDisable()
 	*/
-	static bool isLogErrorEnable(){
-		return blogEnable ? blogErrorEnable : false;
-	}
+	bool isLogErrorEnable()const;
 
 	/**
 	* Odblokowanie wysy³ania logów do strumienia.
@@ -116,9 +121,7 @@ public:
 	* \sa logErrorEnable()
 	* \sa isLogEnable()
 	*/
-	static void logEnable(){
-		blogEnable = true;
-	}
+	void logEnable();
 	
 	/**
 	* Zablokowanie wysy³ania logów do strumienia.
@@ -129,9 +132,7 @@ public:
 	* \sa logErrorDisable()
 	* \sa isLogEnable()
 	*/
-	static void logDisable(){
-		blogEnable = false;
-	}
+	void logDisable();
 
 	/**
 	* Odblokowanie wysy³ania logów typu Debug do strumienia.
@@ -144,9 +145,7 @@ public:
 	* \sa debug( string p )
 	* \sa debug( LoggerInterface<T> &p )
 	*/
-	static void logDebugEnable(){
-		blogDebugEnable = true;
-	}
+	void logDebugEnable();
 	
 	/**
 	* Zablokowanie wysy³ania logów typu Debug do strumienia.
@@ -159,9 +158,7 @@ public:
 	* \sa debug( string p )
 	* \sa debug( LoggerInterface<T> &p )
 	*/
-	static void logDebugDisable(){
-		blogDebugEnable = false;
-	}
+	void logDebugDisable();
 
 	/**
 	* Odblokowanie wysy³ania logów typu Info do strumienia.
@@ -174,9 +171,7 @@ public:
 	* \sa debug( string p )
 	* \sa debug( LoggerInterface<T> &p )
 	*/
-	static void logInfoEnable(){
-		blogInfoEnable = true;
-	}
+	void logInfoEnable();
 	
 	/**
 	* Zablokowanie wysy³ania logów typu Info do strumienia.
@@ -189,9 +184,7 @@ public:
 	* \sa debug( string p )
 	* \sa debug( LoggerInterface<T> &p )
 	*/
-	static void logInfoDisable(){
-		blogInfoEnable = false;
-	}
+	void logInfoDisable();
 
 	/**
 	* Odblokowanie wysy³ania logów typu Warning do strumienia.
@@ -204,9 +197,7 @@ public:
 	* \sa warn( string p )
 	* \sa warn( LoggerInterface<T> &p )
 	*/
-	static void logWarnEnable(){
-		blogWarnEnable = true;
-	}
+	void logWarnEnable();
 	
 	/**
 	* Zablokowanie wysy³ania logów typu Warning do strumienia.
@@ -219,9 +210,7 @@ public:
 	* \sa warn( string p )
 	* \sa warn( LoggerInterface<T> &p )
 	*/
-	static void logWarnDisable(){
-		blogWarnEnable = false;
-	}
+	void logWarnDisable();
 
 	/**
 	* Odblokowanie wysy³ania logów typu Error do strumienia.
@@ -234,9 +223,7 @@ public:
 	* \sa error( string p )
 	* \sa error( LoggerInterface<T> &p )
 	*/
-	static void logErrorEnable(){
-		blogErrorEnable = true;
-	}
+	void logErrorEnable();
 	
 	/**
 	* Zablokowanie wysy³ania logów typu Error do strumienia.
@@ -249,9 +236,7 @@ public:
 	* \sa error( string p )
 	* \sa error( LoggerInterface<T> &p )
 	*/
-	static void logErrorDisable(){
-		blogErrorEnable = false;
-	}
+	void logErrorDisable();
 
 	/**
 	* Funkcja wysy³aj¹ca komunikat typu Info do strumienia.
@@ -261,14 +246,7 @@ public:
 	* \sa logInfoDisable()
 	* \sa isLogInfoEnable()
 	*/
-	static void info( const string& p ){
-		if(blogEnable && blogInfoEnable){
-			print(getTimeStamp());
-			print(" [INFO] ");
-			print(p);
-			print("\n");
-		}
-	}
+	void info( const string& p );
 
 	/**
 	* Funkcja wysy³aj¹ca komunikat typu Info do strumienia.
@@ -278,15 +256,7 @@ public:
 	* \sa logInfoDisable()
 	* \sa isLogInfoEnable()
 	*/
-	template< typename T >
-	static void info( const LoggerInterface<T> &p ){
-		if(blogEnable && blogInfoEnable){
-			print(getTimeStamp());
-			print(" [INFO] ");
-			print(p.toString());
-			print("\n");
-		}
-	}
+	void info( const LoggerInterface& p );
 
 	/**
 	* Funkcja wysy³aj¹ca komunikat typu Warning do strumienia.
@@ -296,14 +266,7 @@ public:
 	* \sa logWarnDisable()
 	* \sa isLogWarnEnable()
 	*/
-	static void warn( const string& p ){
-		if(blogEnable && blogWarnEnable){
-			print(getTimeStamp());
-			print(" [WARN] ");
-			print(p);
-			print("\n");
-		}
-	}
+	void warn( const string& p );
 
 	/**
 	* Funkcja wysy³aj¹ca komunikat typu Warning do strumienia.
@@ -313,15 +276,7 @@ public:
 	* \sa logWarnDisable()
 	* \sa isLogWarnEnable()
 	*/
-	template< typename T >
-	static void warn( const LoggerInterface<T> &p ){
-		if(blogEnable && blogWarnEnable){
-			print(getTimeStamp());
-			print(" [WARN] ");
-			print(p.toString());
-			print("\n");
-		}
-	}
+	void warn( const LoggerInterface& p );
 
 	/**
 	* Funkcja wysy³aj¹ca komunikat typu Error do strumienia.
@@ -331,14 +286,7 @@ public:
 	* \sa logErrorDisable()
 	* \sa isLogErrorEnable()
 	*/
-	static void error( const string& p ){
-		if(blogEnable && blogErrorEnable){
-			print(getTimeStamp());
-			print(" [ERROR] ");
-			print(p);
-			print("\n");
-		}
-	}
+	void error( const string& p );
 
 	/**
 	* Funkcja wysy³aj¹ca komunikat typu Error do strumienia.
@@ -348,15 +296,7 @@ public:
 	* \sa logErrorDisable()
 	* \sa isLogErrorEnable()
 	*/
-	template< typename T >
-	static void error( const LoggerInterface<T> &p ){
-		if(blogEnable && blogErrorEnable){
-			print(getTimeStamp());
-			print(" [ERROR] ");
-			print(p.toString());
-			print("\n");
-		}
-	}
+	void error( const LoggerInterface& p );
 
 	/**
 	* Funkcja wysy³aj¹ca komunikat typu Debug do strumienia.
@@ -366,14 +306,7 @@ public:
 	* \sa logDebugDisable()
 	* \sa isLogDebugEnable()
 	*/
-	static void debug( const string& p ){
-		if(blogEnable && blogDebugEnable){
-			print(getTimeStamp());
-			print(" [DEBUG] ");
-			print(p);
-			print("\n");
-		}
-	}
+	void debug( const string& p );
 
 	/**
 	* Funkcja wysy³aj¹ca komunikat typu Debug do strumienia.
@@ -383,27 +316,7 @@ public:
 	* \sa logDebugDisable()
 	* \sa isLogDebugEnable()
 	*/
-	template< typename T >
-	static void debug( const LoggerInterface<T> &p ){
-		if(blogEnable && blogDebugEnable){
-			print(getTimeStamp());
-			print(" [DEBUG] ");
-			print(p.toString());
-			print("\n");
-		}
-	}
+	void debug( const LoggerInterface& p );
 
-	static string getTimeStamp(){
-		steady_clock::time_point t1 = steady_clock::now();
-		steady_clock::duration dtn = t1.time_since_epoch();
-		time_t pSekundy = dtn.count() * steady_clock::period::num / steady_clock::period::den;
-		struct tm timeinfo;
-		localtime_s(&timeinfo,&pSekundy);
-		short unsigned int pMilisekundy = static_cast<long long>( dtn.count() * ( static_cast<long double>(steady_clock::period::num) / static_cast<long double>(steady_clock::period::den) ) * 1000 ) % 1000;
-		char s[20];
-		strftime(s,20,"%Y-%m-%d %H:%M:%S",&timeinfo);
-		stringstream str;
-		str << s << "." << setw (3) << setfill ('0') << pMilisekundy;
-		return str.str();
-	}
+	string getTimeStamp() const;
 };

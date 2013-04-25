@@ -3,7 +3,7 @@
 #include "BaseTypes.h"
 
 class Dystans:
-	public LoggerInterface<Dystans>,
+	virtual public LoggerInterface,
 	public BaseInterface<SPG::Dystans>
 {
 private:

@@ -96,5 +96,5 @@ Powierzchnia::type_name Powierzchnia::value() const{
 }
 
 string Powierzchnia::toString() const{
-	return Logger::field(className(),powierzchnia);
+	return Logger::field(CLASSNAME(Powierzchnia),powierzchnia);
 } 

@@ -10,7 +10,7 @@ class ObiektBaseInfo;
 class WyjatekParseraXML;
 
 class Warunek :
-	public LoggerInterface< Warunek >
+	virtual public LoggerInterface
 {
 public:
 	typedef pair < shared_ptr< ObiektBaseInfo > , shared_ptr< ZmianaInterfejs > > Item;

@@ -7,7 +7,7 @@ Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const IdType& id , const W
 {
 }
 Info::Info( ticpp::Node* n ) throw(WyjatekParseraXML)
-	: Base( n ) , Wymagania( XmlBO::IterateChildren(n,Wymagania::LogWymagania::className(),false)  )
+	: Base( n ) , Wymagania( XmlBO::IterateChildren(n,CLASSNAME(Wymagania),false)  )
 {
 	if(n){
 		try{
@@ -40,7 +40,7 @@ void Info::setOpis( const Tekst& tOpis ){
 }
 
 string Info::toString() const{
-	Logger str(LogInfo::className());
+	Logger str(CLASSNAME(Info));
 	str.addClass(Base::toString());
 	str.addClass(Wymagania::toString());
 	str.addField("Nazwa",nazwa);

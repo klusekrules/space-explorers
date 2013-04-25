@@ -7,15 +7,16 @@
 template< class Klucz, class Wartosc >
 class Mapa:
 	public Base,
-	public LoggerInterface< Mapa< Klucz, Wartosc > >,
+	virtual public LoggerInterface,
 	public hash_map<Klucz,Wartosc* >
 {
 	static_assert(!is_pointer< Klucz >::value, "Klucz nie moze byc wskaznikiem.");
 	static_assert(!is_pointer< Wartosc >::value, "Wartosc nie moze byc wskaznikiem.");
+private:
+	typedef Mapa<Klucz,Wartosc > TYP;
 public:
-	typedef LoggerInterface< Mapa< Klucz, Wartosc > > LogMapa;
 	typedef hash_map<Klucz,Wartosc* > HashMapa;
-	
+
 	explicit Mapa( const IdType& id )
 		: Base(id), hash_map()
 	{
@@ -53,11 +54,11 @@ public:
 	}
 
 	string toString() const override{
-		Logger str(LogMapa::className());
+		Logger str(CLASSNAME( TYP ));
 		str.addClass(Base::toString());
 		str.startSubClass("hash_map");
 		for(const_iterator iter=begin(); iter!=end(); ++iter){
-			str.addField<Klucz,Wartosc>( "", (*iter).first , *( (*iter).second ) );
+			str.addField( "", (*iter).first , *( (*iter).second ) );
 		}
 		str.endSubClass();
 		return str.toString();

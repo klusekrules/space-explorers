@@ -3,7 +3,7 @@
 #include "BaseTypes.h"
 
 class ZuzyciePaliwa:
-	public LoggerInterface<ZuzyciePaliwa>,
+	virtual public LoggerInterface,
 	public BaseInterface<SPG::ZuzyciePaliwa>
 {
 private:

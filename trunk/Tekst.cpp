@@ -59,7 +59,7 @@ Tekst::type_name Tekst::value()const{
 }
 
 string Tekst::toString()const {
-	return Logger::field(className(),dodajCudzyslow());
+	return Logger::field(CLASSNAME(Tekst),dodajCudzyslow());
 }
 
 

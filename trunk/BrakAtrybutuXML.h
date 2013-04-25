@@ -5,12 +5,10 @@
 * Wyj¹tek s³u¿y do informowania, ¿e w pliku xml w aktualnej ga³êzi nie ma podanego atrybutu.
 */
 class BrakAtrybutuXML :
-	public LoggerInterface<BrakAtrybutuXML>,
+	virtual public LoggerInterface,
 	public WyjatekParseraXML
 {
 public:
-	typedef LoggerInterface<BrakAtrybutuXML> LogBrakAtrXML;
-
 	static const IdType idBrakAtrybutuXML;
 	
 	BrakAtrybutuXML( const Tekst& tPlik, const IdType& iLinia, const Tekst& = Tekst() );

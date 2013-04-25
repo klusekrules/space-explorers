@@ -3,7 +3,7 @@
 #include "BaseTypes.h"
 
 class Poziom:	
-	public LoggerInterface<Poziom>,
+	virtual public LoggerInterface,
 	public BaseInterface<SPG::Poziom>
 {
 private:

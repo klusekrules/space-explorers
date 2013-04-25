@@ -25,7 +25,7 @@ bool ZmianaLiniowa::RejestrujZmianaLiniowa(){
 }
 
 string ZmianaLiniowa::toString()const{
-	Logger str(LogZmianaLiniowa::className());
+	Logger str(CLASSNAME(ZmianaLiniowa));
 	str.addField("Parametr",parametr);
 	return str.toString();
 }

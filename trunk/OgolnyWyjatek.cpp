@@ -63,7 +63,7 @@ void OgolnyWyjatek::ustawSzczegoly( const Tekst& tPlik, const IdType& iLinia ){
 }
 
 string OgolnyWyjatek::toString() const{
-	Logger str(className());
+	Logger str(CLASSNAME(OgolnyWyjatek));
 	str.addField("ID", numerWyjatku);
 	str.addField("Tytul", tytul);
 	str.addField("Tresc", tresc);

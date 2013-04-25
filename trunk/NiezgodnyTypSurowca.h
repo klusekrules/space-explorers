@@ -5,11 +5,10 @@
 * Porównywane surowce maj¹ ró¿ne typy.
 */
 class NiezgodnyTypSurowca :
-	public LoggerInterface<NiezgodnyTypSurowca>,
+	virtual public LoggerInterface,
 	public OgolnyWyjatek
 {
 public:
-	typedef LoggerInterface<NiezgodnyTypSurowca> LogNieTypSur;
 
 	static const IdType idNiezgodnyTypSurowca;
 	

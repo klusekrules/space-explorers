@@ -9,7 +9,7 @@ ObiektBaseInfo::ObiektBaseInfo(const Info& i , const Poziom& p) throw()
 }
 
 ObiektBaseInfo::ObiektBaseInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
-	: Info(XmlBO::IterateChildren(n,Info::LogInfo::className()))
+	: Info(XmlBO::IterateChildren(n,CLASSNAME(Info)))
 {
 	if(n){
 		try{
@@ -37,8 +37,8 @@ Klucz ObiektBaseInfo::ID() const{
 }
 
 string ObiektBaseInfo::toString() const{
-	Logger str(LogObiektBaseInfo::className());
+	Logger str(CLASSNAME(ObiektBaseInfo));
 	str.addClass(Info::toString());	
-	str.addField(poziom.className(),poziom);
+	str.addField(CLASSNAME(Poziom),poziom);
 	return str.toString();
 }

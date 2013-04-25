@@ -9,7 +9,7 @@
 
 template < class T >
 class ObiektList:
-	public LoggerInterface<ObiektList<T>>
+	virtual public LoggerInterface
 {
 	static_assert(is_base_of< ObiektBase , T >::value, "Uzyto typ niezgodny z ObiektBase* ");
 public:
@@ -107,7 +107,7 @@ public:
 	}
 
 	string toString() const override{
-		Logger str(className());
+		Logger str(CLASSNAME(ObiektList<T>));
 		str.addField("Lista Obiektow",lista);
 		return str.toString();
 	}
@@ -164,7 +164,7 @@ public:
 				throw;
 			}
 		}catch( OgolnyWyjatek& e ){
-			Log::warn(e.generujKomunikat());
+			Log::getInstance().warn(e.generujKomunikat());
 			return false;
 		}
 		return true;
@@ -185,7 +185,7 @@ public:
 				throw;
 			}
 		}catch( OgolnyWyjatek e ){
-			Log::warn(e.generujKomunikat());
+			Log::getInstance().warn(e.generujKomunikat());
 			return false;
 		}
 		return true;

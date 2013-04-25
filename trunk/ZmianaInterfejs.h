@@ -3,10 +3,9 @@
 #include "Poziom.h"
 
 class ZmianaInterfejs: 
-	public LoggerInterface<ZmianaInterfejs>
+	virtual public LoggerInterface
 {
 public:
-	typedef LoggerInterface<ZmianaInterfejs> LogZmianaInterfejs;
 	virtual long double value(const long double&, const Poziom&) const = 0;
 	virtual ZmianaInterfejs* Kopia() const = 0;
 	ZmianaInterfejs();

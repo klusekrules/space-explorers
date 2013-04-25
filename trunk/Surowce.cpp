@@ -153,9 +153,9 @@ bool Surowce::czMoznaDodacDoLadownii( const Ladownia& c ) const{
 }
 	
 string Surowce::toString() const{
-	Logger str(LogSurowce::className());
-	str.addField(ilosc.className(),ilosc);
-	str.addClass(Obiekt::toString());	
-	str.addField(SurowceInfo::LogSurowceInfo::className()+"ID",surowceInfo.ID());
+	Logger str(CLASSNAME(Surowce));
+	str.addClass(Obiekt::toString());
+	str.addField(CLASSNAME(Ilosc),ilosc);
+	str.addField(CLASSNAME(SurowceInfo)+"ID",surowceInfo.ID());
 	return str.toString();
 }
