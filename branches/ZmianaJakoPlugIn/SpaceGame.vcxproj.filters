@@ -1,0 +1,567 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Surowce.cpp">
+      <Filter>SourceFile\Surowce</Filter>
+    </ClCompile>
+    <ClCompile Include="SurowceInfo.cpp">
+      <Filter>SourceFile\Surowce</Filter>
+    </ClCompile>
+    <ClCompile Include="NiezgodnyTypSurowca.cpp">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClCompile>
+    <ClCompile Include="BrakAtrybutuXML.cpp">
+      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
+    </ClCompile>
+    <ClCompile Include="BrakMaski.cpp">
+      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
+    </ClCompile>
+    <ClCompile Include="Ladownia.cpp">
+      <Filter>SourceFile\Flota\Ladownia</Filter>
+    </ClCompile>
+    <ClCompile Include="LadowniaInfo.cpp">
+      <Filter>SourceFile\Flota\Ladownia</Filter>
+    </ClCompile>
+    <ClCompile Include="Statek.cpp">
+      <Filter>SourceFile\Flota\Statek</Filter>
+    </ClCompile>
+    <ClCompile Include="StatekInfo.cpp">
+      <Filter>SourceFile\Flota\Statek</Filter>
+    </ClCompile>
+    <ClCompile Include="Obiekt.cpp">
+      <Filter>SourceFile\BaseClass\Obiekt</Filter>
+    </ClCompile>
+    <ClCompile Include="Base.cpp">
+      <Filter>SourceFile\BaseClass\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ObiektBase.cpp">
+      <Filter>SourceFile\BaseClass\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>SourceFile\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="Poziom.cpp">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Ilosc.cpp">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Tekst.cpp">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Klucz.cpp">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Fluktuacja.cpp">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="IdType.cpp">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Info.cpp">
+      <Filter>SourceFile\BaseClass\Info</Filter>
+    </ClCompile>
+    <ClCompile Include="Powierzchnia.cpp">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Masa.cpp">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Objetosc.cpp">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Dystans.cpp">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Predkosc.cpp">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="MocSilnika.cpp">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Obrazenia.cpp">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="ZuzyciePaliwa.cpp">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>SourceFile\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="JednostkaAtakujaca.cpp">
+      <Filter>SourceFile\Flota\JednostkaAtakujaca</Filter>
+    </ClCompile>
+    <ClCompile Include="JednostkaAtakujacaInfo.cpp">
+      <Filter>SourceFile\Flota\JednostkaAtakujaca</Filter>
+    </ClCompile>
+    <ClCompile Include="JednostkaLatajaca.cpp">
+      <Filter>SourceFile\Flota\JednostkaLatajaca</Filter>
+    </ClCompile>
+    <ClCompile Include="JednostkaLatajacaInfo.cpp">
+      <Filter>SourceFile\Flota\JednostkaLatajaca</Filter>
+    </ClCompile>
+    <ClCompile Include="WyjatekParseraXML.cpp">
+      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
+    </ClCompile>
+    <ClCompile Include="BladLaczeniaObiektow.cpp">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClCompile>
+    <ClCompile Include="BladDzieleniaLadowni.cpp">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClCompile>
+    <ClCompile Include="NiepoprawneParametryFunkcji.cpp">
+      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
+    </ClCompile>
+    <ClCompile Include="NiezainicjalizowanaKlasa.cpp">
+      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
+    </ClCompile>
+    <ClCompile Include="NieznalezionoObiektu.cpp">
+      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
+    </ClCompile>
+    <ClCompile Include="NiepoprawnaIloscObiektow.cpp">
+      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
+    </ClCompile>
+    <ClCompile Include="OgolnyWyjatek.cpp">
+      <Filter>SourceFile\Wyjatki\KlasaBazowa</Filter>
+    </ClCompile>
+    <ClCompile Include="WyjatekSTL.cpp">
+      <Filter>SourceFile\Wyjatki\KlasaBazowa</Filter>
+    </ClCompile>
+    <ClCompile Include="Aplikacja.cpp">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClCompile>
+    <ClCompile Include="maintest.cpp">
+      <Filter>SourceFile\Testy</Filter>
+    </ClCompile>
+    <ClCompile Include="Testy.cpp">
+      <Filter>SourceFile\Testy</Filter>
+    </ClCompile>
+    <ClCompile Include="ObiektInfo.cpp">
+      <Filter>SourceFile\BaseClass\Obiekt</Filter>
+    </ClCompile>
+    <ClCompile Include="ObiektBaseInfo.cpp">
+      <Filter>SourceFile\BaseClass\Info</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaLiniowa.cpp">
+      <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaAgregacja.cpp">
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaFabryka.cpp">
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaParametr.cpp">
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
+    </ClCompile>
+    <ClCompile Include="Parametr.cpp">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaInterfejs.cpp">
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaDekorator.cpp">
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaPotegowa.cpp">
+      <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
+    </ClCompile>
+    <ClCompile Include="Bool.cpp">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Wymagania.cpp">
+      <Filter>SourceFile\Wymagania</Filter>
+    </ClCompile>
+    <ClCompile Include="Cennik.cpp">
+      <Filter>SourceFile\Wymagania</Filter>
+    </ClCompile>
+    <ClCompile Include="Cena.cpp">
+      <Filter>SourceFile\Wymagania\Cena</Filter>
+    </ClCompile>
+    <ClCompile Include="Warunek.cpp">
+      <Filter>SourceFile\Wymagania\Warunek</Filter>
+    </ClCompile>
+    <ClCompile Include="Wyjatki.cpp">
+      <Filter>SourceFile\DomysleWartosci</Filter>
+    </ClCompile>
+    <ClCompile Include="Stale.cpp">
+      <Filter>SourceFile\DomysleWartosci</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaIdKlas.cpp">
+      <Filter>SourceFile\DomysleWartosci</Filter>
+    </ClCompile>
+    <ClCompile Include="ApInfo.cpp">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SurowceInfo.h">
+      <Filter>SourceFile\Surowce</Filter>
+    </ClInclude>
+    <ClInclude Include="Surowce.h">
+      <Filter>SourceFile\Surowce</Filter>
+    </ClInclude>
+    <ClInclude Include="parser\ticpp.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="parser\ticpprc.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="parser\tinystr.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="parser\tinyxml.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="NiezgodnyTypSurowca.h">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClInclude>
+    <ClInclude Include="BrakAtrybutuXML.h">
+      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
+    </ClInclude>
+    <ClInclude Include="BrakMaski.h">
+      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
+    </ClInclude>
+    <ClInclude Include="Ladownia.h">
+      <Filter>SourceFile\Flota\Ladownia</Filter>
+    </ClInclude>
+    <ClInclude Include="LadowniaInfo.h">
+      <Filter>SourceFile\Flota\Ladownia</Filter>
+    </ClInclude>
+    <ClInclude Include="Statek.h">
+      <Filter>SourceFile\Flota\Statek</Filter>
+    </ClInclude>
+    <ClInclude Include="StatekInfo.h">
+      <Filter>SourceFile\Flota\Statek</Filter>
+    </ClInclude>
+    <ClInclude Include="Obiekt.h">
+      <Filter>SourceFile\BaseClass\Obiekt</Filter>
+    </ClInclude>
+    <ClInclude Include="Base.h">
+      <Filter>SourceFile\BaseClass\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ObiektBase.h">
+      <Filter>SourceFile\BaseClass\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>SourceFile\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="LoggerInterface.h">
+      <Filter>SourceFile\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="IdType.h">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseTypes.h">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseInterface.h">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Poziom.h">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Ilosc.h">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Tekst.h">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Klucz.h">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Fluktuacja.h">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Mapa.h">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Info.h">
+      <Filter>SourceFile\BaseClass\Info</Filter>
+    </ClInclude>
+    <ClInclude Include="Powierzchnia.h">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Masa.h">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Objetosc.h">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Dystans.h">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Predkosc.h">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="MocSilnika.h">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Obrazenia.h">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="ZuzyciePaliwa.h">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>SourceFile\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="JednostkaAtakujaca.h">
+      <Filter>SourceFile\Flota\JednostkaAtakujaca</Filter>
+    </ClInclude>
+    <ClInclude Include="JednostkaAtakujacaInfo.h">
+      <Filter>SourceFile\Flota\JednostkaAtakujaca</Filter>
+    </ClInclude>
+    <ClInclude Include="JednostkaLatajacaInfo.h">
+      <Filter>SourceFile\Flota\JednostkaLatajaca</Filter>
+    </ClInclude>
+    <ClInclude Include="JednostkaLatajaca.h">
+      <Filter>SourceFile\Flota\JednostkaLatajaca</Filter>
+    </ClInclude>
+    <ClInclude Include="WyjatekParseraXML.h">
+      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
+    </ClInclude>
+    <ClInclude Include="BladLaczeniaObiektow.h">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClInclude>
+    <ClInclude Include="ObiektList.hpp">
+      <Filter>SourceFile\BaseClass\Obiekt</Filter>
+    </ClInclude>
+    <ClInclude Include="BladDzieleniaLadowni.h">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClInclude>
+    <ClInclude Include="NiepoprawneParametryFunkcji.h">
+      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
+    </ClInclude>
+    <ClInclude Include="NiezainicjalizowanaKlasa.h">
+      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
+    </ClInclude>
+    <ClInclude Include="NieznalezionoObiektu.h">
+      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
+    </ClInclude>
+    <ClInclude Include="NiepoprawnaIloscObiektow.h">
+      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
+    </ClInclude>
+    <ClInclude Include="OgolnyWyjatek.h">
+      <Filter>SourceFile\Wyjatki\KlasaBazowa</Filter>
+    </ClInclude>
+    <ClInclude Include="WyjatekSTL.h">
+      <Filter>SourceFile\Wyjatki\KlasaBazowa</Filter>
+    </ClInclude>
+    <ClInclude Include="Aplikacja.h">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClInclude>
+    <ClInclude Include="Testy.h">
+      <Filter>SourceFile\Testy</Filter>
+    </ClInclude>
+    <ClInclude Include="Biblioteki.h">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClInclude>
+    <ClInclude Include="MakeVector.h">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClInclude>
+    <ClInclude Include="ObiektInfo.h">
+      <Filter>SourceFile\BaseClass\Obiekt</Filter>
+    </ClInclude>
+    <ClInclude Include="ObiektBaseInfo.h">
+      <Filter>SourceFile\BaseClass\Info</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="afxres.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="svn_version.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="version.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="XmlBO.h">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaLiniowa.h">
+      <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaInterfejs.h">
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaAgregacja.h">
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaDekorator.h">
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaFabryka.h">
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaParametr.h">
+      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
+    </ClInclude>
+    <ClInclude Include="Parametr.h">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaPotegowa.h">
+      <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
+    </ClInclude>
+    <ClInclude Include="Bool.h">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Wymagania.h">
+      <Filter>SourceFile\Wymagania</Filter>
+    </ClInclude>
+    <ClInclude Include="Cennik.h">
+      <Filter>SourceFile\Wymagania</Filter>
+    </ClInclude>
+    <ClInclude Include="Cena.h">
+      <Filter>SourceFile\Wymagania\Cena</Filter>
+    </ClInclude>
+    <ClInclude Include="Warunek.h">
+      <Filter>SourceFile\Wymagania\Warunek</Filter>
+    </ClInclude>
+    <ClInclude Include="Stale.h">
+      <Filter>SourceFile\DomysleWartosci</Filter>
+    </ClInclude>
+    <ClInclude Include="LoggerClassName.h">
+      <Filter>SourceFile\Logger</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="SourceFile">
+      <UniqueIdentifier>{2f5eb13d-0853-4047-b9a1-ec20ebf69b8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parser">
+      <UniqueIdentifier>{790afcb6-335b-472a-b157-b083a9161f65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\BaseClass">
+      <UniqueIdentifier>{9d8a7d3a-124f-4dbd-a3d1-adcf7d6c7eaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\BaseClass\Obiekt">
+      <UniqueIdentifier>{2b4166a5-4382-4c2e-819c-588897dacc6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\BaseClass\Base">
+      <UniqueIdentifier>{2ccecc3c-45e0-4036-8114-1418c1f1ae2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Flota">
+      <UniqueIdentifier>{dc1fd519-fc16-4507-a10e-d21d3c64dfce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Flota\Ladownia">
+      <UniqueIdentifier>{03762c6f-908a-4990-9bf9-977b817b8629}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Flota\Statek">
+      <UniqueIdentifier>{a3232f94-989e-43da-bcd0-d47ac77070f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Surowce">
+      <UniqueIdentifier>{a390535b-424a-4e6b-8d1d-465b594806c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Wyjatki">
+      <UniqueIdentifier>{0fc566f9-2bd3-44e6-9764-130d86fb8010}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{5d287571-6848-4c07-9047-36c8210173c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Doc">
+      <UniqueIdentifier>{c3fb4279-d815-4008-a8cc-069b4a8e4b95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Logger">
+      <UniqueIdentifier>{85b463fe-ae20-456b-a414-10f3a752a312}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\BaseTypes">
+      <UniqueIdentifier>{af75c20b-e3eb-4482-9766-342b4916ee6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\BaseClass\Info">
+      <UniqueIdentifier>{e458c7bd-7f61-4fe1-8652-1ee020171182}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Flota\JednostkaAtakujaca">
+      <UniqueIdentifier>{c1c838c6-395b-42ed-b146-e35d2ba27d6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Flota\JednostkaLatajaca">
+      <UniqueIdentifier>{1860f67a-1995-4e2e-b859-85c5d68d2b65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Wyjatki\ParserXML">
+      <UniqueIdentifier>{ba14294d-6d92-4503-81b4-e7f6ac67aeec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Wyjatki\WyjatkiOgolne">
+      <UniqueIdentifier>{c1f4d8fa-8d8e-45d3-92fb-0b506e96d594}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Wyjatki\KlasaBazowa">
+      <UniqueIdentifier>{b8371ecf-9bbc-4a68-94eb-8f90aeef3e71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\KlasyGlowne">
+      <UniqueIdentifier>{703f8f7c-63c3-4bf3-9541-c8f98fd4902e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Testy">
+      <UniqueIdentifier>{1c0fed80-f9b0-4747-a983-e68789314d60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\KlasyPomocnicze">
+      <UniqueIdentifier>{6a43f607-5cee-48af-be60-d2eb6e1b0e2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\BaseClass\Zmiana">
+      <UniqueIdentifier>{f6b91d8c-19dc-4861-8f28-6364f2a77fbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{f809a59c-3db4-40e4-baa6-d18e46644843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\BaseClass\Zmiana\Instancje">
+      <UniqueIdentifier>{8e907574-8f7f-47e0-a603-8b59c2a5f507}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\BaseClass\Zmiana\Szkielet">
+      <UniqueIdentifier>{cc29475b-1b3d-43ed-ab37-5c839aafb0fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Wymagania">
+      <UniqueIdentifier>{b4bdf8e7-69d8-42b7-828c-db385f251073}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Wymagania\Warunek">
+      <UniqueIdentifier>{4cc8f7a4-b9e2-44ab-bf66-771acc1a298b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Wymagania\Cena">
+      <UniqueIdentifier>{0ba97365-2fd4-45b2-a51a-a22b61df8a88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Technologia">
+      <UniqueIdentifier>{bc5c5a03-cd07-44c7-aded-44408c5cf55e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Budynek">
+      <UniqueIdentifier>{7e323fa0-ec8d-4092-a64b-064d0ff758f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\DomysleWartosci">
+      <UniqueIdentifier>{6f405ef5-dac8-4c81-a144-5dde19dd7b2b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="parser\build_instructions.txt">
+      <Filter>Parser</Filter>
+    </None>
+    <None Include="TODO.txt">
+      <Filter>Doc</Filter>
+    </None>
+    <None Include="conventions.txt">
+      <Filter>Doc</Filter>
+    </None>
+    <None Include="svn_version.h.tmpl">
+      <Filter>Resource</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SpaceGame.rc">
+      <Filter>Resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="out\data.xml">
+      <Filter>Data</Filter>
+    </Xml>
+    <Xml Include="out\message.xml">
+      <Filter>Data</Filter>
+    </Xml>
+    <Xml Include="out\options.xml">
+      <Filter>Data</Filter>
+    </Xml>
+    <Xml Include="out\test.xml">
+      <Filter>Data</Filter>
+    </Xml>
+  </ItemGroup>
+</Project>

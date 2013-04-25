@@ -1,0 +1,11 @@
+﻿#pragma once
+#include <cstdlib>
+//#include <list>
+#include <string>
+#include <sstream>
+//#include <stack>
+#include <map>
+#include <hash_map>
+#include <locale>
+//#include <allegro5\allegro.h>
+#include "parser\ticpp.h"

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="windows-1250" ?>
+<SpaceGame>
+  <locale>Polish</locale>
+  <data>data.xml</data>
+  <messages>message.xml</messages>
+</SpaceGame>
