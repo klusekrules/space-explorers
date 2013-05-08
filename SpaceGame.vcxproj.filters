@@ -142,16 +142,7 @@
     <ClCompile Include="ObiektBaseInfo.cpp">
       <Filter>SourceFile\BaseClass\Info</Filter>
     </ClCompile>
-    <ClCompile Include="ZmianaLiniowa.cpp">
-      <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
-    </ClCompile>
-    <ClCompile Include="ZmianaAgregacja.cpp">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClCompile>
     <ClCompile Include="ZmianaFabryka.cpp">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClCompile>
-    <ClCompile Include="ZmianaParametr.cpp">
       <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
     </ClCompile>
     <ClCompile Include="Parametr.cpp">
@@ -159,12 +150,6 @@
     </ClCompile>
     <ClCompile Include="ZmianaInterfejs.cpp">
       <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClCompile>
-    <ClCompile Include="ZmianaDekorator.cpp">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClCompile>
-    <ClCompile Include="ZmianaPotegowa.cpp">
-      <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
     </ClCompile>
     <ClCompile Include="Bool.cpp">
       <Filter>SourceFile\BaseTypes</Filter>
@@ -384,29 +369,14 @@
     <ClInclude Include="XmlBO.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
-    <ClInclude Include="ZmianaLiniowa.h">
-      <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
-    </ClInclude>
     <ClInclude Include="ZmianaInterfejs.h">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClInclude>
-    <ClInclude Include="ZmianaAgregacja.h">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClInclude>
-    <ClInclude Include="ZmianaDekorator.h">
       <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
     </ClInclude>
     <ClInclude Include="ZmianaFabryka.h">
       <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
     </ClInclude>
-    <ClInclude Include="ZmianaParametr.h">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClInclude>
     <ClInclude Include="Parametr.h">
       <Filter>SourceFile\BaseTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="ZmianaPotegowa.h">
-      <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
     </ClInclude>
     <ClInclude Include="Bool.h">
       <Filter>SourceFile\BaseTypes</Filter>
@@ -428,6 +398,9 @@
     </ClInclude>
     <ClInclude Include="LoggerClassName.h">
       <Filter>SourceFile\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="Library.h">
+      <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -505,9 +478,6 @@
     </Filter>
     <Filter Include="Resource">
       <UniqueIdentifier>{f809a59c-3db4-40e4-baa6-d18e46644843}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\BaseClass\Zmiana\Instancje">
-      <UniqueIdentifier>{8e907574-8f7f-47e0-a603-8b59c2a5f507}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\BaseClass\Zmiana\Szkielet">
       <UniqueIdentifier>{cc29475b-1b3d-43ed-ab37-5c839aafb0fe}</UniqueIdentifier>
