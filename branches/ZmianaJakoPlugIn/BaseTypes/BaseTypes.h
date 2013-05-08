@@ -8,6 +8,19 @@
 #define BASETYPES_API __declspec(dllexport)
 #else
 #define BASETYPES_API __declspec(dllimport)
+#ifdef _DEBUG
+#ifdef _WIN64
+#pragma comment( lib, "BaseTypes-x64-d" )
+#else if _WIN32
+#pragma comment( lib, "BaseTypes-x86-d" )
+#endif
+#else
+#ifdef _WIN64
+#pragma comment( lib, "BaseTypes-x64" )
+#else if _WIN32
+#pragma comment( lib, "BaseTypes-x86" )
+#endif
+#endif
 #endif
 
 // This class is exported from the BaseTypes.dll

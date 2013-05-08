@@ -1,5 +1,4 @@
 #pragma once
-#include "Main.h"
 #include "BaseTypes.h"
 #include "Fluktuacja.h"
 #include "Ilosc.h"

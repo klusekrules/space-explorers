@@ -77,5 +77,8 @@
     <ClCompile Include="..\ZmianaDekorator.cpp">
       <Filter>Source Files\Zmiana\Szkielet</Filter>
     </ClCompile>
+    <ClCompile Include="..\ZmianaIdKlas.cpp">
+      <Filter>Source Files\Zmiana</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

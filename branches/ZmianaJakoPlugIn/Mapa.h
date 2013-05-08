@@ -1,5 +1,4 @@
 #pragma once
-#include "Main.h"
 #include <hash_map>
 #include "Base.h"
 #include "Logger.h"

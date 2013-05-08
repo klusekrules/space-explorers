@@ -1,5 +1,5 @@
 #pragma once
-
+#include <string>
 #define CLASSNAME(C) LoggerClassName::className<C>()
 /**
 * Klasa bazowa u¿ywana do stworzenia jednolitego interfajsu
@@ -12,7 +12,7 @@ public:
 	* \return Nazwa klasy przekazanej przez parametr szablonu.
 	*/
 	template< class C >
-	static string className() {
-		return string(typeid(C).name()).substr(6);
+	static std::string className() {
+		return std::string(typeid(C).name()).substr(6);
 	}
 };

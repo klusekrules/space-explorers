@@ -1,5 +1,4 @@
 #pragma once
-#include "Main.h"
 #include "BaseTypes.h"
 
 class Obrazenia:
