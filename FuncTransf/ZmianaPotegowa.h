@@ -1,5 +1,4 @@
 #pragma once
-#include "Main.h"
 #include "ZmianaInterfejs.h"
 #include "ZmianaParametr.h"
 

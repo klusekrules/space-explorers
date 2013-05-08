@@ -58,12 +58,6 @@
     <ClCompile Include="ObiektBaseInfo.cpp">
       <Filter>SourceFile\BaseClass\Info</Filter>
     </ClCompile>
-    <ClCompile Include="ZmianaFabryka.cpp">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClCompile>
-    <ClCompile Include="ZmianaInterfejs.cpp">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClCompile>
     <ClCompile Include="Wymagania.cpp">
       <Filter>SourceFile\Wymagania</Filter>
     </ClCompile>
@@ -173,12 +167,6 @@
     </ClInclude>
     <ClInclude Include="XmlBO.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
-    </ClInclude>
-    <ClInclude Include="ZmianaInterfejs.h">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClInclude>
-    <ClInclude Include="ZmianaFabryka.h">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
     </ClInclude>
     <ClInclude Include="Wymagania.h">
       <Filter>SourceFile\Wymagania</Filter>

@@ -3,8 +3,8 @@
 #include <vector>
 #include <memory>
 #include "parser\ticpp.h"
-#include "IdType.h"
-#include "ZmianaInterfejs.h"
+#include "BaseTypes\IdType.h"
+#include "FuncTransf\ZmianaInterfejs.h"
 
 class ObiektBaseInfo;
 class WyjatekParseraXML;

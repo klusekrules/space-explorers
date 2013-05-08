@@ -1,10 +1,9 @@
 #pragma once
-#include "Main.h"
 #include <vector>
 #include <memory>
 #include "ZmianaDekorator.h"
-#include "parser\ticpp.h"
-#include "IdType.h"
+#include "../parser/ticpp.h"
+#include "../BaseTypes/IdType.h"
 
 class ZmianaAgregacja :
 	public ZmianaDekorator,

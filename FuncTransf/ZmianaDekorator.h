@@ -1,10 +1,8 @@
 #pragma once
 #include <memory>
-#include "Main.h"
 #include "ZmianaInterfejs.h"
-#include "Logger.h"
-#include "parser\ticpp.h"
-#include "IdType.h"
+#include "../parser/ticpp.h"
+#include "../BaseTypes/IdType.h"
 
 class ZmianaDekorator:
 	public ZmianaInterfejs,

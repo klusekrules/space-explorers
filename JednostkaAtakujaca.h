@@ -1,10 +1,10 @@
 
 #pragma once
 #include "Main.h"
-#include "Obrazenia.h"
-#include "Fluktuacja.h"
+#include "BaseTypes\Obrazenia.h"
+#include "BaseTypes\Fluktuacja.h"
 #include "JednostkaAtakujacaInfo.h"
-#include "NiezainicjalizowanaKlasa.h"
+#include "BaseTypes\NiezainicjalizowanaKlasa.h"
 /**
 * Klasa zawieraj¹ca interfejs jednostki atakuj¹cej, zawiera metody wyliczaj¹ce obra¿enia zadawane, 
 * obra¿enia otrzymywane oraz obra¿enia odbijane.

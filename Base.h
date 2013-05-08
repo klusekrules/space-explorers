@@ -1,8 +1,8 @@
 #pragma once
 #include "Main.h"
-#include "IdType.h"
+#include "BaseTypes\IdType.h"
 #include "parser\ticpp.h"
-#include "WyjatekParseraXML.h"
+#include "BaseTypes\WyjatekParseraXML.h"
 
 /**
 * Klasa bazowa przechowuj¹ca informacje o ID klasy pochodnej.

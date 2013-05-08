@@ -1,9 +1,8 @@
 #pragma once
-#include "Main.h"
 #include "ZmianaInterfejs.h"
 #include "ZmianaParametr.h"
 
-#include "parser\ticpp.h"
+#include "../parser/ticpp.h"
 
 class WyjatekParseraXML;
 

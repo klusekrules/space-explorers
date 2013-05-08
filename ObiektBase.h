@@ -1,9 +1,9 @@
 #pragma once
 #include "Main.h"
 #include "Base.h"
-#include "Ilosc.h"
-#include "Poziom.h"
-#include "Klucz.h"
+#include "BaseTypes\Ilosc.h"
+#include "BaseTypes\Poziom.h"
+#include "BaseTypes\Klucz.h"
 #include "Warunek.h"
 #include "Cennik.h"
 
