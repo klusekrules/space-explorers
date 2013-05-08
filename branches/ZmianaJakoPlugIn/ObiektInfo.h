@@ -2,8 +2,8 @@
 #include "Main.h"
 #include "ObiektBaseInfo.h"
 #include "Obiekt.h"
-#include "NiezainicjalizowanaKlasa.h"
-#include "ZmianaInterfejs.h"
+#include "BaseTypes\NiezainicjalizowanaKlasa.h"
+#include "FuncTransf\ZmianaInterfejs.h"
 
 class ObiektInfo :
 	public ObiektBaseInfo,

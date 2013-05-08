@@ -237,8 +237,6 @@
     <ClInclude Include="Warunek.h" />
     <ClInclude Include="Wymagania.h" />
     <ClInclude Include="XmlBO.h" />
-    <ClInclude Include="ZmianaFabryka.h" />
-    <ClInclude Include="ZmianaInterfejs.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ApInfo.cpp" />
@@ -265,8 +263,6 @@
     <ClCompile Include="Testy.cpp" />
     <ClCompile Include="Warunek.cpp" />
     <ClCompile Include="Wymagania.cpp" />
-    <ClCompile Include="ZmianaFabryka.cpp" />
-    <ClCompile Include="ZmianaInterfejs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="conventions.txt" />

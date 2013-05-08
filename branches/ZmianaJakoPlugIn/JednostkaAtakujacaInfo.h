@@ -1,10 +1,10 @@
 
 #pragma once
 #include "Main.h"
-#include "Obrazenia.h"
+#include "BaseTypes\Obrazenia.h"
 #include "Info.h"
-#include "ZmianaInterfejs.h"
-#include "WyjatekParseraXML.h"
+#include "FuncTransf\ZmianaInterfejs.h"
+#include "BaseTypes\WyjatekParseraXML.h"
 
 class JednostkaAtakujacaInfo :
 	public Info,

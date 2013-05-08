@@ -1,5 +1,5 @@
 #include "ZmianaDekorator.h"
-#include "Logger.h"
+#include "../Logger/Logger.h"
 #include "ZmianaFabryka.h"
 
 ZmianaDekorator::ZmianaDekorator( const ticpp::Element* e ){

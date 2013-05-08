@@ -1,5 +1,5 @@
 #include "Wymagania.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
 #include "XmlBO.h"
 
 Wymagania::Wymagania( ticpp::Node* n  ) throw(WyjatekParseraXML)

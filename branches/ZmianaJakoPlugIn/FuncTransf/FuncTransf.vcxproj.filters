@@ -36,19 +36,25 @@
     <ClInclude Include="FuncTransf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\ZmianaParametr.h">
-      <Filter>Source Files\Zmiana\Szkielet</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ZmianaPotegowa.h">
+    <ClInclude Include="ZmianaLiniowa.h">
       <Filter>Source Files\Zmiana\Instancje</Filter>
     </ClInclude>
-    <ClInclude Include="..\ZmianaLiniowa.h">
+    <ClInclude Include="ZmianaPotegowa.h">
       <Filter>Source Files\Zmiana\Instancje</Filter>
     </ClInclude>
-    <ClInclude Include="..\ZmianaAgregacja.h">
+    <ClInclude Include="ZmianaAgregacja.h">
       <Filter>Source Files\Zmiana\Szkielet</Filter>
     </ClInclude>
-    <ClInclude Include="..\ZmianaDekorator.h">
+    <ClInclude Include="ZmianaDekorator.h">
+      <Filter>Source Files\Zmiana\Szkielet</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaParametr.h">
+      <Filter>Source Files\Zmiana\Szkielet</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaFabryka.h">
+      <Filter>Source Files\Zmiana\Szkielet</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaInterfejs.h">
       <Filter>Source Files\Zmiana\Szkielet</Filter>
     </ClInclude>
   </ItemGroup>
@@ -62,23 +68,29 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ZmianaParametr.cpp">
-      <Filter>Source Files\Zmiana\Szkielet</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ZmianaLiniowa.cpp">
+    <ClCompile Include="ZmianaLiniowa.cpp">
       <Filter>Source Files\Zmiana\Instancje</Filter>
     </ClCompile>
-    <ClCompile Include="..\ZmianaPotegowa.cpp">
+    <ClCompile Include="ZmianaPotegowa.cpp">
       <Filter>Source Files\Zmiana\Instancje</Filter>
     </ClCompile>
-    <ClCompile Include="..\ZmianaAgregacja.cpp">
+    <ClCompile Include="ZmianaAgregacja.cpp">
       <Filter>Source Files\Zmiana\Szkielet</Filter>
     </ClCompile>
-    <ClCompile Include="..\ZmianaDekorator.cpp">
+    <ClCompile Include="ZmianaDekorator.cpp">
       <Filter>Source Files\Zmiana\Szkielet</Filter>
     </ClCompile>
-    <ClCompile Include="..\ZmianaIdKlas.cpp">
+    <ClCompile Include="ZmianaParametr.cpp">
+      <Filter>Source Files\Zmiana\Szkielet</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaIdKlas.cpp">
       <Filter>Source Files\Zmiana</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaFabryka.cpp">
+      <Filter>Source Files\Zmiana\Szkielet</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaInterfejs.cpp">
+      <Filter>Source Files\Zmiana\Szkielet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

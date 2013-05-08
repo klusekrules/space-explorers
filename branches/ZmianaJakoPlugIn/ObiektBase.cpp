@@ -1,6 +1,6 @@
 ﻿#include "ObiektBase.h"
 #include "ObiektBaseInfo.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
 
 ObiektBase::ObiektBase( const Ilosc& i, const ObiektBaseInfo& iInfo) throw()
 	: Base(iInfo), ilosc(i), obiektBaseInfo(iInfo)

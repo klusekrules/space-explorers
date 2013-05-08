@@ -1,5 +1,5 @@
 #include "ZmianaParametr.h"
-#include "Logger.h"
+#include "../Logger/Logger.h"
 
 
 ZmianaParametr::ZmianaParametr( const ticpp::Element* e )

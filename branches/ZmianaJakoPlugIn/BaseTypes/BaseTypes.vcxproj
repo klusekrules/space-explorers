@@ -119,6 +119,7 @@
     <ClInclude Include="Tekst.h" />
     <ClInclude Include="WyjatekParseraXML.h" />
     <ClInclude Include="WyjatekSTL.h" />
+    <ClInclude Include="ZuzyciePaliwa.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseTypes.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="WyjatekParseraXML.cpp" />
     <ClCompile Include="WyjatekSTL.cpp" />
     <ClCompile Include="Wyjatki.cpp" />
+    <ClCompile Include="ZuzyciePaliwa.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

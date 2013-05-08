@@ -1,7 +1,7 @@
 #include "Cena.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
 #include "Aplikacja.h"
-#include "ZmianaFabryka.h"
+#include "FuncTransf\ZmianaFabryka.h"
 #include "XmlBO.h"
 #include "Surowce.h"
 

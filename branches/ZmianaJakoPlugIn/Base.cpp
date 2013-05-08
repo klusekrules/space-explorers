@@ -1,5 +1,5 @@
 #include "Base.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
 
 Base::Base( const IdType& itID )throw()
 	: id(itID)

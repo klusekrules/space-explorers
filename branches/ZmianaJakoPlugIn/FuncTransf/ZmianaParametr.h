@@ -1,8 +1,7 @@
 #pragma once
-#include "Main.h"
-#include "IdType.h"
-#include "Parametr.h"
-#include "parser\ticpp.h"
+#include "../BaseTypes/IdType.h"
+#include "../BaseTypes/Parametr.h"
+#include "../parser/ticpp.h"
 
 class ZmianaParametr:
 	virtual public LoggerInterface
