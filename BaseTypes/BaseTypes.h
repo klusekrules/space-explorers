@@ -4,6 +4,9 @@
 // that uses this DLL. This way any other project whose source files include this file see 
 // BASETYPES_API functions as being imported from a DLL, whereas this DLL sees symbols
 // defined with this macro as being exported.
+
+#pragma once
+
 #ifdef BASETYPES_EXPORTS
 #define BASETYPES_API __declspec(dllexport)
 #else
@@ -33,3 +36,29 @@ public:
 extern BASETYPES_API int nBaseTypes;
 
 BASETYPES_API int fnBaseTypes(void);
+
+#include <string>
+using namespace std;
+#include "BaseInterface.h"
+#include "../Logger/LoggerInterface.h"
+
+namespace SPG{
+	/* Ogolne */
+	typedef int					IdType; //+
+	typedef unsigned int		Poziom; //+
+	typedef float				Fluktuacja; //+
+	typedef std::string			Tekst; //+
+	typedef long double			IloscJednostek; //+
+	typedef double				Objetosc; //+
+	typedef double				Masa; //+
+	typedef double				Dystans; //+
+	typedef double				Predkosc; //+
+	typedef double				Powierzchnia; //+
+	typedef double				Parametr;//+
+
+
+	/* Flota */
+	typedef double	Obrazenia; //+
+	typedef double	ZuzyciePaliwa; //+
+	typedef double	MocSilnika; //+
+}
