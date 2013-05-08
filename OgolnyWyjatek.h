@@ -1,5 +1,5 @@
 #pragma once
-#include "Main.h"
+#include "LoggerInterface.h"
 #include "IdType.h"
 #include "Tekst.h"
 

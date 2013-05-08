@@ -11,16 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{2B5678FF-AFD7-4C0E-8CF8-488554AB5B02}</ProjectGuid>
+    <ProjectGuid>{800C6F89-0263-4A3E-B6FC-B5E323F7879C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>BaseTypes</RootNamespace>
+    <RootNamespace>Logger</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)out\</OutDir>
-    <TargetName>BaseTypes-$(PlatformTarget)-d</TargetName>
+    <TargetName>logger-$(PlatformTarget)-d</TargetName>
     <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
     <LibraryPath>$(SolutionDir)out;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);</LibraryPath>
   </PropertyGroup>
@@ -54,7 +54,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;BASETYPES_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LOGGER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <MinimalRebuild>false</MinimalRebuild>
       <SmallerTypeCheck>true</SmallerTypeCheck>
@@ -72,7 +72,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;BASETYPES_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LOGGER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -86,74 +86,16 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\BaseInterface.h" />
-    <ClInclude Include="..\BaseTypes.h" />
-    <ClInclude Include="..\BladDzieleniaLadowni.h" />
-    <ClInclude Include="..\BladLaczeniaObiektow.h" />
-    <ClInclude Include="..\Bool.h" />
-    <ClInclude Include="..\BrakAtrybutuXML.h" />
-    <ClInclude Include="..\BrakMaski.h" />
-    <ClInclude Include="..\Dystans.h" />
-    <ClInclude Include="..\Fluktuacja.h" />
-    <ClInclude Include="..\IdType.h" />
-    <ClInclude Include="..\Ilosc.h" />
-    <ClInclude Include="..\Klucz.h" />
-    <ClInclude Include="..\Mapa.h" />
-    <ClInclude Include="..\Masa.h" />
-    <ClInclude Include="..\MocSilnika.h" />
-    <ClInclude Include="..\NiepoprawnaIloscObiektow.h" />
-    <ClInclude Include="..\NiepoprawneParametryFunkcji.h" />
-    <ClInclude Include="..\NiezainicjalizowanaKlasa.h" />
-    <ClInclude Include="..\NiezgodnyTypSurowca.h" />
-    <ClInclude Include="..\NieznalezionoObiektu.h" />
-    <ClInclude Include="..\Objetosc.h" />
-    <ClInclude Include="..\Obrazenia.h" />
-    <ClInclude Include="..\OgolnyWyjatek.h" />
-    <ClInclude Include="..\Parametr.h" />
-    <ClInclude Include="..\Powierzchnia.h" />
-    <ClInclude Include="..\Poziom.h" />
-    <ClInclude Include="..\Predkosc.h" />
-    <ClInclude Include="..\Stale.h" />
-    <ClInclude Include="..\Tekst.h" />
-    <ClInclude Include="..\WyjatekParseraXML.h" />
-    <ClInclude Include="..\WyjatekSTL.h" />
-    <ClInclude Include="..\ZuzyciePaliwa.h" />
-    <ClInclude Include="BaseTypes.h" />
+    <ClInclude Include="..\Log.h" />
+    <ClInclude Include="..\Logger.h" />
+    <ClInclude Include="..\LoggerClassName.h" />
+    <ClInclude Include="..\LoggerInterface.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\BladDzieleniaLadowni.cpp" />
-    <ClCompile Include="..\BladLaczeniaObiektow.cpp" />
-    <ClCompile Include="..\Bool.cpp" />
-    <ClCompile Include="..\BrakAtrybutuXML.cpp" />
-    <ClCompile Include="..\BrakMaski.cpp" />
-    <ClCompile Include="..\Dystans.cpp" />
-    <ClCompile Include="..\Fluktuacja.cpp" />
-    <ClCompile Include="..\IdType.cpp" />
-    <ClCompile Include="..\Ilosc.cpp" />
-    <ClCompile Include="..\Klucz.cpp" />
-    <ClCompile Include="..\Masa.cpp" />
-    <ClCompile Include="..\MocSilnika.cpp" />
-    <ClCompile Include="..\NiepoprawnaIloscObiektow.cpp" />
-    <ClCompile Include="..\NiepoprawneParametryFunkcji.cpp" />
-    <ClCompile Include="..\NiezainicjalizowanaKlasa.cpp" />
-    <ClCompile Include="..\NiezgodnyTypSurowca.cpp" />
-    <ClCompile Include="..\NieznalezionoObiektu.cpp" />
-    <ClCompile Include="..\Objetosc.cpp" />
-    <ClCompile Include="..\Obrazenia.cpp" />
-    <ClCompile Include="..\OgolnyWyjatek.cpp" />
-    <ClCompile Include="..\Parametr.cpp" />
-    <ClCompile Include="..\Powierzchnia.cpp" />
-    <ClCompile Include="..\Poziom.cpp" />
-    <ClCompile Include="..\Predkosc.cpp" />
-    <ClCompile Include="..\Stale.cpp" />
-    <ClCompile Include="..\Tekst.cpp" />
-    <ClCompile Include="..\WyjatekParseraXML.cpp" />
-    <ClCompile Include="..\WyjatekSTL.cpp" />
-    <ClCompile Include="..\Wyjatki.cpp" />
-    <ClCompile Include="..\ZuzyciePaliwa.cpp" />
-    <ClCompile Include="BaseTypes.cpp" />
+    <ClCompile Include="..\Log.cpp" />
+    <ClCompile Include="..\Logger.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

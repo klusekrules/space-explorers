@@ -1,7 +1,9 @@
 #pragma once
 
 #include <string>
+using namespace std;
 #include "BaseInterface.h"
+#include "LoggerInterface.h"
 
 namespace SPG{
 	/* Ogolne */

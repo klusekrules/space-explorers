@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Main.h"
+#include "LoggerInterface.h"
+using namespace std;
 #include <sstream>
 #include <stack>
 
