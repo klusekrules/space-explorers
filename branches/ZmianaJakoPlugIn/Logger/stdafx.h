@@ -7,8 +7,10 @@
 
 #ifdef LOGGER_EXPORTS
 #define LOGGER_API __declspec(dllexport)
+#define EXPIMP_TEMPLATE
 #else
 #define LOGGER_API __declspec(dllimport)
+#define EXPIMP_TEMPLATE extern
 #ifdef _DEBUG
 #ifdef _WIN64
 #pragma comment( lib, "logger-x64-d" )
