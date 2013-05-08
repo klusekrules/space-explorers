@@ -3,17 +3,15 @@
 #include <sstream>
 #include <iomanip>
 #include "StatekInfo.h"
-
-#include "ZmianaDekorator.h"
-#include "ZmianaAgregacja.h"
-#include "ZmianaLiniowa.h"
-#include "ZmianaPotegowa.h"
+#include "plugin\plugin.h"
 
 Aplikacja::Aplikacja()
 	: isDbgHelpInit(false), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
 {
 	//Wyswietlanie informacji o aplikacji
 	LogApInfo();
+
+	Cplugin test;
 
 	//Ladowanie potrzebnych bibliotek
 	hLibrary = LoadLibrary("Dbghelp.dll");
@@ -31,13 +29,13 @@ Aplikacja::Aplikacja()
 	}
 	//_set_purecall_handler(myPurecallHandler);
 	//TODO: zaimplementowanie logoowania podczas ka¿dej sytuacji wyj¹tkowej takiej jak wy¿ej
-
+	/*
 	// Rejestracja zmian w fabryce 
 	ZmianaLiniowa::RejestrujZmianaLiniowa();
 	ZmianaDekorator::RejestrujZmianaDekotor();
 	ZmianaAgregacja::RejestrujZmianaAgregacja();	
 	ZmianaPotegowa::RejestrujZmianaPotegowa();
-	// -----------------------------------------
+	// -----------------------------------------*/
 
 }
 

@@ -32,6 +32,21 @@ distribution.
 #pragma warning( disable : 4786 )
 #endif
 
+#ifdef _DEBUG
+#ifdef _WIN64
+#pragma comment( lib, "ticpp-x64-d" )
+#else if _WIN32
+#pragma comment( lib, "ticpp-x86-d" )
+#endif
+#else
+#ifdef _WIN64
+#pragma comment( lib, "ticpp-x64" )
+#else if _WIN32
+#pragma comment( lib, "ticpp-x86" )
+#endif
+#endif
+
+
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>

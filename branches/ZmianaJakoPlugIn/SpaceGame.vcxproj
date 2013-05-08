@@ -66,7 +66,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>$(SolutionDir)\parser\lib;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\out;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)out\</OutDir>
     <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
@@ -74,7 +74,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
-    <LibraryPath>$(SolutionDir)\parser\lib;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\out;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)out\</OutDir>
     <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
@@ -83,14 +83,14 @@
     <OutDir>$(SolutionDir)out\</OutDir>
     <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
     <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\parser\lib;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\out;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
     <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)out\</OutDir>
     <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
     <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\parser\lib;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\out;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
     <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -215,6 +215,7 @@
     <ClInclude Include="Cennik.h" />
     <ClInclude Include="Dystans.h" />
     <ClInclude Include="Fluktuacja.h" />
+    <ClInclude Include="Library.h" />
     <ClInclude Include="LoggerClassName.h" />
     <ClInclude Include="Parametr.h" />
     <ClInclude Include="version.h" />
@@ -271,13 +272,8 @@
     <ClInclude Include="WyjatekSTL.h" />
     <ClInclude Include="Wymagania.h" />
     <ClInclude Include="XmlBO.h" />
-    <ClInclude Include="ZmianaAgregacja.h" />
-    <ClInclude Include="ZmianaDekorator.h" />
     <ClInclude Include="ZmianaFabryka.h" />
     <ClInclude Include="ZmianaInterfejs.h" />
-    <ClInclude Include="ZmianaLiniowa.h" />
-    <ClInclude Include="ZmianaParametr.h" />
-    <ClInclude Include="ZmianaPotegowa.h" />
     <ClInclude Include="ZuzyciePaliwa.h" />
   </ItemGroup>
   <ItemGroup>
@@ -336,14 +332,9 @@
     <ClCompile Include="WyjatekSTL.cpp" />
     <ClCompile Include="Wyjatki.cpp" />
     <ClCompile Include="Wymagania.cpp" />
-    <ClCompile Include="ZmianaAgregacja.cpp" />
-    <ClCompile Include="ZmianaDekorator.cpp" />
     <ClCompile Include="ZmianaFabryka.cpp" />
     <ClCompile Include="ZmianaIdKlas.cpp" />
     <ClCompile Include="ZmianaInterfejs.cpp" />
-    <ClCompile Include="ZmianaLiniowa.cpp" />
-    <ClCompile Include="ZmianaParametr.cpp" />
-    <ClCompile Include="ZmianaPotegowa.cpp" />
     <ClCompile Include="ZuzyciePaliwa.cpp" />
   </ItemGroup>
   <ItemGroup>
