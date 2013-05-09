@@ -1,6 +1,6 @@
 #pragma once
-#include "BaseTypes.h"
-#pragma warning( disable : 4251 )
+#include "stdafx.h"
+
 class BASETYPES_API Tekst:
 	virtual public LoggerInterface,
 	public BaseInterface<SPG::Tekst>

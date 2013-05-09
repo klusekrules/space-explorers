@@ -1,15 +1,5 @@
-#include "OgolnyWyjatek.h"
-#include "NiezgodnyTypSurowca.h"
-#include "WyjatekParseraXML.h"
-#include "WyjatekSTL.h"
-#include "BrakAtrybutuXML.h"
-#include "BrakMaski.h"
-#include "NiezainicjalizowanaKlasa.h"
-#include "NiepoprawnaIloscObiektow.h"
-#include "BladLaczeniaObiektow.h"
-#include "NieznalezionoObiektu.h"
-#include "NiepoprawneParametryFunkcji.h"
-#include "BladDzieleniaLadowni.h"
+#include "Wyjatki.h"
+
 /* Sta³e pola klas wyj¹tków  */
 
 const IdType	OgolnyWyjatek::domyslnyOgolnyWyjatekID					( 0x0 );

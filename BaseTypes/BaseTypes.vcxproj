@@ -86,6 +86,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Base.h" />
     <ClInclude Include="BaseInterface.h" />
     <ClInclude Include="BaseTypes.h" />
     <ClInclude Include="BladDzieleniaLadowni.h" />
@@ -119,10 +120,11 @@
     <ClInclude Include="Tekst.h" />
     <ClInclude Include="WyjatekParseraXML.h" />
     <ClInclude Include="WyjatekSTL.h" />
+    <ClInclude Include="Wyjatki.h" />
     <ClInclude Include="ZuzyciePaliwa.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BaseTypes.cpp" />
+    <ClCompile Include="Base.cpp" />
     <ClCompile Include="BladDzieleniaLadowni.cpp" />
     <ClCompile Include="BladLaczeniaObiektow.cpp" />
     <ClCompile Include="Bool.cpp" />
@@ -156,10 +158,6 @@
     <ClCompile Include="Poziom.cpp" />
     <ClCompile Include="Predkosc.cpp" />
     <ClCompile Include="Stale.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="Tekst.cpp" />
     <ClCompile Include="WyjatekParseraXML.cpp" />
     <ClCompile Include="WyjatekSTL.cpp" />

@@ -1,6 +1,6 @@
 #pragma once
-#include "../BaseTypes\Poziom.h"
-#pragma warning( disable : 4290 )
+#include "../BaseTypes/Poziom.h"
+
 class ZmianaInterfejs: 
 	virtual public LoggerInterface
 {

@@ -81,4 +81,4 @@ Dystans::type_name Dystans::value() const{
 
 string Dystans::toString() const{
 	return Logger::field(CLASSNAME(Dystans),dystans);
-} 
+}

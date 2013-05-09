@@ -1,6 +1,7 @@
 #pragma once
+#include "stdafx.h"
 #include <hash_map>
-#include "../Base.h"
+#include "Base.h"
 #include "../Logger/Logger.h"
 
 template< class Klucz, class Wartosc >

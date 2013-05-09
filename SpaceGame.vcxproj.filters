@@ -22,9 +22,6 @@
     <ClCompile Include="Obiekt.cpp">
       <Filter>SourceFile\BaseClass\Obiekt</Filter>
     </ClCompile>
-    <ClCompile Include="Base.cpp">
-      <Filter>SourceFile\BaseClass\Base</Filter>
-    </ClCompile>
     <ClCompile Include="ObiektBase.cpp">
       <Filter>SourceFile\BaseClass\Base</Filter>
     </ClCompile>
@@ -107,9 +104,6 @@
     </ClInclude>
     <ClInclude Include="Obiekt.h">
       <Filter>SourceFile\BaseClass\Obiekt</Filter>
-    </ClInclude>
-    <ClInclude Include="Base.h">
-      <Filter>SourceFile\BaseClass\Base</Filter>
     </ClInclude>
     <ClInclude Include="ObiektBase.h">
       <Filter>SourceFile\BaseClass\Base</Filter>

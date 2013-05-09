@@ -1,7 +1,7 @@
 #pragma once
-#include "BaseTypes.h"
+#include "stdafx.h"
 
-class ZuzyciePaliwa:
+class BASETYPES_API ZuzyciePaliwa:
 	virtual public LoggerInterface,
 	public BaseInterface<SPG::ZuzyciePaliwa>
 {

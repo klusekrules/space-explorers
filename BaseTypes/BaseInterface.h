@@ -1,4 +1,5 @@
 #pragma once
+#include "stdafx.h"
 template < typename T >
  class BASETYPES_API BaseInterface
 {
@@ -13,4 +14,3 @@ public:
 
 	virtual type_name value() const abstract;
 };
-

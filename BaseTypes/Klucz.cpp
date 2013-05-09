@@ -1,5 +1,6 @@
 #include "Klucz.h"
 #include "../Logger/Logger.h"
+#include "WyjatekParseraXML.h"
 
 ostream& operator<< (ostream& out, const Klucz::type_name& base){
 	out << base.first.toString() << " " << base.second.toString() ;

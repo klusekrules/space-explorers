@@ -3,8 +3,7 @@
 #include "ZmianaParametr.h"
 
 #include "../parser/ticpp.h"
-
-class WyjatekParseraXML;
+#include "../BaseTypes/WyjatekParseraXML.h"
 
 class ZmianaLiniowa:
 	public ZmianaInterfejs,

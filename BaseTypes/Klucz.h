@@ -1,10 +1,9 @@
 #pragma once
-#include "BaseTypes.h"
+#include "stdafx.h"
 #include "Poziom.h"
 #include "IdType.h"
 #include "../parser/ticpp.h"
-#include "WyjatekParseraXML.h"
-#pragma warning( disable : 4251 )
+
 class BASETYPES_API Klucz:
 	virtual public LoggerInterface,
 	public BaseInterface< pair < IdType, Poziom > >

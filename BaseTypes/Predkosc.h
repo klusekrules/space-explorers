@@ -1,5 +1,5 @@
 #pragma once
-#include "BaseTypes.h"
+#include "stdafx.h"
 
 class BASETYPES_API Predkosc:
 	virtual public LoggerInterface,
