@@ -4,9 +4,8 @@
 #include "Logger\LoggerInterface.h"
 #include "parser\ticpp.h"
 #include <vector>
-#include "BaseTypes\Ilosc.h"
-#include "BaseTypes\Poziom.h"
-#include "BaseTypes\IdType.h"
+#include "BaseTypes\BaseTypes.h"
+#include "BaseTypes\Wyjatki.h"
 
 class Cennik:
 	virtual public LoggerInterface

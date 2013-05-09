@@ -1,5 +1,5 @@
 #include "Info.h"
-#include "Logger.h"
+#include "Logger/Logger.h"
 #include "XmlBO.h"
 
 Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const IdType& id , const Wymagania& w ) throw()

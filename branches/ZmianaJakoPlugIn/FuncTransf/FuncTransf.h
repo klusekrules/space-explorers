@@ -11,13 +11,4 @@
 #include "ZmianaLiniowa.h"
 #include "ZmianaPotegowa.h"
 
-// This class is exported from the FuncTransf.dll
-class FUNCTRANSF_API CFuncTransf {
-public:
-	CFuncTransf(void);
-	// TODO: add your methods here.
-};
-
-extern FUNCTRANSF_API int nFuncTransf;
-
-FUNCTRANSF_API int fnFuncTransf(void);
+extern "C" FUNCTRANSF_API bool init();

@@ -1,5 +1,5 @@
 ﻿#include "ObiektInfo.h"
-#include "Logger.h"
+#include "Logger/Logger.h"
 #include "XmlBO.h"
 
 ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& obj, const Powierzchnia& pow, const ObiektBaseInfo& info ) throw()

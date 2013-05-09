@@ -1,10 +1,8 @@
 #pragma once
 #include "Main.h"
 #include "Obiekt.h"
-#include "BaseTypes\OgolnyWyjatek.h"
-#include "BaseTypes\NiezgodnyTypSurowca.h"
-#include "BaseTypes\NiepoprawnaIloscObiektow.h"
-#include "BaseTypes\BladLaczeniaObiektow.h"
+#include "BaseTypes\BaseTypes.h"
+#include "BaseTypes\Wyjatki.h"
 
 class SurowceInfo;
 class Ladownia;

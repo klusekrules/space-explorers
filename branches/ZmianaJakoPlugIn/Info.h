@@ -1,10 +1,8 @@
 #pragma once
 #include "Main.h"
-#include "Base.h"
-#include "BaseTypes\Tekst.h"
-#include "BaseTypes\IdType.h"
+#include "BaseTypes\BaseTypes.h"
+#include "BaseTypes\Wyjatki.h"
 #include "Wymagania.h"
-#include "BaseTypes\WyjatekParseraXML.h"
 
 class Info:
 	public Base,

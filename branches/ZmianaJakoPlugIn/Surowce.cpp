@@ -1,6 +1,6 @@
 #include "Surowce.h"
 #include "SurowceInfo.h"
-#include "Logger.h"
+#include "Logger/Logger.h"
 #include "Ladownia.h"
 
 Surowce::Surowce( const Ilosc& isIlosc , const SurowceInfo& s )

@@ -1,11 +1,12 @@
 #pragma once
 #include "stdafx.h"
 #include <hash_map>
+#include <map>
 #include "Base.h"
 #include "../Logger/Logger.h"
 
 template< class Klucz, class Wartosc >
-class BASETYPES_API Mapa:
+class Mapa:
 	public Base,
 	virtual public LoggerInterface,
 	public hash_map<Klucz,Wartosc* >
@@ -28,7 +29,7 @@ public:
 	}
 
 	explicit Mapa( const map<Klucz,Wartosc* >& mapa )
-		: Base(), hash_map(mapa)
+		: Base(IdType()), hash_map(mapa)
 	{
 	}
 

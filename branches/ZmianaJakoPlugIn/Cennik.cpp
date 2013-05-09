@@ -1,5 +1,5 @@
 #include "Cennik.h"
-#include "Logger.h"
+#include "Logger/Logger.h"
 
 Cennik::Cennik( ticpp::Node* n ) throw(WyjatekParseraXML)
 {

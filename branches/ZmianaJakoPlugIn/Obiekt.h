@@ -1,12 +1,8 @@
 #pragma once
 #include "Main.h"
-#include "BaseTypes\Fluktuacja.h"
-#include "BaseTypes\Ilosc.h"
-#include "Base.h"
+#include "BaseTypes\BaseTypes.h"
+#include "BaseTypes\Wyjatki.h"
 #include "ObiektBase.h"
-#include "BaseTypes\Powierzchnia.h"
-#include "BaseTypes\Objetosc.h"
-#include "BaseTypes\Masa.h"
 
 class ObiektInfo;
 class Ladownia;
