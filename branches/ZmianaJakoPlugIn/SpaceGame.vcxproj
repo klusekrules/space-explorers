@@ -203,7 +203,6 @@
   <ItemGroup>
     <ClInclude Include="afxres.h" />
     <ClInclude Include="Aplikacja.h" />
-    <ClInclude Include="Base.h" />
     <ClInclude Include="Biblioteki.h" />
     <ClInclude Include="Cena.h" />
     <ClInclude Include="Cennik.h" />
@@ -241,7 +240,6 @@
   <ItemGroup>
     <ClCompile Include="ApInfo.cpp" />
     <ClCompile Include="Aplikacja.cpp" />
-    <ClCompile Include="Base.cpp" />
     <ClCompile Include="Cena.cpp" />
     <ClCompile Include="Cennik.cpp" />
     <ClCompile Include="Info.cpp" />

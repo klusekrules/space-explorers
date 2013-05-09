@@ -1,7 +1,6 @@
 #pragma once
-#include "BaseTypes.h"
-#include "Bool.h"
-#pragma warning( disable : 4251 )
+#include "stdafx.h"
+
 class BASETYPES_API Stale
 {
 public:

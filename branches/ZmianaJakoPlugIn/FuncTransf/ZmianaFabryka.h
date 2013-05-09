@@ -1,11 +1,12 @@
 #pragma once
-#include "../parser\ticpp.h"
-#include "ZmianaInterfejs.h"
-#include "../BaseTypes\IdType.h"
 #include <map>
-#include "..\BaseTypes\WyjatekParseraXML.h"
-#include "../BaseTypes\NieznalezionoObiektu.h"
-#include "../BaseTypes\BrakAtrybutuXML.h"
+
+#include "../parser/ticpp.h"
+#include "ZmianaInterfejs.h"
+#include "../BaseTypes/IdType.h"
+#include "../BaseTypes/WyjatekParseraXML.h"
+#include "../BaseTypes/NieznalezionoObiektu.h"
+#include "../BaseTypes/BrakAtrybutuXML.h"
 
 class ZmianaFabryka
 {

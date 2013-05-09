@@ -1,9 +1,7 @@
 #pragma once
-#pragma warning( disable : 4251 )
+#include "stdafx.h"
 #include "LoggerInterface.h"
-using namespace std;
-#include <sstream>
-#include <stack>
+
 
 class LOGGER_API Logger:
 	public LoggerInterface

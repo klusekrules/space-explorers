@@ -1,5 +1,5 @@
 #pragma once
-#include "BaseTypes.h"
+#include "stdafx.h"
 
 class BASETYPES_API Fluktuacja:
 	virtual public LoggerInterface,

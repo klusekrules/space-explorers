@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\BaseType">
+      <UniqueIdentifier>{40876b92-2069-41d5-b0d4-68d6674ae151}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Exception">
+      <UniqueIdentifier>{5a7bf851-55f9-4543-8e70-c5e704181a1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Stale">
+      <UniqueIdentifier>{8e1795d1-4960-4201-9be0-2e5893b9ec45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Inne">
+      <UniqueIdentifier>{77442ede-dcd7-4ba7-9455-8ba73df058cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -28,198 +40,201 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BaseInterface.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClInclude>
     <ClInclude Include="BladDzieleniaLadowni.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Exception</Filter>
     </ClInclude>
     <ClInclude Include="BladLaczeniaObiektow.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Exception</Filter>
     </ClInclude>
     <ClInclude Include="Bool.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BrakAtrybutuXML.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClInclude>
     <ClInclude Include="BrakMaski.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="BrakAtrybutuXML.h">
+      <Filter>Source Files\Exception</Filter>
     </ClInclude>
     <ClInclude Include="Dystans.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClInclude>
     <ClInclude Include="Fluktuacja.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClInclude>
     <ClInclude Include="IdType.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClInclude>
     <ClInclude Include="Ilosc.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClInclude>
     <ClInclude Include="Klucz.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClInclude>
     <ClInclude Include="Mapa.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClInclude>
     <ClInclude Include="Masa.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClInclude>
     <ClInclude Include="MocSilnika.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClInclude>
     <ClInclude Include="NiepoprawnaIloscObiektow.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Exception</Filter>
     </ClInclude>
     <ClInclude Include="NiepoprawneParametryFunkcji.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Exception</Filter>
     </ClInclude>
     <ClInclude Include="NiezainicjalizowanaKlasa.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Exception</Filter>
     </ClInclude>
     <ClInclude Include="NiezgodnyTypSurowca.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Exception</Filter>
     </ClInclude>
     <ClInclude Include="NieznalezionoObiektu.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Exception</Filter>
     </ClInclude>
     <ClInclude Include="Objetosc.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClInclude>
     <ClInclude Include="Obrazenia.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClInclude>
     <ClInclude Include="OgolnyWyjatek.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Exception</Filter>
     </ClInclude>
     <ClInclude Include="Parametr.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClInclude>
     <ClInclude Include="Powierzchnia.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClInclude>
     <ClInclude Include="Poziom.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClInclude>
     <ClInclude Include="Predkosc.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Stale.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClInclude>
     <ClInclude Include="Tekst.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WyjatekParseraXML.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WyjatekSTL.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClInclude>
     <ClInclude Include="ZuzyciePaliwa.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
+    </ClInclude>
+    <ClInclude Include="WyjatekSTL.h">
+      <Filter>Source Files\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="WyjatekParseraXML.h">
+      <Filter>Source Files\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="Stale.h">
+      <Filter>Source Files\Stale</Filter>
+    </ClInclude>
+    <ClInclude Include="Base.h">
+      <Filter>Source Files\BaseType</Filter>
+    </ClInclude>
+    <ClInclude Include="Wyjatki.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseTypes.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dllmain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BladDzieleniaLadowni.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Exception</Filter>
     </ClCompile>
     <ClCompile Include="BladLaczeniaObiektow.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Exception</Filter>
     </ClCompile>
     <ClCompile Include="Bool.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClCompile>
     <ClCompile Include="BrakAtrybutuXML.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Exception</Filter>
     </ClCompile>
     <ClCompile Include="BrakMaski.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Exception</Filter>
     </ClCompile>
     <ClCompile Include="Dystans.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClCompile>
     <ClCompile Include="Fluktuacja.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClCompile>
     <ClCompile Include="IdType.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClCompile>
     <ClCompile Include="Ilosc.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClCompile>
     <ClCompile Include="Klucz.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClCompile>
     <ClCompile Include="Masa.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClCompile>
     <ClCompile Include="MocSilnika.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClCompile>
     <ClCompile Include="NiepoprawnaIloscObiektow.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Exception</Filter>
     </ClCompile>
     <ClCompile Include="NiepoprawneParametryFunkcji.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Exception</Filter>
     </ClCompile>
     <ClCompile Include="NiezainicjalizowanaKlasa.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Exception</Filter>
     </ClCompile>
     <ClCompile Include="NiezgodnyTypSurowca.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Exception</Filter>
     </ClCompile>
     <ClCompile Include="NieznalezionoObiektu.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Exception</Filter>
     </ClCompile>
     <ClCompile Include="Objetosc.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClCompile>
     <ClCompile Include="Obrazenia.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClCompile>
     <ClCompile Include="OgolnyWyjatek.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Exception</Filter>
     </ClCompile>
     <ClCompile Include="Parametr.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClCompile>
     <ClCompile Include="Powierzchnia.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClCompile>
     <ClCompile Include="Poziom.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClCompile>
     <ClCompile Include="Predkosc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Stale.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClCompile>
     <ClCompile Include="Tekst.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WyjatekParseraXML.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WyjatekSTL.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Wyjatki.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
     </ClCompile>
     <ClCompile Include="ZuzyciePaliwa.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BaseType</Filter>
+    </ClCompile>
+    <ClCompile Include="WyjatekParseraXML.cpp">
+      <Filter>Source Files\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="WyjatekSTL.cpp">
+      <Filter>Source Files\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files\Inne</Filter>
+    </ClCompile>
+    <ClCompile Include="Wyjatki.cpp">
+      <Filter>Source Files\Stale</Filter>
+    </ClCompile>
+    <ClCompile Include="Stale.cpp">
+      <Filter>Source Files\Stale</Filter>
+    </ClCompile>
+    <ClCompile Include="Base.cpp">
+      <Filter>Source Files\BaseType</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

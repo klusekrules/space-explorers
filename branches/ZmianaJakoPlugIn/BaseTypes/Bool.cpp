@@ -17,11 +17,9 @@ Bool::Bool( const type_name& t )
 {
 }
 
-
 Bool::~Bool()
 {
 }
-
 
 bool Bool::operator==( const Bool& b )const{
 	return bBool == b.bBool;
@@ -48,4 +46,4 @@ string Bool::toString() const{
 	stringstream str;
 	str << boolalpha << bBool;
 	return str.str();
-} 
+}

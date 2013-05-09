@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 #include "stdafx.h"
 #define CLASSNAME(C) LoggerClassName::className<C>()
 /**
@@ -13,7 +12,7 @@ public:
 	* \return Nazwa klasy przekazanej przez parametr szablonu.
 	*/
 	template< class C >
-	static std::string className() {
-		return std::string(typeid(C).name()).substr(6);
+	static string className() {
+		return string(typeid(C).name()).substr(6);
 	}
 };

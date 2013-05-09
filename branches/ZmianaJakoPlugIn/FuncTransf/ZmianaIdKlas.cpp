@@ -1,7 +1,4 @@
-#include "ZmianaDekorator.h"
-#include "ZmianaAgregacja.h"
-#include "ZmianaLiniowa.h"
-#include "ZmianaPotegowa.h"
+#include "FuncTransf.h"
 
 const IdType ZmianaDekorator::idKlasy(1);
 const IdType ZmianaAgregacja::idKlasy(2);
