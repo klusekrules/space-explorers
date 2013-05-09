@@ -3,7 +3,7 @@
 #include "Aplikacja.h"
 #include "ObiektBaseInfo.h"
 #include "XmlBO.h"
-#include "FuncTransf\ZmianaFabryka.h"
+#include "FabrTransf\ZmianaFabryka.h"
 
 Warunek::Warunek(){
 }

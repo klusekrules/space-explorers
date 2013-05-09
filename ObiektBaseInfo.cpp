@@ -1,5 +1,5 @@
 #include "ObiektBaseInfo.h"
-#include "Logger.h"
+#include "Logger/Logger.h"
 #include "XmlBO.h"
 #include "ObiektBase.h"
 

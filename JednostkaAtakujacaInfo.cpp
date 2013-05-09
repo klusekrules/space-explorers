@@ -1,5 +1,5 @@
 #include "JednostkaAtakujacaInfo.h"
-#include "Logger.h"
+#include "Logger/Logger.h"
 #include "XmlBO.h"
 
 JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const Info& info, const Obrazenia& oAtak,const Obrazenia& oPancerz, const Obrazenia& oOslona) throw()

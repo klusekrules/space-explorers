@@ -1,6 +1,6 @@
 
 #include "SurowceInfo.h"
-#include "Logger.h"
+#include "Logger/Logger.h"
 #include "XmlBO.h"
 
 SurowceInfo::~SurowceInfo(){

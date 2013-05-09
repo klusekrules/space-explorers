@@ -230,14 +230,8 @@
     <Filter Include="SourceFile\KlasyPomocnicze">
       <UniqueIdentifier>{6a43f607-5cee-48af-be60-d2eb6e1b0e2b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\BaseClass\Zmiana">
-      <UniqueIdentifier>{f6b91d8c-19dc-4861-8f28-6364f2a77fbb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource">
       <UniqueIdentifier>{f809a59c-3db4-40e4-baa6-d18e46644843}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\BaseClass\Zmiana\Szkielet">
-      <UniqueIdentifier>{cc29475b-1b3d-43ed-ab37-5c839aafb0fe}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\Wymagania">
       <UniqueIdentifier>{b4bdf8e7-69d8-42b7-828c-db385f251073}</UniqueIdentifier>

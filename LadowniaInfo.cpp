@@ -1,5 +1,5 @@
 #include "LadowniaInfo.h"
-#include "Logger.h"
+#include "Logger/Logger.h"
 #include "XmlBO.h"
 
 LadowniaInfo::LadowniaInfo( const Objetosc& max, const Info& i ) throw()

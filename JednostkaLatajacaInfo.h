@@ -1,12 +1,9 @@
 #pragma once
 #include "Main.h"
 #include "Info.h"
-#include "MocSilnika.h"
-#include "ZuzyciePaliwa.h"
-#include "Masa.h"
-#include "Klucz.h"
-#include "ZmianaInterfejs.h"
-#include "WyjatekParseraXML.h"
+#include "BaseTypes\BaseTypes.h"
+#include "BaseTypes\Wyjatki.h"
+#include "FabrTransf\ZmianaInterfejs.h"
 
 /**
 * Klasa opisuj¹ca statek pod k¹tem przemieszczania siê.
