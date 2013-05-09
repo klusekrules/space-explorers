@@ -103,7 +103,8 @@
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <SmallerTypeCheck>true</SmallerTypeCheck>
-      <MinimalRebuild>false</MinimalRebuild>
+      <MinimalRebuild>true</MinimalRebuild>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -166,10 +167,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ZmianaAgregacja.h" />
     <ClInclude Include="ZmianaDekorator.h" />
-    <ClInclude Include="ZmianaFabryka.h" />
-    <ClInclude Include="ZmianaInterfejs.h" />
     <ClInclude Include="ZmianaLiniowa.h" />
-    <ClInclude Include="ZmianaParametr.h" />
     <ClInclude Include="ZmianaPotegowa.h" />
   </ItemGroup>
   <ItemGroup>
@@ -190,11 +188,8 @@
     <ClCompile Include="FuncTransf.cpp" />
     <ClCompile Include="ZmianaAgregacja.cpp" />
     <ClCompile Include="ZmianaDekorator.cpp" />
-    <ClCompile Include="ZmianaFabryka.cpp" />
     <ClCompile Include="ZmianaIdKlas.cpp" />
-    <ClCompile Include="ZmianaInterfejs.cpp" />
     <ClCompile Include="ZmianaLiniowa.cpp" />
-    <ClCompile Include="ZmianaParametr.cpp" />
     <ClCompile Include="ZmianaPotegowa.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

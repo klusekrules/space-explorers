@@ -1,6 +1,5 @@
 #include "ZmianaAgregacja.h"
 #include "../XmlBO.h"
-#include "ZmianaFabryka.h"
 #include "../Logger/Logger.h"
 
 ZmianaAgregacja::ZmianaAgregacja( const ticpp::Element* e )

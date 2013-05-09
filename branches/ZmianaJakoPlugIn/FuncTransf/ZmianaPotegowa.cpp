@@ -1,9 +1,8 @@
 #include "ZmianaPotegowa.h"
 #include "../Logger/Logger.h"
-#include "ZmianaFabryka.h"
 #include "../XmlBO.h"
 
-ZmianaPotegowa::ZmianaPotegowa( const ticpp::Element * e ) throw(WyjatekParseraXML)
+ZmianaPotegowa::ZmianaPotegowa( const ticpp::Element * e )
 	: wspolczynnik(XmlBO::IterateChildrenElement(e,"Param1")), wykladnik(XmlBO::IterateChildrenElement(e,"Param2"))
 {
 }

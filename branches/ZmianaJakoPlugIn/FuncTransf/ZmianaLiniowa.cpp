@@ -1,6 +1,5 @@
 #include "ZmianaLiniowa.h"
 #include "../Logger/Logger.h"
-#include "ZmianaFabryka.h"
 #include "../XmlBO.h"
 
 ZmianaLiniowa::ZmianaLiniowa( const ticpp::Element* e ) throw(WyjatekParseraXML)
