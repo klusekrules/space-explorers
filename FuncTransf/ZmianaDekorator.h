@@ -1,10 +1,11 @@
 #pragma once
+#include "stdafx.h"
 #include <memory>
-#include "ZmianaInterfejs.h"
+#include "../FabrTransf/FabrTransf.h"
 #include "../parser/ticpp.h"
 #include "../BaseTypes/IdType.h"
 
-class ZmianaDekorator:
+class FUNCTRANSF_API ZmianaDekorator:
 	public ZmianaInterfejs,
 	virtual public LoggerInterface
 {

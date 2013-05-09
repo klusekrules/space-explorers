@@ -1,11 +1,10 @@
 #pragma once
-#include "ZmianaInterfejs.h"
-#include "ZmianaParametr.h"
-
+#include "stdafx.h"
+#include "../FabrTransf/FabrTransf.h"
 #include "../parser/ticpp.h"
 #include "../BaseTypes/WyjatekParseraXML.h"
 
-class ZmianaLiniowa:
+class FUNCTRANSF_API ZmianaLiniowa:
 	public ZmianaInterfejs,
 	virtual public LoggerInterface
 {

@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{800C6F89-0263-4A3E-B6FC-B5E323F7879C}</ProjectGuid>
+    <ProjectGuid>{ADB2552A-6B1D-4EFB-842E-7623201BC4C2}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Logger</RootNamespace>
+    <RootNamespace>FabrTransf</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -41,8 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <TargetName>fabtrans-$(PlatformTarget)-d</TargetName>
     <OutDir>$(SolutionDir)out\</OutDir>
-    <TargetName>logger-$(PlatformTarget)-d</TargetName>
     <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
     <LibraryPath>$(SolutionDir)out;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);</LibraryPath>
   </PropertyGroup>
@@ -54,11 +54,10 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LOGGER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;FABRTRANSF_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <MinimalRebuild>true</MinimalRebuild>
-      <SmallerTypeCheck>true</SmallerTypeCheck>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <SmallerTypeCheck>true</SmallerTypeCheck>
       <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Link>
@@ -73,7 +72,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LOGGER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;FABRTRANSF_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -87,15 +86,12 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="afxres.h" />
-    <ClInclude Include="Log.h" />
-    <ClInclude Include="Logger.h" />
-    <ClInclude Include="LoggerClassName.h" />
-    <ClInclude Include="LoggerInterface.h" />
-    <ClInclude Include="LogLib.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="FabrTransf.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="ZmianaFabryka.h" />
+    <ClInclude Include="ZmianaInterfejs.h" />
+    <ClInclude Include="ZmianaParametr.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -106,11 +102,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Log.cpp" />
-    <ClCompile Include="Logger.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Logger.rc" />
+    <ClCompile Include="FabrTransf.cpp" />
+    <ClCompile Include="ZmianaFabryka.cpp" />
+    <ClCompile Include="ZmianaInterfejs.cpp" />
+    <ClCompile Include="ZmianaParametr.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

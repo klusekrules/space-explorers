@@ -1,11 +1,12 @@
 #pragma once
+#include "stdafx.h"
 #include <vector>
 #include <memory>
 #include "ZmianaDekorator.h"
 #include "../parser/ticpp.h"
 #include "../BaseTypes/IdType.h"
 
-class ZmianaAgregacja :
+class FUNCTRANSF_API ZmianaAgregacja :
 	public ZmianaDekorator,
 	virtual public LoggerInterface
 {

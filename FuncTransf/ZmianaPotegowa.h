@@ -1,10 +1,8 @@
 #pragma once
-#include "ZmianaInterfejs.h"
-#include "ZmianaParametr.h"
+#include "stdafx.h"
+#include "../FabrTransf/FabrTransf.h"
 
-class WyjatekParseraXML;
-
-class ZmianaPotegowa:
+class FUNCTRANSF_API ZmianaPotegowa:
 	public ZmianaInterfejs,
 	virtual public LoggerInterface
 {
@@ -25,7 +23,7 @@ public:
 
 	ZmianaPotegowa* Kopia()const override;
 
-	explicit ZmianaPotegowa( const ticpp::Element * e ) throw(WyjatekParseraXML);
+	explicit ZmianaPotegowa( const ticpp::Element * e );
 	virtual ~ZmianaPotegowa(void);
 
 	string toString () const override;

@@ -48,15 +48,6 @@
     <ClInclude Include="ZmianaDekorator.h">
       <Filter>Source Files\Zmiana\Szkielet</Filter>
     </ClInclude>
-    <ClInclude Include="ZmianaParametr.h">
-      <Filter>Source Files\Zmiana\Szkielet</Filter>
-    </ClInclude>
-    <ClInclude Include="ZmianaFabryka.h">
-      <Filter>Source Files\Zmiana\Szkielet</Filter>
-    </ClInclude>
-    <ClInclude Include="ZmianaInterfejs.h">
-      <Filter>Source Files\Zmiana\Szkielet</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FuncTransf.cpp">
@@ -77,17 +68,8 @@
     <ClCompile Include="ZmianaDekorator.cpp">
       <Filter>Source Files\Zmiana\Szkielet</Filter>
     </ClCompile>
-    <ClCompile Include="ZmianaParametr.cpp">
-      <Filter>Source Files\Zmiana\Szkielet</Filter>
-    </ClCompile>
     <ClCompile Include="ZmianaIdKlas.cpp">
       <Filter>Source Files\Zmiana</Filter>
-    </ClCompile>
-    <ClCompile Include="ZmianaFabryka.cpp">
-      <Filter>Source Files\Zmiana\Szkielet</Filter>
-    </ClCompile>
-    <ClCompile Include="ZmianaInterfejs.cpp">
-      <Filter>Source Files\Zmiana\Szkielet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
