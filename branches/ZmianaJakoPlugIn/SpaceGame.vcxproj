@@ -70,28 +70,28 @@
     <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)out\</OutDir>
     <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
-    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
     <LibraryPath>$(SolutionDir)\out;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)out\</OutDir>
-    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)out\</OutDir>
     <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
     <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\out;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
-    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)out\</OutDir>
     <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
     <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\out;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
-    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -216,7 +216,8 @@
     <ClInclude Include="Dystans.h" />
     <ClInclude Include="Fluktuacja.h" />
     <ClInclude Include="Library.h" />
-    <ClInclude Include="LoggerClassName.h" />
+    <ClInclude Include="Log.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="Parametr.h" />
     <ClInclude Include="version.h" />
     <ClInclude Include="IdType.h" />
@@ -229,9 +230,6 @@
     <ClInclude Include="Klucz.h" />
     <ClInclude Include="Ladownia.h" />
     <ClInclude Include="LadowniaInfo.h" />
-    <ClInclude Include="Log.h" />
-    <ClInclude Include="Logger.h" />
-    <ClInclude Include="LoggerInterface.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="MakeVector.h" />
     <ClInclude Include="Mapa.h" />
@@ -272,8 +270,6 @@
     <ClInclude Include="WyjatekSTL.h" />
     <ClInclude Include="Wymagania.h" />
     <ClInclude Include="XmlBO.h" />
-    <ClInclude Include="ZmianaFabryka.h" />
-    <ClInclude Include="ZmianaInterfejs.h" />
     <ClInclude Include="ZuzyciePaliwa.h" />
   </ItemGroup>
   <ItemGroup>
@@ -300,7 +296,6 @@
     <ClCompile Include="Ladownia.cpp" />
     <ClCompile Include="LadowniaInfo.cpp" />
     <ClCompile Include="Log.cpp" />
-    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="maintest.cpp" />
     <ClCompile Include="Masa.cpp" />
     <ClCompile Include="MocSilnika.cpp" />
@@ -332,9 +327,6 @@
     <ClCompile Include="WyjatekSTL.cpp" />
     <ClCompile Include="Wyjatki.cpp" />
     <ClCompile Include="Wymagania.cpp" />
-    <ClCompile Include="ZmianaFabryka.cpp" />
-    <ClCompile Include="ZmianaIdKlas.cpp" />
-    <ClCompile Include="ZmianaInterfejs.cpp" />
     <ClCompile Include="ZuzyciePaliwa.cpp" />
   </ItemGroup>
   <ItemGroup>

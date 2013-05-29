@@ -1,6 +1,5 @@
 #pragma once
 #include "Main.h"
-#include "LoggerInterface.h"
 #include "parser\ticpp.h"
 #include "ZmianaInterfejs.h"
 #include "Ilosc.h"

@@ -13,15 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Zmiana">
-      <UniqueIdentifier>{40c44c42-eafc-4e9b-8acd-bede90fa47fd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Zmiana\Szkielet">
-      <UniqueIdentifier>{5608dc33-b48e-4816-aaba-dde78daa5d68}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Zmiana\Instancje">
-      <UniqueIdentifier>{d4e1fc59-8697-4637-a4a2-a8961a6eda59}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -36,20 +27,26 @@
     <ClInclude Include="FuncTransf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\ZmianaParametr.h">
-      <Filter>Source Files\Zmiana\Szkielet</Filter>
+    <ClInclude Include="ZmianaAgregacja.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\ZmianaPotegowa.h">
-      <Filter>Source Files\Zmiana\Instancje</Filter>
+    <ClInclude Include="ZmianaDekorator.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\ZmianaLiniowa.h">
-      <Filter>Source Files\Zmiana\Instancje</Filter>
+    <ClInclude Include="ZmianaFabryka.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\ZmianaAgregacja.h">
-      <Filter>Source Files\Zmiana\Szkielet</Filter>
+    <ClInclude Include="ZmianaInterfejs.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\ZmianaDekorator.h">
-      <Filter>Source Files\Zmiana\Szkielet</Filter>
+    <ClInclude Include="ZmianaLiniowa.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaParametr.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaPotegowa.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -62,20 +59,29 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ZmianaParametr.cpp">
-      <Filter>Source Files\Zmiana\Szkielet</Filter>
+    <ClCompile Include="ZmianaAgregacja.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ZmianaLiniowa.cpp">
-      <Filter>Source Files\Zmiana\Instancje</Filter>
+    <ClCompile Include="ZmianaDekorator.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ZmianaPotegowa.cpp">
-      <Filter>Source Files\Zmiana\Instancje</Filter>
+    <ClCompile Include="ZmianaFabryka.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ZmianaAgregacja.cpp">
-      <Filter>Source Files\Zmiana\Szkielet</Filter>
+    <ClCompile Include="ZmianaIdKlas.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ZmianaDekorator.cpp">
-      <Filter>Source Files\Zmiana\Szkielet</Filter>
+    <ClCompile Include="ZmianaInterfejs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaLiniowa.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaParametr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaPotegowa.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

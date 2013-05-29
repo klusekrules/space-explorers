@@ -5,7 +5,7 @@
 #include <memory>
 using namespace std;
 
-#include "LoggerInterface.h"
+#include "Logger\LoggerInterface.h"
 
 /**
 * Klasa zarz¹dzaj¹ca wyœwietlaniem komunikatów loguj¹cych. 
