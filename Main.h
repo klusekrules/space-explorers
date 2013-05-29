@@ -16,5 +16,5 @@
 using namespace std;
 #include <string>
 
-#include "LoggerInterface.h"
+#include "Logger\LoggerInterface.h"
 #include "Log.h"

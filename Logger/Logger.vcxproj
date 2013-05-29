@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{25B2D5F7-CF0B-48FF-A20C-66AA0155EC2F}</ProjectGuid>
+    <ProjectGuid>{DA49481F-E328-4C1F-927C-44F818D30472}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>FuncTransf</RootNamespace>
+    <RootNamespace>Logger</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -68,42 +68,36 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)out\</OutDir>
     <IntDir>obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName>ftrans-$(PlatformTarget)-d</TargetName>
-    <LibraryPath>$(SolutionDir)out;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);</LibraryPath>
+    <TargetName>Logger-$(PlatformTarget)-d</TargetName>
+    <OutDir>$(SolutionDir)out\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IntDir>obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName>ftrans-$(PlatformTarget)-d</TargetName>
     <LinkIncremental>true</LinkIncremental>
+    <IntDir>obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <TargetName>Logger-$(PlatformTarget)-d</TargetName>
     <OutDir>$(SolutionDir)out\</OutDir>
-    <LibraryPath>$(SolutionDir)out;$(VCInstallDir)lib\amd64;$(VCInstallDir)atlmfc\lib\amd64;$(WindowsSDK_LibraryPath_x64);</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)out\</OutDir>
+    <TargetName>Logger-$(PlatformTarget)</TargetName>
     <IntDir>obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName>ftrans-$(PlatformTarget)</TargetName>
-    <LibraryPath>$(SolutionDir)out;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IntDir>obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName>ftrans-$(PlatformTarget)</TargetName>
     <LinkIncremental>false</LinkIncremental>
+    <IntDir>obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)out\</OutDir>
-    <LibraryPath>$(SolutionDir)out;$(VCInstallDir)lib\amd64;$(VCInstallDir)atlmfc\lib\amd64;$(WindowsSDK_LibraryPath_x64);</LibraryPath>
+    <TargetName>Logger-$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;FUNCTRANSF_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LOGGER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <SmallerTypeCheck>true</SmallerTypeCheck>
-      <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalOptions>/D"EXP_STL" %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -115,8 +109,9 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;FUNCTRANSF_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LOGGER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>/D"EXP_STL" %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -130,8 +125,9 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;FUNCTRANSF_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LOGGER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>/D"EXP_STL" %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -147,8 +143,9 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;FUNCTRANSF_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LOGGER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>/D"EXP_STL" %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -161,16 +158,12 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FuncTransf.h" />
+    <ClInclude Include="ExportSymbol.h" />
+    <ClInclude Include="Logger.h" />
+    <ClInclude Include="LoggerClassName.h" />
+    <ClInclude Include="LoggerInterface.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="ZmianaAgregacja.h" />
-    <ClInclude Include="ZmianaDekorator.h" />
-    <ClInclude Include="ZmianaFabryka.h" />
-    <ClInclude Include="ZmianaInterfejs.h" />
-    <ClInclude Include="ZmianaLiniowa.h" />
-    <ClInclude Include="ZmianaParametr.h" />
-    <ClInclude Include="ZmianaPotegowa.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -187,21 +180,13 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="FuncTransf.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="ZmianaAgregacja.cpp" />
-    <ClCompile Include="ZmianaDekorator.cpp" />
-    <ClCompile Include="ZmianaFabryka.cpp" />
-    <ClCompile Include="ZmianaIdKlas.cpp" />
-    <ClCompile Include="ZmianaInterfejs.cpp" />
-    <ClCompile Include="ZmianaLiniowa.cpp" />
-    <ClCompile Include="ZmianaParametr.cpp" />
-    <ClCompile Include="ZmianaPotegowa.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

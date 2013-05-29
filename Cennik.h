@@ -1,7 +1,6 @@
 #pragma once
 #include "Main.h"
 #include "Cena.h"
-#include "LoggerInterface.h"
 #include "parser\ticpp.h"
 #include <vector>
 #include "Ilosc.h"
