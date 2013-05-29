@@ -1,6 +1,6 @@
 
 #include "JednostkaLatajaca.h"
-#include "Logger/Logger.h"
+#include "Logger.h"
 
 JednostkaLatajaca::JednostkaLatajaca( const JednostkaLatajacaInfo& jInfo )
 	: jednostkaLatajacaInfo(jInfo)

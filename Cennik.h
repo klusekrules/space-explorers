@@ -1,11 +1,12 @@
 #pragma once
 #include "Main.h"
 #include "Cena.h"
-#include "Logger\LoggerInterface.h"
+#include "LoggerInterface.h"
 #include "parser\ticpp.h"
 #include <vector>
-#include "BaseTypes\BaseTypes.h"
-#include "BaseTypes\Wyjatki.h"
+#include "Ilosc.h"
+#include "Poziom.h"
+#include "IdType.h"
 
 class Cennik:
 	virtual public LoggerInterface

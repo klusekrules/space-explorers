@@ -1,8 +1,8 @@
 #pragma once
 #include "Main.h"
 #include "Info.h"
-#include "BaseTypes\BaseTypes.h"
-#include "BaseTypes\Wyjatki.h"
+#include "Poziom.h"
+#include "Klucz.h"
 
 class ObiektBase;
 

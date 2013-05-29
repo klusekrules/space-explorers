@@ -1,9 +1,9 @@
 #include "Warunek.h"
-#include "Logger\Logger.h"
+#include "Logger.h"
 #include "Aplikacja.h"
 #include "ObiektBaseInfo.h"
 #include "XmlBO.h"
-#include "FabrTransf\ZmianaFabryka.h"
+#include "ZmianaFabryka.h"
 
 Warunek::Warunek(){
 }

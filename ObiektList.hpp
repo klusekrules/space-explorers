@@ -1,8 +1,11 @@
 #pragma once
-#include "BaseTypes\BaseTypes.h"
-#include "BaseTypes\Wyjatki.h"
+#include "Klucz.h"
 #include "Biblioteki.h"
 #include "Obiekt.h"
+#include "NieznalezionoObiektu.h"
+#include "BladLaczeniaObiektow.h"
+#include "Stale.h"
+#include "Mapa.h"
 
 template < class T >
 class ObiektList:

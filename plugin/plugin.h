@@ -24,5 +24,13 @@
 
 #endif
 
-PLUGIN_API bool init();
+// This class is exported from the plugin.dll
+class PLUGIN_API Cplugin {
+public:
+	Cplugin(void);
+	// TODO: add your methods here.
+};
 
+extern PLUGIN_API int nplugin;
+
+PLUGIN_API int fnplugin(void);

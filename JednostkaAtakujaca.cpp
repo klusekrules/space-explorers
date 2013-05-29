@@ -1,6 +1,6 @@
 
 #include "JednostkaAtakujaca.h"
-#include "Logger/Logger.h"
+#include "Logger.h"
 
 JednostkaAtakujaca::JednostkaAtakujaca( const JednostkaAtakujacaInfo& jInfo )
 	: jednostkaAtakujacaInfo(jInfo)
