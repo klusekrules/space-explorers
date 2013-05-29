@@ -4,11 +4,32 @@
 // that uses this DLL. This way any other project whose source files include this file see 
 // FUNCTRANSF_API functions as being imported from a DLL, whereas this DLL sees symbols
 // defined with this macro as being exported.
-#pragma once
+#ifdef FUNCTRANSF_EXPORTS
+#define FUNCTRANSF_API __declspec(dllexport)
+#else
+#define FUNCTRANSF_API __declspec(dllimport)
+#ifdef _DEBUG
+#ifdef _WIN64
+#pragma comment( lib, "ftrans-x64-d" )
+#else if _WIN32
+#pragma comment( lib, "ftrans-x86-d" )
+#endif
+#else
+#ifdef _WIN64
+#pragma comment( lib, "ftrans-x64" )
+#else if _WIN32
+#pragma comment( lib, "ftrans-x86" )
+#endif
+#endif
+#endif
 
-#include "ZmianaDekorator.h"
-#include "ZmianaAgregacja.h"
-#include "ZmianaLiniowa.h"
-#include "ZmianaPotegowa.h"
+// This class is exported from the FuncTransf.dll
+class FUNCTRANSF_API CFuncTransf {
+public:
+	CFuncTransf(void);
+	// TODO: add your methods here.
+};
 
-extern "C" FUNCTRANSF_API bool init();
+extern FUNCTRANSF_API int nFuncTransf;
+
+FUNCTRANSF_API int fnFuncTransf(void);

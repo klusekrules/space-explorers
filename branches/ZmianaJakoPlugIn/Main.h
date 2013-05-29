@@ -5,6 +5,9 @@
 //Deklaracja w³¹czaj¹ca/wy³¹czaj¹ca testy
 #define TESTS
 
+//Makro wstawiajace nazwe pliku i liniê i datê pliku.
+#define EXCEPTION_PLACE Tekst(__FILE__) , IdType(__LINE__)
+
 #ifdef TESTS
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
@@ -13,5 +16,5 @@
 using namespace std;
 #include <string>
 
-#include "Logger\LoggerInterface.h"
-#include "Logger\Log.h"
+#include "LoggerInterface.h"
+#include "Log.h"

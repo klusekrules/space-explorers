@@ -10,9 +10,16 @@
 #pragma once
 #include "Main.h"
 #include "Biblioteki.h"
-#include "BaseTypes\BaseTypes.h"
-#include "BaseTypes\Wyjatki.h"
+#include "NieznalezionoObiektu.h"
+#include "NiepoprawnaIloscObiektow.h"
+#include "NiepoprawneParametryFunkcji.h"
+#include "BladDzieleniaLadowni.h"
+#include "Objetosc.h"
+#include "Klucz.h"
+#include "Ilosc.h"
 #include "Obiekt.h"
+#include "Fluktuacja.h"
+#include "Masa.h"
 #include "ObiektList.hpp"
 
 class Surowce;

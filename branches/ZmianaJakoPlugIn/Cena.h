@@ -1,10 +1,11 @@
 #pragma once
 #include "Main.h"
-#include "BaseTypes\BaseTypes.h"
-#include "BaseTypes\Wyjatki.h"
+#include "LoggerInterface.h"
 #include "parser\ticpp.h"
-#include "FabrTransf\ZmianaInterfejs.h"
-
+#include "ZmianaInterfejs.h"
+#include "Ilosc.h"
+#include "Poziom.h"
+#include "IdType.h"
 
 class Surowce;
 class WyjatekParseraXML;

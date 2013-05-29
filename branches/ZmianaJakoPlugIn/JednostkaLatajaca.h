@@ -1,8 +1,10 @@
 #pragma once
 #include "Main.h"
-#include "BaseTypes\BaseTypes.h"
-#include "BaseTypes\Wyjatki.h"
+#include "Fluktuacja.h"
+#include "Predkosc.h"
+#include "Dystans.h"
 #include "JednostkaLatajacaInfo.h"
+#include "NiezainicjalizowanaKlasa.h"
 
 /**
 * Klasa implementuj¹ca interfejs, s³u¿¹cy do lotów statków kosmiczych.

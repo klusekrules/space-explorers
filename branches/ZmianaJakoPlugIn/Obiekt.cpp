@@ -1,6 +1,6 @@
 #include "Obiekt.h"
 #include "ObiektInfo.h"
-#include "Logger/Logger.h"
+#include "Logger.h"
 #include "Ladownia.h"
 
 Obiekt::Obiekt( const Ilosc& i, const ObiektInfo& obiekt ) throw()

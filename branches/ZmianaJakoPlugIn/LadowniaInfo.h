@@ -2,9 +2,8 @@
 #include "Main.h"
 #include "Info.h"
 #include "Ladownia.h"
-#include "FabrTransf\ZmianaInterfejs.h"
-#include "BaseTypes\BaseTypes.h"
-#include "BaseTypes\Wyjatki.h"
+#include "ZmianaInterfejs.h"
+#include "WyjatekParseraXML.h"
 
 class LadowniaInfo :
 	public Info,

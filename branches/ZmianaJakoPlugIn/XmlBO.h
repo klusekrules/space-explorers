@@ -1,6 +1,7 @@
 #pragma once
+#include "Main.h"
 #include "parser\ticpp.h"
-#include "BaseTypes\Wyjatki.h"
+#include "WyjatekParseraXML.h"
 
 class XmlBO{
 public:

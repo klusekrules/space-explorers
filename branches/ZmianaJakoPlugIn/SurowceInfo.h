@@ -2,8 +2,8 @@
 #include "Main.h"
 #include "ObiektInfo.h"
 #include "Surowce.h"
-#include "BaseTypes\BaseTypes.h"
-#include "BaseTypes\Wyjatki.h"
+#include "WyjatekParseraXML.h"
+#include "Bool.h"
 
 class SurowceInfo :
 	public ObiektInfo,

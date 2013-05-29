@@ -3,23 +3,20 @@
 
 #include "stdafx.h"
 #include "plugin.h"
-#include "../Logger/LogLib.h"
 
-typedef bool (*inicjalizacja)();
 
-PLUGIN_API bool init(){
-	inicjalizacja i;
-	HMODULE hLibrary = LoadLibrary("FuncTransf-x86-d.dll");
-	if(hLibrary){
-		Log::getInstance().info("Za³adowano biblioteke FuncTransf-x86-d.dll");
-		i = (inicjalizacja)GetProcAddress(hLibrary,"init");
-		if( i ){
-			return (*i)();
-		}else{
-			Log::getInstance().warn("Nie zanaleziono funkcji SymInitialize i/lub SymFromAddr.");
-		}
-	}else{
-		Log::getInstance().warn("Nie za³adowano biblioteki Dbghelp.dll");
-	}
-	return false;
+// This is an example of an exported variable
+PLUGIN_API int nplugin=0;
+
+// This is an example of an exported function.
+PLUGIN_API int fnplugin(void)
+{
+	return 42;
+}
+
+// This is the constructor of a class that has been exported.
+// see plugin.h for the class definition
+Cplugin::Cplugin()
+{
+	return;
 }
