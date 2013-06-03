@@ -33,6 +33,13 @@ public:
 		str << a;
 		return str.str();
 	}
+	
+	template< class T >
+	static string field( const string& n, const T& a){
+		stringstream str;
+		str << a;
+		return str.str();
+	}
 
 	static string field( const string& name, const LoggerInterface& liClassF, const LoggerInterface& liClassS );
 

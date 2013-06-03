@@ -3,8 +3,10 @@
 #include "ZmianaFabryka.h"
 
 ZmianaDekorator::ZmianaDekorator( const ticpp::Element* e ){
-	if(e){
-		next = ZmianaFabryka::pobierzInstancje().Tworz(e);
+	if( e && zFabryka ){
+		next = zFabryka->Tworz(e);
+		if(next==nullptr)
+			throw;
 	}
 }
 ZmianaDekorator::ZmianaDekorator( const ZmianaDekorator& e )
@@ -37,6 +39,7 @@ string ZmianaDekorator::toString () const{
 	return str.toString();
 }
 
-bool ZmianaDekorator::RejestrujZmianaDekotor(){
-	return ZmianaFabryka::pobierzInstancje().RejestracjaZmiany(idKlasy,ZmianaDekorator::TworzZmianaDekorator);
+bool ZmianaDekorator::RejestrujZmianaDekotor( ZmianaFabryka &ref ){
+	zFabryka = &ref;
+	return ref.RejestracjaZmiany(idKlasy,ZmianaDekorator::TworzZmianaDekorator);
 }

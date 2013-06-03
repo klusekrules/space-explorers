@@ -2,7 +2,7 @@
 #include "Main.h"
 #include "Info.h"
 #include "Ladownia.h"
-#include "ZmianaInterfejs.h"
+#include "FuncTransf\ZmianaInterfejs.h"
 #include "WyjatekParseraXML.h"
 
 class LadowniaInfo :

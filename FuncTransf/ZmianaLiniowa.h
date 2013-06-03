@@ -1,11 +1,12 @@
 #pragma once
+#include "ExportSymbol.h"
 #include "ZmianaInterfejs.h"
 #include "ZmianaParametr.h"
-
+#include "ZmianaFabryka.h"
 #include "..\parser\ticpp.h"
 
 
-class ZmianaLiniowa:
+class FUNCTRANSF_API ZmianaLiniowa:
 	public ZmianaInterfejs,
 	virtual public LoggerInterface
 {
@@ -15,7 +16,7 @@ private:
 		return new ZmianaLiniowa(e);
 	}
 public:	
-	static bool RejestrujZmianaLiniowa();
+	static bool RejestrujZmianaLiniowa( ZmianaFabryka &ref );
 
 private:
 	ZmianaParametr parametr;

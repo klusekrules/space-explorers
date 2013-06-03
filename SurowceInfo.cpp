@@ -12,7 +12,7 @@ SurowceInfo::SurowceInfo( const ObiektInfo& o , bool bCzyPrzyrostowy ) throw()
 }
 
 SurowceInfo::SurowceInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
-	: ObiektInfo(XmlBO::IterateChildren(n,CLASSNAME(ObiektInfo))) , czyPrzyrostowy (false)
+	: ObiektInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(ObiektInfo))) , czyPrzyrostowy (false)
 {
 	if(n){
 		auto s = n->ToElement()->GetAttribute("typ");

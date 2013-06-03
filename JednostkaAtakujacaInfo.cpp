@@ -7,7 +7,7 @@ JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const Info& info, const Obrazenia
 {
 }
 JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
-	: Info(XmlBO::IterateChildren(n,CLASSNAME(Info))),zmAtak(nullptr), zmPancerz(nullptr), zmOslona(nullptr)
+	: Info(XmlBO::IterateChildren<THROW>(n,CLASSNAME(Info))),zmAtak(nullptr), zmPancerz(nullptr), zmOslona(nullptr)
 {
 	if(n){
 		try{
@@ -29,21 +29,21 @@ Obrazenia JednostkaAtakujacaInfo::getAtak(const Poziom& p ) const{
 	if(zmAtak==nullptr)
 		return atak;
 	else
-		return Obrazenia(zmAtak->value(atak.value(),p));
+		return Obrazenia(zmAtak->value(atak.value(),static_cast<int>(p.value())));
 }
 	
 Obrazenia JednostkaAtakujacaInfo::getPancerz( const Poziom& p ) const{
 	if(zmPancerz==nullptr)
 		return pancerz;
 	else
-		return Obrazenia(zmPancerz->value(pancerz.value(),p));
+		return Obrazenia(zmPancerz->value(pancerz.value(),static_cast<int>(p.value())));
 }
 
 Obrazenia JednostkaAtakujacaInfo::getOslona(const Poziom& p ) const{
 	if(zmOslona==nullptr)
 		return oslona;
 	else
-		return Obrazenia(zmOslona->value(oslona.value(),p));
+		return Obrazenia(zmOslona->value(oslona.value(),static_cast<int>(p.value())));
 }
 
 string JednostkaAtakujacaInfo::toString() const{

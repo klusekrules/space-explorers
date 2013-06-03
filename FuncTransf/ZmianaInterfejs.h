@@ -1,6 +1,8 @@
 #pragma once
+#include "ExportSymbol.h"
 #include "..\Logger\LoggerInterface.h"
-class ZmianaInterfejs: 
+
+class FUNCTRANSF_API ZmianaInterfejs: 
 	virtual public LoggerInterface
 {
 public:

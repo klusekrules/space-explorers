@@ -1,4 +1,5 @@
 #pragma once
+#include "ExportSymbol.h"
 #include "..\parser\ticpp.h"
 #include "ZmianaInterfejs.h"
 #include <map>
@@ -6,7 +7,7 @@
 using std::shared_ptr;
 using std::map;
 
-class ZmianaFabryka
+class FUNCTRANSF_API ZmianaFabryka
 {
 public:
 	typedef ZmianaInterfejs* (*KreatorZmiany)( const ticpp::Element* );

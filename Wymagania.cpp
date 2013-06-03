@@ -3,7 +3,7 @@
 #include "XmlBO.h"
 
 Wymagania::Wymagania( ticpp::Node* n  ) throw(WyjatekParseraXML)
-	: Cennik( XmlBO::IterateChildren(n,CLASSNAME(Cennik),false) ), Warunek( XmlBO::IterateChildren(n,CLASSNAME(Warunek),false) )
+	: Cennik( XmlBO::IterateChildren<NOTHROW>(n,CLASSNAME(Cennik)) ), Warunek( XmlBO::IterateChildren<NOTHROW>(n,CLASSNAME(Warunek)) )
 {
 }
 

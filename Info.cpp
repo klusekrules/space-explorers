@@ -7,7 +7,7 @@ Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const IdType& id , const W
 {
 }
 Info::Info( ticpp::Node* n ) throw(WyjatekParseraXML)
-	: Base( n ) , Wymagania( XmlBO::IterateChildren(n,CLASSNAME(Wymagania),false)  )
+	: Base( n ) , Wymagania( XmlBO::IterateChildren<NOTHROW>(n,CLASSNAME(Wymagania))  )
 {
 	if(n){
 		try{

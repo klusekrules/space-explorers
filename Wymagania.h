@@ -2,7 +2,7 @@
 #include "Main.h"
 #include "Cennik.h"
 #include "Warunek.h"
-#include "LoggerInterface.h"
+#include "Logger\LoggerInterface.h"
 
 class Wymagania :
 	public Cennik,

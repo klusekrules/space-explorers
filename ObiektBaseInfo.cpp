@@ -9,7 +9,7 @@ ObiektBaseInfo::ObiektBaseInfo(const Info& i , const Poziom& p) throw()
 }
 
 ObiektBaseInfo::ObiektBaseInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
-	: Info(XmlBO::IterateChildren(n,CLASSNAME(Info)))
+	: Info(XmlBO::IterateChildren<NOTHROW>(n,CLASSNAME(Info)))
 {
 	if(n){
 		try{

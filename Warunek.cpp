@@ -3,7 +3,7 @@
 #include "Aplikacja.h"
 #include "ObiektBaseInfo.h"
 #include "XmlBO.h"
-#include "ZmianaFabryka.h"
+#include "FuncTransf\ZmianaFabryka.h"
 
 Warunek::Warunek(){
 }
@@ -20,10 +20,12 @@ Warunek::Warunek( ticpp::Node* n ) throw(WyjatekParseraXML)
 			auto e = n->FirstChildElement(false);
 			while(e){
 				if(e->Value() == string("Wymog") ){
-					ticpp::Element* firstElement = XmlBO::IterateChildrenElement(e,CLASSNAME(ObiektBaseInfo),false);
+					ticpp::Element* firstElement = XmlBO::IterateChildrenElement<NOTHROW>(e,CLASSNAME(ObiektBaseInfo));
 					if(firstElement){
 						auto first = shared_ptr<ObiektBaseInfo>(new ObiektBaseInfo(firstElement));
-						auto second = ZmianaFabryka::pobierzInstancje().Tworz(XmlBO::IterateChildrenElement(e,"Zmiana",false));
+						auto second = Aplikacja::getInstance().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElement<NOTHROW>(e,"Zmiana"));
+						/*if(second==nullptr)
+							throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,Tekst("ZmianaFabryka"));*/
 						dodajWarunek(make_pair(first,second));
 					}
 				}
@@ -79,7 +81,7 @@ Warunek::PrzetworzoneWarunki Warunek::listaWarunkow( const Poziom& p ) const{
 
 
 shared_ptr< ObiektBaseInfo > Warunek::przeliczWarunek( Item& o , const Poziom& p ) const{
-	return shared_ptr< ObiektBaseInfo > ( new ObiektBaseInfo( *(o.first), Poziom( static_cast<Poziom::type_name>(floorl(o.second->value( o.first->getPoziom().value() , p ))) ) ) );
+	return shared_ptr< ObiektBaseInfo > ( new ObiektBaseInfo( *(o.first), Poziom( static_cast<Poziom::type_name>(floorl(o.second->value( o.first->getPoziom().value() , static_cast<int>(p.value()) ))) ) ) );
 }
 
 string Warunek::toString() const{

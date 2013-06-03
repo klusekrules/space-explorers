@@ -3,8 +3,8 @@
 #include "ZmianaFabryka.h"
 #include "..\XmlBO.h"
 
-ZmianaLiniowa::ZmianaLiniowa( const ticpp::Element* e ) throw(WyjatekParseraXML)
-	: parametr(XmlBO::IterateChildrenElement(e,"Param"))
+ZmianaLiniowa::ZmianaLiniowa( const ticpp::Element* e )
+	: parametr(XmlBO::IterateChildrenElement<NOTHROW>(e,"Param"))
 {
 }
 
@@ -20,8 +20,8 @@ ZmianaLiniowa* ZmianaLiniowa::Kopia()const{
 	return new ZmianaLiniowa(*this);
 }
 
-bool ZmianaLiniowa::RejestrujZmianaLiniowa(){
-	return ZmianaFabryka::pobierzInstancje().RejestracjaZmiany(idKlasy,ZmianaLiniowa::TworzZmianaLiniowa);
+bool ZmianaLiniowa::RejestrujZmianaLiniowa(  ZmianaFabryka &ref ){
+	return ref.RejestracjaZmiany(idKlasy,ZmianaLiniowa::TworzZmianaLiniowa);
 }
 
 string ZmianaLiniowa::toString()const{

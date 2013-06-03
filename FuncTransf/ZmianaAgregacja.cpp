@@ -4,11 +4,13 @@
 #include "..\Logger\Logger.h"
 
 ZmianaAgregacja::ZmianaAgregacja( const ticpp::Element* e )
-	: ZmianaDekorator( XmlBO::IterateChildrenElement(e,"ZmianaNext") )
+	: ZmianaDekorator( XmlBO::IterateChildrenElement<NOTHROW>(e,"ZmianaNext") )
 {
-	if(e){
+	if( e && zFabryka ){
 		for( auto n = e->IterateChildren("Zmiana",nullptr); n ; n = e->IterateChildren("Zmiana",n) ){
-			list.push_back(ZmianaFabryka::pobierzInstancje().Tworz(n->ToElement()));
+			auto e = zFabryka->Tworz(n->ToElement());
+			if(e)
+				list.push_back(e);
 		}
 	}
 }
@@ -49,8 +51,9 @@ long double ZmianaAgregacja::value( const long double& d, const int& p )const{
 	return suma;
 }
 
-bool ZmianaAgregacja::RejestrujZmianaAgregacja(){
-	return ZmianaFabryka::pobierzInstancje().RejestracjaZmiany(idKlasy,ZmianaAgregacja::TworzZmianaAgregacja);
+bool ZmianaAgregacja::RejestrujZmianaAgregacja( ZmianaFabryka &ref ){
+	zFabryka = &ref;
+	return ref.RejestracjaZmiany(idKlasy,ZmianaAgregacja::TworzZmianaAgregacja);
 }
 
 string ZmianaAgregacja::toString() const{
