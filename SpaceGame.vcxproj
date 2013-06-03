@@ -216,7 +216,6 @@
     <ClInclude Include="Dystans.h" />
     <ClInclude Include="Fluktuacja.h" />
     <ClInclude Include="Library.h" />
-    <ClInclude Include="Log.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Parametr.h" />
     <ClInclude Include="version.h" />
@@ -295,7 +294,6 @@
     <ClCompile Include="Klucz.cpp" />
     <ClCompile Include="Ladownia.cpp" />
     <ClCompile Include="LadowniaInfo.cpp" />
-    <ClCompile Include="Log.cpp" />
     <ClCompile Include="maintest.cpp" />
     <ClCompile Include="Masa.cpp" />
     <ClCompile Include="MocSilnika.cpp" />

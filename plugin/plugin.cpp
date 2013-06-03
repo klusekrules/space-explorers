@@ -1,22 +1,37 @@
-// plugin.cpp : Defines the exported functions for the DLL application.
-//
-
 #include "stdafx.h"
 #include "plugin.h"
 
+#include "..\FuncTransf\ZmianaLiniowa.h"
+#include "..\FuncTransf\ZmianaPotegowa.h"
+#include "..\FuncTransf\ZmianaAgregacja.h"
+#include "..\FuncTransf\ZmianaDekorator.h"
 
-// This is an example of an exported variable
-PLUGIN_API int nplugin=0;
-
-// This is an example of an exported function.
-PLUGIN_API int fnplugin(void)
+Cplugin::Cplugin( ZmianaFabryka& ref, Log& logFile )
+	: zFabryka(ref), lLogFile(logFile)
 {
-	return 42;
 }
 
-// This is the constructor of a class that has been exported.
-// see plugin.h for the class definition
-Cplugin::Cplugin()
-{
-	return;
+bool Cplugin::LoadDefaultZmiana(){
+	bool result = true;
+	if(!ZmianaDekorator::RejestrujZmianaDekotor(zFabryka)){
+		lLogFile.debug("Nie zarejestrowano zmiany:");
+		lLogFile.debug(CLASSNAME(ZmianaDekorator));
+		result=false;
+	} 
+	if(!ZmianaAgregacja::RejestrujZmianaAgregacja(zFabryka)){
+		lLogFile.debug("Nie zarejestrowano zmiany:");
+		lLogFile.debug(CLASSNAME(ZmianaAgregacja));
+		result=false;
+	}
+	if(!ZmianaLiniowa::RejestrujZmianaLiniowa(zFabryka)){
+		lLogFile.debug("Nie zarejestrowano zmiany:");
+		lLogFile.debug(CLASSNAME(ZmianaLiniowa));
+		result=false;
+	}
+	if(!ZmianaPotegowa::RejestrujZmianaPotegowa(zFabryka)){
+		lLogFile.debug("Nie zarejestrowano zmiany:");
+		lLogFile.debug(CLASSNAME(ZmianaPotegowa));
+		result=false;
+	}
+	return result;
 }

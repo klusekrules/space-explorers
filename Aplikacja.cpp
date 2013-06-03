@@ -3,53 +3,65 @@
 #include <sstream>
 #include <iomanip>
 #include "StatekInfo.h"
-#include "plugin\plugin.h"
+#include <fstream>
 
-#include "FuncTransf\ZmianaLiniowa.h"
-#include "FuncTransf\ZmianaPotegowa.h"
-#include "FuncTransf\ZmianaAgregacja.h"
-#include "FuncTransf\ZmianaDekorator.h"
-
-Aplikacja::Aplikacja()
-	: isDbgHelpInit(false), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo ), fabryka(ZmianaFabryka::pobierzInstancje())
+Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
+	: isDbgHelpInit(false), log(Log::getInstance()), fabryka(ZmianaFabryka::pobierzInstancje()), pluginy(fabryka,log), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
 {
+	/* Ustawianie polskich znaków */
+	locale pl ("Polish");
+	locale::global (pl);
+	/* ------------------------------------ */
+	
+	/* ------- Konfiguracja Loggera -------*/
+	struct tm timeinfo;
+	time_t t = time(nullptr);
+	localtime_s(&timeinfo, &t);
+	char s[20];
+	strftime(s,20,"%Y-%m-%d",&timeinfo);
+	stringstream sfile;
+	sfile << "space-explorers-" << s << ".log"; 
+	string filename = sfile.str();
+	log.ustawFormatCzasu(Log::Czas);
+	log.dodajGniazdoWyjsciowe(shared_ptr<ostream>(new fstream (filename,ios_base::app)));
+	/* ------------------------------------ */
+
+	/* Wylaczenie logow typu debug na potrzeby ograniczenia logow testow*/
+	log.logDebugDisable();
+	/* ------------------------------------ */
+
 	//Wyswietlanie informacji o aplikacji
 	LogApInfo();
-
-	//Cplugin test;
 	
 	//Ladowanie potrzebnych bibliotek
 	hLibrary = LoadLibrary("Dbghelp.dll");
 	if(hLibrary){
-		Log::getInstance().info("Za³adowano biblioteke Dbghelp.dll");
+		log.info("Za³adowano biblioteke Dbghelp.dll");
 		symInitialize = (SymInitializeS)GetProcAddress(hLibrary,"SymInitialize");
 		symFromAddr = (SymFromAddrS)GetProcAddress(hLibrary,"SymFromAddr");
 		if(symFromAddr && symInitialize){
 			isDbgHelpInit = true;
 		}else{
-			Log::getInstance().warn("Nie zanaleziono funkcji SymInitialize i/lub SymFromAddr.");
+			log.warn("Nie zanaleziono funkcji SymInitialize i/lub SymFromAddr.");
 		}
 	}else{
-		Log::getInstance().warn("Nie za³adowano biblioteki Dbghelp.dll");
+		log.warn("Nie za³adowano biblioteki Dbghelp.dll");
 	}
-	ZmianaDekorator::RejestrujZmianaDekotor(fabryka);
-	ZmianaAgregacja::RejestrujZmianaAgregacja(fabryka);
-	ZmianaLiniowa::RejestrujZmianaLiniowa(fabryka);
-	ZmianaPotegowa::RejestrujZmianaPotegowa(fabryka);
+
+	if(!pluginy.LoadDefaultZmiana())
+		throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,Tekst("Domyslne elementy zmiany."));
+
+	
 	//_set_purecall_handler(myPurecallHandler);
 	//TODO: zaimplementowanie logoowania podczas ka¿dej sytuacji wyj¹tkowej takiej jak wy¿ej
-	/*
-	// Rejestracja zmian w fabryce 
-	ZmianaLiniowa::RejestrujZmianaLiniowa();
-	ZmianaDekorator::RejestrujZmianaDekotor();
-	ZmianaAgregacja::RejestrujZmianaAgregacja();	
-	ZmianaPotegowa::RejestrujZmianaPotegowa();
-	// -----------------------------------------*/
 
 }
 
 ZmianaFabryka& Aplikacja::getZmianaFabryka(){
 	return fabryka;
+}
+Log& Aplikacja::getLog(){
+	return log;
 }
 
 bool Aplikacja::WczytajDane( const string& sFile ){
@@ -75,7 +87,7 @@ bool Aplikacja::WczytajDane( const string& sFile ){
 		}
 	}catch(ticpp::Exception& e){
 		cout<< e.what();
-		Log::getInstance().error("Nie uda³o siê otworzyæ pliku!");
+		log.error("Nie uda³o siê otworzyæ pliku!");
 		return false;
 	}
 	return true;
@@ -88,12 +100,12 @@ bool Aplikacja::WczytajSurowce(ticpp::Node* root){
 			ptr = root->IterateChildren(CLASSNAME(SurowceInfo),ptr);
 			if(ptr){
 				SurowceInfo* t = new SurowceInfo(ptr);
-				Log::getInstance().debug(*t);
+				log.debug(*t);
 				listaSurowcowInfo[t->ID()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
-			Log::getInstance().warn(e.generujKomunikat());
-			Log::getInstance().debug(e);
+			log.warn(e.generujKomunikat());
+			log.debug(e);
 			return false;
 		}
 	}while(ptr);
@@ -107,12 +119,12 @@ bool Aplikacja::WczytajStatki(ticpp::Node* root){
 			ptr = root->IterateChildren(CLASSNAME(StatekInfo),ptr);
 			if(ptr){
 				StatekInfo* t = new StatekInfo(ptr);
-				Log::getInstance().debug(*t);
+				log.debug(*t);
 				listaStatkowInfo[t->ID()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
-			Log::getInstance().warn(e.generujKomunikat());
-			Log::getInstance().debug(e);
+			log.warn(e.generujKomunikat());
+			log.debug(e);
 			return false;
 		}
 	}while(ptr);

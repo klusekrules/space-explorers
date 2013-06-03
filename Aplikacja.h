@@ -8,6 +8,9 @@
 #include "SurowceInfo.h"
 #include "StatekInfo.h"
 #include "FuncTransf\ZmianaFabryka.h"
+#include "plugin\plugin.h"
+#include "NiezainicjalizowanaKlasa.h"
+
 typedef struct _SYMBOL_INFO {
 	ULONG       SizeOfStruct;
 	ULONG       TypeIndex;        // Type Index of symbol
@@ -39,9 +42,11 @@ class Aplikacja
 private:
 	void LogApInfo();
 	ZmianaFabryka &fabryka;
+	Log& log;
+	Cplugin pluginy;
 protected:
 
-	Aplikacja();
+	Aplikacja() throw(NiezainicjalizowanaKlasa);
 
 	SymInitializeS symInitialize;
 	SymFromAddrS symFromAddr;
@@ -62,6 +67,7 @@ public:
 	bool WczytajDane( const string& sFile );
 
 	ZmianaFabryka& getZmianaFabryka();
+	Log& getLog();
 
 	static Aplikacja& getInstance(){
 		static Aplikacja app;
