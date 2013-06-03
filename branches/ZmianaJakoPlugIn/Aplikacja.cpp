@@ -5,14 +5,19 @@
 #include "StatekInfo.h"
 #include "plugin\plugin.h"
 
+#include "FuncTransf\ZmianaLiniowa.h"
+#include "FuncTransf\ZmianaPotegowa.h"
+#include "FuncTransf\ZmianaAgregacja.h"
+#include "FuncTransf\ZmianaDekorator.h"
+
 Aplikacja::Aplikacja()
-	: isDbgHelpInit(false), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
+	: isDbgHelpInit(false), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo ), fabryka(ZmianaFabryka::pobierzInstancje())
 {
 	//Wyswietlanie informacji o aplikacji
 	LogApInfo();
 
-	Cplugin test;
-
+	//Cplugin test;
+	
 	//Ladowanie potrzebnych bibliotek
 	hLibrary = LoadLibrary("Dbghelp.dll");
 	if(hLibrary){
@@ -27,6 +32,10 @@ Aplikacja::Aplikacja()
 	}else{
 		Log::getInstance().warn("Nie za³adowano biblioteki Dbghelp.dll");
 	}
+	ZmianaDekorator::RejestrujZmianaDekotor(fabryka);
+	ZmianaAgregacja::RejestrujZmianaAgregacja(fabryka);
+	ZmianaLiniowa::RejestrujZmianaLiniowa(fabryka);
+	ZmianaPotegowa::RejestrujZmianaPotegowa(fabryka);
 	//_set_purecall_handler(myPurecallHandler);
 	//TODO: zaimplementowanie logoowania podczas ka¿dej sytuacji wyj¹tkowej takiej jak wy¿ej
 	/*
@@ -37,6 +46,10 @@ Aplikacja::Aplikacja()
 	ZmianaPotegowa::RejestrujZmianaPotegowa();
 	// -----------------------------------------*/
 
+}
+
+ZmianaFabryka& Aplikacja::getZmianaFabryka(){
+	return fabryka;
 }
 
 bool Aplikacja::WczytajDane( const string& sFile ){

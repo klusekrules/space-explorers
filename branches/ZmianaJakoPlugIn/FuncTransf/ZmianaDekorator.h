@@ -1,19 +1,22 @@
 #pragma once
+#include "ExportSymbol.h"
 #include <memory>
 #include "ZmianaInterfejs.h"
 #include "..\parser\ticpp.h"
+#include "ZmianaFabryka.h"
 using std::shared_ptr;
-class ZmianaDekorator:
+class FUNCTRANSF_API ZmianaDekorator:
 	public ZmianaInterfejs,
 	virtual public LoggerInterface
 {
 private:
+	static ZmianaFabryka* zFabryka;
 	static const int idKlasy;
 	static ZmianaInterfejs* TworzZmianaDekorator( const ticpp::Element* e ){
 		return new ZmianaDekorator(e);
 	}
 public:	
-	static bool RejestrujZmianaDekotor();
+	static bool RejestrujZmianaDekotor( ZmianaFabryka &ref );
 	
 private:
 	shared_ptr<ZmianaInterfejs> next;

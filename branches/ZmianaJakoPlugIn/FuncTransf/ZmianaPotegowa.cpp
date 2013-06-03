@@ -3,8 +3,8 @@
 #include "ZmianaFabryka.h"
 #include "..\XmlBO.h"
 
-ZmianaPotegowa::ZmianaPotegowa( const ticpp::Element * e ) throw(WyjatekParseraXML)
-	: wspolczynnik(XmlBO::IterateChildrenElement(e,"Param1")), wykladnik(XmlBO::IterateChildrenElement(e,"Param2"))
+ZmianaPotegowa::ZmianaPotegowa( const ticpp::Element * e ) throw(int)
+	: wspolczynnik(XmlBO::IterateChildrenElement<NOTHROW>(e,"Param1")), wykladnik(XmlBO::IterateChildrenElement<NOTHROW>(e,"Param2"))
 {
 }
 
@@ -20,8 +20,8 @@ ZmianaPotegowa* ZmianaPotegowa::Kopia()const{
 	return new ZmianaPotegowa(*this);
 }
 
-bool ZmianaPotegowa::RejestrujZmianaPotegowa(){
-	return ZmianaFabryka::pobierzInstancje().RejestracjaZmiany(idKlasy,ZmianaPotegowa::TworzZmianaPotegowa);
+bool ZmianaPotegowa::RejestrujZmianaPotegowa( ZmianaFabryka &ref ){
+	return ref.RejestracjaZmiany(idKlasy,ZmianaPotegowa::TworzZmianaPotegowa);
 }
 
 string ZmianaPotegowa::toString()const{

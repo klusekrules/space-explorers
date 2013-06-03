@@ -147,23 +147,27 @@ Surowce* Testy::tworzSurowce(const Klucz& id,const Ilosc& i)const throw (OgolnyW
 }
 
 void Testy::run() const{
-	startTest();
-	if(ladowanie_danych())
-	{
-		test_KlasaNiepoprawneParametryFunkcji();
+	try{
+		startTest();
+		if(ladowanie_danych())
+		{
+			test_KlasaNiepoprawneParametryFunkcji();
 
-		test_tworzenieObiektow();
+			test_tworzenieObiektow();
 		
-		test_KlasaObiektList();
+			test_KlasaObiektList();
 		
-		test_KlasaLadownia();
+			test_KlasaLadownia();
 
-		test_wymagan();
+			test_wymagan();
 
-	}else{
-		Log::getInstance().warn("Nie mo¿na kontynuowaæ testów!");
+		}else{
+			Log::getInstance().warn("Nie mo¿na kontynuowaæ testów!");
+		}
+		endTest();
+	}catch( OgolnyWyjatek & e ){
+		Log::getInstance().error(e.toString());
 	}
-	endTest();
 }
 
 bool Testy::test_KlasaNiepoprawneParametryFunkcji()const{

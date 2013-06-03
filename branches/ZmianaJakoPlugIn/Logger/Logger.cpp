@@ -37,8 +37,8 @@ string Logger::reMakeSimpleClassString( const string &className, const string &t
 }
 
 void Logger::addField( const string& name, const LoggerInterface& liClass ){
-	testPierwszy();
-	napis << " "  << name << "=" << liClass.toString();
+	string value = liClass.toString() ;
+	addField( name, value );
 }
 
 void Logger::addField( const string& name, const string& liClass ){

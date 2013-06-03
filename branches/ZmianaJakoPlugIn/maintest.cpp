@@ -37,7 +37,7 @@ void main(){
 	/* ------------------------------------ */
 
 	/* Wylaczenie logow typu debug na potrzeby ograniczenia logow testow*/
-	Log::getInstance().logDebugDisable();
+	//Log::getInstance().logDebugDisable();
 	/* ------------------------------------ */
 
 	Testy test;

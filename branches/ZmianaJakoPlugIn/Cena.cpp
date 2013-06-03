@@ -1,7 +1,7 @@
 #include "Cena.h"
 #include "Logger.h"
 #include "Aplikacja.h"
-#include "ZmianaFabryka.h"
+#include "FuncTransf\ZmianaFabryka.h"
 #include "XmlBO.h"
 #include "Surowce.h"
 
@@ -13,7 +13,9 @@ Cena::Cena( ticpp::Node* n ) throw(WyjatekParseraXML)
 		try{
 			Klucz k(a);
 			obiekty= shared_ptr<Item>(Aplikacja::getInstance().getSurowce(k).TworzEgzemplarz(Ilosc(stoi(a->ToElement()->GetAttribute("ilosc"),nullptr,0))));
-			zmiana = ZmianaFabryka::pobierzInstancje().Tworz(XmlBO::IterateChildrenElement(n,"Zmiana",false));
+			zmiana = Aplikacja::getInstance().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElement<NOTHROW>(n,"Zmiana"));
+			/*if(zmiana==nullptr)
+				throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,Tekst("ZmianaFabryka"));*/
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}
@@ -39,7 +41,7 @@ Cena::~Cena()
 shared_ptr<Cena::Item> Cena::PobierzKoszty(const Ilosc& i, const Poziom& p ) const{
 	shared_ptr<Item> tmp(obiekty->Kopia());
 	if(zmiana.get()){
-		tmp->setIlosc(Ilosc(i.value()* zmiana->value(obiekty->getIlosc().value(),p)));
+		tmp->setIlosc(Ilosc(i.value()* zmiana->value(obiekty->getIlosc().value(),static_cast<int>(p.value()))));
 	}
 	return tmp;
 }

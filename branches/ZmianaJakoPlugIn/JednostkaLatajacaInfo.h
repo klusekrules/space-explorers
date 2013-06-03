@@ -5,7 +5,7 @@
 #include "ZuzyciePaliwa.h"
 #include "Masa.h"
 #include "Klucz.h"
-#include "ZmianaInterfejs.h"
+#include "FuncTransf\ZmianaInterfejs.h"
 #include "WyjatekParseraXML.h"
 
 /**

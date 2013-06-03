@@ -8,7 +8,7 @@ ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& obj, const Powierzchni
 }
 
 ObiektInfo::ObiektInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
-	: ObiektBaseInfo(XmlBO::IterateChildren(n,CLASSNAME(ObiektBaseInfo))), zmPowierzchnia(nullptr), zmObjetosc(nullptr), zmMasa(nullptr)
+	: ObiektBaseInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(ObiektBaseInfo))), zmPowierzchnia(nullptr), zmObjetosc(nullptr), zmMasa(nullptr)
 {
 	if(n){
 		try{
@@ -29,19 +29,19 @@ ObiektInfo::~ObiektInfo(){
 Powierzchnia ObiektInfo::getPowierzchnia() const {
 	if(zmPowierzchnia == nullptr)
 		return powierzchnia;			
-	return Powierzchnia(zmPowierzchnia->value(powierzchnia.value(),getPoziom()));
+	return Powierzchnia(zmPowierzchnia->value(powierzchnia.value(),static_cast<int>(getPoziom().value())));
 }
 
 Objetosc ObiektInfo::getObjetosc() const {
 	if(zmPowierzchnia == nullptr)
 		return objetosc;
-	return Objetosc(zmObjetosc->value(objetosc.value(),getPoziom()));
+	return Objetosc(zmObjetosc->value(objetosc.value(),static_cast<int>(getPoziom().value())));
 }
 
 Masa ObiektInfo::getMasa() const {
 	if(zmPowierzchnia == nullptr)
 		return masa;
-	return Masa(zmMasa->value(masa.value(),getPoziom()));
+	return Masa(zmMasa->value(masa.value(),static_cast<int>(getPoziom().value())));
 }
 
 Obiekt* ObiektInfo::TworzEgzemplarz( const Ilosc& iIlosc ) const {

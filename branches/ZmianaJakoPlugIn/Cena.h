@@ -1,7 +1,7 @@
 #pragma once
 #include "Main.h"
 #include "parser\ticpp.h"
-#include "ZmianaInterfejs.h"
+#include "FuncTransf\ZmianaInterfejs.h"
 #include "Ilosc.h"
 #include "Poziom.h"
 #include "IdType.h"

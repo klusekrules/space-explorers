@@ -7,7 +7,7 @@
 #include "Biblioteki.h"
 #include "SurowceInfo.h"
 #include "StatekInfo.h"
-
+#include "FuncTransf\ZmianaFabryka.h"
 typedef struct _SYMBOL_INFO {
 	ULONG       SizeOfStruct;
 	ULONG       TypeIndex;        // Type Index of symbol
@@ -38,7 +38,7 @@ class Aplikacja
 	friend class Testy;
 private:
 	void LogApInfo();
-
+	ZmianaFabryka &fabryka;
 protected:
 
 	Aplikacja();
@@ -60,6 +60,8 @@ protected:
 public:
 
 	bool WczytajDane( const string& sFile );
+
+	ZmianaFabryka& getZmianaFabryka();
 
 	static Aplikacja& getInstance(){
 		static Aplikacja app;

@@ -1,9 +1,10 @@
 #pragma once
+#include "ExportSymbol.h"
 #include "..\parser\ticpp.h"
 #include "ZmianaInterfejs.h"
 #include "ZmianaParametr.h"
-
-class ZmianaPotegowa:
+#include "ZmianaFabryka.h"
+class FUNCTRANSF_API ZmianaPotegowa:
 	public ZmianaInterfejs,
 	virtual public LoggerInterface
 {
@@ -13,7 +14,7 @@ private:
 		return new ZmianaPotegowa(e);
 	}
 public:	
-	static bool RejestrujZmianaPotegowa();
+	static bool RejestrujZmianaPotegowa( ZmianaFabryka &ref  );
 
 private:
 	ZmianaParametr wspolczynnik;

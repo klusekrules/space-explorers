@@ -1,7 +1,8 @@
 #pragma once
+#include "ExportSymbol.h"
 #include "..\parser\ticpp.h"
 #include "..\Logger\LoggerInterface.h"
-class ZmianaParametr:
+class FUNCTRANSF_API ZmianaParametr:
 	virtual public LoggerInterface
 {
 private:
