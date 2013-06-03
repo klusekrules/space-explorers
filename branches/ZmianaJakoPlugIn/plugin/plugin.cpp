@@ -15,18 +15,18 @@ Cplugin::Cplugin( ZmianaFabryka& ref, Log& logFile )
 
 bool Cplugin::LoadPluginsZmiana(){
 	struct _finddata_t c_file;
-   intptr_t hFile;
+	intptr_t hFile;
 
-   if( (hFile = _findfirst( "plugins\\*.dll", &c_file )) == -1L )
-	   lLogFile.info( "No *.dll files in plugins directory!\n" );
-   else
-   {
-      do {
-		  lLogFile.info( c_file.name );
-      } while( _findnext( hFile, &c_file ) == 0 );
-      _findclose( hFile );
-   }
-   return true;
+	if( (hFile = _findfirst( "plugins\\*.dll", &c_file )) == -1L )
+		lLogFile.info( "No *.dll files in plugins directory!\n" );
+	else
+	{
+		do {
+			lLogFile.info( c_file.name );
+		} while( _findnext( hFile, &c_file ) == 0 );
+		_findclose( hFile );
+	}
+	return true;
 }
 
 bool Cplugin::LoadDefaultZmiana(){
