@@ -6,9 +6,27 @@
 #include "..\FuncTransf\ZmianaAgregacja.h"
 #include "..\FuncTransf\ZmianaDekorator.h"
 
+#include <io.h>
+
 Cplugin::Cplugin( ZmianaFabryka& ref, Log& logFile )
 	: zFabryka(ref), lLogFile(logFile)
 {
+}
+
+bool Cplugin::LoadPluginsZmiana(){
+	struct _finddata_t c_file;
+   intptr_t hFile;
+
+   if( (hFile = _findfirst( "plugins\\*.dll", &c_file )) == -1L )
+	   lLogFile.info( "No *.dll files in plugins directory!\n" );
+   else
+   {
+      do {
+		  lLogFile.info( c_file.name );
+      } while( _findnext( hFile, &c_file ) == 0 );
+      _findclose( hFile );
+   }
+   return true;
 }
 
 bool Cplugin::LoadDefaultZmiana(){

@@ -34,4 +34,5 @@ private:
 public:
 	Cplugin( ZmianaFabryka& ref , Log& logFile );
 	bool LoadDefaultZmiana();
+	bool LoadPluginsZmiana();
 };

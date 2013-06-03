@@ -51,6 +51,9 @@ Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 	if(!pluginy.LoadDefaultZmiana())
 		throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,Tekst("Domyslne elementy zmiany."));
 
+	if(!pluginy.LoadPluginsZmiana())
+		throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,Tekst("Dodatkowe elementy zmiany."));
+
 	
 	//_set_purecall_handler(myPurecallHandler);
 	//TODO: zaimplementowanie logoowania podczas ka¿dej sytuacji wyj¹tkowej takiej jak wy¿ej
