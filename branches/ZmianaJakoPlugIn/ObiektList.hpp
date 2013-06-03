@@ -164,7 +164,7 @@ public:
 				throw;
 			}
 		}catch( OgolnyWyjatek& e ){
-			Log::getInstance().warn(e.generujKomunikat());
+			Aplikacja::getInstance().getLog().warn(e.generujKomunikat());
 			return false;
 		}
 		return true;
@@ -185,7 +185,7 @@ public:
 				throw;
 			}
 		}catch( OgolnyWyjatek e ){
-			Log::getInstance().warn(e.generujKomunikat());
+			Aplikacja::getInstance().getLog().warn(e.generujKomunikat());
 			return false;
 		}
 		return true;

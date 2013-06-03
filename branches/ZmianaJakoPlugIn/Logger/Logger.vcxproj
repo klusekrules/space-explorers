@@ -160,6 +160,7 @@
   <ItemGroup>
     <ClInclude Include="afxres.h" />
     <ClInclude Include="ExportSymbol.h" />
+    <ClInclude Include="Log.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="LoggerClassName.h" />
     <ClInclude Include="LoggerInterface.h" />
@@ -182,6 +183,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Log.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

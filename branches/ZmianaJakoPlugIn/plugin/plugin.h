@@ -24,13 +24,14 @@
 
 #endif
 
+#include "..\FuncTransf\ZmianaFabryka.h"
+#include "..\Logger\Log.h"
 // This class is exported from the plugin.dll
 class PLUGIN_API Cplugin {
+private:
+	ZmianaFabryka& zFabryka;
+	Log& lLogFile;
 public:
-	Cplugin(void);
-	// TODO: add your methods here.
+	Cplugin( ZmianaFabryka& ref , Log& logFile );
+	bool LoadDefaultZmiana();
 };
-
-extern PLUGIN_API int nplugin;
-
-PLUGIN_API int fnplugin(void);

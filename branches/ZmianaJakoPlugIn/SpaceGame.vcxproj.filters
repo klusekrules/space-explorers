@@ -163,9 +163,6 @@
     <ClCompile Include="ApInfo.cpp">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClCompile>
-    <ClCompile Include="Log.cpp">
-      <Filter>SourceFile\Log</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -371,9 +368,6 @@
     </ClInclude>
     <ClInclude Include="Library.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClInclude>
-    <ClInclude Include="Log.h">
-      <Filter>SourceFile\Log</Filter>
     </ClInclude>
     <ClInclude Include="Logger.h">
       <Filter>SourceFile\Log</Filter>
