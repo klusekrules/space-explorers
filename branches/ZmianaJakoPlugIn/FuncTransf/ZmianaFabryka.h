@@ -4,6 +4,7 @@
 #include "ZmianaInterfejs.h"
 #include <map>
 #include <memory>
+#include "..\Logger\Log.h"
 using std::shared_ptr;
 using std::map;
 
@@ -27,3 +28,4 @@ private:
 	ZmianaFabryka& operator=(const ZmianaFabryka& a);
 };
 
+typedef bool (*RejestrujZmiane)( ZmianaFabryka& fabryka , Log& logger );

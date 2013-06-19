@@ -3,4 +3,5 @@
   <locale>Polish</locale>
   <data>data.xml</data>
   <messages>message.xml</messages>
+  <plugins>plugins\\zmiana\\</plugins>
 </SpaceGame>

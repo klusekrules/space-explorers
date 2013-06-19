@@ -62,6 +62,8 @@ protected:
 	bool WczytajSurowce(ticpp::Node* root);
 	bool WczytajStatki(ticpp::Node* root);
 
+	bool ZaladujOpcje();
+
 public:
 
 	bool WczytajDane( const string& sFile );
