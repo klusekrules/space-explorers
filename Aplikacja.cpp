@@ -68,18 +68,8 @@ Log& Aplikacja::getLog(){
 }
 
 bool Aplikacja::WczytajDane( const string& sFile ){
-	ticpp::Document opcje;
 	ticpp::Document dane;
-	//ticpp::Document komunikaty;
 	try{
-		/* TODO: £adowanie opcji przenieœæ do innej funkcji
- 
-		opcje.LoadFile(sFile);
-		auto root = opcje.IterateChildren("SpaceGame",nullptr);
-		auto b = root->IterateChildren("data",nullptr);
-		if(b!=nullptr){
-			string s = b->ToElement()->GetText();
-			*/
 		dane.LoadFile(sFile);
 		auto root_data = dane.IterateChildren("SpaceGame",nullptr);
 		if(root_data){
@@ -88,6 +78,20 @@ bool Aplikacja::WczytajDane( const string& sFile ){
 			if(!WczytajStatki(root_data))
 				return false;
 		}
+	}catch(ticpp::Exception& e){
+		cout<< e.what();
+		log.error("Nie uda³o siê otworzyæ pliku!");
+		return false;
+	}
+	return true;
+}
+
+bool Aplikacja::ZaladujOpcje(){
+	ticpp::Document dane;
+	try{
+		dane.LoadFile("options.xml");
+		auto root_data = dane.IterateChildren("SpaceGame",nullptr);
+		
 	}catch(ticpp::Exception& e){
 		cout<< e.what();
 		log.error("Nie uda³o siê otworzyæ pliku!");
