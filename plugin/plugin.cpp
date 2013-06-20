@@ -8,8 +8,8 @@
 
 #include <io.h>
 
-Cplugin::Cplugin( ZmianaFabryka& ref, Log& logFile )
-	: zFabryka(ref), lLogFile(logFile)
+Cplugin::Cplugin( const string &folder, ZmianaFabryka& ref, Log& logFile )
+	: zFabryka(ref), lLogFile(logFile) , folderPluginow(folder)
 {
 }
 
@@ -19,9 +19,9 @@ bool Cplugin::LoadPluginsZmiana(){
 	string folder;
 	string rozszezenie;
 #ifdef _WIN64
-	folder="plugins\\zmiana-x64\\";
+	folder= folderPluginow + "zmiana-x64\\";
 #else
-	folder="plugins\\zmiana\\";
+	folder= folderPluginow + "zmiana\\";
 #endif
 #ifdef DEBUG
 	rozszezenie="*-d.dll";

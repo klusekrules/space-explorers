@@ -344,6 +344,7 @@
     <Xml Include="out\options.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="out\options_test.xml" />
     <Xml Include="out\test.xml">
       <SubType>Designer</SubType>
     </Xml>
