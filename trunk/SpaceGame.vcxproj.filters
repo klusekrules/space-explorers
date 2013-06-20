@@ -497,5 +497,8 @@
     <Xml Include="out\test.xml">
       <Filter>Data</Filter>
     </Xml>
+    <Xml Include="out\options_test.xml">
+      <Filter>Data</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

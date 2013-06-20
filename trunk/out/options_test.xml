@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SpaceGame>
+  <locale>Polish</locale>
+  <data>test.xml</data>
+  <!-- <messages>message.xml</messages> -->
+  <plugins>plugins\\</plugins>
+</SpaceGame>

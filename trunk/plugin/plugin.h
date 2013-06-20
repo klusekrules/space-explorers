@@ -31,8 +31,9 @@ class PLUGIN_API Cplugin {
 private:
 	ZmianaFabryka& zFabryka;
 	Log& lLogFile;
+	string folderPluginow;
 public:
-	Cplugin( ZmianaFabryka& ref , Log& logFile );
+	Cplugin( const string &folder, ZmianaFabryka& ref , Log& logFile );
 	bool LoadDefaultZmiana();
 	bool LoadPluginsZmiana();
 };

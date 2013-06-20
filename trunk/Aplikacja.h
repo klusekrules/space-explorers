@@ -43,7 +43,12 @@ private:
 	void LogApInfo();
 	ZmianaFabryka &fabryka;
 	Log& log;
-	Cplugin pluginy;
+	shared_ptr<Cplugin> pluginy;
+
+	string nazwaPlikuDanych;
+	string jezykAplikacji;
+	string folderPluginow;
+
 protected:
 
 	Aplikacja() throw(NiezainicjalizowanaKlasa);
@@ -66,7 +71,7 @@ protected:
 
 public:
 
-	bool WczytajDane( const string& sFile );
+	bool WczytajDane( const string& sFile = string() );
 
 	ZmianaFabryka& getZmianaFabryka();
 	Log& getLog();

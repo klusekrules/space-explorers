@@ -4,15 +4,35 @@
 #include <iomanip>
 #include "StatekInfo.h"
 #include <fstream>
+#include "XmlBO.h"
 
 Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
-	: isDbgHelpInit(false), log(Log::getInstance()), fabryka(ZmianaFabryka::pobierzInstancje()), pluginy(fabryka,log), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
+	: isDbgHelpInit(false), log(Log::getInstance()), fabryka(ZmianaFabryka::pobierzInstancje()), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
 {
-	/* Ustawianie polskich znaków */
-	locale pl ("Polish");
-	locale::global (pl);
+
+#ifdef TESTS
+	/* Wylaczenie logow typu debug na potrzeby ograniczenia logow testow*/
+	log.logDebugDisable();
 	/* ------------------------------------ */
-	
+#endif
+
+	//Ladowanie potrzebnych bibliotek
+	hLibrary = LoadLibrary("Dbghelp.dll");
+	if(hLibrary){		
+		symInitialize = (SymInitializeS)GetProcAddress(hLibrary,"SymInitialize");
+		symFromAddr = (SymFromAddrS)GetProcAddress(hLibrary,"SymFromAddr");
+		if(symFromAddr && symInitialize){
+			isDbgHelpInit = true;
+		}
+	}
+
+	if(!ZaladujOpcje()){
+		throw OgolnyWyjatek(EXCEPTION_PLACE);
+	}
+
+	locale pl (jezykAplikacji);
+	locale::global (pl);
+
 	/* ------- Konfiguracja Loggera -------*/
 	struct tm timeinfo;
 	time_t t = time(nullptr);
@@ -26,21 +46,13 @@ Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 	log.dodajGniazdoWyjsciowe(shared_ptr<ostream>(new fstream (filename,ios_base::app)));
 	/* ------------------------------------ */
 
-	/* Wylaczenie logow typu debug na potrzeby ograniczenia logow testow*/
-	log.logDebugDisable();
-	/* ------------------------------------ */
-
 	//Wyswietlanie informacji o aplikacji
 	LogApInfo();
-	
-	//Ladowanie potrzebnych bibliotek
-	hLibrary = LoadLibrary("Dbghelp.dll");
+
+	//Wyswietlanie informacji o zaladowanej bibliotece
 	if(hLibrary){
-		log.info("Za³adowano biblioteke Dbghelp.dll");
-		symInitialize = (SymInitializeS)GetProcAddress(hLibrary,"SymInitialize");
-		symFromAddr = (SymFromAddrS)GetProcAddress(hLibrary,"SymFromAddr");
-		if(symFromAddr && symInitialize){
-			isDbgHelpInit = true;
+		if(isDbgHelpInit){
+			log.info("Za³adowano biblioteke Dbghelp.dll");
 		}else{
 			log.warn("Nie zanaleziono funkcji SymInitialize i/lub SymFromAddr.");
 		}
@@ -48,10 +60,12 @@ Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 		log.warn("Nie za³adowano biblioteki Dbghelp.dll");
 	}
 
-	if(!pluginy.LoadDefaultZmiana())
+	pluginy = shared_ptr<Cplugin>(new Cplugin(folderPluginow,fabryka,log));
+	
+	if(!pluginy->LoadDefaultZmiana())
 		throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,Tekst("Domyslne elementy zmiany."));
 
-	if(!pluginy.LoadPluginsZmiana())
+	if(!pluginy->LoadPluginsZmiana())
 		throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,Tekst("Dodatkowe elementy zmiany."));
 
 	
@@ -70,7 +84,7 @@ Log& Aplikacja::getLog(){
 bool Aplikacja::WczytajDane( const string& sFile ){
 	ticpp::Document dane;
 	try{
-		dane.LoadFile(sFile);
+		dane.LoadFile( sFile.length()>0 ? sFile : nazwaPlikuDanych );
 		auto root_data = dane.IterateChildren("SpaceGame",nullptr);
 		if(root_data){
 			if(!WczytajSurowce(root_data))
@@ -89,12 +103,44 @@ bool Aplikacja::WczytajDane( const string& sFile ){
 bool Aplikacja::ZaladujOpcje(){
 	ticpp::Document dane;
 	try{
+#ifdef TESTS
+		dane.LoadFile("options_test.xml");
+#else
 		dane.LoadFile("options.xml");
+#endif
 		auto root_data = dane.IterateChildren("SpaceGame",nullptr);
-		
+		if(root_data){
+
+			auto plikDanych = XmlBO::IterateChildrenElement<THROW>(root_data,"data");
+			if(plikDanych){
+				nazwaPlikuDanych = plikDanych->GetText();
+			}else{
+				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(""),WyjatekParseraXML::trescBladStrukturyXml);
+			}
+
+			auto jezyk = XmlBO::IterateChildrenElement<NOTHROW>(root_data,"locale");
+			if(jezyk){
+				jezykAplikacji = jezyk->GetText(false);
+			}
+
+			if(jezykAplikacji.length() == 0){
+				jezykAplikacji = "Polish";
+			}
+
+			auto pluginy = XmlBO::IterateChildrenElement<NOTHROW>(root_data,"plugins");
+			if(pluginy){
+				folderPluginow = pluginy->GetText(false);
+			}
+			
+			if(folderPluginow.length() == 0){
+				folderPluginow = "plugins\\";
+			}
+
+		}else{
+			throw WyjatekParseraXML(EXCEPTION_PLACE,exception(""),WyjatekParseraXML::trescBladStrukturyXml);
+		}
 	}catch(ticpp::Exception& e){
-		cout<< e.what();
-		log.error("Nie uda³o siê otworzyæ pliku!");
+		log.error(e.what());
 		return false;
 	}
 	return true;

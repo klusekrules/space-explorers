@@ -105,7 +105,7 @@ bool Testy::ladowanie_danych()const{
 	//Statek
 	startTestModul("£adowanie Danych");
 	try{
-		assert_false( EXCEPTION_PLACE , Aplikacja::getInstance().WczytajDane("test.xml") );
+		assert_false( EXCEPTION_PLACE , Aplikacja::getInstance().WczytajDane() );
 		shared_ptr<Statek> t( this->tworzStatek(Klucz(IdType(1),Poziom(1)),Ilosc(1)));
 		Aplikacja::getInstance().getLog().debug(*t);
 	}catch(OgolnyWyjatek& e){
