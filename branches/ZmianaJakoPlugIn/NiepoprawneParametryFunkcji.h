@@ -13,7 +13,7 @@ public:
 	static const IdType idNiepoprawneParametryFunkcji;
 		
 	template< class... V >
-	NiepoprawneParametryFunkcji( const Tekst& tPlik, const IdType& iLinia, const V&... tail )
+	NiepoprawneParametryFunkcji( const Tekst& tPlik, const Ilosc& iLinia, const V&... tail )
 		: OgolnyWyjatek( tPlik, iLinia, idNiepoprawneParametryFunkcji, tytulNiepoprawneParametryFunkcji, trescNiepoprawneParametryFunkcji )
 	{
 		vector< string > a;

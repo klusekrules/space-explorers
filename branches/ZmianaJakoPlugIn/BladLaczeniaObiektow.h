@@ -11,7 +11,7 @@ class BladLaczeniaObiektow :
 public:
 	static const IdType idBladLaczeniaObiektow;
 	
-	BladLaczeniaObiektow( const Tekst& tPlik, const IdType& iLinia, const Tekst& obiektA , const Tekst& obiektB );
+	BladLaczeniaObiektow( const Tekst& tPlik, const Ilosc& iLinia, const Tekst& obiektA , const Tekst& obiektB );
 	virtual ~BladLaczeniaObiektow();
 	
 	const Tekst& getObiektA() const;

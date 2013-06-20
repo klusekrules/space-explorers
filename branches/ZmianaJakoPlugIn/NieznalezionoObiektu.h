@@ -11,7 +11,7 @@ class NieznalezionoObiektu :
 public:
 	static const IdType idNieznalezionoObiektu;
 
-	NieznalezionoObiektu(const Tekst& tPlik, const IdType& iLinia, const Tekst& tNazwa);
+	NieznalezionoObiektu(const Tekst& tPlik, const Ilosc& iLinia, const Tekst& tNazwa);
 	virtual ~NieznalezionoObiektu(void);
 	
 	const Tekst& getIdentyfikator() const;

@@ -1,7 +1,7 @@
 #include "NiepoprawnaIloscObiektow.h"
 #include "Logger.h"
 
-NiepoprawnaIloscObiektow::NiepoprawnaIloscObiektow( const Tekst& tPlik, const IdType& iLinia, const Ilosc& ilosc )
+NiepoprawnaIloscObiektow::NiepoprawnaIloscObiektow( const Tekst& tPlik, const Ilosc& iLinia, const Ilosc& ilosc )
 	: OgolnyWyjatek( tPlik, iLinia, idNiepoprawnaIloscObiektow , tytulNiepoprawnaIloscObiektow, trescNiepoprawnaIloscObiektow ), i(ilosc)
 {
 }

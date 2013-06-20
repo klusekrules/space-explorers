@@ -1,7 +1,7 @@
 #include "BladLaczeniaObiektow.h"
 #include "Logger.h"
 
-BladLaczeniaObiektow::BladLaczeniaObiektow( const Tekst& tPlik, const IdType& iLinia, const Tekst& a , const Tekst& b )
+BladLaczeniaObiektow::BladLaczeniaObiektow( const Tekst& tPlik, const Ilosc& iLinia, const Tekst& a , const Tekst& b )
 	: OgolnyWyjatek( tPlik, iLinia, idBladLaczeniaObiektow, tytulBladLaczeniaObiektow, trescBladLaczeniaObiektow), obiektA(a), obiektB(b)
 {
 }

@@ -16,20 +16,26 @@ Cplugin::Cplugin( ZmianaFabryka& ref, Log& logFile )
 bool Cplugin::LoadPluginsZmiana(){
 	struct _finddata_t c_file;
 	intptr_t hFile;
+	string folder;
+	string rozszezenie;
 #ifdef _WIN64
-	if( (hFile = _findfirst( "plugins\\zmiana-x64\\*.dll", &c_file )) == -1L )
+	folder="plugins\\zmiana-x64\\";
 #else
-	if( (hFile = _findfirst( "plugins\\zmiana\\*.dll", &c_file )) == -1L )
+	folder="plugins\\zmiana\\";
 #endif
+#ifdef DEBUG
+	rozszezenie="*-d.dll";
+#else
+	rozszezenie="*-r.dll";
+#endif
+	if( (hFile = _findfirst( (folder+rozszezenie).c_str() , &c_file )) == -1L )
 		lLogFile.info( "Brak plików *.dll w folderze pluginów!" );
 	else
 	{
 		do {
-			HMODULE hLibrary = LoadLibrary(c_file.name);
+			HMODULE hLibrary = LoadLibrary((folder+c_file.name).c_str());
 			if(hLibrary){
-				lLogFile.info("Za³adowano biblioteke:");
-				lLogFile.info(c_file.name);
-				auto fun = (RejestrujZmiane)GetProcAddress(hLibrary,"RejestrujZmiane");
+				auto fun = (RejestrujZmiane)GetProcAddress(hLibrary,"RejestrujZmiany");
 				if(fun){
 					if(fun(zFabryka,lLogFile)){
 						lLogFile.info("Za³adowano biblioteke:");

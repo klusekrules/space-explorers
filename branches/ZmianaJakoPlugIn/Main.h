@@ -6,7 +6,7 @@
 #define TESTS
 
 //Makro wstawiajace nazwe pliku i liniê i datê pliku.
-#define EXCEPTION_PLACE Tekst(__FILE__) , IdType(__LINE__)
+#define EXCEPTION_PLACE Tekst(__FILE__) , Ilosc(__LINE__)
 
 #ifdef TESTS
 #define _CRTDBG_MAP_ALLOC
