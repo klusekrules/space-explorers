@@ -1,8 +1,6 @@
 #include "Testy.h"
 
 Testy::Testy(){
-	locale pl ("Polish");
-	locale::global (pl);
 	Aplikacja::getInstance();
 }
 
@@ -22,44 +20,44 @@ string Testy::modulName;
 void Testy::startTest(){
 	bledyGlobal=0;
 	testyGlobal=0;
-	Log::getInstance().info("----------------------------------------------");
-	Log::getInstance().info("              Rozpoczêcie testów               ");
-	Log::getInstance().info("----------------------------------------------");
+	Aplikacja::getInstance().getLog().info("----------------------------------------------");
+	Aplikacja::getInstance().getLog().info("              Rozpoczêcie testów               ");
+	Aplikacja::getInstance().getLog().info("----------------------------------------------");
 }
 
 void Testy::startTestModul(string name){
 	modulName = name;
 	bledy=0;
 	testy=0;
-	Log::getInstance().info("----------------------------------------------");
-	Log::getInstance().info("           Rozpoczêcie testów modu³u           ");
-	Log::getInstance().info(Testy::modulName);
-	Log::getInstance().info("----------------------------------------------");
+	Aplikacja::getInstance().getLog().info("----------------------------------------------");
+	Aplikacja::getInstance().getLog().info("           Rozpoczêcie testów modu³u           ");
+	Aplikacja::getInstance().getLog().info(Testy::modulName);
+	Aplikacja::getInstance().getLog().info("----------------------------------------------");
 }
-bool Testy::assert_false( const Tekst& tPlik, const IdType& iLinia, bool a ){
+bool Testy::assert_false( const Tekst& tPlik, const Ilosc& iLinia, bool a ){
 	++testy;
 	++testyGlobal;
 	if(!a){
-		Log::getInstance().error("Wykryto niepoprawny rezultat testu");
-		Log::getInstance().error("Plik:");
-		Log::getInstance().error( tPlik );
-		Log::getInstance().error("Linia:");
-		Log::getInstance().error( iLinia );
+		Aplikacja::getInstance().getLog().error("Wykryto niepoprawny rezultat testu");
+		Aplikacja::getInstance().getLog().error("Plik:");
+		Aplikacja::getInstance().getLog().error( tPlik );
+		Aplikacja::getInstance().getLog().error("Linia:");
+		Aplikacja::getInstance().getLog().error( iLinia );
 		++bledy;
 		++bledyGlobal;
 		return false;
 	}
 	return true;
 }
-bool Testy::assert_true( const Tekst& tPlik, const IdType& iLinia, bool a ){
+bool Testy::assert_true( const Tekst& tPlik, const Ilosc& iLinia, bool a ){
 	++testy;
 	++testyGlobal;
 	if(a){
-		Log::getInstance().error("Wykryto niepoprawny rezultat testu");
-		Log::getInstance().error("Plik:");
-		Log::getInstance().error( tPlik );
-		Log::getInstance().error("Linia:");
-		Log::getInstance().error( iLinia );
+		Aplikacja::getInstance().getLog().error("Wykryto niepoprawny rezultat testu");
+		Aplikacja::getInstance().getLog().error("Plik:");
+		Aplikacja::getInstance().getLog().error( tPlik );
+		Aplikacja::getInstance().getLog().error("Linia:");
+		Aplikacja::getInstance().getLog().error( iLinia );
 		++bledy;
 		++bledyGlobal;
 		return false;
@@ -70,22 +68,22 @@ bool Testy::assert_true( const Tekst& tPlik, const IdType& iLinia, bool a ){
 bool Testy::endTestModul(){	
 	stringstream s;
 	s<<"Liczba Testów: "<<testy<<" , Liczba B³êdów: "<<bledy;
-	Log::getInstance().info("----------------------------------------------");
-	Log::getInstance().info("           Zakoñczenie testów modu³u           ");
-	Log::getInstance().info(modulName);
-	Log::getInstance().info(s.str());
-	Log::getInstance().info("----------------------------------------------");
+	Aplikacja::getInstance().getLog().info("----------------------------------------------");
+	Aplikacja::getInstance().getLog().info("           Zakoñczenie testów modu³u           ");
+	Aplikacja::getInstance().getLog().info(modulName);
+	Aplikacja::getInstance().getLog().info(s.str());
+	Aplikacja::getInstance().getLog().info("----------------------------------------------");
 	return bledy==0;
 }
 
 bool Testy::endTestModulImidaite(){
 	stringstream s;
 	s<<"Wykryto b³¹d krytyczny.\nPrzerwno dalsze dzia³anie metody testujacej.";
-	Log::getInstance().info("----------------------------------------------");
-	Log::getInstance().info("           Zakoñczenie testów modu³u           ");
-	Log::getInstance().info(modulName);
-	Log::getInstance().info(s.str());
-	Log::getInstance().info("----------------------------------------------");
+	Aplikacja::getInstance().getLog().info("----------------------------------------------");
+	Aplikacja::getInstance().getLog().info("           Zakoñczenie testów modu³u           ");
+	Aplikacja::getInstance().getLog().info(modulName);
+	Aplikacja::getInstance().getLog().info(s.str());
+	Aplikacja::getInstance().getLog().info("----------------------------------------------");
 	++fatalErrorGlobal;
 	return false;
 }
@@ -94,11 +92,11 @@ void Testy::endTest(){
 	stringstream s,t;
 	s<<"Przeprowadzono Testów: "<<testyGlobal<<" , Wykryto B³êdów: "<<bledyGlobal;
 	t << "B³êdy krytyczne: " << fatalErrorGlobal;
-	Log::getInstance().info("----------------------------------------------");
-	Log::getInstance().info("              Zakoñczenie testów               ");
-	Log::getInstance().info(s.str());
-	Log::getInstance().info(t.str());
-	Log::getInstance().info("----------------------------------------------");
+	Aplikacja::getInstance().getLog().info("----------------------------------------------");
+	Aplikacja::getInstance().getLog().info("              Zakoñczenie testów               ");
+	Aplikacja::getInstance().getLog().info(s.str());
+	Aplikacja::getInstance().getLog().info(t.str());
+	Aplikacja::getInstance().getLog().info("----------------------------------------------");
 }
 
 bool Testy::ladowanie_danych()const{
@@ -109,10 +107,10 @@ bool Testy::ladowanie_danych()const{
 	try{
 		assert_false( EXCEPTION_PLACE , Aplikacja::getInstance().WczytajDane("test.xml") );
 		shared_ptr<Statek> t( this->tworzStatek(Klucz(IdType(1),Poziom(1)),Ilosc(1)));
-		Log::getInstance().debug(*t);
+		Aplikacja::getInstance().getLog().debug(*t);
 	}catch(OgolnyWyjatek& e){
-		Log::getInstance().error("Wykryto wyj¹tek:");
-		Log::getInstance().error(e);
+		Aplikacja::getInstance().getLog().error("Wykryto wyj¹tek:");
+		Aplikacja::getInstance().getLog().error(e);
 		return endTestModulImidaite();
 	}
 	return endTestModul();
@@ -124,8 +122,8 @@ Statek* Testy::tworzStatek(const Klucz& id,const Ilosc& i)const throw (OgolnyWyj
 	{
 		assert_false(EXCEPTION_PLACE, s->getIlosc()==i);
 		assert_false(EXCEPTION_PLACE, s->ID()==id);
-		Log::getInstance().debug( "Stworzony obiekt:");
-		Log::getInstance().debug(*s);
+		Aplikacja::getInstance().getLog().debug( "Stworzony obiekt:");
+		Aplikacja::getInstance().getLog().debug(*s);
 	}else{
 		throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("Tworzenie Obiektu"),Tekst("Nie uda³o siê utworzyæ obiektu"));
 	}
@@ -138,8 +136,8 @@ Surowce* Testy::tworzSurowce(const Klucz& id,const Ilosc& i)const throw (OgolnyW
 	{
 		assert_false(EXCEPTION_PLACE, s->getIlosc()==i);
 		assert_false(EXCEPTION_PLACE, s->ID()==id);
-		Log::getInstance().debug( "Stworzony obiekt:");
-		Log::getInstance().debug(*s);
+		Aplikacja::getInstance().getLog().debug( "Stworzony obiekt:");
+		Aplikacja::getInstance().getLog().debug(*s);
 	}else{
 		throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("Tworzenie Obiektu"),Tekst("Nie uda³o siê utworzyæ obiektu"));
 	}
@@ -147,23 +145,27 @@ Surowce* Testy::tworzSurowce(const Klucz& id,const Ilosc& i)const throw (OgolnyW
 }
 
 void Testy::run() const{
-	startTest();
-	if(ladowanie_danych())
-	{
-		test_KlasaNiepoprawneParametryFunkcji();
+	try{
+		startTest();
+		if(ladowanie_danych())
+		{
+			test_KlasaNiepoprawneParametryFunkcji();
 
-		test_tworzenieObiektow();
+			test_tworzenieObiektow();
 		
-		test_KlasaObiektList();
+			test_KlasaObiektList();
 		
-		test_KlasaLadownia();
+			test_KlasaLadownia();
 
-		test_wymagan();
+			test_wymagan();
 
-	}else{
-		Log::getInstance().warn("Nie mo¿na kontynuowaæ testów!");
+		}else{
+			Aplikacja::getInstance().getLog().warn("Nie mo¿na kontynuowaæ testów!");
+		}
+		endTest();
+	}catch( OgolnyWyjatek & e ){
+		Aplikacja::getInstance().getLog().error(e.toString());
 	}
-	endTest();
 }
 
 bool Testy::test_KlasaNiepoprawneParametryFunkcji()const{
@@ -176,9 +178,9 @@ bool Testy::test_KlasaNiepoprawneParametryFunkcji()const{
 	}
 	catch( const NiepoprawneParametryFunkcji& e ){
 		assert_true(EXCEPTION_PLACE , e.getParametry().isEmpty());
-		Log::getInstance().debug(e.getParametry());
-		Log::getInstance().debug("Zawartosc klasy NiepoprawneParametryFunkcji = ");
-		Log::getInstance().debug(e.generujKomunikat());
+		Aplikacja::getInstance().getLog().debug(e.getParametry());
+		Aplikacja::getInstance().getLog().debug("Zawartosc klasy NiepoprawneParametryFunkcji = ");
+		Aplikacja::getInstance().getLog().debug(e.generujKomunikat());
 	}
 	return endTestModul();
 }
@@ -187,8 +189,8 @@ bool Testy::test_KlasaLadownia()const{
 	startTestModul("Test Klasy Ladownia");
 	try{
 		shared_ptr<Statek> a (tworzStatek(Klucz(IdType(4),Poziom(1)),Ilosc(8)));
-		Log::getInstance().debug("Pojemnosc Maksymalna:");
-		Log::getInstance().debug(a->getPojemnoscMax());
+		Aplikacja::getInstance().getLog().debug("Pojemnosc Maksymalna:");
+		Aplikacja::getInstance().getLog().debug(a->getPojemnoscMax());
 		shared_ptr<Statek> b (tworzStatek(Klucz(IdType(1),Poziom(1)),Ilosc(150)));
 		assert_false(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*b));
 		shared_ptr<Surowce> c (tworzSurowce(Klucz(IdType(2),Poziom(3)),Ilosc(20)));
@@ -196,21 +198,21 @@ bool Testy::test_KlasaLadownia()const{
 		assert_false(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*c));
 		shared_ptr<Surowce> d (tworzSurowce(Klucz(IdType(4),Poziom(1)),Ilosc(20)));
 		assert_true(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*d));
-		Log::getInstance().debug("Zawartosc po dodaniu obiektu: ");
-		Log::getInstance().debug(*a);
+		Aplikacja::getInstance().getLog().debug("Zawartosc po dodaniu obiektu: ");
+		Aplikacja::getInstance().getLog().debug(*a);
 		assert_false(EXCEPTION_PLACE,a->getZajeteMiejsce()!=Objetosc(0));
-		Log::getInstance().debug("Zajete miejsce: ");
-		Log::getInstance().debug(a->getZajeteMiejsce());
-		Log::getInstance().debug("Dzielenie ladowni");
+		Aplikacja::getInstance().getLog().debug("Zajete miejsce: ");
+		Aplikacja::getInstance().getLog().debug(a->getZajeteMiejsce());
+		Aplikacja::getInstance().getLog().debug("Dzielenie ladowni");
 		shared_ptr<Ladownia::Zbiornik> zb (a->PodzielLadownie(Objetosc(a->getZajeteMiejsce().value()*0.1)+Objetosc(a->getZajeteMiejsce().value()/2.0),Objetosc(a->getZajeteMiejsce().value()/2.0)));
 		assert_true(EXCEPTION_PLACE,zb->isEmpty());
-		Log::getInstance().debug("Zbiornik odlaczony od ladowni: ");
-		Log::getInstance().debug(*zb);
-		Log::getInstance().debug("Ladownia po podzieleniu: ");
-		Log::getInstance().debug(*a);
+		Aplikacja::getInstance().getLog().debug("Zbiornik odlaczony od ladowni: ");
+		Aplikacja::getInstance().getLog().debug(*zb);
+		Aplikacja::getInstance().getLog().debug("Ladownia po podzieleniu: ");
+		Aplikacja::getInstance().getLog().debug(*a);
 	}catch(OgolnyWyjatek& e){
-		Log::getInstance().error("Wykryto wyjatek:");
-		Log::getInstance().error(e);
+		Aplikacja::getInstance().getLog().error("Wykryto wyjatek:");
+		Aplikacja::getInstance().getLog().error(e);
 		return endTestModulImidaite();
 	}
 	return endTestModul();
@@ -220,18 +222,18 @@ bool Testy::test_tworzenieObiektow()const{
 	startTestModul("Tworzenie Obiektow");
 	try{
 		ObiektInfo& p = Aplikacja::getInstance().getStatek(Klucz(IdType(1),Poziom(1)));
-		Log::getInstance().debug( "Klasa info:");
-		Log::getInstance().debug(p);
+		Aplikacja::getInstance().getLog().debug( "Klasa info:");
+		Aplikacja::getInstance().getLog().debug(p);
 		shared_ptr<Obiekt>o (p.TworzEgzemplarz(Ilosc(8)));
 		if(assert_false(EXCEPTION_PLACE, o!=nullptr))
 		{
 			assert_false(EXCEPTION_PLACE, o->getIlosc()==Ilosc(8));
-			Log::getInstance().debug( "Stworzony obiekt:");
-			Log::getInstance().debug(*o);
+			Aplikacja::getInstance().getLog().debug( "Stworzony obiekt:");
+			Aplikacja::getInstance().getLog().debug(*o);
 		}
 	}catch(OgolnyWyjatek& e){
-		Log::getInstance().error("Wykryto wyjatek:");
-		Log::getInstance().error(e);
+		Aplikacja::getInstance().getLog().error("Wykryto wyjatek:");
+		Aplikacja::getInstance().getLog().error(e);
 		return endTestModulImidaite();
 	}
 	return endTestModul();
@@ -247,107 +249,107 @@ bool Testy::test_KlasaObiektList()const{
 		Statek *d = nullptr;
 		a = tworzStatek(Klucz(IdType(1),Poziom(1)),Ilosc(8));
 		lista.add(a);
-		Log::getInstance().debug("Dodano do kontenera");
-		Log::getInstance().debug(*a);
+		Aplikacja::getInstance().getLog().debug("Dodano do kontenera");
+		Aplikacja::getInstance().getLog().debug(*a);
 
 		b = tworzStatek(Klucz(IdType(2),Poziom(1)),Ilosc(8));
 		lista.add(b);	
-		Log::getInstance().debug("Dodano do kontenera");
-		Log::getInstance().debug(*b);
+		Aplikacja::getInstance().getLog().debug("Dodano do kontenera");
+		Aplikacja::getInstance().getLog().debug(*b);
 
 		c = tworzStatek(Klucz(IdType(3),Poziom(1)),Ilosc(8));
 		lista.add(c);
-		Log::getInstance().debug("Dodano do kontenera");
-		Log::getInstance().debug(*c);
+		Aplikacja::getInstance().getLog().debug("Dodano do kontenera");
+		Aplikacja::getInstance().getLog().debug(*c);
 
 		d = tworzStatek(Klucz(IdType(4),Poziom(1)),Ilosc(8));
 		lista.add(d);
-		Log::getInstance().debug("Dodano do kontenera");
-		Log::getInstance().debug(*d);
+		Aplikacja::getInstance().getLog().debug("Dodano do kontenera");
+		Aplikacja::getInstance().getLog().debug(*d);
 
-		Log::getInstance().debug("Zawartoœæ kontenera");
-		Log::getInstance().debug(lista);
-		Log::getInstance().debug("Pobranie listy obiektow");
+		Aplikacja::getInstance().getLog().debug("Zawartoœæ kontenera");
+		Aplikacja::getInstance().getLog().debug(lista);
+		Aplikacja::getInstance().getLog().debug("Pobranie listy obiektow");
 		auto l = lista.rawObiektList();
 		assert_true(EXCEPTION_PLACE,l.empty());
-		Log::getInstance().debug("Ilosc elementow:");
-		Log::getInstance().debug(Ilosc(static_cast<long double>(l.size())));
+		Aplikacja::getInstance().getLog().debug("Ilosc elementow:");
+		Aplikacja::getInstance().getLog().debug(Ilosc(static_cast<long double>(l.size())));
 		for( auto a : l ){
-			Log::getInstance().debug(*a);
+			Aplikacja::getInstance().getLog().debug(*a);
 		}
-		Log::getInstance().debug("Pobranie listy kluczy");
+		Aplikacja::getInstance().getLog().debug("Pobranie listy kluczy");
 		auto r = lista.rawKluczList();
 		assert_true(EXCEPTION_PLACE,r.empty());
-		Log::getInstance().debug("Ilosc elementow:");
-		Log::getInstance().debug(Ilosc(static_cast<long double>(r.size())));
+		Aplikacja::getInstance().getLog().debug("Ilosc elementow:");
+		Aplikacja::getInstance().getLog().debug(Ilosc(static_cast<long double>(r.size())));
 		for( auto a : r ){
-			Log::getInstance().debug(a);
+			Aplikacja::getInstance().getLog().debug(a);
 		}
 
 		Statek& sTmp1 = lista.get(Klucz(IdType( 2 ),Poziom( 1 )));
 		assert_false(EXCEPTION_PLACE,sTmp1.getId()==IdType( 2 ));
 		assert_false(EXCEPTION_PLACE,sTmp1.getPoziom()==Poziom( 1 ));
-		Log::getInstance().debug("Pobranie z kontenera: ");
-		Log::getInstance().debug(sTmp1);
-		Log::getInstance().debug("Usuniecie z kontenera wartosci o kluczu: ");
-		Log::getInstance().debug(Klucz(IdType( 1 ),Poziom( 1 )));
+		Aplikacja::getInstance().getLog().debug("Pobranie z kontenera: ");
+		Aplikacja::getInstance().getLog().debug(sTmp1);
+		Aplikacja::getInstance().getLog().debug("Usuniecie z kontenera wartosci o kluczu: ");
+		Aplikacja::getInstance().getLog().debug(Klucz(IdType( 1 ),Poziom( 1 )));
 		assert_false(EXCEPTION_PLACE,lista.del(Klucz(IdType( 1 ),Poziom( 1 ))));
-		Log::getInstance().debug("Zawartoœæ kontenera po usunieciu");
-		Log::getInstance().debug(lista);
-		Log::getInstance().debug("Pobranie i jednoszesne usuniecie z kontenera wartosci o kluczu:");
-		Log::getInstance().debug(Klucz(IdType( 4 ),Poziom( 1 )));
+		Aplikacja::getInstance().getLog().debug("Zawartoœæ kontenera po usunieciu");
+		Aplikacja::getInstance().getLog().debug(lista);
+		Aplikacja::getInstance().getLog().debug("Pobranie i jednoszesne usuniecie z kontenera wartosci o kluczu:");
+		Aplikacja::getInstance().getLog().debug(Klucz(IdType( 4 ),Poziom( 1 )));
 		Statek* sTmp2 = lista.getAndDel(Klucz(IdType( 4 ),Poziom( 1 )));
 		assert_false(EXCEPTION_PLACE,sTmp2->getId()==IdType( 4 ));
 		assert_false(EXCEPTION_PLACE,sTmp2->getPoziom()==Poziom( 1 ));
-		Log::getInstance().debug(*sTmp2);
+		Aplikacja::getInstance().getLog().debug(*sTmp2);
 		delete sTmp2;
-		Log::getInstance().debug("Zawartoœæ kontenera");
-		Log::getInstance().debug(lista);
-		Log::getInstance().debug("Pobranie listy obiektow");
+		Aplikacja::getInstance().getLog().debug("Zawartoœæ kontenera");
+		Aplikacja::getInstance().getLog().debug(lista);
+		Aplikacja::getInstance().getLog().debug("Pobranie listy obiektow");
 		l = lista.rawObiektList();
 		assert_true(EXCEPTION_PLACE,l.empty());
-		Log::getInstance().debug("Ilosc elementow:");
-		Log::getInstance().debug(Ilosc(static_cast<long double>(l.size())));
+		Aplikacja::getInstance().getLog().debug("Ilosc elementow:");
+		Aplikacja::getInstance().getLog().debug(Ilosc(static_cast<long double>(l.size())));
 		for( auto a : l ){
-			Log::getInstance().debug(*a);
+			Aplikacja::getInstance().getLog().debug(*a);
 		}
-		Log::getInstance().debug("Pobranie listy kluczy");
+		Aplikacja::getInstance().getLog().debug("Pobranie listy kluczy");
 		r = lista.rawKluczList();
 		assert_true(EXCEPTION_PLACE,r.empty());
-		Log::getInstance().debug("Ilosc elementow:");
-		Log::getInstance().debug(Ilosc(static_cast<long double>(r.size())));
+		Aplikacja::getInstance().getLog().debug("Ilosc elementow:");
+		Aplikacja::getInstance().getLog().debug(Ilosc(static_cast<long double>(r.size())));
 		for( auto a : r ){
-			Log::getInstance().debug(a);
+			Aplikacja::getInstance().getLog().debug(a);
 		}
-		Log::getInstance().debug("Przenoszenie jednej sztuki obiektu o kluczu");
-		Log::getInstance().debug(r.front());
-		Log::getInstance().debug("do drugiego kontenera.");
+		Aplikacja::getInstance().getLog().debug("Przenoszenie jednej sztuki obiektu o kluczu");
+		Aplikacja::getInstance().getLog().debug(r.front());
+		Aplikacja::getInstance().getLog().debug("do drugiego kontenera.");
 		ObiektList<Statek>::move(r.front(),Ilosc(1),lista,listaDruga);
 		assert_false(EXCEPTION_PLACE,listaDruga.size()==1);
-		Log::getInstance().debug("Zawartoœæ kontenera");
-		Log::getInstance().debug(lista);
-		Log::getInstance().debug("Zawartoœæ drugiego kontenera");
-		Log::getInstance().debug(listaDruga);
-		Log::getInstance().debug("Przenoszenie calego obiektu o kluczu");
-		Log::getInstance().debug(r.front());
-		Log::getInstance().debug("do drugiego kontenera.");
+		Aplikacja::getInstance().getLog().debug("Zawartoœæ kontenera");
+		Aplikacja::getInstance().getLog().debug(lista);
+		Aplikacja::getInstance().getLog().debug("Zawartoœæ drugiego kontenera");
+		Aplikacja::getInstance().getLog().debug(listaDruga);
+		Aplikacja::getInstance().getLog().debug("Przenoszenie calego obiektu o kluczu");
+		Aplikacja::getInstance().getLog().debug(r.front());
+		Aplikacja::getInstance().getLog().debug("do drugiego kontenera.");
 		ObiektList<Statek>::move(r.front(),lista,listaDruga);
 		assert_false(EXCEPTION_PLACE,listaDruga.size()==1);
-		Log::getInstance().debug("Zawartoœæ kontenera");
-		Log::getInstance().debug(lista);
-		Log::getInstance().debug("Zawartoœæ drugiego kontenera");
-		Log::getInstance().debug(listaDruga);
-		Log::getInstance().debug("Rozmiar drugiej listy:");
-		Log::getInstance().debug(Ilosc(static_cast<long double>(listaDruga.size())));
-		Log::getInstance().debug("Czyszczenie kontenera");
+		Aplikacja::getInstance().getLog().debug("Zawartoœæ kontenera");
+		Aplikacja::getInstance().getLog().debug(lista);
+		Aplikacja::getInstance().getLog().debug("Zawartoœæ drugiego kontenera");
+		Aplikacja::getInstance().getLog().debug(listaDruga);
+		Aplikacja::getInstance().getLog().debug("Rozmiar drugiej listy:");
+		Aplikacja::getInstance().getLog().debug(Ilosc(static_cast<long double>(listaDruga.size())));
+		Aplikacja::getInstance().getLog().debug("Czyszczenie kontenera");
 		listaDruga.clear();
 		assert_false(EXCEPTION_PLACE,listaDruga.isEmpty());
-		Log::getInstance().debug("Zawartoœæ drugiego kontenera po wyczyszceniu");
-		Log::getInstance().debug(listaDruga);
-		Log::getInstance().debug("Test Zakoñczony powodzeniem.");
+		Aplikacja::getInstance().getLog().debug("Zawartoœæ drugiego kontenera po wyczyszceniu");
+		Aplikacja::getInstance().getLog().debug(listaDruga);
+		Aplikacja::getInstance().getLog().debug("Test Zakoñczony powodzeniem.");
 	}catch(OgolnyWyjatek& e){
-		Log::getInstance().error("Wykryto wyjatek:");
-		Log::getInstance().error(e);
+		Aplikacja::getInstance().getLog().error("Wykryto wyjatek:");
+		Aplikacja::getInstance().getLog().error(e);
 		return endTestModulImidaite();
 	}
 	return endTestModul();
@@ -359,20 +361,21 @@ bool Testy::test_wymagan()const{
 		shared_ptr<Statek> a( tworzStatek(Klucz(IdType(1),Poziom(1)),Ilosc(8)) );
 		auto t = a->PobierzKoszty();
 		for(auto e : t){
-			Log::getInstance().debug(*e);
+			Aplikacja::getInstance().getLog().debug(*e);
 		}
 		assert_false(EXCEPTION_PLACE,t[0]->getIlosc()==Ilosc(120000.0));
 		assert_false(EXCEPTION_PLACE,t[1]->getIlosc()==Ilosc(4000.0));
+		assert_false(EXCEPTION_PLACE,t[2]->getIlosc()==Ilosc(8*1*10*5*200));
 		auto w = a->PobierzWarunki();
 		for(auto e : w){
-			Log::getInstance().debug(*e);
+			Aplikacja::getInstance().getLog().debug(*e);
 		}
 		assert_false(EXCEPTION_PLACE,w[0]->getPoziom()==Poziom(25));
 		assert_false(EXCEPTION_PLACE,w[1]->getPoziom()==Poziom(5));
 
 	}catch(OgolnyWyjatek& e){
-		Log::getInstance().error("Wykryto wyjatek:");
-		Log::getInstance().error(e);
+		Aplikacja::getInstance().getLog().error("Wykryto wyjatek:");
+		Aplikacja::getInstance().getLog().error(e);
 		return endTestModulImidaite();
 	}
 	return endTestModul();

@@ -10,7 +10,7 @@ class BrakMaski :
 public:
 	static const IdType idBrakMaski;
 
-	BrakMaski( const Tekst& tPlik, const IdType& iLinia, const Tekst& = Tekst() );
+	BrakMaski( const Tekst& tPlik, const Ilosc& iLinia, const Tekst& = Tekst() );
 	BrakMaski( const BrakMaski& );
 	virtual ~BrakMaski();
 

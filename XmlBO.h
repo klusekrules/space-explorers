@@ -3,24 +3,31 @@
 #include "parser\ticpp.h"
 #include "WyjatekParseraXML.h"
 
+class THROW { };
+class NOTHROW { };
+
 class XmlBO{
+private:
+	template < typename T > 
+	static ticpp::Element * fail( bool n , string s ){
+		return nullptr;
+	}
+	template < > 
+	static ticpp::Element * fail<THROW>( bool n , string s ){
+		throw WyjatekParseraXML(EXCEPTION_PLACE,exception((s + " isNull=" + to_string(n)).c_str()),WyjatekParseraXML::trescBladStrukturyXml);
+	}
 public:
-	static ticpp::Node* IterateChildren(const ticpp::Node* n , const string& s, bool throwifInvArg = true){
+	template<typename T>
+	static ticpp::Node* IterateChildren(const ticpp::Node* n , const string& s){
 		if(n==nullptr || s.empty())
-			if(throwifInvArg)
-				throw WyjatekParseraXML(EXCEPTION_PLACE,exception((s + " isNull=" + to_string(n==nullptr)).c_str()),WyjatekParseraXML::trescBladStrukturyXml);
-			else
-				return nullptr;
+			return fail<T>(n==nullptr,s);
 
 		return n->IterateChildren(s,nullptr);
 	}
-
-	static ticpp::Element* IterateChildrenElement(const ticpp::Node* n , const string& s, bool throwifError = true){
+	template<typename T>
+	static ticpp::Element* IterateChildrenElement(const ticpp::Node* n , const string& s){
 		if(n==nullptr || s.empty())
-			if(throwifError)
-				throw WyjatekParseraXML(EXCEPTION_PLACE,exception((s + " isNull=" + to_string(n==nullptr)).c_str()),WyjatekParseraXML::trescBladStrukturyXml);
-			else
-				return nullptr;
+			return fail<T>(n==nullptr,s);
 
 		auto t = n->IterateChildren(s,nullptr);
 

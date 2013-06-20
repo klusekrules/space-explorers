@@ -2,6 +2,7 @@
 #include "LadowniaInfo.h"
 #include "Statek.h"
 #include "Surowce.h"
+#include "Aplikacja.h"
 
 Ladownia::Ladownia( const LadowniaInfo& l )
 	: obiekty(), zajete(), ladowniaInfo(l)
@@ -52,7 +53,7 @@ bool Ladownia::DodajObiektDoLadowni( const Item& obiekt , const Poziom& pz ){
 		obiekty.add(obiekt);
 		przeliczZajeteMiejsce();
 	}catch(OgolnyWyjatek& e){
-		Log::getInstance().warn(e.generujKomunikat());
+		Aplikacja::getInstance().getLog().warn(e.generujKomunikat());
 		return false;
 	}
 	return true;		

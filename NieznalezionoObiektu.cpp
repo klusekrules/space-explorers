@@ -1,7 +1,7 @@
 #include "NieznalezionoObiektu.h"
 #include "Logger.h"
 
-NieznalezionoObiektu::NieznalezionoObiektu(const Tekst& tPlik, const IdType& iLinia, const Tekst& tNazwa)
+NieznalezionoObiektu::NieznalezionoObiektu(const Tekst& tPlik, const Ilosc& iLinia, const Tekst& tNazwa)
 	: OgolnyWyjatek( tPlik, iLinia, idNieznalezionoObiektu, tytulNieznalezionoObiektu, trescNieznalezionoObiektu ) , identyfikator( tNazwa )
 {
 }

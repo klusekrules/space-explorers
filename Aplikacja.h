@@ -7,6 +7,9 @@
 #include "Biblioteki.h"
 #include "SurowceInfo.h"
 #include "StatekInfo.h"
+#include "FuncTransf\ZmianaFabryka.h"
+#include "plugin\plugin.h"
+#include "NiezainicjalizowanaKlasa.h"
 
 typedef struct _SYMBOL_INFO {
 	ULONG       SizeOfStruct;
@@ -38,10 +41,12 @@ class Aplikacja
 	friend class Testy;
 private:
 	void LogApInfo();
-
+	ZmianaFabryka &fabryka;
+	Log& log;
+	Cplugin pluginy;
 protected:
 
-	Aplikacja();
+	Aplikacja() throw(NiezainicjalizowanaKlasa);
 
 	SymInitializeS symInitialize;
 	SymFromAddrS symFromAddr;
@@ -57,9 +62,14 @@ protected:
 	bool WczytajSurowce(ticpp::Node* root);
 	bool WczytajStatki(ticpp::Node* root);
 
+	bool ZaladujOpcje();
+
 public:
 
 	bool WczytajDane( const string& sFile );
+
+	ZmianaFabryka& getZmianaFabryka();
+	Log& getLog();
 
 	static Aplikacja& getInstance(){
 		static Aplikacja app;

@@ -2,7 +2,7 @@
 
 #include "Logger.h"
 
-BladDzieleniaLadowni::BladDzieleniaLadowni( const Tekst& tPlik, const IdType& iLinia, const Tekst& tLadownia )
+BladDzieleniaLadowni::BladDzieleniaLadowni( const Tekst& tPlik, const Ilosc& iLinia, const Tekst& tLadownia )
 	: OgolnyWyjatek( tPlik, iLinia, idBladDzieleniaLadowni, tytulBladDzieleniaLadowni, trescBladDzieleniaLadowni ), ladownia( tLadownia )
 {
 }

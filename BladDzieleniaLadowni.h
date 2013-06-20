@@ -10,7 +10,7 @@ class BladDzieleniaLadowni :
 public:
 	static const IdType idBladDzieleniaLadowni;
 	
-	BladDzieleniaLadowni( const Tekst& tPlik, const IdType& iLinia, const Tekst& tLadownia );
+	BladDzieleniaLadowni( const Tekst& tPlik, const Ilosc& iLinia, const Tekst& tLadownia );
 	virtual ~BladDzieleniaLadowni(void);
 		
 	const Tekst& getLadownia() const;

@@ -1,7 +1,7 @@
 #include "NiezgodnyTypSurowca.h"
 #include "Logger.h"
 
-NiezgodnyTypSurowca::NiezgodnyTypSurowca( const Tekst& tPlik, const IdType& iLinia, const Klucz & tsP, const Klucz & tsD )
+NiezgodnyTypSurowca::NiezgodnyTypSurowca( const Tekst& tPlik, const Ilosc& iLinia, const Klucz & tsP, const Klucz & tsD )
 	: OgolnyWyjatek (  tPlik, iLinia, idNiezgodnyTypSurowca , tytulNiezgodnyTypSurowcaDomyslny , Tekst() )
 {
 	stringstream str;

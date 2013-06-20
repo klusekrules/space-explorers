@@ -12,7 +12,7 @@ public:
 	static const Tekst trescBladStrukturyXml;
 
 	WyjatekParseraXML( const WyjatekParseraXML& );
-	WyjatekParseraXML( const Tekst& tPlik, const IdType& iLinia, const std::exception&, const Tekst& = Tekst() );
+	WyjatekParseraXML( const Tekst& tPlik, const Ilosc& iLinia, const std::exception&, const Tekst& = Tekst() );
 	virtual ~WyjatekParseraXML();
 
 	const Tekst& getPowod() const;

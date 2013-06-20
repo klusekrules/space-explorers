@@ -2,7 +2,7 @@
 #include "Main.h"
 #include "IdType.h"
 #include "Tekst.h"
-
+#include "Ilosc.h"
 
 /**
 * Podstawowa klasa wyj¹tku. S³u¿¹ca jako klasa bazowa dla pozosta³ych wyj¹tków
@@ -14,7 +14,7 @@ class OgolnyWyjatek:
 public:
 	static const IdType domyslnyOgolnyWyjatekID; /// Domyœlna wartoœæ id klasy.
 	
-	OgolnyWyjatek( const Tekst& tPlik, const IdType& iLinia, const IdType& itId = IdType(), const Tekst& wwTytul = Tekst(), const Tekst& wwTresc = Tekst() );
+	OgolnyWyjatek( const Tekst& tPlik, const Ilosc& iLinia, const IdType& itId = IdType(), const Tekst& wwTytul = Tekst(), const Tekst& wwTresc = Tekst() );
 	OgolnyWyjatek( const OgolnyWyjatek& a );
 	virtual ~OgolnyWyjatek();
 
@@ -36,13 +36,13 @@ protected:
 	Tekst tytul;
 	Tekst tresc;
 	Tekst plik;
-	IdType linia;
+	Ilosc linia;
 	Tekst data;
 	Tekst stack;
 	
 private:
 
-	void ustawSzczegoly( const Tekst& tPlik, const IdType& iLinia );
+	void ustawSzczegoly( const Tekst& tPlik, const Ilosc& iLinia );
 
 	static const Tekst domyslnyOgolnyWyjatekTytul; /// Domyœlny tytu³ wyjatku
 	static const Tekst domyslnyOgolnyWyjatekTresc; /// Domyœlna treœæ wyj¹tku

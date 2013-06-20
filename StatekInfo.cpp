@@ -7,10 +7,10 @@ StatekInfo::StatekInfo( const ObiektInfo& o , const JednostkaLatajacaInfo& j , c
 }
 
 StatekInfo::StatekInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
-	: ObiektInfo(XmlBO::IterateChildren(n,CLASSNAME(ObiektInfo))),
-	JednostkaLatajacaInfo(XmlBO::IterateChildren(n,CLASSNAME(JednostkaLatajacaInfo))),
-	JednostkaAtakujacaInfo(XmlBO::IterateChildren(n,CLASSNAME(JednostkaAtakujacaInfo))),
-	LadowniaInfo(XmlBO::IterateChildren(n,CLASSNAME(LadowniaInfo)))
+	: ObiektInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(ObiektInfo))),
+	JednostkaLatajacaInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(JednostkaLatajacaInfo))),
+	JednostkaAtakujacaInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(JednostkaAtakujacaInfo))),
+	LadowniaInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(LadowniaInfo)))
 {
 }
 

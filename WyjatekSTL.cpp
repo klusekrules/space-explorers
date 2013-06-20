@@ -5,7 +5,7 @@
 WyjatekSTL::~WyjatekSTL(){
 }
 
-WyjatekSTL::WyjatekSTL( const Tekst& tPlik, const IdType& iLinia, const std::exception& e, const Tekst& str )
+WyjatekSTL::WyjatekSTL( const Tekst& tPlik, const Ilosc& iLinia, const std::exception& e, const Tekst& str )
 	: OgolnyWyjatek(tPlik, iLinia,idWyjatekSTL , tytulWyjatekSTL ,str.isEmpty() ? trescWyjatekSTL : str), powod(e.what())
 {
 }

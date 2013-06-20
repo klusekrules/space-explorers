@@ -12,7 +12,7 @@ class NiepoprawnaIloscObiektow :
 public:
 	static const IdType idNiepoprawnaIloscObiektow;
 	
-	NiepoprawnaIloscObiektow( const Tekst& tPlik, const IdType& iLinia, const Ilosc& ilosc );
+	NiepoprawnaIloscObiektow( const Tekst& tPlik, const Ilosc& iLinia, const Ilosc& ilosc );
 	virtual ~NiepoprawnaIloscObiektow(void);
 	
 	const Ilosc& getIlosc() const;

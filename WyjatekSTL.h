@@ -11,7 +11,7 @@ class WyjatekSTL :
 public:
 	static const IdType idWyjatekSTL;
 	
-	WyjatekSTL( const Tekst& tPlik, const IdType& iLinia, const std::exception&, const Tekst& = Tekst() );
+	WyjatekSTL( const Tekst& tPlik, const Ilosc& iLinia, const std::exception&, const Tekst& = Tekst() );
 	WyjatekSTL( const WyjatekSTL& );
 	virtual ~WyjatekSTL();
 

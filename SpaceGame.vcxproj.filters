@@ -37,9 +37,6 @@
     <ClCompile Include="ObiektBase.cpp">
       <Filter>SourceFile\BaseClass\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Logger.cpp">
-      <Filter>SourceFile\Logger</Filter>
-    </ClCompile>
     <ClCompile Include="Poziom.cpp">
       <Filter>SourceFile\BaseTypes</Filter>
     </ClCompile>
@@ -84,9 +81,6 @@
     </ClCompile>
     <ClCompile Include="ZuzyciePaliwa.cpp">
       <Filter>SourceFile\BaseTypes</Filter>
-    </ClCompile>
-    <ClCompile Include="Log.cpp">
-      <Filter>SourceFile\Logger</Filter>
     </ClCompile>
     <ClCompile Include="JednostkaAtakujaca.cpp">
       <Filter>SourceFile\Flota\JednostkaAtakujaca</Filter>
@@ -142,29 +136,8 @@
     <ClCompile Include="ObiektBaseInfo.cpp">
       <Filter>SourceFile\BaseClass\Info</Filter>
     </ClCompile>
-    <ClCompile Include="ZmianaLiniowa.cpp">
-      <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
-    </ClCompile>
-    <ClCompile Include="ZmianaAgregacja.cpp">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClCompile>
-    <ClCompile Include="ZmianaFabryka.cpp">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClCompile>
-    <ClCompile Include="ZmianaParametr.cpp">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClCompile>
     <ClCompile Include="Parametr.cpp">
       <Filter>SourceFile\BaseTypes</Filter>
-    </ClCompile>
-    <ClCompile Include="ZmianaInterfejs.cpp">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClCompile>
-    <ClCompile Include="ZmianaDekorator.cpp">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClCompile>
-    <ClCompile Include="ZmianaPotegowa.cpp">
-      <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
     </ClCompile>
     <ClCompile Include="Bool.cpp">
       <Filter>SourceFile\BaseTypes</Filter>
@@ -185,9 +158,6 @@
       <Filter>SourceFile\DomysleWartosci</Filter>
     </ClCompile>
     <ClCompile Include="Stale.cpp">
-      <Filter>SourceFile\DomysleWartosci</Filter>
-    </ClCompile>
-    <ClCompile Include="ZmianaIdKlas.cpp">
       <Filter>SourceFile\DomysleWartosci</Filter>
     </ClCompile>
     <ClCompile Include="ApInfo.cpp">
@@ -243,12 +213,6 @@
     <ClInclude Include="ObiektBase.h">
       <Filter>SourceFile\BaseClass\Base</Filter>
     </ClInclude>
-    <ClInclude Include="Logger.h">
-      <Filter>SourceFile\Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="LoggerInterface.h">
-      <Filter>SourceFile\Logger</Filter>
-    </ClInclude>
     <ClInclude Include="IdType.h">
       <Filter>SourceFile\BaseTypes</Filter>
     </ClInclude>
@@ -302,9 +266,6 @@
     </ClInclude>
     <ClInclude Include="ZuzyciePaliwa.h">
       <Filter>SourceFile\BaseTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="Log.h">
-      <Filter>SourceFile\Logger</Filter>
     </ClInclude>
     <ClInclude Include="JednostkaAtakujaca.h">
       <Filter>SourceFile\Flota\JednostkaAtakujaca</Filter>
@@ -384,29 +345,8 @@
     <ClInclude Include="XmlBO.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
-    <ClInclude Include="ZmianaLiniowa.h">
-      <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
-    </ClInclude>
-    <ClInclude Include="ZmianaInterfejs.h">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClInclude>
-    <ClInclude Include="ZmianaAgregacja.h">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClInclude>
-    <ClInclude Include="ZmianaDekorator.h">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClInclude>
-    <ClInclude Include="ZmianaFabryka.h">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClInclude>
-    <ClInclude Include="ZmianaParametr.h">
-      <Filter>SourceFile\BaseClass\Zmiana\Szkielet</Filter>
-    </ClInclude>
     <ClInclude Include="Parametr.h">
       <Filter>SourceFile\BaseTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="ZmianaPotegowa.h">
-      <Filter>SourceFile\BaseClass\Zmiana\Instancje</Filter>
     </ClInclude>
     <ClInclude Include="Bool.h">
       <Filter>SourceFile\BaseTypes</Filter>
@@ -426,8 +366,11 @@
     <ClInclude Include="Stale.h">
       <Filter>SourceFile\DomysleWartosci</Filter>
     </ClInclude>
-    <ClInclude Include="LoggerClassName.h">
-      <Filter>SourceFile\Logger</Filter>
+    <ClInclude Include="Library.h">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>SourceFile\Log</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -467,9 +410,6 @@
     <Filter Include="Doc">
       <UniqueIdentifier>{c3fb4279-d815-4008-a8cc-069b4a8e4b95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\Logger">
-      <UniqueIdentifier>{85b463fe-ae20-456b-a414-10f3a752a312}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SourceFile\BaseTypes">
       <UniqueIdentifier>{af75c20b-e3eb-4482-9766-342b4916ee6a}</UniqueIdentifier>
     </Filter>
@@ -500,17 +440,8 @@
     <Filter Include="SourceFile\KlasyPomocnicze">
       <UniqueIdentifier>{6a43f607-5cee-48af-be60-d2eb6e1b0e2b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\BaseClass\Zmiana">
-      <UniqueIdentifier>{f6b91d8c-19dc-4861-8f28-6364f2a77fbb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource">
       <UniqueIdentifier>{f809a59c-3db4-40e4-baa6-d18e46644843}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\BaseClass\Zmiana\Instancje">
-      <UniqueIdentifier>{8e907574-8f7f-47e0-a603-8b59c2a5f507}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\BaseClass\Zmiana\Szkielet">
-      <UniqueIdentifier>{cc29475b-1b3d-43ed-ab37-5c839aafb0fe}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\Wymagania">
       <UniqueIdentifier>{b4bdf8e7-69d8-42b7-828c-db385f251073}</UniqueIdentifier>
@@ -529,6 +460,9 @@
     </Filter>
     <Filter Include="SourceFile\DomysleWartosci">
       <UniqueIdentifier>{6f405ef5-dac8-4c81-a144-5dde19dd7b2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Log">
+      <UniqueIdentifier>{dc092ba4-3917-4952-ba8c-70fbc190425c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
