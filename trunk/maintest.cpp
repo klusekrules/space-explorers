@@ -5,9 +5,6 @@
 #ifdef TESTS
 
 #include "Testy.h"
-#include <chrono>
-#include <iomanip>
-#include <fstream>
 
 void main(){
 	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
@@ -17,28 +14,6 @@ void main(){
     _CrtSetReportFile( _CRT_ERROR, _CRTDBG_FILE_STDOUT );
     _CrtSetReportMode( _CRT_ASSERT, _CRTDBG_MODE_FILE );
     _CrtSetReportFile( _CRT_ASSERT, _CRTDBG_FILE_STDOUT );
-
-	/* Ustawianie polskich znaków */
-	locale pl ("Polish");
-	locale::global (pl);
-	/* ------------------------------------ */
-	
-	/* ------- Konfiguracja Loggera -------*/
-	struct tm timeinfo;
-	time_t t = time(nullptr);
-	localtime_s(&timeinfo, &t);
-	char s[20];
-	strftime(s,20,"%Y-%m-%d",&timeinfo);
-	stringstream sfile;
-	sfile << "space-explorers-" << s << ".log"; 
-	string filename = sfile.str();
-	Log::getInstance().ustawFormatCzasu(Log::Czas);
-	Log::getInstance().dodajGniazdoWyjsciowe(shared_ptr<ostream>(new fstream (filename,ios_base::app)));
-	/* ------------------------------------ */
-
-	/* Wylaczenie logow typu debug na potrzeby ograniczenia logow testow*/
-	Log::getInstance().logDebugDisable();
-	/* ------------------------------------ */
 
 	Testy test;
 	test.run();

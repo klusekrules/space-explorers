@@ -4,7 +4,8 @@
 #include <memory>
 #include "parser\ticpp.h"
 #include "IdType.h"
-#include "ZmianaInterfejs.h"
+#include "FuncTransf\ZmianaInterfejs.h"
+#include "Poziom.h"
 
 class ObiektBaseInfo;
 class WyjatekParseraXML;

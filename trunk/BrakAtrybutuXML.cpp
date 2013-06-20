@@ -1,7 +1,7 @@
 #include "BrakAtrybutuXML.h"
 #include "Logger.h"
 
-BrakAtrybutuXML::BrakAtrybutuXML( const Tekst& tPlik, const IdType& iLinia, const Tekst& str )
+BrakAtrybutuXML::BrakAtrybutuXML( const Tekst& tPlik, const Ilosc& iLinia, const Tekst& str )
 	: WyjatekParseraXML( tPlik, iLinia, exception(), trescBrakAtrybutuXML ), atrybut(str)
 {
 	this->setNumerWyjatku(idBrakAtrybutuXML);

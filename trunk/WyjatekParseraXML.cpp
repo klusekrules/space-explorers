@@ -10,7 +10,7 @@ WyjatekParseraXML::WyjatekParseraXML( const WyjatekParseraXML& a )
 {
 }
 
-WyjatekParseraXML::WyjatekParseraXML( const Tekst& tPlik, const IdType& iLinia, const std::exception& ex, const Tekst& str)
+WyjatekParseraXML::WyjatekParseraXML( const Tekst& tPlik, const Ilosc& iLinia, const std::exception& ex, const Tekst& str)
 	: OgolnyWyjatek( tPlik, iLinia, idWyjatekParseraXML, tytulWyjatekParseraXML, str.isEmpty() ? trescWyjatekParseraXML : str ), powod(ex.what())
 {
 }

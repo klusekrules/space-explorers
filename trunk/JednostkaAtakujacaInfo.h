@@ -3,7 +3,7 @@
 #include "Main.h"
 #include "Obrazenia.h"
 #include "Info.h"
-#include "ZmianaInterfejs.h"
+#include "FuncTransf\ZmianaInterfejs.h"
 #include "WyjatekParseraXML.h"
 
 class JednostkaAtakujacaInfo :

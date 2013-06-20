@@ -1,7 +1,7 @@
 #include "NiezainicjalizowanaKlasa.h"
 #include "Logger.h"
 
-NiezainicjalizowanaKlasa::NiezainicjalizowanaKlasa(const Tekst& tPlik, const IdType& iLinia, const Tekst& tNazwa)
+NiezainicjalizowanaKlasa::NiezainicjalizowanaKlasa(const Tekst& tPlik, const Ilosc& iLinia, const Tekst& tNazwa)
 	: OgolnyWyjatek( tPlik, iLinia, idNiezainicjalizowanaKlasa, tytulNiezainicjalizowanaKlasa, trescNiezainicjalizowanaKlasa ) , nazwaKlasy( tNazwa )
 {
 }
