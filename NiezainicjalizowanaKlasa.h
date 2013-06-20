@@ -11,7 +11,7 @@ class NiezainicjalizowanaKlasa :
 public:
 	static const IdType idNiezainicjalizowanaKlasa;
 
-	NiezainicjalizowanaKlasa(const Tekst& tPlik, const IdType& iLinia, const Tekst& tNazwa);
+	NiezainicjalizowanaKlasa(const Tekst& tPlik, const Ilosc& iLinia, const Tekst& tNazwa);
 	virtual ~NiezainicjalizowanaKlasa(void);
 	
 	const Tekst& getNazwaKlasy() const;

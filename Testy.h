@@ -27,8 +27,8 @@ private:
 	static void endTest();
 	
 	static void startTestModul(string name);
-	static bool assert_false( const Tekst& tPlik, const IdType& iLinia, bool a );
-	static bool assert_true( const Tekst& tPlik, const IdType& iLinia, bool a );
+	static bool assert_false( const Tekst& tPlik, const Ilosc& iLinia, bool a );
+	static bool assert_true( const Tekst& tPlik, const Ilosc& iLinia, bool a );
 	static bool endTestModul();
 	static bool endTestModulImidaite();
 	/* */

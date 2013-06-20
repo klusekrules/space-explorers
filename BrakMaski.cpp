@@ -1,7 +1,7 @@
 #include "BrakMaski.h"
 #include "Logger.h"
 
-BrakMaski::BrakMaski( const Tekst& tPlik, const IdType& iLinia, const Tekst& nazwa )
+BrakMaski::BrakMaski( const Tekst& tPlik, const Ilosc& iLinia, const Tekst& nazwa )
 	: WyjatekParseraXML( tPlik, iLinia, exception(), trescBrakMaski ), nazwaMaski(nazwa)
 {
 	this->setNumerWyjatku(idBrakMaski);

@@ -209,6 +209,10 @@
               </Cena>
               <Cena>
                 <Surowce id="0x3" poziom="1" ilosc="200"></Surowce>
+                <Zmiana id="5">
+                  <Param id="2" Wspolczynnik="5.0">
+                  </Param>
+                </Zmiana>
               </Cena>
             </Cennik>
             <Warunek>

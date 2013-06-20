@@ -34,7 +34,7 @@ void Testy::startTestModul(string name){
 	Aplikacja::getInstance().getLog().info(Testy::modulName);
 	Aplikacja::getInstance().getLog().info("----------------------------------------------");
 }
-bool Testy::assert_false( const Tekst& tPlik, const IdType& iLinia, bool a ){
+bool Testy::assert_false( const Tekst& tPlik, const Ilosc& iLinia, bool a ){
 	++testy;
 	++testyGlobal;
 	if(!a){
@@ -49,7 +49,7 @@ bool Testy::assert_false( const Tekst& tPlik, const IdType& iLinia, bool a ){
 	}
 	return true;
 }
-bool Testy::assert_true( const Tekst& tPlik, const IdType& iLinia, bool a ){
+bool Testy::assert_true( const Tekst& tPlik, const Ilosc& iLinia, bool a ){
 	++testy;
 	++testyGlobal;
 	if(a){
@@ -365,6 +365,7 @@ bool Testy::test_wymagan()const{
 		}
 		assert_false(EXCEPTION_PLACE,t[0]->getIlosc()==Ilosc(120000.0));
 		assert_false(EXCEPTION_PLACE,t[1]->getIlosc()==Ilosc(4000.0));
+		assert_false(EXCEPTION_PLACE,t[2]->getIlosc()==Ilosc(8*1*10*5*200));
 		auto w = a->PobierzWarunki();
 		for(auto e : w){
 			Aplikacja::getInstance().getLog().debug(*e);
