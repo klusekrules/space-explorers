@@ -8,8 +8,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpaceGame", "SpaceGame.vcxp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TiCPP", "parser\TiCPP.vcxproj", "{FE80B5AD-627F-2F44-AFEF-B553AE8CFECB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin", "plugin\plugin.vcxproj", "{7865E20C-6EB4-494E-93B4-CB92BB9B4A87}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -34,12 +32,6 @@ Global
 		{FE80B5AD-627F-2F44-AFEF-B553AE8CFECB}.Release|Win32.Build.0 = Release|Win32
 		{FE80B5AD-627F-2F44-AFEF-B553AE8CFECB}.Release|x64.ActiveCfg = Release|x64
 		{FE80B5AD-627F-2F44-AFEF-B553AE8CFECB}.Release|x64.Build.0 = Release|x64
-		{7865E20C-6EB4-494E-93B4-CB92BB9B4A87}.Debug|Win32.ActiveCfg = Debug|Win32
-		{7865E20C-6EB4-494E-93B4-CB92BB9B4A87}.Debug|Win32.Build.0 = Debug|Win32
-		{7865E20C-6EB4-494E-93B4-CB92BB9B4A87}.Debug|x64.ActiveCfg = Debug|Win32
-		{7865E20C-6EB4-494E-93B4-CB92BB9B4A87}.Release|Win32.ActiveCfg = Release|Win32
-		{7865E20C-6EB4-494E-93B4-CB92BB9B4A87}.Release|Win32.Build.0 = Release|Win32
-		{7865E20C-6EB4-494E-93B4-CB92BB9B4A87}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
