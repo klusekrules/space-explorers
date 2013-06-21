@@ -5,6 +5,7 @@
 #include "StatekInfo.h"
 #include <fstream>
 #include "XmlBO.h"
+#include <io.h>
 
 Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 	: isDbgHelpInit(false), log(Log::getInstance()), fabryka(ZmianaFabryka::pobierzInstancje()), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
@@ -29,10 +30,6 @@ Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 	if(!ZaladujOpcje()){
 		throw OgolnyWyjatek(EXCEPTION_PLACE);
 	}
-
-	locale pl (jezykAplikacji);
-	locale::global (pl);
-
 	/* ------- Konfiguracja Loggera -------*/
 	struct tm timeinfo;
 	time_t t = time(nullptr);
@@ -70,6 +67,7 @@ Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 
 	
 	//_set_purecall_handler(myPurecallHandler);
+	//_set_invalid_parameter_handler( _invalid_parameter_handler pNew);
 	//TODO: zaimplementowanie logoowania podczas ka¿dej sytuacji wyj¹tkowej takiej jak wy¿ej
 
 }
@@ -84,7 +82,7 @@ Log& Aplikacja::getLog(){
 bool Aplikacja::WczytajDane( const string& sFile ){
 	ticpp::Document dane;
 	try{
-		dane.LoadFile( sFile.length()>0 ? sFile : nazwaPlikuDanych );
+		dane.LoadFile( sFile.size()>0 ? sFile : nazwaPlikuDanych );
 		auto root_data = dane.IterateChildren("SpaceGame",nullptr);
 		if(root_data){
 			if(!WczytajSurowce(root_data))
@@ -111,28 +109,44 @@ bool Aplikacja::ZaladujOpcje(){
 		auto root_data = dane.IterateChildren("SpaceGame",nullptr);
 		if(root_data){
 
-			auto plikDanych = XmlBO::IterateChildrenElement<THROW>(root_data,"data");
-			if(plikDanych){
-				nazwaPlikuDanych = plikDanych->GetText();
-			}else{
-				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(""),WyjatekParseraXML::trescBladStrukturyXml);
-			}
-
 			auto jezyk = XmlBO::IterateChildrenElement<NOTHROW>(root_data,"locale");
 			if(jezyk){
 				jezykAplikacji = jezyk->GetText(false);
+				if(jezykAplikacji.size() != 0){
+					try{
+						locale pl (jezykAplikacji);
+						locale::global (pl);
+					}catch(exception& e){
+						jezykAplikacji.clear();
+					}
+				}
 			}
 
-			if(jezykAplikacji.length() == 0){
+			if(jezykAplikacji.size() == 0){
 				jezykAplikacji = "Polish";
+				locale pl (jezykAplikacji);
+				locale::global (pl);
 			}
 
+			auto plikDanych = XmlBO::IterateChildrenElement<THROW>(root_data,"data");
+			if(plikDanych){
+				nazwaPlikuDanych = plikDanych->GetText();
+				if( _access(nazwaPlikuDanych.c_str(),0) == -1 ){ // Sprawdzenie czy folder istnieje
+					throw OgolnyWyjatek(EXCEPTION_PLACE,OgolnyWyjatek::domyslnyOgolnyWyjatekID,Tekst("Brak pliku danych."),Tekst("Plik z danymi programu nie zosta³ znaleziony!"));
+				}
+			}else{
+				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(""),WyjatekParseraXML::trescBladStrukturyXml);
+			}
+			
 			auto pluginy = XmlBO::IterateChildrenElement<NOTHROW>(root_data,"plugins");
 			if(pluginy){
 				folderPluginow = pluginy->GetText(false);
+				if( _access(folderPluginow.c_str(),0) == -1 ){ // Sprawdzenie czy folder istnieje
+					folderPluginow.clear();
+				}
 			}
 			
-			if(folderPluginow.length() == 0){
+			if(folderPluginow.size() == 0){
 				folderPluginow = "plugins\\";
 			}
 
