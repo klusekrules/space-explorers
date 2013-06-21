@@ -176,6 +176,8 @@ void Testy::run() const{
 
 			test_wymagan();
 
+			test_KlasaJednostkaAtakujaca();
+
 		}else{
 			Aplikacja::getInstance().getLog().warn("Nie mo¿na kontynuowaæ testów!");
 		}
@@ -388,6 +390,47 @@ bool Testy::test_wymagan()const{
 		}
 		assert_false(EXCEPTION_PLACE,w[0]->getPoziom()==Poziom(25));
 		assert_false(EXCEPTION_PLACE,w[1]->getPoziom()==Poziom(5));
+
+	}catch(OgolnyWyjatek& e){
+		Aplikacja::getInstance().getLog().error("Wykryto wyjatek:");
+		Aplikacja::getInstance().getLog().error(e);
+		return endTestModulImidaite();
+	}
+	return endTestModul();
+}
+bool Testy::test_KlasaJednostkaAtakujaca()const{
+	startTestModul("Test Jednostki Atakuj¹cej");
+	try{
+		shared_ptr<Statek> a( tworzStatek(Klucz(IdType(1),Poziom(1)),Ilosc(8)) );
+		Obrazenia oAtak = a->Atak();
+		Obrazenia baseAtak(a->getStatekInfo().getAtak(Poziom(1)).value()*8.0);
+		Obrazenia tbAtak(baseAtak.value() *(JednostkaAtakujaca::srednia-(JednostkaAtakujaca::odchylenie * 3 )));
+		Obrazenia teAtak(baseAtak.value() *(JednostkaAtakujaca::srednia+(JednostkaAtakujaca::odchylenie * 3 )));
+		Aplikacja::getInstance().getLog().debug(oAtak);
+		Aplikacja::getInstance().getLog().debug(baseAtak);
+		Aplikacja::getInstance().getLog().debug(tbAtak);
+		Aplikacja::getInstance().getLog().debug(teAtak);
+		assert_false(EXCEPTION_PLACE, tbAtak <= oAtak && oAtak <= teAtak);
+
+		Obrazenia oOslona = a->Oslona(oAtak);
+		Obrazenia baseOslona(a->getStatekInfo().getOslona(Poziom(1)).value()*8.0);
+		double tbd=oAtak.value() - baseOslona.value() *(JednostkaAtakujaca::srednia+(JednostkaAtakujaca::odchylenie * 3 ));
+		double ted=oAtak.value() - baseOslona.value() *(JednostkaAtakujaca::srednia-(JednostkaAtakujaca::odchylenie * 3 ));
+		Obrazenia tbOslona(tbd>0?tbd:0);
+		Obrazenia teOslona(ted>0?ted:0);
+		Aplikacja::getInstance().getLog().debug(oOslona);
+		Aplikacja::getInstance().getLog().debug(baseOslona);
+		Aplikacja::getInstance().getLog().debug(tbOslona);
+		Aplikacja::getInstance().getLog().debug(teOslona);
+		assert_false(EXCEPTION_PLACE, tbOslona <= oOslona && oOslona <= teOslona);
+
+		Obrazenia oPancerz = a->Pancerz(oOslona);
+		Obrazenia basePancerz(a->getStatekInfo().getPancerz(Poziom(1)).value()*8.0);
+		Obrazenia tbPancerz(basePancerz<oOslona?oOslona-basePancerz:Obrazenia(0));
+		Aplikacja::getInstance().getLog().debug(oPancerz);
+		Aplikacja::getInstance().getLog().debug(basePancerz);
+		Aplikacja::getInstance().getLog().debug(tbPancerz);
+		assert_false(EXCEPTION_PLACE, tbPancerz == oPancerz);
 
 	}catch(OgolnyWyjatek& e){
 		Aplikacja::getInstance().getLog().error("Wykryto wyjatek:");

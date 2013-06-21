@@ -36,7 +36,9 @@ public:
 	bool DodajObiektDoLadowni( const Item& , const Poziom& pz = Poziom() ) override;
 
 	bool czMoznaDodacDoLadownii( const Ladownia& c ) const override;
-	
+
+	const StatekInfo& getStatekInfo() const;
+
 	string toString() const override;
 private:
 

@@ -39,6 +39,30 @@ public:
 	const Klucz& getRodzajNapedu() const;
 
 	/**
+	* Metoda zwracaj¹ca podstawow¹ moc silnika jednostki.
+	* \return Moc silnika jednostki.
+	*/
+	MocSilnika getMocSilnika() const;
+
+	/**
+	* Metoda zwracaj¹ca podstawowe zu¿ycie paliwa jednostki.
+	* \return Zu¿ycie paliwa jednostki.
+	*/
+	ZuzyciePaliwa getZuzyciePaliwa() const;
+	
+	/**
+	* Metoda zwracaj¹ca podstawow¹ masê napêdu jednostki.
+	* \return Masa napêdu jednostki.
+	*/
+	Masa getMasaNapedu() const;
+	
+	/**
+	* Metoda zwracaj¹ca podstawow¹ Sprawnosc Silnika jednostki.
+	* \return Sprawnosc Silnika jednostki.
+	*/
+	Fluktuacja getSprawnoscSilnika() const;
+
+	/**
 	* Metoda zwracaj¹ca moc silnika jednostki.
 	* \return Moc silnika jednostki.
 	*/
