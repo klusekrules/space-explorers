@@ -34,6 +34,22 @@ const Klucz& JednostkaLatajacaInfo::getRodzajNapedu() const{
 	return rodzajNapedu;
 }
 
+MocSilnika JednostkaLatajacaInfo::getMocSilnika() const{
+	return mocSilnika;
+}
+
+ZuzyciePaliwa JednostkaLatajacaInfo::getZuzyciePaliwa() const{
+	return zuzyciePaliwa;
+}
+
+Masa JednostkaLatajacaInfo::getMasaNapedu() const{
+	return masaNapedu;
+}
+
+Fluktuacja JednostkaLatajacaInfo::getSprawnoscSilnika() const{
+	return sprawnoscSilnika;
+}
+
 MocSilnika JednostkaLatajacaInfo::getMocSilnika(const Poziom& p ) const{
 	if(przyrostMocySilnika==nullptr)
 		return mocSilnika;

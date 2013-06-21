@@ -57,6 +57,10 @@ bool Statek::czMoznaDodacDoLadownii( const Ladownia& c ) const{
 	return c.czMoznaDodacDoLadownii(*this);
 }
 
+const StatekInfo& Statek::getStatekInfo() const{
+	return statekinfo;
+}
+
 string Statek::toString() const{
 	Logger str(CLASSNAME(Statek));
 	str.addClass(Obiekt::toString());

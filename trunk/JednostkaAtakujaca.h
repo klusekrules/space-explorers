@@ -51,6 +51,9 @@ public:
 	*/
 	string toString() const override;
 
+	static const double srednia;
+	static const double odchylenie;
+
 protected:
 	const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo; /// WskaŸnik na klasê opisuj¹c¹. Wymagany do poprawnego dzia³ania.
 	

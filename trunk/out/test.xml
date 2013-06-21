@@ -246,7 +246,7 @@
         Opis jednoscki latajacej transportowca.
       </Info>
     </JednostkaLatajacaInfo>
-    <JednostkaAtakujacaInfo atak="90" pancerz="250" oslona="300">
+    <JednostkaAtakujacaInfo atak="90" pancerz="20" oslona="30">
       <Info id="0x011" nazwa="Nazwa Jednostki atakujacej transportowca">
         Opis jednostki atakujacej transportowca.
       </Info>

@@ -49,6 +49,7 @@ public:
 	bool test_tworzenieObiektow()const;
 	bool test_KlasaObiektList()const;
 	bool test_KlasaLadownia()const;
+	bool test_KlasaJednostkaAtakujaca()const;
 	bool test_KlasaNiepoprawneParametryFunkcji() const;
 	bool test_wymagan()const;
 
