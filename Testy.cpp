@@ -1,5 +1,6 @@
 #include "Testy.h"
 
+
 Testy::Testy(){
 	Aplikacja::getInstance();
 }
@@ -14,6 +15,10 @@ unsigned int Testy::fatalError(0);
 unsigned int Testy::bledyGlobal(0);
 unsigned int Testy::testyGlobal(0);
 unsigned int Testy::fatalErrorGlobal(0);
+chrono::steady_clock::time_point Testy::startlocal;
+chrono::steady_clock::time_point Testy::endlocal;
+chrono::steady_clock::time_point Testy::start;
+chrono::steady_clock::time_point Testy::end;
 string Testy::modulName;
 
 
@@ -23,6 +28,7 @@ void Testy::startTest(){
 	Aplikacja::getInstance().getLog().info("----------------------------------------------");
 	Aplikacja::getInstance().getLog().info("              Rozpoczêcie testów               ");
 	Aplikacja::getInstance().getLog().info("----------------------------------------------");
+	start = chrono::steady_clock::now();
 }
 
 void Testy::startTestModul(string name){
@@ -33,6 +39,7 @@ void Testy::startTestModul(string name){
 	Aplikacja::getInstance().getLog().info("           Rozpoczêcie testów modu³u           ");
 	Aplikacja::getInstance().getLog().info(Testy::modulName);
 	Aplikacja::getInstance().getLog().info("----------------------------------------------");
+	startlocal = chrono::steady_clock::now();
 }
 bool Testy::assert_false( const Tekst& tPlik, const Ilosc& iLinia, bool a ){
 	++testy;
@@ -66,37 +73,47 @@ bool Testy::assert_true( const Tekst& tPlik, const Ilosc& iLinia, bool a ){
 }
 
 bool Testy::endTestModul(){	
-	stringstream s;
+	stringstream s,st;
+	endlocal = chrono::steady_clock::now();
+	st<<"Czas trwania testu: "<<chrono::duration_cast<chrono::milliseconds>(endlocal - startlocal).count()<< "ms.";
 	s<<"Liczba Testów: "<<testy<<" , Liczba B³êdów: "<<bledy;
 	Aplikacja::getInstance().getLog().info("----------------------------------------------");
 	Aplikacja::getInstance().getLog().info("           Zakoñczenie testów modu³u           ");
 	Aplikacja::getInstance().getLog().info(modulName);
 	Aplikacja::getInstance().getLog().info(s.str());
+	Aplikacja::getInstance().getLog().info(st.str());
 	Aplikacja::getInstance().getLog().info("----------------------------------------------");
 	return bledy==0;
 }
 
 bool Testy::endTestModulImidaite(){
-	stringstream s;
+	stringstream s,st;
+	endlocal = chrono::steady_clock::now();
+	st<<"Czas trwania testu: "<<chrono::duration_cast<chrono::milliseconds>(endlocal - startlocal).count()<< "ms.";
 	s<<"Wykryto b³¹d krytyczny.\nPrzerwno dalsze dzia³anie metody testujacej.";
 	Aplikacja::getInstance().getLog().info("----------------------------------------------");
 	Aplikacja::getInstance().getLog().info("           Zakoñczenie testów modu³u           ");
 	Aplikacja::getInstance().getLog().info(modulName);
 	Aplikacja::getInstance().getLog().info(s.str());
+	Aplikacja::getInstance().getLog().info(st.str());
 	Aplikacja::getInstance().getLog().info("----------------------------------------------");
 	++fatalErrorGlobal;
 	return false;
 }
 
 void Testy::endTest(){
-	stringstream s,t;
+	stringstream s,t,st;
+	end = chrono::steady_clock::now();
+	st<<"Czas trwania testów: "<<chrono::duration_cast<chrono::milliseconds>(end - start).count()<< "ms.";
 	s<<"Przeprowadzono Testów: "<<testyGlobal<<" , Wykryto B³êdów: "<<bledyGlobal;
 	t << "B³êdy krytyczne: " << fatalErrorGlobal;
 	Aplikacja::getInstance().getLog().info("----------------------------------------------");
 	Aplikacja::getInstance().getLog().info("              Zakoñczenie testów               ");
 	Aplikacja::getInstance().getLog().info(s.str());
 	Aplikacja::getInstance().getLog().info(t.str());
+	Aplikacja::getInstance().getLog().info(st.str());
 	Aplikacja::getInstance().getLog().info("----------------------------------------------");
+	
 }
 
 bool Testy::ladowanie_danych()const{
@@ -175,8 +192,7 @@ bool Testy::test_KlasaNiepoprawneParametryFunkcji()const{
 		shared_ptr<Statek> t( this->tworzStatek(Klucz(IdType(1),Poziom(1)),Ilosc(1)));
 		Statek& tmp = *t;
 		throw NiepoprawneParametryFunkcji( EXCEPTION_PLACE , tmp , temp );
-	}
-	catch( const NiepoprawneParametryFunkcji& e ){
+	}catch( const NiepoprawneParametryFunkcji& e ){
 		assert_true(EXCEPTION_PLACE , e.getParametry().isEmpty());
 		Aplikacja::getInstance().getLog().debug(e.getParametry());
 		Aplikacja::getInstance().getLog().debug("Zawartosc klasy NiepoprawneParametryFunkcji = ");

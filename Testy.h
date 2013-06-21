@@ -5,6 +5,7 @@
 #include "StatekInfo.h"
 #include "SurowceInfo.h"
 #include "Aplikacja.h"
+#include <chrono>
 
 class Testy
 {
@@ -21,6 +22,10 @@ private:
 	static unsigned int bledyGlobal;
 	static unsigned int testyGlobal;
 	static unsigned int fatalErrorGlobal;
+	static chrono::steady_clock::time_point startlocal;
+	static chrono::steady_clock::time_point endlocal;
+	static chrono::steady_clock::time_point start;
+	static chrono::steady_clock::time_point end;
 	static string modulName;
 	
 	static void startTest();

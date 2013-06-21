@@ -8,7 +8,9 @@
 #include <io.h>
 
 Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
-	: isDbgHelpInit(false), log(Log::getInstance()), fabryka(ZmianaFabryka::pobierzInstancje()), pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
+	: isDbgHelpInit(false), log(Log::getInstance()), fabryka(ZmianaFabryka::pobierzInstancje()), 
+	pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), 
+	pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
 {
 
 #ifdef TESTS
@@ -27,9 +29,6 @@ Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 		}
 	}
 
-	if(!ZaladujOpcje()){
-		throw OgolnyWyjatek(EXCEPTION_PLACE);
-	}
 	/* ------- Konfiguracja Loggera -------*/
 	struct tm timeinfo;
 	time_t t = time(nullptr);
@@ -43,6 +42,10 @@ Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 	log.dodajGniazdoWyjsciowe(shared_ptr<ostream>(new fstream (filename,ios_base::app)));
 	/* ------------------------------------ */
 
+	if(!ZaladujOpcje()){
+		throw OgolnyWyjatek(EXCEPTION_PLACE);
+	}
+	
 	//Wyswietlanie informacji o aplikacji
 	LogApInfo();
 
@@ -116,7 +119,7 @@ bool Aplikacja::ZaladujOpcje(){
 					try{
 						locale pl (jezykAplikacji);
 						locale::global (pl);
-					}catch(exception& e){
+					}catch(exception&){
 						jezykAplikacji.clear();
 					}
 				}
