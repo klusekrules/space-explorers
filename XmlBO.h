@@ -36,4 +36,19 @@ public:
 		else
 			return nullptr;
 	}
+
+	template<typename T>
+	static ticpp::Element* IterateChildrenElementIf(const ticpp::Node* n , const string& s, const string& atrybut, const string& wartosc){
+		if(n==nullptr || s.empty())
+			return fail<T>(n==nullptr,s);
+
+		for(auto t = n->IterateChildren(s,nullptr); t!= nullptr; t = n->IterateChildren("Zmiana",t) ){
+			auto el = t->ToElement();
+			if(el){
+				if(wartosc == el->GetAttribute(atrybut))
+					return el;
+			}
+		}
+		return nullptr;
+	}
 };

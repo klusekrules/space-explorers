@@ -28,7 +28,7 @@ private:
 	* Funkcja wysy³aj¹ca napis do strumienia.
 	* \param p Napis wysy³any do strumienia.
 	*/
-	void print( const string& p );
+	void print( const string& p ) const;
 
 	bool blogEnable; /**< Zmmienna blokuj¹ca wysy³anie wszystkich komunikatów do strumienia */
 	bool blogDebugEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Debug do strumienia */

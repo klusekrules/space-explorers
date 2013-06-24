@@ -4,10 +4,10 @@
 #include "..\Logger\Logger.h"
 
 ZmianaAgregacja::ZmianaAgregacja( const ticpp::Element* e )
-	: ZmianaDekorator( XmlBO::IterateChildrenElement<NOTHROW>(e,"ZmianaNext") )
+	: ZmianaDekorator( XmlBO::IterateChildrenElement<NOTHROW>(e,"Zmiana") )
 {
 	if( e && zFabryka ){
-		for( auto n = e->IterateChildren("Zmiana",nullptr); n ; n = e->IterateChildren("Zmiana",n) ){
+		for( auto n = e->IterateChildren("Zmiana", XmlBO::IterateChildrenElement<NOTHROW>(e,"Zmiana") ); n ; n = e->IterateChildren("Zmiana",n) ){
 			auto e = zFabryka->Tworz(n->ToElement());
 			if(e)
 				list.push_back(e);

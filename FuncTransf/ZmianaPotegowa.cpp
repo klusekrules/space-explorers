@@ -4,7 +4,7 @@
 #include "..\XmlBO.h"
 
 ZmianaPotegowa::ZmianaPotegowa( const ticpp::Element * e ) throw(int)
-	: wspolczynnik(XmlBO::IterateChildrenElement<NOTHROW>(e,"Param1")), wykladnik(XmlBO::IterateChildrenElement<NOTHROW>(e,"Param2"))
+	: wspolczynnik(XmlBO::IterateChildrenElementIf<NOTHROW>(e,"Param","id","1")), wykladnik(XmlBO::IterateChildrenElementIf<NOTHROW>(e,"Param","id","2"))
 {
 }
 

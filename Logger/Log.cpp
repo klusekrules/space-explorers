@@ -6,7 +6,7 @@
 #include <iomanip>
 #include <sstream>
 using namespace std::chrono;
-void Log::print( const string& p ){
+void Log::print( const string& p ) const{
 	cout << p;
 	for( auto f : outstream)
 		(*f)<<p;
