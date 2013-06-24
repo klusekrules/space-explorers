@@ -163,6 +163,12 @@
     <ClCompile Include="ApInfo.cpp">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClCompile>
+    <ClCompile Include="Test.cpp">
+      <Filter>SourceFile\Testy</Filter>
+    </ClCompile>
+    <ClCompile Include="FunkcjeTestowe.cpp">
+      <Filter>SourceFile\Testy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -371,6 +377,12 @@
     </ClInclude>
     <ClInclude Include="Logger.h">
       <Filter>SourceFile\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="Test.h">
+      <Filter>SourceFile\Testy</Filter>
+    </ClInclude>
+    <ClInclude Include="FunkcjeTestowe.h">
+      <Filter>SourceFile\Testy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 #include "Main.h"
 #include "Biblioteki.h"
 #include "Aplikacja.h"
+#include "FunkcjeTestowe.h"
 
 #ifdef TESTS
 
@@ -16,7 +17,14 @@ void main(){
     _CrtSetReportFile( _CRT_ASSERT, _CRTDBG_FILE_STDOUT );
 
 	Testy test;
-	test.run();
+	test.dodajTest("£adowanie Danych",ladowanie_danych,true);
+	test.dodajTest("Test klasy NiepoprawneParametryFunkcji",test_KlasaNiepoprawneParametryFunkcji,true);	
+	test.dodajTest("Tworzenie Obiektow",test_tworzenieObiektow,true);
+	test.dodajTest("Test Klasy Ladownia",test_KlasaLadownia,false);
+	test.dodajTest("Operacje na klasie ObiektList",test_KlasaObiektList,false);
+	test.dodajTest("Test Wymagan",test_wymagan,false);
+	test.dodajTest("Test Jednostki Atakuj¹cej",test_KlasaJednostkaAtakujaca,false);
+	test();
 	/*ALLEGRO_DISPLAY *display = NULL;
  
    if(!al_init()) {
