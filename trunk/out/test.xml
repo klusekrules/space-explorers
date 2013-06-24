@@ -190,12 +190,12 @@
               <Cena>
                 <Surowce id="0x1" poziom="1" ilosc="1000"></Surowce>
                 <Zmiana id="2">
-                  <ZmianaNext id="3">
-                    <Param id="1" Wspolczynnik="3.0">
-                    </Param>
-                  </ZmianaNext>
                   <Zmiana id="3">
-                    <Param id="2" Wspolczynnik="5.0">
+                    <Param id="0" Wspolczynnik="3.0">
+                    </Param>
+                  </Zmiana>
+                  <Zmiana id="3">
+                    <Param id="0" Wspolczynnik="5.0">
                     </Param>
                   </Zmiana>
                 </Zmiana>
@@ -203,14 +203,14 @@
               <Cena>
                 <Surowce id="0x2" poziom="1" ilosc="500"></Surowce>
                 <Zmiana id="4">
-                  <Param1 id="0" Wspolczynnik="1.0"></Param1>
-                  <Param2 id="0" Wspolczynnik="2.0"></Param2>
+                  <Param id="1" Wspolczynnik="1.0"></Param>
+                  <Param id="2" Wspolczynnik="2.0"></Param>
                 </Zmiana>
               </Cena>
               <Cena>
                 <Surowce id="0x3" poziom="1" ilosc="200"></Surowce>
                 <Zmiana id="5">
-                  <Param id="2" Wspolczynnik="5.0">
+                  <Param id="0" Wspolczynnik="5.0">
                   </Param>
                 </Zmiana>
               </Cena>
@@ -222,7 +222,7 @@
                   </Info>
                 </ObiektBaseInfo>
                 <Zmiana id="3">
-                  <Param id="2" Wspolczynnik="5.0">
+                  <Param id="0" Wspolczynnik="5.0">
                   </Param>
                 </Zmiana>
               </Wymog>
@@ -232,7 +232,7 @@
                   </Info>
                 </ObiektBaseInfo>
                 <Zmiana id="3">
-                  <Param id="2" Wspolczynnik="5.0">
+                  <Param id="0" Wspolczynnik="5.0">
                   </Param>
                 </Zmiana>
               </Wymog>

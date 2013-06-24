@@ -4,7 +4,7 @@
 #include "..\XmlBO.h"
 
 ZmianaLiniowa::ZmianaLiniowa( const ticpp::Element* e )
-	: parametr(XmlBO::IterateChildrenElement<NOTHROW>(e,"Param"))
+	: parametr(XmlBO::IterateChildrenElementIf<NOTHROW>(e,"Param","id","0"))
 {
 }
 

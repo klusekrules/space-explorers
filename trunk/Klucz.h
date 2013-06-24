@@ -32,7 +32,7 @@ public:
 };
 
 struct KluczHash {
-    size_t operator()(const Klucz& t){
+    size_t operator()(const Klucz& t) const {
 		size_t z = (t.values.first.value() + (t.values.second.value() << 16) ) * t.values.second.value();
 		return z;
     }
