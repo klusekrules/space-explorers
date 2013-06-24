@@ -8,9 +8,7 @@
 #include <io.h>
 
 Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
-	: isDbgHelpInit(false), log(Log::getInstance()), fabryka(ZmianaFabryka::pobierzInstancje()), 
-	pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), 
-	pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
+	: isDbgHelpInit(false), log(Log::getInstance()), instancjaGry(new Gra(*this))
 {
 
 #ifdef TESTS
@@ -60,8 +58,8 @@ Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 		log.warn("Nie za³adowano biblioteki Dbghelp.dll");
 	}
 
-	pluginy = shared_ptr<Cplugin>(new Cplugin(folderPluginow,fabryka,log));
-	
+	pluginy = shared_ptr<Cplugin>(new Cplugin(folderPluginow,instancjaGry->getZmianaFabryka(),log));
+
 	if(!pluginy->LoadDefaultZmiana())
 		throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,Tekst("Domyslne elementy zmiany."));
 
@@ -75,30 +73,31 @@ Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 
 }
 
-ZmianaFabryka& Aplikacja::getZmianaFabryka(){
-	return fabryka;
+Aplikacja::Aplikacja( const Aplikacja& a)
+	:isDbgHelpInit(a.isDbgHelpInit), log(Log::getInstance()), instancjaGry(a.instancjaGry) ,hLibrary(a.hLibrary)
+{
 }
+
+Aplikacja& Aplikacja::operator=(const Aplikacja& a){
+	isDbgHelpInit = a.isDbgHelpInit;
+	instancjaGry = a.instancjaGry;
+	hLibrary=a.hLibrary;
+	symInitialize = a.symInitialize;
+	symFromAddr = a.symFromAddr;
+	pluginy = a.pluginy;
+	return *this;
+}
+
 Log& Aplikacja::getLog(){
 	return log;
 }
 
-bool Aplikacja::WczytajDane( const string& sFile ){
-	ticpp::Document dane;
-	try{
-		dane.LoadFile( sFile.size()>0 ? sFile : nazwaPlikuDanych );
-		auto root_data = dane.IterateChildren("SpaceGame",nullptr);
-		if(root_data){
-			if(!WczytajSurowce(root_data))
-				return false;
-			if(!WczytajStatki(root_data))
-				return false;
-		}
-	}catch(ticpp::Exception& e){
-		cout<< e.what();
-		log.error("Nie uda³o siê otworzyæ pliku!");
-		return false;
-	}
-	return true;
+Gra& Aplikacja::getGra(){
+	return *instancjaGry;
+}
+
+bool Aplikacja::WczytajDane(){
+	return instancjaGry->WczytajDane(nazwaPlikuDanych);
 }
 
 bool Aplikacja::ZaladujOpcje(){
@@ -163,44 +162,6 @@ bool Aplikacja::ZaladujOpcje(){
 	return true;
 }
 
-bool Aplikacja::WczytajSurowce(ticpp::Node* root){
-	ticpp::Node* ptr = nullptr;
-	do{
-		try{
-			ptr = root->IterateChildren(CLASSNAME(SurowceInfo),ptr);
-			if(ptr){
-				SurowceInfo* t = new SurowceInfo(ptr);
-				log.debug(*t);
-				listaSurowcowInfo[t->ID()]=t;
-			}
-		}catch(OgolnyWyjatek& e){
-			log.warn(e.generujKomunikat());
-			log.debug(e);
-			return false;
-		}
-	}while(ptr);
-	return true;
-}
-
-bool Aplikacja::WczytajStatki(ticpp::Node* root){
-	ticpp::Node* ptr = nullptr;
-	do{
-		try{
-			ptr = root->IterateChildren(CLASSNAME(StatekInfo),ptr);
-			if(ptr){
-				StatekInfo* t = new StatekInfo(ptr);
-				log.debug(*t);
-				listaStatkowInfo[t->ID()]=t;
-			}
-		}catch(OgolnyWyjatek& e){
-			log.warn(e.generujKomunikat());
-			log.debug(e);
-			return false;
-		}
-	}while(ptr);
-	return true;
-}
-
 string Aplikacja::getStackTrace() const{
 	stringstream stackTrace;	
 	if( isDbgHelpInit )
@@ -230,7 +191,6 @@ string Aplikacja::getStackTrace() const{
 			{
 				symFromAddr (hProcess, (DWORD_PTR) (stack[i]), 0, symbol);
 				stackTrace << dec << (unsigned short)(frames - i - 1) << ": 0x" << setfill('0')<<setw(8)<<stack[i] << " " << (char*)(symbol->Name) << " = 0x" << setfill('0')<<setw(8) << hex <<symbol->Address << endl;
-				//fprintf_s (fp,"%u: %p %s = 0x%Ix\n", frames - i - 1, stack[i], symbol->Name, symbol->Address);
 			}
 		}
 		free (symbol);
@@ -240,12 +200,6 @@ string Aplikacja::getStackTrace() const{
 
 Aplikacja::~Aplikacja()
 {
-	for(auto s : listaSurowcowInfo)
-		if(s.second)
-			delete s.second;
-	for(auto s : listaStatkowInfo)
-		if(s.second)
-			delete s.second;
 	if(hLibrary)
 		FreeLibrary(hLibrary);
 }

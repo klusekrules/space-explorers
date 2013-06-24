@@ -13,8 +13,8 @@ class ObiektList:
 {
 	static_assert(is_base_of< ObiektBase , T >::value, "Uzyto typ niezgodny z ObiektBase* ");
 public:
-	typedef typename Mapa< Klucz , T >::iterator iterator;
-	typedef typename Mapa< Klucz , T >::const_iterator const_iterator;
+	typedef typename Mapa< Klucz , T , KluczHash >::iterator iterator;
+	typedef typename Mapa< Klucz , T , KluczHash >::const_iterator const_iterator;
 	
 	ObiektList()
 		: lista(IdType(-1))
@@ -203,5 +203,5 @@ public:
 	}
 
 private:
-	Mapa< Klucz , T > lista;
+	Mapa< Klucz , T , KluczHash > lista;
 };

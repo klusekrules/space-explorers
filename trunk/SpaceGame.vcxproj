@@ -216,10 +216,12 @@
     <ClInclude Include="Dystans.h" />
     <ClInclude Include="Fluktuacja.h" />
     <ClInclude Include="FunkcjeTestowe.h" />
+    <ClInclude Include="Gra.h" />
     <ClInclude Include="Library.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Parametr.h" />
     <ClInclude Include="Test.h" />
+    <ClInclude Include="Uzytkownik.h" />
     <ClInclude Include="version.h" />
     <ClInclude Include="IdType.h" />
     <ClInclude Include="Ilosc.h" />
@@ -287,6 +289,7 @@
     <ClCompile Include="Dystans.cpp" />
     <ClCompile Include="Fluktuacja.cpp" />
     <ClCompile Include="FunkcjeTestowe.cpp" />
+    <ClCompile Include="Gra.cpp" />
     <ClCompile Include="IdType.cpp" />
     <ClCompile Include="Ilosc.cpp" />
     <ClCompile Include="Info.cpp" />
@@ -324,6 +327,7 @@
     <ClCompile Include="Tekst.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="Testy.cpp" />
+    <ClCompile Include="Uzytkownik.cpp" />
     <ClCompile Include="Warunek.cpp" />
     <ClCompile Include="WyjatekParseraXML.cpp" />
     <ClCompile Include="WyjatekSTL.cpp" />

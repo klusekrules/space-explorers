@@ -169,6 +169,12 @@
     <ClCompile Include="FunkcjeTestowe.cpp">
       <Filter>SourceFile\Testy</Filter>
     </ClCompile>
+    <ClCompile Include="Gra.cpp">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClCompile>
+    <ClCompile Include="Uzytkownik.cpp">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -383,6 +389,12 @@
     </ClInclude>
     <ClInclude Include="FunkcjeTestowe.h">
       <Filter>SourceFile\Testy</Filter>
+    </ClInclude>
+    <ClInclude Include="Gra.h">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClInclude>
+    <ClInclude Include="Uzytkownik.h">
+      <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

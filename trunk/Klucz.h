@@ -11,6 +11,7 @@ class Klucz:
 	public BaseInterface< pair < IdType, Poziom > >
 {
 	type_name values;
+	friend struct KluczHash;
 public:
 	Klucz();
 	Klucz( ticpp::Node* );
@@ -18,13 +19,7 @@ public:
 	explicit Klucz( const type_name& );
 	Klucz( const Klucz& );
 	virtual ~Klucz();
-
-	operator size_t() const
-	{
-		size_t z = (values.first.value() + (values.second.value() << 16) ) * values.second.value();
-		return z; 
-	}
-
+	
 	bool operator==( const Klucz& )const;
 	bool operator!=( const Klucz& )const;
 
@@ -36,3 +31,9 @@ public:
 	string toString()const override;
 };
 
+struct KluczHash {
+    size_t operator()(const Klucz& t){
+		size_t z = (t.values.first.value() + (t.values.second.value() << 16) ) * t.values.second.value();
+		return z;
+    }
+};
