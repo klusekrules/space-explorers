@@ -35,7 +35,7 @@ bool Cplugin::LoadPluginsZmiana(){
 		do {
 			HMODULE hLibrary = LoadLibrary((folder+c_file.name).c_str());
 			if(hLibrary){
-				auto fun = (RejestrujZmiane)GetProcAddress(hLibrary,"RejestrujZmiany");
+				auto fun = (ZmianaFabryka::RejestrujZmiane)GetProcAddress(hLibrary,"RejestrujZmiany");
 				if(fun){
 					if(fun(zFabryka,lLogFile)){
 						lLogFile.info("Za³adowano biblioteke:");

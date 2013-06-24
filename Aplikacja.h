@@ -1,15 +1,11 @@
 #pragma once
 #include "Main.h"
-#include "ObiektBase.h"
-#include "ObiektBaseInfo.h"
 #include <Windows.h>
-#include "Info.h"
 #include "Biblioteki.h"
-#include "SurowceInfo.h"
-#include "StatekInfo.h"
-#include "FuncTransf\ZmianaFabryka.h"
 #include "plugin\plugin.h"
 #include "NiezainicjalizowanaKlasa.h"
+#include "Gra.h"
+
 
 typedef struct _SYMBOL_INFO {
 	ULONG       SizeOfStruct;
@@ -41,9 +37,9 @@ class Aplikacja
 	friend class Testy;
 private:
 	void LogApInfo();
-	ZmianaFabryka &fabryka;
 	Log& log;
 	shared_ptr<Cplugin> pluginy;
+	shared_ptr<Gra> instancjaGry;
 
 	string nazwaPlikuDanych;
 	string jezykAplikacji;
@@ -52,29 +48,22 @@ private:
 protected:
 
 	Aplikacja() throw(NiezainicjalizowanaKlasa);
+	Aplikacja( const Aplikacja& );
+	Aplikacja& operator=(const Aplikacja&);
 
 	SymInitializeS symInitialize;
 	SymFromAddrS symFromAddr;
 	HMODULE hLibrary;
 	bool isDbgHelpInit;
 
-	ObiektBaseInfo pustyobiekBaseInfo;
-	ObiektBase pustyObiektBase;
-
-	hash_map<Klucz, SurowceInfo* > listaSurowcowInfo;
-	hash_map<Klucz, StatekInfo* > listaStatkowInfo;
-
-	bool WczytajSurowce(ticpp::Node* root);
-	bool WczytajStatki(ticpp::Node* root);
-
 	bool ZaladujOpcje();
 
 public:
-
-	bool WczytajDane( const string& sFile = string() );
-
-	ZmianaFabryka& getZmianaFabryka();
+	
+	Gra& getGra();
 	Log& getLog();
+
+	bool WczytajDane();
 
 	static Aplikacja& getInstance(){
 		static Aplikacja app;
@@ -84,27 +73,5 @@ public:
 	string getStackTrace() const;
 
 	~Aplikacja();
-
-	const ObiektBase& getObiekt(IdType id)const{
-		return pustyObiektBase;
-	}
-
-	StatekInfo& getStatek(const Klucz& id)const throw (NieznalezionoObiektu) {
-		auto iter = listaStatkowInfo.find(id);
-		if(iter==listaStatkowInfo.end())
-			throw NieznalezionoObiektu(EXCEPTION_PLACE,id.toString());
-		return *(iter->second);
-	}
-
-	SurowceInfo& getSurowce(const Klucz& id)const throw (NieznalezionoObiektu) {
-	auto iter = listaSurowcowInfo.find(id);
-	if(iter==listaSurowcowInfo.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.toString());
-	return *(iter->second);
-	}
-
-	const ObiektBase& getObiekt(Klucz k) const{
-		return pustyObiektBase;
-	}
 };
 

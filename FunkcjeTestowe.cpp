@@ -2,7 +2,7 @@
 #include "Testy.h"
 
 Statek* tworzStatek( Test& t, const Klucz& id,const Ilosc& i) throw (OgolnyWyjatek,NieznalezionoObiektu){
-	Statek* s = Aplikacja::getInstance().getStatek(id).TworzEgzemplarz(i);
+	Statek* s = Aplikacja::getInstance().getGra().getStatek(id).TworzEgzemplarz(i);
 	if(t.assert_false(EXCEPTION_PLACE, s!=nullptr))
 	{
 		t.assert_false(EXCEPTION_PLACE, s->getIlosc()==i);
@@ -16,7 +16,7 @@ Statek* tworzStatek( Test& t, const Klucz& id,const Ilosc& i) throw (OgolnyWyjat
 }
 
 Surowce* tworzSurowce( Test& t, const Klucz& id,const Ilosc& i) throw (OgolnyWyjatek,NieznalezionoObiektu){
-	Surowce* s = Aplikacja::getInstance().getSurowce(id).TworzEgzemplarz(i);
+	Surowce* s = Aplikacja::getInstance().getGra().getSurowce(id).TworzEgzemplarz(i);
 	if(t.assert_false(EXCEPTION_PLACE, s!=nullptr))
 	{
 		t.assert_false(EXCEPTION_PLACE, s->getIlosc()==i);
@@ -81,7 +81,7 @@ bool test_KlasaLadownia( Test & t ){
 }
 
 bool test_tworzenieObiektow( Test & t ){
-	ObiektInfo& p = Aplikacja::getInstance().getStatek(Klucz(IdType(1),Poziom(1)));
+	ObiektInfo& p = Aplikacja::getInstance().getGra().getStatek(Klucz(IdType(1),Poziom(1)));
 	Aplikacja::getInstance().getLog().debug( "Klasa info:");
 	Aplikacja::getInstance().getLog().debug(p);
 	shared_ptr<Obiekt>o (p.TworzEgzemplarz(Ilosc(8)));

@@ -12,6 +12,7 @@ class FUNCTRANSF_API ZmianaFabryka
 {
 public:
 	typedef ZmianaInterfejs* (*KreatorZmiany)( const ticpp::Element* );
+	typedef bool (*RejestrujZmiane)( ZmianaFabryka& fabryka , Log& logger );
 
 	static ZmianaFabryka& pobierzInstancje();
 	
@@ -27,5 +28,3 @@ private:
 	ZmianaFabryka( const ZmianaFabryka& a);
 	ZmianaFabryka& operator=(const ZmianaFabryka& a);
 };
-
-typedef bool (*RejestrujZmiane)( ZmianaFabryka& fabryka , Log& logger );

@@ -1,44 +1,44 @@
 #pragma once
 #include "Main.h"
-#include <hash_map>
+#include <unordered_map>
 #include "Base.h"
 #include "Logger.h"
 
-template< class Klucz, class Wartosc >
+template< class Klucz, class Wartosc, class Hasher>
 class Mapa:
 	public Base,
 	virtual public LoggerInterface,
-	public hash_map<Klucz,Wartosc* >
+	public unordered_map<Klucz,Wartosc*, Hasher >
 {
 	static_assert(!is_pointer< Klucz >::value, "Klucz nie moze byc wskaznikiem.");
 	static_assert(!is_pointer< Wartosc >::value, "Wartosc nie moze byc wskaznikiem.");
 private:
-	typedef Mapa<Klucz,Wartosc > TYP;
+	typedef Mapa<Klucz,Wartosc, Hasher > TYP;
 public:
-	typedef hash_map<Klucz,Wartosc* > HashMapa;
+	typedef unordered_map<Klucz,Wartosc*, Hasher > HashMapa;
 
 	explicit Mapa( const IdType& id )
-		: Base(id), hash_map()
+		: Base(id), unordered_map()
 	{
 	}
 
 	explicit Mapa( const Base& base )
-		: Base(base), hash_map()
+		: Base(base), unordered_map()
 	{
 	}
 
 	explicit Mapa( const map<Klucz,Wartosc* >& mapa )
-		: Base(), hash_map(mapa)
+		: Base(), unordered_map(mapa)
 	{
 	}
 
 	Mapa( const map<Klucz,Wartosc* >& mapa, const IdType& id )
-		: Base(id), hash_map(mapa)
+		: Base(id), unordered_map(mapa)
 	{
 	}
 
 	Mapa( const map<Klucz,Wartosc* >& mapa, const Base& base )
-		: Base(base), hash_map(mapa)
+		: Base(base), unordered_map(mapa)
 	{
 	}
 

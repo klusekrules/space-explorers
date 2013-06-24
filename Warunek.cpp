@@ -23,9 +23,7 @@ Warunek::Warunek( ticpp::Node* n ) throw(WyjatekParseraXML)
 					ticpp::Element* firstElement = XmlBO::IterateChildrenElement<NOTHROW>(e,CLASSNAME(ObiektBaseInfo));
 					if(firstElement){
 						auto first = shared_ptr<ObiektBaseInfo>(new ObiektBaseInfo(firstElement));
-						auto second = Aplikacja::getInstance().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElement<NOTHROW>(e,"Zmiana"));
-						/*if(second==nullptr)
-							throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,Tekst("ZmianaFabryka"));*/
+						auto second = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElement<NOTHROW>(e,"Zmiana"));
 						dodajWarunek(make_pair(first,second));
 					}
 				}
