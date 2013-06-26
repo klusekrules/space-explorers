@@ -220,6 +220,8 @@
     <ClInclude Include="Library.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Parametr.h" />
+    <ClInclude Include="Technologia.h" />
+    <ClInclude Include="TechnologiaInfo.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="Uzytkownik.h" />
     <ClInclude Include="version.h" />
@@ -324,6 +326,8 @@
     <ClCompile Include="StatekInfo.cpp" />
     <ClCompile Include="Surowce.cpp" />
     <ClCompile Include="SurowceInfo.cpp" />
+    <ClCompile Include="Technologia.cpp" />
+    <ClCompile Include="TechnologiaInfo.cpp" />
     <ClCompile Include="Tekst.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="Testy.cpp" />

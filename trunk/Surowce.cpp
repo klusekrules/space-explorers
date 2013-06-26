@@ -16,20 +16,6 @@ Surowce::Surowce( const Ilosc& isIlosc , const Surowce& s )
 Surowce::~Surowce( ){
 }
 
-bool Surowce::Polacz( const Obiekt& obiekt ) throw ( BladLaczeniaObiektow ){
-	if( obiekt.ID() == this->ID() ){
-		try
-        {
-			const Surowce& sur = dynamic_cast< const Surowce& >(obiekt);
-			ilosc+=sur.ilosc;
-			return true;
-		}catch(const std::bad_cast&){
-			throw BladLaczeniaObiektow(EXCEPTION_PLACE,this->toString(),obiekt.toString() );
-		}
-	}
-	return false;
-}
-
 Surowce* Surowce::Kopia() const{
 	return new Surowce( *this );
 }

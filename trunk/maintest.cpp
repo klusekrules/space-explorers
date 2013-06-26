@@ -25,6 +25,7 @@ void main(){
 	test.dodajTest("Test Wymagan",test_wymagan,false);
 	test.dodajTest("Test Jednostki Atakuj¹cej",test_KlasaJednostkaAtakujaca,false);
 	test.dodajTest("Test dla zgloszenia 42",test_Issue42,false); 
+	test.dodajTest("Test tworzenia technologi",test_Technologie,false); 
 	test();
 	/*ALLEGRO_DISPLAY *display = NULL;
  

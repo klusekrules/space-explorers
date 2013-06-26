@@ -175,6 +175,12 @@
     <ClCompile Include="Uzytkownik.cpp">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClCompile>
+    <ClCompile Include="TechnologiaInfo.cpp">
+      <Filter>SourceFile\Technologia</Filter>
+    </ClCompile>
+    <ClCompile Include="Technologia.cpp">
+      <Filter>SourceFile\Technologia</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -395,6 +401,12 @@
     </ClInclude>
     <ClInclude Include="Uzytkownik.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClInclude>
+    <ClInclude Include="TechnologiaInfo.h">
+      <Filter>SourceFile\Technologia</Filter>
+    </ClInclude>
+    <ClInclude Include="Technologia.h">
+      <Filter>SourceFile\Technologia</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
