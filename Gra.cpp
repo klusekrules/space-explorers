@@ -41,6 +41,13 @@ SurowceInfo& Gra::getSurowce(const IdType& id)const throw (NieznalezionoObiektu)
 	return *(iter->second);
 }
 
+TechnologiaInfo& Gra::getTechnologia(const IdType& id)const throw (NieznalezionoObiektu) {
+	auto iter = listaTechnologiInfo.find(id);
+	if(iter==listaTechnologiInfo.end())
+		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.toString());
+	return *(iter->second);
+}
+
 const ObiektBase& Gra::getObiekt(IdType id)const{
 	return pustyObiektBase;
 }
@@ -55,12 +62,35 @@ bool Gra::WczytajDane( const string& sFile ){
 				return false;
 			if(!WczytajStatki(root_data))
 				return false;
+			if(!WczytajTechnologie(root_data))
+				return false;
 		}
 	}catch(ticpp::Exception& e){
 		cout<< e.what();
 		aplikacja.getLog().error("Nie uda³o siê otworzyæ pliku!");
 		return false;
 	}
+	return true;
+}
+
+bool Gra::WczytajTechnologie(ticpp::Node* root){
+	ticpp::Node* ptr = nullptr;
+	do{
+		try{
+			ptr = root->IterateChildren(CLASSNAME(TechnologiaInfo),ptr);
+			if(ptr){
+				shared_ptr<TechnologiaInfo> t(new TechnologiaInfo(ptr));
+				aplikacja.getLog().debug(*t);
+				if(listaTechnologiInfo.find(t->getId())!=listaTechnologiInfo.end())
+					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Technologia o podanym id istnieje"));
+				listaTechnologiInfo[t->getId()]=t;
+			}
+		}catch(OgolnyWyjatek& e){
+			aplikacja.getLog().warn(e.generujKomunikat());
+			aplikacja.getLog().debug(e);
+			return false;
+		}
+	}while(ptr);
 	return true;
 }
 

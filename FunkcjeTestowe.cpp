@@ -29,13 +29,21 @@ Surowce* tworzSurowce( Test& t, const IdType& id,const Ilosc& i) throw (OgolnyWy
 	return s;
 }
 
-bool ladowanie_danych( Test & t ){
-	/* Generowanie danych */
+Technologia* tworzTechnologie( Test& t, const IdType& id) throw (OgolnyWyjatek,NieznalezionoObiektu){
+	Technologia* s = Aplikacja::getInstance().getGra().getTechnologia(id).TworzEgzemplarz();
+	if(t.assert_false(EXCEPTION_PLACE, s!=nullptr))
+	{
+		t.assert_false(EXCEPTION_PLACE, s->getId()==id);
+		Aplikacja::getInstance().getLog().debug( "Stworzony obiekt:");
+		Aplikacja::getInstance().getLog().debug(*s);
+	}else{
+		throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("Tworzenie Obiektu"),Tekst("Nie uda³o siê utworzyæ obiektu"));
+	}
+	return s;
+}
 
-	//Statek	
+bool ladowanie_danych( Test & t ){
 	t.assert_false( EXCEPTION_PLACE , Aplikacja::getInstance().WczytajDane() );
-	shared_ptr<Statek> s( tworzStatek(t,IdType(1),Ilosc(1)) );
-	Aplikacja::getInstance().getLog().debug(*s);
 	return true;
 }
 
@@ -269,5 +277,13 @@ bool test_Issue42( Test & t ){
 	t.assert_false(EXCEPTION_PLACE, a->getAtak() == Obrazenia(9.0*90*2));
 	t.assert_false(EXCEPTION_PLACE, a->getPancerz() == Obrazenia(10.0*250*2));
 	t.assert_false(EXCEPTION_PLACE, a->getOslona() == Obrazenia(11.0*300*2));
+	return true;
+}
+
+bool test_Technologie( Test & t ){
+	shared_ptr<Technologia> a( tworzTechnologie(t,IdType(1)) );
+	Aplikacja::getInstance().getLog().debug(*a);
+	shared_ptr<Technologia> b( tworzTechnologie(t,IdType(2)) );
+	Aplikacja::getInstance().getLog().debug(*b);
 	return true;
 }

@@ -19,10 +19,8 @@ public:
 
 	Surowce* Kopia() const override;
 
-	Obiekt* Podziel( const Ilosc& ) throw( NiepoprawnaIloscObiektow ) ;
-
-	bool Polacz( const Obiekt& ) throw ( BladLaczeniaObiektow ) ;
-
+	Obiekt* Podziel( const Ilosc& ) override;
+	
 	Objetosc Objetosc() const ;
 
 	Masa Masa() const ;

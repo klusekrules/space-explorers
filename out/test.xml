@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="windows-1250"?>
 <SpaceGame nazwa="Domyslny" maska="0x80000000">
   
+  <!-- Surowce typu metal -->
   <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="1">
@@ -161,6 +162,7 @@
     </ObiektInfo>
   </SurowceInfo>
   
+  <!-- Surowce nieprzyrostowe, energia -->
   <SurowceInfo typ="2">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="1">
@@ -377,4 +379,37 @@
     </LadowniaInfo>
   </StatekInfo>
   
+  <!-- Technologie -->
+  <TechnologiaInfo>
+    <ObiektBaseInfo poziom="0">
+      <Info id="0x0001" nazwa="Technologia komputerowa">
+        Opis technologii.
+        <Wymagania>
+          <Cennik>
+
+          </Cennik>
+          <Warunek>
+
+          </Warunek>
+        </Wymagania>
+      </Info>
+    </ObiektBaseInfo>
+  </TechnologiaInfo>
+  
+  <TechnologiaInfo>
+    <ObiektBaseInfo poziom="0">
+      <Info id="0x0002" nazwa="Technologia podprzestrzenna">
+        Opis technologii podprzestrzennej.
+        <Wymagania>
+          <Cennik>
+
+          </Cennik>
+          <Warunek>
+
+          </Warunek>
+        </Wymagania>
+      </Info>
+    </ObiektBaseInfo>
+  </TechnologiaInfo>
+
 </SpaceGame>
