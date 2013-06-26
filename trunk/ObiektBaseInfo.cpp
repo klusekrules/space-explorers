@@ -25,7 +25,7 @@ ObiektBaseInfo::~ObiektBaseInfo(){
 
 
 ObiektBase* ObiektBaseInfo::TworzEgzemplarz( const Ilosc& i ) const{
-	return new ObiektBase(i,Poziom(1),*this);
+	return new ObiektBase(i,getPoziom(),*this);
 }
 
 const Poziom& ObiektBaseInfo::getPoziom()const{

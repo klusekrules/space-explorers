@@ -48,7 +48,7 @@ Masa ObiektInfo::getMasa(const Poziom& pz) const {
 }
 
 Obiekt* ObiektInfo::TworzEgzemplarz( const Ilosc& iIlosc ) const {
-	return new Obiekt( iIlosc, Poziom(1), *this );
+	return new Obiekt( iIlosc, getPoziom(), *this );
 }
 
 string ObiektInfo::toString() const{

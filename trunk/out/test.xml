@@ -331,7 +331,7 @@
 
   <StatekInfo>
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
-      <ObiektBaseInfo poziom="1">
+      <ObiektBaseInfo poziom="4">
         <Info id="0x003" nazwa="Myœliwiec 2">
           Opis Myœliwca 2.
         </Info>
@@ -356,7 +356,7 @@
   
   <StatekInfo>
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
-      <ObiektBaseInfo poziom="1">
+      <ObiektBaseInfo poziom="2">
         <Info id="0x004" nazwa="Transportowiec 2">
           Opis Transportowca 2.
         </Info>
