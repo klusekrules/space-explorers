@@ -42,5 +42,6 @@ Cennik::ListaSurowcow Budynek::PobierzProdukcje( )const{
 string Budynek::toString()const{
 	Logger str(CLASSNAME(Budynek));
 	str.addClass(Obiekt::toString());
+	str.addField(CLASSNAME(BudynekInfo)+"ID",budynekInfo.getId());
 	return str.toString();
 }
