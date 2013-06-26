@@ -32,7 +32,7 @@ bool SurowceInfo::czyTypPrzyrostowy()const{
 }
 
 Surowce* SurowceInfo::TworzEgzemplarz( const Ilosc& ilosc ) const{
-	return new Surowce( ilosc , *this );
+	return new Surowce( ilosc , Poziom(1), *this );
 }
 
 string SurowceInfo::toString() const{

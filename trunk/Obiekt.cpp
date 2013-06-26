@@ -3,8 +3,8 @@
 #include "Logger.h"
 #include "Ladownia.h"
 
-Obiekt::Obiekt( const Ilosc& i, const ObiektInfo& obiekt ) throw()
-	: ObiektBase( i, obiekt ), obiektInfoClass( obiekt )
+Obiekt::Obiekt( const Ilosc& i, const Poziom& p, const ObiektInfo& obiekt ) throw()
+	: ObiektBase( i, p, obiekt ), obiektInfoClass( obiekt )
 {
 }
 
@@ -17,7 +17,7 @@ Obiekt* Obiekt::Kopia() const{
 
 Obiekt* Obiekt::Podziel( const Ilosc& i ){
 	if( ilosc>i ){
-		Obiekt* o = new Obiekt( i , this->obiektInfoClass );
+		Obiekt* o = new Obiekt( i , getPoziom(), this->obiektInfoClass );
 		ilosc-=i;
 		return o; 
 	}
@@ -42,6 +42,6 @@ bool Obiekt::czMoznaDodacDoLadownii( const Ladownia& c ) const{
 string Obiekt::toString() const{
 	Logger str(CLASSNAME(Obiekt));
 	str.addClass(ObiektBase::toString());
-	str.addField(CLASSNAME(ObiektInfo)+"ID",obiektInfoClass.ID());
+	str.addField(CLASSNAME(ObiektInfo)+"ID",obiektInfoClass.getId());
 	return str.toString();
 }

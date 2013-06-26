@@ -18,8 +18,8 @@ private:
 	ObiektBaseInfo pustyobiekBaseInfo;
 	ObiektBase pustyObiektBase;
 
-	unordered_map<Klucz, shared_ptr<SurowceInfo>, KluczHash > listaSurowcowInfo;
-	unordered_map<Klucz, shared_ptr<StatekInfo>, KluczHash > listaStatkowInfo;
+	unordered_map<IdType, shared_ptr<SurowceInfo>, IdTypeHash > listaSurowcowInfo;
+	unordered_map<IdType, shared_ptr<StatekInfo>, IdTypeHash > listaStatkowInfo;
 	
 	bool WczytajSurowce(ticpp::Node* root);
 	bool WczytajStatki(ticpp::Node* root);
@@ -35,11 +35,10 @@ public:
 
 	~Gra();
 
-	const ObiektBase& getObiekt(IdType id)const;	
-	const ObiektBase& getObiekt(Klucz k) const;
+	const ObiektBase& getObiekt(IdType id)const;
 
-	StatekInfo& getStatek(const Klucz& id)const throw (NieznalezionoObiektu);
-	SurowceInfo& getSurowce(const Klucz& id)const throw (NieznalezionoObiektu);
+	StatekInfo& getStatek(const IdType& id)const throw (NieznalezionoObiektu);
+	SurowceInfo& getSurowce(const IdType& id)const throw (NieznalezionoObiektu);
 
 };
 

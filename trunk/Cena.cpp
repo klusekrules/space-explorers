@@ -11,11 +11,9 @@ Cena::Cena( ticpp::Node* n ) throw(WyjatekParseraXML)
 	if(n!=nullptr){
 		ticpp::Node* a = n->IterateChildren(CLASSNAME(Cena::Item),nullptr);
 		try{
-			Klucz k(a);
+			IdType k(a);
 			obiekty= shared_ptr<Item>(Aplikacja::getInstance().getGra().getSurowce(k).TworzEgzemplarz(Ilosc(stoi(a->ToElement()->GetAttribute("ilosc"),nullptr,0))));
 			zmiana = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElement<NOTHROW>(n,"Zmiana"));
-			/*if(zmiana==nullptr)
-				throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,Tekst("ZmianaFabryka"));*/
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

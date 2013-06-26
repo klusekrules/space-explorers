@@ -3,8 +3,8 @@
 #include "Logger.h"
 #include "Ladownia.h"
 
-Surowce::Surowce( const Ilosc& isIlosc , const SurowceInfo& s )
-	:  Obiekt( isIlosc , s ), surowceInfo(s)
+Surowce::Surowce( const Ilosc& isIlosc, const Poziom& p, const SurowceInfo& s )
+	:  Obiekt( isIlosc, p, s ), surowceInfo(s)
 {
 }
 
@@ -17,7 +17,7 @@ Surowce::~Surowce( ){
 }
 
 bool Surowce::Polacz( const Obiekt& obiekt ) throw ( BladLaczeniaObiektow ){
-	if( obiekt.ID() == this->ID() && obiekt.getPoziom() == this->getPoziom() ){
+	if( obiekt.ID() == this->ID() ){
 		try
         {
 			const Surowce& sur = dynamic_cast< const Surowce& >(obiekt);
@@ -156,6 +156,6 @@ string Surowce::toString() const{
 	Logger str(CLASSNAME(Surowce));
 	str.addClass(Obiekt::toString());
 	str.addField(CLASSNAME(Ilosc),ilosc);
-	str.addField(CLASSNAME(SurowceInfo)+"ID",surowceInfo.ID());
+	str.addField(CLASSNAME(SurowceInfo)+"ID",surowceInfo.getId());
 	return str.toString();
 }

@@ -4,14 +4,14 @@
 Gra::Gra(Aplikacja& app)
 	: aplikacja(app), fabryka(ZmianaFabryka::pobierzInstancje()), uzytkownik(new Uzytkownik()),
 	pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), 
-	pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
+	pustyObiektBase( Ilosc(0), Poziom(0), pustyobiekBaseInfo )
 {
 }
 
 Gra::Gra(const Gra& g)
 	: aplikacja(g.aplikacja), fabryka(ZmianaFabryka::pobierzInstancje()),uzytkownik(g.uzytkownik),
 	pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), 
-	pustyObiektBase( Ilosc(0), pustyobiekBaseInfo )
+	pustyObiektBase( Ilosc(0), Poziom(0), pustyobiekBaseInfo )
 {
 }
 
@@ -27,14 +27,14 @@ Gra::~Gra()
 {
 }
 
-StatekInfo& Gra::getStatek(const Klucz& id)const throw (NieznalezionoObiektu) {
+StatekInfo& Gra::getStatek(const IdType& id)const throw (NieznalezionoObiektu) {
 	auto iter = listaStatkowInfo.find(id);
 	if(iter==listaStatkowInfo.end())
 		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.toString());
 	return *(iter->second);
 }
 
-SurowceInfo& Gra::getSurowce(const Klucz& id)const throw (NieznalezionoObiektu) {
+SurowceInfo& Gra::getSurowce(const IdType& id)const throw (NieznalezionoObiektu) {
 	auto iter = listaSurowcowInfo.find(id);
 	if(iter==listaSurowcowInfo.end())
 		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.toString());
@@ -42,10 +42,6 @@ SurowceInfo& Gra::getSurowce(const Klucz& id)const throw (NieznalezionoObiektu) 
 }
 
 const ObiektBase& Gra::getObiekt(IdType id)const{
-	return pustyObiektBase;
-}
-	
-const ObiektBase& Gra::getObiekt(Klucz k) const{
 	return pustyObiektBase;
 }
 
@@ -76,7 +72,9 @@ bool Gra::WczytajSurowce(ticpp::Node* root){
 			if(ptr){
 				shared_ptr<SurowceInfo> t(new SurowceInfo(ptr));
 				aplikacja.getLog().debug(*t);
-				listaSurowcowInfo[t->ID()]=t;
+				if(listaSurowcowInfo.find(t->getId())!=listaSurowcowInfo.end())
+					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Surowiec o podanym id istnieje"));
+				listaSurowcowInfo[t->getId()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
 			aplikacja.getLog().warn(e.generujKomunikat());
@@ -95,7 +93,9 @@ bool Gra::WczytajStatki(ticpp::Node* root){
 			if(ptr){
 				shared_ptr<StatekInfo> t(new StatekInfo(ptr));
 				aplikacja.getLog().debug(*t);
-				listaStatkowInfo[t->ID()]=t;
+				if(listaStatkowInfo.find(t->getId())!=listaStatkowInfo.end())
+					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Statek o podanym id istnieje"));
+				listaStatkowInfo[t->getId()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
 			aplikacja.getLog().warn(e.generujKomunikat());

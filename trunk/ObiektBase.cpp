@@ -2,8 +2,8 @@
 #include "ObiektBaseInfo.h"
 #include "Logger.h"
 
-ObiektBase::ObiektBase( const Ilosc& i, const ObiektBaseInfo& iInfo) throw()
-	: Base(iInfo), ilosc(i), obiektBaseInfo(iInfo)
+ObiektBase::ObiektBase( const Ilosc& i, const Poziom& p, const ObiektBaseInfo& iInfo) throw()
+	: Base(iInfo), ilosc(i), poziom(p), obiektBaseInfo(iInfo)
 {
 }
 
@@ -17,7 +17,7 @@ ObiektBase* ObiektBase::Kopia() const{
 ObiektBase* ObiektBase::Podziel( const Ilosc& i ){
 	if( czyMoznaPodzielic(i) ){
 		ilosc-=i;
-		return new ObiektBase( i , obiektBaseInfo );
+		return new ObiektBase( i, getPoziom() , obiektBaseInfo );
 	}
 	return nullptr;
 }
@@ -32,7 +32,7 @@ bool ObiektBase::Polacz( const ObiektBase& obj ){
 }
 		
 Klucz ObiektBase::ID() const{
-	return Klucz( getId() , obiektBaseInfo.getPoziom() );
+	return Klucz( getId() , getPoziom() );
 }
 
 
@@ -53,7 +53,11 @@ void ObiektBase::setIlosc( const Ilosc& i ){
 }
 
 const Poziom& ObiektBase::getPoziom() const{
-	return obiektBaseInfo.getPoziom();
+	return poziom;
+}
+
+void ObiektBase::setPoziom(const Poziom& p){
+	poziom=p;
 }
 
 Cennik::ListaSurowcow ObiektBase::PobierzKoszty() const{
@@ -65,10 +69,14 @@ Warunek::PrzetworzoneWarunki ObiektBase::PobierzWarunki()const{
 	return obiektBaseInfo.listaWarunkow(getPoziom());
 }
 
+const ObiektBaseInfo& ObiektBase::getObiektBaseInfo()const{
+	return obiektBaseInfo;
+}
+
 string ObiektBase::toString() const{
 	Logger str(CLASSNAME(ObiektBase));
 	str.addClass(Base::toString());
 	str.addField(CLASSNAME(Ilosc),ilosc);
-	str.addField(CLASSNAME(ObiektBaseInfo)+"ID",obiektBaseInfo.ID());
+	str.addField(CLASSNAME(ObiektBaseInfo)+"ID",obiektBaseInfo.getId());
 	return str.toString();
 }

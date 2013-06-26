@@ -17,7 +17,7 @@ class Obiekt:
 {
 public:
 
-	Obiekt( const Ilosc&, const ObiektInfo& ) throw();
+	Obiekt( const Ilosc&, const Poziom& p, const ObiektInfo& ) throw();
 	virtual ~Obiekt();
 
 	Obiekt* Kopia() const override;

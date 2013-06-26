@@ -1,12 +1,12 @@
 #include "Test.h"
 #include "Testy.h"
 
-Statek* tworzStatek( Test& t, const Klucz& id,const Ilosc& i) throw (OgolnyWyjatek,NieznalezionoObiektu){
+Statek* tworzStatek( Test& t, const IdType& id,const Ilosc& i) throw (OgolnyWyjatek,NieznalezionoObiektu){
 	Statek* s = Aplikacja::getInstance().getGra().getStatek(id).TworzEgzemplarz(i);
 	if(t.assert_false(EXCEPTION_PLACE, s!=nullptr))
 	{
 		t.assert_false(EXCEPTION_PLACE, s->getIlosc()==i);
-		t.assert_false(EXCEPTION_PLACE, s->ID()==id);
+		t.assert_false(EXCEPTION_PLACE, s->getId()==id);
 		Aplikacja::getInstance().getLog().debug( "Stworzony obiekt:");
 		Aplikacja::getInstance().getLog().debug(*s);
 	}else{
@@ -15,12 +15,12 @@ Statek* tworzStatek( Test& t, const Klucz& id,const Ilosc& i) throw (OgolnyWyjat
 	return s;
 }
 
-Surowce* tworzSurowce( Test& t, const Klucz& id,const Ilosc& i) throw (OgolnyWyjatek,NieznalezionoObiektu){
+Surowce* tworzSurowce( Test& t, const IdType& id,const Ilosc& i) throw (OgolnyWyjatek,NieznalezionoObiektu){
 	Surowce* s = Aplikacja::getInstance().getGra().getSurowce(id).TworzEgzemplarz(i);
 	if(t.assert_false(EXCEPTION_PLACE, s!=nullptr))
 	{
 		t.assert_false(EXCEPTION_PLACE, s->getIlosc()==i);
-		t.assert_false(EXCEPTION_PLACE, s->ID()==id);
+		t.assert_false(EXCEPTION_PLACE, s->getId()==id);
 		Aplikacja::getInstance().getLog().debug( "Stworzony obiekt:");
 		Aplikacja::getInstance().getLog().debug(*s);
 	}else{
@@ -34,7 +34,7 @@ bool ladowanie_danych( Test & t ){
 
 	//Statek	
 	t.assert_false( EXCEPTION_PLACE , Aplikacja::getInstance().WczytajDane() );
-	shared_ptr<Statek> s( tworzStatek(t,Klucz(IdType(1),Poziom(1)),Ilosc(1)) );
+	shared_ptr<Statek> s( tworzStatek(t,IdType(1),Ilosc(1)) );
 	Aplikacja::getInstance().getLog().debug(*s);
 	return true;
 }
@@ -42,7 +42,7 @@ bool ladowanie_danych( Test & t ){
 bool test_KlasaNiepoprawneParametryFunkcji( Test & t ){
 	try{
 		Ilosc temp(5);
-		shared_ptr<Statek> s( tworzStatek(t,Klucz(IdType(1),Poziom(1)),Ilosc(1)));
+		shared_ptr<Statek> s( tworzStatek(t,IdType(1),Ilosc(1)));
 		Statek& tmp = *s;
 		throw NiepoprawneParametryFunkcji( EXCEPTION_PLACE , tmp , temp );
 	}catch( const NiepoprawneParametryFunkcji& e ){
@@ -55,15 +55,15 @@ bool test_KlasaNiepoprawneParametryFunkcji( Test & t ){
 }
 
 bool test_KlasaLadownia( Test & t ){
-	shared_ptr<Statek> a (tworzStatek(t,Klucz(IdType(4),Poziom(1)),Ilosc(8)));
+	shared_ptr<Statek> a (tworzStatek(t,IdType(4),Ilosc(8)));
 	Aplikacja::getInstance().getLog().debug("Pojemnosc Maksymalna:");
 	Aplikacja::getInstance().getLog().debug(a->getPojemnoscMax());
-	shared_ptr<Statek> b (tworzStatek(t,Klucz(IdType(1),Poziom(1)),Ilosc(150)));
+	shared_ptr<Statek> b (tworzStatek(t,IdType(1),Ilosc(150)));
 	t.assert_false(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*b));
-	shared_ptr<Surowce> c (tworzSurowce(t,Klucz(IdType(2),Poziom(3)),Ilosc(20)));
+	shared_ptr<Surowce> c (tworzSurowce(t,IdType(6),Ilosc(20)));
 	t.assert_false(EXCEPTION_PLACE,c->czyTypPrzyrostowy());
 	t.assert_false(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*c));
-	shared_ptr<Surowce> d (tworzSurowce(t,Klucz(IdType(4),Poziom(1)),Ilosc(20)));
+	shared_ptr<Surowce> d (tworzSurowce(t,IdType(4),Ilosc(20)));
 	t.assert_true(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*d));
 	Aplikacja::getInstance().getLog().debug("Zawartosc po dodaniu obiektu: ");
 	Aplikacja::getInstance().getLog().debug(*a);
@@ -81,7 +81,7 @@ bool test_KlasaLadownia( Test & t ){
 }
 
 bool test_tworzenieObiektow( Test & t ){
-	ObiektInfo& p = Aplikacja::getInstance().getGra().getStatek(Klucz(IdType(1),Poziom(1)));
+	ObiektInfo& p = Aplikacja::getInstance().getGra().getStatek(IdType(1));
 	Aplikacja::getInstance().getLog().debug( "Klasa info:");
 	Aplikacja::getInstance().getLog().debug(p);
 	shared_ptr<Obiekt>o (p.TworzEgzemplarz(Ilosc(8)));
@@ -102,22 +102,22 @@ bool test_KlasaObiektList( Test & t ){
 	Statek *b = nullptr;
 	Statek *c = nullptr;
 	Statek *d = nullptr;
-	a = tworzStatek(t,Klucz(IdType(1),Poziom(1)),Ilosc(8));
+	a = tworzStatek(t,IdType(1),Ilosc(8));
 	lista.add(a);
 	Aplikacja::getInstance().getLog().debug("Dodano do kontenera");
 	Aplikacja::getInstance().getLog().debug(*a);
 
-	b = tworzStatek(t,Klucz(IdType(2),Poziom(1)),Ilosc(8));
+	b = tworzStatek(t,IdType(2),Ilosc(8));
 	lista.add(b);	
 	Aplikacja::getInstance().getLog().debug("Dodano do kontenera");
 	Aplikacja::getInstance().getLog().debug(*b);
 
-	c = tworzStatek(t,Klucz(IdType(3),Poziom(1)),Ilosc(8));
+	c = tworzStatek(t,IdType(3),Ilosc(8));
 	lista.add(c);
 	Aplikacja::getInstance().getLog().debug("Dodano do kontenera");
 	Aplikacja::getInstance().getLog().debug(*c);
 
-	d = tworzStatek(t,Klucz(IdType(4),Poziom(1)),Ilosc(8));
+	d = tworzStatek(t,IdType(4),Ilosc(8));
 	lista.add(d);
 	Aplikacja::getInstance().getLog().debug("Dodano do kontenera");
 	Aplikacja::getInstance().getLog().debug(*d);
@@ -206,7 +206,7 @@ bool test_KlasaObiektList( Test & t ){
 }
 
 bool test_wymagan( Test & t ){
-	shared_ptr<Statek> a( tworzStatek(t,Klucz(IdType(1),Poziom(1)),Ilosc(8)) );
+	shared_ptr<Statek> a( tworzStatek(t,IdType(1),Ilosc(8)) );
 	auto tmp = a->PobierzKoszty();
 	for(auto e : tmp){
 		Aplikacja::getInstance().getLog().debug(*e);
@@ -224,7 +224,7 @@ bool test_wymagan( Test & t ){
 }
 
 bool test_KlasaJednostkaAtakujaca( Test & t ){
-	shared_ptr<Statek> a( tworzStatek(t,Klucz(IdType(1),Poziom(1)),Ilosc(8)) );
+	shared_ptr<Statek> a( tworzStatek(t,IdType(1),Ilosc(8)) );
 	Obrazenia oAtak = a->Atak();
 	Obrazenia baseAtak(a->getStatekInfo().getAtak(Poziom(1)).value()*8.0);
 	Obrazenia tbAtak(baseAtak.value() *(JednostkaAtakujaca::srednia-(JednostkaAtakujaca::odchylenie * 3 )));
@@ -258,7 +258,7 @@ bool test_KlasaJednostkaAtakujaca( Test & t ){
 }
 
 bool test_Issue42( Test & t ){
-	shared_ptr<Statek> a( tworzStatek(t,Klucz(IdType(2),Poziom(1)),Ilosc(2)) );
+	shared_ptr<Statek> a( tworzStatek(t,IdType(2),Ilosc(2)) );
 	t.assert_false(EXCEPTION_PLACE, a->getMasa() == Masa(4+14));
 	t.assert_false(EXCEPTION_PLACE, a->getObjetosc() == Objetosc(6));
 	t.assert_false(EXCEPTION_PLACE, a->getPowierzchnia() == Powierzchnia(8));

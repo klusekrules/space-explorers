@@ -22,7 +22,7 @@ const IdType& StatekInfo::getId() const{
 }
 
 Statek* StatekInfo::TworzEgzemplarz( const Ilosc& i ) const{
-	return new Statek(i,*this);
+	return new Statek(i,Poziom(1),*this);
 }
 
 string StatekInfo::toString() const{
