@@ -160,10 +160,10 @@ bool test_KlasaObiektList( Test & t ){
 	Aplikacja::getInstance().getLog().debug("Zawartoœæ kontenera po usunieciu");
 	Aplikacja::getInstance().getLog().debug(lista);
 	Aplikacja::getInstance().getLog().debug("Pobranie i jednoszesne usuniecie z kontenera wartosci o kluczu:");
-	Aplikacja::getInstance().getLog().debug(Klucz(IdType( 4 ),Poziom( 1 )));
-	Statek* sTmp2 = lista.getAndDel(Klucz(IdType( 4 ),Poziom( 1 )));
+	Aplikacja::getInstance().getLog().debug(Klucz(IdType( 4 ),Poziom( 2 )));
+	Statek* sTmp2 = lista.getAndDel(Klucz(IdType( 4 ),Poziom( 2 )));
 	t.assert_false(EXCEPTION_PLACE,sTmp2->getId()==IdType( 4 ));
-	t.assert_false(EXCEPTION_PLACE,sTmp2->getPoziom()==Poziom( 1 ));
+	t.assert_false(EXCEPTION_PLACE,sTmp2->getPoziom()==Poziom( 2 ));
 	Aplikacja::getInstance().getLog().debug(*sTmp2);
 	delete sTmp2;
 	Aplikacja::getInstance().getLog().debug("Zawartoœæ kontenera");
@@ -277,6 +277,14 @@ bool test_Issue42( Test & t ){
 	t.assert_false(EXCEPTION_PLACE, a->getAtak() == Obrazenia(9.0*90*2));
 	t.assert_false(EXCEPTION_PLACE, a->getPancerz() == Obrazenia(10.0*250*2));
 	t.assert_false(EXCEPTION_PLACE, a->getOslona() == Obrazenia(11.0*300*2));
+	return true;
+}
+
+bool test_Issue52( Test & t ){
+	shared_ptr<Statek> a( tworzStatek(t,IdType(3),Ilosc(1)) );
+	t.assert_false(EXCEPTION_PLACE, a->getPoziom() == Poziom(4));
+	shared_ptr<Statek> b( tworzStatek(t,IdType(4),Ilosc(1)) );
+	t.assert_false(EXCEPTION_PLACE, b->getPoziom() == Poziom(2));
 	return true;
 }
 
