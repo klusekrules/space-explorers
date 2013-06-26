@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="windows-1250"?>
 <SpaceGame nazwa="Domyslny" maska="0x80000000">
-  <!-- Surowce typu metale -->
-  <SurowceInfo>
+
+  <!-- Surowce typu metal -->
+  <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="1">
         <Info id="0x0001" nazwa="Stal">
           Opis Stali.
           <Wymagania>
-            <Cennik>
-
-            </Cennik>
-            <Warunek>
-
-            </Warunek>
+            <Cennik></Cennik>
+            <Warunek></Warunek>
           </Wymagania>
         </Info>
       </ObiektBaseInfo>
     </ObiektInfo>
   </SurowceInfo>
-  
-  <SurowceInfo>
+
+  <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
-      <ObiektBaseInfo poziom="2">
-        <Info id="0x0001" nazwa="Tytan">
+      <ObiektBaseInfo poziom="1">
+        <Info id="0x0002" nazwa="Tytan">
           Opis Tytanu.
           <Wymagania>
             <Cennik>
@@ -36,11 +33,11 @@
       </ObiektBaseInfo>
     </ObiektInfo>
   </SurowceInfo>
-  
-  <SurowceInfo>
+
+  <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
-      <ObiektBaseInfo poziom="3">
-        <Info id="0x0001" nazwa="Naquadah">
+      <ObiektBaseInfo poziom="1">
+        <Info id="0x0003" nazwa="Naquadah">
           Opis Naquadah'u.
           <Wymagania>
             <Cennik>
@@ -49,18 +46,17 @@
             <Warunek>
 
             </Warunek>
-          
-        </Wymagania>
+          </Wymagania>
         </Info>
       </ObiektBaseInfo>
     </ObiektInfo>
   </SurowceInfo>
 
   <!-- Surowce typu elektronika -->
-  <SurowceInfo>
+  <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="1">
-        <Info id="0x0002" nazwa="Miedź">
+        <Info id="0x0004" nazwa="Miedź">
           Opis miedzi.
           <Wymagania>
             <Cennik>
@@ -74,11 +70,11 @@
       </ObiektBaseInfo>
     </ObiektInfo>
   </SurowceInfo>
-  
-  <SurowceInfo>
+
+  <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
-      <ObiektBaseInfo poziom="2">
-        <Info id="0x0002" nazwa="Krzem">
+      <ObiektBaseInfo poziom="1">
+        <Info id="0x0005" nazwa="Krzem">
           Opis krzemu.
           <Wymagania>
             <Cennik>
@@ -92,11 +88,11 @@
       </ObiektBaseInfo>
     </ObiektInfo>
   </SurowceInfo>
-  
-  <SurowceInfo>
+
+  <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
-      <ObiektBaseInfo poziom="3">
-        <Info id="0x0002" nazwa="Kryształ">
+      <ObiektBaseInfo poziom="1">
+        <Info id="0x0006" nazwa="Kryształ">
           Opis kryształu.
           <Wymagania>
             <Cennik>
@@ -112,10 +108,10 @@
   </SurowceInfo>
 
   <!-- Surowce typu paliwo -->
-  <SurowceInfo>
+  <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="1">
-        <Info id="0x0003" nazwa="Wodór">
+        <Info id="0x0007" nazwa="Wodór">
           Opis wodoru.
           <Wymagania>
             <Cennik>
@@ -130,10 +126,10 @@
     </ObiektInfo>
   </SurowceInfo>
 
-  <SurowceInfo>
+  <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
-      <ObiektBaseInfo poziom="2">
-        <Info id="0x0003" nazwa="Deuter">
+      <ObiektBaseInfo poziom="1">
+        <Info id="0x0008" nazwa="Deuter">
           Opis deuteru.
           <Wymagania>
             <Cennik>
@@ -148,11 +144,30 @@
     </ObiektInfo>
   </SurowceInfo>
 
-  <SurowceInfo>
+  <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
-      <ObiektBaseInfo poziom="3">
-        <Info id="0x0003" nazwa="Tryt">
+      <ObiektBaseInfo poziom="1">
+        <Info id="0x0009" nazwa="Tryt">
           Opis trytu.
+          <Wymagania>
+            <Cennik>
+
+            </Cennik>
+            <Warunek>
+
+            </Warunek>
+          </Wymagania>
+        </Info>
+      </ObiektBaseInfo>
+    </ObiektInfo>
+  </SurowceInfo>
+
+  <!-- Surowce nieprzyrostowe, energia -->
+  <SurowceInfo typ="2">
+    <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
+      <ObiektBaseInfo poziom="1">
+        <Info id="0x000A" nazwa="Energia">
+          Opis energii.
           <Wymagania>
             <Cennik>
 
@@ -174,23 +189,74 @@
           Opis Transportowca.
           <Wymagania>
             <Cennik>
-
+              <Cena>
+                <Surowce id="0x1" ilosc="1000"></Surowce>
+                <Zmiana id="2">
+                  <Zmiana id="3" for="next">
+                    <Param id="0" Wspolczynnik="3.0">
+                    </Param>
+                  </Zmiana>
+                  <Zmiana id="3">
+                    <Param id="0" Wspolczynnik="5.0">
+                    </Param>
+                  </Zmiana>
+                </Zmiana>
+              </Cena>
+              <Cena>
+                <Surowce id="0x4" ilosc="500"></Surowce>
+                <Zmiana id="4">
+                  <Param id="1" Wspolczynnik="1.0"></Param>
+                  <Param id="2" Wspolczynnik="2.0"></Param>
+                </Zmiana>
+              </Cena>
+              <Cena>
+                <Surowce id="0x7" ilosc="200"></Surowce>
+                <Zmiana id="5">
+                  <Param id="0" Wspolczynnik="5.0">
+                  </Param>
+                </Zmiana>
+              </Cena>
             </Cennik>
             <Warunek>
-
+              <Wymog>
+                <ObiektBaseInfo poziom="5">
+                  <Info id="0x10">
+                  </Info>
+                </ObiektBaseInfo>
+                <Zmiana id="3">
+                  <Param id="0" Wspolczynnik="5.0">
+                  </Param>
+                </Zmiana>
+              </Wymog>
+              <Wymog>
+                <ObiektBaseInfo poziom="1">
+                  <Info id="0x20">
+                  </Info>
+                </ObiektBaseInfo>
+                <Zmiana id="3">
+                  <Param id="0" Wspolczynnik="5.0">
+                  </Param>
+                </Zmiana>
+              </Wymog>
             </Warunek>
           </Wymagania>
         </Info>
       </ObiektBaseInfo>
     </ObiektInfo>
     <JednostkaLatajacaInfo rodzajSilnikaId="0x01" rodzajSilnikaPoziom="1" mocSilnika="1" zuzyciePaliwa="1" masaSilnika="1" sprawnoscSilnika="0,97">
-      <Info id="0x010" nazwa="Nazwa jednostki latajacej transportowca">Opis jednoscki latajacej transportowca.</Info>
+      <Info id="0x010" nazwa="Nazwa jednostki latajacej transportowca">
+        Opis jednoscki latajacej transportowca.
+      </Info>
     </JednostkaLatajacaInfo>
-    <JednostkaAtakujacaInfo atak="90" pancerz="250" oslona="300">
-      <Info id="0x011" nazwa="Nazwa Jednostki atakujacej transportowca">Opis jednostki atakujacej transportowca.</Info>
+    <JednostkaAtakujacaInfo atak="90" pancerz="20" oslona="30">
+      <Info id="0x011" nazwa="Nazwa Jednostki atakujacej transportowca">
+        Opis jednostki atakujacej transportowca.
+      </Info>
     </JednostkaAtakujacaInfo>
     <LadowniaInfo pojemnoscMaksymalna="1300">
-      <Info id="0x012" nazwa="Nazwa ladowni transportowca">Opis ladowni transportowca.</Info>
+      <Info id="0x012" nazwa="Nazwa ladowni transportowca">
+        Opis ladowni transportowca.
+      </Info>
     </LadowniaInfo>
   </StatekInfo>
 
@@ -199,6 +265,198 @@
       <ObiektBaseInfo poziom="1">
         <Info id="0x002" nazwa="Myśliwiec">
           Opis Myśliwca.
+        </Info>
+      </ObiektBaseInfo>
+      <Zmiana id="3" for="masa">
+        <Param id="0" Wspolczynnik="2.0">
+        </Param>
+      </Zmiana>
+      <Zmiana id="3" for="objetosc">
+        <Param id="0" Wspolczynnik="3.0">
+        </Param>
+      </Zmiana>
+      <Zmiana id="3" for="powierzchnia">
+        <Param id="0" Wspolczynnik="4.0">
+        </Param>
+      </Zmiana>
+    </ObiektInfo>
+    <JednostkaLatajacaInfo rodzajSilnikaId="0x03" rodzajSilnikaPoziom="1" mocSilnika="1" zuzyciePaliwa="1" masaSilnika="1" sprawnoscSilnika="0,97">
+      <Info id="0x020" nazwa="Nazwa jednostki latajacej myśliwca">
+        Opis jednoscki latajacej myśliwca.
+      </Info>
+      <Zmiana id="3" for="mocSilnika">
+        <Param id="0" Wspolczynnik="5.0">
+        </Param>
+      </Zmiana>
+      <Zmiana id="3" for="zuzyciePaliwa">
+        <Param id="0" Wspolczynnik="6.0">
+        </Param>
+      </Zmiana>
+      <Zmiana id="3" for="masaSilnika">
+        <Param id="0" Wspolczynnik="7.0">
+        </Param>
+      </Zmiana>
+      <Zmiana id="3" for="sprawnoscSilnika">
+        <Param id="0" Wspolczynnik="8.0">
+        </Param>
+      </Zmiana>
+    </JednostkaLatajacaInfo>
+    <JednostkaAtakujacaInfo atak="90" pancerz="250" oslona="300">
+      <Info id="0x021" nazwa="Nazwa Jednostki atakujacej myśliwca">
+        Opis jednostki atakujacej myśliwca.
+      </Info>
+      <Zmiana id="3" for="atak">
+        <Param id="0" Wspolczynnik="9.0">
+        </Param>
+      </Zmiana>
+      <Zmiana id="3" for="pancerz">
+        <Param id="0" Wspolczynnik="10.0">
+        </Param>
+      </Zmiana>
+      <Zmiana id="3" for="oslona">
+        <Param id="0" Wspolczynnik="11.0">
+        </Param>
+      </Zmiana>
+    </JednostkaAtakujacaInfo>
+    <LadowniaInfo pojemnoscMaksymalna="1300">
+      <Info id="0x022" nazwa="Nazwa ladowni myśliwca">
+        Opis ladowni myśliwca.
+      </Info>
+      <Zmiana id="3" for="pojemnoscMaksymalna">
+        <Param id="0" Wspolczynnik="12.0">
+        </Param>
+      </Zmiana>
+    </LadowniaInfo>
+  </StatekInfo>
+
+  <StatekInfo>
+    <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
+      <ObiektBaseInfo poziom="4">
+        <Info id="0x003" nazwa="Myśliwiec 2">
+          Opis Myśliwca 2.
+        </Info>
+      </ObiektBaseInfo>
+    </ObiektInfo>
+    <JednostkaLatajacaInfo rodzajSilnikaId="0x03" rodzajSilnikaPoziom="1" mocSilnika="1" zuzyciePaliwa="1" masaSilnika="1" sprawnoscSilnika="0,97">
+      <Info id="0x030" nazwa="Nazwa jednostki latajacej myśliwca 2">
+        Opis jednoscki latajacej myśliwca 2.
+      </Info>
+    </JednostkaLatajacaInfo>
+    <JednostkaAtakujacaInfo atak="90" pancerz="250" oslona="300">
+      <Info id="0x031" nazwa="Nazwa Jednostki atakujacej myśliwca 2">
+        Opis jednostki atakujacej myśliwca 2.
+      </Info>
+    </JednostkaAtakujacaInfo>
+    <LadowniaInfo pojemnoscMaksymalna="1300">
+      <Info id="0x032" nazwa="Nazwa ladowni myśliwca 2">
+        Opis ladowni myśliwca 2.
+      </Info>
+    </LadowniaInfo>
+  </StatekInfo>
+
+  <StatekInfo>
+    <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
+      <ObiektBaseInfo poziom="2">
+        <Info id="0x004" nazwa="Transportowiec 2">
+          Opis Transportowca 2.
+        </Info>
+      </ObiektBaseInfo>
+    </ObiektInfo>
+    <JednostkaLatajacaInfo rodzajSilnikaId="0x01" rodzajSilnikaPoziom="1" mocSilnika="1" zuzyciePaliwa="1" masaSilnika="1" sprawnoscSilnika="0,97">
+      <Info id="0x040" nazwa="Nazwa jednostki latajacej transportowca 2">
+        Opis jednoscki latajacej transportowca 2.
+      </Info>
+    </JednostkaLatajacaInfo>
+    <JednostkaAtakujacaInfo atak="90" pancerz="250" oslona="300">
+      <Info id="0x041" nazwa="Nazwa Jednostki atakujacej transportowca 2">
+        Opis jednostki atakujacej transportowca 2.
+      </Info>
+    </JednostkaAtakujacaInfo>
+    <LadowniaInfo pojemnoscMaksymalna="13000">
+      <Info id="0x042" nazwa="Nazwa ladowni transportowca 2">
+        Opis ladowni transportowca 2.
+      </Info>
+    </LadowniaInfo>
+  </StatekInfo>
+
+  <!-- Technologie -->
+  <TechnologiaInfo>
+    <ObiektBaseInfo poziom="0">
+      <Info id="0x0001" nazwa="Technologia komputerowa">
+        Opis technologii.
+        <Wymagania>
+          <Cennik>
+
+          </Cennik>
+          <Warunek>
+
+          </Warunek>
+        </Wymagania>
+      </Info>
+    </ObiektBaseInfo>
+  </TechnologiaInfo>
+
+  <TechnologiaInfo>
+    <ObiektBaseInfo poziom="0">
+      <Info id="0x0002" nazwa="Technologia podprzestrzenna">
+        Opis technologii podprzestrzennej.
+        <Wymagania>
+          <Cennik>
+
+          </Cennik>
+          <Warunek>
+
+          </Warunek>
+        </Wymagania>
+      </Info>
+    </ObiektBaseInfo>
+  </TechnologiaInfo>
+  <!-- Budynki -->
+
+  <BudynekInfo>
+    <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
+      <ObiektBaseInfo poziom="0">
+        <Info id="0x0001" nazwa="Kopalnia Metalu">
+          Opis kopalni metalu.
+          <Wymagania>
+            <Cennik>
+              <Cena>
+                <Surowce id="0x1" ilosc="150"/>
+                <Zmiana id="3">
+                  <Param id="0" Wspolczynnik="2.0"/>
+                </Zmiana>
+              </Cena>
+            </Cennik>
+            <Warunek>
+
+            </Warunek>
+          </Wymagania>
+        </Info>
+      </ObiektBaseInfo>
+    </ObiektInfo>
+    <Zapotrzebowanie>
+      <Cena>
+        <Surowce id="0xA" ilosc="20"/>
+        <Zmiana id="3">
+          <Param id="0" Wspolczynnik="3.0"/>
+        </Zmiana>
+      </Cena>
+    </Zapotrzebowanie>
+    <Produkcja>
+      <Cena>
+        <Surowce id="0x1" ilosc="1000"/>
+        <Zmiana id="3">
+          <Param id="0" Wspolczynnik="2.0"/>
+        </Zmiana>
+      </Cena>
+    </Produkcja>
+  </BudynekInfo>
+
+  <BudynekInfo>
+    <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
+      <ObiektBaseInfo poziom="0">
+        <Info id="0x0002" nazwa="Elektrownia słoneczna">
+          Opis elektrowni słonecznej.
           <Wymagania>
             <Cennik>
 
@@ -210,16 +468,32 @@
         </Info>
       </ObiektBaseInfo>
     </ObiektInfo>
-    <JednostkaLatajacaInfo rodzajSilnikaId="0x03" rodzajSilnikaPoziom="1" mocSilnika="1" zuzyciePaliwa="1" masaSilnika="1" sprawnoscSilnika="0,97">
-      <Info id="0x020" nazwa="Nazwa jednostki latajacej myśliwca">Opis jednoscki latajacej myśliwca.</Info>
-    </JednostkaLatajacaInfo>
-    <JednostkaAtakujacaInfo atak="90" pancerz="250" oslona="300">
-      <Info id="0x021" nazwa="Nazwa Jednostki atakujacej myśliwca">Opis jednostki atakujacej myśliwca.</Info>
-    </JednostkaAtakujacaInfo>
-    <LadowniaInfo pojemnoscMaksymalna="1300">
-      <Info id="0x022" nazwa="Nazwa ladowni myśliwca">Opis ladowni myśliwca.</Info>
-    </LadowniaInfo>
-  </StatekInfo>
-  
-</SpaceGame>
+    <Produkcja>
+      <Cena>
+        <Surowce id="0xA" ilosc="1000"/>
+        <Zmiana id="3">
+          <Param id="0" Wspolczynnik="3.0"/>
+        </Zmiana>
+      </Cena>
+    </Produkcja>
+  </BudynekInfo>
 
+  <BudynekInfo>
+    <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
+      <ObiektBaseInfo poziom="0">
+        <Info id="0x0003" nazwa="Fabryka robotów">
+          Opis Fabryki robotów.
+          <Wymagania>
+            <Cennik>
+
+            </Cennik>
+            <Warunek>
+
+            </Warunek>
+          </Wymagania>
+        </Info>
+      </ObiektBaseInfo>
+    </ObiektInfo>
+  </BudynekInfo>
+
+</SpaceGame>

@@ -42,6 +42,19 @@ Technologia* tworzTechnologie( Test& t, const IdType& id) throw (OgolnyWyjatek,N
 	return s;
 }
 
+Budynek* tworzBudynek( Test& t, const IdType& id) throw (OgolnyWyjatek,NieznalezionoObiektu){
+	Budynek* s = Aplikacja::getInstance().getGra().getBudynek(id).TworzEgzemplarz();
+	if(t.assert_false(EXCEPTION_PLACE, s!=nullptr))
+	{
+		t.assert_false(EXCEPTION_PLACE, s->getId()==id);
+		Aplikacja::getInstance().getLog().debug( "Stworzony obiekt:");
+		Aplikacja::getInstance().getLog().debug(*s);
+	}else{
+		throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("Tworzenie Obiektu"),Tekst("Nie uda³o siê utworzyæ obiektu"));
+	}
+	return s;
+}
+
 bool ladowanie_danych( Test & t ){
 	t.assert_false( EXCEPTION_PLACE , Aplikacja::getInstance().WczytajDane() );
 	return true;
@@ -293,5 +306,38 @@ bool test_Technologie( Test & t ){
 	Aplikacja::getInstance().getLog().debug(*a);
 	shared_ptr<Technologia> b( tworzTechnologie(t,IdType(2)) );
 	Aplikacja::getInstance().getLog().debug(*b);
+	return true;
+}
+
+bool test_Budynki( Test & t ){
+	shared_ptr<Budynek> a( tworzBudynek(t,IdType(1)) );
+	a->setPoziom(Poziom(3));
+	auto z = a->PobierzZapotrzebowanie();
+	if(t.assert_false(EXCEPTION_PLACE, z.size()>0)){
+		t.assert_false(EXCEPTION_PLACE, z[0]->getIlosc()==Ilosc(180));
+		t.assert_false(EXCEPTION_PLACE, z[0]->getId()==IdType(10));
+	}
+	auto p = a->PobierzProdukcje();
+	if(t.assert_false(EXCEPTION_PLACE, p.size()>0)){
+		t.assert_false(EXCEPTION_PLACE, p[0]->getIlosc()==Ilosc(6000));
+		t.assert_false(EXCEPTION_PLACE, p[0]->getId()==IdType(1));
+	}
+
+	shared_ptr<Budynek> b( tworzBudynek(t,IdType(2)) );
+	b->setPoziom(Poziom(2));
+	p = b->PobierzProdukcje();
+	if(t.assert_false(EXCEPTION_PLACE, p.size()>0)){
+		t.assert_false(EXCEPTION_PLACE, p[0]->getIlosc()==Ilosc(6000));
+		t.assert_false(EXCEPTION_PLACE, p[0]->getId()==IdType(10));
+	}
+	z = b->PobierzZapotrzebowanie();
+	t.assert_false(EXCEPTION_PLACE, z.size()==0);
+
+	shared_ptr<Budynek> c( tworzBudynek(t,IdType(3)) );
+	c->setPoziom(Poziom(2));
+	p = c->PobierzProdukcje();
+	t.assert_false(EXCEPTION_PLACE, p.size()==0);
+	z = c->PobierzZapotrzebowanie();
+	t.assert_false(EXCEPTION_PLACE, z.size()==0);
 	return true;
 }

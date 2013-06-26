@@ -211,6 +211,8 @@
     <ClInclude Include="Bool.h" />
     <ClInclude Include="BrakAtrybutuXML.h" />
     <ClInclude Include="BrakMaski.h" />
+    <ClInclude Include="Budynek.h" />
+    <ClInclude Include="BudynekInfo.h" />
     <ClInclude Include="Cena.h" />
     <ClInclude Include="Cennik.h" />
     <ClInclude Include="Dystans.h" />
@@ -286,6 +288,8 @@
     <ClCompile Include="Bool.cpp" />
     <ClCompile Include="BrakAtrybutuXML.cpp" />
     <ClCompile Include="BrakMaski.cpp" />
+    <ClCompile Include="Budynek.cpp" />
+    <ClCompile Include="BudynekInfo.cpp" />
     <ClCompile Include="Cena.cpp" />
     <ClCompile Include="Cennik.cpp" />
     <ClCompile Include="Dystans.cpp" />

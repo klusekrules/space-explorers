@@ -48,6 +48,13 @@ TechnologiaInfo& Gra::getTechnologia(const IdType& id)const throw (Nieznaleziono
 	return *(iter->second);
 }
 
+BudynekInfo& Gra::getBudynek(const IdType& id)const throw (NieznalezionoObiektu) {
+	auto iter = listaBudynkowInfo.find(id);
+	if(iter==listaBudynkowInfo.end())
+		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.toString());
+	return *(iter->second);
+}
+
 const ObiektBase& Gra::getObiekt(IdType id)const{
 	return pustyObiektBase;
 }
@@ -63,6 +70,8 @@ bool Gra::WczytajDane( const string& sFile ){
 			if(!WczytajStatki(root_data))
 				return false;
 			if(!WczytajTechnologie(root_data))
+				return false;
+			if(!WczytajBudynki(root_data))
 				return false;
 		}
 	}catch(ticpp::Exception& e){
@@ -84,6 +93,27 @@ bool Gra::WczytajTechnologie(ticpp::Node* root){
 				if(listaTechnologiInfo.find(t->getId())!=listaTechnologiInfo.end())
 					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Technologia o podanym id istnieje"));
 				listaTechnologiInfo[t->getId()]=t;
+			}
+		}catch(OgolnyWyjatek& e){
+			aplikacja.getLog().warn(e.generujKomunikat());
+			aplikacja.getLog().debug(e);
+			return false;
+		}
+	}while(ptr);
+	return true;
+}
+
+bool Gra::WczytajBudynki(ticpp::Node* root){
+	ticpp::Node* ptr = nullptr;
+	do{
+		try{
+			ptr = root->IterateChildren(CLASSNAME(BudynekInfo),ptr);
+			if(ptr){
+				shared_ptr<BudynekInfo> t(new BudynekInfo(ptr));
+				aplikacja.getLog().debug(*t);
+				if(listaBudynkowInfo.find(t->getId())!=listaBudynkowInfo.end())
+					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Budynek o podanym id istnieje"));
+				listaBudynkowInfo[t->getId()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
 			aplikacja.getLog().warn(e.generujKomunikat());

@@ -29,7 +29,7 @@ Cena::Cena( const Item & zsKoszty ) throw()
 Cena::Cena( const Cena& a )
 	: obiekty(a.obiekty->Kopia())
 {
-	zmiana = a.zmiana.get() ? shared_ptr<ZmianaInterfejs>(a.zmiana->Kopia()): nullptr;
+	zmiana = a.zmiana ? shared_ptr<ZmianaInterfejs>(a.zmiana->Kopia()): nullptr;
 }
 
 Cena::~Cena()
@@ -38,8 +38,10 @@ Cena::~Cena()
 
 shared_ptr<Cena::Item> Cena::PobierzKoszty(const Ilosc& i, const Poziom& p ) const{
 	shared_ptr<Item> tmp(obiekty->Kopia());
-	if(zmiana.get()){
+	if(zmiana){
 		tmp->setIlosc(Ilosc(i.value()* zmiana->value(obiekty->getIlosc().value(),static_cast<int>(p.value()))));
+	}else{
+		tmp->setIlosc(Ilosc(i.value()* obiekty->getIlosc().value() ));
 	}
 	return tmp;
 }
@@ -49,10 +51,16 @@ const Cena::Item& Cena::getKoszty() const{
 }
 
 Cena& Cena::operator=(const Cena& a){
-	if(a.obiekty!=nullptr)
+	if(a.obiekty)
 		this->obiekty=shared_ptr<Item>(a.obiekty->Kopia());
-	if(a.zmiana!=nullptr)
+	else
+		this->obiekty=nullptr;
+
+	if(a.zmiana)
 		this->zmiana=shared_ptr<ZmianaInterfejs>(a.zmiana->Kopia());
+	else
+		this->zmiana=nullptr;
+
 	return *this;
 }
 
