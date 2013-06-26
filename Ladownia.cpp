@@ -154,7 +154,7 @@ void Ladownia::przeliczZajeteMiejsce(){
 	}
 }
 
-Masa Ladownia::getMasaZawartosciLadowni(){
+Masa Ladownia::getMasaZawartosciLadowni()const {
 	Masa m (0);
 	for( auto o : obiekty){
 		m += o.second->getMasa();

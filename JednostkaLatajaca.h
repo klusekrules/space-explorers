@@ -43,6 +43,19 @@ public:
 	virtual ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p,const Poziom& pz  ) const;
 
 	/**
+	* Funkcja podaj¹ca jednostkowe zu¿ycie paliwa.
+	* \param pz - Poziom dla którego jest wyliczane zu¿ycie.
+	* \return Paliwo zu¿yte przez statek.
+	*/
+	virtual ZuzyciePaliwa getJednostkoweZuzyciePaliwa( const Poziom& pz  )const;
+
+	virtual MocSilnika getMocSilnika( const Poziom& pz  )const;
+
+	virtual Masa getMasaSilnika( const Poziom& pz  )const;
+
+	virtual Fluktuacja getSprawnoscSilnika( const Poziom& pz  )const;
+
+	/**
 	* Maksymalna prêkoœæ jak¹ mo¿e rozwin¹æ statek.
 	* locale pl ("Polish");
 	* locale::global (pl);

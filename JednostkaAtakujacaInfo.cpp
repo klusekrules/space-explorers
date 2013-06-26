@@ -1,6 +1,7 @@
 #include "JednostkaAtakujacaInfo.h"
 #include "Logger.h"
 #include "XmlBO.h"
+#include "Aplikacja.h"
 
 JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const Info& info, const Obrazenia& oAtak,const Obrazenia& oPancerz, const Obrazenia& oOslona) throw()
 	: Info(info), rd(), gen(rd()), atak(oAtak), zmAtak(nullptr), pancerz(oPancerz), zmPancerz(nullptr), oslona(oOslona), zmOslona(nullptr)
@@ -13,8 +14,13 @@ JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( ticpp::Node* n ) throw(WyjatekPa
 		try{
 			ticpp::Element* e = n->ToElement();
 			atak.setObrazenia(stold(e->GetAttribute("atak")));
+			zmAtak = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","atak"));
+
 			pancerz.setObrazenia(stold(e->GetAttribute("pancerz")));
+			zmPancerz = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","pancerz"));
+
 			oslona.setObrazenia(stold(e->GetAttribute("oslona")));
+			zmOslona = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","oslona"));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

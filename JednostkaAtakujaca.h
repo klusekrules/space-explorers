@@ -51,6 +51,12 @@ public:
 	*/
 	string toString() const override;
 
+	virtual Obrazenia getAtak( const Poziom& p ) const;
+
+	virtual Obrazenia getPancerz( const Poziom& p  ) const;
+
+	virtual Obrazenia getOslona( const Poziom& p ) const;
+
 	static const double srednia;
 	static const double odchylenie;
 

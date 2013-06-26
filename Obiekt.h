@@ -26,11 +26,11 @@ public:
 
 	virtual bool czMoznaDodacDoLadownii( const Ladownia& c ) const;
 	
-	Powierzchnia getPowierzchnia() const;
+	virtual Powierzchnia getPowierzchnia() const;
 
-	Objetosc getObjetosc() const;
+	virtual Objetosc getObjetosc() const;
 
-	Masa getMasa() const;
+	virtual Masa getMasa() const;
 
 	string toString() const override;
 protected:

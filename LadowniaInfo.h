@@ -12,7 +12,7 @@ class LadowniaInfo :
 private:
 	
 	Objetosc pojemnoscMax;
-	ZmianaInterfejs* przyrostPojemnoscMax;
+	shared_ptr<ZmianaInterfejs> przyrostPojemnoscMax;
 
 public:
 	LadowniaInfo( const Objetosc& max, const Info& i ) throw();

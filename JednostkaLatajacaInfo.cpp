@@ -1,6 +1,7 @@
 #include "JednostkaLatajacaInfo.h"
 #include "Logger.h"
 #include "XmlBO.h"
+#include "Aplikacja.h"
 
 JednostkaLatajacaInfo::JednostkaLatajacaInfo( const Info& info,const Klucz& k, const MocSilnika& moc, const ZuzyciePaliwa& z, const Masa& masa ) throw()
 	: Info(info), rodzajNapedu(k), mocSilnika(moc), zuzyciePaliwa(z), masaNapedu(masa), przyrostMocySilnika(nullptr), przyrostSprawnosciSilnika(nullptr), przyrostZuzyciaPaliwa(nullptr), przyrostMasyNapedu(nullptr)
@@ -16,10 +17,18 @@ JednostkaLatajacaInfo::JednostkaLatajacaInfo( ticpp::Node* n ) throw(WyjatekPars
 			IdType id(stoi(e->GetAttribute("rodzajSilnikaId"),nullptr,0));
 			Poziom poziom(stoi(e->GetAttribute("rodzajSilnikaPoziom")));
 			rodzajNapedu.setKlucz(Klucz(id,poziom).getKlucz());
+			
 			mocSilnika.setMocSilnika(stold(e->GetAttribute("mocSilnika")));
+			przyrostMocySilnika = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","mocSilnika"));
+			
 			zuzyciePaliwa.setZuzyciePaliwa(stold(e->GetAttribute("zuzyciePaliwa")));
+			przyrostZuzyciaPaliwa = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","zuzyciePaliwa"));
+			
 			masaNapedu.setMasa(stold(e->GetAttribute("masaSilnika")));
+			przyrostMasyNapedu = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","masaSilnika"));
+			
 			sprawnoscSilnika.setFluktuacja(stof(e->GetAttribute("sprawnoscSilnika")));
+			przyrostSprawnosciSilnika = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","sprawnoscSilnika"));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

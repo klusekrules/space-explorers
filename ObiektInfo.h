@@ -11,13 +11,13 @@ class ObiektInfo :
 {
 private:
 	Powierzchnia powierzchnia;
-	ZmianaInterfejs* zmPowierzchnia;
+	shared_ptr<ZmianaInterfejs> zmPowierzchnia;
 
 	Objetosc objetosc;
-	ZmianaInterfejs* zmObjetosc;
+	shared_ptr<ZmianaInterfejs> zmObjetosc;
 
 	Masa masa;
-	ZmianaInterfejs* zmMasa;
+	shared_ptr<ZmianaInterfejs> zmMasa;
 
 public:
 	ObiektInfo( const Masa&, const Objetosc&, const Powierzchnia&, const ObiektBaseInfo& ) throw();
@@ -26,11 +26,11 @@ public:
 
 	~ObiektInfo( );
 
-	Powierzchnia getPowierzchnia() const;
+	Powierzchnia getPowierzchnia(const Poziom& pz) const;
 
-	Objetosc getObjetosc() const;
+	Objetosc getObjetosc(const Poziom& pz) const;
 
-	Masa getMasa() const;
+	Masa getMasa(const Poziom& pz) const;
 	
 	Obiekt* TworzEgzemplarz( const Ilosc& ) const override;
 

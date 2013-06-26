@@ -65,7 +65,7 @@ public:
 protected:
 
 	void przeliczZajeteMiejsce();
-	Masa getMasaZawartosciLadowni();
+	Masa getMasaZawartosciLadowni()const;
 
 	Zbiornik obiekty;
 	Objetosc zajete;

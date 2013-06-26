@@ -1,6 +1,7 @@
 #include "LadowniaInfo.h"
 #include "Logger.h"
 #include "XmlBO.h"
+#include "Aplikacja.h"
 
 LadowniaInfo::LadowniaInfo( const Objetosc& max, const Info& i ) throw()
 	: Info(i),pojemnoscMax(max), przyrostPojemnoscMax(nullptr)
@@ -13,6 +14,7 @@ LadowniaInfo::LadowniaInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
 	if(n){
 		try{
 			pojemnoscMax.setObjetosc(stold(n->ToElement()->GetAttribute("pojemnoscMaksymalna")));
+			przyrostPojemnoscMax = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","pojemnoscMaksymalna"));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}
