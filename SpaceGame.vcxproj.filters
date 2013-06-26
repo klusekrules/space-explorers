@@ -181,6 +181,12 @@
     <ClCompile Include="Technologia.cpp">
       <Filter>SourceFile\Technologia</Filter>
     </ClCompile>
+    <ClCompile Include="Budynek.cpp">
+      <Filter>SourceFile\Budynek</Filter>
+    </ClCompile>
+    <ClCompile Include="BudynekInfo.cpp">
+      <Filter>SourceFile\Budynek</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -407,6 +413,12 @@
     </ClInclude>
     <ClInclude Include="Technologia.h">
       <Filter>SourceFile\Technologia</Filter>
+    </ClInclude>
+    <ClInclude Include="Budynek.h">
+      <Filter>SourceFile\Budynek</Filter>
+    </ClInclude>
+    <ClInclude Include="BudynekInfo.h">
+      <Filter>SourceFile\Budynek</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

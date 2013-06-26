@@ -27,6 +27,7 @@ void main(){
 	test.dodajTest("Test dla zgloszenia 42",test_Issue42,false); 
 	test.dodajTest("Test tworzenia technologi",test_Technologie,false); 
 	test.dodajTest("Test dla zgloszenia 52",test_Issue52,false);
+	test.dodajTest("Test budynków",test_Budynki,false);
 	test();
 	/*ALLEGRO_DISPLAY *display = NULL;
  

@@ -411,5 +411,89 @@
       </Info>
     </ObiektBaseInfo>
   </TechnologiaInfo>
+  
+  <!-- Budynki -->  
+  <BudynekInfo>
+    <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
+      <ObiektBaseInfo poziom="0">
+        <Info id="0x0001" nazwa="Kopalnia Metalu">
+          Opis kopalni metalu.
+          <Wymagania>
+            <Cennik>
+              <Cena>
+                <Surowce id="0x1" ilosc="150"/>
+                <Zmiana id="3">
+                  <Param id="0" Wspolczynnik="2.0"/>
+                </Zmiana>
+              </Cena>
+            </Cennik>
+            <Warunek>
 
+            </Warunek>
+          </Wymagania>
+        </Info>
+      </ObiektBaseInfo>
+    </ObiektInfo>
+    <Zapotrzebowanie>
+      <Cena>
+        <Surowce id="0xA" ilosc="20"/>
+        <Zmiana id="3">
+          <Param id="0" Wspolczynnik="3.0"/>
+        </Zmiana>
+      </Cena>
+    </Zapotrzebowanie>
+    <Produkcja>
+      <Cena>
+        <Surowce id="0x1" ilosc="1000"/>
+        <Zmiana id="3">
+          <Param id="0" Wspolczynnik="2.0"/>
+        </Zmiana>
+      </Cena>
+    </Produkcja>
+  </BudynekInfo>
+
+  <BudynekInfo>
+    <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
+      <ObiektBaseInfo poziom="0">
+        <Info id="0x0002" nazwa="Elektrownia s³oneczna">
+          Opis elektrowni s³onecznej.
+          <Wymagania>
+            <Cennik>
+
+            </Cennik>
+            <Warunek>
+
+            </Warunek>
+          </Wymagania>
+        </Info>
+      </ObiektBaseInfo>
+    </ObiektInfo>
+    <Produkcja>
+      <Cena>
+        <Surowce id="0xA" ilosc="1000"/>
+        <Zmiana id="3">
+          <Param id="0" Wspolczynnik="3.0"/>
+        </Zmiana>
+      </Cena>
+    </Produkcja>
+  </BudynekInfo>
+
+  <BudynekInfo>
+    <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
+      <ObiektBaseInfo poziom="0">
+        <Info id="0x0003" nazwa="Fabryka robotów">
+          Opis Fabryki robotów.
+          <Wymagania>
+            <Cennik>
+
+            </Cennik>
+            <Warunek>
+
+            </Warunek>
+          </Wymagania>
+        </Info>
+      </ObiektBaseInfo>
+    </ObiektInfo>
+  </BudynekInfo>
+  
 </SpaceGame>
