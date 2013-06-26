@@ -1,6 +1,7 @@
 ﻿#include "ObiektInfo.h"
 #include "Logger.h"
 #include "XmlBO.h"
+#include "Aplikacja.h"
 
 ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& obj, const Powierzchnia& pow, const ObiektBaseInfo& info ) throw()
 	: ObiektBaseInfo(info),powierzchnia(pow), zmPowierzchnia(nullptr), objetosc(obj), zmObjetosc(nullptr), masa(masa), zmMasa(nullptr)
@@ -14,9 +15,11 @@ ObiektInfo::ObiektInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
 		try{
 			ticpp::Element* e = n->ToElement();
 			masa.setMasa(stold(e->GetAttribute("masa")));
+			zmMasa = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","masa"));
 			objetosc.setObjetosc(stold(e->GetAttribute("objetosc")));
+			zmObjetosc = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","objetosc"));
 			powierzchnia.setPowierzchnia(stold(e->GetAttribute("powierzchnia")));
-			//TODO: dodanie wczytywania zmiany parametrów
+			zmPowierzchnia = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","powierzchnia"));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}
@@ -26,22 +29,22 @@ ObiektInfo::ObiektInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
 ObiektInfo::~ObiektInfo(){
 }
 
-Powierzchnia ObiektInfo::getPowierzchnia() const {
+Powierzchnia ObiektInfo::getPowierzchnia(const Poziom& pz) const {
 	if(zmPowierzchnia == nullptr)
 		return powierzchnia;			
-	return Powierzchnia(zmPowierzchnia->value(powierzchnia.value(),static_cast<int>(getPoziom().value())));
+	return Powierzchnia(zmPowierzchnia->value(powierzchnia.value(),static_cast<int>(pz.value())));
 }
 
-Objetosc ObiektInfo::getObjetosc() const {
+Objetosc ObiektInfo::getObjetosc(const Poziom& pz) const {
 	if(zmPowierzchnia == nullptr)
 		return objetosc;
-	return Objetosc(zmObjetosc->value(objetosc.value(),static_cast<int>(getPoziom().value())));
+	return Objetosc(zmObjetosc->value(objetosc.value(),static_cast<int>(pz.value())));
 }
 
-Masa ObiektInfo::getMasa() const {
+Masa ObiektInfo::getMasa(const Poziom& pz) const {
 	if(zmPowierzchnia == nullptr)
 		return masa;
-	return Masa(zmMasa->value(masa.value(),static_cast<int>(getPoziom().value())));
+	return Masa(zmMasa->value(masa.value(),static_cast<int>(pz.value())));
 }
 
 Obiekt* ObiektInfo::TworzEgzemplarz( const Ilosc& iIlosc ) const {

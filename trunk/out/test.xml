@@ -190,7 +190,7 @@
               <Cena>
                 <Surowce id="0x1" poziom="1" ilosc="1000"></Surowce>
                 <Zmiana id="2">
-                  <Zmiana id="3">
+                  <Zmiana id="3" for="next">
                     <Param id="0" Wspolczynnik="3.0">
                     </Param>
                   </Zmiana>
@@ -265,21 +265,65 @@
           Opis Myœliwca.
         </Info>
       </ObiektBaseInfo>
+      <Zmiana id="3" for="masa">
+        <Param id="0" Wspolczynnik="2.0">
+        </Param>
+      </Zmiana>
+      <Zmiana id="3" for="objetosc">
+        <Param id="0" Wspolczynnik="3.0">
+        </Param>
+      </Zmiana>
+      <Zmiana id="3" for="powierzchnia">
+        <Param id="0" Wspolczynnik="4.0">
+        </Param>
+      </Zmiana>
     </ObiektInfo>
     <JednostkaLatajacaInfo rodzajSilnikaId="0x03" rodzajSilnikaPoziom="1" mocSilnika="1" zuzyciePaliwa="1" masaSilnika="1" sprawnoscSilnika="0,97">
       <Info id="0x020" nazwa="Nazwa jednostki latajacej myœliwca">
         Opis jednoscki latajacej myœliwca.
       </Info>
+      <Zmiana id="3" for="mocSilnika">
+        <Param id="0" Wspolczynnik="5.0">
+        </Param>
+      </Zmiana>
+      <Zmiana id="3" for="zuzyciePaliwa">
+        <Param id="0" Wspolczynnik="6.0">
+        </Param>
+      </Zmiana>
+      <Zmiana id="3" for="masaSilnika">
+        <Param id="0" Wspolczynnik="7.0">
+        </Param>
+      </Zmiana>
+      <Zmiana id="3" for="sprawnoscSilnika">
+        <Param id="0" Wspolczynnik="8.0">
+        </Param>
+      </Zmiana>
     </JednostkaLatajacaInfo>
     <JednostkaAtakujacaInfo atak="90" pancerz="250" oslona="300">
       <Info id="0x021" nazwa="Nazwa Jednostki atakujacej myœliwca">
         Opis jednostki atakujacej myœliwca.
       </Info>
+      <Zmiana id="3" for="atak">
+        <Param id="0" Wspolczynnik="9.0">
+        </Param>
+      </Zmiana>
+      <Zmiana id="3" for="pancerz">
+        <Param id="0" Wspolczynnik="10.0">
+        </Param>
+      </Zmiana>
+      <Zmiana id="3" for="oslona">
+        <Param id="0" Wspolczynnik="11.0">
+        </Param>
+      </Zmiana>
     </JednostkaAtakujacaInfo>
     <LadowniaInfo pojemnoscMaksymalna="1300">
       <Info id="0x022" nazwa="Nazwa ladowni myœliwca">
         Opis ladowni myœliwca.
       </Info>
+      <Zmiana id="3" for="pojemnoscMaksymalna">
+        <Param id="0" Wspolczynnik="12.0">
+        </Param>
+      </Zmiana>
     </LadowniaInfo>
   </StatekInfo>
 

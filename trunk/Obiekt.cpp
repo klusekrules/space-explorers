@@ -24,15 +24,15 @@ Obiekt* Obiekt::Podziel( const Ilosc& i ){
 	return nullptr;
 }	
 Powierzchnia Obiekt::getPowierzchnia() const{
-	return Powierzchnia(obiektInfoClass.getPowierzchnia().value()*(this->getIlosc().value()));
+	return Powierzchnia(obiektInfoClass.getPowierzchnia(getPoziom()).value()*(this->getIlosc().value()));
 }
 
 Objetosc Obiekt::getObjetosc() const{
-	return Objetosc(obiektInfoClass.getObjetosc().value()*(this->getIlosc().value()));
+	return Objetosc(obiektInfoClass.getObjetosc(getPoziom()).value()*(this->getIlosc().value()));
 }
 
 Masa Obiekt::getMasa() const{
-	return Masa(obiektInfoClass.getMasa().value()*(this->getIlosc().value()));
+	return Masa(obiektInfoClass.getMasa(getPoziom()).value()*(this->getIlosc().value()));
 }
 
 bool Obiekt::czMoznaDodacDoLadownii( const Ladownia& c ) const{

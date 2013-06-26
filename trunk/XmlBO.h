@@ -18,18 +18,18 @@ private:
 	}
 public:
 	template<typename T>
-	static ticpp::Node* IterateChildren(const ticpp::Node* n , const string& s){
+	static ticpp::Node* IterateChildren(const ticpp::Node* n , const string& s, ticpp::Node* p = nullptr ){
 		if(n==nullptr || s.empty())
 			return fail<T>(n==nullptr,s);
 
-		return n->IterateChildren(s,nullptr);
+		return n->IterateChildren(s,p);
 	}
 	template<typename T>
-	static ticpp::Element* IterateChildrenElement(const ticpp::Node* n , const string& s){
+	static ticpp::Element* IterateChildrenElement(const ticpp::Node* n , const string& s, ticpp::Node* p = nullptr ){
 		if(n==nullptr || s.empty())
 			return fail<T>(n==nullptr,s);
 
-		auto t = n->IterateChildren(s,nullptr);
+		auto t = n->IterateChildren(s,p);
 
 		if( t )
 			return t->ToElement();
@@ -38,11 +38,11 @@ public:
 	}
 
 	template<typename T>
-	static ticpp::Element* IterateChildrenElementIf(const ticpp::Node* n , const string& s, const string& atrybut, const string& wartosc){
+	static ticpp::Element* IterateChildrenElementIf(const ticpp::Node* n , const string& s, const string& atrybut, const string& wartosc, ticpp::Node* p = nullptr ){
 		if(n==nullptr || s.empty())
 			return fail<T>(n==nullptr,s);
 
-		for(auto t = n->IterateChildren(s,nullptr); t!= nullptr; t = n->IterateChildren("Zmiana",t) ){
+		for(auto t = n->IterateChildren(s,p); t!= nullptr; t = n->IterateChildren("Zmiana",t) ){
 			auto el = t->ToElement();
 			if(el){
 				if(wartosc == el->GetAttribute(atrybut))

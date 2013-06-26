@@ -18,6 +18,22 @@ ZuzyciePaliwa JednostkaLatajaca::WyliczZuzyciePaliwa( const Dystans& d , const P
 	return ZuzyciePaliwa(jednostkaLatajacaInfo.getZuzyciePaliwa(pz).value()* ( d.value() / p.value() ) );
 }
 
+ZuzyciePaliwa JednostkaLatajaca::getJednostkoweZuzyciePaliwa( const Poziom& pz  )const{
+	return jednostkaLatajacaInfo.getZuzyciePaliwa(pz);
+}
+
+MocSilnika JednostkaLatajaca::getMocSilnika( const Poziom& pz  )const{
+	return jednostkaLatajacaInfo.getMocSilnika(pz);
+}
+
+Masa JednostkaLatajaca::getMasaSilnika( const Poziom& pz  )const{
+	return jednostkaLatajacaInfo.getMasaNapedu(pz);
+}
+
+Fluktuacja JednostkaLatajaca::getSprawnoscSilnika( const Poziom& pz  )const{
+	return jednostkaLatajacaInfo.getSprawnoscSilnika(pz);
+}
+
 Predkosc JednostkaLatajaca::PredkoscMaksymalna( const Poziom& p ) const{
 	long double eta_m = jednostkaLatajacaInfo.getSprawnoscSilnika(p).value();
 	long double a = 0.01;

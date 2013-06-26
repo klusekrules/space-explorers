@@ -256,3 +256,18 @@ bool test_KlasaJednostkaAtakujaca( Test & t ){
 	t.assert_false(EXCEPTION_PLACE, tbPancerz == oPancerz);
 	return true;
 }
+
+bool test_Issue42( Test & t ){
+	shared_ptr<Statek> a( tworzStatek(t,Klucz(IdType(2),Poziom(1)),Ilosc(2)) );
+	t.assert_false(EXCEPTION_PLACE, a->getMasa() == Masa(4+14));
+	t.assert_false(EXCEPTION_PLACE, a->getObjetosc() == Objetosc(6));
+	t.assert_false(EXCEPTION_PLACE, a->getPowierzchnia() == Powierzchnia(8));
+	t.assert_false(EXCEPTION_PLACE, a->getPojemnoscMax() == Objetosc(1300*12*2));
+	t.assert_false(EXCEPTION_PLACE, a->getJednostkoweZuzyciePaliwa() == ZuzyciePaliwa(12));
+	t.assert_false(EXCEPTION_PLACE, a->getMocSilnika() == MocSilnika(5));
+	t.assert_false(EXCEPTION_PLACE, a->getSprawnoscSilnika() == Fluktuacja(0.97f*8.0f));
+	t.assert_false(EXCEPTION_PLACE, a->getAtak() == Obrazenia(9.0*90*2));
+	t.assert_false(EXCEPTION_PLACE, a->getPancerz() == Obrazenia(10.0*250*2));
+	t.assert_false(EXCEPTION_PLACE, a->getOslona() == Obrazenia(11.0*300*2));
+	return true;
+}

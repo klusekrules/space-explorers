@@ -10,3 +10,4 @@ bool test_tworzenieObiektow( Test & t );
 bool test_KlasaObiektList( Test & t );
 bool test_wymagan( Test & t );
 bool test_KlasaJednostkaAtakujaca( Test & t );
+bool test_Issue42( Test & t );

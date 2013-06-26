@@ -100,9 +100,9 @@ private:
 	Fluktuacja			sprawnoscSilnika; /// Sprawnoœæ silnika.
 
 	
-	ZmianaInterfejs*	przyrostMocySilnika; /// Klasa dekoratora wyliczaj¹ca zmianê mocy silnika
-	ZmianaInterfejs*	przyrostSprawnosciSilnika; /// Klasa dekoratora wyliczaj¹ca zmianê sprawnoœci silnika
-	ZmianaInterfejs*	przyrostZuzyciaPaliwa; /// Klasa dekoratora wyliczaj¹ca zmianê zu¿ycia paliwa
-	ZmianaInterfejs*	przyrostMasyNapedu; /// Klasa dekoratora wyliczaj¹ca zmianê masy napêdu
+	shared_ptr<ZmianaInterfejs>	przyrostMocySilnika; /// Klasa dekoratora wyliczaj¹ca zmianê mocy silnika
+	shared_ptr<ZmianaInterfejs>	przyrostSprawnosciSilnika; /// Klasa dekoratora wyliczaj¹ca zmianê sprawnoœci silnika
+	shared_ptr<ZmianaInterfejs>	przyrostZuzyciaPaliwa; /// Klasa dekoratora wyliczaj¹ca zmianê zu¿ycia paliwa
+	shared_ptr<ZmianaInterfejs>	przyrostMasyNapedu; /// Klasa dekoratora wyliczaj¹ca zmianê masy napêdu
 };
 

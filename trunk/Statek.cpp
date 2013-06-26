@@ -32,17 +32,41 @@ Obrazenia Statek::Atak( const Poziom& pz ) const {
 }
 
 Obrazenia Statek::Pancerz( const Obrazenia& a, const Poziom& pz ) const {
-	Obrazenia o (jednostkaAtakujacaInfo.getPancerz(getPoziom()).value() * ilosc.value());
+	Obrazenia o (JednostkaAtakujaca::Pancerz(a,getPoziom()).value() * ilosc.value());
 	return a > o ? a - o : Obrazenia(0);
 }
 
 Obrazenia Statek::Oslona( const Obrazenia& a, const Poziom& pz ) const {
-	Obrazenia o (jednostkaAtakujacaInfo.getOslona(getPoziom()).value() * ilosc.value());
+	Obrazenia o (JednostkaAtakujaca::Oslona(a, getPoziom()).value() * ilosc.value());
 	return a > o ? a - o : Obrazenia(0);
 }
 
+Obrazenia Statek::getAtak( const Poziom& pz ) const{
+	return Obrazenia (JednostkaAtakujaca::getAtak(getPoziom()).value() * ilosc.value());
+}
+
+Obrazenia Statek::getPancerz( const Poziom& pz ) const{
+	return Obrazenia (JednostkaAtakujaca::getPancerz(getPoziom()).value() * ilosc.value());
+}
+
+Obrazenia Statek::getOslona( const Poziom& pz ) const{
+	return Obrazenia (JednostkaAtakujaca::getOslona(getPoziom()).value() * ilosc.value());
+}
+
 Objetosc Statek::getPojemnoscMax(  const Poziom& pz ) const{
-	return ladowniaInfo.getPojemnoscMaksymalna(getPoziom())*getIlosc();
+	return Ladownia::getPojemnoscMax(getPoziom())*getIlosc();
+}
+
+Masa Statek::getMasaSilnika( const Poziom& pz  )const{
+	return Masa(JednostkaLatajaca::getMasaSilnika(getPoziom()).value()* ilosc.value());
+}
+
+ZuzyciePaliwa Statek::getJednostkoweZuzyciePaliwa( const Poziom& pz  )const{
+	return ZuzyciePaliwa(JednostkaLatajaca::getJednostkoweZuzyciePaliwa(getPoziom()).value()*ilosc.value() );
+}
+
+Masa Statek::getMasa() const{
+	return Obiekt::getMasa() + Ladownia::getMasaZawartosciLadowni() + Statek::getMasaSilnika();
 }
 
 Fluktuacja Statek::WolneMiejsce( const Poziom& pz ) const{
@@ -55,6 +79,14 @@ bool Statek::DodajObiektDoLadowni( const Item& i, const Poziom& pz ){
 
 bool Statek::czMoznaDodacDoLadownii( const Ladownia& c ) const{
 	return c.czMoznaDodacDoLadownii(*this);
+}
+
+MocSilnika Statek::getMocSilnika( const Poziom& pz )const{
+	return JednostkaLatajaca::getMocSilnika(getPoziom());
+}
+	
+Fluktuacja Statek::getSprawnoscSilnika( const Poziom& pz )const{
+	return JednostkaLatajaca::getSprawnoscSilnika(getPoziom());
 }
 
 const StatekInfo& Statek::getStatekInfo() const{

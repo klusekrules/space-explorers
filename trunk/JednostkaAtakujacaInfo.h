@@ -82,12 +82,12 @@ private:
     mutable std::mt19937 gen;
 
 	Obrazenia atak; /// Podstawowa wartoœæ ataku obiektu.
-	ZmianaInterfejs* zmAtak; /// Procentowa zmiana ataku wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
+	shared_ptr<ZmianaInterfejs> zmAtak; /// Procentowa zmiana ataku wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
 
 	Obrazenia pancerz; /// Podstawowa wartoœæ pancerza obiektu.
-	ZmianaInterfejs* zmPancerz; /// Procentowa zmiana pancerza wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
+	shared_ptr<ZmianaInterfejs> zmPancerz; /// Procentowa zmiana pancerza wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
 
 	Obrazenia oslona; /// Podstawowa wartoœæ os³ony obiektu.
-	ZmianaInterfejs* zmOslona; /// Procentowa zmiana os³ony wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
+	shared_ptr<ZmianaInterfejs> zmOslona; /// Procentowa zmiana os³ony wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
 };
 
