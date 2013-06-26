@@ -25,15 +25,11 @@ ObiektBaseInfo::~ObiektBaseInfo(){
 
 
 ObiektBase* ObiektBaseInfo::TworzEgzemplarz( const Ilosc& i ) const{
-	return new ObiektBase(i,*this);
+	return new ObiektBase(i,Poziom(1),*this);
 }
 
 const Poziom& ObiektBaseInfo::getPoziom()const{
 	return poziom;
-}
-
-Klucz ObiektBaseInfo::ID() const{
-	return Klucz(getId(),poziom);
 }
 
 string ObiektBaseInfo::toString() const{

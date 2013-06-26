@@ -23,6 +23,7 @@ class ObiektBase :
 {
 protected:	
 	Ilosc ilosc;
+	Poziom poziom;
 	const ObiektBaseInfo& obiektBaseInfo; /**< Wskazanie na obiekt opisuj¹cy dan¹ klasê*/
 
 public:
@@ -33,7 +34,7 @@ public:
 	* \param poziom - Poziom obiektów opisywanych przez klasê.
 	* \param iInfo - Wskazanie na klasê opisuj¹c¹ reprezentowany obiekt.
 	*/
-	ObiektBase( const Ilosc& ilosc, const ObiektBaseInfo& iInfo) throw();
+	ObiektBase( const Ilosc& ilosc, const Poziom& p, const ObiektBaseInfo& iInfo) throw();
 
 	/**
 	* Destruktor domyœlny.
@@ -103,6 +104,8 @@ public:
 	*/
 	const Poziom& getPoziom() const;
 
+	void setPoziom(const Poziom&);
+
 	/**
 	* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
 	* \return Napis zwieraj¹cy opis klasy.
@@ -121,5 +124,7 @@ public:
 	* \return Koszty po przetworzeniu przez klasy zmieniaj¹ce
 	*/
 	Cennik::ListaSurowcow PobierzKoszty() const;
+
+	const ObiektBaseInfo& getObiektBaseInfo()const;
 };
 

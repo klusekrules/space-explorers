@@ -2,8 +2,8 @@
 #include "StatekInfo.h"
 #include "Logger.h"
 
-Statek::Statek( const Ilosc& i ,const StatekInfo& s )
-	: Obiekt( i,s ), JednostkaAtakujaca(s), JednostkaLatajaca(s), Ladownia(s), statekinfo(s)
+Statek::Statek( const Ilosc& i, const Poziom& p ,const StatekInfo& s )
+	: Obiekt( i, p, s ), JednostkaAtakujaca(s), JednostkaLatajaca(s), Ladownia(s), statekinfo(s)
 {
 }
 
@@ -20,7 +20,7 @@ Statek* Statek::Kopia() const{
 
 Statek* Statek::Podziel( const Ilosc& i ){
 	if( ilosc>i ){
-		Statek* o = new Statek( i , this->statekinfo );
+		Statek* o = new Statek( i , getPoziom(), this->statekinfo );
 		ilosc-=i;
 		return o; 
 	}
@@ -99,6 +99,6 @@ string Statek::toString() const{
 	str.addClass(JednostkaAtakujaca::toString());
 	str.addClass(JednostkaLatajaca::toString());
 	str.addClass(Ladownia::toString());
-	str.addField(CLASSNAME(StatekInfo)+"ID",statekinfo.ID());
+	str.addField(CLASSNAME(StatekInfo)+"ID",statekinfo.getId());
 	return str.toString();
 }

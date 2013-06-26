@@ -17,8 +17,8 @@
 
   <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
-      <ObiektBaseInfo poziom="2">
-        <Info id="0x0001" nazwa="Tytan">
+      <ObiektBaseInfo poziom="1">
+        <Info id="0x0002" nazwa="Tytan">
           Opis Tytanu.
           <Wymagania>
             <Cennik>
@@ -35,8 +35,8 @@
 
   <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
-      <ObiektBaseInfo poziom="3">
-        <Info id="0x0001" nazwa="Naquadah">
+      <ObiektBaseInfo poziom="1">
+        <Info id="0x0003" nazwa="Naquadah">
           Opis Naquadah'u.
           <Wymagania>
             <Cennik>
@@ -55,7 +55,7 @@
   <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="1">
-        <Info id="0x0002" nazwa="MiedŸ">
+        <Info id="0x0004" nazwa="MiedŸ">
           Opis miedzi.
           <Wymagania>
             <Cennik>
@@ -72,8 +72,8 @@
 
   <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
-      <ObiektBaseInfo poziom="2">
-        <Info id="0x0002" nazwa="Krzem">
+      <ObiektBaseInfo poziom="1">
+        <Info id="0x0005" nazwa="Krzem">
           Opis krzemu.
           <Wymagania>
             <Cennik>
@@ -90,8 +90,8 @@
 
   <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
-      <ObiektBaseInfo poziom="3">
-        <Info id="0x0002" nazwa="Kryszta³">
+      <ObiektBaseInfo poziom="1">
+        <Info id="0x0006" nazwa="Kryszta³">
           Opis kryszta³u.
           <Wymagania>
             <Cennik>
@@ -110,7 +110,7 @@
   <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="1">
-        <Info id="0x0003" nazwa="Wodór">
+        <Info id="0x0007" nazwa="Wodór">
           Opis wodoru.
           <Wymagania>
             <Cennik>
@@ -127,8 +127,8 @@
 
   <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
-      <ObiektBaseInfo poziom="2">
-        <Info id="0x0003" nazwa="Deuter">
+      <ObiektBaseInfo poziom="1">
+        <Info id="0x0008" nazwa="Deuter">
           Opis deuteru.
           <Wymagania>
             <Cennik>
@@ -145,8 +145,8 @@
 
   <SurowceInfo typ="1">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
-      <ObiektBaseInfo poziom="3">
-        <Info id="0x0003" nazwa="Tryt">
+      <ObiektBaseInfo poziom="1">
+        <Info id="0x0009" nazwa="Tryt">
           Opis trytu.
           <Wymagania>
             <Cennik>
@@ -164,7 +164,7 @@
   <SurowceInfo typ="2">
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="1">
-        <Info id="0x0004" nazwa="Energia">
+        <Info id="0x000A" nazwa="Energia">
           Opis energii.
           <Wymagania>
             <Cennik>
@@ -188,7 +188,7 @@
           <Wymagania>
             <Cennik>
               <Cena>
-                <Surowce id="0x1" poziom="1" ilosc="1000"></Surowce>
+                <Surowce id="0x1" ilosc="1000"></Surowce>
                 <Zmiana id="2">
                   <Zmiana id="3" for="next">
                     <Param id="0" Wspolczynnik="3.0">
@@ -201,14 +201,14 @@
                 </Zmiana>
               </Cena>
               <Cena>
-                <Surowce id="0x2" poziom="1" ilosc="500"></Surowce>
+                <Surowce id="0x4" ilosc="500"></Surowce>
                 <Zmiana id="4">
                   <Param id="1" Wspolczynnik="1.0"></Param>
                   <Param id="2" Wspolczynnik="2.0"></Param>
                 </Zmiana>
               </Cena>
               <Cena>
-                <Surowce id="0x3" poziom="1" ilosc="200"></Surowce>
+                <Surowce id="0x7" ilosc="200"></Surowce>
                 <Zmiana id="5">
                   <Param id="0" Wspolczynnik="5.0">
                   </Param>

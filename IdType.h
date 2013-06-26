@@ -1,6 +1,7 @@
 #pragma once
 #include "Main.h"
 #include "BaseTypes.h"
+#include "parser\ticpp.h"
 
 class IdType :
 	virtual public LoggerInterface,
@@ -11,6 +12,7 @@ protected:
 public:
 	
 	IdType();
+	IdType( ticpp::Node* );
 	explicit IdType( const type_name& ID );
 	IdType( const IdType& a );
 	virtual ~IdType();
@@ -30,3 +32,8 @@ public:
 	string toString()const override;
 };
 
+struct IdTypeHash {
+    size_t operator()(const IdType& t) const {
+		return static_cast<size_t>(t.value());
+    }
+};

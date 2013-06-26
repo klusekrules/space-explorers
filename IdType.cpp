@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include <iomanip>
 #include "Stale.h"
+#include "WyjatekParseraXML.h"
 
 IdType::IdType()
 	: id(Stale::idDomyslny)
@@ -16,6 +17,19 @@ IdType::IdType( const type_name& ID )
 IdType::IdType( const IdType& a )
 	: id(a.id)
 {
+}
+
+IdType::IdType( ticpp::Node* n )
+	: id(Stale::idDomyslny)
+{
+	if(n!=nullptr){
+		try{
+			ticpp::Element* e = n->ToElement();
+			id = stoi(e->GetAttribute("id"),nullptr,0);
+		}catch(exception& e){
+			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
+		}
+	}
 }
 
 IdType::~IdType(){

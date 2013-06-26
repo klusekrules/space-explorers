@@ -58,7 +58,7 @@ public:
 	string toString() const override;
 private:
 
-	Statek( const Ilosc& ,const StatekInfo& );
+	Statek( const Ilosc&, const Poziom& p,const StatekInfo& );
 
 protected:
 
