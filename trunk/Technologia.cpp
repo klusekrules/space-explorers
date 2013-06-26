@@ -33,6 +33,7 @@ bool Technologia::czyMoznaPodzielic( const Ilosc& ilosc) const{
 string Technologia::toString() const{
 	Logger str(CLASSNAME(Technologia));
 	str.addClass(ObiektBase::toString());
+	str.addField(CLASSNAME(TechnologiaInfo)+"ID",technologiaInfo.getId());
 	return str.toString();
 }
 
