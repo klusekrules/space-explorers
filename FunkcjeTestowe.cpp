@@ -63,7 +63,7 @@ bool test_KlasaLadownia( Test & t ){
 	shared_ptr<Surowce> c (tworzSurowce(t,IdType(6),Ilosc(20)));
 	t.assert_false(EXCEPTION_PLACE,c->czyTypPrzyrostowy());
 	t.assert_false(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*c));
-	shared_ptr<Surowce> d (tworzSurowce(t,IdType(4),Ilosc(20)));
+	shared_ptr<Surowce> d (tworzSurowce(t,IdType(10),Ilosc(20)));
 	t.assert_true(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*d));
 	Aplikacja::getInstance().getLog().debug("Zawartosc po dodaniu obiektu: ");
 	Aplikacja::getInstance().getLog().debug(*a);
