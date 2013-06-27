@@ -48,6 +48,9 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>SubWCRev.exe $(SolutionDir) ..\svn_version.h.tmpl $(SolutionDir)svn_version.h</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -63,7 +66,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PreBuildEvent>
-      <Command>SubWCRev.exe $(SolutionDir) $(ProjectDir)\svn_version.h.tmpl $(ProjectDir)\svn_version.h</Command>
+      <Command>SubWCRev.exe $(SolutionDir) ..\svn_version.h.tmpl $(SolutionDir)svn_version.h</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
