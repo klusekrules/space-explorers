@@ -168,7 +168,8 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PreBuildEvent>
-      <Command>SubWCRev.exe $(SolutionDir) $(ProjectDir)\svn_version.h.tmpl $(ProjectDir)\svn_version.h</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ResourceCompile>
       <Culture>0x0015</Culture>
