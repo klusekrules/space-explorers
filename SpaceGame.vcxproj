@@ -149,6 +149,7 @@
     </ResourceCompile>
     <ResourceCompile>
       <ShowProgress>false</ShowProgress>
+      <PreprocessorDefinitions>_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -198,6 +199,7 @@
     </ResourceCompile>
     <ResourceCompile>
       <ShowProgress>false</ShowProgress>
+      <PreprocessorDefinitions>_WIN64</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
