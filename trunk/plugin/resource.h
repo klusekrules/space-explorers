@@ -1,11 +1,10 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by Version.rc
+// Used by Resource.rc
 #include "../version.h"
 
 #define LANG_POLISH 0x15
 #define SUBLANG_DEFAULT 0x1
-
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
