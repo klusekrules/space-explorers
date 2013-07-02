@@ -5,12 +5,14 @@
 #include "Fluktuacja.h"
 #include "JednostkaAtakujacaInfo.h"
 #include "NiezainicjalizowanaKlasa.h"
+#include "PodstawoweParametry.h"
 /**
 * Klasa zawieraj¹ca interfejs jednostki atakuj¹cej, zawiera metody wyliczaj¹ce obra¿enia zadawane, 
 * obra¿enia otrzymywane oraz obra¿enia odbijane.
 *
 */
 class JednostkaAtakujaca :
+	virtual public PodstawoweParametry,
 	virtual public LoggerInterface
 {
 public:	
@@ -62,7 +64,4 @@ public:
 
 protected:
 	const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo; /// WskaŸnik na klasê opisuj¹c¹. Wymagany do poprawnego dzia³ania.
-private:
-	const IdType& idPlanety;
-	const Poziom& poziomObiektu;
 };

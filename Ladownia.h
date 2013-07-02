@@ -21,12 +21,14 @@
 #include "Fluktuacja.h"
 #include "Masa.h"
 #include "ObiektList.hpp"
+#include "PodstawoweParametry.h"
 
 class Surowce;
 class LadowniaInfo;
 class Statek;
 
 class Ladownia:
+	virtual public PodstawoweParametry,
 	virtual public LoggerInterface
 {
 public:
@@ -69,8 +71,6 @@ protected:
 	Zbiornik obiekty;
 	Objetosc zajete;
 private:
-	const IdType& idPlanety;
-	const Poziom& poziomObiektu;
 	const LadowniaInfo& ladowniaInfo;
 };
 

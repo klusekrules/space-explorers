@@ -5,12 +5,13 @@
 #include "Dystans.h"
 #include "JednostkaLatajacaInfo.h"
 #include "NiezainicjalizowanaKlasa.h"
-
+#include "PodstawoweParametry.h"
 /**
 * Klasa implementuj¹ca interfejs, s³u¿¹cy do lotów statków kosmiczych.
 * Pozwala na wyliczenie wszystkich parametrów lotu.
 */
 class JednostkaLatajaca :
+	virtual public PodstawoweParametry,
 	virtual public LoggerInterface
 {
 public:
@@ -85,10 +86,6 @@ protected:
 	virtual Masa CalkowitaMasaJednostki() const;
 	
 	const JednostkaLatajacaInfo& jednostkaLatajacaInfo; /// WskaŸnika na klase opisuj¹c¹.
-
-private:
-	const IdType& idPlanety;
-	const Poziom& poziomObiektu;
-
+	
 };
 

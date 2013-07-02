@@ -4,7 +4,7 @@
 #include "Ladownia.h"
 
 Obiekt::Obiekt( const Ilosc& i, const Poziom& p, const IdType& idP, const ObiektInfo& obiekt ) throw()
-	: ObiektBase( i, p, idP, obiekt ), obiektInfoClass( obiekt )
+	: PodstawoweParametry(p, idP), ObiektBase( i, p, idP, obiekt ), obiektInfoClass( obiekt )
 {
 }
 

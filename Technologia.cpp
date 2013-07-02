@@ -2,7 +2,7 @@
 #include "TechnologiaInfo.h"
 
 Technologia::Technologia( const Poziom& p, const IdType& idP, const TechnologiaInfo& t)
-	: ObiektBase(Ilosc(1),p,idP,t), technologiaInfo(t)
+	: PodstawoweParametry(p, idP),ObiektBase(Ilosc(1),p,idP,t), technologiaInfo(t)
 {
 }
 

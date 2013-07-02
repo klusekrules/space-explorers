@@ -4,12 +4,12 @@
 #include "Ladownia.h"
 
 Surowce::Surowce( const Ilosc& isIlosc, const Poziom& p, const IdType& idP, const SurowceInfo& s )
-	:  Obiekt( isIlosc, p, idP, s ), surowceInfo(s)
+	:  PodstawoweParametry(p, idP), Obiekt( isIlosc, p, idP, s ), surowceInfo(s)
 {
 }
 
 Surowce::Surowce( const Ilosc& isIlosc , const Surowce& s )
-	:  Obiekt( s ), surowceInfo(s.surowceInfo)
+	:  PodstawoweParametry(s), Obiekt( s ), surowceInfo(s.surowceInfo)
 {
 }
 

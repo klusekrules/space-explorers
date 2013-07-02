@@ -3,7 +3,7 @@
 #include "Logger.h"
 
 ObiektBase::ObiektBase( const Ilosc& i, const Poziom& p, const IdType& idP, const ObiektBaseInfo& iInfo) throw()
-	: Base(iInfo), ilosc(i), poziom(p), idPlanety(idP), obiektBaseInfo(iInfo)
+	: PodstawoweParametry(p,idP), Base(iInfo), ilosc(i), obiektBaseInfo(iInfo)
 {
 }
 
@@ -52,22 +52,6 @@ void ObiektBase::setIlosc( const Ilosc& i ){
 	ilosc = i;
 }
 
-const Poziom& ObiektBase::getPoziom() const{
-	return poziom;
-}
-
-void ObiektBase::setPoziom(const Poziom& p){
-	poziom=p;
-}
-
-const IdType& ObiektBase::getIdPlanety() const{
-	return idPlanety;
-}
-
-void ObiektBase::setIdPlanety( const IdType& id ){
-	idPlanety = id;
-}
-
 Cennik::ListaSurowcow ObiektBase::PobierzKoszty() const{
 	return obiektBaseInfo.PobierzKoszty(getIlosc(),getPoziom(),getIdPlanety());
 }
@@ -84,9 +68,8 @@ const ObiektBaseInfo& ObiektBase::getObiektBaseInfo()const{
 string ObiektBase::toString() const{
 	Logger str(CLASSNAME(ObiektBase));
 	str.addClass(Base::toString());
+	str.addClass(PodstawoweParametry::toString());
 	str.addField(CLASSNAME(Ilosc),ilosc);
-	str.addField(CLASSNAME(Poziom),poziom);
-	str.addField(CLASSNAME(IdType),idPlanety);
 	str.addField(CLASSNAME(ObiektBaseInfo)+"ID",obiektBaseInfo.getId());
 	return str.toString();
 }
