@@ -12,7 +12,7 @@ ZmianaPotegowa::~ZmianaPotegowa(void)
 {
 }
 
-long double ZmianaPotegowa::value(const long double& d, const int& p) const{
+long double ZmianaPotegowa::value(const long double& d, const int& p, const int&) const{
 	return d * wspolczynnik.getWspolczynnik() * pow(static_cast<long double>(p),wykladnik.getWspolczynnik());
 }
 

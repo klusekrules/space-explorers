@@ -23,7 +23,7 @@ public:
 
 	const IdType& getId() const;
 		
-	Statek* TworzEgzemplarz( const Ilosc& ) const override;
+	Statek* TworzEgzemplarz( const Ilosc&, const IdType& ) const override;
 
 	string toString() const override;
 };

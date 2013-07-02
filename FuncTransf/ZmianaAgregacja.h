@@ -26,7 +26,7 @@ private:
 
 public:
 	
-	long double value( const long double& , const int& )const override;
+	long double value( const long double& , const int&, const int& )const override;
 
 	explicit ZmianaAgregacja( const ticpp::Element* );
 

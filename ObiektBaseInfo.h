@@ -18,7 +18,7 @@ public:
 
 	virtual ~ObiektBaseInfo();
 	
-	virtual ObiektBase* TworzEgzemplarz( const Ilosc& ) const;
+	virtual ObiektBase* TworzEgzemplarz( const Ilosc&, const IdType& ) const;
 
 	const Poziom& getPoziom()const;
 

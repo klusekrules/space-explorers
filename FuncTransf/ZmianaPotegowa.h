@@ -21,7 +21,7 @@ private:
 	ZmianaParametr wykladnik;
 public:
 
-	long double value(const long double&, const int&) const override;
+	long double value(const long double&, const int&, const int&) const override;
 
 	ZmianaPotegowa* Kopia()const override;
 

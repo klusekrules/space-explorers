@@ -10,7 +10,7 @@ class Budynek :
 protected:
 	const BudynekInfo& budynekInfo;
 public:
-	Budynek(const Poziom& p, const BudynekInfo&);
+	Budynek(const Poziom& p, const IdType& idP, const BudynekInfo&);
 	~Budynek(void);
 
 	Budynek* Kopia() const override;

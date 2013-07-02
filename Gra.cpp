@@ -4,14 +4,14 @@
 Gra::Gra(Aplikacja& app)
 	: aplikacja(app), fabryka(ZmianaFabryka::pobierzInstancje()), uzytkownik(new Uzytkownik()),
 	pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), 
-	pustyObiektBase( Ilosc(0), Poziom(0), pustyobiekBaseInfo )
+	pustyObiektBase( Ilosc(0), Poziom(0),IdType(0), pustyobiekBaseInfo )
 {
 }
 
 Gra::Gra(const Gra& g)
 	: aplikacja(g.aplikacja), fabryka(ZmianaFabryka::pobierzInstancje()),uzytkownik(g.uzytkownik),
 	pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), 
-	pustyObiektBase( Ilosc(0), Poziom(0), pustyobiekBaseInfo )
+	pustyObiektBase( Ilosc(0), Poziom(0),IdType(0), pustyobiekBaseInfo )
 {
 }
 

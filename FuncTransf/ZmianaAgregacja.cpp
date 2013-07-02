@@ -41,12 +41,12 @@ ZmianaAgregacja::~ZmianaAgregacja()
 {
 }
 
-long double ZmianaAgregacja::value( const long double& d, const int& p )const{
-	long double v = ZmianaDekorator::value(d,p);
+long double ZmianaAgregacja::value( const long double& d, const int& p, const int& planeta )const{
+	long double v = ZmianaDekorator::value(d,p,planeta);
 	long double suma = 0;
 	for(auto e : list){
 		if(e.get())
-			suma+=e->value(v,p);
+			suma+=e->value(v,p,planeta);
 	}
 	return suma;
 }

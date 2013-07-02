@@ -21,7 +21,7 @@ public:
 private:
 	ZmianaParametr parametr;
 public:
-	long double value(const long double&, const int&) const override;
+	long double value(const long double&, const int&, const int&) const override;
 
 	ZmianaLiniowa* Kopia()const override;
 

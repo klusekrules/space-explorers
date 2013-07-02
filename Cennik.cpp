@@ -33,10 +33,10 @@ bool Cennik::czySpelniaKoszty( const Ilosc& i, const Poziom& p, const IdType& id
 	return true;
 }
 
-Cennik::ListaSurowcow Cennik::PobierzKoszty(const Ilosc& il, const Poziom& p) const{
+Cennik::ListaSurowcow Cennik::PobierzKoszty(const Ilosc& il, const Poziom& p, const IdType& idPlanety) const{
 	ListaSurowcow tmp;
 	for( auto i : elementy ){
-		tmp.push_back(i->PobierzKoszty(il,p));
+		tmp.push_back(i->PobierzKoszty(il,p, idPlanety));
 	}
 	return tmp;
 }

@@ -11,7 +11,7 @@ public:
 	TechnologiaInfo( const TechnologiaInfo& );
 	explicit TechnologiaInfo( const ObiektBaseInfo& );
 	explicit TechnologiaInfo( ticpp::Node* );
-	Technologia* TworzEgzemplarz( const Ilosc& = Ilosc() ) const override;
+	Technologia* TworzEgzemplarz( const Ilosc&, const IdType& ) const override;
 	~TechnologiaInfo( );
 	string toString()const override;
 };

@@ -3,8 +3,8 @@
 #include "Logger.h"
 #include "Ladownia.h"
 
-Surowce::Surowce( const Ilosc& isIlosc, const Poziom& p, const SurowceInfo& s )
-	:  Obiekt( isIlosc, p, s ), surowceInfo(s)
+Surowce::Surowce( const Ilosc& isIlosc, const Poziom& p, const IdType& idP, const SurowceInfo& s )
+	:  Obiekt( isIlosc, p, idP, s ), surowceInfo(s)
 {
 }
 

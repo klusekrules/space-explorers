@@ -21,7 +21,7 @@ public:
 	* \param mocSilnika - Procentowa wartoœæ mocy w klasie opisuj¹cej. Domyœlnie 1.0 
 	* \param zuzyciePaliwa - Procentowa wartoœæ zu¿ycia paliwa w klasie opisuj¹cej. Domyœlnie 1.0 
 	*/
-	explicit JednostkaLatajaca( const JednostkaLatajacaInfo& jInfo );
+	explicit JednostkaLatajaca( const IdType& idP, const JednostkaLatajacaInfo& jInfo );
 	
 	/**
 	* Domyœlny konstruktor kopiuj¹cy
@@ -88,8 +88,11 @@ protected:
 	* \return Ca³kowita masa statku
 	*/
 	virtual Masa CalkowitaMasaJednostki() const;
-
+	
 	const JednostkaLatajacaInfo& jednostkaLatajacaInfo; /// WskaŸnika na klase opisuj¹c¹.
+
+private:
+	const IdType& idPlanety;
 
 };
 

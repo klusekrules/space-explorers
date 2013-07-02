@@ -2,8 +2,8 @@
 #include "ObiektBaseInfo.h"
 #include "Logger.h"
 
-ObiektBase::ObiektBase( const Ilosc& i, const Poziom& p, const ObiektBaseInfo& iInfo) throw()
-	: Base(iInfo), ilosc(i), poziom(p), obiektBaseInfo(iInfo)
+ObiektBase::ObiektBase( const Ilosc& i, const Poziom& p, const IdType& idP, const ObiektBaseInfo& iInfo) throw()
+	: Base(iInfo), ilosc(i), poziom(p), idPlanety(idP), obiektBaseInfo(iInfo)
 {
 }
 
@@ -17,7 +17,7 @@ ObiektBase* ObiektBase::Kopia() const{
 ObiektBase* ObiektBase::Podziel( const Ilosc& i ){
 	if( czyMoznaPodzielic(i) ){
 		ilosc-=i;
-		return new ObiektBase( i, getPoziom() , obiektBaseInfo );
+		return new ObiektBase( i, getPoziom(), getIdPlanety() , obiektBaseInfo );
 	}
 	return nullptr;
 }
@@ -60,13 +60,21 @@ void ObiektBase::setPoziom(const Poziom& p){
 	poziom=p;
 }
 
+const IdType& ObiektBase::getIdPlanety() const{
+	return idPlanety;
+}
+
+void ObiektBase::setIdPlanety( const IdType& id ){
+	idPlanety = id;
+}
+
 Cennik::ListaSurowcow ObiektBase::PobierzKoszty() const{
-	return obiektBaseInfo.PobierzKoszty(getIlosc(),getPoziom());
+	return obiektBaseInfo.PobierzKoszty(getIlosc(),getPoziom(),getIdPlanety());
 }
 
 
 Warunek::PrzetworzoneWarunki ObiektBase::PobierzWarunki()const{
-	return obiektBaseInfo.listaWarunkow(getPoziom());
+	return obiektBaseInfo.listaWarunkow(getPoziom(),getIdPlanety());
 }
 
 const ObiektBaseInfo& ObiektBase::getObiektBaseInfo()const{

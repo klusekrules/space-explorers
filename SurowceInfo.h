@@ -18,7 +18,7 @@ public:
 
 	bool czyTypPrzyrostowy()const;
 	
-	Surowce* TworzEgzemplarz( const Ilosc& ) const override;
+	Surowce* TworzEgzemplarz( const Ilosc&, const IdType& ) const override;
 
 	string toString() const override;
 

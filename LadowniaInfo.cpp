@@ -25,11 +25,11 @@ LadowniaInfo::~LadowniaInfo()
 {
 }
 
-Objetosc LadowniaInfo::getPojemnoscMaksymalna(const Poziom& p) const{
+Objetosc LadowniaInfo::getPojemnoscMaksymalna(const Poziom& p, const IdType& idPlanety) const{
 	if(przyrostPojemnoscMax==nullptr)
 		return pojemnoscMax;
 	else
-		return Objetosc(przyrostPojemnoscMax->value(pojemnoscMax.value(),static_cast<int>(p.value())));
+		return Objetosc(przyrostPojemnoscMax->value(pojemnoscMax.value(),static_cast<int>(p.value()),idPlanety.value()));
 }
 		
 string LadowniaInfo::toString() const{

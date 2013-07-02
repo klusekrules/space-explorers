@@ -21,8 +21,8 @@ const IdType& StatekInfo::getId() const{
 	return ObiektInfo::getId();
 }
 
-Statek* StatekInfo::TworzEgzemplarz( const Ilosc& i ) const{
-	return new Statek(i,getPoziom(),*this);
+Statek* StatekInfo::TworzEgzemplarz( const Ilosc& i, const IdType& idP ) const{
+	return new Statek(i,getPoziom(), idP, *this);
 }
 
 string StatekInfo::toString() const{

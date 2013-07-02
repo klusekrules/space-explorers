@@ -18,7 +18,7 @@ public:
 	* Konstruktor parametryczny.
 	* /param jInfo - Wskazanie na klasê reprezentuj¹c¹ opis jednostki atakuj¹cej.
 	*/
-	explicit JednostkaAtakujaca( const JednostkaAtakujacaInfo& jInfo );
+	explicit JednostkaAtakujaca( const IdType& idP, const JednostkaAtakujacaInfo& jInfo );
 	
 	/**
 	* Wirtualny destruktor
@@ -62,5 +62,6 @@ public:
 
 protected:
 	const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo; /// WskaŸnik na klasê opisuj¹c¹. Wymagany do poprawnego dzia³ania.
-	
+private:
+	const IdType& idPlanety;
 };

@@ -2,13 +2,13 @@
 #include "BudynekInfo.h"
 #include "Logger.h"
 
-Budynek::Budynek(const Poziom& p, const BudynekInfo& o)
-	: Obiekt( Ilosc(1), p, o ), budynekInfo(o)
+Budynek::Budynek(const Poziom& p, const IdType& idP, const BudynekInfo& o)
+	: Obiekt( Ilosc(1), p, idP, o ), budynekInfo(o)
 {
 }
 
 Budynek* Budynek::Kopia() const{
-	return new Budynek(getPoziom(),budynekInfo);
+	return new Budynek(getPoziom(),getIdPlanety(),budynekInfo);
 }
 
 Budynek* Budynek::Podziel( const Ilosc& ilosc){
@@ -32,11 +32,11 @@ Budynek::~Budynek(void)
 }
 
 Cennik::ListaSurowcow Budynek::PobierzZapotrzebowanie( )const{
-	return budynekInfo.PobierzZapotrzebowanie(getPoziom());
+	return budynekInfo.PobierzZapotrzebowanie(getPoziom(),getIdPlanety());
 }
 
 Cennik::ListaSurowcow Budynek::PobierzProdukcje( )const{
-	return budynekInfo.PobierzProdukcje(getPoziom());
+	return budynekInfo.PobierzProdukcje(getPoziom(),getIdPlanety());
 }
 
 string Budynek::toString()const{

@@ -12,7 +12,7 @@ Cena::Cena( ticpp::Node* n ) throw(WyjatekParseraXML)
 		ticpp::Node* a = n->IterateChildren(CLASSNAME(Cena::Item),nullptr);
 		try{
 			IdType k(a);
-			obiekty= shared_ptr<Item>(Aplikacja::getInstance().getGra().getSurowce(k).TworzEgzemplarz(Ilosc(stoi(a->ToElement()->GetAttribute("ilosc"),nullptr,0))));
+			obiekty= shared_ptr<Item>(Aplikacja::getInstance().getGra().getSurowce(k).TworzEgzemplarz(Ilosc(stoi(a->ToElement()->GetAttribute("ilosc"),nullptr,0)),IdType()));
 			zmiana = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElement<NOTHROW>(n,"Zmiana"));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
@@ -36,10 +36,10 @@ Cena::~Cena()
 {
 }
 
-shared_ptr<Cena::Item> Cena::PobierzKoszty(const Ilosc& i, const Poziom& p ) const{
+shared_ptr<Cena::Item> Cena::PobierzKoszty(const Ilosc& i, const Poziom& p, const IdType& idPlanety ) const{
 	shared_ptr<Item> tmp(obiekty->Kopia());
 	if(zmiana){
-		tmp->setIlosc(Ilosc(i.value()* zmiana->value(obiekty->getIlosc().value(),static_cast<int>(p.value()))));
+		tmp->setIlosc(Ilosc(i.value()* zmiana->value(obiekty->getIlosc().value(),static_cast<int>(p.value()),idPlanety.value())));
 	}else{
 		tmp->setIlosc(Ilosc(i.value()* obiekty->getIlosc().value() ));
 	}

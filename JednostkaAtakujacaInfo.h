@@ -51,19 +51,19 @@ public:
 	* Metoda zwraca obra¿enia zadawane przez obiekt.
 	* \return obra¿enia zadawane przez obiekt.
 	*/
-	Obrazenia getAtak(const Poziom& p ) const;	
+	Obrazenia getAtak(const Poziom& p, const IdType& ) const;	
 
 	/**
 	* Metoda zwraca obra¿enia jakie zniszcz¹ obiekt.
 	* \return obra¿enia jakie zniszcz¹ obiekt.
 	*/
-	Obrazenia getPancerz(const Poziom& p ) const;	
+	Obrazenia getPancerz(const Poziom& p, const IdType& ) const;	
 
 	/**
 	* Metoda zwraca obra¿enia jakie mo¿e poch³on¹æ os³ona obiektu.
 	* \return obra¿enia jakie mo¿e poch³on¹æ os³ona obiektu.
 	*/
-	Obrazenia getOslona(const Poziom& p ) const;
+	Obrazenia getOslona(const Poziom& p, const IdType& ) const;
 
 	/**
 	* Metoda zwraca generator pseudolosowy.

@@ -12,7 +12,7 @@ ZmianaLiniowa::~ZmianaLiniowa(void)
 {
 }
 
-long double ZmianaLiniowa::value(const long double& d, const int& p) const{
+long double ZmianaLiniowa::value(const long double& d, const int& p, const int&) const{
 	return d * parametr.getWspolczynnik() * p;
 }
 

@@ -1,8 +1,8 @@
 #include "Technologia.h"
 #include "TechnologiaInfo.h"
 
-Technologia::Technologia( const Poziom& p, const TechnologiaInfo& t)
-	: ObiektBase(Ilosc(1),p,t), technologiaInfo(t)
+Technologia::Technologia( const Poziom& p, const IdType& idP, const TechnologiaInfo& t)
+	: ObiektBase(Ilosc(1),p,idP,t), technologiaInfo(t)
 {
 }
 
@@ -11,7 +11,7 @@ Technologia::~Technologia(void)
 }
 
 Technologia* Technologia::Kopia() const{
-	return new Technologia(getPoziom(),technologiaInfo);
+	return new Technologia(getPoziom(),getIdPlanety(),technologiaInfo);
 }
 
 Technologia* Technologia::Podziel( const Ilosc& ilosc){
