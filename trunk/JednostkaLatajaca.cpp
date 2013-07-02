@@ -2,8 +2,8 @@
 #include "JednostkaLatajaca.h"
 #include "Logger.h"
 
-JednostkaLatajaca::JednostkaLatajaca( const Poziom& p,const IdType& idP, const JednostkaLatajacaInfo& jInfo )
-	: poziomObiektu(p),idPlanety(idP), jednostkaLatajacaInfo(jInfo)
+JednostkaLatajaca::JednostkaLatajaca( const Poziom& p, const IdType& idP, const JednostkaLatajacaInfo& jInfo )
+	: PodstawoweParametry(p,idP), jednostkaLatajacaInfo(jInfo)
 {
 }
 	
@@ -11,29 +11,29 @@ JednostkaLatajaca::~JednostkaLatajaca(){
 }
 
 ZuzyciePaliwa JednostkaLatajaca::WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const{
-	return ZuzyciePaliwa(jednostkaLatajacaInfo.getZuzyciePaliwa(poziomObiektu,idPlanety).value()* ( d.value() / p.value() ) );
+	return ZuzyciePaliwa(jednostkaLatajacaInfo.getZuzyciePaliwa(getPoziom(),getIdPlanety()).value()* ( d.value() / p.value() ) );
 }
 
 ZuzyciePaliwa JednostkaLatajaca::getJednostkoweZuzyciePaliwa()const{
-	return jednostkaLatajacaInfo.getZuzyciePaliwa(poziomObiektu,idPlanety);
+	return jednostkaLatajacaInfo.getZuzyciePaliwa(getPoziom(),getIdPlanety());
 }
 
 MocSilnika JednostkaLatajaca::getMocSilnika()const{
-	return jednostkaLatajacaInfo.getMocSilnika(poziomObiektu,idPlanety);
+	return jednostkaLatajacaInfo.getMocSilnika(getPoziom(),getIdPlanety());
 }
 
 Masa JednostkaLatajaca::getMasaSilnika()const{
-	return jednostkaLatajacaInfo.getMasaNapedu(poziomObiektu,idPlanety);
+	return jednostkaLatajacaInfo.getMasaNapedu(getPoziom(),getIdPlanety());
 }
 
 Fluktuacja JednostkaLatajaca::getSprawnoscSilnika()const{
-	return jednostkaLatajacaInfo.getSprawnoscSilnika(poziomObiektu,idPlanety);
+	return jednostkaLatajacaInfo.getSprawnoscSilnika(getPoziom(),getIdPlanety());
 }
 
 Predkosc JednostkaLatajaca::PredkoscMaksymalna() const{
-	long double eta_m = jednostkaLatajacaInfo.getSprawnoscSilnika(poziomObiektu,idPlanety).value();
+	long double eta_m = jednostkaLatajacaInfo.getSprawnoscSilnika(getPoziom(),getIdPlanety()).value();
 	long double a = 0.01;
-	long double P = jednostkaLatajacaInfo.getMocSilnika(poziomObiektu,idPlanety).value();
+	long double P = jednostkaLatajacaInfo.getMocSilnika(getPoziom(),getIdPlanety()).value();
 	return Predkosc( ( P * eta_m )/(CalkowitaMasaJednostki().value() * a) );
 }
 

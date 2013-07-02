@@ -3,7 +3,7 @@
 #include "Logger.h"
 
 Budynek::Budynek(const Poziom& p, const IdType& idP, const BudynekInfo& o)
-	: Obiekt( Ilosc(1), p, idP, o ), budynekInfo(o)
+	: PodstawoweParametry(p, idP), Obiekt( Ilosc(1), p, idP, o ), budynekInfo(o)
 {
 }
 

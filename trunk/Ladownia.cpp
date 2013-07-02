@@ -5,7 +5,7 @@
 #include "Aplikacja.h"
 
 Ladownia::Ladownia( const Poziom& p, const IdType& idP, const LadowniaInfo& l )
-	: poziomObiektu(p), idPlanety(idP), obiekty(), zajete(), ladowniaInfo(l)
+	: PodstawoweParametry(p, idP), obiekty(), zajete(), ladowniaInfo(l)
 {
 }
 
@@ -169,7 +169,7 @@ const Objetosc& Ladownia::getZajeteMiejsce() const{
 
 
 Objetosc Ladownia::getPojemnoscMax() const{
-	return ladowniaInfo.getPojemnoscMaksymalna( poziomObiektu , idPlanety);
+	return ladowniaInfo.getPojemnoscMaksymalna( getPoziom(),getIdPlanety());
 }
 
 string Ladownia::toString() const{

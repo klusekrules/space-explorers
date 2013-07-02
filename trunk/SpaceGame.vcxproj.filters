@@ -187,6 +187,9 @@
     <ClCompile Include="BudynekInfo.cpp">
       <Filter>SourceFile\Budynek</Filter>
     </ClCompile>
+    <ClCompile Include="PodstawoweParametry.cpp">
+      <Filter>SourceFile\BaseClass\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -419,6 +422,9 @@
     </ClInclude>
     <ClInclude Include="BudynekInfo.h">
       <Filter>SourceFile\Budynek</Filter>
+    </ClInclude>
+    <ClInclude Include="PodstawoweParametry.h">
+      <Filter>SourceFile\BaseClass\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

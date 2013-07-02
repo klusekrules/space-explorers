@@ -2,7 +2,7 @@
 #include "Main.h"
 #include "Base.h"
 #include "Ilosc.h"
-#include "Poziom.h"
+#include "PodstawoweParametry.h"
 #include "Klucz.h"
 #include "Warunek.h"
 #include "Cennik.h"
@@ -19,12 +19,11 @@ class ObiektBaseInfo;
 */
 class ObiektBase :
 	public Base,
+	virtual public PodstawoweParametry,
 	virtual public LoggerInterface
 {
 protected:	
 	Ilosc ilosc;
-	Poziom poziom;
-	IdType idPlanety;
 	const ObiektBaseInfo& obiektBaseInfo; /**< Wskazanie na obiekt opisuj¹cy dan¹ klasê*/
 
 public:
@@ -99,13 +98,6 @@ public:
 	*/
 	void setIlosc( const Ilosc& i );
 
-	/**
-	* Metoda zwraca poziom elementów opisywanych przez klasê
-	* \return Poziom elementów.
-	*/
-	const Poziom& getPoziom() const;
-
-	void setPoziom(const Poziom&);
 
 	/**
 	* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
@@ -125,10 +117,6 @@ public:
 	*/
 	Cennik::ListaSurowcow PobierzKoszty() const;
 		
-	const IdType& getIdPlanety() const;
-
-	void setIdPlanety( const IdType& id );
-
 	const ObiektBaseInfo& getObiektBaseInfo()const;
 };
 
