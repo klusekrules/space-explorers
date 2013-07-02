@@ -21,9 +21,9 @@ public:
 
 	Obiekt* Podziel( const Ilosc& ) override;
 	
-	Objetosc Objetosc() const ;
+	Objetosc getObjetosc() const override;
 
-	Masa Masa() const ;
+	Masa getMasa() const override;
 	
 	Surowce& operator=( const Surowce& ) throw ( NiezgodnyTypSurowca );
 	

@@ -18,7 +18,7 @@ public:
 	* Konstruktor parametryczny.
 	* /param jInfo - Wskazanie na klasê reprezentuj¹c¹ opis jednostki atakuj¹cej.
 	*/
-	explicit JednostkaAtakujaca( const IdType& idP, const JednostkaAtakujacaInfo& jInfo );
+	explicit JednostkaAtakujaca( const Poziom&p , const IdType& idP, const JednostkaAtakujacaInfo& jInfo );
 	
 	/**
 	* Wirtualny destruktor
@@ -29,21 +29,21 @@ public:
 	* Metoda atak s³u¿y do wyliczania obra¿eñ zadawanych przez obiekt.
 	* \return Obra¿enia zadane przez obiekt.
 	*/
-	virtual Obrazenia Atak( const Poziom& p ) const;	
+	virtual Obrazenia Atak( ) const;	
 
 	/**
 	* Metoda obliczaj¹ca obra¿enia przyjête przez pancerz. Metoda zwraca obra¿enia, które nie przyj¹³ pancerz.
 	* \param o - Obra¿enia przes³ane do obiektu.
 	* \return Obra¿enia, które nie zosta³y przyjête przez obiekt.
 	*/
-	virtual Obrazenia Pancerz( const Obrazenia& o ,const Poziom& p  ) const;
+	virtual Obrazenia Pancerz( const Obrazenia& o ) const;
 
 	/**
 	* Metoda obliczaj¹ca obra¿enia przyjête przez oslone. Metoda zwraca obra¿enia, które nie przyje³a os³ona
 	* \param o - Obra¿enia przes³ane do obiektu.
 	* \return Obra¿enia, które nie zosta³y przyjête przez obiekt.
 	*/
-	virtual Obrazenia Oslona( const Obrazenia& o , const Poziom& p ) const;
+	virtual Obrazenia Oslona( const Obrazenia& o ) const;
 	
 	/**
 	* Przeci¹¿ona funkcja generuj¹ca tekstowy opis klasy.
@@ -51,11 +51,11 @@ public:
 	*/
 	string toString() const override;
 
-	virtual Obrazenia getAtak( const Poziom& p ) const;
+	virtual Obrazenia getAtak() const;
 
-	virtual Obrazenia getPancerz( const Poziom& p  ) const;
+	virtual Obrazenia getPancerz() const;
 
-	virtual Obrazenia getOslona( const Poziom& p ) const;
+	virtual Obrazenia getOslona() const;
 
 	static const double srednia;
 	static const double odchylenie;
@@ -64,4 +64,5 @@ protected:
 	const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo; /// WskaŸnik na klasê opisuj¹c¹. Wymagany do poprawnego dzia³ania.
 private:
 	const IdType& idPlanety;
+	const Poziom& poziomObiektu;
 };

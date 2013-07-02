@@ -21,13 +21,8 @@ public:
 	* \param mocSilnika - Procentowa wartoœæ mocy w klasie opisuj¹cej. Domyœlnie 1.0 
 	* \param zuzyciePaliwa - Procentowa wartoœæ zu¿ycia paliwa w klasie opisuj¹cej. Domyœlnie 1.0 
 	*/
-	explicit JednostkaLatajaca( const IdType& idP, const JednostkaLatajacaInfo& jInfo );
+	explicit JednostkaLatajaca( const Poziom& p, const IdType& idP, const JednostkaLatajacaInfo& jInfo );
 	
-	/**
-	* Domyœlny konstruktor kopiuj¹cy
-	* \param a - Obiekt na podstawie którego zostanie utworzona kopia.
-	*/
-	JednostkaLatajaca( const JednostkaLatajaca& a );
 	
 	/**
 	* Destruktor domyœlny
@@ -40,20 +35,20 @@ public:
 	* \param p - Prêdkoœæ, któr¹ ma lecieæ statek.
 	* \return Paliwo zu¿yte przez statek.
 	*/
-	virtual ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p,const Poziom& pz  ) const;
+	virtual ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p) const;
 
 	/**
 	* Funkcja podaj¹ca jednostkowe zu¿ycie paliwa.
 	* \param pz - Poziom dla którego jest wyliczane zu¿ycie.
 	* \return Paliwo zu¿yte przez statek.
 	*/
-	virtual ZuzyciePaliwa getJednostkoweZuzyciePaliwa( const Poziom& pz  )const;
+	virtual ZuzyciePaliwa getJednostkoweZuzyciePaliwa()const;
 
-	virtual MocSilnika getMocSilnika( const Poziom& pz  )const;
+	virtual MocSilnika getMocSilnika()const;
 
-	virtual Masa getMasaSilnika( const Poziom& pz  )const;
+	virtual Masa getMasaSilnika()const;
 
-	virtual Fluktuacja getSprawnoscSilnika( const Poziom& pz  )const;
+	virtual Fluktuacja getSprawnoscSilnika()const;
 
 	/**
 	* Maksymalna prêkoœæ jak¹ mo¿e rozwin¹æ statek.
@@ -73,7 +68,7 @@ public:
 	* }
 	* \return prêdkoœæ jak¹ mo¿e rozwin¹æ statek.
 	*/
-	Predkosc PredkoscMaksymalna(const Poziom& p ) const;
+	Predkosc PredkoscMaksymalna() const;
 	
 	/**
 	* Metoda opisuj¹ca zawartoœæ klasy.
@@ -93,6 +88,7 @@ protected:
 
 private:
 	const IdType& idPlanety;
+	const Poziom& poziomObiektu;
 
 };
 

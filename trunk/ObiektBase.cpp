@@ -85,6 +85,8 @@ string ObiektBase::toString() const{
 	Logger str(CLASSNAME(ObiektBase));
 	str.addClass(Base::toString());
 	str.addField(CLASSNAME(Ilosc),ilosc);
+	str.addField(CLASSNAME(Poziom),poziom);
+	str.addField(CLASSNAME(IdType),idPlanety);
 	str.addField(CLASSNAME(ObiektBaseInfo)+"ID",obiektBaseInfo.getId());
 	return str.toString();
 }

@@ -27,12 +27,12 @@ Obiekt* Surowce::Podziel( const Ilosc& ilosc ) throw ( NiepoprawnaIloscObiektow 
 	return new Surowce( ilosc , *this );
 }
 
-Objetosc Surowce::Objetosc() const{
-	return getObjetosc() * ilosc ;
+Objetosc Surowce::getObjetosc() const{
+	return Obiekt::getObjetosc() * ilosc ;
 }
 
-Masa Surowce::Masa() const{
-	return getMasa() * ilosc;
+Masa Surowce::getMasa() const{
+	return Obiekt::getMasa() * ilosc;
 }
 
 Surowce& Surowce::operator=( const Surowce& sSurowce )  throw ( NiezgodnyTypSurowca ) {

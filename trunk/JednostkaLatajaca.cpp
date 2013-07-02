@@ -2,42 +2,38 @@
 #include "JednostkaLatajaca.h"
 #include "Logger.h"
 
-JednostkaLatajaca::JednostkaLatajaca( const IdType& idP, const JednostkaLatajacaInfo& jInfo )
-	: idPlanety(idP), jednostkaLatajacaInfo(jInfo)
-{
-}
-JednostkaLatajaca::JednostkaLatajaca( const JednostkaLatajaca& a )
-	: idPlanety(a.idPlanety), jednostkaLatajacaInfo(a.jednostkaLatajacaInfo)
+JednostkaLatajaca::JednostkaLatajaca( const Poziom& p,const IdType& idP, const JednostkaLatajacaInfo& jInfo )
+	: poziomObiektu(p),idPlanety(idP), jednostkaLatajacaInfo(jInfo)
 {
 }
 	
 JednostkaLatajaca::~JednostkaLatajaca(){
 }
 
-ZuzyciePaliwa JednostkaLatajaca::WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ,const Poziom& pz  ) const{
-	return ZuzyciePaliwa(jednostkaLatajacaInfo.getZuzyciePaliwa(pz,idPlanety).value()* ( d.value() / p.value() ) );
+ZuzyciePaliwa JednostkaLatajaca::WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const{
+	return ZuzyciePaliwa(jednostkaLatajacaInfo.getZuzyciePaliwa(poziomObiektu,idPlanety).value()* ( d.value() / p.value() ) );
 }
 
-ZuzyciePaliwa JednostkaLatajaca::getJednostkoweZuzyciePaliwa( const Poziom& pz  )const{
-	return jednostkaLatajacaInfo.getZuzyciePaliwa(pz,idPlanety);
+ZuzyciePaliwa JednostkaLatajaca::getJednostkoweZuzyciePaliwa()const{
+	return jednostkaLatajacaInfo.getZuzyciePaliwa(poziomObiektu,idPlanety);
 }
 
-MocSilnika JednostkaLatajaca::getMocSilnika( const Poziom& pz  )const{
-	return jednostkaLatajacaInfo.getMocSilnika(pz,idPlanety);
+MocSilnika JednostkaLatajaca::getMocSilnika()const{
+	return jednostkaLatajacaInfo.getMocSilnika(poziomObiektu,idPlanety);
 }
 
-Masa JednostkaLatajaca::getMasaSilnika( const Poziom& pz  )const{
-	return jednostkaLatajacaInfo.getMasaNapedu(pz,idPlanety);
+Masa JednostkaLatajaca::getMasaSilnika()const{
+	return jednostkaLatajacaInfo.getMasaNapedu(poziomObiektu,idPlanety);
 }
 
-Fluktuacja JednostkaLatajaca::getSprawnoscSilnika( const Poziom& pz  )const{
-	return jednostkaLatajacaInfo.getSprawnoscSilnika(pz,idPlanety);
+Fluktuacja JednostkaLatajaca::getSprawnoscSilnika()const{
+	return jednostkaLatajacaInfo.getSprawnoscSilnika(poziomObiektu,idPlanety);
 }
 
-Predkosc JednostkaLatajaca::PredkoscMaksymalna( const Poziom& p ) const{
-	long double eta_m = jednostkaLatajacaInfo.getSprawnoscSilnika(p,idPlanety).value();
+Predkosc JednostkaLatajaca::PredkoscMaksymalna() const{
+	long double eta_m = jednostkaLatajacaInfo.getSprawnoscSilnika(poziomObiektu,idPlanety).value();
 	long double a = 0.01;
-	long double P = jednostkaLatajacaInfo.getMocSilnika(p,idPlanety).value();
+	long double P = jednostkaLatajacaInfo.getMocSilnika(poziomObiektu,idPlanety).value();
 	return Predkosc( ( P * eta_m )/(CalkowitaMasaJednostki().value() * a) );
 }
 
