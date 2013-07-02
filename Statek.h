@@ -17,7 +17,7 @@ class Statek :
 public:
 	virtual ~Statek();
 
-	ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p , const Poziom& pz = Poziom() ) const override;
+	ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const override;
 		
 	Statek* Kopia() const override;
 
@@ -25,31 +25,31 @@ public:
 
 	Masa getMasa( ) const override;
 
-	Obrazenia Atak( const Poziom& pz = Poziom() ) const override;
+	Obrazenia Atak( ) const override;
 
-	Obrazenia Pancerz( const Obrazenia& o , const Poziom& pz = Poziom()  ) const override;
+	Obrazenia Pancerz( const Obrazenia& o ) const override;
 
-	Obrazenia Oslona( const Obrazenia& o , const Poziom& pz = Poziom()  ) const override;
+	Obrazenia Oslona( const Obrazenia& o ) const override;
 
-	Obrazenia getAtak( const Poziom& pz = Poziom() ) const override;
+	Obrazenia getAtak( ) const override;
 
-	Obrazenia getPancerz( const Poziom& pz = Poziom()  ) const override;
+	Obrazenia getPancerz( ) const override;
 
-	Obrazenia getOslona( const Poziom& pz = Poziom() ) const override;
+	Obrazenia getOslona( ) const override;
 
-	Objetosc getPojemnoscMax(  const Poziom& pz = Poziom() ) const override;
+	Objetosc getPojemnoscMax( ) const override;
 
-	ZuzyciePaliwa getJednostkoweZuzyciePaliwa( const Poziom& pz = Poziom() )const override;
+	ZuzyciePaliwa getJednostkoweZuzyciePaliwa( )const override;
 
-	Masa getMasaSilnika( const Poziom& pz = Poziom() )const override;
+	Masa getMasaSilnika( )const override;
 
-	Fluktuacja WolneMiejsce( const Poziom& pz = Poziom() ) const override;
+	Fluktuacja WolneMiejsce( ) const override;
 
-	bool DodajObiektDoLadowni( const Item& , const Poziom& pz = Poziom() ) override;
+	bool DodajObiektDoLadowni( const Item& ) override;
 
-	MocSilnika getMocSilnika( const Poziom& pz = Poziom() )const override;
+	MocSilnika getMocSilnika( )const override;
 	
-	Fluktuacja getSprawnoscSilnika( const Poziom& pz = Poziom() )const override;
+	Fluktuacja getSprawnoscSilnika( )const override;
 
 	bool czMoznaDodacDoLadownii( const Ladownia& c ) const override;
 

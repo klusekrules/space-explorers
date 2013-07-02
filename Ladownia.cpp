@@ -4,16 +4,16 @@
 #include "Surowce.h"
 #include "Aplikacja.h"
 
-Ladownia::Ladownia( const IdType& idP, const LadowniaInfo& l )
-	: idPlanety(idP), obiekty(), zajete(), ladowniaInfo(l)
+Ladownia::Ladownia( const Poziom& p, const IdType& idP, const LadowniaInfo& l )
+	: poziomObiektu(p), idPlanety(idP), obiekty(), zajete(), ladowniaInfo(l)
 {
 }
 
 Ladownia::~Ladownia( ){
 }
 
-Fluktuacja Ladownia::WolneMiejsce( const Poziom& pz ) const{
-	return Fluktuacja( 1.0 ) - ( zajete / getPojemnoscMax(pz) );
+Fluktuacja Ladownia::WolneMiejsce() const{
+	return Fluktuacja( 1.0 ) - ( zajete / getPojemnoscMax() );
 }
 
 Ilosc Ladownia::SprawdzIloscObiektow( const Klucz& itID ) const{
@@ -32,14 +32,14 @@ bool Ladownia::czMoznaDodacDoLadownii( const Surowce& c ) const {
 	return c.czyTypPrzyrostowy();
 }
 
-bool Ladownia::DodajObiektDoLadowni( const Item& obiekt , const Poziom& pz ){
+bool Ladownia::DodajObiektDoLadowni( const Item& obiekt){
 	if(!obiekt.czMoznaDodacDoLadownii(*this)){
 		return false;
 	}
-	if( obiekt.getObjetosc() > getPojemnoscMax(pz) ){
+	if( obiekt.getObjetosc() > getPojemnoscMax() ){
 		return false;
 	}
-	if( (obiekt.getObjetosc() + zajete) > getPojemnoscMax(pz)){
+	if( (obiekt.getObjetosc() + zajete) > getPojemnoscMax()){
 		return false;
 	}
 	try{
@@ -168,8 +168,8 @@ const Objetosc& Ladownia::getZajeteMiejsce() const{
 }
 
 
-Objetosc Ladownia::getPojemnoscMax( const Poziom& pz ) const{
-	return ladowniaInfo.getPojemnoscMaksymalna( pz , idPlanety);
+Objetosc Ladownia::getPojemnoscMax() const{
+	return ladowniaInfo.getPojemnoscMaksymalna( poziomObiektu , idPlanety);
 }
 
 string Ladownia::toString() const{

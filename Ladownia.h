@@ -34,14 +34,14 @@ public:
 	typedef ObiektList< Item > Zbiornik;
 	typedef list < Klucz > ListaKluczy;
 
-	Ladownia( const IdType&, const LadowniaInfo& );
+	Ladownia( const Poziom&, const IdType&, const LadowniaInfo& );
 	virtual ~Ladownia( );	
 	
-	virtual Fluktuacja WolneMiejsce( const Poziom& pz ) const;
+	virtual Fluktuacja WolneMiejsce() const;
 
 	Ilosc SprawdzIloscObiektow( const Klucz& ) const;
 	
-	virtual bool DodajObiektDoLadowni( const Item& , const Poziom& pz );
+	virtual bool DodajObiektDoLadowni( const Item& );
 
 	Item& PobierzObiekt( const Klucz& , const Ilosc& ) throw ( NieznalezionoObiektu, NiepoprawnaIloscObiektow );
 
@@ -53,7 +53,7 @@ public:
 
 	const Objetosc& getZajeteMiejsce() const;
 
-	virtual Objetosc getPojemnoscMax( const Poziom& pz ) const;
+	virtual Objetosc getPojemnoscMax() const;
 
 	bool czMoznaDodacDoLadownii( const Statek& c ) const;
 
@@ -70,6 +70,7 @@ protected:
 	Objetosc zajete;
 private:
 	const IdType& idPlanety;
+	const Poziom& poziomObiektu;
 	const LadowniaInfo& ladowniaInfo;
 };
 
