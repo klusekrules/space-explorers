@@ -17,9 +17,9 @@ ZmianaDekorator::ZmianaDekorator( const ZmianaDekorator& e )
 ZmianaDekorator::~ZmianaDekorator(){
 }
 
-long double ZmianaDekorator::value( const long double& d, const int& p )const{
+long double ZmianaDekorator::value( const long double& d, const int& p, const int& planeta )const{
 	if(next.get())
-		return next->value(d,p);
+		return next->value(d,p,planeta);
 	return d;
 }
 

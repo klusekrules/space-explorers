@@ -24,8 +24,8 @@ ObiektBaseInfo::~ObiektBaseInfo(){
 }
 
 
-ObiektBase* ObiektBaseInfo::TworzEgzemplarz( const Ilosc& i ) const{
-	return new ObiektBase(i,getPoziom(),*this);
+ObiektBase* ObiektBaseInfo::TworzEgzemplarz( const Ilosc& i, const IdType& idPlanety ) const{
+	return new ObiektBase(i,getPoziom(),idPlanety,*this);
 }
 
 const Poziom& ObiektBaseInfo::getPoziom()const{

@@ -70,16 +70,16 @@ bool Warunek::czySpelniaWarunki( const IdType& idPlanety ) const{
 	return true;
 }
 
-Warunek::PrzetworzoneWarunki Warunek::listaWarunkow( const Poziom& p ) const{
+Warunek::PrzetworzoneWarunki Warunek::listaWarunkow( const Poziom& p, const IdType& idPlanety ) const{
 	PrzetworzoneWarunki tmp;
 	for (auto a : warunki)
-		tmp.push_back(przeliczWarunek(a,p));
+		tmp.push_back(przeliczWarunek(a,p,idPlanety));
 	return tmp;
 }
 
 
-shared_ptr< ObiektBaseInfo > Warunek::przeliczWarunek( Item& o , const Poziom& p ) const{
-	return shared_ptr< ObiektBaseInfo > ( new ObiektBaseInfo( *(o.first), Poziom( static_cast<Poziom::type_name>(floorl(o.second->value( o.first->getPoziom().value() , static_cast<int>(p.value()) ))) ) ) );
+shared_ptr< ObiektBaseInfo > Warunek::przeliczWarunek( Item& o , const Poziom& p, const IdType& idPlanety ) const{
+	return shared_ptr< ObiektBaseInfo > ( new ObiektBaseInfo( *(o.first), Poziom( static_cast<Poziom::type_name>(floorl(o.second->value( o.first->getPoziom().value() , static_cast<int>(p.value()),idPlanety.value() ))) ) ) );
 }
 
 string Warunek::toString() const{

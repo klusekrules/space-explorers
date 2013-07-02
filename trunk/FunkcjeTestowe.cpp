@@ -2,7 +2,7 @@
 #include "Testy.h"
 
 Statek* tworzStatek( Test& t, const IdType& id,const Ilosc& i) throw (OgolnyWyjatek,NieznalezionoObiektu){
-	Statek* s = Aplikacja::getInstance().getGra().getStatek(id).TworzEgzemplarz(i);
+	Statek* s = Aplikacja::getInstance().getGra().getStatek(id).TworzEgzemplarz(i,IdType());
 	if(t.assert_false(EXCEPTION_PLACE, s!=nullptr))
 	{
 		t.assert_false(EXCEPTION_PLACE, s->getIlosc()==i);
@@ -16,7 +16,7 @@ Statek* tworzStatek( Test& t, const IdType& id,const Ilosc& i) throw (OgolnyWyja
 }
 
 Surowce* tworzSurowce( Test& t, const IdType& id,const Ilosc& i) throw (OgolnyWyjatek,NieznalezionoObiektu){
-	Surowce* s = Aplikacja::getInstance().getGra().getSurowce(id).TworzEgzemplarz(i);
+	Surowce* s = Aplikacja::getInstance().getGra().getSurowce(id).TworzEgzemplarz(i,IdType());
 	if(t.assert_false(EXCEPTION_PLACE, s!=nullptr))
 	{
 		t.assert_false(EXCEPTION_PLACE, s->getIlosc()==i);
@@ -30,7 +30,7 @@ Surowce* tworzSurowce( Test& t, const IdType& id,const Ilosc& i) throw (OgolnyWy
 }
 
 Technologia* tworzTechnologie( Test& t, const IdType& id) throw (OgolnyWyjatek,NieznalezionoObiektu){
-	Technologia* s = Aplikacja::getInstance().getGra().getTechnologia(id).TworzEgzemplarz();
+	Technologia* s = Aplikacja::getInstance().getGra().getTechnologia(id).TworzEgzemplarz(Ilosc(),IdType());
 	if(t.assert_false(EXCEPTION_PLACE, s!=nullptr))
 	{
 		t.assert_false(EXCEPTION_PLACE, s->getId()==id);
@@ -43,7 +43,7 @@ Technologia* tworzTechnologie( Test& t, const IdType& id) throw (OgolnyWyjatek,N
 }
 
 Budynek* tworzBudynek( Test& t, const IdType& id) throw (OgolnyWyjatek,NieznalezionoObiektu){
-	Budynek* s = Aplikacja::getInstance().getGra().getBudynek(id).TworzEgzemplarz();
+	Budynek* s = Aplikacja::getInstance().getGra().getBudynek(id).TworzEgzemplarz(Ilosc(),IdType());
 	if(t.assert_false(EXCEPTION_PLACE, s!=nullptr))
 	{
 		t.assert_false(EXCEPTION_PLACE, s->getId()==id);
@@ -105,7 +105,7 @@ bool test_tworzenieObiektow( Test & t ){
 	ObiektInfo& p = Aplikacja::getInstance().getGra().getStatek(IdType(1));
 	Aplikacja::getInstance().getLog().debug( "Klasa info:");
 	Aplikacja::getInstance().getLog().debug(p);
-	shared_ptr<Obiekt>o (p.TworzEgzemplarz(Ilosc(8)));
+	shared_ptr<Obiekt>o (p.TworzEgzemplarz(Ilosc(8),IdType()));
 	if(t.assert_false(EXCEPTION_PLACE, o!=nullptr))
 	{
 		t.assert_false(EXCEPTION_PLACE, o->getIlosc()==Ilosc(8));
@@ -247,7 +247,7 @@ bool test_wymagan( Test & t ){
 bool test_KlasaJednostkaAtakujaca( Test & t ){
 	shared_ptr<Statek> a( tworzStatek(t,IdType(1),Ilosc(8)) );
 	Obrazenia oAtak = a->Atak();
-	Obrazenia baseAtak(a->getStatekInfo().getAtak(Poziom(1)).value()*8.0);
+	Obrazenia baseAtak(a->getStatekInfo().getAtak(Poziom(1),IdType()).value()*8.0);
 	Obrazenia tbAtak(baseAtak.value() *(JednostkaAtakujaca::srednia-(JednostkaAtakujaca::odchylenie * 3 )));
 	Obrazenia teAtak(baseAtak.value() *(JednostkaAtakujaca::srednia+(JednostkaAtakujaca::odchylenie * 3 )));
 	Aplikacja::getInstance().getLog().debug(oAtak);
@@ -257,7 +257,7 @@ bool test_KlasaJednostkaAtakujaca( Test & t ){
 	t.assert_false(EXCEPTION_PLACE, tbAtak <= oAtak && oAtak <= teAtak);
 
 	Obrazenia oOslona = a->Oslona(oAtak);
-	Obrazenia baseOslona(a->getStatekInfo().getOslona(Poziom(1)).value()*8.0);
+	Obrazenia baseOslona(a->getStatekInfo().getOslona(Poziom(1),IdType()).value()*8.0);
 	double tbd=oAtak.value() - baseOslona.value() *(JednostkaAtakujaca::srednia+(JednostkaAtakujaca::odchylenie * 3 ));
 	double ted=oAtak.value() - baseOslona.value() *(JednostkaAtakujaca::srednia-(JednostkaAtakujaca::odchylenie * 3 ));
 	Obrazenia tbOslona(tbd>0?tbd:0);
@@ -269,7 +269,7 @@ bool test_KlasaJednostkaAtakujaca( Test & t ){
 	t.assert_false(EXCEPTION_PLACE, tbOslona <= oOslona && oOslona <= teOslona);
 
 	Obrazenia oPancerz = a->Pancerz(oOslona);
-	Obrazenia basePancerz(a->getStatekInfo().getPancerz(Poziom(1)).value()*8.0);
+	Obrazenia basePancerz(a->getStatekInfo().getPancerz(Poziom(1),IdType()).value()*8.0);
 	Obrazenia tbPancerz(basePancerz<oOslona?oOslona-basePancerz:Obrazenia(0));
 	Aplikacja::getInstance().getLog().debug(oPancerz);
 	Aplikacja::getInstance().getLog().debug(basePancerz);

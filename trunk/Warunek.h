@@ -24,9 +24,9 @@ public:
 	Warunek& operator=(const Warunek& w);
 	~Warunek();
 
-	PrzetworzoneWarunki listaWarunkow( const Poziom& p ) const;
+	PrzetworzoneWarunki listaWarunkow( const Poziom& p, const IdType& ) const;
 
-	bool czySpelniaWarunki( const IdType& idPlanety ) const;
+	bool czySpelniaWarunki( const IdType& ) const;
 
 	string toString() const override;
 
@@ -34,7 +34,7 @@ private:
 	
 	bool dodajWarunek( Item& o );
 
-	shared_ptr< ObiektBaseInfo > przeliczWarunek( Item& o, const Poziom& p  ) const;
+	shared_ptr< ObiektBaseInfo > przeliczWarunek( Item& o, const Poziom& p, const IdType& ) const;
 
 	ListaWarunkow warunki;
 };

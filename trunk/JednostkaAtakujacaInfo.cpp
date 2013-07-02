@@ -47,25 +47,25 @@ Obrazenia JednostkaAtakujacaInfo::getOslona() const{
 	return oslona;
 }
 
-Obrazenia JednostkaAtakujacaInfo::getAtak(const Poziom& p ) const{
+Obrazenia JednostkaAtakujacaInfo::getAtak(const Poziom& p, const IdType& idPlanety ) const{
 	if(zmAtak==nullptr)
 		return atak;
 	else
-		return Obrazenia(zmAtak->value(atak.value(),static_cast<int>(p.value())));
+		return Obrazenia(zmAtak->value(atak.value(),static_cast<int>(p.value()),idPlanety.value()));
 }
 	
-Obrazenia JednostkaAtakujacaInfo::getPancerz( const Poziom& p ) const{
+Obrazenia JednostkaAtakujacaInfo::getPancerz( const Poziom& p, const IdType& idPlanety ) const{
 	if(zmPancerz==nullptr)
 		return pancerz;
 	else
-		return Obrazenia(zmPancerz->value(pancerz.value(),static_cast<int>(p.value())));
+		return Obrazenia(zmPancerz->value(pancerz.value(),static_cast<int>(p.value()),idPlanety.value()));
 }
 
-Obrazenia JednostkaAtakujacaInfo::getOslona(const Poziom& p ) const{
+Obrazenia JednostkaAtakujacaInfo::getOslona(const Poziom& p, const IdType& idPlanety ) const{
 	if(zmOslona==nullptr)
 		return oslona;
 	else
-		return Obrazenia(zmOslona->value(oslona.value(),static_cast<int>(p.value())));
+		return Obrazenia(zmOslona->value(oslona.value(),static_cast<int>(p.value()),idPlanety.value()));
 }
 
 std::mt19937& JednostkaAtakujacaInfo::getGenerator()const{

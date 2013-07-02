@@ -66,7 +66,7 @@ public:
 private:
 
 	Surowce( const Ilosc&, const Surowce& );
-	Surowce( const Ilosc&, const Poziom& p, const SurowceInfo&  );
+	Surowce( const Ilosc&, const Poziom& p, const IdType& idP, const SurowceInfo&  );
 	
 	const SurowceInfo& surowceInfo;
 

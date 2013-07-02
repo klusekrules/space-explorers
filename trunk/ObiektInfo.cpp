@@ -29,26 +29,26 @@ ObiektInfo::ObiektInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
 ObiektInfo::~ObiektInfo(){
 }
 
-Powierzchnia ObiektInfo::getPowierzchnia(const Poziom& pz) const {
+Powierzchnia ObiektInfo::getPowierzchnia(const Poziom& pz, const IdType& idPlanety) const {
 	if(zmPowierzchnia == nullptr)
 		return powierzchnia;			
-	return Powierzchnia(zmPowierzchnia->value(powierzchnia.value(),static_cast<int>(pz.value())));
+	return Powierzchnia(zmPowierzchnia->value(powierzchnia.value(),static_cast<int>(pz.value()),idPlanety.value()));
 }
 
-Objetosc ObiektInfo::getObjetosc(const Poziom& pz) const {
+Objetosc ObiektInfo::getObjetosc(const Poziom& pz, const IdType& idPlanety) const {
 	if(zmPowierzchnia == nullptr)
 		return objetosc;
-	return Objetosc(zmObjetosc->value(objetosc.value(),static_cast<int>(pz.value())));
+	return Objetosc(zmObjetosc->value(objetosc.value(),static_cast<int>(pz.value()), idPlanety.value()));
 }
 
-Masa ObiektInfo::getMasa(const Poziom& pz) const {
+Masa ObiektInfo::getMasa(const Poziom& pz, const IdType& idPlanety) const {
 	if(zmPowierzchnia == nullptr)
 		return masa;
-	return Masa(zmMasa->value(masa.value(),static_cast<int>(pz.value())));
+	return Masa(zmMasa->value(masa.value(),static_cast<int>(pz.value()), idPlanety.value()));
 }
 
-Obiekt* ObiektInfo::TworzEgzemplarz( const Ilosc& iIlosc ) const {
-	return new Obiekt( iIlosc, getPoziom(), *this );
+Obiekt* ObiektInfo::TworzEgzemplarz( const Ilosc& iIlosc, const IdType& idPlanety ) const {
+	return new Obiekt( iIlosc, getPoziom(),idPlanety, *this );
 }
 
 string ObiektInfo::toString() const{

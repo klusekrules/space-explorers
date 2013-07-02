@@ -31,8 +31,8 @@ bool SurowceInfo::czyTypPrzyrostowy()const{
 	return czyPrzyrostowy.value();
 }
 
-Surowce* SurowceInfo::TworzEgzemplarz( const Ilosc& ilosc ) const{
-	return new Surowce( ilosc , getPoziom(), *this );
+Surowce* SurowceInfo::TworzEgzemplarz( const Ilosc& ilosc, const IdType& idP ) const{
+	return new Surowce( ilosc , getPoziom(),idP, *this );
 }
 
 string SurowceInfo::toString() const{

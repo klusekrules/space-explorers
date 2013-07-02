@@ -18,7 +18,7 @@ public:
 
 	Cennik& operator=( const Cennik& );
 
-	ListaSurowcow PobierzKoszty(const Ilosc&, const Poziom&) const;
+	ListaSurowcow PobierzKoszty(const Ilosc&, const Poziom&, const IdType&) const;
 
 	//IdType - id planety w kontekœcie której maj¹ byæ sprawdzane wymagania.
 	bool czySpelniaKoszty( const Ilosc&, const Poziom&, const IdType& ) const;

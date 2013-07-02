@@ -24,6 +24,7 @@ class ObiektBase :
 protected:	
 	Ilosc ilosc;
 	Poziom poziom;
+	IdType idPlanety;
 	const ObiektBaseInfo& obiektBaseInfo; /**< Wskazanie na obiekt opisuj¹cy dan¹ klasê*/
 
 public:
@@ -34,7 +35,7 @@ public:
 	* \param poziom - Poziom obiektów opisywanych przez klasê.
 	* \param iInfo - Wskazanie na klasê opisuj¹c¹ reprezentowany obiekt.
 	*/
-	ObiektBase( const Ilosc& ilosc, const Poziom& p, const ObiektBaseInfo& iInfo) throw();
+	ObiektBase( const Ilosc& ilosc, const Poziom& p, const IdType& idP, const ObiektBaseInfo& iInfo) throw();
 
 	/**
 	* Destruktor domyœlny.
@@ -118,12 +119,15 @@ public:
 	*/
 	Warunek::PrzetworzoneWarunki PobierzWarunki()const;
 	
-	
 	/**
 	* Metoda pobieraj¹ca przetworzone koszty dostêpnoœci obiektu
 	* \return Koszty po przetworzeniu przez klasy zmieniaj¹ce
 	*/
 	Cennik::ListaSurowcow PobierzKoszty() const;
+		
+	const IdType& getIdPlanety() const;
+
+	void setIdPlanety( const IdType& id );
 
 	const ObiektBaseInfo& getObiektBaseInfo()const;
 };

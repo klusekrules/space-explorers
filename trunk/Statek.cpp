@@ -2,8 +2,8 @@
 #include "StatekInfo.h"
 #include "Logger.h"
 
-Statek::Statek( const Ilosc& i, const Poziom& p ,const StatekInfo& s )
-	: Obiekt( i, p, s ), JednostkaAtakujaca(s), JednostkaLatajaca(s), Ladownia(s), statekinfo(s)
+Statek::Statek( const Ilosc& i, const Poziom& p , const IdType& idP, const StatekInfo& s )
+	: Obiekt( i, p, idP, s ), JednostkaAtakujaca(getIdPlanety(),s), JednostkaLatajaca(getIdPlanety(),s), Ladownia(getIdPlanety(),s), statekinfo(s)
 {
 }
 
@@ -20,7 +20,7 @@ Statek* Statek::Kopia() const{
 
 Statek* Statek::Podziel( const Ilosc& i ){
 	if( ilosc>i ){
-		Statek* o = new Statek( i , getPoziom(), this->statekinfo );
+		Statek* o = new Statek( i , getPoziom(), getIdPlanety(), this->statekinfo );
 		ilosc-=i;
 		return o; 
 	}

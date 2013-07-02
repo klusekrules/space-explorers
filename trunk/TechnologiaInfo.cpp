@@ -21,8 +21,8 @@ TechnologiaInfo::TechnologiaInfo( const TechnologiaInfo& o )
 {
 }
 
-Technologia* TechnologiaInfo::TworzEgzemplarz( const Ilosc& i ) const{
-	return new Technologia( getPoziom(), *this );
+Technologia* TechnologiaInfo::TworzEgzemplarz( const Ilosc& i, const IdType& idP ) const{
+	return new Technologia( getPoziom(), idP, *this );
 }
 
 string TechnologiaInfo::toString()const{

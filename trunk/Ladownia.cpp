@@ -4,16 +4,9 @@
 #include "Surowce.h"
 #include "Aplikacja.h"
 
-Ladownia::Ladownia( const LadowniaInfo& l )
-	: obiekty(), zajete(), ladowniaInfo(l)
+Ladownia::Ladownia( const IdType& idP, const LadowniaInfo& l )
+	: idPlanety(idP), obiekty(), zajete(), ladowniaInfo(l)
 {
-}
-
-Ladownia::Ladownia( Zbiornik& z , const LadowniaInfo& l )
-	: zajete(), obiekty() , ladowniaInfo(l)
-{
-	obiekty.moveAll(z);
-	przeliczZajeteMiejsce();
 }
 
 Ladownia::~Ladownia( ){
@@ -176,7 +169,7 @@ const Objetosc& Ladownia::getZajeteMiejsce() const{
 
 
 Objetosc Ladownia::getPojemnoscMax( const Poziom& pz ) const{
-	return ladowniaInfo.getPojemnoscMaksymalna( pz );
+	return ladowniaInfo.getPojemnoscMaksymalna( pz , idPlanety);
 }
 
 string Ladownia::toString() const{

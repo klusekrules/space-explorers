@@ -3,8 +3,8 @@
 #include "Logger.h"
 #include "Ladownia.h"
 
-Obiekt::Obiekt( const Ilosc& i, const Poziom& p, const ObiektInfo& obiekt ) throw()
-	: ObiektBase( i, p, obiekt ), obiektInfoClass( obiekt )
+Obiekt::Obiekt( const Ilosc& i, const Poziom& p, const IdType& idP, const ObiektInfo& obiekt ) throw()
+	: ObiektBase( i, p, idP, obiekt ), obiektInfoClass( obiekt )
 {
 }
 
@@ -17,22 +17,22 @@ Obiekt* Obiekt::Kopia() const{
 
 Obiekt* Obiekt::Podziel( const Ilosc& i ){
 	if( ilosc>i ){
-		Obiekt* o = new Obiekt( i , getPoziom(), this->obiektInfoClass );
+		Obiekt* o = new Obiekt( i , getPoziom(), getIdPlanety(), this->obiektInfoClass );
 		ilosc-=i;
 		return o; 
 	}
 	return nullptr;
 }	
 Powierzchnia Obiekt::getPowierzchnia() const{
-	return Powierzchnia(obiektInfoClass.getPowierzchnia(getPoziom()).value()*(this->getIlosc().value()));
+	return Powierzchnia(obiektInfoClass.getPowierzchnia(getPoziom(),getIdPlanety()).value()*(this->getIlosc().value()));
 }
 
 Objetosc Obiekt::getObjetosc() const{
-	return Objetosc(obiektInfoClass.getObjetosc(getPoziom()).value()*(this->getIlosc().value()));
+	return Objetosc(obiektInfoClass.getObjetosc(getPoziom(),getIdPlanety()).value()*(this->getIlosc().value()));
 }
 
 Masa Obiekt::getMasa() const{
-	return Masa(obiektInfoClass.getMasa(getPoziom()).value()*(this->getIlosc().value()));
+	return Masa(obiektInfoClass.getMasa(getPoziom(),getIdPlanety()).value()*(this->getIlosc().value()));
 }
 
 bool Obiekt::czMoznaDodacDoLadownii( const Ladownia& c ) const{

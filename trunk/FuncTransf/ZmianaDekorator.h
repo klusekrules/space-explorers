@@ -22,7 +22,7 @@ private:
 	shared_ptr<ZmianaInterfejs> next;
 
 public:	
-	long double value( const long double& , const int&)const override;
+	long double value( const long double& , const int&, const int&)const override;
 
 	explicit ZmianaDekorator( const ticpp::Element* e );
 	ZmianaDekorator( const ZmianaDekorator& e );

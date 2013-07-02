@@ -21,7 +21,7 @@ public:
 
 	virtual ~LadowniaInfo();
 
-	Objetosc getPojemnoscMaksymalna( const Poziom& ) const;
+	Objetosc getPojemnoscMaksymalna( const Poziom& , const IdType&) const;
 		
 	string toString() const override;
 };

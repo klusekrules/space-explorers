@@ -59,32 +59,32 @@ Fluktuacja JednostkaLatajacaInfo::getSprawnoscSilnika() const{
 	return sprawnoscSilnika;
 }
 
-MocSilnika JednostkaLatajacaInfo::getMocSilnika(const Poziom& p ) const{
+MocSilnika JednostkaLatajacaInfo::getMocSilnika(const Poziom& p, const IdType& idPlanety) const{
 	if(przyrostMocySilnika==nullptr)
 		return mocSilnika;
 	else
-		return MocSilnika(przyrostMocySilnika->value(mocSilnika.value(),static_cast<int>(p.value())));
+		return MocSilnika(przyrostMocySilnika->value(mocSilnika.value(),static_cast<int>(p.value()),idPlanety.value()));
 }
 
-ZuzyciePaliwa JednostkaLatajacaInfo::getZuzyciePaliwa(const Poziom& p ) const{
+ZuzyciePaliwa JednostkaLatajacaInfo::getZuzyciePaliwa(const Poziom& p, const IdType& idPlanety) const{
 	if(przyrostZuzyciaPaliwa==nullptr)
 		return zuzyciePaliwa;
 	else
-		return ZuzyciePaliwa(przyrostZuzyciaPaliwa->value(zuzyciePaliwa.value(),static_cast<int>(p.value())));
+		return ZuzyciePaliwa(przyrostZuzyciaPaliwa->value(zuzyciePaliwa.value(),static_cast<int>(p.value()),idPlanety.value()));
 }
 
-Masa JednostkaLatajacaInfo::getMasaNapedu( const Poziom& p ) const{
+Masa JednostkaLatajacaInfo::getMasaNapedu( const Poziom& p, const IdType& idPlanety) const{
 	if(przyrostMasyNapedu==nullptr)
 		return masaNapedu;
 	else
-		return Masa(przyrostMasyNapedu->value(masaNapedu.value(),static_cast<int>(p.value())));
+		return Masa(przyrostMasyNapedu->value(masaNapedu.value(),static_cast<int>(p.value()),idPlanety.value()));
 }
 
-Fluktuacja JednostkaLatajacaInfo::getSprawnoscSilnika( const Poziom& p ) const{
+Fluktuacja JednostkaLatajacaInfo::getSprawnoscSilnika( const Poziom& p, const IdType& idPlanety) const{
 	if(przyrostSprawnosciSilnika==nullptr)
 		return sprawnoscSilnika;
 	else
-		return Fluktuacja(static_cast<float>(przyrostSprawnosciSilnika->value(sprawnoscSilnika.value(),static_cast<int>(p.value()))));
+		return Fluktuacja(static_cast<float>(przyrostSprawnosciSilnika->value(sprawnoscSilnika.value(),static_cast<int>(p.value()),idPlanety.value())));
 }
 
 string JednostkaLatajacaInfo::toString() const{

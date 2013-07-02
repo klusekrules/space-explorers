@@ -34,8 +34,7 @@ public:
 	typedef ObiektList< Item > Zbiornik;
 	typedef list < Klucz > ListaKluczy;
 
-	Ladownia( const LadowniaInfo& );
-	Ladownia( Zbiornik& , const LadowniaInfo& );
+	Ladownia( const IdType&, const LadowniaInfo& );
 	virtual ~Ladownia( );	
 	
 	virtual Fluktuacja WolneMiejsce( const Poziom& pz ) const;
@@ -69,7 +68,8 @@ protected:
 
 	Zbiornik obiekty;
 	Objetosc zajete;
-
+private:
+	const IdType& idPlanety;
 	const LadowniaInfo& ladowniaInfo;
 };
 

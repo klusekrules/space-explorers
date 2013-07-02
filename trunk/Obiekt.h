@@ -17,7 +17,7 @@ class Obiekt:
 {
 public:
 
-	Obiekt( const Ilosc&, const Poziom& p, const ObiektInfo& ) throw();
+	Obiekt( const Ilosc&, const Poziom& p, const IdType&, const ObiektInfo& ) throw();
 	virtual ~Obiekt();
 
 	Obiekt* Kopia() const override;
@@ -34,6 +34,7 @@ public:
 
 	string toString() const override;
 protected:
+
 	const ObiektInfo& obiektInfoClass; 
 };
 

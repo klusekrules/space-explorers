@@ -14,11 +14,11 @@ protected:
 public:
 	BudynekInfo( ticpp::Node* );
 	~BudynekInfo(void);
-	Budynek* TworzEgzemplarz( const Ilosc& = Ilosc() ) const override;
+	Budynek* TworzEgzemplarz( const Ilosc&, const IdType& ) const override;
 
-	Cennik::ListaSurowcow PobierzZapotrzebowanie( const Poziom& )const;
+	Cennik::ListaSurowcow PobierzZapotrzebowanie( const Poziom&, const IdType& idPlanety)const;
 
-	Cennik::ListaSurowcow PobierzProdukcje( const Poziom& )const;
+	Cennik::ListaSurowcow PobierzProdukcje( const Poziom&, const IdType& idPlanety )const;
 
 	string toString()const override;
 };
