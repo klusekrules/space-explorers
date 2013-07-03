@@ -59,6 +59,8 @@ public:
 	bool czyTypPrzyrostowy()const;
 
 	bool czMoznaDodacDoLadownii( const Ladownia& c ) const override;
+
+	Czas pobierzCzas()const;
 			
 	string toString() const override;
 

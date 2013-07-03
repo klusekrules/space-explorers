@@ -17,6 +17,8 @@ namespace SPG{
 	typedef double				Powierzchnia; //+
 	typedef double				Parametr;//+
 
+	typedef long double			Czas;
+
 
 	/* Flota */
 	typedef double	Obrazenia; //+

@@ -2,19 +2,21 @@
 #include "SurowceInfo.h"
 #include "Logger.h"
 #include "XmlBO.h"
+#include "Aplikacja.h"
 
 SurowceInfo::~SurowceInfo(){
 }
 
 SurowceInfo::SurowceInfo( const ObiektInfo& o , bool bCzyPrzyrostowy ) throw()
-	: ObiektInfo(o) , czyPrzyrostowy(bCzyPrzyrostowy)
+	: ObiektInfo(o) , czyPrzyrostowy(bCzyPrzyrostowy), zmCzas(nullptr)
 {
 }
 
 SurowceInfo::SurowceInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
-	: ObiektInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(ObiektInfo))) , czyPrzyrostowy (false)
+	: ObiektInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(ObiektInfo))) , czyPrzyrostowy (false), zmCzas(nullptr)
 {
 	if(n){
+		zmCzas = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","Czas"));
 		auto s = n->ToElement()->GetAttribute("typ");
 		auto i = stoi(s);
 		switch(i){
@@ -29,6 +31,13 @@ SurowceInfo::SurowceInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
 
 bool SurowceInfo::czyTypPrzyrostowy()const{
 	return czyPrzyrostowy.value();
+}
+
+Czas SurowceInfo::pobierzCzas( const Ilosc& i ,const PodstawoweParametry& p )const{
+	if(zmCzas)
+		return Czas(zmCzas->value(i.value(),static_cast<int>(p.getPoziom().value()),p.getIdPlanety().value()));
+	else
+		return Czas(0.0l);
 }
 
 Surowce* SurowceInfo::TworzEgzemplarz( const Ilosc& ilosc, const IdType& idP ) const{

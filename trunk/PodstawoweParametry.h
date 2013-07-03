@@ -20,6 +20,8 @@ public:
 
 	void setIdPlanety( const IdType& id );
 
+	void ustawKontekst( const PodstawoweParametry& p );
+
 private:
 	Poziom poziom;
 	IdType idPlanety;

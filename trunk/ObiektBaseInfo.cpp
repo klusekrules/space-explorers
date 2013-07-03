@@ -20,10 +20,6 @@ ObiektBaseInfo::ObiektBaseInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
 	}
 }
 
-ObiektBaseInfo::~ObiektBaseInfo(){
-}
-
-
 ObiektBase* ObiektBaseInfo::TworzEgzemplarz( const Ilosc& i, const IdType& idPlanety ) const{
 	return new ObiektBase(i,getPoziom(),idPlanety,*this);
 }

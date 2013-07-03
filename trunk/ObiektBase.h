@@ -36,11 +36,7 @@ public:
 	*/
 	ObiektBase( const Ilosc& ilosc, const Poziom& p, const IdType& idP, const ObiektBaseInfo& iInfo) throw();
 	ObiektBase( const Ilosc& i, const PodstawoweParametry& p, const ObiektBaseInfo& iInfo) throw();
-	/**
-	* Destruktor domyœlny.
-	*/
-	virtual ~ObiektBase();
-
+	
 	/**
 	* Metoda kopiuj¹ca klase. Metoda allokuje nowy obiekt, który musi zostaæ zwolniony wywo³aniem delete.
 	* \return Wskazanie na kopie obiektu.
@@ -116,7 +112,9 @@ public:
 	* \return Koszty po przetworzeniu przez klasy zmieniaj¹ce
 	*/
 	Cennik::ListaSurowcow PobierzKoszty() const;
-		
+
+	Czas pobierzCzasBudowy( )const;
+
 	const ObiektBaseInfo& getObiektBaseInfo()const;
 };
 

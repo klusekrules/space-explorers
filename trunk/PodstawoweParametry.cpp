@@ -27,6 +27,11 @@ void PodstawoweParametry::setIdPlanety( const IdType& id ){
 	idPlanety = id;
 }
 
+void PodstawoweParametry::ustawKontekst( const PodstawoweParametry& p ){
+	poziom = p.poziom;
+	idPlanety = p.idPlanety;
+}
+
 string PodstawoweParametry::toString() const{
 	Logger str(CLASSNAME(PodstawoweParametry));
 	str.addField(CLASSNAME(Poziom),poziom);

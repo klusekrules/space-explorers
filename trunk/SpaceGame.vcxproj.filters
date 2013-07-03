@@ -190,6 +190,9 @@
     <ClCompile Include="PodstawoweParametry.cpp">
       <Filter>SourceFile\BaseClass\Base</Filter>
     </ClCompile>
+    <ClCompile Include="Czas.cpp">
+      <Filter>SourceFile\BaseTypes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -425,6 +428,9 @@
     </ClInclude>
     <ClInclude Include="PodstawoweParametry.h">
       <Filter>SourceFile\BaseClass\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Czas.h">
+      <Filter>SourceFile\BaseTypes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

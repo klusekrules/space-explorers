@@ -15,9 +15,7 @@ public:
 	ObiektBaseInfo( const Info& i , const Poziom& p ) throw();
 
 	explicit ObiektBaseInfo( ticpp::Node* ) throw(WyjatekParseraXML);
-
-	virtual ~ObiektBaseInfo();
-	
+		
 	virtual ObiektBase* TworzEgzemplarz( const Ilosc&, const IdType& ) const;
 
 	const Poziom& getPoziom()const;
