@@ -5,12 +5,9 @@
 #include "XmlBO.h"
 #include "FuncTransf\ZmianaFabryka.h"
 
-Warunek::Warunek(){
-}
-
-Warunek::Warunek(const Warunek& w) throw()
-	: warunki(w.warunki)
+Warunek::Warunek(const Warunek& w)
 {
+	this->operator=(w);
 }
 
 Warunek::Warunek( ticpp::Node* n ) throw(WyjatekParseraXML)
@@ -36,7 +33,15 @@ Warunek::Warunek( ticpp::Node* n ) throw(WyjatekParseraXML)
 }
 
 Warunek& Warunek::operator=(const Warunek& w){
-	warunki=w.warunki;
+	warunki.clear();
+	for(auto e : w.warunki){
+		Item i(nullptr,nullptr);
+		if(e.first)
+			i.first = shared_ptr<ObiektBaseInfo>(new ObiektBaseInfo(*e.first));
+		if(e.second)
+			i.second = shared_ptr<ZmianaInterfejs>(e.second->Kopia());
+		warunki.push_back(i);
+	}
 	return *this;
 }
 
@@ -56,11 +61,7 @@ bool Warunek::dodajWarunek( Item& o ){
 	return true;
 }
 
-Warunek::~Warunek()
-{
-}
-
-bool Warunek::czySpelniaWarunki( const IdType& idPlanety ) const{	
+bool Warunek::czySpelniaWarunki( const PodstawoweParametry& ) const{	
 	if(warunki.empty())
 		return true;
 	/*const ObiektBase& ob = Aplikacja::getInstance().getObiekt(idPlanety);
@@ -70,16 +71,16 @@ bool Warunek::czySpelniaWarunki( const IdType& idPlanety ) const{
 	return true;
 }
 
-Warunek::PrzetworzoneWarunki Warunek::listaWarunkow( const Poziom& p, const IdType& idPlanety ) const{
+Warunek::PrzetworzoneWarunki Warunek::listaWarunkow( const PodstawoweParametry& p ) const{
 	PrzetworzoneWarunki tmp;
 	for (auto a : warunki)
-		tmp.push_back(przeliczWarunek(a,p,idPlanety));
+		tmp.push_back(przeliczWarunek(a,p));
 	return tmp;
 }
 
 
-shared_ptr< ObiektBaseInfo > Warunek::przeliczWarunek( Item& o , const Poziom& p, const IdType& idPlanety ) const{
-	return shared_ptr< ObiektBaseInfo > ( new ObiektBaseInfo( *(o.first), Poziom( static_cast<Poziom::type_name>(floorl(o.second->value( o.first->getPoziom().value() , static_cast<int>(p.value()),idPlanety.value() ))) ) ) );
+shared_ptr< ObiektBaseInfo > Warunek::przeliczWarunek( Item& o , const PodstawoweParametry& p ) const{
+	return shared_ptr< ObiektBaseInfo > ( new ObiektBaseInfo( *(o.first), Poziom( static_cast<Poziom::type_name>(floorl(o.second->value( o.first->getPoziom().value() , static_cast<int>(p.getPoziom().value()),p.getIdPlanety().value() ))) ) ) );
 }
 
 string Warunek::toString() const{

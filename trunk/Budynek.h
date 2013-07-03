@@ -11,6 +11,7 @@ protected:
 	const BudynekInfo& budynekInfo;
 public:
 	Budynek(const Poziom& p, const IdType& idP, const BudynekInfo&);
+	Budynek(const PodstawoweParametry& p, const BudynekInfo& o);
 	~Budynek(void);
 
 	Budynek* Kopia() const override;

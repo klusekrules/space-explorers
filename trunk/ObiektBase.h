@@ -35,7 +35,7 @@ public:
 	* \param iInfo - Wskazanie na klasê opisuj¹c¹ reprezentowany obiekt.
 	*/
 	ObiektBase( const Ilosc& ilosc, const Poziom& p, const IdType& idP, const ObiektBaseInfo& iInfo) throw();
-
+	ObiektBase( const Ilosc& i, const PodstawoweParametry& p, const ObiektBaseInfo& iInfo) throw();
 	/**
 	* Destruktor domyœlny.
 	*/

@@ -7,6 +7,11 @@ ObiektBase::ObiektBase( const Ilosc& i, const Poziom& p, const IdType& idP, cons
 {
 }
 
+ObiektBase::ObiektBase( const Ilosc& i, const PodstawoweParametry& p, const ObiektBaseInfo& iInfo) throw()
+	: PodstawoweParametry(p), Base(iInfo), ilosc(i), obiektBaseInfo(iInfo)
+{
+}
+
 ObiektBase::~ObiektBase( ){
 }
 
@@ -53,12 +58,12 @@ void ObiektBase::setIlosc( const Ilosc& i ){
 }
 
 Cennik::ListaSurowcow ObiektBase::PobierzKoszty() const{
-	return obiektBaseInfo.PobierzKoszty(getIlosc(),getPoziom(),getIdPlanety());
+	return obiektBaseInfo.PobierzKoszty(getIlosc(),*this);
 }
 
 
 Warunek::PrzetworzoneWarunki ObiektBase::PobierzWarunki()const{
-	return obiektBaseInfo.listaWarunkow(getPoziom(),getIdPlanety());
+	return obiektBaseInfo.listaWarunkow(*this);
 }
 
 const ObiektBaseInfo& ObiektBase::getObiektBaseInfo()const{

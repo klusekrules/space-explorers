@@ -5,6 +5,7 @@
 #include "Ilosc.h"
 #include "Poziom.h"
 #include "IdType.h"
+#include "PodstawoweParametry.h"
 
 class Surowce;
 class WyjatekParseraXML;
@@ -15,18 +16,15 @@ class Cena :
 public:
 	typedef Surowce Item;
 	explicit Cena( ticpp::Node* ) throw(WyjatekParseraXML);
-	explicit Cena( const Item& ) throw();
 	Cena( const Cena& );
 
 	Cena& operator=(const Cena&);
-
-	virtual ~Cena();
-
+	
 	Cena* Kopia() const;
 
-	shared_ptr<Item> PobierzKoszty( const Ilosc&, const Poziom&, const IdType& ) const;
+	shared_ptr<Item> PobierzKoszty( const Ilosc&, const PodstawoweParametry& param) const;
 
-	bool czySpelniaKoszty( const Ilosc& i, const Poziom& p, const IdType& idPlanety ) const;
+	bool czySpelniaKoszty( const Ilosc& i, const PodstawoweParametry& param ) const;
 
 	const Item& getKoszty() const;
 	void setKoszty( const Item& );
