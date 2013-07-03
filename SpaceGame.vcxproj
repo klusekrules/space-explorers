@@ -219,6 +219,10 @@
     <ClInclude Include="BudynekInfo.h" />
     <ClInclude Include="Cena.h" />
     <ClInclude Include="Cennik.h" />
+    <ClInclude Include="Czas.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Dystans.h" />
     <ClInclude Include="Fluktuacja.h" />
     <ClInclude Include="FunkcjeTestowe.h" />
@@ -297,6 +301,10 @@
     <ClCompile Include="BudynekInfo.cpp" />
     <ClCompile Include="Cena.cpp" />
     <ClCompile Include="Cennik.cpp" />
+    <ClCompile Include="Czas.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Dystans.cpp" />
     <ClCompile Include="Fluktuacja.cpp" />
     <ClCompile Include="FunkcjeTestowe.cpp" />

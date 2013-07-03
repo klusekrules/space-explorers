@@ -7,6 +7,7 @@
 #include "Poziom.h"
 #include "IdType.h"
 #include "PodstawoweParametry.h"
+#include "Czas.h"
 
 class Cennik:
 	virtual public LoggerInterface
@@ -18,6 +19,8 @@ public:
 	Cennik( const Cennik& );
 	Cennik& operator=( const Cennik& );
 
+	virtual Czas pobierzCzasBudowy( const PodstawoweParametry& )const;
+
 	ListaSurowcow PobierzKoszty(const Ilosc&, const PodstawoweParametry& ) const;
 
 	bool czySpelniaKoszty( const Ilosc&, const PodstawoweParametry& ) const;
@@ -25,5 +28,7 @@ public:
 	string toString()const override;
 private:
 	Zbiornik elementy;
+
+	shared_ptr <ZmianaInterfejs> zmCzasuBudowy;
 };
 

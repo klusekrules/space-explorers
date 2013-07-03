@@ -139,6 +139,10 @@ bool Surowce::czyTypPrzyrostowy()const{
 bool Surowce::czMoznaDodacDoLadownii( const Ladownia& c ) const{
 	return c.czMoznaDodacDoLadownii(*this);
 }
+
+Czas Surowce::pobierzCzas()const{
+	return surowceInfo.pobierzCzas(ilosc,*this);
+}
 	
 string Surowce::toString() const{
 	Logger str(CLASSNAME(Surowce));

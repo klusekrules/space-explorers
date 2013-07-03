@@ -28,6 +28,7 @@ Cena::Cena( const Cena& a )
 
 shared_ptr<Cena::Item> Cena::PobierzKoszty(const Ilosc& i, const PodstawoweParametry& param ) const{
 	shared_ptr<Item> tmp(obiekty->Kopia());
+	tmp->ustawKontekst(param);
 	if(zmiana){
 		tmp->setIlosc(Ilosc(i.value()* zmiana->value(obiekty->getIlosc().value(),static_cast<int>(param.getPoziom().value()),param.getIdPlanety().value())));
 	}else{

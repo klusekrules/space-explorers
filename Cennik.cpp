@@ -1,9 +1,16 @@
 #include "Cennik.h"
 #include "Logger.h"
+#include "Surowce.h"
+#include "Aplikacja.h"
+#include "XmlBO.h"
 
 Cennik::Cennik( ticpp::Node* n ) throw(WyjatekParseraXML)
+	: zmCzasuBudowy(nullptr)
 {
 	if(n){
+		auto c = XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","Czas");
+		if(c)
+			zmCzasuBudowy=Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(c);
 		auto e = n->FirstChildElement(false);
 		while(e){
 			if(e->Value() == CLASSNAME(Cena))
@@ -13,6 +20,7 @@ Cennik::Cennik( ticpp::Node* n ) throw(WyjatekParseraXML)
 	}
 }
 Cennik::Cennik( const Cennik& o )
+	: zmCzasuBudowy(nullptr)
 {
 	this->operator=(o);
 }
@@ -33,6 +41,19 @@ bool Cennik::czySpelniaKoszty( const Ilosc& i, const PodstawoweParametry& p ) co
 			if(!e->czySpelniaKoszty(i,p))
 				return false;
 	return true;
+}
+
+Czas Cennik::pobierzCzasBudowy( const PodstawoweParametry& p )const{
+	auto k = PobierzKoszty(Ilosc(1),p);
+	Czas suma;
+	for( auto i : k ){
+		if(i)
+			suma+=i->pobierzCzas();
+	}
+	if(zmCzasuBudowy){		
+		suma = zmCzasuBudowy->value(suma.value(),static_cast<int>(p.getPoziom().value()),p.getIdPlanety().value());
+	}
+	return suma;
 }
 
 Cennik::ListaSurowcow Cennik::PobierzKoszty(const Ilosc& il, const PodstawoweParametry& p) const{

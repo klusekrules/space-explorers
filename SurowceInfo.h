@@ -22,8 +22,12 @@ public:
 
 	string toString() const override;
 
+	Czas pobierzCzas( const Ilosc& ,const PodstawoweParametry& )const;
+
 private:
 
 	Bool czyPrzyrostowy;
+
+	shared_ptr<ZmianaInterfejs> zmCzas;
 
 };

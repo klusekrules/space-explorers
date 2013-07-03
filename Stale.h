@@ -21,5 +21,6 @@ public:
 	static const SPG::Predkosc predkoscDOmyslny;
 	static const SPG::Tekst tekstDomyslny;
 	static const SPG::Parametr parametrDomyslny;
+	static const SPG::Czas czasDomyslny;
 
 };
