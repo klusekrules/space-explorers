@@ -37,7 +37,7 @@ public:
 	typedef list < Klucz > ListaKluczy;
 
 	Ladownia( const Poziom&, const IdType&, const LadowniaInfo& );
-	virtual ~Ladownia( );	
+	Ladownia( const PodstawoweParametry&, const LadowniaInfo& );	
 	
 	virtual Fluktuacja WolneMiejsce() const;
 

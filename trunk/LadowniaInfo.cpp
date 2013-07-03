@@ -21,15 +21,11 @@ LadowniaInfo::LadowniaInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
 	}
 }
 
-LadowniaInfo::~LadowniaInfo()
-{
-}
-
-Objetosc LadowniaInfo::getPojemnoscMaksymalna(const Poziom& p, const IdType& idPlanety) const{
-	if(przyrostPojemnoscMax==nullptr)
-		return pojemnoscMax;
+Objetosc LadowniaInfo::getPojemnoscMaksymalna(const PodstawoweParametry& p ) const{
+	if(przyrostPojemnoscMax)
+		return Objetosc(przyrostPojemnoscMax->value(pojemnoscMax.value(),static_cast<int>(p.getPoziom().value()),p.getIdPlanety().value()));
 	else
-		return Objetosc(przyrostPojemnoscMax->value(pojemnoscMax.value(),static_cast<int>(p.value()),idPlanety.value()));
+		return pojemnoscMax;
 }
 		
 string LadowniaInfo::toString() const{

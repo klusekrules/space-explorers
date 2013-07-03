@@ -22,14 +22,9 @@ public:
 	* \param mocSilnika - Procentowa wartoœæ mocy w klasie opisuj¹cej. Domyœlnie 1.0 
 	* \param zuzyciePaliwa - Procentowa wartoœæ zu¿ycia paliwa w klasie opisuj¹cej. Domyœlnie 1.0 
 	*/
-	explicit JednostkaLatajaca( const Poziom& p, const IdType& idP, const JednostkaLatajacaInfo& jInfo );
+	JednostkaLatajaca( const Poziom& p, const IdType& idP, const JednostkaLatajacaInfo& jInfo );
+	JednostkaLatajaca( const PodstawoweParametry& p , const JednostkaLatajacaInfo& jInfo );
 	
-	
-	/**
-	* Destruktor domyœlny
-	*/
-	virtual ~JednostkaLatajaca();
-
 	/**
 	* Funkcja wyliczaj¹ca zy¿ycie paliwa przez statek na okreœlonym dystansie i przy okreœlonej prêkoœci.
 	* \param d - Dystans, na którym ma poruszaæ siê statek.

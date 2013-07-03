@@ -7,7 +7,9 @@ Statek::Statek( const Ilosc& i, const Poziom& p , const IdType& idP, const State
 {
 }
 
-Statek::~Statek(){
+Statek::Statek( const Ilosc& i, const PodstawoweParametry& p, const StatekInfo& s )
+	: PodstawoweParametry(p), Obiekt( i, p, s ), JednostkaAtakujaca(p,s), JednostkaLatajaca(p,s), Ladownia(p,s), statekinfo(s)
+{
 }
 
 ZuzyciePaliwa Statek::WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p) const {
@@ -20,7 +22,7 @@ Statek* Statek::Kopia() const{
 
 Statek* Statek::Podziel( const Ilosc& i ){
 	if( ilosc>i ){
-		Statek* o = new Statek( i , getPoziom(), getIdPlanety(), this->statekinfo );
+		Statek* o = new Statek( i , *this, this->statekinfo );
 		ilosc-=i;
 		return o; 
 	}

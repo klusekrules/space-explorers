@@ -30,9 +30,12 @@ JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( ticpp::Node* n ) throw(WyjatekPa
 JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( const JednostkaAtakujacaInfo& e )
 	: Info(e), rd(), gen(rd()), atak(e.atak), pancerz(e.pancerz), oslona(e.oslona),zmAtak(nullptr), zmPancerz(nullptr), zmOslona(nullptr)
 {
-}
-
-JednostkaAtakujacaInfo::~JednostkaAtakujacaInfo(){
+	if(e.zmAtak)
+		zmAtak = shared_ptr<ZmianaInterfejs>(e.zmAtak->Kopia());
+	if(e.zmPancerz)
+		zmPancerz = shared_ptr<ZmianaInterfejs>(e.zmPancerz->Kopia());
+	if(e.zmOslona)
+		zmOslona = shared_ptr<ZmianaInterfejs>(e.zmOslona->Kopia());
 }
 
 Obrazenia JednostkaAtakujacaInfo::getAtak() const{
@@ -47,25 +50,25 @@ Obrazenia JednostkaAtakujacaInfo::getOslona() const{
 	return oslona;
 }
 
-Obrazenia JednostkaAtakujacaInfo::getAtak(const Poziom& p, const IdType& idPlanety ) const{
-	if(zmAtak==nullptr)
-		return atak;
+Obrazenia JednostkaAtakujacaInfo::getAtak(const PodstawoweParametry& p ) const{
+	if(zmAtak)
+		return Obrazenia(zmAtak->value(atak.value(),static_cast<int>(p.getPoziom().value()),p.getIdPlanety().value()));
 	else
-		return Obrazenia(zmAtak->value(atak.value(),static_cast<int>(p.value()),idPlanety.value()));
+		return atak;
 }
 	
-Obrazenia JednostkaAtakujacaInfo::getPancerz( const Poziom& p, const IdType& idPlanety ) const{
-	if(zmPancerz==nullptr)
-		return pancerz;
+Obrazenia JednostkaAtakujacaInfo::getPancerz( const PodstawoweParametry& p ) const{
+	if(zmPancerz)
+		return Obrazenia(zmPancerz->value(pancerz.value(),static_cast<int>(p.getPoziom().value()),p.getIdPlanety().value()));
 	else
-		return Obrazenia(zmPancerz->value(pancerz.value(),static_cast<int>(p.value()),idPlanety.value()));
+		return pancerz;
 }
 
-Obrazenia JednostkaAtakujacaInfo::getOslona(const Poziom& p, const IdType& idPlanety ) const{
-	if(zmOslona==nullptr)
-		return oslona;
+Obrazenia JednostkaAtakujacaInfo::getOslona(const PodstawoweParametry& p ) const{
+	if(zmOslona)
+		return Obrazenia(zmOslona->value(oslona.value(),static_cast<int>(p.getPoziom().value()),p.getIdPlanety().value()));
 	else
-		return Obrazenia(zmOslona->value(oslona.value(),static_cast<int>(p.value()),idPlanety.value()));
+		return oslona;
 }
 
 std::mt19937& JednostkaAtakujacaInfo::getGenerator()const{

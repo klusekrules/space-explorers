@@ -7,33 +7,35 @@ JednostkaLatajaca::JednostkaLatajaca( const Poziom& p, const IdType& idP, const 
 {
 }
 	
-JednostkaLatajaca::~JednostkaLatajaca(){
+JednostkaLatajaca::JednostkaLatajaca( const PodstawoweParametry& p , const JednostkaLatajacaInfo& jInfo )
+	: PodstawoweParametry(p), jednostkaLatajacaInfo(jInfo)
+{
 }
 
 ZuzyciePaliwa JednostkaLatajaca::WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const{
-	return ZuzyciePaliwa(jednostkaLatajacaInfo.getZuzyciePaliwa(getPoziom(),getIdPlanety()).value()* ( d.value() / p.value() ) );
+	return ZuzyciePaliwa(jednostkaLatajacaInfo.getZuzyciePaliwa(*this).value()* ( d.value() / p.value() ) );
 }
 
 ZuzyciePaliwa JednostkaLatajaca::getJednostkoweZuzyciePaliwa()const{
-	return jednostkaLatajacaInfo.getZuzyciePaliwa(getPoziom(),getIdPlanety());
+	return jednostkaLatajacaInfo.getZuzyciePaliwa(*this);
 }
 
 MocSilnika JednostkaLatajaca::getMocSilnika()const{
-	return jednostkaLatajacaInfo.getMocSilnika(getPoziom(),getIdPlanety());
+	return jednostkaLatajacaInfo.getMocSilnika(*this);
 }
 
 Masa JednostkaLatajaca::getMasaSilnika()const{
-	return jednostkaLatajacaInfo.getMasaNapedu(getPoziom(),getIdPlanety());
+	return jednostkaLatajacaInfo.getMasaNapedu(*this);
 }
 
 Fluktuacja JednostkaLatajaca::getSprawnoscSilnika()const{
-	return jednostkaLatajacaInfo.getSprawnoscSilnika(getPoziom(),getIdPlanety());
+	return jednostkaLatajacaInfo.getSprawnoscSilnika(*this);
 }
 
 Predkosc JednostkaLatajaca::PredkoscMaksymalna() const{
-	long double eta_m = jednostkaLatajacaInfo.getSprawnoscSilnika(getPoziom(),getIdPlanety()).value();
+	long double eta_m = jednostkaLatajacaInfo.getSprawnoscSilnika(*this).value();
 	long double a = 0.01;
-	long double P = jednostkaLatajacaInfo.getMocSilnika(getPoziom(),getIdPlanety()).value();
+	long double P = jednostkaLatajacaInfo.getMocSilnika(*this).value();
 	return Predkosc( ( P * eta_m )/(CalkowitaMasaJednostki().value() * a) );
 }
 

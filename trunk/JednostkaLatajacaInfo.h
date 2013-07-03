@@ -7,6 +7,7 @@
 #include "Klucz.h"
 #include "FuncTransf\ZmianaInterfejs.h"
 #include "WyjatekParseraXML.h"
+#include "PodstawoweParametry.h"
 
 /**
 * Klasa opisuj¹ca statek pod k¹tem przemieszczania siê.
@@ -27,10 +28,6 @@ public:
 	JednostkaLatajacaInfo(const Info& info, const Klucz& k, const MocSilnika& moc, const ZuzyciePaliwa& z, const Masa& masa ) throw();
 	
 	explicit JednostkaLatajacaInfo( ticpp::Node* ) throw(WyjatekParseraXML);
-	/**
-	* Destruktor domyœlny
-	*/
-	virtual ~JednostkaLatajacaInfo();
 
 	/**
 	* Metoda zwracaj¹ca rodzaj napêdu jednostki.
@@ -66,25 +63,25 @@ public:
 	* Metoda zwracaj¹ca moc silnika jednostki.
 	* \return Moc silnika jednostki.
 	*/
-	MocSilnika getMocSilnika(const Poziom& p, const IdType& ) const;
+	MocSilnika getMocSilnika(const PodstawoweParametry& ) const;
 
 	/**
 	* Metoda zwracaj¹ca zu¿ycie paliwa jednostki.
 	* \return Zu¿ycie paliwa jednostki.
 	*/
-	ZuzyciePaliwa getZuzyciePaliwa(const Poziom& p, const IdType& ) const;
+	ZuzyciePaliwa getZuzyciePaliwa(const PodstawoweParametry& ) const;
 	
 	/**
 	* Metoda zwracaj¹ca masê napêdu jednostki.
 	* \return Masa napêdu jednostki.
 	*/
-	Masa getMasaNapedu(const Poziom& p, const IdType& ) const;
+	Masa getMasaNapedu(const PodstawoweParametry& ) const;
 	
 	/**
 	* Metoda zwracaj¹ca Sprawnosc Silnika jednostki.
 	* \return Sprawnosc Silnika jednostki.
 	*/
-	Fluktuacja getSprawnoscSilnika(const Poziom& p, const IdType& ) const;
+	Fluktuacja getSprawnoscSilnika(const PodstawoweParametry& ) const;
 	
 	/**
 	* Metoda opisuj¹ca zawartoœæ klasy.

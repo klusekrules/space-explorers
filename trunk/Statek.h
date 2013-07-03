@@ -4,7 +4,7 @@
 #include "JednostkaLatajaca.h"
 #include "Obiekt.h"
 #include "Ladownia.h"
-
+#include "PodstawoweParametry.h"
 
 class Statek :
 	public JednostkaAtakujaca,
@@ -15,8 +15,6 @@ class Statek :
 {
 	friend class StatekInfo;
 public:
-	virtual ~Statek();
-
 	ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const override;
 		
 	Statek* Kopia() const override;
@@ -59,6 +57,7 @@ public:
 private:
 
 	Statek( const Ilosc&, const Poziom& p, const IdType& idP, const StatekInfo& );
+	Statek( const Ilosc&, const PodstawoweParametry& idP, const StatekInfo& );
 
 protected:
 

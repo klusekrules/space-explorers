@@ -9,7 +9,9 @@ Ladownia::Ladownia( const Poziom& p, const IdType& idP, const LadowniaInfo& l )
 {
 }
 
-Ladownia::~Ladownia( ){
+Ladownia::Ladownia( const PodstawoweParametry& p, const LadowniaInfo& l )
+	: PodstawoweParametry(p), obiekty(), zajete(), ladowniaInfo(l)
+{
 }
 
 Fluktuacja Ladownia::WolneMiejsce() const{
@@ -169,7 +171,7 @@ const Objetosc& Ladownia::getZajeteMiejsce() const{
 
 
 Objetosc Ladownia::getPojemnoscMax() const{
-	return ladowniaInfo.getPojemnoscMaksymalna( getPoziom(),getIdPlanety());
+	return ladowniaInfo.getPojemnoscMaksymalna(*this);
 }
 
 string Ladownia::toString() const{
