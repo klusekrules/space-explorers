@@ -35,10 +35,6 @@ JednostkaLatajacaInfo::JednostkaLatajacaInfo( ticpp::Node* n ) throw(WyjatekPars
 	}
 }
 
-JednostkaLatajacaInfo::~JednostkaLatajacaInfo()
-{
-}
-
 const Klucz& JednostkaLatajacaInfo::getRodzajNapedu() const{
 	return rodzajNapedu;
 }
@@ -59,32 +55,33 @@ Fluktuacja JednostkaLatajacaInfo::getSprawnoscSilnika() const{
 	return sprawnoscSilnika;
 }
 
-MocSilnika JednostkaLatajacaInfo::getMocSilnika(const Poziom& p, const IdType& idPlanety) const{
-	if(przyrostMocySilnika==nullptr)
+MocSilnika JednostkaLatajacaInfo::getMocSilnika(const PodstawoweParametry& p) const{
+	if(przyrostMocySilnika)
+		return MocSilnika(przyrostMocySilnika->value(mocSilnika.value(),static_cast<int>(p.getPoziom().value()),p.getIdPlanety().value()));
+	else
 		return mocSilnika;
-	else
-		return MocSilnika(przyrostMocySilnika->value(mocSilnika.value(),static_cast<int>(p.value()),idPlanety.value()));
 }
 
-ZuzyciePaliwa JednostkaLatajacaInfo::getZuzyciePaliwa(const Poziom& p, const IdType& idPlanety) const{
-	if(przyrostZuzyciaPaliwa==nullptr)
+ZuzyciePaliwa JednostkaLatajacaInfo::getZuzyciePaliwa(const PodstawoweParametry& p) const{
+	if(przyrostZuzyciaPaliwa)
+		return ZuzyciePaliwa(przyrostZuzyciaPaliwa->value(zuzyciePaliwa.value(),static_cast<int>(p.getPoziom().value()),p.getIdPlanety().value()));
+	else
 		return zuzyciePaliwa;
-	else
-		return ZuzyciePaliwa(przyrostZuzyciaPaliwa->value(zuzyciePaliwa.value(),static_cast<int>(p.value()),idPlanety.value()));
 }
 
-Masa JednostkaLatajacaInfo::getMasaNapedu( const Poziom& p, const IdType& idPlanety) const{
-	if(przyrostMasyNapedu==nullptr)
+Masa JednostkaLatajacaInfo::getMasaNapedu( const PodstawoweParametry& p) const{
+	if(przyrostMasyNapedu)
+		return Masa(przyrostMasyNapedu->value(masaNapedu.value(),static_cast<int>(p.getPoziom().value()),p.getIdPlanety().value()));
+	else
 		return masaNapedu;
-	else
-		return Masa(przyrostMasyNapedu->value(masaNapedu.value(),static_cast<int>(p.value()),idPlanety.value()));
 }
 
-Fluktuacja JednostkaLatajacaInfo::getSprawnoscSilnika( const Poziom& p, const IdType& idPlanety) const{
-	if(przyrostSprawnosciSilnika==nullptr)
-		return sprawnoscSilnika;
+Fluktuacja JednostkaLatajacaInfo::getSprawnoscSilnika( const PodstawoweParametry& p) const{
+	if(przyrostSprawnosciSilnika)
+		return Fluktuacja(static_cast<float>(przyrostSprawnosciSilnika->value(sprawnoscSilnika.value(),static_cast<int>(p.getPoziom().value()),p.getIdPlanety().value())));
 	else
-		return Fluktuacja(static_cast<float>(przyrostSprawnosciSilnika->value(sprawnoscSilnika.value(),static_cast<int>(p.value()),idPlanety.value())));
+		return sprawnoscSilnika;
+		
 }
 
 string JednostkaLatajacaInfo::toString() const{

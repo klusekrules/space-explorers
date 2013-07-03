@@ -4,6 +4,7 @@
 #include "Ladownia.h"
 #include "FuncTransf\ZmianaInterfejs.h"
 #include "WyjatekParseraXML.h"
+#include "PodstawoweParametry.h"
 
 class LadowniaInfo :
 	public Info,
@@ -18,10 +19,8 @@ public:
 	LadowniaInfo( const Objetosc& max, const Info& i ) throw();
 
 	explicit LadowniaInfo( ticpp::Node* ) throw(WyjatekParseraXML);
-
-	virtual ~LadowniaInfo();
-
-	Objetosc getPojemnoscMaksymalna( const Poziom& , const IdType&) const;
+	
+	Objetosc getPojemnoscMaksymalna( const PodstawoweParametry& ) const;
 		
 	string toString() const override;
 };

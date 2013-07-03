@@ -8,21 +8,22 @@ JednostkaAtakujaca::JednostkaAtakujaca( const Poziom& p , const IdType& idP, con
 {
 }
 
-JednostkaAtakujaca::~JednostkaAtakujaca(){
+JednostkaAtakujaca::JednostkaAtakujaca( const PodstawoweParametry& p, const JednostkaAtakujacaInfo& jInfo )
+	: PodstawoweParametry(p), jednostkaAtakujacaInfo(jInfo)
+{
 }
 
-
 Obrazenia JednostkaAtakujaca::Atak() const {
-	return Obrazenia( jednostkaAtakujacaInfo.getAtak(getPoziom(),getIdPlanety()).value() * (std::normal_distribution<>(srednia,odchylenie))(jednostkaAtakujacaInfo.getGenerator()));
+	return Obrazenia( jednostkaAtakujacaInfo.getAtak(*this).value() * (std::normal_distribution<>(srednia,odchylenie))(jednostkaAtakujacaInfo.getGenerator()));
 }
 
 Obrazenia JednostkaAtakujaca::Pancerz( const Obrazenia& a ) const{
-	Obrazenia o (jednostkaAtakujacaInfo.getPancerz(getPoziom(),getIdPlanety()));
+	Obrazenia o (jednostkaAtakujacaInfo.getPancerz(*this));
 	return a > o ? o : a;
 }		
 
 Obrazenia JednostkaAtakujaca::Oslona( const Obrazenia& a ) const{
-	Obrazenia o (jednostkaAtakujacaInfo.getOslona(getPoziom(),getIdPlanety()).value() * (std::normal_distribution<>(srednia,odchylenie))(jednostkaAtakujacaInfo.getGenerator()));
+	Obrazenia o (jednostkaAtakujacaInfo.getOslona(*this).value() * (std::normal_distribution<>(srednia,odchylenie))(jednostkaAtakujacaInfo.getGenerator()));
 	return a > o ? o : a;
 }
 
@@ -33,15 +34,15 @@ string JednostkaAtakujaca::toString() const{
 }
 
 Obrazenia JednostkaAtakujaca::getAtak() const{
-	return jednostkaAtakujacaInfo.getAtak(getPoziom(),getIdPlanety());
+	return jednostkaAtakujacaInfo.getAtak(*this);
 }
 
 Obrazenia JednostkaAtakujaca::getPancerz() const{
-	return jednostkaAtakujacaInfo.getPancerz(getPoziom(),getIdPlanety());
+	return jednostkaAtakujacaInfo.getPancerz(*this);
 }
 
 Obrazenia JednostkaAtakujaca:: getOslona() const{
-	return jednostkaAtakujacaInfo.getOslona(getPoziom(),getIdPlanety());
+	return jednostkaAtakujacaInfo.getOslona(*this);
 }
 
 const double JednostkaAtakujaca::srednia = 0.8;

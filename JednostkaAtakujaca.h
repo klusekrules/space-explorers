@@ -20,13 +20,9 @@ public:
 	* Konstruktor parametryczny.
 	* /param jInfo - Wskazanie na klasê reprezentuj¹c¹ opis jednostki atakuj¹cej.
 	*/
-	explicit JednostkaAtakujaca( const Poziom&p , const IdType& idP, const JednostkaAtakujacaInfo& jInfo );
-	
-	/**
-	* Wirtualny destruktor
-	*/
-	virtual ~JednostkaAtakujaca();
-	
+	JednostkaAtakujaca( const Poziom&p , const IdType& idP, const JednostkaAtakujacaInfo& jInfo );
+	JednostkaAtakujaca( const PodstawoweParametry& p, const JednostkaAtakujacaInfo& jInfo );
+		
 	/**
 	* Metoda atak s³u¿y do wyliczania obra¿eñ zadawanych przez obiekt.
 	* \return Obra¿enia zadane przez obiekt.

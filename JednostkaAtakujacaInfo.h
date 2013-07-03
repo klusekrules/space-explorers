@@ -6,6 +6,7 @@
 #include "FuncTransf\ZmianaInterfejs.h"
 #include "WyjatekParseraXML.h"
 #include <random>
+#include "PodstawoweParametry.h"
 
 class JednostkaAtakujacaInfo :
 	public Info,
@@ -23,12 +24,7 @@ public:
 	explicit JednostkaAtakujacaInfo( ticpp::Node* ) throw(WyjatekParseraXML);
 
 	JednostkaAtakujacaInfo( const JednostkaAtakujacaInfo& );
-
-	/**
-	* Destruktor domyœlny.
-	*/
-	virtual ~JednostkaAtakujacaInfo();
-
+	
 	/**
 	* Metoda zwraca podstawowe obra¿enia zadawane przez obiekt.
 	* \return Podstawowe obra¿enia zadawane przez obiekt.
@@ -51,19 +47,19 @@ public:
 	* Metoda zwraca obra¿enia zadawane przez obiekt.
 	* \return obra¿enia zadawane przez obiekt.
 	*/
-	Obrazenia getAtak(const Poziom& p, const IdType& ) const;	
+	Obrazenia getAtak(const PodstawoweParametry& ) const;	
 
 	/**
 	* Metoda zwraca obra¿enia jakie zniszcz¹ obiekt.
 	* \return obra¿enia jakie zniszcz¹ obiekt.
 	*/
-	Obrazenia getPancerz(const Poziom& p, const IdType& ) const;	
+	Obrazenia getPancerz(const PodstawoweParametry& ) const;	
 
 	/**
 	* Metoda zwraca obra¿enia jakie mo¿e poch³on¹æ os³ona obiektu.
 	* \return obra¿enia jakie mo¿e poch³on¹æ os³ona obiektu.
 	*/
-	Obrazenia getOslona(const Poziom& p, const IdType& ) const;
+	Obrazenia getOslona(const PodstawoweParametry& ) const;
 
 	/**
 	* Metoda zwraca generator pseudolosowy.
