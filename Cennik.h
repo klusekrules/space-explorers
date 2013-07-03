@@ -6,6 +6,7 @@
 #include "Ilosc.h"
 #include "Poziom.h"
 #include "IdType.h"
+#include "PodstawoweParametry.h"
 
 class Cennik:
 	virtual public LoggerInterface
@@ -14,14 +15,12 @@ public:
 	typedef vector< shared_ptr<Cena> > Zbiornik;
 	typedef vector< shared_ptr<Surowce> > ListaSurowcow;
 	explicit Cennik( ticpp::Node* ) throw(WyjatekParseraXML);
-	virtual ~Cennik();
-
+	Cennik( const Cennik& );
 	Cennik& operator=( const Cennik& );
 
-	ListaSurowcow PobierzKoszty(const Ilosc&, const Poziom&, const IdType&) const;
+	ListaSurowcow PobierzKoszty(const Ilosc&, const PodstawoweParametry& ) const;
 
-	//IdType - id planety w kontekœcie której maj¹ byæ sprawdzane wymagania.
-	bool czySpelniaKoszty( const Ilosc&, const Poziom&, const IdType& ) const;
+	bool czySpelniaKoszty( const Ilosc&, const PodstawoweParametry& ) const;
 
 	string toString()const override;
 private:

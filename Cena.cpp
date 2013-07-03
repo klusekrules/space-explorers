@@ -21,25 +21,15 @@ Cena::Cena( ticpp::Node* n ) throw(WyjatekParseraXML)
 	}
 }
 
-Cena::Cena( const Item & zsKoszty ) throw()
-	: obiekty(zsKoszty.Kopia()) , zmiana(nullptr)
-{
-}
-
 Cena::Cena( const Cena& a )
-	: obiekty(a.obiekty->Kopia())
 {
-	zmiana = a.zmiana ? shared_ptr<ZmianaInterfejs>(a.zmiana->Kopia()): nullptr;
+	this->operator=(a);
 }
 
-Cena::~Cena()
-{
-}
-
-shared_ptr<Cena::Item> Cena::PobierzKoszty(const Ilosc& i, const Poziom& p, const IdType& idPlanety ) const{
+shared_ptr<Cena::Item> Cena::PobierzKoszty(const Ilosc& i, const PodstawoweParametry& param ) const{
 	shared_ptr<Item> tmp(obiekty->Kopia());
 	if(zmiana){
-		tmp->setIlosc(Ilosc(i.value()* zmiana->value(obiekty->getIlosc().value(),static_cast<int>(p.value()),idPlanety.value())));
+		tmp->setIlosc(Ilosc(i.value()* zmiana->value(obiekty->getIlosc().value(),static_cast<int>(param.getPoziom().value()),param.getIdPlanety().value())));
 	}else{
 		tmp->setIlosc(Ilosc(i.value()* obiekty->getIlosc().value() ));
 	}
@@ -68,7 +58,7 @@ Cena* Cena::Kopia() const{
 	return new Cena(*this);
 }
 
-bool Cena::czySpelniaKoszty( const Ilosc& i, const Poziom& p, const IdType& idPlanety ) const{
+bool Cena::czySpelniaKoszty( const Ilosc& i, const PodstawoweParametry& param ) const{
 	//return (zasób na planecie) >= (i.value() * obiekty.getIlosc().value()));
 	//TODO:Zimplementowanie wymaga istnienia klasy planeta z mo¿liwoœci¹ pobieranie iloœci surowców.
 	return true;

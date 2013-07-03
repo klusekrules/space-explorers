@@ -7,8 +7,13 @@ Budynek::Budynek(const Poziom& p, const IdType& idP, const BudynekInfo& o)
 {
 }
 
+Budynek::Budynek(const PodstawoweParametry& p, const BudynekInfo& o)
+	: PodstawoweParametry(p), Obiekt( Ilosc(1), p, o ), budynekInfo(o)
+{
+}
+
 Budynek* Budynek::Kopia() const{
-	return new Budynek(getPoziom(),getIdPlanety(),budynekInfo);
+	return new Budynek(*this,budynekInfo);
 }
 
 Budynek* Budynek::Podziel( const Ilosc& ilosc){
@@ -32,11 +37,11 @@ Budynek::~Budynek(void)
 }
 
 Cennik::ListaSurowcow Budynek::PobierzZapotrzebowanie( )const{
-	return budynekInfo.PobierzZapotrzebowanie(getPoziom(),getIdPlanety());
+	return budynekInfo.PobierzZapotrzebowanie(*this);
 }
 
 Cennik::ListaSurowcow Budynek::PobierzProdukcje( )const{
-	return budynekInfo.PobierzProdukcje(getPoziom(),getIdPlanety());
+	return budynekInfo.PobierzProdukcje(*this);
 }
 
 string Budynek::toString()const{

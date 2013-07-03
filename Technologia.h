@@ -10,7 +10,8 @@ class Technologia :
 protected:
 	const TechnologiaInfo& technologiaInfo;
 public:
-	explicit Technologia( const Poziom&, const IdType&, const TechnologiaInfo& );
+	Technologia( const Poziom&, const IdType&, const TechnologiaInfo& );
+	Technologia( const PodstawoweParametry& p, const TechnologiaInfo& t);
 	~Technologia(void);
 
 	Technologia* Kopia() const override;

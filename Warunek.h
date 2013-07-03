@@ -6,6 +6,7 @@
 #include "IdType.h"
 #include "FuncTransf\ZmianaInterfejs.h"
 #include "Poziom.h"
+#include "PodstawoweParametry.h"
 
 class ObiektBaseInfo;
 class WyjatekParseraXML;
@@ -18,15 +19,13 @@ public:
 	typedef vector< Item > ListaWarunkow;
 	typedef vector< shared_ptr< ObiektBaseInfo > > PrzetworzoneWarunki;
 
-	Warunek();
 	explicit Warunek( ticpp::Node* n ) throw(WyjatekParseraXML);
-	explicit Warunek(const Warunek& w) throw();
+	explicit Warunek(const Warunek& w);
 	Warunek& operator=(const Warunek& w);
-	~Warunek();
 
-	PrzetworzoneWarunki listaWarunkow( const Poziom& p, const IdType& ) const;
+	PrzetworzoneWarunki listaWarunkow( const PodstawoweParametry& ) const;
 
-	bool czySpelniaWarunki( const IdType& ) const;
+	bool czySpelniaWarunki( const PodstawoweParametry& ) const;
 
 	string toString() const override;
 
@@ -34,7 +33,7 @@ private:
 	
 	bool dodajWarunek( Item& o );
 
-	shared_ptr< ObiektBaseInfo > przeliczWarunek( Item& o, const Poziom& p, const IdType& ) const;
+	shared_ptr< ObiektBaseInfo > przeliczWarunek( Item& o, const PodstawoweParametry& ) const;
 
 	ListaWarunkow warunki;
 };

@@ -25,7 +25,6 @@ public:
 	string toString() const;
 
 private:
-	//Zachowane do przeliczania spe³nienia warunków
 	Poziom poziom;
 };
 

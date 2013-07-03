@@ -35,18 +35,18 @@ Budynek* BudynekInfo::TworzEgzemplarz( const Ilosc&, const IdType& idP ) const{
 	return new Budynek(getPoziom(),idP,*this);
 }
 
-Cennik::ListaSurowcow BudynekInfo::PobierzZapotrzebowanie( const Poziom& p, const IdType& idPlanety )const{
+Cennik::ListaSurowcow BudynekInfo::PobierzZapotrzebowanie( const PodstawoweParametry& param )const{
 	Cennik::ListaSurowcow list;
 	for(auto z : zapotrzebowanie){
-		list.push_back(z->PobierzKoszty(Ilosc(1),p,idPlanety));
+		list.push_back(z->PobierzKoszty(Ilosc(1),param));
 	}
 	return list;
 }
 
-Cennik::ListaSurowcow BudynekInfo::PobierzProdukcje( const Poziom& p, const IdType& idPlanety )const{
+Cennik::ListaSurowcow BudynekInfo::PobierzProdukcje( const PodstawoweParametry& param )const{
 	Cennik::ListaSurowcow list;
 	for(auto z : produkcja){
-		list.push_back(z->PobierzKoszty(Ilosc(1),p,idPlanety));
+		list.push_back(z->PobierzKoszty(Ilosc(1),param));
 	}
 	return list;
 }

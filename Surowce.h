@@ -5,6 +5,7 @@
 #include "NiezgodnyTypSurowca.h"
 #include "NiepoprawnaIloscObiektow.h"
 #include "BladLaczeniaObiektow.h"
+#include "PodstawoweParametry.h"
 
 class SurowceInfo;
 class Ladownia;
@@ -15,8 +16,6 @@ class Surowce :
 {
 	friend class SurowceInfo;
 public:
-	virtual ~Surowce( );
-
 	Surowce* Kopia() const override;
 
 	Obiekt* Podziel( const Ilosc& ) override;
@@ -67,7 +66,8 @@ private:
 
 	Surowce( const Ilosc&, const Surowce& );
 	Surowce( const Ilosc&, const Poziom& p, const IdType& idP, const SurowceInfo&  );
-	
+	Surowce( const Ilosc&, const PodstawoweParametry& p, const SurowceInfo&  );
+
 	const SurowceInfo& surowceInfo;
 
 };

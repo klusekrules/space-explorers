@@ -8,6 +8,11 @@ Obiekt::Obiekt( const Ilosc& i, const Poziom& p, const IdType& idP, const Obiekt
 {
 }
 
+Obiekt::Obiekt( const Ilosc& i, const PodstawoweParametry&p , const ObiektInfo& obiekt ) throw()
+	: PodstawoweParametry(p), ObiektBase( i, p, obiekt ), obiektInfoClass( obiekt )
+{
+}
+
 Obiekt::~Obiekt(){
 }
 

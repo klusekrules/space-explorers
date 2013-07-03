@@ -9,11 +9,13 @@ Surowce::Surowce( const Ilosc& isIlosc, const Poziom& p, const IdType& idP, cons
 }
 
 Surowce::Surowce( const Ilosc& isIlosc , const Surowce& s )
-	:  PodstawoweParametry(s), Obiekt( s ), surowceInfo(s.surowceInfo)
+	:  PodstawoweParametry(s), Obiekt( isIlosc, s, s.surowceInfo ), surowceInfo(s.surowceInfo)
 {
 }
 
-Surowce::~Surowce( ){
+Surowce::Surowce( const Ilosc& isIlosc, const PodstawoweParametry& p, const SurowceInfo& s )
+	:  PodstawoweParametry(p), Obiekt( isIlosc, p, s ), surowceInfo(s)
+{
 }
 
 Surowce* Surowce::Kopia() const{

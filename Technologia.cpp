@@ -5,13 +5,16 @@ Technologia::Technologia( const Poziom& p, const IdType& idP, const TechnologiaI
 	: PodstawoweParametry(p, idP),ObiektBase(Ilosc(1),p,idP,t), technologiaInfo(t)
 {
 }
-
+Technologia::Technologia( const PodstawoweParametry& p, const TechnologiaInfo& t)
+	: PodstawoweParametry(p),ObiektBase(Ilosc(1),p,t), technologiaInfo(t)
+{
+}
 Technologia::~Technologia(void)
 {
 }
 
 Technologia* Technologia::Kopia() const{
-	return new Technologia(getPoziom(),getIdPlanety(),technologiaInfo);
+	return new Technologia(*this,technologiaInfo);
 }
 
 Technologia* Technologia::Podziel( const Ilosc& ilosc){
