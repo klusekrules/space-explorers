@@ -6,6 +6,7 @@
 #include <fstream>
 #include "XmlBO.h"
 #include <io.h>
+#include "ZmianaPoziomObiektu.h"
 
 Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 	: isDbgHelpInit(false), log(Log::getInstance()), instancjaGry(new Gra(*this))
@@ -59,6 +60,8 @@ Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 	}
 
 	pluginy = shared_ptr<Cplugin>(new Cplugin(folderPluginow,instancjaGry->getZmianaFabryka(),log));
+
+	RejestrujZmianaPoziomObiektu(instancjaGry->getZmianaFabryka(),log);
 
 	if(!pluginy->LoadDefaultZmiana())
 		throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,Tekst("Domyslne elementy zmiany."));

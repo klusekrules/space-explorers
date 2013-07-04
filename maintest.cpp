@@ -18,6 +18,7 @@ void main(){
 
 	Testy test;
 	test.dodajTest("£adowanie Danych",ladowanie_danych,true);
+	test.dodajTest("Logowanie",test_Logowanie,true);
 	test.dodajTest("Test klasy NiepoprawneParametryFunkcji",test_KlasaNiepoprawneParametryFunkcji,true);	
 	test.dodajTest("Tworzenie Obiektow",test_tworzenieObiektow,true);
 	test.dodajTest("Test Klasy Ladownia",test_KlasaLadownia,false);
@@ -28,6 +29,8 @@ void main(){
 	test.dodajTest("Test tworzenia technologi",test_Technologie,false); 
 	test.dodajTest("Test dla zgloszenia 52",test_Issue52,false);
 	test.dodajTest("Test budynków",test_Budynki,false);
+	test.dodajTest("Test tworzenia planety i obiektow na planecie",test_TworzeniePlanetyIObiektow,true);
+
 	test();
 	/*ALLEGRO_DISPLAY *display = NULL;
  

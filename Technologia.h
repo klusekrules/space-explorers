@@ -24,6 +24,8 @@ public:
 
 	bool czyMoznaPodzielic( const Ilosc& ilosc) const override;
 
+	void wybuduj(const Ilosc&) override;
+
 	string toString() const override;
 };
 

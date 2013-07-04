@@ -27,6 +27,9 @@ public:
 	Poziom operator-( const Poziom& )const;
 	Poziom operator+( const Poziom& )const;
 
+	Poziom& operator++( );
+	Poziom operator++( int );
+
 	operator size_t () const;
 
 	type_name getPoziom()const;

@@ -36,6 +36,10 @@ bool ObiektBase::Polacz( const ObiektBase& obj ){
 		return false;
 	}
 }
+
+void ObiektBase::wybuduj(const Ilosc& i){
+	ilosc += i;
+}
 		
 Klucz ObiektBase::ID() const{
 	return Klucz( getId() , getPoziom() );

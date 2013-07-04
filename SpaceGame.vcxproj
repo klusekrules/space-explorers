@@ -228,8 +228,10 @@
     <ClInclude Include="FunkcjeTestowe.h" />
     <ClInclude Include="Gra.h" />
     <ClInclude Include="Library.h" />
+    <ClInclude Include="Licznik.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Parametr.h" />
+    <ClInclude Include="Planeta.h" />
     <ClInclude Include="PodstawoweParametry.h" />
     <ClInclude Include="Technologia.h" />
     <ClInclude Include="TechnologiaInfo.h" />
@@ -286,6 +288,7 @@
     <ClInclude Include="WyjatekSTL.h" />
     <ClInclude Include="Wymagania.h" />
     <ClInclude Include="XmlBO.h" />
+    <ClInclude Include="ZmianaPoziomObiektu.h" />
     <ClInclude Include="ZuzyciePaliwa.h" />
   </ItemGroup>
   <ItemGroup>
@@ -319,6 +322,7 @@
     <ClCompile Include="Klucz.cpp" />
     <ClCompile Include="Ladownia.cpp" />
     <ClCompile Include="LadowniaInfo.cpp" />
+    <ClCompile Include="Licznik.cpp" />
     <ClCompile Include="maintest.cpp" />
     <ClCompile Include="Masa.cpp" />
     <ClCompile Include="MocSilnika.cpp" />
@@ -335,6 +339,7 @@
     <ClCompile Include="Obrazenia.cpp" />
     <ClCompile Include="OgolnyWyjatek.cpp" />
     <ClCompile Include="Parametr.cpp" />
+    <ClCompile Include="Planeta.cpp" />
     <ClCompile Include="PodstawoweParametry.cpp" />
     <ClCompile Include="Powierzchnia.cpp" />
     <ClCompile Include="Poziom.cpp" />
@@ -355,6 +360,7 @@
     <ClCompile Include="WyjatekSTL.cpp" />
     <ClCompile Include="Wyjatki.cpp" />
     <ClCompile Include="Wymagania.cpp" />
+    <ClCompile Include="ZmianaPoziomObiektu.cpp" />
     <ClCompile Include="ZuzyciePaliwa.cpp" />
   </ItemGroup>
   <ItemGroup>

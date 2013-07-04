@@ -28,6 +28,8 @@ public:
 
 	Cennik::ListaSurowcow PobierzProdukcje( )const;
 
+	void wybuduj(const Ilosc&) override;
+
 	string toString()const override;
 };
 

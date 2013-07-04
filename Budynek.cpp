@@ -32,6 +32,10 @@ bool Budynek::czyMoznaPodzielic( const Ilosc& ilosc) const{
 	return false;
 }
 
+void Budynek::wybuduj(const Ilosc&){
+	wzrostPoziomu();
+}
+
 Budynek::~Budynek(void)
 {
 }

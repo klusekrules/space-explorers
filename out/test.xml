@@ -185,7 +185,7 @@
   <StatekInfo>
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="1">
-        <Info id="0x001" nazwa="Transportowiec">
+        <Info id="0x00B" nazwa="Transportowiec">
           Opis Transportowca.
           <Wymagania>
             <Cennik>
@@ -263,7 +263,7 @@
   <StatekInfo>
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="1">
-        <Info id="0x002" nazwa="Myœliwiec">
+        <Info id="0x00C" nazwa="Myœliwiec">
           Opis Myœliwca.
         </Info>
       </ObiektBaseInfo>
@@ -332,7 +332,7 @@
   <StatekInfo>
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="4">
-        <Info id="0x003" nazwa="Myœliwiec 2">
+        <Info id="0x00D" nazwa="Myœliwiec 2">
           Opis Myœliwca 2.
         </Info>
       </ObiektBaseInfo>
@@ -357,7 +357,7 @@
   <StatekInfo>
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="2">
-        <Info id="0x004" nazwa="Transportowiec 2">
+        <Info id="0x00E" nazwa="Transportowiec 2">
           Opis Transportowca 2.
         </Info>
       </ObiektBaseInfo>
@@ -382,7 +382,7 @@
   <!-- Technologie -->
   <TechnologiaInfo>
     <ObiektBaseInfo poziom="0">
-      <Info id="0x0001" nazwa="Technologia komputerowa">
+      <Info id="0x000F" nazwa="Technologia komputerowa">
         Opis technologii.
         <Wymagania>
           <Cennik>
@@ -398,7 +398,7 @@
   
   <TechnologiaInfo>
     <ObiektBaseInfo poziom="0">
-      <Info id="0x0002" nazwa="Technologia podprzestrzenna">
+      <Info id="0x0010" nazwa="Technologia podprzestrzenna">
         Opis technologii podprzestrzennej.
         <Wymagania>
           <Cennik>
@@ -415,8 +415,8 @@
   <!-- Budynki -->  
   <BudynekInfo>
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
-      <ObiektBaseInfo poziom="0">
-        <Info id="0x0001" nazwa="Kopalnia Metalu">
+      <ObiektBaseInfo poziom="1">
+        <Info id="0x0011" nazwa="Kopalnia Metalu">
           Opis kopalni metalu.
           <Wymagania>
             <Cennik>
@@ -455,7 +455,7 @@
   <BudynekInfo>
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="0">
-        <Info id="0x0002" nazwa="Elektrownia s³oneczna">
+        <Info id="0x0012" nazwa="Elektrownia s³oneczna">
           Opis elektrowni s³onecznej.
           <Wymagania>
             <Cennik>
@@ -481,7 +481,7 @@
   <BudynekInfo>
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
       <ObiektBaseInfo poziom="0">
-        <Info id="0x0003" nazwa="Fabryka robotów">
+        <Info id="0x0013" nazwa="Fabryka robotów">
           Opis Fabryki robotów.
           <Wymagania>
             <Cennik>

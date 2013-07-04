@@ -67,6 +67,17 @@ Poziom Poziom::operator+( const Poziom& p )const{
 	return Poziom( pPoziom + p.pPoziom );
 }
 
+Poziom& Poziom::operator++( ){
+	++pPoziom;
+	return (*this);
+}
+
+Poziom Poziom::operator++( int ){
+	Poziom t(*this);
+	++pPoziom;
+	return t;
+}
+
 Poziom::operator size_t () const{
 	return (size_t)pPoziom;
 }

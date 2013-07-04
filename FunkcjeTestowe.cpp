@@ -63,7 +63,7 @@ bool ladowanie_danych( Test & t ){
 bool test_KlasaNiepoprawneParametryFunkcji( Test & t ){
 	try{
 		Ilosc temp(5);
-		shared_ptr<Statek> s( tworzStatek(t,IdType(1),Ilosc(1)));
+		shared_ptr<Statek> s( tworzStatek(t,IdType(11),Ilosc(1)));
 		Statek& tmp = *s;
 		throw NiepoprawneParametryFunkcji( EXCEPTION_PLACE , tmp , temp );
 	}catch( const NiepoprawneParametryFunkcji& e ){
@@ -76,10 +76,10 @@ bool test_KlasaNiepoprawneParametryFunkcji( Test & t ){
 }
 
 bool test_KlasaLadownia( Test & t ){
-	shared_ptr<Statek> a (tworzStatek(t,IdType(4),Ilosc(8)));
+	shared_ptr<Statek> a (tworzStatek(t,IdType(14),Ilosc(8)));
 	Aplikacja::getInstance().getLog().debug("Pojemnosc Maksymalna:");
 	Aplikacja::getInstance().getLog().debug(a->getPojemnoscMax());
-	shared_ptr<Statek> b (tworzStatek(t,IdType(1),Ilosc(150)));
+	shared_ptr<Statek> b (tworzStatek(t,IdType(11),Ilosc(150)));
 	t.assert_false(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*b));
 	shared_ptr<Surowce> c (tworzSurowce(t,IdType(6),Ilosc(20)));
 	t.assert_false(EXCEPTION_PLACE,c->czyTypPrzyrostowy());
@@ -102,7 +102,7 @@ bool test_KlasaLadownia( Test & t ){
 }
 
 bool test_tworzenieObiektow( Test & t ){
-	ObiektInfo& p = Aplikacja::getInstance().getGra().getStatek(IdType(1));
+	ObiektInfo& p = Aplikacja::getInstance().getGra().getStatek(IdType(11));
 	Aplikacja::getInstance().getLog().debug( "Klasa info:");
 	Aplikacja::getInstance().getLog().debug(p);
 	shared_ptr<Obiekt>o (p.TworzEgzemplarz(Ilosc(8),IdType()));
@@ -123,22 +123,22 @@ bool test_KlasaObiektList( Test & t ){
 	Statek *b = nullptr;
 	Statek *c = nullptr;
 	Statek *d = nullptr;
-	a = tworzStatek(t,IdType(1),Ilosc(8));
+	a = tworzStatek(t,IdType(11),Ilosc(8));
 	lista.add(a);
 	Aplikacja::getInstance().getLog().debug("Dodano do kontenera");
 	Aplikacja::getInstance().getLog().debug(*a);
 
-	b = tworzStatek(t,IdType(2),Ilosc(8));
+	b = tworzStatek(t,IdType(12),Ilosc(8));
 	lista.add(b);	
 	Aplikacja::getInstance().getLog().debug("Dodano do kontenera");
 	Aplikacja::getInstance().getLog().debug(*b);
 
-	c = tworzStatek(t,IdType(3),Ilosc(8));
+	c = tworzStatek(t,IdType(13),Ilosc(8));
 	lista.add(c);
 	Aplikacja::getInstance().getLog().debug("Dodano do kontenera");
 	Aplikacja::getInstance().getLog().debug(*c);
 
-	d = tworzStatek(t,IdType(4),Ilosc(8));
+	d = tworzStatek(t,IdType(14),Ilosc(8));
 	lista.add(d);
 	Aplikacja::getInstance().getLog().debug("Dodano do kontenera");
 	Aplikacja::getInstance().getLog().debug(*d);
@@ -162,20 +162,20 @@ bool test_KlasaObiektList( Test & t ){
 		Aplikacja::getInstance().getLog().debug(a);
 	}
 
-	Statek& sTmp1 = lista.get(Klucz(IdType( 2 ),Poziom( 1 )));
-	t.assert_false(EXCEPTION_PLACE,sTmp1.getId()==IdType( 2 ));
+	Statek& sTmp1 = lista.get(Klucz(IdType( 12 ),Poziom( 1 )));
+	t.assert_false(EXCEPTION_PLACE,sTmp1.getId()==IdType( 12 ));
 	t.assert_false(EXCEPTION_PLACE,sTmp1.getPoziom()==Poziom( 1 ));
 	Aplikacja::getInstance().getLog().debug("Pobranie z kontenera: ");
 	Aplikacja::getInstance().getLog().debug(sTmp1);
 	Aplikacja::getInstance().getLog().debug("Usuniecie z kontenera wartosci o kluczu: ");
-	Aplikacja::getInstance().getLog().debug(Klucz(IdType( 1 ),Poziom( 1 )));
-	t.assert_false(EXCEPTION_PLACE,lista.del(Klucz(IdType( 1 ),Poziom( 1 ))));
+	Aplikacja::getInstance().getLog().debug(Klucz(IdType( 11 ),Poziom( 1 )));
+	t.assert_false(EXCEPTION_PLACE,lista.del(Klucz(IdType( 11 ),Poziom( 1 ))));
 	Aplikacja::getInstance().getLog().debug("Zawartoœæ kontenera po usunieciu");
 	Aplikacja::getInstance().getLog().debug(lista);
 	Aplikacja::getInstance().getLog().debug("Pobranie i jednoszesne usuniecie z kontenera wartosci o kluczu:");
-	Aplikacja::getInstance().getLog().debug(Klucz(IdType( 4 ),Poziom( 2 )));
-	Statek* sTmp2 = lista.getAndDel(Klucz(IdType( 4 ),Poziom( 2 )));
-	t.assert_false(EXCEPTION_PLACE,sTmp2->getId()==IdType( 4 ));
+	Aplikacja::getInstance().getLog().debug(Klucz(IdType( 14 ),Poziom( 2 )));
+	Statek* sTmp2 = lista.getAndDel(Klucz(IdType( 14 ),Poziom( 2 )));
+	t.assert_false(EXCEPTION_PLACE,sTmp2->getId()==IdType( 14 ));
 	t.assert_false(EXCEPTION_PLACE,sTmp2->getPoziom()==Poziom( 2 ));
 	Aplikacja::getInstance().getLog().debug(*sTmp2);
 	delete sTmp2;
@@ -227,7 +227,7 @@ bool test_KlasaObiektList( Test & t ){
 }
 
 bool test_wymagan( Test & t ){
-	shared_ptr<Statek> a( tworzStatek(t,IdType(1),Ilosc(8)) );
+	shared_ptr<Statek> a( tworzStatek(t,IdType(11),Ilosc(8)) );
 	auto tmp = a->PobierzKoszty();
 	for(auto e : tmp){
 		Aplikacja::getInstance().getLog().debug(*e);
@@ -245,7 +245,7 @@ bool test_wymagan( Test & t ){
 }
 
 bool test_KlasaJednostkaAtakujaca( Test & t ){
-	shared_ptr<Statek> a( tworzStatek(t,IdType(1),Ilosc(8)) );
+	shared_ptr<Statek> a( tworzStatek(t,IdType(11),Ilosc(8)) );
 	Obrazenia oAtak = a->Atak();
 	Obrazenia baseAtak(a->getStatekInfo().getAtak(PodstawoweParametry(Poziom(1),IdType())).value()*8.0);
 	Obrazenia tbAtak(baseAtak.value() *(JednostkaAtakujaca::srednia-(JednostkaAtakujaca::odchylenie * 3 )));
@@ -279,7 +279,7 @@ bool test_KlasaJednostkaAtakujaca( Test & t ){
 }
 
 bool test_Issue42( Test & t ){
-	shared_ptr<Statek> a( tworzStatek(t,IdType(2),Ilosc(2)) );
+	shared_ptr<Statek> a( tworzStatek(t,IdType(12),Ilosc(2)) );
 	t.assert_false(EXCEPTION_PLACE, a->getMasa() == Masa(4+14));
 	t.assert_false(EXCEPTION_PLACE, a->getObjetosc() == Objetosc(6));
 	t.assert_false(EXCEPTION_PLACE, a->getPowierzchnia() == Powierzchnia(8));
@@ -294,23 +294,23 @@ bool test_Issue42( Test & t ){
 }
 
 bool test_Issue52( Test & t ){
-	shared_ptr<Statek> a( tworzStatek(t,IdType(3),Ilosc(1)) );
+	shared_ptr<Statek> a( tworzStatek(t,IdType(13),Ilosc(1)) );
 	t.assert_false(EXCEPTION_PLACE, a->getPoziom() == Poziom(4));
-	shared_ptr<Statek> b( tworzStatek(t,IdType(4),Ilosc(1)) );
+	shared_ptr<Statek> b( tworzStatek(t,IdType(14),Ilosc(1)) );
 	t.assert_false(EXCEPTION_PLACE, b->getPoziom() == Poziom(2));
 	return true;
 }
 
 bool test_Technologie( Test & t ){
-	shared_ptr<Technologia> a( tworzTechnologie(t,IdType(1)) );
+	shared_ptr<Technologia> a( tworzTechnologie(t,IdType(15)) );
 	Aplikacja::getInstance().getLog().debug(*a);
-	shared_ptr<Technologia> b( tworzTechnologie(t,IdType(2)) );
+	shared_ptr<Technologia> b( tworzTechnologie(t,IdType(16)) );
 	Aplikacja::getInstance().getLog().debug(*b);
 	return true;
 }
 
 bool test_Budynki( Test & t ){
-	shared_ptr<Budynek> a( tworzBudynek(t,IdType(1)) );
+	shared_ptr<Budynek> a( tworzBudynek(t,IdType(17)) );
 	a->setPoziom(Poziom(3));
 	auto z = a->PobierzZapotrzebowanie();
 	if(t.assert_false(EXCEPTION_PLACE, z.size()>0)){
@@ -323,7 +323,7 @@ bool test_Budynki( Test & t ){
 		t.assert_false(EXCEPTION_PLACE, p[0]->getId()==IdType(1));
 	}
 
-	shared_ptr<Budynek> b( tworzBudynek(t,IdType(2)) );
+	shared_ptr<Budynek> b( tworzBudynek(t,IdType(18)) );
 	b->setPoziom(Poziom(2));
 	p = b->PobierzProdukcje();
 	if(t.assert_false(EXCEPTION_PLACE, p.size()>0)){
@@ -333,11 +333,43 @@ bool test_Budynki( Test & t ){
 	z = b->PobierzZapotrzebowanie();
 	t.assert_false(EXCEPTION_PLACE, z.size()==0);
 
-	shared_ptr<Budynek> c( tworzBudynek(t,IdType(3)) );
+	shared_ptr<Budynek> c( tworzBudynek(t,IdType(19)) );
 	c->setPoziom(Poziom(2));
 	p = c->PobierzProdukcje();
 	t.assert_false(EXCEPTION_PLACE, p.size()==0);
 	z = c->PobierzZapotrzebowanie();
 	t.assert_false(EXCEPTION_PLACE, z.size()==0);
+	return true;
+}
+
+bool test_Logowanie( Test & t ){
+	t.assert_false(EXCEPTION_PLACE,Aplikacja::getInstance().getGra().Logowanie("",""));
+	return true;
+}
+
+bool test_TworzeniePlanetyIObiektow( Test & t ){
+	auto idPlanety = Aplikacja::getInstance().getGra().generujPlanete();
+	t.assert_false(EXCEPTION_PLACE,Aplikacja::getInstance().getGra().przeniesPlaneteDoUzytkownika(idPlanety));
+	auto planeta = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(idPlanety);
+
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(17),Ilosc(1)));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(17)).getPoziom()==Poziom(1));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(17)).getIlosc()==Ilosc(1));
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(17),Ilosc(1)));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(17)).getPoziom()==Poziom(2));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(17)).getIlosc()==Ilosc(1));
+
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(1),Ilosc(100)));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(1)).getPoziom()==Poziom(1));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(1)).getIlosc()==Ilosc(100));
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(1),Ilosc(100)));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(1)).getPoziom()==Poziom(1));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(1)).getIlosc()==Ilosc(200));
+	
+	t.assert_true(EXCEPTION_PLACE,planeta.wybuduj(IdType(20000),Ilosc(1)));
+	t.assert_true(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(20000)).getId()==IdType(20000));
+
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzIloscObiektow()==Ilosc(2));
+
 	return true;
 }
