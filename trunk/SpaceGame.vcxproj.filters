@@ -193,6 +193,15 @@
     <ClCompile Include="Czas.cpp">
       <Filter>SourceFile\BaseTypes</Filter>
     </ClCompile>
+    <ClCompile Include="ZmianaPoziomObiektu.cpp">
+      <Filter>SourceFile\BaseClass\Zmiana</Filter>
+    </ClCompile>
+    <ClCompile Include="Planeta.cpp">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClCompile>
+    <ClCompile Include="Licznik.cpp">
+      <Filter>SourceFile\BaseClass\Licznik</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -432,6 +441,15 @@
     <ClInclude Include="Czas.h">
       <Filter>SourceFile\BaseTypes</Filter>
     </ClInclude>
+    <ClInclude Include="ZmianaPoziomObiektu.h">
+      <Filter>SourceFile\BaseClass\Zmiana</Filter>
+    </ClInclude>
+    <ClInclude Include="Planeta.h">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClInclude>
+    <ClInclude Include="Licznik.h">
+      <Filter>SourceFile\BaseClass\Licznik</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -523,6 +541,12 @@
     </Filter>
     <Filter Include="SourceFile\Log">
       <UniqueIdentifier>{dc092ba4-3917-4952-ba8c-70fbc190425c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\BaseClass\Zmiana">
+      <UniqueIdentifier>{3bd69905-452c-402e-8f40-8585e7a66d28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\BaseClass\Licznik">
+      <UniqueIdentifier>{5b0a9ca3-c1e4-4d05-8150-0408c4a6c044}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -14,6 +14,11 @@ IdType::IdType( const type_name& ID )
 {
 }
 
+IdType::IdType( const Ilosc& ID )
+	: id(static_cast<type_name>(ID.value()))
+{
+}
+
 IdType::IdType( const IdType& a )
 	: id(a.id)
 {

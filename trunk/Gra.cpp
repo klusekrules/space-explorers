@@ -2,16 +2,13 @@
 #include "Aplikacja.h"
 
 Gra::Gra(Aplikacja& app)
-	: aplikacja(app), fabryka(ZmianaFabryka::pobierzInstancje()), uzytkownik(new Uzytkownik()),
-	pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), 
-	pustyObiektBase( Ilosc(0), Poziom(0),IdType(0), pustyobiekBaseInfo )
+	: aplikacja(app), fabryka(ZmianaFabryka::pobierzInstancje()), uzytkownik(new Uzytkownik())
 {
+	idPlanety.ustawWartosc(Ilosc(1));
 }
 
 Gra::Gra(const Gra& g)
-	: aplikacja(g.aplikacja), fabryka(ZmianaFabryka::pobierzInstancje()),uzytkownik(g.uzytkownik),
-	pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), 
-	pustyObiektBase( Ilosc(0), Poziom(0),IdType(0), pustyobiekBaseInfo )
+	: aplikacja(g.aplikacja), fabryka(ZmianaFabryka::pobierzInstancje()),uzytkownik(g.uzytkownik), idPlanety(g.idPlanety)
 {
 }
 
@@ -25,6 +22,61 @@ ZmianaFabryka& Gra::getZmianaFabryka(){
 
 Gra::~Gra()
 {
+}
+
+Uzytkownik& Gra::getUzytkownik() const throw (NieznalezionoObiektu) {
+	if(!uzytkownik)
+		throw NieznalezionoObiektu(EXCEPTION_PLACE,Tekst("Uzytkownik"));
+	return *uzytkownik;
+}
+
+//TODO: Dopisanie poprawnego logowania
+bool Gra::Logowanie(const string& nazwa, const string& hash){
+	uzytkownik = shared_ptr<Uzytkownik>(new Uzytkownik());
+	return true;
+}
+//TODO: Dopisanie poprawnego generowania planet
+IdType Gra::generujPlanete(){
+	auto p = shared_ptr<Planeta>( new Planeta(idPlanety()));
+	wolnePlanety.insert(make_pair(p->getId(),p));
+	return p->getId();
+}
+
+bool Gra::przeniesPlaneteDoUzytkownika( const IdType& p ){
+	if(!uzytkownik)
+		return false;
+	auto iter = wolnePlanety.find(p);
+	if(iter==wolnePlanety.end())
+		return false;
+	if(uzytkownik->dodajPlanete(iter->second)){
+		wolnePlanety.erase(iter);
+		return true;
+	}
+	return false;
+}
+
+bool Gra::wybudujNaPlanecie( Planeta& p , const IdType& id , const Ilosc& ilosc )const{
+	auto iterSurowce = listaSurowcowInfo.find(id);
+	if(iterSurowce != listaSurowcowInfo.end()){
+		p.dodajObiekt(shared_ptr<Surowce>(iterSurowce->second->TworzEgzemplarz(ilosc,p.getId())));
+		return true;
+	}
+	auto iterStatek = listaStatkowInfo.find(id);
+	if(iterStatek != listaStatkowInfo.end()){
+		p.dodajObiekt(shared_ptr<Statek>(iterStatek->second->TworzEgzemplarz(ilosc,p.getId())));
+		return true;
+	}
+	auto iterBudynek = listaBudynkowInfo.find(id);
+	if(iterBudynek != listaBudynkowInfo.end()){
+		p.dodajObiekt(shared_ptr<Budynek>(iterBudynek->second->TworzEgzemplarz(ilosc,p.getId())));
+		return true;
+	}
+	auto iterTechnologia = listaTechnologiInfo.find(id);
+	if(iterTechnologia != listaTechnologiInfo.end()){
+		p.dodajObiekt(shared_ptr<Technologia>(iterTechnologia->second->TworzEgzemplarz(ilosc,p.getId())));
+		return true;
+	}
+	return false;
 }
 
 StatekInfo& Gra::getStatek(const IdType& id)const throw (NieznalezionoObiektu) {
@@ -53,10 +105,6 @@ BudynekInfo& Gra::getBudynek(const IdType& id)const throw (NieznalezionoObiektu)
 	if(iter==listaBudynkowInfo.end())
 		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.toString());
 	return *(iter->second);
-}
-
-const ObiektBase& Gra::getObiekt(IdType id)const{
-	return pustyObiektBase;
 }
 
 bool Gra::WczytajDane( const string& sFile ){

@@ -31,7 +31,9 @@ void PodstawoweParametry::ustawKontekst( const PodstawoweParametry& p ){
 	poziom = p.poziom;
 	idPlanety = p.idPlanety;
 }
-
+void PodstawoweParametry::wzrostPoziomu(){
+	++poziom;
+}
 string PodstawoweParametry::toString() const{
 	Logger str(CLASSNAME(PodstawoweParametry));
 	str.addField(CLASSNAME(Poziom),poziom);

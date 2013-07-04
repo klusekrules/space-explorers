@@ -113,6 +113,8 @@ public:
 	*/
 	Cennik::ListaSurowcow PobierzKoszty() const;
 
+	virtual void wybuduj(const Ilosc&);
+
 	Czas pobierzCzasBudowy( )const;
 
 	const ObiektBaseInfo& getObiektBaseInfo()const;

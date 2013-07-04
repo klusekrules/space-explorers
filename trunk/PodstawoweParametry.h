@@ -14,6 +14,8 @@ public:
 
 	const Poziom& getPoziom() const;
 
+	void wzrostPoziomu();
+
 	void setPoziom(const Poziom&);
 
 	const IdType& getIdPlanety() const;

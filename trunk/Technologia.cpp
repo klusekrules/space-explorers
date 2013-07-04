@@ -33,6 +33,10 @@ bool Technologia::czyMoznaPodzielic( const Ilosc& ilosc) const{
 	return false;
 }
 
+void Technologia::wybuduj(const Ilosc&){
+	wzrostPoziomu();
+}
+
 string Technologia::toString() const{
 	Logger str(CLASSNAME(Technologia));
 	str.addClass(ObiektBase::toString());

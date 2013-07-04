@@ -51,12 +51,25 @@ Ilosc Ilosc::operator+( const Ilosc& i ) const{
 Ilosc Ilosc::operator-( const Ilosc& i ) const{
 	return Ilosc( ilosc - i.ilosc );
 }
+
 Ilosc Ilosc::operator*( const Ilosc& i ) const{
 	return Ilosc( ilosc - i.ilosc );
 }
+
 Ilosc& Ilosc::operator+=( const Ilosc& i ){
 	ilosc+=i.ilosc;
 	return *this;
+}
+
+Ilosc& Ilosc::operator++( ){
+	++ilosc;
+	return (*this);
+}
+
+Ilosc Ilosc::operator++( int ){
+	Ilosc t(*this);
+	++ilosc;
+	return t;
 }
 
 Ilosc& Ilosc::operator-=( const Ilosc& i ){
