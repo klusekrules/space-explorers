@@ -69,6 +69,9 @@
     <ClInclude Include="afxres.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ZmianaPotegowaAlt.h">
+      <Filter>Source Files\Zmiana\Instancje</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -99,6 +102,9 @@
       <Filter>Source Files\Zmiana\Instancje</Filter>
     </ClCompile>
     <ClCompile Include="ZmianaPotegowa.cpp">
+      <Filter>Source Files\Zmiana\Instancje</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaPotegowaAlt.cpp">
       <Filter>Source Files\Zmiana\Instancje</Filter>
     </ClCompile>
   </ItemGroup>

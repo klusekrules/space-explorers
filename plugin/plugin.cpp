@@ -5,7 +5,7 @@
 #include "..\FuncTransf\ZmianaPotegowa.h"
 #include "..\FuncTransf\ZmianaAgregacja.h"
 #include "..\FuncTransf\ZmianaDekorator.h"
-
+#include "..\FuncTransf\ZmianaPotegowaAlt.h"
 #include <io.h>
 
 Cplugin::Cplugin( const string &folder, ZmianaFabryka& ref, Log& logFile )
@@ -75,6 +75,11 @@ bool Cplugin::LoadDefaultZmiana(){
 		result=false;
 	}
 	if(!ZmianaPotegowa::RejestrujZmianaPotegowa(zFabryka)){
+		lLogFile.debug("Nie zarejestrowano zmiany:");
+		lLogFile.debug(CLASSNAME(ZmianaPotegowa));
+		result=false;
+	}
+	if(!ZmianaPotegowaAlt::RejestrujZmianaPotegowaAlt(zFabryka)){
 		lLogFile.debug("Nie zarejestrowano zmiany:");
 		lLogFile.debug(CLASSNAME(ZmianaPotegowa));
 		result=false;
