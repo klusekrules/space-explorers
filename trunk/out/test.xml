@@ -14,6 +14,9 @@
         </Info>
       </ObiektBaseInfo>
     </ObiektInfo>
+    <Zmiana id="3" for="Czas">
+      <Param id="0" Wspolczynnik="1.0"/>
+    </Zmiana>
   </SurowceInfo>
 
   <SurowceInfo typ="1">
@@ -190,52 +193,45 @@
           <Wymagania>
             <Cennik>
               <Cena>
-                <Surowce id="0x1" ilosc="1000"></Surowce>
+                <Surowce id="0x1" ilosc="1000"/>
                 <Zmiana id="2">
                   <Zmiana id="3" for="next">
-                    <Param id="0" Wspolczynnik="3.0">
-                    </Param>
+                    <Param id="0" Wspolczynnik="3.0"/>
                   </Zmiana>
                   <Zmiana id="3">
-                    <Param id="0" Wspolczynnik="5.0">
-                    </Param>
+                    <Param id="0" Wspolczynnik="5.0"/>
                   </Zmiana>
                 </Zmiana>
               </Cena>
               <Cena>
-                <Surowce id="0x4" ilosc="500"></Surowce>
+                <Surowce id="0x4" ilosc="500"/>
                 <Zmiana id="4">
-                  <Param id="1" Wspolczynnik="1.0"></Param>
-                  <Param id="2" Wspolczynnik="2.0"></Param>
+                  <Param id="1" Wspolczynnik="1.0"/>
+                  <Param id="2" Wspolczynnik="2.0"/>
                 </Zmiana>
               </Cena>
               <Cena>
-                <Surowce id="0x7" ilosc="200"></Surowce>
+                <Surowce id="0x7" ilosc="200"/>
                 <Zmiana id="5">
-                  <Param id="0" Wspolczynnik="5.0">
-                  </Param>
+                  <Param id="0" Wspolczynnik="5.0"/>
                 </Zmiana>
               </Cena>
             </Cennik>
             <Warunek>
               <Wymog>
                 <ObiektBaseInfo poziom="5">
-                  <Info id="0x10">
-                  </Info>
+                  <Info id="0x10"/>
                 </ObiektBaseInfo>
                 <Zmiana id="3">
-                  <Param id="0" Wspolczynnik="5.0">
-                  </Param>
+                  <Param id="0" Wspolczynnik="5.0"/>
                 </Zmiana>
               </Wymog>
               <Wymog>
                 <ObiektBaseInfo poziom="1">
-                  <Info id="0x20">
-                  </Info>
+                  <Info id="0x20"/>
                 </ObiektBaseInfo>
                 <Zmiana id="3">
-                  <Param id="0" Wspolczynnik="5.0">
-                  </Param>
+                  <Param id="0" Wspolczynnik="5.0"/>
                 </Zmiana>
               </Wymog>
             </Warunek>
@@ -454,12 +450,23 @@
 
   <BudynekInfo>
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
-      <ObiektBaseInfo poziom="0">
+      <ObiektBaseInfo poziom="1">
         <Info id="0x0012" nazwa="Elektrownia s³oneczna">
           Opis elektrowni s³onecznej.
           <Wymagania>
             <Cennik>
-
+              <Zmiana id="7" for="Czas">
+                <Param id="0" Wspolczynnik="2.0"/>
+                <Zmiana id="6">
+                  <Param id="0x13" Wspolczynnik="0"/>
+                </Zmiana>
+              </Zmiana>
+              <Cena>
+                <Surowce id="0x1" ilosc="156"/>
+                <Zmiana id="3">
+                  <Param id="0" Wspolczynnik="2.0"/>
+                </Zmiana>
+              </Cena>
             </Cennik>
             <Warunek>
 
@@ -480,7 +487,7 @@
 
   <BudynekInfo>
     <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
-      <ObiektBaseInfo poziom="0">
+      <ObiektBaseInfo poziom="1">
         <Info id="0x0013" nazwa="Fabryka robotów">
           Opis Fabryki robotów.
           <Wymagania>

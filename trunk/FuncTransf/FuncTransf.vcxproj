@@ -203,6 +203,7 @@
     <ClInclude Include="ZmianaLiniowa.h" />
     <ClInclude Include="ZmianaParametr.h" />
     <ClInclude Include="ZmianaPotegowa.h" />
+    <ClInclude Include="ZmianaPotegowaAlt.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -233,6 +234,7 @@
     <ClCompile Include="ZmianaLiniowa.cpp" />
     <ClCompile Include="ZmianaParametr.cpp" />
     <ClCompile Include="ZmianaPotegowa.cpp" />
+    <ClCompile Include="ZmianaPotegowaAlt.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Version.rc" />

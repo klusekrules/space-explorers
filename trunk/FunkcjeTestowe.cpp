@@ -350,7 +350,7 @@ bool test_Logowanie( Test & t ){
 bool test_TworzeniePlanetyIObiektow( Test & t ){
 	auto idPlanety = Aplikacja::getInstance().getGra().generujPlanete();
 	t.assert_false(EXCEPTION_PLACE,Aplikacja::getInstance().getGra().przeniesPlaneteDoUzytkownika(idPlanety));
-	auto planeta = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(idPlanety);
+	Planeta& planeta = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(idPlanety);
 
 	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(17),Ilosc(1)));
 	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(17)).getPoziom()==Poziom(1));
@@ -373,3 +373,16 @@ bool test_TworzeniePlanetyIObiektow( Test & t ){
 
 	return true;
 }
+
+bool test_Issue41i57( Test & t ){
+	auto idPlanety = Aplikacja::getInstance().getGra().generujPlanete();
+	t.assert_false(EXCEPTION_PLACE,Aplikacja::getInstance().getGra().przeniesPlaneteDoUzytkownika(idPlanety));
+	Planeta& planeta = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(idPlanety);
+
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0x12),Ilosc(1)));
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0x13),Ilosc(1)));
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0x13),Ilosc(1)));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(0x12)).pobierzCzasBudowy()==Czas(78));
+	return true;
+}
+
