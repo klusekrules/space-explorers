@@ -34,8 +34,8 @@ const int ZmianaPoziomObiektu::idKlasy(6);
 
 bool RejestrujZmianaPoziomObiektu ( ZmianaFabryka& fabryka , Log& logger ){
 	if(ZmianaPoziomObiektu::RejestrujZmianaPoziomObiektu(fabryka))
-		logger.info("Zaladowano ZmianaTest.");
+		logger.info("Zaladowano ZmianaPoziomObiektu.");
 	else
-		logger.info("Nie zaladowano ZmianaTest.");
+		logger.info("Nie zaladowano ZmianaPoziomObiektu.");
 	return true;
 }
