@@ -45,9 +45,6 @@
     <ClInclude Include="ZmianaAgregacja.h">
       <Filter>Source Files\Zmiana\Pomocnicze</Filter>
     </ClInclude>
-    <ClInclude Include="ZmianaDekorator.h">
-      <Filter>Source Files\Zmiana\Pomocnicze</Filter>
-    </ClInclude>
     <ClInclude Include="ZmianaParametr.h">
       <Filter>Source Files\Zmiana\Pomocnicze</Filter>
     </ClInclude>
@@ -84,9 +81,6 @@
       <Filter>Source Files\Zmiana\Interfejs</Filter>
     </ClCompile>
     <ClCompile Include="ZmianaAgregacja.cpp">
-      <Filter>Source Files\Zmiana\Pomocnicze</Filter>
-    </ClCompile>
-    <ClCompile Include="ZmianaDekorator.cpp">
       <Filter>Source Files\Zmiana\Pomocnicze</Filter>
     </ClCompile>
     <ClCompile Include="ZmianaParametr.cpp">

@@ -4,9 +4,9 @@
 #include "..\Logger\Logger.h"
 
 ZmianaAgregacja::ZmianaAgregacja( const ticpp::Element* e )
-	: ZmianaDekorator( XmlBO::IterateChildrenElementIf<NOTHROW>(e,"Zmiana","for","next") )
 {
 	if( e && zFabryka ){
+		next = zFabryka->Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(e,"Zmiana","for","next"));
 		for( auto n = e->IterateChildren("Zmiana", XmlBO::IterateChildrenElement<NOTHROW>(e,"Zmiana") ); n ; n = e->IterateChildren("Zmiana",n) ){
 			auto e = zFabryka->Tworz(n->ToElement());
 			if(e)
@@ -20,8 +20,10 @@ ZmianaAgregacja* ZmianaAgregacja::Kopia()const{
 }
 
 ZmianaAgregacja::ZmianaAgregacja( const ZmianaAgregacja& e)
-	: ZmianaDekorator(e)
+	: next(nullptr)
 {
+	if(e.next)
+		next = shared_ptr<ZmianaInterfejs>(e.next->Kopia());
 	for(auto a : e.list){
 		if(a.get())
 			list.push_back(shared_ptr<ZmianaInterfejs>(a->Kopia()));
@@ -29,7 +31,10 @@ ZmianaAgregacja::ZmianaAgregacja( const ZmianaAgregacja& e)
 }
 
 ZmianaAgregacja& ZmianaAgregacja::operator=( const ZmianaAgregacja& e){
-	ZmianaDekorator::operator=(e);
+	if(e.next)
+		next = shared_ptr<ZmianaInterfejs>(e.next->Kopia());
+	else
+		next = nullptr;
 	for(auto a : e.list){
 		if(a.get())
 			list.push_back(shared_ptr<ZmianaInterfejs>(a->Kopia()));
@@ -42,7 +47,9 @@ ZmianaAgregacja::~ZmianaAgregacja()
 }
 
 long double ZmianaAgregacja::value( const long double& d, const int& p, const int& planeta )const{
-	long double v = ZmianaDekorator::value(d,p,planeta);
+	if(!next)
+		return d;
+	long double v = next->value(d,p,planeta);
 	long double suma = 0;
 	for(auto e : list){
 		if(e.get())
@@ -58,7 +65,8 @@ bool ZmianaAgregacja::RejestrujZmianaAgregacja( ZmianaFabryka &ref ){
 
 string ZmianaAgregacja::toString() const{
 	Logger str(CLASSNAME(ZmianaAgregacja));
-	str.addClass(ZmianaDekorator::toString());
+	if(next)
+		str.addField("Next",*(next));
 	for( auto a : list){
 		if(a.get())
 			str.addField("Brat",*a);

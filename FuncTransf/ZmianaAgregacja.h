@@ -2,14 +2,13 @@
 #include "ExportSymbol.h"
 #include <vector>
 #include <memory>
-#include "ZmianaDekorator.h"
 #include "..\parser\ticpp.h"
 #include "..\Logger\LoggerInterface.h"
 #include "ZmianaFabryka.h"
 using std::vector;
 using std::shared_ptr;
 class FUNCTRANSF_API ZmianaAgregacja :
-	public ZmianaDekorator,
+	public ZmianaInterfejs,
 	virtual public LoggerInterface
 {
 private:
@@ -22,6 +21,7 @@ public:
 	static bool RejestrujZmianaAgregacja( ZmianaFabryka &ref );
 
 private:
+	shared_ptr < ZmianaInterfejs > next;
 	vector<shared_ptr < ZmianaInterfejs > > list;
 
 public:
