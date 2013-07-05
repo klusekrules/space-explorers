@@ -4,7 +4,6 @@
 #include "..\FuncTransf\ZmianaLiniowa.h"
 #include "..\FuncTransf\ZmianaPotegowa.h"
 #include "..\FuncTransf\ZmianaAgregacja.h"
-#include "..\FuncTransf\ZmianaDekorator.h"
 #include "..\FuncTransf\ZmianaPotegowaAlt.h"
 #include <io.h>
 
@@ -59,11 +58,6 @@ bool Cplugin::LoadPluginsZmiana(){
 
 bool Cplugin::LoadDefaultZmiana(){
 	bool result = true;
-	if(!ZmianaDekorator::RejestrujZmianaDekotor(zFabryka)){
-		lLogFile.debug("Nie zarejestrowano zmiany:");
-		lLogFile.debug(CLASSNAME(ZmianaDekorator));
-		result=false;
-	} 
 	if(!ZmianaAgregacja::RejestrujZmianaAgregacja(zFabryka)){
 		lLogFile.debug("Nie zarejestrowano zmiany:");
 		lLogFile.debug(CLASSNAME(ZmianaAgregacja));
