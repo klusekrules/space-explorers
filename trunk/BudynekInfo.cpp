@@ -1,6 +1,7 @@
 #include "BudynekInfo.h"
 #include "Logger.h"
 #include "XmlBO.h"
+#include "Gra.h"
 
 BudynekInfo::BudynekInfo( ticpp::Node* n )
 	: ObiektInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(ObiektInfo)))
@@ -26,6 +27,9 @@ BudynekInfo::BudynekInfo( ticpp::Node* n )
 	}
 }
 
+bool BudynekInfo::Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
+	return g.wybudujNaPlanecie(p,*this,i);
+}
 
 BudynekInfo::~BudynekInfo(void)
 {

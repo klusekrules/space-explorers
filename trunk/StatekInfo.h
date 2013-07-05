@@ -26,4 +26,8 @@ public:
 	Statek* TworzEgzemplarz( const Ilosc&, const IdType& ) const override;
 
 	string toString() const override;
+
+private:
+	bool Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const override;
+
 };

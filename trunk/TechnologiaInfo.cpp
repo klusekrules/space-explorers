@@ -1,6 +1,7 @@
 #include "TechnologiaInfo.h"
 #include "XmlBO.h"
 #include "Logger.h"
+#include "Gra.h"
 
 TechnologiaInfo::TechnologiaInfo( ticpp::Node* e )
 	: ObiektBaseInfo(XmlBO::IterateChildren<THROW>(e,CLASSNAME(ObiektBaseInfo)))
@@ -23,6 +24,10 @@ TechnologiaInfo::TechnologiaInfo( const TechnologiaInfo& o )
 
 Technologia* TechnologiaInfo::TworzEgzemplarz( const Ilosc& i, const IdType& idP ) const{
 	return new Technologia( getPoziom(), idP, *this );
+}
+
+bool TechnologiaInfo::Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
+	return g.wybudujNaPlanecie(p,*this,i);
 }
 
 string TechnologiaInfo::toString()const{

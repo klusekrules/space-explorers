@@ -359,17 +359,31 @@ bool test_TworzeniePlanetyIObiektow( Test & t ){
 	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(17)).getPoziom()==Poziom(2));
 	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(17)).getIlosc()==Ilosc(1));
 
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(15),Ilosc(1)));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(15)).getPoziom()==Poziom(1));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(15)).getIlosc()==Ilosc(1));
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(15),Ilosc(1)));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(15)).getPoziom()==Poziom(2));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(15)).getIlosc()==Ilosc(1));
+
 	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(1),Ilosc(100)));
 	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(1)).getPoziom()==Poziom(1));
 	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(1)).getIlosc()==Ilosc(100));
 	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(1),Ilosc(100)));
 	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(1)).getPoziom()==Poziom(1));
 	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(1)).getIlosc()==Ilosc(200));
+
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0xB),Ilosc(100)));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(0xB)).getPoziom()==Poziom(1));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(0xB)).getIlosc()==Ilosc(100));
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0xB),Ilosc(100)));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(0xB)).getPoziom()==Poziom(1));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(0xB)).getIlosc()==Ilosc(200));
 	
 	t.assert_true(EXCEPTION_PLACE,planeta.wybuduj(IdType(20000),Ilosc(1)));
 	t.assert_true(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(20000)).getId()==IdType(20000));
 
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzIloscObiektow()==Ilosc(2));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzIloscTypowObiektow()==Ilosc(4));
 
 	return true;
 }

@@ -23,6 +23,8 @@ private:
 	unordered_map<IdType, shared_ptr<TechnologiaInfo>, IdTypeHash > listaTechnologiInfo;
 	unordered_map<IdType, shared_ptr<BudynekInfo>, IdTypeHash > listaBudynkowInfo;
 
+	unordered_map<IdType, shared_ptr<ObiektBaseInfo>, IdTypeHash > listaObiektowInfo;
+
 	Licznik idPlanety;
 	Uzytkownik::ListaPlanet wolnePlanety;
 
@@ -45,6 +47,10 @@ public:
 	bool przeniesPlaneteDoUzytkownika( const IdType& );
 
 	bool wybudujNaPlanecie( Planeta& , const IdType&, const Ilosc& )const;
+	bool wybudujNaPlanecie( Planeta& , const BudynekInfo&, const Ilosc& )const;
+	bool wybudujNaPlanecie( Planeta& , const TechnologiaInfo&, const Ilosc& )const;
+	bool wybudujNaPlanecie( Planeta& , const StatekInfo&, const Ilosc& )const;
+	bool wybudujNaPlanecie( Planeta& , const SurowceInfo&, const Ilosc& )const;
 
 	bool Logowanie(const string& nazwa, const string& hash);
 

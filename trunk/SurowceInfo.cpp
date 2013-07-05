@@ -33,6 +33,10 @@ bool SurowceInfo::czyTypPrzyrostowy()const{
 	return czyPrzyrostowy.value();
 }
 
+bool SurowceInfo::Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
+	return g.wybudujNaPlanecie(p,*this,i);
+}
+
 Czas SurowceInfo::pobierzCzas( const Ilosc& i ,const PodstawoweParametry& p )const{
 	if(zmCzas)
 		return Czas(zmCzas->value(i.value(),static_cast<int>(p.getPoziom().value()),p.getIdPlanety().value()));

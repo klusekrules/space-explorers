@@ -56,27 +56,31 @@ bool Gra::przeniesPlaneteDoUzytkownika( const IdType& p ){
 }
 
 bool Gra::wybudujNaPlanecie( Planeta& p , const IdType& id , const Ilosc& ilosc )const{
-	auto iterSurowce = listaSurowcowInfo.find(id);
-	if(iterSurowce != listaSurowcowInfo.end()){
-		p.dodajObiekt(shared_ptr<Surowce>(iterSurowce->second->TworzEgzemplarz(ilosc,p.getId())));
-		return true;
-	}
-	auto iterStatek = listaStatkowInfo.find(id);
-	if(iterStatek != listaStatkowInfo.end()){
-		p.dodajObiekt(shared_ptr<Statek>(iterStatek->second->TworzEgzemplarz(ilosc,p.getId())));
-		return true;
-	}
-	auto iterBudynek = listaBudynkowInfo.find(id);
-	if(iterBudynek != listaBudynkowInfo.end()){
-		p.dodajObiekt(shared_ptr<Budynek>(iterBudynek->second->TworzEgzemplarz(ilosc,p.getId())));
-		return true;
-	}
-	auto iterTechnologia = listaTechnologiInfo.find(id);
-	if(iterTechnologia != listaTechnologiInfo.end()){
-		p.dodajObiekt(shared_ptr<Technologia>(iterTechnologia->second->TworzEgzemplarz(ilosc,p.getId())));
-		return true;
+	auto iterObiektow = listaObiektowInfo.find(id);
+	if(iterObiektow != listaObiektowInfo.end()){
+		return iterObiektow->second->Tworz(*this,p,ilosc);
 	}
 	return false;
+}
+
+bool Gra::wybudujNaPlanecie( Planeta& p, const BudynekInfo& b, const Ilosc& ilosc )const{
+	p.dodajObiekt(shared_ptr<Budynek>(b.TworzEgzemplarz(ilosc,p.getId())));
+	return true;
+}
+
+bool Gra::wybudujNaPlanecie( Planeta& p, const TechnologiaInfo& b, const Ilosc& ilosc )const{
+	p.dodajObiekt(shared_ptr<Technologia>(b.TworzEgzemplarz(ilosc,p.getId())));
+	return true;
+}
+
+bool Gra::wybudujNaPlanecie( Planeta& p, const StatekInfo& b, const Ilosc& ilosc )const{
+	p.dodajObiekt(shared_ptr<Statek>(b.TworzEgzemplarz(ilosc,p.getId())));
+	return true;
+}
+
+bool Gra::wybudujNaPlanecie( Planeta& p, const SurowceInfo& b, const Ilosc& ilosc )const{
+	p.dodajObiekt(shared_ptr<Surowce>(b.TworzEgzemplarz(ilosc,p.getId())));
+	return true;
 }
 
 StatekInfo& Gra::getStatek(const IdType& id)const throw (NieznalezionoObiektu) {
@@ -138,9 +142,10 @@ bool Gra::WczytajTechnologie(ticpp::Node* root){
 			if(ptr){
 				shared_ptr<TechnologiaInfo> t(new TechnologiaInfo(ptr));
 				aplikacja.getLog().debug(*t);
-				if(listaTechnologiInfo.find(t->getId())!=listaTechnologiInfo.end())
-					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Technologia o podanym id istnieje"));
+				if(listaObiektowInfo.find(t->getId())!=listaObiektowInfo.end())
+					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
 				listaTechnologiInfo[t->getId()]=t;
+				listaObiektowInfo[t->getId()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
 			aplikacja.getLog().warn(e.generujKomunikat());
@@ -159,9 +164,10 @@ bool Gra::WczytajBudynki(ticpp::Node* root){
 			if(ptr){
 				shared_ptr<BudynekInfo> t(new BudynekInfo(ptr));
 				aplikacja.getLog().debug(*t);
-				if(listaBudynkowInfo.find(t->getId())!=listaBudynkowInfo.end())
-					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Budynek o podanym id istnieje"));
+				if(listaObiektowInfo.find(t->getId())!=listaObiektowInfo.end())
+					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
 				listaBudynkowInfo[t->getId()]=t;
+				listaObiektowInfo[t->getId()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
 			aplikacja.getLog().warn(e.generujKomunikat());
@@ -180,9 +186,10 @@ bool Gra::WczytajSurowce(ticpp::Node* root){
 			if(ptr){
 				shared_ptr<SurowceInfo> t(new SurowceInfo(ptr));
 				aplikacja.getLog().debug(*t);
-				if(listaSurowcowInfo.find(t->getId())!=listaSurowcowInfo.end())
-					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Surowiec o podanym id istnieje"));
+				if(listaObiektowInfo.find(t->getId())!=listaObiektowInfo.end())
+					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
 				listaSurowcowInfo[t->getId()]=t;
+				listaObiektowInfo[t->getId()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
 			aplikacja.getLog().warn(e.generujKomunikat());
@@ -201,9 +208,10 @@ bool Gra::WczytajStatki(ticpp::Node* root){
 			if(ptr){
 				shared_ptr<StatekInfo> t(new StatekInfo(ptr));
 				aplikacja.getLog().debug(*t);
-				if(listaStatkowInfo.find(t->getId())!=listaStatkowInfo.end())
-					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Statek o podanym id istnieje"));
+				if(listaObiektowInfo.find(t->getId())!=listaObiektowInfo.end())
+					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
 				listaStatkowInfo[t->getId()]=t;
+				listaObiektowInfo[t->getId()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
 			aplikacja.getLog().warn(e.generujKomunikat());
