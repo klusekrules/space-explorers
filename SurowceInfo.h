@@ -25,6 +25,7 @@ public:
 	Czas pobierzCzas( const Ilosc& ,const PodstawoweParametry& )const;
 
 private:
+	bool Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const override;
 
 	Bool czyPrzyrostowy;
 

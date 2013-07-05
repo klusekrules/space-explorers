@@ -28,7 +28,7 @@ public:
 	virtual ~Planeta(void);
 
 	const ObiektBase& pobierzObiekt(const IdType&) const;
-	Ilosc pobierzIloscObiektow()const;
+	Ilosc pobierzIloscTypowObiektow()const;
 	
 	bool wybuduj( const IdType&, const Ilosc& );
 

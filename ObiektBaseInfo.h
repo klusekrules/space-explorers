@@ -5,11 +5,13 @@
 #include "Klucz.h"
 
 class ObiektBase;
+class Planeta;
 
 class ObiektBaseInfo:
 	public Info,
 	virtual public LoggerInterface
 {
+	friend class Gra;
 public:
 
 	ObiektBaseInfo( const Info& i , const Poziom& p ) throw();
@@ -23,6 +25,9 @@ public:
 	string toString() const;
 
 private:
+
+	virtual bool Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const;
+
 	Poziom poziom;
 };
 

@@ -377,7 +377,7 @@
   
   <!-- Technologie -->
   <TechnologiaInfo>
-    <ObiektBaseInfo poziom="0">
+    <ObiektBaseInfo poziom="1">
       <Info id="0x000F" nazwa="Technologia komputerowa">
         Opis technologii.
         <Wymagania>
@@ -393,7 +393,7 @@
   </TechnologiaInfo>
   
   <TechnologiaInfo>
-    <ObiektBaseInfo poziom="0">
+    <ObiektBaseInfo poziom="1">
       <Info id="0x0010" nazwa="Technologia podprzestrzenna">
         Opis technologii podprzestrzennej.
         <Wymagania>

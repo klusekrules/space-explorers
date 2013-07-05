@@ -21,7 +21,7 @@ Uzytkownik* Planeta::pobierzWlasciciela( void ) const{
 	return wlasciciel;
 }
 
-Ilosc Planeta::pobierzIloscObiektow()const{
+Ilosc Planeta::pobierzIloscTypowObiektow()const{
 	if(listaObiektow.size() != listaBudynkow.size()+listaStatkow.size()+listaSurowcow.size()+listaTechnologii.size())
 		throw NiepoprawnaIloscObiektow(EXCEPTION_PLACE,Ilosc(listaObiektow.size()));
 	return Ilosc(listaObiektow.size()); 
