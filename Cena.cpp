@@ -59,10 +59,16 @@ Cena* Cena::Kopia() const{
 	return new Cena(*this);
 }
 
-bool Cena::czySpelniaKoszty( const Ilosc& i, const PodstawoweParametry& param ) const{
-	//return (zasób na planecie) >= (i.value() * obiekty.getIlosc().value()));
-	//TODO:Zimplementowanie wymaga istnienia klasy planeta z mo¿liwoœci¹ pobieranie iloœci surowców.
-	return true;
+bool Cena::czySpelniaKoszty( const Ilosc& i, const PodstawoweParametry& p ) const{
+	const Planeta& planeta = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(p.getIdPlanety());
+	
+	Ilosc poz;
+	if(zmiana)
+		poz = Ilosc(static_cast<Ilosc::type_name>(zmiana->value(obiekty->getIlosc().value(),p.getPoziom(),p.getIdPlanety())));
+	else
+		poz = obiekty->getIlosc();
+
+	return planeta.pobierzObiekt(obiekty->getId()).getIlosc()>=poz;
 }
 
 void Cena::setKoszty( const Item& zsKoszty ){

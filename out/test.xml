@@ -261,6 +261,52 @@
       <ObiektBaseInfo poziom="1">
         <Info id="0x00C" nazwa="Myœliwiec">
           Opis Myœliwca.
+          <Wymagania>
+            <Cennik>
+              <Cena>
+                <Surowce id="0x1" ilosc="1000"/>
+                <Zmiana id="2">
+                  <Zmiana id="3" for="next">
+                    <Param id="0" Wspolczynnik="3.0"/>
+                  </Zmiana>
+                  <Zmiana id="3">
+                    <Param id="0" Wspolczynnik="5.0"/>
+                  </Zmiana>
+                </Zmiana>
+              </Cena>
+              <Cena>
+                <Surowce id="0x4" ilosc="500"/>
+                <Zmiana id="4">
+                  <Param id="1" Wspolczynnik="1.0"/>
+                  <Param id="2" Wspolczynnik="2.0"/>
+                </Zmiana>
+              </Cena>
+              <Cena>
+                <Surowce id="0x7" ilosc="200"/>
+                <Zmiana id="5">
+                  <Param id="0" Wspolczynnik="5.0"/>
+                </Zmiana>
+              </Cena>
+            </Cennik>
+            <Warunek>
+              <Wymog>
+                <ObiektBaseInfo poziom="1">
+                  <Info id="0x13"/>
+                </ObiektBaseInfo>
+                <Zmiana id="3">
+                  <Param id="0" Wspolczynnik="2.0"/>
+                </Zmiana>
+              </Wymog>
+              <Wymog>
+                <ObiektBaseInfo poziom="1">
+                  <Info id="0x10"/>
+                </ObiektBaseInfo>
+                <Zmiana id="3">
+                  <Param id="0" Wspolczynnik="2.0"/>
+                </Zmiana>
+              </Wymog>
+            </Warunek>
+          </Wymagania>
         </Info>
       </ObiektBaseInfo>
       <Zmiana id="3" for="masa">
