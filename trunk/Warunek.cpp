@@ -61,13 +61,20 @@ bool Warunek::dodajWarunek( Item& o ){
 	return true;
 }
 
-bool Warunek::czySpelniaWarunki( const PodstawoweParametry& ) const{	
+bool Warunek::czySpelniaWarunki( const PodstawoweParametry& p ) const{	
 	if(warunki.empty())
 		return true;
-	/*const ObiektBase& ob = Aplikacja::getInstance().getObiekt(idPlanety);
-	for( auto w : warunki ){
-		w->getPoziom() <= ob.getPoziom();
-	}*/
+	const Planeta& planeta = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(p.getIdPlanety());
+	for (auto a : warunki){
+		Poziom poz;
+		if(a.second)
+			poz = Poziom(static_cast<Poziom::type_name>(a.second->value(a.first->getPoziom(),p.getPoziom(),p.getIdPlanety())));
+		else
+			poz = a.first->getPoziom();
+
+		if(planeta.pobierzObiekt(a.first->getId()).getPoziom()<poz)
+			return false;
+	}
 	return true;
 }
 
@@ -80,7 +87,10 @@ Warunek::PrzetworzoneWarunki Warunek::listaWarunkow( const PodstawoweParametry& 
 
 
 shared_ptr< ObiektBaseInfo > Warunek::przeliczWarunek( Item& o , const PodstawoweParametry& p ) const{
-	return shared_ptr< ObiektBaseInfo > ( new ObiektBaseInfo( *(o.first), Poziom( static_cast<Poziom::type_name>(floorl(o.second->value( o.first->getPoziom().value() , static_cast<int>(p.getPoziom().value()),p.getIdPlanety().value() ))) ) ) );
+	if(o.second)
+		return shared_ptr< ObiektBaseInfo > ( new ObiektBaseInfo( *(o.first), Poziom( static_cast<Poziom::type_name>(floorl(o.second->value( o.first->getPoziom().value() , static_cast<int>(p.getPoziom().value()),p.getIdPlanety().value() ))) ) ) );
+	else
+		return shared_ptr< ObiektBaseInfo > ( new ObiektBaseInfo( *(o.first), Poziom( o.first->getPoziom() ) ) );
 }
 
 string Warunek::toString() const{

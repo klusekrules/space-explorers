@@ -71,6 +71,10 @@ Warunek::PrzetworzoneWarunki ObiektBase::PobierzWarunki()const{
 	return obiektBaseInfo.listaWarunkow(*this);
 }
 
+bool ObiektBase::czyMoznaWybudowac()const{
+	return obiektBaseInfo.czySpelniaWymagania(ilosc,*this);
+}
+
 const ObiektBaseInfo& ObiektBase::getObiektBaseInfo()const{
 	return obiektBaseInfo;
 }

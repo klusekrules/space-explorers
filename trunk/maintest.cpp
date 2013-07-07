@@ -31,6 +31,7 @@ void main(){
 	test.dodajTest("Test budynków",test_Budynki,false);
 	test.dodajTest("Test tworzenia planety i obiektow na planecie",test_TworzeniePlanetyIObiektow,true);
 	test.dodajTest("Test dla zgloszenia 41 i 57",test_Issue41i57,false);
+	test.dodajTest("Test dla zgloszenia 39",test_Issue39,false);
 	test();
 	/*ALLEGRO_DISPLAY *display = NULL;
  

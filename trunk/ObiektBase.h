@@ -117,6 +117,8 @@ public:
 
 	Czas pobierzCzasBudowy( )const;
 
+	bool czyMoznaWybudowac()const;
+
 	const ObiektBaseInfo& getObiektBaseInfo()const;
 };
 

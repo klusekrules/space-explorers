@@ -400,3 +400,31 @@ bool test_Issue41i57( Test & t ){
 	return true;
 }
 
+bool test_Issue39( Test & t ){
+	auto idPlanety = Aplikacja::getInstance().getGra().generujPlanete();
+	t.assert_false(EXCEPTION_PLACE,Aplikacja::getInstance().getGra().przeniesPlaneteDoUzytkownika(idPlanety));
+	Planeta& planeta = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(idPlanety);
+	
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0xC),Ilosc(1)));
+	t.assert_true(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(0xC)).czyMoznaWybudowac());
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0x1),Ilosc(20000)));
+	t.assert_true(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(0xC)).czyMoznaWybudowac());
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0x4),Ilosc(20000)));
+	t.assert_true(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(0xC)).czyMoznaWybudowac());
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0x7),Ilosc(20000)));
+	t.assert_true(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(0xC)).czyMoznaWybudowac());
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0x13),Ilosc(1)));
+	t.assert_true(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(0xC)).czyMoznaWybudowac());
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0x10),Ilosc(1)));
+	t.assert_true(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(0xC)).czyMoznaWybudowac());
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0x13),Ilosc(1)));
+	t.assert_true(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(0xC)).czyMoznaWybudowac());
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0x10),Ilosc(1)));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(0xC)).czyMoznaWybudowac());
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0x13),Ilosc(1)));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(0xC)).czyMoznaWybudowac());
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0x10),Ilosc(1)));
+	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(IdType(0xC)).czyMoznaWybudowac());
+	return true;
+}
+

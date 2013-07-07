@@ -12,6 +12,7 @@ bool test_wymagan( Test & t );
 bool test_KlasaJednostkaAtakujaca( Test & t );
 bool test_Issue42( Test & t );
 bool test_Issue52( Test & t );
+bool test_Issue39( Test & t );
 bool test_Issue41i57( Test & t );
 bool test_TworzeniePlanetyIObiektow( Test & t );
 bool test_Technologie( Test & t );
