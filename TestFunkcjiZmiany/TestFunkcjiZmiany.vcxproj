@@ -189,9 +189,6 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="afxres.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
