@@ -44,7 +44,13 @@ bool Licznik::zapisz( TiXmlElement* e ) const{
 }
 
 bool Licznik::odczytaj( TiXmlElement* n ){
-
+	if(n && Base::odczytaj(n)){
+		auto c = n->Attribute("ilosc");
+		if(!c)
+			return false;
+		wartoscLicznika.setIlosc(stold(c));
+		return true;
+	}
 	return false;
 }
 

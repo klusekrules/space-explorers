@@ -151,7 +151,7 @@ bool Surowce::zapisz( TiXmlElement* e ) const {
 }
 
 bool Surowce::odczytaj( TiXmlElement* e ) {
-	return false;
+	return Obiekt::odczytaj(e);
 }
 
 string Surowce::toString() const{

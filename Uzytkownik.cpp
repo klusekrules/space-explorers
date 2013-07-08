@@ -34,8 +34,17 @@ bool Uzytkownik::zapisz( TiXmlElement* e ) const{
 	return true;
 }
 
-bool Uzytkownik::odczytaj( TiXmlElement* n ){
-
+bool Uzytkownik::odczytaj( TiXmlElement* e ){
+	if(e){
+		for(TiXmlElement* n = e->FirstChildElement(CLASSNAME(Planeta)); n != nullptr ; n = n->NextSiblingElement(CLASSNAME(Planeta))){
+			auto p = shared_ptr<Planeta>( new Planeta(IdType()) );
+			if(!p->odczytaj(n))
+				return false;
+			listaPlanet.insert(make_pair(p->getId(),p));
+			p->ustawWlasciciela(this);
+		}
+		return true;
+	}
 	return false;
 }
 

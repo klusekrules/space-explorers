@@ -102,7 +102,7 @@ bool Statek::zapisz( TiXmlElement* e ) const {
 }
 
 bool Statek::odczytaj( TiXmlElement* e ) {
-	return false;
+	return Obiekt::odczytaj(e) && Ladownia::odczytaj(e->FirstChildElement(CLASSNAME(Ladownia)));
 }
 
 string Statek::toString() const{

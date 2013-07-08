@@ -215,3 +215,18 @@ bool Aplikacja::ZapiszGre() const{
 		return dokument.SaveFile("save.xml");
 	return false;
 }
+
+bool Aplikacja::WczytajGre(){
+	TiXmlDocument dokument;
+	dokument.LoadFile("save.xml");
+	TiXmlElement* root = dokument.RootElement();
+	if(root){
+		shared_ptr<Gra> tmp = shared_ptr<Gra>(new Gra(*this));
+		if(tmp->WczytajDane(this->nazwaPlikuDanych) && tmp->odczytaj(root->FirstChildElement(CLASSNAME(Gra)))){
+			instancjaGry = tmp;
+			return true;
+		}
+		return false;
+	}
+	return false;
+}

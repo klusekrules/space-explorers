@@ -23,8 +23,8 @@ private:
 	unordered_map<IdType, shared_ptr<StatekInfo>, IdTypeHash > listaStatkowInfo;
 	unordered_map<IdType, shared_ptr<TechnologiaInfo>, IdTypeHash > listaTechnologiInfo;
 	unordered_map<IdType, shared_ptr<BudynekInfo>, IdTypeHash > listaBudynkowInfo;
-
-	unordered_map<IdType, shared_ptr<ObiektBaseInfo>, IdTypeHash > listaObiektowInfo;
+	unordered_map<IdType, shared_ptr<ObiektInfo>, IdTypeHash > listaObiektowInfo;
+	unordered_map<IdType, shared_ptr<ObiektBaseInfo>, IdTypeHash > listaObiektowBaseInfo;
 
 	Licznik idPlanety;
 	Uzytkownik::ListaPlanet wolnePlanety;
@@ -67,6 +67,6 @@ public:
 	SurowceInfo& getSurowce(const IdType& id)const throw (NieznalezionoObiektu);
 	TechnologiaInfo& getTechnologia(const IdType& id)const throw (NieznalezionoObiektu);
 	BudynekInfo& getBudynek(const IdType& id)const throw (NieznalezionoObiektu);
-
+	ObiektInfo& getObiekt(const IdType& id)const throw (NieznalezionoObiektu);
 };
 

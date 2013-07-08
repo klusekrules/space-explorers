@@ -56,8 +56,8 @@ bool Gra::przeniesPlaneteDoUzytkownika( const IdType& p ){
 }
 
 bool Gra::wybudujNaPlanecie( Planeta& p , const IdType& id , const Ilosc& ilosc )const{
-	auto iterObiektow = listaObiektowInfo.find(id);
-	if(iterObiektow != listaObiektowInfo.end()){
+	auto iterObiektow = listaObiektowBaseInfo.find(id);
+	if(iterObiektow != listaObiektowBaseInfo.end()){
 		return iterObiektow->second->Tworz(*this,p,ilosc);
 	}
 	return false;
@@ -111,6 +111,13 @@ BudynekInfo& Gra::getBudynek(const IdType& id)const throw (NieznalezionoObiektu)
 	return *(iter->second);
 }
 
+ObiektInfo& Gra::getObiekt(const IdType& id)const throw (NieznalezionoObiektu) {
+	auto iter = listaObiektowInfo.find(id);
+	if(iter==listaObiektowInfo.end())
+		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.toString());
+	return *(iter->second);
+}
+
 bool Gra::WczytajDane( const string& sFile ){
 	ticpp::Document dane;
 	try{
@@ -142,10 +149,10 @@ bool Gra::WczytajTechnologie(ticpp::Node* root){
 			if(ptr){
 				shared_ptr<TechnologiaInfo> t(new TechnologiaInfo(ptr));
 				aplikacja.getLog().debug(*t);
-				if(listaObiektowInfo.find(t->getId())!=listaObiektowInfo.end())
+				if(listaObiektowBaseInfo.find(t->getId())!=listaObiektowBaseInfo.end())
 					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
 				listaTechnologiInfo[t->getId()]=t;
-				listaObiektowInfo[t->getId()]=t;
+				listaObiektowBaseInfo[t->getId()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
 			aplikacja.getLog().warn(e.generujKomunikat());
@@ -164,9 +171,10 @@ bool Gra::WczytajBudynki(ticpp::Node* root){
 			if(ptr){
 				shared_ptr<BudynekInfo> t(new BudynekInfo(ptr));
 				aplikacja.getLog().debug(*t);
-				if(listaObiektowInfo.find(t->getId())!=listaObiektowInfo.end())
+				if(listaObiektowBaseInfo.find(t->getId())!=listaObiektowBaseInfo.end())
 					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
 				listaBudynkowInfo[t->getId()]=t;
+				listaObiektowBaseInfo[t->getId()]=t;
 				listaObiektowInfo[t->getId()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
@@ -186,9 +194,10 @@ bool Gra::WczytajSurowce(ticpp::Node* root){
 			if(ptr){
 				shared_ptr<SurowceInfo> t(new SurowceInfo(ptr));
 				aplikacja.getLog().debug(*t);
-				if(listaObiektowInfo.find(t->getId())!=listaObiektowInfo.end())
+				if(listaObiektowBaseInfo.find(t->getId())!=listaObiektowBaseInfo.end())
 					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
 				listaSurowcowInfo[t->getId()]=t;
+				listaObiektowBaseInfo[t->getId()]=t;
 				listaObiektowInfo[t->getId()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
@@ -208,9 +217,10 @@ bool Gra::WczytajStatki(ticpp::Node* root){
 			if(ptr){
 				shared_ptr<StatekInfo> t(new StatekInfo(ptr));
 				aplikacja.getLog().debug(*t);
-				if(listaObiektowInfo.find(t->getId())!=listaObiektowInfo.end())
+				if(listaObiektowBaseInfo.find(t->getId())!=listaObiektowBaseInfo.end())
 					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
 				listaStatkowInfo[t->getId()]=t;
+				listaObiektowBaseInfo[t->getId()]=t;
 				listaObiektowInfo[t->getId()]=t;
 			}
 		}catch(OgolnyWyjatek& e){
@@ -231,7 +241,25 @@ bool Gra::zapisz( TiXmlElement* e ) const{
 	return idPlanety.zapisz(n) && ( uzytkownik ? uzytkownik->zapisz(n) : true );
 }
 
-bool Gra::odczytaj( TiXmlElement* n ){
-
+bool Gra::odczytaj( TiXmlElement* e ){
+	if(e){
+		if(!idPlanety.odczytaj(e->FirstChildElement(CLASSNAME(Licznik))))
+			return false;
+		TiXmlElement* u = e->FirstChildElement(CLASSNAME(Uzytkownik));
+		if(u){
+			uzytkownik = shared_ptr<Uzytkownik>(new Uzytkownik());
+			if(!uzytkownik->odczytaj(u))
+				return false;
+		}else{
+			uzytkownik = nullptr;
+		}
+		for(TiXmlElement* n = e->FirstChildElement(CLASSNAME(Planeta)); n != nullptr ; n = n->NextSiblingElement(CLASSNAME(Planeta))){
+			auto p = shared_ptr<Planeta>( new Planeta(IdType()) );
+			if(!p->odczytaj(n))
+				return false;
+			wolnePlanety.insert(make_pair(p->getId(),p));
+		}
+		return true;	
+	}
 	return false;
 }
