@@ -8,6 +8,27 @@
 #include <io.h>
 #include "ZmianaPoziomObiektu.h"
 
+void myPurecallHandler(){
+	Log::getInstance().error(Aplikacja::getInstance().getStackTrace());
+}
+void myInvalidParameterHandler(const wchar_t* expression,
+   const wchar_t* function, 
+   const wchar_t* file, 
+   unsigned int line, 
+   uintptr_t pReserved)
+{
+	char* c_expression = new char[wcslen(expression)+1];
+	char* c_function = new char[wcslen(function)+1];
+	char* c_file = new char[wcslen(file)+1];
+	wcstombs_s(nullptr,c_expression,wcslen(expression)+1,expression,wcslen(expression));	
+	wcstombs_s(nullptr,c_function,wcslen(function)+1,function,wcslen(function));
+	wcstombs_s(nullptr,c_file,wcslen(file)+1,file,wcslen(file));
+	stringstream str;
+	str<<"Invalid parameter detected in function: "<<c_function<<". File: " << c_file <<". Line: "<<line<<".\nExpression: "<< c_expression;
+	Log::getInstance().error(str.str());
+	Log::getInstance().error(Aplikacja::getInstance().getStackTrace());
+}
+
 Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 	: isDbgHelpInit(false), log(Log::getInstance()), instancjaGry(new Gra(*this))
 {
@@ -70,9 +91,8 @@ Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 		throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,Tekst("Dodatkowe elementy zmiany."));
 
 	
-	//_set_purecall_handler(myPurecallHandler);
-	//_set_invalid_parameter_handler( _invalid_parameter_handler pNew);
-	//TODO: zaimplementowanie logoowania podczas ka¿dej sytuacji wyj¹tkowej takiej jak wy¿ej
+	_set_purecall_handler(myPurecallHandler);
+	_set_invalid_parameter_handler(myInvalidParameterHandler);
 
 }
 
