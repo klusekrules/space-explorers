@@ -48,7 +48,7 @@ bool Obiekt::zapisz( TiXmlElement* e) const{
 	return ObiektBase::zapisz(e);
 }
 bool Obiekt::odczytaj (TiXmlElement* e){
-	return false;
+	return ObiektBase::odczytaj(e);
 }
 
 string Obiekt::toString() const{

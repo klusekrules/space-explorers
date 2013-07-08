@@ -44,7 +44,7 @@ bool Technologia::zapisz( TiXmlElement* e ) const {
 }
 
 bool Technologia::odczytaj( TiXmlElement* e ) {
-	return false;
+	return ObiektBase::odczytaj(e);
 }
 
 string Technologia::toString() const{

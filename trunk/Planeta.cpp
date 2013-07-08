@@ -89,8 +89,20 @@ bool Planeta::zapisz( TiXmlElement* e ) const{
 	return Base::zapisz(n);
 }
 
-bool Planeta::odczytaj( TiXmlElement* n ){
-
+bool Planeta::odczytaj( TiXmlElement* e ){
+	if(e){
+		for(TiXmlElement* n = e->FirstChildElement(); n != nullptr ; n = n->NextSiblingElement()){
+			auto c = n->Attribute("id");
+			if(!c)
+				return false;
+			IdType id(stoi(c,nullptr,0));
+			wybuduj(id,Ilosc(0));
+			auto i = listaObiektow.find(id);
+			if( i == listaObiektow.end() || !i->second->odczytaj(n) )
+				return false;
+		}
+		return Base::odczytaj(e);
+	}
 	return false;
 }
 

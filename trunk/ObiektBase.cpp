@@ -85,7 +85,14 @@ bool ObiektBase::zapisz( TiXmlElement* e ) const {
 	return PodstawoweParametry::zapisz(e) && Base::zapisz(e);
 }
 
-bool ObiektBase::odczytaj( TiXmlElement* ){
+bool ObiektBase::odczytaj( TiXmlElement* e ){
+	if(e){
+		auto c = e->Attribute("ilosc");
+		if(!c)
+			return false;
+		ilosc.setIlosc(stold(c));
+		return PodstawoweParametry::odczytaj(e) && Base::odczytaj(e);
+	}
 	return false;
 }
 

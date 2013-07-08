@@ -42,6 +42,18 @@ bool PodstawoweParametry::zapisz( TiXmlElement* e ) const{
 }
 
 bool PodstawoweParametry::odczytaj( TiXmlElement* e ){
+	if(e){
+		auto c = e->Attribute("poziom");
+		if(!c)
+			return false;
+		poziom.setPoziom(stoul(c));
+
+		c = e->Attribute("idPlanety");
+		if(!c)
+			return false;
+		idPlanety.setId(stoul(c,nullptr,0));
+		return true;
+	}
 	return false;
 }
 

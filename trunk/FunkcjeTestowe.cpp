@@ -385,6 +385,13 @@ bool test_TworzeniePlanetyIObiektow( Test & t ){
 
 	t.assert_false(EXCEPTION_PLACE,planeta.pobierzIloscTypowObiektow()==Ilosc(4));
 
+	/*shared_ptr<Statek> a (tworzStatek(t,IdType(14),Ilosc(8)));
+	shared_ptr<Statek> b (tworzStatek(t,IdType(11),Ilosc(150)));
+	t.assert_false(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*b));
+	shared_ptr<Surowce> c (tworzSurowce(t,IdType(6),Ilosc(20)));
+	t.assert_false(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*c));
+	shared_ptr<Surowce> d (tworzSurowce(t,IdType(10),Ilosc(20)));
+	t.assert_true(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*d));*/
 	return true;
 }
 
@@ -429,6 +436,13 @@ bool test_Issue39( Test & t ){
 }
 
 bool test_ZapisStanuGry( Test & t ){
+	int ptr_a = (int)(&(Aplikacja::getInstance().getGra()));
+	auto p_a = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(IdType(1));
 	t.assert_false(EXCEPTION_PLACE,Aplikacja::getInstance().ZapiszGre());
+	t.assert_false(EXCEPTION_PLACE,Aplikacja::getInstance().WczytajGre());
+	auto p_b = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(IdType(1));
+	int ptr_b = (int)(&(Aplikacja::getInstance().getGra()));
+	t.assert_true(EXCEPTION_PLACE,ptr_a==ptr_b);
+	t.assert_false(EXCEPTION_PLACE,p_a.pobierzIloscTypowObiektow()==p_b.pobierzIloscTypowObiektow());
 	return true;
 }

@@ -55,7 +55,7 @@ bool Budynek::zapisz( TiXmlElement* e ) const {
 }
 
 bool Budynek::odczytaj (TiXmlElement* e) {
-	return false;
+	return Obiekt::odczytaj(e);
 }
 
 string Budynek::toString()const{

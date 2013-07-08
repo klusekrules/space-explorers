@@ -186,6 +186,27 @@ bool Ladownia::zapisz( TiXmlElement* e ) const {
 }
 
 bool Ladownia::odczytaj (TiXmlElement* e) {
+	if(e){
+		auto c = e->Attribute("zajeteMiejsce");
+		if(!c)
+			return false;
+		zajete.setObjetosc(stod(c));
+		try{
+			for(TiXmlElement* n = e->FirstChildElement(); n != nullptr ; n = n->NextSiblingElement()){
+				auto c = n->Attribute("id");
+				if(!c)
+					return false;
+				IdType id(stoi(c,nullptr,0));
+				Obiekt* p = Aplikacja::getInstance().getGra().getObiekt(id).TworzEgzemplarz(Ilosc(),IdType());			
+				if(!p->odczytaj(n) )
+					return false;
+				obiekty.add(p);
+			}
+		}catch(...){
+			return false;
+		}
+		return true;
+	}
 	return false;
 }
 

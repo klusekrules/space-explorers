@@ -33,7 +33,13 @@ bool Base::zapisz( TiXmlElement* n ) const{
 }
 
 bool Base::odczytaj( TiXmlElement* n ){
-
+	if(n){
+		auto c = n->Attribute("id");
+		if(!c)
+			return false;
+		id.setId(stoul(c,nullptr,0));
+		return true;
+	}
 	return false;
 }
 
