@@ -12,7 +12,8 @@ class Ladownia;
 
 class Surowce :
 	public Obiekt,
-	virtual public LoggerInterface
+	virtual public LoggerInterface,
+	virtual public Serializacja
 {
 	friend class SurowceInfo;
 public:
@@ -61,6 +62,9 @@ public:
 	bool czMoznaDodacDoLadownii( const Ladownia& c ) const override;
 
 	Czas pobierzCzas()const;
+
+	bool zapisz( TiXmlElement* e) const override;
+	bool odczytaj (TiXmlElement* e) override;
 			
 	string toString() const override;
 

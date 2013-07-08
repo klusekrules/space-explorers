@@ -30,6 +30,9 @@ public:
 
 	void wybuduj(const Ilosc&) override;
 
+	bool zapisz( TiXmlElement* e) const override;
+	bool odczytaj (TiXmlElement* e) override;
+
 	string toString()const override;
 };
 

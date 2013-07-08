@@ -11,7 +11,8 @@ class Statek :
 	public JednostkaLatajaca,
 	public Ladownia,
 	public Obiekt,
-	virtual public LoggerInterface
+	virtual public LoggerInterface,
+	virtual public Serializacja
 {
 	friend class StatekInfo;
 public:
@@ -52,6 +53,9 @@ public:
 	bool czMoznaDodacDoLadownii( const Ladownia& c ) const override;
 
 	const StatekInfo& getStatekInfo() const;
+
+	bool zapisz( TiXmlElement* e) const override;
+	bool odczytaj (TiXmlElement* e) override;
 
 	string toString() const override;
 private:

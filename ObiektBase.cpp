@@ -79,6 +79,16 @@ const ObiektBaseInfo& ObiektBase::getObiektBaseInfo()const{
 	return obiektBaseInfo;
 }
 
+
+bool ObiektBase::zapisz( TiXmlElement* e ) const {
+	e->SetAttribute("ilosc",ilosc.toString());
+	return PodstawoweParametry::zapisz(e) && Base::zapisz(e);
+}
+
+bool ObiektBase::odczytaj( TiXmlElement* ){
+	return false;
+}
+
 string ObiektBase::toString() const{
 	Logger str(CLASSNAME(ObiektBase));
 	str.addClass(Base::toString());

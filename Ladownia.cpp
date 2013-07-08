@@ -174,6 +174,21 @@ Objetosc Ladownia::getPojemnoscMax() const{
 	return ladowniaInfo.getPojemnoscMaksymalna(*this);
 }
 
+bool Ladownia::zapisz( TiXmlElement* e ) const {
+	TiXmlElement* n = new TiXmlElement(CLASSNAME(Ladownia));
+	e->LinkEndChild( n );
+	n->SetAttribute("zajeteMiejsce",zajete.toString());
+	for( auto o : obiekty){
+		if(!o.second->zapisz(n))
+			return false;
+	}
+	return true;
+}
+
+bool Ladownia::odczytaj (TiXmlElement* e) {
+	return false;
+}
+
 string Ladownia::toString() const{
 	Logger str(CLASSNAME(Ladownia));
 	str.addField("Zajete Miejsce",zajete);

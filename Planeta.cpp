@@ -80,6 +80,20 @@ bool Planeta::wybuduj( const IdType& id, const Ilosc& ilosc ){
 	}
 }
 
+bool Planeta::zapisz( TiXmlElement* e ) const{
+	TiXmlElement* n = new TiXmlElement(CLASSNAME(Planeta));
+	e->LinkEndChild( n );
+	for(auto o :  listaObiektow)
+		if(!o.second->zapisz(n))
+			return false;
+	return Base::zapisz(n);
+}
+
+bool Planeta::odczytaj( TiXmlElement* n ){
+
+	return false;
+}
+
 string Planeta::toString() const{
 	Logger str(CLASSNAME(Planeta));
 	str.addClass(Base::toString());

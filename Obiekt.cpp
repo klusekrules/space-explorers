@@ -44,6 +44,13 @@ bool Obiekt::czMoznaDodacDoLadownii( const Ladownia& c ) const{
 	return false;
 }
 
+bool Obiekt::zapisz( TiXmlElement* e) const{
+	return ObiektBase::zapisz(e);
+}
+bool Obiekt::odczytaj (TiXmlElement* e){
+	return false;
+}
+
 string Obiekt::toString() const{
 	Logger str(CLASSNAME(Obiekt));
 	str.addClass(ObiektBase::toString());

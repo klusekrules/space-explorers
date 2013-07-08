@@ -143,7 +143,17 @@ bool Surowce::czMoznaDodacDoLadownii( const Ladownia& c ) const{
 Czas Surowce::pobierzCzas()const{
 	return surowceInfo.pobierzCzas(ilosc,*this);
 }
-	
+
+bool Surowce::zapisz( TiXmlElement* e ) const {
+	TiXmlElement* n = new TiXmlElement(CLASSNAME(Surowce));
+	e->LinkEndChild( n );
+	return Obiekt::zapisz(n);
+}
+
+bool Surowce::odczytaj( TiXmlElement* e ) {
+	return false;
+}
+
 string Surowce::toString() const{
 	Logger str(CLASSNAME(Surowce));
 	str.addClass(Obiekt::toString());

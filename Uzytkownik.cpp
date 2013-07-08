@@ -25,6 +25,20 @@ Planeta& Uzytkownik::getPlaneta( const IdType& id ) const{
 	throw NieznalezionoObiektu(EXCEPTION_PLACE,Tekst("Nieznaleziono planety"));
 }
 
+bool Uzytkownik::zapisz( TiXmlElement* e ) const{
+	TiXmlElement* n = new TiXmlElement(CLASSNAME(Uzytkownik));
+	e->LinkEndChild( n );
+	for(auto o :  listaPlanet)
+		if(!o.second->zapisz(n))
+			return false;
+	return true;
+}
+
+bool Uzytkownik::odczytaj( TiXmlElement* n ){
+
+	return false;
+}
+
 string Uzytkownik::toString() const{
 	Logger str(CLASSNAME(Uzytkownik));
 	return str.toString();

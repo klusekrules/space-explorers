@@ -27,6 +27,16 @@ void Base::setId( const IdType& id ){
 	this->id = id;
 }
 
+bool Base::zapisz( TiXmlElement* n ) const{
+	n->SetAttribute("id",id.toString());
+	return true;
+}
+
+bool Base::odczytaj( TiXmlElement* n ){
+
+	return false;
+}
+
 string Base::toString() const{
 	Logger str(CLASSNAME(Base));
 	str.addField("ID",id);

@@ -20,7 +20,8 @@ class ObiektBaseInfo;
 class ObiektBase :
 	public Base,
 	virtual public PodstawoweParametry,
-	virtual public LoggerInterface
+	virtual public LoggerInterface,
+	virtual public Serializacja
 {
 protected:	
 	Ilosc ilosc;
@@ -118,6 +119,9 @@ public:
 	Czas pobierzCzasBudowy( )const;
 
 	bool czyMoznaWybudowac()const;
+
+	bool zapisz( TiXmlElement* ) const override;
+	bool odczytaj( TiXmlElement* ) override;
 
 	const ObiektBaseInfo& getObiektBaseInfo()const;
 };

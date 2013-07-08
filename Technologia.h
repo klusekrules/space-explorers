@@ -4,7 +4,8 @@
 
 class Technologia :
 	public ObiektBase,
-	virtual public LoggerInterface
+	virtual public LoggerInterface,
+	virtual public Serializacja
 {
 	friend class TechnologiaInfo;
 protected:
@@ -25,6 +26,9 @@ public:
 	bool czyMoznaPodzielic( const Ilosc& ilosc) const override;
 
 	void wybuduj(const Ilosc&) override;
+
+	bool zapisz( TiXmlElement* e) const override;
+	bool odczytaj (TiXmlElement* e) override;
 
 	string toString() const override;
 };

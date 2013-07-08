@@ -34,6 +34,17 @@ void PodstawoweParametry::ustawKontekst( const PodstawoweParametry& p ){
 void PodstawoweParametry::wzrostPoziomu(){
 	++poziom;
 }
+
+bool PodstawoweParametry::zapisz( TiXmlElement* e ) const{
+	e->SetAttribute("poziom",poziom.toString());
+	e->SetAttribute("idPlanety",idPlanety.toString());
+	return true;
+}
+
+bool PodstawoweParametry::odczytaj( TiXmlElement* e ){
+	return false;
+}
+
 string PodstawoweParametry::toString() const{
 	Logger str(CLASSNAME(PodstawoweParametry));
 	str.addField(CLASSNAME(Poziom),poziom);

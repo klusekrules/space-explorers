@@ -48,6 +48,16 @@ Cennik::ListaSurowcow Budynek::PobierzProdukcje( )const{
 	return budynekInfo.PobierzProdukcje(*this);
 }
 
+bool Budynek::zapisz( TiXmlElement* e ) const {
+	TiXmlElement* n = new TiXmlElement(CLASSNAME(Budynek));
+	e->LinkEndChild( n );
+	return Obiekt::zapisz(n);
+}
+
+bool Budynek::odczytaj (TiXmlElement* e) {
+	return false;
+}
+
 string Budynek::toString()const{
 	Logger str(CLASSNAME(Budynek));
 	str.addClass(Obiekt::toString());

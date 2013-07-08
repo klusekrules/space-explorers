@@ -428,3 +428,7 @@ bool test_Issue39( Test & t ){
 	return true;
 }
 
+bool test_ZapisStanuGry( Test & t ){
+	t.assert_false(EXCEPTION_PLACE,Aplikacja::getInstance().ZapiszGre());
+	return true;
+}

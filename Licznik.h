@@ -4,7 +4,8 @@
 
 class Licznik:
 	public Base,
-	virtual public LoggerInterface
+	virtual public LoggerInterface,
+	virtual public Serializacja
 {
 public:
 	Licznik(const IdType&, const Ilosc& );
@@ -20,7 +21,11 @@ public:
 
 	void ustawWartosc( const Ilosc& );
 
-	string toString()const;
+	bool zapisz( TiXmlElement* e ) const override;
+
+	bool odczytaj( TiXmlElement* e ) override;
+
+	string toString()const override;
 
 private:
 	Ilosc wartoscLicznika;

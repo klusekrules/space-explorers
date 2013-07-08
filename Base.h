@@ -1,6 +1,7 @@
 #pragma once
 #include "Main.h"
 #include "IdType.h"
+#include "Serializacja.h"
 #include "parser\ticpp.h"
 #include "WyjatekParseraXML.h"
 
@@ -8,7 +9,8 @@
 * Klasa bazowa przechowuj¹ca informacje o ID klasy pochodnej.
 */
 class Base:
-	virtual public LoggerInterface
+	virtual public LoggerInterface,
+	virtual public Serializacja
 {
 public:	
 			
@@ -35,6 +37,10 @@ public:
 	* \param id - Nowa wartoœæ ID klasy.
 	*/
 	void setId( const IdType& id );
+
+	bool zapisz( TiXmlElement* e ) const override;
+
+	bool odczytaj( TiXmlElement* e ) override;
 
 	/**
 	* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.

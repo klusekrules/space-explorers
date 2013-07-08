@@ -68,7 +68,7 @@ bool Warunek::czySpelniaWarunki( const PodstawoweParametry& p ) const{
 	for (auto a : warunki){
 		Poziom poz;
 		if(a.second)
-			poz = Poziom(static_cast<Poziom::type_name>(a.second->value(a.first->getPoziom(),p.getPoziom(),p.getIdPlanety())));
+			poz = Poziom(static_cast<Poziom::type_name>(a.second->value(a.first->getPoziom().value(),p.getPoziom().value(),p.getIdPlanety().value())));
 		else
 			poz = a.first->getPoziom();
 
