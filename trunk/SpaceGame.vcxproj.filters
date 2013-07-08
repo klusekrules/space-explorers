@@ -450,6 +450,9 @@
     <ClInclude Include="Licznik.h">
       <Filter>SourceFile\BaseClass\Licznik</Filter>
     </ClInclude>
+    <ClInclude Include="Serializacja.h">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">

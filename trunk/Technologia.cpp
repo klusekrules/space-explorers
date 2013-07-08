@@ -37,6 +37,16 @@ void Technologia::wybuduj(const Ilosc&){
 	wzrostPoziomu();
 }
 
+bool Technologia::zapisz( TiXmlElement* e ) const {
+	TiXmlElement* n = new TiXmlElement(CLASSNAME(Technologia));
+	e->LinkEndChild( n );
+	return ObiektBase::zapisz(n);
+}
+
+bool Technologia::odczytaj( TiXmlElement* e ) {
+	return false;
+}
+
 string Technologia::toString() const{
 	Logger str(CLASSNAME(Technologia));
 	str.addClass(ObiektBase::toString());

@@ -13,7 +13,8 @@
 
 class Planeta:
 	public Base,
-	virtual public LoggerInterface
+	virtual public LoggerInterface,
+	virtual public Serializacja
 {
 	friend class Gra;
 	friend class Uzytkownik;
@@ -31,6 +32,10 @@ public:
 	Ilosc pobierzIloscTypowObiektow()const;
 	
 	bool wybuduj( const IdType&, const Ilosc& );
+
+	bool zapisz( TiXmlElement* e ) const override;
+
+	bool odczytaj( TiXmlElement* e ) override;
 
 	string toString() const override;
 	

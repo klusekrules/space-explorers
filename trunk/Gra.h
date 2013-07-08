@@ -8,7 +8,8 @@
 #include <unordered_map>
 #include "Licznik.h"
 
-class Gra
+class Gra :
+	virtual public Serializacja
 {
 	friend class Aplikacja;
 private:
@@ -55,6 +56,10 @@ public:
 	bool Logowanie(const string& nazwa, const string& hash);
 
 	ZmianaFabryka& getZmianaFabryka();
+
+	bool zapisz( TiXmlElement* e ) const override;
+
+	bool odczytaj( TiXmlElement* e ) override;
 
 	~Gra();
 	

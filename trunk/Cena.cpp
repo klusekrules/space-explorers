@@ -64,7 +64,7 @@ bool Cena::czySpelniaKoszty( const Ilosc& i, const PodstawoweParametry& p ) cons
 	
 	Ilosc poz;
 	if(zmiana)
-		poz = Ilosc(static_cast<Ilosc::type_name>(zmiana->value(obiekty->getIlosc().value(),p.getPoziom(),p.getIdPlanety())));
+		poz = Ilosc(static_cast<Ilosc::type_name>(zmiana->value(obiekty->getIlosc().value(),p.getPoziom().value(),p.getIdPlanety().value())));
 	else
 		poz = obiekty->getIlosc();
 

@@ -29,7 +29,8 @@ class Statek;
 
 class Ladownia:
 	virtual public PodstawoweParametry,
-	virtual public LoggerInterface
+	virtual public LoggerInterface,
+	virtual public Serializacja
 {
 public:
 	typedef Obiekt Item;
@@ -60,6 +61,9 @@ public:
 	bool czMoznaDodacDoLadownii( const Statek& c ) const;
 
 	bool czMoznaDodacDoLadownii( const Surowce& c ) const;
+
+	bool zapisz( TiXmlElement* e) const override;
+	bool odczytaj (TiXmlElement* e) override;
 
 	string toString() const override;
 

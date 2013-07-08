@@ -206,3 +206,12 @@ Aplikacja::~Aplikacja()
 	if(hLibrary)
 		FreeLibrary(hLibrary);
 }
+
+bool Aplikacja::ZapiszGre() const{
+	TiXmlDocument dokument;
+	TiXmlElement* root = new TiXmlElement("Space-Explorers");
+	dokument.LinkEndChild(root);
+	if(instancjaGry->zapisz(root))
+		return dokument.SaveFile("save.xml");
+	return false;
+}

@@ -30,7 +30,7 @@ public:
 	Poziom& operator++( );
 	Poziom operator++( int );
 
-	operator size_t () const;
+	explicit operator size_t () const;
 
 	type_name getPoziom()const;
 

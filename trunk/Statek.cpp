@@ -95,6 +95,16 @@ const StatekInfo& Statek::getStatekInfo() const{
 	return statekinfo;
 }
 
+bool Statek::zapisz( TiXmlElement* e ) const {
+	TiXmlElement* n = new TiXmlElement(CLASSNAME(Statek));
+	e->LinkEndChild( n );
+	return Obiekt::zapisz(n) && Ladownia::zapisz(n);
+}
+
+bool Statek::odczytaj( TiXmlElement* e ) {
+	return false;
+}
+
 string Statek::toString() const{
 	Logger str(CLASSNAME(Statek));
 	str.addClass(Obiekt::toString());

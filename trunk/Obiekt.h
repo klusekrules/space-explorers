@@ -13,7 +13,8 @@ class Ladownia;
 
 class Obiekt:
 	public ObiektBase,
-	virtual public LoggerInterface
+	virtual public LoggerInterface,
+	virtual public Serializacja
 {
 public:
 
@@ -32,6 +33,9 @@ public:
 	virtual Objetosc getObjetosc() const;
 
 	virtual Masa getMasa() const;
+
+	bool zapisz( TiXmlElement* e) const override;
+	bool odczytaj (TiXmlElement* e) override;
 
 	string toString() const override;
 protected:

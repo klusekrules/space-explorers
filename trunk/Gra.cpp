@@ -221,3 +221,17 @@ bool Gra::WczytajStatki(ticpp::Node* root){
 	}while(ptr);
 	return true;
 }
+
+bool Gra::zapisz( TiXmlElement* e ) const{
+	TiXmlElement* n = new TiXmlElement(CLASSNAME(Gra));
+	e->LinkEndChild( n );
+	for(auto o :  wolnePlanety)
+		if(!o.second->zapisz(n))
+			return false;
+	return idPlanety.zapisz(n) && ( uzytkownik ? uzytkownik->zapisz(n) : true );
+}
+
+bool Gra::odczytaj( TiXmlElement* n ){
+
+	return false;
+}

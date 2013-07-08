@@ -65,6 +65,8 @@ public:
 
 	bool WczytajDane();
 
+	bool ZapiszGre() const;
+
 	static Aplikacja& getInstance(){
 		static Aplikacja app;
 		return app;
