@@ -49,6 +49,7 @@ bool Planeta::dodajObiekt( shared_ptr< Statek > ptr ){
 	if(i!=listaObiektow.end())
 		return false;
 	listaStatkow.insert(make_pair(ptr->getId(),ptr));
+	listaObiektowZaladunkowych.insert(make_pair(ptr->getId(),ptr));
 	listaObiektow.insert(make_pair(ptr->getId(),ptr));
 	return true;
 }
@@ -67,6 +68,7 @@ bool Planeta::dodajObiekt( shared_ptr< Surowce > ptr ){
 	if(i!=listaObiektow.end())
 		return false;
 	listaSurowcow.insert(make_pair(ptr->getId(),ptr));
+	listaObiektowZaladunkowych.insert(make_pair(ptr->getId(),ptr));
 	listaObiektow.insert(make_pair(ptr->getId(),ptr));
 	return true;
 }
@@ -104,6 +106,7 @@ bool Planeta::przeniesDoFloty(const IdType& floty, const IdType& id, const Ilosc
 				}else{
 					if(f->second->dodajStatek(i->second)){
 						listaStatkow.erase(i);
+						listaObiektowZaladunkowych.erase(id);
 						listaObiektow.erase(id);
 						return true;
 					}else{
@@ -114,6 +117,57 @@ bool Planeta::przeniesDoFloty(const IdType& floty, const IdType& id, const Ilosc
 		}
 	}
 	return false;
+}
+
+bool Planeta::zaladujFlote(const IdType& floty, const IdType& id, const Ilosc& ilosc){
+	auto i = listaObiektowZaladunkowych.find(id);
+	if(i==listaObiektowZaladunkowych.end())
+		return false;
+
+	if(ilosc <= Ilosc(0.0) || i->second->getIlosc() < ilosc)
+		return false;
+
+	auto f = listaFlot.find(floty);
+	if(f==listaFlot.end())
+		return false;
+	shared_ptr<Obiekt> ptr = shared_ptr<Obiekt>( i->second->Podziel(ilosc));
+	if(!f->second->dodajLadunek(ptr)){
+		i->second->Polacz(*ptr);
+		return false;
+	}
+	return true;
+}
+
+bool Planeta::rozladujStatek( shared_ptr< Statek > ptr ){
+	for(auto e : ptr->getPrzewozoneObiekty()){
+		if(!wybuduj(e.first.getKlucz().first,e.second->getIlosc()))
+			return false;
+	}
+	return true;
+}
+
+bool Planeta::dolaczFloteDoPlanety(const IdType& id){
+	auto iter = listaFlot.find(id);
+	if(iter == listaFlot.end()){
+		return false;
+	}
+	return dolaczFloteDoPlanety(iter->second);
+}
+
+bool Planeta::dolaczFloteDoPlanety( shared_ptr< Flota > ptr){
+	if(!ptr){
+		return false;
+	}
+	
+	for(auto e : ptr->lista){
+		if(!wybuduj(e.first.getKlucz().first,e.second->getIlosc()))
+			return false;
+		if(e.second->getZajeteMiejsce()!=Objetosc(0.0)){
+			if(!rozladujStatek(e.second))
+				return false;
+		}
+	}
+	return true;
 }
 
 bool Planeta::zapisz( TiXmlElement* e ) const{

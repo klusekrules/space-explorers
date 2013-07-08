@@ -79,7 +79,7 @@ bool test_KlasaLadownia( Test & t ){
 	shared_ptr<Statek> a (tworzStatek(t,IdType(14),Ilosc(8)));
 	Aplikacja::getInstance().getLog().debug("Pojemnosc Maksymalna:");
 	Aplikacja::getInstance().getLog().debug(a->getPojemnoscMax());
-	shared_ptr<Statek> b (tworzStatek(t,IdType(11),Ilosc(150)));
+	shared_ptr<Statek> b (tworzStatek(t,IdType(11),Ilosc(10)));
 	t.assert_false(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*b));
 	shared_ptr<Surowce> c (tworzSurowce(t,IdType(6),Ilosc(20)));
 	t.assert_false(EXCEPTION_PLACE,c->czyTypPrzyrostowy());
@@ -449,5 +449,20 @@ bool test_ZapisStanuGry( Test & t ){
 }
 
 bool test_KlasyFlota( Test & t ){
+	auto idPlanety = Aplikacja::getInstance().getGra().generujPlanete();
+	t.assert_false(EXCEPTION_PLACE,Aplikacja::getInstance().getGra().przeniesPlaneteDoUzytkownika(idPlanety));
+	Planeta& planeta = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(idPlanety);
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0x1),Ilosc(20000)));
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0x4),Ilosc(20000)));
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0x7),Ilosc(20000)));
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0xB),Ilosc(1000)));
+	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(IdType(0xE),Ilosc(2000)));
+	auto idFloty = planeta.dodajFlote();
+	t.assert_false(EXCEPTION_PLACE,planeta.przeniesDoFloty(idFloty,IdType(0xB),Ilosc(500)));
+	t.assert_false(EXCEPTION_PLACE,planeta.przeniesDoFloty(idFloty,IdType(0xE),Ilosc(1000)));
+	
+	t.assert_false(EXCEPTION_PLACE,planeta.zaladujFlote(idFloty,IdType(0x1),Ilosc(500)));
+	t.assert_false(EXCEPTION_PLACE,planeta.zaladujFlote(idFloty,IdType(0xE),Ilosc(900)));
+
 	return true;
 }

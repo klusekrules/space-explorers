@@ -22,6 +22,7 @@ class Planeta:
 	friend class Uzytkownik;
 public:
 	typedef map< IdType , shared_ptr< ObiektBase > > ListaObiektow;
+	typedef map< IdType , shared_ptr< Obiekt > > ListaObiektowZaladunkowych;
 	typedef map< IdType , shared_ptr< Budynek > > ListaBudynkow;
 	typedef map< IdType , shared_ptr< Technologia > > ListaTechnologii;
 	typedef map< IdType , shared_ptr< Statek > > ListaStatkow;
@@ -36,6 +37,16 @@ public:
 	
 	bool wybuduj( const IdType&, const Ilosc& );
 
+	IdType dodajFlote();
+
+	bool przeniesDoFloty(const IdType& floty, const IdType& id, const Ilosc&);
+
+	bool dolaczFloteDoPlanety(const IdType&);
+
+	bool dolaczFloteDoPlanety( shared_ptr< Flota >);
+
+	bool zaladujFlote( const IdType& floty, const IdType& id, const Ilosc&);
+
 	bool zapisz( TiXmlElement* e ) const override;
 
 	bool odczytaj( TiXmlElement* e ) override;
@@ -49,9 +60,7 @@ private:
 	bool dodajObiekt( shared_ptr< Technologia > );
 	bool dodajObiekt( shared_ptr< Surowce > );
 
-	IdType dodajFlote();
-
-	bool przeniesDoFloty(const IdType& floty, const IdType& id, const Ilosc&);
+	bool rozladujStatek( shared_ptr< Statek >);
 
 	void ustawWlasciciela( Uzytkownik* );
 	Uzytkownik* pobierzWlasciciela( void ) const;
@@ -67,6 +76,7 @@ private:
 	ListaTechnologii listaTechnologii;
 	ListaBudynkow listaBudynkow;
 	ListaObiektow listaObiektow;
+	ListaObiektowZaladunkowych listaObiektowZaladunkowych;
 	ListaFlot listaFlot;
 };
 

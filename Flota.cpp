@@ -15,11 +15,33 @@ bool Flota::dodajStatek( shared_ptr<Statek> ptr ){
 		return false;
 	auto iter = lista.find(ptr->ID());
 	if(iter == lista.end()){
+		ptr->setIdPlanety(IdType());
 		lista.insert(make_pair(ptr->ID(),ptr));
 	}else{
 		return iter->second->Polacz( *ptr );
 	}
 	return true;
+}
+
+bool Flota::dodajLadunek( shared_ptr<Obiekt> ptr ){
+	if(!ptr)
+		return false;
+	Objetosc obj = pobierzDostepneMiejsce();
+	if(obj < ptr->getObjetosc())
+		return false;
+	for( auto i : lista ){
+		if(i.second->DodajObiektDoLadowni(*ptr))
+			return true;
+	}
+	return false;
+}
+
+Objetosc Flota::pobierzDostepneMiejsce() const{
+	Objetosc suma(0.0);
+	for(auto a : lista){
+		suma+=a.second->getPojemnoscMax() - a.second->getZajeteMiejsce();
+	}
+	return suma;
 }
 
 bool Flota::zapisz( TiXmlElement* e ) const{
