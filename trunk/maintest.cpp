@@ -32,6 +32,7 @@ void main(){
 	test.dodajTest("Test tworzenia planety i obiektow na planecie",test_TworzeniePlanetyIObiektow,true);
 	test.dodajTest("Test dla zgloszenia 41 i 57",test_Issue41i57,false);
 	test.dodajTest("Test dla zgloszenia 39",test_Issue39,false);
+	test.dodajTest("Test klasy flota",test_KlasyFlota,false);
 	test.dodajTest("Zapis Stanu Gry",test_ZapisStanuGry,false);
 	test();
 	/*ALLEGRO_DISPLAY *display = NULL;

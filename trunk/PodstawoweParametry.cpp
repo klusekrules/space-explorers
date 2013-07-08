@@ -1,6 +1,6 @@
 #include "PodstawoweParametry.h"
 #include "Logger.h"
-
+#include "Utils.h"
 
 PodstawoweParametry::PodstawoweParametry( const Poziom& poziom, const IdType& planeta)
 	: poziom(poziom), idPlanety(planeta)
@@ -43,14 +43,17 @@ bool PodstawoweParametry::zapisz( TiXmlElement* e ) const{
 
 bool PodstawoweParametry::odczytaj( TiXmlElement* e ){
 	if(e){
-		auto c = e->Attribute("poziom");
-		if(!c)
+		string c = e->Attribute("poziom");
+		if(c.empty())
 			return false;
+		Utils::trim(c);
 		poziom.setPoziom(stoul(c));
 
-		c = e->Attribute("idPlanety");
-		if(!c)
+		c.clear();
+		c.append(e->Attribute("idPlanety"));
+		if(c.empty())
 			return false;
+		Utils::trim(c);		
 		idPlanety.setId(stoul(c,nullptr,0));
 		return true;
 	}

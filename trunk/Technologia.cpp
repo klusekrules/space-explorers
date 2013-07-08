@@ -21,7 +21,7 @@ Technologia* Technologia::Podziel( const Ilosc& ilosc){
 	return nullptr;
 }
 
-bool Technologia::Polacz( const ObiektBase& obiektBase){
+bool Technologia::Polacz( ObiektBase& obiektBase){
 	return false;
 }
 	

@@ -1,5 +1,6 @@
 #include "Base.h"
 #include "Logger.h"
+#include "Utils.h"
 
 Base::Base( const IdType& itID )throw()
 	: id(itID)
@@ -34,9 +35,10 @@ bool Base::zapisz( TiXmlElement* n ) const{
 
 bool Base::odczytaj( TiXmlElement* n ){
 	if(n){
-		auto c = n->Attribute("id");
-		if(!c)
+		string c = n->Attribute("id");
+		if(c.empty())
 			return false;
+		Utils::trim(c);
 		id.setId(stoul(c,nullptr,0));
 		return true;
 	}

@@ -60,7 +60,7 @@ public:
 	* \param obiektBase - Obiekt do po³¹czenia.
 	* \return Kiedy obiekty zostan¹ po³¹czone, zwracana wartoœæ to true, w przeciwnym wypadku zwrócona wartoœæ to false.
 	*/
-	virtual bool Polacz( const ObiektBase& obiektBase);
+	virtual bool Polacz( ObiektBase& obiektBase);
 	
 	/**
 	* Metoda s³u¿y do zwrócenia klucza jednozancznie identyfikuj¹cego typ obiektu. 

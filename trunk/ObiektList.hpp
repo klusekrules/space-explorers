@@ -45,7 +45,7 @@ public:
 	}
 
 	//Metoda tworzy kopiê obiektu.
-	Klucz add( const T& o ) throw( BladLaczeniaObiektow ){
+	Klucz add( T& o ) throw( BladLaczeniaObiektow ){
 		Klucz k = o.ID();
 		if( lista.find(k) == lista.end() ){
 			lista.put(k,o.Kopia());

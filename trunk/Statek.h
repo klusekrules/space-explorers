@@ -22,6 +22,8 @@ public:
 
 	Statek* Podziel( const Ilosc& ) override;
 
+	bool Polacz( ObiektBase& ) override;
+
 	Masa getMasa( ) const override;
 
 	Obrazenia Atak( ) const override;
@@ -44,7 +46,7 @@ public:
 
 	Fluktuacja WolneMiejsce( ) const override;
 
-	bool DodajObiektDoLadowni( const Item& ) override;
+	bool DodajObiektDoLadowni( Item& ) override;
 
 	MocSilnika getMocSilnika( )const override;
 	
