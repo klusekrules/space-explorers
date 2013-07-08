@@ -186,7 +186,7 @@
 
   <!-- Statki -->
   <StatekInfo>
-    <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
+    <ObiektInfo masa="1" objetosc="2" powierzchnia="1">
       <ObiektBaseInfo poziom="1">
         <Info id="0x00B" nazwa="Transportowiec">
           Opis Transportowca.
@@ -397,7 +397,7 @@
   </StatekInfo>
   
   <StatekInfo>
-    <ObiektInfo masa="1" objetosc="1" powierzchnia="1">
+    <ObiektInfo masa="1" objetosc="2000" powierzchnia="1">
       <ObiektBaseInfo poziom="2">
         <Info id="0x00E" nazwa="Transportowiec 2">
           Opis Transportowca 2.

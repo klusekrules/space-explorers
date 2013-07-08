@@ -202,7 +202,9 @@
     <ClCompile Include="Licznik.cpp">
       <Filter>SourceFile\BaseClass\Licznik</Filter>
     </ClCompile>
-    <ClCompile Include="Flota.cpp" />
+    <ClCompile Include="Flota.cpp">
+      <Filter>SourceFile\Flota</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -454,9 +456,11 @@
     <ClInclude Include="Serializacja.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
-    <ClInclude Include="Flota.h" />
     <ClInclude Include="Utils.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClInclude>
+    <ClInclude Include="Flota.h">
+      <Filter>SourceFile\Flota</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

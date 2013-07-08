@@ -102,5 +102,8 @@ Objetosc::type_name Objetosc::value() const{
 }
 
 string Objetosc::toString() const{
-	return Logger::field(CLASSNAME(Objetosc),objetosc);
+	stringstream str;
+	str.precision(25);
+	str<<fixed<< objetosc;
+	return str.str();
 } 
