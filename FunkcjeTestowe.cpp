@@ -437,12 +437,17 @@ bool test_Issue39( Test & t ){
 
 bool test_ZapisStanuGry( Test & t ){
 	int ptr_a = (int)(&(Aplikacja::getInstance().getGra()));
-	auto p_a = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(IdType(1));
+	auto p_a = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(IdType(3));
 	t.assert_false(EXCEPTION_PLACE,Aplikacja::getInstance().ZapiszGre());
 	t.assert_false(EXCEPTION_PLACE,Aplikacja::getInstance().WczytajGre());
-	auto p_b = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(IdType(1));
+	auto p_b = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(IdType(3));
 	int ptr_b = (int)(&(Aplikacja::getInstance().getGra()));
 	t.assert_true(EXCEPTION_PLACE,ptr_a==ptr_b);
 	t.assert_false(EXCEPTION_PLACE,p_a.pobierzIloscTypowObiektow()==p_b.pobierzIloscTypowObiektow());
+	t.assert_false(EXCEPTION_PLACE,p_a.pobierzObiekt(IdType(1)).getIlosc()==p_b.pobierzObiekt(IdType(1)).getIlosc());
+	return true;
+}
+
+bool test_KlasyFlota( Test & t ){
 	return true;
 }

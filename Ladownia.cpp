@@ -3,6 +3,7 @@
 #include "Statek.h"
 #include "Surowce.h"
 #include "Aplikacja.h"
+#include "Utils.h"
 
 Ladownia::Ladownia( const Poziom& p, const IdType& idP, const LadowniaInfo& l )
 	: PodstawoweParametry(p, idP), obiekty(), zajete(), ladowniaInfo(l)
@@ -26,6 +27,11 @@ Ilosc Ladownia::SprawdzIloscObiektow( const Klucz& itID ) const{
 	}
 }
 
+bool Ladownia::Polacz( Ladownia& l ){
+	obiekty.moveAll(l.obiekty);
+	return true;
+}
+
 bool Ladownia::czMoznaDodacDoLadownii( const Statek& c ) const {
 	return true;
 }
@@ -34,7 +40,7 @@ bool Ladownia::czMoznaDodacDoLadownii( const Surowce& c ) const {
 	return c.czyTypPrzyrostowy();
 }
 
-bool Ladownia::DodajObiektDoLadowni( const Item& obiekt){
+bool Ladownia::DodajObiektDoLadowni( Item& obiekt ){
 	if(!obiekt.czMoznaDodacDoLadownii(*this)){
 		return false;
 	}
@@ -193,13 +199,16 @@ bool Ladownia::odczytaj (TiXmlElement* e) {
 		zajete.setObjetosc(stod(c));
 		try{
 			for(TiXmlElement* n = e->FirstChildElement(); n != nullptr ; n = n->NextSiblingElement()){
-				auto c = n->Attribute("id");
-				if(!c)
+				string c = n->Attribute("id");
+				if(c.empty())
 					return false;
+				Utils::trim(c);
 				IdType id(stoi(c,nullptr,0));
 				Obiekt* p = Aplikacja::getInstance().getGra().getObiekt(id).TworzEgzemplarz(Ilosc(),IdType());			
-				if(!p->odczytaj(n) )
+				if(!p->odczytaj(n) ){
+					delete p;
 					return false;
+				}
 				obiekty.add(p);
 			}
 		}catch(...){

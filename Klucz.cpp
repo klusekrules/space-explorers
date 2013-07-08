@@ -49,6 +49,10 @@ bool Klucz::operator!=( const Klucz& a )const{
 	return values != a.values;
 }
 
+bool Klucz::operator<( const Klucz& a )const{
+	return values.first < a.values.first ? true : values.second < a.values.second;
+}
+
 Klucz::type_name Klucz::getKlucz()const{
 	return values;
 }

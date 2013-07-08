@@ -1,6 +1,7 @@
 #include "Planeta.h"
 #include "Logger.h"
 #include "Aplikacja.h"
+#include "Utils.h"
 
 Planeta::Planeta(const IdType& id)
 	: Base(id), wlasciciel(nullptr),
@@ -80,27 +81,87 @@ bool Planeta::wybuduj( const IdType& id, const Ilosc& ilosc ){
 	}
 }
 
+IdType Planeta::dodajFlote(){
+	shared_ptr< Flota > ptr = shared_ptr< Flota >(new Flota(idFloty()));
+	listaFlot.insert(make_pair(ptr->getId(),ptr));
+	return ptr->getId();
+}
+
+bool Planeta::przeniesDoFloty(const IdType& floty, const IdType& id, const Ilosc& ilosc){
+	auto i = listaStatkow.find(id);
+	if(i!=listaStatkow.end()){
+		auto f = listaFlot.find(floty);
+		if(f!=listaFlot.end()){
+			if(ilosc <= i->second->getIlosc()){
+				if(ilosc < i->second->getIlosc()){
+					auto p = shared_ptr<Statek>(i->second->Podziel(ilosc));
+					if(f->second->dodajStatek(p)){
+						return true;
+					}else{
+						i->second->Polacz(*p);
+						return false;
+					}
+				}else{
+					if(f->second->dodajStatek(i->second)){
+						listaStatkow.erase(i);
+						listaObiektow.erase(id);
+						return true;
+					}else{
+						return false;
+					}
+				}
+			}
+		}
+	}
+	return false;
+}
+
 bool Planeta::zapisz( TiXmlElement* e ) const{
 	TiXmlElement* n = new TiXmlElement(CLASSNAME(Planeta));
 	e->LinkEndChild( n );
+	idFloty.zapisz(n);
+	TiXmlElement* c = new TiXmlElement("Obiekty");
+	n->LinkEndChild( c );
 	for(auto o :  listaObiektow)
-		if(!o.second->zapisz(n))
+		if(!o.second->zapisz(c))
+			return false;
+	TiXmlElement* f = new TiXmlElement("Floty");
+	n->LinkEndChild( f );
+	for(auto o :  listaFlot)
+		if(!o.second->zapisz(f))
 			return false;
 	return Base::zapisz(n);
 }
 
 bool Planeta::odczytaj( TiXmlElement* e ){
 	if(e){
-		for(TiXmlElement* n = e->FirstChildElement(); n != nullptr ; n = n->NextSiblingElement()){
-			auto c = n->Attribute("id");
-			if(!c)
-				return false;
-			IdType id(stoi(c,nullptr,0));
-			wybuduj(id,Ilosc(0));
-			auto i = listaObiektow.find(id);
-			if( i == listaObiektow.end() || !i->second->odczytaj(n) )
-				return false;
-		}
+		TiXmlElement* o = e->FirstChildElement("Obiekty");
+		if(o)
+			for(TiXmlElement* n = o->FirstChildElement(); n != nullptr ; n = n->NextSiblingElement()){
+				string c = n->Attribute("id");
+				if(c.empty())
+					return false;
+				Utils::trim(c);
+				IdType id(stoul(c,nullptr,0));
+				wybuduj(id,Ilosc(0));
+				auto i = listaObiektow.find(id);
+				if( i == listaObiektow.end() || !i->second->odczytaj(n) )
+					return false;
+			}
+		TiXmlElement* f = e->FirstChildElement("Floty");
+		if(f)
+			for(TiXmlElement* n = o->FirstChildElement(); n != nullptr ; n = n->NextSiblingElement()){
+				string c = n->Attribute("id");
+				if(c.empty())
+					return false;
+				Utils::trim(c);
+				IdType id(stoul(c,nullptr,0));
+				shared_ptr<Flota> ptr = shared_ptr<Flota>(new Flota (id));
+				auto i = listaFlot.find(id);
+				if( i != listaFlot.end() )
+					return false;
+				listaFlot.insert(make_pair(ptr->getId(),ptr));
+			}
 		return Base::odczytaj(e);
 	}
 	return false;

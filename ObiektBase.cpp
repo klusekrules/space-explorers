@@ -1,6 +1,7 @@
 ﻿#include "ObiektBase.h"
 #include "ObiektBaseInfo.h"
 #include "Logger.h"
+#include "Utils.h"
 
 ObiektBase::ObiektBase( const Ilosc& i, const Poziom& p, const IdType& idP, const ObiektBaseInfo& iInfo) throw()
 	: PodstawoweParametry(p,idP), Base(iInfo), ilosc(i), obiektBaseInfo(iInfo)
@@ -28,7 +29,7 @@ ObiektBase* ObiektBase::Podziel( const Ilosc& i ){
 	return nullptr;
 }
 
-bool ObiektBase::Polacz( const ObiektBase& obj ){
+bool ObiektBase::Polacz( ObiektBase& obj ){
 	if(czyMoznaPolaczyc(obj)){
 		ilosc+=obj.getIlosc();
 		return true;
@@ -79,7 +80,6 @@ const ObiektBaseInfo& ObiektBase::getObiektBaseInfo()const{
 	return obiektBaseInfo;
 }
 
-
 bool ObiektBase::zapisz( TiXmlElement* e ) const {
 	e->SetAttribute("ilosc",ilosc.toString());
 	return PodstawoweParametry::zapisz(e) && Base::zapisz(e);
@@ -87,9 +87,10 @@ bool ObiektBase::zapisz( TiXmlElement* e ) const {
 
 bool ObiektBase::odczytaj( TiXmlElement* e ){
 	if(e){
-		auto c = e->Attribute("ilosc");
-		if(!c)
+		string c = e->Attribute("ilosc");
+		if(c.empty())
 			return false;
+		Utils::trim(c);
 		ilosc.setIlosc(stold(c));
 		return PodstawoweParametry::odczytaj(e) && Base::odczytaj(e);
 	}

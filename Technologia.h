@@ -19,7 +19,7 @@ public:
 
 	Technologia* Podziel( const Ilosc& ilosc) override;
 
-	bool Polacz( const ObiektBase& obiektBase) override;
+	bool Polacz( ObiektBase& obiektBase) override;
 	
 	bool czyMoznaPolaczyc( const ObiektBase& obiektBase) const override;
 

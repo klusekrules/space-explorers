@@ -10,6 +10,8 @@
 #include "Technologia.h"
 #include "Surowce.h"
 #include "NiepoprawnaIloscObiektow.h"
+#include "Flota.h"
+#include "Licznik.h"
 
 class Planeta:
 	public Base,
@@ -24,6 +26,7 @@ public:
 	typedef map< IdType , shared_ptr< Technologia > > ListaTechnologii;
 	typedef map< IdType , shared_ptr< Statek > > ListaStatkow;
 	typedef map< IdType , shared_ptr< Surowce > > ListaSurowcow;
+	typedef map< IdType , shared_ptr< Flota > > ListaFlot;
 
 	Planeta(const IdType& id);
 	virtual ~Planeta(void);
@@ -46,12 +49,17 @@ private:
 	bool dodajObiekt( shared_ptr< Technologia > );
 	bool dodajObiekt( shared_ptr< Surowce > );
 
+	IdType dodajFlote();
+
+	bool przeniesDoFloty(const IdType& floty, const IdType& id, const Ilosc&);
+
 	void ustawWlasciciela( Uzytkownik* );
 	Uzytkownik* pobierzWlasciciela( void ) const;
 
 	ObiektBase pustyObiektBase;
 	ObiektBaseInfo pustyobiekBaseInfo;
 
+	Licznik idFloty;
 	Uzytkownik* wlasciciel;
 
 	ListaSurowcow listaSurowcow;
@@ -59,5 +67,6 @@ private:
 	ListaTechnologii listaTechnologii;
 	ListaBudynkow listaBudynkow;
 	ListaObiektow listaObiektow;
+	ListaFlot listaFlot;
 };
 

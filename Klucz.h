@@ -22,6 +22,7 @@ public:
 	
 	bool operator==( const Klucz& )const;
 	bool operator!=( const Klucz& )const;
+	bool operator<( const Klucz& )const;
 
 	type_name getKlucz()const;
 	void setKlucz( const type_name& );

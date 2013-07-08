@@ -20,7 +20,7 @@ Budynek* Budynek::Podziel( const Ilosc& ilosc){
 	return nullptr;
 }
 
-bool Budynek::Polacz( const ObiektBase& obiektBase){
+bool Budynek::Polacz( ObiektBase& obiektBase){
 	return false;
 }
 	

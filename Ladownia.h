@@ -42,9 +42,11 @@ public:
 	
 	virtual Fluktuacja WolneMiejsce() const;
 
+	bool Polacz( Ladownia& );
+
 	Ilosc SprawdzIloscObiektow( const Klucz& ) const;
 	
-	virtual bool DodajObiektDoLadowni( const Item& );
+	virtual bool DodajObiektDoLadowni( Item& );
 
 	Item& PobierzObiekt( const Klucz& , const Ilosc& ) throw ( NieznalezionoObiektu, NiepoprawnaIloscObiektow );
 

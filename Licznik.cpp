@@ -1,5 +1,6 @@
 #include "Licznik.h"
 #include "Logger.h"
+#include "Utils.h"
 
 Licznik::Licznik(const IdType& id, const Ilosc& w)
 	: Base(id), wartoscLicznika(w)
@@ -45,9 +46,10 @@ bool Licznik::zapisz( TiXmlElement* e ) const{
 
 bool Licznik::odczytaj( TiXmlElement* n ){
 	if(n && Base::odczytaj(n)){
-		auto c = n->Attribute("ilosc");
-		if(!c)
+		string c = n->Attribute("ilosc");
+		if(c.empty())
 			return false;
+		Utils::trim(c);
 		wartoscLicznika.setIlosc(stold(c));
 		return true;
 	}

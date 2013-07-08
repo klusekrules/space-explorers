@@ -24,10 +24,31 @@ Statek* Statek::Podziel( const Ilosc& i ){
 	if( ilosc>i ){
 		Statek* o = new Statek( i , *this, this->statekinfo );
 		ilosc-=i;
+		this->przeliczZajeteMiejsce();
+		if(this->WolneMiejsce() < Fluktuacja(0.0)){
+			Zbiornik* zb = this->PodzielLadownie(this->zajete-this->getPojemnoscMax(),o->getPojemnoscMax());
+			o->obiekty.moveAll(*zb);
+		}
 		return o; 
 	}
 	return nullptr;
 }	
+
+bool Statek::Polacz( ObiektBase& o ){
+	if(czyMoznaPolaczyc(o)){
+		Statek & t = (Statek&)o;
+		t.przeliczZajeteMiejsce();
+		this->przeliczZajeteMiejsce();
+		if((this->getPojemnoscMax()+t.getPojemnoscMax()) >= (t.getZajeteMiejsce()+this->getZajeteMiejsce())){
+			if(ObiektBase::Polacz(o)){
+				Ladownia::Polacz(t);
+				this->przeliczZajeteMiejsce();
+				return true;
+			}
+		}
+	}
+	return false;
+}
 
 Obrazenia Statek::Atak() const {
 	return Obrazenia( ilosc.value() * JednostkaAtakujaca::Atak().value() );
@@ -75,7 +96,7 @@ Fluktuacja Statek::WolneMiejsce() const{
 	return Ladownia::WolneMiejsce();
 }
 
-bool Statek::DodajObiektDoLadowni( const Item& i){
+bool Statek::DodajObiektDoLadowni( Item& i){
 	return Ladownia::DodajObiektDoLadowni(i);
 }
 

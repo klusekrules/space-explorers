@@ -224,6 +224,7 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Dystans.h" />
+    <ClInclude Include="Flota.h" />
     <ClInclude Include="Fluktuacja.h" />
     <ClInclude Include="FunkcjeTestowe.h" />
     <ClInclude Include="Gra.h" />
@@ -237,6 +238,7 @@
     <ClInclude Include="Technologia.h" />
     <ClInclude Include="TechnologiaInfo.h" />
     <ClInclude Include="Test.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="Uzytkownik.h" />
     <ClInclude Include="version.h" />
     <ClInclude Include="IdType.h" />
@@ -310,6 +312,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Dystans.cpp" />
+    <ClCompile Include="Flota.cpp" />
     <ClCompile Include="Fluktuacja.cpp" />
     <ClCompile Include="FunkcjeTestowe.cpp" />
     <ClCompile Include="Gra.cpp" />
