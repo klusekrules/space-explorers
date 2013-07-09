@@ -17,10 +17,10 @@ Warunek::Warunek( TiXmlElement* n ) throw(WyjatekParseraXML)
 			auto e = n->FirstChildElement();
 			while(e){
 				if(e->Value() == string("Wymog") ){
-					TiXmlElement* firstElement = XmlBO::IterateChildren<NOTHROW>(e,CLASSNAME(ObiektBaseInfo));
+					TiXmlElement* firstElement = XmlBO::ZnajdzWezel<NOTHROW>(e,CLASSNAME(ObiektBaseInfo));
 					if(firstElement){
 						auto first = shared_ptr<ObiektBaseInfo>(new ObiektBaseInfo(firstElement));
-						auto second = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildren<NOTHROW>(e,"Zmiana"));
+						auto second = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezel<NOTHROW>(e,"Zmiana"));
 						dodajWarunek(make_pair(first,second));
 					}
 				}

@@ -9,20 +9,20 @@ class NOTHROW { };
 class XmlBO{
 private:
 	template < typename T > 
-	static TiXmlElement * fail( bool czyWezelPusty , string nazwaWezla ){
+	static TiXmlElement * blad( bool czyWezelPusty , string nazwaWezla ){
 		return nullptr;
 	}
 
 	template < > 
-	static TiXmlElement * fail<THROW>( bool czyWezelPusty , string nazwaWezla ){
+	static TiXmlElement * blad<THROW>( bool czyWezelPusty , string nazwaWezla ){
 		throw WyjatekParseraXML(EXCEPTION_PLACE,exception((nazwaWezla + " isNull=" + to_string(czyWezelPusty)).c_str()),WyjatekParseraXML::trescBladStrukturyXml);
 	}
 
 public:
 	template<typename T>
-	static TiXmlElement* IterateChildren( TiXmlElement* wezel , const string& nazwa, TiXmlElement* poprzedniWezel = nullptr ){
+	static TiXmlElement* ZnajdzWezel( TiXmlElement* wezel , const string& nazwa, TiXmlElement* poprzedniWezel = nullptr ){
 		if(wezel==nullptr || nazwa.empty())
-			return fail<T>(wezel==nullptr,nazwa);
+			return blad<T>(wezel==nullptr,nazwa);
 		if(poprzedniWezel)
 			return poprzedniWezel->NextSiblingElement(nazwa);
 		else
@@ -30,16 +30,16 @@ public:
 	}
 	
 	template<typename T>
-	static TiXmlElement* IterateChildrenIf( TiXmlElement* wezel ,
+	static TiXmlElement* ZnajdzWezelJezeli( TiXmlElement* wezel ,
 											const string& nazwaWezla,
 											const string& nazwaAtrybutu,
 											const string& wartoscAtrybutu,
 											TiXmlElement* poprzedniWezel = nullptr )
 	{
 		if(wezel==nullptr || nazwaWezla.empty() || nazwaAtrybutu.empty())
-			return fail<T>(wezel==nullptr,nazwaWezla);
+			return blad<T>(wezel==nullptr,nazwaWezla);
 		TiXmlElement* element = poprzedniWezel ? poprzedniWezel : wezel;
-		for(TiXmlElement* wezelDziecko = element->FirstChildElement(s); wezelDziecko!= nullptr; wezelDziecko = wezelDziecko->NextSiblingElement(s) ){
+		for(TiXmlElement* wezelDziecko = element->FirstChildElement(nazwaWezla); wezelDziecko!= nullptr; wezelDziecko = wezelDziecko->NextSiblingElement(nazwaWezla) ){
 			auto tmp = wezelDziecko->Attribute(nazwaAtrybutu);
 			if(tmp && wartoscAtrybutu == *tmp)
 				return wezelDziecko;

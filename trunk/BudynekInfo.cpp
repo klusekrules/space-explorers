@@ -4,9 +4,9 @@
 #include "Gra.h"
 
 BudynekInfo::BudynekInfo( TiXmlElement* n )
-	: ObiektInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(ObiektInfo)))
+	: ObiektInfo(XmlBO::ZnajdzWezel<THROW>(n,CLASSNAME(ObiektInfo)))
 {
-	auto z = XmlBO::IterateChildren<NOTHROW>(n,"Zapotrzebowanie");
+	auto z = XmlBO::ZnajdzWezel<NOTHROW>(n,"Zapotrzebowanie");
 	if(z){
 		auto e = z->FirstChildElement();
 		while(e){
@@ -16,7 +16,7 @@ BudynekInfo::BudynekInfo( TiXmlElement* n )
 		}
 	}
 
-	auto p = XmlBO::IterateChildren<NOTHROW>(n,"Produkcja");
+	auto p = XmlBO::ZnajdzWezel<NOTHROW>(n,"Produkcja");
 	if(p){
 		auto e = p->FirstChildElement();
 		while(e){

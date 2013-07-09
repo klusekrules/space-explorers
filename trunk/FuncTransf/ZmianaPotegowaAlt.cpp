@@ -4,10 +4,10 @@
 #include "..\XmlBO.h"
 
 ZmianaPotegowaAlt::ZmianaPotegowaAlt( TiXmlElement * e ) throw(int)
-	: wspolczynnik(XmlBO::IterateChildren<NOTHROW>(e,"Param")), wykladnik(nullptr)
+	: wspolczynnik(XmlBO::ZnajdzWezel<NOTHROW>(e,"Param")), wykladnik(nullptr)
 {
 	if(zFabryka)
-		wykladnik=zFabryka->Tworz(XmlBO::IterateChildren<NOTHROW>(e,"Zmiana"));
+		wykladnik=zFabryka->Tworz(XmlBO::ZnajdzWezel<NOTHROW>(e,"Zmiana"));
 }
 
 ZmianaPotegowaAlt::~ZmianaPotegowaAlt(void)

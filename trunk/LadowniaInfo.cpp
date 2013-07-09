@@ -9,12 +9,12 @@ LadowniaInfo::LadowniaInfo( const Objetosc& max, const Info& i ) throw()
 }
 
 LadowniaInfo::LadowniaInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
-	: Info(XmlBO::IterateChildren<THROW>(n,CLASSNAME(Info))), przyrostPojemnoscMax(nullptr)
+	: Info(XmlBO::ZnajdzWezel<THROW>(n,CLASSNAME(Info))), przyrostPojemnoscMax(nullptr)
 {
 	if(n){
 		try{
 			pojemnoscMax(stold(n->Attribute("pojemnoscMaksymalna")));
-			przyrostPojemnoscMax = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenIf<NOTHROW>(n,"Zmiana","for","pojemnoscMaksymalna"));
+			przyrostPojemnoscMax = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","pojemnoscMaksymalna"));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

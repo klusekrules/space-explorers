@@ -8,7 +8,7 @@ Cennik::Cennik( TiXmlElement* n ) throw(WyjatekParseraXML)
 	: zmCzasuBudowy(nullptr)
 {
 	if(n){
-		auto c = XmlBO::IterateChildrenIf<NOTHROW>(n,"Zmiana","for","Czas");
+		auto c = XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","Czas");
 		if(c)
 			zmCzasuBudowy=Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(c);
 		auto e = n->FirstChildElement();
