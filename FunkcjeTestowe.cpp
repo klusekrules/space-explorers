@@ -92,7 +92,7 @@ bool test_KlasaLadownia( Test & t ){
 	Aplikacja::getInstance().getLog().debug("Zajete miejsce: ");
 	Aplikacja::getInstance().getLog().debug(a->getZajeteMiejsce());
 	Aplikacja::getInstance().getLog().debug("Dzielenie ladowni");
-	shared_ptr<Ladownia::Zbiornik> zb (a->PodzielLadownie(Objetosc(a->getZajeteMiejsce().value()*0.1)+Objetosc(a->getZajeteMiejsce().value()/2.0),Objetosc(a->getZajeteMiejsce().value()/2.0)));
+	shared_ptr<Ladownia::Zbiornik> zb (a->PodzielLadownie(Objetosc(a->getZajeteMiejsce()()*0.1)+Objetosc(a->getZajeteMiejsce()()/2.0),Objetosc(a->getZajeteMiejsce()()/2.0)));
 	t.assert_true(EXCEPTION_PLACE,zb->isEmpty());
 	Aplikacja::getInstance().getLog().debug("Zbiornik odlaczony od ladowni: ");
 	Aplikacja::getInstance().getLog().debug(*zb);
@@ -247,9 +247,9 @@ bool test_wymagan( Test & t ){
 bool test_KlasaJednostkaAtakujaca( Test & t ){
 	shared_ptr<Statek> a( tworzStatek(t,IdType(11),Ilosc(8)) );
 	Obrazenia oAtak = a->Atak();
-	Obrazenia baseAtak(a->getStatekInfo().getAtak(PodstawoweParametry(Poziom(1),IdType())).value()*8.0);
-	Obrazenia tbAtak(baseAtak.value() *(JednostkaAtakujaca::srednia-(JednostkaAtakujaca::odchylenie * 3 )));
-	Obrazenia teAtak(baseAtak.value() *(JednostkaAtakujaca::srednia+(JednostkaAtakujaca::odchylenie * 3 )));
+	Obrazenia baseAtak(a->getStatekInfo().getAtak(PodstawoweParametry(Poziom(1),IdType()))()*8.0);
+	Obrazenia tbAtak(baseAtak() *(JednostkaAtakujaca::srednia-(JednostkaAtakujaca::odchylenie * 3 )));
+	Obrazenia teAtak(baseAtak() *(JednostkaAtakujaca::srednia+(JednostkaAtakujaca::odchylenie * 3 )));
 	Aplikacja::getInstance().getLog().debug(oAtak);
 	Aplikacja::getInstance().getLog().debug(baseAtak);
 	Aplikacja::getInstance().getLog().debug(tbAtak);
@@ -257,9 +257,9 @@ bool test_KlasaJednostkaAtakujaca( Test & t ){
 	t.assert_false(EXCEPTION_PLACE, tbAtak <= oAtak && oAtak <= teAtak);
 
 	Obrazenia oOslona = a->Oslona(oAtak);
-	Obrazenia baseOslona(a->getStatekInfo().getOslona(PodstawoweParametry(Poziom(1),IdType())).value()*8.0);
-	double tbd=oAtak.value() - baseOslona.value() *(JednostkaAtakujaca::srednia+(JednostkaAtakujaca::odchylenie * 3 ));
-	double ted=oAtak.value() - baseOslona.value() *(JednostkaAtakujaca::srednia-(JednostkaAtakujaca::odchylenie * 3 ));
+	Obrazenia baseOslona(a->getStatekInfo().getOslona(PodstawoweParametry(Poziom(1),IdType()))()*8.0);
+	double tbd=oAtak() - baseOslona() *(JednostkaAtakujaca::srednia+(JednostkaAtakujaca::odchylenie * 3 ));
+	double ted=oAtak() - baseOslona() *(JednostkaAtakujaca::srednia-(JednostkaAtakujaca::odchylenie * 3 ));
 	Obrazenia tbOslona(tbd>0?tbd:0);
 	Obrazenia teOslona(ted>0?ted:0);
 	Aplikacja::getInstance().getLog().debug(oOslona);
@@ -269,7 +269,7 @@ bool test_KlasaJednostkaAtakujaca( Test & t ){
 	t.assert_false(EXCEPTION_PLACE, tbOslona <= oOslona && oOslona <= teOslona);
 
 	Obrazenia oPancerz = a->Pancerz(oOslona);
-	Obrazenia basePancerz(a->getStatekInfo().getPancerz(PodstawoweParametry(Poziom(1),IdType())).value()*8.0);
+	Obrazenia basePancerz(a->getStatekInfo().getPancerz(PodstawoweParametry(Poziom(1),IdType()))()*8.0);
 	Obrazenia tbPancerz(basePancerz<oOslona?oOslona-basePancerz:Obrazenia(0));
 	Aplikacja::getInstance().getLog().debug(oPancerz);
 	Aplikacja::getInstance().getLog().debug(basePancerz);

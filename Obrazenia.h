@@ -6,8 +6,6 @@ class Obrazenia:
 	virtual public LoggerInterface,
 	public BaseInterface<SPG::Obrazenia>
 {
-private:
-	type_name obrazenia;
 public:	
 	Obrazenia();
 	Obrazenia( const Obrazenia& );
@@ -30,8 +28,6 @@ public:
 	type_name getObrazenia() const;
 
 	void setObrazenia( const type_name& );
-
-	type_name value() const override;
 
 	string toString() const override; 
 };

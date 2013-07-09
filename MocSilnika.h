@@ -6,8 +6,6 @@ class MocSilnika:
 	virtual public LoggerInterface,
 	public BaseInterface<SPG::MocSilnika>
 {
-private:
-	type_name mocSilnika;
 public:	
 	MocSilnika();
 	MocSilnika( const MocSilnika& );
@@ -30,8 +28,6 @@ public:
 	type_name getMocSilnika() const;
 
 	void setMocSilnika( const type_name& );
-
-	type_name value() const override;
 
 	string toString() const override; 
 };

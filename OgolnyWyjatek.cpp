@@ -4,7 +4,7 @@
 #include "Stale.h"
 
 OgolnyWyjatek::OgolnyWyjatek( const Tekst& tPlik, const Ilosc& iLinia, const IdType& itId , const Tekst& wwTytul , const Tekst& wwTresc )
-	: numerWyjatku( itId.value() != Stale::idDomyslny ? itId : domyslnyOgolnyWyjatekID ) , tytul( wwTytul.isEmpty() ? domyslnyOgolnyWyjatekTytul : wwTytul ) , tresc( wwTresc.isEmpty() ? domyslnyOgolnyWyjatekTresc : wwTresc )
+	: numerWyjatku( itId() != Stale::idDomyslny ? itId : domyslnyOgolnyWyjatekID ) , tytul( wwTytul.isEmpty() ? domyslnyOgolnyWyjatekTytul : wwTytul ) , tresc( wwTresc.isEmpty() ? domyslnyOgolnyWyjatekTresc : wwTresc )
 {
 	ustawSzczegoly( tPlik, iLinia );
 }

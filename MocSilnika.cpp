@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 MocSilnika::MocSilnika()
-	: mocSilnika( Stale::mocSilnikaDomyslny )
+	: BaseInterface( Stale::mocSilnikaDomyslny )
 {
 }
 
 MocSilnika::MocSilnika( const MocSilnika& a )
-	: mocSilnika( a.mocSilnika )
+	: BaseInterface( a )
 {
 }
 
 MocSilnika::MocSilnika( const type_name& f )
-	: mocSilnika(f)
+	: BaseInterface(f)
 {
 }
 
@@ -21,64 +21,60 @@ MocSilnika::~MocSilnika(){
 }
 
 bool MocSilnika::operator==( const MocSilnika& a)const{
-	return mocSilnika==a.mocSilnika;
+	return wartosc_==a.wartosc_;
 }
 
 bool MocSilnika::operator!=( const MocSilnika& a)const{
-	return mocSilnika!=a.mocSilnika;
+	return wartosc_!=a.wartosc_;
 }
 
 bool MocSilnika::operator<( const MocSilnika& a )const{
-	return mocSilnika < a.mocSilnika;
+	return wartosc_ < a.wartosc_;
 }
 
 bool MocSilnika::operator<=( const MocSilnika& a )const{
-	return mocSilnika <= a.mocSilnika;
+	return wartosc_ <= a.wartosc_;
 }
 
 bool MocSilnika::operator>( const MocSilnika& a )const{
-	return mocSilnika > a.mocSilnika;
+	return wartosc_ > a.wartosc_;
 }
 
 bool MocSilnika::operator>=( const MocSilnika& a )const{
-	return mocSilnika >= a.mocSilnika;
+	return wartosc_ >= a.wartosc_;
 }
 
 MocSilnika& MocSilnika::operator=( const MocSilnika& p ){
-	mocSilnika = p.mocSilnika;
+	wartosc_ = p.wartosc_;
 	return *this;
 }
 
 MocSilnika& MocSilnika::operator-=( const MocSilnika& p ){
-	mocSilnika -= p.mocSilnika;
+	wartosc_ -= p.wartosc_;
 	return *this;
 }
 
 MocSilnika& MocSilnika::operator+=( const MocSilnika& p ){
-	mocSilnika += p.mocSilnika;
+	wartosc_ += p.wartosc_;
 	return *this;
 }
 
 MocSilnika MocSilnika::operator-( const MocSilnika& p )const{
-	return MocSilnika( mocSilnika - p.mocSilnika );
+	return MocSilnika( wartosc_ - p.wartosc_ );
 }
 
 MocSilnika MocSilnika::operator+( const MocSilnika& p )const{
-	return MocSilnika( mocSilnika + p.mocSilnika );
+	return MocSilnika( wartosc_ + p.wartosc_ );
 }
 
 MocSilnika::type_name MocSilnika::getMocSilnika() const{
-	return mocSilnika;
+	return wartosc_;
 }
 
 void MocSilnika::setMocSilnika( const type_name& f ){
-	mocSilnika = f;
-}
-
-MocSilnika::type_name MocSilnika::value() const{
-	return getMocSilnika();
+	wartosc_ = f;
 }
 
 string MocSilnika::toString() const{
-	return Logger::field(CLASSNAME(MocSilnika),mocSilnika);
+	return Logger::field(CLASSNAME(MocSilnika),wartosc_);
 } 

@@ -5,12 +5,23 @@ template < typename T >
 public:
 	typedef T type_name;
 
-	BaseInterface(){
+	BaseInterface( const type_name& wartosc )
+		: wartosc_ ( wartosc )
+	{
 	}
 
 	virtual ~BaseInterface(){
 	}
 
-	virtual type_name value() const abstract;
+	type_name operator()() const {
+		return wartosc_;
+	}
+
+	void operator()( const type_name& wartosc ){
+		wartosc_ = wartosc;
+	}
+
+protected:
+	type_name wartosc_;
 };
 

@@ -51,7 +51,7 @@ Czas Cennik::pobierzCzasBudowy( const PodstawoweParametry& p )const{
 			suma+=i->pobierzCzas();
 	}
 	if(zmCzasuBudowy){		
-		suma = zmCzasuBudowy->value(suma.value(),static_cast<int>(p.getPoziom().value()),p.getIdPlanety().value());
+		suma = zmCzasuBudowy->value(suma(),static_cast<int>(p.getPoziom()()),p.getIdPlanety()());
 	}
 	return suma;
 }

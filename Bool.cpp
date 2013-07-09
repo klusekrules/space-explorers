@@ -3,49 +3,43 @@
 #include "Stale.h"
 
 Bool::Bool()
-	: bBool( Stale::boolDomyslny	)
+	: BaseInterface( Stale::boolDomyslny )
 {
 }
 
-Bool::Bool(const Bool& b)
-	: bBool(b.bBool)
+Bool::Bool( const Bool& b )
+	: BaseInterface(b)
 {
 }
 
 Bool::Bool( const type_name& t )
-	: bBool(t)
+	: BaseInterface(t)
 {
 }
 
-
-Bool::~Bool()
-{
+Bool::~Bool(){
 }
-
 
 bool Bool::operator==( const Bool& b )const{
-	return bBool == b.bBool;
+	return wartosc_ == b.wartosc_;
 }
+
 bool Bool::operator!=( const Bool& b )const{
-	return bBool != b.bBool;
+	return wartosc_ != b.wartosc_;
 }
 
 Bool& Bool::operator=( const Bool& b ){
-	bBool = b.bBool;
+	wartosc_ = b.wartosc_;
 	return *this;
 }
 
 Bool& Bool::operator=( const type_name& b ){
-	bBool = b;
+	wartosc_ = b;
 	return *this;
-}
-	
-Bool::type_name Bool::value() const{
-	return bBool;
 }
 
 string Bool::toString() const{
 	stringstream str;
-	str << boolalpha << bBool;
+	str << boolalpha << wartosc_;
 	return str.str();
 } 

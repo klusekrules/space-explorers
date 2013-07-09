@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Objetosc::Objetosc()
-	: objetosc( Stale::objetoscDomyslny )
+	: BaseInterface( Stale::objetoscDomyslny )
 {
 }
 
 Objetosc::Objetosc( const Objetosc& a )
-	: objetosc( a.objetosc )
+	: BaseInterface( a )
 {
 }
 
 Objetosc::Objetosc( const type_name& f )
-	: objetosc(f)
+	: BaseInterface(f)
 {
 }
 
@@ -21,89 +21,85 @@ Objetosc::~Objetosc(){
 }
 
 bool Objetosc::operator==( const Objetosc& a)const{
-	return objetosc==a.objetosc;
+	return wartosc_==a.wartosc_;
 }
 
 bool Objetosc::operator!=( const Objetosc& a)const{
-	return objetosc!=a.objetosc;
+	return wartosc_!=a.wartosc_;
 }
 
 bool Objetosc::operator<( const Objetosc& a )const{
-	return objetosc < a.objetosc;
+	return wartosc_ < a.wartosc_;
 }
 
 bool Objetosc::operator<=( const Objetosc& a )const{
-	return objetosc <= a.objetosc;
+	return wartosc_ <= a.wartosc_;
 }
 
 bool Objetosc::operator>( const Objetosc& a )const{
-	return objetosc > a.objetosc;
+	return wartosc_ > a.wartosc_;
 }
 
 bool Objetosc::operator>=( const Objetosc& a )const{
-	return objetosc >= a.objetosc;
+	return wartosc_ >= a.wartosc_;
 }
 
 Objetosc& Objetosc::operator=( const Objetosc& p ){
-	objetosc = p.objetosc;
+	wartosc_ = p.wartosc_;
 	return *this;
 }
 
 Objetosc& Objetosc::operator-=( const Objetosc& p ){
-	objetosc -= p.objetosc;
+	wartosc_ -= p.wartosc_;
 	return *this;
 }
 
 Objetosc& Objetosc::operator+=( const Objetosc& p ){
-	objetosc += p.objetosc;
+	wartosc_ += p.wartosc_;
 	return *this;
 }
 
 Objetosc Objetosc::operator-( const Objetosc& p )const{
-	return Objetosc( objetosc - p.objetosc );
+	return Objetosc( wartosc_ - p.wartosc_ );
 }
 
 Objetosc Objetosc::operator+( const Objetosc& p )const{
-	return Objetosc( objetosc + p.objetosc );
+	return Objetosc( wartosc_ + p.wartosc_ );
 }
 
 Objetosc Objetosc::operator*( const Ilosc& f )const{
-	return Objetosc( objetosc * f.getIlosc() );
+	return Objetosc( wartosc_ * f.getIlosc() );
 }
 
 Objetosc& Objetosc::operator*=( const Ilosc& f ){
-	objetosc *= f.getIlosc();
+	wartosc_ *= f.getIlosc();
 	return *this; 
 }
 
 Objetosc Objetosc::operator*( const Fluktuacja& f )const{
-	return Objetosc( objetosc * f.getFluktuacja() );
+	return Objetosc( wartosc_ * f.getFluktuacja() );
 }
 
 Objetosc& Objetosc::operator*=( const Fluktuacja& f ){
-	objetosc *= f.getFluktuacja();
+	wartosc_ *= f.getFluktuacja();
 	return *this; 
 }
 
 Fluktuacja Objetosc::operator/( const Objetosc& o )const{
-	return Fluktuacja( static_cast<const float>(objetosc / o.objetosc) );
+	return Fluktuacja( static_cast<const float>(wartosc_ / o.wartosc_) );
 }
 
 Objetosc::type_name Objetosc::getObjetosc() const{
-	return objetosc;
+	return wartosc_;
 }
 
 void Objetosc::setObjetosc( const type_name& f ){
-	objetosc = f;
-}
-
-Objetosc::type_name Objetosc::value() const{
-	return getObjetosc();
+	wartosc_ = f;
 }
 
 string Objetosc::toString() const{
 	stringstream str;
 	str.precision(25);
-	str<<fixed<< objetosc;
+	str<<fixed<< wartosc_;
 	return str.str();
 } 

@@ -3,69 +3,64 @@
 #include "Stale.h"
 
 Tekst::Tekst()
-	: tekst( Stale::tekstDomyslny )
+	: BaseInterface( Stale::tekstDomyslny )
 {
 }
 
-Tekst::Tekst( const type_name& tekst )
-	: tekst(tekst)
+Tekst::Tekst( const type_name& wartosc )
+	: BaseInterface(wartosc)
 {
 }
 
-Tekst::Tekst( const Tekst& tekst)
-	: tekst(tekst.tekst)
+Tekst::Tekst( const Tekst& wartosc)
+	: BaseInterface(wartosc)
 {
 }
 
 Tekst::~Tekst(){
 }
+
 bool Tekst::isEmpty() const{
-	return tekst.size() == 0;
+	return wartosc_.size() == 0;
 }
 
 Tekst Tekst::operator+( const Tekst& a ) const{
-	return Tekst( tekst + a.tekst );
+	return Tekst( wartosc_ + a.wartosc_ );
 }
 
 Tekst& Tekst::operator+=( const Tekst& a ){
-	tekst+=a.tekst;
+	wartosc_+=a.wartosc_;
 	return *this;
 }
 
 Tekst& Tekst::operator=( const Tekst& a ){
-	tekst = a.tekst;
+	wartosc_ = a.wartosc_;
 	return *this;
 }
 
 bool Tekst::operator==( const Tekst& a ) const{
-	return tekst == a.tekst;
+	return wartosc_ == a.wartosc_;
 }
 
 bool Tekst::operator!=( const Tekst& a ) const{
-	return tekst != a.tekst;
+	return wartosc_ != a.wartosc_;
 }
-	
 	
 Tekst::type_name Tekst::getTekst()const{
-	return tekst;
+	return wartosc_;
 }
 
-void Tekst::setTekst( const type_name & tekst ){
-	this->tekst = tekst;
-}
-
-Tekst::type_name Tekst::value()const{
-	return getTekst();
+void Tekst::setTekst( const type_name & wartosc ){
+	this->wartosc_ = wartosc;
 }
 
 string Tekst::toString()const {
 	return Logger::field(CLASSNAME(Tekst),dodajCudzyslow());
 }
 
-
 Tekst::type_name Tekst::dodajCudzyslow() const {
 	string s("\"");
-	s.append(tekst);
+	s.append(wartosc_);
 	s.append("\"");
 	return s;
 }

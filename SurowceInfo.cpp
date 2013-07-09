@@ -30,7 +30,7 @@ SurowceInfo::SurowceInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
 }
 
 bool SurowceInfo::czyTypPrzyrostowy()const{
-	return czyPrzyrostowy.value();
+	return czyPrzyrostowy();
 }
 
 bool SurowceInfo::Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
@@ -39,7 +39,7 @@ bool SurowceInfo::Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
 
 Czas SurowceInfo::pobierzCzas( const Ilosc& i ,const PodstawoweParametry& p )const{
 	if(zmCzas)
-		return Czas(zmCzas->value(i.value(),static_cast<int>(p.getPoziom().value()),p.getIdPlanety().value()));
+		return Czas(zmCzas->value(i(),static_cast<int>(p.getPoziom()()),p.getIdPlanety()()));
 	else
 		return Czas(0.0l);
 }

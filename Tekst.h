@@ -7,8 +7,6 @@ class Tekst:
 	public BaseInterface<SPG::Tekst>
 {
 private:
-	type_name tekst;
-
 	type_name dodajCudzyslow()const;
 public:
 	Tekst();
@@ -27,8 +25,6 @@ public:
 
 	type_name getTekst()const;
 	void setTekst( const type_name& );
-
-	type_name value()const override;
 
 	string toString()const override;
 };

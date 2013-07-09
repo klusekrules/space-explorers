@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Masa::Masa()
-	: masa( Stale::masaDomyslny )
+	: BaseInterface( Stale::masaDomyslny )
 {
 }
 
 Masa::Masa( const Masa& a )
-	: masa( a.masa )
+	: BaseInterface( a )
 {
 }
 
 Masa::Masa( const type_name& f )
-	: masa(f)
+	: BaseInterface(f)
 {
 }
 
@@ -21,82 +21,78 @@ Masa::~Masa(){
 }
 
 bool Masa::operator==( const Masa& a)const{
-	return masa==a.masa;
+	return wartosc_==a.wartosc_;
 }
 
 bool Masa::operator!=( const Masa& a)const{
-	return masa!=a.masa;
+	return wartosc_!=a.wartosc_;
 }
 
 bool Masa::operator<( const Masa& a )const{
-	return masa < a.masa;
+	return wartosc_ < a.wartosc_;
 }
 
 bool Masa::operator<=( const Masa& a )const{
-	return masa <= a.masa;
+	return wartosc_ <= a.wartosc_;
 }
 
 bool Masa::operator>( const Masa& a )const{
-	return masa > a.masa;
+	return wartosc_ > a.wartosc_;
 }
 
 bool Masa::operator>=( const Masa& a )const{
-	return masa >= a.masa;
+	return wartosc_ >= a.wartosc_;
 }
 
 Masa& Masa::operator=( const Masa& p ){
-	masa = p.masa;
+	wartosc_ = p.wartosc_;
 	return *this;
 }
 
 Masa& Masa::operator-=( const Masa& p ){
-	masa -= p.masa;
+	wartosc_ -= p.wartosc_;
 	return *this;
 }
 
 Masa& Masa::operator+=( const Masa& p ){
-	masa += p.masa;
+	wartosc_ += p.wartosc_;
 	return *this;
 }
 
 Masa Masa::operator-( const Masa& p )const{
-	return Masa( masa - p.masa );
+	return Masa( wartosc_ - p.wartosc_ );
 }
 
 Masa Masa::operator+( const Masa& p )const{
-	return Masa( masa + p.masa );
+	return Masa( wartosc_ + p.wartosc_ );
 }
 
 Masa Masa::operator*( const Fluktuacja& f )const{
-	return Masa( masa * f.getFluktuacja() );
+	return Masa( wartosc_ * f.getFluktuacja() );
 }
 
 Masa& Masa::operator*=( const Fluktuacja& f ){
-	masa *= f.getFluktuacja();
+	wartosc_ *= f.getFluktuacja();
 	return *this;
 }
 
 Masa Masa::operator*( const Ilosc& f )const{
-	return Masa( masa * f.getIlosc() );
+	return Masa( wartosc_ * f.getIlosc() );
 }
 
 Masa& Masa::operator*=( const Ilosc& f ){
-	masa *= f.getIlosc();
+	wartosc_ *= f.getIlosc();
 	return *this;
 }
 
 Masa::type_name Masa::getMasa() const{
-	return masa;
+	return wartosc_;
 }
 
 void Masa::setMasa( const type_name& f ){
-	masa = f;
-}
-
-Masa::type_name Masa::value() const{
-	return getMasa();
+	wartosc_ = f;
 }
 
 string Masa::toString() const{
-	return Logger::field(CLASSNAME(Masa),masa);
+	return Logger::field(CLASSNAME(Masa),wartosc_);
 } 

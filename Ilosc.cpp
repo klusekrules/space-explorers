@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Ilosc::Ilosc()
-	: ilosc( Stale::iloscJednostekDomyslny )
+	: BaseInterface( Stale::iloscJednostekDomyslny )
 {
 }
 
 Ilosc::Ilosc( const type_name& ilosc )
-	: ilosc(ilosc)
+	: BaseInterface(ilosc)
 {
 }
 
 Ilosc::Ilosc( const Ilosc& ilosc )
-	: ilosc(ilosc.ilosc)
+	: BaseInterface(ilosc)
 {
 }
 
@@ -21,80 +21,76 @@ Ilosc::~Ilosc(){
 }
 
 bool Ilosc::operator<( const Ilosc& i ) const{
-	return ilosc < i.ilosc;
+	return wartosc_ < i.wartosc_;
 }
 
 bool Ilosc::operator>( const Ilosc& i ) const{
-	return ilosc > i.ilosc;
+	return wartosc_ > i.wartosc_;
 }
 
 bool Ilosc::operator==( const Ilosc& i ) const{
-	return ilosc == i.ilosc;
+	return wartosc_ == i.wartosc_;
 }
 
 bool Ilosc::operator!=( const Ilosc& i ) const{
-	return ilosc != i.ilosc;
+	return wartosc_ != i.wartosc_;
 }
 
 bool Ilosc::operator<=( const Ilosc& i) const{
-	return ilosc <= i.ilosc;
+	return wartosc_ <= i.wartosc_;
 }
 
 bool Ilosc::operator>=( const Ilosc& i) const{
-	return ilosc >= i.ilosc;
+	return wartosc_ >= i.wartosc_;
 }
 
 Ilosc Ilosc::operator+( const Ilosc& i ) const{
-	return Ilosc( ilosc + i.ilosc );
+	return Ilosc( wartosc_ + i.wartosc_ );
 }
 
 Ilosc Ilosc::operator-( const Ilosc& i ) const{
-	return Ilosc( ilosc - i.ilosc );
+	return Ilosc( wartosc_ - i.wartosc_ );
 }
 
 Ilosc Ilosc::operator*( const Ilosc& i ) const{
-	return Ilosc( ilosc - i.ilosc );
+	return Ilosc( wartosc_ - i.wartosc_ );
 }
 
 Ilosc& Ilosc::operator+=( const Ilosc& i ){
-	ilosc+=i.ilosc;
+	wartosc_+=i.wartosc_;
 	return *this;
 }
 
 Ilosc& Ilosc::operator++( ){
-	++ilosc;
+	++wartosc_;
 	return (*this);
 }
 
 Ilosc Ilosc::operator++( int ){
 	Ilosc t(*this);
-	++ilosc;
+	++wartosc_;
 	return t;
 }
 
 Ilosc& Ilosc::operator-=( const Ilosc& i ){
-	ilosc-=i.ilosc;
+	wartosc_-=i.wartosc_;
 	return *this;
 }
 
 Ilosc& Ilosc::operator=( const Ilosc& i ){
-	ilosc=i.ilosc;
+	wartosc_=i.wartosc_;
 	return *this;
 }
 
 Ilosc::type_name Ilosc::getIlosc()const{
-	return ilosc;
+	return wartosc_;
 }
 
-void Ilosc::setIlosc( const type_name& ilosc ){
-	this->ilosc = ilosc;
-}
-
-Ilosc::type_name Ilosc::value() const{
-	return getIlosc();
+void Ilosc::setIlosc( const type_name& wartosc ){
+	this->wartosc_ = wartosc;
 }
 
 string Ilosc::toString() const{
-	return Logger::field(CLASSNAME(Ilosc),ilosc);
+	return Logger::field(CLASSNAME(Ilosc),wartosc_);
 }
 

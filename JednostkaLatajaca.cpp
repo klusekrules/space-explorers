@@ -13,7 +13,7 @@ JednostkaLatajaca::JednostkaLatajaca( const PodstawoweParametry& p , const Jedno
 }
 
 ZuzyciePaliwa JednostkaLatajaca::WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const{
-	return ZuzyciePaliwa(jednostkaLatajacaInfo.getZuzyciePaliwa(*this).value()* ( d.value() / p.value() ) );
+	return ZuzyciePaliwa(jednostkaLatajacaInfo.getZuzyciePaliwa(*this)()* ( d() / p() ) );
 }
 
 ZuzyciePaliwa JednostkaLatajaca::getJednostkoweZuzyciePaliwa()const{
@@ -33,10 +33,10 @@ Fluktuacja JednostkaLatajaca::getSprawnoscSilnika()const{
 }
 
 Predkosc JednostkaLatajaca::PredkoscMaksymalna() const{
-	long double eta_m = jednostkaLatajacaInfo.getSprawnoscSilnika(*this).value();
+	long double eta_m = jednostkaLatajacaInfo.getSprawnoscSilnika(*this)();
 	long double a = 0.01;
-	long double P = jednostkaLatajacaInfo.getMocSilnika(*this).value();
-	return Predkosc( ( P * eta_m )/(CalkowitaMasaJednostki().value() * a) );
+	long double P = jednostkaLatajacaInfo.getMocSilnika(*this)();
+	return Predkosc( ( P * eta_m )/(CalkowitaMasaJednostki()() * a) );
 }
 
 Masa JednostkaLatajaca::CalkowitaMasaJednostki() const{

@@ -7,63 +7,60 @@ ostream& operator<< (ostream& out, const Klucz::type_name& base){
 }
 
 Klucz::Klucz()
-	: values( make_pair< IdType , Poziom >( IdType() , Poziom() ) ) 
+	: BaseInterface( make_pair< IdType , Poziom >( IdType() , Poziom() ) ) 
 {
 }
 
 Klucz::Klucz( const IdType& id , const Poziom& poziom )
-	: values( make_pair<IdType,Poziom>( IdType(id) , Poziom(poziom) ) )
+	: BaseInterface( make_pair<IdType,Poziom>( IdType(id) , Poziom(poziom) ) )
 {
 }
 
 Klucz::Klucz( const type_name& pair )
-	: values( pair )
+	: BaseInterface( pair )
 {
 }
 
 Klucz::Klucz( const Klucz& klucz )
-	: values( klucz.values )
+	: BaseInterface( klucz )
 {
 }
 
-Klucz::Klucz( TiXmlElement* n ){
+Klucz::Klucz( TiXmlElement* n )
+	: BaseInterface( make_pair< IdType , Poziom >( IdType() , Poziom() ) ) 
+{
 	if(n!=nullptr){
 		try{
-			values = make_pair<IdType,Poziom>( IdType(stoi(n->Attribute("id"),nullptr,0)) , Poziom(stoi(n->Attribute("poziom"))) );
+			wartosc_ = make_pair<IdType,Poziom>( IdType(stoi(n->Attribute("id"),nullptr,0)) , Poziom(stoi(n->Attribute("poziom"))) );
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}
 	}
-	
 }
 
 Klucz::~Klucz(){
 }
 
 bool Klucz::operator==( const Klucz& a )const{
-	return values == a.values;
+	return wartosc_ == a.wartosc_;
 }
 
 bool Klucz::operator!=( const Klucz& a )const{
-	return values != a.values;
+	return wartosc_ != a.wartosc_;
 }
 
 bool Klucz::operator<( const Klucz& a )const{
-	return values.first < a.values.first ? true : values.second < a.values.second;
+	return wartosc_.first < a.wartosc_.first ? true : wartosc_.second < a.wartosc_.second;
 }
 
 Klucz::type_name Klucz::getKlucz()const{
-	return values;
+	return wartosc_;
 }
 
 void Klucz::setKlucz( const type_name& pair ){
-	values = pair;
-}
-
-Klucz::type_name Klucz::value()const{
-	return getKlucz();
+	wartosc_ = pair;
 }
 
 string Klucz::toString()const{
-	return Logger::field(CLASSNAME(Klucz),values.first,values.second);
+	return Logger::field(CLASSNAME(Klucz),wartosc_.first,wartosc_.second);
 }

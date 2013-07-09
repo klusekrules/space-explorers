@@ -85,7 +85,7 @@ bool Planeta::wybuduj( const IdType& id, const Ilosc& ilosc ){
 }
 
 IdType Planeta::dodajFlote(){
-	shared_ptr< Flota > ptr = shared_ptr< Flota >(new Flota(idFloty()));
+	shared_ptr< Flota > ptr = shared_ptr< Flota >(new Flota(IdType(idFloty())));
 	listaFlot.insert(make_pair(ptr->getId(),ptr));
 	return ptr->getId();
 }

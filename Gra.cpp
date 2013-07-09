@@ -38,7 +38,7 @@ bool Gra::Logowanie(const string& nazwa, const string& hash){
 }
 //TODO: Dopisanie poprawnego generowania planet
 IdType Gra::generujPlanete(){
-	auto p = shared_ptr<Planeta>( new Planeta(idPlanety()));
+	auto p = shared_ptr<Planeta>( new Planeta(IdType(idPlanety())));
 	wolnePlanety.insert(make_pair(p->getId(),p));
 	return p->getId();
 }

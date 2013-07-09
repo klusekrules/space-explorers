@@ -6,8 +6,6 @@ class Ilosc:
 	virtual public LoggerInterface,
 	public BaseInterface<SPG::IloscJednostek>
 {
-private:
-	type_name ilosc;
 public:
 	Ilosc();
 	explicit Ilosc( const type_name& );
@@ -35,8 +33,6 @@ public:
 	type_name getIlosc()const;
 
 	void setIlosc( const type_name& );
-
-	type_name value() const override;
 
 	string toString() const override;
 };

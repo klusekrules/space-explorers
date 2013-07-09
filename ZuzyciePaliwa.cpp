@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 ZuzyciePaliwa::ZuzyciePaliwa()
-	: zuzyciePaliwa( Stale::zuzyciePaliwaDomyslny )
+	: BaseInterface( Stale::zuzyciePaliwaDomyslny )
 {
 }
 
 ZuzyciePaliwa::ZuzyciePaliwa( const ZuzyciePaliwa& a )
-	: zuzyciePaliwa( a.zuzyciePaliwa )
+	: BaseInterface( a )
 {
 }
 
 ZuzyciePaliwa::ZuzyciePaliwa( const type_name& f )
-	: zuzyciePaliwa(f)
+	: BaseInterface(f)
 {
 }
 
@@ -21,64 +21,60 @@ ZuzyciePaliwa::~ZuzyciePaliwa(){
 }
 
 bool ZuzyciePaliwa::operator==( const ZuzyciePaliwa& a)const{
-	return zuzyciePaliwa==a.zuzyciePaliwa;
+	return wartosc_==a.wartosc_;
 }
 
 bool ZuzyciePaliwa::operator!=( const ZuzyciePaliwa& a)const{
-	return zuzyciePaliwa!=a.zuzyciePaliwa;
+	return wartosc_!=a.wartosc_;
 }
 
 bool ZuzyciePaliwa::operator<( const ZuzyciePaliwa& a )const{
-	return zuzyciePaliwa < a.zuzyciePaliwa;
+	return wartosc_ < a.wartosc_;
 }
 
 bool ZuzyciePaliwa::operator<=( const ZuzyciePaliwa& a )const{
-	return zuzyciePaliwa <= a.zuzyciePaliwa;
+	return wartosc_ <= a.wartosc_;
 }
 
 bool ZuzyciePaliwa::operator>( const ZuzyciePaliwa& a )const{
-	return zuzyciePaliwa > a.zuzyciePaliwa;
+	return wartosc_ > a.wartosc_;
 }
 
 bool ZuzyciePaliwa::operator>=( const ZuzyciePaliwa& a )const{
-	return zuzyciePaliwa >= a.zuzyciePaliwa;
+	return wartosc_ >= a.wartosc_;
 }
 
 ZuzyciePaliwa& ZuzyciePaliwa::operator=( const ZuzyciePaliwa& p ){
-	zuzyciePaliwa = p.zuzyciePaliwa;
+	wartosc_ = p.wartosc_;
 	return *this;
 }
 
 ZuzyciePaliwa& ZuzyciePaliwa::operator-=( const ZuzyciePaliwa& p ){
-	zuzyciePaliwa -= p.zuzyciePaliwa;
+	wartosc_ -= p.wartosc_;
 	return *this;
 }
 
 ZuzyciePaliwa& ZuzyciePaliwa::operator+=( const ZuzyciePaliwa& p ){
-	zuzyciePaliwa += p.zuzyciePaliwa;
+	wartosc_ += p.wartosc_;
 	return *this;
 }
 
 ZuzyciePaliwa ZuzyciePaliwa::operator-( const ZuzyciePaliwa& p )const{
-	return ZuzyciePaliwa( zuzyciePaliwa - p.zuzyciePaliwa );
+	return ZuzyciePaliwa( wartosc_ - p.wartosc_ );
 }
 
 ZuzyciePaliwa ZuzyciePaliwa::operator+( const ZuzyciePaliwa& p )const{
-	return ZuzyciePaliwa( zuzyciePaliwa + p.zuzyciePaliwa );
+	return ZuzyciePaliwa( wartosc_ + p.wartosc_ );
 }
 
 ZuzyciePaliwa::type_name ZuzyciePaliwa::getZuzyciePaliwa() const{
-	return zuzyciePaliwa;
+	return wartosc_;
 }
 
 void ZuzyciePaliwa::setZuzyciePaliwa( const type_name& f ){
-	zuzyciePaliwa = f;
-}
-
-ZuzyciePaliwa::type_name ZuzyciePaliwa::value() const{
-	return getZuzyciePaliwa();
+	wartosc_ = f;
 }
 
 string ZuzyciePaliwa::toString() const{
-	return Logger::field(CLASSNAME(ZuzyciePaliwa),zuzyciePaliwa);
+	return Logger::field(CLASSNAME(ZuzyciePaliwa),wartosc_);
 } 
