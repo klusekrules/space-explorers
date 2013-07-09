@@ -30,12 +30,7 @@ public:
 	Powierzchnia& operator*=( const Fluktuacja& );
 	Powierzchnia operator*( const Ilosc& )const;
 	Powierzchnia& operator*=( const Ilosc& );
-
-
-	type_name getPowierzchnia() const;
-
-	void setPowierzchnia( const type_name& );
-
+	
 	string toString() const override; 
 };
 

@@ -56,14 +56,6 @@ IdType::operator size_t()const{
 	return wartosc_;
 }
 
-IdType::type_name IdType::getId()const{
-	return wartosc_;
-}
-
-void IdType::setId( const type_name & wartosc ){
-	wartosc_=wartosc;
-}
-
 string IdType::toString()const{
 	stringstream str;
 	str.imbue(locale::classic());

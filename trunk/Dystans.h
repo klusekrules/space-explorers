@@ -24,11 +24,7 @@ public:
 	Dystans& operator+=( const Dystans& );
 	Dystans operator-( const Dystans& )const;
 	Dystans operator+( const Dystans& )const;
-
-	type_name getDystans() const;
-
-	void setDystans( const type_name& );
-
+	
 	string toString() const override; 
 };
 

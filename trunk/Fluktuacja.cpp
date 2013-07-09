@@ -67,14 +67,6 @@ Fluktuacja Fluktuacja::operator+( const Fluktuacja& p )const{
 	return Fluktuacja( wartosc_ + p.wartosc_ );
 }
 
-Fluktuacja::type_name Fluktuacja::getFluktuacja() const{
-	return wartosc_;
-}
-
-void Fluktuacja::setFluktuacja( const type_name& f ){
-	wartosc_ = f;
-}
-
 string Fluktuacja::toString() const{
 	return Logger::field(CLASSNAME(Fluktuacja),wartosc_);
 }

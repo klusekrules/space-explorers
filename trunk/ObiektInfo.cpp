@@ -13,11 +13,11 @@ ObiektInfo::ObiektInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
 {
 	if(n){
 		try{
-			masa.setMasa(stold(n->Attribute("masa")));
+			masa(stold(n->Attribute("masa")));
 			zmMasa = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenIf<NOTHROW>(n,"Zmiana","for","masa"));
-			objetosc.setObjetosc(stold(n->Attribute("objetosc")));
+			objetosc(stold(n->Attribute("objetosc")));
 			zmObjetosc = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenIf<NOTHROW>(n,"Zmiana","for","objetosc"));
-			powierzchnia.setPowierzchnia(stold(n->Attribute("powierzchnia")));
+			powierzchnia(stold(n->Attribute("powierzchnia")));
 			zmPowierzchnia = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenIf<NOTHROW>(n,"Zmiana","for","powierzchnia"));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);

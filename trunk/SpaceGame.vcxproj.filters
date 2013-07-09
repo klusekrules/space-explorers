@@ -38,49 +38,49 @@
       <Filter>SourceFile\BaseClass\Base</Filter>
     </ClCompile>
     <ClCompile Include="Poziom.cpp">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
     <ClCompile Include="Ilosc.cpp">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
     <ClCompile Include="Tekst.cpp">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
     <ClCompile Include="Klucz.cpp">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
     <ClCompile Include="Fluktuacja.cpp">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
     <ClCompile Include="IdType.cpp">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
     <ClCompile Include="Info.cpp">
       <Filter>SourceFile\BaseClass\Info</Filter>
     </ClCompile>
     <ClCompile Include="Powierzchnia.cpp">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
     <ClCompile Include="Masa.cpp">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
     <ClCompile Include="Objetosc.cpp">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
     <ClCompile Include="Dystans.cpp">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
     <ClCompile Include="Predkosc.cpp">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
     <ClCompile Include="MocSilnika.cpp">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
     <ClCompile Include="Obrazenia.cpp">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
     <ClCompile Include="ZuzyciePaliwa.cpp">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
     <ClCompile Include="JednostkaAtakujaca.cpp">
       <Filter>SourceFile\Flota\JednostkaAtakujaca</Filter>
@@ -137,10 +137,10 @@
       <Filter>SourceFile\BaseClass\Info</Filter>
     </ClCompile>
     <ClCompile Include="Parametr.cpp">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
     <ClCompile Include="Bool.cpp">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
     <ClCompile Include="Wymagania.cpp">
       <Filter>SourceFile\Wymagania</Filter>
@@ -191,7 +191,7 @@
       <Filter>SourceFile\BaseClass\Base</Filter>
     </ClCompile>
     <ClCompile Include="Czas.cpp">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
     <ClCompile Include="ZmianaPoziomObiektu.cpp">
       <Filter>SourceFile\BaseClass\Zmiana</Filter>
@@ -256,58 +256,58 @@
       <Filter>SourceFile\BaseClass\Base</Filter>
     </ClInclude>
     <ClInclude Include="IdType.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="BaseTypes.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="BaseInterface.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="Poziom.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="Ilosc.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="Tekst.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="Klucz.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="Fluktuacja.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="Mapa.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="Info.h">
       <Filter>SourceFile\BaseClass\Info</Filter>
     </ClInclude>
     <ClInclude Include="Powierzchnia.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="Masa.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="Objetosc.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="Dystans.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="Predkosc.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="MocSilnika.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="Obrazenia.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="ZuzyciePaliwa.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="JednostkaAtakujaca.h">
       <Filter>SourceFile\Flota\JednostkaAtakujaca</Filter>
@@ -388,10 +388,10 @@
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
     <ClInclude Include="Parametr.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="Bool.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="Wymagania.h">
       <Filter>SourceFile\Wymagania</Filter>
@@ -442,7 +442,7 @@
       <Filter>SourceFile\BaseClass\Base</Filter>
     </ClInclude>
     <ClInclude Include="Czas.h">
-      <Filter>SourceFile\BaseTypes</Filter>
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="ZmianaPoziomObiektu.h">
       <Filter>SourceFile\BaseClass\Zmiana</Filter>
@@ -503,9 +503,6 @@
     <Filter Include="Doc">
       <UniqueIdentifier>{c3fb4279-d815-4008-a8cc-069b4a8e4b95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\BaseTypes">
-      <UniqueIdentifier>{af75c20b-e3eb-4482-9766-342b4916ee6a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SourceFile\BaseClass\Info">
       <UniqueIdentifier>{e458c7bd-7f61-4fe1-8652-1ee020171182}</UniqueIdentifier>
     </Filter>
@@ -562,6 +559,9 @@
     </Filter>
     <Filter Include="SourceFile\BaseClass\Licznik">
       <UniqueIdentifier>{5b0a9ca3-c1e4-4d05-8150-0408c4a6c044}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Typy podstawowe">
+      <UniqueIdentifier>{af75c20b-e3eb-4482-9766-342b4916ee6a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

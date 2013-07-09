@@ -24,11 +24,7 @@ public:
 	Fluktuacja& operator+=( const Fluktuacja& );
 	Fluktuacja operator-( const Fluktuacja& )const;
 	Fluktuacja operator+( const Fluktuacja& )const;
-
-	type_name getFluktuacja() const;
-
-	void setFluktuacja( const type_name& );
-
+	
 	string toString() const override; 
 };
 

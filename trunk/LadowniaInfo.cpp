@@ -13,7 +13,7 @@ LadowniaInfo::LadowniaInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
 {
 	if(n){
 		try{
-			pojemnoscMax.setObjetosc(stold(n->Attribute("pojemnoscMaksymalna")));
+			pojemnoscMax(stold(n->Attribute("pojemnoscMaksymalna")));
 			przyrostPojemnoscMax = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenIf<NOTHROW>(n,"Zmiana","for","pojemnoscMaksymalna"));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);

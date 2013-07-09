@@ -24,9 +24,6 @@ public:
 
 	explicit operator size_t()const;
 	
-	type_name getId()const;
-	void setId( const type_name & ID );
-
 	string toString()const override;
 };
 

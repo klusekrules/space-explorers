@@ -30,9 +30,5 @@ public:
 
 	Ilosc operator*( const Ilosc& )const;
 
-	type_name getIlosc()const;
-
-	void setIlosc( const type_name& );
-
 	string toString() const override;
 };

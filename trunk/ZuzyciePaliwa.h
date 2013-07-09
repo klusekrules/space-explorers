@@ -24,11 +24,7 @@ public:
 	ZuzyciePaliwa& operator+=( const ZuzyciePaliwa& );
 	ZuzyciePaliwa operator-( const ZuzyciePaliwa& )const;
 	ZuzyciePaliwa operator+( const ZuzyciePaliwa& )const;
-
-	type_name getZuzyciePaliwa() const;
-
-	void setZuzyciePaliwa( const type_name& );
-
+	
 	string toString() const override; 
 };
 

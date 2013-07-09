@@ -82,14 +82,6 @@ Poziom::operator size_t () const{
 	return (size_t)wartosc_;
 }
 
-Poziom::type_name Poziom::getPoziom()const{
-	return wartosc_;
-}
-
-void Poziom::setPoziom( const type_name& poziom ){
-	wartosc_ = poziom;
-}
-
 string Poziom::toString() const {
 	return Logger::field(CLASSNAME(Poziom),wartosc_);
 }

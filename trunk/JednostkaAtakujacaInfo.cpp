@@ -12,13 +12,13 @@ JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( TiXmlElement* n ) throw(WyjatekP
 {
 	if(n){
 		try{
-			atak.setObrazenia(stold(n->Attribute("atak")));
+			atak(stold(n->Attribute("atak")));
 			zmAtak = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenIf<NOTHROW>(n,"Zmiana","for","atak"));
 
-			pancerz.setObrazenia(stold(n->Attribute("pancerz")));
+			pancerz(stold(n->Attribute("pancerz")));
 			zmPancerz = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenIf<NOTHROW>(n,"Zmiana","for","pancerz"));
 
-			oslona.setObrazenia(stold(n->Attribute("oslona")));
+			oslona(stold(n->Attribute("oslona")));
 			zmOslona = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenIf<NOTHROW>(n,"Zmiana","for","oslona"));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);

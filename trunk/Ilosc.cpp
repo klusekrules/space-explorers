@@ -82,14 +82,6 @@ Ilosc& Ilosc::operator=( const Ilosc& i ){
 	return *this;
 }
 
-Ilosc::type_name Ilosc::getIlosc()const{
-	return wartosc_;
-}
-
-void Ilosc::setIlosc( const type_name& wartosc ){
-	this->wartosc_ = wartosc;
-}
-
 string Ilosc::toString() const{
 	return Logger::field(CLASSNAME(Ilosc),wartosc_);
 }

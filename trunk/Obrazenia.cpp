@@ -67,14 +67,6 @@ Obrazenia Obrazenia::operator+( const Obrazenia& p )const{
 	return Obrazenia( wartosc_ + p.wartosc_ );
 }
 
-Obrazenia::type_name Obrazenia::getObrazenia() const{
-	return wartosc_;
-}
-
-void Obrazenia::setObrazenia( const type_name& f ){
-	wartosc_ = f;
-}
-
 string Obrazenia::toString() const{
 	return Logger::field(CLASSNAME(Obrazenia),wartosc_);
 } 

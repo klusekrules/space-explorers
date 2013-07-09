@@ -30,11 +30,6 @@ public:
 	Masa& operator*=( const Fluktuacja& );
 	Masa operator*( const Ilosc& )const;
 	Masa& operator*=( const Ilosc& );
-
-
-	type_name getMasa() const;
-
-	void setMasa( const type_name& );
-
+	
 	string toString() const override; 
 };

@@ -92,7 +92,7 @@ bool ObiektBase::odczytaj( TiXmlElement* e ){
 		if(c.empty())
 			return false;
 		Utils::trim(c);
-		ilosc.setIlosc(stold(c));
+		ilosc(stold(c));
 		return PodstawoweParametry::odczytaj(e) && Base::odczytaj(e);
 	}
 	return false;

@@ -51,7 +51,7 @@ bool Licznik::odczytaj( TiXmlElement* n ){
 		if(c.empty())
 			return false;
 		Utils::trim(c);
-		wartoscLicznika.setIlosc(stold(c));
+		wartoscLicznika(stold(c));
 		return true;
 	}
 	return false;

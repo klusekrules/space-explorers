@@ -29,11 +29,7 @@ public:
 	Poziom operator++( int );
 
 	explicit operator size_t () const;
-
-	type_name getPoziom()const;
-
-	void setPoziom( const type_name& );
-
+	
 	string toString() const override;
 };
 

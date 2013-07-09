@@ -24,11 +24,7 @@ public:
 	MocSilnika& operator+=( const MocSilnika& );
 	MocSilnika operator-( const MocSilnika& )const;
 	MocSilnika operator+( const MocSilnika& )const;
-
-	type_name getMocSilnika() const;
-
-	void setMocSilnika( const type_name& );
-
+	
 	string toString() const override; 
 };
 
