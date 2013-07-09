@@ -7,7 +7,7 @@ Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const IdType& id , const W
 {
 }
 Info::Info( TiXmlElement* n ) throw(WyjatekParseraXML)
-	: Base( n ) , Wymagania( XmlBO::ZnajdzWezel<NOTHROW>(n,CLASSNAME(Wymagania))  )
+	: Base( n ) , Wymagania( n )
 {
 	if(n){
 		try{

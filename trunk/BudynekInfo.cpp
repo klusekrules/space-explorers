@@ -4,26 +4,18 @@
 #include "Gra.h"
 
 BudynekInfo::BudynekInfo( TiXmlElement* n )
-	: ObiektInfo(XmlBO::ZnajdzWezel<THROW>(n,CLASSNAME(ObiektInfo)))
+	: ObiektInfo(n)
 {
 	auto z = XmlBO::ZnajdzWezel<NOTHROW>(n,"Zapotrzebowanie");
-	if(z){
-		auto e = z->FirstChildElement();
-		while(e){
-			if(e->Value() == CLASSNAME(Cena))
-				zapotrzebowanie.push_back(shared_ptr<Cena>(new Cena(e)));
-			e = e->NextSiblingElement();
-		}
+	while(z){
+		zapotrzebowanie.push_back(shared_ptr<Cena>(new Cena(z)));
+		z = z->NextSiblingElement();
 	}
 
 	auto p = XmlBO::ZnajdzWezel<NOTHROW>(n,"Produkcja");
-	if(p){
-		auto e = p->FirstChildElement();
-		while(e){
-			if(e->Value() == CLASSNAME(Cena))
-				produkcja.push_back(shared_ptr<Cena>(new Cena(e)));
-			e = e->NextSiblingElement();
-		}
+	while(p){
+		produkcja.push_back(shared_ptr<Cena>(new Cena(p)));
+		p = p->NextSiblingElement();
 	}
 }
 

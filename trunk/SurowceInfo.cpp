@@ -13,7 +13,7 @@ SurowceInfo::SurowceInfo( const ObiektInfo& o , bool bCzyPrzyrostowy ) throw()
 }
 
 SurowceInfo::SurowceInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
-	: ObiektInfo(XmlBO::ZnajdzWezel<THROW>(n,CLASSNAME(ObiektInfo))) , czyPrzyrostowy (false), zmCzas(nullptr)
+	: ObiektInfo(n) , czyPrzyrostowy (false), zmCzas(nullptr)
 {
 	if(n){
 		zmCzas = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","Czas"));

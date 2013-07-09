@@ -8,18 +8,19 @@ JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const Info& info, const Obrazenia
 {
 }
 JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
-	: Info(XmlBO::ZnajdzWezel<THROW>(n,CLASSNAME(Info))), rd(), gen(rd()),zmAtak(nullptr), zmPancerz(nullptr), zmOslona(nullptr)
+	: Info(n), rd(), gen(rd()),zmAtak(nullptr), zmPancerz(nullptr), zmOslona(nullptr)
 {
 	if(n){
 		try{
+			ZmianaFabryka& fabryka = Aplikacja::getInstance().getGra().getZmianaFabryka();
 			atak(stold(n->Attribute("atak")));
-			zmAtak = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","atak"));
+			zmAtak = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","atak"));
 
 			pancerz(stold(n->Attribute("pancerz")));
-			zmPancerz = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","pancerz"));
+			zmPancerz = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","pancerz"));
 
 			oslona(stold(n->Attribute("oslona")));
-			zmOslona = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","oslona"));
+			zmOslona = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","oslona"));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

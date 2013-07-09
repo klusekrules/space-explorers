@@ -8,14 +8,13 @@ Cennik::Cennik( TiXmlElement* n ) throw(WyjatekParseraXML)
 	: zmCzasuBudowy(nullptr)
 {
 	if(n){
-		auto c = XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","Czas");
+		auto c = XmlBO::ZnajdzWezelJezeli<NOTHROW>(n->FirstChildElement("Czas"),"Zmiana","for","Czas");
 		if(c)
 			zmCzasuBudowy=Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(c);
-		auto e = n->FirstChildElement();
+		auto e = n->FirstChildElement(CLASSNAME(Cena));
 		while(e){
-			if(e->Value() == CLASSNAME(Cena))
-				elementy.push_back(shared_ptr<Cena>(new Cena(e)));
-			e = e->NextSiblingElement();
+			elementy.push_back(shared_ptr<Cena>(new Cena(e)));
+			e = e->NextSiblingElement(CLASSNAME(Cena));
 		}
 	}
 }

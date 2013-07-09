@@ -8,7 +8,7 @@ StatekInfo::StatekInfo( const ObiektInfo& o , const JednostkaLatajacaInfo& j , c
 }
 
 StatekInfo::StatekInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
-	: ObiektInfo(XmlBO::ZnajdzWezel<THROW>(n,CLASSNAME(ObiektInfo))),
+	: ObiektInfo(n),
 	JednostkaLatajacaInfo(XmlBO::ZnajdzWezel<THROW>(n,CLASSNAME(JednostkaLatajacaInfo))),
 	JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<THROW>(n,CLASSNAME(JednostkaAtakujacaInfo))),
 	LadowniaInfo(XmlBO::ZnajdzWezel<THROW>(n,CLASSNAME(LadowniaInfo)))

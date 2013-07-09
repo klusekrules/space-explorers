@@ -14,17 +14,15 @@ Warunek::Warunek( TiXmlElement* n ) throw(WyjatekParseraXML)
 {
 	if(n){
 		try{
-			auto e = n->FirstChildElement();
+			auto e = n->FirstChildElement("Wymog");
 			while(e){
-				if(e->Value() == string("Wymog") ){
-					TiXmlElement* firstElement = XmlBO::ZnajdzWezel<NOTHROW>(e,CLASSNAME(ObiektBaseInfo));
-					if(firstElement){
-						auto first = shared_ptr<ObiektBaseInfo>(new ObiektBaseInfo(firstElement));
-						auto second = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezel<NOTHROW>(e,"Zmiana"));
-						dodajWarunek(make_pair(first,second));
-					}
+				TiXmlElement* firstElement = XmlBO::ZnajdzWezel<NOTHROW>(e,CLASSNAME(ObiektBaseInfo));
+				if(firstElement){
+					auto first = shared_ptr<ObiektBaseInfo>(new ObiektBaseInfo(firstElement));
+					auto second = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezel<NOTHROW>(e,"Zmiana"));
+					dodajWarunek(make_pair(first,second));
 				}
-				e = e->NextSiblingElement();
+				e = e->NextSiblingElement("Wymog");
 			}
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
