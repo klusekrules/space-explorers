@@ -10,7 +10,7 @@ ObiektBaseInfo::ObiektBaseInfo(const Info& i , const Poziom& p) throw()
 }
 
 ObiektBaseInfo::ObiektBaseInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
-	: Info(XmlBO::ZnajdzWezel<NOTHROW>(n,CLASSNAME(Info)))
+	: Info(n)
 {
 	if(n){
 		try{

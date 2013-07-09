@@ -4,7 +4,7 @@
 #include "Gra.h"
 
 TechnologiaInfo::TechnologiaInfo( TiXmlElement* e )
-	: ObiektBaseInfo(XmlBO::ZnajdzWezel<THROW>(e,CLASSNAME(ObiektBaseInfo)))
+	: ObiektBaseInfo(e)
 {
 }
 

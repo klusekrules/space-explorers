@@ -3,7 +3,7 @@
 #include "XmlBO.h"
 
 Wymagania::Wymagania( TiXmlElement* n  ) throw(WyjatekParseraXML)
-	: Cennik( XmlBO::ZnajdzWezel<NOTHROW>(n,CLASSNAME(Cennik)) ), Warunek( XmlBO::ZnajdzWezel<NOTHROW>(n,CLASSNAME(Warunek)) )
+	: Cennik( n ), Warunek( n )
 {
 }
 

@@ -9,7 +9,7 @@ LadowniaInfo::LadowniaInfo( const Objetosc& max, const Info& i ) throw()
 }
 
 LadowniaInfo::LadowniaInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
-	: Info(XmlBO::ZnajdzWezel<THROW>(n,CLASSNAME(Info))), przyrostPojemnoscMax(nullptr)
+	: Info(n), przyrostPojemnoscMax(nullptr)
 {
 	if(n){
 		try{

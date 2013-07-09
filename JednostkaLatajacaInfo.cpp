@@ -9,25 +9,26 @@ JednostkaLatajacaInfo::JednostkaLatajacaInfo( const Info& info,const Klucz& k, c
 }
 
 JednostkaLatajacaInfo::JednostkaLatajacaInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
-	: Info(XmlBO::ZnajdzWezel<THROW>(n,CLASSNAME(Info))), przyrostMocySilnika(nullptr), przyrostSprawnosciSilnika(nullptr), przyrostZuzyciaPaliwa(nullptr), przyrostMasyNapedu(nullptr)
+	: Info(n), przyrostMocySilnika(nullptr), przyrostSprawnosciSilnika(nullptr), przyrostZuzyciaPaliwa(nullptr), przyrostMasyNapedu(nullptr)
 {
 	if(n){
 		try{
+			ZmianaFabryka& fabryka = Aplikacja::getInstance().getGra().getZmianaFabryka();
 			IdType id(stoi(n->Attribute("rodzajSilnikaId"),nullptr,0));
 			Poziom poziom(stoi(n->Attribute("rodzajSilnikaPoziom")));
 			rodzajNapedu(Klucz(id,poziom)());
 			
 			mocSilnika(stold(n->Attribute("mocSilnika")));
-			przyrostMocySilnika = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","mocSilnika"));
+			przyrostMocySilnika = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","mocSilnika"));
 			
 			zuzyciePaliwa(stold(n->Attribute("zuzyciePaliwa")));
-			przyrostZuzyciaPaliwa = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","zuzyciePaliwa"));
+			przyrostZuzyciaPaliwa = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","zuzyciePaliwa"));
 			
 			masaNapedu(stold(n->Attribute("masaSilnika")));
-			przyrostMasyNapedu = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","masaSilnika"));
+			przyrostMasyNapedu = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","masaSilnika"));
 			
 			sprawnoscSilnika(stof(n->Attribute("sprawnoscSilnika")));
-			przyrostSprawnosciSilnika = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","sprawnoscSilnika"));
+			przyrostSprawnosciSilnika = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","sprawnoscSilnika"));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}
