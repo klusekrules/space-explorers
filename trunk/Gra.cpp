@@ -1,5 +1,6 @@
 #include "Gra.h"
 #include "Aplikacja.h"
+#include "DefinicjeWezlowXML.h"
 
 Gra::Gra(Aplikacja& app)
 	: aplikacja(app), fabryka(ZmianaFabryka::pobierzInstancje()), uzytkownik(new Uzytkownik())
@@ -122,7 +123,7 @@ bool Gra::WczytajDane( const string& sFile ){
 	ticpp::Document dane;
 	try{
 		dane.LoadFile( sFile );
-		auto root_data = dane.IterateChildren("SpaceGame",nullptr);
+		auto root_data = dane.IterateChildren(WEZEL_XML_ROOT,nullptr);
 		if(root_data){
 			if(!WczytajSurowce(root_data))
 				return false;
@@ -233,7 +234,7 @@ bool Gra::WczytajStatki(ticpp::Node* root){
 }
 
 bool Gra::zapisz( TiXmlElement* e ) const{
-	TiXmlElement* n = new TiXmlElement(CLASSNAME(Gra));
+	TiXmlElement* n = new TiXmlElement(WEZEL_XML_GRA);
 	e->LinkEndChild( n );
 	for(auto o :  wolnePlanety)
 		if(!o.second->zapisz(n))
@@ -243,9 +244,9 @@ bool Gra::zapisz( TiXmlElement* e ) const{
 
 bool Gra::odczytaj( TiXmlElement* e ){
 	if(e){
-		if(!idPlanety.odczytaj(e->FirstChildElement(CLASSNAME(Licznik))))
+		if(!idPlanety.odczytaj(e->FirstChildElement(WEZEL_XML_LICZNIK)))
 			return false;
-		TiXmlElement* u = e->FirstChildElement(CLASSNAME(Uzytkownik));
+		TiXmlElement* u = e->FirstChildElement(WEZEL_XML_UZYTKOWNIK);
 		if(u){
 			uzytkownik = shared_ptr<Uzytkownik>(new Uzytkownik());
 			if(!uzytkownik->odczytaj(u))
@@ -253,7 +254,7 @@ bool Gra::odczytaj( TiXmlElement* e ){
 		}else{
 			uzytkownik = nullptr;
 		}
-		for(TiXmlElement* n = e->FirstChildElement(CLASSNAME(Planeta)); n != nullptr ; n = n->NextSiblingElement(CLASSNAME(Planeta))){
+		for(TiXmlElement* n = e->FirstChildElement(WEZEL_XML_PLANETA); n != nullptr ; n = n->NextSiblingElement(WEZEL_XML_PLANETA)){
 			auto p = shared_ptr<Planeta>( new Planeta(IdType()) );
 			if(!p->odczytaj(n))
 				return false;

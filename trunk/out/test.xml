@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="windows-1250"?>
-<SpaceGame nazwa="Domyslny" maska="0x80000000">
+<Space-Explorers>
   
   <!-- Surowce typu metal -->
   <SurowceInfo typ="1">
@@ -549,4 +549,4 @@
     </ObiektInfo>
   </BudynekInfo>
   
-</SpaceGame>
+</Space-Explorers>

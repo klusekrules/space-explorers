@@ -2,6 +2,7 @@
 #include "SurowceInfo.h"
 #include "Logger.h"
 #include "Ladownia.h"
+#include "DefinicjeWezlowXML.h"
 
 Surowce::Surowce( const Ilosc& isIlosc, const Poziom& p, const IdType& idP, const SurowceInfo& s )
 	:  PodstawoweParametry(p, idP), Obiekt( isIlosc, p, idP, s ), surowceInfo(s)
@@ -145,7 +146,7 @@ Czas Surowce::pobierzCzas()const{
 }
 
 bool Surowce::zapisz( TiXmlElement* e ) const {
-	TiXmlElement* n = new TiXmlElement(CLASSNAME(Surowce));
+	TiXmlElement* n = new TiXmlElement(WEZEL_XML_SUROWCE);
 	e->LinkEndChild( n );
 	return Obiekt::zapisz(n);
 }

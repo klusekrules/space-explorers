@@ -1,5 +1,6 @@
 #include "Flota.h"
 #include "Aplikacja.h"
+#include "DefinicjeWezlowXML.h"
 
 Flota::Flota(const IdType& id)
 	: Base(id)
@@ -46,7 +47,7 @@ Objetosc Flota::pobierzDostepneMiejsce() const{
 
 bool Flota::zapisz( TiXmlElement* e ) const{
 	if(e){
-		TiXmlElement* n = new TiXmlElement(CLASSNAME(Flota));
+		TiXmlElement* n = new TiXmlElement(WEZEL_XML_FLOTA);
 		e->LinkEndChild( n );
 		for(auto s : lista)
 			if(s.second)
@@ -59,7 +60,7 @@ bool Flota::zapisz( TiXmlElement* e ) const{
 bool Flota::odczytaj( TiXmlElement* e ) {
 	if(e && Base::odczytaj(e)){
 		for(TiXmlElement* n = e->FirstChildElement(); n != nullptr ; n = n->NextSiblingElement()){
-			auto c = n->Attribute("id");
+			auto c = n->Attribute(ATRYBUT_XML_IDENTYFIKATOR);
 			if(!c)
 				return false;
 			IdType id(stoi(c,nullptr,0));

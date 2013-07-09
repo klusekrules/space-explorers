@@ -7,6 +7,7 @@
 #include "XmlBO.h"
 #include <io.h>
 #include "ZmianaPoziomObiektu.h"
+#include "DefinicjeWezlowXML.h"
 
 void myPurecallHandler(){
 	Log::getInstance().error(Aplikacja::getInstance().getStackTrace());
@@ -229,7 +230,7 @@ Aplikacja::~Aplikacja()
 
 bool Aplikacja::ZapiszGre() const{
 	TiXmlDocument dokument;
-	TiXmlElement* root = new TiXmlElement("Space-Explorers");
+	TiXmlElement* root = new TiXmlElement(WEZEL_XML_ROOT);
 	dokument.LinkEndChild(root);
 	if(instancjaGry->zapisz(root))
 		return dokument.SaveFile("save.xml");
@@ -242,7 +243,7 @@ bool Aplikacja::WczytajGre(){
 	TiXmlElement* root = dokument.RootElement();
 	if(root){
 		shared_ptr<Gra> tmp = shared_ptr<Gra>(new Gra(*this));
-		if(tmp->WczytajDane(this->nazwaPlikuDanych) && tmp->odczytaj(root->FirstChildElement(CLASSNAME(Gra)))){
+		if(tmp->WczytajDane(this->nazwaPlikuDanych) && tmp->odczytaj(root->FirstChildElement(WEZEL_XML_GRA))){
 			instancjaGry = tmp;
 			return true;
 		}

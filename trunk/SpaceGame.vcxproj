@@ -223,6 +223,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="DefinicjeWezlowXML.h" />
     <ClInclude Include="Dystans.h" />
     <ClInclude Include="Flota.h" />
     <ClInclude Include="Fluktuacja.h" />

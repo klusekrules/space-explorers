@@ -2,6 +2,7 @@
 #include "ObiektBaseInfo.h"
 #include "Logger.h"
 #include "Utils.h"
+#include "DefinicjeWezlowXML.h"
 
 ObiektBase::ObiektBase( const Ilosc& i, const Poziom& p, const IdType& idP, const ObiektBaseInfo& iInfo) throw()
 	: PodstawoweParametry(p,idP), Base(iInfo), ilosc(i), obiektBaseInfo(iInfo)
@@ -81,13 +82,13 @@ const ObiektBaseInfo& ObiektBase::getObiektBaseInfo()const{
 }
 
 bool ObiektBase::zapisz( TiXmlElement* e ) const {
-	e->SetAttribute("ilosc",ilosc.toString());
+	e->SetAttribute(ATRYBUT_XML_ILOSC,ilosc.toString());
 	return PodstawoweParametry::zapisz(e) && Base::zapisz(e);
 }
 
 bool ObiektBase::odczytaj( TiXmlElement* e ){
 	if(e){
-		string c = e->Attribute("ilosc");
+		string c = e->Attribute(ATRYBUT_XML_ILOSC);
 		if(c.empty())
 			return false;
 		Utils::trim(c);

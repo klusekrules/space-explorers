@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include "Aplikacja.h"
 #include "Utils.h"
+#include "DefinicjeWezlowXML.h"
 
 Planeta::Planeta(const IdType& id)
 	: Base(id), wlasciciel(nullptr),
@@ -171,15 +172,15 @@ bool Planeta::dolaczFloteDoPlanety( shared_ptr< Flota > ptr){
 }
 
 bool Planeta::zapisz( TiXmlElement* e ) const{
-	TiXmlElement* n = new TiXmlElement(CLASSNAME(Planeta));
+	TiXmlElement* n = new TiXmlElement(WEZEL_XML_PLANETA);
 	e->LinkEndChild( n );
 	idFloty.zapisz(n);
-	TiXmlElement* c = new TiXmlElement("Obiekty");
+	TiXmlElement* c = new TiXmlElement(WEZEL_XML_OBIEKTY);
 	n->LinkEndChild( c );
 	for(auto o :  listaObiektow)
 		if(!o.second->zapisz(c))
 			return false;
-	TiXmlElement* f = new TiXmlElement("Floty");
+	TiXmlElement* f = new TiXmlElement(WEZEL_XML_FLOTY);
 	n->LinkEndChild( f );
 	for(auto o :  listaFlot)
 		if(!o.second->zapisz(f))
@@ -189,10 +190,10 @@ bool Planeta::zapisz( TiXmlElement* e ) const{
 
 bool Planeta::odczytaj( TiXmlElement* e ){
 	if(e){
-		TiXmlElement* o = e->FirstChildElement("Obiekty");
+		TiXmlElement* o = e->FirstChildElement(WEZEL_XML_OBIEKTY);
 		if(o)
 			for(TiXmlElement* n = o->FirstChildElement(); n != nullptr ; n = n->NextSiblingElement()){
-				string c = n->Attribute("id");
+				string c = n->Attribute(ATRYBUT_XML_IDENTYFIKATOR);
 				if(c.empty())
 					return false;
 				Utils::trim(c);
@@ -202,10 +203,10 @@ bool Planeta::odczytaj( TiXmlElement* e ){
 				if( i == listaObiektow.end() || !i->second->odczytaj(n) )
 					return false;
 			}
-		TiXmlElement* f = e->FirstChildElement("Floty");
+		TiXmlElement* f = e->FirstChildElement(WEZEL_XML_FLOTY);
 		if(f)
 			for(TiXmlElement* n = o->FirstChildElement(); n != nullptr ; n = n->NextSiblingElement()){
-				string c = n->Attribute("id");
+				string c = n->Attribute(ATRYBUT_XML_IDENTYFIKATOR);
 				if(c.empty())
 					return false;
 				Utils::trim(c);

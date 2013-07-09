@@ -4,6 +4,7 @@
 #include "Surowce.h"
 #include "Aplikacja.h"
 #include "Utils.h"
+#include "DefinicjeWezlowXML.h"
 
 Ladownia::Ladownia( const Poziom& p, const IdType& idP, const LadowniaInfo& l )
 	: PodstawoweParametry(p, idP), obiekty(), zajete(), ladowniaInfo(l)
@@ -181,9 +182,9 @@ Objetosc Ladownia::getPojemnoscMax() const{
 }
 
 bool Ladownia::zapisz( TiXmlElement* e ) const {
-	TiXmlElement* n = new TiXmlElement(CLASSNAME(Ladownia));
+	TiXmlElement* n = new TiXmlElement(WEZEL_XML_LADOWNIA);
 	e->LinkEndChild( n );
-	n->SetAttribute("zajeteMiejsce",zajete.toString());
+	n->SetAttribute(ATRYBUT_XML_ZAJETE_MIEJSCE,zajete.toString());
 	for( auto o : obiekty){
 		if(!o.second->zapisz(n))
 			return false;
@@ -193,13 +194,13 @@ bool Ladownia::zapisz( TiXmlElement* e ) const {
 
 bool Ladownia::odczytaj (TiXmlElement* e) {
 	if(e){
-		auto c = e->Attribute("zajeteMiejsce");
+		auto c = e->Attribute(ATRYBUT_XML_ZAJETE_MIEJSCE);
 		if(!c)
 			return false;
 		zajete.setObjetosc(stod(c));
 		try{
 			for(TiXmlElement* n = e->FirstChildElement(); n != nullptr ; n = n->NextSiblingElement()){
-				string c = n->Attribute("id");
+				string c = n->Attribute(ATRYBUT_XML_IDENTYFIKATOR);
 				if(c.empty())
 					return false;
 				Utils::trim(c);

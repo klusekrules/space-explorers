@@ -1,5 +1,6 @@
 #include "Uzytkownik.h"
 #include "Logger.h"
+#include "DefinicjeWezlowXML.h"
 
 Uzytkownik::Uzytkownik()
 {
@@ -26,7 +27,7 @@ Planeta& Uzytkownik::getPlaneta( const IdType& id ) const{
 }
 
 bool Uzytkownik::zapisz( TiXmlElement* e ) const{
-	TiXmlElement* n = new TiXmlElement(CLASSNAME(Uzytkownik));
+	TiXmlElement* n = new TiXmlElement(WEZEL_XML_UZYTKOWNIK);
 	e->LinkEndChild( n );
 	for(auto o :  listaPlanet)
 		if(!o.second->zapisz(n))
@@ -36,7 +37,7 @@ bool Uzytkownik::zapisz( TiXmlElement* e ) const{
 
 bool Uzytkownik::odczytaj( TiXmlElement* e ){
 	if(e){
-		for(TiXmlElement* n = e->FirstChildElement(CLASSNAME(Planeta)); n != nullptr ; n = n->NextSiblingElement(CLASSNAME(Planeta))){
+		for(TiXmlElement* n = e->FirstChildElement(WEZEL_XML_PLANETA); n != nullptr ; n = n->NextSiblingElement(WEZEL_XML_PLANETA)){
 			auto p = shared_ptr<Planeta>( new Planeta(IdType()) );
 			if(!p->odczytaj(n))
 				return false;

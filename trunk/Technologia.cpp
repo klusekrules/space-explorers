@@ -1,5 +1,6 @@
 #include "Technologia.h"
 #include "TechnologiaInfo.h"
+#include "DefinicjeWezlowXML.h"
 
 Technologia::Technologia( const Poziom& p, const IdType& idP, const TechnologiaInfo& t)
 	: PodstawoweParametry(p, idP),ObiektBase(Ilosc(1),p,idP,t), technologiaInfo(t)
@@ -38,7 +39,7 @@ void Technologia::wybuduj(const Ilosc&){
 }
 
 bool Technologia::zapisz( TiXmlElement* e ) const {
-	TiXmlElement* n = new TiXmlElement(CLASSNAME(Technologia));
+	TiXmlElement* n = new TiXmlElement(WEZEL_XML_TECHNOLOGIA);
 	e->LinkEndChild( n );
 	return ObiektBase::zapisz(n);
 }

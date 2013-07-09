@@ -1,6 +1,7 @@
 #include "Licznik.h"
 #include "Logger.h"
 #include "Utils.h"
+#include "DefinicjeWezlowXML.h"
 
 Licznik::Licznik(const IdType& id, const Ilosc& w)
 	: Base(id), wartoscLicznika(w)
@@ -38,15 +39,15 @@ void Licznik::ustawWartosc( const Ilosc& w ){
 }
 
 bool Licznik::zapisz( TiXmlElement* e ) const{
-	TiXmlElement* n = new TiXmlElement(CLASSNAME(Licznik));
+	TiXmlElement* n = new TiXmlElement(WEZEL_XML_LICZNIK);
 	e->LinkEndChild( n );
-	n->SetAttribute("ilosc",wartoscLicznika.toString());
+	n->SetAttribute(ATRYBUT_XML_ILOSC,wartoscLicznika.toString());
 	return Base::zapisz(n);
 }
 
 bool Licznik::odczytaj( TiXmlElement* n ){
 	if(n && Base::odczytaj(n)){
-		string c = n->Attribute("ilosc");
+		string c = n->Attribute(ATRYBUT_XML_ILOSC);
 		if(c.empty())
 			return false;
 		Utils::trim(c);
