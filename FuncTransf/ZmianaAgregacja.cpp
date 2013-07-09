@@ -2,12 +2,13 @@
 #include "..\XmlBO.h"
 #include "ZmianaFabryka.h"
 #include "..\Logger\Logger.h"
+#include "..\definicjeWezlowXML.h"
 
 ZmianaAgregacja::ZmianaAgregacja( TiXmlElement* e )
 {
 	if( e && zFabryka ){
-		next = zFabryka->Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,"Zmiana","for","next"));
-		for( TiXmlElement* n = XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,"Zmiana","for","next")->NextSiblingElement("Zmiana"); n ; n = n->NextSiblingElement("Zmiana") ){
+		next = zFabryka->Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,WARTOSC_ATRYBUTU_XML_NASTEPNY));
+		for( TiXmlElement* n = XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,WARTOSC_ATRYBUTU_XML_NASTEPNY)->NextSiblingElement(WEZEL_XML_ZMIANA); n ; n = n->NextSiblingElement(WEZEL_XML_ZMIANA) ){
 			auto e = zFabryka->Tworz(n->ToElement());
 			if(e)
 				list.push_back(e);

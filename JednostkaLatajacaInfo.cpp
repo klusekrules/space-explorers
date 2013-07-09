@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include "XmlBO.h"
 #include "Aplikacja.h"
+#include "definicjeWezlowXML.h"
 
 JednostkaLatajacaInfo::JednostkaLatajacaInfo( const Info& info,const Klucz& k, const MocSilnika& moc, const ZuzyciePaliwa& z, const Masa& masa ) throw()
 	: Info(info), rodzajNapedu(k), mocSilnika(moc), zuzyciePaliwa(z), masaNapedu(masa), przyrostMocySilnika(nullptr), przyrostSprawnosciSilnika(nullptr), przyrostZuzyciaPaliwa(nullptr), przyrostMasyNapedu(nullptr)
@@ -14,21 +15,21 @@ JednostkaLatajacaInfo::JednostkaLatajacaInfo( TiXmlElement* n ) throw(WyjatekPar
 	if(n){
 		try{
 			ZmianaFabryka& fabryka = Aplikacja::getInstance().getGra().getZmianaFabryka();
-			IdType id(stoi(n->Attribute("rodzajSilnikaId"),nullptr,0));
-			Poziom poziom(stoi(n->Attribute("rodzajSilnikaPoziom")));
+			IdType id(stoi(n->Attribute(ATRYBUT_XML_RODZAJ_SILNIKA_ID),nullptr,0));
+			Poziom poziom(stoi(n->Attribute(ATRYBUT_XML_RODZAJ_SILNIKA_POZIOM)));
 			rodzajNapedu(Klucz(id,poziom)());
 			
-			mocSilnika(stold(n->Attribute("mocSilnika")));
-			przyrostMocySilnika = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","mocSilnika"));
+			mocSilnika(stold(n->Attribute(ATRYBUT_XML_MOC_SILNIKA)));
+			przyrostMocySilnika = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MOC_SILNIKA));
 			
-			zuzyciePaliwa(stold(n->Attribute("zuzyciePaliwa")));
-			przyrostZuzyciaPaliwa = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","zuzyciePaliwa"));
+			zuzyciePaliwa(stold(n->Attribute(ATRYBUT_XML_ZUZYCIE_PALIWA)));
+			przyrostZuzyciaPaliwa = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_ZUZYCIE_PALIWA));
 			
-			masaNapedu(stold(n->Attribute("masaSilnika")));
-			przyrostMasyNapedu = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","masaSilnika"));
+			masaNapedu(stold(n->Attribute(ATRYBUT_XML_MASA_SILNIKA)));
+			przyrostMasyNapedu = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MASA_SILNIKA));
 			
-			sprawnoscSilnika(stof(n->Attribute("sprawnoscSilnika")));
-			przyrostSprawnosciSilnika = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","sprawnoscSilnika"));
+			sprawnoscSilnika(stof(n->Attribute(ATRYBUT_XML_SPRAWNOSC_SILNIKA)));
+			przyrostSprawnosciSilnika = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_SPRAWNOSC_SILNIKA));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

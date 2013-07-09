@@ -11,7 +11,6 @@ class IdType :
 public:
 	
 	IdType();
-	explicit IdType( TiXmlElement* );
 	explicit IdType( const type_name& ID );
 	explicit IdType( const Ilosc& ID );
 	IdType( const IdType& a );

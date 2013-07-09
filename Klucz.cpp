@@ -26,18 +26,6 @@ Klucz::Klucz( const Klucz& klucz )
 {
 }
 
-Klucz::Klucz( TiXmlElement* n )
-	: BaseInterface( make_pair< IdType , Poziom >( IdType() , Poziom() ) ) 
-{
-	if(n!=nullptr){
-		try{
-			wartosc_ = make_pair<IdType,Poziom>( IdType(stoi(n->Attribute("id"),nullptr,0)) , Poziom(stoi(n->Attribute("poziom"))) );
-		}catch(exception& e){
-			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
-		}
-	}
-}
-
 Klucz::~Klucz(){
 }
 

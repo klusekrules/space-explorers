@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include "XmlBO.h"
 #include "Aplikacja.h"
+#include "definicjeWezlowXML.h"
 
 JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const Info& info, const Obrazenia& oAtak,const Obrazenia& oPancerz, const Obrazenia& oOslona) throw()
 	: Info(info), rd(), gen(rd()), atak(oAtak), zmAtak(nullptr), pancerz(oPancerz), zmPancerz(nullptr), oslona(oOslona), zmOslona(nullptr)
@@ -13,14 +14,14 @@ JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( TiXmlElement* n ) throw(WyjatekP
 	if(n){
 		try{
 			ZmianaFabryka& fabryka = Aplikacja::getInstance().getGra().getZmianaFabryka();
-			atak(stold(n->Attribute("atak")));
-			zmAtak = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","atak"));
+			atak(stold(n->Attribute(ATRYBUT_XML_ATAK)));
+			zmAtak = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_ATAK));
 
-			pancerz(stold(n->Attribute("pancerz")));
-			zmPancerz = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","pancerz"));
+			pancerz(stold(n->Attribute(ATRYBUT_XML_PANCERZ)));
+			zmPancerz = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_PANCERZ));
 
-			oslona(stold(n->Attribute("oslona")));
-			zmOslona = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","oslona"));
+			oslona(stold(n->Attribute(ATRYBUT_XML_OSLONA)));
+			zmOslona = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_OSLONA));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

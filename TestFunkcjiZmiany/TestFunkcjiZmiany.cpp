@@ -5,9 +5,10 @@
 #include "TestFunkcjiZmiany.h"
 #include "..\XmlBO.h"
 #include "..\Logger.h"
+#include "..\definicjeWezlowXML.h"
 
 ZmianaTest::ZmianaTest( TiXmlElement* e )
-	: parametr(XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,"Param","id","0"))
+	: parametr(XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,WEZEL_XML_PARAM,ATRYBUT_XML_IDENTYFIKATOR,"0"))
 {
 }
 

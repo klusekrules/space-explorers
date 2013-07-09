@@ -2,9 +2,10 @@
 #include "..\Logger\Logger.h"
 #include "ZmianaFabryka.h"
 #include "..\XmlBO.h"
+#include "..\definicjeWezlowXML.h"
 
 ZmianaPotegowa::ZmianaPotegowa( TiXmlElement * e ) throw(int)
-	: wspolczynnik(XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,"Param","id","1")), wykladnik(XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,"Param","id","2"))
+	: wspolczynnik(XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,WEZEL_XML_PARAM,ATRYBUT_XML_IDENTYFIKATOR,"1")), wykladnik(XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,WEZEL_XML_PARAM,ATRYBUT_XML_IDENTYFIKATOR,"2"))
 {
 }
 

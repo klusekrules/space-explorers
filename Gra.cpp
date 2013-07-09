@@ -143,7 +143,7 @@ bool Gra::WczytajDane( const string& sFile ){
 }
 
 bool Gra::WczytajTechnologie(TiXmlElement* root){
-	TiXmlElement* ptr = root->FirstChildElement(CLASSNAME(TechnologiaInfo));
+	TiXmlElement* ptr = root->FirstChildElement(WEZEL_XML_TECHNOLOGIA_INFO);
 	do{
 		try{
 			if(ptr){
@@ -153,7 +153,7 @@ bool Gra::WczytajTechnologie(TiXmlElement* root){
 					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
 				listaTechnologiInfo[t->getId()]=t;
 				listaObiektowBaseInfo[t->getId()]=t;
-				ptr = ptr->NextSiblingElement(CLASSNAME(TechnologiaInfo));
+				ptr = ptr->NextSiblingElement(WEZEL_XML_TECHNOLOGIA_INFO);
 			}
 		}catch(OgolnyWyjatek& e){
 			aplikacja.getLog().warn(e.generujKomunikat());
@@ -165,7 +165,7 @@ bool Gra::WczytajTechnologie(TiXmlElement* root){
 }
 
 bool Gra::WczytajBudynki(TiXmlElement* root){
-	TiXmlElement* ptr = root->FirstChildElement(CLASSNAME(BudynekInfo));
+	TiXmlElement* ptr = root->FirstChildElement(WEZEL_XML_BUDYNEK_INFO);
 	do{
 		try{
 			
@@ -177,7 +177,7 @@ bool Gra::WczytajBudynki(TiXmlElement* root){
 				listaBudynkowInfo[t->getId()]=t;
 				listaObiektowBaseInfo[t->getId()]=t;
 				listaObiektowInfo[t->getId()]=t;
-				ptr = ptr->NextSiblingElement(CLASSNAME(BudynekInfo));
+				ptr = ptr->NextSiblingElement(WEZEL_XML_BUDYNEK_INFO);
 			}
 		}catch(OgolnyWyjatek& e){
 			aplikacja.getLog().warn(e.generujKomunikat());
@@ -189,7 +189,7 @@ bool Gra::WczytajBudynki(TiXmlElement* root){
 }
 
 bool Gra::WczytajSurowce(TiXmlElement* root){
-	TiXmlElement* ptr = root->FirstChildElement(CLASSNAME(SurowceInfo));
+	TiXmlElement* ptr = root->FirstChildElement(WEZEL_XML_SUROWCE_INFO);
 	do{
 		try{
 			
@@ -201,7 +201,7 @@ bool Gra::WczytajSurowce(TiXmlElement* root){
 				listaSurowcowInfo[t->getId()]=t;
 				listaObiektowBaseInfo[t->getId()]=t;
 				listaObiektowInfo[t->getId()]=t;
-				ptr = ptr->NextSiblingElement(CLASSNAME(SurowceInfo));
+				ptr = ptr->NextSiblingElement(WEZEL_XML_SUROWCE_INFO);
 			}
 		}catch(OgolnyWyjatek& e){
 			aplikacja.getLog().warn(e.generujKomunikat());
@@ -213,7 +213,7 @@ bool Gra::WczytajSurowce(TiXmlElement* root){
 }
 
 bool Gra::WczytajStatki(TiXmlElement* root){
-	TiXmlElement* ptr = root->FirstChildElement(CLASSNAME(StatekInfo));
+	TiXmlElement* ptr = root->FirstChildElement(WEZEL_XML_STATEK_INFO);
 	do{
 		try{
 			if(ptr){
@@ -224,7 +224,7 @@ bool Gra::WczytajStatki(TiXmlElement* root){
 				listaStatkowInfo[t->getId()]=t;
 				listaObiektowBaseInfo[t->getId()]=t;
 				listaObiektowInfo[t->getId()]=t;
-				ptr = ptr->NextSiblingElement(CLASSNAME(StatekInfo));
+				ptr = ptr->NextSiblingElement(WEZEL_XML_STATEK_INFO);
 			}
 		}catch(OgolnyWyjatek& e){
 			aplikacja.getLog().warn(e.generujKomunikat());

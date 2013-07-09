@@ -5,7 +5,7 @@
   <SurowceInfo typ="1" masa="1" objetosc="1" powierzchnia="1" poziom="1" id="0x0001" nazwa="Stal">
     Opis Stali.
     <Zmiana id="3" for="Czas">
-      <Param id="0" Wspolczynnik="1.0"/>
+      <Param id="0" wspolczynnik="1.0"/>
     </Zmiana>
   </SurowceInfo>
 
@@ -54,37 +54,37 @@
     <Cena>
       <Surowce id="0x1" ilosc="1000"/>
       <Zmiana id="2">
-        <Zmiana id="3" for="next">
-          <Param id="0" Wspolczynnik="3.0"/>
+        <Zmiana id="3" for="nastepny">
+          <Param id="0" wspolczynnik="3.0"/>
         </Zmiana>
         <Zmiana id="3">
-          <Param id="0" Wspolczynnik="5.0"/>
+          <Param id="0" wspolczynnik="5.0"/>
         </Zmiana>
       </Zmiana>
     </Cena>
     <Cena>
       <Surowce id="0x4" ilosc="500"/>
       <Zmiana id="4">
-        <Param id="1" Wspolczynnik="1.0"/>
-        <Param id="2" Wspolczynnik="2.0"/>
+        <Param id="1" wspolczynnik="1.0"/>
+        <Param id="2" wspolczynnik="2.0"/>
       </Zmiana>
     </Cena>
     <Cena>
       <Surowce id="0x7" ilosc="200"/>
       <Zmiana id="5">
-        <Param id="0" Wspolczynnik="5.0"/>
+        <Param id="0" wspolczynnik="5.0"/>
       </Zmiana>
     </Cena>
     <Wymog>
       <ObiektBaseInfo poziom="5" id="0x10"/>
       <Zmiana id="3">
-        <Param id="0" Wspolczynnik="5.0"/>
+        <Param id="0" wspolczynnik="5.0"/>
       </Zmiana>
     </Wymog>
     <Wymog>
       <ObiektBaseInfo poziom="1" id="0x20"/>
       <Zmiana id="3">
-        <Param id="0" Wspolczynnik="5.0"/>
+        <Param id="0" wspolczynnik="5.0"/>
       </Zmiana>
     </Wymog>
     <JednostkaLatajacaInfo rodzajSilnikaId="0x01" rodzajSilnikaPoziom="1" mocSilnika="1" zuzyciePaliwa="1" masaSilnika="1" sprawnoscSilnika="0,97" id="0x010" nazwa="Nazwa jednostki latajacej transportowca">
@@ -103,79 +103,79 @@
     <Cena>
       <Surowce id="0x1" ilosc="1000"/>
       <Zmiana id="2">
-        <Zmiana id="3" for="next">
-          <Param id="0" Wspolczynnik="3.0"/>
+        <Zmiana id="3" for="nastepny">
+          <Param id="0" wspolczynnik="3.0"/>
         </Zmiana>
         <Zmiana id="3">
-          <Param id="0" Wspolczynnik="5.0"/>
+          <Param id="0" wspolczynnik="5.0"/>
         </Zmiana>
       </Zmiana>
     </Cena>
     <Cena>
       <Surowce id="0x4" ilosc="500"/>
       <Zmiana id="4">
-        <Param id="1" Wspolczynnik="1.0"/>
-        <Param id="2" Wspolczynnik="2.0"/>
+        <Param id="1" wspolczynnik="1.0"/>
+        <Param id="2" wspolczynnik="2.0"/>
       </Zmiana>
     </Cena>
     <Cena>
       <Surowce id="0x7" ilosc="200"/>
       <Zmiana id="5">
-        <Param id="0" Wspolczynnik="5.0"/>
+        <Param id="0" wspolczynnik="5.0"/>
       </Zmiana>
     </Cena>
     <Wymog>
       <ObiektBaseInfo poziom="1" id="0x13"/>
       <Zmiana id="3">
-        <Param id="0" Wspolczynnik="2.0"/>
+        <Param id="0" wspolczynnik="2.0"/>
       </Zmiana>
     </Wymog>
     <Wymog>
       <ObiektBaseInfo poziom="1" id="0x10"/>
       <Zmiana id="3">
-        <Param id="0" Wspolczynnik="2.0"/>
+        <Param id="0" wspolczynnik="2.0"/>
       </Zmiana>
     </Wymog>
     <Zmiana id="3" for="masa">
-      <Param id="0" Wspolczynnik="2.0"/>
+      <Param id="0" wspolczynnik="2.0"/>
     </Zmiana>
     <Zmiana id="3" for="objetosc">
-      <Param id="0" Wspolczynnik="3.0"/>
+      <Param id="0" wspolczynnik="3.0"/>
     </Zmiana>
     <Zmiana id="3" for="powierzchnia">
-      <Param id="0" Wspolczynnik="4.0"/>
+      <Param id="0" wspolczynnik="4.0"/>
     </Zmiana>
     <JednostkaLatajacaInfo rodzajSilnikaId="0x03" rodzajSilnikaPoziom="1" mocSilnika="1" zuzyciePaliwa="1" masaSilnika="1" sprawnoscSilnika="0,97" id="0x020" nazwa="Nazwa jednostki latajacej myœliwca">
       Opis jednoscki latajacej myœliwca.
       <Zmiana id="3" for="mocSilnika">
-        <Param id="0" Wspolczynnik="5.0"/>
+        <Param id="0" wspolczynnik="5.0"/>
       </Zmiana>
       <Zmiana id="3" for="zuzyciePaliwa">
-        <Param id="0" Wspolczynnik="6.0"/>
+        <Param id="0" wspolczynnik="6.0"/>
       </Zmiana>
       <Zmiana id="3" for="masaSilnika">
-        <Param id="0" Wspolczynnik="7.0"/>
+        <Param id="0" wspolczynnik="7.0"/>
       </Zmiana>
       <Zmiana id="3" for="sprawnoscSilnika">
-        <Param id="0" Wspolczynnik="8.0"/>
+        <Param id="0" wspolczynnik="8.0"/>
       </Zmiana>
     </JednostkaLatajacaInfo>
     <JednostkaAtakujacaInfo atak="90" pancerz="250" oslona="300" id="0x021" nazwa="Nazwa Jednostki atakujacej myœliwca">
       Opis jednostki atakujacej myœliwca.
       <Zmiana id="3" for="atak">
-        <Param id="0" Wspolczynnik="9.0"/>
+        <Param id="0" wspolczynnik="9.0"/>
       </Zmiana>
       <Zmiana id="3" for="pancerz">
-        <Param id="0" Wspolczynnik="10.0"/>
+        <Param id="0" wspolczynnik="10.0"/>
       </Zmiana>
       <Zmiana id="3" for="oslona">
-        <Param id="0" Wspolczynnik="11.0"/>
+        <Param id="0" wspolczynnik="11.0"/>
       </Zmiana>
     </JednostkaAtakujacaInfo>
     <LadowniaInfo pojemnoscMaksymalna="1300" id="0x022" nazwa="Nazwa ladowni myœliwca">
       Opis ladowni myœliwca.
       <Zmiana id="3" for="pojemnoscMaksymalna">
-        <Param id="0" Wspolczynnik="12.0"/>
+        <Param id="0" wspolczynnik="12.0"/>
       </Zmiana>
     </LadowniaInfo>
   </StatekInfo>
@@ -221,19 +221,19 @@
     <Cena>
       <Surowce id="0x1" ilosc="150"/>
       <Zmiana id="3">
-        <Param id="0" Wspolczynnik="2.0"/>
+        <Param id="0" wspolczynnik="2.0"/>
       </Zmiana>
     </Cena>
     <Zapotrzebowanie>
       <Surowce id="0xA" ilosc="20"/>
       <Zmiana id="3">
-        <Param id="0" Wspolczynnik="3.0"/>
+        <Param id="0" wspolczynnik="3.0"/>
       </Zmiana>
     </Zapotrzebowanie>
     <Produkcja>
       <Surowce id="0x1" ilosc="1000"/>
       <Zmiana id="3">
-        <Param id="0" Wspolczynnik="2.0"/>
+        <Param id="0" wspolczynnik="2.0"/>
       </Zmiana>
     </Produkcja>
   </BudynekInfo>
@@ -242,22 +242,22 @@
     Opis elektrowni s³onecznej.
     <Czas>
       <Zmiana id="7" for="Czas">
-        <Param id="0" Wspolczynnik="2.0"/>
+        <Param id="0" wspolczynnik="2.0"/>
         <Zmiana id="6">
-          <Param id="0x13" Wspolczynnik="0"/>
+          <Param id="0x13" wspolczynnik="0"/>
         </Zmiana>
       </Zmiana>
     </Czas>
     <Cena>
       <Surowce id="0x1" ilosc="156"/>
       <Zmiana id="3">
-        <Param id="0" Wspolczynnik="2.0"/>
+        <Param id="0" wspolczynnik="2.0"/>
       </Zmiana>
     </Cena>
     <Produkcja>
       <Surowce id="0xA" ilosc="1000"/>
       <Zmiana id="3">
-        <Param id="0" Wspolczynnik="3.0"/>
+        <Param id="0" wspolczynnik="3.0"/>
       </Zmiana>
     </Produkcja>
   </BudynekInfo>

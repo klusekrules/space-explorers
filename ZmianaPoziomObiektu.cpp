@@ -2,9 +2,10 @@
 #include "XmlBO.h"
 #include "Logger.h"
 #include "Aplikacja.h"
+#include "definicjeWezlowXML.h"
 
 ZmianaPoziomObiektu::ZmianaPoziomObiektu( TiXmlElement* e )
-	: parametr(XmlBO::ZnajdzWezel<NOTHROW>(e,"Param"))
+	: parametr(XmlBO::ZnajdzWezel<NOTHROW>(e,WEZEL_XML_PARAM))
 {
 }
 

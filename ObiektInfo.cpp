@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include "XmlBO.h"
 #include "Aplikacja.h"
+#include "definicjeWezlowXML.h"
 
 ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& obj, const Powierzchnia& pow, const ObiektBaseInfo& info ) throw()
 	: ObiektBaseInfo(info),powierzchnia(pow), zmPowierzchnia(nullptr), objetosc(obj), zmObjetosc(nullptr), masa(masa), zmMasa(nullptr)
@@ -14,12 +15,12 @@ ObiektInfo::ObiektInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
 	if(n){
 		try{
 			ZmianaFabryka& fabryka = Aplikacja::getInstance().getGra().getZmianaFabryka();
-			masa(stold(n->Attribute("masa")));
-			zmMasa = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","masa"));
-			objetosc(stold(n->Attribute("objetosc")));
-			zmObjetosc = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","objetosc"));
-			powierzchnia(stold(n->Attribute("powierzchnia")));
-			zmPowierzchnia = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","powierzchnia"));
+			masa(stold(n->Attribute(ATRYBUT_XML_MASA)));
+			zmMasa = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MASA));
+			objetosc(stold(n->Attribute(ATRYBUT_XML_OBJETOSC)));
+			zmObjetosc = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_OBJETOSC));
+			powierzchnia(stold(n->Attribute(ATRYBUT_XML_POWIERZCHNIA)));
+			zmPowierzchnia = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_POWIERZCHNIA));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

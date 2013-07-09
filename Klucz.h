@@ -12,7 +12,6 @@ class Klucz:
 {
 public:
 	Klucz();
-	explicit Klucz( TiXmlElement* );
 	Klucz( const IdType& , const Poziom& );
 	explicit Klucz( const type_name& );
 	Klucz( const Klucz& );

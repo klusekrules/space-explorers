@@ -2,12 +2,13 @@
 #include "..\Logger\Logger.h"
 #include "ZmianaFabryka.h"
 #include "..\XmlBO.h"
+#include "..\definicjeWezlowXML.h"
 
 ZmianaPotegowaAlt::ZmianaPotegowaAlt( TiXmlElement * e ) throw(int)
-	: wspolczynnik(XmlBO::ZnajdzWezel<NOTHROW>(e,"Param")), wykladnik(nullptr)
+	: wspolczynnik(XmlBO::ZnajdzWezel<NOTHROW>(e,WEZEL_XML_PARAM)), wykladnik(nullptr)
 {
 	if(zFabryka)
-		wykladnik=zFabryka->Tworz(XmlBO::ZnajdzWezel<NOTHROW>(e,"Zmiana"));
+		wykladnik=zFabryka->Tworz(XmlBO::ZnajdzWezel<NOTHROW>(e,WEZEL_XML_ZMIANA));
 }
 
 ZmianaPotegowaAlt::~ZmianaPotegowaAlt(void)

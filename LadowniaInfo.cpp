@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include "XmlBO.h"
 #include "Aplikacja.h"
+#include "definicjeWezlowXML.h"
 
 LadowniaInfo::LadowniaInfo( const Objetosc& max, const Info& i ) throw()
 	: Info(i),pojemnoscMax(max), przyrostPojemnoscMax(nullptr)
@@ -13,8 +14,8 @@ LadowniaInfo::LadowniaInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
 {
 	if(n){
 		try{
-			pojemnoscMax(stold(n->Attribute("pojemnoscMaksymalna")));
-			przyrostPojemnoscMax = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","pojemnoscMaksymalna"));
+			pojemnoscMax(stold(n->Attribute(ATRYBUT_XML_POJEMNOSC_MAKSYMALNA)));
+			przyrostPojemnoscMax = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_POJEMNOSC_MAKSYMALNA));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

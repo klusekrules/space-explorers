@@ -2,9 +2,10 @@
 #include "..\Logger\Logger.h"
 #include "ZmianaFabryka.h"
 #include "..\XmlBO.h"
+#include "..\definicjeWezlowXML.h"
 
 ZmianaLiniowa::ZmianaLiniowa( TiXmlElement* e )
-	: parametr(XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,"Param","id","0"))
+	: parametr(XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,WEZEL_XML_PARAM,ATRYBUT_XML_IDENTYFIKATOR,"0"))
 {
 }
 
