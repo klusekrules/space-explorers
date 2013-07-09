@@ -1,6 +1,7 @@
 #include "PodstawoweParametry.h"
 #include "Logger.h"
 #include "Utils.h"
+#include "DefinicjeWezlowXML.h"
 
 PodstawoweParametry::PodstawoweParametry( const Poziom& poziom, const IdType& planeta)
 	: poziom(poziom), idPlanety(planeta)
@@ -36,21 +37,21 @@ void PodstawoweParametry::wzrostPoziomu(){
 }
 
 bool PodstawoweParametry::zapisz( TiXmlElement* e ) const{
-	e->SetAttribute("poziom",poziom.toString());
-	e->SetAttribute("idPlanety",idPlanety.toString());
+	e->SetAttribute(ATRYBUT_XML_POZIOM,poziom.toString());
+	e->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETY,idPlanety.toString());
 	return true;
 }
 
 bool PodstawoweParametry::odczytaj( TiXmlElement* e ){
 	if(e){
-		string c = e->Attribute("poziom");
+		string c = e->Attribute(ATRYBUT_XML_POZIOM);
 		if(c.empty())
 			return false;
 		Utils::trim(c);
 		poziom.setPoziom(stoul(c));
 
 		c.clear();
-		c.append(e->Attribute("idPlanety"));
+		c.append(e->Attribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETY));
 		if(c.empty())
 			return false;
 		Utils::trim(c);		

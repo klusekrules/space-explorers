@@ -1,6 +1,7 @@
 #include "Base.h"
 #include "Logger.h"
 #include "Utils.h"
+#include "DefinicjeWezlowXML.h"
 
 Base::Base( const IdType& itID )throw()
 	: id(itID)
@@ -29,13 +30,13 @@ void Base::setId( const IdType& id ){
 }
 
 bool Base::zapisz( TiXmlElement* n ) const{
-	n->SetAttribute("id",id.toString());
+	n->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR,id.toString());
 	return true;
 }
 
 bool Base::odczytaj( TiXmlElement* n ){
 	if(n){
-		string c = n->Attribute("id");
+		string c = n->Attribute(ATRYBUT_XML_IDENTYFIKATOR);
 		if(c.empty())
 			return false;
 		Utils::trim(c);

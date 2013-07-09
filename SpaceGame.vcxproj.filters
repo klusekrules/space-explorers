@@ -462,6 +462,9 @@
     <ClInclude Include="Flota.h">
       <Filter>SourceFile\Flota</Filter>
     </ClInclude>
+    <ClInclude Include="DefinicjeWezlowXML.h">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">

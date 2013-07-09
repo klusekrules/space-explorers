@@ -1,6 +1,7 @@
 #include "Statek.h"
 #include "StatekInfo.h"
 #include "Logger.h"
+#include "DefinicjeWezlowXML.h"
 
 Statek::Statek( const Ilosc& i, const Poziom& p , const IdType& idP, const StatekInfo& s )
 	: PodstawoweParametry(p, idP), Obiekt( i, p, idP, s ), JednostkaAtakujaca(getPoziom(),getIdPlanety(),s), JednostkaLatajaca(getPoziom(),getIdPlanety(),s), Ladownia(getPoziom(),getIdPlanety(),s), statekinfo(s)
@@ -117,13 +118,13 @@ const StatekInfo& Statek::getStatekInfo() const{
 }
 
 bool Statek::zapisz( TiXmlElement* e ) const {
-	TiXmlElement* n = new TiXmlElement(CLASSNAME(Statek));
+	TiXmlElement* n = new TiXmlElement(WEZEL_XML_STATEK);
 	e->LinkEndChild( n );
 	return Obiekt::zapisz(n) && Ladownia::zapisz(n);
 }
 
 bool Statek::odczytaj( TiXmlElement* e ) {
-	return Obiekt::odczytaj(e) && Ladownia::odczytaj(e->FirstChildElement(CLASSNAME(Ladownia)));
+	return Obiekt::odczytaj(e) && Ladownia::odczytaj(e->FirstChildElement(WEZEL_XML_LADOWNIA));
 }
 
 string Statek::toString() const{

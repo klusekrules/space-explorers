@@ -1,6 +1,7 @@
 #include "Budynek.h"
 #include "BudynekInfo.h"
 #include "Logger.h"
+#include "DefinicjeWezlowXML.h"
 
 Budynek::Budynek(const Poziom& p, const IdType& idP, const BudynekInfo& o)
 	: PodstawoweParametry(p, idP), Obiekt( Ilosc(1), p, idP, o ), budynekInfo(o)
@@ -49,7 +50,7 @@ Cennik::ListaSurowcow Budynek::PobierzProdukcje( )const{
 }
 
 bool Budynek::zapisz( TiXmlElement* e ) const {
-	TiXmlElement* n = new TiXmlElement(CLASSNAME(Budynek));
+	TiXmlElement* n = new TiXmlElement(WEZEL_XML_BUDYNEK);
 	e->LinkEndChild( n );
 	return Obiekt::zapisz(n);
 }
