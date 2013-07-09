@@ -24,18 +24,6 @@ IdType::IdType( const IdType& a )
 {
 }
 
-IdType::IdType( TiXmlElement* n )
-	: BaseInterface(Stale::idDomyslny)
-{
-	if(n!=nullptr){
-		try{
-			wartosc_ = stoi(n->Attribute("id"),nullptr,0);
-		}catch(exception& e){
-			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
-		}
-	}
-}
-
 IdType::~IdType(){
 }
 

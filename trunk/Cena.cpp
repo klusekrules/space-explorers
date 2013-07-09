@@ -4,16 +4,18 @@
 #include "FuncTransf\ZmianaFabryka.h"
 #include "XmlBO.h"
 #include "Surowce.h"
+#include "definicjeWezlowXML.h"
 
 Cena::Cena( TiXmlElement* n ) throw(WyjatekParseraXML)
 	: obiekty(nullptr),zmiana(nullptr)
 {
 	if(n!=nullptr){
-		TiXmlElement* a = n->FirstChildElement(CLASSNAME(Cena::Item));
+		TiXmlElement* a = n->FirstChildElement(WEZEL_XML_SUROWCE);
 		try{
-			IdType k(a);
-			obiekty= shared_ptr<Item>(Aplikacja::getInstance().getGra().getSurowce(k).TworzEgzemplarz(Ilosc(stoi(a->Attribute("ilosc"),nullptr,0)),IdType()));
-			zmiana = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezel<NOTHROW>(n,"Zmiana"));
+			IdType k;
+			bool ret = XmlBO::WczytajAtrybut(a,ATRYBUT_XML_IDENTYFIKATOR,k);
+			obiekty= shared_ptr<Item>(Aplikacja::getInstance().getGra().getSurowce(k).TworzEgzemplarz(Ilosc(stoi(a->Attribute(ATRYBUT_XML_ILOSC),nullptr,0)),IdType()));
+			zmiana = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezel<NOTHROW>(n,WEZEL_XML_ZMIANA));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

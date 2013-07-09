@@ -11,7 +11,7 @@ Base::Base( const IdType& itID )throw()
 Base::Base( TiXmlElement* n ) throw(WyjatekParseraXML){
 	if(n){
 		try{
-			id( stoi(n->ToElement()->Attribute("id"),nullptr,0) );
+			id( stoi(n->ToElement()->Attribute(ATRYBUT_XML_IDENTYFIKATOR),nullptr,0) );
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

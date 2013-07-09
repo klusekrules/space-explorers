@@ -1,8 +1,8 @@
-
 #include "SurowceInfo.h"
 #include "Logger.h"
 #include "XmlBO.h"
 #include "Aplikacja.h"
+#include "definicjeWezlowXML.h"
 
 SurowceInfo::~SurowceInfo(){
 }
@@ -16,8 +16,8 @@ SurowceInfo::SurowceInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
 	: ObiektInfo(n) , czyPrzyrostowy (false), zmCzas(nullptr)
 {
 	if(n){
-		zmCzas = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","Czas"));
-		auto s = n->Attribute("typ");
+		zmCzas = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,WEZEL_XML_CZAS));
+		auto s = n->Attribute(ATRYBUT_XML_TYP);
 		auto i = stoi(s);
 		switch(i){
 		case 1 : czyPrzyrostowy = true;

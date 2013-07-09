@@ -1,6 +1,7 @@
 #include "Info.h"
 #include "Logger.h"
 #include "XmlBO.h"
+#include "definicjeWezlowXML.h"
 
 Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const IdType& id , const Wymagania& w ) throw()
 	: Base(id), nazwa( tNazwa ), opis( tOpis ), Wymagania(w)
@@ -11,7 +12,7 @@ Info::Info( TiXmlElement* n ) throw(WyjatekParseraXML)
 {
 	if(n){
 		try{
-			const char* c = n->Attribute("nazwa");
+			const char* c = n->Attribute(ATRYBUT_XML_NAZWA);
 			setNazwa(string( c ? c : ""));
 			c = n->GetText();
 			setOpis(string( c ? c : ""));

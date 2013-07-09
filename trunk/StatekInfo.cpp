@@ -1,6 +1,7 @@
 #include "StatekInfo.h"
 #include "XmlBO.h"
 #include "Gra.h"
+#include "definicjeWezlowXML.h"
 
 StatekInfo::StatekInfo( const ObiektInfo& o , const JednostkaLatajacaInfo& j , const JednostkaAtakujacaInfo& a , const LadowniaInfo& l  ) throw()
 	: ObiektInfo(o), JednostkaLatajacaInfo(j), JednostkaAtakujacaInfo(a), LadowniaInfo(l)
@@ -9,9 +10,9 @@ StatekInfo::StatekInfo( const ObiektInfo& o , const JednostkaLatajacaInfo& j , c
 
 StatekInfo::StatekInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
 	: ObiektInfo(n),
-	JednostkaLatajacaInfo(XmlBO::ZnajdzWezel<THROW>(n,CLASSNAME(JednostkaLatajacaInfo))),
-	JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<THROW>(n,CLASSNAME(JednostkaAtakujacaInfo))),
-	LadowniaInfo(XmlBO::ZnajdzWezel<THROW>(n,CLASSNAME(LadowniaInfo)))
+	JednostkaLatajacaInfo(XmlBO::ZnajdzWezel<THROW>(n,WEZEL_XML_JEDNOSTKA_LATAJACA_INFO)),
+	JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<THROW>(n,WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO)),
+	LadowniaInfo(XmlBO::ZnajdzWezel<THROW>(n,WEZEL_XML_LADOWNIA_INFO))
 {
 }
 

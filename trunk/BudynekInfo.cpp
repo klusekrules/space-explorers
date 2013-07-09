@@ -2,17 +2,18 @@
 #include "Logger.h"
 #include "XmlBO.h"
 #include "Gra.h"
+#include "definicjeWezlowXML.h"
 
 BudynekInfo::BudynekInfo( TiXmlElement* n )
 	: ObiektInfo(n)
 {
-	auto z = XmlBO::ZnajdzWezel<NOTHROW>(n,"Zapotrzebowanie");
+	auto z = XmlBO::ZnajdzWezel<NOTHROW>(n,WEZEL_XML_ZAPOTRZEBOWANIE);
 	while(z){
 		zapotrzebowanie.push_back(shared_ptr<Cena>(new Cena(z)));
 		z = z->NextSiblingElement();
 	}
 
-	auto p = XmlBO::ZnajdzWezel<NOTHROW>(n,"Produkcja");
+	auto p = XmlBO::ZnajdzWezel<NOTHROW>(n,WEZEL_XML_PRODUKCJA);
 	while(p){
 		produkcja.push_back(shared_ptr<Cena>(new Cena(p)));
 		p = p->NextSiblingElement();

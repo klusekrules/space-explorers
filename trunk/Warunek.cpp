@@ -4,6 +4,7 @@
 #include "ObiektBaseInfo.h"
 #include "XmlBO.h"
 #include "FuncTransf\ZmianaFabryka.h"
+#include "definicjeWezlowXML.h"
 
 Warunek::Warunek(const Warunek& w)
 {
@@ -14,15 +15,15 @@ Warunek::Warunek( TiXmlElement* n ) throw(WyjatekParseraXML)
 {
 	if(n){
 		try{
-			auto e = n->FirstChildElement("Wymog");
+			auto e = n->FirstChildElement(WEZEL_XML_WYMOG);
 			while(e){
-				TiXmlElement* firstElement = XmlBO::ZnajdzWezel<NOTHROW>(e,CLASSNAME(ObiektBaseInfo));
+				TiXmlElement* firstElement = XmlBO::ZnajdzWezel<NOTHROW>(e,WEZEL_XML_OBIEKTBASE_INFO);
 				if(firstElement){
 					auto first = shared_ptr<ObiektBaseInfo>(new ObiektBaseInfo(firstElement));
-					auto second = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezel<NOTHROW>(e,"Zmiana"));
+					auto second = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezel<NOTHROW>(e,WEZEL_XML_ZMIANA));
 					dodajWarunek(make_pair(first,second));
 				}
-				e = e->NextSiblingElement("Wymog");
+				e = e->NextSiblingElement(WEZEL_XML_WYMOG);
 			}
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);

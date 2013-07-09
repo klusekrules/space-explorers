@@ -97,7 +97,7 @@ public:
 			false;
 		if(napis->length()>0){
 			int tmp;
-			tmp = stoul(*napis);
+			tmp = stoul(*napis,nullptr,0);
 			obiekt(tmp);
 		}
 		return true;
@@ -112,7 +112,7 @@ public:
 			false;
 		if(napis->length()>0){
 			unsigned int tmp;
-			tmp = stoul(*napis);
+			tmp = stoul(*napis,nullptr,0);
 			obiekt(tmp);
 		}
 		return true;

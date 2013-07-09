@@ -3,18 +3,19 @@
 #include "Surowce.h"
 #include "Aplikacja.h"
 #include "XmlBO.h"
+#include "definicjeWezlowXML.h"
 
 Cennik::Cennik( TiXmlElement* n ) throw(WyjatekParseraXML)
 	: zmCzasuBudowy(nullptr)
 {
 	if(n){
-		auto c = XmlBO::ZnajdzWezelJezeli<NOTHROW>(n->FirstChildElement("Czas"),"Zmiana","for","Czas");
+		auto c = XmlBO::ZnajdzWezelJezeli<NOTHROW>(n->FirstChildElement(WEZEL_XML_CZAS),WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,WEZEL_XML_CZAS);
 		if(c)
 			zmCzasuBudowy=Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(c);
-		auto e = n->FirstChildElement(CLASSNAME(Cena));
+		auto e = n->FirstChildElement(WEZEL_XML_CENA);
 		while(e){
 			elementy.push_back(shared_ptr<Cena>(new Cena(e)));
-			e = e->NextSiblingElement(CLASSNAME(Cena));
+			e = e->NextSiblingElement(WEZEL_XML_CENA);
 		}
 	}
 }
