@@ -52,7 +52,9 @@ bool Ladownia::DodajObiektDoLadowni( Item& obiekt ){
 		return false;
 	}
 	try{
-		obiekty.add(obiekt);
+		Obiekt * kopia = obiekt.Kopia();
+		kopia->setIdPlanety(IdType());
+		obiekty.add(kopia);
 		przeliczZajeteMiejsce();
 	}catch(OgolnyWyjatek& e){
 		Aplikacja::getInstance().getLog().warn(e.generujKomunikat());
