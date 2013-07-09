@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Parametr::Parametr()
-	: parametr(Stale::parametrDomyslny)
+	: BaseInterface(Stale::parametrDomyslny)
 {
 }
 
 Parametr::Parametr( const type_name& t )
-	: parametr(t)
+	: BaseInterface(t)
 {
 }
 
 Parametr::Parametr( const Parametr& a )	
-	: parametr(a.parametr)
+	: BaseInterface(a)
 {
 }
 
@@ -21,18 +21,14 @@ Parametr::~Parametr(){
 }
 
 Parametr& Parametr::operator=( const Parametr& p ){
-	parametr=p.parametr;
+	wartosc_=p.wartosc_;
 	return *this;
 }
 
 void Parametr::setParametr( const type_name& t ){
-	parametr = t;
-}
-
-Parametr::type_name Parametr::value() const{
-	return parametr;
+	wartosc_ = t;
 }
 
 string Parametr::toString() const{
-	return Logger::field(CLASSNAME(Parametr),parametr);
+	return Logger::field(CLASSNAME(Parametr),wartosc_);
 }

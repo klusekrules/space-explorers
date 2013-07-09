@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Powierzchnia::Powierzchnia()
-	: powierzchnia( Stale::powierzchniaDomyslny )
+	: BaseInterface( Stale::powierzchniaDomyslny )
 {
 }
 
 Powierzchnia::Powierzchnia( const Powierzchnia& a )
-	: powierzchnia( a.powierzchnia )
+	: BaseInterface( a )
 {
 }
 
 Powierzchnia::Powierzchnia( const type_name& f )
-	: powierzchnia(f)
+	: BaseInterface(f)
 {
 }
 
@@ -21,80 +21,76 @@ Powierzchnia::~Powierzchnia(){
 }
 
 bool Powierzchnia::operator==( const Powierzchnia& a)const{
-	return powierzchnia==a.powierzchnia;
+	return wartosc_==a.wartosc_;
 }
 
 bool Powierzchnia::operator!=( const Powierzchnia& a)const{
-	return powierzchnia!=a.powierzchnia;
+	return wartosc_!=a.wartosc_;
 }
 
 bool Powierzchnia::operator<( const Powierzchnia& a )const{
-	return powierzchnia < a.powierzchnia;
+	return wartosc_ < a.wartosc_;
 }
 
 bool Powierzchnia::operator<=( const Powierzchnia& a )const{
-	return powierzchnia <= a.powierzchnia;
+	return wartosc_ <= a.wartosc_;
 }
 
 bool Powierzchnia::operator>( const Powierzchnia& a )const{
-	return powierzchnia > a.powierzchnia;
+	return wartosc_ > a.wartosc_;
 }
 
 bool Powierzchnia::operator>=( const Powierzchnia& a )const{
-	return powierzchnia >= a.powierzchnia;
+	return wartosc_ >= a.wartosc_;
 }
 
 Powierzchnia& Powierzchnia::operator=( const Powierzchnia& p ){
-	powierzchnia = p.powierzchnia;
+	wartosc_ = p.wartosc_;
 	return *this;
 }
 
 Powierzchnia& Powierzchnia::operator-=( const Powierzchnia& p ){
-	powierzchnia -= p.powierzchnia;
+	wartosc_ -= p.wartosc_;
 	return *this;
 }
 
 Powierzchnia& Powierzchnia::operator+=( const Powierzchnia& p ){
-	powierzchnia += p.powierzchnia;
+	wartosc_ += p.wartosc_;
 	return *this;
 }
 
 Powierzchnia Powierzchnia::operator-( const Powierzchnia& p )const{
-	return Powierzchnia( powierzchnia - p.powierzchnia );
+	return Powierzchnia( wartosc_ - p.wartosc_ );
 }
 
 Powierzchnia Powierzchnia::operator+( const Powierzchnia& p )const{
-	return Powierzchnia( powierzchnia + p.powierzchnia );
+	return Powierzchnia( wartosc_ + p.wartosc_ );
 }
 
 Powierzchnia Powierzchnia::operator*( const Fluktuacja& f )const{
-	return Powierzchnia( powierzchnia * f.getFluktuacja() );
+	return Powierzchnia( wartosc_ * f.getFluktuacja() );
 }
 
 Powierzchnia& Powierzchnia::operator*=( const Fluktuacja& f ){
-	powierzchnia *= f.getFluktuacja();
+	wartosc_ *= f.getFluktuacja();
 	return *this;
 }
 Powierzchnia Powierzchnia::operator*( const Ilosc& f )const{
-	return Powierzchnia( powierzchnia * f.getIlosc() );
+	return Powierzchnia( wartosc_ * f.getIlosc() );
 }
 
 Powierzchnia& Powierzchnia::operator*=( const Ilosc& f ){
-	powierzchnia *= f.getIlosc();
+	wartosc_ *= f.getIlosc();
 	return *this;
 }
 Powierzchnia::type_name Powierzchnia::getPowierzchnia() const{
-	return powierzchnia;
+	return wartosc_;
 }
 
 void Powierzchnia::setPowierzchnia( const type_name& f ){
-	powierzchnia = f;
-}
-
-Powierzchnia::type_name Powierzchnia::value() const{
-	return getPowierzchnia();
+	wartosc_ = f;
 }
 
 string Powierzchnia::toString() const{
-	return Logger::field(CLASSNAME(Powierzchnia),powierzchnia);
+	return Logger::field(CLASSNAME(Powierzchnia),wartosc_);
 } 

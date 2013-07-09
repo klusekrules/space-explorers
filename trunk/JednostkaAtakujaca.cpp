@@ -14,7 +14,7 @@ JednostkaAtakujaca::JednostkaAtakujaca( const PodstawoweParametry& p, const Jedn
 }
 
 Obrazenia JednostkaAtakujaca::Atak() const {
-	return Obrazenia( jednostkaAtakujacaInfo.getAtak(*this).value() * (std::normal_distribution<>(srednia,odchylenie))(jednostkaAtakujacaInfo.getGenerator()));
+	return Obrazenia( jednostkaAtakujacaInfo.getAtak(*this)() * (std::normal_distribution<>(srednia,odchylenie))(jednostkaAtakujacaInfo.getGenerator()));
 }
 
 Obrazenia JednostkaAtakujaca::Pancerz( const Obrazenia& a ) const{
@@ -23,7 +23,7 @@ Obrazenia JednostkaAtakujaca::Pancerz( const Obrazenia& a ) const{
 }		
 
 Obrazenia JednostkaAtakujaca::Oslona( const Obrazenia& a ) const{
-	Obrazenia o (jednostkaAtakujacaInfo.getOslona(*this).value() * (std::normal_distribution<>(srednia,odchylenie))(jednostkaAtakujacaInfo.getGenerator()));
+	Obrazenia o (jednostkaAtakujacaInfo.getOslona(*this)() * (std::normal_distribution<>(srednia,odchylenie))(jednostkaAtakujacaInfo.getGenerator()));
 	return a > o ? o : a;
 }
 

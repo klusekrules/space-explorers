@@ -6,8 +6,6 @@ class Fluktuacja:
 	virtual public LoggerInterface,
 	public BaseInterface<SPG::Fluktuacja>
 {
-private:
-	type_name fluktuacja;
 public:
 	Fluktuacja();
 	Fluktuacja( const Fluktuacja& );
@@ -30,8 +28,6 @@ public:
 	type_name getFluktuacja() const;
 
 	void setFluktuacja( const type_name& );
-
-	type_name value() const override;
 
 	string toString() const override; 
 };

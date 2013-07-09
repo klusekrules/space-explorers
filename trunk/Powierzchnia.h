@@ -8,8 +8,6 @@ class Powierzchnia:
 	virtual public LoggerInterface,
 	public BaseInterface<SPG::Powierzchnia>
 {
-private:
-	type_name powierzchnia;
 public:
 	Powierzchnia();
 	Powierzchnia( const Powierzchnia& );
@@ -37,8 +35,6 @@ public:
 	type_name getPowierzchnia() const;
 
 	void setPowierzchnia( const type_name& );
-
-	type_name value() const override;
 
 	string toString() const override; 
 };

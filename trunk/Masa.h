@@ -8,8 +8,6 @@ class Masa:
 	virtual public LoggerInterface,
 	public BaseInterface<SPG::Masa>
 {
-private:
-	type_name masa;
 public:
 	Masa();
 	Masa( const Masa& );
@@ -37,8 +35,6 @@ public:
 	type_name getMasa() const;
 
 	void setMasa( const type_name& );
-
-	type_name value() const override;
 
 	string toString() const override; 
 };

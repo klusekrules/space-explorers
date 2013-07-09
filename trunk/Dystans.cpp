@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Dystans::Dystans()
-	: dystans( Stale::dystansDomyslny )
+	: BaseInterface( Stale::dystansDomyslny )
 {
 }
 
 Dystans::Dystans( const Dystans& a )
-	: dystans( a.dystans )
+	: BaseInterface(a)
 {
 }
 
 Dystans::Dystans( const type_name& f )
-	: dystans(f)
+	: BaseInterface(f)
 {
 }
 
@@ -21,64 +21,60 @@ Dystans::~Dystans(){
 }
 
 bool Dystans::operator==( const Dystans& a)const{
-	return dystans==a.dystans;
+	return wartosc_==a.wartosc_;
 }
 
 bool Dystans::operator!=( const Dystans& a)const{
-	return dystans!=a.dystans;
+	return wartosc_!=a.wartosc_;
 }
 
 bool Dystans::operator<( const Dystans& a )const{
-	return dystans < a.dystans;
+	return wartosc_ < a.wartosc_;
 }
 
 bool Dystans::operator<=( const Dystans& a )const{
-	return dystans <= a.dystans;
+	return wartosc_ <= a.wartosc_;
 }
 
 bool Dystans::operator>( const Dystans& a )const{
-	return dystans > a.dystans;
+	return wartosc_ > a.wartosc_;
 }
 
 bool Dystans::operator>=( const Dystans& a )const{
-	return dystans >= a.dystans;
+	return wartosc_ >= a.wartosc_;
 }
 
 Dystans& Dystans::operator=( const Dystans& p ){
-	dystans = p.dystans;
+	wartosc_ = p.wartosc_;
 	return *this;
 }
 
 Dystans& Dystans::operator-=( const Dystans& p ){
-	dystans -= p.dystans;
+	wartosc_ -= p.wartosc_;
 	return *this;
 }
 
 Dystans& Dystans::operator+=( const Dystans& p ){
-	dystans += p.dystans;
+	wartosc_ += p.wartosc_;
 	return *this;
 }
 
 Dystans Dystans::operator-( const Dystans& p )const{
-	return Dystans( dystans - p.dystans );
+	return Dystans( wartosc_ - p.wartosc_ );
 }
 
 Dystans Dystans::operator+( const Dystans& p )const{
-	return Dystans( dystans + p.dystans );
+	return Dystans( wartosc_ + p.wartosc_ );
 }
 
 Dystans::type_name Dystans::getDystans() const{
-	return dystans;
+	return wartosc_;
 }
 
 void Dystans::setDystans( const type_name& f ){
-	dystans = f;
-}
-
-Dystans::type_name Dystans::value() const{
-	return getDystans();
+	wartosc_ = f;
 }
 
 string Dystans::toString() const{
-	return Logger::field(CLASSNAME(Dystans),dystans);
+	return Logger::field(CLASSNAME(Dystans),wartosc_);
 } 

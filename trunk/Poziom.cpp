@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Poziom::Poziom()
-	: pPoziom(Stale::poziomDomyslny)
+	: BaseInterface(Stale::poziomDomyslny)
 {
 }
 
 Poziom::Poziom( const type_name& poziom )
-	: pPoziom(poziom)
+	: BaseInterface(poziom)
 {
 }
 
 Poziom::Poziom( const Poziom& poziom )
-	: pPoziom( poziom.pPoziom )
+	: BaseInterface( poziom )
 {	
 }
 
@@ -21,79 +21,75 @@ Poziom::~Poziom(){
 }
 
 bool Poziom::operator==( const Poziom& a)const{
-	return pPoziom==a.pPoziom;
+	return wartosc_==a.wartosc_;
 }
 
 bool Poziom::operator!=( const Poziom& a)const{
-	return pPoziom!=a.pPoziom;
+	return wartosc_!=a.wartosc_;
 }
 
 bool Poziom::operator<( const Poziom& a )const{
-	return pPoziom < a.pPoziom;
+	return wartosc_ < a.wartosc_;
 }
 
 bool Poziom::operator<=( const Poziom& a )const{
-	return pPoziom <= a.pPoziom;
+	return wartosc_ <= a.wartosc_;
 }
 
 bool Poziom::operator>( const Poziom& a )const{
-	return pPoziom > a.pPoziom;
+	return wartosc_ > a.wartosc_;
 }
 
 bool Poziom::operator>=( const Poziom& a )const{
-	return pPoziom >= a.pPoziom;
+	return wartosc_ >= a.wartosc_;
 }
 
 Poziom& Poziom::operator=( const Poziom& p ){
-	pPoziom = p.pPoziom;
+	wartosc_ = p.wartosc_;
 	return *this;
 }
 
 Poziom& Poziom::operator-=( const Poziom& p ){
-	pPoziom -= p.pPoziom;
+	wartosc_ -= p.wartosc_;
 	return *this;
 }
 
 Poziom& Poziom::operator+=( const Poziom& p ){
-	pPoziom += p.pPoziom;
+	wartosc_ += p.wartosc_;
 	return *this;
 }
 
 Poziom Poziom::operator-( const Poziom& p )const{
-	return Poziom( pPoziom - p.pPoziom );
+	return Poziom( wartosc_ - p.wartosc_ );
 }
 
 Poziom Poziom::operator+( const Poziom& p )const{
-	return Poziom( pPoziom + p.pPoziom );
+	return Poziom( wartosc_ + p.wartosc_ );
 }
 
 Poziom& Poziom::operator++( ){
-	++pPoziom;
+	++wartosc_;
 	return (*this);
 }
 
 Poziom Poziom::operator++( int ){
 	Poziom t(*this);
-	++pPoziom;
+	++wartosc_;
 	return t;
 }
 
 Poziom::operator size_t () const{
-	return (size_t)pPoziom;
+	return (size_t)wartosc_;
 }
 
 Poziom::type_name Poziom::getPoziom()const{
-	return pPoziom;
+	return wartosc_;
 }
 
 void Poziom::setPoziom( const type_name& poziom ){
-	pPoziom = poziom;
-}
-
-Poziom::type_name Poziom::value() const {
-	return getPoziom();
+	wartosc_ = poziom;
 }
 
 string Poziom::toString() const {
-	return Logger::field(CLASSNAME(Poziom),pPoziom);
+	return Logger::field(CLASSNAME(Poziom),wartosc_);
 }

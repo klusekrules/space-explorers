@@ -8,8 +8,6 @@ class Objetosc:
 	virtual public LoggerInterface,
 	public BaseInterface<SPG::Objetosc>
 {
-private:
-	type_name objetosc;
 public:
 	Objetosc();
 	Objetosc( const Objetosc& );
@@ -37,8 +35,6 @@ public:
 	type_name getObjetosc() const;
 
 	void setObjetosc( const type_name& );
-
-	type_name value() const override;
 
 	string toString() const override; 
 };

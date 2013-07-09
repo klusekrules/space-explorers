@@ -8,14 +8,12 @@ class IdType :
 	virtual public LoggerInterface,
 	public BaseInterface<SPG::IdType>
 {
-protected:
-	type_name id;
 public:
 	
 	IdType();
-	IdType( TiXmlElement* );
+	explicit IdType( TiXmlElement* );
 	explicit IdType( const type_name& ID );
-	IdType( const Ilosc& ID );
+	explicit IdType( const Ilosc& ID );
 	IdType( const IdType& a );
 	virtual ~IdType();
 
@@ -29,13 +27,11 @@ public:
 	type_name getId()const;
 	void setId( const type_name & ID );
 
-	type_name value()const override;
-
 	string toString()const override;
 };
 
 struct IdTypeHash {
     size_t operator()(const IdType& t) const {
-		return static_cast<size_t>(t.value());
+		return static_cast<size_t>(t());
     }
 };

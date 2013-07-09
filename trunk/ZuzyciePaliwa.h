@@ -6,8 +6,6 @@ class ZuzyciePaliwa:
 	virtual public LoggerInterface,
 	public BaseInterface<SPG::ZuzyciePaliwa>
 {
-private:
-	type_name zuzyciePaliwa;
 public:	
 	ZuzyciePaliwa();
 	ZuzyciePaliwa( const ZuzyciePaliwa& );
@@ -30,8 +28,6 @@ public:
 	type_name getZuzyciePaliwa() const;
 
 	void setZuzyciePaliwa( const type_name& );
-
-	type_name value() const override;
 
 	string toString() const override; 
 };

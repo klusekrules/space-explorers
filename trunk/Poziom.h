@@ -6,8 +6,6 @@ class Poziom:
 	virtual public LoggerInterface,
 	public BaseInterface<SPG::Poziom>
 {
-private:
-	type_name pPoziom;
 public:
 	Poziom();
 	explicit Poziom( const type_name& );
@@ -35,8 +33,6 @@ public:
 	type_name getPoziom()const;
 
 	void setPoziom( const type_name& );
-
-	type_name value() const override;
 
 	string toString() const override;
 };

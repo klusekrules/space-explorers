@@ -15,7 +15,7 @@ ObiektBase::ObiektBase( const Ilosc& i, const PodstawoweParametry& p, const Obie
 }
 
 Czas ObiektBase::pobierzCzasBudowy( )const{
-	return Czas(obiektBaseInfo.pobierzCzasBudowy(*this).value()*ilosc.value());
+	return Czas(obiektBaseInfo.pobierzCzasBudowy(*this)()*ilosc());
 }
 
 ObiektBase* ObiektBase::Kopia() const{

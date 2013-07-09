@@ -5,31 +5,31 @@
 #include "WyjatekParseraXML.h"
 
 IdType::IdType()
-	: id(Stale::idDomyslny)
+	: BaseInterface(Stale::idDomyslny)
 {
 }
 
 IdType::IdType( const type_name& ID )
-	: id(ID)
+	: BaseInterface(ID)
 {
 }
 
 IdType::IdType( const Ilosc& ID )
-	: id(static_cast<type_name>(ID.value()))
+	: BaseInterface(static_cast<type_name>(ID()))
 {
 }
 
 IdType::IdType( const IdType& a )
-	: id(a.id)
+	: BaseInterface(a)
 {
 }
 
 IdType::IdType( TiXmlElement* n )
-	: id(Stale::idDomyslny)
+	: BaseInterface(Stale::idDomyslny)
 {
 	if(n!=nullptr){
 		try{
-			id = stoi(n->Attribute("id"),nullptr,0);
+			wartosc_ = stoi(n->Attribute("id"),nullptr,0);
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}
@@ -41,37 +41,32 @@ IdType::~IdType(){
 
 
 bool IdType::operator==( const IdType& a )const{
-	return id==a.id;
+	return wartosc_==a.wartosc_;
 }
 
 bool IdType::operator!=( const IdType& a )const{
-	return id!=a.id;
+	return wartosc_!=a.wartosc_;
 }
 
 bool IdType::operator<( const IdType& a )const{
-	return id<a.id;
+	return wartosc_<a.wartosc_;
 }
 
 IdType::operator size_t()const{
-	return id;
+	return wartosc_;
 }
 
 IdType::type_name IdType::getId()const{
-	return id;
+	return wartosc_;
 }
 
-void IdType::setId( const type_name & ID ){
-	id=ID;
+void IdType::setId( const type_name & wartosc ){
+	wartosc_=wartosc;
 }
-
-IdType::type_name IdType::value()const{
-	return getId();
-}
-
 
 string IdType::toString()const{
 	stringstream str;
 	str.imbue(locale::classic());
-	str << "0x"<< uppercase << hex << id;
+	str << "0x"<< uppercase << hex << wartosc_;
 	return str.str();
 }

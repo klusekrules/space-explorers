@@ -6,8 +6,6 @@ class Dystans:
 	virtual public LoggerInterface,
 	public BaseInterface<SPG::Dystans>
 {
-private:
-	type_name dystans;
 public:	
 	Dystans();
 	Dystans( const Dystans& );
@@ -30,8 +28,6 @@ public:
 	type_name getDystans() const;
 
 	void setDystans( const type_name& );
-
-	type_name value() const override;
 
 	string toString() const override; 
 };

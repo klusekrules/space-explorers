@@ -14,7 +14,7 @@ Statek::Statek( const Ilosc& i, const PodstawoweParametry& p, const StatekInfo& 
 }
 
 ZuzyciePaliwa Statek::WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p) const {
-	return ZuzyciePaliwa( ilosc.value() * JednostkaLatajaca::WyliczZuzyciePaliwa(d,p).value()  );
+	return ZuzyciePaliwa( ilosc() * JednostkaLatajaca::WyliczZuzyciePaliwa(d,p)()  );
 }
 
 Statek* Statek::Kopia() const{
@@ -52,29 +52,29 @@ bool Statek::Polacz( ObiektBase& o ){
 }
 
 Obrazenia Statek::Atak() const {
-	return Obrazenia( ilosc.value() * JednostkaAtakujaca::Atak().value() );
+	return Obrazenia( ilosc() * JednostkaAtakujaca::Atak()() );
 }
 
 Obrazenia Statek::Pancerz( const Obrazenia& a ) const {
-	Obrazenia o (JednostkaAtakujaca::Pancerz(a).value() * ilosc.value());
+	Obrazenia o (JednostkaAtakujaca::Pancerz(a)() * ilosc());
 	return a > o ? a - o : Obrazenia(0);
 }
 
 Obrazenia Statek::Oslona( const Obrazenia& a ) const {
-	Obrazenia o (JednostkaAtakujaca::Oslona(a).value() * ilosc.value());
+	Obrazenia o (JednostkaAtakujaca::Oslona(a)() * ilosc());
 	return a > o ? a - o : Obrazenia(0);
 }
 
 Obrazenia Statek::getAtak() const{
-	return Obrazenia (JednostkaAtakujaca::getAtak().value() * ilosc.value());
+	return Obrazenia (JednostkaAtakujaca::getAtak()() * ilosc());
 }
 
 Obrazenia Statek::getPancerz() const{
-	return Obrazenia (JednostkaAtakujaca::getPancerz().value() * ilosc.value());
+	return Obrazenia (JednostkaAtakujaca::getPancerz()() * ilosc());
 }
 
 Obrazenia Statek::getOslona() const{
-	return Obrazenia (JednostkaAtakujaca::getOslona().value() * ilosc.value());
+	return Obrazenia (JednostkaAtakujaca::getOslona()() * ilosc());
 }
 
 Objetosc Statek::getPojemnoscMax() const{
@@ -82,11 +82,11 @@ Objetosc Statek::getPojemnoscMax() const{
 }
 
 Masa Statek::getMasaSilnika()const{
-	return Masa(JednostkaLatajaca::getMasaSilnika().value()* ilosc.value());
+	return Masa(JednostkaLatajaca::getMasaSilnika()()* ilosc());
 }
 
 ZuzyciePaliwa Statek::getJednostkoweZuzyciePaliwa()const{
-	return ZuzyciePaliwa(JednostkaLatajaca::getJednostkoweZuzyciePaliwa().value()*ilosc.value() );
+	return ZuzyciePaliwa(JednostkaLatajaca::getJednostkoweZuzyciePaliwa()()*ilosc() );
 }
 
 Masa Statek::getMasa() const{

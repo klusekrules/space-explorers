@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Fluktuacja::Fluktuacja()
-	: fluktuacja( Stale::fluktuacjaDomyslny )
+	: BaseInterface( Stale::fluktuacjaDomyslny )
 {
 }
 
 Fluktuacja::Fluktuacja( const Fluktuacja& a )
-	: fluktuacja( a.fluktuacja )
+	: BaseInterface(a)
 {
 }
 
 Fluktuacja::Fluktuacja( const type_name& f )
-	: fluktuacja(f)
+	: BaseInterface(f)
 {
 }
 
@@ -21,64 +21,60 @@ Fluktuacja::~Fluktuacja(){
 }
 
 bool Fluktuacja::operator==( const Fluktuacja& a)const{
-	return fluktuacja==a.fluktuacja;
+	return wartosc_==a.wartosc_;
 }
 
 bool Fluktuacja::operator!=( const Fluktuacja& a)const{
-	return fluktuacja!=a.fluktuacja;
+	return wartosc_!=a.wartosc_;
 }
 
 bool Fluktuacja::operator<( const Fluktuacja& a )const{
-	return fluktuacja < a.fluktuacja;
+	return wartosc_ < a.wartosc_;
 }
 
 bool Fluktuacja::operator>( const Fluktuacja& a)const{
-	return fluktuacja > a.fluktuacja;
+	return wartosc_ > a.wartosc_;
 }
 
 bool Fluktuacja::operator<=( const Fluktuacja& a)const{
-	return fluktuacja <= a.fluktuacja;
+	return wartosc_ <= a.wartosc_;
 }
 
 bool Fluktuacja::operator>=( const Fluktuacja& a)const{
-	return fluktuacja >= a.fluktuacja;
+	return wartosc_ >= a.wartosc_;
 }
 
 Fluktuacja& Fluktuacja::operator=( const Fluktuacja& p ){
-	fluktuacja = p.fluktuacja;
+	wartosc_ = p.wartosc_;
 	return *this;
 }
 
 Fluktuacja& Fluktuacja::operator-=( const Fluktuacja& p ){
-	fluktuacja -= p.fluktuacja;
+	wartosc_ -= p.wartosc_;
 	return *this;
 }
 
 Fluktuacja& Fluktuacja::operator+=( const Fluktuacja& p ){
-	fluktuacja += p.fluktuacja;
+	wartosc_ += p.wartosc_;
 	return *this;
 }
 
 Fluktuacja Fluktuacja::operator-( const Fluktuacja& p )const{
-	return Fluktuacja( fluktuacja - p.fluktuacja );
+	return Fluktuacja( wartosc_ - p.wartosc_ );
 }
 
 Fluktuacja Fluktuacja::operator+( const Fluktuacja& p )const{
-	return Fluktuacja( fluktuacja + p.fluktuacja );
+	return Fluktuacja( wartosc_ + p.wartosc_ );
 }
 
 Fluktuacja::type_name Fluktuacja::getFluktuacja() const{
-	return fluktuacja;
+	return wartosc_;
 }
 
 void Fluktuacja::setFluktuacja( const type_name& f ){
-	fluktuacja = f;
-}
-
-Fluktuacja::type_name Fluktuacja::value() const{
-	return getFluktuacja();
+	wartosc_ = f;
 }
 
 string Fluktuacja::toString() const{
-	return Logger::field(CLASSNAME(Fluktuacja),fluktuacja);
-} 
+	return Logger::field(CLASSNAME(Fluktuacja),wartosc_);
+}

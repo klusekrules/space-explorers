@@ -93,15 +93,15 @@ Ladownia::Item& Ladownia::PobierzObiekt( const Klucz& itID, const Ilosc& isIlosc
 }
 
 /* Zwrócony zbiornik ma objêtoœæ z przedzia³u  < min , max >  */
-Ladownia::Zbiornik* Ladownia::PodzielLadownie( const Objetosc& max , const Objetosc& min ) throw( BladDzieleniaLadowni, NiepoprawneParametryFunkcji ){
+Ladownia::Zbiornik* Ladownia::PodzielLadownie( const Objetosc& oMax , const Objetosc& oMin ) throw( BladDzieleniaLadowni, NiepoprawneParametryFunkcji ){
 	Zbiornik *zb = new Zbiornik();
 	try{
 		Zbiornik kopia(obiekty);
 		Objetosc tObj ( 0.0 );
-		Objetosc tMin ( min );
+		Objetosc tMin ( oMin );
 
 		//Je¿eli objetoœæ czekiwana jest równa 0 to zwracamy pusty zbior obiektów
-		if( max == tObj )
+		if( oMax == tObj )
 			return zb;
 
 		// Je¿eli objêtoœæ minimalna jest ujemna to j¹ zerujemy
@@ -110,25 +110,25 @@ Ladownia::Zbiornik* Ladownia::PodzielLadownie( const Objetosc& max , const Objet
 
 		//Je¿eli objêtoœæ oczekiwana mniejsza od 0 lub objêtoœæ minimalna wiêksza od pojemnoœci 
 		//lub objêtoœæ minimalna wiêksza od objêtoœci docelowej. Wyj¹tek
-		if( max < tObj || min > zajete || min > max )
-			throw NiepoprawneParametryFunkcji( EXCEPTION_PLACE , max , min );
+		if( oMax < tObj || oMin > zajete || oMin > oMax )
+			throw NiepoprawneParametryFunkcji( EXCEPTION_PLACE , oMax , oMin );
 	
 		/*
 			Przechodzimy po elementach zbiornika i przepisujemy tyle ile siê da. Dopuszczamy dzielenie grup obiektów jeœli mo¿liwe.
 		*/
 		for( auto o : obiekty){
 			Objetosc objElementu(o.second->getObjetosc());
-			if( objElementu + tObj <= max ){
+			if( objElementu + tObj <= oMax ){
 				if(Zbiornik::move(o.first, kopia , *zb)){
 					tObj += objElementu;
 				}
 			}else{
-				Objetosc objPojedyncza( objElementu.value() / o.second->getIlosc().value() );
-				if( max - tObj >= objPojedyncza ){
-					Ilosc liczbaElementow( floorl(( max.value() - tObj.value() ) / objPojedyncza.value()) );
+				Objetosc objPojedyncza( objElementu() / o.second->getIlosc()() );
+				if( oMax - tObj >= objPojedyncza ){
+					Ilosc liczbaElementow( floorl(( oMax() - tObj() ) / objPojedyncza()) );
 					if( liczbaElementow >= Ilosc(1.0) ){
 						if(Zbiornik::move(o.first,liczbaElementow, kopia , *zb)){
-							tObj += Objetosc( objPojedyncza.value() * liczbaElementow.value() );
+							tObj += Objetosc( objPojedyncza() * liczbaElementow() );
 						}
 					}
 				}

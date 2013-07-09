@@ -6,8 +6,6 @@ class Predkosc:
 	virtual public LoggerInterface,
 	public BaseInterface<SPG::Predkosc>
 {
-private:
-	type_name predkosc;
 public:	
 	Predkosc();
 	Predkosc( const Predkosc& );
@@ -30,8 +28,6 @@ public:
 	type_name getPredkosc() const;
 
 	void setPredkosc( const type_name& );
-
-	type_name value() const override;
 
 	string toString() const override; 
 };

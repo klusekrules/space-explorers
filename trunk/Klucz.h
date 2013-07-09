@@ -10,11 +10,9 @@ class Klucz:
 	virtual public LoggerInterface,
 	public BaseInterface< pair < IdType, Poziom > >
 {
-	type_name values;
-	friend struct KluczHash;
 public:
 	Klucz();
-	Klucz( TiXmlElement* );
+	explicit Klucz( TiXmlElement* );
 	Klucz( const IdType& , const Poziom& );
 	explicit Klucz( const type_name& );
 	Klucz( const Klucz& );
@@ -27,14 +25,12 @@ public:
 	type_name getKlucz()const;
 	void setKlucz( const type_name& );
 
-	type_name value()const override;
-
 	string toString()const override;
 };
 
 struct KluczHash {
     size_t operator()(const Klucz& t) const {
-		size_t z = (t.values.first.value() + (t.values.second.value() << 16) ) * t.values.second.value();
+		size_t z = (t().first() + (t().second() << 16) ) * t().second();
 		return z;
     }
 };

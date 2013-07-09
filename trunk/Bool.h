@@ -6,8 +6,6 @@ class Bool:
 	virtual public LoggerInterface,
 	public BaseInterface<bool>
 {
-private:
-	type_name bBool;
 public:	
 	Bool();
 	Bool( const Bool& );
@@ -20,8 +18,6 @@ public:
 	Bool& operator=( const Bool& );
 	Bool& operator=( const type_name& b );
 	
-	type_name value() const override;
-
 	string toString() const override; 
 };
 

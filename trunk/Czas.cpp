@@ -3,51 +3,46 @@
 #include "Stale.h"
 
 Czas::Czas()
-	: variable( Stale::czasDomyslny )
+	: BaseInterface( Stale::czasDomyslny )
 {
 }
 
 Czas::Czas(const Czas& b)
-	: variable(b.variable)
+	: BaseInterface(b)
 {
 }
 
 Czas::Czas( const type_name& t )
-	: variable(t)
+	: BaseInterface(t)
 {
 }
 
-Czas::~Czas()
-{
+Czas::~Czas(){
 }
 
 bool Czas::operator==( const Czas& b )const{
-	return variable == b.variable;
+	return wartosc_ == b.wartosc_;
 }
 
 bool Czas::operator!=( const Czas& b )const{
-	return variable != b.variable;
+	return wartosc_ != b.wartosc_;
 }
 
 Czas& Czas::operator=( const Czas& b ){
-	variable = b.variable;
+	wartosc_ = b.wartosc_;
 	return *this;
 }
 
 Czas& Czas::operator+=( const Czas& b ){
-	variable += b.variable;
+	wartosc_ += b.wartosc_;
 	return *this;
 }
 
 Czas& Czas::operator=( const type_name& b ){
-	variable = b;
+	wartosc_ = b;
 	return *this;
-}
-	
-Czas::type_name Czas::value() const{
-	return variable;
 }
 
 string Czas::toString() const{
-	return Logger::field(CLASSNAME(Czas),variable);
+	return Logger::field(CLASSNAME(Czas),wartosc_);
 } 
