@@ -14,7 +14,7 @@ ObiektBaseInfo::ObiektBaseInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
 {
 	if(n){
 		try{
-			poziom.setPoziom(stoi(n->Attribute("poziom")));
+			poziom(stoi(n->Attribute("poziom")));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

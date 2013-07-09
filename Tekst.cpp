@@ -45,14 +45,6 @@ bool Tekst::operator==( const Tekst& a ) const{
 bool Tekst::operator!=( const Tekst& a ) const{
 	return wartosc_ != a.wartosc_;
 }
-	
-Tekst::type_name Tekst::getTekst()const{
-	return wartosc_;
-}
-
-void Tekst::setTekst( const type_name & wartosc ){
-	this->wartosc_ = wartosc;
-}
 
 string Tekst::toString()const {
 	return Logger::field(CLASSNAME(Tekst),dodajCudzyslow());

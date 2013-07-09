@@ -67,14 +67,6 @@ Predkosc Predkosc::operator+( const Predkosc& p )const{
 	return Predkosc( wartosc_ + p.wartosc_ );
 }
 
-Predkosc::type_name Predkosc::getPredkosc() const{
-	return wartosc_;
-}
-
-void Predkosc::setPredkosc( const type_name& f ){
-	wartosc_ = f;
-}
-
 string Predkosc::toString() const{
 	return Logger::field(CLASSNAME(Predkosc),wartosc_);
 } 

@@ -67,14 +67,6 @@ MocSilnika MocSilnika::operator+( const MocSilnika& p )const{
 	return MocSilnika( wartosc_ + p.wartosc_ );
 }
 
-MocSilnika::type_name MocSilnika::getMocSilnika() const{
-	return wartosc_;
-}
-
-void MocSilnika::setMocSilnika( const type_name& f ){
-	wartosc_ = f;
-}
-
 string MocSilnika::toString() const{
 	return Logger::field(CLASSNAME(MocSilnika),wartosc_);
 } 

@@ -48,14 +48,14 @@ bool PodstawoweParametry::odczytaj( TiXmlElement* e ){
 		if(c.empty())
 			return false;
 		Utils::trim(c);
-		poziom.setPoziom(stoul(c));
+		poziom(stoul(c));
 
 		c.clear();
 		c.append(e->Attribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETY));
 		if(c.empty())
 			return false;
 		Utils::trim(c);		
-		idPlanety.setId(stoul(c,nullptr,0));
+		idPlanety(stoul(c,nullptr,0));
 		return true;
 	}
 	return false;

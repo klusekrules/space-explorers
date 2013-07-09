@@ -24,10 +24,6 @@ public:
 	Obrazenia& operator+=( const Obrazenia& );
 	Obrazenia operator-( const Obrazenia& )const;
 	Obrazenia operator+( const Obrazenia& )const;
-
-	type_name getObrazenia() const;
-
-	void setObrazenia( const type_name& );
-
+	
 	string toString() const override; 
 };

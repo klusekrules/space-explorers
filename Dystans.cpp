@@ -67,14 +67,6 @@ Dystans Dystans::operator+( const Dystans& p )const{
 	return Dystans( wartosc_ + p.wartosc_ );
 }
 
-Dystans::type_name Dystans::getDystans() const{
-	return wartosc_;
-}
-
-void Dystans::setDystans( const type_name& f ){
-	wartosc_ = f;
-}
-
 string Dystans::toString() const{
 	return Logger::field(CLASSNAME(Dystans),wartosc_);
 } 

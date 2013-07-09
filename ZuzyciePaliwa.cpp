@@ -67,14 +67,6 @@ ZuzyciePaliwa ZuzyciePaliwa::operator+( const ZuzyciePaliwa& p )const{
 	return ZuzyciePaliwa( wartosc_ + p.wartosc_ );
 }
 
-ZuzyciePaliwa::type_name ZuzyciePaliwa::getZuzyciePaliwa() const{
-	return wartosc_;
-}
-
-void ZuzyciePaliwa::setZuzyciePaliwa( const type_name& f ){
-	wartosc_ = f;
-}
-
 string ZuzyciePaliwa::toString() const{
 	return Logger::field(CLASSNAME(ZuzyciePaliwa),wartosc_);
 } 

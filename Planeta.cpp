@@ -141,7 +141,7 @@ bool Planeta::zaladujFlote(const IdType& floty, const IdType& id, const Ilosc& i
 
 bool Planeta::rozladujStatek( shared_ptr< Statek > ptr ){
 	for(auto e : ptr->getPrzewozoneObiekty()){
-		if(!wybuduj(e.first.getKlucz().first,e.second->getIlosc()))
+		if(!wybuduj(e.first().first,e.second->getIlosc()))
 			return false;
 	}
 	return true;
@@ -161,7 +161,7 @@ bool Planeta::dolaczFloteDoPlanety( shared_ptr< Flota > ptr){
 	}
 	
 	for(auto e : ptr->lista){
-		if(!wybuduj(e.first.getKlucz().first,e.second->getIlosc()))
+		if(!wybuduj(e.first().first,e.second->getIlosc()))
 			return false;
 		if(e.second->getZajeteMiejsce()!=Objetosc(0.0)){
 			if(!rozladujStatek(e.second))

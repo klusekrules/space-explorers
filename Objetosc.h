@@ -31,10 +31,6 @@ public:
 	Objetosc& operator*=( const Fluktuacja& );
 	Objetosc operator*( const Ilosc& )const;
 	Objetosc& operator*=( const Ilosc& );
-
-	type_name getObjetosc() const;
-
-	void setObjetosc( const type_name& );
-
+	
 	string toString() const override; 
 };

@@ -25,10 +25,6 @@ Parametr& Parametr::operator=( const Parametr& p ){
 	return *this;
 }
 
-void Parametr::setParametr( const type_name& t ){
-	wartosc_ = t;
-}
-
 string Parametr::toString() const{
 	return Logger::field(CLASSNAME(Parametr),wartosc_);
 }

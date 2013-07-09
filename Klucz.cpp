@@ -53,14 +53,6 @@ bool Klucz::operator<( const Klucz& a )const{
 	return wartosc_.first < a.wartosc_.first ? true : wartosc_.second < a.wartosc_.second;
 }
 
-Klucz::type_name Klucz::getKlucz()const{
-	return wartosc_;
-}
-
-void Klucz::setKlucz( const type_name& pair ){
-	wartosc_ = pair;
-}
-
 string Klucz::toString()const{
 	return Logger::field(CLASSNAME(Klucz),wartosc_.first,wartosc_.second);
 }

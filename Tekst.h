@@ -23,9 +23,6 @@ public:
 
 	bool isEmpty() const;
 
-	type_name getTekst()const;
-	void setTekst( const type_name& );
-
 	string toString()const override;
 };
 

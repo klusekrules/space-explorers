@@ -11,7 +11,7 @@ Base::Base( const IdType& itID )throw()
 Base::Base( TiXmlElement* n ) throw(WyjatekParseraXML){
 	if(n){
 		try{
-			id.setId( stoi(n->ToElement()->Attribute("id"),nullptr,0) );
+			id( stoi(n->ToElement()->Attribute("id"),nullptr,0) );
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}
@@ -40,7 +40,7 @@ bool Base::odczytaj( TiXmlElement* n ){
 		if(c.empty())
 			return false;
 		Utils::trim(c);
-		id.setId(stoul(c,nullptr,0));
+		id(stoul(c,nullptr,0));
 		return true;
 	}
 	return false;

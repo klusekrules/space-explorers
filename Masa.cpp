@@ -68,30 +68,23 @@ Masa Masa::operator+( const Masa& p )const{
 }
 
 Masa Masa::operator*( const Fluktuacja& f )const{
-	return Masa( wartosc_ * f.getFluktuacja() );
+	return Masa( wartosc_ * f() );
 }
 
 Masa& Masa::operator*=( const Fluktuacja& f ){
-	wartosc_ *= f.getFluktuacja();
+	wartosc_ *= f();
 	return *this;
 }
 
 Masa Masa::operator*( const Ilosc& f )const{
-	return Masa( wartosc_ * f.getIlosc() );
+	return Masa( wartosc_ * f() );
 }
 
 Masa& Masa::operator*=( const Ilosc& f ){
-	wartosc_ *= f.getIlosc();
+	wartosc_ *= f();
 	return *this;
 }
 
-Masa::type_name Masa::getMasa() const{
-	return wartosc_;
-}
-
-void Masa::setMasa( const type_name& f ){
-	wartosc_ = f;
-}
 
 string Masa::toString() const{
 	return Logger::field(CLASSNAME(Masa),wartosc_);

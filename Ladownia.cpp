@@ -197,7 +197,7 @@ bool Ladownia::odczytaj (TiXmlElement* e) {
 		auto c = e->Attribute(ATRYBUT_XML_ZAJETE_MIEJSCE);
 		if(!c)
 			return false;
-		zajete.setObjetosc(stod(c));
+		zajete(stod(c));
 		try{
 			for(TiXmlElement* n = e->FirstChildElement(); n != nullptr ; n = n->NextSiblingElement()){
 				string c = n->Attribute(ATRYBUT_XML_IDENTYFIKATOR);

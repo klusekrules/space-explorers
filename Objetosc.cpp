@@ -68,33 +68,25 @@ Objetosc Objetosc::operator+( const Objetosc& p )const{
 }
 
 Objetosc Objetosc::operator*( const Ilosc& f )const{
-	return Objetosc( wartosc_ * f.getIlosc() );
+	return Objetosc( wartosc_ * f() );
 }
 
 Objetosc& Objetosc::operator*=( const Ilosc& f ){
-	wartosc_ *= f.getIlosc();
+	wartosc_ *= f();
 	return *this; 
 }
 
 Objetosc Objetosc::operator*( const Fluktuacja& f )const{
-	return Objetosc( wartosc_ * f.getFluktuacja() );
+	return Objetosc( wartosc_ * f() );
 }
 
 Objetosc& Objetosc::operator*=( const Fluktuacja& f ){
-	wartosc_ *= f.getFluktuacja();
+	wartosc_ *= f();
 	return *this; 
 }
 
 Fluktuacja Objetosc::operator/( const Objetosc& o )const{
 	return Fluktuacja( static_cast<const float>(wartosc_ / o.wartosc_) );
-}
-
-Objetosc::type_name Objetosc::getObjetosc() const{
-	return wartosc_;
-}
-
-void Objetosc::setObjetosc( const type_name& f ){
-	wartosc_ = f;
 }
 
 string Objetosc::toString() const{

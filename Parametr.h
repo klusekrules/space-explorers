@@ -13,9 +13,7 @@ public:
 	virtual ~Parametr();
 
 	Parametr& operator=( const Parametr& );
-
-	void setParametr( const type_name& );
-
+	
 	string toString() const override;
 };
 
