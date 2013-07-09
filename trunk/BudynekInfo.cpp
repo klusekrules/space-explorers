@@ -3,26 +3,26 @@
 #include "XmlBO.h"
 #include "Gra.h"
 
-BudynekInfo::BudynekInfo( ticpp::Node* n )
+BudynekInfo::BudynekInfo( TiXmlElement* n )
 	: ObiektInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(ObiektInfo)))
 {
-	auto z = XmlBO::IterateChildrenElement<NOTHROW>(n,"Zapotrzebowanie");
+	auto z = XmlBO::IterateChildren<NOTHROW>(n,"Zapotrzebowanie");
 	if(z){
-		auto e = z->FirstChildElement(false);
+		auto e = z->FirstChildElement();
 		while(e){
 			if(e->Value() == CLASSNAME(Cena))
 				zapotrzebowanie.push_back(shared_ptr<Cena>(new Cena(e)));
-			e = e->NextSiblingElement(false);
+			e = e->NextSiblingElement();
 		}
 	}
 
-	auto p = XmlBO::IterateChildrenElement<NOTHROW>(n,"Produkcja");
+	auto p = XmlBO::IterateChildren<NOTHROW>(n,"Produkcja");
 	if(p){
-		auto e = p->FirstChildElement(false);
+		auto e = p->FirstChildElement();
 		while(e){
 			if(e->Value() == CLASSNAME(Cena))
 				produkcja.push_back(shared_ptr<Cena>(new Cena(e)));
-			e = e->NextSiblingElement(false);
+			e = e->NextSiblingElement();
 		}
 	}
 }

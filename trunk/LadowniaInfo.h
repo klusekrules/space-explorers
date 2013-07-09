@@ -18,7 +18,7 @@ private:
 public:
 	LadowniaInfo( const Objetosc& max, const Info& i ) throw();
 
-	explicit LadowniaInfo( ticpp::Node* ) throw(WyjatekParseraXML);
+	explicit LadowniaInfo( TiXmlElement* ) throw(WyjatekParseraXML);
 	
 	Objetosc getPojemnoscMaksymalna( const PodstawoweParametry& ) const;
 		

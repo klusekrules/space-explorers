@@ -3,8 +3,8 @@
 #include "ZmianaFabryka.h"
 #include "..\XmlBO.h"
 
-ZmianaLiniowa::ZmianaLiniowa( const ticpp::Element* e )
-	: parametr(XmlBO::IterateChildrenElementIf<NOTHROW>(e,"Param","id","0"))
+ZmianaLiniowa::ZmianaLiniowa( TiXmlElement* e )
+	: parametr(XmlBO::IterateChildrenIf<NOTHROW>(e,"Param","id","0"))
 {
 }
 

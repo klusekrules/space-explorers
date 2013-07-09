@@ -3,11 +3,11 @@
 #include "ZmianaFabryka.h"
 #include "..\XmlBO.h"
 
-ZmianaPotegowaAlt::ZmianaPotegowaAlt( const ticpp::Element * e ) throw(int)
-	: wspolczynnik(XmlBO::IterateChildrenElement<NOTHROW>(e,"Param")), wykladnik(nullptr)
+ZmianaPotegowaAlt::ZmianaPotegowaAlt( TiXmlElement * e ) throw(int)
+	: wspolczynnik(XmlBO::IterateChildren<NOTHROW>(e,"Param")), wykladnik(nullptr)
 {
 	if(zFabryka)
-		wykladnik=zFabryka->Tworz(XmlBO::IterateChildrenElement<NOTHROW>(e,"Zmiana"));
+		wykladnik=zFabryka->Tworz(XmlBO::IterateChildren<NOTHROW>(e,"Zmiana"));
 }
 
 ZmianaPotegowaAlt::~ZmianaPotegowaAlt(void)

@@ -19,7 +19,7 @@ public:
 	typedef vector< Item > ListaWarunkow;
 	typedef vector< shared_ptr< ObiektBaseInfo > > PrzetworzoneWarunki;
 
-	explicit Warunek( ticpp::Node* n ) throw(WyjatekParseraXML);
+	explicit Warunek( TiXmlElement* n ) throw(WyjatekParseraXML);
 	explicit Warunek(const Warunek& w);
 	Warunek& operator=(const Warunek& w);
 

@@ -15,7 +15,7 @@ class Cena :
 {
 public:
 	typedef Surowce Item;
-	explicit Cena( ticpp::Node* ) throw(WyjatekParseraXML);
+	explicit Cena( TiXmlElement* ) throw(WyjatekParseraXML);
 	Cena( const Cena& );
 
 	Cena& operator=(const Cena&);

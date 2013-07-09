@@ -19,7 +19,7 @@ class TESTFUNKCJIZMIANY_API ZmianaTest:
 {
 private:
 	static const int idKlasy;
-	static ZmianaInterfejs* TworzZmianaTest( const ticpp::Element* e ){
+	static ZmianaInterfejs* TworzZmianaTest( TiXmlElement* e ){
 		return new ZmianaTest(e);
 	}
 public:	
@@ -32,7 +32,7 @@ public:
 
 	ZmianaTest* Kopia()const override;
 
-	explicit ZmianaTest( const ticpp::Element * e );
+	explicit ZmianaTest( TiXmlElement * e );
 	virtual ~ZmianaTest(void);
 
 	string toString () const override;

@@ -9,7 +9,7 @@ private:
 	int idObiektu;
 	long double wspolczynnikObiektu;
 public:
-	ZmianaParametr( const ticpp::Element* e );
+	ZmianaParametr( TiXmlElement* e );
 	virtual ~ZmianaParametr(void);
 
 	int getIdObiektu()const{

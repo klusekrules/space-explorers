@@ -1,12 +1,12 @@
 #include "ZmianaParametr.h"
 #include "..\Logger\Logger.h"
+#include <string>
 
-
-ZmianaParametr::ZmianaParametr( const ticpp::Element* e )
+ZmianaParametr::ZmianaParametr( TiXmlElement* e )
 {
 	if(e){
-		idObiektu = stoi(e->GetAttribute("id"),nullptr,0);
-		wspolczynnikObiektu = stold(e->GetAttribute("Wspolczynnik"));
+		idObiektu = std::stoi(e->Attribute("id"),nullptr,0);
+		wspolczynnikObiektu = std::stold(e->Attribute("Wspolczynnik"));
 	}
 }
 

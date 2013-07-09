@@ -3,7 +3,7 @@
 #include "Logger.h"
 #include "Gra.h"
 
-TechnologiaInfo::TechnologiaInfo( ticpp::Node* e )
+TechnologiaInfo::TechnologiaInfo( TiXmlElement* e )
 	: ObiektBaseInfo(XmlBO::IterateChildren<THROW>(e,CLASSNAME(ObiektBaseInfo)))
 {
 }

@@ -120,10 +120,10 @@ ObiektInfo& Gra::getObiekt(const IdType& id)const throw (NieznalezionoObiektu) {
 }
 
 bool Gra::WczytajDane( const string& sFile ){
-	ticpp::Document dane;
+	TiXmlDocument dane;
 	try{
 		dane.LoadFile( sFile );
-		auto root_data = dane.IterateChildren(WEZEL_XML_ROOT,nullptr);
+		auto root_data = dane.FirstChildElement(WEZEL_XML_ROOT);
 		if(root_data){
 			if(!WczytajSurowce(root_data))
 				return false;
@@ -142,11 +142,10 @@ bool Gra::WczytajDane( const string& sFile ){
 	return true;
 }
 
-bool Gra::WczytajTechnologie(ticpp::Node* root){
-	ticpp::Node* ptr = nullptr;
+bool Gra::WczytajTechnologie(TiXmlElement* root){
+	TiXmlElement* ptr = root->FirstChildElement(CLASSNAME(TechnologiaInfo));
 	do{
 		try{
-			ptr = root->IterateChildren(CLASSNAME(TechnologiaInfo),ptr);
 			if(ptr){
 				shared_ptr<TechnologiaInfo> t(new TechnologiaInfo(ptr));
 				aplikacja.getLog().debug(*t);
@@ -154,6 +153,7 @@ bool Gra::WczytajTechnologie(ticpp::Node* root){
 					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
 				listaTechnologiInfo[t->getId()]=t;
 				listaObiektowBaseInfo[t->getId()]=t;
+				ptr = ptr->NextSiblingElement(CLASSNAME(TechnologiaInfo));
 			}
 		}catch(OgolnyWyjatek& e){
 			aplikacja.getLog().warn(e.generujKomunikat());
@@ -164,11 +164,11 @@ bool Gra::WczytajTechnologie(ticpp::Node* root){
 	return true;
 }
 
-bool Gra::WczytajBudynki(ticpp::Node* root){
-	ticpp::Node* ptr = nullptr;
+bool Gra::WczytajBudynki(TiXmlElement* root){
+	TiXmlElement* ptr = root->FirstChildElement(CLASSNAME(BudynekInfo));
 	do{
 		try{
-			ptr = root->IterateChildren(CLASSNAME(BudynekInfo),ptr);
+			
 			if(ptr){
 				shared_ptr<BudynekInfo> t(new BudynekInfo(ptr));
 				aplikacja.getLog().debug(*t);
@@ -177,6 +177,7 @@ bool Gra::WczytajBudynki(ticpp::Node* root){
 				listaBudynkowInfo[t->getId()]=t;
 				listaObiektowBaseInfo[t->getId()]=t;
 				listaObiektowInfo[t->getId()]=t;
+				ptr = ptr->NextSiblingElement(CLASSNAME(BudynekInfo));
 			}
 		}catch(OgolnyWyjatek& e){
 			aplikacja.getLog().warn(e.generujKomunikat());
@@ -187,11 +188,11 @@ bool Gra::WczytajBudynki(ticpp::Node* root){
 	return true;
 }
 
-bool Gra::WczytajSurowce(ticpp::Node* root){
-	ticpp::Node* ptr = nullptr;
+bool Gra::WczytajSurowce(TiXmlElement* root){
+	TiXmlElement* ptr = root->FirstChildElement(CLASSNAME(SurowceInfo));
 	do{
 		try{
-			ptr = root->IterateChildren(CLASSNAME(SurowceInfo),ptr);
+			
 			if(ptr){
 				shared_ptr<SurowceInfo> t(new SurowceInfo(ptr));
 				aplikacja.getLog().debug(*t);
@@ -200,6 +201,7 @@ bool Gra::WczytajSurowce(ticpp::Node* root){
 				listaSurowcowInfo[t->getId()]=t;
 				listaObiektowBaseInfo[t->getId()]=t;
 				listaObiektowInfo[t->getId()]=t;
+				ptr = ptr->NextSiblingElement(CLASSNAME(SurowceInfo));
 			}
 		}catch(OgolnyWyjatek& e){
 			aplikacja.getLog().warn(e.generujKomunikat());
@@ -210,11 +212,10 @@ bool Gra::WczytajSurowce(ticpp::Node* root){
 	return true;
 }
 
-bool Gra::WczytajStatki(ticpp::Node* root){
-	ticpp::Node* ptr = nullptr;
+bool Gra::WczytajStatki(TiXmlElement* root){
+	TiXmlElement* ptr = root->FirstChildElement(CLASSNAME(StatekInfo));
 	do{
 		try{
-			ptr = root->IterateChildren(CLASSNAME(StatekInfo),ptr);
 			if(ptr){
 				shared_ptr<StatekInfo> t(new StatekInfo(ptr));
 				aplikacja.getLog().debug(*t);
@@ -223,6 +224,7 @@ bool Gra::WczytajStatki(ticpp::Node* root){
 				listaStatkowInfo[t->getId()]=t;
 				listaObiektowBaseInfo[t->getId()]=t;
 				listaObiektowInfo[t->getId()]=t;
+				ptr = ptr->NextSiblingElement(CLASSNAME(StatekInfo));
 			}
 		}catch(OgolnyWyjatek& e){
 			aplikacja.getLog().warn(e.generujKomunikat());

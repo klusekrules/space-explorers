@@ -5,19 +5,18 @@
 #include "XmlBO.h"
 #include "Surowce.h"
 
-Cena::Cena( ticpp::Node* n ) throw(WyjatekParseraXML)
+Cena::Cena( TiXmlElement* n ) throw(WyjatekParseraXML)
 	: obiekty(nullptr),zmiana(nullptr)
 {
 	if(n!=nullptr){
-		ticpp::Node* a = n->IterateChildren(CLASSNAME(Cena::Item),nullptr);
+		TiXmlElement* a = n->FirstChildElement(CLASSNAME(Cena::Item));
 		try{
 			IdType k(a);
-			obiekty= shared_ptr<Item>(Aplikacja::getInstance().getGra().getSurowce(k).TworzEgzemplarz(Ilosc(stoi(a->ToElement()->GetAttribute("ilosc"),nullptr,0)),IdType()));
-			zmiana = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElement<NOTHROW>(n,"Zmiana"));
+			obiekty= shared_ptr<Item>(Aplikacja::getInstance().getGra().getSurowce(k).TworzEgzemplarz(Ilosc(stoi(a->Attribute("ilosc"),nullptr,0)),IdType()));
+			zmiana = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildren<NOTHROW>(n,"Zmiana"));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}
-
 	}
 }
 

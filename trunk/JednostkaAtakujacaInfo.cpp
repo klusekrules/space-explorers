@@ -7,20 +7,19 @@ JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const Info& info, const Obrazenia
 	: Info(info), rd(), gen(rd()), atak(oAtak), zmAtak(nullptr), pancerz(oPancerz), zmPancerz(nullptr), oslona(oOslona), zmOslona(nullptr)
 {
 }
-JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
+JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
 	: Info(XmlBO::IterateChildren<THROW>(n,CLASSNAME(Info))), rd(), gen(rd()),zmAtak(nullptr), zmPancerz(nullptr), zmOslona(nullptr)
 {
 	if(n){
 		try{
-			ticpp::Element* e = n->ToElement();
-			atak.setObrazenia(stold(e->GetAttribute("atak")));
-			zmAtak = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","atak"));
+			atak.setObrazenia(stold(n->Attribute("atak")));
+			zmAtak = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenIf<NOTHROW>(n,"Zmiana","for","atak"));
 
-			pancerz.setObrazenia(stold(e->GetAttribute("pancerz")));
-			zmPancerz = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","pancerz"));
+			pancerz.setObrazenia(stold(n->Attribute("pancerz")));
+			zmPancerz = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenIf<NOTHROW>(n,"Zmiana","for","pancerz"));
 
-			oslona.setObrazenia(stold(e->GetAttribute("oslona")));
-			zmOslona = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","oslona"));
+			oslona.setObrazenia(stold(n->Attribute("oslona")));
+			zmOslona = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenIf<NOTHROW>(n,"Zmiana","for","oslona"));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

@@ -125,19 +125,19 @@ bool Aplikacja::WczytajDane(){
 }
 
 bool Aplikacja::ZaladujOpcje(){
-	ticpp::Document dane;
+	TiXmlDocument dane;
 	try{
 #ifdef TESTS
 		dane.LoadFile("options_test.xml");
 #else
 		dane.LoadFile("options.xml");
 #endif
-		auto root_data = dane.IterateChildren("SpaceGame",nullptr);
+		auto root_data = dane.FirstChildElement("SpaceGame");
 		if(root_data){
 
-			auto jezyk = XmlBO::IterateChildrenElement<NOTHROW>(root_data,"locale");
+			auto jezyk = XmlBO::IterateChildren<NOTHROW>(root_data,"locale");
 			if(jezyk){
-				jezykAplikacji = jezyk->GetText(false);
+				jezykAplikacji = jezyk->GetText();
 				if(jezykAplikacji.size() != 0){
 					try{
 						locale pl (jezykAplikacji);
@@ -154,7 +154,7 @@ bool Aplikacja::ZaladujOpcje(){
 				locale::global (pl);
 			}
 
-			auto plikDanych = XmlBO::IterateChildrenElement<THROW>(root_data,"data");
+			auto plikDanych = XmlBO::IterateChildren<THROW>(root_data,"data");
 			if(plikDanych){
 				nazwaPlikuDanych = plikDanych->GetText();
 				if( _access(nazwaPlikuDanych.c_str(),0) == -1 ){ // Sprawdzenie czy folder istnieje
@@ -164,9 +164,9 @@ bool Aplikacja::ZaladujOpcje(){
 				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(""),WyjatekParseraXML::trescBladStrukturyXml);
 			}
 			
-			auto pluginy = XmlBO::IterateChildrenElement<NOTHROW>(root_data,"plugins");
+			auto pluginy = XmlBO::IterateChildren<NOTHROW>(root_data,"plugins");
 			if(pluginy){
-				folderPluginow = pluginy->GetText(false);
+				folderPluginow = pluginy->GetText();
 				if( _access(folderPluginow.c_str(),0) == -1 ){ // Sprawdzenie czy folder istnieje
 					folderPluginow.clear();
 				}

@@ -26,11 +26,10 @@ Klucz::Klucz( const Klucz& klucz )
 {
 }
 
-Klucz::Klucz( ticpp::Node* n ){
+Klucz::Klucz( TiXmlElement* n ){
 	if(n!=nullptr){
 		try{
-			ticpp::Element* e = n->ToElement();
-			values = make_pair<IdType,Poziom>( IdType(stoi(e->GetAttribute("id"),nullptr,0)) , Poziom(stoi(e->GetAttribute("poziom"))) );
+			values = make_pair<IdType,Poziom>( IdType(stoi(n->Attribute("id"),nullptr,0)) , Poziom(stoi(n->Attribute("poziom"))) );
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

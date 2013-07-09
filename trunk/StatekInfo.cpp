@@ -7,7 +7,7 @@ StatekInfo::StatekInfo( const ObiektInfo& o , const JednostkaLatajacaInfo& j , c
 {
 }
 
-StatekInfo::StatekInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
+StatekInfo::StatekInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
 	: ObiektInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(ObiektInfo))),
 	JednostkaLatajacaInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(JednostkaLatajacaInfo))),
 	JednostkaAtakujacaInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(JednostkaAtakujacaInfo))),

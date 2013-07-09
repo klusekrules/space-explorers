@@ -11,7 +11,7 @@ class FUNCTRANSF_API ZmianaPotegowaAlt:
 private:
 	static ZmianaFabryka* zFabryka;
 	static const int idKlasy;
-	static ZmianaInterfejs* TworzZmianaPotegowaAlt( const ticpp::Element* e ){
+	static ZmianaInterfejs* TworzZmianaPotegowaAlt( TiXmlElement* e ){
 		return new ZmianaPotegowaAlt(e);
 	}
 public:	
@@ -26,7 +26,7 @@ public:
 
 	ZmianaPotegowaAlt* Kopia()const override;
 
-	explicit ZmianaPotegowaAlt( const ticpp::Element * e );
+	explicit ZmianaPotegowaAlt( TiXmlElement * e );
 	virtual ~ZmianaPotegowaAlt(void);
 
 	string toString () const override;

@@ -3,8 +3,8 @@
 #include "ZmianaFabryka.h"
 #include "..\XmlBO.h"
 
-ZmianaPotegowa::ZmianaPotegowa( const ticpp::Element * e ) throw(int)
-	: wspolczynnik(XmlBO::IterateChildrenElementIf<NOTHROW>(e,"Param","id","1")), wykladnik(XmlBO::IterateChildrenElementIf<NOTHROW>(e,"Param","id","2"))
+ZmianaPotegowa::ZmianaPotegowa( TiXmlElement * e ) throw(int)
+	: wspolczynnik(XmlBO::IterateChildrenIf<NOTHROW>(e,"Param","id","1")), wykladnik(XmlBO::IterateChildrenIf<NOTHROW>(e,"Param","id","2"))
 {
 }
 

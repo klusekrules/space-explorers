@@ -10,7 +10,7 @@ class FUNCTRANSF_API ZmianaPotegowa:
 {
 private:
 	static const int idKlasy;
-	static ZmianaInterfejs* TworzZmianaPotegowa( const ticpp::Element* e ){
+	static ZmianaInterfejs* TworzZmianaPotegowa( TiXmlElement* e ){
 		return new ZmianaPotegowa(e);
 	}
 public:	
@@ -25,7 +25,7 @@ public:
 
 	ZmianaPotegowa* Kopia()const override;
 
-	explicit ZmianaPotegowa( const ticpp::Element * e );
+	explicit ZmianaPotegowa( TiXmlElement * e );
 	virtual ~ZmianaPotegowa(void);
 
 	string toString () const override;

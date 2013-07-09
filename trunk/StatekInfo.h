@@ -17,7 +17,7 @@ class StatekInfo:
 public:
 	StatekInfo(	const ObiektInfo& o , const JednostkaLatajacaInfo& j , const JednostkaAtakujacaInfo& a , const LadowniaInfo& l ) throw();
 
-	explicit StatekInfo( ticpp::Node* ) throw(WyjatekParseraXML);
+	explicit StatekInfo( TiXmlElement* ) throw(WyjatekParseraXML);
 
 	virtual ~StatekInfo();
 

@@ -9,12 +9,12 @@ ObiektBaseInfo::ObiektBaseInfo(const Info& i , const Poziom& p) throw()
 {
 }
 
-ObiektBaseInfo::ObiektBaseInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
+ObiektBaseInfo::ObiektBaseInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
 	: Info(XmlBO::IterateChildren<NOTHROW>(n,CLASSNAME(Info)))
 {
 	if(n){
 		try{
-			poziom.setPoziom(stoi(n->ToElement()->GetAttribute("poziom")));
+			poziom.setPoziom(stoi(n->Attribute("poziom")));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

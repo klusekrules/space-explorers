@@ -24,13 +24,12 @@ IdType::IdType( const IdType& a )
 {
 }
 
-IdType::IdType( ticpp::Node* n )
+IdType::IdType( TiXmlElement* n )
 	: id(Stale::idDomyslny)
 {
 	if(n!=nullptr){
 		try{
-			ticpp::Element* e = n->ToElement();
-			id = stoi(e->GetAttribute("id"),nullptr,0);
+			id = stoi(n->Attribute("id"),nullptr,0);
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

@@ -12,7 +12,7 @@ class FUNCTRANSF_API ZmianaLiniowa:
 {
 private:
 	static const int idKlasy;
-	static ZmianaInterfejs* TworzZmianaLiniowa( const ticpp::Element* e ){
+	static ZmianaInterfejs* TworzZmianaLiniowa( TiXmlElement* e ){
 		return new ZmianaLiniowa(e);
 	}
 public:	
@@ -25,7 +25,7 @@ public:
 
 	ZmianaLiniowa* Kopia()const override;
 
-	explicit ZmianaLiniowa( const ticpp::Element * e );
+	explicit ZmianaLiniowa( TiXmlElement * e );
 	virtual ~ZmianaLiniowa(void);
 
 	string toString () const override;

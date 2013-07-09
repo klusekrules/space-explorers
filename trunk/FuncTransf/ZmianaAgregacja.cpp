@@ -3,11 +3,11 @@
 #include "ZmianaFabryka.h"
 #include "..\Logger\Logger.h"
 
-ZmianaAgregacja::ZmianaAgregacja( const ticpp::Element* e )
+ZmianaAgregacja::ZmianaAgregacja( TiXmlElement* e )
 {
 	if( e && zFabryka ){
-		next = zFabryka->Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(e,"Zmiana","for","next"));
-		for( auto n = e->IterateChildren("Zmiana", XmlBO::IterateChildrenElement<NOTHROW>(e,"Zmiana") ); n ; n = e->IterateChildren("Zmiana",n) ){
+		next = zFabryka->Tworz(XmlBO::IterateChildrenIf<NOTHROW>(e,"Zmiana","for","next"));
+		for( TiXmlElement* n = XmlBO::IterateChildrenIf<NOTHROW>(e,"Zmiana","for","next")->NextSiblingElement("Zmiana"); n ; n = n->NextSiblingElement("Zmiana") ){
 			auto e = zFabryka->Tworz(n->ToElement());
 			if(e)
 				list.push_back(e);

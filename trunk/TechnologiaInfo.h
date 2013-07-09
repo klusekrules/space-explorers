@@ -10,7 +10,7 @@ class TechnologiaInfo :
 public:
 	TechnologiaInfo( const TechnologiaInfo& );
 	explicit TechnologiaInfo( const ObiektBaseInfo& );
-	explicit TechnologiaInfo( ticpp::Node* );
+	explicit TechnologiaInfo( TiXmlElement* );
 	Technologia* TworzEgzemplarz( const Ilosc&, const IdType& ) const override;
 	~TechnologiaInfo( );
 	string toString()const override;
