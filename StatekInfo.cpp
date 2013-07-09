@@ -8,10 +8,10 @@ StatekInfo::StatekInfo( const ObiektInfo& o , const JednostkaLatajacaInfo& j , c
 }
 
 StatekInfo::StatekInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
-	: ObiektInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(ObiektInfo))),
-	JednostkaLatajacaInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(JednostkaLatajacaInfo))),
-	JednostkaAtakujacaInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(JednostkaAtakujacaInfo))),
-	LadowniaInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(LadowniaInfo)))
+	: ObiektInfo(XmlBO::ZnajdzWezel<THROW>(n,CLASSNAME(ObiektInfo))),
+	JednostkaLatajacaInfo(XmlBO::ZnajdzWezel<THROW>(n,CLASSNAME(JednostkaLatajacaInfo))),
+	JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<THROW>(n,CLASSNAME(JednostkaAtakujacaInfo))),
+	LadowniaInfo(XmlBO::ZnajdzWezel<THROW>(n,CLASSNAME(LadowniaInfo)))
 {
 }
 

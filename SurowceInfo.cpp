@@ -13,10 +13,10 @@ SurowceInfo::SurowceInfo( const ObiektInfo& o , bool bCzyPrzyrostowy ) throw()
 }
 
 SurowceInfo::SurowceInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
-	: ObiektInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(ObiektInfo))) , czyPrzyrostowy (false), zmCzas(nullptr)
+	: ObiektInfo(XmlBO::ZnajdzWezel<THROW>(n,CLASSNAME(ObiektInfo))) , czyPrzyrostowy (false), zmCzas(nullptr)
 {
 	if(n){
-		zmCzas = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenIf<NOTHROW>(n,"Zmiana","for","Czas"));
+		zmCzas = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,"Zmiana","for","Czas"));
 		auto s = n->Attribute("typ");
 		auto i = stoi(s);
 		switch(i){

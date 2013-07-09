@@ -4,7 +4,7 @@
 #include "..\XmlBO.h"
 
 ZmianaPotegowa::ZmianaPotegowa( TiXmlElement * e ) throw(int)
-	: wspolczynnik(XmlBO::IterateChildrenIf<NOTHROW>(e,"Param","id","1")), wykladnik(XmlBO::IterateChildrenIf<NOTHROW>(e,"Param","id","2"))
+	: wspolczynnik(XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,"Param","id","1")), wykladnik(XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,"Param","id","2"))
 {
 }
 

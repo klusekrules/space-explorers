@@ -7,7 +7,7 @@
 #include "..\Logger.h"
 
 ZmianaTest::ZmianaTest( TiXmlElement* e )
-	: parametr(XmlBO::IterateChildrenIf<NOTHROW>(e,"Param","id","0"))
+	: parametr(XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,"Param","id","0"))
 {
 }
 

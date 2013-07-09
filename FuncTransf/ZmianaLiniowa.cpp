@@ -4,7 +4,7 @@
 #include "..\XmlBO.h"
 
 ZmianaLiniowa::ZmianaLiniowa( TiXmlElement* e )
-	: parametr(XmlBO::IterateChildrenIf<NOTHROW>(e,"Param","id","0"))
+	: parametr(XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,"Param","id","0"))
 {
 }
 

@@ -13,7 +13,7 @@ Cena::Cena( TiXmlElement* n ) throw(WyjatekParseraXML)
 		try{
 			IdType k(a);
 			obiekty= shared_ptr<Item>(Aplikacja::getInstance().getGra().getSurowce(k).TworzEgzemplarz(Ilosc(stoi(a->Attribute("ilosc"),nullptr,0)),IdType()));
-			zmiana = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildren<NOTHROW>(n,"Zmiana"));
+			zmiana = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezel<NOTHROW>(n,"Zmiana"));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

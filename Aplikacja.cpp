@@ -135,7 +135,7 @@ bool Aplikacja::ZaladujOpcje(){
 		auto root_data = dane.FirstChildElement("SpaceGame");
 		if(root_data){
 
-			auto jezyk = XmlBO::IterateChildren<NOTHROW>(root_data,"locale");
+			auto jezyk = XmlBO::ZnajdzWezel<NOTHROW>(root_data,"locale");
 			if(jezyk){
 				jezykAplikacji = jezyk->GetText();
 				if(jezykAplikacji.size() != 0){
@@ -154,7 +154,7 @@ bool Aplikacja::ZaladujOpcje(){
 				locale::global (pl);
 			}
 
-			auto plikDanych = XmlBO::IterateChildren<THROW>(root_data,"data");
+			auto plikDanych = XmlBO::ZnajdzWezel<THROW>(root_data,"data");
 			if(plikDanych){
 				nazwaPlikuDanych = plikDanych->GetText();
 				if( _access(nazwaPlikuDanych.c_str(),0) == -1 ){ // Sprawdzenie czy folder istnieje
@@ -164,7 +164,7 @@ bool Aplikacja::ZaladujOpcje(){
 				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(""),WyjatekParseraXML::trescBladStrukturyXml);
 			}
 			
-			auto pluginy = XmlBO::IterateChildren<NOTHROW>(root_data,"plugins");
+			auto pluginy = XmlBO::ZnajdzWezel<NOTHROW>(root_data,"plugins");
 			if(pluginy){
 				folderPluginow = pluginy->GetText();
 				if( _access(folderPluginow.c_str(),0) == -1 ){ // Sprawdzenie czy folder istnieje

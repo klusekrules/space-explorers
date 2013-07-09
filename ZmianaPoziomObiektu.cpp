@@ -4,7 +4,7 @@
 #include "Aplikacja.h"
 
 ZmianaPoziomObiektu::ZmianaPoziomObiektu( TiXmlElement* e )
-	: parametr(XmlBO::IterateChildren<NOTHROW>(e,"Param"))
+	: parametr(XmlBO::ZnajdzWezel<NOTHROW>(e,"Param"))
 {
 }
 
