@@ -22,7 +22,7 @@ private:
 public:
 	ObiektInfo( const Masa&, const Objetosc&, const Powierzchnia&, const ObiektBaseInfo& ) throw();
 
-	explicit ObiektInfo( ticpp::Node* ) throw(WyjatekParseraXML);
+	explicit ObiektInfo( TiXmlElement* ) throw(WyjatekParseraXML);
 
 	~ObiektInfo( );
 

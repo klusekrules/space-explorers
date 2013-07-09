@@ -3,8 +3,8 @@
 #include "Logger.h"
 #include "Aplikacja.h"
 
-ZmianaPoziomObiektu::ZmianaPoziomObiektu( const ticpp::Element* e )
-	: parametr(XmlBO::IterateChildrenElement<NOTHROW>(e,"Param"))
+ZmianaPoziomObiektu::ZmianaPoziomObiektu( TiXmlElement* e )
+	: parametr(XmlBO::IterateChildren<NOTHROW>(e,"Param"))
 {
 }
 

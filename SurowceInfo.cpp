@@ -12,12 +12,12 @@ SurowceInfo::SurowceInfo( const ObiektInfo& o , bool bCzyPrzyrostowy ) throw()
 {
 }
 
-SurowceInfo::SurowceInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
+SurowceInfo::SurowceInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
 	: ObiektInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(ObiektInfo))) , czyPrzyrostowy (false), zmCzas(nullptr)
 {
 	if(n){
-		zmCzas = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","Czas"));
-		auto s = n->ToElement()->GetAttribute("typ");
+		zmCzas = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenIf<NOTHROW>(n,"Zmiana","for","Czas"));
+		auto s = n->Attribute("typ");
 		auto i = stoi(s);
 		switch(i){
 		case 1 : czyPrzyrostowy = true;

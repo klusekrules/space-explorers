@@ -29,10 +29,10 @@ private:
 	Licznik idPlanety;
 	Uzytkownik::ListaPlanet wolnePlanety;
 
-	bool WczytajSurowce(ticpp::Node* root);
-	bool WczytajStatki(ticpp::Node* root);
-	bool WczytajTechnologie(ticpp::Node* root);
-	bool WczytajBudynki(ticpp::Node* root);
+	bool WczytajSurowce(TiXmlElement* root);
+	bool WczytajStatki(TiXmlElement* root);
+	bool WczytajTechnologie(TiXmlElement* root);
+	bool WczytajBudynki(TiXmlElement* root);
 
 	Aplikacja& aplikacja;
 	shared_ptr<Uzytkownik> uzytkownik;

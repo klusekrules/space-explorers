@@ -6,14 +6,15 @@ Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const IdType& id , const W
 	: Base(id), nazwa( tNazwa ), opis( tOpis ), Wymagania(w)
 {
 }
-Info::Info( ticpp::Node* n ) throw(WyjatekParseraXML)
+Info::Info( TiXmlElement* n ) throw(WyjatekParseraXML)
 	: Base( n ) , Wymagania( XmlBO::IterateChildren<NOTHROW>(n,CLASSNAME(Wymagania))  )
 {
 	if(n){
 		try{
-			ticpp::Element* e = n->ToElement();
-			setNazwa(e->GetAttribute("nazwa"));
-			setOpis(e->GetText(false));
+			const char* c = n->Attribute("nazwa");
+			setNazwa(string( c ? c : ""));
+			c = n->GetText();
+			setOpis(string( c ? c : ""));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

@@ -13,7 +13,7 @@ protected:
 	Cennik::Zbiornik produkcja;
 
 public:
-	BudynekInfo( ticpp::Node* );
+	BudynekInfo( TiXmlElement* );
 	~BudynekInfo(void);
 	Budynek* TworzEgzemplarz( const Ilosc&, const IdType& ) const override;
 

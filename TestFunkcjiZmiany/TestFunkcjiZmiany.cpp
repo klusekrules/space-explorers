@@ -6,8 +6,8 @@
 #include "..\XmlBO.h"
 #include "..\Logger.h"
 
-ZmianaTest::ZmianaTest( const ticpp::Element* e )
-	: parametr(XmlBO::IterateChildrenElementIf<NOTHROW>(e,"Param","id","0"))
+ZmianaTest::ZmianaTest( TiXmlElement* e )
+	: parametr(XmlBO::IterateChildrenIf<NOTHROW>(e,"Param","id","0"))
 {
 }
 

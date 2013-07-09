@@ -27,7 +27,7 @@ public:
 	*/
 	JednostkaLatajacaInfo(const Info& info, const Klucz& k, const MocSilnika& moc, const ZuzyciePaliwa& z, const Masa& masa ) throw();
 	
-	explicit JednostkaLatajacaInfo( ticpp::Node* ) throw(WyjatekParseraXML);
+	explicit JednostkaLatajacaInfo( TiXmlElement* ) throw(WyjatekParseraXML);
 
 	/**
 	* Metoda zwracaj¹ca rodzaj napêdu jednostki.

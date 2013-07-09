@@ -12,7 +12,7 @@ class SurowceInfo :
 public:
 	SurowceInfo( const ObiektInfo& , bool bCzyPrzyrostowy) throw();
 
-	explicit SurowceInfo( ticpp::Node* ) throw(WyjatekParseraXML);
+	explicit SurowceInfo( TiXmlElement* ) throw(WyjatekParseraXML);
 	
 	virtual ~SurowceInfo();
 

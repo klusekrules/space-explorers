@@ -4,18 +4,18 @@
 #include "Aplikacja.h"
 #include "XmlBO.h"
 
-Cennik::Cennik( ticpp::Node* n ) throw(WyjatekParseraXML)
+Cennik::Cennik( TiXmlElement* n ) throw(WyjatekParseraXML)
 	: zmCzasuBudowy(nullptr)
 {
 	if(n){
-		auto c = XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","Czas");
+		auto c = XmlBO::IterateChildrenIf<NOTHROW>(n,"Zmiana","for","Czas");
 		if(c)
 			zmCzasuBudowy=Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(c);
-		auto e = n->FirstChildElement(false);
+		auto e = n->FirstChildElement();
 		while(e){
 			if(e->Value() == CLASSNAME(Cena))
 				elementy.push_back(shared_ptr<Cena>(new Cena(e)));
-			e = e->NextSiblingElement(false);
+			e = e->NextSiblingElement();
 		}
 	}
 }

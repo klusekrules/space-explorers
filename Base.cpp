@@ -8,10 +8,10 @@ Base::Base( const IdType& itID )throw()
 {
 }
 
-Base::Base( ticpp::Node* n ) throw(WyjatekParseraXML){
+Base::Base( TiXmlElement* n ) throw(WyjatekParseraXML){
 	if(n){
 		try{
-			id.setId( stoi(n->ToElement()->GetAttribute("id"),nullptr,0) );
+			id.setId( stoi(n->ToElement()->Attribute("id"),nullptr,0) );
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

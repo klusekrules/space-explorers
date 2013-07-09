@@ -9,45 +9,33 @@ class NOTHROW { };
 class XmlBO{
 private:
 	template < typename T > 
-	static ticpp::Element * fail( bool n , string s ){
+	static TiXmlElement * fail( bool n , string s ){
 		return nullptr;
 	}
 	template < > 
-	static ticpp::Element * fail<THROW>( bool n , string s ){
+	static TiXmlElement * fail<THROW>( bool n , string s ){
 		throw WyjatekParseraXML(EXCEPTION_PLACE,exception((s + " isNull=" + to_string(n)).c_str()),WyjatekParseraXML::trescBladStrukturyXml);
 	}
 public:
 	template<typename T>
-	static ticpp::Node* IterateChildren(const ticpp::Node* n , const string& s, ticpp::Node* p = nullptr ){
+	static TiXmlElement* IterateChildren( TiXmlElement* n , const string& s, TiXmlElement* p = nullptr ){
 		if(n==nullptr || s.empty())
 			return fail<T>(n==nullptr,s);
-
-		return n->IterateChildren(s,p);
-	}
-	template<typename T>
-	static ticpp::Element* IterateChildrenElement(const ticpp::Node* n , const string& s, ticpp::Node* p = nullptr ){
-		if(n==nullptr || s.empty())
-			return fail<T>(n==nullptr,s);
-
-		auto t = n->IterateChildren(s,p);
-
-		if( t )
-			return t->ToElement();
+		if(p)
+			return p->NextSiblingElement(s);
 		else
-			return nullptr;
+			return n->FirstChildElement(s);
 	}
-
+	
 	template<typename T>
-	static ticpp::Element* IterateChildrenElementIf(const ticpp::Node* n , const string& s, const string& atrybut, const string& wartosc, ticpp::Node* p = nullptr ){
+	static TiXmlElement* IterateChildrenIf( TiXmlElement* n , const string& s, const string& atrybut, const string& wartosc, TiXmlElement* p = nullptr ){
 		if(n==nullptr || s.empty())
 			return fail<T>(n==nullptr,s);
-
-		for(auto t = n->IterateChildren(s,p); t!= nullptr; t = n->IterateChildren("Zmiana",t) ){
-			auto el = t->ToElement();
-			if(el){
-				if(wartosc == el->GetAttribute(atrybut))
-					return el;
-			}
+		TiXmlElement* element = p ? p : n;
+		for(TiXmlElement* t = element->FirstChildElement(s); t!= nullptr; t = t->NextSiblingElement(s) ){
+			auto s = t->Attribute(atrybut);
+			if(s && wartosc == *s)
+				return t;
 		}
 		return nullptr;
 	}

@@ -19,7 +19,7 @@ public:
 	* \param id - Id przechowywane przez klase.
 	*/
 	explicit Base( const IdType& id ) throw();
-	explicit Base( ticpp::Node* ) throw(WyjatekParseraXML);
+	explicit Base( TiXmlElement * ) throw(WyjatekParseraXML);
 	
 	/**
 	* Destruktor domyœlny.

@@ -11,12 +11,12 @@ using std::map;
 class FUNCTRANSF_API ZmianaFabryka
 {
 public:
-	typedef ZmianaInterfejs* (*KreatorZmiany)( const ticpp::Element* );
+	typedef ZmianaInterfejs* (*KreatorZmiany)( TiXmlElement* );
 	typedef bool (*RejestrujZmiane)( ZmianaFabryka& fabryka , Log& logger );
 
 	static ZmianaFabryka& pobierzInstancje();
 	
-	shared_ptr<ZmianaInterfejs> Tworz( const ticpp::Element* );
+	shared_ptr<ZmianaInterfejs> Tworz( TiXmlElement* );
 
 	bool RejestracjaZmiany(int id, KreatorZmiany fun);
 

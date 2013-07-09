@@ -13,7 +13,7 @@ protected:
 public:
 	
 	IdType();
-	IdType( ticpp::Node* );
+	IdType( TiXmlElement* );
 	explicit IdType( const type_name& ID );
 	IdType( const Ilosc& ID );
 	IdType( const IdType& a );

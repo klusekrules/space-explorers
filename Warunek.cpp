@@ -10,21 +10,21 @@ Warunek::Warunek(const Warunek& w)
 	this->operator=(w);
 }
 
-Warunek::Warunek( ticpp::Node* n ) throw(WyjatekParseraXML)
+Warunek::Warunek( TiXmlElement* n ) throw(WyjatekParseraXML)
 {
 	if(n){
 		try{
-			auto e = n->FirstChildElement(false);
+			auto e = n->FirstChildElement();
 			while(e){
 				if(e->Value() == string("Wymog") ){
-					ticpp::Element* firstElement = XmlBO::IterateChildrenElement<NOTHROW>(e,CLASSNAME(ObiektBaseInfo));
+					TiXmlElement* firstElement = XmlBO::IterateChildren<NOTHROW>(e,CLASSNAME(ObiektBaseInfo));
 					if(firstElement){
 						auto first = shared_ptr<ObiektBaseInfo>(new ObiektBaseInfo(firstElement));
-						auto second = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElement<NOTHROW>(e,"Zmiana"));
+						auto second = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildren<NOTHROW>(e,"Zmiana"));
 						dodajWarunek(make_pair(first,second));
 					}
 				}
-				e = e->NextSiblingElement(false);
+				e = e->NextSiblingElement();
 			}
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);

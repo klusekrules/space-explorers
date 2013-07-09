@@ -8,18 +8,17 @@ ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& obj, const Powierzchni
 {
 }
 
-ObiektInfo::ObiektInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
+ObiektInfo::ObiektInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
 	: ObiektBaseInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(ObiektBaseInfo))), zmPowierzchnia(nullptr), zmObjetosc(nullptr), zmMasa(nullptr)
 {
 	if(n){
 		try{
-			ticpp::Element* e = n->ToElement();
-			masa.setMasa(stold(e->GetAttribute("masa")));
-			zmMasa = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","masa"));
-			objetosc.setObjetosc(stold(e->GetAttribute("objetosc")));
-			zmObjetosc = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","objetosc"));
-			powierzchnia.setPowierzchnia(stold(e->GetAttribute("powierzchnia")));
-			zmPowierzchnia = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenElementIf<NOTHROW>(n,"Zmiana","for","powierzchnia"));
+			masa.setMasa(stold(n->Attribute("masa")));
+			zmMasa = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenIf<NOTHROW>(n,"Zmiana","for","masa"));
+			objetosc.setObjetosc(stold(n->Attribute("objetosc")));
+			zmObjetosc = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenIf<NOTHROW>(n,"Zmiana","for","objetosc"));
+			powierzchnia.setPowierzchnia(stold(n->Attribute("powierzchnia")));
+			zmPowierzchnia = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::IterateChildrenIf<NOTHROW>(n,"Zmiana","for","powierzchnia"));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

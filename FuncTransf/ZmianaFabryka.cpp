@@ -30,9 +30,9 @@ ZmianaFabryka& ZmianaFabryka::pobierzInstancje(){
 }
 
 
-shared_ptr<ZmianaInterfejs> ZmianaFabryka::Tworz( const ticpp::Element* e ){
+shared_ptr<ZmianaInterfejs> ZmianaFabryka::Tworz( TiXmlElement* e ){
 	if(e){
-		string str = e->GetAttribute("id");
+		string str = e->Attribute("id");
 		if(str.empty())
 			return nullptr;
 			//throw BrakAtrybutuXML(EXCEPTION_PLACE,Tekst("id"));

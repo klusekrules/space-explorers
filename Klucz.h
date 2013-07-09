@@ -14,7 +14,7 @@ class Klucz:
 	friend struct KluczHash;
 public:
 	Klucz();
-	Klucz( ticpp::Node* );
+	Klucz( TiXmlElement* );
 	Klucz( const IdType& , const Poziom& );
 	explicit Klucz( const type_name& );
 	Klucz( const Klucz& );

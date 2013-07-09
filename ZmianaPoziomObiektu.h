@@ -8,7 +8,7 @@ class ZmianaPoziomObiektu:
 {
 private:
 	static const int idKlasy;
-	static ZmianaInterfejs* TworzZmianaPoziomObiektu( const ticpp::Element* e ){
+	static ZmianaInterfejs* TworzZmianaPoziomObiektu( TiXmlElement* e ){
 		return new ZmianaPoziomObiektu(e);
 	}
 public:	
@@ -21,7 +21,7 @@ public:
 
 	ZmianaPoziomObiektu* Kopia()const override;
 
-	explicit ZmianaPoziomObiektu( const ticpp::Element * e );
+	explicit ZmianaPoziomObiektu( TiXmlElement * e );
 	virtual ~ZmianaPoziomObiektu(void);
 
 	string toString () const override;

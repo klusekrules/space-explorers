@@ -14,7 +14,7 @@ class FUNCTRANSF_API ZmianaAgregacja :
 private:
 	static ZmianaFabryka* zFabryka;
 	static const int idKlasy;
-	static ZmianaInterfejs* TworzZmianaAgregacja( const ticpp::Element* e ){
+	static ZmianaInterfejs* TworzZmianaAgregacja( TiXmlElement* e ){
 		return new ZmianaAgregacja(e);
 	}
 public:	
@@ -28,7 +28,7 @@ public:
 	
 	long double value( const long double& , const int&, const int& )const override;
 
-	explicit ZmianaAgregacja( const ticpp::Element* );
+	explicit ZmianaAgregacja( TiXmlElement* );
 
 	ZmianaAgregacja( const ZmianaAgregacja& );
 

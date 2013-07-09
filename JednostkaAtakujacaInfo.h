@@ -21,7 +21,7 @@ public:
 	*/
 	JednostkaAtakujacaInfo(const Info& info, const Obrazenia& oAtak,const Obrazenia& oPancerz, const Obrazenia& oOslona ) throw();
 
-	explicit JednostkaAtakujacaInfo( ticpp::Node* ) throw(WyjatekParseraXML);
+	explicit JednostkaAtakujacaInfo( TiXmlElement* ) throw(WyjatekParseraXML);
 
 	JednostkaAtakujacaInfo( const JednostkaAtakujacaInfo& );
 	

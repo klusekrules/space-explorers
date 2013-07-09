@@ -13,7 +13,7 @@ class Info:
 {
 public:
 	Info( const Tekst& , const Tekst& , const IdType&, const Wymagania& ) throw();
-	explicit Info( ticpp::Node* ) throw(WyjatekParseraXML);
+	explicit Info( TiXmlElement * ) throw(WyjatekParseraXML);
 	virtual ~Info();
 
 	const Tekst& getNazwa() const;

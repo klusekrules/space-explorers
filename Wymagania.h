@@ -11,7 +11,7 @@ class Wymagania :
 	virtual public LoggerInterface
 {
 public:
-	explicit Wymagania( ticpp::Node* ) throw(WyjatekParseraXML);
+	explicit Wymagania( TiXmlElement* ) throw(WyjatekParseraXML);
 
 	/**
 	* Funkcja sprawdzaj¹ca czy zosta³y spe³nione wymagania dla danej planety.
