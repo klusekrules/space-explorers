@@ -9,34 +9,127 @@ class NOTHROW { };
 class XmlBO{
 private:
 	template < typename T > 
-	static TiXmlElement * fail( bool n , string s ){
+	static TiXmlElement * fail( bool czyWezelPusty , string nazwaWezla ){
 		return nullptr;
 	}
+
 	template < > 
-	static TiXmlElement * fail<THROW>( bool n , string s ){
-		throw WyjatekParseraXML(EXCEPTION_PLACE,exception((s + " isNull=" + to_string(n)).c_str()),WyjatekParseraXML::trescBladStrukturyXml);
+	static TiXmlElement * fail<THROW>( bool czyWezelPusty , string nazwaWezla ){
+		throw WyjatekParseraXML(EXCEPTION_PLACE,exception((nazwaWezla + " isNull=" + to_string(czyWezelPusty)).c_str()),WyjatekParseraXML::trescBladStrukturyXml);
 	}
+
 public:
 	template<typename T>
-	static TiXmlElement* IterateChildren( TiXmlElement* n , const string& s, TiXmlElement* p = nullptr ){
-		if(n==nullptr || s.empty())
-			return fail<T>(n==nullptr,s);
-		if(p)
-			return p->NextSiblingElement(s);
+	static TiXmlElement* IterateChildren( TiXmlElement* wezel , const string& nazwa, TiXmlElement* poprzedniWezel = nullptr ){
+		if(wezel==nullptr || nazwa.empty())
+			return fail<T>(wezel==nullptr,nazwa);
+		if(poprzedniWezel)
+			return poprzedniWezel->NextSiblingElement(nazwa);
 		else
-			return n->FirstChildElement(s);
+			return wezel->FirstChildElement(nazwa);
 	}
 	
 	template<typename T>
-	static TiXmlElement* IterateChildrenIf( TiXmlElement* n , const string& s, const string& atrybut, const string& wartosc, TiXmlElement* p = nullptr ){
-		if(n==nullptr || s.empty())
-			return fail<T>(n==nullptr,s);
-		TiXmlElement* element = p ? p : n;
-		for(TiXmlElement* t = element->FirstChildElement(s); t!= nullptr; t = t->NextSiblingElement(s) ){
-			auto s = t->Attribute(atrybut);
-			if(s && wartosc == *s)
-				return t;
+	static TiXmlElement* IterateChildrenIf( TiXmlElement* wezel ,
+											const string& nazwaWezla,
+											const string& nazwaAtrybutu,
+											const string& wartoscAtrybutu,
+											TiXmlElement* poprzedniWezel = nullptr )
+	{
+		if(wezel==nullptr || nazwaWezla.empty() || nazwaAtrybutu.empty())
+			return fail<T>(wezel==nullptr,nazwaWezla);
+		TiXmlElement* element = poprzedniWezel ? poprzedniWezel : wezel;
+		for(TiXmlElement* wezelDziecko = element->FirstChildElement(s); wezelDziecko!= nullptr; wezelDziecko = wezelDziecko->NextSiblingElement(s) ){
+			auto tmp = wezelDziecko->Attribute(nazwaAtrybutu);
+			if(tmp && wartoscAtrybutu == *tmp)
+				return wezelDziecko;
 		}
 		return nullptr;
+	}
+	
+	template<typename T>
+	static bool WczytajAtrybut( TiXmlElement* wezel , const string& nazwa, BaseInterface<T>& obiekt ){
+		if(!wezel)
+			return false;
+		const string * napis = wezel->Attribute(nazwa);
+		if(!napis)
+			false;
+		obiekt(napis);
+		return true;
+	}
+
+	template< >
+	static bool WczytajAtrybut<double>( TiXmlElement* wezel , const string& nazwa, BaseInterface<double>& obiekt ){
+		if(!wezel)
+			return false;
+		const string * napis = wezel->Attribute(nazwa);
+		if(!napis)
+			false;
+		if(napis->length()>0){
+			double tmp;
+			tmp = stod(*napis);
+			obiekt(tmp);
+		}
+		return true;
+	}
+
+	template< >
+	static bool WczytajAtrybut<long double>( TiXmlElement* wezel , const string& nazwa, BaseInterface<long double>& obiekt ){
+		if(!wezel)
+			return false;
+		const string * napis = wezel->Attribute(nazwa);
+		if(!napis)
+			false;
+		if(napis->length()>0){
+			long double tmp;
+			tmp = stold(*napis);
+			obiekt(tmp);
+		}
+		return true;
+	}
+
+	template< >
+	static bool WczytajAtrybut<int>( TiXmlElement* wezel , const string& nazwa, BaseInterface<int>& obiekt ){
+		if(!wezel)
+			return false;
+		const string * napis = wezel->Attribute(nazwa);
+		if(!napis)
+			false;
+		if(napis->length()>0){
+			int tmp;
+			tmp = stoul(*napis);
+			obiekt(tmp);
+		}
+		return true;
+	}
+
+	template< >
+	static bool WczytajAtrybut<unsigned int>( TiXmlElement* wezel , const string& nazwa, BaseInterface<unsigned int>& obiekt ){
+		if(!wezel)
+			return false;
+		const string * napis = wezel->Attribute(nazwa);
+		if(!napis)
+			false;
+		if(napis->length()>0){
+			unsigned int tmp;
+			tmp = stoul(*napis);
+			obiekt(tmp);
+		}
+		return true;
+	}
+
+	template< >
+	static bool WczytajAtrybut<float>( TiXmlElement* wezel , const string& nazwa, BaseInterface<float>& obiekt ){
+		if(!wezel)
+			return false;
+		const string * napis = wezel->Attribute(nazwa);
+		if(!napis)
+			false;
+		if(napis->length()>0){
+			float tmp;
+			tmp = stof(*napis);
+			obiekt(tmp);
+		}
+		return true;
 	}
 };
