@@ -22,7 +22,7 @@ ZmianaPotegowa* ZmianaPotegowa::Kopia()const{
 }
 
 bool ZmianaPotegowa::RejestrujZmianaPotegowa( ZmianaFabryka &ref ){
-	return ref.RejestracjaZmiany(idKlasy,ZmianaPotegowa::TworzZmianaPotegowa);
+	return ref.rejestracjaZmiany(idKlasy,ZmianaPotegowa::TworzZmianaPotegowa);
 }
 
 string ZmianaPotegowa::toString()const{

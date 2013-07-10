@@ -22,7 +22,7 @@ ZmianaLiniowa* ZmianaLiniowa::Kopia()const{
 }
 
 bool ZmianaLiniowa::RejestrujZmianaLiniowa(  ZmianaFabryka &ref ){
-	return ref.RejestracjaZmiany(idKlasy,ZmianaLiniowa::TworzZmianaLiniowa);
+	return ref.rejestracjaZmiany(idKlasy,ZmianaLiniowa::TworzZmianaLiniowa);
 }
 
 string ZmianaLiniowa::toString()const{
