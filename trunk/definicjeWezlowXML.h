@@ -53,3 +53,4 @@
 #define ATRYBUT_XML_POJEMNOSC_MAKSYMALNA "pojemnoscMaksymalna"
 
 #define WARTOSC_ATRYBUTU_XML_NASTEPNY "nastepny"
+#define WARTOSC_ATRYBUTU_XML_BRAT "brat"

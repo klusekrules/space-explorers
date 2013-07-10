@@ -57,7 +57,7 @@
         <Zmiana id="3" for="nastepny">
           <Param id="0" wspolczynnik="3.0"/>
         </Zmiana>
-        <Zmiana id="3">
+        <Zmiana id="3" for="brat">
           <Param id="0" wspolczynnik="5.0"/>
         </Zmiana>
       </Zmiana>
@@ -106,7 +106,7 @@
         <Zmiana id="3" for="nastepny">
           <Param id="0" wspolczynnik="3.0"/>
         </Zmiana>
-        <Zmiana id="3">
+        <Zmiana id="3" for="brat">
           <Param id="0" wspolczynnik="5.0"/>
         </Zmiana>
       </Zmiana>
