@@ -67,7 +67,7 @@ bool Warunek::czySpelniaWarunki( const PodstawoweParametry& p ) const{
 	for (auto a : warunki){
 		Poziom poz;
 		if(a.second)
-			poz = Poziom(static_cast<Poziom::type_name>(a.second->value(a.first->getPoziom()(),p.getPoziom()(),p.getIdPlanety()())));
+			poz = Poziom(static_cast<Poziom::type_name>(a.second->policzWartosc(a.first->getPoziom()(),p.getPoziom()(),p.getIdPlanety()())));
 		else
 			poz = a.first->getPoziom();
 
@@ -87,7 +87,7 @@ Warunek::PrzetworzoneWarunki Warunek::listaWarunkow( const PodstawoweParametry& 
 
 shared_ptr< ObiektBaseInfo > Warunek::przeliczWarunek( Item& o , const PodstawoweParametry& p ) const{
 	if(o.second)
-		return shared_ptr< ObiektBaseInfo > ( new ObiektBaseInfo( *(o.first), Poziom( static_cast<Poziom::type_name>(floorl(o.second->value( o.first->getPoziom()() , static_cast<int>(p.getPoziom()()),p.getIdPlanety()() ))) ) ) );
+		return shared_ptr< ObiektBaseInfo > ( new ObiektBaseInfo( *(o.first), Poziom( static_cast<Poziom::type_name>(floorl(o.second->policzWartosc( o.first->getPoziom()() , static_cast<int>(p.getPoziom()()),p.getIdPlanety()() ))) ) ) );
 	else
 		return shared_ptr< ObiektBaseInfo > ( new ObiektBaseInfo( *(o.first), Poziom( o.first->getPoziom() ) ) );
 }

@@ -47,14 +47,14 @@ ZmianaAgregacja::~ZmianaAgregacja()
 {
 }
 
-long double ZmianaAgregacja::value( const long double& d, const int& p, const int& planeta )const{
+long double ZmianaAgregacja::policzWartosc(long double wartosc, int poziom, int identyfikatorPlanety)const{
 	if(!next)
-		return d;
-	long double v = next->value(d,p,planeta);
+		return wartosc;
+	long double v = next->policzWartosc(wartosc,poziom,identyfikatorPlanety);
 	long double suma = 0;
 	for(auto e : list){
 		if(e.get())
-			suma+=e->value(v,p,planeta);
+			suma+=e->policzWartosc(v,poziom,identyfikatorPlanety);
 	}
 	return suma;
 }

@@ -26,7 +26,7 @@ private:
 
 public:
 	
-	long double value( const long double& , const int&, const int& )const override;
+	long double policzWartosc(long double wartosc, int poziom, int identyfikatorPlanety)const override;
 
 	explicit ZmianaAgregacja( TiXmlElement* );
 

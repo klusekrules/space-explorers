@@ -53,7 +53,7 @@ public:
 			return false;
 		const string * napis = wezel->Attribute(nazwa);
 		if(!napis)
-			false;
+			return false;
 		obiekt(napis);
 		return true;
 	}
@@ -64,7 +64,7 @@ public:
 			return false;
 		const string * napis = wezel->Attribute(nazwa);
 		if(!napis)
-			false;
+			return false;
 		if(napis->length()>0){
 			double tmp;
 			tmp = stod(*napis);
@@ -79,7 +79,7 @@ public:
 			return false;
 		const string * napis = wezel->Attribute(nazwa);
 		if(!napis)
-			false;
+			return false;
 		if(napis->length()>0){
 			long double tmp;
 			tmp = stold(*napis);
@@ -94,7 +94,7 @@ public:
 			return false;
 		const string * napis = wezel->Attribute(nazwa);
 		if(!napis)
-			false;
+			return false;
 		if(napis->length()>0){
 			int tmp;
 			tmp = stoul(*napis,nullptr,0);
@@ -109,7 +109,7 @@ public:
 			return false;
 		const string * napis = wezel->Attribute(nazwa);
 		if(!napis)
-			false;
+			return false;
 		if(napis->length()>0){
 			unsigned int tmp;
 			tmp = stoul(*napis,nullptr,0);
@@ -124,7 +124,7 @@ public:
 			return false;
 		const string * napis = wezel->Attribute(nazwa);
 		if(!napis)
-			false;
+			return false;
 		if(napis->length()>0){
 			float tmp;
 			tmp = stof(*napis);
@@ -134,44 +134,39 @@ public:
 	}
 
 	template<typename T>
-	static bool WczytajAtrybut( TiXmlElement* wezel , const string& nazwa, T& obiekt ){
+	static T WczytajAtrybut( TiXmlElement* wezel , const string& nazwa ){
 		if(!wezel)
-			return false;
+			return 0;
 		const string * napis = wezel->Attribute(nazwa);
 		if(!napis)
-			false;
-		obiekt=napis;
-		return true;
+			return 0;
+		return *napis;
 	}
 
 	template< >
-	static bool WczytajAtrybut<int>( TiXmlElement* wezel , const string& nazwa, int& obiekt ){
+	static int WczytajAtrybut<int>( TiXmlElement* wezel , const string& nazwa ){
 		if(!wezel)
-			return false;
+			return 0;
 		const string * napis = wezel->Attribute(nazwa);
 		if(!napis)
-			false;
+			return 0;
 		if(napis->length()>0){
-			int tmp;
-			tmp = stoul(*napis,nullptr,0);
-			obiekt=tmp;
+			return stoul(*napis,nullptr,0);
 		}
-		return true;
+		return 0;
 	}
 
 	template< >
-	static bool WczytajAtrybut<long double>( TiXmlElement* wezel , const string& nazwa, long double& obiekt ){
+	static long double WczytajAtrybut<long double>( TiXmlElement* wezel , const string& nazwa ){
 		if(!wezel)
-			return false;
+			return 0;
 		const string * napis = wezel->Attribute(nazwa);
 		if(!napis)
-			false;
+			return 0;
 		if(napis->length()>0){
-			long double tmp;
-			tmp = stold(*napis);
-			obiekt=tmp;
+			return stold(*napis);
 		}
-		return true;
+		return 0;
 	}
 
 };

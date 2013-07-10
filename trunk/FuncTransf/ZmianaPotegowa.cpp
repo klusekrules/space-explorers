@@ -13,7 +13,7 @@ ZmianaPotegowa::~ZmianaPotegowa(void)
 {
 }
 
-long double ZmianaPotegowa::value(const long double& d, const int& p, const int&) const{
+long double ZmianaPotegowa::policzWartosc(long double d, int p, int) const{
 	return d * wspolczynnik.pobierzWspolczynnik() * pow(static_cast<long double>(p),wykladnik.pobierzWspolczynnik());
 }
 
