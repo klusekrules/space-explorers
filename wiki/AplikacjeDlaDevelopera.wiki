@@ -9,4 +9,4 @@ Generowanie dokumentacji
 [http://www.graphviz.org/]
 
 Diagram UML
-[http://sourceforge.net/projects/whitestaruml/‎]
+[http://sourceforge.net/projects/whitestaruml/]
