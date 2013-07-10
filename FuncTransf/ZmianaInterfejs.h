@@ -15,9 +15,9 @@ class FUNCTRANSF_API ZmianaInterfejs:
 public:
 	/**
 	* Metoda czysto wirtualna s³u¿aca do wyliczania wartoœci parametru przekazan¹ do metody, zale¿n¹ od poziomu i planety na której znajdzuje siê obiekt.
-	* \param wartosc[in] - Wartoœæ atrybutu obiektu do przeliczenia.
-	* \param poziom[in] - Poziom obiektu, dla którego wyliczana jest wartoœæ atrybutu.
-	* \param identyfikatorPlanety[in] - Identyfikator planety, na której znajduje siê obiekt.
+	* \param[in] wartosc - Wartoœæ atrybutu obiektu do przeliczenia.
+	* \param[in] poziom - Poziom obiektu, dla którego wyliczana jest wartoœæ atrybutu.
+	* \param[in] identyfikatorPlanety - Identyfikator planety, na której znajduje siê obiekt.
 	* \return Nowa wyliczona wartoœæ atrybutu obiektu.
 	*/
 	virtual long double policzWartosc(long double wartosc, int poziom, int identyfikatorPlanety) const = 0;

@@ -19,7 +19,7 @@ private:
 public:
 	/**
 	* Konstruktor tworz¹cy obiekt na podstawie wêz³a.
-	* \param wezel[in] - Wêze³ drzewa XML.
+	* \param[in] wezel - Wêze³ drzewa XML.
 	* \warning Obiekt zostanie poprawnie utworzony, je¿eli wêze³ bêdzie posiada³ poprawne atrybuty o nazwach zdefiniowanych przez ATRYBUT_XML_IDENTYFIKATOR oraz ATRYBUT_XML_WSPOLCZYNNIK.
 	* \sa ATRYBUT_XML_IDENTYFIKATOR, ATRYBUT_XML_WSPOLCZYNNIK
 	*/
