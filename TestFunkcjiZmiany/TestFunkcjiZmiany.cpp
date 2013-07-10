@@ -17,7 +17,7 @@ ZmianaTest::~ZmianaTest(void)
 }
 
 long double ZmianaTest::value(const long double& d, const int& p, const int&) const{
-	return d * parametr.getWspolczynnik() * p * 10 ;
+	return d * parametr.pobierzWspolczynnik() * p * 10 ;
 }
 
 ZmianaTest* ZmianaTest::Kopia()const{

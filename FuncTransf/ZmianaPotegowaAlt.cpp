@@ -17,9 +17,9 @@ ZmianaPotegowaAlt::~ZmianaPotegowaAlt(void)
 
 long double ZmianaPotegowaAlt::value(const long double& d, const int& p, const int& i) const{
 	if(wykladnik)
-		return d * pow(static_cast<long double>(wspolczynnik.getWspolczynnik()),-(wykladnik->value(d,p,i)));
+		return d * pow(static_cast<long double>(wspolczynnik.pobierzWspolczynnik()),-(wykladnik->value(d,p,i)));
 	else
-		return d * pow(static_cast<long double>(wspolczynnik.getWspolczynnik()),0);
+		return d * pow(static_cast<long double>(wspolczynnik.pobierzWspolczynnik()),0);
 }
 
 ZmianaPotegowaAlt* ZmianaPotegowaAlt::Kopia()const{
