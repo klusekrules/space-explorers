@@ -25,7 +25,7 @@ public:
 	/**
 	* Metoda czysto wirtualna tworz¹ca kopiê obiektu.
 	* \return WskaŸnik na kopiê obiektu.
-	* \warning Obiekt nie zarz¹dza i nie u¿ywa kopii, które utworzy³. Pamiêæ musi zostaæ zwolniona na zewn¹trz, za pomoca operatora delete.
+	* \remark Obiekt nie zarz¹dza i nie u¿ywa kopii, które utworzy³. Pamiêæ musi zostaæ zwolniona na zewn¹trz, za pomoca operatora delete.
 	*/
 	virtual ZmianaInterfejs* Kopia() const = 0;
 

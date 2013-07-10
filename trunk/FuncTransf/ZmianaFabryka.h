@@ -31,7 +31,7 @@ public:
 	* \param[in,out] fabryka - Instacja fabryki, w której nale¿y zarejestrowaæ zmianê, aby aplikacja potrafi³a utworzyæ obiekt zmiany.
 	* \param[in,out] logger - Instacja loggera do wyœwietlania komunikatów o b³êdach.
 	* \return Funkcja powinna zwracaæ true, jeœli rejestracja siê powiedzie lub false w przeciwnym wypadku.
-	* \warning Funkcja powonna wywo³ywaæ na rzecz obiektu fabryka metodê RejestracjaZmiany.
+	* \remark Funkcja powonna wywo³ywaæ na rzecz obiektu fabryka metodê RejestracjaZmiany.
 	* \sa RejestracjaZmiany()
 	*/
 	typedef bool (*RejestrujZmiane)( ZmianaFabryka& fabryka , Log& logger );
@@ -46,7 +46,7 @@ public:
 	* Metoda tworz¹ca obiekt klasy zmiana zarejestrownej w fabryce, na podstawie wêz³a przekazanego przez parametr wezel. Wywo³uje ona funckjê zarejestrowan¹ przez metodê rejestracjaZmiany i przekazuje jej wezel.
 	* \param[in] wezel - Wêze³ na podstawie, którego tworzony jest obiekt klasy zmiana.
 	* \return Metoda zwraca inteligenty wskaŸnik na utworzony obiekt. Je¿eli operacja siê nie powiedzie zwracany jest wska¿nik na nullptr.
-	* \warning Metoda wymaga, aby w wêŸle by³ atrybut o nazwie zdefiniowanej przez ATRYBUT_XML_IDENTYFIKATOR zawieraj¹cy identyfikator podany podczas rejestracji w funkcji rejestracjaZmiany.
+	* \pre Wêze³ powinien mieæ poprawny atrybut o nazwie zdefiniowanej przez ATRYBUT_XML_IDENTYFIKATOR zawieraj¹cy identyfikator podany podczas rejestracji w funkcji rejestracjaZmiany.
 	* \sa rejestracjaZmiany(), ATRYBUT_XML_IDENTYFIKATOR
 	*/
 	shared_ptr<ZmianaInterfejs> Tworz( TiXmlElement* wezel ) const;
