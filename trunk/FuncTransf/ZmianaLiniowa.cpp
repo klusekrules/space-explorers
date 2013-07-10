@@ -14,7 +14,7 @@ ZmianaLiniowa::~ZmianaLiniowa(void)
 }
 
 long double ZmianaLiniowa::value(const long double& d, const int& p, const int&) const{
-	return d * parametr.getWspolczynnik() * p;
+	return d * parametr.pobierzWspolczynnik() * p;
 }
 
 ZmianaLiniowa* ZmianaLiniowa::Kopia()const{

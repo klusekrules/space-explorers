@@ -132,4 +132,46 @@ public:
 		}
 		return true;
 	}
+
+	template<typename T>
+	static bool WczytajAtrybut( TiXmlElement* wezel , const string& nazwa, T& obiekt ){
+		if(!wezel)
+			return false;
+		const string * napis = wezel->Attribute(nazwa);
+		if(!napis)
+			false;
+		obiekt=napis;
+		return true;
+	}
+
+	template< >
+	static bool WczytajAtrybut<int>( TiXmlElement* wezel , const string& nazwa, int& obiekt ){
+		if(!wezel)
+			return false;
+		const string * napis = wezel->Attribute(nazwa);
+		if(!napis)
+			false;
+		if(napis->length()>0){
+			int tmp;
+			tmp = stoul(*napis,nullptr,0);
+			obiekt=tmp;
+		}
+		return true;
+	}
+
+	template< >
+	static bool WczytajAtrybut<long double>( TiXmlElement* wezel , const string& nazwa, long double& obiekt ){
+		if(!wezel)
+			return false;
+		const string * napis = wezel->Attribute(nazwa);
+		if(!napis)
+			false;
+		if(napis->length()>0){
+			long double tmp;
+			tmp = stold(*napis);
+			obiekt=tmp;
+		}
+		return true;
+	}
+
 };
