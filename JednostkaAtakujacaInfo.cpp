@@ -53,21 +53,21 @@ Obrazenia JednostkaAtakujacaInfo::getOslona() const{
 
 Obrazenia JednostkaAtakujacaInfo::getAtak(const PodstawoweParametry& p ) const{
 	if(zmAtak)
-		return Obrazenia(zmAtak->value(atak(),static_cast<int>(p.getPoziom()()),p.getIdPlanety()()));
+		return Obrazenia(zmAtak->policzWartosc(atak(),static_cast<int>(p.getPoziom()()),p.getIdPlanety()()));
 	else
 		return atak;
 }
 	
 Obrazenia JednostkaAtakujacaInfo::getPancerz( const PodstawoweParametry& p ) const{
 	if(zmPancerz)
-		return Obrazenia(zmPancerz->value(pancerz(),static_cast<int>(p.getPoziom()()),p.getIdPlanety()()));
+		return Obrazenia(zmPancerz->policzWartosc(pancerz(),static_cast<int>(p.getPoziom()()),p.getIdPlanety()()));
 	else
 		return pancerz;
 }
 
 Obrazenia JednostkaAtakujacaInfo::getOslona(const PodstawoweParametry& p ) const{
 	if(zmOslona)
-		return Obrazenia(zmOslona->value(oslona(),static_cast<int>(p.getPoziom()()),p.getIdPlanety()()));
+		return Obrazenia(zmOslona->policzWartosc(oslona(),static_cast<int>(p.getPoziom()()),p.getIdPlanety()()));
 	else
 		return oslona;
 }

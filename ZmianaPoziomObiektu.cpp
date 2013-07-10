@@ -13,7 +13,7 @@ ZmianaPoziomObiektu::~ZmianaPoziomObiektu(void)
 {
 }
 
-long double ZmianaPoziomObiektu::value(const long double& d, const int& p, const int& idPlaneta ) const{
+long double ZmianaPoziomObiektu::policzWartosc(long double d, int p, int idPlaneta ) const{
 	return Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(IdType(idPlaneta)).pobierzObiekt(IdType(parametr.pobierzIdentyfikatorObiektu())).getPoziom()();
 }
 

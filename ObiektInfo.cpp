@@ -33,19 +33,19 @@ ObiektInfo::~ObiektInfo(){
 Powierzchnia ObiektInfo::getPowierzchnia(const Poziom& pz, const IdType& idPlanety) const {
 	if(zmPowierzchnia == nullptr)
 		return powierzchnia;			
-	return Powierzchnia(zmPowierzchnia->value(powierzchnia(),static_cast<int>(pz()),idPlanety()));
+	return Powierzchnia(zmPowierzchnia->policzWartosc(powierzchnia(),static_cast<int>(pz()),idPlanety()));
 }
 
 Objetosc ObiektInfo::getObjetosc(const Poziom& pz, const IdType& idPlanety) const {
 	if(zmPowierzchnia == nullptr)
 		return objetosc;
-	return Objetosc(zmObjetosc->value(objetosc(),static_cast<int>(pz()), idPlanety()));
+	return Objetosc(zmObjetosc->policzWartosc(objetosc(),static_cast<int>(pz()), idPlanety()));
 }
 
 Masa ObiektInfo::getMasa(const Poziom& pz, const IdType& idPlanety) const {
 	if(zmPowierzchnia == nullptr)
 		return masa;
-	return Masa(zmMasa->value(masa(),static_cast<int>(pz()), idPlanety()));
+	return Masa(zmMasa->policzWartosc(masa(),static_cast<int>(pz()), idPlanety()));
 }
 
 Obiekt* ObiektInfo::TworzEgzemplarz( const Ilosc& iIlosc, const IdType& idPlanety ) const {

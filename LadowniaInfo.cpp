@@ -24,7 +24,7 @@ LadowniaInfo::LadowniaInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
 
 Objetosc LadowniaInfo::getPojemnoscMaksymalna(const PodstawoweParametry& p ) const{
 	if(przyrostPojemnoscMax)
-		return Objetosc(przyrostPojemnoscMax->value(pojemnoscMax(),static_cast<int>(p.getPoziom()()),p.getIdPlanety()()));
+		return Objetosc(przyrostPojemnoscMax->policzWartosc(pojemnoscMax(),static_cast<int>(p.getPoziom()()),p.getIdPlanety()()));
 	else
 		return pojemnoscMax;
 }

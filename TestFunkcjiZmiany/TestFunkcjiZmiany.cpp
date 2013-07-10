@@ -16,7 +16,7 @@ ZmianaTest::~ZmianaTest(void)
 {
 }
 
-long double ZmianaTest::value(const long double& d, const int& p, const int&) const{
+long double ZmianaTest::policzWartosc(long double d, int p, int) const{
 	return d * parametr.pobierzWspolczynnik() * p * 10 ;
 }
 

@@ -13,7 +13,7 @@ ZmianaLiniowa::~ZmianaLiniowa(void)
 {
 }
 
-long double ZmianaLiniowa::value(const long double& d, const int& p, const int&) const{
+long double ZmianaLiniowa::policzWartosc(long double d, int p, int) const{
 	return d * parametr.pobierzWspolczynnik() * p;
 }
 

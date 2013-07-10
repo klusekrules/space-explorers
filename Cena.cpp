@@ -31,7 +31,7 @@ shared_ptr<Cena::Item> Cena::PobierzKoszty(const Ilosc& i, const PodstawoweParam
 	shared_ptr<Item> tmp(obiekty->Kopia());
 	tmp->ustawKontekst(param);
 	if(zmiana){
-		tmp->setIlosc(Ilosc(i()* zmiana->value(obiekty->getIlosc()(),static_cast<int>(param.getPoziom()()),param.getIdPlanety()())));
+		tmp->setIlosc(Ilosc(i()* zmiana->policzWartosc(obiekty->getIlosc()(),static_cast<int>(param.getPoziom()()),param.getIdPlanety()())));
 	}else{
 		tmp->setIlosc(Ilosc(i()* obiekty->getIlosc()() ));
 	}
@@ -65,7 +65,7 @@ bool Cena::czySpelniaKoszty( const Ilosc& i, const PodstawoweParametry& p ) cons
 	
 	Ilosc poz;
 	if(zmiana)
-		poz = Ilosc(static_cast<Ilosc::type_name>(zmiana->value(obiekty->getIlosc()(),p.getPoziom()(),p.getIdPlanety()())));
+		poz = Ilosc(static_cast<Ilosc::type_name>(zmiana->policzWartosc(obiekty->getIlosc()(),p.getPoziom()(),p.getIdPlanety()())));
 	else
 		poz = obiekty->getIlosc();
 
