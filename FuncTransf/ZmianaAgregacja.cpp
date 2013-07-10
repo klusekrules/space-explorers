@@ -61,7 +61,7 @@ long double ZmianaAgregacja::policzWartosc(long double wartosc, int poziom, int 
 
 bool ZmianaAgregacja::RejestrujZmianaAgregacja( ZmianaFabryka &ref ){
 	zFabryka = &ref;
-	return ref.RejestracjaZmiany(idKlasy,ZmianaAgregacja::TworzZmianaAgregacja);
+	return ref.rejestracjaZmiany(idKlasy,ZmianaAgregacja::TworzZmianaAgregacja);
 }
 
 string ZmianaAgregacja::toString() const{

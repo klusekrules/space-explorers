@@ -28,7 +28,7 @@ ZmianaPotegowaAlt* ZmianaPotegowaAlt::Kopia()const{
 
 bool ZmianaPotegowaAlt::RejestrujZmianaPotegowaAlt( ZmianaFabryka &ref ){
 	zFabryka = &ref;
-	return ref.RejestracjaZmiany(idKlasy,ZmianaPotegowaAlt::TworzZmianaPotegowaAlt);
+	return ref.rejestracjaZmiany(idKlasy,ZmianaPotegowaAlt::TworzZmianaPotegowaAlt);
 }
 
 string ZmianaPotegowaAlt::toString()const{

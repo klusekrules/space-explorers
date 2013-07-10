@@ -1,48 +1,42 @@
 #include "ZmianaFabryka.h"
+#include "..\XmlBO.h"
+#include "..\definicjeWezlowXML.h"
 
 ZmianaFabryka::ZmianaFabryka()
 {
 }
 
-ZmianaFabryka::ZmianaFabryka( const ZmianaFabryka& a)
+ZmianaFabryka::ZmianaFabryka( const ZmianaFabryka& obiekt )
+	: callbacks_ ( obiekt.callbacks_ )
 {
 }
 
-ZmianaFabryka& ZmianaFabryka::operator=(const ZmianaFabryka& a){
-	callbacks_ = a.callbacks_;
+ZmianaFabryka& ZmianaFabryka::operator=( const ZmianaFabryka& obiekt ){
+	callbacks_ = obiekt.callbacks_;
 	return *this;
 }
 
-ZmianaFabryka::~ZmianaFabryka()
-{
-}
-
-bool ZmianaFabryka::RejestracjaZmiany(int id, KreatorZmiany funkcja){
-	if(callbacks_.find(id)!=callbacks_.end())
+bool ZmianaFabryka::rejestracjaZmiany( int id, KreatorZmiany funkcja ){
+	if( funkcja==nullptr || id==0 || callbacks_.find(id)!=callbacks_.end() )
 		return false;
 	callbacks_[id] = funkcja;
 	return true;
 }
 
 ZmianaFabryka& ZmianaFabryka::pobierzInstancje(){
-	static ZmianaFabryka a;
-	return a;
+	static ZmianaFabryka instancja;
+	return instancja;
 }
 
-
-shared_ptr<ZmianaInterfejs> ZmianaFabryka::Tworz( TiXmlElement* e ){
-	if(e){
-		string str = e->Attribute("id");
-		if(str.empty())
+shared_ptr<ZmianaInterfejs> ZmianaFabryka::Tworz( TiXmlElement* wezel ) const {
+	if(wezel){
+		int id = XmlBO::WczytajAtrybut<int>( wezel, ATRYBUT_XML_IDENTYFIKATOR );
+		if(id==0)
 			return nullptr;
-			//throw BrakAtrybutuXML(EXCEPTION_PLACE,Tekst("id"));
-		int id = stoi( str, nullptr, 0 );
-		auto i = callbacks_.find(id);
-		if(i == callbacks_.end())
+		auto iterator = callbacks_.find(id);
+		if(iterator == callbacks_.end())
 			return nullptr;
-			//throw NieznalezionoObiektu(EXCEPTION_PLACE,str);
-		return shared_ptr<ZmianaInterfejs>(callbacks_[id](e));
+		return shared_ptr<ZmianaInterfejs>( iterator->second(wezel) );
 	}
-	//throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("Unexpected"),Tekst("Nieoczekiwane wystapienie bledu."));
 	return nullptr;
 }

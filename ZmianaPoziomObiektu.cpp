@@ -22,7 +22,7 @@ ZmianaPoziomObiektu* ZmianaPoziomObiektu::Kopia()const{
 }
 
 bool ZmianaPoziomObiektu::RejestrujZmianaPoziomObiektu(  ZmianaFabryka &ref ){
-	return ref.RejestracjaZmiany(idKlasy,ZmianaPoziomObiektu::TworzZmianaPoziomObiektu);
+	return ref.rejestracjaZmiany(idKlasy,ZmianaPoziomObiektu::TworzZmianaPoziomObiektu);
 }
 
 string ZmianaPoziomObiektu::toString()const{

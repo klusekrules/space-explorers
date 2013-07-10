@@ -25,7 +25,7 @@ ZmianaTest* ZmianaTest::Kopia()const{
 }
 
 bool ZmianaTest::RejestrujZmianaTest(  ZmianaFabryka &ref ){
-	return ref.RejestracjaZmiany(idKlasy,ZmianaTest::TworzZmianaTest);
+	return ref.rejestracjaZmiany(idKlasy,ZmianaTest::TworzZmianaTest);
 }
 
 string ZmianaTest::toString()const{
