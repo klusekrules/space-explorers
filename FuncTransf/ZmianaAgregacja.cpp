@@ -4,73 +4,72 @@
 #include "..\Logger\Logger.h"
 #include "..\definicjeWezlowXML.h"
 
-ZmianaAgregacja::ZmianaAgregacja( TiXmlElement* e )
+ZmianaAgregacja::ZmianaAgregacja( TiXmlElement* wezel )
 {
-	if( e && zFabryka ){
-		next = zFabryka->Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,WARTOSC_ATRYBUTU_XML_NASTEPNY));
-		for( TiXmlElement* n = XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,WARTOSC_ATRYBUTU_XML_NASTEPNY)->NextSiblingElement(WEZEL_XML_ZMIANA); n ; n = n->NextSiblingElement(WEZEL_XML_ZMIANA) ){
-			auto e = zFabryka->Tworz(n->ToElement());
-			if(e)
-				list.push_back(e);
+	if( wezel && fabryka_ ){
+		nastepna_ = fabryka_->Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>( wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WARTOSC_ATRYBUTU_XML_NASTEPNY ));
+		TiXmlElement* dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>( wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WARTOSC_ATRYBUTU_XML_BRAT );
+		for( ; dziecko ; dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>( wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WARTOSC_ATRYBUTU_XML_BRAT, dziecko ) ){
+			auto element = fabryka_->Tworz(dziecko->ToElement());
+			if(element)
+				listaZmian_.push_back(element);
 		}
 	}
+}
+
+ZmianaInterfejs* ZmianaAgregacja::TworzZmianaAgregacja( TiXmlElement* wezel ){
+	return new ZmianaAgregacja(wezel);
 }
 
 ZmianaAgregacja* ZmianaAgregacja::Kopia()const{
 	return new ZmianaAgregacja(*this);
 }
 
-ZmianaAgregacja::ZmianaAgregacja( const ZmianaAgregacja& e)
-	: next(nullptr)
+ZmianaAgregacja::ZmianaAgregacja( const ZmianaAgregacja& obiekt )
+	: nastepna_(nullptr)
 {
-	if(e.next)
-		next = shared_ptr<ZmianaInterfejs>(e.next->Kopia());
-	for(auto a : e.list){
-		if(a.get())
-			list.push_back(shared_ptr<ZmianaInterfejs>(a->Kopia()));
-	}
+	this->operator=(obiekt);
 }
 
-ZmianaAgregacja& ZmianaAgregacja::operator=( const ZmianaAgregacja& e){
-	if(e.next)
-		next = shared_ptr<ZmianaInterfejs>(e.next->Kopia());
+ZmianaAgregacja& ZmianaAgregacja::operator=( const ZmianaAgregacja& obiekt ){
+	if(obiekt.nastepna_)
+		nastepna_ = shared_ptr<ZmianaInterfejs>(obiekt.nastepna_->Kopia());
 	else
-		next = nullptr;
-	for(auto a : e.list){
-		if(a.get())
-			list.push_back(shared_ptr<ZmianaInterfejs>(a->Kopia()));
+		nastepna_ = nullptr;
+	for(auto element : obiekt.listaZmian_){
+		if(element)
+			listaZmian_.push_back(shared_ptr<ZmianaInterfejs>(element->Kopia()));
 	}
 	return *this;
 }
 
-ZmianaAgregacja::~ZmianaAgregacja()
-{
+ZmianaAgregacja::~ZmianaAgregacja(){
 }
 
 long double ZmianaAgregacja::policzWartosc(long double wartosc, int poziom, int identyfikatorPlanety)const{
-	if(!next)
+	if(!nastepna_)
 		return wartosc;
-	long double v = next->policzWartosc(wartosc,poziom,identyfikatorPlanety);
+	long double rezultat = nastepna_->policzWartosc( wartosc, poziom, identyfikatorPlanety );
 	long double suma = 0;
-	for(auto e : list){
-		if(e.get())
-			suma+=e->policzWartosc(v,poziom,identyfikatorPlanety);
+	for(auto element : listaZmian_){
+		if(element)
+			suma+=element->policzWartosc( rezultat, poziom, identyfikatorPlanety );
 	}
 	return suma;
 }
 
-bool ZmianaAgregacja::RejestrujZmianaAgregacja( ZmianaFabryka &ref ){
-	zFabryka = &ref;
-	return ref.rejestracjaZmiany(idKlasy,ZmianaAgregacja::TworzZmianaAgregacja);
+bool ZmianaAgregacja::RejestrujZmianaAgregacja( ZmianaFabryka &fabryka ){
+	fabryka_ = &fabryka;
+	return fabryka.rejestracjaZmiany( identyfikator_, ZmianaAgregacja::TworzZmianaAgregacja );
 }
 
 string ZmianaAgregacja::toString() const{
 	Logger str(CLASSNAME(ZmianaAgregacja));
-	if(next)
-		str.addField("Next",*(next));
-	for( auto a : list){
-		if(a.get())
-			str.addField("Brat",*a);
+	if(nastepna_)
+		str.addField( "Nastêpna", *nastepna_ );
+	for( auto element : listaZmian_){
+		if(element)
+			str.addField( "Brat", *element );
 	}
 	return str.toString();
 }
