@@ -10,3 +10,6 @@ Generowanie dokumentacji
 
 Diagram UML
 [http://sourceforge.net/projects/whitestaruml/]
+
+Usuwanie pustych folderów
+[http://vanityremover.codeplex.com/]
