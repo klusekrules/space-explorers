@@ -4,29 +4,33 @@
 #include "..\XmlBO.h"
 #include "..\definicjeWezlowXML.h"
 
-ZmianaLiniowa::ZmianaLiniowa( TiXmlElement* e )
-	: parametr(XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,WEZEL_XML_PARAM,ATRYBUT_XML_IDENTYFIKATOR,"0"))
+ZmianaLiniowa::ZmianaLiniowa( TiXmlElement* wezel )
+	: parametr_(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_PARAM,ATRYBUT_XML_IDENTYFIKATOR,"0"))
 {
 }
 
-ZmianaLiniowa::~ZmianaLiniowa(void)
+ZmianaLiniowa::~ZmianaLiniowa()
 {
 }
 
-long double ZmianaLiniowa::policzWartosc(long double d, int p, int) const{
-	return d * parametr.pobierzWspolczynnik() * p;
+long double ZmianaLiniowa::policzWartosc(long double wartosc, int poziom, int identyfikatorPlanety) const{
+	return wartosc * parametr_.pobierzWspolczynnik() * poziom;
 }
 
 ZmianaLiniowa* ZmianaLiniowa::Kopia()const{
 	return new ZmianaLiniowa(*this);
 }
 
-bool ZmianaLiniowa::RejestrujZmianaLiniowa(  ZmianaFabryka &ref ){
-	return ref.rejestracjaZmiany(idKlasy,ZmianaLiniowa::TworzZmianaLiniowa);
+bool ZmianaLiniowa::RejestrujZmianaLiniowa(  ZmianaFabryka &fabryka ){
+	return fabryka.rejestracjaZmiany(identyfikator_,ZmianaLiniowa::TworzZmianaLiniowa);
+}
+
+ZmianaInterfejs* ZmianaLiniowa::TworzZmianaLiniowa( TiXmlElement* wezel ){
+	return new ZmianaLiniowa(wezel);
 }
 
 string ZmianaLiniowa::toString()const{
 	Logger str(CLASSNAME(ZmianaLiniowa));
-	str.addField("Parametr",parametr);
+	str.addField("Parametr",parametr_);
 	return str.toString();
 }
