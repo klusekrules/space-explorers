@@ -50,14 +50,14 @@ public:
 	* \return Przeliczona wartoœæ atryutu.
 	*/
 	long double policzWartosc(long double wartosc, int poziom, int identyfikatorPlanety) const override;
-	
+
 	/**
 	* Metoda tworzy kopiê obiektu.
 	* \return WskaŸnik do kopii obiektu.
 	* \warning Zwrócony wskaŸnik musi zostac zwolniony operatorem delete. 
 	*/
 	ZmianaLiniowa* Kopia()const override;
-	
+
 	/**
 	* Konstruktor obiektu na podstawie wêz³a XML.
 	* \param[in] wezel - Wezel drzewa xml.
@@ -70,12 +70,11 @@ public:
 	*/
 	explicit ZmianaLiniowa( TiXmlElement * wezel );
 
-	
 	/**
 	* Destruktor
 	*/
 	virtual ~ZmianaLiniowa();
-	
+
 	/**
 	* Metoda tworz¹ca napis zawieraj¹cy opis obiektu.
 	* \return Opis obiektu.
