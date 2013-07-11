@@ -5,7 +5,7 @@
 #include "definicjeWezlowXML.h"
 
 ZmianaPoziomObiektu::ZmianaPoziomObiektu( TiXmlElement* e )
-	: parametr(XmlBO::ZnajdzWezel<NOTHROW>(e,WEZEL_XML_PARAM))
+	: parametr_(XmlBO::ZnajdzWezel<NOTHROW>( e, WEZEL_XML_PARAM ))
 {
 }
 
@@ -14,7 +14,7 @@ ZmianaPoziomObiektu::~ZmianaPoziomObiektu(void)
 }
 
 long double ZmianaPoziomObiektu::policzWartosc(long double d, int p, int idPlaneta ) const{
-	return Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(IdType(idPlaneta)).pobierzObiekt(IdType(parametr.pobierzIdentyfikatorObiektu())).getPoziom()();
+	return Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(IdType(idPlaneta)).pobierzObiekt(IdType(parametr_.pobierzIdentyfikatorObiektu())).getPoziom()();
 }
 
 ZmianaPoziomObiektu* ZmianaPoziomObiektu::Kopia()const{
@@ -22,16 +22,20 @@ ZmianaPoziomObiektu* ZmianaPoziomObiektu::Kopia()const{
 }
 
 bool ZmianaPoziomObiektu::RejestrujZmianaPoziomObiektu(  ZmianaFabryka &ref ){
-	return ref.rejestracjaZmiany(idKlasy,ZmianaPoziomObiektu::TworzZmianaPoziomObiektu);
+	return ref.rejestracjaZmiany( identyfikator_, ZmianaPoziomObiektu::TworzZmianaPoziomObiektu );
 }
 
 string ZmianaPoziomObiektu::toString()const{
 	Logger str(CLASSNAME(ZmianaPoziomObiektu));
-	str.addField("Parametr",parametr);
+	str.addField( "Parametr", parametr_ );
 	return str.toString();
 }
 
-const int ZmianaPoziomObiektu::idKlasy(6);
+ZmianaInterfejs* ZmianaPoziomObiektu::TworzZmianaPoziomObiektu( TiXmlElement* wezel ){
+	return new ZmianaPoziomObiektu(wezel);
+}
+
+const int ZmianaPoziomObiektu::identyfikator_(6);
 
 bool RejestrujZmianaPoziomObiektu ( ZmianaFabryka& fabryka , Log& logger ){
 	if(ZmianaPoziomObiektu::RejestrujZmianaPoziomObiektu(fabryka))
