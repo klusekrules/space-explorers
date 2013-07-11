@@ -1,14 +1,10 @@
-// TestFunkcjiZmiany.cpp : Defines the exported functions for the DLL application.
-//
-
-#include "stdafx.h"
 #include "TestFunkcjiZmiany.h"
 #include "..\XmlBO.h"
 #include "..\Logger.h"
 #include "..\definicjeWezlowXML.h"
 
 ZmianaTest::ZmianaTest( TiXmlElement* e )
-	: parametr(XmlBO::ZnajdzWezelJezeli<NOTHROW>(e,WEZEL_XML_PARAM,ATRYBUT_XML_IDENTYFIKATOR,"0"))
+	: parametr_(XmlBO::ZnajdzWezel<NOTHROW>( e, WEZEL_XML_PARAM ))
 {
 }
 
@@ -16,8 +12,13 @@ ZmianaTest::~ZmianaTest(void)
 {
 }
 
-long double ZmianaTest::policzWartosc(long double d, int p, int) const{
-	return d * parametr.pobierzWspolczynnik() * p * 10 ;
+ZmianaInterfejs* ZmianaTest::TworzZmianaTest( TiXmlElement* wezel ){
+	return new ZmianaTest(wezel);
+}
+
+
+long double ZmianaTest::policzWartosc(long double wartosc, int poziom, int identyfikatorPlanety) const{
+	return wartosc * parametr_.pobierzWspolczynnik() * poziom * 10 ;
 }
 
 ZmianaTest* ZmianaTest::Kopia()const{
@@ -25,16 +26,16 @@ ZmianaTest* ZmianaTest::Kopia()const{
 }
 
 bool ZmianaTest::RejestrujZmianaTest(  ZmianaFabryka &ref ){
-	return ref.rejestracjaZmiany(idKlasy,ZmianaTest::TworzZmianaTest);
+	return ref.rejestracjaZmiany( identyfikator_, ZmianaTest::TworzZmianaTest );
 }
 
 string ZmianaTest::toString()const{
 	Logger str(CLASSNAME(ZmianaTest));
-	str.addField("Parametr",parametr);
+	str.addField( "Parametr", parametr_ );
 	return str.toString();
 }
 
-const int ZmianaTest::idKlasy(5);
+const int ZmianaTest::identyfikator_(5);
 
 bool RejestrujZmiany ( ZmianaFabryka& fabryka , Log& logger ){
 	if(ZmianaTest::RejestrujZmianaTest(fabryka))
