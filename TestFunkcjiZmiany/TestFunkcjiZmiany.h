@@ -1,9 +1,3 @@
-// The following ifdef block is the standard way of creating macros which make exporting 
-// from a DLL simpler. All files within this DLL are compiled with the TESTFUNKCJIZMIANY_EXPORTS
-// symbol defined on the command line. This symbol should not be defined on any project
-// that uses this DLL. This way any other project whose source files include this file see 
-// TESTFUNKCJIZMIANY_API functions as being imported from a DLL, whereas this DLL sees symbols
-// defined with this macro as being exported.
 #ifdef TESTFUNKCJIZMIANY_EXPORTS
 #define TESTFUNKCJIZMIANY_API __declspec(dllexport)
 #else
@@ -13,30 +7,88 @@
 #include "..\FuncTransf\ZmianaFabryka.h"
 #include "..\FuncTransf\ZmianaParametr.h"
 
+/**
+* \brief Klasa s³u¿aca do testów zmiany.
+*
+* Domyœnie nie bêdzie siê zawieraæ w wersji release.
+* Sposób dzia³ania metody wyliczajacej:
+*	- Wartoœæ atrybutu mno¿ona jest przez wspó³czynik pobrany z parametru i to mno¿one jest przez poziom przekazany w parametrze, ca³oœæ mno¿ona jest przez 10. ( wartosc * parametr_ * poziom * 10 )
+* \author Daniel Wojdak
+* \version 1
+* \date 11-07-2013
+*/
 class TESTFUNKCJIZMIANY_API ZmianaTest:
 	public ZmianaInterfejs,
 	virtual public LoggerInterface
 {
 private:
-	static const int idKlasy;
-	static ZmianaInterfejs* TworzZmianaTest( TiXmlElement* e ){
-		return new ZmianaTest(e);
-	}
-public:	
-	static bool RejestrujZmianaTest( ZmianaFabryka &ref );
+	static const int identyfikator_; /// Identyfikator klasy przekazywany do fabryki.
 
-private:
-	ZmianaParametr parametr;
+	/**
+	* Metoda tworz¹ca obiekt a podstawie wêz³a.
+	* \param[in] wezel - Wêze³ na podstawie którego tworzony jest obiekt.
+	* \return WskaŸnika na obiekt utworzonej zmiany.
+	*/
+	static ZmianaInterfejs* TworzZmianaTest( TiXmlElement* wezel );
+
+	ZmianaParametr parametr_; /// Wspó³czynnik o jaki zmienia siê wartoœæ atrybutu.
 public:
+
+	/**
+	* Metoda rejestruj¹ca klasê w fabryce.
+	* \param[in] fabryka - Referencja do globalnej fabryki.
+	* \return Metoda zwraca wartoœæ true, je¿eli uda siê zarejestrowaæ klasê. Je¿eli wyst¹pi³ b³¹d zwrócona jest wartoœæ false.
+	* \sa ZmianaFabryka
+	*/
+	static bool RejestrujZmianaTest( ZmianaFabryka &fabryka );
+
+	/**
+	* Metoda wyliczaj¹ca wartoœæ.
+	* Sposób dzia³ania metod policzWartosc klasy zmiana agregacja:
+	*	- Wartoœæ atrybutu mno¿ona jest przez wspó³czynik pobrany z parametru i to mno¿one jest przez poziom przekazany w parametrze, ca³oœæ mno¿ona jest przez 10. ( wartosc * parametr_ * poziom * 10 )
+	* \param[in] wartosc - podstawowa wartoœæ parametru, dla kótrego bêdzie wyliczana modyfikacja wartoœci.
+	* \param[in] poziom - poziom obiektu, dla którego bêdzie wyliczana modyfikacja wartoœci.
+	* \param[in] identyfikatorPlanety - identyfikator planety, na której znajduje siê obiekt.
+	* \return Przeliczona wartoœæ atryutu.
+	*/
 	long double policzWartosc(long double wartosc, int poziom, int identyfikatorPlanety) const override;
 
+	/**
+	* Metoda tworzy kopiê obiektu.
+	* \return WskaŸnik do kopii obiektu.
+	* \warning Zwrócony wskaŸnik musi zostac zwolniony operatorem delete. 
+	*/
 	ZmianaTest* Kopia()const override;
 
-	explicit ZmianaTest( TiXmlElement * e );
-	virtual ~ZmianaTest(void);
+	/**
+	* Konstruktor obiektu na podstawie wêz³a XML.
+	* \param[in] wezel - Wezel drzewa xml.
+	* \pre Wêze³ musi zawieraæ nastêpuj¹c¹ strukturê
+	* \code {.xml}
+	*	\<Zmiana id="n"\>
+	*		\<Param wspolczynnik="3.0"/\>
+	*	\</Zmiana\>
+	* \endcode
+	*/
+	explicit ZmianaTest( TiXmlElement * wezel );
 
+	/**
+	* Destruktor
+	*/
+	virtual ~ZmianaTest();
+
+	/**
+	* Metoda tworz¹ca napis zawieraj¹cy opis obiektu.
+	* \return Opis obiektu.
+	*/
 	string toString () const override;
 
 };
 
+/**
+* Funkcja eksportowana s³u¿¹ca do rejestracji zmiany w fabryce.
+* \param[in,out] fabryka - Referencja do fabryki, w której ma zostaæ zarejestrowana klasa.
+* \param[in] logger - referencja do loggera, dla komunikacji o b³êdach.
+* \return Funkcja zwraca true, je¿eli uda siê zarejestrowaæ klasê lub false w przeciwnym wypadku.
+*/
 extern "C" bool TESTFUNKCJIZMIANY_API RejestrujZmiany ( ZmianaFabryka& fabryka , Log& logger );
