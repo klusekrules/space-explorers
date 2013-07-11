@@ -41,11 +41,10 @@ public:
 	* \return Wspó³czynnik obiektu.
 	*/
 	long double pobierzWspolczynnik()const;
-	
+
 	/**
 	* Metoda tworz¹ca napis zawieraj¹cy opis obiektu.
 	* \return Opis obiektu.
 	*/
 	string toString () const override;
 };
-

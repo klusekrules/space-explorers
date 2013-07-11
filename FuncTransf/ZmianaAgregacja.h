@@ -40,7 +40,7 @@ private:
 	vector<shared_ptr < ZmianaInterfejs > > listaZmian_; /// Lista zmian, których wartoœci bêd¹ zsumowane.
 
 public:
-	
+
 	/**
 	* Metoda rejestruj¹ca klasê w fabryce.
 	* \param[in] fabryka - Referencja do globalnej fabryki.
@@ -48,7 +48,7 @@ public:
 	* \sa ZmianaFabryka
 	*/
 	static bool RejestrujZmianaAgregacja( ZmianaFabryka &fabryka );
-	
+
 	/**
 	* Metoda wyliczaj¹ca wartoœæ.
 	* Sposób dzia³ania metod policzWartosc klasy zmiana agregacja:

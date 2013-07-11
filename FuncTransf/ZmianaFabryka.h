@@ -41,7 +41,7 @@ public:
 	* \return Obiekt klasy ZmianaFabryka.
 	*/
 	static ZmianaFabryka& pobierzInstancje();
-	
+
 	/**
 	* Metoda tworz¹ca obiekt klasy zmiana zarejestrownej w fabryce, na podstawie wêz³a przekazanego przez parametr wezel. Wywo³uje ona funckjê zarejestrowan¹ przez metodê rejestracjaZmiany i przekazuje jej wezel.
 	* \param[in] wezel - Wêze³ na podstawie, którego tworzony jest obiekt klasy zmiana.
