@@ -1,9 +1,3 @@
-// The following ifdef block is the standard way of creating macros which make exporting 
-// from a DLL simpler. All files within this DLL are compiled with the PLUGIN_EXPORTS
-// symbol defined on the command line. This symbol should not be defined on any project
-// that uses this DLL. This way any other project whose source files include this file see 
-// PLUGIN_API functions as being imported from a DLL, whereas this DLL sees symbols
-// defined with this macro as being exported.
 #ifdef PLUGIN_EXPORTS
 #define PLUGIN_API __declspec(dllexport)
 #else
@@ -26,14 +20,38 @@
 
 #include "..\FuncTransf\ZmianaFabryka.h"
 #include "..\Logger\Log.h"
-// This class is exported from the plugin.dll
+
+/**
+* \brief Klasa zarzadzajaca pluginami.
+*
+* Klasa odpowiada za ladowanie pluginów i wywo³anie funkcji rejestruj¹cych plugin w aplikacji.
+* \author Daniel Wojdak
+* \version 1
+* \date 11-07-2013
+*/
 class PLUGIN_API Cplugin {
 private:
-	ZmianaFabryka& zFabryka;
-	Log& lLogFile;
-	string folderPluginow;
+	ZmianaFabryka& fabryka_; /// Referencja na fabrykê zmian.
+	Log& log_; /// Referencja na obiekt logów.
+	string folderPluginow_; /// Œcie¿ka do folderu zawierajacy pluginy.
 public:
-	Cplugin( const string &folder, ZmianaFabryka& ref , Log& logFile );
-	bool LoadDefaultZmiana();
-	bool LoadPluginsZmiana();
+	/**
+	* Konstruktor klasy Cplugin
+	* \param[in] folderPluginow - Œcie¿ka do folderu zawierajacy pluginy.
+	* \param[in] fabryka - Referencja na fabrykê zmian.
+	* \param[in] log - Referencja na obiekt logów.
+	*/
+	Cplugin( const string& folderPluginow, ZmianaFabryka& fabryka , Log& log );
+
+	/**
+	* Metoda wywo³uj¹ca funkcje rejestruj¹ce domyœlne Zminay zaimplementowane w aplikcji w pliku ftrans.dll.
+	* \return Metoda zwraca wartoœæ true, je¿eli uda siê poprawnie zarejestrowaæ wszystkie zmiany. Zwraca false w przeciwnym wypadku.
+	*/
+	bool zaladujDomyslneKlasyZmian();
+
+	/**
+	* Metoda wywo³uj¹ca funkcje rejestruj¹ce zmiany z dodatkowych bibliotek do³aczonych do aplikacji.
+	* \return Metoda zawsze zwraca wartoœæ true.
+	*/
+	bool zaladujZewnetrzneKlasyZmian();
 };

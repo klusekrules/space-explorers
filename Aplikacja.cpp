@@ -85,10 +85,10 @@ Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 
 	RejestrujZmianaPoziomObiektu(instancjaGry->getZmianaFabryka(),log);
 
-	if(!pluginy->LoadDefaultZmiana())
+	if(!pluginy->zaladujDomyslneKlasyZmian())
 		throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,Tekst("Domyslne elementy zmiany."));
 
-	if(!pluginy->LoadPluginsZmiana())
+	if(!pluginy->zaladujZewnetrzneKlasyZmian())
 		throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,Tekst("Dodatkowe elementy zmiany."));
 
 	
