@@ -5,7 +5,7 @@
 #include "..\definicjeWezlowXML.h"
 
 ZmianaLiniowa::ZmianaLiniowa( TiXmlElement* wezel )
-	: parametr_(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_PARAM,ATRYBUT_XML_IDENTYFIKATOR,"0"))
+	: parametr_(XmlBO::ZnajdzWezel<NOTHROW>( wezel, WEZEL_XML_PARAM ))
 {
 }
 

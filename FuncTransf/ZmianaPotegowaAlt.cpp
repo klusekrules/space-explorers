@@ -4,37 +4,40 @@
 #include "..\XmlBO.h"
 #include "..\definicjeWezlowXML.h"
 
-ZmianaPotegowaAlt::ZmianaPotegowaAlt( TiXmlElement * e ) throw(int)
-	: wspolczynnik(XmlBO::ZnajdzWezel<NOTHROW>(e,WEZEL_XML_PARAM)), wykladnik(nullptr)
+ZmianaPotegowaAlt::ZmianaPotegowaAlt( TiXmlElement * wezel ) throw(int)
+	: wspolczynnik_(XmlBO::ZnajdzWezel<NOTHROW>( wezel, WEZEL_XML_PARAM )), wykladnik_(nullptr)
 {
-	if(zFabryka)
-		wykladnik=zFabryka->Tworz(XmlBO::ZnajdzWezel<NOTHROW>(e,WEZEL_XML_ZMIANA));
+	if(fabryka_)
+		wykladnik_ = fabryka_->Tworz(XmlBO::ZnajdzWezel<NOTHROW>( wezel, WEZEL_XML_ZMIANA ));
 }
 
-ZmianaPotegowaAlt::~ZmianaPotegowaAlt(void)
-{
+ZmianaPotegowaAlt::~ZmianaPotegowaAlt(void){
 }
 
-long double ZmianaPotegowaAlt::policzWartosc(long double d, int p, int i) const{
-	if(wykladnik)
-		return d * pow(static_cast<long double>(wspolczynnik.pobierzWspolczynnik()),-(wykladnik->policzWartosc(d,p,i)));
+ZmianaInterfejs* ZmianaPotegowaAlt::TworzZmianaPotegowaAlt( TiXmlElement* wezel ){
+	return new ZmianaPotegowaAlt(wezel);
+}
+
+long double ZmianaPotegowaAlt::policzWartosc(long double wartosc, int poziom, int identyfikatorPlanety) const{
+	if(wykladnik_)
+		return wartosc * pow( static_cast<long double>(wspolczynnik_.pobierzWspolczynnik()), -(wykladnik_->policzWartosc( wartosc, poziom, identyfikatorPlanety )) );
 	else
-		return d * pow(static_cast<long double>(wspolczynnik.pobierzWspolczynnik()),0);
+		return wartosc;
 }
 
 ZmianaPotegowaAlt* ZmianaPotegowaAlt::Kopia()const{
 	return new ZmianaPotegowaAlt(*this);
 }
 
-bool ZmianaPotegowaAlt::RejestrujZmianaPotegowaAlt( ZmianaFabryka &ref ){
-	zFabryka = &ref;
-	return ref.rejestracjaZmiany(idKlasy,ZmianaPotegowaAlt::TworzZmianaPotegowaAlt);
+bool ZmianaPotegowaAlt::RejestrujZmianaPotegowaAlt( ZmianaFabryka &fabryka ){
+	fabryka_ = &fabryka;
+	return fabryka.rejestracjaZmiany( identyfikator_, ZmianaPotegowaAlt::TworzZmianaPotegowaAlt );
 }
 
 string ZmianaPotegowaAlt::toString()const{
 	Logger str(CLASSNAME(ZmianaPotegowaAlt));
-	str.addField("wspolczynnik",wspolczynnik);
-	if(wykladnik)
-		str.addField("wykladnik",*wykladnik);
+	str.addField( "wspolczynnik", wspolczynnik_ );
+	if(wykladnik_)
+		str.addField( "wykladnik", *wykladnik_ );
 	return str.toString();
 }

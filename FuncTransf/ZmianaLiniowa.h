@@ -64,7 +64,7 @@ public:
 	* \pre Wêze³ musi zawieraæ nastêpuj¹c¹ strukturê
 	* \code {.xml}
 	*	\<Zmiana id="n"\>
-	*		\<Param id="0" wspolczynnik="3.0"/\>
+	*		\<Param wspolczynnik="3.0"/\>
 	*	\</Zmiana\>
 	* \endcode
 	*/
