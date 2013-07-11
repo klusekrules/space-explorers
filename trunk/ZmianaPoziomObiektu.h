@@ -58,9 +58,9 @@ public:
 	* \param[in] wezel - Wezel drzewa xml.
 	* \pre Wêze³ musi zawieraæ nastêpuj¹c¹ strukturê
 	* \code {.xml}
-	*	\<Zmiana id="n"\>
-	*		\<Param id="0x3"/\>
-	*	\</Zmiana\>
+	*	<Zmiana id="n">
+	*		<Param id="0x3"/>
+	*	</Zmiana>
 	* \endcode
 	*/
 	explicit ZmianaPoziomObiektu( TiXmlElement * wezel );

@@ -69,14 +69,14 @@ public:
 	* \param[in] wezel - Wezel drzewa xml.
 	* \pre Wêze³ musi zawieraæ nastêpuj¹c¹ strukturê
 	* \code {.xml}
-	*	\<Zmiana id="n"\>
-	*		\<Zmiana id="x" for="nastepny"\>
-	*		  \<Param id="0" wspolczynnik="3.0"/\>
-	*		\</Zmiana\>
-	*		\<Zmiana id="y" for="brat"\>
-	*		  \<Param id="0" wspolczynnik="5.0"/\>
-	*		\</Zmiana\>
-	*	  \</Zmiana\>
+	*	<Zmiana id="n">
+	*		<Zmiana id="x" for="nastepny">
+	*		  <Param id="0" wspolczynnik="3.0"/>
+	*		</Zmiana>
+	*		<Zmiana id="y" for="brat">
+	*		  <Param id="0" wspolczynnik="5.0"/>
+	*		</Zmiana>
+	*	</Zmiana>
 	* \endcode
 	* gdzie elementów \<Zmiana id="y" for="brat"\> mo¿e byæ wiele.
 	*/

@@ -63,10 +63,10 @@ public:
 	* \param[in] wezel - Wezel drzewa xml.
 	* \pre Wêze³ musi zawieraæ nastêpuj¹c¹ strukturê
 	* \code {.xml}
-	*	\<Zmiana id="n"\>
-	*		\<Param id="1" wspolczynnik="3.0"/\>
-	*		\<Param id="2" wspolczynnik="2.0"/\>
-	*	\</Zmiana\>
+	*	<Zmiana id="n">
+	*		<Param id="1" wspolczynnik="3.0"/>
+	*		<Param id="2" wspolczynnik="2.0"/>
+	*	</Zmiana>
 	* \endcode
 	* Parametr \<Param id="1" wspolczynnik="3.0"/\> to wspolczynnik_, a parametr \<Param id="2" wspolczynnik="2.0"/\> to wykladnik_.
 	*/
