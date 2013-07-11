@@ -65,9 +65,9 @@ public:
 	* \param[in] wezel - Wezel drzewa xml.
 	* \pre Wêze³ musi zawieraæ nastêpuj¹c¹ strukturê
 	* \code {.xml}
-	*	\<Zmiana id="n"\>
-	*		\<Param wspolczynnik="3.0"/\>
-	*	\</Zmiana\>
+	*	<Zmiana id="n">
+	*		<Param wspolczynnik="3.0"/>
+	*	</Zmiana>
 	* \endcode
 	*/
 	explicit ZmianaTest( TiXmlElement * wezel );
