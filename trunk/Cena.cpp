@@ -12,9 +12,9 @@ Cena::Cena( TiXmlElement* n ) throw(WyjatekParseraXML)
 	if(n!=nullptr){
 		TiXmlElement* a = n->FirstChildElement(WEZEL_XML_SUROWCE);
 		try{
-			IdType k;
+			Identyfikator k;
 			bool ret = XmlBO::WczytajAtrybut(a,ATRYBUT_XML_IDENTYFIKATOR,k);
-			obiekty= shared_ptr<Item>(Aplikacja::getInstance().getGra().getSurowce(k).TworzEgzemplarz(Ilosc(stoi(a->Attribute(ATRYBUT_XML_ILOSC),nullptr,0)),IdType()));
+			obiekty= shared_ptr<Item>(Aplikacja::getInstance().getGra().getSurowce(k).TworzEgzemplarz(Ilosc(stoi(a->Attribute(ATRYBUT_XML_ILOSC),nullptr,0)),Identyfikator()));
 			zmiana = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezel<NOTHROW>(n,WEZEL_XML_ZMIANA));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);

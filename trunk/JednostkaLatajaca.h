@@ -22,7 +22,7 @@ public:
 	* \param mocSilnika - Procentowa wartoœæ mocy w klasie opisuj¹cej. Domyœlnie 1.0 
 	* \param zuzyciePaliwa - Procentowa wartoœæ zu¿ycia paliwa w klasie opisuj¹cej. Domyœlnie 1.0 
 	*/
-	JednostkaLatajaca( const Poziom& p, const IdType& idP, const JednostkaLatajacaInfo& jInfo );
+	JednostkaLatajaca( const Poziom& p, const Identyfikator& idP, const JednostkaLatajacaInfo& jInfo );
 	JednostkaLatajaca( const PodstawoweParametry& p , const JednostkaLatajacaInfo& jInfo );
 	
 	/**

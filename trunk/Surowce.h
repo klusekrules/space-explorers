@@ -71,7 +71,7 @@ public:
 private:
 
 	Surowce( const Ilosc&, const Surowce& );
-	Surowce( const Ilosc&, const Poziom& p, const IdType& idP, const SurowceInfo&  );
+	Surowce( const Ilosc&, const Poziom& p, const Identyfikator& idP, const SurowceInfo&  );
 	Surowce( const Ilosc&, const PodstawoweParametry& p, const SurowceInfo&  );
 
 	const SurowceInfo& surowceInfo;

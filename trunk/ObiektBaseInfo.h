@@ -18,7 +18,7 @@ public:
 
 	explicit ObiektBaseInfo( TiXmlElement* ) throw(WyjatekParseraXML);
 		
-	virtual ObiektBase* TworzEgzemplarz( const Ilosc&, const IdType& ) const;
+	virtual ObiektBase* TworzEgzemplarz( const Ilosc&, const Identyfikator& ) const;
 
 	const Poziom& getPoziom()const;
 

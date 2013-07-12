@@ -7,12 +7,12 @@ ostream& operator<< (ostream& out, const Klucz::type_name& base){
 }
 
 Klucz::Klucz()
-	: PodstawowyInterfejs( make_pair< IdType , Poziom >( IdType() , Poziom() ) ) 
+	: PodstawowyInterfejs( make_pair< Identyfikator , Poziom >( Identyfikator() , Poziom() ) ) 
 {
 }
 
-Klucz::Klucz( const IdType& id , const Poziom& poziom )
-	: PodstawowyInterfejs( make_pair<IdType,Poziom>( IdType(id) , Poziom(poziom) ) )
+Klucz::Klucz( const Identyfikator& id , const Poziom& poziom )
+	: PodstawowyInterfejs( make_pair<Identyfikator,Poziom>( Identyfikator(id) , Poziom(poziom) ) )
 {
 }
 

@@ -1,50 +1,50 @@
-#include "IdType.h"
+#include "Identyfikator.h"
 #include "Logger.h"
 #include <iomanip>
 #include "Stale.h"
 #include "WyjatekParseraXML.h"
 
-IdType::IdType()
+Identyfikator::Identyfikator()
 	: PodstawowyInterfejs(Stale::idDomyslny)
 {
 }
 
-IdType::IdType( const type_name& ID )
+Identyfikator::Identyfikator( const type_name& ID )
 	: PodstawowyInterfejs(ID)
 {
 }
 
-IdType::IdType( const Ilosc& ID )
+Identyfikator::Identyfikator( const Ilosc& ID )
 	: PodstawowyInterfejs(static_cast<type_name>(ID()))
 {
 }
 
-IdType::IdType( const IdType& a )
+Identyfikator::Identyfikator( const Identyfikator& a )
 	: PodstawowyInterfejs(a)
 {
 }
 
-IdType::~IdType(){
+Identyfikator::~Identyfikator(){
 }
 
 
-bool IdType::operator==( const IdType& a )const{
+bool Identyfikator::operator==( const Identyfikator& a )const{
 	return wartosc_==a.wartosc_;
 }
 
-bool IdType::operator!=( const IdType& a )const{
+bool Identyfikator::operator!=( const Identyfikator& a )const{
 	return wartosc_!=a.wartosc_;
 }
 
-bool IdType::operator<( const IdType& a )const{
+bool Identyfikator::operator<( const Identyfikator& a )const{
 	return wartosc_<a.wartosc_;
 }
 
-IdType::operator size_t()const{
+Identyfikator::operator size_t()const{
 	return wartosc_;
 }
 
-string IdType::napis()const{
+string Identyfikator::napis()const{
 	stringstream str;
 	str.imbue(locale::classic());
 	str << "0x"<< uppercase << hex << wartosc_;

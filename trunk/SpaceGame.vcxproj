@@ -66,8 +66,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>$(SolutionDir)\out;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\dwoj\Downloads\cppunit-1.12.1.tar\cppunit-1.12.1\lib;$(SolutionDir)\out;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\dwoj\Downloads\cppunit-1.12.1.tar\cppunit-1.12.1\include;$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)out\</OutDir>
     <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
     <IntDir>obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
@@ -101,6 +101,7 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -242,7 +243,7 @@
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Uzytkownik.h" />
     <ClInclude Include="version.h" />
-    <ClInclude Include="IdType.h" />
+    <ClInclude Include="Identyfikator.h" />
     <ClInclude Include="Ilosc.h" />
     <ClInclude Include="Info.h" />
     <ClInclude Include="JednostkaAtakujaca.h" />
@@ -317,7 +318,7 @@
     <ClCompile Include="Fluktuacja.cpp" />
     <ClCompile Include="FunkcjeTestowe.cpp" />
     <ClCompile Include="Gra.cpp" />
-    <ClCompile Include="IdType.cpp" />
+    <ClCompile Include="Identyfikator.cpp" />
     <ClCompile Include="Ilosc.cpp" />
     <ClCompile Include="Info.cpp" />
     <ClCompile Include="JednostkaAtakujaca.cpp" />

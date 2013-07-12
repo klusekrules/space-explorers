@@ -4,7 +4,7 @@
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
 
-ObiektBase::ObiektBase( const Ilosc& i, const Poziom& p, const IdType& idP, const ObiektBaseInfo& iInfo) throw()
+ObiektBase::ObiektBase( const Ilosc& i, const Poziom& p, const Identyfikator& idP, const ObiektBaseInfo& iInfo) throw()
 	: PodstawoweParametry(p,idP), Base(iInfo), ilosc(i), obiektBaseInfo(iInfo)
 {
 }

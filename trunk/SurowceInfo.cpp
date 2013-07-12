@@ -44,7 +44,7 @@ Czas SurowceInfo::pobierzCzas( const Ilosc& i ,const PodstawoweParametry& p )con
 		return Czas(0.0l);
 }
 
-Surowce* SurowceInfo::TworzEgzemplarz( const Ilosc& ilosc, const IdType& idP ) const{
+Surowce* SurowceInfo::TworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& idP ) const{
 	return new Surowce( ilosc , getPoziom(),idP, *this );
 }
 

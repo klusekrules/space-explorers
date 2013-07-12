@@ -8,7 +8,7 @@ class BrakMaski :
 	public WyjatekParseraXML
 {
 public:
-	static const IdType idBrakMaski;
+	static const Identyfikator idBrakMaski;
 
 	BrakMaski( const Tekst& tPlik, const Ilosc& iLinia, const Tekst& = Tekst() );
 	BrakMaski( const BrakMaski& );

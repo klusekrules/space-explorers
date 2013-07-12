@@ -8,7 +8,7 @@ class WyjatekParseraXML :
 	public OgolnyWyjatek
 {
 public:
-	static const IdType idWyjatekParseraXML;
+	static const Identyfikator idWyjatekParseraXML;
 	static const Tekst trescBladStrukturyXml;
 
 	WyjatekParseraXML( const WyjatekParseraXML& );

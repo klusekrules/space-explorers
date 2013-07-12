@@ -9,7 +9,7 @@ class WyjatekSTL :
 	public OgolnyWyjatek
 {
 public:
-	static const IdType idWyjatekSTL;
+	static const Identyfikator idWyjatekSTL;
 	
 	WyjatekSTL( const Tekst& tPlik, const Ilosc& iLinia, const std::exception&, const Tekst& = Tekst() );
 	WyjatekSTL( const WyjatekSTL& );

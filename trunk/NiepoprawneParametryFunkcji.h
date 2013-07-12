@@ -10,7 +10,7 @@ class NiepoprawneParametryFunkcji :
 	public OgolnyWyjatek
 {
 public:
-	static const IdType idNiepoprawneParametryFunkcji;
+	static const Identyfikator idNiepoprawneParametryFunkcji;
 		
 	template< class... V >
 	NiepoprawneParametryFunkcji( const Tekst& tPlik, const Ilosc& iLinia, const V&... tail )

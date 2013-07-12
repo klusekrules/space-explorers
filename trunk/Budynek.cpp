@@ -3,7 +3,7 @@
 #include "Logger.h"
 #include "DefinicjeWezlowXML.h"
 
-Budynek::Budynek(const Poziom& p, const IdType& idP, const BudynekInfo& o)
+Budynek::Budynek(const Poziom& p, const Identyfikator& idP, const BudynekInfo& o)
 	: PodstawoweParametry(p, idP), Obiekt( Ilosc(1), p, idP, o ), budynekInfo(o)
 {
 }

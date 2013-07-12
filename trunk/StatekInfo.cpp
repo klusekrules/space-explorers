@@ -19,11 +19,11 @@ StatekInfo::StatekInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
 StatekInfo::~StatekInfo(){
 }
 
-const IdType& StatekInfo::getId() const{
+const Identyfikator& StatekInfo::getId() const{
 	return ObiektInfo::getId();
 }
 
-Statek* StatekInfo::TworzEgzemplarz( const Ilosc& i, const IdType& idP ) const{
+Statek* StatekInfo::TworzEgzemplarz( const Ilosc& i, const Identyfikator& idP ) const{
 	return new Statek(i,getPoziom(), idP, *this);
 }
 

@@ -8,7 +8,7 @@ class BladDzieleniaLadowni :
 	public OgolnyWyjatek
 {
 public:
-	static const IdType idBladDzieleniaLadowni;
+	static const Identyfikator idBladDzieleniaLadowni;
 	
 	BladDzieleniaLadowni( const Tekst& tPlik, const Ilosc& iLinia, const Tekst& tLadownia );
 	virtual ~BladDzieleniaLadowni(void);

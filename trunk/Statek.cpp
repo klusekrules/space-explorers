@@ -3,7 +3,7 @@
 #include "Logger.h"
 #include "DefinicjeWezlowXML.h"
 
-Statek::Statek( const Ilosc& i, const Poziom& p , const IdType& idP, const StatekInfo& s )
+Statek::Statek( const Ilosc& i, const Poziom& p , const Identyfikator& idP, const StatekInfo& s )
 	: PodstawoweParametry(p, idP), Obiekt( i, p, idP, s ), JednostkaAtakujaca(getPoziom(),getIdPlanety(),s), JednostkaLatajaca(getPoziom(),getIdPlanety(),s), Ladownia(getPoziom(),getIdPlanety(),s), statekinfo(s)
 {
 }

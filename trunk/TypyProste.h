@@ -6,7 +6,7 @@
 * Przypisania typów podstawowych do typów stosowanych w grze.
 */
 namespace SPG{
-	typedef int				IdType;
+	typedef int				Identyfikator;
 	typedef unsigned int	Poziom;
 	typedef float			Fluktuacja;
 	typedef std::string		Tekst;

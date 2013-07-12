@@ -6,11 +6,11 @@ class Uzytkownik:
 	virtual public Serializacja
 {
 public:
-	typedef map<IdType, shared_ptr<Planeta> > ListaPlanet;
+	typedef map<Identyfikator, shared_ptr<Planeta> > ListaPlanet;
 	Uzytkownik();
 	~Uzytkownik();
 
-	Planeta& getPlaneta( const IdType& ) const;
+	Planeta& getPlaneta( const Identyfikator& ) const;
 
 	bool dodajPlanete( shared_ptr<Planeta> );
 

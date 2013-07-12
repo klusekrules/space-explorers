@@ -15,7 +15,7 @@ JednostkaLatajacaInfo::JednostkaLatajacaInfo( TiXmlElement* n ) throw(WyjatekPar
 	if(n){
 		try{
 			ZmianaFabryka& fabryka = Aplikacja::getInstance().getGra().getZmianaFabryka();
-			IdType id(stoi(n->Attribute(ATRYBUT_XML_RODZAJ_SILNIKA_ID),nullptr,0));
+			Identyfikator id(stoi(n->Attribute(ATRYBUT_XML_RODZAJ_SILNIKA_ID),nullptr,0));
 			Poziom poziom(stoi(n->Attribute(ATRYBUT_XML_RODZAJ_SILNIKA_POZIOM)));
 			rodzajNapedu(Klucz(id,poziom)());
 			

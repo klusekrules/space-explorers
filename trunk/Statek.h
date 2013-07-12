@@ -62,7 +62,7 @@ public:
 	string napis() const override;
 private:
 
-	Statek( const Ilosc&, const Poziom& p, const IdType& idP, const StatekInfo& );
+	Statek( const Ilosc&, const Poziom& p, const Identyfikator& idP, const StatekInfo& );
 	Statek( const Ilosc&, const PodstawoweParametry& idP, const StatekInfo& );
 
 protected:

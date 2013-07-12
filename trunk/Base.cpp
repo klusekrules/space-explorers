@@ -3,7 +3,7 @@
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
 
-Base::Base( const IdType& itID )throw()
+Base::Base( const Identyfikator& itID )throw()
 	: id(itID)
 {
 }
@@ -21,11 +21,11 @@ Base::Base( TiXmlElement* n ) throw(WyjatekParseraXML){
 Base::~Base(){
 }
 
-const IdType& Base::getId()const{
+const Identyfikator& Base::getId()const{
 	return id;
 }
 
-void Base::setId( const IdType& id ){
+void Base::setId( const Identyfikator& id ){
 	this->id = id;
 }
 

@@ -3,7 +3,7 @@
 #include "Logger.h"
 #include "Aplikacja.h"
 
-JednostkaAtakujaca::JednostkaAtakujaca( const Poziom& p , const IdType& idP, const JednostkaAtakujacaInfo& jInfo )
+JednostkaAtakujaca::JednostkaAtakujaca( const Poziom& p , const Identyfikator& idP, const JednostkaAtakujacaInfo& jInfo )
 	: PodstawoweParametry(p,idP), jednostkaAtakujacaInfo(jInfo)
 {
 }

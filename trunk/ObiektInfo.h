@@ -26,13 +26,13 @@ public:
 
 	~ObiektInfo( );
 
-	Powierzchnia getPowierzchnia(const Poziom& pz, const IdType&) const;
+	Powierzchnia getPowierzchnia(const Poziom& pz, const Identyfikator&) const;
 
-	Objetosc getObjetosc(const Poziom& pz, const IdType&) const;
+	Objetosc getObjetosc(const Poziom& pz, const Identyfikator&) const;
 
-	Masa getMasa(const Poziom& pz, const IdType&) const;
+	Masa getMasa(const Poziom& pz, const Identyfikator&) const;
 	
-	Obiekt* TworzEgzemplarz( const Ilosc&, const IdType& ) const override;
+	Obiekt* TworzEgzemplarz( const Ilosc&, const Identyfikator& ) const override;
 
 	string napis() const override;
 };

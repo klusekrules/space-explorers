@@ -13,7 +13,7 @@ public:
 	static const SPG::IloscJednostek iloscJednostekDomyslny;
 	static const SPG::MocSilnika mocSilnikaDomyslny;
 	static const SPG::ZuzyciePaliwa zuzyciePaliwaDomyslny;
-	static const SPG::IdType idDomyslny;
+	static const SPG::Identyfikator idDomyslny;
 	static const SPG::Fluktuacja fluktuacjaDomyslny;
 	static const bool boolDomyslny;
 	static const SPG::Dystans dystansDomyslny;

@@ -2,7 +2,7 @@
 #include "Aplikacja.h"
 #include "DefinicjeWezlowXML.h"
 
-Flota::Flota(const IdType& id)
+Flota::Flota(const Identyfikator& id)
 	: Base(id)
 {
 }
@@ -16,7 +16,7 @@ bool Flota::dodajStatek( shared_ptr<Statek> ptr ){
 		return false;
 	auto iter = lista.find(ptr->ID());
 	if(iter == lista.end()){
-		ptr->setIdPlanety(IdType());
+		ptr->setIdPlanety(Identyfikator());
 		lista.insert(make_pair(ptr->ID(),ptr));
 	}else{
 		return iter->second->Polacz( *ptr );
@@ -63,8 +63,8 @@ bool Flota::odczytaj( TiXmlElement* e ) {
 			auto c = n->Attribute(ATRYBUT_XML_IDENTYFIKATOR);
 			if(!c)
 				return false;
-			IdType id(stoi(c,nullptr,0));
-			shared_ptr<Statek> p = shared_ptr<Statek>(Aplikacja::getInstance().getGra().getStatek(id).TworzEgzemplarz(Ilosc(),IdType()));			
+			Identyfikator id(stoi(c,nullptr,0));
+			shared_ptr<Statek> p = shared_ptr<Statek>(Aplikacja::getInstance().getGra().getStatek(id).TworzEgzemplarz(Ilosc(),Identyfikator()));			
 			if(!p->odczytaj(n) )
 				return false;
 			lista.insert(make_pair(p->ID(),p));

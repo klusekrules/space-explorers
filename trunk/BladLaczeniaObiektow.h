@@ -9,7 +9,7 @@ class BladLaczeniaObiektow :
 	public OgolnyWyjatek
 {
 public:
-	static const IdType idBladLaczeniaObiektow;
+	static const Identyfikator idBladLaczeniaObiektow;
 	
 	BladLaczeniaObiektow( const Tekst& tPlik, const Ilosc& iLinia, const Tekst& obiektA , const Tekst& obiektB );
 	virtual ~BladLaczeniaObiektow();

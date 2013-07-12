@@ -9,7 +9,7 @@ class BrakAtrybutuXML :
 	public WyjatekParseraXML
 {
 public:
-	static const IdType idBrakAtrybutuXML;
+	static const Identyfikator idBrakAtrybutuXML;
 	
 	BrakAtrybutuXML( const Tekst& tPlik, const Ilosc& iLinia, const Tekst& = Tekst() );
 	BrakAtrybutuXML( const BrakAtrybutuXML& );

@@ -3,18 +3,18 @@
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
 
-Licznik::Licznik(const IdType& id, const Ilosc& w)
+Licznik::Licznik(const Identyfikator& id, const Ilosc& w)
 	: Base(id), wartoscLicznika(w)
 {
 }
 
-Licznik::Licznik(const IdType& id)
+Licznik::Licznik(const Identyfikator& id)
 	: Base(id), wartoscLicznika(0)
 {
 }
 
 Licznik::Licznik()
-	: Base(IdType(-1)), wartoscLicznika(0)
+	: Base(Identyfikator(-1)), wartoscLicznika(0)
 {
 }
 

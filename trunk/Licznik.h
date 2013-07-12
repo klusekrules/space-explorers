@@ -8,8 +8,8 @@ class Licznik:
 	virtual public Serializacja
 {
 public:
-	Licznik(const IdType&, const Ilosc& );
-	Licznik(const IdType& id);
+	Licznik(const Identyfikator&, const Ilosc& );
+	Licznik(const Identyfikator& id);
 	Licznik();
 	virtual ~Licznik(void);
 

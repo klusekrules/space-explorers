@@ -15,7 +15,7 @@ protected:
 public:
 	BudynekInfo( TiXmlElement* );
 	~BudynekInfo(void);
-	Budynek* TworzEgzemplarz( const Ilosc&, const IdType& ) const override;
+	Budynek* TworzEgzemplarz( const Ilosc&, const Identyfikator& ) const override;
 
 	Cennik::ListaSurowcow PobierzZapotrzebowanie( const PodstawoweParametry& param)const;
 

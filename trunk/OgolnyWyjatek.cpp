@@ -3,7 +3,7 @@
 #include "Aplikacja.h"
 #include "Stale.h"
 
-OgolnyWyjatek::OgolnyWyjatek( const Tekst& tPlik, const Ilosc& iLinia, const IdType& itId , const Tekst& wwTytul , const Tekst& wwTresc )
+OgolnyWyjatek::OgolnyWyjatek( const Tekst& tPlik, const Ilosc& iLinia, const Identyfikator& itId , const Tekst& wwTytul , const Tekst& wwTresc )
 	: numerWyjatku( itId() != Stale::idDomyslny ? itId : domyslnyOgolnyWyjatekID ) , tytul( wwTytul.isEmpty() ? domyslnyOgolnyWyjatekTytul : wwTytul ) , tresc( wwTresc.isEmpty() ? domyslnyOgolnyWyjatekTresc : wwTresc )
 {
 	ustawSzczegoly( tPlik, iLinia );
@@ -31,11 +31,11 @@ Tekst OgolnyWyjatek::generujKomunikat() const
 		Tekst( "\nStos wywo³añ: " ) + stack + Tekst( "\n" ); 
 }
 	
-const IdType& OgolnyWyjatek::getNumerWyjaku() const{
+const Identyfikator& OgolnyWyjatek::getNumerWyjaku() const{
 	return numerWyjatku;
 }
 
-void OgolnyWyjatek::setNumerWyjatku( const IdType& itId ){
+void OgolnyWyjatek::setNumerWyjatku( const Identyfikator& itId ){
 	numerWyjatku = itId;
 }
 	

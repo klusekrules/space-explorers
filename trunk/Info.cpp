@@ -3,7 +3,7 @@
 #include "XmlBO.h"
 #include "definicjeWezlowXML.h"
 
-Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const IdType& id , const Wymagania& w ) throw()
+Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const Identyfikator& id , const Wymagania& w ) throw()
 	: Base(id), nazwa( tNazwa ), opis( tOpis ), Wymagania(w)
 {
 }

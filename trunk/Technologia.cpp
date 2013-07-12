@@ -2,7 +2,7 @@
 #include "TechnologiaInfo.h"
 #include "DefinicjeWezlowXML.h"
 
-Technologia::Technologia( const Poziom& p, const IdType& idP, const TechnologiaInfo& t)
+Technologia::Technologia( const Poziom& p, const Identyfikator& idP, const TechnologiaInfo& t)
 	: PodstawoweParametry(p, idP),ObiektBase(Ilosc(1),p,idP,t), technologiaInfo(t)
 {
 }

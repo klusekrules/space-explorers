@@ -17,7 +17,7 @@ private:
 public:
 	typedef unordered_map<Klucz,Wartosc*, Hasher > HashMapa;
 
-	explicit Mapa( const IdType& id )
+	explicit Mapa( const Identyfikator& id )
 		: Base(id), unordered_map()
 	{
 	}
@@ -32,7 +32,7 @@ public:
 	{
 	}
 
-	Mapa( const map<Klucz,Wartosc* >& mapa, const IdType& id )
+	Mapa( const map<Klucz,Wartosc* >& mapa, const Identyfikator& id )
 		: Base(id), unordered_map(mapa)
 	{
 	}

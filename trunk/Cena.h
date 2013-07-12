@@ -4,7 +4,7 @@
 #include "FuncTransf\ZmianaInterfejs.h"
 #include "Ilosc.h"
 #include "Poziom.h"
-#include "IdType.h"
+#include "Identyfikator.h"
 #include "PodstawoweParametry.h"
 
 class Surowce;

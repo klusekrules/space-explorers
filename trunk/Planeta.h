@@ -21,31 +21,31 @@ class Planeta:
 	friend class Gra;
 	friend class Uzytkownik;
 public:
-	typedef map< IdType , shared_ptr< ObiektBase > > ListaObiektow;
-	typedef map< IdType , shared_ptr< Obiekt > > ListaObiektowZaladunkowych;
-	typedef map< IdType , shared_ptr< Budynek > > ListaBudynkow;
-	typedef map< IdType , shared_ptr< Technologia > > ListaTechnologii;
-	typedef map< IdType , shared_ptr< Statek > > ListaStatkow;
-	typedef map< IdType , shared_ptr< Surowce > > ListaSurowcow;
-	typedef map< IdType , shared_ptr< Flota > > ListaFlot;
+	typedef map< Identyfikator , shared_ptr< ObiektBase > > ListaObiektow;
+	typedef map< Identyfikator , shared_ptr< Obiekt > > ListaObiektowZaladunkowych;
+	typedef map< Identyfikator , shared_ptr< Budynek > > ListaBudynkow;
+	typedef map< Identyfikator , shared_ptr< Technologia > > ListaTechnologii;
+	typedef map< Identyfikator , shared_ptr< Statek > > ListaStatkow;
+	typedef map< Identyfikator , shared_ptr< Surowce > > ListaSurowcow;
+	typedef map< Identyfikator , shared_ptr< Flota > > ListaFlot;
 
-	Planeta(const IdType& id);
+	Planeta(const Identyfikator& id);
 	virtual ~Planeta(void);
 
-	const ObiektBase& pobierzObiekt(const IdType&) const;
+	const ObiektBase& pobierzObiekt(const Identyfikator&) const;
 	Ilosc pobierzIloscTypowObiektow()const;
 	
-	bool wybuduj( const IdType&, const Ilosc& );
+	bool wybuduj( const Identyfikator&, const Ilosc& );
 
-	IdType dodajFlote();
+	Identyfikator dodajFlote();
 
-	bool przeniesDoFloty(const IdType& floty, const IdType& id, const Ilosc&);
+	bool przeniesDoFloty(const Identyfikator& floty, const Identyfikator& id, const Ilosc&);
 
-	bool dolaczFloteDoPlanety(const IdType&);
+	bool dolaczFloteDoPlanety(const Identyfikator&);
 
 	bool dolaczFloteDoPlanety( shared_ptr< Flota >);
 
-	bool zaladujFlote( const IdType& floty, const IdType& id, const Ilosc&);
+	bool zaladujFlote( const Identyfikator& floty, const Identyfikator& id, const Ilosc&);
 
 	bool zapisz( TiXmlElement* e ) const override;
 

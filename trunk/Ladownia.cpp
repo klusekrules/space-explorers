@@ -6,7 +6,7 @@
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
 
-Ladownia::Ladownia( const Poziom& p, const IdType& idP, const LadowniaInfo& l )
+Ladownia::Ladownia( const Poziom& p, const Identyfikator& idP, const LadowniaInfo& l )
 	: PodstawoweParametry(p, idP), obiekty(), zajete(), ladowniaInfo(l)
 {
 }
@@ -53,7 +53,7 @@ bool Ladownia::DodajObiektDoLadowni( Item& obiekt ){
 	}
 	try{
 		Obiekt * kopia = obiekt.Kopia();
-		kopia->setIdPlanety(IdType());
+		kopia->setIdPlanety(Identyfikator());
 		obiekty.add(kopia);
 		przeliczZajeteMiejsce();
 	}catch(OgolnyWyjatek& e){
@@ -206,8 +206,8 @@ bool Ladownia::odczytaj (TiXmlElement* e) {
 				if(c.empty())
 					return false;
 				Utils::trim(c);
-				IdType id(stoi(c,nullptr,0));
-				Obiekt* p = Aplikacja::getInstance().getGra().getObiekt(id).TworzEgzemplarz(Ilosc(),IdType());			
+				Identyfikator id(stoi(c,nullptr,0));
+				Obiekt* p = Aplikacja::getInstance().getGra().getObiekt(id).TworzEgzemplarz(Ilosc(),Identyfikator());			
 				if(!p->odczytaj(n) ){
 					delete p;
 					return false;

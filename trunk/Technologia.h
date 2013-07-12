@@ -11,7 +11,7 @@ class Technologia :
 protected:
 	const TechnologiaInfo& technologiaInfo;
 public:
-	Technologia( const Poziom&, const IdType&, const TechnologiaInfo& );
+	Technologia( const Poziom&, const Identyfikator&, const TechnologiaInfo& );
 	Technologia( const PodstawoweParametry& p, const TechnologiaInfo& t);
 	~Technologia(void);
 

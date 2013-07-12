@@ -22,7 +22,7 @@ ObiektBaseInfo::ObiektBaseInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
 	}
 }
 
-ObiektBase* ObiektBaseInfo::TworzEgzemplarz( const Ilosc& i, const IdType& idPlanety ) const{
+ObiektBase* ObiektBaseInfo::TworzEgzemplarz( const Ilosc& i, const Identyfikator& idPlanety ) const{
 	return new ObiektBase(i,getPoziom(),idPlanety,*this);
 }
 

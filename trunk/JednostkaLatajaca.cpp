@@ -2,7 +2,7 @@
 #include "JednostkaLatajaca.h"
 #include "Logger.h"
 
-JednostkaLatajaca::JednostkaLatajaca( const Poziom& p, const IdType& idP, const JednostkaLatajacaInfo& jInfo )
+JednostkaLatajaca::JednostkaLatajaca( const Poziom& p, const Identyfikator& idP, const JednostkaLatajacaInfo& jInfo )
 	: PodstawoweParametry(p,idP), jednostkaLatajacaInfo(jInfo)
 {
 }

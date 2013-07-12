@@ -19,12 +19,12 @@ private:
 	
 	ZmianaFabryka &fabryka;
 	
-	unordered_map<IdType, shared_ptr<SurowceInfo>, IdTypeHash > listaSurowcowInfo;
-	unordered_map<IdType, shared_ptr<StatekInfo>, IdTypeHash > listaStatkowInfo;
-	unordered_map<IdType, shared_ptr<TechnologiaInfo>, IdTypeHash > listaTechnologiInfo;
-	unordered_map<IdType, shared_ptr<BudynekInfo>, IdTypeHash > listaBudynkowInfo;
-	unordered_map<IdType, shared_ptr<ObiektInfo>, IdTypeHash > listaObiektowInfo;
-	unordered_map<IdType, shared_ptr<ObiektBaseInfo>, IdTypeHash > listaObiektowBaseInfo;
+	unordered_map<Identyfikator, shared_ptr<SurowceInfo>, IdTypeHash > listaSurowcowInfo;
+	unordered_map<Identyfikator, shared_ptr<StatekInfo>, IdTypeHash > listaStatkowInfo;
+	unordered_map<Identyfikator, shared_ptr<TechnologiaInfo>, IdTypeHash > listaTechnologiInfo;
+	unordered_map<Identyfikator, shared_ptr<BudynekInfo>, IdTypeHash > listaBudynkowInfo;
+	unordered_map<Identyfikator, shared_ptr<ObiektInfo>, IdTypeHash > listaObiektowInfo;
+	unordered_map<Identyfikator, shared_ptr<ObiektBaseInfo>, IdTypeHash > listaObiektowBaseInfo;
 
 	Licznik idPlanety;
 	Uzytkownik::ListaPlanet wolnePlanety;
@@ -43,11 +43,11 @@ public:
 
 	Uzytkownik& getUzytkownik() const throw (NieznalezionoObiektu);
 
-	IdType generujPlanete();
+	Identyfikator generujPlanete();
 
-	bool przeniesPlaneteDoUzytkownika( const IdType& );
+	bool przeniesPlaneteDoUzytkownika( const Identyfikator& );
 
-	bool wybudujNaPlanecie( Planeta& , const IdType&, const Ilosc& )const;
+	bool wybudujNaPlanecie( Planeta& , const Identyfikator&, const Ilosc& )const;
 	bool wybudujNaPlanecie( Planeta& , const BudynekInfo&, const Ilosc& )const;
 	bool wybudujNaPlanecie( Planeta& , const TechnologiaInfo&, const Ilosc& )const;
 	bool wybudujNaPlanecie( Planeta& , const StatekInfo&, const Ilosc& )const;
@@ -63,10 +63,10 @@ public:
 
 	~Gra();
 	
-	StatekInfo& getStatek(const IdType& id)const throw (NieznalezionoObiektu);
-	SurowceInfo& getSurowce(const IdType& id)const throw (NieznalezionoObiektu);
-	TechnologiaInfo& getTechnologia(const IdType& id)const throw (NieznalezionoObiektu);
-	BudynekInfo& getBudynek(const IdType& id)const throw (NieznalezionoObiektu);
-	ObiektInfo& getObiekt(const IdType& id)const throw (NieznalezionoObiektu);
+	StatekInfo& getStatek(const Identyfikator& id)const throw (NieznalezionoObiektu);
+	SurowceInfo& getSurowce(const Identyfikator& id)const throw (NieznalezionoObiektu);
+	TechnologiaInfo& getTechnologia(const Identyfikator& id)const throw (NieznalezionoObiektu);
+	BudynekInfo& getBudynek(const Identyfikator& id)const throw (NieznalezionoObiektu);
+	ObiektInfo& getObiekt(const Identyfikator& id)const throw (NieznalezionoObiektu);
 };
 

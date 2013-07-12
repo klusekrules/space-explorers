@@ -4,7 +4,7 @@
 #include "Ladownia.h"
 #include "DefinicjeWezlowXML.h"
 
-Surowce::Surowce( const Ilosc& isIlosc, const Poziom& p, const IdType& idP, const SurowceInfo& s )
+Surowce::Surowce( const Ilosc& isIlosc, const Poziom& p, const Identyfikator& idP, const SurowceInfo& s )
 	:  PodstawoweParametry(p, idP), Obiekt( isIlosc, p, idP, s ), surowceInfo(s)
 {
 }

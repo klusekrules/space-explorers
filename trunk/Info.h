@@ -2,7 +2,7 @@
 #include "Main.h"
 #include "Base.h"
 #include "Tekst.h"
-#include "IdType.h"
+#include "Identyfikator.h"
 #include "Wymagania.h"
 #include "WyjatekParseraXML.h"
 
@@ -12,7 +12,7 @@ class Info:
 	virtual public LoggerInterface
 {
 public:
-	Info( const Tekst& , const Tekst& , const IdType&, const Wymagania& ) throw();
+	Info( const Tekst& , const Tekst& , const Identyfikator&, const Wymagania& ) throw();
 	explicit Info( TiXmlElement * ) throw(WyjatekParseraXML);
 	virtual ~Info();
 
