@@ -28,7 +28,7 @@ BudynekInfo::~BudynekInfo(void)
 {
 }
 
-Budynek* BudynekInfo::TworzEgzemplarz( const Ilosc&, const IdType& idP ) const{
+Budynek* BudynekInfo::TworzEgzemplarz( const Ilosc&, const Identyfikator& idP ) const{
 	return new Budynek(getPoziom(),idP,*this);
 }
 

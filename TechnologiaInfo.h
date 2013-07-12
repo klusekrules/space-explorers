@@ -11,7 +11,7 @@ public:
 	TechnologiaInfo( const TechnologiaInfo& );
 	explicit TechnologiaInfo( const ObiektBaseInfo& );
 	explicit TechnologiaInfo( TiXmlElement* );
-	Technologia* TworzEgzemplarz( const Ilosc&, const IdType& ) const override;
+	Technologia* TworzEgzemplarz( const Ilosc&, const Identyfikator& ) const override;
 	~TechnologiaInfo( );
 	string napis()const override;
 private:

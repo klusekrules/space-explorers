@@ -37,13 +37,13 @@ bool Gra::Logowanie(const string& nazwa, const string& hash){
 	return true;
 }
 //TODO: Dopisanie poprawnego generowania planet
-IdType Gra::generujPlanete(){
-	auto p = shared_ptr<Planeta>( new Planeta(IdType(idPlanety())));
+Identyfikator Gra::generujPlanete(){
+	auto p = shared_ptr<Planeta>( new Planeta(Identyfikator(idPlanety())));
 	wolnePlanety.insert(make_pair(p->getId(),p));
 	return p->getId();
 }
 
-bool Gra::przeniesPlaneteDoUzytkownika( const IdType& p ){
+bool Gra::przeniesPlaneteDoUzytkownika( const Identyfikator& p ){
 	if(!uzytkownik)
 		return false;
 	auto iter = wolnePlanety.find(p);
@@ -56,7 +56,7 @@ bool Gra::przeniesPlaneteDoUzytkownika( const IdType& p ){
 	return false;
 }
 
-bool Gra::wybudujNaPlanecie( Planeta& p , const IdType& id , const Ilosc& ilosc )const{
+bool Gra::wybudujNaPlanecie( Planeta& p , const Identyfikator& id , const Ilosc& ilosc )const{
 	auto iterObiektow = listaObiektowBaseInfo.find(id);
 	if(iterObiektow != listaObiektowBaseInfo.end()){
 		return iterObiektow->second->Tworz(*this,p,ilosc);
@@ -84,35 +84,35 @@ bool Gra::wybudujNaPlanecie( Planeta& p, const SurowceInfo& b, const Ilosc& ilos
 	return true;
 }
 
-StatekInfo& Gra::getStatek(const IdType& id)const throw (NieznalezionoObiektu) {
+StatekInfo& Gra::getStatek(const Identyfikator& id)const throw (NieznalezionoObiektu) {
 	auto iter = listaStatkowInfo.find(id);
 	if(iter==listaStatkowInfo.end())
 		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
 	return *(iter->second);
 }
 
-SurowceInfo& Gra::getSurowce(const IdType& id)const throw (NieznalezionoObiektu) {
+SurowceInfo& Gra::getSurowce(const Identyfikator& id)const throw (NieznalezionoObiektu) {
 	auto iter = listaSurowcowInfo.find(id);
 	if(iter==listaSurowcowInfo.end())
 		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
 	return *(iter->second);
 }
 
-TechnologiaInfo& Gra::getTechnologia(const IdType& id)const throw (NieznalezionoObiektu) {
+TechnologiaInfo& Gra::getTechnologia(const Identyfikator& id)const throw (NieznalezionoObiektu) {
 	auto iter = listaTechnologiInfo.find(id);
 	if(iter==listaTechnologiInfo.end())
 		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
 	return *(iter->second);
 }
 
-BudynekInfo& Gra::getBudynek(const IdType& id)const throw (NieznalezionoObiektu) {
+BudynekInfo& Gra::getBudynek(const Identyfikator& id)const throw (NieznalezionoObiektu) {
 	auto iter = listaBudynkowInfo.find(id);
 	if(iter==listaBudynkowInfo.end())
 		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
 	return *(iter->second);
 }
 
-ObiektInfo& Gra::getObiekt(const IdType& id)const throw (NieznalezionoObiektu) {
+ObiektInfo& Gra::getObiekt(const Identyfikator& id)const throw (NieznalezionoObiektu) {
 	auto iter = listaObiektowInfo.find(id);
 	if(iter==listaObiektowInfo.end())
 		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
@@ -150,7 +150,7 @@ bool Gra::WczytajTechnologie(TiXmlElement* root){
 				shared_ptr<TechnologiaInfo> t(new TechnologiaInfo(ptr));
 				aplikacja.getLog().debug(*t);
 				if(listaObiektowBaseInfo.find(t->getId())!=listaObiektowBaseInfo.end())
-					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
+					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
 				listaTechnologiInfo[t->getId()]=t;
 				listaObiektowBaseInfo[t->getId()]=t;
 				ptr = ptr->NextSiblingElement(WEZEL_XML_TECHNOLOGIA_INFO);
@@ -173,7 +173,7 @@ bool Gra::WczytajBudynki(TiXmlElement* root){
 				shared_ptr<BudynekInfo> t(new BudynekInfo(ptr));
 				aplikacja.getLog().debug(*t);
 				if(listaObiektowBaseInfo.find(t->getId())!=listaObiektowBaseInfo.end())
-					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
+					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
 				listaBudynkowInfo[t->getId()]=t;
 				listaObiektowBaseInfo[t->getId()]=t;
 				listaObiektowInfo[t->getId()]=t;
@@ -197,7 +197,7 @@ bool Gra::WczytajSurowce(TiXmlElement* root){
 				shared_ptr<SurowceInfo> t(new SurowceInfo(ptr));
 				aplikacja.getLog().debug(*t);
 				if(listaObiektowBaseInfo.find(t->getId())!=listaObiektowBaseInfo.end())
-					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
+					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
 				listaSurowcowInfo[t->getId()]=t;
 				listaObiektowBaseInfo[t->getId()]=t;
 				listaObiektowInfo[t->getId()]=t;
@@ -220,7 +220,7 @@ bool Gra::WczytajStatki(TiXmlElement* root){
 				shared_ptr<StatekInfo> t(new StatekInfo(ptr));
 				aplikacja.getLog().debug(*t);
 				if(listaObiektowBaseInfo.find(t->getId())!=listaObiektowBaseInfo.end())
-					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
+					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
 				listaStatkowInfo[t->getId()]=t;
 				listaObiektowBaseInfo[t->getId()]=t;
 				listaObiektowInfo[t->getId()]=t;
@@ -257,7 +257,7 @@ bool Gra::odczytaj( TiXmlElement* e ){
 			uzytkownik = nullptr;
 		}
 		for(TiXmlElement* n = e->FirstChildElement(WEZEL_XML_PLANETA); n != nullptr ; n = n->NextSiblingElement(WEZEL_XML_PLANETA)){
-			auto p = shared_ptr<Planeta>( new Planeta(IdType()) );
+			auto p = shared_ptr<Planeta>( new Planeta(Identyfikator()) );
 			if(!p->odczytaj(n))
 				return false;
 			wolnePlanety.insert(make_pair(p->getId(),p));

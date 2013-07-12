@@ -3,7 +3,7 @@
 #include <vector>
 #include <memory>
 #include "parser\ticpp.h"
-#include "IdType.h"
+#include "Identyfikator.h"
 #include "FuncTransf\ZmianaInterfejs.h"
 #include "Poziom.h"
 #include "PodstawoweParametry.h"

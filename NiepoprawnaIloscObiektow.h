@@ -10,7 +10,7 @@ class NiepoprawnaIloscObiektow :
 	public OgolnyWyjatek
 {
 public:
-	static const IdType idNiepoprawnaIloscObiektow;
+	static const Identyfikator idNiepoprawnaIloscObiektow;
 	
 	NiepoprawnaIloscObiektow( const Tekst& tPlik, const Ilosc& iLinia, const Ilosc& ilosc );
 	virtual ~NiepoprawnaIloscObiektow(void);

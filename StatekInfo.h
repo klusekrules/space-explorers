@@ -21,9 +21,9 @@ public:
 
 	virtual ~StatekInfo();
 
-	const IdType& getId() const;
+	const Identyfikator& getId() const;
 		
-	Statek* TworzEgzemplarz( const Ilosc&, const IdType& ) const override;
+	Statek* TworzEgzemplarz( const Ilosc&, const Identyfikator& ) const override;
 
 	string napis() const override;
 

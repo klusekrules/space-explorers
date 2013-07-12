@@ -9,7 +9,7 @@ class NiezainicjalizowanaKlasa :
 	public OgolnyWyjatek
 {
 public:
-	static const IdType idNiezainicjalizowanaKlasa;
+	static const Identyfikator idNiezainicjalizowanaKlasa;
 
 	NiezainicjalizowanaKlasa(const Tekst& tPlik, const Ilosc& iLinia, const Tekst& tNazwa);
 	virtual ~NiezainicjalizowanaKlasa(void);

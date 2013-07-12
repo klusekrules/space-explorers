@@ -19,7 +19,7 @@ bool Uzytkownik::dodajPlanete( shared_ptr<Planeta> p ){
 	return true;
 }
 
-Planeta& Uzytkownik::getPlaneta( const IdType& id ) const{
+Planeta& Uzytkownik::getPlaneta( const Identyfikator& id ) const{
 	auto i = listaPlanet.find(id);
 	if(i!=listaPlanet.end())
 		return *(i->second);
@@ -38,7 +38,7 @@ bool Uzytkownik::zapisz( TiXmlElement* e ) const{
 bool Uzytkownik::odczytaj( TiXmlElement* e ){
 	if(e){
 		for(TiXmlElement* n = e->FirstChildElement(WEZEL_XML_PLANETA); n != nullptr ; n = n->NextSiblingElement(WEZEL_XML_PLANETA)){
-			auto p = shared_ptr<Planeta>( new Planeta(IdType()) );
+			auto p = shared_ptr<Planeta>( new Planeta(Identyfikator()) );
 			if(!p->odczytaj(n))
 				return false;
 			listaPlanet.insert(make_pair(p->getId(),p));

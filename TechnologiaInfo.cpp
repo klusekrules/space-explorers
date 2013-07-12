@@ -22,7 +22,7 @@ TechnologiaInfo::TechnologiaInfo( const TechnologiaInfo& o )
 {
 }
 
-Technologia* TechnologiaInfo::TworzEgzemplarz( const Ilosc& i, const IdType& idP ) const{
+Technologia* TechnologiaInfo::TworzEgzemplarz( const Ilosc& i, const Identyfikator& idP ) const{
 	return new Technologia( getPoziom(), idP, *this );
 }
 

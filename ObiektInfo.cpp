@@ -30,25 +30,25 @@ ObiektInfo::ObiektInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
 ObiektInfo::~ObiektInfo(){
 }
 
-Powierzchnia ObiektInfo::getPowierzchnia(const Poziom& pz, const IdType& idPlanety) const {
+Powierzchnia ObiektInfo::getPowierzchnia(const Poziom& pz, const Identyfikator& idPlanety) const {
 	if(zmPowierzchnia == nullptr)
 		return powierzchnia;			
 	return Powierzchnia(zmPowierzchnia->policzWartosc(powierzchnia(),static_cast<int>(pz()),idPlanety()));
 }
 
-Objetosc ObiektInfo::getObjetosc(const Poziom& pz, const IdType& idPlanety) const {
+Objetosc ObiektInfo::getObjetosc(const Poziom& pz, const Identyfikator& idPlanety) const {
 	if(zmPowierzchnia == nullptr)
 		return objetosc;
 	return Objetosc(zmObjetosc->policzWartosc(objetosc(),static_cast<int>(pz()), idPlanety()));
 }
 
-Masa ObiektInfo::getMasa(const Poziom& pz, const IdType& idPlanety) const {
+Masa ObiektInfo::getMasa(const Poziom& pz, const Identyfikator& idPlanety) const {
 	if(zmPowierzchnia == nullptr)
 		return masa;
 	return Masa(zmMasa->policzWartosc(masa(),static_cast<int>(pz()), idPlanety()));
 }
 
-Obiekt* ObiektInfo::TworzEgzemplarz( const Ilosc& iIlosc, const IdType& idPlanety ) const {
+Obiekt* ObiektInfo::TworzEgzemplarz( const Ilosc& iIlosc, const Identyfikator& idPlanety ) const {
 	return new Obiekt( iIlosc, getPoziom(),idPlanety, *this );
 }
 

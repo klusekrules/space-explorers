@@ -13,7 +13,7 @@ class Flota :
 	friend class Planeta;
 public:
 	typedef map< Klucz , shared_ptr<Statek> > ListaStatkow;
-	Flota(const IdType&);
+	Flota(const Identyfikator&);
 	virtual ~Flota(void);
 	bool dodajStatek( shared_ptr<Statek> );
 	bool dodajLadunek( shared_ptr<Obiekt> );

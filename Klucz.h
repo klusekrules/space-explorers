@@ -2,17 +2,17 @@
 #include "Main.h"
 #include "TypyProste.h"
 #include "Poziom.h"
-#include "IdType.h"
+#include "Identyfikator.h"
 #include "parser\ticpp.h"
 #include "WyjatekParseraXML.h"
 
 class Klucz:
 	virtual public LoggerInterface,
-	public PodstawowyInterfejs< pair < IdType, Poziom > >
+	public PodstawowyInterfejs< pair < Identyfikator, Poziom > >
 {
 public:
 	Klucz();
-	Klucz( const IdType& , const Poziom& );
+	Klucz( const Identyfikator& , const Poziom& );
 	explicit Klucz( const type_name& );
 	Klucz( const Klucz& );
 	virtual ~Klucz();

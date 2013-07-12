@@ -10,7 +10,7 @@ class NiezgodnyTypSurowca :
 {
 public:
 
-	static const IdType idNiezgodnyTypSurowca;
+	static const Identyfikator idNiezgodnyTypSurowca;
 	
 	NiezgodnyTypSurowca( const Tekst& tPlik, const Ilosc& iLinia, const Klucz& , const Klucz& );
 	NiezgodnyTypSurowca( const NiezgodnyTypSurowca& );

@@ -1,6 +1,6 @@
 #pragma once
 #include "Main.h"
-#include "IdType.h"
+#include "Identyfikator.h"
 #include "Tekst.h"
 #include "Ilosc.h"
 
@@ -12,16 +12,16 @@ class OgolnyWyjatek:
 	virtual public LoggerInterface
 {
 public:
-	static const IdType domyslnyOgolnyWyjatekID; /// Domyœlna wartoœæ id klasy.
+	static const Identyfikator domyslnyOgolnyWyjatekID; /// Domyœlna wartoœæ id klasy.
 	
-	OgolnyWyjatek( const Tekst& tPlik, const Ilosc& iLinia, const IdType& itId = IdType(), const Tekst& wwTytul = Tekst(), const Tekst& wwTresc = Tekst() );
+	OgolnyWyjatek( const Tekst& tPlik, const Ilosc& iLinia, const Identyfikator& itId = Identyfikator(), const Tekst& wwTytul = Tekst(), const Tekst& wwTresc = Tekst() );
 	OgolnyWyjatek( const OgolnyWyjatek& a );
 	virtual ~OgolnyWyjatek();
 
 	virtual Tekst generujKomunikat() const;
 	
-	const IdType& getNumerWyjaku() const;
-	void setNumerWyjatku( const IdType& itId );
+	const Identyfikator& getNumerWyjaku() const;
+	void setNumerWyjatku( const Identyfikator& itId );
 	
 	const Tekst& getTytul() const;
 	void setTytul( const Tekst& wwTytul );
@@ -32,7 +32,7 @@ public:
 	string napis() const override;
 
 protected:
-	IdType numerWyjatku;
+	Identyfikator numerWyjatku;
 	Tekst tytul;
 	Tekst tresc;
 	Tekst plik;

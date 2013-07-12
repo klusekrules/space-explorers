@@ -20,7 +20,7 @@ public:
 	* Konstruktor parametryczny.
 	* /param jInfo - Wskazanie na klasê reprezentuj¹c¹ opis jednostki atakuj¹cej.
 	*/
-	JednostkaAtakujaca( const Poziom&p , const IdType& idP, const JednostkaAtakujacaInfo& jInfo );
+	JednostkaAtakujaca( const Poziom&p , const Identyfikator& idP, const JednostkaAtakujacaInfo& jInfo );
 	JednostkaAtakujaca( const PodstawoweParametry& p, const JednostkaAtakujacaInfo& jInfo );
 		
 	/**

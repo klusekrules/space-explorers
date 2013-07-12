@@ -17,7 +17,7 @@ public:
 	typedef typename Mapa< Klucz , T , KluczHash >::const_iterator const_iterator;
 	
 	ObiektList()
-		: lista(IdType(-1))
+		: lista(Identyfikator(-1))
 	{
 	}
 
@@ -28,7 +28,7 @@ public:
 	}
 
 	ObiektList(const ObiektList& a)
-		: lista(IdType(-1))
+		: lista(Identyfikator(-1))
 	{
 		lista.clear();
 		for( auto i : a.lista){

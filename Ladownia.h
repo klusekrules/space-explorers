@@ -37,7 +37,7 @@ public:
 	typedef ObiektList< Item > Zbiornik;
 	typedef list < Klucz > ListaKluczy;
 
-	Ladownia( const Poziom&, const IdType&, const LadowniaInfo& );
+	Ladownia( const Poziom&, const Identyfikator&, const LadowniaInfo& );
 	Ladownia( const PodstawoweParametry&, const LadowniaInfo& );	
 	
 	virtual Fluktuacja WolneMiejsce() const;

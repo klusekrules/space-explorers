@@ -5,7 +5,7 @@
 #include <vector>
 #include "Ilosc.h"
 #include "Poziom.h"
-#include "IdType.h"
+#include "Identyfikator.h"
 #include "PodstawoweParametry.h"
 #include "Czas.h"
 

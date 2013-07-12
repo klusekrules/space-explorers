@@ -4,10 +4,10 @@
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
 
-Planeta::Planeta(const IdType& id)
+Planeta::Planeta(const Identyfikator& id)
 	: Base(id), wlasciciel(nullptr),
-	pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), 
-	pustyObiektBase( Ilosc(0), Poziom(0),IdType(0), pustyobiekBaseInfo )
+	pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),Identyfikator(0),Wymagania(nullptr)) , Poziom(0) ), 
+	pustyObiektBase( Ilosc(0), Poziom(0),Identyfikator(0), pustyobiekBaseInfo )
 {
 }
 
@@ -29,7 +29,7 @@ Ilosc Planeta::pobierzIloscTypowObiektow()const{
 	return Ilosc(listaObiektow.size()); 
 }
 
-const ObiektBase& Planeta::pobierzObiekt(const IdType& id) const{
+const ObiektBase& Planeta::pobierzObiekt(const Identyfikator& id) const{
 	auto i = listaObiektow.find(id);
 	if(i!=listaObiektow.end())
 		return *(i->second);
@@ -74,7 +74,7 @@ bool Planeta::dodajObiekt( shared_ptr< Surowce > ptr ){
 	return true;
 }
 
-bool Planeta::wybuduj( const IdType& id, const Ilosc& ilosc ){
+bool Planeta::wybuduj( const Identyfikator& id, const Ilosc& ilosc ){
 	auto i = listaObiektow.find(id);
 	if(i!=listaObiektow.end()){
 		i->second->wybuduj(ilosc);
@@ -84,13 +84,13 @@ bool Planeta::wybuduj( const IdType& id, const Ilosc& ilosc ){
 	}
 }
 
-IdType Planeta::dodajFlote(){
-	shared_ptr< Flota > ptr = shared_ptr< Flota >(new Flota(IdType(idFloty())));
+Identyfikator Planeta::dodajFlote(){
+	shared_ptr< Flota > ptr = shared_ptr< Flota >(new Flota(Identyfikator(idFloty())));
 	listaFlot.insert(make_pair(ptr->getId(),ptr));
 	return ptr->getId();
 }
 
-bool Planeta::przeniesDoFloty(const IdType& floty, const IdType& id, const Ilosc& ilosc){
+bool Planeta::przeniesDoFloty(const Identyfikator& floty, const Identyfikator& id, const Ilosc& ilosc){
 	auto i = listaStatkow.find(id);
 	if(i!=listaStatkow.end()){
 		auto f = listaFlot.find(floty);
@@ -120,7 +120,7 @@ bool Planeta::przeniesDoFloty(const IdType& floty, const IdType& id, const Ilosc
 	return false;
 }
 
-bool Planeta::zaladujFlote(const IdType& floty, const IdType& id, const Ilosc& ilosc){
+bool Planeta::zaladujFlote(const Identyfikator& floty, const Identyfikator& id, const Ilosc& ilosc){
 	auto i = listaObiektowZaladunkowych.find(id);
 	if(i==listaObiektowZaladunkowych.end())
 		return false;
@@ -147,7 +147,7 @@ bool Planeta::rozladujStatek( shared_ptr< Statek > ptr ){
 	return true;
 }
 
-bool Planeta::dolaczFloteDoPlanety(const IdType& id){
+bool Planeta::dolaczFloteDoPlanety(const Identyfikator& id){
 	auto iter = listaFlot.find(id);
 	if(iter == listaFlot.end()){
 		return false;
@@ -197,7 +197,7 @@ bool Planeta::odczytaj( TiXmlElement* e ){
 				if(c.empty())
 					return false;
 				Utils::trim(c);
-				IdType id(stoul(c,nullptr,0));
+				Identyfikator id(stoul(c,nullptr,0));
 				wybuduj(id,Ilosc(0));
 				auto i = listaObiektow.find(id);
 				if( i == listaObiektow.end() || !i->second->odczytaj(n) )
@@ -210,7 +210,7 @@ bool Planeta::odczytaj( TiXmlElement* e ){
 				if(c.empty())
 					return false;
 				Utils::trim(c);
-				IdType id(stoul(c,nullptr,0));
+				Identyfikator id(stoul(c,nullptr,0));
 				shared_ptr<Flota> ptr = shared_ptr<Flota>(new Flota (id));
 				auto i = listaFlot.find(id);
 				if( i != listaFlot.end() )

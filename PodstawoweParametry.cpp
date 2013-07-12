@@ -3,7 +3,7 @@
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
 
-PodstawoweParametry::PodstawoweParametry( const Poziom& poziom, const IdType& planeta)
+PodstawoweParametry::PodstawoweParametry( const Poziom& poziom, const Identyfikator& planeta)
 	: poziom(poziom), idPlanety(planeta)
 {
 }
@@ -20,11 +20,11 @@ void PodstawoweParametry::setPoziom(const Poziom& p){
 	poziom=p;
 }
 
-const IdType& PodstawoweParametry::getIdPlanety() const{
+const Identyfikator& PodstawoweParametry::getIdPlanety() const{
 	return idPlanety;
 }
 
-void PodstawoweParametry::setIdPlanety( const IdType& id ){
+void PodstawoweParametry::setIdPlanety( const Identyfikator& id ){
 	idPlanety = id;
 }
 
@@ -64,6 +64,6 @@ bool PodstawoweParametry::odczytaj( TiXmlElement* e ){
 string PodstawoweParametry::napis() const{
 	Logger str(NAZWAKLASY(PodstawoweParametry));
 	str.dodajPole(NAZWAKLASY(Poziom),poziom);
-	str.dodajPole(NAZWAKLASY(IdType),idPlanety);
+	str.dodajPole(NAZWAKLASY(Identyfikator),idPlanety);
 	return str.napis();
 }

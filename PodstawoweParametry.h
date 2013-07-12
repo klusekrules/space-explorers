@@ -1,6 +1,6 @@
 #pragma once
 #include "Logger\LoggerInterface.h"
-#include "IdType.h"
+#include "Identyfikator.h"
 #include "Poziom.h"
 #include "Serializacja.h"
 
@@ -9,7 +9,7 @@ class PodstawoweParametry :
 	virtual public Serializacja
 {
 public:
-	PodstawoweParametry( const Poziom&, const IdType& );
+	PodstawoweParametry( const Poziom&, const Identyfikator& );
 	virtual ~PodstawoweParametry(void);
 
 	string napis()const override;
@@ -20,9 +20,9 @@ public:
 
 	void setPoziom(const Poziom&);
 
-	const IdType& getIdPlanety() const;
+	const Identyfikator& getIdPlanety() const;
 
-	void setIdPlanety( const IdType& id );
+	void setIdPlanety( const Identyfikator& id );
 
 	bool zapisz( TiXmlElement* ) const override;
 
@@ -32,6 +32,6 @@ public:
 
 private:
 	Poziom poziom;
-	IdType idPlanety;
+	Identyfikator idPlanety;
 };
 

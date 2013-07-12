@@ -9,7 +9,7 @@ class NieznalezionoObiektu :
 	public OgolnyWyjatek
 {
 public:
-	static const IdType idNieznalezionoObiektu;
+	static const Identyfikator idNieznalezionoObiektu;
 
 	NieznalezionoObiektu(const Tekst& tPlik, const Ilosc& iLinia, const Tekst& tNazwa);
 	virtual ~NieznalezionoObiektu(void);

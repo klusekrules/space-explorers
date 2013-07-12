@@ -1,6 +1,6 @@
 #pragma once
 #include "Main.h"
-#include "IdType.h"
+#include "Identyfikator.h"
 #include "Serializacja.h"
 #include "parser\ticpp.h"
 #include "WyjatekParseraXML.h"
@@ -18,7 +18,7 @@ public:
 	* Konstruktor klasy Base z podan¹ wartoœci¹ ID.
 	* \param id - Id przechowywane przez klase.
 	*/
-	explicit Base( const IdType& id ) throw();
+	explicit Base( const Identyfikator& id ) throw();
 	explicit Base( TiXmlElement * ) throw(WyjatekParseraXML);
 	
 	/**
@@ -30,13 +30,13 @@ public:
 	* Metoda zwracaj¹ca ID klasy
 	* \return Id klasy.
 	*/
-	const IdType& getId()const;
+	const Identyfikator& getId()const;
 
 	/**
 	* Metoda ustawiaj¹ca ID klasy
 	* \param id - Nowa wartoœæ ID klasy.
 	*/
-	void setId( const IdType& id );
+	void setId( const Identyfikator& id );
 
 	bool zapisz( TiXmlElement* e ) const override;
 
@@ -49,6 +49,6 @@ public:
 	string napis() const override;
 private:
 
-	IdType id; /// Wartoœæ id obiektu.
+	Identyfikator id; /// Wartoœæ id obiektu.
 };
 

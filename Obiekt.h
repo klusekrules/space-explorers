@@ -18,7 +18,7 @@ class Obiekt:
 {
 public:
 
-	Obiekt( const Ilosc&, const Poziom& p, const IdType&, const ObiektInfo& ) throw();
+	Obiekt( const Ilosc&, const Poziom& p, const Identyfikator&, const ObiektInfo& ) throw();
 	Obiekt( const Ilosc&, const PodstawoweParametry& , const ObiektInfo& ) throw();
 	virtual ~Obiekt();
 

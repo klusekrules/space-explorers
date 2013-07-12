@@ -52,9 +52,6 @@
     <ClCompile Include="Fluktuacja.cpp">
       <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
-    <ClCompile Include="IdType.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClCompile>
     <ClCompile Include="Info.cpp">
       <Filter>SourceFile\BaseClass\Info</Filter>
     </ClCompile>
@@ -205,6 +202,9 @@
     <ClCompile Include="Flota.cpp">
       <Filter>SourceFile\Flota</Filter>
     </ClCompile>
+    <ClCompile Include="Identyfikator.cpp">
+      <Filter>SourceFile\Typy podstawowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -254,9 +254,6 @@
     </ClInclude>
     <ClInclude Include="ObiektBase.h">
       <Filter>SourceFile\BaseClass\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="IdType.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="Poziom.h">
       <Filter>SourceFile\Typy podstawowe</Filter>
@@ -463,6 +460,9 @@
       <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="TypyProste.h">
+      <Filter>SourceFile\Typy podstawowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Identyfikator.h">
       <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
   </ItemGroup>
