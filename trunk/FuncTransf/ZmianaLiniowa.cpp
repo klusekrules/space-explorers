@@ -30,7 +30,7 @@ ZmianaInterfejs* ZmianaLiniowa::TworzZmianaLiniowa( TiXmlElement* wezel ){
 }
 
 string ZmianaLiniowa::toString()const{
-	Logger str(CLASSNAME(ZmianaLiniowa));
-	str.addField("Parametr",parametr_);
+	Logger str(NAZWAKLASY(ZmianaLiniowa));
+	str.dodajPole("Parametr",parametr_);
 	return str.toString();
 }

@@ -68,5 +68,5 @@ Dystans Dystans::operator+( const Dystans& p )const{
 }
 
 string Dystans::toString() const{
-	return Logger::field(CLASSNAME(Dystans),wartosc_);
+	return Logger::tworzPole(NAZWAKLASY(Dystans),wartosc_);
 } 

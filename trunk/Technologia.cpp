@@ -49,9 +49,9 @@ bool Technologia::odczytaj( TiXmlElement* e ) {
 }
 
 string Technologia::toString() const{
-	Logger str(CLASSNAME(Technologia));
-	str.addClass(ObiektBase::toString());
-	str.addField(CLASSNAME(TechnologiaInfo)+"ID",technologiaInfo.getId());
+	Logger str(NAZWAKLASY(Technologia));
+	str.dodajKlase(ObiektBase::toString());
+	str.dodajPole(NAZWAKLASY(TechnologiaInfo)+"ID",technologiaInfo.getId());
 	return str.toString();
 }
 

@@ -87,5 +87,5 @@ Masa& Masa::operator*=( const Ilosc& f ){
 
 
 string Masa::toString() const{
-	return Logger::field(CLASSNAME(Masa),wartosc_);
+	return Logger::tworzPole(NAZWAKLASY(Masa),wartosc_);
 } 

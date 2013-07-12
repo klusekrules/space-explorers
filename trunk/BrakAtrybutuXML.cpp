@@ -29,8 +29,8 @@ Tekst BrakAtrybutuXML::generujKomunikat() const{
 }
 
 string BrakAtrybutuXML::toString() const{
-	Logger str(CLASSNAME(BrakAtrybutuXML));	
-	str.addClass(WyjatekParseraXML::toString());
-	str.addField("Atrybut",atrybut);
+	Logger str(NAZWAKLASY(BrakAtrybutuXML));	
+	str.dodajKlase(WyjatekParseraXML::toString());
+	str.dodajPole("Atrybut",atrybut);
 	return str.toString();
 }

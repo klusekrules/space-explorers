@@ -44,5 +44,5 @@ Czas& Czas::operator=( const type_name& b ){
 }
 
 string Czas::toString() const{
-	return Logger::field(CLASSNAME(Czas),wartosc_);
+	return Logger::tworzPole(NAZWAKLASY(Czas),wartosc_);
 } 

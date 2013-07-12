@@ -77,10 +77,10 @@ void Cena::setKoszty( const Item& zsKoszty ){
 }
 
 string Cena::toString() const{
-	Logger str(CLASSNAME(Cena));
+	Logger str(NAZWAKLASY(Cena));
 	if(obiekty.get())
-		str.addField("Surowiec",*obiekty);
+		str.dodajPole("Surowiec",*obiekty);
 	if(zmiana.get())
-		str.addField("Zmiana",*zmiana);
+		str.dodajPole("Zmiana",*zmiana);
 	return str.toString();
 }

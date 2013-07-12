@@ -22,9 +22,9 @@ Tekst NiepoprawnaIloscObiektow::generujKomunikat() const{
 }
 
 string NiepoprawnaIloscObiektow::toString() const{
-	Logger str(CLASSNAME(NiepoprawnaIloscObiektow));	
-	str.addClass(OgolnyWyjatek::toString());
-	str.addField("Ilosc",i);
+	Logger str(NAZWAKLASY(NiepoprawnaIloscObiektow));	
+	str.dodajKlase(OgolnyWyjatek::toString());
+	str.dodajPole("Ilosc",i);
 	return str.toString();
 }
 	

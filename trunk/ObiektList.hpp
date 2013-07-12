@@ -107,8 +107,8 @@ public:
 	}
 
 	string toString() const override{
-		Logger str(CLASSNAME(ObiektList<T>));
-		str.addField("Lista Obiektow",lista);
+		Logger str(NAZWAKLASY(ObiektList<T>));
+		str.dodajPole("Lista Obiektow",lista);
 		return str.toString();
 	}
 	list<T*> rawObiektList() const {

@@ -31,8 +31,8 @@ bool ZmianaPotegowa::RejestrujZmianaPotegowa( ZmianaFabryka &fabryka ){
 }
 
 string ZmianaPotegowa::toString()const{
-	Logger str(CLASSNAME(ZmianaPotegowa));
-	str.addField( "wspolczynnik", wspolczynnik_ );
-	str.addField( "wykladnik", wykladnik_ );
+	Logger str(NAZWAKLASY(ZmianaPotegowa));
+	str.dodajPole( "wspolczynnik", wspolczynnik_ );
+	str.dodajPole( "wykladnik", wykladnik_ );
 	return str.toString();
 }

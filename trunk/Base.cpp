@@ -47,7 +47,7 @@ bool Base::odczytaj( TiXmlElement* n ){
 }
 
 string Base::toString() const{
-	Logger str(CLASSNAME(Base));
-	str.addField("ID",id);
+	Logger str(NAZWAKLASY(Base));
+	str.dodajPole("ID",id);
 	return str.toString();
 }

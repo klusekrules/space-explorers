@@ -223,9 +223,9 @@ bool Planeta::odczytaj( TiXmlElement* e ){
 }
 
 string Planeta::toString() const{
-	Logger str(CLASSNAME(Planeta));
-	str.addClass(Base::toString());
+	Logger str(NAZWAKLASY(Planeta));
+	str.dodajKlase(Base::toString());
 	for( auto i : listaObiektow )
-		str.addField("Obiekt", *(i.second));
+		str.dodajPole("Obiekt", *(i.second));
 	return str.toString();
 }

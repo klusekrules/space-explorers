@@ -223,9 +223,9 @@ bool Ladownia::odczytaj (TiXmlElement* e) {
 }
 
 string Ladownia::toString() const{
-	Logger str(CLASSNAME(Ladownia));
-	str.addField("Zajete Miejsce",zajete);
-	str.addField(CLASSNAME(Zbiornik),obiekty);
-	str.addField(CLASSNAME(LadowniaInfo)+"ID",ladowniaInfo.getId());
+	Logger str(NAZWAKLASY(Ladownia));
+	str.dodajPole("Zajete Miejsce",zajete);
+	str.dodajPole(NAZWAKLASY(Zbiornik),obiekty);
+	str.dodajPole(NAZWAKLASY(LadowniaInfo)+"ID",ladowniaInfo.getId());
 	return str.toString();
 }

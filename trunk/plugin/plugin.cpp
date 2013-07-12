@@ -60,22 +60,22 @@ bool Cplugin::zaladujDomyslneKlasyZmian(){
 	bool rezultat = true;
 	if(!ZmianaAgregacja::RejestrujZmianaAgregacja(fabryka_)){
 		log_.debug("Nie zarejestrowano zmiany:");
-		log_.debug(CLASSNAME(ZmianaAgregacja));
+		log_.debug(NAZWAKLASY(ZmianaAgregacja));
 		rezultat=false;
 	}
 	if(!ZmianaLiniowa::RejestrujZmianaLiniowa(fabryka_)){
 		log_.debug("Nie zarejestrowano zmiany:");
-		log_.debug(CLASSNAME(ZmianaLiniowa));
+		log_.debug(NAZWAKLASY(ZmianaLiniowa));
 		rezultat=false;
 	}
 	if(!ZmianaPotegowa::RejestrujZmianaPotegowa(fabryka_)){
 		log_.debug("Nie zarejestrowano zmiany:");
-		log_.debug(CLASSNAME(ZmianaPotegowa));
+		log_.debug(NAZWAKLASY(ZmianaPotegowa));
 		rezultat=false;
 	}
 	if(!ZmianaPotegowaAlt::RejestrujZmianaPotegowaAlt(fabryka_)){
 		log_.debug("Nie zarejestrowano zmiany:");
-		log_.debug(CLASSNAME(ZmianaPotegowa));
+		log_.debug(NAZWAKLASY(ZmianaPotegowa));
 		rezultat=false;
 	}
 	return rezultat;

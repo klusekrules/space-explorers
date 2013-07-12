@@ -47,7 +47,7 @@ bool Tekst::operator!=( const Tekst& a ) const{
 }
 
 string Tekst::toString()const {
-	return Logger::field(CLASSNAME(Tekst),dodajCudzyslow());
+	return Logger::tworzPole(NAZWAKLASY(Tekst),dodajCudzyslow());
 }
 
 Tekst::type_name Tekst::dodajCudzyslow() const {

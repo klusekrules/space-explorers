@@ -18,8 +18,8 @@ void NiepoprawneParametryFunkcji::setParametry ( const Tekst& wwTresc ){
 }
 
 string NiepoprawneParametryFunkcji::toString() const{
-	Logger str(CLASSNAME(NiepoprawneParametryFunkcji));
-	str.addClass(OgolnyWyjatek::toString());
-	str.addField("Parametry funkcji",parametry);
+	Logger str(NAZWAKLASY(NiepoprawneParametryFunkcji));
+	str.dodajKlase(OgolnyWyjatek::toString());
+	str.dodajPole("Parametry funkcji",parametry);
 	return str.toString();
 }

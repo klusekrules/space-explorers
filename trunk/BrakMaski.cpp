@@ -29,8 +29,8 @@ Tekst BrakMaski::generujKomunikat() const{
 }
 
 string BrakMaski::toString() const{
-	Logger str(CLASSNAME(BrakMaski));
-	str.addClass(WyjatekParseraXML::toString());
-	str.addField("Nazwa Maski",nazwaMaski);
+	Logger str(NAZWAKLASY(BrakMaski));
+	str.dodajKlase(WyjatekParseraXML::toString());
+	str.dodajPole("Nazwa Maski",nazwaMaski);
 	return str.toString();
 }

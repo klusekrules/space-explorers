@@ -35,8 +35,8 @@ const Poziom& ObiektBaseInfo::getPoziom()const{
 }
 
 string ObiektBaseInfo::toString() const{
-	Logger str(CLASSNAME(ObiektBaseInfo));
-	str.addClass(Info::toString());	
-	str.addField(CLASSNAME(Poziom),poziom);
+	Logger str(NAZWAKLASY(ObiektBaseInfo));
+	str.dodajKlase(Info::toString());	
+	str.dodajPole(NAZWAKLASY(Poziom),poziom);
 	return str.toString();
 }

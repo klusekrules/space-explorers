@@ -156,9 +156,9 @@ bool Surowce::odczytaj( TiXmlElement* e ) {
 }
 
 string Surowce::toString() const{
-	Logger str(CLASSNAME(Surowce));
-	str.addClass(Obiekt::toString());
-	str.addField(CLASSNAME(Ilosc),ilosc);
-	str.addField(CLASSNAME(SurowceInfo)+"ID",surowceInfo.getId());
+	Logger str(NAZWAKLASY(Surowce));
+	str.dodajKlase(Obiekt::toString());
+	str.dodajPole(NAZWAKLASY(Ilosc),ilosc);
+	str.dodajPole(NAZWAKLASY(SurowceInfo)+"ID",surowceInfo.getId());
 	return str.toString();
 }

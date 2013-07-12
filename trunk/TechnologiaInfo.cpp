@@ -31,7 +31,7 @@ bool TechnologiaInfo::Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
 }
 
 string TechnologiaInfo::toString()const{
-	Logger str(CLASSNAME(TechnologiaInfo));
-	str.addClass(ObiektBaseInfo::toString());
+	Logger str(NAZWAKLASY(TechnologiaInfo));
+	str.dodajKlase(ObiektBaseInfo::toString());
 	return str.toString();
 }

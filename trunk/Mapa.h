@@ -54,13 +54,13 @@ public:
 	}
 
 	string toString() const override{
-		Logger str(CLASSNAME( TYP ));
-		str.addClass(Base::toString());
-		str.startSubClass("hash_map");
+		Logger str(NAZWAKLASY( TYP ));
+		str.dodajKlase(Base::toString());
+		str.rozpocznijPodKlase("hash_map");
 		for(const_iterator iter=begin(); iter!=end(); ++iter){
-			str.addField( "", (*iter).first , *( (*iter).second ) );
+			str.dodajPole( "", (*iter).first , *( (*iter).second ) );
 		}
-		str.endSubClass();
+		str.zakonczPodKlase();
 		return str.toString();
 	}
 };

@@ -10,7 +10,7 @@
 #include "DefinicjeWezlowXML.h"
 
 void myPurecallHandler(){
-	Log::getInstance().error(Aplikacja::getInstance().getStackTrace());
+	Log::pobierzInstancje().error(Aplikacja::getInstance().getStackTrace());
 }
 void myInvalidParameterHandler(const wchar_t* expression,
    const wchar_t* function, 
@@ -26,17 +26,17 @@ void myInvalidParameterHandler(const wchar_t* expression,
 	wcstombs_s(nullptr,c_file,wcslen(file)+1,file,wcslen(file));
 	stringstream str;
 	str<<"Invalid parameter detected in function: "<<c_function<<". File: " << c_file <<". Line: "<<line<<".\nExpression: "<< c_expression;
-	Log::getInstance().error(str.str());
-	Log::getInstance().error(Aplikacja::getInstance().getStackTrace());
+	Log::pobierzInstancje().error(str.str());
+	Log::pobierzInstancje().error(Aplikacja::getInstance().getStackTrace());
 }
 
 Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
-	: isDbgHelpInit(false), log(Log::getInstance()), instancjaGry(new Gra(*this))
+	: isDbgHelpInit(false), log(Log::pobierzInstancje()), instancjaGry(new Gra(*this))
 {
 
 #ifdef TESTS
 	/* Wylaczenie logow typu debug na potrzeby ograniczenia logow testow*/
-	log.logDebugDisable();
+	log.zablokujLogiDebug();
 	/* ------------------------------------ */
 #endif
 
@@ -98,7 +98,7 @@ Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 }
 
 Aplikacja::Aplikacja( const Aplikacja& a)
-	:isDbgHelpInit(a.isDbgHelpInit), log(Log::getInstance()), instancjaGry(a.instancjaGry) ,hLibrary(a.hLibrary)
+	:isDbgHelpInit(a.isDbgHelpInit), log(Log::pobierzInstancje()), instancjaGry(a.instancjaGry) ,hLibrary(a.hLibrary)
 {
 }
 

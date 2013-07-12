@@ -63,13 +63,13 @@ void OgolnyWyjatek::ustawSzczegoly( const Tekst& tPlik, const Ilosc& iLinia ){
 }
 
 string OgolnyWyjatek::toString() const{
-	Logger str(CLASSNAME(OgolnyWyjatek));
-	str.addField("ID", numerWyjatku);
-	str.addField("Tytul", tytul);
-	str.addField("Tresc", tresc);
-	str.addField("Plik", plik);
-	str.addField("Linia", linia);
-	str.addField("Data", data);
-	str.addField("StackTrace",stack);
+	Logger str(NAZWAKLASY(OgolnyWyjatek));
+	str.dodajPole("ID", numerWyjatku);
+	str.dodajPole("Tytul", tytul);
+	str.dodajPole("Tresc", tresc);
+	str.dodajPole("Plik", plik);
+	str.dodajPole("Linia", linia);
+	str.dodajPole("Data", data);
+	str.dodajPole("StackTrace",stack);
 	return str.toString();
 }

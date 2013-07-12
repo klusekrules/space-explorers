@@ -64,12 +64,12 @@ bool ZmianaAgregacja::RejestrujZmianaAgregacja( ZmianaFabryka &fabryka ){
 }
 
 string ZmianaAgregacja::toString() const{
-	Logger str(CLASSNAME(ZmianaAgregacja));
+	Logger str(NAZWAKLASY(ZmianaAgregacja));
 	if(nastepna_)
-		str.addField( "Nastêpna", *nastepna_ );
+		str.dodajPole( "Nastêpna", *nastepna_ );
 	for( auto element : listaZmian_){
 		if(element)
-			str.addField( "Brat", *element );
+			str.dodajPole( "Brat", *element );
 	}
 	return str.toString();
 }

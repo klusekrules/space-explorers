@@ -42,5 +42,5 @@ bool Klucz::operator<( const Klucz& a )const{
 }
 
 string Klucz::toString()const{
-	return Logger::field(CLASSNAME(Klucz),wartosc_.first,wartosc_.second);
+	return Logger::tworzPole(NAZWAKLASY(Klucz),wartosc_.first,wartosc_.second);
 }

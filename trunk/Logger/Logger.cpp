@@ -1,11 +1,8 @@
-// Logger.cpp : Defines the exported functions for the DLL application.
-//
-#include "stdafx.h"
 #include "Logger.h"
 
 Logger::Logger()
 {
-	stos.push(true);
+	stos_.push(true);
 }
 
 Logger::~Logger(){
@@ -13,58 +10,57 @@ Logger::~Logger(){
 
 Logger::Logger( const string& nazwa )
 {
-	stos.push(true);
-	napis<<nazwa<<"[";
+	stos_.push(true);
+	napis_<<nazwa<<"[";
 }
 
 string Logger::toString() const{
-	return napis.str() + " ]";
+	return napis_.str() + " ]";
 }
 
-void Logger::addClass( const string& tekst ){
-	testPierwszy();
-	napis<<" "<<tekst;
+void Logger::dodajKlase( const string& opisKlasy ){
+	testPierwszegoPola();
+	napis_<<" "<<opisKlasy;
 }
 
-string Logger::field( const string& name, const LoggerInterface& liClassF, const LoggerInterface& liClassS ){
+string Logger::tworzPole( const string& nazwa, const LoggerInterface& obiektPierwszy, const LoggerInterface& obiektDrugi ){
 	stringstream str;
-	str << name << " { " << liClassF.toString() << " , " << liClassS.toString() <<" }";
+	str << nazwa << " { " << obiektPierwszy.toString() << " , " << obiektDrugi.toString() <<" }";
 	return str.str();
 }
 
-string Logger::reMakeSimpleClassString( const string &className, const string &tekst ){
-	return string(className + "[ " + tekst +" ]");
+string Logger::tworzKlase( const string& nazwaKlasy, const string& opisKlasy ){
+	return string( nazwaKlasy + "[ " + opisKlasy + " ]" );
 }
 
-void Logger::addField( const string& name, const LoggerInterface& liClass ){
-	string value = liClass.toString() ;
-	addField( name, value );
+void Logger::dodajPole( const string& nazwa, const LoggerInterface& obiekt ){
+	dodajPole( nazwa, obiekt.toString() );
 }
 
-void Logger::addField( const string& name, const string& liClass ){
-	testPierwszy();
-	napis << " "  << name << "=" << liClass;
+void Logger::dodajPole( const string& nazwa, const string& opisPola ){
+	testPierwszegoPola();
+	napis_ << " "  << nazwa << "=" << opisPola;
 }
 
-void Logger::addField( const string& name, const LoggerInterface& liClassF, const LoggerInterface& liClassS ){
-	testPierwszy();
-	napis << name << "{ " << liClassF.toString() << " , " << liClassS.toString() <<" }";
+void Logger::dodajPole( const string& nazwa, const LoggerInterface& obiektPierwszy, const LoggerInterface& obiektDrugi ){
+	testPierwszegoPola();
+	napis_ << nazwa << " { " << obiektPierwszy.toString() << " , " << obiektDrugi.toString() <<" }";
 }
 
-void Logger::startSubClass( const string& s ){
-	testPierwszy();
-	napis << s << "[ ";
-	stos.push(true);
+void Logger::rozpocznijPodKlase( const string& nazwa ){
+	testPierwszegoPola();
+	napis_ << nazwa << "[ ";
+	stos_.push(true);
 }
 
-void Logger::endSubClass(){
-	stos.pop();
-	napis << " ]";
+void Logger::zakonczPodKlase(){
+	stos_.pop();
+	napis_ << " ]";
 }
 
-void Logger::testPierwszy( ){
-	if(!stos.top())
-		napis<<", ";
+void Logger::testPierwszegoPola( ){
+	if(!stos_.top())
+		napis_<<", ";
 	else
-		stos.top() = false;
+		stos_.top() = false;
 }
