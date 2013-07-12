@@ -67,6 +67,6 @@ Fluktuacja Fluktuacja::operator+( const Fluktuacja& p )const{
 	return Fluktuacja( wartosc_ + p.wartosc_ );
 }
 
-string Fluktuacja::toString() const{
+string Fluktuacja::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(Fluktuacja),wartosc_);
 }

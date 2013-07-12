@@ -25,7 +25,7 @@ public:
 
 	bool czySpelniaKoszty( const Ilosc&, const PodstawoweParametry& ) const;
 
-	string toString()const override;
+	string napis()const override;
 private:
 	Zbiornik elementy;
 

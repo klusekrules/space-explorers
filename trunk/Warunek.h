@@ -27,7 +27,7 @@ public:
 
 	bool czySpelniaWarunki( const PodstawoweParametry& ) const;
 
-	string toString() const override;
+	string napis() const override;
 
 private:
 	

@@ -21,7 +21,7 @@ public:
 
 	Cennik::ListaSurowcow PobierzProdukcje( const PodstawoweParametry& param )const;
 
-	string toString()const override;
+	string napis()const override;
 private:
 	bool Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const override;
 };

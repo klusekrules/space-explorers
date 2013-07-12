@@ -25,7 +25,7 @@ public:
 	Predkosc operator-( const Predkosc& )const;
 	Predkosc operator+( const Predkosc& )const;
 	
-	string toString() const override; 
+	string napis() const override; 
 };
 
 

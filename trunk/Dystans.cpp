@@ -67,6 +67,6 @@ Dystans Dystans::operator+( const Dystans& p )const{
 	return Dystans( wartosc_ + p.wartosc_ );
 }
 
-string Dystans::toString() const{
+string Dystans::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(Dystans),wartosc_);
 } 

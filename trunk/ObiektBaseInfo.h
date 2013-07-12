@@ -22,7 +22,7 @@ public:
 
 	const Poziom& getPoziom()const;
 
-	string toString() const;
+	string napis() const;
 
 private:
 

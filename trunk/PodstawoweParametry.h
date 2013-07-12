@@ -12,7 +12,7 @@ public:
 	PodstawoweParametry( const Poziom&, const IdType& );
 	virtual ~PodstawoweParametry(void);
 
-	string toString()const override;
+	string napis()const override;
 
 	const Poziom& getPoziom() const;
 

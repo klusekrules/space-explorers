@@ -23,9 +23,9 @@ long double ZmianaParametr::pobierzWspolczynnik()const{
 	return wspolczynnikObiektu_;
 }
 
-string ZmianaParametr::toString()const{
+string ZmianaParametr::napis()const{
 	Logger str(NAZWAKLASY(ZmianaParametr));
 	str.dodajPole("IdObiektu",Logger::tworzPole(idObiektu_));
 	str.dodajPole("Parametr",Logger::tworzPole(wspolczynnikObiektu_));
-	return str.toString();
+	return str.napis();
 }

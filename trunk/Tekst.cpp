@@ -46,7 +46,7 @@ bool Tekst::operator!=( const Tekst& a ) const{
 	return wartosc_ != a.wartosc_;
 }
 
-string Tekst::toString()const {
+string Tekst::napis()const {
 	return Logger::tworzPole(NAZWAKLASY(Tekst),dodajCudzyslow());
 }
 

@@ -34,10 +34,10 @@ bool ZmianaPotegowaAlt::RejestrujZmianaPotegowaAlt( ZmianaFabryka &fabryka ){
 	return fabryka.rejestracjaZmiany( identyfikator_, ZmianaPotegowaAlt::TworzZmianaPotegowaAlt );
 }
 
-string ZmianaPotegowaAlt::toString()const{
+string ZmianaPotegowaAlt::napis()const{
 	Logger str(NAZWAKLASY(ZmianaPotegowaAlt));
 	str.dodajPole( "wspolczynnik", wspolczynnik_ );
 	if(wykladnik_)
 		str.dodajPole( "wykladnik", *wykladnik_ );
-	return str.toString();
+	return str.napis();
 }

@@ -22,9 +22,9 @@ void BladDzieleniaLadowni::setLadownia ( const Tekst& tLadownia ){
 	ladownia = tLadownia;
 }
 
-string BladDzieleniaLadowni::toString() const{
+string BladDzieleniaLadowni::napis() const{
 	Logger str(NAZWAKLASY(BladDzieleniaLadowni));
-	str.dodajKlase(OgolnyWyjatek::toString());
+	str.dodajKlase(OgolnyWyjatek::napis());
 	str.dodajPole("Ladownia",ladownia);
-	return str.toString();
+	return str.napis();
 }

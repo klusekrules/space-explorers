@@ -52,9 +52,9 @@ Obiekt* ObiektInfo::TworzEgzemplarz( const Ilosc& iIlosc, const IdType& idPlanet
 	return new Obiekt( iIlosc, getPoziom(),idPlanety, *this );
 }
 
-string ObiektInfo::toString() const{
+string ObiektInfo::napis() const{
 	Logger str(NAZWAKLASY(ObiektInfo));
-	str.dodajKlase(ObiektBaseInfo::toString());
+	str.dodajKlase(ObiektBaseInfo::napis());
 	str.dodajPole(NAZWAKLASY(Masa),masa);
 	str.dodajPole(NAZWAKLASY(Objetosc),objetosc);
 	str.dodajPole(NAZWAKLASY(Powierzchnia),powierzchnia);
@@ -64,5 +64,5 @@ string ObiektInfo::toString() const{
 		str.dodajPole("ZmianaObjetosci",*zmObjetosc);
 	if(zmPowierzchnia!=nullptr)
 		str.dodajPole("ZmianaPowierzchni",*zmPowierzchnia);
-	return str.toString();
+	return str.napis();
 }

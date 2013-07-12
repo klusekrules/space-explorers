@@ -29,7 +29,7 @@ public:
 	const Item& getKoszty() const;
 	void setKoszty( const Item& );
 
-	string toString() const override;
+	string napis() const override;
 
 private:
 	shared_ptr<Item> obiekty;

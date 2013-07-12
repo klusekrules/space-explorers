@@ -27,9 +27,9 @@ Tekst WyjatekSTL::generujKomunikat()const {
 	return OgolnyWyjatek::generujKomunikat() + powod + Tekst("\n");
 }
 
-string WyjatekSTL::toString() const{
+string WyjatekSTL::napis() const{
 	Logger str(NAZWAKLASY(WyjatekSTL));	
-	str.dodajKlase(OgolnyWyjatek::toString());
+	str.dodajKlase(OgolnyWyjatek::napis());
 	str.dodajPole("Powod",powod);
-	return str.toString();
+	return str.napis();
 }

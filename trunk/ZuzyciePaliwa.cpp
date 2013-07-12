@@ -67,6 +67,6 @@ ZuzyciePaliwa ZuzyciePaliwa::operator+( const ZuzyciePaliwa& p )const{
 	return ZuzyciePaliwa( wartosc_ + p.wartosc_ );
 }
 
-string ZuzyciePaliwa::toString() const{
+string ZuzyciePaliwa::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(ZuzyciePaliwa),wartosc_);
 } 

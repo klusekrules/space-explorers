@@ -23,9 +23,9 @@ OgolnyWyjatek::~OgolnyWyjatek(){
 Tekst OgolnyWyjatek::generujKomunikat() const
 {
 	return  Tekst( "Tytul: " ) + tytul + 
-		Tekst( "\nID: " ) + numerWyjatku.toString() +
+		Tekst( "\nID: " ) + numerWyjatku.napis() +
 		Tekst( "\nPlik: ") + plik +
-		Tekst( "\nLinia: ") + linia.toString() +
+		Tekst( "\nLinia: ") + linia.napis() +
 		Tekst( "\nData kompilacji: ") + data + 
 		Tekst( "\nTresc: " ) + tresc +
 		Tekst( "\nStos wywo³añ: " ) + stack + Tekst( "\n" ); 
@@ -62,7 +62,7 @@ void OgolnyWyjatek::ustawSzczegoly( const Tekst& tPlik, const Ilosc& iLinia ){
 	stack = Aplikacja::getInstance().getStackTrace();
 }
 
-string OgolnyWyjatek::toString() const{
+string OgolnyWyjatek::napis() const{
 	Logger str(NAZWAKLASY(OgolnyWyjatek));
 	str.dodajPole("ID", numerWyjatku);
 	str.dodajPole("Tytul", tytul);
@@ -71,5 +71,5 @@ string OgolnyWyjatek::toString() const{
 	str.dodajPole("Linia", linia);
 	str.dodajPole("Data", data);
 	str.dodajPole("StackTrace",stack);
-	return str.toString();
+	return str.napis();
 }

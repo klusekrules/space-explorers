@@ -32,5 +32,5 @@ public:
 	Objetosc operator*( const Ilosc& )const;
 	Objetosc& operator*=( const Ilosc& );
 	
-	string toString() const override; 
+	string napis() const override; 
 };

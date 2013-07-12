@@ -37,8 +37,8 @@ void PodstawoweParametry::wzrostPoziomu(){
 }
 
 bool PodstawoweParametry::zapisz( TiXmlElement* e ) const{
-	e->SetAttribute(ATRYBUT_XML_POZIOM,poziom.toString());
-	e->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETY,idPlanety.toString());
+	e->SetAttribute(ATRYBUT_XML_POZIOM,poziom.napis());
+	e->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETY,idPlanety.napis());
 	return true;
 }
 
@@ -61,9 +61,9 @@ bool PodstawoweParametry::odczytaj( TiXmlElement* e ){
 	return false;
 }
 
-string PodstawoweParametry::toString() const{
+string PodstawoweParametry::napis() const{
 	Logger str(NAZWAKLASY(PodstawoweParametry));
 	str.dodajPole(NAZWAKLASY(Poziom),poziom);
 	str.dodajPole(NAZWAKLASY(IdType),idPlanety);
-	return str.toString();
+	return str.napis();
 }

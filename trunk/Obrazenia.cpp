@@ -67,6 +67,6 @@ Obrazenia Obrazenia::operator+( const Obrazenia& p )const{
 	return Obrazenia( wartosc_ + p.wartosc_ );
 }
 
-string Obrazenia::toString() const{
+string Obrazenia::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(Obrazenia),wartosc_);
 } 

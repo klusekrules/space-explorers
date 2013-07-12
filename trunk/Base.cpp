@@ -30,7 +30,7 @@ void Base::setId( const IdType& id ){
 }
 
 bool Base::zapisz( TiXmlElement* n ) const{
-	n->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR,id.toString());
+	n->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR,id.napis());
 	return true;
 }
 
@@ -46,8 +46,8 @@ bool Base::odczytaj( TiXmlElement* n ){
 	return false;
 }
 
-string Base::toString() const{
+string Base::napis() const{
 	Logger str(NAZWAKLASY(Base));
 	str.dodajPole("ID",id);
-	return str.toString();
+	return str.napis();
 }

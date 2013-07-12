@@ -25,6 +25,6 @@ public:
 	Dystans operator-( const Dystans& )const;
 	Dystans operator+( const Dystans& )const;
 	
-	string toString() const override; 
+	string napis() const override; 
 };
 

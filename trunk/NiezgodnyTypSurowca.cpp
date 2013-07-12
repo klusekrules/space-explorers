@@ -5,7 +5,7 @@ NiezgodnyTypSurowca::NiezgodnyTypSurowca( const Tekst& tPlik, const Ilosc& iLini
 	: OgolnyWyjatek (  tPlik, iLinia, idNiezgodnyTypSurowca , tytulNiezgodnyTypSurowcaDomyslny , Tekst() )
 {
 	stringstream str;
-	str<<"Brak zgodnosci typow. Uzyte typy = [ID Pierwszy = " << tsP().first.toString() << ", Poziom = "<< tsP().second.toString() << " ], [ID Drugi = "<< tsD().first.toString()<< ", Poziom = "<< tsD().second.toString() <<" ].";
+	str<<"Brak zgodnosci typow. Uzyte typy = [ID Pierwszy = " << tsP().first.napis() << ", Poziom = "<< tsP().second.napis() << " ], [ID Drugi = "<< tsD().first.napis()<< ", Poziom = "<< tsD().second.napis() <<" ].";
 	setTresc(str.str());
 }
 
@@ -17,8 +17,8 @@ NiezgodnyTypSurowca::NiezgodnyTypSurowca( const NiezgodnyTypSurowca& wyjatek )
 NiezgodnyTypSurowca::~NiezgodnyTypSurowca(){
 }
 
-string NiezgodnyTypSurowca::toString() const{
+string NiezgodnyTypSurowca::napis() const{
 	Logger str(NAZWAKLASY(NiezgodnyTypSurowca));
-	str.dodajKlase(OgolnyWyjatek::toString());
-	return str.toString();
+	str.dodajKlase(OgolnyWyjatek::napis());
+	return str.napis();
 }

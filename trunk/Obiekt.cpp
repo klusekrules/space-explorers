@@ -51,9 +51,9 @@ bool Obiekt::odczytaj (TiXmlElement* e){
 	return ObiektBase::odczytaj(e);
 }
 
-string Obiekt::toString() const{
+string Obiekt::napis() const{
 	Logger str(NAZWAKLASY(Obiekt));
-	str.dodajKlase(ObiektBase::toString());
+	str.dodajKlase(ObiektBase::napis());
 	str.dodajPole(NAZWAKLASY(ObiektInfo)+"ID",obiektInfoClass.getId());
-	return str.toString();
+	return str.napis();
 }

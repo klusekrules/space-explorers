@@ -100,7 +100,7 @@ public:
 	* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
 	* \return Napis zwieraj¹cy opis klasy.
 	*/
-	string toString() const override;
+	string napis() const override;
 
 	/**
 	* Metoda pobieraj¹ca przetworzone warunki dostêpnoœci obiektu

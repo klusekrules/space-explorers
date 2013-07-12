@@ -20,7 +20,7 @@ public:
 	
 	Surowce* TworzEgzemplarz( const Ilosc&, const IdType& ) const override;
 
-	string toString() const override;
+	string napis() const override;
 
 	Czas pobierzCzas( const Ilosc& ,const PodstawoweParametry& )const;
 

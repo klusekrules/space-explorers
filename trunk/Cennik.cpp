@@ -65,10 +65,10 @@ Cennik::ListaSurowcow Cennik::PobierzKoszty(const Ilosc& il, const PodstawowePar
 	return tmp;
 }
 
-string Cennik::toString()const{
+string Cennik::napis()const{
 	Logger str(NAZWAKLASY(Cennik));
 	for(auto i : elementy)
 		if(i)
 			str.dodajPole("Element",*i);
-	return str.toString();
+	return str.napis();
 }

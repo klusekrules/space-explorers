@@ -76,11 +76,11 @@ void Cena::setKoszty( const Item& zsKoszty ){
 	obiekty = shared_ptr<Item>(zsKoszty.Kopia());
 }
 
-string Cena::toString() const{
+string Cena::napis() const{
 	Logger str(NAZWAKLASY(Cena));
 	if(obiekty.get())
 		str.dodajPole("Surowiec",*obiekty);
 	if(zmiana.get())
 		str.dodajPole("Zmiana",*zmiana);
-	return str.toString();
+	return str.napis();
 }

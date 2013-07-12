@@ -19,6 +19,6 @@ public:
 	*/
 	bool czySpelniaWymagania( const Ilosc& i , const PodstawoweParametry& )const;
 
-	string toString() const override;
+	string napis() const override;
 
 };

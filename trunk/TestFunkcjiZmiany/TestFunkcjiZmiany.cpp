@@ -29,10 +29,10 @@ bool ZmianaTest::RejestrujZmianaTest(  ZmianaFabryka &ref ){
 	return ref.rejestracjaZmiany( identyfikator_, ZmianaTest::TworzZmianaTest );
 }
 
-string ZmianaTest::toString()const{
+string ZmianaTest::napis()const{
 	Logger str(NAZWAKLASY(ZmianaTest));
 	str.dodajPole( "Parametr", parametr_ );
-	return str.toString();
+	return str.napis();
 }
 
 const int ZmianaTest::identyfikator_(5);

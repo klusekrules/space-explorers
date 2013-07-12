@@ -47,7 +47,7 @@ public:
 	* Przeci¹¿ona funkcja generuj¹ca tekstowy opis klasy.
 	* \return Napis zawieraj¹cy opis klasy.
 	*/
-	string toString() const override;
+	string napis() const override;
 
 	virtual Obrazenia getAtak() const;
 

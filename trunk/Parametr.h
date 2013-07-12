@@ -14,6 +14,6 @@ public:
 
 	Parametr& operator=( const Parametr& );
 	
-	string toString() const override;
+	string napis() const override;
 };
 

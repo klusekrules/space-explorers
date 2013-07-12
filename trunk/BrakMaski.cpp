@@ -28,9 +28,9 @@ Tekst BrakMaski::generujKomunikat() const{
 	return OgolnyWyjatek::generujKomunikat() + nazwaMaski + Tekst("\n");
 }
 
-string BrakMaski::toString() const{
+string BrakMaski::napis() const{
 	Logger str(NAZWAKLASY(BrakMaski));
-	str.dodajKlase(WyjatekParseraXML::toString());
+	str.dodajKlase(WyjatekParseraXML::napis());
 	str.dodajPole("Nazwa Maski",nazwaMaski);
-	return str.toString();
+	return str.napis();
 }

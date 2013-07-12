@@ -48,10 +48,10 @@ bool Technologia::odczytaj( TiXmlElement* e ) {
 	return ObiektBase::odczytaj(e);
 }
 
-string Technologia::toString() const{
+string Technologia::napis() const{
 	Logger str(NAZWAKLASY(Technologia));
-	str.dodajKlase(ObiektBase::toString());
+	str.dodajKlase(ObiektBase::napis());
 	str.dodajPole(NAZWAKLASY(TechnologiaInfo)+"ID",technologiaInfo.getId());
-	return str.toString();
+	return str.napis();
 }
 

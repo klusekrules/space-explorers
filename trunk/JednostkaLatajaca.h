@@ -70,7 +70,7 @@ public:
 	* Metoda opisuj¹ca zawartoœæ klasy.
 	* \return CI¹g znaków opisuj¹cy klasê.
 	*/
-	string toString() const override;
+	string napis() const override;
 
 protected:
 

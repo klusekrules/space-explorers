@@ -155,10 +155,10 @@ bool Surowce::odczytaj( TiXmlElement* e ) {
 	return Obiekt::odczytaj(e);
 }
 
-string Surowce::toString() const{
+string Surowce::napis() const{
 	Logger str(NAZWAKLASY(Surowce));
-	str.dodajKlase(Obiekt::toString());
+	str.dodajKlase(Obiekt::napis());
 	str.dodajPole(NAZWAKLASY(Ilosc),ilosc);
 	str.dodajPole(NAZWAKLASY(SurowceInfo)+"ID",surowceInfo.getId());
-	return str.toString();
+	return str.napis();
 }

@@ -49,7 +49,7 @@ bool Uzytkownik::odczytaj( TiXmlElement* e ){
 	return false;
 }
 
-string Uzytkownik::toString() const{
+string Uzytkownik::napis() const{
 	Logger str(NAZWAKLASY(Uzytkownik));
-	return str.toString();
+	return str.napis();
 }

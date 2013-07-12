@@ -41,11 +41,11 @@ void Info::setOpis( const Tekst& tOpis ){
 	opis = tOpis;
 }
 
-string Info::toString() const{
+string Info::napis() const{
 	Logger str(NAZWAKLASY(Info));
-	str.dodajKlase(Base::toString());
-	str.dodajKlase(Wymagania::toString());
+	str.dodajKlase(Base::napis());
+	str.dodajKlase(Wymagania::napis());
 	str.dodajPole("Nazwa",nazwa);
 	str.dodajPole("Opis",opis);
-	return str.toString();
+	return str.napis();
 }

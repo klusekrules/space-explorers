@@ -63,7 +63,7 @@ bool ZmianaAgregacja::RejestrujZmianaAgregacja( ZmianaFabryka &fabryka ){
 	return fabryka.rejestracjaZmiany( identyfikator_, ZmianaAgregacja::TworzZmianaAgregacja );
 }
 
-string ZmianaAgregacja::toString() const{
+string ZmianaAgregacja::napis() const{
 	Logger str(NAZWAKLASY(ZmianaAgregacja));
 	if(nastepna_)
 		str.dodajPole( "Nastêpna", *nastepna_ );
@@ -71,5 +71,5 @@ string ZmianaAgregacja::toString() const{
 		if(element)
 			str.dodajPole( "Brat", *element );
 	}
-	return str.toString();
+	return str.napis();
 }

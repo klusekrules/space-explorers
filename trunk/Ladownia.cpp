@@ -65,7 +65,7 @@ bool Ladownia::DodajObiektDoLadowni( Item& obiekt ){
 
 Ladownia::Item& Ladownia::PobierzObiekt( const Klucz& itID, const Ilosc& isIlosc ) throw( NieznalezionoObiektu, NiepoprawnaIloscObiektow ){
 	if(obiekty.isEmpty())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,itID.toString());
+		throw NieznalezionoObiektu(EXCEPTION_PLACE,itID.napis());
 
 	try{
 		Obiekt& o = obiekty.get(itID);
@@ -82,7 +82,7 @@ Ladownia::Item& Ladownia::PobierzObiekt( const Klucz& itID, const Ilosc& isIlosc
 		}
 
 		if( isIlosc == Ilosc() ){
-			throw NieznalezionoObiektu(EXCEPTION_PLACE,o.toString());
+			throw NieznalezionoObiektu(EXCEPTION_PLACE,o.napis());
 		}
 
 		if( isIlosc > o.getIlosc() ){
@@ -142,7 +142,7 @@ Ladownia::Zbiornik* Ladownia::PodzielLadownie( const Objetosc& oMax , const Obje
 			obiekty = kopia;
 			przeliczZajeteMiejsce();
 		}else{
-			throw BladDzieleniaLadowni( EXCEPTION_PLACE, this->toString() );
+			throw BladDzieleniaLadowni( EXCEPTION_PLACE, this->napis() );
 		}
 	}catch(...){
 		delete zb;
@@ -186,7 +186,7 @@ Objetosc Ladownia::getPojemnoscMax() const{
 bool Ladownia::zapisz( TiXmlElement* e ) const {
 	TiXmlElement* n = new TiXmlElement(WEZEL_XML_LADOWNIA);
 	e->LinkEndChild( n );
-	n->SetAttribute(ATRYBUT_XML_ZAJETE_MIEJSCE,zajete.toString());
+	n->SetAttribute(ATRYBUT_XML_ZAJETE_MIEJSCE,zajete.napis());
 	for( auto o : obiekty){
 		if(!o.second->zapisz(n))
 			return false;
@@ -222,10 +222,10 @@ bool Ladownia::odczytaj (TiXmlElement* e) {
 	return false;
 }
 
-string Ladownia::toString() const{
+string Ladownia::napis() const{
 	Logger str(NAZWAKLASY(Ladownia));
 	str.dodajPole("Zajete Miejsce",zajete);
 	str.dodajPole(NAZWAKLASY(Zbiornik),obiekty);
 	str.dodajPole(NAZWAKLASY(LadowniaInfo)+"ID",ladowniaInfo.getId());
-	return str.toString();
+	return str.napis();
 }

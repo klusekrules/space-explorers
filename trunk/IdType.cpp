@@ -44,7 +44,7 @@ IdType::operator size_t()const{
 	return wartosc_;
 }
 
-string IdType::toString()const{
+string IdType::napis()const{
 	stringstream str;
 	str.imbue(locale::classic());
 	str << "0x"<< uppercase << hex << wartosc_;

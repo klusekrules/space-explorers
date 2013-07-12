@@ -30,5 +30,5 @@ public:
 
 	Ilosc operator*( const Ilosc& )const;
 
-	string toString() const override;
+	string napis() const override;
 };

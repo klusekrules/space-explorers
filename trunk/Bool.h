@@ -18,6 +18,6 @@ public:
 	Bool& operator=( const Bool& );
 	Bool& operator=( const type_name& b );
 	
-	string toString() const override; 
+	string napis() const override; 
 };
 
