@@ -15,308 +15,193 @@ using namespace std;
 *	- Info
 *	- Warning
 *	- Error
-*	
-* W przysz³oœci zostanie dodana mo¿liwoœæ logowania do konkretnych strumieni.
 */
 class LOGGER_API Log
 {
 private:
 
-	vector< shared_ptr<ostream> > outstream;
+	vector< shared_ptr<ostream> > outstream; /// Tablica strumieni do których ma zostaæ wysy³any log.
 
 	/**
 	* Funkcja wysy³aj¹ca napis do strumienia.
-	* \param p Napis wysy³any do strumienia.
+	* \param[in] napis - Napis wysy³any do strumienia.
 	*/
-	void print( const string& p ) const;
+	void wyswietl( const string& napis ) const;
 
-	bool blogEnable; /**< Zmmienna blokuj¹ca wysy³anie wszystkich komunikatów do strumienia */
-	bool blogDebugEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Debug do strumienia */
-	bool blogInfoEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Info do strumienia */
-	bool blogWarnEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Warning do strumienia */
-	bool blogErrorEnable; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Error do strumienia */
-	string formatCzasu;
+	bool logiOdblokowane_; /**< Zmmienna blokuj¹ca wysy³anie wszystkich komunikatów do strumienia */
+	bool logiDebugOdblokowane_; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Debug do strumienia */
+	bool logiInfoOdblokowane_; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Info do strumienia */
+	bool logiWarnOdblokowane_; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Warning do strumienia */
+	bool logiErrorOdblokowane_; /**< Zmmienna blokuj¹ca wysy³anie komunikatów typu Error do strumienia */
+	string formatCzasu_; /// Format w jakim ma zostaæ wyœiwetlany czas logowania. Domyœlenie: \%Y-\%m-\%d \%H:\%M:\%S.
+
+	/**
+	* Konstruktor.
+	*/
 	Log();
 
 public:
 
+	/**
+	* Enumeracja zawieraj¹ca definicje dostêpnych formatów daty i czasu zwracanych przez funkcjê pobierzDateCzas().
+	*/
 	enum FormatCzasu{
-		Data,
-		Czas,
-		DataCzas
+		Data, /// Sama data
+		Czas, /// Sam czas
+		DataCzas /// Data i Czas
 	};
 
-	void dodajGniazdoWyjsciowe(shared_ptr<ostream> &t);
+	/**
+	* Metoda dodaj¹ca strumien wyjœciowy do 
+	* \param[in] strumien - Strumieñ do wysy³ania danych 
+	*/
+	void dodajGniazdoWyjsciowe( shared_ptr<ostream>& strumien );
 
+	/**
+	* Metoda ustawiaj¹ca fomat w jakim ma byæ wyœwietlana data i czas w logach.
+	* \param[in] format - Format wyœwietlanegej daty i czasu.
+	*/
 	void ustawFormatCzasu( FormatCzasu format );
 
-	static Log& getInstance();
+	/**
+	* 
+	* \return Instancja obiektu logów.
+	*/
+	static Log& pobierzInstancje();
 
 	/**
 	* Funkcja informuj¹ca czy wysy³anie logów jest odblokowane
 	* \return Je¿eli wysy³anie logów jest odblokowane zwraca true, je¿eli nie zwraca false.
-	* \sa isLogDebugEnable()
-	* \sa isLogInfoEnable()
-	* \sa isLogWarnEnable()
-	* \sa isLogErrorEnable()
-	* \sa logEnable()
-	* \sa logDisable()
 	*/
-	bool isLogEnable()const;
+	bool czyLogiOdblokowane()const;
 
 	/**
 	* Funkcja informuj¹ca czy wysy³anie logów typu Debug jest odblokowane
 	* \return Je¿eli wysy³anie logów typu Debug jest odblokowane zwraca true, je¿eli nie zwraca false.
-	* \sa isLogEnable()
-	* \sa isLogInfoEnable()
-	* \sa isLogWarnEnable()
-	* \sa isLogErrorEnable()
-	* \sa logDebugEnable()
-	* \sa logDebugDisable()
 	*/
-	bool isLogDebugEnable()const;
+	bool czyLogiDebugOdblokowane()const;
 
 	/**
 	* Funkcja informuj¹ca czy wysy³anie logów typu Info jest odblokowane
 	* \return Je¿eli wysy³anie logów typu Info jest odblokowane zwraca true, je¿eli nie zwraca false.
-	* \sa isLogEnable()
-	* \sa isLogDebugEnable()
-	* \sa isLogWarnEnable()
-	* \sa isLogErrorEnable()
-	* \sa logInfoEnable()
-	* \sa logInfoDisable()
 	*/
-	bool isLogInfoEnable()const;
+	bool czyLogiInfoOdblokowane()const;
 
 	/**
 	* Funkcja informuj¹ca czy wysy³anie logów typu Warning jest odblokowane
 	* \return Je¿eli wysy³anie logów typu Warning jest odblokowane zwraca true, je¿eli nie zwraca false.
-	* \sa isLogEnable()
-	* \sa isLogDebugEnable()
-	* \sa isLogInfoEnable()
-	* \sa isLogErrorEnable()
-	* \sa logWarnEnable()
-	* \sa logWarnDisable()
 	*/
-	bool isLogWarnEnable()const;
+	bool czyLogiWarnOdblokowane()const;
 
 	/**
 	* Funkcja informuj¹ca czy wysy³anie logów typu Error jest odblokowane
 	* \return Je¿eli wysy³anie logów typu Error jest odblokowane zwraca true, je¿eli nie zwraca false.
-	* \sa isLogEnable()
-	* \sa isLogDebugEnable()
-	* \sa isLogInfoEnable()
-	* \sa isLogWarnEnable()
-	* \sa logErrorEnable()
-	* \sa logErrorDisable()
 	*/
-	bool isLogErrorEnable()const;
+	bool czyLogiErrorOdblokowane()const;
 
 	/**
 	* Odblokowanie wysy³ania logów do strumienia.
-	* \sa logDisable()
-	* \sa logDebugEnable()
-	* \sa logInfoEnable()
-	* \sa logWarnEnable()
-	* \sa logErrorEnable()
-	* \sa isLogEnable()
 	*/
-	void logEnable();
-	
+	void odblokujLogi();
+
 	/**
 	* Zablokowanie wysy³ania logów do strumienia.
-	* \sa logEnable()
-	* \sa logDebugDisable()
-	* \sa logInfoDisable()
-	* \sa logWarnDisable()
-	* \sa logErrorDisable()
-	* \sa isLogEnable()
 	*/
-	void logDisable();
+	void zablokujLogi();
 
 	/**
 	* Odblokowanie wysy³ania logów typu Debug do strumienia.
-	* \sa logDebugDisable()
-	* \sa logEnable()
-	* \sa logInfoEnable()
-	* \sa logWarnEnable()
-	* \sa logErrorEnable()
-	* \sa isLogDebugEnable()
-	* \sa debug( string p )
-	* \sa debug( LoggerInterface<T> &p )
 	*/
-	void logDebugEnable();
-	
+	void odblokujLogiDebug();
+
 	/**
 	* Zablokowanie wysy³ania logów typu Debug do strumienia.
-	* \sa logDebugEnable()
-	* \sa logDisable()
-	* \sa logInfoDisable()
-	* \sa logWarnDisable()
-	* \sa logErrorDisable()
-	* \sa isLogDebugEnable()
-	* \sa debug( string p )
-	* \sa debug( LoggerInterface<T> &p )
 	*/
-	void logDebugDisable();
+	void zablokujLogiDebug();
 
 	/**
 	* Odblokowanie wysy³ania logów typu Info do strumienia.
-	* \sa logInfoDisable()
-	* \sa logEnable()
-	* \sa logDebugDisable()
-	* \sa logWarnEnable()
-	* \sa logErrorEnable()
-	* \sa isLogInfoEnable()
-	* \sa debug( string p )
-	* \sa debug( LoggerInterface<T> &p )
 	*/
-	void logInfoEnable();
-	
+	void odblokujLogiInfo();
+
 	/**
 	* Zablokowanie wysy³ania logów typu Info do strumienia.
-	* \sa logInfoEnable()
-	* \sa logDisable()
-	* \sa logDebugDisable()
-	* \sa logWarnDisable()
-	* \sa logErrorDisable()
-	* \sa isLogInfoEnable()
-	* \sa debug( string p )
-	* \sa debug( LoggerInterface<T> &p )
 	*/
-	void logInfoDisable();
+	void zablokujLogiInfo();
 
 	/**
 	* Odblokowanie wysy³ania logów typu Warning do strumienia.
-	* \sa logWarnDisable()
-	* \sa logEnable()
-	* \sa logDebugDisable()
-	* \sa logInfoDisable()
-	* \sa logErrorEnable()
-	* \sa isLogWarnEnable()
-	* \sa warn( string p )
-	* \sa warn( LoggerInterface<T> &p )
 	*/
-	void logWarnEnable();
-	
+	void odblokujLogiWarn();
+
 	/**
 	* Zablokowanie wysy³ania logów typu Warning do strumienia.
-	* \sa logWarnEnable()
-	* \sa logDisable()
-	* \sa logDebugDisable()
-	* \sa logInfoDisable()
-	* \sa logErrorDisable()
-	* \sa isLogWarnEnable()
-	* \sa warn( string p )
-	* \sa warn( LoggerInterface<T> &p )
 	*/
-	void logWarnDisable();
+	void zablokujLogiWarn();
 
 	/**
 	* Odblokowanie wysy³ania logów typu Error do strumienia.
-	* \sa logErrorDisable()
-	* \sa logEnable()
-	* \sa logDebugDisable()
-	* \sa logInfoDisable()
-	* \sa logWarnDisable()
-	* \sa isLogErrorEnable()
-	* \sa error( string p )
-	* \sa error( LoggerInterface<T> &p )
 	*/
-	void logErrorEnable();
-	
+	void odblokujLogiError();
+
 	/**
 	* Zablokowanie wysy³ania logów typu Error do strumienia.
-	* \sa logErrorEnable()
-	* \sa logDisable()
-	* \sa logDebugDisable()
-	* \sa logInfoDisable()
-	* \sa logWarnDisable()
-	* \sa isLogErrorEnable()
-	* \sa error( string p )
-	* \sa error( LoggerInterface<T> &p )
 	*/
-	void logErrorDisable();
+	void zablokujLogiError();
 
 	/**
 	* Funkcja wysy³aj¹ca komunikat typu Info do strumienia.
-	* \param p Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
-	* \sa info( LoggerInterface<T> &p )
-	* \sa logInfoEnable()
-	* \sa logInfoDisable()
-	* \sa isLogInfoEnable()
+	* \param[in] komunikat - Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
 	*/
-	void info( const string& p );
+	void info( const string& komunikat );
 
 	/**
 	* Funkcja wysy³aj¹ca komunikat typu Info do strumienia.
-	* \param p Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
-	* \sa info( string p )
-	* \sa logInfoEnable()
-	* \sa logInfoDisable()
-	* \sa isLogInfoEnable()
+	* \param[in] komunikat - Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
 	*/
-	void info( const LoggerInterface& p );
+	void info( const LoggerInterface& komunikat );
 
 	/**
 	* Funkcja wysy³aj¹ca komunikat typu Warning do strumienia.
-	* \param p Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
-	* \sa warn( LoggerInterface<T> &p )
-	* \sa logWarnEnable()
-	* \sa logWarnDisable()
-	* \sa isLogWarnEnable()
+	* \param[in] komunikat - Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
 	*/
-	void warn( const string& p );
+	void warn( const string& komunikat );
 
 	/**
 	* Funkcja wysy³aj¹ca komunikat typu Warning do strumienia.
-	* \param p Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
-	* \sa warn( string p )
-	* \sa logWarnEnable()
-	* \sa logWarnDisable()
-	* \sa isLogWarnEnable()
+	* \param[in] komunikat - Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
 	*/
-	void warn( const LoggerInterface& p );
+	void warn( const LoggerInterface& komunikat );
 
 	/**
 	* Funkcja wysy³aj¹ca komunikat typu Error do strumienia.
-	* \param p Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
-	* \sa error( LoggerInterface<T> &p )
-	* \sa logErrorEnable()
-	* \sa logErrorDisable()
-	* \sa isLogErrorEnable()
+	* \param[in] komunikat - Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
 	*/
-	void error( const string& p );
+	void error( const string& komunikat );
 
 	/**
 	* Funkcja wysy³aj¹ca komunikat typu Error do strumienia.
-	* \param p Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
-	* \sa error( string p )
-	* \sa logErrorEnable()
-	* \sa logErrorDisable()
-	* \sa isLogErrorEnable()
+	* \param[in] komunikat - Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
 	*/
-	void error( const LoggerInterface& p );
+	void error( const LoggerInterface& komunikat );
 
 	/**
 	* Funkcja wysy³aj¹ca komunikat typu Debug do strumienia.
-	* \param p Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
-	* \sa debug( LoggerInterface<T> &p )
-	* \sa logDebugEnable()
-	* \sa logDebugDisable()
-	* \sa isLogDebugEnable()
+	* \param[in] komunikat - Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
 	*/
-	void debug( const string& p );
+	void debug( const string& komunikat );
 
 	/**
 	* Funkcja wysy³aj¹ca komunikat typu Debug do strumienia.
-	* \param p Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
-	* \sa debug( string p )
-	* \sa logDebugEnable()
-	* \sa logDebugDisable()
-	* \sa isLogDebugEnable()
+	* \param[in] komunikat - Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
 	*/
-	void debug( const LoggerInterface& p );
+	void debug( const LoggerInterface& komunikat );
 
-	string getTimeStamp() const;
+	/**
+	* Funkcja polecaj¹ca aktualn¹ datê i czas.
+	* \return Aktualna data i czas.
+	* \warn Format zwracanych danych jest definiowany przez ustawFormatCzasu.
+	* \sa ustawFormatCzasu()
+	*/
+	string pobierzDateCzas() const;
 };

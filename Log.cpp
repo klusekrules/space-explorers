@@ -6,7 +6,7 @@
 #include <iomanip>
 #include <sstream>
 using namespace std::chrono;
-void Log::print( const string& p ) const{
+void Log::wyswietl( const string& p ) const{
 	cout << p;
 	for( auto f : outstream)
 		(*f)<<p;
@@ -17,175 +17,139 @@ void Log::dodajGniazdoWyjsciowe(shared_ptr<ostream> &t){
 }
 
 Log::Log()
-	:blogEnable(true), blogDebugEnable(true), blogInfoEnable(true), blogWarnEnable(true), blogErrorEnable(true),formatCzasu("%Y-%m-%d %H:%M:%S")
+	:logiOdblokowane_(true), logiDebugOdblokowane_(true), logiInfoOdblokowane_(true),
+	logiWarnOdblokowane_(true), logiErrorOdblokowane_(true),formatCzasu_("%Y-%m-%d %H:%M:%S")
 {
 }
 
 void Log::ustawFormatCzasu( FormatCzasu format ){
 	switch (format)
 	{
-	case Log::Data: formatCzasu="%Y-%m-%d";
+	case Log::Data: formatCzasu_="%Y-%m-%d";
 		break;
-	case Log::Czas: formatCzasu="%H:%M:%S";
+	case Log::Czas: formatCzasu_="%H:%M:%S";
 		break;
-	case Log::DataCzas: formatCzasu="%Y-%m-%d %H:%M:%S";
+	case Log::DataCzas: formatCzasu_="%Y-%m-%d %H:%M:%S";
 		break;
 	default:
 		break;
 	}
 }
 
-Log& Log::getInstance(){
+Log& Log::pobierzInstancje(){
 	static Log log;
 	return log;
 }
 
-bool Log::isLogEnable()const{
-	return blogEnable;
+bool Log::czyLogiOdblokowane()const{
+	return logiOdblokowane_;
 }
 
-bool Log::isLogDebugEnable()const{
-	return blogEnable ? blogDebugEnable : false;
+bool Log::czyLogiDebugOdblokowane()const{
+	return logiOdblokowane_ ? logiDebugOdblokowane_ : false;
 }
 
-	
-bool Log::isLogInfoEnable()const{
-	return blogEnable ? blogInfoEnable : false;
+bool Log::czyLogiInfoOdblokowane()const{
+	return logiOdblokowane_ ? logiInfoOdblokowane_ : false;
 }
 
-bool Log::isLogWarnEnable()const{
-	return blogEnable ? blogWarnEnable : false;
+bool Log::czyLogiWarnOdblokowane()const{
+	return logiOdblokowane_ ? logiWarnOdblokowane_ : false;
 }
 
-	
-bool Log::isLogErrorEnable()const{
-	return blogEnable ? blogErrorEnable : false;
+bool Log::czyLogiErrorOdblokowane()const{
+	return logiOdblokowane_ ? logiErrorOdblokowane_ : false;
 }
 
-	
-void Log::logEnable(){
-	blogEnable = true;
-}
-	
-	
-void Log::logDisable(){
-	blogEnable = false;
+void Log::odblokujLogi(){
+	logiOdblokowane_ = true;
 }
 
-	
-void Log::logDebugEnable(){
-	blogDebugEnable = true;
-}
-	
-void Log::logDebugDisable(){
-	blogDebugEnable = false;
+void Log::zablokujLogi(){
+	logiOdblokowane_ = false;
 }
 
-	
-void Log::logInfoEnable(){
-	blogInfoEnable = true;
-}
-	
-	
-void Log::logInfoDisable(){
-	blogInfoEnable = false;
+void Log::odblokujLogiDebug(){
+	logiDebugOdblokowane_ = true;
 }
 
-void Log::logWarnEnable(){
-	blogWarnEnable = true;
-}
-	
-void Log::logWarnDisable(){
-	blogWarnEnable = false;
+void Log::zablokujLogiDebug(){
+	logiDebugOdblokowane_ = false;
 }
 
-
-void Log::logErrorEnable(){
-	blogErrorEnable = true;
-}
-	
-	
-void Log::logErrorDisable(){
-	blogErrorEnable = false;
+void Log::odblokujLogiInfo(){
+	logiInfoOdblokowane_ = true;
 }
 
-	
-void Log::info( const string& p ){
-	if(blogEnable && blogInfoEnable){
-		print(getTimeStamp());
-		print(" [INFO] ");
-		print(p);
-		print("\n");
+void Log::zablokujLogiInfo(){
+	logiInfoOdblokowane_ = false;
+}
+
+void Log::odblokujLogiWarn(){
+	logiWarnOdblokowane_ = true;
+}
+
+void Log::zablokujLogiWarn(){
+	logiWarnOdblokowane_ = false;
+}
+
+void Log::odblokujLogiError(){
+	logiErrorOdblokowane_ = true;
+}
+
+void Log::zablokujLogiError(){
+	logiErrorOdblokowane_ = false;
+}
+
+void Log::info( const string& komunikat ){
+	if(logiOdblokowane_ && logiInfoOdblokowane_){
+		wyswietl( pobierzDateCzas() + " [INFO] " + komunikat + "\n" );
 	}
 }
 
-	
-void Log::info( const LoggerInterface& p ){
-	if(blogEnable && blogInfoEnable){
-		print(getTimeStamp());
-		print(" [INFO] ");
-		print(p.toString());
-		print("\n");
+void Log::info( const LoggerInterface& komunikat ){
+	if(logiOdblokowane_ && logiInfoOdblokowane_){
+		wyswietl( pobierzDateCzas() + " [INFO] " + komunikat.toString() + "\n" );
 	}
 }
 
-void Log::warn( const string& p ){
-	if(blogEnable && blogWarnEnable){
-		print(getTimeStamp());
-		print(" [WARN] ");
-		print(p);
-		print("\n");
+void Log::warn( const string& komunikat ){
+	if(logiOdblokowane_ && logiWarnOdblokowane_){
+		wyswietl( pobierzDateCzas() + " [WARN] " + komunikat + "\n" );
 	}
 }
 
-void Log::warn( const LoggerInterface& p ){
-	if(blogEnable && blogWarnEnable){
-		print(getTimeStamp());
-		print(" [WARN] ");
-		print(p.toString());
-		print("\n");
+void Log::warn( const LoggerInterface& komunikat ){
+	if(logiOdblokowane_ && logiWarnOdblokowane_){
+		wyswietl( pobierzDateCzas() + " [WARN] " + komunikat.toString() + "\n" );
 	}
 }
 
-void Log::error( const string& p ){
-	if(blogEnable && blogErrorEnable){
-		print(getTimeStamp());
-		print(" [ERROR] ");
-		print(p);
-		print("\n");
+void Log::error( const string& komunikat ){
+	if(logiOdblokowane_ && logiErrorOdblokowane_){
+		wyswietl( pobierzDateCzas() + " [ERROR] " + komunikat + "\n" );
 	}
 }
 
-void Log::error( const LoggerInterface& p ){
-	if(blogEnable && blogErrorEnable){
-		print(getTimeStamp());
-		print(" [ERROR] ");
-		print(p.toString());
-		print("\n");
+void Log::error( const LoggerInterface& komunikat ){
+	if(logiOdblokowane_ && logiErrorOdblokowane_){
+		wyswietl( pobierzDateCzas() + " [ERROR] " + komunikat.toString() + "\n" );
 	}
 }
 
-	
-void Log::debug( const string& p ){
-	if(blogEnable && blogDebugEnable){
-		print(getTimeStamp());
-		print(" [DEBUG] ");
-		print(p);
-		print("\n");
+void Log::debug( const string& komunikat ){
+	if(logiOdblokowane_ && logiDebugOdblokowane_){
+		wyswietl( pobierzDateCzas() + " [DEBUG] " + komunikat + "\n" );
 	}
 }
 
-	
-void Log::debug( const LoggerInterface& p ){
-	if(blogEnable && blogDebugEnable){
-		print(getTimeStamp());
-		print(" [DEBUG] ");
-		print(p.toString());
-		print("\n");
+void Log::debug( const LoggerInterface& komunikat ){
+	if(logiOdblokowane_ && logiDebugOdblokowane_){
+		wyswietl( pobierzDateCzas() + " [DEBUG] " + komunikat.toString() + "\n" );
 	}
 }
 
-string Log::getTimeStamp() const{
+string Log::pobierzDateCzas() const{
 	steady_clock::time_point t1 = steady_clock::now();
 	steady_clock::duration dtn = t1.time_since_epoch();
 	time_t pSekundy = dtn.count() * steady_clock::period::num / steady_clock::period::den;
@@ -193,7 +157,7 @@ string Log::getTimeStamp() const{
 	localtime_s(&timeinfo,&pSekundy);
 	short unsigned int pMilisekundy = static_cast<long long>( dtn.count() * ( static_cast<long double>(steady_clock::period::num) / static_cast<long double>(steady_clock::period::den) ) * 1000 ) % 1000;
 	char s[20];
-	strftime(s,20,formatCzasu.c_str(),&timeinfo);
+	strftime(s,20,formatCzasu_.c_str(),&timeinfo);
 	stringstream str;
 	str << s << "." << setw (3) << setfill ('0') << pMilisekundy;
 	return str.str();

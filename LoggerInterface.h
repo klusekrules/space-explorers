@@ -1,6 +1,6 @@
 #pragma once
 #include "ExportSymbol.h"
-#include "LoggerClassName.h"
+#include "LoggerNazwaKlasy.h"
 /**
 * Klasa bazowa u¿ywana do stworzenia jednolitego interfajsu
 * dla klasy generuj¹cej logi z aplikacji.
