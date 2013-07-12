@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Poziom::Poziom()
-	: BaseInterface(Stale::poziomDomyslny)
+	: PodstawowyInterfejs(Stale::poziomDomyslny)
 {
 }
 
 Poziom::Poziom( const type_name& poziom )
-	: BaseInterface(poziom)
+	: PodstawowyInterfejs(poziom)
 {
 }
 
 Poziom::Poziom( const Poziom& poziom )
-	: BaseInterface( poziom )
+	: PodstawowyInterfejs( poziom )
 {	
 }
 

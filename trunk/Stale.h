@@ -1,5 +1,5 @@
 #pragma once
-#include "BaseTypes.h"
+#include "TypyProste.h"
 #include "Bool.h"
 
 class Stale

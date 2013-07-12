@@ -1,6 +1,6 @@
 #pragma once
 #include "Main.h"
-#include "BaseTypes.h"
+#include "TypyProste.h"
 #include "Poziom.h"
 #include "IdType.h"
 #include "parser\ticpp.h"
@@ -8,7 +8,7 @@
 
 class Klucz:
 	virtual public LoggerInterface,
-	public BaseInterface< pair < IdType, Poziom > >
+	public PodstawowyInterfejs< pair < IdType, Poziom > >
 {
 public:
 	Klucz();

@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Parametr::Parametr()
-	: BaseInterface(Stale::parametrDomyslny)
+	: PodstawowyInterfejs(Stale::parametrDomyslny)
 {
 }
 
 Parametr::Parametr( const type_name& t )
-	: BaseInterface(t)
+	: PodstawowyInterfejs(t)
 {
 }
 
 Parametr::Parametr( const Parametr& a )	
-	: BaseInterface(a)
+	: PodstawowyInterfejs(a)
 {
 }
 

@@ -1,12 +1,12 @@
 #pragma once
 #include "Main.h"
-#include "BaseTypes.h"
+#include "TypyProste.h"
 #include "Fluktuacja.h"
 #include "Ilosc.h"
 
 class Objetosc:
 	virtual public LoggerInterface,
-	public BaseInterface<SPG::Objetosc>
+	public PodstawowyInterfejs<SPG::Objetosc>
 {
 public:
 	Objetosc();

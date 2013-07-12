@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 ZuzyciePaliwa::ZuzyciePaliwa()
-	: BaseInterface( Stale::zuzyciePaliwaDomyslny )
+	: PodstawowyInterfejs( Stale::zuzyciePaliwaDomyslny )
 {
 }
 
 ZuzyciePaliwa::ZuzyciePaliwa( const ZuzyciePaliwa& a )
-	: BaseInterface( a )
+	: PodstawowyInterfejs( a )
 {
 }
 
 ZuzyciePaliwa::ZuzyciePaliwa( const type_name& f )
-	: BaseInterface(f)
+	: PodstawowyInterfejs(f)
 {
 }
 

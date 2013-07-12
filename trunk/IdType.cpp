@@ -5,22 +5,22 @@
 #include "WyjatekParseraXML.h"
 
 IdType::IdType()
-	: BaseInterface(Stale::idDomyslny)
+	: PodstawowyInterfejs(Stale::idDomyslny)
 {
 }
 
 IdType::IdType( const type_name& ID )
-	: BaseInterface(ID)
+	: PodstawowyInterfejs(ID)
 {
 }
 
 IdType::IdType( const Ilosc& ID )
-	: BaseInterface(static_cast<type_name>(ID()))
+	: PodstawowyInterfejs(static_cast<type_name>(ID()))
 {
 }
 
 IdType::IdType( const IdType& a )
-	: BaseInterface(a)
+	: PodstawowyInterfejs(a)
 {
 }
 

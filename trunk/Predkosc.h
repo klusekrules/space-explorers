@@ -1,10 +1,10 @@
 #pragma once
 #include "Main.h"
-#include "BaseTypes.h"
+#include "TypyProste.h"
 
 class Predkosc:
 	virtual public LoggerInterface,
-	public BaseInterface<SPG::Predkosc>
+	public PodstawowyInterfejs<SPG::Predkosc>
 {
 public:	
 	Predkosc();

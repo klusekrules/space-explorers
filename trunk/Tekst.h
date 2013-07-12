@@ -1,10 +1,10 @@
 #pragma once
 #include "Main.h"
-#include "BaseTypes.h"
+#include "TypyProste.h"
 
 class Tekst:
 	virtual public LoggerInterface,
-	public BaseInterface<SPG::Tekst>
+	public PodstawowyInterfejs<SPG::Tekst>
 {
 private:
 	type_name dodajCudzyslow()const;

@@ -48,7 +48,7 @@ public:
 	}
 	
 	template<typename T>
-	static bool WczytajAtrybut( TiXmlElement* wezel , const string& nazwa, BaseInterface<T>& obiekt ){
+	static bool WczytajAtrybut( TiXmlElement* wezel , const string& nazwa, PodstawowyInterfejs<T>& obiekt ){
 		if(!wezel)
 			return false;
 		const string * napis = wezel->Attribute(nazwa);
@@ -59,7 +59,7 @@ public:
 	}
 
 	template< >
-	static bool WczytajAtrybut<double>( TiXmlElement* wezel , const string& nazwa, BaseInterface<double>& obiekt ){
+	static bool WczytajAtrybut<double>( TiXmlElement* wezel , const string& nazwa, PodstawowyInterfejs<double>& obiekt ){
 		if(!wezel)
 			return false;
 		const string * napis = wezel->Attribute(nazwa);
@@ -74,7 +74,7 @@ public:
 	}
 
 	template< >
-	static bool WczytajAtrybut<long double>( TiXmlElement* wezel , const string& nazwa, BaseInterface<long double>& obiekt ){
+	static bool WczytajAtrybut<long double>( TiXmlElement* wezel , const string& nazwa, PodstawowyInterfejs<long double>& obiekt ){
 		if(!wezel)
 			return false;
 		const string * napis = wezel->Attribute(nazwa);
@@ -89,7 +89,7 @@ public:
 	}
 
 	template< >
-	static bool WczytajAtrybut<int>( TiXmlElement* wezel , const string& nazwa, BaseInterface<int>& obiekt ){
+	static bool WczytajAtrybut<int>( TiXmlElement* wezel , const string& nazwa, PodstawowyInterfejs<int>& obiekt ){
 		if(!wezel)
 			return false;
 		const string * napis = wezel->Attribute(nazwa);
@@ -104,7 +104,7 @@ public:
 	}
 
 	template< >
-	static bool WczytajAtrybut<unsigned int>( TiXmlElement* wezel , const string& nazwa, BaseInterface<unsigned int>& obiekt ){
+	static bool WczytajAtrybut<unsigned int>( TiXmlElement* wezel , const string& nazwa, PodstawowyInterfejs<unsigned int>& obiekt ){
 		if(!wezel)
 			return false;
 		const string * napis = wezel->Attribute(nazwa);
@@ -119,7 +119,7 @@ public:
 	}
 
 	template< >
-	static bool WczytajAtrybut<float>( TiXmlElement* wezel , const string& nazwa, BaseInterface<float>& obiekt ){
+	static bool WczytajAtrybut<float>( TiXmlElement* wezel , const string& nazwa, PodstawowyInterfejs<float>& obiekt ){
 		if(!wezel)
 			return false;
 		const string * napis = wezel->Attribute(nazwa);

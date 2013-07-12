@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Czas::Czas()
-	: BaseInterface( Stale::czasDomyslny )
+	: PodstawowyInterfejs( Stale::czasDomyslny )
 {
 }
 
 Czas::Czas(const Czas& b)
-	: BaseInterface(b)
+	: PodstawowyInterfejs(b)
 {
 }
 
 Czas::Czas( const type_name& t )
-	: BaseInterface(t)
+	: PodstawowyInterfejs(t)
 {
 }
 

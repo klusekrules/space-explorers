@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Ilosc::Ilosc()
-	: BaseInterface( Stale::iloscJednostekDomyslny )
+	: PodstawowyInterfejs( Stale::iloscJednostekDomyslny )
 {
 }
 
 Ilosc::Ilosc( const type_name& ilosc )
-	: BaseInterface(ilosc)
+	: PodstawowyInterfejs(ilosc)
 {
 }
 
 Ilosc::Ilosc( const Ilosc& ilosc )
-	: BaseInterface(ilosc)
+	: PodstawowyInterfejs(ilosc)
 {
 }
 

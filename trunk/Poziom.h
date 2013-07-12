@@ -1,10 +1,10 @@
 #pragma once
 #include "Main.h"
-#include "BaseTypes.h"
+#include "TypyProste.h"
 
 class Poziom:	
 	virtual public LoggerInterface,
-	public BaseInterface<SPG::Poziom>
+	public PodstawowyInterfejs<SPG::Poziom>
 {
 public:
 	Poziom();

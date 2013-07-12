@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Dystans::Dystans()
-	: BaseInterface( Stale::dystansDomyslny )
+	: PodstawowyInterfejs( Stale::dystansDomyslny )
 {
 }
 
 Dystans::Dystans( const Dystans& a )
-	: BaseInterface(a)
+	: PodstawowyInterfejs(a)
 {
 }
 
 Dystans::Dystans( const type_name& f )
-	: BaseInterface(f)
+	: PodstawowyInterfejs(f)
 {
 }
 

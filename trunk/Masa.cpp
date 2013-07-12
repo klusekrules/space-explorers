@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Masa::Masa()
-	: BaseInterface( Stale::masaDomyslny )
+	: PodstawowyInterfejs( Stale::masaDomyslny )
 {
 }
 
 Masa::Masa( const Masa& a )
-	: BaseInterface( a )
+	: PodstawowyInterfejs( a )
 {
 }
 
 Masa::Masa( const type_name& f )
-	: BaseInterface(f)
+	: PodstawowyInterfejs(f)
 {
 }
 
