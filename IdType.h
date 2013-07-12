@@ -1,12 +1,12 @@
 #pragma once
 #include "Main.h"
-#include "BaseTypes.h"
+#include "TypyProste.h"
 #include "parser\ticpp.h"
 #include "Ilosc.h"
 
 class IdType :
 	virtual public LoggerInterface,
-	public BaseInterface<SPG::IdType>
+	public PodstawowyInterfejs<SPG::IdType>
 {
 public:
 	

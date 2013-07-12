@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Objetosc::Objetosc()
-	: BaseInterface( Stale::objetoscDomyslny )
+	: PodstawowyInterfejs( Stale::objetoscDomyslny )
 {
 }
 
 Objetosc::Objetosc( const Objetosc& a )
-	: BaseInterface( a )
+	: PodstawowyInterfejs( a )
 {
 }
 
 Objetosc::Objetosc( const type_name& f )
-	: BaseInterface(f)
+	: PodstawowyInterfejs(f)
 {
 }
 

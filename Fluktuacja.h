@@ -1,10 +1,10 @@
 #pragma once
 #include "Main.h"
-#include "BaseTypes.h"
+#include "TypyProste.h"
 
 class Fluktuacja:
 	virtual public LoggerInterface,
-	public BaseInterface<SPG::Fluktuacja>
+	public PodstawowyInterfejs<SPG::Fluktuacja>
 {
 public:
 	Fluktuacja();

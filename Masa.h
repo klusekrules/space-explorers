@@ -1,12 +1,12 @@
 #pragma once
 #include "Main.h"
-#include "BaseTypes.h"
+#include "TypyProste.h"
 #include "Fluktuacja.h"
 #include "Ilosc.h"
 
 class Masa:
 	virtual public LoggerInterface,
-	public BaseInterface<SPG::Masa>
+	public PodstawowyInterfejs<SPG::Masa>
 {
 public:
 	Masa();

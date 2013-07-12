@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Tekst::Tekst()
-	: BaseInterface( Stale::tekstDomyslny )
+	: PodstawowyInterfejs( Stale::tekstDomyslny )
 {
 }
 
 Tekst::Tekst( const type_name& wartosc )
-	: BaseInterface(wartosc)
+	: PodstawowyInterfejs(wartosc)
 {
 }
 
 Tekst::Tekst( const Tekst& wartosc)
-	: BaseInterface(wartosc)
+	: PodstawowyInterfejs(wartosc)
 {
 }
 

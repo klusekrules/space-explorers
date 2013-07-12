@@ -1,10 +1,10 @@
 #pragma once
 #include "Main.h"
-#include "BaseTypes.h"
+#include "TypyProste.h"
 
 class Bool:
 	virtual public LoggerInterface,
-	public BaseInterface<bool>
+	public PodstawowyInterfejs<bool>
 {
 public:	
 	Bool();

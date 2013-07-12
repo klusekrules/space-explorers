@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 MocSilnika::MocSilnika()
-	: BaseInterface( Stale::mocSilnikaDomyslny )
+	: PodstawowyInterfejs( Stale::mocSilnikaDomyslny )
 {
 }
 
 MocSilnika::MocSilnika( const MocSilnika& a )
-	: BaseInterface( a )
+	: PodstawowyInterfejs( a )
 {
 }
 
 MocSilnika::MocSilnika( const type_name& f )
-	: BaseInterface(f)
+	: PodstawowyInterfejs(f)
 {
 }
 

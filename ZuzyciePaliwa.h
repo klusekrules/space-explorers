@@ -1,10 +1,10 @@
 #pragma once
 #include "Main.h"
-#include "BaseTypes.h"
+#include "TypyProste.h"
 
 class ZuzyciePaliwa:
 	virtual public LoggerInterface,
-	public BaseInterface<SPG::ZuzyciePaliwa>
+	public PodstawowyInterfejs<SPG::ZuzyciePaliwa>
 {
 public:	
 	ZuzyciePaliwa();

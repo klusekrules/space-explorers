@@ -1,10 +1,10 @@
 #pragma once
 #include "Main.h"
-#include "BaseTypes.h"
+#include "TypyProste.h"
 
 class Obrazenia:
 	virtual public LoggerInterface,
-	public BaseInterface<SPG::Obrazenia>
+	public PodstawowyInterfejs<SPG::Obrazenia>
 {
 public:	
 	Obrazenia();

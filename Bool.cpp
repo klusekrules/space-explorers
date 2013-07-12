@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Bool::Bool()
-	: BaseInterface( Stale::boolDomyslny )
+	: PodstawowyInterfejs( Stale::boolDomyslny )
 {
 }
 
 Bool::Bool( const Bool& b )
-	: BaseInterface(b)
+	: PodstawowyInterfejs(b)
 {
 }
 
 Bool::Bool( const type_name& t )
-	: BaseInterface(t)
+	: PodstawowyInterfejs(t)
 {
 }
 

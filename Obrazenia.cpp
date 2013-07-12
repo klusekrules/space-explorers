@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Obrazenia::Obrazenia()
-	: BaseInterface( Stale::obrazeniaDomyslny )
+	: PodstawowyInterfejs( Stale::obrazeniaDomyslny )
 {
 }
 
 Obrazenia::Obrazenia( const Obrazenia& a )
-	: BaseInterface(a)
+	: PodstawowyInterfejs(a)
 {
 }
 
 Obrazenia::Obrazenia( const type_name& f )
-	: BaseInterface(f)
+	: PodstawowyInterfejs(f)
 {
 }
 

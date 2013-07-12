@@ -1,10 +1,10 @@
 #pragma once
 #include "Main.h"
-#include "BaseTypes.h"
+#include "TypyProste.h"
 
 class Ilosc:	
 	virtual public LoggerInterface,
-	public BaseInterface<SPG::IloscJednostek>
+	public PodstawowyInterfejs<SPG::IloscJednostek>
 {
 public:
 	Ilosc();

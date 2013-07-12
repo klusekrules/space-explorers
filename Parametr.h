@@ -1,10 +1,10 @@
 #pragma once
 #include "Main.h"
-#include "BaseTypes.h"
+#include "TypyProste.h"
 
 class Parametr:
 	virtual public LoggerInterface,
-	public BaseInterface<SPG::Parametr>
+	public PodstawowyInterfejs<SPG::Parametr>
 {
 public:
 	Parametr();

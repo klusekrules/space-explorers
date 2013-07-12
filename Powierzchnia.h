@@ -1,12 +1,12 @@
 #pragma once
 #include "Main.h"
-#include "BaseTypes.h"
+#include "TypyProste.h"
 #include "Fluktuacja.h"
 #include "Ilosc.h"
 
 class Powierzchnia:	
 	virtual public LoggerInterface,
-	public BaseInterface<SPG::Powierzchnia>
+	public PodstawowyInterfejs<SPG::Powierzchnia>
 {
 public:
 	Powierzchnia();

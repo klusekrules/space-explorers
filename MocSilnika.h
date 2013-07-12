@@ -1,10 +1,10 @@
 #pragma once
 #include "Main.h"
-#include "BaseTypes.h"
+#include "TypyProste.h"
 
 class MocSilnika:
 	virtual public LoggerInterface,
-	public BaseInterface<SPG::MocSilnika>
+	public PodstawowyInterfejs<SPG::MocSilnika>
 {
 public:	
 	MocSilnika();

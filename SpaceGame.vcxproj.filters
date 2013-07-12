@@ -258,12 +258,6 @@
     <ClInclude Include="IdType.h">
       <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
-    <ClInclude Include="BaseTypes.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseInterface.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
     <ClInclude Include="Poziom.h">
       <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
@@ -464,6 +458,12 @@
     </ClInclude>
     <ClInclude Include="DefinicjeWezlowXML.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClInclude>
+    <ClInclude Include="PodstawowyInterfejs.h">
+      <Filter>SourceFile\Typy podstawowe</Filter>
+    </ClInclude>
+    <ClInclude Include="TypyProste.h">
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

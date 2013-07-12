@@ -1,10 +1,10 @@
 #pragma once
 #include "Main.h"
-#include "BaseTypes.h"
+#include "TypyProste.h"
 
 class Dystans:
 	virtual public LoggerInterface,
-	public BaseInterface<SPG::Dystans>
+	public PodstawowyInterfejs<SPG::Dystans>
 {
 public:	
 	Dystans();

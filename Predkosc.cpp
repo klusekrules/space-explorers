@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Predkosc::Predkosc()
-	: BaseInterface( Stale::predkoscDOmyslny )
+	: PodstawowyInterfejs( Stale::predkoscDOmyslny )
 {
 }
 
 Predkosc::Predkosc( const Predkosc& a )
-	: BaseInterface( a )
+	: PodstawowyInterfejs( a )
 {
 }
 
 Predkosc::Predkosc( const type_name& f )
-	: BaseInterface(f)
+	: PodstawowyInterfejs(f)
 {
 }
 

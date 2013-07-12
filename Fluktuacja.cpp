@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Fluktuacja::Fluktuacja()
-	: BaseInterface( Stale::fluktuacjaDomyslny )
+	: PodstawowyInterfejs( Stale::fluktuacjaDomyslny )
 {
 }
 
 Fluktuacja::Fluktuacja( const Fluktuacja& a )
-	: BaseInterface(a)
+	: PodstawowyInterfejs(a)
 {
 }
 
 Fluktuacja::Fluktuacja( const type_name& f )
-	: BaseInterface(f)
+	: PodstawowyInterfejs(f)
 {
 }
 

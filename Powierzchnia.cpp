@@ -3,17 +3,17 @@
 #include "Stale.h"
 
 Powierzchnia::Powierzchnia()
-	: BaseInterface( Stale::powierzchniaDomyslny )
+	: PodstawowyInterfejs( Stale::powierzchniaDomyslny )
 {
 }
 
 Powierzchnia::Powierzchnia( const Powierzchnia& a )
-	: BaseInterface( a )
+	: PodstawowyInterfejs( a )
 {
 }
 
 Powierzchnia::Powierzchnia( const type_name& f )
-	: BaseInterface(f)
+	: PodstawowyInterfejs(f)
 {
 }
 

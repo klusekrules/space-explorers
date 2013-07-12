@@ -1,11 +1,11 @@
 #pragma once
 #include "Logger\LoggerInterface.h" 
 #include "Main.h"
-#include "BaseTypes.h"
+#include "TypyProste.h"
 
 class Czas:
 	public LoggerInterface,
-	public BaseInterface< SPG::Czas >
+	public PodstawowyInterfejs< SPG::Czas >
 {
 public:	
 	Czas();

@@ -208,7 +208,7 @@
     <ClInclude Include="afxres.h" />
     <ClInclude Include="Aplikacja.h" />
     <ClInclude Include="Base.h" />
-    <ClInclude Include="BaseInterface.h" />
+    <ClInclude Include="PodstawowyInterfejs.h" />
     <ClInclude Include="Biblioteki.h" />
     <ClInclude Include="BladDzieleniaLadowni.h" />
     <ClInclude Include="BladLaczeniaObiektow.h" />
@@ -286,7 +286,7 @@
     <ClInclude Include="svn_version.h" />
     <ClInclude Include="Tekst.h" />
     <ClInclude Include="Testy.h" />
-    <ClInclude Include="BaseTypes.h" />
+    <ClInclude Include="TypyProste.h" />
     <ClInclude Include="Warunek.h" />
     <ClInclude Include="WyjatekParseraXML.h" />
     <ClInclude Include="WyjatekSTL.h" />
