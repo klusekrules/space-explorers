@@ -32,10 +32,10 @@ bool StatekInfo::Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
 }
 
 string StatekInfo::toString() const{
-	Logger str(CLASSNAME(StatekInfo));
-	str.addClass(ObiektInfo::toString());
-	str.addClass(JednostkaLatajacaInfo::toString());
-	str.addClass(JednostkaAtakujacaInfo::toString());
-	str.addClass(LadowniaInfo::toString());
+	Logger str(NAZWAKLASY(StatekInfo));
+	str.dodajKlase(ObiektInfo::toString());
+	str.dodajKlase(JednostkaLatajacaInfo::toString());
+	str.dodajKlase(JednostkaAtakujacaInfo::toString());
+	str.dodajKlase(LadowniaInfo::toString());
 	return str.toString();
 }

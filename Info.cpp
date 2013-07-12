@@ -42,10 +42,10 @@ void Info::setOpis( const Tekst& tOpis ){
 }
 
 string Info::toString() const{
-	Logger str(CLASSNAME(Info));
-	str.addClass(Base::toString());
-	str.addClass(Wymagania::toString());
-	str.addField("Nazwa",nazwa);
-	str.addField("Opis",opis);
+	Logger str(NAZWAKLASY(Info));
+	str.dodajKlase(Base::toString());
+	str.dodajKlase(Wymagania::toString());
+	str.dodajPole("Nazwa",nazwa);
+	str.dodajPole("Opis",opis);
 	return str.toString();
 }

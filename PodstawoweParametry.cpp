@@ -62,8 +62,8 @@ bool PodstawoweParametry::odczytaj( TiXmlElement* e ){
 }
 
 string PodstawoweParametry::toString() const{
-	Logger str(CLASSNAME(PodstawoweParametry));
-	str.addField(CLASSNAME(Poziom),poziom);
-	str.addField(CLASSNAME(IdType),idPlanety);
+	Logger str(NAZWAKLASY(PodstawoweParametry));
+	str.dodajPole(NAZWAKLASY(Poziom),poziom);
+	str.dodajPole(NAZWAKLASY(IdType),idPlanety);
 	return str.toString();
 }

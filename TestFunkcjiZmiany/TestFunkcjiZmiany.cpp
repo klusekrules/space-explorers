@@ -30,8 +30,8 @@ bool ZmianaTest::RejestrujZmianaTest(  ZmianaFabryka &ref ){
 }
 
 string ZmianaTest::toString()const{
-	Logger str(CLASSNAME(ZmianaTest));
-	str.addField( "Parametr", parametr_ );
+	Logger str(NAZWAKLASY(ZmianaTest));
+	str.dodajPole( "Parametr", parametr_ );
 	return str.toString();
 }
 

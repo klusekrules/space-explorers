@@ -26,8 +26,8 @@ bool ZmianaPoziomObiektu::RejestrujZmianaPoziomObiektu(  ZmianaFabryka &ref ){
 }
 
 string ZmianaPoziomObiektu::toString()const{
-	Logger str(CLASSNAME(ZmianaPoziomObiektu));
-	str.addField( "Parametr", parametr_ );
+	Logger str(NAZWAKLASY(ZmianaPoziomObiektu));
+	str.dodajPole( "Parametr", parametr_ );
 	return str.toString();
 }
 

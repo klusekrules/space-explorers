@@ -128,11 +128,11 @@ bool Statek::odczytaj( TiXmlElement* e ) {
 }
 
 string Statek::toString() const{
-	Logger str(CLASSNAME(Statek));
-	str.addClass(Obiekt::toString());
-	str.addClass(JednostkaAtakujaca::toString());
-	str.addClass(JednostkaLatajaca::toString());
-	str.addClass(Ladownia::toString());
-	str.addField(CLASSNAME(StatekInfo)+"ID",statekinfo.getId());
+	Logger str(NAZWAKLASY(Statek));
+	str.dodajKlase(Obiekt::toString());
+	str.dodajKlase(JednostkaAtakujaca::toString());
+	str.dodajKlase(JednostkaLatajaca::toString());
+	str.dodajKlase(Ladownia::toString());
+	str.dodajPole(NAZWAKLASY(StatekInfo)+"ID",statekinfo.getId());
 	return str.toString();
 }

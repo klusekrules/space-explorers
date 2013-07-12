@@ -60,8 +60,8 @@ bool Budynek::odczytaj (TiXmlElement* e) {
 }
 
 string Budynek::toString()const{
-	Logger str(CLASSNAME(Budynek));
-	str.addClass(Obiekt::toString());
-	str.addField(CLASSNAME(BudynekInfo)+"ID",budynekInfo.getId());
+	Logger str(NAZWAKLASY(Budynek));
+	str.dodajKlase(Obiekt::toString());
+	str.dodajPole(NAZWAKLASY(BudynekInfo)+"ID",budynekInfo.getId());
 	return str.toString();
 }

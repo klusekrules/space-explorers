@@ -35,9 +35,9 @@ bool ZmianaPotegowaAlt::RejestrujZmianaPotegowaAlt( ZmianaFabryka &fabryka ){
 }
 
 string ZmianaPotegowaAlt::toString()const{
-	Logger str(CLASSNAME(ZmianaPotegowaAlt));
-	str.addField( "wspolczynnik", wspolczynnik_ );
+	Logger str(NAZWAKLASY(ZmianaPotegowaAlt));
+	str.dodajPole( "wspolczynnik", wspolczynnik_ );
 	if(wykladnik_)
-		str.addField( "wykladnik", *wykladnik_ );
+		str.dodajPole( "wykladnik", *wykladnik_ );
 	return str.toString();
 }

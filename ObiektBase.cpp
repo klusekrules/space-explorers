@@ -99,10 +99,10 @@ bool ObiektBase::odczytaj( TiXmlElement* e ){
 }
 
 string ObiektBase::toString() const{
-	Logger str(CLASSNAME(ObiektBase));
-	str.addClass(Base::toString());
-	str.addClass(PodstawoweParametry::toString());
-	str.addField(CLASSNAME(Ilosc),ilosc);
-	str.addField(CLASSNAME(ObiektBaseInfo)+"ID",obiektBaseInfo.getId());
+	Logger str(NAZWAKLASY(ObiektBase));
+	str.dodajKlase(Base::toString());
+	str.dodajKlase(PodstawoweParametry::toString());
+	str.dodajPole(NAZWAKLASY(Ilosc),ilosc);
+	str.dodajPole(NAZWAKLASY(ObiektBaseInfo)+"ID",obiektBaseInfo.getId());
 	return str.toString();
 }

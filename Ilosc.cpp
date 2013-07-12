@@ -83,6 +83,6 @@ Ilosc& Ilosc::operator=( const Ilosc& i ){
 }
 
 string Ilosc::toString() const{
-	return Logger::field(CLASSNAME(Ilosc),wartosc_);
+	return Logger::tworzPole(NAZWAKLASY(Ilosc),wartosc_);
 }
 

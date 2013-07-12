@@ -27,8 +27,8 @@ Tekst WyjatekParseraXML::generujKomunikat() const{
 }
 
 string WyjatekParseraXML::toString() const{
-	Logger str(CLASSNAME(WyjatekParseraXML));
-	str.addClass(OgolnyWyjatek::toString());
-	str.addField("Powod",powod);
+	Logger str(NAZWAKLASY(WyjatekParseraXML));
+	str.dodajKlase(OgolnyWyjatek::toString());
+	str.dodajPole("Powod",powod);
 	return str.toString();
 }

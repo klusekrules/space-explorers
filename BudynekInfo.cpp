@@ -49,13 +49,13 @@ Cennik::ListaSurowcow BudynekInfo::PobierzProdukcje( const PodstawoweParametry& 
 }
 
 string BudynekInfo::toString()const{
-	Logger str(CLASSNAME(BudynekInfo));
-	str.addClass(ObiektInfo::toString());
+	Logger str(NAZWAKLASY(BudynekInfo));
+	str.dodajKlase(ObiektInfo::toString());
 	for(auto i : zapotrzebowanie)
 		if(i)
-			str.addField("ElementZapotrzebowania",*i);
+			str.dodajPole("ElementZapotrzebowania",*i);
 	for(auto i : produkcja)
 		if(i)
-			str.addField("ElementProdukcji",*i);
+			str.dodajPole("ElementProdukcji",*i);
 	return str.toString();
 }

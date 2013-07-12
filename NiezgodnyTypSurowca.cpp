@@ -18,7 +18,7 @@ NiezgodnyTypSurowca::~NiezgodnyTypSurowca(){
 }
 
 string NiezgodnyTypSurowca::toString() const{
-	Logger str(CLASSNAME(NiezgodnyTypSurowca));
-	str.addClass(OgolnyWyjatek::toString());
+	Logger str(NAZWAKLASY(NiezgodnyTypSurowca));
+	str.dodajKlase(OgolnyWyjatek::toString());
 	return str.toString();
 }

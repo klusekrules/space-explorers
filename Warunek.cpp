@@ -93,12 +93,12 @@ shared_ptr< ObiektBaseInfo > Warunek::przeliczWarunek( Item& o , const Podstawow
 }
 
 string Warunek::toString() const{
-	Logger str(CLASSNAME(Warunek));
+	Logger str(NAZWAKLASY(Warunek));
 	for(auto a : warunki){
-		str.startSubClass("Wymog");		
-		str.addField("Wymog",*(a.first));
-		str.addField("Wymog",*(a.second));
-		str.endSubClass();
+		str.rozpocznijPodKlase("Wymog");		
+		str.dodajPole("Wymog",*(a.first));
+		str.dodajPole("Wymog",*(a.second));
+		str.zakonczPodKlase();
 	}
 	return str.toString();
 }

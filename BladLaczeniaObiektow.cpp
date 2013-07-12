@@ -30,9 +30,9 @@ Tekst BladLaczeniaObiektow::generujKomunikat() const{
 }
 
 string BladLaczeniaObiektow::toString() const{
-	Logger str(CLASSNAME(BladLaczeniaObiektow));	
-	str.addClass(OgolnyWyjatek::toString());
-	str.addField("ObiektA",obiektA);
-	str.addField("ObiektA",obiektB);
+	Logger str(NAZWAKLASY(BladLaczeniaObiektow));	
+	str.dodajKlase(OgolnyWyjatek::toString());
+	str.dodajPole("ObiektA",obiektA);
+	str.dodajPole("ObiektA",obiektB);
 	return str.toString();
 }

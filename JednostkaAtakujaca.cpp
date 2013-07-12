@@ -28,8 +28,8 @@ Obrazenia JednostkaAtakujaca::Oslona( const Obrazenia& a ) const{
 }
 
 string JednostkaAtakujaca::toString() const{
-	Logger str(CLASSNAME(JednostkaAtakujaca));
-	str.addField(CLASSNAME(JednostkaAtakujacaInfo)+"ID",jednostkaAtakujacaInfo.getId());
+	Logger str(NAZWAKLASY(JednostkaAtakujaca));
+	str.dodajPole(NAZWAKLASY(JednostkaAtakujacaInfo)+"ID",jednostkaAtakujacaInfo.getId());
 	return str.toString();
 }
 

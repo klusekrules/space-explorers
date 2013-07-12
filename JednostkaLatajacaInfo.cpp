@@ -86,24 +86,24 @@ Fluktuacja JednostkaLatajacaInfo::getSprawnoscSilnika( const PodstawoweParametry
 }
 
 string JednostkaLatajacaInfo::toString() const{
-	Logger str(CLASSNAME(JednostkaLatajacaInfo));
-	str.addClass(Info::toString());
-	str.addField("RodzajNapedu",rodzajNapedu);
-	str.addField(CLASSNAME(MocSilnika),mocSilnika);
+	Logger str(NAZWAKLASY(JednostkaLatajacaInfo));
+	str.dodajKlase(Info::toString());
+	str.dodajPole("RodzajNapedu",rodzajNapedu);
+	str.dodajPole(NAZWAKLASY(MocSilnika),mocSilnika);
 	if(przyrostMocySilnika!=nullptr){
-		str.addField("ZmianaMocySilnika",*przyrostMocySilnika);
+		str.dodajPole("ZmianaMocySilnika",*przyrostMocySilnika);
 	}
-	str.addField("SprawnoscSilnika",sprawnoscSilnika);
+	str.dodajPole("SprawnoscSilnika",sprawnoscSilnika);
 	if(przyrostSprawnosciSilnika!=nullptr){
-		str.addField("ZmianaSprawnosciSilnika",*przyrostSprawnosciSilnika);
+		str.dodajPole("ZmianaSprawnosciSilnika",*przyrostSprawnosciSilnika);
 	}
-	str.addField(CLASSNAME(ZuzyciePaliwa),zuzyciePaliwa);
+	str.dodajPole(NAZWAKLASY(ZuzyciePaliwa),zuzyciePaliwa);
 	if(przyrostZuzyciaPaliwa!=nullptr){
-		str.addField("ZmianaZuzyciaPaliwa",*przyrostZuzyciaPaliwa);
+		str.dodajPole("ZmianaZuzyciaPaliwa",*przyrostZuzyciaPaliwa);
 	}
-	str.addField("MasaNapedu",masaNapedu);
+	str.dodajPole("MasaNapedu",masaNapedu);
 	if(przyrostMasyNapedu!=nullptr){
-		str.addField("ZmianaMasyNapedu",*przyrostMasyNapedu);
+		str.dodajPole("ZmianaMasyNapedu",*przyrostMasyNapedu);
 	}
 	
 	return str.toString();

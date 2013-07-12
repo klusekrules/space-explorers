@@ -12,8 +12,8 @@ bool Wymagania::czySpelniaWymagania( const Ilosc& i, const PodstawoweParametry& 
 }
 
 string Wymagania::toString() const{
-	Logger str(CLASSNAME(Wymagania));
-	str.addClass(Cennik::toString());
-	str.addClass(Warunek::toString());
+	Logger str(NAZWAKLASY(Wymagania));
+	str.dodajKlase(Cennik::toString());
+	str.dodajKlase(Warunek::toString());
 	return str.toString();
 }

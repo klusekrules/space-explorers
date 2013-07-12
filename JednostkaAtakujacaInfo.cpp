@@ -77,16 +77,16 @@ std::mt19937& JednostkaAtakujacaInfo::getGenerator()const{
 }
 
 string JednostkaAtakujacaInfo::toString() const{
-	Logger str(CLASSNAME(JednostkaAtakujacaInfo));
-	str.addClass(Info::toString());
-	str.addField("Atak",atak);
-	str.addField("Pancerz",pancerz);
-	str.addField("Oslona",oslona);
+	Logger str(NAZWAKLASY(JednostkaAtakujacaInfo));
+	str.dodajKlase(Info::toString());
+	str.dodajPole("Atak",atak);
+	str.dodajPole("Pancerz",pancerz);
+	str.dodajPole("Oslona",oslona);
 	if(zmAtak!=nullptr)
-		str.addField("ZmianaMasy",*zmAtak);
+		str.dodajPole("ZmianaMasy",*zmAtak);
 	if(zmPancerz!=nullptr)
-		str.addField("ZmianaObjetosci",*zmPancerz);
+		str.dodajPole("ZmianaObjetosci",*zmPancerz);
 	if(zmOslona!=nullptr)
-		str.addField("ZmianaPowierzchni",*zmOslona);
+		str.dodajPole("ZmianaPowierzchni",*zmOslona);
 	return str.toString();
 }

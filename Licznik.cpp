@@ -58,7 +58,7 @@ bool Licznik::odczytaj( TiXmlElement* n ){
 }
 
 string Licznik::toString()const{
-	Logger str(CLASSNAME(Licznik));
-	str.addClass(Base::toString());
+	Logger str(NAZWAKLASY(Licznik));
+	str.dodajKlase(Base::toString());
 	return str.toString();
 }

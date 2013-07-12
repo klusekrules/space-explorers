@@ -26,5 +26,5 @@ Parametr& Parametr::operator=( const Parametr& p ){
 }
 
 string Parametr::toString() const{
-	return Logger::field(CLASSNAME(Parametr),wartosc_);
+	return Logger::tworzPole(NAZWAKLASY(Parametr),wartosc_);
 }

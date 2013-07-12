@@ -50,6 +50,6 @@ bool Uzytkownik::odczytaj( TiXmlElement* e ){
 }
 
 string Uzytkownik::toString() const{
-	Logger str(CLASSNAME(Uzytkownik));
+	Logger str(NAZWAKLASY(Uzytkownik));
 	return str.toString();
 }

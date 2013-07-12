@@ -49,8 +49,8 @@ Surowce* SurowceInfo::TworzEgzemplarz( const Ilosc& ilosc, const IdType& idP ) c
 }
 
 string SurowceInfo::toString() const{
-	Logger str(CLASSNAME(SurowceInfo));
-	str.addClass(ObiektInfo::toString());
-	str.addField("CzyPrzyrostowy",czyPrzyrostowy);
+	Logger str(NAZWAKLASY(SurowceInfo));
+	str.dodajKlase(ObiektInfo::toString());
+	str.dodajPole("CzyPrzyrostowy",czyPrzyrostowy);
 	return str.toString();
 }

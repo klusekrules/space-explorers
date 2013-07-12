@@ -28,8 +28,8 @@ Tekst WyjatekSTL::generujKomunikat()const {
 }
 
 string WyjatekSTL::toString() const{
-	Logger str(CLASSNAME(WyjatekSTL));	
-	str.addClass(OgolnyWyjatek::toString());
-	str.addField("Powod",powod);
+	Logger str(NAZWAKLASY(WyjatekSTL));	
+	str.dodajKlase(OgolnyWyjatek::toString());
+	str.dodajPole("Powod",powod);
 	return str.toString();
 }
