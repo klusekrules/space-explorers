@@ -32,18 +32,18 @@ public:
 	
 	Tekst generujKomunikat() const override;
 
-	string toString() const override;
+	string napis() const override;
 
 private:
 
 	template< class... V >
 	static void step( vector< string >& v, const LoggerInterface &c , const V&... tail ){
-		v.push_back(c.toString());
+		v.push_back(c.napis());
 		step(v, tail... );
 	}
 	
 	static void step( vector< string >& v, const LoggerInterface &c ){
-		v.push_back(c.toString());
+		v.push_back(c.napis());
 	}
 
 	Tekst parametry;

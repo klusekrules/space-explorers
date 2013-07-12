@@ -222,10 +222,10 @@ bool Planeta::odczytaj( TiXmlElement* e ){
 	return false;
 }
 
-string Planeta::toString() const{
+string Planeta::napis() const{
 	Logger str(NAZWAKLASY(Planeta));
-	str.dodajKlase(Base::toString());
+	str.dodajKlase(Base::napis());
 	for( auto i : listaObiektow )
 		str.dodajPole("Obiekt", *(i.second));
-	return str.toString();
+	return str.napis();
 }

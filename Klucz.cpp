@@ -2,7 +2,7 @@
 #include "Logger.h"
 
 ostream& operator<< (ostream& out, const Klucz::type_name& base){
-	out << base.first.toString() << " " << base.second.toString() ;
+	out << base.first.napis() << " " << base.second.napis() ;
 	return out;
 }
 
@@ -41,6 +41,6 @@ bool Klucz::operator<( const Klucz& a )const{
 	return wartosc_.first < a.wartosc_.first ? true : wartosc_.second < a.wartosc_.second;
 }
 
-string Klucz::toString()const{
+string Klucz::napis()const{
 	return Logger::tworzPole(NAZWAKLASY(Klucz),wartosc_.first,wartosc_.second);
 }

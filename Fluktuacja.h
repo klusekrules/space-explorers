@@ -25,6 +25,6 @@ public:
 	Fluktuacja operator-( const Fluktuacja& )const;
 	Fluktuacja operator+( const Fluktuacja& )const;
 	
-	string toString() const override; 
+	string napis() const override; 
 };
 

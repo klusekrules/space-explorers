@@ -31,5 +31,5 @@ public:
 	Masa operator*( const Ilosc& )const;
 	Masa& operator*=( const Ilosc& );
 	
-	string toString() const override; 
+	string napis() const override; 
 };

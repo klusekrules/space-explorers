@@ -82,7 +82,7 @@ Ilosc& Ilosc::operator=( const Ilosc& i ){
 	return *this;
 }
 
-string Ilosc::toString() const{
+string Ilosc::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(Ilosc),wartosc_);
 }
 

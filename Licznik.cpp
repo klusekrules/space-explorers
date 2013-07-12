@@ -41,7 +41,7 @@ void Licznik::ustawWartosc( const Ilosc& w ){
 bool Licznik::zapisz( TiXmlElement* e ) const{
 	TiXmlElement* n = new TiXmlElement(WEZEL_XML_LICZNIK);
 	e->LinkEndChild( n );
-	n->SetAttribute(ATRYBUT_XML_ILOSC,wartoscLicznika.toString());
+	n->SetAttribute(ATRYBUT_XML_ILOSC,wartoscLicznika.napis());
 	return Base::zapisz(n);
 }
 
@@ -57,8 +57,8 @@ bool Licznik::odczytaj( TiXmlElement* n ){
 	return false;
 }
 
-string Licznik::toString()const{
+string Licznik::napis()const{
 	Logger str(NAZWAKLASY(Licznik));
-	str.dodajKlase(Base::toString());
-	return str.toString();
+	str.dodajKlase(Base::napis());
+	return str.napis();
 }

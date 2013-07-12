@@ -127,12 +127,12 @@ bool Statek::odczytaj( TiXmlElement* e ) {
 	return Obiekt::odczytaj(e) && Ladownia::odczytaj(e->FirstChildElement(WEZEL_XML_LADOWNIA));
 }
 
-string Statek::toString() const{
+string Statek::napis() const{
 	Logger str(NAZWAKLASY(Statek));
-	str.dodajKlase(Obiekt::toString());
-	str.dodajKlase(JednostkaAtakujaca::toString());
-	str.dodajKlase(JednostkaLatajaca::toString());
-	str.dodajKlase(Ladownia::toString());
+	str.dodajKlase(Obiekt::napis());
+	str.dodajKlase(JednostkaAtakujaca::napis());
+	str.dodajKlase(JednostkaLatajaca::napis());
+	str.dodajKlase(Ladownia::napis());
 	str.dodajPole(NAZWAKLASY(StatekInfo)+"ID",statekinfo.getId());
-	return str.toString();
+	return str.napis();
 }

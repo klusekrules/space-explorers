@@ -29,10 +29,10 @@ Tekst BladLaczeniaObiektow::generujKomunikat() const{
 	return OgolnyWyjatek::generujKomunikat() + Tekst("ObiektA:") +  obiektA  + Tekst("\nObiektB:") +  obiektB + Tekst("\n");
 }
 
-string BladLaczeniaObiektow::toString() const{
+string BladLaczeniaObiektow::napis() const{
 	Logger str(NAZWAKLASY(BladLaczeniaObiektow));	
-	str.dodajKlase(OgolnyWyjatek::toString());
+	str.dodajKlase(OgolnyWyjatek::napis());
 	str.dodajPole("ObiektA",obiektA);
 	str.dodajPole("ObiektA",obiektB);
-	return str.toString();
+	return str.napis();
 }

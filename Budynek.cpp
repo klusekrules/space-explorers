@@ -59,9 +59,9 @@ bool Budynek::odczytaj (TiXmlElement* e) {
 	return Obiekt::odczytaj(e);
 }
 
-string Budynek::toString()const{
+string Budynek::napis()const{
 	Logger str(NAZWAKLASY(Budynek));
-	str.dodajKlase(Obiekt::toString());
+	str.dodajKlase(Obiekt::napis());
 	str.dodajPole(NAZWAKLASY(BudynekInfo)+"ID",budynekInfo.getId());
-	return str.toString();
+	return str.napis();
 }

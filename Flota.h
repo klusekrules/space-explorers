@@ -20,7 +20,7 @@ public:
 	Objetosc pobierzDostepneMiejsce() const;
 	bool zapisz( TiXmlElement* e ) const override;
 	bool odczytaj( TiXmlElement* e ) override;
-	string toString()const override;
+	string napis()const override;
 
 private:
 	ListaStatkow lista;

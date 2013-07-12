@@ -67,6 +67,6 @@ MocSilnika MocSilnika::operator+( const MocSilnika& p )const{
 	return MocSilnika( wartosc_ + p.wartosc_ );
 }
 
-string MocSilnika::toString() const{
+string MocSilnika::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(MocSilnika),wartosc_);
 } 

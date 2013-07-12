@@ -87,35 +87,35 @@ bool Gra::wybudujNaPlanecie( Planeta& p, const SurowceInfo& b, const Ilosc& ilos
 StatekInfo& Gra::getStatek(const IdType& id)const throw (NieznalezionoObiektu) {
 	auto iter = listaStatkowInfo.find(id);
 	if(iter==listaStatkowInfo.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.toString());
+		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
 	return *(iter->second);
 }
 
 SurowceInfo& Gra::getSurowce(const IdType& id)const throw (NieznalezionoObiektu) {
 	auto iter = listaSurowcowInfo.find(id);
 	if(iter==listaSurowcowInfo.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.toString());
+		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
 	return *(iter->second);
 }
 
 TechnologiaInfo& Gra::getTechnologia(const IdType& id)const throw (NieznalezionoObiektu) {
 	auto iter = listaTechnologiInfo.find(id);
 	if(iter==listaTechnologiInfo.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.toString());
+		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
 	return *(iter->second);
 }
 
 BudynekInfo& Gra::getBudynek(const IdType& id)const throw (NieznalezionoObiektu) {
 	auto iter = listaBudynkowInfo.find(id);
 	if(iter==listaBudynkowInfo.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.toString());
+		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
 	return *(iter->second);
 }
 
 ObiektInfo& Gra::getObiekt(const IdType& id)const throw (NieznalezionoObiektu) {
 	auto iter = listaObiektowInfo.find(id);
 	if(iter==listaObiektowInfo.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.toString());
+		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
 	return *(iter->second);
 }
 

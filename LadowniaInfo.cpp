@@ -29,11 +29,11 @@ Objetosc LadowniaInfo::getPojemnoscMaksymalna(const PodstawoweParametry& p ) con
 		return pojemnoscMax;
 }
 		
-string LadowniaInfo::toString() const{
+string LadowniaInfo::napis() const{
 	Logger str(NAZWAKLASY(LadowniaInfo));
-	str.dodajKlase(Info::toString());
+	str.dodajKlase(Info::napis());
 	str.dodajPole("MaksymalnaPojemnosc",pojemnoscMax);
 	if(przyrostPojemnoscMax!=nullptr)
 		str.dodajPole("ZmianaMaksymalnaPojemnosc",*przyrostPojemnoscMax);
-	return str.toString();
+	return str.napis();
 }

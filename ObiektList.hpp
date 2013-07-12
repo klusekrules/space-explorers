@@ -51,7 +51,7 @@ public:
 			lista.put(k,o.Kopia());
 		}else{
 			if(!lista.get(k)->Polacz(o))
-				throw BladLaczeniaObiektow( EXCEPTION_PLACE , lista.get(k)->toString(), o.toString() );
+				throw BladLaczeniaObiektow( EXCEPTION_PLACE , lista.get(k)->napis(), o.napis() );
 		}
 		return k;
 	}
@@ -63,7 +63,7 @@ public:
 			lista.put(k,o);
 		}else{
 			if(!lista.get(k)->Polacz(*o))
-				throw BladLaczeniaObiektow( EXCEPTION_PLACE , lista.get(k)->toString(), o->toString() );
+				throw BladLaczeniaObiektow( EXCEPTION_PLACE , lista.get(k)->napis(), o->napis() );
 			else
 				delete o;
 		}
@@ -73,14 +73,14 @@ public:
 	//Nie usuwa obiektu z mapy
 	T& get ( const Klucz& k ) const throw( NieznalezionoObiektu ){
 		if(lista.find(k)==lista.end())
-			throw NieznalezionoObiektu(EXCEPTION_PLACE, k.toString());
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, k.napis());
 		return *lista.get(k);
 	}
 
 	//Usuwa obiekt z mapy ale nie wywo³uje metody delete
 	T* getAndDel ( const Klucz& k ) throw( NieznalezionoObiektu ){
 		if(lista.find(k)==lista.end())
-			throw NieznalezionoObiektu(EXCEPTION_PLACE, k.toString());
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, k.napis());
 		T* o = lista.get(k);
 		lista.erase(k);
 		return o;
@@ -106,10 +106,10 @@ public:
 		return false;
 	}
 
-	string toString() const override{
+	string napis() const override{
 		Logger str(NAZWAKLASY(ObiektList<T>));
 		str.dodajPole("Lista Obiektow",lista);
-		return str.toString();
+		return str.napis();
 	}
 	list<T*> rawObiektList() const {
 		list<T*> l;

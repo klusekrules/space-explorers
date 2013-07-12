@@ -84,6 +84,6 @@ Powierzchnia& Powierzchnia::operator*=( const Ilosc& f ){
 	return *this;
 }
 
-string Powierzchnia::toString() const{
+string Powierzchnia::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(Powierzchnia),wartosc_);
 } 

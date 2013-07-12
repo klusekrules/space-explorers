@@ -23,6 +23,6 @@ public:
 
 	bool isEmpty() const;
 
-	string toString()const override;
+	string napis()const override;
 };
 

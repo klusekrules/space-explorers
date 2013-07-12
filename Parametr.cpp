@@ -25,6 +25,6 @@ Parametr& Parametr::operator=( const Parametr& p ){
 	return *this;
 }
 
-string Parametr::toString() const{
+string Parametr::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(Parametr),wartosc_);
 }

@@ -22,9 +22,9 @@ Tekst NiezainicjalizowanaKlasa::generujKomunikat() const{
 }
 
 
-string NiezainicjalizowanaKlasa::toString() const{
+string NiezainicjalizowanaKlasa::napis() const{
 	Logger str(NAZWAKLASY(NiezainicjalizowanaKlasa));	
-	str.dodajKlase(OgolnyWyjatek::toString());
+	str.dodajKlase(OgolnyWyjatek::napis());
 	str.dodajPole("Nazwa klasy",nazwaKlasy);
-	return str.toString();
+	return str.napis();
 }

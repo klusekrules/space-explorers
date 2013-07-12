@@ -82,7 +82,7 @@ const ObiektBaseInfo& ObiektBase::getObiektBaseInfo()const{
 }
 
 bool ObiektBase::zapisz( TiXmlElement* e ) const {
-	e->SetAttribute(ATRYBUT_XML_ILOSC,ilosc.toString());
+	e->SetAttribute(ATRYBUT_XML_ILOSC,ilosc.napis());
 	return PodstawoweParametry::zapisz(e) && Base::zapisz(e);
 }
 
@@ -98,11 +98,11 @@ bool ObiektBase::odczytaj( TiXmlElement* e ){
 	return false;
 }
 
-string ObiektBase::toString() const{
+string ObiektBase::napis() const{
 	Logger str(NAZWAKLASY(ObiektBase));
-	str.dodajKlase(Base::toString());
-	str.dodajKlase(PodstawoweParametry::toString());
+	str.dodajKlase(Base::napis());
+	str.dodajKlase(PodstawoweParametry::napis());
 	str.dodajPole(NAZWAKLASY(Ilosc),ilosc);
 	str.dodajPole(NAZWAKLASY(ObiektBaseInfo)+"ID",obiektBaseInfo.getId());
-	return str.toString();
+	return str.napis();
 }

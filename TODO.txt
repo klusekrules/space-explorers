@@ -54,7 +54,7 @@ Zawiera listę elementów do zrobienia.
 /* Niski priorytet */
 # - Poprawienie treści zgłaszanych wyjatków.
 # - Zaimplementować schemat pliku xml w celu walidacji
-# - Zastąpienie wszystkich odwołań do zakodowanych napisów oprócz tych w metodzie toString
+# - Zastąpienie wszystkich odwołań do zakodowanych napisów oprócz tych w metodzie napis
 # - Wybór sposobu podziału statku z plików opcji gdy ładowania jest nie pusta.
 # - Dodanie klasy Budynk, BudynekInfo
 # - Dodanie klasy Obrona, ObronaInfo

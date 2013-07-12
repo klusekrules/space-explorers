@@ -21,7 +21,7 @@ public:
 	bool operator!=( const Klucz& )const;
 	bool operator<( const Klucz& )const;
 	
-	string toString()const override;
+	string napis()const override;
 };
 
 struct KluczHash {

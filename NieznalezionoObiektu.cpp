@@ -22,9 +22,9 @@ Tekst NieznalezionoObiektu::generujKomunikat() const{
 }
 
 
-string NieznalezionoObiektu::toString() const{
+string NieznalezionoObiektu::napis() const{
 	Logger str(NAZWAKLASY(NieznalezionoObiektu));	
-	str.dodajKlase(OgolnyWyjatek::toString());
+	str.dodajKlase(OgolnyWyjatek::napis());
 	str.dodajPole("Identyfikator",identyfikator);
-	return str.toString();
+	return str.napis();
 }

@@ -76,9 +76,9 @@ std::mt19937& JednostkaAtakujacaInfo::getGenerator()const{
 	return gen;
 }
 
-string JednostkaAtakujacaInfo::toString() const{
+string JednostkaAtakujacaInfo::napis() const{
 	Logger str(NAZWAKLASY(JednostkaAtakujacaInfo));
-	str.dodajKlase(Info::toString());
+	str.dodajKlase(Info::napis());
 	str.dodajPole("Atak",atak);
 	str.dodajPole("Pancerz",pancerz);
 	str.dodajPole("Oslona",oslona);
@@ -88,5 +88,5 @@ string JednostkaAtakujacaInfo::toString() const{
 		str.dodajPole("ZmianaObjetosci",*zmPancerz);
 	if(zmOslona!=nullptr)
 		str.dodajPole("ZmianaPowierzchni",*zmOslona);
-	return str.toString();
+	return str.napis();
 }

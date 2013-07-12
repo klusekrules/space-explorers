@@ -19,7 +19,7 @@ public:
 
 	Tekst generujKomunikat() const override;
 
-	string toString() const override;
+	string napis() const override;
 
 private:
 	Tekst nazwaKlasy;

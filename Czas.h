@@ -20,6 +20,6 @@ public:
 	Czas& operator+=( const Czas& );
 	Czas& operator=( const type_name& b );
 	
-	string toString() const override;		 
+	string napis() const override;		 
 };
 

@@ -46,5 +46,5 @@ public:
 	* Metoda tworz¹ca napis zawieraj¹cy opis obiektu.
 	* \return Opis obiektu.
 	*/
-	string toString () const override;
+	string napis () const override;
 };

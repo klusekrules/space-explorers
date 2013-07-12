@@ -31,6 +31,6 @@ public:
 	Powierzchnia operator*( const Ilosc& )const;
 	Powierzchnia& operator*=( const Ilosc& );
 	
-	string toString() const override; 
+	string napis() const override; 
 };
 

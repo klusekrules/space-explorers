@@ -25,7 +25,7 @@ public:
 	ZuzyciePaliwa operator-( const ZuzyciePaliwa& )const;
 	ZuzyciePaliwa operator+( const ZuzyciePaliwa& )const;
 	
-	string toString() const override; 
+	string napis() const override; 
 };
 
 

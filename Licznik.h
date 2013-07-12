@@ -25,7 +25,7 @@ public:
 
 	bool odczytaj( TiXmlElement* e ) override;
 
-	string toString()const override;
+	string napis()const override;
 
 private:
 	Ilosc wartoscLicznika;

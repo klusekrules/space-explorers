@@ -31,11 +31,11 @@ bool StatekInfo::Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
 	return g.wybudujNaPlanecie(p,*this,i);
 }
 
-string StatekInfo::toString() const{
+string StatekInfo::napis() const{
 	Logger str(NAZWAKLASY(StatekInfo));
-	str.dodajKlase(ObiektInfo::toString());
-	str.dodajKlase(JednostkaLatajacaInfo::toString());
-	str.dodajKlase(JednostkaAtakujacaInfo::toString());
-	str.dodajKlase(LadowniaInfo::toString());
-	return str.toString();
+	str.dodajKlase(ObiektInfo::napis());
+	str.dodajKlase(JednostkaLatajacaInfo::napis());
+	str.dodajKlase(JednostkaAtakujacaInfo::napis());
+	str.dodajKlase(LadowniaInfo::napis());
+	return str.napis();
 }

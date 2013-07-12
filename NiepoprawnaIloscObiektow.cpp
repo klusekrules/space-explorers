@@ -18,13 +18,13 @@ void NiepoprawnaIloscObiektow::setIlosc( const Ilosc& ilosc ){
 }
 
 Tekst NiepoprawnaIloscObiektow::generujKomunikat() const{
-	return OgolnyWyjatek::generujKomunikat() + Tekst("Ilosc:") +  i.Ilosc::toString() + Tekst("\n");
+	return OgolnyWyjatek::generujKomunikat() + Tekst("Ilosc:") +  i.Ilosc::napis() + Tekst("\n");
 }
 
-string NiepoprawnaIloscObiektow::toString() const{
+string NiepoprawnaIloscObiektow::napis() const{
 	Logger str(NAZWAKLASY(NiepoprawnaIloscObiektow));	
-	str.dodajKlase(OgolnyWyjatek::toString());
+	str.dodajKlase(OgolnyWyjatek::napis());
 	str.dodajPole("Ilosc",i);
-	return str.toString();
+	return str.napis();
 }
 	

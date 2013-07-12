@@ -73,11 +73,11 @@ bool Flota::odczytaj( TiXmlElement* e ) {
 	return false;
 }
 
-string Flota::toString()const {
+string Flota::napis()const {
 	Logger str(NAZWAKLASY(Ladownia));
-	str.dodajKlase(Base::toString());
+	str.dodajKlase(Base::napis());
 	for(auto s : lista)
 		if(s.second)
 			str.dodajPole(NAZWAKLASY(Statek),*s.second);
-	return str.toString();
+	return str.napis();
 }

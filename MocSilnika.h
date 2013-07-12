@@ -25,7 +25,7 @@ public:
 	MocSilnika operator-( const MocSilnika& )const;
 	MocSilnika operator+( const MocSilnika& )const;
 	
-	string toString() const override; 
+	string napis() const override; 
 };
 
 

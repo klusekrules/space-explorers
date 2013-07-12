@@ -131,7 +131,7 @@ public:
 	* Funkcja s³u¿¹ca do tworzenia napisów z opisem klasy.
 	* \return Napis zawieraj¹cy opis klasy.
 	*/
-	string toString() const override;
+	string napis() const override;
 
 private:
 

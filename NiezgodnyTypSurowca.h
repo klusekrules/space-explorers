@@ -16,7 +16,7 @@ public:
 	NiezgodnyTypSurowca( const NiezgodnyTypSurowca& );
 	virtual ~NiezgodnyTypSurowca();
 
-	string toString() const override;
+	string napis() const override;
 
 private:
 	static const Tekst tytulNiezgodnyTypSurowcaDomyslny;

@@ -22,7 +22,7 @@ public:
 	const Tekst& getOpis() const;
 	void setOpis( const Tekst& );
 	
-	string toString() const override;
+	string napis() const override;
 
 private:
 

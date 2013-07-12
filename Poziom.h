@@ -30,6 +30,6 @@ public:
 
 	explicit operator size_t () const;
 	
-	string toString() const override;
+	string napis() const override;
 };
 

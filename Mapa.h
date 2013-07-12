@@ -53,14 +53,14 @@ public:
 		return this->at(k);
 	}
 
-	string toString() const override{
+	string napis() const override{
 		Logger str(NAZWAKLASY( TYP ));
-		str.dodajKlase(Base::toString());
+		str.dodajKlase(Base::napis());
 		str.rozpocznijPodKlase("hash_map");
 		for(const_iterator iter=begin(); iter!=end(); ++iter){
 			str.dodajPole( "", (*iter).first , *( (*iter).second ) );
 		}
 		str.zakonczPodKlase();
-		return str.toString();
+		return str.napis();
 	}
 };

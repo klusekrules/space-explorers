@@ -82,6 +82,6 @@ Poziom::operator size_t () const{
 	return (size_t)wartosc_;
 }
 
-string Poziom::toString() const {
+string Poziom::napis() const {
 	return Logger::tworzPole(NAZWAKLASY(Poziom),wartosc_);
 }

@@ -34,9 +34,9 @@ const Poziom& ObiektBaseInfo::getPoziom()const{
 	return poziom;
 }
 
-string ObiektBaseInfo::toString() const{
+string ObiektBaseInfo::napis() const{
 	Logger str(NAZWAKLASY(ObiektBaseInfo));
-	str.dodajKlase(Info::toString());	
+	str.dodajKlase(Info::napis());	
 	str.dodajPole(NAZWAKLASY(Poziom),poziom);
-	return str.toString();
+	return str.napis();
 }

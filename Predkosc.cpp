@@ -67,6 +67,6 @@ Predkosc Predkosc::operator+( const Predkosc& p )const{
 	return Predkosc( wartosc_ + p.wartosc_ );
 }
 
-string Predkosc::toString() const{
+string Predkosc::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(Predkosc),wartosc_);
 } 

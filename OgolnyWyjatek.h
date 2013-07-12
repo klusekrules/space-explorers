@@ -29,7 +29,7 @@ public:
 	const Tekst& getTresc() const;
 	void setTresc ( const Tekst& wwTresc );	
 	
-	string toString() const override;
+	string napis() const override;
 
 protected:
 	IdType numerWyjatku;

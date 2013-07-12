@@ -25,5 +25,5 @@ public:
 	Obrazenia operator-( const Obrazenia& )const;
 	Obrazenia operator+( const Obrazenia& )const;
 	
-	string toString() const override; 
+	string napis() const override; 
 };

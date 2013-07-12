@@ -30,8 +30,8 @@ bool TechnologiaInfo::Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
 	return g.wybudujNaPlanecie(p,*this,i);
 }
 
-string TechnologiaInfo::toString()const{
+string TechnologiaInfo::napis()const{
 	Logger str(NAZWAKLASY(TechnologiaInfo));
-	str.dodajKlase(ObiektBaseInfo::toString());
-	return str.toString();
+	str.dodajKlase(ObiektBaseInfo::napis());
+	return str.napis();
 }

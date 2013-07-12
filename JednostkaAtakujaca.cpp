@@ -27,10 +27,10 @@ Obrazenia JednostkaAtakujaca::Oslona( const Obrazenia& a ) const{
 	return a > o ? o : a;
 }
 
-string JednostkaAtakujaca::toString() const{
+string JednostkaAtakujaca::napis() const{
 	Logger str(NAZWAKLASY(JednostkaAtakujaca));
 	str.dodajPole(NAZWAKLASY(JednostkaAtakujacaInfo)+"ID",jednostkaAtakujacaInfo.getId());
-	return str.toString();
+	return str.napis();
 }
 
 Obrazenia JednostkaAtakujaca::getAtak() const{

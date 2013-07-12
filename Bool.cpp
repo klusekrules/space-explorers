@@ -38,7 +38,7 @@ Bool& Bool::operator=( const type_name& b ){
 	return *this;
 }
 
-string Bool::toString() const{
+string Bool::napis() const{
 	stringstream str;
 	str << boolalpha << wartosc_;
 	return str.str();

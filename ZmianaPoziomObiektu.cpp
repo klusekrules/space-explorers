@@ -25,10 +25,10 @@ bool ZmianaPoziomObiektu::RejestrujZmianaPoziomObiektu(  ZmianaFabryka &ref ){
 	return ref.rejestracjaZmiany( identyfikator_, ZmianaPoziomObiektu::TworzZmianaPoziomObiektu );
 }
 
-string ZmianaPoziomObiektu::toString()const{
+string ZmianaPoziomObiektu::napis()const{
 	Logger str(NAZWAKLASY(ZmianaPoziomObiektu));
 	str.dodajPole( "Parametr", parametr_ );
-	return str.toString();
+	return str.napis();
 }
 
 ZmianaInterfejs* ZmianaPoziomObiektu::TworzZmianaPoziomObiektu( TiXmlElement* wezel ){

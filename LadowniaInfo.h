@@ -22,6 +22,6 @@ public:
 	
 	Objetosc getPojemnoscMaksymalna( const PodstawoweParametry& ) const;
 		
-	string toString() const override;
+	string napis() const override;
 };
 

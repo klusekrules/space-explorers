@@ -85,9 +85,9 @@ Fluktuacja JednostkaLatajacaInfo::getSprawnoscSilnika( const PodstawoweParametry
 		
 }
 
-string JednostkaLatajacaInfo::toString() const{
+string JednostkaLatajacaInfo::napis() const{
 	Logger str(NAZWAKLASY(JednostkaLatajacaInfo));
-	str.dodajKlase(Info::toString());
+	str.dodajKlase(Info::napis());
 	str.dodajPole("RodzajNapedu",rodzajNapedu);
 	str.dodajPole(NAZWAKLASY(MocSilnika),mocSilnika);
 	if(przyrostMocySilnika!=nullptr){
@@ -106,5 +106,5 @@ string JednostkaLatajacaInfo::toString() const{
 		str.dodajPole("ZmianaMasyNapedu",*przyrostMasyNapedu);
 	}
 	
-	return str.toString();
+	return str.napis();
 }

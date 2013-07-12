@@ -109,7 +109,7 @@ void Log::info( const string& komunikat ){
 
 void Log::info( const LoggerInterface& komunikat ){
 	if(logiOdblokowane_ && logiInfoOdblokowane_){
-		wyswietl( pobierzDateCzas() + " [INFO] " + komunikat.toString() + "\n" );
+		wyswietl( pobierzDateCzas() + " [INFO] " + komunikat.napis() + "\n" );
 	}
 }
 
@@ -121,7 +121,7 @@ void Log::warn( const string& komunikat ){
 
 void Log::warn( const LoggerInterface& komunikat ){
 	if(logiOdblokowane_ && logiWarnOdblokowane_){
-		wyswietl( pobierzDateCzas() + " [WARN] " + komunikat.toString() + "\n" );
+		wyswietl( pobierzDateCzas() + " [WARN] " + komunikat.napis() + "\n" );
 	}
 }
 
@@ -133,7 +133,7 @@ void Log::error( const string& komunikat ){
 
 void Log::error( const LoggerInterface& komunikat ){
 	if(logiOdblokowane_ && logiErrorOdblokowane_){
-		wyswietl( pobierzDateCzas() + " [ERROR] " + komunikat.toString() + "\n" );
+		wyswietl( pobierzDateCzas() + " [ERROR] " + komunikat.napis() + "\n" );
 	}
 }
 
@@ -145,7 +145,7 @@ void Log::debug( const string& komunikat ){
 
 void Log::debug( const LoggerInterface& komunikat ){
 	if(logiOdblokowane_ && logiDebugOdblokowane_){
-		wyswietl( pobierzDateCzas() + " [DEBUG] " + komunikat.toString() + "\n" );
+		wyswietl( pobierzDateCzas() + " [DEBUG] " + komunikat.napis() + "\n" );
 	}
 }
 
