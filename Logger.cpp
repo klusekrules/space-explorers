@@ -14,7 +14,7 @@ Logger::Logger( const string& nazwa )
 	napis_<<nazwa<<"[";
 }
 
-string Logger::toString() const{
+string Logger::napis() const{
 	return napis_.str() + " ]";
 }
 
@@ -25,7 +25,7 @@ void Logger::dodajKlase( const string& opisKlasy ){
 
 string Logger::tworzPole( const string& nazwa, const LoggerInterface& obiektPierwszy, const LoggerInterface& obiektDrugi ){
 	stringstream str;
-	str << nazwa << " { " << obiektPierwszy.toString() << " , " << obiektDrugi.toString() <<" }";
+	str << nazwa << " { " << obiektPierwszy.napis() << " , " << obiektDrugi.napis() <<" }";
 	return str.str();
 }
 
@@ -34,7 +34,7 @@ string Logger::tworzKlase( const string& nazwaKlasy, const string& opisKlasy ){
 }
 
 void Logger::dodajPole( const string& nazwa, const LoggerInterface& obiekt ){
-	dodajPole( nazwa, obiekt.toString() );
+	dodajPole( nazwa, obiekt.napis() );
 }
 
 void Logger::dodajPole( const string& nazwa, const string& opisPola ){
@@ -44,7 +44,7 @@ void Logger::dodajPole( const string& nazwa, const string& opisPola ){
 
 void Logger::dodajPole( const string& nazwa, const LoggerInterface& obiektPierwszy, const LoggerInterface& obiektDrugi ){
 	testPierwszegoPola();
-	napis_ << nazwa << " { " << obiektPierwszy.toString() << " , " << obiektDrugi.toString() <<" }";
+	napis_ << nazwa << " { " << obiektPierwszy.napis() << " , " << obiektDrugi.napis() <<" }";
 }
 
 void Logger::rozpocznijPodKlase( const string& nazwa ){
