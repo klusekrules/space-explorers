@@ -66,8 +66,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>C:\Users\dwoj\Downloads\cppunit-1.12.1.tar\cppunit-1.12.1\lib;$(SolutionDir)\out;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\dwoj\Downloads\cppunit-1.12.1.tar\cppunit-1.12.1\include;$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\out;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)out\</OutDir>
     <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
     <IntDir>obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
@@ -209,6 +209,10 @@
     <ClInclude Include="afxres.h" />
     <ClInclude Include="Aplikacja.h" />
     <ClInclude Include="Base.h" />
+    <ClInclude Include="InicjalizacjaDanychTestowych.h" />
+    <ClInclude Include="LogowanieTest.h" />
+    <ClInclude Include="MakraDlaTestow.h" />
+    <ClInclude Include="PaczkaTestow.h" />
     <ClInclude Include="PodstawowyInterfejs.h" />
     <ClInclude Include="Biblioteki.h" />
     <ClInclude Include="BladDzieleniaLadowni.h" />
@@ -240,6 +244,7 @@
     <ClInclude Include="Technologia.h" />
     <ClInclude Include="TechnologiaInfo.h" />
     <ClInclude Include="Test.h" />
+    <ClInclude Include="TestyJednostkowe.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Uzytkownik.h" />
     <ClInclude Include="version.h" />
@@ -290,6 +295,7 @@
     <ClInclude Include="TypyProste.h" />
     <ClInclude Include="Warunek.h" />
     <ClInclude Include="WyjatekParseraXML.h" />
+    <ClInclude Include="WyjatekSprawdzeniaWarunku.h" />
     <ClInclude Include="WyjatekSTL.h" />
     <ClInclude Include="Wymagania.h" />
     <ClInclude Include="XmlBO.h" />
@@ -321,6 +327,8 @@
     <ClCompile Include="Identyfikator.cpp" />
     <ClCompile Include="Ilosc.cpp" />
     <ClCompile Include="Info.cpp" />
+    <ClCompile Include="InicjalizacjaDanychTestowych.cpp" />
+    <ClCompile Include="InicjalizacjaTestow.cpp" />
     <ClCompile Include="JednostkaAtakujaca.cpp" />
     <ClCompile Include="JednostkaAtakujacaInfo.cpp" />
     <ClCompile Include="JednostkaLatajaca.cpp" />
@@ -329,6 +337,7 @@
     <ClCompile Include="Ladownia.cpp" />
     <ClCompile Include="LadowniaInfo.cpp" />
     <ClCompile Include="Licznik.cpp" />
+    <ClCompile Include="LogowanieTest.cpp" />
     <ClCompile Include="maintest.cpp" />
     <ClCompile Include="Masa.cpp" />
     <ClCompile Include="MocSilnika.cpp" />
@@ -344,6 +353,7 @@
     <ClCompile Include="Objetosc.cpp" />
     <ClCompile Include="Obrazenia.cpp" />
     <ClCompile Include="OgolnyWyjatek.cpp" />
+    <ClCompile Include="PaczkaTestow.cpp" />
     <ClCompile Include="Parametr.cpp" />
     <ClCompile Include="Planeta.cpp" />
     <ClCompile Include="PodstawoweParametry.cpp" />
@@ -360,9 +370,11 @@
     <ClCompile Include="Tekst.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="Testy.cpp" />
+    <ClCompile Include="TestyJednostkowe.cpp" />
     <ClCompile Include="Uzytkownik.cpp" />
     <ClCompile Include="Warunek.cpp" />
     <ClCompile Include="WyjatekParseraXML.cpp" />
+    <ClCompile Include="WyjatekSprawdzeniaWarunku.cpp" />
     <ClCompile Include="WyjatekSTL.cpp" />
     <ClCompile Include="Wyjatki.cpp" />
     <ClCompile Include="Wymagania.cpp" />
