@@ -205,6 +205,24 @@
     <ClCompile Include="Identyfikator.cpp">
       <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
+    <ClCompile Include="PaczkaTestow.cpp">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClCompile>
+    <ClCompile Include="TestyJednostkowe.cpp">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClCompile>
+    <ClCompile Include="WyjatekSprawdzeniaWarunku.cpp">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClCompile>
+    <ClCompile Include="InicjalizacjaDanychTestowych.cpp">
+      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+    </ClCompile>
+    <ClCompile Include="LogowanieTest.cpp">
+      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+    </ClCompile>
+    <ClCompile Include="InicjalizacjaTestow.cpp">
+      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -465,6 +483,24 @@
     <ClInclude Include="Identyfikator.h">
       <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
+    <ClInclude Include="MakraDlaTestow.h">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClInclude>
+    <ClInclude Include="PaczkaTestow.h">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClInclude>
+    <ClInclude Include="TestyJednostkowe.h">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClInclude>
+    <ClInclude Include="WyjatekSprawdzeniaWarunku.h">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClInclude>
+    <ClInclude Include="LogowanieTest.h">
+      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+    </ClInclude>
+    <ClInclude Include="InicjalizacjaDanychTestowych.h">
+      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -562,6 +598,21 @@
     </Filter>
     <Filter Include="SourceFile\Typy podstawowe">
       <UniqueIdentifier>{af75c20b-e3eb-4482-9766-342b4916ee6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Testy">
+      <UniqueIdentifier>{4ab78a3d-48b6-4c0f-b276-81d74c71f295}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Testy\Biblioteka">
+      <UniqueIdentifier>{9dd14e70-ad3e-4f45-9407-eae3efdc90cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Testy\KlasyTestowe">
+      <UniqueIdentifier>{a00cb81f-9947-477b-8c7d-a392a9e4ca6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Testy\KlasyTestowe\Inicjalizowanie">
+      <UniqueIdentifier>{6d536f1e-ee1d-47c4-ac57-d3e813d83b91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Testy\KlasyTestowe\TestyJednostkowe">
+      <UniqueIdentifier>{2ad6cfcc-5b9b-49b5-af20-d672f32271e2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -55,11 +55,6 @@ Budynek* tworzBudynek( Test& t, const Identyfikator& id) throw (OgolnyWyjatek,Ni
 	return s;
 }
 
-bool ladowanie_danych( Test & t ){
-	t.assert_false( EXCEPTION_PLACE , Aplikacja::getInstance().WczytajDane() );
-	return true;
-}
-
 bool test_KlasaNiepoprawneParametryFunkcji( Test & t ){
 	try{
 		Ilosc temp(5);
@@ -339,11 +334,6 @@ bool test_Budynki( Test & t ){
 	t.assert_false(EXCEPTION_PLACE, p.size()==0);
 	z = c->PobierzZapotrzebowanie();
 	t.assert_false(EXCEPTION_PLACE, z.size()==0);
-	return true;
-}
-
-bool test_Logowanie( Test & t ){
-	t.assert_false(EXCEPTION_PLACE,Aplikacja::getInstance().getGra().Logowanie("",""));
 	return true;
 }
 
