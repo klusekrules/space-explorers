@@ -22,10 +22,17 @@ public:
 	~TestyJednostkowe();
 
 private:
+	
+	unsigned int bledy;
+	unsigned int bledyKrytyczne;
+	unsigned int pominieteTesty;
+	unsigned int poprawneTesty;
 
 	vector< PaczkaTestow* > inicjalizacja_;
 	vector< PaczkaTestow* > zbiorTestow_;
 	vector< PaczkaTestow* > czyszczenie_;
+
+	void podsumowanie();
 
 	TestyJednostkowe();
 	TestyJednostkowe( const TestyJednostkowe& obiekt );

@@ -124,9 +124,6 @@
     <ClCompile Include="maintest.cpp">
       <Filter>SourceFile\Testy</Filter>
     </ClCompile>
-    <ClCompile Include="Testy.cpp">
-      <Filter>SourceFile\Testy</Filter>
-    </ClCompile>
     <ClCompile Include="ObiektInfo.cpp">
       <Filter>SourceFile\BaseClass\Obiekt</Filter>
     </ClCompile>
@@ -159,12 +156,6 @@
     </ClCompile>
     <ClCompile Include="ApInfo.cpp">
       <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClCompile>
-    <ClCompile Include="Test.cpp">
-      <Filter>SourceFile\Testy</Filter>
-    </ClCompile>
-    <ClCompile Include="FunkcjeTestowe.cpp">
-      <Filter>SourceFile\Testy</Filter>
     </ClCompile>
     <ClCompile Include="Gra.cpp">
       <Filter>SourceFile\KlasyGlowne</Filter>
@@ -247,6 +238,7 @@
     <ClCompile Include="TechnologiaTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClCompile>
+    <ClCompile Include="BudynekTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -387,9 +379,6 @@
     <ClInclude Include="Aplikacja.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
-    <ClInclude Include="Testy.h">
-      <Filter>SourceFile\Testy</Filter>
-    </ClInclude>
     <ClInclude Include="Biblioteki.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
@@ -446,12 +435,6 @@
     </ClInclude>
     <ClInclude Include="Logger.h">
       <Filter>SourceFile\Log</Filter>
-    </ClInclude>
-    <ClInclude Include="Test.h">
-      <Filter>SourceFile\Testy</Filter>
-    </ClInclude>
-    <ClInclude Include="FunkcjeTestowe.h">
-      <Filter>SourceFile\Testy</Filter>
     </ClInclude>
     <ClInclude Include="Gra.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
@@ -549,6 +532,7 @@
     <ClInclude Include="TechnologiaTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClInclude>
+    <ClInclude Include="BudynekTest.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">

@@ -1,10 +1,8 @@
 #include "Main.h"
 #include "Biblioteki.h"
 #include "Aplikacja.h"
-#include "FunkcjeTestowe.h"
 
 #ifdef TESTS
-#include "Testy.h"
 #include "TestyJednostkowe.h"
 
 void main(){
