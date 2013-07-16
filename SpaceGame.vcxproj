@@ -302,6 +302,7 @@
     <ClInclude Include="WyjatekSprawdzeniaWarunku.h" />
     <ClInclude Include="WyjatekSTL.h" />
     <ClInclude Include="Wymagania.h" />
+    <ClInclude Include="WymaganiaTest.h" />
     <ClInclude Include="XmlBO.h" />
     <ClInclude Include="ZapisStanuGryTest.h" />
     <ClInclude Include="ZmianaPoziomObiektu.h" />
@@ -387,6 +388,7 @@
     <ClCompile Include="WyjatekSTL.cpp" />
     <ClCompile Include="Wyjatki.cpp" />
     <ClCompile Include="Wymagania.cpp" />
+    <ClCompile Include="WymaganiaTest.cpp" />
     <ClCompile Include="ZapisStanuGryTest.cpp" />
     <ClCompile Include="ZmianaPoziomObiektu.cpp" />
     <ClCompile Include="ZuzyciePaliwa.cpp" />

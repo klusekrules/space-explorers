@@ -2,18 +2,6 @@
 #include "Testy.h"
 
 /*
-bool test_wymagan( Test & t ){
-	shared_ptr<Statek> a( tworzStatek(t,Identyfikator(11),Ilosc(8)) );
-	auto tmp = a->PobierzKoszty();
-	t.assert_false(EXCEPTION_PLACE,tmp[0]->getIlosc()==Ilosc(120000.0));
-	t.assert_false(EXCEPTION_PLACE,tmp[1]->getIlosc()==Ilosc(4000.0));
-	t.assert_false(EXCEPTION_PLACE,tmp[2]->getIlosc()==Ilosc(8*1*10*5*200));
-	auto w = a->PobierzWarunki();
-	t.assert_false(EXCEPTION_PLACE,w[0]->getPoziom()==Poziom(25));
-	t.assert_false(EXCEPTION_PLACE,w[1]->getPoziom()==Poziom(5));
-	return true;
-}
-/*
 bool test_KlasaJednostkaAtakujaca( Test & t ){
 	shared_ptr<Statek> a( tworzStatek(t,Identyfikator(11),Ilosc(8)) );
 	Obrazenia oAtak = a->Atak();
@@ -109,46 +97,6 @@ bool test_Budynki( Test & t ){
 	t.assert_false(EXCEPTION_PLACE, p.size()==0);
 	z = c->PobierzZapotrzebowanie();
 	t.assert_false(EXCEPTION_PLACE, z.size()==0);
-	return true;
-}
-
-bool test_Issue41i57( Test & t ){
-	auto idPlanety = Aplikacja::getInstance().getGra().generujPlanete();
-	t.assert_false(EXCEPTION_PLACE,Aplikacja::getInstance().getGra().przeniesPlaneteDoUzytkownika(idPlanety));
-	Planeta& planeta = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(idPlanety);
-
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(0x12),Ilosc(1)));
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(0x13),Ilosc(1)));
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(0x13),Ilosc(1)));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(0x12)).pobierzCzasBudowy()==Czas(78));
-	return true;
-}
-
-bool test_Issue39( Test & t ){
-	auto idPlanety = Aplikacja::getInstance().getGra().generujPlanete();
-	t.assert_false(EXCEPTION_PLACE,Aplikacja::getInstance().getGra().przeniesPlaneteDoUzytkownika(idPlanety));
-	Planeta& planeta = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(idPlanety);
-	
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(0xC),Ilosc(1)));
-	t.assert_true(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(0xC)).czyMoznaWybudowac());
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(0x1),Ilosc(20000)));
-	t.assert_true(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(0xC)).czyMoznaWybudowac());
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(0x4),Ilosc(20000)));
-	t.assert_true(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(0xC)).czyMoznaWybudowac());
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(0x7),Ilosc(20000)));
-	t.assert_true(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(0xC)).czyMoznaWybudowac());
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(0x13),Ilosc(1)));
-	t.assert_true(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(0xC)).czyMoznaWybudowac());
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(0x10),Ilosc(1)));
-	t.assert_true(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(0xC)).czyMoznaWybudowac());
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(0x13),Ilosc(1)));
-	t.assert_true(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(0xC)).czyMoznaWybudowac());
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(0x10),Ilosc(1)));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(0xC)).czyMoznaWybudowac());
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(0x13),Ilosc(1)));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(0xC)).czyMoznaWybudowac());
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(0x10),Ilosc(1)));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(0xC)).czyMoznaWybudowac());
 	return true;
 }
 

@@ -14,8 +14,10 @@ ObiektBase::ObiektBase( const Ilosc& i, const PodstawoweParametry& p, const Obie
 {
 }
 
-Czas ObiektBase::pobierzCzasBudowy( )const{
-	return Czas(obiektBaseInfo.pobierzCzasBudowy(*this)()*ilosc());
+Czas ObiektBase::pobierzCzasRozbudowy( )const{
+	PodstawoweParametry param(*this);
+	param.wzrostPoziomu();
+	return Czas(obiektBaseInfo.pobierzCzasBudowy(param)()*ilosc());
 }
 
 ObiektBase* ObiektBase::Kopia() const{
