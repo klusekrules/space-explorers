@@ -43,6 +43,20 @@ const Statek& Planeta::pobierzStatek(const Identyfikator& id) const{
 	throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
 }
 
+const Technologia& Planeta::pobierzTechnologie(const Identyfikator& id) const{
+	auto i = listaTechnologii.find(id);
+	if(i!=listaTechnologii.end())
+		return *(i->second);
+	throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
+}
+
+const Budynek& Planeta::pobierzBudynek(const Identyfikator& id) const{
+	auto i = listaBudynkow.find(id);
+	if(i!=listaBudynkow.end())
+		return *(i->second);
+	throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
+}
+
 bool Planeta::dodajObiekt( shared_ptr< Budynek > ptr ){
 	auto i = listaObiektow.find(ptr->getId());
 	if(i!=listaObiektow.end())
