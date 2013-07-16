@@ -214,6 +214,7 @@
     <ClInclude Include="LogowanieTest.h" />
     <ClInclude Include="MakraDlaTestow.h" />
     <ClInclude Include="NiepoprawneParametryFunkcjiTest.h" />
+    <ClInclude Include="ObiektListTest.h" />
     <ClInclude Include="PaczkaTestow.h" />
     <ClInclude Include="PodstawowyInterfejs.h" />
     <ClInclude Include="Biblioteki.h" />
@@ -356,6 +357,7 @@
     <ClCompile Include="ObiektBase.cpp" />
     <ClCompile Include="ObiektBaseInfo.cpp" />
     <ClCompile Include="ObiektInfo.cpp" />
+    <ClCompile Include="ObiektListTest.cpp" />
     <ClCompile Include="Objetosc.cpp" />
     <ClCompile Include="Obrazenia.cpp" />
     <ClCompile Include="OgolnyWyjatek.cpp" />
