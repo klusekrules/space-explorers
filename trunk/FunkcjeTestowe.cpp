@@ -1,135 +1,19 @@
 #include "Test.h"
 #include "Testy.h"
 
-/*bool test_KlasaObiektList( Test & t ){
-	ObiektList<Statek> lista;
-	ObiektList<Statek> listaDruga;
-	
-	Statek *a = nullptr;
-	Statek *b = nullptr;
-	Statek *c = nullptr;
-	Statek *d = nullptr;
-	a = tworzStatek(t,Identyfikator(11),Ilosc(8));
-	lista.add(a);
-	Aplikacja::getInstance().getLog().debug("Dodano do kontenera");
-	Aplikacja::getInstance().getLog().debug(*a);
-
-	b = tworzStatek(t,Identyfikator(12),Ilosc(8));
-	lista.add(b);	
-	Aplikacja::getInstance().getLog().debug("Dodano do kontenera");
-	Aplikacja::getInstance().getLog().debug(*b);
-
-	c = tworzStatek(t,Identyfikator(13),Ilosc(8));
-	lista.add(c);
-	Aplikacja::getInstance().getLog().debug("Dodano do kontenera");
-	Aplikacja::getInstance().getLog().debug(*c);
-
-	d = tworzStatek(t,Identyfikator(14),Ilosc(8));
-	lista.add(d);
-	Aplikacja::getInstance().getLog().debug("Dodano do kontenera");
-	Aplikacja::getInstance().getLog().debug(*d);
-
-	Aplikacja::getInstance().getLog().debug("Zawartoœæ kontenera");
-	Aplikacja::getInstance().getLog().debug(lista);
-	Aplikacja::getInstance().getLog().debug("Pobranie listy obiektow");
-	auto l = lista.rawObiektList();
-	t.assert_true(EXCEPTION_PLACE,l.empty());
-	Aplikacja::getInstance().getLog().debug("Ilosc elementow:");
-	Aplikacja::getInstance().getLog().debug(Ilosc(static_cast<long double>(l.size())));
-	for( auto a : l ){
-		Aplikacja::getInstance().getLog().debug(*a);
-	}
-	Aplikacja::getInstance().getLog().debug("Pobranie listy kluczy");
-	auto r = lista.rawKluczList();
-	t.assert_true(EXCEPTION_PLACE,r.empty());
-	Aplikacja::getInstance().getLog().debug("Ilosc elementow:");
-	Aplikacja::getInstance().getLog().debug(Ilosc(static_cast<long double>(r.size())));
-	for( auto a : r ){
-		Aplikacja::getInstance().getLog().debug(a);
-	}
-
-	Statek& sTmp1 = lista.get(Klucz(Identyfikator( 12 ),Poziom( 1 )));
-	t.assert_false(EXCEPTION_PLACE,sTmp1.getId()==Identyfikator( 12 ));
-	t.assert_false(EXCEPTION_PLACE,sTmp1.getPoziom()==Poziom( 1 ));
-	Aplikacja::getInstance().getLog().debug("Pobranie z kontenera: ");
-	Aplikacja::getInstance().getLog().debug(sTmp1);
-	Aplikacja::getInstance().getLog().debug("Usuniecie z kontenera wartosci o kluczu: ");
-	Aplikacja::getInstance().getLog().debug(Klucz(Identyfikator( 11 ),Poziom( 1 )));
-	t.assert_false(EXCEPTION_PLACE,lista.del(Klucz(Identyfikator( 11 ),Poziom( 1 ))));
-	Aplikacja::getInstance().getLog().debug("Zawartoœæ kontenera po usunieciu");
-	Aplikacja::getInstance().getLog().debug(lista);
-	Aplikacja::getInstance().getLog().debug("Pobranie i jednoszesne usuniecie z kontenera wartosci o kluczu:");
-	Aplikacja::getInstance().getLog().debug(Klucz(Identyfikator( 14 ),Poziom( 2 )));
-	Statek* sTmp2 = lista.getAndDel(Klucz(Identyfikator( 14 ),Poziom( 2 )));
-	t.assert_false(EXCEPTION_PLACE,sTmp2->getId()==Identyfikator( 14 ));
-	t.assert_false(EXCEPTION_PLACE,sTmp2->getPoziom()==Poziom( 2 ));
-	Aplikacja::getInstance().getLog().debug(*sTmp2);
-	delete sTmp2;
-	Aplikacja::getInstance().getLog().debug("Zawartoœæ kontenera");
-	Aplikacja::getInstance().getLog().debug(lista);
-	Aplikacja::getInstance().getLog().debug("Pobranie listy obiektow");
-	l = lista.rawObiektList();
-	t.assert_true(EXCEPTION_PLACE,l.empty());
-	Aplikacja::getInstance().getLog().debug("Ilosc elementow:");
-	Aplikacja::getInstance().getLog().debug(Ilosc(static_cast<long double>(l.size())));
-	for( auto a : l ){
-		Aplikacja::getInstance().getLog().debug(*a);
-	}
-	Aplikacja::getInstance().getLog().debug("Pobranie listy kluczy");
-	r = lista.rawKluczList();
-	t.assert_true(EXCEPTION_PLACE,r.empty());
-	Aplikacja::getInstance().getLog().debug("Ilosc elementow:");
-	Aplikacja::getInstance().getLog().debug(Ilosc(static_cast<long double>(r.size())));
-	for( auto a : r ){
-		Aplikacja::getInstance().getLog().debug(a);
-	}
-	Aplikacja::getInstance().getLog().debug("Przenoszenie jednej sztuki obiektu o kluczu");
-	Aplikacja::getInstance().getLog().debug(r.front());
-	Aplikacja::getInstance().getLog().debug("do drugiego kontenera.");
-	ObiektList<Statek>::move(r.front(),Ilosc(1),lista,listaDruga);
-	t.assert_false(EXCEPTION_PLACE,listaDruga.size()==1);
-	Aplikacja::getInstance().getLog().debug("Zawartoœæ kontenera");
-	Aplikacja::getInstance().getLog().debug(lista);
-	Aplikacja::getInstance().getLog().debug("Zawartoœæ drugiego kontenera");
-	Aplikacja::getInstance().getLog().debug(listaDruga);
-	Aplikacja::getInstance().getLog().debug("Przenoszenie calego obiektu o kluczu");
-	Aplikacja::getInstance().getLog().debug(r.front());
-	Aplikacja::getInstance().getLog().debug("do drugiego kontenera.");
-	ObiektList<Statek>::move(r.front(),lista,listaDruga);
-	t.assert_false(EXCEPTION_PLACE,listaDruga.size()==1);
-	Aplikacja::getInstance().getLog().debug("Zawartoœæ kontenera");
-	Aplikacja::getInstance().getLog().debug(lista);
-	Aplikacja::getInstance().getLog().debug("Zawartoœæ drugiego kontenera");
-	Aplikacja::getInstance().getLog().debug(listaDruga);
-	Aplikacja::getInstance().getLog().debug("Rozmiar drugiej listy:");
-	Aplikacja::getInstance().getLog().debug(Ilosc(static_cast<long double>(listaDruga.size())));
-	Aplikacja::getInstance().getLog().debug("Czyszczenie kontenera");
-	listaDruga.clear();
-	t.assert_false(EXCEPTION_PLACE,listaDruga.isEmpty());
-	Aplikacja::getInstance().getLog().debug("Zawartoœæ drugiego kontenera po wyczyszceniu");
-	Aplikacja::getInstance().getLog().debug(listaDruga);
-	Aplikacja::getInstance().getLog().debug("Test Zakoñczony powodzeniem.");
-	return true;
-}
-
+/*
 bool test_wymagan( Test & t ){
 	shared_ptr<Statek> a( tworzStatek(t,Identyfikator(11),Ilosc(8)) );
 	auto tmp = a->PobierzKoszty();
-	for(auto e : tmp){
-		Aplikacja::getInstance().getLog().debug(*e);
-	}
 	t.assert_false(EXCEPTION_PLACE,tmp[0]->getIlosc()==Ilosc(120000.0));
 	t.assert_false(EXCEPTION_PLACE,tmp[1]->getIlosc()==Ilosc(4000.0));
 	t.assert_false(EXCEPTION_PLACE,tmp[2]->getIlosc()==Ilosc(8*1*10*5*200));
 	auto w = a->PobierzWarunki();
-	for(auto e : w){
-		Aplikacja::getInstance().getLog().debug(*e);
-	}
 	t.assert_false(EXCEPTION_PLACE,w[0]->getPoziom()==Poziom(25));
 	t.assert_false(EXCEPTION_PLACE,w[1]->getPoziom()==Poziom(5));
 	return true;
 }
-
+/*
 bool test_KlasaJednostkaAtakujaca( Test & t ){
 	shared_ptr<Statek> a( tworzStatek(t,Identyfikator(11),Ilosc(8)) );
 	Obrazenia oAtak = a->Atak();

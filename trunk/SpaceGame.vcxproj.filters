@@ -235,6 +235,9 @@
     <ClCompile Include="LadowniaTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClCompile>
+    <ClCompile Include="ObiektListTest.cpp">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -523,6 +526,9 @@
       <Filter>Testy\KlasyTestowe\Czyszczenie</Filter>
     </ClInclude>
     <ClInclude Include="LadowniaTest.h">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="ObiektListTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClInclude>
   </ItemGroup>

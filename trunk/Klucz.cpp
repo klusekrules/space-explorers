@@ -38,7 +38,7 @@ bool Klucz::operator!=( const Klucz& a )const{
 }
 
 bool Klucz::operator<( const Klucz& a )const{
-	return wartosc_.first < a.wartosc_.first ? true : wartosc_.second < a.wartosc_.second;
+	return wartosc_.first != a.wartosc_.first ? wartosc_.first < a.wartosc_.first : wartosc_.second < a.wartosc_.second;
 }
 
 string Klucz::napis()const{
