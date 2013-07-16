@@ -116,7 +116,7 @@ public:
 
 	virtual void wybuduj(const Ilosc&);
 
-	Czas pobierzCzasBudowy( )const;
+	Czas pobierzCzasRozbudowy( )const;
 
 	bool czyMoznaWybudowac()const;
 
