@@ -5,7 +5,10 @@
 #include "Aplikacja.h"
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
+#include <algorithm>
+#include <functional>
 
+	
 Ladownia::Ladownia( const Poziom& p, const Identyfikator& idP, const LadowniaInfo& l )
 	: PodstawoweParametry(p, idP), obiekty(), zajete(), ladowniaInfo(l)
 {
@@ -102,7 +105,6 @@ Ladownia::Item& Ladownia::PobierzObiekt( const Klucz& itID, const Ilosc& isIlosc
 Ladownia::Zbiornik* Ladownia::PodzielLadownie( const Objetosc& oMax , const Objetosc& oMin ) throw( BladDzieleniaLadowni, NiepoprawneParametryFunkcji ){
 	Zbiornik *zb = new Zbiornik();
 	try{
-		Zbiornik kopia(obiekty);
 		Objetosc tObj ( 0.0 );
 		Objetosc tMin ( oMin );
 
@@ -118,22 +120,28 @@ Ladownia::Zbiornik* Ladownia::PodzielLadownie( const Objetosc& oMax , const Obje
 		//lub objêtoœæ minimalna wiêksza od objêtoœci docelowej. Wyj¹tek
 		if( oMax < tObj || oMin > zajete || oMin > oMax )
 			throw NiepoprawneParametryFunkcji( EXCEPTION_PLACE , oMax , oMin );
-	
+
+		//Sortujemy zbiornik, tak aby w pierwszej kolejnoœci by³y przegl¹dane elementy o wiêkszym jednostkowym rozmiarze.
+		Zbiornik kopia(obiekty);
+		map<Objetosc,Klucz,greater<Objetosc> > posortowane;
+		for( auto o : obiekty )
+			posortowane.insert(make_pair(o.second->getObjetosc()/o.second->getIlosc(),o.first));
+
 		/*
 			Przechodzimy po elementach zbiornika i przepisujemy tyle ile siê da. Dopuszczamy dzielenie grup obiektów jeœli mo¿liwe.
 		*/
-		for( auto o : obiekty){
-			Objetosc objElementu(o.second->getObjetosc());
+		for( auto o : posortowane ){
+			Objetosc objElementu(obiekty.get(o.second).getObjetosc());
 			if( objElementu + tObj <= oMax ){
-				if(Zbiornik::move(o.first, kopia , *zb)){
+				if(Zbiornik::move(o.second, kopia , *zb)){
 					tObj += objElementu;
 				}
 			}else{
-				Objetosc objPojedyncza( objElementu() / o.second->getIlosc()() );
+				Objetosc objPojedyncza( o.first );
 				if( oMax - tObj >= objPojedyncza ){
 					Ilosc liczbaElementow( floorl(( oMax() - tObj() ) / objPojedyncza()) );
 					if( liczbaElementow >= Ilosc(1.0) ){
-						if(Zbiornik::move(o.first,liczbaElementow, kopia , *zb)){
+						if(Zbiornik::move(o.second,liczbaElementow, kopia , *zb)){
 							tObj += Objetosc( objPojedyncza() * liczbaElementow() );
 						}
 					}
