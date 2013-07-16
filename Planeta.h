@@ -36,6 +36,8 @@ public:
 	Ilosc pobierzIloscTypowObiektow()const;
 
 	const Statek& pobierzStatek(const Identyfikator&) const;
+	const Technologia& pobierzTechnologie(const Identyfikator&) const;
+	const Budynek& pobierzBudynek(const Identyfikator&) const;
 	
 	bool wybuduj( const Identyfikator&, const Ilosc& );
 

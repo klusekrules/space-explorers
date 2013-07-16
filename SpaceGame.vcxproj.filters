@@ -215,16 +215,16 @@
       <Filter>Testy\Biblioteka</Filter>
     </ClCompile>
     <ClCompile Include="InicjalizacjaDanychTestowych.cpp">
-      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe\Inicjalizowanie</Filter>
     </ClCompile>
     <ClCompile Include="LogowanieTest.cpp">
-      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe\Inicjalizowanie</Filter>
     </ClCompile>
     <ClCompile Include="InicjalizacjaTestow.cpp">
-      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe\Inicjalizowanie</Filter>
     </ClCompile>
     <ClCompile Include="TworzenieObiektowTest.cpp">
-      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe\Inicjalizowanie</Filter>
     </ClCompile>
     <ClCompile Include="NiepoprawneParametryFunkcjiTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
@@ -242,6 +242,9 @@
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClCompile>
     <ClCompile Include="StatekTest.cpp">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClCompile>
+    <ClCompile Include="TechnologiaTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClCompile>
   </ItemGroup>
@@ -517,13 +520,13 @@
       <Filter>Testy\Biblioteka</Filter>
     </ClInclude>
     <ClInclude Include="LogowanieTest.h">
-      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe\Inicjalizowanie</Filter>
     </ClInclude>
     <ClInclude Include="InicjalizacjaDanychTestowych.h">
-      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe\Inicjalizowanie</Filter>
     </ClInclude>
     <ClInclude Include="TworzenieObiektowTest.h">
-      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe\Inicjalizowanie</Filter>
     </ClInclude>
     <ClInclude Include="NiepoprawneParametryFunkcjiTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
@@ -541,6 +544,9 @@
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClInclude>
     <ClInclude Include="StatekTest.h">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="TechnologiaTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClInclude>
   </ItemGroup>
@@ -650,14 +656,14 @@
     <Filter Include="Testy\KlasyTestowe">
       <UniqueIdentifier>{a00cb81f-9947-477b-8c7d-a392a9e4ca6d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Testy\KlasyTestowe\Inicjalizowanie">
-      <UniqueIdentifier>{6d536f1e-ee1d-47c4-ac57-d3e813d83b91}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Testy\KlasyTestowe\TestyJednostkowe">
       <UniqueIdentifier>{2ad6cfcc-5b9b-49b5-af20-d672f32271e2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Testy\KlasyTestowe\Czyszczenie">
       <UniqueIdentifier>{9879c8f6-2d61-4093-b032-c984a8b4fe5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Testy\KlasyTestowe\TestyJednostkowe\Inicjalizowanie">
+      <UniqueIdentifier>{6d536f1e-ee1d-47c4-ac57-d3e813d83b91}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

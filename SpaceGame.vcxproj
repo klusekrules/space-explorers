@@ -247,6 +247,7 @@
     <ClInclude Include="StatekTest.h" />
     <ClInclude Include="Technologia.h" />
     <ClInclude Include="TechnologiaInfo.h" />
+    <ClInclude Include="TechnologiaTest.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="TestyJednostkowe.h" />
     <ClInclude Include="TworzenieObiektowTest.h" />
@@ -378,6 +379,7 @@
     <ClCompile Include="SurowceInfo.cpp" />
     <ClCompile Include="Technologia.cpp" />
     <ClCompile Include="TechnologiaInfo.cpp" />
+    <ClCompile Include="TechnologiaTest.cpp" />
     <ClCompile Include="Tekst.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="Testy.cpp" />
