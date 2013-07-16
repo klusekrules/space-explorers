@@ -210,8 +210,10 @@
     <ClInclude Include="Aplikacja.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="InicjalizacjaDanychTestowych.h" />
+    <ClInclude Include="LadowniaTest.h" />
     <ClInclude Include="LogowanieTest.h" />
     <ClInclude Include="MakraDlaTestow.h" />
+    <ClInclude Include="NiepoprawneParametryFunkcjiTest.h" />
     <ClInclude Include="PaczkaTestow.h" />
     <ClInclude Include="PodstawowyInterfejs.h" />
     <ClInclude Include="Biblioteki.h" />
@@ -245,6 +247,7 @@
     <ClInclude Include="TechnologiaInfo.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="TestyJednostkowe.h" />
+    <ClInclude Include="TworzenieObiektowTest.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Uzytkownik.h" />
     <ClInclude Include="version.h" />
@@ -299,6 +302,7 @@
     <ClInclude Include="WyjatekSTL.h" />
     <ClInclude Include="Wymagania.h" />
     <ClInclude Include="XmlBO.h" />
+    <ClInclude Include="ZapisStanuGryTest.h" />
     <ClInclude Include="ZmianaPoziomObiektu.h" />
     <ClInclude Include="ZuzyciePaliwa.h" />
   </ItemGroup>
@@ -336,6 +340,7 @@
     <ClCompile Include="Klucz.cpp" />
     <ClCompile Include="Ladownia.cpp" />
     <ClCompile Include="LadowniaInfo.cpp" />
+    <ClCompile Include="LadowniaTest.cpp" />
     <ClCompile Include="Licznik.cpp" />
     <ClCompile Include="LogowanieTest.cpp" />
     <ClCompile Include="maintest.cpp" />
@@ -343,6 +348,7 @@
     <ClCompile Include="MocSilnika.cpp" />
     <ClCompile Include="NiepoprawnaIloscObiektow.cpp" />
     <ClCompile Include="NiepoprawneParametryFunkcji.cpp" />
+    <ClCompile Include="NiepoprawneParametryFunkcjiTest.cpp" />
     <ClCompile Include="NiezainicjalizowanaKlasa.cpp" />
     <ClCompile Include="NiezgodnyTypSurowca.cpp" />
     <ClCompile Include="NieznalezionoObiektu.cpp" />
@@ -371,6 +377,7 @@
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="Testy.cpp" />
     <ClCompile Include="TestyJednostkowe.cpp" />
+    <ClCompile Include="TworzenieObiektowTest.cpp" />
     <ClCompile Include="Uzytkownik.cpp" />
     <ClCompile Include="Warunek.cpp" />
     <ClCompile Include="WyjatekParseraXML.cpp" />
@@ -378,6 +385,7 @@
     <ClCompile Include="WyjatekSTL.cpp" />
     <ClCompile Include="Wyjatki.cpp" />
     <ClCompile Include="Wymagania.cpp" />
+    <ClCompile Include="ZapisStanuGryTest.cpp" />
     <ClCompile Include="ZmianaPoziomObiektu.cpp" />
     <ClCompile Include="ZuzyciePaliwa.cpp" />
   </ItemGroup>

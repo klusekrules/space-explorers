@@ -30,14 +30,6 @@ Obiekt* Surowce::Podziel( const Ilosc& ilosc ) throw ( NiepoprawnaIloscObiektow 
 	return new Surowce( ilosc , *this );
 }
 
-Objetosc Surowce::getObjetosc() const{
-	return Obiekt::getObjetosc() * ilosc ;
-}
-
-Masa Surowce::getMasa() const{
-	return Obiekt::getMasa() * ilosc;
-}
-
 Surowce& Surowce::operator=( const Surowce& sSurowce )  throw ( NiezgodnyTypSurowca ) {
 	if( this->ID() != sSurowce.ID() )
 		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );

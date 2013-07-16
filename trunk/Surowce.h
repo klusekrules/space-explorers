@@ -20,11 +20,7 @@ public:
 	Surowce* Kopia() const override;
 
 	Obiekt* Podziel( const Ilosc& ) override;
-	
-	Objetosc getObjetosc() const override;
-
-	Masa getMasa() const override;
-	
+		
 	Surowce& operator=( const Surowce& ) throw ( NiezgodnyTypSurowca );
 	
 	bool operator==( const Surowce& ) const throw ( NiezgodnyTypSurowca );

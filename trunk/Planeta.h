@@ -34,6 +34,8 @@ public:
 
 	const ObiektBase& pobierzObiekt(const Identyfikator&) const;
 	Ilosc pobierzIloscTypowObiektow()const;
+
+	const Statek& pobierzStatek(const Identyfikator&) const;
 	
 	bool wybuduj( const Identyfikator&, const Ilosc& );
 
@@ -65,7 +67,7 @@ private:
 	void ustawWlasciciela( Uzytkownik* );
 	Uzytkownik* pobierzWlasciciela( void ) const;
 
-	ObiektBase pustyObiektBase;
+	shared_ptr<ObiektBase> pustyObiektBase;
 	ObiektBaseInfo pustyobiekBaseInfo;
 
 	Licznik idFloty;

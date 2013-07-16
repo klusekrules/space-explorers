@@ -98,7 +98,7 @@
     </LadowniaInfo>
   </StatekInfo>
 
-  <StatekInfo masa="1" objetosc="1" powierzchnia="1" poziom="1" id="0x00C" nazwa="Myœliwiec">
+  <StatekInfo masa="1" objetosc="90" powierzchnia="1" poziom="1" id="0x00C" nazwa="Myœliwiec">
     Opis Myœliwca.
     <Cena>
       <Surowce id="0x1" ilosc="1000"/>

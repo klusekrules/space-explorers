@@ -64,6 +64,8 @@ public:
 
 	bool czMoznaDodacDoLadownii( const Surowce& c ) const;
 
+	Zbiornik OproznijLadownie();
+
 	bool zapisz( TiXmlElement* e) const override;
 	bool odczytaj (TiXmlElement* e) override;
 
