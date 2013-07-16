@@ -238,7 +238,12 @@
     <ClCompile Include="ObiektListTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClCompile>
-    <ClCompile Include="WymaganiaTest.cpp" />
+    <ClCompile Include="WymaganiaTest.cpp">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClCompile>
+    <ClCompile Include="StatekTest.cpp">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -532,7 +537,12 @@
     <ClInclude Include="ObiektListTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClInclude>
-    <ClInclude Include="WymaganiaTest.h" />
+    <ClInclude Include="WymaganiaTest.h">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="StatekTest.h">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
