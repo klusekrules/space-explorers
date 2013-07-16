@@ -244,6 +244,7 @@
     <ClInclude Include="Planeta.h" />
     <ClInclude Include="PodstawoweParametry.h" />
     <ClInclude Include="Serializacja.h" />
+    <ClInclude Include="StatekTest.h" />
     <ClInclude Include="Technologia.h" />
     <ClInclude Include="TechnologiaInfo.h" />
     <ClInclude Include="Test.h" />
@@ -372,6 +373,7 @@
     <ClCompile Include="Stale.cpp" />
     <ClCompile Include="Statek.cpp" />
     <ClCompile Include="StatekInfo.cpp" />
+    <ClCompile Include="StatekTest.cpp" />
     <ClCompile Include="Surowce.cpp" />
     <ClCompile Include="SurowceInfo.cpp" />
     <ClCompile Include="Technologia.cpp" />
