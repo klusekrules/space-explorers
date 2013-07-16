@@ -7,6 +7,12 @@
 PaczkaTestow::PaczkaTestow(){
 }
 
+void PaczkaTestow::startTestow(){
+}
+
+void PaczkaTestow::koniecTestow(){
+}
+
 void PaczkaTestow::dodajTest( const string& nazwa, function<void ()> test ){
 	zbiorTestow_.push_back(make_pair(nazwa,test));
 }
@@ -17,6 +23,7 @@ void PaczkaTestow::wykonajTesty(){
 	pominieteTesty = 0;
 	poprawneTesty = 0;
 	naglowek();
+	startTestow();
 	for( auto a : zbiorTestow_ ){
 		try{
 			a.second();
@@ -27,17 +34,20 @@ void PaczkaTestow::wykonajTesty(){
 			cout << e.komunikat();
 		}catch(...){
 			pominieteTesty = zbiorTestow_.size() - poprawneTesty - bledy;
+			++bledy;
 			++bledyKrytyczne;
 			podsumowanie();
 			throw;
 		}
 	}
+	koniecTestow();
 	podsumowanie();
 }
 
 void PaczkaTestow::ustawNazwe( const string& napis ){
 	nazwa_ = napis;
 }
+
 void PaczkaTestow::naglowek(){
 	stringstream str;
 	str<< "Klasa: "<< nazwa_ << "... Testy: "<< zbiorTestow_.size();

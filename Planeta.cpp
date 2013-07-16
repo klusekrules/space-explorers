@@ -6,9 +6,9 @@
 
 Planeta::Planeta(const Identyfikator& id)
 	: Base(id), wlasciciel(nullptr),
-	pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),Identyfikator(0),Wymagania(nullptr)) , Poziom(0) ), 
-	pustyObiektBase( Ilosc(0), Poziom(0),Identyfikator(0), pustyobiekBaseInfo )
+	pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),Identyfikator(0),Wymagania(nullptr)) , Poziom(0) )
 {
+	pustyObiektBase = shared_ptr<ObiektBase>(new ObiektBase( Ilosc(0), Poziom(0),Identyfikator(0), pustyobiekBaseInfo ));
 }
 
 Planeta::~Planeta(void)
@@ -33,7 +33,14 @@ const ObiektBase& Planeta::pobierzObiekt(const Identyfikator& id) const{
 	auto i = listaObiektow.find(id);
 	if(i!=listaObiektow.end())
 		return *(i->second);
-	return pustyObiektBase;
+	return *pustyObiektBase;
+}
+
+const Statek& Planeta::pobierzStatek(const Identyfikator& id) const{
+	auto i = listaStatkow.find(id);
+	if(i!=listaStatkow.end())
+		return *(i->second);
+	throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
 }
 
 bool Planeta::dodajObiekt( shared_ptr< Budynek > ptr ){

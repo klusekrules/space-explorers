@@ -1,6 +1,8 @@
 #pragma once
 
-#define GENERUJ_NAPIS(s) #s
+#define NAPIS(s) #s
+
+#define GENERUJ_NAPIS(s) NAPIS(s)
 
 #define MIEJSCE_WYJATKU string(__FILE__) , int(__LINE__)
 
@@ -39,3 +41,21 @@ static Rejestrator rejestrator
 #define UNIT_TEST_ASSERT_NOTEQUAL( oczekiwane , otrzymane ) \
 	if( oczekiwane == otrzymane ) \
 		throw WyjatekSprawdzeniaWarunku(MIEJSCE_WYJATKU,GENERUJ_NAPIS(oczekiwane),GENERUJ_NAPIS(otrzymane))
+
+#define UNIT_TEST_ASSERT_NULL( otrzymane ) \
+	if( nullptr != otrzymane ) \
+		throw WyjatekSprawdzeniaWarunku(MIEJSCE_WYJATKU,"nullptr",GENERUJ_NAPIS(otrzymane))
+
+#define UNIT_TEST_ASSERT_NOTNULL( otrzymane ) \
+	if( nullptr == otrzymane ) \
+		throw WyjatekSprawdzeniaWarunku(MIEJSCE_WYJATKU,"not nullptr",GENERUJ_NAPIS(otrzymane))
+
+#define UNIT_TEST_ASSERT_TRUE( otrzymane ) \
+	if( !otrzymane ) \
+		throw WyjatekSprawdzeniaWarunku(MIEJSCE_WYJATKU,"true",GENERUJ_NAPIS(otrzymane))
+
+#define UNIT_TEST_ASSERT_FALSE( otrzymane ) \
+	if( otrzymane ) \
+		throw WyjatekSprawdzeniaWarunku(MIEJSCE_WYJATKU,"false",GENERUJ_NAPIS(otrzymane))
+
+

@@ -1,116 +1,7 @@
 #include "Test.h"
 #include "Testy.h"
 
-Statek* tworzStatek( Test& t, const Identyfikator& id,const Ilosc& i) throw (OgolnyWyjatek,NieznalezionoObiektu){
-	Statek* s = Aplikacja::getInstance().getGra().getStatek(id).TworzEgzemplarz(i,Identyfikator());
-	if(t.assert_false(EXCEPTION_PLACE, s!=nullptr))
-	{
-		t.assert_false(EXCEPTION_PLACE, s->getIlosc()==i);
-		t.assert_false(EXCEPTION_PLACE, s->getId()==id);
-		Aplikacja::getInstance().getLog().debug( "Stworzony obiekt:");
-		Aplikacja::getInstance().getLog().debug(*s);
-	}else{
-		throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("Tworzenie Obiektu"),Tekst("Nie uda³o siê utworzyæ obiektu"));
-	}
-	return s;
-}
-
-Surowce* tworzSurowce( Test& t, const Identyfikator& id,const Ilosc& i) throw (OgolnyWyjatek,NieznalezionoObiektu){
-	Surowce* s = Aplikacja::getInstance().getGra().getSurowce(id).TworzEgzemplarz(i,Identyfikator());
-	if(t.assert_false(EXCEPTION_PLACE, s!=nullptr))
-	{
-		t.assert_false(EXCEPTION_PLACE, s->getIlosc()==i);
-		t.assert_false(EXCEPTION_PLACE, s->getId()==id);
-		Aplikacja::getInstance().getLog().debug( "Stworzony obiekt:");
-		Aplikacja::getInstance().getLog().debug(*s);
-	}else{
-		throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("Tworzenie Obiektu"),Tekst("Nie uda³o siê utworzyæ obiektu"));
-	}
-	return s;
-}
-
-Technologia* tworzTechnologie( Test& t, const Identyfikator& id) throw (OgolnyWyjatek,NieznalezionoObiektu){
-	Technologia* s = Aplikacja::getInstance().getGra().getTechnologia(id).TworzEgzemplarz(Ilosc(),Identyfikator());
-	if(t.assert_false(EXCEPTION_PLACE, s!=nullptr))
-	{
-		t.assert_false(EXCEPTION_PLACE, s->getId()==id);
-		Aplikacja::getInstance().getLog().debug( "Stworzony obiekt:");
-		Aplikacja::getInstance().getLog().debug(*s);
-	}else{
-		throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("Tworzenie Obiektu"),Tekst("Nie uda³o siê utworzyæ obiektu"));
-	}
-	return s;
-}
-
-Budynek* tworzBudynek( Test& t, const Identyfikator& id) throw (OgolnyWyjatek,NieznalezionoObiektu){
-	Budynek* s = Aplikacja::getInstance().getGra().getBudynek(id).TworzEgzemplarz(Ilosc(),Identyfikator());
-	if(t.assert_false(EXCEPTION_PLACE, s!=nullptr))
-	{
-		t.assert_false(EXCEPTION_PLACE, s->getId()==id);
-		Aplikacja::getInstance().getLog().debug( "Stworzony obiekt:");
-		Aplikacja::getInstance().getLog().debug(*s);
-	}else{
-		throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("Tworzenie Obiektu"),Tekst("Nie uda³o siê utworzyæ obiektu"));
-	}
-	return s;
-}
-
-bool test_KlasaNiepoprawneParametryFunkcji( Test & t ){
-	try{
-		Ilosc temp(5);
-		shared_ptr<Statek> s( tworzStatek(t,Identyfikator(11),Ilosc(1)));
-		Statek& tmp = *s;
-		throw NiepoprawneParametryFunkcji( EXCEPTION_PLACE , tmp , temp );
-	}catch( const NiepoprawneParametryFunkcji& e ){
-		t.assert_true(EXCEPTION_PLACE , e.getParametry().isEmpty());
-		Aplikacja::getInstance().getLog().debug(e.getParametry());
-		Aplikacja::getInstance().getLog().debug("Zawartosc klasy NiepoprawneParametryFunkcji = ");
-		Aplikacja::getInstance().getLog().debug(e.generujKomunikat());
-	}
-	return true;
-}
-
-bool test_KlasaLadownia( Test & t ){
-	shared_ptr<Statek> a (tworzStatek(t,Identyfikator(14),Ilosc(8)));
-	Aplikacja::getInstance().getLog().debug("Pojemnosc Maksymalna:");
-	Aplikacja::getInstance().getLog().debug(a->getPojemnoscMax());
-	shared_ptr<Statek> b (tworzStatek(t,Identyfikator(11),Ilosc(10)));
-	t.assert_false(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*b));
-	shared_ptr<Surowce> c (tworzSurowce(t,Identyfikator(6),Ilosc(20)));
-	t.assert_false(EXCEPTION_PLACE,c->czyTypPrzyrostowy());
-	t.assert_false(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*c));
-	shared_ptr<Surowce> d (tworzSurowce(t,Identyfikator(10),Ilosc(20)));
-	t.assert_true(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*d));
-	Aplikacja::getInstance().getLog().debug("Zawartosc po dodaniu obiektu: ");
-	Aplikacja::getInstance().getLog().debug(*a);
-	t.assert_false(EXCEPTION_PLACE,a->getZajeteMiejsce()!=Objetosc(0));
-	Aplikacja::getInstance().getLog().debug("Zajete miejsce: ");
-	Aplikacja::getInstance().getLog().debug(a->getZajeteMiejsce());
-	Aplikacja::getInstance().getLog().debug("Dzielenie ladowni");
-	shared_ptr<Ladownia::Zbiornik> zb (a->PodzielLadownie(Objetosc(a->getZajeteMiejsce()()*0.1)+Objetosc(a->getZajeteMiejsce()()/2.0),Objetosc(a->getZajeteMiejsce()()/2.0)));
-	t.assert_true(EXCEPTION_PLACE,zb->isEmpty());
-	Aplikacja::getInstance().getLog().debug("Zbiornik odlaczony od ladowni: ");
-	Aplikacja::getInstance().getLog().debug(*zb);
-	Aplikacja::getInstance().getLog().debug("Ladownia po podzieleniu: ");
-	Aplikacja::getInstance().getLog().debug(*a);
-	return true;
-}
-
-bool test_tworzenieObiektow( Test & t ){
-	ObiektInfo& p = Aplikacja::getInstance().getGra().getStatek(Identyfikator(11));
-	Aplikacja::getInstance().getLog().debug( "Klasa info:");
-	Aplikacja::getInstance().getLog().debug(p);
-	shared_ptr<Obiekt>o (p.TworzEgzemplarz(Ilosc(8),Identyfikator()));
-	if(t.assert_false(EXCEPTION_PLACE, o!=nullptr))
-	{
-		t.assert_false(EXCEPTION_PLACE, o->getIlosc()==Ilosc(8));
-		Aplikacja::getInstance().getLog().debug( "Stworzony obiekt:");
-		Aplikacja::getInstance().getLog().debug(*o);
-	}
-	return true;
-}
-
-bool test_KlasaObiektList( Test & t ){
+/*bool test_KlasaObiektList( Test & t ){
 	ObiektList<Statek> lista;
 	ObiektList<Statek> listaDruga;
 	
@@ -337,54 +228,6 @@ bool test_Budynki( Test & t ){
 	return true;
 }
 
-bool test_TworzeniePlanetyIObiektow( Test & t ){
-	auto idPlanety = Aplikacja::getInstance().getGra().generujPlanete();
-	t.assert_false(EXCEPTION_PLACE,Aplikacja::getInstance().getGra().przeniesPlaneteDoUzytkownika(idPlanety));
-	Planeta& planeta = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(idPlanety);
-
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(17),Ilosc(1)));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(17)).getPoziom()==Poziom(1));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(17)).getIlosc()==Ilosc(1));
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(17),Ilosc(1)));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(17)).getPoziom()==Poziom(2));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(17)).getIlosc()==Ilosc(1));
-
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(15),Ilosc(1)));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(15)).getPoziom()==Poziom(1));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(15)).getIlosc()==Ilosc(1));
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(15),Ilosc(1)));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(15)).getPoziom()==Poziom(2));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(15)).getIlosc()==Ilosc(1));
-
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(1),Ilosc(100)));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(1)).getPoziom()==Poziom(1));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(1)).getIlosc()==Ilosc(100));
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(1),Ilosc(100)));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(1)).getPoziom()==Poziom(1));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(1)).getIlosc()==Ilosc(200));
-
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(0xB),Ilosc(100)));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(0xB)).getPoziom()==Poziom(1));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(0xB)).getIlosc()==Ilosc(100));
-	t.assert_false(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(0xB),Ilosc(100)));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(0xB)).getPoziom()==Poziom(1));
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(0xB)).getIlosc()==Ilosc(200));
-	
-	t.assert_true(EXCEPTION_PLACE,planeta.wybuduj(Identyfikator(20000),Ilosc(1)));
-	t.assert_true(EXCEPTION_PLACE,planeta.pobierzObiekt(Identyfikator(20000)).getId()==Identyfikator(20000));
-
-	t.assert_false(EXCEPTION_PLACE,planeta.pobierzIloscTypowObiektow()==Ilosc(4));
-
-	/*shared_ptr<Statek> a (tworzStatek(t,Identyfikator(14),Ilosc(8)));
-	shared_ptr<Statek> b (tworzStatek(t,Identyfikator(11),Ilosc(150)));
-	t.assert_false(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*b));
-	shared_ptr<Surowce> c (tworzSurowce(t,Identyfikator(6),Ilosc(20)));
-	t.assert_false(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*c));
-	shared_ptr<Surowce> d (tworzSurowce(t,Identyfikator(10),Ilosc(20)));
-	t.assert_true(EXCEPTION_PLACE,a->DodajObiektDoLadowni(*d));*/
-	return true;
-}
-
 bool test_Issue41i57( Test & t ){
 	auto idPlanety = Aplikacja::getInstance().getGra().generujPlanete();
 	t.assert_false(EXCEPTION_PLACE,Aplikacja::getInstance().getGra().przeniesPlaneteDoUzytkownika(idPlanety));
@@ -425,19 +268,6 @@ bool test_Issue39( Test & t ){
 	return true;
 }
 
-bool test_ZapisStanuGry( Test & t ){
-	int ptr_a = (int)(&(Aplikacja::getInstance().getGra()));
-	auto p_a = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(Identyfikator(3));
-	t.assert_false(EXCEPTION_PLACE,Aplikacja::getInstance().ZapiszGre());
-	t.assert_false(EXCEPTION_PLACE,Aplikacja::getInstance().WczytajGre());
-	auto p_b = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(Identyfikator(3));
-	int ptr_b = (int)(&(Aplikacja::getInstance().getGra()));
-	t.assert_true(EXCEPTION_PLACE,ptr_a==ptr_b);
-	t.assert_false(EXCEPTION_PLACE,p_a.pobierzIloscTypowObiektow()==p_b.pobierzIloscTypowObiektow());
-	t.assert_false(EXCEPTION_PLACE,p_a.pobierzObiekt(Identyfikator(1)).getIlosc()==p_b.pobierzObiekt(Identyfikator(1)).getIlosc());
-	return true;
-}
-
 bool test_KlasyFlota( Test & t ){
 	auto idPlanety = Aplikacja::getInstance().getGra().generujPlanete();
 	t.assert_false(EXCEPTION_PLACE,Aplikacja::getInstance().getGra().przeniesPlaneteDoUzytkownika(idPlanety));
@@ -456,3 +286,4 @@ bool test_KlasyFlota( Test & t ){
 
 	return true;
 }
+*/

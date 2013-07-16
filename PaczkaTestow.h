@@ -13,6 +13,8 @@ public:
 	virtual ~PaczkaTestow();
 	void ustawNazwe( const string& napis );
 	void dodajTest( const string& nazwa, function<void ()> test );
+	virtual void startTestow();
+	virtual void koniecTestow();
 private:
 	unsigned int bledy;
 	unsigned int bledyKrytyczne;

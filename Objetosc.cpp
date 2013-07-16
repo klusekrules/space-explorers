@@ -84,6 +84,9 @@ Objetosc& Objetosc::operator*=( const Fluktuacja& f ){
 	wartosc_ *= f();
 	return *this; 
 }
+Objetosc Objetosc::operator/( const Ilosc& o )const{
+	return Objetosc( wartosc_ / static_cast<type_name>(o()) );
+}
 
 Fluktuacja Objetosc::operator/( const Objetosc& o )const{
 	return Fluktuacja( static_cast<const float>(wartosc_ / o.wartosc_) );

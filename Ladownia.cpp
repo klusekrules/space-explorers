@@ -45,10 +45,7 @@ bool Ladownia::DodajObiektDoLadowni( Item& obiekt ){
 	if(!obiekt.czMoznaDodacDoLadownii(*this)){
 		return false;
 	}
-	if( obiekt.getObjetosc() > getPojemnoscMax() ){
-		return false;
-	}
-	if( (obiekt.getObjetosc() + zajete) > getPojemnoscMax()){
+	if( obiekt.getObjetosc()/obiekt.getIlosc() > ladowniaInfo.getPojemnoscMaksymalna(*this) || (obiekt.getObjetosc() + zajete) > getPojemnoscMax() ){
 		return false;
 	}
 	try{
@@ -62,6 +59,13 @@ bool Ladownia::DodajObiektDoLadowni( Item& obiekt ){
 	}
 	return true;		
 }	
+
+Ladownia::Zbiornik Ladownia::OproznijLadownie(){
+	Zbiornik tmp;
+	tmp.moveAll(obiekty);
+	przeliczZajeteMiejsce();
+	return tmp;
+}
 
 Ladownia::Item& Ladownia::PobierzObiekt( const Klucz& itID, const Ilosc& isIlosc ) throw( NieznalezionoObiektu, NiepoprawnaIloscObiektow ){
 	if(obiekty.isEmpty())
@@ -177,7 +181,6 @@ const Ladownia::Zbiornik& Ladownia::getPrzewozoneObiekty() const{
 const Objetosc& Ladownia::getZajeteMiejsce() const{
 	return zajete;
 }
-
 
 Objetosc Ladownia::getPojemnoscMax() const{
 	return ladowniaInfo.getPojemnoscMaksymalna(*this);

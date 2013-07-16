@@ -36,6 +36,13 @@ public:
 		}
 	}
 
+	ObiektList(ObiektList&& a)
+		: lista(Identyfikator(-1))
+	{
+		lista.clear();
+		moveAll(a);
+	}
+
 	ObiektList& operator=(const ObiektList& a){
 		clear();
 		for( auto i : a.lista){

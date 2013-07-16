@@ -25,6 +25,7 @@ public:
 	Objetosc& operator-=( const Objetosc& );
 	Objetosc& operator+=( const Objetosc& );
 	Objetosc operator-( const Objetosc& )const;
+	Objetosc operator/( const Ilosc& )const;
 	Fluktuacja operator/( const Objetosc& )const;
 	Objetosc operator+( const Objetosc& )const;
 	Objetosc operator*( const Fluktuacja& )const;

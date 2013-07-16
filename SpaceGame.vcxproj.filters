@@ -223,6 +223,18 @@
     <ClCompile Include="InicjalizacjaTestow.cpp">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClCompile>
+    <ClCompile Include="TworzenieObiektowTest.cpp">
+      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+    </ClCompile>
+    <ClCompile Include="NiepoprawneParametryFunkcjiTest.cpp">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClCompile>
+    <ClCompile Include="ZapisStanuGryTest.cpp">
+      <Filter>Testy\KlasyTestowe\Czyszczenie</Filter>
+    </ClCompile>
+    <ClCompile Include="LadowniaTest.cpp">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -501,6 +513,18 @@
     <ClInclude Include="InicjalizacjaDanychTestowych.h">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClInclude>
+    <ClInclude Include="TworzenieObiektowTest.h">
+      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+    </ClInclude>
+    <ClInclude Include="NiepoprawneParametryFunkcjiTest.h">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="ZapisStanuGryTest.h">
+      <Filter>Testy\KlasyTestowe\Czyszczenie</Filter>
+    </ClInclude>
+    <ClInclude Include="LadowniaTest.h">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -613,6 +637,9 @@
     </Filter>
     <Filter Include="Testy\KlasyTestowe\TestyJednostkowe">
       <UniqueIdentifier>{2ad6cfcc-5b9b-49b5-af20-d672f32271e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Testy\KlasyTestowe\Czyszczenie">
+      <UniqueIdentifier>{9879c8f6-2d61-4093-b032-c984a8b4fe5b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
