@@ -9,17 +9,17 @@ class BudynekInfo :
 	virtual public LoggerInterface
 {
 protected:
-	Cennik::Zbiornik zapotrzebowanie;
-	Cennik::Zbiornik produkcja;
+	Wymagania::ListaCen zapotrzebowanie;
+	Wymagania::ListaCen produkcja;
 
 public:
 	BudynekInfo( TiXmlElement* );
 	~BudynekInfo(void);
 	Budynek* TworzEgzemplarz( const Ilosc&, const Identyfikator& ) const override;
 
-	Cennik::ListaSurowcow PobierzZapotrzebowanie( const PodstawoweParametry& param)const;
+	Wymagania::PrzetworzonaCena PobierzZapotrzebowanie( const PodstawoweParametry& param)const;
 
-	Cennik::ListaSurowcow PobierzProdukcje( const PodstawoweParametry& param )const;
+	Wymagania::PrzetworzonaCena PobierzProdukcje( const PodstawoweParametry& param )const;
 
 	string napis()const override;
 private:

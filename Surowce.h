@@ -60,7 +60,8 @@ public:
 	Czas pobierzCzas()const;
 
 	bool zapisz( TiXmlElement* e) const override;
-	bool odczytaj (TiXmlElement* e) override;
+	bool odczytaj ( TiXmlElement* e ) override;
+	Surowce( TiXmlElement* e  );
 			
 	string napis() const override;
 

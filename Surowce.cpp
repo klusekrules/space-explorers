@@ -3,6 +3,7 @@
 #include "Logger.h"
 #include "Ladownia.h"
 #include "DefinicjeWezlowXML.h"
+#include "Aplikacja.h"
 
 Surowce::Surowce( const Ilosc& isIlosc, const Poziom& p, const Identyfikator& idP, const SurowceInfo& s )
 	:  PodstawoweParametry(p, idP), Obiekt( isIlosc, p, idP, s ), surowceInfo(s)
@@ -17,6 +18,14 @@ Surowce::Surowce( const Ilosc& isIlosc , const Surowce& s )
 Surowce::Surowce( const Ilosc& isIlosc, const PodstawoweParametry& p, const SurowceInfo& s )
 	:  PodstawoweParametry(p), Obiekt( isIlosc, p, s ), surowceInfo(s)
 {
+}
+
+Surowce::Surowce( TiXmlElement* e  )
+	:  PodstawoweParametry(Poziom(),Identyfikator()), 
+	Obiekt( Ilosc(), Poziom(), Identyfikator(), Aplikacja::getInstance().getGra().getSurowce(Identyfikator(stoul(e->Attribute(ATRYBUT_XML_IDENTYFIKATOR),nullptr,0)) )), 
+	surowceInfo( Aplikacja::getInstance().getGra().getSurowce(Identyfikator(stoul(e->Attribute(ATRYBUT_XML_IDENTYFIKATOR),nullptr,0)) ))
+{
+	Obiekt::odczytaj(e);
 }
 
 Surowce* Surowce::Kopia() const{

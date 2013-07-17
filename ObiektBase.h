@@ -4,8 +4,7 @@
 #include "Ilosc.h"
 #include "PodstawoweParametry.h"
 #include "Klucz.h"
-#include "Warunek.h"
-#include "Cennik.h"
+#include "Wymagania.h"
 
 class ObiektBaseInfo;
 /**
@@ -106,13 +105,13 @@ public:
 	* Metoda pobieraj¹ca przetworzone warunki dostêpnoœci obiektu
 	* \return Warunki po przetworzeniu przez klasy zmieniaj¹ce
 	*/
-	Warunek::PrzetworzoneWarunki PobierzWarunki()const;
+	Wymagania::PrzetworzoneWymogi PobierzWarunki()const;
 	
 	/**
 	* Metoda pobieraj¹ca przetworzone koszty dostêpnoœci obiektu
 	* \return Koszty po przetworzeniu przez klasy zmieniaj¹ce
 	*/
-	Cennik::ListaSurowcow PobierzKoszty() const;
+	Wymagania::PrzetworzonaCena PobierzKoszty() const;
 
 	virtual void wybuduj(const Ilosc&);
 

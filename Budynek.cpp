@@ -41,11 +41,11 @@ Budynek::~Budynek(void)
 {
 }
 
-Cennik::ListaSurowcow Budynek::PobierzZapotrzebowanie( )const{
+Wymagania::PrzetworzonaCena Budynek::PobierzZapotrzebowanie( )const{
 	return budynekInfo.PobierzZapotrzebowanie(*this);
 }
 
-Cennik::ListaSurowcow Budynek::PobierzProdukcje( )const{
+Wymagania::PrzetworzonaCena Budynek::PobierzProdukcje( )const{
 	return budynekInfo.PobierzProdukcje(*this);
 }
 

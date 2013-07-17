@@ -3,19 +3,20 @@
 #include "XmlBO.h"
 #include "Gra.h"
 #include "definicjeWezlowXML.h"
+#include "LiczenieKosztow.h"
 
 BudynekInfo::BudynekInfo( TiXmlElement* n )
 	: ObiektInfo(n)
 {
 	auto z = XmlBO::ZnajdzWezel<NOTHROW>(n,WEZEL_XML_ZAPOTRZEBOWANIE);
 	while(z){
-		zapotrzebowanie.push_back(shared_ptr<Cena>(new Cena(z)));
+		zapotrzebowanie.push_back(Cena(z,WEZEL_XML_SUROWCE));
 		z = z->NextSiblingElement();
 	}
 
 	auto p = XmlBO::ZnajdzWezel<NOTHROW>(n,WEZEL_XML_PRODUKCJA);
 	while(p){
-		produkcja.push_back(shared_ptr<Cena>(new Cena(p)));
+		produkcja.push_back( Cena(p,WEZEL_XML_SUROWCE) );
 		p = p->NextSiblingElement();
 	}
 }
@@ -32,30 +33,28 @@ Budynek* BudynekInfo::TworzEgzemplarz( const Ilosc&, const Identyfikator& idP ) 
 	return new Budynek(getPoziom(),idP,*this);
 }
 
-Cennik::ListaSurowcow BudynekInfo::PobierzZapotrzebowanie( const PodstawoweParametry& param )const{
-	Cennik::ListaSurowcow list;
-	for(auto z : zapotrzebowanie){
-		list.push_back(z->PobierzKoszty(Ilosc(1),param));
+Wymagania::PrzetworzonaCena BudynekInfo::PobierzZapotrzebowanie( const PodstawoweParametry& p )const{
+	PrzetworzonaCena zb;
+	for( auto e : zapotrzebowanie ){
+		LiczenieKosztow (e,zb,Ilosc(1),p)();
 	}
-	return list;
+	return zb;
 }
 
-Cennik::ListaSurowcow BudynekInfo::PobierzProdukcje( const PodstawoweParametry& param )const{
-	Cennik::ListaSurowcow list;
-	for(auto z : produkcja){
-		list.push_back(z->PobierzKoszty(Ilosc(1),param));
+Wymagania::PrzetworzonaCena BudynekInfo::PobierzProdukcje( const PodstawoweParametry& p )const{
+	PrzetworzonaCena zb;
+	for( auto e : produkcja ){
+		LiczenieKosztow (e,zb,Ilosc(1),p)();
 	}
-	return list;
+	return zb;
 }
 
 string BudynekInfo::napis()const{
 	Logger str(NAZWAKLASY(BudynekInfo));
 	str.dodajKlase(ObiektInfo::napis());
 	for(auto i : zapotrzebowanie)
-		if(i)
-			str.dodajPole("ElementZapotrzebowania",*i);
+		str.dodajPole("ElementZapotrzebowania",i);
 	for(auto i : produkcja)
-		if(i)
-			str.dodajPole("ElementProdukcji",*i);
+		str.dodajPole("ElementProdukcji",i);
 	return str.napis();
 }

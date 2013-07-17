@@ -36,10 +36,13 @@ bool Base::zapisz( TiXmlElement* n ) const{
 
 bool Base::odczytaj( TiXmlElement* n ){
 	if(n){
-		string c = n->Attribute(ATRYBUT_XML_IDENTYFIKATOR);
+		auto ptr = n->Attribute(ATRYBUT_XML_IDENTYFIKATOR);
+		if(!ptr)
+			return false;
+		string c = ptr;
+		Utils::trim(c);
 		if(c.empty())
 			return false;
-		Utils::trim(c);
 		id(stoul(c,nullptr,0));
 		return true;
 	}
