@@ -212,6 +212,7 @@
     <ClInclude Include="BudynekTest.h" />
     <ClInclude Include="InicjalizacjaDanychTestowych.h" />
     <ClInclude Include="LadowniaTest.h" />
+    <ClInclude Include="LiczenieKosztow.h" />
     <ClInclude Include="LogowanieTest.h" />
     <ClInclude Include="MakraDlaTestow.h" />
     <ClInclude Include="NiepoprawneParametryFunkcjiTest.h" />
@@ -226,8 +227,6 @@
     <ClInclude Include="BrakMaski.h" />
     <ClInclude Include="Budynek.h" />
     <ClInclude Include="BudynekInfo.h" />
-    <ClInclude Include="Cena.h" />
-    <ClInclude Include="Cennik.h" />
     <ClInclude Include="Czas.h">
       <SubType>
       </SubType>
@@ -245,6 +244,7 @@
     <ClInclude Include="PodstawoweParametry.h" />
     <ClInclude Include="Serializacja.h" />
     <ClInclude Include="StatekTest.h" />
+    <ClInclude Include="SzablonKosztow.h" />
     <ClInclude Include="Technologia.h" />
     <ClInclude Include="TechnologiaInfo.h" />
     <ClInclude Include="TechnologiaTest.h" />
@@ -297,7 +297,6 @@
     <ClInclude Include="svn_version.h" />
     <ClInclude Include="Tekst.h" />
     <ClInclude Include="TypyProste.h" />
-    <ClInclude Include="Warunek.h" />
     <ClInclude Include="WyjatekParseraXML.h" />
     <ClInclude Include="WyjatekSprawdzeniaWarunku.h" />
     <ClInclude Include="WyjatekSTL.h" />
@@ -320,8 +319,6 @@
     <ClCompile Include="Budynek.cpp" />
     <ClCompile Include="BudynekInfo.cpp" />
     <ClCompile Include="BudynekTest.cpp" />
-    <ClCompile Include="Cena.cpp" />
-    <ClCompile Include="Cennik.cpp" />
     <ClCompile Include="Czas.cpp">
       <SubType>
       </SubType>
@@ -343,6 +340,7 @@
     <ClCompile Include="Ladownia.cpp" />
     <ClCompile Include="LadowniaInfo.cpp" />
     <ClCompile Include="LadowniaTest.cpp" />
+    <ClCompile Include="LiczenieKosztow.cpp" />
     <ClCompile Include="Licznik.cpp" />
     <ClCompile Include="LogowanieTest.cpp" />
     <ClCompile Include="maintest.cpp" />
@@ -381,8 +379,8 @@
     <ClCompile Include="Tekst.cpp" />
     <ClCompile Include="TestyJednostkowe.cpp" />
     <ClCompile Include="TworzenieObiektowTest.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Uzytkownik.cpp" />
-    <ClCompile Include="Warunek.cpp" />
     <ClCompile Include="WyjatekParseraXML.cpp" />
     <ClCompile Include="WyjatekSprawdzeniaWarunku.cpp" />
     <ClCompile Include="WyjatekSTL.cpp" />

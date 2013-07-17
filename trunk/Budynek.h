@@ -1,6 +1,5 @@
 #pragma once
 #include "Obiekt.h"
-#include "Cennik.h"
 
 class Budynek :
 	public Obiekt,
@@ -24,9 +23,9 @@ public:
 
 	bool czyMoznaPodzielic( const Ilosc& ilosc) const override;
 
-	Cennik::ListaSurowcow PobierzZapotrzebowanie( )const;
+	Wymagania::PrzetworzonaCena PobierzZapotrzebowanie( )const;
 
-	Cennik::ListaSurowcow PobierzProdukcje( )const;
+	Wymagania::PrzetworzonaCena PobierzProdukcje( )const;
 
 	void wybuduj(const Ilosc&) override;
 

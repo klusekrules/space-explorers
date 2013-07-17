@@ -44,17 +44,22 @@ bool PodstawoweParametry::zapisz( TiXmlElement* e ) const{
 
 bool PodstawoweParametry::odczytaj( TiXmlElement* e ){
 	if(e){
-		string c = e->Attribute(ATRYBUT_XML_POZIOM);
-		if(c.empty())
+		auto ptr = e->Attribute(ATRYBUT_XML_POZIOM);
+		if(!ptr)
 			return false;
+		string c = ptr;
 		Utils::trim(c);
-		poziom(stoul(c));
-
-		c.clear();
-		c.append(e->Attribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETY));
 		if(c.empty())
 			return false;
-		Utils::trim(c);		
+		poziom(stoul(c));
+		c.clear();
+		ptr = e->Attribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETY);
+		if(!ptr)
+			return false;
+		c.append(ptr);
+		Utils::trim(c);
+		if(c.empty())
+			return false;	
 		idPlanety(stoul(c,nullptr,0));
 		return true;
 	}

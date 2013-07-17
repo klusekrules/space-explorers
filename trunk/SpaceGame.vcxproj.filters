@@ -136,15 +136,6 @@
     <ClCompile Include="Wymagania.cpp">
       <Filter>SourceFile\Wymagania</Filter>
     </ClCompile>
-    <ClCompile Include="Cennik.cpp">
-      <Filter>SourceFile\Wymagania</Filter>
-    </ClCompile>
-    <ClCompile Include="Cena.cpp">
-      <Filter>SourceFile\Wymagania\Cena</Filter>
-    </ClCompile>
-    <ClCompile Include="Warunek.cpp">
-      <Filter>SourceFile\Wymagania\Warunek</Filter>
-    </ClCompile>
     <ClCompile Include="Wyjatki.cpp">
       <Filter>SourceFile\DomysleWartosci</Filter>
     </ClCompile>
@@ -240,6 +231,12 @@
     </ClCompile>
     <ClCompile Include="maintest.cpp">
       <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClCompile>
+    <ClCompile Include="LiczenieKosztow.cpp">
+      <Filter>SourceFile\Wymagania</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -420,15 +417,6 @@
     <ClInclude Include="Wymagania.h">
       <Filter>SourceFile\Wymagania</Filter>
     </ClInclude>
-    <ClInclude Include="Cennik.h">
-      <Filter>SourceFile\Wymagania</Filter>
-    </ClInclude>
-    <ClInclude Include="Cena.h">
-      <Filter>SourceFile\Wymagania\Cena</Filter>
-    </ClInclude>
-    <ClInclude Include="Warunek.h">
-      <Filter>SourceFile\Wymagania\Warunek</Filter>
-    </ClInclude>
     <ClInclude Include="Stale.h">
       <Filter>SourceFile\DomysleWartosci</Filter>
     </ClInclude>
@@ -537,6 +525,12 @@
     <ClInclude Include="BudynekTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClInclude>
+    <ClInclude Include="SzablonKosztow.h">
+      <Filter>SourceFile\Wymagania</Filter>
+    </ClInclude>
+    <ClInclude Include="LiczenieKosztow.h">
+      <Filter>SourceFile\Wymagania</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -604,12 +598,6 @@
     </Filter>
     <Filter Include="SourceFile\Wymagania">
       <UniqueIdentifier>{b4bdf8e7-69d8-42b7-828c-db385f251073}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Wymagania\Warunek">
-      <UniqueIdentifier>{4cc8f7a4-b9e2-44ab-bf66-771acc1a298b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Wymagania\Cena">
-      <UniqueIdentifier>{0ba97365-2fd4-45b2-a51a-a22b61df8a88}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\Technologia">
       <UniqueIdentifier>{bc5c5a03-cd07-44c7-aded-44408c5cf55e}</UniqueIdentifier>

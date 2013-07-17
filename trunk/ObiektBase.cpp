@@ -17,7 +17,7 @@ ObiektBase::ObiektBase( const Ilosc& i, const PodstawoweParametry& p, const Obie
 Czas ObiektBase::pobierzCzasRozbudowy( )const{
 	PodstawoweParametry param(*this);
 	param.wzrostPoziomu();
-	return Czas(obiektBaseInfo.pobierzCzasBudowy(param)()*ilosc());
+	return obiektBaseInfo.pobierzCzasBudowy(ilosc,param);
 }
 
 ObiektBase* ObiektBase::Kopia() const{
@@ -66,12 +66,12 @@ void ObiektBase::setIlosc( const Ilosc& i ){
 	ilosc = i;
 }
 
-Cennik::ListaSurowcow ObiektBase::PobierzKoszty() const{
+Wymagania::PrzetworzonaCena ObiektBase::PobierzKoszty() const{
 	return obiektBaseInfo.PobierzKoszty(getIlosc(),*this);
 }
 
 
-Warunek::PrzetworzoneWarunki ObiektBase::PobierzWarunki()const{
+Wymagania::PrzetworzoneWymogi ObiektBase::PobierzWarunki()const{
 	return obiektBaseInfo.listaWarunkow(*this);
 }
 
@@ -90,12 +90,15 @@ bool ObiektBase::zapisz( TiXmlElement* e ) const {
 
 bool ObiektBase::odczytaj( TiXmlElement* e ){
 	if(e){
-		string c = e->Attribute(ATRYBUT_XML_ILOSC);
+		auto ptr = e->Attribute(ATRYBUT_XML_ILOSC);
+		if(!ptr)
+			return false;
+		string c = ptr;
+		Utils::trim(c);
 		if(c.empty())
 			return false;
-		Utils::trim(c);
 		ilosc(stold(c));
-		return PodstawoweParametry::odczytaj(e) && Base::odczytaj(e);
+		return Base::odczytaj(e) && PodstawoweParametry::odczytaj(e);
 	}
 	return false;
 }
