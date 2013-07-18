@@ -7,57 +7,57 @@ Ilosc::Ilosc()
 {
 }
 
-Ilosc::Ilosc( const type_name& ilosc )
-	: PodstawowyInterfejs(ilosc)
+Ilosc::Ilosc( const type_name& wartosc )
+	: PodstawowyInterfejs(wartosc)
 {
 }
 
-Ilosc::Ilosc( const Ilosc& ilosc )
-	: PodstawowyInterfejs(ilosc)
+Ilosc::Ilosc( const Ilosc& wartosc )
+	: PodstawowyInterfejs(wartosc)
 {
 }
 
 Ilosc::~Ilosc(){
 }
 
-bool Ilosc::operator<( const Ilosc& i ) const{
-	return wartosc_ < i.wartosc_;
+bool Ilosc::operator<( const Ilosc& wartosc ) const{
+	return wartosc_ < wartosc.wartosc_;
 }
 
-bool Ilosc::operator>( const Ilosc& i ) const{
-	return wartosc_ > i.wartosc_;
+bool Ilosc::operator>( const Ilosc& wartosc ) const{
+	return wartosc_ > wartosc.wartosc_;
 }
 
-bool Ilosc::operator==( const Ilosc& i ) const{
-	return wartosc_ == i.wartosc_;
+bool Ilosc::operator==( const Ilosc& wartosc ) const{
+	return wartosc_ == wartosc.wartosc_;
 }
 
-bool Ilosc::operator!=( const Ilosc& i ) const{
-	return wartosc_ != i.wartosc_;
+bool Ilosc::operator!=( const Ilosc& wartosc ) const{
+	return wartosc_ != wartosc.wartosc_;
 }
 
-bool Ilosc::operator<=( const Ilosc& i) const{
-	return wartosc_ <= i.wartosc_;
+bool Ilosc::operator<=( const Ilosc& wartosc) const{
+	return wartosc_ <= wartosc.wartosc_;
 }
 
-bool Ilosc::operator>=( const Ilosc& i) const{
-	return wartosc_ >= i.wartosc_;
+bool Ilosc::operator>=( const Ilosc& wartosc) const{
+	return wartosc_ >= wartosc.wartosc_;
 }
 
-Ilosc Ilosc::operator+( const Ilosc& i ) const{
-	return Ilosc( wartosc_ + i.wartosc_ );
+Ilosc Ilosc::operator+( const Ilosc& wartosc ) const{
+	return Ilosc( wartosc_ + wartosc.wartosc_ );
 }
 
-Ilosc Ilosc::operator-( const Ilosc& i ) const{
-	return Ilosc( wartosc_ - i.wartosc_ );
+Ilosc Ilosc::operator-( const Ilosc& wartosc ) const{
+	return Ilosc( wartosc_ - wartosc.wartosc_ );
 }
 
-Ilosc Ilosc::operator*( const Ilosc& i ) const{
-	return Ilosc( wartosc_ - i.wartosc_ );
+Ilosc Ilosc::operator*( const Ilosc& wartosc ) const{
+	return Ilosc( wartosc_ - wartosc.wartosc_ );
 }
 
-Ilosc& Ilosc::operator+=( const Ilosc& i ){
-	wartosc_+=i.wartosc_;
+Ilosc& Ilosc::operator+=( const Ilosc& wartosc ){
+	wartosc_+=wartosc.wartosc_;
 	return *this;
 }
 
@@ -72,17 +72,16 @@ Ilosc Ilosc::operator++( int ){
 	return t;
 }
 
-Ilosc& Ilosc::operator-=( const Ilosc& i ){
-	wartosc_-=i.wartosc_;
+Ilosc& Ilosc::operator-=( const Ilosc& wartosc ){
+	wartosc_-=wartosc.wartosc_;
 	return *this;
 }
 
-Ilosc& Ilosc::operator=( const Ilosc& i ){
-	wartosc_=i.wartosc_;
+Ilosc& Ilosc::operator=( const Ilosc& wartosc ){
+	wartosc_=wartosc.wartosc_;
 	return *this;
 }
 
 string Ilosc::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(Ilosc),wartosc_);
 }
-

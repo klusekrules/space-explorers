@@ -11,34 +11,34 @@ Klucz::Klucz()
 {
 }
 
-Klucz::Klucz( const Identyfikator& id , const Poziom& poziom )
-	: PodstawowyInterfejs( make_pair<Identyfikator,Poziom>( Identyfikator(id) , Poziom(poziom) ) )
+Klucz::Klucz( const Identyfikator& identyfikator , const Poziom& poziom )
+	: PodstawowyInterfejs( make_pair<Identyfikator,Poziom>( Identyfikator(identyfikator) , Poziom(poziom) ) )
 {
 }
 
-Klucz::Klucz( const type_name& pair )
-	: PodstawowyInterfejs( pair )
+Klucz::Klucz( const type_name& wartosc )
+	: PodstawowyInterfejs( wartosc )
 {
 }
 
-Klucz::Klucz( const Klucz& klucz )
-	: PodstawowyInterfejs( klucz )
+Klucz::Klucz( const Klucz& wartosc )
+	: PodstawowyInterfejs( wartosc )
 {
 }
 
 Klucz::~Klucz(){
 }
 
-bool Klucz::operator==( const Klucz& a )const{
-	return wartosc_ == a.wartosc_;
+bool Klucz::operator==( const Klucz& wartosc )const{
+	return wartosc_ == wartosc.wartosc_;
 }
 
-bool Klucz::operator!=( const Klucz& a )const{
-	return wartosc_ != a.wartosc_;
+bool Klucz::operator!=( const Klucz& wartosc )const{
+	return wartosc_ != wartosc.wartosc_;
 }
 
-bool Klucz::operator<( const Klucz& a )const{
-	return wartosc_.first != a.wartosc_.first ? wartosc_.first < a.wartosc_.first : wartosc_.second < a.wartosc_.second;
+bool Klucz::operator<( const Klucz& wartosc )const{
+	return wartosc_.first != wartosc.wartosc_.first ? wartosc_.first < wartosc.wartosc_.first : wartosc_.second < wartosc.wartosc_.second;
 }
 
 string Klucz::napis()const{

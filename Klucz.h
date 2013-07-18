@@ -1,32 +1,81 @@
 #pragma once
-#include "Main.h"
+#include "Logger\LoggerInterface.h"
 #include "TypyProste.h"
 #include "Poziom.h"
 #include "Identyfikator.h"
-#include "parser\ticpp.h"
-#include "WyjatekParseraXML.h"
 
+/**
+* \brief Klas przechowujaca klucz.
+*
+* Klasa reprezentuj¹ca klucz.
+* \author Daniel Wojdak
+* \version 1
+* \date 18-07-2013
+*/
 class Klucz:
 	virtual public LoggerInterface,
 	public PodstawowyInterfejs< pair < Identyfikator, Poziom > >
 {
 public:
+
+	/**
+	* \brief Konstruktor.
+	*/
 	Klucz();
-	Klucz( const Identyfikator& , const Poziom& );
-	explicit Klucz( const type_name& );
-	Klucz( const Klucz& );
+
+	/**
+	* \brief Konstruktor.
+	*
+	* Metoda ustawia wartoœæ atrybutów na tak¹ jak jest podana w parametrze konstruktora.
+	* \param[in] identyfikator - Wartoœæ na jak¹ ma byæ ustawiony atrybut identyfikatora klasy.
+	* \param[in] poziom - Wartoœæ na jak¹ ma byæ ustawiony atrybut poziomu klasy.
+	*/
+	Klucz( const Identyfikator& identyfikator, const Poziom& poziom );
+
+	/**
+	* \brief Konstruktor.
+	* Metoda ustawia wartoœæ atrybutu na tak¹ jak jest podana w parametrze konstruktora.
+	* \param[in] wartosc - Wartoœæ na jak¹ ma byæ ustawiony atrybut klasy.
+	*/
+	explicit Klucz( const type_name& wartosc );
+
+	/**
+	* \brief Konstruktor kopiuj¹cy.
+	*
+	* Metoda ustawia wartoœæ atrybutu na tak¹ jak jest podana w parametrze konstruktora.
+	* \param[in] wartosc - Wartoœæ na jak¹ ma byæ ustawiony atrybut klasy.
+	*/
+	Klucz( const Klucz& wartosc );
+
+	/**
+	* \brief Destruktor.
+	*/
 	virtual ~Klucz();
 	
-	bool operator==( const Klucz& )const;
-	bool operator!=( const Klucz& )const;
-	bool operator<( const Klucz& )const;
-	
-	string napis()const override;
-};
+	/**
+	* \brief Operator równoœci.
+	*
+	* \param[in] wartosc - Wartoœæ porównywana z atrybutem klasy.
+	*/
+	bool operator==( const Klucz& wartosc )const;
 
-struct KluczHash {
-    size_t operator()(const Klucz& t) const {
-		size_t z = (t().first() + (t().second() << 16) ) * t().second();
-		return z;
-    }
+	/**
+	* \brief Operator nierownoœci.
+	*
+	* \param[in] wartosc - Wartoœæ porównywana z atrybutem klasy.
+	*/
+	bool operator!=( const Klucz& wartosc )const;
+
+	/**
+	* \brief Operator s³abej mniejszoœci.
+	*
+	* \param[in] wartosc - Wartoœæ porównywana z atrybutem klasy.
+	*/
+	bool operator<( const Klucz& wartosc )const;
+	
+	/**
+	* Funkcja s³u¿¹ca jako podstawa do tworzenia napisów z opisem klasy.
+	* \return Napis zawieraj¹cy opis klasy.
+	*/
+	string napis()const override;
 };

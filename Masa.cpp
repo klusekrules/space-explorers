@@ -7,84 +7,83 @@ Masa::Masa()
 {
 }
 
-Masa::Masa( const Masa& a )
-	: PodstawowyInterfejs( a )
+Masa::Masa( const Masa& wartosc )
+	: PodstawowyInterfejs( wartosc )
 {
 }
 
-Masa::Masa( const type_name& f )
-	: PodstawowyInterfejs(f)
+Masa::Masa( const type_name& wartosc )
+	: PodstawowyInterfejs(wartosc)
 {
 }
 
 Masa::~Masa(){
 }
 
-bool Masa::operator==( const Masa& a)const{
-	return wartosc_==a.wartosc_;
+bool Masa::operator==( const Masa& wartosc)const{
+	return wartosc_==wartosc.wartosc_;
 }
 
-bool Masa::operator!=( const Masa& a)const{
-	return wartosc_!=a.wartosc_;
+bool Masa::operator!=( const Masa& wartosc)const{
+	return wartosc_!=wartosc.wartosc_;
 }
 
-bool Masa::operator<( const Masa& a )const{
-	return wartosc_ < a.wartosc_;
+bool Masa::operator<( const Masa& wartosc )const{
+	return wartosc_ < wartosc.wartosc_;
 }
 
-bool Masa::operator<=( const Masa& a )const{
-	return wartosc_ <= a.wartosc_;
+bool Masa::operator<=( const Masa& wartosc )const{
+	return wartosc_ <= wartosc.wartosc_;
 }
 
-bool Masa::operator>( const Masa& a )const{
-	return wartosc_ > a.wartosc_;
+bool Masa::operator>( const Masa& wartosc )const{
+	return wartosc_ > wartosc.wartosc_;
 }
 
-bool Masa::operator>=( const Masa& a )const{
-	return wartosc_ >= a.wartosc_;
+bool Masa::operator>=( const Masa& wartosc )const{
+	return wartosc_ >= wartosc.wartosc_;
 }
 
-Masa& Masa::operator=( const Masa& p ){
-	wartosc_ = p.wartosc_;
+Masa& Masa::operator=( const Masa& wartosc ){
+	wartosc_ = wartosc.wartosc_;
 	return *this;
 }
 
-Masa& Masa::operator-=( const Masa& p ){
-	wartosc_ -= p.wartosc_;
+Masa& Masa::operator-=( const Masa& wartosc ){
+	wartosc_ -= wartosc.wartosc_;
 	return *this;
 }
 
-Masa& Masa::operator+=( const Masa& p ){
-	wartosc_ += p.wartosc_;
+Masa& Masa::operator+=( const Masa& wartosc ){
+	wartosc_ += wartosc.wartosc_;
 	return *this;
 }
 
-Masa Masa::operator-( const Masa& p )const{
-	return Masa( wartosc_ - p.wartosc_ );
+Masa Masa::operator-( const Masa& wartosc )const{
+	return Masa( wartosc_ - wartosc.wartosc_ );
 }
 
-Masa Masa::operator+( const Masa& p )const{
-	return Masa( wartosc_ + p.wartosc_ );
+Masa Masa::operator+( const Masa& wartosc )const{
+	return Masa( wartosc_ + wartosc.wartosc_ );
 }
 
-Masa Masa::operator*( const Fluktuacja& f )const{
-	return Masa( wartosc_ * f() );
+Masa Masa::operator*( const Fluktuacja& wartosc )const{
+	return Masa( wartosc_ * wartosc() );
 }
 
-Masa& Masa::operator*=( const Fluktuacja& f ){
-	wartosc_ *= f();
+Masa& Masa::operator*=( const Fluktuacja& wartosc ){
+	wartosc_ *= wartosc();
 	return *this;
 }
 
-Masa Masa::operator*( const Ilosc& f )const{
-	return Masa( wartosc_ * f() );
+Masa Masa::operator*( const Ilosc& wartosc )const{
+	return Masa( wartosc_ * wartosc() );
 }
 
-Masa& Masa::operator*=( const Ilosc& f ){
-	wartosc_ *= f();
+Masa& Masa::operator*=( const Ilosc& wartosc ){
+	wartosc_ *= wartosc();
 	return *this;
 }
-
 
 string Masa::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(Masa),wartosc_);
