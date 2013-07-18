@@ -1,45 +1,46 @@
 #include "Bool.h"
 #include "Logger.h"
 #include "Stale.h"
+#include <iomanip>
 
 Bool::Bool()
 	: PodstawowyInterfejs( Stale::boolDomyslny )
 {
 }
 
-Bool::Bool( const Bool& b )
-	: PodstawowyInterfejs(b)
+Bool::Bool( const Bool& wartosc )
+	: PodstawowyInterfejs(wartosc)
 {
 }
 
-Bool::Bool( const type_name& t )
-	: PodstawowyInterfejs(t)
+Bool::Bool( const type_name& wartosc )
+	: PodstawowyInterfejs(wartosc)
 {
 }
 
 Bool::~Bool(){
 }
 
-bool Bool::operator==( const Bool& b )const{
-	return wartosc_ == b.wartosc_;
+bool Bool::operator==( const Bool& wartosc )const{
+	return wartosc_ == wartosc.wartosc_;
 }
 
-bool Bool::operator!=( const Bool& b )const{
-	return wartosc_ != b.wartosc_;
+bool Bool::operator!=( const Bool& wartosc )const{
+	return wartosc_ != wartosc.wartosc_;
 }
 
-Bool& Bool::operator=( const Bool& b ){
-	wartosc_ = b.wartosc_;
+Bool& Bool::operator=( const Bool& wartosc ){
+	wartosc_ = wartosc.wartosc_;
 	return *this;
 }
 
-Bool& Bool::operator=( const type_name& b ){
-	wartosc_ = b;
+Bool& Bool::operator=( const type_name& wartosc ){
+	wartosc_ = wartosc;
 	return *this;
 }
 
 string Bool::napis() const{
 	stringstream str;
-	str << boolalpha << wartosc_;
+	str << std::boolalpha << wartosc_;
 	return str.str();
 } 
