@@ -1,5 +1,6 @@
 #include "TestyJednostkowe.h"
 #include <iostream>
+#include <sstream>
 #include "OgolnyWyjatek.h"
 
 TestyJednostkowe::TestyJednostkowe()

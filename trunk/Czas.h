@@ -22,6 +22,7 @@ public:
 
 	/**
 	* \brief Konstruktor kopiuj¹cy.
+	*
 	* Metoda ustawia wartoœæ atrybutu na tak¹ jak jest podana w parametrze konstruktora.
 	* \param[in] wartosc - Wartoœæ na jak¹ ma byæ ustawiony atrybut klasy.
 	*/
@@ -29,6 +30,7 @@ public:
 
 	/**
 	* \brief Konstruktor.
+	*
 	* Metoda ustawia wartoœæ atrybutu na tak¹ jak jest podana w parametrze konstruktora.
 	* \param[in] wartosc - Wartoœæ na jak¹ ma byæ ustawiony atrybut klasy.
 	*/
@@ -41,31 +43,36 @@ public:
 
 	/**
 	* \brief Operator równoœci.
+	*
 	* \param[in] wartosc - Wartoœæ porównywana z atrybutem klasy.
 	*/
 	bool operator==( const Czas& wartosc )const;
 
 	/**
 	* \brief Operator nierownoœci.
+	*
 	* \param[in] wartosc - Wartoœæ porównywana z atrybutem klasy.
 	*/
 	bool operator!=( const Czas& wartosc )const;
 
 	/**
 	* \brief Operator przypisania.
-	* \param[in] wartosc - Wartoœæ na jak¹ ma byæ ustawiony atrybut klasy.
+	*
+	* \param[in] wartosc - Wartoœæ jaka ma byæ ustawiony atrybut klasy.
 	*/
 	Czas& operator=( const Czas& wartosc );
 
 	/**
 	* \brief Operator przypisania i sumy.
-	* \param[in] wartosc - Wartoœæ na jak¹ ma byæ dodana do atrybut klasy.
+	*
+	* \param[in] wartosc - Wartoœæ jaka ma byæ dodana do atrybut klasy.
 	*/
 	Czas& operator+=( const Czas& wartosc );
 
 	/**
 	* \brief Operator przypisania.
-	* \param[in] wartosc - Wartoœæ na jak¹ ma byæ ustawiony atrybut klasy.
+	*
+	* \param[in] wartosc - Wartoœæ jaka ma byæ ustawiony atrybut klasy.
 	*/
 	Czas& operator=( const type_name& wartosc );
 

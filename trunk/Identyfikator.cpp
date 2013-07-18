@@ -2,42 +2,40 @@
 #include "Logger.h"
 #include <iomanip>
 #include "Stale.h"
-#include "WyjatekParseraXML.h"
 
 Identyfikator::Identyfikator()
 	: PodstawowyInterfejs(Stale::idDomyslny)
 {
 }
 
-Identyfikator::Identyfikator( const type_name& ID )
-	: PodstawowyInterfejs(ID)
+Identyfikator::Identyfikator( const type_name& wartosc )
+	: PodstawowyInterfejs(wartosc)
 {
 }
 
-Identyfikator::Identyfikator( const Ilosc& ID )
-	: PodstawowyInterfejs(static_cast<type_name>(ID()))
+Identyfikator::Identyfikator( const Ilosc& wartosc )
+	: PodstawowyInterfejs(static_cast<type_name>(wartosc()))
 {
 }
 
-Identyfikator::Identyfikator( const Identyfikator& a )
-	: PodstawowyInterfejs(a)
+Identyfikator::Identyfikator( const Identyfikator& wartosc )
+	: PodstawowyInterfejs(wartosc)
 {
 }
 
 Identyfikator::~Identyfikator(){
 }
 
-
-bool Identyfikator::operator==( const Identyfikator& a )const{
-	return wartosc_==a.wartosc_;
+bool Identyfikator::operator==( const Identyfikator& wartosc )const{
+	return wartosc_==wartosc.wartosc_;
 }
 
-bool Identyfikator::operator!=( const Identyfikator& a )const{
-	return wartosc_!=a.wartosc_;
+bool Identyfikator::operator!=( const Identyfikator& wartosc )const{
+	return wartosc_!=wartosc.wartosc_;
 }
 
-bool Identyfikator::operator<( const Identyfikator& a )const{
-	return wartosc_<a.wartosc_;
+bool Identyfikator::operator<( const Identyfikator& wartosc )const{
+	return wartosc_<wartosc.wartosc_;
 }
 
 Identyfikator::operator size_t()const{
@@ -46,7 +44,7 @@ Identyfikator::operator size_t()const{
 
 string Identyfikator::napis()const{
 	stringstream str;
-	str.imbue(locale::classic());
-	str << "0x"<< uppercase << hex << wartosc_;
+	str.imbue(std::locale::classic());
+	str << "0x"<< std::uppercase << std::hex << wartosc_;
 	return str.str();
 }

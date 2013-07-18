@@ -21,6 +21,7 @@ public:
 
 	/**
 	* \brief Konstruktor kopiuj¹cy.
+	*
 	* Metoda ustawia wartoœæ atrybutu na tak¹ jak jest podana w parametrze konstruktora.
 	* \param[in] wartosc - Wartoœæ na jak¹ ma byæ ustawiony atrybut klasy.
 	*/
@@ -28,6 +29,7 @@ public:
 
 	/**
 	* \brief Konstruktor.
+	*
 	* Metoda ustawia wartoœæ atrybutu na tak¹ jak jest podana w parametrze konstruktora.
 	* \param[in] wartosc - Wartoœæ na jak¹ ma byæ ustawiony atrybut klasy.
 	*/
@@ -40,67 +42,78 @@ public:
 
 	/**
 	* \brief Operator równoœci.
+	*
 	* \param[in] wartosc - Wartoœæ porównywana z atrybutem klasy.
 	*/
 	bool operator==( const Dystans& wartosc )const;
 
 	/**
 	* \brief Operator nierównoœci.
+	*
 	* \param[in] wartosc - Wartoœæ porównywana z atrybutem klasy.
 	*/
 	bool operator!=( const Dystans& wartosc )const;
 
 	/**
 	* \brief Operator s³abej mniejszoœci.
+	*
 	* \param[in] wartosc - Wartoœæ porównywana z atrybutem klasy.
 	*/
 	bool operator<( const Dystans& wartosc )const;
 
 	/**
 	* \brief Operator mniejszoœci.
+	*
 	* \param[in] wartosc - Wartoœæ porównywana z atrybutem klasy.
 	*/
 	bool operator<=( const Dystans& wartosc )const;
 
 	/**
 	* \brief Operator s³abej wiêkszoœci.
+	*
 	* \param[in] wartosc - Wartoœæ porównywana z atrybutem klasy.
 	*/
 	bool operator>( const Dystans& wartosc )const;
 
 	/**
 	* \brief Operator wiêkszoœci.
+	*
 	* \param[in] wartosc - Wartoœæ porównywana z atrybutem klasy.
 	*/
 	bool operator>=( const Dystans& wartosc )const;
 
 	/**
 	* \brief Operator przypisania.
+	*
 	* \param[in] wartosc - Wartoœæ na jak¹ ma byæ ustawiony atrybut klasy.
 	*/
 	Dystans& operator=( const Dystans& wartosc );
 
 	/**
 	* \brief Operator przypisania i ró¿nicy.
-	* \param[in] wartosc - Wartoœæ na jak¹ ma byæ odjêta do atrybut klasy.
+	*
+	* \param[in] wartosc - Wartoœæ  jaka ma byæ odjêta do atrybut klasy.
 	*/
 	Dystans& operator-=( const Dystans& wartosc );
 
 	/**
 	* \brief Operator przypisania i sumy.
-	* \param[in] wartosc - Wartoœæ na jak¹ ma byæ dodana do atrybut klasy.
+	*
+	* \param[in] wartosc - Wartoœæ  jaka ma byæ dodana do atrybut klasy.
 	*/
 	Dystans& operator+=( const Dystans& wartosc );
 
 	/**
 	* \brief Operator ró¿nicy.
-	* \param[in] wartosc - Wartoœæ na jak¹ ma byæ odjêta do atrybut klasy.
+	*
+	* \param[in] wartosc - Wartoœæ jaka ma byæ odjêta do atrybut klasy.
 	*/
 	Dystans operator-( const Dystans& wartosc )const;
 
 	/**
 	* \brief Operator sumy.
-	* \param[in] wartosc - Wartoœæ na jak¹ ma byæ dodana do atrybut klasy.
+	*
+	* \param[in] wartosc - Wartoœæ jaka ma byæ dodana do atrybut klasy.
 	*/
 	Dystans operator+( const Dystans& wartosc )const;
 
