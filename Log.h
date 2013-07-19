@@ -200,7 +200,7 @@ public:
 	/**
 	* Funkcja polecaj¹ca aktualn¹ datê i czas.
 	* \return Aktualna data i czas.
-	* \warn Format zwracanych danych jest definiowany przez ustawFormatCzasu.
+	* \warning Format zwracanych danych jest definiowany przez ustawFormatCzasu.
 	* \sa ustawFormatCzasu()
 	*/
 	string pobierzDateCzas() const;
