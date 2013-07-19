@@ -1,18 +1,19 @@
 #include "Klucz.h"
 #include "Logger.h"
-
+#include <ostream>
+using std::ostream;
 ostream& operator<< (ostream& out, const Klucz::type_name& base){
 	out << base.first.napis() << " " << base.second.napis() ;
 	return out;
 }
 
 Klucz::Klucz()
-	: PodstawowyInterfejs( make_pair< Identyfikator , Poziom >( Identyfikator() , Poziom() ) ) 
+	: PodstawowyInterfejs( std::make_pair< Identyfikator , Poziom >( Identyfikator() , Poziom() ) ) 
 {
 }
 
 Klucz::Klucz( const Identyfikator& identyfikator , const Poziom& poziom )
-	: PodstawowyInterfejs( make_pair<Identyfikator,Poziom>( Identyfikator(identyfikator) , Poziom(poziom) ) )
+	: PodstawowyInterfejs( std::make_pair<Identyfikator,Poziom>( Identyfikator(identyfikator) , Poziom(poziom) ) )
 {
 }
 

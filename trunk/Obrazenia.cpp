@@ -7,66 +7,66 @@ Obrazenia::Obrazenia()
 {
 }
 
-Obrazenia::Obrazenia( const Obrazenia& a )
-	: PodstawowyInterfejs(a)
+Obrazenia::Obrazenia( const Obrazenia& wartosc )
+	: PodstawowyInterfejs(wartosc)
 {
 }
 
-Obrazenia::Obrazenia( const type_name& f )
-	: PodstawowyInterfejs(f)
+Obrazenia::Obrazenia( const type_name& wartosc )
+	: PodstawowyInterfejs(wartosc)
 {
 }
 
 Obrazenia::~Obrazenia(){
 }
 
-bool Obrazenia::operator==( const Obrazenia& a)const{
-	return wartosc_==a.wartosc_;
+bool Obrazenia::operator==( const Obrazenia& wartosc)const{
+	return wartosc_==wartosc.wartosc_;
 }
 
-bool Obrazenia::operator!=( const Obrazenia& a)const{
-	return wartosc_!=a.wartosc_;
+bool Obrazenia::operator!=( const Obrazenia& wartosc)const{
+	return wartosc_!=wartosc.wartosc_;
 }
 
-bool Obrazenia::operator<( const Obrazenia& a )const{
-	return wartosc_ < a.wartosc_;
+bool Obrazenia::operator<( const Obrazenia& wartosc )const{
+	return wartosc_ < wartosc.wartosc_;
 }
 
-bool Obrazenia::operator<=( const Obrazenia& a )const{
-	return wartosc_ <= a.wartosc_;
+bool Obrazenia::operator<=( const Obrazenia& wartosc )const{
+	return wartosc_ <= wartosc.wartosc_;
 }
 
-bool Obrazenia::operator>( const Obrazenia& a )const{
-	return wartosc_ > a.wartosc_;
+bool Obrazenia::operator>( const Obrazenia& wartosc )const{
+	return wartosc_ > wartosc.wartosc_;
 }
 
-bool Obrazenia::operator>=( const Obrazenia& a )const{
-	return wartosc_ >= a.wartosc_;
+bool Obrazenia::operator>=( const Obrazenia& wartosc )const{
+	return wartosc_ >= wartosc.wartosc_;
 }
 
-Obrazenia& Obrazenia::operator=( const Obrazenia& p ){
-	wartosc_ = p.wartosc_;
+Obrazenia& Obrazenia::operator=( const Obrazenia& wartosc ){
+	wartosc_ = wartosc.wartosc_;
 	return *this;
 }
 
-Obrazenia& Obrazenia::operator-=( const Obrazenia& p ){
-	wartosc_ -= p.wartosc_;
+Obrazenia& Obrazenia::operator-=( const Obrazenia& wartosc ){
+	wartosc_ -= wartosc.wartosc_;
 	return *this;
 }
 
-Obrazenia& Obrazenia::operator+=( const Obrazenia& p ){
-	wartosc_ += p.wartosc_;
+Obrazenia& Obrazenia::operator+=( const Obrazenia& wartosc ){
+	wartosc_ += wartosc.wartosc_;
 	return *this;
 }
 
-Obrazenia Obrazenia::operator-( const Obrazenia& p )const{
-	return Obrazenia( wartosc_ - p.wartosc_ );
+Obrazenia Obrazenia::operator-( const Obrazenia& wartosc )const{
+	return Obrazenia( wartosc_ - wartosc.wartosc_ );
 }
 
-Obrazenia Obrazenia::operator+( const Obrazenia& p )const{
-	return Obrazenia( wartosc_ + p.wartosc_ );
+Obrazenia Obrazenia::operator+( const Obrazenia& wartosc )const{
+	return Obrazenia( wartosc_ + wartosc.wartosc_ );
 }
 
 string Obrazenia::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(Obrazenia),wartosc_);
-} 
+}

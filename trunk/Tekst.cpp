@@ -24,26 +24,26 @@ bool Tekst::isEmpty() const{
 	return wartosc_.size() == 0;
 }
 
-Tekst Tekst::operator+( const Tekst& a ) const{
-	return Tekst( wartosc_ + a.wartosc_ );
+Tekst Tekst::operator+( const Tekst& wartosc ) const{
+	return Tekst( wartosc_ + wartosc.wartosc_ );
 }
 
-Tekst& Tekst::operator+=( const Tekst& a ){
-	wartosc_+=a.wartosc_;
+Tekst& Tekst::operator+=( const Tekst& wartosc ){
+	wartosc_+=wartosc.wartosc_;
 	return *this;
 }
 
-Tekst& Tekst::operator=( const Tekst& a ){
-	wartosc_ = a.wartosc_;
+Tekst& Tekst::operator=( const Tekst& wartosc ){
+	wartosc_ = wartosc.wartosc_;
 	return *this;
 }
 
-bool Tekst::operator==( const Tekst& a ) const{
-	return wartosc_ == a.wartosc_;
+bool Tekst::operator==( const Tekst& wartosc ) const{
+	return wartosc_ == wartosc.wartosc_;
 }
 
-bool Tekst::operator!=( const Tekst& a ) const{
-	return wartosc_ != a.wartosc_;
+bool Tekst::operator!=( const Tekst& wartosc ) const{
+	return wartosc_ != wartosc.wartosc_;
 }
 
 string Tekst::napis()const {

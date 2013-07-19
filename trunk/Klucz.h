@@ -3,7 +3,8 @@
 #include "TypyProste.h"
 #include "Poziom.h"
 #include "Identyfikator.h"
-
+#include <utility>
+using std::pair;
 /**
 * \brief Klas przechowujaca klucz.
 *

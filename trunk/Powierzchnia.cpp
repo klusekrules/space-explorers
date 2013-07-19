@@ -7,83 +7,83 @@ Powierzchnia::Powierzchnia()
 {
 }
 
-Powierzchnia::Powierzchnia( const Powierzchnia& a )
-	: PodstawowyInterfejs( a )
+Powierzchnia::Powierzchnia( const Powierzchnia& wartosc )
+	: PodstawowyInterfejs( wartosc )
 {
 }
 
-Powierzchnia::Powierzchnia( const type_name& f )
-	: PodstawowyInterfejs(f)
+Powierzchnia::Powierzchnia( const type_name& wartosc )
+	: PodstawowyInterfejs(wartosc)
 {
 }
 
 Powierzchnia::~Powierzchnia(){
 }
 
-bool Powierzchnia::operator==( const Powierzchnia& a)const{
-	return wartosc_==a.wartosc_;
+bool Powierzchnia::operator==( const Powierzchnia& wartosc)const{
+	return wartosc_==wartosc.wartosc_;
 }
 
-bool Powierzchnia::operator!=( const Powierzchnia& a)const{
-	return wartosc_!=a.wartosc_;
+bool Powierzchnia::operator!=( const Powierzchnia& wartosc)const{
+	return wartosc_!=wartosc.wartosc_;
 }
 
-bool Powierzchnia::operator<( const Powierzchnia& a )const{
-	return wartosc_ < a.wartosc_;
+bool Powierzchnia::operator<( const Powierzchnia& wartosc )const{
+	return wartosc_ < wartosc.wartosc_;
 }
 
-bool Powierzchnia::operator<=( const Powierzchnia& a )const{
-	return wartosc_ <= a.wartosc_;
+bool Powierzchnia::operator<=( const Powierzchnia& wartosc )const{
+	return wartosc_ <= wartosc.wartosc_;
 }
 
-bool Powierzchnia::operator>( const Powierzchnia& a )const{
-	return wartosc_ > a.wartosc_;
+bool Powierzchnia::operator>( const Powierzchnia& wartosc )const{
+	return wartosc_ > wartosc.wartosc_;
 }
 
-bool Powierzchnia::operator>=( const Powierzchnia& a )const{
-	return wartosc_ >= a.wartosc_;
+bool Powierzchnia::operator>=( const Powierzchnia& wartosc )const{
+	return wartosc_ >= wartosc.wartosc_;
 }
 
-Powierzchnia& Powierzchnia::operator=( const Powierzchnia& p ){
-	wartosc_ = p.wartosc_;
+Powierzchnia& Powierzchnia::operator=( const Powierzchnia& wartosc ){
+	wartosc_ = wartosc.wartosc_;
 	return *this;
 }
 
-Powierzchnia& Powierzchnia::operator-=( const Powierzchnia& p ){
-	wartosc_ -= p.wartosc_;
+Powierzchnia& Powierzchnia::operator-=( const Powierzchnia& wartosc ){
+	wartosc_ -= wartosc.wartosc_;
 	return *this;
 }
 
-Powierzchnia& Powierzchnia::operator+=( const Powierzchnia& p ){
-	wartosc_ += p.wartosc_;
+Powierzchnia& Powierzchnia::operator+=( const Powierzchnia& wartosc ){
+	wartosc_ += wartosc.wartosc_;
 	return *this;
 }
 
-Powierzchnia Powierzchnia::operator-( const Powierzchnia& p )const{
-	return Powierzchnia( wartosc_ - p.wartosc_ );
+Powierzchnia Powierzchnia::operator-( const Powierzchnia& wartosc )const{
+	return Powierzchnia( wartosc_ - wartosc.wartosc_ );
 }
 
-Powierzchnia Powierzchnia::operator+( const Powierzchnia& p )const{
-	return Powierzchnia( wartosc_ + p.wartosc_ );
+Powierzchnia Powierzchnia::operator+( const Powierzchnia& wartosc )const{
+	return Powierzchnia( wartosc_ + wartosc.wartosc_ );
 }
 
-Powierzchnia Powierzchnia::operator*( const Fluktuacja& f )const{
-	return Powierzchnia( wartosc_ * f() );
+Powierzchnia Powierzchnia::operator*( const Fluktuacja& wartosc )const{
+	return Powierzchnia( wartosc_ * wartosc() );
 }
 
-Powierzchnia& Powierzchnia::operator*=( const Fluktuacja& f ){
-	wartosc_ *= f();
+Powierzchnia& Powierzchnia::operator*=( const Fluktuacja& wartosc ){
+	wartosc_ *= wartosc();
 	return *this;
 }
-Powierzchnia Powierzchnia::operator*( const Ilosc& f )const{
-	return Powierzchnia( wartosc_ * f() );
+Powierzchnia Powierzchnia::operator*( const Ilosc& wartosc )const{
+	return Powierzchnia( wartosc_ * wartosc() );
 }
 
-Powierzchnia& Powierzchnia::operator*=( const Ilosc& f ){
-	wartosc_ *= f();
+Powierzchnia& Powierzchnia::operator*=( const Ilosc& wartosc ){
+	wartosc_ *= wartosc();
 	return *this;
 }
 
 string Powierzchnia::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(Powierzchnia),wartosc_);
-} 
+}

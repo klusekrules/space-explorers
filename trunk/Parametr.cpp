@@ -7,21 +7,21 @@ Parametr::Parametr()
 {
 }
 
-Parametr::Parametr( const type_name& t )
-	: PodstawowyInterfejs(t)
+Parametr::Parametr( const type_name& wartosc )
+	: PodstawowyInterfejs(wartosc)
 {
 }
 
-Parametr::Parametr( const Parametr& a )	
-	: PodstawowyInterfejs(a)
+Parametr::Parametr( const Parametr& wartosc )	
+	: PodstawowyInterfejs(wartosc)
 {
 }
 
 Parametr::~Parametr(){
 }
 
-Parametr& Parametr::operator=( const Parametr& p ){
-	wartosc_=p.wartosc_;
+Parametr& Parametr::operator=( const Parametr& wartosc ){
+	wartosc_=wartosc.wartosc_;
 	return *this;
 }
 
