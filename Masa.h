@@ -1,5 +1,5 @@
 #pragma once
-#include "Main.h"
+#include "Logger\LoggerInterface.h"
 #include "TypyProste.h"
 #include "Fluktuacja.h"
 #include "Ilosc.h"
@@ -10,7 +10,7 @@
 * Klasa reprezentuj¹ca masê.
 * \author Daniel Wojdak
 * \version 1
-* \date 18-07-2013
+* \date 19-07-2013
 */
 class Masa:
 	virtual public LoggerInterface,

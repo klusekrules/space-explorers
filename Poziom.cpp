@@ -7,64 +7,64 @@ Poziom::Poziom()
 {
 }
 
-Poziom::Poziom( const type_name& poziom )
-	: PodstawowyInterfejs(poziom)
+Poziom::Poziom( const type_name& wartosc )
+	: PodstawowyInterfejs(wartosc)
 {
 }
 
-Poziom::Poziom( const Poziom& poziom )
-	: PodstawowyInterfejs( poziom )
+Poziom::Poziom( const Poziom& wartosc )
+	: PodstawowyInterfejs( wartosc )
 {	
 }
 
 Poziom::~Poziom(){
 }
 
-bool Poziom::operator==( const Poziom& a)const{
-	return wartosc_==a.wartosc_;
+bool Poziom::operator==( const Poziom& wartosc)const{
+	return wartosc_==wartosc.wartosc_;
 }
 
-bool Poziom::operator!=( const Poziom& a)const{
-	return wartosc_!=a.wartosc_;
+bool Poziom::operator!=( const Poziom& wartosc)const{
+	return wartosc_!=wartosc.wartosc_;
 }
 
-bool Poziom::operator<( const Poziom& a )const{
-	return wartosc_ < a.wartosc_;
+bool Poziom::operator<( const Poziom& wartosc )const{
+	return wartosc_ < wartosc.wartosc_;
 }
 
-bool Poziom::operator<=( const Poziom& a )const{
-	return wartosc_ <= a.wartosc_;
+bool Poziom::operator<=( const Poziom& wartosc )const{
+	return wartosc_ <= wartosc.wartosc_;
 }
 
-bool Poziom::operator>( const Poziom& a )const{
-	return wartosc_ > a.wartosc_;
+bool Poziom::operator>( const Poziom& wartosc )const{
+	return wartosc_ > wartosc.wartosc_;
 }
 
-bool Poziom::operator>=( const Poziom& a )const{
-	return wartosc_ >= a.wartosc_;
+bool Poziom::operator>=( const Poziom& wartosc )const{
+	return wartosc_ >= wartosc.wartosc_;
 }
 
-Poziom& Poziom::operator=( const Poziom& p ){
-	wartosc_ = p.wartosc_;
+Poziom& Poziom::operator=( const Poziom& wartosc ){
+	wartosc_ = wartosc.wartosc_;
 	return *this;
 }
 
-Poziom& Poziom::operator-=( const Poziom& p ){
-	wartosc_ -= p.wartosc_;
+Poziom& Poziom::operator-=( const Poziom& wartosc ){
+	wartosc_ -= wartosc.wartosc_;
 	return *this;
 }
 
-Poziom& Poziom::operator+=( const Poziom& p ){
-	wartosc_ += p.wartosc_;
+Poziom& Poziom::operator+=( const Poziom& wartosc ){
+	wartosc_ += wartosc.wartosc_;
 	return *this;
 }
 
-Poziom Poziom::operator-( const Poziom& p )const{
-	return Poziom( wartosc_ - p.wartosc_ );
+Poziom Poziom::operator-( const Poziom& wartosc )const{
+	return Poziom( wartosc_ - wartosc.wartosc_ );
 }
 
-Poziom Poziom::operator+( const Poziom& p )const{
-	return Poziom( wartosc_ + p.wartosc_ );
+Poziom Poziom::operator+( const Poziom& wartosc )const{
+	return Poziom( wartosc_ + wartosc.wartosc_ );
 }
 
 Poziom& Poziom::operator++( ){

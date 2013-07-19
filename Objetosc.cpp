@@ -7,94 +7,94 @@ Objetosc::Objetosc()
 {
 }
 
-Objetosc::Objetosc( const Objetosc& a )
-	: PodstawowyInterfejs( a )
+Objetosc::Objetosc( const Objetosc& wartosc )
+	: PodstawowyInterfejs( wartosc )
 {
 }
 
-Objetosc::Objetosc( const type_name& f )
-	: PodstawowyInterfejs(f)
+Objetosc::Objetosc( const type_name& wartosc )
+	: PodstawowyInterfejs(wartosc)
 {
 }
 
 Objetosc::~Objetosc(){
 }
 
-bool Objetosc::operator==( const Objetosc& a)const{
-	return wartosc_==a.wartosc_;
+bool Objetosc::operator==( const Objetosc& wartosc)const{
+	return wartosc_==wartosc.wartosc_;
 }
 
-bool Objetosc::operator!=( const Objetosc& a)const{
-	return wartosc_!=a.wartosc_;
+bool Objetosc::operator!=( const Objetosc& wartosc)const{
+	return wartosc_!=wartosc.wartosc_;
 }
 
-bool Objetosc::operator<( const Objetosc& a )const{
-	return wartosc_ < a.wartosc_;
+bool Objetosc::operator<( const Objetosc& wartosc )const{
+	return wartosc_ < wartosc.wartosc_;
 }
 
-bool Objetosc::operator<=( const Objetosc& a )const{
-	return wartosc_ <= a.wartosc_;
+bool Objetosc::operator<=( const Objetosc& wartosc )const{
+	return wartosc_ <= wartosc.wartosc_;
 }
 
-bool Objetosc::operator>( const Objetosc& a )const{
-	return wartosc_ > a.wartosc_;
+bool Objetosc::operator>( const Objetosc& wartosc )const{
+	return wartosc_ > wartosc.wartosc_;
 }
 
-bool Objetosc::operator>=( const Objetosc& a )const{
-	return wartosc_ >= a.wartosc_;
+bool Objetosc::operator>=( const Objetosc& wartosc )const{
+	return wartosc_ >= wartosc.wartosc_;
 }
 
-Objetosc& Objetosc::operator=( const Objetosc& p ){
-	wartosc_ = p.wartosc_;
+Objetosc& Objetosc::operator=( const Objetosc& wartosc ){
+	wartosc_ = wartosc.wartosc_;
 	return *this;
 }
 
-Objetosc& Objetosc::operator-=( const Objetosc& p ){
-	wartosc_ -= p.wartosc_;
+Objetosc& Objetosc::operator-=( const Objetosc& wartosc ){
+	wartosc_ -= wartosc.wartosc_;
 	return *this;
 }
 
-Objetosc& Objetosc::operator+=( const Objetosc& p ){
-	wartosc_ += p.wartosc_;
+Objetosc& Objetosc::operator+=( const Objetosc& wartosc ){
+	wartosc_ += wartosc.wartosc_;
 	return *this;
 }
 
-Objetosc Objetosc::operator-( const Objetosc& p )const{
-	return Objetosc( wartosc_ - p.wartosc_ );
+Objetosc Objetosc::operator-( const Objetosc& wartosc )const{
+	return Objetosc( wartosc_ - wartosc.wartosc_ );
 }
 
-Objetosc Objetosc::operator+( const Objetosc& p )const{
-	return Objetosc( wartosc_ + p.wartosc_ );
+Objetosc Objetosc::operator+( const Objetosc& wartosc )const{
+	return Objetosc( wartosc_ + wartosc.wartosc_ );
 }
 
-Objetosc Objetosc::operator*( const Ilosc& f )const{
-	return Objetosc( wartosc_ * f() );
+Objetosc Objetosc::operator*( const Ilosc& wartosc )const{
+	return Objetosc( wartosc_ * wartosc() );
 }
 
-Objetosc& Objetosc::operator*=( const Ilosc& f ){
-	wartosc_ *= f();
+Objetosc& Objetosc::operator*=( const Ilosc& wartosc ){
+	wartosc_ *= wartosc();
 	return *this; 
 }
 
-Objetosc Objetosc::operator*( const Fluktuacja& f )const{
-	return Objetosc( wartosc_ * f() );
+Objetosc Objetosc::operator*( const Fluktuacja& wartosc )const{
+	return Objetosc( wartosc_ * wartosc() );
 }
 
-Objetosc& Objetosc::operator*=( const Fluktuacja& f ){
-	wartosc_ *= f();
+Objetosc& Objetosc::operator*=( const Fluktuacja& wartosc ){
+	wartosc_ *= wartosc();
 	return *this; 
 }
-Objetosc Objetosc::operator/( const Ilosc& o )const{
-	return Objetosc( wartosc_ / static_cast<type_name>(o()) );
+Objetosc Objetosc::operator/( const Ilosc& wartosc )const{
+	return Objetosc( wartosc_ / static_cast<type_name>(wartosc()) );
 }
 
-Fluktuacja Objetosc::operator/( const Objetosc& o )const{
-	return Fluktuacja( static_cast<const float>(wartosc_ / o.wartosc_) );
+Fluktuacja Objetosc::operator/( const Objetosc& wartosc )const{
+	return Fluktuacja( static_cast<Fluktuacja::type_name>(wartosc_ / wartosc.wartosc_) );
 }
 
 string Objetosc::napis() const{
 	stringstream str;
 	str.precision(25);
-	str<<fixed<< wartosc_;
+	str<<std::fixed<< wartosc_;
 	return str.str();
-} 
+}
