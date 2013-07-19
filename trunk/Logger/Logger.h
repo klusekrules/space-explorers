@@ -86,7 +86,7 @@ public:
 	* \param[in] opisKlasy - Opis zawartoœci klasy.
 	* \return Utworzony napis.
 	*/
-	static string tworzKlase( const string& nazwaKlasy, const string& opisKlasy );
+	static string tworzKlase( const string& nazwa, const string& opisKlasy );
 
 	/**
 	* Metoda dodaj¹ca pole o podanej nazwie i zawartoœci.
