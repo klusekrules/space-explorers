@@ -10,6 +10,9 @@
 *
 * Przechowywane przez tê klasê atrybuty, s¹ podstawowymi parametrami
 * potrzebnymi do wyliczenia wartoœci atrybutów obiektów pochodnych.
+* \author Daniel Wojdak
+* \version 1
+* \date 22-07-2013
 */
 class PodstawoweParametry :	
 	virtual public LoggerInterface,
