@@ -28,12 +28,7 @@ public:
 	* \param[in] identyfikatorPlanety - Identyfikator planety zawieraj¹cej obiekt.
 	*/
 	PodstawoweParametry( const Poziom& poziom, const Identyfikator& identyfikatorPlanety );
-
-	/**
-	* \brief Destruktor.
-	*/
-	virtual ~PodstawoweParametry(void);
-
+	
 	/**
 	* \brief Metoda pobieraj¹ca atrybut.
 	*

@@ -31,11 +31,6 @@ public:
 	explicit Bazowa( TiXmlElement * wezel );
 	
 	/**
-	* Destruktor.
-	*/
-	virtual ~Bazowa();
-
-	/**
 	* Metoda zwracaj¹ca Identyfikator obiektu.
 	* \return Identyfikator obiektu.
 	*/

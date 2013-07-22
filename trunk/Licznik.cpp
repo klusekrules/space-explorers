@@ -3,55 +3,54 @@
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
 
-Licznik::Licznik(const Identyfikator& id, const Ilosc& w)
-	: Bazowa(id), wartoscLicznika(w)
+Licznik::Licznik(const Identyfikator& identyfikator, const Ilosc& wartoscPoczatkowa)
+	: Bazowa(identyfikator), wartoscLicznika_(wartoscPoczatkowa)
 {
 }
 
-Licznik::Licznik(const Identyfikator& id)
-	: Bazowa(id), wartoscLicznika(0)
+Licznik::Licznik(const Identyfikator& identyfikator)
+	: Bazowa(identyfikator), wartoscLicznika_(0)
 {
 }
 
 Licznik::Licznik()
-	: Bazowa(Identyfikator(-1)), wartoscLicznika(0)
-{
-}
-
-Licznik::~Licznik(void)
+	: Bazowa(Identyfikator(-1)), wartoscLicznika_(0)
 {
 }
 
 Ilosc Licznik::operator()(){
-	return wartoscLicznika++;
+	return wartoscLicznika_++;
 }
 
 Ilosc Licznik::pobierzWartosc()const{
-	return wartoscLicznika;
+	return wartoscLicznika_;
 }
 
 void Licznik::resetujWartosc(){
-	wartoscLicznika = Ilosc(0);
+	wartoscLicznika_ = Ilosc(0);
 }
 
-void Licznik::ustawWartosc( const Ilosc& w ){
-	wartoscLicznika = w;
+void Licznik::ustawWartosc( const Ilosc& wartosc ){
+	wartoscLicznika_ = wartosc;
 }
 
-bool Licznik::zapisz( TiXmlElement* e ) const{
-	TiXmlElement* n = new TiXmlElement(WEZEL_XML_LICZNIK);
-	e->LinkEndChild( n );
-	n->SetAttribute(ATRYBUT_XML_ILOSC,wartoscLicznika.napis());
-	return Bazowa::zapisz(n);
+bool Licznik::zapisz( TiXmlElement* wezel ) const{
+	TiXmlElement* dziecko = new TiXmlElement(WEZEL_XML_LICZNIK);
+	wezel->LinkEndChild( dziecko );
+	dziecko->SetAttribute(ATRYBUT_XML_ILOSC,wartoscLicznika_.napis());
+	return Bazowa::zapisz(dziecko);
 }
 
-bool Licznik::odczytaj( TiXmlElement* n ){
-	if(n && Bazowa::odczytaj(n)){
-		string c = n->Attribute(ATRYBUT_XML_ILOSC);
-		if(c.empty())
+bool Licznik::odczytaj( TiXmlElement* wezel ){
+	if(wezel && Bazowa::odczytaj(wezel)){
+		auto atrybut = wezel->Attribute(ATRYBUT_XML_ILOSC);
+		if(!atrybut)
 			return false;
-		Utils::trim(c);
-		wartoscLicznika(stold(c));
+		string napisAtrybutu = atrybut;
+		Utils::trim(napisAtrybutu);
+		if(napisAtrybutu.empty())
+			return false;
+		wartoscLicznika_(stold(napisAtrybutu));
 		return true;
 	}
 	return false;
@@ -60,5 +59,6 @@ bool Licznik::odczytaj( TiXmlElement* n ){
 string Licznik::napis()const{
 	Logger str(NAZWAKLASY(Licznik));
 	str.dodajKlase(Bazowa::napis());
+	str.dodajPole("WartoœæLicznika",wartoscLicznika_);
 	return str.napis();
 }

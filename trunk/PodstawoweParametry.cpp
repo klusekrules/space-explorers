@@ -8,10 +8,6 @@ PodstawoweParametry::PodstawoweParametry( const Poziom& poziom, const Identyfika
 {
 }
 
-PodstawoweParametry::~PodstawoweParametry(void)
-{
-}
-
 const Poziom& PodstawoweParametry::pobierzPoziom() const{
 	return poziom_;
 }
