@@ -8,7 +8,7 @@ Bazowa::Bazowa( const Identyfikator& identyfikator )throw()
 {
 }
 
-Bazowa::Bazowa( TiXmlElement* wezel ) throw(WyjatekParseraXML){
+Bazowa::Bazowa( TiXmlElement* wezel ){
 	Bazowa::odczytaj(wezel);
 }
 
