@@ -1,6 +1,6 @@
 #pragma once
 #include "Logger\LoggerInterface.h"
-#include "Base.h"
+#include "Bazowa.h"
 #include "ObiektBase.h"
 #include "ObiektBaseInfo.h"
 #include <map>
@@ -14,7 +14,7 @@
 #include "Licznik.h"
 
 class Planeta:
-	public Base,
+	public Bazowa,
 	virtual public LoggerInterface,
 	virtual public Serializacja
 {

@@ -20,7 +20,7 @@ StatekInfo::~StatekInfo(){
 }
 
 const Identyfikator& StatekInfo::getId() const{
-	return ObiektInfo::getId();
+	return ObiektInfo::pobierzIdentyfikator();
 }
 
 Statek* StatekInfo::TworzEgzemplarz( const Ilosc& i, const Identyfikator& idP ) const{

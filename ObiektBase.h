@@ -1,6 +1,6 @@
 #pragma once
 #include "Main.h"
-#include "Base.h"
+#include "Bazowa.h"
 #include "Ilosc.h"
 #include "PodstawoweParametry.h"
 #include "Klucz.h"
@@ -17,7 +17,7 @@ class ObiektBaseInfo;
 * ewentualnie podzieliæ. Pozwala tak¿e na stworzeni kopii obiektu.
 */
 class ObiektBase :
-	public Base,
+	public Bazowa,
 	virtual public PodstawoweParametry,
 	virtual public LoggerInterface,
 	virtual public Serializacja

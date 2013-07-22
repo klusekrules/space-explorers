@@ -4,11 +4,11 @@
 #include "definicjeWezlowXML.h"
 
 Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const Identyfikator& id , const Wymagania& w ) throw()
-	: Base(id), nazwa( tNazwa ), opis( tOpis ), Wymagania(w)
+	: Bazowa(id), nazwa( tNazwa ), opis( tOpis ), Wymagania(w)
 {
 }
 Info::Info( TiXmlElement* n ) throw(WyjatekParseraXML)
-	: Base( n ) , Wymagania( n )
+	: Bazowa( n ) , Wymagania( n )
 {
 	if(n){
 		try{
@@ -43,7 +43,7 @@ void Info::setOpis( const Tekst& tOpis ){
 
 string Info::napis() const{
 	Logger str(NAZWAKLASY(Info));
-	str.dodajKlase(Base::napis());
+	str.dodajKlase(Bazowa::napis());
 	str.dodajKlase(Wymagania::napis());
 	str.dodajPole("Nazwa",nazwa);
 	str.dodajPole("Opis",opis);

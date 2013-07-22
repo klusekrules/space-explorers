@@ -1,12 +1,12 @@
 #pragma once
 #include "Logger\LoggerInterface.h"
 #include "Serializacja.h"
-#include "Base.h"
+#include "Bazowa.h"
 #include "Statek.h"
 #include "Klucz.h"
 
 class Flota : 
-	public Base,
+	public Bazowa,
 	virtual public LoggerInterface,
 	virtual public Serializacja
 {

@@ -56,13 +56,13 @@ bool Wymagania::dodajWymog( Wymog& o ){
 			[&o,&zamien](Wymog::TypObiektu obiekt,Wymog::Zmiana zmiana)->bool{
 				if(!obiekt)
 					return false;
-				auto id = obiekt->getId();
+				auto id = obiekt->pobierzIdentyfikator();
 				auto poziom = obiekt->getPoziom();
 				return o.wykonaj(
 					[&id,&poziom,&zamien](Wymog::TypObiektu obiekt,Wymog::Zmiana zmiana)->bool{
 							if(!obiekt)
 								return false;
-							if( id == obiekt->getId() ){
+							if( id == obiekt->pobierzIdentyfikator() ){
 								zamien = ( poziom < obiekt->getPoziom() );
 								return true;
 							}
@@ -89,13 +89,13 @@ bool Wymagania::dodajCene( Cena& o ){
 			[&o,&zamien](Cena::TypObiektu obiekt,Cena::Zmiana zmiana)->bool{
 				if(!obiekt)
 					return false;
-				auto id = obiekt->getId();
+				auto id = obiekt->pobierzIdentyfikator();
 				auto ilosc = obiekt->getIlosc();
 				return o.wykonaj(
 					[&id,&ilosc,&zamien](Cena::TypObiektu obiekt,Cena::Zmiana zmiana)->bool{
 							if(!obiekt)
 								return false;
-							if( id == obiekt->getId() ){
+							if( id == obiekt->pobierzIdentyfikator() ){
 								zamien = ( ilosc < obiekt->getIlosc() );
 								return true;
 							}
@@ -126,7 +126,7 @@ bool Wymagania::czySpelniaWymogi( const PodstawoweParametry& p ) const{
 			[&p,&poz,&id](Wymog::TypObiektu obiekt,Wymog::Zmiana zmiana)->bool{
 					if (!obiekt)
 						return false;
-					id = obiekt->getId();
+					id = obiekt->pobierzIdentyfikator();
 					if(zmiana)
 						poz = Poziom(static_cast<Poziom::type_name>(zmiana->policzWartosc(obiekt->getPoziom()(),p.getPoziom()(),p.getIdPlanety()())));
 					else
@@ -151,7 +151,7 @@ bool Wymagania::czySpelniaKoszty( const Ilosc& i, const PodstawoweParametry& p )
 			[&p,&ilosc,&id](Cena::TypObiektu obiekt,Cena::Zmiana zmiana)->bool{
 					if (!obiekt)
 						return false;
-					id = obiekt->getId();
+					id = obiekt->pobierzIdentyfikator();
 					if(zmiana)
 						ilosc = Ilosc(static_cast<Ilosc::type_name>(zmiana->policzWartosc(obiekt->getIlosc()(),p.getPoziom()(),p.getIdPlanety()())));
 					else

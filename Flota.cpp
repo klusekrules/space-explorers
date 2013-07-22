@@ -3,7 +3,7 @@
 #include "DefinicjeWezlowXML.h"
 
 Flota::Flota(const Identyfikator& id)
-	: Base(id)
+	: Bazowa(id)
 {
 }
 
@@ -52,13 +52,13 @@ bool Flota::zapisz( TiXmlElement* e ) const{
 		for(auto s : lista)
 			if(s.second)
 				s.second->zapisz(n);
-		return Base::zapisz(n);
+		return Bazowa::zapisz(n);
 	}
 	return false;
 }
 
 bool Flota::odczytaj( TiXmlElement* e ) {
-	if(e && Base::odczytaj(e)){
+	if(e && Bazowa::odczytaj(e)){
 		for(TiXmlElement* n = e->FirstChildElement(); n != nullptr ; n = n->NextSiblingElement()){
 			auto c = n->Attribute(ATRYBUT_XML_IDENTYFIKATOR);
 			if(!c)
@@ -75,7 +75,7 @@ bool Flota::odczytaj( TiXmlElement* e ) {
 
 string Flota::napis()const {
 	Logger str(NAZWAKLASY(Ladownia));
-	str.dodajKlase(Base::napis());
+	str.dodajKlase(Bazowa::napis());
 	for(auto s : lista)
 		if(s.second)
 			str.dodajPole(NAZWAKLASY(Statek),*s.second);

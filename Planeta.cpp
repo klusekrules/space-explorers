@@ -5,7 +5,7 @@
 #include "DefinicjeWezlowXML.h"
 
 Planeta::Planeta(const Identyfikator& id)
-	: Base(id), wlasciciel(nullptr),
+	: Bazowa(id), wlasciciel(nullptr),
 	pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),Identyfikator(0),Wymagania(nullptr)) , Poziom(0) )
 {
 	pustyObiektBase = shared_ptr<ObiektBase>(new ObiektBase( Ilosc(0), Poziom(0),Identyfikator(0), pustyobiekBaseInfo ));
@@ -58,40 +58,40 @@ const Budynek& Planeta::pobierzBudynek(const Identyfikator& id) const{
 }
 
 bool Planeta::dodajObiekt( shared_ptr< Budynek > ptr ){
-	auto i = listaObiektow.find(ptr->getId());
+	auto i = listaObiektow.find(ptr->pobierzIdentyfikator());
 	if(i!=listaObiektow.end())
 		return false;
-	listaBudynkow.insert(make_pair(ptr->getId(),ptr));
-	listaObiektow.insert(make_pair(ptr->getId(),ptr));
+	listaBudynkow.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
+	listaObiektow.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
 	return true;
 }
 
 bool Planeta::dodajObiekt( shared_ptr< Statek > ptr ){
-	auto i = listaObiektow.find(ptr->getId());
+	auto i = listaObiektow.find(ptr->pobierzIdentyfikator());
 	if(i!=listaObiektow.end())
 		return false;
-	listaStatkow.insert(make_pair(ptr->getId(),ptr));
-	listaObiektowZaladunkowych.insert(make_pair(ptr->getId(),ptr));
-	listaObiektow.insert(make_pair(ptr->getId(),ptr));
+	listaStatkow.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
+	listaObiektowZaladunkowych.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
+	listaObiektow.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
 	return true;
 }
 
 bool Planeta::dodajObiekt( shared_ptr< Technologia > ptr ){
-	auto i = listaObiektow.find(ptr->getId());
+	auto i = listaObiektow.find(ptr->pobierzIdentyfikator());
 	if(i!=listaObiektow.end())
 		return false;
-	listaTechnologii.insert(make_pair(ptr->getId(),ptr));
-	listaObiektow.insert(make_pair(ptr->getId(),ptr));
+	listaTechnologii.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
+	listaObiektow.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
 	return true;
 }
 
 bool Planeta::dodajObiekt( shared_ptr< Surowce > ptr ){
-	auto i = listaObiektow.find(ptr->getId());
+	auto i = listaObiektow.find(ptr->pobierzIdentyfikator());
 	if(i!=listaObiektow.end())
 		return false;
-	listaSurowcow.insert(make_pair(ptr->getId(),ptr));
-	listaObiektowZaladunkowych.insert(make_pair(ptr->getId(),ptr));
-	listaObiektow.insert(make_pair(ptr->getId(),ptr));
+	listaSurowcow.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
+	listaObiektowZaladunkowych.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
+	listaObiektow.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
 	return true;
 }
 
@@ -107,8 +107,8 @@ bool Planeta::wybuduj( const Identyfikator& id, const Ilosc& ilosc ){
 
 Identyfikator Planeta::dodajFlote(){
 	shared_ptr< Flota > ptr = shared_ptr< Flota >(new Flota(Identyfikator(idFloty())));
-	listaFlot.insert(make_pair(ptr->getId(),ptr));
-	return ptr->getId();
+	listaFlot.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
+	return ptr->pobierzIdentyfikator();
 }
 
 bool Planeta::przeniesDoFloty(const Identyfikator& floty, const Identyfikator& id, const Ilosc& ilosc){
@@ -206,7 +206,7 @@ bool Planeta::zapisz( TiXmlElement* e ) const{
 	for(auto o :  listaFlot)
 		if(!o.second->zapisz(f))
 			return false;
-	return Base::zapisz(n);
+	return Bazowa::zapisz(n);
 }
 
 bool Planeta::odczytaj( TiXmlElement* e ){
@@ -236,16 +236,16 @@ bool Planeta::odczytaj( TiXmlElement* e ){
 				auto i = listaFlot.find(id);
 				if( i != listaFlot.end() )
 					return false;
-				listaFlot.insert(make_pair(ptr->getId(),ptr));
+				listaFlot.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
 			}
-		return Base::odczytaj(e);
+		return Bazowa::odczytaj(e);
 	}
 	return false;
 }
 
 string Planeta::napis() const{
 	Logger str(NAZWAKLASY(Planeta));
-	str.dodajKlase(Base::napis());
+	str.dodajKlase(Bazowa::napis());
 	for( auto i : listaObiektow )
 		str.dodajPole("Obiekt", *(i.second));
 	return str.napis();

@@ -51,7 +51,7 @@ bool Technologia::odczytaj( TiXmlElement* e ) {
 string Technologia::napis() const{
 	Logger str(NAZWAKLASY(Technologia));
 	str.dodajKlase(ObiektBase::napis());
-	str.dodajPole(NAZWAKLASY(TechnologiaInfo)+"ID",technologiaInfo.getId());
+	str.dodajPole(NAZWAKLASY(TechnologiaInfo)+"ID",technologiaInfo.pobierzIdentyfikator());
 	return str.napis();
 }
 

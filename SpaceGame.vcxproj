@@ -208,7 +208,7 @@
   <ItemGroup>
     <ClInclude Include="afxres.h" />
     <ClInclude Include="Aplikacja.h" />
-    <ClInclude Include="Base.h" />
+    <ClInclude Include="Bazowa.h" />
     <ClInclude Include="BudynekTest.h" />
     <ClInclude Include="InicjalizacjaDanychTestowych.h" />
     <ClInclude Include="LadowniaTest.h" />
@@ -310,7 +310,7 @@
   <ItemGroup>
     <ClCompile Include="ApInfo.cpp" />
     <ClCompile Include="Aplikacja.cpp" />
-    <ClCompile Include="Base.cpp" />
+    <ClCompile Include="Bazowa.cpp" />
     <ClCompile Include="BladDzieleniaLadowni.cpp" />
     <ClCompile Include="BladLaczeniaObiektow.cpp" />
     <ClCompile Include="Bool.cpp" />

@@ -1,17 +1,33 @@
 #pragma once
 #include "parser\ticpp.h"
 
+/**
+* \brief Klasa abstrakcyjna dodaj¹ca interfejs serializacji.
+*
+* Rozsze¿a interfejs o zapis i odczyt danych z pliku xml.
+*/
 class Serializacja
 {
 public:
+	
+	/**
+	* \brief Metoda zapisuj¹ca.
+	*
+	* Metoda s³u¿¹ca do zapisu danych do wêz³a xml podanego jako parametr.
+	* \param[out] wezel - Wêze³ do którego s¹ zapisywane dane.
+	* \return Zwracana jest wartoœæ true, je¿eli zapisano obiekt poprawnie. False, je¿eli zapis siê nie powiód³.
+	* \warning Je¿eli zwrócono wartoœæ false wêze³ przekazany jako parametr nie jest zmodyfokowany.
+	*/
+	virtual bool zapisz( TiXmlElement* wezel ) const = 0;
 
-	Serializacja(){
-	}
-
-	virtual ~Serializacja(){
-	}
-
-	virtual bool zapisz( TiXmlElement* n ) const = 0;
-	virtual bool odczytaj( TiXmlElement* n ) = 0;
+	/**
+	* \brief Metoda odczytuj¹ca.
+	*
+	* Metoda s³u¿¹ca do odczytu danych z wêz³a xml podanego jako parametr.
+	* \param[in] wezel - Wêze³ z którego s¹ odczytywane dane.
+	* \return Zwracana jest wartoœæ true, je¿eli odczytano obiekt poprawnie. False, je¿eli odczyt siê nie powiód³.
+	* \warning Metoda nie modyfikuje wêz³a.
+	* \warning Je¿eli metoda zwróci wartoœæ false, obiekt mo¿e znajdowaæ siê w stanie nieustalonym. Nie jest zalecane u¿ywanie takiego obiektu.
+	*/
+	virtual bool odczytaj( TiXmlElement* wezel ) = 0;
 };
-

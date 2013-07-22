@@ -237,6 +237,6 @@ string Ladownia::napis() const{
 	Logger str(NAZWAKLASY(Ladownia));
 	str.dodajPole("Zajete Miejsce",zajete);
 	str.dodajPole(NAZWAKLASY(Zbiornik),obiekty);
-	str.dodajPole(NAZWAKLASY(LadowniaInfo)+"ID",ladowniaInfo.getId());
+	str.dodajPole(NAZWAKLASY(LadowniaInfo)+"ID",ladowniaInfo.pobierzIdentyfikator());
 	return str.napis();
 }

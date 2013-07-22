@@ -4,17 +4,17 @@
 #include "DefinicjeWezlowXML.h"
 
 Licznik::Licznik(const Identyfikator& id, const Ilosc& w)
-	: Base(id), wartoscLicznika(w)
+	: Bazowa(id), wartoscLicznika(w)
 {
 }
 
 Licznik::Licznik(const Identyfikator& id)
-	: Base(id), wartoscLicznika(0)
+	: Bazowa(id), wartoscLicznika(0)
 {
 }
 
 Licznik::Licznik()
-	: Base(Identyfikator(-1)), wartoscLicznika(0)
+	: Bazowa(Identyfikator(-1)), wartoscLicznika(0)
 {
 }
 
@@ -42,11 +42,11 @@ bool Licznik::zapisz( TiXmlElement* e ) const{
 	TiXmlElement* n = new TiXmlElement(WEZEL_XML_LICZNIK);
 	e->LinkEndChild( n );
 	n->SetAttribute(ATRYBUT_XML_ILOSC,wartoscLicznika.napis());
-	return Base::zapisz(n);
+	return Bazowa::zapisz(n);
 }
 
 bool Licznik::odczytaj( TiXmlElement* n ){
-	if(n && Base::odczytaj(n)){
+	if(n && Bazowa::odczytaj(n)){
 		string c = n->Attribute(ATRYBUT_XML_ILOSC);
 		if(c.empty())
 			return false;
@@ -59,6 +59,6 @@ bool Licznik::odczytaj( TiXmlElement* n ){
 
 string Licznik::napis()const{
 	Logger str(NAZWAKLASY(Licznik));
-	str.dodajKlase(Base::napis());
+	str.dodajKlase(Bazowa::napis());
 	return str.napis();
 }

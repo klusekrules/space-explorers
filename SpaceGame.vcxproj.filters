@@ -31,9 +31,6 @@
     <ClCompile Include="Obiekt.cpp">
       <Filter>SourceFile\BaseClass\Obiekt</Filter>
     </ClCompile>
-    <ClCompile Include="Base.cpp">
-      <Filter>SourceFile\BaseClass\Base</Filter>
-    </ClCompile>
     <ClCompile Include="ObiektBase.cpp">
       <Filter>SourceFile\BaseClass\Base</Filter>
     </ClCompile>
@@ -238,6 +235,9 @@
     <ClCompile Include="LiczenieKosztow.cpp">
       <Filter>SourceFile\Wymagania</Filter>
     </ClCompile>
+    <ClCompile Include="Bazowa.cpp">
+      <Filter>SourceFile\BaseClass\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -281,9 +281,6 @@
     </ClInclude>
     <ClInclude Include="Obiekt.h">
       <Filter>SourceFile\BaseClass\Obiekt</Filter>
-    </ClInclude>
-    <ClInclude Include="Base.h">
-      <Filter>SourceFile\BaseClass\Base</Filter>
     </ClInclude>
     <ClInclude Include="ObiektBase.h">
       <Filter>SourceFile\BaseClass\Base</Filter>
@@ -530,6 +527,9 @@
     </ClInclude>
     <ClInclude Include="LiczenieKosztow.h">
       <Filter>SourceFile\Wymagania</Filter>
+    </ClInclude>
+    <ClInclude Include="Bazowa.h">
+      <Filter>SourceFile\BaseClass\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

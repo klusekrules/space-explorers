@@ -5,12 +5,12 @@
 #include "DefinicjeWezlowXML.h"
 
 ObiektBase::ObiektBase( const Ilosc& i, const Poziom& p, const Identyfikator& idP, const ObiektBaseInfo& iInfo) throw()
-	: PodstawoweParametry(p,idP), Base(iInfo), ilosc(i), obiektBaseInfo(iInfo)
+	: PodstawoweParametry(p,idP), Bazowa(iInfo), ilosc(i), obiektBaseInfo(iInfo)
 {
 }
 
 ObiektBase::ObiektBase( const Ilosc& i, const PodstawoweParametry& p, const ObiektBaseInfo& iInfo) throw()
-	: PodstawoweParametry(p), Base(iInfo), ilosc(i), obiektBaseInfo(iInfo)
+	: PodstawoweParametry(p), Bazowa(iInfo), ilosc(i), obiektBaseInfo(iInfo)
 {
 }
 
@@ -46,12 +46,12 @@ void ObiektBase::wybuduj(const Ilosc& i){
 }
 		
 Klucz ObiektBase::ID() const{
-	return Klucz( getId() , getPoziom() );
+	return Klucz( pobierzIdentyfikator() , getPoziom() );
 }
 
 
 bool ObiektBase::czyMoznaPolaczyc( const ObiektBase& objBase )const{
-	return typeid(*this) == typeid(objBase) && objBase.getId() == getId() && objBase.getPoziom() == getPoziom();
+	return typeid(*this) == typeid(objBase) && objBase.pobierzIdentyfikator() == pobierzIdentyfikator() && objBase.getPoziom() == getPoziom();
 }
 
 bool ObiektBase::czyMoznaPodzielic( const Ilosc& i ) const{
@@ -85,7 +85,7 @@ const ObiektBaseInfo& ObiektBase::getObiektBaseInfo()const{
 
 bool ObiektBase::zapisz( TiXmlElement* e ) const {
 	e->SetAttribute(ATRYBUT_XML_ILOSC,ilosc.napis());
-	return PodstawoweParametry::zapisz(e) && Base::zapisz(e);
+	return PodstawoweParametry::zapisz(e) && Bazowa::zapisz(e);
 }
 
 bool ObiektBase::odczytaj( TiXmlElement* e ){
@@ -98,16 +98,16 @@ bool ObiektBase::odczytaj( TiXmlElement* e ){
 		if(c.empty())
 			return false;
 		ilosc(stold(c));
-		return Base::odczytaj(e) && PodstawoweParametry::odczytaj(e);
+		return Bazowa::odczytaj(e) && PodstawoweParametry::odczytaj(e);
 	}
 	return false;
 }
 
 string ObiektBase::napis() const{
 	Logger str(NAZWAKLASY(ObiektBase));
-	str.dodajKlase(Base::napis());
+	str.dodajKlase(Bazowa::napis());
 	str.dodajKlase(PodstawoweParametry::napis());
 	str.dodajPole(NAZWAKLASY(Ilosc),ilosc);
-	str.dodajPole(NAZWAKLASY(ObiektBaseInfo)+"ID",obiektBaseInfo.getId());
+	str.dodajPole(NAZWAKLASY(ObiektBaseInfo)+"ID",obiektBaseInfo.pobierzIdentyfikator());
 	return str.napis();
 }
