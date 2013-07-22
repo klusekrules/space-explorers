@@ -33,8 +33,8 @@ void StatekTest::Issue42Test(){
 }
 
 void StatekTest::Issue52Test(){
-	UNIT_TEST_ASSERT_EQUAL( Poziom(4), b->getPoziom() );
-	UNIT_TEST_ASSERT_EQUAL( Poziom(2), c->getPoziom() );
+	UNIT_TEST_ASSERT_EQUAL( Poziom(4), b->pobierzPoziom() );
+	UNIT_TEST_ASSERT_EQUAL( Poziom(2), c->pobierzPoziom() );
 }
 
 void StatekTest::JednostkaAtakujacaTest(){

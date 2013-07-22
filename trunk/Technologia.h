@@ -1,9 +1,9 @@
 #pragma once
-#include "ObiektBase.h"
+#include "ObiektBazowy.h"
 #include "Logger.h"
 
 class Technologia :
-	public ObiektBase,
+	public ObiektBazowy,
 	virtual public LoggerInterface,
 	virtual public Serializacja
 {
@@ -19,9 +19,9 @@ public:
 
 	Technologia* Podziel( const Ilosc& ilosc) override;
 
-	bool Polacz( ObiektBase& obiektBase) override;
+	bool Polacz( const ObiektBazowy& obiektBase) override;
 	
-	bool czyMoznaPolaczyc( const ObiektBase& obiektBase) const override;
+	bool czyMoznaPolaczyc( const ObiektBazowy& obiektBase) const override;
 
 	bool czyMoznaPodzielic( const Ilosc& ilosc) const override;
 

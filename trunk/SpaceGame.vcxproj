@@ -274,7 +274,7 @@
     <ClInclude Include="NiezgodnyTypSurowca.h" />
     <ClInclude Include="NieznalezionoObiektu.h" />
     <ClInclude Include="Obiekt.h" />
-    <ClInclude Include="ObiektBase.h" />
+    <ClInclude Include="ObiektBazowy.h" />
     <ClInclude Include="ObiektBaseInfo.h" />
     <ClInclude Include="ObiektInfo.h" />
     <ClInclude Include="ObiektList.hpp" />
@@ -353,7 +353,7 @@
     <ClCompile Include="NiezgodnyTypSurowca.cpp" />
     <ClCompile Include="NieznalezionoObiektu.cpp" />
     <ClCompile Include="Obiekt.cpp" />
-    <ClCompile Include="ObiektBase.cpp" />
+    <ClCompile Include="ObiektBazowy.cpp" />
     <ClCompile Include="ObiektBaseInfo.cpp" />
     <ClCompile Include="ObiektInfo.cpp" />
     <ClCompile Include="ObiektListTest.cpp" />

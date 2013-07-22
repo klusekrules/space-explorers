@@ -8,7 +8,7 @@ Planeta::Planeta(const Identyfikator& id)
 	: Bazowa(id), wlasciciel(nullptr),
 	pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),Identyfikator(0),Wymagania(nullptr)) , Poziom(0) )
 {
-	pustyObiektBase = shared_ptr<ObiektBase>(new ObiektBase( Ilosc(0), Poziom(0),Identyfikator(0), pustyobiekBaseInfo ));
+	pustyObiektBase = shared_ptr<ObiektBazowy>(new ObiektBazowy( Ilosc(0), Poziom(0),Identyfikator(0), pustyobiekBaseInfo ));
 }
 
 Planeta::~Planeta(void)
@@ -29,7 +29,7 @@ Ilosc Planeta::pobierzIloscTypowObiektow()const{
 	return Ilosc(listaObiektow.size()); 
 }
 
-const ObiektBase& Planeta::pobierzObiekt(const Identyfikator& id) const{
+const ObiektBazowy& Planeta::pobierzObiekt(const Identyfikator& id) const{
 	auto i = listaObiektow.find(id);
 	if(i!=listaObiektow.end())
 		return *(i->second);
@@ -116,8 +116,8 @@ bool Planeta::przeniesDoFloty(const Identyfikator& floty, const Identyfikator& i
 	if(i!=listaStatkow.end()){
 		auto f = listaFlot.find(floty);
 		if(f!=listaFlot.end()){
-			if(ilosc <= i->second->getIlosc()){
-				if(ilosc < i->second->getIlosc()){
+			if(ilosc <= i->second->pobierzIlosc()){
+				if(ilosc < i->second->pobierzIlosc()){
 					auto p = shared_ptr<Statek>(i->second->Podziel(ilosc));
 					if(f->second->dodajStatek(p)){
 						return true;
@@ -146,7 +146,7 @@ bool Planeta::zaladujFlote(const Identyfikator& floty, const Identyfikator& id, 
 	if(i==listaObiektowZaladunkowych.end())
 		return false;
 
-	if(ilosc <= Ilosc(0.0) || i->second->getIlosc() < ilosc)
+	if(ilosc <= Ilosc(0.0) || i->second->pobierzIlosc() < ilosc)
 		return false;
 
 	auto f = listaFlot.find(floty);
@@ -162,7 +162,7 @@ bool Planeta::zaladujFlote(const Identyfikator& floty, const Identyfikator& id, 
 
 bool Planeta::rozladujStatek( shared_ptr< Statek > ptr ){
 	for(auto e : ptr->getPrzewozoneObiekty()){
-		if(!wybuduj(e.first().first,e.second->getIlosc()))
+		if(!wybuduj(e.first().first,e.second->pobierzIlosc()))
 			return false;
 	}
 	return true;
@@ -182,7 +182,7 @@ bool Planeta::dolaczFloteDoPlanety( shared_ptr< Flota > ptr){
 	}
 	
 	for(auto e : ptr->lista){
-		if(!wybuduj(e.first().first,e.second->getIlosc()))
+		if(!wybuduj(e.first().first,e.second->pobierzIlosc()))
 			return false;
 		if(e.second->getZajeteMiejsce()!=Objetosc(0.0)){
 			if(!rozladujStatek(e.second))

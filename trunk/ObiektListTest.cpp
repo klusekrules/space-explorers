@@ -28,11 +28,11 @@ void ObiektListTest::podstawowyTest(){
 	UNIT_TEST_ASSERT_FALSE(r.empty());
 	Statek& sTmp1 = lista.get(Klucz(Identyfikator( 12 ),Poziom( 1 )));
 	UNIT_TEST_ASSERT_EQUAL(Identyfikator( 12 ),sTmp1.pobierzIdentyfikator());
-	UNIT_TEST_ASSERT_EQUAL(Poziom( 1 ),sTmp1.getPoziom());
+	UNIT_TEST_ASSERT_EQUAL(Poziom( 1 ),sTmp1.pobierzPoziom());
 	UNIT_TEST_ASSERT_TRUE(lista.del(Klucz(Identyfikator( 11 ),Poziom( 1 ))));
 	Statek* sTmp2 = lista.getAndDel(Klucz(Identyfikator( 14 ),Poziom( 2 )));
 	UNIT_TEST_ASSERT_EQUAL(Identyfikator( 14 ),sTmp2->pobierzIdentyfikator());
-	UNIT_TEST_ASSERT_EQUAL(Poziom( 2 ),sTmp2->getPoziom());
+	UNIT_TEST_ASSERT_EQUAL(Poziom( 2 ),sTmp2->pobierzPoziom());
 	delete sTmp2;
 	l = lista.rawObiektList();
 	UNIT_TEST_ASSERT_FALSE(l.empty());

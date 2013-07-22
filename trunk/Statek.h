@@ -22,7 +22,7 @@ public:
 
 	Statek* Podziel( const Ilosc& ) override;
 
-	bool Polacz( ObiektBase& ) override;
+	bool Polacz( const ObiektBazowy& ) override;
 
 	Masa getMasa( ) const override;
 

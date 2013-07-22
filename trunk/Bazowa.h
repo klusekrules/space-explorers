@@ -17,13 +17,13 @@ public:
 			
 	/**
 	* Konstruktor tworz¹cy obiekt na podstawie identyfikatora.
-	* \param identyfikator - Identyfikator jaki ma zostaæ przypisany do obiektu.
+	* \param[in] identyfikator - Identyfikator jaki ma zostaæ przypisany do obiektu.
 	*/
 	explicit Bazowa( const Identyfikator& identyfikator ) throw();
 
 	/**
 	* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
-	* \param wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
+	* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
 	*/
 	explicit Bazowa( TiXmlElement * wezel );
 	
@@ -40,7 +40,7 @@ public:
 
 	/**
 	* Metoda ustawiaj¹ca identyfikator obiektu.
-	* \param id - Nowa wartoœæ identyfikatora obiektu.
+	* \param[in] identyfikator - Nowa wartoœæ identyfikatora obiektu.
 	*/
 	void ustawIdentyfikator( const Identyfikator& identyfikator );
 

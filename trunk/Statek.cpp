@@ -4,7 +4,7 @@
 #include "DefinicjeWezlowXML.h"
 
 Statek::Statek( const Ilosc& i, const Poziom& p , const Identyfikator& idP, const StatekInfo& s )
-	: PodstawoweParametry(p, idP), Obiekt( i, p, idP, s ), JednostkaAtakujaca(getPoziom(),getIdPlanety(),s), JednostkaLatajaca(getPoziom(),getIdPlanety(),s), Ladownia(getPoziom(),getIdPlanety(),s), statekinfo(s)
+	: PodstawoweParametry(p, idP), Obiekt( i, p, idP, s ), JednostkaAtakujaca(pobierzPoziom(),pobierzIdentyfikatorPlanety(),s), JednostkaLatajaca(pobierzPoziom(),pobierzIdentyfikatorPlanety(),s), Ladownia(pobierzPoziom(),pobierzIdentyfikatorPlanety(),s), statekinfo(s)
 {
 }
 
@@ -14,7 +14,7 @@ Statek::Statek( const Ilosc& i, const PodstawoweParametry& p, const StatekInfo& 
 }
 
 ZuzyciePaliwa Statek::WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p) const {
-	return ZuzyciePaliwa( ilosc() * JednostkaLatajaca::WyliczZuzyciePaliwa(d,p)()  );
+	return ZuzyciePaliwa( ilosc_() * JednostkaLatajaca::WyliczZuzyciePaliwa(d,p)()  );
 }
 
 Statek* Statek::Kopia() const{
@@ -22,9 +22,9 @@ Statek* Statek::Kopia() const{
 }
 
 Statek* Statek::Podziel( const Ilosc& i ){
-	if( ilosc>i ){
+	if( ilosc_>i ){
 		Statek* o = new Statek( i , *this, this->statekinfo );
-		ilosc-=i;
+		ilosc_-=i;
 		this->przeliczZajeteMiejsce();
 		if(this->WolneMiejsce() < Fluktuacja(0.0)){
 			Zbiornik* zb = this->PodzielLadownie(this->zajete-this->getPojemnoscMax(),o->getPojemnoscMax());
@@ -35,13 +35,13 @@ Statek* Statek::Podziel( const Ilosc& i ){
 	return nullptr;
 }	
 
-bool Statek::Polacz( ObiektBase& o ){
+bool Statek::Polacz(const ObiektBazowy& o ){
 	if(czyMoznaPolaczyc(o)){
 		Statek & t = (Statek&)o;
 		t.przeliczZajeteMiejsce();
 		this->przeliczZajeteMiejsce();
 		if((this->getPojemnoscMax()+t.getPojemnoscMax()) >= (t.getZajeteMiejsce()+this->getZajeteMiejsce())){
-			if(ObiektBase::Polacz(o)){
+			if(ObiektBazowy::Polacz(o)){
 				Ladownia::Polacz(t);
 				this->przeliczZajeteMiejsce();
 				return true;
@@ -52,41 +52,41 @@ bool Statek::Polacz( ObiektBase& o ){
 }
 
 Obrazenia Statek::Atak() const {
-	return Obrazenia( ilosc() * JednostkaAtakujaca::Atak()() );
+	return Obrazenia( ilosc_() * JednostkaAtakujaca::Atak()() );
 }
 
 Obrazenia Statek::Pancerz( const Obrazenia& a ) const {
-	Obrazenia o (JednostkaAtakujaca::Pancerz(a)() * ilosc());
+	Obrazenia o (JednostkaAtakujaca::Pancerz(a)() * ilosc_());
 	return a > o ? a - o : Obrazenia(0);
 }
 
 Obrazenia Statek::Oslona( const Obrazenia& a ) const {
-	Obrazenia o (JednostkaAtakujaca::Oslona(a)() * ilosc());
+	Obrazenia o (JednostkaAtakujaca::Oslona(a)() * ilosc_());
 	return a > o ? a - o : Obrazenia(0);
 }
 
 Obrazenia Statek::getAtak() const{
-	return Obrazenia (JednostkaAtakujaca::getAtak()() * ilosc());
+	return Obrazenia (JednostkaAtakujaca::getAtak()() * ilosc_());
 }
 
 Obrazenia Statek::getPancerz() const{
-	return Obrazenia (JednostkaAtakujaca::getPancerz()() * ilosc());
+	return Obrazenia (JednostkaAtakujaca::getPancerz()() * ilosc_());
 }
 
 Obrazenia Statek::getOslona() const{
-	return Obrazenia (JednostkaAtakujaca::getOslona()() * ilosc());
+	return Obrazenia (JednostkaAtakujaca::getOslona()() * ilosc_());
 }
 
 Objetosc Statek::getPojemnoscMax() const{
-	return Ladownia::getPojemnoscMax()*getIlosc();
+	return Ladownia::getPojemnoscMax()*pobierzIlosc();
 }
 
 Masa Statek::getMasaSilnika()const{
-	return Masa(JednostkaLatajaca::getMasaSilnika()()* ilosc());
+	return Masa(JednostkaLatajaca::getMasaSilnika()()* ilosc_());
 }
 
 ZuzyciePaliwa Statek::getJednostkoweZuzyciePaliwa()const{
-	return ZuzyciePaliwa(JednostkaLatajaca::getJednostkoweZuzyciePaliwa()()*ilosc() );
+	return ZuzyciePaliwa(JednostkaLatajaca::getJednostkoweZuzyciePaliwa()()*ilosc_() );
 }
 
 Masa Statek::getMasa() const{

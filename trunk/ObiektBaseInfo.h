@@ -4,7 +4,7 @@
 #include "Poziom.h"
 #include "Klucz.h"
 
-class ObiektBase;
+class ObiektBazowy;
 class Planeta;
 
 class ObiektBaseInfo:
@@ -18,7 +18,7 @@ public:
 
 	explicit ObiektBaseInfo( TiXmlElement* ) throw(WyjatekParseraXML);
 		
-	virtual ObiektBase* TworzEgzemplarz( const Ilosc&, const Identyfikator& ) const;
+	virtual ObiektBazowy* TworzEgzemplarz( const Ilosc&, const Identyfikator& ) const;
 
 	const Poziom& getPoziom()const;
 

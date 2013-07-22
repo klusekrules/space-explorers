@@ -22,9 +22,9 @@ void BudynekTest::startTestow() {
 
 void BudynekTest::podstawowyTest(){
 
-	UNIT_TEST_ASSERT_EQUAL(Ilosc(1),a->getIlosc());
-	UNIT_TEST_ASSERT_EQUAL(Ilosc(1),b->getIlosc());
-	UNIT_TEST_ASSERT_EQUAL(Ilosc(1),c->getIlosc());
+	UNIT_TEST_ASSERT_EQUAL(Ilosc(1),a->pobierzIlosc());
+	UNIT_TEST_ASSERT_EQUAL(Ilosc(1),b->pobierzIlosc());
+	UNIT_TEST_ASSERT_EQUAL(Ilosc(1),c->pobierzIlosc());
 
 	auto z = a->PobierzZapotrzebowanie();
 	UNIT_TEST_ASSERT_TRUE(( z.size()>0));

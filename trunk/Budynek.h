@@ -17,9 +17,9 @@ public:
 
 	Budynek* Podziel( const Ilosc& ilosc) override;
 
-	bool Polacz( ObiektBase& obiektBase) override;
+	bool Polacz( const ObiektBazowy& obiektBase) override;
 	
-	bool czyMoznaPolaczyc( const ObiektBase& obiektBase) const override;
+	bool czyMoznaPolaczyc( const ObiektBazowy& obiektBase) const override;
 
 	bool czyMoznaPodzielic( const Ilosc& ilosc) const override;
 

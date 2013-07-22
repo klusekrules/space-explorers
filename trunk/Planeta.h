@@ -1,7 +1,7 @@
 #pragma once
 #include "Logger\LoggerInterface.h"
 #include "Bazowa.h"
-#include "ObiektBase.h"
+#include "ObiektBazowy.h"
 #include "ObiektBaseInfo.h"
 #include <map>
 #include <memory>
@@ -21,7 +21,7 @@ class Planeta:
 	friend class Gra;
 	friend class Uzytkownik;
 public:
-	typedef map< Identyfikator , shared_ptr< ObiektBase > > ListaObiektow;
+	typedef map< Identyfikator , shared_ptr< ObiektBazowy > > ListaObiektow;
 	typedef map< Identyfikator , shared_ptr< Obiekt > > ListaObiektowZaladunkowych;
 	typedef map< Identyfikator , shared_ptr< Budynek > > ListaBudynkow;
 	typedef map< Identyfikator , shared_ptr< Technologia > > ListaTechnologii;
@@ -32,7 +32,7 @@ public:
 	Planeta(const Identyfikator& id);
 	virtual ~Planeta(void);
 
-	const ObiektBase& pobierzObiekt(const Identyfikator&) const;
+	const ObiektBazowy& pobierzObiekt(const Identyfikator&) const;
 	Ilosc pobierzIloscTypowObiektow()const;
 
 	const Statek& pobierzStatek(const Identyfikator&) const;
@@ -69,7 +69,7 @@ private:
 	void ustawWlasciciela( Uzytkownik* );
 	Uzytkownik* pobierzWlasciciela( void ) const;
 
-	shared_ptr<ObiektBase> pustyObiektBase;
+	shared_ptr<ObiektBazowy> pustyObiektBase;
 	ObiektBaseInfo pustyobiekBaseInfo;
 
 	Licznik idFloty;
