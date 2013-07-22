@@ -17,11 +17,11 @@ ZuzyciePaliwa Statek::WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p)
 	return ZuzyciePaliwa( ilosc_() * JednostkaLatajaca::WyliczZuzyciePaliwa(d,p)()  );
 }
 
-Statek* Statek::Kopia() const{
+Statek* Statek::kopia() const{
 	return new Statek(*this);
 }
 
-Statek* Statek::Podziel( const Ilosc& i ){
+Statek* Statek::podziel( const Ilosc& i ){
 	if( ilosc_>i ){
 		Statek* o = new Statek( i , *this, this->statekinfo );
 		ilosc_-=i;
@@ -35,13 +35,13 @@ Statek* Statek::Podziel( const Ilosc& i ){
 	return nullptr;
 }	
 
-bool Statek::Polacz(const ObiektBazowy& o ){
+bool Statek::polacz(const ObiektBazowy& o ){
 	if(czyMoznaPolaczyc(o)){
 		Statek & t = (Statek&)o;
 		t.przeliczZajeteMiejsce();
 		this->przeliczZajeteMiejsce();
 		if((this->getPojemnoscMax()+t.getPojemnoscMax()) >= (t.getZajeteMiejsce()+this->getZajeteMiejsce())){
-			if(ObiektBazowy::Polacz(o)){
+			if(ObiektBazowy::polacz(o)){
 				Ladownia::Polacz(t);
 				this->przeliczZajeteMiejsce();
 				return true;
@@ -89,8 +89,8 @@ ZuzyciePaliwa Statek::getJednostkoweZuzyciePaliwa()const{
 	return ZuzyciePaliwa(JednostkaLatajaca::getJednostkoweZuzyciePaliwa()()*ilosc_() );
 }
 
-Masa Statek::getMasa() const{
-	return Obiekt::getMasa() + Ladownia::getMasaZawartosciLadowni() + Statek::getMasaSilnika();
+Masa Statek::pobierzMase() const{
+	return Obiekt::pobierzMase() + Ladownia::getMasaZawartosciLadowni() + Statek::getMasaSilnika();
 }
 
 Fluktuacja Statek::WolneMiejsce() const{

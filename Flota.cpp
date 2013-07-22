@@ -28,7 +28,7 @@ bool Flota::dodajLadunek( shared_ptr<Obiekt> ptr ){
 	if(!ptr)
 		return false;
 	Objetosc obj = pobierzDostepneMiejsce();
-	if(obj < ptr->getObjetosc())
+	if(obj < ptr->pobierzObjetosc())
 		return false;
 	for( auto i : lista ){
 		if(i.second->DodajObiektDoLadowni(*ptr))

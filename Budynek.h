@@ -13,11 +13,11 @@ public:
 	Budynek(const PodstawoweParametry& p, const BudynekInfo& o);
 	~Budynek(void);
 
-	Budynek* Kopia() const override;
+	Budynek* kopia() const override;
 
-	Budynek* Podziel( const Ilosc& ilosc) override;
+	Budynek* podziel( const Ilosc& ilosc) override;
 
-	bool Polacz( const ObiektBazowy& obiektBase) override;
+	bool polacz( const ObiektBazowy& obiektBase) override;
 	
 	bool czyMoznaPolaczyc( const ObiektBazowy& obiektBase) const override;
 

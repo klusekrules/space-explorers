@@ -15,11 +15,11 @@ public:
 	Technologia( const PodstawoweParametry& p, const TechnologiaInfo& t);
 	~Technologia(void);
 
-	Technologia* Kopia() const override;
+	Technologia* kopia() const override;
 
-	Technologia* Podziel( const Ilosc& ilosc) override;
+	Technologia* podziel( const Ilosc& ilosc) override;
 
-	bool Polacz( const ObiektBazowy& obiektBase) override;
+	bool polacz( const ObiektBazowy& obiektBase) override;
 	
 	bool czyMoznaPolaczyc( const ObiektBazowy& obiektBase) const override;
 

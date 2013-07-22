@@ -11,7 +11,7 @@ LiczenieKosztow::LiczenieKosztow( Wymagania::Cena& o, Wymagania::PrzetworzonaCen
 bool LiczenieKosztow::wykonaj(Wymagania::Cena::TypObiektu obiekt ,Wymagania::Cena::Zmiana zmiana){
 	if(!obiekt)
 		return false;
-	Wymagania::Cena::TypObiektu kopia = Wymagania::Cena::TypObiektu(obiekt->Kopia());
+	Wymagania::Cena::TypObiektu kopia = Wymagania::Cena::TypObiektu(obiekt->kopia());
 	kopia->ustawKontekst(parametry);
 	if(zmiana)
 		kopia->setIlosc(Ilosc(ilosc()*zmiana->policzWartosc(obiekt->getIlosc()(),static_cast<int>(parametry.pobierzPoziom()()),parametry.pobierzIdentyfikatorPlanety()())));

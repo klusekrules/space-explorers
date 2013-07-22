@@ -18,13 +18,13 @@ class Statek :
 public:
 	ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const override;
 		
-	Statek* Kopia() const override;
+	Statek* kopia() const override;
 
-	Statek* Podziel( const Ilosc& ) override;
+	Statek* podziel( const Ilosc& ) override;
 
-	bool Polacz( const ObiektBazowy& ) override;
+	bool polacz( const ObiektBazowy& ) override;
 
-	Masa getMasa( ) const override;
+	Masa pobierzMase( ) const override;
 
 	Obrazenia Atak( ) const override;
 

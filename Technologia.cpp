@@ -14,15 +14,15 @@ Technologia::~Technologia(void)
 {
 }
 
-Technologia* Technologia::Kopia() const{
+Technologia* Technologia::kopia() const{
 	return new Technologia(*this,technologiaInfo);
 }
 
-Technologia* Technologia::Podziel( const Ilosc& ilosc){
+Technologia* Technologia::podziel( const Ilosc& ilosc){
 	return nullptr;
 }
 
-bool Technologia::Polacz( const ObiektBazowy& obiektBase){
+bool Technologia::polacz( const ObiektBazowy& obiektBase){
 	return false;
 }
 	

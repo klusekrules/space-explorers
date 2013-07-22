@@ -118,7 +118,7 @@ bool Planeta::przeniesDoFloty(const Identyfikator& floty, const Identyfikator& i
 		if(f!=listaFlot.end()){
 			if(ilosc <= i->second->pobierzIlosc()){
 				if(ilosc < i->second->pobierzIlosc()){
-					auto p = shared_ptr<Statek>(i->second->Podziel(ilosc));
+					auto p = shared_ptr<Statek>(i->second->podziel(ilosc));
 					if(f->second->dodajStatek(p)){
 						return true;
 					}else{
@@ -152,9 +152,9 @@ bool Planeta::zaladujFlote(const Identyfikator& floty, const Identyfikator& id, 
 	auto f = listaFlot.find(floty);
 	if(f==listaFlot.end())
 		return false;
-	shared_ptr<Obiekt> ptr = shared_ptr<Obiekt>( i->second->Podziel(ilosc));
+	shared_ptr<Obiekt> ptr = shared_ptr<Obiekt>( i->second->podziel(ilosc));
 	if(!f->second->dodajLadunek(ptr)){
-		i->second->Polacz(*ptr);
+		i->second->polacz(*ptr);
 		return false;
 	}
 	return true;
