@@ -135,9 +135,13 @@ public:
 
 private:
 
+	/**
+	* Metoda sprawdzaj¹ca czy pole jest pierwsze. Je¿eli nie to dopisuje przecinek to ci¹gu znaków.
+	*/
 	void testPierwszegoPola( );
 
-	stringstream napis_;
-	stack<bool> stos_;
+	stringstream napis_; /// Strumieñ zawieraj¹cy tworzony napis.
+	stack<bool> stos_; /// Stos zawieraj¹cy informacje, które pole jest pierwsze.
+
 };
 
