@@ -5,6 +5,9 @@
 * \brief Klasa abstrakcyjna dodaj¹ca interfejs serializacji.
 *
 * Rozsze¿a interfejs o zapis i odczyt danych z pliku xml.
+* \author Daniel Wojdak
+* \version 1
+* \date 22-07-2013
 */
 class Serializacja
 {

@@ -9,6 +9,9 @@
 * \brief Klasa bazowa obiektu opisuj¹cego.
 *
 * Klasa bazowa dla obiektu opisuj¹cego. Zawiera podstawowy opis obiektu. Zawiera wymagania obiektu. 
+* \author Daniel Wojdak
+* \version 1
+* \date 22-07-2013
 */
 class Info:
 	public Bazowa,

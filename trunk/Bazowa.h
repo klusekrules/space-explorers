@@ -8,6 +8,9 @@
 * \brief Klasa bazowa dla klas obiektów.
 * 
 * Klasa gromadzi podstawowy interfejs oraz zawiera identyfikator obiektu.
+* \author Daniel Wojdak
+* \version 1
+* \date 22-07-2013
 */
 class Bazowa:
 	virtual public LoggerInterface,

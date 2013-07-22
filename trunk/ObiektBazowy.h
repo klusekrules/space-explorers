@@ -13,6 +13,9 @@ class ObiektBaseInfo;
 * Gromadzi informacje o identyfikatorze, poziomie i iloœci obiektów.
 * Klasa umo¿liwa jednoznaczne zidentyfikowanie obiektów w grze.
 * Klasa dodaje interfejs kopiowania, ³aczenia i dzielenia obiektów.
+* \author Daniel Wojdak
+* \version 1
+* \date 22-07-2013
 */
 class ObiektBazowy :
 	public Bazowa,
