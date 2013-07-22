@@ -36,12 +36,7 @@ public:
 	* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
 	*/
 	explicit Info( TiXmlElement * wezel ) throw(WyjatekParseraXML);
-
-	/**
-	* \brief Destruktor.
-	*/
-	virtual ~Info();
-
+	
 	/**
 	* \brief Metoda pobieraj¹ca atrybut.
 	*
