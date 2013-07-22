@@ -24,7 +24,7 @@ private:
 	unordered_map<Identyfikator, shared_ptr<TechnologiaInfo>, IdTypeHash > listaTechnologiInfo;
 	unordered_map<Identyfikator, shared_ptr<BudynekInfo>, IdTypeHash > listaBudynkowInfo;
 	unordered_map<Identyfikator, shared_ptr<ObiektInfo>, IdTypeHash > listaObiektowInfo;
-	unordered_map<Identyfikator, shared_ptr<ObiektBaseInfo>, IdTypeHash > listaObiektowBaseInfo;
+	unordered_map<Identyfikator, shared_ptr<ObiektBazowyInfo>, IdTypeHash > listaObiektowBaseInfo;
 
 	Licznik idPlanety;
 	Uzytkownik::ListaPlanet wolnePlanety;

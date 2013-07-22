@@ -23,11 +23,11 @@ public:
 
 	const Identyfikator& getId() const;
 		
-	Statek* TworzEgzemplarz( const Ilosc&, const Identyfikator& ) const override;
+	Statek* tworzEgzemplarz( const Ilosc&, const Identyfikator& ) const override;
 
 	string napis() const override;
 
 private:
-	bool Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const override;
+	bool tworz( const Gra& g, Planeta& p , const Ilosc& i ) const override;
 
 };

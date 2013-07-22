@@ -1,15 +1,15 @@
 ﻿#include "ObiektBazowy.h"
-#include "ObiektBaseInfo.h"
+#include "ObiektBazowyInfo.h"
 #include "Logger.h"
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
 
-ObiektBazowy::ObiektBazowy( const Ilosc& ilosc, const Poziom& poziom, const Identyfikator& identyfikatorPlanety, const ObiektBaseInfo& obiektBazowyInfo) throw()
+ObiektBazowy::ObiektBazowy( const Ilosc& ilosc, const Poziom& poziom, const Identyfikator& identyfikatorPlanety, const ObiektBazowyInfo& obiektBazowyInfo) throw()
 	: PodstawoweParametry(poziom,identyfikatorPlanety), Bazowa(obiektBazowyInfo), ilosc_(ilosc), obiektBazowyInfo_(obiektBazowyInfo)
 {
 }
 
-ObiektBazowy::ObiektBazowy( const Ilosc& ilosc, const PodstawoweParametry& parametryPodstawowe, const ObiektBaseInfo& obiektBazowyInfo) throw()
+ObiektBazowy::ObiektBazowy( const Ilosc& ilosc, const PodstawoweParametry& parametryPodstawowe, const ObiektBazowyInfo& obiektBazowyInfo) throw()
 	: PodstawoweParametry(parametryPodstawowe), Bazowa(obiektBazowyInfo), ilosc_(ilosc), obiektBazowyInfo_(obiektBazowyInfo)
 {
 }
@@ -79,7 +79,7 @@ bool ObiektBazowy::czyMoznaWybudowac()const{
 	return obiektBazowyInfo_.czySpelniaWymagania(pobierzIlosc(),*this);
 }
 
-const ObiektBaseInfo& ObiektBazowy::getObiektBaseInfo()const{
+const ObiektBazowyInfo& ObiektBazowy::getObiektBaseInfo()const{
 	return obiektBazowyInfo_;
 }
 
@@ -108,6 +108,6 @@ string ObiektBazowy::napis() const{
 	str.dodajKlase(Bazowa::napis());
 	str.dodajKlase(PodstawoweParametry::napis());
 	str.dodajPole(NAZWAKLASY(Ilosc),ilosc_);
-	str.dodajPole(NAZWAKLASY(ObiektBaseInfo)+"ID",obiektBazowyInfo_.pobierzIdentyfikator());
+	str.dodajPole(NAZWAKLASY(ObiektBazowyInfo)+"ID",obiektBazowyInfo_.pobierzIdentyfikator());
 	return str.napis();
 }

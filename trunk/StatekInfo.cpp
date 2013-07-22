@@ -23,11 +23,11 @@ const Identyfikator& StatekInfo::getId() const{
 	return ObiektInfo::pobierzIdentyfikator();
 }
 
-Statek* StatekInfo::TworzEgzemplarz( const Ilosc& i, const Identyfikator& idP ) const{
-	return new Statek(i,getPoziom(), idP, *this);
+Statek* StatekInfo::tworzEgzemplarz( const Ilosc& i, const Identyfikator& idP ) const{
+	return new Statek(i,pobierzPoziom(), idP, *this);
 }
 
-bool StatekInfo::Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
+bool StatekInfo::tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
 	return g.wybudujNaPlanecie(p,*this,i);
 }
 

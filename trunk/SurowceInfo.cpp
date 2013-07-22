@@ -33,7 +33,7 @@ bool SurowceInfo::czyTypPrzyrostowy()const{
 	return czyPrzyrostowy();
 }
 
-bool SurowceInfo::Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
+bool SurowceInfo::tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
 	return g.wybudujNaPlanecie(p,*this,i);
 }
 
@@ -44,8 +44,8 @@ Czas SurowceInfo::pobierzCzas( const Ilosc& i ,const PodstawoweParametry& p )con
 		return Czas(0.0l);
 }
 
-Surowce* SurowceInfo::TworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& idP ) const{
-	return new Surowce( ilosc , getPoziom(),idP, *this );
+Surowce* SurowceInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& idP ) const{
+	return new Surowce( ilosc , pobierzPoziom(),idP, *this );
 }
 
 string SurowceInfo::napis() const{

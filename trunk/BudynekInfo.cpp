@@ -21,7 +21,7 @@ BudynekInfo::BudynekInfo( TiXmlElement* n )
 	}
 }
 
-bool BudynekInfo::Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
+bool BudynekInfo::tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
 	return g.wybudujNaPlanecie(p,*this,i);
 }
 
@@ -29,8 +29,8 @@ BudynekInfo::~BudynekInfo(void)
 {
 }
 
-Budynek* BudynekInfo::TworzEgzemplarz( const Ilosc&, const Identyfikator& idP ) const{
-	return new Budynek(getPoziom(),idP,*this);
+Budynek* BudynekInfo::tworzEgzemplarz( const Ilosc&, const Identyfikator& idP ) const{
+	return new Budynek(pobierzPoziom(),idP,*this);
 }
 
 Wymagania::PrzetworzonaCena BudynekInfo::PobierzZapotrzebowanie( const PodstawoweParametry& p )const{

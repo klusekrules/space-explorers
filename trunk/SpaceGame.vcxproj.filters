@@ -118,9 +118,6 @@
     <ClCompile Include="ObiektInfo.cpp">
       <Filter>SourceFile\BaseClass\Obiekt</Filter>
     </ClCompile>
-    <ClCompile Include="ObiektBaseInfo.cpp">
-      <Filter>SourceFile\BaseClass\Info</Filter>
-    </ClCompile>
     <ClCompile Include="Parametr.cpp">
       <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
@@ -237,6 +234,9 @@
     </ClCompile>
     <ClCompile Include="ObiektBazowy.cpp">
       <Filter>SourceFile\BaseClass\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ObiektBazowyInfo.cpp">
+      <Filter>SourceFile\BaseClass\Info</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -384,9 +384,6 @@
     <ClInclude Include="ObiektInfo.h">
       <Filter>SourceFile\BaseClass\Obiekt</Filter>
     </ClInclude>
-    <ClInclude Include="ObiektBaseInfo.h">
-      <Filter>SourceFile\BaseClass\Info</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resource</Filter>
     </ClInclude>
@@ -530,6 +527,9 @@
     </ClInclude>
     <ClInclude Include="ObiektBazowy.h">
       <Filter>SourceFile\BaseClass\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ObiektBazowyInfo.h">
+      <Filter>SourceFile\BaseClass\Info</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

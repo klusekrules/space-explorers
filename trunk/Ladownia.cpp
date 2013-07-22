@@ -218,7 +218,7 @@ bool Ladownia::odczytaj (TiXmlElement* e) {
 					return false;
 				Utils::trim(c);
 				Identyfikator id(stoi(c,nullptr,0));
-				Obiekt* p = Aplikacja::getInstance().getGra().getObiekt(id).TworzEgzemplarz(Ilosc(),Identyfikator());			
+				Obiekt* p = Aplikacja::getInstance().getGra().getObiekt(id).tworzEgzemplarz(Ilosc(),Identyfikator());			
 				if(!p->odczytaj(n) ){
 					delete p;
 					return false;

@@ -1,20 +1,19 @@
 #pragma once
-
-#include "ObiektBaseInfo.h"
+#include "ObiektBazowyInfo.h"
 #include "Technologia.h"
 
 class TechnologiaInfo : 
-	public ObiektBaseInfo,
+	public ObiektBazowyInfo,
 	virtual public LoggerInterface
 {
 public:
 	TechnologiaInfo( const TechnologiaInfo& );
-	explicit TechnologiaInfo( const ObiektBaseInfo& );
+	explicit TechnologiaInfo( const ObiektBazowyInfo& );
 	explicit TechnologiaInfo( TiXmlElement* );
-	Technologia* TworzEgzemplarz( const Ilosc&, const Identyfikator& ) const override;
+	Technologia* tworzEgzemplarz( const Ilosc&, const Identyfikator& ) const override;
 	~TechnologiaInfo( );
 	string napis()const override;
 private:
-	bool Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const override;
+	bool tworz( const Gra& g, Planeta& p , const Ilosc& i ) const override;
 };
 

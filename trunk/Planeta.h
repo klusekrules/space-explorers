@@ -2,7 +2,7 @@
 #include "Logger\LoggerInterface.h"
 #include "Bazowa.h"
 #include "ObiektBazowy.h"
-#include "ObiektBaseInfo.h"
+#include "ObiektBazowyInfo.h"
 #include <map>
 #include <memory>
 #include "Budynek.h"
@@ -70,7 +70,7 @@ private:
 	Uzytkownik* pobierzWlasciciela( void ) const;
 
 	shared_ptr<ObiektBazowy> pustyObiektBase;
-	ObiektBaseInfo pustyobiekBaseInfo;
+	ObiektBazowyInfo pustyobiekBaseInfo;
 
 	Licznik idFloty;
 	Uzytkownik* wlasciciel;

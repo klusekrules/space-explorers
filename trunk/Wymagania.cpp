@@ -57,13 +57,13 @@ bool Wymagania::dodajWymog( Wymog& o ){
 				if(!obiekt)
 					return false;
 				auto id = obiekt->pobierzIdentyfikator();
-				auto poziom = obiekt->getPoziom();
+				auto poziom = obiekt->pobierzPoziom();
 				return o.wykonaj(
 					[&id,&poziom,&zamien](Wymog::TypObiektu obiekt,Wymog::Zmiana zmiana)->bool{
 							if(!obiekt)
 								return false;
 							if( id == obiekt->pobierzIdentyfikator() ){
-								zamien = ( poziom < obiekt->getPoziom() );
+								zamien = ( poziom < obiekt->pobierzPoziom() );
 								return true;
 							}
 							return false;
@@ -128,9 +128,9 @@ bool Wymagania::czySpelniaWymogi( const PodstawoweParametry& p ) const{
 						return false;
 					id = obiekt->pobierzIdentyfikator();
 					if(zmiana)
-						poz = Poziom(static_cast<Poziom::type_name>(zmiana->policzWartosc(obiekt->getPoziom()(),p.pobierzPoziom()(),p.pobierzIdentyfikatorPlanety()())));
+						poz = Poziom(static_cast<Poziom::type_name>(zmiana->policzWartosc(obiekt->pobierzPoziom()(),p.pobierzPoziom()(),p.pobierzIdentyfikatorPlanety()())));
 					else
-						poz = obiekt->getPoziom();
+						poz = obiekt->pobierzPoziom();
 					return true;
 				}			
 			))
@@ -177,9 +177,9 @@ Wymagania::PrzetworzoneWymogi Wymagania::listaWarunkow( const PodstawoweParametr
 					if(!obiekt)
 						return false;
 					if(zmiana)
-						rezultat = Wymog::TypObiektu ( new TypWymogu( *(obiekt), Poziom( static_cast<Poziom::type_name>(floorl(zmiana->policzWartosc( obiekt->getPoziom()() , static_cast<int>(p.pobierzPoziom()()),p.pobierzIdentyfikatorPlanety()() ))) ) ) );
+						rezultat = Wymog::TypObiektu ( new TypWymogu( *(obiekt), Poziom( static_cast<Poziom::type_name>(floorl(zmiana->policzWartosc( obiekt->pobierzPoziom()() , static_cast<int>(p.pobierzPoziom()()),p.pobierzIdentyfikatorPlanety()() ))) ) ) );
 					else
-						rezultat = Wymog::TypObiektu ( new TypWymogu( *(obiekt), Poziom( obiekt->getPoziom() ) ) );
+						rezultat = Wymog::TypObiektu ( new TypWymogu( *(obiekt), Poziom( obiekt->pobierzPoziom() ) ) );
 					return true;
 				}
 			);

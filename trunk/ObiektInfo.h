@@ -1,12 +1,12 @@
 #pragma once
 #include "Main.h"
-#include "ObiektBaseInfo.h"
+#include "ObiektBazowyInfo.h"
 #include "Obiekt.h"
 #include "NiezainicjalizowanaKlasa.h"
 #include "FuncTransf\ZmianaInterfejs.h"
 
 class ObiektInfo :
-	public ObiektBaseInfo,
+	public ObiektBazowyInfo,
 	virtual public LoggerInterface
 {
 private:
@@ -20,7 +20,7 @@ private:
 	shared_ptr<ZmianaInterfejs> zmMasa;
 
 public:
-	ObiektInfo( const Masa&, const Objetosc&, const Powierzchnia&, const ObiektBaseInfo& ) throw();
+	ObiektInfo( const Masa&, const Objetosc&, const Powierzchnia&, const ObiektBazowyInfo& ) throw();
 
 	explicit ObiektInfo( TiXmlElement* ) throw(WyjatekParseraXML);
 
@@ -32,8 +32,7 @@ public:
 
 	Masa getMasa(const Poziom& pz, const Identyfikator&) const;
 	
-	Obiekt* TworzEgzemplarz( const Ilosc&, const Identyfikator& ) const override;
+	Obiekt* tworzEgzemplarz( const Ilosc&, const Identyfikator& ) const override;
 
 	string napis() const override;
 };
-

@@ -4,13 +4,13 @@
 #include "Aplikacja.h"
 #include "definicjeWezlowXML.h"
 
-ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& obj, const Powierzchnia& pow, const ObiektBaseInfo& info ) throw()
-	: ObiektBaseInfo(info),powierzchnia(pow), zmPowierzchnia(nullptr), objetosc(obj), zmObjetosc(nullptr), masa(masa), zmMasa(nullptr)
+ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& obj, const Powierzchnia& pow, const ObiektBazowyInfo& info ) throw()
+	: ObiektBazowyInfo(info),powierzchnia(pow), zmPowierzchnia(nullptr), objetosc(obj), zmObjetosc(nullptr), masa(masa), zmMasa(nullptr)
 {
 }
 
 ObiektInfo::ObiektInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
-	: ObiektBaseInfo(n), zmPowierzchnia(nullptr), zmObjetosc(nullptr), zmMasa(nullptr)
+	: ObiektBazowyInfo(n), zmPowierzchnia(nullptr), zmObjetosc(nullptr), zmMasa(nullptr)
 {
 	if(n){
 		try{
@@ -48,13 +48,13 @@ Masa ObiektInfo::getMasa(const Poziom& pz, const Identyfikator& idPlanety) const
 	return Masa(zmMasa->policzWartosc(masa(),static_cast<int>(pz()), idPlanety()));
 }
 
-Obiekt* ObiektInfo::TworzEgzemplarz( const Ilosc& iIlosc, const Identyfikator& idPlanety ) const {
-	return new Obiekt( iIlosc, getPoziom(),idPlanety, *this );
+Obiekt* ObiektInfo::tworzEgzemplarz( const Ilosc& iIlosc, const Identyfikator& idPlanety ) const {
+	return new Obiekt( iIlosc, pobierzPoziom(),idPlanety, *this );
 }
 
 string ObiektInfo::napis() const{
 	Logger str(NAZWAKLASY(ObiektInfo));
-	str.dodajKlase(ObiektBaseInfo::napis());
+	str.dodajKlase(ObiektBazowyInfo::napis());
 	str.dodajPole(NAZWAKLASY(Masa),masa);
 	str.dodajPole(NAZWAKLASY(Objetosc),objetosc);
 	str.dodajPole(NAZWAKLASY(Powierzchnia),powierzchnia);

@@ -10,7 +10,7 @@
 #include "SzablonKosztow.h"
 
 class Surowce;
-class ObiektBaseInfo;
+class ObiektBazowyInfo;
 class WyjatekParseraXML;
 
 class Wymagania :
@@ -22,7 +22,7 @@ public:
 	typedef vector< Cena::TypObiektu > PrzetworzonaCena;
 	typedef vector< Cena > ListaCen;	
 
-	typedef ObiektBaseInfo TypWymogu;
+	typedef ObiektBazowyInfo TypWymogu;
 	typedef SzablonKosztow< TypWymogu > Wymog;
 	typedef vector< Wymog::TypObiektu > PrzetworzoneWymogi;
 	typedef vector< Wymog > ListaWymogow;
