@@ -17,9 +17,9 @@ class Surowce :
 {
 	friend class SurowceInfo;
 public:
-	Surowce* Kopia() const override;
+	Surowce* kopia() const override;
 
-	Obiekt* Podziel( const Ilosc& ) override;
+	Obiekt* podziel( const Ilosc& ) override;
 		
 	Surowce& operator=( const Surowce& ) throw ( NiezgodnyTypSurowca );
 	

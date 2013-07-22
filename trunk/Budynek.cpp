@@ -13,15 +13,15 @@ Budynek::Budynek(const PodstawoweParametry& p, const BudynekInfo& o)
 {
 }
 
-Budynek* Budynek::Kopia() const{
+Budynek* Budynek::kopia() const{
 	return new Budynek(*this,budynekInfo);
 }
 
-Budynek* Budynek::Podziel( const Ilosc& ilosc){
+Budynek* Budynek::podziel( const Ilosc& ilosc){
 	return nullptr;
 }
 
-bool Budynek::Polacz( const ObiektBazowy& obiektBase){
+bool Budynek::polacz( const ObiektBazowy& obiektBase){
 	return false;
 }
 	

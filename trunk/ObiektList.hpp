@@ -29,7 +29,7 @@ public:
 	{
 		lista.clear();
 		for( auto i : a.lista){
-			lista.put(i.first,i.second->Kopia());
+			lista.put(i.first,i.second->kopia());
 		}
 	}
 
@@ -43,7 +43,7 @@ public:
 	ObiektList& operator=(const ObiektList& a){
 		clear();
 		for( auto i : a.lista){
-			lista.put(i.first,i.second->Kopia());
+			lista.put(i.first,i.second->kopia());
 		}
 		return (*this);
 	}
@@ -52,9 +52,9 @@ public:
 	Klucz add( T& o ) throw( BladLaczeniaObiektow ){
 		Klucz k = o.ID();
 		if( lista.find(k) == lista.end() ){
-			lista.put(k,o.Kopia());
+			lista.put(k,o.kopia());
 		}else{
-			if(!lista.get(k)->Polacz(o))
+			if(!lista.get(k)->polacz(o))
 				throw BladLaczeniaObiektow( EXCEPTION_PLACE , lista.get(k)->napis(), o.napis() );
 		}
 		return k;
@@ -66,7 +66,7 @@ public:
 		if( lista.find(k) == lista.end() ){
 			lista.put(k,o);
 		}else{
-			if(!lista.get(k)->Polacz(*o))
+			if(!lista.get(k)->polacz(*o))
 				throw BladLaczeniaObiektow( EXCEPTION_PLACE , lista.get(k)->napis(), o->napis() );
 			else
 				delete o;
@@ -180,7 +180,7 @@ public:
 	static bool move( const Klucz& k ,const Ilosc& i, ObiektList<N> & z , ObiektList<N>& d ){
 		try{
 			N& o = z.get(k);
-			N* p = o.Podziel(i);
+			N* p = o.podziel(i);
 			if (p == nullptr){
 				return false;
 			}

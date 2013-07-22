@@ -35,10 +35,10 @@ void LadowniaTest::oproznianieLadowni(){
 void LadowniaTest::dodawanieStatkow(){
 	UNIT_TEST_ASSERT_FALSE(statekTransportowy->DodajObiektDoLadowni(*statekTransportowyDuzy));
 	UNIT_TEST_ASSERT_TRUE(statekTransportowy->DodajObiektDoLadowni(*mysliwiec));
+	statekTransportowy->OproznijLadownie();
 }
 
 void LadowniaTest::dzielenieLadowni(){
-	statekTransportowy->OproznijLadownie();
 	UNIT_TEST_ASSERT_EQUAL(statekTransportowy->getZajeteMiejsce(),Objetosc(0));
 	UNIT_TEST_ASSERT_TRUE(statekTransportowy->DodajObiektDoLadowni(*metal));
 	UNIT_TEST_ASSERT_TRUE(statekTransportowy->DodajObiektDoLadowni(*mysliwiec));

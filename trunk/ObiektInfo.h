@@ -41,7 +41,6 @@ public:
 	*/
 	explicit ObiektInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML);
 
-
 	/**
 	* \brief Metoda wyliczaj¹ca powierzchniê obiektu.
 	*

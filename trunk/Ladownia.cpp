@@ -48,11 +48,11 @@ bool Ladownia::DodajObiektDoLadowni( Item& obiekt ){
 	if(!obiekt.czMoznaDodacDoLadownii(*this)){
 		return false;
 	}
-	if( obiekt.getObjetosc()/obiekt.pobierzIlosc() > ladowniaInfo.getPojemnoscMaksymalna(*this) || (obiekt.getObjetosc() + zajete) > getPojemnoscMax() ){
+	if( obiekt.pobierzObjetosc()/obiekt.pobierzIlosc() > ladowniaInfo.getPojemnoscMaksymalna(*this) || (obiekt.pobierzObjetosc() + zajete) > getPojemnoscMax() ){
 		return false;
 	}
 	try{
-		Obiekt * kopia = obiekt.Kopia();
+		Obiekt * kopia = obiekt.kopia();
 		kopia->ustawIdentyfikatorPlanety(Identyfikator());
 		obiekty.add(kopia);
 		przeliczZajeteMiejsce();
@@ -83,7 +83,7 @@ Ladownia::Item& Ladownia::PobierzObiekt( const Klucz& itID, const Ilosc& isIlosc
 		}
 
 		if( isIlosc < o.pobierzIlosc() ){
-			Obiekt *k = o.Podziel(isIlosc);
+			Obiekt *k = o.podziel(isIlosc);
 			przeliczZajeteMiejsce();
 			return *k;
 		}
@@ -125,13 +125,13 @@ Ladownia::Zbiornik* Ladownia::PodzielLadownie( const Objetosc& oMax , const Obje
 		Zbiornik kopia(obiekty);
 		map<Objetosc,Klucz,greater<Objetosc> > posortowane;
 		for( auto o : obiekty )
-			posortowane.insert(make_pair(o.second->getObjetosc()/o.second->pobierzIlosc(),o.first));
+			posortowane.insert(make_pair(o.second->pobierzObjetosc()/o.second->pobierzIlosc(),o.first));
 
 		/*
 			Przechodzimy po elementach zbiornika i przepisujemy tyle ile siê da. Dopuszczamy dzielenie grup obiektów jeœli mo¿liwe.
 		*/
 		for( auto o : posortowane ){
-			Objetosc objElementu(obiekty.get(o.second).getObjetosc());
+			Objetosc objElementu(obiekty.get(o.second).pobierzObjetosc());
 			if( objElementu + tObj <= oMax ){
 				if(Zbiornik::move(o.second, kopia , *zb)){
 					tObj += objElementu;
@@ -166,14 +166,14 @@ Ladownia::Zbiornik* Ladownia::PodzielLadownie( const Objetosc& oMax , const Obje
 void Ladownia::przeliczZajeteMiejsce(){
 	zajete=Objetosc(0);
 	for( auto o : obiekty){
-		zajete += o.second->getObjetosc();
+		zajete += o.second->pobierzObjetosc();
 	}
 }
 
 Masa Ladownia::getMasaZawartosciLadowni()const {
 	Masa m (0);
 	for( auto o : obiekty){
-		m += o.second->getMasa();
+		m += o.second->pobierzMase();
 	}
 	return m;
 }

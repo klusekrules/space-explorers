@@ -20,9 +20,9 @@ void StatekTest::startTestow(){
 }
 
 void StatekTest::Issue42Test(){
-	UNIT_TEST_ASSERT_EQUAL( Masa(4+14), a->getMasa() );
-	UNIT_TEST_ASSERT_EQUAL( Objetosc(540), a->getObjetosc() );
-	UNIT_TEST_ASSERT_EQUAL( Powierzchnia(8), a->getPowierzchnia() );
+	UNIT_TEST_ASSERT_EQUAL( Masa(4+14), a->pobierzMase() );
+	UNIT_TEST_ASSERT_EQUAL( Objetosc(540), a->pobierzObjetosc() );
+	UNIT_TEST_ASSERT_EQUAL( Powierzchnia(8), a->pobierzPowierzchnie() );
 	UNIT_TEST_ASSERT_EQUAL( Objetosc(1300*12*2), a->getPojemnoscMax() );
 	UNIT_TEST_ASSERT_EQUAL( ZuzyciePaliwa(12),a->getJednostkoweZuzyciePaliwa() );
 	UNIT_TEST_ASSERT_EQUAL( MocSilnika(5), a->getMocSilnika() );

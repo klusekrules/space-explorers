@@ -28,11 +28,11 @@ Surowce::Surowce( TiXmlElement* e  )
 	Obiekt::odczytaj(e);
 }
 
-Surowce* Surowce::Kopia() const{
+Surowce* Surowce::kopia() const{
 	return new Surowce( *this );
 }
 
-Obiekt* Surowce::Podziel( const Ilosc& ilosc ) throw ( NiepoprawnaIloscObiektow ){
+Obiekt* Surowce::podziel( const Ilosc& ilosc ) throw ( NiepoprawnaIloscObiektow ){
 	if( ilosc <= Ilosc(0.0l) || ilosc >= this->ilosc_ )
 		throw NiepoprawnaIloscObiektow(EXCEPTION_PLACE,ilosc);
 	this->ilosc_ -= ilosc;

@@ -20,11 +20,11 @@ Czas ObiektBazowy::pobierzCzasRozbudowy( )const{
 	return obiektBazowyInfo_.pobierzCzasBudowy(ilosc_,param);
 }
 
-ObiektBazowy* ObiektBazowy::Kopia() const{
+ObiektBazowy* ObiektBazowy::kopia() const{
 	return new ObiektBazowy(*this);
 }
 
-ObiektBazowy* ObiektBazowy::Podziel( const Ilosc& ilosc ){
+ObiektBazowy* ObiektBazowy::podziel( const Ilosc& ilosc ){
 	if( czyMoznaPodzielic(ilosc) ){
 		ilosc_-=ilosc;
 		return new ObiektBazowy( ilosc, pobierzPoziom(), pobierzIdentyfikatorPlanety() , obiektBazowyInfo_ );
@@ -32,7 +32,7 @@ ObiektBazowy* ObiektBazowy::Podziel( const Ilosc& ilosc ){
 	return nullptr;
 }
 
-bool ObiektBazowy::Polacz( const ObiektBazowy& obiektBazowy ){
+bool ObiektBazowy::polacz( const ObiektBazowy& obiektBazowy ){
 	if(czyMoznaPolaczyc(obiektBazowy)){
 		ilosc_+=obiektBazowy.pobierzIlosc();
 		return true;

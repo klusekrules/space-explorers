@@ -55,7 +55,7 @@ public:
 	* \warning Metoda allokuje pamiêæ dla nowego obiektu, który musi zostaæ zwolniony wywo³aniem delete.
 	* \return Wskazanie na kopie obiektu.
 	*/
-	virtual ObiektBazowy* Kopia() const;
+	virtual ObiektBazowy* kopia() const;
 
 	/**
 	* Metoda dziel¹ca klasê wzdlêdem iloœci podanej przez argument.
@@ -65,7 +65,7 @@ public:
 	* \warning Metoda allokuje pamiêæ dla nowego obiektu, który musi zostaæ zwolniony wywo³aniem delete.
 	* \return Wskazanie na podzielony obiekt. Je¿eli nie mo¿na by³o podzieliæ obiektu, zostaje zwrócony nullptr.
 	*/
-	virtual ObiektBazowy* Podziel( const Ilosc& ilosc );
+	virtual ObiektBazowy* podziel( const Ilosc& ilosc );
 
 	/**
 	* Metoda ³¹czy obiekt bazowy z obiektem przekazanym przez parametr.
@@ -73,7 +73,7 @@ public:
 	* \warning Metoda nie zwalnia pamiêci przekazanego obiektu.
 	* \return Kiedy obiekty zostan¹ po³¹czone, zwracana wartoœæ to true, w przeciwnym wypadku zwrócona wartoœæ to false.
 	*/
-	virtual bool Polacz( const ObiektBazowy& obiektbazowy );
+	virtual bool polacz( const ObiektBazowy& obiektbazowy );
 
 	/**
 	* Metoda sprawdzaj¹ca warunki po³¹czenia obiektów.
