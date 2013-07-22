@@ -1,9 +1,8 @@
 #pragma once
-#include "Main.h"
+#include "Logger\LoggerInterface.h"
 #include "Identyfikator.h"
 #include "Serializacja.h"
 #include "parser\ticpp.h"
-#include "WyjatekParseraXML.h"
 
 /**
 * \brief Klasa bazowa dla klas obiektów.
@@ -26,7 +25,7 @@ public:
 	* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 	* \param wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
 	*/
-	explicit Bazowa( TiXmlElement * wezel ) throw(WyjatekParseraXML);
+	explicit Bazowa( TiXmlElement * wezel );
 	
 	/**
 	* Destruktor.
