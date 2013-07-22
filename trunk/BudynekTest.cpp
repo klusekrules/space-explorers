@@ -29,18 +29,18 @@ void BudynekTest::podstawowyTest(){
 	auto z = a->PobierzZapotrzebowanie();
 	UNIT_TEST_ASSERT_TRUE(( z.size()>0));
 	UNIT_TEST_ASSERT_EQUAL(Ilosc(180), z[0]->getIlosc());
-	UNIT_TEST_ASSERT_EQUAL(Identyfikator(10), z[0]->getId());
+	UNIT_TEST_ASSERT_EQUAL(Identyfikator(10), z[0]->pobierzIdentyfikator());
 	
 	auto p = a->PobierzProdukcje();
 	UNIT_TEST_ASSERT_TRUE(( p.size()>0));
 	UNIT_TEST_ASSERT_EQUAL( Ilosc(6000), p[0]->getIlosc());
-	UNIT_TEST_ASSERT_EQUAL( Identyfikator(1), p[0]->getId());
+	UNIT_TEST_ASSERT_EQUAL( Identyfikator(1), p[0]->pobierzIdentyfikator());
 	
 
 	p = b->PobierzProdukcje();
 	UNIT_TEST_ASSERT_TRUE((p.size()>0));
 	UNIT_TEST_ASSERT_EQUAL( Ilosc(6000), p[0]->getIlosc());
-	UNIT_TEST_ASSERT_EQUAL( Identyfikator(10), p[0]->getId());
+	UNIT_TEST_ASSERT_EQUAL( Identyfikator(10), p[0]->pobierzIdentyfikator());
 	
 	z = b->PobierzZapotrzebowanie();
 	UNIT_TEST_ASSERT_EQUAL( 0, z.size());

@@ -1,9 +1,9 @@
 #pragma once
-#include "Base.h"
+#include "Bazowa.h"
 #include "Ilosc.h"
 
 class Licznik:
-	public Base,
+	public Bazowa,
 	virtual public LoggerInterface,
 	virtual public Serializacja
 {

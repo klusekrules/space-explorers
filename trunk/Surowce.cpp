@@ -160,6 +160,6 @@ string Surowce::napis() const{
 	Logger str(NAZWAKLASY(Surowce));
 	str.dodajKlase(Obiekt::napis());
 	str.dodajPole(NAZWAKLASY(Ilosc),ilosc);
-	str.dodajPole(NAZWAKLASY(SurowceInfo)+"ID",surowceInfo.getId());
+	str.dodajPole(NAZWAKLASY(SurowceInfo)+"ID",surowceInfo.pobierzIdentyfikator());
 	return str.napis();
 }

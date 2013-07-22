@@ -39,8 +39,8 @@ bool Gra::Logowanie(const string& nazwa, const string& hash){
 //TODO: Dopisanie poprawnego generowania planet
 Identyfikator Gra::generujPlanete(){
 	auto p = shared_ptr<Planeta>( new Planeta(Identyfikator(idPlanety())));
-	wolnePlanety.insert(make_pair(p->getId(),p));
-	return p->getId();
+	wolnePlanety.insert(make_pair(p->pobierzIdentyfikator(),p));
+	return p->pobierzIdentyfikator();
 }
 
 bool Gra::przeniesPlaneteDoUzytkownika( const Identyfikator& p ){
@@ -65,22 +65,22 @@ bool Gra::wybudujNaPlanecie( Planeta& p , const Identyfikator& id , const Ilosc&
 }
 
 bool Gra::wybudujNaPlanecie( Planeta& p, const BudynekInfo& b, const Ilosc& ilosc )const{
-	p.dodajObiekt(shared_ptr<Budynek>(b.TworzEgzemplarz(ilosc,p.getId())));
+	p.dodajObiekt(shared_ptr<Budynek>(b.TworzEgzemplarz(ilosc,p.pobierzIdentyfikator())));
 	return true;
 }
 
 bool Gra::wybudujNaPlanecie( Planeta& p, const TechnologiaInfo& b, const Ilosc& ilosc )const{
-	p.dodajObiekt(shared_ptr<Technologia>(b.TworzEgzemplarz(ilosc,p.getId())));
+	p.dodajObiekt(shared_ptr<Technologia>(b.TworzEgzemplarz(ilosc,p.pobierzIdentyfikator())));
 	return true;
 }
 
 bool Gra::wybudujNaPlanecie( Planeta& p, const StatekInfo& b, const Ilosc& ilosc )const{
-	p.dodajObiekt(shared_ptr<Statek>(b.TworzEgzemplarz(ilosc,p.getId())));
+	p.dodajObiekt(shared_ptr<Statek>(b.TworzEgzemplarz(ilosc,p.pobierzIdentyfikator())));
 	return true;
 }
 
 bool Gra::wybudujNaPlanecie( Planeta& p, const SurowceInfo& b, const Ilosc& ilosc )const{
-	p.dodajObiekt(shared_ptr<Surowce>(b.TworzEgzemplarz(ilosc,p.getId())));
+	p.dodajObiekt(shared_ptr<Surowce>(b.TworzEgzemplarz(ilosc,p.pobierzIdentyfikator())));
 	return true;
 }
 
@@ -149,10 +149,10 @@ bool Gra::WczytajTechnologie(TiXmlElement* root){
 			if(ptr){
 				shared_ptr<TechnologiaInfo> t(new TechnologiaInfo(ptr));
 				aplikacja.getLog().debug(*t);
-				if(listaObiektowBaseInfo.find(t->getId())!=listaObiektowBaseInfo.end())
+				if(listaObiektowBaseInfo.find(t->pobierzIdentyfikator())!=listaObiektowBaseInfo.end())
 					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
-				listaTechnologiInfo[t->getId()]=t;
-				listaObiektowBaseInfo[t->getId()]=t;
+				listaTechnologiInfo[t->pobierzIdentyfikator()]=t;
+				listaObiektowBaseInfo[t->pobierzIdentyfikator()]=t;
 				ptr = ptr->NextSiblingElement(WEZEL_XML_TECHNOLOGIA_INFO);
 			}
 		}catch(OgolnyWyjatek& e){
@@ -172,11 +172,11 @@ bool Gra::WczytajBudynki(TiXmlElement* root){
 			if(ptr){
 				shared_ptr<BudynekInfo> t(new BudynekInfo(ptr));
 				aplikacja.getLog().debug(*t);
-				if(listaObiektowBaseInfo.find(t->getId())!=listaObiektowBaseInfo.end())
+				if(listaObiektowBaseInfo.find(t->pobierzIdentyfikator())!=listaObiektowBaseInfo.end())
 					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
-				listaBudynkowInfo[t->getId()]=t;
-				listaObiektowBaseInfo[t->getId()]=t;
-				listaObiektowInfo[t->getId()]=t;
+				listaBudynkowInfo[t->pobierzIdentyfikator()]=t;
+				listaObiektowBaseInfo[t->pobierzIdentyfikator()]=t;
+				listaObiektowInfo[t->pobierzIdentyfikator()]=t;
 				ptr = ptr->NextSiblingElement(WEZEL_XML_BUDYNEK_INFO);
 			}
 		}catch(OgolnyWyjatek& e){
@@ -196,11 +196,11 @@ bool Gra::WczytajSurowce(TiXmlElement* root){
 			if(ptr){
 				shared_ptr<SurowceInfo> t(new SurowceInfo(ptr));
 				aplikacja.getLog().debug(*t);
-				if(listaObiektowBaseInfo.find(t->getId())!=listaObiektowBaseInfo.end())
+				if(listaObiektowBaseInfo.find(t->pobierzIdentyfikator())!=listaObiektowBaseInfo.end())
 					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
-				listaSurowcowInfo[t->getId()]=t;
-				listaObiektowBaseInfo[t->getId()]=t;
-				listaObiektowInfo[t->getId()]=t;
+				listaSurowcowInfo[t->pobierzIdentyfikator()]=t;
+				listaObiektowBaseInfo[t->pobierzIdentyfikator()]=t;
+				listaObiektowInfo[t->pobierzIdentyfikator()]=t;
 				ptr = ptr->NextSiblingElement(WEZEL_XML_SUROWCE_INFO);
 			}
 		}catch(OgolnyWyjatek& e){
@@ -260,7 +260,7 @@ bool Gra::odczytaj( TiXmlElement* e ){
 			auto p = shared_ptr<Planeta>( new Planeta(Identyfikator()) );
 			if(!p->odczytaj(n))
 				return false;
-			wolnePlanety.insert(make_pair(p->getId(),p));
+			wolnePlanety.insert(make_pair(p->pobierzIdentyfikator(),p));
 		}
 		return true;	
 	}

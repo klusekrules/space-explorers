@@ -1,13 +1,13 @@
 #pragma once
 #include "Main.h"
-#include "Base.h"
+#include "Bazowa.h"
 #include "Tekst.h"
 #include "Identyfikator.h"
 #include "Wymagania.h"
 #include "WyjatekParseraXML.h"
 
 class Info:
-	public Base,
+	public Bazowa,
 	public Wymagania,
 	virtual public LoggerInterface
 {

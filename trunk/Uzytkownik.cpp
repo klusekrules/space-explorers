@@ -11,10 +11,10 @@ Uzytkownik::~Uzytkownik()
 }
 
 bool Uzytkownik::dodajPlanete( shared_ptr<Planeta> p ){
-	auto i = listaPlanet.find(p->getId());
+	auto i = listaPlanet.find(p->pobierzIdentyfikator());
 	if(i!=listaPlanet.end())
 		return false;
-	listaPlanet.insert(make_pair(p->getId(),p));
+	listaPlanet.insert(make_pair(p->pobierzIdentyfikator(),p));
 	p->ustawWlasciciela(this);
 	return true;
 }
@@ -41,7 +41,7 @@ bool Uzytkownik::odczytaj( TiXmlElement* e ){
 			auto p = shared_ptr<Planeta>( new Planeta(Identyfikator()) );
 			if(!p->odczytaj(n))
 				return false;
-			listaPlanet.insert(make_pair(p->getId(),p));
+			listaPlanet.insert(make_pair(p->pobierzIdentyfikator(),p));
 			p->ustawWlasciciela(this);
 		}
 		return true;

@@ -54,6 +54,6 @@ bool Obiekt::odczytaj (TiXmlElement* e){
 string Obiekt::napis() const{
 	Logger str(NAZWAKLASY(Obiekt));
 	str.dodajKlase(ObiektBase::napis());
-	str.dodajPole(NAZWAKLASY(ObiektInfo)+"ID",obiektInfoClass.getId());
+	str.dodajPole(NAZWAKLASY(ObiektInfo)+"ID",obiektInfoClass.pobierzIdentyfikator());
 	return str.napis();
 }

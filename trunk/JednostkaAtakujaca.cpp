@@ -29,7 +29,7 @@ Obrazenia JednostkaAtakujaca::Oslona( const Obrazenia& a ) const{
 
 string JednostkaAtakujaca::napis() const{
 	Logger str(NAZWAKLASY(JednostkaAtakujaca));
-	str.dodajPole(NAZWAKLASY(JednostkaAtakujacaInfo)+"ID",jednostkaAtakujacaInfo.getId());
+	str.dodajPole(NAZWAKLASY(JednostkaAtakujacaInfo)+"ID",jednostkaAtakujacaInfo.pobierzIdentyfikator());
 	return str.napis();
 }
 

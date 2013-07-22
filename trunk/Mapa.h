@@ -1,7 +1,6 @@
 #pragma once
 #include "Main.h"
 #include <map>
-#include "Base.h"
 #include "Logger.h"
 
 /**
