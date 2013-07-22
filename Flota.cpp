@@ -64,7 +64,7 @@ bool Flota::odczytaj( TiXmlElement* e ) {
 			if(!c)
 				return false;
 			Identyfikator id(stoi(c,nullptr,0));
-			shared_ptr<Statek> p = shared_ptr<Statek>(Aplikacja::getInstance().getGra().getStatek(id).TworzEgzemplarz(Ilosc(),Identyfikator()));			
+			shared_ptr<Statek> p = shared_ptr<Statek>(Aplikacja::getInstance().getGra().getStatek(id).tworzEgzemplarz(Ilosc(),Identyfikator()));			
 			if(!p->odczytaj(n) )
 				return false;
 			lista.insert(make_pair(p->ID(),p));

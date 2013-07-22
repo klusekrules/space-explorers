@@ -7,10 +7,10 @@ ObiektListTest::ObiektListTest(void)
 
 void ObiektListTest::startTestow(){
 	Gra& gra = Aplikacja::getInstance().getGra();
-	a = gra.getStatek(Identyfikator(11)).TworzEgzemplarz(Ilosc(8),Identyfikator(0));
-	b = gra.getStatek(Identyfikator(12)).TworzEgzemplarz(Ilosc(8),Identyfikator(0));
-	c = gra.getStatek(Identyfikator(13)).TworzEgzemplarz(Ilosc(8),Identyfikator(0));
-	d = gra.getStatek(Identyfikator(14)).TworzEgzemplarz(Ilosc(8),Identyfikator(0));
+	a = gra.getStatek(Identyfikator(11)).tworzEgzemplarz(Ilosc(8),Identyfikator(0));
+	b = gra.getStatek(Identyfikator(12)).tworzEgzemplarz(Ilosc(8),Identyfikator(0));
+	c = gra.getStatek(Identyfikator(13)).tworzEgzemplarz(Ilosc(8),Identyfikator(0));
+	d = gra.getStatek(Identyfikator(14)).tworzEgzemplarz(Ilosc(8),Identyfikator(0));
 	UNIT_TEST_ASSERT_NOTNULL(a);
 	UNIT_TEST_ASSERT_NOTNULL(b);
 	UNIT_TEST_ASSERT_NOTNULL(c);

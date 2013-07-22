@@ -4,7 +4,7 @@
 #include "Gra.h"
 
 TechnologiaInfo::TechnologiaInfo( TiXmlElement* e )
-	: ObiektBaseInfo(e)
+	: ObiektBazowyInfo(e)
 {
 }
 
@@ -12,26 +12,26 @@ TechnologiaInfo::~TechnologiaInfo(void)
 {
 }
 
-TechnologiaInfo::TechnologiaInfo( const ObiektBaseInfo& o )
-	: ObiektBaseInfo(o)
+TechnologiaInfo::TechnologiaInfo( const ObiektBazowyInfo& o )
+	: ObiektBazowyInfo(o)
 {
 }
 
 TechnologiaInfo::TechnologiaInfo( const TechnologiaInfo& o )
-	: ObiektBaseInfo(o)
+	: ObiektBazowyInfo(o)
 {
 }
 
-Technologia* TechnologiaInfo::TworzEgzemplarz( const Ilosc& i, const Identyfikator& idP ) const{
-	return new Technologia( getPoziom(), idP, *this );
+Technologia* TechnologiaInfo::tworzEgzemplarz( const Ilosc& i, const Identyfikator& idP ) const{
+	return new Technologia( pobierzPoziom(), idP, *this );
 }
 
-bool TechnologiaInfo::Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
+bool TechnologiaInfo::tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
 	return g.wybudujNaPlanecie(p,*this,i);
 }
 
 string TechnologiaInfo::napis()const{
 	Logger str(NAZWAKLASY(TechnologiaInfo));
-	str.dodajKlase(ObiektBaseInfo::napis());
+	str.dodajKlase(ObiektBazowyInfo::napis());
 	return str.napis();
 }

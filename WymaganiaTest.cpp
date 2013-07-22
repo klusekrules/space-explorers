@@ -20,8 +20,8 @@ void WymaganiaTest::sprawdzenieKosztow(){
 	UNIT_TEST_ASSERT_EQUAL( Ilosc(8*1*10*5*200), tmp[2]->getIlosc());
 	auto w = a->PobierzWarunki();
 	UNIT_TEST_ASSERT_EQUAL(2,w.size());
-	UNIT_TEST_ASSERT_EQUAL( Poziom(25), w[0]->getPoziom() );
-	UNIT_TEST_ASSERT_EQUAL( Poziom(5), w[1]->getPoziom() );
+	UNIT_TEST_ASSERT_EQUAL( Poziom(25), w[0]->pobierzPoziom() );
+	UNIT_TEST_ASSERT_EQUAL( Poziom(5), w[1]->pobierzPoziom() );
 }
 
 void WymaganiaTest::czyMoznaWybudowacTest(){

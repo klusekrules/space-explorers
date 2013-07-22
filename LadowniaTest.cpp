@@ -13,11 +13,11 @@ void LadowniaTest::startTestow(){
 	StatekInfo& statekInfo3 = gra->getStatek(Identyfikator(0xE));
 	SurowceInfo& surowceInfo = gra->getSurowce(Identyfikator(0x1));
 	SurowceInfo& surowceInfo2 = gra->getSurowce(Identyfikator(0xA));
-	statekTransportowy = shared_ptr<Statek> ( statekInfo.TworzEgzemplarz(Ilosc(10),Identyfikator(0)) );
-	statekTransportowyDuzy = shared_ptr<Statek> ( statekInfo3.TworzEgzemplarz(Ilosc(1),Identyfikator(0)) );
-	metal = shared_ptr<Surowce> ( surowceInfo.TworzEgzemplarz(Ilosc(10000),Identyfikator(0)) );
-	energia = shared_ptr<Surowce> ( surowceInfo2.TworzEgzemplarz(Ilosc(10000),Identyfikator(0)) );
-	mysliwiec = shared_ptr<Statek> ( statekInfo2.TworzEgzemplarz(Ilosc(10),Identyfikator(0)) );
+	statekTransportowy = shared_ptr<Statek> ( statekInfo.tworzEgzemplarz(Ilosc(10),Identyfikator(0)) );
+	statekTransportowyDuzy = shared_ptr<Statek> ( statekInfo3.tworzEgzemplarz(Ilosc(1),Identyfikator(0)) );
+	metal = shared_ptr<Surowce> ( surowceInfo.tworzEgzemplarz(Ilosc(10000),Identyfikator(0)) );
+	energia = shared_ptr<Surowce> ( surowceInfo2.tworzEgzemplarz(Ilosc(10000),Identyfikator(0)) );
+	mysliwiec = shared_ptr<Statek> ( statekInfo2.tworzEgzemplarz(Ilosc(10),Identyfikator(0)) );
 }
 
 void LadowniaTest::podstawowyTest(){

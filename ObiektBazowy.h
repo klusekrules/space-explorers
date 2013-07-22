@@ -5,7 +5,7 @@
 #include "Klucz.h"
 #include "Wymagania.h"
 
-class ObiektBaseInfo;
+class ObiektBazowyInfo;
 
 /**
 * \brief Klasa bazowa dla obiektów gry. 
@@ -25,7 +25,7 @@ class ObiektBazowy :
 {
 protected:	
 	Ilosc ilosc_; /// Iloœæ obiektów.
-	const ObiektBaseInfo& obiektBazowyInfo_; /// Referencja do klasy opisuj¹cej.
+	const ObiektBazowyInfo& obiektBazowyInfo_; /// Referencja do klasy opisuj¹cej.
 
 public:
 
@@ -38,7 +38,7 @@ public:
 	* \param[in] identyfikatorPlanety - Identyfikator planety rodzica obiektu.
 	* \param[in] obiektBazowyInfo - Referencja do obiektu opisuj¹cego tworzony obiekt.
 	*/
-	ObiektBazowy( const Ilosc& ilosc, const Poziom& poziom, const Identyfikator& identyfikatorPlanety, const ObiektBaseInfo& obiektBazowyInfo) throw();
+	ObiektBazowy( const Ilosc& ilosc, const Poziom& poziom, const Identyfikator& identyfikatorPlanety, const ObiektBazowyInfo& obiektBazowyInfo) throw();
 
 	/**
 	* \brief Konstruktor.
@@ -48,7 +48,7 @@ public:
 	* \param[in] parametryPodstawowe - Parametry podstawowe obiektu.
 	* \param[in] obiektBazowyInfo - Referencja do obiektu opisuj¹cego tworzony obiekt.
 	*/
-	ObiektBazowy( const Ilosc& ilosc, const PodstawoweParametry& parametryPodstawowe, const ObiektBaseInfo& obiektBazowyInfo) throw();
+	ObiektBazowy( const Ilosc& ilosc, const PodstawoweParametry& parametryPodstawowe, const ObiektBazowyInfo& obiektBazowyInfo) throw();
 
 	/**
 	* Metoda kopiuj¹ca obiekt. 
@@ -146,7 +146,7 @@ public:
 	* Metoda zwracaj¹ca referencej do obiektu opisuj¹cego.
 	* \return referencja do obiektu opisuj¹cego.
 	*/
-	const ObiektBaseInfo& getObiektBaseInfo()const;
+	const ObiektBazowyInfo& getObiektBaseInfo()const;
 
 	/**
 	* \brief Metoda zapisuj¹ca.

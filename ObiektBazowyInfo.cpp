@@ -1,42 +1,40 @@
-#include "ObiektBaseInfo.h"
+#include "ObiektBazowyInfo.h"
 #include "Logger.h"
-#include "XmlBO.h"
 #include "ObiektBazowy.h"
-#include "Gra.h"
 #include "definicjeWezlowXML.h"
 
-ObiektBaseInfo::ObiektBaseInfo(const Info& i , const Poziom& p) throw()
-	: Info(i), poziom(p)
+ObiektBazowyInfo::ObiektBazowyInfo( const Info& ilosc , const Poziom& poziom ) throw()
+	: Info(ilosc), poziom_(poziom)
 {
 }
 
-ObiektBaseInfo::ObiektBaseInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
-	: Info(n)
+ObiektBazowyInfo::ObiektBazowyInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
+	: Info(wezel)
 {
-	if(n){
+	if(wezel){
 		try{
-			poziom(stoi(n->Attribute(ATRYBUT_XML_POZIOM)));
-		}catch(exception& e){
-			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
+			poziom_(stoi(wezel->Attribute(ATRYBUT_XML_POZIOM)));
+		}catch(exception& wyjatek){
+			throw WyjatekParseraXML(EXCEPTION_PLACE,wyjatek,WyjatekParseraXML::trescBladStrukturyXml);
 		}
 	}
 }
 
-ObiektBazowy* ObiektBaseInfo::TworzEgzemplarz( const Ilosc& i, const Identyfikator& idPlanety ) const{
-	return new ObiektBazowy(i,getPoziom(),idPlanety,*this);
+ObiektBazowy* ObiektBazowyInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety ) const{
+	return new ObiektBazowy(ilosc,pobierzPoziom(),identyfikatorPlanety,*this);
 }
 
-bool ObiektBaseInfo::Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
+bool ObiektBazowyInfo::tworz( const Gra& gra, Planeta& planeta, const Ilosc& ilosc ) const{
 	return false;
 }
 
-const Poziom& ObiektBaseInfo::getPoziom()const{
-	return poziom;
+const Poziom& ObiektBazowyInfo::pobierzPoziom()const{
+	return poziom_;
 }
 
-string ObiektBaseInfo::napis() const{
-	Logger str(NAZWAKLASY(ObiektBaseInfo));
+string ObiektBazowyInfo::napis() const{
+	Logger str(NAZWAKLASY(ObiektBazowyInfo));
 	str.dodajKlase(Info::napis());	
-	str.dodajPole(NAZWAKLASY(Poziom),poziom);
+	str.dodajPole(NAZWAKLASY(Poziom),poziom_);
 	return str.napis();
 }

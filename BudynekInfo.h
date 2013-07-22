@@ -15,7 +15,7 @@ protected:
 public:
 	BudynekInfo( TiXmlElement* );
 	~BudynekInfo(void);
-	Budynek* TworzEgzemplarz( const Ilosc&, const Identyfikator& ) const override;
+	Budynek* tworzEgzemplarz( const Ilosc&, const Identyfikator& ) const override;
 
 	Wymagania::PrzetworzonaCena PobierzZapotrzebowanie( const PodstawoweParametry& param)const;
 
@@ -23,6 +23,6 @@ public:
 
 	string napis()const override;
 private:
-	bool Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const override;
+	bool tworz( const Gra& g, Planeta& p , const Ilosc& i ) const override;
 };
 

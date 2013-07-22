@@ -59,28 +59,28 @@ bool Gra::przeniesPlaneteDoUzytkownika( const Identyfikator& p ){
 bool Gra::wybudujNaPlanecie( Planeta& p , const Identyfikator& id , const Ilosc& ilosc )const{
 	auto iterObiektow = listaObiektowBaseInfo.find(id);
 	if(iterObiektow != listaObiektowBaseInfo.end()){
-		return iterObiektow->second->Tworz(*this,p,ilosc);
+		return iterObiektow->second->tworz(*this,p,ilosc);
 	}
 	return false;
 }
 
 bool Gra::wybudujNaPlanecie( Planeta& p, const BudynekInfo& b, const Ilosc& ilosc )const{
-	p.dodajObiekt(shared_ptr<Budynek>(b.TworzEgzemplarz(ilosc,p.pobierzIdentyfikator())));
+	p.dodajObiekt(shared_ptr<Budynek>(b.tworzEgzemplarz(ilosc,p.pobierzIdentyfikator())));
 	return true;
 }
 
 bool Gra::wybudujNaPlanecie( Planeta& p, const TechnologiaInfo& b, const Ilosc& ilosc )const{
-	p.dodajObiekt(shared_ptr<Technologia>(b.TworzEgzemplarz(ilosc,p.pobierzIdentyfikator())));
+	p.dodajObiekt(shared_ptr<Technologia>(b.tworzEgzemplarz(ilosc,p.pobierzIdentyfikator())));
 	return true;
 }
 
 bool Gra::wybudujNaPlanecie( Planeta& p, const StatekInfo& b, const Ilosc& ilosc )const{
-	p.dodajObiekt(shared_ptr<Statek>(b.TworzEgzemplarz(ilosc,p.pobierzIdentyfikator())));
+	p.dodajObiekt(shared_ptr<Statek>(b.tworzEgzemplarz(ilosc,p.pobierzIdentyfikator())));
 	return true;
 }
 
 bool Gra::wybudujNaPlanecie( Planeta& p, const SurowceInfo& b, const Ilosc& ilosc )const{
-	p.dodajObiekt(shared_ptr<Surowce>(b.TworzEgzemplarz(ilosc,p.pobierzIdentyfikator())));
+	p.dodajObiekt(shared_ptr<Surowce>(b.tworzEgzemplarz(ilosc,p.pobierzIdentyfikator())));
 	return true;
 }
 
