@@ -42,7 +42,7 @@ public:
 	* \param[in] ilosc - Iloœæ tworzonych obiektów.
 	* \param[in] identyfikatorPlanety - Identyfikator planety rodzica obiektu.
 	* \warning Metoda allokuje pamiêæ dla nowego obiektu, który musi zostaæ zwolniony wywo³aniem delete.
-	* \return Metoda zwraca poziom domyœlny obiektu.
+	* \return Metoda zwraca wskaŸnika na obiekt.
 	*/
 	virtual ObiektBazowy* tworzEgzemplarz( const Ilosc& ilosc , const Identyfikator& identyfikatorPlanety ) const;
 

@@ -4,65 +4,63 @@
 #include "Aplikacja.h"
 #include "definicjeWezlowXML.h"
 
-ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& obj, const Powierzchnia& pow, const ObiektBazowyInfo& info ) throw()
-	: ObiektBazowyInfo(info),powierzchnia(pow), zmPowierzchnia(nullptr), objetosc(obj), zmObjetosc(nullptr), masa(masa), zmMasa(nullptr)
+ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& objetosc, const Powierzchnia& powierzchnia, const ObiektBazowyInfo& obiektBazowyInfo ) throw()
+	: ObiektBazowyInfo(obiektBazowyInfo),powierzchnia_(powierzchnia), zmianaPowierzchni_(nullptr),
+	objetosc_(objetosc), zmianaObjetosci_(nullptr), masa_(masa), zmianaMasy_(nullptr)
 {
 }
 
-ObiektInfo::ObiektInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
-	: ObiektBazowyInfo(n), zmPowierzchnia(nullptr), zmObjetosc(nullptr), zmMasa(nullptr)
+ObiektInfo::ObiektInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
+	: ObiektBazowyInfo(wezel), zmianaPowierzchni_(nullptr), zmianaObjetosci_(nullptr), zmianaMasy_(nullptr)
 {
-	if(n){
+	if(wezel){
 		try{
 			ZmianaFabryka& fabryka = Aplikacja::getInstance().getGra().getZmianaFabryka();
-			masa(stold(n->Attribute(ATRYBUT_XML_MASA)));
-			zmMasa = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MASA));
-			objetosc(stold(n->Attribute(ATRYBUT_XML_OBJETOSC)));
-			zmObjetosc = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_OBJETOSC));
-			powierzchnia(stold(n->Attribute(ATRYBUT_XML_POWIERZCHNIA)));
-			zmPowierzchnia = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_POWIERZCHNIA));
-		}catch(exception& e){
-			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
+			masa_(stold(wezel->Attribute(ATRYBUT_XML_MASA)));
+			zmianaMasy_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MASA));
+			objetosc_(stold(wezel->Attribute(ATRYBUT_XML_OBJETOSC)));
+			zmianaObjetosci_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_OBJETOSC));
+			powierzchnia_(stold(wezel->Attribute(ATRYBUT_XML_POWIERZCHNIA)));
+			zmianaPowierzchni_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_POWIERZCHNIA));
+		}catch(exception& wyjatek){
+			throw WyjatekParseraXML(EXCEPTION_PLACE,wyjatek,WyjatekParseraXML::trescBladStrukturyXml);
 		}
 	}
 }
 
-ObiektInfo::~ObiektInfo(){
+Powierzchnia ObiektInfo::pobierzPowierzchnie(const Poziom& poziom, const Identyfikator& identyfikatorPlanety) const {
+	if(zmianaPowierzchni_ == nullptr)
+		return powierzchnia_;			
+	return Powierzchnia(zmianaPowierzchni_->policzWartosc(powierzchnia_(),static_cast<int>(poziom()),identyfikatorPlanety()));
 }
 
-Powierzchnia ObiektInfo::getPowierzchnia(const Poziom& pz, const Identyfikator& idPlanety) const {
-	if(zmPowierzchnia == nullptr)
-		return powierzchnia;			
-	return Powierzchnia(zmPowierzchnia->policzWartosc(powierzchnia(),static_cast<int>(pz()),idPlanety()));
+Objetosc ObiektInfo::pobierzObjetosc(const Poziom& poziom, const Identyfikator& identyfikatorPlanety) const {
+	if(zmianaObjetosci_ == nullptr)
+		return objetosc_;
+	return Objetosc(zmianaObjetosci_->policzWartosc(objetosc_(),static_cast<int>(poziom()), identyfikatorPlanety()));
 }
 
-Objetosc ObiektInfo::getObjetosc(const Poziom& pz, const Identyfikator& idPlanety) const {
-	if(zmPowierzchnia == nullptr)
-		return objetosc;
-	return Objetosc(zmObjetosc->policzWartosc(objetosc(),static_cast<int>(pz()), idPlanety()));
+Masa ObiektInfo::pobierzMase(const Poziom& poziom, const Identyfikator& identyfikatorPlanety) const {
+	if(zmianaMasy_ == nullptr)
+		return masa_;
+	return Masa(zmianaMasy_->policzWartosc(masa_(),static_cast<int>(poziom()), identyfikatorPlanety()));
 }
 
-Masa ObiektInfo::getMasa(const Poziom& pz, const Identyfikator& idPlanety) const {
-	if(zmPowierzchnia == nullptr)
-		return masa;
-	return Masa(zmMasa->policzWartosc(masa(),static_cast<int>(pz()), idPlanety()));
-}
-
-Obiekt* ObiektInfo::tworzEgzemplarz( const Ilosc& iIlosc, const Identyfikator& idPlanety ) const {
-	return new Obiekt( iIlosc, pobierzPoziom(),idPlanety, *this );
+Obiekt* ObiektInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety ) const {
+	return new Obiekt( ilosc, pobierzPoziom(),identyfikatorPlanety, *this );
 }
 
 string ObiektInfo::napis() const{
 	Logger str(NAZWAKLASY(ObiektInfo));
 	str.dodajKlase(ObiektBazowyInfo::napis());
-	str.dodajPole(NAZWAKLASY(Masa),masa);
-	str.dodajPole(NAZWAKLASY(Objetosc),objetosc);
-	str.dodajPole(NAZWAKLASY(Powierzchnia),powierzchnia);
-	if(zmMasa!=nullptr)
-		str.dodajPole("ZmianaMasy",*zmMasa);
-	if(zmObjetosc!=nullptr)
-		str.dodajPole("ZmianaObjetosci",*zmObjetosc);
-	if(zmPowierzchnia!=nullptr)
-		str.dodajPole("ZmianaPowierzchni",*zmPowierzchnia);
+	str.dodajPole(NAZWAKLASY(Masa),masa_);
+	str.dodajPole(NAZWAKLASY(Objetosc),objetosc_);
+	str.dodajPole(NAZWAKLASY(Powierzchnia),powierzchnia_);
+	if(zmianaMasy_!=nullptr)
+		str.dodajPole("ZmianaMasy",*zmianaMasy_);
+	if(zmianaObjetosci_!=nullptr)
+		str.dodajPole("ZmianaObjetosci",*zmianaObjetosci_);
+	if(zmianaPowierzchni_!=nullptr)
+		str.dodajPole("ZmianaPowierzchni",*zmianaPowierzchni_);
 	return str.napis();
 }

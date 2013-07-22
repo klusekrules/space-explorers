@@ -29,15 +29,15 @@ Obiekt* Obiekt::Podziel( const Ilosc& i ){
 	return nullptr;
 }	
 Powierzchnia Obiekt::getPowierzchnia() const{
-	return Powierzchnia(obiektInfoClass.getPowierzchnia(pobierzPoziom(), pobierzIdentyfikatorPlanety())()*(this->pobierzIlosc()()));
+	return Powierzchnia(obiektInfoClass.pobierzPowierzchnie(pobierzPoziom(), pobierzIdentyfikatorPlanety())()*(this->pobierzIlosc()()));
 }
 
 Objetosc Obiekt::getObjetosc() const{
-	return Objetosc(obiektInfoClass.getObjetosc(pobierzPoziom(), pobierzIdentyfikatorPlanety())()*(this->pobierzIlosc()()));
+	return Objetosc(obiektInfoClass.pobierzObjetosc(pobierzPoziom(), pobierzIdentyfikatorPlanety())()*(this->pobierzIlosc()()));
 }
 
 Masa Obiekt::getMasa() const{
-	return Masa(obiektInfoClass.getMasa(pobierzPoziom(), pobierzIdentyfikatorPlanety())()*(this->pobierzIlosc()()));
+	return Masa(obiektInfoClass.pobierzMase(pobierzPoziom(), pobierzIdentyfikatorPlanety())()*(this->pobierzIlosc()()));
 }
 
 bool Obiekt::czMoznaDodacDoLadownii( const Ladownia& c ) const{
