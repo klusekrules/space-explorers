@@ -16,8 +16,8 @@ void TechnologiaTest::startTestow(){
 }
 
 void TechnologiaTest::podstawowyTest(){
-	UNIT_TEST_ASSERT_EQUAL(Ilosc(1),a->getIlosc());
-	UNIT_TEST_ASSERT_EQUAL(Ilosc(1),b->getIlosc());
+	UNIT_TEST_ASSERT_EQUAL(Ilosc(1),a->pobierzIlosc());
+	UNIT_TEST_ASSERT_EQUAL(Ilosc(1),b->pobierzIlosc());
 }
 
 TechnologiaTest::~TechnologiaTest(void)

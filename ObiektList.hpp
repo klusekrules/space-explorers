@@ -1,17 +1,14 @@
 #pragma once
-#include "Klucz.h"
-#include "Biblioteki.h"
-#include "Obiekt.h"
+#include "ObiektBazowy.h"
 #include "NieznalezionoObiektu.h"
 #include "BladLaczeniaObiektow.h"
-#include "Stale.h"
 #include "Mapa.h"
 
 template < class T >
 class ObiektList:
 	virtual public LoggerInterface
 {
-	static_assert(is_base_of< ObiektBase , T >::value, "Uzyto typ niezgodny z ObiektBase* ");
+	static_assert(is_base_of< ObiektBazowy , T >::value, "Uzyto typ niezgodny z ObiektBase* ");
 public:
 	typedef typename Mapa< Klucz , T >::iterator iterator;
 	typedef typename Mapa< Klucz , T >::const_iterator const_iterator;

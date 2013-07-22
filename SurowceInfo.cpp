@@ -39,7 +39,7 @@ bool SurowceInfo::Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
 
 Czas SurowceInfo::pobierzCzas( const Ilosc& i ,const PodstawoweParametry& p )const{
 	if(zmCzas)
-		return Czas(zmCzas->policzWartosc(i(),static_cast<int>(p.getPoziom()()),p.getIdPlanety()()));
+		return Czas(zmCzas->policzWartosc(i(),static_cast<int>(p.pobierzPoziom()()),p.pobierzIdentyfikatorPlanety()()));
 	else
 		return Czas(0.0l);
 }

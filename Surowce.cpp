@@ -33,101 +33,101 @@ Surowce* Surowce::Kopia() const{
 }
 
 Obiekt* Surowce::Podziel( const Ilosc& ilosc ) throw ( NiepoprawnaIloscObiektow ){
-	if( ilosc <= Ilosc(0.0l) || ilosc >= this->ilosc )
+	if( ilosc <= Ilosc(0.0l) || ilosc >= this->ilosc_ )
 		throw NiepoprawnaIloscObiektow(EXCEPTION_PLACE,ilosc);
-	this->ilosc -= ilosc;
+	this->ilosc_ -= ilosc;
 	return new Surowce( ilosc , *this );
 }
 
 Surowce& Surowce::operator=( const Surowce& sSurowce )  throw ( NiezgodnyTypSurowca ) {
 	if( this->ID() != sSurowce.ID() )
 		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
-	ilosc = sSurowce.ilosc;
+	ilosc_ = sSurowce.ilosc_;
 	return *this;
 }
 
 bool Surowce::operator==( const Surowce& sSurowce ) const throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
 		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
-	return ilosc == sSurowce.ilosc;
+	return ilosc_ == sSurowce.ilosc_;
 }
 	
 bool Surowce::operator!=( const Surowce& sSurowce ) const throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
 		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
-	return ilosc != sSurowce.ilosc;
+	return ilosc_ != sSurowce.ilosc_;
 }
 	
 bool Surowce::operator>( const Surowce& sSurowce ) const throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
 		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
-	return ilosc > sSurowce.ilosc;
+	return ilosc_ > sSurowce.ilosc_;
 }
 	
 bool Surowce::operator<( const Surowce& sSurowce ) const throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
 		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
-	return ilosc < sSurowce.ilosc;
+	return ilosc_ < sSurowce.ilosc_;
 }
 	
 bool Surowce::operator>=( const Surowce& sSurowce ) const throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
 		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
-	return ilosc >= sSurowce.ilosc;
+	return ilosc_ >= sSurowce.ilosc_;
 }
 	
 bool Surowce::operator<=( const Surowce& sSurowce ) const throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
 		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
-	return ilosc <= sSurowce.ilosc ;
+	return ilosc_ <= sSurowce.ilosc_ ;
 }
 
 Surowce Surowce::operator+( const Surowce& sSurowce ) const throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
 		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
-	return Surowce( ilosc + sSurowce.ilosc , sSurowce );
+	return Surowce( ilosc_ + sSurowce.ilosc_ , sSurowce );
 }
 	
 Surowce& Surowce::operator+=( const Surowce& sSurowce )  throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
 		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
-	ilosc += sSurowce.ilosc;
+	ilosc_ += sSurowce.ilosc_;
 	return *this;
 }
 	
 Surowce Surowce::operator-( const Surowce& sSurowce ) const throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
 		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
-	return Surowce( ilosc - sSurowce.ilosc, sSurowce  );
+	return Surowce( ilosc_ - sSurowce.ilosc_, sSurowce  );
 }
 
 Surowce& Surowce::operator-=( const Surowce& sSurowce ) throw ( NiezgodnyTypSurowca ){
 	if( this->ID() != sSurowce.ID() )
 		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , sSurowce.ID() );
-	ilosc -= sSurowce.ilosc;
+	ilosc_ -= sSurowce.ilosc_;
 	return *this;
 }
 
 bool Surowce::Dodaj( const Surowce& sSurowce ){
 	if( this->ID() != sSurowce.ID() )
 		return false;
-	ilosc += sSurowce.ilosc;
+	ilosc_ += sSurowce.ilosc_;
 	return true;
 }
 	
 bool Surowce::Usun( const Surowce& sSurowce ){
 	if( this->ID() != sSurowce.ID() )
 		return false;
-	ilosc -= sSurowce.ilosc;
+	ilosc_ -= sSurowce.ilosc_;
 	return true;
 }
 	
 const Ilosc& Surowce::getIlosc() const{
-	return ilosc;
+	return ilosc_;
 }
 	
 void Surowce::setIlosc( const Ilosc& isIlosc ) {
-	ilosc = isIlosc;
+	ilosc_ = isIlosc;
 }
 
 const SurowceInfo& Surowce::getSurowceInfo() const{
@@ -143,7 +143,7 @@ bool Surowce::czMoznaDodacDoLadownii( const Ladownia& c ) const{
 }
 
 Czas Surowce::pobierzCzas()const{
-	return surowceInfo.pobierzCzas(ilosc,*this);
+	return surowceInfo.pobierzCzas(ilosc_,*this);
 }
 
 bool Surowce::zapisz( TiXmlElement* e ) const {
@@ -159,7 +159,7 @@ bool Surowce::odczytaj( TiXmlElement* e ) {
 string Surowce::napis() const{
 	Logger str(NAZWAKLASY(Surowce));
 	str.dodajKlase(Obiekt::napis());
-	str.dodajPole(NAZWAKLASY(Ilosc),ilosc);
+	str.dodajPole(NAZWAKLASY(Ilosc),ilosc_);
 	str.dodajPole(NAZWAKLASY(SurowceInfo)+"ID",surowceInfo.pobierzIdentyfikator());
 	return str.napis();
 }

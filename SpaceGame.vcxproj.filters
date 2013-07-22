@@ -31,9 +31,6 @@
     <ClCompile Include="Obiekt.cpp">
       <Filter>SourceFile\BaseClass\Obiekt</Filter>
     </ClCompile>
-    <ClCompile Include="ObiektBase.cpp">
-      <Filter>SourceFile\BaseClass\Base</Filter>
-    </ClCompile>
     <ClCompile Include="Poziom.cpp">
       <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
@@ -238,6 +235,9 @@
     <ClCompile Include="Bazowa.cpp">
       <Filter>SourceFile\BaseClass\Base</Filter>
     </ClCompile>
+    <ClCompile Include="ObiektBazowy.cpp">
+      <Filter>SourceFile\BaseClass\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -281,9 +281,6 @@
     </ClInclude>
     <ClInclude Include="Obiekt.h">
       <Filter>SourceFile\BaseClass\Obiekt</Filter>
-    </ClInclude>
-    <ClInclude Include="ObiektBase.h">
-      <Filter>SourceFile\BaseClass\Base</Filter>
     </ClInclude>
     <ClInclude Include="Poziom.h">
       <Filter>SourceFile\Typy podstawowe</Filter>
@@ -529,6 +526,9 @@
       <Filter>SourceFile\Wymagania</Filter>
     </ClInclude>
     <ClInclude Include="Bazowa.h">
+      <Filter>SourceFile\BaseClass\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ObiektBazowy.h">
       <Filter>SourceFile\BaseClass\Base</Filter>
     </ClInclude>
   </ItemGroup>

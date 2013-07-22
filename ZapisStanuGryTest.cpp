@@ -19,7 +19,7 @@ void ZapisStanuGryTest::odczyt(){
 	int ptr_b = (int)(&(Aplikacja::getInstance().getGra()));
 	UNIT_TEST_ASSERT_NOTEQUAL(ptr_a,ptr_b);
 	UNIT_TEST_ASSERT_EQUAL(p_a.pobierzIloscTypowObiektow(),p_b.pobierzIloscTypowObiektow());
-	UNIT_TEST_ASSERT_EQUAL(p_a.pobierzObiekt(Identyfikator(1)).getIlosc(),p_b.pobierzObiekt(Identyfikator(1)).getIlosc());
+	UNIT_TEST_ASSERT_EQUAL(p_a.pobierzObiekt(Identyfikator(1)).pobierzIlosc(),p_b.pobierzObiekt(Identyfikator(1)).pobierzIlosc());
 }
 
 ZapisStanuGryTest::~ZapisStanuGryTest(void)

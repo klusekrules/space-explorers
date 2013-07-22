@@ -3,11 +3,11 @@
 #include "DefinicjeWezlowXML.h"
 
 Technologia::Technologia( const Poziom& p, const Identyfikator& idP, const TechnologiaInfo& t)
-	: PodstawoweParametry(p, idP),ObiektBase(Ilosc(1),p,idP,t), technologiaInfo(t)
+	: PodstawoweParametry(p, idP),ObiektBazowy(Ilosc(1),p,idP,t), technologiaInfo(t)
 {
 }
 Technologia::Technologia( const PodstawoweParametry& p, const TechnologiaInfo& t)
-	: PodstawoweParametry(p),ObiektBase(Ilosc(1),p,t), technologiaInfo(t)
+	: PodstawoweParametry(p),ObiektBazowy(Ilosc(1),p,t), technologiaInfo(t)
 {
 }
 Technologia::~Technologia(void)
@@ -22,11 +22,11 @@ Technologia* Technologia::Podziel( const Ilosc& ilosc){
 	return nullptr;
 }
 
-bool Technologia::Polacz( ObiektBase& obiektBase){
+bool Technologia::Polacz( const ObiektBazowy& obiektBase){
 	return false;
 }
 	
-bool Technologia::czyMoznaPolaczyc( const ObiektBase& obiektBase) const{
+bool Technologia::czyMoznaPolaczyc( const ObiektBazowy& obiektBase) const{
 	return false;
 }
 
@@ -41,16 +41,16 @@ void Technologia::wybuduj(const Ilosc&){
 bool Technologia::zapisz( TiXmlElement* e ) const {
 	TiXmlElement* n = new TiXmlElement(WEZEL_XML_TECHNOLOGIA);
 	e->LinkEndChild( n );
-	return ObiektBase::zapisz(n);
+	return ObiektBazowy::zapisz(n);
 }
 
 bool Technologia::odczytaj( TiXmlElement* e ) {
-	return ObiektBase::odczytaj(e);
+	return ObiektBazowy::odczytaj(e);
 }
 
 string Technologia::napis() const{
 	Logger str(NAZWAKLASY(Technologia));
-	str.dodajKlase(ObiektBase::napis());
+	str.dodajKlase(ObiektBazowy::napis());
 	str.dodajPole(NAZWAKLASY(TechnologiaInfo)+"ID",technologiaInfo.pobierzIdentyfikator());
 	return str.napis();
 }

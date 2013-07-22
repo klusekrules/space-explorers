@@ -2,7 +2,7 @@
 #include "Main.h"
 #include "Fluktuacja.h"
 #include "Ilosc.h"
-#include "ObiektBase.h"
+#include "ObiektBazowy.h"
 #include "Powierzchnia.h"
 #include "Objetosc.h"
 #include "Masa.h"
@@ -11,7 +11,7 @@ class ObiektInfo;
 class Ladownia;
 
 class Obiekt:
-	public ObiektBase,
+	public ObiektBazowy,
 	virtual public LoggerInterface,
 	virtual public Serializacja
 {

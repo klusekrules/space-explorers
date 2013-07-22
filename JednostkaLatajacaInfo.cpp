@@ -58,28 +58,28 @@ Fluktuacja JednostkaLatajacaInfo::getSprawnoscSilnika() const{
 
 MocSilnika JednostkaLatajacaInfo::getMocSilnika(const PodstawoweParametry& p) const{
 	if(przyrostMocySilnika)
-		return MocSilnika(przyrostMocySilnika->policzWartosc(mocSilnika(),static_cast<int>(p.getPoziom()()),p.getIdPlanety()()));
+		return MocSilnika(przyrostMocySilnika->policzWartosc(mocSilnika(),static_cast<int>(p.pobierzPoziom()()),p.pobierzIdentyfikatorPlanety()()));
 	else
 		return mocSilnika;
 }
 
 ZuzyciePaliwa JednostkaLatajacaInfo::getZuzyciePaliwa(const PodstawoweParametry& p) const{
 	if(przyrostZuzyciaPaliwa)
-		return ZuzyciePaliwa(przyrostZuzyciaPaliwa->policzWartosc(zuzyciePaliwa(),static_cast<int>(p.getPoziom()()),p.getIdPlanety()()));
+		return ZuzyciePaliwa(przyrostZuzyciaPaliwa->policzWartosc(zuzyciePaliwa(),static_cast<int>(p.pobierzPoziom()()),p.pobierzIdentyfikatorPlanety()()));
 	else
 		return zuzyciePaliwa;
 }
 
 Masa JednostkaLatajacaInfo::getMasaNapedu( const PodstawoweParametry& p) const{
 	if(przyrostMasyNapedu)
-		return Masa(przyrostMasyNapedu->policzWartosc(masaNapedu(),static_cast<int>(p.getPoziom()()),p.getIdPlanety()()));
+		return Masa(przyrostMasyNapedu->policzWartosc(masaNapedu(),static_cast<int>(p.pobierzPoziom()()),p.pobierzIdentyfikatorPlanety()()));
 	else
 		return masaNapedu;
 }
 
 Fluktuacja JednostkaLatajacaInfo::getSprawnoscSilnika( const PodstawoweParametry& p) const{
 	if(przyrostSprawnosciSilnika)
-		return Fluktuacja(static_cast<float>(przyrostSprawnosciSilnika->policzWartosc(sprawnoscSilnika(),static_cast<int>(p.getPoziom()()),p.getIdPlanety()())));
+		return Fluktuacja(static_cast<float>(przyrostSprawnosciSilnika->policzWartosc(sprawnoscSilnika(),static_cast<int>(p.pobierzPoziom()()),p.pobierzIdentyfikatorPlanety()())));
 	else
 		return sprawnoscSilnika;
 		

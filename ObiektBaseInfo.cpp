@@ -1,7 +1,7 @@
 #include "ObiektBaseInfo.h"
 #include "Logger.h"
 #include "XmlBO.h"
-#include "ObiektBase.h"
+#include "ObiektBazowy.h"
 #include "Gra.h"
 #include "definicjeWezlowXML.h"
 
@@ -22,8 +22,8 @@ ObiektBaseInfo::ObiektBaseInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
 	}
 }
 
-ObiektBase* ObiektBaseInfo::TworzEgzemplarz( const Ilosc& i, const Identyfikator& idPlanety ) const{
-	return new ObiektBase(i,getPoziom(),idPlanety,*this);
+ObiektBazowy* ObiektBaseInfo::TworzEgzemplarz( const Ilosc& i, const Identyfikator& idPlanety ) const{
+	return new ObiektBazowy(i,getPoziom(),idPlanety,*this);
 }
 
 bool ObiektBaseInfo::Tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{

@@ -3,21 +3,22 @@
 #include "XmlBO.h"
 #include "definicjeWezlowXML.h"
 
-Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const Identyfikator& id , const Wymagania& w ) throw()
-	: Bazowa(id), nazwa( tNazwa ), opis( tOpis ), Wymagania(w)
+Info::Info( const Tekst& nazwa , const Tekst& opis, const Identyfikator& identyfikator , const Wymagania& wymagania ) throw()
+	: Bazowa(identyfikator), nazwa_( nazwa ), opis_( opis ), Wymagania(wymagania)
 {
 }
-Info::Info( TiXmlElement* n ) throw(WyjatekParseraXML)
-	: Bazowa( n ) , Wymagania( n )
+
+Info::Info( TiXmlElement* wezel ) throw(WyjatekParseraXML)
+	: Bazowa( wezel ) , Wymagania( wezel )
 {
-	if(n){
+	if(wezel){
 		try{
-			const char* c = n->Attribute(ATRYBUT_XML_NAZWA);
-			setNazwa(string( c ? c : ""));
-			c = n->GetText();
-			setOpis(string( c ? c : ""));
-		}catch(exception& e){
-			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
+			auto tablicaZnakow = wezel->Attribute(ATRYBUT_XML_NAZWA);
+			ustawNazwe(string( tablicaZnakow ? tablicaZnakow : "" ));
+			tablicaZnakow = wezel->GetText();
+			ustawOpis(string( tablicaZnakow ? tablicaZnakow : "" ));
+		}catch(exception& wyjatek ){
+			throw WyjatekParseraXML(EXCEPTION_PLACE,wyjatek,WyjatekParseraXML::trescBladStrukturyXml);
 		}
 	}	
 }
@@ -25,27 +26,27 @@ Info::Info( TiXmlElement* n ) throw(WyjatekParseraXML)
 Info::~Info(){
 }
 
-const Tekst& Info::getNazwa() const{
-	return nazwa;
+const Tekst& Info::pobierzNazwe() const{
+	return nazwa_;
 }
 
-void Info::setNazwa( const Tekst& tNazwa ){
-	nazwa = tNazwa;
+void Info::ustawNazwe( const Tekst& nazwa ){
+	nazwa_ = nazwa;
 }
 
-const Tekst& Info::getOpis() const{
-	return opis;
+const Tekst& Info::pobierzOpis() const{
+	return opis_;
 }
 
-void Info::setOpis( const Tekst& tOpis ){
-	opis = tOpis;
+void Info::ustawOpis( const Tekst& opis ){
+	opis_ = opis;
 }
 
 string Info::napis() const{
 	Logger str(NAZWAKLASY(Info));
 	str.dodajKlase(Bazowa::napis());
 	str.dodajKlase(Wymagania::napis());
-	str.dodajPole("Nazwa",nazwa);
-	str.dodajPole("Opis",opis);
+	str.dodajPole("Nazwa",nazwa_);
+	str.dodajPole("Opis",opis_);
 	return str.napis();
 }

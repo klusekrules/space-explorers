@@ -21,11 +21,11 @@ Budynek* Budynek::Podziel( const Ilosc& ilosc){
 	return nullptr;
 }
 
-bool Budynek::Polacz( ObiektBase& obiektBase){
+bool Budynek::Polacz( const ObiektBazowy& obiektBase){
 	return false;
 }
 	
-bool Budynek::czyMoznaPolaczyc( const ObiektBase& obiektBase) const{
+bool Budynek::czyMoznaPolaczyc( const ObiektBazowy& obiektBase) const{
 	return false;
 }
 

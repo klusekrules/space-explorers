@@ -40,7 +40,7 @@ Czas Wymagania::pobierzCzasBudowy( const Ilosc& i, const PodstawoweParametry& p 
 			suma+=i->pobierzCzas();
 	}
 	if(zmCzasuBudowy){		
-		suma = zmCzasuBudowy->policzWartosc(suma(),static_cast<int>(p.getPoziom()()),p.getIdPlanety()());
+		suma = zmCzasuBudowy->policzWartosc(suma(),static_cast<int>(p.pobierzPoziom()()),p.pobierzIdentyfikatorPlanety()());
 	}
 	return suma;
 }
@@ -118,7 +118,7 @@ bool Wymagania::dodajCene( Cena& o ){
 bool Wymagania::czySpelniaWymogi( const PodstawoweParametry& p ) const{	
 	if(warunki.empty())
 		return true;
-	const Planeta& planeta = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(p.getIdPlanety());
+	const Planeta& planeta = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(p.pobierzIdentyfikatorPlanety());
 	for (auto a : warunki){
 		Poziom poz;
 		Identyfikator id;
@@ -128,14 +128,14 @@ bool Wymagania::czySpelniaWymogi( const PodstawoweParametry& p ) const{
 						return false;
 					id = obiekt->pobierzIdentyfikator();
 					if(zmiana)
-						poz = Poziom(static_cast<Poziom::type_name>(zmiana->policzWartosc(obiekt->getPoziom()(),p.getPoziom()(),p.getIdPlanety()())));
+						poz = Poziom(static_cast<Poziom::type_name>(zmiana->policzWartosc(obiekt->getPoziom()(),p.pobierzPoziom()(),p.pobierzIdentyfikatorPlanety()())));
 					else
 						poz = obiekt->getPoziom();
 					return true;
 				}			
 			))
 		{
-			if(planeta.pobierzObiekt(id).getPoziom()<poz)
+			if(planeta.pobierzObiekt(id).pobierzPoziom()<poz)
 				return false;
 		}
 	}
@@ -143,7 +143,7 @@ bool Wymagania::czySpelniaWymogi( const PodstawoweParametry& p ) const{
 }
 
 bool Wymagania::czySpelniaKoszty( const Ilosc& i, const PodstawoweParametry& p ) const{
-	const Planeta& planeta = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(p.getIdPlanety());
+	const Planeta& planeta = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(p.pobierzIdentyfikatorPlanety());
 	for( auto e : koszty ){
 		Ilosc ilosc;
 		Identyfikator id;
@@ -153,14 +153,14 @@ bool Wymagania::czySpelniaKoszty( const Ilosc& i, const PodstawoweParametry& p )
 						return false;
 					id = obiekt->pobierzIdentyfikator();
 					if(zmiana)
-						ilosc = Ilosc(static_cast<Ilosc::type_name>(zmiana->policzWartosc(obiekt->getIlosc()(),p.getPoziom()(),p.getIdPlanety()())));
+						ilosc = Ilosc(static_cast<Ilosc::type_name>(zmiana->policzWartosc(obiekt->getIlosc()(),p.pobierzPoziom()(),p.pobierzIdentyfikatorPlanety()())));
 					else
 						ilosc = obiekt->getIlosc();
 					return true;
 				}			
 			))
 		{
-			if(planeta.pobierzObiekt(id).getIlosc()<ilosc)
+			if(planeta.pobierzObiekt(id).pobierzIlosc()<ilosc)
 				return false;
 		}
 	}
@@ -177,7 +177,7 @@ Wymagania::PrzetworzoneWymogi Wymagania::listaWarunkow( const PodstawoweParametr
 					if(!obiekt)
 						return false;
 					if(zmiana)
-						rezultat = Wymog::TypObiektu ( new TypWymogu( *(obiekt), Poziom( static_cast<Poziom::type_name>(floorl(zmiana->policzWartosc( obiekt->getPoziom()() , static_cast<int>(p.getPoziom()()),p.getIdPlanety()() ))) ) ) );
+						rezultat = Wymog::TypObiektu ( new TypWymogu( *(obiekt), Poziom( static_cast<Poziom::type_name>(floorl(zmiana->policzWartosc( obiekt->getPoziom()() , static_cast<int>(p.pobierzPoziom()()),p.pobierzIdentyfikatorPlanety()() ))) ) ) );
 					else
 						rezultat = Wymog::TypObiektu ( new TypWymogu( *(obiekt), Poziom( obiekt->getPoziom() ) ) );
 					return true;

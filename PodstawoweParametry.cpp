@@ -4,7 +4,7 @@
 #include "DefinicjeWezlowXML.h"
 
 PodstawoweParametry::PodstawoweParametry( const Poziom& poziom, const Identyfikator& planeta)
-	: poziom(poziom), idPlanety(planeta)
+	: poziom_(poziom), identyfikatorPlanety_(planeta)
 {
 }
 
@@ -12,55 +12,55 @@ PodstawoweParametry::~PodstawoweParametry(void)
 {
 }
 
-const Poziom& PodstawoweParametry::getPoziom() const{
-	return poziom;
+const Poziom& PodstawoweParametry::pobierzPoziom() const{
+	return poziom_;
 }
 
-void PodstawoweParametry::setPoziom(const Poziom& p){
-	poziom=p;
+void PodstawoweParametry::ustawPoziom( const Poziom& poziom ){
+	poziom_=poziom;
 }
 
-const Identyfikator& PodstawoweParametry::getIdPlanety() const{
-	return idPlanety;
+const Identyfikator& PodstawoweParametry::pobierzIdentyfikatorPlanety() const{
+	return identyfikatorPlanety_;
 }
 
-void PodstawoweParametry::setIdPlanety( const Identyfikator& id ){
-	idPlanety = id;
+void PodstawoweParametry::ustawIdentyfikatorPlanety( const Identyfikator& identyfikatorPlanety ){
+	identyfikatorPlanety_ = identyfikatorPlanety;
 }
 
-void PodstawoweParametry::ustawKontekst( const PodstawoweParametry& p ){
-	poziom = p.poziom;
-	idPlanety = p.idPlanety;
+void PodstawoweParametry::ustawKontekst( const PodstawoweParametry& podstawoweParametry ){
+	poziom_ = podstawoweParametry.poziom_;
+	identyfikatorPlanety_ = podstawoweParametry.identyfikatorPlanety_;
 }
 void PodstawoweParametry::wzrostPoziomu(){
-	++poziom;
+	++poziom_;
 }
 
-bool PodstawoweParametry::zapisz( TiXmlElement* e ) const{
-	e->SetAttribute(ATRYBUT_XML_POZIOM,poziom.napis());
-	e->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETY,idPlanety.napis());
+bool PodstawoweParametry::zapisz( TiXmlElement* wezel ) const{
+	wezel->SetAttribute(ATRYBUT_XML_POZIOM,poziom_.napis());
+	wezel->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETY,identyfikatorPlanety_.napis());
 	return true;
 }
 
-bool PodstawoweParametry::odczytaj( TiXmlElement* e ){
-	if(e){
-		auto ptr = e->Attribute(ATRYBUT_XML_POZIOM);
-		if(!ptr)
+bool PodstawoweParametry::odczytaj( TiXmlElement* wezel ){
+	if(wezel){
+		auto atrybut = wezel->Attribute(ATRYBUT_XML_POZIOM);
+		if(!atrybut)
 			return false;
-		string c = ptr;
-		Utils::trim(c);
-		if(c.empty())
+		string napisAtrybutu = atrybut;
+		Utils::trim(napisAtrybutu);
+		if(napisAtrybutu.empty())
 			return false;
-		poziom(stoul(c));
-		c.clear();
-		ptr = e->Attribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETY);
-		if(!ptr)
+		poziom_(stoul(napisAtrybutu));
+		napisAtrybutu.clear();
+		atrybut = wezel->Attribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETY);
+		if(!atrybut)
 			return false;
-		c.append(ptr);
-		Utils::trim(c);
-		if(c.empty())
+		napisAtrybutu.append(atrybut);
+		Utils::trim(napisAtrybutu);
+		if(napisAtrybutu.empty())
 			return false;	
-		idPlanety(stoul(c,nullptr,0));
+		identyfikatorPlanety_(stoul(napisAtrybutu,nullptr,0));
 		return true;
 	}
 	return false;
@@ -68,7 +68,7 @@ bool PodstawoweParametry::odczytaj( TiXmlElement* e ){
 
 string PodstawoweParametry::napis() const{
 	Logger str(NAZWAKLASY(PodstawoweParametry));
-	str.dodajPole(NAZWAKLASY(Poziom),poziom);
-	str.dodajPole(NAZWAKLASY(Identyfikator),idPlanety);
+	str.dodajPole(NAZWAKLASY(Poziom),poziom_);
+	str.dodajPole(NAZWAKLASY(Identyfikator),identyfikatorPlanety_);
 	return str.napis();
 }

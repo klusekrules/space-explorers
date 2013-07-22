@@ -16,7 +16,7 @@ bool Flota::dodajStatek( shared_ptr<Statek> ptr ){
 		return false;
 	auto iter = lista.find(ptr->ID());
 	if(iter == lista.end()){
-		ptr->setIdPlanety(Identyfikator());
+		ptr->ustawIdentyfikatorPlanety(Identyfikator());
 		lista.insert(make_pair(ptr->ID(),ptr));
 	}else{
 		return iter->second->Polacz( *ptr );

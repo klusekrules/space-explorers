@@ -25,7 +25,7 @@ Fluktuacja Ladownia::WolneMiejsce() const{
 
 Ilosc Ladownia::SprawdzIloscObiektow( const Klucz& itID ) const{
 	try{
-		return obiekty.get(itID).getIlosc();
+		return obiekty.get(itID).pobierzIlosc();
 	} catch( OgolnyWyjatek& ){
 		return Ilosc();
 	}
@@ -48,12 +48,12 @@ bool Ladownia::DodajObiektDoLadowni( Item& obiekt ){
 	if(!obiekt.czMoznaDodacDoLadownii(*this)){
 		return false;
 	}
-	if( obiekt.getObjetosc()/obiekt.getIlosc() > ladowniaInfo.getPojemnoscMaksymalna(*this) || (obiekt.getObjetosc() + zajete) > getPojemnoscMax() ){
+	if( obiekt.getObjetosc()/obiekt.pobierzIlosc() > ladowniaInfo.getPojemnoscMaksymalna(*this) || (obiekt.getObjetosc() + zajete) > getPojemnoscMax() ){
 		return false;
 	}
 	try{
 		Obiekt * kopia = obiekt.Kopia();
-		kopia->setIdPlanety(Identyfikator());
+		kopia->ustawIdentyfikatorPlanety(Identyfikator());
 		obiekty.add(kopia);
 		przeliczZajeteMiejsce();
 	}catch(OgolnyWyjatek& e){
@@ -76,13 +76,13 @@ Ladownia::Item& Ladownia::PobierzObiekt( const Klucz& itID, const Ilosc& isIlosc
 
 	try{
 		Obiekt& o = obiekty.get(itID);
-		if( isIlosc == o.getIlosc() ){
+		if( isIlosc == o.pobierzIlosc() ){
 			obiekty.getAndDel(itID);
 			przeliczZajeteMiejsce();
 			return o;
 		}
 
-		if( isIlosc < o.getIlosc() ){
+		if( isIlosc < o.pobierzIlosc() ){
 			Obiekt *k = o.Podziel(isIlosc);
 			przeliczZajeteMiejsce();
 			return *k;
@@ -92,7 +92,7 @@ Ladownia::Item& Ladownia::PobierzObiekt( const Klucz& itID, const Ilosc& isIlosc
 			throw NieznalezionoObiektu(EXCEPTION_PLACE,o.napis());
 		}
 
-		if( isIlosc > o.getIlosc() ){
+		if( isIlosc > o.pobierzIlosc() ){
 			throw NiepoprawnaIloscObiektow(EXCEPTION_PLACE,isIlosc);
 		}
 	}catch( OgolnyWyjatek& ){
@@ -125,7 +125,7 @@ Ladownia::Zbiornik* Ladownia::PodzielLadownie( const Objetosc& oMax , const Obje
 		Zbiornik kopia(obiekty);
 		map<Objetosc,Klucz,greater<Objetosc> > posortowane;
 		for( auto o : obiekty )
-			posortowane.insert(make_pair(o.second->getObjetosc()/o.second->getIlosc(),o.first));
+			posortowane.insert(make_pair(o.second->getObjetosc()/o.second->pobierzIlosc(),o.first));
 
 		/*
 			Przechodzimy po elementach zbiornika i przepisujemy tyle ile siê da. Dopuszczamy dzielenie grup obiektów jeœli mo¿liwe.
