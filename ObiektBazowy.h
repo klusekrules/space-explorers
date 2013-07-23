@@ -124,13 +124,13 @@ public:
 	* Metoda pobieraj¹ca przetworzone warunki dostêpnoœci obiektu
 	* \return Warunki po przetworzeniu przez klasy zmieniaj¹ce
 	*/
-	Wymagania::PrzetworzoneWymogi PobierzWarunki()const;
+	Wymagania::PrzetworzoneWymogi pobierzWarunkiRozbudowy()const;
 
 	/**
 	* Metoda pobieraj¹ca przetworzone koszty dostêpnoœci obiektu
 	* \return Koszty po przetworzeniu przez klasy zmieniaj¹ce
 	*/
-	Wymagania::PrzetworzonaCena PobierzKoszty() const;
+	Wymagania::PrzetworzonaCena pobierzKosztyRozbudowy() const;
 
 	/**
 	* Metoda wyliczaj¹ca czas trwania rozbudowy jednego obiektu na kolejny poziom.
@@ -142,7 +142,7 @@ public:
 	* Metoda sprawdzaj¹ca wymagania obiektu.
 	* \return Je¿eli obiekt spe³nia wymagania zwrócona jest wartoœæ true. Je¿eli nie spe³nia wymagañ zwrócona jest wartoœæ false.
 	*/
-	bool czyMoznaWybudowac()const;
+	bool czyMoznaRozbudowac()const;
 
 	/**
 	* Metoda zwracaj¹ca referencej do obiektu opisuj¹cego.

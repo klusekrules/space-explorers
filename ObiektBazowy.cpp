@@ -17,7 +17,7 @@ ObiektBazowy::ObiektBazowy( const Ilosc& ilosc, const PodstawoweParametry& param
 Czas ObiektBazowy::pobierzCzasRozbudowy( )const{
 	PodstawoweParametry param(*this);
 	param.wzrostPoziomu();
-	return obiektBazowyInfo_.pobierzCzasBudowy(ilosc_,param);
+	return obiektBazowyInfo_.pobierzCzasBudowy(pobierzIlosc(),param);
 }
 
 ObiektBazowy* ObiektBazowy::kopia() const{
@@ -66,17 +66,22 @@ void ObiektBazowy::ustawIlosc( const Ilosc& ilosc ){
 	ilosc_ = ilosc;
 }
 
-Wymagania::PrzetworzonaCena ObiektBazowy::PobierzKoszty() const{
-	return obiektBazowyInfo_.PobierzKoszty(pobierzIlosc(),*this);
+Wymagania::PrzetworzonaCena ObiektBazowy::pobierzKosztyRozbudowy() const{
+	PodstawoweParametry param(*this);
+	param.wzrostPoziomu();
+	return obiektBazowyInfo_.pobierzKoszty(pobierzIlosc(),param);
 }
 
-
-Wymagania::PrzetworzoneWymogi ObiektBazowy::PobierzWarunki()const{
-	return obiektBazowyInfo_.listaWarunkow(*this);
+Wymagania::PrzetworzoneWymogi ObiektBazowy::pobierzWarunkiRozbudowy()const{
+	PodstawoweParametry param(*this);
+	param.wzrostPoziomu();
+	return obiektBazowyInfo_.pobierzWymogi(param);
 }
 
-bool ObiektBazowy::czyMoznaWybudowac()const{
-	return obiektBazowyInfo_.czySpelniaWymagania(pobierzIlosc(),*this);
+bool ObiektBazowy::czyMoznaRozbudowac()const{
+	PodstawoweParametry param(*this);
+	param.wzrostPoziomu();
+	return obiektBazowyInfo_.czySpelniaWymagania(pobierzIlosc(),param);
 }
 
 const ObiektBazowyInfo& ObiektBazowy::getObiektBaseInfo()const{
@@ -84,7 +89,7 @@ const ObiektBazowyInfo& ObiektBazowy::getObiektBaseInfo()const{
 }
 
 bool ObiektBazowy::zapisz( TiXmlElement* wezel ) const {
-	wezel->SetAttribute(ATRYBUT_XML_ILOSC,ilosc_.napis());
+	wezel->SetAttribute(ATRYBUT_XML_ILOSC,pobierzIlosc().napis());
 	return PodstawoweParametry::zapisz(wezel) && Bazowa::zapisz(wezel);
 }
 

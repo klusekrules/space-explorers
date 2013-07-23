@@ -52,9 +52,21 @@ Wymagania::PrzetworzonaCena BudynekInfo::PobierzProdukcje( const PodstawoweParam
 string BudynekInfo::napis()const{
 	Logger str(NAZWAKLASY(BudynekInfo));
 	str.dodajKlase(ObiektInfo::napis());
-	for(auto i : zapotrzebowanie)
-		str.dodajPole("ElementZapotrzebowania",i);
-	for(auto i : produkcja)
-		str.dodajPole("ElementProdukcji",i);
+	for(auto element : zapotrzebowanie){
+		str.rozpocznijPodKlase("Zapotrzebowanie");
+		if(element.pobierzObiekt())
+			str.dodajPole("Obiekt",*element.pobierzObiekt());
+		if(element.pobierzZmiane())
+			str.dodajPole("Zmiana",*element.pobierzZmiane());
+		str.zakonczPodKlase();
+	}
+	for(auto element : produkcja){
+		str.rozpocznijPodKlase("Produkcja");
+		if(element.pobierzObiekt())
+			str.dodajPole("Obiekt",*element.pobierzObiekt());
+		if(element.pobierzZmiane())
+			str.dodajPole("Zmiana",*element.pobierzZmiane());
+		str.zakonczPodKlase();
+	}
 	return str.napis();
 }
