@@ -213,6 +213,7 @@
     <ClInclude Include="InicjalizacjaDanychTestowych.h" />
     <ClInclude Include="LadowniaTest.h" />
     <ClInclude Include="LiczenieKosztow.h" />
+    <ClInclude Include="LiczenieWymogow.h" />
     <ClInclude Include="LogowanieTest.h" />
     <ClInclude Include="MakraDlaTestow.h" />
     <ClInclude Include="NiepoprawneParametryFunkcjiTest.h" />
@@ -340,6 +341,7 @@
     <ClCompile Include="LadowniaInfo.cpp" />
     <ClCompile Include="LadowniaTest.cpp" />
     <ClCompile Include="LiczenieKosztow.cpp" />
+    <ClCompile Include="LiczenieWymogow.cpp" />
     <ClCompile Include="Licznik.cpp" />
     <ClCompile Include="LogowanieTest.cpp" />
     <ClCompile Include="maintest.cpp" />

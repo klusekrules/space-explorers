@@ -238,6 +238,9 @@
     <ClCompile Include="ObiektBazowyInfo.cpp">
       <Filter>SourceFile\BaseClass\Info</Filter>
     </ClCompile>
+    <ClCompile Include="LiczenieWymogow.cpp">
+      <Filter>SourceFile\Wymagania</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -527,6 +530,9 @@
     </ClInclude>
     <ClInclude Include="ListaObiektow.hpp">
       <Filter>SourceFile\BaseClass\Obiekt</Filter>
+    </ClInclude>
+    <ClInclude Include="LiczenieWymogow.h">
+      <Filter>SourceFile\Wymagania</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
