@@ -24,16 +24,11 @@ Fluktuacja Ladownia::WolneMiejsce() const{
 }
 
 Ilosc Ladownia::SprawdzIloscObiektow( const Klucz& itID ) const{
-	try{
-		return obiekty.get(itID).pobierzIlosc();
-	} catch( OgolnyWyjatek& ){
-		return Ilosc();
-	}
+	return obiekty.pobierz(itID)->pobierzIlosc();
 }
 
 bool Ladownia::Polacz( Ladownia& l ){
-	obiekty.moveAll(l.obiekty);
-	return true;
+	return obiekty.przeniesWszystkie(l.obiekty);
 }
 
 bool Ladownia::czMoznaDodacDoLadownii( const Statek& c ) const {
@@ -44,6 +39,7 @@ bool Ladownia::czMoznaDodacDoLadownii( const Surowce& c ) const {
 	return c.czyTypPrzyrostowy();
 }
 
+//Tranzakcyjna
 bool Ladownia::DodajObiektDoLadowni( Item& obiekt ){
 	if(!obiekt.czMoznaDodacDoLadownii(*this)){
 		return false;
@@ -51,33 +47,28 @@ bool Ladownia::DodajObiektDoLadowni( Item& obiekt ){
 	if( obiekt.pobierzObjetosc()/obiekt.pobierzIlosc() > ladowniaInfo.getPojemnoscMaksymalna(*this) || (obiekt.pobierzObjetosc() + zajete) > getPojemnoscMax() ){
 		return false;
 	}
-	try{
-		Obiekt * kopia = obiekt.kopia();
-		kopia->ustawIdentyfikatorPlanety(Identyfikator());
-		obiekty.add(kopia);
-		przeliczZajeteMiejsce();
-	}catch(OgolnyWyjatek& e){
-		Aplikacja::getInstance().getLog().warn(e.generujKomunikat());
-		return false;
-	}
-	return true;		
+	shared_ptr<Obiekt> kopia = shared_ptr<Obiekt>(obiekt.kopia());
+	kopia->ustawIdentyfikatorPlanety(Identyfikator());
+	bool rezultat = obiekty.dodaj(kopia);
+	przeliczZajeteMiejsce();
+	return rezultat;		
 }	
 
 Ladownia::Zbiornik Ladownia::OproznijLadownie(){
 	Zbiornik tmp;
-	tmp.moveAll(obiekty);
+	tmp.przeniesWszystkie(obiekty);
 	przeliczZajeteMiejsce();
 	return tmp;
 }
 
 Ladownia::Item& Ladownia::PobierzObiekt( const Klucz& itID, const Ilosc& isIlosc ) throw( NieznalezionoObiektu, NiepoprawnaIloscObiektow ){
-	if(obiekty.isEmpty())
+	if(obiekty.pusty())
 		throw NieznalezionoObiektu(EXCEPTION_PLACE,itID.napis());
 
 	try{
-		Obiekt& o = obiekty.get(itID);
+		Obiekt& o = *obiekty.pobierz(itID);
 		if( isIlosc == o.pobierzIlosc() ){
-			obiekty.getAndDel(itID);
+			obiekty.wyjmij(itID);
 			przeliczZajeteMiejsce();
 			return o;
 		}
@@ -102,63 +93,62 @@ Ladownia::Item& Ladownia::PobierzObiekt( const Klucz& itID, const Ilosc& isIlosc
 }
 
 /* Zwrócony zbiornik ma objêtoœæ z przedzia³u  < min , max >  */
-Ladownia::Zbiornik* Ladownia::PodzielLadownie( const Objetosc& oMax , const Objetosc& oMin ) throw( BladDzieleniaLadowni, NiepoprawneParametryFunkcji ){
+//Tranzakcyjna
+Ladownia::Zbiornik* Ladownia::PodzielLadownie( const Objetosc& oMin , const Objetosc& oMax  ){
 	Zbiornik *zb = new Zbiornik();
-	try{
-		Objetosc tObj ( 0.0 );
-		Objetosc tMin ( oMin );
+	
+	Objetosc tObj ( 0.0 );
+	Objetosc tMin ( oMin );
 
-		//Je¿eli objetoœæ czekiwana jest równa 0 to zwracamy pusty zbior obiektów
-		if( oMax == tObj )
-			return zb;
+	//Je¿eli objetoœæ czekiwana jest równa 0 to zwracamy pusty zbior obiektów
+	if( oMax == tObj )
+		return zb;
 
-		// Je¿eli objêtoœæ minimalna jest ujemna to j¹ zerujemy
-		if( tMin < tObj )
-			tMin = tObj;
+	// Je¿eli objêtoœæ minimalna jest ujemna to j¹ zerujemy
+	if( tMin < tObj )
+		tMin = tObj;
 
-		//Je¿eli objêtoœæ oczekiwana mniejsza od 0 lub objêtoœæ minimalna wiêksza od pojemnoœci 
-		//lub objêtoœæ minimalna wiêksza od objêtoœci docelowej. Wyj¹tek
-		if( oMax < tObj || oMin > zajete || oMin > oMax )
-			throw NiepoprawneParametryFunkcji( EXCEPTION_PLACE , oMax , oMin );
+	//Je¿eli objêtoœæ oczekiwana mniejsza od 0 lub objêtoœæ minimalna wiêksza od pojemnoœci 
+	//lub objêtoœæ minimalna wiêksza od objêtoœci docelowej.
+	if( oMax < tObj || oMin > zajete || oMin > oMax ){
+		delete zb;
+		return nullptr;
+	}
+	//Sortujemy zbiornik, tak aby w pierwszej kolejnoœci by³y przegl¹dane elementy o wiêkszym jednostkowym rozmiarze.
+	Zbiornik kopia(obiekty);
+	map<Objetosc,Klucz,greater<Objetosc> > posortowane;
+	for( auto o : obiekty )
+		posortowane.insert(make_pair(o.second->pobierzObjetosc()/o.second->pobierzIlosc(),o.first));
 
-		//Sortujemy zbiornik, tak aby w pierwszej kolejnoœci by³y przegl¹dane elementy o wiêkszym jednostkowym rozmiarze.
-		Zbiornik kopia(obiekty);
-		map<Objetosc,Klucz,greater<Objetosc> > posortowane;
-		for( auto o : obiekty )
-			posortowane.insert(make_pair(o.second->pobierzObjetosc()/o.second->pobierzIlosc(),o.first));
-
-		/*
-			Przechodzimy po elementach zbiornika i przepisujemy tyle ile siê da. Dopuszczamy dzielenie grup obiektów jeœli mo¿liwe.
-		*/
-		for( auto o : posortowane ){
-			Objetosc objElementu(obiekty.get(o.second).pobierzObjetosc());
-			if( objElementu + tObj <= oMax ){
-				if(Zbiornik::move(o.second, kopia , *zb)){
-					tObj += objElementu;
-				}
-			}else{
-				Objetosc objPojedyncza( o.first );
-				if( oMax - tObj >= objPojedyncza ){
-					Ilosc liczbaElementow( floorl(( oMax() - tObj() ) / objPojedyncza()) );
-					if( liczbaElementow >= Ilosc(1.0) ){
-						if(Zbiornik::move(o.second,liczbaElementow, kopia , *zb)){
-							tObj += Objetosc( objPojedyncza() * liczbaElementow() );
-						}
+	/*
+		Przechodzimy po elementach zbiornika i przepisujemy tyle ile siê da. Dopuszczamy dzielenie grup obiektów jeœli mo¿liwe.
+	*/
+	for( auto o : posortowane ){
+		Objetosc objElementu(obiekty.pobierz(o.second)->pobierzObjetosc());
+		if( objElementu + tObj <= oMax ){
+			if(Zbiornik::przenies(o.second, kopia , *zb)){
+				tObj += objElementu;
+			}
+		}else{
+			Objetosc objPojedyncza( o.first );
+			if( oMax - tObj >= objPojedyncza ){
+				Ilosc liczbaElementow( floorl(( oMax() - tObj() ) / objPojedyncza()) );
+				if( liczbaElementow >= Ilosc(1.0) ){
+					if(Zbiornik::przenies(o.second,liczbaElementow, kopia , *zb)){
+						tObj += Objetosc( objPojedyncza() * liczbaElementow() );
 					}
 				}
 			}
-			if(tObj >= tMin)
-				break;
 		}
-		if(tObj >= tMin){
-			obiekty = kopia;
-			przeliczZajeteMiejsce();
-		}else{
-			throw BladDzieleniaLadowni( EXCEPTION_PLACE, this->napis() );
-		}
-	}catch(...){
+		if(tObj >= tMin)
+			break;
+	}
+	if(tObj >= tMin){
+		obiekty = kopia;
+		przeliczZajeteMiejsce();
+	}else{
 		delete zb;
-		throw;
+		return nullptr;
 	}
 	return zb;
 }
@@ -179,7 +169,7 @@ Masa Ladownia::getMasaZawartosciLadowni()const {
 }
 
 Ladownia::ListaKluczy Ladownia::PobierzListeIdObiektow() const{
-	return obiekty.rawKluczList();
+	return obiekty.listaKluczy();
 }
 
 const Ladownia::Zbiornik& Ladownia::getPrzewozoneObiekty() const{
@@ -218,12 +208,11 @@ bool Ladownia::odczytaj (TiXmlElement* e) {
 					return false;
 				Utils::trim(c);
 				Identyfikator id(stoi(c,nullptr,0));
-				Obiekt* p = Aplikacja::getInstance().getGra().getObiekt(id).tworzEgzemplarz(Ilosc(),Identyfikator());			
+				shared_ptr<Obiekt> p = shared_ptr<Obiekt>(Aplikacja::getInstance().getGra().getObiekt(id).tworzEgzemplarz(Ilosc(),Identyfikator()));			
 				if(!p->odczytaj(n) ){
-					delete p;
 					return false;
 				}
-				obiekty.add(p);
+				obiekty.dodaj(p);
 			}
 		}catch(...){
 			return false;

@@ -266,7 +266,6 @@
     <ClInclude Include="LadowniaInfo.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="MakeVector.h" />
-    <ClInclude Include="Mapa.h" />
     <ClInclude Include="Masa.h" />
     <ClInclude Include="MocSilnika.h" />
     <ClInclude Include="NiepoprawnaIloscObiektow.h" />
@@ -277,7 +276,7 @@
     <ClInclude Include="Obiekt.h" />
     <ClInclude Include="ObiektBazowy.h" />
     <ClInclude Include="ObiektInfo.h" />
-    <ClInclude Include="ObiektList.hpp" />
+    <ClInclude Include="ListaObiektow.hpp" />
     <ClInclude Include="Objetosc.h" />
     <ClInclude Include="Obrazenia.h" />
     <ClInclude Include="OgolnyWyjatek.h" />

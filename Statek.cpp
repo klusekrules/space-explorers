@@ -21,20 +21,30 @@ Statek* Statek::kopia() const{
 	return new Statek(*this);
 }
 
+//Tranzakcyjna
 Statek* Statek::podziel( const Ilosc& i ){
 	if( ilosc_>i ){
 		Statek* o = new Statek( i , *this, this->statekinfo );
 		ilosc_-=i;
 		this->przeliczZajeteMiejsce();
 		if(this->WolneMiejsce() < Fluktuacja(0.0)){
-			Zbiornik* zb = this->PodzielLadownie(this->zajete-this->getPojemnoscMax(),o->getPojemnoscMax());
-			o->obiekty.moveAll(*zb);
+			shared_ptr<Zbiornik> zb = shared_ptr<Zbiornik>(this->PodzielLadownie( this->zajete - this->getPojemnoscMax(), o->getPojemnoscMax() ));
+			if( zb==nullptr || !o->obiekty.przeniesWszystkie(*zb) ){
+				delete o;
+				ilosc_+=i;
+				if( zb!=nullptr && !obiekty.przeniesWszystkie(*zb) ){
+					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("Nieoczekiwany wyjatek"),Tekst("Wystapi³ nieoczekiwany wyjatek, który zaburzy³ dzia³anie aplikacji."));
+				}
+				this->przeliczZajeteMiejsce();
+				return false;
+			}
 		}
 		return o; 
 	}
 	return nullptr;
 }	
 
+//Tranzakcyjna
 bool Statek::polacz(const ObiektBazowy& o ){
 	if(czyMoznaPolaczyc(o)){
 		Statek & t = (Statek&)o;
@@ -42,9 +52,11 @@ bool Statek::polacz(const ObiektBazowy& o ){
 		this->przeliczZajeteMiejsce();
 		if((this->getPojemnoscMax()+t.getPojemnoscMax()) >= (t.getZajeteMiejsce()+this->getZajeteMiejsce())){
 			if(ObiektBazowy::polacz(o)){
-				Ladownia::Polacz(t);
-				this->przeliczZajeteMiejsce();
-				return true;
+				if(Ladownia::Polacz(t)){
+					this->przeliczZajeteMiejsce();
+					return true;
+				}
+				ilosc_ -= o.pobierzIlosc();
 			}
 		}
 	}

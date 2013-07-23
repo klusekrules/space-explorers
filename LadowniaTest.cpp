@@ -42,7 +42,7 @@ void LadowniaTest::dzielenieLadowni(){
 	UNIT_TEST_ASSERT_EQUAL(statekTransportowy->getZajeteMiejsce(),Objetosc(0));
 	UNIT_TEST_ASSERT_TRUE(statekTransportowy->DodajObiektDoLadowni(*metal));
 	UNIT_TEST_ASSERT_TRUE(statekTransportowy->DodajObiektDoLadowni(*mysliwiec));
-	Ladownia::Zbiornik* tmp = statekTransportowy->PodzielLadownie(Objetosc(11000),Objetosc(10500));
+	Ladownia::Zbiornik* tmp = statekTransportowy->PodzielLadownie(Objetosc(10500),Objetosc(11000));
 	UNIT_TEST_ASSERT_NOTNULL(tmp);
 	delete tmp;
 }
