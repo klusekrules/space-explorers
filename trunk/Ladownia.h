@@ -20,7 +20,7 @@
 #include "Obiekt.h"
 #include "Fluktuacja.h"
 #include "Masa.h"
-#include "ObiektList.hpp"
+#include "ListaObiektow.hpp"
 #include "PodstawoweParametry.h"
 
 class Surowce;
@@ -34,7 +34,7 @@ class Ladownia:
 {
 public:
 	typedef Obiekt Item;
-	typedef ObiektList< Item > Zbiornik;
+	typedef ListaObiektow< Item > Zbiornik;
 	typedef list < Klucz > ListaKluczy;
 
 	Ladownia( const Poziom&, const Identyfikator&, const LadowniaInfo& );
@@ -54,7 +54,7 @@ public:
 
 	const Zbiornik& getPrzewozoneObiekty() const;
 
-	Zbiornik* PodzielLadownie( const Objetosc&, const Objetosc& ) throw( BladDzieleniaLadowni, NiepoprawneParametryFunkcji  );
+	Zbiornik* PodzielLadownie( const Objetosc&, const Objetosc& );
 
 	const Objetosc& getZajeteMiejsce() const;
 

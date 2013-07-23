@@ -14,12 +14,12 @@ public:
 	ObiektListTest(void);
 	virtual ~ObiektListTest(void);
 private:
-	ObiektList<Statek> lista;
-	ObiektList<Statek> listaDruga;
+	ListaObiektow<Statek> lista;
+	ListaObiektow<Statek> listaDruga;
 	
-	Statek *a;
-	Statek *b;
-	Statek *c;
-	Statek *d;
+	shared_ptr<Statek> a;
+	shared_ptr<Statek> b;
+	shared_ptr<Statek> c;
+	shared_ptr<Statek> d;
 };
 

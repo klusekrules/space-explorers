@@ -297,9 +297,6 @@
     <ClInclude Include="Fluktuacja.h">
       <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
-    <ClInclude Include="Mapa.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
     <ClInclude Include="Info.h">
       <Filter>SourceFile\BaseClass\Info</Filter>
     </ClInclude>
@@ -344,9 +341,6 @@
     </ClInclude>
     <ClInclude Include="BladLaczeniaObiektow.h">
       <Filter>SourceFile\Wyjatki</Filter>
-    </ClInclude>
-    <ClInclude Include="ObiektList.hpp">
-      <Filter>SourceFile\BaseClass\Obiekt</Filter>
     </ClInclude>
     <ClInclude Include="BladDzieleniaLadowni.h">
       <Filter>SourceFile\Wyjatki</Filter>
@@ -530,6 +524,9 @@
     </ClInclude>
     <ClInclude Include="ObiektBazowyInfo.h">
       <Filter>SourceFile\BaseClass\Info</Filter>
+    </ClInclude>
+    <ClInclude Include="ListaObiektow.hpp">
+      <Filter>SourceFile\BaseClass\Obiekt</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

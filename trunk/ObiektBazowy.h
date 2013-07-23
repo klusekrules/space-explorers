@@ -64,6 +64,7 @@ public:
 	* \param[in] ilosc - Iloœæ obiektów wzglêdem, którego jest podzielony obiekt.
 	* \warning Metoda allokuje pamiêæ dla nowego obiektu, który musi zostaæ zwolniony wywo³aniem delete.
 	* \return Wskazanie na podzielony obiekt. Je¿eli nie mo¿na by³o podzieliæ obiektu, zostaje zwrócony nullptr.
+	* \remark Metoda jest tranzakcyjna.
 	*/
 	virtual ObiektBazowy* podziel( const Ilosc& ilosc );
 
@@ -72,6 +73,7 @@ public:
 	* \param[in] obiektbazowy - Obiekt do po³¹czenia.
 	* \warning Metoda nie zwalnia pamiêci przekazanego obiektu.
 	* \return Kiedy obiekty zostan¹ po³¹czone, zwracana wartoœæ to true, w przeciwnym wypadku zwrócona wartoœæ to false.
+	* \remark Metoda jest tranzakcyjna.
 	*/
 	virtual bool polacz( const ObiektBazowy& obiektbazowy );
 
