@@ -1,7 +1,10 @@
 #pragma once
-#include "Main.h"
 #include "parser\ticpp.h"
 #include "WyjatekParseraXML.h"
+#include <exception>
+#include <string>
+using std::string;
+using std::exception;
 
 class THROW { };
 class NOTHROW { };
@@ -15,7 +18,7 @@ private:
 
 	template < > 
 	static TiXmlElement * blad<THROW>( bool czyWezelPusty , string nazwaWezla ){
-		throw WyjatekParseraXML(EXCEPTION_PLACE,exception((nazwaWezla + " isNull=" + to_string(czyWezelPusty)).c_str()),WyjatekParseraXML::trescBladStrukturyXml);
+		throw WyjatekParseraXML(EXCEPTION_PLACE,exception(string(nazwaWezla + " isNull=" + std::to_string(czyWezelPusty)).c_str()),WyjatekParseraXML::trescBladStrukturyXml);
 	}
 
 public:
@@ -54,7 +57,7 @@ public:
 		const string * napis = wezel->Attribute(nazwa);
 		if(!napis)
 			return false;
-		obiekt(napis);
+		obiekt(*napis);
 		return true;
 	}
 

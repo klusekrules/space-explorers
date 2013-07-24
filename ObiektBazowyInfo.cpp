@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include "ObiektBazowy.h"
 #include "definicjeWezlowXML.h"
+#include "XmlBO.h"
 
 ObiektBazowyInfo::ObiektBazowyInfo( const Info& ilosc , const Poziom& poziom ) throw()
 	: Info(ilosc), poziom_(poziom)
@@ -13,7 +14,8 @@ ObiektBazowyInfo::ObiektBazowyInfo( TiXmlElement* wezel ) throw(WyjatekParseraXM
 {
 	if(wezel){
 		try{
-			poziom_(stoi(wezel->Attribute(ATRYBUT_XML_POZIOM)));
+			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_POZIOM,poziom_))
+				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
 		}catch(exception& wyjatek){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,wyjatek,WyjatekParseraXML::trescBladStrukturyXml);
 		}

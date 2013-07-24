@@ -2,7 +2,7 @@
 #include "Logger.h"
 
 BrakAtrybutuXML::BrakAtrybutuXML( const Tekst& tPlik, const Ilosc& iLinia, const Tekst& str )
-	: WyjatekParseraXML( tPlik, iLinia, exception(), trescBrakAtrybutuXML ), atrybut(str)
+	: WyjatekParseraXML( tPlik, iLinia, std::exception(), trescBrakAtrybutuXML ), atrybut(str)
 {
 	this->setNumerWyjatku(idBrakAtrybutuXML);
 	this->setTytul(tytulBrakAtrybutuXML);

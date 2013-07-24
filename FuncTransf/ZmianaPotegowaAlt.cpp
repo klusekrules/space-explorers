@@ -4,7 +4,7 @@
 #include "..\XmlBO.h"
 #include "..\definicjeWezlowXML.h"
 
-ZmianaPotegowaAlt::ZmianaPotegowaAlt( TiXmlElement * wezel ) throw(int)
+ZmianaPotegowaAlt::ZmianaPotegowaAlt( TiXmlElement * wezel )
 	: wspolczynnik_(XmlBO::ZnajdzWezel<NOTHROW>( wezel, WEZEL_XML_PARAM )), wykladnik_(nullptr)
 {
 	if(fabryka_)

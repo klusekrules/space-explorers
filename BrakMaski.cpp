@@ -2,7 +2,7 @@
 #include "Logger.h"
 
 BrakMaski::BrakMaski( const Tekst& tPlik, const Ilosc& iLinia, const Tekst& nazwa )
-	: WyjatekParseraXML( tPlik, iLinia, exception(), trescBrakMaski ), nazwaMaski(nazwa)
+	: WyjatekParseraXML( tPlik, iLinia, std::exception(), trescBrakMaski ), nazwaMaski(nazwa)
 {
 	this->setNumerWyjatku(idBrakMaski);
 	this->setTytul(tytulBrakMaski);

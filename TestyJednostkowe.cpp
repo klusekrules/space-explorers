@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include "OgolnyWyjatek.h"
+#include "Logger\Log.h"
 
 TestyJednostkowe::TestyJednostkowe()
 {

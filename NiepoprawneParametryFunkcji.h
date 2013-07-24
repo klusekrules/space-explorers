@@ -1,6 +1,7 @@
 #pragma once
 #include "OgolnyWyjatek.h"
 #include <vector>
+using std::vector;
 
 /**
 * Wyj¹tek informuje, ¿e parametry maj¹ nie poprawne wartoœci.

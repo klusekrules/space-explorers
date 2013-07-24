@@ -8,6 +8,9 @@
 * \brief Klasa opisowa obiektu.
 *
 * Klasa zawieraj¹ca elementy opisowe obiektu gry.
+* \author Daniel Wojdak
+* \version 1
+* \date 22-07-2013
 */
 class ObiektInfo :
 	public ObiektBazowyInfo,

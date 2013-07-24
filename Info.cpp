@@ -13,9 +13,8 @@ Info::Info( TiXmlElement* wezel ) throw(WyjatekParseraXML)
 {
 	if(wezel){
 		try{
-			auto tablicaZnakow = wezel->Attribute(ATRYBUT_XML_NAZWA);
-			ustawNazwe(string( tablicaZnakow ? tablicaZnakow : "" ));
-			tablicaZnakow = wezel->GetText();
+			XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_NAZWA,nazwa_);
+			auto tablicaZnakow = wezel->GetText();
 			ustawOpis(string( tablicaZnakow ? tablicaZnakow : "" ));
 		}catch(exception& wyjatek ){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,wyjatek,WyjatekParseraXML::trescBladStrukturyXml);

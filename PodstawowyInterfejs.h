@@ -1,5 +1,5 @@
 #pragma once
-
+#pragma warning( disable : 4290 )
 /**
 * \brief Klasa bazowa dla podstawowych typów atrybutów.
 *

@@ -25,4 +25,3 @@ private:
 	static const Tekst tytulBladDzieleniaLadowni;
 	static const Tekst trescBladDzieleniaLadowni;
 };
-
