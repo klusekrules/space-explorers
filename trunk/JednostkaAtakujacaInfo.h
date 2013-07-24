@@ -92,8 +92,8 @@ public:
 	Obrazenia pobierzOslone(const PodstawoweParametry& parametry ) const;
 
 	/**
-	* Przeci¹¿ona funkcja generuj¹ca tekstowy opis klasy.
-	* \return Napis zawieraj¹cy opis klasy.
+	* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
+	* \return Napis zwieraj¹cy opis klasy.
 	*/
 	string napis() const override;
 
