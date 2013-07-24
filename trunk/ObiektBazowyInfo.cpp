@@ -20,6 +20,9 @@ ObiektBazowyInfo::ObiektBazowyInfo( TiXmlElement* wezel ) throw(WyjatekParseraXM
 	}
 }
 
+ObiektBazowyInfo::~ObiektBazowyInfo(){
+}
+
 ObiektBazowy* ObiektBazowyInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety ) const{
 	return new ObiektBazowy(ilosc,pobierzPoziom(),identyfikatorPlanety,*this);
 }

@@ -12,6 +12,9 @@ Bazowa::Bazowa( TiXmlElement* wezel ){
 	Bazowa::odczytaj(wezel);
 }
 
+Bazowa::~Bazowa(){
+}
+
 const Identyfikator& Bazowa::pobierzIdentyfikator()const{
 	return identyfikator_;
 }

@@ -38,6 +38,11 @@ public:
 	explicit Info( TiXmlElement * wezel ) throw(WyjatekParseraXML);
 	
 	/**
+	* \brief Destruktor.
+	*/
+	virtual ~Info();
+
+	/**
 	* \brief Metoda pobieraj¹ca atrybut.
 	*
 	* Metoda pobiera atrybut obiektu.

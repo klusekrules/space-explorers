@@ -28,6 +28,9 @@ ObiektInfo::ObiektInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
 	}
 }
 
+ObiektInfo::~ObiektInfo(){
+}
+
 Powierzchnia ObiektInfo::pobierzPowierzchnie(const Poziom& poziom, const Identyfikator& identyfikatorPlanety) const {
 	if(zmianaPowierzchni_ == nullptr)
 		return powierzchnia_;			
