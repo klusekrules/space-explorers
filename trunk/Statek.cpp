@@ -3,35 +3,39 @@
 #include "Logger.h"
 #include "DefinicjeWezlowXML.h"
 
-Statek::Statek( const Ilosc& i, const Poziom& p , const Identyfikator& idP, const StatekInfo& s )
-	: PodstawoweParametry(p, idP), Obiekt( i, p, idP, s ), JednostkaAtakujaca(pobierzPoziom(),pobierzIdentyfikatorPlanety(),s), JednostkaLatajaca(pobierzPoziom(),pobierzIdentyfikatorPlanety(),s), Ladownia(pobierzPoziom(),pobierzIdentyfikatorPlanety(),s), statekinfo(s)
+Statek::Statek( const Ilosc& ilosc, const Poziom& poziom, const Identyfikator& identyfikatorPlanety, const StatekInfo& statekInfo )
+	: PodstawoweParametry(poziom, identyfikatorPlanety), Obiekt( ilosc, poziom, identyfikatorPlanety, statekInfo ), JednostkaAtakujaca(poziom,identyfikatorPlanety,statekInfo),
+	JednostkaLatajaca(poziom,identyfikatorPlanety,statekInfo), Ladownia(poziom,identyfikatorPlanety,statekInfo), statekinfo_(statekInfo)
 {
 }
 
-Statek::Statek( const Ilosc& i, const PodstawoweParametry& p, const StatekInfo& s )
-	: PodstawoweParametry(p), Obiekt( i, p, s ), JednostkaAtakujaca(p,s), JednostkaLatajaca(p,s), Ladownia(p,s), statekinfo(s)
+Statek::Statek( const Ilosc& ilosc, const PodstawoweParametry& podstawoweParametry, const StatekInfo& statekInfo )
+	: PodstawoweParametry(podstawoweParametry), Obiekt( ilosc, podstawoweParametry, statekInfo ), JednostkaAtakujaca(podstawoweParametry,statekInfo),
+	JednostkaLatajaca(podstawoweParametry,statekInfo), Ladownia(podstawoweParametry,statekInfo), statekinfo_(statekInfo)
 {
 }
 
-ZuzyciePaliwa Statek::wyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p) const {
-	return ZuzyciePaliwa( ilosc_() * JednostkaLatajaca::wyliczZuzyciePaliwa(d,p)()  );
+ZuzyciePaliwa Statek::wyliczZuzyciePaliwa( const Dystans& dystans , const Predkosc& predkosc ) const {
+	return ZuzyciePaliwa( ilosc_() * JednostkaLatajaca::wyliczZuzyciePaliwa(dystans,predkosc)()  );
 }
 
 Statek* Statek::kopia() const{
 	return new Statek(*this);
 }
 
-//Tranzakcyjna
-Statek* Statek::podziel( const Ilosc& i ){
-	if( ilosc_>i ){
-		Statek* o = new Statek( i , *this, this->statekinfo );
-		ilosc_-=i;
+Statek::~Statek(){
+}
+
+Statek* Statek::podziel( const Ilosc& ilosc ){
+	if( ilosc_>ilosc ){
+		Statek* o = new Statek( ilosc , *this, this->statekinfo_ );
+		ilosc_-=ilosc;
 		this->przeliczZajeteMiejsce();
 		if(this->wolneMiejsce() < Fluktuacja(0.0)){
 			Zbiornik zb = this->podzielLadownie( this->zajete_ - this->pobierzPojemnoscMaksymalna(), o->pobierzPojemnoscMaksymalna());
 			if( zb.pusty() || !o->obiekty_.przeniesWszystkie(zb) ){
 				delete o;
-				ilosc_+=i;
+				ilosc_+=ilosc;
 				if( !obiekty_.przeniesWszystkie(zb) ){
 					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("Nieoczekiwany wyjatek"),Tekst("Wystapi³ nieoczekiwany wyjatek, który zaburzy³ dzia³anie aplikacji."));
 				}
@@ -44,19 +48,18 @@ Statek* Statek::podziel( const Ilosc& i ){
 	return nullptr;
 }	
 
-//Tranzakcyjna
-bool Statek::polacz(const ObiektBazowy& o ){
-	if(czyMoznaPolaczyc(o)){
-		Statek & t = (Statek&)o;
+bool Statek::polacz(const ObiektBazowy& obiektbazowy ){
+	if(czyMoznaPolaczyc(obiektbazowy)){
+		Statek & t = (Statek&)obiektbazowy;
 		t.przeliczZajeteMiejsce();
 		this->przeliczZajeteMiejsce();
 		if((this->pobierzPojemnoscMaksymalna()+t.pobierzPojemnoscMaksymalna()) >= (t.pobierzZajeteMiejsce()+this->pobierzZajeteMiejsce())){
-			if(ObiektBazowy::polacz(o)){
+			if(ObiektBazowy::polacz(obiektbazowy)){
 				if(Ladownia::polacz(t)){
 					this->przeliczZajeteMiejsce();
 					return true;
 				}
-				ilosc_ -= o.pobierzIlosc();
+				ilosc_ -= obiektbazowy.pobierzIlosc();
 			}
 		}
 	}
@@ -91,34 +94,22 @@ Masa Statek::pobierzMase() const{
 	return Obiekt::pobierzMase() + Ladownia::pobierzMaseZawartosciLadowni() + Statek::pobierzMasaSilnika();
 }
 
-Fluktuacja Statek::wolneMiejsce() const{
-	return Ladownia::wolneMiejsce();
+bool Statek::czMoznaDodacDoLadownii( const Ladownia& ladownia ) const{
+	return ladownia.czMoznaDodacDoLadownii(*this);
 }
 
-bool Statek::czMoznaDodacDoLadownii( const Ladownia& c ) const{
-	return c.czMoznaDodacDoLadownii(*this);
+const StatekInfo& Statek::pobierzStatekInfo() const{
+	return statekinfo_;
 }
 
-MocSilnika Statek::pobierzMocSilnika()const{
-	return JednostkaLatajaca::pobierzMocSilnika();
-}
-	
-Fluktuacja Statek::pobierzSprawnoscSilnika()const{
-	return JednostkaLatajaca::pobierzSprawnoscSilnika();
+bool Statek::zapisz( TiXmlElement* wezel ) const {
+	TiXmlElement* element = new TiXmlElement(WEZEL_XML_STATEK);
+	wezel->LinkEndChild( element );
+	return Obiekt::zapisz(element) && Ladownia::zapisz(element);
 }
 
-const StatekInfo& Statek::getStatekInfo() const{
-	return statekinfo;
-}
-
-bool Statek::zapisz( TiXmlElement* e ) const {
-	TiXmlElement* n = new TiXmlElement(WEZEL_XML_STATEK);
-	e->LinkEndChild( n );
-	return Obiekt::zapisz(n) && Ladownia::zapisz(n);
-}
-
-bool Statek::odczytaj( TiXmlElement* e ) {
-	return Obiekt::odczytaj(e) && Ladownia::odczytaj(e->FirstChildElement(WEZEL_XML_LADOWNIA));
+bool Statek::odczytaj( TiXmlElement* wezel ) {
+	return Obiekt::odczytaj(wezel) && Ladownia::odczytaj(wezel->FirstChildElement(WEZEL_XML_LADOWNIA));
 }
 
 Masa Statek::calkowitaMasaJednostki() const{
@@ -131,6 +122,6 @@ string Statek::napis() const{
 	str.dodajKlase(JednostkaAtakujaca::napis());
 	str.dodajKlase(JednostkaLatajaca::napis());
 	str.dodajKlase(Ladownia::napis());
-	str.dodajPole(NAZWAKLASY(StatekInfo)+"ID",statekinfo.getId());
+	str.dodajPole(NAZWAKLASY(StatekInfo)+"ID",statekinfo_.pobierzIdentyfikator());
 	return str.napis();
 }

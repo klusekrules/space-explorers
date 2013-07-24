@@ -219,11 +219,11 @@ bool Gra::WczytajStatki(TiXmlElement* root){
 			if(ptr){
 				shared_ptr<StatekInfo> t(new StatekInfo(ptr));
 				aplikacja.getLog().debug(*t);
-				if(listaObiektowBaseInfo.find(t->getId())!=listaObiektowBaseInfo.end())
+				if(listaObiektowBaseInfo.find(t->pobierzIdentyfikator())!=listaObiektowBaseInfo.end())
 					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
-				listaStatkowInfo[t->getId()]=t;
-				listaObiektowBaseInfo[t->getId()]=t;
-				listaObiektowInfo[t->getId()]=t;
+				listaStatkowInfo[t->pobierzIdentyfikator()]=t;
+				listaObiektowBaseInfo[t->pobierzIdentyfikator()]=t;
+				listaObiektowInfo[t->pobierzIdentyfikator()]=t;
 				ptr = ptr->NextSiblingElement(WEZEL_XML_STATEK_INFO);
 			}
 		}catch(OgolnyWyjatek& e){
