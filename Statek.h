@@ -16,7 +16,7 @@ class Statek :
 {
 	friend class StatekInfo;
 public:
-	ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const override;
+	ZuzyciePaliwa wyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const override;
 		
 	Statek* kopia() const override;
 
@@ -34,32 +34,41 @@ public:
 
 	Objetosc getPojemnoscMax( ) const override;
 
-	ZuzyciePaliwa getJednostkoweZuzyciePaliwa( )const override;
+	ZuzyciePaliwa pobierzJednostkoweZuzyciePaliwa( )const override;
 
-	Masa getMasaSilnika( )const override;
+	Masa pobierzMasaSilnika( )const override;
 
 	Fluktuacja WolneMiejsce( ) const override;
 
 	bool DodajObiektDoLadowni( Item& ) override;
 
-	MocSilnika getMocSilnika( )const override;
+	MocSilnika pobierzMocSilnika( )const override;
 	
-	Fluktuacja getSprawnoscSilnika( )const override;
+	Fluktuacja pobierzSprawnoscSilnika( )const override;
 
 	bool czMoznaDodacDoLadownii( const Ladownia& c ) const override;
 
 	const StatekInfo& getStatekInfo() const;
 
 	bool zapisz( TiXmlElement* e) const override;
+
 	bool odczytaj (TiXmlElement* e) override;
 
 	string napis() const override;
 private:
 
 	Statek( const Ilosc&, const Poziom& p, const Identyfikator& idP, const StatekInfo& );
+
 	Statek( const Ilosc&, const PodstawoweParametry& idP, const StatekInfo& );
 
 protected:
+
+	/**
+	* \brief Metoda zwracaj¹ca ca³kowit¹ masê statku w raz z mas¹ ³adowni.
+	*
+	* \return Ca³kowita masa statku.
+	*/
+	Masa calkowitaMasaJednostki() const override;
 
 	const StatekInfo& statekinfo;
 

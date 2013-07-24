@@ -24,9 +24,9 @@ void StatekTest::Issue42Test(){
 	UNIT_TEST_ASSERT_EQUAL( Objetosc(540), a->pobierzObjetosc() );
 	UNIT_TEST_ASSERT_EQUAL( Powierzchnia(8), a->pobierzPowierzchnie() );
 	UNIT_TEST_ASSERT_EQUAL( Objetosc(1300*12*2), a->getPojemnoscMax() );
-	UNIT_TEST_ASSERT_EQUAL( ZuzyciePaliwa(12),a->getJednostkoweZuzyciePaliwa() );
-	UNIT_TEST_ASSERT_EQUAL( MocSilnika(5), a->getMocSilnika() );
-	UNIT_TEST_ASSERT_EQUAL( Fluktuacja(0.97f*8.0f), a->getSprawnoscSilnika() );
+	UNIT_TEST_ASSERT_EQUAL( ZuzyciePaliwa(12),a->pobierzJednostkoweZuzyciePaliwa() );
+	UNIT_TEST_ASSERT_EQUAL( MocSilnika(5), a->pobierzMocSilnika() );
+	UNIT_TEST_ASSERT_EQUAL( Fluktuacja(0.97f*8.0f), a->pobierzSprawnoscSilnika() );
 	UNIT_TEST_ASSERT_EQUAL( Obrazenia(9.0*90*2), a->pobierzAtak() );
 	UNIT_TEST_ASSERT_EQUAL( Obrazenia(10.0*250*2), a->pobierzPancerz() );
 	UNIT_TEST_ASSERT_EQUAL( Obrazenia(11.0*300*2), a->pobierzOslone() );

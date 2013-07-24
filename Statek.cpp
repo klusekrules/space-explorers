@@ -13,8 +13,8 @@ Statek::Statek( const Ilosc& i, const PodstawoweParametry& p, const StatekInfo& 
 {
 }
 
-ZuzyciePaliwa Statek::WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p) const {
-	return ZuzyciePaliwa( ilosc_() * JednostkaLatajaca::WyliczZuzyciePaliwa(d,p)()  );
+ZuzyciePaliwa Statek::wyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p) const {
+	return ZuzyciePaliwa( ilosc_() * JednostkaLatajaca::wyliczZuzyciePaliwa(d,p)()  );
 }
 
 Statek* Statek::kopia() const{
@@ -79,16 +79,16 @@ Objetosc Statek::getPojemnoscMax() const{
 	return Ladownia::getPojemnoscMax()*pobierzIlosc();
 }
 
-Masa Statek::getMasaSilnika()const{
-	return Masa(JednostkaLatajaca::getMasaSilnika()()* ilosc_());
+Masa Statek::pobierzMasaSilnika()const{
+	return Masa(JednostkaLatajaca::pobierzMasaSilnika()()* ilosc_());
 }
 
-ZuzyciePaliwa Statek::getJednostkoweZuzyciePaliwa()const{
-	return ZuzyciePaliwa(JednostkaLatajaca::getJednostkoweZuzyciePaliwa()()*ilosc_() );
+ZuzyciePaliwa Statek::pobierzJednostkoweZuzyciePaliwa()const{
+	return ZuzyciePaliwa(JednostkaLatajaca::pobierzJednostkoweZuzyciePaliwa()()*ilosc_() );
 }
 
 Masa Statek::pobierzMase() const{
-	return Obiekt::pobierzMase() + Ladownia::getMasaZawartosciLadowni() + Statek::getMasaSilnika();
+	return Obiekt::pobierzMase() + Ladownia::getMasaZawartosciLadowni() + Statek::pobierzMasaSilnika();
 }
 
 Fluktuacja Statek::WolneMiejsce() const{
@@ -103,12 +103,12 @@ bool Statek::czMoznaDodacDoLadownii( const Ladownia& c ) const{
 	return c.czMoznaDodacDoLadownii(*this);
 }
 
-MocSilnika Statek::getMocSilnika()const{
-	return JednostkaLatajaca::getMocSilnika();
+MocSilnika Statek::pobierzMocSilnika()const{
+	return JednostkaLatajaca::pobierzMocSilnika();
 }
 	
-Fluktuacja Statek::getSprawnoscSilnika()const{
-	return JednostkaLatajaca::getSprawnoscSilnika();
+Fluktuacja Statek::pobierzSprawnoscSilnika()const{
+	return JednostkaLatajaca::pobierzSprawnoscSilnika();
 }
 
 const StatekInfo& Statek::getStatekInfo() const{
@@ -123,6 +123,10 @@ bool Statek::zapisz( TiXmlElement* e ) const {
 
 bool Statek::odczytaj( TiXmlElement* e ) {
 	return Obiekt::odczytaj(e) && Ladownia::odczytaj(e->FirstChildElement(WEZEL_XML_LADOWNIA));
+}
+
+Masa Statek::calkowitaMasaJednostki() const{
+	return Statek::pobierzMase();
 }
 
 string Statek::napis() const{

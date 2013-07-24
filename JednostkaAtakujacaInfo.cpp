@@ -73,11 +73,11 @@ string JednostkaAtakujacaInfo::napis() const{
 	str.dodajPole("Atak",atak_);
 	str.dodajPole("Pancerz",pancerz_);
 	str.dodajPole("Oslona",oslona_);
-	if(zmianaAtaku_!=nullptr)
+	if(zmianaAtaku_)
 		str.dodajPole("ZmianaMasy",*zmianaAtaku_);
-	if(zmianaPancerza_!=nullptr)
+	if(zmianaPancerza_)
 		str.dodajPole("ZmianaObjetosci",*zmianaPancerza_);
-	if(zmianaOslony_!=nullptr)
+	if(zmianaOslony_)
 		str.dodajPole("ZmianaPowierzchni",*zmianaOslony_);
 	return str.napis();
 }

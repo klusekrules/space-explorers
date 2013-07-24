@@ -4,107 +4,118 @@
 #include "Aplikacja.h"
 #include "definicjeWezlowXML.h"
 
-JednostkaLatajacaInfo::JednostkaLatajacaInfo( const Info& info,const Klucz& k, const MocSilnika& moc, const ZuzyciePaliwa& z, const Masa& masa ) throw()
-	: Info(info), rodzajNapedu(k), mocSilnika(moc), zuzyciePaliwa(z), masaNapedu(masa), przyrostMocySilnika(nullptr), przyrostSprawnosciSilnika(nullptr), przyrostZuzyciaPaliwa(nullptr), przyrostMasyNapedu(nullptr)
+JednostkaLatajacaInfo::JednostkaLatajacaInfo( const Info& info,const Klucz& klucz, const MocSilnika& mocSilnika, const ZuzyciePaliwa& zuzyciePaliwa, const Masa& masa ) throw()
+	: Info(info), rodzajNapedu_(klucz), mocSilnika_(mocSilnika), zuzyciePaliwa_(zuzyciePaliwa), masaNapedu_(masa),
+	przyrostMocySilnika_(nullptr), przyrostSprawnosciSilnika_(nullptr), przyrostZuzyciaPaliwa_(nullptr), przyrostMasyNapedu_(nullptr)
 {
 }
 
-JednostkaLatajacaInfo::JednostkaLatajacaInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
-	: Info(n), przyrostMocySilnika(nullptr), przyrostSprawnosciSilnika(nullptr), przyrostZuzyciaPaliwa(nullptr), przyrostMasyNapedu(nullptr)
+JednostkaLatajacaInfo::JednostkaLatajacaInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
+	: Info(wezel), przyrostMocySilnika_(nullptr), przyrostSprawnosciSilnika_(nullptr), przyrostZuzyciaPaliwa_(nullptr), przyrostMasyNapedu_(nullptr)
 {
-	if(n){
+	if(wezel){
 		try{
 			ZmianaFabryka& fabryka = Aplikacja::getInstance().getGra().getZmianaFabryka();
-			Identyfikator id(stoi(n->Attribute(ATRYBUT_XML_RODZAJ_SILNIKA_ID),nullptr,0));
-			Poziom poziom(stoi(n->Attribute(ATRYBUT_XML_RODZAJ_SILNIKA_POZIOM)));
-			rodzajNapedu(Klucz(id,poziom)());
+			Identyfikator id;
+			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_RODZAJ_SILNIKA_ID,id))
+				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			Poziom poziom;
+			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_RODZAJ_SILNIKA_POZIOM,poziom))
+				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			rodzajNapedu_(Klucz(id,poziom)());
 			
-			mocSilnika(stold(n->Attribute(ATRYBUT_XML_MOC_SILNIKA)));
-			przyrostMocySilnika = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MOC_SILNIKA));
+			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_MOC_SILNIKA,mocSilnika_))
+				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			przyrostMocySilnika_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MOC_SILNIKA));
 			
-			zuzyciePaliwa(stold(n->Attribute(ATRYBUT_XML_ZUZYCIE_PALIWA)));
-			przyrostZuzyciaPaliwa = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_ZUZYCIE_PALIWA));
+			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_ZUZYCIE_PALIWA,zuzyciePaliwa_))
+				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			przyrostZuzyciaPaliwa_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_ZUZYCIE_PALIWA));
 			
-			masaNapedu(stold(n->Attribute(ATRYBUT_XML_MASA_SILNIKA)));
-			przyrostMasyNapedu = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MASA_SILNIKA));
+			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_MASA_SILNIKA,masaNapedu_))
+				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			przyrostMasyNapedu_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MASA_SILNIKA));
 			
-			sprawnoscSilnika(stof(n->Attribute(ATRYBUT_XML_SPRAWNOSC_SILNIKA)));
-			przyrostSprawnosciSilnika = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_SPRAWNOSC_SILNIKA));
-		}catch(exception& e){
-			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
+			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_SPRAWNOSC_SILNIKA,sprawnoscSilnika_))
+				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			przyrostSprawnosciSilnika_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_SPRAWNOSC_SILNIKA));
+		}catch(exception& wyjatek){
+			throw WyjatekParseraXML(EXCEPTION_PLACE,wyjatek,WyjatekParseraXML::trescBladStrukturyXml);
 		}
 	}
 }
 
-const Klucz& JednostkaLatajacaInfo::getRodzajNapedu() const{
-	return rodzajNapedu;
+JednostkaLatajacaInfo::JednostkaLatajacaInfo( const JednostkaLatajacaInfo& obiekt)
+	: Info(obiekt), przyrostMocySilnika_(nullptr), przyrostSprawnosciSilnika_(nullptr), przyrostZuzyciaPaliwa_(nullptr), przyrostMasyNapedu_(nullptr),
+	rodzajNapedu_(obiekt.rodzajNapedu_), mocSilnika_(obiekt.mocSilnika_), zuzyciePaliwa_(obiekt.zuzyciePaliwa_), masaNapedu_(obiekt.masaNapedu_)
+{
+	if(obiekt.przyrostMasyNapedu_)
+		przyrostMasyNapedu_ = shared_ptr<ZmianaInterfejs>( obiekt.przyrostMasyNapedu_->Kopia());
+
+	if(obiekt.przyrostSprawnosciSilnika_)
+		przyrostSprawnosciSilnika_ = shared_ptr<ZmianaInterfejs>( obiekt.przyrostSprawnosciSilnika_->Kopia());
+
+	if(obiekt.przyrostZuzyciaPaliwa_)
+		przyrostZuzyciaPaliwa_ = shared_ptr<ZmianaInterfejs>( obiekt.przyrostZuzyciaPaliwa_->Kopia());
+
+	if(obiekt.przyrostMocySilnika_)
+		przyrostMocySilnika_ = shared_ptr<ZmianaInterfejs>( obiekt.przyrostMocySilnika_->Kopia());
 }
 
-MocSilnika JednostkaLatajacaInfo::getMocSilnika() const{
-	return mocSilnika;
+JednostkaLatajacaInfo::~JednostkaLatajacaInfo(){
 }
 
-ZuzyciePaliwa JednostkaLatajacaInfo::getZuzyciePaliwa() const{
-	return zuzyciePaliwa;
+const Klucz& JednostkaLatajacaInfo::pobierzRodzajNapedu() const{
+	return rodzajNapedu_;
 }
 
-Masa JednostkaLatajacaInfo::getMasaNapedu() const{
-	return masaNapedu;
-}
-
-Fluktuacja JednostkaLatajacaInfo::getSprawnoscSilnika() const{
-	return sprawnoscSilnika;
-}
-
-MocSilnika JednostkaLatajacaInfo::getMocSilnika(const PodstawoweParametry& p) const{
-	if(przyrostMocySilnika)
-		return MocSilnika(przyrostMocySilnika->policzWartosc(mocSilnika(),static_cast<int>(p.pobierzPoziom()()),p.pobierzIdentyfikatorPlanety()()));
+MocSilnika JednostkaLatajacaInfo::pobierzMocSilnika(const PodstawoweParametry& parametry ) const{
+	if(przyrostMocySilnika_)
+		return MocSilnika(przyrostMocySilnika_->policzWartosc(mocSilnika_(),static_cast<int>(parametry.pobierzPoziom()()),parametry.pobierzIdentyfikatorPlanety()()));
 	else
-		return mocSilnika;
+		return mocSilnika_;
 }
 
-ZuzyciePaliwa JednostkaLatajacaInfo::getZuzyciePaliwa(const PodstawoweParametry& p) const{
-	if(przyrostZuzyciaPaliwa)
-		return ZuzyciePaliwa(przyrostZuzyciaPaliwa->policzWartosc(zuzyciePaliwa(),static_cast<int>(p.pobierzPoziom()()),p.pobierzIdentyfikatorPlanety()()));
+ZuzyciePaliwa JednostkaLatajacaInfo::pobierzZuzyciePaliwa(const PodstawoweParametry& parametry ) const{
+	if(przyrostZuzyciaPaliwa_)
+		return ZuzyciePaliwa(przyrostZuzyciaPaliwa_->policzWartosc(zuzyciePaliwa_(),static_cast<int>(parametry.pobierzPoziom()()),parametry.pobierzIdentyfikatorPlanety()()));
 	else
-		return zuzyciePaliwa;
+		return zuzyciePaliwa_;
 }
 
-Masa JednostkaLatajacaInfo::getMasaNapedu( const PodstawoweParametry& p) const{
-	if(przyrostMasyNapedu)
-		return Masa(przyrostMasyNapedu->policzWartosc(masaNapedu(),static_cast<int>(p.pobierzPoziom()()),p.pobierzIdentyfikatorPlanety()()));
+Masa JednostkaLatajacaInfo::pobierzMasaNapedu( const PodstawoweParametry& parametry ) const{
+	if(przyrostMasyNapedu_)
+		return Masa(przyrostMasyNapedu_->policzWartosc(masaNapedu_(),static_cast<int>(parametry.pobierzPoziom()()),parametry.pobierzIdentyfikatorPlanety()()));
 	else
-		return masaNapedu;
+		return masaNapedu_;
 }
 
-Fluktuacja JednostkaLatajacaInfo::getSprawnoscSilnika( const PodstawoweParametry& p) const{
-	if(przyrostSprawnosciSilnika)
-		return Fluktuacja(static_cast<float>(przyrostSprawnosciSilnika->policzWartosc(sprawnoscSilnika(),static_cast<int>(p.pobierzPoziom()()),p.pobierzIdentyfikatorPlanety()())));
+Fluktuacja JednostkaLatajacaInfo::pobierzSprawnoscSilnika( const PodstawoweParametry& parametry ) const{
+	if(przyrostSprawnosciSilnika_)
+		return Fluktuacja(static_cast<float>(przyrostSprawnosciSilnika_->policzWartosc(sprawnoscSilnika_(),static_cast<int>(parametry.pobierzPoziom()()),parametry.pobierzIdentyfikatorPlanety()())));
 	else
-		return sprawnoscSilnika;
-		
+		return sprawnoscSilnika_;
 }
 
 string JednostkaLatajacaInfo::napis() const{
 	Logger str(NAZWAKLASY(JednostkaLatajacaInfo));
 	str.dodajKlase(Info::napis());
-	str.dodajPole("RodzajNapedu",rodzajNapedu);
-	str.dodajPole(NAZWAKLASY(MocSilnika),mocSilnika);
-	if(przyrostMocySilnika!=nullptr){
-		str.dodajPole("ZmianaMocySilnika",*przyrostMocySilnika);
+	str.dodajPole("RodzajNapedu",rodzajNapedu_);
+	str.dodajPole(NAZWAKLASY(MocSilnika),mocSilnika_);
+	if(przyrostMocySilnika_){
+		str.dodajPole("ZmianaMocySilnika",*przyrostMocySilnika_);
 	}
-	str.dodajPole("SprawnoscSilnika",sprawnoscSilnika);
-	if(przyrostSprawnosciSilnika!=nullptr){
-		str.dodajPole("ZmianaSprawnosciSilnika",*przyrostSprawnosciSilnika);
+	str.dodajPole("SprawnoscSilnika",sprawnoscSilnika_);
+	if(przyrostSprawnosciSilnika_){
+		str.dodajPole("ZmianaSprawnosciSilnika",*przyrostSprawnosciSilnika_);
 	}
-	str.dodajPole(NAZWAKLASY(ZuzyciePaliwa),zuzyciePaliwa);
-	if(przyrostZuzyciaPaliwa!=nullptr){
-		str.dodajPole("ZmianaZuzyciaPaliwa",*przyrostZuzyciaPaliwa);
+	str.dodajPole(NAZWAKLASY(ZuzyciePaliwa),zuzyciePaliwa_);
+	if(przyrostZuzyciaPaliwa_){
+		str.dodajPole("ZmianaZuzyciaPaliwa",*przyrostZuzyciaPaliwa_);
 	}
-	str.dodajPole("MasaNapedu",masaNapedu);
-	if(przyrostMasyNapedu!=nullptr){
-		str.dodajPole("ZmianaMasyNapedu",*przyrostMasyNapedu);
+	str.dodajPole("MasaNapedu",masaNapedu_);
+	if(przyrostMasyNapedu_){
+		str.dodajPole("ZmianaMasyNapedu",*przyrostMasyNapedu_);
 	}
-	
 	return str.napis();
 }

@@ -1,13 +1,13 @@
 #pragma once
-#include "Main.h"
+#include "JednostkaLatajacaInfo.h"
 #include "Fluktuacja.h"
 #include "Predkosc.h"
 #include "Dystans.h"
-#include "JednostkaLatajacaInfo.h"
 #include "NiezainicjalizowanaKlasa.h"
 #include "PodstawoweParametry.h"
+
 /**
-* Klasa implementuj¹ca interfejs, s³u¿¹cy do lotów statków kosmiczych.
+* Klasa implementuj¹ca interfejs, s³u¿¹cy do lotów statków.
 * Pozwala na wyliczenie wszystkich parametrów lotu.
 */
 class JednostkaLatajaca :
@@ -15,39 +15,71 @@ class JednostkaLatajaca :
 	virtual public LoggerInterface
 {
 public:
+	/**
+	* \brief Konstruktor.
+	*
+	* \param[in] poziom - Poziom tworzonych obiektów.
+	* \param[in] identyfikatorPlanety - Identyfikator planety rodzica obiektu.
+	* \param[in] jednostkaLatajacaInfo - Referencja do obiektu opisuj¹cego.
+	*/
+	JednostkaLatajaca( const Poziom& poziom, const Identyfikator& identyfikatorPlanety, const JednostkaLatajacaInfo& jednostkaLatajacaInfo );
 
 	/**
-	* Konstruktor parametryczny
-	* \param jInfo - Wskazanie na klasê opisuj¹c¹
-	* \param mocSilnika - Procentowa wartoœæ mocy w klasie opisuj¹cej. Domyœlnie 1.0 
-	* \param zuzyciePaliwa - Procentowa wartoœæ zu¿ycia paliwa w klasie opisuj¹cej. Domyœlnie 1.0 
+	* \brief Konstruktor.
+	*
+	* \param[in] podstawoweParametry - Podstawowe parametry tworzonych obiektów.
+	* \param[in] jednostkaLatajacaInfo - Referencja do obiektu opisuj¹cego.
 	*/
-	JednostkaLatajaca( const Poziom& p, const Identyfikator& idP, const JednostkaLatajacaInfo& jInfo );
-	JednostkaLatajaca( const PodstawoweParametry& p , const JednostkaLatajacaInfo& jInfo );
+	JednostkaLatajaca( const PodstawoweParametry& podstawoweParametry, const JednostkaLatajacaInfo& jednostkaLatajacaInfo );
 	
 	/**
-	* Funkcja wyliczaj¹ca zy¿ycie paliwa przez statek na okreœlonym dystansie i przy okreœlonej prêkoœci.
-	* \param d - Dystans, na którym ma poruszaæ siê statek.
-	* \param p - Prêdkoœæ, któr¹ ma lecieæ statek.
-	* \return Paliwo zu¿yte przez statek.
+	* \brief Destruktor.
 	*/
-	virtual ZuzyciePaliwa WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p) const;
+	virtual ~JednostkaLatajaca();
 
 	/**
-	* Funkcja podaj¹ca jednostkowe zu¿ycie paliwa.
-	* \param pz - Poziom dla którego jest wyliczane zu¿ycie.
+	* \brief Metoda wyliczaj¹ca zy¿ycie paliwa przez statek.
+	*
+	* Metoda wylicza zy¿ycie paliwa przez statek na okreœlonym dystansie i przy okreœlonej prêkoœci.
+	* \param[in] dystans - Dystans, na którym ma poruszaæ siê statek.
+	* \param[in] predkosc - Prêdkoœæ, któr¹ ma lecieæ statek.
 	* \return Paliwo zu¿yte przez statek.
 	*/
-	virtual ZuzyciePaliwa getJednostkoweZuzyciePaliwa()const;
-
-	virtual MocSilnika getMocSilnika()const;
-
-	virtual Masa getMasaSilnika()const;
-
-	virtual Fluktuacja getSprawnoscSilnika()const;
+	virtual ZuzyciePaliwa wyliczZuzyciePaliwa( const Dystans& dystans , const Predkosc& predkosc ) const;
 
 	/**
-	* Maksymalna prêkoœæ jak¹ mo¿e rozwin¹æ statek.
+	* \brief Metoda wyliczaj¹ca jednostkowe zu¿ycie paliwa.
+	*
+	* \return Paliwo zu¿yte przez statek.
+	*/
+	virtual ZuzyciePaliwa pobierzJednostkoweZuzyciePaliwa()const;
+
+	/**
+	* \brief Metoda wyliczaj¹ca moc silnika.
+	*
+	* \return Moc silnika.
+	*/
+	virtual MocSilnika pobierzMocSilnika()const;
+
+	/**
+	* \brief Metoda wyliczaj¹ca masê silnika.
+	*
+	* \return Masa silnika.
+	*/
+	virtual Masa pobierzMasaSilnika()const;
+
+	/**
+	* \brief Metoda wyliczaj¹ca sprawnoœæ silnika.
+	*
+	* \return Sprawnoœæ silnika.
+	*/
+	virtual Fluktuacja pobierzSprawnoscSilnika()const;
+
+	/**
+	* \brief Maksymalna prêkoœæ jak¹ mo¿e rozwin¹æ statek.
+	*
+	* Kod pomocniczy w dobraniu wspó³czynników wzoru.
+	* \code {.cpp}
 	* locale pl ("Polish");
 	* locale::global (pl);
 	* cout.imbue(pl);
@@ -62,25 +94,26 @@ public:
 	* 		<<" km/h, Czas lotu rs: "<< setw(8) << ((100*rs*j)/(V*3.6)) << " h"<< endl;
 	* 	}
 	* }
+	* \endcode
 	* \return prêdkoœæ jak¹ mo¿e rozwin¹æ statek.
 	*/
-	Predkosc PredkoscMaksymalna() const;
+	Predkosc predkoscMaksymalna() const;
 	
 	/**
-	* Metoda opisuj¹ca zawartoœæ klasy.
-	* \return CI¹g znaków opisuj¹cy klasê.
+	* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
+	* \return Napis zwieraj¹cy opis klasy.
 	*/
 	string napis() const override;
 
 protected:
 
 	/**
-	* Metoda zwracaj¹ca ca³kowit¹ masê statku w raz z mas¹ ³adowni.
-	* \return Ca³kowita masa statku
+	* \brief Metoda zwracaj¹ca ca³kowit¹ masê statku w raz z mas¹ ³adowni.
+	*
+	* \return Ca³kowita masa statku.
 	*/
-	virtual Masa CalkowitaMasaJednostki() const;
+	virtual Masa calkowitaMasaJednostki() const;
 	
-	const JednostkaLatajacaInfo& jednostkaLatajacaInfo; /// WskaŸnika na klase opisuj¹c¹.
+	const JednostkaLatajacaInfo& jednostkaLatajacaInfo_; /// WskaŸnika na klase opisuj¹c¹.
 	
 };
-

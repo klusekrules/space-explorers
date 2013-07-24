@@ -3,48 +3,51 @@
 #include "Logger.h"
 
 JednostkaLatajaca::JednostkaLatajaca( const Poziom& p, const Identyfikator& idP, const JednostkaLatajacaInfo& jInfo )
-	: PodstawoweParametry(p,idP), jednostkaLatajacaInfo(jInfo)
+	: PodstawoweParametry(p,idP), jednostkaLatajacaInfo_(jInfo)
 {
 }
 	
 JednostkaLatajaca::JednostkaLatajaca( const PodstawoweParametry& p , const JednostkaLatajacaInfo& jInfo )
-	: PodstawoweParametry(p), jednostkaLatajacaInfo(jInfo)
+	: PodstawoweParametry(p), jednostkaLatajacaInfo_(jInfo)
 {
 }
 
-ZuzyciePaliwa JednostkaLatajaca::WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const{
-	return ZuzyciePaliwa(jednostkaLatajacaInfo.getZuzyciePaliwa(*this)()* ( d() / p() ) );
+JednostkaLatajaca::~JednostkaLatajaca(){
 }
 
-ZuzyciePaliwa JednostkaLatajaca::getJednostkoweZuzyciePaliwa()const{
-	return jednostkaLatajacaInfo.getZuzyciePaliwa(*this);
+ZuzyciePaliwa JednostkaLatajaca::wyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ) const{
+	return ZuzyciePaliwa(jednostkaLatajacaInfo_.pobierzZuzyciePaliwa(*this)()* ( d() / p() ) );
 }
 
-MocSilnika JednostkaLatajaca::getMocSilnika()const{
-	return jednostkaLatajacaInfo.getMocSilnika(*this);
+ZuzyciePaliwa JednostkaLatajaca::pobierzJednostkoweZuzyciePaliwa()const{
+	return jednostkaLatajacaInfo_.pobierzZuzyciePaliwa(*this);
 }
 
-Masa JednostkaLatajaca::getMasaSilnika()const{
-	return jednostkaLatajacaInfo.getMasaNapedu(*this);
+MocSilnika JednostkaLatajaca::pobierzMocSilnika()const{
+	return jednostkaLatajacaInfo_.pobierzMocSilnika(*this);
 }
 
-Fluktuacja JednostkaLatajaca::getSprawnoscSilnika()const{
-	return jednostkaLatajacaInfo.getSprawnoscSilnika(*this);
+Masa JednostkaLatajaca::pobierzMasaSilnika()const{
+	return jednostkaLatajacaInfo_.pobierzMasaNapedu(*this);
 }
 
-Predkosc JednostkaLatajaca::PredkoscMaksymalna() const{
-	long double eta_m = jednostkaLatajacaInfo.getSprawnoscSilnika(*this)();
+Fluktuacja JednostkaLatajaca::pobierzSprawnoscSilnika()const{
+	return jednostkaLatajacaInfo_.pobierzSprawnoscSilnika(*this);
+}
+
+Predkosc JednostkaLatajaca::predkoscMaksymalna() const{
+	long double eta_m = jednostkaLatajacaInfo_.pobierzSprawnoscSilnika(*this)();
 	long double a = 0.01;
-	long double P = jednostkaLatajacaInfo.getMocSilnika(*this)();
-	return Predkosc( ( P * eta_m )/(CalkowitaMasaJednostki()() * a) );
+	long double P = jednostkaLatajacaInfo_.pobierzMocSilnika(*this)();
+	return Predkosc( ( P * eta_m )/(calkowitaMasaJednostki()() * a) );
 }
 
-Masa JednostkaLatajaca::CalkowitaMasaJednostki() const{
+Masa JednostkaLatajaca::calkowitaMasaJednostki() const{
 	return Masa();
 }
 
 string JednostkaLatajaca::napis() const{
 	Logger str(NAZWAKLASY(JednostkaLatajaca));
-	str.dodajPole(NAZWAKLASY(JednostkaLatajacaInfo)+"ID",jednostkaLatajacaInfo.pobierzIdentyfikator());
+	str.dodajPole(NAZWAKLASY(JednostkaLatajacaInfo)+"ID",jednostkaLatajacaInfo_.pobierzIdentyfikator());
 	return str.napis();
 }
