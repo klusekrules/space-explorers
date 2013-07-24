@@ -1,71 +1,95 @@
-
 #pragma once
-#include "Main.h"
-#include "Obrazenia.h"
-#include "Info.h"
 #include "FuncTransf\ZmianaInterfejs.h"
-#include "WyjatekParseraXML.h"
-#include <random>
+#include "Info.h"
+#include "Obrazenia.h"
 #include "PodstawoweParametry.h"
+#include "WyjatekParseraXML.h"
 
+/* Wy³aczono losowe generowanie parametrów.
+
+std::mt19937& getGenerator()const;
+
+std::mt19937& JednostkaAtakujacaInfo::getGenerator()const{
+return gen;
+}
+mutable std::random_device rd;
+mutable std::mt19937 gen;
+
+const double JednostkaAtakujaca::srednia = 0.8;
+const double JednostkaAtakujaca::odchylenie = 0.10;
+
+(std::normal_distribution<>(srednia,odchylenie))(jednostkaAtakujacaInfo.getGenerator())
+*/
+
+
+/**
+* \brief Klasa dodaj¹ca atrybuty i metody jednostki atakuj¹cej.
+*
+* Klasa zawiera niezbêdne atrybuty dla obiektów, które bêd¹ s³u¿y³y do walki.
+* Rozsze¿a interfejs o metody wyliczaj¹ce atrybuty.
+* \author Daniel Wojdak
+* \version 1
+* \date 24-07-2013
+*/
 class JednostkaAtakujacaInfo :
 	public Info,
 	virtual public LoggerInterface
 {
 public:
 	/**
-	* Konstruktor parametryczny.
-	* \param oAtak - podstawowny atak obiektu
-	* \param oPancerz - podstawowy pancerz obiektu
-	* \param oOslona - postawowa oslona obiektu
+	* \brief Konstruktor.
+	*
+	* \param[in] info - referencja do obiektu opisowego.
+	* \param[in] atak - podstawowny atak obiektu
+	* \param[in] pancerz - podstawowy pancerz obiektu
+	* \param[in] oslona - postawowa oslona obiektu
 	*/
-	JednostkaAtakujacaInfo(const Info& info, const Obrazenia& oAtak,const Obrazenia& oPancerz, const Obrazenia& oOslona ) throw();
-
-	explicit JednostkaAtakujacaInfo( TiXmlElement* ) throw(WyjatekParseraXML);
-
-	JednostkaAtakujacaInfo( const JednostkaAtakujacaInfo& );
-	
-	/**
-	* Metoda zwraca podstawowe obra¿enia zadawane przez obiekt.
-	* \return Podstawowe obra¿enia zadawane przez obiekt.
-	*/
-	Obrazenia getAtak() const;	
+	JednostkaAtakujacaInfo(const Info& info, const Obrazenia& atak,const Obrazenia& pancerz, const Obrazenia& oslona ) throw();
 
 	/**
-	* Metoda zwraca podstawowe obra¿enia jakie zniszcz¹ obiekt.
-	* \return Podstawowe obra¿enia jakie zniszcz¹ obiekt.
+	* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
+	* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
 	*/
-	Obrazenia getPancerz() const;	
+	explicit JednostkaAtakujacaInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML);
 
 	/**
-	* Metoda zwraca podstawowe obra¿enia jakie mo¿e poch³on¹æ os³ona obiektu.
-	* \return Podstawowe obra¿enia jakie mo¿e poch³on¹æ os³ona obiektu.
+	* \brief Konstruktor kopiuj¹cy.
+	* 
+	* \param[in] obiekt - Obiekt Ÿród³owy.
 	*/
-	Obrazenia getOslona() const;	
+	JednostkaAtakujacaInfo( const JednostkaAtakujacaInfo& obiekt );
 
 	/**
-	* Metoda zwraca obra¿enia zadawane przez obiekt.
-	* \return obra¿enia zadawane przez obiekt.
+	* \brief Destruktor.
 	*/
-	Obrazenia getAtak(const PodstawoweParametry& ) const;	
+	virtual ~JednostkaAtakujacaInfo();
 
 	/**
-	* Metoda zwraca obra¿enia jakie zniszcz¹ obiekt.
-	* \return obra¿enia jakie zniszcz¹ obiekt.
+	* \brief Metoda zwraca wartoœæ obra¿eñ ataku
+	*
+	* Metoda zwraca obra¿enia jakie mo¿e zadaæ obiekt.
+	* \param[in] parametry - Podstawowe parametry niezbêdne do wyliczenia obra¿eñ.
+	* \return Wartoœæ obra¿eñ ataku.
 	*/
-	Obrazenia getPancerz(const PodstawoweParametry& ) const;	
+	Obrazenia pobierzAtak(const PodstawoweParametry& parametry ) const;	
 
 	/**
-	* Metoda zwraca obra¿enia jakie mo¿e poch³on¹æ os³ona obiektu.
-	* \return obra¿enia jakie mo¿e poch³on¹æ os³ona obiektu.
+	* \brief Metoda zwraca wartoœæ obra¿eñ pancerza
+	*
+	* Metoda zwraca obra¿enia jakie mo¿e przyj¹æ pancerz.
+	* \param[in] parametry - Podstawowe parametry niezbêdne do wyliczenia obra¿eñ.
+	* \return Wartoœæ obra¿eñ pancerza.
 	*/
-	Obrazenia getOslona(const PodstawoweParametry& ) const;
+	Obrazenia pobierzPancerz(const PodstawoweParametry& parametry ) const;	
 
 	/**
-	* Metoda zwraca generator pseudolosowy.
-	* \return Generator.
+	* \brief Metoda zwraca wartoœæ obra¿eñ oslony
+	*
+	* Metoda zwraca obra¿enia jakie mo¿e przyj¹æ os³ona.
+	* \param[in] parametry - Podstawowe parametry niezbêdne do wyliczenia obra¿eñ.
+	* \return Wartoœæ obra¿eñ oslony.
 	*/
-	std::mt19937& getGenerator()const;
+	Obrazenia pobierzOslone(const PodstawoweParametry& parametry ) const;
 
 	/**
 	* Przeci¹¿ona funkcja generuj¹ca tekstowy opis klasy.
@@ -74,16 +98,12 @@ public:
 	string napis() const override;
 
 private:
-	mutable std::random_device rd;
-    mutable std::mt19937 gen;
+	Obrazenia atak_; /// Podstawowa wartoœæ ataku obiektu.
+	shared_ptr<ZmianaInterfejs> zmianaAtaku_; /// Procentowa zmiana ataku wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
 
-	Obrazenia atak; /// Podstawowa wartoœæ ataku obiektu.
-	shared_ptr<ZmianaInterfejs> zmAtak; /// Procentowa zmiana ataku wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
+	Obrazenia pancerz_; /// Podstawowa wartoœæ pancerza obiektu.
+	shared_ptr<ZmianaInterfejs> zmianaPancerza_; /// Procentowa zmiana pancerza wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
 
-	Obrazenia pancerz; /// Podstawowa wartoœæ pancerza obiektu.
-	shared_ptr<ZmianaInterfejs> zmPancerz; /// Procentowa zmiana pancerza wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
-
-	Obrazenia oslona; /// Podstawowa wartoœæ os³ony obiektu.
-	shared_ptr<ZmianaInterfejs> zmOslona; /// Procentowa zmiana os³ony wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
+	Obrazenia oslona_; /// Podstawowa wartoœæ os³ony obiektu.
+	shared_ptr<ZmianaInterfejs> zmianaOslony_; /// Procentowa zmiana os³ony wzglêdem wartoœci podstawowej. Domyœlnie 1.0 - 100% wartoœci podstawowej.
 };
-

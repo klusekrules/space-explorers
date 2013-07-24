@@ -27,35 +27,14 @@ void StatekTest::Issue42Test(){
 	UNIT_TEST_ASSERT_EQUAL( ZuzyciePaliwa(12),a->getJednostkoweZuzyciePaliwa() );
 	UNIT_TEST_ASSERT_EQUAL( MocSilnika(5), a->getMocSilnika() );
 	UNIT_TEST_ASSERT_EQUAL( Fluktuacja(0.97f*8.0f), a->getSprawnoscSilnika() );
-	UNIT_TEST_ASSERT_EQUAL( Obrazenia(9.0*90*2), a->getAtak() );
-	UNIT_TEST_ASSERT_EQUAL( Obrazenia(10.0*250*2), a->getPancerz() );
-	UNIT_TEST_ASSERT_EQUAL( Obrazenia(11.0*300*2), a->getOslona() );
+	UNIT_TEST_ASSERT_EQUAL( Obrazenia(9.0*90*2), a->pobierzAtak() );
+	UNIT_TEST_ASSERT_EQUAL( Obrazenia(10.0*250*2), a->pobierzPancerz() );
+	UNIT_TEST_ASSERT_EQUAL( Obrazenia(11.0*300*2), a->pobierzOslone() );
 }
 
 void StatekTest::Issue52Test(){
 	UNIT_TEST_ASSERT_EQUAL( Poziom(4), b->pobierzPoziom() );
 	UNIT_TEST_ASSERT_EQUAL( Poziom(2), c->pobierzPoziom() );
-}
-
-void StatekTest::JednostkaAtakujacaTest(){
-	Obrazenia oAtak = d->Atak();
-	Obrazenia baseAtak(d->getStatekInfo().getAtak(PodstawoweParametry(Poziom(1),Identyfikator()))()*8.0);
-	Obrazenia tbAtak(baseAtak() *(JednostkaAtakujaca::srednia-(JednostkaAtakujaca::odchylenie * 3 )));
-	Obrazenia teAtak(baseAtak() *(JednostkaAtakujaca::srednia+(JednostkaAtakujaca::odchylenie * 3 )));
-	UNIT_TEST_ASSERT_TRUE( (tbAtak <= oAtak && oAtak <= teAtak) );
-
-	Obrazenia oOslona = d->Oslona(oAtak);
-	Obrazenia baseOslona(d->getStatekInfo().getOslona(PodstawoweParametry(Poziom(1),Identyfikator()))()*8.0);
-	double tbd=oAtak() - baseOslona() *(JednostkaAtakujaca::srednia+(JednostkaAtakujaca::odchylenie * 3 ));
-	double ted=oAtak() - baseOslona() *(JednostkaAtakujaca::srednia-(JednostkaAtakujaca::odchylenie * 3 ));
-	Obrazenia tbOslona(tbd>0?tbd:0);
-	Obrazenia teOslona(ted>0?ted:0);
-	UNIT_TEST_ASSERT_TRUE( (tbOslona <= oOslona && oOslona <= teOslona) );
-
-	Obrazenia oPancerz = d->Pancerz(oOslona);
-	Obrazenia basePancerz(d->getStatekInfo().getPancerz(PodstawoweParametry(Poziom(1),Identyfikator()))()*8.0);
-	Obrazenia tbPancerz(basePancerz<oOslona?oOslona-basePancerz:Obrazenia(0));
-	UNIT_TEST_ASSERT_EQUAL( tbPancerz , oPancerz );
 }
 
 void StatekTest::FlotaTest(){	

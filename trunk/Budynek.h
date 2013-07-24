@@ -5,6 +5,9 @@
 * \brief Klasa Budynku
 *
 * Klasa implementuje metody zale¿ne od dzia³ania obiektu. Dodaje metody pobieraj¹ce zapotrzebowanie i produkcje obiektu.
+* \author Daniel Wojdak
+* \version 1
+* \date 24-07-2013
 */
 class Budynek :
 	public Obiekt,
