@@ -4,36 +4,45 @@
 #include "Aplikacja.h"
 #include "definicjeWezlowXML.h"
 
-LadowniaInfo::LadowniaInfo( const Objetosc& max, const Info& i ) throw()
-	: Info(i),pojemnoscMax(max), przyrostPojemnoscMax(nullptr)
+LadowniaInfo::LadowniaInfo( const Objetosc& maksymalnaObjetosc, const Info& info ) throw()
+	: Info(info), pojemnoscMaksymalna_(maksymalnaObjetosc), przyrostPojemnosciMaksymalnej_(nullptr)
 {
 }
 
-LadowniaInfo::LadowniaInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
-	: Info(n), przyrostPojemnoscMax(nullptr)
+LadowniaInfo::LadowniaInfo( const LadowniaInfo& obiekt )
+	: Info(obiekt), pojemnoscMaksymalna_(obiekt.pojemnoscMaksymalna_), przyrostPojemnosciMaksymalnej_(nullptr)
 {
-	if(n){
+}
+
+LadowniaInfo::~LadowniaInfo(){
+}
+
+LadowniaInfo::LadowniaInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
+	: Info(wezel), przyrostPojemnosciMaksymalnej_(nullptr)
+{
+	if(wezel){
 		try{
-			pojemnoscMax(stold(n->Attribute(ATRYBUT_XML_POJEMNOSC_MAKSYMALNA)));
-			przyrostPojemnoscMax = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_POJEMNOSC_MAKSYMALNA));
-		}catch(exception& e){
-			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
+			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_POJEMNOSC_MAKSYMALNA,pojemnoscMaksymalna_))
+				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			przyrostPojemnosciMaksymalnej_ = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_POJEMNOSC_MAKSYMALNA));
+		}catch(exception& wyjatek){
+			throw WyjatekParseraXML(EXCEPTION_PLACE,wyjatek,WyjatekParseraXML::trescBladStrukturyXml);
 		}
 	}
 }
 
-Objetosc LadowniaInfo::getPojemnoscMaksymalna(const PodstawoweParametry& p ) const{
-	if(przyrostPojemnoscMax)
-		return Objetosc(przyrostPojemnoscMax->policzWartosc(pojemnoscMax(),static_cast<int>(p.pobierzPoziom()()),p.pobierzIdentyfikatorPlanety()()));
+Objetosc LadowniaInfo::pobierzPojemnoscMaksymalna(const PodstawoweParametry& p ) const{
+	if(przyrostPojemnosciMaksymalnej_)
+		return Objetosc(przyrostPojemnosciMaksymalnej_->policzWartosc(pojemnoscMaksymalna_(),static_cast<int>(p.pobierzPoziom()()),p.pobierzIdentyfikatorPlanety()()));
 	else
-		return pojemnoscMax;
+		return pojemnoscMaksymalna_;
 }
 		
 string LadowniaInfo::napis() const{
 	Logger str(NAZWAKLASY(LadowniaInfo));
 	str.dodajKlase(Info::napis());
-	str.dodajPole("MaksymalnaPojemnosc",pojemnoscMax);
-	if(przyrostPojemnoscMax!=nullptr)
-		str.dodajPole("ZmianaMaksymalnaPojemnosc",*przyrostPojemnoscMax);
+	str.dodajPole("MaksymalnaPojemnosc",pojemnoscMaksymalna_);
+	if(przyrostPojemnosciMaksymalnej_)
+		str.dodajPole("ZmianaMaksymalnaPojemnosc",*przyrostPojemnosciMaksymalnej_);
 	return str.napis();
 }

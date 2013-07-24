@@ -3,9 +3,9 @@
 #include "NieznalezionoObiektu.h"
 #include "BladLaczeniaObiektow.h"
 #include <map>
-
+#include <vector>
 using std::map;
-
+using std::vector;
 /**
 * \brief Klasa zarz¹dzaj¹ca list¹ obiektów.
 *
@@ -194,8 +194,9 @@ public:
 	* Metoda nie tworzy kopii elementów.
 	* \return Lista obiektów kontenera.
 	*/
-	list< shared_ptr<T> > listaObiektow() const {
-		list< shared_ptr<T> > lista;
+	vector< shared_ptr<T> > listaObiektow() const {
+		vector< shared_ptr<T> > lista;
+		lista.reserve(this->rozmiar());
 		for(auto element : *this){
 			lista.push_back(element.second);
 		}
@@ -208,8 +209,9 @@ public:
 	* Metoda s³u¿aca do pobierania listy wszystkich kluczy obiektów znajduj¹cych siê w kontenerze.
 	* \return Lista kluczy obiektów kontenera.
 	*/
-	list<Klucz> listaKluczy() const {
-		list<Klucz> lista;
+	vector<Klucz> listaKluczy() const {
+		vector<Klucz> lista;
+		lista.reserve(this->rozmiar());
 		for(auto element : *this){
 			lista.push_back(element.first);
 		}

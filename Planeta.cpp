@@ -122,7 +122,7 @@ bool Planeta::przeniesDoFloty(const Identyfikator& floty, const Identyfikator& i
 					if(f->second->dodajStatek(p)){
 						return true;
 					}else{
-						i->second->Polacz(*p);
+						i->second->polacz(*p);
 						return false;
 					}
 				}else{
@@ -161,7 +161,7 @@ bool Planeta::zaladujFlote(const Identyfikator& floty, const Identyfikator& id, 
 }
 
 bool Planeta::rozladujStatek( shared_ptr< Statek > ptr ){
-	for(auto e : ptr->getPrzewozoneObiekty()){
+	for(auto e : ptr->pobierzPrzewozoneObiekty()){
 		if(!wybuduj(e.first().first,e.second->pobierzIlosc()))
 			return false;
 	}
@@ -184,7 +184,7 @@ bool Planeta::dolaczFloteDoPlanety( shared_ptr< Flota > ptr){
 	for(auto e : ptr->lista){
 		if(!wybuduj(e.first().first,e.second->pobierzIlosc()))
 			return false;
-		if(e.second->getZajeteMiejsce()!=Objetosc(0.0)){
+		if(e.second->pobierzZajeteMiejsce()!=Objetosc(0.0)){
 			if(!rozladujStatek(e.second))
 				return false;
 		}

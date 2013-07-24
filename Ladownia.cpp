@@ -9,210 +9,237 @@
 #include <functional>
 
 	
-Ladownia::Ladownia( const Poziom& p, const Identyfikator& idP, const LadowniaInfo& l )
-	: PodstawoweParametry(p, idP), obiekty(), zajete(), ladowniaInfo(l)
+Ladownia::Ladownia( const Poziom& poziom, const Identyfikator& identyfikatorPlanety, const LadowniaInfo& ladowniaInfo )
+	: PodstawoweParametry(poziom, identyfikatorPlanety), obiekty_(), zajete_(), ladowniaInfo_(ladowniaInfo)
 {
 }
 
-Ladownia::Ladownia( const PodstawoweParametry& p, const LadowniaInfo& l )
-	: PodstawoweParametry(p), obiekty(), zajete(), ladowniaInfo(l)
+Ladownia::Ladownia( const PodstawoweParametry& podstawoweParametry, const LadowniaInfo& ladowniaInfo )
+	: PodstawoweParametry(podstawoweParametry), obiekty_(), zajete_(), ladowniaInfo_(ladowniaInfo)
 {
 }
 
-Fluktuacja Ladownia::WolneMiejsce() const{
-	return Fluktuacja( 1.0 ) - ( zajete / getPojemnoscMax() );
+Ladownia::~Ladownia(){
 }
 
-Ilosc Ladownia::SprawdzIloscObiektow( const Klucz& itID ) const{
-	return obiekty.pobierz(itID)->pobierzIlosc();
+Fluktuacja Ladownia::wolneMiejsce() const{
+	return Fluktuacja( 1.0 ) - ( zajete_ / pobierzPojemnoscMaksymalna() );
 }
 
-bool Ladownia::Polacz( Ladownia& l ){
-	return obiekty.przeniesWszystkie(l.obiekty);
+Ilosc Ladownia::pobierzIloscObiektow( const Klucz& klucz ) const{
+	auto element = obiekty_.pobierz(klucz);
+	if(element)
+		return element->pobierzIlosc();
+	else
+		return Ilosc(0);
 }
 
-bool Ladownia::czMoznaDodacDoLadownii( const Statek& c ) const {
+bool Ladownia::polacz( Ladownia& ladownia ){
+	return obiekty_.przeniesWszystkie(ladownia.obiekty_);
+}
+
+bool Ladownia::polacz( Zbiornik zbiornik ){
+	return obiekty_.przeniesWszystkie(zbiornik);
+}
+
+bool Ladownia::czMoznaDodacDoLadownii( const Statek& statek ) const {
 	return true;
 }
 
-bool Ladownia::czMoznaDodacDoLadownii( const Surowce& c ) const {
-	return c.czyTypPrzyrostowy();
+bool Ladownia::czMoznaDodacDoLadownii( const Surowce& surowce ) const {
+	return surowce.czyTypPrzyrostowy();
 }
 
 //Tranzakcyjna
-bool Ladownia::DodajObiektDoLadowni( Item& obiekt ){
+bool Ladownia::dodajObiektDoLadowni( const Item& obiekt ){
 	if(!obiekt.czMoznaDodacDoLadownii(*this)){
 		return false;
 	}
-	if( obiekt.pobierzObjetosc()/obiekt.pobierzIlosc() > ladowniaInfo.getPojemnoscMaksymalna(*this) || (obiekt.pobierzObjetosc() + zajete) > getPojemnoscMax() ){
+	if( obiekt.pobierzObjetosc()/obiekt.pobierzIlosc() > ladowniaInfo_.pobierzPojemnoscMaksymalna(*this) || (obiekt.pobierzObjetosc() + zajete_) > pobierzPojemnoscMaksymalna() ){
 		return false;
 	}
 	shared_ptr<Obiekt> kopia = shared_ptr<Obiekt>(obiekt.kopia());
 	kopia->ustawIdentyfikatorPlanety(Identyfikator());
-	bool rezultat = obiekty.dodaj(kopia);
+	bool rezultat = obiekty_.dodaj(kopia);
 	przeliczZajeteMiejsce();
 	return rezultat;		
-}	
+}
 
-Ladownia::Zbiornik Ladownia::OproznijLadownie(){
+//Tranzakcyjna
+bool Ladownia::dodajObiektDoLadowni( shared_ptr<Item> obiekt ){
+	if( !obiekt || !obiekt->czMoznaDodacDoLadownii(*this)){
+		return false;
+	}
+	if( obiekt->pobierzObjetosc()/obiekt->pobierzIlosc() > ladowniaInfo_.pobierzPojemnoscMaksymalna(*this) || (obiekt->pobierzObjetosc() + zajete_) > pobierzPojemnoscMaksymalna() ){
+		return false;
+	}
+	auto identyfikator = obiekt->pobierzIdentyfikatorPlanety();
+	obiekt->ustawIdentyfikatorPlanety(Identyfikator());
+	bool rezultat = obiekty_.dodaj(obiekt);
+	if(!rezultat)
+		obiekt->ustawIdentyfikatorPlanety(identyfikator);
+	else
+		przeliczZajeteMiejsce();
+	return rezultat;		
+}
+
+//Tranzakcyjna
+Ladownia::Zbiornik Ladownia::oproznijLadownie(){
 	Zbiornik tmp;
-	tmp.przeniesWszystkie(obiekty);
+	tmp.przeniesWszystkie(obiekty_);
 	przeliczZajeteMiejsce();
 	return tmp;
 }
 
-Ladownia::Item& Ladownia::PobierzObiekt( const Klucz& itID, const Ilosc& isIlosc ) throw( NieznalezionoObiektu, NiepoprawnaIloscObiektow ){
-	if(obiekty.pusty())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,itID.napis());
+shared_ptr<Ladownia::Item> Ladownia::wyjmijObiekt( const Klucz& klucz, const Ilosc& ilosc ){
+	if(obiekty_.pusty() || ilosc == Ilosc())
+		return nullptr;
+	
+	shared_ptr<Ladownia::Item> obiekt = obiekty_.pobierz(klucz);
+		
+	if( !obiekt || ilosc > obiekt->pobierzIlosc() )
+		return nullptr;
 
-	try{
-		Obiekt& o = *obiekty.pobierz(itID);
-		if( isIlosc == o.pobierzIlosc() ){
-			obiekty.wyjmij(itID);
-			przeliczZajeteMiejsce();
-			return o;
-		}
+	if( ilosc == obiekt->pobierzIlosc() ){
+		obiekt = obiekty_.wyjmij(klucz);
+		przeliczZajeteMiejsce();
+		return obiekt;
+	}
 
-		if( isIlosc < o.pobierzIlosc() ){
-			Obiekt *k = o.podziel(isIlosc);
-			przeliczZajeteMiejsce();
-			return *k;
-		}
-
-		if( isIlosc == Ilosc() ){
-			throw NieznalezionoObiektu(EXCEPTION_PLACE,o.napis());
-		}
-
-		if( isIlosc > o.pobierzIlosc() ){
-			throw NiepoprawnaIloscObiektow(EXCEPTION_PLACE,isIlosc);
-		}
-	}catch( OgolnyWyjatek& ){
-		throw;
-	}	
-	throw NiepoprawnaIloscObiektow(EXCEPTION_PLACE,isIlosc);
+	shared_ptr<Ladownia::Item> czesc = shared_ptr<Ladownia::Item>(obiekt->podziel(ilosc));
+	przeliczZajeteMiejsce();
+	return czesc;
 }
 
 /* Zwrócony zbiornik ma objêtoœæ z przedzia³u  < min , max >  */
 //Tranzakcyjna
-Ladownia::Zbiornik* Ladownia::PodzielLadownie( const Objetosc& oMin , const Objetosc& oMax  ){
-	Zbiornik *zb = new Zbiornik();
+Ladownia::Zbiornik Ladownia::podzielLadownie( const Objetosc& minimum , const Objetosc& maksimum  ){
+	Zbiornik zbiornik;
 	
-	Objetosc tObj ( 0.0 );
-	Objetosc tMin ( oMin );
+	Objetosc tymczasowaObjetosc ( 0.0 );
+	Objetosc tymczasoweMinimum ( minimum );
 
 	//Je¿eli objetoœæ czekiwana jest równa 0 to zwracamy pusty zbior obiektów
-	if( oMax == tObj )
-		return zb;
+	if( maksimum == tymczasowaObjetosc )
+		return Zbiornik();
 
 	// Je¿eli objêtoœæ minimalna jest ujemna to j¹ zerujemy
-	if( tMin < tObj )
-		tMin = tObj;
+	if( tymczasoweMinimum < tymczasowaObjetosc )
+		tymczasoweMinimum = tymczasowaObjetosc;
 
 	//Je¿eli objêtoœæ oczekiwana mniejsza od 0 lub objêtoœæ minimalna wiêksza od pojemnoœci 
 	//lub objêtoœæ minimalna wiêksza od objêtoœci docelowej.
-	if( oMax < tObj || oMin > zajete || oMin > oMax ){
-		delete zb;
-		return nullptr;
+	if( maksimum < tymczasowaObjetosc || minimum > zajete_ || minimum > maksimum ){
+		return Zbiornik();
 	}
 	//Sortujemy zbiornik, tak aby w pierwszej kolejnoœci by³y przegl¹dane elementy o wiêkszym jednostkowym rozmiarze.
-	Zbiornik kopia(obiekty);
+	Zbiornik kopia(obiekty_);
 	map<Objetosc,Klucz,greater<Objetosc> > posortowane;
-	for( auto o : obiekty )
-		posortowane.insert(make_pair(o.second->pobierzObjetosc()/o.second->pobierzIlosc(),o.first));
+	for( auto element : obiekty_ )
+		posortowane.insert(make_pair(element.second->pobierzObjetosc()/element.second->pobierzIlosc(),element.first));
 
 	/*
 		Przechodzimy po elementach zbiornika i przepisujemy tyle ile siê da. Dopuszczamy dzielenie grup obiektów jeœli mo¿liwe.
 	*/
-	for( auto o : posortowane ){
-		Objetosc objElementu(obiekty.pobierz(o.second)->pobierzObjetosc());
-		if( objElementu + tObj <= oMax ){
-			if(Zbiornik::przenies(o.second, kopia , *zb)){
-				tObj += objElementu;
+	for( auto element : posortowane ){
+		Objetosc objElementu(obiekty_.pobierz(element.second)->pobierzObjetosc());
+		if( objElementu + tymczasowaObjetosc <= maksimum ){
+			if(Zbiornik::przenies(element.second, kopia , zbiornik)){
+				tymczasowaObjetosc += objElementu;
 			}
 		}else{
-			Objetosc objPojedyncza( o.first );
-			if( oMax - tObj >= objPojedyncza ){
-				Ilosc liczbaElementow( floorl(( oMax() - tObj() ) / objPojedyncza()) );
+			Objetosc objPojedyncza( element.first );
+			if( maksimum - tymczasowaObjetosc >= objPojedyncza ){
+				Ilosc liczbaElementow( floorl(( maksimum() - tymczasowaObjetosc() ) / objPojedyncza()) );
 				if( liczbaElementow >= Ilosc(1.0) ){
-					if(Zbiornik::przenies(o.second,liczbaElementow, kopia , *zb)){
-						tObj += Objetosc( objPojedyncza() * liczbaElementow() );
+					if(Zbiornik::przenies(element.second,liczbaElementow, kopia , zbiornik)){
+						tymczasowaObjetosc += Objetosc( objPojedyncza() * liczbaElementow() );
 					}
 				}
 			}
 		}
-		if(tObj >= tMin)
+		if(tymczasowaObjetosc >= tymczasoweMinimum)
 			break;
 	}
-	if(tObj >= tMin){
-		obiekty = kopia;
+	if(tymczasowaObjetosc >= tymczasoweMinimum){
+		obiekty_ = kopia;
 		przeliczZajeteMiejsce();
 	}else{
-		delete zb;
-		return nullptr;
+		return Zbiornik();
 	}
-	return zb;
+	return zbiornik;
 }
 
 void Ladownia::przeliczZajeteMiejsce(){
-	zajete=Objetosc(0);
-	for( auto o : obiekty){
-		zajete += o.second->pobierzObjetosc();
+	zajete_=Objetosc(0);
+	for( auto element : obiekty_){
+		zajete_ += element.second->pobierzObjetosc();
 	}
 }
 
-Masa Ladownia::getMasaZawartosciLadowni()const {
-	Masa m (0);
-	for( auto o : obiekty){
-		m += o.second->pobierzMase();
+Masa Ladownia::pobierzMaseZawartosciLadowni()const {
+	Masa masa (0);
+	for( auto element : obiekty_){
+		masa += element.second->pobierzMase();
 	}
-	return m;
+	return masa;
 }
 
-Ladownia::ListaKluczy Ladownia::PobierzListeIdObiektow() const{
-	return obiekty.listaKluczy();
+Ladownia::ListaKluczy Ladownia::pobierzListeIdentyfikatorowObiektow() const{
+	return obiekty_.listaKluczy();
 }
 
-const Ladownia::Zbiornik& Ladownia::getPrzewozoneObiekty() const{
-	return obiekty;
+const Ladownia::Zbiornik& Ladownia::pobierzPrzewozoneObiekty() const{
+	return obiekty_;
 }
 
-const Objetosc& Ladownia::getZajeteMiejsce() const{
-	return zajete;
+const Objetosc& Ladownia::pobierzZajeteMiejsce() const{
+	return zajete_;
 }
 
-Objetosc Ladownia::getPojemnoscMax() const{
-	return ladowniaInfo.getPojemnoscMaksymalna(*this);
+Objetosc Ladownia::pobierzPojemnoscMaksymalna() const{
+	return ladowniaInfo_.pobierzPojemnoscMaksymalna(*this);
 }
 
-bool Ladownia::zapisz( TiXmlElement* e ) const {
-	TiXmlElement* n = new TiXmlElement(WEZEL_XML_LADOWNIA);
-	e->LinkEndChild( n );
-	n->SetAttribute(ATRYBUT_XML_ZAJETE_MIEJSCE,zajete.napis());
-	for( auto o : obiekty){
-		if(!o.second->zapisz(n))
+bool Ladownia::zapisz( TiXmlElement* wezel ) const {
+	TiXmlElement* element = new TiXmlElement(WEZEL_XML_LADOWNIA);
+	wezel->LinkEndChild( element );
+	element->SetAttribute(ATRYBUT_XML_ZAJETE_MIEJSCE,zajete_.napis());
+	for( auto o : obiekty_){
+		if(!o.second->zapisz(element))
 			return false;
 	}
 	return true;
 }
 
-bool Ladownia::odczytaj (TiXmlElement* e) {
-	if(e){
-		auto c = e->Attribute(ATRYBUT_XML_ZAJETE_MIEJSCE);
-		if(!c)
+bool Ladownia::odczytaj (TiXmlElement* wezel ) {
+	if(wezel){
+		auto zajeteMiejsce = wezel->Attribute(ATRYBUT_XML_ZAJETE_MIEJSCE);
+		if(!zajeteMiejsce)
 			return false;
-		zajete(stod(c));
+		string napisAtrybutuZajete = zajeteMiejsce;
+		Utils::trim(napisAtrybutuZajete);
+		if(napisAtrybutuZajete.empty())
+			return false;
+		zajete_(stod(napisAtrybutuZajete));
 		try{
-			for(TiXmlElement* n = e->FirstChildElement(); n != nullptr ; n = n->NextSiblingElement()){
-				string c = n->Attribute(ATRYBUT_XML_IDENTYFIKATOR);
-				if(c.empty())
+			Gra& gra = Aplikacja::getInstance().getGra();
+			TiXmlElement* element = wezel->FirstChildElement(); 
+			while(element){
+				auto atrybut = wezel->Attribute(ATRYBUT_XML_IDENTYFIKATOR);
+				if(!atrybut)
 					return false;
-				Utils::trim(c);
-				Identyfikator id(stoi(c,nullptr,0));
-				shared_ptr<Obiekt> p = shared_ptr<Obiekt>(Aplikacja::getInstance().getGra().getObiekt(id).tworzEgzemplarz(Ilosc(),Identyfikator()));			
-				if(!p->odczytaj(n) ){
+				string napisAtrybutu = atrybut;
+				Utils::trim(napisAtrybutu);
+				if(napisAtrybutu.empty())
+					return false;
+				Identyfikator id(stoi(napisAtrybutu,nullptr,0));
+				shared_ptr<Obiekt> p = shared_ptr<Obiekt>(gra.getObiekt(id).tworzEgzemplarz(Ilosc(),Identyfikator()));			
+				if(!p->odczytaj(element) ){
 					return false;
 				}
-				obiekty.dodaj(p);
+				obiekty_.dodaj(p);
+				element = element->NextSiblingElement();
 			}
 		}catch(...){
 			return false;
@@ -224,8 +251,8 @@ bool Ladownia::odczytaj (TiXmlElement* e) {
 
 string Ladownia::napis() const{
 	Logger str(NAZWAKLASY(Ladownia));
-	str.dodajPole("Zajete Miejsce",zajete);
-	str.dodajPole(NAZWAKLASY(Zbiornik),obiekty);
-	str.dodajPole(NAZWAKLASY(LadowniaInfo)+"ID",ladowniaInfo.pobierzIdentyfikator());
+	str.dodajPole("Zajete Miejsce",zajete_);
+	str.dodajPole(NAZWAKLASY(Zbiornik),obiekty_);
+	str.dodajPole(NAZWAKLASY(LadowniaInfo)+"ID",ladowniaInfo_.pobierzIdentyfikator());
 	return str.napis();
 }

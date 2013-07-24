@@ -21,30 +21,29 @@ void LadowniaTest::startTestow(){
 }
 
 void LadowniaTest::podstawowyTest(){
-	UNIT_TEST_ASSERT_FALSE(statekTransportowy->DodajObiektDoLadowni(*energia));
-	UNIT_TEST_ASSERT_TRUE(statekTransportowy->DodajObiektDoLadowni(*metal));
-	UNIT_TEST_ASSERT_FALSE(statekTransportowy->DodajObiektDoLadowni(*metal));
+	UNIT_TEST_ASSERT_FALSE(statekTransportowy->dodajObiektDoLadowni(*energia));
+	UNIT_TEST_ASSERT_TRUE(statekTransportowy->dodajObiektDoLadowni(*metal));
+	UNIT_TEST_ASSERT_FALSE(statekTransportowy->dodajObiektDoLadowni(*metal));
 }
 
 void LadowniaTest::oproznianieLadowni(){
-	UNIT_TEST_ASSERT_NOTEQUAL(statekTransportowy->getZajeteMiejsce(),Objetosc(0));
-	statekTransportowy->OproznijLadownie();
-	UNIT_TEST_ASSERT_EQUAL(statekTransportowy->getZajeteMiejsce(),Objetosc(0));
+	UNIT_TEST_ASSERT_NOTEQUAL(statekTransportowy->pobierzZajeteMiejsce(),Objetosc(0));
+	statekTransportowy->oproznijLadownie();
+	UNIT_TEST_ASSERT_EQUAL(statekTransportowy->pobierzZajeteMiejsce(),Objetosc(0));
 }
 
 void LadowniaTest::dodawanieStatkow(){
-	UNIT_TEST_ASSERT_FALSE(statekTransportowy->DodajObiektDoLadowni(*statekTransportowyDuzy));
-	UNIT_TEST_ASSERT_TRUE(statekTransportowy->DodajObiektDoLadowni(*mysliwiec));
-	statekTransportowy->OproznijLadownie();
+	UNIT_TEST_ASSERT_FALSE(statekTransportowy->dodajObiektDoLadowni(*statekTransportowyDuzy));
+	UNIT_TEST_ASSERT_TRUE(statekTransportowy->dodajObiektDoLadowni(*mysliwiec));
+	statekTransportowy->oproznijLadownie();
 }
 
 void LadowniaTest::dzielenieLadowni(){
-	UNIT_TEST_ASSERT_EQUAL(statekTransportowy->getZajeteMiejsce(),Objetosc(0));
-	UNIT_TEST_ASSERT_TRUE(statekTransportowy->DodajObiektDoLadowni(*metal));
-	UNIT_TEST_ASSERT_TRUE(statekTransportowy->DodajObiektDoLadowni(*mysliwiec));
-	Ladownia::Zbiornik* tmp = statekTransportowy->PodzielLadownie(Objetosc(10500),Objetosc(11000));
-	UNIT_TEST_ASSERT_NOTNULL(tmp);
-	delete tmp;
+	UNIT_TEST_ASSERT_EQUAL(statekTransportowy->pobierzZajeteMiejsce(),Objetosc(0));
+	UNIT_TEST_ASSERT_TRUE(statekTransportowy->dodajObiektDoLadowni(*metal));
+	UNIT_TEST_ASSERT_TRUE(statekTransportowy->dodajObiektDoLadowni(*mysliwiec));
+	Ladownia::Zbiornik tmp = statekTransportowy->podzielLadownie(Objetosc(10500),Objetosc(11000));
+	UNIT_TEST_ASSERT_FALSE(tmp.pusty());
 }
 
 LadowniaTest::~LadowniaTest(void)
