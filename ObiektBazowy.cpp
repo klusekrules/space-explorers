@@ -3,6 +3,7 @@
 #include "Logger.h"
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
+#include "XmlBO.h"
 
 ObiektBazowy::ObiektBazowy( const Ilosc& ilosc, const Poziom& poziom, const Identyfikator& identyfikatorPlanety, const ObiektBazowyInfo& obiektBazowyInfo) throw()
 	: PodstawoweParametry(poziom,identyfikatorPlanety), Bazowa(obiektBazowyInfo), ilosc_(ilosc), obiektBazowyInfo_(obiektBazowyInfo)
@@ -95,14 +96,8 @@ bool ObiektBazowy::zapisz( TiXmlElement* wezel ) const {
 
 bool ObiektBazowy::odczytaj( TiXmlElement* wezel ){
 	if(wezel){
-		auto atrybut = wezel->Attribute(ATRYBUT_XML_ILOSC);
-		if(!atrybut)
+		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_ILOSC,ilosc_))
 			return false;
-		string napisAtrybutu = atrybut;
-		Utils::trim(napisAtrybutu);
-		if(napisAtrybutu.empty())
-			return false;
-		ilosc_(stold(napisAtrybutu));
 		return Bazowa::odczytaj(wezel) && PodstawoweParametry::odczytaj(wezel);
 	}
 	return false;

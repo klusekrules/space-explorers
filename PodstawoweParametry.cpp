@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
+#include "XmlBO.h"
 
 PodstawoweParametry::PodstawoweParametry( const Poziom& poziom, const Identyfikator& planeta)
 	: poziom_(poziom), identyfikatorPlanety_(planeta)
@@ -40,24 +41,9 @@ bool PodstawoweParametry::zapisz( TiXmlElement* wezel ) const{
 
 bool PodstawoweParametry::odczytaj( TiXmlElement* wezel ){
 	if(wezel){
-		auto atrybut = wezel->Attribute(ATRYBUT_XML_POZIOM);
-		if(!atrybut)
+		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_POZIOM,poziom_))
 			return false;
-		string napisAtrybutu = atrybut;
-		Utils::trim(napisAtrybutu);
-		if(napisAtrybutu.empty())
-			return false;
-		poziom_(stoul(napisAtrybutu));
-		napisAtrybutu.clear();
-		atrybut = wezel->Attribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETY);
-		if(!atrybut)
-			return false;
-		napisAtrybutu.append(atrybut);
-		Utils::trim(napisAtrybutu);
-		if(napisAtrybutu.empty())
-			return false;	
-		identyfikatorPlanety_(stoul(napisAtrybutu,nullptr,0));
-		return true;
+		return XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR_PLANETY,identyfikatorPlanety_);
 	}
 	return false;
 }

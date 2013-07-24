@@ -30,7 +30,7 @@ ZmianaFabryka& ZmianaFabryka::pobierzInstancje(){
 
 shared_ptr<ZmianaInterfejs> ZmianaFabryka::Tworz( TiXmlElement* wezel ) const {
 	if(wezel){
-		int id = XmlBO::WczytajAtrybut<int>( wezel, ATRYBUT_XML_IDENTYFIKATOR );
+		int id = XmlBO::WczytajAtrybut<int>( wezel, ATRYBUT_XML_IDENTYFIKATOR , 0 );
 		if(id==0)
 			return nullptr;
 		auto iterator = callbacks_.find(id);

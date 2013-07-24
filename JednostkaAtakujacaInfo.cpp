@@ -15,16 +15,13 @@ JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( TiXmlElement* wezel ) throw(Wyja
 	if(wezel){
 		try{
 			ZmianaFabryka& fabryka = Aplikacja::getInstance().getGra().getZmianaFabryka();
-			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_ATAK,atak_))
-				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_ATAK,atak_);
 			zmianaAtaku_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_ATAK));
 
-			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_PANCERZ,pancerz_))
-				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_PANCERZ,pancerz_);
 			zmianaPancerza_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_PANCERZ));
 
-			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_OSLONA,oslona_))
-				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_OSLONA,oslona_);
 			zmianaOslony_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_OSLONA));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);

@@ -3,6 +3,7 @@
 #include "Aplikacja.h"
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
+#include "XmlBO.h"
 
 Planeta::Planeta(const Identyfikator& id)
 	: Bazowa(id), wlasciciel(nullptr),
@@ -214,26 +215,22 @@ bool Planeta::odczytaj( TiXmlElement* e ){
 		TiXmlElement* o = e->FirstChildElement(WEZEL_XML_OBIEKTY);
 		if(o)
 			for(TiXmlElement* n = o->FirstChildElement(); n != nullptr ; n = n->NextSiblingElement()){
-				string c = n->Attribute(ATRYBUT_XML_IDENTYFIKATOR);
-				if(c.empty())
+				Identyfikator identyfikator;
+				if(!XmlBO::WczytajAtrybut<NOTHROW>(n,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
 					return false;
-				Utils::trim(c);
-				Identyfikator id(stoul(c,nullptr,0));
-				wybuduj(id,Ilosc(0));
-				auto i = listaObiektow.find(id);
+				wybuduj(identyfikator,Ilosc(0));
+				auto i = listaObiektow.find(identyfikator);
 				if( i == listaObiektow.end() || !i->second->odczytaj(n) )
 					return false;
 			}
 		TiXmlElement* f = e->FirstChildElement(WEZEL_XML_FLOTY);
 		if(f)
 			for(TiXmlElement* n = o->FirstChildElement(); n != nullptr ; n = n->NextSiblingElement()){
-				string c = n->Attribute(ATRYBUT_XML_IDENTYFIKATOR);
-				if(c.empty())
+				Identyfikator identyfikator;
+				if(!XmlBO::WczytajAtrybut<NOTHROW>(n,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
 					return false;
-				Utils::trim(c);
-				Identyfikator id(stoul(c,nullptr,0));
-				shared_ptr<Flota> ptr = shared_ptr<Flota>(new Flota (id));
-				auto i = listaFlot.find(id);
+				shared_ptr<Flota> ptr = shared_ptr<Flota>(new Flota (identyfikator));
+				auto i = listaFlot.find(identyfikator);
 				if( i != listaFlot.end() )
 					return false;
 				listaFlot.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));

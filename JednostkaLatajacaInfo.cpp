@@ -17,27 +17,21 @@ JednostkaLatajacaInfo::JednostkaLatajacaInfo( TiXmlElement* wezel ) throw(Wyjate
 		try{
 			ZmianaFabryka& fabryka = Aplikacja::getInstance().getGra().getZmianaFabryka();
 			Identyfikator id;
-			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_RODZAJ_SILNIKA_ID,id))
-				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_RODZAJ_SILNIKA_ID,id);
 			Poziom poziom;
-			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_RODZAJ_SILNIKA_POZIOM,poziom))
-				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_RODZAJ_SILNIKA_POZIOM,poziom);
 			rodzajNapedu_(Klucz(id,poziom)());
 			
-			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_MOC_SILNIKA,mocSilnika_))
-				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_MOC_SILNIKA,mocSilnika_);
 			przyrostMocySilnika_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MOC_SILNIKA));
 			
-			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_ZUZYCIE_PALIWA,zuzyciePaliwa_))
-				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_ZUZYCIE_PALIWA,zuzyciePaliwa_);
 			przyrostZuzyciaPaliwa_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_ZUZYCIE_PALIWA));
 			
-			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_MASA_SILNIKA,masaNapedu_))
-				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_MASA_SILNIKA,masaNapedu_);
 			przyrostMasyNapedu_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MASA_SILNIKA));
 			
-			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_SPRAWNOSC_SILNIKA,sprawnoscSilnika_))
-				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_SPRAWNOSC_SILNIKA,sprawnoscSilnika_);
 			przyrostSprawnosciSilnika_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_SPRAWNOSC_SILNIKA));
 		}catch(exception& wyjatek){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,wyjatek,WyjatekParseraXML::trescBladStrukturyXml);
