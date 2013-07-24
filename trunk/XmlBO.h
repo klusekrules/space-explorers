@@ -1,6 +1,7 @@
 #pragma once
 #include "parser\ticpp.h"
 #include "WyjatekParseraXML.h"
+#include "Utils.h"
 #include <exception>
 #include <string>
 using std::string;
@@ -12,15 +13,67 @@ class NOTHROW { };
 class XmlBO{
 private:
 	template < typename T > 
-	static TiXmlElement * blad( bool czyWezelPusty , string nazwaWezla ){
+	static TiXmlElement * blad( bool czyWezelPusty , const string& nazwaWezla ){
 		return nullptr;
 	}
 
 	template < > 
-	static TiXmlElement * blad<THROW>( bool czyWezelPusty , string nazwaWezla ){
+	static TiXmlElement * blad<THROW>( bool czyWezelPusty , const string& nazwaWezla ){
 		throw WyjatekParseraXML(EXCEPTION_PLACE,exception(string(nazwaWezla + " isNull=" + std::to_string(czyWezelPusty)).c_str()),WyjatekParseraXML::trescBladStrukturyXml);
 	}
 
+	template < typename T > 
+	static bool blad( const string& wezel , const string& nazwaAtrybutu ){
+		return false;
+	}
+
+	template < > 
+	static bool blad<THROW>( const string& wezel , const string& nazwaAtrybutu ){
+		string opis("Nie uda³o siê odczytaæ atrybutu: ");
+		opis+=nazwaAtrybutu + " z wêz³a: " + wezel;
+		throw WyjatekParseraXML(EXCEPTION_PLACE,exception(opis.c_str()),WyjatekParseraXML::trescBladStrukturyXml);
+	}
+
+	template < typename T > 
+	static void Zaladuj(const string& atrybut, PodstawowyInterfejs<T>& obiekt){
+		obiekt(atrybut);
+	}
+
+	template <  > 
+	static void Zaladuj<double>(const string& atrybut, PodstawowyInterfejs<double>& obiekt){
+		double tmp;
+		tmp = stod(atrybut);
+		obiekt(tmp);
+	}
+
+	template <  > 
+	static void Zaladuj<long double>(const string& atrybut, PodstawowyInterfejs<long double>& obiekt){
+		long double tmp;
+		tmp = stold(atrybut);
+		obiekt(tmp);
+	}
+
+	template <  > 
+	static void Zaladuj<int>(const string& atrybut, PodstawowyInterfejs<int>& obiekt){
+		int tmp;
+		tmp = stoul(atrybut,nullptr,0);
+		obiekt(tmp);
+	}
+
+	template <  > 
+	static void Zaladuj<unsigned int>(const string& atrybut, PodstawowyInterfejs<unsigned int>& obiekt){
+		unsigned int tmp;
+		tmp = stoul(atrybut);
+		obiekt(tmp);
+	}
+
+	template <  > 
+	static void Zaladuj<float>(const string& atrybut, PodstawowyInterfejs<float>& obiekt){
+		float tmp;
+		tmp = stof(atrybut);
+		obiekt(tmp);
+	}
+	
 public:
 	template<typename T>
 	static TiXmlElement* ZnajdzWezel( TiXmlElement* wezel , const string& nazwa, TiXmlElement* poprzedniWezel = nullptr ){
@@ -50,126 +103,55 @@ public:
 		return nullptr;
 	}
 	
-	template<typename T>
+	template<typename K,typename T>
 	static bool WczytajAtrybut( TiXmlElement* wezel , const string& nazwa, PodstawowyInterfejs<T>& obiekt ){
 		if(!wezel)
-			return false;
+			return blad<K>(string(),string());
 		const string * napis = wezel->Attribute(nazwa);
 		if(!napis)
-			return false;
-		obiekt(*napis);
-		return true;
-	}
-
-	template< >
-	static bool WczytajAtrybut<double>( TiXmlElement* wezel , const string& nazwa, PodstawowyInterfejs<double>& obiekt ){
-		if(!wezel)
-			return false;
-		const string * napis = wezel->Attribute(nazwa);
-		if(!napis)
-			return false;
-		if(napis->length()>0){
-			double tmp;
-			tmp = stod(*napis);
-			obiekt(tmp);
+			return blad<K>(string(wezel->Value()),nazwa);
+		string atrybut = *napis;
+		Utils::trim(atrybut);
+		if(atrybut->length()>0){
+			Zaladuj<T>(atrybut,obiekt);
+			return true;
 		}
-		return true;
+		return blad<K>(string(wezel->Value()),nazwa);
 	}
-
-	template< >
-	static bool WczytajAtrybut<long double>( TiXmlElement* wezel , const string& nazwa, PodstawowyInterfejs<long double>& obiekt ){
-		if(!wezel)
-			return false;
-		const string * napis = wezel->Attribute(nazwa);
-		if(!napis)
-			return false;
-		if(napis->length()>0){
-			long double tmp;
-			tmp = stold(*napis);
-			obiekt(tmp);
-		}
-		return true;
-	}
-
-	template< >
-	static bool WczytajAtrybut<int>( TiXmlElement* wezel , const string& nazwa, PodstawowyInterfejs<int>& obiekt ){
-		if(!wezel)
-			return false;
-		const string * napis = wezel->Attribute(nazwa);
-		if(!napis)
-			return false;
-		if(napis->length()>0){
-			int tmp;
-			tmp = stoul(*napis,nullptr,0);
-			obiekt(tmp);
-		}
-		return true;
-	}
-
-	template< >
-	static bool WczytajAtrybut<unsigned int>( TiXmlElement* wezel , const string& nazwa, PodstawowyInterfejs<unsigned int>& obiekt ){
-		if(!wezel)
-			return false;
-		const string * napis = wezel->Attribute(nazwa);
-		if(!napis)
-			return false;
-		if(napis->length()>0){
-			unsigned int tmp;
-			tmp = stoul(*napis,nullptr,0);
-			obiekt(tmp);
-		}
-		return true;
-	}
-
-	template< >
-	static bool WczytajAtrybut<float>( TiXmlElement* wezel , const string& nazwa, PodstawowyInterfejs<float>& obiekt ){
-		if(!wezel)
-			return false;
-		const string * napis = wezel->Attribute(nazwa);
-		if(!napis)
-			return false;
-		if(napis->length()>0){
-			float tmp;
-			tmp = stof(*napis);
-			obiekt(tmp);
-		}
-		return true;
-	}
-
+	
 	template<typename T>
-	static T WczytajAtrybut( TiXmlElement* wezel , const string& nazwa ){
+	static T WczytajAtrybut( TiXmlElement* wezel , const string& nazwa , T domyslnaWartosc ){
 		if(!wezel)
-			return 0;
+			return domyslnaWartosc;
 		const string * napis = wezel->Attribute(nazwa);
 		if(!napis)
-			return 0;
+			return domyslnaWartosc;
 		return *napis;
 	}
 
 	template< >
-	static int WczytajAtrybut<int>( TiXmlElement* wezel , const string& nazwa ){
+	static int WczytajAtrybut<int>( TiXmlElement* wezel , const string& nazwa , int domyslnaWartosc ){
 		if(!wezel)
-			return 0;
+			return domyslnaWartosc;
 		const string * napis = wezel->Attribute(nazwa);
 		if(!napis)
-			return 0;
+			return domyslnaWartosc;
 		if(napis->length()>0){
 			return stoul(*napis,nullptr,0);
 		}
-		return 0;
+		return domyslnaWartosc;
 	}
 
 	template< >
-	static long double WczytajAtrybut<long double>( TiXmlElement* wezel , const string& nazwa ){
+	static long double WczytajAtrybut<long double>( TiXmlElement* wezel , const string& nazwa , long double domyslnaWartosc ){
 		if(!wezel)
-			return 0;
+			return domyslnaWartosc;
 		const string * napis = wezel->Attribute(nazwa);
 		if(!napis)
-			return 0;
+			return domyslnaWartosc;
 		if(napis->length()>0){
 			return stold(*napis);
 		}
-		return 0;
+		return domyslnaWartosc;
 	}
-
 };

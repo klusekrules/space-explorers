@@ -22,8 +22,7 @@ LadowniaInfo::LadowniaInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
 {
 	if(wezel){
 		try{
-			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_POJEMNOSC_MAKSYMALNA,pojemnoscMaksymalna_))
-				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_POJEMNOSC_MAKSYMALNA,pojemnoscMaksymalna_);
 			przyrostPojemnosciMaksymalnej_ = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_POJEMNOSC_MAKSYMALNA));
 		}catch(exception& wyjatek){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,wyjatek,WyjatekParseraXML::trescBladStrukturyXml);

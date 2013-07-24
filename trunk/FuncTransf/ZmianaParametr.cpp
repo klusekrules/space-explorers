@@ -6,8 +6,8 @@
 
 ZmianaParametr::ZmianaParametr( TiXmlElement* e )
 {
-	idObiektu_ = XmlBO::WczytajAtrybut<int>(e,ATRYBUT_XML_IDENTYFIKATOR);
-	wspolczynnikObiektu_ = XmlBO::WczytajAtrybut<long double>(e,ATRYBUT_XML_WSPOLCZYNNIK);
+	idObiektu_ = XmlBO::WczytajAtrybut<int>(e,ATRYBUT_XML_IDENTYFIKATOR, 0);
+	wspolczynnikObiektu_ = XmlBO::WczytajAtrybut<long double>(e,ATRYBUT_XML_WSPOLCZYNNIK, 0);
 }
 
 

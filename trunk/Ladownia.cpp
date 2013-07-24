@@ -7,7 +7,7 @@
 #include "DefinicjeWezlowXML.h"
 #include <algorithm>
 #include <functional>
-
+#include "XmlBO.h"
 	
 Ladownia::Ladownia( const Poziom& poziom, const Identyfikator& identyfikatorPlanety, const LadowniaInfo& ladowniaInfo )
 	: PodstawoweParametry(poziom, identyfikatorPlanety), obiekty_(), zajete_(), ladowniaInfo_(ladowniaInfo)
@@ -214,31 +214,20 @@ bool Ladownia::zapisz( TiXmlElement* wezel ) const {
 
 bool Ladownia::odczytaj (TiXmlElement* wezel ) {
 	if(wezel){
-		auto zajeteMiejsce = wezel->Attribute(ATRYBUT_XML_ZAJETE_MIEJSCE);
-		if(!zajeteMiejsce)
+		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_ZAJETE_MIEJSCE,zajete_))
 			return false;
-		string napisAtrybutuZajete = zajeteMiejsce;
-		Utils::trim(napisAtrybutuZajete);
-		if(napisAtrybutuZajete.empty())
-			return false;
-		zajete_(stod(napisAtrybutuZajete));
 		try{
 			Gra& gra = Aplikacja::getInstance().getGra();
 			TiXmlElement* element = wezel->FirstChildElement(); 
 			while(element){
-				auto atrybut = wezel->Attribute(ATRYBUT_XML_IDENTYFIKATOR);
-				if(!atrybut)
+				Identyfikator identyfikator;
+				if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
 					return false;
-				string napisAtrybutu = atrybut;
-				Utils::trim(napisAtrybutu);
-				if(napisAtrybutu.empty())
-					return false;
-				Identyfikator id(stoi(napisAtrybutu,nullptr,0));
-				shared_ptr<Obiekt> p = shared_ptr<Obiekt>(gra.getObiekt(id).tworzEgzemplarz(Ilosc(),Identyfikator()));			
-				if(!p->odczytaj(element) ){
+				shared_ptr<Obiekt> obiekt = shared_ptr<Obiekt>(gra.getObiekt(identyfikator).tworzEgzemplarz(Ilosc(),Identyfikator()));			
+				if(!obiekt->odczytaj(element) ){
 					return false;
 				}
-				obiekty_.dodaj(p);
+				obiekty_.dodaj(obiekt);
 				element = element->NextSiblingElement();
 			}
 		}catch(...){

@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
+#include "XmlBO.h"
 
 Licznik::Licznik(const Identyfikator& identyfikator, const Ilosc& wartoscPoczatkowa)
 	: Bazowa(identyfikator), wartoscLicznika_(wartoscPoczatkowa)
@@ -43,15 +44,7 @@ bool Licznik::zapisz( TiXmlElement* wezel ) const{
 
 bool Licznik::odczytaj( TiXmlElement* wezel ){
 	if(wezel && Bazowa::odczytaj(wezel)){
-		auto atrybut = wezel->Attribute(ATRYBUT_XML_ILOSC);
-		if(!atrybut)
-			return false;
-		string napisAtrybutu = atrybut;
-		Utils::trim(napisAtrybutu);
-		if(napisAtrybutu.empty())
-			return false;
-		wartoscLicznika_(stold(napisAtrybutu));
-		return true;
+		return XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_ILOSC,wartoscLicznika_);
 	}
 	return false;
 }
