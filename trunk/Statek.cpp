@@ -27,12 +27,12 @@ Statek* Statek::podziel( const Ilosc& i ){
 		Statek* o = new Statek( i , *this, this->statekinfo );
 		ilosc_-=i;
 		this->przeliczZajeteMiejsce();
-		if(this->WolneMiejsce() < Fluktuacja(0.0)){
-			shared_ptr<Zbiornik> zb = shared_ptr<Zbiornik>(this->PodzielLadownie( this->zajete - this->getPojemnoscMax(), o->getPojemnoscMax() ));
-			if( zb==nullptr || !o->obiekty.przeniesWszystkie(*zb) ){
+		if(this->wolneMiejsce() < Fluktuacja(0.0)){
+			Zbiornik zb = this->podzielLadownie( this->zajete_ - this->pobierzPojemnoscMaksymalna(), o->pobierzPojemnoscMaksymalna());
+			if( zb.pusty() || !o->obiekty_.przeniesWszystkie(zb) ){
 				delete o;
 				ilosc_+=i;
-				if( zb!=nullptr && !obiekty.przeniesWszystkie(*zb) ){
+				if( !obiekty_.przeniesWszystkie(zb) ){
 					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("Nieoczekiwany wyjatek"),Tekst("Wystapi³ nieoczekiwany wyjatek, który zaburzy³ dzia³anie aplikacji."));
 				}
 				this->przeliczZajeteMiejsce();
@@ -50,9 +50,9 @@ bool Statek::polacz(const ObiektBazowy& o ){
 		Statek & t = (Statek&)o;
 		t.przeliczZajeteMiejsce();
 		this->przeliczZajeteMiejsce();
-		if((this->getPojemnoscMax()+t.getPojemnoscMax()) >= (t.getZajeteMiejsce()+this->getZajeteMiejsce())){
+		if((this->pobierzPojemnoscMaksymalna()+t.pobierzPojemnoscMaksymalna()) >= (t.pobierzZajeteMiejsce()+this->pobierzZajeteMiejsce())){
 			if(ObiektBazowy::polacz(o)){
-				if(Ladownia::Polacz(t)){
+				if(Ladownia::polacz(t)){
 					this->przeliczZajeteMiejsce();
 					return true;
 				}
@@ -75,8 +75,8 @@ Obrazenia Statek::pobierzOslone() const{
 	return Obrazenia (JednostkaAtakujaca::pobierzOslone()() * ilosc_());
 }
 
-Objetosc Statek::getPojemnoscMax() const{
-	return Ladownia::getPojemnoscMax()*pobierzIlosc();
+Objetosc Statek::pobierzPojemnoscMaksymalna() const{
+	return Ladownia::pobierzPojemnoscMaksymalna()*pobierzIlosc();
 }
 
 Masa Statek::pobierzMasaSilnika()const{
@@ -88,15 +88,11 @@ ZuzyciePaliwa Statek::pobierzJednostkoweZuzyciePaliwa()const{
 }
 
 Masa Statek::pobierzMase() const{
-	return Obiekt::pobierzMase() + Ladownia::getMasaZawartosciLadowni() + Statek::pobierzMasaSilnika();
+	return Obiekt::pobierzMase() + Ladownia::pobierzMaseZawartosciLadowni() + Statek::pobierzMasaSilnika();
 }
 
-Fluktuacja Statek::WolneMiejsce() const{
-	return Ladownia::WolneMiejsce();
-}
-
-bool Statek::DodajObiektDoLadowni( Item& i){
-	return Ladownia::DodajObiektDoLadowni(i);
+Fluktuacja Statek::wolneMiejsce() const{
+	return Ladownia::wolneMiejsce();
 }
 
 bool Statek::czMoznaDodacDoLadownii( const Ladownia& c ) const{

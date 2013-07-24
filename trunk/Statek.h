@@ -32,15 +32,13 @@ public:
 
 	Obrazenia pobierzOslone( ) const override;
 
-	Objetosc getPojemnoscMax( ) const override;
+	Objetosc pobierzPojemnoscMaksymalna( ) const override;
 
 	ZuzyciePaliwa pobierzJednostkoweZuzyciePaliwa( )const override;
 
 	Masa pobierzMasaSilnika( )const override;
 
-	Fluktuacja WolneMiejsce( ) const override;
-
-	bool DodajObiektDoLadowni( Item& ) override;
+	Fluktuacja wolneMiejsce( ) const override;
 
 	MocSilnika pobierzMocSilnika( )const override;
 	

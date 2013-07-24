@@ -1,19 +1,6 @@
-/*
-
-	Autor: Daniel Wojdak
-	Wersja: 0.0.0.1
-	Plik: Ladownia.h
-	Opis: Klasa zajmuj¹ca siê przechowywaniem surowców na statkach
-	
-*/
-
 #pragma once
-#include "Main.h"
-#include "Biblioteki.h"
 #include "NieznalezionoObiektu.h"
 #include "NiepoprawnaIloscObiektow.h"
-#include "NiepoprawneParametryFunkcji.h"
-#include "BladDzieleniaLadowni.h"
 #include "Objetosc.h"
 #include "Klucz.h"
 #include "Ilosc.h"
@@ -26,7 +13,14 @@
 class Surowce;
 class LadowniaInfo;
 class Statek;
-
+/**
+* \brief Klasa preprezentuj¹ca ³adownie statku.
+*
+* Klasa s³u¿y do przechowywania i zarz¹dzania obiektami w ³adowni.
+* \author Daniel Wojdak
+* \version 1
+* \date 24-07-2013
+*/
 class Ladownia:
 	virtual public PodstawoweParametry,
 	virtual public LoggerInterface,
@@ -35,50 +29,196 @@ class Ladownia:
 public:
 	typedef Obiekt Item;
 	typedef ListaObiektow< Item > Zbiornik;
-	typedef list < Klucz > ListaKluczy;
+	typedef vector < Klucz > ListaKluczy;
 
-	Ladownia( const Poziom&, const Identyfikator&, const LadowniaInfo& );
-	Ladownia( const PodstawoweParametry&, const LadowniaInfo& );	
+	/**
+	* \brief Konstruktor.
+	*
+	* \param[in] poziom - Poziom tworzonych obiektów.
+	* \param[in] identyfikatorPlanety - Identyfikator planety rodzica obiektu.
+	* \param[in] ladowniaInfo - Referencja do obiektu opisuj¹cego.
+	*/
+	Ladownia( const Poziom& poziom, const Identyfikator& identyfikatorPlanety, const LadowniaInfo& ladowniaInfo );
+
+	/**
+	* \brief Konstruktor.
+	*
+	* \param[in] podstawoweParametry - Podstawowe parametry tworzonych obiektów.
+	* \param[in] ladowniaInfo - Referencja do obiektu opisuj¹cego.
+	*/
+	Ladownia( const PodstawoweParametry& podstawoweParametry, const LadowniaInfo& ladowniaInfo );
+
+	/**
+	* \brief Destruktor.
+	*/
+	virtual ~Ladownia();
 	
-	virtual Fluktuacja WolneMiejsce() const;
+	/**
+	* \brief Metoda wyliczaj¹ca procent wolnego miejsca.
+	*
+	* \return Procentowa wartoœæ wolnego miejsca w ³adowni.
+	*/
+	virtual Fluktuacja wolneMiejsce() const;
 
-	bool Polacz( Ladownia& );
+	/**
+	* \brief Metoda dodaj¹ca obiekt do ³adowni.
+	*
+	* \param[in] obiekt - Obiekt dodawany do ³adowni.
+	* \return true je¿eli dodano obiekt, false w przeciwnym wypadku.
+	* \remark Metoda tworzy kopie elementu. Metoda tranzakcyjna.
+	*/
+	bool dodajObiektDoLadowni( const Item& obiekt );
 
-	Ilosc SprawdzIloscObiektow( const Klucz& ) const;
-	
-	virtual bool DodajObiektDoLadowni( Item& );
+	/**
+	* \brief Metoda dodaj¹ca obiekt do ³adowni.
+	*
+	* \param[in] obiekt - Obiekt dodawany do ³adowni.
+	* \return true je¿eli dodano obiekt, false w przeciwnym wypadku.
+	* \remark Metoda nie tworzy kopii elementu. Metoda tranzakcyjna.
+	*/
+	bool dodajObiektDoLadowni( shared_ptr<Item> obiekt );
 
-	Item& PobierzObiekt( const Klucz& , const Ilosc& ) throw ( NieznalezionoObiektu, NiepoprawnaIloscObiektow );
+	/**
+	* \brief Metoda wylicza objêtoœæ maksymaln¹ ³adowni.
+	* \return Objêtoœæ maksymalna ³adowni.
+	*/
+	virtual Objetosc pobierzPojemnoscMaksymalna() const;
 
-	ListaKluczy PobierzListeIdObiektow() const;
+	/**
+	* \brief Metoda ³¹czy obiekty ³adowni.
+	* 
+	* Metoda przenosi obiekty z ³adowni przekazanej przez parametr do obiektu docelowego.
+	* \param[in] ladownia - £adownia Ÿród³owa.
+	* \return true je¿eli uda siê przenieœæ, false w przeciwnym wypadku.
+	* \remark Metoda tranzakcyjna.
+	*/
+	bool polacz( Ladownia& ladownia );
 
-	const Zbiornik& getPrzewozoneObiekty() const;
+	/**
+	* \brief Metoda ³¹czy obiekty ³adowni.
+	* 
+	* Metoda przenosi obiekty z ³adowni przekazanej przez parametr do obiektu docelowego.
+	* \param[in] ladownia - £adownia Ÿród³owa.
+	* \return true je¿eli uda siê przenieœæ, false w przeciwnym wypadku.
+	* \remark Metoda tranzakcyjna.
+	*/
+	bool polacz( Zbiornik zbiornik );
 
-	Zbiornik* PodzielLadownie( const Objetosc&, const Objetosc& );
+	/**
+	* \brief Metoda pobiera iloœæ obiektów o podanym kluczu.
+	* 
+	* \param[in] klucz - Klucz identyfikuj¹cy obiekt.
+	* \return Iloœæ obiektów o podanym kluczu znajduj¹ca siê w ³adowni.
+	*/
+	Ilosc pobierzIloscObiektow( const Klucz& klucz ) const;	
 
-	const Objetosc& getZajeteMiejsce() const;
+	/**
+	* \brief Metoda wyjmuje z ³adowni obietk o podanym kluczu i podanej iloœci
+	* 
+	* \param[in] klucz - Klucz identyfikuj¹cy obiekt.
+	* \param[in] ilosc - Iloœæ obiektów o podanym kluczu.
+	* \return WskaŸnik na wyjêty obiekt. nullptr je¿eli wystapi³ b³ad.
+	*/
+	shared_ptr<Item> wyjmijObiekt( const Klucz& klucz , const Ilosc& ilosc );
 
-	virtual Objetosc getPojemnoscMax() const;
+	/**
+	* \brief Metoda zwraca listê kluczy obiektów.
+	*
+	* \return Lista kluczy obiektów znajduj¹cych sie w ³adowni.
+	*/
+	ListaKluczy pobierzListeIdentyfikatorowObiektow() const;
 
-	bool czMoznaDodacDoLadownii( const Statek& c ) const;
+	/**
+	* \brief Metoda zwraca listê obiektów znajduj¹cych siê w ³adowni.
+	*
+	* \return Lista obiektów znajduj¹cych siê w ³adowni.
+	*/
+	const Zbiornik& pobierzPrzewozoneObiekty() const;
 
-	bool czMoznaDodacDoLadownii( const Surowce& c ) const;
+	/**
+	* \brief Metoda dzieli ³adownie.
+	* 
+	* Metoda dzieli ³adownie w taki sposób, aby objêtoœæ odzielonej czêœci ³adowni zawiera³ siê w przedziale \<minimum,maksimum\>.
+	* \param[in] minimum - Minimalna objêtoœæ wydzielanej czeœci.
+	* \param[in] maksimum - Maksymalna objêtoœæ wydzielanej czeœci.
+	* \return Zbiornik z elementami.
+	*/
+	Zbiornik podzielLadownie( const Objetosc& minimum , const Objetosc& maksimum );
 
-	Zbiornik OproznijLadownie();
+	/**
+	* \brief Metoda zwraca objêtoœæ wszystkich elementów w zbiorniku.
+	*
+	* \return Objêtoœæ elementów w ³adowni.
+	*/
+	const Objetosc& pobierzZajeteMiejsce() const;
 
-	bool zapisz( TiXmlElement* e) const override;
-	bool odczytaj (TiXmlElement* e) override;
+	/**
+	* \brief Metoda informuje o mo¿liwoœci biznesowej dodania obiektu do ³adowni.
+	*
+	* \param[in] statek - nieu¿ywane.
+	* \return Zawsze zwraca true.
+	*/
+	bool czMoznaDodacDoLadownii( const Statek& statek ) const;
 
-	string napis() const override;
+	/**
+	* \brief Metoda informuje o mo¿liwoœci biznesowej dodania obiektu do ³adowni.
+	*
+	* \param[in] surowce - Surowiec poddawany sprawdzeniu.
+	* \return true je¿eli mo¿na dodaæ obiekt, false w przeciwnym wypadku.
+	*/
+	bool czMoznaDodacDoLadownii( const Surowce& surowce ) const;
+
+	/**
+	* \brief Metoda opró¿nia ³adownie.
+	*
+	* Metoda zwraca wszystkie obiekty znajduj¹ce siê w ³adowni. Pozostawia ³adownie pust¹.
+	* \return Zbiornik zawieraj¹cy obiekty.
+	*/
+	Zbiornik oproznijLadownie();
+
+	/**
+	* \brief Metoda zapisuj¹ca.
+	*
+	* Metoda s³u¿¹ca do zapisu danych do wêz³a xml podanego jako parametr.
+	* \param[out] wezel - Wêze³ do którego s¹ zapisywane dane.
+	* \return Zwracana jest wartoœæ true, je¿eli zapisano obiekt poprawnie. False, je¿eli zapis siê nie powiód³.
+	* \warning Je¿eli zwrócono wartoœæ false wêze³ przekazany jako parametr nie jest zmodyfokowany.
+	*/
+	bool zapisz( TiXmlElement* wezel ) const override;
+
+	/**
+	* \brief Metoda odczytuj¹ca.
+	*
+	* Metoda s³u¿¹ca do odczytu danych z wêz³a xml podanego jako parametr.
+	* \param[in] wezel - Wêze³ z którego s¹ odczytywane dane.
+	* \return Zwracana jest wartoœæ true, je¿eli odczytano obiekt poprawnie. False, je¿eli odczyt siê nie powiód³.
+	* \warning Metoda nie modyfikuje wêz³a.
+	* \warning Je¿eli metoda zwróci wartoœæ false, obiekt mo¿e znajdowaæ siê w stanie nieustalonym. Nie jest zalecane u¿ywanie takiego obiektu.
+	*/
+	bool odczytaj( TiXmlElement* wezel ) override;
+
+	/**
+	* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
+	* \return Napis zwieraj¹cy opis klasy.
+	*/
+	string napis()const override;
 
 protected:
 
+	/**
+	* \brief Metoda przeliczaj¹ca zajête miejsce w ³adowni.
+	*/
 	void przeliczZajeteMiejsce();
-	Masa getMasaZawartosciLadowni()const;
 
-	Zbiornik obiekty;
-	Objetosc zajete;
+	/**
+	* \brief Metoda pobieraj¹ca masê obiektów znajduj¹cych siê w ³adowni.
+	* \return Masa obiektów w ³adowni.
+	*/
+	Masa pobierzMaseZawartosciLadowni()const;
+
+	Zbiornik obiekty_; /// Lista elementów w ³adowni.
+	Objetosc zajete_; /// Zajête miejsce.
+
 private:
-	const LadowniaInfo& ladowniaInfo;
+	const LadowniaInfo& ladowniaInfo_; /// Referencja do obiektu opisuj¹cego.
 };
-

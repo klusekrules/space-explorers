@@ -9,6 +9,9 @@
 /**
 * Klasa implementuj¹ca interfejs, s³u¿¹cy do lotów statków.
 * Pozwala na wyliczenie wszystkich parametrów lotu.
+* \author Daniel Wojdak
+* \version 1
+* \date 24-07-2013
 */
 class JednostkaLatajaca :
 	virtual public PodstawoweParametry,

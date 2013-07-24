@@ -19,7 +19,7 @@ bool Flota::dodajStatek( shared_ptr<Statek> ptr ){
 		ptr->ustawIdentyfikatorPlanety(Identyfikator());
 		lista.insert(make_pair(ptr->ID(),ptr));
 	}else{
-		return iter->second->Polacz( *ptr );
+		return iter->second->polacz( *ptr );
 	}
 	return true;
 }
@@ -31,7 +31,7 @@ bool Flota::dodajLadunek( shared_ptr<Obiekt> ptr ){
 	if(obj < ptr->pobierzObjetosc())
 		return false;
 	for( auto i : lista ){
-		if(i.second->DodajObiektDoLadowni(*ptr))
+		if(i.second->dodajObiektDoLadowni(*ptr))
 			return true;
 	}
 	return false;
@@ -40,7 +40,7 @@ bool Flota::dodajLadunek( shared_ptr<Obiekt> ptr ){
 Objetosc Flota::pobierzDostepneMiejsce() const{
 	Objetosc suma(0.0);
 	for(auto a : lista){
-		suma+=a.second->getPojemnoscMax() - a.second->getZajeteMiejsce();
+		suma+=a.second->pobierzPojemnoscMaksymalna() - a.second->pobierzZajeteMiejsce();
 	}
 	return suma;
 }
