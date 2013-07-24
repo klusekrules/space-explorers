@@ -1,7 +1,9 @@
 #pragma once
 #include "TypyProste.h"
 #include "Bool.h"
-
+/**
+* \brief Sta³e wartoœci typów podstawowych.
+*/
 class Stale
 {
 public:
