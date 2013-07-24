@@ -5,88 +5,79 @@
 #include "definicjeWezlowXML.h"
 
 JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const Info& info, const Obrazenia& oAtak,const Obrazenia& oPancerz, const Obrazenia& oOslona) throw()
-	: Info(info), rd(), gen(rd()), atak(oAtak), zmAtak(nullptr), pancerz(oPancerz), zmPancerz(nullptr), oslona(oOslona), zmOslona(nullptr)
+	: Info(info), atak_(oAtak), zmianaAtaku_(nullptr), pancerz_(oPancerz), zmianaPancerza_(nullptr), oslona_(oOslona), zmianaOslony_(nullptr)
 {
 }
-JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
-	: Info(n), rd(), gen(rd()),zmAtak(nullptr), zmPancerz(nullptr), zmOslona(nullptr)
+
+JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
+	: Info(wezel),zmianaAtaku_(nullptr), zmianaPancerza_(nullptr), zmianaOslony_(nullptr)
 {
-	if(n){
+	if(wezel){
 		try{
 			ZmianaFabryka& fabryka = Aplikacja::getInstance().getGra().getZmianaFabryka();
-			atak(stold(n->Attribute(ATRYBUT_XML_ATAK)));
-			zmAtak = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_ATAK));
+			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_ATAK,atak_))
+				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			zmianaAtaku_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_ATAK));
 
-			pancerz(stold(n->Attribute(ATRYBUT_XML_PANCERZ)));
-			zmPancerz = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_PANCERZ));
+			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_PANCERZ,pancerz_))
+				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			zmianaPancerza_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_PANCERZ));
 
-			oslona(stold(n->Attribute(ATRYBUT_XML_OSLONA)));
-			zmOslona = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_OSLONA));
+			if(!XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_OSLONA,oslona_))
+				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(),WyjatekParseraXML::trescBladStrukturyXml);
+			zmianaOslony_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_OSLONA));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}
 	}
 }
 
-JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( const JednostkaAtakujacaInfo& e )
-	: Info(e), rd(), gen(rd()), atak(e.atak), pancerz(e.pancerz), oslona(e.oslona),zmAtak(nullptr), zmPancerz(nullptr), zmOslona(nullptr)
+JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( const JednostkaAtakujacaInfo& obiekt )
+	: Info(obiekt), atak_(obiekt.atak_), pancerz_(obiekt.pancerz_), oslona_(obiekt.oslona_),zmianaAtaku_(nullptr), zmianaPancerza_(nullptr), zmianaOslony_(nullptr)
 {
-	if(e.zmAtak)
-		zmAtak = shared_ptr<ZmianaInterfejs>(e.zmAtak->Kopia());
-	if(e.zmPancerz)
-		zmPancerz = shared_ptr<ZmianaInterfejs>(e.zmPancerz->Kopia());
-	if(e.zmOslona)
-		zmOslona = shared_ptr<ZmianaInterfejs>(e.zmOslona->Kopia());
+	if(obiekt.zmianaAtaku_)
+		zmianaAtaku_ = shared_ptr<ZmianaInterfejs>(obiekt.zmianaAtaku_->Kopia());
+	if(obiekt.zmianaPancerza_)
+		zmianaPancerza_ = shared_ptr<ZmianaInterfejs>(obiekt.zmianaPancerza_->Kopia());
+	if(obiekt.zmianaOslony_)
+		zmianaOslony_ = shared_ptr<ZmianaInterfejs>(obiekt.zmianaOslony_->Kopia());
 }
 
-Obrazenia JednostkaAtakujacaInfo::getAtak() const{
-	return atak;
-}
-	
-Obrazenia JednostkaAtakujacaInfo::getPancerz() const{
-	return pancerz;
+JednostkaAtakujacaInfo::~JednostkaAtakujacaInfo(){
 }
 
-Obrazenia JednostkaAtakujacaInfo::getOslona() const{
-	return oslona;
-}
-
-Obrazenia JednostkaAtakujacaInfo::getAtak(const PodstawoweParametry& p ) const{
-	if(zmAtak)
-		return Obrazenia(zmAtak->policzWartosc(atak(),static_cast<int>(p.pobierzPoziom()()),p.pobierzIdentyfikatorPlanety()()));
+Obrazenia JednostkaAtakujacaInfo::pobierzAtak( const PodstawoweParametry& parametry ) const{
+	if(zmianaAtaku_)
+		return Obrazenia(zmianaAtaku_->policzWartosc(atak_(),static_cast<int>(parametry.pobierzPoziom()()),parametry.pobierzIdentyfikatorPlanety()()));
 	else
-		return atak;
-}
-	
-Obrazenia JednostkaAtakujacaInfo::getPancerz( const PodstawoweParametry& p ) const{
-	if(zmPancerz)
-		return Obrazenia(zmPancerz->policzWartosc(pancerz(),static_cast<int>(p.pobierzPoziom()()),p.pobierzIdentyfikatorPlanety()()));
-	else
-		return pancerz;
+		return atak_;
 }
 
-Obrazenia JednostkaAtakujacaInfo::getOslona(const PodstawoweParametry& p ) const{
-	if(zmOslona)
-		return Obrazenia(zmOslona->policzWartosc(oslona(),static_cast<int>(p.pobierzPoziom()()),p.pobierzIdentyfikatorPlanety()()));
+Obrazenia JednostkaAtakujacaInfo::pobierzPancerz( const PodstawoweParametry& parametry ) const{
+	if(zmianaPancerza_)
+		return Obrazenia(zmianaPancerza_->policzWartosc(pancerz_(),static_cast<int>(parametry.pobierzPoziom()()),parametry.pobierzIdentyfikatorPlanety()()));
 	else
-		return oslona;
+		return pancerz_;
 }
 
-std::mt19937& JednostkaAtakujacaInfo::getGenerator()const{
-	return gen;
+Obrazenia JednostkaAtakujacaInfo::pobierzOslone(const PodstawoweParametry& parametry ) const{
+	if(zmianaOslony_)
+		return Obrazenia(zmianaOslony_->policzWartosc(oslona_(),static_cast<int>(parametry.pobierzPoziom()()),parametry.pobierzIdentyfikatorPlanety()()));
+	else
+		return oslona_;
 }
 
 string JednostkaAtakujacaInfo::napis() const{
 	Logger str(NAZWAKLASY(JednostkaAtakujacaInfo));
 	str.dodajKlase(Info::napis());
-	str.dodajPole("Atak",atak);
-	str.dodajPole("Pancerz",pancerz);
-	str.dodajPole("Oslona",oslona);
-	if(zmAtak!=nullptr)
-		str.dodajPole("ZmianaMasy",*zmAtak);
-	if(zmPancerz!=nullptr)
-		str.dodajPole("ZmianaObjetosci",*zmPancerz);
-	if(zmOslona!=nullptr)
-		str.dodajPole("ZmianaPowierzchni",*zmOslona);
+	str.dodajPole("Atak",atak_);
+	str.dodajPole("Pancerz",pancerz_);
+	str.dodajPole("Oslona",oslona_);
+	if(zmianaAtaku_!=nullptr)
+		str.dodajPole("ZmianaMasy",*zmianaAtaku_);
+	if(zmianaPancerza_!=nullptr)
+		str.dodajPole("ZmianaObjetosci",*zmianaPancerza_);
+	if(zmianaOslony_!=nullptr)
+		str.dodajPole("ZmianaPowierzchni",*zmianaOslony_);
 	return str.napis();
 }

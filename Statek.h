@@ -26,17 +26,11 @@ public:
 
 	Masa pobierzMase( ) const override;
 
-	Obrazenia Atak( ) const override;
+	Obrazenia pobierzAtak( ) const override;
 
-	Obrazenia Pancerz( const Obrazenia& o ) const override;
+	Obrazenia pobierzPancerz( ) const override;
 
-	Obrazenia Oslona( const Obrazenia& o ) const override;
-
-	Obrazenia getAtak( ) const override;
-
-	Obrazenia getPancerz( ) const override;
-
-	Obrazenia getOslona( ) const override;
+	Obrazenia pobierzOslone( ) const override;
 
 	Objetosc getPojemnoscMax( ) const override;
 

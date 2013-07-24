@@ -63,30 +63,16 @@ bool Statek::polacz(const ObiektBazowy& o ){
 	return false;
 }
 
-Obrazenia Statek::Atak() const {
-	return Obrazenia( ilosc_() * JednostkaAtakujaca::Atak()() );
+Obrazenia Statek::pobierzAtak() const{
+	return Obrazenia (JednostkaAtakujaca::pobierzAtak()() * ilosc_());
 }
 
-Obrazenia Statek::Pancerz( const Obrazenia& a ) const {
-	Obrazenia o (JednostkaAtakujaca::Pancerz(a)() * ilosc_());
-	return a > o ? a - o : Obrazenia(0);
+Obrazenia Statek::pobierzPancerz() const{
+	return Obrazenia (JednostkaAtakujaca::pobierzPancerz()() * ilosc_());
 }
 
-Obrazenia Statek::Oslona( const Obrazenia& a ) const {
-	Obrazenia o (JednostkaAtakujaca::Oslona(a)() * ilosc_());
-	return a > o ? a - o : Obrazenia(0);
-}
-
-Obrazenia Statek::getAtak() const{
-	return Obrazenia (JednostkaAtakujaca::getAtak()() * ilosc_());
-}
-
-Obrazenia Statek::getPancerz() const{
-	return Obrazenia (JednostkaAtakujaca::getPancerz()() * ilosc_());
-}
-
-Obrazenia Statek::getOslona() const{
-	return Obrazenia (JednostkaAtakujaca::getOslona()() * ilosc_());
+Obrazenia Statek::pobierzOslone() const{
+	return Obrazenia (JednostkaAtakujaca::pobierzOslone()() * ilosc_());
 }
 
 Objetosc Statek::getPojemnoscMax() const{
