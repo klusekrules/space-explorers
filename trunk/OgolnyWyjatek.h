@@ -1,8 +1,10 @@
 #pragma once
-#include "Main.h"
 #include "Identyfikator.h"
 #include "Tekst.h"
 #include "Ilosc.h"
+
+//Makro wstawiajace nazwe pliku i liniê i datê pliku.
+#define EXCEPTION_PLACE Tekst(__FILE__) , Ilosc(__LINE__)
 
 /**
 * Podstawowa klasa wyj¹tku. S³u¿¹ca jako klasa bazowa dla pozosta³ych wyj¹tków

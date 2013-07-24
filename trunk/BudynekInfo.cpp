@@ -5,54 +5,53 @@
 #include "definicjeWezlowXML.h"
 #include "LiczenieKosztow.h"
 
-BudynekInfo::BudynekInfo( TiXmlElement* n )
-	: ObiektInfo(n)
+BudynekInfo::BudynekInfo( TiXmlElement* wezel )
+	: ObiektInfo(wezel)
 {
-	auto z = XmlBO::ZnajdzWezel<NOTHROW>(n,WEZEL_XML_ZAPOTRZEBOWANIE);
-	while(z){
-		zapotrzebowanie.push_back(Cena(z,WEZEL_XML_SUROWCE));
-		z = z->NextSiblingElement();
+	auto zapotrzebowanie = XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_ZAPOTRZEBOWANIE);
+	while(zapotrzebowanie){
+		zapotrzebowanie_.push_back(Cena(zapotrzebowanie,WEZEL_XML_SUROWCE));
+		zapotrzebowanie = zapotrzebowanie->NextSiblingElement();
 	}
 
-	auto p = XmlBO::ZnajdzWezel<NOTHROW>(n,WEZEL_XML_PRODUKCJA);
-	while(p){
-		produkcja.push_back( Cena(p,WEZEL_XML_SUROWCE) );
-		p = p->NextSiblingElement();
+	auto produkcja = XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_PRODUKCJA);
+	while(produkcja){
+		produkcja_.push_back( Cena(produkcja,WEZEL_XML_SUROWCE) );
+		produkcja = produkcja->NextSiblingElement();
 	}
 }
 
-bool BudynekInfo::tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
-	return g.wybudujNaPlanecie(p,*this,i);
+bool BudynekInfo::tworz( const Gra& gra, Planeta& planeta , const Ilosc& ilosc ) const{
+	return gra.wybudujNaPlanecie(planeta,*this,ilosc);
 }
 
-BudynekInfo::~BudynekInfo(void)
-{
+BudynekInfo::~BudynekInfo(){
 }
 
-Budynek* BudynekInfo::tworzEgzemplarz( const Ilosc&, const Identyfikator& idP ) const{
-	return new Budynek(pobierzPoziom(),idP,*this);
+Budynek* BudynekInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety ) const{
+	return new Budynek(pobierzPoziom(),identyfikatorPlanety,*this);
 }
 
-Wymagania::PrzetworzonaCena BudynekInfo::PobierzZapotrzebowanie( const PodstawoweParametry& p )const{
-	PrzetworzonaCena zb;
-	for( auto e : zapotrzebowanie ){
-		LiczenieKosztow (e,zb,Ilosc(1),p)();
+Wymagania::PrzetworzonaCena BudynekInfo::PobierzZapotrzebowanie( const PodstawoweParametry& parametry )const{
+	PrzetworzonaCena zbiornik;
+	for( auto element : zapotrzebowanie_ ){
+		LiczenieKosztow (element,zbiornik,Ilosc(1),parametry)();
 	}
-	return zb;
+	return zbiornik;
 }
 
-Wymagania::PrzetworzonaCena BudynekInfo::PobierzProdukcje( const PodstawoweParametry& p )const{
-	PrzetworzonaCena zb;
-	for( auto e : produkcja ){
-		LiczenieKosztow (e,zb,Ilosc(1),p)();
+Wymagania::PrzetworzonaCena BudynekInfo::PobierzProdukcje( const PodstawoweParametry& parametry )const{
+	PrzetworzonaCena zbiornik;
+	for( auto element : produkcja_ ){
+		LiczenieKosztow (element,zbiornik,Ilosc(1),parametry)();
 	}
-	return zb;
+	return zbiornik;
 }
 
 string BudynekInfo::napis()const{
 	Logger str(NAZWAKLASY(BudynekInfo));
 	str.dodajKlase(ObiektInfo::napis());
-	for(auto element : zapotrzebowanie){
+	for(auto element : zapotrzebowanie_){
 		str.rozpocznijPodKlase("Zapotrzebowanie");
 		if(element.pobierzObiekt())
 			str.dodajPole("Obiekt",*element.pobierzObiekt());
@@ -60,7 +59,7 @@ string BudynekInfo::napis()const{
 			str.dodajPole("Zmiana",*element.pobierzZmiane());
 		str.zakonczPodKlase();
 	}
-	for(auto element : produkcja){
+	for(auto element : produkcja_){
 		str.rozpocznijPodKlase("Produkcja");
 		if(element.pobierzObiekt())
 			str.dodajPole("Obiekt",*element.pobierzObiekt());
