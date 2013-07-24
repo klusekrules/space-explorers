@@ -32,7 +32,7 @@ Budynek* BudynekInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& 
 	return new Budynek(pobierzPoziom(),identyfikatorPlanety,*this);
 }
 
-Wymagania::PrzetworzonaCena BudynekInfo::PobierzZapotrzebowanie( const PodstawoweParametry& parametry )const{
+Wymagania::PrzetworzonaCena BudynekInfo::pobierzZapotrzebowanie( const PodstawoweParametry& parametry )const{
 	PrzetworzonaCena zbiornik;
 	for( auto element : zapotrzebowanie_ ){
 		LiczenieKosztow (element,zbiornik,Ilosc(1),parametry)();
@@ -40,7 +40,7 @@ Wymagania::PrzetworzonaCena BudynekInfo::PobierzZapotrzebowanie( const Podstawow
 	return zbiornik;
 }
 
-Wymagania::PrzetworzonaCena BudynekInfo::PobierzProdukcje( const PodstawoweParametry& parametry )const{
+Wymagania::PrzetworzonaCena BudynekInfo::pobierzProdukcje( const PodstawoweParametry& parametry )const{
 	PrzetworzonaCena zbiornik;
 	for( auto element : produkcja_ ){
 		LiczenieKosztow (element,zbiornik,Ilosc(1),parametry)();
