@@ -112,7 +112,7 @@ public:
 			return blad<K>(string(wezel->Value()),nazwa);
 		string atrybut = *napis;
 		Utils::trim(atrybut);
-		if(atrybut->length()>0){
+		if(atrybut.size()>0){
 			Zaladuj<T>(atrybut,obiekt);
 			return true;
 		}

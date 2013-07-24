@@ -1,5 +1,4 @@
 #pragma once
-#include "Main.h"
 #include "ObiektInfo.h"
 #include "LadowniaInfo.h"
 #include "JednostkaLatajacaInfo.h"
@@ -7,6 +6,11 @@
 #include "Statek.h"
 #include "parser\ticpp.h"
 
+/**
+* \brief Klasa opisowa dla statku
+*
+* Klasa gromadzi wszytkie niezbêdne klasy bazowe dla obiektu biznesowego typu statek.
+*/
 class StatekInfo:
 	public ObiektInfo,
 	public JednostkaLatajacaInfo,
@@ -15,19 +19,60 @@ class StatekInfo:
 	virtual public LoggerInterface
 {
 public:
-	StatekInfo(	const ObiektInfo& o , const JednostkaLatajacaInfo& j , const JednostkaAtakujacaInfo& a , const LadowniaInfo& l ) throw();
 
-	explicit StatekInfo( TiXmlElement* ) throw(WyjatekParseraXML);
+	/**
+	* \brief Konstruktor.
+	* \param[in] obiektInfo - Referencja do obiektu opisujacego.
+	* \param[in] jednostkaLatajacaInfo - Referencja do obiektu opisujacego.
+	* \param[in] jednostkaAtakujacaInfo - Referencja do obiektu opisujacego.
+	* \param[in] ladowniaInfo - Referencja do obiektu opisujacego.
+	*/
+	StatekInfo(	const ObiektInfo& obiektInfo , const JednostkaLatajacaInfo& jednostkaLatajacaInfo , const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo , const LadowniaInfo& ladowniaInfo ) throw();
 
+	/**
+	* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
+	* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
+	*/
+	explicit StatekInfo( TiXmlElement* wezel );
+	
+	/**
+	* \brief Destruktor.
+	*/
 	virtual ~StatekInfo();
 
-	const Identyfikator& getId() const;
+	/**
+	* Metoda zwracaj¹ca Identyfikator obiektu.
+	* \return Identyfikator obiektu.
+	*/
+	const Identyfikator& pobierzIdentyfikator() const;
 		
-	Statek* tworzEgzemplarz( const Ilosc&, const Identyfikator& ) const override;
+	/**
+	* \brief Metoda tworz¹ca egzemplarz obiektu.
+	*
+	*  Metoda tworzy egzemplarz obiektu dla podanej planety.
+	* \param[in] ilosc - iloœæ obiektów.
+	* \param[in] identyfikatorPlanety - Identyfikator planety rodzica obiektu.
+	* \warning Metoda allokuje pamiêæ dla nowego obiektu, który musi zostaæ zwolniony wywo³aniem delete.
+	* \return Metoda zwraca wskaŸnika na obiekt.
+	*/
+	Statek* tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety ) const override;
 
+	/**
+	* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
+	* \return Napis zwieraj¹cy opis klasy.
+	*/
 	string napis() const override;
 
 private:
-	bool tworz( const Gra& g, Planeta& p , const Ilosc& i ) const override;
 
+	/**
+	* \brief Metoda tworz¹ca egzemplarz obiektu na planecie.
+	*
+	*  Metoda tworzy egzemplarz obiektu na planecie. U¿ywana jest podczas wywo³ywania metody wybuduj w klasie Planeta.
+	* \param[in] gra - Referencja do obiektu gry.
+	* \param[in] planeta - Referencja do obiektu planety
+	* \param[in] ilosc - Iloœæ tworzonych obiektów.
+	* \return Metoda zwraca true je¿eli tworzenie zakoñczy siê sukcesem. Zwraca false w przeciwnym wypadku.
+	*/
+	bool tworz( const Gra& gra, Planeta& planeta , const Ilosc& ilosc ) const override;
 };
