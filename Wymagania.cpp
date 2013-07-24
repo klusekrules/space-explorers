@@ -31,6 +31,9 @@ Wymagania::Wymagania( TiXmlElement* wezel  )
 	}
 }
 
+Wymagania::~Wymagania(){
+}
+
 Czas Wymagania::pobierzCzasBudowy( const Ilosc& ilosc, const PodstawoweParametry& parametry )const{
 	auto koszty = pobierzKoszty(ilosc,parametry);
 	Czas suma(0);

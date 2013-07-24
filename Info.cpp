@@ -23,6 +23,9 @@ Info::Info( TiXmlElement* wezel ) throw(WyjatekParseraXML)
 	}	
 }
 
+Info::~Info(){
+}
+
 const Tekst& Info::pobierzNazwe() const{
 	return nazwa_;
 }

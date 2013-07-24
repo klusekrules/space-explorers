@@ -40,6 +40,11 @@ public:
 	explicit Wymagania( TiXmlElement* wezel );
 
 	/**
+	* \brief Destruktor.
+	*/
+	virtual ~Wymagania();
+
+	/**
 	* \brief Metoda wyliczaj¹ca czas trwania budowy obiektu.
 	*
 	* Metoda wylicza czas jaki jest potrzebny, aby wybudowaæ obiekty o podanej iloœci, na planecie przekazanej przez parametry.

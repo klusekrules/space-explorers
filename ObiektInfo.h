@@ -42,6 +42,11 @@ public:
 	explicit ObiektInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML);
 
 	/**
+	* \brief Destruktor.
+	*/
+	virtual ~ObiektInfo();
+
+	/**
 	* \brief Metoda wyliczaj¹ca powierzchniê obiektu.
 	*
 	* Metoda liczy powierzchniê dla podanego poziomu i identyfikatora planety.

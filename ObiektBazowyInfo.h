@@ -36,6 +36,11 @@ public:
 	explicit ObiektBazowyInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML);
 
 	/**
+	* \brief Destruktor.
+	*/
+	virtual ~ObiektBazowyInfo();
+
+	/**
 	* \brief Metoda tworz¹ca egzemplarz obiektu.
 	*
 	*  Metoda tworzy egzemplarz obiektu o podanej iloœci i dla podanej planety.
