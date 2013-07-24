@@ -36,7 +36,7 @@ public:
 	* \param[in] parametry - Parametry obiektu wymagane do wykonania obliczeñ.
 	* \return Lista elementów zapotrzebowania obiektu.
 	*/
-	Wymagania::PrzetworzonaCena PobierzZapotrzebowanie( const PodstawoweParametry& parametry )const;
+	Wymagania::PrzetworzonaCena pobierzZapotrzebowanie( const PodstawoweParametry& parametry )const;
 
 	/**
 	* \brief Metoda wyliczaj¹ca produkcjê.
@@ -45,7 +45,7 @@ public:
 	* \param[in] parametry - Parametry obiektu wymagane do wykonania obliczeñ.
 	* \return Lista elementów produkcji obiektu.
 	*/
-	Wymagania::PrzetworzonaCena PobierzProdukcje( const PodstawoweParametry& parametry )const;
+	Wymagania::PrzetworzonaCena pobierzProdukcje( const PodstawoweParametry& parametry )const;
 
 	/**
 	* \brief Metoda tworz¹ca egzemplarz obiektu.

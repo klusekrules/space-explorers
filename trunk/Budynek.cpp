@@ -3,29 +3,32 @@
 #include "Logger.h"
 #include "DefinicjeWezlowXML.h"
 
-Budynek::Budynek(const Poziom& p, const Identyfikator& idP, const BudynekInfo& o)
-	: PodstawoweParametry(p, idP), Obiekt( Ilosc(1), p, idP, o ), budynekInfo(o)
+Budynek::Budynek(const Poziom& poziom, const Identyfikator& identyfikatorPlanety, const BudynekInfo& obiektInfo)
+	: PodstawoweParametry(poziom, identyfikatorPlanety), Obiekt( Ilosc(1), poziom, identyfikatorPlanety, obiektInfo ), budynekInfo_(obiektInfo)
 {
 }
 
-Budynek::Budynek(const PodstawoweParametry& p, const BudynekInfo& o)
-	: PodstawoweParametry(p), Obiekt( Ilosc(1), p, o ), budynekInfo(o)
+Budynek::Budynek(const PodstawoweParametry& podstawoweParametry, const BudynekInfo& obiektInfo)
+	: PodstawoweParametry(podstawoweParametry), Obiekt( Ilosc(1), podstawoweParametry, obiektInfo ), budynekInfo_(obiektInfo)
 {
+}
+
+Budynek::~Budynek(void){
 }
 
 Budynek* Budynek::kopia() const{
-	return new Budynek(*this,budynekInfo);
+	return new Budynek(*this,budynekInfo_);
 }
 
-Budynek* Budynek::podziel( const Ilosc& ilosc){
+Budynek* Budynek::podziel( const Ilosc& ilosc ){
 	return nullptr;
 }
 
-bool Budynek::polacz( const ObiektBazowy& obiektBase){
+bool Budynek::polacz( const ObiektBazowy& obiektbazowy) {
 	return false;
 }
 	
-bool Budynek::czyMoznaPolaczyc( const ObiektBazowy& obiektBase) const{
+bool Budynek::czyMoznaPolaczyc( const ObiektBazowy& obiektbazowy ) const{
 	return false;
 }
 
@@ -33,35 +36,31 @@ bool Budynek::czyMoznaPodzielic( const Ilosc& ilosc) const{
 	return false;
 }
 
-void Budynek::wybuduj(const Ilosc&){
+void Budynek::wybuduj(const Ilosc& ilosc){
 	wzrostPoziomu();
 }
 
-Budynek::~Budynek(void)
-{
+Wymagania::PrzetworzonaCena Budynek::pobierzZapotrzebowanie( )const{
+	return budynekInfo_.pobierzZapotrzebowanie(*this);
 }
 
-Wymagania::PrzetworzonaCena Budynek::PobierzZapotrzebowanie( )const{
-	return budynekInfo.PobierzZapotrzebowanie(*this);
+Wymagania::PrzetworzonaCena Budynek::pobierzProdukcje( )const{
+	return budynekInfo_.pobierzProdukcje(*this);
 }
 
-Wymagania::PrzetworzonaCena Budynek::PobierzProdukcje( )const{
-	return budynekInfo.PobierzProdukcje(*this);
+bool Budynek::zapisz( TiXmlElement* wezel ) const {
+	TiXmlElement* element = new TiXmlElement(WEZEL_XML_BUDYNEK);
+	wezel->LinkEndChild(element);
+	return Obiekt::zapisz(element);
 }
 
-bool Budynek::zapisz( TiXmlElement* e ) const {
-	TiXmlElement* n = new TiXmlElement(WEZEL_XML_BUDYNEK);
-	e->LinkEndChild( n );
-	return Obiekt::zapisz(n);
-}
-
-bool Budynek::odczytaj (TiXmlElement* e) {
-	return Obiekt::odczytaj(e);
+bool Budynek::odczytaj (TiXmlElement* wezel) {
+	return Obiekt::odczytaj(wezel);
 }
 
 string Budynek::napis()const{
 	Logger str(NAZWAKLASY(Budynek));
 	str.dodajKlase(Obiekt::napis());
-	str.dodajPole(NAZWAKLASY(BudynekInfo)+"ID",budynekInfo.pobierzIdentyfikator());
+	str.dodajPole(NAZWAKLASY(BudynekInfo)+"ID",budynekInfo_.pobierzIdentyfikator());
 	return str.napis();
 }
