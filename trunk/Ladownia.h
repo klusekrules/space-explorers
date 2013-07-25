@@ -171,7 +171,7 @@ public:
 	* \param[in] statek - nieu¿ywane.
 	* \return Zawsze zwraca true.
 	*/
-	bool czMoznaDodacDoLadownii( const Statek& statek ) const;
+	bool czyMoznaDodacDoLadownii( const Statek& statek ) const;
 
 	/**
 	* \brief Metoda informuje o mo¿liwoœci biznesowej dodania obiektu do ³adowni.
@@ -179,7 +179,7 @@ public:
 	* \param[in] surowce - Surowiec poddawany sprawdzeniu.
 	* \return true je¿eli mo¿na dodaæ obiekt, false w przeciwnym wypadku.
 	*/
-	bool czMoznaDodacDoLadownii( const Surowce& surowce ) const;
+	bool czyMoznaDodacDoLadownii( const Surowce& surowce ) const;
 
 	/**
 	* \brief Metoda opró¿nia ³adownie.

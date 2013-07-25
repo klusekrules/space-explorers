@@ -14,9 +14,9 @@ bool LiczenieKosztow::wykonaj(Wymagania::Cena::TypObiektu obiekt ,Wymagania::Cen
 	Wymagania::Cena::TypObiektu kopia = Wymagania::Cena::TypObiektu(obiekt->kopia());
 	kopia->ustawKontekst(parametry_);
 	if(zmiana)
-		kopia->setIlosc(Ilosc(ilosc_()*zmiana->policzWartosc(obiekt->getIlosc()(),static_cast<int>(parametry_.pobierzPoziom()()),parametry_.pobierzIdentyfikatorPlanety()())));
+		kopia->ustawIlosc(Ilosc(ilosc_()*zmiana->policzWartosc(obiekt->pobierzIlosc()(),static_cast<int>(parametry_.pobierzPoziom()()),parametry_.pobierzIdentyfikatorPlanety()())));
 	else
-		kopia->setIlosc(Ilosc(ilosc_()*obiekt->getIlosc()() ));
+		kopia->ustawIlosc(Ilosc(ilosc_()*obiekt->pobierzIlosc()() ));
 	zbiornik_.push_back(kopia);
 	return true;				
 }

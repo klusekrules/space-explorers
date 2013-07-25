@@ -92,13 +92,13 @@ bool Wymagania::dodajCene( Cena& cena ){
 				if(!obiekt)
 					return false;
 				auto identyfikator = obiekt->pobierzIdentyfikator();
-				auto ilosc = obiekt->getIlosc();
+				auto ilosc = obiekt->pobierzIlosc();
 				return cena.wykonaj(
 					[&identyfikator,&ilosc,&zamien](Cena::TypObiektu obiekt,Cena::Zmiana zmiana)->bool{
 						if(!obiekt)
 							return false;
 						if( identyfikator == obiekt->pobierzIdentyfikator() ){
-							zamien = ( ilosc < obiekt->getIlosc() );
+							zamien = ( ilosc < obiekt->pobierzIlosc() );
 							return true;
 						}
 						return false;
@@ -157,9 +157,9 @@ bool Wymagania::czySpelniaKoszty( const Ilosc& ilosc, const PodstawoweParametry&
 					return false;
 				identyfikator = obiekt->pobierzIdentyfikator();
 				if(zmiana)
-					iloscObiektow = Ilosc(static_cast<Ilosc::type_name>(zmiana->policzWartosc(obiekt->getIlosc()(),parametry.pobierzPoziom()(),parametry.pobierzIdentyfikatorPlanety()())));
+					iloscObiektow = Ilosc(static_cast<Ilosc::type_name>(zmiana->policzWartosc(obiekt->pobierzIlosc()(),parametry.pobierzPoziom()(),parametry.pobierzIdentyfikatorPlanety()())));
 				else
-					iloscObiektow = obiekt->getIlosc();
+					iloscObiektow = obiekt->pobierzIlosc();
 				return true;
 		}			
 		))

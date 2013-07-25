@@ -42,17 +42,17 @@ bool Ladownia::polacz( Zbiornik zbiornik ){
 	return obiekty_.przeniesWszystkie(zbiornik);
 }
 
-bool Ladownia::czMoznaDodacDoLadownii( const Statek& statek ) const {
+bool Ladownia::czyMoznaDodacDoLadownii( const Statek& statek ) const {
 	return true;
 }
 
-bool Ladownia::czMoznaDodacDoLadownii( const Surowce& surowce ) const {
+bool Ladownia::czyMoznaDodacDoLadownii( const Surowce& surowce ) const {
 	return surowce.czyTypPrzyrostowy();
 }
 
 //Tranzakcyjna
 bool Ladownia::dodajObiektDoLadowni( const Item& obiekt ){
-	if(!obiekt.czMoznaDodacDoLadownii(*this)){
+	if(!obiekt.czyMoznaDodacDoLadownii(*this)){
 		return false;
 	}
 	if( obiekt.pobierzObjetosc()/obiekt.pobierzIlosc() > ladowniaInfo_.pobierzPojemnoscMaksymalna(*this) || (obiekt.pobierzObjetosc() + zajete_) > pobierzPojemnoscMaksymalna() ){
@@ -67,7 +67,7 @@ bool Ladownia::dodajObiektDoLadowni( const Item& obiekt ){
 
 //Tranzakcyjna
 bool Ladownia::dodajObiektDoLadowni( shared_ptr<Item> obiekt ){
-	if( !obiekt || !obiekt->czMoznaDodacDoLadownii(*this)){
+	if( !obiekt || !obiekt->czyMoznaDodacDoLadownii(*this)){
 		return false;
 	}
 	if( obiekt->pobierzObjetosc()/obiekt->pobierzIlosc() > ladowniaInfo_.pobierzPojemnoscMaksymalna(*this) || (obiekt->pobierzObjetosc() + zajete_) > pobierzPojemnoscMaksymalna() ){

@@ -94,8 +94,8 @@ Masa Statek::pobierzMase() const{
 	return Obiekt::pobierzMase() + Ladownia::pobierzMaseZawartosciLadowni() + Statek::pobierzMasaSilnika();
 }
 
-bool Statek::czMoznaDodacDoLadownii( const Ladownia& ladownia ) const{
-	return ladownia.czMoznaDodacDoLadownii(*this);
+bool Statek::czyMoznaDodacDoLadownii( const Ladownia& ladownia ) const{
+	return ladownia.czyMoznaDodacDoLadownii(*this);
 }
 
 const StatekInfo& Statek::pobierzStatekInfo() const{

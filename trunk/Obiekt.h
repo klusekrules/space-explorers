@@ -53,7 +53,7 @@ public:
 	* \param[in] ladownia - £adownia do której ma zostaæ dodany obiekt.
 	* \return true je¿eli mo¿na dodaæ. False w przeciwnym wypadku.
 	*/
-	virtual bool czMoznaDodacDoLadownii( const Ladownia& ladownia ) const;
+	virtual bool czyMoznaDodacDoLadownii( const Ladownia& ladownia ) const;
 	
 	/**
 	* \brief Metoda wyliczaj¹ca powierzchniê.

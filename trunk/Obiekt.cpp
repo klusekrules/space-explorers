@@ -44,7 +44,7 @@ Masa Obiekt::pobierzMase() const{
 	return Masa(obiektInfo_.pobierzMase(pobierzPoziom(), pobierzIdentyfikatorPlanety())()*(pobierzIlosc()()));
 }
 
-bool Obiekt::czMoznaDodacDoLadownii( const Ladownia& c ) const{
+bool Obiekt::czyMoznaDodacDoLadownii( const Ladownia& c ) const{
 	return false;
 }
 

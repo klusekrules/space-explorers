@@ -42,7 +42,7 @@ public:
 	virtual ~Ilosc();
 
 	/**
-	* \brief Operator równoœci.
+	* \brief Operator s³abej mniejszoœci.
 	*
 	* \param[in] wartosc - Wartoœæ porównywana z atrybutem klasy.
 	*/
