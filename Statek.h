@@ -1,5 +1,4 @@
 #pragma once
-#include "Main.h"
 #include "JednostkaAtakujaca.h"
 #include "JednostkaLatajaca.h"
 #include "Obiekt.h"
@@ -11,6 +10,9 @@
 *
 * Klasa gromadzi wszytkie niezbêdne klasy bazowe dla obiektu biznesowego typu statek.
 * Nadpisuje metody potrzebne do poprawnego dzia³ania.
+* \author Daniel Wojdak
+* \version 1
+* \date 24-07-2013
 */
 class Statek :
 	public JednostkaAtakujaca,
