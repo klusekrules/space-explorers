@@ -13,7 +13,7 @@ class Planeta;
 * Klasa zarz¹dza flot¹. Pozwala na dodawanie Statków i £adunków. 
 * \author Daniel Wojdak
 * \version 1
-* \date 24-07-2013
+* \date 25-07-2013
 */
 class Flota : 
 	public Bazowa,

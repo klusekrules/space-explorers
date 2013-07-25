@@ -4,6 +4,7 @@
 #include "BladLaczeniaObiektow.h"
 #include <map>
 #include <vector>
+#include "Logger\Logger.h"
 using std::map;
 using std::vector;
 /**
