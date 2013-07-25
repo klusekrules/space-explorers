@@ -136,7 +136,7 @@ Ladownia::Zbiornik Ladownia::podzielLadownie( const Objetosc& minimum , const Ob
 	Zbiornik kopia(obiekty_);
 	map<Objetosc,Klucz,greater<Objetosc> > posortowane;
 	for( auto element : obiekty_ )
-		posortowane.insert(make_pair(element.second->pobierzObjetosc()/element.second->pobierzIlosc(),element.first));
+		posortowane.insert(make_pair(element.second->pobierzObjetoscJednostkowa(),element.first));
 
 	/*
 		Przechodzimy po elementach zbiornika i przepisujemy tyle ile siê da. Dopuszczamy dzielenie grup obiektów jeœli mo¿liwe.
@@ -197,7 +197,15 @@ const Objetosc& Ladownia::pobierzZajeteMiejsce() const{
 	return zajete_;
 }
 
+Objetosc Ladownia::pobierzDostepneMiejsce() const{
+	return pobierzPojemnoscMaksymalna() - zajete_;
+}
+
 Objetosc Ladownia::pobierzPojemnoscMaksymalna() const{
+	return ladowniaInfo_.pobierzPojemnoscMaksymalna(*this);
+}
+
+Objetosc Ladownia::pobierzPojemnoscJednostkowa() const{
 	return ladowniaInfo_.pobierzPojemnoscMaksymalna(*this);
 }
 

@@ -3,7 +3,7 @@
 #include "DefinicjeWezlowXML.h"
 
 Gra::Gra(Aplikacja& app)
-	: aplikacja(app), fabryka(ZmianaFabryka::pobierzInstancje()), uzytkownik(new Uzytkownik())
+	: aplikacja(app), fabryka(ZmianaFabryka::pobierzInstancje()), uzytkownik(new Uzytkownik(*this))
 {
 	idPlanety.ustawWartosc(Ilosc(1));
 }
@@ -31,15 +31,23 @@ Uzytkownik& Gra::getUzytkownik() const throw (NieznalezionoObiektu) {
 	return *uzytkownik;
 }
 
+shared_ptr<Planeta> Gra::pobierzPlanete( const Identyfikator& identyfikator ){
+	auto iterator = wszystkiePlanety.find(identyfikator);
+	if(iterator!=wszystkiePlanety.end())
+		return iterator->second;
+	return nullptr;
+}
+
 //TODO: Dopisanie poprawnego logowania
 bool Gra::Logowanie(const string& nazwa, const string& hash){
-	uzytkownik = shared_ptr<Uzytkownik>(new Uzytkownik());
+	uzytkownik = shared_ptr<Uzytkownik>(new Uzytkownik(*this));
 	return true;
 }
 //TODO: Dopisanie poprawnego generowania planet
 Identyfikator Gra::generujPlanete(){
 	auto p = shared_ptr<Planeta>( new Planeta(Identyfikator(idPlanety())));
 	wolnePlanety.insert(make_pair(p->pobierzIdentyfikator(),p));
+	wszystkiePlanety.insert(make_pair(p->pobierzIdentyfikator(),p));
 	return p->pobierzIdentyfikator();
 }
 
@@ -62,6 +70,10 @@ bool Gra::wybudujNaPlanecie( Planeta& p , const Identyfikator& id , const Ilosc&
 		return iterObiektow->second->tworz(*this,p,ilosc);
 	}
 	return false;
+}
+
+void Gra::wybudujNaPlanecie( Planeta& p, const ObiektBazowyInfo& b, const Ilosc& ilosc )const{
+	b.tworz(*this,p,ilosc);
 }
 
 bool Gra::wybudujNaPlanecie( Planeta& p, const BudynekInfo& b, const Ilosc& ilosc )const{
@@ -212,6 +224,17 @@ bool Gra::WczytajSurowce(TiXmlElement* root){
 	return true;
 }
 
+bool Gra::dodajPlanete( shared_ptr<Planeta> planeta ){
+	if(wszystkiePlanety.find(planeta->pobierzIdentyfikator()) == wszystkiePlanety.end()){
+		wszystkiePlanety.insert(make_pair(planeta->pobierzIdentyfikator(), planeta));
+		if(!planeta->czyMaWlasciciela())
+			wolnePlanety.insert(make_pair(planeta->pobierzIdentyfikator(), planeta));
+		return true;
+	}
+	return false;
+}
+
+
 bool Gra::WczytajStatki(TiXmlElement* root){
 	TiXmlElement* ptr = root->FirstChildElement(WEZEL_XML_STATEK_INFO);
 	do{
@@ -250,7 +273,7 @@ bool Gra::odczytaj( TiXmlElement* e ){
 			return false;
 		TiXmlElement* u = e->FirstChildElement(WEZEL_XML_UZYTKOWNIK);
 		if(u){
-			uzytkownik = shared_ptr<Uzytkownik>(new Uzytkownik());
+			uzytkownik = shared_ptr<Uzytkownik>(new Uzytkownik(*this));
 			if(!uzytkownik->odczytaj(u))
 				return false;
 		}else{
@@ -261,6 +284,7 @@ bool Gra::odczytaj( TiXmlElement* e ){
 			if(!p->odczytaj(n))
 				return false;
 			wolnePlanety.insert(make_pair(p->pobierzIdentyfikator(),p));
+			wszystkiePlanety.insert(make_pair(p->pobierzIdentyfikator(),p));
 		}
 		return true;	
 	}

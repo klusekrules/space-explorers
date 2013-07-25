@@ -41,13 +41,19 @@ public:
 	
 	bool wybuduj( const Identyfikator&, const Ilosc& );
 
+	void wybuduj( shared_ptr< ObiektBazowy > obiekt );
+	
 	Identyfikator dodajFlote();
+
+	shared_ptr< Flota > pobierzFlote(const Identyfikator&) const;
+
+	bool usunFlote(const Identyfikator& identyfikator);
 
 	bool przeniesDoFloty(const Identyfikator& floty, const Identyfikator& id, const Ilosc&);
 
-	bool dolaczFloteDoPlanety(const Identyfikator&);
+	void rozladujStatek( shared_ptr< Statek > );
 
-	bool dolaczFloteDoPlanety( shared_ptr< Flota >);
+	bool czyMaWlasciciela()const;
 
 	bool zaladujFlote( const Identyfikator& floty, const Identyfikator& id, const Ilosc&);
 
@@ -63,9 +69,7 @@ private:
 	bool dodajObiekt( shared_ptr< Statek > );
 	bool dodajObiekt( shared_ptr< Technologia > );
 	bool dodajObiekt( shared_ptr< Surowce > );
-
-	bool rozladujStatek( shared_ptr< Statek >);
-
+	
 	void ustawWlasciciela( Uzytkownik* );
 	Uzytkownik* pobierzWlasciciela( void ) const;
 

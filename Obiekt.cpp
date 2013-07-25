@@ -36,6 +36,10 @@ Objetosc Obiekt::pobierzObjetosc() const{
 	return Objetosc(obiektInfo_.pobierzObjetosc(pobierzPoziom(), pobierzIdentyfikatorPlanety())()*(pobierzIlosc()()));
 }
 
+Objetosc Obiekt::pobierzObjetoscJednostkowa() const{
+	return obiektInfo_.pobierzObjetosc(pobierzPoziom(), pobierzIdentyfikatorPlanety());
+}
+
 Masa Obiekt::pobierzMase() const{
 	return Masa(obiektInfo_.pobierzMase(pobierzPoziom(), pobierzIdentyfikatorPlanety())()*(pobierzIlosc()()));
 }

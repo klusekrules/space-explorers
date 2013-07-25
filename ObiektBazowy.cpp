@@ -85,7 +85,7 @@ bool ObiektBazowy::czyMoznaRozbudowac()const{
 	return obiektBazowyInfo_.czySpelniaWymagania(pobierzIlosc(),param);
 }
 
-const ObiektBazowyInfo& ObiektBazowy::getObiektBaseInfo()const{
+const ObiektBazowyInfo& ObiektBazowy::pobierzObiektBaseInfo()const{
 	return obiektBazowyInfo_;
 }
 
