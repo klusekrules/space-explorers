@@ -147,7 +147,7 @@ public:
 	* \param[in] ladownia - £adownia do której ma zostaæ dodany obiekt.
 	* \return true je¿eli mo¿na dodaæ. False w przeciwnym wypadku.
 	*/
-	bool czMoznaDodacDoLadownii( const Ladownia& ladownia ) const override;
+	bool czyMoznaDodacDoLadownii( const Ladownia& ladownia ) const override;
 
 	/**
 	* \brief Metoda zapisuj¹ca.

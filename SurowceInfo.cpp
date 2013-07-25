@@ -7,50 +7,46 @@
 SurowceInfo::~SurowceInfo(){
 }
 
-SurowceInfo::SurowceInfo( const ObiektInfo& o , bool bCzyPrzyrostowy ) throw()
-	: ObiektInfo(o) , czyPrzyrostowy(bCzyPrzyrostowy), zmCzas(nullptr)
+SurowceInfo::SurowceInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
+	: ObiektInfo(wezel) , przyrostowy_ (false), zmianaCzasu_(nullptr)
 {
-}
-
-SurowceInfo::SurowceInfo( TiXmlElement* n ) throw(WyjatekParseraXML)
-	: ObiektInfo(n) , czyPrzyrostowy (false), zmCzas(nullptr)
-{
-	if(n){
-		zmCzas = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(n,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,WEZEL_XML_CZAS));
-		auto s = n->Attribute(ATRYBUT_XML_TYP);
-		auto i = stoi(s);
-		switch(i){
-		case 1 : czyPrzyrostowy = true;
+	if(wezel){
+		zmianaCzasu_ = Aplikacja::getInstance().getGra().getZmianaFabryka().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,WEZEL_XML_CZAS));
+		auto przyrostowy = XmlBO::WczytajAtrybut<int>(wezel,ATRYBUT_XML_TYP,0);
+		switch(przyrostowy){
+		case 1 : przyrostowy_ = true;
 			break;
-		case 2 : czyPrzyrostowy = false;
+		case 2 : przyrostowy_ = false;
 			break;
-		default: throw WyjatekParseraXML(EXCEPTION_PLACE,exception( (string("typ=") + s).c_str() ),WyjatekParseraXML::trescBladStrukturyXml);
+		default: throw WyjatekParseraXML(EXCEPTION_PLACE,exception( (string("typ=") + std::to_string(przyrostowy)).c_str() ),WyjatekParseraXML::trescBladStrukturyXml);
 		}
 	}
 }
 
 bool SurowceInfo::czyTypPrzyrostowy()const{
-	return czyPrzyrostowy();
+	return przyrostowy_();
 }
 
-bool SurowceInfo::tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
-	return g.wybudujNaPlanecie(p,*this,i);
+bool SurowceInfo::tworz( const Gra& gra, Planeta& planeta , const Ilosc& ilosc ) const{
+	return gra.wybudujNaPlanecie(planeta,*this,ilosc);
 }
 
-Czas SurowceInfo::pobierzCzas( const Ilosc& i ,const PodstawoweParametry& p )const{
-	if(zmCzas)
-		return Czas(zmCzas->policzWartosc(i(),static_cast<int>(p.pobierzPoziom()()),p.pobierzIdentyfikatorPlanety()()));
+Czas SurowceInfo::pobierzCzas( const Ilosc& ilosc ,const PodstawoweParametry& parametryPodstawowe )const{
+	if(zmianaCzasu_)
+		return Czas(zmianaCzasu_->policzWartosc(ilosc(),static_cast<int>(parametryPodstawowe.pobierzPoziom()()),parametryPodstawowe.pobierzIdentyfikatorPlanety()()));
 	else
 		return Czas(0.0l);
 }
 
-Surowce* SurowceInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& idP ) const{
-	return new Surowce( ilosc , pobierzPoziom(),idP, *this );
+Surowce* SurowceInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety ) const{
+	return new Surowce( ilosc , pobierzPoziom(),identyfikatorPlanety, *this );
 }
 
 string SurowceInfo::napis() const{
 	Logger str(NAZWAKLASY(SurowceInfo));
 	str.dodajKlase(ObiektInfo::napis());
-	str.dodajPole("CzyPrzyrostowy",czyPrzyrostowy);
+	str.dodajPole("CzyPrzyrostowy",przyrostowy_);
+	if(zmianaCzasu_)
+		str.dodajPole("ZmianaCzasu",*zmianaCzasu_);
 	return str.napis();
 }

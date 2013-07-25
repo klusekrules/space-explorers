@@ -1,34 +1,80 @@
 #pragma once
-#include "Main.h"
 #include "ObiektInfo.h"
 #include "Surowce.h"
-#include "WyjatekParseraXML.h"
 #include "Bool.h"
 
+/**
+* \brief Klasa opisowa surowca.
+*
+* Klasa opisowa surowca.
+* \author Daniel Wojdak
+* \version 1
+* \date 25-07-2013
+*/
 class SurowceInfo :
 	public ObiektInfo,
 	virtual public LoggerInterface
 {
 public:
-	SurowceInfo( const ObiektInfo& , bool bCzyPrzyrostowy) throw();
 
-	explicit SurowceInfo( TiXmlElement* ) throw(WyjatekParseraXML);
-	
+	/**
+	* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
+	* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
+	*/
+	explicit SurowceInfo( TiXmlElement* wezel );
+
+	/**
+	* \brief Destruktor.
+	*/
 	virtual ~SurowceInfo();
 
+	/**
+	* \brief Metoda informuj¹ca czy obiekt jest typu przyrostowego.
+	*
+	* \return true je¿eli surowiec jest typu przyrostowego, false w przeciwnym wypadku.
+	*/
 	bool czyTypPrzyrostowy()const;
-	
-	Surowce* tworzEgzemplarz( const Ilosc&, const Identyfikator& ) const override;
 
+	/**
+	* \brief Metoda wyliczaj¹ca czas budowy.
+	*
+	* Metoda wylicza czas na podstawie iloœci surowca i zmiany.
+	* \param[in] ilosc - Iloœæ surowców na bazie których bêdzie wyliczany czas.
+	* \param[in] parametryPodstawowe - Podstawowe parametry potrzebne do wyliczenia czasu.
+	* \return Czas budowy dla podanej iloœci u¿ytych surowców.
+	*/
+	Czas pobierzCzas( const Ilosc& ilosc, const PodstawoweParametry& parametryPodstawowe )const;
+
+	/**
+	* \brief Metoda tworz¹ca egzemplarz obiektu.
+	*
+	*  Metoda tworzy egzemplarz obiektu dla podanej planety.
+	* \param[in] ilosc - nieu¿ywana
+	* \param[in] identyfikatorPlanety - Identyfikator planety rodzica obiektu.
+	* \warning Metoda allokuje pamiêæ dla nowego obiektu, który musi zostaæ zwolniony wywo³aniem delete.
+	* \return Metoda zwraca wskaŸnika na obiekt.
+	*/
+	Surowce* tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety ) const override;
+
+	/**
+	* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
+	* \return Napis zwieraj¹cy opis klasy.
+	*/
 	string napis() const override;
-
-	Czas pobierzCzas( const Ilosc& ,const PodstawoweParametry& )const;
-
 private:
-	bool tworz( const Gra& g, Planeta& p , const Ilosc& i ) const override;
 
-	Bool czyPrzyrostowy;
+	/**
+	* \brief Metoda tworz¹ca egzemplarz obiektu na planecie.
+	*
+	*  Metoda tworzy egzemplarz obiektu na planecie. U¿ywana jest podczas wywo³ywania metody wybuduj w klasie Planeta.
+	* \param[in] gra - Referencja do obiektu gry.
+	* \param[in] planeta - Referencja do obiektu planety
+	* \param[in] ilosc - Iloœæ tworzonych obiektów.
+	* \return Metoda zwraca true je¿eli tworzenie zakoñczy siê sukcesem. Zwraca false w przeciwnym wypadku.
+	*/
+	bool tworz( const Gra& gra, Planeta& planeta , const Ilosc& ilosc ) const override;
 
-	shared_ptr<ZmianaInterfejs> zmCzas;
+	Bool przyrostowy_; /// Informacja czy podany tym jest przyrostowy
 
+	shared_ptr<ZmianaInterfejs> zmianaCzasu_; /// WskaŸnik do zmiany wyliczaj¹cej czas budowy.
 };

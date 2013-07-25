@@ -15,9 +15,9 @@ void WymaganiaTest::startTestow(){
 void WymaganiaTest::sprawdzenieKosztow(){
 	auto tmp = a->pobierzKosztyRozbudowy();
 	UNIT_TEST_ASSERT_EQUAL(3,tmp.size());
-	UNIT_TEST_ASSERT_EQUAL( Ilosc(480000.0), tmp[0]->getIlosc());
-	UNIT_TEST_ASSERT_EQUAL( Ilosc(16000.0), tmp[1]->getIlosc() );
-	UNIT_TEST_ASSERT_EQUAL( Ilosc(8*2*10*5*200), tmp[2]->getIlosc());
+	UNIT_TEST_ASSERT_EQUAL( Ilosc(480000.0), tmp[0]->pobierzIlosc());
+	UNIT_TEST_ASSERT_EQUAL( Ilosc(16000.0), tmp[1]->pobierzIlosc() );
+	UNIT_TEST_ASSERT_EQUAL( Ilosc(8*2*10*5*200), tmp[2]->pobierzIlosc());
 	auto w = a->pobierzWarunkiRozbudowy();
 	UNIT_TEST_ASSERT_EQUAL(2,w.size());
 	UNIT_TEST_ASSERT_EQUAL( Poziom(50), w[0]->pobierzPoziom() );
