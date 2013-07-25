@@ -91,9 +91,10 @@ public:
 
 	/**
 	* Metoda buduj¹ca obiekty o podanej iloœci.
+	* \param[in] ilosc - nieu¿ywany
 	* \warning Metoda nie sprawdza czy obiekty moga byæ wybudowane.
 	*/
-	void wybuduj(const Ilosc&) override;
+	void wybuduj(const Ilosc& ilosc) override;
 
 	/**
 	* \brief Metoda zapisuj¹ca.

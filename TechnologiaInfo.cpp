@@ -3,8 +3,8 @@
 #include "Logger.h"
 #include "Gra.h"
 
-TechnologiaInfo::TechnologiaInfo( TiXmlElement* e )
-	: ObiektBazowyInfo(e)
+TechnologiaInfo::TechnologiaInfo( TiXmlElement* wezel )
+	: ObiektBazowyInfo(wezel)
 {
 }
 
@@ -12,22 +12,12 @@ TechnologiaInfo::~TechnologiaInfo(void)
 {
 }
 
-TechnologiaInfo::TechnologiaInfo( const ObiektBazowyInfo& o )
-	: ObiektBazowyInfo(o)
-{
+Technologia* TechnologiaInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety ) const{
+	return new Technologia( pobierzPoziom(), identyfikatorPlanety, *this );
 }
 
-TechnologiaInfo::TechnologiaInfo( const TechnologiaInfo& o )
-	: ObiektBazowyInfo(o)
-{
-}
-
-Technologia* TechnologiaInfo::tworzEgzemplarz( const Ilosc& i, const Identyfikator& idP ) const{
-	return new Technologia( pobierzPoziom(), idP, *this );
-}
-
-bool TechnologiaInfo::tworz( const Gra& g, Planeta& p , const Ilosc& i ) const{
-	return g.wybudujNaPlanecie(p,*this,i);
+bool TechnologiaInfo::tworz( const Gra& gra, Planeta& planeta , const Ilosc& ilosc ) const{
+	return gra.wybudujNaPlanecie(planeta,*this,ilosc);
 }
 
 string TechnologiaInfo::napis()const{

@@ -1,13 +1,14 @@
 #include "Technologia.h"
 #include "TechnologiaInfo.h"
 #include "DefinicjeWezlowXML.h"
+#include "Logger\Logger.h"
 
-Technologia::Technologia( const Poziom& p, const Identyfikator& idP, const TechnologiaInfo& t)
-	: PodstawoweParametry(p, idP),ObiektBazowy(Ilosc(1),p,idP,t), technologiaInfo(t)
+Technologia::Technologia( const Poziom& poziom, const Identyfikator& identyfikatorPlanety, const TechnologiaInfo& technologiaInfo)
+	: PodstawoweParametry(poziom, identyfikatorPlanety),ObiektBazowy(Ilosc(1),poziom,identyfikatorPlanety,technologiaInfo), technologiaInfo_(technologiaInfo)
 {
 }
-Technologia::Technologia( const PodstawoweParametry& p, const TechnologiaInfo& t)
-	: PodstawoweParametry(p),ObiektBazowy(Ilosc(1),p,t), technologiaInfo(t)
+Technologia::Technologia( const PodstawoweParametry& podstawoweParametry, const TechnologiaInfo& technologiaInfo)
+	: PodstawoweParametry(podstawoweParametry),ObiektBazowy(Ilosc(1),podstawoweParametry,technologiaInfo), technologiaInfo_(technologiaInfo)
 {
 }
 Technologia::~Technologia(void)
@@ -15,7 +16,7 @@ Technologia::~Technologia(void)
 }
 
 Technologia* Technologia::kopia() const{
-	return new Technologia(*this,technologiaInfo);
+	return new Technologia(*this,technologiaInfo_);
 }
 
 Technologia* Technologia::podziel( const Ilosc& ilosc){
@@ -34,24 +35,23 @@ bool Technologia::czyMoznaPodzielic( const Ilosc& ilosc) const{
 	return false;
 }
 
-void Technologia::wybuduj(const Ilosc&){
+void Technologia::wybuduj(const Ilosc& ilosc){
 	wzrostPoziomu();
 }
 
-bool Technologia::zapisz( TiXmlElement* e ) const {
-	TiXmlElement* n = new TiXmlElement(WEZEL_XML_TECHNOLOGIA);
-	e->LinkEndChild( n );
-	return ObiektBazowy::zapisz(n);
+bool Technologia::zapisz( TiXmlElement* wezel ) const {
+	TiXmlElement* element = new TiXmlElement(WEZEL_XML_TECHNOLOGIA);
+	wezel->LinkEndChild( element );
+	return ObiektBazowy::zapisz(element);
 }
 
-bool Technologia::odczytaj( TiXmlElement* e ) {
-	return ObiektBazowy::odczytaj(e);
+bool Technologia::odczytaj( TiXmlElement* wezel ) {
+	return ObiektBazowy::odczytaj(wezel);
 }
 
 string Technologia::napis() const{
 	Logger str(NAZWAKLASY(Technologia));
 	str.dodajKlase(ObiektBazowy::napis());
-	str.dodajPole(NAZWAKLASY(TechnologiaInfo)+"ID",technologiaInfo.pobierzIdentyfikator());
+	str.dodajPole(NAZWAKLASY(TechnologiaInfo)+"ID",technologiaInfo_.pobierzIdentyfikator());
 	return str.napis();
 }
-

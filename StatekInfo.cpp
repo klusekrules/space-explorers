@@ -2,6 +2,7 @@
 #include "XmlBO.h"
 #include "Gra.h"
 #include "definicjeWezlowXML.h"
+#include "Logger\Logger.h"
 
 StatekInfo::StatekInfo(	const ObiektInfo& obiektInfo , const JednostkaLatajacaInfo& jednostkaLatajacaInfo , const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo , const LadowniaInfo& ladowniaInfo ) throw()
 	: ObiektInfo(obiektInfo), JednostkaLatajacaInfo(jednostkaLatajacaInfo), JednostkaAtakujacaInfo(jednostkaAtakujacaInfo), LadowniaInfo(ladowniaInfo)
