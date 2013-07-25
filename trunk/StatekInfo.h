@@ -10,6 +10,9 @@
 * \brief Klasa opisowa dla statku
 *
 * Klasa gromadzi wszytkie niezbêdne klasy bazowe dla obiektu biznesowego typu statek.
+* \author Daniel Wojdak
+* \version 1
+* \date 24-07-2013
 */
 class StatekInfo:
 	public ObiektInfo,
