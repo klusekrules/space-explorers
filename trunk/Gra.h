@@ -28,6 +28,7 @@ private:
 
 	Licznik idPlanety;
 	Uzytkownik::ListaPlanet wolnePlanety;
+	Uzytkownik::ListaPlanet wszystkiePlanety;
 
 	bool WczytajSurowce(TiXmlElement* root);
 	bool WczytajStatki(TiXmlElement* root);
@@ -46,8 +47,12 @@ public:
 	Identyfikator generujPlanete();
 
 	bool przeniesPlaneteDoUzytkownika( const Identyfikator& );
+	shared_ptr<Planeta> pobierzPlanete( const Identyfikator& );
+
+	bool dodajPlanete( shared_ptr<Planeta> );
 
 	bool wybudujNaPlanecie( Planeta& , const Identyfikator&, const Ilosc& )const;
+	void wybudujNaPlanecie( Planeta& , const ObiektBazowyInfo&, const Ilosc&  ) const;
 	bool wybudujNaPlanecie( Planeta& , const BudynekInfo&, const Ilosc& )const;
 	bool wybudujNaPlanecie( Planeta& , const TechnologiaInfo&, const Ilosc& )const;
 	bool wybudujNaPlanecie( Planeta& , const StatekInfo&, const Ilosc& )const;

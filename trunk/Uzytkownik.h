@@ -7,7 +7,7 @@ class Uzytkownik:
 {
 public:
 	typedef map<Identyfikator, shared_ptr<Planeta> > ListaPlanet;
-	Uzytkownik();
+	Uzytkownik(Gra&);
 	~Uzytkownik();
 
 	Planeta& getPlaneta( const Identyfikator& ) const;
@@ -22,5 +22,6 @@ public:
 
 private:
 	ListaPlanet listaPlanet;
+	Gra& instancjaGry;
 };
 

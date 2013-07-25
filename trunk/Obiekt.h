@@ -74,6 +74,15 @@ public:
 	virtual Objetosc pobierzObjetosc() const;
 
 	/**
+	* \brief Metoda wyliczaj¹ca objêtoœæ jednostkow¹.
+	*
+	* Metoda wylicza objêtoœæ jak¹ zajmuj¹ obiekty reprezentowane przez dan¹ instancjê klasy.
+	* Metoda uwzglêdnia zmiany zale¿ne od poziomu i planety.
+	* \return Wyliczona objêtoœæ jednostkowa obiektów.
+	*/
+	Objetosc pobierzObjetoscJednostkowa() const;
+
+	/**
 	* \brief Metoda wyliczaj¹ca masê.
 	*
 	* Metoda wylicza masê jak¹ zajmuj¹ obiekty reprezentowane przez dan¹ instancjê klasy.

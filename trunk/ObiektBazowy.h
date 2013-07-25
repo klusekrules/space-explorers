@@ -148,7 +148,7 @@ public:
 	* Metoda zwracaj¹ca referencej do obiektu opisuj¹cego.
 	* \return referencja do obiektu opisuj¹cego.
 	*/
-	const ObiektBazowyInfo& getObiektBaseInfo()const;
+	const ObiektBazowyInfo& pobierzObiektBaseInfo()const;
 
 	/**
 	* \brief Metoda zapisuj¹ca.

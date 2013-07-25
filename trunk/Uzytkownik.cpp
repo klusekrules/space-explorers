@@ -1,8 +1,10 @@
 #include "Uzytkownik.h"
 #include "Logger.h"
 #include "DefinicjeWezlowXML.h"
+#include "Gra.h"
 
-Uzytkownik::Uzytkownik()
+Uzytkownik::Uzytkownik(Gra& gra)
+	: instancjaGry(gra)
 {
 }
 
@@ -43,6 +45,8 @@ bool Uzytkownik::odczytaj( TiXmlElement* e ){
 				return false;
 			listaPlanet.insert(make_pair(p->pobierzIdentyfikator(),p));
 			p->ustawWlasciciela(this);
+			if(!instancjaGry.dodajPlanete(p))
+				return false;
 		}
 		return true;
 	}

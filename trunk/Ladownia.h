@@ -85,6 +85,12 @@ public:
 	virtual Objetosc pobierzPojemnoscMaksymalna() const;
 
 	/**
+	* \brief Metoda pobieraj¹ca pojemnoœæ jednostkow¹
+	* \return Objêtoœæ jednostkowa ³adowni.
+	*/
+	Objetosc pobierzPojemnoscJednostkowa() const;
+
+	/**
 	* \brief Metoda ³¹czy obiekty ³adowni.
 	* 
 	* Metoda przenosi obiekty z ³adowni przekazanej przez parametr do obiektu docelowego.
@@ -151,6 +157,13 @@ public:
 	* \return Objêtoœæ elementów w ³adowni.
 	*/
 	const Objetosc& pobierzZajeteMiejsce() const;
+
+	/**
+	* \brief Metoda zwraca dostêpn¹ przestrzeñ ³adowni.
+	*
+	* \return Dostêpna przestrzeñ ³adowni.
+	*/
+	Objetosc pobierzDostepneMiejsce() const;
 
 	/**
 	* \brief Metoda informuje o mo¿liwoœci biznesowej dodania obiektu do ³adowni.

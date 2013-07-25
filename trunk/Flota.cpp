@@ -1,9 +1,10 @@
 #include "Flota.h"
 #include "Aplikacja.h"
 #include "DefinicjeWezlowXML.h"
+#include "XmlBO.h"
 
-Flota::Flota(const Identyfikator& id)
-	: Bazowa(id)
+Flota::Flota(const Identyfikator& id, const Identyfikator& planetaPoczatkowa, const Identyfikator& planetaDocelowa, CelPodrozy celPodrozy)
+	: Bazowa(id),planetaPoczatkowa_(planetaPoczatkowa), planetaDocelowa_(planetaDocelowa), celPodrozy_(celPodrozy)
 {
 }
 
@@ -11,63 +12,154 @@ Flota::~Flota(void)
 {
 }
 
-bool Flota::dodajStatek( shared_ptr<Statek> ptr ){
-	if(!ptr)
+bool Flota::dodajStatek( shared_ptr<Statek> statek ){
+	if(!statek)
 		return false;
-	auto iter = lista.find(ptr->ID());
-	if(iter == lista.end()){
-		ptr->ustawIdentyfikatorPlanety(Identyfikator());
-		lista.insert(make_pair(ptr->ID(),ptr));
+	auto iterator = lista_.find(statek->ID());
+	if(iterator == lista_.end()){
+		statek->ustawIdentyfikatorPlanety(Identyfikator());
+		lista_.insert(make_pair(statek->ID(),statek));
 	}else{
-		return iter->second->polacz( *ptr );
+		return iterator->second->polacz( *statek );
 	}
 	return true;
 }
 
-bool Flota::dodajLadunek( shared_ptr<Obiekt> ptr ){
-	if(!ptr)
+bool Flota::dodajLadunek( shared_ptr<Obiekt> obiekt ){
+	if(!obiekt)
 		return false;
-	Objetosc obj = pobierzDostepneMiejsce();
-	if(obj < ptr->pobierzObjetosc())
+	Objetosc objetoscObiektu = obiekt->pobierzObjetosc();
+	if(pobierzDostepneMiejsce() < objetoscObiektu)
 		return false;
-	for( auto i : lista ){
-		if(i.second->dodajObiektDoLadowni(*ptr))
-			return true;
+	Objetosc objetoscJednostkowa = obiekt->pobierzObjetoscJednostkowa();
+
+	map<Objetosc,Klucz,less<Objetosc> > posortowane;
+	for( auto element : lista_ )
+		posortowane.insert(make_pair(element.second->pobierzPojemnoscJednostkowa(),element.first));
+
+	for( auto element : posortowane ){
+		if( element.first < objetoscJednostkowa )
+			continue;
+		auto iter = lista_.find(element.second);
+		if(iter == lista_.end())
+			continue;
+		shared_ptr<Obiekt> obiektDoDodania = obiekt;
+		Objetosc dostepneMiejsce = iter->second->pobierzDostepneMiejsce();
+		if(objetoscObiektu > dostepneMiejsce){
+			Ilosc ilosc( floor( dostepneMiejsce() / objetoscJednostkowa() ) );
+			obiektDoDodania = shared_ptr<Obiekt>(obiekt->podziel(ilosc));
+			if(iter->second->dodajObiektDoLadowni(obiektDoDodania))
+				return true;
+			else
+				obiekt->polacz(*obiektDoDodania);
+		}else{
+			if(iter->second->dodajObiektDoLadowni(obiektDoDodania))
+				return true;
+		}		
 	}
 	return false;
 }
 
 Objetosc Flota::pobierzDostepneMiejsce() const{
 	Objetosc suma(0.0);
-	for(auto a : lista){
-		suma+=a.second->pobierzPojemnoscMaksymalna() - a.second->pobierzZajeteMiejsce();
+	for(auto element : lista_){
+		suma+=element.second->pobierzDostepneMiejsce();
 	}
 	return suma;
 }
 
-bool Flota::zapisz( TiXmlElement* e ) const{
-	if(e){
-		TiXmlElement* n = new TiXmlElement(WEZEL_XML_FLOTA);
-		e->LinkEndChild( n );
-		for(auto s : lista)
-			if(s.second)
-				s.second->zapisz(n);
-		return Bazowa::zapisz(n);
+void Flota::ustawPlaneteDocelowa( const Identyfikator& identyfikatorPlanety ){
+	planetaDocelowa_ = identyfikatorPlanety;
+}
+
+void Flota::ustawPlanetePoczatkowa( const Identyfikator& identyfikatorPlanety ){
+	planetaPoczatkowa_ = identyfikatorPlanety;
+}
+
+void Flota::ustawCelPodrozy( CelPodrozy cel ){
+	celPodrozy_ = cel;
+}
+
+bool Flota::rozladujLadownieNaPlanecie(){
+	shared_ptr<Planeta> planeta;
+	switch(celPodrozy_){
+	case Transport: planeta = Aplikacja::getInstance().getGra().pobierzPlanete(planetaDocelowa_);
+		break;
+	case Zwiad:
+	case Atak: Aplikacja::getInstance().getGra().pobierzPlanete(planetaPoczatkowa_);
+		break;
+	}
+	if(!planeta)
+		return false;
+	for(auto statek : lista_)
+		if(statek.second){
+			planeta->rozladujStatek(statek.second);
+		}
+		return true;
+}
+
+bool Flota::rozladujFloteNaPlanecie(){
+	shared_ptr<Planeta> planeta;
+	switch(celPodrozy_){
+	case Transport: planeta = Aplikacja::getInstance().getGra().pobierzPlanete(planetaDocelowa_);
+		break;
+	case Zwiad:
+	case Atak: Aplikacja::getInstance().getGra().pobierzPlanete(planetaPoczatkowa_);
+		break;
+	}
+	if(!planeta)
+		return false;
+	for(auto statek : lista_)
+		if(statek.second){
+			planeta->rozladujStatek(statek.second);
+			planeta->wybuduj(statek.second);
+		}
+		lista_.clear();
+		return true;
+}
+
+bool Flota::zapisz( TiXmlElement* wezel ) const{
+	if(wezel){
+		TiXmlElement* element = new TiXmlElement(WEZEL_XML_FLOTA);
+		wezel->LinkEndChild( element );
+		wezel->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETA_POCZATKOWA,planetaPoczatkowa_.napis());
+		wezel->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETA_DOCELOWA,planetaDocelowa_.napis());
+		wezel->SetAttribute(ATRYBUT_XML_CEL_PODROZY,celPodrozy_);
+		for(auto statek : lista_)
+			if(statek.second)
+				statek.second->zapisz(element);
+		return Bazowa::zapisz(element);
 	}
 	return false;
 }
 
-bool Flota::odczytaj( TiXmlElement* e ) {
-	if(e && Bazowa::odczytaj(e)){
-		for(TiXmlElement* n = e->FirstChildElement(); n != nullptr ; n = n->NextSiblingElement()){
-			auto c = n->Attribute(ATRYBUT_XML_IDENTYFIKATOR);
-			if(!c)
+bool Flota::odczytaj( TiXmlElement* wezel ) {
+	if(wezel && Bazowa::odczytaj(wezel)){
+		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR_PLANETA_POCZATKOWA,planetaPoczatkowa_))
+			return false;
+		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR_PLANETA_DOCELOWA,planetaDocelowa_))
+			return false;
+		int cel;
+		if(!wezel->Attribute(ATRYBUT_XML_CEL_PODROZY,&cel)) 
+			return false;
+		switch(cel){
+		case Zwiad: celPodrozy_ = Zwiad;
+			break;
+		case Atak: celPodrozy_ = Atak;
+			break;
+		case Transport: celPodrozy_ = Transport;
+			break;
+		default:
+			return false;
+		}
+		for(TiXmlElement* element = wezel->FirstChildElement(); element ; element = element->NextSiblingElement()){
+			Identyfikator identyfikator;
+			if(!XmlBO::WczytajAtrybut<NOTHROW>(element,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
 				return false;
-			Identyfikator id(stoi(c,nullptr,0));
-			shared_ptr<Statek> p = shared_ptr<Statek>(Aplikacja::getInstance().getGra().getStatek(id).tworzEgzemplarz(Ilosc(),Identyfikator()));			
-			if(!p->odczytaj(n) )
+			shared_ptr<Statek> statek = shared_ptr<Statek>(Aplikacja::getInstance().getGra().getStatek(identyfikator).tworzEgzemplarz(Ilosc(),Identyfikator()));			
+			if(!statek->odczytaj(element) )
 				return false;
-			lista.insert(make_pair(p->ID(),p));
+			lista_.insert(make_pair(statek->ID(),statek));
 		}
 	}
 	return false;
@@ -76,7 +168,10 @@ bool Flota::odczytaj( TiXmlElement* e ) {
 string Flota::napis()const {
 	Logger str(NAZWAKLASY(Ladownia));
 	str.dodajKlase(Bazowa::napis());
-	for(auto s : lista)
+	str.dodajPole(NAZWAKLASY(CelPodrozy),std::to_string(celPodrozy_));
+	str.dodajPole(NAZWAKLASY(Planeta)+"IdDocelowa",planetaDocelowa_);
+	str.dodajPole(NAZWAKLASY(Planeta)+"IdPoczatkowa",planetaPoczatkowa_);
+	for(auto s : lista_)
 		if(s.second)
 			str.dodajPole(NAZWAKLASY(Statek),*s.second);
 	return str.napis();

@@ -106,8 +106,17 @@ bool Planeta::wybuduj( const Identyfikator& id, const Ilosc& ilosc ){
 	}
 }
 
+void Planeta::wybuduj( shared_ptr< ObiektBazowy > obiekt ){
+	auto i = listaObiektow.find(obiekt->pobierzIdentyfikator());
+	if(i!=listaObiektow.end()){
+		i->second->wybuduj(obiekt->pobierzIlosc());
+	}else{
+		Aplikacja::getInstance().getGra().wybudujNaPlanecie(*this,obiekt->pobierzObiektBaseInfo(),obiekt->pobierzIlosc());
+	}
+}
+
 Identyfikator Planeta::dodajFlote(){
-	shared_ptr< Flota > ptr = shared_ptr< Flota >(new Flota(Identyfikator(idFloty())));
+	shared_ptr< Flota > ptr = shared_ptr< Flota >(new Flota(Identyfikator(idFloty()),Identyfikator(),Identyfikator(),Flota::CelPodrozy::Transport));
 	listaFlot.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
 	return ptr->pobierzIdentyfikator();
 }
@@ -161,37 +170,29 @@ bool Planeta::zaladujFlote(const Identyfikator& floty, const Identyfikator& id, 
 	return true;
 }
 
-bool Planeta::rozladujStatek( shared_ptr< Statek > ptr ){
-	for(auto e : ptr->pobierzPrzewozoneObiekty()){
-		if(!wybuduj(e.first().first,e.second->pobierzIlosc()))
-			return false;
-	}
-	return true;
+bool Planeta::czyMaWlasciciela()const{
+	return wlasciciel!=nullptr;
 }
 
-bool Planeta::dolaczFloteDoPlanety(const Identyfikator& id){
-	auto iter = listaFlot.find(id);
-	if(iter == listaFlot.end()){
-		return false;
-	}
-	return dolaczFloteDoPlanety(iter->second);
-}
-
-bool Planeta::dolaczFloteDoPlanety( shared_ptr< Flota > ptr){
-	if(!ptr){
-		return false;
-	}
-	
-	for(auto e : ptr->lista){
-		if(!wybuduj(e.first().first,e.second->pobierzIlosc()))
-			return false;
-		if(e.second->pobierzZajeteMiejsce()!=Objetosc(0.0)){
-			if(!rozladujStatek(e.second))
-				return false;
+void Planeta::rozladujStatek( shared_ptr< Statek > statek ){
+	if(statek){
+		for(auto element : statek->oproznijLadownie()){
+			wybuduj(element.second);
 		}
 	}
-	return true;
 }
+
+shared_ptr< Flota > Planeta::pobierzFlote(const Identyfikator& identyfikator) const{
+	auto i = listaFlot.find(identyfikator);
+	if(i!=listaFlot.end())
+		return i->second;
+	return nullptr;
+}
+
+bool Planeta::usunFlote(const Identyfikator& identyfikator){
+	return listaFlot.erase(identyfikator) != 0;
+}
+
 
 bool Planeta::zapisz( TiXmlElement* e ) const{
 	TiXmlElement* n = new TiXmlElement(WEZEL_XML_PLANETA);
@@ -229,7 +230,7 @@ bool Planeta::odczytaj( TiXmlElement* e ){
 				Identyfikator identyfikator;
 				if(!XmlBO::WczytajAtrybut<NOTHROW>(n,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
 					return false;
-				shared_ptr<Flota> ptr = shared_ptr<Flota>(new Flota (identyfikator));
+				shared_ptr<Flota> ptr = shared_ptr<Flota>(new Flota (identyfikator,Identyfikator(),Identyfikator(),Flota::CelPodrozy::Transport));
 				auto i = listaFlot.find(identyfikator);
 				if( i != listaFlot.end() )
 					return false;
