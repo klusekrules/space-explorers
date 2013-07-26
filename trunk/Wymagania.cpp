@@ -18,7 +18,7 @@ Wymagania::Wymagania( TiXmlElement* wezel  )
 
 			auto zmiana = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel->FirstChildElement(WEZEL_XML_CZAS),WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,WEZEL_XML_CZAS);
 			if(zmiana)
-				zmianaCzasuBudowy_=Aplikacja::getInstance().getGra().pobierzFabrykeZmian().Tworz(zmiana);
+				zmianaCzasuBudowy_=Aplikacja::pobierzInstancje().pobierzGre().pobierzFabrykeZmian().Tworz(zmiana);
 			auto cena = wezel->FirstChildElement(WEZEL_XML_CENA);
 			while(cena){
 				dodajCene(Cena(cena,WEZEL_XML_SUROWCE));
@@ -120,7 +120,7 @@ bool Wymagania::dodajCene( Cena& cena ){
 bool Wymagania::czySpelniaWymogi( const PodstawoweParametry& parametry ) const{	
 	if(warunki_.empty())
 		return true;
-	shared_ptr<Planeta> planeta = Aplikacja::getInstance().getGra().pobierzPlanete(parametry.pobierzIdentyfikatorPlanety());
+	shared_ptr<Planeta> planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(parametry.pobierzIdentyfikatorPlanety());
 	if(!planeta){
 		return false;
 	}
@@ -150,7 +150,7 @@ bool Wymagania::czySpelniaWymogi( const PodstawoweParametry& parametry ) const{
 bool Wymagania::czySpelniaKoszty( const Ilosc& ilosc, const PodstawoweParametry& parametry ) const{
 	if(koszty_.empty())
 		return true;
-	shared_ptr<Planeta> planeta = Aplikacja::getInstance().getGra().pobierzPlanete(parametry.pobierzIdentyfikatorPlanety());
+	shared_ptr<Planeta> planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(parametry.pobierzIdentyfikatorPlanety());
 	if(!planeta){
 		return false;
 	}

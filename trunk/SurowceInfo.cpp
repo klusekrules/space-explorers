@@ -11,7 +11,7 @@ SurowceInfo::SurowceInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
 	: ObiektInfo(wezel) , przyrostowy_ (false), zmianaCzasu_(nullptr)
 {
 	if(wezel){
-		zmianaCzasu_ = Aplikacja::getInstance().getGra().pobierzFabrykeZmian().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,WEZEL_XML_CZAS));
+		zmianaCzasu_ = Aplikacja::pobierzInstancje().pobierzGre().pobierzFabrykeZmian().Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,WEZEL_XML_CZAS));
 		auto przyrostowy = XmlBO::WczytajAtrybut<int>(wezel,ATRYBUT_XML_TYP,0);
 		switch(przyrostowy){
 		case 1 : przyrostowy_ = true;

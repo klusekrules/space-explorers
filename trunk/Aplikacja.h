@@ -30,51 +30,117 @@ typedef BOOL (WINAPI *SymFromAddrS)( _In_ HANDLE hProcess, _In_ DWORD64 Address,
 
 
 /**
-* Klasa reprezentuj¹ca instancjê aplikacji.
+* \brief Klasa reprezentuj¹ca aplikacje.
+*
+* G³ówna klasa programu. Reprezentuje ca³¹ apliakcje.
+* \author Daniel Wojdak
+* \version 1
+* \date 26-07-2013
 */
 class Aplikacja
 {
 	friend class Testy;
-private:
-	void LogApInfo();
-	Log& log;
-	shared_ptr<Cplugin> pluginy;
-	shared_ptr<Gra> instancjaGry;
-
-	string nazwaPlikuDanych;
-	string jezykAplikacji;
-	string folderPluginow;
-
-protected:
-
-	Aplikacja() throw(NiezainicjalizowanaKlasa);
-	Aplikacja( const Aplikacja& );
-	Aplikacja& operator=(const Aplikacja&);
-
-	SymInitializeS symInitialize;
-	SymFromAddrS symFromAddr;
-	HMODULE hLibrary;
-	bool isDbgHelpInit;
-
-	bool ZaladujOpcje();
 
 public:
-	
-	Gra& getGra();
-	Log& getLog();
 
-	bool WczytajDane();
+	/**
+	* \brief Metoda pobieraj¹ca instacjê gry.
+	* 
+	* \return Referencja do obiektu gry.
+	*/
+	Gra& pobierzGre() const;
 
-	bool ZapiszGre() const;
-	bool WczytajGre();
+	/**
+	* \brief Metoda pobieraj¹ca instacjê obiektu tworz¹cego logi.
+	*
+	* \return Referencja do loggera.
+	*/
+	Log& pobierzLogger() const;
 
-	static Aplikacja& getInstance(){
-		static Aplikacja app;
-		return app;
-	}
+	/**
+	* \brief Metoda ³aduj¹ca dane gry.
+	*
+	* \return true je¿eli uda siê wczytaæ dane, false w przeciwnym wypadku.
+	*/
+	bool wczytajDane();
 
-	string getStackTrace() const;
+	/**
+	* \brief Metoda zapisuj¹ca stan gry.
+	*
+	* \return true je¿eli uda siê zapisac grê, flase w przeciwnym wypadku.
+	*/
+	bool zapiszGre() const;
 
+	/**
+	* \brief Metoda wczytuj¹ca stan gry.
+	*
+	* \return true je¿eli uda siê wczytaæ stan gry, false w przeciwnym wypadku.
+	*/
+	bool wczytajGre();
+
+	/**
+	* \brief Metoda pobieraj¹ca instacjê Aplikacji.
+	*
+	* \return Referencja do instancji apalikacji.
+	*/
+	static Aplikacja& pobierzInstancje();
+
+	/**
+	* \brief Metoda pobieraj¹ca œla stosu.
+	*
+	* \return Napis zawieraj¹cy œlad stosu.
+	*/
+	string pobierzSladStosu() const;
+
+	/**
+	* \brief Destruktor.
+	*/
 	~Aplikacja();
-};
 
+private:
+
+	/**
+	* \brief Konstruktor.
+	*
+	* Metoda wyrzuca wyj¹tek kiedy wyst¹pi b³¹d przy inicjalizacji aplikacji.
+	* \throw NiezainicjalizowanaKlasa
+	*/
+	Aplikacja() throw(NiezainicjalizowanaKlasa);
+
+	/**
+	* \brief Konstruktor kopiuj¹cy.
+	* \todo Oznaczenie metody jako delete kiedy kompilator bêdzie to wspieraæ.
+	*/
+	Aplikacja( const Aplikacja& aplikacja );
+
+	/**
+	* \brief Operator przypisania.
+	* \todo Oznaczenie metody jako delete kiedy kompilator bêdzie to wspieraæ.
+	*/
+	Aplikacja& operator=( const Aplikacja& aplikacja );
+
+	/**
+	* \brief Metoda wcztuj¹ca opcje aplikacji.
+	*
+	* \return true je¿eli uda siê wczytaæ opcje, false w przeciwnym wypadku.
+	*/
+	bool zaladujOpcje();
+
+	/**
+	* \brief Metoda wyrzuca do loggera podstwowe dane identyfikuj¹ce wersje aplikacji.
+	*/
+	void logApInfo() const;
+
+	Log& logger_; /// Instancja loggera.
+	shared_ptr<Cplugin> pluginy_; /// Obiekt zarz¹dzaj¹cy plugginami.
+	shared_ptr<Gra> instancjaGry_; /// Obiekt prezentuj¹cy instancjê gry.
+
+	string nazwaPlikuDanych_; /// Opcja: Nazwa pliku z danymi
+	string jezykAplikacji_; /// Opcja: Jêzyk apllikacji
+	string folderPluginow_; /// Opcja: lokalizacja folderu z pluginami.
+
+	SymInitializeS symInitialize_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
+	SymFromAddrS symFromAddr_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
+	HMODULE uchwyt_; /// Uchwyt blioteki pomocniczej.
+	bool czyZainicjalizowanaBiblioteka_; /// Informacja czy uda³osiê za³adowaæ bibliotekê pomocnicz¹.
+};

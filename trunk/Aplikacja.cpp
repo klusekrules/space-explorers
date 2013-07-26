@@ -2,21 +2,26 @@
 #include <time.h>
 #include <sstream>
 #include <iomanip>
-#include "StatekInfo.h"
 #include <fstream>
 #include "XmlBO.h"
 #include <io.h>
 #include "ZmianaPoziomObiektu.h"
 #include "DefinicjeWezlowXML.h"
 
-void myPurecallHandler(){
-	Log::pobierzInstancje().error(Aplikacja::getInstance().getStackTrace());
+Aplikacja& Aplikacja::pobierzInstancje(){
+	static Aplikacja instancja;
+	return instancja;
 }
+
+void myPurecallHandler(){
+	Log::pobierzInstancje().error(Aplikacja::pobierzInstancje().pobierzSladStosu());
+}
+
 void myInvalidParameterHandler(const wchar_t* expression,
-   const wchar_t* function, 
-   const wchar_t* file, 
-   unsigned int line, 
-   uintptr_t pReserved)
+							   const wchar_t* function, 
+							   const wchar_t* file, 
+							   unsigned int line, 
+							   uintptr_t pReserved)
 {
 	char* c_expression = new char[wcslen(expression)+1];
 	char* c_function = new char[wcslen(function)+1];
@@ -27,26 +32,26 @@ void myInvalidParameterHandler(const wchar_t* expression,
 	stringstream str;
 	str<<"Invalid parameter detected in function: "<<c_function<<". File: " << c_file <<". Line: "<<line<<".\nExpression: "<< c_expression;
 	Log::pobierzInstancje().error(str.str());
-	Log::pobierzInstancje().error(Aplikacja::getInstance().getStackTrace());
+	Log::pobierzInstancje().error(Aplikacja::pobierzInstancje().pobierzSladStosu());
 }
 
 Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
-	: isDbgHelpInit(false), log(Log::pobierzInstancje()), instancjaGry(new Gra(*this))
+	: czyZainicjalizowanaBiblioteka_(false), logger_(Log::pobierzInstancje()), instancjaGry_(new Gra(*this))
 {
 
 #ifdef TESTS
 	/* Wylaczenie logow typu debug na potrzeby ograniczenia logow testow*/
-	log.zablokujLogiDebug();
+	logger_.zablokujLogiDebug();
 	/* ------------------------------------ */
 #endif
 
 	//Ladowanie potrzebnych bibliotek
-	hLibrary = LoadLibrary("Dbghelp.dll");
-	if(hLibrary){		
-		symInitialize = (SymInitializeS)GetProcAddress(hLibrary,"SymInitialize");
-		symFromAddr = (SymFromAddrS)GetProcAddress(hLibrary,"SymFromAddr");
-		if(symFromAddr && symInitialize){
-			isDbgHelpInit = true;
+	uchwyt_ = LoadLibrary("Dbghelp.dll");
+	if(uchwyt_){		
+		symInitialize_ = (SymInitializeS)GetProcAddress(uchwyt_,"SymInitialize");
+		symFromAddr_ = (SymFromAddrS)GetProcAddress(uchwyt_,"SymFromAddr");
+		if(symFromAddr_ && symInitialize_){
+			czyZainicjalizowanaBiblioteka_ = true;
 		}
 	}
 
@@ -59,72 +64,66 @@ Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 	stringstream sfile;
 	sfile << "space-explorers-" << s << ".log"; 
 	string filename = sfile.str();
-	log.ustawFormatCzasu(Log::Czas);
-	log.dodajGniazdoWyjsciowe(shared_ptr<ostream>(new fstream (filename,ios_base::app)));
+	logger_.ustawFormatCzasu(Log::Czas);
+	logger_.dodajGniazdoWyjsciowe(shared_ptr<ostream>(new fstream (filename,ios_base::app)));
 	/* ------------------------------------ */
 
-	if(!ZaladujOpcje()){
+	if(!zaladujOpcje()){
 		throw OgolnyWyjatek(EXCEPTION_PLACE);
 	}
-	
+
 	//Wyswietlanie informacji o aplikacji
-	LogApInfo();
+	logApInfo();
 
 	//Wyswietlanie informacji o zaladowanej bibliotece
-	if(hLibrary){
-		if(isDbgHelpInit){
-			log.info("Za³adowano biblioteke Dbghelp.dll");
+	if(uchwyt_){
+		if(czyZainicjalizowanaBiblioteka_){
+			logger_.info("Za³adowano biblioteke Dbghelp.dll");
 		}else{
-			log.warn("Nie zanaleziono funkcji SymInitialize i/lub SymFromAddr.");
+			logger_.warn("Nie zanaleziono funkcji SymInitialize i/lub SymFromAddr.");
 		}
 	}else{
-		log.warn("Nie za³adowano biblioteki Dbghelp.dll");
+		logger_.warn("Nie za³adowano biblioteki Dbghelp.dll");
 	}
 
-	pluginy = shared_ptr<Cplugin>(new Cplugin(folderPluginow,instancjaGry->pobierzFabrykeZmian(),log));
+	pluginy_ = shared_ptr<Cplugin>(new Cplugin(folderPluginow_,instancjaGry_->pobierzFabrykeZmian(),logger_));
 
-	RejestrujZmianaPoziomObiektu(instancjaGry->pobierzFabrykeZmian(),log);
+	RejestrujZmianaPoziomObiektu(instancjaGry_->pobierzFabrykeZmian(),logger_);
 
-	if(!pluginy->zaladujDomyslneKlasyZmian())
+	if(!pluginy_->zaladujDomyslneKlasyZmian())
 		throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,Tekst("Domyslne elementy zmiany."));
 
-	if(!pluginy->zaladujZewnetrzneKlasyZmian())
+	if(!pluginy_->zaladujZewnetrzneKlasyZmian())
 		throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,Tekst("Dodatkowe elementy zmiany."));
 
-	
+
 	_set_purecall_handler(myPurecallHandler);
 	_set_invalid_parameter_handler(myInvalidParameterHandler);
 
 }
 
-Aplikacja::Aplikacja( const Aplikacja& a)
-	:isDbgHelpInit(a.isDbgHelpInit), log(Log::pobierzInstancje()), instancjaGry(a.instancjaGry) ,hLibrary(a.hLibrary)
+Aplikacja::Aplikacja( const Aplikacja& aplikacja )
+	:logger_(Log::pobierzInstancje())
 {
 }
 
-Aplikacja& Aplikacja::operator=(const Aplikacja& a){
-	isDbgHelpInit = a.isDbgHelpInit;
-	instancjaGry = a.instancjaGry;
-	hLibrary=a.hLibrary;
-	symInitialize = a.symInitialize;
-	symFromAddr = a.symFromAddr;
-	pluginy = a.pluginy;
+Aplikacja& Aplikacja::operator=(const Aplikacja& aplikacja ){
 	return *this;
 }
 
-Log& Aplikacja::getLog(){
-	return log;
+Log& Aplikacja::pobierzLogger() const{
+	return logger_;
 }
 
-Gra& Aplikacja::getGra(){
-	return *instancjaGry;
+Gra& Aplikacja::pobierzGre() const{
+	return *instancjaGry_;
 }
 
-bool Aplikacja::WczytajDane(){
-	return instancjaGry->wczytajDane(nazwaPlikuDanych);
+bool Aplikacja::wczytajDane(){
+	return instancjaGry_->wczytajDane(nazwaPlikuDanych_);
 }
 
-bool Aplikacja::ZaladujOpcje(){
+bool Aplikacja::zaladujOpcje(){
 	TiXmlDocument dane;
 	try{
 #ifdef TESTS
@@ -137,58 +136,58 @@ bool Aplikacja::ZaladujOpcje(){
 
 			auto jezyk = XmlBO::ZnajdzWezel<NOTHROW>(root_data,"locale");
 			if(jezyk){
-				jezykAplikacji = jezyk->GetText();
-				if(jezykAplikacji.size() != 0){
+				jezykAplikacji_ = jezyk->GetText();
+				if(jezykAplikacji_.size() != 0){
 					try{
-						locale pl (jezykAplikacji);
+						locale pl (jezykAplikacji_);
 						locale::global (pl);
 					}catch(exception&){
-						jezykAplikacji.clear();
+						jezykAplikacji_.clear();
 					}
 				}
 			}
 
-			if(jezykAplikacji.size() == 0){
-				jezykAplikacji = "Polish";
-				locale pl (jezykAplikacji);
+			if(jezykAplikacji_.size() == 0){
+				jezykAplikacji_ = "Polish";
+				locale pl (jezykAplikacji_);
 				locale::global (pl);
 			}
 
 			auto plikDanych = XmlBO::ZnajdzWezel<THROW>(root_data,"data");
 			if(plikDanych){
-				nazwaPlikuDanych = plikDanych->GetText();
-				if( _access(nazwaPlikuDanych.c_str(),0) == -1 ){ // Sprawdzenie czy folder istnieje
+				nazwaPlikuDanych_ = plikDanych->GetText();
+				if( _access(nazwaPlikuDanych_.c_str(),0) == -1 ){ // Sprawdzenie czy folder istnieje
 					throw OgolnyWyjatek(EXCEPTION_PLACE,OgolnyWyjatek::domyslnyOgolnyWyjatekID,Tekst("Brak pliku danych."),Tekst("Plik z danymi programu nie zosta³ znaleziony!"));
 				}
 			}else{
 				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(""),WyjatekParseraXML::trescBladStrukturyXml);
 			}
-			
+
 			auto pluginy = XmlBO::ZnajdzWezel<NOTHROW>(root_data,"plugins");
 			if(pluginy){
-				folderPluginow = pluginy->GetText();
-				if( _access(folderPluginow.c_str(),0) == -1 ){ // Sprawdzenie czy folder istnieje
-					folderPluginow.clear();
+				folderPluginow_ = pluginy->GetText();
+				if( _access(folderPluginow_.c_str(),0) == -1 ){ // Sprawdzenie czy folder istnieje
+					folderPluginow_.clear();
 				}
 			}
-			
-			if(folderPluginow.size() == 0){
-				folderPluginow = "plugins\\";
+
+			if(folderPluginow_.size() == 0){
+				folderPluginow_ = "plugins\\";
 			}
 
 		}else{
 			throw WyjatekParseraXML(EXCEPTION_PLACE,exception(""),WyjatekParseraXML::trescBladStrukturyXml);
 		}
 	}catch(ticpp::Exception& e){
-		log.error(e.what());
+		logger_.error(e.what());
 		return false;
 	}
 	return true;
 }
 
-string Aplikacja::getStackTrace() const{
+string Aplikacja::pobierzSladStosu() const{
 	stringstream stackTrace;	
-	if( isDbgHelpInit )
+	if( czyZainicjalizowanaBiblioteka_ )
 	{
 		void *stack[150];
 		unsigned short frames;
@@ -197,7 +196,7 @@ string Aplikacja::getStackTrace() const{
 		locale l("C");
 		stackTrace.imbue(l);
 		hProcess = GetCurrentProcess ();
-		symInitialize (hProcess, nullptr, true );
+		symInitialize_ (hProcess, nullptr, true );
 		frames = CaptureStackBackTrace( 0, 150, stack, nullptr );
 		symbol = (SYMBOL_INFO *) calloc (sizeof (SYMBOL_INFO) + 256 * sizeof (char), 1);
 		symbol->MaxNameLen = 255;
@@ -213,7 +212,7 @@ string Aplikacja::getStackTrace() const{
 			// i = 0 - W³¹cznie do wyœwietlanego wyniku wywo³ania funkcji getStackTrace
 			for (unsigned int i = 1 ;i < frames; i++)
 			{
-				symFromAddr (hProcess, (DWORD_PTR) (stack[i]), 0, symbol);
+				symFromAddr_ (hProcess, (DWORD_PTR) (stack[i]), 0, symbol);
 				stackTrace << dec << (unsigned short)(frames - i - 1) << ": 0x" << setfill('0')<<setw(8)<<stack[i] << " " << (char*)(symbol->Name) << " = 0x" << setfill('0')<<setw(8) << hex <<symbol->Address << endl;
 			}
 		}
@@ -224,27 +223,27 @@ string Aplikacja::getStackTrace() const{
 
 Aplikacja::~Aplikacja()
 {
-	if(hLibrary)
-		FreeLibrary(hLibrary);
+	if(uchwyt_)
+		FreeLibrary(uchwyt_);
 }
 
-bool Aplikacja::ZapiszGre() const{
+bool Aplikacja::zapiszGre() const{
 	TiXmlDocument dokument;
-	TiXmlElement* root = new TiXmlElement(WEZEL_XML_ROOT);
-	dokument.LinkEndChild(root);
-	if(instancjaGry->zapisz(root))
+	TiXmlElement* wezel = new TiXmlElement(WEZEL_XML_ROOT);
+	dokument.LinkEndChild(wezel);
+	if(instancjaGry_->zapisz(wezel))
 		return dokument.SaveFile("save.xml");
 	return false;
 }
 
-bool Aplikacja::WczytajGre(){
+bool Aplikacja::wczytajGre(){
 	TiXmlDocument dokument;
 	dokument.LoadFile("save.xml");
-	TiXmlElement* root = dokument.RootElement();
-	if(root){
-		shared_ptr<Gra> tmp = shared_ptr<Gra>(new Gra(*this));
-		if(tmp->wczytajDane(this->nazwaPlikuDanych) && tmp->odczytaj(root->FirstChildElement(WEZEL_XML_GRA))){
-			instancjaGry = tmp;
+	TiXmlElement* wezel = dokument.RootElement();
+	if(wezel){
+		shared_ptr<Gra> gra = shared_ptr<Gra>(new Gra(*this));
+		if(gra->wczytajDane(this->nazwaPlikuDanych_) && gra->odczytaj(wezel->FirstChildElement(WEZEL_XML_GRA))){
+			instancjaGry_ = gra;
 			return true;
 		}
 		return false;

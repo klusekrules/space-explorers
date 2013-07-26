@@ -15,7 +15,7 @@ JednostkaLatajacaInfo::JednostkaLatajacaInfo( TiXmlElement* wezel ) throw(Wyjate
 {
 	if(wezel){
 		try{
-			ZmianaFabryka& fabryka = Aplikacja::getInstance().getGra().pobierzFabrykeZmian();
+			ZmianaFabryka& fabryka = Aplikacja::pobierzInstancje().pobierzGre().pobierzFabrykeZmian();
 			Identyfikator id;
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_RODZAJ_SILNIKA_ID,id);
 			Poziom poziom;

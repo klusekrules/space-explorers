@@ -7,7 +7,7 @@ InicjalizacjaDanychTestowych::InicjalizacjaDanychTestowych(void)
 }
 
 void InicjalizacjaDanychTestowych::zaladujDane(){
-	UNIT_TEST_ASSERT_EQUAL(true,Aplikacja::getInstance().WczytajDane());
+	UNIT_TEST_ASSERT_EQUAL(true,Aplikacja::pobierzInstancje().wczytajDane());
 }
 
 InicjalizacjaDanychTestowych::~InicjalizacjaDanychTestowych(void)

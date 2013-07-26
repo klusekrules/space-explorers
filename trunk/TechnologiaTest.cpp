@@ -6,8 +6,8 @@ TechnologiaTest::TechnologiaTest(void)
 }
 
 void TechnologiaTest::startTestow(){
-	planeta = Aplikacja::getInstance().getGra().stworzPlanete();
-	UNIT_TEST_ASSERT_TRUE(Aplikacja::getInstance().getGra().przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
+	planeta = Aplikacja::pobierzInstancje().pobierzGre().stworzPlanete();
+	UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
 	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(15),Ilosc(20)) );
 	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(16),Ilosc(20)) );
 	a = &(planeta->pobierzTechnologie(Identyfikator(15)));

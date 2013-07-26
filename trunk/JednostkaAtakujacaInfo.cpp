@@ -14,7 +14,7 @@ JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( TiXmlElement* wezel ) throw(Wyja
 {
 	if(wezel){
 		try{
-			ZmianaFabryka& fabryka = Aplikacja::getInstance().getGra().pobierzFabrykeZmian();
+			ZmianaFabryka& fabryka = Aplikacja::pobierzInstancje().pobierzGre().pobierzFabrykeZmian();
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_ATAK,atak_);
 			zmianaAtaku_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_ATAK));
 

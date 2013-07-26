@@ -144,7 +144,7 @@ bool Gra::wczytajDane( const string& adresPliku ){
 		}
 	}catch(ticpp::Exception& wyjatek){
 		cout<< wyjatek.what();
-		aplikacja_.getLog().error("Nie uda³o siê otworzyæ pliku!");
+		aplikacja_.pobierzLogger().error("Nie uda³o siê otworzyæ pliku!");
 		return false;
 	}
 	return true;
@@ -156,7 +156,7 @@ bool Gra::wczytajTechnologie(TiXmlElement* wezel){
 		do{
 			if(element){
 				shared_ptr<TechnologiaInfo> obiekt(new TechnologiaInfo(element));
-				aplikacja_.getLog().debug(*obiekt);
+				aplikacja_.pobierzLogger().debug(*obiekt);
 				if(listaObiektowBaseInfo_.find(obiekt->pobierzIdentyfikator())!=listaObiektowBaseInfo_.end())
 					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
 				listaTechnologiInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
@@ -165,8 +165,8 @@ bool Gra::wczytajTechnologie(TiXmlElement* wezel){
 			}
 		}while(element);
 	}catch(OgolnyWyjatek& wyjatek){
-		aplikacja_.getLog().warn(wyjatek.generujKomunikat());
-		aplikacja_.getLog().debug(wyjatek);
+		aplikacja_.pobierzLogger().warn(wyjatek.generujKomunikat());
+		aplikacja_.pobierzLogger().debug(wyjatek);
 		return false;
 	}
 	return true;
@@ -178,7 +178,7 @@ bool Gra::wczytajBudynki(TiXmlElement* wezel){
 		do{
 			if(element){
 				shared_ptr<BudynekInfo> obiekt(new BudynekInfo(element));
-				aplikacja_.getLog().debug(*obiekt);
+				aplikacja_.pobierzLogger().debug(*obiekt);
 				if(listaObiektowBaseInfo_.find(obiekt->pobierzIdentyfikator())!=listaObiektowBaseInfo_.end())
 					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
 				listaBudynkowInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
@@ -188,8 +188,8 @@ bool Gra::wczytajBudynki(TiXmlElement* wezel){
 			}
 		}while(element);
 	}catch(OgolnyWyjatek& wyjatek){
-		aplikacja_.getLog().warn(wyjatek.generujKomunikat());
-		aplikacja_.getLog().debug(wyjatek);
+		aplikacja_.pobierzLogger().warn(wyjatek.generujKomunikat());
+		aplikacja_.pobierzLogger().debug(wyjatek);
 		return false;
 	}
 	return true;
@@ -201,7 +201,7 @@ bool Gra::wczytajSurowce(TiXmlElement* wezel){
 		do{
 			if(element){
 				shared_ptr<SurowceInfo> obiekt(new SurowceInfo(element));
-				aplikacja_.getLog().debug(*obiekt);
+				aplikacja_.pobierzLogger().debug(*obiekt);
 				if(listaObiektowBaseInfo_.find(obiekt->pobierzIdentyfikator())!=listaObiektowBaseInfo_.end())
 					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
 				listaSurowcowInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
@@ -211,8 +211,8 @@ bool Gra::wczytajSurowce(TiXmlElement* wezel){
 			}
 		}while(element);
 	}catch(OgolnyWyjatek& wyjatek){
-		aplikacja_.getLog().warn(wyjatek.generujKomunikat());
-		aplikacja_.getLog().debug(wyjatek);
+		aplikacja_.pobierzLogger().warn(wyjatek.generujKomunikat());
+		aplikacja_.pobierzLogger().debug(wyjatek);
 		return false;
 	}
 	return true;
@@ -235,7 +235,7 @@ bool Gra::wczytajStatki(TiXmlElement* wezel){
 		do{
 			if(element){
 				shared_ptr<StatekInfo> obiekt(new StatekInfo(element));
-				aplikacja_.getLog().debug(*obiekt);
+				aplikacja_.pobierzLogger().debug(*obiekt);
 				if(listaObiektowBaseInfo_.find(obiekt->pobierzIdentyfikator())!=listaObiektowBaseInfo_.end())
 					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
 				listaStatkowInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
@@ -245,8 +245,8 @@ bool Gra::wczytajStatki(TiXmlElement* wezel){
 			}
 		}while(element);
 	}catch(OgolnyWyjatek& obiekt){
-		aplikacja_.getLog().warn(obiekt.generujKomunikat());
-		aplikacja_.getLog().debug(obiekt);
+		aplikacja_.pobierzLogger().warn(obiekt.generujKomunikat());
+		aplikacja_.pobierzLogger().debug(obiekt);
 		return false;
 	}
 	return true;
