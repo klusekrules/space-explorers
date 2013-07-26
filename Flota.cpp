@@ -122,9 +122,9 @@ bool Flota::zapisz( TiXmlElement* wezel ) const{
 	if(wezel){
 		TiXmlElement* element = new TiXmlElement(WEZEL_XML_FLOTA);
 		wezel->LinkEndChild( element );
-		wezel->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETA_POCZATKOWA,planetaPoczatkowa_.napis());
-		wezel->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETA_DOCELOWA,planetaDocelowa_.napis());
-		wezel->SetAttribute(ATRYBUT_XML_CEL_PODROZY,celPodrozy_);
+		element->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETA_POCZATKOWA,planetaPoczatkowa_.napis());
+		element->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETA_DOCELOWA,planetaDocelowa_.napis());
+		element->SetAttribute(ATRYBUT_XML_CEL_PODROZY,celPodrozy_);
 		for(auto statek : lista_)
 			if(statek.second)
 				statek.second->zapisz(element);
@@ -161,6 +161,7 @@ bool Flota::odczytaj( TiXmlElement* wezel ) {
 				return false;
 			lista_.insert(make_pair(statek->ID(),statek));
 		}
+		return true;
 	}
 	return false;
 }

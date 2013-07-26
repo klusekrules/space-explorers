@@ -5,8 +5,8 @@
 #include "DefinicjeWezlowXML.h"
 #include "XmlBO.h"
 
-Planeta::Planeta(const Identyfikator& id)
-	: Bazowa(id), wlasciciel(nullptr),
+Planeta::Planeta(const Identyfikator& identyfikator)
+	: Bazowa(identyfikator), wlasciciel_(nullptr),
 	pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),Identyfikator(0),Wymagania(nullptr)) , Poziom(0) )
 {
 	pustyObiektBase = shared_ptr<ObiektBazowy>(new ObiektBazowy( Ilosc(0), Poziom(0),Identyfikator(0), pustyobiekBaseInfo ));
@@ -16,130 +16,140 @@ Planeta::~Planeta(void)
 {
 }
 
-void Planeta::ustawWlasciciela( Uzytkownik* w ){
-	wlasciciel=w;
+void Planeta::ustawWlasciciela( Uzytkownik* wlasciciel ){
+	wlasciciel_=wlasciciel;
 }
 
 Uzytkownik* Planeta::pobierzWlasciciela( void ) const{
-	return wlasciciel;
+	return wlasciciel_;
 }
 
 Ilosc Planeta::pobierzIloscTypowObiektow()const{
-	if(listaObiektow.size() != listaBudynkow.size()+listaStatkow.size()+listaSurowcow.size()+listaTechnologii.size())
-		throw NiepoprawnaIloscObiektow(EXCEPTION_PLACE,Ilosc(listaObiektow.size()));
-	return Ilosc(listaObiektow.size()); 
+	if(listaObiektow_.size() != listaBudynkow_.size()+listaStatkow_.size()+listaSurowcow_.size()+listaTechnologii_.size())
+		throw NiepoprawnaIloscObiektow(EXCEPTION_PLACE,Ilosc(listaObiektow_.size()));
+	return Ilosc(listaObiektow_.size()); 
 }
 
-const ObiektBazowy& Planeta::pobierzObiekt(const Identyfikator& id) const{
-	auto i = listaObiektow.find(id);
-	if(i!=listaObiektow.end())
-		return *(i->second);
+const ObiektBazowy& Planeta::pobierzObiekt(const Identyfikator& identyfikator) const{
+	auto iterator = listaObiektow_.find(identyfikator);
+	if(iterator!=listaObiektow_.end())
+		return *(iterator->second);
 	return *pustyObiektBase;
 }
 
-const Statek& Planeta::pobierzStatek(const Identyfikator& id) const{
-	auto i = listaStatkow.find(id);
-	if(i!=listaStatkow.end())
-		return *(i->second);
-	throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
+const Statek& Planeta::pobierzStatek(const Identyfikator& identyfikator) const{
+	auto iterator = listaStatkow_.find(identyfikator);
+	if(iterator!=listaStatkow_.end())
+		return *(iterator->second);
+	throw NieznalezionoObiektu(EXCEPTION_PLACE,identyfikator.napis());
 }
 
-const Technologia& Planeta::pobierzTechnologie(const Identyfikator& id) const{
-	auto i = listaTechnologii.find(id);
-	if(i!=listaTechnologii.end())
-		return *(i->second);
-	throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
+const Technologia& Planeta::pobierzTechnologie(const Identyfikator& identyfikator) const{
+	auto iterator = listaTechnologii_.find(identyfikator);
+	if(iterator!=listaTechnologii_.end())
+		return *(iterator->second);
+	throw NieznalezionoObiektu(EXCEPTION_PLACE,identyfikator.napis());
 }
 
-const Budynek& Planeta::pobierzBudynek(const Identyfikator& id) const{
-	auto i = listaBudynkow.find(id);
-	if(i!=listaBudynkow.end())
-		return *(i->second);
-	throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
+const Budynek& Planeta::pobierzBudynek(const Identyfikator& identyfikator) const{
+	auto iterator = listaBudynkow_.find(identyfikator);
+	if(iterator!=listaBudynkow_.end())
+		return *(iterator->second);
+	throw NieznalezionoObiektu(EXCEPTION_PLACE,identyfikator.napis());
 }
 
-bool Planeta::dodajObiekt( shared_ptr< Budynek > ptr ){
-	auto i = listaObiektow.find(ptr->pobierzIdentyfikator());
-	if(i!=listaObiektow.end())
+bool Planeta::dodajObiekt( shared_ptr< Budynek > obiekt ){
+	auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
+	if(iterator!=listaObiektow_.end())
 		return false;
-	listaBudynkow.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
-	listaObiektow.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
+	listaBudynkow_.insert(make_pair(obiekt->pobierzIdentyfikator(),obiekt));
+	listaObiektow_.insert(make_pair(obiekt->pobierzIdentyfikator(),obiekt));
 	return true;
 }
 
-bool Planeta::dodajObiekt( shared_ptr< Statek > ptr ){
-	auto i = listaObiektow.find(ptr->pobierzIdentyfikator());
-	if(i!=listaObiektow.end())
+bool Planeta::dodajObiekt( shared_ptr< Statek > obiekt ){
+	auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
+	if(iterator!=listaObiektow_.end())
 		return false;
-	listaStatkow.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
-	listaObiektowZaladunkowych.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
-	listaObiektow.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
+	listaStatkow_.insert(make_pair(obiekt->pobierzIdentyfikator(),obiekt));
+	listaObiektowZaladunkowych_.insert(make_pair(obiekt->pobierzIdentyfikator(),obiekt));
+	listaObiektow_.insert(make_pair(obiekt->pobierzIdentyfikator(),obiekt));
 	return true;
 }
 
-bool Planeta::dodajObiekt( shared_ptr< Technologia > ptr ){
-	auto i = listaObiektow.find(ptr->pobierzIdentyfikator());
-	if(i!=listaObiektow.end())
+bool Planeta::dodajObiekt( shared_ptr< Technologia > obiekt ){
+	auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
+	if(iterator!=listaObiektow_.end())
 		return false;
-	listaTechnologii.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
-	listaObiektow.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
+	listaTechnologii_.insert(make_pair(obiekt->pobierzIdentyfikator(),obiekt));
+	listaObiektow_.insert(make_pair(obiekt->pobierzIdentyfikator(),obiekt));
 	return true;
 }
 
-bool Planeta::dodajObiekt( shared_ptr< Surowce > ptr ){
-	auto i = listaObiektow.find(ptr->pobierzIdentyfikator());
-	if(i!=listaObiektow.end())
+bool Planeta::dodajObiekt( shared_ptr< Surowce > obiekt ){
+	auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
+	if(iterator!=listaObiektow_.end())
 		return false;
-	listaSurowcow.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
-	listaObiektowZaladunkowych.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
-	listaObiektow.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
+	listaSurowcow_.insert(make_pair(obiekt->pobierzIdentyfikator(),obiekt));
+	listaObiektowZaladunkowych_.insert(make_pair(obiekt->pobierzIdentyfikator(),obiekt));
+	listaObiektow_.insert(make_pair(obiekt->pobierzIdentyfikator(),obiekt));
 	return true;
 }
 
-bool Planeta::wybuduj( const Identyfikator& id, const Ilosc& ilosc ){
-	auto i = listaObiektow.find(id);
-	if(i!=listaObiektow.end()){
-		i->second->wybuduj(ilosc);
+bool Planeta::wybuduj( const Identyfikator& identyfikator, const Ilosc& ilosc ){
+	auto iterator = listaObiektow_.find(identyfikator);
+	if(iterator!=listaObiektow_.end()){
+		iterator->second->wybuduj(ilosc);
 		return true;
 	}else{
-		return Aplikacja::pobierzInstancje().pobierzGre().wybudujNaPlanecie(*this,id,ilosc);
+		return Aplikacja::pobierzInstancje().pobierzGre().wybudujNaPlanecie(*this,identyfikator,ilosc);
 	}
 }
 
 void Planeta::wybuduj( shared_ptr< ObiektBazowy > obiekt ){
-	auto i = listaObiektow.find(obiekt->pobierzIdentyfikator());
-	if(i!=listaObiektow.end()){
-		i->second->wybuduj(obiekt->pobierzIlosc());
+	auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
+	if(iterator!=listaObiektow_.end()){
+		iterator->second->wybuduj(obiekt->pobierzIlosc());
 	}else{
 		Aplikacja::pobierzInstancje().pobierzGre().wybudujNaPlanecie(*this,obiekt->pobierzObiektBaseInfo(),obiekt->pobierzIlosc());
 	}
 }
 
-Identyfikator Planeta::dodajFlote(){
-	shared_ptr< Flota > ptr = shared_ptr< Flota >(new Flota(Identyfikator(idFloty()),Identyfikator(),Identyfikator(),Flota::CelPodrozy::Transport));
-	listaFlot.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
-	return ptr->pobierzIdentyfikator();
+void Planeta::wybuduj( shared_ptr< Statek > obiekt ){
+	auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
+	if(iterator!=listaObiektow_.end()){
+		iterator->second->wybuduj(obiekt->pobierzIlosc());
+	}else{
+		dodajObiekt(obiekt);
+	}
 }
 
-bool Planeta::przeniesDoFloty(const Identyfikator& floty, const Identyfikator& id, const Ilosc& ilosc){
-	auto i = listaStatkow.find(id);
-	if(i!=listaStatkow.end()){
-		auto f = listaFlot.find(floty);
-		if(f!=listaFlot.end()){
-			if(ilosc <= i->second->pobierzIlosc()){
-				if(ilosc < i->second->pobierzIlosc()){
-					auto p = shared_ptr<Statek>(i->second->podziel(ilosc));
-					if(f->second->dodajStatek(p)){
+
+Identyfikator Planeta::dodajFlote(){
+	shared_ptr< Flota > flota = shared_ptr< Flota >(new Flota(Identyfikator(licznikIdentyfikatorowFloty_()),Identyfikator(),Identyfikator(),Flota::CelPodrozy::Transport));
+	listaFlot_.insert(make_pair(flota->pobierzIdentyfikator(),flota));
+	return flota->pobierzIdentyfikator();
+}
+
+bool Planeta::przeniesDoFloty(const Identyfikator& identyfikatorFloty, const Identyfikator& obiekt, const Ilosc& ilosc){
+	auto statek = listaStatkow_.find(obiekt);
+	if(statek!=listaStatkow_.end()){
+		auto flota = listaFlot_.find(identyfikatorFloty);
+		if(flota!=listaFlot_.end()){
+			if(ilosc <= statek->second->pobierzIlosc()){
+				if(ilosc < statek->second->pobierzIlosc()){
+					auto podzial = shared_ptr<Statek>(statek->second->podziel(ilosc));
+					if(flota->second->dodajStatek(podzial)){
 						return true;
 					}else{
-						i->second->polacz(*p);
+						statek->second->polacz(*podzial);
 						return false;
 					}
 				}else{
-					if(f->second->dodajStatek(i->second)){
-						listaStatkow.erase(i);
-						listaObiektowZaladunkowych.erase(id);
-						listaObiektow.erase(id);
+					if(flota->second->dodajStatek(statek->second)){
+						listaStatkow_.erase(obiekt);
+						listaObiektowZaladunkowych_.erase(obiekt);
+						listaObiektow_.erase(obiekt);
 						return true;
 					}else{
 						return false;
@@ -151,27 +161,27 @@ bool Planeta::przeniesDoFloty(const Identyfikator& floty, const Identyfikator& i
 	return false;
 }
 
-bool Planeta::zaladujFlote(const Identyfikator& floty, const Identyfikator& id, const Ilosc& ilosc){
-	auto i = listaObiektowZaladunkowych.find(id);
-	if(i==listaObiektowZaladunkowych.end())
+bool Planeta::zaladujFlote(const Identyfikator& identyfikatorFloty, const Identyfikator& identyfikator, const Ilosc& ilosc){
+	auto iterator = listaObiektowZaladunkowych_.find(identyfikator);
+	if(iterator==listaObiektowZaladunkowych_.end())
 		return false;
 
-	if(ilosc <= Ilosc(0.0) || i->second->pobierzIlosc() < ilosc)
+	if(ilosc <= Ilosc(0.0) || iterator->second->pobierzIlosc() < ilosc)
 		return false;
 
-	auto f = listaFlot.find(floty);
-	if(f==listaFlot.end())
+	auto flota = listaFlot_.find(identyfikatorFloty);
+	if(flota==listaFlot_.end())
 		return false;
-	shared_ptr<Obiekt> ptr = shared_ptr<Obiekt>( i->second->podziel(ilosc));
-	if(!f->second->dodajLadunek(ptr)){
-		i->second->polacz(*ptr);
+	shared_ptr<Obiekt> ladunek = shared_ptr<Obiekt>( iterator->second->podziel(ilosc));
+	if(!flota->second->dodajLadunek(ladunek)){
+		iterator->second->polacz(*ladunek);
 		return false;
 	}
 	return true;
 }
 
 bool Planeta::czyMaWlasciciela()const{
-	return wlasciciel!=nullptr;
+	return wlasciciel_!=nullptr;
 }
 
 void Planeta::rozladujStatek( shared_ptr< Statek > statek ){
@@ -183,60 +193,60 @@ void Planeta::rozladujStatek( shared_ptr< Statek > statek ){
 }
 
 shared_ptr< Flota > Planeta::pobierzFlote(const Identyfikator& identyfikator) const{
-	auto i = listaFlot.find(identyfikator);
-	if(i!=listaFlot.end())
-		return i->second;
+	auto iterator = listaFlot_.find(identyfikator);
+	if(iterator!=listaFlot_.end())
+		return iterator->second;
 	return nullptr;
 }
 
 bool Planeta::usunFlote(const Identyfikator& identyfikator){
-	return listaFlot.erase(identyfikator) != 0;
+	return listaFlot_.erase(identyfikator) != 0;
 }
 
 
-bool Planeta::zapisz( TiXmlElement* e ) const{
-	TiXmlElement* n = new TiXmlElement(WEZEL_XML_PLANETA);
-	e->LinkEndChild( n );
-	idFloty.zapisz(n);
-	TiXmlElement* c = new TiXmlElement(WEZEL_XML_OBIEKTY);
-	n->LinkEndChild( c );
-	for(auto o :  listaObiektow)
-		if(!o.second->zapisz(c))
+bool Planeta::zapisz( TiXmlElement* wezel ) const{
+	TiXmlElement* planeta = new TiXmlElement(WEZEL_XML_PLANETA);
+	wezel->LinkEndChild( planeta );
+	licznikIdentyfikatorowFloty_.zapisz(planeta);
+	TiXmlElement* obiekty = new TiXmlElement(WEZEL_XML_OBIEKTY);
+	planeta->LinkEndChild( obiekty );
+	for(auto element :  listaObiektow_)
+		if(!element.second->zapisz(obiekty))
 			return false;
-	TiXmlElement* f = new TiXmlElement(WEZEL_XML_FLOTY);
-	n->LinkEndChild( f );
-	for(auto o :  listaFlot)
-		if(!o.second->zapisz(f))
+	TiXmlElement* floty = new TiXmlElement(WEZEL_XML_FLOTY);
+	planeta->LinkEndChild( floty );
+	for(auto element :  listaFlot_)
+		if(!element.second->zapisz(floty))
 			return false;
-	return Bazowa::zapisz(n);
+	return Bazowa::zapisz(planeta);
 }
 
-bool Planeta::odczytaj( TiXmlElement* e ){
-	if(e){
-		TiXmlElement* o = e->FirstChildElement(WEZEL_XML_OBIEKTY);
-		if(o)
-			for(TiXmlElement* n = o->FirstChildElement(); n != nullptr ; n = n->NextSiblingElement()){
+bool Planeta::odczytaj( TiXmlElement* wezel ){
+	if(wezel){
+		TiXmlElement* obiekt = wezel->FirstChildElement(WEZEL_XML_OBIEKTY);
+		if(obiekt)
+			for(TiXmlElement* element = obiekt->FirstChildElement(); element ; element = element->NextSiblingElement()){
 				Identyfikator identyfikator;
-				if(!XmlBO::WczytajAtrybut<NOTHROW>(n,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
+				if(!XmlBO::WczytajAtrybut<NOTHROW>(element,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
 					return false;
 				wybuduj(identyfikator,Ilosc(0));
-				auto i = listaObiektow.find(identyfikator);
-				if( i == listaObiektow.end() || !i->second->odczytaj(n) )
+				auto iterator = listaObiektow_.find(identyfikator);
+				if( iterator == listaObiektow_.end() || !iterator->second->odczytaj(element) )
 					return false;
 			}
-		TiXmlElement* f = e->FirstChildElement(WEZEL_XML_FLOTY);
-		if(f)
-			for(TiXmlElement* n = o->FirstChildElement(); n != nullptr ; n = n->NextSiblingElement()){
+		TiXmlElement* flota = wezel->FirstChildElement(WEZEL_XML_FLOTY);
+		if(flota)
+			for(TiXmlElement* element = flota->FirstChildElement(); element ; element = element->NextSiblingElement()){
 				Identyfikator identyfikator;
-				if(!XmlBO::WczytajAtrybut<NOTHROW>(n,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
+				if(!XmlBO::WczytajAtrybut<NOTHROW>(element,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
 					return false;
-				shared_ptr<Flota> ptr = shared_ptr<Flota>(new Flota (identyfikator,Identyfikator(),Identyfikator(),Flota::CelPodrozy::Transport));
-				auto i = listaFlot.find(identyfikator);
-				if( i != listaFlot.end() )
+				shared_ptr<Flota> wskaznik = shared_ptr<Flota>(new Flota (identyfikator,Identyfikator(),Identyfikator(),Flota::CelPodrozy::Transport));
+				auto iterator = listaFlot_.find(identyfikator);
+				if( iterator != listaFlot_.end()|| !wskaznik->odczytaj(element) )
 					return false;
-				listaFlot.insert(make_pair(ptr->pobierzIdentyfikator(),ptr));
+				listaFlot_.insert(make_pair(wskaznik->pobierzIdentyfikator(),wskaznik));
 			}
-		return Bazowa::odczytaj(e);
+		return Bazowa::odczytaj(wezel);
 	}
 	return false;
 }
@@ -244,7 +254,10 @@ bool Planeta::odczytaj( TiXmlElement* e ){
 string Planeta::napis() const{
 	Logger str(NAZWAKLASY(Planeta));
 	str.dodajKlase(Bazowa::napis());
-	for( auto i : listaObiektow )
-		str.dodajPole("Obiekt", *(i.second));
+	str.dodajPole(NAZWAKLASY(Licznik),licznikIdentyfikatorowFloty_);
+	for( auto element : listaObiektow_ )
+		str.dodajPole("Obiekt", *(element.second));
+	for( auto element : listaFlot_ )
+		str.dodajPole("Flota", *(element.second));
 	return str.napis();
 }
