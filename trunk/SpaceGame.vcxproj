@@ -210,6 +210,7 @@
     <ClInclude Include="Aplikacja.h" />
     <ClInclude Include="Bazowa.h" />
     <ClInclude Include="BudynekTest.h" />
+    <ClInclude Include="Dokumentacja.h" />
     <ClInclude Include="InicjalizacjaDanychTestowych.h" />
     <ClInclude Include="LadowniaTest.h" />
     <ClInclude Include="LiczenieKosztow.h" />

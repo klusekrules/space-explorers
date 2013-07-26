@@ -155,7 +155,7 @@ public:
 	* \param[in] ilosc - Iloœæ obiektów do przeniesienia.
 	* \return true je¿eli uda siê przenieœæ obiekt, false w przeciwnym wypadku.
 	*/
-	bool przeniesDoFloty(const Identyfikator& floty, const Identyfikator& obiekr, const Ilosc& ilosc );
+	bool przeniesDoFloty(const Identyfikator& flota, const Identyfikator& obiekt, const Ilosc& ilosc );
 
 	/**
 	* \brief Metoda przenoœci obiekt do ³adowni floty.

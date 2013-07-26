@@ -534,6 +534,9 @@
     <ClInclude Include="LiczenieWymogow.h">
       <Filter>SourceFile\Wymagania</Filter>
     </ClInclude>
+    <ClInclude Include="Dokumentacja.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">

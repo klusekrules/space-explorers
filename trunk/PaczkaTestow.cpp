@@ -5,6 +5,10 @@
 #include <sstream>
 
 PaczkaTestow::PaczkaTestow(){
+	bledy = 0;
+	bledyKrytyczne = 0;
+	pominieteTesty = 0;
+	poprawneTesty = 0;
 }
 
 void PaczkaTestow::startTestow(){
