@@ -4,8 +4,11 @@
 #include "OgolnyWyjatek.h"
 #include "Logger\Log.h"
 
-TestyJednostkowe::TestyJednostkowe()
-{
+TestyJednostkowe::TestyJednostkowe(){
+	bledy = 0;
+	bledyKrytyczne = 0;
+	pominieteTesty = 0;
+	poprawneTesty = 0;
 }
 
 TestyJednostkowe::TestyJednostkowe( const TestyJednostkowe& obiekt ){

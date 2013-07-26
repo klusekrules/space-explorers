@@ -288,8 +288,8 @@ public:
 	*
 	* Metoda przenosi element z listy obiektów do drugiego kontenera.
 	* \param[in] klucz - Klucz przenoszonego elementu.
-	* \param[in,out] zrodlo - ród³owa lista elementów.
-	* \param[out] docelowy - Docelowa lista elementów.
+	* \param[in,out] zrodlowa - ród³owa lista elementów.
+	* \param[out] docelowa - Docelowa lista elementów.
 	* \return true je¿eli uda³o siê przeniœæ obiekt. false w przeciwnym wypadku.
 	* \remark Metoda jest tranzakcyjna.
 	*/
@@ -312,8 +312,8 @@ public:
 	* Metoda przenosi element o podanej iloœci z listy obiektów do drugiego kontenera.
 	* \param[in] klucz - Klucz przenoszonego elementu.
 	* \param[in] ilosc - Atrybut iloœci przenoszonego elementu.
-	* \param[in,out] zrodlo - ród³owa lista elementów.
-	* \param[out] docelowy - Docelowa lista elementów.
+	* \param[in,out] zrodlowa - ród³owa lista elementów.
+	* \param[out] docelowa - Docelowa lista elementów.
 	* \return true je¿eli uda³o siê przeniœæ obiekt. false w przeciwnym wypadku.
 	* \throws BladDzieleniaLadowni, OgolnyWyjatek
 	* \remark Metoda jest tranzakcyjna.

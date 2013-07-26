@@ -104,7 +104,7 @@ public:
 	* \brief Metoda ³¹czy obiekty ³adowni.
 	* 
 	* Metoda przenosi obiekty z ³adowni przekazanej przez parametr do obiektu docelowego.
-	* \param[in] ladownia - £adownia Ÿród³owa.
+	* \param[in] zbiornik - £adownia Ÿród³owa.
 	* \return true je¿eli uda siê przenieœæ, false w przeciwnym wypadku.
 	* \remark Metoda tranzakcyjna.
 	*/

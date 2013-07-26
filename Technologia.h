@@ -56,17 +56,17 @@ public:
 
 	/**
 	* Metoda ³¹czy obiekt bazowy z obiektem przekazanym przez parametr.
-	* \param[in] obiektbazowy - Nieu¿ywany.
+	* \param[in] obiektBazowy - Nieu¿ywany.
 	* \return Zawsze zwraca wartoœæ false.
 	*/
-	bool polacz( const ObiektBazowy& obiektBase) override;
+	bool polacz( const ObiektBazowy& obiektBazowy) override;
 	
 	/**
 	* Metoda sprawdzaj¹ca warunki po³¹czenia obiektów.
-	* \param[in] obiektbazowy - Nieu¿ywany.
+	* \param[in] obiektBazowy - Nieu¿ywany.
 	* \return Zawsze zwraca wartoœæ false.
 	*/
-	bool czyMoznaPolaczyc( const ObiektBazowy& obiektbazowy ) const override;
+	bool czyMoznaPolaczyc( const ObiektBazowy& obiektBazowy ) const override;
 
 	/**
 	* Metoda sprawdzaj¹ca czy mo¿na podzieliæ obiekt wed³ug podanej iloœci.

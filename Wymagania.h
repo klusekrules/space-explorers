@@ -96,6 +96,7 @@ public:
 	* \brief Metoda sprawdzaj¹ca czy obiekt spe³nia wymagania i koszty budowy.
 	*
 	* Metoda wylicza potrzebne wymagania i koszty, a nastêpnie sprawdza czy planeta spe³nia wymagania i zawiera potrzebne zasoby.
+	* \param[in] ilosc - Iloœæ obiektów, które maj¹ spe³niæ wymagania.
 	* \param[in] parametry - Podstawowe parametry potrzebne do wyliczenia wymagañ i kosztów.
 	* \return true je¿eli mo¿na wybudowaæ obiekty, false w przeciwnym wypadku.
 	*/
@@ -125,8 +126,8 @@ private:
 	* \brief Metoda dodaj¹ca cenê do listy.
 	*
 	* Metoda dodaje cenê do listy. Sprawdza czy istnieje odpowiadaj¹ca cena i je¿eli znajduj¹ca siê na liœcie jest mniej rygorystyczny zostanie nadpisany przez przekazan¹ cenê.
-	* \param[in] wymog - Wymóg dodany do listy.
-	* \return true je¿eli dodano wymóg, false w przeciwnym wypadku.
+	* \param[in] cena - Cena dodana do listy.
+	* \return true je¿eli dodano cenê, false w przeciwnym wypadku.
 	* \remark Mniej rygorystyczny tzn. podstawowa wartoœæ iloœci jest mniejsza od dodawanej ceny.
 	*/
 	bool dodajCene( Cena& cena );
