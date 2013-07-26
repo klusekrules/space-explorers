@@ -8,9 +8,8 @@ TworzenieObiektowTest::TworzenieObiektowTest()
 void TworzenieObiektowTest::startTestow(){
 	gra = &(Aplikacja::getInstance().getGra());
 	UNIT_TEST_ASSERT_NOTNULL(gra);
-	id = gra->generujPlanete();
-	UNIT_TEST_ASSERT_TRUE(gra->przeniesPlaneteDoUzytkownika(id));
-	planeta = &(gra->getUzytkownik().pobierzPlanete(id));
+	planeta = gra->stworzPlanete();
+	UNIT_TEST_ASSERT_TRUE(gra->przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
 	UNIT_TEST_ASSERT_NOTNULL(planeta);
 }
 

@@ -16,6 +16,6 @@ public:
 private:
 	const Technologia* a;
 	const Technologia* b;
-	Planeta* planeta;
+	shared_ptr<Planeta> planeta;
 };
 

@@ -16,6 +16,6 @@ public:
 	virtual ~NiepoprawneParametryFunkcjiTest(void);
 
 private:
-	Planeta * planeta;
+	shared_ptr<Planeta> planeta;
 };
 

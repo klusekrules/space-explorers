@@ -19,6 +19,6 @@ public:
 	virtual ~WymaganiaTest(void);
 private:
 	const Statek* a;
-	Planeta* planeta;
+	shared_ptr <Planeta> planeta;
 };
 

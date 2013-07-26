@@ -5,9 +5,8 @@ BudynekTest::BudynekTest(void)
 {
 }
 void BudynekTest::startTestow() {
-	auto idPlanety = Aplikacja::getInstance().getGra().generujPlanete();
-	UNIT_TEST_ASSERT_TRUE(Aplikacja::getInstance().getGra().przeniesPlaneteDoUzytkownika(idPlanety));
-	planeta = &(Aplikacja::getInstance().getGra().getUzytkownik().pobierzPlanete(idPlanety));
+	planeta = Aplikacja::getInstance().getGra().stworzPlanete();
+	UNIT_TEST_ASSERT_TRUE(Aplikacja::getInstance().getGra().przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
 	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(17),Ilosc(20)) );
 	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(17),Ilosc(20)) );
 	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(17),Ilosc(20)) );

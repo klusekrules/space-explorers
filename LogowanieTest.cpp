@@ -6,7 +6,7 @@ LogowanieTest::LogowanieTest(void)
 }
 
 void LogowanieTest::zaloguj(){	
-	UNIT_TEST_ASSERT_EQUAL(true,Aplikacja::getInstance().getGra().Logowanie("",""));
+	UNIT_TEST_ASSERT_EQUAL(true,Aplikacja::getInstance().getGra().logowanie("",""));
 }
 
 LogowanieTest::~LogowanieTest(void)

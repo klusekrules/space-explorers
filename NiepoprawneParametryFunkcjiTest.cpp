@@ -8,9 +8,8 @@ NiepoprawneParametryFunkcjiTest::NiepoprawneParametryFunkcjiTest(void)
 void NiepoprawneParametryFunkcjiTest::startTestow(){
 	Gra* gra = &(Aplikacja::getInstance().getGra());
 	UNIT_TEST_ASSERT_NOTNULL(gra);
-	Identyfikator id = gra->generujPlanete();
-	UNIT_TEST_ASSERT_TRUE(gra->przeniesPlaneteDoUzytkownika(id));
-	planeta = &(gra->getUzytkownik().pobierzPlanete(id));
+	planeta = gra->stworzPlanete();
+	UNIT_TEST_ASSERT_TRUE(gra->przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
 	UNIT_TEST_ASSERT_NOTNULL(planeta);
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(Identyfikator(0xC),Ilosc(100)));
 }
