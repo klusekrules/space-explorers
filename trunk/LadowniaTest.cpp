@@ -8,11 +8,11 @@ LadowniaTest::LadowniaTest(void)
 void LadowniaTest::startTestow(){
 	gra = &(Aplikacja::getInstance().getGra());
 	UNIT_TEST_ASSERT_NOTNULL(gra);
-	StatekInfo& statekInfo = gra->getStatek(Identyfikator(0xB));
-	StatekInfo& statekInfo2 = gra->getStatek(Identyfikator(0xC));
-	StatekInfo& statekInfo3 = gra->getStatek(Identyfikator(0xE));
-	SurowceInfo& surowceInfo = gra->getSurowce(Identyfikator(0x1));
-	SurowceInfo& surowceInfo2 = gra->getSurowce(Identyfikator(0xA));
+	StatekInfo& statekInfo = gra->pobierzStatek(Identyfikator(0xB));
+	StatekInfo& statekInfo2 = gra->pobierzStatek(Identyfikator(0xC));
+	StatekInfo& statekInfo3 = gra->pobierzStatek(Identyfikator(0xE));
+	SurowceInfo& surowceInfo = gra->pobierzSurowce(Identyfikator(0x1));
+	SurowceInfo& surowceInfo2 = gra->pobierzSurowce(Identyfikator(0xA));
 	statekTransportowy = shared_ptr<Statek> ( statekInfo.tworzEgzemplarz(Ilosc(10),Identyfikator(0)) );
 	statekTransportowyDuzy = shared_ptr<Statek> ( statekInfo3.tworzEgzemplarz(Ilosc(1),Identyfikator(0)) );
 	metal = shared_ptr<Surowce> ( surowceInfo.tworzEgzemplarz(Ilosc(10000),Identyfikator(0)) );

@@ -231,7 +231,7 @@ bool Ladownia::odczytaj (TiXmlElement* wezel ) {
 				Identyfikator identyfikator;
 				if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
 					return false;
-				shared_ptr<Obiekt> obiekt = shared_ptr<Obiekt>(gra.getObiekt(identyfikator).tworzEgzemplarz(Ilosc(),Identyfikator()));			
+				shared_ptr<Obiekt> obiekt = shared_ptr<Obiekt>(gra.pobierzObiekt(identyfikator).tworzEgzemplarz(Ilosc(),Identyfikator()));			
 				if(!obiekt->odczytaj(element) ){
 					return false;
 				}

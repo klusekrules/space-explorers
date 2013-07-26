@@ -7,10 +7,10 @@ ObiektListTest::ObiektListTest(void)
 
 void ObiektListTest::startTestow(){
 	Gra& gra = Aplikacja::getInstance().getGra();
-	a = shared_ptr<Statek>(gra.getStatek(Identyfikator(11)).tworzEgzemplarz(Ilosc(8),Identyfikator(0)));
-	b = shared_ptr<Statek>(gra.getStatek(Identyfikator(12)).tworzEgzemplarz(Ilosc(8),Identyfikator(0)));
-	c = shared_ptr<Statek>(gra.getStatek(Identyfikator(13)).tworzEgzemplarz(Ilosc(8),Identyfikator(0)));
-	d = shared_ptr<Statek>(gra.getStatek(Identyfikator(14)).tworzEgzemplarz(Ilosc(8),Identyfikator(0)));
+	a = shared_ptr<Statek>(gra.pobierzStatek(Identyfikator(11)).tworzEgzemplarz(Ilosc(8),Identyfikator(0)));
+	b = shared_ptr<Statek>(gra.pobierzStatek(Identyfikator(12)).tworzEgzemplarz(Ilosc(8),Identyfikator(0)));
+	c = shared_ptr<Statek>(gra.pobierzStatek(Identyfikator(13)).tworzEgzemplarz(Ilosc(8),Identyfikator(0)));
+	d = shared_ptr<Statek>(gra.pobierzStatek(Identyfikator(14)).tworzEgzemplarz(Ilosc(8),Identyfikator(0)));
 	UNIT_TEST_ASSERT_NOTNULL(a);
 	UNIT_TEST_ASSERT_NOTNULL(b);
 	UNIT_TEST_ASSERT_NOTNULL(c);

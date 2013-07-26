@@ -2,289 +2,283 @@
 #include "Aplikacja.h"
 #include "DefinicjeWezlowXML.h"
 
-Gra::Gra(Aplikacja& app)
-	: aplikacja(app), fabryka(ZmianaFabryka::pobierzInstancje()), uzytkownik(new Uzytkownik(*this))
+Gra::Gra(Aplikacja& aplikacja)
+	: aplikacja_(aplikacja), fabryka_(ZmianaFabryka::pobierzInstancje()), uzytkownik_(new Uzytkownik(*this))
 {
-	idPlanety.ustawWartosc(Ilosc(1));
+	licznikIdentyfikatorowPlanet_.ustawWartosc(Ilosc(1));
 }
 
-Gra::Gra(const Gra& g)
-	: aplikacja(g.aplikacja), fabryka(ZmianaFabryka::pobierzInstancje()),uzytkownik(g.uzytkownik), idPlanety(g.idPlanety)
+Gra::Gra(const Gra& gra)
+	: aplikacja_(gra.aplikacja_), fabryka_(ZmianaFabryka::pobierzInstancje()),uzytkownik_(gra.uzytkownik_), licznikIdentyfikatorowPlanet_(gra.licznikIdentyfikatorowPlanet_)
 {
 }
 
-Gra& Gra::operator=(const Gra& g){
+Gra& Gra::operator=(const Gra& gra){
 	return *this;
 }
 
-ZmianaFabryka& Gra::getZmianaFabryka(){
-	return fabryka;
+ZmianaFabryka& Gra::pobierzFabrykeZmian() const{
+	return fabryka_;
 }
 
 Gra::~Gra()
 {
 }
 
-Uzytkownik& Gra::getUzytkownik() const throw (NieznalezionoObiektu) {
-	if(!uzytkownik)
+Uzytkownik& Gra::pobierzUzytkownika() const throw (NieznalezionoObiektu) {
+	if(!uzytkownik_)
 		throw NieznalezionoObiektu(EXCEPTION_PLACE,Tekst("Uzytkownik"));
-	return *uzytkownik;
+	return *uzytkownik_;
 }
 
 shared_ptr<Planeta> Gra::pobierzPlanete( const Identyfikator& identyfikator ){
-	auto iterator = wszystkiePlanety.find(identyfikator);
-	if(iterator!=wszystkiePlanety.end())
+	auto iterator = wszystkiePlanety_.find(identyfikator);
+	if(iterator!=wszystkiePlanety_.end())
 		return iterator->second;
 	return nullptr;
 }
 
 //TODO: Dopisanie poprawnego logowania
-bool Gra::Logowanie(const string& nazwa, const string& hash){
-	uzytkownik = shared_ptr<Uzytkownik>(new Uzytkownik(*this));
+bool Gra::logowanie(const string& nazwa, const string& hash){
+	uzytkownik_ = shared_ptr<Uzytkownik>(new Uzytkownik(*this));
 	return true;
 }
 //TODO: Dopisanie poprawnego generowania planet
-Identyfikator Gra::generujPlanete(){
-	auto p = shared_ptr<Planeta>( new Planeta(Identyfikator(idPlanety())));
-	wolnePlanety.insert(make_pair(p->pobierzIdentyfikator(),p));
-	wszystkiePlanety.insert(make_pair(p->pobierzIdentyfikator(),p));
-	return p->pobierzIdentyfikator();
+shared_ptr<Planeta> Gra::stworzPlanete(){
+	auto planeta = shared_ptr<Planeta>( new Planeta(Identyfikator(licznikIdentyfikatorowPlanet_())));
+	wolnePlanety_.insert(make_pair(planeta->pobierzIdentyfikator(),planeta));
+	wszystkiePlanety_.insert(make_pair(planeta->pobierzIdentyfikator(),planeta));
+	return planeta;
 }
 
-bool Gra::przeniesPlaneteDoUzytkownika( const Identyfikator& p ){
-	if(!uzytkownik)
+bool Gra::przeniesPlaneteDoUzytkownika( const Identyfikator& identyfikator ){
+	if(!uzytkownik_)
 		return false;
-	auto iter = wolnePlanety.find(p);
-	if(iter==wolnePlanety.end())
+	auto iterator = wolnePlanety_.find(identyfikator);
+	if(iterator==wolnePlanety_.end())
 		return false;
-	if(uzytkownik->dodajPlanete(iter->second)){
-		wolnePlanety.erase(iter);
+	if(uzytkownik_->dodajPlanete(iterator->second)){
+		wolnePlanety_.erase(iterator);
 		return true;
 	}
 	return false;
 }
 
-bool Gra::wybudujNaPlanecie( Planeta& p , const Identyfikator& id , const Ilosc& ilosc )const{
-	auto iterObiektow = listaObiektowBaseInfo.find(id);
-	if(iterObiektow != listaObiektowBaseInfo.end()){
-		return iterObiektow->second->tworz(*this,p,ilosc);
+bool Gra::wybudujNaPlanecie( Planeta& planeta , const Identyfikator& identyfikator , const Ilosc& ilosc )const{
+	auto iterator = listaObiektowBaseInfo_.find(identyfikator);
+	if(iterator != listaObiektowBaseInfo_.end()){
+		return iterator->second->tworz(*this,planeta,ilosc);
 	}
 	return false;
 }
 
-void Gra::wybudujNaPlanecie( Planeta& p, const ObiektBazowyInfo& b, const Ilosc& ilosc )const{
-	b.tworz(*this,p,ilosc);
+bool Gra::wybudujNaPlanecie( Planeta& planeta, const ObiektBazowyInfo& obiektInfo, const Ilosc& ilosc )const{
+	return obiektInfo.tworz(*this,planeta,ilosc);
 }
 
-bool Gra::wybudujNaPlanecie( Planeta& p, const BudynekInfo& b, const Ilosc& ilosc )const{
-	p.dodajObiekt(shared_ptr<Budynek>(b.tworzEgzemplarz(ilosc,p.pobierzIdentyfikator())));
-	return true;
+bool Gra::wybudujNaPlanecie( Planeta& planeta, const BudynekInfo& obiektInfo, const Ilosc& ilosc )const{
+	return planeta.dodajObiekt(shared_ptr<Budynek>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator())));
 }
 
-bool Gra::wybudujNaPlanecie( Planeta& p, const TechnologiaInfo& b, const Ilosc& ilosc )const{
-	p.dodajObiekt(shared_ptr<Technologia>(b.tworzEgzemplarz(ilosc,p.pobierzIdentyfikator())));
-	return true;
+bool Gra::wybudujNaPlanecie( Planeta& planeta, const TechnologiaInfo& obiektInfo, const Ilosc& ilosc )const{
+	return planeta.dodajObiekt(shared_ptr<Technologia>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator())));
 }
 
-bool Gra::wybudujNaPlanecie( Planeta& p, const StatekInfo& b, const Ilosc& ilosc )const{
-	p.dodajObiekt(shared_ptr<Statek>(b.tworzEgzemplarz(ilosc,p.pobierzIdentyfikator())));
-	return true;
+bool Gra::wybudujNaPlanecie( Planeta& planeta, const StatekInfo& obiektInfo, const Ilosc& ilosc )const{
+	return planeta.dodajObiekt(shared_ptr<Statek>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator())));
 }
 
-bool Gra::wybudujNaPlanecie( Planeta& p, const SurowceInfo& b, const Ilosc& ilosc )const{
-	p.dodajObiekt(shared_ptr<Surowce>(b.tworzEgzemplarz(ilosc,p.pobierzIdentyfikator())));
-	return true;
+bool Gra::wybudujNaPlanecie( Planeta& planeta, const SurowceInfo& obiektInfo, const Ilosc& ilosc )const{
+	return planeta.dodajObiekt(shared_ptr<Surowce>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator())));
 }
 
-StatekInfo& Gra::getStatek(const Identyfikator& id)const throw (NieznalezionoObiektu) {
-	auto iter = listaStatkowInfo.find(id);
-	if(iter==listaStatkowInfo.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
-	return *(iter->second);
+StatekInfo& Gra::pobierzStatek(const Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
+	auto iterator = listaStatkowInfo_.find(identyfikator);
+	if(iterator==listaStatkowInfo_.end())
+		throw NieznalezionoObiektu(EXCEPTION_PLACE,identyfikator.napis());
+	return *(iterator->second);
 }
 
-SurowceInfo& Gra::getSurowce(const Identyfikator& id)const throw (NieznalezionoObiektu) {
-	auto iter = listaSurowcowInfo.find(id);
-	if(iter==listaSurowcowInfo.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
-	return *(iter->second);
+SurowceInfo& Gra::pobierzSurowce(const Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
+	auto iterator = listaSurowcowInfo_.find(identyfikator);
+	if(iterator==listaSurowcowInfo_.end())
+		throw NieznalezionoObiektu(EXCEPTION_PLACE,identyfikator.napis());
+	return *(iterator->second);
 }
 
-TechnologiaInfo& Gra::getTechnologia(const Identyfikator& id)const throw (NieznalezionoObiektu) {
-	auto iter = listaTechnologiInfo.find(id);
-	if(iter==listaTechnologiInfo.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
-	return *(iter->second);
+TechnologiaInfo& Gra::pobierzTechnologia(const Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
+	auto iterator = listaTechnologiInfo_.find(identyfikator);
+	if(iterator==listaTechnologiInfo_.end())
+		throw NieznalezionoObiektu(EXCEPTION_PLACE,identyfikator.napis());
+	return *(iterator->second);
 }
 
-BudynekInfo& Gra::getBudynek(const Identyfikator& id)const throw (NieznalezionoObiektu) {
-	auto iter = listaBudynkowInfo.find(id);
-	if(iter==listaBudynkowInfo.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
-	return *(iter->second);
+BudynekInfo& Gra::pobierzBudynek(const Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
+	auto iterator = listaBudynkowInfo_.find(identyfikator);
+	if(iterator==listaBudynkowInfo_.end())
+		throw NieznalezionoObiektu(EXCEPTION_PLACE,identyfikator.napis());
+	return *(iterator->second);
 }
 
-ObiektInfo& Gra::getObiekt(const Identyfikator& id)const throw (NieznalezionoObiektu) {
-	auto iter = listaObiektowInfo.find(id);
-	if(iter==listaObiektowInfo.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.napis());
-	return *(iter->second);
+ObiektInfo& Gra::pobierzObiekt(const Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
+	auto iterator = listaObiektowInfo_.find(identyfikator);
+	if(iterator==listaObiektowInfo_.end())
+		throw NieznalezionoObiektu(EXCEPTION_PLACE,identyfikator.napis());
+	return *(iterator->second);
 }
 
-bool Gra::WczytajDane( const string& sFile ){
+bool Gra::wczytajDane( const string& adresPliku ){
 	TiXmlDocument dane;
 	try{
-		dane.LoadFile( sFile );
+		dane.LoadFile( adresPliku );
 		auto root_data = dane.FirstChildElement(WEZEL_XML_ROOT);
 		if(root_data){
-			if(!WczytajSurowce(root_data))
+			if(!wczytajSurowce(root_data))
 				return false;
-			if(!WczytajStatki(root_data))
+			if(!wczytajStatki(root_data))
 				return false;
-			if(!WczytajTechnologie(root_data))
+			if(!wczytajTechnologie(root_data))
 				return false;
-			if(!WczytajBudynki(root_data))
+			if(!wczytajBudynki(root_data))
 				return false;
 		}
-	}catch(ticpp::Exception& e){
-		cout<< e.what();
-		aplikacja.getLog().error("Nie uda³o siê otworzyæ pliku!");
+	}catch(ticpp::Exception& wyjatek){
+		cout<< wyjatek.what();
+		aplikacja_.getLog().error("Nie uda³o siê otworzyæ pliku!");
 		return false;
 	}
 	return true;
 }
 
-bool Gra::WczytajTechnologie(TiXmlElement* root){
-	TiXmlElement* ptr = root->FirstChildElement(WEZEL_XML_TECHNOLOGIA_INFO);
-	do{
-		try{
-			if(ptr){
-				shared_ptr<TechnologiaInfo> t(new TechnologiaInfo(ptr));
-				aplikacja.getLog().debug(*t);
-				if(listaObiektowBaseInfo.find(t->pobierzIdentyfikator())!=listaObiektowBaseInfo.end())
+bool Gra::wczytajTechnologie(TiXmlElement* wezel){
+	try{
+		TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_TECHNOLOGIA_INFO);
+		do{
+			if(element){
+				shared_ptr<TechnologiaInfo> obiekt(new TechnologiaInfo(element));
+				aplikacja_.getLog().debug(*obiekt);
+				if(listaObiektowBaseInfo_.find(obiekt->pobierzIdentyfikator())!=listaObiektowBaseInfo_.end())
 					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
-				listaTechnologiInfo[t->pobierzIdentyfikator()]=t;
-				listaObiektowBaseInfo[t->pobierzIdentyfikator()]=t;
-				ptr = ptr->NextSiblingElement(WEZEL_XML_TECHNOLOGIA_INFO);
+				listaTechnologiInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
+				listaObiektowBaseInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
+				element = element->NextSiblingElement(WEZEL_XML_TECHNOLOGIA_INFO);
 			}
-		}catch(OgolnyWyjatek& e){
-			aplikacja.getLog().warn(e.generujKomunikat());
-			aplikacja.getLog().debug(e);
-			return false;
-		}
-	}while(ptr);
+		}while(element);
+	}catch(OgolnyWyjatek& wyjatek){
+		aplikacja_.getLog().warn(wyjatek.generujKomunikat());
+		aplikacja_.getLog().debug(wyjatek);
+		return false;
+	}
 	return true;
 }
 
-bool Gra::WczytajBudynki(TiXmlElement* root){
-	TiXmlElement* ptr = root->FirstChildElement(WEZEL_XML_BUDYNEK_INFO);
-	do{
-		try{
-			
-			if(ptr){
-				shared_ptr<BudynekInfo> t(new BudynekInfo(ptr));
-				aplikacja.getLog().debug(*t);
-				if(listaObiektowBaseInfo.find(t->pobierzIdentyfikator())!=listaObiektowBaseInfo.end())
+bool Gra::wczytajBudynki(TiXmlElement* wezel){
+	try{
+		TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_BUDYNEK_INFO);
+		do{
+			if(element){
+				shared_ptr<BudynekInfo> obiekt(new BudynekInfo(element));
+				aplikacja_.getLog().debug(*obiekt);
+				if(listaObiektowBaseInfo_.find(obiekt->pobierzIdentyfikator())!=listaObiektowBaseInfo_.end())
 					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
-				listaBudynkowInfo[t->pobierzIdentyfikator()]=t;
-				listaObiektowBaseInfo[t->pobierzIdentyfikator()]=t;
-				listaObiektowInfo[t->pobierzIdentyfikator()]=t;
-				ptr = ptr->NextSiblingElement(WEZEL_XML_BUDYNEK_INFO);
+				listaBudynkowInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
+				listaObiektowBaseInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
+				listaObiektowInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
+				element = element->NextSiblingElement(WEZEL_XML_BUDYNEK_INFO);
 			}
-		}catch(OgolnyWyjatek& e){
-			aplikacja.getLog().warn(e.generujKomunikat());
-			aplikacja.getLog().debug(e);
-			return false;
-		}
-	}while(ptr);
+		}while(element);
+	}catch(OgolnyWyjatek& wyjatek){
+		aplikacja_.getLog().warn(wyjatek.generujKomunikat());
+		aplikacja_.getLog().debug(wyjatek);
+		return false;
+	}
 	return true;
 }
 
-bool Gra::WczytajSurowce(TiXmlElement* root){
-	TiXmlElement* ptr = root->FirstChildElement(WEZEL_XML_SUROWCE_INFO);
-	do{
-		try{
-			
-			if(ptr){
-				shared_ptr<SurowceInfo> t(new SurowceInfo(ptr));
-				aplikacja.getLog().debug(*t);
-				if(listaObiektowBaseInfo.find(t->pobierzIdentyfikator())!=listaObiektowBaseInfo.end())
+bool Gra::wczytajSurowce(TiXmlElement* wezel){
+	try{
+		TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_SUROWCE_INFO);
+		do{
+			if(element){
+				shared_ptr<SurowceInfo> obiekt(new SurowceInfo(element));
+				aplikacja_.getLog().debug(*obiekt);
+				if(listaObiektowBaseInfo_.find(obiekt->pobierzIdentyfikator())!=listaObiektowBaseInfo_.end())
 					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
-				listaSurowcowInfo[t->pobierzIdentyfikator()]=t;
-				listaObiektowBaseInfo[t->pobierzIdentyfikator()]=t;
-				listaObiektowInfo[t->pobierzIdentyfikator()]=t;
-				ptr = ptr->NextSiblingElement(WEZEL_XML_SUROWCE_INFO);
+				listaSurowcowInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
+				listaObiektowBaseInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
+				listaObiektowInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
+				element = element->NextSiblingElement(WEZEL_XML_SUROWCE_INFO);
 			}
-		}catch(OgolnyWyjatek& e){
-			aplikacja.getLog().warn(e.generujKomunikat());
-			aplikacja.getLog().debug(e);
-			return false;
-		}
-	}while(ptr);
+		}while(element);
+	}catch(OgolnyWyjatek& wyjatek){
+		aplikacja_.getLog().warn(wyjatek.generujKomunikat());
+		aplikacja_.getLog().debug(wyjatek);
+		return false;
+	}
 	return true;
 }
 
 bool Gra::dodajPlanete( shared_ptr<Planeta> planeta ){
-	if(wszystkiePlanety.find(planeta->pobierzIdentyfikator()) == wszystkiePlanety.end()){
-		wszystkiePlanety.insert(make_pair(planeta->pobierzIdentyfikator(), planeta));
+	if(wszystkiePlanety_.find(planeta->pobierzIdentyfikator()) == wszystkiePlanety_.end()){
+		wszystkiePlanety_.insert(make_pair(planeta->pobierzIdentyfikator(), planeta));
 		if(!planeta->czyMaWlasciciela())
-			wolnePlanety.insert(make_pair(planeta->pobierzIdentyfikator(), planeta));
+			wolnePlanety_.insert(make_pair(planeta->pobierzIdentyfikator(), planeta));
 		return true;
 	}
 	return false;
 }
 
 
-bool Gra::WczytajStatki(TiXmlElement* root){
-	TiXmlElement* ptr = root->FirstChildElement(WEZEL_XML_STATEK_INFO);
-	do{
-		try{
-			if(ptr){
-				shared_ptr<StatekInfo> t(new StatekInfo(ptr));
-				aplikacja.getLog().debug(*t);
-				if(listaObiektowBaseInfo.find(t->pobierzIdentyfikator())!=listaObiektowBaseInfo.end())
+bool Gra::wczytajStatki(TiXmlElement* wezel){
+	try{
+		TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_STATEK_INFO);
+		do{
+			if(element){
+				shared_ptr<StatekInfo> obiekt(new StatekInfo(element));
+				aplikacja_.getLog().debug(*obiekt);
+				if(listaObiektowBaseInfo_.find(obiekt->pobierzIdentyfikator())!=listaObiektowBaseInfo_.end())
 					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
-				listaStatkowInfo[t->pobierzIdentyfikator()]=t;
-				listaObiektowBaseInfo[t->pobierzIdentyfikator()]=t;
-				listaObiektowInfo[t->pobierzIdentyfikator()]=t;
-				ptr = ptr->NextSiblingElement(WEZEL_XML_STATEK_INFO);
+				listaStatkowInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
+				listaObiektowBaseInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
+				listaObiektowInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
+				element = element->NextSiblingElement(WEZEL_XML_STATEK_INFO);
 			}
-		}catch(OgolnyWyjatek& e){
-			aplikacja.getLog().warn(e.generujKomunikat());
-			aplikacja.getLog().debug(e);
-			return false;
-		}
-	}while(ptr);
+		}while(element);
+	}catch(OgolnyWyjatek& obiekt){
+		aplikacja_.getLog().warn(obiekt.generujKomunikat());
+		aplikacja_.getLog().debug(obiekt);
+		return false;
+	}
 	return true;
 }
 
-bool Gra::zapisz( TiXmlElement* e ) const{
-	TiXmlElement* n = new TiXmlElement(WEZEL_XML_GRA);
-	e->LinkEndChild( n );
-	for(auto o :  wolnePlanety)
-		if(!o.second->zapisz(n))
+bool Gra::zapisz( TiXmlElement* wezel ) const{
+	TiXmlElement* element = new TiXmlElement(WEZEL_XML_GRA);
+	wezel->LinkEndChild( element );
+	for(auto planeta :  wolnePlanety_)
+		if(!planeta.second->zapisz(element))
 			return false;
-	return idPlanety.zapisz(n) && ( uzytkownik ? uzytkownik->zapisz(n) : true );
+	return licznikIdentyfikatorowPlanet_.zapisz(element) && ( uzytkownik_ ? uzytkownik_->zapisz(element) : true );
 }
 
-bool Gra::odczytaj( TiXmlElement* e ){
-	if(e){
-		if(!idPlanety.odczytaj(e->FirstChildElement(WEZEL_XML_LICZNIK)))
+bool Gra::odczytaj( TiXmlElement* wezel ){
+	if(wezel){
+		if(!licznikIdentyfikatorowPlanet_.odczytaj(wezel->FirstChildElement(WEZEL_XML_LICZNIK)))
 			return false;
-		TiXmlElement* u = e->FirstChildElement(WEZEL_XML_UZYTKOWNIK);
-		if(u){
-			uzytkownik = shared_ptr<Uzytkownik>(new Uzytkownik(*this));
-			if(!uzytkownik->odczytaj(u))
+		TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_UZYTKOWNIK);
+		if(element){
+			uzytkownik_ = shared_ptr<Uzytkownik>(new Uzytkownik(*this));
+			if(!uzytkownik_->odczytaj(element))
 				return false;
 		}else{
-			uzytkownik = nullptr;
+			uzytkownik_ = nullptr;
 		}
-		for(TiXmlElement* n = e->FirstChildElement(WEZEL_XML_PLANETA); n != nullptr ; n = n->NextSiblingElement(WEZEL_XML_PLANETA)){
-			auto p = shared_ptr<Planeta>( new Planeta(Identyfikator()) );
-			if(!p->odczytaj(n))
+		for(element = wezel->FirstChildElement(WEZEL_XML_PLANETA); element ; element = element->NextSiblingElement(WEZEL_XML_PLANETA)){
+			auto planeta = shared_ptr<Planeta>( new Planeta(Identyfikator()) );
+			if(!planeta->odczytaj(element))
 				return false;
-			wolnePlanety.insert(make_pair(p->pobierzIdentyfikator(),p));
-			wszystkiePlanety.insert(make_pair(p->pobierzIdentyfikator(),p));
+			wolnePlanety_.insert(make_pair(planeta->pobierzIdentyfikator(),planeta));
+			wszystkiePlanety_.insert(make_pair(planeta->pobierzIdentyfikator(),planeta));
 		}
 		return true;	
 	}

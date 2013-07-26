@@ -81,9 +81,9 @@ Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 		log.warn("Nie za³adowano biblioteki Dbghelp.dll");
 	}
 
-	pluginy = shared_ptr<Cplugin>(new Cplugin(folderPluginow,instancjaGry->getZmianaFabryka(),log));
+	pluginy = shared_ptr<Cplugin>(new Cplugin(folderPluginow,instancjaGry->pobierzFabrykeZmian(),log));
 
-	RejestrujZmianaPoziomObiektu(instancjaGry->getZmianaFabryka(),log);
+	RejestrujZmianaPoziomObiektu(instancjaGry->pobierzFabrykeZmian(),log);
 
 	if(!pluginy->zaladujDomyslneKlasyZmian())
 		throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE,Tekst("Domyslne elementy zmiany."));
@@ -121,7 +121,7 @@ Gra& Aplikacja::getGra(){
 }
 
 bool Aplikacja::WczytajDane(){
-	return instancjaGry->WczytajDane(nazwaPlikuDanych);
+	return instancjaGry->wczytajDane(nazwaPlikuDanych);
 }
 
 bool Aplikacja::ZaladujOpcje(){
@@ -243,7 +243,7 @@ bool Aplikacja::WczytajGre(){
 	TiXmlElement* root = dokument.RootElement();
 	if(root){
 		shared_ptr<Gra> tmp = shared_ptr<Gra>(new Gra(*this));
-		if(tmp->WczytajDane(this->nazwaPlikuDanych) && tmp->odczytaj(root->FirstChildElement(WEZEL_XML_GRA))){
+		if(tmp->wczytajDane(this->nazwaPlikuDanych) && tmp->odczytaj(root->FirstChildElement(WEZEL_XML_GRA))){
 			instancjaGry = tmp;
 			return true;
 		}

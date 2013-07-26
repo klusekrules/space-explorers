@@ -17,6 +17,6 @@ private:
 	const Budynek* a;
 	const Budynek* b;
 	const Budynek* c;
-	Planeta* planeta;
+	shared_ptr<Planeta> planeta;
 };
 

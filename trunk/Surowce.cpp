@@ -23,8 +23,8 @@ Surowce::Surowce( const Ilosc& ilosc, const PodstawoweParametry& parametryPodsta
 
 Surowce::Surowce( TiXmlElement* wezel  )
 	:  PodstawoweParametry(Poziom(),Identyfikator()), 
-	Obiekt( Ilosc(), Poziom(), Identyfikator(), Aplikacja::getInstance().getGra().getSurowce(Identyfikator(XmlBO::WczytajAtrybut<int>(wezel,ATRYBUT_XML_IDENTYFIKATOR,-1)) )), 
-	surowceInfo_( Aplikacja::getInstance().getGra().getSurowce(Identyfikator(XmlBO::WczytajAtrybut<int>(wezel,ATRYBUT_XML_IDENTYFIKATOR,-1)) ))
+	Obiekt( Ilosc(), Poziom(), Identyfikator(), Aplikacja::getInstance().getGra().pobierzSurowce(Identyfikator(XmlBO::WczytajAtrybut<int>(wezel,ATRYBUT_XML_IDENTYFIKATOR,-1)) )), 
+	surowceInfo_( Aplikacja::getInstance().getGra().pobierzSurowce(Identyfikator(XmlBO::WczytajAtrybut<int>(wezel,ATRYBUT_XML_IDENTYFIKATOR,-1)) ))
 {
 	Obiekt::odczytaj(wezel);
 }

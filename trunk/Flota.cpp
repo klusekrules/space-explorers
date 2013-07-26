@@ -156,7 +156,7 @@ bool Flota::odczytaj( TiXmlElement* wezel ) {
 			Identyfikator identyfikator;
 			if(!XmlBO::WczytajAtrybut<NOTHROW>(element,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
 				return false;
-			shared_ptr<Statek> statek = shared_ptr<Statek>(Aplikacja::getInstance().getGra().getStatek(identyfikator).tworzEgzemplarz(Ilosc(),Identyfikator()));			
+			shared_ptr<Statek> statek = shared_ptr<Statek>(Aplikacja::getInstance().getGra().pobierzStatek(identyfikator).tworzEgzemplarz(Ilosc(),Identyfikator()));			
 			if(!statek->odczytaj(element) )
 				return false;
 			lista_.insert(make_pair(statek->ID(),statek));

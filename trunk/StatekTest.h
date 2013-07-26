@@ -22,6 +22,6 @@ private:
 	const Statek* b;
 	const Statek* c;
 	const Statek* d;
-	Planeta* planeta;
+	shared_ptr<Planeta> planeta;
 };
 

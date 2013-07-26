@@ -20,6 +20,6 @@ public:
 private:
 	Gra *gra;
 	Identyfikator id;
-	Planeta * planeta;
+	shared_ptr<Planeta> planeta;
 };
 
