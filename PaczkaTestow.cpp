@@ -37,7 +37,7 @@ void PaczkaTestow::wykonajTesty(){
 			++bledy;
 			cout << e.komunikat();
 		}catch(...){
-			pominieteTesty = zbiorTestow_.size() - poprawneTesty - bledy;
+			pominieteTesty = static_cast<unsigned int>(zbiorTestow_.size()) - poprawneTesty - bledy;
 			++bledy;
 			++bledyKrytyczne;
 			podsumowanie();
