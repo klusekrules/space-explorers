@@ -12,40 +12,42 @@ Uzytkownik::~Uzytkownik()
 {
 }
 
-bool Uzytkownik::dodajPlanete( shared_ptr<Planeta> p ){
-	auto i = listaPlanet.find(p->pobierzIdentyfikator());
-	if(i!=listaPlanet.end())
+bool Uzytkownik::dodajPlanete( shared_ptr<Planeta> planeta ){
+	auto iterator = listaPlanet.find(planeta->pobierzIdentyfikator());
+	if(iterator!=listaPlanet.end())
 		return false;
-	listaPlanet.insert(make_pair(p->pobierzIdentyfikator(),p));
-	p->ustawWlasciciela(this);
+	listaPlanet.insert(make_pair(planeta->pobierzIdentyfikator(),planeta));
+	planeta->ustawWlasciciela(this);
 	return true;
 }
 
-Planeta& Uzytkownik::getPlaneta( const Identyfikator& id ) const{
-	auto i = listaPlanet.find(id);
-	if(i!=listaPlanet.end())
-		return *(i->second);
+Planeta& Uzytkownik::pobierzPlanete( const Identyfikator& identyfikator ) const{
+	auto iterator = listaPlanet.find(identyfikator);
+	if(iterator!=listaPlanet.end())
+		return *(iterator->second);
 	throw NieznalezionoObiektu(EXCEPTION_PLACE,Tekst("Nieznaleziono planety"));
 }
 
-bool Uzytkownik::zapisz( TiXmlElement* e ) const{
-	TiXmlElement* n = new TiXmlElement(WEZEL_XML_UZYTKOWNIK);
-	e->LinkEndChild( n );
-	for(auto o :  listaPlanet)
-		if(!o.second->zapisz(n))
+bool Uzytkownik::zapisz( TiXmlElement* wezel ) const{
+	if(!wezel)
+		return false;
+	TiXmlElement* element = new TiXmlElement(WEZEL_XML_UZYTKOWNIK);
+	wezel->LinkEndChild( element );
+	for(auto planeta :  listaPlanet)
+		if(!planeta.second->zapisz(element))
 			return false;
 	return true;
 }
 
-bool Uzytkownik::odczytaj( TiXmlElement* e ){
-	if(e){
-		for(TiXmlElement* n = e->FirstChildElement(WEZEL_XML_PLANETA); n != nullptr ; n = n->NextSiblingElement(WEZEL_XML_PLANETA)){
-			auto p = shared_ptr<Planeta>( new Planeta(Identyfikator()) );
-			if(!p->odczytaj(n))
+bool Uzytkownik::odczytaj( TiXmlElement* wezel ){
+	if(wezel){
+		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_PLANETA); element ; element = element->NextSiblingElement(WEZEL_XML_PLANETA)){
+			auto planeta = shared_ptr<Planeta>( new Planeta(Identyfikator()) );
+			if(!planeta->odczytaj(element))
 				return false;
-			listaPlanet.insert(make_pair(p->pobierzIdentyfikator(),p));
-			p->ustawWlasciciela(this);
-			if(!instancjaGry.dodajPlanete(p))
+			listaPlanet.insert(make_pair(planeta->pobierzIdentyfikator(),planeta));
+			planeta->ustawWlasciciela(this);
+			if(!instancjaGry.dodajPlanete(planeta))
 				return false;
 		}
 		return true;
@@ -55,5 +57,8 @@ bool Uzytkownik::odczytaj( TiXmlElement* e ){
 
 string Uzytkownik::napis() const{
 	Logger str(NAZWAKLASY(Uzytkownik));
+	for(auto planeta :  listaPlanet)
+		if(!planeta.second)
+			str.dodajPole(NAZWAKLASY(Planeta),*(planeta.second));
 	return str.napis();
 }

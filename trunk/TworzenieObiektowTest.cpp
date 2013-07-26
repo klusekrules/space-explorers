@@ -10,7 +10,7 @@ void TworzenieObiektowTest::startTestow(){
 	UNIT_TEST_ASSERT_NOTNULL(gra);
 	id = gra->generujPlanete();
 	UNIT_TEST_ASSERT_TRUE(gra->przeniesPlaneteDoUzytkownika(id));
-	planeta = &(gra->getUzytkownik().getPlaneta(id));
+	planeta = &(gra->getUzytkownik().pobierzPlanete(id));
 	UNIT_TEST_ASSERT_NOTNULL(planeta);
 }
 

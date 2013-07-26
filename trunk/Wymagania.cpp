@@ -120,7 +120,10 @@ bool Wymagania::dodajCene( Cena& cena ){
 bool Wymagania::czySpelniaWymogi( const PodstawoweParametry& parametry ) const{	
 	if(warunki_.empty())
 		return true;
-	const Planeta& planeta = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(parametry.pobierzIdentyfikatorPlanety());
+	shared_ptr<Planeta> planeta = Aplikacja::getInstance().getGra().pobierzPlanete(parametry.pobierzIdentyfikatorPlanety());
+	if(!planeta){
+		return false;
+	}
 	for (auto element : warunki_){
 		Poziom poziom;
 		Identyfikator identyfikator;
@@ -137,7 +140,7 @@ bool Wymagania::czySpelniaWymogi( const PodstawoweParametry& parametry ) const{
 		}			
 		))
 		{
-			if(planeta.pobierzObiekt(identyfikator).pobierzPoziom()<poziom)
+			if(planeta->pobierzObiekt(identyfikator).pobierzPoziom()<poziom)
 				return false;
 		}
 	}
@@ -147,7 +150,10 @@ bool Wymagania::czySpelniaWymogi( const PodstawoweParametry& parametry ) const{
 bool Wymagania::czySpelniaKoszty( const Ilosc& ilosc, const PodstawoweParametry& parametry ) const{
 	if(koszty_.empty())
 		return true;
-	const Planeta& planeta = Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(parametry.pobierzIdentyfikatorPlanety());
+	shared_ptr<Planeta> planeta = Aplikacja::getInstance().getGra().pobierzPlanete(parametry.pobierzIdentyfikatorPlanety());
+	if(!planeta){
+		return false;
+	}
 	for( auto element : koszty_ ){
 		Ilosc iloscObiektow;
 		Identyfikator identyfikator;
@@ -164,7 +170,7 @@ bool Wymagania::czySpelniaKoszty( const Ilosc& ilosc, const PodstawoweParametry&
 		}			
 		))
 		{
-			if( planeta.pobierzObiekt(identyfikator).pobierzIlosc() < (iloscObiektow*ilosc ) )
+			if( planeta->pobierzObiekt(identyfikator).pobierzIlosc() < (iloscObiektow*ilosc ) )
 				return false;
 		}
 	}

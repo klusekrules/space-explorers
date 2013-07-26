@@ -7,7 +7,7 @@ WymaganiaTest::WymaganiaTest(){
 void WymaganiaTest::startTestow(){
 	auto idPlanety = Aplikacja::getInstance().getGra().generujPlanete();
 	UNIT_TEST_ASSERT_TRUE(Aplikacja::getInstance().getGra().przeniesPlaneteDoUzytkownika(idPlanety));
-	planeta = &(Aplikacja::getInstance().getGra().getUzytkownik().getPlaneta(idPlanety));
+	planeta = &(Aplikacja::getInstance().getGra().getUzytkownik().pobierzPlanete(idPlanety));
 	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(11),Ilosc(8)) );
 	a = &(planeta->pobierzStatek(Identyfikator(11)));
 }
