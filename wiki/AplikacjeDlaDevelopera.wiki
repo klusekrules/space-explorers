@@ -13,3 +13,6 @@ Diagram UML
 
 Usuwanie pustych folderów
 [http://vanityremover.codeplex.com/]
+
+Licznie linii kodu
+[http://cloc.sourceforge.net/]
