@@ -6,8 +6,8 @@ StatekTest::StatekTest(void)
 }
 
 void StatekTest::startTestow(){
-	planeta = Aplikacja::getInstance().getGra().stworzPlanete();
-	UNIT_TEST_ASSERT_TRUE(Aplikacja::getInstance().getGra().przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
+	planeta = Aplikacja::pobierzInstancje().pobierzGre().stworzPlanete();
+	UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
 	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(12),Ilosc(2)) );
 	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(13),Ilosc(1)) );
 	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(14),Ilosc(1)) );

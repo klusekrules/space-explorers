@@ -102,7 +102,7 @@ bool Planeta::wybuduj( const Identyfikator& id, const Ilosc& ilosc ){
 		i->second->wybuduj(ilosc);
 		return true;
 	}else{
-		return Aplikacja::getInstance().getGra().wybudujNaPlanecie(*this,id,ilosc);
+		return Aplikacja::pobierzInstancje().pobierzGre().wybudujNaPlanecie(*this,id,ilosc);
 	}
 }
 
@@ -111,7 +111,7 @@ void Planeta::wybuduj( shared_ptr< ObiektBazowy > obiekt ){
 	if(i!=listaObiektow.end()){
 		i->second->wybuduj(obiekt->pobierzIlosc());
 	}else{
-		Aplikacja::getInstance().getGra().wybudujNaPlanecie(*this,obiekt->pobierzObiektBaseInfo(),obiekt->pobierzIlosc());
+		Aplikacja::pobierzInstancje().pobierzGre().wybudujNaPlanecie(*this,obiekt->pobierzObiektBaseInfo(),obiekt->pobierzIlosc());
 	}
 }
 

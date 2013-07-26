@@ -83,10 +83,10 @@ void Flota::ustawCelPodrozy( CelPodrozy cel ){
 bool Flota::rozladujLadownieNaPlanecie(){
 	shared_ptr<Planeta> planeta;
 	switch(celPodrozy_){
-	case Transport: planeta = Aplikacja::getInstance().getGra().pobierzPlanete(planetaDocelowa_);
+	case Transport: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaDocelowa_);
 		break;
 	case Zwiad:
-	case Atak: Aplikacja::getInstance().getGra().pobierzPlanete(planetaPoczatkowa_);
+	case Atak: Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaPoczatkowa_);
 		break;
 	}
 	if(!planeta)
@@ -101,10 +101,10 @@ bool Flota::rozladujLadownieNaPlanecie(){
 bool Flota::rozladujFloteNaPlanecie(){
 	shared_ptr<Planeta> planeta;
 	switch(celPodrozy_){
-	case Transport: planeta = Aplikacja::getInstance().getGra().pobierzPlanete(planetaDocelowa_);
+	case Transport: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaDocelowa_);
 		break;
 	case Zwiad:
-	case Atak: Aplikacja::getInstance().getGra().pobierzPlanete(planetaPoczatkowa_);
+	case Atak: Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaPoczatkowa_);
 		break;
 	}
 	if(!planeta)
@@ -156,7 +156,7 @@ bool Flota::odczytaj( TiXmlElement* wezel ) {
 			Identyfikator identyfikator;
 			if(!XmlBO::WczytajAtrybut<NOTHROW>(element,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
 				return false;
-			shared_ptr<Statek> statek = shared_ptr<Statek>(Aplikacja::getInstance().getGra().pobierzStatek(identyfikator).tworzEgzemplarz(Ilosc(),Identyfikator()));			
+			shared_ptr<Statek> statek = shared_ptr<Statek>(Aplikacja::pobierzInstancje().pobierzGre().pobierzStatek(identyfikator).tworzEgzemplarz(Ilosc(),Identyfikator()));			
 			if(!statek->odczytaj(element) )
 				return false;
 			lista_.insert(make_pair(statek->ID(),statek));

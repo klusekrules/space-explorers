@@ -225,7 +225,7 @@ bool Ladownia::odczytaj (TiXmlElement* wezel ) {
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_ZAJETE_MIEJSCE,zajete_))
 			return false;
 		try{
-			Gra& gra = Aplikacja::getInstance().getGra();
+			Gra& gra = Aplikacja::pobierzInstancje().pobierzGre();
 			TiXmlElement* element = wezel->FirstChildElement(); 
 			while(element){
 				Identyfikator identyfikator;

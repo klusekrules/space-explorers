@@ -59,7 +59,7 @@ void OgolnyWyjatek::ustawSzczegoly( const Tekst& tPlik, const Ilosc& iLinia ){
 	plik = tPlik;
 	linia = iLinia;
 	data = Tekst(__DATE__) + Tekst(", ") + Tekst(__TIME__);
-	stack = Aplikacja::getInstance().getStackTrace();
+	stack = Aplikacja::pobierzInstancje().pobierzSladStosu();
 }
 
 string OgolnyWyjatek::napis() const{

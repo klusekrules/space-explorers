@@ -6,7 +6,7 @@ TworzenieObiektowTest::TworzenieObiektowTest()
 }
 
 void TworzenieObiektowTest::startTestow(){
-	gra = &(Aplikacja::getInstance().getGra());
+	gra = &(Aplikacja::pobierzInstancje().pobierzGre());
 	UNIT_TEST_ASSERT_NOTNULL(gra);
 	planeta = gra->stworzPlanete();
 	UNIT_TEST_ASSERT_TRUE(gra->przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));

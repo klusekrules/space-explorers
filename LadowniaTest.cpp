@@ -6,7 +6,7 @@ LadowniaTest::LadowniaTest(void)
 }
 
 void LadowniaTest::startTestow(){
-	gra = &(Aplikacja::getInstance().getGra());
+	gra = &(Aplikacja::pobierzInstancje().pobierzGre());
 	UNIT_TEST_ASSERT_NOTNULL(gra);
 	StatekInfo& statekInfo = gra->pobierzStatek(Identyfikator(0xB));
 	StatekInfo& statekInfo2 = gra->pobierzStatek(Identyfikator(0xC));

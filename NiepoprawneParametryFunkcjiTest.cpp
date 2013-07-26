@@ -6,7 +6,7 @@ NiepoprawneParametryFunkcjiTest::NiepoprawneParametryFunkcjiTest(void)
 }
 
 void NiepoprawneParametryFunkcjiTest::startTestow(){
-	Gra* gra = &(Aplikacja::getInstance().getGra());
+	Gra* gra = &(Aplikacja::pobierzInstancje().pobierzGre());
 	UNIT_TEST_ASSERT_NOTNULL(gra);
 	planeta = gra->stworzPlanete();
 	UNIT_TEST_ASSERT_TRUE(gra->przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));

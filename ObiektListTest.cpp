@@ -6,7 +6,7 @@ ObiektListTest::ObiektListTest(void)
 }
 
 void ObiektListTest::startTestow(){
-	Gra& gra = Aplikacja::getInstance().getGra();
+	Gra& gra = Aplikacja::pobierzInstancje().pobierzGre();
 	a = shared_ptr<Statek>(gra.pobierzStatek(Identyfikator(11)).tworzEgzemplarz(Ilosc(8),Identyfikator(0)));
 	b = shared_ptr<Statek>(gra.pobierzStatek(Identyfikator(12)).tworzEgzemplarz(Ilosc(8),Identyfikator(0)));
 	c = shared_ptr<Statek>(gra.pobierzStatek(Identyfikator(13)).tworzEgzemplarz(Ilosc(8),Identyfikator(0)));
