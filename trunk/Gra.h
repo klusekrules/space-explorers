@@ -216,6 +216,15 @@ public:
 	ObiektInfo& pobierzObiekt( const Identyfikator& identyfikator )const throw (NieznalezionoObiektu);
 
 	/**
+	* \brief Metoda tworz¹ca instancje surowców nie przypisan¹ do planety.
+	*
+	* Metoda tworzy obiekt surowców na podstawie wêz³a xml, nie przypisuje go do ¿adnej planety.
+	* \param[in] wezel - Wêze³ z którego s¹ odczytywane dane.
+	* \return Sprytny wskaŸnik do obiektu surowców. WskaŸnik na nullptr, je¿eli wyst¹pi³ b³¹d.
+	*/
+	shared_ptr<Surowce> tworzSurowce( TiXmlElement* wezel )const;
+
+	/**
 	* \brief Metoda zapisuj¹ca.
 	*
 	* Metoda s³u¿¹ca do zapisu danych do wêz³a xml podanego jako parametr.

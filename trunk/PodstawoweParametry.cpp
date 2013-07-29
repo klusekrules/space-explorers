@@ -41,6 +41,9 @@ bool PodstawoweParametry::zapisz( TiXmlElement* wezel ) const{
 
 bool PodstawoweParametry::odczytaj( TiXmlElement* wezel ){
 	if(wezel){
+		int opcja = XmlBO::WczytajAtrybut<int>(wezel,ATRYBUT_XML_OPCJA,0);
+		if(opcja == 1)
+			return true;
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_POZIOM,poziom_))
 			return false;
 		return XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR_PLANETY,identyfikatorPlanety_);

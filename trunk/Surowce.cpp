@@ -21,14 +21,6 @@ Surowce::Surowce( const Ilosc& ilosc, const PodstawoweParametry& parametryPodsta
 {
 }
 
-Surowce::Surowce( TiXmlElement* wezel  )
-	:  PodstawoweParametry(Poziom(),Identyfikator()), 
-	Obiekt( Ilosc(), Poziom(), Identyfikator(), Aplikacja::pobierzInstancje().pobierzGre().pobierzSurowce(Identyfikator(XmlBO::WczytajAtrybut<int>(wezel,ATRYBUT_XML_IDENTYFIKATOR,-1)) )), 
-	surowceInfo_( Aplikacja::pobierzInstancje().pobierzGre().pobierzSurowce(Identyfikator(XmlBO::WczytajAtrybut<int>(wezel,ATRYBUT_XML_IDENTYFIKATOR,-1)) ))
-{
-	Obiekt::odczytaj(wezel);
-}
-
 Surowce::~Surowce(){
 }
 

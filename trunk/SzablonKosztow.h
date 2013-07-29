@@ -37,6 +37,26 @@ public:
 			}
 		}
 	}
+	
+	/**
+	* \brief Konstruktor.
+	*
+	* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml, z metod¹ tworz¹c¹ zdefiniowan¹ przez u¿ytkownika.
+	* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
+	* \param[in] nazwa - Nazwa wêz³a obiektu.
+	* \param[in] funkcjaTworzaca - Metoda która tworzy obiekt z wêz³a xml.
+	*/
+	SzablonKosztow( TiXmlElement* wezel , string nazwa, function< TypObiektu(TiXmlElement*) > fukcjaTworzaca ) 
+		: obiekt_(nullptr), zmiana_(nullptr)
+	{
+		if(wezel){
+			TiXmlElement* element = XmlBO::ZnajdzWezel<NOTHROW>(wezel,nazwa);
+			if(element){
+				obiekt_ = fukcjaTworzaca(element);
+				zmiana_ = Utils::TworzZmiane(XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_ZMIANA));
+			}
+		}
+	}
 
 	/**
 	* \brief Metoda wykonuj¹ca akcje na obiekcie.
