@@ -111,24 +111,4 @@ private:
 	ListaCen koszty_; /// Lista kosztów.
 	ListaWymogow warunki_; /// Lista wymogów.
 	shared_ptr <ZmianaInterfejs> zmianaCzasuBudowy_; /// Zmiana czasu budowy.
-
-	/**
-	* \brief Metoda dodaj¹ca wymóg do listy.
-	*
-	* Metoda dodaje wymóg do listy. Sprawdza czy istnieje odpowiadaj¹cy wymóg i je¿eli znajduj¹cy siê na liœcie jest mniej rygorystyczny zostanie nadpisany przez przekazany wymóg.
-	* \param[in] wymog - Wymóg dodany do listy.
-	* \return true je¿eli dodano wymóg, false w przeciwnym wypadku.
-	* \remark Mniej rygorystyczny tzn. podstawowa wartoœæ poziomu jest mniejsza do dodawanego wymogu.
-	*/
-	bool dodajWymog( Wymog& wymog );
-
-	/**
-	* \brief Metoda dodaj¹ca cenê do listy.
-	*
-	* Metoda dodaje cenê do listy. Sprawdza czy istnieje odpowiadaj¹ca cena i je¿eli znajduj¹ca siê na liœcie jest mniej rygorystyczny zostanie nadpisany przez przekazan¹ cenê.
-	* \param[in] cena - Cena dodana do listy.
-	* \return true je¿eli dodano cenê, false w przeciwnym wypadku.
-	* \remark Mniej rygorystyczny tzn. podstawowa wartoœæ iloœci jest mniejsza od dodawanej ceny.
-	*/
-	bool dodajCene( Cena& cena );
 };

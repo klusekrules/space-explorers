@@ -11,16 +11,24 @@ BudynekInfo::BudynekInfo( TiXmlElement* wezel )
 	auto zapotrzebowanie = XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_ZAPOTRZEBOWANIE);
 	while(zapotrzebowanie){
 		auto cena = Cena(zapotrzebowanie,WEZEL_XML_SUROWCE,std::bind(&Gra::tworzSurowce,&(Aplikacja::pobierzInstancje().pobierzGre()),_1));
-		if(cena.pobierzObiekt())
-			zapotrzebowanie_.push_back(cena);
+		auto identyfikator = cena.pobierzObiekt()->pobierzIdentyfikator();
+		for(auto element : zapotrzebowanie_ ){
+			if(element.pobierzObiekt()->pobierzIdentyfikator() == identyfikator)
+				Utils::generujWyjatekBleduStruktury(EXCEPTION_PLACE,zapotrzebowanie);
+		}
+		zapotrzebowanie_.push_back(cena);
 		zapotrzebowanie = zapotrzebowanie->NextSiblingElement();
 	}
 
 	auto produkcja = XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_PRODUKCJA);
 	while(produkcja){
 		auto cena = Cena(produkcja,WEZEL_XML_SUROWCE,std::bind(&Gra::tworzSurowce,&(Aplikacja::pobierzInstancje().pobierzGre()),_1));
-		if(cena.pobierzObiekt())
-			produkcja_.push_back( cena );
+		auto identyfikator = cena.pobierzObiekt()->pobierzIdentyfikator();
+		for(auto element : produkcja_ ){
+			if(element.pobierzObiekt()->pobierzIdentyfikator() == identyfikator)
+				Utils::generujWyjatekBleduStruktury(EXCEPTION_PLACE,produkcja);
+		}
+		produkcja_.push_back(cena);
 		produkcja = produkcja->NextSiblingElement();
 	}
 }

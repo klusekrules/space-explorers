@@ -15,13 +15,12 @@ ObiektInfo::ObiektInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
 {
 	if(wezel){
 		try{
-			ZmianaFabryka& fabryka = Aplikacja::pobierzInstancje().pobierzGre().pobierzFabrykeZmian();
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_MASA,masa_);
-			zmianaMasy_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MASA));
+			zmianaMasy_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MASA));
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_OBJETOSC,objetosc_);
-			zmianaObjetosci_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_OBJETOSC));
+			zmianaObjetosci_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_OBJETOSC));
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_POWIERZCHNIA,powierzchnia_);
-			zmianaPowierzchni_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_POWIERZCHNIA));
+			zmianaPowierzchni_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_POWIERZCHNIA));
 		}catch(exception& wyjatek){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,wyjatek,WyjatekParseraXML::trescBladStrukturyXml);
 		}

@@ -3,16 +3,27 @@
 #include "ZmianaFabryka.h"
 #include "..\Logger\Logger.h"
 #include "..\definicjeWezlowXML.h"
+#include "UtilsZmiana.h"
 
 ZmianaAgregacja::ZmianaAgregacja( TiXmlElement* wezel )
 {
 	if( wezel && fabryka_ ){
-		nastepna_ = fabryka_->Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>( wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WARTOSC_ATRYBUTU_XML_NASTEPNY ));
+		TiXmlElement* wezelNastepny = XmlBO::ZnajdzWezelJezeli<NOTHROW>( wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WARTOSC_ATRYBUTU_XML_NASTEPNY );
+		if(!wezelNastepny)
+			UtilsZmiana::generujWyjatekBleduStruktury(wezel);
+		nastepna_ = fabryka_->Tworz(wezelNastepny);
+		if(!nastepna_)
+			UtilsZmiana::generujWyjatekBleduStruktury(wezelNastepny);
+
 		TiXmlElement* dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>( wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WARTOSC_ATRYBUTU_XML_BRAT );
+		if(!dziecko)
+			UtilsZmiana::generujWyjatekBleduStruktury(wezel);
 		for( ; dziecko ; dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>( wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WARTOSC_ATRYBUTU_XML_BRAT, dziecko ) ){
-			auto element = fabryka_->Tworz(dziecko->ToElement());
+			auto element = fabryka_->Tworz(dziecko);
 			if(element)
 				listaZmian_.push_back(element);
+			else
+				UtilsZmiana::generujWyjatekBleduStruktury(dziecko);
 		}
 	}
 }
@@ -47,8 +58,6 @@ ZmianaAgregacja::~ZmianaAgregacja(){
 }
 
 long double ZmianaAgregacja::policzWartosc(long double wartosc, int poziom, int identyfikatorPlanety)const{
-	if(!nastepna_)
-		return wartosc;
 	long double rezultat = nastepna_->policzWartosc( wartosc, poziom, identyfikatorPlanety );
 	long double suma = 0;
 	for(auto element : listaZmian_){

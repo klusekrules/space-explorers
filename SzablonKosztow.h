@@ -3,6 +3,7 @@
 #include "parser\ticpp.h"
 #include "definicjeWezlowXML.h"
 #include "Utils.h"
+#include "OgolnyWyjatek.h"
 #include <functional>
 /**
 * \brief Szablon do tworzenia klasy kosztów lub wymogów.
@@ -53,6 +54,8 @@ public:
 			TiXmlElement* element = XmlBO::ZnajdzWezel<NOTHROW>(wezel,nazwa);
 			if(element){
 				obiekt_ = fukcjaTworzaca(element);
+				if(!obiekt_)
+					Utils::generujWyjatekBleduStruktury(EXCEPTION_PLACE,element);
 				zmiana_ = Utils::TworzZmiane(XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_ZMIANA));
 			}
 		}

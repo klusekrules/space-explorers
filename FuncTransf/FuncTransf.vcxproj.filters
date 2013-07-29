@@ -60,6 +60,9 @@
     <ClInclude Include="resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="UtilsZmiana.h">
+      <Filter>Source Files\Zmiana\Pomocnicze</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -88,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="ZmianaPotegowaAlt.cpp">
       <Filter>Source Files\Zmiana\Instancje</Filter>
+    </ClCompile>
+    <ClCompile Include="UtilsZmiana.cpp">
+      <Filter>Source Files\Zmiana\Pomocnicze</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

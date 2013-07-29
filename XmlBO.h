@@ -1,9 +1,10 @@
 #pragma once
 #include "parser\ticpp.h"
 #include "WyjatekParseraXML.h"
-#include "Utils.h"
 #include <exception>
 #include <string>
+#include <algorithm>
+using std::remove_if;
 using std::string;
 using std::exception;
 
@@ -12,6 +13,15 @@ class NOTHROW { };
 
 class XmlBO{
 private:
+
+	static void trim( string &s){
+		s.erase(remove_if(s.begin(), s.end(), isSpace), s.end());
+	}
+
+	static bool isSpace( unsigned char c ){
+		return isspace(c)!=0;
+	}
+
 	template < typename T > 
 	static TiXmlElement * blad( bool czyWezelPusty , const string& nazwaWezla ){
 		return nullptr;
@@ -111,7 +121,7 @@ public:
 		if(!napis)
 			return blad<K>(string(wezel->Value()),nazwa);
 		string atrybut = *napis;
-		Utils::trim(atrybut);
+		trim(atrybut);
 		if(atrybut.size()>0){
 			Zaladuj<T>(atrybut,obiekt);
 			return true;
