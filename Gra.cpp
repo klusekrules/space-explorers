@@ -1,6 +1,7 @@
 #include "Gra.h"
 #include "Aplikacja.h"
 #include "DefinicjeWezlowXML.h"
+#include "XmlBO.h"
 
 Gra::Gra(Aplikacja& aplikacja)
 	: aplikacja_(aplikacja), fabryka_(ZmianaFabryka::pobierzInstancje()), uzytkownik_(new Uzytkownik(*this))
@@ -19,6 +20,19 @@ Gra& Gra::operator=(const Gra& gra){
 
 ZmianaFabryka& Gra::pobierzFabrykeZmian() const{
 	return fabryka_;
+}
+
+shared_ptr<Surowce> Gra::tworzSurowce( TiXmlElement* wezel )const{
+	Identyfikator identyfikator;
+	if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
+		return nullptr;
+	auto obiektOpisowy = listaSurowcowInfo_.find(identyfikator);
+	if( obiektOpisowy == listaSurowcowInfo_.end() )
+		return nullptr;
+	shared_ptr<Surowce> obiekt = shared_ptr<Surowce>(obiektOpisowy->second->tworzEgzemplarz(Ilosc(0),Identyfikator(0)));
+	if(!obiekt || !obiekt->odczytaj(wezel))
+		return nullptr;
+	return obiekt;
 }
 
 Gra::~Gra()

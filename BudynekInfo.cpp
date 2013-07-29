@@ -1,22 +1,26 @@
 #include "BudynekInfo.h"
 #include "Logger.h"
 #include "XmlBO.h"
-#include "Gra.h"
+#include "Aplikacja.h"
 #include "definicjeWezlowXML.h"
 #include "LiczenieKosztow.h"
-
+using namespace std::placeholders;
 BudynekInfo::BudynekInfo( TiXmlElement* wezel )
 	: ObiektInfo(wezel)
 {
 	auto zapotrzebowanie = XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_ZAPOTRZEBOWANIE);
 	while(zapotrzebowanie){
-		zapotrzebowanie_.push_back(Cena(zapotrzebowanie,WEZEL_XML_SUROWCE));
+		auto cena = Cena(zapotrzebowanie,WEZEL_XML_SUROWCE,std::bind(&Gra::tworzSurowce,&(Aplikacja::pobierzInstancje().pobierzGre()),_1));
+		if(cena.pobierzObiekt())
+			zapotrzebowanie_.push_back(cena);
 		zapotrzebowanie = zapotrzebowanie->NextSiblingElement();
 	}
 
 	auto produkcja = XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_PRODUKCJA);
 	while(produkcja){
-		produkcja_.push_back( Cena(produkcja,WEZEL_XML_SUROWCE) );
+		auto cena = Cena(produkcja,WEZEL_XML_SUROWCE,std::bind(&Gra::tworzSurowce,&(Aplikacja::pobierzInstancje().pobierzGre()),_1));
+		if(cena.pobierzObiekt())
+			produkcja_.push_back( cena );
 		produkcja = produkcja->NextSiblingElement();
 	}
 }

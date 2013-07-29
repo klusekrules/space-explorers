@@ -5,7 +5,7 @@
 #include "definicjeWezlowXML.h"
 #include "LiczenieKosztow.h"
 #include "LiczenieWymogow.h"
-
+using namespace std::placeholders;
 Wymagania::Wymagania( TiXmlElement* wezel  )
 {
 	if(wezel){
@@ -21,7 +21,7 @@ Wymagania::Wymagania( TiXmlElement* wezel  )
 				zmianaCzasuBudowy_=Aplikacja::pobierzInstancje().pobierzGre().pobierzFabrykeZmian().Tworz(zmiana);
 			auto cena = wezel->FirstChildElement(WEZEL_XML_CENA);
 			while(cena){
-				dodajCene(Cena(cena,WEZEL_XML_SUROWCE));
+				dodajCene(Cena(cena,WEZEL_XML_SUROWCE,std::bind(&Gra::tworzSurowce,&(Aplikacja::pobierzInstancje().pobierzGre()),_1)));
 				cena = cena->NextSiblingElement(WEZEL_XML_CENA);
 			}
 		}catch(exception& wyjatek){
@@ -86,6 +86,8 @@ bool Wymagania::dodajWymog( Wymog& wymog ){
 
 bool Wymagania::dodajCene( Cena& cena ){
 	bool zamien = true;
+	if(!cena.pobierzObiekt())
+		return false;
 	for(auto element = koszty_.begin() ; element != koszty_.end() ; ++element ){
 		if(element->wykonaj(
 			[&cena,&zamien](Cena::TypObiektu obiekt,Cena::Zmiana zmiana)->bool{
