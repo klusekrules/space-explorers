@@ -156,9 +156,11 @@ bool Gra::wczytajDane( const string& adresPliku ){
 			if(!wczytajBudynki(root_data))
 				return false;
 		}
-	}catch(ticpp::Exception& wyjatek){
-		cout<< wyjatek.what();
-		aplikacja_.pobierzLogger().error("Nie uda³o siê otworzyæ pliku!");
+	}catch(OgolnyWyjatek& wyjatek){
+		aplikacja_.pobierzLogger().error(wyjatek.generujKomunikat());
+		return false;
+	}catch(exception& wyjatek){
+		aplikacja_.pobierzLogger().error(wyjatek.what());
 		return false;
 	}
 	return true;

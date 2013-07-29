@@ -191,6 +191,7 @@
     <ClInclude Include="afxres.h" />
     <ClInclude Include="ExportSymbol.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="UtilsZmiana.h" />
     <ClInclude Include="ZmianaAgregacja.h" />
     <ClInclude Include="ZmianaFabryka.h" />
     <ClInclude Include="ZmianaInterfejs.h" />
@@ -214,6 +215,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="UtilsZmiana.cpp" />
     <ClCompile Include="ZmianaAgregacja.cpp" />
     <ClCompile Include="ZmianaFabryka.cpp" />
     <ClCompile Include="ZmianaIdKlas.cpp" />

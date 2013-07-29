@@ -3,12 +3,17 @@
 #include "ZmianaFabryka.h"
 #include "..\XmlBO.h"
 #include "..\definicjeWezlowXML.h"
+#include "UtilsZmiana.h"
 
 ZmianaPotegowaAlt::ZmianaPotegowaAlt( TiXmlElement * wezel )
 	: wspolczynnik_(XmlBO::ZnajdzWezel<NOTHROW>( wezel, WEZEL_XML_PARAM )), wykladnik_(nullptr)
 {
-	if(fabryka_)
-		wykladnik_ = fabryka_->Tworz(XmlBO::ZnajdzWezel<NOTHROW>( wezel, WEZEL_XML_ZMIANA ));
+	TiXmlElement * zmiana = XmlBO::ZnajdzWezel<NOTHROW>( wezel, WEZEL_XML_ZMIANA );
+	if(fabryka_ && zmiana){
+		wykladnik_ = fabryka_->Tworz(zmiana);
+		if(!wykladnik_)
+			UtilsZmiana::generujWyjatekBleduStruktury(zmiana);
+	}
 }
 
 ZmianaPotegowaAlt::~ZmianaPotegowaAlt(void){

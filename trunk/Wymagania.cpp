@@ -12,16 +12,28 @@ Wymagania::Wymagania( TiXmlElement* wezel  )
 		try{
 			auto wymog = wezel->FirstChildElement(WEZEL_XML_WYMOG);
 			while(wymog){
-				dodajWymog(Wymog(wymog,WEZEL_XML_OBIEKTBASE_INFO));
+				auto obiekt = Wymog(wymog,WEZEL_XML_OBIEKTBASE_INFO);
+				auto identyfikator = obiekt.pobierzObiekt()->pobierzIdentyfikator();
+				for(auto element : warunki_ ){
+					if(element.pobierzObiekt()->pobierzIdentyfikator() == identyfikator)
+						Utils::generujWyjatekBleduStruktury(EXCEPTION_PLACE,wymog);
+				}
+				warunki_.push_back(obiekt);					
 				wymog = wymog->NextSiblingElement(WEZEL_XML_WYMOG);
 			}
 
 			auto zmiana = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel->FirstChildElement(WEZEL_XML_CZAS),WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,WEZEL_XML_CZAS);
 			if(zmiana)
-				zmianaCzasuBudowy_=Aplikacja::pobierzInstancje().pobierzGre().pobierzFabrykeZmian().Tworz(zmiana);
+				zmianaCzasuBudowy_=Utils::TworzZmiane(zmiana);
 			auto cena = wezel->FirstChildElement(WEZEL_XML_CENA);
 			while(cena){
-				dodajCene(Cena(cena,WEZEL_XML_SUROWCE,std::bind(&Gra::tworzSurowce,&(Aplikacja::pobierzInstancje().pobierzGre()),_1)));
+				auto obiekt = Cena(cena,WEZEL_XML_SUROWCE,std::bind(&Gra::tworzSurowce,&(Aplikacja::pobierzInstancje().pobierzGre()),_1));
+				auto identyfikator = obiekt.pobierzObiekt()->pobierzIdentyfikator();
+				for(auto element : koszty_ ){
+					if(element.pobierzObiekt()->pobierzIdentyfikator() == identyfikator)
+						Utils::generujWyjatekBleduStruktury(EXCEPTION_PLACE,cena);
+				}
+				koszty_.push_back(obiekt);					
 				cena = cena->NextSiblingElement(WEZEL_XML_CENA);
 			}
 		}catch(exception& wyjatek){
@@ -49,74 +61,6 @@ Czas Wymagania::pobierzCzasBudowy( const Ilosc& ilosc, const PodstawoweParametry
 
 bool Wymagania::czySpelniaWymagania( const Ilosc& ilosc, const PodstawoweParametry& parametry ) const{
 	return czySpelniaKoszty(ilosc,parametry) && czySpelniaWymogi(parametry);
-}
-
-bool Wymagania::dodajWymog( Wymog& wymog ){
-	bool zamien = true;
-	for(auto element = warunki_.begin() ; element != warunki_.end() ; ++element ){
-		if(element->wykonaj(
-			[&wymog,&zamien](Wymog::TypObiektu obiekt,Wymog::Zmiana zmiana)->bool{
-				if(!obiekt)
-					return false;
-				auto identyfikator = obiekt->pobierzIdentyfikator();
-				auto poziom = obiekt->pobierzPoziom();
-				return wymog.wykonaj(
-					[&identyfikator,&poziom,&zamien](Wymog::TypObiektu obiekt,Wymog::Zmiana zmiana)->bool{
-						if(!obiekt)
-							return false;
-						if( identyfikator == obiekt->pobierzIdentyfikator() ){
-							zamien = ( poziom < obiekt->pobierzPoziom() );
-							return true;
-						}
-						return false;
-				}
-				);
-		}
-		)){
-			if(zamien){
-				warunki_.erase(element);
-				warunki_.push_back(wymog);
-			}
-			return zamien;
-		}
-	}
-	warunki_.push_back(wymog);
-	return true;
-}
-
-bool Wymagania::dodajCene( Cena& cena ){
-	bool zamien = true;
-	if(!cena.pobierzObiekt())
-		return false;
-	for(auto element = koszty_.begin() ; element != koszty_.end() ; ++element ){
-		if(element->wykonaj(
-			[&cena,&zamien](Cena::TypObiektu obiekt,Cena::Zmiana zmiana)->bool{
-				if(!obiekt)
-					return false;
-				auto identyfikator = obiekt->pobierzIdentyfikator();
-				auto ilosc = obiekt->pobierzIlosc();
-				return cena.wykonaj(
-					[&identyfikator,&ilosc,&zamien](Cena::TypObiektu obiekt,Cena::Zmiana zmiana)->bool{
-						if(!obiekt)
-							return false;
-						if( identyfikator == obiekt->pobierzIdentyfikator() ){
-							zamien = ( ilosc < obiekt->pobierzIlosc() );
-							return true;
-						}
-						return false;
-				}
-				);
-		}
-		)){
-			if(zamien){
-				koszty_.erase(element);
-				koszty_.push_back(cena);
-			}
-			return zamien;
-		}
-	}
-	koszty_.push_back(cena);
-	return true;
 }
 
 bool Wymagania::czySpelniaWymogi( const PodstawoweParametry& parametry ) const{	

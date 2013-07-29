@@ -3,6 +3,7 @@
 #include "XmlBO.h"
 #include "Aplikacja.h"
 #include "definicjeWezlowXML.h"
+#include "Utils.h"
 
 JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const Info& info, const Obrazenia& oAtak,const Obrazenia& oPancerz, const Obrazenia& oOslona) throw()
 	: Info(info), atak_(oAtak), zmianaAtaku_(nullptr), pancerz_(oPancerz), zmianaPancerza_(nullptr), oslona_(oOslona), zmianaOslony_(nullptr)
@@ -14,15 +15,14 @@ JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( TiXmlElement* wezel ) throw(Wyja
 {
 	if(wezel){
 		try{
-			ZmianaFabryka& fabryka = Aplikacja::pobierzInstancje().pobierzGre().pobierzFabrykeZmian();
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_ATAK,atak_);
-			zmianaAtaku_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_ATAK));
+			zmianaAtaku_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_ATAK));
 
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_PANCERZ,pancerz_);
-			zmianaPancerza_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_PANCERZ));
+			zmianaPancerza_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_PANCERZ));
 
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_OSLONA,oslona_);
-			zmianaOslony_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_OSLONA));
+			zmianaOslony_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_OSLONA));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
 		}

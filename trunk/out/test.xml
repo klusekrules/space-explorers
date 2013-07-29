@@ -52,7 +52,7 @@
   <StatekInfo masa="1" objetosc="2" powierzchnia="1" poziom="1" id="0x00B" nazwa="Transportowiec">
     Opis Transportowca.
     <Cena>
-      <Surowce id="0x1" ilosc="1000"/>
+      <Surowce id="0x1" ilosc="1000" opcja="1" />
       <Zmiana id="2">
         <Zmiana id="3" for="nastepny">
           <Param id="0" wspolczynnik="3.0"/>
@@ -63,14 +63,14 @@
       </Zmiana>
     </Cena>
     <Cena>
-      <Surowce id="0x4" ilosc="500"/>
+      <Surowce id="0x4" ilosc="500" opcja="1"/>
       <Zmiana id="4">
         <Param id="1" wspolczynnik="1.0"/>
         <Param id="2" wspolczynnik="2.0"/>
       </Zmiana>
     </Cena>
     <Cena>
-      <Surowce id="0x7" ilosc="200"/>
+      <Surowce id="0x7" ilosc="200" opcja="1"/>
       <Zmiana id="5">
         <Param id="0" wspolczynnik="5.0"/>
       </Zmiana>
@@ -101,7 +101,7 @@
   <StatekInfo masa="1" objetosc="90" powierzchnia="1" poziom="1" id="0x00C" nazwa="Myœliwiec">
     Opis Myœliwca.
     <Cena>
-      <Surowce id="0x1" ilosc="1000"/>
+      <Surowce id="0x1" ilosc="1000" opcja="1"/>
       <Zmiana id="2">
         <Zmiana id="3" for="nastepny">
           <Param id="0" wspolczynnik="3.0"/>
@@ -112,14 +112,14 @@
       </Zmiana>
     </Cena>
     <Cena>
-      <Surowce id="0x4" ilosc="500"/>
+      <Surowce id="0x4" ilosc="500" opcja="1"/>
       <Zmiana id="4">
         <Param id="1" wspolczynnik="1.0"/>
         <Param id="2" wspolczynnik="2.0"/>
       </Zmiana>
     </Cena>
     <Cena>
-      <Surowce id="0x7" ilosc="200"/>
+      <Surowce id="0x7" ilosc="200" opcja="1"/>
       <Zmiana id="5">
         <Param id="0" wspolczynnik="5.0"/>
       </Zmiana>
@@ -219,19 +219,19 @@
   <BudynekInfo masa="1" objetosc="1" powierzchnia="1" poziom="1" id="0x0011" nazwa="Kopalnia Metalu">
     Opis kopalni metalu.
     <Cena>
-      <Surowce id="0x1" ilosc="150"/>
+      <Surowce id="0x1" ilosc="150" opcja="1"/>
       <Zmiana id="3">
         <Param id="0" wspolczynnik="2.0"/>
       </Zmiana>
     </Cena>
     <Zapotrzebowanie>
-      <Surowce id="0xA" ilosc="20"/>
+      <Surowce id="0xA" ilosc="20" opcja="1"/>
       <Zmiana id="3">
         <Param id="0" wspolczynnik="3.0"/>
       </Zmiana>
     </Zapotrzebowanie>
     <Produkcja>
-      <Surowce id="0x1" ilosc="1000"/>
+      <Surowce id="0x1" ilosc="1000" opcja="1"/>
       <Zmiana id="3">
         <Param id="0" wspolczynnik="2.0"/>
       </Zmiana>
@@ -249,13 +249,13 @@
       </Zmiana>
     </Czas>
     <Cena>
-      <Surowce id="0x1" ilosc="156"/>
+      <Surowce id="0x1" ilosc="156" opcja="1"/>
       <Zmiana id="3">
         <Param id="0" wspolczynnik="2.0"/>
       </Zmiana>
     </Cena>
     <Produkcja>
-      <Surowce id="0xA" ilosc="1000"/>
+      <Surowce id="0xA" ilosc="1000" opcja="1"/>
       <Zmiana id="3">
         <Param id="0" wspolczynnik="3.0"/>
       </Zmiana>

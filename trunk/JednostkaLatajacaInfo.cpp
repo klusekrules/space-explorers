@@ -15,7 +15,6 @@ JednostkaLatajacaInfo::JednostkaLatajacaInfo( TiXmlElement* wezel ) throw(Wyjate
 {
 	if(wezel){
 		try{
-			ZmianaFabryka& fabryka = Aplikacja::pobierzInstancje().pobierzGre().pobierzFabrykeZmian();
 			Identyfikator id;
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_RODZAJ_SILNIKA_ID,id);
 			Poziom poziom;
@@ -23,16 +22,16 @@ JednostkaLatajacaInfo::JednostkaLatajacaInfo( TiXmlElement* wezel ) throw(Wyjate
 			rodzajNapedu_(Klucz(id,poziom)());
 			
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_MOC_SILNIKA,mocSilnika_);
-			przyrostMocySilnika_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MOC_SILNIKA));
+			przyrostMocySilnika_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MOC_SILNIKA));
 			
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_ZUZYCIE_PALIWA,zuzyciePaliwa_);
-			przyrostZuzyciaPaliwa_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_ZUZYCIE_PALIWA));
+			przyrostZuzyciaPaliwa_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_ZUZYCIE_PALIWA));
 			
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_MASA_SILNIKA,masaNapedu_);
-			przyrostMasyNapedu_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MASA_SILNIKA));
+			przyrostMasyNapedu_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MASA_SILNIKA));
 			
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_SPRAWNOSC_SILNIKA,sprawnoscSilnika_);
-			przyrostSprawnosciSilnika_ = fabryka.Tworz(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_SPRAWNOSC_SILNIKA));
+			przyrostSprawnosciSilnika_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_SPRAWNOSC_SILNIKA));
 		}catch(exception& wyjatek){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,wyjatek,WyjatekParseraXML::trescBladStrukturyXml);
 		}
