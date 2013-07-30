@@ -3,8 +3,10 @@
 #include "LadowniaInfo.h"
 #include "JednostkaLatajacaInfo.h"
 #include "JednostkaAtakujacaInfo.h"
+#include "HangarInfo.h"
 #include "Statek.h"
 #include "parser\ticpp.h"
+#include "Bool.h"
 
 /**
 * \brief Klasa opisowa dla statku
@@ -19,6 +21,7 @@ class StatekInfo:
 	public JednostkaLatajacaInfo,
 	public JednostkaAtakujacaInfo,
 	public LadowniaInfo,
+	public HangarInfo,
 	virtual public LoggerInterface
 {
 public:
@@ -29,8 +32,9 @@ public:
 	* \param[in] jednostkaLatajacaInfo - Referencja do obiektu opisujacego.
 	* \param[in] jednostkaAtakujacaInfo - Referencja do obiektu opisujacego.
 	* \param[in] ladowniaInfo - Referencja do obiektu opisujacego.
+	* \param[in] hangarInfo - Referencja do obiektu opisuj¹cego.
 	*/
-	StatekInfo(	const ObiektInfo& obiektInfo , const JednostkaLatajacaInfo& jednostkaLatajacaInfo , const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo , const LadowniaInfo& ladowniaInfo ) throw();
+	StatekInfo(	const ObiektInfo& obiektInfo , const JednostkaLatajacaInfo& jednostkaLatajacaInfo , const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo , const LadowniaInfo& ladowniaInfo, const HangarInfo& hangarInfo ) throw();
 
 	/**
 	* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
@@ -48,6 +52,12 @@ public:
 	* \return Identyfikator obiektu.
 	*/
 	const Identyfikator& pobierzIdentyfikator() const;
+
+	/**
+	* Metoda zwracaj¹ca informacje czy mo¿na statek przechowaæ w hangarze.
+	* \return true je¿eli mo¿na dodac do hangaru, false w przeciwnym wypadku.
+	*/
+	bool czyMoznaDodacDoHangaru() const;
 		
 	/**
 	* \brief Metoda tworz¹ca egzemplarz obiektu.
@@ -78,4 +88,6 @@ private:
 	* \return Metoda zwraca true je¿eli tworzenie zakoñczy siê sukcesem. Zwraca false w przeciwnym wypadku.
 	*/
 	bool tworz( const Gra& gra, Planeta& planeta , const Ilosc& ilosc ) const override;
+
+	Bool przechowywanyWHangarze_; /// Informacja czy statek mo¿e byæ przechowywwany w hangarze drugiego statku.
 };

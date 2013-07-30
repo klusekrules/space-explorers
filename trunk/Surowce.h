@@ -161,16 +161,7 @@ public:
 	* \return Wskazanie na podzielony obiekt. Je¿eli nie mo¿na by³o podzieliæ obiektu, zostaje zwrócony nullptr.
 	* \remark Metoda jest tranzakcyjna.
 	*/
-	Obiekt* podziel( const Ilosc& ilosc ) override;
-
-	/**
-	* \brief Metoda sparawdzaj¹ca teorertyczn¹ mo¿liwoœæ dodania do ³adowni.
-	* 
-	* Metoda sprawdza czy obiekt spe³nia wymagane za³o¿enia oby móg³by byæ rozpatrywany jako mo¿liwy dodania do ³adowni.
-	* \param[in] ladownia - £adownia do której ma zostaæ dodany obiekt.
-	* \return true je¿eli mo¿na dodaæ. False w przeciwnym wypadku.
-	*/
-	bool czyMoznaDodacDoLadownii( const Ladownia& ladownia ) const override;
+	Surowce* podziel( const Ilosc& ilosc ) override;
 
 	/**
 	* \brief Metoda zapisuj¹ca.

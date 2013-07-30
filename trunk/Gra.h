@@ -225,6 +225,15 @@ public:
 	shared_ptr<Surowce> tworzSurowce( TiXmlElement* wezel )const;
 
 	/**
+	* \brief Metoda tworz¹ca instancje statków nie przypisan¹ do planety.
+	*
+	* Metoda tworzy obiekt statku na podstawie wêz³a xml, nie przypisuje go do ¿adnej planety.
+	* \param[in] wezel - Wêze³ z którego s¹ odczytywane dane.
+	* \return Sprytny wskaŸnik do obiektu statku. WskaŸnik na nullptr, je¿eli wyst¹pi³ b³¹d.
+	*/
+	shared_ptr<Statek> tworzStatek( TiXmlElement* wezel )const;
+
+	/**
 	* \brief Metoda zapisuj¹ca.
 	*
 	* Metoda s³u¿¹ca do zapisu danych do wêz³a xml podanego jako parametr.

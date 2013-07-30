@@ -12,6 +12,7 @@
 #define WEZEL_XML_FLOTY "Floty"
 #define WEZEL_XML_SUROWCE "Surowce"
 #define WEZEL_XML_TECHNOLOGIA "Technologia"
+#define WEZEL_XML_HANGAR "Hangar"
 
 #define WEZEL_XML_PRODUKCJA "Produkcja"
 #define WEZEL_XML_CENA "Cena"
@@ -25,9 +26,11 @@
 #define WEZEL_XML_BUDYNEK_INFO "BudynekInfo"
 #define WEZEL_XML_STATEK_INFO "StatekInfo"
 #define WEZEL_XML_LADOWNIA_INFO "LadowniaInfo"
+#define WEZEL_XML_HANGAR_INFO "HangarInfo"
 #define WEZEL_XML_TECHNOLOGIA_INFO "TechnologiaInfo"
 #define WEZEL_XML_JEDNOSTKA_LATAJACA_INFO  "JednostkaLatajacaInfo"
 #define WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO  "JednostkaAtakujacaInfo"
+#define WEZEL_XML_HANGAR_INFO "HangarInfo"
 
 #define ATRYBUT_XML_IDENTYFIKATOR "id"
 #define ATRYBUT_XML_IDENTYFIKATOR_PLANETA_POCZATKOWA "idPlanetaPoczatkowa"
@@ -39,6 +42,7 @@
 #define ATRYBUT_XML_ZAJETE_MIEJSCE "zajeteMiejsce"
 #define ATRYBUT_XML_FOR "for"
 #define ATRYBUT_XML_TYP "typ"
+#define ATRYBUT_XML_HANGAR "hangar"
 #define ATRYBUT_XML_MASA "masa"
 #define ATRYBUT_XML_OBJETOSC "objetosc"
 #define ATRYBUT_XML_POWIERZCHNIA "powierzchnia"

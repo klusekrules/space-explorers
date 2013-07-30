@@ -211,6 +211,9 @@
     <ClInclude Include="Bazowa.h" />
     <ClInclude Include="BudynekTest.h" />
     <ClInclude Include="Dokumentacja.h" />
+    <ClInclude Include="Hangar.h" />
+    <ClInclude Include="HangarInfo.h" />
+    <ClInclude Include="HangarTest.h" />
     <ClInclude Include="InicjalizacjaDanychTestowych.h" />
     <ClInclude Include="LadowniaTest.h" />
     <ClInclude Include="LiczenieKosztow.h" />
@@ -328,6 +331,9 @@
     <ClCompile Include="Flota.cpp" />
     <ClCompile Include="Fluktuacja.cpp" />
     <ClCompile Include="Gra.cpp" />
+    <ClCompile Include="Hangar.cpp" />
+    <ClCompile Include="HangarInfo.cpp" />
+    <ClCompile Include="HangarTest.cpp" />
     <ClCompile Include="Identyfikator.cpp" />
     <ClCompile Include="Ilosc.cpp" />
     <ClCompile Include="Info.cpp" />

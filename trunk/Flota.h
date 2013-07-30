@@ -56,19 +56,36 @@ public:
 	/**
 	* \brief Metoda dodaje obiekt do ³adowni floty.
 	* 
-	* Metoda dodaje obiekt do ³adowni do floty.
-	* \param[in] obiekt - WskaŸnik do obiektu, który ma zostaæ dodany do ³adowni floty.
-	* \return true je¿eli uda siê dodaæ statek. false w przeciwnym wypadku.
+	* Metoda dodaje surowiec do ³adowni do floty.
+	* \param[in] obiekt - WskaŸnik do surowca, który ma zostaæ dodany do ³adowni floty.
+	* \return true je¿eli uda siê dodaæ surowiec. false w przeciwnym wypadku.
 	*/
-	bool dodajLadunek( shared_ptr<Obiekt> obiekt );
+	bool dodajLadunek( shared_ptr<Surowce> obiekt );
 
 	/**
-	* \brief Metoda pobieraj¹ca dostêpne miejsce.
+	* \brief Metoda dodaje statek do hangaru floty.
+	* 
+	* Metoda dodaje statek do hangaru do floty.
+	* \param[in] obiekt - WskaŸnik do statku, który ma zostaæ dodany do hangaru floty.
+	* \return true je¿eli uda siê dodaæ statek. false w przeciwnym wypadku.
+	*/
+	bool dodajLadunek( shared_ptr<Statek> obiekt );
+
+	/**
+	* \brief Metoda pobieraj¹ca dostêpne miejsce ³adowni.
 	*
 	* Metoda pobiera wolne miejsce znajduj¹ce siê na wszysktich statkach floty.
 	* \return Objêtoœæ jaka jest dostêpna na statkach.
 	*/
-	Objetosc pobierzDostepneMiejsce() const;
+	Objetosc pobierzDostepneMiejsceLadowni() const;
+
+	/**
+	* \brief Metoda pobieraj¹ca dostêpne miejsce hangaru.
+	*
+	* Metoda pobiera wolne miejsce znajduj¹ce siê na wszysktich statkach floty.
+	* \return Objêtoœæ jaka jest dostêpna na statkach.
+	*/
+	Objetosc pobierzDostepneMiejsceHangaru() const;
 
 	/**
 	* \brief Metoda ustawiaj¹ca punkt docelowy

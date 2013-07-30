@@ -44,10 +44,6 @@ Masa Obiekt::pobierzMase() const{
 	return Masa(obiektInfo_.pobierzMase(pobierzPoziom(), pobierzIdentyfikatorPlanety())()*(pobierzIlosc()()));
 }
 
-bool Obiekt::czyMoznaDodacDoLadownii( const Ladownia& c ) const{
-	return false;
-}
-
 bool Obiekt::zapisz( TiXmlElement* wezel) const{
 	return ObiektBazowy::zapisz(wezel);
 }

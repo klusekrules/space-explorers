@@ -21,7 +21,6 @@ class ListaObiektow:
 	virtual public LoggerInterface
 {
 	static_assert(!is_pointer< T >::value, "Wartosc nie moze byc wskaznikiem.");
-	static_assert(is_base_of< ObiektBazowy , T >::value, "Uzyto typ niezgodny z ObiektBazowy");
 
 public:	
 	typedef typename map< Klucz , shared_ptr<T> >::iterator iterator;

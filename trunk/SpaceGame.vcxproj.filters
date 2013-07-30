@@ -241,6 +241,15 @@
     <ClCompile Include="LiczenieWymogow.cpp">
       <Filter>SourceFile\Wymagania</Filter>
     </ClCompile>
+    <ClCompile Include="HangarInfo.cpp">
+      <Filter>SourceFile\Flota\Hangar</Filter>
+    </ClCompile>
+    <ClCompile Include="Hangar.cpp">
+      <Filter>SourceFile\Flota\Hangar</Filter>
+    </ClCompile>
+    <ClCompile Include="HangarTest.cpp">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -537,6 +546,15 @@
     <ClInclude Include="Dokumentacja.h">
       <Filter>Resource</Filter>
     </ClInclude>
+    <ClInclude Include="HangarInfo.h">
+      <Filter>SourceFile\Flota\Hangar</Filter>
+    </ClInclude>
+    <ClInclude Include="Hangar.h">
+      <Filter>SourceFile\Flota\Hangar</Filter>
+    </ClInclude>
+    <ClInclude Include="HangarTest.h">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -643,6 +661,9 @@
     </Filter>
     <Filter Include="Testy\KlasyTestowe\Inicjalizowanie">
       <UniqueIdentifier>{6d536f1e-ee1d-47c4-ac57-d3e813d83b91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Flota\Hangar">
+      <UniqueIdentifier>{46df6a8b-cd48-418b-a20d-fba74a6ed859}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

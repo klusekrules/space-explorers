@@ -9,8 +9,8 @@
 #include "Masa.h"
 #include "ListaObiektow.hpp"
 #include "PodstawoweParametry.h"
+#include "Surowce.h"
 
-class Surowce;
 class LadowniaInfo;
 class Statek;
 /**
@@ -27,7 +27,7 @@ class Ladownia:
 	virtual public Serializacja
 {
 public:
-	typedef Obiekt Item;
+	typedef Surowce Item;
 	typedef ListaObiektow< Item > Zbiornik;
 	typedef vector < Klucz > ListaKluczy;
 
@@ -58,7 +58,7 @@ public:
 	*
 	* \return Procentowa wartoœæ wolnego miejsca w ³adowni.
 	*/
-	virtual Fluktuacja wolneMiejsce() const;
+	Fluktuacja wolneMiejsceLadowni() const;
 
 	/**
 	* \brief Metoda dodaj¹ca obiekt do ³adowni.
@@ -82,13 +82,13 @@ public:
 	* \brief Metoda wylicza objêtoœæ maksymaln¹ ³adowni.
 	* \return Objêtoœæ maksymalna ³adowni.
 	*/
-	virtual Objetosc pobierzPojemnoscMaksymalna() const;
+	virtual Objetosc pobierzPojemnoscMaksymalnaLadowni() const;
 
 	/**
 	* \brief Metoda pobieraj¹ca pojemnoœæ jednostkow¹
 	* \return Objêtoœæ jednostkowa ³adowni.
 	*/
-	Objetosc pobierzPojemnoscJednostkowa() const;
+	Objetosc pobierzPojemnoscJednostkowaLadowni() const;
 
 	/**
 	* \brief Metoda ³¹czy obiekty ³adowni.
@@ -98,7 +98,7 @@ public:
 	* \return true je¿eli uda siê przenieœæ, false w przeciwnym wypadku.
 	* \remark Metoda tranzakcyjna.
 	*/
-	bool polacz( Ladownia& ladownia );
+	bool polaczLadownie( Ladownia& ladownia );
 
 	/**
 	* \brief Metoda ³¹czy obiekty ³adowni.
@@ -108,7 +108,7 @@ public:
 	* \return true je¿eli uda siê przenieœæ, false w przeciwnym wypadku.
 	* \remark Metoda tranzakcyjna.
 	*/
-	bool polacz( Zbiornik zbiornik );
+	bool polaczLadownie( Zbiornik zbiornik );
 
 	/**
 	* \brief Metoda pobiera iloœæ obiektów o podanym kluczu.
@@ -116,7 +116,7 @@ public:
 	* \param[in] klucz - Klucz identyfikuj¹cy obiekt.
 	* \return Iloœæ obiektów o podanym kluczu znajduj¹ca siê w ³adowni.
 	*/
-	Ilosc pobierzIloscObiektow( const Klucz& klucz ) const;	
+	Ilosc pobierzIloscObiektowLadowni( const Klucz& klucz ) const;	
 
 	/**
 	* \brief Metoda wyjmuje z ³adowni obietk o podanym kluczu i podanej iloœci
@@ -125,21 +125,21 @@ public:
 	* \param[in] ilosc - Iloœæ obiektów o podanym kluczu.
 	* \return WskaŸnik na wyjêty obiekt. nullptr je¿eli wystapi³ b³ad.
 	*/
-	shared_ptr<Item> wyjmijObiekt( const Klucz& klucz , const Ilosc& ilosc );
+	shared_ptr<Item> wyjmijObiektZLadowni( const Klucz& klucz , const Ilosc& ilosc );
 
 	/**
 	* \brief Metoda zwraca listê kluczy obiektów.
 	*
 	* \return Lista kluczy obiektów znajduj¹cych sie w ³adowni.
 	*/
-	ListaKluczy pobierzListeIdentyfikatorowObiektow() const;
+	ListaKluczy pobierzListeIdentyfikatorowObiektowLadowni() const;
 
 	/**
 	* \brief Metoda zwraca listê obiektów znajduj¹cych siê w ³adowni.
 	*
 	* \return Lista obiektów znajduj¹cych siê w ³adowni.
 	*/
-	const Zbiornik& pobierzPrzewozoneObiekty() const;
+	const Zbiornik& pobierzPrzewozoneObiektyLadowni() const;
 
 	/**
 	* \brief Metoda dzieli ³adownie.
@@ -156,30 +156,14 @@ public:
 	*
 	* \return Objêtoœæ elementów w ³adowni.
 	*/
-	const Objetosc& pobierzZajeteMiejsce() const;
+	const Objetosc& pobierzZajeteMiejsceLadowni() const;
 
 	/**
 	* \brief Metoda zwraca dostêpn¹ przestrzeñ ³adowni.
 	*
 	* \return Dostêpna przestrzeñ ³adowni.
 	*/
-	Objetosc pobierzDostepneMiejsce() const;
-
-	/**
-	* \brief Metoda informuje o mo¿liwoœci biznesowej dodania obiektu do ³adowni.
-	*
-	* \param[in] statek - nieu¿ywane.
-	* \return Zawsze zwraca true.
-	*/
-	bool czyMoznaDodacDoLadownii( const Statek& statek ) const;
-
-	/**
-	* \brief Metoda informuje o mo¿liwoœci biznesowej dodania obiektu do ³adowni.
-	*
-	* \param[in] surowce - Surowiec poddawany sprawdzeniu.
-	* \return true je¿eli mo¿na dodaæ obiekt, false w przeciwnym wypadku.
-	*/
-	bool czyMoznaDodacDoLadownii( const Surowce& surowce ) const;
+	Objetosc pobierzDostepneMiejsceLadowni() const;
 
 	/**
 	* \brief Metoda opró¿nia ³adownie.
@@ -221,7 +205,7 @@ protected:
 	/**
 	* \brief Metoda przeliczaj¹ca zajête miejsce w ³adowni.
 	*/
-	void przeliczZajeteMiejsce();
+	void przeliczZajeteMiejsceLadowni();
 
 	/**
 	* \brief Metoda pobieraj¹ca masê obiektów znajduj¹cych siê w ³adowni.

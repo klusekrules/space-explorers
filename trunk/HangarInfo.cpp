@@ -1,23 +1,21 @@
-#include "LadowniaInfo.h"
-#include "Logger.h"
+#include "HangarInfo.h"
 #include "XmlBO.h"
-#include "Aplikacja.h"
-#include "definicjeWezlowXML.h"
+#include "Logger\Logger.h"
+#include "Statek.h"
 
-LadowniaInfo::LadowniaInfo( const Objetosc& maksymalnaObjetosc, const Info& info ) throw()
+HangarInfo::HangarInfo( const Objetosc& maksymalnaObjetosc, const Info& info ) throw()
 	: Info(info), pojemnoscMaksymalna_(maksymalnaObjetosc), przyrostPojemnosciMaksymalnej_(nullptr)
 {
 }
 
-LadowniaInfo::LadowniaInfo( const LadowniaInfo& obiekt )
-	: Info(obiekt), pojemnoscMaksymalna_(obiekt.pojemnoscMaksymalna_), przyrostPojemnosciMaksymalnej_(nullptr)
+HangarInfo::HangarInfo( const HangarInfo& obiekt )
+	:Info(obiekt), pojemnoscMaksymalna_(obiekt.pojemnoscMaksymalna_) , przyrostPojemnosciMaksymalnej_(nullptr)
 {
+	if(obiekt.przyrostPojemnosciMaksymalnej_)
+		przyrostPojemnosciMaksymalnej_ = shared_ptr<ZmianaInterfejs>(obiekt.przyrostPojemnosciMaksymalnej_->Kopia());
 }
 
-LadowniaInfo::~LadowniaInfo(){
-}
-
-LadowniaInfo::LadowniaInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
+HangarInfo::HangarInfo(  TiXmlElement* wezel )
 	: Info(wezel), przyrostPojemnosciMaksymalnej_(nullptr)
 {
 	if(wezel){
@@ -30,15 +28,19 @@ LadowniaInfo::LadowniaInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
 	}
 }
 
-Objetosc LadowniaInfo::pobierzPojemnoscMaksymalna(const PodstawoweParametry& parametry ) const{
+HangarInfo::~HangarInfo()
+{
+}
+
+Objetosc HangarInfo::pobierzMaksymalnaIloscPrzewozonychStatkow( const PodstawoweParametry& parametry ) const{
 	if(przyrostPojemnosciMaksymalnej_)
 		return Objetosc(przyrostPojemnosciMaksymalnej_->policzWartosc(pojemnoscMaksymalna_(),static_cast<int>(parametry.pobierzPoziom()()),parametry.pobierzIdentyfikatorPlanety()()));
 	else
 		return pojemnoscMaksymalna_;
 }
 		
-string LadowniaInfo::napis() const{
-	Logger str(NAZWAKLASY(LadowniaInfo));
+string HangarInfo::napis() const{
+	Logger str(NAZWAKLASY(HangarInfo));
 	str.dodajKlase(Info::napis());
 	str.dodajPole("MaksymalnaPojemnosc",pojemnoscMaksymalna_);
 	if(przyrostPojemnosciMaksymalnej_)

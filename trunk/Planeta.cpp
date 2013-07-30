@@ -161,9 +161,9 @@ bool Planeta::przeniesDoFloty(const Identyfikator& identyfikatorFloty, const Ide
 	return false;
 }
 
-bool Planeta::zaladujFlote(const Identyfikator& identyfikatorFloty, const Identyfikator& identyfikator, const Ilosc& ilosc){
-	auto iterator = listaObiektowZaladunkowych_.find(identyfikator);
-	if(iterator==listaObiektowZaladunkowych_.end())
+bool Planeta::zaladujSurowceNaFlote(const Identyfikator& identyfikatorFloty, const Identyfikator& identyfikator, const Ilosc& ilosc){
+	auto iterator = listaSurowcow_.find(identyfikator);
+	if(iterator==listaSurowcow_.end())
 		return false;
 
 	if(ilosc <= Ilosc(0.0) || iterator->second->pobierzIlosc() < ilosc)
@@ -172,7 +172,26 @@ bool Planeta::zaladujFlote(const Identyfikator& identyfikatorFloty, const Identy
 	auto flota = listaFlot_.find(identyfikatorFloty);
 	if(flota==listaFlot_.end())
 		return false;
-	shared_ptr<Obiekt> ladunek = shared_ptr<Obiekt>( iterator->second->podziel(ilosc));
+	shared_ptr<Surowce> ladunek = shared_ptr<Surowce>( iterator->second->podziel(ilosc));
+	if(!flota->second->dodajLadunek(ladunek)){
+		iterator->second->polacz(*ladunek);
+		return false;
+	}
+	return true;
+}
+
+bool Planeta::zaladujStatekNaFlote(const Identyfikator& identyfikatorFloty, const Identyfikator& identyfikator, const Ilosc& ilosc){
+	auto iterator = listaStatkow_.find(identyfikator);
+	if(iterator==listaStatkow_.end())
+		return false;
+
+	if(ilosc <= Ilosc(0.0) || iterator->second->pobierzIlosc() < ilosc)
+		return false;
+
+	auto flota = listaFlot_.find(identyfikatorFloty);
+	if(flota==listaFlot_.end())
+		return false;
+	shared_ptr<Statek> ladunek = shared_ptr<Statek>( iterator->second->podziel(ilosc));
 	if(!flota->second->dodajLadunek(ladunek)){
 		iterator->second->polacz(*ladunek);
 		return false;
@@ -187,6 +206,9 @@ bool Planeta::czyMaWlasciciela()const{
 void Planeta::rozladujStatek( shared_ptr< Statek > statek ){
 	if(statek){
 		for(auto element : statek->oproznijLadownie()){
+			wybuduj(element.second);
+		}
+		for(auto element : statek->oproznijHangar()){
 			wybuduj(element.second);
 		}
 	}

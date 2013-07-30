@@ -4,8 +4,8 @@
 #include "definicjeWezlowXML.h"
 #include "Logger\Logger.h"
 
-StatekInfo::StatekInfo(	const ObiektInfo& obiektInfo , const JednostkaLatajacaInfo& jednostkaLatajacaInfo , const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo , const LadowniaInfo& ladowniaInfo ) throw()
-	: ObiektInfo(obiektInfo), JednostkaLatajacaInfo(jednostkaLatajacaInfo), JednostkaAtakujacaInfo(jednostkaAtakujacaInfo), LadowniaInfo(ladowniaInfo)
+StatekInfo::StatekInfo(	const ObiektInfo& obiektInfo , const JednostkaLatajacaInfo& jednostkaLatajacaInfo , const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo , const LadowniaInfo& ladowniaInfo, const HangarInfo& hangarInfo ) throw()
+	: ObiektInfo(obiektInfo), JednostkaLatajacaInfo(jednostkaLatajacaInfo), JednostkaAtakujacaInfo(jednostkaAtakujacaInfo), LadowniaInfo(ladowniaInfo), HangarInfo(hangarInfo),przechowywanyWHangarze_(false)
 {
 }
 
@@ -13,11 +13,26 @@ StatekInfo::StatekInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
 	: ObiektInfo(wezel),
 	JednostkaLatajacaInfo(XmlBO::ZnajdzWezel<THROW>(wezel,WEZEL_XML_JEDNOSTKA_LATAJACA_INFO)),
 	JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<THROW>(wezel,WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO)),
-	LadowniaInfo(XmlBO::ZnajdzWezel<THROW>(wezel,WEZEL_XML_LADOWNIA_INFO))
+	LadowniaInfo(XmlBO::ZnajdzWezel<THROW>(wezel,WEZEL_XML_LADOWNIA_INFO)),
+	HangarInfo(XmlBO::ZnajdzWezel<THROW>(wezel,WEZEL_XML_HANGAR_INFO)),przechowywanyWHangarze_(false)
 {
+	if(wezel){
+		auto przyrostowy = XmlBO::WczytajAtrybut<int>(wezel,ATRYBUT_XML_HANGAR,0);
+		switch(przyrostowy){
+		case 1 : przechowywanyWHangarze_ = true;
+			break;
+		case 2 : przechowywanyWHangarze_ = false;
+			break;
+		default: Utils::generujWyjatekBleduStruktury(EXCEPTION_PLACE,wezel);
+		}
+	}
 }
 
 StatekInfo::~StatekInfo(){
+}
+
+bool StatekInfo::czyMoznaDodacDoHangaru() const{
+	return przechowywanyWHangarze_();
 }
 
 const Identyfikator& StatekInfo::pobierzIdentyfikator() const{
@@ -38,5 +53,7 @@ string StatekInfo::napis() const{
 	str.dodajKlase(JednostkaLatajacaInfo::napis());
 	str.dodajKlase(JednostkaAtakujacaInfo::napis());
 	str.dodajKlase(LadowniaInfo::napis());
+	str.dodajKlase(HangarInfo::napis());
+	str.dodajPole("CzyMoznaDodacDoHangaru",przechowywanyWHangarze_);
 	return str.napis();
 }

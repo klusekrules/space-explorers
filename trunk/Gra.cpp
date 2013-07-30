@@ -35,6 +35,19 @@ shared_ptr<Surowce> Gra::tworzSurowce( TiXmlElement* wezel )const{
 	return obiekt;
 }
 
+shared_ptr<Statek> Gra::tworzStatek( TiXmlElement* wezel )const{
+	Identyfikator identyfikator;
+	if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
+		return nullptr;
+	auto obiektOpisowy = listaStatkowInfo_.find(identyfikator);
+	if( obiektOpisowy == listaStatkowInfo_.end() )
+		return nullptr;
+	shared_ptr<Statek> obiekt = shared_ptr<Statek>(obiektOpisowy->second->tworzEgzemplarz(Ilosc(0),Identyfikator(0)));
+	if(!obiekt || !obiekt->odczytaj(wezel))
+		return nullptr;
+	return obiekt;
+}
+
 Gra::~Gra()
 {
 }

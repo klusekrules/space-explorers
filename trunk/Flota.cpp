@@ -25,17 +25,17 @@ bool Flota::dodajStatek( shared_ptr<Statek> statek ){
 	return true;
 }
 
-bool Flota::dodajLadunek( shared_ptr<Obiekt> obiekt ){
+bool Flota::dodajLadunek( shared_ptr<Surowce> obiekt ){
 	if(!obiekt)
 		return false;
 	Objetosc objetoscObiektu = obiekt->pobierzObjetosc();
-	if(pobierzDostepneMiejsce() < objetoscObiektu)
+	if(pobierzDostepneMiejsceLadowni() < objetoscObiektu)
 		return false;
 	Objetosc objetoscJednostkowa = obiekt->pobierzObjetoscJednostkowa();
 
 	map<Objetosc,Klucz,less<Objetosc> > posortowane;
 	for( auto element : lista_ )
-		posortowane.insert(make_pair(element.second->pobierzPojemnoscJednostkowa(),element.first));
+		posortowane.insert(make_pair(element.second->pobierzPojemnoscJednostkowaLadowni(),element.first));
 
 	for( auto element : posortowane ){
 		if( element.first < objetoscJednostkowa )
@@ -43,11 +43,11 @@ bool Flota::dodajLadunek( shared_ptr<Obiekt> obiekt ){
 		auto iter = lista_.find(element.second);
 		if(iter == lista_.end())
 			continue;
-		shared_ptr<Obiekt> obiektDoDodania = obiekt;
-		Objetosc dostepneMiejsce = iter->second->pobierzDostepneMiejsce();
+		shared_ptr<Surowce> obiektDoDodania = obiekt;
+		Objetosc dostepneMiejsce = iter->second->pobierzDostepneMiejsceLadowni();
 		if(objetoscObiektu > dostepneMiejsce){
 			Ilosc ilosc( floor( dostepneMiejsce() / objetoscJednostkowa() ) );
-			obiektDoDodania = shared_ptr<Obiekt>(obiekt->podziel(ilosc));
+			obiektDoDodania = shared_ptr<Surowce>(obiekt->podziel(ilosc));
 			if(iter->second->dodajObiektDoLadowni(obiektDoDodania))
 				return true;
 			else
@@ -60,10 +60,53 @@ bool Flota::dodajLadunek( shared_ptr<Obiekt> obiekt ){
 	return false;
 }
 
-Objetosc Flota::pobierzDostepneMiejsce() const{
+bool Flota::dodajLadunek( shared_ptr<Statek> obiekt ){
+	if(!obiekt)
+		return false;
+	Objetosc objetoscObiektu = obiekt->pobierzObjetosc();
+	if(pobierzDostepneMiejsceHangaru() < objetoscObiektu)
+		return false;
+	Objetosc objetoscJednostkowa = obiekt->pobierzObjetoscJednostkowa();
+
+	map<Objetosc,Klucz,less<Objetosc> > posortowane;
+	for( auto element : lista_ )
+		posortowane.insert(make_pair(element.second->pobierzPojemnoscJednostkowaHangaru(),element.first));
+
+	for( auto element : posortowane ){
+		if( element.first < objetoscJednostkowa )
+			continue;
+		auto iter = lista_.find(element.second);
+		if(iter == lista_.end())
+			continue;
+		shared_ptr<Statek> obiektDoDodania = obiekt;
+		Objetosc dostepneMiejsce = iter->second->pobierzDostepneMiejsceHangaru();
+		if(objetoscObiektu > dostepneMiejsce){
+			Ilosc ilosc( floor( dostepneMiejsce() / objetoscJednostkowa() ) );
+			obiektDoDodania = shared_ptr<Statek>(obiekt->podziel(ilosc));
+			if(iter->second->dodajStatekDoHangaru(obiektDoDodania))
+				return true;
+			else
+				obiekt->polacz(*obiektDoDodania);
+		}else{
+			if(iter->second->dodajStatekDoHangaru(obiektDoDodania))
+				return true;
+		}		
+	}
+	return false;
+}
+
+Objetosc Flota::pobierzDostepneMiejsceLadowni() const{
 	Objetosc suma(0.0);
 	for(auto element : lista_){
-		suma+=element.second->pobierzDostepneMiejsce();
+		suma+=element.second->pobierzDostepneMiejsceLadowni();
+	}
+	return suma;
+}
+
+Objetosc Flota::pobierzDostepneMiejsceHangaru() const{
+	Objetosc suma(0.0);
+	for(auto element : lista_){
+		suma+=element.second->pobierzDostepneMiejsceHangaru();
 	}
 	return suma;
 }
