@@ -22,7 +22,7 @@ void StatekTest::Issue42Test(){
 	UNIT_TEST_ASSERT_EQUAL( Masa(4+14), a->pobierzMase() );
 	UNIT_TEST_ASSERT_EQUAL( Objetosc(540), a->pobierzObjetosc() );
 	UNIT_TEST_ASSERT_EQUAL( Powierzchnia(8), a->pobierzPowierzchnie() );
-	UNIT_TEST_ASSERT_EQUAL( Objetosc(1300*12*2), a->pobierzPojemnoscMaksymalna() );
+	UNIT_TEST_ASSERT_EQUAL( Objetosc(1300*12*2), a->pobierzPojemnoscMaksymalnaLadowni() );
 	UNIT_TEST_ASSERT_EQUAL( ZuzyciePaliwa(12),a->pobierzJednostkoweZuzyciePaliwa() );
 	UNIT_TEST_ASSERT_EQUAL( MocSilnika(5), a->pobierzMocSilnika() );
 	UNIT_TEST_ASSERT_EQUAL( Fluktuacja(0.97f*8.0f), a->pobierzSprawnoscSilnika() );
@@ -42,46 +42,47 @@ void StatekTest::FlotaTest(){
 	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0x7),Ilosc(20000)));
 	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0xB),Ilosc(1000)));
 	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0xE),Ilosc(3800)));
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0xC),Ilosc(3800)));
 
 	auto idFlotyDo = planeta->dodajFlote();
 	Ilosc obiektA = planeta->pobierzObiekt(Identyfikator(0xB)).pobierzIlosc();
-	Ilosc obiektB = planeta->pobierzObiekt(Identyfikator(0xE)).pobierzIlosc();
+	Ilosc obiektB = planeta->pobierzObiekt(Identyfikator(0xC)).pobierzIlosc();
 	Ilosc obiektC = planeta->pobierzObiekt(Identyfikator(0x1)).pobierzIlosc();
 	UNIT_TEST_ASSERT_TRUE( planeta->przeniesDoFloty(idFlotyDo,Identyfikator(0xB),Ilosc(500)));
 	UNIT_TEST_ASSERT_TRUE( planeta->przeniesDoFloty(idFlotyDo,Identyfikator(0xE),Ilosc(1000)));
-	UNIT_TEST_ASSERT_TRUE( planeta->zaladujFlote(idFlotyDo,Identyfikator(0x1),Ilosc(500)));
-	UNIT_TEST_ASSERT_TRUE( planeta->zaladujFlote(idFlotyDo,Identyfikator(0xE),Ilosc(900)));
+	UNIT_TEST_ASSERT_TRUE( planeta->zaladujSurowceNaFlote(idFlotyDo,Identyfikator(0x1),Ilosc(500)));
+	UNIT_TEST_ASSERT_TRUE( planeta->zaladujStatekNaFlote(idFlotyDo,Identyfikator(0xC),Ilosc(900)));
 	UNIT_TEST_ASSERT_FALSE( planeta->pobierzFlote(idFlotyDo)->rozladujFloteNaPlanecie() );
 	planeta->pobierzFlote(idFlotyDo)->ustawCelPodrozy(Flota::CelPodrozy::Transport);
 	planeta->pobierzFlote(idFlotyDo)->ustawPlaneteDocelowa(planeta->pobierzIdentyfikator());
 	planeta->pobierzFlote(idFlotyDo)->ustawPlanetePoczatkowa(planeta->pobierzIdentyfikator());
 	UNIT_TEST_ASSERT_TRUE( planeta->pobierzFlote(idFlotyDo)->rozladujFloteNaPlanecie() );
 	UNIT_TEST_ASSERT_EQUAL( obiektA, planeta->pobierzObiekt(Identyfikator(0xB)).pobierzIlosc() );
-	UNIT_TEST_ASSERT_EQUAL( obiektB, planeta->pobierzObiekt(Identyfikator(0xE)).pobierzIlosc() );
+	UNIT_TEST_ASSERT_EQUAL( obiektB, planeta->pobierzObiekt(Identyfikator(0xC)).pobierzIlosc() );
 	UNIT_TEST_ASSERT_EQUAL( obiektC, planeta->pobierzObiekt(Identyfikator(0x1)).pobierzIlosc() );
 	UNIT_TEST_ASSERT_TRUE( planeta->usunFlote(idFlotyDo) );
 
 	auto idFloty = planeta->dodajFlote();
 	UNIT_TEST_ASSERT_TRUE( planeta->przeniesDoFloty(idFloty,Identyfikator(0xB),Ilosc(500)));
 	UNIT_TEST_ASSERT_TRUE( planeta->przeniesDoFloty(idFloty,Identyfikator(0xE),Ilosc(1000)));
-	UNIT_TEST_ASSERT_TRUE( planeta->zaladujFlote(idFloty,Identyfikator(0x1),Ilosc(500)));
-	UNIT_TEST_ASSERT_TRUE( planeta->zaladujFlote(idFloty,Identyfikator(0xE),Ilosc(900)));
+	UNIT_TEST_ASSERT_TRUE( planeta->zaladujSurowceNaFlote(idFloty,Identyfikator(0x1),Ilosc(500)));
+	UNIT_TEST_ASSERT_TRUE( planeta->zaladujStatekNaFlote(idFloty,Identyfikator(0xC),Ilosc(900)));
 
 	obiektA = planeta->pobierzObiekt(Identyfikator(0xB)).pobierzIlosc();
-	obiektB = planeta->pobierzObiekt(Identyfikator(0xE)).pobierzIlosc();
+	obiektB = planeta->pobierzObiekt(Identyfikator(0xC)).pobierzIlosc();
 	obiektC = planeta->pobierzObiekt(Identyfikator(0x1)).pobierzIlosc();
 	auto idFlotyDoRozladunku = planeta->dodajFlote();
 	UNIT_TEST_ASSERT_TRUE( planeta->przeniesDoFloty(idFlotyDoRozladunku,Identyfikator(0xB),Ilosc(500)));
 	UNIT_TEST_ASSERT_TRUE( planeta->przeniesDoFloty(idFlotyDoRozladunku,Identyfikator(0xE),Ilosc(1000)));
-	UNIT_TEST_ASSERT_TRUE( planeta->zaladujFlote(idFlotyDoRozladunku,Identyfikator(0x1),Ilosc(500)));
-	UNIT_TEST_ASSERT_TRUE( planeta->zaladujFlote(idFlotyDoRozladunku,Identyfikator(0xE),Ilosc(900)));
+	UNIT_TEST_ASSERT_TRUE( planeta->zaladujSurowceNaFlote(idFlotyDoRozladunku,Identyfikator(0x1),Ilosc(500)));
+	UNIT_TEST_ASSERT_TRUE( planeta->zaladujStatekNaFlote(idFlotyDoRozladunku,Identyfikator(0xC),Ilosc(900)));
 	UNIT_TEST_ASSERT_FALSE( planeta->pobierzFlote(idFlotyDoRozladunku)->rozladujLadownieNaPlanecie() );
 	planeta->pobierzFlote(idFlotyDoRozladunku)->ustawCelPodrozy(Flota::CelPodrozy::Transport);
 	planeta->pobierzFlote(idFlotyDoRozladunku)->ustawPlaneteDocelowa(planeta->pobierzIdentyfikator());
 	planeta->pobierzFlote(idFlotyDoRozladunku)->ustawPlanetePoczatkowa(planeta->pobierzIdentyfikator());
 	UNIT_TEST_ASSERT_TRUE( planeta->pobierzFlote(idFlotyDoRozladunku)->rozladujLadownieNaPlanecie() );
 	UNIT_TEST_ASSERT_EQUAL( obiektA, planeta->pobierzObiekt(Identyfikator(0xB)).pobierzIlosc()+Ilosc(500) );
-	UNIT_TEST_ASSERT_EQUAL( obiektB, planeta->pobierzObiekt(Identyfikator(0xE)).pobierzIlosc()+Ilosc(1000) );
+	UNIT_TEST_ASSERT_EQUAL( obiektB, planeta->pobierzObiekt(Identyfikator(0xC)).pobierzIlosc());
 	UNIT_TEST_ASSERT_EQUAL( obiektC, planeta->pobierzObiekt(Identyfikator(0x1)).pobierzIlosc() );
 }
 

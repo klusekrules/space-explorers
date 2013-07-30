@@ -28,7 +28,7 @@ Surowce* Surowce::kopia() const{
 	return new Surowce( *this );
 }
 
-Obiekt* Surowce::podziel( const Ilosc& ilosc ){
+Surowce* Surowce::podziel( const Ilosc& ilosc ){
 	if( ilosc <= Ilosc(0.0l) || ilosc >= this->ilosc_ )
 		return nullptr;
 	this->ilosc_ -= ilosc;
@@ -124,10 +124,6 @@ const SurowceInfo& Surowce::pobierzSurowceInfo() const{
 
 bool Surowce::czyTypPrzyrostowy()const{
 	return surowceInfo_.czyTypPrzyrostowy();
-}
-
-bool Surowce::czyMoznaDodacDoLadownii( const Ladownia& c ) const{
-	return c.czyMoznaDodacDoLadownii(*this);
 }
 
 Czas Surowce::pobierzCzas()const{

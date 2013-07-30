@@ -18,7 +18,7 @@ SurowceInfo::SurowceInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
 			break;
 		case 2 : przyrostowy_ = false;
 			break;
-		default: throw WyjatekParseraXML(EXCEPTION_PLACE,exception( (string("typ=") + std::to_string(przyrostowy)).c_str() ),WyjatekParseraXML::trescBladStrukturyXml);
+		default: Utils::generujWyjatekBleduStruktury(EXCEPTION_PLACE,wezel);
 		}
 	}
 }

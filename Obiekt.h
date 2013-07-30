@@ -45,15 +45,6 @@ public:
 	* \brief Destruktor.
 	*/
 	virtual ~Obiekt();
-
-	/**
-	* \brief Metoda sparawdzaj¹ca teorertyczn¹ mo¿liwoœæ dodania do ³adowni.
-	* 
-	* Metoda sprawdza czy obiekt spe³nia wymagane za³o¿enia oby móg³by byæ rozpatrywany jako mo¿liwy dodania do ³adowni.
-	* \param[in] ladownia - £adownia do której ma zostaæ dodany obiekt.
-	* \return true je¿eli mo¿na dodaæ. False w przeciwnym wypadku.
-	*/
-	virtual bool czyMoznaDodacDoLadownii( const Ladownia& ladownia ) const;
 	
 	/**
 	* \brief Metoda wyliczaj¹ca powierzchniê.

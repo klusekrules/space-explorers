@@ -26,7 +26,7 @@
     Opis krzemu.
   </SurowceInfo>
 
-  <SurowceInfo typ="1" masa="1" objetosc="1" powierzchnia="1" poziom="1" id="0x0006" nazwa="Kryszta³">
+  <SurowceInfo typ="1" masa="1" objetosc="2" powierzchnia="1" poziom="1" id="0x0006" nazwa="Kryszta³">
     Opis kryszta³u.
   </SurowceInfo>
 
@@ -49,7 +49,7 @@
   </SurowceInfo>
 
   <!-- Statki -->
-  <StatekInfo masa="1" objetosc="2" powierzchnia="1" poziom="1" id="0x00B" nazwa="Transportowiec">
+  <StatekInfo masa="1" objetosc="2" powierzchnia="1" poziom="1" id="0x00B" nazwa="Transportowiec" hangar="1">
     Opis Transportowca.
     <Cena>
       <Surowce id="0x1" ilosc="1000" opcja="1" />
@@ -96,9 +96,12 @@
     <LadowniaInfo pojemnoscMaksymalna="1300" id="0x012" nazwa="Nazwa ladowni transportowca">
       Opis ladowni transportowca.
     </LadowniaInfo>
+    <HangarInfo pojemnoscMaksymalna="1300" id="0x012" nazwa="Nazwa hangaru transportowca">
+      Opis hangaru transportowca.
+    </HangarInfo>
   </StatekInfo>
 
-  <StatekInfo masa="1" objetosc="90" powierzchnia="1" poziom="1" id="0x00C" nazwa="Myœliwiec">
+  <StatekInfo masa="1" objetosc="90" powierzchnia="1" poziom="1" id="0x00C" nazwa="Myœliwiec" hangar="1">
     Opis Myœliwca.
     <Cena>
       <Surowce id="0x1" ilosc="1000" opcja="1"/>
@@ -178,9 +181,12 @@
         <Param id="0" wspolczynnik="12.0"/>
       </Zmiana>
     </LadowniaInfo>
+    <HangarInfo pojemnoscMaksymalna="1300" id="0x012" nazwa="Nazwa hangaru myœliwca">
+      Opis hangaru myœliwca.
+    </HangarInfo>
   </StatekInfo>
 
-  <StatekInfo masa="1" objetosc="1" powierzchnia="1" poziom="4" id="0x00D" nazwa="Myœliwiec 2">
+  <StatekInfo masa="1" objetosc="1" powierzchnia="1" poziom="4" id="0x00D" nazwa="Myœliwiec 2" hangar="2">
     Opis Myœliwca 2.
     <JednostkaLatajacaInfo rodzajSilnikaId="0x03" rodzajSilnikaPoziom="1" mocSilnika="1" zuzyciePaliwa="1" masaSilnika="1" sprawnoscSilnika="0,97" id="0x030" nazwa="Nazwa jednostki latajacej myœliwca 2">
         Opis jednoscki latajacej myœliwca 2.
@@ -191,9 +197,12 @@
     <LadowniaInfo pojemnoscMaksymalna="1300" id="0x032" nazwa="Nazwa ladowni myœliwca 2">
         Opis ladowni myœliwca 2.
     </LadowniaInfo>
+    <HangarInfo pojemnoscMaksymalna="1300" id="0x012" nazwa="Nazwa hangaru myœliwca 2">
+      Opis hangaru myœliwca 2.
+    </HangarInfo>
   </StatekInfo>
   
-  <StatekInfo masa="1" objetosc="2000" powierzchnia="1" poziom="2" id="0x00E" nazwa="Transportowiec 2">
+  <StatekInfo masa="1" objetosc="2000" powierzchnia="1" poziom="2" id="0x00E" nazwa="Transportowiec 2"  hangar="2">
     Opis Transportowca 2.
     <JednostkaLatajacaInfo rodzajSilnikaId="0x01" rodzajSilnikaPoziom="1" mocSilnika="1" zuzyciePaliwa="1" masaSilnika="1" sprawnoscSilnika="0,97" id="0x040" nazwa="Nazwa jednostki latajacej transportowca 2">
         Opis jednoscki latajacej transportowca 2.
@@ -204,6 +213,9 @@
     <LadowniaInfo pojemnoscMaksymalna="13000" id="0x042" nazwa="Nazwa ladowni transportowca 2">
         Opis ladowni transportowca 2.
     </LadowniaInfo>
+    <HangarInfo pojemnoscMaksymalna="1400" id="0x012" nazwa="Nazwa hangaru transportowca 2">
+      Opis hangaru transportowca 2.
+    </HangarInfo>
   </StatekInfo>
   
   <!-- Technologie -->

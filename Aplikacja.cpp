@@ -241,12 +241,18 @@ bool Aplikacja::wczytajGre(){
 	dokument.LoadFile("save.xml");
 	TiXmlElement* wezel = dokument.RootElement();
 	if(wezel){
-		shared_ptr<Gra> gra = shared_ptr<Gra>(new Gra(*this));
-		if(gra->wczytajDane(this->nazwaPlikuDanych_) && gra->odczytaj(wezel->FirstChildElement(WEZEL_XML_GRA))){
+		shared_ptr<Gra> gra = instancjaGry_;
+		try{
+			instancjaGry_ = shared_ptr<Gra>(new Gra(*this));
+			if(instancjaGry_->wczytajDane(this->nazwaPlikuDanych_) && instancjaGry_->odczytaj(wezel->FirstChildElement(WEZEL_XML_GRA))){
+				return true;
+			}
 			instancjaGry_ = gra;
-			return true;
+			return false;
+		}catch(...){
+			instancjaGry_ = gra;
+			return false;
 		}
-		return false;
 	}
 	return false;
 }

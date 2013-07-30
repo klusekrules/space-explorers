@@ -166,7 +166,18 @@ public:
 	* \param[in] ilosc - Iloœæ obiektów do przeniesienia.
 	* \return true je¿eli uda siê przenieœæ obiekt, false w przeciwnym wypadku.
 	*/
-	bool zaladujFlote( const Identyfikator& flota, const Identyfikator& obiekt, const Ilosc& ilosc );
+	bool zaladujSurowceNaFlote( const Identyfikator& flota, const Identyfikator& obiekt, const Ilosc& ilosc );
+
+	/**
+	* \brief Metoda przenoœci obiekt do hangaru floty.
+	*
+	* Metoda przenosi obiekt z planety do hangaru floty.
+	* \param[in] flota - Identyfikator floty do hangaru której ma zostaæ przeniesiony obiekt.
+	* \param[in] obiekt - Identyfikator obiektu, który ma byc przenisiony do hangaru floty.
+	* \param[in] ilosc - Iloœæ obiektów do przeniesienia.
+	* \return true je¿eli uda siê przenieœæ obiekt, false w przeciwnym wypadku.
+	*/
+	bool zaladujStatekNaFlote( const Identyfikator& flota, const Identyfikator& obiekt, const Ilosc& ilosc );
 
 	/**
 	* \brief Metoda rozladowujaca statek.
