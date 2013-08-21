@@ -13,9 +13,9 @@
 #endif
 #else
 #ifdef _WIN64
-#pragma comment( lib, "ftrans-x64" )
+#pragma comment( lib, "ftrans-x64-r" )
 #else if _WIN32
-#pragma comment( lib, "ftrans-x86" )
+#pragma comment( lib, "ftrans-x86-r" )
 #endif
 #endif
 #endif

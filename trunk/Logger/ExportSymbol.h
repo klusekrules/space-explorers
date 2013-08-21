@@ -15,9 +15,9 @@
 	#endif
 	#else
 	#ifdef _WIN64
-	#pragma comment( lib, "Logger-x64" )
+	#pragma comment( lib, "Logger-x64-r" )
 	#else if _WIN32
-	#pragma comment( lib, "Logger-x86" )
+	#pragma comment( lib, "Logger-x86-r" )
 	#endif
 	#endif
 #endif
