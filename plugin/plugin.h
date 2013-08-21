@@ -10,9 +10,9 @@
 #endif
 #else
 #ifdef _WIN64
-#pragma comment( lib, "plug-in-x64" )
+#pragma comment( lib, "plug-in-x64-r" )
 #else if _WIN32
-#pragma comment( lib, "plug-in-x86" )
+#pragma comment( lib, "plug-in-x86-r" )
 #endif
 #endif
 

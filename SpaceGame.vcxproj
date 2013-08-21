@@ -85,6 +85,7 @@
     <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\out;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
     <IntDir>obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)out\</OutDir>
@@ -92,6 +93,7 @@
     <IncludePath>$(SolutionDir)\allegro\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\out;$(SolutionDir)\allegro\lib;$(LibraryPath)</LibraryPath>
     <IntDir>obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
