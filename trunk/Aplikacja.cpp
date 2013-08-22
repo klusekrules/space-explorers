@@ -8,6 +8,9 @@
 #include "ZmianaPoziomObiektu.h"
 #include "DefinicjeWezlowXML.h"
 
+int Aplikacja::iloscArgumentow = 0;
+char** Aplikacja::argumenty = nullptr;
+
 Aplikacja& Aplikacja::pobierzInstancje(){
 	static Aplikacja instancja;
 	return instancja;
@@ -53,6 +56,11 @@ Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 		if(symFromAddr_ && symInitialize_){
 			czyZainicjalizowanaBiblioteka_ = true;
 		}
+	}
+
+	/* ------- Konfiguracja parametrów programu -------*/
+	if(!przetworzArgumenty()){
+		throw OgolnyWyjatek(EXCEPTION_PLACE);
 	}
 
 	/* ------- Konfiguracja Loggera -------*/
@@ -126,11 +134,7 @@ bool Aplikacja::wczytajDane(){
 bool Aplikacja::zaladujOpcje(){
 	TiXmlDocument dane;
 	try{
-#ifdef TESTS
-		dane.LoadFile("options_test.xml");
-#else
-		dane.LoadFile("options.xml");
-#endif
+		dane.LoadFile(nazwaPlikuOpcji_);
 		auto root_data = dane.FirstChildElement("SpaceGame");
 		if(root_data){
 
@@ -255,4 +259,27 @@ bool Aplikacja::wczytajGre(){
 		}
 	}
 	return false;
+}
+
+bool Aplikacja::przetworzArgumenty(){
+	if(!argumenty || iloscArgumentow <= 0 )
+		return false;
+	nazwaPlikuOpcji_ = "options.xml";
+	for( int numer = 0 ; numer < iloscArgumentow ; ++numer  ){
+		if(!argumenty[numer])
+			continue;
+		string argument(argumenty[numer]);
+		if(argument.empty())
+			continue;
+		if(!argument.compare("-O")){
+			++numer;
+			if(numer >= iloscArgumentow || !argumenty[numer])
+				return false;
+			string nazwa(argumenty[numer]);
+			if(nazwa.empty())
+				return false;
+			nazwaPlikuOpcji_ = nazwa;
+		}
+	}
+	return true;
 }
