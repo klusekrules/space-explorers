@@ -42,6 +42,16 @@ class Aplikacja
 	friend class Testy;
 
 public:
+	
+	/**
+	* Iloœæ argumentów przekazanych w linii komend.
+	*/
+	static int iloscArgumentow;
+
+	/**
+	* Argumenty przekazane w linii komend
+	*/
+	static char** argumenty;
 
 	/**
 	* \brief Metoda pobieraj¹ca instacjê gry.
@@ -127,6 +137,13 @@ private:
 	bool zaladujOpcje();
 
 	/**
+	* \brief Metoda przetwarzaj¹ca argumenty linii komend
+	*
+	* Metoda odczytuje i przetwarza wszysktie argumenty przekazane w linii komend. Ustawia odpowiednie opcje programu.
+	*/
+	bool przetworzArgumenty();
+
+	/**
 	* \brief Metoda wyrzuca do loggera podstwowe dane identyfikuj¹ce wersje aplikacji.
 	*/
 	void logApInfo() const;
@@ -135,8 +152,9 @@ private:
 	shared_ptr<Cplugin> pluginy_; /// Obiekt zarz¹dzaj¹cy plugginami.
 	shared_ptr<Gra> instancjaGry_; /// Obiekt prezentuj¹cy instancjê gry.
 
-	string nazwaPlikuDanych_; /// Opcja: Nazwa pliku z danymi
-	string jezykAplikacji_; /// Opcja: Jêzyk apllikacji
+	string nazwaPlikuOpcji_; /// Nazwa pliku z opcjami.
+	string nazwaPlikuDanych_; /// Opcja: Nazwa pliku z danymi.
+	string jezykAplikacji_; /// Opcja: Jêzyk apllikacji.
 	string folderPluginow_; /// Opcja: lokalizacja folderu z pluginami.
 
 	SymInitializeS symInitialize_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.

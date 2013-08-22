@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  
+  <!-- Poczatek Opcji -->
+  <!-- Włączanie/Wyłaczanie trybu testowego -->
+  <?define Test="yes" ?>
+  <!-- Koniec Opcji -->
+  
   <?if $(var.Platform)="x64"?>
     
     <?define Platforma="x64" ?>
@@ -24,6 +30,12 @@
     <?define KonfiguracjaShort="d" ?>
   <?endif?>
   
+  <?ifdef Test?>  
+    <?define PlikOpcji="options_test.xml" ?>
+  <?else?>
+    <?define PlikOpcji="options.xml" ?>
+  <?endif?>
+  
   <Product Name='Space-Explorers 0.0.4' Id='C5D410BC-EB65-48AD-966D-24830261DF12' UpgradeCode='90B73C3B-7192-4C3F-A82B-CB7A2C07F571'
     Language='1045' Codepage='1250' Version='1.0.0' Manufacturer='Daniel Wojdak'>
 
@@ -38,10 +50,12 @@
     <Directory Id='TARGETDIR' Name='SourceDir'>
 
       <Directory Id='$(var.ProgramFiles)' Name="PFiles">
-        <Directory Id='SPACE_EXPLORERS' Name='Space-Explorers'>
-          <Directory Id='INSTALL_DIR' Name='bin'>
-            <Directory Id='PLUGINS_DIR' Name='plugins'>
-              <Directory Id='ZMIANA_DIR' Name='$(var.FolderZmian)'/>
+        <Directory Id='DANIEL_WOJDAK' Name='Daniel Wojdak'>
+          <Directory Id='SPACE_EXPLORERS' Name='Space-Explorers'>
+            <Directory Id='INSTALL_DIR' Name='bin'>
+              <Directory Id='PLUGINS_DIR' Name='plugins'>
+                <Directory Id='ZMIANA_DIR' Name='$(var.FolderZmian)'/>
+              </Directory>
             </Directory>
           </Directory>
         </Directory>
@@ -59,9 +73,9 @@
       <Component Id='SPACE_EXPLORERS_COM' Guid='5BE847C4-843E-4D82-93EF-16190F994885' Win64='$(var.isPlatformx64)'>
         <File Id='SPACE_EXPLORERS_EXE' Name='space.exe'  Source='..\out\SpaceExplorers-$(var.Platforma)-$(var.Konfiguracja).exe' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'>
           <Shortcut Id="MENU_SHORTCUT_SPACE_EXPLORERS_EXE" Directory="ProgramMenuDir" Name="Space-Explorers"
-              WorkingDirectory='INSTALL_DIR' Advertise="yes" />
+              WorkingDirectory='INSTALL_DIR' Advertise="yes" Arguments="-O $(var.PlikOpcji)"/>
           <Shortcut Id="DESKTOP_SHORTCUT_SPACE_EXPLORERS_EXE" Directory="DesktopFolder" Name="Space-Explorers"
-            WorkingDirectory='INSTALL_DIR' Advertise="yes" />
+            WorkingDirectory='INSTALL_DIR' Advertise="yes" Arguments="-O $(var.PlikOpcji)" />
         </File>
       </Component>
       <Component Id='CONFIG_XML' Guid='71AFE2C6-5700-4DC5-BB15-2539017DF28B'>
@@ -94,6 +108,13 @@
       </Component>
     </DirectoryRef>
     
+     <DirectoryRef Id="SPACE_EXPLORERS">
+      <Component Id="SPACE_EXPLORERS_REM" Guid="D2920ACC-823F-430C-90EC-E07FC8EB400E">
+        <RemoveFolder Id='SPACE_EXPLORERS_REM_FOL' On='uninstall' />
+        <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
+      </Component>
+    </DirectoryRef>
+    
     <Feature Id='Complete' Level='1' AllowAdvertise='no' >
       <ComponentRef Id='SPACE_EXPLORERS_COM' />
       <ComponentRef Id='CONFIG_XML' />
@@ -103,6 +124,7 @@
       <ComponentRef Id='TRANSF_DLL' />
       <ComponentRef Id='ZMIANA_TEST_DLL' />
       <ComponentRef Id='ProgramMenuDir' />
+      <ComponentRef Id='SPACE_EXPLORERS_REM' />
     </Feature>
 
   </Product>
