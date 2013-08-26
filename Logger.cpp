@@ -37,6 +37,11 @@ void Logger::dodajPole( const string& nazwa, const LoggerInterface& obiekt ){
 	dodajPole( nazwa, obiekt.napis() );
 }
 
+void Logger::dodajPole( const string& nazwa, const shared_ptr<LoggerInterface> obiekt ){
+	if(obiekt)
+		dodajPole( nazwa, obiekt->napis() );
+}
+
 void Logger::dodajPole( const string& nazwa, const string& opisPola ){
 	testPierwszegoPola();
 	napis_ << " "  << nazwa << "=" << opisPola;
