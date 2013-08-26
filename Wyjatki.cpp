@@ -10,6 +10,7 @@
 #include "NieznalezionoObiektu.h"
 #include "NiepoprawneParametryFunkcji.h"
 #include "BladDzieleniaLadowni.h"
+#include "NiepowodzenieTranzakcji.h"
 /* Sta³e pola klas wyj¹tków  */
 
 const Identyfikator	OgolnyWyjatek::domyslnyOgolnyWyjatekID					( 0x0 );
@@ -60,6 +61,10 @@ const Tekst		NiepoprawneParametryFunkcji::trescNiepoprawneParametryFunkcji = "Do
 const Identyfikator	BladDzieleniaLadowni::idBladDzieleniaLadowni			( 0x0B );
 const Tekst		BladDzieleniaLadowni::tytulBladDzieleniaLadowni			= "B³¹d podczas dzielenia ³adowni.";
 const Tekst		BladDzieleniaLadowni::trescBladDzieleniaLadowni			= "Podczas podzia³u ³adowni wyst¹pi³ nieoczekiwany b³¹d.";
+
+const Identyfikator	NiepowodzenieTranzakcji::domyslnyNiepowodzenieTranzakcjiID			( 0x0C );
+const Tekst		NiepowodzenieTranzakcji::domyslnyNiepowodzenieTranzakcjiTytul			= "Niepowodzenie wykonania tranzakcji";
+const Tekst		NiepowodzenieTranzakcji::domyslnyNiepowodzenieTranzakcjiTresc			= "Nie uda³o siê zachowaæ tanzakcyjnoœci wykonywanych operacji. Operacja powoduj¹ca wyj¹tek: ";
 /*
 const Identyfikator	idBrakElementu											( 0x06 );
 const Tekst		tytulBrakElementu										= "Brak Elementu.";

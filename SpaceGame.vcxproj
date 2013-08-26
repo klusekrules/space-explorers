@@ -222,9 +222,12 @@
     <ClInclude Include="LiczenieWymogow.h" />
     <ClInclude Include="LogowanieTest.h" />
     <ClInclude Include="MakraDlaTestow.h" />
+    <ClInclude Include="MenedzerTranzakcji.h" />
     <ClInclude Include="NiepoprawneParametryFunkcjiTest.h" />
+    <ClInclude Include="NiepowodzenieTranzakcji.h" />
     <ClInclude Include="ObiektBazowyInfo.h" />
     <ClInclude Include="ObiektListTest.h" />
+    <ClInclude Include="Operacja.h" />
     <ClInclude Include="PaczkaTestow.h" />
     <ClInclude Include="PodstawowyInterfejs.h" />
     <ClInclude Include="Biblioteki.h" />
@@ -310,6 +313,8 @@
     <ClInclude Include="WymaganiaTest.h" />
     <ClInclude Include="XmlBO.h" />
     <ClInclude Include="ZapisStanuGryTest.h" />
+    <ClInclude Include="ZleceniaTest.h" />
+    <ClInclude Include="Zlecenie.h" />
     <ClInclude Include="ZmianaPoziomObiektu.h" />
     <ClInclude Include="ZuzyciePaliwa.h" />
   </ItemGroup>
@@ -355,10 +360,12 @@
     <ClCompile Include="LogowanieTest.cpp" />
     <ClCompile Include="maintest.cpp" />
     <ClCompile Include="Masa.cpp" />
+    <ClCompile Include="MenedzerTranzakcji.cpp" />
     <ClCompile Include="MocSilnika.cpp" />
     <ClCompile Include="NiepoprawnaIloscObiektow.cpp" />
     <ClCompile Include="NiepoprawneParametryFunkcji.cpp" />
     <ClCompile Include="NiepoprawneParametryFunkcjiTest.cpp" />
+    <ClCompile Include="NiepowodzenieTranzakcji.cpp" />
     <ClCompile Include="NiezainicjalizowanaKlasa.cpp" />
     <ClCompile Include="NiezgodnyTypSurowca.cpp" />
     <ClCompile Include="NieznalezionoObiektu.cpp" />
@@ -370,6 +377,7 @@
     <ClCompile Include="Objetosc.cpp" />
     <ClCompile Include="Obrazenia.cpp" />
     <ClCompile Include="OgolnyWyjatek.cpp" />
+    <ClCompile Include="Operacja.cpp" />
     <ClCompile Include="PaczkaTestow.cpp" />
     <ClCompile Include="Parametr.cpp" />
     <ClCompile Include="Planeta.cpp" />
@@ -398,6 +406,7 @@
     <ClCompile Include="Wymagania.cpp" />
     <ClCompile Include="WymaganiaTest.cpp" />
     <ClCompile Include="ZapisStanuGryTest.cpp" />
+    <ClCompile Include="ZleceniaTest.cpp" />
     <ClCompile Include="ZmianaPoziomObiektu.cpp" />
     <ClCompile Include="ZuzyciePaliwa.cpp" />
   </ItemGroup>
