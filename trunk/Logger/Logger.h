@@ -9,10 +9,12 @@
 #include "ExportSymbol.h"
 #include <sstream>
 #include <stack>
+#include <memory>
 
 using std::stringstream;
 using std::stack;
 using std::deque;
+using std::shared_ptr;
 
 LOGGER_EXPIMP_TEMPLATE template class LOGGER_API deque<bool>;
 LOGGER_EXPIMP_TEMPLATE template class LOGGER_API stack<bool>;
@@ -109,6 +111,14 @@ public:
 	* \param[in] obiektDrugi - Zawartoœæ drugiej czêœci pola.
 	*/
 	void dodajPole( const string& nazwa, const LoggerInterface& obiektPierwszy, const LoggerInterface& obiektDrugi );
+
+	
+	/**
+	* Metoda dodaj¹ca pole o podanej nazwie i zawartoœci.
+	* \param[in] nazwa - Nazwa pola.
+	* \param[in] obiekt - Zawartoœæ pola.
+	*/
+	void dodajPole( const string& nazwa, const shared_ptr<LoggerInterface> obiekt );
 
 	/**
 	* Metoda dodaj¹ca klase.

@@ -1,0 +1,40 @@
+#pragma once
+#include "Logger\LoggerInterface.h"
+
+/**
+* \brief Klasa bazowa zawieraj¹ca interfejs dla wykonywanych operacji.
+*/
+class Operacja:
+	virtual public LoggerInterface
+{
+public:
+	/**
+	* \brief Konstruktor domyœlny.
+	*/
+	Operacja(void);
+
+	/**
+	* \brief Destruktor.
+	*/
+	virtual ~Operacja(void);
+
+	/**
+	* \brief Metoda wykonuj¹ca operacje tranzakcyjn¹.
+	*
+	* \return Metoda klasy bazowej zawsze zwraca false.
+	*/
+	virtual bool wykonaj();
+
+	/**
+	* \brief Metoda wykonuj¹ca operacje odwrotn¹ do tranzakcyjnej.
+	*
+	* \return Metoda klasy bazowej zawsze zwraca false.
+	*/
+	virtual bool cofnij();
+
+	/**
+	* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
+	* \return Napis zwieraj¹cy opis klasy.
+	*/
+	string napis() const override;
+};

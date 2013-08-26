@@ -53,7 +53,11 @@ Ilosc Ilosc::operator-( const Ilosc& wartosc ) const{
 }
 
 Ilosc Ilosc::operator*( const Ilosc& wartosc ) const{
-	return Ilosc( wartosc_ - wartosc.wartosc_ );
+	return Ilosc( wartosc_ * wartosc.wartosc_ );
+}
+
+Ilosc Ilosc::operator/( const Ilosc& wartosc ) const{
+	return Ilosc( wartosc_ / wartosc.wartosc_ );
 }
 
 Ilosc& Ilosc::operator+=( const Ilosc& wartosc ){

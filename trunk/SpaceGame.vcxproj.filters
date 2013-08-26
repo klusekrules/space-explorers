@@ -250,6 +250,18 @@
     <ClCompile Include="HangarTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClCompile>
+    <ClCompile Include="MenedzerTranzakcji.cpp">
+      <Filter>SourceFile\KlasyPomocnicze\Tranzakcyjnosc</Filter>
+    </ClCompile>
+    <ClCompile Include="Operacja.cpp">
+      <Filter>SourceFile\KlasyPomocnicze\Tranzakcyjnosc</Filter>
+    </ClCompile>
+    <ClCompile Include="NiepowodzenieTranzakcji.cpp">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClCompile>
+    <ClCompile Include="ZleceniaTest.cpp">
+      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -555,6 +567,21 @@
     <ClInclude Include="HangarTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClInclude>
+    <ClInclude Include="MenedzerTranzakcji.h">
+      <Filter>SourceFile\KlasyPomocnicze\Tranzakcyjnosc</Filter>
+    </ClInclude>
+    <ClInclude Include="Operacja.h">
+      <Filter>SourceFile\KlasyPomocnicze\Tranzakcyjnosc</Filter>
+    </ClInclude>
+    <ClInclude Include="NiepowodzenieTranzakcji.h">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClInclude>
+    <ClInclude Include="Zlecenie.h">
+      <Filter>SourceFile\KlasyPomocnicze\Tranzakcyjnosc</Filter>
+    </ClInclude>
+    <ClInclude Include="ZleceniaTest.h">
+      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -664,6 +691,9 @@
     </Filter>
     <Filter Include="SourceFile\Flota\Hangar">
       <UniqueIdentifier>{46df6a8b-cd48-418b-a20d-fba74a6ed859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\KlasyPomocnicze\Tranzakcyjnosc">
+      <UniqueIdentifier>{6156b04e-fb15-434b-be8e-f5569dbf75b6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

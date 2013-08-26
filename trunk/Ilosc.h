@@ -131,9 +131,16 @@ public:
 	/**
 	* \brief Operator mno¿enia.
 	*
-	* \param[in] wartosc - Wartoœæ jaka ma byæ dodana do atrybut klasy.
+	* \param[in] wartosc - Wartoœæ jaka ma byæ przemno¿ona przez atrybut klasy.
 	*/
 	Ilosc operator*( const Ilosc& wartosc )const;
+
+	/**
+	* \brief Operator dzielenia.
+	*
+	* \param[in] wartosc - Wartoœæ jaka ma podzieliæ atrybut klasy.
+	*/
+	Ilosc operator/( const Ilosc& wartosc )const;
 
 	/**
 	* Funkcja s³u¿¹ca jako podstawa do tworzenia napisów z opisem klasy.
