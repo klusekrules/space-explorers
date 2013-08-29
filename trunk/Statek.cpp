@@ -2,6 +2,8 @@
 #include "StatekInfo.h"
 #include "Logger.h"
 #include "DefinicjeWezlowXML.h"
+#include "MenedzerTranzakcji.h"
+#include "Zlecenia.h"
 
 Statek::Statek( const Ilosc& ilosc, const Poziom& poziom, const Identyfikator& identyfikatorPlanety, const StatekInfo& statekInfo )
 	: PodstawoweParametry(poziom, identyfikatorPlanety), Obiekt( ilosc, poziom, identyfikatorPlanety, statekInfo ), JednostkaAtakujaca(poziom,identyfikatorPlanety,statekInfo),
@@ -32,39 +34,50 @@ bool Statek::czyMoznaDodacDoHangaru() const{
 
 Statek* Statek::podziel( const Ilosc& ilosc ){
 	if( ilosc_>ilosc ){
+		MenedzerTranzakcji tranzakcja;
 		Statek* o = new Statek( ilosc , *this, this->statekinfo_ );
-		ilosc_-=ilosc;
-		this->przeliczZajeteMiejsceLadowni();
-		this->przeliczZajeteMiejsceHangaru();
+		Statek* statek = this;
+		tranzakcja.dodaj( make_shared< Zlecenie< const Ilosc , Ilosc > >(ilosc , ilosc_, 
+		[]( const Ilosc& ilosc , Ilosc& ilosc_s)->bool{ ilosc_s -= ilosc; return true; },
+		[&statek]( const Ilosc& ilosc , Ilosc& ilosc_s)->bool{ ilosc_s += ilosc; statek->przeliczZajeteMiejsceLadowni(); statek->przeliczZajeteMiejsceHangaru(); return true; }) );
+
+		tranzakcja.dodaj( make_shared< Zlecenie< Statek , Statek > >(*statek , *statek, 
+		[](Statek& o , Statek& s)->bool{ o.przeliczZajeteMiejsceLadowni(); o.przeliczZajeteMiejsceHangaru(); return true; },
+		[](Statek& o , Statek& s)->bool{ return true; }) );
+
 		Hangar::Zbiornik zbHangar;
 		Ladownia::Zbiornik zbLadownia;
-		if(this->wolneMiejsceHangaru() < Fluktuacja(0.0)){
-			zbHangar = this->podzielHangar( this->Hangar::zajete_ - this->pobierzPojemnoscMaksymalnaHangaru(), o->pobierzPojemnoscMaksymalnaHangaru());
-			if( zbHangar.pusty() || !o->Hangar::obiekty_.przeniesWszystkie(zbHangar) ){
-				delete o;
-				ilosc_+=ilosc;
-				if( !Hangar::obiekty_.przeniesWszystkie(zbHangar) ){
-					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("Nieoczekiwany wyjatek"),Tekst("Wystapi³ nieoczekiwany wyjatek, który zaburzy³ dzia³anie aplikacji."));
-				}
-				this->przeliczZajeteMiejsceHangaru();
-				return false;
-			}
-		}
 
-		if(this->wolneMiejsceLadowni() < Fluktuacja(0.0)){
-			zbLadownia = this->podzielLadownie( this->Ladownia::zajete_ - this->pobierzPojemnoscMaksymalnaLadowni(), o->pobierzPojemnoscMaksymalnaLadowni());
-			if( zbLadownia.pusty() || !o->Ladownia::obiekty_.przeniesWszystkie(zbLadownia) ){
-				delete o;
-				ilosc_+=ilosc;
-				if( !Hangar::obiekty_.przeniesWszystkie(zbHangar) || !Ladownia::obiekty_.przeniesWszystkie(zbLadownia) ){
-					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("Nieoczekiwany wyjatek"),Tekst("Wystapi³ nieoczekiwany wyjatek, który zaburzy³ dzia³anie aplikacji."));
-				}
-				this->przeliczZajeteMiejsceHangaru();
-				this->przeliczZajeteMiejsceLadowni();
-				return false;
+		tranzakcja.dodaj( make_shared< Zlecenie< Statek , Statek > >(*o , *statek, 
+		[&zbHangar](Statek& o , Statek& s)->bool{ 
+			if(s.wolneMiejsceHangaru() < Fluktuacja(0.0)){
+				zbHangar = s.podzielHangar( s.Hangar::zajete_ - s.pobierzPojemnoscMaksymalnaHangaru(), o.pobierzPojemnoscMaksymalnaHangaru());
+				return !zbHangar.pusty();
 			}
-		}
-		return o; 
+			return true;
+		},
+		[&zbHangar](Statek& o , Statek& s)->bool{ return s.Hangar::obiekty_.przeniesWszystkie(zbHangar); }) );
+
+		tranzakcja.dodaj( make_shared< Zlecenie< Statek , Statek > >(*o , *statek, 
+		[&zbHangar](Statek& o , Statek& s)->bool{ return o.Hangar::obiekty_.przeniesWszystkie(zbHangar);},
+		[&zbHangar](Statek& o , Statek& s)->bool{ return true; }) );
+
+		tranzakcja.dodaj( make_shared< Zlecenie< Statek , Statek > >(*o , *statek, 
+		[&zbLadownia](Statek& o , Statek& s)->bool{ 
+			if(s.wolneMiejsceLadowni() < Fluktuacja(0.0)){
+				zbLadownia = s.podzielLadownie( s.Ladownia::zajete_ - s.pobierzPojemnoscMaksymalnaLadowni(), o.pobierzPojemnoscMaksymalnaLadowni());
+				return !zbLadownia.pusty();
+			}
+			return true;
+		},
+		[&zbLadownia](Statek& o , Statek& s)->bool{ return s.Ladownia::obiekty_.przeniesWszystkie(zbLadownia); }) );
+
+		tranzakcja.dodaj( make_shared< Zlecenie< Statek , Statek > >(*o , *statek, 
+		[&zbLadownia](Statek& o , Statek& s)->bool{ return o.Ladownia::obiekty_.przeniesWszystkie(zbLadownia);},
+		[&zbLadownia](Statek& o , Statek& s)->bool{ return true; }) );
+		
+		if(tranzakcja.wykonaj())
+			return o;
 	}
 	return nullptr;
 }	
@@ -72,17 +85,34 @@ Statek* Statek::podziel( const Ilosc& ilosc ){
 bool Statek::polacz(const ObiektBazowy& obiektbazowy ){
 	if(czyMoznaPolaczyc(obiektbazowy)){
 		Statek & t = (Statek&)obiektbazowy;
-		t.przeliczZajeteMiejsceLadowni();
-		this->przeliczZajeteMiejsceLadowni();
-		if((this->pobierzPojemnoscMaksymalnaLadowni()+t.pobierzPojemnoscMaksymalnaLadowni()) >= (t.pobierzZajeteMiejsceLadowni()+this->pobierzZajeteMiejsceLadowni())){
-			if(ObiektBazowy::polacz(obiektbazowy)){
-				if(Ladownia::polaczLadownie(t)){
-					this->przeliczZajeteMiejsceLadowni();
-					return true;
-				}
-				ilosc_ -= obiektbazowy.pobierzIlosc();
-			}
-		}
+		Statek* statek = this;
+		MenedzerTranzakcji tranzakcja;
+
+		tranzakcja.dodaj( make_shared< Zlecenie< const Ilosc , Ilosc > >(obiektbazowy.pobierzIlosc() , ilosc_, 
+		[&statek,&t]( const Ilosc& ilosc , Ilosc& ilosc_s)->bool{ ilosc_s += ilosc; statek->przeliczZajeteMiejsceLadowni(); statek->przeliczZajeteMiejsceHangaru(); t.przeliczZajeteMiejsceLadowni(); t.przeliczZajeteMiejsceHangaru(); return true; },
+		[&statek,&t]( const Ilosc& ilosc , Ilosc& ilosc_s)->bool{ ilosc_s -= ilosc; statek->przeliczZajeteMiejsceLadowni(); statek->przeliczZajeteMiejsceHangaru(); t.przeliczZajeteMiejsceLadowni(); t.przeliczZajeteMiejsceHangaru(); return true; }) );
+
+		tranzakcja.dodaj( make_shared< Zlecenie< Statek , Statek > >(t , *statek, 
+		[](Statek& o , Statek& s)->bool{ return s.pobierzPojemnoscMaksymalnaLadowni() >= (o.pobierzZajeteMiejsceLadowni()+s.pobierzZajeteMiejsceLadowni());},
+		[](Statek& o , Statek& s)->bool{ return true; }) );
+
+		tranzakcja.dodaj( make_shared< Zlecenie< Statek , Statek > >(t , *statek, 
+		[](Statek& o , Statek& s)->bool{ return s.pobierzPojemnoscMaksymalnaHangaru() >= (o.pobierzZajeteMiejsceHangaru()+s.pobierzZajeteMiejsceHangaru());},
+		[](Statek& o , Statek& s)->bool{ return true; }) );
+
+		tranzakcja.dodaj( make_shared< Zlecenie< Statek , Statek > >(t , *statek, 
+		[](Statek& o , Statek& s)->bool{ return s.polaczLadownie(o);},
+		[](Statek& o , Statek& s)->bool{ return false; }) );
+
+		tranzakcja.dodaj( make_shared< Zlecenie< Statek , Statek > >(t , *statek, 
+		[](Statek& o , Statek& s)->bool{ return s.polaczHangar(o);},
+		[](Statek& o , Statek& s)->bool{ return false; }) );
+		
+		tranzakcja.dodaj( make_shared< Zlecenie< Statek , Statek > >( *statek, *statek, 
+		[]( Statek& o , Statek& s )->bool{ s.przeliczZajeteMiejsceLadowni(); s.przeliczZajeteMiejsceHangaru(); return true; },
+		[]( Statek& o , Statek& s )->bool{ return true; }) );
+
+		return tranzakcja.wykonaj();
 	}
 	return false;
 }

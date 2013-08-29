@@ -5,6 +5,8 @@
 #include "Aplikacja.h"
 #include "HangarInfo.h"
 #include "Statek.h"
+#include "MenedzerTranzakcji.h"
+#include "Zlecenia.h"
 
 Hangar::Hangar( const Poziom& poziom, const Identyfikator& identyfikatorPlanety, const HangarInfo& hangarInfo )
 	: PodstawoweParametry(poziom,identyfikatorPlanety), hangarInfo_(hangarInfo)
@@ -25,10 +27,9 @@ Fluktuacja Hangar::wolneMiejsceHangaru() const{
 }
 
 bool Hangar::dodajStatekDoHangaru( const Item& obiekt ){
-	if(!obiekt.czyMoznaDodacDoHangaru()){
-		return false;
-	}
-	if( obiekt.pobierzObjetosc()/obiekt.pobierzIlosc() > hangarInfo_.pobierzMaksymalnaIloscPrzewozonychStatkow(*this) || (obiekt.pobierzObjetosc() + zajete_) > pobierzPojemnoscMaksymalnaHangaru() ){
+	if( !obiekt.czyMoznaDodacDoHangaru()
+		|| obiekt.pobierzObjetosc()/obiekt.pobierzIlosc() > hangarInfo_.pobierzMaksymalnaIloscPrzewozonychStatkow(*this) 
+		|| (obiekt.pobierzObjetosc() + zajete_) > pobierzPojemnoscMaksymalnaHangaru() ){
 		return false;
 	}
 	shared_ptr<Item> kopia = shared_ptr<Item>(obiekt.kopia());
@@ -39,20 +40,27 @@ bool Hangar::dodajStatekDoHangaru( const Item& obiekt ){
 }
 
 bool Hangar::dodajStatekDoHangaru( shared_ptr<Item> obiekt ){
-	if( !obiekt || !obiekt->czyMoznaDodacDoHangaru()){
+	if( !obiekt 
+		|| !obiekt->czyMoznaDodacDoHangaru() 
+		|| obiekt->pobierzObjetosc()/obiekt->pobierzIlosc() > hangarInfo_.pobierzMaksymalnaIloscPrzewozonychStatkow(*this) 
+		|| (obiekt->pobierzObjetosc() + zajete_) > pobierzPojemnoscMaksymalnaHangaru() ){
 		return false;
 	}
-	if( obiekt->pobierzObjetosc()/obiekt->pobierzIlosc() > hangarInfo_.pobierzMaksymalnaIloscPrzewozonychStatkow(*this) || (obiekt->pobierzObjetosc() + zajete_) > pobierzPojemnoscMaksymalnaHangaru() ){
-		return false;
-	}
-	auto identyfikator = obiekt->pobierzIdentyfikatorPlanety();
-	obiekt->ustawIdentyfikatorPlanety(Identyfikator());
-	bool rezultat = obiekty_.dodaj(obiekt);
-	if(!rezultat)
-		obiekt->ustawIdentyfikatorPlanety(identyfikator);
-	else
-		przeliczZajeteMiejsceHangaru();
-	return rezultat;
+	MenedzerTranzakcji tranzakcja;
+	Identyfikator nowe;
+	Hangar* hangar = this;
+
+	tranzakcja.dodaj( make_shared<ZlecenieUstawIdentyfikatorPlanety>(nowe , static_cast< shared_ptr<PodstawoweParametry> >(obiekt)) );
+
+	tranzakcja.dodaj( make_shared< Zlecenie< Hangar::Zbiornik , shared_ptr< Item > > >(obiekty_ , obiekt, 
+		[](Hangar::Zbiornik& h , shared_ptr< Item >& s)->bool{ return h.dodaj(s); },
+		[](Hangar::Zbiornik& h , shared_ptr< Item >& s)->bool{ return false; }) );
+
+	tranzakcja.dodaj( make_shared< Zlecenie< Hangar , Hangar > >( *hangar , *hangar, 
+		[](Hangar& h , Hangar& s)->bool{ h.przeliczZajeteMiejsceHangaru(); return true; },
+		[](Hangar& h , Hangar& s)->bool{ return false; }) );
+
+	return tranzakcja.wykonaj();
 }
 
 Objetosc Hangar::pobierzPojemnoscMaksymalnaHangaru() const{

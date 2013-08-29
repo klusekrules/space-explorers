@@ -68,9 +68,9 @@ public:
 		return str.napis();
 	}
 
-private:
-	ARG1 argument1_; /// Pierwszy argument.
-	ARG2 argument2_; /// Drugi argument.
+protected:
+	ARG1& argument1_; /// Pierwszy argument.
+	ARG2& argument2_; /// Drugi argument.
 	Funkcja funkcjaZlecenia_; /// Funkcja tranzakcyjna.
 	Funkcja funkcjaOdwrotna_; /// Funkcja odwrotna.
 };
