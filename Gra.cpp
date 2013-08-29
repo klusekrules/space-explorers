@@ -119,6 +119,10 @@ bool Gra::wybudujNaPlanecie( Planeta& planeta, const SurowceInfo& obiektInfo, co
 	return planeta.dodajObiekt(shared_ptr<Surowce>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator())));
 }
 
+bool Gra::wybudujNaPlanecie( Planeta& planeta, const ObronaInfo& obiektInfo, const Ilosc& ilosc )const{
+	return planeta.dodajObiekt(shared_ptr<Obrona>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator())));
+}
+
 StatekInfo& Gra::pobierzStatek(const Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
 	auto iterator = listaStatkowInfo_.find(identyfikator);
 	if(iterator==listaStatkowInfo_.end())
@@ -154,6 +158,13 @@ ObiektInfo& Gra::pobierzObiekt(const Identyfikator& identyfikator)const throw (N
 	return *(iterator->second);
 }
 
+ObronaInfo& Gra::pobierzObrone(const Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
+	auto iterator = listaObronaInfo_.find(identyfikator);
+	if(iterator==listaObronaInfo_.end())
+		throw NieznalezionoObiektu(EXCEPTION_PLACE,identyfikator.napis());
+	return *(iterator->second);
+}
+
 bool Gra::wczytajDane( const string& adresPliku ){
 	TiXmlDocument dane;
 	try{
@@ -163,6 +174,8 @@ bool Gra::wczytajDane( const string& adresPliku ){
 			if(!wczytajSurowce(root_data))
 				return false;
 			if(!wczytajStatki(root_data))
+				return false;
+			if(!wczytajObrone(root_data))
 				return false;
 			if(!wczytajTechnologie(root_data))
 				return false;
@@ -247,6 +260,29 @@ bool Gra::wczytajSurowce(TiXmlElement* wezel){
 	return true;
 }
 
+bool Gra::wczytajObrone(TiXmlElement* wezel){
+	try{
+		TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_OBRONA_INFO);
+		do{
+			if(element){
+				shared_ptr<ObronaInfo> obiekt(new ObronaInfo(element));
+				aplikacja_.pobierzLogger().debug(*obiekt);
+				if(listaObiektowBaseInfo_.find(obiekt->pobierzIdentyfikator())!=listaObiektowBaseInfo_.end())
+					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
+				listaObronaInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
+				listaObiektowBaseInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
+				listaObiektowInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
+				element = element->NextSiblingElement(WEZEL_XML_OBRONA_INFO);
+			}
+		}while(element);
+	}catch(OgolnyWyjatek& wyjatek){
+		aplikacja_.pobierzLogger().warn(wyjatek.generujKomunikat());
+		aplikacja_.pobierzLogger().debug(wyjatek);
+		return false;
+	}
+	return true;
+}
+
 bool Gra::dodajPlanete( shared_ptr<Planeta> planeta ){
 	if(wszystkiePlanety_.find(planeta->pobierzIdentyfikator()) == wszystkiePlanety_.end()){
 		wszystkiePlanety_.insert(make_pair(planeta->pobierzIdentyfikator(), planeta));
@@ -256,7 +292,6 @@ bool Gra::dodajPlanete( shared_ptr<Planeta> planeta ){
 	}
 	return false;
 }
-
 
 bool Gra::wczytajStatki(TiXmlElement* wezel){
 	try{

@@ -4,6 +4,7 @@
 #include "StatekInfo.h"
 #include "TechnologiaInfo.h"
 #include "BudynekInfo.h"
+#include "ObronaInfo.h"
 #include "Uzytkownik.h"
 #include <unordered_map>
 #include "Licznik.h"
@@ -159,11 +160,32 @@ public:
 	bool wybudujNaPlanecie( Planeta& planeta, const SurowceInfo& obiektInfo, const Ilosc& ilosc )const;
 
 	/**
+	* \brief Metoda s³u¿¹ca do wybudownia na planecie obiektu.
+	*
+	* Metoda buduj¹ca obiekt na planecie.
+	* \param[in] planeta - Planeta na której ma zostaæ wybudowany obiekt.
+	* \param[in] obiektInfo - Obiekt opisowy na bazie którego ma zostaæ zbudowany obiekt.
+	* \param[in] ilosc - Atrybut iloœci tworzonego obiektu.
+	* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
+	*/
+	bool wybudujNaPlanecie( Planeta& planeta, const ObronaInfo& obiektInfo, const Ilosc& ilosc )const;
+
+	/**
 	* \brief Metoda pobieraj¹ca instacjê fabryki zmian.
 	*
 	* \return Instacja fabryki zmian.
 	*/
 	ZmianaFabryka& pobierzFabrykeZmian() const;
+
+	/**
+	* \brief Metoda pobieraj¹ca obiekt opisowy Obrony.
+	*
+	* Metoda pobiera obiekt opisowy obrony.
+	* \param[in] identyfikator - identyfikator obiektu.
+	* \return Referencja do obiektu opisowego. Je¿eli nie znaleziono obiektu zostaje wyrzucony wyj¹tek.
+	* \throw NieznalezionoObiektu
+	*/
+	ObronaInfo& pobierzObrone( const Identyfikator& identyfikator )const throw (NieznalezionoObiektu);
 
 	/**
 	* \brief Metoda pobieraj¹ca obiekt opisowy Statku.
@@ -314,12 +336,22 @@ private:
 	*/
 	bool wczytajBudynki(TiXmlElement* wezel);
 
+	/**
+	* \brief Metoda wczytuj¹ca dane obrony.
+	*
+	* Metoda wczytuje z wêz³a xml dane opisowe budynków. Tworzy obiekty ObronaInfo oraz dodaje je do listy.
+	* \param[in] wezel - Wêze³ xml zawieraj¹cy dane.
+	* \return true je¿eli wszystkie dane zostaj¹ poprawnie wczytane, fasle w przeciwnym wypadku.
+	*/
+	bool wczytajObrone(TiXmlElement* wezel);
+
 	ZmianaFabryka &fabryka_; /// Referencja do obiektu fabryki zmian.
 	Aplikacja& aplikacja_; /// Referencja do obiektu aplikacji.
 	shared_ptr<Uzytkownik> uzytkownik_; /// Aktualnie zalogowany u¿ytkownik.
 
 	unordered_map<Identyfikator, shared_ptr<SurowceInfo>, IdTypeHash > listaSurowcowInfo_; /// Lista obiektów opisowych surowców.
 	unordered_map<Identyfikator, shared_ptr<StatekInfo>, IdTypeHash > listaStatkowInfo_; /// Lista obiektów opisowych statku.
+	unordered_map<Identyfikator, shared_ptr<ObronaInfo>, IdTypeHash > listaObronaInfo_; /// Lista obiektów opisowych obrony.
 	unordered_map<Identyfikator, shared_ptr<TechnologiaInfo>, IdTypeHash > listaTechnologiInfo_; /// Lista obiektów opisowych  technologii.
 	unordered_map<Identyfikator, shared_ptr<BudynekInfo>, IdTypeHash > listaBudynkowInfo_; /// Lista obiektów opisowych budynku.
 	unordered_map<Identyfikator, shared_ptr<ObiektInfo>, IdTypeHash > listaObiektowInfo_; /// Lista obiektów opisowych.

@@ -44,6 +44,13 @@ const Statek& Planeta::pobierzStatek(const Identyfikator& identyfikator) const{
 	throw NieznalezionoObiektu(EXCEPTION_PLACE,identyfikator.napis());
 }
 
+const Obrona& Planeta::pobierzObrone(const Identyfikator& identyfikator) const{
+	auto iterator = listaObrona_.find(identyfikator);
+	if(iterator!=listaObrona_.end())
+		return *(iterator->second);
+	throw NieznalezionoObiektu(EXCEPTION_PLACE,identyfikator.napis());
+}
+
 const Technologia& Planeta::pobierzTechnologie(const Identyfikator& identyfikator) const{
 	auto iterator = listaTechnologii_.find(identyfikator);
 	if(iterator!=listaTechnologii_.end())
@@ -63,6 +70,15 @@ bool Planeta::dodajObiekt( shared_ptr< Budynek > obiekt ){
 	if(iterator!=listaObiektow_.end())
 		return false;
 	listaBudynkow_.insert(make_pair(obiekt->pobierzIdentyfikator(),obiekt));
+	listaObiektow_.insert(make_pair(obiekt->pobierzIdentyfikator(),obiekt));
+	return true;
+}
+
+bool Planeta::dodajObiekt( shared_ptr< Obrona > obiekt ){
+	auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
+	if(iterator!=listaObiektow_.end())
+		return false;
+	listaObrona_.insert(make_pair(obiekt->pobierzIdentyfikator(),obiekt));
 	listaObiektow_.insert(make_pair(obiekt->pobierzIdentyfikator(),obiekt));
 	return true;
 }

@@ -262,6 +262,13 @@
     <ClCompile Include="ZleceniaTest.cpp">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClCompile>
+    <ClCompile Include="ObronaInfo.cpp">
+      <Filter>SourceFile\Obrona</Filter>
+    </ClCompile>
+    <ClCompile Include="Obrona.cpp">
+      <Filter>SourceFile\Obrona</Filter>
+    </ClCompile>
+    <ClCompile Include="ObronaTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -585,6 +592,13 @@
     <ClInclude Include="Zlecenia.h">
       <Filter>SourceFile\KlasyPomocnicze\Tranzakcyjnosc</Filter>
     </ClInclude>
+    <ClInclude Include="ObronaInfo.h">
+      <Filter>SourceFile\Obrona</Filter>
+    </ClInclude>
+    <ClInclude Include="Obrona.h">
+      <Filter>SourceFile\Obrona</Filter>
+    </ClInclude>
+    <ClInclude Include="ObronaTest.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -697,6 +711,9 @@
     </Filter>
     <Filter Include="SourceFile\KlasyPomocnicze\Tranzakcyjnosc">
       <UniqueIdentifier>{6156b04e-fb15-434b-be8e-f5569dbf75b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Obrona">
+      <UniqueIdentifier>{28f11c3d-95ec-422e-b8d3-c63278d629e6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
