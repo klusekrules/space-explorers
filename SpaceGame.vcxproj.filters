@@ -582,6 +582,9 @@
     <ClInclude Include="ZleceniaTest.h">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClInclude>
+    <ClInclude Include="Zlecenia.h">
+      <Filter>SourceFile\KlasyPomocnicze\Tranzakcyjnosc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">

@@ -8,6 +8,8 @@
 #include <algorithm>
 #include <functional>
 #include "XmlBO.h"
+#include "MenedzerTranzakcji.h"
+#include "Zlecenia.h"
 	
 Ladownia::Ladownia( const Poziom& poziom, const Identyfikator& identyfikatorPlanety, const LadowniaInfo& ladowniaInfo )
 	: PodstawoweParametry(poziom, identyfikatorPlanety), obiekty_(), zajete_(), ladowniaInfo_(ladowniaInfo)
@@ -59,20 +61,27 @@ bool Ladownia::dodajObiektDoLadowni( const Item& obiekt ){
 
 //Tranzakcyjna
 bool Ladownia::dodajObiektDoLadowni( shared_ptr<Item> obiekt ){
-	if( !obiekt || !obiekt->czyTypPrzyrostowy()){
+	if( !obiekt 
+		|| !obiekt->czyTypPrzyrostowy() 
+		|| obiekt->pobierzObjetosc()/obiekt->pobierzIlosc() > ladowniaInfo_.pobierzPojemnoscMaksymalna(*this) 
+		|| (obiekt->pobierzObjetosc() + zajete_) > pobierzPojemnoscMaksymalnaLadowni() ){
 		return false;
 	}
-	if( obiekt->pobierzObjetosc()/obiekt->pobierzIlosc() > ladowniaInfo_.pobierzPojemnoscMaksymalna(*this) || (obiekt->pobierzObjetosc() + zajete_) > pobierzPojemnoscMaksymalnaLadowni() ){
-		return false;
-	}
-	auto identyfikator = obiekt->pobierzIdentyfikatorPlanety();
-	obiekt->ustawIdentyfikatorPlanety(Identyfikator());
-	bool rezultat = obiekty_.dodaj(obiekt);
-	if(!rezultat)
-		obiekt->ustawIdentyfikatorPlanety(identyfikator);
-	else
-		przeliczZajeteMiejsceLadowni();
-	return rezultat;
+	MenedzerTranzakcji tranzakcja;
+	Identyfikator nowe;
+	Ladownia* ladownia = this;
+
+	tranzakcja.dodaj( make_shared<ZlecenieUstawIdentyfikatorPlanety>(nowe , static_cast< shared_ptr<PodstawoweParametry> >(obiekt)) );
+
+	tranzakcja.dodaj( make_shared< Zlecenie< Ladownia::Zbiornik , shared_ptr< Item > > >(obiekty_ , obiekt, 
+		[](Ladownia::Zbiornik& h , shared_ptr< Item >& s)->bool{ return h.dodaj(s); },
+		[](Ladownia::Zbiornik& h , shared_ptr< Item >& s)->bool{ return false; }) );
+
+	tranzakcja.dodaj( make_shared< Zlecenie< Ladownia , Ladownia > >( *ladownia , *ladownia, 
+		[](Ladownia& h , Ladownia& s)->bool{ h.przeliczZajeteMiejsceLadowni(); return true; },
+		[](Ladownia& h , Ladownia& s)->bool{ return false; }) );
+
+	return tranzakcja.wykonaj();
 }
 
 //Tranzakcyjna
