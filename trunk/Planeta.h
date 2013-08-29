@@ -12,6 +12,7 @@
 #include "NiepoprawnaIloscObiektow.h"
 #include "Flota.h"
 #include "Licznik.h"
+#include "Obrona.h"
 
 /**
 * \brief Klasa reprezentuj¹ca planetê.
@@ -34,6 +35,7 @@ public:
 	typedef map< Identyfikator , shared_ptr< Budynek > > ListaBudynkow;
 	typedef map< Identyfikator , shared_ptr< Technologia > > ListaTechnologii;
 	typedef map< Identyfikator , shared_ptr< Statek > > ListaStatkow;
+	typedef map< Identyfikator , shared_ptr< Obrona > > ListaObrona;
 	typedef map< Identyfikator , shared_ptr< Surowce > > ListaSurowcow;
 	typedef map< Identyfikator , shared_ptr< Flota > > ListaFlot;
 	
@@ -73,6 +75,15 @@ public:
 	* \return Referencja do obiektu.
 	*/
 	const Statek& pobierzStatek(const Identyfikator& identyfikator) const;
+
+	/**
+	* \brief Metoda pobiera obronê o podanym identyfikatorze.
+	* 
+	* Metoda pobiera z planety obronê o podanym identyfikatorze.
+	* \param[in] identyfikator - Identyfikator obiektu.
+	* \return Referencja do obiektu.
+	*/
+	const Obrona& pobierzObrone(const Identyfikator& identyfikator) const;
 
 	/**
 	* \brief Metoda pobiera tehcnologie o podanym identyfikatorze.
@@ -232,6 +243,15 @@ private:
 	bool dodajObiekt( shared_ptr< Budynek > obiekt );
 
 	/**
+	* \brief Metoda dodaj¹ca Obronê do planety.
+	*
+	* Metoda dodaje Obronê do planety. Nie tworzy kopii. Sprawdza czy istnieje obrona o takim samym identyfikatorze.
+	* \param[in] obiekt - Sprytny wskaŸnik na dodawany obiekt.
+	* \return true je¿eli uda siê dodaæ obiekt, fasle w przeciwnym wypadku.
+	*/
+	bool dodajObiekt( shared_ptr< Obrona > obiekt );
+
+	/**
 	* \brief Metoda dodaj¹ca Statek do planety.
 	*
 	* Metoda dodaje Statek do planety. Nie tworzy kopii. Sprawdza czy istnieje budynek o takim samym identyfikatorze.
@@ -283,6 +303,7 @@ private:
 
 	ListaSurowcow listaSurowcow_; /// Lista surowców planety.
 	ListaStatkow listaStatkow_; /// Lista statków planety
+	ListaObrona listaObrona_; /// Lista statków planety
 	ListaTechnologii listaTechnologii_; /// Lista tehcnologii planety.
 	ListaBudynkow listaBudynkow_; /// Lista budynków planety.
 	ListaObiektow listaObiektow_; /// Lista wszystkich obiektów planety.

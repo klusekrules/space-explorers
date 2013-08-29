@@ -216,6 +216,9 @@
     <ClInclude Include="Hangar.h" />
     <ClInclude Include="HangarInfo.h" />
     <ClInclude Include="HangarTest.h" />
+    <ClInclude Include="Obrona.h" />
+    <ClInclude Include="ObronaInfo.h" />
+    <ClInclude Include="ObronaTest.h" />
     <ClInclude Include="Zlecenia.h" />
     <ClInclude Include="InicjalizacjaDanychTestowych.h" />
     <ClInclude Include="LadowniaTest.h" />
@@ -377,6 +380,9 @@
     <ClCompile Include="ObiektListTest.cpp" />
     <ClCompile Include="Objetosc.cpp" />
     <ClCompile Include="Obrazenia.cpp" />
+    <ClCompile Include="Obrona.cpp" />
+    <ClCompile Include="ObronaInfo.cpp" />
+    <ClCompile Include="ObronaTest.cpp" />
     <ClCompile Include="OgolnyWyjatek.cpp" />
     <ClCompile Include="Operacja.cpp" />
     <ClCompile Include="PaczkaTestow.cpp" />

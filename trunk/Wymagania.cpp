@@ -72,12 +72,10 @@ bool Wymagania::czySpelniaWymogi( const PodstawoweParametry& parametry ) const{
 	}
 	for (auto element : warunki_){
 		Poziom poziom;
-		Identyfikator identyfikator;
 		if(element.wykonaj(
-			[&parametry,&poziom,&identyfikator](Wymog::TypObiektu obiekt,Wymog::Zmiana zmiana)->bool{
+			[&](Wymog::TypObiektu obiekt,Wymog::Zmiana zmiana)->bool{
 				if (!obiekt)
 					return false;
-				identyfikator = obiekt->pobierzIdentyfikator();
 				if(zmiana)
 					poziom = Poziom(static_cast<Poziom::type_name>(zmiana->policzWartosc(obiekt->pobierzPoziom()(),parametry.pobierzPoziom()(),parametry.pobierzIdentyfikatorPlanety()())));
 				else
@@ -86,7 +84,7 @@ bool Wymagania::czySpelniaWymogi( const PodstawoweParametry& parametry ) const{
 		}			
 		))
 		{
-			if(planeta->pobierzObiekt(identyfikator).pobierzPoziom()<poziom)
+			if(planeta->pobierzObiekt(element.pobierzObiekt()->pobierzIdentyfikator()).pobierzPoziom()<poziom)
 				return false;
 		}
 	}
@@ -102,12 +100,10 @@ bool Wymagania::czySpelniaKoszty( const Ilosc& ilosc, const PodstawoweParametry&
 	}
 	for( auto element : koszty_ ){
 		Ilosc iloscObiektow;
-		Identyfikator identyfikator;
 		if(element.wykonaj(
-			[&parametry,&iloscObiektow,&identyfikator](Cena::TypObiektu obiekt,Cena::Zmiana zmiana)->bool{
+			[&](Cena::TypObiektu obiekt,Cena::Zmiana zmiana)->bool{
 				if (!obiekt)
 					return false;
-				identyfikator = obiekt->pobierzIdentyfikator();
 				if(zmiana)
 					iloscObiektow = Ilosc(static_cast<Ilosc::type_name>(zmiana->policzWartosc(obiekt->pobierzIlosc()(),parametry.pobierzPoziom()(),parametry.pobierzIdentyfikatorPlanety()())));
 				else
@@ -116,7 +112,7 @@ bool Wymagania::czySpelniaKoszty( const Ilosc& ilosc, const PodstawoweParametry&
 		}			
 		))
 		{
-			if( planeta->pobierzObiekt(identyfikator).pobierzIlosc() < (iloscObiektow*ilosc ) )
+			if( planeta->pobierzObiekt(element.pobierzObiekt()->pobierzIdentyfikator()).pobierzIlosc() < (iloscObiektow*ilosc ) )
 				return false;
 		}
 	}
