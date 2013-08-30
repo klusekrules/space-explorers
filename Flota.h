@@ -24,7 +24,11 @@ public:
 	enum CelPodrozy{
 		Zwiad,
 		Atak,
-		Transport
+		Transport,
+		Stacjonowanie,
+		Szczatki,
+		Ekspedycja,
+		Powrot
 	};
 
 	typedef map< Klucz , shared_ptr<Statek> > ListaStatkow;
@@ -126,6 +130,14 @@ public:
 	* \return true je¿eli uda sie wprowadziæ flotê, false w przeciwnym przypadku.
 	*/
 	bool rozladujFloteNaPlanecie();
+
+	/**
+	* \brief Metoda zawraca flotê
+	*
+	* Metoda ustawia misje na powrót.
+	* \return true je¿eli zostanie ustawiona misja jako powrót. false je¿eli misja jest ju¿ ustawiona na powrót.
+	*/
+	bool zawrocFlote();
 
 	/**
 	* \brief Metoda zapisuj¹ca.

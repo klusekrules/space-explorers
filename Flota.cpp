@@ -126,11 +126,17 @@ void Flota::ustawCelPodrozy( CelPodrozy cel ){
 bool Flota::rozladujLadownieNaPlanecie(){
 	shared_ptr<Planeta> planeta;
 	switch(celPodrozy_){
+	case Stacjonowanie:
 	case Transport: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaDocelowa_);
 		break;
-	case Zwiad:
-	case Atak: Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaPoczatkowa_);
+	case Powrot: planeta =Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaPoczatkowa_);
 		break;
+	case Zwiad:
+	case Szczatki:
+	case Ekspedycja:
+	case Atak: 
+	default:
+		return false;
 	}
 	if(!planeta)
 		return false;
@@ -144,11 +150,17 @@ bool Flota::rozladujLadownieNaPlanecie(){
 bool Flota::rozladujFloteNaPlanecie(){
 	shared_ptr<Planeta> planeta;
 	switch(celPodrozy_){
+	case Stacjonowanie:
 	case Transport: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaDocelowa_);
 		break;
-	case Zwiad:
-	case Atak: Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaPoczatkowa_);
+	case Powrot: planeta =Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaPoczatkowa_);
 		break;
+	case Zwiad:
+	case Szczatki:
+	case Ekspedycja:
+	case Atak: 
+	default:
+		return false;
 	}
 	if(!planeta)
 		return false;
@@ -159,6 +171,13 @@ bool Flota::rozladujFloteNaPlanecie(){
 		}
 		lista_.clear();
 		return true;
+}
+
+bool Flota::zawrocFlote(){
+	if(celPodrozy_==Powrot)
+		return false;
+	celPodrozy_=Powrot;
+	return true;
 }
 
 bool Flota::zapisz( TiXmlElement* wezel ) const{
@@ -191,6 +210,14 @@ bool Flota::odczytaj( TiXmlElement* wezel ) {
 		case Atak: celPodrozy_ = Atak;
 			break;
 		case Transport: celPodrozy_ = Transport;
+			break;
+		case Stacjonowanie: celPodrozy_ = Stacjonowanie;
+			break;
+		case Szczatki: celPodrozy_ = Szczatki;
+			break;
+		case Ekspedycja: celPodrozy_ = Ekspedycja;
+			break;
+		case Powrot: celPodrozy_ = Powrot;
 			break;
 		default:
 			return false;
