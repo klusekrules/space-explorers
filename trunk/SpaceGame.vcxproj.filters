@@ -268,7 +268,9 @@
     <ClCompile Include="Obrona.cpp">
       <Filter>SourceFile\Obrona</Filter>
     </ClCompile>
-    <ClCompile Include="ObronaTest.cpp" />
+    <ClCompile Include="ObronaTest.cpp">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -598,7 +600,9 @@
     <ClInclude Include="Obrona.h">
       <Filter>SourceFile\Obrona</Filter>
     </ClInclude>
-    <ClInclude Include="ObronaTest.h" />
+    <ClInclude Include="ObronaTest.h">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
