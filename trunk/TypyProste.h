@@ -8,6 +8,7 @@
 namespace SPG{
 	typedef int				Identyfikator;
 	typedef unsigned int	Poziom;
+	typedef long long		Klucz; // sizeof(Identyfikator) + sizeof(Poziom)
 	typedef float			Fluktuacja;
 	typedef std::string		Tekst;
 	typedef long double		IloscJednostek;

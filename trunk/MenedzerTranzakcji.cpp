@@ -21,7 +21,7 @@ bool MenedzerTranzakcji::wykonaj()
 	int iterator = 0;
 	bool powodzenie = true;
 	try{
-		for(; iterator < listaOperacji_.size(); ++iterator){
+		for(; iterator < static_cast<int>(listaOperacji_.size()); ++iterator){
 			if(!listaOperacji_[iterator]->wykonaj()){
 				powodzenie = false;
 				break;

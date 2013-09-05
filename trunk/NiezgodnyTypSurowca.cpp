@@ -5,7 +5,7 @@ NiezgodnyTypSurowca::NiezgodnyTypSurowca( const Tekst& tPlik, const Ilosc& iLini
 	: OgolnyWyjatek (  tPlik, iLinia, idNiezgodnyTypSurowca , tytulNiezgodnyTypSurowcaDomyslny , Tekst() )
 {
 	stringstream str;
-	str<<"Brak zgodnosci typow. Uzyte typy = [ID Pierwszy = " << tsP().first.napis() << ", Poziom = "<< tsP().second.napis() << " ], [ID Drugi = "<< tsD().first.napis()<< ", Poziom = "<< tsD().second.napis() <<" ].";
+	str<<"Brak zgodnosci typow. Uzyte typy = [ID Pierwszy = " << tsP.pobierzIdentyfikator().napis() << ", Poziom = "<< tsP.pobierzPoziom().napis() << " ], [ID Drugi = "<< tsD.pobierzIdentyfikator().napis()<< ", Poziom = "<< tsD.pobierzPoziom().napis() <<" ].";
 	setTresc(str.str());
 }
 

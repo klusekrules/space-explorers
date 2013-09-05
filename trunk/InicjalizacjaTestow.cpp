@@ -3,7 +3,9 @@
 #include "TworzenieObiektowTest.h"
 #include "ZapisStanuGryTest.h"
 #include "ZleceniaTest.h"
+#include "KluczTest.h"
 
+REJESTRUJ_PACZKE_TESTOW_JAKO_INICJALIZACJA(KluczTest);
 REJESTRUJ_PACZKE_TESTOW_JAKO_INICJALIZACJA(InicjalizacjaDanychTestowych);
 REJESTRUJ_PACZKE_TESTOW_JAKO_INICJALIZACJA(LogowanieTest);
 REJESTRUJ_PACZKE_TESTOW_JAKO_INICJALIZACJA(ZleceniaTest);

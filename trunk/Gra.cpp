@@ -91,36 +91,44 @@ bool Gra::przeniesPlaneteDoUzytkownika( const Identyfikator& identyfikator ){
 	return false;
 }
 
-bool Gra::wybudujNaPlanecie( Planeta& planeta , const Identyfikator& identyfikator , const Ilosc& ilosc )const{
+bool Gra::wybudujNaPlanecie( Planeta& planeta , const Identyfikator& identyfikator , const Ilosc& ilosc, const Poziom& poziom )const{
 	auto iterator = listaObiektowBaseInfo_.find(identyfikator);
 	if(iterator != listaObiektowBaseInfo_.end()){
-		return iterator->second->tworz(*this,planeta,ilosc);
+		return iterator->second->tworz(*this,planeta,ilosc, poziom);
 	}
 	return false;
 }
 
-bool Gra::wybudujNaPlanecie( Planeta& planeta, const ObiektBazowyInfo& obiektInfo, const Ilosc& ilosc )const{
-	return obiektInfo.tworz(*this,planeta,ilosc);
+bool Gra::wybudujNaPlanecie( Planeta& planeta , const Identyfikator& identyfikator , const Ilosc& ilosc )const{
+	auto iterator = listaObiektowBaseInfo_.find(identyfikator);
+	if(iterator != listaObiektowBaseInfo_.end()){
+		return iterator->second->tworz(*this,planeta,ilosc, iterator->second->pobierzPoziom());
+	}
+	return false;
 }
 
-bool Gra::wybudujNaPlanecie( Planeta& planeta, const BudynekInfo& obiektInfo, const Ilosc& ilosc )const{
-	return planeta.dodajObiekt(shared_ptr<Budynek>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator())));
+bool Gra::wybudujNaPlanecie( Planeta& planeta, const ObiektBazowyInfo& obiektInfo, const Ilosc& ilosc, const Poziom& poziom )const{
+	return obiektInfo.tworz(*this,planeta,ilosc,poziom);
 }
 
-bool Gra::wybudujNaPlanecie( Planeta& planeta, const TechnologiaInfo& obiektInfo, const Ilosc& ilosc )const{
-	return planeta.dodajObiekt(shared_ptr<Technologia>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator())));
+bool Gra::wybudujNaPlanecie( Planeta& planeta, const BudynekInfo& obiektInfo, const Ilosc& ilosc, const Poziom& poziom )const{
+	return planeta.dodajObiekt(shared_ptr<Budynek>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator(),poziom)));
 }
 
-bool Gra::wybudujNaPlanecie( Planeta& planeta, const StatekInfo& obiektInfo, const Ilosc& ilosc )const{
-	return planeta.dodajObiekt(shared_ptr<Statek>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator())));
+bool Gra::wybudujNaPlanecie( Planeta& planeta, const TechnologiaInfo& obiektInfo, const Ilosc& ilosc, const Poziom& poziom )const{
+	return planeta.dodajObiekt(shared_ptr<Technologia>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator(),poziom)));
 }
 
-bool Gra::wybudujNaPlanecie( Planeta& planeta, const SurowceInfo& obiektInfo, const Ilosc& ilosc )const{
-	return planeta.dodajObiekt(shared_ptr<Surowce>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator())));
+bool Gra::wybudujNaPlanecie( Planeta& planeta, const StatekInfo& obiektInfo, const Ilosc& ilosc, const Poziom& poziom )const{
+	return planeta.dodajObiekt(shared_ptr<Statek>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator(),poziom)));
 }
 
-bool Gra::wybudujNaPlanecie( Planeta& planeta, const ObronaInfo& obiektInfo, const Ilosc& ilosc )const{
-	return planeta.dodajObiekt(shared_ptr<Obrona>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator())));
+bool Gra::wybudujNaPlanecie( Planeta& planeta, const SurowceInfo& obiektInfo, const Ilosc& ilosc, const Poziom& poziom )const{
+	return planeta.dodajObiekt(shared_ptr<Surowce>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator(),poziom)));
+}
+
+bool Gra::wybudujNaPlanecie( Planeta& planeta, const ObronaInfo& obiektInfo, const Ilosc& ilosc, const Poziom& poziom )const{
+	return planeta.dodajObiekt(shared_ptr<Obrona>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator(),poziom)));
 }
 
 StatekInfo& Gra::pobierzStatek(const Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {

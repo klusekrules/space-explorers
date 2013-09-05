@@ -7,16 +7,16 @@ BudynekTest::BudynekTest(void)
 void BudynekTest::startTestow() {
 	planeta = Aplikacja::pobierzInstancje().pobierzGre().stworzPlanete();
 	UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(17),Ilosc(20)) );
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(17),Ilosc(20)) );
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(17),Ilosc(20)) );
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(18),Ilosc(20)) );
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(18),Ilosc(20)) );
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(19),Ilosc(20)) );
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(19),Ilosc(20)) );
-	a = &(planeta->pobierzBudynek(Identyfikator(17)));
-	b = &(planeta->pobierzBudynek(Identyfikator(18)));
-	c = &(planeta->pobierzBudynek(Identyfikator(19)));
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(17),Poziom(1)),Ilosc(20)) );
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(17),Poziom(1)),Ilosc(20)) );
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(17),Poziom(2)),Ilosc(20)) );
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(18),Poziom(1)),Ilosc(20)) );
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(18),Poziom(1)),Ilosc(20)) );
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(19),Poziom(1)),Ilosc(20)) );
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(19),Poziom(1)),Ilosc(20)) );
+	a = &(planeta->pobierzBudynek(Planeta::Indeks(Identyfikator(17),Poziom(3))));
+	b = &(planeta->pobierzBudynek(Planeta::Indeks(Identyfikator(18),Poziom(2))));
+	c = &(planeta->pobierzBudynek(Planeta::Indeks(Identyfikator(19),Poziom(2))));
 }
 
 void BudynekTest::podstawowyTest(){

@@ -40,11 +40,15 @@ const Identyfikator& StatekInfo::pobierzIdentyfikator() const{
 }
 
 Statek* StatekInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety ) const{
-	return new Statek(ilosc,pobierzPoziom(), identyfikatorPlanety, *this);
+	return tworzEgzemplarz(ilosc, identyfikatorPlanety,pobierzPoziom());
 }
 
-bool StatekInfo::tworz( const Gra& gra, Planeta& planeta , const Ilosc& ilosc ) const{
-	return gra.wybudujNaPlanecie(planeta,*this,ilosc);
+Statek* StatekInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety, const Poziom& poziom ) const{
+	return new Statek(ilosc,poziom, identyfikatorPlanety, *this);
+}
+
+bool StatekInfo::tworz( const Gra& gra, Planeta& planeta , const Ilosc& ilosc, const Poziom& poziom ) const{
+	return gra.wybudujNaPlanecie(planeta,*this,ilosc, poziom);
 }
 
 string StatekInfo::napis() const{

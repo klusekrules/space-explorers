@@ -33,15 +33,19 @@ BudynekInfo::BudynekInfo( TiXmlElement* wezel )
 	}
 }
 
-bool BudynekInfo::tworz( const Gra& gra, Planeta& planeta , const Ilosc& ilosc ) const{
-	return gra.wybudujNaPlanecie(planeta,*this,ilosc);
+bool BudynekInfo::tworz( const Gra& gra , Planeta& planeta , const Ilosc& ilosc, const Poziom& poziom ) const{
+	return gra.wybudujNaPlanecie(planeta,*this,ilosc,poziom);
 }
 
 BudynekInfo::~BudynekInfo(){
 }
 
+Budynek* BudynekInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety, const Poziom& poziom ) const{
+	return new Budynek(poziom,identyfikatorPlanety,*this);
+}
+
 Budynek* BudynekInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety ) const{
-	return new Budynek(pobierzPoziom(),identyfikatorPlanety,*this);
+	return tworzEgzemplarz(ilosc,identyfikatorPlanety,pobierzPoziom() );
 }
 
 Wymagania::PrzetworzonaCena BudynekInfo::pobierzZapotrzebowanie( const PodstawoweParametry& parametry )const{

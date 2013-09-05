@@ -25,10 +25,14 @@ ObiektBazowyInfo::~ObiektBazowyInfo(){
 }
 
 ObiektBazowy* ObiektBazowyInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety ) const{
-	return new ObiektBazowy(ilosc,pobierzPoziom(),identyfikatorPlanety,*this);
+	return tworzEgzemplarz(ilosc,identyfikatorPlanety,pobierzPoziom());
 }
 
-bool ObiektBazowyInfo::tworz( const Gra& gra, Planeta& planeta, const Ilosc& ilosc ) const{
+ObiektBazowy* ObiektBazowyInfo::tworzEgzemplarz( const Ilosc& ilosc , const Identyfikator& identyfikatorPlanety, const Poziom& poziom ) const{
+	return new ObiektBazowy(ilosc,poziom,identyfikatorPlanety,*this);
+}
+
+bool ObiektBazowyInfo::tworz( const Gra& gra , Planeta& planeta , const Ilosc& ilosc, const Poziom& poziom ) const{
 	return false;
 }
 
