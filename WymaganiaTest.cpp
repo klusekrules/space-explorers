@@ -7,8 +7,8 @@ WymaganiaTest::WymaganiaTest(){
 void WymaganiaTest::startTestow(){
 	planeta = Aplikacja::pobierzInstancje().pobierzGre().stworzPlanete();
 	UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(11),Ilosc(8)) );
-	a = &(planeta->pobierzStatek(Identyfikator(11)));
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(11), Poziom(1)),Ilosc(8)) );
+	a = &(planeta->pobierzStatek(Klucz(Identyfikator(11), Poziom(1))));
 }
 
 void WymaganiaTest::sprawdzenieKosztow(){
@@ -24,44 +24,44 @@ void WymaganiaTest::sprawdzenieKosztow(){
 }
 
 void WymaganiaTest::czyMoznaWybudowacTest(){
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0xC),Ilosc(1)));
-	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Identyfikator(0xC)).czyMoznaRozbudowac());
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0x1),Ilosc(60000)));
-	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Identyfikator(0xC)).czyMoznaRozbudowac());
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0x4),Ilosc(60000)));
-	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Identyfikator(0xC)).czyMoznaRozbudowac());
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0x7),Ilosc(60000)));
-	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Identyfikator(0xC)).czyMoznaRozbudowac());
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0x13),Ilosc(1)));
-	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Identyfikator(0xC)).czyMoznaRozbudowac());
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0x10),Ilosc(1)));
-	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Identyfikator(0xC)).czyMoznaRozbudowac());
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0x13),Ilosc(1)));
-	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Identyfikator(0xC)).czyMoznaRozbudowac());
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0x10),Ilosc(1)));
-	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Identyfikator(0xC)).czyMoznaRozbudowac());
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0x13),Ilosc(1)));
-	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Identyfikator(0xC)).czyMoznaRozbudowac());
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0x10),Ilosc(1)));
-	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Identyfikator(0xC)).czyMoznaRozbudowac());
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0x13),Ilosc(1)));
-	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Identyfikator(0xC)).czyMoznaRozbudowac());
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0x10),Ilosc(1)));
-	UNIT_TEST_ASSERT_TRUE( planeta->pobierzObiekt(Identyfikator(0xC)).czyMoznaRozbudowac());
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0x13),Ilosc(1)));
-	UNIT_TEST_ASSERT_TRUE( planeta->pobierzObiekt(Identyfikator(0xC)).czyMoznaRozbudowac());
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0x10),Ilosc(1)));
-	UNIT_TEST_ASSERT_TRUE( planeta->pobierzObiekt(Identyfikator(0xC)).czyMoznaRozbudowac());
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0x13),Ilosc(1)));
-	UNIT_TEST_ASSERT_TRUE( planeta->pobierzObiekt(Identyfikator(0xC)).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(0xC), Poziom(1)),Ilosc(1)));
+	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Klucz(Identyfikator(0xC), Poziom(1))).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(1), Poziom(1)),Ilosc(60000)));
+	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Klucz(Identyfikator(0xC), Poziom(1))).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(4), Poziom(1)),Ilosc(60000)));
+	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Klucz(Identyfikator(0xC), Poziom(1))).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(7), Poziom(1)),Ilosc(60000)));
+	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Klucz(Identyfikator(0xC), Poziom(1))).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(0x13), Poziom(0)),Ilosc(1)));
+	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Klucz(Identyfikator(0xC), Poziom(1))).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(0x10), Poziom(0)),Ilosc(1)));
+	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Klucz(Identyfikator(0xC), Poziom(1))).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(0x13), Poziom(1)),Ilosc(1)));
+	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Klucz(Identyfikator(0xC), Poziom(1))).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(0x10), Poziom(1)),Ilosc(1)));
+	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Klucz(Identyfikator(0xC), Poziom(1))).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(0x13), Poziom(2)),Ilosc(1)));
+	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Klucz(Identyfikator(0xC), Poziom(1))).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(0x10), Poziom(2)),Ilosc(1)));
+	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Klucz(Identyfikator(0xC), Poziom(1))).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(0x13), Poziom(3)),Ilosc(1)));
+	UNIT_TEST_ASSERT_FALSE( planeta->pobierzObiekt(Klucz(Identyfikator(0xC), Poziom(1))).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(0x10), Poziom(3)),Ilosc(1)));
+	UNIT_TEST_ASSERT_TRUE( planeta->pobierzObiekt(Klucz(Identyfikator(0xC), Poziom(1))).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(0x13), Poziom(4)),Ilosc(1)));
+	UNIT_TEST_ASSERT_TRUE( planeta->pobierzObiekt(Klucz(Identyfikator(0xC), Poziom(1))).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(0x10), Poziom(4)),Ilosc(1)));
+	UNIT_TEST_ASSERT_TRUE( planeta->pobierzObiekt(Klucz(Identyfikator(0xC), Poziom(1))).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(0x13), Poziom(5)),Ilosc(1)));
+	UNIT_TEST_ASSERT_TRUE( planeta->pobierzObiekt(Klucz(Identyfikator(0xC), Poziom(1))).czyMoznaRozbudowac());
 
 }
 
 void WymaganiaTest::czasBudowy(){
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0x12),Ilosc(1)));
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0x13),Ilosc(1)));
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Identyfikator(0x13),Ilosc(1)));
-	UNIT_TEST_ASSERT_EQUAL( Czas(4.875), planeta->pobierzObiekt(Identyfikator(0x12)).pobierzCzasRozbudowy());
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(0x12), Poziom(0)),Ilosc(1)));
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(0x13), Poziom(6)),Ilosc(1)));
+	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(0x13), Poziom(7)),Ilosc(1)));
+	UNIT_TEST_ASSERT_EQUAL( Czas(4.875), planeta->pobierzObiekt(Klucz(Identyfikator(0x12), Poziom(1))).pobierzCzasRozbudowy() );
 }
 
 WymaganiaTest::~WymaganiaTest(){

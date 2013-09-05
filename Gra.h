@@ -102,7 +102,19 @@ public:
 	* \param[in] ilosc - Atrybut iloœci tworzonego obiektu.
 	* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
 	*/
-	bool wybudujNaPlanecie( Planeta& planeta, const Identyfikator& identyfikator, const Ilosc& ilosc )const;
+	bool wybudujNaPlanecie( Planeta& planeta, const Identyfikator& identyfikator, const Ilosc& ilosc)const;
+
+	/**
+	* \brief Metoda s³u¿¹ca do wybudownia na planecie obiektu.
+	*
+	* Metoda buduj¹ca obiekt na planecie.
+	* \param[in] planeta - Planeta na której ma zostaæ wybudowany obiekt.
+	* \param[in] identyfikator - Identyfikator obiektu do wybudiwania.
+	* \param[in] ilosc - Atrybut iloœci tworzonego obiektu.
+	* \param[in] poziom - Poziom tworzonego obiektu.
+	* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
+	*/
+	bool wybudujNaPlanecie( Planeta& planeta, const Identyfikator& identyfikator, const Ilosc& ilosc, const Poziom& poziom )const;
 
 	/**
 	* \brief Metoda s³u¿¹ca do wybudownia na planecie obiektu.
@@ -111,9 +123,10 @@ public:
 	* \param[in] planeta - Planeta na której ma zostaæ wybudowany obiekt.
 	* \param[in] obiektInfo - Obiekt opisowy na bazie którego ma zostaæ zbudowany obiekt.
 	* \param[in] ilosc - Atrybut iloœci tworzonego obiektu.
+	* \param[in] poziom - Poziom tworzonego obiektu.
 	* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
 	*/
-	bool wybudujNaPlanecie( Planeta& planeta, const ObiektBazowyInfo& obiektInfo, const Ilosc& ilosc ) const;
+	bool wybudujNaPlanecie( Planeta& planeta, const ObiektBazowyInfo& obiektInfo, const Ilosc& ilosc, const Poziom& poziom ) const;
 
 	/**
 	* \brief Metoda s³u¿¹ca do wybudownia na planecie obiektu.
@@ -122,9 +135,10 @@ public:
 	* \param[in] planeta - Planeta na której ma zostaæ wybudowany obiekt.
 	* \param[in] obiektInfo - Obiekt opisowy na bazie którego ma zostaæ zbudowany obiekt.
 	* \param[in] ilosc - Atrybut iloœci tworzonego obiektu.
+	* \param[in] poziom - Poziom tworzonego obiektu.
 	* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
 	*/
-	bool wybudujNaPlanecie( Planeta& planeta, const BudynekInfo& obiektInfo, const Ilosc& ilosc )const;
+	bool wybudujNaPlanecie( Planeta& planeta, const BudynekInfo& obiektInfo, const Ilosc& ilosc, const Poziom& poziom )const;
 
 	/**
 	* \brief Metoda s³u¿¹ca do wybudownia na planecie obiektu.
@@ -133,9 +147,10 @@ public:
 	* \param[in] planeta - Planeta na której ma zostaæ wybudowany obiekt.
 	* \param[in] obiektInfo - Obiekt opisowy na bazie którego ma zostaæ zbudowany obiekt.
 	* \param[in] ilosc - Atrybut iloœci tworzonego obiektu.
+	* \param[in] poziom - Poziom tworzonego obiektu.
 	* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
 	*/
-	bool wybudujNaPlanecie( Planeta& planeta, const TechnologiaInfo& obiektInfo, const Ilosc& ilosc )const;
+	bool wybudujNaPlanecie( Planeta& planeta, const TechnologiaInfo& obiektInfo, const Ilosc& ilosc, const Poziom& poziom )const;
 
 	/**
 	* \brief Metoda s³u¿¹ca do wybudownia na planecie obiektu.
@@ -144,9 +159,10 @@ public:
 	* \param[in] planeta - Planeta na której ma zostaæ wybudowany obiekt.
 	* \param[in] obiektInfo - Obiekt opisowy na bazie którego ma zostaæ zbudowany obiekt.
 	* \param[in] ilosc - Atrybut iloœci tworzonego obiektu.
+	* \param[in] poziom - Poziom tworzonego obiektu.
 	* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
 	*/
-	bool wybudujNaPlanecie( Planeta& planeta, const StatekInfo& obiektInfo, const Ilosc& ilosc )const;
+	bool wybudujNaPlanecie( Planeta& planeta, const StatekInfo& obiektInfo, const Ilosc& ilosc, const Poziom& poziom )const;
 
 	/**
 	* \brief Metoda s³u¿¹ca do wybudownia na planecie obiektu.
@@ -155,9 +171,10 @@ public:
 	* \param[in] planeta - Planeta na której ma zostaæ wybudowany obiekt.
 	* \param[in] obiektInfo - Obiekt opisowy na bazie którego ma zostaæ zbudowany obiekt.
 	* \param[in] ilosc - Atrybut iloœci tworzonego obiektu.
+	* \param[in] poziom - Poziom tworzonego obiektu.
 	* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
 	*/
-	bool wybudujNaPlanecie( Planeta& planeta, const SurowceInfo& obiektInfo, const Ilosc& ilosc )const;
+	bool wybudujNaPlanecie( Planeta& planeta, const SurowceInfo& obiektInfo, const Ilosc& ilosc, const Poziom& poziom )const;
 
 	/**
 	* \brief Metoda s³u¿¹ca do wybudownia na planecie obiektu.
@@ -166,9 +183,10 @@ public:
 	* \param[in] planeta - Planeta na której ma zostaæ wybudowany obiekt.
 	* \param[in] obiektInfo - Obiekt opisowy na bazie którego ma zostaæ zbudowany obiekt.
 	* \param[in] ilosc - Atrybut iloœci tworzonego obiektu.
+	* \param[in] poziom - Poziom tworzonego obiektu.
 	* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
 	*/
-	bool wybudujNaPlanecie( Planeta& planeta, const ObronaInfo& obiektInfo, const Ilosc& ilosc )const;
+	bool wybudujNaPlanecie( Planeta& planeta, const ObronaInfo& obiektInfo, const Ilosc& ilosc, const Poziom& poziom )const;
 
 	/**
 	* \brief Metoda pobieraj¹ca instacjê fabryki zmian.

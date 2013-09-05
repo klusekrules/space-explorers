@@ -52,6 +52,18 @@ public:
 	virtual ObiektBazowy* tworzEgzemplarz( const Ilosc& ilosc , const Identyfikator& identyfikatorPlanety ) const;
 
 	/**
+	* \brief Metoda tworz¹ca egzemplarz obiektu.
+	*
+	*  Metoda tworzy egzemplarz obiektu o podanej iloœci i dla podanej planety.
+	* \param[in] ilosc - Iloœæ tworzonych obiektów.
+	* \param[in] identyfikatorPlanety - Identyfikator planety rodzica obiektu.
+	* \param[in] poziom - poziom nowo tworzonego obiektu.
+	* \warning Metoda allokuje pamiêæ dla nowego obiektu, który musi zostaæ zwolniony wywo³aniem delete.
+	* \return Metoda zwraca wskaŸnika na obiekt.
+	*/
+	virtual ObiektBazowy* tworzEgzemplarz( const Ilosc& ilosc , const Identyfikator& identyfikatorPlanety, const Poziom& poziom ) const;
+
+	/**
 	* \brief Metoda pobieraj¹ca atrybut.
 	*
 	* Metoda pobiera atrybut obiektu.
@@ -76,7 +88,19 @@ private:
 	* \param[in] ilosc - Iloœæ tworzonych obiektów.
 	* \return Metoda zwraca true je¿eli tworzenie zakoñczy siê sukcesem. Zwraca false w przeciwnym wypadku.
 	*/
-	virtual bool tworz( const Gra& gra , Planeta& planeta , const Ilosc& ilosc ) const;
+	//virtual bool tworz( const Gra& gra , Planeta& planeta , const Ilosc& ilosc ) const;
+
+	/**
+	* \brief Metoda tworz¹ca egzemplarz obiektu na planecie.
+	*
+	*  Metoda tworzy egzemplarz obiektu na planecie. U¿ywana jest podczas wywo³ywania metody wybuduj w klasie Planeta.
+	* \param[in] gra - Referencja do obiektu gry.
+	* \param[in] planeta - Referencja do obiektu planety
+	* \param[in] ilosc - Iloœæ tworzonych obiektów.
+	* \param[in] poziom - Iloœæ tworzonych obiektów.
+	* \return Metoda zwraca true je¿eli tworzenie zakoñczy siê sukcesem. Zwraca false w przeciwnym wypadku.
+	*/
+	virtual bool tworz( const Gra& gra , Planeta& planeta , const Ilosc& ilosc, const Poziom& poziom ) const;
 
 	Poziom poziom_;/// Domyœlny poziom obiektu tworzonego na bazie opisu.
 };

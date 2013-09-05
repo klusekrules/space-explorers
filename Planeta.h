@@ -30,13 +30,14 @@ class Planeta:
 	friend class Gra;
 	friend class Uzytkownik;
 public:
-	typedef map< Identyfikator , shared_ptr< ObiektBazowy > > ListaObiektow;
-	typedef map< Identyfikator , shared_ptr< Obiekt > > ListaObiektowZaladunkowych;
-	typedef map< Identyfikator , shared_ptr< Budynek > > ListaBudynkow;
-	typedef map< Identyfikator , shared_ptr< Technologia > > ListaTechnologii;
-	typedef map< Identyfikator , shared_ptr< Statek > > ListaStatkow;
-	typedef map< Identyfikator , shared_ptr< Obrona > > ListaObrona;
-	typedef map< Identyfikator , shared_ptr< Surowce > > ListaSurowcow;
+	typedef Klucz Indeks;
+	typedef map< Indeks , shared_ptr< ObiektBazowy > > ListaObiektow;
+	typedef map< Indeks , shared_ptr< Obiekt > > ListaObiektowZaladunkowych;
+	typedef map< Indeks , shared_ptr< Budynek > > ListaBudynkow;
+	typedef map< Indeks , shared_ptr< Technologia > > ListaTechnologii;
+	typedef map< Indeks , shared_ptr< Statek > > ListaStatkow;
+	typedef map< Indeks , shared_ptr< Obrona > > ListaObrona;
+	typedef map< Indeks , shared_ptr< Surowce > > ListaSurowcow;
 	typedef map< Identyfikator , shared_ptr< Flota > > ListaFlot;
 	
 	/**
@@ -65,6 +66,15 @@ public:
 	* \param[in] identyfikator - Identyfikator obiektu.
 	* \return Referencja do obiektu.
 	*/
+	const ObiektBazowy& pobierzObiekt(const Indeks& identyfikator) const;
+
+	/**
+	* \brief Metoda pobiera obiekt o podanym identyfikatorze i najwiêkszym poziomie.
+	* 
+	* Metoda pobiera z planety obiekt o podanym identyfikatorze i najwiêkszym poziomie.
+	* \param[in] identyfikator - Identyfikator obiektu.
+	* \return Referencja do obiektu.
+	*/
 	const ObiektBazowy& pobierzObiekt(const Identyfikator& identyfikator) const;
 
 	/**
@@ -74,7 +84,7 @@ public:
 	* \param[in] identyfikator - Identyfikator obiektu.
 	* \return Referencja do obiektu.
 	*/
-	const Statek& pobierzStatek(const Identyfikator& identyfikator) const;
+	const Statek& pobierzStatek(const Indeks& identyfikator) const;
 
 	/**
 	* \brief Metoda pobiera obronê o podanym identyfikatorze.
@@ -83,7 +93,7 @@ public:
 	* \param[in] identyfikator - Identyfikator obiektu.
 	* \return Referencja do obiektu.
 	*/
-	const Obrona& pobierzObrone(const Identyfikator& identyfikator) const;
+	const Obrona& pobierzObrone(const Indeks& identyfikator) const;
 
 	/**
 	* \brief Metoda pobiera tehcnologie o podanym identyfikatorze.
@@ -92,7 +102,7 @@ public:
 	* \param[in] identyfikator - Identyfikator obiektu.
 	* \return Referencja do obiektu.
 	*/
-	const Technologia& pobierzTechnologie(const Identyfikator& identyfikator) const;
+	const Technologia& pobierzTechnologie(const Indeks& identyfikator) const;
 
 	/**
 	* \brief Metoda pobiera budynek o podanym identyfikatorze.
@@ -101,7 +111,7 @@ public:
 	* \param[in] identyfikator - Identyfikator obiektu.
 	* \return Referencja do obiektu.
 	*/
-	const Budynek& pobierzBudynek(const Identyfikator& identyfikator) const;
+	const Budynek& pobierzBudynek(const Indeks& identyfikator) const;
 	
 	/**
 	* \brief Metoda buduje obiekt na planecie.
@@ -111,7 +121,17 @@ public:
 	* \param[in] ilosc - Atrybut iloœci tworzonego obieku.
 	* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
 	*/
-	bool wybuduj( const Identyfikator& identyfikator, const Ilosc& ilosc );
+	bool wybuduj( const Indeks& identyfikator, const Ilosc& ilosc );
+
+	/**
+	* \brief Metoda buduje obiekt na planecie.
+	* 
+	* Metoda buduje obiekt o podanym identyfikatorze, odczytuj¹c dane z wêz³a XML.
+	* \param[in] identyfikator - Identyfikator obiektu.
+	* \param[in] wezel - Wezel xml z którego maj¹ zaostaæ pobrane dane.
+	* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
+	*/
+	bool wybuduj( const Indeks& identyfikator, TiXmlElement* wezel );
 
 	/**
 	* \brief Metoda buduje statek na planecie.
@@ -166,7 +186,7 @@ public:
 	* \param[in] ilosc - Iloœæ obiektów do przeniesienia.
 	* \return true je¿eli uda siê przenieœæ obiekt, false w przeciwnym wypadku.
 	*/
-	bool przeniesDoFloty(const Identyfikator& flota, const Identyfikator& obiekt, const Ilosc& ilosc );
+	bool przeniesDoFloty(const Identyfikator& flota, const Indeks& obiekt, const Ilosc& ilosc );
 
 	/**
 	* \brief Metoda przenoœci obiekt do ³adowni floty.
@@ -177,7 +197,7 @@ public:
 	* \param[in] ilosc - Iloœæ obiektów do przeniesienia.
 	* \return true je¿eli uda siê przenieœæ obiekt, false w przeciwnym wypadku.
 	*/
-	bool zaladujSurowceNaFlote( const Identyfikator& flota, const Identyfikator& obiekt, const Ilosc& ilosc );
+	bool zaladujSurowceNaFlote( const Identyfikator& flota, const Indeks& obiekt, const Ilosc& ilosc );
 
 	/**
 	* \brief Metoda przenoœci obiekt do hangaru floty.
@@ -188,7 +208,7 @@ public:
 	* \param[in] ilosc - Iloœæ obiektów do przeniesienia.
 	* \return true je¿eli uda siê przenieœæ obiekt, false w przeciwnym wypadku.
 	*/
-	bool zaladujStatekNaFlote( const Identyfikator& flota, const Identyfikator& obiekt, const Ilosc& ilosc );
+	bool zaladujStatekNaFlote( const Identyfikator& flota, const Indeks& obiekt, const Ilosc& ilosc );
 
 	/**
 	* \brief Metoda rozladowujaca statek.

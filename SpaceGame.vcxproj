@@ -216,6 +216,7 @@
     <ClInclude Include="Hangar.h" />
     <ClInclude Include="HangarInfo.h" />
     <ClInclude Include="HangarTest.h" />
+    <ClInclude Include="KluczTest.h" />
     <ClInclude Include="Obrona.h" />
     <ClInclude Include="ObronaInfo.h" />
     <ClInclude Include="ObronaTest.h" />
@@ -355,6 +356,7 @@
     <ClCompile Include="JednostkaLatajaca.cpp" />
     <ClCompile Include="JednostkaLatajacaInfo.cpp" />
     <ClCompile Include="Klucz.cpp" />
+    <ClCompile Include="KluczTest.cpp" />
     <ClCompile Include="Ladownia.cpp" />
     <ClCompile Include="LadowniaInfo.cpp" />
     <ClCompile Include="LadowniaTest.cpp" />

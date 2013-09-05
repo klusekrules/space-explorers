@@ -15,4 +15,4 @@ const SPG::Poziom				Stale::poziomDomyslny					= 0;
 const SPG::Predkosc				Stale::predkoscDOmyslny					= 0.0;
 const SPG::Tekst				Stale::tekstDomyslny					= "";
 const SPG::Parametr				Stale::parametrDomyslny					= 0;
-const SPG::Czas					Stale::czasDomyslny						= 0;
+const SPG::Czas					Stale::czasDomyslny						= 0.0l;

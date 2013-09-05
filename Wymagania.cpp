@@ -48,7 +48,7 @@ Wymagania::~Wymagania(){
 
 Czas Wymagania::pobierzCzasBudowy( const Ilosc& ilosc, const PodstawoweParametry& parametry )const{
 	auto koszty = pobierzKoszty(ilosc,parametry);
-	Czas suma(0);
+	Czas suma(0.0l);
 	for( auto element : koszty ){
 		if(element)
 			suma+=element->pobierzCzas();
@@ -112,7 +112,7 @@ bool Wymagania::czySpelniaKoszty( const Ilosc& ilosc, const PodstawoweParametry&
 		}			
 		))
 		{
-			if( planeta->pobierzObiekt(element.pobierzObiekt()->pobierzIdentyfikator()).pobierzIlosc() < (iloscObiektow*ilosc ) )
+			if( planeta->pobierzObiekt(element.pobierzObiekt()->ID()).pobierzIlosc() < (iloscObiektow*ilosc ) )
 				return false;
 		}
 	}

@@ -17,6 +17,8 @@ void main( int argv , char* argc[] ){
 	Aplikacja::iloscArgumentow = argv;
 	Aplikacja::argumenty = argc;
 	Aplikacja::pobierzInstancje();
+	//Klucz tmp;
+	//cout << sizeof(Klucz)<<" "<<sizeof(tmp)<<endl;
 	TestyJednostkowe::pobierzInstancje().wykonajTesty();
 
 	/*ALLEGRO_DISPLAY *display = NULL;

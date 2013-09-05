@@ -11,13 +11,13 @@ void NiepoprawneParametryFunkcjiTest::startTestow(){
 	planeta = gra->stworzPlanete();
 	UNIT_TEST_ASSERT_TRUE(gra->przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
 	UNIT_TEST_ASSERT_NOTNULL(planeta);
-	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(Identyfikator(0xC),Ilosc(100)));
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(Planeta::Indeks(Identyfikator(0xC),Poziom(1)),Ilosc(100)));
 }
 
 void NiepoprawneParametryFunkcjiTest::tworzenieWyjatku(){
 	try{
 		Ilosc temp(5);
-		const Statek& tmp = planeta->pobierzStatek(Identyfikator(0xC));
+		const Statek& tmp = planeta->pobierzStatek(Planeta::Indeks(Identyfikator(0xC),Poziom(1)));
 		throw NiepoprawneParametryFunkcji( EXCEPTION_PLACE , tmp , temp );
 	}catch( const NiepoprawneParametryFunkcji& e ){
 		UNIT_TEST_ASSERT_FALSE(e.getParametry().isEmpty());

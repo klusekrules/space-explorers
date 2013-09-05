@@ -271,6 +271,9 @@
     <ClCompile Include="ObronaTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClCompile>
+    <ClCompile Include="KluczTest.cpp">
+      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -602,6 +605,9 @@
     </ClInclude>
     <ClInclude Include="ObronaTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="KluczTest.h">
+      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

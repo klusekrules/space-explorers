@@ -12,12 +12,16 @@ TechnologiaInfo::~TechnologiaInfo(void)
 {
 }
 
-Technologia* TechnologiaInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety ) const{
-	return new Technologia( pobierzPoziom(), identyfikatorPlanety, *this );
+Technologia* TechnologiaInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety , const Poziom& poziom ) const{
+	return new Technologia( poziom, identyfikatorPlanety, *this );
 }
 
-bool TechnologiaInfo::tworz( const Gra& gra, Planeta& planeta , const Ilosc& ilosc ) const{
-	return gra.wybudujNaPlanecie(planeta,*this,ilosc);
+Technologia* TechnologiaInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety  ) const{
+	return tworzEgzemplarz( ilosc, identyfikatorPlanety, pobierzPoziom() );
+}
+
+bool TechnologiaInfo::tworz( const Gra& gra, Planeta& planeta , const Ilosc& ilosc , const Poziom& poziom) const{
+	return gra.wybudujNaPlanecie(planeta,*this,ilosc,poziom);
 }
 
 string TechnologiaInfo::napis()const{

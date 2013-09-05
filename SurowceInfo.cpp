@@ -27,8 +27,8 @@ bool SurowceInfo::czyTypPrzyrostowy()const{
 	return przyrostowy_();
 }
 
-bool SurowceInfo::tworz( const Gra& gra, Planeta& planeta , const Ilosc& ilosc ) const{
-	return gra.wybudujNaPlanecie(planeta,*this,ilosc);
+bool SurowceInfo::tworz( const Gra& gra, Planeta& planeta , const Ilosc& ilosc, const Poziom& poziom ) const{
+	return gra.wybudujNaPlanecie(planeta,*this,ilosc,poziom);
 }
 
 Czas SurowceInfo::pobierzCzas( const Ilosc& ilosc ,const PodstawoweParametry& parametryPodstawowe )const{
@@ -39,7 +39,11 @@ Czas SurowceInfo::pobierzCzas( const Ilosc& ilosc ,const PodstawoweParametry& pa
 }
 
 Surowce* SurowceInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety ) const{
-	return new Surowce( ilosc , pobierzPoziom(),identyfikatorPlanety, *this );
+	return tworzEgzemplarz( ilosc ,identyfikatorPlanety, pobierzPoziom() );
+}
+
+Surowce* SurowceInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety, const Poziom& poziom ) const{
+	return new Surowce( ilosc , poziom ,identyfikatorPlanety, *this );
 }
 
 string SurowceInfo::napis() const{

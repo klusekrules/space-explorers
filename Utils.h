@@ -13,4 +13,17 @@ public:
 	static shared_ptr<ZmianaInterfejs> TworzZmiane( TiXmlElement* );
 
 	static void generujWyjatekBleduStruktury(  const Tekst& plik, const Ilosc& linia, TiXmlElement* wezel );
+
+	template<class Map, class Key>
+	static bool zamianaKlucza ( Map &kontener, Key &before, Key &after ){
+		if(kontener.find(after) != kontener.end())
+			return false;
+		auto iterator = kontener.find(before);
+		if(iterator == kontener.end())
+			return false;
+		auto obiekt = iterator->second;
+		kontener.erase(iterator);
+		kontener.insert(make_pair(after,obiekt));
+		return true;
+	}
 };

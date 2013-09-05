@@ -23,11 +23,15 @@ const Identyfikator& ObronaInfo::pobierzIdentyfikator() const{
 }
 
 Obrona* ObronaInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety ) const{
-	return new Obrona(ilosc,pobierzPoziom(), identyfikatorPlanety, *this);
+	return tworzEgzemplarz(ilosc, identyfikatorPlanety,pobierzPoziom());
 }
 
-bool ObronaInfo::tworz( const Gra& gra, Planeta& planeta , const Ilosc& ilosc ) const{
-	return gra.wybudujNaPlanecie(planeta,*this,ilosc);
+Obrona* ObronaInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety, const Poziom& poziom ) const{
+	return new Obrona(ilosc,poziom, identyfikatorPlanety, *this);
+}
+
+bool ObronaInfo::tworz( const Gra& gra, Planeta& planeta , const Ilosc& ilosc, const Poziom& poziom ) const{
+	return gra.wybudujNaPlanecie(planeta,*this,ilosc,poziom);
 }
 
 string ObronaInfo::napis() const{

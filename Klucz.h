@@ -15,7 +15,7 @@ using std::pair;
 */
 class Klucz:
 	virtual public LoggerInterface,
-	public PodstawowyInterfejs< pair < Identyfikator, Poziom > >
+	public PodstawowyInterfejs< SPG::Klucz >
 {
 public:
 
@@ -73,6 +73,10 @@ public:
 	* \param[in] wartosc - Wartoœæ porównywana z atrybutem klasy.
 	*/
 	bool operator<( const Klucz& wartosc )const;
+
+	Identyfikator pobierzIdentyfikator() const;
+
+	Poziom pobierzPoziom() const;
 	
 	/**
 	* Funkcja s³u¿¹ca jako podstawa do tworzenia napisów z opisem klasy.

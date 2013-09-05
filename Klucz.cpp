@@ -2,18 +2,19 @@
 #include "Logger.h"
 #include <ostream>
 using std::ostream;
+/*
 ostream& operator<< (ostream& out, const Klucz::type_name& base){
-	out << base.first.napis() << " " << base.second.napis() ;
+	out << base << " ";
 	return out;
-}
+}*/
 
 Klucz::Klucz()
-	: PodstawowyInterfejs( std::make_pair< Identyfikator , Poziom >( Identyfikator() , Poziom() ) ) 
+	: PodstawowyInterfejs( 0 ) 
 {
 }
 
 Klucz::Klucz( const Identyfikator& identyfikator , const Poziom& poziom )
-	: PodstawowyInterfejs( std::make_pair<Identyfikator,Poziom>( Identyfikator(identyfikator) , Poziom(poziom) ) )
+	: PodstawowyInterfejs( ( static_cast<Klucz::type_name>( identyfikator() & 0xFFFFFFFF ) << 32 ) | ( poziom() & 0xFFFFFFFF ) )
 {
 }
 
@@ -30,6 +31,14 @@ Klucz::Klucz( const Klucz& wartosc )
 Klucz::~Klucz(){
 }
 
+Identyfikator Klucz::pobierzIdentyfikator() const{
+	return Identyfikator( (wartosc_ >> 32) & 0xFFFFFFFF );
+}
+
+Poziom Klucz::pobierzPoziom() const{
+	return Poziom( wartosc_ & 0xFFFFFFFF );
+}
+
 bool Klucz::operator==( const Klucz& wartosc )const{
 	return wartosc_ == wartosc.wartosc_;
 }
@@ -39,9 +48,9 @@ bool Klucz::operator!=( const Klucz& wartosc )const{
 }
 
 bool Klucz::operator<( const Klucz& wartosc )const{
-	return wartosc_.first != wartosc.wartosc_.first ? wartosc_.first < wartosc.wartosc_.first : wartosc_.second < wartosc.wartosc_.second;
+	return wartosc_ < wartosc.wartosc_;
 }
 
 string Klucz::napis()const{
-	return Logger::tworzPole(NAZWAKLASY(Klucz),wartosc_.first,wartosc_.second);
+	return Logger::tworzPole(NAZWAKLASY(Klucz),wartosc_);
 }
