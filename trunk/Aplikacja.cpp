@@ -145,6 +145,7 @@ bool Aplikacja::zaladujOpcje(){
 					try{
 						locale pl (jezykAplikacji_);
 						locale::global (pl);
+						this->logger_.info( string("Separator u³amka: ") + std::use_facet<std::numpunct<char>>(pl).decimal_point());
 					}catch(exception&){
 						jezykAplikacji_.clear();
 					}
