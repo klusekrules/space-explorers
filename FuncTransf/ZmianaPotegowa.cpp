@@ -5,8 +5,8 @@
 #include "..\definicjeWezlowXML.h"
 
 ZmianaPotegowa::ZmianaPotegowa( TiXmlElement * wezel )
-	: wspolczynnik_(XmlBO::ZnajdzWezelJezeli<NOTHROW>( wezel, WEZEL_XML_PARAM, ATRYBUT_XML_IDENTYFIKATOR, "1" )),
-	wykladnik_(XmlBO::ZnajdzWezelJezeli<NOTHROW>( wezel, WEZEL_XML_PARAM, ATRYBUT_XML_IDENTYFIKATOR, "2" ))
+	: wspolczynnik_(XmlBO::ZnajdzWezelJezeli<NOTHROW>( wezel, WEZEL_XML_PARAM, ATRYBUT_XML_IDENTYFIKATOR, "0x1" )),
+	wykladnik_(XmlBO::ZnajdzWezelJezeli<NOTHROW>( wezel, WEZEL_XML_PARAM, ATRYBUT_XML_IDENTYFIKATOR, "0x2" ))
 {
 }
 

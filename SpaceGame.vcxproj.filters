@@ -770,4 +770,12 @@
       <Filter>Doc</Filter>
     </Text>
   </ItemGroup>
+  <ItemGroup>
+    <Xsd Include="dataSchema.xsd">
+      <Filter>Data</Filter>
+    </Xsd>
+    <Xsd Include="saveSchema.xsd">
+      <Filter>Data</Filter>
+    </Xsd>
+  </ItemGroup>
 </Project>

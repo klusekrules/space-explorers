@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xml:lang="pl">
+  
+  <xs:element name="SurowceInfo" type="SurowceInfoTyp"/>
+  <xs:element name="StatekInfo" type="StatekInfoTyp"/>
+  <xs:element name="TechnologiaInfo" type="TechnologiaInfoTyp"/>
+  <xs:element name="BudynekInfo" type="BudynekInfoTyp"/>
+  <xs:element name="ObronaInfo" type="ObronaInfoTyp"/>  
+  <xs:element name="Zmiana" type="ZmianaTyp"/>
+  <xs:element name="Czas" type="CzasTyp"/>
+  <xs:element name="Param" type="ParamTyp"/>
+  <xs:element name="Cena" type="CenaTyp"/>
+  <xs:element name="Zapotrzebowanie" type="CenaTyp"/>
+  <xs:element name="Produkcja" type="CenaTyp"/>
+  <xs:element name="Wymog" type="WymogTyp"/>
+  <xs:element name="JednostkaLatajacaInfo" type="JednostkaLatajacaInfoTyp"/>
+  <xs:element name="JednostkaAtakujacaInfo" type="JednostkaAtakujacaInfoTyp"/>
+  <xs:element name="LadowniaInfo" type="LadowniaInfoTyp"/>
+  <xs:element name="HangarInfo" type="LadowniaInfoTyp"/>
+  
+  <!-- Główny węzeł pliku -->
+  <xs:element name="Space-Explorers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="SurowceInfo" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="StatekInfo" minOccurs="0 " maxOccurs="unbounded"/>
+        <xs:element ref="TechnologiaInfo" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="BudynekInfo" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="ObronaInfo" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+    
+  <!-- Typy główne -->
+  <xs:complexType name="SurowceInfoTyp" mixed="true" >
+    <xs:sequence>
+      <xs:element name="Zmiana" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:group ref="Zmiana"/>
+          <xs:attribute name="id" type="xs:int" use="required"/>
+          <xs:attribute name="for" use="required">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="Czas"/>
+                <xs:enumeration value="masa"/>
+                <xs:enumeration value="objetosc"/>
+                <xs:enumeration value="powierzchnia"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="typ" type="typSurowca" use="required"/>
+    <xs:attributeGroup ref="Obiekt"/>
+  </xs:complexType>
+  
+  <xs:complexType name="StatekInfoTyp" mixed="true" >
+    <xs:sequence>
+      <xs:group ref="WymaganiaPlusZmiana"/>
+      <xs:element ref="JednostkaLatajacaInfo" minOccurs="1" maxOccurs="1" />
+      <xs:element ref="JednostkaAtakujacaInfo" minOccurs="1" maxOccurs="1" />
+      <xs:element ref="LadowniaInfo" minOccurs="1" maxOccurs="1" />
+      <xs:element ref="HangarInfo" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="hangar" type="typSurowca" use="required"/>
+    <xs:attributeGroup ref="Obiekt"/>
+  </xs:complexType>
+
+  <xs:complexType name="TechnologiaInfoTyp" mixed="true" >
+    <xs:group ref="Wymagania"/>
+    <xs:attributeGroup ref="BazoweNazwa"/>
+  </xs:complexType>
+  
+  <xs:complexType name="BudynekInfoTyp" mixed="true" >
+    <xs:sequence>
+      <xs:group ref="WymaganiaPlusZmiana"/>
+      <xs:element ref="Zapotrzebowanie" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="Produkcja" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="Obiekt"/>
+  </xs:complexType>
+  
+  <xs:complexType name="ObronaInfoTyp" mixed="true" >
+    <xs:sequence>
+      <xs:group ref="WymaganiaPlusZmiana"/>
+      <xs:element ref="JednostkaAtakujacaInfo" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attributeGroup ref="Obiekt"/>
+  </xs:complexType>
+
+  <!-- Pomocnicze typy -->
+  <xs:complexType name="ZmianaTyp" >
+    <xs:group ref="Zmiana"/>
+    <xs:attribute name="id" type="xs:int" use="required"/>
+    <xs:attribute name="for" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="ZmianaObiektTyp">
+    <xs:group ref="Zmiana"/>
+    <xs:attribute name="id" type="xs:int" use="required"/>
+    <xs:attribute name="for" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="masa"/>
+          <xs:enumeration value="objetosc"/>
+          <xs:enumeration value="powierzchnia"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="CzasTyp" >
+    <xs:sequence>
+      <xs:element ref="Zmiana" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="CenaTyp" >
+    <xs:sequence>
+      <xs:element name="Surowce" minOccurs="1" maxOccurs="1" >
+        <xs:complexType>
+          <xs:attribute name="id" type="idType" use="required"/>
+          <xs:attribute name="ilosc" type="xs:positiveInteger" use="required"/>
+          <xs:attribute name="opcja" type="xs:unsignedByte" use="required" fixed="1"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element ref="Zmiana" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="WymogTyp" >
+    <xs:sequence>
+      <xs:element name="ObiektBaseInfo" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:attributeGroup ref="Bazowe"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element ref="Zmiana" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ParamTyp" >
+    <xs:attribute name="id" type="idType" use="required"/>
+    <xs:attribute name="wspolczynnik" type="xs:double" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="JednostkaLatajacaInfoTyp" mixed="true" >
+    <xs:sequence>
+      <xs:element name="Zmiana" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:group ref="Zmiana"/>
+          <xs:attribute name="id" type="xs:int" use="required"/>
+          <xs:attribute name="for" use="required">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="mocSilnika"/>
+                <xs:enumeration value="zuzyciePaliwa"/>
+                <xs:enumeration value="masaSilnika"/>
+                <xs:enumeration value="sprawnoscSilnika"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="id" type="idType" use="required"/>
+    <xs:attribute name="nazwa" type="xs:string" use="required"/>
+    <xs:attribute name="rodzajSilnikaId" type="xs:string" use="required"/>
+    <xs:attribute name="rodzajSilnikaPoziom" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name="mocSilnika" type="xs:double" use="required"/>
+    <xs:attribute name="zuzyciePaliwa" type="xs:double" use="required"/>
+    <xs:attribute name="masaSilnika" type="xs:double" use="required"/>
+    <xs:attribute name="sprawnoscSilnika" type="xs:double" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="JednostkaAtakujacaInfoTyp" mixed="true" >
+    <xs:sequence>
+      <xs:element name="Zmiana" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:group ref="Zmiana"/>
+          <xs:attribute name="id" type="xs:int" use="required"/>
+          <xs:attribute name="for" use="required">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="atak"/>
+                <xs:enumeration value="pancerz"/>
+                <xs:enumeration value="oslona"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="id" type="idType" use="required"/>
+    <xs:attribute name="nazwa" type="xs:string" use="required"/>
+    <xs:attribute name="atak" type="xs:double" use="required"/>
+    <xs:attribute name="pancerz" type="xs:double" use="required"/>
+    <xs:attribute name="oslona" type="xs:double" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="LadowniaInfoTyp" mixed="true" >
+    <xs:sequence>
+      <xs:element name="Zmiana" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:group ref="Zmiana"/>
+          <xs:attribute name="id" type="xs:int" use="required"/>
+          <xs:attribute name="for" use="required">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="pojemnoscMaksymalna"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="id" type="idType" use="required"/>
+    <xs:attribute name="nazwa" type="xs:string" use="required"/>
+    <xs:attribute name="pojemnoscMaksymalna" type="xs:double" use="required"/>
+  </xs:complexType>
+  
+  <!-- Grupy elementów -->
+  <xs:group name="Wymagania">
+    <xs:sequence>
+      <xs:element ref="Cena" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="Czas" minOccurs="0" />
+      <xs:element ref="Wymog" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:group>
+
+  <xs:group name="WymaganiaPlusZmiana">
+    <xs:sequence>
+      <xs:group ref="Wymagania"/>
+      <xs:element name="Zmiana" minOccurs="0" maxOccurs="unbounded" type="ZmianaObiektTyp"/>
+    </xs:sequence>
+  </xs:group>
+  
+  <xs:group name="Zmiana">
+    <xs:sequence>
+      <xs:element ref="Param" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="Zmiana" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:group>
+  
+  <!-- Grupy atrybutów -->  
+  <xs:attributeGroup name="Bazowe">
+    <xs:attribute name="id" type="idType" use="required"/>
+    <xs:attribute name="poziom" type="xs:positiveInteger" use="required"/>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="BazoweNazwa">
+    <xs:attributeGroup ref="Bazowe"/>
+    <xs:attribute name="nazwa" type="xs:string" use="required"/>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="Obiekt">
+    <xs:attribute name="masa" type="xs:double" use="required"/>
+    <xs:attribute name="objetosc" type="xs:double" use="required"/>
+    <xs:attribute name="powierzchnia" type="xs:double" use="required" form="unqualified"/>
+    <xs:attributeGroup ref="BazoweNazwa"/>
+  </xs:attributeGroup>
+  
+  <!-- Proste typy pomocnicze -->
+  <xs:simpleType name="typSurowca">
+    <xs:restriction base="xs:unsignedByte">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="idType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="0x([a-fA-F0-9]{1,8})"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

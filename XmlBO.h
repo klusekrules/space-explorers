@@ -5,6 +5,7 @@
 #include <string>
 #include <algorithm>
 using std::remove_if;
+using std::replace_if;
 using std::string;
 using std::exception;
 
@@ -16,6 +17,10 @@ private:
 
 	static void trim( string &s){
 		s.erase(remove_if(s.begin(), s.end(), isSpace), s.end());
+	}
+
+	static void decimal_point( string &s ){
+		replace_if(s.begin(),s.end(),[](char c){ return !isdigit(c); },std::use_facet<std::numpunct<char>>(std::locale()).decimal_point());
 	}
 
 	static bool isSpace( unsigned char c ){
@@ -52,14 +57,18 @@ private:
 	template <  > 
 	static void Zaladuj<double>(const string& atrybut, PodstawowyInterfejs<double>& obiekt){
 		double tmp;
-		tmp = stod(atrybut);
+		string kopia = atrybut;
+		decimal_point(kopia);
+		tmp = stod(kopia);
 		obiekt(tmp);
 	}
 
 	template <  > 
 	static void Zaladuj<long double>(const string& atrybut, PodstawowyInterfejs<long double>& obiekt){
 		long double tmp;
-		tmp = stold(atrybut);
+		string kopia = atrybut;
+		decimal_point(kopia);
+		tmp = stold(kopia);
 		obiekt(tmp);
 	}
 
@@ -80,7 +89,9 @@ private:
 	template <  > 
 	static void Zaladuj<float>(const string& atrybut, PodstawowyInterfejs<float>& obiekt){
 		float tmp;
-		tmp = stof(atrybut);
+		string kopia = atrybut;
+		decimal_point(kopia);
+		tmp = stof(kopia);
 		obiekt(tmp);
 	}
 	
@@ -159,8 +170,10 @@ public:
 		const string * napis = wezel->Attribute(nazwa);
 		if(!napis)
 			return domyslnaWartosc;
-		if(napis->length()>0){
-			return stold(*napis);
+		if(napis->length()>0){			
+			string kopia = *napis;
+			decimal_point(kopia);
+			return stold(kopia);
 		}
 		return domyslnaWartosc;
 	}
