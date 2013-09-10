@@ -20,7 +20,7 @@ private:
 	}
 
 	static void decimal_point( string &s ){
-		replace_if(s.begin(),s.end(),[](char c){ return !isdigit(c); },std::use_facet<std::numpunct<char>>(std::locale()).decimal_point());
+		replace_if(s.begin(),s.end(),[](char c){ return c==',' || c=='.'; },std::use_facet<std::numpunct<char>>(std::locale()).decimal_point());
 	}
 
 	static bool isSpace( unsigned char c ){

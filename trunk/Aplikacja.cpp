@@ -236,8 +236,12 @@ bool Aplikacja::zapiszGre() const{
 	TiXmlDocument dokument;
 	TiXmlElement* wezel = new TiXmlElement(WEZEL_XML_ROOT);
 	dokument.LinkEndChild(wezel);
-	if(instancjaGry_->zapisz(wezel))
+	locale::global (locale("C"));
+	if(instancjaGry_->zapisz(wezel)){
+		locale::global (locale(jezykAplikacji_));
 		return dokument.SaveFile("save.xml");
+	}
+	locale::global (locale(jezykAplikacji_));
 	return false;
 }
 

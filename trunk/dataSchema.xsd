@@ -257,7 +257,7 @@
   <xs:attributeGroup name="Obiekt">
     <xs:attribute name="masa" type="xs:double" use="required"/>
     <xs:attribute name="objetosc" type="xs:double" use="required"/>
-    <xs:attribute name="powierzchnia" type="xs:double" use="required" form="unqualified"/>
+    <xs:attribute name="powierzchnia" type="xs:double" use="required"/>
     <xs:attributeGroup ref="BazoweNazwa"/>
   </xs:attributeGroup>
   
