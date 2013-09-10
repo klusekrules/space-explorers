@@ -211,9 +211,6 @@
     <ClCompile Include="WymaganiaTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClCompile>
-    <ClCompile Include="StatekTest.cpp">
-      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
-    </ClCompile>
     <ClCompile Include="TechnologiaTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClCompile>
@@ -273,6 +270,12 @@
     </ClCompile>
     <ClCompile Include="KluczTest.cpp">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+    </ClCompile>
+    <ClCompile Include="StatekTest.cpp">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClCompile>
+    <ClCompile Include="PlanetaTest.cpp">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -608,6 +611,9 @@
     </ClInclude>
     <ClInclude Include="KluczTest.h">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+    </ClInclude>
+    <ClInclude Include="PlanetaTest.h">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

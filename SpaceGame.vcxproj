@@ -220,6 +220,7 @@
     <ClInclude Include="Obrona.h" />
     <ClInclude Include="ObronaInfo.h" />
     <ClInclude Include="ObronaTest.h" />
+    <ClInclude Include="PlanetaTest.h" />
     <ClInclude Include="Zlecenia.h" />
     <ClInclude Include="InicjalizacjaDanychTestowych.h" />
     <ClInclude Include="LadowniaTest.h" />
@@ -390,6 +391,7 @@
     <ClCompile Include="PaczkaTestow.cpp" />
     <ClCompile Include="Parametr.cpp" />
     <ClCompile Include="Planeta.cpp" />
+    <ClCompile Include="PlanetaTest.cpp" />
     <ClCompile Include="PodstawoweParametry.cpp" />
     <ClCompile Include="Powierzchnia.cpp" />
     <ClCompile Include="Poziom.cpp" />
