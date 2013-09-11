@@ -16,6 +16,7 @@
       <Directory Id='$(var.ProgramFiles)' Name="PFiles">
         <Directory Id='DANIEL_WOJDAK' Name='Daniel Wojdak'>
           <Directory Id='SPACE_EXPLORERS' Name='Space-Explorers'>
+            <Directory Id='DOC_DIR' Name='doc'/>
             <Directory Id='INSTALL_DIR' Name='bin'>
               <Directory Id='PLUGINS_DIR' Name='plugins'>
                 <Directory Id='ZMIANA_DIR' Name='$(var.FolderZmian)'/>
@@ -58,6 +59,15 @@
         <File Id='TRANSF_DLL_FILE' Source='..\out\ftrans-$(var.Platforma)-$(var.KonfiguracjaShort).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
       </Component>
     </DirectoryRef>
+
+    <DirectoryRef Id='DOC_DIR'>
+      <Component Id='DOC_DATA_SHEMA_COMP' Guid='D41EB417-BC64-46AA-9AD6-2080E8B5C620'>
+        <File Id='DOC_DATA_SHEMA_FILE' Source='..\dataSchema.xsd' Name='SchematDanych.xsd' KeyPath='yes' Vital='yes'/>
+      </Component>
+      <Component Id='DOC_SAVE_SHEMA_COMP' Guid='3D5D189F-67F4-4237-BB32-901DEBA86855'>
+        <File Id='DOC_SAVE_SHEMA_FILE' Source='..\saveSchema.xsd' Name='SchematStanuGry.xsd' KeyPath='yes' Vital='yes'/>
+      </Component>
+    </DirectoryRef>
     
     <DirectoryRef Id='ZMIANA_DIR'>
       <Component Id='ZMIANA_TEST_DLL' Guid='5BB3843E-C319-4D3E-8896-92C9B1BDCED6' Win64='$(var.isPlatformx64)'>
@@ -90,6 +100,8 @@
       <ComponentRef Id='ZMIANA_TEST_DLL' />
       <ComponentRef Id='ProgramMenuDir' />
       <ComponentRef Id='SPACE_EXPLORERS_REM' />
+      <ComponentRef Id='DOC_DATA_SHEMA_COMP' />
+      <ComponentRef Id='DOC_SAVE_SHEMA_COMP' />
     </Feature>
     <UI Id="MyWixUI_InstallDir">
       <UIRef Id="WixUI_InstallDir" />
