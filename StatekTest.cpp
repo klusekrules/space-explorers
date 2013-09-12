@@ -63,6 +63,8 @@ void StatekTest::FlotaTest(){
 	UNIT_TEST_ASSERT_TRUE( planeta->usunFlote(idFlotyDo) );
 
 	auto idFloty = planeta->dodajFlote();
+	planeta->pobierzFlote(idFloty)->ustawPlaneteDocelowa(planeta->pobierzIdentyfikator());
+	planeta->pobierzFlote(idFloty)->ustawPlanetePoczatkowa(planeta->pobierzIdentyfikator());
 	UNIT_TEST_ASSERT_TRUE( planeta->przeniesDoFloty(idFloty,Planeta::Indeks(Identyfikator(0xB),Poziom(1)),Ilosc(500)));
 	UNIT_TEST_ASSERT_TRUE( planeta->przeniesDoFloty(idFloty,Planeta::Indeks(c->ID()),Ilosc(1000)));
 	UNIT_TEST_ASSERT_TRUE( planeta->zaladujSurowceNaFlote(idFloty,Planeta::Indeks(Identyfikator(0x1),Poziom(1)),Ilosc(500)));

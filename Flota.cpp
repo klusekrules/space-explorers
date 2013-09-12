@@ -12,6 +12,14 @@ Flota::~Flota(void)
 {
 }
 
+Identyfikator Flota::pobierzPlaneteDocelowa() const{
+	return planetaDocelowa_;
+}
+
+Identyfikator Flota::pobierzPlanetePoczatkowa() const{
+	return planetaPoczatkowa_;
+}
+
 bool Flota::dodajStatek( shared_ptr<Statek> statek ){
 	if(!statek)
 		return false;

@@ -7,6 +7,7 @@
 #include <io.h>
 #include "ZmianaPoziomObiektu.h"
 #include "DefinicjeWezlowXML.h"
+#include "Walidator.h"
 
 int Aplikacja::iloscArgumentow = 0;
 char** Aplikacja::argumenty = nullptr;
@@ -253,8 +254,11 @@ bool Aplikacja::wczytajGre(){
 		shared_ptr<Gra> gra = instancjaGry_;
 		try{
 			instancjaGry_ = shared_ptr<Gra>(new Gra(*this));
+			Walidator::pobierzInstancje().wyczysc();
+			Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(Identyfikator(0x0)); // Poprawna wartoœæ; U¿ywana gdy obiekty znajduj¹ siê we flocie.
 			if(instancjaGry_->wczytajDane(this->nazwaPlikuDanych_) && instancjaGry_->odczytaj(wezel->FirstChildElement(WEZEL_XML_GRA))){
-				return true;
+				if(Walidator::pobierzInstancje().waliduj())
+					return true;
 			}
 			instancjaGry_ = gra;
 			return false;
