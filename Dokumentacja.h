@@ -28,6 +28,13 @@
  * \li \subpage milestone-prealppha0_0_4 "Lista zmian miêdzy wersj¹ 0.0.4 a 0.0.5"
 */
 
+/** \page schemadatafile Schemat pliku opisuj¹cego obiekty
+ * \include dataSchema.xsd
+*/
+/** \page schemasavefile Schemat pliku ze stanem gry
+ * \include saveSchema.xsd
+*/
+
 /** \page schematutorial Jak napisaæ w³asn¹ wersjê gry ? 
  * \attention Tutorial jest w fazie pisania i mo¿e zawieraæ b³edy merytoryczne i stylistyczne. Przepraszamy za utrudnienia.
  * \section wstep Wstêp
@@ -89,7 +96,7 @@
  * \li \c rodzajSilnikaId - Podstawowa wartoœæ os³ony obiektu.
  * \li \c rodzajSilnikaPoziom - Podstawowa wartoœæ pancerza obiektu.
  * \li \c mocSilnika - Podstawowa wartoœæ ataku obiektu.
-  * \li \c zuzyciePaliwa - Podstawowa wartoœæ os³ony obiektu.
+ * \li \c zuzyciePaliwa - Podstawowa wartoœæ os³ony obiektu.
  * \li \c masaSilnika - Podstawowa wartoœæ pancerza obiektu.
  * \li \c sprawnoscSilnika - Wartoœæ informuj¹ca jaki procent mocy silnika jest przekazywana na napêd statku, 0 = 0%, 1 = 100%. Dopuszczalna jest wartoœæ wiêksza od 1, natomiast wartoœæ mniejsza od 0 jest nie dopuszczalna.
  *
