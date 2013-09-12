@@ -314,6 +314,11 @@ bool Planeta::odczytaj( TiXmlElement* wezel ){
 					return false;
 				if( !wybuduj(Indeks(identyfikator,poziom),element) )
 					return false;
+				auto iter = listaObiektow_.find(Indeks(identyfikator,poziom));
+				if( iter == listaObiektow_.end())
+					return false;
+				if( iter->second->pobierzIdentyfikatorPlanety() != identyfikatorPlanety )
+					return false;
 			}
 		TiXmlElement* flota = wezel->FirstChildElement(WEZEL_XML_FLOTY);
 		if(flota)
