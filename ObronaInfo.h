@@ -20,10 +20,7 @@ public:
 	/**
 	* \brief Konstruktor.
 	* \param[in] obiektInfo - Referencja do obiektu opisujacego.
-	* \param[in] jednostkaLatajacaInfo - Referencja do obiektu opisujacego.
 	* \param[in] jednostkaAtakujacaInfo - Referencja do obiektu opisujacego.
-	* \param[in] ladowniaInfo - Referencja do obiektu opisujacego.
-	* \param[in] hangarInfo - Referencja do obiektu opisuj¹cego.
 	*/
 	ObronaInfo(	const ObiektInfo& obiektInfo , const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo ) throw();
 

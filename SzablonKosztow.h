@@ -47,13 +47,13 @@ public:
 	* \param[in] nazwa - Nazwa wêz³a obiektu.
 	* \param[in] funkcjaTworzaca - Metoda która tworzy obiekt z wêz³a xml.
 	*/
-	SzablonKosztow( TiXmlElement* wezel , string nazwa, function< TypObiektu(TiXmlElement*) > fukcjaTworzaca ) 
+	SzablonKosztow( TiXmlElement* wezel , string nazwa, function< TypObiektu(TiXmlElement*) > funkcjaTworzaca ) 
 		: obiekt_(nullptr), zmiana_(nullptr)
 	{
 		if(wezel){
 			TiXmlElement* element = XmlBO::ZnajdzWezel<NOTHROW>(wezel,nazwa);
 			if(element){
-				obiekt_ = fukcjaTworzaca(element);
+				obiekt_ = funkcjaTworzaca(element);
 				if(!obiekt_)
 					Utils::generujWyjatekBleduStruktury(EXCEPTION_PLACE,element);
 				zmiana_ = Utils::TworzZmiane(XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_ZMIANA));
