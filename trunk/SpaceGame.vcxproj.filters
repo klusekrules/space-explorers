@@ -277,6 +277,7 @@
     <ClCompile Include="PlanetaTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClCompile>
+    <ClCompile Include="Walidator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -615,6 +616,7 @@
     <ClInclude Include="PlanetaTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClInclude>
+    <ClInclude Include="Walidator.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">

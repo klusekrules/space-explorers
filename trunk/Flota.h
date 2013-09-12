@@ -108,6 +108,22 @@ public:
 	void ustawPlanetePoczatkowa( const Identyfikator& identyfikatorPlanety );
 
 	/**
+	* \brief Metoda pobiera identyfikaktor punktu docelowego.
+	* 
+	* Metoda pobiera identyfikator planety docelowej do której zmierza flota.
+	* \return Identyfikator planety docelowej.
+	*/
+	Identyfikator pobierzPlaneteDocelowa() const;
+
+	/**
+	* \brief Metoda pobiera indentyfikator punktu pocz¹tkowego.
+	* 
+	* Metoda pobiera identyfikator planety pocz¹tkowej z której zmierza flota.
+	* \return Identyfikator planety pocz¹tkowej.
+	*/
+	Identyfikator pobierzPlanetePoczatkowa() const;
+
+	/**
 	* \brief Metoda ustwia cel podró¿y.
 	*
 	* Metoda ustawia cel podró¿y floty.

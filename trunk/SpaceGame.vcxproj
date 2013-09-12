@@ -221,6 +221,7 @@
     <ClInclude Include="ObronaInfo.h" />
     <ClInclude Include="ObronaTest.h" />
     <ClInclude Include="PlanetaTest.h" />
+    <ClInclude Include="Walidator.h" />
     <ClInclude Include="Zlecenia.h" />
     <ClInclude Include="InicjalizacjaDanychTestowych.h" />
     <ClInclude Include="LadowniaTest.h" />
@@ -410,6 +411,7 @@
     <ClCompile Include="TworzenieObiektowTest.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Uzytkownik.cpp" />
+    <ClCompile Include="Walidator.cpp" />
     <ClCompile Include="WyjatekParseraXML.cpp" />
     <ClCompile Include="WyjatekSprawdzeniaWarunku.cpp" />
     <ClCompile Include="WyjatekSTL.cpp" />

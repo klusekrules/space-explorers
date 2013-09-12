@@ -4,6 +4,7 @@
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
 #include "XmlBO.h"
+#include "Walidator.h"
 
 Planeta::Planeta(const Identyfikator& identyfikator)
 	: Bazowa(identyfikator), wlasciciel_(nullptr),
@@ -279,7 +280,6 @@ bool Planeta::usunFlote(const Identyfikator& identyfikator){
 	return listaFlot_.erase(identyfikator) != 0;
 }
 
-
 bool Planeta::zapisz( TiXmlElement* wezel ) const{
 	TiXmlElement* planeta = new TiXmlElement(WEZEL_XML_PLANETA);
 	wezel->LinkEndChild( planeta );
@@ -299,6 +299,10 @@ bool Planeta::zapisz( TiXmlElement* wezel ) const{
 
 bool Planeta::odczytaj( TiXmlElement* wezel ){
 	if(wezel){
+		Identyfikator identyfikatorPlanety;
+		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,identyfikatorPlanety))
+			return false;
+		Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(identyfikatorPlanety);
 		TiXmlElement* obiekt = wezel->FirstChildElement(WEZEL_XML_OBIEKTY);
 		if(obiekt)
 			for(TiXmlElement* element = obiekt->FirstChildElement(); element ; element = element->NextSiblingElement()){
@@ -321,6 +325,10 @@ bool Planeta::odczytaj( TiXmlElement* wezel ){
 				auto iterator = listaFlot_.find(identyfikator);
 				if( iterator != listaFlot_.end()|| !wskaznik->odczytaj(element) )
 					return false;
+				if(wskaznik->pobierzPlanetePoczatkowa() != identyfikatorPlanety)
+					return false;
+				Walidator::pobierzInstancje().dodajUzytyIdentyfikatorPlanety(wskaznik->pobierzPlanetePoczatkowa());
+				Walidator::pobierzInstancje().dodajUzytyIdentyfikatorPlanety(wskaznik->pobierzPlaneteDocelowa());
 				listaFlot_.insert(make_pair(wskaznik->pobierzIdentyfikator(),wskaznik));
 			}
 		return Bazowa::odczytaj(wezel);

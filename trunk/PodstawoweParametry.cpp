@@ -3,6 +3,7 @@
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
 #include "XmlBO.h"
+#include "Walidator.h"
 
 PodstawoweParametry::PodstawoweParametry( const Poziom& poziom, const Identyfikator& planeta)
 	: poziom_(poziom), identyfikatorPlanety_(planeta)
@@ -50,7 +51,11 @@ bool PodstawoweParametry::odczytaj( TiXmlElement* wezel ){
 			return false;
 		if( poziom_ <= Poziom(0) )
 			return false;
-		return XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR_PLANETY,identyfikatorPlanety_);
+		if(XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR_PLANETY,identyfikatorPlanety_))
+			Walidator::pobierzInstancje().dodajUzytyIdentyfikatorPlanety(identyfikatorPlanety_);
+		else
+			return false;
+		return true;
 	}
 	return false;
 }
