@@ -34,6 +34,8 @@ void PodstawoweParametry::wzrostPoziomu(){
 }
 
 bool PodstawoweParametry::zapisz( TiXmlElement* wezel ) const{
+	if( poziom_ <= Poziom(0) )
+			return false;
 	wezel->SetAttribute(ATRYBUT_XML_POZIOM,poziom_.napis());
 	wezel->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETY,identyfikatorPlanety_.napis());
 	return true;
@@ -45,6 +47,8 @@ bool PodstawoweParametry::odczytaj( TiXmlElement* wezel ){
 		if(opcja == 1)
 			return true;
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_POZIOM,poziom_))
+			return false;
+		if( poziom_ <= Poziom(0) )
 			return false;
 		return XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR_PLANETY,identyfikatorPlanety_);
 	}

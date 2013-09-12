@@ -213,6 +213,8 @@ Objetosc Ladownia::pobierzPojemnoscJednostkowaLadowni() const{
 bool Ladownia::zapisz( TiXmlElement* wezel ) const {
 	TiXmlElement* element = new TiXmlElement(WEZEL_XML_LADOWNIA);
 	wezel->LinkEndChild( element );
+	if(zajete_ < Objetosc(0) )
+			return false;
 	element->SetAttribute(ATRYBUT_XML_ZAJETE_MIEJSCE,zajete_.napis());
 	for( auto o : obiekty_){
 		if(!o.second->zapisz(element))
@@ -224,6 +226,8 @@ bool Ladownia::zapisz( TiXmlElement* wezel ) const {
 bool Ladownia::odczytaj (TiXmlElement* wezel ) {
 	if(wezel){
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_ZAJETE_MIEJSCE,zajete_))
+			return false;
+		if(zajete_ < Objetosc(0) )
 			return false;
 		try{
 			Gra& gra = Aplikacja::pobierzInstancje().pobierzGre();

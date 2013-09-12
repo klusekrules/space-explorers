@@ -15,6 +15,8 @@ ObiektBazowyInfo::ObiektBazowyInfo( TiXmlElement* wezel ) throw(WyjatekParseraXM
 	if(wezel){
 		try{
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_POZIOM,poziom_);
+			if( poziom_ <= Poziom(0) )
+				throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1), Tekst("Nie poprawny atrybut."), Tekst("Atrybut \"poziom\" posiada niepoprawn¹ wartoœæ.") );
 		}catch(exception& wyjatek){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,wyjatek,WyjatekParseraXML::trescBladStrukturyXml);
 		}

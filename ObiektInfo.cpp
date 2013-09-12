@@ -16,10 +16,18 @@ ObiektInfo::ObiektInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
 	if(wezel){
 		try{
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_MASA,masa_);
+			if( masa_ < Masa(0) )
+				throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1), Tekst("Nie poprawny atrybut."), Tekst("Atrybut \"masa\" posiada niepoprawną wartość.") );
 			zmianaMasy_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MASA));
+			
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_OBJETOSC,objetosc_);
+			if( objetosc_ < Objetosc(0) )
+				throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1), Tekst("Nie poprawny atrybut."), Tekst("Atrybut \"objetosc\" posiada niepoprawną wartość.") );
 			zmianaObjetosci_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_OBJETOSC));
+			
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_POWIERZCHNIA,powierzchnia_);
+			if( powierzchnia_ < Powierzchnia(0) )
+				throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1), Tekst("Nie poprawny atrybut."), Tekst("Atrybut \"powierzchnia\" posiada niepoprawną wartość.") );
 			zmianaPowierzchni_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_POWIERZCHNIA));
 		}catch(exception& wyjatek){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,wyjatek,WyjatekParseraXML::trescBladStrukturyXml);

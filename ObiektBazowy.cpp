@@ -90,6 +90,8 @@ const ObiektBazowyInfo& ObiektBazowy::pobierzObiektBaseInfo()const{
 }
 
 bool ObiektBazowy::zapisz( TiXmlElement* wezel ) const {
+	if( pobierzIlosc()< Ilosc(0) )
+			return false;
 	wezel->SetAttribute(ATRYBUT_XML_ILOSC,pobierzIlosc().napis());
 	return PodstawoweParametry::zapisz(wezel) && Bazowa::zapisz(wezel);
 }
@@ -98,7 +100,9 @@ bool ObiektBazowy::odczytaj( TiXmlElement* wezel ){
 	if(wezel){
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_ILOSC,ilosc_))
 			return false;
-		return Bazowa::odczytaj(wezel) && PodstawoweParametry::odczytaj(wezel);
+		if( ilosc_ < Ilosc(0) )
+			return false;
+		return PodstawoweParametry::odczytaj(wezel) && Bazowa::odczytaj(wezel);
 	}
 	return false;
 }
