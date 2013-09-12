@@ -19,18 +19,28 @@ JednostkaLatajacaInfo::JednostkaLatajacaInfo( TiXmlElement* wezel ) throw(Wyjate
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_RODZAJ_SILNIKA_ID,id);
 			Poziom poziom;
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_RODZAJ_SILNIKA_POZIOM,poziom);
+			if( poziom <= Poziom(0) )
+				throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1), Tekst("Nie poprawny atrybut."), Tekst("Atrybut \"poziom\" posiada niepoprawn¹ wartoœæ.") );
 			rodzajNapedu_(Klucz(id,poziom)());
 			
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_MOC_SILNIKA,mocSilnika_);
+			if( mocSilnika_ < MocSilnika(0) )
+				throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1), Tekst("Nie poprawny atrybut."), Tekst("Atrybut \"mocSilnika\" posiada niepoprawn¹ wartoœæ.") );
 			przyrostMocySilnika_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MOC_SILNIKA));
 			
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_ZUZYCIE_PALIWA,zuzyciePaliwa_);
+			if( zuzyciePaliwa_ < ZuzyciePaliwa(0) )
+				throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1), Tekst("Nie poprawny atrybut."), Tekst("Atrybut \"zuzyciePaliwa\" posiada niepoprawn¹ wartoœæ.") );
 			przyrostZuzyciaPaliwa_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_ZUZYCIE_PALIWA));
 			
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_MASA_SILNIKA,masaNapedu_);
+			if( masaNapedu_ < Masa(0) )
+				throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1), Tekst("Nie poprawny atrybut."), Tekst("Atrybut \"masaNapedu\" posiada niepoprawn¹ wartoœæ.") );
 			przyrostMasyNapedu_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MASA_SILNIKA));
 			
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_SPRAWNOSC_SILNIKA,sprawnoscSilnika_);
+			if( sprawnoscSilnika_ < Fluktuacja(0) )
+				throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1), Tekst("Nie poprawny atrybut."), Tekst("Atrybut \"sprawnoscSilnika\" posiada niepoprawn¹ wartoœæ.") );
 			przyrostSprawnosciSilnika_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_SPRAWNOSC_SILNIKA));
 		}catch(exception& wyjatek){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,wyjatek,WyjatekParseraXML::trescBladStrukturyXml);

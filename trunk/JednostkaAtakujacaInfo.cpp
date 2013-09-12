@@ -16,12 +16,18 @@ JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( TiXmlElement* wezel ) throw(Wyja
 	if(wezel){
 		try{
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_ATAK,atak_);
+			if( atak_ < Obrazenia(0) )
+				throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1), Tekst("Nie poprawny atrybut."), Tekst("Atrybut \"atak\" posiada niepoprawn¹ wartoœæ.") );
 			zmianaAtaku_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_ATAK));
 
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_PANCERZ,pancerz_);
+			if( pancerz_ < Obrazenia(0) )
+				throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1), Tekst("Nie poprawny atrybut."), Tekst("Atrybut \"pancerz\" posiada niepoprawn¹ wartoœæ.") );
 			zmianaPancerza_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_PANCERZ));
 
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_OSLONA,oslona_);
+			if( oslona_ < Obrazenia(0) )
+				throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1), Tekst("Nie poprawny atrybut."), Tekst("Atrybut \"oslona\" posiada niepoprawn¹ wartoœæ.") );
 			zmianaOslony_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_OSLONA));
 		}catch(exception& e){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
