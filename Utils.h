@@ -26,4 +26,7 @@ public:
 		kontener.insert(make_pair(after,obiekt));
 		return true;
 	}
+
+	static void ascii2hex(string& str, unsigned char c);
+	static void sha3(string& str);
 };

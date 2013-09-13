@@ -278,6 +278,9 @@
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClCompile>
     <ClCompile Include="Walidator.cpp" />
+    <ClCompile Include="keccak.cpp">
+      <Filter>Biblioteki\sha-3</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -287,16 +290,16 @@
       <Filter>SourceFile\Surowce</Filter>
     </ClInclude>
     <ClInclude Include="parser\ticpp.h">
-      <Filter>Parser</Filter>
+      <Filter>Biblioteki\Parser</Filter>
     </ClInclude>
     <ClInclude Include="parser\ticpprc.h">
-      <Filter>Parser</Filter>
+      <Filter>Biblioteki\Parser</Filter>
     </ClInclude>
     <ClInclude Include="parser\tinystr.h">
-      <Filter>Parser</Filter>
+      <Filter>Biblioteki\Parser</Filter>
     </ClInclude>
     <ClInclude Include="parser\tinyxml.h">
-      <Filter>Parser</Filter>
+      <Filter>Biblioteki\Parser</Filter>
     </ClInclude>
     <ClInclude Include="NiezgodnyTypSurowca.h">
       <Filter>SourceFile\Wyjatki</Filter>
@@ -617,13 +620,13 @@
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClInclude>
     <ClInclude Include="Walidator.h" />
+    <ClInclude Include="keccak.h">
+      <Filter>Biblioteki\sha-3</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
       <UniqueIdentifier>{2f5eb13d-0853-4047-b9a1-ec20ebf69b8d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Parser">
-      <UniqueIdentifier>{790afcb6-335b-472a-b157-b083a9161f65}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\BaseClass">
       <UniqueIdentifier>{9d8a7d3a-124f-4dbd-a3d1-adcf7d6c7eaf}</UniqueIdentifier>
@@ -733,10 +736,19 @@
     <Filter Include="SourceFile\Obrona">
       <UniqueIdentifier>{28f11c3d-95ec-422e-b8d3-c63278d629e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Biblioteki">
+      <UniqueIdentifier>{e46ac25c-7352-419b-ab07-6128bee61ffe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Biblioteki\Parser">
+      <UniqueIdentifier>{790afcb6-335b-472a-b157-b083a9161f65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Biblioteki\sha-3">
+      <UniqueIdentifier>{bd1fb878-dd1e-4c99-a8e1-5e17071e54e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="parser\build_instructions.txt">
-      <Filter>Parser</Filter>
+      <Filter>Biblioteki\Parser</Filter>
     </None>
     <None Include="TODO.txt">
       <Filter>Doc</Filter>
