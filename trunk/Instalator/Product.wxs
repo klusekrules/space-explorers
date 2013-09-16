@@ -21,6 +21,7 @@
               <Directory Id='PLUGINS_DIR' Name='plugins'>
                 <Directory Id='ZMIANA_DIR' Name='$(var.FolderZmian)'/>
               </Directory>
+              <Directory Id='SAVE_DIR' Name='save'/>
             </Directory>
           </Directory>
         </Directory>
