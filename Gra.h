@@ -44,9 +44,28 @@ public:
 	* \param[in] nazwa - Nazwa u¿ytkownika.
 	* \param [in] hash - Hash has³a u¿ytkownika.
 	* \return true je¿eli uda siê zalogowaæ, false w przeciwnym przypadku.
-	* \todo Metoda nie dokoñczona. 
 	*/
 	bool logowanie(const string& nazwa, const string& hash);
+
+	/**
+	* \brief Metoda dodaj¹ca nowego u¿ytkownika.
+	* 
+	* Metoda s³u¿y do dodawania nowego u¿ytkownika.
+	* \param[in] nazwa - Nazwa u¿ytkownika.
+	* \param [in] hash - Hash has³a u¿ytkownika.
+	* \return true je¿eli uda siê dodaæ u¿ytkownika, false w przeciwnym przypadku.
+	*/
+	bool nowyGracz(const string& nazwa, const string& hash);
+
+	/**
+	* \brief Metoda usuwaj¹ca u¿ytkownika.
+	* 
+	* Metoda s³u¿y do usuwania u¿ytkownika.
+	* \param[in] nazwa - Nazwa u¿ytkownika.
+	* \param [in] hash - Hash has³a u¿ytkownika.
+	* \return true je¿eli uda siê usun¹æ u¿ytkownika, false w przeciwnym przypadku.
+	*/
+	bool usunGracza(const string& nazwa, const string& hash);
 
 	/**
 	* \brief Metoda pobiera aktualnie zalogowanego u¿ytkownika.
@@ -282,6 +301,17 @@ public:
 	* \warning Je¿eli zwrócono wartoœæ false wêze³ przekazany jako parametr nie jest zmodyfokowany.
 	*/
 	bool zapisz( TiXmlElement* wezel ) const override;
+	
+	/**
+	* \brief Metoda zapisuj¹ca.
+	*
+	* Metoda s³u¿¹ca do zapisu danych u¿ytkownika do pliku xml generowanego z nazwy u¿ytkownika.
+	* \param[in] nazwa - Nazwa u¿ytkownika.
+	* \param[in] hash - Hash has³a u¿ytkownika.
+	* \return Zwracana jest wartoœæ true, je¿eli zapisano obiekt poprawnie. False, je¿eli zapis siê nie powiód³.
+	* \warning Je¿eli zwrócono wartoœæ false wêze³ przekazany jako parametr nie jest zmodyfokowany.
+	*/
+	bool zapisz( const string& nazwa, const string& hash ) const;
 
 	/**
 	* \brief Metoda odczytuj¹ca.
@@ -295,6 +325,7 @@ public:
 	bool odczytaj( TiXmlElement* wezel ) override;
 
 private:
+
 	/**
 	* \brief Konstruktor.
 	*
@@ -362,6 +393,16 @@ private:
 	* \return true je¿eli wszystkie dane zostaj¹ poprawnie wczytane, fasle w przeciwnym wypadku.
 	*/
 	bool wczytajObrone(TiXmlElement* wezel);
+
+	/**
+	* \brief Metoda otwieraj¹ca plik u¿ytkownika
+	*
+	* Metoda na podstawie nazwy i hashu has³a u¿ytkownika otwiera plik z danymi u¿ytkownika. 
+	* \param[in] nazwa - Nazwa u¿ytkownika.
+	* \param[in] hash - Hash has³a u¿ytkownika.
+	* \return nullptr je¿eli hash sie nie zgadza, wska¿nik na dokument.
+	*/
+	shared_ptr<TiXmlDocument> plikUzytkownika(const string& nazwa, const string& hash , bool tworzPlik = true ) const;
 
 	ZmianaFabryka &fabryka_; /// Referencja do obiektu fabryki zmian.
 	Aplikacja& aplikacja_; /// Referencja do obiektu aplikacji.

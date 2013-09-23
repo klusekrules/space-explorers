@@ -75,6 +75,7 @@ public:
 	string napis() const override;
 
 private:
+	Tekst nazwaUzytkownika_; /// Nazwa u¿ytkownika. Cz³on nazwy pliku z danymi.
 	ListaPlanet listaPlanet; /// Lista planet u¿ytkownika.
 	Gra& instancjaGry; /// Instancja gry do której nale¿y u¿ytkowni.
 };

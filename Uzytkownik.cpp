@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include "DefinicjeWezlowXML.h"
 #include "Gra.h"
+#include "XmlBO.h"
 
 Uzytkownik::Uzytkownik(Gra& gra)
 	: instancjaGry(gra)
@@ -33,6 +34,7 @@ bool Uzytkownik::zapisz( TiXmlElement* wezel ) const{
 		return false;
 	TiXmlElement* element = new TiXmlElement(WEZEL_XML_UZYTKOWNIK);
 	wezel->LinkEndChild( element );
+	element->SetAttribute(ATRYBUT_XML_NAZWA,nazwaUzytkownika_());
 	for(auto planeta :  listaPlanet)
 		if(!planeta.second->zapisz(element))
 			return false;
@@ -41,6 +43,7 @@ bool Uzytkownik::zapisz( TiXmlElement* wezel ) const{
 
 bool Uzytkownik::odczytaj( TiXmlElement* wezel ){
 	if(wezel){
+		XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_NAZWA,nazwaUzytkownika_);
 		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_PLANETA); element ; element = element->NextSiblingElement(WEZEL_XML_PLANETA)){
 			auto planeta = shared_ptr<Planeta>( new Planeta(Identyfikator()) );
 			if(!planeta->odczytaj(element))
