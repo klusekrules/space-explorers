@@ -61,6 +61,7 @@
 #define ATRYBUT_XML_OSLONA "oslona"
 #define ATRYBUT_XML_POJEMNOSC_MAKSYMALNA "pojemnoscMaksymalna"
 #define ATRYBUT_XML_OPCJA "opcja"
+#define ATRYBUT_XML_HASH "hash"
 
 #define WARTOSC_ATRYBUTU_XML_NASTEPNY "nastepny"
 #define WARTOSC_ATRYBUTU_XML_BRAT "brat"

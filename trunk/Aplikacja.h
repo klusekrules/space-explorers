@@ -79,14 +79,14 @@ public:
 	*
 	* \return true je¿eli uda siê zapisac grê, flase w przeciwnym wypadku.
 	*/
-	bool zapiszGre() const;
+	bool zapiszGre(const string& nazwa, const string& hash) const;
 
 	/**
 	* \brief Metoda wczytuj¹ca stan gry.
 	*
 	* \return true je¿eli uda siê wczytaæ stan gry, false w przeciwnym wypadku.
 	*/
-	bool wczytajGre();
+	bool wczytajGre(const string& nazwa, const string& hash);
 
 	/**
 	* \brief Metoda pobieraj¹ca instacjê Aplikacji.

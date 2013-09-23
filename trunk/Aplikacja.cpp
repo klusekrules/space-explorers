@@ -233,22 +233,22 @@ Aplikacja::~Aplikacja()
 		FreeLibrary(uchwyt_);
 }
 
-bool Aplikacja::zapiszGre() const{
+bool Aplikacja::zapiszGre(const string& nazwa, const string& hash) const{
 	TiXmlDocument dokument;
 	TiXmlElement* wezel = new TiXmlElement(WEZEL_XML_ROOT);
 	dokument.LinkEndChild(wezel);
 	locale::global (locale("C"));
 	if(instancjaGry_->zapisz(wezel)){
 		locale::global (locale(jezykAplikacji_));
-		return dokument.SaveFile("save.xml");
+		return dokument.SaveFile("save\\gra.xml");
 	}
 	locale::global (locale(jezykAplikacji_));
 	return false;
 }
 
-bool Aplikacja::wczytajGre(){
+bool Aplikacja::wczytajGre(const string& nazwa, const string& hash){
 	TiXmlDocument dokument;
-	dokument.LoadFile("save.xml");
+	dokument.LoadFile("save\\gra.xml");
 	TiXmlElement* wezel = dokument.RootElement();
 	if(wezel){
 		shared_ptr<Gra> gra = instancjaGry_;
