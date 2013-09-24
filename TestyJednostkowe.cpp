@@ -131,7 +131,7 @@ TestyJednostkowe::~TestyJednostkowe(){
  
 void TestyJednostkowe::podsumowanie(){
 	stringstream str;
-	str << "Przeprowadzono: " << poprawneTesty + bledy + bledyKrytyczne << ", bledy: "<< bledy + bledyKrytyczne << ", krytyczne: "<< bledyKrytyczne << ", pominieto: "<<pominieteTesty;
+	str << "Przeprowadzono: " << poprawneTesty + bledy << ", bledy: "<< bledy << ", krytyczne: "<< bledyKrytyczne << ", pominieto: "<<pominieteTesty;
 	Log::pobierzInstancje().info("---------------------------------");
 	Log::pobierzInstancje().info("");
 	Log::pobierzInstancje().info("Podsumowanie testów:");

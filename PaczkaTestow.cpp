@@ -37,9 +37,9 @@ void PaczkaTestow::wykonajTesty(){
 			++bledy;
 			cout << e.komunikat();
 		}catch(...){
-			pominieteTesty = static_cast<unsigned int>(zbiorTestow_.size()) - poprawneTesty - bledy;
 			++bledy;
 			++bledyKrytyczne;
+			pominieteTesty = static_cast<unsigned int>(zbiorTestow_.size()) - poprawneTesty - bledy;
 			podsumowanie();
 			throw;
 		}
@@ -60,7 +60,7 @@ void PaczkaTestow::naglowek(){
  
 void PaczkaTestow::podsumowanie(){
 	stringstream str;
-	str << "Przeprowadzono: " << poprawneTesty + bledy + bledyKrytyczne << ", bledy: "<< bledy + bledyKrytyczne << ", krytyczne: "<< bledyKrytyczne << ", pominieto: "<<pominieteTesty;
+	str << "Przeprowadzono: " << poprawneTesty + bledy << ", bledy: "<< bledy << ", krytyczne: "<< bledyKrytyczne << ", pominieto: "<<pominieteTesty;
 	Log::pobierzInstancje().info(str.str());
 	Log::pobierzInstancje().info("---------------------------------");
 }
