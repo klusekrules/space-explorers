@@ -163,9 +163,6 @@
     <ClCompile Include="ZmianaPoziomObiektu.cpp">
       <Filter>SourceFile\BaseClass\Zmiana</Filter>
     </ClCompile>
-    <ClCompile Include="Planeta.cpp">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClCompile>
     <ClCompile Include="Licznik.cpp">
       <Filter>SourceFile\BaseClass\Licznik</Filter>
     </ClCompile>
@@ -277,9 +274,17 @@
     <ClCompile Include="PlanetaTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClCompile>
-    <ClCompile Include="Walidator.cpp" />
     <ClCompile Include="keccak.cpp">
       <Filter>Biblioteki\sha-3</Filter>
+    </ClCompile>
+    <ClCompile Include="Planeta.cpp">
+      <Filter>SourceFile\Lokacje</Filter>
+    </ClCompile>
+    <ClCompile Include="SygnaturaPlanety.cpp">
+      <Filter>SourceFile\Lokacje</Filter>
+    </ClCompile>
+    <ClCompile Include="Walidator.cpp">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -481,9 +486,6 @@
     <ClInclude Include="ZmianaPoziomObiektu.h">
       <Filter>SourceFile\BaseClass\Zmiana</Filter>
     </ClInclude>
-    <ClInclude Include="Planeta.h">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClInclude>
     <ClInclude Include="Licznik.h">
       <Filter>SourceFile\BaseClass\Licznik</Filter>
     </ClInclude>
@@ -619,9 +621,17 @@
     <ClInclude Include="PlanetaTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Walidator.h" />
     <ClInclude Include="keccak.h">
       <Filter>Biblioteki\sha-3</Filter>
+    </ClInclude>
+    <ClInclude Include="Planeta.h">
+      <Filter>SourceFile\Lokacje</Filter>
+    </ClInclude>
+    <ClInclude Include="SygnaturaPlanety.h">
+      <Filter>SourceFile\Lokacje</Filter>
+    </ClInclude>
+    <ClInclude Include="Walidator.h">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -744,6 +754,9 @@
     </Filter>
     <Filter Include="Biblioteki\sha-3">
       <UniqueIdentifier>{bd1fb878-dd1e-4c99-a8e1-5e17071e54e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Lokacje">
+      <UniqueIdentifier>{d953153c-1cf5-4af3-8a6a-c76e85db08ea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

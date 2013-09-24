@@ -29,6 +29,16 @@ Planeta& Uzytkownik::pobierzPlanete( const Identyfikator& identyfikator ) const{
 	throw NieznalezionoObiektu(EXCEPTION_PLACE,Tekst("Nieznaleziono planety"));
 }
 
+Tekst Uzytkownik::pobierzNazweUzytkownika()const{
+	return nazwaUzytkownika_;
+}
+
+void Uzytkownik::ustawNazweUzytkownika( const Tekst& nazwa ){
+	nazwaUzytkownika_ = nazwa;
+	for(auto planeta :  listaPlanet)
+		planeta.second->odswiezNazweUzytkownika();
+}
+
 bool Uzytkownik::zapisz( TiXmlElement* wezel ) const{
 	if(!wezel)
 		return false;

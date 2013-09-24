@@ -14,7 +14,7 @@
 #define WEZEL_XML_SUROWCE "Surowce"
 #define WEZEL_XML_TECHNOLOGIA "Technologia"
 #define WEZEL_XML_HANGAR "Hangar"
-
+#define WEZEL_XML_SYGNATURA_PLANETY "SygnaturaPlanety"
 #define WEZEL_XML_PRODUKCJA "Produkcja"
 #define WEZEL_XML_CENA "Cena"
 #define WEZEL_XML_CZAS "Czas"
@@ -50,6 +50,7 @@
 #define ATRYBUT_XML_POWIERZCHNIA "powierzchnia"
 #define ATRYBUT_XML_WSPOLCZYNNIK "wspolczynnik"
 #define ATRYBUT_XML_NAZWA "nazwa"
+#define ATRYBUT_XML_NAZWAGRACZA "nazwaGracza"
 #define ATRYBUT_XML_RODZAJ_SILNIKA_ID "rodzajSilnikaId"
 #define ATRYBUT_XML_RODZAJ_SILNIKA_POZIOM "rodzajSilnikaPoziom"
 #define ATRYBUT_XML_MOC_SILNIKA "mocSilnika"

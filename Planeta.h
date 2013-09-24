@@ -13,6 +13,7 @@
 #include "Flota.h"
 #include "Licznik.h"
 #include "Obrona.h"
+#include "SygnaturaPlanety.h"
 
 /**
 * \brief Klasa reprezentuj¹ca planetê.
@@ -225,6 +226,46 @@ public:
 	bool czyMaWlasciciela()const;
 
 	/**
+	* \brief Metoda pobieraj¹ca sygnaturê planety.
+	*
+	* Metoda pobiera sygnaturê planety
+	* \return Sygnatura planety.
+	*/
+	shared_ptr<SygnaturaPlanety> pobierzSygnature() const;
+
+	/**
+	* \brief Metoda ustawiaj¹ca sygnaturê planety.
+	*
+	* Metoda ustawiaj¹ca sygnaturê planety
+	* \param[in] - Sygnatura planety.
+	*/
+	bool ustawSygnature( shared_ptr<SygnaturaPlanety> sygnatura );
+
+	/**
+	* \brief Metoda pobieraj¹ca nazwê planety.
+	*
+	* Metoda pobiera nazwê planety
+	* \return Nazwa planety.
+	*/
+	Tekst pobierzNazwePlanety() const;
+
+	/**
+	* \brief Metoda ustawiaj¹ca nazwê planety.
+	*
+	* Metoda ustawia nazwê planety
+	* \param[in] nazwa - Nowa nazwa planety.
+	*/
+	void ustawNazwePlanety( const Tekst& nazwa );
+
+
+	/**
+	* \brief Metoda odswieza nazwe uzytkownika.
+	*
+	* Metoda odswieza nazwe uzytkownika.
+	*/
+	void odswiezNazweUzytkownika();
+
+	/**
 	* \brief Metoda zapisuj¹ca.
 	*
 	* Metoda s³u¿¹ca do zapisu danych do wêz³a xml podanego jako parametr.
@@ -329,4 +370,7 @@ private:
 	ListaObiektow listaObiektow_; /// Lista wszystkich obiektów planety.
 	ListaObiektowZaladunkowych listaObiektowZaladunkowych_; /// Lista obiektów za³adunkowych planety.
 	ListaFlot listaFlot_; /// Lista flot planety.
+
+	Tekst nazwaPlanety_; /// Nazwa planety.
+	mutable shared_ptr<SygnaturaPlanety> sygnatura_; /// WskaŸnika na sygnaturê reprezentuj¹c¹ planetê.
 };

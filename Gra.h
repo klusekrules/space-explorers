@@ -428,4 +428,5 @@ private:
 	Licznik licznikIdentyfikatorowPlanet_; /// Licznik identyfikatorów planet.
 	Uzytkownik::ListaPlanet wolnePlanety_; /// Lista wolnych planet.
 	Uzytkownik::ListaPlanet wszystkiePlanety_; /// Lista wszystkich planet.
+	unordered_map<Identyfikator, shared_ptr<SygnaturaPlanety>, IdTypeHash > listaSygnatur_;
 };

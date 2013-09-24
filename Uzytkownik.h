@@ -37,6 +37,21 @@ public:
 	*/
 	Planeta& pobierzPlanete( const Identyfikator& Identyfikator ) const;
 
+	/**
+	* \brief Metoda pobieraj¹ca nazwê u¿ytkownika.
+	*
+	* Metoda pobiera nazwê u¿ytkownika.
+	*\return Nazwa u¿ytkownika reprezentowanego przez obiekt.
+	*/
+	Tekst pobierzNazweUzytkownika()const;
+
+	/**
+	* \brief Metoda ustawiaj¹ca nazwê u¿ytkownika.
+	*
+	* Metoda ustawia nazwê u¿ytkownika.
+	*\param[in] nazwa - Nowa nazwa u¿ytkownika reprezentowanego przez obiekt.
+	*/
+	void ustawNazweUzytkownika( const Tekst& nazwa );
 
 	/**
 	* \brief Metoda dodaje palanetê do listy planet u¿ytkownika.
