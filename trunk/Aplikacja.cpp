@@ -238,7 +238,7 @@ bool Aplikacja::zapiszGre(const string& nazwa, const string& hash) const{
 	TiXmlElement* wezel = new TiXmlElement(WEZEL_XML_ROOT);
 	dokument.LinkEndChild(wezel);
 	locale::global (locale("C"));
-	if(instancjaGry_->zapisz(wezel)){
+	if(instancjaGry_->zapisz(wezel) && instancjaGry_->zapisz(nazwa,hash)){
 		locale::global (locale(jezykAplikacji_));
 		return dokument.SaveFile("save\\gra.xml");
 	}
@@ -248,7 +248,16 @@ bool Aplikacja::zapiszGre(const string& nazwa, const string& hash) const{
 
 bool Aplikacja::wczytajGre(const string& nazwa, const string& hash){
 	TiXmlDocument dokument;
-	dokument.LoadFile("save\\gra.xml");
+	if(!dokument.LoadFile("save\\gra.xml")){
+		TiXmlElement* wezel = new TiXmlElement(WEZEL_XML_ROOT);
+		dokument.LinkEndChild(wezel);
+		TiXmlElement* gra = new TiXmlElement(WEZEL_XML_GRA);
+		wezel->LinkEndChild(gra);
+		Licznik licznik;
+		licznik.ustawWartosc(Ilosc(1));
+		licznik.zapisz(gra);
+		dokument.SaveFile("save\\gra.xml");
+	}
 	TiXmlElement* wezel = dokument.RootElement();
 	if(wezel){
 		shared_ptr<Gra> gra = instancjaGry_;
@@ -256,7 +265,7 @@ bool Aplikacja::wczytajGre(const string& nazwa, const string& hash){
 			instancjaGry_ = shared_ptr<Gra>(new Gra(*this));
 			Walidator::pobierzInstancje().wyczysc();
 			Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(Identyfikator(0x0)); // Poprawna wartoœæ; U¿ywana gdy obiekty znajduj¹ siê we flocie.
-			if(instancjaGry_->wczytajDane(this->nazwaPlikuDanych_) && instancjaGry_->odczytaj(wezel->FirstChildElement(WEZEL_XML_GRA))){
+			if(instancjaGry_->wczytajDane(this->nazwaPlikuDanych_) && instancjaGry_->odczytaj(wezel->FirstChildElement(WEZEL_XML_GRA)) && instancjaGry_->odczytaj(nazwa,hash) ){
 				if(Walidator::pobierzInstancje().waliduj())
 					return true;
 			}

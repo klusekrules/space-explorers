@@ -7,7 +7,7 @@
 #include "Walidator.h"
 
 Gra::Gra(Aplikacja& aplikacja)
-	: aplikacja_(aplikacja), fabryka_(ZmianaFabryka::pobierzInstancje()), uzytkownik_(new Uzytkownik(*this))
+	: aplikacja_(aplikacja), fabryka_(ZmianaFabryka::pobierzInstancje()), uzytkownik_(nullptr)
 {
 	licznikIdentyfikatorowPlanet_.ustawWartosc(Ilosc(1));
 }
@@ -66,58 +66,6 @@ shared_ptr<Planeta> Gra::pobierzPlanete( const Identyfikator& identyfikator ){
 	if(iterator!=wszystkiePlanety_.end())
 		return iterator->second;
 	return nullptr;
-}
-
-bool Gra::logowanie(const string& nazwa, const string& hash){
-	auto dokument = plikUzytkownika(nazwa,hash,false);
-	if( !dokument )
-		return false;
-	auto nowyUzytkownik = make_shared<Uzytkownik>(*this);
-	if(nowyUzytkownik->odczytaj(dokument->RootElement()) && Walidator::pobierzInstancje().waliduj())
-		uzytkownik_ = nowyUzytkownik;
-	else
-		return false;
-	return true;
-}
-
-bool Gra::nowyGracz(const string& nazwa, const string& hash){
-	return plikUzytkownika(nazwa,hash);
-}
-
-bool Gra::usunGracza(const string& nazwa, const string& hash){
-	auto dokument = plikUzytkownika(nazwa,hash,false);
-	if( !dokument )
-		return false;
-	return !remove(dokument->Value());
-}
-
-bool Gra::zapisz( const string& nazwa, const string& hash ) const{
-	auto dokument = plikUzytkownika(nazwa,hash);
-	if( !dokument || !uzytkownik_->zapisz(dokument->RootElement()) )
-		return false;
-	return dokument->SaveFile();
-}
-
-shared_ptr<TiXmlDocument> Gra::plikUzytkownika(const string& nazwa, const string& hash , bool tworzPlik ) const{
-	if( hash.empty() || nazwa.empty() )
-		return nullptr;
-	string plik("save\\");
-	plik.append(nazwa);
-	plik.append("_.xml");
-	shared_ptr<TiXmlDocument> dokument = make_shared<TiXmlDocument>(plik);
-	if(dokument->LoadFile()){
-		if( hash!=XmlBO::WczytajAtrybut(dokument->RootElement(),"hash",string()))
-			return nullptr;
-	}else{
-		if(!tworzPlik)
-			return nullptr;
-		TiXmlElement* uzytkownik = new TiXmlElement(WEZEL_XML_UZYTKOWNIK);
-		uzytkownik->SetAttribute(ATRYBUT_XML_HASH,hash);
-		uzytkownik->SetAttribute(ATRYBUT_XML_NAZWA,nazwa);
-		dokument->LinkEndChild(uzytkownik);
-		dokument->SaveFile(plik);
-	}
-	return dokument;
 }
 
 //TODO: Dopisanie poprawnego generowania planet
@@ -380,22 +328,14 @@ bool Gra::zapisz( TiXmlElement* wezel ) const{
 	for(auto planeta :  wolnePlanety_)
 		if(!planeta.second->zapisz(element))
 			return false;
-	return licznikIdentyfikatorowPlanet_.zapisz(element) && ( uzytkownik_ ? uzytkownik_->zapisz(element) : true );
+	return licznikIdentyfikatorowPlanet_.zapisz(element);
 }
 
 bool Gra::odczytaj( TiXmlElement* wezel ){
 	if(wezel){
 		if(!licznikIdentyfikatorowPlanet_.odczytaj(wezel->FirstChildElement(WEZEL_XML_LICZNIK)))
 			return false;
-		TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_UZYTKOWNIK);
-		if(element){
-			uzytkownik_ = shared_ptr<Uzytkownik>(new Uzytkownik(*this));
-			if(!uzytkownik_->odczytaj(element))
-				return false;
-		}else{
-			uzytkownik_ = nullptr;
-		}
-		for(element = wezel->FirstChildElement(WEZEL_XML_PLANETA); element ; element = element->NextSiblingElement(WEZEL_XML_PLANETA)){
+		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_PLANETA); element ; element = element->NextSiblingElement(WEZEL_XML_PLANETA)){
 			auto planeta = shared_ptr<Planeta>( new Planeta(Identyfikator()) );
 			if(!planeta->odczytaj(element))
 				return false;
@@ -405,4 +345,70 @@ bool Gra::odczytaj( TiXmlElement* wezel ){
 		return true;	
 	}
 	return false;
+}
+
+bool Gra::odczytaj( const string& nazwa, const string& hash ){
+	return logowanie(nazwa,hash);
+}
+
+bool Gra::logowanie(const string& nazwa, const string& hash){
+	auto dokument = plikUzytkownika(nazwa,hash,false);
+	if( !dokument )
+		return false;
+	auto nowyUzytkownik = make_shared<Uzytkownik>(*this);
+	if(nowyUzytkownik->odczytaj(dokument->RootElement()) && Walidator::pobierzInstancje().waliduj())
+		uzytkownik_ = nowyUzytkownik;
+	else
+		return false;
+	return true;
+}
+
+bool Gra::nowyGracz(const string& nazwa, const string& hash){
+	if(plikUzytkownika(nazwa,hash,false))
+		return false;
+	return plikUzytkownika(nazwa,hash);
+}
+
+bool Gra::usunGracza(const string& nazwa, const string& hash){
+	auto dokument = plikUzytkownika(nazwa,hash,false);
+	if( !dokument )
+		return false;
+	return !remove(dokument->Value());
+}
+
+bool Gra::zapisz( const string& nazwa, const string& hash ) const{
+	auto dokument = plikUzytkownika(nazwa,hash);
+	if( !dokument || !uzytkownik_->zapisz(dokument->RootElement()) )
+		return false;
+	return dokument->SaveFile();
+}
+
+shared_ptr<TiXmlDocument> Gra::plikUzytkownika(const string& nazwa, const string& hash , bool tworzPlik ) const{
+	if( hash.empty() || nazwa.empty() )
+		return nullptr;
+	string plik("save\\");
+	plik.append(nazwa);
+	plik.append("_.xml");
+	shared_ptr<TiXmlDocument> dokument = make_shared<TiXmlDocument>(plik);
+	if(dokument->LoadFile()){
+		if( hash!=XmlBO::WczytajAtrybut(dokument->RootElement(),"hash",string()))
+			return nullptr;
+		if(tworzPlik){
+			dokument = make_shared<TiXmlDocument>(plik);
+			TiXmlElement* uzytkownik = new TiXmlElement(WEZEL_XML_UZYTKOWNIK);
+			uzytkownik->SetAttribute(ATRYBUT_XML_HASH,hash);
+			uzytkownik->SetAttribute(ATRYBUT_XML_NAZWA,nazwa);
+			dokument->LinkEndChild(uzytkownik);
+			dokument->SaveFile(plik);
+		}
+	}else{
+		if(!tworzPlik)
+			return nullptr;
+		TiXmlElement* uzytkownik = new TiXmlElement(WEZEL_XML_UZYTKOWNIK);
+		uzytkownik->SetAttribute(ATRYBUT_XML_HASH,hash);
+		uzytkownik->SetAttribute(ATRYBUT_XML_NAZWA,nazwa);
+		dokument->LinkEndChild(uzytkownik);
+		dokument->SaveFile(plik);
+	}
+	return dokument;
 }

@@ -8,13 +8,17 @@ ZapisStanuGryTest::ZapisStanuGryTest(void)
 
 
 void ZapisStanuGryTest::zapis(){
+	string haslo("haslo");
+	Utils::sha3(haslo);
 	ptr_a = (int)(&(Aplikacja::pobierzInstancje().pobierzGre()));
 	p_a = Aplikacja::pobierzInstancje().pobierzGre().pobierzUzytkownika().pobierzPlanete(Identyfikator(1));
-	UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().zapiszGre(string(),string()));
+	UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().zapiszGre(string("Daniel"),haslo));
 }
 
 void ZapisStanuGryTest::odczyt(){
-	UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().wczytajGre(string(),string()));
+	string haslo("haslo");
+	Utils::sha3(haslo);
+	UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().wczytajGre(string("Daniel"),haslo));
 	Planeta p_b = Aplikacja::pobierzInstancje().pobierzGre().pobierzUzytkownika().pobierzPlanete(Identyfikator(1));
 	int ptr_b = (int)(&(Aplikacja::pobierzInstancje().pobierzGre()));
 	UNIT_TEST_ASSERT_NOTEQUAL(ptr_a,ptr_b);

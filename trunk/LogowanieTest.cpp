@@ -11,8 +11,12 @@ void LogowanieTest::zaloguj(){
 	string haslo("haslo");
 	Utils::sha3(haslo);
 	Aplikacja::pobierzInstancje().pobierzLogger().info(haslo);
-	UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().pobierzGre().nowyGracz("Daniel",haslo));
-	UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().pobierzGre().logowanie("Daniel",haslo));
+	if(Aplikacja::pobierzInstancje().pobierzGre().nowyGracz("Daniel",haslo)){
+		Aplikacja::pobierzInstancje().pobierzLogger().debug("U¿ytkownik zosta³ utworzony.");
+	}else{
+		Aplikacja::pobierzInstancje().pobierzLogger().debug("U¿ytkownik istnieje.");
+	}
+	UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().wczytajGre("Daniel",haslo));
 	//UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().pobierzGre().usunGracza("Daniel",haslo));
 }
 

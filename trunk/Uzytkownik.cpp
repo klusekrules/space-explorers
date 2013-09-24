@@ -32,11 +32,9 @@ Planeta& Uzytkownik::pobierzPlanete( const Identyfikator& identyfikator ) const{
 bool Uzytkownik::zapisz( TiXmlElement* wezel ) const{
 	if(!wezel)
 		return false;
-	TiXmlElement* element = new TiXmlElement(WEZEL_XML_UZYTKOWNIK);
-	wezel->LinkEndChild( element );
-	element->SetAttribute(ATRYBUT_XML_NAZWA,nazwaUzytkownika_());
+	wezel->SetAttribute(ATRYBUT_XML_NAZWA,nazwaUzytkownika_());
 	for(auto planeta :  listaPlanet)
-		if(!planeta.second->zapisz(element))
+		if(!planeta.second->zapisz(wezel))
 			return false;
 	return true;
 }
@@ -60,6 +58,7 @@ bool Uzytkownik::odczytaj( TiXmlElement* wezel ){
 
 string Uzytkownik::napis() const{
 	Logger str(NAZWAKLASY(Uzytkownik));
+	str.dodajPole("Nazwa",nazwaUzytkownika_);
 	for(auto planeta :  listaPlanet)
 		if(!planeta.second)
 			str.dodajPole(NAZWAKLASY(Planeta),*(planeta.second));
