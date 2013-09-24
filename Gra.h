@@ -309,7 +309,6 @@ public:
 	* \param[in] nazwa - Nazwa u¿ytkownika.
 	* \param[in] hash - Hash has³a u¿ytkownika.
 	* \return Zwracana jest wartoœæ true, je¿eli zapisano obiekt poprawnie. False, je¿eli zapis siê nie powiód³.
-	* \warning Je¿eli zwrócono wartoœæ false wêze³ przekazany jako parametr nie jest zmodyfokowany.
 	*/
 	bool zapisz( const string& nazwa, const string& hash ) const;
 
@@ -323,6 +322,16 @@ public:
 	* \warning Je¿eli metoda zwróci wartoœæ false, obiekt mo¿e znajdowaæ siê w stanie nieustalonym. Nie jest zalecane u¿ywanie takiego obiektu.
 	*/
 	bool odczytaj( TiXmlElement* wezel ) override;
+
+	/**
+	* \brief Metoda odczytuj¹ca.
+	*
+	* Metoda s³u¿¹ca do odczytu danych uzytkownika.
+	* \param[in] nazwa - Nazwa u¿ytkownika.
+	* \param[in] hash - Hash has³a u¿ytkownika.
+	* \return Zwracana jest wartoœæ true, je¿eli odczytano obiekt poprawnie. False, je¿eli odczyt siê nie powiód³.
+	*/
+	bool odczytaj( const string& nazwa, const string& hash );
 
 private:
 
