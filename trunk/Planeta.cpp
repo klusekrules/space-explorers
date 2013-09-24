@@ -19,6 +19,7 @@ Planeta::~Planeta(void)
 
 void Planeta::ustawWlasciciela( Uzytkownik* wlasciciel ){
 	wlasciciel_=wlasciciel;
+	odswiezNazweUzytkownika();
 }
 
 Uzytkownik* Planeta::pobierzWlasciciela( void ) const{
@@ -339,6 +340,35 @@ bool Planeta::odczytaj( TiXmlElement* wezel ){
 		return Bazowa::odczytaj(wezel);
 	}
 	return false;
+}
+
+Tekst Planeta::pobierzNazwePlanety() const{
+	return nazwaPlanety_;
+}
+
+void Planeta::ustawNazwePlanety( const Tekst& nazwa ){
+	nazwaPlanety_ = nazwa;
+	if(sygnatura_)
+		sygnatura_->ustawNazwePlanety(nazwa);
+}
+
+void Planeta::odswiezNazweUzytkownika(){
+	if(sygnatura_)
+		sygnatura_->ustawNazweGracza(wlasciciel_ ? wlasciciel_->pobierzNazweUzytkownika() : Tekst());
+}
+
+shared_ptr<SygnaturaPlanety> Planeta::pobierzSygnature() const{
+	if(sygnatura_)
+		return sygnatura_;
+	sygnatura_ = make_shared<SygnaturaPlanety>( pobierzIdentyfikator() , wlasciciel_ ? wlasciciel_->pobierzNazweUzytkownika() : Tekst() , pobierzNazwePlanety() );
+	return sygnatura_;
+}
+
+bool Planeta::ustawSygnature( shared_ptr<SygnaturaPlanety> sygnatura ){
+	if(sygnatura_)
+		return sygnatura_==sygnatura;
+	sygnatura_ = sygnatura;
+	return true;
 }
 
 string Planeta::napis() const{

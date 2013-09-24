@@ -73,6 +73,7 @@ shared_ptr<Planeta> Gra::stworzPlanete(){
 	auto planeta = shared_ptr<Planeta>( new Planeta(Identyfikator(licznikIdentyfikatorowPlanet_())));
 	wolnePlanety_.insert(make_pair(planeta->pobierzIdentyfikator(),planeta));
 	wszystkiePlanety_.insert(make_pair(planeta->pobierzIdentyfikator(),planeta));
+	listaSygnatur_.insert(make_pair(planeta->pobierzIdentyfikator(),planeta->pobierzSygnature()));
 	return planeta;
 }
 
@@ -294,7 +295,12 @@ bool Gra::dodajPlanete( shared_ptr<Planeta> planeta ){
 		wszystkiePlanety_.insert(make_pair(planeta->pobierzIdentyfikator(), planeta));
 		if(!planeta->czyMaWlasciciela())
 			wolnePlanety_.insert(make_pair(planeta->pobierzIdentyfikator(), planeta));
-		return true;
+		auto iter = listaSygnatur_.find(planeta->pobierzIdentyfikator());
+		if(iter == listaSygnatur_.end()){
+			listaSygnatur_.insert(make_pair(planeta->pobierzIdentyfikator(), planeta->pobierzSygnature()));
+			return true;
+		}
+		return planeta->ustawSygnature(iter->second);
 	}
 	return false;
 }
@@ -325,6 +331,9 @@ bool Gra::wczytajStatki(TiXmlElement* wezel){
 bool Gra::zapisz( TiXmlElement* wezel ) const{
 	TiXmlElement* element = new TiXmlElement(WEZEL_XML_GRA);
 	wezel->LinkEndChild( element );
+	for(auto sygnatura :  listaSygnatur_)
+		if(!sygnatura.second->zapisz(element))
+			return false;
 	for(auto planeta :  wolnePlanety_)
 		if(!planeta.second->zapisz(element))
 			return false;
@@ -335,12 +344,21 @@ bool Gra::odczytaj( TiXmlElement* wezel ){
 	if(wezel){
 		if(!licznikIdentyfikatorowPlanet_.odczytaj(wezel->FirstChildElement(WEZEL_XML_LICZNIK)))
 			return false;
+		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_SYGNATURA_PLANETY); element ; element = element->NextSiblingElement(WEZEL_XML_SYGNATURA_PLANETY)){
+			auto sygnatura = make_shared<SygnaturaPlanety>();
+			if(!sygnatura->odczytaj(element))
+				return false;
+			listaSygnatur_.insert(make_pair(sygnatura->pobierzIdentyfikator(),sygnatura));
+		}
 		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_PLANETA); element ; element = element->NextSiblingElement(WEZEL_XML_PLANETA)){
 			auto planeta = shared_ptr<Planeta>( new Planeta(Identyfikator()) );
 			if(!planeta->odczytaj(element))
 				return false;
 			wolnePlanety_.insert(make_pair(planeta->pobierzIdentyfikator(),planeta));
 			wszystkiePlanety_.insert(make_pair(planeta->pobierzIdentyfikator(),planeta));
+			auto iter = listaSygnatur_.find(planeta->pobierzIdentyfikator());
+			if(iter == listaSygnatur_.end() || !planeta->ustawSygnature(iter->second))
+				return false;
 		}
 		return true;	
 	}

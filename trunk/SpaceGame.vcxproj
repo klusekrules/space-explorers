@@ -222,6 +222,7 @@
     <ClInclude Include="ObronaInfo.h" />
     <ClInclude Include="ObronaTest.h" />
     <ClInclude Include="PlanetaTest.h" />
+    <ClInclude Include="SygnaturaPlanety.h" />
     <ClInclude Include="Walidator.h" />
     <ClInclude Include="Zlecenia.h" />
     <ClInclude Include="InicjalizacjaDanychTestowych.h" />
@@ -405,6 +406,7 @@
     <ClCompile Include="StatekTest.cpp" />
     <ClCompile Include="Surowce.cpp" />
     <ClCompile Include="SurowceInfo.cpp" />
+    <ClCompile Include="SygnaturaPlanety.cpp" />
     <ClCompile Include="Technologia.cpp" />
     <ClCompile Include="TechnologiaInfo.cpp" />
     <ClCompile Include="TechnologiaTest.cpp" />
