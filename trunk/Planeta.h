@@ -40,6 +40,7 @@ public:
 	typedef map< Indeks , shared_ptr< Obrona > > ListaObrona;
 	typedef map< Indeks , shared_ptr< Surowce > > ListaSurowcow;
 	typedef map< Identyfikator , shared_ptr< Flota > > ListaFlot;
+	typedef map< Indeks , Ilosc > ListaZasobow;
 	
 	/**
 	* \brief Konstruktor.
@@ -371,6 +372,19 @@ private:
 	ListaObiektowZaladunkowych listaObiektowZaladunkowych_; /// Lista obiektów za³adunkowych planety.
 	ListaFlot listaFlot_; /// Lista flot planety.
 
+	/* Lista parametrów planety */
+	Dystans srednicaPlanety_; /// Atrybut przechowuje informacje o œrednicy planety.
+	Dystans odlegloscOdSlonca_; /// Atrybut przechowuje informacje o odleg³oœci planety od centrum uk³adu s³onecznego.
+	Predkosc predkoscKatowaPlanety_ ; /// Atrybut przechowuje informacje o prêdkoœci obiegu planety woko³o s³oñca.
+	Fluktuacja naslonecznieniePlanety_; /// Atrybut przechowuj¹cy informacje o nas³onecznieniu planety.
+	Fluktuacja wietrznoscPlanety_; /// Atrybut przechowuj¹cy informacje o natê¿eniu wiatrów na planecie.
+	Fluktuacja temperaturaPlanety_; /// Atrybut przechowuj¹cy informacje o œredniej temperaturze planety.
+	Powierzchnia calkowitaPowierzchniaPlanety_; /// Atrybut przehcowuj¹cy informacje o ca³kowitej powierzchni planety.
+	Powierzchnia powierzchniaZajetaPrzezWode_; /// Atrybut przechowuj¹cy informacje o powierzchni planety zajêtej przez wodê.
+	Powierzchnia powierzchniaLadow_; /// Atrybut przechowuj¹cy informacje o powierzchni planety zajêtej przez l¹dy.
+	Powierzchnia powierzchniaUzytkowaLadow_; /// Atrybut przechowuj¹cy informacje o powierzchni u¿ytkowej planety.
+	ListaZasobow dostepneZasobyPlanety_; /// Lista zasobów jakie mo¿na wydobyæ na planecie.
 	Tekst nazwaPlanety_; /// Nazwa planety.
+
 	mutable shared_ptr<SygnaturaPlanety> sygnatura_; /// WskaŸnika na sygnaturê reprezentuj¹c¹ planetê.
 };
