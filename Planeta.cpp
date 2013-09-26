@@ -284,7 +284,24 @@ bool Planeta::usunFlote(const Identyfikator& identyfikator){
 bool Planeta::zapisz( TiXmlElement* wezel ) const{
 	TiXmlElement* planeta = new TiXmlElement(WEZEL_XML_PLANETA);
 	wezel->LinkEndChild( planeta );
+	planeta->SetAttribute(ATRYBUT_XML_ODLEGLOSC_OD_SLONCA, odlegloscOdSlonca_.napis());
+	planeta->SetAttribute(ATRYBUT_XML_PREDKOSC_KATOWA_PLANETY, predkoscKatowaPlanety_.napis());
+	planeta->SetAttribute(ATRYBUT_XML_NASLONECZNIENIE_PLANETY, naslonecznieniePlanety_.napis());
+	planeta->SetAttribute(ATRYBUT_XML_WIETRZNOSC_PLANETY, wietrznoscPlanety_.napis());
+	planeta->SetAttribute(ATRYBUT_XML_TEMPERATURA_PLANETY, temperaturaPlanety_.napis());
+	planeta->SetAttribute(ATRYBUT_XML_CALKOWITA_POWIERZNIA_PLANETY, calkowitaPowierzchniaPlanety_.napis() );
+	planeta->SetAttribute(ATRYBUT_XML_POWIERZCHNIA_ZAJETA_PRZEZ_WODE,powierzchniaZajetaPrzezWode_.napis() );
+	planeta->SetAttribute(ATRYBUT_XML_POWIERZCHNIA_LADOW, powierzchniaLadow_.napis() );
+	planeta->SetAttribute(ATRYBUT_XML_POWIERZCHNIA_UZYTKOWA_LADOW, powierzchniaUzytkowaLadow_.napis() );
+	planeta->SetAttribute(ATRYBUT_XML_NAZWA, nazwaPlanety_());
 	licznikIdentyfikatorowFloty_.zapisz(planeta);
+	for(auto element :  dostepneZasobyPlanety_){
+		TiXmlElement* zasob = new TiXmlElement(WEZEL_XML_ZASOB);
+		zasob->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR, element.first.pobierzIdentyfikator().napis());
+		zasob->SetAttribute(ATRYBUT_XML_POZIOM, element.first.pobierzPoziom().napis());
+		zasob->SetAttribute(ATRYBUT_XML_ILOSC, element.second.napis());
+		planeta->LinkEndChild(zasob);
+	}
 	TiXmlElement* obiekty = new TiXmlElement(WEZEL_XML_OBIEKTY);
 	planeta->LinkEndChild( obiekty );
 	for(auto element :  listaObiektow_)
@@ -301,9 +318,44 @@ bool Planeta::zapisz( TiXmlElement* wezel ) const{
 bool Planeta::odczytaj( TiXmlElement* wezel ){
 	if(wezel){
 		Identyfikator identyfikatorPlanety;
+		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_ODLEGLOSC_OD_SLONCA,odlegloscOdSlonca_))
+			return false;
+		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_PREDKOSC_KATOWA_PLANETY,predkoscKatowaPlanety_))
+			return false;
+		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_NASLONECZNIENIE_PLANETY,naslonecznieniePlanety_))
+			return false;
+		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_WIETRZNOSC_PLANETY,wietrznoscPlanety_))
+			return false;
+		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_TEMPERATURA_PLANETY,temperaturaPlanety_))
+			return false;
+		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_CALKOWITA_POWIERZNIA_PLANETY,calkowitaPowierzchniaPlanety_))
+			return false;
+		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_POWIERZCHNIA_ZAJETA_PRZEZ_WODE,powierzchniaZajetaPrzezWode_))
+			return false;
+		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_POWIERZCHNIA_LADOW,powierzchniaLadow_))
+			return false;
+		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_POWIERZCHNIA_UZYTKOWA_LADOW,powierzchniaUzytkowaLadow_))
+			return false;
+		XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_NAZWA,nazwaPlanety_);
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,identyfikatorPlanety))
 			return false;
 		Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(identyfikatorPlanety);
+		for(TiXmlElement* zasob = wezel->FirstChildElement(WEZEL_XML_ZASOB); zasob ; zasob = zasob->NextSiblingElement(WEZEL_XML_ZASOB)){
+			Identyfikator identyfikator;
+			Poziom poziom;
+			Ilosc ilosc;
+			if(!XmlBO::WczytajAtrybut<NOTHROW>(zasob,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
+				return false;
+			if(!XmlBO::WczytajAtrybut<NOTHROW>(zasob,ATRYBUT_XML_POZIOM,poziom))
+				return false;
+			if(!XmlBO::WczytajAtrybut<NOTHROW>(zasob,ATRYBUT_XML_ILOSC,ilosc))
+				return false;
+			auto iter = dostepneZasobyPlanety_.find(Indeks(identyfikator,poziom));
+			if( iter != dostepneZasobyPlanety_.end())
+				return false;
+			dostepneZasobyPlanety_.insert(make_pair(Indeks(identyfikator,poziom),ilosc));
+		}
+			
 		TiXmlElement* obiekt = wezel->FirstChildElement(WEZEL_XML_OBIEKTY);
 		if(obiekt)
 			for(TiXmlElement* element = obiekt->FirstChildElement(); element ; element = element->NextSiblingElement()){
@@ -375,6 +427,18 @@ string Planeta::napis() const{
 	Logger str(NAZWAKLASY(Planeta));
 	str.dodajKlase(Bazowa::napis());
 	str.dodajPole(NAZWAKLASY(Licznik),licznikIdentyfikatorowFloty_);
+	str.dodajPole("odlegloscOdSlonca",odlegloscOdSlonca_);
+	str.dodajPole("predkoscKatowaPlanety",predkoscKatowaPlanety_);
+	str.dodajPole("naslonecznieniePlanety",naslonecznieniePlanety_);
+	str.dodajPole("wietrznoscPlanety",wietrznoscPlanety_);
+	str.dodajPole("temperaturaPlanety",temperaturaPlanety_);
+	str.dodajPole("calkowitaPowierzchniaPlanety",calkowitaPowierzchniaPlanety_);
+	str.dodajPole("powierzchniaZajetaPrzezWode",powierzchniaZajetaPrzezWode_);
+	str.dodajPole("powierzchniaLadow",powierzchniaLadow_);
+	str.dodajPole("powierzchniaUzytkowaLadow",powierzchniaUzytkowaLadow_);
+	str.dodajPole("nazwaPlanety",nazwaPlanety_);
+	for( auto element : dostepneZasobyPlanety_ )
+		str.dodajPole("Zasob", element.second);
 	for( auto element : listaObiektow_ )
 		str.dodajPole("Obiekt", *(element.second));
 	for( auto element : listaFlot_ )
