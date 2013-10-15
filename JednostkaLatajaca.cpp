@@ -23,7 +23,7 @@ ZuzyciePaliwa JednostkaLatajaca::pobierzJednostkoweZuzyciePaliwa()const{
 	return jednostkaLatajacaInfo_.pobierzZuzyciePaliwa(*this);
 }
 
-MocSilnika JednostkaLatajaca::pobierzMocSilnika()const{
+Moc JednostkaLatajaca::pobierzMocSilnika()const{
 	return jednostkaLatajacaInfo_.pobierzMocSilnika(*this);
 }
 

@@ -22,5 +22,5 @@ namespace SPG{
 	typedef long double		Czas;
 	typedef double			Obrazenia;
 	typedef double			ZuzyciePaliwa;
-	typedef double			MocSilnika;
+	typedef double			Moc;
 }

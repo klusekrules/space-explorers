@@ -1,7 +1,7 @@
 #pragma once
 #include "FuncTransf\ZmianaInterfejs.h"
 #include "Info.h"
-#include "MocSilnika.h"
+#include "Moc.h"
 #include "ZuzyciePaliwa.h"
 #include "Masa.h"
 #include "Klucz.h"
@@ -29,7 +29,7 @@ public:
 	* \param[in] zuzyciePaliwa - Zu¿ycia paliwa przez silnik
 	* \param[in] masa - Masa uk³adu napêdowego
 	*/
-	JednostkaLatajacaInfo(const Info& info, const Klucz& klucz, const MocSilnika& mocSilnika, const ZuzyciePaliwa& zuzyciePaliwa, const Masa& masa ) throw();
+	JednostkaLatajacaInfo(const Info& info, const Klucz& klucz, const Moc& mocSilnika, const ZuzyciePaliwa& zuzyciePaliwa, const Masa& masa ) throw();
 	
 	/**
 	* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
@@ -62,7 +62,7 @@ public:
 	* \param[in] parametry - Parametry wymagane do policzenia atrybutu.
 	* \return Moc silnika jednostki.
 	*/
-	MocSilnika pobierzMocSilnika(const PodstawoweParametry& parametry ) const;
+	Moc pobierzMocSilnika(const PodstawoweParametry& parametry ) const;
 
 	/**
 	* \brief Metoda wyliczaj¹ca zu¿ycie paliwa jednostki.
@@ -96,7 +96,7 @@ public:
 private:
 	
 	Klucz				rodzajNapedu_; /// Rodzaj napêdy statku
-	MocSilnika			mocSilnika_; /// Moc silnika statku
+	Moc					mocSilnika_; /// Moc silnika statku
 	ZuzyciePaliwa		zuzyciePaliwa_; /// Zu¿ycie paliwa przez statek
 	Masa				masaNapedu_; /// Masa uk³adu napêdowego
 	Fluktuacja			sprawnoscSilnika_; /// Sprawnoœæ silnika.
