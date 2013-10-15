@@ -213,6 +213,7 @@
     <ClInclude Include="Bazowa.h" />
     <ClInclude Include="BudynekTest.h" />
     <ClInclude Include="Dokumentacja.h" />
+    <ClInclude Include="GeneratorUkladow.h" />
     <ClInclude Include="Hangar.h" />
     <ClInclude Include="HangarInfo.h" />
     <ClInclude Include="HangarTest.h" />
@@ -223,6 +224,11 @@
     <ClInclude Include="ObronaTest.h" />
     <ClInclude Include="PlanetaTest.h" />
     <ClInclude Include="SygnaturaPlanety.h" />
+    <ClInclude Include="Temperatura.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="UkladSloneczny.h" />
     <ClInclude Include="Walidator.h" />
     <ClInclude Include="Zlecenia.h" />
     <ClInclude Include="InicjalizacjaDanychTestowych.h" />
@@ -346,6 +352,7 @@
     <ClCompile Include="Dystans.cpp" />
     <ClCompile Include="Flota.cpp" />
     <ClCompile Include="Fluktuacja.cpp" />
+    <ClCompile Include="GeneratorUkladow.cpp" />
     <ClCompile Include="Gra.cpp" />
     <ClCompile Include="Hangar.cpp" />
     <ClCompile Include="HangarInfo.cpp" />
@@ -411,8 +418,13 @@
     <ClCompile Include="TechnologiaInfo.cpp" />
     <ClCompile Include="TechnologiaTest.cpp" />
     <ClCompile Include="Tekst.cpp" />
+    <ClCompile Include="Temperatura.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="TestyJednostkowe.cpp" />
     <ClCompile Include="TworzenieObiektowTest.cpp" />
+    <ClCompile Include="UkladSloneczny.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Uzytkownik.cpp" />
     <ClCompile Include="Walidator.cpp" />

@@ -286,6 +286,15 @@
     <ClCompile Include="Walidator.cpp">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClCompile>
+    <ClCompile Include="UkladSloneczny.cpp">
+      <Filter>SourceFile\Lokacje</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratorUkladow.cpp">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClCompile>
+    <ClCompile Include="Temperatura.cpp">
+      <Filter>SourceFile\Typy podstawowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -632,6 +641,15 @@
     </ClInclude>
     <ClInclude Include="Walidator.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClInclude>
+    <ClInclude Include="UkladSloneczny.h">
+      <Filter>SourceFile\Lokacje</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratorUkladow.h">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClInclude>
+    <ClInclude Include="Temperatura.h">
+      <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
