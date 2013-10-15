@@ -14,7 +14,8 @@ class Fluktuacja:
 	public PodstawowyInterfejs<SPG::Fluktuacja>
 {
 public:
-
+	static const SPG::Fluktuacja MIN;
+	static const SPG::Fluktuacja MAX;
 	/**
 	* \brief Konstruktor.
 	*/

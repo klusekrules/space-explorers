@@ -15,8 +15,13 @@ class NOTHROW { };
 class XmlBO{
 private:
 
-	static void trim( string &s){
+	template < typename T > 
+	static void trim( string &s ){
 		s.erase(remove_if(s.begin(), s.end(), isSpace), s.end());
+	}
+
+	template < > 
+	static void trim<SPG::Tekst>( string &s ){
 	}
 
 	static void decimal_point( string &s ){
@@ -132,7 +137,7 @@ public:
 		if(!napis)
 			return blad<K>(string(wezel->Value()),nazwa);
 		string atrybut = *napis;
-		trim(atrybut);
+		trim<T>(atrybut);
 		if(atrybut.size()>0){
 			Zaladuj<T>(atrybut,obiekt);
 			return true;
