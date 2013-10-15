@@ -104,7 +104,7 @@ string JednostkaLatajacaInfo::napis() const{
 	Logger str(NAZWAKLASY(JednostkaLatajacaInfo));
 	str.dodajKlase(Info::napis());
 	str.dodajPole("RodzajNapedu",rodzajNapedu_);
-	str.dodajPole(NAZWAKLASY(Moc),mocSilnika_);
+	str.dodajPole("MocSilnika",mocSilnika_);
 	if(przyrostMocySilnika_){
 		str.dodajPole("ZmianaMocySilnika",*przyrostMocySilnika_);
 	}
