@@ -6,6 +6,8 @@
 #include <fstream>
 #include "Walidator.h"
 
+#define DOMYSLNA_NAZWA_PLANETY "Bez nazwy"
+
 Gra::Gra(Aplikacja& aplikacja)
 	: aplikacja_(aplikacja), fabryka_(ZmianaFabryka::pobierzInstancje()), uzytkownik_(nullptr)
 {
@@ -68,9 +70,12 @@ shared_ptr<Planeta> Gra::pobierzPlanete( const Identyfikator& identyfikator ){
 	return nullptr;
 }
 
-//TODO: Dopisanie poprawnego generowania planet
 shared_ptr<Planeta> Gra::stworzPlanete(){
 	auto planeta = shared_ptr<Planeta>( new Planeta(Identyfikator(licznikIdentyfikatorowPlanet_())));
+	planeta->nazwaPlanety_ = Tekst(DOMYSLNA_NAZWA_PLANETY);
+	planeta->srednicaPlanety_ = Dystans();
+	planeta->odlegloscOdSlonca_ = Dystans();
+	planeta->predkoscKatowaPlanety_ = Predkosc();
 	wolnePlanety_.insert(make_pair(planeta->pobierzIdentyfikator(),planeta));
 	wszystkiePlanety_.insert(make_pair(planeta->pobierzIdentyfikator(),planeta));
 	listaSygnatur_.insert(make_pair(planeta->pobierzIdentyfikator(),planeta->pobierzSygnature()));
