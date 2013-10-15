@@ -292,7 +292,7 @@
     <ClInclude Include="Main.h" />
     <ClInclude Include="MakeVector.h" />
     <ClInclude Include="Masa.h" />
-    <ClInclude Include="MocSilnika.h" />
+    <ClInclude Include="Moc.h" />
     <ClInclude Include="NiepoprawnaIloscObiektow.h" />
     <ClInclude Include="NiepoprawneParametryFunkcji.h" />
     <ClInclude Include="NiezainicjalizowanaKlasa.h" />
@@ -379,7 +379,7 @@
     <ClCompile Include="maintest.cpp" />
     <ClCompile Include="Masa.cpp" />
     <ClCompile Include="MenedzerTranzakcji.cpp" />
-    <ClCompile Include="MocSilnika.cpp" />
+    <ClCompile Include="Moc.cpp" />
     <ClCompile Include="NiepoprawnaIloscObiektow.cpp" />
     <ClCompile Include="NiepoprawneParametryFunkcji.cpp" />
     <ClCompile Include="NiepoprawneParametryFunkcjiTest.cpp" />

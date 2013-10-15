@@ -4,7 +4,7 @@
 #include "Aplikacja.h"
 #include "definicjeWezlowXML.h"
 
-JednostkaLatajacaInfo::JednostkaLatajacaInfo( const Info& info,const Klucz& klucz, const MocSilnika& mocSilnika, const ZuzyciePaliwa& zuzyciePaliwa, const Masa& masa ) throw()
+JednostkaLatajacaInfo::JednostkaLatajacaInfo( const Info& info,const Klucz& klucz, const Moc& mocSilnika, const ZuzyciePaliwa& zuzyciePaliwa, const Masa& masa ) throw()
 	: Info(info), rodzajNapedu_(klucz), mocSilnika_(mocSilnika), zuzyciePaliwa_(zuzyciePaliwa), masaNapedu_(masa),
 	przyrostMocySilnika_(nullptr), przyrostSprawnosciSilnika_(nullptr), przyrostZuzyciaPaliwa_(nullptr), przyrostMasyNapedu_(nullptr)
 {
@@ -24,7 +24,7 @@ JednostkaLatajacaInfo::JednostkaLatajacaInfo( TiXmlElement* wezel ) throw(Wyjate
 			rodzajNapedu_(Klucz(id,poziom)());
 			
 			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_MOC_SILNIKA,mocSilnika_);
-			if( mocSilnika_ < MocSilnika(0) )
+			if( mocSilnika_ < Moc(0) )
 				throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1), Tekst("Nie poprawny atrybut."), Tekst("Atrybut \"mocSilnika\" posiada niepoprawn¹ wartoœæ.") );
 			przyrostMocySilnika_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_MOC_SILNIKA));
 			
@@ -72,9 +72,9 @@ const Klucz& JednostkaLatajacaInfo::pobierzRodzajNapedu() const{
 	return rodzajNapedu_;
 }
 
-MocSilnika JednostkaLatajacaInfo::pobierzMocSilnika(const PodstawoweParametry& parametry ) const{
+Moc JednostkaLatajacaInfo::pobierzMocSilnika(const PodstawoweParametry& parametry ) const{
 	if(przyrostMocySilnika_)
-		return MocSilnika(przyrostMocySilnika_->policzWartosc(mocSilnika_(),static_cast<int>(parametry.pobierzPoziom()()),parametry.pobierzIdentyfikatorPlanety()()));
+		return Moc(przyrostMocySilnika_->policzWartosc(mocSilnika_(),static_cast<int>(parametry.pobierzPoziom()()),parametry.pobierzIdentyfikatorPlanety()()));
 	else
 		return mocSilnika_;
 }
@@ -104,7 +104,7 @@ string JednostkaLatajacaInfo::napis() const{
 	Logger str(NAZWAKLASY(JednostkaLatajacaInfo));
 	str.dodajKlase(Info::napis());
 	str.dodajPole("RodzajNapedu",rodzajNapedu_);
-	str.dodajPole(NAZWAKLASY(MocSilnika),mocSilnika_);
+	str.dodajPole(NAZWAKLASY(Moc),mocSilnika_);
 	if(przyrostMocySilnika_){
 		str.dodajPole("ZmianaMocySilnika",*przyrostMocySilnika_);
 	}

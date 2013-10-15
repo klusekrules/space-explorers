@@ -62,7 +62,7 @@ public:
 	*
 	* \return Moc silnika.
 	*/
-	virtual MocSilnika pobierzMocSilnika()const;
+	virtual Moc pobierzMocSilnika()const;
 
 	/**
 	* \brief Metoda wyliczaj¹ca masê silnika.

@@ -64,9 +64,6 @@
     <ClCompile Include="Predkosc.cpp">
       <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
-    <ClCompile Include="MocSilnika.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClCompile>
     <ClCompile Include="Obrazenia.cpp">
       <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
@@ -295,6 +292,9 @@
     <ClCompile Include="Temperatura.cpp">
       <Filter>SourceFile\Typy podstawowe</Filter>
     </ClCompile>
+    <ClCompile Include="Moc.cpp">
+      <Filter>SourceFile\Typy podstawowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -370,9 +370,6 @@
       <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="Predkosc.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
-    <ClInclude Include="MocSilnika.h">
       <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
     <ClInclude Include="Obrazenia.h">
@@ -649,6 +646,9 @@
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
     <ClInclude Include="Temperatura.h">
+      <Filter>SourceFile\Typy podstawowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Moc.h">
       <Filter>SourceFile\Typy podstawowe</Filter>
     </ClInclude>
   </ItemGroup>

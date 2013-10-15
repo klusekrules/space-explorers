@@ -13,7 +13,7 @@ public:
 	static const SPG::Powierzchnia powierzchniaDomyslny;
 	static const SPG::Masa masaDomyslny;
 	static const SPG::IloscJednostek iloscJednostekDomyslny;
-	static const SPG::MocSilnika mocSilnikaDomyslny;
+	static const SPG::Moc mocSilnikaDomyslny;
 	static const SPG::ZuzyciePaliwa zuzyciePaliwaDomyslny;
 	static const SPG::Identyfikator idDomyslny;
 	static const SPG::Fluktuacja fluktuacjaDomyslny;
