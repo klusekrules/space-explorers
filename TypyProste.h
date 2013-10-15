@@ -15,6 +15,7 @@ namespace SPG{
 	typedef double			Objetosc;
 	typedef double			Masa;
 	typedef double			Dystans;
+	typedef double			Temperatura;
 	typedef double			Predkosc;
 	typedef double			Powierzchnia;
 	typedef double			Parametr;
