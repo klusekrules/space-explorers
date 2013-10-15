@@ -118,6 +118,13 @@ public:
 	Dystans operator+( const Dystans& wartosc )const;
 
 	/**
+	* \brief Operator dzielenia.
+	*
+	* \param[in] wartosc - Wartoœæ przez jak¹ ma zostaæ podzielona wartoœæ klasy.
+	*/
+	Dystans operator/( const type_name& wartosc )const;
+
+	/**
 	* Funkcja s³u¿¹ca jako podstawa do tworzenia napisów z opisem klasy.
 	* \return Napis zawieraj¹cy opis klasy.
 	*/

@@ -1,6 +1,8 @@
 #include "Fluktuacja.h"
 #include "Logger.h"
 #include "Stale.h"
+const SPG::Fluktuacja Fluktuacja::MIN = 0.0f;
+const SPG::Fluktuacja Fluktuacja::MAX = 1.0f;
 
 Fluktuacja::Fluktuacja()
 	: PodstawowyInterfejs( Stale::fluktuacjaDomyslny )

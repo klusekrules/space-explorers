@@ -75,7 +75,7 @@ shared_ptr<Planeta> Gra::stworzPlanete(){
 	planeta->nazwaPlanety_ = Tekst(DOMYSLNA_NAZWA_PLANETY);
 	planeta->srednicaPlanety_ = Dystans();
 	planeta->odlegloscOdSlonca_ = Dystans();
-	planeta->predkoscKatowaPlanety_ = Predkosc();
+	//planeta->predkoscKatowaPlanety_ = Predkosc();
 	wolnePlanety_.insert(make_pair(planeta->pobierzIdentyfikator(),planeta));
 	wszystkiePlanety_.insert(make_pair(planeta->pobierzIdentyfikator(),planeta));
 	listaSygnatur_.insert(make_pair(planeta->pobierzIdentyfikator(),planeta->pobierzSygnature()));

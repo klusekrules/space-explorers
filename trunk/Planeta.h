@@ -14,6 +14,7 @@
 #include "Licznik.h"
 #include "Obrona.h"
 #include "SygnaturaPlanety.h"
+#include "Temperatura.h"
 
 /**
 * \brief Klasa reprezentuj¹ca planetê.
@@ -258,6 +259,11 @@ public:
 	*/
 	void ustawNazwePlanety( const Tekst& nazwa );
 
+	void ustawTemperature( const Temperatura& temperatura );
+	void ustawSrednice( const Dystans& srednica );
+	void ustawOdlegloscOdSrodkaUkladu( const Dystans& odleglosc );
+	bool wyliczPowierzchnie( const Fluktuacja& procentWody, const Fluktuacja& procentUzytkowa );
+
 
 	/**
 	* \brief Metoda odswieza nazwe uzytkownika.
@@ -375,15 +381,15 @@ private:
 	/* Lista parametrów planety */
 	Dystans srednicaPlanety_; /// Atrybut przechowuje informacje o œrednicy planety.
 	Dystans odlegloscOdSlonca_; /// Atrybut przechowuje informacje o odleg³oœci planety od centrum uk³adu s³onecznego.
-	Predkosc predkoscKatowaPlanety_ ; /// Atrybut przechowuje informacje o prêdkoœci obiegu planety woko³o s³oñca.
-	Fluktuacja naslonecznieniePlanety_; /// Atrybut przechowuj¹cy informacje o nas³onecznieniu planety.
-	Fluktuacja wietrznoscPlanety_; /// Atrybut przechowuj¹cy informacje o natê¿eniu wiatrów na planecie.
-	Fluktuacja temperaturaPlanety_; /// Atrybut przechowuj¹cy informacje o œredniej temperaturze planety.
+	//Predkosc predkoscKatowaPlanety_ ; /// Atrybut przechowuje informacje o prêdkoœci obiegu planety woko³o s³oñca.
+	//Fluktuacja naslonecznieniePlanety_; /// Atrybut przechowuj¹cy informacje o nas³onecznieniu planety.
+	//Fluktuacja wietrznoscPlanety_; /// Atrybut przechowuj¹cy informacje o natê¿eniu wiatrów na planecie.
+	Temperatura temperaturaPlanety_; /// Atrybut przechowuj¹cy informacje o œredniej temperaturze planety.
 	Powierzchnia calkowitaPowierzchniaPlanety_; /// Atrybut przehcowuj¹cy informacje o ca³kowitej powierzchni planety.
 	Powierzchnia powierzchniaZajetaPrzezWode_; /// Atrybut przechowuj¹cy informacje o powierzchni planety zajêtej przez wodê.
 	Powierzchnia powierzchniaLadow_; /// Atrybut przechowuj¹cy informacje o powierzchni planety zajêtej przez l¹dy.
 	Powierzchnia powierzchniaUzytkowaLadow_; /// Atrybut przechowuj¹cy informacje o powierzchni u¿ytkowej planety.
-	ListaZasobow dostepneZasobyPlanety_; /// Lista zasobów jakie mo¿na wydobyæ na planecie.
+	//ListaZasobow dostepneZasobyPlanety_; /// Lista zasobów jakie mo¿na wydobyæ na planecie.
 	Tekst nazwaPlanety_; /// Nazwa planety.
 
 	mutable shared_ptr<SygnaturaPlanety> sygnatura_; /// WskaŸnika na sygnaturê reprezentuj¹c¹ planetê.
