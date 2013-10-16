@@ -9,7 +9,7 @@
 #define DOMYSLNA_NAZWA_PLANETY "Bez nazwy"
 
 Gra::Gra(Aplikacja& aplikacja)
-	: aplikacja_(aplikacja), fabryka_(ZmianaFabryka::pobierzInstancje()), uzytkownik_(nullptr)
+	: aplikacja_(aplikacja), fabryka_(ZmianaFabryka::pobierzInstancje()), uzytkownik_(nullptr), generator_()
 {
 	licznikIdentyfikatorowPlanet_.ustawWartosc(Ilosc(1));
 }
@@ -63,10 +63,27 @@ Uzytkownik& Gra::pobierzUzytkownika() const throw (NieznalezionoObiektu) {
 	return *uzytkownik_;
 }
 
-shared_ptr<Planeta> Gra::pobierzPlanete( const Identyfikator& identyfikator ){
+shared_ptr<Planeta> Gra::pobierzPlanete( const Identyfikator& identyfikator ) const{
 	auto iterator = wszystkiePlanety_.find(identyfikator);
 	if(iterator!=wszystkiePlanety_.end())
 		return iterator->second;
+	return nullptr;
+}
+
+shared_ptr<Planeta> Gra::pobierzPlanete( const SygnaturaPlanety& sygnatura ) const{
+	return pobierzPlanete(sygnatura.pobierzIdentyfikator());
+}
+
+shared_ptr<SygnaturaPlanety> Gra::pobierzSygnaturePlanety( const Identyfikator& identyfikator ){
+	auto iterator = listaSygnatur_.find(identyfikator);
+	if(iterator!=listaSygnatur_.end())
+		return iterator->second;
+	auto planeta = pobierzPlanete(identyfikator);
+	if(planeta){
+		auto sygnatura = planeta->pobierzSygnature();
+		listaSygnatur_.insert(make_pair(identyfikator,sygnatura));
+		return sygnatura;
+	}
 	return nullptr;
 }
 
@@ -342,12 +359,16 @@ bool Gra::zapisz( TiXmlElement* wezel ) const{
 	for(auto planeta :  wolnePlanety_)
 		if(!planeta.second->zapisz(element))
 			return false;
+	if(!generator_.zapisz(element))
+		return false;
 	return licznikIdentyfikatorowPlanet_.zapisz(element);
 }
 
 bool Gra::odczytaj( TiXmlElement* wezel ){
 	if(wezel){
-		if(!licznikIdentyfikatorowPlanet_.odczytaj(wezel->FirstChildElement(WEZEL_XML_LICZNIK)))
+		if(!licznikIdentyfikatorowPlanet_.odczytaj(XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_LICZNIK)))
+			return false;
+		if(!generator_.odczytaj(XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_GENERATOR_UKLADOW)))
 			return false;
 		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_SYGNATURA_PLANETY); element ; element = element->NextSiblingElement(WEZEL_XML_SYGNATURA_PLANETY)){
 			auto sygnatura = make_shared<SygnaturaPlanety>();
