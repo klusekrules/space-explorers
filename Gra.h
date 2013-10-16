@@ -8,6 +8,7 @@
 #include "Uzytkownik.h"
 #include <unordered_map>
 #include "Licznik.h"
+#include "GeneratorUkladow.h"
 
 /**
 * \brief Klasa reprezentuj¹ca grê.
@@ -101,7 +102,11 @@ public:
 	* \param[in] identyfikator - identyfikator planety.
 	* \return Sprytny wskaŸnika na obiekt planety lub nullptr je¿eli nie znaleziono planety o takim identyfikatorze.
 	*/
-	shared_ptr<Planeta> pobierzPlanete( const Identyfikator& identyfikator );
+	shared_ptr<Planeta> pobierzPlanete( const Identyfikator& identyfikator ) const;
+
+	shared_ptr<Planeta> pobierzPlanete( const SygnaturaPlanety& sygnatura ) const;
+
+	shared_ptr<SygnaturaPlanety> pobierzSygnaturePlanety( const Identyfikator& identyfikator );
 
 	/**
 	* \brief Metoda s³u¿y do dodawania planety do listy planet.
@@ -429,4 +434,6 @@ private:
 	Uzytkownik::ListaPlanet wolnePlanety_; /// Lista wolnych planet.
 	Uzytkownik::ListaPlanet wszystkiePlanety_; /// Lista wszystkich planet.
 	unordered_map<Identyfikator, shared_ptr<SygnaturaPlanety>, IdTypeHash > listaSygnatur_;
+
+	GeneratorUkladow generator_;
 };

@@ -2,6 +2,7 @@
 #include "Logger\Logger.h"
 #include "XmlBO.h"
 #include "definicjeWezlowXML.h"
+#include "Aplikacja.h"
 
 SygnaturaPlanety::SygnaturaPlanety()
 	: Bazowa(Identyfikator())
@@ -31,6 +32,14 @@ Tekst SygnaturaPlanety::pobierzNazweGracza()const{
 
 void SygnaturaPlanety::ustawNazweGracza( const Tekst& nazwa ){
 	nazwaGracza_ = nazwa;
+}
+
+shared_ptr<SygnaturaPlanety> SygnaturaPlanety::pobierzOryginalnyWskaznik() const{
+	return Aplikacja::pobierzInstancje().pobierzGre().pobierzSygnaturePlanety(pobierzIdentyfikator());
+}
+
+shared_ptr<Planeta> SygnaturaPlanety::pobierzPlanete() const{
+	return Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(*this);
 }
 
 bool SygnaturaPlanety::zapisz( TiXmlElement* wezel ) const{

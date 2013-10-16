@@ -23,6 +23,8 @@
 #define WEZEL_XML_WYMOG "Wymog"
 #define WEZEL_XML_ZAPOTRZEBOWANIE "Zapotrzebowanie"
 #define WEZEL_XML_ZASOB "Zasob"
+#define WEZEL_XML_UKLAD_SLONECZNY "UkladSloneczny"
+#define WEZEL_XML_GENERATOR_UKLADOW "GeneratorUkladow"
 #define WEZEL_XML_OBIEKTBASE_INFO "ObiektBaseInfo"
 #define WEZEL_XML_SUROWCE_INFO "SurowceInfo"
 #define WEZEL_XML_OBRONA_INFO "ObronaInfo"
@@ -34,6 +36,7 @@
 #define WEZEL_XML_JEDNOSTKA_LATAJACA_INFO  "JednostkaLatajacaInfo"
 #define WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO  "JednostkaAtakujacaInfo"
 #define WEZEL_XML_HANGAR_INFO "HangarInfo"
+
 
 #define ATRYBUT_XML_IDENTYFIKATOR "id"
 #define ATRYBUT_XML_IDENTYFIKATOR_PLANETA_POCZATKOWA "idPlanetaPoczatkowa"
@@ -69,6 +72,8 @@
 #define ATRYBUT_XML_NASLONECZNIENIE_PLANETY "naslonecznienie"
 #define ATRYBUT_XML_WIETRZNOSC_PLANETY "wietrznosc"
 #define ATRYBUT_XML_TEMPERATURA_PLANETY "temperatura"
+#define ATRYBUT_XML_SREDNICA_GWIAZDY "srednicaGwiazdy"
+#define ATRYBUT_XML_SREDNIA_TEMPERATURA_GWIAZDY "sredniaTemperaturaGwiazdy"
 #define ATRYBUT_XML_CALKOWITA_POWIERZNIA_PLANETY "powierzchniaCalkowita"
 #define ATRYBUT_XML_POWIERZCHNIA_ZAJETA_PRZEZ_WODE "powierzchniaWody"
 #define ATRYBUT_XML_POWIERZCHNIA_LADOW "powierzchniaLadow"

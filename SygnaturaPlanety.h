@@ -2,6 +2,9 @@
 #include "Logger\LoggerInterface.h"
 #include "Bazowa.h"
 #include "Tekst.h"
+#include <memory>
+
+class Planeta;
 
 class SygnaturaPlanety :
 	public Bazowa,
@@ -60,6 +63,10 @@ public:
 	* \warning Nazwa jest zmieniana tylko lokalnie. Zmiana w tym obiekcie nie wp³ywa na nazwê o obiekcie g³ównym.
 	*/
 	void ustawNazweGracza( const Tekst& nazwa );
+
+	std::shared_ptr<SygnaturaPlanety> pobierzOryginalnyWskaznik() const;
+
+	std::shared_ptr<Planeta> pobierzPlanete() const;
 
 	/**
 	* \brief Metoda zapisuj¹ca.

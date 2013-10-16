@@ -1,5 +1,9 @@
 #include "GeneratorUkladow.h"
+#include "XmlBO.h"
 
+const Identyfikator GeneratorUkladow::LICZNIK_PLANET_ID( 0x1 );
+const Identyfikator GeneratorUkladow::LICZNIK_UKLADOW_ID( 0x2 );
+const Identyfikator GeneratorUkladow::LICZNIK_GALAKTYK_ID( 0x3 );
 
 const SPG::Dystans GeneratorUkladow::SREDNICA_GWIAZDY_MIN = 0.5;
 const SPG::Dystans GeneratorUkladow::SREDNICA_GWIAZDY_MAX = 70.0;
@@ -34,8 +38,8 @@ const SPG::Temperatura GeneratorUkladow::TEMPERATURA_PLANETY_MAX = 500;
 
 const SPG::Fluktuacja GeneratorUkladow::POWIERZCHNIA_WODY_MAX = 0.9f;
 
-GeneratorUkladow::GeneratorUkladow(Licznik& licznikIdPlanet)
-	: licznikIdPlanet(licznikIdPlanet), 
+GeneratorUkladow::GeneratorUkladow()
+	: licznikIdPlanet(LICZNIK_PLANET_ID), licznikIdUkladow(LICZNIK_UKLADOW_ID), licznikIdGalaktyk(LICZNIK_GALAKTYK_ID),
 	dystrybutorSrednicyGwiazdy(SREDNICA_GWIAZDY_PARAM_ALFA,SREDNICA_GWIAZDY_PARAM_BETA), 
 	dystrybutorIlosciPlanet( ILOSC_PLANET_MAX - ILOSC_PLANET_MIN , ILOSC_PLANET_PARAM ), 
 	dystrybucjaPowierzchniUzytkowej(POWIERZCHNIA_UZYTKOWA_MIN,POWIERZCHNIA_UZYTKOWA_MAX)
@@ -47,12 +51,12 @@ GeneratorUkladow::GeneratorUkladow(Licznik& licznikIdPlanet)
 	//TODO: Walidacja sta³ych, wyswietlanie sta³ych w logach.
 }
 
-GeneratorUkladow::~GeneratorUkladow(void)
+GeneratorUkladow::~GeneratorUkladow()
 {
 }
 
 shared_ptr<UkladSloneczny> GeneratorUkladow::generujUklad() const{
-	auto uklad = make_shared<UkladSloneczny>();
+	auto uklad = make_shared<UkladSloneczny>(Identyfikator(licznikIdUkladow()));
 
 	uklad->ustawSredniceGwiazdy(generujSredniceGwiazdy());
 	uklad->ustawSredniaTemperatureGwiazdy(generujTemperatureGwiazdy(uklad->pobierzSredniceGwiazdy()()));
@@ -65,6 +69,7 @@ shared_ptr<UkladSloneczny> GeneratorUkladow::generujUklad() const{
 	for(  ; iloscPlanet > 0 ; --iloscPlanet ){
 		odlegloscOdSrodkaUkladu += Dystans(dystrybutorOdleglosciMiedzyplanetarnej(generator));
 		auto planeta = generujPlanete(odlegloscOdSrodkaUkladu,mocGwiazdy);
+		uklad->dodajPlanete(planeta->pobierzSygnature());
 	}
 	return uklad;
 }
@@ -116,3 +121,36 @@ SPG::Temperatura GeneratorUkladow::generujTemperaturePlanety( const Dystans& odl
 	return TEMPERATURA_PLANETY_MAX + 200.0 * ( 1.0 / ( (-4 * mocGwiazdy()) / (odlegloscOdCentrum() * odlegloscOdCentrum()) - 0.5 )  );
 }
 
+bool GeneratorUkladow::zapisz( TiXmlElement* wezel ) const{
+	TiXmlElement* element = new TiXmlElement(WEZEL_XML_GENERATOR_UKLADOW);
+	wezel->LinkEndChild( element );
+	return licznikIdPlanet.zapisz(element) && licznikIdUkladow.zapisz(element) && licznikIdGalaktyk.zapisz(element);
+}
+
+bool GeneratorUkladow::odczytaj( TiXmlElement* wezel ){
+	if(wezel){
+
+		auto element = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_LICZNIK,ATRYBUT_XML_IDENTYFIKATOR,LICZNIK_PLANET_ID.napis());
+		if(!licznikIdPlanet.odczytaj(element))
+			return false;
+
+		element = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_LICZNIK,ATRYBUT_XML_IDENTYFIKATOR,LICZNIK_UKLADOW_ID.napis());
+		if(!licznikIdUkladow.odczytaj(element))
+			return false;
+
+		element = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_LICZNIK,ATRYBUT_XML_IDENTYFIKATOR,LICZNIK_GALAKTYK_ID.napis());
+		if(!licznikIdGalaktyk.odczytaj(element))
+			return false;
+		
+		return true;
+	}
+	return false;
+}
+
+string GeneratorUkladow::napis() const {
+	Logger str(NAZWAKLASY(GeneratorUkladow));
+	str.dodajPole("LicznikIDPlanet",licznikIdPlanet);
+	str.dodajPole("LicznikIDUkladow",licznikIdUkladow);
+	str.dodajPole("LicznikIDGalaktyk",licznikIdGalaktyk);
+	return str.napis();
+}

@@ -6,9 +6,15 @@
 
 using namespace std;
 
-class GeneratorUkladow
+class GeneratorUkladow :
+	virtual public LoggerInterface,
+	public Serializacja
 {
 public:
+	const static Identyfikator LICZNIK_PLANET_ID;
+	const static Identyfikator LICZNIK_UKLADOW_ID;
+	const static Identyfikator LICZNIK_GALAKTYK_ID;
+	
 	const static SPG::Dystans SREDNICA_GWIAZDY_MIN;
 	const static SPG::Dystans SREDNICA_GWIAZDY_MAX;
 	const static double SREDNICA_GWIAZDY_PARAM_ALFA;
@@ -40,11 +46,38 @@ public:
 
 	const static SPG::Fluktuacja POWIERZCHNIA_WODY_MAX;
 
-	GeneratorUkladow( Licznik& licznikIdPlanet );
-	~GeneratorUkladow(void);
+	GeneratorUkladow();
+	~GeneratorUkladow();
 
 	shared_ptr<UkladSloneczny> generujUklad() const;
 	shared_ptr<Planeta> generujPlanete( const Dystans& odlegloscOdCentrum, const Moc& mocGwiazdy ) const;
+
+	/**
+	* \brief Metoda zapisuj¹ca.
+	*
+	* Metoda s³u¿¹ca do zapisu danych do wêz³a xml podanego jako parametr.
+	* \param[out] wezel - Wêze³ do którego s¹ zapisywane dane.
+	* \return Zwracana jest wartoœæ true, je¿eli zapisano obiekt poprawnie. False, je¿eli zapis siê nie powiód³.
+	* \warning Je¿eli zwrócono wartoœæ false wêze³ przekazany jako parametr nie jest zmodyfokowany.
+	*/
+	bool zapisz( TiXmlElement* wezel ) const override;
+
+	/**
+	* \brief Metoda odczytuj¹ca.
+	*
+	* Metoda s³u¿¹ca do odczytu danych z wêz³a xml podanego jako parametr.
+	* \param[in] wezel - Wêze³ z którego s¹ odczytywane dane.
+	* \return Zwracana jest wartoœæ true, je¿eli odczytano obiekt poprawnie. False, je¿eli odczyt siê nie powiód³.
+	* \warning Metoda nie modyfikuje wêz³a.
+	* \warning Je¿eli metoda zwróci wartoœæ false, obiekt mo¿e znajdowaæ siê w stanie nieustalonym. Nie jest zalecane u¿ywanie takiego obiektu.
+	*/
+	bool odczytaj( TiXmlElement* wezel ) override;
+
+	/**
+	* Funkcja s³u¿¹ca jako podstawa do tworzenia napisów z opisem klasy.
+	* \return Napis zawieraj¹cy opis klasy.
+	*/
+	string napis() const override;
 
 private:
 
@@ -52,7 +85,9 @@ private:
 	gamma_distribution<SPG::Dystans> dystrybutorSrednicyGwiazdy;
 	binomial_distribution<int> dystrybutorIlosciPlanet;
 	uniform_real_distribution<SPG::Fluktuacja>  dystrybucjaPowierzchniUzytkowej;
-	Licznik& licznikIdPlanet;
+	mutable Licznik licznikIdPlanet;
+	mutable Licznik licznikIdUkladow;
+	mutable Licznik licznikIdGalaktyk;
 
 	SPG::Dystans generujSredniceGwiazdy() const;
 
