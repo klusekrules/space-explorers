@@ -71,7 +71,7 @@ bool UkladSloneczny::odczytaj( TiXmlElement* wezel ){
 				return false;
 			planety_.push_back(sygnatura.pobierzOryginalnyWskaznik());
 		}
-		return true;
+		return Bazowa::odczytaj(wezel);
 	}
 	return false;
 }

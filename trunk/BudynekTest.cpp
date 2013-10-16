@@ -4,8 +4,10 @@
 BudynekTest::BudynekTest(void)
 {
 }
+
 void BudynekTest::startTestow() {
-	planeta = Aplikacja::pobierzInstancje().pobierzGre().stworzPlanete();
+	planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(Identyfikator(0x8));
+	UNIT_TEST_ASSERT_NOTNULL(planeta);
 	UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
 	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(17),Poziom(1)),Ilosc(20)) );
 	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(17),Poziom(1)),Ilosc(20)) );

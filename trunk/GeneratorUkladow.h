@@ -3,8 +3,11 @@
 #include "UkladSloneczny.h"
 #include "Planeta.h"
 #include "Licznik.h"
+#include "Galaktyka.h"
 
 using namespace std;
+
+class Gra;
 
 class GeneratorUkladow :
 	virtual public LoggerInterface,
@@ -46,9 +49,13 @@ public:
 
 	const static SPG::Fluktuacja POWIERZCHNIA_WODY_MAX;
 
-	GeneratorUkladow();
-	~GeneratorUkladow();
+	const static int ILOSC_UKLADOW_MIN;
+	const static int ILOSC_UKLADOW_MAX;
 
+	GeneratorUkladow( Gra& gra );
+	virtual ~GeneratorUkladow();
+
+	shared_ptr<Galaktyka> generujGalaktyke() const;
 	shared_ptr<UkladSloneczny> generujUklad() const;
 	shared_ptr<Planeta> generujPlanete( const Dystans& odlegloscOdCentrum, const Moc& mocGwiazdy ) const;
 
@@ -81,9 +88,12 @@ public:
 
 private:
 
+	Gra& gra_;
+
 	mutable random_device generator;
 	gamma_distribution<SPG::Dystans> dystrybutorSrednicyGwiazdy;
 	binomial_distribution<int> dystrybutorIlosciPlanet;
+	uniform_int_distribution<int> dystrybutorIlosciUkladow;
 	uniform_real_distribution<SPG::Fluktuacja>  dystrybucjaPowierzchniUzytkowej;
 	mutable Licznik licznikIdPlanet;
 	mutable Licznik licznikIdUkladow;

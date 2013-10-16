@@ -84,7 +84,7 @@ public:
 	* \return Sprytny wskaŸnika na obiekt planety.
 	* \todo Metoda nie dokoñczona. 
 	*/
-	shared_ptr<Planeta> stworzPlanete();
+	//shared_ptr<Planeta> stworzPlanete();
 
 	/**
 	* \brief Metoda przenosi planetê do zalogowane u¿ytkownika.
@@ -107,6 +107,8 @@ public:
 	shared_ptr<Planeta> pobierzPlanete( const SygnaturaPlanety& sygnatura ) const;
 
 	shared_ptr<SygnaturaPlanety> pobierzSygnaturePlanety( const Identyfikator& identyfikator );
+
+	void generujNowaGalaktyke();
 
 	/**
 	* \brief Metoda s³u¿y do dodawania planety do listy planet.
@@ -430,10 +432,12 @@ private:
 	unordered_map<Identyfikator, shared_ptr<ObiektInfo>, IdTypeHash > listaObiektowInfo_; /// Lista obiektów opisowych.
 	unordered_map<Identyfikator, shared_ptr<ObiektBazowyInfo>, IdTypeHash > listaObiektowBaseInfo_; /// Lista bazowych obiektów opisowych.
 
-	Licznik licznikIdentyfikatorowPlanet_; /// Licznik identyfikatorów planet.
+	//Licznik licznikIdentyfikatorowPlanet_; /// Licznik identyfikatorów planet.
 	Uzytkownik::ListaPlanet wolnePlanety_; /// Lista wolnych planet.
 	Uzytkownik::ListaPlanet wszystkiePlanety_; /// Lista wszystkich planet.
 	unordered_map<Identyfikator, shared_ptr<SygnaturaPlanety>, IdTypeHash > listaSygnatur_;
 
 	GeneratorUkladow generator_;
+
+	unordered_map<Identyfikator, shared_ptr<Galaktyka>, IdTypeHash > listaGalaktyk_;
 };

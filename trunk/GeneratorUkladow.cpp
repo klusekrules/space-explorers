@@ -1,5 +1,6 @@
 #include "GeneratorUkladow.h"
 #include "XmlBO.h"
+#include "Gra.h"
 
 const Identyfikator GeneratorUkladow::LICZNIK_PLANET_ID( 0x1 );
 const Identyfikator GeneratorUkladow::LICZNIK_UKLADOW_ID( 0x2 );
@@ -38,10 +39,14 @@ const SPG::Temperatura GeneratorUkladow::TEMPERATURA_PLANETY_MAX = 500;
 
 const SPG::Fluktuacja GeneratorUkladow::POWIERZCHNIA_WODY_MAX = 0.9f;
 
-GeneratorUkladow::GeneratorUkladow()
-	: licznikIdPlanet(LICZNIK_PLANET_ID), licznikIdUkladow(LICZNIK_UKLADOW_ID), licznikIdGalaktyk(LICZNIK_GALAKTYK_ID),
+const int GeneratorUkladow::ILOSC_UKLADOW_MIN = 1000;
+const int GeneratorUkladow::ILOSC_UKLADOW_MAX = 10000;
+
+GeneratorUkladow::GeneratorUkladow( Gra& gra )
+	: gra_(gra), licznikIdPlanet(LICZNIK_PLANET_ID,Ilosc(1)), licznikIdUkladow(LICZNIK_UKLADOW_ID,Ilosc(1)), licznikIdGalaktyk(LICZNIK_GALAKTYK_ID,Ilosc(1)),
 	dystrybutorSrednicyGwiazdy(SREDNICA_GWIAZDY_PARAM_ALFA,SREDNICA_GWIAZDY_PARAM_BETA), 
 	dystrybutorIlosciPlanet( ILOSC_PLANET_MAX - ILOSC_PLANET_MIN , ILOSC_PLANET_PARAM ), 
+	dystrybutorIlosciUkladow( ILOSC_UKLADOW_MIN , ILOSC_UKLADOW_MAX ),
 	dystrybucjaPowierzchniUzytkowej(POWIERZCHNIA_UZYTKOWA_MIN,POWIERZCHNIA_UZYTKOWA_MAX)
 {
 	if( TEMPERATURA_GWIAZDY_PROCENT_SREDNICY + TEMPERATURA_GWIAZDY_PROCENT_STALY + TEMPERATURA_GWIAZDY_PROCENT_LOSOWY >= 1.0 || 
@@ -53,6 +58,16 @@ GeneratorUkladow::GeneratorUkladow()
 
 GeneratorUkladow::~GeneratorUkladow()
 {
+}
+
+shared_ptr<Galaktyka> GeneratorUkladow::generujGalaktyke() const{
+	auto galaktyka = make_shared<Galaktyka>(Identyfikator(licznikIdGalaktyk()));
+	int iloscUkladow = dystrybutorIlosciUkladow(generator);
+	for(; iloscUkladow > 0 ; --iloscUkladow){
+		auto uklad = generujUklad();
+		galaktyka->dodajUklad(uklad);
+	}
+	return galaktyka;
 }
 
 shared_ptr<UkladSloneczny> GeneratorUkladow::generujUklad() const{
@@ -105,6 +120,7 @@ shared_ptr<Planeta> GeneratorUkladow::generujPlanete( const Dystans& odlegloscOd
 	planeta->ustawSrednice( Dystans( srednica ) );
 	planeta->ustawTemperature( Temperatura( temperatura ) );
 	planeta->ustawOdlegloscOdSrodkaUkladu(odlegloscOdCentrum);
+	gra_.dodajPlanete(planeta);
 	return planeta;
 }
 

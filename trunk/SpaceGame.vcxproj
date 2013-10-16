@@ -213,6 +213,7 @@
     <ClInclude Include="Bazowa.h" />
     <ClInclude Include="BudynekTest.h" />
     <ClInclude Include="Dokumentacja.h" />
+    <ClInclude Include="Galaktyka.h" />
     <ClInclude Include="GeneratorUkladow.h" />
     <ClInclude Include="Hangar.h" />
     <ClInclude Include="HangarInfo.h" />
@@ -352,6 +353,7 @@
     <ClCompile Include="Dystans.cpp" />
     <ClCompile Include="Flota.cpp" />
     <ClCompile Include="Fluktuacja.cpp" />
+    <ClCompile Include="Galaktyka.cpp" />
     <ClCompile Include="GeneratorUkladow.cpp" />
     <ClCompile Include="Gra.cpp" />
     <ClCompile Include="Hangar.cpp" />

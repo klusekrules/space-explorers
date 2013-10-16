@@ -6,7 +6,8 @@ PlanetaTest::PlanetaTest(void)
 }
 
 void PlanetaTest::tworzenieNiezaleznejPlanety(){
-	shared_ptr<Planeta> planeta = Aplikacja::pobierzInstancje().pobierzGre().stworzPlanete();
+	shared_ptr<Planeta> planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(Identyfikator(0x5));
+	UNIT_TEST_ASSERT_NOTNULL(planeta);
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(Planeta::Indeks(Identyfikator(1),Poziom(1)),Ilosc(500)));
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(Planeta::Indeks(Identyfikator(2),Poziom(1)),Ilosc(600)));
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(Planeta::Indeks(Identyfikator(3),Poziom(1)),Ilosc(700)));

@@ -9,13 +9,13 @@
 #define DOMYSLNA_NAZWA_PLANETY "Bez nazwy"
 
 Gra::Gra(Aplikacja& aplikacja)
-	: aplikacja_(aplikacja), fabryka_(ZmianaFabryka::pobierzInstancje()), uzytkownik_(nullptr), generator_()
+	: aplikacja_(aplikacja), fabryka_(ZmianaFabryka::pobierzInstancje()), uzytkownik_(nullptr), generator_(*this)
 {
-	licznikIdentyfikatorowPlanet_.ustawWartosc(Ilosc(1));
+	//licznikIdentyfikatorowPlanet_.ustawWartosc(Ilosc(1));
 }
 
 Gra::Gra(const Gra& gra)
-	: aplikacja_(gra.aplikacja_), fabryka_(ZmianaFabryka::pobierzInstancje()),uzytkownik_(gra.uzytkownik_), licznikIdentyfikatorowPlanet_(gra.licznikIdentyfikatorowPlanet_)
+	: aplikacja_(gra.aplikacja_), fabryka_(ZmianaFabryka::pobierzInstancje()),uzytkownik_(gra.uzytkownik_), generator_(*this)//, licznikIdentyfikatorowPlanet_(gra.licznikIdentyfikatorowPlanet_)
 {
 }
 
@@ -86,7 +86,7 @@ shared_ptr<SygnaturaPlanety> Gra::pobierzSygnaturePlanety( const Identyfikator& 
 	}
 	return nullptr;
 }
-
+/*
 shared_ptr<Planeta> Gra::stworzPlanete(){
 	auto planeta = shared_ptr<Planeta>( new Planeta(Identyfikator(licznikIdentyfikatorowPlanet_())));
 	planeta->nazwaPlanety_ = Tekst(DOMYSLNA_NAZWA_PLANETY);
@@ -97,7 +97,7 @@ shared_ptr<Planeta> Gra::stworzPlanete(){
 	wszystkiePlanety_.insert(make_pair(planeta->pobierzIdentyfikator(),planeta));
 	listaSygnatur_.insert(make_pair(planeta->pobierzIdentyfikator(),planeta->pobierzSygnature()));
 	return planeta;
-}
+}*/
 
 bool Gra::przeniesPlaneteDoUzytkownika( const Identyfikator& identyfikator ){
 	if(!uzytkownik_)
@@ -361,15 +361,16 @@ bool Gra::zapisz( TiXmlElement* wezel ) const{
 			return false;
 	if(!generator_.zapisz(element))
 		return false;
-	return licznikIdentyfikatorowPlanet_.zapisz(element);
+	for(auto galaktyka :  listaGalaktyk_)
+		if(!galaktyka.second->zapisz(element))
+			return false;
+	return true; //licznikIdentyfikatorowPlanet_.zapisz(element);
 }
 
 bool Gra::odczytaj( TiXmlElement* wezel ){
 	if(wezel){
-		if(!licznikIdentyfikatorowPlanet_.odczytaj(XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_LICZNIK)))
-			return false;
-		if(!generator_.odczytaj(XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_GENERATOR_UKLADOW)))
-			return false;
+		/*if(!licznikIdentyfikatorowPlanet_.odczytaj(XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_LICZNIK)))
+			return false;*/		
 		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_SYGNATURA_PLANETY); element ; element = element->NextSiblingElement(WEZEL_XML_SYGNATURA_PLANETY)){
 			auto sygnatura = make_shared<SygnaturaPlanety>();
 			if(!sygnatura->odczytaj(element))
@@ -385,6 +386,18 @@ bool Gra::odczytaj( TiXmlElement* wezel ){
 			auto iter = listaSygnatur_.find(planeta->pobierzIdentyfikator());
 			if(iter == listaSygnatur_.end() || !planeta->ustawSygnature(iter->second))
 				return false;
+		}
+		auto gen = XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_GENERATOR_UKLADOW);
+		if(gen){
+			if(!generator_.odczytaj(gen))
+				return false;
+		}
+
+		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_GALAKTYKA); element ; element = element->NextSiblingElement(WEZEL_XML_GALAKTYKA)){
+			auto galaktyka = make_shared<Galaktyka>(Identyfikator());
+			if(!galaktyka->odczytaj(element))
+				return false;
+			listaGalaktyk_.insert(make_pair(galaktyka->pobierzIdentyfikator(),galaktyka));
 		}
 		return true;	
 	}
@@ -418,6 +431,11 @@ bool Gra::usunGracza(const string& nazwa, const string& hash){
 	if( !dokument )
 		return false;
 	return !remove(dokument->Value());
+}
+
+void Gra::generujNowaGalaktyke(){
+	auto galaktyka = generator_.generujGalaktyke();
+	listaGalaktyk_.insert(make_pair(galaktyka->pobierzIdentyfikator(),galaktyka));	
 }
 
 bool Gra::zapisz( const string& nazwa, const string& hash ) const{
