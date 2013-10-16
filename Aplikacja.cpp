@@ -253,9 +253,6 @@ bool Aplikacja::wczytajGre(const string& nazwa, const string& hash){
 		dokument.LinkEndChild(wezel);
 		TiXmlElement* gra = new TiXmlElement(WEZEL_XML_GRA);
 		wezel->LinkEndChild(gra);
-		Licznik licznik;
-		licznik.ustawWartosc(Ilosc(1));
-		licznik.zapisz(gra);
 		dokument.SaveFile("save\\gra.xml");
 	}
 	TiXmlElement* wezel = dokument.RootElement();

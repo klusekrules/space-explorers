@@ -24,6 +24,7 @@
 #define WEZEL_XML_ZAPOTRZEBOWANIE "Zapotrzebowanie"
 #define WEZEL_XML_ZASOB "Zasob"
 #define WEZEL_XML_UKLAD_SLONECZNY "UkladSloneczny"
+#define WEZEL_XML_GALAKTYKA "Galaktyka"
 #define WEZEL_XML_GENERATOR_UKLADOW "GeneratorUkladow"
 #define WEZEL_XML_OBIEKTBASE_INFO "ObiektBaseInfo"
 #define WEZEL_XML_SUROWCE_INFO "SurowceInfo"
