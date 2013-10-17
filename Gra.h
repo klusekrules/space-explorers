@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include "Licznik.h"
 #include "GeneratorUkladow.h"
+#include "ZarzadcaPamieci.h"
 
 /**
 * \brief Klasa reprezentuj¹ca grê.
@@ -76,16 +77,7 @@ public:
 	* \throw NieznalezionoObiektu
 	*/
 	Uzytkownik& pobierzUzytkownika() const throw (NieznalezionoObiektu);
-
-	/**
-	* \brief Metoda tworzy planetê.
-	*
-	* Metoda tworzy planetê i dodaje j¹ do listy wolnych planet.
-	* \return Sprytny wskaŸnika na obiekt planety.
-	* \todo Metoda nie dokoñczona. 
-	*/
-	//shared_ptr<Planeta> stworzPlanete();
-
+	
 	/**
 	* \brief Metoda przenosi planetê do zalogowane u¿ytkownika.
 	*
@@ -94,30 +86,6 @@ public:
 	* \return true je¿eli uda siê przeniœæ, false w przeciwnym wypadku.
 	*/
 	bool przeniesPlaneteDoUzytkownika( const Identyfikator& identyfikator );
-
-	/**
-	* \brief Metoda pobiera planetê.
-	*
-	* Metoda s³u¿y do pobierania planety o podanym identyfikatorze.
-	* \param[in] identyfikator - identyfikator planety.
-	* \return Sprytny wskaŸnika na obiekt planety lub nullptr je¿eli nie znaleziono planety o takim identyfikatorze.
-	*/
-	shared_ptr<Planeta> pobierzPlanete( const Identyfikator& identyfikator ) const;
-
-	shared_ptr<Planeta> pobierzPlanete( const SygnaturaPlanety& sygnatura ) const;
-
-	shared_ptr<SygnaturaPlanety> pobierzSygnaturePlanety( const Identyfikator& identyfikator );
-
-	void generujNowaGalaktyke();
-
-	/**
-	* \brief Metoda s³u¿y do dodawania planety do listy planet.
-	*
-	* Metoda s³u¿y do dodawania planety do listy wszytskich planet. Metoda sprawdza czy planeta posiada w³aœciciela, je¿eli nie to dodaje j¹ do listy wolnych planet.
-	* \param[in] planeta - Sprytny wskaŸnika na obiekt planety.
-	* \return true je¿eli uda sie dodaæ palnetê, false w przeciwnym przypadku.
-	*/
-	bool dodajPlanete( shared_ptr<Planeta> planeta );
 
 	/**
 	* \brief Metoda s³u¿¹ca do wybudownia na planecie obiektu.
@@ -340,6 +308,13 @@ public:
 	*/
 	bool odczytaj( const string& nazwa, const string& hash );
 
+
+	shared_ptr<Planeta> pobierzPlanete( const Identyfikator& identyfikator );
+
+	int pobierzIloscGalaktyk() const;
+
+	bool generujNowaGalaktyke();
+
 private:
 
 	/**
@@ -432,12 +407,6 @@ private:
 	unordered_map<Identyfikator, shared_ptr<ObiektInfo>, IdTypeHash > listaObiektowInfo_; /// Lista obiektów opisowych.
 	unordered_map<Identyfikator, shared_ptr<ObiektBazowyInfo>, IdTypeHash > listaObiektowBaseInfo_; /// Lista bazowych obiektów opisowych.
 
-	//Licznik licznikIdentyfikatorowPlanet_; /// Licznik identyfikatorów planet.
-	Uzytkownik::ListaPlanet wolnePlanety_; /// Lista wolnych planet.
-	Uzytkownik::ListaPlanet wszystkiePlanety_; /// Lista wszystkich planet.
-	unordered_map<Identyfikator, shared_ptr<SygnaturaPlanety>, IdTypeHash > listaSygnatur_;
-
-	GeneratorUkladow generator_;
-
-	unordered_map<Identyfikator, shared_ptr<Galaktyka>, IdTypeHash > listaGalaktyk_;
+	ZarzadcaPamieci zarzadca_;
 };
+

@@ -4,8 +4,8 @@
 #include "XmlBO.h"
 #include "definicjeWezlowXML.h"
 
-UkladSloneczny::UkladSloneczny( const Identyfikator& id )
-	: Bazowa(id)
+UkladSloneczny::UkladSloneczny( const Identyfikator& id , const Identyfikator& idGalaktyki )
+	: Bazowa(id), idGalaktyki_(idGalaktyki)
 {
 }
 
@@ -33,19 +33,23 @@ Moc UkladSloneczny::pobierzMocGwiazdy() const{
 	return Moc(srednicaGwiazdy_()*sredniaTemperaturaGwiazdy_());
 }
 
-bool UkladSloneczny::dodajPlanete( UkladSloneczny::Sygnatura planeta ){
-	if( !planeta || find(planety_.begin(),planety_.end(),planeta) != planety_.end() )
+bool UkladSloneczny::dodajPlanete( UkladSloneczny::Planeta planeta ){
+	if( !planeta || planety_.find(planeta->pobierzIdentyfikator()) != planety_.end() )
 		return false;
-	planety_.push_back(planeta);
+	planety_[planeta->pobierzIdentyfikator()] = planeta;
 	return true;
 }
 
-UkladSloneczny::Sygnatura UkladSloneczny::pobierzPlanete( int numer ) const{
-	return planety_.at(numer);
+UkladSloneczny::Planeta UkladSloneczny::pobierzPlanete( const Identyfikator& numer ){
+	return planety_[numer];
 }
 
 int UkladSloneczny::liczbaPlanet() const{
 	return static_cast<int>( planety_.size() );
+}
+
+const Identyfikator& UkladSloneczny::pobierzIdGalaktyki() const{
+	return idGalaktyki_;
 }
 
 bool UkladSloneczny::zapisz( TiXmlElement* wezel ) const{
@@ -53,25 +57,27 @@ bool UkladSloneczny::zapisz( TiXmlElement* wezel ) const{
 	wezel->LinkEndChild( element );
 	element->SetAttribute(ATRYBUT_XML_SREDNICA_GWIAZDY, srednicaGwiazdy_.napis());
 	element->SetAttribute(ATRYBUT_XML_SREDNIA_TEMPERATURA_GWIAZDY, sredniaTemperaturaGwiazdy_.napis());
-	for(auto sygnatura :  planety_)
-		if(!sygnatura->zapisz(element))
+	for(auto planeta :  planety_)
+		if(!planeta.second->zapisz(element))
 			return false;
 	return Bazowa::zapisz(element);
 }
 
 bool UkladSloneczny::odczytaj( TiXmlElement* wezel ){
 	if(wezel){
+		if(!Bazowa::odczytaj(wezel))
+			return false;
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_SREDNICA_GWIAZDY,srednicaGwiazdy_))
 			return false;
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_SREDNIA_TEMPERATURA_GWIAZDY,sredniaTemperaturaGwiazdy_))
 			return false;
-		SygnaturaPlanety sygnatura;
-		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_SYGNATURA_PLANETY) ; element ; element = element->NextSiblingElement(WEZEL_XML_SYGNATURA_PLANETY)){
-			if(!sygnatura.odczytaj(element))
+		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_PLANETA) ; element ; element = element->NextSiblingElement(WEZEL_XML_PLANETA)){
+			auto planeta = make_shared<::Planeta>(Identyfikator(),pobierzIdentyfikator());
+			if(!planeta->odczytaj(element))
 				return false;
-			planety_.push_back(sygnatura.pobierzOryginalnyWskaznik());
+			planety_[planeta->pobierzIdentyfikator()] =planeta;
 		}
-		return Bazowa::odczytaj(wezel);
+		return true; 
 	}
 	return false;
 }
@@ -81,9 +87,9 @@ string UkladSloneczny::napis() const {
 	str.dodajKlase(Bazowa::napis());
 	str.dodajPole("srednicaGwiazdy",srednicaGwiazdy_);
 	str.dodajPole("sredniaTemperaturaGwiazdy",sredniaTemperaturaGwiazdy_);
-	for( auto a : planety_ ){
-		if(a){
-			str.dodajPole("Planeta",*a);
+	for( auto planeta : planety_ ){
+		if(planeta.second){
+			str.dodajPole("Planeta",*planeta.second);
 		}
 	}
 	return str.napis();

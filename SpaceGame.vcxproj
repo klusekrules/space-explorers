@@ -215,6 +215,7 @@
     <ClInclude Include="Dokumentacja.h" />
     <ClInclude Include="Galaktyka.h" />
     <ClInclude Include="GeneratorUkladow.h" />
+    <ClInclude Include="GenerowanieTest.h" />
     <ClInclude Include="Hangar.h" />
     <ClInclude Include="HangarInfo.h" />
     <ClInclude Include="HangarTest.h" />
@@ -224,13 +225,13 @@
     <ClInclude Include="ObronaInfo.h" />
     <ClInclude Include="ObronaTest.h" />
     <ClInclude Include="PlanetaTest.h" />
-    <ClInclude Include="SygnaturaPlanety.h" />
     <ClInclude Include="Temperatura.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="UkladSloneczny.h" />
     <ClInclude Include="Walidator.h" />
+    <ClInclude Include="ZarzadcaPamieci.h" />
     <ClInclude Include="Zlecenia.h" />
     <ClInclude Include="InicjalizacjaDanychTestowych.h" />
     <ClInclude Include="LadowniaTest.h" />
@@ -355,6 +356,7 @@
     <ClCompile Include="Fluktuacja.cpp" />
     <ClCompile Include="Galaktyka.cpp" />
     <ClCompile Include="GeneratorUkladow.cpp" />
+    <ClCompile Include="GenerowanieTest.cpp" />
     <ClCompile Include="Gra.cpp" />
     <ClCompile Include="Hangar.cpp" />
     <ClCompile Include="HangarInfo.cpp" />
@@ -415,7 +417,6 @@
     <ClCompile Include="StatekTest.cpp" />
     <ClCompile Include="Surowce.cpp" />
     <ClCompile Include="SurowceInfo.cpp" />
-    <ClCompile Include="SygnaturaPlanety.cpp" />
     <ClCompile Include="Technologia.cpp" />
     <ClCompile Include="TechnologiaInfo.cpp" />
     <ClCompile Include="TechnologiaTest.cpp" />
@@ -437,6 +438,7 @@
     <ClCompile Include="Wymagania.cpp" />
     <ClCompile Include="WymaganiaTest.cpp" />
     <ClCompile Include="ZapisStanuGryTest.cpp" />
+    <ClCompile Include="ZarzadcaPamieci.cpp" />
     <ClCompile Include="ZleceniaTest.cpp" />
     <ClCompile Include="ZmianaPoziomObiektu.cpp" />
     <ClCompile Include="ZuzyciePaliwa.cpp" />

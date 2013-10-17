@@ -277,9 +277,6 @@
     <ClCompile Include="Planeta.cpp">
       <Filter>SourceFile\Lokacje</Filter>
     </ClCompile>
-    <ClCompile Include="SygnaturaPlanety.cpp">
-      <Filter>SourceFile\Lokacje</Filter>
-    </ClCompile>
     <ClCompile Include="Walidator.cpp">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClCompile>
@@ -297,6 +294,12 @@
     </ClCompile>
     <ClCompile Include="Galaktyka.cpp">
       <Filter>SourceFile\Lokacje</Filter>
+    </ClCompile>
+    <ClCompile Include="GenerowanieTest.cpp">
+      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+    </ClCompile>
+    <ClCompile Include="ZarzadcaPamieci.cpp">
+      <Filter>SourceFile\KlasyGlowne</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -636,9 +639,6 @@
     <ClInclude Include="Planeta.h">
       <Filter>SourceFile\Lokacje</Filter>
     </ClInclude>
-    <ClInclude Include="SygnaturaPlanety.h">
-      <Filter>SourceFile\Lokacje</Filter>
-    </ClInclude>
     <ClInclude Include="Walidator.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
@@ -656,6 +656,12 @@
     </ClInclude>
     <ClInclude Include="Galaktyka.h">
       <Filter>SourceFile\Lokacje</Filter>
+    </ClInclude>
+    <ClInclude Include="GenerowanieTest.h">
+      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+    </ClInclude>
+    <ClInclude Include="ZarzadcaPamieci.h">
+      <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

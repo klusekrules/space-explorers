@@ -262,16 +262,21 @@ bool Aplikacja::wczytajGre(const string& nazwa, const string& hash){
 			instancjaGry_ = shared_ptr<Gra>(new Gra(*this));
 			Walidator::pobierzInstancje().wyczysc();
 			Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(Identyfikator(0x0)); // Poprawna wartoœæ; U¿ywana gdy obiekty znajduj¹ siê we flocie.
-			if(instancjaGry_->wczytajDane(this->nazwaPlikuDanych_) && instancjaGry_->odczytaj(wezel->FirstChildElement(WEZEL_XML_GRA)) && instancjaGry_->odczytaj(nazwa,hash) ){
-				if(Walidator::pobierzInstancje().waliduj())
-					return true;
+			if(instancjaGry_->wczytajDane(this->nazwaPlikuDanych_) ){
+				if(instancjaGry_->odczytaj(wezel->FirstChildElement(WEZEL_XML_GRA)))
+					if(instancjaGry_->odczytaj(nazwa,hash))
+						if(Walidator::pobierzInstancje().waliduj())
+							return true;
 			}
 			instancjaGry_ = gra;
 			return false;
+		}catch( OgolnyWyjatek& e ){
+			logger_.error(e);
+		}catch( exception& e ){
+			logger_.error(e.what());
 		}catch(...){
-			instancjaGry_ = gra;
-			return false;
 		}
+		instancjaGry_ = gra;
 	}
 	return false;
 }

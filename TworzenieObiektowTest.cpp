@@ -10,6 +10,7 @@ void TworzenieObiektowTest::startTestow(){
 	UNIT_TEST_ASSERT_NOTNULL(gra);
 	planeta = gra->pobierzPlanete(Identyfikator(0x2));
 	UNIT_TEST_ASSERT_NOTNULL(planeta);
+	planeta->wyczyscZawartoscPlanety();
 	UNIT_TEST_ASSERT_TRUE(gra->przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
 	UNIT_TEST_ASSERT_NOTNULL(planeta);
 }
@@ -24,7 +25,11 @@ void TworzenieObiektowTest::tworzenieObiektow(){
 void TworzenieObiektowTest::falszyweObiekty(){
 	for(int i = 0xffff ; i>=0xfff0 ; --i ){
 		UNIT_TEST_ASSERT_FALSE(planeta->wybuduj(Planeta::Indeks(Identyfikator(i),Poziom(1)),Ilosc(100)));
-		UNIT_TEST_ASSERT_EQUAL( Identyfikator(0) , planeta->pobierzObiekt(Planeta::Indeks(Identyfikator(i),Poziom(1))).pobierzIdentyfikator() );
+		try{
+			UNIT_TEST_ASSERT_EQUAL( Identyfikator(0) , planeta->pobierzObiekt(Planeta::Indeks(Identyfikator(i),Poziom(1))).pobierzIdentyfikator() );
+		}catch(OgolnyWyjatek&){
+
+		}
 	}
 }
 

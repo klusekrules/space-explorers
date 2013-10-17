@@ -37,8 +37,10 @@ bool Galaktyka::zapisz( TiXmlElement* wezel ) const{
 
 bool Galaktyka::odczytaj( TiXmlElement* wezel ){
 	if(wezel){
+		if(!Bazowa::odczytaj(wezel))
+			return false;
 		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_UKLAD_SLONECZNY); element ; element = element->NextSiblingElement(WEZEL_XML_UKLAD_SLONECZNY)){
-			auto uklad = make_shared<UkladSloneczny>(Identyfikator());
+			auto uklad = make_shared<UkladSloneczny>(Identyfikator(),pobierzIdentyfikator());
 			if(!uklad->odczytaj(element))
 				return false;
 			auto iter = uklady_.find(uklad->pobierzIdentyfikator());
@@ -46,7 +48,7 @@ bool Galaktyka::odczytaj( TiXmlElement* wezel ){
 				return false;
 			uklady_.insert(make_pair(uklad->pobierzIdentyfikator(),uklad));
 		}
-		return Bazowa::odczytaj(wezel);
+		return true;
 	}
 	return false;
 }

@@ -8,6 +8,8 @@ class Galaktyka :
 	public Serializacja,
 	public Bazowa
 {
+	friend class ZarzadcaPamieci;
+	friend class GeneratorUkladow;
 public:
 	typedef unordered_map< Identyfikator, shared_ptr<UkladSloneczny>, IdTypeHash > UkladySloneczne;
 
@@ -47,6 +49,8 @@ public:
 	string napis() const override;
 
 private:
+
+	int iloscUkladow_;
 
 	UkladySloneczne uklady_;
 };

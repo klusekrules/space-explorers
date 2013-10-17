@@ -10,8 +10,8 @@ void NiepoprawneParametryFunkcjiTest::startTestow(){
 	UNIT_TEST_ASSERT_NOTNULL(gra);
 	planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(Identyfikator(0x7));
 	UNIT_TEST_ASSERT_NOTNULL(planeta);
+	planeta->wyczyscZawartoscPlanety();
 	UNIT_TEST_ASSERT_TRUE(gra->przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
-	UNIT_TEST_ASSERT_NOTNULL(planeta);
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(Planeta::Indeks(Identyfikator(0xC),Poziom(1)),Ilosc(100)));
 }
 

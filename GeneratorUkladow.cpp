@@ -39,11 +39,21 @@ const SPG::Temperatura GeneratorUkladow::TEMPERATURA_PLANETY_MAX = 500;
 
 const SPG::Fluktuacja GeneratorUkladow::POWIERZCHNIA_WODY_MAX = 0.9f;
 
+#ifdef DEBUG
+
+const int GeneratorUkladow::ILOSC_UKLADOW_MIN = 10;
+const int GeneratorUkladow::ILOSC_UKLADOW_MAX = 100;
+
+#else
+
 const int GeneratorUkladow::ILOSC_UKLADOW_MIN = 1000;
 const int GeneratorUkladow::ILOSC_UKLADOW_MAX = 10000;
 
-GeneratorUkladow::GeneratorUkladow( Gra& gra )
-	: gra_(gra), licznikIdPlanet(LICZNIK_PLANET_ID,Ilosc(1)), licznikIdUkladow(LICZNIK_UKLADOW_ID,Ilosc(1)), licznikIdGalaktyk(LICZNIK_GALAKTYK_ID,Ilosc(1)),
+#endif // DEBUG
+
+
+GeneratorUkladow::GeneratorUkladow()
+	: licznikIdPlanet(LICZNIK_PLANET_ID,Ilosc(1)), licznikIdUkladow(LICZNIK_UKLADOW_ID,Ilosc(1)), licznikIdGalaktyk(LICZNIK_GALAKTYK_ID,Ilosc(1)),
 	dystrybutorSrednicyGwiazdy(SREDNICA_GWIAZDY_PARAM_ALFA,SREDNICA_GWIAZDY_PARAM_BETA), 
 	dystrybutorIlosciPlanet( ILOSC_PLANET_MAX - ILOSC_PLANET_MIN , ILOSC_PLANET_PARAM ), 
 	dystrybutorIlosciUkladow( ILOSC_UKLADOW_MIN , ILOSC_UKLADOW_MAX ),
@@ -62,16 +72,17 @@ GeneratorUkladow::~GeneratorUkladow()
 
 shared_ptr<Galaktyka> GeneratorUkladow::generujGalaktyke() const{
 	auto galaktyka = make_shared<Galaktyka>(Identyfikator(licznikIdGalaktyk()));
-	int iloscUkladow = dystrybutorIlosciUkladow(generator);
+	galaktyka->iloscUkladow_= dystrybutorIlosciUkladow(generator);
+	/*
 	for(; iloscUkladow > 0 ; --iloscUkladow){
-		auto uklad = generujUklad();
+		auto uklad = generujUklad(galaktyka->pobierzIdentyfikator());
 		galaktyka->dodajUklad(uklad);
-	}
+	}*/
 	return galaktyka;
 }
 
-shared_ptr<UkladSloneczny> GeneratorUkladow::generujUklad() const{
-	auto uklad = make_shared<UkladSloneczny>(Identyfikator(licznikIdUkladow()));
+shared_ptr<UkladSloneczny> GeneratorUkladow::generujUklad( const Identyfikator& idGalatyki ) const{
+	auto uklad = make_shared<UkladSloneczny>(Identyfikator(licznikIdUkladow()),idGalatyki);
 
 	uklad->ustawSredniceGwiazdy(generujSredniceGwiazdy());
 	uklad->ustawSredniaTemperatureGwiazdy(generujTemperatureGwiazdy(uklad->pobierzSredniceGwiazdy()()));
@@ -83,8 +94,8 @@ shared_ptr<UkladSloneczny> GeneratorUkladow::generujUklad() const{
 
 	for(  ; iloscPlanet > 0 ; --iloscPlanet ){
 		odlegloscOdSrodkaUkladu += Dystans(dystrybutorOdleglosciMiedzyplanetarnej(generator));
-		auto planeta = generujPlanete(odlegloscOdSrodkaUkladu,mocGwiazdy);
-		uklad->dodajPlanete(planeta->pobierzSygnature());
+		auto planeta = generujPlanete(odlegloscOdSrodkaUkladu,mocGwiazdy,uklad->pobierzIdentyfikator());
+		uklad->dodajPlanete(planeta);
 	}
 	return uklad;
 }
@@ -104,8 +115,8 @@ SPG::Dystans GeneratorUkladow::generujSredniceGwiazdy() const{
 	return srednica > SREDNICA_GWIAZDY_MAX ? SREDNICA_GWIAZDY_MAX  : srednica;
 }
 
-shared_ptr<Planeta> GeneratorUkladow::generujPlanete( const Dystans& odlegloscOdCentrum, const Moc& mocGwiazdy ) const{
-	auto planeta = make_shared<Planeta>(Identyfikator(licznikIdPlanet()));
+shared_ptr<Planeta> GeneratorUkladow::generujPlanete( const Dystans& odlegloscOdCentrum, const Moc& mocGwiazdy, const Identyfikator& idUkladu ) const{
+	auto planeta = make_shared<Planeta>(Identyfikator(licznikIdPlanet()),idUkladu);
 	auto srednica = generujSrednicePlanety(odlegloscOdCentrum);
 	auto temperatura = generujTemperaturePlanety(odlegloscOdCentrum,mocGwiazdy);
 	
@@ -120,7 +131,7 @@ shared_ptr<Planeta> GeneratorUkladow::generujPlanete( const Dystans& odlegloscOd
 	planeta->ustawSrednice( Dystans( srednica ) );
 	planeta->ustawTemperature( Temperatura( temperatura ) );
 	planeta->ustawOdlegloscOdSrodkaUkladu(odlegloscOdCentrum);
-	gra_.dodajPlanete(planeta);
+	planeta->wyliczPowierzchnie(Fluktuacja(procentWody),Fluktuacja(powierzchniaUzytkowa));
 	return planeta;
 }
 

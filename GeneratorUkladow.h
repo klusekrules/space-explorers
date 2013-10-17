@@ -7,8 +7,6 @@
 
 using namespace std;
 
-class Gra;
-
 class GeneratorUkladow :
 	virtual public LoggerInterface,
 	public Serializacja
@@ -52,12 +50,12 @@ public:
 	const static int ILOSC_UKLADOW_MIN;
 	const static int ILOSC_UKLADOW_MAX;
 
-	GeneratorUkladow( Gra& gra );
+	GeneratorUkladow();
 	virtual ~GeneratorUkladow();
 
 	shared_ptr<Galaktyka> generujGalaktyke() const;
-	shared_ptr<UkladSloneczny> generujUklad() const;
-	shared_ptr<Planeta> generujPlanete( const Dystans& odlegloscOdCentrum, const Moc& mocGwiazdy ) const;
+	shared_ptr<UkladSloneczny> generujUklad( const Identyfikator& idGalatyki ) const;
+	shared_ptr<Planeta> generujPlanete( const Dystans& odlegloscOdCentrum, const Moc& mocGwiazdy, const Identyfikator& idUkladu ) const;
 
 	/**
 	* \brief Metoda zapisuj¹ca.
@@ -87,9 +85,7 @@ public:
 	string napis() const override;
 
 private:
-
-	Gra& gra_;
-
+	
 	mutable random_device generator;
 	gamma_distribution<SPG::Dystans> dystrybutorSrednicyGwiazdy;
 	binomial_distribution<int> dystrybutorIlosciPlanet;

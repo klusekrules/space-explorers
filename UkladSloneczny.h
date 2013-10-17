@@ -1,11 +1,12 @@
 #pragma once
 #include <memory>
-#include "SygnaturaPlanety.h"
+#include "Planeta.h"
 #include "Ilosc.h"
 #include "Dystans.h"
 #include "Temperatura.h"
 #include "Moc.h"
 #include "Serializacja.h"
+#include <unordered_map>
 
 using namespace std;
 class UkladSloneczny :
@@ -13,11 +14,12 @@ class UkladSloneczny :
 	public Serializacja,
 	public Bazowa
 {
+	friend class ZarzadcaPamieci;
 public:
-	typedef shared_ptr<SygnaturaPlanety> Sygnatura;
-	typedef vector< Sygnatura > Planety;
+	typedef shared_ptr<Planeta> Planeta;
+	typedef unordered_map< Identyfikator, Planeta , IdTypeHash > Planety;
 
-	UkladSloneczny( const Identyfikator& id );
+	UkladSloneczny( const Identyfikator& id, const Identyfikator& idGalaktyki );
 	virtual ~UkladSloneczny();
 	
 	void ustawSredniceGwiazdy(SPG::Dystans srednica);
@@ -30,11 +32,13 @@ public:
 
 	Moc pobierzMocGwiazdy() const;
 
-	bool dodajPlanete( Sygnatura planeta );
+	bool dodajPlanete( UkladSloneczny::Planeta planeta );
 
-	Sygnatura pobierzPlanete( int numer ) const ;
+	UkladSloneczny::Planeta pobierzPlanete( const Identyfikator& numer );
 
 	int liczbaPlanet() const;
+
+	const Identyfikator& pobierzIdGalaktyki() const;
 
 	/**
 	* \brief Metoda zapisuj¹ca.
@@ -64,6 +68,9 @@ public:
 	string napis() const override;
 
 private:
+
+	Identyfikator idGalaktyki_;
+
 	Dystans srednicaGwiazdy_;
 	Temperatura sredniaTemperaturaGwiazdy_;
 	

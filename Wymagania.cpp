@@ -84,7 +84,7 @@ bool Wymagania::czySpelniaWymogi( const PodstawoweParametry& parametry ) const{
 		}			
 		))
 		{
-			if(planeta->pobierzObiekt(element.pobierzObiekt()->pobierzIdentyfikator()).pobierzPoziom()<poziom)
+			if(planeta->pobierzPoziomObiektu(element.pobierzObiekt()->pobierzIdentyfikator())<poziom)
 				return false;
 		}
 	}
@@ -112,7 +112,7 @@ bool Wymagania::czySpelniaKoszty( const Ilosc& ilosc, const PodstawoweParametry&
 		}			
 		))
 		{
-			if( planeta->pobierzObiekt(element.pobierzObiekt()->ID()).pobierzIlosc() < (iloscObiektow*ilosc ) )
+			if( planeta->pobierzIloscObiektu(element.pobierzObiekt()->ID()) < (iloscObiektow*ilosc ) )
 				return false;
 		}
 	}

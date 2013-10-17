@@ -16,8 +16,7 @@ void LogowanieTest::zaloguj(){
 	}else{
 		Aplikacja::pobierzInstancje().pobierzLogger().debug("U¿ytkownik istnieje.");
 	}
-	UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().wczytajGre("Daniel",haslo));
-	Aplikacja::pobierzInstancje().pobierzGre().generujNowaGalaktyke();
+	UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().wczytajGre("Daniel",haslo));	
 	//UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().pobierzGre().usunGracza("Daniel",haslo));
 }
 
