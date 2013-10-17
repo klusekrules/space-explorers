@@ -14,17 +14,25 @@ Uzytkownik::~Uzytkownik()
 }
 
 bool Uzytkownik::dodajPlanete( shared_ptr<Planeta> planeta ){
-	auto iterator = listaPlanet.find(planeta->pobierzIdentyfikator());
-	if(iterator!=listaPlanet.end())
+	auto iterator = planety_.find(planeta->pobierzIdentyfikator());
+	if(iterator!=planety_.end())
 		return false;
-	listaPlanet.insert(make_pair(planeta->pobierzIdentyfikator(),planeta));
+	planety_.insert(make_pair(planeta->pobierzIdentyfikator(),planeta));
 	planeta->ustawWlasciciela(this);
 	return true;
 }
 
+bool Uzytkownik::usunPlanete( const Identyfikator& Identyfikator ){
+	auto iterator = planety_.find(Identyfikator);
+	if(iterator==planety_.end())
+		return false;
+	planety_.erase(iterator);
+	return true;
+}
+
 Planeta& Uzytkownik::pobierzPlanete( const Identyfikator& identyfikator ) const{
-	auto iterator = listaPlanet.find(identyfikator);
-	if(iterator!=listaPlanet.end())
+	auto iterator = planety_.find(identyfikator);
+	if(iterator!=planety_.end())
 		return *(iterator->second);
 	throw NieznalezionoObiektu(EXCEPTION_PLACE,Tekst("Nieznaleziono planety"));
 }
@@ -35,17 +43,17 @@ Tekst Uzytkownik::pobierzNazweUzytkownika()const{
 
 void Uzytkownik::ustawNazweUzytkownika( const Tekst& nazwa ){
 	nazwaUzytkownika_ = nazwa;
-	for(auto planeta :  listaPlanet)
-		planeta.second->odswiezNazweUzytkownika();
 }
 
 bool Uzytkownik::zapisz( TiXmlElement* wezel ) const{
 	if(!wezel)
 		return false;
 	wezel->SetAttribute(ATRYBUT_XML_NAZWA,nazwaUzytkownika_());
-	for(auto planeta :  listaPlanet)
-		if(!planeta.second->zapisz(wezel))
-			return false;
+	for(auto planeta :  planety_){
+		TiXmlElement* element = new TiXmlElement(WEZEL_XML_PLANETA);
+		element->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_RODZICA,planeta.first.napis());
+		wezel->LinkEndChild(element);
+	}
 	return true;
 }
 
@@ -53,13 +61,14 @@ bool Uzytkownik::odczytaj( TiXmlElement* wezel ){
 	if(wezel){
 		XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_NAZWA,nazwaUzytkownika_);
 		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_PLANETA); element ; element = element->NextSiblingElement(WEZEL_XML_PLANETA)){
-			auto planeta = shared_ptr<Planeta>( new Planeta(Identyfikator()) );
-			if(!planeta->odczytaj(element))
+			Identyfikator idPlanety;
+			if(!XmlBO::WczytajAtrybut<NOTHROW>(element,ATRYBUT_XML_IDENTYFIKATOR_RODZICA,idPlanety))
 				return false;
-			listaPlanet.insert(make_pair(planeta->pobierzIdentyfikator(),planeta));
+			auto planeta = instancjaGry.pobierzPlanete(idPlanety);
+			if(!planeta)
+				return false;
 			planeta->ustawWlasciciela(this);
-			if(!instancjaGry.dodajPlanete(planeta))
-				return false;
+			planety_[idPlanety] = planeta;
 		}
 		return true;
 	}
@@ -69,7 +78,7 @@ bool Uzytkownik::odczytaj( TiXmlElement* wezel ){
 string Uzytkownik::napis() const{
 	Logger str(NAZWAKLASY(Uzytkownik));
 	str.dodajPole("Nazwa",nazwaUzytkownika_);
-	for(auto planeta :  listaPlanet)
+	for(auto planeta :  planety_)
 		if(!planeta.second)
 			str.dodajPole(NAZWAKLASY(Planeta),*(planeta.second));
 	return str.napis();

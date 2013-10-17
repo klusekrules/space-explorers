@@ -7,11 +7,9 @@
 #include "XmlBO.h"
 #include "Walidator.h"
 
-Planeta::Planeta(const Identyfikator& identyfikator)
-	: Bazowa(identyfikator), wlasciciel_(nullptr),
-	pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),Identyfikator(0),Wymagania(nullptr)) , Poziom(0) )
+Planeta::Planeta(const Identyfikator& identyfikator, const Identyfikator& idUkladu)
+	: Bazowa(identyfikator), wlasciciel_(nullptr), idUkladu_(idUkladu)
 {
-	pustyObiektBase = shared_ptr<ObiektBazowy>(new ObiektBazowy( Ilosc(0), Poziom(0),Identyfikator(0), pustyobiekBaseInfo ));
 }
 
 Planeta::~Planeta(void)
@@ -19,12 +17,30 @@ Planeta::~Planeta(void)
 }
 
 void Planeta::ustawWlasciciela( Uzytkownik* wlasciciel ){
-	wlasciciel_=wlasciciel;
-	odswiezNazweUzytkownika();
+	wlasciciel_ = wlasciciel;
+	idUzytkownika_ = wlasciciel_->pobierzNazweUzytkownika();
 }
 
 Uzytkownik* Planeta::pobierzWlasciciela( void ) const{
 	return wlasciciel_;
+}
+
+void Planeta::wyczyscZawartoscPlanety(){
+
+	if( wlasciciel_ && !idUzytkownika_.isEmpty() && Aplikacja::pobierzInstancje().pobierzGre().pobierzUzytkownika().pobierzNazweUzytkownika() == idUzytkownika_ ){
+		wlasciciel_->usunPlanete(pobierzIdentyfikator());
+		wlasciciel_ = nullptr;
+		idUzytkownika_ = Tekst();
+	}
+	licznikIdentyfikatorowFloty_.resetujWartosc();
+	listaSurowcow_.clear();
+	listaStatkow_.clear();
+	listaObrona_.clear();
+	listaTechnologii_.clear();
+	listaBudynkow_.clear();
+	listaObiektow_.clear();
+	listaObiektowZaladunkowych_.clear();
+	listaFlot_.clear();
 }
 
 Ilosc Planeta::pobierzIloscTypowObiektow()const{
@@ -37,7 +53,7 @@ const ObiektBazowy& Planeta::pobierzObiekt(const Indeks& identyfikator) const{
 	auto iterator = listaObiektow_.find(identyfikator);
 	if(iterator!=listaObiektow_.end())
 		return *(iterator->second);
-	return *pustyObiektBase;
+	throw NieznalezionoObiektu(EXCEPTION_PLACE,identyfikator.napis());
 }
 
 const ObiektBazowy& Planeta::pobierzObiekt(const Identyfikator& identyfikator) const{
@@ -47,7 +63,28 @@ const ObiektBazowy& Planeta::pobierzObiekt(const Identyfikator& identyfikator) c
 				iterator = element;
 		}
 	}
-	return iterator == listaObiektow_.end() ? *pustyObiektBase : *(iterator->second);
+	if( iterator != listaObiektow_.end() )
+		return *(iterator->second);
+	throw NieznalezionoObiektu(EXCEPTION_PLACE,identyfikator.napis());
+}
+
+Poziom Planeta::pobierzPoziomObiektu( const Identyfikator& identyfikator ) const{
+	auto iterator = listaObiektow_.end();
+	for( auto element = listaObiektow_.begin() ; element != listaObiektow_.end() ; ++element ){
+		if( element->first.pobierzIdentyfikator() == identyfikator && ( iterator == listaObiektow_.end() || (iterator != listaObiektow_.end() && iterator->first.pobierzPoziom()<element->first.pobierzPoziom() ) )){
+				iterator = element;
+		}
+	}
+	if( iterator != listaObiektow_.end() )
+		return iterator->second->pobierzPoziom();
+	return Poziom(0);
+}
+
+Ilosc Planeta::pobierzIloscObiektu( const Indeks& indeks ) const{
+	auto iterator = listaObiektow_.find(indeks);
+	if(iterator!=listaObiektow_.end())
+		return iterator->second->pobierzIlosc();
+	return Ilosc(0.0);
 }
 
 const Statek& Planeta::pobierzStatek(const Indeks& identyfikator) const{
@@ -154,7 +191,7 @@ bool Planeta::wybuduj( const Indeks& identyfikator, const Ilosc& ilosc ){
 }
 
 bool Planeta::wybuduj( const Indeks& identyfikator, TiXmlElement* wezel ){
-	if(pobierzObiekt(identyfikator).pobierzIdentyfikator() != Identyfikator())
+	if(listaObiektow_.find(identyfikator) != listaObiektow_.end())
 		return false;
 	if(!Aplikacja::pobierzInstancje().pobierzGre().wybudujNaPlanecie(*this,identyfikator.pobierzIdentyfikator(),Ilosc(0),identyfikator.pobierzPoziom()))
 		return false;	
@@ -286,9 +323,12 @@ bool Planeta::zapisz( TiXmlElement* wezel ) const{
 	TiXmlElement* planeta = new TiXmlElement(WEZEL_XML_PLANETA);
 	wezel->LinkEndChild( planeta );
 	planeta->SetAttribute(ATRYBUT_XML_ODLEGLOSC_OD_SLONCA, odlegloscOdSlonca_.napis());
+	planeta->SetAttribute(ATRYBUT_XML_SREDNICA, srednicaPlanety_.napis());
 	/*planeta->SetAttribute(ATRYBUT_XML_PREDKOSC_KATOWA_PLANETY, predkoscKatowaPlanety_.napis());
 	planeta->SetAttribute(ATRYBUT_XML_NASLONECZNIENIE_PLANETY, naslonecznieniePlanety_.napis());
 	planeta->SetAttribute(ATRYBUT_XML_WIETRZNOSC_PLANETY, wietrznoscPlanety_.napis());*/
+	planeta->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_RODZICA,idUkladu_.napis());
+	planeta->SetAttribute(ATRYBUT_XML_NAZWAGRACZA,idUzytkownika_());
 	planeta->SetAttribute(ATRYBUT_XML_TEMPERATURA_PLANETY, temperaturaPlanety_.napis());
 	planeta->SetAttribute(ATRYBUT_XML_CALKOWITA_POWIERZNIA_PLANETY, calkowitaPowierzchniaPlanety_.napis() );
 	planeta->SetAttribute(ATRYBUT_XML_POWIERZCHNIA_ZAJETA_PRZEZ_WODE,powierzchniaZajetaPrzezWode_.napis() );
@@ -321,12 +361,19 @@ bool Planeta::odczytaj( TiXmlElement* wezel ){
 		Identyfikator identyfikatorPlanety;
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_ODLEGLOSC_OD_SLONCA,odlegloscOdSlonca_))
 			return false;
+		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_SREDNICA,srednicaPlanety_))
+			return false;
 		/*if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_PREDKOSC_KATOWA_PLANETY,predkoscKatowaPlanety_))
 			return false;
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_NASLONECZNIENIE_PLANETY,naslonecznieniePlanety_))
 			return false;
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_WIETRZNOSC_PLANETY,wietrznoscPlanety_))
 			return false;*/
+		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR_RODZICA,idUkladu_))
+			return false;
+
+		XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_NAZWAGRACZA,idUzytkownika_);
+
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_TEMPERATURA_PLANETY,temperaturaPlanety_))
 			return false;
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_CALKOWITA_POWIERZNIA_PLANETY,calkowitaPowierzchniaPlanety_))
@@ -401,27 +448,10 @@ Tekst Planeta::pobierzNazwePlanety() const{
 
 void Planeta::ustawNazwePlanety( const Tekst& nazwa ){
 	nazwaPlanety_ = nazwa;
-	if(sygnatura_)
-		sygnatura_->ustawNazwePlanety(nazwa);
 }
 
-void Planeta::odswiezNazweUzytkownika(){
-	if(sygnatura_)
-		sygnatura_->ustawNazweGracza(wlasciciel_ ? wlasciciel_->pobierzNazweUzytkownika() : Tekst());
-}
-
-shared_ptr<SygnaturaPlanety> Planeta::pobierzSygnature() const{
-	if(sygnatura_)
-		return sygnatura_;
-	sygnatura_ = make_shared<SygnaturaPlanety>( pobierzIdentyfikator(), pobierzNazwePlanety(), wlasciciel_ ? wlasciciel_->pobierzNazweUzytkownika() : Tekst() );
-	return sygnatura_;
-}
-
-bool Planeta::ustawSygnature( shared_ptr<SygnaturaPlanety> sygnatura ){
-	if(sygnatura_)
-		return sygnatura_==sygnatura;
-	sygnatura_ = sygnatura;
-	return true;
+const Identyfikator& Planeta::pobierzIdUkladu() const{
+	return idUkladu_;
 }
 
 void Planeta::ustawTemperature( const Temperatura& temperatura ){
@@ -455,7 +485,7 @@ string Planeta::napis() const{
 	str.dodajPole("odlegloscOdSlonca",odlegloscOdSlonca_);
 	//str.dodajPole("predkoscKatowaPlanety",predkoscKatowaPlanety_);
 	//str.dodajPole("naslonecznieniePlanety",naslonecznieniePlanety_);
-	//str.dodajPole("wietrznoscPlanety",wietrznoscPlanety_);
+	str.dodajPole("idUkladu",idUkladu_);
 	str.dodajPole("temperaturaPlanety",temperaturaPlanety_);
 	str.dodajPole("calkowitaPowierzchniaPlanety",calkowitaPowierzchniaPlanety_);
 	str.dodajPole("powierzchniaZajetaPrzezWode",powierzchniaZajetaPrzezWode_);

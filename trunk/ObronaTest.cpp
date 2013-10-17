@@ -14,6 +14,7 @@ ObronaTest::~ObronaTest(void)
 void ObronaTest::startTestow(){
 	planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(Identyfikator(0x6));
 	UNIT_TEST_ASSERT_NOTNULL(planeta);
+	planeta->wyczyscZawartoscPlanety();
 	UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
 	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(0x14),Poziom(1)),Ilosc(2)) );
 	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(0x15),Poziom(1)),Ilosc(0)) );

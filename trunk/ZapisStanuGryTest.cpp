@@ -2,7 +2,7 @@
 
 
 ZapisStanuGryTest::ZapisStanuGryTest(void)
-	: p_a(Identyfikator(0))
+	: p_a(Identyfikator(0),Identyfikator(0))
 {
 }
 

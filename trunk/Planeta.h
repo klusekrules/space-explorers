@@ -13,7 +13,6 @@
 #include "Flota.h"
 #include "Licznik.h"
 #include "Obrona.h"
-#include "SygnaturaPlanety.h"
 #include "Temperatura.h"
 
 /**
@@ -48,7 +47,7 @@ public:
 	*
 	* \param[in] identyfikator - Identyfikator planety.
 	*/
-	Planeta(const Identyfikator& identyfikator);
+	Planeta(const Identyfikator& identyfikator, const Identyfikator& idUkladu);
 
 	/**
 	* \brief Destruktor.
@@ -226,23 +225,7 @@ public:
 	* \return true je¿eli obiekt posiada w³aœciciela, false w przeciwnym przypadku.
 	*/
 	bool czyMaWlasciciela()const;
-
-	/**
-	* \brief Metoda pobieraj¹ca sygnaturê planety.
-	*
-	* Metoda pobiera sygnaturê planety
-	* \return Sygnatura planety.
-	*/
-	shared_ptr<SygnaturaPlanety> pobierzSygnature() const;
-
-	/**
-	* \brief Metoda ustawiaj¹ca sygnaturê planety.
-	*
-	* Metoda ustawiaj¹ca sygnaturê planety
-	* \param[in] - Sygnatura planety.
-	*/
-	bool ustawSygnature( shared_ptr<SygnaturaPlanety> sygnatura );
-
+	
 	/**
 	* \brief Metoda pobieraj¹ca nazwê planety.
 	*
@@ -263,15 +246,12 @@ public:
 	void ustawSrednice( const Dystans& srednica );
 	void ustawOdlegloscOdSrodkaUkladu( const Dystans& odleglosc );
 	bool wyliczPowierzchnie( const Fluktuacja& procentWody, const Fluktuacja& procentUzytkowa );
+	const Identyfikator& pobierzIdUkladu() const;
+	void wyczyscZawartoscPlanety();
 
-
-	/**
-	* \brief Metoda odswieza nazwe uzytkownika.
-	*
-	* Metoda odswieza nazwe uzytkownika.
-	*/
-	void odswiezNazweUzytkownika();
-
+	Poziom pobierzPoziomObiektu( const Identyfikator& identyfikator ) const;
+	Ilosc pobierzIloscObiektu( const Indeks& indeks ) const;
+	
 	/**
 	* \brief Metoda zapisuj¹ca.
 	*
@@ -361,11 +341,6 @@ private:
 	*/
 	Uzytkownik* pobierzWlasciciela( ) const;
 
-	/* TODO: do pozbycia siê*/
-	shared_ptr<ObiektBazowy> pustyObiektBase; /// Pusty obiekt bazowy
-	ObiektBazowyInfo pustyobiekBaseInfo; /// Pusty obiekt bazowy info.
-	/* ------ */
-
 	Licznik licznikIdentyfikatorowFloty_; /// Licznik identyfikatorów flot.
 	Uzytkownik* wlasciciel_; /// W³aœciciel planety.
 
@@ -392,5 +367,6 @@ private:
 	//ListaZasobow dostepneZasobyPlanety_; /// Lista zasobów jakie mo¿na wydobyæ na planecie.
 	Tekst nazwaPlanety_; /// Nazwa planety.
 
-	mutable shared_ptr<SygnaturaPlanety> sygnatura_; /// WskaŸnika na sygnaturê reprezentuj¹c¹ planetê.
+	Identyfikator idUkladu_;
+	Tekst idUzytkownika_;
 };

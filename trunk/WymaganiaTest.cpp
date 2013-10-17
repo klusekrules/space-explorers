@@ -7,6 +7,7 @@ WymaganiaTest::WymaganiaTest(){
 void WymaganiaTest::startTestow(){
 	planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(Identyfikator(0x1));
 	UNIT_TEST_ASSERT_NOTNULL(planeta);
+	planeta->wyczyscZawartoscPlanety();
 	UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
 	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Klucz(Identyfikator(11), Poziom(1)),Ilosc(8)) );
 	a = &(planeta->pobierzStatek(Klucz(Identyfikator(11), Poziom(1))));

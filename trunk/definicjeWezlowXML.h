@@ -38,8 +38,11 @@
 #define WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO  "JednostkaAtakujacaInfo"
 #define WEZEL_XML_HANGAR_INFO "HangarInfo"
 
+#define WEZEL_XML_ZARZADCA "Zarzadca"
+
 
 #define ATRYBUT_XML_IDENTYFIKATOR "id"
+#define ATRYBUT_XML_IDENTYFIKATOR_RODZICA "idRodzica"
 #define ATRYBUT_XML_IDENTYFIKATOR_PLANETA_POCZATKOWA "idPlanetaPoczatkowa"
 #define ATRYBUT_XML_IDENTYFIKATOR_PLANETA_DOCELOWA "idPlanetaDocelowa"
 #define ATRYBUT_XML_CEL_PODROZY "celPodrozy"
@@ -69,6 +72,7 @@
 #define ATRYBUT_XML_OPCJA "opcja"
 #define ATRYBUT_XML_HASH "hash"
 #define ATRYBUT_XML_ODLEGLOSC_OD_SLONCA	"odlegloscOdSlonca"
+#define ATRYBUT_XML_SREDNICA	"srednica"
 #define ATRYBUT_XML_PREDKOSC_KATOWA_PLANETY "predkoscKatow"
 #define ATRYBUT_XML_NASLONECZNIENIE_PLANETY "naslonecznienie"
 #define ATRYBUT_XML_WIETRZNOSC_PLANETY "wietrznosc"

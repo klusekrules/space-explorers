@@ -15,7 +15,7 @@ class Uzytkownik:
 	virtual public Serializacja
 {
 public:
-	typedef map<Identyfikator, shared_ptr<Planeta> > ListaPlanet;
+	typedef map<Identyfikator, shared_ptr<Planeta> > Planety;
 
 	/**
 	* \brief Konstruktor.
@@ -62,6 +62,8 @@ public:
 	*/
 	bool dodajPlanete( shared_ptr<Planeta> planeta );
 
+	bool usunPlanete( const Identyfikator& Identyfikator );
+
 	/**
 	* \brief Metoda zapisuj¹ca.
 	*
@@ -91,6 +93,6 @@ public:
 
 private:
 	Tekst nazwaUzytkownika_; /// Nazwa u¿ytkownika. Cz³on nazwy pliku z danymi.
-	ListaPlanet listaPlanet; /// Lista planet u¿ytkownika.
+	Planety planety_; /// Lista planet u¿ytkownika.
 	Gra& instancjaGry; /// Instancja gry do której nale¿y u¿ytkowni.
 };
