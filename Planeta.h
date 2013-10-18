@@ -46,8 +46,9 @@ public:
 	* \brief Konstruktor.
 	*
 	* \param[in] identyfikator - Identyfikator planety.
+	* \param[in] identyfikatorUkladu - Numer identyfikuj¹cy uk³ad s³oneczny
 	*/
-	Planeta(const Identyfikator& identyfikator, const Identyfikator& idUkladu);
+	Planeta(const Identyfikator& identyfikator, const Identyfikator& identyfikatorUkladu);
 
 	/**
 	* \brief Destruktor.

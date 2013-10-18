@@ -36,7 +36,7 @@ public:
 	* \param[in] identyfikator - Numer identyfikuj¹cy planetê.
 	* \return Referencja do planety u¿ytkownika.
 	*/
-	Planeta& pobierzPlanete( const Identyfikator& Identyfikator ) const;
+	Planeta& pobierzPlanete( const Identyfikator& identyfikator ) const;
 
 	/**
 	* \brief Metoda pobieraj¹ca nazwê u¿ytkownika.

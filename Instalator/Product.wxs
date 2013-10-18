@@ -18,12 +18,19 @@
           <Directory Id='SPACE_EXPLORERS' Name='Space-Explorers'>
             <Directory Id='DOC_DIR' Name='doc'/>
             <Directory Id='INSTALL_DIR' Name='bin'>
+              
               <Directory Id='PLUGINS_DIR' Name='plugins'>
                 <Directory Id='ZMIANA_DIR' Name='$(var.FolderZmian)'/>
               </Directory>
-              <Directory Id='SAVE_DIR' Name='save'> 
-                <Directory Id='UKLAD_DIR' Name='uklad'> </Directory>
+                
+              <Directory Id='SAVE_DIR' Name='save' >
+                <Directory Id='UKLAD_DIR' Name='uklad'>
+                  <Component Id="UKLAD_DIR_COMP" Guid="6310BA6A-54AB-4F7C-8A8F-1506409296CD">
+                    <CreateFolder />
+                  </Component>
+                </Directory>
               </Directory>
+        
             </Directory>
           </Directory>
         </Directory>
@@ -70,6 +77,12 @@
       <Component Id='DOC_SAVE_SHEMA_COMP' Guid='3D5D189F-67F4-4237-BB32-901DEBA86855'>
         <File Id='DOC_SAVE_SHEMA_FILE' Source='..\saveSchema.xsd' Name='SchematStanuGry.xsd' KeyPath='yes' Vital='yes'/>
       </Component>
+      <Component Id='DOC_USER_SHEMA_COMP' Guid='17C3EF77-4D13-4DFF-90A5-A78B03DAD795'>
+        <File Id='DOC_USER_SHEMA_FILE' Source='..\userSchema.xsd' Name='SchematUzytkownika.xsd' KeyPath='yes' Vital='yes'/>
+      </Component>
+       <Component Id='DOC_UKLAD_SHEMA_COMP' Guid='C0E893B5-D97D-4B4B-ABC2-3463E39C20FC'>
+        <File Id='DOC_UKLAD_SHEMA_FILE' Source='..\saveSchema.xsd' Name='SchematUkladuSlonecznego.xsd' KeyPath='yes' Vital='yes'/>
+      </Component>
     </DirectoryRef>
     
     <DirectoryRef Id='ZMIANA_DIR'>
@@ -104,7 +117,10 @@
       <ComponentRef Id='ProgramMenuDir' />
       <ComponentRef Id='SPACE_EXPLORERS_REM' />
       <ComponentRef Id='DOC_DATA_SHEMA_COMP' />
-      <ComponentRef Id='DOC_SAVE_SHEMA_COMP' />
+      <ComponentRef Id='DOC_SAVE_SHEMA_COMP' />    
+      <ComponentRef Id='DOC_USER_SHEMA_COMP' />
+      <ComponentRef Id='DOC_UKLAD_SHEMA_COMP' />
+      <ComponentRef Id='UKLAD_DIR_COMP' />
     </Feature>
     <UI Id="MyWixUI_InstallDir">
       <UIRef Id="WixUI_InstallDir" />

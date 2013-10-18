@@ -34,6 +34,12 @@
 /** \page schemasavefile Schemat pliku ze stanem gry
  * \include saveSchema.xsd
 */
+/** \page schemaukladfile Schemat pliku z zawartoœci¹ uk³adu
+ * \include ukladSchema.xsd
+*/
+/** \page schemauserfile Schemat pliku z danymi u¿ytkownika
+ * \include userSchema.xsd
+*/
 
 /** \page schematutorial Jak napisaæ w³asn¹ wersjê gry ? 
  * \attention Tutorial jest w fazie pisania i mo¿e zawieraæ b³edy merytoryczne i stylistyczne. Przepraszamy za utrudnienia.
@@ -321,8 +327,8 @@
  * <A HREF="http://code.google.com/p/space-explorers/issues/list?can=1&q=Milestone%3DPreAlppha0.0.4&sort=priority+-modified&groupby=milestone&colspec=ID+Type+Status+Priority+Owner+Summary&x=priority&y=milestone&cells=tiles">Pe³na lista zadañ dla wersji 0.0.4</A>
  * \section lista_zmian Opis zmian
  * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=56">[Issue-56]</A> </tt> Dodano obiekt Obrona.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=58">[Issue-58]</A> </tt> 
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=59">[Issue-59]</A> </tt>
+ * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=58">[Issue-58]</A> </tt> Dodano poprawne logowanie u¿ytkownika.
+ * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=59">[Issue-59]</A> </tt> Dodanie generowania lokacji takich jak Galaktyka, Uk³ad S³oneczny, Planeta.
  * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=61">[Issue-61]</A> </tt>  Zmieniono rodzaj indeksy przechowywanych obiektów.
  * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=62">[Issue-62]</A> </tt>  Dodano listê misji dla klasy Flota.
  * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=63">[Issue-63]</A> </tt>  Walidacja plików xml
