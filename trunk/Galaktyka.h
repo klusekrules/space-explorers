@@ -3,6 +3,15 @@
 #include "UkladSloneczny.h"
 #include <unordered_map>
 
+/**
+* \brief Klasa reprezezntuj¹ca galaktykê.
+*
+* Klasa reprezentuje galaktykê. Przechowuje informacje o przynale¿nyc uk³adach. 
+* \note Klasa nie jest u¿ywna.
+* \author Daniel Wojdak
+* \version 1
+* \date 18-10-2013
+*/
 class Galaktyka :
 	virtual public LoggerInterface,
 	public Serializacja,
@@ -11,14 +20,36 @@ class Galaktyka :
 	friend class ZarzadcaPamieci;
 	friend class GeneratorUkladow;
 public:
-	typedef unordered_map< Identyfikator, shared_ptr<UkladSloneczny>, IdTypeHash > UkladySloneczne;
+	typedef unordered_map< Identyfikator, shared_ptr<UkladSloneczny>, IdTypeHash > UkladySloneczne; /// Typ listy uk³adów s³onecznych.
 
+	/**
+	* \brief Konstruktor.
+	*
+	* \param[in] identyfikator - Identyfikator galaktyki.
+	*/
 	Galaktyka(const Identyfikator& identyfikator);
 
+	/**
+	* \brief Destruktor.
+	*/
 	virtual ~Galaktyka();
 
+	/**
+	* \brief Metoda pobieraj¹ca uk³ad.
+	*
+	* Metoda zwracaj¹ca uk³ad o podanym identyfikatorze.
+	* \param[in] identyfikator - Numer identyfikuj¹cy uk³ad.
+	* \return WskaŸnik na uklad s³oneczny lub nullptr je¿eli nie znaleziono uk³adu.
+	*/
 	shared_ptr<UkladSloneczny> pobierzUklad( const Identyfikator& identyfikator ) const;
 
+	/**
+	* \brief Metoda dodaj¹ca ukad do listy.
+	*
+	* Metoda dodaje do listy uk³ad przekazany jako wskaŸnik.
+	* \param[in] uklad - wskaznik na uklad.
+	* \return true je¿eli uda siê dodaæ uk³ad, false w przeciwnym wypadku.
+	*/
 	bool dodajUklad( shared_ptr<UkladSloneczny> uklad );
 
 	/**
@@ -50,8 +81,7 @@ public:
 
 private:
 
-	int iloscUkladow_;
+	int iloscUkladow_; /// Liczba uk³adów przynale¿nych do galaktyki
 
-	UkladySloneczne uklady_;
+	UkladySloneczne uklady_; /// Lista uk³adów.
 };
-

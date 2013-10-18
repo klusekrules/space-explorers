@@ -7,18 +7,19 @@ ZarzadcaPamieci::ZarzadcaPamieci(void)
 {
 }
 
-
 ZarzadcaPamieci::~ZarzadcaPamieci(void)
 {
 }
 
 shared_ptr< Planeta > ZarzadcaPamieci::pobierzPlanete( const Identyfikator& identyfikator ){
-	auto planeta = planety_[identyfikator];
-	if(!planeta.planeta_){
-		wczytajUkladSloneczny(planeta.idUkladu_);
+	auto planeta = planety_.find(identyfikator);
+	if(planeta == planety_.end())
+		return nullptr;
+	if(!planeta->second.planeta_){
+		wczytajUkladSloneczny(planeta->second.idUkladu_);
 		return planety_[identyfikator].planeta_;
 	}
-	return planeta.planeta_;
+	return planeta->second.planeta_;
 }
 
 int ZarzadcaPamieci::pobierzIloscGalaktyk() const{
@@ -71,18 +72,17 @@ bool ZarzadcaPamieci::zapiszUkladSloneczny( shared_ptr<UkladSloneczny> uklad ) c
 	string plik("save\\uklad\\");
 	plik += uklad->pobierzIdentyfikator().napis();
 	plik += ".xml";
-	
+
 	TiXmlElement* root = new TiXmlElement(WEZEL_XML_ROOT);
 	if(!uklad->zapisz(root))
 		return false;
-	
+
 	dokument.LinkEndChild(root);
 
 	if(!dokument.SaveFile(plik))
 		return false;
 	return true;
 }
-
 
 bool ZarzadcaPamieci::zapisz( TiXmlElement* wezel ) const{
 	if(!wezel)
@@ -116,21 +116,21 @@ bool ZarzadcaPamieci::zapisz( TiXmlElement* wezel ) const{
 bool ZarzadcaPamieci::odczytaj( TiXmlElement* wezel ){
 	if(!wezel)
 		return false;
-	
+
 	if(!generator_.odczytaj(XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_GENERATOR_UKLADOW)))
 		return false;
 	for(TiXmlElement* galaktyka = wezel->FirstChildElement(WEZEL_XML_GALAKTYKA) ; galaktyka ; galaktyka = galaktyka->NextSiblingElement(WEZEL_XML_GALAKTYKA)){
 		Identyfikator idGalaktyki;
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(galaktyka,ATRYBUT_XML_IDENTYFIKATOR,idGalaktyki))
 			return false;
-		
+
 		vector<Identyfikator> listUkladow;
 
 		for(TiXmlElement* uklad = galaktyka->FirstChildElement(WEZEL_XML_UKLAD_SLONECZNY) ; uklad ; uklad = uklad->NextSiblingElement(WEZEL_XML_UKLAD_SLONECZNY)){
 			Identyfikator idUklad;
 			if(!XmlBO::WczytajAtrybut<NOTHROW>(uklad,ATRYBUT_XML_IDENTYFIKATOR,idUklad))
 				return false;
-			
+
 			vector<Identyfikator> listPlanet;
 
 			for(TiXmlElement* planeta = uklad->FirstChildElement(WEZEL_XML_PLANETA) ; planeta ; planeta = planeta->NextSiblingElement(WEZEL_XML_PLANETA)){

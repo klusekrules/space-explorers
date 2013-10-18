@@ -308,11 +308,29 @@ public:
 	*/
 	bool odczytaj( const string& nazwa, const string& hash );
 
-
+	/**
+	* \brief Metoda zwracaj¹ca wskaŸnik na planetê.
+	*
+	* Metoda zwraca wskaŸnik na planetê o wskazanym identyfikatorze.
+	* \param[in] identyfikator - Identyfikator planety.
+	* \return WskaŸnik na planetê je¿eli planeta zosta³a znaleziona, nullptr w przeciwnym wypadku.
+	*/
 	shared_ptr<Planeta> pobierzPlanete( const Identyfikator& identyfikator );
 
+	/**
+	* \brief Metoda zwraca liczba galaktyk.
+	*
+	* Metoda zwraca liczba galaktyk zarz¹dzancyh przez zarz¹dcê pamiêci.
+	* \return Liczba galaktyk.
+	*/
 	int pobierzIloscGalaktyk() const;
 
+	/**
+	* \brief Metoda generuje now¹ galaktykê.
+	* 
+	* Metoda generuje now¹ galaktykê.
+	* \return true je¿eli siê powiedzie, false w przeciwnym wypadku.
+	*/
 	bool generujNowaGalaktyke();
 
 private:
@@ -407,6 +425,6 @@ private:
 	unordered_map<Identyfikator, shared_ptr<ObiektInfo>, IdTypeHash > listaObiektowInfo_; /// Lista obiektów opisowych.
 	unordered_map<Identyfikator, shared_ptr<ObiektBazowyInfo>, IdTypeHash > listaObiektowBaseInfo_; /// Lista bazowych obiektów opisowych.
 
-	ZarzadcaPamieci zarzadca_;
+	ZarzadcaPamieci zarzadca_; /// Obiekt zarz¹dzaj¹cy lokacjami.
 };
 

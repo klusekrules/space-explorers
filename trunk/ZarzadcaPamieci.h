@@ -8,39 +8,100 @@
 
 using namespace std;
 
+/**
+* \brief Klasa zarzadzajaca lokacjami
+*
+* Klasa zarzadza wczytanymi lokacjami. Wczytuje na tylko uzywane planety i uklady.
+* Nie usuwa ich z czasem ¿ycia programu
+* \todo Usuwanie nieuzywanych lokacji.
+* \author Daniel Wojdak
+* \version 1
+* \date 18-10-2013
+*/
 class ZarzadcaPamieci :
 	public Serializacja
 {
 public:
+	/**
+	* \brief Struktura pomocnicza przechowujaca wczytan¹ planetê.
+	*
+	* Struktura przechowuje planetê, je¿eli zosta³a wczytana oraz identyfikator uk³adu rodzica.
+	* \author Daniel Wojdak
+	* \version 1
+	* \date 18-10-2013
+	*/
 	struct ObjPlaneta{
-		Identyfikator idUkladu_;
-		shared_ptr< Planeta > planeta_;
+		Identyfikator idUkladu_; /// Identyfikator uk³adu. U¿ywane do wczytania odpowiedniego uk³adu do za³adowania planety.
+		shared_ptr< Planeta > planeta_; /// wskaŸnik na planetê.
 	};
 
+	/**
+	* \brief Struktura pomocnicza przechowujaca wczytany uk³ad.
+	*
+	* Struktura przechowuje uk³ad, je¿eli zosta³ wczytany, identyfikator galaktyki rodzica oraz przynale¿ne planety.
+	* \author Daniel Wojdak
+	* \version 1
+	* \date 18-10-2013
+	*/
 	struct ObjUklad{
-		Identyfikator idGalaktyki_;
-		shared_ptr< UkladSloneczny > uklad_;
-		vector< Identyfikator > planety_;
+		Identyfikator idGalaktyki_; /// Identyfikator Galaktyki. Aktualnie nie u¿ywany.
+		shared_ptr< UkladSloneczny > uklad_; /// wskaŸnik do uk³adu.
+		vector< Identyfikator > planety_; /// Lista przynaleznych planet. U¿ywane przy zapisie informacji do pliku.
 	};
 
+	/**
+	* \brief Struktura pomocnicza przechowujaca wczytan¹ galaktykê.
+	*
+	* Struktura przechowuje galaktykê, je¿eli zosta³a wczytana oraz przynale¿ne uk³ady.
+	* \author Daniel Wojdak
+	* \version 1
+	* \date 18-10-2013
+	*/
 	struct ObjGalakatyka{
-		shared_ptr< Galaktyka > galaktyka_;
-		vector< Identyfikator > uklady_;
+		shared_ptr< Galaktyka > galaktyka_; /// wskaŸnika na galaktykê. Nieu¿ywany.
+		vector< Identyfikator > uklady_; /// Lista uk³adów przynaleznych. Potrzebna do zapisu danych.
 	};
 
-	typedef unordered_map< Identyfikator, ObjGalakatyka, IdTypeHash > Galaktyki;
-	typedef unordered_map< Identyfikator, ObjUklad, IdTypeHash > UkladySloneczne;
-	typedef unordered_map< Identyfikator, ObjPlaneta, IdTypeHash > Planety;
+	typedef unordered_map< Identyfikator, ObjGalakatyka, IdTypeHash > Galaktyki; /// Typ listy wszystkich galaktyk.
+	typedef unordered_map< Identyfikator, ObjUklad, IdTypeHash > UkladySloneczne; /// Typ listy wszystkich ukladów.
+	typedef unordered_map< Identyfikator, ObjPlaneta, IdTypeHash > Planety; /// Typ listy wszystkich Planet.
 
+	/**
+	* \brief Konstruktor.
+	*/
 	ZarzadcaPamieci();
 
+	/**
+	* \brief Metoda zwracaj¹ca wskaŸnik na planetê.
+	*
+	* Metoda zwraca wskaŸnik na planetê o wskazanym identyfikatorze.
+	* Je¿eli planeta nie jest wczytana, metoda wczytuje ca³y uk³ad i zwraca planetê.
+	* \param[in] identyfikator - Identyfikator planety.
+	* \return WskaŸnik na planetê je¿eli planeta zosta³a znaleziona, nullptr w przeciwnym wypadku.
+	*/
 	shared_ptr< Planeta > pobierzPlanete( const Identyfikator& identyfikator  );
 
+	/**
+	* \brief Metoda zwraca liczba galaktyk.
+	*
+	* Metoda zwraca liczba galaktyk zarz¹dzancyh przez zarz¹dcê pamiêci.
+	* \return Liczba galaktyk.
+	*/
 	int pobierzIloscGalaktyk() const;
 
+	/**
+	* \brief Metoda generuje now¹ galaktykê.
+	* 
+	* Metoda generuje now¹ galaktykê. Zapisuje dane uk³adów do pliku. Nie zapisuje struktury galaktyki, 
+	* oznacza to ¿e dopiero po zapisie stanu gry ca³oœæ informacji bêdzie zapisana do pliku.
+	* \return true je¿eli siê powiedzie, false w przeciwnym wypadku.
+	*/
 	bool generujNowaGalaktyke();
 
-	~ZarzadcaPamieci();
+	/**
+	* \brief Destruktor.
+	*/
+	virtual ~ZarzadcaPamieci();
 	
 	/**
 	* \brief Metoda zapisuj¹ca.
@@ -65,13 +126,28 @@ public:
 
 private:
 
+	/**
+	* \brief Metoda wczytuje uk³ad z pliku do pamiêci.
+	*
+	* Metoda wczytuje uk³ad o podanym identyfikatorze z pliku w formacie {identyfikator}.xml
+	* \param[in] identyfikator - Numer identyfikuj¹cy uk³ad s³oneczny.
+	* \return true je¿eli uda siê wczytaæ, false w przeciwnym wypaku.
+	*/
 	bool wczytajUkladSloneczny( const Identyfikator& identyfikator );
+
+	/**
+	* \brief Metoda wczytuje zapisuje do pliku.
+	*
+	* Metoda zapisuje uk³ad do pliku w formacie {identyfikator}.xml
+	* \param[in] uklad - wskaŸnik na uk³ad s³oneczny.
+	* \return true je¿eli uda siê zapisaæ, false w przeciwnym wypaku.
+	*/
 	bool zapiszUkladSloneczny( shared_ptr<UkladSloneczny> uklad ) const;
 
-	GeneratorUkladow generator_;
+	GeneratorUkladow generator_; /// Obiekt generuj¹cy lokacje.
 
-	Galaktyki galaktyki_;
-	UkladySloneczne ukladySloneczne_;
-	Planety planety_;
+	Galaktyki galaktyki_; /// Lista galaktyk.
+	UkladySloneczne ukladySloneczne_; /// Lista uk³adów.
+	Planety planety_; /// Lista planet.
 
 };

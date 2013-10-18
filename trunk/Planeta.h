@@ -242,14 +242,72 @@ public:
 	*/
 	void ustawNazwePlanety( const Tekst& nazwa );
 
+	/**
+	* \brief Metoda ustawia temperaturê.
+	* 
+	* Metoda ustawiaj¹ca œredni¹ temperaturê na planecie.
+	* \param[in] temperatura - wartoœæ temperatury w kelwinach, jaka ma byæ ustawiona w obiekcie.
+	*/
 	void ustawTemperature( const Temperatura& temperatura );
+
+	/**
+	* \brief Metoda ustawia œrednicê.
+	* 
+	* Metoda ustawiaj¹ca œrednicê planety.
+	* \param[in] srednica - wartoœæ srednicy w mln km, jaka ma byæ ustawiona w obiekcie.
+	*/
 	void ustawSrednice( const Dystans& srednica );
+
+	/**
+	* \brief Metoda ustawia odleg³oœæ od œrodka uk³adu s³onecznego.
+	* 
+	* Metoda ustawiaj¹ca odleg³oœæ planety od œrodka uk³adu s³onecznego.
+	* \param[in] odleglosc - wartoœæ odleglosci w mln km, jaka ma byæ ustawiona w obiekcie.
+	*/
 	void ustawOdlegloscOdSrodkaUkladu( const Dystans& odleglosc );
+
+	/**
+	* \brief Metoda przeliczaj¹ca powierzchnie.
+	*
+	* Metoda przelicza powierzchniê na planecie wed³ug podanych proporcji.
+	* \param[in] procentWody - procenty powierzchni bêd¹cej wod¹.
+	* \param[in] procentUzytkowa - procent powierzchni u¿ytkowej.
+	* \return true je¿eli argumety s¹ w poprawnym zakresie false w przeciwnym wypadku.
+	*/
 	bool wyliczPowierzchnie( const Fluktuacja& procentWody, const Fluktuacja& procentUzytkowa );
+
+	/**
+	* \brief Metoda zwracaj¹ca identyfikator uk³adu rodzica.
+	*
+	* Metoda zwraca identyfikator uk³adu s³onecznego w którym znajduje sie planeta.
+	* \return Identyfikator uk³adu.
+	*/
 	const Identyfikator& pobierzIdUkladu() const;
+
+	/**
+	* \brief Metoda czyœci zawartoœæ planety.
+	* 
+	* Metoda czyœci zawartoœæ planety. Usuwa tak¿e powi¹zanie z u¿ytkownikiem je¿eli takowe istnieje oraz zalogowany jest u¿ytkownik który jest przypisany do planety.
+	* \todo Metoda do zmiany. Usuniêcie sprawdzania warunku tego samego u¿ytkownika. Przeniesienie tego w inne miejsce.
+	*/
 	void wyczyscZawartoscPlanety();
 
+	/**
+	* \brief Metoda zwracaj¹ca poziom obiektu.
+	*
+	* Metoda zwraca nawy¿szy poziom obiektu o podanym identyfikatorze.
+	* \param[in] identyfikator - Numer identyfikuj¹cy obiekt.
+	* \return Poziom obiektu lub 0 je¿eli nie znaleziono obiektu.
+	*/
 	Poziom pobierzPoziomObiektu( const Identyfikator& identyfikator ) const;
+
+	/**
+	* \brief Metoda zwracaj¹ca iloœæ obiektu.
+	*
+	* Metoda zwraca iloœæobiektu o podanym indeksie.
+	* \param[in] indeks - Indeks obiekt.
+	* \return Iloœæ obiektu lub 0 je¿eli nie znaleziono obiektu.
+	*/
 	Ilosc pobierzIloscObiektu( const Indeks& indeks ) const;
 	
 	/**
@@ -367,6 +425,6 @@ private:
 	//ListaZasobow dostepneZasobyPlanety_; /// Lista zasobów jakie mo¿na wydobyæ na planecie.
 	Tekst nazwaPlanety_; /// Nazwa planety.
 
-	Identyfikator idUkladu_;
-	Tekst idUzytkownika_;
+	Identyfikator idUkladu_; /// Uk³ad s³oneczny w którym znajduje siê planeta.
+	Tekst idUzytkownika_; /// Nazwa u¿ytkownika przypisanego do planety.
 };

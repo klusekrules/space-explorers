@@ -33,6 +33,7 @@ public:
 	* \brief Metoda zwracaj¹ca planetê nale¿¹c¹ do u¿ytkownika.
 	*
 	* Metoda pobiera planete nale¿¹c¹ do u¿ytkownika. Nie usuwa jej z listy jego planet.
+	* \param[in] identyfikator - Numer identyfikuj¹cy planetê.
 	* \return Referencja do planety u¿ytkownika.
 	*/
 	Planeta& pobierzPlanete( const Identyfikator& Identyfikator ) const;
@@ -62,7 +63,14 @@ public:
 	*/
 	bool dodajPlanete( shared_ptr<Planeta> planeta );
 
-	bool usunPlanete( const Identyfikator& Identyfikator );
+	/**
+	* \brief Metoda usuwaj¹ca planetê z listy.
+	*
+	* Metoda usuwa planetê o podanym identyfikatorze z listy planet.
+	* \param[in] identyfikator - Numer identyfikuj¹cy planetê.
+	* \return true je¿eli planeta zostanie usuniêta, false je¿eli nie znaleziono planety.
+	*/
+	bool usunPlanete( const Identyfikator& identyfikator );
 
 	/**
 	* \brief Metoda zapisuj¹ca.
