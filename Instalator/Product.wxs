@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?include definicje.wxi ?>
-  <Product Name='Space-Explorers 0.0.4' Id='C5D410BC-EB65-48AD-966D-24830261DF12' UpgradeCode='90B73C3B-7192-4C3F-A82B-CB7A2C07F571'
-    Language='1045' Codepage='1250' Version='0.0.4' Manufacturer='Daniel Wojdak'>
+  <Product Name='Space-Explorers 0.0.5' Id='C5D410BC-EB65-48AD-966D-24830261DF12' UpgradeCode='90B73C3B-7192-4C3F-A82B-CB7A2C07F571'
+    Language='1045' Codepage='1250' Version='0.0.5' Manufacturer='Daniel Wojdak'>
 
-    <Package Id='*' Keywords='Installer' Description="Space-Explorers 0.0.4 Instalator"
+    <Package Id='*' Keywords='Installer' Description="Space-Explorers 0.0.5 Instalator"
       Comments='Komentarz' Manufacturer='Daniel Wojdak' InstallScope='perMachine'
       InstallerVersion='200' Languages='1045' Compressed='yes' SummaryCodepage='1250' Platform='$(var.Platforma)'/>
 
     <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' DiskPrompt='CD-ROM #1'/>
-    <Property Id='DiskPrompt' Value="Space-Explorers 0.0.4 Installation [1]" />
+    <Property Id='DiskPrompt' Value="Space-Explorers 0.0.5 Installation [1]" />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
 
