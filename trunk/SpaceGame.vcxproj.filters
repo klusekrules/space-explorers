@@ -840,5 +840,11 @@
     <Xsd Include="saveSchema.xsd">
       <Filter>Data</Filter>
     </Xsd>
+    <Xsd Include="ukladSchema.xsd">
+      <Filter>Data</Filter>
+    </Xsd>
+    <Xsd Include="userSchema.xsd">
+      <Filter>Data</Filter>
+    </Xsd>
   </ItemGroup>
 </Project>

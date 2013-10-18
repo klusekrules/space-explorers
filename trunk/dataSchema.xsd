@@ -18,7 +18,7 @@
   <xs:element name="LadowniaInfo" type="LadowniaInfoTyp"/>
   <xs:element name="HangarInfo" type="LadowniaInfoTyp"/>
 
-  <!-- Główny węzeł pliku -->
+  <!-- Glowny wezel pliku -->
   <xs:element name="Space-Explorers">
     <xs:complexType>
       <xs:sequence>
@@ -33,7 +33,7 @@
     </xs:complexType>
   </xs:element>
 
-  <!-- Typy główne -->
+  <!-- Typy glowne -->
   <xs:complexType name="SurowceInfoTyp" mixed="true" >
     <xs:sequence>
       <xs:element name="Zmiana" minOccurs="0" maxOccurs="unbounded">
@@ -278,7 +278,7 @@
     </xs:attribute>
   </xs:complexType>
 
-  <!-- Grupy elementów -->
+  <!-- Grupy elementow -->
   <xs:group name="Wymagania">
     <xs:sequence>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -307,7 +307,7 @@
     </xs:sequence>
   </xs:group>
 
-  <!-- Grupy atrybutów -->
+  <!-- Grupy atrybutow -->
   <xs:attributeGroup name="Bazowe">
     <xs:attribute name="id" type="idType" use="required"/>
     <xs:attribute name="poziom" type="xs:positiveInteger" use="required"/>
