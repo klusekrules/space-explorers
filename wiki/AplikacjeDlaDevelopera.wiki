@@ -16,3 +16,6 @@ Usuwanie pustych folderów
 
 Licznie linii kodu
 [http://cloc.sourceforge.net/]
+
+Narzędzie do tworzenia instalatora
+[http://wixtoolset.org/]
