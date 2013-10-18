@@ -7,55 +7,94 @@
 
 using namespace std;
 
+/**
+* \brief Klasa generuj¹ca lokacje
+*
+* Klasa generuje lokacje takie jak galaktyki, uk³ady s³oneczne oraz planety.
+* \author Daniel Wojdak
+* \version 1
+* \date 18-10-2013
+*/
 class GeneratorUkladow :
 	virtual public LoggerInterface,
 	public Serializacja
 {
 public:
-	const static Identyfikator LICZNIK_PLANET_ID;
-	const static Identyfikator LICZNIK_UKLADOW_ID;
-	const static Identyfikator LICZNIK_GALAKTYK_ID;
+	const static Identyfikator LICZNIK_PLANET_ID; /// Identyfikator licznika planet
+	const static Identyfikator LICZNIK_UKLADOW_ID; /// Identyfikator licznika uk³adów s³onecznych
+	const static Identyfikator LICZNIK_GALAKTYK_ID;/// identyfikator licznika galaktyk
 	
-	const static SPG::Dystans SREDNICA_GWIAZDY_MIN;
-	const static SPG::Dystans SREDNICA_GWIAZDY_MAX;
-	const static double SREDNICA_GWIAZDY_PARAM_ALFA;
-	const static double SREDNICA_GWIAZDY_PARAM_BETA;
+	const static SPG::Dystans SREDNICA_GWIAZDY_MIN; /// Minimalna œrednica gwiazdy
+	const static SPG::Dystans SREDNICA_GWIAZDY_MAX; /// Maksymalna œrednica gwiazdy
+	const static double SREDNICA_GWIAZDY_PARAM_ALFA; /// Parametr generatora losowego gwiazdy.
+	const static double SREDNICA_GWIAZDY_PARAM_BETA; /// Parametr generatora losowego gwiazdy.
 
-	const static SPG::Temperatura TEMPERATURA_GWIAZDY_MIN;
-	const static SPG::Temperatura TEMPERATURA_GWIAZDY_MAX;
-	const static double TEMPERATURA_GWIAZDY_PROCENT_SREDNICY;
-	const static double TEMPERATURA_GWIAZDY_PROCENT_STALY;
-	const static double TEMPERATURA_GWIAZDY_PROCENT_LOSOWY;
+	const static SPG::Temperatura TEMPERATURA_GWIAZDY_MIN; /// Minimalna temperatura gwiazdy
+	const static SPG::Temperatura TEMPERATURA_GWIAZDY_MAX; /// Maksymalna temperatura gwiazdy
+	const static double TEMPERATURA_GWIAZDY_PROCENT_SREDNICY; /// Procent œrednicy w wyliczniu temperatury gwiazdy.
+	const static double TEMPERATURA_GWIAZDY_PROCENT_STALY; /// Sta³y procent temperatury gwiazdy
+	const static double TEMPERATURA_GWIAZDY_PROCENT_LOSOWY; /// Procent losowy temperatury gwiazdy.
 	
-	const static int ILOSC_PLANET_MIN;
-	const static int ILOSC_PLANET_MAX;
-	const static double ILOSC_PLANET_PARAM;
+	const static int ILOSC_PLANET_MIN; /// Minimalna iloœæ planet w uk³adzie
+	const static int ILOSC_PLANET_MAX; /// Maksymlana iloœæ planet w uk³adzie.
+	const static double ILOSC_PLANET_PARAM; /// Parametr generatora iloœci planet.
 
-	const static SPG::Dystans SREDNICA_PLANETY_MIN;
-	const static SPG::Dystans SREDNICA_PLANETY_MAX;
-	const static double SREDNICA_PLANETY_ODCHYLENIE;
-	const static double SREDNICA_PLANETY_PRZESUNIECIE;
-	const static double SREDNICA_PLANETY_ROZCIAGNIECIE;
+	const static SPG::Dystans SREDNICA_PLANETY_MIN; /// Minimalna œrednica planety
+	const static SPG::Dystans SREDNICA_PLANETY_MAX; /// Maksymlana œrednica planety
+	const static double SREDNICA_PLANETY_ODCHYLENIE; /// Parametr generatora œrednicy planety.
+	const static double SREDNICA_PLANETY_PRZESUNIECIE; /// Parametr generatora œrednicy planety.
+	const static double SREDNICA_PLANETY_ROZCIAGNIECIE; /// Parametr generatora œrednicy planety.
 
-	const static SPG::Dystans ODLEGLOSC_MIEDZYPLANETARNA_MIN;
-	const static SPG::Dystans ODLEGLOSC_MIEDZYPLANETARNA_MAX;
+	const static SPG::Dystans ODLEGLOSC_MIEDZYPLANETARNA_MIN; /// Minimalna odleg³oœæ miedzyplanetarna
+	const static SPG::Dystans ODLEGLOSC_MIEDZYPLANETARNA_MAX; /// Maksymalna odleg³oœæ miêdzyplanetarna
 
-	const static SPG::Temperatura TEMPERATURA_PLANETY_MAX;
+	const static SPG::Temperatura TEMPERATURA_PLANETY_MAX; /// Maksymlana temperatura na planecie.
 
-	const static SPG::Fluktuacja POWIERZCHNIA_UZYTKOWA_MIN;
-	const static SPG::Fluktuacja POWIERZCHNIA_UZYTKOWA_MAX;
+	const static SPG::Fluktuacja POWIERZCHNIA_UZYTKOWA_MIN; /// Minimalny procent powierzchni u¿ytkowej na planecie.
+	const static SPG::Fluktuacja POWIERZCHNIA_UZYTKOWA_MAX; /// Maksymalny procent powierchni u¿ytkowej na planecie.
 
-	const static SPG::Fluktuacja POWIERZCHNIA_WODY_MAX;
+	const static SPG::Fluktuacja POWIERZCHNIA_WODY_MAX; /// Maksymalny procent powierzchni zajmowanej przez wodê.
 
-	const static int ILOSC_UKLADOW_MIN;
-	const static int ILOSC_UKLADOW_MAX;
+	const static int ILOSC_UKLADOW_MIN; /// Minimalna iloœæ uk³adów s³onecznych w galaktyce
+	const static int ILOSC_UKLADOW_MAX; /// Maksymalna iloœæ uk³adów s³onecznych w galaktyce
 
+	/**
+	* \brief Konstruktor.
+	*/
 	GeneratorUkladow();
+
+	/**
+	* \brief Destruktor.
+	*/
 	virtual ~GeneratorUkladow();
 
+	/**
+	* \brief Metoda generuj¹ca galaktykê.
+	*
+	* Metoda generuje galaktykê.
+	* \return WskaŸnik na galaktykê.
+	*/
 	shared_ptr<Galaktyka> generujGalaktyke() const;
-	shared_ptr<UkladSloneczny> generujUklad( const Identyfikator& idGalatyki ) const;
-	shared_ptr<Planeta> generujPlanete( const Dystans& odlegloscOdCentrum, const Moc& mocGwiazdy, const Identyfikator& idUkladu ) const;
+
+	/**
+	* \brief Metoda generuj¹ca uk³ad s³oneczny.
+	*
+	* Metoda generuje uk³ad s³oneczny.
+	* \param[in] identyfikatorGalatyki - Numer identyfikuj¹cy galaktykê.
+	* \return WskaŸnik na uk³ad s³oneczny.
+	*/
+	shared_ptr<UkladSloneczny> generujUklad( const Identyfikator& identyfikatorGalatyki ) const;
+
+	/**
+	* \brief Metoda generuj¹ca planetê.
+	*
+	* Metoda generuje planetê.
+	* \param[in] odlegloscOdCentrum - odleg³oœæ planety od œrodka uk³adu s³onecznego.
+	* \param[in] mocGwiazdy - moc gwiazdy znajduj¹cej siê u uk³adzie.
+	* \param[in] identyfikatorUkladu - Numer identyfikuj¹cy uk³ad s³oneczny
+	* \return WskaŸnik na planetê.
+	*/
+	shared_ptr<Planeta> generujPlanete( const Dystans& odlegloscOdCentrum, const Moc& mocGwiazdy, const Identyfikator& identyfikatorUkladu ) const;
 
 	/**
 	* \brief Metoda zapisuj¹ca.
@@ -86,21 +125,48 @@ public:
 
 private:
 	
-	mutable random_device generator;
-	gamma_distribution<SPG::Dystans> dystrybutorSrednicyGwiazdy;
-	binomial_distribution<int> dystrybutorIlosciPlanet;
-	uniform_int_distribution<int> dystrybutorIlosciUkladow;
-	uniform_real_distribution<SPG::Fluktuacja>  dystrybucjaPowierzchniUzytkowej;
-	mutable Licznik licznikIdPlanet;
-	mutable Licznik licznikIdUkladow;
-	mutable Licznik licznikIdGalaktyk;
+	mutable random_device generator; /// Silnik generatora.
+	gamma_distribution<SPG::Dystans> dystrybutorSrednicyGwiazdy; /// Generator œrednicy gwiazdy
+	binomial_distribution<int> dystrybutorIlosciPlanet; /// Genetator iloœci planet w uk³adzie s³onecznym
+	uniform_int_distribution<int> dystrybutorIlosciUkladow; /// Generator iloœci uk³adów.
+	uniform_real_distribution<SPG::Fluktuacja>  dystrybucjaPowierzchniUzytkowej; /// Generator procentu powierzchni u¿ytkowej.
+	mutable Licznik licznikIdPlanet; /// Licznik planet
+	mutable Licznik licznikIdUkladow; /// Licznik uk³adów s³onecznych
+	mutable Licznik licznikIdGalaktyk; /// Licznik galaktyk
 
+	/**
+	* \brief Metoda generuj¹ca œrednicê gwiazdy
+	*
+	* Metoda generuje œrednicê gwiazdy.
+	* \return Œrednica gwiazdy w mln km.
+	*/
 	SPG::Dystans generujSredniceGwiazdy() const;
 
+	/**
+	* \brief Metoda generuj¹ca œrednicê planety
+	*
+	* Metoda generuje œrednicê planety.
+	* \param[in] odlegloscOdCentrum - Odleg³oœæ planety od œrodka uk³adu s³onecznego.
+	* \return Œrednica planety w mln km.
+	*/
 	SPG::Dystans generujSrednicePlanety( const Dystans& odlegloscOdCentrum ) const;
 
+	/**
+	* \brief Metoda generuj¹ca temperaturê gwiazdy.
+	*
+	* Metoda generuje temperaturê gwiazdy.
+	* \param[in] srednica - œrednica gwiazdy.
+	* \return Temperatura gwiazdy w kelwinach.
+	*/
 	SPG::Temperatura generujTemperatureGwiazdy( SPG::Dystans srednica ) const;
 
+	/**
+	* \brief Metoda generuj¹ca temperaturê planety.
+	*
+	* Metoda generuje temperaturê planety.
+	* \param[in] odlegloscOdCentrum - Odleg³oœæ planety od œrodka uk³adu s³onecznego.	
+	* \param[in] mocGwiazdy - moc gwiazdy znajduj¹cej siê u uk³adzie.
+	* \return Temperatura planety w kelwinach.
+	*/
 	SPG::Temperatura generujTemperaturePlanety( const Dystans& odlegloscOdCentrum, const Moc& mocGwiazdy ) const;
 };
-

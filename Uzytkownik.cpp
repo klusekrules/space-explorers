@@ -22,8 +22,8 @@ bool Uzytkownik::dodajPlanete( shared_ptr<Planeta> planeta ){
 	return true;
 }
 
-bool Uzytkownik::usunPlanete( const Identyfikator& Identyfikator ){
-	auto iterator = planety_.find(Identyfikator);
+bool Uzytkownik::usunPlanete( const Identyfikator& identyfikator ){
+	auto iterator = planety_.find(identyfikator);
 	if(iterator==planety_.end())
 		return false;
 	planety_.erase(iterator);

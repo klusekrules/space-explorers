@@ -14,7 +14,6 @@
 #define WEZEL_XML_SUROWCE "Surowce"
 #define WEZEL_XML_TECHNOLOGIA "Technologia"
 #define WEZEL_XML_HANGAR "Hangar"
-#define WEZEL_XML_SYGNATURA_PLANETY "SygnaturaPlanety"
 #define WEZEL_XML_PRODUKCJA "Produkcja"
 #define WEZEL_XML_CENA "Cena"
 #define WEZEL_XML_CZAS "Czas"
