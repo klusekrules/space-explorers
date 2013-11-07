@@ -107,8 +107,10 @@
     </DirectoryRef>
 
     <DirectoryRef Id='RESOURCE_DIR'>
-      <Component Id='RESOURCE_DIR_COMP' Guid='{0C4245A3-396F-4BC5-8FBD-95EFEFCD5FF8}' Win64='$(var.isPlatformx64)'>
+      <Component Id='RESOURCE_DIR_BACKGROUND_FILE_COMP' Guid='{0C4245A3-396F-4BC5-8FBD-95EFEFCD5FF8}' Win64='$(var.isPlatformx64)'>
         <File Id='RESOURCE_BACKGROUND_FILE' Source='..\out\resource\background.jpg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+      <Component Id='RESOURCE_DIR_FONT_FILE_COMP' Guid='{7C45A208-EA2A-45F7-802C-780A3453E9F8}' Win64='$(var.isPlatformx64)'>
         <File Id='RESOURCE_FONT_FILE' Source='..\out\resource\arial.ttf' KeyPath='yes' Vital='yes' Checksum='yes'/>
       </Component>
     </DirectoryRef>
@@ -129,7 +131,8 @@
       <ComponentRef Id='DOC_USER_SHEMA_COMP' />
       <ComponentRef Id='DOC_UKLAD_SHEMA_COMP' />
       <ComponentRef Id='UKLAD_DIR_COMP' />
-      <ComponentRef Id='RESOURCE_DIR_COMP' />
+      <ComponentRef Id='RESOURCE_DIR_BACKGROUND_FILE_COMP' />
+      <ComponentRef Id='RESOURCE_DIR_FONT_FILE_COMP' />
     </Feature>
     <UI Id="MyWixUI_InstallDir">
       <UIRef Id="WixUI_InstallDir" />
