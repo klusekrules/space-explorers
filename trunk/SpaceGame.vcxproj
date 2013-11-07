@@ -104,6 +104,8 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <AdditionalIncludeDirectories>$(SolutionDir)SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -115,6 +117,8 @@
       </LinkStatus>
       <Version>
       </Version>
+      <AdditionalLibraryDirectories>$(SolutionDir)SFML\SFML-2.1-x32\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-graphics-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ResourceCompile>
       <Culture>0x0015</Culture>
@@ -129,12 +133,15 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalIncludeDirectories>$(SolutionDir)SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -144,6 +151,8 @@
       </ShowProgress>
       <LinkStatus>
       </LinkStatus>
+      <AdditionalLibraryDirectories>$(SolutionDir)SFML\SFML-2.1-x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-graphics-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>SubWCRev.exe $(SolutionDir) $(ProjectDir)\svn_version.h.tmpl $(ProjectDir)\svn_version.h</Command>
@@ -164,12 +173,16 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>$(SolutionDir)SFML\SFML-2.1-x32\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-window-s.lib;sfml-system-s.lib;sfml-graphics-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -190,11 +203,15 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)SFML\SFML-2.1-x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-window-s.lib;sfml-system-s.lib;sfml-graphics-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>SubWCRev.exe $(SolutionDir) $(ProjectDir)\svn_version.h.tmpl $(ProjectDir)\svn_version.h</Command>
@@ -221,10 +238,15 @@
     <ClInclude Include="HangarTest.h" />
     <ClInclude Include="keccak.h" />
     <ClInclude Include="KluczTest.h" />
+    <ClInclude Include="MaszynaStanow.h" />
+    <ClInclude Include="ObiektInterfejsuUzytkownika.h" />
     <ClInclude Include="Obrona.h" />
     <ClInclude Include="ObronaInfo.h" />
     <ClInclude Include="ObronaTest.h" />
     <ClInclude Include="PlanetaTest.h" />
+    <ClInclude Include="Przycisk.h" />
+    <ClInclude Include="RoundedRectangleShape.hpp" />
+    <ClInclude Include="stdafx.h" />
     <ClInclude Include="Temperatura.h">
       <SubType>
       </SubType>
@@ -382,6 +404,7 @@
     <ClCompile Include="LogowanieTest.cpp" />
     <ClCompile Include="maintest.cpp" />
     <ClCompile Include="Masa.cpp" />
+    <ClCompile Include="MaszynaStanow.cpp" />
     <ClCompile Include="MenedzerTranzakcji.cpp" />
     <ClCompile Include="Moc.cpp" />
     <ClCompile Include="NiepoprawnaIloscObiektow.cpp" />
@@ -395,6 +418,7 @@
     <ClCompile Include="ObiektBazowy.cpp" />
     <ClCompile Include="ObiektBazowyInfo.cpp" />
     <ClCompile Include="ObiektInfo.cpp" />
+    <ClCompile Include="ObiektInterfejsuUzytkownika.cpp" />
     <ClCompile Include="ObiektListTest.cpp" />
     <ClCompile Include="Objetosc.cpp" />
     <ClCompile Include="Obrazenia.cpp" />
@@ -411,6 +435,8 @@
     <ClCompile Include="Powierzchnia.cpp" />
     <ClCompile Include="Poziom.cpp" />
     <ClCompile Include="Predkosc.cpp" />
+    <ClCompile Include="Przycisk.cpp" />
+    <ClCompile Include="RoundedRectangleShape.cpp" />
     <ClCompile Include="Stale.cpp" />
     <ClCompile Include="Statek.cpp" />
     <ClCompile Include="StatekInfo.cpp" />

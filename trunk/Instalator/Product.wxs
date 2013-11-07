@@ -18,7 +18,8 @@
           <Directory Id='SPACE_EXPLORERS' Name='Space-Explorers'>
             <Directory Id='DOC_DIR' Name='doc'/>
             <Directory Id='INSTALL_DIR' Name='bin'>
-              
+              <Directory Id='RESOURCE_DIR' Name='resource'/>
+                
               <Directory Id='PLUGINS_DIR' Name='plugins'>
                 <Directory Id='ZMIANA_DIR' Name='$(var.FolderZmian)'/>
               </Directory>
@@ -104,6 +105,13 @@
         <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
       </Component>
     </DirectoryRef>
+
+    <DirectoryRef Id='RESOURCE_DIR'>
+      <Component Id='RESOURCE_DIR_COMP' Guid='{0C4245A3-396F-4BC5-8FBD-95EFEFCD5FF8}' Win64='$(var.isPlatformx64)'>
+        <File Id='RESOURCE_BACKGROUND_FILE' Source='..\out\resource\background.jpg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+        <File Id='RESOURCE_FONT_FILE' Source='..\out\resource\arial.ttf' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+    </DirectoryRef>
     
     <Feature Id='Complete' Title='Space-Explorers 0.0.4' Description='Moja aplikacja'
       Display='expand' Level='1' AllowAdvertise='no' ConfigurableDirectory="SPACE_EXPLORERS" >
@@ -121,6 +129,7 @@
       <ComponentRef Id='DOC_USER_SHEMA_COMP' />
       <ComponentRef Id='DOC_UKLAD_SHEMA_COMP' />
       <ComponentRef Id='UKLAD_DIR_COMP' />
+      <ComponentRef Id='RESOURCE_DIR_COMP' />
     </Feature>
     <UI Id="MyWixUI_InstallDir">
       <UIRef Id="WixUI_InstallDir" />
