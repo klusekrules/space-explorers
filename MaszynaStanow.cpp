@@ -39,6 +39,7 @@ void MaszynaStanow::start(){
 		return;
 
 	oknoGlowne_.create(sf::VideoMode(800,600),"Space-Explorers");
+	gui.setWindow(oknoGlowne_);
 	aktualnyStan_.ustawStan( StanyGry::EkranStartowy );
 
 	while(aktualnyStan_ != StanyGry::Wylacznie)

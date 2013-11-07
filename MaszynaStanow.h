@@ -69,6 +69,7 @@ private:
 
 	StanGry aktualnyStan_;
 	sf::RenderWindow oknoGlowne_;
+	tgui::Gui gui;
 
 	MaszynaStanow();
 	MaszynaStanow( const MaszynaStanow& );
