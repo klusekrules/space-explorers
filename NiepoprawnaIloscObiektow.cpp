@@ -21,7 +21,7 @@ Tekst NiepoprawnaIloscObiektow::generujKomunikat() const{
 	return OgolnyWyjatek::generujKomunikat() + Tekst("Ilosc:") +  i.Ilosc::napis() + Tekst("\n");
 }
 
-string NiepoprawnaIloscObiektow::napis() const{
+std::string NiepoprawnaIloscObiektow::napis() const{
 	Logger str(NAZWAKLASY(NiepoprawnaIloscObiektow));	
 	str.dodajKlase(OgolnyWyjatek::napis());
 	str.dodajPole("Ilosc",i);

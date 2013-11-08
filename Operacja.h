@@ -36,5 +36,5 @@ public:
 	* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
 	* \return Napis zwieraj¹cy opis klasy.
 	*/
-	string napis() const override;
+	std::string napis() const override;
 };

@@ -51,6 +51,6 @@ bool Klucz::operator<( const Klucz& wartosc )const{
 	return wartosc_ < wartosc.wartosc_;
 }
 
-string Klucz::napis()const{
+std::string Klucz::napis()const{
 	return Logger::tworzPole(NAZWAKLASY(Klucz),wartosc_);
 }

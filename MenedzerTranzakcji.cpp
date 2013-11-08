@@ -28,10 +28,10 @@ bool MenedzerTranzakcji::wykonaj()
 			}
 		}
 	}catch(OgolnyWyjatek& e){
-		Aplikacja::pobierzInstancje().pobierzLogger().warn(e.generujKomunikat());
+		Aplikacja::pobierzInstancje().pobierzLogger().loguj(Log::Warning,e.generujKomunikat());
 		powodzenie = false;
 	}catch(std::exception& e){
-		Aplikacja::pobierzInstancje().pobierzLogger().warn(e.what());
+		Aplikacja::pobierzInstancje().pobierzLogger().loguj(Log::Warning,e.what());
 		powodzenie = false;
 	}catch(...){
 		powodzenie = false;
@@ -45,13 +45,13 @@ bool MenedzerTranzakcji::wykonaj()
 				}
 			}
 		}catch(NiepowodzenieTranzakcji& e){
-			Aplikacja::pobierzInstancje().pobierzLogger().warn(e.generujKomunikat());
+			Aplikacja::pobierzInstancje().pobierzLogger().loguj(Log::Warning,e.generujKomunikat());
 			throw;
 		}catch(OgolnyWyjatek& e){
-			Aplikacja::pobierzInstancje().pobierzLogger().warn(e.generujKomunikat());
+			Aplikacja::pobierzInstancje().pobierzLogger().loguj(Log::Warning,e.generujKomunikat());
 			throw NiepowodzenieTranzakcji(EXCEPTION_PLACE,listaOperacji_[iterator]->napis());
 		}catch(std::exception& e){
-			Aplikacja::pobierzInstancje().pobierzLogger().warn(e.what());
+			Aplikacja::pobierzInstancje().pobierzLogger().loguj(Log::Warning,e.what());
 			throw NiepowodzenieTranzakcji(EXCEPTION_PLACE,listaOperacji_[iterator]->napis());
 		}catch(...){
 			throw NiepowodzenieTranzakcji(EXCEPTION_PLACE,listaOperacji_[iterator]->napis());

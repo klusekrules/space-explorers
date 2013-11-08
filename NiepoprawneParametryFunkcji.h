@@ -17,8 +17,8 @@ public:
 	NiepoprawneParametryFunkcji( const Tekst& tPlik, const Ilosc& iLinia, const V&... tail )
 		: OgolnyWyjatek( tPlik, iLinia, idNiepoprawneParametryFunkcji, tytulNiepoprawneParametryFunkcji, trescNiepoprawneParametryFunkcji )
 	{
-		vector< string > a;
-		stringstream tmp;
+		vector< std::string > a;
+		std::stringstream tmp;
 		step(a, tail... );
 		for ( auto s : a ){
 			tmp<< "Parametr - [ " << s << " ] \n";
@@ -33,17 +33,17 @@ public:
 	
 	Tekst generujKomunikat() const override;
 
-	string napis() const override;
+	std::string napis() const override;
 
 private:
 
 	template< class... V >
-	static void step( vector< string >& v, const LoggerInterface &c , const V&... tail ){
+	static void step( vector< std::string >& v, const LoggerInterface &c , const V&... tail ){
 		v.push_back(c.napis());
 		step(v, tail... );
 	}
 	
-	static void step( vector< string >& v, const LoggerInterface &c ){
+	static void step( vector< std::string >& v, const LoggerInterface &c ){
 		v.push_back(c.napis());
 	}
 

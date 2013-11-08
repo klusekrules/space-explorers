@@ -81,7 +81,7 @@ public:
 	* Metoda tworz¹ca napis zawieraj¹cy opis obiektu.
 	* \return Opis obiektu.
 	*/
-	string napis () const override;
+	std::string napis () const override;
 
 };
 

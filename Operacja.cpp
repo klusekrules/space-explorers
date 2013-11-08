@@ -17,7 +17,7 @@ bool Operacja::cofnij(){
 	return false;
 }
 
-string Operacja::napis() const {
+std::string Operacja::napis() const {
 	Logger str (NAZWAKLASY(Operacja));
 	return str.napis();
 }

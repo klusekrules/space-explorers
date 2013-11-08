@@ -46,12 +46,12 @@ bool Tekst::operator!=( const Tekst& wartosc ) const{
 	return wartosc_ != wartosc.wartosc_;
 }
 
-string Tekst::napis()const {
+std::string Tekst::napis()const {
 	return Logger::tworzPole(NAZWAKLASY(Tekst),dodajCudzyslow());
 }
 
 Tekst::type_name Tekst::dodajCudzyslow() const {
-	string s("\"");
+	std::string s("\"");
 	s.append(wartosc_);
 	s.append("\"");
 	return s;

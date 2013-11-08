@@ -92,8 +92,8 @@ Fluktuacja Objetosc::operator/( const Objetosc& wartosc )const{
 	return Fluktuacja( static_cast<Fluktuacja::type_name>(wartosc_ / wartosc.wartosc_) );
 }
 
-string Objetosc::napis() const{
-	stringstream str;
+std::string Objetosc::napis() const{
+	std::stringstream str;
 	str.precision(25);
 	str<<std::fixed<< wartosc_;
 	return str.str();

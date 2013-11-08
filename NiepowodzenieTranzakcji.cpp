@@ -22,7 +22,7 @@ NiepowodzenieTranzakcji::~NiepowodzenieTranzakcji(void)
 {
 }
 
-string NiepowodzenieTranzakcji::napis() const{
+std::string NiepowodzenieTranzakcji::napis() const{
 	Logger str(NAZWAKLASY(NiepowodzenieTranzakcji));
 	str.dodajKlase(OgolnyWyjatek::napis());
 	str.dodajPole("OpisTranzakcji",tranzakcja_);

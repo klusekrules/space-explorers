@@ -29,7 +29,7 @@ bool ZmianaTest::RejestrujZmianaTest(  ZmianaFabryka &ref ){
 	return ref.rejestracjaZmiany( identyfikator_, ZmianaTest::TworzZmianaTest );
 }
 
-string ZmianaTest::napis()const{
+std::string ZmianaTest::napis()const{
 	Logger str(NAZWAKLASY(ZmianaTest));
 	str.dodajPole( "Parametr", parametr_ );
 	return str.napis();
@@ -39,8 +39,8 @@ const int ZmianaTest::identyfikator_(5);
 
 bool RejestrujZmiany ( ZmianaFabryka& fabryka , Log& logger ){
 	if(ZmianaTest::RejestrujZmianaTest(fabryka))
-		logger.info("Zaladowano ZmianaTest.");
+		logger.loguj(Log::Info,"Zaladowano ZmianaTest.");
 	else
-		logger.info("Nie zaladowano ZmianaTest.");
+		logger.loguj(Log::Info,"Nie zaladowano ZmianaTest.");
 	return true;
 }

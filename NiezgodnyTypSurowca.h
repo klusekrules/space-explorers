@@ -16,7 +16,7 @@ public:
 	NiezgodnyTypSurowca( const NiezgodnyTypSurowca& );
 	virtual ~NiezgodnyTypSurowca();
 
-	string napis() const override;
+	std::string napis() const override;
 
 private:
 	static const Tekst tytulNiezgodnyTypSurowcaDomyslny;

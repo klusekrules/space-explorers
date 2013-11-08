@@ -42,8 +42,8 @@ Identyfikator::operator size_t()const{
 	return wartosc_;
 }
 
-string Identyfikator::napis()const{
-	stringstream str;
+std::string Identyfikator::napis()const{
+	std::stringstream str;
 	str.imbue(std::locale::classic());
 	str << "0x"<< std::uppercase << std::hex << wartosc_;
 	return str.str();

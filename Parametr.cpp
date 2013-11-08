@@ -25,6 +25,6 @@ Parametr& Parametr::operator=( const Parametr& wartosc ){
 	return *this;
 }
 
-string Parametr::napis() const{
+std::string Parametr::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(Parametr),wartosc_);
 }

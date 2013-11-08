@@ -71,6 +71,6 @@ Dystans Dystans::operator/( const type_name& wartosc )const{
 	return Dystans( wartosc_ / wartosc );
 }
 
-string Dystans::napis() const{
+std::string Dystans::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(Dystans),wartosc_);
 }

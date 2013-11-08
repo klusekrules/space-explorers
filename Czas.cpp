@@ -43,6 +43,6 @@ Czas& Czas::operator=( const type_name& wartosc ){
 	return *this;
 }
 
-string Czas::napis() const{
+std::string Czas::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(Czas),wartosc_);
 } 

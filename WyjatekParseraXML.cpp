@@ -26,7 +26,7 @@ Tekst WyjatekParseraXML::generujKomunikat() const{
 	return OgolnyWyjatek::generujKomunikat() + powod + Tekst("\n");
 }
 
-string WyjatekParseraXML::napis() const{
+std::string WyjatekParseraXML::napis() const{
 	Logger str(NAZWAKLASY(WyjatekParseraXML));
 	str.dodajKlase(OgolnyWyjatek::napis());
 	str.dodajPole("Powod",powod);

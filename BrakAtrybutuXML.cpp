@@ -28,7 +28,7 @@ Tekst BrakAtrybutuXML::generujKomunikat() const{
 	return OgolnyWyjatek::generujKomunikat() + atrybut + Tekst("\n");
 }
 
-string BrakAtrybutuXML::napis() const{
+std::string BrakAtrybutuXML::napis() const{
 	Logger str(NAZWAKLASY(BrakAtrybutuXML));	
 	str.dodajKlase(WyjatekParseraXML::napis());
 	str.dodajPole("Atrybut",atrybut);

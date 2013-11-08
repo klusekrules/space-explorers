@@ -81,7 +81,7 @@ public:
 	* Funkcja s³u¿¹ca jako podstawa do tworzenia napisów z opisem klasy.
 	* \return Napis zawieraj¹cy opis klasy.
 	*/
-	string napis()const override;
+	std::string napis()const override;
 };
 
 struct IdTypeHash {

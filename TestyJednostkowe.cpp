@@ -39,8 +39,8 @@ TestyJednostkowe& TestyJednostkowe::pobierzInstancje(){
 
 void TestyJednostkowe::wykonajTesty(){
 	try{
-		Log::pobierzInstancje().info("Inicjalizacja testów...");
-		Log::pobierzInstancje().info("---------------------------------");
+		Log::pobierzInstancje().loguj(Log::Info,"Inicjalizacja testów...");
+		Log::pobierzInstancje().loguj(Log::Info,"---------------------------------");
 		for( auto a : inicjalizacja_ ){
 			try{
 				a->wykonajTesty();
@@ -58,8 +58,8 @@ void TestyJednostkowe::wykonajTesty(){
 			if(a->bledy>0)
 				throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(),Tekst("B³ad Ogólny"),Tekst("Nie udana inicjalizacja testów!"));
 		}
-		Log::pobierzInstancje().info("Zakoñczono inicjalizacjê testów");
-		Log::pobierzInstancje().info("---------------------------------");
+		Log::pobierzInstancje().loguj(Log::Info,"Zakoñczono inicjalizacjê testów");
+		Log::pobierzInstancje().loguj(Log::Info,"---------------------------------");
 		for( auto a : zbiorTestow_ ){
 			try{
 				try{
@@ -76,20 +76,20 @@ void TestyJednostkowe::wykonajTesty(){
 					throw;
 				}
 			}catch(OgolnyWyjatek& e){
-				Log::pobierzInstancje().error(e.generujKomunikat());
+				Log::pobierzInstancje().loguj(Log::Error,e.generujKomunikat());
 			}catch(exception& e){
-				Log::pobierzInstancje().error(e.what());
+				Log::pobierzInstancje().loguj(Log::Error,e.what());
 			}
 		}
 	}catch(OgolnyWyjatek& e){
-		Log::pobierzInstancje().error(e.generujKomunikat());
+		Log::pobierzInstancje().loguj(Log::Error,e.generujKomunikat());
 	}catch(exception& e){
-		Log::pobierzInstancje().error(e.what());
+		Log::pobierzInstancje().loguj(Log::Error,e.what());
 	}catch(...){
-		Log::pobierzInstancje().error("Wyst¹pi³ nieznany wyjatek!");
+		Log::pobierzInstancje().loguj(Log::Error,"Wyst¹pi³ nieznany wyjatek!");
 	}
-	Log::pobierzInstancje().info("Czyszczenie testów...");
-	Log::pobierzInstancje().info("---------------------------------");
+	Log::pobierzInstancje().loguj(Log::Info,"Czyszczenie testów...");
+	Log::pobierzInstancje().loguj(Log::Info,"---------------------------------");
 	for( auto a : czyszczenie_ ){
 		try{
 			try{
@@ -106,14 +106,14 @@ void TestyJednostkowe::wykonajTesty(){
 				throw;
 			}
 		}catch(OgolnyWyjatek& e){
-			Log::pobierzInstancje().error(e.generujKomunikat());
+			Log::pobierzInstancje().loguj(Log::Error,e.generujKomunikat());
 		}catch(exception& e){
-			Log::pobierzInstancje().error(e.what());
+			Log::pobierzInstancje().loguj(Log::Error,e.what());
 		}catch(...){
-			Log::pobierzInstancje().error("Wyst¹pi³ nieznany wyjatek!");
+			Log::pobierzInstancje().loguj(Log::Error,"Wyst¹pi³ nieznany wyjatek!");
 		}
 	}
-	Log::pobierzInstancje().info("Zakoñczono czyszczenie testów");
+	Log::pobierzInstancje().loguj(Log::Info,"Zakoñczono czyszczenie testów");
 	podsumowanie();
 }
 
@@ -132,8 +132,8 @@ TestyJednostkowe::~TestyJednostkowe(){
 void TestyJednostkowe::podsumowanie(){
 	stringstream str;
 	str << "Przeprowadzono: " << poprawneTesty + bledy << ", bledy: "<< bledy << ", krytyczne: "<< bledyKrytyczne << ", pominieto: "<<pominieteTesty;
-	Log::pobierzInstancje().info("---------------------------------");
-	Log::pobierzInstancje().info("");
-	Log::pobierzInstancje().info("Podsumowanie testów:");
-	Log::pobierzInstancje().info(str.str());
+	Log::pobierzInstancje().loguj(Log::Info,"---------------------------------");
+	Log::pobierzInstancje().loguj(Log::Info,"");
+	Log::pobierzInstancje().loguj(Log::Info,"Podsumowanie testów:");
+	Log::pobierzInstancje().loguj(Log::Info,str.str());
 }
