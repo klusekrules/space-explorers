@@ -29,7 +29,7 @@ ZmianaInterfejs* ZmianaLiniowa::TworzZmianaLiniowa( TiXmlElement* wezel ){
 	return new ZmianaLiniowa(wezel);
 }
 
-string ZmianaLiniowa::napis()const{
+std::string ZmianaLiniowa::napis()const{
 	Logger str(NAZWAKLASY(ZmianaLiniowa));
 	str.dodajPole("Parametr",parametr_);
 	return str.napis();

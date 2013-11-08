@@ -33,7 +33,7 @@ class PLUGIN_API Cplugin {
 private:
 	ZmianaFabryka& fabryka_; /// Referencja na fabrykê zmian.
 	Log& log_; /// Referencja na obiekt logów.
-	string folderPluginow_; /// Œcie¿ka do folderu zawierajacy pluginy.
+	std::string folderPluginow_; /// Œcie¿ka do folderu zawierajacy pluginy.
 public:
 	/**
 	* Konstruktor klasy Cplugin
@@ -41,7 +41,7 @@ public:
 	* \param[in] fabryka - Referencja na fabrykê zmian.
 	* \param[in] log - Referencja na obiekt logów.
 	*/
-	Cplugin( const string& folderPluginow, ZmianaFabryka& fabryka , Log& log );
+	Cplugin( const std::string& folderPluginow, ZmianaFabryka& fabryka , Log& log );
 
 	/**
 	* Metoda wywo³uj¹ca funkcje rejestruj¹ce domyœlne Zminay zaimplementowane w aplikcji w pliku ftrans.dll.

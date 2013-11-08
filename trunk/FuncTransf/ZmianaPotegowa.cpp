@@ -30,7 +30,7 @@ bool ZmianaPotegowa::RejestrujZmianaPotegowa( ZmianaFabryka &fabryka ){
 	return fabryka.rejestracjaZmiany( identyfikator_, ZmianaPotegowa::TworzZmianaPotegowa );
 }
 
-string ZmianaPotegowa::napis()const{
+std::string ZmianaPotegowa::napis()const{
 	Logger str(NAZWAKLASY(ZmianaPotegowa));
 	str.dodajPole( "wspolczynnik", wspolczynnik_ );
 	str.dodajPole( "wykladnik", wykladnik_ );

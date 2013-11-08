@@ -18,7 +18,7 @@ public:
 	
 	Tekst generujKomunikat() const override;
 
-	string napis() const override;
+	std::string napis() const override;
 
 private:
 	Tekst ladownia;

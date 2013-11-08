@@ -85,6 +85,6 @@ Masa& Masa::operator*=( const Ilosc& wartosc ){
 	return *this;
 }
 
-string Masa::napis() const{
+std::string Masa::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(Masa),wartosc_);
 } 

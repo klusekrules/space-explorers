@@ -25,7 +25,7 @@ bool ZmianaPoziomObiektu::RejestrujZmianaPoziomObiektu(  ZmianaFabryka &ref ){
 	return ref.rejestracjaZmiany( identyfikator_, ZmianaPoziomObiektu::TworzZmianaPoziomObiektu );
 }
 
-string ZmianaPoziomObiektu::napis()const{
+std::string ZmianaPoziomObiektu::napis()const{
 	Logger str(NAZWAKLASY(ZmianaPoziomObiektu));
 	str.dodajPole( "Parametr", parametr_ );
 	return str.napis();
@@ -39,8 +39,8 @@ const int ZmianaPoziomObiektu::identyfikator_(6);
 
 bool RejestrujZmianaPoziomObiektu ( ZmianaFabryka& fabryka , Log& logger ){
 	if(ZmianaPoziomObiektu::RejestrujZmianaPoziomObiektu(fabryka))
-		logger.info("Zaladowano ZmianaPoziomObiektu.");
+		logger.loguj(Log::Info,"Zaladowano ZmianaPoziomObiektu.");
 	else
-		logger.info("Nie zaladowano ZmianaPoziomObiektu.");
+		logger.loguj(Log::Info,"Nie zaladowano ZmianaPoziomObiektu.");
 	return true;
 }

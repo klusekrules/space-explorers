@@ -67,6 +67,6 @@ Moc Moc::operator+( const Moc& wartosc )const{
 	return Moc( wartosc_ + wartosc.wartosc_ );
 }
 
-string Moc::napis() const{
+std::string Moc::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(Moc),wartosc_);
 } 

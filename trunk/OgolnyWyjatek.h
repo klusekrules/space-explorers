@@ -31,7 +31,7 @@ public:
 	const Tekst& getTresc() const;
 	void setTresc ( const Tekst& wwTresc );	
 	
-	string napis() const override;
+	std::string napis() const override;
 
 protected:
 	Identyfikator numerWyjatku;

@@ -18,7 +18,7 @@ Aplikacja& Aplikacja::pobierzInstancje(){
 }
 
 void myPurecallHandler(){
-	Log::pobierzInstancje().error(Aplikacja::pobierzInstancje().pobierzSladStosu());
+	Log::pobierzInstancje().loguj(Log::Error,Aplikacja::pobierzInstancje().pobierzSladStosu());
 }
 
 void myInvalidParameterHandler(const wchar_t* expression,
@@ -35,8 +35,8 @@ void myInvalidParameterHandler(const wchar_t* expression,
 	wcstombs_s(nullptr,c_file,wcslen(file)+1,file,wcslen(file));
 	stringstream str;
 	str<<"Invalid parameter detected in function: "<<c_function<<". File: " << c_file <<". Line: "<<line<<".\nExpression: "<< c_expression;
-	Log::pobierzInstancje().error(str.str());
-	Log::pobierzInstancje().error(Aplikacja::pobierzInstancje().pobierzSladStosu());
+	Log::pobierzInstancje().loguj(Log::Error,str.str());
+	Log::pobierzInstancje().loguj(Log::Error,Aplikacja::pobierzInstancje().pobierzSladStosu());
 }
 
 Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
@@ -45,7 +45,7 @@ Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 
 #ifdef TESTS
 	/* Wylaczenie logow typu debug na potrzeby ograniczenia logow testow*/
-	logger_.zablokujLogiDebug();
+	logger_.zablokujLogi(Log::Debug);
 	/* ------------------------------------ */
 #endif
 
@@ -74,7 +74,8 @@ Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 	sfile << "space-explorers-" << s << ".log"; 
 	string filename = sfile.str();
 	logger_.ustawFormatCzasu(Log::Czas);
-	logger_.dodajGniazdoWyjsciowe(shared_ptr<ostream>(new fstream (filename,ios_base::app)));
+	logger_.dodajGniazdoWyjsciowe( [](Log::TypLogow typ, const std::string& komunikat)->void{ cout << komunikat; } );
+	logger_.dodajGniazdoWyjsciowe( [&filename](Log::TypLogow typ, const std::string& komunikat)->void{ static fstream plik(filename,ios_base::app); plik << komunikat; } );
 	/* ------------------------------------ */
 
 	if(!zaladujOpcje()){
@@ -87,12 +88,12 @@ Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 	//Wyswietlanie informacji o zaladowanej bibliotece
 	if(uchwyt_){
 		if(czyZainicjalizowanaBiblioteka_){
-			logger_.info("Za³adowano biblioteke Dbghelp.dll");
+			logger_.loguj(Log::Info, "Za³adowano biblioteke Dbghelp.dll");
 		}else{
-			logger_.warn("Nie zanaleziono funkcji SymInitialize i/lub SymFromAddr.");
+			logger_.loguj(Log::Warning, "Nie zanaleziono funkcji SymInitialize i/lub SymFromAddr.");
 		}
 	}else{
-		logger_.warn("Nie za³adowano biblioteki Dbghelp.dll");
+		logger_.loguj(Log::Warning,"Nie za³adowano biblioteki Dbghelp.dll");
 	}
 
 	pluginy_ = shared_ptr<Cplugin>(new Cplugin(folderPluginow_,instancjaGry_->pobierzFabrykeZmian(),logger_));
@@ -146,7 +147,7 @@ bool Aplikacja::zaladujOpcje(){
 					try{
 						locale pl (jezykAplikacji_);
 						locale::global (pl);
-						this->logger_.debug( string("Separator u³amka: ") + std::use_facet<std::numpunct<char>>(pl).decimal_point());
+						this->logger_.loguj(Log::Debug, string("Separator u³amka: ") + std::use_facet<std::numpunct<char>>(pl).decimal_point());
 					}catch(exception&){
 						jezykAplikacji_.clear();
 					}
@@ -185,7 +186,7 @@ bool Aplikacja::zaladujOpcje(){
 			throw WyjatekParseraXML(EXCEPTION_PLACE,exception(""),WyjatekParseraXML::trescBladStrukturyXml);
 		}
 	}catch(ticpp::Exception& e){
-		logger_.error(e.what());
+		logger_.loguj(Log::Error,e.what());
 		return false;
 	}
 	return true;
@@ -271,9 +272,9 @@ bool Aplikacja::wczytajGre(const string& nazwa, const string& hash){
 			instancjaGry_ = gra;
 			return false;
 		}catch( OgolnyWyjatek& e ){
-			logger_.error(e);
+			logger_.loguj(Log::Error,e);
 		}catch( exception& e ){
-			logger_.error(e.what());
+			logger_.loguj(Log::Error,e.what());
 		}catch(...){
 		}
 		instancjaGry_ = gra;

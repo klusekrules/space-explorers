@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Logger.h"
 
 Logger::Logger()
@@ -8,51 +9,51 @@ Logger::Logger()
 Logger::~Logger(){
 }
 
-Logger::Logger( const string& nazwa )
+Logger::Logger( const std::string& nazwa )
 {
 	stos_.push(true);
 	napis_<<nazwa<<"[";
 }
 
-string Logger::napis() const{
+std::string Logger::napis() const{
 	return napis_.str() + " ]";
 }
 
-void Logger::dodajKlase( const string& opisKlasy ){
+void Logger::dodajKlase( const std::string& opisKlasy ){
 	testPierwszegoPola();
 	napis_<<" "<<opisKlasy;
 }
 
-string Logger::tworzPole( const string& nazwa, const LoggerInterface& obiektPierwszy, const LoggerInterface& obiektDrugi ){
-	stringstream str;
+std::string Logger::tworzPole( const std::string& nazwa, const LoggerInterface& obiektPierwszy, const LoggerInterface& obiektDrugi ){
+	std::stringstream str;
 	str << nazwa << " { " << obiektPierwszy.napis() << " , " << obiektDrugi.napis() <<" }";
 	return str.str();
 }
 
-string Logger::tworzKlase( const string& nazwaKlasy, const string& opisKlasy ){
-	return string( nazwaKlasy + "[ " + opisKlasy + " ]" );
+std::string Logger::tworzKlase( const std::string& nazwaKlasy, const std::string& opisKlasy ){
+	return std::string( nazwaKlasy + "[ " + opisKlasy + " ]" );
 }
 
-void Logger::dodajPole( const string& nazwa, const LoggerInterface& obiekt ){
+void Logger::dodajPole( const std::string& nazwa, const LoggerInterface& obiekt ){
 	dodajPole( nazwa, obiekt.napis() );
 }
 
-void Logger::dodajPole( const string& nazwa, const shared_ptr<LoggerInterface> obiekt ){
+void Logger::dodajPole( const std::string& nazwa, const std::shared_ptr<LoggerInterface> obiekt ){
 	if(obiekt)
 		dodajPole( nazwa, obiekt->napis() );
 }
 
-void Logger::dodajPole( const string& nazwa, const string& opisPola ){
+void Logger::dodajPole( const std::string& nazwa, const std::string& opisPola ){
 	testPierwszegoPola();
 	napis_ << " "  << nazwa << "=" << opisPola;
 }
 
-void Logger::dodajPole( const string& nazwa, const LoggerInterface& obiektPierwszy, const LoggerInterface& obiektDrugi ){
+void Logger::dodajPole( const std::string& nazwa, const LoggerInterface& obiektPierwszy, const LoggerInterface& obiektDrugi ){
 	testPierwszegoPola();
 	napis_ << nazwa << " { " << obiektPierwszy.napis() << " , " << obiektDrugi.napis() <<" }";
 }
 
-void Logger::rozpocznijPodKlase( const string& nazwa ){
+void Logger::rozpocznijPodKlase( const std::string& nazwa ){
 	testPierwszegoPola();
 	napis_ << nazwa << "[ ";
 	stos_.push(true);

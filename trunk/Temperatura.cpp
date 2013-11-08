@@ -33,6 +33,6 @@ Temperatura& Temperatura::operator=( const Temperatura& wartosc ){
 	return *this;
 }
 
-string Temperatura::napis() const{
+std::string Temperatura::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(Temperatura),wartosc_);
 }

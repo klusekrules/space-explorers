@@ -83,9 +83,9 @@ void ZleceniaTest::tranzakcja_throw(){
 		, [](Ilosc& i , shared_ptr<Statek>& s)->bool{throw OgolnyWyjatek(EXCEPTION_PLACE);}
 		, [](Ilosc& i , shared_ptr<Statek>& s)->bool{throw OgolnyWyjatek(EXCEPTION_PLACE);}
 		) );
-	Aplikacja::pobierzInstancje().pobierzLogger().zablokujLogiWarn();
+	Aplikacja::pobierzInstancje().pobierzLogger().zablokujLogi(Log::Warning);
 	UNIT_TEST_ASSERT_FALSE(tranzakcja.wykonaj());
-	Aplikacja::pobierzInstancje().pobierzLogger().odblokujLogiWarn();
+	Aplikacja::pobierzInstancje().pobierzLogger().odblokujLogi(Log::Warning);
 	UNIT_TEST_ASSERT_EQUAL(jeden, statek->pobierzIlosc());
 }
 
@@ -112,11 +112,11 @@ void ZleceniaTest::tranzakcja_throw2(){
 		, [](Ilosc& i , shared_ptr<Statek>& s)->bool{throw OgolnyWyjatek(EXCEPTION_PLACE);}
 		) );
 	try{
-		Aplikacja::pobierzInstancje().pobierzLogger().zablokujLogiWarn();
+		Aplikacja::pobierzInstancje().pobierzLogger().zablokujLogi(Log::Warning);
 		UNIT_TEST_ASSERT_FALSE(tranzakcja.wykonaj());
-		Aplikacja::pobierzInstancje().pobierzLogger().odblokujLogiWarn();
+		Aplikacja::pobierzInstancje().pobierzLogger().odblokujLogi(Log::Warning);
 	}catch(OgolnyWyjatek&){
-		Aplikacja::pobierzInstancje().pobierzLogger().odblokujLogiWarn();
+		Aplikacja::pobierzInstancje().pobierzLogger().odblokujLogi(Log::Warning);
 		Ilosc trzy(3);
 		UNIT_TEST_ASSERT_EQUAL(trzy, statek->pobierzIlosc());
 		//Aplikacja::pobierzInstancje().pobierzLogger().error(e.generujKomunikat());

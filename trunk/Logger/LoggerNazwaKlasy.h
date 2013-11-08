@@ -1,7 +1,6 @@
 #pragma once
+#include "stdafx.h"
 #include "ExportSymbol.h"
-#include <string>
-using std::string;
 
 /**
 * Pobieranie nazwy klasy w stringu.
@@ -19,7 +18,7 @@ public:
 	* \return Nazwa klasy przekazanej przez parametr szablonu.
 	*/
 	template< class C >
-	static string napis() {
-		return string(typeid(C).name()).substr(6);
+	static std::string napis() {
+		return std::string(typeid(C).name()).substr(6);
 	}
 };

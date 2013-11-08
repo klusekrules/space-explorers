@@ -17,7 +17,7 @@ void NiepoprawneParametryFunkcji::setParametry ( const Tekst& wwTresc ){
 	parametry = wwTresc;
 }
 
-string NiepoprawneParametryFunkcji::napis() const{
+std::string NiepoprawneParametryFunkcji::napis() const{
 	Logger str(NAZWAKLASY(NiepoprawneParametryFunkcji));
 	str.dodajKlase(OgolnyWyjatek::napis());
 	str.dodajPole("Parametry funkcji",parametry);

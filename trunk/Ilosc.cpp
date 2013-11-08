@@ -86,6 +86,6 @@ Ilosc& Ilosc::operator=( const Ilosc& wartosc ){
 	return *this;
 }
 
-string Ilosc::napis() const{
+std::string Ilosc::napis() const{
 	return Logger::tworzPole(NAZWAKLASY(Ilosc),wartosc_);
 }
