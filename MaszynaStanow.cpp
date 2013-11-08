@@ -1,6 +1,5 @@
 #include "MaszynaStanow.h"
 #include "TestyJednostkowe.h"
-#include "Przycisk.h"
 
 MaszynaStanow::MaszynaStanow()
 	: aktualnyStan_(StanyGry::Niezainicjalizowana,0,std::chrono::milliseconds(0))
@@ -70,10 +69,32 @@ void MaszynaStanow::pokazEkranStartowy(){
 	sf::Texture obrazTla;
 	obrazTla.loadFromFile("resource\\background.jpg");
 	sf::Sprite tlo(obrazTla);
-	Przycisk przycisk(sf::FloatRect(300,10,300,100),"Zamknij",sf::Color(150, 50, 50));
 	sf::Font czcionka;
 	czcionka.loadFromFile("resource\\arial.ttf");
-	przycisk.ustawCzcionke(czcionka);
+	gui.setGlobalFont(czcionka);
+	tgui::Button::Ptr button(gui);
+	if(!button->load("widgets\\Black.conf")){
+		aktualnyStan_.ustawStan( StanyGry::Wylacznie );
+		return;
+	}
+    button->setSize(260, 60);
+    button->setPosition(270, 530);
+    button->setText("Zamknij");
+	button->bindCallback(tgui::Button::LeftMouseClicked);
+	button->setCallbackId(1);
+
+	tgui::ChatBox::Ptr chatbox(gui);
+    chatbox->load("widgets\\Black.conf");
+    chatbox->setSize(780, 510);
+    chatbox->setTextSize(15);
+    chatbox->setPosition(10, 10);
+    chatbox->addLine("Nacisnij dowolny klawisz aby rozpocz¹æ testy.", sf::Color::White);
+    chatbox->addLine("Line 1", sf::Color::Red);
+    chatbox->addLine("Line 2", sf::Color::Blue);
+    chatbox->addLine("Line 3", sf::Color::Green);
+    chatbox->addLine("Line 4", sf::Color::Yellow);
+    chatbox->addLine("Line 5", sf::Color::Cyan);
+    chatbox->addLine("Line 6", sf::Color::Magenta);
 	//przycisk.dopasujRozmiarPrzyciskuDoTekstu();
 	sf::Event zdarzenie;
 	while(true)
@@ -85,44 +106,34 @@ void MaszynaStanow::pokazEkranStartowy(){
 				aktualnyStan_.ustawStan( StanyGry::Testowanie );
 				return;
 			}
-
-			if(zdarzenie.type == sf::Event::EventType::MouseButtonPressed){
-				sf::Vector2i mouse = sf::Mouse::getPosition(oknoGlowne_);
-				if(przycisk.czyZawiera(mouse)){
-					aktualnyStan_.ustawStan( StanyGry::Wylacznie );
-					return;
-				}
-			}
-
+			
 			if(zdarzenie.type == sf::Event::EventType::Closed){
 				aktualnyStan_.ustawStan( StanyGry::Wylacznie );
 				return;
 			}
 
-			if(zdarzenie.type == sf::Event::MouseMoved)
-			{
-				//If hovered over the button, change it's color.
-				if(przycisk.czyZawiera(zdarzenie.mouseMove))
-				{
-					//Change the color of the text.
-					przycisk.ustawKolorTla(sf::Color(250, 20, 20));
-				}
-				else
-				{
-					przycisk.ustawKolorTla(sf::Color(150, 50, 50));
-				}
-				
-			}
 			if (zdarzenie.type == sf::Event::Resized)
 			{
 				// update the view to the new size of the window
 				sf::FloatRect visibleArea(0, 0, static_cast<float>(zdarzenie.size.width), static_cast<float>(zdarzenie.size.height));
 				oknoGlowne_.setView(sf::View(visibleArea));
 			}
+
+			gui.handleEvent(zdarzenie);
+		}
+
+		tgui::Callback callback;
+		while (gui.pollCallback(callback))
+		{
+			if (callback.id == 1)
+			{
+				aktualnyStan_.ustawStan( StanyGry::Wylacznie );
+				return;
+			}
 		}
 
 		oknoGlowne_.draw(tlo);
-		oknoGlowne_.draw(przycisk);
+		gui.draw();
 		oknoGlowne_.display();
 	}
 }

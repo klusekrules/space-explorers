@@ -301,14 +301,8 @@
     <ClCompile Include="ZarzadcaPamieci.cpp">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClCompile>
-    <ClCompile Include="Przycisk.cpp">
-      <Filter>SourceFile\GUI\Kontrolki</Filter>
-    </ClCompile>
     <ClCompile Include="MaszynaStanow.cpp">
       <Filter>SourceFile\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="ObiektInterfejsuUzytkownika.cpp">
-      <Filter>SourceFile\GUI\KlasaBazowa</Filter>
     </ClCompile>
     <ClCompile Include="RoundedRectangleShape.cpp">
       <Filter>SourceFile\GUI\SFML</Filter>
@@ -675,17 +669,11 @@
     <ClInclude Include="ZarzadcaPamieci.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
-    <ClInclude Include="Przycisk.h">
-      <Filter>SourceFile\GUI\Kontrolki</Filter>
-    </ClInclude>
     <ClInclude Include="MaszynaStanow.h">
       <Filter>SourceFile\GUI</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClInclude>
-    <ClInclude Include="ObiektInterfejsuUzytkownika.h">
-      <Filter>SourceFile\GUI\KlasaBazowa</Filter>
     </ClInclude>
     <ClInclude Include="RoundedRectangleShape.hpp">
       <Filter>SourceFile\GUI\SFML</Filter>
@@ -817,12 +805,6 @@
     </Filter>
     <Filter Include="SourceFile\GUI">
       <UniqueIdentifier>{12ef1bc6-48d0-45bd-8c71-62ce5a122f43}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\GUI\Kontrolki">
-      <UniqueIdentifier>{2ad6f26d-e893-45b2-9556-ce8d0a7c8232}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\GUI\KlasaBazowa">
-      <UniqueIdentifier>{6c4aed71-5774-415e-b20c-33ea20faef02}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\GUI\SFML">
       <UniqueIdentifier>{324a89d9-2441-499e-b64c-0a624cf66aa7}</UniqueIdentifier>

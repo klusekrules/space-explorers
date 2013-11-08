@@ -119,7 +119,7 @@
       <Version>
       </Version>
       <AdditionalLibraryDirectories>$(SolutionDir)SFML\SFML-2.1-x32\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-graphics-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-graphics-s-d.lib;TGUI-x86-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ResourceCompile>
       <Culture>0x0015</Culture>
@@ -153,7 +153,7 @@
       <LinkStatus>
       </LinkStatus>
       <AdditionalLibraryDirectories>$(SolutionDir)SFML\SFML-2.1-x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-graphics-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-graphics-s-d.lib;TGUI-x64-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>SubWCRev.exe $(SolutionDir) $(ProjectDir)\svn_version.h.tmpl $(ProjectDir)\svn_version.h</Command>
@@ -183,7 +183,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>$(SolutionDir)SFML\SFML-2.1-x32\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-window-s.lib;sfml-system-s.lib;sfml-graphics-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-window-s.lib;sfml-system-s.lib;sfml-graphics-s.lib;TGUI-x86-r.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -212,7 +212,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)SFML\SFML-2.1-x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-window-s.lib;sfml-system-s.lib;sfml-graphics-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-window-s.lib;sfml-system-s.lib;sfml-graphics-s.lib;TGUI-x64-r.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>SubWCRev.exe $(SolutionDir) $(ProjectDir)\svn_version.h.tmpl $(ProjectDir)\svn_version.h</Command>
@@ -240,12 +240,10 @@
     <ClInclude Include="keccak.h" />
     <ClInclude Include="KluczTest.h" />
     <ClInclude Include="MaszynaStanow.h" />
-    <ClInclude Include="ObiektInterfejsuUzytkownika.h" />
     <ClInclude Include="Obrona.h" />
     <ClInclude Include="ObronaInfo.h" />
     <ClInclude Include="ObronaTest.h" />
     <ClInclude Include="PlanetaTest.h" />
-    <ClInclude Include="Przycisk.h" />
     <ClInclude Include="RoundedRectangleShape.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Temperatura.h">
@@ -419,7 +417,6 @@
     <ClCompile Include="ObiektBazowy.cpp" />
     <ClCompile Include="ObiektBazowyInfo.cpp" />
     <ClCompile Include="ObiektInfo.cpp" />
-    <ClCompile Include="ObiektInterfejsuUzytkownika.cpp" />
     <ClCompile Include="ObiektListTest.cpp" />
     <ClCompile Include="Objetosc.cpp" />
     <ClCompile Include="Obrazenia.cpp" />
@@ -436,7 +433,6 @@
     <ClCompile Include="Powierzchnia.cpp" />
     <ClCompile Include="Poziom.cpp" />
     <ClCompile Include="Predkosc.cpp" />
-    <ClCompile Include="Przycisk.cpp" />
     <ClCompile Include="RoundedRectangleShape.cpp" />
     <ClCompile Include="Stale.cpp" />
     <ClCompile Include="Statek.cpp" />
