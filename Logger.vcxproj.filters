@@ -39,6 +39,9 @@
     <ClInclude Include="LoggerNazwaKlasy.h">
       <Filter>Source Files\Logger</Filter>
     </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
