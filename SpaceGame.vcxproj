@@ -469,6 +469,7 @@
   <ItemGroup>
     <None Include="conventions.txt" />
     <None Include="gpl-3.0.rtf" />
+    <None Include="out\resource\simple.frag" />
     <None Include="parser\build_instructions.txt" />
     <None Include="svn_version.h.tmpl" />
     <None Include="TODO.txt" />

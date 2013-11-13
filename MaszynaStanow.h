@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-
+#include "Logger\\Log.h"
 class MaszynaStanow
 {
 public:
@@ -70,6 +70,15 @@ private:
 	StanGry aktualnyStan_;
 	sf::RenderWindow oknoGlowne_;
 	tgui::Gui gui;
+	
+	//
+	sf::Texture obrazTla_;
+	sf::Sprite tlo_;
+	sf::Font czcionka_;
+	sf::Shader testShadera_;
+	tgui::ChatBox::Ptr chatbox_;
+	tgui::Button::Ptr button_;
+	//
 
 	MaszynaStanow();
 	MaszynaStanow( const MaszynaStanow& );
@@ -78,6 +87,8 @@ private:
 
 	void petlaGlowna();
 	void pokazEkranStartowy();
+
+	void dodajKomunikatLogow( Log::TypLogow typ, const std::string& komunikat );
 
 };
 
