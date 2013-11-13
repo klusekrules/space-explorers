@@ -826,6 +826,9 @@
     <None Include="gpl-3.0.rtf">
       <Filter>Doc</Filter>
     </None>
+    <None Include="out\resource\simple.frag">
+      <Filter>Resource</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SpaceGame.rc">
