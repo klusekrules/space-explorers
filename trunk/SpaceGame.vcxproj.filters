@@ -310,6 +310,7 @@
     <ClCompile Include="Watek.cpp">
       <Filter>SourceFile\MultiThreading</Filter>
     </ClCompile>
+    <ClCompile Include="OknoGry.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -684,6 +685,7 @@
     <ClInclude Include="Watek.h">
       <Filter>SourceFile\MultiThreading</Filter>
     </ClInclude>
+    <ClInclude Include="OknoGry.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">

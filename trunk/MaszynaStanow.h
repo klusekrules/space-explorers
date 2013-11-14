@@ -1,7 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "Logger\\Log.h"
-#include "Watek.h"
+#include "OknoGry.h"
 
 class MaszynaStanow
 {
@@ -45,14 +45,15 @@ public:
 		bool operator==( const StanGry &stan ) const { return stan_==stan.stan_ && krok_ == stan.krok_ && numerSpecjalny_ == stan.numerSpecjalny_; }
 
 		bool operator!=( const StanGry &stan ) const { return stan_!=stan.stan_ || krok_ != stan.krok_ || numerSpecjalny_ != stan.numerSpecjalny_; }
+		
+		void ustawCzasKroku ( KrokCzasu krok ){ krok_=krok; }
+		void ustawStan ( StanyGry stan ){ stan_=stan; }
 
 	private:
 		StanyGry stan_;
 		int numerSpecjalny_;
 		KrokCzasu krok_;
 
-		void ustawCzasKroku ( KrokCzasu krok ){ krok_=krok; }
-		void ustawStan ( StanyGry stan ){ stan_=stan; }
 
 		StanGry(StanyGry stan, int numerSpecjalny, KrokCzasu krok )
 			: stan_(stan), krok_(krok), numerSpecjalny_(numerSpecjalny){}
@@ -70,20 +71,9 @@ public:
 private:
 
 	StanGry aktualnyStan_;
-	sf::RenderWindow oknoGlowne_;
-	tgui::Gui gui;
-	
-	//
-	sf::Texture obrazTla_;
-	sf::Sprite tlo_;
-	sf::Font czcionka_;
-	sf::Shader testShadera_;
-	tgui::ChatBox::Ptr chatbox_;
-	tgui::Button::Ptr button_;
-	//
-	
-	Watek watekGraficzny_;
-	Watek watekObliczeniowy_;
+		
+	OknoGry watekGraficzny_;
+	//Watek watekObliczeniowy_;
 
 	MaszynaStanow();
 	MaszynaStanow( const MaszynaStanow& );
