@@ -1,5 +1,6 @@
+#version 120
 uniform sampler2D texture;
-uniform mediump float time;
+uniform float time;
 
 void main(void)
 {
@@ -7,5 +8,5 @@ void main(void)
     vec4 pixel = texture2D(texture, gl_TexCoord[0].xy);
 
     // multiply it by the color
-    gl_FragColor = gl_Color * pixel * (sin( time ) * 0.5 + 0.5);
+    gl_FragColor = gl_Color * pixel * (sin( 10*time ) * 0.5 + 0.5);
 }

@@ -307,6 +307,9 @@
     <ClCompile Include="RoundedRectangleShape.cpp">
       <Filter>SourceFile\GUI\SFML</Filter>
     </ClCompile>
+    <ClCompile Include="Watek.cpp">
+      <Filter>SourceFile\MultiThreading</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -678,6 +681,9 @@
     <ClInclude Include="RoundedRectangleShape.hpp">
       <Filter>SourceFile\GUI\SFML</Filter>
     </ClInclude>
+    <ClInclude Include="Watek.h">
+      <Filter>SourceFile\MultiThreading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -808,6 +814,9 @@
     </Filter>
     <Filter Include="SourceFile\GUI\SFML">
       <UniqueIdentifier>{324a89d9-2441-499e-b64c-0a624cf66aa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\MultiThreading">
+      <UniqueIdentifier>{0252530e-8ce4-466b-a514-a499ca0b7d71}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

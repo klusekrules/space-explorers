@@ -252,6 +252,7 @@
     </ClInclude>
     <ClInclude Include="UkladSloneczny.h" />
     <ClInclude Include="Walidator.h" />
+    <ClInclude Include="Watek.h" />
     <ClInclude Include="ZarzadcaPamieci.h" />
     <ClInclude Include="Zlecenia.h" />
     <ClInclude Include="InicjalizacjaDanychTestowych.h" />
@@ -454,6 +455,7 @@
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Uzytkownik.cpp" />
     <ClCompile Include="Walidator.cpp" />
+    <ClCompile Include="Watek.cpp" />
     <ClCompile Include="WyjatekParseraXML.cpp" />
     <ClCompile Include="WyjatekSprawdzeniaWarunku.cpp" />
     <ClCompile Include="WyjatekSTL.cpp" />
@@ -469,7 +471,9 @@
   <ItemGroup>
     <None Include="conventions.txt" />
     <None Include="gpl-3.0.rtf" />
-    <None Include="out\resource\simple.frag" />
+    <None Include="out\resource\simple.frag">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </None>
     <None Include="parser\build_instructions.txt" />
     <None Include="svn_version.h.tmpl" />
     <None Include="TODO.txt" />

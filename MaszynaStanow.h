@@ -1,6 +1,8 @@
 #pragma once
 #include "stdafx.h"
 #include "Logger\\Log.h"
+#include "Watek.h"
+
 class MaszynaStanow
 {
 public:
@@ -79,6 +81,9 @@ private:
 	tgui::ChatBox::Ptr chatbox_;
 	tgui::Button::Ptr button_;
 	//
+	
+	Watek watekGraficzny_;
+	Watek watekObliczeniowy_;
 
 	MaszynaStanow();
 	MaszynaStanow( const MaszynaStanow& );
