@@ -243,6 +243,7 @@
     <ClInclude Include="Obrona.h" />
     <ClInclude Include="ObronaInfo.h" />
     <ClInclude Include="ObronaTest.h" />
+    <ClInclude Include="OknoGry.h" />
     <ClInclude Include="PlanetaTest.h" />
     <ClInclude Include="RoundedRectangleShape.hpp" />
     <ClInclude Include="stdafx.h" />
@@ -425,6 +426,7 @@
     <ClCompile Include="ObronaInfo.cpp" />
     <ClCompile Include="ObronaTest.cpp" />
     <ClCompile Include="OgolnyWyjatek.cpp" />
+    <ClCompile Include="OknoGry.cpp" />
     <ClCompile Include="Operacja.cpp" />
     <ClCompile Include="PaczkaTestow.cpp" />
     <ClCompile Include="Parametr.cpp" />

@@ -1,21 +1,26 @@
 #pragma once
 #include <thread>
 #include <atomic>
+#include <mutex>
 
 class Watek
 {
 public:
-	Watek(void);
+	Watek( bool wstrzymany );
 	virtual ~Watek(void);
 	bool czekajNaZakonczenie();
+	void odblokuj();
 	void zakoncz();
-	bool zakonczony();
-private:
-	virtual void wykonuj();
-	bool czyZakonczyc();
-	std::thread* uchwyt_;
+	std::atomic<bool>& zakonczony();
+
+protected:	
 	std::atomic<bool> zakoncz_;
+	std::mutex wstrzymany_;
 	std::atomic<bool> zakonczony_;
+
+	virtual void wykonuj();
+	std::atomic<bool>& czyZakonczyc();
+	std::thread* uchwyt_;
 	void funkcjaWatku();
 };
 
