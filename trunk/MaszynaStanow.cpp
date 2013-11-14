@@ -1,5 +1,10 @@
 #include "MaszynaStanow.h"
 #include "TestyJednostkowe.h"
+#include <SFML\OpenGL.hpp>
+
+#define GL_SHADING_LANGUAGE_VERSION       0x8B8C
+
+
 
 
 MaszynaStanow::MaszynaStanow()
@@ -10,17 +15,23 @@ MaszynaStanow::MaszynaStanow()
 	czcionka_.loadFromFile("resource\\arial.ttf");
 	gui.setGlobalFont(czcionka_);
 	gui.add(button_,"Zamknij");
-	testShadera_.setParameter("texture", sf::Shader::CurrentTexture);
 	if(!button_->load("widgets\\Black.conf")){
 		aktualnyStan_.ustawStan( StanyGry::Wylacznie );
 		return;
 	}
+		
+	Log::pobierzInstancje().loguj(Log::Info,(char*)glGetString(GL_SHADING_LANGUAGE_VERSION));
+	Log::pobierzInstancje().loguj(Log::Info,(char*)glGetString(GL_VERSION));
+	Log::pobierzInstancje().loguj(Log::Info,(char*)glGetString(GL_VENDOR));
+
 	if(sf::Shader::isAvailable())
 		Log::pobierzInstancje().loguj(Log::Info,"Shadery dostepne");
 	if(!testShadera_.loadFromFile("resource\\simple.frag",sf::Shader::Type::Fragment))
 		Log::pobierzInstancje().loguj(Log::Error,"Nie uda³o siê wczytaæ shadera");
 	
-    button_->setSize(260, 60);
+	testShadera_.setParameter("texture", sf::Shader::CurrentTexture);
+	
+	button_->setSize(260, 60);
     button_->setPosition(270, 530);
     button_->setText("Zamknij");
 	button_->bindCallback(tgui::Button::LeftMouseClicked);
