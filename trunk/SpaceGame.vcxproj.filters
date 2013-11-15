@@ -313,7 +313,9 @@
     <ClCompile Include="OknoGry.cpp">
       <Filter>SourceFile\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="EkranStartowy.cpp" />
+    <ClCompile Include="EkranStartowy.cpp">
+      <Filter>SourceFile\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -691,7 +693,9 @@
     <ClInclude Include="OknoGry.h">
       <Filter>SourceFile\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="EkranStartowy.h" />
+    <ClInclude Include="EkranStartowy.h">
+      <Filter>SourceFile\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
