@@ -310,7 +310,10 @@
     <ClCompile Include="Watek.cpp">
       <Filter>SourceFile\MultiThreading</Filter>
     </ClCompile>
-    <ClCompile Include="OknoGry.cpp" />
+    <ClCompile Include="OknoGry.cpp">
+      <Filter>SourceFile\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="EkranStartowy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -454,12 +457,6 @@
     <ClInclude Include="afxres.h">
       <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="svn_version.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="version.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
     <ClInclude Include="XmlBO.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
@@ -598,9 +595,6 @@
     <ClInclude Include="LiczenieWymogow.h">
       <Filter>SourceFile\Wymagania</Filter>
     </ClInclude>
-    <ClInclude Include="Dokumentacja.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
     <ClInclude Include="HangarInfo.h">
       <Filter>SourceFile\Flota\Hangar</Filter>
     </ClInclude>
@@ -685,7 +679,19 @@
     <ClInclude Include="Watek.h">
       <Filter>SourceFile\MultiThreading</Filter>
     </ClInclude>
-    <ClInclude Include="OknoGry.h" />
+    <ClInclude Include="version.h">
+      <Filter>Resource\Wersja</Filter>
+    </ClInclude>
+    <ClInclude Include="svn_version.h">
+      <Filter>Resource\Wersja</Filter>
+    </ClInclude>
+    <ClInclude Include="Dokumentacja.h">
+      <Filter>Resource\Dokumentacja</Filter>
+    </ClInclude>
+    <ClInclude Include="OknoGry.h">
+      <Filter>SourceFile\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="EkranStartowy.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -820,6 +826,21 @@
     <Filter Include="SourceFile\MultiThreading">
       <UniqueIdentifier>{0252530e-8ce4-466b-a514-a499ca0b7d71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\Obrazy">
+      <UniqueIdentifier>{9401ca38-cace-401b-bc6e-706907663f31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Shadery">
+      <UniqueIdentifier>{9811956a-1247-4e2f-bcdc-2919c32d7c2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Wersja">
+      <UniqueIdentifier>{5b4859f7-adc4-401e-bb35-b2cfae124e15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Dokumentacja">
+      <UniqueIdentifier>{1e530654-1ce7-423a-8674-facc800920cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Czcionki">
+      <UniqueIdentifier>{8b775081-01d3-4c5b-b25e-75e2dc65e7e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="parser\build_instructions.txt">
@@ -831,20 +852,15 @@
     <None Include="conventions.txt">
       <Filter>Doc</Filter>
     </None>
-    <None Include="svn_version.h.tmpl">
-      <Filter>Resource</Filter>
-    </None>
     <None Include="gpl-3.0.rtf">
       <Filter>Doc</Filter>
     </None>
     <None Include="out\resource\simple.frag">
-      <Filter>Resource</Filter>
+      <Filter>Resource\Shadery</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="SpaceGame.rc">
-      <Filter>Resource</Filter>
-    </ResourceCompile>
+    <None Include="svn_version.h.tmpl">
+      <Filter>Resource\Wersja</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="out\data.xml">
@@ -881,5 +897,26 @@
     <Xsd Include="userSchema.xsd">
       <Filter>Data</Filter>
     </Xsd>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="out\resource\background.jpg">
+      <Filter>Resource\Obrazy</Filter>
+    </Image>
+    <Image Include="out\resource\Space_start_screen.png">
+      <Filter>Resource\Obrazy</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SpaceGame.rc">
+      <Filter>Resource\Wersja</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="out\resource\arial.ttf">
+      <Filter>Resource\Czcionki</Filter>
+    </Font>
+    <Font Include="out\resource\TransformersMovie.ttf">
+      <Filter>Resource\Czcionki</Filter>
+    </Font>
   </ItemGroup>
 </Project>

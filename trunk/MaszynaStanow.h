@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "Logger\\Log.h"
+
 #include "OknoGry.h"
 
 class MaszynaStanow
@@ -18,14 +19,15 @@ public:
 	class StanGry{
 		friend class MaszynaStanow;
 	public:
-		typedef std::chrono::milliseconds KrokCzasu;
+		typedef std::chrono::duration<long double,std::milli> KrokCzasu;
 
-		StanGry(const StanGry& stan) : stan_(stan.stan_), krok_(stan.krok_), numerSpecjalny_(stan.numerSpecjalny_){}
-		StanGry(StanGry&& stan) : stan_(stan.stan_), krok_(stan.krok_), numerSpecjalny_(stan.numerSpecjalny_){}
+		StanGry(const StanGry& stan) : stan_(stan.stan_), krok_(stan.krok_), numerSpecjalny_(stan.numerSpecjalny_), stanNastepny_(stan.stanNastepny_){}
+		StanGry(StanGry&& stan) : stan_(stan.stan_), krok_(stan.krok_), numerSpecjalny_(stan.numerSpecjalny_), stanNastepny_(stan.stanNastepny_){}
 
 		StanGry& operator=(const StanGry& stan){ 
 			stan_ = stan.stan_; 
 			krok_ = stan.krok_;
+			stanNastepny_ = stan.stanNastepny_;
 			numerSpecjalny_ = stan.numerSpecjalny_;
 			return *this;
 		}
@@ -47,16 +49,22 @@ public:
 		bool operator!=( const StanGry &stan ) const { return stan_!=stan.stan_ || krok_ != stan.krok_ || numerSpecjalny_ != stan.numerSpecjalny_; }
 		
 		void ustawCzasKroku ( KrokCzasu krok ){ krok_=krok; }
+
 		void ustawStan ( StanyGry stan ){ stan_=stan; }
+
+		void ustawNastepnyStan ( StanyGry stan ){ stanNastepny_=stan; }
+
+		void przejdzDoNastepnegoStanu ( ){ stan_=stanNastepny_; }
 
 	private:
 		StanyGry stan_;
+		StanyGry stanNastepny_;
 		int numerSpecjalny_;
 		KrokCzasu krok_;
 
 
 		StanGry(StanyGry stan, int numerSpecjalny, KrokCzasu krok )
-			: stan_(stan), krok_(krok), numerSpecjalny_(numerSpecjalny){}
+			: stan_(stan), krok_(krok), numerSpecjalny_(numerSpecjalny), stanNastepny_(stan){}
 
 	};
 
