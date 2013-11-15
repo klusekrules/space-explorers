@@ -1,5 +1,6 @@
 #include "MaszynaStanow.h"
 #include "TestyJednostkowe.h"
+#include "OknoGry.h"
 
 MaszynaStanow::MaszynaStanow()
 	: aktualnyStan_(StanyGry::Niezainicjalizowana,0,std::chrono::milliseconds(0)), watekGraficzny_(true)
@@ -38,11 +39,13 @@ void MaszynaStanow::start(){
 		return;
 
 	aktualnyStan_.ustawStan( StanyGry::EkranStartowy );
+	aktualnyStan_.ustawNastepnyStan( StanyGry::EkranStartowy );
 	watekGraficzny_.odblokuj();
 
 	while(aktualnyStan_ != StanyGry::Wylacznie)
 	{
 		petlaGlowna();
+		aktualnyStan_.przejdzDoNastepnegoStanu();
 		std::this_thread::yield();
 	}
 	watekGraficzny_.czekajNaZakonczenie();
