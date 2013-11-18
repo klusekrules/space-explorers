@@ -17,10 +17,10 @@ OknoGry::~OknoGry(void)
 
 void OknoGry::wykonuj(){
 	
-	tgui::Gui gui;
-	if(!inicjalizacja(gui))
+	if(!inicjalizacja())
 		return;
 	
+	//TODO: Przeniesc do inicjalizacji
 	EkranStartowy ekranStartowy_(oknoGlowne_.getSystemHandle());
 	EkranMenu ekranMenu_(oknoGlowne_);
 	ekranMenu_.dodajPrzycisk("Nothing", StanGry::MenuGlowne, 1);
@@ -47,6 +47,7 @@ void OknoGry::wykonuj(){
 	float balans = 0.0f;
 	while(oknoGlowne_.isOpen())
 	{
+		//TODO: Do przeprojektowania
 		if(stan != StanGry::EkranStartowy){
 
 			ptr = &ekranMenu_;
@@ -54,14 +55,17 @@ void OknoGry::wykonuj(){
 			ptr = &ekranStartowy_;
 		}
 
+		//Wylacz okno je¿eli odkryto odpowiadaj¹cy stan
 		if(stan == StanGry::Wylacznie){
 			oknoGlowne_.close();
 		}
 		
+		//Pomiar czasu
 		std::chrono::high_resolution_clock::time_point punkt = std::chrono::high_resolution_clock::now();
 		accumulator += punkt - punktCzasu;
 		punktCzasu = punkt;
 
+		// Obs³uga zdarzeñ
 		while(oknoGlowne_.pollEvent(zdarzenie))
 		{
 			if(zdarzenie.type == sf::Event::EventType::KeyReleased)
@@ -84,47 +88,48 @@ void OknoGry::wykonuj(){
 				ptr->odbierz( stan, zdarzenie );
 		}
 
+		//Uaktualnianie okien
 		while(accumulator > krok ){
 			if(ptr)
 				ptr->uaktualnij(stan);
 			accumulator -=krok;
 		}
+
+		//Odmalowanie okna
 		oknoGlowne_.clear(sf::Color(255,255,255,0));
 
-		testShadera_.setParameter("time",balans=0.001f);
+		testShadera_.setParameter("time",balans+=0.001f);
 		states.shader = &testShadera_;
-		//oknoGlowne_.draw(tlo_,states);
-					
+							
 		if(ptr)
 			oknoGlowne_.draw(*ptr);
 		
 		oknoGlowne_.display();
+
+
 	}
 	
 }
 
-bool OknoGry::inicjalizacja( tgui::Gui& gui ){
-
-	obrazTla_.loadFromFile("resource\\Space_start_screen.png");
-	tlo_.setTexture(obrazTla_);
-	czcionka_.loadFromFile("resource\\arial.ttf");
-		
-	Log::pobierzInstancje().loguj(Log::Info,(char*)glGetString(GL_SHADING_LANGUAGE_VERSION));
-	Log::pobierzInstancje().loguj(Log::Info,(char*)glGetString(GL_VERSION));
-	Log::pobierzInstancje().loguj(Log::Info,(char*)glGetString(GL_VENDOR));
-
+bool OknoGry::inicjalizacja( ){
+	
 	if(sf::Shader::isAvailable())
 		Log::pobierzInstancje().loguj(Log::Info,"Shadery dostepne");
+	else
+		Log::pobierzInstancje().loguj(Log::Info,"Shadery niedostepne");
+
+	char* p = (char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
+	Log::pobierzInstancje().loguj(Log::Info,p?p:"");
+	p = (char*)glGetString(GL_VERSION);
+	Log::pobierzInstancje().loguj(Log::Info,p?p:"");
+	p = (char*)glGetString(GL_VENDOR);
+	Log::pobierzInstancje().loguj(Log::Info,p?p:"");
+
 	if(!testShadera_.loadFromFile("resource\\simple.frag",sf::Shader::Type::Fragment))
 		Log::pobierzInstancje().loguj(Log::Error,"Nie uda³o siê wczytaæ shadera");
 	
 	testShadera_.setParameter("texture", sf::Shader::CurrentTexture);
-		
-
-	/*Log::pobierzInstancje().dodajGniazdoWyjsciowe([this](Log::TypLogow typ, const std::string& komunikat)->void{
-		this->dodajKomunikatLogow( typ, komunikat );
-	});*/
-
+	
 	oknoGlowne_.create(sf::VideoMode(800,500),"Space-Explorers",sf::Style::None);
 	oknoGlowne_.setVerticalSyncEnabled(true);
 	oknoGlowne_.setVisible(false);
@@ -133,17 +138,4 @@ bool OknoGry::inicjalizacja( tgui::Gui& gui ){
 		Log::pobierzInstancje().loguj(Log::Info,"Nie dziala przezroczstosc.");
 	}
 	return true;
-}
-
-void OknoGry::dodajKomunikatLogow( Log::TypLogow typ, const std::string& komunikat ){
-	std::string kopia(komunikat);
-	kopia.pop_back();
-
-	switch(typ){
-	case Log::TypLogow::Debug: chatbox_->addLine(kopia,sf::Color::White); break;
-	case Log::TypLogow::Info: chatbox_->addLine(kopia,sf::Color::Green); break;
-	case Log::TypLogow::Warning: chatbox_->addLine(kopia,sf::Color::Yellow); break;
-	case Log::TypLogow::Error: chatbox_->addLine(kopia,sf::Color::Red); break;
-	default: chatbox_->addLine(kopia,sf::Color::White); break;
-	}
 }
