@@ -310,11 +310,20 @@
     <ClCompile Include="Watek.cpp">
       <Filter>SourceFile\MultiThreading</Filter>
     </ClCompile>
-    <ClCompile Include="OknoGry.cpp">
+    <ClCompile Include="EkranMenu.cpp">
+      <Filter>SourceFile\GUI\Ekrany\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="EkranSzablon.cpp">
+      <Filter>SourceFile\GUI\Ekrany</Filter>
+    </ClCompile>
+    <ClCompile Include="StanGry.cpp">
       <Filter>SourceFile\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="OknoGry.cpp">
+      <Filter>SourceFile\GUI\Ekrany</Filter>
+    </ClCompile>
     <ClCompile Include="EkranStartowy.cpp">
-      <Filter>SourceFile\GUI</Filter>
+      <Filter>SourceFile\GUI\Ekrany\Szablon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -690,11 +699,20 @@
     <ClInclude Include="Dokumentacja.h">
       <Filter>Resource\Dokumentacja</Filter>
     </ClInclude>
-    <ClInclude Include="OknoGry.h">
+    <ClInclude Include="EkranMenu.h">
+      <Filter>SourceFile\GUI\Ekrany\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="EkranSzablon.h">
+      <Filter>SourceFile\GUI\Ekrany</Filter>
+    </ClInclude>
+    <ClInclude Include="StanGry.h">
       <Filter>SourceFile\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="OknoGry.h">
+      <Filter>SourceFile\GUI\Ekrany</Filter>
+    </ClInclude>
     <ClInclude Include="EkranStartowy.h">
-      <Filter>SourceFile\GUI</Filter>
+      <Filter>SourceFile\GUI\Ekrany\Szablon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -754,9 +772,6 @@
     </Filter>
     <Filter Include="SourceFile\KlasyPomocnicze">
       <UniqueIdentifier>{6a43f607-5cee-48af-be60-d2eb6e1b0e2b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource">
-      <UniqueIdentifier>{f809a59c-3db4-40e4-baa6-d18e46644843}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\Wymagania">
       <UniqueIdentifier>{b4bdf8e7-69d8-42b7-828c-db385f251073}</UniqueIdentifier>
@@ -830,6 +845,15 @@
     <Filter Include="SourceFile\MultiThreading">
       <UniqueIdentifier>{0252530e-8ce4-466b-a514-a499ca0b7d71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SourceFile\GUI\Ekrany">
+      <UniqueIdentifier>{e3a1b275-8b57-4241-acc8-6836bfd82aad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\GUI\Ekrany\Menu">
+      <UniqueIdentifier>{872ef496-c928-4c2e-a33f-70c1da3f6a93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{f809a59c-3db4-40e4-baa6-d18e46644843}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Resource\Obrazy">
       <UniqueIdentifier>{9401ca38-cace-401b-bc6e-706907663f31}</UniqueIdentifier>
     </Filter>
@@ -844,6 +868,9 @@
     </Filter>
     <Filter Include="Resource\Czcionki">
       <UniqueIdentifier>{8b775081-01d3-4c5b-b25e-75e2dc65e7e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\GUI\Ekrany\Szablon">
+      <UniqueIdentifier>{06269db9-7054-49db-b53b-c4aa4b9d8c45}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -907,6 +934,15 @@
       <Filter>Resource\Obrazy</Filter>
     </Image>
     <Image Include="out\resource\Space_start_screen.png">
+      <Filter>Resource\Obrazy</Filter>
+    </Image>
+    <Image Include="out\resource\SpaceExplorers_logo_640x348.bmp">
+      <Filter>Resource\Obrazy</Filter>
+    </Image>
+    <Image Include="out\resource\space.jpg">
+      <Filter>Resource\Obrazy</Filter>
+    </Image>
+    <Image Include="out\resource\SpaceExplorers_logo_640x348.png">
       <Filter>Resource\Obrazy</Filter>
     </Image>
   </ItemGroup>

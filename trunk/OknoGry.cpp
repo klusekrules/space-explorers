@@ -2,6 +2,7 @@
 #include "MaszynaStanow.h"
 #include <SFML\OpenGL.hpp>
 #include "EkranStartowy.h"
+#include "EkranMenu.h"
 
 #define GL_SHADING_LANGUAGE_VERSION       0x8B8C
 
@@ -10,35 +11,53 @@ OknoGry::OknoGry( bool wstrzymany )
 {
 }
 
-
 OknoGry::~OknoGry(void)
 {
 }
 
-
 void OknoGry::wykonuj(){
 	
-	EkranStartowy ekranStartowy_;
 	tgui::Gui gui;
 	if(!inicjalizacja(gui))
 		return;
+	
+	EkranStartowy ekranStartowy_(oknoGlowne_.getSystemHandle());
+	EkranMenu ekranMenu_(oknoGlowne_);
+	ekranMenu_.dodajPrzycisk("Nothing", StanGry::MenuGlowne, 1);
+	ekranMenu_.dodajPrzycisk("Testowanie", StanGry::Testowanie, 1);
+	ekranMenu_.dodajPrzycisk("Nothing", StanGry::MenuGlowne, 1);
+	ekranMenu_.dodajPrzycisk("Nothing", StanGry::MenuGlowne, 1);
+	ekranMenu_.dodajPrzycisk("Zamknij", StanGry::Wylacznie, 1);
+	EkranSzablon* ptr = nullptr;
 
 	sf::Event zdarzenie;
 	sf::RenderStates states;
 
 	std::chrono::high_resolution_clock::time_point punktCzasu = std::chrono::high_resolution_clock::now();
 
-	MaszynaStanow::StanGry::KrokCzasu dt;
-	MaszynaStanow::StanGry::KrokCzasu accumulator;
-	const MaszynaStanow::StanGry::KrokCzasu krok(30);
-	const MaszynaStanow::StanGry::KrokCzasu maxAccTime(1000);
+	StanGry::KrokCzasu dt;
+	StanGry::KrokCzasu accumulator;
+	const StanGry::KrokCzasu krok(30);
+	const StanGry::KrokCzasu maxAccTime(1000);
 
-	MaszynaStanow::StanGry& stan= MaszynaStanow::pobierzInstancje().pobierzStan();
+	StanGry& stan= MaszynaStanow::pobierzInstancje().pobierzStan();
 	stan.ustawCzasKroku(krok);
 
+	oknoGlowne_.setVisible(true);
 	float balans = 0.0f;
 	while(oknoGlowne_.isOpen())
 	{
+		if(stan != StanGry::EkranStartowy){
+
+			ptr = &ekranMenu_;
+		}else{
+			ptr = &ekranStartowy_;
+		}
+
+		if(stan == StanGry::Wylacznie){
+			oknoGlowne_.close();
+		}
+		
 		std::chrono::high_resolution_clock::time_point punkt = std::chrono::high_resolution_clock::now();
 		accumulator += punkt - punktCzasu;
 		punktCzasu = punkt;
@@ -47,11 +66,11 @@ void OknoGry::wykonuj(){
 		{
 			if(zdarzenie.type == sf::Event::EventType::KeyReleased)
 			{
-				stan.ustawNastepnyStan( MaszynaStanow::StanyGry::Testowanie );
+				stan.ustawNastepnyStan( StanGry::StanyGry::Testowanie );
 			}
 			
 			if(zdarzenie.type == sf::Event::EventType::Closed){
-				stan.ustawNastepnyStan( MaszynaStanow::StanyGry::Wylacznie );
+				stan.ustawNastepnyStan( StanGry::StanyGry::Wylacznie );
 				oknoGlowne_.close();
 			}
 
@@ -61,32 +80,24 @@ void OknoGry::wykonuj(){
 				oknoGlowne_.setView(sf::View(visibleArea));
 			}
 
-			gui.handleEvent(zdarzenie);
-		}
-
-		tgui::Callback callback;
-		while (gui.pollCallback(callback))
-		{
-			if (callback.id == 1)
-			{
-				stan.ustawNastepnyStan( MaszynaStanow::StanyGry::Wylacznie );
-				oknoGlowne_.close();
-			}
+			if(ptr)
+				ptr->odbierz( stan, zdarzenie );
 		}
 
 		while(accumulator > krok ){
-			ekranStartowy_.uaktualnij(stan);
+			if(ptr)
+				ptr->uaktualnij(stan);
 			accumulator -=krok;
 		}
+		oknoGlowne_.clear(sf::Color(255,255,255,0));
 
-		if(stan.pobierzStan() != MaszynaStanow::EkranStartowy){
-			testShadera_.setParameter("time",balans+=0.001f);
-			states.shader = &testShadera_;
-			oknoGlowne_.draw(tlo_,states);
-			gui.draw();
-		}else{
-			oknoGlowne_.draw(ekranStartowy_);
-		}
+		testShadera_.setParameter("time",balans=0.001f);
+		states.shader = &testShadera_;
+		//oknoGlowne_.draw(tlo_,states);
+					
+		if(ptr)
+			oknoGlowne_.draw(*ptr);
+		
 		oknoGlowne_.display();
 	}
 	
@@ -97,15 +108,7 @@ bool OknoGry::inicjalizacja( tgui::Gui& gui ){
 	obrazTla_.loadFromFile("resource\\Space_start_screen.png");
 	tlo_.setTexture(obrazTla_);
 	czcionka_.loadFromFile("resource\\arial.ttf");
-	gui.setGlobalFont(czcionka_);
-	gui.add (chatbox_,"Log");
-	gui.add (button_,"Zamknij");
-
-	if(!button_->load("widgets\\Black.conf")){
-		MaszynaStanow::pobierzInstancje().pobierzStan().ustawStan( MaszynaStanow::StanyGry::Wylacznie );
-		return false;
-	}
-
+		
 	Log::pobierzInstancje().loguj(Log::Info,(char*)glGetString(GL_SHADING_LANGUAGE_VERSION));
 	Log::pobierzInstancje().loguj(Log::Info,(char*)glGetString(GL_VERSION));
 	Log::pobierzInstancje().loguj(Log::Info,(char*)glGetString(GL_VENDOR));
@@ -116,29 +119,21 @@ bool OknoGry::inicjalizacja( tgui::Gui& gui ){
 		Log::pobierzInstancje().loguj(Log::Error,"Nie uda³o siê wczytaæ shadera");
 	
 	testShadera_.setParameter("texture", sf::Shader::CurrentTexture);
-	
-	button_->setSize(260, 60);
-    button_->setPosition(270, 430);
-    button_->setText("Zamknij");
-	button_->bindCallback(tgui::Button::LeftMouseClicked);
-	button_->setCallbackId(1);
+		
 
-    chatbox_->load("widgets\\Black.conf");
-    chatbox_->setSize(780, 410);
-    chatbox_->setTextSize(15);
-    chatbox_->setPosition(10, 10);
-    chatbox_->addLine("Nacisnij dowolny klawisz aby rozpocz¹æ testy.", sf::Color::White);
-
-	Log::pobierzInstancje().dodajGniazdoWyjsciowe([this](Log::TypLogow typ, const std::string& komunikat)->void{
+	/*Log::pobierzInstancje().dodajGniazdoWyjsciowe([this](Log::TypLogow typ, const std::string& komunikat)->void{
 		this->dodajKomunikatLogow( typ, komunikat );
-	});
+	});*/
 
-	oknoGlowne_.create(sf::VideoMode(800,500),"Space-Explorers");
-	gui.setWindow(oknoGlowne_);
-	
+	oknoGlowne_.create(sf::VideoMode(800,500),"Space-Explorers",sf::Style::None);
+	oknoGlowne_.setVerticalSyncEnabled(true);
+	oknoGlowne_.setVisible(false);
+	SetWindowLong(oknoGlowne_.getSystemHandle(), GWL_EXSTYLE, GetWindowLong(oknoGlowne_.getSystemHandle(), GWL_EXSTYLE) | WS_EX_LAYERED);
+	if(!SetLayeredWindowAttributes(oknoGlowne_.getSystemHandle(), NULL, 0, LWA_ALPHA)){
+		Log::pobierzInstancje().loguj(Log::Info,"Nie dziala przezroczstosc.");
+	}
 	return true;
 }
-
 
 void OknoGry::dodajKomunikatLogow( Log::TypLogow typ, const std::string& komunikat ){
 	std::string kopia(komunikat);
