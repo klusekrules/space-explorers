@@ -231,7 +231,9 @@
     <ClInclude Include="Bazowa.h" />
     <ClInclude Include="BudynekTest.h" />
     <ClInclude Include="Dokumentacja.h" />
+    <ClInclude Include="EkranMenu.h" />
     <ClInclude Include="EkranStartowy.h" />
+    <ClInclude Include="EkranSzablon.h" />
     <ClInclude Include="Galaktyka.h" />
     <ClInclude Include="GeneratorUkladow.h" />
     <ClInclude Include="GenerowanieTest.h" />
@@ -247,6 +249,7 @@
     <ClInclude Include="OknoGry.h" />
     <ClInclude Include="PlanetaTest.h" />
     <ClInclude Include="RoundedRectangleShape.hpp" />
+    <ClInclude Include="StanGry.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Temperatura.h">
       <SubType>
@@ -376,7 +379,9 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Dystans.cpp" />
+    <ClCompile Include="EkranMenu.cpp" />
     <ClCompile Include="EkranStartowy.cpp" />
+    <ClCompile Include="EkranSzablon.cpp" />
     <ClCompile Include="Flota.cpp" />
     <ClCompile Include="Fluktuacja.cpp" />
     <ClCompile Include="Galaktyka.cpp" />
@@ -440,6 +445,7 @@
     <ClCompile Include="Predkosc.cpp" />
     <ClCompile Include="RoundedRectangleShape.cpp" />
     <ClCompile Include="Stale.cpp" />
+    <ClCompile Include="StanGry.cpp" />
     <ClCompile Include="Statek.cpp" />
     <ClCompile Include="StatekInfo.cpp" />
     <ClCompile Include="StatekTest.cpp" />
@@ -541,6 +547,15 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Image>
+    <Image Include="out\resource\space.jpg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Image>
+    <Image Include="out\resource\SpaceExplorers_logo_640x348.bmp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Image>
+    <Image Include="out\resource\SpaceExplorers_logo_640x348.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
     <Image Include="out\resource\Space_start_screen.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

@@ -1,25 +1,25 @@
 #pragma once
 #include "stdafx.h"
-#include "MaszynaStanow.h"
+#include "EkranSzablon.h"
 
 class EkranStartowy: 
-	public sf::Drawable,
-	public sf::Transformable
+	public EkranSzablon
 {
 public:
-	EkranStartowy(void);
+	EkranStartowy( const sf::WindowHandle& );
 	virtual ~EkranStartowy(void);
 
-	void uaktualnij( MaszynaStanow::StanGry& );
-
+	void uaktualnij( StanGry& stan ) override;
+	
 protected:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	sf::Texture obrazTla_;
 	sf::Sprite tlo_;
 	sf::Color kolor_;
-
-	const MaszynaStanow::StanGry::KrokCzasu czasWlaczania_;
-	MaszynaStanow::StanGry::KrokCzasu czasChwilowy_;
+	sf::WindowHandle okno_;
+	const StanGry::KrokCzasu czasWlaczania_;
+	const StanGry::KrokCzasu czasTrwalosci_;
+	StanGry::KrokCzasu czasChwilowy_;
 };
 

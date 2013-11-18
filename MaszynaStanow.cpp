@@ -3,7 +3,7 @@
 #include "OknoGry.h"
 
 MaszynaStanow::MaszynaStanow()
-	: aktualnyStan_(StanyGry::Niezainicjalizowana,0,std::chrono::milliseconds(0)), watekGraficzny_(true)
+	: aktualnyStan_(StanGry::StanyGry::Niezainicjalizowana,0,std::chrono::milliseconds(0)), watekGraficzny_(true)
 {
 }
 
@@ -25,7 +25,7 @@ MaszynaStanow& MaszynaStanow::operator=(const MaszynaStanow& o){
 MaszynaStanow::~MaszynaStanow(){
 }
 
-MaszynaStanow::StanGry& MaszynaStanow::pobierzStan(){
+StanGry& MaszynaStanow::pobierzStan(){
 	return aktualnyStan_;
 }
 
@@ -35,14 +35,14 @@ MaszynaStanow& MaszynaStanow::pobierzInstancje(){
 }
 
 void MaszynaStanow::start(){
-	if(aktualnyStan_ != StanyGry::Niezainicjalizowana)
+	if(aktualnyStan_ != StanGry::StanyGry::Niezainicjalizowana)
 		return;
 
-	aktualnyStan_.ustawStan( StanyGry::EkranStartowy );
-	aktualnyStan_.ustawNastepnyStan( StanyGry::EkranStartowy );
+	aktualnyStan_.ustawStan( StanGry::StanyGry::EkranStartowy );
+	aktualnyStan_.ustawNastepnyStan( StanGry::StanyGry::EkranStartowy );
 	watekGraficzny_.odblokuj();
 
-	while(aktualnyStan_ != StanyGry::Wylacznie)
+	while(aktualnyStan_ != StanGry::StanyGry::Wylacznie)
 	{
 		petlaGlowna();
 		aktualnyStan_.przejdzDoNastepnegoStanu();
@@ -54,11 +54,9 @@ void MaszynaStanow::start(){
 void MaszynaStanow::petlaGlowna(){
 	switch(aktualnyStan_.pobierzStan())
 	{
-	case StanyGry::EkranStartowy:
-		break;
-	case StanyGry::Testowanie :	
+	case StanGry::StanyGry::Testowanie :	
 		TestyJednostkowe::pobierzInstancje().wykonajTesty();
-		aktualnyStan_.ustawStan( StanyGry::EkranStartowy );
+		aktualnyStan_.ustawNastepnyStan( StanGry::StanyGry::MenuGlowne );
 		break;
 	default:
 		break;
