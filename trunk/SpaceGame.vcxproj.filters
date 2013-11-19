@@ -872,6 +872,9 @@
     <Filter Include="SourceFile\GUI\Ekrany\Szablon">
       <UniqueIdentifier>{06269db9-7054-49db-b53b-c4aa4b9d8c45}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data\Schematy">
+      <UniqueIdentifier>{e1f93305-1c4f-4759-acc0-5d61d8d8b66a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="parser\build_instructions.txt">
@@ -907,6 +910,9 @@
       <Filter>Data</Filter>
     </Xml>
     <Xml Include="out\options_test.xml">
+      <Filter>Data</Filter>
+    </Xml>
+    <Xml Include="out\resource\Menu.xml">
       <Filter>Data</Filter>
     </Xml>
   </ItemGroup>

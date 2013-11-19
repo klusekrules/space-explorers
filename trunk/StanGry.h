@@ -1,21 +1,23 @@
 #pragma once
 #include "stdafx.h"
-
+#include "Identyfikator.h"
 
 class StanGry{
-	friend class MaszynaStanow;
 public:
 
 	enum StanyGry{
 		Niezainicjalizowana,
 		Testowanie,
 		EkranStartowy,
-		MenuGlowne,
+		Menu,
+		ZmianaEkranu,
 		Uruchomiona,
 		Wylacznie
 	};
 
 	typedef std::chrono::duration<long double,std::milli> KrokCzasu;
+
+	static StanyGry konwertuj( unsigned int );
 
 	StanGry(const StanGry& stan);
 
@@ -28,6 +30,8 @@ public:
 	int pobierzNumerSpecjalny() const;
 
 	StanyGry pobierzStan() const;
+	
+	Identyfikator pobierzIdEkranu() const;
 
 	KrokCzasu pobierzKrok() const;
 
@@ -45,16 +49,21 @@ public:
 
 	void ustawStan ( StanyGry stan );
 
+	void ustawIdEkranu ( Identyfikator ekran );
+
 	void ustawNastepnyStan ( StanyGry stan );
 
 	void przejdzDoNastepnegoStanu ( );
-
+	
+	StanGry(StanyGry stan, int numerSpecjalny, KrokCzasu krok, Identyfikator ekran );
 private:
 	StanyGry stan_;
-	StanyGry stanNastepny_;
 	int numerSpecjalny_;
+	Identyfikator idEkranu_;
 	KrokCzasu krok_;
 
-	StanGry(StanyGry stan, int numerSpecjalny, KrokCzasu krok );
+	
+	StanyGry stanNastepny_;
+
 
 };

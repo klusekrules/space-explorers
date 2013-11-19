@@ -4,4 +4,5 @@
   <data>test.xml</data>
   <!-- <messages>message.xml</messages> -->
   <plugins>plugins\\</plugins>
+  <EkranStartowy id="0x0"/>
 </SpaceGame>

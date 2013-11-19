@@ -12,16 +12,20 @@ public:
 
 	void start();
 
-	StanGry& pobierzStan();
+	StanGry pobierzStan();
 
 	static MaszynaStanow& pobierzInstancje();
+
+	void scalStan( const StanGry& stan );
 
 private:
 
 	StanGry aktualnyStan_;
+	std::mutex mutexStanu_; 
+
+	StanGry nastepnyStan_;
 		
 	OknoGry watekGraficzny_;
-	//Watek watekObliczeniowy_;
 
 	MaszynaStanow();
 	MaszynaStanow( const MaszynaStanow& );
@@ -32,6 +36,8 @@ private:
 	void pokazEkranStartowy();
 
 	void dodajKomunikatLogow( Log::TypLogow typ, const std::string& komunikat );
+
+	void przejdzDoNastepnegoStanu();
 
 };
 

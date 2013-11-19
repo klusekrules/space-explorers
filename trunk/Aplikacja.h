@@ -102,6 +102,8 @@ public:
 	*/
 	string pobierzSladStosu() const;
 
+	const Identyfikator& pobierzIdEkranuStartowego() const;
+
 	/**
 	* \brief Destruktor.
 	*/
@@ -161,4 +163,6 @@ private:
 	SymFromAddrS symFromAddr_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
 	HMODULE uchwyt_; /// Uchwyt blioteki pomocniczej.
 	bool czyZainicjalizowanaBiblioteka_; /// Informacja czy uda³osiê za³adowaæ bibliotekê pomocnicz¹.
+
+	Identyfikator idEkranuStartowego_;
 };

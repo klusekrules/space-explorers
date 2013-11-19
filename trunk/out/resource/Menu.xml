@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SpaceGame>
+  <EkranStartowy id="0x0" StanWejsciowy="2" NumerWyjsciowy="0" EkranWyjsciowy="0x1"/>
+  <EkranMenu id="0x1" StanWejsciowy="3">
+    <Przycisk Napis="Testowanie" Stan="1" Numer="0" Ekran="0x1"/>
+    <Przycisk Napis="Zamknij" Stan="6" Numer="0" Ekran="0x1"/>
+  </EkranMenu>
+</SpaceGame>
