@@ -508,6 +508,7 @@
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="out\options_test.xml" />
+    <Xml Include="out\resource\Menu.xml" />
     <Xml Include="out\test.xml">
       <SubType>Designer</SubType>
     </Xml>
@@ -524,9 +525,9 @@
     </Xsd>
     <Xsd Include="saveSchema.xsd">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Xsd>
     <Xsd Include="ukladSchema.xsd">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>

@@ -169,6 +169,19 @@ public:
 	}
 
 	template< >
+	static unsigned int WczytajAtrybut<unsigned int>( TiXmlElement* wezel , const string& nazwa , unsigned int domyslnaWartosc ){
+		if(!wezel)
+			return domyslnaWartosc;
+		const string * napis = wezel->Attribute(nazwa);
+		if(!napis)
+			return domyslnaWartosc;
+		if(napis->length()>0){
+			return stoul(*napis,nullptr,0);
+		}
+		return domyslnaWartosc;
+	}
+
+	template< >
 	static long double WczytajAtrybut<long double>( TiXmlElement* wezel , const string& nazwa , long double domyslnaWartosc ){
 		if(!wezel)
 			return domyslnaWartosc;

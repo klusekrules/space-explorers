@@ -1,13 +1,16 @@
 #pragma once
 #include "stdafx.h"
-#include "MaszynaStanow.h"
+#include "StanGry.h"
+#include "Identyfikator.h"
+#include "parser\ticpp.h"
 
 class EkranSzablon: 
 	public sf::Drawable,
 	public sf::Transformable
 {
 public:
-	EkranSzablon(void);
+	EkranSzablon( TiXmlElement* wezel );
+
 	virtual ~EkranSzablon(void);
 	
 	virtual void uaktualnij( StanGry& stan );
@@ -18,5 +21,11 @@ public:
 	
 	virtual void odlacz( sf::Window& );
 
+	const Identyfikator& pobierzId() const;
+
+protected:
+	Identyfikator id_;
+	StanGry::StanyGry stanWejsciowy_;
+	//int numerWejsciowy_;
 };
 

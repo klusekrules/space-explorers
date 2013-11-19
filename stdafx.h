@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include <chrono>
 #include <thread>
+#include <mutex>
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>

@@ -2,11 +2,12 @@
 #include "stdafx.h"
 #include "EkranSzablon.h"
 
+
 class EkranStartowy: 
 	public EkranSzablon
 {
 public:
-	EkranStartowy( const sf::WindowHandle& );
+	EkranStartowy( const sf::WindowHandle&, TiXmlElement* wezel);
 	virtual ~EkranStartowy(void);
 
 	void uaktualnij( StanGry& stan ) override;
@@ -21,5 +22,8 @@ protected:
 	const StanGry::KrokCzasu czasWlaczania_;
 	const StanGry::KrokCzasu czasTrwalosci_;
 	StanGry::KrokCzasu czasChwilowy_;
+
+	Identyfikator idEkranuWyjsciowego_;
+	int numerWyjsciowy_;
 };
 

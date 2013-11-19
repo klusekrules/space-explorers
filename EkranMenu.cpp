@@ -1,8 +1,10 @@
 #include "EkranMenu.h"
 #include "Logger\Log.h"
+#include "definicjeWezlowXML.h"
+#include "XmlBO.h"
 
-EkranMenu::EkranMenu(sf::RenderWindow& okno)
-	: aktualnyStan_(nullptr), interfejs_(okno)
+EkranMenu::EkranMenu(sf::RenderWindow& okno  , TiXmlElement* wezel)
+	: EkranSzablon(wezel), aktualnyStan_(nullptr), interfejs_(okno)
 {
 	obrazTla_.loadFromFile("resource\\space.jpg");
 	tlo_.setTexture(obrazTla_);
@@ -14,6 +16,26 @@ EkranMenu::EkranMenu(sf::RenderWindow& okno)
 
 	czcionka_.loadFromFile("resource\\arial.ttf");
 	interfejs_.setGlobalFont(czcionka_);
+
+	if(wezel){
+		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_EKRAN_MENU_PRZYCISK); element ; element = element->NextSiblingElement(WEZEL_XML_EKRAN_MENU_PRZYCISK)){
+			if(!dodajPrzycisk(element))
+				throw OgolnyWyjatek(EXCEPTION_PLACE);
+		}
+	}
+}
+
+bool EkranMenu::dodajPrzycisk( TiXmlElement* wezel ){
+	if(wezel){
+		Identyfikator id;
+		std::string napis = XmlBO::WczytajAtrybut<std::string>(wezel,ATRYBUT_XML_EKRAN_MENU_PRZYCISK_NAPIS,std::string());
+		unsigned int uStan = XmlBO::WczytajAtrybut<unsigned int>(wezel,ATRYBUT_XML_EKRAN_MENU_PRZYCISK_STAN,StanGry::Niezainicjalizowana);
+		int numerSpecjalny = XmlBO::WczytajAtrybut<int>(wezel,ATRYBUT_XML_EKRAN_MENU_PRZYCISK_NUMER,0);
+		XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_EKRAN_MENU_PRZYCISK_EKRAN,id);
+		if(!dodajPrzycisk(napis,StanGry::konwertuj(uStan),numerSpecjalny,id))
+			return false;
+	}
+	return true;
 }
 
 EkranMenu::~EkranMenu()
@@ -21,6 +43,7 @@ EkranMenu::~EkranMenu()
 }
 
 void EkranMenu::uaktualnij( StanGry& stan ){
+	EkranSzablon::uaktualnij(stan);
 }
 
 void EkranMenu::odbierz( StanGry& stan, const sf::Event& zdarzenie ){
@@ -36,13 +59,14 @@ void EkranMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 
 void EkranMenu::callback( int id ){
 	if(aktualnyStan_){
-		auto para = zdarzenia_.at(id);
-		aktualnyStan_->ustawNastepnyStan(para.first);
-		aktualnyStan_->ustawNumerSpecjalny(para.second);
+		auto przycisk = zdarzenia_.at(id);
+		aktualnyStan_->ustawNastepnyStan(przycisk.stan_);
+		aktualnyStan_->ustawNumerSpecjalny(przycisk.numer_);
+		aktualnyStan_->ustawIdEkranu(przycisk.ekran_);
 	}
 }
 
-bool EkranMenu::dodajPrzycisk( const std::string& napis, StanGry::StanyGry stan, int numerSpecjalny ){
+bool EkranMenu::dodajPrzycisk( const std::string& napis, StanGry::StanyGry stan, int numerSpecjalny, Identyfikator id ){
 	tgui::Button::Ptr przycisk;
 	unsigned int rozmiarTablicy = static_cast<unsigned int>( zdarzenia_.size() );
 	if(!przycisk->load("widgets\\Black.conf")){
@@ -55,11 +79,17 @@ bool EkranMenu::dodajPrzycisk( const std::string& napis, StanGry::StanyGry stan,
 	przycisk->setText(napis);
 	przycisk->setTextSize(15);
 	przycisk->bindCallback(std::bind(&EkranMenu::callback, std::ref(*this), rozmiarTablicy ), tgui::Button::LeftMouseClicked);
-	zdarzenia_.push_back( std::make_pair( stan, numerSpecjalny ) );
+	zdarzenia_.push_back( Przycisk(stan,numerSpecjalny,id) );
+	return true;
 }
 
 void EkranMenu::podlacz( sf::Window& ){
 }
 	
 void EkranMenu::odlacz( sf::Window& ){
+}
+
+EkranMenu::Przycisk::Przycisk( StanGry::StanyGry stan , int numer , Identyfikator ekran)
+	: stan_(stan), numer_(numer), ekran_(ekran)
+{
 }
