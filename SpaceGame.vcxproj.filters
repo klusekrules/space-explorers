@@ -875,6 +875,9 @@
     <Filter Include="Data\Schematy">
       <UniqueIdentifier>{e1f93305-1c4f-4759-acc0-5d61d8d8b66a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data\Skrypty">
+      <UniqueIdentifier>{1289de74-2981-47bb-88f6-1d7c962c505d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="parser\build_instructions.txt">
@@ -894,6 +897,9 @@
     </None>
     <None Include="svn_version.h.tmpl">
       <Filter>Resource\Wersja</Filter>
+    </None>
+    <None Include="out\resource\test.lua">
+      <Filter>Data\Skrypty</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
