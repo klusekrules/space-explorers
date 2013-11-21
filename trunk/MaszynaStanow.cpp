@@ -2,20 +2,34 @@
 #include "TestyJednostkowe.h"
 #include "OknoGry.h"
 #include "Aplikacja.h"
+#include "parser\ticpp.h"
 
 MaszynaStanow::MaszynaStanow()
 	: aktualnyStan_(StanGry::StanyGry::Niezainicjalizowana,0,std::chrono::milliseconds(0),Identyfikator(0x0)),
 	nastepnyStan_(StanGry::StanyGry::Niezainicjalizowana,0,std::chrono::milliseconds(0),Identyfikator(0x0)), watekGraficzny_(true)
 {
+	TiXmlDocument doc;
+	doc.LoadFile("resource\\state.xml");
+	for(TiXmlElement* element = doc.RootElement()->FirstChildElement(WEZEL_XML_STAN); element ; element = element->NextSiblingElement(WEZEL_XML_STAN)){
+		auto stan = std::make_shared<StanInfo>(element);
+		wszystkieStany_.insert(std::make_pair(stan->pobierzIdentyfikator(), stan));
+		//Test
+		stan->wykonaj(StanInfo::AkcjaWewnetrzna);
+		stan->wykonaj(StanInfo::AkcjaWewnetrzna);
+		stan->wykonaj(StanInfo::AkcjaWewnetrzna);
+		stan->pobierzZdarzenie(Identyfikator(0x1))->wykonaj();
+		stan->pobierzZdarzenie(Identyfikator(0x1))->wykonaj();
+		//----
+	}
 }
 
 MaszynaStanow::MaszynaStanow( const MaszynaStanow& o )
-	: aktualnyStan_(o.aktualnyStan_), nastepnyStan_(o.nastepnyStan_), watekGraficzny_(true)
+	: aktualnyStan_(o.aktualnyStan_), nastepnyStan_(o.nastepnyStan_), watekGraficzny_(true), wszystkieStany_(o.wszystkieStany_)
 {
 }
 
 MaszynaStanow::MaszynaStanow( MaszynaStanow&& o )
-	: aktualnyStan_(o.aktualnyStan_), nastepnyStan_(o.nastepnyStan_), watekGraficzny_(true)
+	: aktualnyStan_(o.aktualnyStan_), nastepnyStan_(o.nastepnyStan_), watekGraficzny_(true), wszystkieStany_(o.wszystkieStany_)
 {
 }
 

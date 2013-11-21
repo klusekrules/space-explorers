@@ -325,6 +325,16 @@
     <ClCompile Include="MaszynaStanow.cpp">
       <Filter>SourceFile\MaszynaStanow</Filter>
     </ClCompile>
+    <ClCompile Include="StanInfo.cpp">
+      <Filter>SourceFile\MaszynaStanow</Filter>
+    </ClCompile>
+    <ClCompile Include="Stan.cpp">
+      <Filter>SourceFile\MaszynaStanow</Filter>
+    </ClCompile>
+    <ClCompile Include="ZdarzenieInfo.cpp">
+      <Filter>SourceFile\MaszynaStanow</Filter>
+    </ClCompile>
+    <ClCompile Include="Zdarzenie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -714,6 +724,16 @@
     <ClInclude Include="MaszynaStanow.h">
       <Filter>SourceFile\MaszynaStanow</Filter>
     </ClInclude>
+    <ClInclude Include="StanInfo.h">
+      <Filter>SourceFile\MaszynaStanow</Filter>
+    </ClInclude>
+    <ClInclude Include="Stan.h">
+      <Filter>SourceFile\MaszynaStanow</Filter>
+    </ClInclude>
+    <ClInclude Include="ZdarzenieInfo.h">
+      <Filter>SourceFile\MaszynaStanow</Filter>
+    </ClInclude>
+    <ClInclude Include="Zdarzenie.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -922,6 +942,9 @@
       <Filter>Data</Filter>
     </Xml>
     <Xml Include="out\resource\Menu.xml">
+      <Filter>Data</Filter>
+    </Xml>
+    <Xml Include="out\resource\state.xml">
       <Filter>Data</Filter>
     </Xml>
   </ItemGroup>

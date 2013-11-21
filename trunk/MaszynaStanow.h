@@ -3,6 +3,7 @@
 #include "Logger\\Log.h"
 #include "OknoGry.h"
 #include "StanGry.h"
+#include "StanInfo.h"
 
 class MaszynaStanow
 {
@@ -26,6 +27,8 @@ private:
 	StanGry nastepnyStan_;
 		
 	OknoGry watekGraficzny_;
+
+	std::map<Identyfikator,std::shared_ptr<StanInfo> > wszystkieStany_;
 
 	MaszynaStanow();
 	MaszynaStanow( const MaszynaStanow& );
