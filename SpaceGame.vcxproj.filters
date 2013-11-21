@@ -301,9 +301,6 @@
     <ClCompile Include="ZarzadcaPamieci.cpp">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClCompile>
-    <ClCompile Include="MaszynaStanow.cpp">
-      <Filter>SourceFile\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="RoundedRectangleShape.cpp">
       <Filter>SourceFile\GUI\SFML</Filter>
     </ClCompile>
@@ -316,14 +313,17 @@
     <ClCompile Include="EkranSzablon.cpp">
       <Filter>SourceFile\GUI\Ekrany</Filter>
     </ClCompile>
-    <ClCompile Include="StanGry.cpp">
-      <Filter>SourceFile\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="OknoGry.cpp">
       <Filter>SourceFile\GUI\Ekrany</Filter>
     </ClCompile>
     <ClCompile Include="EkranStartowy.cpp">
       <Filter>SourceFile\GUI\Ekrany\Szablon</Filter>
+    </ClCompile>
+    <ClCompile Include="StanGry.cpp">
+      <Filter>SourceFile\MaszynaStanow</Filter>
+    </ClCompile>
+    <ClCompile Include="MaszynaStanow.cpp">
+      <Filter>SourceFile\MaszynaStanow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -678,9 +678,6 @@
     <ClInclude Include="ZarzadcaPamieci.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
-    <ClInclude Include="MaszynaStanow.h">
-      <Filter>SourceFile\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
@@ -705,14 +702,17 @@
     <ClInclude Include="EkranSzablon.h">
       <Filter>SourceFile\GUI\Ekrany</Filter>
     </ClInclude>
-    <ClInclude Include="StanGry.h">
-      <Filter>SourceFile\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="OknoGry.h">
       <Filter>SourceFile\GUI\Ekrany</Filter>
     </ClInclude>
     <ClInclude Include="EkranStartowy.h">
       <Filter>SourceFile\GUI\Ekrany\Szablon</Filter>
+    </ClInclude>
+    <ClInclude Include="StanGry.h">
+      <Filter>SourceFile\MaszynaStanow</Filter>
+    </ClInclude>
+    <ClInclude Include="MaszynaStanow.h">
+      <Filter>SourceFile\MaszynaStanow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -877,6 +877,9 @@
     </Filter>
     <Filter Include="Data\Skrypty">
       <UniqueIdentifier>{1289de74-2981-47bb-88f6-1d7c962c505d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\MaszynaStanow">
+      <UniqueIdentifier>{059b6ea8-f800-43b6-b443-9331f7b06e22}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

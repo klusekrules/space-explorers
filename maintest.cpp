@@ -16,6 +16,12 @@ extern "C"{
 	{
 		return foo + 1;
 	}
+
+	__declspec(dllexport) void __cdecl loguj(const char *komunikat )
+	{
+		if(komunikat)
+			Log::pobierzInstancje().loguj(Log::Info, komunikat);
+	}
 }
 
 void run(){
@@ -34,7 +40,11 @@ void main( int argv , char* argc[] ){
     _CrtSetReportFile( _CRT_ERROR, _CRTDBG_FILE_STDOUT );
     _CrtSetReportMode( _CRT_ASSERT, _CRTDBG_MODE_FILE );
     _CrtSetReportFile( _CRT_ASSERT, _CRTDBG_FILE_STDOUT );
-	
+		
+	Aplikacja::iloscArgumentow = argv;
+	Aplikacja::argumenty = argc;
+	Aplikacja::pobierzInstancje();
+
 	std::thread t(run);
 	std::thread d(run);
 	atom = false;
@@ -53,6 +63,14 @@ void main( int argv , char* argc[] ){
         exit(1);
     }
 
+	result = lua_pcall(L, 0, LUA_MULTRET, 0);
+    if (result) {
+        fprintf(stderr, "Failed to run script: %s\n", lua_tostring(L, -1));
+        exit(1);
+    }
+
+	lua_getglobal(L, "f");
+
     /* Ask Lua to run our little script */
     result = lua_pcall(L, 0, LUA_MULTRET, 0);
     if (result) {
@@ -62,9 +80,6 @@ void main( int argv , char* argc[] ){
 
     lua_close(L);   /* Cya, Lua */
 
-	Aplikacja::iloscArgumentow = argv;
-	Aplikacja::argumenty = argc;
-	Aplikacja::pobierzInstancje();
 
 	MaszynaStanow::pobierzInstancje().start();
 
