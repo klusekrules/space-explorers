@@ -78,6 +78,13 @@ void main( int argv , char* argc[] ){
         exit(1);
     }
 
+	lua_getglobal(L, "f");
+	result = lua_pcall(L, 0, LUA_MULTRET, 0);
+    if (result) {
+        fprintf(stderr, "Failed to run script: %s\n", lua_tostring(L, -1));
+        exit(1);
+    }
+
     lua_close(L);   /* Cya, Lua */
 
 

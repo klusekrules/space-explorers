@@ -249,7 +249,9 @@
     <ClInclude Include="OknoGry.h" />
     <ClInclude Include="PlanetaTest.h" />
     <ClInclude Include="RoundedRectangleShape.hpp" />
+    <ClInclude Include="Stan.h" />
     <ClInclude Include="StanGry.h" />
+    <ClInclude Include="StanInfo.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Temperatura.h">
       <SubType>
@@ -259,6 +261,8 @@
     <ClInclude Include="Walidator.h" />
     <ClInclude Include="Watek.h" />
     <ClInclude Include="ZarzadcaPamieci.h" />
+    <ClInclude Include="Zdarzenie.h" />
+    <ClInclude Include="ZdarzenieInfo.h" />
     <ClInclude Include="Zlecenia.h" />
     <ClInclude Include="InicjalizacjaDanychTestowych.h" />
     <ClInclude Include="LadowniaTest.h" />
@@ -445,7 +449,9 @@
     <ClCompile Include="Predkosc.cpp" />
     <ClCompile Include="RoundedRectangleShape.cpp" />
     <ClCompile Include="Stale.cpp" />
+    <ClCompile Include="Stan.cpp" />
     <ClCompile Include="StanGry.cpp" />
+    <ClCompile Include="StanInfo.cpp" />
     <ClCompile Include="Statek.cpp" />
     <ClCompile Include="StatekInfo.cpp" />
     <ClCompile Include="StatekTest.cpp" />
@@ -474,6 +480,8 @@
     <ClCompile Include="WymaganiaTest.cpp" />
     <ClCompile Include="ZapisStanuGryTest.cpp" />
     <ClCompile Include="ZarzadcaPamieci.cpp" />
+    <ClCompile Include="Zdarzenie.cpp" />
+    <ClCompile Include="ZdarzenieInfo.cpp" />
     <ClCompile Include="ZleceniaTest.cpp" />
     <ClCompile Include="ZmianaPoziomObiektu.cpp" />
     <ClCompile Include="ZuzyciePaliwa.cpp" />
@@ -510,6 +518,7 @@
     </Xml>
     <Xml Include="out\options_test.xml" />
     <Xml Include="out\resource\Menu.xml" />
+    <Xml Include="out\resource\state.xml" />
     <Xml Include="out\test.xml">
       <SubType>Designer</SubType>
     </Xml>

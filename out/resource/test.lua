@@ -11,4 +11,12 @@ function f ()
 	ffi.C.loguj("Komunikacja z Loggerem dziala!")
 end
 
-f()
+function s ()
+	ffi.C.loguj("Komunikat stanu")
+end
+
+function z ()
+	ffi.C.loguj("Komunikat zdarzenia")
+end
+
+ffi.C.loguj("Poza funkcj¹")

@@ -41,6 +41,8 @@
 #define WEZEL_XML_EKRAN_MENU "EkranMenu"
 #define WEZEL_XML_EKRAN_MENU_PRZYCISK "Przycisk"
 #define WEZEL_XML_EKRAN_STARTOWY "EkranStartowy"
+#define WEZEL_XML_STAN "Stan"
+#define WEZEL_XML_ZDARZENIE "Zdarzenie"
 
 #define ATRYBUT_XML_IDENTYFIKATOR "id"
 #define ATRYBUT_XML_IDENTYFIKATOR_RODZICA "idRodzica"
@@ -94,6 +96,12 @@
 #define ATRYBUT_XML_EKRAN_NUMER_WYJSCIOWY "NumerWyjsciowy"
 #define ATRYBUT_XML_EKRAN_EKRAN_WYJSCIOWY "EkranWyjsciowy"
 
+#define ATRYBUT_XML_STAN_LUA_IN "luaIn"
+#define ATRYBUT_XML_STAN_LUA_OUT "luaOut"
+#define ATRYBUT_XML_STAN_LUA_INSIDE "luaInside"
+#define ATRYBUT_XML_STAN_LUA_FILE "luaFile"
+#define ATRYBUT_XML_STAN_NASTEPNY "stanNastepny"
+#define ATRYBUT_XML_NUMER_NASTEPNY "numerNastepny"
 
 #define WARTOSC_ATRYBUTU_XML_NASTEPNY "nastepny"
 #define WARTOSC_ATRYBUTU_XML_BRAT "brat"
