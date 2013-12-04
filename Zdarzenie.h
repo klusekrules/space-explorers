@@ -5,8 +5,6 @@
 class Zdarzenie
 {
 public:
-	Zdarzenie(void);
-	~Zdarzenie(void);
 	Identyfikator idStanu_;
 	int numer_;
 	Identyfikator idZdarzenia_;

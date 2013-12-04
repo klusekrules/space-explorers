@@ -2,38 +2,53 @@
 #include "stdafx.h"
 #include "Logger\\Log.h"
 #include "OknoGry.h"
-#include "StanGry.h"
 #include "StanInfo.h"
+#include "Zdarzenie.h"
+#include "Stan.h"
+#include "Singleton.h"
 
-class MaszynaStanow
+class MaszynaStanow : public se::Singleton<MaszynaStanow>
 {
+	friend class se::Singleton<MaszynaStanow>;
 public:
 	
 	~MaszynaStanow();
 
 	void start();
 
-	StanGry pobierzStan();
+	Stan pobierzStan( OknoGry::StosEkranow& ) const;
+	
+	Stan pobierzStan( ) const;
+	
+	void dodajKomunikat( const Zdarzenie &komunikat );
 
-	static MaszynaStanow& pobierzInstancje();
+	bool kolejkujOkno( int id );
 
-	void scalStan( const StanGry& stan );
+	void wyczyscKolejkeOkien( );
+
+	void inicjujZamykanie();
 
 private:
-
-	StanGry aktualnyStan_;
-	std::mutex mutexStanu_; 
-
-	StanGry nastepnyStan_;
-		
+	
 	OknoGry watekGraficzny_;
 
 	std::map<Identyfikator,std::shared_ptr<StanInfo> > wszystkieStany_;
+	Identyfikator idStanuPoczatkowy_;
+
+	Stan stan_;
+	OknoGry::StosEkranow stosEkranow_;
+	mutable std::recursive_mutex mutexStanu_;
+	
+	Stan stanNastepny_;
+
+	std::list<Zdarzenie> kolejkaZdarzen_;
+	mutable std::mutex mutexZdarzen_;
+
+
+	std::atomic_bool wlaczone;
+
 
 	MaszynaStanow();
-	MaszynaStanow( const MaszynaStanow& );
-	MaszynaStanow( MaszynaStanow&& );
-	MaszynaStanow& operator=(const MaszynaStanow&);
 
 	void petlaGlowna();
 	void pokazEkranStartowy();
@@ -41,6 +56,12 @@ private:
 	void dodajKomunikatLogow( Log::TypLogow typ, const std::string& komunikat );
 
 	void przejdzDoNastepnegoStanu();
+
+	bool pobierzKomunikat( Zdarzenie &komunikat );
+
+	std::shared_ptr<StanInfo> pobierzOpisStanu( const Identyfikator& ) const;
+
+	void ustawNastepnyStan(Stan&);
 
 };
 

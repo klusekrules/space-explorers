@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-#include "StanGry.h"
+#include "Stan.h"
 #include "Identyfikator.h"
 #include "parser\ticpp.h"
 
@@ -13,19 +13,26 @@ public:
 
 	virtual ~EkranSzablon(void);
 	
-	virtual void uaktualnij( StanGry& stan );
+	virtual void uaktualnij( Stan& stan );
 
-	virtual void odbierz( StanGry& stan, const sf::Event& zdarzenie );
+	virtual void odbierz( Stan& stan, const sf::Event& zdarzenie );
 
-	virtual void podlacz( sf::Window& );
+	virtual void podlacz( sf::RenderWindow& );
 	
-	virtual void odlacz( sf::Window& );
+	virtual void odlacz( sf::RenderWindow& );
 
 	const Identyfikator& pobierzId() const;
 
 protected:
+
+	void callback( const tgui::Callback& callback, unsigned int funkcja );
+
+	bool wczytajDaneKontrolki( TiXmlElement* wezel , tgui::Widget::Ptr kontrolka );
+
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
 	Identyfikator id_;
-	StanGry::StanyGry stanWejsciowy_;
-	//int numerWejsciowy_;
+	Identyfikator idStanu_;
+	mutable tgui::Gui interfejs_;
 };
 

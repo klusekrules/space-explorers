@@ -307,20 +307,8 @@
     <ClCompile Include="Watek.cpp">
       <Filter>SourceFile\MultiThreading</Filter>
     </ClCompile>
-    <ClCompile Include="EkranMenu.cpp">
-      <Filter>SourceFile\GUI\Ekrany\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="EkranSzablon.cpp">
-      <Filter>SourceFile\GUI\Ekrany</Filter>
-    </ClCompile>
     <ClCompile Include="OknoGry.cpp">
       <Filter>SourceFile\GUI\Ekrany</Filter>
-    </ClCompile>
-    <ClCompile Include="EkranStartowy.cpp">
-      <Filter>SourceFile\GUI\Ekrany\Szablon</Filter>
-    </ClCompile>
-    <ClCompile Include="StanGry.cpp">
-      <Filter>SourceFile\MaszynaStanow</Filter>
     </ClCompile>
     <ClCompile Include="MaszynaStanow.cpp">
       <Filter>SourceFile\MaszynaStanow</Filter>
@@ -334,7 +322,12 @@
     <ClCompile Include="ZdarzenieInfo.cpp">
       <Filter>SourceFile\MaszynaStanow</Filter>
     </ClCompile>
-    <ClCompile Include="Zdarzenie.cpp" />
+    <ClCompile Include="EkranSzablon.cpp">
+      <Filter>SourceFile\GUI\Ekrany\Szablon</Filter>
+    </ClCompile>
+    <ClCompile Include="EkranStartowy.cpp">
+      <Filter>SourceFile\GUI\Ekrany\Instancje</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -706,20 +699,8 @@
     <ClInclude Include="Dokumentacja.h">
       <Filter>Resource\Dokumentacja</Filter>
     </ClInclude>
-    <ClInclude Include="EkranMenu.h">
-      <Filter>SourceFile\GUI\Ekrany\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="EkranSzablon.h">
-      <Filter>SourceFile\GUI\Ekrany</Filter>
-    </ClInclude>
     <ClInclude Include="OknoGry.h">
       <Filter>SourceFile\GUI\Ekrany</Filter>
-    </ClInclude>
-    <ClInclude Include="EkranStartowy.h">
-      <Filter>SourceFile\GUI\Ekrany\Szablon</Filter>
-    </ClInclude>
-    <ClInclude Include="StanGry.h">
-      <Filter>SourceFile\MaszynaStanow</Filter>
     </ClInclude>
     <ClInclude Include="MaszynaStanow.h">
       <Filter>SourceFile\MaszynaStanow</Filter>
@@ -733,7 +714,24 @@
     <ClInclude Include="ZdarzenieInfo.h">
       <Filter>SourceFile\MaszynaStanow</Filter>
     </ClInclude>
-    <ClInclude Include="Zdarzenie.h" />
+    <ClInclude Include="Zdarzenie.h">
+      <Filter>SourceFile\MaszynaStanow</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>SourceFile\GUI\Szkielet</Filter>
+    </ClInclude>
+    <ClInclude Include="NonCopyable.h">
+      <Filter>SourceFile\GUI\Szkielet</Filter>
+    </ClInclude>
+    <ClInclude Include="NonMoveable.h">
+      <Filter>SourceFile\GUI\Szkielet</Filter>
+    </ClInclude>
+    <ClInclude Include="EkranSzablon.h">
+      <Filter>SourceFile\GUI\Ekrany\Szablon</Filter>
+    </ClInclude>
+    <ClInclude Include="EkranStartowy.h">
+      <Filter>SourceFile\GUI\Ekrany\Instancje</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -868,9 +866,6 @@
     <Filter Include="SourceFile\GUI\Ekrany">
       <UniqueIdentifier>{e3a1b275-8b57-4241-acc8-6836bfd82aad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\GUI\Ekrany\Menu">
-      <UniqueIdentifier>{872ef496-c928-4c2e-a33f-70c1da3f6a93}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource">
       <UniqueIdentifier>{f809a59c-3db4-40e4-baa6-d18e46644843}</UniqueIdentifier>
     </Filter>
@@ -901,6 +896,12 @@
     <Filter Include="SourceFile\MaszynaStanow">
       <UniqueIdentifier>{059b6ea8-f800-43b6-b443-9331f7b06e22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SourceFile\GUI\Szkielet">
+      <UniqueIdentifier>{d5caacdb-fb36-45ec-9357-2ef8cf749f5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\GUI\Ekrany\Instancje">
+      <UniqueIdentifier>{795eed1f-324f-4471-b8db-0bf85c28d80c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="parser\build_instructions.txt">
@@ -923,6 +924,9 @@
     </None>
     <None Include="out\resource\test.lua">
       <Filter>Data\Skrypty</Filter>
+    </None>
+    <None Include="out\resource\menu.wdg">
+      <Filter>Data</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -7,23 +7,20 @@ class EkranStartowy:
 	public EkranSzablon
 {
 public:
-	EkranStartowy( const sf::WindowHandle&, TiXmlElement* wezel);
+	EkranStartowy(  sf::RenderWindow& okno , TiXmlElement* wezel);
 	virtual ~EkranStartowy(void);
 
-	void uaktualnij( StanGry& stan ) override;
+	void uaktualnij( Stan& stan ) override;
 	
 protected:
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
-	sf::Texture obrazTla_;
-	sf::Sprite tlo_;
-	sf::Color kolor_;
+	
 	sf::WindowHandle okno_;
-	const StanGry::KrokCzasu czasWlaczania_;
-	const StanGry::KrokCzasu czasTrwalosci_;
-	StanGry::KrokCzasu czasChwilowy_;
 
-	Identyfikator idEkranuWyjsciowego_;
-	int numerWyjsciowy_;
+	const Stan::KrokCzasu czasWlaczania_;
+	const Stan::KrokCzasu czasTrwalosci_;
+	Stan::KrokCzasu czasChwilowy_;
+
+	Identyfikator idStanuWejscia_;	
+	Identyfikator idZdarzeniaWyjscia_;
 };
 

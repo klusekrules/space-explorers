@@ -38,11 +38,13 @@
 #define WEZEL_XML_HANGAR_INFO "HangarInfo"
 
 #define WEZEL_XML_ZARZADCA "Zarzadca"
-#define WEZEL_XML_EKRAN_MENU "EkranMenu"
-#define WEZEL_XML_EKRAN_MENU_PRZYCISK "Przycisk"
+#define WEZEL_XML_EKRAN "Ekran"
 #define WEZEL_XML_EKRAN_STARTOWY "EkranStartowy"
 #define WEZEL_XML_STAN "Stan"
 #define WEZEL_XML_ZDARZENIE "Zdarzenie"
+#define WEZEL_XML_ATRYBUT "Atrybut"
+#define WEZEL_XML_AKCJA "Akcja"
+#define WEZEL_XML_KONTROLKA "Kontrolka"
 
 #define ATRYBUT_XML_IDENTYFIKATOR "id"
 #define ATRYBUT_XML_IDENTYFIKATOR_RODZICA "idRodzica"
@@ -87,14 +89,13 @@
 #define ATRYBUT_XML_POWIERZCHNIA_LADOW "powierzchniaLadow"
 #define ATRYBUT_XML_POWIERZCHNIA_UZYTKOWA_LADOW "powierzchniaUzytkowaLadow"
 
-#define ATRYBUT_XML_EKRAN_MENU_PRZYCISK_NAPIS "Napis"
-#define ATRYBUT_XML_EKRAN_MENU_PRZYCISK_STAN "Stan"
-#define ATRYBUT_XML_EKRAN_MENU_PRZYCISK_EKRAN "Ekran"
-#define ATRYBUT_XML_EKRAN_MENU_PRZYCISK_NUMER "Numer"
-
-#define ATRYBUT_XML_EKRAN_STAN_WEJSCIOWY "StanWejsciowy"
-#define ATRYBUT_XML_EKRAN_NUMER_WYJSCIOWY "NumerWyjsciowy"
-#define ATRYBUT_XML_EKRAN_EKRAN_WYJSCIOWY "EkranWyjsciowy"
+#define ATRYBUT_XML_EKRAN_STAN_WEJSCIOWY "stanWejsciowy"
+#define ATRYBUT_XML_EKRAN_ZDARZENIE_WYJSCIA "zdarzenieWyjscia"
+#define ATRYBUT_XML_EKRAN_NUMER_WYJSCIOWY "numerWyjsciowy"
+#define ATRYBUT_XML_EKRAN_EKRAN_WYJSCIOWY "ekranWyjsciowy"
+#define ATRYBUT_XML_STAN_POCZATKOWY "idStanuPoczatkowego"
+#define ATRYBUT_XML_KONFIGURACJA "konfiguracja"
+#define ATRYBUT_XML_CZCIONKA "czcionka"
 
 #define ATRYBUT_XML_STAN_LUA_IN "luaIn"
 #define ATRYBUT_XML_STAN_LUA_OUT "luaOut"
@@ -102,6 +103,8 @@
 #define ATRYBUT_XML_STAN_LUA_FILE "luaFile"
 #define ATRYBUT_XML_STAN_NASTEPNY "stanNastepny"
 #define ATRYBUT_XML_NUMER_NASTEPNY "numerNastepny"
+#define ATRYBUT_XML_WARTOSC "wartosc"
+#define ATRYBUT_XML_ID_ZDARZENIA "idZdarzenia"
 
 #define WARTOSC_ATRYBUTU_XML_NASTEPNY "nastepny"
 #define WARTOSC_ATRYBUTU_XML_BRAT "brat"

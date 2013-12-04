@@ -67,6 +67,15 @@ const Identyfikator& ZdarzenieInfo::pobierzIdentyfikator() const{
 	return id_;
 }
 
+std::shared_ptr< Identyfikator > ZdarzenieInfo::pobierzStan() const{
+	return nastepnyStan_;
+}
+
+std::shared_ptr< int > ZdarzenieInfo::pobierzNumer() const{
+	return nastepnyNumer_;
+}
+	
+
 std::string ZdarzenieInfo::napis() const{
 	Logger log(NAZWAKLASY(ZdarzenieInfo));
 	log.dodajPole("Identyfikator",id_);
