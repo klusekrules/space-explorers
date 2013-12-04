@@ -15,7 +15,10 @@ public:
 	bool wykonaj();
 
 	const Identyfikator& pobierzIdentyfikator() const;
-
+	
+	std::shared_ptr< Identyfikator > pobierzStan() const;
+	std::shared_ptr< int > pobierzNumer() const;
+	
 	std::string napis() const override;
 
 private:

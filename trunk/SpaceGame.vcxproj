@@ -231,7 +231,6 @@
     <ClInclude Include="Bazowa.h" />
     <ClInclude Include="BudynekTest.h" />
     <ClInclude Include="Dokumentacja.h" />
-    <ClInclude Include="EkranMenu.h" />
     <ClInclude Include="EkranStartowy.h" />
     <ClInclude Include="EkranSzablon.h" />
     <ClInclude Include="Galaktyka.h" />
@@ -243,14 +242,16 @@
     <ClInclude Include="keccak.h" />
     <ClInclude Include="KluczTest.h" />
     <ClInclude Include="MaszynaStanow.h" />
+    <ClInclude Include="NonCopyable.h" />
+    <ClInclude Include="NonMoveable.h" />
     <ClInclude Include="Obrona.h" />
     <ClInclude Include="ObronaInfo.h" />
     <ClInclude Include="ObronaTest.h" />
     <ClInclude Include="OknoGry.h" />
     <ClInclude Include="PlanetaTest.h" />
     <ClInclude Include="RoundedRectangleShape.hpp" />
+    <ClInclude Include="Singleton.h" />
     <ClInclude Include="Stan.h" />
-    <ClInclude Include="StanGry.h" />
     <ClInclude Include="StanInfo.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Temperatura.h">
@@ -383,7 +384,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Dystans.cpp" />
-    <ClCompile Include="EkranMenu.cpp" />
     <ClCompile Include="EkranStartowy.cpp" />
     <ClCompile Include="EkranSzablon.cpp" />
     <ClCompile Include="Flota.cpp" />
@@ -450,7 +450,6 @@
     <ClCompile Include="RoundedRectangleShape.cpp" />
     <ClCompile Include="Stale.cpp" />
     <ClCompile Include="Stan.cpp" />
-    <ClCompile Include="StanGry.cpp" />
     <ClCompile Include="StanInfo.cpp" />
     <ClCompile Include="Statek.cpp" />
     <ClCompile Include="StatekInfo.cpp" />
@@ -480,7 +479,6 @@
     <ClCompile Include="WymaganiaTest.cpp" />
     <ClCompile Include="ZapisStanuGryTest.cpp" />
     <ClCompile Include="ZarzadcaPamieci.cpp" />
-    <ClCompile Include="Zdarzenie.cpp" />
     <ClCompile Include="ZdarzenieInfo.cpp" />
     <ClCompile Include="ZleceniaTest.cpp" />
     <ClCompile Include="ZmianaPoziomObiektu.cpp" />
@@ -489,13 +487,19 @@
   <ItemGroup>
     <None Include="conventions.txt" />
     <None Include="gpl-3.0.rtf" />
+    <None Include="out\resource\menu.wdg" />
     <None Include="out\resource\simple.frag">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </None>
-    <None Include="out\resource\test.lua" />
+    <None Include="out\resource\test.lua">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
     <None Include="parser\build_instructions.txt" />
     <None Include="svn_version.h.tmpl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -517,8 +521,12 @@
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="out\options_test.xml" />
-    <Xml Include="out\resource\Menu.xml" />
-    <Xml Include="out\resource\state.xml" />
+    <Xml Include="out\resource\Menu.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="out\resource\state.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="out\test.xml">
       <SubType>Designer</SubType>
     </Xml>

@@ -2,7 +2,6 @@
 #include "MaszynaStanow.h"
 #include <SFML\OpenGL.hpp>
 #include "EkranStartowy.h"
-#include "EkranMenu.h"
 #include "definicjeWezlowXML.h"
 #include "XmlBO.h"
 
@@ -11,13 +10,36 @@
 OknoGry::OknoGry( bool wstrzymany )
 	: Watek(wstrzymany)
 {
+	przetwarzanie_ = false;
+}
+
+bool OknoGry::zainicjalizowe(){
+	std::lock_guard<std::mutex> blokada(mutexInicjalizacja_);
+	return przetwarzanie_;
 }
 
 OknoGry::~OknoGry(void)
 {
 }
 
-StanGry::KrokCzasu OknoGry::obliczZmianeCzasu ( std::chrono::high_resolution_clock::time_point punkt ){
+void OknoGry::zatrzymajPoInicjalizacji(){
+	mutexUruchom_.lock();
+}
+
+void OknoGry::uruchom(){
+	mutexUruchom_.try_lock();
+	mutexUruchom_.unlock();
+}
+
+OknoGry::EkranPtr OknoGry::pobierzEkran( const Identyfikator& ekranId ){
+	auto iter = listaEkranow_.find(ekranId);
+	if(iter != listaEkranow_.end()){
+		return iter->second;
+	}
+	return nullptr;
+}
+
+Stan::KrokCzasu OknoGry::obliczZmianeCzasu ( std::chrono::high_resolution_clock::time_point punkt ){
 	static std::chrono::high_resolution_clock::time_point punktCzasu = std::chrono::high_resolution_clock::now();
 	auto ret = punkt - punktCzasu;
 	punktCzasu = punkt;
@@ -25,47 +47,35 @@ StanGry::KrokCzasu OknoGry::obliczZmianeCzasu ( std::chrono::high_resolution_clo
 }
 
 void OknoGry::wykonuj(){
-	
-	if(!inicjalizacja())
+	if(!inicjalizacja()){
 		return;
-	
-	//TODO: Przeniesc do inicjalizacji
-	/*EkranMenu ekranMenu_(oknoGlowne_,nullptr);
-	ekranMenu_.dodajPrzycisk("Nothing", StanGry::Menu, 1);
-	ekranMenu_.dodajPrzycisk("Testowanie", StanGry::Testowanie, 1);
-	ekranMenu_.dodajPrzycisk("Nothing", StanGry::Menu, 1);
-	ekranMenu_.dodajPrzycisk("Nothing", StanGry::Menu, 1);
-	ekranMenu_.dodajPrzycisk("Zamknij", StanGry::Wylacznie, 1);*/
+	}
+	std::lock_guard<std::mutex> blokada(mutexUruchom_);
 
-	StanGry::KrokCzasu accumulator;
+	Stan::KrokCzasu accumulator;
 	oknoGlowne_.setVisible(true);
 
-	while(oknoGlowne_.isOpen())
+	while(przetwarzanie_)
 	{
-		StanGry stan = MaszynaStanow::pobierzInstancje().pobierzStan();
+		Stan stan = MaszynaStanow::pobierzInstancje().pobierzStan(stosEkranow_);
 		accumulator += obliczZmianeCzasu(std::chrono::high_resolution_clock::now());
-		
-		stan.ustawCzasKroku(accumulator);
+
+		stan.dt_ = accumulator;
 
 		obslugaZdarzen( stan );
 		uaktualnianie( stan );
 
-		accumulator = stan.pobierzKrok();
+		accumulator = stan.dt_;
 
 		odmaluj();
-		
-		if(stan == StanGry::Wylacznie){
-			oknoGlowne_.close();
-		}
-
-		MaszynaStanow::pobierzInstancje().scalStan(stan);
-		
 	}
+
+	oknoGlowne_.close();
 	
 }
 
 bool OknoGry::inicjalizacja( ){
-	
+	std::lock_guard<std::mutex> blokada(mutexInicjalizacja_);
 	if(sf::Shader::isAvailable())
 		Log::pobierzInstancje().loguj(Log::Info,"Shadery dostepne");
 	else
@@ -85,47 +95,41 @@ bool OknoGry::inicjalizacja( ){
 	if(!SetLayeredWindowAttributes(oknoGlowne_.getSystemHandle(), NULL, 0, LWA_ALPHA)){
 		Log::pobierzInstancje().loguj(Log::Info,"Nie dziala przezroczstosc.");
 	}
-	//ekranStartowy_ = std::make_shared<EkranStartowy>(oknoGlowne_.getSystemHandle());
 	TiXmlElement* wezel = nullptr;
 	TiXmlDocument dokument;
 	dokument.LoadFile("resource\\Menu.xml");
 	wezel = dokument.RootElement();
 	if(wezel){
 		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_EKRAN_STARTOWY); element ; element = element->NextSiblingElement(WEZEL_XML_EKRAN_STARTOWY)){
-			auto ptr = std::make_shared<EkranStartowy>(oknoGlowne_.getSystemHandle(),element);
+			auto ptr = std::make_shared<EkranStartowy>(oknoGlowne_,element);
 			listaEkranow_.insert( std::make_pair(ptr->pobierzId(),ptr));
 		}
 
-		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_EKRAN_MENU); element ; element = element->NextSiblingElement(WEZEL_XML_EKRAN_MENU)){
-			auto ptr = std::make_shared<EkranMenu>(oknoGlowne_,element);
+		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_EKRAN); element ; element = element->NextSiblingElement(WEZEL_XML_EKRAN)){
+			auto ptr = std::make_shared<EkranSzablon>(element);
+			ptr->podlacz(oknoGlowne_);
 			listaEkranow_.insert( std::make_pair(ptr->pobierzId(),ptr));
 		}
 	}
 
-	
 	if(!testShadera_.loadFromFile("resource\\simple.frag",sf::Shader::Type::Fragment))
 		Log::pobierzInstancje().loguj(Log::Error,"Nie uda³o siê wczytaæ shadera");
 	
-	testShadera_.setParameter("texture", sf::Shader::CurrentTexture);
-	
+	//testShadera_.setParameter("texture", sf::Shader::CurrentTexture);
+	przetwarzanie_ = true;
 	
 	return true;
 }
 
 
-void OknoGry::obslugaZdarzen( StanGry& stan ){
+void OknoGry::obslugaZdarzen( Stan& stan ){
 
 	sf::Event zdarzenie;
 	// Obs³uga zdarzeñ
 	while(oknoGlowne_.pollEvent(zdarzenie))
 	{
-		if(zdarzenie.type == sf::Event::EventType::KeyReleased){
-			stan.ustawNastepnyStan( StanGry::StanyGry::Testowanie );
-		}
-
 		if(zdarzenie.type == sf::Event::EventType::Closed){
-			stan.ustawNastepnyStan( StanGry::StanyGry::Wylacznie );
-			oknoGlowne_.close();
+			MaszynaStanow::pobierzInstancje().inicjujZamykanie();
 		}
 
 		if (zdarzenie.type == sf::Event::Resized)
@@ -140,24 +144,16 @@ void OknoGry::obslugaZdarzen( StanGry& stan ){
 
 }
 
-void OknoGry::uaktualnianie( StanGry& stan ){
-	static const StanGry::KrokCzasu krok(30);
+void OknoGry::uaktualnianie( Stan& stan ){
+	static const Stan::KrokCzasu krok(30);
 	//Uaktualnianie okien
-	StanGry::KrokCzasu accumulator = stan.pobierzKrok();
+	Stan::KrokCzasu accumulator = stan.dt_;
 	while(accumulator > krok ){
 		for( auto ekran : stosEkranow_)
 			ekran->uaktualnij(stan);
 		accumulator -=krok;
 	}
-	if(stan == StanGry::ZmianaEkranu){
-		auto ptr = listaEkranow_[stan.pobierzIdEkranu()];
-		if(ptr){
-			stosEkranow_.clear();
-			stosEkranow_.push_back(ptr);
-			ptr->uaktualnij(stan);
-		}
-	}
-	stan.ustawCzasKroku(accumulator);
+	stan.dt_ = accumulator;
 }
 
 void OknoGry::odmaluj(){
@@ -166,11 +162,15 @@ void OknoGry::odmaluj(){
 	sf::RenderStates states;
 	oknoGlowne_.clear(sf::Color(255,255,255,0));
 
-	testShadera_.setParameter("time",balans+=0.001f);
-	states.shader = &testShadera_;
+	/*testShadera_.setParameter("time",balans+=0.001f);
+	states.shader = &testShadera_;*/
 							
 	for( auto ekran : stosEkranow_)
 		oknoGlowne_.draw(*ekran);
 		
 	oknoGlowne_.display();
+}
+
+void OknoGry::zakmnij(){
+	przetwarzanie_=false;
 }
