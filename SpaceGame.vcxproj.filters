@@ -334,6 +334,9 @@
     <ClCompile Include="CzyszczenieDanychTest.cpp">
       <Filter>Testy\KlasyTestowe\Czyszczenie</Filter>
     </ClCompile>
+    <ClCompile Include="LuaSkrypt.cpp">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -740,6 +743,9 @@
     </ClInclude>
     <ClInclude Include="CzyszczenieDanychTest.h">
       <Filter>Testy\KlasyTestowe\Czyszczenie</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaSkrypt.h">
+      <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

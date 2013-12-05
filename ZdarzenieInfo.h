@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "Logger\LoggerInterface.h"
 #include "parser\ticpp.h"
-#include "lua.hpp"
+#include "LuaSkrypt.h"
 #include "Identyfikator.h"
 
 class ZdarzenieInfo :
@@ -22,7 +22,7 @@ public:
 	std::string napis() const override;
 
 private:
-	lua_State *L;
+	LuaSkrypt skrypt_;
 	std::string luaFuncInside_;
 	std::string luaFile_;
 	Identyfikator id_;
