@@ -133,6 +133,10 @@ bool Aplikacja::wczytajDane(){
 	return instancjaGry_->wczytajDane(nazwaPlikuDanych_);
 }
 
+void Aplikacja::wyczyscDane(){
+	instancjaGry_ = std::shared_ptr<Gra>(new Gra (*this));
+}
+
 bool Aplikacja::zaladujOpcje(){
 	TiXmlDocument dane;
 	try{
@@ -170,13 +174,6 @@ bool Aplikacja::zaladujOpcje(){
 				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(""),WyjatekParseraXML::trescBladStrukturyXml);
 			}
 
-			auto ekranStartowy = XmlBO::ZnajdzWezel<THROW>(root_data,WEZEL_XML_EKRAN_STARTOWY);
-			if(ekranStartowy){
-				XmlBO::WczytajAtrybut<THROW>(ekranStartowy,ATRYBUT_XML_IDENTYFIKATOR,idEkranuStartowego_);
-			}else{
-				throw WyjatekParseraXML(EXCEPTION_PLACE,exception(""),WyjatekParseraXML::trescBladStrukturyXml);
-			}
-
 			auto pluginy = XmlBO::ZnajdzWezel<NOTHROW>(root_data,"plugins");
 			if(pluginy){
 				folderPluginow_ = pluginy->GetText();
@@ -197,10 +194,6 @@ bool Aplikacja::zaladujOpcje(){
 		return false;
 	}
 	return true;
-}
-
-const Identyfikator& Aplikacja::pobierzIdEkranuStartowego() const{
-	return idEkranuStartowego_;
 }
 
 string Aplikacja::pobierzSladStosu() const{

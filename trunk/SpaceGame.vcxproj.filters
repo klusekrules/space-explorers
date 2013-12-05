@@ -331,6 +331,9 @@
     <ClCompile Include="luaFunc.cpp">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClCompile>
+    <ClCompile Include="CzyszczenieDanychTest.cpp">
+      <Filter>Testy\KlasyTestowe\Czyszczenie</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -735,6 +738,9 @@
     <ClInclude Include="EkranStartowy.h">
       <Filter>SourceFile\GUI\Ekrany\Instancje</Filter>
     </ClInclude>
+    <ClInclude Include="CzyszczenieDanychTest.h">
+      <Filter>Testy\KlasyTestowe\Czyszczenie</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -793,9 +799,6 @@
     </Filter>
     <Filter Include="SourceFile\KlasyPomocnicze">
       <UniqueIdentifier>{6a43f607-5cee-48af-be60-d2eb6e1b0e2b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Wymagania">
-      <UniqueIdentifier>{b4bdf8e7-69d8-42b7-828c-db385f251073}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\Technologia">
       <UniqueIdentifier>{bc5c5a03-cd07-44c7-aded-44408c5cf55e}</UniqueIdentifier>
@@ -904,6 +907,9 @@
     </Filter>
     <Filter Include="SourceFile\GUI\Ekrany\Instancje">
       <UniqueIdentifier>{795eed1f-324f-4471-b8db-0bf85c28d80c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Wymagania">
+      <UniqueIdentifier>{b4bdf8e7-69d8-42b7-828c-db385f251073}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

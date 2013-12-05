@@ -91,8 +91,6 @@
 
 #define ATRYBUT_XML_EKRAN_STAN_WEJSCIOWY "stanWejsciowy"
 #define ATRYBUT_XML_EKRAN_ZDARZENIE_WYJSCIA "zdarzenieWyjscia"
-#define ATRYBUT_XML_EKRAN_NUMER_WYJSCIOWY "numerWyjsciowy"
-#define ATRYBUT_XML_EKRAN_EKRAN_WYJSCIOWY "ekranWyjsciowy"
 #define ATRYBUT_XML_STAN_POCZATKOWY "idStanuPoczatkowego"
 #define ATRYBUT_XML_KONFIGURACJA "konfiguracja"
 #define ATRYBUT_XML_CZCIONKA "czcionka"

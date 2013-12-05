@@ -11,6 +11,7 @@ class ObiektListTest :
 public:
 	void startTestow() override;
 	void podstawowyTest();
+	void koniecTestow() override;
 	ObiektListTest(void);
 	virtual ~ObiektListTest(void);
 private:

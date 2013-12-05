@@ -102,8 +102,8 @@ public:
 	*/
 	string pobierzSladStosu() const;
 
-	const Identyfikator& pobierzIdEkranuStartowego() const;
-
+	void wyczyscDane();
+	
 	/**
 	* \brief Destruktor.
 	*/

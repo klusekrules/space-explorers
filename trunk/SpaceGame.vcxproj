@@ -230,6 +230,7 @@
     <ClInclude Include="Aplikacja.h" />
     <ClInclude Include="Bazowa.h" />
     <ClInclude Include="BudynekTest.h" />
+    <ClInclude Include="CzyszczenieDanychTest.h" />
     <ClInclude Include="Dokumentacja.h" />
     <ClInclude Include="EkranStartowy.h" />
     <ClInclude Include="EkranSzablon.h" />
@@ -383,6 +384,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="CzyszczenieDanychTest.cpp" />
     <ClCompile Include="Dystans.cpp" />
     <ClCompile Include="EkranStartowy.cpp" />
     <ClCompile Include="EkranSzablon.cpp" />

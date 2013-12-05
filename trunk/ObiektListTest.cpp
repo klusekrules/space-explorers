@@ -47,6 +47,11 @@ void ObiektListTest::podstawowyTest(){
 	UNIT_TEST_ASSERT_TRUE(listaDruga.pusty());
 }
 
+void ObiektListTest::koniecTestow(){
+	lista.wyczysc();
+	listaDruga.wyczysc();
+}
+
 ObiektListTest::~ObiektListTest(void)
 {
 }
