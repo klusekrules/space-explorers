@@ -7,6 +7,14 @@ void testyJednostkowe();
 void wyczyscListeOkien();
 void zamknijAplikacje();
 void loguj(const char *komunikat );
+
+struct Zdarzenie_t{
+	int idStanu_;
+	int numer_;
+	int idZdarzenia_;
+};
+
+struct Zdarzenie_t pobierzZdarzenie( );
 ]]
 
 function f ()
@@ -53,4 +61,6 @@ function t ()
 	ffi.C.testyJednostkowe()
 end
 
+local W = ffi.C.pobierzZdarzenie()
+ffi.C.printf("idStanu %s\n idZdarzenia %s\n numer %s\n %s\n", tostring(W.idStanu_), tostring(W.idZdarzenia_), tostring(W.numer_), tostring( W.idZdarzenia_ + W.numer_ )  )
 ffi.C.loguj("Poza funkcj¹")

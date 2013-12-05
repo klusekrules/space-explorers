@@ -12,6 +12,15 @@ extern "C"{
 		return MaszynaStanow::pobierzInstancje().kolejkujOkno(id);
 	}
 
+	__declspec(dllexport) struct Zdarzenie_t __cdecl pobierzZdarzenie(  )
+	{
+		struct Zdarzenie_t t;
+		t.idStanu_ = 1;
+		t.numer_ = 2;
+		t.idZdarzenia_ = 3;
+		return t;
+	}
+
 	__declspec(dllexport) void __cdecl wyczyscListeOkien()
 	{
 		MaszynaStanow::pobierzInstancje().wyczyscKolejkeOkien();

@@ -4,6 +4,7 @@
 LuaSkrypt::LuaSkrypt( const std::string& plik )
 	: plik_(plik), L(luaL_newstate())
 {
+	luaJIT_setmode(L, 0, LUAJIT_MODE_ENGINE|LUAJIT_MODE_ON);
 	luaL_openlibs(L);
 	odczytaj();
 }
