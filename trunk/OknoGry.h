@@ -22,7 +22,7 @@ public:
 private:
 	sf::RenderWindow oknoGlowne_;
 	sf::Shader testShadera_;
-
+	
 	std::atomic_bool przetwarzanie_;
 	mutable std::mutex mutexUruchom_;
 	mutable std::mutex mutexInicjalizacja_;
@@ -36,5 +36,9 @@ private:
 	void odmaluj();
 
 	Stan::KrokCzasu obliczZmianeCzasu ( std::chrono::high_resolution_clock::time_point );
+
+	bool wczytajEkrany();
+
+	void logujInfo();
 };
 

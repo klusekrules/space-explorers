@@ -328,6 +328,9 @@
     <ClCompile Include="EkranStartowy.cpp">
       <Filter>SourceFile\GUI\Ekrany\Instancje</Filter>
     </ClCompile>
+    <ClCompile Include="luaFunc.cpp">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">

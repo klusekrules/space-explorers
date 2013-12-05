@@ -5,5 +5,8 @@
     <Kontrolka nazwa="zamknij">
       <Akcja id="64" idZdarzenia="1"/>
     </Kontrolka>
+    <Kontrolka nazwa="testowanie">
+      <Akcja id="64" idZdarzenia="2"/>
+    </Kontrolka>
   </Ekran>
 </SpaceGame>

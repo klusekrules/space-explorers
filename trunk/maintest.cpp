@@ -7,44 +7,6 @@
 
 #ifdef TESTS
 #include "TestyJednostkowe.h"
-#include <atomic>
-
-std::atomic<bool> atom = true;
-
-extern "C"{ 
-	__declspec(dllexport) int __cdecl barfunc(int foo)
-	{
-		return foo + 1;
-	}
-
-	__declspec(dllexport) bool __cdecl ustawOkno(int id)
-	{
-		return MaszynaStanow::pobierzInstancje().kolejkujOkno(id);
-	}
-
-	__declspec(dllexport) void __cdecl wyczyscListeOkien()
-	{
-		MaszynaStanow::pobierzInstancje().wyczyscKolejkeOkien();
-	}
-
-	__declspec(dllexport) void __cdecl zamknijAplikacje()
-	{
-		MaszynaStanow::pobierzInstancje().inicjujZamykanie();
-	}
-
-	__declspec(dllexport) void __cdecl loguj(const char *komunikat )
-	{
-		if(komunikat)
-			Log::pobierzInstancje().loguj(Log::Info, komunikat);
-	}
-}
-
-void run(){
-	while(atom){
-		std::this_thread::yield();
-	}
-	ExitThread(0);
-}
 
 void main( int argv , char* argc[] ){
 
@@ -59,49 +21,6 @@ void main( int argv , char* argc[] ){
 	Aplikacja::iloscArgumentow = argv;
 	Aplikacja::argumenty = argc;
 	Aplikacja::pobierzInstancje();
-
-	std::thread t(run);
-	std::thread d(run);
-	atom = false;
-	t.join();
-	d.join();
-
-	int status, result;
-    lua_State *L = luaL_newstate();
-	//luaJIT_setmode(L,0,LUAJIT_MODE_TRACE|LUAJIT_MODE_ENGINE);
-    luaL_openlibs(L);
-
-    /* Load the file containing the script we are going to run */
-    status = luaL_loadfile(L, "resource\\test.lua");
-    if (status) {
-        fprintf(stderr, "Couldn't load file: %s\n", lua_tostring(L, -1));
-        exit(1);
-    }
-
-	result = lua_pcall(L, 0, LUA_MULTRET, 0);
-    if (result) {
-        fprintf(stderr, "Failed to run script: %s\n", lua_tostring(L, -1));
-        exit(1);
-    }
-
-	lua_getglobal(L, "f");
-
-    /* Ask Lua to run our little script */
-    result = lua_pcall(L, 0, LUA_MULTRET, 0);
-    if (result) {
-        fprintf(stderr, "Failed to run script: %s\n", lua_tostring(L, -1));
-        exit(1);
-    }
-
-	lua_getglobal(L, "f");
-	result = lua_pcall(L, 0, LUA_MULTRET, 0);
-    if (result) {
-        fprintf(stderr, "Failed to run script: %s\n", lua_tostring(L, -1));
-        exit(1);
-    }
-
-    lua_close(L);   /* Cya, Lua */
-
 
 	MaszynaStanow::pobierzInstancje().start();
 
