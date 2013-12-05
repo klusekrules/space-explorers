@@ -71,14 +71,20 @@ bool MaszynaStanow::pobierzKomunikat( Zdarzenie &komunikat ){
 }
 
 void MaszynaStanow::start(){
-	wlaczone = true;
 	Stan s(wszystkieStany_.at(idStanuPoczatkowy_));
 	ustawNastepnyStan(s);
 
-	while(!watekGraficzny_.zainicjalizowe())
+	while(!watekGraficzny_.zainicjalizowe()){
+		if(watekGraficzny_.zakonczony())
+			break;
 		std::this_thread::yield();
+	}
 
-	przejdzDoNastepnegoStanu();
+	wlaczone = watekGraficzny_.zainicjalizowe();
+
+	if(wlaczone)
+		przejdzDoNastepnegoStanu();
+
 	watekGraficzny_.uruchom();
 
 	while( wlaczone )

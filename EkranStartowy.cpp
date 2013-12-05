@@ -38,6 +38,8 @@ void EkranStartowy::uaktualnij( Stan& stan ){
 			kolor=static_cast<sf::Uint8>(255.f*(czasChwilowy_/czasWlaczania_));
 			SetLayeredWindowAttributes(okno_, NULL, kolor, LWA_ALPHA);
 		}
+	}else{
+		czasChwilowy_ = Stan::KrokCzasu(0);
 	}
 
 }

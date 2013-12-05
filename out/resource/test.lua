@@ -3,6 +3,7 @@ ffi.cdef[[
 int printf(const char *fmt, ...);
 int barfunc(int foo);
 bool ustawOkno(int id);
+void testyJednostkowe();
 void wyczyscListeOkien();
 void zamknijAplikacje();
 void loguj(const char *komunikat );
@@ -45,6 +46,11 @@ function stanPoczatkowy ()
 	else
 		ffi.C.loguj("Nieustawianiono")
 	end
+end
+
+function t ()
+	ffi.C.loguj("Testowanie")
+	ffi.C.testyJednostkowe()
 end
 
 ffi.C.loguj("Poza funkcj¹")

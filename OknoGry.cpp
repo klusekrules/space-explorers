@@ -47,7 +47,8 @@ Stan::KrokCzasu OknoGry::obliczZmianeCzasu ( std::chrono::high_resolution_clock:
 }
 
 void OknoGry::wykonuj(){
-	if(!inicjalizacja()){
+	if(!inicjalizacja()){	
+		Log::pobierzInstancje().loguj(Log::Error,"B³¹d inicjalizacji.");
 		return;
 	}
 	std::lock_guard<std::mutex> blokada(mutexUruchom_);
@@ -76,6 +77,35 @@ void OknoGry::wykonuj(){
 
 bool OknoGry::inicjalizacja( ){
 	std::lock_guard<std::mutex> blokada(mutexInicjalizacja_);
+	przetwarzanie_ = false;
+	logujInfo();
+
+	oknoGlowne_.create(sf::VideoMode(800,500),"Space-Explorers",sf::Style::None);
+	oknoGlowne_.setVisible(false);
+	oknoGlowne_.setVerticalSyncEnabled(true);
+
+	oknoGlowne_.setVisible(false);
+	
+	SetWindowLong(oknoGlowne_.getSystemHandle(), GWL_EXSTYLE, GetWindowLong(oknoGlowne_.getSystemHandle(), GWL_EXSTYLE) | WS_EX_LAYERED);
+	if(!SetLayeredWindowAttributes(oknoGlowne_.getSystemHandle(), NULL, 0, LWA_ALPHA)){
+		Log::pobierzInstancje().loguj(Log::Info,"Nie dziala przezroczstosc.");
+	}
+
+	if(!wczytajEkrany()){
+		Log::pobierzInstancje().loguj(Log::Error,"Nieuda³o siê wczytaæ ekranów.");
+		return false;
+	}
+	/*
+	if(!testShadera_.loadFromFile("resource\\simple.frag",sf::Shader::Type::Fragment))
+		Log::pobierzInstancje().loguj(Log::Error,"Nie uda³o siê wczytaæ shadera");
+	
+	testShadera_.setParameter("texture", sf::Shader::CurrentTexture);*/
+
+	przetwarzanie_ = true;
+	return true;
+}
+
+void OknoGry::logujInfo(){
 	if(sf::Shader::isAvailable())
 		Log::pobierzInstancje().loguj(Log::Info,"Shadery dostepne");
 	else
@@ -87,45 +117,29 @@ bool OknoGry::inicjalizacja( ){
 	Log::pobierzInstancje().loguj(Log::Info,p?p:"");
 	p = (char*)glGetString(GL_VENDOR);
 	Log::pobierzInstancje().loguj(Log::Info,p?p:"");
+}
 
-	oknoGlowne_.create(sf::VideoMode(800,500),"Space-Explorers",sf::Style::None);
-	oknoGlowne_.setVisible(false);
-	oknoGlowne_.setVerticalSyncEnabled(true);
-	SetWindowLong(oknoGlowne_.getSystemHandle(), GWL_EXSTYLE, GetWindowLong(oknoGlowne_.getSystemHandle(), GWL_EXSTYLE) | WS_EX_LAYERED);
-	if(!SetLayeredWindowAttributes(oknoGlowne_.getSystemHandle(), NULL, 0, LWA_ALPHA)){
-		Log::pobierzInstancje().loguj(Log::Info,"Nie dziala przezroczstosc.");
-	}
-	TiXmlElement* wezel = nullptr;
+bool OknoGry::wczytajEkrany(){
 	TiXmlDocument dokument;
 	dokument.LoadFile("resource\\Menu.xml");
-	wezel = dokument.RootElement();
+	TiXmlElement* wezel = dokument.RootElement();
 	if(wezel){
 		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_EKRAN_STARTOWY); element ; element = element->NextSiblingElement(WEZEL_XML_EKRAN_STARTOWY)){
 			auto ptr = std::make_shared<EkranStartowy>(oknoGlowne_,element);
 			listaEkranow_.insert( std::make_pair(ptr->pobierzId(),ptr));
 		}
-
 		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_EKRAN); element ; element = element->NextSiblingElement(WEZEL_XML_EKRAN)){
 			auto ptr = std::make_shared<EkranSzablon>(element);
 			ptr->podlacz(oknoGlowne_);
 			listaEkranow_.insert( std::make_pair(ptr->pobierzId(),ptr));
 		}
 	}
-
-	if(!testShadera_.loadFromFile("resource\\simple.frag",sf::Shader::Type::Fragment))
-		Log::pobierzInstancje().loguj(Log::Error,"Nie uda³o siê wczytaæ shadera");
-	
-	//testShadera_.setParameter("texture", sf::Shader::CurrentTexture);
-	przetwarzanie_ = true;
-	
-	return true;
+	return !listaEkranow_.empty();
 }
 
 
 void OknoGry::obslugaZdarzen( Stan& stan ){
-
 	sf::Event zdarzenie;
-	// Obs³uga zdarzeñ
 	while(oknoGlowne_.pollEvent(zdarzenie))
 	{
 		if(zdarzenie.type == sf::Event::EventType::Closed){
@@ -141,12 +155,10 @@ void OknoGry::obslugaZdarzen( Stan& stan ){
 		for( auto ekran : stosEkranow_)
 			ekran->odbierz( stan, zdarzenie );
 	}
-
 }
 
 void OknoGry::uaktualnianie( Stan& stan ){
 	static const Stan::KrokCzasu krok(30);
-	//Uaktualnianie okien
 	Stan::KrokCzasu accumulator = stan.dt_;
 	while(accumulator > krok ){
 		for( auto ekran : stosEkranow_)
@@ -157,7 +169,6 @@ void OknoGry::uaktualnianie( Stan& stan ){
 }
 
 void OknoGry::odmaluj(){
-	//Odmalowanie okna
 	static float balans = 0.0f;
 	sf::RenderStates states;
 	oknoGlowne_.clear(sf::Color(255,255,255,0));
@@ -167,7 +178,7 @@ void OknoGry::odmaluj(){
 							
 	for( auto ekran : stosEkranow_)
 		oknoGlowne_.draw(*ekran);
-		
+	
 	oknoGlowne_.display();
 }
 
