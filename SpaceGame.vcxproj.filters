@@ -931,6 +931,9 @@
     <None Include="out\resource\menu.wdg">
       <Filter>Data</Filter>
     </None>
+    <None Include="out\resource\pusteOkno.wdg">
+      <Filter>Data</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="out\data.xml">
