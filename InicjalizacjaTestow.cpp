@@ -5,6 +5,7 @@
 #include "ZleceniaTest.h"
 #include "KluczTest.h"
 #include "GenerowanieTest.h"
+#include "CzyszczenieDanychTest.h"
 
 REJESTRUJ_PACZKE_TESTOW_JAKO_INICJALIZACJA(KluczTest);
 REJESTRUJ_PACZKE_TESTOW_JAKO_INICJALIZACJA(InicjalizacjaDanychTestowych);
@@ -14,3 +15,4 @@ REJESTRUJ_PACZKE_TESTOW_JAKO_INICJALIZACJA(ZleceniaTest);
 REJESTRUJ_PACZKE_TESTOW_JAKO_INICJALIZACJA(TworzenieObiektowTest);
 
 REJESTRUJ_PACZKE_TESTOW_JAKO_CZYSZCZENIE(ZapisStanuGryTest);
+REJESTRUJ_PACZKE_TESTOW_JAKO_CZYSZCZENIE(CzyszczenieDanychTest);
