@@ -242,6 +242,7 @@
     <ClInclude Include="HangarTest.h" />
     <ClInclude Include="keccak.h" />
     <ClInclude Include="KluczTest.h" />
+    <ClInclude Include="LuaSkrypt.h" />
     <ClInclude Include="MaszynaStanow.h" />
     <ClInclude Include="NonCopyable.h" />
     <ClInclude Include="NonMoveable.h" />
@@ -417,6 +418,7 @@
     <ClCompile Include="Licznik.cpp" />
     <ClCompile Include="LogowanieTest.cpp" />
     <ClCompile Include="luaFunc.cpp" />
+    <ClCompile Include="LuaSkrypt.cpp" />
     <ClCompile Include="maintest.cpp" />
     <ClCompile Include="Masa.cpp" />
     <ClCompile Include="MaszynaStanow.cpp" />
