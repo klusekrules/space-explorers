@@ -6,11 +6,42 @@
 #include "Zdarzenie.h"
 #include "Stan.h"
 #include "Singleton.h"
+#include "TypyEksportowne.h"
+
 
 class MaszynaStanow : public se::Singleton<MaszynaStanow>
 {
 	friend class se::Singleton<MaszynaStanow>;
 public:
+
+	class LuaStan{
+		friend class MaszynaStanow;
+	public:
+
+		LuaStan();
+
+		bool pobierzZdarzenie( struct Zdarzenie_t& );
+		bool pobierzPoprzedniStan( struct Stan_t& );
+		bool pobierzAktualnyStan( struct Stan_t& );
+		bool pobierzNastepnyStan( struct Stan_t& );
+
+	private:
+		struct Zdarzenie_t zdarzenie_;
+		bool poprawne_zdarzenie_;
+		void ustawZdarzenie(const Zdarzenie&);
+	
+		struct Stan_t poprzedni_;
+		bool poprawne_poprzedni_;
+		void ustawPoprzedni(const Stan&);
+	
+		struct Stan_t aktualny_;
+		bool poprawne_aktualny_;
+		void ustawAktualny(const Stan&);
+	
+		struct Stan_t nastepny_;
+		bool poprawne_nastepny_;
+		void ustawNastepny(const Stan&);
+	};
 	
 	~MaszynaStanow();
 
@@ -20,13 +51,17 @@ public:
 	
 	Stan pobierzStan( ) const;
 	
-	void dodajKomunikat( const Zdarzenie &komunikat );
+	void kolejkujZdarzenie( const Zdarzenie &komunikat );
+
+	void wstawZdarzenie( const Zdarzenie &komunikat );
 
 	bool kolejkujOkno( int id );
 
 	void wyczyscKolejkeOkien( );
 
 	void inicjujZamykanie();
+	
+	LuaStan luaStan_;
 
 private:
 	

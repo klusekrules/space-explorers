@@ -61,7 +61,7 @@ void EkranSzablon::callback( const tgui::Callback& callback, unsigned int idZdar
 	zdarzenie.idZdarzenia_ = Identyfikator(idZdarzenia);
 	zdarzenie.numer_=0;
 	zdarzenie.zdarzenieGui_ = callback;
-	MaszynaStanow::pobierzInstancje().dodajKomunikat(zdarzenie);
+	MaszynaStanow::pobierzInstancje().kolejkujZdarzenie(zdarzenie);
 }
 
 bool EkranSzablon::wczytajDaneKontrolki( TiXmlElement* wezel , tgui::Widget::Ptr kontrolka ){

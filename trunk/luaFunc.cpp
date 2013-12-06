@@ -12,13 +12,42 @@ extern "C"{
 		return MaszynaStanow::pobierzInstancje().kolejkujOkno(id);
 	}
 
-	__declspec(dllexport) struct Zdarzenie_t __cdecl pobierzZdarzenie(  )
+	__declspec(dllexport) bool __cdecl pobierzZdarzenie( struct Zdarzenie_t& z )
 	{
-		struct Zdarzenie_t t;
-		t.idStanu_ = 1;
-		t.numer_ = 2;
-		t.idZdarzenia_ = 3;
-		return t;
+		return MaszynaStanow::pobierzInstancje().luaStan_.pobierzZdarzenie(z);
+	}
+
+	__declspec(dllexport) bool __cdecl pobierzPoprzedniStan( struct Stan_t& s )
+	{
+		return MaszynaStanow::pobierzInstancje().luaStan_.pobierzPoprzedniStan(s);
+	}
+
+	__declspec(dllexport) bool __cdecl pobierzAktualnyStan( struct Stan_t& s )
+	{
+		return MaszynaStanow::pobierzInstancje().luaStan_.pobierzAktualnyStan(s);
+	}
+
+	__declspec(dllexport) bool __cdecl pobierzNastepnyStan( struct Stan_t& s )
+	{
+		return MaszynaStanow::pobierzInstancje().luaStan_.pobierzNastepnyStan(s);
+	}
+
+	__declspec(dllexport) void __cdecl kolejkujZdarzenie( struct Zdarzenie_t& s )
+	{
+		Zdarzenie z;
+		z.idStanu_( s.idStanu_);
+		z.numer_ = s.numer_;
+		z.idZdarzenia_( s.idZdarzenia_ );
+		MaszynaStanow::pobierzInstancje().kolejkujZdarzenie(z);
+	}
+
+	__declspec(dllexport) void __cdecl wstawZdarzenie( struct Zdarzenie_t& s )
+	{
+		Zdarzenie z;
+		z.idStanu_( s.idStanu_);
+		z.numer_ = s.numer_;
+		z.idZdarzenia_( s.idZdarzenia_ );
+		MaszynaStanow::pobierzInstancje().wstawZdarzenie(z);
 	}
 
 	__declspec(dllexport) void __cdecl wyczyscListeOkien()

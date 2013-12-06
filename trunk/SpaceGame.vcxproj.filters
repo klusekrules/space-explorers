@@ -747,6 +747,9 @@
     <ClInclude Include="LuaSkrypt.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
+    <ClInclude Include="TypyEksportowne.h">
+      <Filter>SourceFile\MaszynaStanow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -937,14 +940,17 @@
     <None Include="svn_version.h.tmpl">
       <Filter>Resource\Wersja</Filter>
     </None>
-    <None Include="out\resource\test.lua">
-      <Filter>Data\Skrypty</Filter>
-    </None>
     <None Include="out\resource\menu.wdg">
       <Filter>Data</Filter>
     </None>
     <None Include="out\resource\pusteOkno.wdg">
       <Filter>Data</Filter>
+    </None>
+    <None Include="out\lua\interfejs.lua">
+      <Filter>Data\Skrypty</Filter>
+    </None>
+    <None Include="out\lua\test.lua">
+      <Filter>Data\Skrypty</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
