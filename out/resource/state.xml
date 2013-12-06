@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MaszynaStanow idStanuPoczatkowego="2">
-  <Stan id="0x1" luaFile="resource\test.lua" luaIn="s">
-    <Zdarzenie id="0x1" luaFile="resource\test.lua" luaInside="z" stanNastepny="0x1" numerNastepny="0x0"/>
-    <Zdarzenie id="0x2" luaFile="resource\test.lua" luaInside="t" stanNastepny="0x1" numerNastepny="0x0"/>
+  <Stan id="0x1" luaFile="lua\test.lua" luaIn="ustawOknoMenu" luaOut="wyjscieZeStanu">
+    <Zdarzenie id="0x3" luaFile="lua\test.lua" luaInside="zamknijAplikacje" stanNastepny="0x1" numerNastepny="0x0"/>
+    <Zdarzenie id="0x2" luaFile="lua\test.lua" luaInside="wlaczTestowanie" stanNastepny="0x1" numerNastepny="0x0"/>
+	<Zdarzenie id="0x1" luaFile="lua\test.lua" luaInside="przejdzDoZamykania" stanNastepny="0x1" numerNastepny="0x0"/>
   </Stan>
-  <Stan id="0x2" luaFile="resource\test.lua" luaIn="stanPoczatkowy">
-    <Zdarzenie id="0x1" luaFile="resource\test.lua" luaInside="b" stanNastepny="0x1" numerNastepny="0x0"/>
+  <Stan id="0x2" luaFile="lua\test.lua" luaIn="stanPoczatkowy" luaOut="wyjscieZeStanu">
+    <Zdarzenie id="0x1" stanNastepny="0x1" numerNastepny="0x0"/>
   </Stan>
 </MaszynaStanow>

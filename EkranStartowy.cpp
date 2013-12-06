@@ -32,7 +32,7 @@ void EkranStartowy::uaktualnij( Stan& stan ){
 				zdarzenie.idStanu_ = stan.id_;
 				zdarzenie.numer_ = stan.numer_;
 				zdarzenie.idZdarzenia_ = idZdarzeniaWyjscia_;
-				MaszynaStanow::pobierzInstancje().dodajKomunikat(zdarzenie);
+				MaszynaStanow::pobierzInstancje().kolejkujZdarzenie(zdarzenie);
 			}
 		}else{
 			kolor=static_cast<sf::Uint8>(255.f*(czasChwilowy_/czasWlaczania_));

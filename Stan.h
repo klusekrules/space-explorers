@@ -1,8 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "StanInfo.h"
-
-class Zdarzenie;
+#include "Zdarzenie.h"
 
 class Stan
 {
