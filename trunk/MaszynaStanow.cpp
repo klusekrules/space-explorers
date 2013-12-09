@@ -100,7 +100,7 @@ void MaszynaStanow::start(){
 	while( wlaczone )
 	{
 		luaStan_.poprawne_zdarzenie_ = false;
-		petlaGlowna();
+		obslugaZdarzenia();
 		przejdzDoNastepnegoStanu();
 		std::this_thread::yield();
 	}
@@ -129,11 +129,9 @@ void MaszynaStanow::przejdzDoNastepnegoStanu(){
 		luaStan_.ustawAktualny(stan_);
 		stan_.akcjaWewnetrzna();
 	}
-	stanNastepny_ = Stan(nullptr);
-	stanNastepny_.numer_ = stan_.numer_;
 }
 
-void MaszynaStanow::petlaGlowna(){
+void MaszynaStanow::obslugaZdarzenia(){
 	
 	Zdarzenie komunikat;
 	Stan aktualny = pobierzStan();

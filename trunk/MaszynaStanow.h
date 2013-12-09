@@ -85,8 +85,7 @@ private:
 
 	MaszynaStanow();
 
-	void petlaGlowna();
-	void pokazEkranStartowy();
+	void obslugaZdarzenia();
 
 	void dodajKomunikatLogow( Log::TypLogow typ, const std::string& komunikat );
 
