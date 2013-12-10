@@ -18,6 +18,8 @@
           <Directory Id='SPACE_EXPLORERS' Name='Space-Explorers'>
             <Directory Id='DOC_DIR' Name='doc'/>
             <Directory Id='INSTALL_DIR' Name='bin'>
+              <Directory Id='LUA_DIR' Name='lua'/>
+              <Directory Id='WIDGETS_DIR' Name='widgets'/>
               <Directory Id='RESOURCE_DIR' Name='resource'/>
                 
               <Directory Id='PLUGINS_DIR' Name='plugins'>
@@ -118,6 +120,63 @@
       <Component Id='RESOURCE_DIR_FONT_FILE_COMP' Guid='{7C45A208-EA2A-45F7-802C-780A3453E9F8}' Win64='$(var.isPlatformx64)'>
         <File Id='RESOURCE_FONT_FILE' Source='..\out\resource\arial.ttf' KeyPath='yes' Vital='yes' Checksum='yes'/>
       </Component>
+
+      <Component Id='MENU_WDG_FILE_COMP' Guid='{A3A08A7C-7758-4608-BFDE-BFE9EF5EECAC}' Win64='$(var.isPlatformx64)'>
+        <File Id='MENU_WDG_FILE' Source='..\out\resource\menu.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='MENU_XML_FILE_COMP' Guid='{7ED8FF88-D1E4-4040-833D-8B95383A3F18}' Win64='$(var.isPlatformx64)'>
+        <File Id='MENU_XML_FILE' Source='..\out\resource\Menu.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='PUSTE_OKNO_WDG_FILE_COMP' Guid='{6140D9A0-4D3F-41BB-ACD0-10ABEFB1C53E}' Win64='$(var.isPlatformx64)'>
+        <File Id='PUSTE_OKNO_WDG_FILE' Source='..\out\resource\pusteOkno.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='SIMPLE_FRAG_FILE_COMP' Guid='{889E2A2F-1483-4B18-91A6-71DF7EE45F43}' Win64='$(var.isPlatformx64)'>
+        <File Id='SIMPLE_FRAG_FILE' Source='..\out\resource\simple.frag' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='SPACE_JPG_FILE_COMP' Guid='{FB93388F-E47B-4103-BA3D-09F31297595B}' Win64='$(var.isPlatformx64)'>
+        <File Id='SPACE_JPG_FILE' Source='..\out\resource\space.jpg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='SPACE_START_SCREEN_PNG_FILE_COMP' Guid='{F75DDDDF-5BCB-43D5-AE51-E24FC72CDC09}' Win64='$(var.isPlatformx64)'>
+        <File Id='SPACE_START_SCREEN_PNG_FILE' Source='..\out\resource\Space_start_screen.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+      
+      <Component Id='LOGO_FILE_COMP' Guid='{F95CDC9E-A539-4093-9BC4-3E53F3DA6118}' Win64='$(var.isPlatformx64)'>
+        <File Id='LOGO_FILE' Source='..\out\resource\SpaceExplorers_logo_640x348.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+      
+      <Component Id='STATE_XML_FILE_COMP' Guid='{AC12E434-3822-46FF-A5F6-9EF8497D6DBA}' Win64='$(var.isPlatformx64)'>
+        <File Id='STATE_XML_FILE' Source='..\out\resource\state.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+      
+      <Component Id='TESTOWANIE_WDG_FILE_COMP' Guid='{F0A8104D-A726-43AD-8781-4B00B080ECB0}' Win64='$(var.isPlatformx64)'>
+        <File Id='TESTOWANIE_WDG_FILE_COMP' Source='..\out\resource\testowanie.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+      
+    </DirectoryRef>
+
+    <DirectoryRef Id='LUA_DIR'>
+      <Component Id='TEST_LUA_FILE_COMP' Guid='{A76FB252-9319-449A-B07B-846E90C6DF31}' Win64='$(var.isPlatformx64)'>
+        <File Id='TEST_LUA_FILE' Source='..\out\lua\test.lua' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='INTERFEJS_LUA_FILE_COMP' Guid='{A177967B-FBB9-4738-8284-6B0D22D304EA}' Win64='$(var.isPlatformx64)'>
+        <File Id='INTERFEJS_LUA_FILE' Source='..\out\lua\interfejs.lua' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id='WIDGETS_DIR'>
+      <Component Id='BLACK_CONF_FILE_COMP' Guid='{87521D7F-1201-4CA8-B61C-BCFAA6328FD5}' Win64='$(var.isPlatformx64)'>
+        <File Id='BLACK_CONF_FILE' Source='..\out\widgets\Black.conf' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='BLACK_PNG_FILE_COMP' Guid='{9B28AAD0-EE18-4742-9AA6-799777BAC0C3}' Win64='$(var.isPlatformx64)'>
+        <File Id='BLACK_PNG_FILE' Source='..\out\widgets\Black.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
     </DirectoryRef>
     
     <Feature Id='Complete' Title='Space-Explorers 0.0.4' Description='Moja aplikacja'
@@ -138,20 +197,33 @@
       <ComponentRef Id='UKLAD_DIR_COMP' />
       <ComponentRef Id='RESOURCE_DIR_BACKGROUND_FILE_COMP' />
       <ComponentRef Id='RESOURCE_DIR_FONT_FILE_COMP' />
+      <ComponentRef Id='TEST_LUA_FILE_COMP' />
+      <ComponentRef Id='INTERFEJS_LUA_FILE_COMP' />
+      <ComponentRef Id='MENU_WDG_FILE_COMP' />
+      <ComponentRef Id='MENU_XML_FILE_COMP' />
+      <ComponentRef Id='PUSTE_OKNO_WDG_FILE_COMP' />
+      <ComponentRef Id='SIMPLE_FRAG_FILE_COMP' />
+      <ComponentRef Id='SPACE_JPG_FILE_COMP' />
+      <ComponentRef Id='SPACE_START_SCREEN_PNG_FILE_COMP' />
+      <ComponentRef Id='LOGO_FILE_COMP' />
+      <ComponentRef Id='STATE_XML_FILE_COMP' />
+      <ComponentRef Id='TESTOWANIE_WDG_FILE_COMP' />
+      <ComponentRef Id='BLACK_CONF_FILE_COMP' />
+      <ComponentRef Id='BLACK_PNG_FILE_COMP' />
     </Feature>
     
     <Feature Id="VCRedist" Title="Visual C++ 11.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
       <MergeRef Id="VCRedist"/>
     </Feature>
-    
+
     <UI Id="MyWixUI_InstallDir">
       <UIRef Id="WixUI_InstallDir" />
       <UIRef Id="WixUI_ErrorProgressText" />
-      
-      <DialogRef Id="UserRegistrationDlg" />
+
+      <!--DialogRef Id="UserRegistrationDlg" />
 
       <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="UserRegistrationDlg" Order="3">LicenseAccepted = "1"</Publish>
-      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="UserRegistrationDlg">1</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="UserRegistrationDlg">1</Publish-->
     </UI>
     <Property Id="PIDTemplate"><![CDATA[12345<##### ##### ##### ##### #####>@@@@@]]></Property>
     <Property Id="WIXUI_INSTALLDIR" Value="SPACE_EXPLORERS" />

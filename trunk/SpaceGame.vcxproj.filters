@@ -952,6 +952,9 @@
     <None Include="out\lua\test.lua">
       <Filter>Data\Skrypty</Filter>
     </None>
+    <None Include="out\resource\testowanie.wdg">
+      <Filter>Data</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="out\data.xml">

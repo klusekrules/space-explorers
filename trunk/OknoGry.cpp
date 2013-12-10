@@ -11,6 +11,7 @@ OknoGry::OknoGry( bool wstrzymany )
 	: Watek(wstrzymany)
 {
 	przetwarzanie_ = false;
+	inicjalizacjaWynik_ = inicjalizacja_.get_future();
 }
 
 bool OknoGry::zainicjalizowe(){
@@ -20,6 +21,11 @@ bool OknoGry::zainicjalizowe(){
 
 OknoGry::~OknoGry(void)
 {
+}
+
+bool OknoGry::czekajNaInicjalizacje(){
+	inicjalizacjaWynik_.wait();
+	return inicjalizacjaWynik_.get();
 }
 
 void OknoGry::zatrzymajPoInicjalizacji(){
@@ -47,9 +53,15 @@ Stan::KrokCzasu OknoGry::obliczZmianeCzasu ( std::chrono::high_resolution_clock:
 }
 
 void OknoGry::wykonuj(){
-	if(!inicjalizacja()){	
-		Log::pobierzInstancje().loguj(Log::Error,"B³¹d inicjalizacji.");
-		return;
+	try{
+		if(!inicjalizacja()){
+			inicjalizacja_.set_value(false);
+			Log::pobierzInstancje().loguj(Log::Error,"B³¹d inicjalizacji.");
+			return;
+		}
+	}catch(...){
+		inicjalizacja_.set_value(false);
+		throw;
 	}
 	std::lock_guard<std::mutex> blokada(mutexUruchom_);
 
@@ -70,9 +82,7 @@ void OknoGry::wykonuj(){
 
 		odmaluj();
 	}
-
 	oknoGlowne_.close();
-	
 }
 
 bool OknoGry::inicjalizacja( ){
@@ -100,7 +110,7 @@ bool OknoGry::inicjalizacja( ){
 		Log::pobierzInstancje().loguj(Log::Error,"Nie uda³o siê wczytaæ shadera");
 	
 	testShadera_.setParameter("texture", sf::Shader::CurrentTexture);*/
-
+	inicjalizacja_.set_value(true);
 	przetwarzanie_ = true;
 	return true;
 }
