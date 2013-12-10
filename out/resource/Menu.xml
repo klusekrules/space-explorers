@@ -9,4 +9,6 @@
       <Akcja id="64" idZdarzenia="2"/>
     </Kontrolka>
   </Ekran>
+  <Ekran id="0x2" czcionka="resource\\arial.ttf" konfiguracja="resource\\testowanie.wdg">
+  </Ekran>
 </SpaceGame>

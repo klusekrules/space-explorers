@@ -15,6 +15,7 @@ public:
 	void zakmnij();
 	void zatrzymajPoInicjalizacji();
 	bool zainicjalizowe();
+	bool czekajNaInicjalizacje();
 	void uruchom();
 	EkranPtr pobierzEkran( const Identyfikator& ekranId );
 
@@ -24,6 +25,8 @@ private:
 	sf::Shader testShadera_;
 	
 	std::atomic_bool przetwarzanie_;
+	std::promise<bool> inicjalizacja_;
+	std::future<bool> inicjalizacjaWynik_;
 	mutable std::mutex mutexUruchom_;
 	mutable std::mutex mutexInicjalizacja_;
 	std::map< Identyfikator, EkranPtr > listaEkranow_;

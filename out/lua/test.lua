@@ -56,6 +56,30 @@ function stanPoczatkowy ()
 end
 
 function wlaczTestowanie ()
+	wejscieDoStanu()
+	ffi.C.wyczyscListeOkien();
+	ffi.C.loguj("Ustawianie okna o id 2")
+	if ffi.C.ustawOkno(2) == true then
+		ffi.C.loguj("Ustawianiono")
+	else
+		ffi.C.loguj("Nieustawianiono")
+	end
+	
+	local zdarzenie = ffi.new('struct Zdarzenie_t');
+	zdarzenie.idZdarzenia_ = 2
+	zdarzenie.idStanu_ = 3
+	zdarzenie.numer_ = 0
+	ffi.C.kolejkujZdarzenie(zdarzenie);
+end
+
+
+function testy ()
 	ffi.C.loguj("Testowanie")
 	ffi.C.testyJednostkowe()
+	
+	local zdarzenie = ffi.new('struct Zdarzenie_t');
+	zdarzenie.idZdarzenia_ = 1
+	zdarzenie.idStanu_ = 3
+	zdarzenie.numer_ = 0
+	ffi.C.kolejkujZdarzenie(zdarzenie);
 end
