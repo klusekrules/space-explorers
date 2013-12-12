@@ -7,6 +7,7 @@
 #include "Stan.h"
 #include "Singleton.h"
 #include "TypyEksportowne.h"
+#include "MenadzerWatkow.h"
 
 
 class MaszynaStanow : public se::Singleton<MaszynaStanow>
@@ -60,6 +61,8 @@ public:
 	void wyczyscKolejkeOkien( );
 
 	void inicjujZamykanie();
+
+	void dodajZadanie( Zadanie& zadanie );
 	
 	LuaStan luaStan_;
 
@@ -82,6 +85,7 @@ private:
 
 	std::atomic_bool wlaczone;
 
+	MenadzerWatkow pulaWatkow_;
 
 	MaszynaStanow();
 

@@ -65,11 +65,7 @@ function wlaczTestowanie ()
 		ffi.C.loguj("Nieustawianiono")
 	end
 	
-	local zdarzenie = ffi.new('struct Zdarzenie_t');
-	zdarzenie.idZdarzenia_ = 2
-	zdarzenie.idStanu_ = 3
-	zdarzenie.numer_ = 0
-	ffi.C.kolejkujZdarzenie(zdarzenie);
+	ffi.C.zlecZadanie("lua\\test.lua","testy");
 end
 
 

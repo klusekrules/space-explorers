@@ -6,6 +6,6 @@ namespace se{
 		NonCopyable(){}
 	private:
 		NonCopyable& operator=( const NonCopyable& ){}
-		NonCopyable( const NonCopyable& ){}
+		NonCopyable( const NonCopyable& ) throw() {}
 	};
 }

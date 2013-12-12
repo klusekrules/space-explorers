@@ -11,7 +11,9 @@
 #include <chrono>
 #include <thread>
 #include <mutex>
+#include <atomic>
 #include <future>
+#include <array>
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>

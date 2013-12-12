@@ -32,6 +32,7 @@ void wstawZdarzenie( struct Zdarzenie_t& s );
 //Akcje
 void testyJednostkowe();
 void zamknijAplikacje();
+void zlecZadanie( const char *plik , const char *funkcja );
 ]]
 mymodule = ffi
 return mymodule

@@ -11,7 +11,7 @@ MaszynaStanow::LuaStan::LuaStan()
 }
 
 MaszynaStanow::MaszynaStanow()
-	: watekGraficzny_(true), stan_(nullptr), stanNastepny_(nullptr)
+	: watekGraficzny_(true), stan_(nullptr), stanNastepny_(nullptr), pulaWatkow_(4)
 {
 	TiXmlDocument doc;
 	doc.LoadFile("resource\\state.xml");
@@ -173,6 +173,10 @@ void MaszynaStanow::ustawNastepnyStan( Stan& stan ){
 void MaszynaStanow::inicjujZamykanie(){
 	watekGraficzny_.zakmnij();
 	wlaczone = false;
+}
+
+void MaszynaStanow::dodajZadanie( Zadanie& zadanie ){
+	pulaWatkow_.dodajZadanie(zadanie);
 }
 
 bool MaszynaStanow::LuaStan::pobierzZdarzenie( struct Zdarzenie_t& z ){

@@ -334,8 +334,17 @@
     <ClCompile Include="CzyszczenieDanychTest.cpp">
       <Filter>Testy\KlasyTestowe\Czyszczenie</Filter>
     </ClCompile>
+    <ClCompile Include="MenadzerWatkow.cpp">
+      <Filter>SourceFile\MultiThreading</Filter>
+    </ClCompile>
     <ClCompile Include="LuaSkrypt.cpp">
-      <Filter>SourceFile\KlasyGlowne</Filter>
+      <Filter>SourceFile\MaszynaStanow</Filter>
+    </ClCompile>
+    <ClCompile Include="WatekZarzadzany.cpp">
+      <Filter>SourceFile\MultiThreading</Filter>
+    </ClCompile>
+    <ClCompile Include="Zadanie.cpp">
+      <Filter>SourceFile\MultiThreading</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -727,13 +736,13 @@
       <Filter>SourceFile\MaszynaStanow</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
-      <Filter>SourceFile\GUI\Szkielet</Filter>
+      <Filter>SourceFile\KlasyGlowne\Szkielet</Filter>
     </ClInclude>
     <ClInclude Include="NonCopyable.h">
-      <Filter>SourceFile\GUI\Szkielet</Filter>
+      <Filter>SourceFile\KlasyGlowne\Szkielet</Filter>
     </ClInclude>
     <ClInclude Include="NonMoveable.h">
-      <Filter>SourceFile\GUI\Szkielet</Filter>
+      <Filter>SourceFile\KlasyGlowne\Szkielet</Filter>
     </ClInclude>
     <ClInclude Include="EkranSzablon.h">
       <Filter>SourceFile\GUI\Ekrany\Szablon</Filter>
@@ -744,11 +753,20 @@
     <ClInclude Include="CzyszczenieDanychTest.h">
       <Filter>Testy\KlasyTestowe\Czyszczenie</Filter>
     </ClInclude>
-    <ClInclude Include="LuaSkrypt.h">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClInclude>
     <ClInclude Include="TypyEksportowne.h">
       <Filter>SourceFile\MaszynaStanow</Filter>
+    </ClInclude>
+    <ClInclude Include="MenadzerWatkow.h">
+      <Filter>SourceFile\MultiThreading</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaSkrypt.h">
+      <Filter>SourceFile\MaszynaStanow</Filter>
+    </ClInclude>
+    <ClInclude Include="WatekZarzadzany.h">
+      <Filter>SourceFile\MultiThreading</Filter>
+    </ClInclude>
+    <ClInclude Include="Zadanie.h">
+      <Filter>SourceFile\MultiThreading</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -911,14 +929,14 @@
     <Filter Include="SourceFile\MaszynaStanow">
       <UniqueIdentifier>{059b6ea8-f800-43b6-b443-9331f7b06e22}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\GUI\Szkielet">
-      <UniqueIdentifier>{d5caacdb-fb36-45ec-9357-2ef8cf749f5f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SourceFile\GUI\Ekrany\Instancje">
       <UniqueIdentifier>{795eed1f-324f-4471-b8db-0bf85c28d80c}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\Wymagania">
       <UniqueIdentifier>{b4bdf8e7-69d8-42b7-828c-db385f251073}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\KlasyGlowne\Szkielet">
+      <UniqueIdentifier>{d5caacdb-fb36-45ec-9357-2ef8cf749f5f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
