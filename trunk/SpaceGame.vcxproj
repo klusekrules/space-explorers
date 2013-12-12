@@ -244,6 +244,7 @@
     <ClInclude Include="KluczTest.h" />
     <ClInclude Include="LuaSkrypt.h" />
     <ClInclude Include="MaszynaStanow.h" />
+    <ClInclude Include="MenadzerWatkow.h" />
     <ClInclude Include="NonCopyable.h" />
     <ClInclude Include="NonMoveable.h" />
     <ClInclude Include="Obrona.h" />
@@ -264,6 +265,8 @@
     <ClInclude Include="UkladSloneczny.h" />
     <ClInclude Include="Walidator.h" />
     <ClInclude Include="Watek.h" />
+    <ClInclude Include="WatekZarzadzany.h" />
+    <ClInclude Include="Zadanie.h" />
     <ClInclude Include="ZarzadcaPamieci.h" />
     <ClInclude Include="Zdarzenie.h" />
     <ClInclude Include="ZdarzenieInfo.h" />
@@ -423,6 +426,7 @@
     <ClCompile Include="maintest.cpp" />
     <ClCompile Include="Masa.cpp" />
     <ClCompile Include="MaszynaStanow.cpp" />
+    <ClCompile Include="MenadzerWatkow.cpp" />
     <ClCompile Include="MenedzerTranzakcji.cpp" />
     <ClCompile Include="Moc.cpp" />
     <ClCompile Include="NiepoprawnaIloscObiektow.cpp" />
@@ -477,12 +481,14 @@
     <ClCompile Include="Uzytkownik.cpp" />
     <ClCompile Include="Walidator.cpp" />
     <ClCompile Include="Watek.cpp" />
+    <ClCompile Include="WatekZarzadzany.cpp" />
     <ClCompile Include="WyjatekParseraXML.cpp" />
     <ClCompile Include="WyjatekSprawdzeniaWarunku.cpp" />
     <ClCompile Include="WyjatekSTL.cpp" />
     <ClCompile Include="Wyjatki.cpp" />
     <ClCompile Include="Wymagania.cpp" />
     <ClCompile Include="WymaganiaTest.cpp" />
+    <ClCompile Include="Zadanie.cpp" />
     <ClCompile Include="ZapisStanuGryTest.cpp" />
     <ClCompile Include="ZarzadcaPamieci.cpp" />
     <ClCompile Include="ZdarzenieInfo.cpp" />

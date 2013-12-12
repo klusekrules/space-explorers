@@ -2,8 +2,11 @@
 #include <thread>
 #include <atomic>
 #include <mutex>
+#include "NonCopyable.h"
+#include "NonMoveable.h"
 
 class Watek
+	: se::NonCopyable, se::NonMoveable
 {
 public:
 	Watek( bool wstrzymany );

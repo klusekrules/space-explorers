@@ -10,7 +10,6 @@ Watek::Watek( bool wstrzymany )
 }
 
 void Watek::odblokuj(){
-	wstrzymany_.try_lock();
 	wstrzymany_.unlock();
 }
 
@@ -29,7 +28,6 @@ Watek::~Watek(void)
 
 void Watek::zakoncz(){
 	zakoncz_=true;
-	odblokuj();
 }
 
 std::atomic<bool>& Watek::zakonczony(){
@@ -41,21 +39,17 @@ std::atomic<bool>& Watek::czyZakonczyc(){
 }
 
 void Watek::wykonuj(){
-	while(czyZakonczyc()){
-		std::this_thread::yield();
-	}
+	std::this_thread::yield();
 }
 
-void Watek::funkcjaWatku(){
+void Watek::funkcjaWatku(){	
 	try{
-		wstrzymany_.lock();
+		std::lock_guard<std::mutex> blokada(wstrzymany_);
 		wykonuj();
 	}catch(...){
-		odblokuj();
 		zakonczony_=true;
 		ExitThread(-1);
 	}
-	odblokuj();
 	zakonczony_=true;
 	ExitThread(ERROR_SUCCESS);
 }

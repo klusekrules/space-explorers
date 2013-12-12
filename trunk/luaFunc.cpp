@@ -60,6 +60,28 @@ extern "C"{
 		TestyJednostkowe::pobierzInstancje().wykonajTesty();
 	}
 
+	
+	__declspec(dllexport) void __cdecl zlecZadanie( const char *plik , const char *funkcja )
+	{
+		std::string luaPlik, luaFunkcja;
+
+		if(plik){
+			luaPlik.append(plik);
+		}
+
+		if(funkcja){
+			luaFunkcja.append(funkcja);
+		}
+
+		MaszynaStanow::pobierzInstancje().dodajZadanie(Zadanie( std::function<void()>(
+		[luaPlik, luaFunkcja](){ 
+			LuaSkrypt luaSkrypt(luaPlik);
+			luaSkrypt.wykonaj();
+			luaSkrypt.wykonaj(luaFunkcja);
+		}
+			) ));
+	}
+
 	__declspec(dllexport) void __cdecl zamknijAplikacje()
 	{
 		MaszynaStanow::pobierzInstancje().inicjujZamykanie();
