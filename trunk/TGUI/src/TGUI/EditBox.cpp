@@ -878,7 +878,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void EditBox::setSelectionPointPosition(unsigned int charactersBeforeSelectionPoint)
+    void EditBox::setSelectionPointPosition(size_t charactersBeforeSelectionPoint)
     {
         // The selection point position has to stay inside the string
         if (charactersBeforeSelectionPoint > m_Text.getSize())
@@ -886,8 +886,8 @@ namespace tgui
 
         // Set the selection point to the correct position
         m_SelChars = 0;
-        m_SelStart = charactersBeforeSelectionPoint;
-        m_SelEnd = charactersBeforeSelectionPoint;
+        m_SelStart = static_cast<unsigned int>(charactersBeforeSelectionPoint);
+        m_SelEnd = static_cast<unsigned int>(charactersBeforeSelectionPoint);
 
         // Change our texts
         m_TextBeforeSelection.setString(m_DisplayedText);
@@ -1046,8 +1046,8 @@ namespace tgui
 
             // Select the whole text
             m_SelStart = 0;
-            m_SelEnd = m_Text.getSize();
-            m_SelChars = m_Text.getSize();
+            m_SelEnd = static_cast<unsigned int>(m_Text.getSize());
+			m_SelChars = static_cast<unsigned int>(m_Text.getSize());
 
             // Change the texts
             m_TextBeforeSelection.setString("");

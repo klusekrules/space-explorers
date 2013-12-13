@@ -87,7 +87,7 @@ public :
 private :
 
     friend SFML_SYSTEM_API Time seconds(float);
-    friend SFML_SYSTEM_API Time milliseconds(Int32);
+    friend SFML_SYSTEM_API Time milliseconds(Int64);
     friend SFML_SYSTEM_API Time microseconds(Int64);
 
     ////////////////////////////////////////////////////////////
@@ -133,7 +133,7 @@ SFML_SYSTEM_API Time seconds(float amount);
 /// \see seconds, microseconds
 ///
 ////////////////////////////////////////////////////////////
-SFML_SYSTEM_API Time milliseconds(Int32 amount);
+SFML_SYSTEM_API Time milliseconds(Int64 amount);
 
 ////////////////////////////////////////////////////////////
 /// \relates Time

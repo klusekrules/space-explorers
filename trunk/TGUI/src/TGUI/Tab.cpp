@@ -371,10 +371,10 @@ namespace tgui
 
         // If the tab has to be selected then do so
         if (selectTab)
-            m_SelectedTab = m_TabNames.size()-1;
+            m_SelectedTab = static_cast<int>(m_TabNames.size())-1;
 
         // Return the index of the new tab
-        return m_TabNames.size()-1;
+        return static_cast<unsigned int>(m_TabNames.size())-1;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -375,7 +375,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    unsigned int ChatBox::getLineAmount()
+    size_t ChatBox::getLineAmount()
     {
         return m_Panel->getWidgets().size();
     }

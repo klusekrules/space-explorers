@@ -131,7 +131,7 @@ namespace tgui
                     error = true;
                 }
 
-                int pos = c - line.begin();
+                size_t pos = c - line.begin();
                 value = line.substr(pos, line.length() - pos);
 
                 properties.push_back(property);

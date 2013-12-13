@@ -226,7 +226,7 @@ namespace tgui
                     m_Scroll->setVerticalScroll(true);
                     m_Scroll->setSize(m_Scroll->getSize().x, static_cast<float>(m_Size.y) - m_TopBorder - m_BottomBorder);
                     m_Scroll->setLowValue(m_Size.y - m_TopBorder - m_BottomBorder);
-                    m_Scroll->setMaximum(m_Items.size() * m_ItemHeight);
+                    m_Scroll->setMaximum(static_cast<unsigned int>(m_Items.size()) * m_ItemHeight);
                 }
             }
             else
@@ -401,10 +401,10 @@ namespace tgui
 
             // If there is a scrollbar then tell it that another item was added
             if (m_Scroll != nullptr)
-                m_Scroll->setMaximum(m_Items.size() * m_ItemHeight);
+                m_Scroll->setMaximum(static_cast<unsigned int>(m_Items.size())* m_ItemHeight);
 
             // Return the item index
-            return m_Items.size() - 1;
+            return static_cast<int>(m_Items.size()) - 1;
         }
         else // The item limit was reached
             return -1;
@@ -479,7 +479,7 @@ namespace tgui
 
         // If there is a scrollbar then tell it that an item was removed
         if (m_Scroll != nullptr)
-            m_Scroll->setMaximum(m_Items.size() * m_ItemHeight);
+            m_Scroll->setMaximum(static_cast<unsigned int>(m_Items.size()) * m_ItemHeight);
 
         // Check if the selected item should change
         if (m_SelectedItem == static_cast<int>(index))
@@ -510,7 +510,7 @@ namespace tgui
 
                 // If there is a scrollbar then tell it that an item was removed
                 if (m_Scroll != nullptr)
-                    m_Scroll->setMaximum(m_Items.size() * m_ItemHeight);
+                    m_Scroll->setMaximum(static_cast<unsigned int>(m_Items.size())* m_ItemHeight);
 
                 return true;
             }
@@ -622,7 +622,7 @@ namespace tgui
             m_Scroll->setVerticalScroll(true);
             m_Scroll->setSize(m_Scroll->getSize().x, static_cast<float>(m_Size.y) - m_TopBorder - m_BottomBorder);
             m_Scroll->setLowValue(m_Size.y - m_TopBorder - m_BottomBorder);
-            m_Scroll->setMaximum(m_Items.size() * m_ItemHeight);
+            m_Scroll->setMaximum(static_cast<unsigned int>(m_Items.size()) * m_ItemHeight);
 
             return true;
         }
@@ -675,7 +675,7 @@ namespace tgui
         else // There is a scrollbar
         {
             // Set the maximum of the scrollbar
-            m_Scroll->setMaximum(m_Items.size() * m_ItemHeight);
+            m_Scroll->setMaximum(static_cast<unsigned int>(m_Items.size()) * m_ItemHeight);
         }
     }
 
@@ -701,7 +701,7 @@ namespace tgui
 
             // If there is a scrollbar then tell it that the number of items was changed
             if (m_Scroll != nullptr)
-                m_Scroll->setMaximum(m_Items.size() * m_ItemHeight);
+                m_Scroll->setMaximum(static_cast<unsigned int>(m_Items.size()) * m_ItemHeight);
         }
     }
 
@@ -732,8 +732,8 @@ namespace tgui
             // If there are items then they should still fit inside the list box
             if (m_Items.size() > 0)
             {
-                if (m_Size.y < ((m_Items.size() * m_ItemHeight) - m_TopBorder - m_BottomBorder))
-                    m_Size.y = (m_Items.size() * m_ItemHeight) - m_TopBorder - m_BottomBorder;
+                if (m_Size.y < ((static_cast<unsigned int>(m_Items.size())* m_ItemHeight) - m_TopBorder - m_BottomBorder))
+                    m_Size.y = (static_cast<unsigned int>(m_Items.size()) * m_ItemHeight) - m_TopBorder - m_BottomBorder;
             }
             else // There are no items
             {
