@@ -63,13 +63,13 @@
         <File Id='DATA_XML_FILE' Source='..\out\test.xml' KeyPath='yes' Vital='yes'/>
       </Component>
       <Component Id='PLUGIN_DLL' Guid='52493997-1318-4CD2-A046-0E1E309D7FB6' Win64='$(var.isPlatformx64)'>
-        <File Id='PLUGIN_DLL_FILE' Source='..\out\plug-in-$(var.Platforma)-$(var.KonfiguracjaShort).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+        <File Id='PLUGIN_DLL_FILE' Source='..\out\plugin-$(var.Platforma)-$(var.Konfiguracja).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
       </Component>
       <Component Id='LOGGER_DLL' Guid='07CEBB01-446A-4BB8-8A5C-49CAC8354360' Win64='$(var.isPlatformx64)'>
-        <File Id='LOGGER_DLL_FILE' Source='..\out\Logger-$(var.Platforma)-$(var.KonfiguracjaShort).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+        <File Id='LOGGER_DLL_FILE' Source='..\out\Logger-$(var.Platforma)-$(var.Konfiguracja).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
       </Component>
       <Component Id='TRANSF_DLL' Guid='C9CDD52F-E2F0-49F4-8804-97CDB1DFA530' Win64='$(var.isPlatformx64)'>
-        <File Id='TRANSF_DLL_FILE' Source='..\out\ftrans-$(var.Platforma)-$(var.KonfiguracjaShort).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+        <File Id='TRANSF_DLL_FILE' Source='..\out\ftrans-$(var.Platforma)-$(var.Konfiguracja).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
       </Component>
     </DirectoryRef>
     

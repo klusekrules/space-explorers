@@ -288,7 +288,7 @@ namespace tgui
     void Container::focusNextWidget()
     {
         // Loop all widgets behind the focused one
-        for (unsigned int i = m_FocusedWidget; i < m_Widgets.size(); ++i)
+        for (size_t i = m_FocusedWidget; i < m_Widgets.size(); ++i)
         {
             // If you are not allowed to focus the widget, then skip it
             if (m_Widgets[i]->m_AllowFocus == true)
@@ -346,7 +346,7 @@ namespace tgui
         // Loop the widgets before the focused one
         if (m_FocusedWidget)
         {
-            for (unsigned int i = m_FocusedWidget - 1; i > 0; --i)
+            for (size_t i = m_FocusedWidget - 1; i > 0; --i)
             {
                 // If you are not allowed to focus the widget, then skip it
                 if (m_Widgets[i-1]->m_AllowFocus == true)
@@ -370,7 +370,7 @@ namespace tgui
         }
 
         // None of the widgets before the focused one could be focused, so loop all widgets behind the focused one
-        for (unsigned int i = m_Widgets.size(); i > m_FocusedWidget; --i)
+        for (size_t i = m_Widgets.size(); i > m_FocusedWidget; --i)
         {
             // If you are not allowed to focus the widget, then skip it
             if (m_Widgets[i-1]->m_AllowFocus == true)
@@ -1149,7 +1149,7 @@ namespace tgui
             return false;
 
         // Loop through all widgets
-        for (unsigned int i = m_FocusedWidget; i < m_Widgets.size(); ++i)
+        for (size_t i = m_FocusedWidget; i < m_Widgets.size(); ++i)
         {
             // If you are not allowed to focus the widget, then skip it
             if (m_Widgets[i]->m_AllowFocus == true)
@@ -1203,7 +1203,7 @@ namespace tgui
         }
 
         // Loop all widgets behind the focused one
-        for (unsigned int i = m_FocusedWidget; i < m_Widgets.size(); ++i)
+        for (size_t i = m_FocusedWidget; i < m_Widgets.size(); ++i)
         {
             // If you are not allowed to focus the widget, then skip it
             if (m_Widgets[i]->m_AllowFocus == true)

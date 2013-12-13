@@ -192,7 +192,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool AnimatedPicture::setFrame(unsigned int frame)
+    bool AnimatedPicture::setFrame(size_t frame)
     {
         // Check if there are no frames
         if (m_Textures.empty() == true)
@@ -205,20 +205,20 @@ namespace tgui
         if (frame >= m_Textures.size())
         {
             // Display the last frame
-            m_CurrentFrame = m_Textures.size()-1;
+            m_CurrentFrame = static_cast<int>(m_Textures.size()-1);
             return false;
         }
 
         // The frame number isn't too high
-        m_CurrentFrame = frame;
+        m_CurrentFrame = static_cast<int>(frame);
         return true;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    int AnimatedPicture::getCurrentFrame() const
+    size_t AnimatedPicture::getCurrentFrame() const
     {
-        return m_CurrentFrame;
+        return static_cast<size_t>(m_CurrentFrame);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -236,14 +236,14 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    unsigned int AnimatedPicture::getFrames() const
+    size_t AnimatedPicture::getFrames() const
     {
         return m_Textures.size();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool AnimatedPicture::removeFrame(unsigned int frame)
+    bool AnimatedPicture::removeFrame(size_t frame)
     {
         // Make sure the number isn't too high
         if (frame >= m_Textures.size())

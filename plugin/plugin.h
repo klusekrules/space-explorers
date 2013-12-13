@@ -2,20 +2,6 @@
 #define PLUGIN_API __declspec(dllexport)
 #else
 #define PLUGIN_API __declspec(dllimport)
-#ifdef _DEBUG
-#ifdef _WIN64
-#pragma comment( lib, "plug-in-x64-d" )
-#else if _WIN32
-#pragma comment( lib, "plug-in-x86-d" )
-#endif
-#else
-#ifdef _WIN64
-#pragma comment( lib, "plug-in-x64-r" )
-#else if _WIN32
-#pragma comment( lib, "plug-in-x86-r" )
-#endif
-#endif
-
 #endif
 
 #include "..\FuncTransf\ZmianaFabryka.h"
