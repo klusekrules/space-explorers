@@ -122,49 +122,49 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)libs\$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName>sfml-graphics-$(Configuration)</TargetName>
+    <TargetName>sfml-graphics-$(PlatformTarget)-$(Configuration)</TargetName>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">
     <OutDir>$(SolutionDir)out\</OutDir>
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName>sfml-graphics-$(Configuration)</TargetName>
+    <TargetName>sfml-graphics-$(PlatformTarget)-$(Configuration)</TargetName>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName>sfml-graphics-$(Configuration)</TargetName>
+    <TargetName>sfml-graphics-$(PlatformTarget)-$(Configuration)</TargetName>
     <OutDir>$(SolutionDir)libs\$(PlatformTarget)\</OutDir>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|x64'">
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName>sfml-graphics-$(Configuration)</TargetName>
+    <TargetName>sfml-graphics-$(PlatformTarget)-$(Configuration)</TargetName>
     <OutDir>$(SolutionDir)out\</OutDir>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)libs\$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName>sfml-graphics-$(Configuration)</TargetName>
+    <TargetName>sfml-graphics-$(PlatformTarget)-$(Configuration)</TargetName>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-DLL|Win32'">
     <OutDir>$(SolutionDir)out\</OutDir>
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName>sfml-graphics-$(Configuration)</TargetName>
+    <TargetName>sfml-graphics-$(PlatformTarget)-$(Configuration)</TargetName>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)libs\$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName>sfml-graphics-$(Configuration)</TargetName>
+    <TargetName>sfml-graphics-$(PlatformTarget)-$(Configuration)</TargetName>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-DLL|x64'">
     <OutDir>$(SolutionDir)out\</OutDir>
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName>sfml-graphics-$(Configuration)</TargetName>
+    <TargetName>sfml-graphics-$(PlatformTarget)-$(Configuration)</TargetName>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -197,7 +197,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ImportLibrary>$(SolutionDir)libs\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freetype.lib;glew.lib;jpeg.lib;sfml-system-$(Configuration).lib;sfml-window-$(Configuration).lib;opengl32.lib</AdditionalDependencies>
+      <AdditionalDependencies>freetype.lib;glew.lib;jpeg.lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-window-$(PlatformTarget)-$(Configuration).lib;opengl32.lib</AdditionalDependencies>
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>
@@ -236,7 +236,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ImportLibrary>$(SolutionDir)libs\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freetype.lib;glew.lib;jpeg.lib;sfml-system-$(Configuration).lib;sfml-window-$(Configuration).lib;opengl32.lib</AdditionalDependencies>
+      <AdditionalDependencies>freetype.lib;glew.lib;jpeg.lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-window-$(PlatformTarget)-$(Configuration).lib;opengl32.lib</AdditionalDependencies>
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>
@@ -283,7 +283,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <ImportLibrary>$(SolutionDir)libs\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freetype.lib;glew.lib;jpeg.lib;sfml-system-$(Configuration).lib;sfml-window-$(Configuration).lib;opengl32.lib</AdditionalDependencies>
+      <AdditionalDependencies>freetype.lib;glew.lib;jpeg.lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-window-$(PlatformTarget)-$(Configuration).lib;opengl32.lib</AdditionalDependencies>
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>
@@ -330,7 +330,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <ImportLibrary>$(SolutionDir)libs\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freetype.lib;glew.lib;jpeg.lib;sfml-system-$(Configuration).lib;sfml-window-$(Configuration).lib;opengl32.lib</AdditionalDependencies>
+      <AdditionalDependencies>freetype.lib;glew.lib;jpeg.lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-window-$(PlatformTarget)-$(Configuration).lib;opengl32.lib</AdditionalDependencies>
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>
