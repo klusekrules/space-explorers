@@ -195,12 +195,12 @@ void Hangar::przeliczZajeteMiejsceHangaru(){
 	}
 }
 
-bool Hangar::zapisz( TiXmlElement* wezel ) const {
-	TiXmlElement* element = new TiXmlElement(WEZEL_XML_HANGAR);
+bool Hangar::zapisz( tinyxml2::XMLElement* wezel ) const {
+	tinyxml2::XMLElement* element = wezel->GetDocument()->NewElement(WEZEL_XML_HANGAR);
 	wezel->LinkEndChild( element );
 	if(zajete_ < Objetosc(0) )
 			return false;
-	element->SetAttribute(ATRYBUT_XML_ZAJETE_MIEJSCE,zajete_.napis());
+	element->SetAttribute(ATRYBUT_XML_ZAJETE_MIEJSCE,zajete_.napis().c_str());
 	for( auto o : obiekty_){
 		if(!o.second->zapisz(element))
 			return false;
@@ -208,7 +208,7 @@ bool Hangar::zapisz( TiXmlElement* wezel ) const {
 	return true;
 }
 
-bool Hangar::odczytaj (TiXmlElement* wezel ) {
+bool Hangar::odczytaj (tinyxml2::XMLElement* wezel ) {
 	if(wezel){
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_ZAJETE_MIEJSCE,zajete_))
 			return false;
@@ -216,7 +216,7 @@ bool Hangar::odczytaj (TiXmlElement* wezel ) {
 			return false;
 		try{
 			Gra& gra = Aplikacja::pobierzInstancje().pobierzGre();
-			TiXmlElement* element = XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_STATEK);
+			tinyxml2::XMLElement* element = XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_STATEK);
 			while(element){
 				shared_ptr<Statek> obiekt = gra.tworzStatek(element);			
 				if( !obiekt || !obiekt->odczytaj(element) ){

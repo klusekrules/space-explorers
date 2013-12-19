@@ -1,6 +1,6 @@
 #pragma once
 #include "ExportSymbol.h"
-#include "..\parser\ticpp.h"
+#include "tinyxml2.h"
 #include "..\Logger\LoggerInterface.h"
 /**
 * \brief Klasa reprezentuj¹ca parametr zmiany. 
@@ -23,7 +23,7 @@ public:
 	* \pre Wêze³ powinien posiadaæ poprawne atrybuty o nazwach zdefiniowanych przez ATRYBUT_XML_IDENTYFIKATOR oraz ATRYBUT_XML_WSPOLCZYNNIK.
 	* \sa ATRYBUT_XML_IDENTYFIKATOR, ATRYBUT_XML_WSPOLCZYNNIK
 	*/
-	ZmianaParametr( TiXmlElement* wezel );
+	ZmianaParametr( tinyxml2::XMLElement* wezel );
 
 	/**
 	* \brief Destruktor

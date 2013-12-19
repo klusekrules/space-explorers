@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include "parser\ticpp.h"
+#include "tinyxml2.h"
 #include "FuncTransf\ZmianaInterfejs.h"
 #include "PodstawoweParametry.h"
 #include "Czas.h"
@@ -37,7 +37,7 @@ public:
 	* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 	* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
 	*/
-	explicit Wymagania( TiXmlElement* wezel );
+	explicit Wymagania( tinyxml2::XMLElement* wezel );
 
 	/**
 	* \brief Destruktor.

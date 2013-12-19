@@ -10,7 +10,7 @@ JednostkaLatajacaInfo::JednostkaLatajacaInfo( const Info& info,const Klucz& kluc
 {
 }
 
-JednostkaLatajacaInfo::JednostkaLatajacaInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
+JednostkaLatajacaInfo::JednostkaLatajacaInfo( tinyxml2::XMLElement* wezel ) throw(WyjatekParseraXML)
 	: Info(wezel), przyrostMocySilnika_(nullptr), przyrostSprawnosciSilnika_(nullptr), przyrostZuzyciaPaliwa_(nullptr), przyrostMasyNapedu_(nullptr)
 {
 	if(wezel){

@@ -48,13 +48,13 @@ bool ZarzadcaPamieci::generujNowaGalaktyke(){
 }
 
 bool ZarzadcaPamieci::wczytajUkladSloneczny( const Identyfikator& identyfikator ){
-	TiXmlDocument dokument;
+	tinyxml2::XMLDocument dokument;
 	string plik("save\\uklad\\");
 	plik += identyfikator.napis();
 	plik += ".xml";
-	if(!dokument.LoadFile(plik))
+	if(dokument.LoadFile(plik.c_str())!=tinyxml2::XML_NO_ERROR)
 		return false;
-	TiXmlElement* root = dokument.RootElement();
+	tinyxml2::XMLElement* root = dokument.RootElement();
 	if(!root)
 		return false;
 	auto uklad = make_shared<UkladSloneczny>(Identyfikator(),Identyfikator());
@@ -68,38 +68,38 @@ bool ZarzadcaPamieci::wczytajUkladSloneczny( const Identyfikator& identyfikator 
 }
 
 bool ZarzadcaPamieci::zapiszUkladSloneczny( shared_ptr<UkladSloneczny> uklad ) const{
-	TiXmlDocument dokument;
+	tinyxml2::XMLDocument dokument;
 	string plik("save\\uklad\\");
 	plik += uklad->pobierzIdentyfikator().napis();
 	plik += ".xml";
 
-	TiXmlElement* root = new TiXmlElement(WEZEL_XML_ROOT);
+	tinyxml2::XMLElement* root = dokument.NewElement(WEZEL_XML_ROOT);
 	if(!uklad->zapisz(root))
 		return false;
 
 	dokument.LinkEndChild(root);
 
-	if(!dokument.SaveFile(plik))
+	if(!dokument.SaveFile(plik.c_str()))
 		return false;
 	return true;
 }
 
-bool ZarzadcaPamieci::zapisz( TiXmlElement* wezel ) const{
+bool ZarzadcaPamieci::zapisz( tinyxml2::XMLElement* wezel ) const{
 	if(!wezel)
 		return false;
-	TiXmlElement* zarzadca = new TiXmlElement(WEZEL_XML_ZARZADCA);	
+	tinyxml2::XMLElement* zarzadca =  wezel->GetDocument()->NewElement(WEZEL_XML_ZARZADCA);
 	if(!generator_.zapisz(zarzadca))
 		return false;
 	for( auto galaktyka : galaktyki_ ){
-		TiXmlElement* wezelGalaktyka = new TiXmlElement(WEZEL_XML_GALAKTYKA);
-		wezelGalaktyka->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR,galaktyka.first.napis());
+		tinyxml2::XMLElement* wezelGalaktyka = wezel->GetDocument()->NewElement(WEZEL_XML_GALAKTYKA);
+		wezelGalaktyka->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR,galaktyka.first.napis().c_str());
 		for( auto uklad : galaktyka.second.uklady_ ){
-			TiXmlElement* wezelUklad = new TiXmlElement(WEZEL_XML_UKLAD_SLONECZNY);
-			wezelUklad->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR,uklad.napis());
+			tinyxml2::XMLElement* wezelUklad = wezel->GetDocument()->NewElement(WEZEL_XML_UKLAD_SLONECZNY);
+			wezelUklad->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR,uklad.napis().c_str());
 			auto ukladSloneczny = ukladySloneczne_.find(uklad);	
 			for( auto planeta : ukladSloneczny->second.planety_ ){
-				TiXmlElement* wezelPlaneta = new TiXmlElement(WEZEL_XML_PLANETA);
-				wezelPlaneta->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR,planeta.napis());
+				tinyxml2::XMLElement* wezelPlaneta = wezel->GetDocument()->NewElement(WEZEL_XML_PLANETA);
+				wezelPlaneta->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR,planeta.napis().c_str());
 				wezelUklad->LinkEndChild(wezelPlaneta);
 			}
 			if(ukladSloneczny->second.uklad_){
@@ -113,27 +113,27 @@ bool ZarzadcaPamieci::zapisz( TiXmlElement* wezel ) const{
 	return true;
 }
 
-bool ZarzadcaPamieci::odczytaj( TiXmlElement* wezel ){
+bool ZarzadcaPamieci::odczytaj( tinyxml2::XMLElement* wezel ){
 	if(!wezel)
 		return false;
 
 	if(!generator_.odczytaj(XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_GENERATOR_UKLADOW)))
 		return false;
-	for(TiXmlElement* galaktyka = wezel->FirstChildElement(WEZEL_XML_GALAKTYKA) ; galaktyka ; galaktyka = galaktyka->NextSiblingElement(WEZEL_XML_GALAKTYKA)){
+	for(tinyxml2::XMLElement* galaktyka = wezel->FirstChildElement(WEZEL_XML_GALAKTYKA) ; galaktyka ; galaktyka = galaktyka->NextSiblingElement(WEZEL_XML_GALAKTYKA)){
 		Identyfikator idGalaktyki;
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(galaktyka,ATRYBUT_XML_IDENTYFIKATOR,idGalaktyki))
 			return false;
 
 		vector<Identyfikator> listUkladow;
 
-		for(TiXmlElement* uklad = galaktyka->FirstChildElement(WEZEL_XML_UKLAD_SLONECZNY) ; uklad ; uklad = uklad->NextSiblingElement(WEZEL_XML_UKLAD_SLONECZNY)){
+		for(tinyxml2::XMLElement* uklad = galaktyka->FirstChildElement(WEZEL_XML_UKLAD_SLONECZNY) ; uklad ; uklad = uklad->NextSiblingElement(WEZEL_XML_UKLAD_SLONECZNY)){
 			Identyfikator idUklad;
 			if(!XmlBO::WczytajAtrybut<NOTHROW>(uklad,ATRYBUT_XML_IDENTYFIKATOR,idUklad))
 				return false;
 
 			vector<Identyfikator> listPlanet;
 
-			for(TiXmlElement* planeta = uklad->FirstChildElement(WEZEL_XML_PLANETA) ; planeta ; planeta = planeta->NextSiblingElement(WEZEL_XML_PLANETA)){
+			for(tinyxml2::XMLElement* planeta = uklad->FirstChildElement(WEZEL_XML_PLANETA) ; planeta ; planeta = planeta->NextSiblingElement(WEZEL_XML_PLANETA)){
 				Identyfikator idPlanety;
 				if(!XmlBO::WczytajAtrybut<NOTHROW>(planeta,ATRYBUT_XML_IDENTYFIKATOR,idPlanety))
 					return false;

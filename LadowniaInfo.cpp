@@ -17,7 +17,7 @@ LadowniaInfo::LadowniaInfo( const LadowniaInfo& obiekt )
 LadowniaInfo::~LadowniaInfo(){
 }
 
-LadowniaInfo::LadowniaInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
+LadowniaInfo::LadowniaInfo( tinyxml2::XMLElement* wezel ) throw(WyjatekParseraXML)
 	: Info(wezel), przyrostPojemnosciMaksymalnej_(nullptr)
 {
 	if(wezel){

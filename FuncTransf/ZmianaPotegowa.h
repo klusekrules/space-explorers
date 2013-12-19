@@ -1,6 +1,5 @@
 #pragma once
 #include "ExportSymbol.h"
-#include "..\parser\ticpp.h"
 #include "ZmianaInterfejs.h"
 #include "ZmianaParametr.h"
 #include "ZmianaFabryka.h"
@@ -26,7 +25,7 @@ private:
 	* \param[in] wezel - Wêze³ na podstawie którego tworzony jest obiekt.
 	* \return WskaŸnika na obiekt utworzonej zmiany.
 	*/
-	static ZmianaInterfejs* TworzZmianaPotegowa( TiXmlElement* wezel );
+	static ZmianaInterfejs* TworzZmianaPotegowa( tinyxml2::XMLElement* wezel );
 
 	ZmianaParametr wspolczynnik_; /// Wspó³czynnik liniowy.
 	ZmianaParametr wykladnik_; /// Wyk³adnik potêgi.
@@ -70,7 +69,7 @@ public:
 	* \endcode
 	* Parametr \<Param id="1" wspolczynnik="3.0"/\> to wspolczynnik_, a parametr \<Param id="2" wspolczynnik="2.0"/\> to wykladnik_.
 	*/
-	explicit ZmianaPotegowa( TiXmlElement * wezel );
+	explicit ZmianaPotegowa( tinyxml2::XMLElement * wezel );
 
 	/**
 	* Destruktor

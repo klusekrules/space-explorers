@@ -190,7 +190,7 @@ bool Planeta::wybuduj( const Indeks& identyfikator, const Ilosc& ilosc ){
 	}
 }
 
-bool Planeta::wybuduj( const Indeks& identyfikator, TiXmlElement* wezel ){
+bool Planeta::wybuduj( const Indeks& identyfikator, tinyxml2::XMLElement* wezel ){
 	if(listaObiektow_.find(identyfikator) != listaObiektow_.end())
 		return false;
 	if(!Aplikacja::pobierzInstancje().pobierzGre().wybudujNaPlanecie(*this,identyfikator.pobierzIdentyfikator(),Ilosc(0),identyfikator.pobierzPoziom()))
@@ -319,22 +319,22 @@ bool Planeta::usunFlote(const Identyfikator& identyfikator){
 	return listaFlot_.erase(identyfikator) != 0;
 }
 
-bool Planeta::zapisz( TiXmlElement* wezel ) const{
-	TiXmlElement* planeta = new TiXmlElement(WEZEL_XML_PLANETA);
+bool Planeta::zapisz( tinyxml2::XMLElement* wezel ) const{
+	tinyxml2::XMLElement* planeta = wezel->GetDocument()->NewElement(WEZEL_XML_PLANETA);
 	wezel->LinkEndChild( planeta );
-	planeta->SetAttribute(ATRYBUT_XML_ODLEGLOSC_OD_SLONCA, odlegloscOdSlonca_.napis());
-	planeta->SetAttribute(ATRYBUT_XML_SREDNICA, srednicaPlanety_.napis());
+	planeta->SetAttribute(ATRYBUT_XML_ODLEGLOSC_OD_SLONCA, odlegloscOdSlonca_.napis().c_str());
+	planeta->SetAttribute(ATRYBUT_XML_SREDNICA, srednicaPlanety_.napis().c_str());
 	/*planeta->SetAttribute(ATRYBUT_XML_PREDKOSC_KATOWA_PLANETY, predkoscKatowaPlanety_.napis());
 	planeta->SetAttribute(ATRYBUT_XML_NASLONECZNIENIE_PLANETY, naslonecznieniePlanety_.napis());
 	planeta->SetAttribute(ATRYBUT_XML_WIETRZNOSC_PLANETY, wietrznoscPlanety_.napis());*/
-	planeta->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_RODZICA,idUkladu_.napis());
-	planeta->SetAttribute(ATRYBUT_XML_NAZWAGRACZA,idUzytkownika_());
-	planeta->SetAttribute(ATRYBUT_XML_TEMPERATURA_PLANETY, temperaturaPlanety_.napis());
-	planeta->SetAttribute(ATRYBUT_XML_CALKOWITA_POWIERZNIA_PLANETY, calkowitaPowierzchniaPlanety_.napis() );
-	planeta->SetAttribute(ATRYBUT_XML_POWIERZCHNIA_ZAJETA_PRZEZ_WODE,powierzchniaZajetaPrzezWode_.napis() );
-	planeta->SetAttribute(ATRYBUT_XML_POWIERZCHNIA_LADOW, powierzchniaLadow_.napis() );
-	planeta->SetAttribute(ATRYBUT_XML_POWIERZCHNIA_UZYTKOWA_LADOW, powierzchniaUzytkowaLadow_.napis() );
-	planeta->SetAttribute(ATRYBUT_XML_NAZWA, nazwaPlanety_());
+	planeta->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_RODZICA,idUkladu_.napis().c_str());
+	planeta->SetAttribute(ATRYBUT_XML_NAZWAGRACZA,idUzytkownika_().c_str());
+	planeta->SetAttribute(ATRYBUT_XML_TEMPERATURA_PLANETY, temperaturaPlanety_.napis().c_str());
+	planeta->SetAttribute(ATRYBUT_XML_CALKOWITA_POWIERZNIA_PLANETY, calkowitaPowierzchniaPlanety_.napis().c_str() );
+	planeta->SetAttribute(ATRYBUT_XML_POWIERZCHNIA_ZAJETA_PRZEZ_WODE,powierzchniaZajetaPrzezWode_.napis().c_str() );
+	planeta->SetAttribute(ATRYBUT_XML_POWIERZCHNIA_LADOW, powierzchniaLadow_.napis().c_str() );
+	planeta->SetAttribute(ATRYBUT_XML_POWIERZCHNIA_UZYTKOWA_LADOW, powierzchniaUzytkowaLadow_.napis().c_str() );
+	planeta->SetAttribute(ATRYBUT_XML_NAZWA, nazwaPlanety_().c_str());
 	licznikIdentyfikatorowFloty_.zapisz(planeta);
 	/*for(auto element :  dostepneZasobyPlanety_){
 		TiXmlElement* zasob = new TiXmlElement(WEZEL_XML_ZASOB);
@@ -343,12 +343,12 @@ bool Planeta::zapisz( TiXmlElement* wezel ) const{
 		zasob->SetAttribute(ATRYBUT_XML_ILOSC, element.second.napis());
 		planeta->LinkEndChild(zasob);
 	}*/
-	TiXmlElement* obiekty = new TiXmlElement(WEZEL_XML_OBIEKTY);
+	tinyxml2::XMLElement* obiekty = wezel->GetDocument()->NewElement(WEZEL_XML_OBIEKTY);
 	planeta->LinkEndChild( obiekty );
 	for(auto element :  listaObiektow_)
 		if(!element.second->zapisz(obiekty))
 			return false;
-	TiXmlElement* floty = new TiXmlElement(WEZEL_XML_FLOTY);
+	tinyxml2::XMLElement* floty = wezel->GetDocument()->NewElement(WEZEL_XML_FLOTY);
 	planeta->LinkEndChild( floty );
 	for(auto element :  listaFlot_)
 		if(!element.second->zapisz(floty))
@@ -356,7 +356,7 @@ bool Planeta::zapisz( TiXmlElement* wezel ) const{
 	return Bazowa::zapisz(planeta);
 }
 
-bool Planeta::odczytaj( TiXmlElement* wezel ){
+bool Planeta::odczytaj( tinyxml2::XMLElement* wezel ){
 	if(wezel){
 		Identyfikator identyfikatorPlanety;
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_ODLEGLOSC_OD_SLONCA,odlegloscOdSlonca_))
@@ -388,7 +388,7 @@ bool Planeta::odczytaj( TiXmlElement* wezel ){
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,identyfikatorPlanety))
 			return false;
 		Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(identyfikatorPlanety);
-		for(TiXmlElement* zasob = wezel->FirstChildElement(WEZEL_XML_ZASOB); zasob ; zasob = zasob->NextSiblingElement(WEZEL_XML_ZASOB)){
+		for(tinyxml2::XMLElement* zasob = wezel->FirstChildElement(WEZEL_XML_ZASOB); zasob ; zasob = zasob->NextSiblingElement(WEZEL_XML_ZASOB)){
 			Identyfikator identyfikator;
 			Poziom poziom;
 			Ilosc ilosc;
@@ -404,9 +404,9 @@ bool Planeta::odczytaj( TiXmlElement* wezel ){
 			dostepneZasobyPlanety_.insert(make_pair(Indeks(identyfikator,poziom),ilosc));*/
 		}
 			
-		TiXmlElement* obiekt = wezel->FirstChildElement(WEZEL_XML_OBIEKTY);
+		tinyxml2::XMLElement* obiekt = wezel->FirstChildElement(WEZEL_XML_OBIEKTY);
 		if(obiekt)
-			for(TiXmlElement* element = obiekt->FirstChildElement(); element ; element = element->NextSiblingElement()){
+			for(tinyxml2::XMLElement* element = obiekt->FirstChildElement(); element ; element = element->NextSiblingElement()){
 				Identyfikator identyfikator;
 				Poziom poziom;
 				if(!XmlBO::WczytajAtrybut<NOTHROW>(element,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
@@ -421,9 +421,9 @@ bool Planeta::odczytaj( TiXmlElement* wezel ){
 				if( iter->second->pobierzIdentyfikatorPlanety() != identyfikatorPlanety )
 					return false;
 			}
-		TiXmlElement* flota = wezel->FirstChildElement(WEZEL_XML_FLOTY);
+		tinyxml2::XMLElement* flota = wezel->FirstChildElement(WEZEL_XML_FLOTY);
 		if(flota)
-			for(TiXmlElement* element = flota->FirstChildElement(); element ; element = element->NextSiblingElement()){
+			for(tinyxml2::XMLElement* element = flota->FirstChildElement(); element ; element = element->NextSiblingElement()){
 				Identyfikator identyfikator;
 				if(!XmlBO::WczytajAtrybut<NOTHROW>(element,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
 					return false;

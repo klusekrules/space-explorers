@@ -130,15 +130,15 @@ void OknoGry::logujInfo(){
 }
 
 bool OknoGry::wczytajEkrany(){
-	TiXmlDocument dokument;
+	tinyxml2::XMLDocument dokument;
 	dokument.LoadFile("resource\\Menu.xml");
-	TiXmlElement* wezel = dokument.RootElement();
+	tinyxml2::XMLElement* wezel = dokument.RootElement();
 	if(wezel){
-		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_EKRAN_STARTOWY); element ; element = element->NextSiblingElement(WEZEL_XML_EKRAN_STARTOWY)){
+		for(tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_EKRAN_STARTOWY); element ; element = element->NextSiblingElement(WEZEL_XML_EKRAN_STARTOWY)){
 			auto ptr = std::make_shared<EkranStartowy>(oknoGlowne_,element);
 			listaEkranow_.insert( std::make_pair(ptr->pobierzId(),ptr));
 		}
-		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_EKRAN); element ; element = element->NextSiblingElement(WEZEL_XML_EKRAN)){
+		for(tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_EKRAN); element ; element = element->NextSiblingElement(WEZEL_XML_EKRAN)){
 			auto ptr = std::make_shared<EkranSzablon>(element);
 			ptr->podlacz(oknoGlowne_);
 			listaEkranow_.insert( std::make_pair(ptr->pobierzId(),ptr));

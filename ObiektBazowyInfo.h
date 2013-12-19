@@ -33,7 +33,7 @@ public:
 	* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 	* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
 	*/
-	explicit ObiektBazowyInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML);
+	explicit ObiektBazowyInfo( tinyxml2::XMLElement* wezel ) throw(WyjatekParseraXML);
 
 	/**
 	* \brief Destruktor.

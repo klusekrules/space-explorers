@@ -3,7 +3,7 @@
 #include "..\Logger.h"
 #include "..\definicjeWezlowXML.h"
 
-ZmianaTest::ZmianaTest( TiXmlElement* e )
+ZmianaTest::ZmianaTest( tinyxml2::XMLElement* e )
 	: parametr_(XmlBO::ZnajdzWezel<NOTHROW>( e, WEZEL_XML_PARAM ))
 {
 }
@@ -12,7 +12,7 @@ ZmianaTest::~ZmianaTest(void)
 {
 }
 
-ZmianaInterfejs* ZmianaTest::TworzZmianaTest( TiXmlElement* wezel ){
+ZmianaInterfejs* ZmianaTest::TworzZmianaTest( tinyxml2::XMLElement* wezel ){
 	return new ZmianaTest(wezel);
 }
 

@@ -5,17 +5,17 @@
 #include "..\definicjeWezlowXML.h"
 #include "UtilsZmiana.h"
 
-ZmianaAgregacja::ZmianaAgregacja( TiXmlElement* wezel )
+ZmianaAgregacja::ZmianaAgregacja( tinyxml2::XMLElement* wezel )
 {
 	if( wezel && fabryka_ ){
-		TiXmlElement* wezelNastepny = XmlBO::ZnajdzWezelJezeli<NOTHROW>( wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WARTOSC_ATRYBUTU_XML_NASTEPNY );
+		tinyxml2::XMLElement* wezelNastepny = XmlBO::ZnajdzWezelJezeli<NOTHROW>( wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WARTOSC_ATRYBUTU_XML_NASTEPNY );
 		if(!wezelNastepny)
 			UtilsZmiana::generujWyjatekBleduStruktury(wezel);
 		nastepna_ = fabryka_->Tworz(wezelNastepny);
 		if(!nastepna_)
 			UtilsZmiana::generujWyjatekBleduStruktury(wezelNastepny);
 
-		TiXmlElement* dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>( wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WARTOSC_ATRYBUTU_XML_BRAT );
+		tinyxml2::XMLElement* dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>( wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WARTOSC_ATRYBUTU_XML_BRAT );
 		if(!dziecko)
 			UtilsZmiana::generujWyjatekBleduStruktury(wezel);
 		for( ; dziecko ; dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>( wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WARTOSC_ATRYBUTU_XML_BRAT, dziecko ) ){
@@ -28,7 +28,7 @@ ZmianaAgregacja::ZmianaAgregacja( TiXmlElement* wezel )
 	}
 }
 
-ZmianaInterfejs* ZmianaAgregacja::TworzZmianaAgregacja( TiXmlElement* wezel ){
+ZmianaInterfejs* ZmianaAgregacja::TworzZmianaAgregacja( tinyxml2::XMLElement* wezel ){
 	return new ZmianaAgregacja(wezel);
 }
 

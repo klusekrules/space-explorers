@@ -153,13 +153,13 @@ const StatekInfo& Statek::pobierzStatekInfo() const{
 	return statekinfo_;
 }
 
-bool Statek::zapisz( TiXmlElement* wezel ) const {
-	TiXmlElement* element = new TiXmlElement(WEZEL_XML_STATEK);
+bool Statek::zapisz( tinyxml2::XMLElement* wezel ) const {
+	tinyxml2::XMLElement* element = wezel->GetDocument()->NewElement(WEZEL_XML_STATEK);
 	wezel->LinkEndChild( element );
 	return Obiekt::zapisz(element) && Ladownia::zapisz(element) && Hangar::zapisz(element);
 }
 
-bool Statek::odczytaj( TiXmlElement* wezel ) {
+bool Statek::odczytaj( tinyxml2::XMLElement* wezel ) {
 	return Obiekt::odczytaj(wezel) && Ladownia::odczytaj(wezel->FirstChildElement(WEZEL_XML_LADOWNIA)) && Hangar::odczytaj(wezel->FirstChildElement(WEZEL_XML_HANGAR));
 }
 

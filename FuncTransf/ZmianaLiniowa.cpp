@@ -4,7 +4,7 @@
 #include "..\XmlBO.h"
 #include "..\definicjeWezlowXML.h"
 
-ZmianaLiniowa::ZmianaLiniowa( TiXmlElement* wezel )
+ZmianaLiniowa::ZmianaLiniowa( tinyxml2::XMLElement* wezel )
 	: parametr_(XmlBO::ZnajdzWezel<NOTHROW>( wezel, WEZEL_XML_PARAM ))
 {
 }
@@ -25,7 +25,7 @@ bool ZmianaLiniowa::RejestrujZmianaLiniowa(  ZmianaFabryka &fabryka ){
 	return fabryka.rejestracjaZmiany(identyfikator_,ZmianaLiniowa::TworzZmianaLiniowa);
 }
 
-ZmianaInterfejs* ZmianaLiniowa::TworzZmianaLiniowa( TiXmlElement* wezel ){
+ZmianaInterfejs* ZmianaLiniowa::TworzZmianaLiniowa( tinyxml2::XMLElement* wezel ){
 	return new ZmianaLiniowa(wezel);
 }
 

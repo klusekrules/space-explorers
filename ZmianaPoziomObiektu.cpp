@@ -4,7 +4,7 @@
 #include "Aplikacja.h"
 #include "definicjeWezlowXML.h"
 
-ZmianaPoziomObiektu::ZmianaPoziomObiektu( TiXmlElement* e )
+ZmianaPoziomObiektu::ZmianaPoziomObiektu( tinyxml2::XMLElement* e )
 	: parametr_(XmlBO::ZnajdzWezel<NOTHROW>( e, WEZEL_XML_PARAM ))
 {
 }
@@ -31,7 +31,7 @@ std::string ZmianaPoziomObiektu::napis()const{
 	return str.napis();
 }
 
-ZmianaInterfejs* ZmianaPoziomObiektu::TworzZmianaPoziomObiektu( TiXmlElement* wezel ){
+ZmianaInterfejs* ZmianaPoziomObiektu::TworzZmianaPoziomObiektu( tinyxml2::XMLElement* wezel ){
 	return new ZmianaPoziomObiektu(wezel);
 }
 

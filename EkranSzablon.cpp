@@ -5,7 +5,7 @@
 #include "Logger\Log.h"
 #include "MaszynaStanow.h"
 
-EkranSzablon::EkranSzablon(TiXmlElement* wezel){
+EkranSzablon::EkranSzablon(tinyxml2::XMLElement* wezel){
 	if(wezel){
 		XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,id_);
 		std::string konfiguracja = XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_KONFIGURACJA,std::string());
@@ -20,7 +20,7 @@ EkranSzablon::EkranSzablon(TiXmlElement* wezel){
 			}
 			if( !interfejs_.loadWidgetsFromFile(konfiguracja) )
 				throw OgolnyWyjatek(EXCEPTION_PLACE);
-			for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_KONTROLKA); element ; element = element->NextSiblingElement(WEZEL_XML_KONTROLKA)){
+			for(tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_KONTROLKA); element ; element = element->NextSiblingElement(WEZEL_XML_KONTROLKA)){
 				std::string nazwa = XmlBO::WczytajAtrybut(element,ATRYBUT_XML_NAZWA,std::string());
 				if(  !nazwa.empty() ){
 					auto kontrolka = interfejs_.get(nazwa);
@@ -64,16 +64,16 @@ void EkranSzablon::callback( const tgui::Callback& callback, unsigned int idZdar
 	MaszynaStanow::pobierzInstancje().kolejkujZdarzenie(zdarzenie);
 }
 
-bool EkranSzablon::wczytajDaneKontrolki( TiXmlElement* wezel , tgui::Widget::Ptr kontrolka ){
+bool EkranSzablon::wczytajDaneKontrolki( tinyxml2::XMLElement* wezel , tgui::Widget::Ptr kontrolka ){
 	if(wezel){
-		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_ATRYBUT); element ; element = element->NextSiblingElement(WEZEL_XML_ATRYBUT)){
+		for(tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_ATRYBUT); element ; element = element->NextSiblingElement(WEZEL_XML_ATRYBUT)){
 			std::string nazwa = XmlBO::WczytajAtrybut(element,ATRYBUT_XML_NAZWA,std::string());
 			std::string wartosc = XmlBO::WczytajAtrybut(element,ATRYBUT_XML_WARTOSC,std::string());
 			if( !( nazwa.empty() || wartosc.empty() ) ){
 				kontrolka->setProperty(nazwa,wartosc);
 			}
 		}
-		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_AKCJA); element ; element = element->NextSiblingElement(WEZEL_XML_AKCJA)){
+		for(tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_AKCJA); element ; element = element->NextSiblingElement(WEZEL_XML_AKCJA)){
 			unsigned int akcja = XmlBO::WczytajAtrybut<unsigned int>(element,ATRYBUT_XML_IDENTYFIKATOR,0);
 			unsigned int zdarzenie = XmlBO::WczytajAtrybut<unsigned int>(element,ATRYBUT_XML_ID_ZDARZENIA,0);
 			if( !( akcja == 0 || zdarzenie == 0 ) ){

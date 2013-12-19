@@ -8,7 +8,7 @@ Info::Info( const Tekst& nazwa , const Tekst& opis, const Identyfikator& identyf
 {
 }
 
-Info::Info( TiXmlElement* wezel ) throw(WyjatekParseraXML)
+Info::Info( tinyxml2::XMLElement* wezel ) throw(WyjatekParseraXML)
 	: Bazowa( wezel ) , Wymagania( wezel )
 {
 	if(wezel){

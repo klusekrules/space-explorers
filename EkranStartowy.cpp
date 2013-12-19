@@ -4,7 +4,7 @@
 #include "XmlBO.h"
 #include "MaszynaStanow.h"
 
-EkranStartowy::EkranStartowy( sf::RenderWindow& okno , TiXmlElement* wezel)
+EkranStartowy::EkranStartowy( sf::RenderWindow& okno , tinyxml2::XMLElement* wezel)
 	: EkranSzablon(wezel),czasWlaczania_(3000),czasTrwalosci_(2000), czasChwilowy_(0), okno_(okno.getSystemHandle())
 {
 	interfejs_.setWindow(okno);

@@ -48,13 +48,13 @@ Wymagania::PrzetworzonaCena Budynek::pobierzProdukcje( )const{
 	return budynekInfo_.pobierzProdukcje(*this);
 }
 
-bool Budynek::zapisz( TiXmlElement* wezel ) const {
-	TiXmlElement* element = new TiXmlElement(WEZEL_XML_BUDYNEK);
+bool Budynek::zapisz( tinyxml2::XMLElement* wezel ) const {
+	tinyxml2::XMLElement* element = wezel->GetDocument()->NewElement(WEZEL_XML_BUDYNEK);
 	wezel->LinkEndChild(element);
 	return Obiekt::zapisz(element);
 }
 
-bool Budynek::odczytaj (TiXmlElement* wezel) {
+bool Budynek::odczytaj (tinyxml2::XMLElement* wezel) {
 	return Obiekt::odczytaj(wezel);
 }
 

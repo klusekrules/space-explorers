@@ -3,7 +3,7 @@
 #include "WyjatekParseraXML.h"
 #include "keccak.h"
 
-shared_ptr<ZmianaInterfejs> Utils::TworzZmiane( TiXmlElement* wezel ){
+shared_ptr<ZmianaInterfejs> Utils::TworzZmiane( tinyxml2::XMLElement* wezel ){
 	if(!wezel)
 		return nullptr;
 	auto zmiana = Aplikacja::pobierzInstancje().pobierzGre().pobierzFabrykeZmian().Tworz(wezel);
@@ -12,10 +12,12 @@ shared_ptr<ZmianaInterfejs> Utils::TworzZmiane( TiXmlElement* wezel ){
 	return zmiana;
 }
 
-void Utils::generujWyjatekBleduStruktury( const Tekst& plik, const Ilosc& linia, TiXmlElement* wezel )
+void Utils::generujWyjatekBleduStruktury( const Tekst& plik, const Ilosc& linia, tinyxml2::XMLElement* wezel )
 {
 	std::string komunikat("B³¹d struktry pliku xml. Niepoprawny wêze³: ");
-	komunikat << *wezel;
+	tinyxml2::XMLPrinter printer;
+	wezel->Accept( &printer );
+	komunikat.append( printer.CStr() );
 	throw WyjatekParseraXML(plik,linia,exception(komunikat.c_str()),Tekst("B³¹d struktry pliku xml."));
 }
 

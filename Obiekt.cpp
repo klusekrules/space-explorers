@@ -44,11 +44,11 @@ Masa Obiekt::pobierzMase() const{
 	return Masa(obiektInfo_.pobierzMase(pobierzPoziom(), pobierzIdentyfikatorPlanety())()*(pobierzIlosc()()));
 }
 
-bool Obiekt::zapisz( TiXmlElement* wezel) const{
+bool Obiekt::zapisz( tinyxml2::XMLElement* wezel) const{
 	return ObiektBazowy::zapisz(wezel);
 }
 
-bool Obiekt::odczytaj (TiXmlElement* wezel){
+bool Obiekt::odczytaj (tinyxml2::XMLElement* wezel){
 	return ObiektBazowy::odczytaj(wezel);
 }
 

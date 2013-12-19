@@ -28,7 +28,7 @@ ZmianaFabryka& ZmianaFabryka::pobierzInstancje(){
 	return instancja;
 }
 
-shared_ptr<ZmianaInterfejs> ZmianaFabryka::Tworz( TiXmlElement* wezel ) const {
+shared_ptr<ZmianaInterfejs> ZmianaFabryka::Tworz( tinyxml2::XMLElement* wezel ) const {
 	if(wezel){
 		int id = XmlBO::WczytajAtrybut<int>( wezel, ATRYBUT_XML_IDENTYFIKATOR , 0 );
 		if(id==0)

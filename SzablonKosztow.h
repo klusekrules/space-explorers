@@ -1,6 +1,5 @@
 #pragma once
 #include "FuncTransf\ZmianaInterfejs.h"
-#include "parser\ticpp.h"
 #include "definicjeWezlowXML.h"
 #include "Utils.h"
 #include "OgolnyWyjatek.h"
@@ -27,11 +26,11 @@ public:
 	* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
 	* \param[in] nazwa - Nazwa wêz³a obiektu.
 	*/
-	SzablonKosztow( TiXmlElement* wezel , string nazwa ) 
+	SzablonKosztow( tinyxml2::XMLElement* wezel , string nazwa ) 
 		: obiekt_(nullptr), zmiana_(nullptr)
 	{
 		if(wezel){
-			TiXmlElement* element = XmlBO::ZnajdzWezel<NOTHROW>(wezel,nazwa);
+			tinyxml2::XMLElement* element = XmlBO::ZnajdzWezel<NOTHROW>(wezel,nazwa);
 			if(element){
 				obiekt_ = TypObiektu(new T(element));
 				zmiana_ = Utils::TworzZmiane(XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_ZMIANA));
@@ -47,11 +46,11 @@ public:
 	* \param[in] nazwa - Nazwa wêz³a obiektu.
 	* \param[in] funkcjaTworzaca - Metoda która tworzy obiekt z wêz³a xml.
 	*/
-	SzablonKosztow( TiXmlElement* wezel , string nazwa, function< TypObiektu(TiXmlElement*) > funkcjaTworzaca ) 
+	SzablonKosztow( tinyxml2::XMLElement* wezel , string nazwa, function< TypObiektu(tinyxml2::XMLElement*) > funkcjaTworzaca ) 
 		: obiekt_(nullptr), zmiana_(nullptr)
 	{
 		if(wezel){
-			TiXmlElement* element = XmlBO::ZnajdzWezel<NOTHROW>(wezel,nazwa);
+			tinyxml2::XMLElement* element = XmlBO::ZnajdzWezel<NOTHROW>(wezel,nazwa);
 			if(element){
 				obiekt_ = funkcjaTworzaca(element);
 				if(!obiekt_)

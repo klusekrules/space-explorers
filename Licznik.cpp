@@ -35,14 +35,14 @@ void Licznik::ustawWartosc( const Ilosc& wartosc ){
 	wartoscLicznika_ = wartosc;
 }
 
-bool Licznik::zapisz( TiXmlElement* wezel ) const{
-	TiXmlElement* dziecko = new TiXmlElement(WEZEL_XML_LICZNIK);
+bool Licznik::zapisz( tinyxml2::XMLElement* wezel ) const{
+	tinyxml2::XMLElement* dziecko = wezel->GetDocument()->NewElement(WEZEL_XML_LICZNIK);
 	wezel->LinkEndChild( dziecko );
-	dziecko->SetAttribute(ATRYBUT_XML_ILOSC,wartoscLicznika_.napis());
+	dziecko->SetAttribute(ATRYBUT_XML_ILOSC,wartoscLicznika_.napis().c_str());
 	return Bazowa::zapisz(dziecko);
 }
 
-bool Licznik::odczytaj( TiXmlElement* wezel ){
+bool Licznik::odczytaj( tinyxml2::XMLElement* wezel ){
 	if(wezel && Bazowa::odczytaj(wezel)){
 		return XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_ILOSC,wartoscLicznika_);
 	}

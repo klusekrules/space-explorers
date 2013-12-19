@@ -9,7 +9,7 @@ StatekInfo::StatekInfo(	const ObiektInfo& obiektInfo , const JednostkaLatajacaIn
 {
 }
 
-StatekInfo::StatekInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
+StatekInfo::StatekInfo( tinyxml2::XMLElement* wezel ) throw(WyjatekParseraXML)
 	: ObiektInfo(wezel),
 	JednostkaLatajacaInfo(XmlBO::ZnajdzWezel<THROW>(wezel,WEZEL_XML_JEDNOSTKA_LATAJACA_INFO)),
 	JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<THROW>(wezel,WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO)),

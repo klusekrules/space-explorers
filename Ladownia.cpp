@@ -210,12 +210,12 @@ Objetosc Ladownia::pobierzPojemnoscJednostkowaLadowni() const{
 	return ladowniaInfo_.pobierzPojemnoscMaksymalna(*this);
 }
 
-bool Ladownia::zapisz( TiXmlElement* wezel ) const {
-	TiXmlElement* element = new TiXmlElement(WEZEL_XML_LADOWNIA);
+bool Ladownia::zapisz( tinyxml2::XMLElement* wezel ) const {
+	tinyxml2::XMLElement* element = wezel->GetDocument()->NewElement(WEZEL_XML_LADOWNIA);
 	wezel->LinkEndChild( element );
 	if(zajete_ < Objetosc(0) )
 			return false;
-	element->SetAttribute(ATRYBUT_XML_ZAJETE_MIEJSCE,zajete_.napis());
+	element->SetAttribute(ATRYBUT_XML_ZAJETE_MIEJSCE,zajete_.napis().c_str());
 	for( auto o : obiekty_){
 		if(!o.second->zapisz(element))
 			return false;
@@ -223,7 +223,7 @@ bool Ladownia::zapisz( TiXmlElement* wezel ) const {
 	return true;
 }
 
-bool Ladownia::odczytaj (TiXmlElement* wezel ) {
+bool Ladownia::odczytaj (tinyxml2::XMLElement* wezel ) {
 	if(wezel){
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_ZAJETE_MIEJSCE,zajete_))
 			return false;
@@ -231,7 +231,7 @@ bool Ladownia::odczytaj (TiXmlElement* wezel ) {
 			return false;
 		try{
 			Gra& gra = Aplikacja::pobierzInstancje().pobierzGre();
-			TiXmlElement* element = XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_SUROWCE);
+			tinyxml2::XMLElement* element = XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_SUROWCE);
 			while(element){
 				shared_ptr<Surowce> obiekt = gra.tworzSurowce(element);			
 				if(!obiekt || !obiekt->odczytaj(element) ){

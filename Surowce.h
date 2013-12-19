@@ -171,7 +171,7 @@ public:
 	* \return Zwracana jest wartoœæ true, je¿eli zapisano obiekt poprawnie. False, je¿eli zapis siê nie powiód³.
 	* \warning Je¿eli zwrócono wartoœæ false wêze³ przekazany jako parametr nie jest zmodyfokowany.
 	*/
-	bool zapisz( TiXmlElement* wezel ) const override;
+	bool zapisz( tinyxml2::XMLElement* wezel ) const override;
 
 	/**
 	* \brief Metoda odczytuj¹ca.
@@ -182,7 +182,7 @@ public:
 	* \warning Metoda nie modyfikuje wêz³a.
 	* \warning Je¿eli metoda zwróci wartoœæ false, obiekt mo¿e znajdowaæ siê w stanie nieustalonym. Nie jest zalecane u¿ywanie takiego obiektu.
 	*/
-	bool odczytaj( TiXmlElement* wezel ) override;
+	bool odczytaj( tinyxml2::XMLElement* wezel ) override;
 
 	/**
 	* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.

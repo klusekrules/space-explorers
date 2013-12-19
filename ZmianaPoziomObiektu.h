@@ -22,7 +22,7 @@ private:
 	* \param[in] wezel - Wêze³ na podstawie którego tworzony jest obiekt.
 	* \return WskaŸnika na obiekt utworzonej zmiany.
 	*/
-	static ZmianaInterfejs* TworzZmianaPoziomObiektu( TiXmlElement* wezel );
+	static ZmianaInterfejs* TworzZmianaPoziomObiektu( tinyxml2::XMLElement* wezel );
 
 	ZmianaParametr parametr_; /// Identyfikator obiektu.
 public:
@@ -63,7 +63,7 @@ public:
 	*	</Zmiana>
 	* \endcode
 	*/
-	explicit ZmianaPoziomObiektu( TiXmlElement * wezel );
+	explicit ZmianaPoziomObiektu( tinyxml2::XMLElement * wezel );
 
 	/**
 	* Destruktor

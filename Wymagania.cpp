@@ -6,7 +6,7 @@
 #include "LiczenieKosztow.h"
 #include "LiczenieWymogow.h"
 using namespace std::placeholders;
-Wymagania::Wymagania( TiXmlElement* wezel  )
+Wymagania::Wymagania( tinyxml2::XMLElement* wezel  )
 {
 	if(wezel){
 		try{

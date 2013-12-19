@@ -5,7 +5,7 @@
 #include "definicjeWezlowXML.h"
 #include "LiczenieKosztow.h"
 using namespace std::placeholders;
-BudynekInfo::BudynekInfo( TiXmlElement* wezel )
+BudynekInfo::BudynekInfo( tinyxml2::XMLElement* wezel )
 	: ObiektInfo(wezel)
 {
 	auto zapotrzebowanie = XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_ZAPOTRZEBOWANIE);

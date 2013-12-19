@@ -148,13 +148,13 @@ SPG::Temperatura GeneratorUkladow::generujTemperaturePlanety( const Dystans& odl
 	return TEMPERATURA_PLANETY_MAX + 200.0 * ( 1.0 / ( (-4 * mocGwiazdy()) / (odlegloscOdCentrum() * odlegloscOdCentrum()) - 0.5 )  );
 }
 
-bool GeneratorUkladow::zapisz( TiXmlElement* wezel ) const{
-	TiXmlElement* element = new TiXmlElement(WEZEL_XML_GENERATOR_UKLADOW);
+bool GeneratorUkladow::zapisz( tinyxml2::XMLElement* wezel ) const{
+	tinyxml2::XMLElement* element = wezel->GetDocument()->NewElement(WEZEL_XML_GENERATOR_UKLADOW);
 	wezel->LinkEndChild( element );
 	return licznikIdPlanet.zapisz(element) && licznikIdUkladow.zapisz(element) && licznikIdGalaktyk.zapisz(element);
 }
 
-bool GeneratorUkladow::odczytaj( TiXmlElement* wezel ){
+bool GeneratorUkladow::odczytaj( tinyxml2::XMLElement* wezel ){
 	if(wezel){
 
 		auto element = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_LICZNIK,ATRYBUT_XML_IDENTYFIKATOR,LICZNIK_PLANET_ID.napis());

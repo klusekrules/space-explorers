@@ -182,7 +182,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)SFML\include;$(SolutionDir)LuaJIT-2.0.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)SFML\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)tinyxml2-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -196,7 +196,7 @@
       <Version>
       </Version>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Debug-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-window-$(PlatformTarget)-$(Configuration).lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-graphics-$(PlatformTarget)-$(Configuration).lib;ticpp-$(PlatformTarget)-$(Configuration).lib;tgui-$(PlatformTarget)-$(Configuration).lib;ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;freetype.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-window-$(PlatformTarget)-$(Configuration).lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-graphics-$(PlatformTarget)-$(Configuration).lib;tinyxml2-$(PlatformTarget)-$(Configuration).lib;tgui-$(PlatformTarget)-$(Configuration).lib;ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;freetype.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ResourceCompile>
       <Culture>0x0015</Culture>
@@ -218,7 +218,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)SFML\include;$(SolutionDir)LuaJIT-2.0.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)SFML\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)tinyxml2-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -231,7 +231,7 @@
       <Version>
       </Version>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Debug-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-window-$(PlatformTarget)-$(Configuration).lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-graphics-$(PlatformTarget)-$(Configuration).lib;ticpp-$(PlatformTarget)-$(Configuration).lib;tgui-$(PlatformTarget)-$(Configuration).lib;ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;opengl32.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-window-$(PlatformTarget)-$(Configuration).lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-graphics-$(PlatformTarget)-$(Configuration).lib;tinyxml2-$(PlatformTarget)-$(Configuration).lib;tgui-$(PlatformTarget)-$(Configuration).lib;ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;opengl32.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ResourceCompile>
       <Culture>0x0015</Culture>
@@ -252,7 +252,7 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)SFML\include;$(SolutionDir)LuaJIT-2.0.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)SFML\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)tinyxml2-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
@@ -265,7 +265,7 @@
       <LinkStatus>
       </LinkStatus>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Debug-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-window-$(PlatformTarget)-$(Configuration).lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-graphics-$(PlatformTarget)-$(Configuration).lib;ticpp-$(PlatformTarget)-$(Configuration).lib;tgui-$(PlatformTarget)-$(Configuration).lib;ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;freetype.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-window-$(PlatformTarget)-$(Configuration).lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-graphics-$(PlatformTarget)-$(Configuration).lib;tinyxml2-$(PlatformTarget)-$(Configuration).lib;tgui-$(PlatformTarget)-$(Configuration).lib;ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;freetype.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>SubWCRev.exe $(SolutionDir) $(ProjectDir)\svn_version.h.tmpl $(ProjectDir)\svn_version.h</Command>
@@ -286,7 +286,7 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)SFML\include;$(SolutionDir)LuaJIT-2.0.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)SFML\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)tinyxml2-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
     <Link>
@@ -298,7 +298,7 @@
       <LinkStatus>
       </LinkStatus>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Debug-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-window-$(PlatformTarget)-$(Configuration).lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-graphics-$(PlatformTarget)-$(Configuration).lib;ticpp-$(PlatformTarget)-$(Configuration).lib;tgui-$(PlatformTarget)-$(Configuration).lib;ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;opengl32.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-window-$(PlatformTarget)-$(Configuration).lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-graphics-$(PlatformTarget)-$(Configuration).lib;tinyxml2-$(PlatformTarget)-$(Configuration).lib;tgui-$(PlatformTarget)-$(Configuration).lib;ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;opengl32.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>SubWCRev.exe $(SolutionDir) $(ProjectDir)\svn_version.h.tmpl $(ProjectDir)\svn_version.h</Command>
@@ -319,7 +319,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)SFML\include;$(SolutionDir)LuaJIT-2.0.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)SFML\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)tinyxml2-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -328,7 +328,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Release-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-window-$(PlatformTarget)-$(Configuration).lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-graphics-$(PlatformTarget)-$(Configuration).lib;ticpp-$(PlatformTarget)-$(Configuration).lib;tgui-$(PlatformTarget)-$(Configuration).lib;ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;freetype.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-window-$(PlatformTarget)-$(Configuration).lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-graphics-$(PlatformTarget)-$(Configuration).lib;tinyxml2-$(PlatformTarget)-$(Configuration).lib;tgui-$(PlatformTarget)-$(Configuration).lib;ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;freetype.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -349,7 +349,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)SFML\include;$(SolutionDir)LuaJIT-2.0.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)SFML\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)tinyxml2-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -357,7 +357,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Release-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-window-$(PlatformTarget)-$(Configuration).lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-graphics-$(PlatformTarget)-$(Configuration).lib;ticpp-$(PlatformTarget)-$(Configuration).lib;tgui-$(PlatformTarget)-$(Configuration).lib;ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;opengl32.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-window-$(PlatformTarget)-$(Configuration).lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-graphics-$(PlatformTarget)-$(Configuration).lib;tinyxml2-$(PlatformTarget)-$(Configuration).lib;tgui-$(PlatformTarget)-$(Configuration).lib;ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;opengl32.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -378,7 +378,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)SFML\include;$(SolutionDir)LuaJIT-2.0.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)SFML\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)tinyxml2-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -386,7 +386,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Release-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-window-$(PlatformTarget)-$(Configuration).lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-graphics-$(PlatformTarget)-$(Configuration).lib;ticpp-$(PlatformTarget)-$(Configuration).lib;tgui-$(PlatformTarget)-$(Configuration).lib;ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;freetype.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-window-$(PlatformTarget)-$(Configuration).lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-graphics-$(PlatformTarget)-$(Configuration).lib;tinyxml2-$(PlatformTarget)-$(Configuration).lib;tgui-$(PlatformTarget)-$(Configuration).lib;ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;freetype.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>SubWCRev.exe $(SolutionDir) $(ProjectDir)\svn_version.h.tmpl $(ProjectDir)\svn_version.h</Command>
@@ -407,14 +407,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)SFML\include;$(SolutionDir)LuaJIT-2.0.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)SFML\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)tinyxml2-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Release-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-window-$(PlatformTarget)-$(Configuration).lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-graphics-$(PlatformTarget)-$(Configuration).lib;ticpp-$(PlatformTarget)-$(Configuration).lib;tgui-$(PlatformTarget)-$(Configuration).lib;ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;opengl32.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-window-$(PlatformTarget)-$(Configuration).lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-graphics-$(PlatformTarget)-$(Configuration).lib;tinyxml2-$(PlatformTarget)-$(Configuration).lib;tgui-$(PlatformTarget)-$(Configuration).lib;ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;opengl32.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>SubWCRev.exe $(SolutionDir) $(ProjectDir)\svn_version.h.tmpl $(ProjectDir)\svn_version.h</Command>

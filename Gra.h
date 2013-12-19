@@ -256,7 +256,7 @@ public:
 	* \param[in] wezel - Wêze³ z którego s¹ odczytywane dane.
 	* \return Sprytny wskaŸnik do obiektu surowców. WskaŸnik na nullptr, je¿eli wyst¹pi³ b³¹d.
 	*/
-	shared_ptr<Surowce> tworzSurowce( TiXmlElement* wezel )const;
+	shared_ptr<Surowce> tworzSurowce( tinyxml2::XMLElement* wezel )const;
 
 	/**
 	* \brief Metoda tworz¹ca instancje statków nie przypisan¹ do planety.
@@ -265,7 +265,7 @@ public:
 	* \param[in] wezel - Wêze³ z którego s¹ odczytywane dane.
 	* \return Sprytny wskaŸnik do obiektu statku. WskaŸnik na nullptr, je¿eli wyst¹pi³ b³¹d.
 	*/
-	shared_ptr<Statek> tworzStatek( TiXmlElement* wezel )const;
+	shared_ptr<Statek> tworzStatek( tinyxml2::XMLElement* wezel )const;
 
 	/**
 	* \brief Metoda zapisuj¹ca.
@@ -275,7 +275,7 @@ public:
 	* \return Zwracana jest wartoœæ true, je¿eli zapisano obiekt poprawnie. False, je¿eli zapis siê nie powiód³.
 	* \warning Je¿eli zwrócono wartoœæ false wêze³ przekazany jako parametr nie jest zmodyfokowany.
 	*/
-	bool zapisz( TiXmlElement* wezel ) const override;
+	bool zapisz( tinyxml2::XMLElement* wezel ) const override;
 	
 	/**
 	* \brief Metoda zapisuj¹ca.
@@ -296,7 +296,7 @@ public:
 	* \warning Metoda nie modyfikuje wêz³a.
 	* \warning Je¿eli metoda zwróci wartoœæ false, obiekt mo¿e znajdowaæ siê w stanie nieustalonym. Nie jest zalecane u¿ywanie takiego obiektu.
 	*/
-	bool odczytaj( TiXmlElement* wezel ) override;
+	bool odczytaj( tinyxml2::XMLElement* wezel ) override;
 
 	/**
 	* \brief Metoda odczytuj¹ca.
@@ -365,7 +365,7 @@ private:
 	* \param[in] wezel - Wêze³ xml zawieraj¹cy dane.
 	* \return true je¿eli wszystkie dane zostaj¹ poprawnie wczytane, fasle w przeciwnym wypadku.
 	*/
-	bool wczytajSurowce(TiXmlElement* wezel);
+	bool wczytajSurowce(tinyxml2::XMLElement* wezel);
 
 	/**
 	* \brief Metoda wczytuj¹ca dane statków.
@@ -374,7 +374,7 @@ private:
 	* \param[in] wezel - Wêze³ xml zawieraj¹cy dane.
 	* \return true je¿eli wszystkie dane zostaj¹ poprawnie wczytane, fasle w przeciwnym wypadku.
 	*/
-	bool wczytajStatki(TiXmlElement* wezel);
+	bool wczytajStatki(tinyxml2::XMLElement* wezel);
 
 	/**
 	* \brief Metoda wczytuj¹ca dane technologii.
@@ -383,7 +383,7 @@ private:
 	* \param[in] wezel - Wêze³ xml zawieraj¹cy dane.
 	* \return true je¿eli wszystkie dane zostaj¹ poprawnie wczytane, fasle w przeciwnym wypadku.
 	*/
-	bool wczytajTechnologie(TiXmlElement* wezel);
+	bool wczytajTechnologie(tinyxml2::XMLElement* wezel);
 
 	/**
 	* \brief Metoda wczytuj¹ca dane budynków.
@@ -392,7 +392,7 @@ private:
 	* \param[in] wezel - Wêze³ xml zawieraj¹cy dane.
 	* \return true je¿eli wszystkie dane zostaj¹ poprawnie wczytane, fasle w przeciwnym wypadku.
 	*/
-	bool wczytajBudynki(TiXmlElement* wezel);
+	bool wczytajBudynki(tinyxml2::XMLElement* wezel);
 
 	/**
 	* \brief Metoda wczytuj¹ca dane obrony.
@@ -401,7 +401,7 @@ private:
 	* \param[in] wezel - Wêze³ xml zawieraj¹cy dane.
 	* \return true je¿eli wszystkie dane zostaj¹ poprawnie wczytane, fasle w przeciwnym wypadku.
 	*/
-	bool wczytajObrone(TiXmlElement* wezel);
+	bool wczytajObrone(tinyxml2::XMLElement* wezel);
 
 	/**
 	* \brief Metoda otwieraj¹ca plik u¿ytkownika
@@ -412,7 +412,7 @@ private:
 	* \param[in] tworzPlik - informacje czy ma zostaæ utworzony plik je¿eli nie istnieje.
 	* \return nullptr je¿eli hash sie nie zgadza, wska¿nik na dokument.
 	*/
-	shared_ptr<TiXmlDocument> plikUzytkownika(const string& nazwa, const string& hash , bool tworzPlik = true ) const;
+	shared_ptr<tinyxml2::XMLDocument> plikUzytkownika(const string& nazwa, const string& hash, string& nazwaPliku , bool tworzPlik = true ) const;
 
 	ZmianaFabryka &fabryka_; /// Referencja do obiektu fabryki zmian.
 	Aplikacja& aplikacja_; /// Referencja do obiektu aplikacji.

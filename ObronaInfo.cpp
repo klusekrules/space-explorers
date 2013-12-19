@@ -12,7 +12,7 @@ ObronaInfo::~ObronaInfo()
 {
 }
 
-ObronaInfo::ObronaInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
+ObronaInfo::ObronaInfo( tinyxml2::XMLElement* wezel ) throw(WyjatekParseraXML)
 	: ObiektInfo(wezel),
 	JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<THROW>(wezel,WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO))
 {

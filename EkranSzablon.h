@@ -2,14 +2,13 @@
 #include "stdafx.h"
 #include "Stan.h"
 #include "Identyfikator.h"
-#include "parser\ticpp.h"
 
 class EkranSzablon: 
 	public sf::Drawable,
 	public sf::Transformable
 {
 public:
-	EkranSzablon( TiXmlElement* wezel );
+	EkranSzablon( tinyxml2::XMLElement* wezel );
 
 	virtual ~EkranSzablon(void);
 	
@@ -27,7 +26,7 @@ protected:
 
 	void callback( const tgui::Callback& callback, unsigned int funkcja );
 
-	bool wczytajDaneKontrolki( TiXmlElement* wezel , tgui::Widget::Ptr kontrolka );
+	bool wczytajDaneKontrolki( tinyxml2::XMLElement* wezel , tgui::Widget::Ptr kontrolka );
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 

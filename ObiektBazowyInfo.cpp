@@ -9,7 +9,7 @@ ObiektBazowyInfo::ObiektBazowyInfo( const Info& ilosc , const Poziom& poziom ) t
 {
 }
 
-ObiektBazowyInfo::ObiektBazowyInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
+ObiektBazowyInfo::ObiektBazowyInfo( tinyxml2::XMLElement* wezel ) throw(WyjatekParseraXML)
 	: Info(wezel)
 {
 	if(wezel){

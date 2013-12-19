@@ -7,7 +7,7 @@ class EkranStartowy:
 	public EkranSzablon
 {
 public:
-	EkranStartowy(  sf::RenderWindow& okno , TiXmlElement* wezel);
+	EkranStartowy(  sf::RenderWindow& okno , tinyxml2::XMLElement* wezel);
 	virtual ~EkranStartowy(void);
 
 	void uaktualnij( Stan& stan ) override;

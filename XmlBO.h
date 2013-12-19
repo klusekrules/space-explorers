@@ -1,5 +1,5 @@
 #pragma once
-#include "parser\ticpp.h"
+#include "tinyxml2.h"
 #include "WyjatekParseraXML.h"
 #include <exception>
 #include <string>
@@ -33,12 +33,12 @@ private:
 	}
 
 	template < typename T > 
-	static TiXmlElement * blad( bool czyWezelPusty , const string& nazwaWezla ){
+	static tinyxml2::XMLElement * blad( bool czyWezelPusty , const string& nazwaWezla ){
 		return nullptr;
 	}
 
 	template < > 
-	static TiXmlElement * blad<THROW>( bool czyWezelPusty , const string& nazwaWezla ){
+	static tinyxml2::XMLElement * blad<THROW>( bool czyWezelPusty , const string& nazwaWezla ){
 		throw WyjatekParseraXML(EXCEPTION_PLACE,exception(string(nazwaWezla + " isNull=" + std::to_string(czyWezelPusty)).c_str()),WyjatekParseraXML::trescBladStrukturyXml);
 	}
 
@@ -102,41 +102,41 @@ private:
 	
 public:
 	template<typename T>
-	static TiXmlElement* ZnajdzWezel( TiXmlElement* wezel , const string& nazwa, TiXmlElement* poprzedniWezel = nullptr ){
+	static tinyxml2::XMLElement* ZnajdzWezel( tinyxml2::XMLElement* wezel , const string& nazwa, tinyxml2::XMLElement* poprzedniWezel = nullptr ){
 		if(wezel==nullptr || nazwa.empty())
 			return blad<T>(wezel==nullptr,nazwa);
 		if(poprzedniWezel)
-			return poprzedniWezel->NextSiblingElement(nazwa);
+			return poprzedniWezel->NextSiblingElement(nazwa.c_str());
 		else
-			return wezel->FirstChildElement(nazwa);
+			return wezel->FirstChildElement(nazwa.c_str());
 	}
 	
 	template<typename T>
-	static TiXmlElement* ZnajdzWezelJezeli( TiXmlElement* wezel ,
+	static tinyxml2::XMLElement* ZnajdzWezelJezeli( tinyxml2::XMLElement* wezel ,
 											const string& nazwaWezla,
 											const string& nazwaAtrybutu,
 											const string& wartoscAtrybutu,
-											TiXmlElement* poprzedniWezel = nullptr )
+											tinyxml2::XMLElement* poprzedniWezel = nullptr )
 	{
 		if(wezel==nullptr || nazwaWezla.empty() || nazwaAtrybutu.empty())
 			return blad<T>(wezel==nullptr,nazwaWezla);
-		TiXmlElement* element = poprzedniWezel ? poprzedniWezel : wezel;
-		for(TiXmlElement* wezelDziecko = element->FirstChildElement(nazwaWezla); wezelDziecko!= nullptr; wezelDziecko = wezelDziecko->NextSiblingElement(nazwaWezla) ){
-			auto tmp = wezelDziecko->Attribute(nazwaAtrybutu);
-			if(tmp && wartoscAtrybutu == *tmp)
+		tinyxml2::XMLElement* element = poprzedniWezel ? poprzedniWezel : wezel;
+		for(auto wezelDziecko = element->FirstChildElement(nazwaWezla.c_str()); wezelDziecko!= nullptr; wezelDziecko = wezelDziecko->NextSiblingElement(nazwaWezla.c_str()) ){
+			auto tmp = wezelDziecko->Attribute(nazwaAtrybutu.c_str());
+			if(tmp && !strcmp(wartoscAtrybutu.c_str(),tmp) )
 				return wezelDziecko;
 		}
 		return nullptr;
 	}
 	
 	template<typename K,typename T>
-	static bool WczytajAtrybut( TiXmlElement* wezel , const string& nazwa, PodstawowyInterfejs<T>& obiekt ){
+	static bool WczytajAtrybut( tinyxml2::XMLElement* wezel , const string& nazwa, PodstawowyInterfejs<T>& obiekt ){
 		if(!wezel)
 			return blad<K>(string(),string());
-		const string * napis = wezel->Attribute(nazwa);
+		auto napis = wezel->Attribute(nazwa.c_str());
 		if(!napis)
 			return blad<K>(string(wezel->Value()),nazwa);
-		string atrybut = *napis;
+		string atrybut (napis);
 		trim<T>(atrybut);
 		if(atrybut.size()>0){
 			Zaladuj<T>(atrybut,obiekt);
@@ -146,50 +146,53 @@ public:
 	}
 	
 	template<typename T>
-	static T WczytajAtrybut( TiXmlElement* wezel , const string& nazwa , T domyslnaWartosc ){
+	static T WczytajAtrybut( tinyxml2::XMLElement* wezel , const string& nazwa , T domyslnaWartosc ){
 		if(!wezel)
 			return domyslnaWartosc;
-		const string * napis = wezel->Attribute(nazwa);
-		if(!napis)
+		auto ptr = wezel->Attribute(nazwa.c_str());
+		if(!ptr)
 			return domyslnaWartosc;
-		return *napis;
+		return string(ptr);
 	}
 
 	template< >
-	static int WczytajAtrybut<int>( TiXmlElement* wezel , const string& nazwa , int domyslnaWartosc ){
+	static int WczytajAtrybut<int>( tinyxml2::XMLElement* wezel , const string& nazwa , int domyslnaWartosc ){
 		if(!wezel)
 			return domyslnaWartosc;
-		const string * napis = wezel->Attribute(nazwa);
-		if(!napis)
+		auto ptr = wezel->Attribute(nazwa.c_str());
+		if(!ptr)
 			return domyslnaWartosc;
-		if(napis->length()>0){
-			return stoul(*napis,nullptr,0);
+		const string napis(ptr);
+		if(napis.length()>0){
+			return stoul(napis,nullptr,0);
 		}
 		return domyslnaWartosc;
 	}
 
 	template< >
-	static unsigned int WczytajAtrybut<unsigned int>( TiXmlElement* wezel , const string& nazwa , unsigned int domyslnaWartosc ){
+	static unsigned int WczytajAtrybut<unsigned int>( tinyxml2::XMLElement* wezel , const string& nazwa , unsigned int domyslnaWartosc ){
 		if(!wezel)
 			return domyslnaWartosc;
-		const string * napis = wezel->Attribute(nazwa);
-		if(!napis)
+		auto ptr = wezel->Attribute(nazwa.c_str());
+		if(!ptr)
 			return domyslnaWartosc;
-		if(napis->length()>0){
-			return stoul(*napis,nullptr,0);
+		const string napis(ptr);
+		if(napis.length()>0){
+			return stoul(napis,nullptr,0);
 		}
 		return domyslnaWartosc;
 	}
 
 	template< >
-	static long double WczytajAtrybut<long double>( TiXmlElement* wezel , const string& nazwa , long double domyslnaWartosc ){
+	static long double WczytajAtrybut<long double>( tinyxml2::XMLElement* wezel , const string& nazwa , long double domyslnaWartosc ){
 		if(!wezel)
 			return domyslnaWartosc;
-		const string * napis = wezel->Attribute(nazwa);
-		if(!napis)
+		auto ptr = wezel->Attribute(nazwa.c_str());
+		if(!ptr)
 			return domyslnaWartosc;
-		if(napis->length()>0){			
-			string kopia = *napis;
+		const string napis(ptr);
+		if(napis.length()>0){			
+			string kopia = napis;
 			decimal_point(kopia);
 			return stold(kopia);
 		}

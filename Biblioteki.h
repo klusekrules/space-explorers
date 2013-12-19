@@ -8,4 +8,3 @@
 #include <hash_map>
 #include <locale>
 //#include <allegro5\allegro.h>
-#include "parser\ticpp.h"

@@ -39,7 +39,7 @@ bool Gra::generujNowaGalaktyke(){
 	return zarzadca_.generujNowaGalaktyke();
 }
 
-shared_ptr<Surowce> Gra::tworzSurowce( TiXmlElement* wezel )const{
+shared_ptr<Surowce> Gra::tworzSurowce( tinyxml2::XMLElement* wezel )const{
 	Identyfikator identyfikator;
 	if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
 		return nullptr;
@@ -52,7 +52,7 @@ shared_ptr<Surowce> Gra::tworzSurowce( TiXmlElement* wezel )const{
 	return obiekt;
 }
 
-shared_ptr<Statek> Gra::tworzStatek( TiXmlElement* wezel )const{
+shared_ptr<Statek> Gra::tworzStatek( tinyxml2::XMLElement* wezel )const{
 	Identyfikator identyfikator;
 	if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
 		return nullptr;
@@ -162,9 +162,9 @@ ObronaInfo& Gra::pobierzObrone(const Identyfikator& identyfikator)const throw (N
 }
 
 bool Gra::wczytajDane( const string& adresPliku ){
-	TiXmlDocument dane;
+	tinyxml2::XMLDocument dane;
 	try{
-		dane.LoadFile( adresPliku );
+		dane.LoadFile( adresPliku.c_str() );
 		auto root_data = dane.FirstChildElement(WEZEL_XML_ROOT);
 		if(root_data){
 			if(!wczytajSurowce(root_data))
@@ -188,9 +188,9 @@ bool Gra::wczytajDane( const string& adresPliku ){
 	return true;
 }
 
-bool Gra::wczytajTechnologie(TiXmlElement* wezel){
+bool Gra::wczytajTechnologie(tinyxml2::XMLElement* wezel){
 	try{
-		TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_TECHNOLOGIA_INFO);
+		tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_TECHNOLOGIA_INFO);
 		do{
 			if(element){
 				shared_ptr<TechnologiaInfo> obiekt(new TechnologiaInfo(element));
@@ -210,9 +210,9 @@ bool Gra::wczytajTechnologie(TiXmlElement* wezel){
 	return true;
 }
 
-bool Gra::wczytajBudynki(TiXmlElement* wezel){
+bool Gra::wczytajBudynki(tinyxml2::XMLElement* wezel){
 	try{
-		TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_BUDYNEK_INFO);
+		tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_BUDYNEK_INFO);
 		do{
 			if(element){
 				shared_ptr<BudynekInfo> obiekt(new BudynekInfo(element));
@@ -233,9 +233,9 @@ bool Gra::wczytajBudynki(TiXmlElement* wezel){
 	return true;
 }
 
-bool Gra::wczytajSurowce(TiXmlElement* wezel){
+bool Gra::wczytajSurowce(tinyxml2::XMLElement* wezel){
 	try{
-		TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_SUROWCE_INFO);
+		tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_SUROWCE_INFO);
 		do{
 			if(element){
 				shared_ptr<SurowceInfo> obiekt(new SurowceInfo(element));
@@ -256,9 +256,9 @@ bool Gra::wczytajSurowce(TiXmlElement* wezel){
 	return true;
 }
 
-bool Gra::wczytajObrone(TiXmlElement* wezel){
+bool Gra::wczytajObrone(tinyxml2::XMLElement* wezel){
 	try{
-		TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_OBRONA_INFO);
+		tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_OBRONA_INFO);
 		do{
 			if(element){
 				shared_ptr<ObronaInfo> obiekt(new ObronaInfo(element));
@@ -279,9 +279,9 @@ bool Gra::wczytajObrone(TiXmlElement* wezel){
 	return true;
 }
 
-bool Gra::wczytajStatki(TiXmlElement* wezel){
+bool Gra::wczytajStatki(tinyxml2::XMLElement* wezel){
 	try{
-		TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_STATEK_INFO);
+		tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_STATEK_INFO);
 		do{
 			if(element){
 				shared_ptr<StatekInfo> obiekt(new StatekInfo(element));
@@ -302,13 +302,13 @@ bool Gra::wczytajStatki(TiXmlElement* wezel){
 	return true;
 }
 
-bool Gra::zapisz( TiXmlElement* wezel ) const{
-	TiXmlElement* element = new TiXmlElement(WEZEL_XML_GRA);
+bool Gra::zapisz( tinyxml2::XMLElement* wezel ) const{
+	tinyxml2::XMLElement* element = wezel->GetDocument()->NewElement(WEZEL_XML_GRA);
 	wezel->LinkEndChild( element );
 	return zarzadca_.zapisz(element);
 }
 
-bool Gra::odczytaj( TiXmlElement* wezel ){
+bool Gra::odczytaj( tinyxml2::XMLElement* wezel ){
 	if(wezel){
 		auto element = XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_ZARZADCA);
 		if(element)
@@ -323,7 +323,8 @@ bool Gra::odczytaj( const string& nazwa, const string& hash ){
 }
 
 bool Gra::logowanie(const string& nazwa, const string& hash){
-	auto dokument = plikUzytkownika(nazwa,hash,false);
+	std::string plik;
+	auto dokument = plikUzytkownika(nazwa,hash,plik,false);
 	if( !dokument )
 		return false;
 	auto nowyUzytkownik = make_shared<Uzytkownik>(*this);
@@ -335,51 +336,55 @@ bool Gra::logowanie(const string& nazwa, const string& hash){
 }
 
 bool Gra::nowyGracz(const string& nazwa, const string& hash){
-	if(plikUzytkownika(nazwa,hash,false))
+	std::string plik;
+	if(plikUzytkownika(nazwa,hash,plik,false))
 		return false;
-	return plikUzytkownika(nazwa,hash);
+	return plikUzytkownika(nazwa,hash,plik);
 }
 
 bool Gra::usunGracza(const string& nazwa, const string& hash){
-	auto dokument = plikUzytkownika(nazwa,hash,false);
+	std::string plik;
+	auto dokument = plikUzytkownika(nazwa,hash,plik,false);
 	if( !dokument )
 		return false;
 	return !remove(dokument->Value());
 }
 
 bool Gra::zapisz( const string& nazwa, const string& hash ) const{
-	auto dokument = plikUzytkownika(nazwa,hash);
+	std::string plik;
+	auto dokument = plikUzytkownika(nazwa,hash,plik);
 	if( !dokument || !uzytkownik_->zapisz(dokument->RootElement()) )
 		return false;
-	return dokument->SaveFile();
+	return dokument->SaveFile(plik.c_str());
 }
 
-shared_ptr<TiXmlDocument> Gra::plikUzytkownika(const string& nazwa, const string& hash , bool tworzPlik ) const{
+shared_ptr<tinyxml2::XMLDocument> Gra::plikUzytkownika(const string& nazwa, const string& hash, string& nazwaPliku , bool tworzPlik ) const{
 	if( hash.empty() || nazwa.empty() )
 		return nullptr;
 	string plik("save\\");
 	plik.append(nazwa);
 	plik.append("_.xml");
-	shared_ptr<TiXmlDocument> dokument = make_shared<TiXmlDocument>(plik);
-	if(dokument->LoadFile()){
+	shared_ptr<tinyxml2::XMLDocument> dokument = make_shared<tinyxml2::XMLDocument>();
+	if(dokument->LoadFile(plik.c_str())==tinyxml2::XML_NO_ERROR){
 		if( hash!=XmlBO::WczytajAtrybut(dokument->RootElement(),"hash",string()))
 			return nullptr;
 		if(tworzPlik){
-			dokument = make_shared<TiXmlDocument>(plik);
-			TiXmlElement* uzytkownik = new TiXmlElement(WEZEL_XML_UZYTKOWNIK);
-			uzytkownik->SetAttribute(ATRYBUT_XML_HASH,hash);
-			uzytkownik->SetAttribute(ATRYBUT_XML_NAZWA,nazwa);
+			dokument = make_shared<tinyxml2::XMLDocument>();
+			dokument->LoadFile(plik.c_str());
+			tinyxml2::XMLElement* uzytkownik = dokument->NewElement(WEZEL_XML_UZYTKOWNIK);
+			uzytkownik->SetAttribute(ATRYBUT_XML_HASH,hash.c_str());
+			uzytkownik->SetAttribute(ATRYBUT_XML_NAZWA,nazwa.c_str());
 			dokument->LinkEndChild(uzytkownik);
-			dokument->SaveFile(plik);
+			dokument->SaveFile(plik.c_str());
 		}
 	}else{
 		if(!tworzPlik)
 			return nullptr;
-		TiXmlElement* uzytkownik = new TiXmlElement(WEZEL_XML_UZYTKOWNIK);
-		uzytkownik->SetAttribute(ATRYBUT_XML_HASH,hash);
-		uzytkownik->SetAttribute(ATRYBUT_XML_NAZWA,nazwa);
+		tinyxml2::XMLElement* uzytkownik = dokument->NewElement(WEZEL_XML_UZYTKOWNIK);
+		uzytkownik->SetAttribute(ATRYBUT_XML_HASH,hash.c_str());
+		uzytkownik->SetAttribute(ATRYBUT_XML_NAZWA,nazwa.c_str());
 		dokument->LinkEndChild(uzytkownik);
-		dokument->SaveFile(plik);
+		dokument->SaveFile(plik.c_str());
 	}
 	return dokument;
 }

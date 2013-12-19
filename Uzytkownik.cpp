@@ -45,22 +45,22 @@ void Uzytkownik::ustawNazweUzytkownika( const Tekst& nazwa ){
 	nazwaUzytkownika_ = nazwa;
 }
 
-bool Uzytkownik::zapisz( TiXmlElement* wezel ) const{
+bool Uzytkownik::zapisz( tinyxml2::XMLElement* wezel ) const{
 	if(!wezel)
 		return false;
-	wezel->SetAttribute(ATRYBUT_XML_NAZWA,nazwaUzytkownika_());
+	wezel->SetAttribute(ATRYBUT_XML_NAZWA,nazwaUzytkownika_().c_str());
 	for(auto planeta :  planety_){
-		TiXmlElement* element = new TiXmlElement(WEZEL_XML_PLANETA);
-		element->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_RODZICA,planeta.first.napis());
+		tinyxml2::XMLElement* element = wezel->GetDocument()->NewElement(WEZEL_XML_PLANETA);
+		element->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_RODZICA,planeta.first.napis().c_str());
 		wezel->LinkEndChild(element);
 	}
 	return true;
 }
 
-bool Uzytkownik::odczytaj( TiXmlElement* wezel ){
+bool Uzytkownik::odczytaj( tinyxml2::XMLElement* wezel ){
 	if(wezel){
 		XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_NAZWA,nazwaUzytkownika_);
-		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_PLANETA); element ; element = element->NextSiblingElement(WEZEL_XML_PLANETA)){
+		for(tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_PLANETA); element ; element = element->NextSiblingElement(WEZEL_XML_PLANETA)){
 			Identyfikator idPlanety;
 			if(!XmlBO::WczytajAtrybut<NOTHROW>(element,ATRYBUT_XML_IDENTYFIKATOR_RODZICA,idPlanety))
 				return false;
