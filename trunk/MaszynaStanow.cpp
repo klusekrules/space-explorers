@@ -2,7 +2,6 @@
 #include "TestyJednostkowe.h"
 #include "OknoGry.h"
 #include "Aplikacja.h"
-#include "parser\ticpp.h"
 #include "XmlBO.h"
 
 MaszynaStanow::LuaStan::LuaStan()
@@ -13,11 +12,11 @@ MaszynaStanow::LuaStan::LuaStan()
 MaszynaStanow::MaszynaStanow()
 	: watekGraficzny_(true), stan_(nullptr), stanNastepny_(nullptr), pulaWatkow_(4)
 {
-	TiXmlDocument doc;
+	tinyxml2::XMLDocument doc;
 	doc.LoadFile("resource\\state.xml");
-	TiXmlElement* root = doc.RootElement();
+	tinyxml2::XMLElement* root = doc.RootElement();
 	XmlBO::WczytajAtrybut<THROW>(root,ATRYBUT_XML_STAN_POCZATKOWY,idStanuPoczatkowy_);
-	for(TiXmlElement* element = root->FirstChildElement(WEZEL_XML_STAN); element ; element = element->NextSiblingElement(WEZEL_XML_STAN)){
+	for(tinyxml2::XMLElement* element = root->FirstChildElement(WEZEL_XML_STAN); element ; element = element->NextSiblingElement(WEZEL_XML_STAN)){
 		auto stan = std::make_shared<StanInfo>(element);
 		wszystkieStany_.insert(std::make_pair(stan->pobierzIdentyfikator(), stan));
 	}

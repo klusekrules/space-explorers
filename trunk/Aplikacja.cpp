@@ -138,9 +138,9 @@ void Aplikacja::wyczyscDane(){
 }
 
 bool Aplikacja::zaladujOpcje(){
-	TiXmlDocument dane;
+	tinyxml2::XMLDocument dane;
 	try{
-		dane.LoadFile(nazwaPlikuOpcji_);
+		dane.LoadFile(nazwaPlikuOpcji_.c_str());
 		auto root_data = dane.FirstChildElement("SpaceGame");
 		if(root_data){
 
@@ -189,7 +189,7 @@ bool Aplikacja::zaladujOpcje(){
 		}else{
 			throw WyjatekParseraXML(EXCEPTION_PLACE,exception(""),WyjatekParseraXML::trescBladStrukturyXml);
 		}
-	}catch(ticpp::Exception& e){
+	}catch(std::exception &e){
 		logger_.loguj(Log::Error,e.what());
 		return false;
 	}
@@ -239,28 +239,28 @@ Aplikacja::~Aplikacja()
 }
 
 bool Aplikacja::zapiszGre(const string& nazwa, const string& hash) const{
-	TiXmlDocument dokument;
-	TiXmlElement* wezel = new TiXmlElement(WEZEL_XML_ROOT);
+	tinyxml2::XMLDocument dokument;
+	auto wezel = dokument.NewElement(WEZEL_XML_ROOT);
 	dokument.LinkEndChild(wezel);
 	locale::global (locale("C"));
 	if(instancjaGry_->zapisz(wezel) && instancjaGry_->zapisz(nazwa,hash)){
 		locale::global (locale(jezykAplikacji_));
-		return dokument.SaveFile("save\\gra.xml");
+		return dokument.SaveFile("save\\gra.xml") == tinyxml2::XML_NO_ERROR;
 	}
 	locale::global (locale(jezykAplikacji_));
 	return false;
 }
 
 bool Aplikacja::wczytajGre(const string& nazwa, const string& hash){
-	TiXmlDocument dokument;
-	if(!dokument.LoadFile("save\\gra.xml")){
-		TiXmlElement* wezel = new TiXmlElement(WEZEL_XML_ROOT);
+	tinyxml2::XMLDocument dokument;
+	if(dokument.LoadFile("save\\gra.xml")!=tinyxml2::XML_NO_ERROR){
+		auto wezel = dokument.NewElement(WEZEL_XML_ROOT);
 		dokument.LinkEndChild(wezel);
-		TiXmlElement* gra = new TiXmlElement(WEZEL_XML_GRA);
+		auto gra = dokument.NewElement(WEZEL_XML_GRA);
 		wezel->LinkEndChild(gra);
 		dokument.SaveFile("save\\gra.xml");
 	}
-	TiXmlElement* wezel = dokument.RootElement();
+	auto wezel = dokument.RootElement();
 	if(wezel){
 		shared_ptr<Gra> gra = instancjaGry_;
 		try{

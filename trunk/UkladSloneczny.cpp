@@ -52,18 +52,18 @@ const Identyfikator& UkladSloneczny::pobierzIdGalaktyki() const{
 	return idGalaktyki_;
 }
 
-bool UkladSloneczny::zapisz( TiXmlElement* wezel ) const{
-	TiXmlElement* element = new TiXmlElement(WEZEL_XML_UKLAD_SLONECZNY);
+bool UkladSloneczny::zapisz( tinyxml2::XMLElement* wezel ) const{
+	tinyxml2::XMLElement* element = wezel->GetDocument()->NewElement(WEZEL_XML_UKLAD_SLONECZNY);
 	wezel->LinkEndChild( element );
-	element->SetAttribute(ATRYBUT_XML_SREDNICA_GWIAZDY, srednicaGwiazdy_.napis());
-	element->SetAttribute(ATRYBUT_XML_SREDNIA_TEMPERATURA_GWIAZDY, sredniaTemperaturaGwiazdy_.napis());
+	element->SetAttribute(ATRYBUT_XML_SREDNICA_GWIAZDY, srednicaGwiazdy_.napis().c_str());
+	element->SetAttribute(ATRYBUT_XML_SREDNIA_TEMPERATURA_GWIAZDY, sredniaTemperaturaGwiazdy_.napis().c_str());
 	for(auto planeta :  planety_)
 		if(!planeta.second->zapisz(element))
 			return false;
 	return Bazowa::zapisz(element);
 }
 
-bool UkladSloneczny::odczytaj( TiXmlElement* wezel ){
+bool UkladSloneczny::odczytaj( tinyxml2::XMLElement* wezel ){
 	if(wezel){
 		if(!Bazowa::odczytaj(wezel))
 			return false;
@@ -71,7 +71,7 @@ bool UkladSloneczny::odczytaj( TiXmlElement* wezel ){
 			return false;
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_SREDNIA_TEMPERATURA_GWIAZDY,sredniaTemperaturaGwiazdy_))
 			return false;
-		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_PLANETA) ; element ; element = element->NextSiblingElement(WEZEL_XML_PLANETA)){
+		for(tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_PLANETA) ; element ; element = element->NextSiblingElement(WEZEL_XML_PLANETA)){
 			auto planeta = make_shared<::Planeta>(Identyfikator(),pobierzIdentyfikator());
 			if(!planeta->odczytaj(element))
 				return false;

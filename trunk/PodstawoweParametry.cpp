@@ -34,15 +34,15 @@ void PodstawoweParametry::wzrostPoziomu(){
 	++poziom_;
 }
 
-bool PodstawoweParametry::zapisz( TiXmlElement* wezel ) const{
+bool PodstawoweParametry::zapisz( tinyxml2::XMLElement* wezel ) const{
 	if( poziom_ <= Poziom(0) )
 			return false;
-	wezel->SetAttribute(ATRYBUT_XML_POZIOM,poziom_.napis());
-	wezel->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETY,identyfikatorPlanety_.napis());
+	wezel->SetAttribute(ATRYBUT_XML_POZIOM,poziom_.napis().c_str());
+	wezel->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETY,identyfikatorPlanety_.napis().c_str());
 	return true;
 }
 
-bool PodstawoweParametry::odczytaj( TiXmlElement* wezel ){
+bool PodstawoweParametry::odczytaj( tinyxml2::XMLElement* wezel ){
 	if(wezel){
 		int opcja = XmlBO::WczytajAtrybut<int>(wezel,ATRYBUT_XML_OPCJA,0);
 		if(opcja == 1)

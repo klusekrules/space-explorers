@@ -15,7 +15,7 @@ HangarInfo::HangarInfo( const HangarInfo& obiekt )
 		przyrostPojemnosciMaksymalnej_ = shared_ptr<ZmianaInterfejs>(obiekt.przyrostPojemnosciMaksymalnej_->Kopia());
 }
 
-HangarInfo::HangarInfo(  TiXmlElement* wezel )
+HangarInfo::HangarInfo(  tinyxml2::XMLElement* wezel )
 	: Info(wezel), przyrostPojemnosciMaksymalnej_(nullptr)
 {
 	if(wezel){

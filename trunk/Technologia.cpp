@@ -39,13 +39,13 @@ void Technologia::wybuduj(const Ilosc& ilosc){
 	wzrostPoziomu();
 }
 
-bool Technologia::zapisz( TiXmlElement* wezel ) const {
-	TiXmlElement* element = new TiXmlElement(WEZEL_XML_TECHNOLOGIA);
+bool Technologia::zapisz( tinyxml2::XMLElement* wezel ) const {
+	tinyxml2::XMLElement* element = wezel->GetDocument()->NewElement(WEZEL_XML_TECHNOLOGIA);
 	wezel->LinkEndChild( element );
 	return ObiektBazowy::zapisz(element);
 }
 
-bool Technologia::odczytaj( TiXmlElement* wezel ) {
+bool Technologia::odczytaj( tinyxml2::XMLElement* wezel ) {
 	return ObiektBazowy::odczytaj(wezel);
 }
 

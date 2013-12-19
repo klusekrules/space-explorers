@@ -1,6 +1,5 @@
 #pragma once
 #include "Budynek.h"
-#include "parser\ticpp.h"
 #include "ObiektInfo.h"
 #include "PodstawoweParametry.h"
 
@@ -22,7 +21,7 @@ public:
 	* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 	* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
 	*/
-	BudynekInfo( TiXmlElement* wezel );
+	BudynekInfo( tinyxml2::XMLElement* wezel );
 
 	/**
 	* \brief Destruktor.

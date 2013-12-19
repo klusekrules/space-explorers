@@ -5,7 +5,6 @@
 #include "JednostkaAtakujacaInfo.h"
 #include "HangarInfo.h"
 #include "Statek.h"
-#include "parser\ticpp.h"
 #include "Bool.h"
 
 /**
@@ -40,7 +39,7 @@ public:
 	* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 	* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
 	*/
-	explicit StatekInfo( TiXmlElement* wezel );
+	explicit StatekInfo( tinyxml2::XMLElement* wezel );
 	
 	/**
 	* \brief Destruktor.

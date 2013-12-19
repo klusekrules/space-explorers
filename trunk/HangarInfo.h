@@ -27,7 +27,7 @@ public:
 	* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 	* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
 	*/
-	explicit HangarInfo( TiXmlElement* wezel );
+	explicit HangarInfo( tinyxml2::XMLElement* wezel );
 
 	/**
 	* \brief Konstruktor kopiuj¹cy.

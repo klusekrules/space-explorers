@@ -1,8 +1,10 @@
 #pragma once
-#include "..\parser\ticpp.h"
+#include "tinyxml2.h"
+#include <string>
+
 class UtilsZmiana
 {
 public:
-	static void generujWyjatekBleduStruktury( TiXmlElement* wezel );
+	static void generujWyjatekBleduStruktury( tinyxml2::XMLElement* wezel );
 };
 

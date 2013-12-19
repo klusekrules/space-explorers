@@ -89,14 +89,14 @@ const ObiektBazowyInfo& ObiektBazowy::pobierzObiektBaseInfo()const{
 	return obiektBazowyInfo_;
 }
 
-bool ObiektBazowy::zapisz( TiXmlElement* wezel ) const {
+bool ObiektBazowy::zapisz( tinyxml2::XMLElement* wezel ) const {
 	if( pobierzIlosc()< Ilosc(0) )
 			return false;
-	wezel->SetAttribute(ATRYBUT_XML_ILOSC,pobierzIlosc().napis());
+	wezel->SetAttribute(ATRYBUT_XML_ILOSC,pobierzIlosc().napis().c_str());
 	return PodstawoweParametry::zapisz(wezel) && Bazowa::zapisz(wezel);
 }
 
-bool ObiektBazowy::odczytaj( TiXmlElement* wezel ){
+bool ObiektBazowy::odczytaj( tinyxml2::XMLElement* wezel ){
 	if(wezel){
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_ILOSC,ilosc_))
 			return false;

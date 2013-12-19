@@ -26,8 +26,8 @@ bool Galaktyka::dodajUklad( shared_ptr<UkladSloneczny> uklad ){
 	return true;
 }
 
-bool Galaktyka::zapisz( TiXmlElement* wezel ) const{
-	TiXmlElement* element = new TiXmlElement(WEZEL_XML_GALAKTYKA);
+bool Galaktyka::zapisz( tinyxml2::XMLElement* wezel ) const{
+	tinyxml2::XMLElement* element = wezel->GetDocument()->NewElement(WEZEL_XML_GALAKTYKA);
 	wezel->LinkEndChild( element );
 	for(auto uklad :  uklady_)
 		if(!uklad.second->zapisz(element))
@@ -35,11 +35,11 @@ bool Galaktyka::zapisz( TiXmlElement* wezel ) const{
 	return Bazowa::zapisz(element);
 }
 
-bool Galaktyka::odczytaj( TiXmlElement* wezel ){
+bool Galaktyka::odczytaj( tinyxml2::XMLElement* wezel ){
 	if(wezel){
 		if(!Bazowa::odczytaj(wezel))
 			return false;
-		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_UKLAD_SLONECZNY); element ; element = element->NextSiblingElement(WEZEL_XML_UKLAD_SLONECZNY)){
+		for(tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_UKLAD_SLONECZNY); element ; element = element->NextSiblingElement(WEZEL_XML_UKLAD_SLONECZNY)){
 			auto uklad = make_shared<UkladSloneczny>(Identyfikator(),pobierzIdentyfikator());
 			if(!uklad->odczytaj(element))
 				return false;

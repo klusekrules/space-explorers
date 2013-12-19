@@ -3,7 +3,6 @@
 #include "ZmianaInterfejs.h"
 #include "ZmianaParametr.h"
 #include "ZmianaFabryka.h"
-#include "..\parser\ticpp.h"
 
 /**
 * \brief Klasa reprezentuj¹ca zmianê liniow¹.
@@ -26,7 +25,7 @@ private:
 	* \param[in] wezel - Wêze³ na podstawie którego tworzony jest obiekt.
 	* \return WskaŸnika na obiekt utworzonej zmiany.
 	*/
-	static ZmianaInterfejs* TworzZmianaLiniowa( TiXmlElement* wezel );
+	static ZmianaInterfejs* TworzZmianaLiniowa( tinyxml2::XMLElement* wezel );
 
 	ZmianaParametr parametr_; /// Wspó³czynnik o jaki zmienia siê wartoœæ atrybutu.
 
@@ -68,7 +67,7 @@ public:
 	*	</Zmiana>
 	* \endcode
 	*/
-	explicit ZmianaLiniowa( TiXmlElement * wezel );
+	explicit ZmianaLiniowa( tinyxml2::XMLElement * wezel );
 
 	/**
 	* Destruktor

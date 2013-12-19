@@ -29,7 +29,7 @@ private:
 	* \param[in] wezel - Wêze³ na podstawie którego tworzony jest obiekt.
 	* \return WskaŸnika na obiekt utworzonej zmiany.
 	*/
-	static ZmianaInterfejs* TworzZmianaTest( TiXmlElement* wezel );
+	static ZmianaInterfejs* TworzZmianaTest( tinyxml2::XMLElement* wezel );
 
 	ZmianaParametr parametr_; /// Wspó³czynnik o jaki zmienia siê wartoœæ atrybutu.
 public:
@@ -70,7 +70,7 @@ public:
 	*	</Zmiana>
 	* \endcode
 	*/
-	explicit ZmianaTest( TiXmlElement * wezel );
+	explicit ZmianaTest( tinyxml2::XMLElement * wezel );
 
 	/**
 	* Destruktor

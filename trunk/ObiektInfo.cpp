@@ -10,7 +10,7 @@ ObiektInfo::ObiektInfo( const Masa& masa, const Objetosc& objetosc, const Powier
 {
 }
 
-ObiektInfo::ObiektInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
+ObiektInfo::ObiektInfo( tinyxml2::XMLElement* wezel ) throw(WyjatekParseraXML)
 	: ObiektBazowyInfo(wezel), zmianaPowierzchni_(nullptr), zmianaObjetosci_(nullptr), zmianaMasy_(nullptr)
 {
 	if(wezel){

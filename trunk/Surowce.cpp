@@ -130,13 +130,13 @@ Czas Surowce::pobierzCzas()const{
 	return surowceInfo_.pobierzCzas(ilosc_,*this);
 }
 
-bool Surowce::zapisz( TiXmlElement* wezel ) const {
-	TiXmlElement* element = new TiXmlElement(WEZEL_XML_SUROWCE);
+bool Surowce::zapisz( tinyxml2::XMLElement* wezel ) const {
+	tinyxml2::XMLElement* element = wezel->GetDocument()->NewElement(WEZEL_XML_SUROWCE);
 	wezel->LinkEndChild( element );
 	return Obiekt::zapisz(element);
 }
 
-bool Surowce::odczytaj( TiXmlElement* wezel ) {
+bool Surowce::odczytaj( tinyxml2::XMLElement* wezel ) {
 	return Obiekt::odczytaj(wezel);
 }
 

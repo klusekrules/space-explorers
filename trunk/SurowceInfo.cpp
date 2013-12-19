@@ -7,7 +7,7 @@
 SurowceInfo::~SurowceInfo(){
 }
 
-SurowceInfo::SurowceInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
+SurowceInfo::SurowceInfo( tinyxml2::XMLElement* wezel ) throw(WyjatekParseraXML)
 	: ObiektInfo(wezel) , przyrostowy_ (false), zmianaCzasu_(nullptr)
 {
 	if(wezel){

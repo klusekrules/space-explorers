@@ -1,7 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "Logger\LoggerInterface.h"
-#include "parser\ticpp.h"
+#include "tinyxml2.h"
 #include "LuaSkrypt.h"
 #include "Identyfikator.h"
 #include "ZdarzenieInfo.h"
@@ -16,7 +16,7 @@ public:
 		AkcjaWewnetrzna
 	};
 
-	StanInfo( TiXmlElement* );
+	StanInfo( tinyxml2::XMLElement* );
 	virtual ~StanInfo(void);
 
 	bool wykonaj( Akcja );

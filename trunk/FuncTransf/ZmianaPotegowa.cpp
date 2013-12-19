@@ -4,7 +4,7 @@
 #include "..\XmlBO.h"
 #include "..\definicjeWezlowXML.h"
 
-ZmianaPotegowa::ZmianaPotegowa( TiXmlElement * wezel )
+ZmianaPotegowa::ZmianaPotegowa( tinyxml2::XMLElement * wezel )
 	: wspolczynnik_(XmlBO::ZnajdzWezelJezeli<NOTHROW>( wezel, WEZEL_XML_PARAM, ATRYBUT_XML_IDENTYFIKATOR, "0x1" )),
 	wykladnik_(XmlBO::ZnajdzWezelJezeli<NOTHROW>( wezel, WEZEL_XML_PARAM, ATRYBUT_XML_IDENTYFIKATOR, "0x2" ))
 {
@@ -14,7 +14,7 @@ ZmianaPotegowa::~ZmianaPotegowa(void)
 {
 }
 
-ZmianaInterfejs* ZmianaPotegowa::TworzZmianaPotegowa( TiXmlElement* wezel ){
+ZmianaInterfejs* ZmianaPotegowa::TworzZmianaPotegowa( tinyxml2::XMLElement* wezel ){
 	return new ZmianaPotegowa(wezel);
 }
 

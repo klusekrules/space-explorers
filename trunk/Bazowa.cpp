@@ -9,7 +9,7 @@ Bazowa::Bazowa( const Identyfikator& identyfikator )throw()
 {
 }
 
-Bazowa::Bazowa( TiXmlElement* wezel ){
+Bazowa::Bazowa( tinyxml2::XMLElement* wezel ){
 	Bazowa::odczytaj(wezel);
 }
 
@@ -24,12 +24,12 @@ void Bazowa::ustawIdentyfikator( const Identyfikator& identyfikator ){
 	identyfikator_ = identyfikator;
 }
 
-bool Bazowa::zapisz( TiXmlElement* wezel ) const{
-	wezel->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR,identyfikator_.napis());
+bool Bazowa::zapisz( tinyxml2::XMLElement* wezel ) const{
+	wezel->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR,identyfikator_.napis().c_str());
 	return true;
 }
 
-bool Bazowa::odczytaj( TiXmlElement* wezel ){
+bool Bazowa::odczytaj( tinyxml2::XMLElement* wezel ){
 	if(wezel){
 		return XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,identyfikator_);
 	}

@@ -4,7 +4,7 @@
 #include "XmlBO.h"
 #include "definicjeWezlowXML.h"
 
-StanInfo::StanInfo( TiXmlElement* wezel )
+StanInfo::StanInfo( tinyxml2::XMLElement* wezel )
 {
 	if(wezel){
 		XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,id_);		
@@ -15,7 +15,7 @@ StanInfo::StanInfo( TiXmlElement* wezel )
 		
 		if( luaFile_.empty() && !( luaFuncInside_.empty() && luaFuncOut_.empty() && luaFuncIn_.empty() ) ) 
 			throw OgolnyWyjatek(EXCEPTION_PLACE);
-		for(TiXmlElement* element = wezel->FirstChildElement(WEZEL_XML_ZDARZENIE); element ; element = element->NextSiblingElement(WEZEL_XML_ZDARZENIE)){
+		for(tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_ZDARZENIE); element ; element = element->NextSiblingElement(WEZEL_XML_ZDARZENIE)){
 			auto zdarzenie = std::make_shared<ZdarzenieInfo>(element);
 			zdarzenia_.insert(std::make_pair(zdarzenie->pobierzIdentyfikator(), zdarzenie));
 		}

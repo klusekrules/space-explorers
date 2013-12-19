@@ -4,7 +4,7 @@
 #include "XmlBO.h"
 #include "definicjeWezlowXML.h"
 
-ZdarzenieInfo::ZdarzenieInfo( TiXmlElement* wezel )
+ZdarzenieInfo::ZdarzenieInfo( tinyxml2::XMLElement* wezel )
 	: nastepnyStan_(nullptr), nastepnyNumer_(nullptr)
 {
 	if(wezel){

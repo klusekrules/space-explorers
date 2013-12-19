@@ -2,7 +2,7 @@
 #include "ExportSymbol.h"
 #include <vector>
 #include <memory>
-#include "..\parser\ticpp.h"
+#include "tinyxml2.h"
 #include "..\Logger\LoggerInterface.h"
 #include "ZmianaFabryka.h"
 using std::vector;
@@ -34,7 +34,7 @@ private:
 	* \param[in] wezel - Wêze³ na podstawie którego tworzony jest obiekt.
 	* \return WskaŸnika na obiekt utworzonej zmiany.
 	*/
-	static ZmianaInterfejs* TworzZmianaAgregacja( TiXmlElement* wezel );
+	static ZmianaInterfejs* TworzZmianaAgregacja( tinyxml2::XMLElement* wezel );
 
 	shared_ptr < ZmianaInterfejs > nastepna_; /// Nastêpna zmiana
 	vector<shared_ptr < ZmianaInterfejs > > listaZmian_; /// Lista zmian, których wartoœci bêd¹ zsumowane.
@@ -80,7 +80,7 @@ public:
 	* \endcode
 	* gdzie elementów \<Zmiana id="y" for="brat"\> mo¿e byæ wiele.
 	*/
-	explicit ZmianaAgregacja( TiXmlElement* wezel );
+	explicit ZmianaAgregacja( tinyxml2::XMLElement* wezel );
 
 	/**
 	* Konstruktor kopiujacy

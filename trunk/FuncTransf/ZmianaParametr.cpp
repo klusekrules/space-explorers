@@ -4,7 +4,7 @@
 #include "..\definicjeWezlowXML.h"
 #include "..\XmlBO.h"
 
-ZmianaParametr::ZmianaParametr( TiXmlElement* e )
+ZmianaParametr::ZmianaParametr( tinyxml2::XMLElement* e )
 {
 	idObiektu_ = XmlBO::WczytajAtrybut<int>(e,ATRYBUT_XML_IDENTYFIKATOR, 0);
 	wspolczynnikObiektu_ = XmlBO::WczytajAtrybut<long double>(e,ATRYBUT_XML_WSPOLCZYNNIK, 0);

@@ -1,6 +1,6 @@
 #pragma once
 #include "ExportSymbol.h"
-#include "..\parser\ticpp.h"
+#include "tinyxml2.h"
 #include "ZmianaInterfejs.h"
 #include <map>
 #include <memory>
@@ -24,7 +24,7 @@ public:
 	* \param[in] wezel - Wezel na podstawie, którego tworzony jest obiekt.
 	* \return WskaŸnik na obiekt pochodny po ZmianaInterfejs.
 	*/
-	typedef ZmianaInterfejs* (*KreatorZmiany)( TiXmlElement* wezel );
+	typedef ZmianaInterfejs* (*KreatorZmiany)( tinyxml2::XMLElement* wezel );
 
 	/**
 	* Prototyp funkcji rejestruj¹cej klasê zmiany w fabryce.
@@ -49,7 +49,7 @@ public:
 	* \pre Wêze³ powinien mieæ poprawny atrybut o nazwie zdefiniowanej przez ATRYBUT_XML_IDENTYFIKATOR zawieraj¹cy identyfikator podany podczas rejestracji w funkcji rejestracjaZmiany.
 	* \sa rejestracjaZmiany(), ATRYBUT_XML_IDENTYFIKATOR
 	*/
-	shared_ptr<ZmianaInterfejs> Tworz( TiXmlElement* wezel ) const;
+	shared_ptr<ZmianaInterfejs> Tworz( tinyxml2::XMLElement* wezel ) const;
 
 	/**
 	* Metoda rejestruj¹ca funkcjê tworz¹c¹ obiekt pochodny po ZmianaInterfejs.

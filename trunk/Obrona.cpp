@@ -45,13 +45,13 @@ const ObronaInfo& Obrona::pobierzObronaInfo() const{
 	return obronaInfo_;
 }
 
-bool Obrona::zapisz( TiXmlElement* wezel ) const {
-	TiXmlElement* element = new TiXmlElement(WEZEL_XML_OBRONA);
+bool Obrona::zapisz( tinyxml2::XMLElement* wezel ) const {
+	tinyxml2::XMLElement* element = wezel->GetDocument()->NewElement(WEZEL_XML_OBRONA);
 	wezel->LinkEndChild( element );
 	return Obiekt::zapisz(element);
 }
 
-bool Obrona::odczytaj( TiXmlElement* wezel ) {
+bool Obrona::odczytaj( tinyxml2::XMLElement* wezel ) {
 	return Obiekt::odczytaj(wezel);
 }
 

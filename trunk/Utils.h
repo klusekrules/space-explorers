@@ -2,7 +2,7 @@
 #include <string>
 #include <algorithm>
 #include "FuncTransf\ZmianaInterfejs.h"
-#include "parser\ticpp.h"
+#include "tinyxml2.h"
 #include "Tekst.h"
 #include "Ilosc.h"
 using namespace std;
@@ -10,9 +10,9 @@ using namespace std;
 class Utils
 {
 public:
-	static shared_ptr<ZmianaInterfejs> TworzZmiane( TiXmlElement* );
+	static shared_ptr<ZmianaInterfejs> TworzZmiane( tinyxml2::XMLElement* );
 
-	static void generujWyjatekBleduStruktury(  const Tekst& plik, const Ilosc& linia, TiXmlElement* wezel );
+	static void generujWyjatekBleduStruktury(  const Tekst& plik, const Ilosc& linia, tinyxml2::XMLElement* wezel );
 
 	template<class Map, class Key>
 	static bool zamianaKlucza ( Map &kontener, Key &before, Key &after ){

@@ -3,7 +3,7 @@
 #include "Logger.h"
 #include "Gra.h"
 
-TechnologiaInfo::TechnologiaInfo( TiXmlElement* wezel )
+TechnologiaInfo::TechnologiaInfo( tinyxml2::XMLElement* wezel )
 	: ObiektBazowyInfo(wezel)
 {
 }

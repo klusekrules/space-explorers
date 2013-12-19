@@ -1,7 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "Logger\LoggerInterface.h"
-#include "parser\ticpp.h"
+#include "tinyxml2.h"
 #include "LuaSkrypt.h"
 #include "Identyfikator.h"
 
@@ -9,7 +9,7 @@ class ZdarzenieInfo :
 	virtual public LoggerInterface
 {
 public:
-	ZdarzenieInfo( TiXmlElement* wezel );
+	ZdarzenieInfo( tinyxml2::XMLElement* wezel );
 	virtual ~ZdarzenieInfo(void);
 
 	bool wykonaj();

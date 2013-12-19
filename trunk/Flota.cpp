@@ -188,12 +188,12 @@ bool Flota::zawrocFlote(){
 	return true;
 }
 
-bool Flota::zapisz( TiXmlElement* wezel ) const{
+bool Flota::zapisz( tinyxml2::XMLElement* wezel ) const{
 	if(wezel){
-		TiXmlElement* element = new TiXmlElement(WEZEL_XML_FLOTA);
+		tinyxml2::XMLElement* element = wezel->GetDocument()->NewElement(WEZEL_XML_FLOTA);
 		wezel->LinkEndChild( element );
-		element->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETA_POCZATKOWA,planetaPoczatkowa_.napis());
-		element->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETA_DOCELOWA,planetaDocelowa_.napis());
+		element->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETA_POCZATKOWA,planetaPoczatkowa_.napis().c_str());
+		element->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETA_DOCELOWA,planetaDocelowa_.napis().c_str());
 		element->SetAttribute(ATRYBUT_XML_CEL_PODROZY,celPodrozy_);
 		for(auto statek : lista_)
 			if(statek.second)
@@ -203,14 +203,14 @@ bool Flota::zapisz( TiXmlElement* wezel ) const{
 	return false;
 }
 
-bool Flota::odczytaj( TiXmlElement* wezel ) {
+bool Flota::odczytaj( tinyxml2::XMLElement* wezel ) {
 	if(wezel && Bazowa::odczytaj(wezel)){
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR_PLANETA_POCZATKOWA,planetaPoczatkowa_))
 			return false;
 		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR_PLANETA_DOCELOWA,planetaDocelowa_))
 			return false;
 		int cel;
-		if(!wezel->Attribute(ATRYBUT_XML_CEL_PODROZY,&cel)) 
+		if(wezel->QueryIntAttribute(ATRYBUT_XML_CEL_PODROZY,&cel)!=tinyxml2::XML_NO_ERROR) 
 			return false;
 		switch(cel){
 		case Zwiad: celPodrozy_ = Zwiad;
@@ -230,7 +230,7 @@ bool Flota::odczytaj( TiXmlElement* wezel ) {
 		default:
 			return false;
 		}
-		for(TiXmlElement* element = wezel->FirstChildElement(); element ; element = element->NextSiblingElement()){
+		for(tinyxml2::XMLElement* element = wezel->FirstChildElement(); element ; element = element->NextSiblingElement()){
 			Identyfikator identyfikator;
 			if(!XmlBO::WczytajAtrybut<NOTHROW>(element,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
 				return false;

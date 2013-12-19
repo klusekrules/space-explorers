@@ -10,7 +10,7 @@ JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const Info& info, const Obrazenia
 {
 }
 
-JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( TiXmlElement* wezel ) throw(WyjatekParseraXML)
+JednostkaAtakujacaInfo::JednostkaAtakujacaInfo( tinyxml2::XMLElement* wezel ) throw(WyjatekParseraXML)
 	: Info(wezel),zmianaAtaku_(nullptr), zmianaPancerza_(nullptr), zmianaOslony_(nullptr)
 {
 	if(wezel){

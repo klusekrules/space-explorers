@@ -28,7 +28,7 @@ public:
 	* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 	* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
 	*/
-	explicit ObronaInfo( TiXmlElement* wezel );
+	explicit ObronaInfo( tinyxml2::XMLElement* wezel );
 	
 	/**
 	* \brief Destruktor.

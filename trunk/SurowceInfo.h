@@ -21,7 +21,7 @@ public:
 	* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 	* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
 	*/
-	explicit SurowceInfo( TiXmlElement* wezel );
+	explicit SurowceInfo( tinyxml2::XMLElement* wezel );
 
 	/**
 	* \brief Destruktor.
