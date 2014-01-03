@@ -347,7 +347,7 @@ bool Gra::usunGracza(const string& nazwa, const string& hash){
 	auto dokument = plikUzytkownika(nazwa,hash,plik,false);
 	if( !dokument )
 		return false;
-	return !remove(dokument->Value());
+	return !remove(plik.c_str());
 }
 
 bool Gra::zapisz( const string& nazwa, const string& hash ) const{

@@ -101,6 +101,22 @@ private:
 	}
 	
 public:
+	typedef tinyxml2::XMLNode Wezel;
+	typedef tinyxml2::XMLElement ElementWezla;
+	typedef std::function< bool(ElementWezla*) > OperacjaWezla ;
+
+	static bool ForEach( Wezel* wezel, const char* nazwa , OperacjaWezla& funkcja ){
+		for(ElementWezla* element = wezel->FirstChildElement(nazwa);element!=nullptr; element = element->NextSiblingElement(nazwa)){
+			if(!funkcja(element))
+				return false;
+		}
+		return true;
+	}
+
+	static bool ForEach( Wezel* wezel , OperacjaWezla& funkcja ){
+		return ForEach(wezel,nullptr,funkcja);
+	}
+
 	template<typename T>
 	static tinyxml2::XMLElement* ZnajdzWezel( tinyxml2::XMLElement* wezel , const string& nazwa, tinyxml2::XMLElement* poprzedniWezel = nullptr ){
 		if(wezel==nullptr || nazwa.empty())

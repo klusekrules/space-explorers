@@ -230,14 +230,18 @@ bool Flota::odczytaj( tinyxml2::XMLElement* wezel ) {
 		default:
 			return false;
 		}
-		for(tinyxml2::XMLElement* element = wezel->FirstChildElement(); element ; element = element->NextSiblingElement()){
+		ListaStatkow& ref =lista_;
+		if(!XmlBO::ForEach(wezel,XmlBO::OperacjaWezla([&ref](XmlBO::ElementWezla* element)->bool{
 			Identyfikator identyfikator;
 			if(!XmlBO::WczytajAtrybut<NOTHROW>(element,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
 				return false;
 			shared_ptr<Statek> statek = shared_ptr<Statek>(Aplikacja::pobierzInstancje().pobierzGre().pobierzStatek(identyfikator).tworzEgzemplarz(Ilosc(),Identyfikator()));			
 			if(!statek->odczytaj(element) )
 				return false;
-			lista_.insert(make_pair(statek->ID(),statek));
+			ref.insert(make_pair(statek->ID(),statek));
+			return true;
+		}))){
+			return false;
 		}
 		return true;
 	}
