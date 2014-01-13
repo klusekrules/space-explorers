@@ -6,7 +6,6 @@ se::ParserAtrybutXml::ParserAtrybutXml( const tinyxml2::XMLAttribute* atrybut, t
 {
 }
 
-
 se::ParserAtrybutXml::~ParserAtrybutXml(void)
 {
 }
