@@ -466,10 +466,6 @@
     <ClInclude Include="Stan.h" />
     <ClInclude Include="StanInfo.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Temperatura.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="TypyEksportowne.h" />
     <ClInclude Include="UkladSloneczny.h" />
     <ClInclude Include="Walidator.h" />
@@ -493,28 +489,19 @@
     <ClInclude Include="ObiektListTest.h" />
     <ClInclude Include="Operacja.h" />
     <ClInclude Include="PaczkaTestow.h" />
-    <ClInclude Include="PodstawowyInterfejs.h" />
     <ClInclude Include="Biblioteki.h" />
     <ClInclude Include="BladDzieleniaLadowni.h" />
     <ClInclude Include="BladLaczeniaObiektow.h" />
-    <ClInclude Include="Bool.h" />
     <ClInclude Include="BrakAtrybutuXML.h" />
     <ClInclude Include="BrakMaski.h" />
     <ClInclude Include="Budynek.h" />
     <ClInclude Include="BudynekInfo.h" />
-    <ClInclude Include="Czas.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="DefinicjeWezlowXML.h" />
-    <ClInclude Include="Dystans.h" />
     <ClInclude Include="Flota.h" />
-    <ClInclude Include="Fluktuacja.h" />
     <ClInclude Include="Gra.h" />
     <ClInclude Include="Library.h" />
     <ClInclude Include="Licznik.h" />
     <ClInclude Include="Logger.h" />
-    <ClInclude Include="Parametr.h" />
     <ClInclude Include="Planeta.h" />
     <ClInclude Include="PodstawoweParametry.h" />
     <ClInclude Include="Serializacja.h" />
@@ -528,20 +515,15 @@
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Uzytkownik.h" />
     <ClInclude Include="version.h" />
-    <ClInclude Include="Identyfikator.h" />
-    <ClInclude Include="Ilosc.h" />
     <ClInclude Include="Info.h" />
     <ClInclude Include="JednostkaAtakujaca.h" />
     <ClInclude Include="JednostkaAtakujacaInfo.h" />
     <ClInclude Include="JednostkaLatajaca.h" />
     <ClInclude Include="JednostkaLatajacaInfo.h" />
-    <ClInclude Include="Klucz.h" />
     <ClInclude Include="Ladownia.h" />
     <ClInclude Include="LadowniaInfo.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="MakeVector.h" />
-    <ClInclude Include="Masa.h" />
-    <ClInclude Include="Moc.h" />
     <ClInclude Include="NiepoprawnaIloscObiektow.h" />
     <ClInclude Include="NiepoprawneParametryFunkcji.h" />
     <ClInclude Include="NiezainicjalizowanaKlasa.h" />
@@ -551,12 +533,7 @@
     <ClInclude Include="ObiektBazowy.h" />
     <ClInclude Include="ObiektInfo.h" />
     <ClInclude Include="ListaObiektow.hpp" />
-    <ClInclude Include="Objetosc.h" />
-    <ClInclude Include="Obrazenia.h" />
     <ClInclude Include="OgolnyWyjatek.h" />
-    <ClInclude Include="Powierzchnia.h" />
-    <ClInclude Include="Poziom.h" />
-    <ClInclude Include="Predkosc.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Stale.h" />
     <ClInclude Include="Statek.h" />
@@ -564,8 +541,6 @@
     <ClInclude Include="Surowce.h" />
     <ClInclude Include="SurowceInfo.h" />
     <ClInclude Include="svn_version.h" />
-    <ClInclude Include="Tekst.h" />
-    <ClInclude Include="TypyProste.h" />
     <ClInclude Include="WyjatekParseraXML.h" />
     <ClInclude Include="WyjatekSprawdzeniaWarunku.h" />
     <ClInclude Include="WyjatekSTL.h" />
@@ -576,7 +551,6 @@
     <ClInclude Include="ZleceniaTest.h" />
     <ClInclude Include="Zlecenie.h" />
     <ClInclude Include="ZmianaPoziomObiektu.h" />
-    <ClInclude Include="ZuzyciePaliwa.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ApInfo.cpp" />
@@ -584,22 +558,15 @@
     <ClCompile Include="Bazowa.cpp" />
     <ClCompile Include="BladDzieleniaLadowni.cpp" />
     <ClCompile Include="BladLaczeniaObiektow.cpp" />
-    <ClCompile Include="Bool.cpp" />
     <ClCompile Include="BrakAtrybutuXML.cpp" />
     <ClCompile Include="BrakMaski.cpp" />
     <ClCompile Include="Budynek.cpp" />
     <ClCompile Include="BudynekInfo.cpp" />
     <ClCompile Include="BudynekTest.cpp" />
-    <ClCompile Include="Czas.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="CzyszczenieDanychTest.cpp" />
-    <ClCompile Include="Dystans.cpp" />
     <ClCompile Include="EkranStartowy.cpp" />
     <ClCompile Include="EkranSzablon.cpp" />
     <ClCompile Include="Flota.cpp" />
-    <ClCompile Include="Fluktuacja.cpp" />
     <ClCompile Include="Galaktyka.cpp" />
     <ClCompile Include="GeneratorUkladow.cpp" />
     <ClCompile Include="GenerowanieTest.cpp" />
@@ -607,8 +574,6 @@
     <ClCompile Include="Hangar.cpp" />
     <ClCompile Include="HangarInfo.cpp" />
     <ClCompile Include="HangarTest.cpp" />
-    <ClCompile Include="Identyfikator.cpp" />
-    <ClCompile Include="Ilosc.cpp" />
     <ClCompile Include="Info.cpp" />
     <ClCompile Include="InicjalizacjaDanychTestowych.cpp" />
     <ClCompile Include="InicjalizacjaTestow.cpp" />
@@ -617,7 +582,6 @@
     <ClCompile Include="JednostkaLatajaca.cpp" />
     <ClCompile Include="JednostkaLatajacaInfo.cpp" />
     <ClCompile Include="keccak.cpp" />
-    <ClCompile Include="Klucz.cpp" />
     <ClCompile Include="KluczTest.cpp" />
     <ClCompile Include="Ladownia.cpp" />
     <ClCompile Include="LadowniaInfo.cpp" />
@@ -629,11 +593,9 @@
     <ClCompile Include="luaFunc.cpp" />
     <ClCompile Include="LuaSkrypt.cpp" />
     <ClCompile Include="maintest.cpp" />
-    <ClCompile Include="Masa.cpp" />
     <ClCompile Include="MaszynaStanow.cpp" />
     <ClCompile Include="MenadzerWatkow.cpp" />
     <ClCompile Include="MenedzerTranzakcji.cpp" />
-    <ClCompile Include="Moc.cpp" />
     <ClCompile Include="NiepoprawnaIloscObiektow.cpp" />
     <ClCompile Include="NiepoprawneParametryFunkcji.cpp" />
     <ClCompile Include="NiepoprawneParametryFunkcjiTest.cpp" />
@@ -646,8 +608,6 @@
     <ClCompile Include="ObiektBazowyInfo.cpp" />
     <ClCompile Include="ObiektInfo.cpp" />
     <ClCompile Include="ObiektListTest.cpp" />
-    <ClCompile Include="Objetosc.cpp" />
-    <ClCompile Include="Obrazenia.cpp" />
     <ClCompile Include="Obrona.cpp" />
     <ClCompile Include="ObronaInfo.cpp" />
     <ClCompile Include="ObronaTest.cpp" />
@@ -655,7 +615,6 @@
     <ClCompile Include="OknoGry.cpp" />
     <ClCompile Include="Operacja.cpp" />
     <ClCompile Include="PaczkaTestow.cpp" />
-    <ClCompile Include="Parametr.cpp" />
     <ClCompile Include="ParserAtrybut.cpp" />
     <ClCompile Include="ParserAtrybutXml.cpp" />
     <ClCompile Include="ParserDokument.cpp" />
@@ -666,9 +625,6 @@
     <ClCompile Include="Planeta.cpp" />
     <ClCompile Include="PlanetaTest.cpp" />
     <ClCompile Include="PodstawoweParametry.cpp" />
-    <ClCompile Include="Powierzchnia.cpp" />
-    <ClCompile Include="Poziom.cpp" />
-    <ClCompile Include="Predkosc.cpp" />
     <ClCompile Include="RoundedRectangleShape.cpp" />
     <ClCompile Include="Stale.cpp" />
     <ClCompile Include="Stan.cpp" />
@@ -681,11 +637,6 @@
     <ClCompile Include="Technologia.cpp" />
     <ClCompile Include="TechnologiaInfo.cpp" />
     <ClCompile Include="TechnologiaTest.cpp" />
-    <ClCompile Include="Tekst.cpp" />
-    <ClCompile Include="Temperatura.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="TestyJednostkowe.cpp" />
     <ClCompile Include="TworzenieObiektowTest.cpp" />
     <ClCompile Include="UkladSloneczny.cpp" />
@@ -706,7 +657,6 @@
     <ClCompile Include="ZdarzenieInfo.cpp" />
     <ClCompile Include="ZleceniaTest.cpp" />
     <ClCompile Include="ZmianaPoziomObiektu.cpp" />
-    <ClCompile Include="ZuzyciePaliwa.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="conventions.txt" />

@@ -1,16 +1,19 @@
 #pragma once
 #include <string>
-#include "ExportSymbol.h"
+#include "LoggerSymbol.h"
 #include "LoggerNazwaKlasy.h"
-/**
-* Klasa bazowa u¿ywana do stworzenia jednolitego interfajsu
-* dla klasy generuj¹cej logi z aplikacji.
-*/
-class LOGGER_API LoggerInterface {
-public:
+
+namespace SLog{
 	/**
-	* Funkcja s³u¿¹ca jako podstawa do tworzenia napisów z opisem klasy.
-	* \return Napis zawieraj¹cy opis klasy.
+	* Klasa bazowa u¿ywana do stworzenia jednolitego interfajsu
+	* dla klasy generuj¹cej logi z aplikacji.
 	*/
-	virtual std::string&& napis() const abstract;
-};
+	class LOGGER_API LoggerInterface {
+	public:
+		/**
+		* Funkcja s³u¿¹ca jako podstawa do tworzenia napisów z opisem klasy.
+		* \return Napis zawieraj¹cy opis klasy.
+		*/
+		virtual std::string&& napis() const abstract;
+	};
+}
