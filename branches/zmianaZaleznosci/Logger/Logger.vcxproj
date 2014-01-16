@@ -368,13 +368,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="afxres.h" />
-    <ClInclude Include="ExportSymbol.h" />
     <ClInclude Include="Headers\Logger\Log.h" />
     <ClInclude Include="Headers\Logger\Logger.h" />
     <ClInclude Include="Headers\Logger\LoggerInterface.h" />
     <ClInclude Include="Headers\Logger\LoggerNazwaKlasy.h" />
+    <ClInclude Include="Headers\Logger\LoggerSymbol.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

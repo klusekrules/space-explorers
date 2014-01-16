@@ -18,17 +18,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ExportSymbol.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="afxres.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Logger\Log.h">
       <Filter>Source Files\Logger</Filter>
@@ -41,6 +35,9 @@
     </ClInclude>
     <ClInclude Include="Headers\Logger\LoggerNazwaKlasy.h">
       <Filter>Source Files\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Logger\LoggerSymbol.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
