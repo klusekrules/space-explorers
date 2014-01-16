@@ -10,12 +10,6 @@ void Log::dodajGniazdoWyjsciowe( const Strumien &t ){
 	outstream.push_back(t);
 }
 
-Log::Log()
-	: formatCzasu_("%Y-%m-%d %H:%M:%S")
-{
-	poziomy_.resize(5,true);
-}
-
 void Log::ustawFormatCzasu( FormatCzasu format ){
 	switch (format)
 	{
@@ -47,19 +41,19 @@ void Log::zablokujLogi(TypLogow typ){
 	poziomy_[typ] = false;
 }
 
-void Log::loguj( TypLogow typ, const std::string& komunikat ){
+void Log::loguj( TypLogow typ, const std::string& komunikat ) const{
 	if(poziomy_[TypLogow::All] && poziomy_[typ]){
 		wyswietl( typ, pobierzDateCzas() + " [INFO] " + komunikat + "\n" );
 	}
 }
 
-void Log::loguj( TypLogow typ, const LoggerInterface& komunikat ){
+void Log::loguj( TypLogow typ, const LoggerInterface& komunikat ) const{
 	if(poziomy_[TypLogow::All] && poziomy_[typ]){
 		wyswietl( typ, pobierzDateCzas() + " [INFO] " + komunikat.napis() + "\n" );
 	}
 }
 
-std::string Log::pobierzDateCzas() const{
+std::string&& Log::pobierzDateCzas() const{
 	std::chrono::steady_clock::time_point t1 = std::chrono::steady_clock::now();
 	std::chrono::steady_clock::duration dtn = t1.time_since_epoch();
 	time_t pSekundy = dtn.count() * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den;
@@ -70,5 +64,5 @@ std::string Log::pobierzDateCzas() const{
 	strftime(s,20,formatCzasu_.c_str(),&timeinfo);
 	std::stringstream str;
 	str << s << "." << std::setw (3) << std::setfill ('0') << pMilisekundy;
-	return str.str();
+	return std::move(str.str());
 }

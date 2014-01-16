@@ -22,6 +22,16 @@ private:
 	std::string folderPluginow_; /// Œcie¿ka do folderu zawierajacy pluginy.
 public:
 	/**
+	* Konstruktor
+	*/
+	Cplugin() = delete;
+	
+	/**
+	* Destruktor
+	*/
+	~Cplugin() = default;
+	
+	/**
 	* Konstruktor klasy Cplugin
 	* \param[in] folderPluginow - Œcie¿ka do folderu zawierajacy pluginy.
 	* \param[in] fabryka - Referencja na fabrykê zmian.

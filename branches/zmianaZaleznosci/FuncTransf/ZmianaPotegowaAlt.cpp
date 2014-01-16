@@ -16,9 +16,6 @@ ZmianaPotegowaAlt::ZmianaPotegowaAlt( tinyxml2::XMLElement * wezel )
 	}
 }
 
-ZmianaPotegowaAlt::~ZmianaPotegowaAlt(void){
-}
-
 ZmianaInterfejs* ZmianaPotegowaAlt::TworzZmianaPotegowaAlt( tinyxml2::XMLElement* wezel ){
 	return new ZmianaPotegowaAlt(wezel);
 }
@@ -39,7 +36,7 @@ bool ZmianaPotegowaAlt::RejestrujZmianaPotegowaAlt( ZmianaFabryka &fabryka ){
 	return fabryka.rejestracjaZmiany( identyfikator_, ZmianaPotegowaAlt::TworzZmianaPotegowaAlt );
 }
 
-string ZmianaPotegowaAlt::napis()const{
+string&& ZmianaPotegowaAlt::napis()const{
 	Logger str(NAZWAKLASY(ZmianaPotegowaAlt));
 	str.dodajPole( "wspolczynnik", wspolczynnik_ );
 	if(wykladnik_)

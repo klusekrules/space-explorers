@@ -29,7 +29,7 @@ private:
 	static ZmianaInterfejs* TworzZmianaPotegowaAlt( tinyxml2::XMLElement* wezel );
 
 	ZmianaParametr wspolczynnik_; /// Wspó³czynnik liniowy.
-	shared_ptr<ZmianaInterfejs> wykladnik_; /// Wyk³adnik potêgi.
+	std::shared_ptr<ZmianaInterfejs> wykladnik_; /// Wyk³adnik potêgi.
 
 public:
 
@@ -77,12 +77,12 @@ public:
 	/**
 	* Destruktor
 	*/
-	virtual ~ZmianaPotegowaAlt();
+	virtual ~ZmianaPotegowaAlt() = default;
 
 	/**
 	* Metoda tworz¹ca napis zawieraj¹cy opis obiektu.
 	* \return Opis obiektu.
 	*/
-	std::string napis () const override;
+	std::string&& napis () const override;
 
 };

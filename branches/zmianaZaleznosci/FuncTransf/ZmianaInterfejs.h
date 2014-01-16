@@ -30,12 +30,12 @@ public:
 	virtual ZmianaInterfejs* Kopia() const = 0;
 
 	/**
-	* Konstruktor bezparametrowy
+	* Konstruktor.
 	*/
-	ZmianaInterfejs();
+	ZmianaInterfejs() = default;
 
 	/**
-	* Destruktor
+	* Destruktor.
 	*/
-	virtual ~ZmianaInterfejs();
+	virtual ~ZmianaInterfejs() = default;
 };

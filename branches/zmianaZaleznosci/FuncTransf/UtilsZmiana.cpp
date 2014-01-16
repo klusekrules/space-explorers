@@ -1,6 +1,5 @@
 #include "UtilsZmiana.h"
 
-
 void UtilsZmiana::generujWyjatekBleduStruktury( tinyxml2::XMLElement* wezel )
 {
 	std::string komunikat("Wczytywanie zmiany nie powiod³o siê. Wezel: ");

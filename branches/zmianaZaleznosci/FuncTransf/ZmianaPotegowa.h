@@ -74,12 +74,12 @@ public:
 	/**
 	* Destruktor
 	*/
-	virtual ~ZmianaPotegowa();
+	virtual ~ZmianaPotegowa() = default;
 
 	/**
 	* Metoda tworz¹ca napis zawieraj¹cy opis obiektu.
 	* \return Opis obiektu.
 	*/
-	std::string napis () const override;
+	std::string&& napis () const override;
 
 };

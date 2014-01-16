@@ -1,22 +1,12 @@
 #include "stdafx.h"
 #include "Logger.h"
 
-Logger::Logger()
-{
-	stos_.push(true);
-}
-
-Logger::~Logger(){
-}
-
-Logger::Logger( const std::string& nazwa )
-{
-	stos_.push(true);
+Logger::Logger( const std::string& nazwa ){
 	napis_<<nazwa<<"[";
 }
 
-std::string Logger::napis() const{
-	return napis_.str() + " ]";
+std::string&& Logger::napis() const{
+	return std::move(napis_.str() + " ]");
 }
 
 void Logger::dodajKlase( const std::string& opisKlasy ){
@@ -24,14 +14,12 @@ void Logger::dodajKlase( const std::string& opisKlasy ){
 	napis_<<" "<<opisKlasy;
 }
 
-std::string Logger::tworzPole( const std::string& nazwa, const LoggerInterface& obiektPierwszy, const LoggerInterface& obiektDrugi ){
-	std::stringstream str;
-	str << nazwa << " { " << obiektPierwszy.napis() << " , " << obiektDrugi.napis() <<" }";
-	return str.str();
+std::string&& Logger::tworzPole( const std::string& nazwa, const LoggerInterface& obiektPierwszy, const LoggerInterface& obiektDrugi ){
+	return std::move(nazwa + " { " + obiektPierwszy.napis() + " , " + obiektDrugi.napis() + " }");
 }
 
-std::string Logger::tworzKlase( const std::string& nazwaKlasy, const std::string& opisKlasy ){
-	return std::string( nazwaKlasy + "[ " + opisKlasy + " ]" );
+std::string&& Logger::tworzKlase( const std::string& nazwaKlasy, const std::string& opisKlasy ){
+	return std::move(nazwaKlasy + "[ " + opisKlasy + " ]");
 }
 
 void Logger::dodajPole( const std::string& nazwa, const LoggerInterface& obiekt ){

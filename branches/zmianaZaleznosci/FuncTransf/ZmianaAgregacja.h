@@ -5,8 +5,6 @@
 #include "tinyxml2.h"
 #include "..\Logger\LoggerInterface.h"
 #include "ZmianaFabryka.h"
-using std::vector;
-using std::shared_ptr;
 
 /**
 * \brief Klasa zmiany agreguj¹cej. 
@@ -36,8 +34,8 @@ private:
 	*/
 	static ZmianaInterfejs* TworzZmianaAgregacja( tinyxml2::XMLElement* wezel );
 
-	shared_ptr < ZmianaInterfejs > nastepna_; /// Nastêpna zmiana
-	vector<shared_ptr < ZmianaInterfejs > > listaZmian_; /// Lista zmian, których wartoœci bêd¹ zsumowane.
+	std::shared_ptr < ZmianaInterfejs > nastepna_; /// Nastêpna zmiana
+	std::vector<std::shared_ptr < ZmianaInterfejs > > listaZmian_; /// Lista zmian, których wartoœci bêd¹ zsumowane.
 
 public:
 
@@ -111,5 +109,5 @@ public:
 	* Metoda tworz¹ca napis zawieraj¹cy opis obiektu.
 	* \return Opis obiektu.
 	*/
-	std::string napis() const override;
+	std::string&& napis() const override;
 };

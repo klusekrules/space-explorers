@@ -5,8 +5,6 @@
 #include <map>
 #include <memory>
 #include "..\Logger\Log.h"
-using std::shared_ptr;
-using std::map;
 
 /**
 * \brief Fabryka klas zmian
@@ -49,7 +47,7 @@ public:
 	* \pre Wêze³ powinien mieæ poprawny atrybut o nazwie zdefiniowanej przez ATRYBUT_XML_IDENTYFIKATOR zawieraj¹cy identyfikator podany podczas rejestracji w funkcji rejestracjaZmiany.
 	* \sa rejestracjaZmiany(), ATRYBUT_XML_IDENTYFIKATOR
 	*/
-	shared_ptr<ZmianaInterfejs> Tworz( tinyxml2::XMLElement* wezel ) const;
+	std::shared_ptr<ZmianaInterfejs> Tworz( tinyxml2::XMLElement* wezel ) const;
 
 	/**
 	* Metoda rejestruj¹ca funkcjê tworz¹c¹ obiekt pochodny po ZmianaInterfejs.
@@ -65,7 +63,7 @@ private:
 	/**
 	* Typ zbioru funkcji tworz¹cych obiekt.
 	*/
-	typedef map<int, KreatorZmiany> Callbacks;
+	typedef std::map<int, KreatorZmiany> Callbacks;
 	Callbacks callbacks_; // S³ownik funkcji tworz¹cych obiekty pochodzne po ZmianaInterfejs.
 
 	/**

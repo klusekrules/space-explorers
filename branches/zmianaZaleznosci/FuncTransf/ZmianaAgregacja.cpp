@@ -44,17 +44,14 @@ ZmianaAgregacja::ZmianaAgregacja( const ZmianaAgregacja& obiekt )
 
 ZmianaAgregacja& ZmianaAgregacja::operator=( const ZmianaAgregacja& obiekt ){
 	if(obiekt.nastepna_)
-		nastepna_ = shared_ptr<ZmianaInterfejs>(obiekt.nastepna_->Kopia());
+		nastepna_ = std::shared_ptr<ZmianaInterfejs>(obiekt.nastepna_->Kopia());
 	else
 		nastepna_ = nullptr;
 	for(auto element : obiekt.listaZmian_){
 		if(element)
-			listaZmian_.push_back(shared_ptr<ZmianaInterfejs>(element->Kopia()));
+			listaZmian_.push_back(std::shared_ptr<ZmianaInterfejs>(element->Kopia()));
 	}
 	return *this;
-}
-
-ZmianaAgregacja::~ZmianaAgregacja(){
 }
 
 long double ZmianaAgregacja::policzWartosc(long double wartosc, int poziom, int identyfikatorPlanety)const{
@@ -72,7 +69,7 @@ bool ZmianaAgregacja::RejestrujZmianaAgregacja( ZmianaFabryka &fabryka ){
 	return fabryka.rejestracjaZmiany( identyfikator_, ZmianaAgregacja::TworzZmianaAgregacja );
 }
 
-std::string ZmianaAgregacja::napis() const{
+std::string&& ZmianaAgregacja::napis() const{
 	Logger str(NAZWAKLASY(ZmianaAgregacja));
 	if(nastepna_)
 		str.dodajPole( "Nastêpna", *nastepna_ );

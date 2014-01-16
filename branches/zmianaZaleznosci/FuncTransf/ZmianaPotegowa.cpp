@@ -10,10 +10,6 @@ ZmianaPotegowa::ZmianaPotegowa( tinyxml2::XMLElement * wezel )
 {
 }
 
-ZmianaPotegowa::~ZmianaPotegowa(void)
-{
-}
-
 ZmianaInterfejs* ZmianaPotegowa::TworzZmianaPotegowa( tinyxml2::XMLElement* wezel ){
 	return new ZmianaPotegowa(wezel);
 }
@@ -30,7 +26,7 @@ bool ZmianaPotegowa::RejestrujZmianaPotegowa( ZmianaFabryka &fabryka ){
 	return fabryka.rejestracjaZmiany( identyfikator_, ZmianaPotegowa::TworzZmianaPotegowa );
 }
 
-std::string ZmianaPotegowa::napis()const{
+std::string&& ZmianaPotegowa::napis()const{
 	Logger str(NAZWAKLASY(ZmianaPotegowa));
 	str.dodajPole( "wspolczynnik", wspolczynnik_ );
 	str.dodajPole( "wykladnik", wykladnik_ );
