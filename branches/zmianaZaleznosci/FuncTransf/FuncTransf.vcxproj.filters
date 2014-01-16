@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Zmiana">
+      <UniqueIdentifier>{36cd35e8-b5f3-45da-8610-b0250c15d405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Zmiana\Interfejs">
+      <UniqueIdentifier>{22f11b59-5e5b-4bf4-91f1-b763ac9ba598}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Zmiana\Pomocnicze">
+      <UniqueIdentifier>{ed25fb16-285e-4dc2-9b31-f51c039dc5b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Zmiana\Fabryka">
+      <UniqueIdentifier>{5110a892-f581-4715-a2db-eae7d53eb958}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Zmiana\Instancje">
+      <UniqueIdentifier>{16a3cbb7-6474-4f6e-bb2f-bb6beb6f7405}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ZmianaInterfejs.h">
+      <Filter>Source Files\Zmiana\Interfejs</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaAgregacja.h">
+      <Filter>Source Files\Zmiana\Pomocnicze</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaParametr.h">
+      <Filter>Source Files\Zmiana\Pomocnicze</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaFabryka.h">
+      <Filter>Source Files\Zmiana\Fabryka</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaLiniowa.h">
+      <Filter>Source Files\Zmiana\Instancje</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaPotegowa.h">
+      <Filter>Source Files\Zmiana\Instancje</Filter>
+    </ClInclude>
+    <ClInclude Include="ExportSymbol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaPotegowaAlt.h">
+      <Filter>Source Files\Zmiana\Instancje</Filter>
+    </ClInclude>
+    <ClInclude Include="afxres.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UtilsZmiana.h">
+      <Filter>Source Files\Zmiana\Pomocnicze</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaInterfejs.cpp">
+      <Filter>Source Files\Zmiana\Interfejs</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaAgregacja.cpp">
+      <Filter>Source Files\Zmiana\Pomocnicze</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaParametr.cpp">
+      <Filter>Source Files\Zmiana\Pomocnicze</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaFabryka.cpp">
+      <Filter>Source Files\Zmiana\Fabryka</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaIdKlas.cpp">
+      <Filter>Source Files\Zmiana\Fabryka</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaLiniowa.cpp">
+      <Filter>Source Files\Zmiana\Instancje</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaPotegowa.cpp">
+      <Filter>Source Files\Zmiana\Instancje</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaPotegowaAlt.cpp">
+      <Filter>Source Files\Zmiana\Instancje</Filter>
+    </ClCompile>
+    <ClCompile Include="UtilsZmiana.cpp">
+      <Filter>Source Files\Zmiana\Pomocnicze</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Version.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

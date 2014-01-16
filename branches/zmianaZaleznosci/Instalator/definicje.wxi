@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <!-- Poczatek Opcji -->
+  <!-- Włączanie/Wyłaczanie trybu testowego -->
+  <?define Test="yes" ?>
+  <!-- Koniec Opcji -->
+
+  <?if $(var.Platform)="x64"?>
+
+  <?define Platforma="x64" ?>
+  <?define isPlatformx64="yes" ?>
+  <?define FolderZmian="zmiana-x64" ?>
+  <?define ProgramFiles="ProgramFiles64Folder" ?>
+
+  <?else?>
+
+  <?define Platforma="x86" ?>
+  <?define isPlatformx64="no" ?>
+  <?define FolderZmian="zmiana" ?>
+  <?define ProgramFiles="ProgramFilesFolder" ?>
+
+  <?endif?>
+
+  <?if $(var.Configuration)="Release" ?>
+  <?define Konfiguracja="Release" ?>
+  <?define KonfiguracjaShort="r" ?>
+  <?else?>
+  <?define Konfiguracja="Debug" ?>
+  <?define KonfiguracjaShort="d" ?>
+  <?endif?>
+
+  <?ifdef Test?>
+  <?define PlikOpcji="options_test.xml" ?>
+  <?else?>
+  <?define PlikOpcji="options.xml" ?>
+  <?endif?>
+</Include>

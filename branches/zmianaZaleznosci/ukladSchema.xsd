@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" xml:lang="pl">
+  <xs:element name="Space-Explorers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="UkladSloneczny" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Planeta" type="PlanetaTyp" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="idType" use="required"/>
+            <xs:attribute name="sredniaTemperaturaGwiazdy" type="xs:double" use="required"/>
+            <xs:attribute name="srednicaGwiazdy" type="xs:double" use="required"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- Definicja typsw zlozonych-->
+  <xs:complexType name="LicznikTyp">
+    <xs:attribute name="id" type="idType" use="required"/>
+    <xs:attribute name="ilosc" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:double">
+          <xs:minInclusive value="0.0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="ObiektTyp">
+    <xs:attributeGroup ref="Podstawowe"/>
+  </xs:complexType>
+  <xs:complexType name="PlanetaTyp">
+    <xs:sequence>
+      <xs:element name="Licznik" type="LicznikTyp" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="Obiekty" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Surowce" type="ObiektTyp" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="Statek" type="StatekTyp" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="Technologia" type="ObiektTyp" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="Budynek" type="ObiektTyp" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="Obrona" type="ObiektTyp" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Floty" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Flota" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Statek" type="StatekTyp" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+                <xs:attribute name="id" type="idType" use="required"/>
+                <xs:attribute name="idPlanetaPoczatkowa" type="idType" use="required"/>
+                <xs:attribute name="idPlanetaDocelowa" type="idType" use="required"/>
+                <xs:attribute name="celPodrozy" type="xs:positiveInteger" use="required"/>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="id" type="idType" use="required"/>
+    <xs:attribute name="odlegloscOdSlonca" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:double">
+          <xs:minInclusive value="0.0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="srednica" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:double">
+          <xs:minInclusive value="0.0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="idRodzica" type="idType" use="required"/>
+    <xs:attribute name="nazwaGracza" type="xs:string" use="required"/>
+    <xs:attribute name="temperatura" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:double">
+          <xs:minInclusive value="0.0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="powierzchniaCalkowita" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:double">
+          <xs:minInclusive value="0.0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="powierzchniaWody" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:double">
+          <xs:minInclusive value="0.0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="powierzchniaLadow" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:double">
+          <xs:minInclusive value="0.0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="powierzchniaUzytkowaLadow" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:double">
+          <xs:minInclusive value="0.0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="nazwa" type="xs:string" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="StatekTyp">
+    <xs:sequence>
+      <xs:element name="Ladownia" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Surowce" type="ObiektTyp" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+          <xs:attribute name="zajeteMiejsce" use="required">
+            <xs:simpleType>
+              <xs:restriction base="xs:double">
+                <xs:minInclusive value="0.0"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Hangar" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Statek" type="StatekTyp" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+          <xs:attribute name="zajeteMiejsce" use="required">
+            <xs:simpleType>
+              <xs:restriction base="xs:double">
+                <xs:minInclusive value="0.0"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attributeGroup ref="Podstawowe"/>
+  </xs:complexType>
+  <!-- Definicja typow prostych -->
+  <xs:simpleType name="idType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="0x([a-fA-F0-9]{1,8})"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Grupy atrybutow -->
+  <xs:attributeGroup name="Podstawowe">
+    <xs:attribute name="id" type="idType" use="required"/>
+    <xs:attribute name="idPlanety" type="idType" use="required"/>
+    <xs:attribute name="ilosc" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:double">
+          <xs:minInclusive value="0.0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="poziom" type="xs:positiveInteger" use="required"/>
+  </xs:attributeGroup>
+</xs:schema>
