@@ -1,6 +1,5 @@
-#include "stdafx.h"
 #include "Logger.h"
-
+//#include "stdafx.h"
 Logger::Logger( const std::string& nazwa ){
 	napis_<<nazwa<<"[";
 }

@@ -1,6 +1,8 @@
-#include "stdafx.h"
+#include <chrono>
+#include <iomanip>
 #include "Log.h"
 
+//#include "stdafx.h"
 void Log::wyswietl( TypLogow typ, const std::string& p ) const{
 	for( auto f : outstream)
 		f(typ,p);
