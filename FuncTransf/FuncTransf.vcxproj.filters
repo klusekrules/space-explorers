@@ -16,12 +16,6 @@
     <Filter Include="Source Files\Zmiana">
       <UniqueIdentifier>{36cd35e8-b5f3-45da-8610-b0250c15d405}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Zmiana\Interfejs">
-      <UniqueIdentifier>{22f11b59-5e5b-4bf4-91f1-b763ac9ba598}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Zmiana\Pomocnicze">
-      <UniqueIdentifier>{ed25fb16-285e-4dc2-9b31-f51c039dc5b3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Zmiana\Fabryka">
       <UniqueIdentifier>{5110a892-f581-4715-a2db-eae7d53eb958}</UniqueIdentifier>
     </Filter>
@@ -30,15 +24,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ZmianaInterfejs.h">
-      <Filter>Source Files\Zmiana\Interfejs</Filter>
-    </ClInclude>
-    <ClInclude Include="ZmianaAgregacja.h">
-      <Filter>Source Files\Zmiana\Pomocnicze</Filter>
-    </ClInclude>
-    <ClInclude Include="ZmianaParametr.h">
-      <Filter>Source Files\Zmiana\Pomocnicze</Filter>
-    </ClInclude>
     <ClInclude Include="ZmianaFabryka.h">
       <Filter>Source Files\Zmiana\Fabryka</Filter>
     </ClInclude>
@@ -60,22 +45,22 @@
     <ClInclude Include="resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="ZmianaInterfejs.h">
+      <Filter>Source Files\Zmiana\Fabryka</Filter>
+    </ClInclude>
     <ClInclude Include="UtilsZmiana.h">
-      <Filter>Source Files\Zmiana\Pomocnicze</Filter>
+      <Filter>Source Files\Zmiana\Fabryka</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaAgregacja.h">
+      <Filter>Source Files\Zmiana\Instancje</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaParametr.h">
+      <Filter>Source Files\Zmiana\Instancje</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ZmianaInterfejs.cpp">
-      <Filter>Source Files\Zmiana\Interfejs</Filter>
-    </ClCompile>
-    <ClCompile Include="ZmianaAgregacja.cpp">
-      <Filter>Source Files\Zmiana\Pomocnicze</Filter>
-    </ClCompile>
-    <ClCompile Include="ZmianaParametr.cpp">
-      <Filter>Source Files\Zmiana\Pomocnicze</Filter>
     </ClCompile>
     <ClCompile Include="ZmianaFabryka.cpp">
       <Filter>Source Files\Zmiana\Fabryka</Filter>
@@ -93,7 +78,13 @@
       <Filter>Source Files\Zmiana\Instancje</Filter>
     </ClCompile>
     <ClCompile Include="UtilsZmiana.cpp">
-      <Filter>Source Files\Zmiana\Pomocnicze</Filter>
+      <Filter>Source Files\Zmiana\Fabryka</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaAgregacja.cpp">
+      <Filter>Source Files\Zmiana\Instancje</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaParametr.cpp">
+      <Filter>Source Files\Zmiana\Instancje</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

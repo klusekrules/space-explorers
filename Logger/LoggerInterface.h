@@ -12,5 +12,5 @@ public:
 	* Funkcja s³u¿¹ca jako podstawa do tworzenia napisów z opisem klasy.
 	* \return Napis zawieraj¹cy opis klasy.
 	*/
-	virtual std::string napis() const abstract;
+	virtual std::string&& napis() const abstract;
 };

@@ -26,7 +26,7 @@ public:
 	/**
 	* Konstruktor bezparametrowy.
 	*/
-	Logger();
+	Logger() = default;
 
 	/**
 	* Konstruktor klasy Logger. Tworzy obiekt z nadan¹ nazw¹ klasy g³ównej.
@@ -37,7 +37,7 @@ public:
 	/**
 	* Destruktor.
 	*/
-	virtual ~Logger();
+	virtual ~Logger() = default;
 
 	/**
 	* Metoda statyczna tworz¹ca napis z obiektu przekazanego jako argument.
@@ -45,7 +45,7 @@ public:
 	* \return Napis z przekazanego obiektu.
 	*/
 	template< class T >
-	static std::string tworzPole( const T& obiekt ){
+	static std::string tworzPole(const T& obiekt){
 		std::stringstream napis;
 		napis << obiekt;
 		return napis.str();
@@ -71,7 +71,7 @@ public:
 	* \param[in] obiektDrugi - Obiekt przekazany do utworzenia napisu.
 	* \return Utworzony napis.
 	*/
-	static std::string tworzPole( const std::string& nazwa, const LoggerInterface& obiektPierwszy, const LoggerInterface& obiektDrugi );
+	static std::string&& tworzPole( const std::string& nazwa, const LoggerInterface& obiektPierwszy, const LoggerInterface& obiektDrugi );
 
 	/**
 	* Metoda statyczna tworz¹ca napis z obiektów przekazanych jako argumenty.
@@ -79,21 +79,21 @@ public:
 	* \param[in] opisKlasy - Opis zawartoœci klasy.
 	* \return Utworzony napis.
 	*/
-	static std::string tworzKlase( const std::string& nazwa, const std::string& opisKlasy );
+	static std::string&& tworzKlase( const std::string& nazwa, const std::string& opisKlasy );
 
 	/**
 	* Metoda dodaj¹ca pole o podanej nazwie i zawartoœci.
 	* \param[in] nazwa - Nazwa pola.
 	* \param[in] obiekt - Zawartoœæ pola.
 	*/
-	void dodajPole( const std::string& nazwa, const LoggerInterface& obiekt );
+	void dodajPole(const std::string& nazwa, const LoggerInterface& obiekt);
 
 	/**
 	* Metoda dodaj¹ca pole o podanej nazwie i zawartoœci.
 	* \param[in] nazwa - Nazwa pola.
 	* \param[in] opisPola - Zawartoœæ pola.
 	*/
-	void dodajPole( const std::string& nazwa, const std::string& opisPola );
+	void dodajPole(const std::string& nazwa, const std::string& opisPola);
 
 	/**
 	* Metoda dodaj¹ca pole o podanej nazwie i zawartoœci.
@@ -132,7 +132,7 @@ public:
 	* Funkcja s³u¿¹ca do tworzenia napisów z opisem klasy.
 	* \return Napis zawieraj¹cy opis klasy.
 	*/
-	std::string napis() const override;
+	std::string&& napis() const override;
 
 private:
 
@@ -142,6 +142,6 @@ private:
 	void testPierwszegoPola( );
 
 	std::stringstream napis_; /// Strumieñ zawieraj¹cy tworzony napis.
-	std::stack<bool> stos_; /// Stos zawieraj¹cy informacje, które pole jest pierwsze.
+	std::stack<bool> stos_ = std::move(std::stack<bool>({true})); /// Stos zawieraj?cy informacje, kt?re pole jest pierwsze.
 
 };

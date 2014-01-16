@@ -18,7 +18,7 @@ public:
 	* \return Nazwa klasy przekazanej przez parametr szablonu.
 	*/
 	template< class C >
-	static std::string napis() {
+	static std::string&& napis() {
 		return std::string(typeid(C).name()).substr(6);
 	}
 };

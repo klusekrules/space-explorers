@@ -375,18 +375,6 @@
     <ClInclude Include="Surowce.h">
       <Filter>SourceFile\Surowce</Filter>
     </ClInclude>
-    <ClInclude Include="parser\ticpp.h">
-      <Filter>Biblioteki\Parser</Filter>
-    </ClInclude>
-    <ClInclude Include="parser\ticpprc.h">
-      <Filter>Biblioteki\Parser</Filter>
-    </ClInclude>
-    <ClInclude Include="parser\tinystr.h">
-      <Filter>Biblioteki\Parser</Filter>
-    </ClInclude>
-    <ClInclude Include="parser\tinyxml.h">
-      <Filter>Biblioteki\Parser</Filter>
-    </ClInclude>
     <ClInclude Include="NiezgodnyTypSurowca.h">
       <Filter>SourceFile\Wyjatki</Filter>
     </ClInclude>
@@ -920,9 +908,6 @@
     <Filter Include="Biblioteki">
       <UniqueIdentifier>{e46ac25c-7352-419b-ab07-6128bee61ffe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Biblioteki\Parser">
-      <UniqueIdentifier>{790afcb6-335b-472a-b157-b083a9161f65}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Biblioteki\sha-3">
       <UniqueIdentifier>{bd1fb878-dd1e-4c99-a8e1-5e17071e54e6}</UniqueIdentifier>
     </Filter>
@@ -991,9 +976,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="parser\build_instructions.txt">
-      <Filter>Biblioteki\Parser</Filter>
-    </None>
     <None Include="TODO.txt">
       <Filter>Doc</Filter>
     </None>

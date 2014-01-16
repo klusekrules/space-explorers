@@ -554,10 +554,6 @@
     <ClInclude Include="Objetosc.h" />
     <ClInclude Include="Obrazenia.h" />
     <ClInclude Include="OgolnyWyjatek.h" />
-    <ClInclude Include="parser\ticpp.h" />
-    <ClInclude Include="parser\ticpprc.h" />
-    <ClInclude Include="parser\tinystr.h" />
-    <ClInclude Include="parser\tinyxml.h" />
     <ClInclude Include="Powierzchnia.h" />
     <ClInclude Include="Poziom.h" />
     <ClInclude Include="Predkosc.h" />
@@ -757,7 +753,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-DLL|x64'">true</ExcludedFromBuild>
     </None>
-    <None Include="parser\build_instructions.txt" />
     <None Include="svn_version.h.tmpl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>

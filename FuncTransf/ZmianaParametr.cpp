@@ -10,11 +10,6 @@ ZmianaParametr::ZmianaParametr( tinyxml2::XMLElement* e )
 	wspolczynnikObiektu_ = XmlBO::WczytajAtrybut<long double>(e,ATRYBUT_XML_WSPOLCZYNNIK, 0);
 }
 
-
-ZmianaParametr::~ZmianaParametr()
-{
-}
-
 int ZmianaParametr::pobierzIdentyfikatorObiektu()const{
 	return idObiektu_;
 }
@@ -23,7 +18,7 @@ long double ZmianaParametr::pobierzWspolczynnik()const{
 	return wspolczynnikObiektu_;
 }
 
-string ZmianaParametr::napis()const{
+std::string&& ZmianaParametr::napis()const{
 	Logger str(NAZWAKLASY(ZmianaParametr));
 	str.dodajPole("IdObiektu",Logger::tworzPole(idObiektu_));
 	str.dodajPole("Parametr",Logger::tworzPole(wspolczynnikObiektu_));

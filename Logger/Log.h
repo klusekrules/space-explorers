@@ -20,9 +20,9 @@ public:
 	*/
 	enum TypLogow{
 		All,
-		Debug, /// Sama data
-		Info, /// Sam czas
-		Warning, /// Data i Czas
+		Debug,
+		Info,
+		Warning,
 		Error
 	};
 
@@ -34,8 +34,42 @@ public:
 		Czas, /// Sam czas
 		DataCzas /// Data i Czas
 	};
-
+ 
+	/**
+	* Typ funkcji wysy?aj?cej logi do strumienia. Funkcja otrzymuje informacje jaki jest poziom log?w oraz napis do wy?wietlenia.
+	* Napis jest pe?nym komunikatem z dat? i nazw? poziomu log?w.
+	*/
 	typedef std::function<void(TypLogow,const std::string&)> Strumien;
+
+	/**
+	* Konstruktor.
+ 	*/
+	Log() = default;
+
+	/**
+	* Destruktor.
+	*/
+	~Log() = default;
+
+	/**
+	* Konstruktor kopiuj?cy.
+	*/
+	Log(const Log&) = delete;
+
+	/**
+	* Konstruktor przenosz?cy.
+	*/
+	Log(Log&&) = delete;
+
+	/**
+	* Operator przypisania.
+	*/
+	Log& operator=(const Log&) = delete;
+
+	/**
+	* Operator przenoszenia.
+	*/
+	Log&& operator=(Log&&) = delete;
 
 	/**
 	* Metoda dodaj¹ca strumien wyjœciowy do 
@@ -50,7 +84,7 @@ public:
 	void ustawFormatCzasu( FormatCzasu format );
 
 	/**
-	* Funkcja informuj¹ca czy wysy³anie logów jest odblokowane
+	* Funkcja informuj¹ca czy wysy³anie logów jest odblokowane.
 	* \return Je¿eli wysy³anie logów jest odblokowane zwraca true, je¿eli nie zwraca false.
 	*/
 	bool czyLogiOdblokowane( TypLogow typ )const;
@@ -69,13 +103,13 @@ public:
 	* Funkcja wysy³aj¹ca komunikat typu Info do strumienia.
 	* \param[in] komunikat - Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
 	*/
-	void loguj( TypLogow typ, const std::string& komunikat );
+	void loguj( TypLogow typ, const std::string& komunikat ) const;
 
 	/**
 	* Funkcja wysy³aj¹ca komunikat typu Info do strumienia.
 	* \param[in] komunikat - Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
 	*/
-	void loguj( TypLogow typ, const LoggerInterface& komunikat );
+	void loguj( TypLogow typ, const LoggerInterface& komunikat ) const;
 
 	/**
 	* Funkcja polecaj¹ca aktualn¹ datê i czas.
@@ -83,10 +117,10 @@ public:
 	* \warning Format zwracanych danych jest definiowany przez ustawFormatCzasu.
 	* \sa ustawFormatCzasu()
 	*/
-	std::string pobierzDateCzas() const;
+	std::string&& pobierzDateCzas() const;
 
 	/**
-	* 
+	* Metoda pobieraj?ca instancj? klasy zapisuj?cej logi. 
 	* \return Instancja obiektu logów.
 	*/
 	static Log& pobierzInstancje();
@@ -101,18 +135,6 @@ private:
 	*/
 	void wyswietl( TypLogow typ, const std::string& napis ) const;
 		
-	std::vector< bool > poziomy_;
-
-	std::string formatCzasu_; /// Format w jakim ma zostaæ wyœiwetlany czas logowania. Domyœlenie: \%Y-\%m-\%d \%H:\%M:\%S.
-
-	/**
-	* Konstruktor.
-	*/
-	Log();
-
-	Log( const Log& );
-
-	Log( Log&& );
-
-	Log& operator=( const Log& );
-};
+	std::vector< bool > poziomy_ = { { true, true, true, true, true } }; /// Warto?? w??czenia/wy??czenia poziom?w logowania. Domy?lenie wszystkie na w??czone.
+	std::string formatCzasu_ = "%Y-%m-%d %H:%M:%S"; /// Format w jakim ma zosta? wy?iwetlany czas logowania. Domy?lenie: \%Y-\%m-\%d \%H:\%M:\%S.
+ };

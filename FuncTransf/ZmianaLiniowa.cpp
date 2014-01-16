@@ -9,10 +9,6 @@ ZmianaLiniowa::ZmianaLiniowa( tinyxml2::XMLElement* wezel )
 {
 }
 
-ZmianaLiniowa::~ZmianaLiniowa()
-{
-}
-
 long double ZmianaLiniowa::policzWartosc(long double wartosc, int poziom, int identyfikatorPlanety) const{
 	return wartosc * parametr_.pobierzWspolczynnik() * poziom;
 }
@@ -29,7 +25,7 @@ ZmianaInterfejs* ZmianaLiniowa::TworzZmianaLiniowa( tinyxml2::XMLElement* wezel 
 	return new ZmianaLiniowa(wezel);
 }
 
-std::string ZmianaLiniowa::napis()const{
+std::string&& ZmianaLiniowa::napis()const{
 	Logger str(NAZWAKLASY(ZmianaLiniowa));
 	str.dodajPole("Parametr",parametr_);
 	return str.napis();

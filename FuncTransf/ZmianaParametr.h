@@ -26,9 +26,9 @@ public:
 	ZmianaParametr( tinyxml2::XMLElement* wezel );
 
 	/**
-	* \brief Destruktor
+	* \brief Destruktor.
 	*/
-	virtual ~ZmianaParametr(void);
+	virtual ~ZmianaParametr() = default;
 
 	/**
 	* Metoda zwracaj¹ca identyfikator obiektu.
@@ -46,5 +46,5 @@ public:
 	* Metoda tworz¹ca napis zawieraj¹cy opis obiektu.
 	* \return Opis obiektu.
 	*/
-	std::string napis () const override;
+	std::string&& napis () const override;
 };
