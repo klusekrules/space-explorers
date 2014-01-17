@@ -18,9 +18,15 @@
     <ClCompile Include="ZdefiniowaneTypy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Wyjatek.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\TypyProste\TypyProste.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\TypyProste\Wyjatek.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

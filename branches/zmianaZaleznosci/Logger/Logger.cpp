@@ -6,7 +6,7 @@ namespace SLog{
 		napis_ << nazwa << "[";
 	}
 
-	std::string&& Logger::napis() const{
+	std::string Logger::napis() const{
 		return std::move(napis_.str() + " ]");
 	}
 
@@ -15,11 +15,11 @@ namespace SLog{
 		napis_ << " " << opisKlasy;
 	}
 
-	std::string&& Logger::tworzPole(const std::string& nazwa, const LoggerInterface& obiektPierwszy, const LoggerInterface& obiektDrugi){
+	std::string Logger::tworzPole(const std::string& nazwa, const LoggerInterface& obiektPierwszy, const LoggerInterface& obiektDrugi){
 		return std::move(nazwa + " { " + obiektPierwszy.napis() + " , " + obiektDrugi.napis() + " }");
 	}
 
-	std::string&& Logger::tworzKlase(const std::string& nazwaKlasy, const std::string& opisKlasy){
+	std::string Logger::tworzKlase(const std::string& nazwaKlasy, const std::string& opisKlasy){
 		return std::move(nazwaKlasy + "[ " + opisKlasy + " ]");
 	}
 

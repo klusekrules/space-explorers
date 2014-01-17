@@ -56,7 +56,7 @@ namespace SLog{
 		}
 	}
 
-	std::string&& Log::pobierzDateCzas() const{
+	std::string Log::pobierzDateCzas() const{
 		std::chrono::steady_clock::time_point t1 = std::chrono::steady_clock::now();
 		std::chrono::steady_clock::duration dtn = t1.time_since_epoch();
 		time_t pSekundy = dtn.count() * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den;

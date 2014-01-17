@@ -41,10 +41,10 @@ namespace SLog{
 		* \return Napis z przekazanego obiektu.
 		*/
 		template< class T >
-		static std::string&& tworzPole(const T& obiekt){
+		static std::string tworzPole(const T& obiekt){
 			std::stringstream napis;
 			napis << obiekt;
-			return napis.str();
+			return std::move(napis.str());
 		}
 
 		/**
@@ -54,10 +54,10 @@ namespace SLog{
 		* \return Napis z przekazanego obiektu.
 		*/
 		template< class T >
-		static std::string&& tworzPole(const std::string& nazwa, const T& obiekt){
+		static std::string tworzPole(const std::string& nazwa, const T& obiekt){
 			std::stringstream napis;
 			napis << obiekt;
-			return napis.str();
+			return std::move(napis.str());
 		}
 
 		/**
@@ -67,7 +67,7 @@ namespace SLog{
 		* \param[in] obiektDrugi - Obiekt przekazany do utworzenia napisu.
 		* \return Utworzony napis.
 		*/
-		static std::string&& tworzPole(const std::string& nazwa, const LoggerInterface& obiektPierwszy, const LoggerInterface& obiektDrugi);
+		static std::string tworzPole(const std::string& nazwa, const LoggerInterface& obiektPierwszy, const LoggerInterface& obiektDrugi);
 
 		/**
 		* Metoda statyczna tworz¹ca napis z obiektów przekazanych jako argumenty.
@@ -75,7 +75,7 @@ namespace SLog{
 		* \param[in] opisKlasy - Opis zawartoœci klasy.
 		* \return Utworzony napis.
 		*/
-		static std::string&& tworzKlase(const std::string& nazwa, const std::string& opisKlasy);
+		static std::string tworzKlase(const std::string& nazwa, const std::string& opisKlasy);
 
 		/**
 		* Metoda dodaj¹ca pole o podanej nazwie i zawartoœci.
@@ -128,7 +128,7 @@ namespace SLog{
 		* Funkcja s³u¿¹ca do tworzenia napisów z opisem klasy.
 		* \return Napis zawieraj¹cy opis klasy.
 		*/
-		std::string&& napis() const override;
+		std::string napis() const override;
 
 	private:
 

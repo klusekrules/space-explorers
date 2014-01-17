@@ -292,24 +292,6 @@
     <ClCompile Include="Zadanie.cpp">
       <Filter>SourceFile\MultiThreading</Filter>
     </ClCompile>
-    <ClCompile Include="ParserAtrybut.cpp">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\Szkielet</Filter>
-    </ClCompile>
-    <ClCompile Include="ParserDokument.cpp">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\Szkielet</Filter>
-    </ClCompile>
-    <ClCompile Include="ParserElement.cpp">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\Szkielet</Filter>
-    </ClCompile>
-    <ClCompile Include="ParserDokumentXml.cpp">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\XmlParser</Filter>
-    </ClCompile>
-    <ClCompile Include="ParserElementXml.cpp">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\XmlParser</Filter>
-    </ClCompile>
-    <ClCompile Include="ParserAtrybutXml.cpp">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\XmlParser</Filter>
-    </ClCompile>
     <ClCompile Include="ParserTest.cpp">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClCompile>
@@ -663,24 +645,6 @@
     <ClInclude Include="Zadanie.h">
       <Filter>SourceFile\MultiThreading</Filter>
     </ClInclude>
-    <ClInclude Include="ParserAtrybut.h">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\Szkielet</Filter>
-    </ClInclude>
-    <ClInclude Include="ParserDokument.h">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\Szkielet</Filter>
-    </ClInclude>
-    <ClInclude Include="ParserElement.h">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\Szkielet</Filter>
-    </ClInclude>
-    <ClInclude Include="ParserDokumentXml.h">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\XmlParser</Filter>
-    </ClInclude>
-    <ClInclude Include="ParserElementXml.h">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\XmlParser</Filter>
-    </ClInclude>
-    <ClInclude Include="ParserAtrybutXml.h">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\XmlParser</Filter>
-    </ClInclude>
     <ClInclude Include="ParserTest.h">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClInclude>
@@ -847,15 +811,6 @@
     </Filter>
     <Filter Include="SourceFile\KlasyGlowne\Szkielet">
       <UniqueIdentifier>{d5caacdb-fb36-45ec-9357-2ef8cf749f5f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\KlasyPomocnicze\Parser">
-      <UniqueIdentifier>{1ffeb2c1-25d8-40f0-b514-19ee66db0e71}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\KlasyPomocnicze\Parser\Szkielet">
-      <UniqueIdentifier>{829d8fb2-c1bb-47ba-bd15-0b3f2bab2955}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\KlasyPomocnicze\Parser\XmlParser">
-      <UniqueIdentifier>{1622057d-4273-4b79-8961-65d18333474b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
