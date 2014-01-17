@@ -7,7 +7,7 @@ namespace SLog
 	/**
 	* Pobieranie nazwy klasy w stringu.
 	*/
-#define NAZWAKLASY(C) LoggerNazwaKlasy::napis<C>()
+#define NAZWAKLASY(C) SLog::LoggerNazwaKlasy::napis<C>()
 
 	/**
 	* Klasa bazowa u¿ywana do stworzenia jednolitego interfajsu
@@ -20,8 +20,8 @@ namespace SLog
 		* \return Nazwa klasy przekazanej przez parametr szablonu.
 		*/
 		template< class C >
-		static std::string&& napis() {
-			return std::string(typeid(C).name()).substr(6);
+		static std::string napis() {
+			return std::move(std::string(typeid(C).name()).substr(6));
 		}
 	};
 }

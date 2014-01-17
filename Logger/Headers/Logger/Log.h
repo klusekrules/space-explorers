@@ -120,7 +120,7 @@ namespace SLog{
 		* \warning Format zwracanych danych jest definiowany przez ustawFormatCzasu.
 		* \sa ustawFormatCzasu()
 		*/
-		std::string&& pobierzDateCzas() const;
+		std::string pobierzDateCzas() const;
 
 		/**
 		* Metoda pobieraj?ca instancj? klasy zapisuj?cej logi.

@@ -453,12 +453,6 @@
     <ClInclude Include="ObronaInfo.h" />
     <ClInclude Include="ObronaTest.h" />
     <ClInclude Include="OknoGry.h" />
-    <ClInclude Include="ParserAtrybut.h" />
-    <ClInclude Include="ParserAtrybutXml.h" />
-    <ClInclude Include="ParserDokument.h" />
-    <ClInclude Include="ParserDokumentXml.h" />
-    <ClInclude Include="ParserElement.h" />
-    <ClInclude Include="ParserElementXml.h" />
     <ClInclude Include="ParserTest.h" />
     <ClInclude Include="PlanetaTest.h" />
     <ClInclude Include="RoundedRectangleShape.hpp" />
@@ -615,12 +609,6 @@
     <ClCompile Include="OknoGry.cpp" />
     <ClCompile Include="Operacja.cpp" />
     <ClCompile Include="PaczkaTestow.cpp" />
-    <ClCompile Include="ParserAtrybut.cpp" />
-    <ClCompile Include="ParserAtrybutXml.cpp" />
-    <ClCompile Include="ParserDokument.cpp" />
-    <ClCompile Include="ParserDokumentXml.cpp" />
-    <ClCompile Include="ParserElement.cpp" />
-    <ClCompile Include="ParserElementXml.cpp" />
     <ClCompile Include="ParserTest.cpp" />
     <ClCompile Include="Planeta.cpp" />
     <ClCompile Include="PlanetaTest.cpp" />

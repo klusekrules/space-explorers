@@ -46,7 +46,7 @@ namespace STyp{
 
 		void operator()(const nazwa_typu& wartosc){ wartosc_ = wartosc; }
 
-		std::string&& napis() const override{
+		std::string napis() const override{
 			std::stringstream str;
 			str << wartosc_;
 			return std::move(str.str());
@@ -74,10 +74,7 @@ namespace STyp{
 
 		TypObliczeniowy& operator=(TypObliczeniowy&&) = default;
 
-		TypObliczeniowy(const nazwa_typu& wartosc)
-			: PodstawowyInterfejs(wartosc)
-		{
-		}
+		using STyp::PodstawowyInterfejs< T >::PodstawowyInterfejs;
 
 		bool operator==(const TypObliczeniowy& wartosc)const{ return wartosc_ == wartosc.wartosc_; }
 
@@ -125,11 +122,8 @@ namespace STyp{
 		TypBoolowski& operator=(const TypBoolowski&) = default;
 
 		TypBoolowski& operator=(TypBoolowski&&) = default;
-
-		TypBoolowski(const nazwa_typu& wartosc)
-			: PodstawowyInterfejs(wartosc)
-		{
-		}
+		
+		using STyp::PodstawowyInterfejs< T >::PodstawowyInterfejs;
 
 		bool operator==(const TypBoolowski& wartosc)const{ return wartosc_ == wartosc.wartosc_; }
 
@@ -158,10 +152,7 @@ namespace STyp{
 
 		TypTekstowy& operator=(TypTekstowy&&) = default;
 
-		TypTekstowy(const nazwa_typu& wartosc)
-			: PodstawowyInterfejs(wartosc)
-		{
-		}
+		using STyp::PodstawowyInterfejs< T >::PodstawowyInterfejs;
 
 		bool operator==(const TypTekstowy& wartosc)const{ return wartosc_ == wartosc.wartosc_; }
 
@@ -181,12 +172,12 @@ namespace STyp{
 
 		bool isEmpty() const{ return wartosc_.empty(); }
 
-		std::string&& napis() const override{ return std::move(dodajCudzyslow()); }
+		std::string napis() const override{ return std::move(dodajCudzyslow()); }
 
 	private:
 		nazwa_typu dodajCudzyslow() const {
 			nazwa_typu s("\"");
-			s + wartosc_ + "\"";
+			s += wartosc_ + "\"";
 			return std::move(s);
 		}
 
