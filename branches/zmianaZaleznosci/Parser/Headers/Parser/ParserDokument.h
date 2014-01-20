@@ -1,7 +1,7 @@
 #pragma once
 #include "ParserElement.h"
 namespace SPar {
-	class ParserDokument
+	class PARSER_API ParserDokument
 	{
 	public:
 		ParserDokument(void);

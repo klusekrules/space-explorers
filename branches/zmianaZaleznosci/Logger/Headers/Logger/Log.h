@@ -45,36 +45,6 @@ namespace SLog{
 		typedef std::function<void(TypLogow, const std::string&)> Strumien;
 
 		/**
-		* Konstruktor.
-		*/
-		Log() = default;
-
-		/**
-		* Destruktor.
-		*/
-		~Log() = default;
-
-		/**
-		* Konstruktor kopiuj?cy.
-		*/
-		Log(const Log&) = delete;
-
-		/**
-		* Konstruktor przenosz?cy.
-		*/
-		Log(Log&&) = delete;
-
-		/**
-		* Operator przypisania.
-		*/
-		Log& operator=(const Log&) = delete;
-
-		/**
-		* Operator przenoszenia.
-		*/
-		Log&& operator=(Log&&) = delete;
-
-		/**
 		* Metoda dodaj¹ca strumien wyjœciowy do
 		* \param[in] strumien - Strumieñ do wysy³ania danych
 		*/
@@ -127,6 +97,11 @@ namespace SLog{
 		* \return Instancja obiektu logów.
 		*/
 		static Log& pobierzInstancje();
+		
+		/**
+		* Destruktor.
+		*/
+		~Log() = default;
 
 	private:
 
@@ -140,5 +115,31 @@ namespace SLog{
 
 		std::vector< bool > poziomy_ = { { true, true, true, true, true } }; /// Warto?? w??czenia/wy??czenia poziom?w logowania. Domy?lenie wszystkie na w??czone.
 		std::string formatCzasu_ = "%Y-%m-%d %H:%M:%S"; /// Format w jakim ma zosta? wy?iwetlany czas logowania. Domy?lenie: \%Y-\%m-\%d \%H:\%M:\%S.
+
+		/**
+		* Konstruktor.
+		*/
+		Log() = default;
+		
+		/**
+		* Konstruktor kopiuj¹cy.
+		*/
+		Log(const Log&) = delete;
+
+		/**
+		* Konstruktor przenosz¹cy.
+		*/
+		Log(Log&&) = delete;
+
+		/**
+		* Operator przypisania.
+		*/
+		Log& operator=(const Log&) = delete;
+
+		/**
+		* Operator przenoszenia.
+		*/
+		Log&& operator=(Log&&) = delete;
+
 	};
 }

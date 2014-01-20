@@ -43,7 +43,6 @@ namespace STyp{
 		const Tekst& getTresc() const;
 		std::string napis() const override;
 		const char * what() const override;
-
 	protected:
 		Identyfikator identyfikator_;
 		Tekst tytul_;

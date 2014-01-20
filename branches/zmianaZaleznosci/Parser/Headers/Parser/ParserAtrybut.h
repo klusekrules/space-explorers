@@ -1,6 +1,8 @@
 #pragma once
+#include "ParserSymbol.h"
+
 namespace SPar{
-	class ParserAtrybut
+	class PARSER_API ParserAtrybut
 	{
 	public:
 		ParserAtrybut( );

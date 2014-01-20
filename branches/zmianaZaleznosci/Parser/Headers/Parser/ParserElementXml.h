@@ -3,7 +3,7 @@
 #include "tinyxml2.h"
 
 namespace SPar {
-	class ParserElementXml :
+	class PARSER_API ParserElementXml :
 		public ParserElement
 	{
 		friend class ParserDokumentXml;

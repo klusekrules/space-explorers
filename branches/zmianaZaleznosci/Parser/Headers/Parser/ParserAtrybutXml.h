@@ -3,7 +3,7 @@
 #include "tinyxml2.h"
 
 namespace SPar{
-	class ParserAtrybutXml :
+	class PARSER_API ParserAtrybutXml :
 		public ParserAtrybut
 	{
 	public:
