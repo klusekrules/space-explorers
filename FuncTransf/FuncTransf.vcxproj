@@ -402,7 +402,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="afxres.h" />
-    <ClInclude Include="ExportSymbol.h" />
+    <ClInclude Include="FuncTransfSymbol.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="UtilsZmiana.h" />
     <ClInclude Include="ZmianaAgregacja.h" />
