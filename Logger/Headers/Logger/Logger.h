@@ -5,8 +5,8 @@
 #include "LoggerSymbol.h"
 #include "LoggerInterface.h"
 
-LOGGER_EXPIMP_TEMPLATE template class LOGGER_API std::deque<bool>;
-LOGGER_EXPIMP_TEMPLATE template class LOGGER_API std::stack<bool>;
+/*LOGGER_EXPIMP_TEMPLATE template class LOGGER_API std::deque<bool>;
+LOGGER_EXPIMP_TEMPLATE template class LOGGER_API std::stack<bool>;*/
 
 namespace SLog{
 	/**

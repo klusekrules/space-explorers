@@ -4,7 +4,7 @@
 #include <string>
 
 namespace SPar{
-	class ParserDokumentXml :
+	class PARSER_API ParserDokumentXml :
 		public ParserDokument
 	{
 	public:

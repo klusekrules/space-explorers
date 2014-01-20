@@ -2,7 +2,7 @@
 #include <memory>
 #include "ParserAtrybut.h"
 namespace SPar{
-	class ParserElement
+	class PARSER_API ParserElement
 	{
 	public:
 		ParserElement(void);
