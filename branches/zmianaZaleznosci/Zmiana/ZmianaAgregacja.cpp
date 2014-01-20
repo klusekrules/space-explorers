@@ -3,31 +3,30 @@
 #include "Logger\Logger.h"
 
 namespace SZmi{
-	ZmianaAgregacja::ZmianaAgregacja(SPar::ParserElement& wezel)
+	ZmianaAgregacja::ZmianaAgregacja(XmlBO::ElementWezla wezel)
 	{
 		if (wezel && fabryka_){
-			//TODO: Do uzupe³nienia.
-			/*tinyxml2::XMLElement* wezelNastepny = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WARTOSC_ATRYBUTU_XML_NASTEPNY);
+			XmlBO::ElementWezla wezelNastepny = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, "Zmiana", "for", "nastepny"); //TODO: U¿yæ sta³ej.
 			if (!wezelNastepny)
-				UtilsZmiana::generujWyjatekBleduStruktury(wezel);
+				ZmianaUtils::generujWyjatekBleduStruktury(wezel);
 			nastepna_ = fabryka_->Tworz(wezelNastepny);
 			if (!nastepna_)
-				UtilsZmiana::generujWyjatekBleduStruktury(wezelNastepny);
+				ZmianaUtils::generujWyjatekBleduStruktury(wezelNastepny);
 
-			tinyxml2::XMLElement* dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WARTOSC_ATRYBUTU_XML_BRAT);
+			XmlBO::ElementWezla dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, "Zmiana", "for", "brat"); //TODO: U¿yæ sta³ej.
 			if (!dziecko)
-				UtilsZmiana::generujWyjatekBleduStruktury(wezel);
-			for (; dziecko; dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WARTOSC_ATRYBUTU_XML_BRAT, dziecko)){
+				ZmianaUtils::generujWyjatekBleduStruktury(wezel);
+			for (; dziecko; dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, "Zmiana", "for", "brat", dziecko)){ //TODO: U¿yæ sta³ej.
 				auto element = fabryka_->Tworz(dziecko);
 				if (element)
 					listaZmian_.push_back(element);
 				else
-					UtilsZmiana::generujWyjatekBleduStruktury(dziecko);
-			}*/
+					ZmianaUtils::generujWyjatekBleduStruktury(dziecko);
+			}
 		}
 	}
 
-	ZmianaInterfejs* ZmianaAgregacja::TworzZmianaAgregacja(SPar::ParserElement& wezel){
+	ZmianaInterfejs* ZmianaAgregacja::TworzZmianaAgregacja(XmlBO::ElementWezla wezel){
 		return new ZmianaAgregacja(wezel);
 	}
 

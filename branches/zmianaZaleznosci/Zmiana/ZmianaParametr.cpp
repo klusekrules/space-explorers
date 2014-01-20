@@ -3,11 +3,10 @@
 #include <string>
 
 namespace SZmi{
-	ZmianaParametr::ZmianaParametr(SPar::ParserElement& wezel)
+	ZmianaParametr::ZmianaParametr(XmlBO::ElementWezla wezel)
 	{
-		//TODO: Do uzupelnienia.
-		//idObiektu_ = XmlBO::WczytajAtrybut<int>(e, ATRYBUT_XML_IDENTYFIKATOR, 0);
-		//wspolczynnikObiektu_ = XmlBO::WczytajAtrybut<long double>(e, ATRYBUT_XML_WSPOLCZYNNIK, 0);
+		idObiektu_ = XmlBO::WczytajAtrybut<int>(wezel, "id", 0); //TODO: U¿yæ sta³ej.
+		wspolczynnikObiektu_ = XmlBO::WczytajAtrybut<long double>(wezel, "wspolczynnik", 0); //TODO: U¿yæ sta³ej.
 	}
 
 	int ZmianaParametr::pobierzIdentyfikatorObiektu()const{

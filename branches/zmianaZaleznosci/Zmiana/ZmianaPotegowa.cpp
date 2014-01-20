@@ -2,13 +2,13 @@
 #include "Logger\Logger.h"
 
 namespace SZmi{
-	ZmianaPotegowa::ZmianaPotegowa(SPar::ParserElement& wezel)
-		: wspolczynnik_(/*XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_PARAM, ATRYBUT_XML_IDENTYFIKATOR, "0x1")*/),
-		wykladnik_(/*XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_PARAM, ATRYBUT_XML_IDENTYFIKATOR, "0x2")*/)
+	ZmianaPotegowa::ZmianaPotegowa(XmlBO::ElementWezla wezel)
+		: wspolczynnik_(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, "Param", "id", "0x1")), //TODO: U¿yæ sta³ej.
+		wykladnik_(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, "Param", "id", "0x2")) //TODO: U¿yæ sta³ej.
 	{
 	}
 
-	ZmianaInterfejs* ZmianaPotegowa::TworzZmianaPotegowa(SPar::ParserElement& wezel){
+	ZmianaInterfejs* ZmianaPotegowa::TworzZmianaPotegowa(XmlBO::ElementWezla wezel){
 		return new ZmianaPotegowa(wezel);
 	}
 

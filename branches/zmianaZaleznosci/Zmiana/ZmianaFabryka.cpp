@@ -1,6 +1,4 @@
 #include "ZmianaFabryka.h"
-//#include "..\XmlBO.h"
-//#include "..\definicjeWezlowXML.h"
 
 namespace SZmi{
 	bool ZmianaFabryka::rejestracjaZmiany(int id, KreatorZmiany funkcja){
@@ -15,10 +13,9 @@ namespace SZmi{
 		return instancja;
 	}
 
-	std::shared_ptr<ZmianaInterfejs> ZmianaFabryka::Tworz(SPar::ParserElement& wezel) const {
+	std::shared_ptr<ZmianaInterfejs> ZmianaFabryka::Tworz(XmlBO::ElementWezla wezel) const {
 		if (wezel){
-			//TODO: Do uzupelnienia.
-			int id = 0; //XmlBO::WczytajAtrybut<int>(wezel, ATRYBUT_XML_IDENTYFIKATOR, 0);
+			int id = XmlBO::WczytajAtrybut<int>(wezel, "id", 0); //TODO: U¿yæ sta³ej.
 			if (id == 0)
 				return nullptr;
 			auto iterator = callbacks_.find(id);

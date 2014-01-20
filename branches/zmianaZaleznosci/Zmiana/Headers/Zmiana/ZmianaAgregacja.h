@@ -29,7 +29,7 @@ namespace SZmi{
 		* \param[in] wezel - Wêze³ na podstawie którego tworzony jest obiekt.
 		* \return WskaŸnika na obiekt utworzonej zmiany.
 		*/
-		static ZmianaInterfejs* TworzZmianaAgregacja(SPar::ParserElement& wezel);
+		static ZmianaInterfejs* TworzZmianaAgregacja(XmlBO::ElementWezla wezel);
 
 		std::shared_ptr < ZmianaInterfejs > nastepna_; /// Nastêpna zmiana
 		std::vector<std::shared_ptr < ZmianaInterfejs > > listaZmian_; /// Lista zmian, których wartoœci bêd¹ zsumowane.
@@ -75,7 +75,7 @@ namespace SZmi{
 		* \endcode
 		* gdzie elementów \<Zmiana id="y" for="brat"\> mo¿e byæ wiele.
 		*/
-		explicit ZmianaAgregacja(SPar::ParserElement& wezel);
+		explicit ZmianaAgregacja(XmlBO::ElementWezla wezel);
 
 		/**
 		* Konstruktor kopiujacy

@@ -1,10 +1,8 @@
 #pragma once
 #include "TypyProste.h"
 
-#ifdef _MSC_VER
-#   pragma warning(push)
-#   pragma warning(disable: 4251)
-#endif
+
+#pragma warning(disable: 4251)
 
 #ifdef _WIN32
 #   ifdef TYPY_PROSTE_EXPORT
@@ -33,7 +31,14 @@ namespace STyp{
 		virtual public SLog::LoggerInterface
 	{
 	public:
-		Wyjatek(const Tekst& plik, const Ilosc& linia, const Tekst& sladStosu, const Identyfikator& id = Identyfikator(), const Tekst& tytul = Tekst(), const Tekst& tresc = Tekst());
+		Wyjatek(
+			const Tekst& plik,
+			const Ilosc& linia,
+			const Tekst& sladStosu,
+			const Identyfikator& id = Identyfikator(),
+			const Tekst& tytul = Tekst(),
+			const Tekst& tresc = Tekst()
+			);
 		Wyjatek(const Wyjatek&) = default;
 		virtual ~Wyjatek() = default;
 

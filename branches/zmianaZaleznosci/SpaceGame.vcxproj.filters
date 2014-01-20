@@ -390,9 +390,6 @@
     <ClInclude Include="afxres.h">
       <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="XmlBO.h">
-      <Filter>SourceFile\KlasyPomocnicze</Filter>
-    </ClInclude>
     <ClInclude Include="Wymagania.h">
       <Filter>SourceFile\Wymagania</Filter>
     </ClInclude>

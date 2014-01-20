@@ -1,6 +1,6 @@
 #include "ZmianaUtils.h"
 namespace SZmi{
-	void ZmianaUtils::generujWyjatekBleduStruktury(SPar::ParserElement& wezel)
+	void ZmianaUtils::generujWyjatekBleduStruktury(XmlBO::ElementWezla wezel)
 	{
 		//TODO: Do uzupelnienia.
 		/*std::string komunikat("Wczytywanie zmiany nie powiod³o siê. Wezel: ");

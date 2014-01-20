@@ -1,7 +1,7 @@
 #pragma once
 #include "ZmianaSymbol.h"
 #include "Logger\LoggerInterface.h"
-#include "Parser\ParserElement.h"
+#include "Parser\XmlBO.h"
 
 namespace SZmi{
 	/**
@@ -25,7 +25,7 @@ namespace SZmi{
 		* \pre Wêze³ powinien posiadaæ poprawne atrybuty o nazwach zdefiniowanych przez ATRYBUT_XML_IDENTYFIKATOR oraz ATRYBUT_XML_WSPOLCZYNNIK.
 		* \sa ATRYBUT_XML_IDENTYFIKATOR, ATRYBUT_XML_WSPOLCZYNNIK
 		*/
-		ZmianaParametr(SPar::ParserElement& wezel);
+		ZmianaParametr(XmlBO::ElementWezla wezel);
 
 		//TODO: Domyslny konstruktor do usuniecia.
 		ZmianaParametr() = default;
