@@ -3,9 +3,8 @@
 #include "Logger\Logger.h"
 
 namespace SZmi{
-	ZmianaLiniowa::ZmianaLiniowa(SPar::ParserElement& wezel)
-		//TODO: Do uzupelnienia.
-		: parametr_(/*XmlBO::ZnajdzWezel<NOTHROW>(wezel, WEZEL_XML_PARAM)*/)
+	ZmianaLiniowa::ZmianaLiniowa(XmlBO::ElementWezla wezel)
+		: parametr_(XmlBO::ZnajdzWezel<NOTHROW>(wezel, "Param")) //TODO: U¿yæ sta³ej.
 	{
 	}
 
@@ -21,7 +20,7 @@ namespace SZmi{
 		return fabryka.rejestracjaZmiany(identyfikator_, ZmianaLiniowa::TworzZmianaLiniowa);
 	}
 
-	ZmianaInterfejs* ZmianaLiniowa::TworzZmianaLiniowa(SPar::ParserElement& wezel){
+	ZmianaInterfejs* ZmianaLiniowa::TworzZmianaLiniowa(XmlBO::ElementWezla wezel){
 		return new ZmianaLiniowa(wezel);
 	}
 

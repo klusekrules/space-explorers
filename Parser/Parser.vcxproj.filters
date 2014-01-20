@@ -18,22 +18,16 @@
     <ClCompile Include="tinyxml2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ParserAtrybut.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ParserAtrybutXml.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ParserDokument.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ParserDokumentXml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ParserElement.cpp">
+    <ClCompile Include="ParserElementXml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ParserElementXml.cpp">
+    <ClCompile Include="WyjatekParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,25 +35,25 @@
     <ClInclude Include="tinyxml2.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\Parser\ParserAtrybut.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\Parser\ParserAtrybutXml.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\Parser\ParserDokument.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\Parser\ParserDokumentXml.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Parser\ParserElement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Parser\ParserElementXml.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Parser\ParserSymbol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Parser\ParserInterfejs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Parser\XmlBO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Parser\WyjatekParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

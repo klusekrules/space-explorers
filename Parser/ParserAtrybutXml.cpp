@@ -8,8 +8,15 @@ namespace SPar{
 	{
 	}
 
-	ParserAtrybutXml::~ParserAtrybutXml(void)
-	{
+	std::shared_ptr<ParserAtrybut> ParserAtrybutXml::pobierzNastepnyAtrybut() const{
+		if (atrybut_ && element_){
+			const tinyxml2::XMLAttribute* atr = atrybut_->Next();
+			if (!atr)
+				return nullptr;
+			else
+				return std::make_shared<ParserAtrybutXml>(atr, element_);
+		}
+		return nullptr;
 	}
 
 	bool ParserAtrybutXml::ustawNazwe(const char*){
@@ -133,6 +140,19 @@ namespace SPar{
 	}
 
 	ParserAtrybutXml::operator bool()const{
-		return false;
+		if (!element_ || !atrybut_)
+			return false;
+		return true;
+	}
+
+	std::string ParserAtrybutXml::error()const{
+		tinyxml2::XMLPrinter printer;
+		if (element_){
+			element_->Accept(&printer);
+			return printer.CStr();
+		}
+		else{
+			return std::string("nullptr");
+		}
 	}
 }

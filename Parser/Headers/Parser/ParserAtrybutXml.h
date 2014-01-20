@@ -1,5 +1,5 @@
 #pragma once
-#include "ParserAtrybut.h"
+#include "ParserInterfejs.h"
 #include "tinyxml2.h"
 
 namespace SPar{
@@ -8,7 +8,9 @@ namespace SPar{
 	{
 	public:
 		ParserAtrybutXml( const tinyxml2::XMLAttribute*, tinyxml2::XMLElement* );
-		virtual ~ParserAtrybutXml(void);
+		virtual ~ParserAtrybutXml(void) = default;
+
+		std::shared_ptr<ParserAtrybut> pobierzNastepnyAtrybut() const override;
 
 		bool ustawNazwe( const char* ) override;
 		const char* pobierzNazwe( ) const override;
@@ -38,8 +40,11 @@ namespace SPar{
 		long double pobierzWartoscLongDouble( ) const override;
 
 		operator bool()const override;
+
+		std::string error()const override;
+
 	private:
-		const tinyxml2::XMLAttribute* atrybut_;
-		tinyxml2::XMLElement* element_;
+		const tinyxml2::XMLAttribute* atrybut_ = nullptr;
+		tinyxml2::XMLElement* element_ = nullptr;
 	};
 };

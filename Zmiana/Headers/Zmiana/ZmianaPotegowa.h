@@ -24,7 +24,7 @@ namespace SZmi{
 		* \param[in] wezel - Wêze³ na podstawie którego tworzony jest obiekt.
 		* \return WskaŸnika na obiekt utworzonej zmiany.
 		*/
-		static ZmianaInterfejs* TworzZmianaPotegowa(SPar::ParserElement& wezel);
+		static ZmianaInterfejs* TworzZmianaPotegowa(XmlBO::ElementWezla wezel);
 
 		ZmianaParametr wspolczynnik_; /// Wspó³czynnik liniowy.
 		ZmianaParametr wykladnik_; /// Wyk³adnik potêgi.
@@ -68,7 +68,7 @@ namespace SZmi{
 		* \endcode
 		* Parametr \<Param id="1" wspolczynnik="3.0"/\> to wspolczynnik_, a parametr \<Param id="2" wspolczynnik="2.0"/\> to wykladnik_.
 		*/
-		explicit ZmianaPotegowa(SPar::ParserElement& wezel);
+		explicit ZmianaPotegowa(XmlBO::ElementWezla wezel);
 
 		/**
 		* Destruktor

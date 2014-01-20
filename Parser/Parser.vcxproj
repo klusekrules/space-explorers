@@ -194,7 +194,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(ProjectDir);$(SolutionDir)TypyProste\Headers\;$(SolutionDir)Logger\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>PARSER_EXPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -284,22 +284,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ParserAtrybut.cpp" />
     <ClCompile Include="ParserAtrybutXml.cpp" />
-    <ClCompile Include="ParserDokument.cpp" />
     <ClCompile Include="ParserDokumentXml.cpp" />
-    <ClCompile Include="ParserElement.cpp" />
     <ClCompile Include="ParserElementXml.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
+    <ClCompile Include="WyjatekParser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Headers\Parser\ParserAtrybut.h" />
     <ClInclude Include="Headers\Parser\ParserAtrybutXml.h" />
-    <ClInclude Include="Headers\Parser\ParserDokument.h" />
+    <ClInclude Include="Headers\Parser\ParserInterfejs.h" />
     <ClInclude Include="Headers\Parser\ParserDokumentXml.h" />
-    <ClInclude Include="Headers\Parser\ParserElement.h" />
     <ClInclude Include="Headers\Parser\ParserElementXml.h" />
     <ClInclude Include="Headers\Parser\ParserSymbol.h" />
+    <ClInclude Include="Headers\Parser\WyjatekParser.h" />
+    <ClInclude Include="Headers\Parser\XmlBO.h" />
     <ClInclude Include="tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>

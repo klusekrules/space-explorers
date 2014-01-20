@@ -4,7 +4,8 @@
 #include "ZmianaSymbol.h"
 #include "ZmianaInterfejs.h"
 #include "Logger\Log.h"
-#include "Parser\ParserElement.h"
+#include "Parser\XmlBO.h"
+
 namespace SZmi{
 	/**
 	* \brief Fabryka klas zmian
@@ -22,7 +23,7 @@ namespace SZmi{
 		* \param[in] wezel - Wezel na podstawie, którego tworzony jest obiekt.
 		* \return WskaŸnik na obiekt pochodny po ZmianaInterfejs.
 		*/
-		typedef ZmianaInterfejs* (*KreatorZmiany)(SPar::ParserElement& wezel);
+		typedef ZmianaInterfejs* (*KreatorZmiany)(XmlBO::ElementWezla wezel);
 
 		/**
 		* Prototyp funkcji rejestruj¹cej klasê zmiany w fabryce.
@@ -49,7 +50,7 @@ namespace SZmi{
 		* \pre Wêze³ powinien mieæ poprawny atrybut o nazwie zdefiniowanej przez ATRYBUT_XML_IDENTYFIKATOR zawieraj¹cy identyfikator podany podczas rejestracji w funkcji rejestracjaZmiany.
 		* \sa rejestracjaZmiany(), ATRYBUT_XML_IDENTYFIKATOR
 		*/
-		std::shared_ptr<ZmianaInterfejs> Tworz( SPar::ParserElement& wezel) const;
+		std::shared_ptr<ZmianaInterfejs> Tworz(XmlBO::ElementWezla wezel) const;
 
 		/**
 		* Metoda rejestruj¹ca funkcjê tworz¹c¹ obiekt pochodny po ZmianaInterfejs.

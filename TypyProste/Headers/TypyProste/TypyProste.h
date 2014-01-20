@@ -74,7 +74,7 @@ namespace STyp{
 
 		TypObliczeniowy& operator=(TypObliczeniowy&&) = default;
 
-		using STyp::PodstawowyInterfejs< T >::PodstawowyInterfejs;
+		TypObliczeniowy(const nazwa_typu& wartosc) : PodstawowyInterfejs(wartosc) {}
 
 		bool operator==(const TypObliczeniowy& wartosc)const{ return wartosc_ == wartosc.wartosc_; }
 
@@ -123,7 +123,7 @@ namespace STyp{
 
 		TypBoolowski& operator=(TypBoolowski&&) = default;
 		
-		using STyp::PodstawowyInterfejs< T >::PodstawowyInterfejs;
+		TypBoolowski(const nazwa_typu& wartosc) : PodstawowyInterfejs(wartosc) {}
 
 		bool operator==(const TypBoolowski& wartosc)const{ return wartosc_ == wartosc.wartosc_; }
 
@@ -152,7 +152,7 @@ namespace STyp{
 
 		TypTekstowy& operator=(TypTekstowy&&) = default;
 
-		using STyp::PodstawowyInterfejs< T >::PodstawowyInterfejs;
+		TypTekstowy(const nazwa_typu& wartosc) : PodstawowyInterfejs(wartosc) {}
 
 		bool operator==(const TypTekstowy& wartosc)const{ return wartosc_ == wartosc.wartosc_; }
 

@@ -1,15 +1,14 @@
 #pragma once
-#include "ParserDokument.h"
+#include "ParserInterfejs.h"
 #include "tinyxml2.h"
-#include <string>
 
 namespace SPar{
 	class PARSER_API ParserDokumentXml :
 		public ParserDokument
 	{
 	public:
-		ParserDokumentXml(void);
-		virtual ~ParserDokumentXml(void);
+		ParserDokumentXml(void) = default;
+		virtual ~ParserDokumentXml(void) = default;
 
 		std::shared_ptr<ParserElement> pobierzElement( const char* ) override;
 		std::shared_ptr<ParserElement> tworzElement( const char* ) override;
@@ -19,6 +18,8 @@ namespace SPar{
 		bool zapisz( const char* ) override;
 
 		operator bool()const override;
+
+		std::string error()const override;
 	private:
 		tinyxml2::XMLDocument dokument_;
 		std::string nazwa_;

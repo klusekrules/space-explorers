@@ -540,7 +540,6 @@
     <ClInclude Include="WyjatekSTL.h" />
     <ClInclude Include="Wymagania.h" />
     <ClInclude Include="WymaganiaTest.h" />
-    <ClInclude Include="XmlBO.h" />
     <ClInclude Include="ZapisStanuGryTest.h" />
     <ClInclude Include="ZleceniaTest.h" />
     <ClInclude Include="Zlecenie.h" />

@@ -25,7 +25,7 @@ namespace SZmi{
 		* \param[in] wezel - Wêze³ na podstawie którego tworzony jest obiekt.
 		* \return WskaŸnika na obiekt utworzonej zmiany.
 		*/
-		static ZmianaInterfejs* TworzZmianaLiniowa(SPar::ParserElement& wezel);
+		static ZmianaInterfejs* TworzZmianaLiniowa(XmlBO::ElementWezla wezel);
 
 		ZmianaParametr parametr_; /// Wspó³czynnik o jaki zmienia siê wartoœæ atrybutu.
 
@@ -67,7 +67,7 @@ namespace SZmi{
 		*	</Zmiana>
 		* \endcode
 		*/
-		explicit ZmianaLiniowa(SPar::ParserElement& wezel);
+		explicit ZmianaLiniowa(XmlBO::ElementWezla wezel);
 
 		/**
 		* Destruktor
