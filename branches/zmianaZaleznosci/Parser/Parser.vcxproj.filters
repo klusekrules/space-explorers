@@ -56,5 +56,8 @@
     <ClInclude Include="Headers\Parser\tinyxml2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\Parser\ParserStale.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

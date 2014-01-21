@@ -59,14 +59,14 @@ namespace SZmi{
 		* \return Metoda zwraca true, je¿eli rejestracja siê powiedzie lub false w przeciwnym wypadku.
 		* \warning Zabronionym identyfikatorem jest 0. Je¿eli poda siê taki identyfikator to metoda zawsze zwróci wartoœæ false. Jest to podyktowane implementaj¹ metody. Inne warunki kiedy metoda zwróci false to: funkcja wskazuje na nullptr lub identyfikator zosta³ ju¿ u¿yty.
 		*/
-		bool rejestracjaZmiany(int identyfikator, KreatorZmiany funkcja);
+		bool rejestracjaZmiany(const STyp::Identyfikator& identyfikator, KreatorZmiany funkcja);
 
 	private:
 
 		/**
 		* Typ zbioru funkcji tworz¹cych obiekt.
 		*/
-		typedef std::map<int, KreatorZmiany> Callbacks;
+		typedef std::map<STyp::Identyfikator, KreatorZmiany> Callbacks;
 
 		Callbacks callbacks_; ///S³ownik funkcji tworz¹cych obiekty pochodzne po ZmianaInterfejs.
 

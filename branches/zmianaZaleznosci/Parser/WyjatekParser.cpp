@@ -1,5 +1,6 @@
 #include "WyjatekParser.h"
 #include "Logger\Logger.h"
+#include "ParserStale.h"
 
 namespace SPar{
 	WyjatekParser::WyjatekParser(
@@ -13,9 +14,9 @@ namespace SPar{
 		plik,
 		linia,
 		sladStosu,
-		STyp::Identyfikator(0xFF010001), //TODO: U¿yæ sta³ej.
-		STyp::Tekst("Wyj¹tek Parsera ( ParserAtrybut )!"),//TODO: U¿yæ sta³ej.
-		STyp::Tekst(tekst.isEmpty() ? (STyp::Tekst("Wydruk elementu z b³êdnym atrybutem:") + STyp::Tekst(atrybut ? atrybut->error() : "nullptr")) : (tekst + STyp::Tekst(atrybut ? atrybut->error() : "nullptr")))) //TODO: U¿yæ sta³ej.
+		STyp::Identyfikator(PARSER_WYJATEK_ATRYBUTU_ID),
+		STyp::Tekst(PARSER_WYJATEK_ATRYBUTU_TYTUL),
+		STyp::Tekst(tekst.isEmpty() ? (STyp::Tekst(PARSER_WYJATEK_ATRYBUTU_TRESC) + STyp::Tekst(atrybut ? atrybut->error() : PARSER_WYJATEK_NULLPTR)) : (tekst + STyp::Tekst(atrybut ? atrybut->error() : PARSER_WYJATEK_NULLPTR))))
 	{
 	}
 
@@ -30,9 +31,9 @@ namespace SPar{
 		plik,
 		linia,
 		sladStosu,
-		STyp::Identyfikator(0xFF010002),//TODO: U¿yæ sta³ej.
-		STyp::Tekst("Wyj¹tek Parsera ( ParserElement )!"),//TODO: U¿yæ sta³ej.
-		STyp::Tekst(tekst.isEmpty() ? (STyp::Tekst("Wydruk b³êdnego wêz³em:") + STyp::Tekst(element ? element->error() : "nullptr")) : (tekst + STyp::Tekst(element ? element->error() : "nullptr"))))//TODO: U¿yæ sta³ej.
+		STyp::Identyfikator(PARSER_WYJATEK_ELEMENTU_ID),
+		STyp::Tekst(PARSER_WYJATEK_ELEMENTU_TYTUL),
+		STyp::Tekst(tekst.isEmpty() ? (STyp::Tekst(PARSER_WYJATEK_ELEMENTU_TRESC) + STyp::Tekst(element ? element->error() : PARSER_WYJATEK_NULLPTR)) : (tekst + STyp::Tekst(element ? element->error() : PARSER_WYJATEK_NULLPTR))))
 	{
 	}
 
@@ -46,9 +47,9 @@ namespace SPar{
 		plik,
 		linia,
 		sladStosu,
-		STyp::Identyfikator(0xFF010003),//TODO: U¿yæ sta³ej.
-		STyp::Tekst("Wyj¹tek Parsera ( ParserDokument )!"),//TODO: U¿yæ sta³ej.
-		STyp::Tekst(tekst.isEmpty() ? STyp::Tekst("Wydruk b³êdu z dokumentu:") + STyp::Tekst(dokument ? dokument->error() : "nullptr") : tekst + STyp::Tekst(dokument ? dokument->error() : "nullptr")))//TODO: U¿yæ sta³ej.
+		STyp::Identyfikator(PARSER_WYJATEK_DOKUMENTU_ID),
+		STyp::Tekst(PARSER_WYJATEK_DOKUMENTU_TYTUL),
+		STyp::Tekst(tekst.isEmpty() ? STyp::Tekst(PARSER_WYJATEK_DOKUMENTU_TRESC) + STyp::Tekst(dokument ? dokument->error() : PARSER_WYJATEK_NULLPTR) : tekst + STyp::Tekst(dokument ? dokument->error() : PARSER_WYJATEK_NULLPTR)))
 	{
 	}
 

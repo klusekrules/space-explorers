@@ -397,6 +397,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\TypyProste\TypyProste.h" />
+    <ClInclude Include="Headers\TypyProste\TypyProsteBO.h" />
     <ClInclude Include="Headers\TypyProste\Wyjatek.h" />
   </ItemGroup>
   <ItemGroup>
