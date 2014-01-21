@@ -1,26 +1,27 @@
 #include "ZmianaParametr.h"
 #include "Logger\Logger.h"
 #include <string>
+#include "ZmianaStaleXml.h"
 
 namespace SZmi{
 	ZmianaParametr::ZmianaParametr(XmlBO::ElementWezla wezel)
 	{
-		idObiektu_ = XmlBO::WczytajAtrybut<int>(wezel, "id", 0); //TODO: U¿yæ sta³ej.
-		wspolczynnikObiektu_ = XmlBO::WczytajAtrybut<long double>(wezel, "wspolczynnik", 0); //TODO: U¿yæ sta³ej.
+		XmlBO::WczytajAtrybut<NOTHROW>(wezel, XML_ATRYBUT_ZMIANA_ID, idObiektu_);
+		XmlBO::WczytajAtrybut<NOTHROW>(wezel, XML_ATRYBUT_ZMIANA_WSPOLCZYNNIK, wspolczynnikObiektu_);
 	}
 
-	int ZmianaParametr::pobierzIdentyfikatorObiektu()const{
+	const STyp::Identyfikator& ZmianaParametr::pobierzIdentyfikatorObiektu()const{
 		return idObiektu_;
 	}
 
-	long double ZmianaParametr::pobierzWspolczynnik()const{
+	const STyp::Wartosc& ZmianaParametr::pobierzWspolczynnik()const{
 		return wspolczynnikObiektu_;
 	}
 
 	std::string ZmianaParametr::napis()const{
 		SLog::Logger str(NAZWAKLASY(ZmianaParametr));
-		str.dodajPole("IdObiektu", SLog::Logger::tworzPole(idObiektu_));
-		str.dodajPole("Parametr", SLog::Logger::tworzPole(wspolczynnikObiektu_));
+		str.dodajPole(NAZWAPOLA(idObiektu_), idObiektu_);
+		str.dodajPole(NAZWAPOLA(wspolczynnikObiektu_), wspolczynnikObiektu_);
 		return str.napis();
 	}
 }

@@ -2,6 +2,7 @@
 #include "ZmianaSymbol.h"
 #include "Logger\LoggerInterface.h"
 #include "Parser\XmlBO.h"
+#include "TypyProste\TypyProste.h"
 
 namespace SZmi{
 	/**
@@ -16,8 +17,8 @@ namespace SZmi{
 		virtual public SLog::LoggerInterface
 	{
 	private:
-		int idObiektu_; /// Identyfikatro obiektu.
-		long double wspolczynnikObiektu_; /// Wspó³czynnik przechowywany przez parametr.
+		STyp::Identyfikator idObiektu_ = 0; /// Identyfikatro obiektu.
+		STyp::Wartosc wspolczynnikObiektu_ = 0.0; /// Wspó³czynnik przechowywany przez parametr.
 	public:
 		/**
 		* Konstruktor tworz¹cy obiekt na podstawie wêz³a.
@@ -26,9 +27,6 @@ namespace SZmi{
 		* \sa ATRYBUT_XML_IDENTYFIKATOR, ATRYBUT_XML_WSPOLCZYNNIK
 		*/
 		ZmianaParametr(XmlBO::ElementWezla wezel);
-
-		//TODO: Domyslny konstruktor do usuniecia.
-		ZmianaParametr() = default;
 
 		/**
 		* \brief Destruktor.
@@ -39,13 +37,13 @@ namespace SZmi{
 		* Metoda zwracaj¹ca identyfikator obiektu.
 		* \return Identyfikator obiektu.
 		*/
-		int pobierzIdentyfikatorObiektu()const;
+		const STyp::Identyfikator& pobierzIdentyfikatorObiektu()const;
 
 		/**
 		* Metoda zwracaj¹ca wspó³czynnik obiektu.
 		* \return Wspó³czynnik obiektu.
 		*/
-		long double pobierzWspolczynnik()const;
+		const STyp::Wartosc& pobierzWspolczynnik()const;
 
 		/**
 		* Metoda tworz¹ca napis zawieraj¹cy opis obiektu.

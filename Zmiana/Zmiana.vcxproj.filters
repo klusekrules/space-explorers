@@ -68,5 +68,11 @@
     <ClInclude Include="Headers\Zmiana\ZmianaUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\Zmiana\ZmianaStaleXml.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Zmiana\ZmianaStaleNapisy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

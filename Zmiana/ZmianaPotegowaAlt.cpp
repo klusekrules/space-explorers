@@ -2,12 +2,13 @@
 #include "Logger\Logger.h"
 #include "ZmianaFabryka.h"
 #include "ZmianaUtils.h"
+#include "ZmianaStaleXml.h"
 
 namespace SZmi{
 	ZmianaPotegowaAlt::ZmianaPotegowaAlt(XmlBO::ElementWezla wezel)
-		: wspolczynnik_(XmlBO::ZnajdzWezel<NOTHROW>(wezel, "Param")), wykladnik_(nullptr) //TODO: U¿yæ sta³ej.
+		: wspolczynnik_(XmlBO::ZnajdzWezel<NOTHROW>(wezel, XML_WEZEL_ZMIANA_PARAM)), wykladnik_(nullptr)
 	{
-		XmlBO::ElementWezla zmiana = XmlBO::ZnajdzWezel<NOTHROW>(wezel, "Zmiana"); //TODO: U¿yæ sta³ej.
+		XmlBO::ElementWezla zmiana = XmlBO::ZnajdzWezel<NOTHROW>(wezel, XML_WEZEL_ZMIANA);
 		if (fabryka_ && zmiana){
 			wykladnik_ = fabryka_->Tworz(zmiana);
 			if (!wykladnik_)
@@ -19,9 +20,9 @@ namespace SZmi{
 		return new ZmianaPotegowaAlt(wezel);
 	}
 
-	long double ZmianaPotegowaAlt::policzWartosc(long double wartosc, int poziom, int identyfikatorPlanety) const{
+	STyp::Wartosc ZmianaPotegowaAlt::policzWartosc(const STyp::Wartosc& wartosc, const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety) const{
 		if (wykladnik_)
-			return wartosc * pow(static_cast<long double>(wspolczynnik_.pobierzWspolczynnik()), -(wykladnik_->policzWartosc(wartosc, poziom, identyfikatorPlanety)));
+			return wartosc * pow(static_cast<long double>(wspolczynnik_.pobierzWspolczynnik()()), -(wykladnik_->policzWartosc(wartosc, poziom, identyfikatorPlanety)()));
 		else
 			return wartosc;
 	}
@@ -37,9 +38,9 @@ namespace SZmi{
 
 	std::string ZmianaPotegowaAlt::napis()const{
 		SLog::Logger str(NAZWAKLASY(ZmianaPotegowaAlt));
-		str.dodajPole("wspolczynnik", wspolczynnik_);
+		str.dodajPole(NAZWAPOLA(wspolczynnik_), wspolczynnik_);
 		if (wykladnik_)
-			str.dodajPole("wykladnik", *wykladnik_);
+			str.dodajPole(NAZWAPOLA(wykladnik_), *wykladnik_);
 		return str.napis();
 	}
 }

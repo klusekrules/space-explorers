@@ -6,6 +6,10 @@
 #include <string>
 #include <algorithm>
 
+#define ZMIANA_NAPIS_BLAD_WEZLA "B³ad odczytu elementu-dziecka o nazwie "
+#define ZMIANA_NAPIS_BLAD_ATRYBUTU "B³ad odczytu atrybutu o nazwie "
+#define ZMIANA_NAPIS_Z_WEZLA " z wezla: "
+
 class THROW { };
 class NOTHROW { };
 
@@ -43,7 +47,7 @@ private:
 
 	template < > 
 	static ElementWezla bladWezla<THROW>(ElementWezla element, const std::string& nazwaWezla){
-		throw SPar::WyjatekParser(EXCEPTION_PLACE, std::string(), element.get() , std::string("B³ad odczytu elementu-dziecka o nazwie " + nazwaWezla + " z wezla: ") );
+		throw SPar::WyjatekParser(EXCEPTION_PLACE, std::string(), element.get(), std::string(ZMIANA_NAPIS_BLAD_WEZLA + nazwaWezla + ZMIANA_NAPIS_Z_WEZLA));
 	}
 
 	template < typename T > 
@@ -53,7 +57,7 @@ private:
 
 	template < > 
 	static bool bladAtrybutu<THROW>(ElementWezla element, const std::string& nazwaAtrybutu){
-		throw SPar::WyjatekParser(EXCEPTION_PLACE, std::string(), element.get(), std::string("B³ad odczytu atrybutu o nazwie " + nazwaAtrybutu + " z wezla: "));
+		throw SPar::WyjatekParser(EXCEPTION_PLACE, std::string(), element.get(), std::string(ZMIANA_NAPIS_BLAD_ATRYBUTU + nazwaAtrybutu + ZMIANA_NAPIS_Z_WEZLA));
 	}
 
 	template < typename T > 
@@ -164,7 +168,7 @@ public:
 			return bladAtrybutu<K>(wezel, nazwa);
 		std::string atrybut(napis->pobierzWartosc());
 		trim<T>(atrybut);
-		if(atrybut.size()>0){
+		if(!atrybut.empty()){
 			Zaladuj<T>(atrybut,obiekt);
 			return true;
 		}
@@ -189,7 +193,7 @@ public:
 		if(!ptr)
 			return domyslnaWartosc;
 		const std::string napis(ptr->pobierzWartosc());
-		if(napis.length()>0){
+		if(!napis.empty()){
 			return stoul(napis,nullptr,0);
 		}
 		return domyslnaWartosc;
@@ -203,7 +207,7 @@ public:
 		if(!ptr)
 			return domyslnaWartosc;
 		const std::string napis(ptr->pobierzWartosc());
-		if(napis.length()>0){
+		if (!napis.empty()){
 			return stoul(napis,nullptr,0);
 		}
 		return domyslnaWartosc;
@@ -217,7 +221,7 @@ public:
 		if(!ptr)
 			return domyslnaWartosc;
 		const std::string napis(ptr->pobierzWartosc());
-		if(napis.length()>0){			
+		if (!napis.empty()){
 			std::string kopia = napis;
 			decimal_point(kopia);
 			return stold(kopia);

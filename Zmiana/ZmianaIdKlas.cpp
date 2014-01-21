@@ -6,8 +6,8 @@ namespace SZmi {
 	ZmianaFabryka* ZmianaAgregacja::fabryka_(nullptr);
 	ZmianaFabryka* ZmianaPotegowaAlt::fabryka_(nullptr);
 
-	const int ZmianaAgregacja::identyfikator_(2);
-	const int ZmianaLiniowa::identyfikator_(3);
-	const int ZmianaPotegowa::identyfikator_(4);
-	const int ZmianaPotegowaAlt::identyfikator_(7);
+	const STyp::Identyfikator ZmianaAgregacja::identyfikator_(2);
+	const STyp::Identyfikator ZmianaLiniowa::identyfikator_(3);
+	const STyp::Identyfikator ZmianaPotegowa::identyfikator_(4);
+	const STyp::Identyfikator ZmianaPotegowaAlt::identyfikator_(7);
 }

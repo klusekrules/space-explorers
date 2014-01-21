@@ -96,6 +96,14 @@ namespace STyp{
 
 		TypObliczeniowy operator+(const TypObliczeniowy& wartosc)const{ return wartosc_ + wartosc.wartosc_; }
 
+		TypObliczeniowy& operator*=(const TypObliczeniowy& wartosc){ wartosc_ *= wartosc.wartosc_; return *this; }
+
+		TypObliczeniowy& operator/=(const TypObliczeniowy& wartosc){ wartosc_ /= wartosc.wartosc_; return *this; }
+
+		TypObliczeniowy operator*(const TypObliczeniowy& wartosc)const{ return wartosc_ * wartosc.wartosc_; }
+
+		TypObliczeniowy operator/(const TypObliczeniowy& wartosc)const{ return wartosc_ / wartosc.wartosc_; }
+
 		TypObliczeniowy& operator++(){ ++wartosc_;	return (*this); }
 
 		TypObliczeniowy operator++(int){ TypObliczeniowy t(*this); ++wartosc_; return t; }
@@ -128,6 +136,14 @@ namespace STyp{
 		bool operator==(const TypBoolowski& wartosc)const{ return wartosc_ == wartosc.wartosc_; }
 
 		bool operator!=(const TypBoolowski& wartosc)const{ return wartosc_ != wartosc.wartosc_; }
+
+		bool operator<(const TypBoolowski& wartosc)const{ return wartosc_ < wartosc.wartosc_; }
+
+		bool operator>(const TypBoolowski& wartosc)const{ return wartosc_ > wartosc.wartosc_; }
+
+		bool operator<=(const TypBoolowski& wartosc)const{ return wartosc_ <= wartosc.wartosc_; }
+
+		bool operator>=(const TypBoolowski& wartosc)const{ return wartosc_ >= wartosc.wartosc_; }
 
 	};
 
@@ -202,6 +218,7 @@ namespace STyp{
 		typedef double			Obrazenia;
 		typedef double			ZuzyciePaliwa;
 		typedef double			Moc;
+		typedef long double		Wartosc; // Wartosc wykorzystywana w projekcie zmiana.
 	}
 
 	typedef class TypBoolowski<SPG::Bool> Bool;
@@ -222,4 +239,5 @@ namespace STyp{
 	typedef class TypTekstowy<SPG::Tekst> Tekst;
 	typedef class TypObliczeniowy<SPG::Temperatura> Temperatura;
 	typedef class TypObliczeniowy<SPG::ZuzyciePaliwa> ZuzyciePaliwa;
+	typedef class TypObliczeniowy<SPG::Wartosc> Wartosc;
 }

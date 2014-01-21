@@ -99,6 +99,9 @@
     <ProjectReference Include="..\Parser\Parser.vcxproj">
       <Project>{c8c552aa-0fb6-40ca-805d-122e7eb00225}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\TypyProste\TypyProste.vcxproj">
+      <Project>{c4cb2f58-bb6e-4ab4-894e-25c8ef668dce}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Zmiana\ZmianaAgregacja.h" />
@@ -106,6 +109,8 @@
     <ClInclude Include="Headers\Zmiana\ZmianaParametr.h" />
     <ClInclude Include="Headers\Zmiana\ZmianaPotegowa.h" />
     <ClInclude Include="Headers\Zmiana\ZmianaPotegowaAlt.h" />
+    <ClInclude Include="Headers\Zmiana\ZmianaStaleNapisy.h" />
+    <ClInclude Include="Headers\Zmiana\ZmianaStaleXml.h" />
     <ClInclude Include="Headers\Zmiana\ZmianaSymbol.h" />
     <ClInclude Include="Headers\Zmiana\ZmianaFabryka.h" />
     <ClInclude Include="Headers\Zmiana\ZmianaInterfejs.h" />

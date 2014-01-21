@@ -29,5 +29,8 @@
     <ClInclude Include="Headers\TypyProste\Wyjatek.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\TypyProste\TypyProsteBO.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

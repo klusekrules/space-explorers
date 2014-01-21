@@ -1,12 +1,10 @@
 #include "ZmianaUtils.h"
+#include "Parser\WyjatekParser.h"
+#include "ZmianaStaleNapisy.h"
+
 namespace SZmi{
 	void ZmianaUtils::generujWyjatekBleduStruktury(XmlBO::ElementWezla wezel)
 	{
-		//TODO: Do uzupelnienia.
-		/*std::string komunikat("Wczytywanie zmiany nie powiod³o siê. Wezel: ");
-		tinyxml2::XMLPrinter printer;
-		wezel->Accept( &printer );
-		komunikat.append( printer.CStr() );*/
-		throw std::exception(/*komunikat.c_str()*/);
+		throw SPar::WyjatekParser(EXCEPTION_PLACE, std::string(__FUNCTION__), wezel.get(), std::string(ZMIANA_NAPIS_KOMUNIKAT_METODY_GENERUJACEJ_BLAD_STRUKTURY));
 	}
 }

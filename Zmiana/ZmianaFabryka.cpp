@@ -1,7 +1,8 @@
 #include "ZmianaFabryka.h"
+#include "ZmianaStaleXml.h"
 
 namespace SZmi{
-	bool ZmianaFabryka::rejestracjaZmiany(int id, KreatorZmiany funkcja){
+	bool ZmianaFabryka::rejestracjaZmiany(const STyp::Identyfikator& id, KreatorZmiany funkcja){
 		if (funkcja == nullptr || id == 0 || callbacks_.find(id) != callbacks_.end())
 			return false;
 		callbacks_[id] = funkcja;
@@ -15,10 +16,10 @@ namespace SZmi{
 
 	std::shared_ptr<ZmianaInterfejs> ZmianaFabryka::Tworz(XmlBO::ElementWezla wezel) const {
 		if (wezel){
-			int id = XmlBO::WczytajAtrybut<int>(wezel, "id", 0); //TODO: U¿yæ sta³ej.
-			if (id == 0)
+			STyp::Identyfikator id;
+			if (XmlBO::WczytajAtrybut<NOTHROW>(wezel, XML_ATRYBUT_ZMIANA_ID, id))
 				return nullptr;
-			auto iterator = callbacks_.find(id);
+			auto iterator = callbacks_.find(id());
 			if (iterator == callbacks_.end())
 				return nullptr;
 			return std::shared_ptr<ZmianaInterfejs>(iterator->second(wezel));

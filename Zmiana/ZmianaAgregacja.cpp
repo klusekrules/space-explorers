@@ -1,22 +1,23 @@
 #include "ZmianaAgregacja.h"
 #include "ZmianaUtils.h"
 #include "Logger\Logger.h"
+#include "ZmianaStaleXml.h"
 
 namespace SZmi{
 	ZmianaAgregacja::ZmianaAgregacja(XmlBO::ElementWezla wezel)
 	{
 		if (wezel && fabryka_){
-			XmlBO::ElementWezla wezelNastepny = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, "Zmiana", "for", "nastepny"); //TODO: U¿yæ sta³ej.
+			XmlBO::ElementWezla wezelNastepny = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, XML_WEZEL_ZMIANA, XML_ATRYBUT_ZMIANA_FOR, XML_WARTOSC_ATRYBUTU_ZMIANA_NASTEPNY);
 			if (!wezelNastepny)
 				ZmianaUtils::generujWyjatekBleduStruktury(wezel);
 			nastepna_ = fabryka_->Tworz(wezelNastepny);
 			if (!nastepna_)
 				ZmianaUtils::generujWyjatekBleduStruktury(wezelNastepny);
 
-			XmlBO::ElementWezla dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, "Zmiana", "for", "brat"); //TODO: U¿yæ sta³ej.
+			XmlBO::ElementWezla dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, XML_WEZEL_ZMIANA, XML_ATRYBUT_ZMIANA_FOR, XML_WARTOSC_ATRYBUTU_ZMIANA_BRAT);
 			if (!dziecko)
 				ZmianaUtils::generujWyjatekBleduStruktury(wezel);
-			for (; dziecko; dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, "Zmiana", "for", "brat", dziecko)){ //TODO: U¿yæ sta³ej.
+			for (; dziecko; dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, XML_WEZEL_ZMIANA, XML_ATRYBUT_ZMIANA_FOR, XML_WARTOSC_ATRYBUTU_ZMIANA_BRAT, dziecko)){
 				auto element = fabryka_->Tworz(dziecko);
 				if (element)
 					listaZmian_.push_back(element);
@@ -52,9 +53,9 @@ namespace SZmi{
 		return *this;
 	}
 
-	long double ZmianaAgregacja::policzWartosc(long double wartosc, int poziom, int identyfikatorPlanety)const{
-		long double rezultat = nastepna_->policzWartosc(wartosc, poziom, identyfikatorPlanety);
-		long double suma = 0;
+	STyp::Wartosc ZmianaAgregacja::policzWartosc(const STyp::Wartosc& wartosc, const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety)const{
+		STyp::Wartosc rezultat = nastepna_->policzWartosc(wartosc, poziom, identyfikatorPlanety);
+		STyp::Wartosc suma = 0;
 		for (auto element : listaZmian_){
 			if (element)
 				suma += element->policzWartosc(rezultat, poziom, identyfikatorPlanety);
@@ -70,10 +71,10 @@ namespace SZmi{
 	std::string ZmianaAgregacja::napis() const{
 		SLog::Logger str(NAZWAKLASY(ZmianaAgregacja));
 		if (nastepna_)
-			str.dodajPole("Nastêpna", *nastepna_);
+			str.dodajPole(NAZWAPOLA(nastepna_), *nastepna_);
 		for (auto element : listaZmian_){
 			if (element)
-				str.dodajPole("Brat", *element);
+				str.dodajPole(NAZWAPOLA(element), *element);
 		}
 		return str.napis();
 	}

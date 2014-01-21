@@ -1,6 +1,7 @@
 #pragma once
 #include "ZmianaSymbol.h"
 #include "Logger\LoggerInterface.h"
+#include "TypyProste\TypyProste.h"
 
 namespace SZmi{
 	/**
@@ -22,7 +23,7 @@ namespace SZmi{
 		* \param[in] identyfikatorPlanety - Identyfikator planety, na której znajduje siê obiekt.
 		* \return Nowa wyliczona wartoœæ atrybutu obiektu.
 		*/
-		virtual long double policzWartosc(long double wartosc, int poziom, int identyfikatorPlanety) const = 0;
+		virtual STyp::Wartosc policzWartosc( const STyp::Wartosc& wartosc, const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety) const = 0;
 
 		/**
 		* Metoda czysto wirtualna tworz¹ca kopiê obiektu.

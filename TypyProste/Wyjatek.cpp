@@ -34,13 +34,13 @@ namespace STyp{
 
 	std::string Wyjatek::napis() const{
 		SLog::Logger str(NAZWAKLASY(Wyjatek));
-		str.dodajPole("ID", identyfikator_);
-		str.dodajPole("Tytul", tytul_);
-		str.dodajPole("Tresc", tresc_);
-		str.dodajPole("Plik", plik_);
-		str.dodajPole("Linia", linia_);
-		str.dodajPole("Data", data_);
-		str.dodajPole("StackTrace", stack_);
+		str.dodajPole(NAZWAPOLA(identyfikator_), identyfikator_);
+		str.dodajPole(NAZWAPOLA(tytul_), tytul_);
+		str.dodajPole(NAZWAPOLA(tresc_), tresc_);
+		str.dodajPole(NAZWAPOLA(plik_), plik_);
+		str.dodajPole(NAZWAPOLA(linia_), linia_);
+		str.dodajPole(NAZWAPOLA(data_), data_);
+		str.dodajPole(NAZWAPOLA(stack_), stack_);
 		return std::move(str.napis());
 	}
 

@@ -18,7 +18,7 @@ namespace SZmi{
 		virtual public SLog::LoggerInterface
 	{
 	private:
-		static const int identyfikator_; /// Identyfikator klasy przekazywany do fabryki.
+		static const STyp::Identyfikator identyfikator_; /// Identyfikator klasy przekazywany do fabryki.
 
 		/**
 		* Metoda tworz¹ca obiekt a podstawie wêz³a.
@@ -48,7 +48,7 @@ namespace SZmi{
 		* \param[in] identyfikatorPlanety - identyfikator planety, na której znajduje siê obiekt.
 		* \return Przeliczona wartoœæ atryutu.
 		*/
-		long double policzWartosc(long double wartosc, int poziom, int identyfikatorPlanety) const override;
+		STyp::Wartosc policzWartosc(const STyp::Wartosc& wartosc, const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety)const override;
 
 		/**
 		* Metoda tworzy kopiê obiektu.

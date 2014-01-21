@@ -8,6 +8,7 @@ namespace SLog
 	* Pobieranie nazwy klasy w stringu.
 	*/
 #define NAZWAKLASY(C) SLog::LoggerNazwaKlasy::napis<C>()
+#define NAZWAPOLA(C) #C
 
 	/**
 	* Klasa bazowa u¿ywana do stworzenia jednolitego interfajsu

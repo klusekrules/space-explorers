@@ -1,15 +1,17 @@
 #include "ZmianaLiniowa.h"
 #include "ZmianaFabryka.h"
 #include "Logger\Logger.h"
+#include "ZmianaStaleXml.h"
+#include "TypyProste\TypyProsteBO.h"
 
 namespace SZmi{
 	ZmianaLiniowa::ZmianaLiniowa(XmlBO::ElementWezla wezel)
-		: parametr_(XmlBO::ZnajdzWezel<NOTHROW>(wezel, "Param")) //TODO: U¿yæ sta³ej.
+		: parametr_(XmlBO::ZnajdzWezel<NOTHROW>(wezel, XML_WEZEL_ZMIANA_PARAM))
 	{
 	}
 
-	long double ZmianaLiniowa::policzWartosc(long double wartosc, int poziom, int identyfikatorPlanety) const{
-		return wartosc * parametr_.pobierzWspolczynnik() * poziom;
+	STyp::Wartosc ZmianaLiniowa::policzWartosc(const STyp::Wartosc& wartosc, const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety)const{
+		return STyp::pomnozWartosc(wartosc * parametr_.pobierzWspolczynnik() , poziom);
 	}
 
 	ZmianaLiniowa* ZmianaLiniowa::Kopia()const{
@@ -26,7 +28,7 @@ namespace SZmi{
 
 	std::string ZmianaLiniowa::napis()const{
 		SLog::Logger str(NAZWAKLASY(ZmianaLiniowa));
-		str.dodajPole("Parametr", parametr_);
+		str.dodajPole(NAZWAPOLA(parametr_), parametr_);
 		return str.napis();
 	}
 }

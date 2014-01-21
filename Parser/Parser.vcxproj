@@ -295,6 +295,7 @@
     <ClInclude Include="Headers\Parser\ParserInterfejs.h" />
     <ClInclude Include="Headers\Parser\ParserDokumentXml.h" />
     <ClInclude Include="Headers\Parser\ParserElementXml.h" />
+    <ClInclude Include="Headers\Parser\ParserStale.h" />
     <ClInclude Include="Headers\Parser\ParserSymbol.h" />
     <ClInclude Include="Headers\Parser\tinyxml2.h" />
     <ClInclude Include="Headers\Parser\WyjatekParser.h" />
