@@ -143,10 +143,13 @@ public:
 	{
 		if(wezel==nullptr || nazwaWezla.empty() || nazwaAtrybutu.empty())
 			return bladWezla<T>(wezel, nazwaWezla);
-		ElementWezla element = poprzedniWezel ? poprzedniWezel : wezel;
-		for (auto wezelDziecko = element->pobierzElement(nazwaWezla.c_str()); wezelDziecko != nullptr; wezelDziecko = wezelDziecko->pobierzNastepnyElement(nazwaWezla.c_str())){
+		for (
+			auto wezelDziecko = poprzedniWezel ? poprzedniWezel->pobierzNastepnyElement(nazwaWezla.c_str()) : wezel->pobierzElement(nazwaWezla.c_str());
+			wezelDziecko != nullptr; 
+			wezelDziecko = wezelDziecko->pobierzNastepnyElement(nazwaWezla.c_str())
+				){
 			auto tmp = wezelDziecko->pobierzAtrybut(nazwaAtrybutu.c_str());
-			if(tmp && !strcmp(wartoscAtrybutu.c_str(),tmp) )
+			if (tmp && !strcmp(wartoscAtrybutu.c_str(), tmp->pobierzWartosc()))
 				return wezelDziecko;
 		}
 		return nullptr;

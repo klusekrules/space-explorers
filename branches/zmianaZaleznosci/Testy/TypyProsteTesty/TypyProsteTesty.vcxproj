@@ -75,6 +75,7 @@
     <OutDir>$(SolutionDir)out\</OutDir>
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>typy-proste-testy-$(PlatformTarget)-$(Configuration)</TargetName>
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -87,6 +88,7 @@
     <OutDir>$(SolutionDir)out\</OutDir>
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>typy-proste-testy-$(PlatformTarget)-$(Configuration)</TargetName>
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-DLL|x64'">
     <LinkIncremental>true</LinkIncremental>
