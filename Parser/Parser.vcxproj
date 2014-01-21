@@ -296,9 +296,9 @@
     <ClInclude Include="Headers\Parser\ParserDokumentXml.h" />
     <ClInclude Include="Headers\Parser\ParserElementXml.h" />
     <ClInclude Include="Headers\Parser\ParserSymbol.h" />
+    <ClInclude Include="Headers\Parser\tinyxml2.h" />
     <ClInclude Include="Headers\Parser\WyjatekParser.h" />
     <ClInclude Include="Headers\Parser\XmlBO.h" />
-    <ClInclude Include="tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logger\Logger.vcxproj">

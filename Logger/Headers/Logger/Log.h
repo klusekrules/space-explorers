@@ -39,10 +39,25 @@ namespace SLog{
 		};
 
 		/**
-		* Typ funkcji wysy?aj?cej logi do strumienia. Funkcja otrzymuje informacje jaki jest poziom log?w oraz napis do wy?wietlenia.
-		* Napis jest pe?nym komunikatem z dat? i nazw? poziomu log?w.
+		* Typ funkcji wysy³aj¹cej logi do strumienia. Funkcja otrzymuje informacje jaki jest poziom logów oraz napis do wyœwietlenia.
+		* Napis jest pe³nym komunikatem z datê i nazwê poziomu logów.
 		*/
 		typedef std::function<void(TypLogow, const std::string&)> Strumien;
+
+		/**
+		* Konstruktor.
+		*/
+		Log() = default;
+
+		/**
+		* Konstruktor kopiuj¹cy.
+		*/
+		Log(const Log&) = default;
+
+		/**
+		* Operator przypisania.
+		*/
+		Log& operator=(const Log&) = default;
 
 		/**
 		* Metoda dodaj¹ca strumien wyjœciowy do
@@ -93,7 +108,7 @@ namespace SLog{
 		std::string pobierzDateCzas() const;
 
 		/**
-		* Metoda pobieraj?ca instancj? klasy zapisuj?cej logi.
+		* Metoda pobieraj¹ca instancjê klasy zapisuj¹cej logi.
 		* \return Instancja obiektu logów.
 		*/
 		static Log& pobierzInstancje();
@@ -113,33 +128,8 @@ namespace SLog{
 		*/
 		void wyswietl(TypLogow typ, const std::string& napis) const;
 
-		std::vector< bool > poziomy_ = { { true, true, true, true, true } }; /// Warto?? w??czenia/wy??czenia poziom?w logowania. Domy?lenie wszystkie na w??czone.
-		std::string formatCzasu_ = "%Y-%m-%d %H:%M:%S"; /// Format w jakim ma zosta? wy?iwetlany czas logowania. Domy?lenie: \%Y-\%m-\%d \%H:\%M:\%S.
-
-		/**
-		* Konstruktor.
-		*/
-		Log() = default;
-		
-		/**
-		* Konstruktor kopiuj¹cy.
-		*/
-		Log(const Log&) = delete;
-
-		/**
-		* Konstruktor przenosz¹cy.
-		*/
-		Log(Log&&) = delete;
-
-		/**
-		* Operator przypisania.
-		*/
-		Log& operator=(const Log&) = delete;
-
-		/**
-		* Operator przenoszenia.
-		*/
-		Log&& operator=(Log&&) = delete;
+		std::vector< bool > poziomy_ = { { true, true, true, true, true } }; /// Wartoœæ w³¹czenia/wy³¹czenia poziomów logowania. Domyœlenie wszystkie na w³¹czone.
+		std::string formatCzasu_ = "%Y-%m-%d %H:%M:%S"; /// Format w jakim ma zosta³ wyœiwetlany czas logowania. Domyœlenie: \%Y-\%m-\%d \%H:\%M:\%S.
 
 	};
 }

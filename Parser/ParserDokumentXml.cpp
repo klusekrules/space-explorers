@@ -43,7 +43,7 @@ namespace SPar{
 
 	std::string ParserDokumentXml::error()const{
 		std::stringstream str;
-		str << dokument_.ErrorID() << " : " << dokument_.GetErrorStr1() << "; " << dokument_.GetErrorStr2();
+		str << dokument_.ErrorID() << " : " << (dokument_.GetErrorStr1() ? dokument_.GetErrorStr1() : " ") << "; " << (dokument_.GetErrorStr2() ? dokument_.GetErrorStr2() : " ");
 		return str.str();
 	}
 }
