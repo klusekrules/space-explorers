@@ -1,7 +1,18 @@
-#ifdef PLUGIN_EXPORTS
-#define PLUGIN_API __declspec(dllexport)
+#pragma once
+#pragma warning( disable : 4251 )
+#pragma warning( disable : 4275 )
+#ifdef _WIN32
+#   ifdef PLUGIN_EXPORT
+#       define PLUGIN_API __declspec(dllexport)
+#		define PLUGIN_EXPIMP_TEMPLATE
+#   elif defined(PLUGIN_IMPORT)
+#       define PLUGIN_API __declspec(dllimport)
+#		define PLUGIN_EXPIMP_TEMPLATE extern
+#   else
+#       define PLUGIN_API
+#   endif
 #else
-#define PLUGIN_API __declspec(dllimport)
+#   define PLUGIN_API
 #endif
 
 #include "Zmiana\ZmianaFabryka.h"
