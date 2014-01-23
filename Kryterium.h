@@ -1,6 +1,7 @@
 #pragma once
 #include "Logger\LoggerInterface.h"
 #include "Serializacja.h"
+#include "PodstawoweParametry.h"
 
 namespace SpEx{
 	/**
@@ -12,19 +13,19 @@ namespace SpEx{
 	* \version 1
 	* \date 22-07-2013
 	*/
-	class PodstawoweParametry :
+	class Kryterium :
 		virtual public SLog::LoggerInterface,
 		virtual public Serializacja
 	{
 	public:
-		
+
 		enum TypAtrybutu
 		{
 			POZIOM,
 			ILOSC
 		};
 
-		typedef union AtrybutPodstawowy
+		typedef union AtrybutKryterium
 		{
 			STyp::Poziom::nazwa_typu poziom;
 			STyp::Ilosc::nazwa_typu ilosc;
@@ -36,9 +37,15 @@ namespace SpEx{
 		* Podstawowy konstruktor obiektu. Ustawia poziom i identyfikator planety, do której przypisany jest dany obiekt.
 		* \param[in] atrybut - Atrybut obiektu.
 		* \param[in] typ - typ atrybutu
-		* \param[in] identyfikatorPlanety - Identyfikator planety zawieraj¹cej obiekt.
+		* \param[in] identyfikator - Identyfikator obiektu.
 		*/
-		PodstawoweParametry(const AtrybutPodstawowy& atrybut, TypAtrybutu typ, const STyp::Identyfikator& identyfikatorPlanety);
+		Kryterium(const AtrybutKryterium& atrybut, TypAtrybutu typ, const STyp::Identyfikator& identyfikator);
+
+		/**
+		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
+		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
+		*/
+		explicit Kryterium(XmlBO::ElementWezla wezel);
 
 		/**
 		* \brief Metoda pobieraj¹ca atrybut.
@@ -46,7 +53,7 @@ namespace SpEx{
 		* Metoda pobiera atrybut obiektu.
 		* \return Metoda zwraca atrybut obiektu.
 		*/
-		const AtrybutPodstawowy& pobierzAtrybut() const;
+		const AtrybutKryterium& pobierzAtrybut() const;
 
 		/**
 		* \brief Metoda ustawiaj¹ca atrybut.
@@ -54,7 +61,7 @@ namespace SpEx{
 		* Metoda ustawiaj¹ca atrybut obiektu.
 		* \param[in] atrybut - Nowa wartoœæ atrybutu obiektu.
 		*/
-		void ustawAtrybut(const AtrybutPodstawowy& atrybut);
+		void ustawAtrybut(const AtrybutKryterium& atrybut);
 
 		/**
 		* \brief Metoda pobieraj¹ca atrybut.
@@ -62,7 +69,7 @@ namespace SpEx{
 		* Metoda pobiera atrybut obiektu.
 		* \return Metoda zwraca identyfiaktor planety rodzica obiektu.
 		*/
-		const STyp::Identyfikator& pobierzIdentyfikatorPlanety() const;
+		const STyp::Identyfikator& pobierzIdentyfikator() const;
 
 		/**
 		* \brief Metoda ustawiaj¹ca atrybut.
@@ -70,14 +77,7 @@ namespace SpEx{
 		* Metoda ustawiaj¹ca atrybut obiektu.
 		* \param[in] identyfikatorPlanety - Nowa wartoœæ identyfikatora planety rodzica obiektu.
 		*/
-		void ustawIdentyfikatorPlanety(const STyp::Identyfikator& identyfikatorPlanety);
-
-		/**
-		* \brief Metoda zwiêkszaj¹ca atrybut podstawowy.
-		*
-		* Metoda zwiêksza atrybut podstawowy o podan¹ iloœæ.
-		*/
-		void wzrostAtrybutu(const AtrybutPodstawowy& atrybut);
+		void ustawIdentyfikator(const STyp::Identyfikator& identyfikator);
 
 		/**
 		* \brief Metoda pobieraj¹ca typ atrybutu podstawowego.
@@ -86,14 +86,6 @@ namespace SpEx{
 		* \return Typ atrybutu podstawowego.
 		*/
 		TypAtrybutu typAtrybutu()const;
-
-		/**
-		* \brief Metoda ustawia poziom i identyfikator planety rodzica.
-		*
-		* Metoda przypisuje wartoœci atrybutów z obiektu podanego jako parametr do obiektu docelowego.
-		* \param[in] podstawoweParametry - Obiekt zawieraj¹cy atrybuty, które maj¹ zostaæ przypisane do obiektu docelowego.
-		*/
-		void ustawKontekst(const PodstawoweParametry& podstawoweParametry);
 
 		/**
 		* \brief Metoda zapisuj¹ca.
@@ -121,14 +113,12 @@ namespace SpEx{
 		* \return Napis zwieraj¹cy opis klasy.
 		*/
 		std::string napis() const override;
-
-	protected:
-
-		PodstawoweParametry(const PodstawoweParametry&) = default;
+		
+		Kryterium(const Kryterium&) = default;
 
 	private:
 		TypAtrybutu typAtrybutu_; /// Typ atrybutu podstawowego.
-		AtrybutPodstawowy atrybutPodstawowy_;/// Atrybut poziomu obiektu.
-		STyp::Identyfikator identyfikatorPlanety_;/// Atrybut identyfikatora planety rodzica obiektu.
+		AtrybutKryterium atrybutPodstawowy_;/// Atrybut poziomu obiektu.
+		STyp::Identyfikator identyfikator_;/// Atrybut identyfikatora obiektu.
 	};
 }

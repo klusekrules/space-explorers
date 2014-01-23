@@ -28,12 +28,6 @@
     <ClCompile Include="StatekInfo.cpp">
       <Filter>SourceFile\Flota\Statek</Filter>
     </ClCompile>
-    <ClCompile Include="Obiekt.cpp">
-      <Filter>SourceFile\BaseClass\Obiekt</Filter>
-    </ClCompile>
-    <ClCompile Include="Info.cpp">
-      <Filter>SourceFile\BaseClass\Info</Filter>
-    </ClCompile>
     <ClCompile Include="JednostkaAtakujaca.cpp">
       <Filter>SourceFile\Flota\JednostkaAtakujaca</Filter>
     </ClCompile>
@@ -109,9 +103,6 @@
     <ClCompile Include="BudynekInfo.cpp">
       <Filter>SourceFile\Budynek</Filter>
     </ClCompile>
-    <ClCompile Include="PodstawoweParametry.cpp">
-      <Filter>SourceFile\BaseClass\Base</Filter>
-    </ClCompile>
     <ClCompile Include="ZmianaPoziomObiektu.cpp">
       <Filter>SourceFile\BaseClass\Zmiana</Filter>
     </ClCompile>
@@ -169,20 +160,8 @@
     <ClCompile Include="Utils.cpp">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClCompile>
-    <ClCompile Include="LiczenieKosztow.cpp">
-      <Filter>SourceFile\Wymagania</Filter>
-    </ClCompile>
-    <ClCompile Include="Bazowa.cpp">
-      <Filter>SourceFile\BaseClass\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="ObiektBazowy.cpp">
-      <Filter>SourceFile\BaseClass\Base</Filter>
-    </ClCompile>
     <ClCompile Include="ObiektBazowyInfo.cpp">
       <Filter>SourceFile\BaseClass\Info</Filter>
-    </ClCompile>
-    <ClCompile Include="LiczenieWymogow.cpp">
-      <Filter>SourceFile\Wymagania</Filter>
     </ClCompile>
     <ClCompile Include="HangarInfo.cpp">
       <Filter>SourceFile\Flota\Hangar</Filter>
@@ -295,6 +274,18 @@
     <ClCompile Include="ParserTest.cpp">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClCompile>
+    <ClCompile Include="PodstawoweParametry.cpp">
+      <Filter>SourceFile\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Info.cpp">
+      <Filter>SourceFile\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Obiekt.cpp">
+      <Filter>SourceFile\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Kryterium.cpp">
+      <Filter>SourceFile\Wymagania</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -323,12 +314,6 @@
     </ClInclude>
     <ClInclude Include="StatekInfo.h">
       <Filter>SourceFile\Flota\Statek</Filter>
-    </ClInclude>
-    <ClInclude Include="Obiekt.h">
-      <Filter>SourceFile\BaseClass\Obiekt</Filter>
-    </ClInclude>
-    <ClInclude Include="Info.h">
-      <Filter>SourceFile\BaseClass\Info</Filter>
     </ClInclude>
     <ClInclude Include="JednostkaAtakujaca.h">
       <Filter>SourceFile\Flota\JednostkaAtakujaca</Filter>
@@ -420,9 +405,6 @@
     <ClInclude Include="BudynekInfo.h">
       <Filter>SourceFile\Budynek</Filter>
     </ClInclude>
-    <ClInclude Include="PodstawoweParametry.h">
-      <Filter>SourceFile\BaseClass\Base</Filter>
-    </ClInclude>
     <ClInclude Include="ZmianaPoziomObiektu.h">
       <Filter>SourceFile\BaseClass\Zmiana</Filter>
     </ClInclude>
@@ -437,9 +419,6 @@
     </ClInclude>
     <ClInclude Include="Flota.h">
       <Filter>SourceFile\Flota</Filter>
-    </ClInclude>
-    <ClInclude Include="DefinicjeWezlowXML.h">
-      <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
     <ClInclude Include="MakraDlaTestow.h">
       <Filter>Testy\Biblioteka</Filter>
@@ -486,26 +465,11 @@
     <ClInclude Include="BudynekTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClInclude>
-    <ClInclude Include="SzablonKosztow.h">
-      <Filter>SourceFile\Wymagania</Filter>
-    </ClInclude>
-    <ClInclude Include="LiczenieKosztow.h">
-      <Filter>SourceFile\Wymagania</Filter>
-    </ClInclude>
-    <ClInclude Include="Bazowa.h">
-      <Filter>SourceFile\BaseClass\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="ObiektBazowy.h">
-      <Filter>SourceFile\BaseClass\Base</Filter>
-    </ClInclude>
     <ClInclude Include="ObiektBazowyInfo.h">
       <Filter>SourceFile\BaseClass\Info</Filter>
     </ClInclude>
     <ClInclude Include="ListaObiektow.hpp">
       <Filter>SourceFile\BaseClass\Obiekt</Filter>
-    </ClInclude>
-    <ClInclude Include="LiczenieWymogow.h">
-      <Filter>SourceFile\Wymagania</Filter>
     </ClInclude>
     <ClInclude Include="HangarInfo.h">
       <Filter>SourceFile\Flota\Hangar</Filter>
@@ -645,6 +609,24 @@
     <ClInclude Include="ParserTest.h">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClInclude>
+    <ClInclude Include="PodstawoweParametry.h">
+      <Filter>SourceFile\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Info.h">
+      <Filter>SourceFile\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Obiekt.h">
+      <Filter>SourceFile\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Kryterium.h">
+      <Filter>SourceFile\Wymagania</Filter>
+    </ClInclude>
+    <ClInclude Include="SzablonKryterium.h">
+      <Filter>SourceFile\Wymagania</Filter>
+    </ClInclude>
+    <ClInclude Include="definicjeWezlowXML.h">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -655,9 +637,6 @@
     </Filter>
     <Filter Include="SourceFile\BaseClass\Obiekt">
       <UniqueIdentifier>{2b4166a5-4382-4c2e-819c-588897dacc6c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\BaseClass\Base">
-      <UniqueIdentifier>{2ccecc3c-45e0-4036-8114-1418c1f1ae2d}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\Flota">
       <UniqueIdentifier>{dc1fd519-fc16-4507-a10e-d21d3c64dfce}</UniqueIdentifier>

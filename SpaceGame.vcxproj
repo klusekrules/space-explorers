@@ -43,53 +43,53 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-DLL|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-DLL|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -218,7 +218,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)SFML\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)tinyxml2-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)SFML\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)Zmiana\Headers\;$(SolutionDir)Logger\Headers\;$(SolutionDir)TypyProste\Headers\;$(SolutionDir)Parser\Headers\;$(SolutionDir)plugin\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -430,7 +430,6 @@
   <ItemGroup>
     <ClInclude Include="afxres.h" />
     <ClInclude Include="Aplikacja.h" />
-    <ClInclude Include="Bazowa.h" />
     <ClInclude Include="BudynekTest.h" />
     <ClInclude Include="CzyszczenieDanychTest.h" />
     <ClInclude Include="Dokumentacja.h" />
@@ -444,6 +443,7 @@
     <ClInclude Include="HangarTest.h" />
     <ClInclude Include="keccak.h" />
     <ClInclude Include="KluczTest.h" />
+    <ClInclude Include="Kryterium.h" />
     <ClInclude Include="LuaSkrypt.h" />
     <ClInclude Include="MaszynaStanow.h" />
     <ClInclude Include="MenadzerWatkow.h" />
@@ -472,8 +472,6 @@
     <ClInclude Include="Zlecenia.h" />
     <ClInclude Include="InicjalizacjaDanychTestowych.h" />
     <ClInclude Include="LadowniaTest.h" />
-    <ClInclude Include="LiczenieKosztow.h" />
-    <ClInclude Include="LiczenieWymogow.h" />
     <ClInclude Include="LogowanieTest.h" />
     <ClInclude Include="MakraDlaTestow.h" />
     <ClInclude Include="MenedzerTranzakcji.h" />
@@ -490,7 +488,7 @@
     <ClInclude Include="BrakMaski.h" />
     <ClInclude Include="Budynek.h" />
     <ClInclude Include="BudynekInfo.h" />
-    <ClInclude Include="DefinicjeWezlowXML.h" />
+    <ClInclude Include="definicjeWezlowXML.h" />
     <ClInclude Include="Flota.h" />
     <ClInclude Include="Gra.h" />
     <ClInclude Include="Library.h" />
@@ -500,7 +498,7 @@
     <ClInclude Include="PodstawoweParametry.h" />
     <ClInclude Include="Serializacja.h" />
     <ClInclude Include="StatekTest.h" />
-    <ClInclude Include="SzablonKosztow.h" />
+    <ClInclude Include="SzablonKryterium.h" />
     <ClInclude Include="Technologia.h" />
     <ClInclude Include="TechnologiaInfo.h" />
     <ClInclude Include="TechnologiaTest.h" />
@@ -524,7 +522,6 @@
     <ClInclude Include="NiezgodnyTypSurowca.h" />
     <ClInclude Include="NieznalezionoObiektu.h" />
     <ClInclude Include="Obiekt.h" />
-    <ClInclude Include="ObiektBazowy.h" />
     <ClInclude Include="ObiektInfo.h" />
     <ClInclude Include="ListaObiektow.hpp" />
     <ClInclude Include="OgolnyWyjatek.h" />
@@ -548,7 +545,6 @@
   <ItemGroup>
     <ClCompile Include="ApInfo.cpp" />
     <ClCompile Include="Aplikacja.cpp" />
-    <ClCompile Include="Bazowa.cpp" />
     <ClCompile Include="BladDzieleniaLadowni.cpp" />
     <ClCompile Include="BladLaczeniaObiektow.cpp" />
     <ClCompile Include="BrakAtrybutuXML.cpp" />
@@ -576,11 +572,10 @@
     <ClCompile Include="JednostkaLatajacaInfo.cpp" />
     <ClCompile Include="keccak.cpp" />
     <ClCompile Include="KluczTest.cpp" />
+    <ClCompile Include="Kryterium.cpp" />
     <ClCompile Include="Ladownia.cpp" />
     <ClCompile Include="LadowniaInfo.cpp" />
     <ClCompile Include="LadowniaTest.cpp" />
-    <ClCompile Include="LiczenieKosztow.cpp" />
-    <ClCompile Include="LiczenieWymogow.cpp" />
     <ClCompile Include="Licznik.cpp" />
     <ClCompile Include="LogowanieTest.cpp" />
     <ClCompile Include="luaFunc.cpp" />
@@ -597,7 +592,6 @@
     <ClCompile Include="NiezgodnyTypSurowca.cpp" />
     <ClCompile Include="NieznalezionoObiektu.cpp" />
     <ClCompile Include="Obiekt.cpp" />
-    <ClCompile Include="ObiektBazowy.cpp" />
     <ClCompile Include="ObiektBazowyInfo.cpp" />
     <ClCompile Include="ObiektInfo.cpp" />
     <ClCompile Include="ObiektListTest.cpp" />

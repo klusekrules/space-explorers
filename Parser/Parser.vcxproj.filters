@@ -30,6 +30,9 @@
     <ClCompile Include="WyjatekParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ParserUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Parser\ParserAtrybutXml.h">

@@ -1,7 +1,6 @@
 #include "ZmianaPotegowaAlt.h"
 #include "Logger\Logger.h"
 #include "ZmianaFabryka.h"
-#include "ZmianaUtils.h"
 #include "ZmianaStaleXml.h"
 
 namespace SZmi{
@@ -12,7 +11,7 @@ namespace SZmi{
 		if (fabryka_ && zmiana){
 			wykladnik_ = fabryka_->Tworz(zmiana);
 			if (!wykladnik_)
-				ZmianaUtils::generujWyjatekBleduStruktury(zmiana);
+				SPar::ParserUtils::generujWyjatekBleduStruktury(zmiana);
 		}
 	}
 

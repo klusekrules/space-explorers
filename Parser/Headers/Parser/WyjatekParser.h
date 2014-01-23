@@ -34,6 +34,9 @@ namespace SPar{
 
 		WyjatekParser(const WyjatekParser&) = default;
 		~WyjatekParser() = default;
+		const STyp::Tekst& zawartoscWezla()const;
 		std::string napis() const override;
+	private:
+		STyp::Tekst wezel_;
 	};
 }

@@ -1,5 +1,4 @@
 #include "ZmianaAgregacja.h"
-#include "ZmianaUtils.h"
 #include "Logger\Logger.h"
 #include "ZmianaStaleXml.h"
 
@@ -9,20 +8,20 @@ namespace SZmi{
 		if (wezel && fabryka_){
 			XmlBO::ElementWezla wezelNastepny = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, XML_WEZEL_ZMIANA, XML_ATRYBUT_ZMIANA_FOR, XML_WARTOSC_ATRYBUTU_ZMIANA_NASTEPNY);
 			if (!wezelNastepny)
-				ZmianaUtils::generujWyjatekBleduStruktury(wezel);
+				SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
 			nastepna_ = fabryka_->Tworz(wezelNastepny);
 			if (!nastepna_)
-				ZmianaUtils::generujWyjatekBleduStruktury(wezelNastepny);
+				SPar::ParserUtils::generujWyjatekBleduStruktury(wezelNastepny);
 
 			XmlBO::ElementWezla dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, XML_WEZEL_ZMIANA, XML_ATRYBUT_ZMIANA_FOR, XML_WARTOSC_ATRYBUTU_ZMIANA_BRAT);
 			if (!dziecko)
-				ZmianaUtils::generujWyjatekBleduStruktury(wezel);
+				SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
 			for (; dziecko; dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, XML_WEZEL_ZMIANA, XML_ATRYBUT_ZMIANA_FOR, XML_WARTOSC_ATRYBUTU_ZMIANA_BRAT, dziecko)){
 				auto element = fabryka_->Tworz(dziecko);
 				if (element)
 					listaZmian_.push_back(element);
 				else
-					ZmianaUtils::generujWyjatekBleduStruktury(dziecko);
+					SPar::ParserUtils::generujWyjatekBleduStruktury(dziecko);
 			}
 		}
 	}

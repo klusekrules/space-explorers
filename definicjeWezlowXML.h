@@ -37,6 +37,8 @@
 #define WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO  "JednostkaAtakujacaInfo"
 #define WEZEL_XML_HANGAR_INFO "HangarInfo"
 
+#define WEZEL_XML_KRYTERIUM "Kryterium"
+
 #define WEZEL_XML_ZARZADCA "Zarzadca"
 #define WEZEL_XML_EKRAN "Ekran"
 #define WEZEL_XML_EKRAN_STARTOWY "EkranStartowy"

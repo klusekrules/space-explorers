@@ -83,7 +83,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ZmianaUtils.cpp" />
     <ClCompile Include="ZmianaAgregacja.cpp" />
     <ClCompile Include="ZmianaFabryka.cpp" />
     <ClCompile Include="ZmianaIdKlas.cpp" />
@@ -114,7 +113,6 @@
     <ClInclude Include="Headers\Zmiana\ZmianaSymbol.h" />
     <ClInclude Include="Headers\Zmiana\ZmianaFabryka.h" />
     <ClInclude Include="Headers\Zmiana\ZmianaInterfejs.h" />
-    <ClInclude Include="Headers\Zmiana\ZmianaUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,68 +1,91 @@
 #include "PodstawoweParametry.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
-#include "XmlBO.h"
 #include "Walidator.h"
 
-PodstawoweParametry::PodstawoweParametry( const Poziom& poziom, const Identyfikator& planeta)
-	: poziom_(poziom), identyfikatorPlanety_(planeta)
-{
-}
+namespace SpEx{
 
-const Poziom& PodstawoweParametry::pobierzPoziom() const{
-	return poziom_;
-}
+	PodstawoweParametry::PodstawoweParametry(const AtrybutPodstawowy& atrybut, TypAtrybutu typ, const STyp::Identyfikator& planeta)
+		: atrybutPodstawowy_(atrybut), typAtrybutu_(typ), identyfikatorPlanety_(planeta)
+	{
+	}
 
-void PodstawoweParametry::ustawPoziom( const Poziom& poziom ){
-	poziom_=poziom;
-}
+	const PodstawoweParametry::AtrybutPodstawowy& PodstawoweParametry::pobierzAtrybut() const{
+		return atrybutPodstawowy_;
+	}
 
-const Identyfikator& PodstawoweParametry::pobierzIdentyfikatorPlanety() const{
-	return identyfikatorPlanety_;
-}
+	void PodstawoweParametry::ustawAtrybut(const AtrybutPodstawowy& atrybut){
+		atrybutPodstawowy_ = atrybut;
+	}
 
-void PodstawoweParametry::ustawIdentyfikatorPlanety( const Identyfikator& identyfikatorPlanety ){
-	identyfikatorPlanety_ = identyfikatorPlanety;
-}
+	const STyp::Identyfikator& PodstawoweParametry::pobierzIdentyfikatorPlanety() const{
+		return identyfikatorPlanety_;
+	}
 
-void PodstawoweParametry::ustawKontekst( const PodstawoweParametry& podstawoweParametry ){
-	poziom_ = podstawoweParametry.poziom_;
-	identyfikatorPlanety_ = podstawoweParametry.identyfikatorPlanety_;
-}
-void PodstawoweParametry::wzrostPoziomu(){
-	++poziom_;
-}
+	void PodstawoweParametry::ustawIdentyfikatorPlanety(const STyp::Identyfikator& identyfikatorPlanety){
+		identyfikatorPlanety_ = identyfikatorPlanety;
+	}
 
-bool PodstawoweParametry::zapisz( tinyxml2::XMLElement* wezel ) const{
-	if( poziom_ <= Poziom(0) )
-			return false;
-	wezel->SetAttribute(ATRYBUT_XML_POZIOM,poziom_.napis().c_str());
-	wezel->SetAttribute(ATRYBUT_XML_IDENTYFIKATOR_PLANETY,identyfikatorPlanety_.napis().c_str());
-	return true;
-}
+	void PodstawoweParametry::ustawKontekst(const PodstawoweParametry& podstawoweParametry){
+		atrybutPodstawowy_ = podstawoweParametry.atrybutPodstawowy_;
+		typAtrybutu_ = podstawoweParametry.typAtrybutu_;
+		identyfikatorPlanety_ = podstawoweParametry.identyfikatorPlanety_;
+	}
+	void PodstawoweParametry::wzrostAtrybutu(const AtrybutPodstawowy& atrybut){
+		switch (typAtrybutu_){
+		case POZIOM: atrybutPodstawowy_.poziom = atrybut.poziom; break;
+		case ILOSC:	atrybutPodstawowy_.ilosc = atrybut.ilosc; break;
+		}
+	}
 
-bool PodstawoweParametry::odczytaj( tinyxml2::XMLElement* wezel ){
-	if(wezel){
-		int opcja = XmlBO::WczytajAtrybut<int>(wezel,ATRYBUT_XML_OPCJA,0);
-		if(opcja == 1)
-			return true;
-		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_POZIOM,poziom_))
-			return false;
-		if( poziom_ <= Poziom(0) )
-			return false;
-		if(XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR_PLANETY,identyfikatorPlanety_))
-			Walidator::pobierzInstancje().dodajUzytyIdentyfikatorPlanety(identyfikatorPlanety_);
-		else
-			return false;
+	bool PodstawoweParametry::zapisz(XmlBO::ElementWezla wezel) const{
+		wezel->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR_PLANETY, identyfikatorPlanety_.napis().c_str());
+		switch (typAtrybutu_){
+		case POZIOM:
+			if (atrybutPodstawowy_.poziom <= 0)
+				return false;
+			wezel->tworzAtrybut(ATRYBUT_XML_POZIOM, STyp::Poziom(atrybutPodstawowy_.poziom).napis().c_str());
+			break;
+		case ILOSC:
+			if (atrybutPodstawowy_.ilosc <= 0)
+				return false;
+			wezel->tworzAtrybut(ATRYBUT_XML_ILOSC, STyp::Poziom(atrybutPodstawowy_.ilosc).napis().c_str());
+			break;
+		}
 		return true;
 	}
-	return false;
-}
 
-string PodstawoweParametry::napis() const{
-	Logger str(NAZWAKLASY(PodstawoweParametry));
-	str.dodajPole(NAZWAKLASY(Poziom),poziom_);
-	str.dodajPole(NAZWAKLASY(Identyfikator),identyfikatorPlanety_);
-	return str.napis();
+	bool PodstawoweParametry::odczytaj(XmlBO::ElementWezla wezel){
+		int opcja = XmlBO::WczytajAtrybut<int>(wezel, ATRYBUT_XML_OPCJA, 0);
+		if (opcja == 1)
+			return true;
+		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_PLANETY, identyfikatorPlanety_);
+		STyp::Poziom poziom;
+		STyp::Ilosc ilosc;
+		if (XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_POZIOM, poziom)){
+			if (XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_ILOSC, ilosc)){
+				SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+				return false;
+			}
+			typAtrybutu_ = POZIOM;
+			atrybutPodstawowy_.poziom = poziom();
+		}else{
+			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_ILOSC, ilosc);
+			typAtrybutu_ = ILOSC;
+			atrybutPodstawowy_.ilosc = ilosc();
+		}
+		Walidator::pobierzInstancje().dodajUzytyIdentyfikatorPlanety(identyfikatorPlanety_);
+		return true;
+	}
+
+	string PodstawoweParametry::napis() const{
+		SLog::Logger str(NAZWAKLASY(PodstawoweParametry));
+		switch (typAtrybutu_){
+		case POZIOM: str.dodajPole(NAZWAPOLA(POZIOM), STyp::Poziom(atrybutPodstawowy_.poziom)); break;
+		case ILOSC:	str.dodajPole(NAZWAPOLA(ILOSC), STyp::Ilosc(atrybutPodstawowy_.ilosc)); break;
+		}
+		str.dodajPole(NAZWAPOLA(identyfikatorPlanety_), identyfikatorPlanety_);
+		return str.napis();
+	}
 }
