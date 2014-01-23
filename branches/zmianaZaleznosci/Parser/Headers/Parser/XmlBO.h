@@ -107,25 +107,29 @@ private:
 	}
 	
 public:
-
-	static bool ForEach(ElementWezla wezel, const char* nazwa, OperacjaWezla& funkcja){
+	template<typename T>
+	static bool ForEach(ElementWezla wezel, const std::string& nazwa, OperacjaWezla& funkcja){
+		if (wezel == nullptr || nazwa.empty() )
+			return bladWezla<T>(wezel, nazwa);
 		for(ElementWezla element = wezel->pobierzElement(nazwa);element!=nullptr; element = element->pobierzNastepnyElement(nazwa)){
 			if(!funkcja(element))
 				return false;
 		}
 		return true;
 	}
-
+	template<typename T>
 	static bool ForEach(ElementWezla wezel, OperacjaAtrybutu& funkcja){
+		if (wezel == nullptr)
+			return bladWezla<T>(wezel, "");
 		for (AtrybutElementu element = wezel->pobierzAtrybut(nullptr); element != nullptr; element = element->pobierzNastepnyAtrybut()){
 			if (!funkcja(element))
 				return false;
 		}
 		return true;
 	}
-
+	template<typename T>
 	static bool ForEach(ElementWezla wezel, OperacjaWezla& funkcja){
-		return ForEach(wezel,nullptr,funkcja);
+		return ForEach<T>(wezel,nullptr,funkcja);
 	}
 
 	template<typename T>
@@ -229,3 +233,11 @@ public:
 		return domyslnaWartosc;
 	}
 };
+
+namespace SPar{
+	class PARSER_API ParserUtils
+	{
+	public:
+		static void generujWyjatekBleduStruktury(XmlBO::ElementWezla wezel);
+	};
+}

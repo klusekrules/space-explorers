@@ -80,7 +80,7 @@ namespace ParserTesty
 			Assert::IsTrue(atrybut->operator bool(), L"Nie uda³o siê wczytaæ atrybutu elementu.", LINE_INFO());
 			Assert::AreEqual("Napis",atrybut->pobierzWartosc(), L"Nie uda³o siê wczytaæ atrybutu elementu.", LINE_INFO());
 			int iteracja = 0;
-			Assert::IsTrue(XmlBO::ForEach(element, "Dziecko", XmlBO::OperacjaWezla([&iteracja](XmlBO::ElementWezla el)->bool{
+			Assert::IsTrue(XmlBO::ForEach<NOTHROW>(element, "Dziecko", XmlBO::OperacjaWezla([&iteracja](XmlBO::ElementWezla el)->bool{
 				if (!el)
 					return false;
 				++iteracja;

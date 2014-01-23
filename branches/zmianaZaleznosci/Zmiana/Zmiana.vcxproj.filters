@@ -36,9 +36,6 @@
     <ClCompile Include="ZmianaParametr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ZmianaUtils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Zmiana\ZmianaInterfejs.h">
@@ -63,9 +60,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Zmiana\ZmianaParametr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Zmiana\ZmianaUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Zmiana\ZmianaStaleXml.h">
