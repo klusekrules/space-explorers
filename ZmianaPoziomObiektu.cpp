@@ -1,46 +1,44 @@
 #include "ZmianaPoziomObiektu.h"
-#include "XmlBO.h"
-#include "Logger.h"
 #include "Aplikacja.h"
-#include "definicjeWezlowXML.h"
+#include "Zmiana\ZmianaStaleXml.h"
 
-ZmianaPoziomObiektu::ZmianaPoziomObiektu( tinyxml2::XMLElement* e )
-	: parametr_(XmlBO::ZnajdzWezel<NOTHROW>( e, WEZEL_XML_PARAM ))
-{
-}
+namespace SpEx{
 
-ZmianaPoziomObiektu::~ZmianaPoziomObiektu(void)
-{
-}
+	ZmianaPoziomObiektu::ZmianaPoziomObiektu(XmlBO::ElementWezla e)
+		: parametr_(XmlBO::ZnajdzWezel<THROW>(e, XML_WEZEL_ZMIANA_PARAM))
+	{
+	}
 
-long double ZmianaPoziomObiektu::policzWartosc(long double d, int p, int idPlaneta ) const{
-	return Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(Identyfikator(idPlaneta))->pobierzObiekt(Identyfikator(parametr_.pobierzIdentyfikatorObiektu())).pobierzPoziom()();
-}
+	STyp::Wartosc ZmianaPoziomObiektu::policzWartosc(const STyp::Wartosc& wartosc, const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety) const{
+		//TODO: Wypisywanie wartosci. auto obiekt = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(identyfikatorPlanety)->pobierzObiekt(parametr_.pobierzIdentyfikatorObiektu());
+		return STyp::Wartosc();
+	}
 
-ZmianaPoziomObiektu* ZmianaPoziomObiektu::Kopia()const{
-	return new ZmianaPoziomObiektu(*this);
-}
+	ZmianaPoziomObiektu* ZmianaPoziomObiektu::Kopia()const{
+		return new ZmianaPoziomObiektu(*this);
+	}
 
-bool ZmianaPoziomObiektu::RejestrujZmianaPoziomObiektu(  ZmianaFabryka &ref ){
-	return ref.rejestracjaZmiany( identyfikator_, ZmianaPoziomObiektu::TworzZmianaPoziomObiektu );
-}
+	bool ZmianaPoziomObiektu::RejestrujZmianaPoziomObiektu(SZmi::ZmianaFabryka &ref){
+		return ref.rejestracjaZmiany(identyfikator_, ZmianaPoziomObiektu::TworzZmianaPoziomObiektu);
+	}
 
-std::string ZmianaPoziomObiektu::napis()const{
-	Logger str(NAZWAKLASY(ZmianaPoziomObiektu));
-	str.dodajPole( "Parametr", parametr_ );
-	return str.napis();
-}
+	std::string ZmianaPoziomObiektu::napis()const{
+		SLog::Logger str(NAZWAKLASY(ZmianaPoziomObiektu));
+		str.dodajPole(NAZWAPOLA(parametr_), parametr_);
+		return str.napis();
+	}
 
-ZmianaInterfejs* ZmianaPoziomObiektu::TworzZmianaPoziomObiektu( tinyxml2::XMLElement* wezel ){
-	return new ZmianaPoziomObiektu(wezel);
-}
+	SZmi::ZmianaInterfejs* ZmianaPoziomObiektu::TworzZmianaPoziomObiektu(XmlBO::ElementWezla wezel){
+		return new ZmianaPoziomObiektu(wezel);
+	}
 
-const int ZmianaPoziomObiektu::identyfikator_(6);
+	const STyp::Identyfikator ZmianaPoziomObiektu::identyfikator_(6);
 
-bool RejestrujZmianaPoziomObiektu ( ZmianaFabryka& fabryka , Log& logger ){
-	if(ZmianaPoziomObiektu::RejestrujZmianaPoziomObiektu(fabryka))
-		logger.loguj(Log::Info,"Zaladowano ZmianaPoziomObiektu.");
-	else
-		logger.loguj(Log::Info,"Nie zaladowano ZmianaPoziomObiektu.");
-	return true;
+	bool RejestrujZmianaPoziomObiektu(SZmi::ZmianaFabryka& fabryka, SLog::Log& logger){
+		if (ZmianaPoziomObiektu::RejestrujZmianaPoziomObiektu(fabryka))
+			logger.loguj(SLog::Log::Info, "Zaladowano ZmianaPoziomObiektu."); //TODO: przeniesc do sta³ej.
+		else
+			logger.loguj(SLog::Log::Info, "Nie zaladowano ZmianaPoziomObiektu."); //TODO: przeniesc do sta³ej.
+		return true;
+	}
 }

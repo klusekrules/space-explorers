@@ -1,65 +1,63 @@
 #include "Galaktyka.h"
-#include "Logger.h"
 #include "definicjeWezlowXML.h"
-#include "XmlBO.h"
 
-Galaktyka::Galaktyka( const Identyfikator& identyfikator )
-	: Bazowa(identyfikator)
-{
-}
+namespace SpEx{
 
-Galaktyka::~Galaktyka(){
-}
+	Galaktyka::Galaktyka(const STyp::Identyfikator& identyfikator)
+		: identyfikator_(identyfikator)
+	{
+	}
+	
+	std::shared_ptr<UkladSloneczny> Galaktyka::pobierzUklad(const STyp::Identyfikator& identyfikator) const{
+		auto iter = uklady_.find(identyfikator);
+		if (iter != uklady_.end())
+			return iter->second;
+		return nullptr;
+	}
 
-shared_ptr<UkladSloneczny> Galaktyka::pobierzUklad( const Identyfikator& identyfikator ) const{
-	auto iter = uklady_.find(identyfikator);
-	if(iter!=uklady_.end())
-		return iter->second;
-	return nullptr;
-}
-
-bool Galaktyka::dodajUklad( shared_ptr<UkladSloneczny> uklad ){
-	auto iter = uklady_.find(uklad->pobierzIdentyfikator());
-	if(iter!=uklady_.end())
-		return false;
-	uklady_.insert(make_pair(uklad->pobierzIdentyfikator(),uklad));
-	return true;
-}
-
-bool Galaktyka::zapisz( tinyxml2::XMLElement* wezel ) const{
-	tinyxml2::XMLElement* element = wezel->GetDocument()->NewElement(WEZEL_XML_GALAKTYKA);
-	wezel->LinkEndChild( element );
-	for(auto uklad :  uklady_)
-		if(!uklad.second->zapisz(element))
+	bool Galaktyka::dodajUklad(std::shared_ptr<UkladSloneczny> uklad){
+		auto iter = uklady_.find(uklad->pobierzIdentyfikator());
+		if (iter != uklady_.end())
 			return false;
-	return Bazowa::zapisz(element);
-}
-
-bool Galaktyka::odczytaj( tinyxml2::XMLElement* wezel ){
-	if(wezel){
-		if(!Bazowa::odczytaj(wezel))
-			return false;
-		for(tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_UKLAD_SLONECZNY); element ; element = element->NextSiblingElement(WEZEL_XML_UKLAD_SLONECZNY)){
-			auto uklad = make_shared<UkladSloneczny>(Identyfikator(),pobierzIdentyfikator());
-			if(!uklad->odczytaj(element))
-				return false;
-			auto iter = uklady_.find(uklad->pobierzIdentyfikator());
-			if(iter!=uklady_.end())
-				return false;
-			uklady_.insert(make_pair(uklad->pobierzIdentyfikator(),uklad));
-		}
+		uklady_.insert(make_pair(uklad->pobierzIdentyfikator(), uklad));
 		return true;
 	}
-	return false;
-}
-	
-string Galaktyka::napis() const{
-	Logger str(NAZWAKLASY(Galaktyka));
-	str.dodajKlase(Bazowa::napis());	
-	for( auto a : uklady_ ){
-		if(a.second){
-			str.dodajPole("Uklad",*a.second);
-		}
+
+	bool Galaktyka::zapisz(XmlBO::ElementWezla wezel) const{
+		auto element = wezel->tworzElement(WEZEL_XML_GALAKTYKA);
+		//TODO: zapisywanie identyfikatora.
+		for (auto uklad : uklady_)
+		if (!uklad.second->zapisz(element))
+			return false;
+		return true;
 	}
-	return str.napis();
+
+	bool Galaktyka::odczytaj(XmlBO::ElementWezla wezel){
+		if (wezel){
+			//TODO: Odczytywanie identyfikatora galaktyki.
+			//TODO: U¿yæ foreach na wezle.
+			for (XmlBO::ElementWezla element = wezel->pobierzElement(WEZEL_XML_UKLAD_SLONECZNY); element; element = element->pobierzNastepnyElement(WEZEL_XML_UKLAD_SLONECZNY)){
+				auto uklad = std::make_shared<UkladSloneczny>(STyp::Identyfikator(), pobierzIdentyfikator());
+				if (!uklad->odczytaj(element))
+					return false;
+				auto iter = uklady_.find(uklad->pobierzIdentyfikator());
+				if (iter != uklady_.end())
+					return false;
+				uklady_.insert(std::make_pair(uklad->pobierzIdentyfikator(), uklad));
+			}
+			return true;
+		}
+		return false;
+	}
+
+	std::string Galaktyka::napis() const{
+		SLog::Logger str(NAZWAKLASY(Galaktyka));
+		//str.dodajKlase(Bazowa::napis());
+		for (auto a : uklady_){
+			if (a.second){
+				str.dodajPole("Uklad", *a.second);
+			}
+		}
+		return str.napis();
+	}
 }

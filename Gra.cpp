@@ -1,390 +1,349 @@
 #include "Gra.h"
 #include "Aplikacja.h"
 #include "DefinicjeWezlowXML.h"
-#include "XmlBO.h"
 #include <iostream>
 #include <fstream>
 #include "Walidator.h"
+#include "Parser\ParserDokumentXml.h"
 
-Gra::Gra(Aplikacja& aplikacja)
-	: aplikacja_(aplikacja), fabryka_(ZmianaFabryka::pobierzInstancje()), uzytkownik_(nullptr)
-{
-}
+namespace SpEx{
 
-Gra::Gra(const Gra& gra)
-	: aplikacja_(gra.aplikacja_), fabryka_(ZmianaFabryka::pobierzInstancje()),uzytkownik_(gra.uzytkownik_)
-{
-}
-
-Gra& Gra::operator=(const Gra& gra){
-	return *this;
-}
-
-ZmianaFabryka& Gra::pobierzFabrykeZmian() const{
-	return fabryka_;
-}
-
-bool Gra::przeniesPlaneteDoUzytkownika( const Identyfikator& identyfikator ){
-	auto planeta = zarzadca_.pobierzPlanete(identyfikator);
-	if(!planeta)
-		return false;
-	return uzytkownik_->dodajPlanete(planeta);
-}
-
-int Gra::pobierzIloscGalaktyk() const{
-	return zarzadca_.pobierzIloscGalaktyk();
-}
-
-bool Gra::generujNowaGalaktyke(){
-	return zarzadca_.generujNowaGalaktyke();
-}
-
-shared_ptr<Surowce> Gra::tworzSurowce( tinyxml2::XMLElement* wezel )const{
-	Identyfikator identyfikator;
-	if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
-		return nullptr;
-	auto obiektOpisowy = listaSurowcowInfo_.find(identyfikator);
-	if( obiektOpisowy == listaSurowcowInfo_.end() )
-		return nullptr;
-	shared_ptr<Surowce> obiekt = shared_ptr<Surowce>(obiektOpisowy->second->tworzEgzemplarz(Ilosc(0),Identyfikator(0)));
-	if(!obiekt || !obiekt->odczytaj(wezel))
-		return nullptr;
-	return obiekt;
-}
-
-shared_ptr<Statek> Gra::tworzStatek( tinyxml2::XMLElement* wezel )const{
-	Identyfikator identyfikator;
-	if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,identyfikator))
-		return nullptr;
-	auto obiektOpisowy = listaStatkowInfo_.find(identyfikator);
-	if( obiektOpisowy == listaStatkowInfo_.end() )
-		return nullptr;
-	shared_ptr<Statek> obiekt = shared_ptr<Statek>(obiektOpisowy->second->tworzEgzemplarz(Ilosc(0),Identyfikator(0)));
-	if(!obiekt || !obiekt->odczytaj(wezel))
-		return nullptr;
-	return obiekt;
-}
-
-Gra::~Gra()
-{
-}
-
-Uzytkownik& Gra::pobierzUzytkownika() const throw (NieznalezionoObiektu) {
-	if(!uzytkownik_)
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,Tekst("Uzytkownik"));
-	return *uzytkownik_;
-}
-
-shared_ptr<Planeta> Gra::pobierzPlanete( const Identyfikator& identyfikator ){
-	return zarzadca_.pobierzPlanete(identyfikator);
-}
-
-bool Gra::wybudujNaPlanecie( Planeta& planeta , const Identyfikator& identyfikator , const Ilosc& ilosc, const Poziom& poziom )const{
-	auto iterator = listaObiektowBaseInfo_.find(identyfikator);
-	if(iterator != listaObiektowBaseInfo_.end()){
-		return iterator->second->tworz(*this,planeta,ilosc, poziom);
+	Gra::Gra(Aplikacja& aplikacja)
+		: aplikacja_(aplikacja), fabryka_(SZmi::ZmianaFabryka::pobierzInstancje()), uzytkownik_(nullptr)
+	{
 	}
-	return false;
-}
 
-bool Gra::wybudujNaPlanecie( Planeta& planeta , const Identyfikator& identyfikator , const Ilosc& ilosc )const{
-	auto iterator = listaObiektowBaseInfo_.find(identyfikator);
-	if(iterator != listaObiektowBaseInfo_.end()){
-		return iterator->second->tworz(*this,planeta,ilosc, iterator->second->pobierzPoziom());
+	Gra::Gra(const Gra& gra)
+		: aplikacja_(gra.aplikacja_), fabryka_(SZmi::ZmianaFabryka::pobierzInstancje()), uzytkownik_(gra.uzytkownik_)
+	{
 	}
-	return false;
-}
 
-bool Gra::wybudujNaPlanecie( Planeta& planeta, const ObiektBazowyInfo& obiektInfo, const Ilosc& ilosc, const Poziom& poziom )const{
-	return obiektInfo.tworz(*this,planeta,ilosc,poziom);
-}
+	Gra& Gra::operator=(const Gra& gra){
+		return *this;
+	}
 
-bool Gra::wybudujNaPlanecie( Planeta& planeta, const BudynekInfo& obiektInfo, const Ilosc& ilosc, const Poziom& poziom )const{
-	return planeta.dodajObiekt(shared_ptr<Budynek>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator(),poziom)));
-}
+	SZmi::ZmianaFabryka& Gra::pobierzFabrykeZmian() const{
+		return fabryka_;
+	}
 
-bool Gra::wybudujNaPlanecie( Planeta& planeta, const TechnologiaInfo& obiektInfo, const Ilosc& ilosc, const Poziom& poziom )const{
-	return planeta.dodajObiekt(shared_ptr<Technologia>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator(),poziom)));
-}
+	bool Gra::przeniesPlaneteDoUzytkownika(const STyp::Identyfikator& identyfikator){
+		auto planeta = zarzadca_.pobierzPlanete(identyfikator);
+		if (!planeta)
+			return false;
+		return uzytkownik_->dodajPlanete(planeta);
+	}
 
-bool Gra::wybudujNaPlanecie( Planeta& planeta, const StatekInfo& obiektInfo, const Ilosc& ilosc, const Poziom& poziom )const{
-	return planeta.dodajObiekt(shared_ptr<Statek>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator(),poziom)));
-}
+	int Gra::pobierzIloscGalaktyk() const{
+		return zarzadca_.pobierzIloscGalaktyk();
+	}
 
-bool Gra::wybudujNaPlanecie( Planeta& planeta, const SurowceInfo& obiektInfo, const Ilosc& ilosc, const Poziom& poziom )const{
-	return planeta.dodajObiekt(shared_ptr<Surowce>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator(),poziom)));
-}
+	bool Gra::generujNowaGalaktyke(){
+		return zarzadca_.generujNowaGalaktyke();
+	}
 
-bool Gra::wybudujNaPlanecie( Planeta& planeta, const ObronaInfo& obiektInfo, const Ilosc& ilosc, const Poziom& poziom )const{
-	return planeta.dodajObiekt(shared_ptr<Obrona>(obiektInfo.tworzEgzemplarz(ilosc,planeta.pobierzIdentyfikator(),poziom)));
-}
+	std::shared_ptr<Surowce> Gra::tworzSurowce(XmlBO::ElementWezla wezel)const{
+		STyp::Identyfikator identyfikator;
+		if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator))
+			return nullptr;
+		auto obiektOpisowy = listaSurowcowInfo_.find(identyfikator);
+		if (obiektOpisowy == listaSurowcowInfo_.end())
+			return nullptr;
+		std::shared_ptr<Surowce> obiekt = std::shared_ptr<Surowce>(obiektOpisowy->second->tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(),PodstawoweParametry::ILOSC,STyp::Identyfikator())));
+		if (!obiekt || !obiekt->odczytaj(wezel))
+			return nullptr;
+		return obiekt;
+	}
 
-StatekInfo& Gra::pobierzStatek(const Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
-	auto iterator = listaStatkowInfo_.find(identyfikator);
-	if(iterator==listaStatkowInfo_.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,identyfikator.napis());
-	return *(iterator->second);
-}
+	std::shared_ptr<Statek> Gra::tworzStatek(XmlBO::ElementWezla wezel)const{
+		STyp::Identyfikator identyfikator;
+		if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator))
+			return nullptr;
+		auto obiektOpisowy = listaStatkowInfo_.find(identyfikator);
+		if (obiektOpisowy == listaStatkowInfo_.end())
+			return nullptr;
+		std::shared_ptr<Statek> obiekt = std::shared_ptr<Statek>(obiektOpisowy->second->tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), PodstawoweParametry::ILOSC, STyp::Identyfikator())));
+		if (!obiekt || !obiekt->odczytaj(wezel))
+			return nullptr;
+		return obiekt;
+	}
 
-SurowceInfo& Gra::pobierzSurowce(const Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
-	auto iterator = listaSurowcowInfo_.find(identyfikator);
-	if(iterator==listaSurowcowInfo_.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,identyfikator.napis());
-	return *(iterator->second);
-}
+	Uzytkownik& Gra::pobierzUzytkownika() const throw (NieznalezionoObiektu) {
+		if (!uzytkownik_)
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, STyp::Tekst("Uzytkownik"));
+		return *uzytkownik_;
+	}
 
-TechnologiaInfo& Gra::pobierzTechnologia(const Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
-	auto iterator = listaTechnologiInfo_.find(identyfikator);
-	if(iterator==listaTechnologiInfo_.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,identyfikator.napis());
-	return *(iterator->second);
-}
+	std::shared_ptr<Planeta> Gra::pobierzPlanete(const STyp::Identyfikator& identyfikator){
+		return zarzadca_.pobierzPlanete(identyfikator);
+	}
 
-BudynekInfo& Gra::pobierzBudynek(const Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
-	auto iterator = listaBudynkowInfo_.find(identyfikator);
-	if(iterator==listaBudynkowInfo_.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,identyfikator.napis());
-	return *(iterator->second);
-}
+	StatekInfo& Gra::pobierzStatek(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
+		auto iterator = listaStatkowInfo_.find(identyfikator);
+		if (iterator == listaStatkowInfo_.end())
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+		return *(iterator->second);
+	}
 
-ObiektInfo& Gra::pobierzObiekt(const Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
-	auto iterator = listaObiektowInfo_.find(identyfikator);
-	if(iterator==listaObiektowInfo_.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,identyfikator.napis());
-	return *(iterator->second);
-}
+	SurowceInfo& Gra::pobierzSurowce(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
+		auto iterator = listaSurowcowInfo_.find(identyfikator);
+		if (iterator == listaSurowcowInfo_.end())
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+		return *(iterator->second);
+	}
 
-ObronaInfo& Gra::pobierzObrone(const Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
-	auto iterator = listaObronaInfo_.find(identyfikator);
-	if(iterator==listaObronaInfo_.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,identyfikator.napis());
-	return *(iterator->second);
-}
+	TechnologiaInfo& Gra::pobierzTechnologia(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
+		auto iterator = listaTechnologiInfo_.find(identyfikator);
+		if (iterator == listaTechnologiInfo_.end())
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+		return *(iterator->second);
+	}
 
-bool Gra::wczytajDane( const string& adresPliku ){
-	tinyxml2::XMLDocument dane;
-	try{
-		dane.LoadFile( adresPliku.c_str() );
-		auto root_data = dane.FirstChildElement(WEZEL_XML_ROOT);
-		if(root_data){
-			if(!wczytajSurowce(root_data))
-				return false;
-			if(!wczytajStatki(root_data))
-				return false;
-			if(!wczytajObrone(root_data))
-				return false;
-			if(!wczytajTechnologie(root_data))
-				return false;
-			if(!wczytajBudynki(root_data))
-				return false;
+	BudynekInfo& Gra::pobierzBudynek(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
+		auto iterator = listaBudynkowInfo_.find(identyfikator);
+		if (iterator == listaBudynkowInfo_.end())
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+		return *(iterator->second);
+	}
+
+	ObiektInfo& Gra::pobierzObiekt(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
+		auto iterator = listaObiektowInfo_.find(identyfikator);
+		if (iterator == listaObiektowInfo_.end())
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+		return *(iterator->second);
+	}
+
+	ObronaInfo& Gra::pobierzObrone(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
+		auto iterator = listaObronaInfo_.find(identyfikator);
+		if (iterator == listaObronaInfo_.end())
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+		return *(iterator->second);
+	}
+
+	bool Gra::wczytajDane(const std::string& adresPliku){
+		SPar::ParserDokumentXml dane;
+		try{
+			dane.odczytaj(adresPliku.c_str());
+			auto root_data = dane.pobierzElement(WEZEL_XML_ROOT);
+			if (root_data){
+				if (!wczytajSurowce(root_data))
+					return false;
+				if (!wczytajStatki(root_data))
+					return false;
+				if (!wczytajObrone(root_data))
+					return false;
+				if (!wczytajTechnologie(root_data))
+					return false;
+				if (!wczytajBudynki(root_data))
+					return false;
+			}
 		}
-	}catch(OgolnyWyjatek& wyjatek){
-		aplikacja_.pobierzLogger().loguj(Log::Error,wyjatek.generujKomunikat());
-		return false;
-	}catch(exception& wyjatek){
-		aplikacja_.pobierzLogger().loguj(Log::Error,wyjatek.what());
-		return false;
-	}
-	return true;
-}
-
-bool Gra::wczytajTechnologie(tinyxml2::XMLElement* wezel){
-	try{
-		tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_TECHNOLOGIA_INFO);
-		do{
-			if(element){
-				shared_ptr<TechnologiaInfo> obiekt(new TechnologiaInfo(element));
-				aplikacja_.pobierzLogger().loguj(Log::Debug,*obiekt);
-				if(listaObiektowBaseInfo_.find(obiekt->pobierzIdentyfikator())!=listaObiektowBaseInfo_.end())
-					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
-				listaTechnologiInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
-				listaObiektowBaseInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
-				element = element->NextSiblingElement(WEZEL_XML_TECHNOLOGIA_INFO);
-			}
-		}while(element);
-	}catch(OgolnyWyjatek& wyjatek){
-		aplikacja_.pobierzLogger().loguj(Log::Warning,wyjatek.generujKomunikat());
-		aplikacja_.pobierzLogger().loguj(Log::Debug,wyjatek);
-		return false;
-	}
-	return true;
-}
-
-bool Gra::wczytajBudynki(tinyxml2::XMLElement* wezel){
-	try{
-		tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_BUDYNEK_INFO);
-		do{
-			if(element){
-				shared_ptr<BudynekInfo> obiekt(new BudynekInfo(element));
-				aplikacja_.pobierzLogger().loguj(Log::Debug,*obiekt);
-				if(listaObiektowBaseInfo_.find(obiekt->pobierzIdentyfikator())!=listaObiektowBaseInfo_.end())
-					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
-				listaBudynkowInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
-				listaObiektowBaseInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
-				listaObiektowInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
-				element = element->NextSiblingElement(WEZEL_XML_BUDYNEK_INFO);
-			}
-		}while(element);
-	}catch(OgolnyWyjatek& wyjatek){
-		aplikacja_.pobierzLogger().loguj(Log::Warning,wyjatek.generujKomunikat());
-		aplikacja_.pobierzLogger().loguj(Log::Debug,wyjatek);
-		return false;
-	}
-	return true;
-}
-
-bool Gra::wczytajSurowce(tinyxml2::XMLElement* wezel){
-	try{
-		tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_SUROWCE_INFO);
-		do{
-			if(element){
-				shared_ptr<SurowceInfo> obiekt(new SurowceInfo(element));
-				aplikacja_.pobierzLogger().loguj(Log::Debug,*obiekt);
-				if(listaObiektowBaseInfo_.find(obiekt->pobierzIdentyfikator())!=listaObiektowBaseInfo_.end())
-					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
-				listaSurowcowInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
-				listaObiektowBaseInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
-				listaObiektowInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
-				element = element->NextSiblingElement(WEZEL_XML_SUROWCE_INFO);
-			}
-		}while(element);
-	}catch(OgolnyWyjatek& wyjatek){
-		aplikacja_.pobierzLogger().loguj(Log::Warning,wyjatek.generujKomunikat());
-		aplikacja_.pobierzLogger().loguj(Log::Debug,wyjatek);
-		return false;
-	}
-	return true;
-}
-
-bool Gra::wczytajObrone(tinyxml2::XMLElement* wezel){
-	try{
-		tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_OBRONA_INFO);
-		do{
-			if(element){
-				shared_ptr<ObronaInfo> obiekt(new ObronaInfo(element));
-				aplikacja_.pobierzLogger().loguj(Log::Debug,*obiekt);
-				if(listaObiektowBaseInfo_.find(obiekt->pobierzIdentyfikator())!=listaObiektowBaseInfo_.end())
-					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
-				listaObronaInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
-				listaObiektowBaseInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
-				listaObiektowInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
-				element = element->NextSiblingElement(WEZEL_XML_OBRONA_INFO);
-			}
-		}while(element);
-	}catch(OgolnyWyjatek& wyjatek){
-		aplikacja_.pobierzLogger().loguj(Log::Warning,wyjatek.generujKomunikat());
-		aplikacja_.pobierzLogger().loguj(Log::Debug,wyjatek);
-		return false;
-	}
-	return true;
-}
-
-bool Gra::wczytajStatki(tinyxml2::XMLElement* wezel){
-	try{
-		tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_STATEK_INFO);
-		do{
-			if(element){
-				shared_ptr<StatekInfo> obiekt(new StatekInfo(element));
-				aplikacja_.pobierzLogger().loguj(Log::Debug,*obiekt);
-				if(listaObiektowBaseInfo_.find(obiekt->pobierzIdentyfikator())!=listaObiektowBaseInfo_.end())
-					throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1),Tekst("B³¹d wczytywania danych"),Tekst("Obiekt o podanym id istnieje"));
-				listaStatkowInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
-				listaObiektowBaseInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
-				listaObiektowInfo_[obiekt->pobierzIdentyfikator()]=obiekt;
-				element = element->NextSiblingElement(WEZEL_XML_STATEK_INFO);
-			}
-		}while(element);
-	}catch(OgolnyWyjatek& wyjatek){
-		aplikacja_.pobierzLogger().loguj(Log::Warning,wyjatek.generujKomunikat());
-		aplikacja_.pobierzLogger().loguj(Log::Debug,wyjatek);
-		return false;
-	}
-	return true;
-}
-
-bool Gra::zapisz( tinyxml2::XMLElement* wezel ) const{
-	tinyxml2::XMLElement* element = wezel->GetDocument()->NewElement(WEZEL_XML_GRA);
-	wezel->LinkEndChild( element );
-	return zarzadca_.zapisz(element);
-}
-
-bool Gra::odczytaj( tinyxml2::XMLElement* wezel ){
-	if(wezel){
-		auto element = XmlBO::ZnajdzWezel<NOTHROW>(wezel,WEZEL_XML_ZARZADCA);
-		if(element)
-			return zarzadca_.odczytaj(element);	
+		catch (STyp::Wyjatek& wyjatek){
+			aplikacja_.pobierzLogger().loguj(SLog::Log::Error, wyjatek.generujKomunikat());
+			return false;
+		}
+		catch (std::exception& wyjatek){
+			aplikacja_.pobierzLogger().loguj(SLog::Log::Error, wyjatek.what());
+			return false;
+		}
 		return true;
 	}
-	return false;
-}
 
-bool Gra::odczytaj( const string& nazwa, const string& hash ){
-	return logowanie(nazwa,hash);
-}
-
-bool Gra::logowanie(const string& nazwa, const string& hash){
-	std::string plik;
-	auto dokument = plikUzytkownika(nazwa,hash,plik,false);
-	if( !dokument )
-		return false;
-	auto nowyUzytkownik = make_shared<Uzytkownik>(*this);
-	if(nowyUzytkownik->odczytaj(dokument->RootElement()) && Walidator::pobierzInstancje().waliduj())
-		uzytkownik_ = nowyUzytkownik;
-	else
-		return false;
-	return true;
-}
-
-bool Gra::nowyGracz(const string& nazwa, const string& hash){
-	std::string plik;
-	if(plikUzytkownika(nazwa,hash,plik,false))
-		return false;
-	return plikUzytkownika(nazwa,hash,plik);
-}
-
-bool Gra::usunGracza(const string& nazwa, const string& hash){
-	std::string plik;
-	auto dokument = plikUzytkownika(nazwa,hash,plik,false);
-	if( !dokument )
-		return false;
-	return !remove(plik.c_str());
-}
-
-bool Gra::zapisz( const string& nazwa, const string& hash ) const{
-	std::string plik;
-	auto dokument = plikUzytkownika(nazwa,hash,plik);
-	if( !dokument || !uzytkownik_->zapisz(dokument->RootElement()) )
-		return false;
-	return dokument->SaveFile(plik.c_str());
-}
-
-shared_ptr<tinyxml2::XMLDocument> Gra::plikUzytkownika(const string& nazwa, const string& hash, string& nazwaPliku , bool tworzPlik ) const{
-	if( hash.empty() || nazwa.empty() )
-		return nullptr;
-	string plik("save\\");
-	plik.append(nazwa);
-	plik.append("_.xml");
-	shared_ptr<tinyxml2::XMLDocument> dokument = make_shared<tinyxml2::XMLDocument>();
-	if(dokument->LoadFile(plik.c_str())==tinyxml2::XML_NO_ERROR){
-		if( hash!=XmlBO::WczytajAtrybut(dokument->RootElement(),"hash",string()))
-			return nullptr;
-		if(tworzPlik){
-			dokument = make_shared<tinyxml2::XMLDocument>();
-			dokument->LoadFile(plik.c_str());
-			tinyxml2::XMLElement* uzytkownik = dokument->NewElement(WEZEL_XML_UZYTKOWNIK);
-			uzytkownik->SetAttribute(ATRYBUT_XML_HASH,hash.c_str());
-			uzytkownik->SetAttribute(ATRYBUT_XML_NAZWA,nazwa.c_str());
-			dokument->LinkEndChild(uzytkownik);
-			dokument->SaveFile(plik.c_str());
+	bool Gra::wczytajTechnologie(XmlBO::ElementWezla wezel){
+		try{
+			XmlBO::ElementWezla element = wezel->pobierzElement(WEZEL_XML_TECHNOLOGIA_INFO);
+			do{
+				if (element){
+					std::shared_ptr<TechnologiaInfo> obiekt = std::make_shared<TechnologiaInfo>(element);
+					aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, *obiekt);
+					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
+						throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(""), STyp::Identyfikator(-1), STyp::Tekst("B³¹d wczytywania danych"), STyp::Tekst("Obiekt o podanym id istnieje"));
+					listaTechnologiInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					listaObiektowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					element = element->pobierzNastepnyElement(WEZEL_XML_TECHNOLOGIA_INFO);
+				}
+			} while (element);
 		}
-	}else{
-		if(!tworzPlik)
-			return nullptr;
-		tinyxml2::XMLElement* uzytkownik = dokument->NewElement(WEZEL_XML_UZYTKOWNIK);
-		uzytkownik->SetAttribute(ATRYBUT_XML_HASH,hash.c_str());
-		uzytkownik->SetAttribute(ATRYBUT_XML_NAZWA,nazwa.c_str());
-		dokument->LinkEndChild(uzytkownik);
-		dokument->SaveFile(plik.c_str());
+		catch (STyp::Wyjatek& wyjatek){
+			aplikacja_.pobierzLogger().loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
+			aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, wyjatek);
+			return false;
+		}
+		return true;
 	}
-	return dokument;
+
+	bool Gra::wczytajBudynki(XmlBO::ElementWezla wezel){
+		try{
+			XmlBO::ElementWezla element = wezel->pobierzElement(WEZEL_XML_BUDYNEK_INFO);
+			do{
+				if (element){
+					std::shared_ptr<BudynekInfo> obiekt(new BudynekInfo(element));
+					aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, *obiekt);
+					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
+						throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(""), STyp::Identyfikator(-1), STyp::Tekst("B³¹d wczytywania danych"), STyp::Tekst("Obiekt o podanym id istnieje"));
+					listaBudynkowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					listaObiektowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					element = element->pobierzNastepnyElement(WEZEL_XML_BUDYNEK_INFO);
+				}
+			} while (element);
+		}
+		catch (STyp::Wyjatek& wyjatek){
+			aplikacja_.pobierzLogger().loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
+			aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, wyjatek);
+			return false;
+		}
+		return true;
+	}
+
+	bool Gra::wczytajSurowce(XmlBO::ElementWezla wezel){
+		try{
+			XmlBO::ElementWezla element = wezel->pobierzElement(WEZEL_XML_SUROWCE_INFO);
+			do{
+				if (element){
+					std::shared_ptr<SurowceInfo> obiekt(new SurowceInfo(element));
+					aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, *obiekt);
+					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
+						throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(""), STyp::Identyfikator(-1), STyp::Tekst("B³¹d wczytywania danych"), STyp::Tekst("Obiekt o podanym id istnieje"));
+					listaSurowcowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					listaObiektowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					element = element->pobierzNastepnyElement(WEZEL_XML_SUROWCE_INFO);
+				}
+			} while (element);
+		}
+		catch (STyp::Wyjatek& wyjatek){
+			aplikacja_.pobierzLogger().loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
+			aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, wyjatek);
+			return false;
+		}
+		return true;
+	}
+
+	bool Gra::wczytajObrone(XmlBO::ElementWezla wezel){
+		try{
+			XmlBO::ElementWezla element = wezel->pobierzElement(WEZEL_XML_OBRONA_INFO);
+			do{
+				if (element){
+					std::shared_ptr<ObronaInfo> obiekt(new ObronaInfo(element));
+					aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, *obiekt);
+					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
+						throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(""), STyp::Identyfikator(-1), STyp::Tekst("B³¹d wczytywania danych"), STyp::Tekst("Obiekt o podanym id istnieje"));
+					listaObronaInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					listaObiektowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					element = element->pobierzNastepnyElement(WEZEL_XML_OBRONA_INFO);
+				}
+			} while (element);
+		}
+		catch (STyp::Wyjatek& wyjatek){
+			aplikacja_.pobierzLogger().loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
+			aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, wyjatek);
+			return false;
+		}
+		return true;
+	}
+
+	bool Gra::wczytajStatki(XmlBO::ElementWezla wezel){
+		try{
+			XmlBO::ElementWezla element = wezel->pobierzElement(WEZEL_XML_STATEK_INFO);
+			do{
+				if (element){
+					std::shared_ptr<StatekInfo> obiekt(new StatekInfo(element));
+					aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, *obiekt);
+					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
+						throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(""), STyp::Identyfikator(-1), STyp::Tekst("B³¹d wczytywania danych"), STyp::Tekst("Obiekt o podanym id istnieje"));
+					listaStatkowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					listaObiektowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					element = element->pobierzNastepnyElement(WEZEL_XML_STATEK_INFO);
+				}
+			} while (element);
+		}
+		catch (STyp::Wyjatek& wyjatek){
+			aplikacja_.pobierzLogger().loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
+			aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, wyjatek);
+			return false;
+		}
+		return true;
+	}
+
+	bool Gra::zapisz(XmlBO::ElementWezla wezel) const{
+		return zarzadca_.zapisz(wezel->tworzElement(WEZEL_XML_GRA));
+	}
+
+	bool Gra::odczytaj(XmlBO::ElementWezla wezel){
+		if (wezel){
+			auto element = XmlBO::ZnajdzWezel<NOTHROW>(wezel, WEZEL_XML_ZARZADCA);
+			if (element)
+				return zarzadca_.odczytaj(element);
+			return true;
+		}
+		return false;
+	}
+
+	bool Gra::odczytaj(const std::string& nazwa, const std::string& hash){
+		return logowanie(nazwa, hash);
+	}
+
+	bool Gra::logowanie(const std::string& nazwa, const std::string& hash){
+		std::string plik;
+		auto dokument = plikUzytkownika(nazwa, hash, plik, false);
+		if (!dokument)
+			return false;
+		auto nowyUzytkownik = std::make_shared<Uzytkownik>(*this);
+		if (nowyUzytkownik->odczytaj(dokument->pobierzElement(nullptr)) && Walidator::pobierzInstancje().waliduj())
+			uzytkownik_ = nowyUzytkownik;
+		else
+			return false;
+		return true;
+	}
+
+	bool Gra::nowyGracz(const std::string& nazwa, const std::string& hash){
+		std::string plik;
+		if (plikUzytkownika(nazwa, hash, plik, false))
+			return false;
+		return plikUzytkownika(nazwa, hash, plik) !=nullptr ;
+	}
+
+	bool Gra::usunGracza(const std::string& nazwa, const std::string& hash){
+		std::string plik;
+		auto dokument = plikUzytkownika(nazwa, hash, plik, false);
+		if (!dokument)
+			return false;
+		return !remove(plik.c_str());
+	}
+
+	bool Gra::zapisz(const std::string& nazwa, const std::string& hash) const{
+		std::string plik;
+		auto dokument = plikUzytkownika(nazwa, hash, plik);
+		if (!dokument || !uzytkownik_->zapisz(dokument->pobierzElement(nullptr)))
+			return false;
+		return dokument->zapisz(plik.c_str());
+	}
+
+	std::shared_ptr<SPar::ParserDokument> Gra::plikUzytkownika(const std::string& nazwa, const std::string& hash, std::string& nazwaPliku, bool tworzPlik) const{
+		if (hash.empty() || nazwa.empty())
+			return nullptr;
+		std::string plik("save\\");
+		plik.append(nazwa);
+		plik.append("_.xml");
+		std::shared_ptr<SPar::ParserDokument> dokument = std::make_shared<SPar::ParserDokumentXml>();
+		if (dokument->odczytaj(plik.c_str()) == tinyxml2::XML_NO_ERROR){
+			if (hash != XmlBO::WczytajAtrybut(dokument->pobierzElement(nullptr), "hash", std::string()))
+				return nullptr;
+			if (tworzPlik){
+				dokument = std::make_shared<SPar::ParserDokumentXml>();
+				dokument->odczytaj(plik.c_str());
+				XmlBO::ElementWezla uzytkownik = dokument->tworzElement(WEZEL_XML_UZYTKOWNIK);
+				uzytkownik->tworzAtrybut(ATRYBUT_XML_HASH, hash.c_str());
+				uzytkownik->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa.c_str());
+				dokument->zapisz(plik.c_str());
+			}
+		}
+		else{
+			if (!tworzPlik)
+				return nullptr;
+			XmlBO::ElementWezla uzytkownik = dokument->tworzElement(WEZEL_XML_UZYTKOWNIK);
+			uzytkownik->tworzAtrybut(ATRYBUT_XML_HASH, hash.c_str());
+			uzytkownik->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa.c_str());
+			dokument->zapisz(plik.c_str());
+		}
+		return dokument;
+	}
 }

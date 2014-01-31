@@ -30,6 +30,12 @@ namespace SpEx{
 			STyp::Ilosc::nazwa_typu ilosc;
 		};
 
+		static AtrybutPodstawowy wpisPoziom(const STyp::Poziom&);
+		static AtrybutPodstawowy wpisIlosc(const STyp::Ilosc&);
+
+		STyp::Poziom pobierzPoziom()const;
+		STyp::Ilosc pobierzIlosc()const;
+
 		/**
 		* \brief Konstruktor
 		*

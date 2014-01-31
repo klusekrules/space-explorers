@@ -2,7 +2,7 @@
 #include "TestyJednostkowe.h"
 #include "OknoGry.h"
 #include "Aplikacja.h"
-#include "XmlBO.h"
+#include "Parser\ParserDokumentXml.h"
 
 MaszynaStanow::LuaStan::LuaStan()
 	: poprawne_aktualny_(false), poprawne_nastepny_(false), poprawne_poprzedni_(false), poprawne_zdarzenie_(false)
@@ -12,11 +12,12 @@ MaszynaStanow::LuaStan::LuaStan()
 MaszynaStanow::MaszynaStanow()
 	: watekGraficzny_(true), stan_(nullptr), stanNastepny_(nullptr), pulaWatkow_(4)
 {
-	tinyxml2::XMLDocument doc;
-	doc.LoadFile("resource\\state.xml");
-	tinyxml2::XMLElement* root = doc.RootElement();
+	SPar::ParserDokumentXml doc;
+	doc.odczytaj("resource\\state.xml");
+	auto root = doc.pobierzElement(nullptr);
 	XmlBO::WczytajAtrybut<THROW>(root,ATRYBUT_XML_STAN_POCZATKOWY,idStanuPoczatkowy_);
-	for(tinyxml2::XMLElement* element = root->FirstChildElement(WEZEL_XML_STAN); element ; element = element->NextSiblingElement(WEZEL_XML_STAN)){
+	//TODO: U¿yæ pêtli foreach.
+	for(auto element = root->pobierzElement(WEZEL_XML_STAN); element ; element = element->pobierzNastepnyElement(WEZEL_XML_STAN)){
 		auto stan = std::make_shared<StanInfo>(element);
 		wszystkieStany_.insert(std::make_pair(stan->pobierzIdentyfikator(), stan));
 	}
@@ -25,7 +26,7 @@ MaszynaStanow::MaszynaStanow()
 }
 
 bool MaszynaStanow::kolejkujOkno( int id ){
-	auto ptr = watekGraficzny_.pobierzEkran(Identyfikator(id));
+	auto ptr = watekGraficzny_.pobierzEkran(STyp::Identyfikator(id));
 	if(ptr!=nullptr){
 		std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
 		stosEkranow_.push_back(ptr);
@@ -62,7 +63,7 @@ void MaszynaStanow::wstawZdarzenie( const Zdarzenie &komunikat ){
 	kolejkaZdarzen_.push_front(komunikat);
 }
 
-std::shared_ptr<StanInfo> MaszynaStanow::pobierzOpisStanu( const Identyfikator& id ) const{
+std::shared_ptr<StanInfo> MaszynaStanow::pobierzOpisStanu(const STyp::Identyfikator& id) const{
 	auto iter = wszystkieStany_.find(id);
 	if(iter != wszystkieStany_.end())
 		return iter->second;

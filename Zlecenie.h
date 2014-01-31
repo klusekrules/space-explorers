@@ -12,7 +12,7 @@
 template< typename ARG1, typename ARG2 >
 class Zlecenie:
 	public Operacja,
-	virtual public LoggerInterface
+	virtual public SLog::LoggerInterface
 {
 public:
 	typedef std::function<bool(ARG1&, ARG2&)> Funkcja; /// Typ przechowywanych funkcji.
@@ -33,8 +33,7 @@ public:
 	/**
 	* \brief Destruktor.
 	*/
-	virtual ~Zlecenie(){
-	}
+	virtual ~Zlecenie() = default;
 
 	/**
 	* \brief Metoda zlecenia.
@@ -60,11 +59,11 @@ public:
 	* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
 	* \return Napis zwieraj¹cy opis klasy.
 	*/
-	string napis() const override{
-		Logger str(NAZWAKLASY(Zlecenie));
+	std::string napis() const override{
+		SLog::Logger str(NAZWAKLASY(Zlecenie));
 		str.dodajKlase(Operacja::napis());
-		str.dodajPole("Argument1",argument1_);
-		str.dodajPole("Argument2",argument2_);
+		str.dodajPole(NAZWAPOLA(argument1_), argument1_);
+		str.dodajPole(NAZWAPOLA(argument2_), argument2_);
 		return str.napis();
 	}
 

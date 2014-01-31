@@ -28,7 +28,8 @@ namespace SpEx{
 		*/
 		Info(const STyp::Tekst& nazwa, const STyp::Tekst& opis, const STyp::Identyfikator& identyfikator);
 
-		Info(const Info&) = delete;
+		Info(const Info&) = default;
+
 		Info& operator=(const Info&) = delete;
 
 		/**

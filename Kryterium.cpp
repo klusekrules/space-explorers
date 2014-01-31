@@ -67,11 +67,7 @@ namespace SpEx{
 		//TODO: Walidacja : Walidator::pobierzInstancje().dodajUzytyIdentyfikatorPlanety(identyfikatorPlanety_);			
 		return true;
 	}
-
-	Kryterium::AtrybutKryterium Kryterium::wylicz(const PodstawoweParametry& param){
 	
-	}
-
 	std::string Kryterium::napis() const{
 		SLog::Logger str(NAZWAKLASY(Kryterium));
 		switch (typAtrybutu_){

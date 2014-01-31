@@ -18,6 +18,8 @@ namespace SpEx{
 			warunki.get().push_back(obiekt);
 			return true;
 		}));
+
+		zmianaCzasuBudowy_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WEZEL_XML_CZAS));
 	}
 	
 	STyp::Czas Wymagania::pobierzCzasBudowy(const PodstawoweParametry& parametry)const{
@@ -26,24 +28,17 @@ namespace SpEx{
 			if (element.pobierzObiekt() && element.pobierzObiekt()->typAtrybutu() == Kryterium::ILOSC)
 			{
 				Kryterium::AtrybutKryterium atrybut = wylicz(element, parametry);
-				suma += 0.0l; //TODO: Wyliczanie czasu rozbudowy obiektu. atrybut.ilosc;
+				suma += 0.0l; //TODO: Pobranie planety, surowca info, wyliczenie czasu ze zmiany. Pobierz surowiec na planecie Wyliczanie czasu rozbudowy obiektu. atrybut.ilosc;
 			}
 		}
-		if (zmianaCzasuBudowy_){
-			suma = zmianaCzasuBudowy_->policzWartosc(
-				suma(),
-				parametry.typAtrybutu() == PodstawoweParametry::POZIOM ? parametry.pobierzAtrybut().poziom : STyp::Poziom(),
-				parametry.pobierzIdentyfikatorPlanety()
-				);
-		}
-		return suma;
+		return Utils::ObliczZmiane(zmianaCzasuBudowy_, suma, parametry);
 	}
 
 	bool Wymagania::czySpelniaWymagania(const PodstawoweParametry& parametry) const{
 		//TODO: Zrobiæ schemat blokowy algorytmu sprawdzania spe³nienia warunków.
 		if (warunki_.empty())
 			return true;
-		shared_ptr<Planeta> planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(parametry.pobierzIdentyfikatorPlanety());
+		std::shared_ptr<Planeta> planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(parametry.pobierzIdentyfikatorPlanety());
 		if (!planeta){
 			return false;
 		}
@@ -61,7 +56,6 @@ namespace SpEx{
 						return false;
 					break;
 				}
-				
 			}
 		}
 		return true;
@@ -76,38 +70,23 @@ namespace SpEx{
 		return zbiornik;
 	}
 
-	Kryterium::AtrybutKryterium Wymagania::wylicz(const Warunek& warunek, const PodstawoweParametry& parametry)const{
+	Kryterium::AtrybutKryterium Wymagania::wylicz(const Warunek& warunek, const PodstawoweParametry& parametry){
 		Kryterium::AtrybutKryterium atrybut;
 		auto obiekt = warunek.pobierzObiekt();
 		auto zmiana = warunek.pobierzZmiane();
 		switch (obiekt->typAtrybutu()){
 		case Kryterium::POZIOM:
-			if (zmiana)
-				atrybut.poziom = static_cast<STyp::Poziom::nazwa_typu>(zmiana->policzWartosc(
-				obiekt->pobierzAtrybut().poziom,
-				parametry.typAtrybutu() == PodstawoweParametry::POZIOM ? parametry.pobierzAtrybut().poziom : STyp::Poziom(),
-				parametry.pobierzIdentyfikatorPlanety()
-				)());
-			else
-				atrybut.poziom = obiekt->pobierzAtrybut().poziom;
+			atrybut.poziom = Utils::ObliczZmiane(zmiana, obiekt->pobierzAtrybut().poziom, parametry);
 			break;
 		case Kryterium::ILOSC:
-			if (zmiana)
-				atrybut.ilosc = static_cast<STyp::Ilosc::nazwa_typu>(zmiana->policzWartosc(
-				obiekt->pobierzAtrybut().ilosc,
-				parametry.typAtrybutu() == PodstawoweParametry::POZIOM ? parametry.pobierzAtrybut().poziom : STyp::Poziom(),
-				parametry.pobierzIdentyfikatorPlanety()
-				)());
-			else
-				atrybut.ilosc = obiekt->pobierzAtrybut().ilosc;
-			break;
+			atrybut.ilosc = Utils::ObliczZmiane(zmiana, obiekt->pobierzAtrybut().ilosc, parametry);
 		}
 		if (parametry.typAtrybutu() == PodstawoweParametry::ILOSC)
 			atrybut.ilosc *= parametry.pobierzAtrybut().ilosc;
 		return atrybut;
 	}
 
-	string Wymagania::napis() const{
+	std::string Wymagania::napis() const{
 		SLog::Logger str(NAZWAKLASY(Wymagania));
 
 		str.rozpocznijPodKlase(NAZWAKLASY(Wymagania::ListaWarunkow));

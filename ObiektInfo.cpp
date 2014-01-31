@@ -18,7 +18,7 @@ namespace SpEx{
 		return false;
 	}*/
 
-	string ObiektInfo::napis() const{
+	std::string ObiektInfo::napis() const{
 		SLog::Logger str(NAZWAKLASY(ObiektInfo));
 		str.dodajKlase(Info::napis());
 		str.dodajKlase(Wymagania::napis());

@@ -10,7 +10,6 @@
 #include <crtdbg.h>
 #endif
 
-using namespace std;
 #include <string>
 
 #include "Logger\Log.h"

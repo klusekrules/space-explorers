@@ -1,20 +1,19 @@
 #pragma once
 #include <string>
-using namespace std;
 
 class WyjatekSprawdzeniaWarunku
 {
 public:
-	WyjatekSprawdzeniaWarunku( const string& tPlik, int iLinia, const string& oczekiwano, const string& otrzymano );
+	WyjatekSprawdzeniaWarunku(const std::string& tPlik, int iLinia, const std::string& oczekiwano, const std::string& otrzymano);
 	~WyjatekSprawdzeniaWarunku();
 
-	void ustawNazweMetody( const string& );
-	string komunikat() const;
+	void ustawNazweMetody(const std::string&);
+	std::string komunikat() const;
 
 private:
-	string plik_;
+	std::string plik_;
 	int linia_;
-	string oczekiwano_;
-	string otrzymano_;
-	string nazwaMetody_;
+	std::string oczekiwano_;
+	std::string otrzymano_;
+	std::string nazwaMetody_;
 };

@@ -2,8 +2,6 @@
 #include <vector>
 #include <string>
 
-using namespace std;
-
 class MakeVector
 {
 public:
@@ -17,20 +15,20 @@ public:
 	{
 	}
 
-	const vector< string >& get() {
+	const std::vector< std::string >& get() {
 		return a;
 	}
 private:
-	vector< string > a;
+	std::vector< std::string > a;
 
 	template< class T, class... V >
-	void step( vector< string >& v, T &c ,V&... tail ){
+	void step(std::vector< std::string >& v, T &c, V&... tail){
 		v.push_back(c);
 		step(v, tail... );
 	}
 
 	template< class T >
-	void step( vector< string >& v, T &c ){
+	void step( std::vector< std::string >& v, T &c){
 		v.push_back(c);
 	}
 

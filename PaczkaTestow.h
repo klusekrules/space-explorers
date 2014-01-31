@@ -3,16 +3,14 @@
 #include <vector>
 #include <functional>
 
-using namespace std;
-
 class PaczkaTestow
 {
 	friend class TestyJednostkowe;
 public:
 	PaczkaTestow();
 	virtual ~PaczkaTestow();
-	void ustawNazwe( const string& napis );
-	void dodajTest( const string& nazwa, function<void ()> test );
+	void ustawNazwe(const std::string& napis);
+	void dodajTest(const std::string& nazwa, std::function<void()> test);
 	virtual void startTestow();
 	virtual void koniecTestow();
 private:
@@ -23,6 +21,6 @@ private:
 	void wykonajTesty();
 	void naglowek();
 	void podsumowanie();
-	string nazwa_;
-	vector< pair< string, function<void ()> > > zbiorTestow_;
+	std::string nazwa_;
+	std::vector< std::pair< std::string, std::function<void()> > > zbiorTestow_;
 };

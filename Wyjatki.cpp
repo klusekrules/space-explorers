@@ -1,4 +1,4 @@
-#include "OgolnyWyjatek.h"
+/*#include "OgolnyWyjatek.h"
 #include "NiezgodnyTypSurowca.h"
 #include "WyjatekParseraXML.h"
 #include "WyjatekSTL.h"
@@ -11,7 +11,7 @@
 #include "NiepoprawneParametryFunkcji.h"
 #include "BladDzieleniaLadowni.h"
 #include "NiepowodzenieTranzakcji.h"
-/* Sta³e pola klas wyj¹tków  */
+
 
 const Identyfikator	OgolnyWyjatek::domyslnyOgolnyWyjatekID					( 0x0 );
 const Tekst		OgolnyWyjatek::domyslnyOgolnyWyjatekTytul				= "Ogolny wyjatek!";
@@ -65,11 +65,11 @@ const Tekst		BladDzieleniaLadowni::trescBladDzieleniaLadowni			= "Podczas podzia
 const Identyfikator	NiepowodzenieTranzakcji::domyslnyNiepowodzenieTranzakcjiID			( 0x0C );
 const Tekst		NiepowodzenieTranzakcji::domyslnyNiepowodzenieTranzakcjiTytul			= "Niepowodzenie wykonania tranzakcji";
 const Tekst		NiepowodzenieTranzakcji::domyslnyNiepowodzenieTranzakcjiTresc			= "Nie uda³o siê zachowaæ tanzakcyjnoœci wykonywanych operacji. Operacja powoduj¹ca wyj¹tek: ";
+*/
+
 /*
 const Identyfikator	idBrakElementu											( 0x06 );
 const Tekst		tytulBrakElementu										= "Brak Elementu.";
 const Tekst		trescBrakElementu										= "Nie ma elementu o podanym kluczu: ";
 */
 /* ------------------------------------------- */
-
-

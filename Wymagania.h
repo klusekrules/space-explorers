@@ -68,10 +68,12 @@ namespace SpEx{
 		* \return Napis zwieraj¹cy opis klasy.
 		*/
 		std::string napis() const override;
+
+		static Kryterium::AtrybutKryterium wylicz(const Warunek&, const PodstawoweParametry&);
+
 	private:
 		ListaWarunkow warunki_; /// Lista warunków.
 		std::shared_ptr <SZmi::ZmianaInterfejs> zmianaCzasuBudowy_; /// Zmiana czasu budowy.
-
-		Kryterium::AtrybutKryterium wylicz(const Warunek&, const PodstawoweParametry&)const;
+		
 	};
 }

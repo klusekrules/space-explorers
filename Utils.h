@@ -2,27 +2,45 @@
 #include <string>
 #include <algorithm>
 #include "Zmiana\ZmianaInterfejs.h"
+#include "PodstawoweParametry.h"
 
-class Utils
-{
-public:
-	static std::shared_ptr<SZmi::ZmianaInterfejs> TworzZmiane( XmlBO::ElementWezla );
+namespace SpEx{
+	class Utils
+	{
+	public:
+		static std::shared_ptr<SZmi::ZmianaInterfejs> TworzZmiane(XmlBO::ElementWezla);
 
-	static void generujWyjatekBleduStruktury(const STyp::Tekst& plik, const STyp::Ilosc& linia, XmlBO::ElementWezla wezel);
+		static std::shared_ptr<SZmi::ZmianaInterfejs> Kopiuj(std::shared_ptr<SZmi::ZmianaInterfejs> zmiana ){
+			if (zmiana)
+				return std::shared_ptr<SZmi::ZmianaInterfejs>(zmiana->Kopia());
+			else
+				return nullptr;
+		}
 
-	template<class Map, class Key>
-	static bool zamianaKlucza ( Map &kontener, Key &before, Key &after ){
-		if(kontener.find(after) != kontener.end())
-			return false;
-		auto iterator = kontener.find(before);
-		if(iterator == kontener.end())
-			return false;
-		auto obiekt = iterator->second;
-		kontener.erase(iterator);
-		kontener.insert(make_pair(after,obiekt));
-		return true;
-	}
+		template<typename T>
+		static T ObliczZmiane(std::shared_ptr<SZmi::ZmianaInterfejs> zmiana, const T& obiekt, const PodstawoweParametry& param){
+			if (zmiana)
+				return T(zmiana->policzWartosc(obiekt(), param.pobierzPoziom(), param.pobierzIdentyfikatorPlanety())());
+			else
+				return obiekt;
+		}
 
-	static void ascii2hex(std::string& str, unsigned char c);
-	static void sha3(std::string& str);
-};
+		//static void generujWyjatekBleduStruktury(const STyp::Tekst& plik, const STyp::Ilosc& linia, XmlBO::ElementWezla wezel);
+
+		template<class Map, class Key>
+		static bool zamianaKlucza(Map &kontener, Key &before, Key &after){
+			if (kontener.find(after) != kontener.end())
+				return false;
+			auto iterator = kontener.find(before);
+			if (iterator == kontener.end())
+				return false;
+			auto obiekt = iterator->second;
+			kontener.erase(iterator);
+			kontener.insert(make_pair(after, obiekt));
+			return true;
+		}
+
+		static void ascii2hex(std::string& str, unsigned char c);
+		static void sha3(std::string& str);
+	};
+}

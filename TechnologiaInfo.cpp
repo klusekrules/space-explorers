@@ -1,31 +1,24 @@
 #include "TechnologiaInfo.h"
-#include "XmlBO.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
 #include "Gra.h"
 
-TechnologiaInfo::TechnologiaInfo( tinyxml2::XMLElement* wezel )
-	: ObiektBazowyInfo(wezel)
-{
-}
+namespace SpEx{
+	TechnologiaInfo::TechnologiaInfo(XmlBO::ElementWezla wezel)
+		: ObiektInfo(wezel)
+	{
+	}
+	
+	Technologia* TechnologiaInfo::tworzEgzemplarz(const PodstawoweParametry& parametry ) const{
+		return new Technologia(parametry, *this);
+	}
+	
+	bool TechnologiaInfo::tworz(Planeta& planeta, const PodstawoweParametry& parametry) const{
+		return false; //TODO: Dokoñczyæ metodê. gra.wybudujNaPlanecie(planeta, *this, ilosc, poziom);
+	}
 
-TechnologiaInfo::~TechnologiaInfo(void)
-{
-}
-
-Technologia* TechnologiaInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety , const Poziom& poziom ) const{
-	return new Technologia( poziom, identyfikatorPlanety, *this );
-}
-
-Technologia* TechnologiaInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety  ) const{
-	return tworzEgzemplarz( ilosc, identyfikatorPlanety, pobierzPoziom() );
-}
-
-bool TechnologiaInfo::tworz( const Gra& gra, Planeta& planeta , const Ilosc& ilosc , const Poziom& poziom) const{
-	return gra.wybudujNaPlanecie(planeta,*this,ilosc,poziom);
-}
-
-string TechnologiaInfo::napis()const{
-	Logger str(NAZWAKLASY(TechnologiaInfo));
-	str.dodajKlase(ObiektBazowyInfo::napis());
-	return str.napis();
+	std::string TechnologiaInfo::napis()const{
+		SLog::Logger str(NAZWAKLASY(TechnologiaInfo));
+		str.dodajKlase(ObiektInfo::napis());
+		return str.napis();
+	}
 }

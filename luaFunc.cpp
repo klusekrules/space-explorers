@@ -90,7 +90,7 @@ extern "C"{
 	__declspec(dllexport) void __cdecl loguj(const char *komunikat )
 	{
 		if(komunikat)
-			Log::pobierzInstancje().loguj(Log::Info, komunikat);
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, komunikat);
 	}
 }
 
