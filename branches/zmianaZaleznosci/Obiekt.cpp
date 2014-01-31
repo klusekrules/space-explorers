@@ -1,11 +1,12 @@
 #include "Obiekt.h"
 #include "Logger\Logger.h"
 #include "definicjeWezlowXML.h"
+#include "ObronaInfo.h"
 
 namespace SpEx{
 
-	Obiekt::Obiekt(const PodstawoweParametry& parametry, const STyp::Identyfikator& identyfikator) throw()
-		: PodstawoweParametry(parametry), identyfikator_(identyfikator)//, ObiektBazowy(ilosc, poziom, identyfikatorPlanety, obiektInfo), obiektInfo_(obiektInfo)
+	Obiekt::Obiekt(const PodstawoweParametry& parametry, const ObiektInfo& obiektinfo) throw()
+		: PodstawoweParametry(parametry), identyfikator_(obiektinfo.pobierzIdentyfikator()), obiektInfo_(obiektinfo)
 	{
 	}
 	
@@ -23,6 +24,49 @@ namespace SpEx{
 		}
 		return nullptr;
 	}*/
+
+	/*
+	bool ObiektBazowy::polacz( const ObiektBazowy& obiektBazowy ){
+	if(czyMoznaPolaczyc(obiektBazowy)){
+	ilosc_+=obiektBazowy.pobierzIlosc();
+	return true;
+	}else{
+	return false;
+	}
+	}
+
+	*/
+
+	bool Obiekt::czyMoznaPolaczyc(const Obiekt& obiekt)const{
+		return typeid(*this) == typeid(obiekt) && obiekt.pobierzIdentyfikator() == pobierzIdentyfikator() && obiekt.typAtrybutu()==typAtrybutu();
+	}
+
+
+	bool Obiekt::czyMoznaPodzielic(const STyp::Ilosc& ilosc) const{
+		return typAtrybutu()==ILOSC && pobierzAtrybut().ilosc > ilosc();
+	}
+
+	Wymagania::PrzetworzoneWarunki Obiekt::pobierzKryteriaRozbudowy() const{
+		PodstawoweParametry parametry(pobierzAtrybut(), typAtrybutu(), pobierzIdentyfikatorPlanety());
+		switch (parametry.typAtrybutu()){
+		case ILOSC: parametry.ustawAtrybut(wpisIlosc(1.0));
+			break;
+		case POZIOM: parametry.ustawAtrybut(wpisPoziom(parametry.pobierzAtrybut().poziom + 1));
+			break; 
+		}
+		return obiektInfo_.pobierzWarunki(parametry);
+	}
+	
+	bool Obiekt::czyMoznaRozbudowac()const{
+		PodstawoweParametry parametry(pobierzAtrybut(), typAtrybutu(), pobierzIdentyfikatorPlanety());
+		switch (parametry.typAtrybutu()){
+		case ILOSC: parametry.ustawAtrybut(wpisIlosc(1.0));
+			break;
+		case POZIOM: parametry.ustawAtrybut(wpisPoziom(parametry.pobierzAtrybut().poziom + 1));
+			break; 
+		}
+		return obiektInfo_.czySpelniaWymagania(parametry);
+	}
 
 	bool Obiekt::wybuduj(const PodstawoweParametry& parametry){
 		if (typAtrybutu() != parametry.typAtrybutu() || parametry.pobierzIdentyfikatorPlanety() != pobierzIdentyfikatorPlanety()){
@@ -62,41 +106,3 @@ namespace SpEx{
 	}
 }
 
-
-/*
-bool ObiektBazowy::polacz( const ObiektBazowy& obiektBazowy ){
-if(czyMoznaPolaczyc(obiektBazowy)){
-ilosc_+=obiektBazowy.pobierzIlosc();
-return true;
-}else{
-return false;
-}
-}
-
-bool ObiektBazowy::czyMoznaPolaczyc( const ObiektBazowy& obiektBazowy )const{
-return typeid(*this) == typeid(obiektBazowy) && obiektBazowy.pobierzIdentyfikator() == pobierzIdentyfikator() && obiektBazowy.pobierzPoziom() == pobierzPoziom();
-}
-
-bool ObiektBazowy::czyMoznaPodzielic( const Ilosc& ilosc ) const{
-return ilosc_>ilosc;
-}
-
-Wymagania::PrzetworzonaCena ObiektBazowy::pobierzKosztyRozbudowy() const{
-PodstawoweParametry param(*this);
-param.wzrostPoziomu();
-return obiektBazowyInfo_.pobierzKoszty(pobierzIlosc(),param);
-}
-
-Wymagania::PrzetworzoneWymogi ObiektBazowy::pobierzWarunkiRozbudowy()const{
-PodstawoweParametry param(*this);
-param.wzrostPoziomu();
-return obiektBazowyInfo_.pobierzWymogi(param);
-}
-
-bool ObiektBazowy::czyMoznaRozbudowac()const{
-PodstawoweParametry param(*this);
-param.wzrostPoziomu();
-return obiektBazowyInfo_.czySpelniaWymagania(pobierzIlosc(),param);
-}
-
-*/

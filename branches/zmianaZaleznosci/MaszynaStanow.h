@@ -70,8 +70,8 @@ private:
 	
 	OknoGry watekGraficzny_;
 
-	std::map<Identyfikator,std::shared_ptr<StanInfo> > wszystkieStany_;
-	Identyfikator idStanuPoczatkowy_;
+	std::map<STyp::Identyfikator, std::shared_ptr<StanInfo> > wszystkieStany_;
+	STyp::Identyfikator idStanuPoczatkowy_;
 
 	Stan stan_;
 	OknoGry::StosEkranow stosEkranow_;
@@ -91,13 +91,13 @@ private:
 
 	void obslugaZdarzenia();
 
-	void dodajKomunikatLogow( Log::TypLogow typ, const std::string& komunikat );
+	void dodajKomunikatLogow( SLog::Log::TypLogow typ, const std::string& komunikat );
 
 	void przejdzDoNastepnegoStanu();
 
 	bool pobierzKomunikat( Zdarzenie &komunikat );
 
-	std::shared_ptr<StanInfo> pobierzOpisStanu( const Identyfikator& ) const;
+	std::shared_ptr<StanInfo> pobierzOpisStanu(const STyp::Identyfikator&) const;
 
 	void ustawNastepnyStan(Stan&);
 

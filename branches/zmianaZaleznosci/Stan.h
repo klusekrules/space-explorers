@@ -9,16 +9,16 @@ public:
 	typedef std::chrono::duration<long double,std::milli> KrokCzasu;
 
 	Stan(std::shared_ptr<StanInfo>);
-	~Stan();
+	~Stan() = default;
 
 	bool akcjaWejscia();
 	bool akcjaWewnetrzna();
 	bool akcjaWyjscia();
 
-	Identyfikator id_;
+	STyp::Identyfikator id_;
 	int numer_;
 	KrokCzasu dt_;
-	std::vector< Identyfikator > listaEkranow_;
+	std::vector< STyp::Identyfikator > listaEkranow_;
 	bool operator==(const Stan&)const;
 	bool operator==(const Zdarzenie &)const;
 	std::shared_ptr<StanInfo> opisStanu() const;

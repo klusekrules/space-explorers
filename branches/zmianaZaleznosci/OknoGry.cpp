@@ -3,7 +3,7 @@
 #include <SFML\OpenGL.hpp>
 #include "EkranStartowy.h"
 #include "definicjeWezlowXML.h"
-#include "XmlBO.h"
+#include "Parser\ParserDokumentXml.h"
 
 #define GL_SHADING_LANGUAGE_VERSION       0x8B8C
 
@@ -17,10 +17,6 @@ OknoGry::OknoGry( bool wstrzymany )
 bool OknoGry::zainicjalizowe(){
 	std::lock_guard<std::mutex> blokada(mutexInicjalizacja_);
 	return przetwarzanie_;
-}
-
-OknoGry::~OknoGry(void)
-{
 }
 
 bool OknoGry::czekajNaInicjalizacje(){
@@ -37,7 +33,7 @@ void OknoGry::uruchom(){
 	mutexUruchom_.unlock();
 }
 
-OknoGry::EkranPtr OknoGry::pobierzEkran( const Identyfikator& ekranId ){
+OknoGry::EkranPtr OknoGry::pobierzEkran(const STyp::Identyfikator& ekranId){
 	auto iter = listaEkranow_.find(ekranId);
 	if(iter != listaEkranow_.end()){
 		return iter->second;
@@ -56,7 +52,7 @@ void OknoGry::wykonuj(){
 	try{
 		if(!inicjalizacja()){
 			inicjalizacja_.set_value(false);
-			Log::pobierzInstancje().loguj(Log::Error,"B³¹d inicjalizacji.");
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d inicjalizacji.");
 			return;
 		}
 	}catch(...){
@@ -98,11 +94,11 @@ bool OknoGry::inicjalizacja( ){
 	
 	SetWindowLong(oknoGlowne_.getSystemHandle(), GWL_EXSTYLE, GetWindowLong(oknoGlowne_.getSystemHandle(), GWL_EXSTYLE) | WS_EX_LAYERED);
 	if(!SetLayeredWindowAttributes(oknoGlowne_.getSystemHandle(), NULL, 0, LWA_ALPHA)){
-		Log::pobierzInstancje().loguj(Log::Info,"Nie dziala przezroczstosc.");
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Nie dziala przezroczstosc.");
 	}
 
 	if(!wczytajEkrany()){
-		Log::pobierzInstancje().loguj(Log::Error,"Nieuda³o siê wczytaæ ekranów.");
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nieuda³o siê wczytaæ ekranów.");
 		return false;
 	}
 	/*
@@ -117,28 +113,28 @@ bool OknoGry::inicjalizacja( ){
 
 void OknoGry::logujInfo(){
 	if(sf::Shader::isAvailable())
-		Log::pobierzInstancje().loguj(Log::Info,"Shadery dostepne");
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Shadery dostepne");
 	else
-		Log::pobierzInstancje().loguj(Log::Info,"Shadery niedostepne");
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Shadery niedostepne");
 
 	char* p = (char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
-	Log::pobierzInstancje().loguj(Log::Info,p?p:"");
+	SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, p ? p : "");
 	p = (char*)glGetString(GL_VERSION);
-	Log::pobierzInstancje().loguj(Log::Info,p?p:"");
+	SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, p ? p : "");
 	p = (char*)glGetString(GL_VENDOR);
-	Log::pobierzInstancje().loguj(Log::Info,p?p:"");
+	SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, p ? p : "");
 }
 
 bool OknoGry::wczytajEkrany(){
-	tinyxml2::XMLDocument dokument;
-	dokument.LoadFile("resource\\Menu.xml");
-	tinyxml2::XMLElement* wezel = dokument.RootElement();
+	SPar::ParserDokumentXml dokument;
+	dokument.odczytaj("resource\\Menu.xml");
+	auto wezel = dokument.pobierzElement(nullptr);
 	if(wezel){
-		for(tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_EKRAN_STARTOWY); element ; element = element->NextSiblingElement(WEZEL_XML_EKRAN_STARTOWY)){
+		for (auto element = wezel->pobierzElement(WEZEL_XML_EKRAN_STARTOWY); element; element = element->pobierzNastepnyElement(WEZEL_XML_EKRAN_STARTOWY)){
 			auto ptr = std::make_shared<EkranStartowy>(oknoGlowne_,element);
 			listaEkranow_.insert( std::make_pair(ptr->pobierzId(),ptr));
 		}
-		for(tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_EKRAN); element ; element = element->NextSiblingElement(WEZEL_XML_EKRAN)){
+		for (auto element = wezel->pobierzElement(WEZEL_XML_EKRAN); element; element = element->pobierzNastepnyElement(WEZEL_XML_EKRAN)){
 			auto ptr = std::make_shared<EkranSzablon>(element);
 			ptr->podlacz(oknoGlowne_);
 			listaEkranow_.insert( std::make_pair(ptr->pobierzId(),ptr));

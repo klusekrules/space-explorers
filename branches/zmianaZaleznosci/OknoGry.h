@@ -17,9 +17,9 @@ public:
 	bool zainicjalizowe();
 	bool czekajNaInicjalizacje();
 	void uruchom();
-	EkranPtr pobierzEkran( const Identyfikator& ekranId );
+	EkranPtr pobierzEkran( const STyp::Identyfikator& ekranId );
 
-	virtual ~OknoGry(void);
+	virtual ~OknoGry(void) = default;
 private:
 	sf::RenderWindow oknoGlowne_;
 	sf::Shader testShadera_;
@@ -29,7 +29,7 @@ private:
 	std::future<bool> inicjalizacjaWynik_;
 	mutable std::mutex mutexUruchom_;
 	mutable std::mutex mutexInicjalizacja_;
-	std::map< Identyfikator, EkranPtr > listaEkranow_;
+	std::map< STyp::Identyfikator, EkranPtr > listaEkranow_;
 	StosEkranow stosEkranow_;
 	
 	void wykonuj() override;

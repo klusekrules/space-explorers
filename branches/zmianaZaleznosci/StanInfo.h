@@ -1,13 +1,11 @@
 #pragma once
 #include "stdafx.h"
 #include "Logger\LoggerInterface.h"
-#include "tinyxml2.h"
 #include "LuaSkrypt.h"
-#include "Identyfikator.h"
 #include "ZdarzenieInfo.h"
 
 class StanInfo :
-	virtual public LoggerInterface
+	virtual public SLog::LoggerInterface
 {
 public:
 	enum Akcja{
@@ -16,14 +14,14 @@ public:
 		AkcjaWewnetrzna
 	};
 
-	StanInfo( tinyxml2::XMLElement* );
-	virtual ~StanInfo(void);
+	StanInfo( XmlBO::ElementWezla );
+	virtual ~StanInfo(void) = default;
 
 	bool wykonaj( Akcja );
 
-	const Identyfikator& pobierzIdentyfikator() const;
+	const STyp::Identyfikator& pobierzIdentyfikator() const;
 
-	std::shared_ptr<ZdarzenieInfo> pobierzZdarzenie( const Identyfikator& ) const;
+	std::shared_ptr<ZdarzenieInfo> pobierzZdarzenie(const STyp::Identyfikator&) const;
 
 	std::string napis() const override;
 
@@ -33,7 +31,7 @@ private:
 	std::string luaFuncOut_;
 	std::string luaFuncInside_;
 	std::string luaFile_;
-	Identyfikator id_;
-	std::map < Identyfikator , std::shared_ptr<ZdarzenieInfo> > zdarzenia_;
+	STyp::Identyfikator id_;
+	std::map < STyp::Identyfikator, std::shared_ptr<ZdarzenieInfo> > zdarzenia_;
 };
 

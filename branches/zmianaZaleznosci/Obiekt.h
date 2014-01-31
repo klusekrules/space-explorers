@@ -3,7 +3,10 @@
 #include "Logger\LoggerInterface.h"
 #include "PodstawoweParametry.h"
 
+
 namespace SpEx{
+	class ObiektInfo;
+
 	/**
 	* \brief Klasa obiektu
 	*
@@ -25,7 +28,7 @@ namespace SpEx{
 		* \param[in] identyfikatorPlanety - Identyfikator planety rodzica obiektu.
 		* \param[in] obiektInfo - Referencja do obiektu opisuj¹cego.
 		*/
-		Obiekt(const PodstawoweParametry& parametry, const STyp::Identyfikator& identyfikator/*, const ObiektInfo& obiektInfo*/) throw();
+		Obiekt(const PodstawoweParametry& parametry, const ObiektInfo& obiektInfo);
 
 		/**
 		* \brief Destruktor.
@@ -58,33 +61,27 @@ namespace SpEx{
 		* \return Kiedy obiekty zostan¹ po³¹czone, zwracana wartoœæ to true, w przeciwnym wypadku zwrócona wartoœæ to false.
 		* \remark Metoda jest tranzakcyjna.
 		*/
-		//virtual bool polacz(const ObiektBazowy& obiektbazowy);
+		virtual bool polacz(const Obiekt& obiekt) = 0;
 
 		/**
 		* Metoda sprawdzaj¹ca warunki po³¹czenia obiektów.
 		* \param[in] obiektbazowy - Obiekt dla którego maj¹ byæ sprawdzone warunki po³¹czenia.
 		* \return Kiedy obiekt mo¿e byæ po³¹czony, zwracana wartoœæ to true, w przeciwnym wypadku zwrócona wartoœæ to false.
 		*/
-		//virtual bool czyMoznaPolaczyc(const ObiektBazowy& obiektbazowy) const;
+		virtual bool czyMoznaPolaczyc(const Obiekt& obiekt) const;
 
 		/**
 		* Metoda sprawdzaj¹ca czy mo¿na podzieliæ obiekt wed³ug podanej iloœci.
 		* \param[in] ilosc - Iloœæ w zglêdem, której s¹ sprawdzane warunki podzia³u.
 		* \return Je¿eli mo¿na podzieliæ, zwracana jest wartoœæ true, w przeciwnym wypadku zwrócona wartoœæ to false.
 		*/
-		//virtual bool czyMoznaPodzielic(const Ilosc& ilosc) const;
-
-		/**
-		* Metoda pobieraj¹ca przetworzone warunki dostêpnoœci obiektu
-		* \return Warunki po przetworzeniu przez klasy zmieniaj¹ce
-		*/
-		//Wymagania::PrzetworzoneWymogi pobierzWarunkiRozbudowy()const;
+		virtual bool czyMoznaPodzielic(const STyp::Ilosc& ilosc) const;
 
 		/**
 		* Metoda pobieraj¹ca przetworzone koszty dostêpnoœci obiektu
 		* \return Koszty po przetworzeniu przez klasy zmieniaj¹ce
 		*/
-		//Wymagania::PrzetworzonaCena pobierzKosztyRozbudowy() const;
+		Wymagania::PrzetworzoneWarunki pobierzKryteriaRozbudowy() const;
 
 		/**
 		* Metoda wyliczaj¹ca czas trwania rozbudowy jednego obiektu na kolejny poziom.
@@ -96,13 +93,13 @@ namespace SpEx{
 		* Metoda sprawdzaj¹ca wymagania obiektu.
 		* \return Je¿eli obiekt spe³nia wymagania zwrócona jest wartoœæ true. Je¿eli nie spe³nia wymagañ zwrócona jest wartoœæ false.
 		*/
-		//bool czyMoznaRozbudowac()const;
+		bool czyMoznaRozbudowac()const;
 
 		/**
 		* Metoda buduj¹ca obiekty o podanej iloœci.
 		* \warning Metoda nie sprawdza czy obiekty moga byæ wybudowane.
 		*/
-		bool wybuduj(const PodstawoweParametry& parametry);
+		virtual bool wybuduj(const PodstawoweParametry& parametry);
 
 		/**
 		* Metoda zwracaj¹ca Identyfikator obiektu.
@@ -146,7 +143,7 @@ namespace SpEx{
 	protected:
 
 		Obiekt(const Obiekt&) = default;
-		//const ObiektInfo& obiektInfo_; /// Referencja do obiektu opisowego.
+		const ObiektInfo& obiektInfo_; /// Referencja do obiektu opisowego.
 
 	private:
 		STyp::Identyfikator identyfikator_; /// Identyfikator obiektu.

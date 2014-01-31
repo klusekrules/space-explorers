@@ -1,22 +1,21 @@
 #pragma once
 #include "stdafx.h"
 #include "Logger\LoggerInterface.h"
-#include "tinyxml2.h"
 #include "LuaSkrypt.h"
-#include "Identyfikator.h"
+#include "Parser\XmlBO.h"
 
 class ZdarzenieInfo :
-	virtual public LoggerInterface
+	virtual public SLog::LoggerInterface
 {
 public:
-	ZdarzenieInfo( tinyxml2::XMLElement* wezel );
-	virtual ~ZdarzenieInfo(void);
+	ZdarzenieInfo( XmlBO::ElementWezla wezel );
+	virtual ~ZdarzenieInfo(void) = default;
 
 	bool wykonaj();
 
-	const Identyfikator& pobierzIdentyfikator() const;
+	const STyp::Identyfikator& pobierzIdentyfikator() const;
 	
-	std::shared_ptr< Identyfikator > pobierzStan() const;
+	std::shared_ptr< STyp::Identyfikator > pobierzStan() const;
 	std::shared_ptr< int > pobierzNumer() const;
 	
 	std::string napis() const override;
@@ -25,8 +24,8 @@ private:
 	LuaSkrypt skrypt_;
 	std::string luaFuncInside_;
 	std::string luaFile_;
-	Identyfikator id_;
-	std::shared_ptr < Identyfikator > nastepnyStan_;
+	STyp::Identyfikator id_;
+	std::shared_ptr < STyp::Identyfikator > nastepnyStan_;
 	std::shared_ptr < int > nastepnyNumer_;
 
 };

@@ -70,9 +70,6 @@
     <ClCompile Include="Aplikacja.cpp">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClCompile>
-    <ClCompile Include="ObiektInfo.cpp">
-      <Filter>SourceFile\BaseClass\Obiekt</Filter>
-    </ClCompile>
     <ClCompile Include="Wymagania.cpp">
       <Filter>SourceFile\Wymagania</Filter>
     </ClCompile>
@@ -103,23 +100,8 @@
     <ClCompile Include="BudynekInfo.cpp">
       <Filter>SourceFile\Budynek</Filter>
     </ClCompile>
-    <ClCompile Include="ZmianaPoziomObiektu.cpp">
-      <Filter>SourceFile\BaseClass\Zmiana</Filter>
-    </ClCompile>
-    <ClCompile Include="Licznik.cpp">
-      <Filter>SourceFile\BaseClass\Licznik</Filter>
-    </ClCompile>
     <ClCompile Include="Flota.cpp">
       <Filter>SourceFile\Flota</Filter>
-    </ClCompile>
-    <ClCompile Include="PaczkaTestow.cpp">
-      <Filter>Testy\Biblioteka</Filter>
-    </ClCompile>
-    <ClCompile Include="TestyJednostkowe.cpp">
-      <Filter>Testy\Biblioteka</Filter>
-    </ClCompile>
-    <ClCompile Include="WyjatekSprawdzeniaWarunku.cpp">
-      <Filter>Testy\Biblioteka</Filter>
     </ClCompile>
     <ClCompile Include="InicjalizacjaDanychTestowych.cpp">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
@@ -159,9 +141,6 @@
     </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
-    </ClCompile>
-    <ClCompile Include="ObiektBazowyInfo.cpp">
-      <Filter>SourceFile\BaseClass\Info</Filter>
     </ClCompile>
     <ClCompile Include="HangarInfo.cpp">
       <Filter>SourceFile\Flota\Hangar</Filter>
@@ -286,6 +265,24 @@
     <ClCompile Include="Kryterium.cpp">
       <Filter>SourceFile\Wymagania</Filter>
     </ClCompile>
+    <ClCompile Include="Licznik.cpp">
+      <Filter>SourceFile\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="ObiektInfo.cpp">
+      <Filter>SourceFile\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaPoziomObiektu.cpp">
+      <Filter>SourceFile\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="PaczkaTestow.cpp">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClCompile>
+    <ClCompile Include="TestyJednostkowe.cpp">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClCompile>
+    <ClCompile Include="WyjatekSprawdzeniaWarunku.cpp">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SurowceInfo.h">
@@ -366,9 +363,6 @@
     <ClInclude Include="MakeVector.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
-    <ClInclude Include="ObiektInfo.h">
-      <Filter>SourceFile\BaseClass\Obiekt</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resource</Filter>
     </ClInclude>
@@ -383,9 +377,6 @@
     </ClInclude>
     <ClInclude Include="Library.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClInclude>
-    <ClInclude Include="Logger.h">
-      <Filter>SourceFile\Log</Filter>
     </ClInclude>
     <ClInclude Include="Gra.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
@@ -405,12 +396,6 @@
     <ClInclude Include="BudynekInfo.h">
       <Filter>SourceFile\Budynek</Filter>
     </ClInclude>
-    <ClInclude Include="ZmianaPoziomObiektu.h">
-      <Filter>SourceFile\BaseClass\Zmiana</Filter>
-    </ClInclude>
-    <ClInclude Include="Licznik.h">
-      <Filter>SourceFile\BaseClass\Licznik</Filter>
-    </ClInclude>
     <ClInclude Include="Serializacja.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
@@ -419,18 +404,6 @@
     </ClInclude>
     <ClInclude Include="Flota.h">
       <Filter>SourceFile\Flota</Filter>
-    </ClInclude>
-    <ClInclude Include="MakraDlaTestow.h">
-      <Filter>Testy\Biblioteka</Filter>
-    </ClInclude>
-    <ClInclude Include="PaczkaTestow.h">
-      <Filter>Testy\Biblioteka</Filter>
-    </ClInclude>
-    <ClInclude Include="TestyJednostkowe.h">
-      <Filter>Testy\Biblioteka</Filter>
-    </ClInclude>
-    <ClInclude Include="WyjatekSprawdzeniaWarunku.h">
-      <Filter>Testy\Biblioteka</Filter>
     </ClInclude>
     <ClInclude Include="LogowanieTest.h">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
@@ -464,12 +437,6 @@
     </ClInclude>
     <ClInclude Include="BudynekTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="ObiektBazowyInfo.h">
-      <Filter>SourceFile\BaseClass\Info</Filter>
-    </ClInclude>
-    <ClInclude Include="ListaObiektow.hpp">
-      <Filter>SourceFile\BaseClass\Obiekt</Filter>
     </ClInclude>
     <ClInclude Include="HangarInfo.h">
       <Filter>SourceFile\Flota\Hangar</Filter>
@@ -627,6 +594,30 @@
     <ClInclude Include="definicjeWezlowXML.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
+    <ClInclude Include="Licznik.h">
+      <Filter>SourceFile\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="ListaObiektow.hpp">
+      <Filter>SourceFile\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="ObiektInfo.h">
+      <Filter>SourceFile\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaPoziomObiektu.h">
+      <Filter>SourceFile\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="MakraDlaTestow.h">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClInclude>
+    <ClInclude Include="PaczkaTestow.h">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClInclude>
+    <ClInclude Include="TestyJednostkowe.h">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClInclude>
+    <ClInclude Include="WyjatekSprawdzeniaWarunku.h">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -634,9 +625,6 @@
     </Filter>
     <Filter Include="SourceFile\BaseClass">
       <UniqueIdentifier>{9d8a7d3a-124f-4dbd-a3d1-adcf7d6c7eaf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\BaseClass\Obiekt">
-      <UniqueIdentifier>{2b4166a5-4382-4c2e-819c-588897dacc6c}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\Flota">
       <UniqueIdentifier>{dc1fd519-fc16-4507-a10e-d21d3c64dfce}</UniqueIdentifier>
@@ -658,9 +646,6 @@
     </Filter>
     <Filter Include="Doc">
       <UniqueIdentifier>{c3fb4279-d815-4008-a8cc-069b4a8e4b95}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\BaseClass\Info">
-      <UniqueIdentifier>{e458c7bd-7f61-4fe1-8652-1ee020171182}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\Flota\JednostkaAtakujaca">
       <UniqueIdentifier>{c1c838c6-395b-42ed-b146-e35d2ba27d6e}</UniqueIdentifier>
@@ -691,15 +676,6 @@
     </Filter>
     <Filter Include="SourceFile\DomysleWartosci">
       <UniqueIdentifier>{6f405ef5-dac8-4c81-a144-5dde19dd7b2b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Log">
-      <UniqueIdentifier>{dc092ba4-3917-4952-ba8c-70fbc190425c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\BaseClass\Zmiana">
-      <UniqueIdentifier>{3bd69905-452c-402e-8f40-8585e7a66d28}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\BaseClass\Licznik">
-      <UniqueIdentifier>{5b0a9ca3-c1e4-4d05-8150-0408c4a6c044}</UniqueIdentifier>
     </Filter>
     <Filter Include="Testy">
       <UniqueIdentifier>{4ab78a3d-48b6-4c0f-b276-81d74c71f295}</UniqueIdentifier>

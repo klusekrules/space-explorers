@@ -94,6 +94,8 @@ namespace STyp{
 
 		TypObliczeniowy operator-(const TypObliczeniowy& wartosc)const{ return wartosc_ - wartosc.wartosc_; }
 
+		TypObliczeniowy operator-()const{ return -wartosc_; }
+
 		TypObliczeniowy operator+(const TypObliczeniowy& wartosc)const{ return wartosc_ + wartosc.wartosc_; }
 
 		TypObliczeniowy& operator*=(const TypObliczeniowy& wartosc){ wartosc_ *= wartosc.wartosc_; return *this; }

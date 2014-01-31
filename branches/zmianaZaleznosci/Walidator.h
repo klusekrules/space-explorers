@@ -1,28 +1,26 @@
 #pragma once
-#include "Identyfikator.h"
 #include <set>
-
-using namespace std;
+#include "TypyProste\TypyProste.h"
 
 class Walidator
 {
 public:
-	virtual ~Walidator();
+	virtual ~Walidator() = default;
 
 	static Walidator& pobierzInstancje();
 
-	void dodajNowyIdentyfikatorPlanety( const Identyfikator & );
-	void dodajUzytyIdentyfikatorPlanety( const Identyfikator & );
+	void dodajNowyIdentyfikatorPlanety( const STyp::Identyfikator & );
+	void dodajUzytyIdentyfikatorPlanety(const STyp::Identyfikator &);
 	
 	void wyczysc();
 
 	bool waliduj()const;
 
 private:
-	set<Identyfikator> zbiorNowychIdPlanet;
-	set<Identyfikator> zbiorUzytychIdPlanet;
-	Walidator();
-	Walidator( const Walidator& );
-	Walidator& operator=( const Walidator& );
+	std::set<STyp::Identyfikator> zbiorNowychIdPlanet;
+	std::set<STyp::Identyfikator> zbiorUzytychIdPlanet;
+	Walidator() = default;
+	Walidator( const Walidator& ) = delete;
+	Walidator& operator=( const Walidator& ) = delete;
 };
 

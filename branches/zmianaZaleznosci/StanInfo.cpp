@@ -1,10 +1,9 @@
 #include "StanInfo.h"
 #include "Logger\Log.h"
 #include "Logger\Logger.h"
-#include "XmlBO.h"
 #include "definicjeWezlowXML.h"
 
-StanInfo::StanInfo( tinyxml2::XMLElement* wezel )
+StanInfo::StanInfo( XmlBO::ElementWezla wezel )
 {
 	if(wezel){
 		XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,id_);		
@@ -14,8 +13,10 @@ StanInfo::StanInfo( tinyxml2::XMLElement* wezel )
 		luaFuncInside_ = XmlBO::WczytajAtrybut<std::string>(wezel,ATRYBUT_XML_STAN_LUA_INSIDE,std::string());
 		
 		if( luaFile_.empty() && !( luaFuncInside_.empty() && luaFuncOut_.empty() && luaFuncIn_.empty() ) ) 
-			throw OgolnyWyjatek(EXCEPTION_PLACE);
-		for(tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_ZDARZENIE); element ; element = element->NextSiblingElement(WEZEL_XML_ZDARZENIE)){
+			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst());
+
+		//TODO: U¿yc pêtli forach
+		for(auto element = wezel->pobierzElement(WEZEL_XML_ZDARZENIE); element ; element = element->pobierzNastepnyElement(WEZEL_XML_ZDARZENIE)){
 			auto zdarzenie = std::make_shared<ZdarzenieInfo>(element);
 			zdarzenia_.insert(std::make_pair(zdarzenie->pobierzIdentyfikator(), zdarzenie));
 		}
@@ -53,14 +54,11 @@ bool StanInfo::wykonaj( Akcja akcja ){
 	return skrypt_.wykonaj(*ptr);
 }
 
-StanInfo::~StanInfo(void){}
-
-
-const Identyfikator& StanInfo::pobierzIdentyfikator() const{
+const STyp::Identyfikator& StanInfo::pobierzIdentyfikator() const{
 	return id_;
 }
 
-std::shared_ptr<ZdarzenieInfo> StanInfo::pobierzZdarzenie( const Identyfikator& id ) const{
+std::shared_ptr<ZdarzenieInfo> StanInfo::pobierzZdarzenie(const STyp::Identyfikator& id) const{
 	auto iter = zdarzenia_.find(id);
 	if(iter == zdarzenia_.end() )
 		return nullptr;
@@ -68,11 +66,11 @@ std::shared_ptr<ZdarzenieInfo> StanInfo::pobierzZdarzenie( const Identyfikator& 
 }
 
 std::string StanInfo::napis()const{
-	Logger log(NAZWAKLASY(StanInfo));
-	log.dodajPole("Identyfikator",id_);
-	log.dodajPole("luaFuncIn",luaFuncIn_);
-	log.dodajPole("luaFuncOut",luaFuncOut_);
-	log.dodajPole("luaFuncInside",luaFuncInside_);
-	log.dodajPole("luaFile",luaFile_);
+	SLog::Logger log(NAZWAKLASY(StanInfo));
+	log.dodajPole(NAZWAPOLA(id_), id_);
+	log.dodajPole(NAZWAPOLA(luaFuncIn_), luaFuncIn_);
+	log.dodajPole(NAZWAPOLA(luaFuncOut_), luaFuncOut_);
+	log.dodajPole(NAZWAPOLA(luaFuncInside_), luaFuncInside_);
+	log.dodajPole(NAZWAPOLA(luaFile_), luaFile_);
 	return log.napis();
 }

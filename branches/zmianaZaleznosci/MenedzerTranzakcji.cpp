@@ -2,14 +2,6 @@
 #include "NiepowodzenieTranzakcji.h"
 #include "Aplikacja.h"
 
-MenedzerTranzakcji::MenedzerTranzakcji()
-{
-}
-
-MenedzerTranzakcji::~MenedzerTranzakcji()
-{
-}
-
 void MenedzerTranzakcji::dodaj( Element operacja )
 {
 	if(operacja)
@@ -27,11 +19,11 @@ bool MenedzerTranzakcji::wykonaj()
 				break;
 			}
 		}
-	}catch(OgolnyWyjatek& e){
-		Aplikacja::pobierzInstancje().pobierzLogger().loguj(Log::Warning,e.generujKomunikat());
+	}catch(STyp::Wyjatek& e){
+		Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.generujKomunikat());
 		powodzenie = false;
 	}catch(std::exception& e){
-		Aplikacja::pobierzInstancje().pobierzLogger().loguj(Log::Warning,e.what());
+		Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.what());
 		powodzenie = false;
 	}catch(...){
 		powodzenie = false;
@@ -45,13 +37,13 @@ bool MenedzerTranzakcji::wykonaj()
 				}
 			}
 		}catch(NiepowodzenieTranzakcji& e){
-			Aplikacja::pobierzInstancje().pobierzLogger().loguj(Log::Warning,e.generujKomunikat());
+			Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.generujKomunikat());
 			throw;
-		}catch(OgolnyWyjatek& e){
-			Aplikacja::pobierzInstancje().pobierzLogger().loguj(Log::Warning,e.generujKomunikat());
+		}catch(STyp::Wyjatek& e){
+			Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.generujKomunikat());
 			throw NiepowodzenieTranzakcji(EXCEPTION_PLACE,listaOperacji_[iterator]->napis());
 		}catch(std::exception& e){
-			Aplikacja::pobierzInstancje().pobierzLogger().loguj(Log::Warning,e.what());
+			Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.what());
 			throw NiepowodzenieTranzakcji(EXCEPTION_PLACE,listaOperacji_[iterator]->napis());
 		}catch(...){
 			throw NiepowodzenieTranzakcji(EXCEPTION_PLACE,listaOperacji_[iterator]->napis());
@@ -60,8 +52,8 @@ bool MenedzerTranzakcji::wykonaj()
 	return powodzenie;
 }
 
-string MenedzerTranzakcji::napis() const{
-	Logger str (NAZWAKLASY(MenedzerTranzakcji));
+std::string MenedzerTranzakcji::napis() const{
+	SLog::Logger str(NAZWAKLASY(MenedzerTranzakcji));
 	for(const Element& element : listaOperacji_ ){
 		str.dodajPole("Zlecenie", *element);
 	}

@@ -34,9 +34,28 @@ namespace SpEx{
 	}
 	void PodstawoweParametry::wzrostAtrybutu(const AtrybutPodstawowy& atrybut){
 		switch (typAtrybutu_){
-		case POZIOM: atrybutPodstawowy_.poziom = atrybut.poziom; break;
-		case ILOSC:	atrybutPodstawowy_.ilosc = atrybut.ilosc; break;
+		case POZIOM: atrybutPodstawowy_.poziom += atrybut.poziom; break;
+		case ILOSC:	atrybutPodstawowy_.ilosc += atrybut.ilosc; break;
 		}
+	}
+
+	PodstawoweParametry::AtrybutPodstawowy PodstawoweParametry::wpisPoziom(const STyp::Poziom& poziom){
+		AtrybutPodstawowy atr;
+		atr.poziom = poziom();
+		return atr;
+	}
+
+	PodstawoweParametry::AtrybutPodstawowy PodstawoweParametry::wpisIlosc(const STyp::Ilosc& ilosc){
+		AtrybutPodstawowy atr;
+		atr.ilosc = ilosc();
+		return atr;
+	}
+
+	STyp::Poziom PodstawoweParametry::pobierzPoziom()const{
+		return typAtrybutu_ == POZIOM ? atrybutPodstawowy_.poziom : STyp::Poziom(0);
+	}
+	STyp::Ilosc PodstawoweParametry::pobierzIlosc()const{
+		return typAtrybutu_ == ILOSC ? atrybutPodstawowy_.ilosc : STyp::Ilosc(0);
 	}
 
 	bool PodstawoweParametry::zapisz(XmlBO::ElementWezla wezel) const{
@@ -79,7 +98,7 @@ namespace SpEx{
 		return true;
 	}
 
-	string PodstawoweParametry::napis() const{
+	std::string PodstawoweParametry::napis() const{
 		SLog::Logger str(NAZWAKLASY(PodstawoweParametry));
 		switch (typAtrybutu_){
 		case POZIOM: str.dodajPole(NAZWAPOLA(POZIOM), STyp::Poziom(atrybutPodstawowy_.poziom)); break;

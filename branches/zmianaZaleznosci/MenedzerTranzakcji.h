@@ -13,7 +13,7 @@
 * dalszymi b³ednymi zmianami danych zaleca siê przerwanie dzia³ania programu.
 */
 class MenedzerTranzakcji :
-	virtual public LoggerInterface
+	virtual public SLog::LoggerInterface
 {
 private:
 	typedef std::shared_ptr< Operacja > Element; /// Type elementów przechowywanych w kontenerze.
@@ -25,12 +25,12 @@ public:
 	/**
 	* \brief Konstruktor.
 	*/
-	MenedzerTranzakcji();
+	MenedzerTranzakcji() = default;
 
 	/**
 	* \brief Destruktor.
 	*/
-	virtual ~MenedzerTranzakcji();
+	virtual ~MenedzerTranzakcji() = default;
 
 	/**
 	* \brief Metoda dodaje operacje do listy oczekuj¹cych na wykonanie.

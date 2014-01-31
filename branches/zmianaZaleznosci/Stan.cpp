@@ -8,10 +8,6 @@ Stan::Stan(std::shared_ptr<StanInfo> info)
 		id_ = info_->pobierzIdentyfikator();
 }
 
-Stan::~Stan(void)
-{
-}
-
 bool Stan::akcjaWejscia(){
 	if(info_)
 		return info_->wykonaj(StanInfo::AkcjaWejsciowa);

@@ -5,18 +5,18 @@
 * \brief Klasa bazowa zawieraj¹ca interfejs dla wykonywanych operacji.
 */
 class Operacja:
-	virtual public LoggerInterface
+	virtual public SLog::LoggerInterface
 {
 public:
 	/**
 	* \brief Konstruktor domyœlny.
 	*/
-	Operacja(void);
+	Operacja(void) = default;
 
 	/**
 	* \brief Destruktor.
 	*/
-	virtual ~Operacja(void);
+	virtual ~Operacja(void) = default;
 
 	/**
 	* \brief Metoda wykonuj¹ca operacje tranzakcyjn¹.

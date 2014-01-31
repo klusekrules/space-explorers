@@ -2,13 +2,12 @@
 #include "stdafx.h"
 #include "EkranSzablon.h"
 
-
 class EkranStartowy: 
 	public EkranSzablon
 {
 public:
-	EkranStartowy(  sf::RenderWindow& okno , tinyxml2::XMLElement* wezel);
-	virtual ~EkranStartowy(void);
+	EkranStartowy(  sf::RenderWindow& okno , XmlBO::ElementWezla wezel);
+	virtual ~EkranStartowy(void) = default;
 
 	void uaktualnij( Stan& stan ) override;
 	
@@ -20,7 +19,7 @@ protected:
 	const Stan::KrokCzasu czasTrwalosci_;
 	Stan::KrokCzasu czasChwilowy_;
 
-	Identyfikator idStanuWejscia_;	
-	Identyfikator idZdarzeniaWyjscia_;
+	STyp::Identyfikator idStanuWejscia_;	
+	STyp::Identyfikator idZdarzeniaWyjscia_;
 };
 

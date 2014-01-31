@@ -1,20 +1,14 @@
 #include "EkranStartowy.h"
 #include <Windows.h>
 #include "definicjeWezlowXML.h"
-#include "XmlBO.h"
 #include "MaszynaStanow.h"
 
-EkranStartowy::EkranStartowy( sf::RenderWindow& okno , tinyxml2::XMLElement* wezel)
+EkranStartowy::EkranStartowy( sf::RenderWindow& okno , XmlBO::ElementWezla wezel)
 	: EkranSzablon(wezel),czasWlaczania_(3000),czasTrwalosci_(2000), czasChwilowy_(0), okno_(okno.getSystemHandle())
 {
 	interfejs_.setWindow(okno);
 	XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_EKRAN_STAN_WEJSCIOWY,idStanuWejscia_);
 	XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_EKRAN_ZDARZENIE_WYJSCIA,idZdarzeniaWyjscia_);
-}
-
-
-EkranStartowy::~EkranStartowy(void)
-{
 }
 
 void EkranStartowy::uaktualnij( Stan& stan ){
