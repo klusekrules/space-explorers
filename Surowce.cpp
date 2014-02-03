@@ -23,6 +23,21 @@ namespace SpEx{
 		return new Surowce(*this);
 	}
 
+	bool Surowce::polacz(const Obiekt& obiekt){
+		return false;
+	}
+
+
+	STyp::Objetosc Surowce::pobierzObjetosc()const{ 
+		return STyp::Objetosc(); //TODO: Dokonczyc metode
+	}
+	STyp::Objetosc Surowce::pobierzObjetoscJednostkowa()const{
+		return STyp::Objetosc(); //TODO: Dokonczyc metode
+	}
+	STyp::Masa Surowce::pobierzMase()const{
+		return STyp::Masa(); //TODO: Dokonczyc metode
+	}
+
 	Surowce* Surowce::podziel(const STyp::Ilosc& ilosc){
 		if (ilosc <= STyp::Ilosc(0.0l) || ilosc >= this->pobierzIlosc())
 			return nullptr;

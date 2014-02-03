@@ -24,10 +24,10 @@ namespace SpEx{
 		return nullptr;
 	}
 
-	/*bool Budynek::polacz(const ObiektBazowy& obiektbazowy) {
+	bool Budynek::polacz(const Obiekt& obiektbazowy) {
 		return false;
 	}
-
+	/*
 	bool Budynek::czyMoznaPolaczyc(const ObiektBazowy& obiektbazowy) const{
 		return false;
 	}

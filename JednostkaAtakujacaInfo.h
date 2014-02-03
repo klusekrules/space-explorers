@@ -1,7 +1,7 @@
 #pragma once
 #include "PodstawoweParametry.h"
 #include "WyjatekParseraXML.h"
-
+#include "Zmiana\ZmianaInterfejs.h"
 /* Wy³aczono losowe generowanie parametrów.
 
 std::mt19937& getGenerator()const;

@@ -1,6 +1,6 @@
 #include "Statek.h"
 #include "StatekInfo.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
 #include "DefinicjeWezlowXML.h"
 #include "MenedzerTranzakcji.h"
 #include "Zlecenia.h"
@@ -29,6 +29,28 @@ namespace SpEx{
 
 	Statek* Statek::kopia() const{
 		return new Statek(*this);
+	}
+
+	bool Statek::polacz(const Obiekt& obiekt){
+		return false;
+	}
+
+
+	STyp::Powierzchnia Statek::pobierzPowierzchnie()const{
+		return STyp::Powierzchnia();//TODO: dokonczyc metodê.
+	}
+	STyp::Powierzchnia Statek::pobierzPowierzchnieJednostkowa()const{
+		return STyp::Powierzchnia();//TODO: dokonczyc metodê.
+	}
+
+	STyp::Objetosc Statek::pobierzObjetosc()const{
+		return STyp::Objetosc();//TODO: dokonczyc metodê.
+	}
+	STyp::Objetosc Statek::pobierzObjetoscJednostkowa()const{
+		return STyp::Objetosc();//TODO: dokonczyc metodê.
+	}
+	STyp::Masa Statek::pobierzMase()const{
+		return STyp::Masa();//TODO: dokonczyc metodê.
 	}
 
 	bool Statek::czyMoznaDodacDoHangaru() const{

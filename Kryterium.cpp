@@ -30,6 +30,11 @@ namespace SpEx{
 		identyfikator_ = identyfikator;
 	}
 
+	Kryterium::TypAtrybutu Kryterium::typAtrybutu()const{
+		return typAtrybutu_;
+	}
+
+
 	bool Kryterium::zapisz(XmlBO::ElementWezla wezel) const{
 		wezel->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, identyfikator_.napis().c_str());
 		switch (typAtrybutu_){
@@ -41,7 +46,7 @@ namespace SpEx{
 		case ILOSC:
 			if (atrybutPodstawowy_.ilosc <= 0)
 				return false;
-			wezel->tworzAtrybut(ATRYBUT_XML_ILOSC, STyp::Poziom(atrybutPodstawowy_.ilosc).napis().c_str());
+			wezel->tworzAtrybut(ATRYBUT_XML_ILOSC, STyp::Ilosc(atrybutPodstawowy_.ilosc).napis().c_str());
 			break;
 		}
 		return true;

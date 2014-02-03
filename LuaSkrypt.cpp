@@ -22,7 +22,7 @@ bool LuaSkrypt::wykonaj( const std::string& funkcja ){
 	if (status) {
 		std::stringstream ss;
 		ss << "Nie udalo sie wywolac skryptu:" << lua_tostring(L, -1) << std::endl;
-		Log::pobierzInstancje().loguj(Log::Error,ss.str());
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, ss.str());
 		return false;
 	}
 	return true;
@@ -34,7 +34,7 @@ bool LuaSkrypt::odczytaj(){
 		if (status) {
 			std::stringstream ss;
 			ss << "Nie udalo sie wczytac pliku:" << lua_tostring(L, -1) << std::endl;
-			Log::pobierzInstancje().loguj(Log::Error,ss.str());
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, ss.str());
 			return false;
 		}
 		return true;

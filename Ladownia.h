@@ -48,7 +48,7 @@ namespace SpEx{
 		/**
 		* \brief Destruktor.
 		*/
-		virtual ~Ladownia();
+		virtual ~Ladownia() = default;
 
 		/**
 		* \brief Metoda wyliczaj¹ca procent wolnego miejsca.

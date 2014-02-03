@@ -28,141 +28,143 @@ typedef struct _SYMBOL_INFO {
 typedef BOOL (WINAPI *SymInitializeS)( _In_ HANDLE hProcess,  _In_opt_ PCSTR UserSearchPath,   _In_ BOOL fInvadeProcess );
 typedef BOOL (WINAPI *SymFromAddrS)( _In_ HANDLE hProcess, _In_ DWORD64 Address, _Out_opt_ PDWORD64 Displacement, _Inout_ PSYMBOL_INFO Symbol );
 
-
-/**
-* \brief Klasa reprezentuj¹ca aplikacje.
-*
-* G³ówna klasa programu. Reprezentuje ca³¹ apliakcje.
-* \author Daniel Wojdak
-* \version 1
-* \date 26-07-2013
-*/
-class Aplikacja
-{
-	friend class Testy;
-
-public:
-	
-	/**
-	* Iloœæ argumentów przekazanych w linii komend.
-	*/
-	static int iloscArgumentow;
+namespace SpEx {
 
 	/**
-	* Argumenty przekazane w linii komend
-	*/
-	static char** argumenty;
-
-	/**
-	* \brief Metoda pobieraj¹ca instacjê gry.
-	* 
-	* \return Referencja do obiektu gry.
-	*/
-	Gra& pobierzGre() const;
-
-	/**
-	* \brief Metoda pobieraj¹ca instacjê obiektu tworz¹cego logi.
+	* \brief Klasa reprezentuj¹ca aplikacje.
 	*
-	* \return Referencja do loggera.
+	* G³ówna klasa programu. Reprezentuje ca³¹ apliakcje.
+	* \author Daniel Wojdak
+	* \version 1
+	* \date 26-07-2013
 	*/
-	Log& pobierzLogger() const;
+	class Aplikacja
+	{
+		friend class Testy;
 
-	/**
-	* \brief Metoda ³aduj¹ca dane gry.
-	*
-	* \return true je¿eli uda siê wczytaæ dane, false w przeciwnym wypadku.
-	*/
-	bool wczytajDane();
+	public:
 
-	/**
-	* \brief Metoda zapisuj¹ca stan gry.
-	*
-	* \return true je¿eli uda siê zapisac grê, flase w przeciwnym wypadku.
-	*/
-	bool zapiszGre(const string& nazwa, const string& hash) const;
+		/**
+		* Iloœæ argumentów przekazanych w linii komend.
+		*/
+		static int iloscArgumentow;
 
-	/**
-	* \brief Metoda wczytuj¹ca stan gry.
-	*
-	* \return true je¿eli uda siê wczytaæ stan gry, false w przeciwnym wypadku.
-	*/
-	bool wczytajGre(const string& nazwa, const string& hash);
+		/**
+		* Argumenty przekazane w linii komend
+		*/
+		static char** argumenty;
 
-	/**
-	* \brief Metoda pobieraj¹ca instacjê Aplikacji.
-	*
-	* \return Referencja do instancji apalikacji.
-	*/
-	static Aplikacja& pobierzInstancje();
+		/**
+		* \brief Metoda pobieraj¹ca instacjê gry.
+		*
+		* \return Referencja do obiektu gry.
+		*/
+		Gra& pobierzGre() const;
 
-	/**
-	* \brief Metoda pobieraj¹ca œla stosu.
-	*
-	* \return Napis zawieraj¹cy œlad stosu.
-	*/
-	string pobierzSladStosu() const;
+		/**
+		* \brief Metoda pobieraj¹ca instacjê obiektu tworz¹cego logi.
+		*
+		* \return Referencja do loggera.
+		*/
+		SLog::Log& pobierzLogger() const;
 
-	void wyczyscDane();
-	
-	/**
-	* \brief Destruktor.
-	*/
-	~Aplikacja();
+		/**
+		* \brief Metoda ³aduj¹ca dane gry.
+		*
+		* \return true je¿eli uda siê wczytaæ dane, false w przeciwnym wypadku.
+		*/
+		bool wczytajDane();
 
-private:
+		/**
+		* \brief Metoda zapisuj¹ca stan gry.
+		*
+		* \return true je¿eli uda siê zapisac grê, flase w przeciwnym wypadku.
+		*/
+		bool zapiszGre(const std::string& nazwa, const std::string& hash) const;
 
-	/**
-	* \brief Konstruktor.
-	*
-	* Metoda wyrzuca wyj¹tek kiedy wyst¹pi b³¹d przy inicjalizacji aplikacji.
-	* \throw NiezainicjalizowanaKlasa
-	*/
-	Aplikacja() throw(NiezainicjalizowanaKlasa);
+		/**
+		* \brief Metoda wczytuj¹ca stan gry.
+		*
+		* \return true je¿eli uda siê wczytaæ stan gry, false w przeciwnym wypadku.
+		*/
+		bool wczytajGre(const std::string& nazwa, const std::string& hash);
 
-	/**
-	* \brief Konstruktor kopiuj¹cy.
-	* \todo Oznaczenie metody jako delete kiedy kompilator bêdzie to wspieraæ.
-	*/
-	Aplikacja( const Aplikacja& aplikacja );
+		/**
+		* \brief Metoda pobieraj¹ca instacjê Aplikacji.
+		*
+		* \return Referencja do instancji apalikacji.
+		*/
+		static Aplikacja& pobierzInstancje();
 
-	/**
-	* \brief Operator przypisania.
-	* \todo Oznaczenie metody jako delete kiedy kompilator bêdzie to wspieraæ.
-	*/
-	Aplikacja& operator=( const Aplikacja& aplikacja );
+		/**
+		* \brief Metoda pobieraj¹ca œla stosu.
+		*
+		* \return Napis zawieraj¹cy œlad stosu.
+		*/
+		std::string pobierzSladStosu() const;
 
-	/**
-	* \brief Metoda wcztuj¹ca opcje aplikacji.
-	*
-	* \return true je¿eli uda siê wczytaæ opcje, false w przeciwnym wypadku.
-	*/
-	bool zaladujOpcje();
+		void wyczyscDane();
 
-	/**
-	* \brief Metoda przetwarzaj¹ca argumenty linii komend
-	*
-	* Metoda odczytuje i przetwarza wszysktie argumenty przekazane w linii komend. Ustawia odpowiednie opcje programu.
-	*/
-	bool przetworzArgumenty();
+		/**
+		* \brief Destruktor.
+		*/
+		~Aplikacja();
 
-	/**
-	* \brief Metoda wyrzuca do loggera podstwowe dane identyfikuj¹ce wersje aplikacji.
-	*/
-	void logApInfo() const;
+	private:
 
-	Log& logger_; /// Instancja loggera.
-	shared_ptr<Cplugin> pluginy_; /// Obiekt zarz¹dzaj¹cy plugginami.
-	shared_ptr<Gra> instancjaGry_; /// Obiekt prezentuj¹cy instancjê gry.
+		/**
+		* \brief Konstruktor.
+		*
+		* Metoda wyrzuca wyj¹tek kiedy wyst¹pi b³¹d przy inicjalizacji aplikacji.
+		* \throw NiezainicjalizowanaKlasa
+		*/
+		Aplikacja() throw(NiezainicjalizowanaKlasa);
 
-	string nazwaPlikuOpcji_; /// Nazwa pliku z opcjami.
-	string nazwaPlikuDanych_; /// Opcja: Nazwa pliku z danymi.
-	string jezykAplikacji_; /// Opcja: Jêzyk apllikacji.
-	string folderPluginow_; /// Opcja: lokalizacja folderu z pluginami.
+		/**
+		* \brief Konstruktor kopiuj¹cy.
+		* \todo Oznaczenie metody jako delete kiedy kompilator bêdzie to wspieraæ.
+		*/
+		Aplikacja(const Aplikacja& aplikacja);
 
-	SymInitializeS symInitialize_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
-	SymFromAddrS symFromAddr_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
-	HMODULE uchwyt_; /// Uchwyt blioteki pomocniczej.
-	bool czyZainicjalizowanaBiblioteka_; /// Informacja czy uda³osiê za³adowaæ bibliotekê pomocnicz¹.
+		/**
+		* \brief Operator przypisania.
+		* \todo Oznaczenie metody jako delete kiedy kompilator bêdzie to wspieraæ.
+		*/
+		Aplikacja& operator=(const Aplikacja& aplikacja);
 
-	Identyfikator idEkranuStartowego_;
-};
+		/**
+		* \brief Metoda wcztuj¹ca opcje aplikacji.
+		*
+		* \return true je¿eli uda siê wczytaæ opcje, false w przeciwnym wypadku.
+		*/
+		bool zaladujOpcje();
+
+		/**
+		* \brief Metoda przetwarzaj¹ca argumenty linii komend
+		*
+		* Metoda odczytuje i przetwarza wszysktie argumenty przekazane w linii komend. Ustawia odpowiednie opcje programu.
+		*/
+		bool przetworzArgumenty();
+
+		/**
+		* \brief Metoda wyrzuca do loggera podstwowe dane identyfikuj¹ce wersje aplikacji.
+		*/
+		void logApInfo() const;
+
+		SLog::Log& logger_; /// Instancja loggera.
+		std::shared_ptr<SPlu::Cplugin> pluginy_; /// Obiekt zarz¹dzaj¹cy plugginami.
+		std::shared_ptr<Gra> instancjaGry_; /// Obiekt prezentuj¹cy instancjê gry.
+
+		std::string nazwaPlikuOpcji_; /// Nazwa pliku z opcjami.
+		std::string nazwaPlikuDanych_; /// Opcja: Nazwa pliku z danymi.
+		std::string jezykAplikacji_; /// Opcja: Jêzyk apllikacji.
+		std::string folderPluginow_; /// Opcja: lokalizacja folderu z pluginami.
+
+		SymInitializeS symInitialize_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
+		SymFromAddrS symFromAddr_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
+		HMODULE uchwyt_; /// Uchwyt blioteki pomocniczej.
+		bool czyZainicjalizowanaBiblioteka_; /// Informacja czy uda³osiê za³adowaæ bibliotekê pomocnicz¹.
+
+		STyp::Identyfikator idEkranuStartowego_;
+	};
+}

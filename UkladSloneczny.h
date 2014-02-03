@@ -21,7 +21,7 @@ namespace SpEx {
 		friend class ZarzadcaPamieci;
 	public:
 		typedef std::shared_ptr<Planeta> Planeta;
-		typedef std::unordered_map< STyp::Identyfikator, Planeta > Planety; /// Typ listy planet
+		typedef std::unordered_map< STyp::Identyfikator, Planeta, STyp::IdTypeHash > Planety; /// Typ listy planet
 
 		/**
 		* \brief Konstruktor

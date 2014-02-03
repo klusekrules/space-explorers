@@ -1,35 +1,33 @@
 #include "WyjatekSTL.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
+#include "Aplikacja.h"
+namespace SpEx{
+	WyjatekSTL::WyjatekSTL(const STyp::Tekst& tPlik, const STyp::Ilosc& iLinia, const std::exception& e, const STyp::Tekst& str)
+		: Wyjatek(tPlik, iLinia,Aplikacja::pobierzInstancje().pobierzSladStosu(), idWyjatekSTL, tytulWyjatekSTL, str.isEmpty() ? trescWyjatekSTL : str), powod(e.what())
+	{
+	}
 
+	WyjatekSTL::WyjatekSTL(const WyjatekSTL& e)
+		: Wyjatek(e), powod(e.powod)
+	{
+	}
 
-WyjatekSTL::~WyjatekSTL(){
-}
+	const STyp::Tekst& WyjatekSTL::getPowod() const{
+		return powod;
+	}
 
-WyjatekSTL::WyjatekSTL( const Tekst& tPlik, const Ilosc& iLinia, const std::exception& e, const Tekst& str )
-	: OgolnyWyjatek(tPlik, iLinia,idWyjatekSTL , tytulWyjatekSTL ,str.isEmpty() ? trescWyjatekSTL : str), powod(e.what())
-{
-}
+	void WyjatekSTL::setPowod(const STyp::Tekst& powod){
+		this->powod = powod;
+	}
 
-WyjatekSTL::WyjatekSTL( const WyjatekSTL& e )
-	: OgolnyWyjatek(e), powod(e.powod)
-{
-}
+	STyp::Tekst WyjatekSTL::generujKomunikat()const {
+		return Wyjatek::generujKomunikat() + powod + STyp::Tekst("\n");
+	}
 
-const Tekst& WyjatekSTL::getPowod() const{
-	return powod;
-}
-
-void WyjatekSTL::setPowod( const Tekst& powod ){
-	this->powod = powod;
-}
-
-Tekst WyjatekSTL::generujKomunikat()const {
-	return OgolnyWyjatek::generujKomunikat() + powod + Tekst("\n");
-}
-
-std::string WyjatekSTL::napis() const{
-	Logger str(NAZWAKLASY(WyjatekSTL));	
-	str.dodajKlase(OgolnyWyjatek::napis());
-	str.dodajPole("Powod",powod);
-	return str.napis();
+	std::string WyjatekSTL::napis() const{
+		SLog::Logger str(NAZWAKLASY(WyjatekSTL));
+		str.dodajKlase(Wyjatek::napis());
+		str.dodajPole(NAZWAPOLA(powod), powod);
+		return str.napis();
+	}
 }

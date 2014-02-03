@@ -23,8 +23,8 @@ namespace SpEx{
 		static_assert(!std::is_pointer< T >::value, "Wartosc nie moze byc wskaznikiem.");
 
 	public:
-		typedef typename std::map< Klucz, std::shared_ptr<T> >::iterator iterator;
-		typedef typename std::map< Klucz, std::shared_ptr<T> >::const_iterator const_iterator;
+		typedef typename std::map< STyp::Identyfikator, std::shared_ptr<T> >::iterator iterator;
+		typedef typename std::map< STyp::Identyfikator, std::shared_ptr<T> >::const_iterator const_iterator;
 
 		/**
 		* \brief Konstruktor.
@@ -42,9 +42,16 @@ namespace SpEx{
 		*/
 		ListaObiektow(const ListaObiektow& lista){
 			for (auto element : lista){
-				insert(make_pair(element.first, std::shared_ptr<T>(element.second->kopia())));
+				insert(std::make_pair(element.first, std::shared_ptr<T>(element.second->kopia())));
 			}
 		}
+
+		/*ListaObiektow& operator=(const ListaObiektow& lista){
+			wyczysc();
+			for (auto element : lista){
+				insert(std::make_pair(element.first, std::shared_ptr<T>(element.second->kopia())));
+			}
+		}*/
 
 		/**
 		* \brief Konstruktor przenosz¹cy.
@@ -52,9 +59,18 @@ namespace SpEx{
 		*/
 		ListaObiektow(ListaObiektow&& lista){
 			for (auto element : lista){
-				insert(make_pair(element.first, element.second));
+				insert(std::make_pair(element.first, element.second));
 			}
 			lista.wyczysc();
+		}
+
+		ListaObiektow& operator=(ListaObiektow&& lista){
+			wyczysc();
+			for (auto element : lista){
+				insert(std::make_pair(element.first, element.second));
+			}
+			lista.wyczysc();
+			return *this;
 		}
 
 		/**
@@ -70,7 +86,7 @@ namespace SpEx{
 			STyp::Identyfikator klucz = obiekt.pobierzIdentyfikator();
 			auto element = find(klucz);
 			if (element == end()){
-				insert(make_pair(klucz, std::shared_ptr<T>(obiekt.kopia())));
+				insert(std::make_pair(klucz, std::shared_ptr<T>(obiekt.kopia())));
 			}
 			else{
 				return element->second->polacz(obiekt);
@@ -123,7 +139,7 @@ namespace SpEx{
 		* \param[in] klucz - Klucz obiektu, który ma zostaæ pobrany z listy.
 		* \return Sprytny wskaŸnik na obiekt o podanym kluczu.
 		*/
-		shared_ptr<T> pobierz(const STyp::Identyfikator& klucz)const{
+		std::shared_ptr<T> pobierz(const STyp::Identyfikator& klucz)const{
 			auto element = find(klucz);
 			if (element == end())
 				return nullptr;
@@ -149,7 +165,7 @@ namespace SpEx{
 			}
 			wyczysc();
 			kontener.wyczysc();
-			operator=(tmp);
+			operator=(std::move(tmp));
 			return true;
 		}
 
@@ -235,7 +251,7 @@ namespace SpEx{
 		* \return Iterator wskazuj¹cy na pierwszy element.
 		*/
 		iterator begin(){
-			return std::map< Klucz, std::shared_ptr<T> >::begin();
+			return std::map< STyp::Identyfikator, std::shared_ptr<T> >::begin();
 		}
 
 		/**
@@ -245,7 +261,7 @@ namespace SpEx{
 		* \return Iterator wskazuj¹cy za ostatni element.
 		*/
 		iterator end(){
-			return std::map< Klucz, std::shared_ptr<T> >::end();
+			return std::map< STyp::Identyfikator, std::shared_ptr<T> >::end();
 		}
 
 		/**
@@ -255,7 +271,7 @@ namespace SpEx{
 		* \return Sta³y iterator wskazuj¹cy na pierwszy element.
 		*/
 		const_iterator begin() const{
-			return std::map< Klucz, std::shared_ptr<T> >::cbegin();
+			return std::map< STyp::Identyfikator, std::shared_ptr<T> >::cbegin();
 		}
 
 		/**
@@ -265,7 +281,7 @@ namespace SpEx{
 		* \return Sta³y iterator wskazuj¹cy za ostatni element.
 		*/
 		const_iterator end() const{
-			return std::map< Klucz, std::shared_ptr<T> >::cend();
+			return std::map< STyp::Identyfikator, std::shared_ptr<T> >::cend();
 		}
 
 		/**
@@ -326,7 +342,7 @@ namespace SpEx{
 			}
 			if (!docelowa.dodaj(obiekt)){
 				if (!zrodlowa.dodaj(obiekt))
-					throw STyp::Wyjatek(EXCEPTION_PLACE,STyp::Tekst(), Identyfikator(-1), Tekst("Nieoczekiwany wyjatek"), Tekst("Wystapi³ nieoczekiwany wyjatek, który zaburzy³ dzia³anie aplikacji."));
+					throw STyp::Wyjatek(EXCEPTION_PLACE,STyp::Tekst(), STyp::Identyfikator(-1), STyp::Tekst("Nieoczekiwany wyjatek"), STyp::Tekst("Wystapi³ nieoczekiwany wyjatek, który zaburzy³ dzia³anie aplikacji."));
 				else
 					return false;
 			}

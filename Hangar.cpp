@@ -19,7 +19,7 @@ namespace SpEx{
 	}
 	
 	STyp::Fluktuacja Hangar::wolneMiejsceHangaru() const{
-		return STyp::Fluktuacja(1.0) - (zajete_ / pobierzPojemnoscMaksymalnaHangaru())();
+		return STyp::Fluktuacja(1.0) - STyp::Fluktuacja(static_cast<float>((zajete_ / pobierzPojemnoscMaksymalnaHangaru())()));
 	}
 
 	bool Hangar::dodajStatekDoHangaru(const Item& obiekt){
@@ -174,7 +174,7 @@ namespace SpEx{
 				break;
 		}
 		if (tymczasowaObjetosc >= tymczasoweMinimum){
-			obiekty_ = kopia;
+			obiekty_ = std::move(kopia);
 			przeliczZajeteMiejsceHangaru();
 		}
 		else{

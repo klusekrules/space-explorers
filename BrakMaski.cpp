@@ -1,36 +1,37 @@
 #include "BrakMaski.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
 
-BrakMaski::BrakMaski( const Tekst& tPlik, const Ilosc& iLinia, const Tekst& nazwa )
-	: WyjatekParseraXML( tPlik, iLinia, std::exception(), trescBrakMaski ), nazwaMaski(nazwa)
-{
-	this->setNumerWyjatku(idBrakMaski);
-	this->setTytul(tytulBrakMaski);
-}
+namespace SpEx{
+	BrakMaski::BrakMaski(const STyp::Tekst& tPlik, const STyp::Ilosc& iLinia, const STyp::Tekst& nazwa)
+		: WyjatekParseraXML(tPlik, iLinia, std::exception(), trescBrakMaski), nazwaMaski(nazwa)
+	{
+		//TODO: Dokonczyc metode
+		/*
+		this->setNumerWyjatku(idBrakMaski);
+		this->setTytul(tytulBrakMaski);*/
+	}
 
-BrakMaski::BrakMaski( const BrakMaski& e )
-	: WyjatekParseraXML(e), nazwaMaski(e.nazwaMaski)
-{
-}
+	BrakMaski::BrakMaski(const BrakMaski& e)
+		: WyjatekParseraXML(e), nazwaMaski(e.nazwaMaski)
+	{
+	}
+	
+	const STyp::Tekst& BrakMaski::getNazwaMaski() const{
+		return nazwaMaski;
+	}
 
-BrakMaski::~BrakMaski(){
-}
+	void BrakMaski::setNazwaMaski(const STyp::Tekst& nazwaMaski){
+		this->nazwaMaski = nazwaMaski;
+	}
 
-const Tekst& BrakMaski::getNazwaMaski() const{
-	return nazwaMaski;
-}
+	STyp::Tekst BrakMaski::generujKomunikat() const{
+		return Wyjatek::generujKomunikat() + nazwaMaski + STyp::Tekst("\n");
+	}
 
-void BrakMaski::setNazwaMaski( const Tekst& nazwaMaski ){
-	this->nazwaMaski = nazwaMaski;
-}
-
-Tekst BrakMaski::generujKomunikat() const{
-	return OgolnyWyjatek::generujKomunikat() + nazwaMaski + Tekst("\n");
-}
-
-std::string BrakMaski::napis() const{
-	Logger str(NAZWAKLASY(BrakMaski));
-	str.dodajKlase(WyjatekParseraXML::napis());
-	str.dodajPole("Nazwa Maski",nazwaMaski);
-	return str.napis();
+	std::string BrakMaski::napis() const{
+		SLog::Logger str(NAZWAKLASY(BrakMaski));
+		str.dodajKlase(WyjatekParseraXML::napis());
+		str.dodajPole(NAZWAPOLA(nazwaMaski), nazwaMaski);
+		return str.napis();
+	}
 }

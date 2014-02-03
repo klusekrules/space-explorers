@@ -60,9 +60,9 @@ namespace SpEx{
 			std::vector< STyp::Identyfikator > uklady_; /// Lista uk³adów przynaleznych. Potrzebna do zapisu danych.
 		};
 
-		typedef std::unordered_map< STyp::Identyfikator, ObjGalakatyka > Galaktyki; /// Typ listy wszystkich galaktyk.
-		typedef std::unordered_map< STyp::Identyfikator, ObjUklad > UkladySloneczne; /// Typ listy wszystkich ukladów.
-		typedef std::unordered_map< STyp::Identyfikator, ObjPlaneta > Planety; /// Typ listy wszystkich Planet.
+		typedef std::unordered_map< STyp::Identyfikator, ObjGalakatyka, STyp::IdTypeHash > Galaktyki; /// Typ listy wszystkich galaktyk.
+		typedef std::unordered_map< STyp::Identyfikator, ObjUklad, STyp::IdTypeHash > UkladySloneczne; /// Typ listy wszystkich ukladów.
+		typedef std::unordered_map< STyp::Identyfikator, ObjPlaneta, STyp::IdTypeHash > Planety; /// Typ listy wszystkich Planet.
 
 		/**
 		* \brief Konstruktor.

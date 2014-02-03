@@ -1,5 +1,4 @@
 #include "MaszynaStanow.h"
-#include "TestyJednostkowe.h"
 #include "OknoGry.h"
 #include "Aplikacja.h"
 #include "Parser\ParserDokumentXml.h"

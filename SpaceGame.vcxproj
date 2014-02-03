@@ -219,6 +219,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)SFML\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)Zmiana\Headers\;$(SolutionDir)Logger\Headers\;$(SolutionDir)TypyProste\Headers\;$(SolutionDir)Parser\Headers\;$(SolutionDir)plugin\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>PARSER_IMPORT;ZMIANA_IMPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;PLUGIN_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -231,7 +232,7 @@
       <Version>
       </Version>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Debug-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-window-$(PlatformTarget)-$(Configuration).lib;sfml-system-$(PlatformTarget)-$(Configuration).lib;sfml-graphics-$(PlatformTarget)-$(Configuration).lib;tinyxml2-$(PlatformTarget)-$(Configuration).lib;tgui-$(PlatformTarget)-$(Configuration).lib;ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;opengl32.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ResourceCompile>
       <Culture>0x0015</Culture>
@@ -560,7 +561,6 @@
     <ClInclude Include="Obiekt.h" />
     <ClInclude Include="ObiektInfo.h" />
     <ClInclude Include="ListaObiektow.hpp" />
-    <ClInclude Include="OgolnyWyjatek.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Stale.h" />
     <ClInclude Include="Statek.h" />
@@ -665,7 +665,6 @@
     <ClCompile Include="ObronaTest.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="OgolnyWyjatek.cpp" />
     <ClCompile Include="OknoGry.cpp" />
     <ClCompile Include="Operacja.cpp" />
     <ClCompile Include="PaczkaTestow.cpp">
@@ -967,6 +966,35 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release-DLL|x64'">true</ExcludedFromBuild>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Logger\Logger.vcxproj">
+      <Project>{da49481f-e328-4c1f-927c-44f818d30472}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Parser\Parser.vcxproj">
+      <Project>{c8c552aa-0fb6-40ca-805d-122e7eb00225}</Project>
+    </ProjectReference>
+    <ProjectReference Include="plugin\plugin.vcxproj">
+      <Project>{a247cfe6-877a-47b4-ab8b-8dfe7bec1b9e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="SFML\src\SFML\SFML_Graphics.vcxproj">
+      <Project>{392c0116-ba28-41be-9439-e0248522c0e7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="SFML\src\SFML\SFML_System.vcxproj">
+      <Project>{cb8ecb60-8c6b-4804-bbbf-dacaaed773ac}</Project>
+    </ProjectReference>
+    <ProjectReference Include="SFML\src\SFML\SFML_Window.vcxproj">
+      <Project>{ece7a458-22f2-406c-991e-36d0e579e457}</Project>
+    </ProjectReference>
+    <ProjectReference Include="TGUI\TGUI.vcxproj">
+      <Project>{6adb1b59-6144-467c-acf0-f5020be17e77}</Project>
+    </ProjectReference>
+    <ProjectReference Include="TypyProste\TypyProste.vcxproj">
+      <Project>{c4cb2f58-bb6e-4ab4-894e-25c8ef668dce}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Zmiana\Zmiana.vcxproj">
+      <Project>{e939d2d1-17b7-4720-8de2-135a14dad2a6}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

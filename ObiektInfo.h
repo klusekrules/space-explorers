@@ -3,6 +3,8 @@
 #include "Wymagania.h"
 
 namespace SpEx{
+	class Obiekt;
+	class Planeta;
 	/**
 	* \brief Klasa opisowa obiektu.
 	*

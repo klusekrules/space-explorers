@@ -1,6 +1,7 @@
 #pragma once
 #include "Info.h"
 #include "PodstawoweParametry.h"
+#include "Zmiana\ZmianaInterfejs.h"
 
 namespace SpEx{
 	/**

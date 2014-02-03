@@ -3,6 +3,8 @@
 #include "definicjeWezlowXML.h"
 #include "MaszynaStanow.h"
 
+using namespace std::chrono;
+
 EkranStartowy::EkranStartowy( sf::RenderWindow& okno , XmlBO::ElementWezla wezel)
 	: EkranSzablon(wezel),czasWlaczania_(3000),czasTrwalosci_(2000), czasChwilowy_(0), okno_(okno.getSystemHandle())
 {
@@ -29,7 +31,7 @@ void EkranStartowy::uaktualnij( Stan& stan ){
 				MaszynaStanow::pobierzInstancje().kolejkujZdarzenie(zdarzenie);
 			}
 		}else{
-			kolor=static_cast<sf::Uint8>(255.f*(czasChwilowy_/czasWlaczania_));
+			kolor = static_cast<sf::Uint8>(255.f * (czasChwilowy_.count() / czasWlaczania_.count()));
 			SetLayeredWindowAttributes(okno_, NULL, kolor, LWA_ALPHA);
 		}
 	}else{

@@ -45,7 +45,7 @@ namespace SpEx{
 	Wymagania::PrzetworzoneWarunki BudynekInfo::pobierzZapotrzebowanie(const PodstawoweParametry& parametry)const{
 		PrzetworzoneWarunki zbiornik;
 		for (auto element : zapotrzebowanie_){
-			zbiornik.emplace_back(wylicz(element, parametry), element.pobierzObiekt()->typAtrybutu(), element.pobierzObiekt()->pobierzIdentyfikator());
+			zbiornik.emplace_back(std::make_shared<Wymagania::TypWarunku>(wylicz(element, parametry), element.pobierzObiekt()->typAtrybutu(), element.pobierzObiekt()->pobierzIdentyfikator()));
 		}
 		return zbiornik;
 	}
@@ -53,7 +53,7 @@ namespace SpEx{
 	Wymagania::PrzetworzoneWarunki BudynekInfo::pobierzProdukcje(const PodstawoweParametry& parametry)const{
 		PrzetworzoneWarunki zbiornik;
 		for (auto element : produkcja_){
-			zbiornik.emplace_back(wylicz(element, parametry), element.pobierzObiekt()->typAtrybutu(), element.pobierzObiekt()->pobierzIdentyfikator());
+			zbiornik.emplace_back(std::make_shared<Wymagania::TypWarunku>(wylicz(element, parametry), element.pobierzObiekt()->typAtrybutu(), element.pobierzObiekt()->pobierzIdentyfikator()));
 		}
 		return zbiornik;
 	}

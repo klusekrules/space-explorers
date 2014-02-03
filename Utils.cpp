@@ -22,7 +22,7 @@ namespace SpEx{
 		throw WyjatekParseraXML(plik, linia, exception(komunikat.c_str()), Tekst("B³¹d struktry pliku xml."));
 	}*/
 
-	void Utils::ascii2hex(string& str, unsigned char c){
+	void Utils::ascii2hex(std::string& str, unsigned char c){
 		char pierwszy = (c >> 4) & 0x0F, drugi = c & 0x0F;
 		if (pierwszy < 10){
 			pierwszy += 0x30;
@@ -41,7 +41,7 @@ namespace SpEx{
 		str.push_back(drugi);
 	}
 
-	void Utils::sha3(string& str){
+	void Utils::sha3(std::string& str){
 		uint8_t md[64];
 		memset(md, 0, 64);
 		keccak(reinterpret_cast<const uint8_t*>(str.c_str()), static_cast<int>(str.size()), md, 64);

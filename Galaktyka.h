@@ -19,7 +19,7 @@ namespace SpEx{
 		friend class ZarzadcaPamieci;
 		friend class GeneratorUkladow;
 	public:
-		typedef std::unordered_map< STyp::Identyfikator, std::shared_ptr<UkladSloneczny> > UkladySloneczne; /// Typ listy uk³adów s³onecznych.
+		typedef std::unordered_map< STyp::Identyfikator, std::shared_ptr<UkladSloneczny>, STyp::IdTypeHash > UkladySloneczne; /// Typ listy uk³adów s³onecznych.
 
 		/**
 		* \brief Konstruktor.

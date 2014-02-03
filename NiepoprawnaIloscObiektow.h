@@ -1,31 +1,31 @@
 #pragma once
-#include "OgolnyWyjatek.h"
-#include "Ilosc.h"
-
+#include "TypyProste\\Wyjatek.h"
+namespace SpEx{
 /**
 * Wyj¹tek informuje, ze przekazana iloœæ obiektów jest nie poprawna dla danej operacji.
 */
 class NiepoprawnaIloscObiektow :
-	virtual public LoggerInterface,
-	public OgolnyWyjatek
+	virtual public SLog::LoggerInterface,
+	public STyp::Wyjatek
 {
 public:
-	static const Identyfikator idNiepoprawnaIloscObiektow;
+	static const STyp::Identyfikator idNiepoprawnaIloscObiektow;
 	
-	NiepoprawnaIloscObiektow( const Tekst& tPlik, const Ilosc& iLinia, const Ilosc& ilosc );
-	virtual ~NiepoprawnaIloscObiektow(void);
+	NiepoprawnaIloscObiektow(const STyp::Tekst& tPlik, const STyp::Ilosc& iLinia, const STyp::Ilosc& ilosc);
+	virtual ~NiepoprawnaIloscObiektow(void) = default;
 	
-	const Ilosc& getIlosc() const;
-	void setIlosc( const Ilosc& ilosc );
+	const STyp::Ilosc& getIlosc() const;
+	void setIlosc(const STyp::Ilosc& ilosc);
 	
-	Tekst generujKomunikat() const override;
+	STyp::Tekst generujKomunikat() const override;
 
 	std::string napis() const override;
 
 private:
-	Ilosc i;
+	STyp::Ilosc i;
 	
-	static const Tekst tytulNiepoprawnaIloscObiektow;
-	static const Tekst trescNiepoprawnaIloscObiektow;
+	static const STyp::Tekst tytulNiepoprawnaIloscObiektow;
+	static const STyp::Tekst trescNiepoprawnaIloscObiektow;
 };
 
+}

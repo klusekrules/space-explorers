@@ -326,12 +326,12 @@ namespace SpEx {
 		Aplikacja& aplikacja_; /// Referencja do obiektu aplikacji.
 		std::shared_ptr<Uzytkownik> uzytkownik_; /// Aktualnie zalogowany u¿ytkownik.
 
-		std::unordered_map<STyp::Identyfikator, std::shared_ptr<SurowceInfo> > listaSurowcowInfo_; /// Lista obiektów opisowych surowców.
-		std::unordered_map<STyp::Identyfikator, std::shared_ptr<StatekInfo> > listaStatkowInfo_; /// Lista obiektów opisowych statku.
-		std::unordered_map<STyp::Identyfikator, std::shared_ptr<ObronaInfo> > listaObronaInfo_; /// Lista obiektów opisowych obrony.
-		std::unordered_map<STyp::Identyfikator, std::shared_ptr<TechnologiaInfo> > listaTechnologiInfo_; /// Lista obiektów opisowych  technologii.
-		std::unordered_map<STyp::Identyfikator, std::shared_ptr<BudynekInfo> > listaBudynkowInfo_; /// Lista obiektów opisowych budynku.
-		std::unordered_map<STyp::Identyfikator, std::shared_ptr<ObiektInfo> > listaObiektowInfo_; /// Lista obiektów opisowych.
+		std::unordered_map<STyp::Identyfikator, std::shared_ptr<SurowceInfo>, STyp::IdTypeHash > listaSurowcowInfo_; /// Lista obiektów opisowych surowców.
+		std::unordered_map<STyp::Identyfikator, std::shared_ptr<StatekInfo>, STyp::IdTypeHash > listaStatkowInfo_; /// Lista obiektów opisowych statku.
+		std::unordered_map<STyp::Identyfikator, std::shared_ptr<ObronaInfo>, STyp::IdTypeHash > listaObronaInfo_; /// Lista obiektów opisowych obrony.
+		std::unordered_map<STyp::Identyfikator, std::shared_ptr<TechnologiaInfo>, STyp::IdTypeHash > listaTechnologiInfo_; /// Lista obiektów opisowych  technologii.
+		std::unordered_map<STyp::Identyfikator, std::shared_ptr<BudynekInfo>, STyp::IdTypeHash > listaBudynkowInfo_; /// Lista obiektów opisowych budynku.
+		std::unordered_map<STyp::Identyfikator, std::shared_ptr<ObiektInfo>, STyp::IdTypeHash > listaObiektowInfo_; /// Lista obiektów opisowych.
 		
 		ZarzadcaPamieci zarzadca_; /// Obiekt zarz¹dzaj¹cy lokacjami.
 	};

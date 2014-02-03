@@ -1,36 +1,34 @@
 #include "BrakAtrybutuXML.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
 
-BrakAtrybutuXML::BrakAtrybutuXML( const Tekst& tPlik, const Ilosc& iLinia, const Tekst& str )
-	: WyjatekParseraXML( tPlik, iLinia, std::exception(), trescBrakAtrybutuXML ), atrybut(str)
-{
-	this->setNumerWyjatku(idBrakAtrybutuXML);
-	this->setTytul(tytulBrakAtrybutuXML);
-}
+namespace SpEx{
+	BrakAtrybutuXML::BrakAtrybutuXML(const STyp::Tekst& tPlik, const STyp::Ilosc& iLinia, const STyp::Tekst& str)
+		: WyjatekParseraXML(tPlik, iLinia, std::exception(), trescBrakAtrybutuXML), atrybut(str)
+	{
+		//TODO: dokonczyc metode
+	}
 
-BrakAtrybutuXML::BrakAtrybutuXML( const BrakAtrybutuXML& e )
-	: WyjatekParseraXML(e), atrybut(e.atrybut)
-{
-}
+	BrakAtrybutuXML::BrakAtrybutuXML(const BrakAtrybutuXML& e)
+		: WyjatekParseraXML(e), atrybut(e.atrybut)
+	{
+	}
 
-BrakAtrybutuXML::~BrakAtrybutuXML(){
-}
+	const STyp::Tekst& BrakAtrybutuXML::getAtrybut() const{
+		return atrybut;
+	}
 
-const Tekst& BrakAtrybutuXML::getAtrybut() const{
-	return atrybut;
-}
+	void BrakAtrybutuXML::setAtrybut(const STyp::Tekst& atrybut){
+		this->atrybut = atrybut;
+	}
 
-void BrakAtrybutuXML::setAtrybut( const Tekst& atrybut ){
-	this->atrybut = atrybut;
-}
+	STyp::Tekst BrakAtrybutuXML::generujKomunikat() const{
+		return Wyjatek::generujKomunikat() + atrybut + STyp::Tekst("\n");
+	}
 
-Tekst BrakAtrybutuXML::generujKomunikat() const{
-	return OgolnyWyjatek::generujKomunikat() + atrybut + Tekst("\n");
-}
-
-std::string BrakAtrybutuXML::napis() const{
-	Logger str(NAZWAKLASY(BrakAtrybutuXML));	
-	str.dodajKlase(WyjatekParseraXML::napis());
-	str.dodajPole("Atrybut",atrybut);
-	return str.napis();
+	std::string BrakAtrybutuXML::napis() const{
+		SLog::Logger str(NAZWAKLASY(BrakAtrybutuXML));
+		str.dodajKlase(WyjatekParseraXML::napis());
+		str.dodajPole(NAZWAPOLA(atrybut), atrybut);
+		return str.napis();
+	}
 }

@@ -23,6 +23,11 @@ namespace SpEx{
 		return true;
 	}
 
+	const STyp::Identyfikator& Galaktyka::pobierzIdentyfikator()const{
+		return identyfikator_;
+	}
+
+
 	bool Galaktyka::zapisz(XmlBO::ElementWezla wezel) const{
 		auto element = wezel->tworzElement(WEZEL_XML_GALAKTYKA);
 		//TODO: zapisywanie identyfikatora.
