@@ -1,5 +1,5 @@
 #include "Wymagania.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
 #include "Aplikacja.h"
 #include "definicjeWezlowXML.h"
 
@@ -65,7 +65,7 @@ namespace SpEx{
 		PrzetworzoneWarunki zbiornik;
 		for (auto element : warunki_){
 			if (element.pobierzObiekt())
-				zbiornik.emplace_back(wylicz(element, parametry), element.pobierzObiekt()->typAtrybutu(), element.pobierzObiekt()->pobierzIdentyfikator());
+				zbiornik.emplace_back(std::make_shared<Wymagania::TypWarunku>(wylicz(element, parametry), element.pobierzObiekt()->typAtrybutu(), element.pobierzObiekt()->pobierzIdentyfikator()));
 		}
 		return zbiornik;
 	}
@@ -76,10 +76,10 @@ namespace SpEx{
 		auto zmiana = warunek.pobierzZmiane();
 		switch (obiekt->typAtrybutu()){
 		case Kryterium::POZIOM:
-			atrybut.poziom = Utils::ObliczZmiane(zmiana, obiekt->pobierzAtrybut().poziom, parametry);
+			atrybut.poziom = Utils::ObliczZmiane(zmiana, STyp::Poziom(obiekt->pobierzAtrybut().poziom), parametry)();
 			break;
 		case Kryterium::ILOSC:
-			atrybut.ilosc = Utils::ObliczZmiane(zmiana, obiekt->pobierzAtrybut().ilosc, parametry);
+			atrybut.ilosc = Utils::ObliczZmiane(zmiana, STyp::Ilosc(obiekt->pobierzAtrybut().ilosc), parametry)();
 		}
 		if (parametry.typAtrybutu() == PodstawoweParametry::ILOSC)
 			atrybut.ilosc *= parametry.pobierzAtrybut().ilosc;

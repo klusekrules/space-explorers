@@ -76,6 +76,7 @@ namespace SpEx{
 		* \return Zawsze zwraca wartoœæ false.
 		*/
 		//bool polacz()override;
+		bool polacz(const Obiekt& obiekt) override;
 
 		/**
 		* Metoda sprawdzaj¹ca warunki po³¹czenia obiektów.

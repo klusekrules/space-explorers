@@ -6,7 +6,7 @@
 #include "lua.hpp"
 
 #ifdef TESTS
-#include "TestyJednostkowe.h"
+//#include "TestyJednostkowe.h"
 
 void main( int argv , char* argc[] ){
 
@@ -18,9 +18,9 @@ void main( int argv , char* argc[] ){
     _CrtSetReportMode( _CRT_ASSERT, _CRTDBG_MODE_FILE );
     _CrtSetReportFile( _CRT_ASSERT, _CRTDBG_FILE_STDOUT );
 		
-	Aplikacja::iloscArgumentow = argv;
-	Aplikacja::argumenty = argc;
-	Aplikacja::pobierzInstancje();
+	SpEx::Aplikacja::iloscArgumentow = argv;
+	SpEx::Aplikacja::argumenty = argc;
+	SpEx::Aplikacja::pobierzInstancje();
 
 	MaszynaStanow::pobierzInstancje().start();
 

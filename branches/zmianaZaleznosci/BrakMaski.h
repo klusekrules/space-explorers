@@ -1,30 +1,32 @@
 #pragma once
 #include "WyjatekParseraXML.h"
-/**
-* Wyj¹tek informuje o braku elementu o podanej masce we wczytanych danych.
-*/
-class BrakMaski :
-	virtual public LoggerInterface,
-	public WyjatekParseraXML
-{
-public:
-	static const Identyfikator idBrakMaski;
 
-	BrakMaski( const Tekst& tPlik, const Ilosc& iLinia, const Tekst& = Tekst() );
-	BrakMaski( const BrakMaski& );
-	virtual ~BrakMaski();
+namespace SpEx{
+	/**
+	* Wyj¹tek informuje o braku elementu o podanej masce we wczytanych danych.
+	*/
+	class BrakMaski :
+		virtual public SLog::LoggerInterface,
+		public WyjatekParseraXML
+	{
+	public:
+		static const STyp::Identyfikator idBrakMaski;
 
-	const Tekst& getNazwaMaski() const;
-	void setNazwaMaski( const Tekst& );
+		BrakMaski(const STyp::Tekst& tPlik, const STyp::Ilosc& iLinia, const STyp::Tekst& = STyp::Tekst());
+		BrakMaski(const BrakMaski&);
+		virtual ~BrakMaski() = default;
 
-	Tekst generujKomunikat() const override;
+		const STyp::Tekst& getNazwaMaski() const;
+		void setNazwaMaski(const STyp::Tekst&);
 
-	std::string napis() const override;
+		STyp::Tekst generujKomunikat() const override;
 
-private:
-	Tekst nazwaMaski;
-	
-	static const Tekst tytulBrakMaski;
-	static const Tekst trescBrakMaski;
-};
+		std::string napis() const override;
 
+	private:
+		STyp::Tekst nazwaMaski;
+
+		static const STyp::Tekst tytulBrakMaski;
+		static const STyp::Tekst trescBrakMaski;
+	};
+}

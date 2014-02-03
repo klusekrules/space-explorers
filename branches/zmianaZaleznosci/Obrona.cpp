@@ -1,6 +1,6 @@
 #include "Obrona.h"
 #include "ObronaInfo.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
 #include "DefinicjeWezlowXML.h"
 
 namespace SpEx{
@@ -12,6 +12,10 @@ namespace SpEx{
 
 	Obrona* Obrona::kopia() const{
 		return new Obrona(*this);
+	}
+
+	bool Obrona::polacz(const Obiekt& obiekt){
+		return false;
 	}
 
 	STyp::Obrazenia Obrona::pobierzAtak() const{

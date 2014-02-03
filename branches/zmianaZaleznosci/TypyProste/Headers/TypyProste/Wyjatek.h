@@ -1,22 +1,6 @@
 #pragma once
 #include "TypyProste.h"
 
-
-#pragma warning(disable: 4251)
-
-#ifdef _WIN32
-#   ifdef TYPY_PROSTE_EXPORT
-#       define TYPY_PROSTE_LIB __declspec(dllexport)
-#   elif defined(TYPY_PROSTE_IMPORT)
-#       define TYPY_PROSTE_LIB __declspec(dllimport)
-#   else
-#       define TYPY_PROSTE_LIB
-#   endif
-#else
-#   define TYPY_PROSTE_LIB
-#endif
-
-
 namespace STyp{
 
 	//Makro wstawiajace nazwe pliku i liniê i datê pliku.

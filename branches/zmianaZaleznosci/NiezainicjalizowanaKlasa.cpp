@@ -1,30 +1,30 @@
 #include "NiezainicjalizowanaKlasa.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
+#include "Aplikacja.h"
 
-NiezainicjalizowanaKlasa::NiezainicjalizowanaKlasa(const Tekst& tPlik, const Ilosc& iLinia, const Tekst& tNazwa)
-	: OgolnyWyjatek( tPlik, iLinia, idNiezainicjalizowanaKlasa, tytulNiezainicjalizowanaKlasa, trescNiezainicjalizowanaKlasa ) , nazwaKlasy( tNazwa )
-{
-}
+namespace SpEx{
+	NiezainicjalizowanaKlasa::NiezainicjalizowanaKlasa(const STyp::Tekst& tPlik, const STyp::Ilosc& iLinia, const STyp::Tekst& tNazwa)
+		: Wyjatek(tPlik, iLinia,Aplikacja::pobierzInstancje().pobierzSladStosu(), idNiezainicjalizowanaKlasa, tytulNiezainicjalizowanaKlasa, trescNiezainicjalizowanaKlasa), nazwaKlasy(tNazwa)
+	{
+	}
 
-NiezainicjalizowanaKlasa::~NiezainicjalizowanaKlasa(){
-}
+	const STyp::Tekst& NiezainicjalizowanaKlasa::getNazwaKlasy() const{
+		return nazwaKlasy;
+	}
 
-const Tekst& NiezainicjalizowanaKlasa::getNazwaKlasy() const{
-	return nazwaKlasy;
-}
+	void NiezainicjalizowanaKlasa::setNazwaKlasy(const STyp::Tekst& nazwa){
+		this->nazwaKlasy = nazwa;
+	}
 
-void NiezainicjalizowanaKlasa::setNazwaKlasy( const Tekst& nazwa ){
-	this->nazwaKlasy = nazwa;
-}
-
-Tekst NiezainicjalizowanaKlasa::generujKomunikat() const{
-	return OgolnyWyjatek::generujKomunikat() + Tekst("Nazwa klasy:") +  nazwaKlasy + Tekst("\n");
-}
+	STyp::Tekst NiezainicjalizowanaKlasa::generujKomunikat() const{
+		return Wyjatek::generujKomunikat() + STyp::Tekst("Nazwa klasy:") + nazwaKlasy + STyp::Tekst("\n");
+	}
 
 
-std::string NiezainicjalizowanaKlasa::napis() const{
-	Logger str(NAZWAKLASY(NiezainicjalizowanaKlasa));	
-	str.dodajKlase(OgolnyWyjatek::napis());
-	str.dodajPole("Nazwa klasy",nazwaKlasy);
-	return str.napis();
+	std::string NiezainicjalizowanaKlasa::napis() const{
+		SLog::Logger str(NAZWAKLASY(NiezainicjalizowanaKlasa));
+		str.dodajKlase(Wyjatek::napis());
+		str.dodajPole("Nazwa klasy", nazwaKlasy);
+		return str.napis();
+	}
 }

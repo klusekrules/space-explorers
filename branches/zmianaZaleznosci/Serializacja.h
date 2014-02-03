@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning( disable : 4290 )
 #include "Parser\XmlBO.h"
 
 namespace SpEx{

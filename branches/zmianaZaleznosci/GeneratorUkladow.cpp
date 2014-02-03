@@ -1,5 +1,9 @@
 #include "GeneratorUkladow.h"
 #include "Gra.h"
+
+#define FMIN 0.0f
+#define FMAX 1.0f
+
 namespace SpEx{
 
 	const STyp::Identyfikator GeneratorUkladow::LICZNIK_PLANET_ID(0x1);
@@ -71,7 +75,7 @@ namespace SpEx{
 	}
 
 	std::shared_ptr<Galaktyka> GeneratorUkladow::generujGalaktyke() const{
-		auto galaktyka = std::make_shared<Galaktyka>(STyp::Identyfikator(licznikIdGalaktyk()()));
+		auto galaktyka = std::make_shared<Galaktyka>(STyp::Identyfikator(static_cast<STyp::Identyfikator::nazwa_typu>(licznikIdGalaktyk()())));
 		galaktyka->iloscUkladow_ = dystrybutorIlosciUkladow(generator);
 		/*
 		for(; iloscUkladow > 0 ; --iloscUkladow){
@@ -82,7 +86,7 @@ namespace SpEx{
 	}
 
 	std::shared_ptr<UkladSloneczny> GeneratorUkladow::generujUklad(const STyp::Identyfikator& idGalatyki) const{
-		auto uklad = std::make_shared<UkladSloneczny>(STyp::Identyfikator(licznikIdUkladow()()), idGalatyki);
+		auto uklad = std::make_shared<UkladSloneczny>(STyp::Identyfikator(static_cast<STyp::Identyfikator::nazwa_typu>(licznikIdUkladow()())), idGalatyki);
 
 		uklad->ustawSredniceGwiazdy(generujSredniceGwiazdy());
 		uklad->ustawSredniaTemperatureGwiazdy(generujTemperatureGwiazdy(uklad->pobierzSredniceGwiazdy()()));
@@ -105,7 +109,7 @@ namespace SpEx{
 		double procentLosowy = dystrybutorLosowejCzesciTemperatury(generator) - (TEMPERATURA_GWIAZDY_PROCENT_LOSOWY / 2.0);
 		double procentSrednicy = (srednica / SREDNICA_GWIAZDY_MAX) * TEMPERATURA_GWIAZDY_PROCENT_SREDNICY;
 		double procentZlozony = procentLosowy + procentSrednicy + TEMPERATURA_GWIAZDY_PROCENT_STALY;
-		std::binomial_distribution<STyp::SPG::Temperatura> dystrybutorTemperatury(TEMPERATURA_GWIAZDY_MAX - TEMPERATURA_GWIAZDY_MIN, procentZlozony);
+		std::binomial_distribution<> dystrybutorTemperatury(static_cast<int>(TEMPERATURA_GWIAZDY_MAX - TEMPERATURA_GWIAZDY_MIN), procentZlozony);
 		STyp::SPG::Temperatura temperatura(dystrybutorTemperatury(generator));
 		return temperatura;
 	}
@@ -116,14 +120,14 @@ namespace SpEx{
 	}
 
 	std::shared_ptr<Planeta> GeneratorUkladow::generujPlanete(const STyp::Dystans& odlegloscOdCentrum, const STyp::Moc& mocGwiazdy, const STyp::Identyfikator& idUkladu) const{
-		auto planeta = std::make_shared<Planeta>(STyp::Identyfikator(licznikIdPlanet()()), idUkladu);
+		auto planeta = std::make_shared<Planeta>(STyp::Identyfikator(static_cast<STyp::Identyfikator::nazwa_typu>(licznikIdPlanet()())), idUkladu);
 		auto srednica = generujSrednicePlanety(odlegloscOdCentrum);
 		auto temperatura = generujTemperaturePlanety(odlegloscOdCentrum, mocGwiazdy);
 
-		STyp::SPG::Fluktuacja procentWody = STyp::Fluktuacja::MIN;
+		STyp::SPG::Fluktuacja procentWody = FMIN;
 		if (temperatura < 373.0){
 			STyp::SPG::Fluktuacja temp = (static_cast<STyp::SPG::Fluktuacja>(temperatura)-273.0f) / 100.0f;
-			std::uniform_real_distribution<STyp::SPG::Fluktuacja> dystrybutorPowierzchniWody(STyp::Fluktuacja::MIN, temp <= STyp::Fluktuacja::MIN || temp > POWIERZCHNIA_WODY_MAX ? POWIERZCHNIA_WODY_MAX : POWIERZCHNIA_WODY_MAX - temp);
+			std::uniform_real_distribution<STyp::SPG::Fluktuacja> dystrybutorPowierzchniWody(FMIN, temp <= FMIN || temp > POWIERZCHNIA_WODY_MAX ? POWIERZCHNIA_WODY_MAX : POWIERZCHNIA_WODY_MAX - temp);
 			procentWody = dystrybutorPowierzchniWody(generator);
 		}
 		auto powierzchniaUzytkowa = dystrybucjaPowierzchniUzytkowej(generator);

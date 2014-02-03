@@ -20,10 +20,10 @@ bool MenedzerTranzakcji::wykonaj()
 			}
 		}
 	}catch(STyp::Wyjatek& e){
-		Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.generujKomunikat());
+		SpEx::Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.generujKomunikat());
 		powodzenie = false;
 	}catch(std::exception& e){
-		Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.what());
+		SpEx::Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.what());
 		powodzenie = false;
 	}catch(...){
 		powodzenie = false;
@@ -33,20 +33,21 @@ bool MenedzerTranzakcji::wykonaj()
 		try{
 			for(--iterator; iterator >= 0; --iterator){
 				if(!listaOperacji_[iterator]->cofnij()){
-					throw NiepowodzenieTranzakcji(EXCEPTION_PLACE,listaOperacji_[iterator]->napis());
+					throw SpEx::NiepowodzenieTranzakcji(EXCEPTION_PLACE, listaOperacji_[iterator]->napis());
 				}
 			}
-		}catch(NiepowodzenieTranzakcji& e){
-			Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.generujKomunikat());
+		}
+		catch (SpEx::NiepowodzenieTranzakcji& e){
+			SpEx::Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.generujKomunikat());
 			throw;
 		}catch(STyp::Wyjatek& e){
-			Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.generujKomunikat());
-			throw NiepowodzenieTranzakcji(EXCEPTION_PLACE,listaOperacji_[iterator]->napis());
+			SpEx::Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.generujKomunikat());
+			throw SpEx::NiepowodzenieTranzakcji(EXCEPTION_PLACE, listaOperacji_[iterator]->napis());
 		}catch(std::exception& e){
-			Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.what());
-			throw NiepowodzenieTranzakcji(EXCEPTION_PLACE,listaOperacji_[iterator]->napis());
+			SpEx::Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.what());
+			throw SpEx::NiepowodzenieTranzakcji(EXCEPTION_PLACE, listaOperacji_[iterator]->napis());
 		}catch(...){
-			throw NiepowodzenieTranzakcji(EXCEPTION_PLACE,listaOperacji_[iterator]->napis());
+			throw SpEx::NiepowodzenieTranzakcji(EXCEPTION_PLACE, listaOperacji_[iterator]->napis());
 		}
 	}
 	return powodzenie;

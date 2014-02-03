@@ -1,30 +1,30 @@
 #pragma once
-#include "OgolnyWyjatek.h"
+#include "TypyProste\Wyjatek.h"
+namespace SpEx{
+	/**
+	* Wyj¹tek informuje, ¿e klasa zosta³a niepoprawnie zainicjalizowana lub w ogóle nie zosta³a zainicjalizowana.
+	*/
+	class NiezainicjalizowanaKlasa :
+		virtual public SLog::LoggerInterface,
+		public STyp::Wyjatek
+	{
+	public:
+		static const STyp::Identyfikator idNiezainicjalizowanaKlasa;
 
-/**
-* Wyj¹tek informuje, ¿e klasa zosta³a niepoprawnie zainicjalizowana lub w ogóle nie zosta³a zainicjalizowana.
-*/
-class NiezainicjalizowanaKlasa :
-	virtual public LoggerInterface,
-	public OgolnyWyjatek
-{
-public:
-	static const Identyfikator idNiezainicjalizowanaKlasa;
+		NiezainicjalizowanaKlasa(const STyp::Tekst& tPlik, const STyp::Ilosc& iLinia, const STyp::Tekst& tNazwa);
+		virtual ~NiezainicjalizowanaKlasa(void) = default;
 
-	NiezainicjalizowanaKlasa(const Tekst& tPlik, const Ilosc& iLinia, const Tekst& tNazwa);
-	virtual ~NiezainicjalizowanaKlasa(void);
-	
-	const Tekst& getNazwaKlasy() const;
-	void setNazwaKlasy( const Tekst& );
+		const STyp::Tekst& getNazwaKlasy() const;
+		void setNazwaKlasy(const STyp::Tekst&);
 
-	Tekst generujKomunikat() const override;
+		STyp::Tekst generujKomunikat() const override;
 
-	std::string napis() const override;
+		std::string napis() const override;
 
-private:
-	Tekst nazwaKlasy;
+	private:
+		STyp::Tekst nazwaKlasy;
 
-	static const Tekst tytulNiezainicjalizowanaKlasa;
-	static const Tekst trescNiezainicjalizowanaKlasa;
-};
-
+		static const STyp::Tekst tytulNiezainicjalizowanaKlasa;
+		static const STyp::Tekst trescNiezainicjalizowanaKlasa;
+	};
+}

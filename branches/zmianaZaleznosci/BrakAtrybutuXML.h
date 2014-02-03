@@ -1,31 +1,32 @@
 #pragma once
 #include "WyjatekParseraXML.h"
 
-/**
-* Wyj¹tek s³u¿y do informowania, ¿e w pliku xml w aktualnej ga³êzi nie ma podanego atrybutu.
-*/
-class BrakAtrybutuXML :
-	virtual public LoggerInterface,
-	public WyjatekParseraXML
-{
-public:
-	static const Identyfikator idBrakAtrybutuXML;
-	
-	BrakAtrybutuXML( const Tekst& tPlik, const Ilosc& iLinia, const Tekst& = Tekst() );
-	BrakAtrybutuXML( const BrakAtrybutuXML& );
-	virtual ~BrakAtrybutuXML();
+namespace SpEx{
+	/**
+	* Wyj¹tek s³u¿y do informowania, ¿e w pliku xml w aktualnej ga³êzi nie ma podanego atrybutu.
+	*/
+	class BrakAtrybutuXML :
+		virtual public SLog::LoggerInterface,
+		public WyjatekParseraXML
+	{
+	public:
+		static const STyp::Identyfikator idBrakAtrybutuXML;
 
-	const Tekst& getAtrybut() const;
-	void setAtrybut( const Tekst& );
+		BrakAtrybutuXML(const STyp::Tekst& tPlik, const STyp::Ilosc& iLinia, const STyp::Tekst& = STyp::Tekst());
+		BrakAtrybutuXML(const BrakAtrybutuXML&);
+		virtual ~BrakAtrybutuXML() = default;
 
-	Tekst generujKomunikat() const override;
+		const STyp::Tekst& getAtrybut() const;
+		void setAtrybut(const STyp::Tekst&);
 
-	std::string napis() const override;
+		STyp::Tekst generujKomunikat() const override;
 
-private:
-	Tekst atrybut;
+		std::string napis() const override;
 
-	static const Tekst tytulBrakAtrybutuXML;
-	static const Tekst trescBrakAtrybutuXML;
-};
+	private:
+		STyp::Tekst atrybut;
 
+		static const STyp::Tekst tytulBrakAtrybutuXML;
+		static const STyp::Tekst trescBrakAtrybutuXML;
+	};
+}

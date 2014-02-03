@@ -2,6 +2,18 @@
 #pragma warning( disable : 4251 )
 #pragma warning( disable : 4275 )
 
+#ifdef _WIN32
+#   ifdef TYPY_PROSTE_EXPORT
+#       define TYPY_PROSTE_LIB __declspec(dllexport)
+#   elif defined(TYPY_PROSTE_IMPORT)
+#       define TYPY_PROSTE_LIB __declspec(dllimport)
+#   else
+#       define TYPY_PROSTE_LIB
+#   endif
+#else
+#   define TYPY_PROSTE_LIB
+#endif
+
 #include <sstream>
 #include "Logger\LoggerInterface.h"
 
@@ -52,11 +64,7 @@ namespace STyp{
 			return std::move(str.str());
 		}
 	};
-
-
-
-
-
+	
 	template < typename T >
 	class TypObliczeniowy :
 		public PodstawowyInterfejs < T >
@@ -111,11 +119,7 @@ namespace STyp{
 		TypObliczeniowy operator++(int){ TypObliczeniowy t(*this); ++wartosc_; return t; }
 
 	};
-
-
-
-
-
+	
 	template < typename T >
 	class TypBoolowski :
 		public PodstawowyInterfejs < T >
@@ -147,11 +151,9 @@ namespace STyp{
 
 		bool operator>=(const TypBoolowski& wartosc)const{ return wartosc_ >= wartosc.wartosc_; }
 
+		operator size_t(){ return static_cast<size_t>(wartosc_); }
+
 	};
-
-
-
-
 
 	template < typename T >
 	class TypTekstowy :
@@ -242,4 +244,10 @@ namespace STyp{
 	typedef class TypObliczeniowy<SPG::Temperatura> Temperatura;
 	typedef class TypObliczeniowy<SPG::ZuzyciePaliwa> ZuzyciePaliwa;
 	typedef class TypObliczeniowy<SPG::Wartosc> Wartosc;
+
+	struct IdTypeHash {
+		size_t operator()(const Identyfikator& t) const {
+			return static_cast<size_t>(t());
+		}
+	};
 }

@@ -1,27 +1,31 @@
 #pragma once
-#include "OgolnyWyjatek.h"
-/**
-* Wyj¹tek informuje, ¿e nie uda³o siê podzieliæ ³adowni wed³ug podanych wymagañ.
-*/
-class BladDzieleniaLadowni :
-	virtual public LoggerInterface,
-	public OgolnyWyjatek
-{
-public:
-	static const Identyfikator idBladDzieleniaLadowni;
-	
-	BladDzieleniaLadowni( const Tekst& tPlik, const Ilosc& iLinia, const Tekst& tLadownia );
-	virtual ~BladDzieleniaLadowni(void);
-		
-	const Tekst& getLadownia() const;
-	void setLadownia ( const Tekst& tLadownia );
-	
-	Tekst generujKomunikat() const override;
+#include "TypyProste\Wyjatek.h"
 
-	std::string napis() const override;
+namespace SpEx{
 
-private:
-	Tekst ladownia;
-	static const Tekst tytulBladDzieleniaLadowni;
-	static const Tekst trescBladDzieleniaLadowni;
-};
+	/**
+	* Wyj¹tek informuje, ¿e nie uda³o siê podzieliæ ³adowni wed³ug podanych wymagañ.
+	*/
+	class BladDzieleniaLadowni :
+		virtual public SLog::LoggerInterface,
+		public STyp::Wyjatek
+	{
+	public:
+		static const STyp::Identyfikator idBladDzieleniaLadowni;
+
+		BladDzieleniaLadowni(const STyp::Tekst& tPlik, const STyp::Ilosc& iLinia, const STyp::Tekst& tLadownia);
+		virtual ~BladDzieleniaLadowni() = default;
+
+		const STyp::Tekst& getLadownia() const;
+		void setLadownia(const STyp::Tekst& tLadownia);
+
+		STyp::Tekst generujKomunikat() const override;
+
+		std::string napis() const override;
+
+	private:
+		STyp::Tekst ladownia;
+		static const STyp::Tekst tytulBladDzieleniaLadowni;
+		static const STyp::Tekst trescBladDzieleniaLadowni;
+	};
+}

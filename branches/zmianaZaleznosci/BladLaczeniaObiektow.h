@@ -1,34 +1,35 @@
 #pragma once
-#include "OgolnyWyjatek.h"
+#include "TypyProste\Wyjatek.h"
 
-/**
-* Wyj¹tek informuje, ¿e nie uda³o sie po³¹czyæ obiektów.
-*/
-class BladLaczeniaObiektow :
-	virtual public LoggerInterface,
-	public OgolnyWyjatek
-{
-public:
-	static const Identyfikator idBladLaczeniaObiektow;
-	
-	BladLaczeniaObiektow( const Tekst& tPlik, const Ilosc& iLinia, const Tekst& obiektA , const Tekst& obiektB );
-	virtual ~BladLaczeniaObiektow();
-	
-	const Tekst& getObiektA() const;
-	void setObiektA( const Tekst& );
+namespace SpEx{
+	/**
+	* Wyj¹tek informuje, ¿e nie uda³o sie po³¹czyæ obiektów.
+	*/
+	class BladLaczeniaObiektow :
+		virtual public SLog::LoggerInterface,
+		public STyp::Wyjatek
+	{
+	public:
+		static const STyp::Identyfikator idBladLaczeniaObiektow;
 
-	const Tekst& getObiektB() const;
-	void setObiektB( const Tekst& );
+		BladLaczeniaObiektow(const STyp::Tekst& tPlik, const STyp::Ilosc& iLinia, const STyp::Tekst& obiektA, const STyp::Tekst& obiektB);
+		virtual ~BladLaczeniaObiektow() = default;
 
-	Tekst generujKomunikat() const override;
+		const STyp::Tekst& getObiektA() const;
+		void setObiektA(const STyp::Tekst&);
 
-	std::string napis() const override;
+		const STyp::Tekst& getObiektB() const;
+		void setObiektB(const STyp::Tekst&);
 
-private:
-	Tekst obiektA;
-	Tekst obiektB;
+		STyp::Tekst generujKomunikat() const override;
 
-	static const Tekst tytulBladLaczeniaObiektow;
-	static const Tekst trescBladLaczeniaObiektow;
-};
+		std::string napis() const override;
 
+	private:
+		STyp::Tekst obiektA;
+		STyp::Tekst obiektB;
+
+		static const STyp::Tekst tytulBladLaczeniaObiektow;
+		static const STyp::Tekst trescBladLaczeniaObiektow;
+	};
+}

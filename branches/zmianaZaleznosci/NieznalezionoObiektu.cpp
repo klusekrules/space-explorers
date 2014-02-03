@@ -1,30 +1,30 @@
 #include "NieznalezionoObiektu.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
+#include "Aplikacja.h"
 
-NieznalezionoObiektu::NieznalezionoObiektu(const Tekst& tPlik, const Ilosc& iLinia, const Tekst& tNazwa)
-	: OgolnyWyjatek( tPlik, iLinia, idNieznalezionoObiektu, tytulNieznalezionoObiektu, trescNieznalezionoObiektu ) , identyfikator( tNazwa )
-{
-}
+namespace SpEx{
 
-NieznalezionoObiektu::~NieznalezionoObiektu(){
-}
+	NieznalezionoObiektu::NieznalezionoObiektu(const STyp::Tekst& tPlik, const STyp::Ilosc& iLinia, const STyp::Tekst& tNazwa)
+		: Wyjatek(tPlik, iLinia, Aplikacja::pobierzInstancje().pobierzSladStosu(), idNieznalezionoObiektu, tytulNieznalezionoObiektu, trescNieznalezionoObiektu), identyfikator(tNazwa)
+	{
+	}
 
-const Tekst& NieznalezionoObiektu::getIdentyfikator() const{
-	return identyfikator;
-}
+	const STyp::Tekst& NieznalezionoObiektu::getIdentyfikator() const{
+		return identyfikator;
+	}
 
-void NieznalezionoObiektu::setIdentyfikator( const Tekst& nazwa ){
-	this->identyfikator = nazwa;
-}
+	void NieznalezionoObiektu::setIdentyfikator(const STyp::Tekst& nazwa){
+		this->identyfikator = nazwa;
+	}
 
-Tekst NieznalezionoObiektu::generujKomunikat() const{
-	return OgolnyWyjatek::generujKomunikat() + Tekst("Identyfikator:") +  identyfikator + Tekst("\n");
-}
+	STyp::Tekst NieznalezionoObiektu::generujKomunikat() const{
+		return Wyjatek::generujKomunikat() + STyp::Tekst("Identyfikator:") + identyfikator + STyp::Tekst("\n");
+	}
 
-
-std::string NieznalezionoObiektu::napis() const{
-	Logger str(NAZWAKLASY(NieznalezionoObiektu));	
-	str.dodajKlase(OgolnyWyjatek::napis());
-	str.dodajPole("Identyfikator",identyfikator);
-	return str.napis();
+	std::string NieznalezionoObiektu::napis() const{
+		SLog::Logger str(NAZWAKLASY(NieznalezionoObiektu));
+		str.dodajKlase(Wyjatek::napis());
+		str.dodajPole(NAZWAPOLA(identyfikator_), identyfikator);
+		return str.napis();
+	}
 }

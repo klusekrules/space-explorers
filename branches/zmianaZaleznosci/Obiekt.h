@@ -2,11 +2,11 @@
 #include "TypyProste\TypyProste.h"
 #include "Logger\LoggerInterface.h"
 #include "PodstawoweParametry.h"
-
+#include "Wymagania.h"
 
 namespace SpEx{
 	class ObiektInfo;
-
+	
 	/**
 	* \brief Klasa obiektu
 	*

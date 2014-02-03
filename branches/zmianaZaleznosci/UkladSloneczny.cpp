@@ -17,6 +17,10 @@ namespace SpEx{
 		return srednicaGwiazdy_;
 	}
 
+	const STyp::Identyfikator& UkladSloneczny::pobierzIdentyfikator()const{
+		return identyfikator_;
+	}
+
 	void UkladSloneczny::ustawSredniaTemperatureGwiazdy(const STyp::Temperatura& temperatura){
 		sredniaTemperaturaGwiazdy_ = temperatura;
 	}

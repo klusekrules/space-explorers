@@ -1,31 +1,32 @@
 #pragma once
-#include "OgolnyWyjatek.h"
+#include "TypyProste\Wyjatek.h"
 
-/**
-* Klasa bazowa nadbudowuj¹ca wyj¹tki z biblioteki stl.
-*/
-class WyjatekSTL :
-	virtual public LoggerInterface,
-	public OgolnyWyjatek
-{
-public:
-	static const Identyfikator idWyjatekSTL;
-	
-	WyjatekSTL( const Tekst& tPlik, const Ilosc& iLinia, const std::exception&, const Tekst& = Tekst() );
-	WyjatekSTL( const WyjatekSTL& );
-	virtual ~WyjatekSTL();
+namespace SpEx{
+	/**
+	* Klasa bazowa nadbudowuj¹ca wyj¹tki z biblioteki stl.
+	*/
+	class WyjatekSTL :
+		virtual public SLog::LoggerInterface,
+		public STyp::Wyjatek
+	{
+	public:
+		static const STyp::Identyfikator idWyjatekSTL;
 
-	const Tekst& getPowod() const;
-	void setPowod( const Tekst& );
+		WyjatekSTL(const STyp::Tekst& tPlik, const STyp::Ilosc& iLinia, const std::exception&, const STyp::Tekst& = STyp::Tekst());
+		WyjatekSTL(const WyjatekSTL&);
+		virtual ~WyjatekSTL() = default;
 
-	Tekst generujKomunikat() const override;
+		const STyp::Tekst& getPowod() const;
+		void setPowod(const STyp::Tekst&);
 
-	std::string napis() const override;
+		STyp::Tekst generujKomunikat() const override;
 
-private:
-	Tekst powod;
+		std::string napis() const override;
 
-	static const Tekst tytulWyjatekSTL;
-	static const Tekst trescWyjatekSTL;
-};
+	private:
+		STyp::Tekst powod;
 
+		static const STyp::Tekst tytulWyjatekSTL;
+		static const STyp::Tekst trescWyjatekSTL;
+	};
+}

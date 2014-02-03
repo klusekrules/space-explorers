@@ -17,6 +17,10 @@ namespace SpEx{
 		return planetaPoczatkowa_;
 	}
 
+	const STyp::Identyfikator& Flota::pobierzIdentyfikator()const{
+		return planetaPoczatkowa_; //TODO: Dokonczyc metode
+	}
+
 	bool Flota::dodajStatek(std::shared_ptr<Statek> statek){
 		if (!statek)
 			return false;
@@ -235,7 +239,7 @@ namespace SpEx{
 			STyp::Identyfikator identyfikator;
 			if (!XmlBO::WczytajAtrybut<THROW>(element, ATRYBUT_XML_IDENTYFIKATOR, identyfikator))
 				return false;
-			std::shared_ptr<Statek> statek = std::shared_ptr<Statek>(Aplikacja::pobierzInstancje().pobierzGre().pobierzStatek(identyfikator).tworzEgzemplarz(STyp::Ilosc(), STyp::Identyfikator()));
+			std::shared_ptr<Statek> statek = std::shared_ptr<Statek>(Aplikacja::pobierzInstancje().pobierzGre().pobierzStatek(identyfikator).tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::wpisIlosc(STyp::Ilosc()), PodstawoweParametry::ILOSC, STyp::Identyfikator())));
 			if (!statek->odczytaj(element))
 				return false;
 			ref.insert(make_pair(statek->pobierzIdentyfikator(), statek));

@@ -385,7 +385,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Wyjatek.cpp" />
-    <ClCompile Include="ZdefiniowaneTypy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\TypyProste\TypyProste.h" />

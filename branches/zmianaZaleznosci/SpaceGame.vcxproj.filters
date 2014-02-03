@@ -61,9 +61,6 @@
     <ClCompile Include="NiepoprawnaIloscObiektow.cpp">
       <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
     </ClCompile>
-    <ClCompile Include="OgolnyWyjatek.cpp">
-      <Filter>SourceFile\Wyjatki\KlasaBazowa</Filter>
-    </ClCompile>
     <ClCompile Include="WyjatekSTL.cpp">
       <Filter>SourceFile\Wyjatki\KlasaBazowa</Filter>
     </ClCompile>
@@ -344,9 +341,6 @@
     </ClInclude>
     <ClInclude Include="NiepoprawnaIloscObiektow.h">
       <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
-    </ClInclude>
-    <ClInclude Include="OgolnyWyjatek.h">
-      <Filter>SourceFile\Wyjatki\KlasaBazowa</Filter>
     </ClInclude>
     <ClInclude Include="WyjatekSTL.h">
       <Filter>SourceFile\Wyjatki\KlasaBazowa</Filter>

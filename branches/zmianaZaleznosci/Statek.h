@@ -51,7 +51,7 @@ namespace SpEx{
 		/**
 		* \brief Destruktor.
 		*/
-		virtual ~Statek();
+		virtual ~Statek() = default;
 
 		/**
 		* \brief Metoda pobiera obiekt opisuj¹cy statek.
@@ -95,6 +95,7 @@ namespace SpEx{
 		* \remark Metoda jest tranzakcyjna.
 		*/
 		//bool polacz(const ObiektBazowy& obiektbazowy) override;
+		bool polacz(const Obiekt& obiekt) override;
 
 		/**
 		* \brief Metoda wyliczaj¹ca masê.

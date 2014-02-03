@@ -12,7 +12,7 @@ namespace SpEx{
 		return new Technologia(parametry, *this);
 	}
 	
-	bool TechnologiaInfo::tworz(Planeta& planeta, const PodstawoweParametry& parametry) const{
+	bool TechnologiaInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy parametry) const{
 		return false; //TODO: Dokoñczyæ metodê. gra.wybudujNaPlanecie(planeta, *this, ilosc, poziom);
 	}
 

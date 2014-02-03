@@ -1,5 +1,5 @@
 #include "SurowceInfo.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
 #include "Aplikacja.h"
 #include "definicjeWezlowXML.h"
 
@@ -24,7 +24,7 @@ namespace SpEx{
 		return przyrostowy_();
 	}
 
-	bool SurowceInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const const{
+	bool SurowceInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
 		return false; //gra.wybudujNaPlanecie(planeta, *this, ilosc, poziom);
 	}
 

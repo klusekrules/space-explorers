@@ -1,34 +1,32 @@
 #include "WyjatekParseraXML.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
+#include "Aplikacja.h"
+namespace SpEx{
+	WyjatekParseraXML::WyjatekParseraXML(const WyjatekParseraXML& a)
+		: Wyjatek(a), powod(a.powod)
+	{
+	}
 
+	WyjatekParseraXML::WyjatekParseraXML(const STyp::Tekst& tPlik, const STyp::Ilosc& iLinia, const std::exception& ex, const STyp::Tekst& str)
+		: Wyjatek(tPlik, iLinia,Aplikacja::pobierzInstancje().pobierzSladStosu(), idWyjatekParseraXML, tytulWyjatekParseraXML, str.isEmpty() ? trescWyjatekParseraXML : str), powod(ex.what())
+	{
+	}
 
-WyjatekParseraXML::~WyjatekParseraXML(){
-}
+	const STyp::Tekst& WyjatekParseraXML::getPowod() const{
+		return powod;
+	}
+	void WyjatekParseraXML::setPowod(const STyp::Tekst& powod){
+		this->powod = powod;
+	}
 
-WyjatekParseraXML::WyjatekParseraXML( const WyjatekParseraXML& a )
-	: OgolnyWyjatek(a), powod(a.powod)
-{
-}
+	STyp::Tekst WyjatekParseraXML::generujKomunikat() const{
+		return Wyjatek::generujKomunikat() + powod + STyp::Tekst("\n");
+	}
 
-WyjatekParseraXML::WyjatekParseraXML( const Tekst& tPlik, const Ilosc& iLinia, const std::exception& ex, const Tekst& str)
-	: OgolnyWyjatek( tPlik, iLinia, idWyjatekParseraXML, tytulWyjatekParseraXML, str.isEmpty() ? trescWyjatekParseraXML : str ), powod(ex.what())
-{
-}
-
-const Tekst& WyjatekParseraXML::getPowod() const{
-	return powod;
-}
-void WyjatekParseraXML::setPowod( const Tekst& powod ){
-	this->powod = powod;
-}
-
-Tekst WyjatekParseraXML::generujKomunikat() const{
-	return OgolnyWyjatek::generujKomunikat() + powod + Tekst("\n");
-}
-
-std::string WyjatekParseraXML::napis() const{
-	Logger str(NAZWAKLASY(WyjatekParseraXML));
-	str.dodajKlase(OgolnyWyjatek::napis());
-	str.dodajPole("Powod",powod);
-	return str.napis();
+	std::string WyjatekParseraXML::napis() const{
+		SLog::Logger str(NAZWAKLASY(WyjatekParseraXML));
+		str.dodajKlase(Wyjatek::napis());
+		str.dodajPole(NAZWAPOLA(powod), powod);
+		return str.napis();
+	}
 }

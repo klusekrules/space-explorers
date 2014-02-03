@@ -5,6 +5,9 @@
 #include "DefinicjeWezlowXML.h"
 #include "Walidator.h"
 
+#define FMIN 0.0f
+#define FMAX 1.0f
+
 namespace SpEx{
 
 	Planeta::Planeta(const STyp::Identyfikator& identyfikator, const STyp::Identyfikator& idUkladu)
@@ -168,7 +171,7 @@ namespace SpEx{
 			return true;
 		}
 		else{
-			return Aplikacja::pobierzInstancje().pobierzGre().wybudujNaPlanecie(*this, identyfikator(), ilosc);
+			return false;//TODO: Dokonczyc Aplikacja::pobierzInstancje().pobierzGre().wybudujNaPlanecie(*this, identyfikator(), ilosc);
 		}
 	}
 
@@ -213,7 +216,7 @@ namespace SpEx{
 	}
 
 	STyp::Identyfikator Planeta::dodajFlote(){
-		std::shared_ptr< Flota > flota = std::shared_ptr< Flota >(new Flota(STyp::Identyfikator(licznikIdentyfikatorowFloty_()()), STyp::Identyfikator(), STyp::Identyfikator(), Flota::CelPodrozy::Transport));
+		std::shared_ptr< Flota > flota = std::shared_ptr< Flota >(new Flota(STyp::Identyfikator(static_cast<STyp::Identyfikator::nazwa_typu>(licznikIdentyfikatorowFloty_()())), STyp::Identyfikator(), STyp::Identyfikator(), Flota::CelPodrozy::Transport));
 		listaFlot_.insert(std::make_pair(flota->pobierzIdentyfikator(), flota));
 		return flota->pobierzIdentyfikator();
 	}
@@ -459,15 +462,19 @@ namespace SpEx{
 	}
 
 	bool Planeta::wyliczPowierzchnie(const STyp::Fluktuacja& procentWody, const STyp::Fluktuacja& procentUzytkowa){
-		if (procentWody > STyp::Fluktuacja(STyp::Fluktuacja::MAX) || procentWody < STyp::Fluktuacja(STyp::Fluktuacja::MIN) || //TODO: Zmiennik dla fluktuacja min max
-			procentUzytkowa > STyp::Fluktuacja(STyp::Fluktuacja::MAX) || procentUzytkowa < STyp::Fluktuacja(STyp::Fluktuacja::MIN))
+		if (procentWody > STyp::Fluktuacja(FMAX) || procentWody < STyp::Fluktuacja(FMIN) || //TODO: Zmiennik dla fluktuacja min max
+			procentUzytkowa > STyp::Fluktuacja(FMAX) || procentUzytkowa < STyp::Fluktuacja(FMIN))
 			return false;
 		STyp::SPG::Powierzchnia calkowita = M_PI * srednicaPlanety_() * srednicaPlanety_();
 		calkowitaPowierzchniaPlanety_(calkowita);
 		powierzchniaZajetaPrzezWode_(calkowita * procentWody());
-		powierzchniaLadow_(calkowita * (STyp::Fluktuacja::MAX - procentWody()));
+		powierzchniaLadow_(calkowita * (FMAX - procentWody()));
 		powierzchniaUzytkowaLadow_(powierzchniaLadow_() * procentUzytkowa());
 		return true;
+	}
+
+	const STyp::Identyfikator& Planeta::pobierzIdentyfikator()const{
+		return identyfikator_;
 	}
 
 	std::string Planeta::napis() const{

@@ -56,6 +56,6 @@ namespace SpEx{
 		* \param[in] poziom - Poziom tworzonego obiektu.
 		* \return Metoda zwraca true je¿eli tworzenie zakoñczy siê sukcesem. Zwraca false w przeciwnym wypadku.
 		*/
-		bool tworz(Planeta& planeta, const PodstawoweParametry& parametry) const override;
+		bool tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy parametry) const override;
 	};
 }

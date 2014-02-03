@@ -51,6 +51,10 @@ namespace SpEx{
 		return atr;
 	}
 
+	PodstawoweParametry::TypAtrybutu PodstawoweParametry::typAtrybutu()const{
+		return typAtrybutu_;
+	}
+
 	STyp::Poziom PodstawoweParametry::pobierzPoziom()const{
 		return typAtrybutu_ == POZIOM ? atrybutPodstawowy_.poziom : STyp::Poziom(0);
 	}
@@ -69,7 +73,7 @@ namespace SpEx{
 		case ILOSC:
 			if (atrybutPodstawowy_.ilosc <= 0)
 				return false;
-			wezel->tworzAtrybut(ATRYBUT_XML_ILOSC, STyp::Poziom(atrybutPodstawowy_.ilosc).napis().c_str());
+			wezel->tworzAtrybut(ATRYBUT_XML_ILOSC, STyp::Ilosc(atrybutPodstawowy_.ilosc).napis().c_str());
 			break;
 		}
 		return true;

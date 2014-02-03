@@ -1,31 +1,33 @@
 #pragma once
-#include "OgolnyWyjatek.h"
-/**
-* Klasa bazowa dla wyj¹tków generowanych przez modu³ parsuj¹cy xml.
-*/
-class WyjatekParseraXML :	
-	virtual public LoggerInterface,
-	public OgolnyWyjatek
-{
-public:
-	static const Identyfikator idWyjatekParseraXML;
-	static const Tekst trescBladStrukturyXml;
+#include "TypyProste\Wyjatek.h"
 
-	WyjatekParseraXML( const WyjatekParseraXML& );
-	WyjatekParseraXML( const Tekst& tPlik, const Ilosc& iLinia, const std::exception&, const Tekst& = Tekst() );
-	virtual ~WyjatekParseraXML();
+namespace SpEx{
+	/**
+	* Klasa bazowa dla wyj¹tków generowanych przez modu³ parsuj¹cy xml.
+	*/
+	class WyjatekParseraXML :
+		virtual public SLog::LoggerInterface,
+		public STyp::Wyjatek
+	{
+	public:
+		static const STyp::Identyfikator idWyjatekParseraXML;
+		static const STyp::Tekst trescBladStrukturyXml;
 
-	const Tekst& getPowod() const;
-	void setPowod( const Tekst& );
+		WyjatekParseraXML(const WyjatekParseraXML&);
+		WyjatekParseraXML(const STyp::Tekst& tPlik, const STyp::Ilosc& iLinia, const std::exception&, const STyp::Tekst& = STyp::Tekst());
+		virtual ~WyjatekParseraXML() = default;
 
-	Tekst generujKomunikat() const override;
+		const STyp::Tekst& getPowod() const;
+		void setPowod(const STyp::Tekst&);
 
-	std::string napis() const override;
+		STyp::Tekst generujKomunikat() const override;
 
-private:
-	Tekst powod;
-	
-	static const Tekst tytulWyjatekParseraXML;
-	static const Tekst trescWyjatekParseraXML;
-};
+		std::string napis() const override;
 
+	private:
+		STyp::Tekst powod;
+
+		static const STyp::Tekst tytulWyjatekParseraXML;
+		static const STyp::Tekst trescWyjatekParseraXML;
+	};
+}

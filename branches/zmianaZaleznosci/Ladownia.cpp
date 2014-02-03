@@ -12,7 +12,7 @@
 	
 namespace SpEx{
 	Ladownia::Ladownia(const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety, const LadowniaInfo& ladowniaInfo)
-		: PodstawoweParametry( wpisPoziom(poziom), identyfikatorPlanety), obiekty_(), zajete_(), ladowniaInfo_(ladowniaInfo)
+		: PodstawoweParametry( wpisPoziom(poziom),POZIOM, identyfikatorPlanety), obiekty_(), zajete_(), ladowniaInfo_(ladowniaInfo)
 	{
 	}
 
@@ -22,7 +22,7 @@ namespace SpEx{
 	}
 	
 	STyp::Fluktuacja Ladownia::wolneMiejsceLadowni() const{
-		return STyp::Fluktuacja(1.0) - (zajete_ / pobierzPojemnoscMaksymalnaLadowni())();
+		return STyp::Fluktuacja(1.0) - STyp::Fluktuacja( static_cast<float>( (zajete_ / pobierzPojemnoscMaksymalnaLadowni() )() ));
 	}
 
 	STyp::Ilosc Ladownia::pobierzIloscObiektowLadowni(const STyp::Identyfikator& klucz) const{
@@ -161,7 +161,7 @@ namespace SpEx{
 				break;
 		}
 		if (tymczasowaObjetosc >= tymczasoweMinimum){
-			obiekty_ = kopia;
+			obiekty_ = std::move(kopia);
 			przeliczZajeteMiejsceLadowni();
 		}
 		else{
