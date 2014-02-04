@@ -3,24 +3,15 @@
 
 #include "Utils.h"
 
-LogowanieTest::LogowanieTest(void)
-{
-}
-
 void LogowanieTest::zaloguj(){
-	string haslo("haslo");
-	Utils::sha3(haslo);
-	Aplikacja::pobierzInstancje().pobierzLogger().loguj(Log::Info,haslo);
-	if(Aplikacja::pobierzInstancje().pobierzGre().nowyGracz("Daniel",haslo)){
-		Aplikacja::pobierzInstancje().pobierzLogger().loguj(Log::Debug,"U¿ytkownik zosta³ utworzony.");
+	std::string haslo("haslo");
+	SpEx::Utils::sha3(haslo);
+	SpEx::Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Info, haslo);
+	if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().nowyGracz("Daniel", haslo)){
+		SpEx::Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Debug, "U¿ytkownik zosta³ utworzony.");
 	}else{
-		Aplikacja::pobierzInstancje().pobierzLogger().loguj(Log::Debug,"U¿ytkownik istnieje.");
+		SpEx::Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Debug, "U¿ytkownik istnieje.");
 	}
-	UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().wczytajGre("Daniel",haslo));	
+	UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().wczytajGre("Daniel", haslo));
 	//UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().pobierzGre().usunGracza("Daniel",haslo));
 }
-
-LogowanieTest::~LogowanieTest(void)
-{
-}
-

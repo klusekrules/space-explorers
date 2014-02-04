@@ -4,21 +4,14 @@
 #include "Logger\Log.h"
 #include <sstream>
 
-PaczkaTestow::PaczkaTestow(){
-	bledy = 0;
-	bledyKrytyczne = 0;
-	pominieteTesty = 0;
-	poprawneTesty = 0;
-}
-
 void PaczkaTestow::startTestow(){
 }
 
 void PaczkaTestow::koniecTestow(){
 }
 
-void PaczkaTestow::dodajTest( const string& nazwa, function<void ()> test ){
-	zbiorTestow_.push_back(make_pair(nazwa,test));
+void PaczkaTestow::dodajTest(const std::string& nazwa, std::function<void()> test){
+	zbiorTestow_.push_back(std::make_pair(nazwa, test));
 }
 
 void PaczkaTestow::wykonajTesty(){
@@ -35,7 +28,7 @@ void PaczkaTestow::wykonajTesty(){
 		}catch(WyjatekSprawdzeniaWarunku& e){
 			e.ustawNazweMetody( a.first );
 			++bledy;
-			Log::pobierzInstancje().loguj(Log::Info,e.komunikat());
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, e.komunikat());
 		}catch(...){
 			++bledy;
 			++bledyKrytyczne;
@@ -48,22 +41,19 @@ void PaczkaTestow::wykonajTesty(){
 	podsumowanie();
 }
 
-void PaczkaTestow::ustawNazwe( const string& napis ){
+void PaczkaTestow::ustawNazwe(const std::string& napis){
 	nazwa_ = napis;
 }
 
 void PaczkaTestow::naglowek(){
-	stringstream str;
+	std::stringstream str;
 	str<< "Klasa: "<< nazwa_ << "... Testy: "<< zbiorTestow_.size();
-	Log::pobierzInstancje().loguj(Log::Info,str.str());
+	SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, str.str());
 }
  
 void PaczkaTestow::podsumowanie(){
-	stringstream str;
+	std::stringstream str;
 	str << "Przeprowadzono: " << poprawneTesty + bledy << ", bledy: "<< bledy << ", krytyczne: "<< bledyKrytyczne << ", pominieto: "<<pominieteTesty;
-	Log::pobierzInstancje().loguj(Log::Info,str.str());
-	Log::pobierzInstancje().loguj(Log::Info,"---------------------------------");
-}
-
-PaczkaTestow::~PaczkaTestow(void){
+	SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, str.str());
+	SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "---------------------------------");
 }

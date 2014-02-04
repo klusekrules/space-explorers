@@ -169,9 +169,6 @@
     <ClCompile Include="ObronaTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClCompile>
-    <ClCompile Include="KluczTest.cpp">
-      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
-    </ClCompile>
     <ClCompile Include="StatekTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClCompile>
@@ -467,9 +464,6 @@
     </ClInclude>
     <ClInclude Include="ObronaTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="KluczTest.h">
-      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClInclude>
     <ClInclude Include="PlanetaTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>

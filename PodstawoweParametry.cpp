@@ -11,6 +11,16 @@ namespace SpEx{
 	{
 	}
 
+	PodstawoweParametry::PodstawoweParametry(const STyp::Ilosc& ilosc, const STyp::Identyfikator& identyfikatorPlanety)
+		: atrybutPodstawowy_(wpisIlosc(ilosc)), typAtrybutu_(ILOSC), identyfikatorPlanety_(identyfikatorPlanety)
+	{
+	}
+
+	PodstawoweParametry::PodstawoweParametry(const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety)
+		: atrybutPodstawowy_(wpisPoziom(poziom)), typAtrybutu_(POZIOM), identyfikatorPlanety_(identyfikatorPlanety)
+	{
+	}
+	
 	const PodstawoweParametry::AtrybutPodstawowy& PodstawoweParametry::pobierzAtrybut() const{
 		return atrybutPodstawowy_;
 	}

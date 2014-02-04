@@ -44,7 +44,11 @@ namespace SpEx{
 		* \param[in] typ - typ atrybutu
 		* \param[in] identyfikatorPlanety - Identyfikator planety zawieraj¹cej obiekt.
 		*/
-		PodstawoweParametry(const AtrybutPodstawowy& atrybut, TypAtrybutu typ, const STyp::Identyfikator& identyfikatorPlanety);
+		PodstawoweParametry(const AtrybutPodstawowy& atrybut, TypAtrybutu typ, const STyp::Identyfikator& identyfikatorPlanety = STyp::Identyfikator(0));
+
+		PodstawoweParametry(const STyp::Ilosc& ilosc, const STyp::Identyfikator& identyfikatorPlanety = STyp::Identyfikator(0));
+
+		PodstawoweParametry(const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety = STyp::Identyfikator(0));
 
 		/**
 		* \brief Metoda pobieraj¹ca atrybut.

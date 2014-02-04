@@ -1,17 +1,9 @@
 #include "ParserTest.h"
-#include "ParserDokumentXml.h"
-
-ParserTest::ParserTest()
-{
-}
-
-ParserTest::~ParserTest()
-{
-}
+#include "Parser\ParserDokumentXml.h"
 
 void ParserTest::tworzPlik()
 {
-	se::ParserDokumentXml dokument;
+	SPar::ParserDokumentXml dokument;
 	auto element = dokument.tworzElement("root");
 	UNIT_TEST_ASSERT_NOTNULL(element);
 	auto wezel = element->tworzElement("element");
@@ -23,7 +15,7 @@ void ParserTest::tworzPlik()
 
 void ParserTest::zapiszPlik()
 {
-	se::ParserDokumentXml dokument;
+	SPar::ParserDokumentXml dokument;
 	UNIT_TEST_ASSERT_TRUE(dokument.odczytaj("ParserTest.xml"));
 	auto element = dokument.pobierzElement("root");
 	UNIT_TEST_ASSERT_NOTNULL(element);
@@ -35,7 +27,7 @@ void ParserTest::zapiszPlik()
 
 void ParserTest::odczytajPlik()
 {
-	se::ParserDokumentXml dokument;
+	SPar::ParserDokumentXml dokument;
 	UNIT_TEST_ASSERT_TRUE(dokument.odczytaj("ParserTest.xml"));
 	auto root = dokument.pobierzElement("root");
 	UNIT_TEST_ASSERT_NOTNULL(root);

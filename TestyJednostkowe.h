@@ -23,18 +23,18 @@ public:
 
 private:
 	
-	unsigned int bledy;
-	unsigned int bledyKrytyczne;
-	unsigned int pominieteTesty;
-	unsigned int poprawneTesty;
+	unsigned int bledy = 0;
+	unsigned int bledyKrytyczne = 0;
+	unsigned int pominieteTesty = 0;
+	unsigned int poprawneTesty = 0;
 
-	vector< PaczkaTestow* > inicjalizacja_;
-	vector< PaczkaTestow* > zbiorTestow_;
-	vector< PaczkaTestow* > czyszczenie_;
+	std::vector< PaczkaTestow* > inicjalizacja_;
+	std::vector< PaczkaTestow* > zbiorTestow_;
+	std::vector< PaczkaTestow* > czyszczenie_;
 
 	void podsumowanie();
 
-	TestyJednostkowe();
-	TestyJednostkowe( const TestyJednostkowe& obiekt );
-	TestyJednostkowe& operator=( const TestyJednostkowe& obiekt );
+	TestyJednostkowe() = default;
+	TestyJednostkowe( const TestyJednostkowe& obiekt ) = delete;
+	TestyJednostkowe& operator=( const TestyJednostkowe& obiekt ) = delete;
 };

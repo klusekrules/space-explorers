@@ -1,21 +1,16 @@
 #include "HangarTest.h"
 
-
-HangarTest::HangarTest(void)
-{
-}
-
 void HangarTest::startTestow(){
-	gra = &(Aplikacja::pobierzInstancje().pobierzGre());
+	gra = &(SpEx::Aplikacja::pobierzInstancje().pobierzGre());
 	UNIT_TEST_ASSERT_NOTNULL(gra);
-	StatekInfo& statekInfo = gra->pobierzStatek(Identyfikator(0xB));
-	StatekInfo& statekInfo2 = gra->pobierzStatek(Identyfikator(0xE));
-	StatekInfo& statekInfo3 = gra->pobierzStatek(Identyfikator(0xC));
-	StatekInfo& statekInfo4 = gra->pobierzStatek(Identyfikator(0xD));
-	statekTransportowy = shared_ptr<Statek> ( statekInfo.tworzEgzemplarz(Ilosc(25),Identyfikator(0)) );
-	statekTransportowyDuzy = shared_ptr<Statek> ( statekInfo2.tworzEgzemplarz(Ilosc(1),Identyfikator(0)) );
-	mysliwiec = shared_ptr<Statek> ( statekInfo3.tworzEgzemplarz(Ilosc(5),Identyfikator(0)) );
-	mysliwiecDrugi = shared_ptr<Statek> ( statekInfo4.tworzEgzemplarz(Ilosc(50),Identyfikator(0)) );
+	SpEx::StatekInfo& statekInfo = gra->pobierzStatek(STyp::Identyfikator(0xB));
+	SpEx::StatekInfo& statekInfo2 = gra->pobierzStatek(STyp::Identyfikator(0xE));
+	SpEx::StatekInfo& statekInfo3 = gra->pobierzStatek(STyp::Identyfikator(0xC));
+	SpEx::StatekInfo& statekInfo4 = gra->pobierzStatek(STyp::Identyfikator(0xD));
+	statekTransportowy = std::shared_ptr<SpEx::Statek>(statekInfo.tworzEgzemplarz(SpEx::PodstawoweParametry(STyp::Ilosc(25))));
+	statekTransportowyDuzy = std::shared_ptr<SpEx::Statek>(statekInfo2.tworzEgzemplarz(SpEx::PodstawoweParametry(STyp::Ilosc(1))));
+	mysliwiec = std::shared_ptr<SpEx::Statek>(statekInfo3.tworzEgzemplarz(SpEx::PodstawoweParametry(STyp::Ilosc(5))));
+	mysliwiecDrugi = std::shared_ptr<SpEx::Statek>(statekInfo4.tworzEgzemplarz(SpEx::PodstawoweParametry(STyp::Ilosc(50))));
 }
 
 void HangarTest::podstawowyTest(){
@@ -25,23 +20,19 @@ void HangarTest::podstawowyTest(){
 }
 
 void HangarTest::oproznianieHangaru(){
-	UNIT_TEST_ASSERT_NOTEQUAL(statekTransportowyDuzy->pobierzZajeteMiejsceHangaru(),Objetosc(0));
+	UNIT_TEST_ASSERT_NOTEQUAL(statekTransportowyDuzy->pobierzZajeteMiejsceHangaru(), STyp::Objetosc(0));
 	statekTransportowyDuzy->oproznijHangar();
-	UNIT_TEST_ASSERT_EQUAL(statekTransportowyDuzy->pobierzZajeteMiejsceHangaru(),Objetosc(0));
+	UNIT_TEST_ASSERT_EQUAL(statekTransportowyDuzy->pobierzZajeteMiejsceHangaru(), STyp::Objetosc(0));
 }
 
 void HangarTest::dzielenieHangaru(){
-	UNIT_TEST_ASSERT_EQUAL(statekTransportowyDuzy->pobierzZajeteMiejsceLadowni(),Objetosc(0));
+	UNIT_TEST_ASSERT_EQUAL(statekTransportowyDuzy->pobierzZajeteMiejsceLadowni(), STyp::Objetosc(0));
 	UNIT_TEST_ASSERT_TRUE(statekTransportowyDuzy->dodajStatekDoHangaru(*mysliwiec));
 	UNIT_TEST_ASSERT_TRUE(statekTransportowyDuzy->dodajStatekDoHangaru(*statekTransportowy));
-	Hangar::Zbiornik tmp = statekTransportowyDuzy->podzielHangar(Objetosc(1375),Objetosc(1390));
+	SpEx::Hangar::Zbiornik tmp = statekTransportowyDuzy->podzielHangar(STyp::Objetosc(1375), STyp::Objetosc(1390));
 	UNIT_TEST_ASSERT_FALSE(tmp.pusty());
-	UNIT_TEST_ASSERT_EQUAL(Ilosc(0),statekTransportowyDuzy->pobierzIloscStatkow(mysliwiec->ID()));
-	UNIT_TEST_ASSERT_NOTEQUAL(Ilosc(0),statekTransportowyDuzy->pobierzIloscStatkow(statekTransportowy->ID()));
-}
-
-HangarTest::~HangarTest(void)
-{
+	UNIT_TEST_ASSERT_EQUAL(STyp::Ilosc(0), statekTransportowyDuzy->pobierzIloscStatkow(mysliwiec->pobierzIdentyfikator()));
+	UNIT_TEST_ASSERT_NOTEQUAL(STyp::Ilosc(0), statekTransportowyDuzy->pobierzIloscStatkow(statekTransportowy->pobierzIdentyfikator()));
 }
 
 REJESTRUJ_PACZKE_TESTOW(HangarTest);
