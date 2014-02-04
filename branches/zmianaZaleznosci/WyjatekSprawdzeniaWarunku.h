@@ -5,7 +5,7 @@ class WyjatekSprawdzeniaWarunku
 {
 public:
 	WyjatekSprawdzeniaWarunku(const std::string& tPlik, int iLinia, const std::string& oczekiwano, const std::string& otrzymano);
-	~WyjatekSprawdzeniaWarunku();
+	~WyjatekSprawdzeniaWarunku() = default;
 
 	void ustawNazweMetody(const std::string&);
 	std::string komunikat() const;

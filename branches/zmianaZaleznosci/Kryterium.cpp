@@ -72,6 +72,13 @@ namespace SpEx{
 		//TODO: Walidacja : Walidator::pobierzInstancje().dodajUzytyIdentyfikatorPlanety(identyfikatorPlanety_);			
 		return true;
 	}
+
+	STyp::Poziom Kryterium::pobierzPoziom()const{
+		return typAtrybutu_ == POZIOM ? atrybutPodstawowy_.poziom : STyp::Poziom(0);
+	}
+	STyp::Ilosc Kryterium::pobierzIlosc()const{
+		return typAtrybutu_ == ILOSC ? atrybutPodstawowy_.ilosc : STyp::Ilosc(0);
+	}
 	
 	std::string Kryterium::napis() const{
 		SLog::Logger str(NAZWAKLASY(Kryterium));

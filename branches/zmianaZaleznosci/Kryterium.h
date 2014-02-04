@@ -31,6 +31,11 @@ namespace SpEx{
 			STyp::Ilosc::nazwa_typu ilosc;
 		};
 
+
+		STyp::Poziom pobierzPoziom()const;
+		STyp::Ilosc pobierzIlosc()const;
+
+
 		/**
 		* \brief Konstruktor
 		*

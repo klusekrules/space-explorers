@@ -6,11 +6,9 @@ class InicjalizacjaDanychTestowych :
 {
 	TWORZ_PACZKE_TESTOW(InicjalizacjaDanychTestowych);
 		DODAJ_TEST(zaladujDane);
-		DODAJ_TEST(generujDane);
 	TWORZ_PACZKE_TESTOW_END();
 public:
 	void zaladujDane();
-	void generujDane();
-	InicjalizacjaDanychTestowych();
-	virtual ~InicjalizacjaDanychTestowych();
+	InicjalizacjaDanychTestowych() = default;
+	virtual ~InicjalizacjaDanychTestowych() = default;
 };

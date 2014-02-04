@@ -19,9 +19,9 @@ public:
 	virtual ~HangarTest(void);
 
 private:
-	Gra* gra;
-	shared_ptr<Statek> statekTransportowy;
-	shared_ptr<Statek> statekTransportowyDuzy;
-	shared_ptr<Statek> mysliwiec;
-	shared_ptr<Statek> mysliwiecDrugi;
+	SpEx::Gra* gra;
+	std::shared_ptr<SpEx::Statek> statekTransportowy;
+	std::shared_ptr<SpEx::Statek> statekTransportowyDuzy;
+	std::shared_ptr<SpEx::Statek> mysliwiec;
+	std::shared_ptr<SpEx::Statek> mysliwiecDrugi;
 };

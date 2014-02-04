@@ -4,7 +4,7 @@
 
 #define GENERUJ_NAPIS(s) NAPIS(s)
 
-#define MIEJSCE_WYJATKU string(__FILE__) , int(__LINE__)
+#define MIEJSCE_WYJATKU std::string(__FILE__) , int(__LINE__)
 
 #define REJESTRUJ_PACZKE_TESTOW( paczka ) paczka::Rejestrator paczka::rejestrator( TestyJednostkowe::Rejestracja::Ogolna )
 
@@ -32,7 +32,7 @@ public: \
 private: \
 static Rejestrator rejestrator
 
-#define DODAJ_TEST( test ) wskaznik->dodajTest(#test,bind(&RodzicRejestratora::test, wskaznik))
+#define DODAJ_TEST( test ) wskaznik->dodajTest(#test,std::bind(&RodzicRejestratora::test, wskaznik))
 
 #define UNIT_TEST_ASSERT_EQUAL(oczekiwane , otrzymane) \
 	if( oczekiwane != otrzymane ) \

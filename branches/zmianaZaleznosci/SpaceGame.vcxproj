@@ -432,10 +432,10 @@
     <ClInclude Include="afxres.h" />
     <ClInclude Include="Aplikacja.h" />
     <ClInclude Include="BudynekTest.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="CzyszczenieDanychTest.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Dokumentacja.h" />
     <ClInclude Include="EkranStartowy.h" />
@@ -443,17 +443,14 @@
     <ClInclude Include="Galaktyka.h" />
     <ClInclude Include="GeneratorUkladow.h" />
     <ClInclude Include="GenerowanieTest.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Hangar.h" />
     <ClInclude Include="HangarInfo.h" />
     <ClInclude Include="HangarTest.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="keccak.h" />
-    <ClInclude Include="KluczTest.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="Kryterium.h" />
     <ClInclude Include="LuaSkrypt.h" />
     <ClInclude Include="MaszynaStanow.h" />
@@ -463,14 +460,14 @@
     <ClInclude Include="Obrona.h" />
     <ClInclude Include="ObronaInfo.h" />
     <ClInclude Include="ObronaTest.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="OknoGry.h" />
     <ClInclude Include="ParserTest.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="PlanetaTest.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="RoundedRectangleShape.hpp" />
     <ClInclude Include="Singleton.h" />
@@ -488,28 +485,28 @@
     <ClInclude Include="ZdarzenieInfo.h" />
     <ClInclude Include="Zlecenia.h" />
     <ClInclude Include="InicjalizacjaDanychTestowych.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="LadowniaTest.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="LogowanieTest.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="MakraDlaTestow.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="MenedzerTranzakcji.h" />
     <ClInclude Include="NiepoprawneParametryFunkcjiTest.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="NiepowodzenieTranzakcji.h" />
     <ClInclude Include="ObiektListTest.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Operacja.h" />
     <ClInclude Include="PaczkaTestow.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Biblioteki.h" />
     <ClInclude Include="BladDzieleniaLadowni.h" />
@@ -527,19 +524,19 @@
     <ClInclude Include="PodstawoweParametry.h" />
     <ClInclude Include="Serializacja.h" />
     <ClInclude Include="StatekTest.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="SzablonKryterium.h" />
     <ClInclude Include="Technologia.h" />
     <ClInclude Include="TechnologiaInfo.h" />
     <ClInclude Include="TechnologiaTest.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="TestyJednostkowe.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="TworzenieObiektowTest.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Uzytkownik.h" />
@@ -570,18 +567,18 @@
     <ClInclude Include="svn_version.h" />
     <ClInclude Include="WyjatekParseraXML.h" />
     <ClInclude Include="WyjatekSprawdzeniaWarunku.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="WyjatekSTL.h" />
     <ClInclude Include="Wymagania.h" />
     <ClInclude Include="WymaganiaTest.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="ZapisStanuGryTest.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="ZleceniaTest.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Zlecenie.h" />
     <ClInclude Include="ZmianaPoziomObiektu.h" />
@@ -596,10 +593,10 @@
     <ClCompile Include="Budynek.cpp" />
     <ClCompile Include="BudynekInfo.cpp" />
     <ClCompile Include="BudynekTest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="CzyszczenieDanychTest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="EkranStartowy.cpp" />
     <ClCompile Include="EkranSzablon.cpp" />
@@ -607,38 +604,35 @@
     <ClCompile Include="Galaktyka.cpp" />
     <ClCompile Include="GeneratorUkladow.cpp" />
     <ClCompile Include="GenerowanieTest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Gra.cpp" />
     <ClCompile Include="Hangar.cpp" />
     <ClCompile Include="HangarInfo.cpp" />
     <ClCompile Include="HangarTest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Info.cpp" />
     <ClCompile Include="InicjalizacjaDanychTestowych.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="InicjalizacjaTestow.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="JednostkaAtakujaca.cpp" />
     <ClCompile Include="JednostkaAtakujacaInfo.cpp" />
     <ClCompile Include="JednostkaLatajaca.cpp" />
     <ClCompile Include="JednostkaLatajacaInfo.cpp" />
     <ClCompile Include="keccak.cpp" />
-    <ClCompile Include="KluczTest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Kryterium.cpp" />
     <ClCompile Include="Ladownia.cpp" />
     <ClCompile Include="LadowniaInfo.cpp" />
     <ClCompile Include="LadowniaTest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Licznik.cpp" />
     <ClCompile Include="LogowanieTest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="luaFunc.cpp" />
     <ClCompile Include="LuaSkrypt.cpp" />
@@ -649,7 +643,7 @@
     <ClCompile Include="NiepoprawnaIloscObiektow.cpp" />
     <ClCompile Include="NiepoprawneParametryFunkcji.cpp" />
     <ClCompile Include="NiepoprawneParametryFunkcjiTest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="NiepowodzenieTranzakcji.cpp" />
     <ClCompile Include="NiezainicjalizowanaKlasa.cpp" />
@@ -658,24 +652,24 @@
     <ClCompile Include="Obiekt.cpp" />
     <ClCompile Include="ObiektInfo.cpp" />
     <ClCompile Include="ObiektListTest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Obrona.cpp" />
     <ClCompile Include="ObronaInfo.cpp" />
     <ClCompile Include="ObronaTest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="OknoGry.cpp" />
     <ClCompile Include="Operacja.cpp" />
     <ClCompile Include="PaczkaTestow.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="ParserTest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Planeta.cpp" />
     <ClCompile Include="PlanetaTest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="PodstawoweParametry.cpp" />
     <ClCompile Include="RoundedRectangleShape.cpp" />
@@ -685,20 +679,20 @@
     <ClCompile Include="Statek.cpp" />
     <ClCompile Include="StatekInfo.cpp" />
     <ClCompile Include="StatekTest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Surowce.cpp" />
     <ClCompile Include="SurowceInfo.cpp" />
     <ClCompile Include="Technologia.cpp" />
     <ClCompile Include="TechnologiaInfo.cpp" />
     <ClCompile Include="TechnologiaTest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="TestyJednostkowe.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="TworzenieObiektowTest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="UkladSloneczny.cpp" />
     <ClCompile Include="Utils.cpp" />
@@ -708,22 +702,22 @@
     <ClCompile Include="WatekZarzadzany.cpp" />
     <ClCompile Include="WyjatekParseraXML.cpp" />
     <ClCompile Include="WyjatekSprawdzeniaWarunku.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="WyjatekSTL.cpp" />
     <ClCompile Include="Wyjatki.cpp" />
     <ClCompile Include="Wymagania.cpp" />
     <ClCompile Include="WymaganiaTest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Zadanie.cpp" />
     <ClCompile Include="ZapisStanuGryTest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="ZarzadcaPamieci.cpp" />
     <ClCompile Include="ZdarzenieInfo.cpp" />
     <ClCompile Include="ZleceniaTest.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="ZmianaPoziomObiektu.cpp" />
   </ItemGroup>

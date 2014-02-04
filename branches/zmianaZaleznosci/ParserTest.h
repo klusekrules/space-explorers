@@ -12,12 +12,12 @@ class ParserTest:
 		DODAJ_TEST(usunPlik);
 	TWORZ_PACZKE_TESTOW_END();
 public:
-	ParserTest();
+	ParserTest() = default;
 	void tworzPlik();
 	void zapiszPlik();
 	void odczytajPlik();
 	void usunPlik();
-	virtual ~ParserTest();
+	virtual ~ParserTest() = default;
 private:
 
 };
