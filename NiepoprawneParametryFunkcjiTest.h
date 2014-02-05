@@ -12,10 +12,10 @@ class NiepoprawneParametryFunkcjiTest :
 public:
 	void startTestow() override;
 	void tworzenieWyjatku();
-	NiepoprawneParametryFunkcjiTest(void);
-	virtual ~NiepoprawneParametryFunkcjiTest(void);
+	NiepoprawneParametryFunkcjiTest(void) = default;
+	virtual ~NiepoprawneParametryFunkcjiTest(void) = default;
 
 private:
-	shared_ptr<Planeta> planeta;
+	std::shared_ptr<SpEx::Planeta> planeta;
 };
 

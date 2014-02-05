@@ -15,15 +15,15 @@ public:
 	void podstawowyTest();
 	void oproznianieLadowni();
 	void dzielenieLadowni();
-	LadowniaTest(void);
-	virtual ~LadowniaTest(void);
+	LadowniaTest(void) = default;
+	virtual ~LadowniaTest(void) = default;
 
 private:
-	Gra* gra;
-	shared_ptr<Statek> statekTransportowy;
-	shared_ptr<Statek> statekTransportowyDuzy;
-	shared_ptr<Surowce> metal;
-	shared_ptr<Surowce> energia;
-	shared_ptr<Surowce> krysztal;
+	SpEx::Gra* gra;
+	std::shared_ptr<SpEx::Statek> statekTransportowy;
+	std::shared_ptr<SpEx::Statek> statekTransportowyDuzy;
+	std::shared_ptr<SpEx::Surowce> metal;
+	std::shared_ptr<SpEx::Surowce> energia;
+	std::shared_ptr<SpEx::Surowce> krysztal;
 };
 

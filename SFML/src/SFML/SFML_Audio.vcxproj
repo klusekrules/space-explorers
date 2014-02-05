@@ -52,6 +52,11 @@
     <ClInclude Include="Audio\AudioDevice.hpp" />
     <ClInclude Include="Audio\SoundFile.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="SFML_System.vcxproj">
+      <Project>{cb8ecb60-8c6b-4804-bbbf-dacaaed773ac}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CE1C0AC7-D05B-433C-A5EE-143E15037AF2}</ProjectGuid>
     <RootNamespace>SFML_Audio</RootNamespace>
@@ -215,7 +220,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>$(SolutionDir)libs\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
-      <AdditionalDependencies>sfml-system-$(PlatformTarget)-$(Configuration).lib;openal32.lib;sndfile.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>openal32.lib;sndfile.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>

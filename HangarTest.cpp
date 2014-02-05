@@ -7,10 +7,10 @@ void HangarTest::startTestow(){
 	SpEx::StatekInfo& statekInfo2 = gra->pobierzStatek(STyp::Identyfikator(0xE));
 	SpEx::StatekInfo& statekInfo3 = gra->pobierzStatek(STyp::Identyfikator(0xC));
 	SpEx::StatekInfo& statekInfo4 = gra->pobierzStatek(STyp::Identyfikator(0xD));
-	statekTransportowy = std::shared_ptr<SpEx::Statek>(statekInfo.tworzEgzemplarz(SpEx::PodstawoweParametry(STyp::Ilosc(25))));
-	statekTransportowyDuzy = std::shared_ptr<SpEx::Statek>(statekInfo2.tworzEgzemplarz(SpEx::PodstawoweParametry(STyp::Ilosc(1))));
-	mysliwiec = std::shared_ptr<SpEx::Statek>(statekInfo3.tworzEgzemplarz(SpEx::PodstawoweParametry(STyp::Ilosc(5))));
-	mysliwiecDrugi = std::shared_ptr<SpEx::Statek>(statekInfo4.tworzEgzemplarz(SpEx::PodstawoweParametry(STyp::Ilosc(50))));
+	statekTransportowy = std::shared_ptr<SpEx::Statek>(statekInfo.tworzEgzemplarz(STyp::Ilosc(25)));
+	statekTransportowyDuzy = std::shared_ptr<SpEx::Statek>(statekInfo2.tworzEgzemplarz(STyp::Ilosc(1)));
+	mysliwiec = std::shared_ptr<SpEx::Statek>(statekInfo3.tworzEgzemplarz(STyp::Ilosc(5)));
+	mysliwiecDrugi = std::shared_ptr<SpEx::Statek>(statekInfo4.tworzEgzemplarz(STyp::Ilosc(50)));
 }
 
 void HangarTest::podstawowyTest(){
