@@ -15,8 +15,8 @@ public:
 	void podstawowyTest();
 	void oproznianieHangaru();
 	void dzielenieHangaru();
-	HangarTest(void);
-	virtual ~HangarTest(void);
+	HangarTest(void) = default;
+	virtual ~HangarTest(void) = default;
 
 private:
 	SpEx::Gra* gra;

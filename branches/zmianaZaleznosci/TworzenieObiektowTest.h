@@ -15,8 +15,8 @@ public:
 	void tworzenieObiektow();
 	void falszyweObiekty();
 
-	TworzenieObiektowTest();
-	virtual ~TworzenieObiektowTest();
+	TworzenieObiektowTest() = default;
+	virtual ~TworzenieObiektowTest() = default;
 private:
 	SpEx::Gra *gra;
 	STyp::Identyfikator id;

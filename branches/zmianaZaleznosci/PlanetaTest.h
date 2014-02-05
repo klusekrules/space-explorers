@@ -10,7 +10,7 @@ class PlanetaTest:
 	TWORZ_PACZKE_TESTOW_END();
 public:
 	void tworzenieNiezaleznejPlanety();
-	PlanetaTest(void);
-	virtual ~PlanetaTest(void);
+	PlanetaTest(void) = default;
+	virtual ~PlanetaTest(void) = default;
 };
 

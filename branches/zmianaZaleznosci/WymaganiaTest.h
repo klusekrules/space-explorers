@@ -15,10 +15,10 @@ public:
 	void sprawdzenieKosztow();
 	void czyMoznaWybudowacTest();
 	void czasBudowy();
-	WymaganiaTest(void);
-	virtual ~WymaganiaTest(void);
+	WymaganiaTest(void) = default;
+	virtual ~WymaganiaTest(void) = default;
 private:
-	const Statek* a;
-	shared_ptr <Planeta> planeta;
+	const SpEx::Statek* a;
+	std::shared_ptr <SpEx::Planeta> planeta;
 };
 
