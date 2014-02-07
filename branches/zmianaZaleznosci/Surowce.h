@@ -200,8 +200,12 @@ namespace SpEx{
 		*/
 		std::string napis() const override;
 
+		STyp::Objetosc pobierzObjetosc(const PodstawoweParametry& parametryPodstawowe)const;
 		STyp::Objetosc pobierzObjetosc()const;
+
 		STyp::Objetosc pobierzObjetoscJednostkowa()const;
+
+		STyp::Masa pobierzMase(const PodstawoweParametry& parametryPodstawowe)const;
 		STyp::Masa pobierzMase()const;
 
 	private:

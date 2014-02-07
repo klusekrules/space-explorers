@@ -67,7 +67,7 @@ namespace SpEx{
 			if (element.pobierzObiekt())
 				zbiornik.emplace_back(std::make_shared<Wymagania::TypWarunku>(wylicz(element, parametry), element.pobierzObiekt()->typAtrybutu(), element.pobierzObiekt()->pobierzIdentyfikator()));
 		}
-		return zbiornik;
+		return std::move(zbiornik);
 	}
 
 	Kryterium::AtrybutKryterium Wymagania::wylicz(const Warunek& warunek, const PodstawoweParametry& parametry){
@@ -83,7 +83,7 @@ namespace SpEx{
 		}
 		if (parametry.typAtrybutu() == PodstawoweParametry::ILOSC)
 			atrybut.ilosc *= parametry.pobierzAtrybut().ilosc;
-		return atrybut;
+		return std::move(atrybut);
 	}
 
 	std::string Wymagania::napis() const{

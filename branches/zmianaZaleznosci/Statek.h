@@ -183,11 +183,11 @@ namespace SpEx{
 		*/
 		std::string napis()const override;
 
-		STyp::Powierzchnia pobierzPowierzchnie()const;
 		STyp::Powierzchnia pobierzPowierzchnieJednostkowa()const;
+		STyp::Powierzchnia pobierzPowierzchnie(const PodstawoweParametry& podstawoweParametry)const;
+		STyp::Powierzchnia pobierzPowierzchnie()const;
 
-		STyp::Objetosc pobierzObjetosc()const;
-		STyp::Objetosc pobierzObjetoscJednostkowa()const;
+		STyp::Masa pobierzMase(const PodstawoweParametry& podstawoweParametry)const;
 		STyp::Masa pobierzMase()const;
 
 	protected:

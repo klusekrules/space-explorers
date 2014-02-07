@@ -58,17 +58,23 @@ namespace SpEx{
 		*/
 		Budynek* tworzEgzemplarz(const PodstawoweParametry& parametry) const override;
 
+		STyp::Powierzchnia pobierzPowierzchnie(const PodstawoweParametry& parametry)const;
+
 		/**
 		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
 		* \return Napis zwieraj¹cy opis klasy.
 		*/
 		std::string napis()const override;
+
 	protected:
 
 		Wymagania::ListaWarunkow zapotrzebowanie_; /// Lista bazowych elementów zapotrzebowania.
 		Wymagania::ListaWarunkow produkcja_; /// Lista bazowych elementów produkcji.
 
 	private:
+
+		STyp::Powierzchnia powierzchnia_;
+		Zmiana zmianaPowierzchni_;
 
 		/**
 		* \brief Metoda tworz¹ca egzemplarz obiektu na planecie.

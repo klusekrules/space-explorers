@@ -45,4 +45,4 @@ void ObiektListTest::koniecTestow(){
 	listaDruga.wyczysc();
 }
 
-REJESTRUJ_PACZKE_TESTOW(ObiektListTest);
+//REJESTRUJ_PACZKE_TESTOW(ObiektListTest);

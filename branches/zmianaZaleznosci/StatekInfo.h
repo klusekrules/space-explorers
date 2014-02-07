@@ -26,16 +26,6 @@ namespace SpEx{
 	public:
 
 		/**
-		* \brief Konstruktor.
-		* \param[in] obiektInfo - Referencja do obiektu opisujacego.
-		* \param[in] jednostkaLatajacaInfo - Referencja do obiektu opisujacego.
-		* \param[in] jednostkaAtakujacaInfo - Referencja do obiektu opisujacego.
-		* \param[in] ladowniaInfo - Referencja do obiektu opisujacego.
-		* \param[in] hangarInfo - Referencja do obiektu opisuj¹cego.
-		*/
-		StatekInfo(const ObiektInfo& obiektInfo, const JednostkaLatajacaInfo& jednostkaLatajacaInfo, const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo, const LadowniaInfo& ladowniaInfo, const HangarInfo& hangarInfo) throw();
-
-		/**
 		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
 		*/
@@ -69,6 +59,10 @@ namespace SpEx{
 		*/
 		Statek* tworzEgzemplarz(const PodstawoweParametry& parametry) const override;
 
+		STyp::Powierzchnia pobierzPowierzchnie(const PodstawoweParametry& podstawoweParametry)const;
+
+		STyp::Masa pobierzMase(const PodstawoweParametry& podstawoweParametry)const;
+
 		/**
 		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
 		* \return Napis zwieraj¹cy opis klasy.
@@ -90,5 +84,11 @@ namespace SpEx{
 		bool tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const override;
 
 		STyp::Bool przechowywanyWHangarze_; /// Informacja czy statek mo¿e byæ przechowywwany w hangarze drugiego statku.
+
+		STyp::Masa masa_;
+		Zmiana zmianaMasy_;
+
+		STyp::Powierzchnia powierzchnia_;
+		Zmiana zmianaPowierzchni_;
 	};
 }

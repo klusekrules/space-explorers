@@ -4,6 +4,8 @@
 #include "PodstawoweParametry.h"
 #include "Kryterium.h"
 #include "SzablonKryterium.h"
+#include "NonCopyable.h"
+#include "NonMoveable.h"
 
 namespace SpEx{
 	/**
@@ -15,13 +17,28 @@ namespace SpEx{
 	* \date 23-07-2013
 	*/
 	class Wymagania :
-		virtual public SLog::LoggerInterface
+		virtual public SLog::LoggerInterface,
+		public se::NonCopyable,
+		public se::NonMoveable
 	{
 	public:
+		//--- Definicje typów lokalnych ---
 		typedef Kryterium TypWarunku;
 		typedef SzablonKryterium< TypWarunku > Warunek;
 		typedef std::vector< Warunek::TypObiektu > PrzetworzoneWarunki;
 		typedef std::vector< Warunek > ListaWarunkow;
+		typedef std::shared_ptr<SZmi::ZmianaInterfejs> Zmiana;
+
+		//--- Metody domyœlne ---
+		virtual ~Wymagania() = default;
+
+		//--- Metody usuniête ---
+
+		//--- Metody statyczne ---
+
+		static Kryterium::AtrybutKryterium wylicz(const Warunek&, const PodstawoweParametry&);
+
+		//--- Konstruktory ---
 
 		/**
 		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
@@ -29,10 +46,23 @@ namespace SpEx{
 		*/
 		explicit Wymagania(XmlBO::ElementWezla wezel);
 
+		//--- Destruktor ---
+
+		//--- Operatory ---
+
+		//--- Metody wirtualne ---
+
+		//--- Metody przeci¹¿one ---
+
 		/**
-		* \brief Destruktor.
+		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
+		* \return Napis zwieraj¹cy opis klasy.
 		*/
-		virtual ~Wymagania() = default;
+		std::string napis() const override;
+
+		//--- Metody typu Get/Set ---
+
+		//--- Pozosta³e metody ---
 
 		/**
 		* \brief Metoda wyliczaj¹ca czas trwania budowy obiektu.
@@ -42,7 +72,7 @@ namespace SpEx{
 		* \param[in] parametry - Podstawowe parametry potrzebne do wyliczenia czasu.
 		* \return Czas jaki zosta³ wyliczony.
 		*/
-		virtual STyp::Czas pobierzCzasBudowy(const PodstawoweParametry& parametry)const;
+		STyp::Czas pobierzCzasBudowy(const PodstawoweParametry& parametry)const;
 
 		/**
 		* \brief Metoda wyliczaj¹ca wymagania budowy obiektu.
@@ -63,17 +93,11 @@ namespace SpEx{
 		*/
 		bool czySpelniaWymagania(const PodstawoweParametry& parametry)const;
 
-		/**
-		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
-		* \return Napis zwieraj¹cy opis klasy.
-		*/
-		std::string napis() const override;
-
-		static Kryterium::AtrybutKryterium wylicz(const Warunek&, const PodstawoweParametry&);
-
 	private:
+
+		//--- Atrybuty ---
 		ListaWarunkow warunki_; /// Lista warunków.
-		std::shared_ptr <SZmi::ZmianaInterfejs> zmianaCzasuBudowy_; /// Zmiana czasu budowy.
+		Zmiana zmianaCzasuBudowy_; /// Zmiana czasu budowy.
 		
 	};
 }

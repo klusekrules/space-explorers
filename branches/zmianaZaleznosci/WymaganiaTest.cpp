@@ -59,4 +59,4 @@ void WymaganiaTest::czasBudowy(){
 	//UNIT_TEST_ASSERT_EQUAL(STyp::Czas(4.875), planeta->pobierzObiekt(STyp::Identyfikator(0x12)).po());
 }
 
-REJESTRUJ_PACZKE_TESTOW(WymaganiaTest);
+//REJESTRUJ_PACZKE_TESTOW(WymaganiaTest);

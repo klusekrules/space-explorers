@@ -18,6 +18,7 @@ namespace SpEx{
 		virtual public Serializacja
 	{
 	public:
+		//--- Definicje typów lokalnych ---
 
 		enum TypAtrybutu
 		{
@@ -31,11 +32,22 @@ namespace SpEx{
 			STyp::Ilosc::nazwa_typu ilosc;
 		};
 
+		//--- Metody domyœlne ---
 
-		STyp::Poziom pobierzPoziom()const;
-		STyp::Ilosc pobierzIlosc()const;
+		virtual ~Kryterium() = default;
 
+		Kryterium(const Kryterium&) = default;
 
+		Kryterium& operator=(const Kryterium&) = default;
+
+		//--- Metody usuniête ---
+
+		//--- Metody statyczne ---
+		
+		//--- Konstruktory ---
+		
+		Kryterium(Kryterium&&);
+		
 		/**
 		* \brief Konstruktor
 		*
@@ -51,6 +63,44 @@ namespace SpEx{
 		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
 		*/
 		explicit Kryterium(XmlBO::ElementWezla wezel);
+
+		//--- Destruktor ---
+
+		//--- Operatory ---
+		Kryterium& operator=(Kryterium&&);
+
+		//--- Metody wirtualne ---
+
+		//--- Metody przeci¹¿one ---
+
+		/**
+		* \brief Metoda zapisuj¹ca.
+		*
+		* Metoda s³u¿¹ca do zapisu danych do wêz³a xml podanego jako parametr.
+		* \param[out] wezel - Wêze³ do którego s¹ zapisywane dane.
+		* \return Zwracana jest wartoœæ true, je¿eli zapisano obiekt poprawnie. False, je¿eli zapis siê nie powiód³.
+		* \warning Je¿eli zwrócono wartoœæ false wêze³ przekazany jako parametr nie jest zmodyfokowany.
+		*/
+		bool zapisz(XmlBO::ElementWezla wezel) const override;
+
+		/**
+		* \brief Metoda odczytuj¹ca.
+		*
+		* Metoda s³u¿¹ca do odczytu danych z wêz³a xml podanego jako parametr.
+		* \param[in] wezel - Wêze³ z którego s¹ odczytywane dane.
+		* \return Zwracana jest wartoœæ true, je¿eli odczytano obiekt poprawnie. False, je¿eli odczyt siê nie powiód³.
+		* \warning Metoda nie modyfikuje wêz³a.
+		* \warning Je¿eli metoda zwróci wartoœæ false, obiekt mo¿e znajdowaæ siê w stanie nieustalonym. Nie jest zalecane u¿ywanie takiego obiektu.
+		*/
+		bool odczytaj(XmlBO::ElementWezla wezel) override;
+
+		/**
+		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
+		* \return Napis zwieraj¹cy opis klasy.
+		*/
+		std::string napis() const override;
+
+		//--- Metody typu Get/Set ---
 
 		/**
 		* \brief Metoda pobieraj¹ca atrybut.
@@ -83,7 +133,7 @@ namespace SpEx{
 		* \param[in] identyfikatorPlanety - Nowa wartoœæ identyfikatora planety rodzica obiektu.
 		*/
 		void ustawIdentyfikator(const STyp::Identyfikator& identyfikator);
-
+		
 		/**
 		* \brief Metoda pobieraj¹ca typ atrybutu podstawowego.
 		*
@@ -92,36 +142,17 @@ namespace SpEx{
 		*/
 		TypAtrybutu typAtrybutu()const;
 
-		/**
-		* \brief Metoda zapisuj¹ca.
-		*
-		* Metoda s³u¿¹ca do zapisu danych do wêz³a xml podanego jako parametr.
-		* \param[out] wezel - Wêze³ do którego s¹ zapisywane dane.
-		* \return Zwracana jest wartoœæ true, je¿eli zapisano obiekt poprawnie. False, je¿eli zapis siê nie powiód³.
-		* \warning Je¿eli zwrócono wartoœæ false wêze³ przekazany jako parametr nie jest zmodyfokowany.
-		*/
-		bool zapisz(XmlBO::ElementWezla wezel) const override;
+		//--- Pozosta³e metody ---
 
-		/**
-		* \brief Metoda odczytuj¹ca.
-		*
-		* Metoda s³u¿¹ca do odczytu danych z wêz³a xml podanego jako parametr.
-		* \param[in] wezel - Wêze³ z którego s¹ odczytywane dane.
-		* \return Zwracana jest wartoœæ true, je¿eli odczytano obiekt poprawnie. False, je¿eli odczyt siê nie powiód³.
-		* \warning Metoda nie modyfikuje wêz³a.
-		* \warning Je¿eli metoda zwróci wartoœæ false, obiekt mo¿e znajdowaæ siê w stanie nieustalonym. Nie jest zalecane u¿ywanie takiego obiektu.
-		*/
-		bool odczytaj(XmlBO::ElementWezla wezel) override;
+		STyp::Poziom pobierzPoziom()const;
 
-		/**
-		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
-		* \return Napis zwieraj¹cy opis klasy.
-		*/
-		std::string napis() const override;
+		STyp::Ilosc pobierzIlosc()const;
+
 		
-		Kryterium(const Kryterium&) = default;
-
+		
 	private:
+
+		//--- Atrybuty ---
 		TypAtrybutu typAtrybutu_; /// Typ atrybutu podstawowego.
 		AtrybutKryterium atrybutPodstawowy_;/// Atrybut poziomu obiektu.
 		STyp::Identyfikator identyfikator_;/// Atrybut identyfikatora obiektu.

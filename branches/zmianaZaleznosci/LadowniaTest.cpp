@@ -35,4 +35,4 @@ void LadowniaTest::dzielenieLadowni(){
 	UNIT_TEST_ASSERT_NOTEQUAL(STyp::Ilosc(0), statekTransportowy->pobierzIloscObiektowLadowni(metal->pobierzIdentyfikator()));
 }
 
-REJESTRUJ_PACZKE_TESTOW(LadowniaTest);
+//REJESTRUJ_PACZKE_TESTOW(LadowniaTest);

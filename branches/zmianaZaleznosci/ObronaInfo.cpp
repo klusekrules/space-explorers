@@ -3,10 +3,6 @@
 #include "Gra.h"
 
 namespace SpEx{
-	ObronaInfo::ObronaInfo(const ObiektInfo& obiektInfo, const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo)
-		: ObiektInfo(obiektInfo), JednostkaAtakujacaInfo(jednostkaAtakujacaInfo)
-	{
-	}
 	
 	ObronaInfo::ObronaInfo(XmlBO::ElementWezla wezel) throw(WyjatekParseraXML)
 		: ObiektInfo(wezel),
@@ -20,6 +16,10 @@ namespace SpEx{
 
 	bool ObronaInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
 		return false;//TODO: dokoñczyæ metodê. gra.wybudujNaPlanecie(planeta, *this, ilosc, poziom);
+	}
+
+	STyp::Powierzchnia ObronaInfo::pobierzPowierzchnie(const PodstawoweParametry& parametry)const{
+		return Utils::ObliczZmiane(zmianaPowierzchni_, powierzchnia_, parametry);
 	}
 
 	std::string ObronaInfo::napis() const{

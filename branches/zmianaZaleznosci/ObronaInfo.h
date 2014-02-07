@@ -19,13 +19,6 @@ namespace SpEx{
 	{
 	public:
 		/**
-		* \brief Konstruktor.
-		* \param[in] obiektInfo - Referencja do obiektu opisujacego.
-		* \param[in] jednostkaAtakujacaInfo - Referencja do obiektu opisujacego.
-		*/
-		ObronaInfo(const ObiektInfo& obiektInfo, const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo) throw();
-
-		/**
 		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
 		*/
@@ -47,7 +40,9 @@ namespace SpEx{
 		* \return Metoda zwraca wskaŸnika na obiekt.
 		*/
 		Obrona* tworzEgzemplarz(const PodstawoweParametry& parametry) const override;
-
+		
+		STyp::Powierzchnia pobierzPowierzchnie(const PodstawoweParametry& podstawoweParametry)const;
+		
 		/**
 		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
 		* \return Napis zwieraj¹cy opis klasy.
@@ -55,6 +50,8 @@ namespace SpEx{
 		std::string napis() const override;
 
 	private:
+		STyp::Powierzchnia powierzchnia_;
+		Zmiana zmianaPowierzchni_;
 
 		/**
 		* \brief Metoda tworz¹ca egzemplarz obiektu na planecie.

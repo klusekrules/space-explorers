@@ -34,8 +34,11 @@ namespace SpEx{
 	}
 
 	bool BudynekInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
-		//return gra.wybudujNaPlanecie(planeta, *this, ilosc, poziom);
-		return false;
+		return planeta.dodajObiekt(std::shared_ptr<Budynek>(tworzEgzemplarz(PodstawoweParametry(atrybut, PodstawoweParametry::POZIOM, planeta.pobierzIdentyfikator()))));
+	}
+	
+	STyp::Powierzchnia BudynekInfo::pobierzPowierzchnie(const PodstawoweParametry& parametry)const{
+		return Utils::ObliczZmiane(zmianaPowierzchni_, powierzchnia_, parametry);
 	}
 
 	Budynek* BudynekInfo::tworzEgzemplarz(const PodstawoweParametry& parametry) const{

@@ -4,11 +4,6 @@
 #include "Logger\Logger.h"
 
 namespace SpEx{
-	StatekInfo::StatekInfo(const ObiektInfo& obiektInfo, const JednostkaLatajacaInfo& jednostkaLatajacaInfo, const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo, const LadowniaInfo& ladowniaInfo, const HangarInfo& hangarInfo)
-		: ObiektInfo(obiektInfo), JednostkaLatajacaInfo(jednostkaLatajacaInfo), JednostkaAtakujacaInfo(jednostkaAtakujacaInfo), LadowniaInfo(ladowniaInfo), HangarInfo(hangarInfo), przechowywanyWHangarze_(false)
-	{
-	}
-
 	StatekInfo::StatekInfo(XmlBO::ElementWezla wezel) throw(WyjatekParseraXML)
 		: ObiektInfo(wezel),
 		JednostkaLatajacaInfo(XmlBO::ZnajdzWezel<THROW>(wezel, WEZEL_XML_JEDNOSTKA_LATAJACA_INFO)),
@@ -34,6 +29,14 @@ namespace SpEx{
 
 	const STyp::Identyfikator& StatekInfo::pobierzIdentyfikator() const{
 		return ObiektInfo::pobierzIdentyfikator();
+	}
+
+	STyp::Powierzchnia StatekInfo::pobierzPowierzchnie(const PodstawoweParametry& parametry)const{
+		return Utils::ObliczZmiane(zmianaPowierzchni_, powierzchnia_, parametry);
+	}
+
+	STyp::Masa StatekInfo::pobierzMase(const PodstawoweParametry& parametry)const{
+		return Utils::ObliczZmiane(zmianaMasy_, masa_, parametry);
 	}
 
 	Statek* StatekInfo::tworzEgzemplarz(const PodstawoweParametry& parametry) const{

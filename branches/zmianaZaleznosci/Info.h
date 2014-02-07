@@ -2,6 +2,8 @@
 #include "Logger\LoggerInterface.h"
 #include "TypyProste\TypyProste.h"
 #include "Parser\XmlBO.h"
+#include "NonCopyable.h"
+#include "NonMoveable.h"
 
 namespace SpEx{
 	/**
@@ -13,9 +15,12 @@ namespace SpEx{
 	* \date 22-07-2013
 	*/
 	class Info :
-		virtual public SLog::LoggerInterface
+		virtual public SLog::LoggerInterface,
+		public se::NonCopyable,
+		public se::NonMoveable
 	{
 	public:
+		virtual ~Info() = default;
 
 		/**
 		* \brief Konstruktor.
@@ -27,21 +32,12 @@ namespace SpEx{
 		* \param[in] wymagania - Wymagania obiektu.
 		*/
 		Info(const STyp::Tekst& nazwa, const STyp::Tekst& opis, const STyp::Identyfikator& identyfikator);
-
-		Info(const Info&) = default;
-
-		Info& operator=(const Info&) = delete;
-
+		
 		/**
 		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
 		*/
 		explicit Info(XmlBO::ElementWezla wezel);
-
-		/**
-		* \brief Destruktor.
-		*/
-		virtual ~Info() = default;
 
 		/**
 		* Metoda zwracaj¹ca Identyfikator obiektu.

@@ -49,4 +49,4 @@ void PlanetaTest::tworzenieNiezaleznejPlanety(){
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(21), STyp::Ilosc(6000)));
 }
 
-REJESTRUJ_PACZKE_TESTOW(PlanetaTest);
+//REJESTRUJ_PACZKE_TESTOW(PlanetaTest);

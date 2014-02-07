@@ -16,4 +16,4 @@ void TechnologiaTest::podstawowyTest(){
 	UNIT_TEST_ASSERT_EQUAL(STyp::Poziom(1), b->pobierzPoziom());
 }
 
-REJESTRUJ_PACZKE_TESTOW(TechnologiaTest);
+//REJESTRUJ_PACZKE_TESTOW(TechnologiaTest);

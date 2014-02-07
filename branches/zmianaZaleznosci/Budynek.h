@@ -56,6 +56,10 @@ namespace SpEx{
 		*/
 		Wymagania::PrzetworzoneWarunki pobierzProdukcje()const;
 
+		STyp::Powierzchnia pobierzPowierzchnie( const PodstawoweParametry& podstawoweParametry )const;
+
+		STyp::Powierzchnia pobierzPowierzchnie()const;
+
 		/**
 		* Metoda kopiuj¹ca obiekt.
 		* \warning Metoda allokuje pamiêæ dla nowego obiektu, który musi zostaæ zwolniony wywo³aniem delete.

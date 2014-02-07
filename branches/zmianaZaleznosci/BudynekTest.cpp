@@ -48,4 +48,4 @@ void BudynekTest::podstawowyTest(){
 	UNIT_TEST_ASSERT_EQUAL( 0, z.size());
 }
 
-REJESTRUJ_PACZKE_TESTOW(BudynekTest);
+//REJESTRUJ_PACZKE_TESTOW(BudynekTest);

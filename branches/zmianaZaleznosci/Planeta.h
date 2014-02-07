@@ -123,7 +123,7 @@ namespace SpEx{
 		* \param[in] obiekt - Sprytny wskaŸnik na obiekt dodawany do planety.
 		* \remark Metoda tworzy kopie elementu, nie zapamiêtuje wskaŸnika przekazanego jako parametr.
 		*/
-		void wybuduj(std::shared_ptr< Obiekt > obiekt);
+		//void wybuduj(std::shared_ptr< Obiekt > obiekt);
 
 		/**
 		* \brief Metoda buduje statek na planecie.
@@ -132,7 +132,7 @@ namespace SpEx{
 		* \param[in] obiekt - Sprytny wskaŸnik na obiekt dodawany do planety.
 		* \remark Je¿eli nie ma ¿adnuych obiektów tego typu na planecie metoda zapisuje wskaŸnik, nie tworzy kopii.
 		*/
-		void wybuduj(std::shared_ptr< Statek > obiekt);
+		//void wybuduj(std::shared_ptr< Statek > obiekt);
 
 		/**
 		* \brief Metoda tworzy flotê na planecie.
@@ -198,7 +198,7 @@ namespace SpEx{
 		*
 		* Metoda przenosi obiekty z ³adowni na planetê.
 		*/
-		void rozladujStatek(std::shared_ptr< Statek > statek);
+		//void rozladujStatek(std::shared_ptr< Statek > statek); - Przeniesc do metod statku
 
 		/**
 		* \brief Metoda sprawdzaj¹ca czy planeta ma w³asciciela.
@@ -318,8 +318,6 @@ namespace SpEx{
 		*/
 		std::string napis() const override;
 
-	private:
-
 		/**
 		* \brief Metoda dodaj¹ca Budynek do planety.
 		*
@@ -375,7 +373,7 @@ namespace SpEx{
 		* \param[in] poziom - Poziom tworzonego obiektu.
 		* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
 		*/
-		bool wybuduj(const BudynekInfo& obiektInfo, const PodstawoweParametry& parametry );
+		//bool wybuduj(const BudynekInfo& obiektInfo, const PodstawoweParametry& parametry );
 
 		/**
 		* \brief Metoda s³u¿¹ca do wybudownia na planecie obiektu.
@@ -387,7 +385,7 @@ namespace SpEx{
 		* \param[in] poziom - Poziom tworzonego obiektu.
 		* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
 		*/
-		bool wybuduj(const TechnologiaInfo& obiektInfo, const PodstawoweParametry& parametry);
+		//bool wybuduj(const TechnologiaInfo& obiektInfo, const PodstawoweParametry& parametry);
 
 		/**
 		* \brief Metoda s³u¿¹ca do wybudownia na planecie obiektu.
@@ -399,7 +397,7 @@ namespace SpEx{
 		* \param[in] poziom - Poziom tworzonego obiektu.
 		* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
 		*/
-		bool wybuduj(const StatekInfo& obiektInfo, const PodstawoweParametry& parametry);
+		//bool wybuduj(const StatekInfo& obiektInfo, const PodstawoweParametry& parametry);
 
 		/**
 		* \brief Metoda s³u¿¹ca do wybudownia na planecie obiektu.
@@ -411,7 +409,7 @@ namespace SpEx{
 		* \param[in] poziom - Poziom tworzonego obiektu.
 		* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
 		*/
-		bool wybuduj(const SurowceInfo& obiektInfo, const PodstawoweParametry& parametry);
+		//bool wybuduj(const SurowceInfo& obiektInfo, const PodstawoweParametry& parametry);
 
 		/**
 		* \brief Metoda s³u¿¹ca do wybudownia na planecie obiektu.
@@ -423,7 +421,9 @@ namespace SpEx{
 		* \param[in] poziom - Poziom tworzonego obiektu.
 		* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
 		*/
-		bool wybuduj(const ObronaInfo& obiektInfo, const PodstawoweParametry& parametry);
+		//bool wybuduj(const ObronaInfo& obiektInfo, const PodstawoweParametry& parametry);
+	
+	private:
 
 		/**
 		* \brief Metoda ustawia w³aœciciela planety.

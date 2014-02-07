@@ -21,4 +21,4 @@ void NiepoprawneParametryFunkcjiTest::tworzenieWyjatku(){
 	}
 }
 
-REJESTRUJ_PACZKE_TESTOW(NiepoprawneParametryFunkcjiTest);
+//REJESTRUJ_PACZKE_TESTOW(NiepoprawneParametryFunkcjiTest);

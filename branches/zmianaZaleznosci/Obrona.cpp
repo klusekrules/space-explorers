@@ -39,6 +39,14 @@ namespace SpEx{
 		return STyp::Obrazenia(JednostkaAtakujaca::pobierzOslone()() * pobierzIlosc()());
 	}
 
+	STyp::Powierzchnia Obrona::pobierzPowierzchnie(const PodstawoweParametry& podstawoweParametry)const{
+		return obronaInfo_.pobierzPowierzchnie(podstawoweParametry);
+	}
+
+	STyp::Powierzchnia Obrona::pobierzPowierzchnie()const{
+		return pobierzPowierzchnie(*this);
+	}
+
 	const ObronaInfo& Obrona::pobierzObronaInfo() const{
 		return obronaInfo_;
 	}
