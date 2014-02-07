@@ -55,4 +55,4 @@ void ObronaTest::Test3(){
 	UNIT_TEST_ASSERT_EQUAL(STyp::Obrazenia(2500.0*2.0* 2.0* 2.0), b->pobierzOslone());
 }
 
-REJESTRUJ_PACZKE_TESTOW(ObronaTest);
+//REJESTRUJ_PACZKE_TESTOW(ObronaTest);

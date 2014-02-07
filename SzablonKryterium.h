@@ -19,8 +19,38 @@ namespace SpEx{
 	class SzablonKryterium
 	{
 	public:
+		//--- Definicje typów lokalnych ---
+
 		typedef std::shared_ptr<T> TypObiektu;
 		typedef std::shared_ptr<SZmi::ZmianaInterfejs> Zmiana;
+
+		//--- Metody domyœlne ---
+
+		virtual ~SzablonKryterium() = default;
+
+		SzablonKryterium(const SzablonKryterium&) = default;
+
+		SzablonKryterium(SzablonKryterium&& obiekt) = default; /*{
+			*this = std::move(obiekt);
+		}*/
+
+		SzablonKryterium& operator=(const SzablonKryterium&) = default;
+
+		SzablonKryterium& operator=(SzablonKryterium&& obiekt) = default;/*{
+			if (*this != &obiekt){
+				zmiana_ = std::move(obiekt.zmiana_);
+				obiekt_ = std::move(obiekt.obiekt_);
+			}
+			return *this;
+		};*/
+
+		//--- Metody usuniête ---
+
+		SzablonKryterium() = delete;
+
+		//--- Metody statyczne ---
+
+		//--- Konstruktory ---
 
 		/**
 		* \brief Konstruktor.
@@ -29,23 +59,20 @@ namespace SpEx{
 		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
 		* \param[in] nazwa - Nazwa wêz³a obiektu.
 		*/
-		SzablonKryterium(XmlBO::ElementWezla wezel)
-			: obiekt_(nullptr), zmiana_(nullptr)
-		{
+		SzablonKryterium(XmlBO::ElementWezla wezel){
 			obiekt_ = std::make_shared<T>(wezel);
 			zmiana_ = Utils::TworzZmiane(XmlBO::ZnajdzWezel<THROW>(wezel, WEZEL_XML_ZMIANA));
 		}
 
-		/**
-		* \brief Metoda wykonuj¹ca akcje na obiekcie.
-		*
-		* Metoda wykonuje dowoln¹ akcjê na obiekcie.
-		* \param[in,out] funkcja - Funktor wykonuj¹cy akcje na obiekcie.
-		* \return Wartoœæ zwracana przez funktor.
-		*/
-		bool wykonaj(std::function<bool(TypObiektu, Zmiana)> funkcja){
-			return funkcja(obiekt_, zmiana_);
-		}
+		//--- Destruktor ---
+
+		//--- Operatory ---
+
+		//--- Metody wirtualne ---
+
+		//--- Metody przeci¹¿one ---
+		
+		//--- Metody typu Get/Set ---
 
 		/**
 		* \brief Metoda pobieraj¹ca atrybut.
@@ -65,8 +92,24 @@ namespace SpEx{
 			return zmiana_;
 		}
 
+		//--- Pozosta³e metody ---
+		
+		/**
+		* \brief Metoda wykonuj¹ca akcje na obiekcie.
+		*
+		* Metoda wykonuje dowoln¹ akcjê na obiekcie.
+		* \param[in,out] funkcja - Funktor wykonuj¹cy akcje na obiekcie.
+		* \return Wartoœæ zwracana przez funktor.
+		*/
+		bool wykonaj(std::function<bool(TypObiektu, Zmiana)> funkcja){
+			return funkcja(obiekt_, zmiana_);
+		}
+
 	private:
-		Zmiana zmiana_; /// WskaŸnika na zmianê parametru obiektu.
-		TypObiektu obiekt_; /// WskaŸnik na obiekt.
+
+		//--- Atrybuty ---
+
+		Zmiana zmiana_ = nullptr; /// WskaŸnika na zmianê parametru obiektu.
+		TypObiektu obiekt_ = nullptr; /// WskaŸnik na obiekt.
 	};
 }

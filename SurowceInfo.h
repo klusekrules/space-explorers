@@ -57,6 +57,10 @@ namespace SpEx{
 		*/
 		Surowce* tworzEgzemplarz(const PodstawoweParametry& parametry) const override;
 
+		STyp::Objetosc pobierzObjetosc(const PodstawoweParametry& podstawoweParametry)const;
+
+		STyp::Masa pobierzMase(const PodstawoweParametry& podstawoweParametry)const;
+
 		/**
 		* Metoda generujπca opis klasy w postaci ciπgu znakÛw.
 		* \return Napis zwierajπcy opis klasy.
@@ -78,6 +82,12 @@ namespace SpEx{
 
 		STyp::Bool przyrostowy_; /// Informacja czy podany tym jest przyrostowy
 
-		std::shared_ptr<SZmi::ZmianaInterfejs> zmianaCzasu_; /// Wskaünik do zmiany wyliczajπcej czas budowy.
+		Zmiana zmianaCzasu_; /// Wskaünik do zmiany wyliczajπcej czas budowy.
+
+		STyp::Objetosc objetosc_;
+		Zmiana zmianaObjetosci_;
+
+		STyp::Masa masa_;
+		Zmiana zmianaMasy_;
 	};
 }

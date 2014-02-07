@@ -13,6 +13,20 @@ namespace SpEx{
 	Kryterium::Kryterium(XmlBO::ElementWezla wezel){
 		odczytaj(wezel);
 	}
+	
+	Kryterium::Kryterium(Kryterium&& obiekt){
+		*this = std::move(obiekt);
+	}
+	
+	Kryterium& Kryterium::operator=(Kryterium&& obiekt){
+		if (this != &obiekt)
+		{
+			typAtrybutu_ = std::move(obiekt.typAtrybutu_);
+			atrybutPodstawowy_ = std::move(obiekt.atrybutPodstawowy_);
+			identyfikator_ = std::move(obiekt.identyfikator_);
+		}
+		return *this;
+	}
 
 	const Kryterium::AtrybutKryterium& Kryterium::pobierzAtrybut() const{
 		return atrybutPodstawowy_;

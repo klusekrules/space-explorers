@@ -4,7 +4,6 @@
 
 namespace SpEx{
 	class Obiekt;
-	class Planeta;
 	/**
 	* \brief Klasa opisowa obiektu.
 	*
@@ -18,6 +17,7 @@ namespace SpEx{
 		public Info,
 		virtual public SLog::LoggerInterface
 	{
+		friend class Planeta;
 	public:
 
 		/**

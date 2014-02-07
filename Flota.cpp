@@ -74,12 +74,12 @@ namespace SpEx{
 	bool Flota::dodajLadunek(std::shared_ptr<Statek> obiekt){
 		if (!obiekt)
 			return false;
-		STyp::Objetosc objetoscObiektu = obiekt->pobierzObjetosc();
+		STyp::Powierzchnia objetoscObiektu = obiekt->pobierzPowierzchnie();
 		if (pobierzDostepneMiejsceHangaru() < objetoscObiektu)
 			return false;
-		STyp::Objetosc objetoscJednostkowa = obiekt->pobierzObjetoscJednostkowa();
+		STyp::Powierzchnia objetoscJednostkowa = obiekt->pobierzPowierzchnieJednostkowa();
 
-		std::map<STyp::Objetosc, STyp::Identyfikator, std::less<STyp::Objetosc> > posortowane;
+		std::map<STyp::Powierzchnia, STyp::Identyfikator, std::less<STyp::Powierzchnia> > posortowane;
 		for (auto element : lista_)
 			posortowane.insert(std::make_pair(element.second->pobierzPojemnoscJednostkowaHangaru(), element.first));
 
@@ -90,7 +90,7 @@ namespace SpEx{
 			if (iter == lista_.end())
 				continue;
 			std::shared_ptr<Statek> obiektDoDodania = obiekt;
-			STyp::Objetosc dostepneMiejsce = iter->second->pobierzDostepneMiejsceHangaru();
+			STyp::Powierzchnia dostepneMiejsce = iter->second->pobierzDostepneMiejsceHangaru();
 			if (objetoscObiektu > dostepneMiejsce){
 				STyp::Ilosc ilosc(floor(dostepneMiejsce() / objetoscJednostkowa()));
 				obiektDoDodania = std::shared_ptr<Statek>(obiekt->podziel(ilosc));
@@ -115,8 +115,8 @@ namespace SpEx{
 		return suma;
 	}
 
-	STyp::Objetosc Flota::pobierzDostepneMiejsceHangaru() const{
-		STyp::Objetosc suma(0.0);
+	STyp::Powierzchnia Flota::pobierzDostepneMiejsceHangaru() const{
+		STyp::Powierzchnia suma(0.0);
 		for (auto element : lista_){
 			suma += element.second->pobierzDostepneMiejsceHangaru();
 		}
@@ -152,10 +152,11 @@ namespace SpEx{
 		}
 		if (!planeta)
 			return false;
-		for (auto statek : lista_)
+		//TODO: Roz³adowywanie statku
+		/*for (auto statek : lista_)
 		if (statek.second){
 			planeta->rozladujStatek(statek.second);
-		}
+		}*/
 		return true;
 	}
 
@@ -176,11 +177,13 @@ namespace SpEx{
 		}
 		if (!planeta)
 			return false;
+		//TODO: Roz³adowywanie statku
+		/*
 		for (auto statek : lista_)
 		if (statek.second){
 			planeta->rozladujStatek(statek.second);
 			planeta->wybuduj(statek.second);
-		}
+		}*/
 		lista_.clear();
 		return true;
 	}

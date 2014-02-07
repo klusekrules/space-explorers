@@ -88,6 +88,10 @@ namespace SpEx{
 		*/
 		STyp::Obrazenia pobierzOslone() const override;
 
+		STyp::Powierzchnia pobierzPowierzchnie(const PodstawoweParametry& podstawoweParametry)const;
+
+		STyp::Powierzchnia pobierzPowierzchnie()const;
+
 		/**
 		* \brief Metoda zapisuj¹ca.
 		*

@@ -35,6 +35,14 @@ namespace SpEx{
 	Surowce* SurowceInfo::tworzEgzemplarz(const PodstawoweParametry& parametryPodstawowe) const{
 		return new Surowce(parametryPodstawowe, *this);
 	}
+
+	STyp::Objetosc SurowceInfo::pobierzObjetosc(const PodstawoweParametry& parametry)const{
+		return Utils::ObliczZmiane(zmianaObjetosci_, objetosc_, parametry);
+	}
+
+	STyp::Masa SurowceInfo::pobierzMase(const PodstawoweParametry& parametry)const{
+		return Utils::ObliczZmiane(zmianaMasy_, masa_, parametry);
+	}
 	
 	std::string SurowceInfo::napis() const{
 		SLog::Logger str(NAZWAKLASY(SurowceInfo));

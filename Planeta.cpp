@@ -103,8 +103,9 @@ namespace SpEx{
 
 	bool Planeta::dodajObiekt(std::shared_ptr< Budynek > obiekt){
 		auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
-		if (iterator != listaObiektow_.end())
-			return false;
+		if (iterator != listaObiektow_.end()){
+			return iterator->second->polacz(*obiekt);
+		}
 		listaBudynkow_.insert(make_pair(obiekt->pobierzIdentyfikator(), obiekt));
 		listaObiektow_.insert(make_pair(obiekt->pobierzIdentyfikator(), obiekt));
 		return true;
@@ -112,8 +113,9 @@ namespace SpEx{
 
 	bool Planeta::dodajObiekt(std::shared_ptr< Obrona > obiekt){
 		auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
-		if (iterator != listaObiektow_.end())
-			return false;
+		if (iterator != listaObiektow_.end()){
+			return iterator->second->polacz(*obiekt);
+		}
 		listaObrona_.insert(std::make_pair(obiekt->pobierzIdentyfikator(), obiekt));
 		listaObiektow_.insert(std::make_pair(obiekt->pobierzIdentyfikator(), obiekt));
 		return true;
@@ -121,8 +123,9 @@ namespace SpEx{
 
 	bool Planeta::dodajObiekt(std::shared_ptr< Statek > obiekt){
 		auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
-		if (iterator != listaObiektow_.end())
-			return false;
+		if (iterator != listaObiektow_.end()){
+			return iterator->second->polacz(*obiekt);
+		}
 		listaStatkow_.insert(std::make_pair(obiekt->pobierzIdentyfikator(), obiekt));
 		listaObiektow_.insert(std::make_pair(obiekt->pobierzIdentyfikator(), obiekt));
 		return true;
@@ -130,8 +133,9 @@ namespace SpEx{
 
 	bool Planeta::dodajObiekt(std::shared_ptr< Technologia > obiekt){
 		auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
-		if (iterator != listaObiektow_.end())
-			return false;
+		if (iterator != listaObiektow_.end()){
+			return iterator->second->polacz(*obiekt);
+		}
 		listaTechnologii_.insert(std::make_pair(obiekt->pobierzIdentyfikator(), obiekt));
 		listaObiektow_.insert(std::make_pair(obiekt->pobierzIdentyfikator(), obiekt));
 		return true;
@@ -139,8 +143,9 @@ namespace SpEx{
 
 	bool Planeta::dodajObiekt(std::shared_ptr< Surowce > obiekt){
 		auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
-		if (iterator != listaObiektow_.end())
-			return false;
+		if (iterator != listaObiektow_.end()){
+			return iterator->second->polacz(*obiekt);
+		}
 		listaSurowcow_.insert(std::make_pair(obiekt->pobierzIdentyfikator(), obiekt));
 		listaObiektow_.insert(std::make_pair(obiekt->pobierzIdentyfikator(), obiekt));
 		return true;
@@ -150,32 +155,14 @@ namespace SpEx{
 		auto iterator = listaObiektow_.find(identyfikator);
 		if (iterator != listaObiektow_.end()){
 			iterator->second->wybuduj(ilosc);
-			if (iterator->first != iterator->second->pobierzIdentyfikator()){
-				auto klucz = iterator->first;
-				auto wskaznik = iterator->second;
-				auto nowyKlucz = wskaznik->pobierzIdentyfikator();
-				auto nowyIterator = listaObiektow_.find(nowyKlucz);
-				if (nowyIterator != listaObiektow_.end()){
-					if (!nowyIterator->second->polacz(*wskaznik))
-						return false;
-				}
-				else{
-					Utils::zamianaKlucza(listaObiektow_, klucz, nowyKlucz);
-					Utils::zamianaKlucza(listaSurowcow_, klucz, nowyKlucz);
-					Utils::zamianaKlucza(listaStatkow_, klucz, nowyKlucz);
-					Utils::zamianaKlucza(listaObrona_, klucz, nowyKlucz);
-					Utils::zamianaKlucza(listaTechnologii_, klucz, nowyKlucz);
-					Utils::zamianaKlucza(listaBudynkow_, klucz, nowyKlucz);
-				}
-			}
 			return true;
 		}
 		else{
-			return false;//TODO: Dokonczyc Aplikacja::pobierzInstancje().pobierzGre().wybudujNaPlanecie(*this, identyfikator(), ilosc);
+			return false; Aplikacja::pobierzInstancje().pobierzGre().pobierzObiekt(identyfikator).tworz(*this, ilosc.pobierzAtrybut());
 		}
 	}
 
-	bool Planeta::wybuduj(const BudynekInfo& obiektInfo, const PodstawoweParametry& parametry ){
+	/*bool Planeta::wybuduj(const BudynekInfo& obiektInfo, const PodstawoweParametry& parametry ){
 		return dodajObiekt(std::shared_ptr<Budynek>(obiektInfo.tworzEgzemplarz(parametry)));
 	}
 
@@ -193,9 +180,9 @@ namespace SpEx{
 
 	bool Planeta::wybuduj(const ObronaInfo& obiektInfo, const PodstawoweParametry& parametry){
 		return dodajObiekt(std::shared_ptr<Obrona>(obiektInfo.tworzEgzemplarz(parametry)));
-	}
+	}*/
 
-	void Planeta::wybuduj(std::shared_ptr< Obiekt > obiekt){
+	/*void Planeta::wybuduj(std::shared_ptr< Obiekt > obiekt){
 		auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
 		if (iterator != listaObiektow_.end()){
 			iterator->second->wybuduj(*obiekt);
@@ -213,7 +200,7 @@ namespace SpEx{
 		else{
 			dodajObiekt(obiekt);
 		}
-	}
+	}*/
 
 	STyp::Identyfikator Planeta::dodajFlote(){
 		std::shared_ptr< Flota > flota = std::shared_ptr< Flota >(new Flota(STyp::Identyfikator(static_cast<STyp::Identyfikator::nazwa_typu>(licznikIdentyfikatorowFloty_()())), STyp::Identyfikator(), STyp::Identyfikator(), Flota::CelPodrozy::Transport));
@@ -294,7 +281,7 @@ namespace SpEx{
 	bool Planeta::czyMaWlasciciela()const{
 		return wlasciciel_ != nullptr;
 	}
-
+	/*
 	void Planeta::rozladujStatek(std::shared_ptr< Statek > statek){
 		if (statek){
 			for (auto element : statek->oproznijLadownie()){
@@ -304,7 +291,7 @@ namespace SpEx{
 				wybuduj(element.second);
 			}
 		}
-	}
+	}*/
 
 	std::shared_ptr< Flota > Planeta::pobierzFlote(const STyp::Identyfikator& identyfikator) const{
 		auto iterator = listaFlot_.find(identyfikator);

@@ -3,9 +3,11 @@ namespace se{
 	class NonCopyable
 	{
 	public:
-		NonCopyable(){}
-	private:
-		NonCopyable& operator=( const NonCopyable& ){}
-		NonCopyable( const NonCopyable& ) throw() {}
+		NonCopyable() = default;
+		virtual ~NonCopyable() = default;
+		NonCopyable& operator=(const NonCopyable&) = delete;
+		NonCopyable(const NonCopyable&) = delete;
+		//NonCopyable& operator=(NonCopyable&&) = default;
+		//NonCopyable(NonCopyable&&) = default;
 	};
 }

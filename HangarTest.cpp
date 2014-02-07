@@ -35,4 +35,4 @@ void HangarTest::dzielenieHangaru(){
 	UNIT_TEST_ASSERT_NOTEQUAL(STyp::Ilosc(0), statekTransportowyDuzy->pobierzIloscStatkow(statekTransportowy->pobierzIdentyfikator()));
 }
 
-REJESTRUJ_PACZKE_TESTOW(HangarTest);
+//REJESTRUJ_PACZKE_TESTOW(HangarTest);
