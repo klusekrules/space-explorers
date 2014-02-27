@@ -2,54 +2,54 @@
 <Space-Explorers>
 
   <!-- Surowce typu metal -->
-  <SurowceInfo typ="1" masa="1" objetosc="1" powierzchnia="1" poziom="1" id="0x0001" nazwa="Stal">
+  <SurowceInfo typ="1" masa="1" objetosc="1" id="0x0001" nazwa="Stal">
     Opis Stali.
     <Zmiana id="3" for="Czas">
       <Param id="0x0" wspolczynnik="1.0"/>
     </Zmiana>
   </SurowceInfo>
 
-  <SurowceInfo typ="1" masa="1" objetosc="1" powierzchnia="1" poziom="1" id="0x0002" nazwa="Tytan">
+  <SurowceInfo typ="1" masa="1" objetosc="1" id="0x0002" nazwa="Tytan">
     Opis Tytanu.
   </SurowceInfo>
 
-  <SurowceInfo typ="1" masa="1" objetosc="1" powierzchnia="1" poziom="1" id="0x0003" nazwa="Naquadah">
+  <SurowceInfo typ="1" masa="1" objetosc="1" id="0x0003" nazwa="Naquadah">
     Opis Naquadah'u.
   </SurowceInfo>
 
   <!-- Surowce typu elektronika -->
-  <SurowceInfo typ="1" masa="1" objetosc="1" powierzchnia="1" poziom="1" id="0x0004" nazwa="Miedź">
+  <SurowceInfo typ="1" masa="1" objetosc="1" id="0x0004" nazwa="Miedź">
     Opis miedzi.
   </SurowceInfo>
 
-  <SurowceInfo typ="1" masa="1" objetosc="1" powierzchnia="1" poziom="1" id="0x0005" nazwa="Krzem">
+  <SurowceInfo typ="1" masa="1" objetosc="1" id="0x0005" nazwa="Krzem">
     Opis krzemu.
   </SurowceInfo>
 
-  <SurowceInfo typ="1" masa="1" objetosc="2" powierzchnia="1" poziom="1" id="0x0006" nazwa="Kryształ">
+  <SurowceInfo typ="1" masa="1" objetosc="2" id="0x0006" nazwa="Kryształ">
     Opis kryształu.
   </SurowceInfo>
 
   <!-- Surowce typu paliwo -->
-  <SurowceInfo typ="1" masa="1" objetosc="1" powierzchnia="1" poziom="1" id="0x0007" nazwa="Wodór">
+  <SurowceInfo typ="1" masa="1" objetosc="1" id="0x0007" nazwa="Wodór">
     Opis wodoru.
   </SurowceInfo>
 
-  <SurowceInfo typ="1" masa="1" objetosc="1" powierzchnia="1" poziom="1" id="0x0008" nazwa="Deuter">
+  <SurowceInfo typ="1" masa="1" objetosc="1" id="0x0008" nazwa="Deuter">
     Opis deuteru.
   </SurowceInfo>
 
-  <SurowceInfo typ="1" masa="1" objetosc="1" powierzchnia="1" poziom="1" id="0x0009" nazwa="Tryt">
+  <SurowceInfo typ="1" masa="1" objetosc="1" id="0x0009" nazwa="Tryt">
     Opis trytu.
   </SurowceInfo>
 
   <!-- Surowce nieprzyrostowe, energia -->
-  <SurowceInfo typ="2" masa="1" objetosc="1" powierzchnia="1" poziom="1" id="0x000A" nazwa="Energia">
+  <SurowceInfo typ="2" masa="1" objetosc="1" id="0x000A" nazwa="Energia">
     Opis energii.
   </SurowceInfo>
 
   <!-- Statki -->
-  <StatekInfo masa="1" objetosc="2" powierzchnia="1" poziom="1" id="0x00B" nazwa="Transportowiec" hangar="1">
+  <StatekInfo masa="1" powierzchnia="1" id="0x00B" nazwa="Transportowiec" hangar="1">
     Opis Transportowca.
     <Cena>
       <Surowce id="0x1" ilosc="1000" opcja="1" />
@@ -87,18 +87,10 @@
         <Param id="0x0" wspolczynnik="5.0"/>
       </Zmiana>
     </Wymog>
-    <JednostkaLatajacaInfo rodzajSilnikaId="0x01" rodzajSilnikaPoziom="1" mocSilnika="1" zuzyciePaliwa="1" masaSilnika="1" sprawnoscSilnika="0.97" id="0x010" nazwa="Nazwa jednostki latajacej transportowca">
-      Opis jednoscki latajacej transportowca.
-    </JednostkaLatajacaInfo>
-    <JednostkaAtakujacaInfo atak="90" pancerz="20" oslona="30" id="0x011" nazwa="Nazwa Jednostki atakujacej transportowca">
-      Opis jednostki atakujacej transportowca.
-    </JednostkaAtakujacaInfo>
-    <LadowniaInfo pojemnoscMaksymalna="1300" id="0x012" nazwa="Nazwa ladowni transportowca">
-      Opis ladowni transportowca.
-    </LadowniaInfo>
-    <HangarInfo pojemnoscMaksymalna="1300" id="0x012" nazwa="Nazwa hangaru transportowca">
-      Opis hangaru transportowca.
-    </HangarInfo>
+    <JednostkaLatajacaInfo rodzajSilnikaId="0x01" mocSilnika="1" zuzyciePaliwa="1" masaSilnika="1" sprawnoscSilnika="0.97"/>
+    <JednostkaAtakujacaInfo atak="90" pancerz="20" oslona="30"/>
+    <LadowniaInfo pojemnoscMaksymalna="1300"/>
+    <HangarInfo pojemnoscMaksymalna="1300"/>
   </StatekInfo>
 
   <StatekInfo masa="1" objetosc="90" powierzchnia="1" poziom="1" id="0x00C" nazwa="Myśliwiec" hangar="1">

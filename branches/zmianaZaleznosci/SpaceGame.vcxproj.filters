@@ -17,28 +17,28 @@
       <Filter>SourceFile\Wyjatki\ParserXML</Filter>
     </ClCompile>
     <ClCompile Include="Ladownia.cpp">
-      <Filter>SourceFile\Model\Obiekty\Flota\Ladownia</Filter>
+      <Filter>SourceFile\Model\Obiekty\Ladownia</Filter>
     </ClCompile>
     <ClCompile Include="LadowniaInfo.cpp">
-      <Filter>SourceFile\Model\Obiekty\Flota\Ladownia</Filter>
+      <Filter>SourceFile\Model\Obiekty\Ladownia</Filter>
     </ClCompile>
     <ClCompile Include="Statek.cpp">
-      <Filter>SourceFile\Model\Obiekty\Flota\Statek</Filter>
+      <Filter>SourceFile\Model\Obiekty\Statek</Filter>
     </ClCompile>
     <ClCompile Include="StatekInfo.cpp">
-      <Filter>SourceFile\Model\Obiekty\Flota\Statek</Filter>
+      <Filter>SourceFile\Model\Obiekty\Statek</Filter>
     </ClCompile>
     <ClCompile Include="JednostkaAtakujaca.cpp">
-      <Filter>SourceFile\Model\Obiekty\Flota\JednostkaAtakujaca</Filter>
+      <Filter>SourceFile\Model\Obiekty\JednostkaAtakujaca</Filter>
     </ClCompile>
     <ClCompile Include="JednostkaAtakujacaInfo.cpp">
-      <Filter>SourceFile\Model\Obiekty\Flota\JednostkaAtakujaca</Filter>
+      <Filter>SourceFile\Model\Obiekty\JednostkaAtakujaca</Filter>
     </ClCompile>
     <ClCompile Include="JednostkaLatajaca.cpp">
-      <Filter>SourceFile\Model\Obiekty\Flota\JednostkaLatajaca</Filter>
+      <Filter>SourceFile\Model\Obiekty\JednostkaLatajaca</Filter>
     </ClCompile>
     <ClCompile Include="JednostkaLatajacaInfo.cpp">
-      <Filter>SourceFile\Model\Obiekty\Flota\JednostkaLatajaca</Filter>
+      <Filter>SourceFile\Model\Obiekty\JednostkaLatajaca</Filter>
     </ClCompile>
     <ClCompile Include="WyjatekParseraXML.cpp">
       <Filter>SourceFile\Wyjatki\ParserXML</Filter>
@@ -140,10 +140,10 @@
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClCompile>
     <ClCompile Include="HangarInfo.cpp">
-      <Filter>SourceFile\Model\Obiekty\Flota\Hangar</Filter>
+      <Filter>SourceFile\Model\Obiekty\Hangar</Filter>
     </ClCompile>
     <ClCompile Include="Hangar.cpp">
-      <Filter>SourceFile\Model\Obiekty\Flota\Hangar</Filter>
+      <Filter>SourceFile\Model\Obiekty\Hangar</Filter>
     </ClCompile>
     <ClCompile Include="HangarTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
@@ -292,28 +292,28 @@
       <Filter>SourceFile\Wyjatki\ParserXML</Filter>
     </ClInclude>
     <ClInclude Include="Ladownia.h">
-      <Filter>SourceFile\Model\Obiekty\Flota\Ladownia</Filter>
+      <Filter>SourceFile\Model\Obiekty\Ladownia</Filter>
     </ClInclude>
     <ClInclude Include="LadowniaInfo.h">
-      <Filter>SourceFile\Model\Obiekty\Flota\Ladownia</Filter>
+      <Filter>SourceFile\Model\Obiekty\Ladownia</Filter>
     </ClInclude>
     <ClInclude Include="Statek.h">
-      <Filter>SourceFile\Model\Obiekty\Flota\Statek</Filter>
+      <Filter>SourceFile\Model\Obiekty\Statek</Filter>
     </ClInclude>
     <ClInclude Include="StatekInfo.h">
-      <Filter>SourceFile\Model\Obiekty\Flota\Statek</Filter>
+      <Filter>SourceFile\Model\Obiekty\Statek</Filter>
     </ClInclude>
     <ClInclude Include="JednostkaAtakujaca.h">
-      <Filter>SourceFile\Model\Obiekty\Flota\JednostkaAtakujaca</Filter>
+      <Filter>SourceFile\Model\Obiekty\JednostkaAtakujaca</Filter>
     </ClInclude>
     <ClInclude Include="JednostkaAtakujacaInfo.h">
-      <Filter>SourceFile\Model\Obiekty\Flota\JednostkaAtakujaca</Filter>
+      <Filter>SourceFile\Model\Obiekty\JednostkaAtakujaca</Filter>
     </ClInclude>
     <ClInclude Include="JednostkaLatajacaInfo.h">
-      <Filter>SourceFile\Model\Obiekty\Flota\JednostkaLatajaca</Filter>
+      <Filter>SourceFile\Model\Obiekty\JednostkaLatajaca</Filter>
     </ClInclude>
     <ClInclude Include="JednostkaLatajaca.h">
-      <Filter>SourceFile\Model\Obiekty\Flota\JednostkaLatajaca</Filter>
+      <Filter>SourceFile\Model\Obiekty\JednostkaLatajaca</Filter>
     </ClInclude>
     <ClInclude Include="WyjatekParseraXML.h">
       <Filter>SourceFile\Wyjatki\ParserXML</Filter>
@@ -427,10 +427,10 @@
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClInclude>
     <ClInclude Include="HangarInfo.h">
-      <Filter>SourceFile\Model\Obiekty\Flota\Hangar</Filter>
+      <Filter>SourceFile\Model\Obiekty\Hangar</Filter>
     </ClInclude>
     <ClInclude Include="Hangar.h">
-      <Filter>SourceFile\Model\Obiekty\Flota\Hangar</Filter>
+      <Filter>SourceFile\Model\Obiekty\Hangar</Filter>
     </ClInclude>
     <ClInclude Include="HangarTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
@@ -743,20 +743,20 @@
     <Filter Include="SourceFile\Model\Obiekty\Flota">
       <UniqueIdentifier>{dc1fd519-fc16-4507-a10e-d21d3c64dfce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\Model\Obiekty\Flota\Ladownia">
-      <UniqueIdentifier>{03762c6f-908a-4990-9bf9-977b817b8629}</UniqueIdentifier>
+    <Filter Include="SourceFile\Model\Obiekty\Hangar">
+      <UniqueIdentifier>{46df6a8b-cd48-418b-a20d-fba74a6ed859}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\Model\Obiekty\Flota\Statek">
-      <UniqueIdentifier>{a3232f94-989e-43da-bcd0-d47ac77070f5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Model\Obiekty\Flota\JednostkaAtakujaca">
+    <Filter Include="SourceFile\Model\Obiekty\JednostkaAtakujaca">
       <UniqueIdentifier>{c1c838c6-395b-42ed-b146-e35d2ba27d6e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\Model\Obiekty\Flota\JednostkaLatajaca">
+    <Filter Include="SourceFile\Model\Obiekty\JednostkaLatajaca">
       <UniqueIdentifier>{1860f67a-1995-4e2e-b859-85c5d68d2b65}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\Model\Obiekty\Flota\Hangar">
-      <UniqueIdentifier>{46df6a8b-cd48-418b-a20d-fba74a6ed859}</UniqueIdentifier>
+    <Filter Include="SourceFile\Model\Obiekty\Ladownia">
+      <UniqueIdentifier>{03762c6f-908a-4990-9bf9-977b817b8629}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Model\Obiekty\Statek">
+      <UniqueIdentifier>{a3232f94-989e-43da-bcd0-d47ac77070f5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
