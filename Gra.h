@@ -40,7 +40,7 @@ namespace SpEx {
 		* \param[in] adresPliku - Adres pliku z którego maj¹ zostaæ wczytane dane.
 		* \return true je¿eli uda siê wczytaæ dane, false w przeciwnym wypadku.
 		*/
-		bool wczytajDane(const std::string& adresPliku);
+		bool wczytajDane(std::shared_ptr<SPar::ParserElement> root);
 
 		/**
 		* \brief Metoda loguj¹ca u¿ytkownika.

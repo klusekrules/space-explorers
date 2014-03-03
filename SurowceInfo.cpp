@@ -9,11 +9,11 @@ namespace SpEx{
 	{
 		if (wezel){
 			zmianaCzasu_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WEZEL_XML_CZAS));
-			auto przyrostowy = XmlBO::WczytajAtrybut<int>(wezel, ATRYBUT_XML_TYP, 0);
+			auto przyrostowy = XmlBO::WczytajAtrybut<int>(wezel, ATRYBUT_XML_TYP, -1);
 			switch (przyrostowy){
 			case 1: przyrostowy_ = true;
 				break;
-			case 2: przyrostowy_ = false;
+			case 0: przyrostowy_ = false;
 				break;
 			default: SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
 			}

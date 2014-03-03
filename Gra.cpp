@@ -119,21 +119,18 @@ namespace SpEx{
 		return *(iterator->second);
 	}
 
-	bool Gra::wczytajDane(const std::string& adresPliku){
-		SPar::ParserDokumentXml dane;
-		try{
-			dane.odczytaj(adresPliku.c_str());
-			auto root_data = dane.pobierzElement(WEZEL_XML_ROOT);
-			if (root_data){
-				if (!wczytajSurowce(root_data))
+	bool Gra::wczytajDane(std::shared_ptr<SPar::ParserElement> root){
+		try{			
+			if (root){
+				if (!wczytajSurowce(root))
 					return false;
-				if (!wczytajStatki(root_data))
+				if (!wczytajStatki(root))
 					return false;
-				if (!wczytajObrone(root_data))
+				if (!wczytajObrone(root))
 					return false;
-				if (!wczytajTechnologie(root_data))
+				if (!wczytajTechnologie(root))
 					return false;
-				if (!wczytajBudynki(root_data))
+				if (!wczytajBudynki(root))
 					return false;
 			}
 		}
@@ -311,7 +308,7 @@ namespace SpEx{
 
 	bool Gra::zapisz(const std::string& nazwa, const std::string& hash) const{
 		std::string plik;
-		auto dokument = plikUzytkownika(nazwa, hash, plik);
+		auto dokument = plikUzytkownika(nazwa, hash, plik, false);
 		if (!dokument || !uzytkownik_->zapisz(dokument->pobierzElement(nullptr)))
 			return false;
 		return dokument->zapisz(plik.c_str());
@@ -324,7 +321,7 @@ namespace SpEx{
 		plik.append(nazwa);
 		plik.append("_.xml");
 		std::shared_ptr<SPar::ParserDokument> dokument = std::make_shared<SPar::ParserDokumentXml>();
-		if (dokument->odczytaj(plik.c_str()) == tinyxml2::XML_NO_ERROR){
+		if (dokument->odczytaj(plik.c_str())){
 			if (hash != XmlBO::WczytajAtrybut(dokument->pobierzElement(nullptr), "hash", std::string()))
 				return nullptr;
 			if (tworzPlik){
@@ -344,6 +341,7 @@ namespace SpEx{
 			uzytkownik->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa.c_str());
 			dokument->zapisz(plik.c_str());
 		}
+		nazwaPliku = plik;
 		return dokument;
 	}
 }

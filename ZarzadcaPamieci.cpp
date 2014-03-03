@@ -81,14 +81,14 @@ namespace SpEx{
 		if (!generator_.zapisz(zarzadca))
 			return false;
 		for (auto galaktyka : galaktyki_){
-			auto wezelGalaktyka = wezel->tworzElement(WEZEL_XML_GALAKTYKA);
+			auto wezelGalaktyka = zarzadca->tworzElement(WEZEL_XML_GALAKTYKA);
 			wezelGalaktyka->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, galaktyka.first.napis().c_str());
 			for (auto uklad : galaktyka.second.uklady_){
-				auto wezelUklad = wezel->tworzElement(WEZEL_XML_UKLAD_SLONECZNY);
+				auto wezelUklad = wezelGalaktyka->tworzElement(WEZEL_XML_UKLAD_SLONECZNY);
 				wezelUklad->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, uklad.napis().c_str());
 				auto ukladSloneczny = ukladySloneczne_.find(uklad);
 				for (auto planeta : ukladSloneczny->second.planety_){
-					auto wezelPlaneta = wezel->tworzElement(WEZEL_XML_PLANETA);
+					auto wezelPlaneta = wezelUklad->tworzElement(WEZEL_XML_PLANETA);
 					wezelPlaneta->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, planeta.napis().c_str());
 				}
 				if (ukladSloneczny->second.uklad_){

@@ -1986,11 +1986,15 @@ void XMLPrinter::SealElement()
 
 void XMLPrinter::PushText( const char* text, bool cdata )
 {
-    _textDepth = _depth-1;
+    //_textDepth = _depth-1;
 
     if ( _elementJustOpened ) {
         SealElement();
     }
+	if (_textDepth < 0 && !_compactMode) {
+		Print("\n");
+		PrintSpace(_depth);
+	}
     if ( cdata ) {
         Print( "<![CDATA[" );
         Print( "%s", text );

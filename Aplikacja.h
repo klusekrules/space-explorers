@@ -73,7 +73,7 @@ namespace SpEx {
 		*
 		* \return true je¿eli uda siê wczytaæ dane, false w przeciwnym wypadku.
 		*/
-		bool wczytajDane();
+		bool wczytajDane( std::shared_ptr<SPar::ParserElement> root );
 
 		/**
 		* \brief Metoda zapisuj¹ca stan gry.
@@ -87,7 +87,7 @@ namespace SpEx {
 		*
 		* \return true je¿eli uda siê wczytaæ stan gry, false w przeciwnym wypadku.
 		*/
-		bool wczytajGre(const std::string& nazwa, const std::string& hash);
+		bool wczytajGre(std::shared_ptr<SPar::ParserElement> root, const std::string& nazwa, const std::string& hash);
 
 		/**
 		* \brief Metoda pobieraj¹ca instacjê Aplikacji.
