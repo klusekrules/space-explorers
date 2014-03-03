@@ -43,7 +43,7 @@ namespace SpEx{
 
 	const STyp::SPG::Fluktuacja GeneratorUkladow::POWIERZCHNIA_WODY_MAX = 0.9f;
 
-#ifdef DEBUG
+#ifdef _DEBUG
 
 	const int GeneratorUkladow::ILOSC_UKLADOW_MIN = 10;
 	const int GeneratorUkladow::ILOSC_UKLADOW_MAX = 100;

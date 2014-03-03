@@ -12,11 +12,11 @@ namespace SpEx{
 		HangarInfo(XmlBO::ZnajdzWezel<THROW>(wezel, WEZEL_XML_HANGAR_INFO)), przechowywanyWHangarze_(false)
 	{
 		if (wezel){
-			auto przyrostowy = XmlBO::WczytajAtrybut<int>(wezel, ATRYBUT_XML_HANGAR, 0);
+			auto przyrostowy = XmlBO::WczytajAtrybut<int>(wezel, ATRYBUT_XML_HANGAR, -1);
 			switch (przyrostowy){
 			case 1: przechowywanyWHangarze_ = true;
 				break;
-			case 2: przechowywanyWHangarze_ = false;
+			case 0: przechowywanyWHangarze_ = false;
 				break;
 			default: SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
 			}

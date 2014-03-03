@@ -2,59 +2,59 @@
 #include "Aplikacja.h"
 #include "Parser\ParserDokumentXml.h"
 
-void InicjalizacjaDanychTestowych::zaladujDane(){
-	SPar::ParserDokumentXml dokument;
-	auto root = dokument.tworzElement(WEZEL_XML_ROOT);
+std::shared_ptr<SPar::ParserDokument> InicjalizacjaDanychTestowych::dane(){
+	std::shared_ptr<SPar::ParserDokument>dokument = std::make_shared<SPar::ParserDokumentXml>();
+	auto root = dokument->tworzElement(WEZEL_XML_ROOT);
 	UNIT_TEST_ASSERT_NOTNULL(root);
 
 	// SUROWIEC - METAL
 	tworzParam(
 		*tworzZmiana(
-			*tworzSurowiec(
-				*root, 
-				STyp::Identyfikator(1), 
-				STyp::Tekst("Metal"), 
-				STyp::Tekst("Opis metalu."), 
-				STyp::Masa(3), 
-				STyp::Objetosc(1), 
-				STyp::Bool(true)),
-			STyp::Identyfikator(3), 
-			STyp::Tekst(WEZEL_XML_CZAS)), 
-		STyp::Identyfikator(0), 
+		*tworzSurowiec(
+		*root,
+		STyp::Identyfikator(1),
+		STyp::Tekst("Metal"),
+		STyp::Tekst("Opis metalu."),
+		STyp::Masa(3),
+		STyp::Objetosc(1),
+		STyp::Bool(true)),
+		STyp::Identyfikator(3),
+		STyp::Tekst(WEZEL_XML_CZAS)),
+		STyp::Identyfikator(0),
 		STyp::Wartosc(1.0));
 	// SUROWIEC - METAL END
 
 	// SUROWIEC - KRYSZTAL
 	tworzParam(
 		*tworzZmiana(
-			*tworzSurowiec(
-				*root, 
-				STyp::Identyfikator(2), 
-				STyp::Tekst("Krysztal"), 
-				STyp::Tekst("Opis kryszta³u."),
-				STyp::Masa(2),
-				STyp::Objetosc(1.3), 
-				STyp::Bool(true)),
-			STyp::Identyfikator(3), 
-			STyp::Tekst(WEZEL_XML_CZAS)), 
-		STyp::Identyfikator(0), 
+		*tworzSurowiec(
+		*root,
+		STyp::Identyfikator(2),
+		STyp::Tekst("Krysztal"),
+		STyp::Tekst("Opis kryszta³u."),
+		STyp::Masa(2),
+		STyp::Objetosc(1.3),
+		STyp::Bool(true)),
+		STyp::Identyfikator(3),
+		STyp::Tekst(WEZEL_XML_CZAS)),
+		STyp::Identyfikator(0),
 		STyp::Wartosc(2.0));
 	// SUROWIEC - KRYSZTAL END
 
 	// SUROWIEC - DEUTER
 	tworzParam(
 		*tworzZmiana(
-			*tworzSurowiec(
-				*root, 
-				STyp::Identyfikator(3), 
-				STyp::Tekst("Deuter"), 
-				STyp::Tekst("Opis deuteru."), 
-				STyp::Masa(1), 
-				STyp::Objetosc(3), 
-				STyp::Bool(true)), 
-			STyp::Identyfikator(3), 
-			STyp::Tekst(WEZEL_XML_CZAS)), 
-		STyp::Identyfikator(0), 
+		*tworzSurowiec(
+		*root,
+		STyp::Identyfikator(3),
+		STyp::Tekst("Deuter"),
+		STyp::Tekst("Opis deuteru."),
+		STyp::Masa(1),
+		STyp::Objetosc(3),
+		STyp::Bool(true)),
+		STyp::Identyfikator(3),
+		STyp::Tekst(WEZEL_XML_CZAS)),
+		STyp::Identyfikator(0),
 		STyp::Wartosc(0.1));
 	// SUROWIEC - DEUTER END
 
@@ -68,7 +68,7 @@ void InicjalizacjaDanychTestowych::zaladujDane(){
 		STyp::Objetosc(0),
 		STyp::Bool(false));
 	// SUROWIEC - ENERGIA END
-	
+
 	// STATEK - MALY TRANSPORTOWIEC
 	auto mtransport = tworzStatek(
 		*root,
@@ -93,14 +93,112 @@ void InicjalizacjaDanychTestowych::zaladujDane(){
 		STyp::Masa(40),
 		STyp::Fluktuacja(0.7f)
 		);
-	tworzHangar(*mtransport,STyp::Powierzchnia(0));
-	tworzLadownia(*mtransport,STyp::Objetosc(500));
-	tworzKryterium(*mtransport,STyp::Identyfikator(1),STyp::Ilosc(2000));
-	tworzKryterium(*mtransport,STyp::Identyfikator(2),STyp::Ilosc(2000));
-
+	tworzHangar(*mtransport, STyp::Powierzchnia(0));
+	tworzLadownia(*mtransport, STyp::Objetosc(500));
+	tworzKryterium(*mtransport, STyp::Identyfikator(1), STyp::Ilosc(2000));
+	tworzKryterium(*mtransport, STyp::Identyfikator(2), STyp::Ilosc(2000));
 	// STATEK - MALY TRANSPORTOWIEC END
 
-	//UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().wczytajDane());
+	// STATEK - DUZY TRANSPORTOWIEC
+	auto dtransport = tworzStatek(
+		*root,
+		STyp::Identyfikator(6),
+		STyp::Tekst("Du¿y transportowiec"),
+		STyp::Tekst("Opis du¿ego transportowca."),
+		STyp::Masa(560 * 3),
+		STyp::Powierzchnia(120 * 2.5),
+		STyp::Bool(true)
+		);
+	tworzJednostkaAtakujaca(
+		*dtransport,
+		STyp::Obrazenia(50 * 2),
+		STyp::Obrazenia(130 * 1.5),
+		STyp::Obrazenia(40 * 4)
+		);
+	tworzJednostkaLatajaca(
+		*dtransport,
+		STyp::Identyfikator(1),
+		STyp::Moc(500 * 4),
+		STyp::ZuzyciePaliwa(300 * 3),
+		STyp::Masa(40 * 3.4),
+		STyp::Fluktuacja(0.75f)
+		);
+	tworzHangar(*dtransport, STyp::Powierzchnia(0));
+	tworzLadownia(*dtransport, STyp::Objetosc(2500));
+	tworzKryterium(*dtransport, STyp::Identyfikator(1), STyp::Ilosc(6000));
+	tworzKryterium(*dtransport, STyp::Identyfikator(2), STyp::Ilosc(6000));
+	// STATEK - DUZY TRANSPORTOWIEC END
+
+	// STATEK - MYSLIWIEC
+	auto mysliwiec = tworzStatek(
+		*root,
+		STyp::Identyfikator(7),
+		STyp::Tekst("Myœliwiec"),
+		STyp::Tekst("Opis myœliwca."),
+		STyp::Masa(900),
+		STyp::Powierzchnia(200),
+		STyp::Bool(false)
+		);
+	tworzJednostkaAtakujaca(
+		*mysliwiec,
+		STyp::Obrazenia(200),
+		STyp::Obrazenia(160),
+		STyp::Obrazenia(200)
+		);
+	tworzJednostkaLatajaca(
+		*mysliwiec,
+		STyp::Identyfikator(2),
+		STyp::Moc(1500),
+		STyp::ZuzyciePaliwa(400),
+		STyp::Masa(80),
+		STyp::Fluktuacja(0.72f)
+		);
+	tworzHangar(*mysliwiec, STyp::Powierzchnia(0));
+	tworzLadownia(*mysliwiec, STyp::Objetosc(100));
+	tworzKryterium(*mysliwiec, STyp::Identyfikator(1), STyp::Ilosc(3000));
+	tworzKryterium(*mysliwiec, STyp::Identyfikator(2), STyp::Ilosc(1000));
+	// STATEK - MYSLIWIEC END
+
+	// STATEK - TRANSPORTER
+	auto transporter = tworzStatek(
+		*root,
+		STyp::Identyfikator(8),
+		STyp::Tekst("Transporter"),
+		STyp::Tekst("Opis transportera."),
+		STyp::Masa(10000),
+		STyp::Powierzchnia(20000),
+		STyp::Bool(true)
+		);
+	tworzJednostkaAtakujaca(
+		*transporter,
+		STyp::Obrazenia(300),
+		STyp::Obrazenia(1500),
+		STyp::Obrazenia(2000)
+		);
+	tworzJednostkaLatajaca(
+		*transporter,
+		STyp::Identyfikator(4),
+		STyp::Moc(5000),
+		STyp::ZuzyciePaliwa(1000),
+		STyp::Masa(150),
+		STyp::Fluktuacja(0.86f)
+		);
+	tworzHangar(*transporter, STyp::Powierzchnia(18000));
+	tworzLadownia(*transporter, STyp::Objetosc(8000));
+	tworzKryterium(*transporter, STyp::Identyfikator(1), STyp::Ilosc(25000));
+	tworzKryterium(*transporter, STyp::Identyfikator(2), STyp::Ilosc(20000));
+	tworzKryterium(*transporter, STyp::Identyfikator(3), STyp::Ilosc(5000));
+	// STATEK - TRANSPORTER END
+	return dokument;
+}
+
+void InicjalizacjaDanychTestowych::zaladujDane(){
+	auto dokument = dane();
+	UNIT_TEST_ASSERT_NOTNULL(dokument);
+	dokument->zapisz("danetestowe.xml");
+	auto root = dokument->pobierzElement(WEZEL_XML_ROOT);
+	UNIT_TEST_ASSERT_NOTNULL(root);
+	UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().wczytajDane(root));
 }
 
 std::shared_ptr<SPar::ParserElement> InicjalizacjaDanychTestowych::tworzSurowiec(SPar::ParserElement& root,
@@ -120,6 +218,7 @@ std::shared_ptr<SPar::ParserElement> InicjalizacjaDanychTestowych::tworzSurowiec
 	UNIT_TEST_ASSERT_TRUE(surowiec->ustawTekst(opis().c_str()));
 	return surowiec;
 }
+
 std::shared_ptr<SPar::ParserElement> InicjalizacjaDanychTestowych::tworzStatek(SPar::ParserElement& root,
 	const STyp::Identyfikator& id,
 	const STyp::Tekst& nazwa,
@@ -127,7 +226,7 @@ std::shared_ptr<SPar::ParserElement> InicjalizacjaDanychTestowych::tworzStatek(S
 	const STyp::Masa& masa,
 	const STyp::Powierzchnia& powierzchnia,
 	const STyp::Bool& przewozonyWHangarze){
-	auto statek = root.tworzElement(WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO);
+	auto statek = root.tworzElement(WEZEL_XML_STATEK_INFO);
 	UNIT_TEST_ASSERT_NOTNULL(statek);
 	UNIT_TEST_ASSERT_NOTNULL(statek->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(statek->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa().c_str()));

@@ -21,9 +21,18 @@ namespace SPar{
 	}
 
 	bool ParserElementXml::ustawTekst(const char* tekst){
-		if (element_ && element_->FirstChild() && element_->FirstChild()->ToText()) {
-			element_->FirstChild()->ToText()->SetValue(tekst);
-			return true;
+		if (element_){
+			if (element_->FirstChild() && element_->FirstChild()->ToText()) {
+				element_->FirstChild()->ToText()->SetValue(tekst);
+				return true;
+			}
+			else{
+				auto wezel = element_->GetDocument()->NewText(tekst);
+				if (wezel){
+					element_->LinkEndChild(wezel);
+					return true;
+				}
+			}
 		}
 		return false;
 	}
@@ -108,7 +117,8 @@ namespace SPar{
 		if (element_){
 			element_->Accept(&printer);
 			return printer.CStr();
-		}else{
+		}
+		else{
 			return std::string("nullptr");
 		}
 	}

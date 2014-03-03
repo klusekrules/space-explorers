@@ -17,7 +17,7 @@ namespace SZmi{
 	std::shared_ptr<ZmianaInterfejs> ZmianaFabryka::Tworz(XmlBO::ElementWezla wezel) const {
 		if (wezel){
 			STyp::Identyfikator id;
-			if (XmlBO::WczytajAtrybut<NOTHROW>(wezel, XML_ATRYBUT_ZMIANA_ID, id))
+			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, XML_ATRYBUT_ZMIANA_ID, id))
 				return nullptr;
 			auto iterator = callbacks_.find(id());
 			if (iterator == callbacks_.end())

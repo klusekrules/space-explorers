@@ -34,8 +34,7 @@ namespace SpEx{
 	bool Statek::polacz(const Obiekt& obiekt){
 		return false;
 	}
-
-
+	
 	STyp::Powierzchnia Statek::pobierzPowierzchnie()const{
 		return pobierzPowierzchnie(*this);
 	}

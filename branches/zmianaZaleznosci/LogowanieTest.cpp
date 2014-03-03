@@ -1,6 +1,6 @@
 #include "LogowanieTest.h"
 #include "Aplikacja.h"
-
+#include "InicjalizacjaDanychTestowych.h"
 #include "Utils.h"
 
 void LogowanieTest::zaloguj(){
@@ -12,6 +12,11 @@ void LogowanieTest::zaloguj(){
 	}else{
 		SpEx::Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Debug, "U¿ytkownik istnieje.");
 	}
-	UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().wczytajGre("Daniel", haslo));
+
+	auto dokument = InicjalizacjaDanychTestowych::dane();
+	UNIT_TEST_ASSERT_NOTNULL(dokument);
+	auto root = dokument->pobierzElement(WEZEL_XML_ROOT);
+	UNIT_TEST_ASSERT_NOTNULL(root);
+	UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().wczytajGre(root,"Daniel", haslo));
 	//UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().pobierzGre().usunGracza("Daniel",haslo));
 }

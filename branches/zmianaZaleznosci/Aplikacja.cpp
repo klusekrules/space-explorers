@@ -134,8 +134,8 @@ namespace SpEx{
 		return *instancjaGry_;
 	}
 
-	bool Aplikacja::wczytajDane(){
-		return instancjaGry_->wczytajDane(nazwaPlikuDanych_);
+	bool Aplikacja::wczytajDane(std::shared_ptr<SPar::ParserElement> root){
+		return instancjaGry_->wczytajDane(root);
 	}
 
 	void Aplikacja::wyczyscDane(){
@@ -253,27 +253,27 @@ namespace SpEx{
 		std::locale::global(std::locale("C"));
 		if (instancjaGry_->zapisz(wezel) && instancjaGry_->zapisz(nazwa, hash)){
 			std::locale::global(std::locale(jezykAplikacji_));
-			return dokument.zapisz("save\\gra.xml") == tinyxml2::XML_NO_ERROR;
+			return dokument.zapisz("save\\gra.xml");
 		}
 		std::locale::global(std::locale(jezykAplikacji_));
 		return false;
 	}
 
-	bool Aplikacja::wczytajGre(const std::string& nazwa, const std::string& hash){
+	bool Aplikacja::wczytajGre(std::shared_ptr<SPar::ParserElement> root, const std::string& nazwa, const std::string& hash){
 		SPar::ParserDokumentXml dokument;
-		if (dokument.odczytaj("save\\gra.xml") != tinyxml2::XML_NO_ERROR){
+		if (!dokument.odczytaj("save\\gra.xml")){
 			auto wezel = dokument.tworzElement(WEZEL_XML_ROOT);
-			auto gra = dokument.tworzElement(WEZEL_XML_GRA);
+			auto gra = wezel->tworzElement(WEZEL_XML_GRA);
 			dokument.zapisz("save\\gra.xml");
 		}
-		auto wezel = dokument.pobierzElement(nullptr);
-		if (wezel){
+		auto wezel = dokument.pobierzElement(WEZEL_XML_ROOT);
+		if (wezel && *wezel){
 			std::shared_ptr<Gra> gra = instancjaGry_;
 			try{
 				instancjaGry_ = std::shared_ptr<Gra>(new Gra(*this));
 				Walidator::pobierzInstancje().wyczysc();
 				Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(STyp::Identyfikator(0x0)); // Poprawna wartoœæ; U¿ywana gdy obiekty znajduj¹ siê we flocie.
-				if (instancjaGry_->wczytajDane(this->nazwaPlikuDanych_)){
+				if (root && instancjaGry_->wczytajDane(root)){
 					if (instancjaGry_->odczytaj(wezel->pobierzElement(WEZEL_XML_GRA)))
 					if (instancjaGry_->odczytaj(nazwa, hash))
 					if (Walidator::pobierzInstancje().waliduj())
