@@ -158,7 +158,7 @@ namespace SpEx{
 			return true;
 		}
 		else{
-			return false; Aplikacja::pobierzInstancje().pobierzGre().pobierzObiekt(identyfikator).tworz(*this, ilosc.pobierzAtrybut());
+			return Aplikacja::pobierzInstancje().pobierzGre().pobierzObiekt(identyfikator).tworz(*this, ilosc.pobierzAtrybut());
 		}
 	}
 
@@ -319,6 +319,7 @@ namespace SpEx{
 		planeta->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA_LADOW, powierzchniaLadow_.napis().c_str());
 		planeta->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA_UZYTKOWA_LADOW, powierzchniaUzytkowaLadow_.napis().c_str());
 		planeta->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwaPlanety_().c_str());
+		planeta->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, identyfikator_.napis().c_str());
 		licznikIdentyfikatorowFloty_.zapisz(planeta);
 		/*for(auto element :  dostepneZasobyPlanety_){
 			TiXmlElement* zasob = new TiXmlElement(WEZEL_XML_ZASOB);
@@ -327,11 +328,11 @@ namespace SpEx{
 			zasob->SetAttribute(ATRYBUT_XML_ILOSC, element.second.napis());
 			planeta->LinkEndChild(zasob);
 			}*/
-		auto obiekty = wezel->tworzElement(WEZEL_XML_OBIEKTY);
+		auto obiekty = planeta->tworzElement(WEZEL_XML_OBIEKTY);
 		for (auto element : listaObiektow_)
 		if (!element.second->zapisz(obiekty))
 			return false;
-		auto floty = wezel->tworzElement(WEZEL_XML_FLOTY);
+		auto floty = planeta->tworzElement(WEZEL_XML_FLOTY);
 		for (auto element : listaFlot_)
 		if (!element.second->zapisz(floty))
 			return false;

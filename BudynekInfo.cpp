@@ -7,6 +7,8 @@ namespace SpEx{
 	BudynekInfo::BudynekInfo(XmlBO::ElementWezla wezel)
 		: ObiektInfo(wezel)
 	{
+		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_POWIERZCHNIA, powierzchnia_);
+		zmianaPowierzchni_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_POWIERZCHNIA));
 		auto zapotrzebowanie = std::ref(zapotrzebowanie_);
 		XmlBO::ForEach<THROW>(wezel, WEZEL_XML_ZAPOTRZEBOWANIE, XmlBO::OperacjaWezla([&zapotrzebowanie](XmlBO::ElementWezla warunek)->bool{
 			Warunek obiekt(warunek);
@@ -34,7 +36,7 @@ namespace SpEx{
 	}
 
 	bool BudynekInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
-		return planeta.dodajObiekt(std::shared_ptr<Budynek>(tworzEgzemplarz(PodstawoweParametry(atrybut, PodstawoweParametry::POZIOM, planeta.pobierzIdentyfikator()))));
+		return planeta.dodajObiekt(std::shared_ptr<Budynek>(tworzEgzemplarz(PodstawoweParametry(atrybut, PodstawoweParametry::POZIOM))));
 	}
 	
 	STyp::Powierzchnia BudynekInfo::pobierzPowierzchnie(const PodstawoweParametry& parametry)const{

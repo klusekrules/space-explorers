@@ -12,8 +12,8 @@ namespace SpEx{
 		return new Technologia(parametry, *this);
 	}
 	
-	bool TechnologiaInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy parametry) const{
-		return false; //TODO: Dokoñczyæ metodê. gra.wybudujNaPlanecie(planeta, *this, ilosc, poziom);
+	bool TechnologiaInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
+		return planeta.dodajObiekt(std::shared_ptr<Technologia>(tworzEgzemplarz(PodstawoweParametry(atrybut, PodstawoweParametry::POZIOM))));
 	}
 
 	std::string TechnologiaInfo::napis()const{

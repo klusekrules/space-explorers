@@ -8,6 +8,8 @@ namespace SpEx{
 		: ObiektInfo(wezel),
 		JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<THROW>(wezel, WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO))
 	{
+		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_POWIERZCHNIA, powierzchnia_);
+		zmianaPowierzchni_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_POWIERZCHNIA));
 	}
 	
 	Obrona* ObronaInfo::tworzEgzemplarz(const PodstawoweParametry& parametry) const{
@@ -15,7 +17,7 @@ namespace SpEx{
 	}
 
 	bool ObronaInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
-		return false;//TODO: dokoñczyæ metodê. gra.wybudujNaPlanecie(planeta, *this, ilosc, poziom);
+		return planeta.dodajObiekt(std::shared_ptr<Obrona>(tworzEgzemplarz(PodstawoweParametry(atrybut, PodstawoweParametry::ILOSC))));
 	}
 
 	STyp::Powierzchnia ObronaInfo::pobierzPowierzchnie(const PodstawoweParametry& parametry)const{
