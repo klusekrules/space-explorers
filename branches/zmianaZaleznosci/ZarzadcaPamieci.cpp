@@ -44,7 +44,7 @@ namespace SpEx{
 		std::string plik("save\\uklad\\");
 		plik += identyfikator.napis();
 		plik += ".xml";
-		if (dokument.odczytaj(plik.c_str()))
+		if (!dokument.odczytaj(plik.c_str()))
 			return false;
 		auto root = dokument.pobierzElement(nullptr);
 		if (!root)

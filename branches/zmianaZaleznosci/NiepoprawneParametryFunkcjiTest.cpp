@@ -7,13 +7,13 @@ void NiepoprawneParametryFunkcjiTest::startTestow(){
 	UNIT_TEST_ASSERT_NOTNULL(planeta);
 	planeta->wyczyscZawartoscPlanety();
 	UNIT_TEST_ASSERT_TRUE(gra->przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
-	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(SpEx::Planeta::Indeks(STyp::Identyfikator(0xC)), STyp::Ilosc(100)));
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(SpEx::Planeta::Indeks(STyp::Identyfikator(5)), STyp::Ilosc(100)));
 }
 
 void NiepoprawneParametryFunkcjiTest::tworzenieWyjatku(){
 	try{
 		STyp::Ilosc temp(5);
-		const SpEx::Statek& tmp = planeta->pobierzStatek(STyp::Identyfikator(0xC));
+		const SpEx::Statek& tmp = planeta->pobierzStatek(STyp::Identyfikator(5));
 		throw SpEx::NiepoprawneParametryFunkcji(EXCEPTION_PLACE, STyp::Tekst() , tmp, temp);
 	}
 	catch (const SpEx::NiepoprawneParametryFunkcji& e){
@@ -21,4 +21,4 @@ void NiepoprawneParametryFunkcjiTest::tworzenieWyjatku(){
 	}
 }
 
-//REJESTRUJ_PACZKE_TESTOW(NiepoprawneParametryFunkcjiTest);
+REJESTRUJ_PACZKE_TESTOW(NiepoprawneParametryFunkcjiTest);

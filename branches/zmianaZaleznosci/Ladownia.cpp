@@ -46,7 +46,7 @@ namespace SpEx{
 		if (!obiekt.czyTypPrzyrostowy()){
 			return false;
 		}
-		if (obiekt.pobierzObjetosc()() / obiekt.pobierzIlosc()() > ladowniaInfo_.pobierzPojemnoscMaksymalna(*this)() || (obiekt.pobierzObjetosc() + zajete_) > pobierzPojemnoscMaksymalnaLadowni()){
+		if (obiekt.pobierzObjetosc()() / obiekt.pobierzIlosc()() > pobierzPojemnoscMaksymalnaLadowni()() || (obiekt.pobierzObjetosc() + zajete_) > pobierzPojemnoscMaksymalnaLadowni()){
 			return false;
 		}
 		std::shared_ptr<Surowce> kopia = std::shared_ptr<Surowce>(obiekt.kopia());

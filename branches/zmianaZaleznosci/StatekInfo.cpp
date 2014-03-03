@@ -2,6 +2,7 @@
 #include "Gra.h"
 #include "definicjeWezlowXML.h"
 #include "Logger\Logger.h"
+#include "TypyProste\TypyProsteBO.h"
 
 namespace SpEx{
 	StatekInfo::StatekInfo(XmlBO::ElementWezla wezel) throw(WyjatekParseraXML)
@@ -11,18 +12,20 @@ namespace SpEx{
 		LadowniaInfo(XmlBO::ZnajdzWezel<THROW>(wezel, WEZEL_XML_LADOWNIA_INFO)),
 		HangarInfo(XmlBO::ZnajdzWezel<THROW>(wezel, WEZEL_XML_HANGAR_INFO)), przechowywanyWHangarze_(false)
 	{
-		if (wezel){
-			auto przyrostowy = XmlBO::WczytajAtrybut<int>(wezel, ATRYBUT_XML_HANGAR, -1);
-			switch (przyrostowy){
-			case 1: przechowywanyWHangarze_ = true;
-				break;
-			case 0: przechowywanyWHangarze_ = false;
-				break;
-			default: SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
-			}
+		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_MASA, masa_);
+		zmianaMasy_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_MASA));
+		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_POWIERZCHNIA, powierzchnia_);
+		zmianaPowierzchni_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_POWIERZCHNIA));
+		auto przyrostowy = XmlBO::WczytajAtrybut<int>(wezel, ATRYBUT_XML_HANGAR, -1);
+		switch (przyrostowy){
+		case 1: przechowywanyWHangarze_ = true;
+			break;
+		case 0: przechowywanyWHangarze_ = false;
+			break;
+		default: SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
 		}
 	}
-	
+
 	bool StatekInfo::czyMoznaDodacDoHangaru() const{
 		return przechowywanyWHangarze_();
 	}
@@ -32,11 +35,11 @@ namespace SpEx{
 	}
 
 	STyp::Powierzchnia StatekInfo::pobierzPowierzchnie(const PodstawoweParametry& parametry)const{
-		return Utils::ObliczZmiane(zmianaPowierzchni_, powierzchnia_, parametry);
+		return STyp::pomnozPrzezIlosc(Utils::ObliczZmiane(zmianaPowierzchni_, powierzchnia_, parametry), parametry.pobierzIlosc());
 	}
 
 	STyp::Masa StatekInfo::pobierzMase(const PodstawoweParametry& parametry)const{
-		return Utils::ObliczZmiane(zmianaMasy_, masa_, parametry);
+		return STyp::pomnozPrzezIlosc(Utils::ObliczZmiane(zmianaMasy_, masa_, parametry), parametry.pobierzIlosc());
 	}
 
 	Statek* StatekInfo::tworzEgzemplarz(const PodstawoweParametry& parametry) const{
@@ -44,7 +47,7 @@ namespace SpEx{
 	}
 
 	bool StatekInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
-		return false;//gra.wybudujNaPlanecie(planeta, *this, ilosc, poziom);
+		return planeta.dodajObiekt(std::shared_ptr<Statek>(tworzEgzemplarz(PodstawoweParametry(atrybut, PodstawoweParametry::ILOSC))));
 	}
 
 	std::string StatekInfo::napis() const{

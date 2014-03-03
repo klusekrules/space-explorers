@@ -2,6 +2,7 @@
 #include "Logger\Logger.h"
 #include "Aplikacja.h"
 #include "definicjeWezlowXML.h"
+#include "TypyProste\TypyProsteBO.h"
 
 namespace SpEx{
 	LadowniaInfo::LadowniaInfo(const STyp::Objetosc& maksymalnaObjetosc)

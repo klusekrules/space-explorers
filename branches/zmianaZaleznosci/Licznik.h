@@ -93,7 +93,7 @@ namespace SpEx{
 		std::string napis() const override;
 
 	private:
-		STyp::Identyfikator identyfikator_;///
+		STyp::Identyfikator identyfikator_ = 0;///
 		STyp::Ilosc wartoscLicznika_ = 0;/// Wartoœæ licznika.
 	};
 }

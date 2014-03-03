@@ -3,11 +3,11 @@
 void LadowniaTest::startTestow(){
 	gra = &(SpEx::Aplikacja::pobierzInstancje().pobierzGre());
 	UNIT_TEST_ASSERT_NOTNULL(gra);
-	SpEx::StatekInfo& statekInfo = gra->pobierzStatek(STyp::Identyfikator(0xB));
-	SpEx::SurowceInfo& surowceInfo3 = gra->pobierzSurowce(STyp::Identyfikator(0x6));
+	SpEx::StatekInfo& statekInfo = gra->pobierzStatek(STyp::Identyfikator(0x6));
+	SpEx::SurowceInfo& surowceInfo3 = gra->pobierzSurowce(STyp::Identyfikator(0x2));
 	SpEx::SurowceInfo& surowceInfo = gra->pobierzSurowce(STyp::Identyfikator(0x1));
-	SpEx::SurowceInfo& surowceInfo2 = gra->pobierzSurowce(STyp::Identyfikator(0xA));
-	statekTransportowy = std::shared_ptr<SpEx::Statek>(statekInfo.tworzEgzemplarz(STyp::Ilosc(10)));
+	SpEx::SurowceInfo& surowceInfo2 = gra->pobierzSurowce(STyp::Identyfikator(0x4));
+	statekTransportowy = std::shared_ptr<SpEx::Statek>(statekInfo.tworzEgzemplarz(STyp::Ilosc(5)));
 	metal = std::shared_ptr<SpEx::Surowce>(surowceInfo.tworzEgzemplarz(STyp::Ilosc(10000)));
 	energia = std::shared_ptr<SpEx::Surowce>(surowceInfo2.tworzEgzemplarz(STyp::Ilosc(10000)));
 	krysztal = std::shared_ptr<SpEx::Surowce>(surowceInfo3.tworzEgzemplarz(STyp::Ilosc(1000)));
@@ -35,4 +35,4 @@ void LadowniaTest::dzielenieLadowni(){
 	UNIT_TEST_ASSERT_NOTEQUAL(STyp::Ilosc(0), statekTransportowy->pobierzIloscObiektowLadowni(metal->pobierzIdentyfikator()));
 }
 
-//REJESTRUJ_PACZKE_TESTOW(LadowniaTest);
+REJESTRUJ_PACZKE_TESTOW(LadowniaTest);

@@ -2,12 +2,17 @@
 #include "Logger\Logger.h"
 #include "Aplikacja.h"
 #include "definicjeWezlowXML.h"
+#include "TypyProste\TypyProsteBO.h"
 
 namespace SpEx{
 	SurowceInfo::SurowceInfo(XmlBO::ElementWezla wezel) throw(WyjatekParseraXML)
 		: ObiektInfo(wezel), przyrostowy_(false), zmianaCzasu_(nullptr)
 	{
 		if (wezel){
+			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_MASA, masa_);
+			zmianaMasy_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_MASA));
+			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_OBJETOSC, objetosc_);
+			zmianaObjetosci_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_OBJETOSC));
 			zmianaCzasu_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WEZEL_XML_CZAS));
 			auto przyrostowy = XmlBO::WczytajAtrybut<int>(wezel, ATRYBUT_XML_TYP, -1);
 			switch (przyrostowy){
@@ -25,7 +30,7 @@ namespace SpEx{
 	}
 
 	bool SurowceInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
-		return false; //gra.wybudujNaPlanecie(planeta, *this, ilosc, poziom);
+		return planeta.dodajObiekt(std::shared_ptr<Surowce>(tworzEgzemplarz(PodstawoweParametry(atrybut,PodstawoweParametry::ILOSC))));
 	}
 
 	STyp::Czas SurowceInfo::pobierzCzas(const PodstawoweParametry& parametryPodstawowe)const{
@@ -37,11 +42,11 @@ namespace SpEx{
 	}
 
 	STyp::Objetosc SurowceInfo::pobierzObjetosc(const PodstawoweParametry& parametry)const{
-		return Utils::ObliczZmiane(zmianaObjetosci_, objetosc_, parametry);
+		return STyp::pomnozPrzezIlosc(Utils::ObliczZmiane(zmianaObjetosci_, objetosc_, parametry), parametry.pobierzIlosc());
 	}
 
 	STyp::Masa SurowceInfo::pobierzMase(const PodstawoweParametry& parametry)const{
-		return Utils::ObliczZmiane(zmianaMasy_, masa_, parametry);
+		return STyp::pomnozPrzezIlosc(Utils::ObliczZmiane(zmianaMasy_, masa_, parametry), parametry.pobierzIlosc());
 	}
 	
 	std::string SurowceInfo::napis() const{
