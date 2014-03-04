@@ -308,7 +308,7 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzLadownia(SPar::ParserEle
 std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzKryterium(SPar::ParserElement& obiekt,
 	const STyp::Identyfikator& id,
 	const STyp::Poziom& poziom){
-	auto kryterium = obiekt.tworzElement(WEZEL_XML_ZMIANA);
+	auto kryterium = obiekt.tworzElement(WEZEL_XML_KRYTERIUM);
 	UNIT_TEST_ASSERT_NOTNULL(kryterium);
 	UNIT_TEST_ASSERT_NOTNULL(kryterium->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(kryterium->tworzAtrybut(ATRYBUT_XML_POZIOM, poziom.napis().c_str()));
@@ -318,7 +318,7 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzKryterium(SPar::ParserEl
 std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzKryterium(SPar::ParserElement& obiekt,
 	const STyp::Identyfikator& id,
 	const STyp::Ilosc& ilosc){
-	auto kryterium = obiekt.tworzElement(WEZEL_XML_ZMIANA);
+	auto kryterium = obiekt.tworzElement(WEZEL_XML_KRYTERIUM);
 	UNIT_TEST_ASSERT_NOTNULL(kryterium);
 	UNIT_TEST_ASSERT_NOTNULL(kryterium->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(kryterium->tworzAtrybut(ATRYBUT_XML_POZIOM, ilosc.napis().c_str()));
