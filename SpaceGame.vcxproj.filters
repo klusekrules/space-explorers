@@ -277,6 +277,9 @@
     <ClCompile Include="WyjatekSprawdzeniaWarunku.cpp">
       <Filter>Testy\Biblioteka</Filter>
     </ClCompile>
+    <ClCompile Include="TestyUtilsBO.cpp">
+      <Filter>Testy\KlasyTestowe\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -606,6 +609,9 @@
     <ClInclude Include="SurowceInfo.h">
       <Filter>SourceFile\Model\Obiekty\Surowce</Filter>
     </ClInclude>
+    <ClInclude Include="TestyUtilsBO.h">
+      <Filter>Testy\KlasyTestowe\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -757,6 +763,9 @@
     </Filter>
     <Filter Include="SourceFile\Model\Obiekty\Statek">
       <UniqueIdentifier>{a3232f94-989e-43da-bcd0-d47ac77070f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Testy\KlasyTestowe\Utils">
+      <UniqueIdentifier>{7e5c077d-d62b-4bdc-b4a8-5a466d3ddb58}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

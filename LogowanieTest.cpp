@@ -1,7 +1,7 @@
 #include "LogowanieTest.h"
 #include "Aplikacja.h"
-#include "InicjalizacjaDanychTestowych.h"
 #include "Utils.h"
+#include "TestyUtilsBO.h"
 
 void LogowanieTest::zaloguj(){
 	std::string haslo("haslo");
@@ -13,7 +13,7 @@ void LogowanieTest::zaloguj(){
 		SpEx::Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Debug, "U¿ytkownik istnieje.");
 	}
 
-	auto dokument = InicjalizacjaDanychTestowych::dane();
+	auto dokument = TestyUtilsBO::dane();
 	UNIT_TEST_ASSERT_NOTNULL(dokument);
 	auto root = dokument->pobierzElement(WEZEL_XML_ROOT);
 	UNIT_TEST_ASSERT_NOTNULL(root);

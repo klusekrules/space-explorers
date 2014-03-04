@@ -1,5 +1,5 @@
 #include "ZapisStanuGryTest.h"
-#include "InicjalizacjaDanychTestowych.h"
+#include "TestyUtilsBO.h"
 
 ZapisStanuGryTest::ZapisStanuGryTest(void)
 : p_a(STyp::Identyfikator(0), STyp::Identyfikator(0))
@@ -17,7 +17,7 @@ void ZapisStanuGryTest::zapis(){
 void ZapisStanuGryTest::odczyt(){
 	std::string haslo("haslo");
 	SpEx::Utils::sha3(haslo);
-	auto dokument = InicjalizacjaDanychTestowych::dane();
+	auto dokument = TestyUtilsBO::dane();
 	UNIT_TEST_ASSERT_NOTNULL(dokument);
 	auto root = dokument->pobierzElement(WEZEL_XML_ROOT);
 	UNIT_TEST_ASSERT_NOTNULL(root);
