@@ -200,7 +200,7 @@ namespace SpEx{
 		void przeliczZajeteMiejsceHangaru();
 
 		Zbiornik obiekty_; /// Lista elementów w hangarze.
-		STyp::Powierzchnia zajete_; /// Zajête miejsce.
+		STyp::Powierzchnia zajete_ = 0; /// Zajête miejsce.
 
 	private:
 

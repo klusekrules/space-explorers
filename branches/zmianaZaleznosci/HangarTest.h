@@ -23,5 +23,5 @@ private:
 	std::shared_ptr<SpEx::Statek> statekTransportowy;
 	std::shared_ptr<SpEx::Statek> statekTransportowyDuzy;
 	std::shared_ptr<SpEx::Statek> mysliwiec;
-	std::shared_ptr<SpEx::Statek> mysliwiecDrugi;
+	std::shared_ptr<SpEx::Statek> transporter;
 };

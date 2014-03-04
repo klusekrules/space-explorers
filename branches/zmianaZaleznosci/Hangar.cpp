@@ -23,11 +23,11 @@ namespace SpEx{
 	}
 
 	bool Hangar::dodajStatekDoHangaru(const Item& obiekt){
-		/*if (!obiekt.czyMoznaDodacDoHangaru()
-			|| obiekt.pobierzObjetosc() / obiekt.pobierzIlosc() > hangarInfo_.pobierzMaksymalnaIloscPrzewozonychStatkow(*this)
-			|| (obiekt.pobierzObjetosc() + zajete_) > pobierzPojemnoscMaksymalnaHangaru()){
+		if (!obiekt.czyMoznaDodacDoHangaru()
+			|| obiekt.pobierzPowierzchnie()() / obiekt.pobierzIlosc()() > pobierzPojemnoscMaksymalnaHangaru()()
+			|| (obiekt.pobierzPowierzchnie() + zajete_) > pobierzPojemnoscMaksymalnaHangaru()){
 			return false;
-		}*/
+		}
 		std::shared_ptr<Item> kopia = std::shared_ptr<Item>(obiekt.kopia());
 		kopia->ustawIdentyfikatorPlanety(STyp::Identyfikator());
 		bool rezultat = obiekty_.dodaj(kopia);
@@ -36,12 +36,11 @@ namespace SpEx{
 	}
 
 	bool Hangar::dodajStatekDoHangaru(std::shared_ptr<Item> obiekt){
-		/*if (!obiekt
-			|| !obiekt->czyMoznaDodacDoHangaru()
-			|| obiekt->pobierzObjetosc() / obiekt->pobierzIlosc() > hangarInfo_.pobierzMaksymalnaIloscPrzewozonychStatkow(*this)
-			|| (obiekt->pobierzObjetosc() + zajete_) > pobierzPojemnoscMaksymalnaHangaru()){
+		if ( !obiekt || !obiekt->czyMoznaDodacDoHangaru()
+			|| obiekt->pobierzPowierzchnie()() / obiekt->pobierzIlosc()() > pobierzPojemnoscMaksymalnaHangaru()()
+			|| (obiekt->pobierzPowierzchnie() + zajete_) > pobierzPojemnoscMaksymalnaHangaru()){
 			return false;
-		}*/
+		}
 		MenedzerTranzakcji tranzakcja;
 		STyp::Identyfikator nowe;
 		Hangar* hangar = this;

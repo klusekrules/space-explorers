@@ -246,6 +246,7 @@
     <ClInclude Include="Stan.h" />
     <ClInclude Include="StanInfo.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TestyUtilsBO.h" />
     <ClInclude Include="TypyEksportowne.h" />
     <ClInclude Include="UkladSloneczny.h" />
     <ClInclude Include="Walidator.h" />
@@ -399,6 +400,7 @@
     <ClCompile Include="TechnologiaInfo.cpp" />
     <ClCompile Include="TechnologiaTest.cpp" />
     <ClCompile Include="TestyJednostkowe.cpp" />
+    <ClCompile Include="TestyUtilsBO.cpp" />
     <ClCompile Include="TworzenieObiektowTest.cpp" />
     <ClCompile Include="UkladSloneczny.cpp" />
     <ClCompile Include="Utils.cpp" />
