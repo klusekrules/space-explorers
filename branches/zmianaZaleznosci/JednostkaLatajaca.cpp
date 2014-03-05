@@ -14,7 +14,7 @@ namespace SpEx{
 	}
 
 	STyp::ZuzyciePaliwa JednostkaLatajaca::wyliczZuzyciePaliwa(const STyp::Dystans& d, const STyp::Predkosc& p) const{
-		return STyp::ZuzyciePaliwa(jednostkaLatajacaInfo_.pobierzZuzyciePaliwa(*this)()* (d() / p()));
+		return STyp::ZuzyciePaliwa(pobierzJednostkoweZuzyciePaliwa()()* (d() / p()));
 	}
 
 	STyp::ZuzyciePaliwa JednostkaLatajaca::pobierzJednostkoweZuzyciePaliwa()const{

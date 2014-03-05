@@ -182,6 +182,7 @@ namespace SpEx {
 		std::string napis()const override;
 	private:
 		ListaStatkow lista_; /// Lista statków nale¿¹cych do floty.
+		STyp::Identyfikator idFloty_; /// Identyfikator planety poczatkowej.
 		STyp::Identyfikator planetaPoczatkowa_; /// Identyfikator planety poczatkowej.
 		STyp::Identyfikator planetaDocelowa_; /// Identyfikator planety docelowej.
 		CelPodrozy celPodrozy_; /// Cel podró¿y floty.

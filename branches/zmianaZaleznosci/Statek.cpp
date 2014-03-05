@@ -82,7 +82,7 @@ namespace SpEx{
 	}
 
 	STyp::Masa Statek::pobierzMase()const{
-		return pobierzMase(*this);
+		return pobierzMase(*this) + Ladownia::pobierzMaseZawartosciLadowni() + Statek::pobierzMasaSilnika() + Hangar::pobierzMaseZawartosciHangaru();
 	}
 
 	bool Statek::czyMoznaDodacDoHangaru() const{
@@ -96,8 +96,8 @@ namespace SpEx{
 			Statek* o = new Statek(ilosc,pobierzIdentyfikatorPlanety(), this->statekinfo_);
 			Statek* statek = this;
 			tranzakcja.dodaj(std::make_shared< Zlecenie< const STyp::Ilosc, STyp::Ilosc > >(ilosc, ilosc_,
-				[](const STyp::Ilosc& ilosc, STyp::Ilosc& ilosc_s)->bool{ ilosc_s -= ilosc; return true; },
-				[&statek](const STyp::Ilosc& ilosc, STyp::Ilosc& ilosc_s)->bool{ ilosc_s += ilosc; statek->przeliczZajeteMiejsceLadowni(); statek->przeliczZajeteMiejsceHangaru(); return true; }));
+				[&statek](const STyp::Ilosc& ilosc, STyp::Ilosc& ilosc_s)->bool{ statek->ustawAtrybut(wpisIlosc(ilosc_s - ilosc)); return true; },
+				[&statek](const STyp::Ilosc& ilosc, STyp::Ilosc& ilosc_s)->bool{ statek->ustawAtrybut(wpisIlosc(ilosc_s)); statek->przeliczZajeteMiejsceLadowni(); statek->przeliczZajeteMiejsceHangaru(); return true; }));
 
 			tranzakcja.dodaj(std::make_shared< Zlecenie< Statek, Statek > >(*statek, *statek,
 				[](Statek& o, Statek& s)->bool{ o.przeliczZajeteMiejsceLadowni(); o.przeliczZajeteMiejsceHangaru(); return true; },
@@ -140,41 +140,6 @@ namespace SpEx{
 		return nullptr;
 	}
 
-	/*bool Statek::polacz(const ObiektBazowy& obiektbazowy){
-		if (czyMoznaPolaczyc(obiektbazowy)){
-			Statek & t = (Statek&)obiektbazowy;
-			Statek* statek = this;
-			MenedzerTranzakcji tranzakcja;
-
-			tranzakcja.dodaj(make_shared< Zlecenie< const Ilosc, Ilosc > >(obiektbazowy.pobierzIlosc(), ilosc_,
-				[&statek, &t](const Ilosc& ilosc, Ilosc& ilosc_s)->bool{ ilosc_s += ilosc; statek->przeliczZajeteMiejsceLadowni(); statek->przeliczZajeteMiejsceHangaru(); t.przeliczZajeteMiejsceLadowni(); t.przeliczZajeteMiejsceHangaru(); return true; },
-				[&statek, &t](const Ilosc& ilosc, Ilosc& ilosc_s)->bool{ ilosc_s -= ilosc; statek->przeliczZajeteMiejsceLadowni(); statek->przeliczZajeteMiejsceHangaru(); t.przeliczZajeteMiejsceLadowni(); t.przeliczZajeteMiejsceHangaru(); return true; }));
-
-			tranzakcja.dodaj(make_shared< Zlecenie< Statek, Statek > >(t, *statek,
-				[](Statek& o, Statek& s)->bool{ return s.pobierzPojemnoscMaksymalnaLadowni() >= (o.pobierzZajeteMiejsceLadowni() + s.pobierzZajeteMiejsceLadowni()); },
-				[](Statek& o, Statek& s)->bool{ return true; }));
-
-			tranzakcja.dodaj(make_shared< Zlecenie< Statek, Statek > >(t, *statek,
-				[](Statek& o, Statek& s)->bool{ return s.pobierzPojemnoscMaksymalnaHangaru() >= (o.pobierzZajeteMiejsceHangaru() + s.pobierzZajeteMiejsceHangaru()); },
-				[](Statek& o, Statek& s)->bool{ return true; }));
-
-			tranzakcja.dodaj(make_shared< Zlecenie< Statek, Statek > >(t, *statek,
-				[](Statek& o, Statek& s)->bool{ return s.polaczLadownie(o); },
-				[](Statek& o, Statek& s)->bool{ return false; }));
-
-			tranzakcja.dodaj(make_shared< Zlecenie< Statek, Statek > >(t, *statek,
-				[](Statek& o, Statek& s)->bool{ return s.polaczHangar(o); },
-				[](Statek& o, Statek& s)->bool{ return false; }));
-
-			tranzakcja.dodaj(make_shared< Zlecenie< Statek, Statek > >(*statek, *statek,
-				[](Statek& o, Statek& s)->bool{ s.przeliczZajeteMiejsceLadowni(); s.przeliczZajeteMiejsceHangaru(); return true; },
-				[](Statek& o, Statek& s)->bool{ return true; }));
-
-			return tranzakcja.wykonaj();
-		}
-		return false;
-	}*/
-
 	STyp::Obrazenia Statek::pobierzAtak() const{
 		return STyp::Obrazenia(JednostkaAtakujaca::pobierzAtak()() * pobierzIlosc()());
 	}
@@ -203,10 +168,6 @@ namespace SpEx{
 		return STyp::ZuzyciePaliwa(JednostkaLatajaca::pobierzJednostkoweZuzyciePaliwa()()*pobierzIlosc()());
 	}
 
-	/*STyp::Masa Statek::pobierzMase() const{
-		return STyp::Obiekt::pobierzMase() + Ladownia::pobierzMaseZawartosciLadowni() + Statek::pobierzMasaSilnika();
-	}
-	*/
 	const StatekInfo& Statek::pobierzStatekInfo() const{
 		return statekinfo_;
 	}
@@ -221,7 +182,7 @@ namespace SpEx{
 	}
 
 	STyp::Masa Statek::calkowitaMasaJednostki() const{
-		return 0;//TODO: Statek::pobierzMase();
+		return pobierzMase();
 	}
 
 	std::string Statek::napis() const{

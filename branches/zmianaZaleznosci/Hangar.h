@@ -198,6 +198,8 @@ namespace SpEx{
 		* \brief Metoda przeliczaj¹ca zajête miejsce w hangarze.
 		*/
 		void przeliczZajeteMiejsceHangaru();
+		
+		STyp::Masa pobierzMaseZawartosciHangaru()const;
 
 		Zbiornik obiekty_; /// Lista elementów w hangarze.
 		STyp::Powierzchnia zajete_ = 0; /// Zajête miejsce.

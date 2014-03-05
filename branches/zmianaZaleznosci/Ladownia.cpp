@@ -65,7 +65,7 @@ namespace SpEx{
 			return false;
 		}
 		MenedzerTranzakcji tranzakcja;
-		STyp::Identyfikator nowe;
+		STyp::Identyfikator nowe(0);
 		Ladownia* ladownia = this;
 
 		tranzakcja.dodaj(std::make_shared<ZlecenieUstawIdentyfikatorPlanety>(nowe, static_cast<std::shared_ptr<PodstawoweParametry>>(obiekt)));
