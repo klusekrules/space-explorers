@@ -38,6 +38,16 @@ namespace SpEx{
 	bool BudynekInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
 		return planeta.dodajObiekt(std::shared_ptr<Budynek>(tworzEgzemplarz(PodstawoweParametry(atrybut, PodstawoweParametry::POZIOM))));
 	}
+
+	bool BudynekInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla element) const{
+		auto budynek = std::shared_ptr<Budynek>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), PodstawoweParametry::POZIOM)));
+		if (budynek && element){
+			if (!budynek->odczytaj(element))
+				return false;
+			return planeta.dodajObiekt(budynek);
+		}
+		return false;
+	}
 	
 	STyp::Powierzchnia BudynekInfo::pobierzPowierzchnie(const PodstawoweParametry& parametry)const{
 		return Utils::ObliczZmiane(zmianaPowierzchni_, powierzchnia_, parametry);

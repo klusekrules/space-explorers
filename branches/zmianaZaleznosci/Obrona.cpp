@@ -23,12 +23,15 @@ namespace SpEx{
 	}
 
 	Obrona* Obrona::podziel(const STyp::Ilosc& ilosc){
-		if (pobierzIlosc() > ilosc){
-			Obrona* o = new Obrona(PodstawoweParametry(wpisIlosc(ilosc),ILOSC,pobierzIdentyfikatorPlanety()), obronaInfo_);
-			this->wzrostAtrybutu(wpisIlosc(- ilosc));
-			return o;
-		}
 		return nullptr;
+	}
+
+	bool Obrona::czyMoznaPolaczyc(const Obiekt& obiektBase) const{
+		return false;
+	}
+
+	bool Obrona::czyMoznaPodzielic(const STyp::Ilosc& ilosc) const{
+		return false;
 	}
 
 	STyp::Obrazenia Obrona::pobierzPancerz() const{

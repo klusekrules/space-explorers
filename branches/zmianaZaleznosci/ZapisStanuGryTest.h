@@ -15,7 +15,7 @@ public:
 	ZapisStanuGryTest(void);
 	virtual ~ZapisStanuGryTest(void) = default;
 private:
-	SpEx::Planeta p_a;
+	STyp::Ilosc p_a;
 	int ptr_a;
 };
 

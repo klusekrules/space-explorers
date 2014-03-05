@@ -16,6 +16,16 @@ namespace SpEx{
 		return planeta.dodajObiekt(std::shared_ptr<Technologia>(tworzEgzemplarz(PodstawoweParametry(atrybut, PodstawoweParametry::POZIOM))));
 	}
 
+	bool TechnologiaInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla element) const{
+		auto technologia = std::shared_ptr<Technologia>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), PodstawoweParametry::ILOSC)));
+		if (technologia && element){
+			if (!technologia->odczytaj(element))
+				return false;
+			return planeta.dodajObiekt(technologia);
+		}
+		return false;
+	}
+
 	std::string TechnologiaInfo::napis()const{
 		SLog::Logger str(NAZWAKLASY(TechnologiaInfo));
 		str.dodajKlase(ObiektInfo::napis());

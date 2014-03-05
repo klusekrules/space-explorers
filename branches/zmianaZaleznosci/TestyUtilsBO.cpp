@@ -210,6 +210,46 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		);
 	// TECHNOLOGIA - ENERGETYCZNA END
 
+	// BUDYNEK - KOPALNIA METALU
+	auto bkopalnia = tworzBudynek(
+		*root,
+		STyp::Identyfikator(11),
+		STyp::Tekst("Kopalnia metalu"),
+		STyp::Tekst("Opis kopalni metalu."),
+		STyp::Powierzchnia(1200)
+		);
+	tworzKryterium(*bkopalnia, STyp::Identyfikator(1), STyp::Ilosc(60));
+	tworzKryterium(*bkopalnia, STyp::Identyfikator(2), STyp::Ilosc(24));
+	tworzProdukcje(*bkopalnia, STyp::Identyfikator(1), STyp::Ilosc(50));
+	tworzZapotrzebowanie(*bkopalnia, STyp::Identyfikator(4), STyp::Ilosc(120));
+	// BUDYNEK - KOPALNIA METALU END
+
+	// BUDYNEK - ELEKTROWNIA SLONECZNA
+	auto belektrownia = tworzBudynek(
+		*root,
+		STyp::Identyfikator(12),
+		STyp::Tekst("Elektrownia s³oneczna"),
+		STyp::Tekst("Opis elektrowni s³onecznej."),
+		STyp::Powierzchnia(2500)
+		);
+	tworzKryterium(*belektrownia, STyp::Identyfikator(1), STyp::Ilosc(40));
+	tworzKryterium(*belektrownia, STyp::Identyfikator(2), STyp::Ilosc(13));
+	tworzProdukcje(*belektrownia, STyp::Identyfikator(4), STyp::Ilosc(320));
+	// BUDYNEK - ELEKTROWNIA SLONECZNA END
+
+	// BUDYNEK - FABRYKA ROBOTOW
+	auto bfabryka = tworzBudynek(
+		*root,
+		STyp::Identyfikator(13),
+		STyp::Tekst("Fabryka robotów"),
+		STyp::Tekst("Opis fabryki robotów."),
+		STyp::Powierzchnia(500)
+		);
+	tworzKryterium(*bfabryka, STyp::Identyfikator(1), STyp::Ilosc(200));
+	tworzKryterium(*bfabryka, STyp::Identyfikator(2), STyp::Ilosc(140));
+	tworzKryterium(*bfabryka, STyp::Identyfikator(3), STyp::Ilosc(96));
+	// BUDYNEK - FABRYKA ROBOTOW END
+
 	return dokument;
 }
 
@@ -259,6 +299,20 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzTechnologie(SPar::Parser
 	UNIT_TEST_ASSERT_NOTNULL(technologia->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa().c_str()));
 	UNIT_TEST_ASSERT_TRUE(technologia->ustawTekst(opis().c_str()));
 	return technologia;
+}
+
+std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzBudynek(SPar::ParserElement& root,
+	const STyp::Identyfikator& id,
+	const STyp::Tekst& nazwa,
+	const STyp::Tekst& opis,
+	const STyp::Powierzchnia& powierzchnia){
+	auto budynek = root.tworzElement(WEZEL_XML_BUDYNEK_INFO);
+	UNIT_TEST_ASSERT_NOTNULL(budynek);
+	UNIT_TEST_ASSERT_NOTNULL(budynek->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(budynek->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(budynek->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA, powierzchnia.napis().c_str()));
+	UNIT_TEST_ASSERT_TRUE(budynek->ustawTekst(opis().c_str()));
+	return budynek;
 }
 
 std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzJednostkaAtakujaca(SPar::ParserElement& statek,
@@ -321,8 +375,28 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzKryterium(SPar::ParserEl
 	auto kryterium = obiekt.tworzElement(WEZEL_XML_KRYTERIUM);
 	UNIT_TEST_ASSERT_NOTNULL(kryterium);
 	UNIT_TEST_ASSERT_NOTNULL(kryterium->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(kryterium->tworzAtrybut(ATRYBUT_XML_POZIOM, ilosc.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(kryterium->tworzAtrybut(ATRYBUT_XML_ILOSC, ilosc.napis().c_str()));
 	return kryterium;
+}
+
+std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzZapotrzebowanie(SPar::ParserElement& obiekt,
+	const STyp::Identyfikator& id,
+	const STyp::Ilosc& ilosc){
+	auto zapotrzebowanie = obiekt.tworzElement(WEZEL_XML_ZAPOTRZEBOWANIE);
+	UNIT_TEST_ASSERT_NOTNULL(zapotrzebowanie);
+	UNIT_TEST_ASSERT_NOTNULL(zapotrzebowanie->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(zapotrzebowanie->tworzAtrybut(ATRYBUT_XML_ILOSC, ilosc.napis().c_str()));
+	return zapotrzebowanie;
+}
+
+std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzProdukcje(SPar::ParserElement& obiekt,
+	const STyp::Identyfikator& id,
+	const STyp::Ilosc& ilosc){
+	auto produkcja = obiekt.tworzElement(WEZEL_XML_PRODUKCJA);
+	UNIT_TEST_ASSERT_NOTNULL(produkcja);
+	UNIT_TEST_ASSERT_NOTNULL(produkcja->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(produkcja->tworzAtrybut(ATRYBUT_XML_ILOSC, ilosc.napis().c_str()));
+	return produkcja;
 }
 
 std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzZmiana(SPar::ParserElement& root,

@@ -33,9 +33,9 @@ void ObiektListTest::podstawowyTest(){
 	UNIT_TEST_ASSERT_TRUE(SpEx::ListaObiektow<SpEx::Statek>::przenies(r.front(), STyp::Ilosc(1), lista, listaDruga));
 	STyp::Ilosc porownanie = lista.pobierz(r.front())->pobierzIlosc() + listaDruga.pobierz(r.front())->pobierzIlosc();
 	UNIT_TEST_ASSERT_EQUAL(1,listaDruga.rozmiar());
-	//OFF UNIT_TEST_ASSERT_TRUE(SpEx::ListaObiektow<SpEx::Statek>::przenies(r.front(), lista, listaDruga));
-	//OFF UNIT_TEST_ASSERT_EQUAL(porownanie,listaDruga.pobierz(r.front())->pobierzIlosc());
-	//OFF UNIT_TEST_ASSERT_EQUAL(1,listaDruga.rozmiar());
+	UNIT_TEST_ASSERT_TRUE(SpEx::ListaObiektow<SpEx::Statek>::przenies(r.front(), lista, listaDruga));
+	UNIT_TEST_ASSERT_EQUAL(porownanie,listaDruga.pobierz(r.front())->pobierzIlosc());
+	UNIT_TEST_ASSERT_EQUAL(1,listaDruga.rozmiar());
 	listaDruga.wyczysc();
 	UNIT_TEST_ASSERT_TRUE(listaDruga.pusty());
 }

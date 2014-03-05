@@ -112,7 +112,6 @@ void ZleceniaTest::tranzakcja_throw2(){
 		SpEx::Aplikacja::pobierzInstancje().pobierzLogger().odblokujLogi(SLog::Log::Warning);
 		STyp::Ilosc trzy(3);
 		UNIT_TEST_ASSERT_EQUAL(trzy, statek->pobierzIlosc());
-		//Aplikacja::pobierzInstancje().pobierzLogger().error(e.generujKomunikat());
 		return;
 	}
 	UNIT_TEST_ASSERT_FALSE(true);
