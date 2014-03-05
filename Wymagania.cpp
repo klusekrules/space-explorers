@@ -48,11 +48,11 @@ namespace SpEx{
 				Kryterium::AtrybutKryterium atrybut = wylicz(element, parametry);
 				switch (element.pobierzObiekt()->typAtrybutu()){
 				case Kryterium::POZIOM:
-					if (planeta->pobierzIloscObiektu(element.pobierzObiekt()->pobierzIdentyfikator()) < atrybut.ilosc)
+					if (!(planeta->pobierzPoziomObiektu(element.pobierzObiekt()->pobierzIdentyfikator()) >= atrybut.poziom))
 						return false;
 					break;
 				case Kryterium::ILOSC:
-					if (planeta->pobierzPoziomObiektu(element.pobierzObiekt()->pobierzIdentyfikator()) < atrybut.poziom)
+					if (!(planeta->pobierzIloscObiektu(element.pobierzObiekt()->pobierzIdentyfikator()) >= atrybut.ilosc))
 						return false;
 					break;
 				}

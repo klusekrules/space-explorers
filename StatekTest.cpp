@@ -27,11 +27,6 @@ void StatekTest::Issue42Test(){
 	UNIT_TEST_ASSERT_EQUAL(STyp::Obrazenia(11.0 * 300 * 2), a->pobierzOslone());
 }
 
-void StatekTest::Issue52Test(){
-	UNIT_TEST_ASSERT_EQUAL(STyp::Poziom(4), b->pobierzPoziom());
-	UNIT_TEST_ASSERT_EQUAL(STyp::Poziom(2), c->pobierzPoziom());
-}
-
 void StatekTest::FlotaTest(){	
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(0x1), STyp::Ilosc(20000)));
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(0x4), STyp::Ilosc(20000)));

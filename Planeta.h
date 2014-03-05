@@ -280,7 +280,7 @@ namespace SpEx{
 		* \param[in] identyfikator - Numer identyfikuj¹cy obiekt.
 		* \return Poziom obiektu lub 0 je¿eli nie znaleziono obiektu.
 		*/
-		STyp::Poziom pobierzPoziomObiektu(const STyp::Identyfikator& identyfikator) const;
+		STyp::Poziom pobierzPoziomObiektu(const Indeks& identyfikator) const;
 
 		/**
 		* \brief Metoda zwracaj¹ca iloœæ obiektu.

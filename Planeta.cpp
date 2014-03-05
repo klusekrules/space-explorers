@@ -54,21 +54,16 @@ namespace SpEx{
 		throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
 	}
 	
-	STyp::Poziom Planeta::pobierzPoziomObiektu(const STyp::Identyfikator& identyfikator) const{
-		auto iterator = listaObiektow_.end();
-		for (auto element = listaObiektow_.begin(); element != listaObiektow_.end(); ++element){
-			if (element->first == identyfikator && (iterator == listaObiektow_.end() || (iterator != listaObiektow_.end()))){
-				iterator = element;
-			}
-		}
-		if (iterator != listaObiektow_.end())
+	STyp::Poziom Planeta::pobierzPoziomObiektu(const Indeks& identyfikator) const{
+		auto iterator = listaObiektow_.find(identyfikator);
+		if (iterator != listaObiektow_.end() && iterator->second->typAtrybutu() == PodstawoweParametry::POZIOM)
 			return iterator->second->pobierzPoziom();
 		return STyp::Poziom(0);
 	}
 
 	STyp::Ilosc Planeta::pobierzIloscObiektu(const Indeks& indeks) const{
 		auto iterator = listaObiektow_.find(indeks);
-		if (iterator != listaObiektow_.end())
+		if (iterator != listaObiektow_.end() && iterator->second->typAtrybutu() == PodstawoweParametry::ILOSC)
 			return iterator->second->pobierzIlosc();
 		return STyp::Ilosc(0.0);
 	}

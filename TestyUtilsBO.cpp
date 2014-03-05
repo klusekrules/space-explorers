@@ -98,6 +98,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 	tworzLadownia(*mtransport, STyp::Objetosc(500));
 	tworzKryterium(*mtransport, STyp::Identyfikator(1), STyp::Ilosc(2000));
 	tworzKryterium(*mtransport, STyp::Identyfikator(2), STyp::Ilosc(2000));
+	tworzKryterium(*mtransport, STyp::Identyfikator(9), STyp::Poziom(3));
 	// STATEK - MALY TRANSPORTOWIEC END
 
 	// STATEK - DUZY TRANSPORTOWIEC
@@ -128,6 +129,8 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 	tworzLadownia(*dtransport, STyp::Objetosc(2500));
 	tworzKryterium(*dtransport, STyp::Identyfikator(1), STyp::Ilosc(6000));
 	tworzKryterium(*dtransport, STyp::Identyfikator(2), STyp::Ilosc(6000));
+	tworzKryterium(*dtransport, STyp::Identyfikator(9), STyp::Poziom(3));
+	tworzKryterium(*dtransport, STyp::Identyfikator(10), STyp::Poziom(5));
 	// STATEK - DUZY TRANSPORTOWIEC END
 
 	// STATEK - MYSLIWIEC
