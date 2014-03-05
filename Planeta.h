@@ -198,7 +198,7 @@ namespace SpEx{
 		*
 		* Metoda przenosi obiekty z ³adowni na planetê.
 		*/
-		//void rozladujStatek(std::shared_ptr< Statek > statek); - Przeniesc do metod statku
+		void rozladujStatek(std::shared_ptr< Statek > statek); //- Przeniesc do metod statku
 
 		/**
 		* \brief Metoda sprawdzaj¹ca czy planeta ma w³asciciela.

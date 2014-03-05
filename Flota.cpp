@@ -5,7 +5,7 @@
 
 namespace SpEx{
 	Flota::Flota(const STyp::Identyfikator& id, const STyp::Identyfikator& planetaPoczatkowa, const STyp::Identyfikator& planetaDocelowa, CelPodrozy celPodrozy)
-		: planetaPoczatkowa_(planetaPoczatkowa), planetaDocelowa_(planetaDocelowa), celPodrozy_(celPodrozy)
+		: idFloty_(id),planetaPoczatkowa_(planetaPoczatkowa), planetaDocelowa_(planetaDocelowa), celPodrozy_(celPodrozy)
 	{
 	}
 
@@ -18,7 +18,7 @@ namespace SpEx{
 	}
 
 	const STyp::Identyfikator& Flota::pobierzIdentyfikator()const{
-		return planetaPoczatkowa_; //TODO: Dokonczyc metode
+		return idFloty_;
 	}
 
 	bool Flota::dodajStatek(std::shared_ptr<Statek> statek){
@@ -152,11 +152,10 @@ namespace SpEx{
 		}
 		if (!planeta)
 			return false;
-		//TODO: Roz³adowywanie statku
-		/*for (auto statek : lista_)
+		for (auto statek : lista_)
 		if (statek.second){
 			planeta->rozladujStatek(statek.second);
-		}*/
+		}
 		return true;
 	}
 
@@ -177,13 +176,11 @@ namespace SpEx{
 		}
 		if (!planeta)
 			return false;
-		//TODO: Roz³adowywanie statku
-		/*
 		for (auto statek : lista_)
 		if (statek.second){
 			planeta->rozladujStatek(statek.second);
-			planeta->wybuduj(statek.second);
-		}*/
+			planeta->dodajObiekt(statek.second);
+		}
 		lista_.clear();
 		return true;
 	}
@@ -198,6 +195,7 @@ namespace SpEx{
 	bool Flota::zapisz(XmlBO::ElementWezla wezel) const{
 		if (wezel){
 			auto element = wezel->tworzElement(WEZEL_XML_FLOTA);
+			element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, idFloty_.napis().c_str());
 			element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR_PLANETA_POCZATKOWA, planetaPoczatkowa_.napis().c_str());
 			element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR_PLANETA_DOCELOWA, planetaDocelowa_.napis().c_str());
 			element->tworzAtrybut(ATRYBUT_XML_CEL_PODROZY, "")->ustawWartoscInt(celPodrozy_);
@@ -210,6 +208,8 @@ namespace SpEx{
 	}
 
 	bool Flota::odczytaj(XmlBO::ElementWezla wezel) {
+		if (!XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, idFloty_))
+			return false;
 		if (!XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_PLANETA_POCZATKOWA, planetaPoczatkowa_))
 			return false;
 		if (!XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_PLANETA_DOCELOWA, planetaDocelowa_))
@@ -250,7 +250,7 @@ namespace SpEx{
 		}))){
 			return false;
 		}
-		return false;
+		return true;
 	}
 
 	std::string Flota::napis()const {

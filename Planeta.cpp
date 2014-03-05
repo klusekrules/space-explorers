@@ -192,7 +192,7 @@ namespace SpEx{
 	}*/
 
 	STyp::Identyfikator Planeta::dodajFlote(){
-		std::shared_ptr< Flota > flota = std::shared_ptr< Flota >(new Flota(STyp::Identyfikator(static_cast<STyp::Identyfikator::nazwa_typu>(licznikIdentyfikatorowFloty_()())), STyp::Identyfikator(), STyp::Identyfikator(), Flota::CelPodrozy::Transport));
+		auto flota = std::make_shared< Flota >(STyp::Identyfikator(static_cast<STyp::Identyfikator::nazwa_typu>(licznikIdentyfikatorowFloty_()())), STyp::Identyfikator(), STyp::Identyfikator(), Flota::CelPodrozy::Transport);
 		listaFlot_.insert(std::make_pair(flota->pobierzIdentyfikator(), flota));
 		return flota->pobierzIdentyfikator();
 	}
@@ -266,21 +266,21 @@ namespace SpEx{
 		}
 		return true;
 	}
-
+	/*
 	bool Planeta::czyMaWlasciciela()const{
 		return wlasciciel_ != nullptr;
 	}
-	/*
+	*/
 	void Planeta::rozladujStatek(std::shared_ptr< Statek > statek){
 		if (statek){
 			for (auto element : statek->oproznijLadownie()){
-				wybuduj(element.second);
+				dodajObiekt(element.second);
 			}
 			for (auto element : statek->oproznijHangar()){
-				wybuduj(element.second);
+				dodajObiekt(element.second);
 			}
 		}
-	}*/
+	}
 
 	std::shared_ptr< Flota > Planeta::pobierzFlote(const STyp::Identyfikator& identyfikator) const{
 		auto iterator = listaFlot_.find(identyfikator);

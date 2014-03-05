@@ -42,7 +42,7 @@ namespace SpEx{
 			return false;
 		}
 		MenedzerTranzakcji tranzakcja;
-		STyp::Identyfikator nowe;
+		STyp::Identyfikator nowe(0);
 		Hangar* hangar = this;
 
 		tranzakcja.dodaj(std::make_shared<ZlecenieUstawIdentyfikatorPlanety>(nowe, static_cast<std::shared_ptr<PodstawoweParametry>>(obiekt)));
@@ -195,6 +195,14 @@ namespace SpEx{
 		for (auto element : obiekty_){
 			zajete_ += element.second->pobierzPowierzchnie();
 		}
+	}
+
+	STyp::Masa Hangar::pobierzMaseZawartosciHangaru()const {
+		STyp::Masa masa(0);
+		for (auto element : obiekty_){
+			masa += element.second->pobierzMase();
+		}
+		return masa;
 	}
 
 	bool Hangar::zapisz(XmlBO::ElementWezla wezel) const {
