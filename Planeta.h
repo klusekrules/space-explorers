@@ -36,7 +36,7 @@ namespace SpEx{
 		typedef std::map< Indeks, std::shared_ptr< Obrona > > ListaObrona;
 		typedef std::map< Indeks, std::shared_ptr< Surowce > > ListaSurowcow;
 		typedef std::map< STyp::Identyfikator, std::shared_ptr< Flota > > ListaFlot;
-		//typedef std::map< Indeks, STyp::Ilosc > ListaZasobow;
+		typedef std::map< Indeks, STyp::Ilosc > ListaZasobow;
 
 		/**
 		* \brief Konstruktor.
@@ -114,7 +114,7 @@ namespace SpEx{
 		* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
 		*/
 		bool wybuduj(const Indeks& identyfikator, const PodstawoweParametry& );
-
+		bool wybuduj(const Indeks& identyfikator, const XmlBO::ElementWezla element);
 		
 		/**
 		* \brief Metoda buduje statek na planecie.
@@ -362,66 +362,6 @@ namespace SpEx{
 		* \return true je¿eli uda siê dodaæ obiekt, fasle w przeciwnym wypadku.
 		*/
 		bool dodajObiekt(std::shared_ptr< Surowce > obiekt);
-		
-		/**
-		* \brief Metoda s³u¿¹ca do wybudownia na planecie obiektu.
-		*
-		* Metoda buduj¹ca obiekt na planecie.
-		* \param[in] planeta - Planeta na której ma zostaæ wybudowany obiekt.
-		* \param[in] obiektInfo - Obiekt opisowy na bazie którego ma zostaæ zbudowany obiekt.
-		* \param[in] ilosc - Atrybut iloœci tworzonego obiektu.
-		* \param[in] poziom - Poziom tworzonego obiektu.
-		* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
-		*/
-		//bool wybuduj(const BudynekInfo& obiektInfo, const PodstawoweParametry& parametry );
-
-		/**
-		* \brief Metoda s³u¿¹ca do wybudownia na planecie obiektu.
-		*
-		* Metoda buduj¹ca obiekt na planecie.
-		* \param[in] planeta - Planeta na której ma zostaæ wybudowany obiekt.
-		* \param[in] obiektInfo - Obiekt opisowy na bazie którego ma zostaæ zbudowany obiekt.
-		* \param[in] ilosc - Atrybut iloœci tworzonego obiektu.
-		* \param[in] poziom - Poziom tworzonego obiektu.
-		* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
-		*/
-		//bool wybuduj(const TechnologiaInfo& obiektInfo, const PodstawoweParametry& parametry);
-
-		/**
-		* \brief Metoda s³u¿¹ca do wybudownia na planecie obiektu.
-		*
-		* Metoda buduj¹ca obiekt na planecie.
-		* \param[in] planeta - Planeta na której ma zostaæ wybudowany obiekt.
-		* \param[in] obiektInfo - Obiekt opisowy na bazie którego ma zostaæ zbudowany obiekt.
-		* \param[in] ilosc - Atrybut iloœci tworzonego obiektu.
-		* \param[in] poziom - Poziom tworzonego obiektu.
-		* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
-		*/
-		//bool wybuduj(const StatekInfo& obiektInfo, const PodstawoweParametry& parametry);
-
-		/**
-		* \brief Metoda s³u¿¹ca do wybudownia na planecie obiektu.
-		*
-		* Metoda buduj¹ca obiekt na planecie.
-		* \param[in] planeta - Planeta na której ma zostaæ wybudowany obiekt.
-		* \param[in] obiektInfo - Obiekt opisowy na bazie którego ma zostaæ zbudowany obiekt.
-		* \param[in] ilosc - Atrybut iloœci tworzonego obiektu.
-		* \param[in] poziom - Poziom tworzonego obiektu.
-		* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
-		*/
-		//bool wybuduj(const SurowceInfo& obiektInfo, const PodstawoweParametry& parametry);
-
-		/**
-		* \brief Metoda s³u¿¹ca do wybudownia na planecie obiektu.
-		*
-		* Metoda buduj¹ca obiekt na planecie.
-		* \param[in] planeta - Planeta na której ma zostaæ wybudowany obiekt.
-		* \param[in] obiektInfo - Obiekt opisowy na bazie którego ma zostaæ zbudowany obiekt.
-		* \param[in] ilosc - Atrybut iloœci tworzonego obiektu.
-		* \param[in] poziom - Poziom tworzonego obiektu.
-		* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
-		*/
-		//bool wybuduj(const ObronaInfo& obiektInfo, const PodstawoweParametry& parametry);
 	
 	private:
 
@@ -462,7 +402,7 @@ namespace SpEx{
 		STyp::Powierzchnia powierzchniaZajetaPrzezWode_; /// Atrybut przechowuj¹cy informacje o powierzchni planety zajêtej przez wodê.
 		STyp::Powierzchnia powierzchniaLadow_; /// Atrybut przechowuj¹cy informacje o powierzchni planety zajêtej przez l¹dy.
 		STyp::Powierzchnia powierzchniaUzytkowaLadow_; /// Atrybut przechowuj¹cy informacje o powierzchni u¿ytkowej planety.
-		//ListaZasobow dostepneZasobyPlanety_; /// Lista zasobów jakie mo¿na wydobyæ na planecie.
+		ListaZasobow dostepneZasobyPlanety_; /// Lista zasobów jakie mo¿na wydobyæ na planecie.
 		STyp::Tekst nazwaPlanety_; /// Nazwa planety.
 
 		STyp::Identyfikator identyfikator_;

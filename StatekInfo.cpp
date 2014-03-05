@@ -46,6 +46,16 @@ namespace SpEx{
 		return new Statek(parametry, *this);
 	}
 
+	bool StatekInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla element) const{
+		auto statek = std::shared_ptr<Statek>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), PodstawoweParametry::ILOSC)));
+		if (statek && element){
+			if (!statek->odczytaj(element))
+				return false;
+			return planeta.dodajObiekt(statek);
+		}
+		return false;
+	}
+
 	bool StatekInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
 		return planeta.dodajObiekt(std::shared_ptr<Statek>(tworzEgzemplarz(PodstawoweParametry(atrybut, PodstawoweParametry::ILOSC))));
 	}

@@ -67,5 +67,7 @@ namespace SpEx{
 		* \return Metoda zwraca true je¿eli tworzenie zakoñczy siê sukcesem. Zwraca false w przeciwnym wypadku.
 		*/
 		virtual bool tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const = 0;
+
+		virtual bool tworz(Planeta& planeta, const XmlBO::ElementWezla element) const = 0;
 	};
 }

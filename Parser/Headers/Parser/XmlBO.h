@@ -109,9 +109,10 @@ private:
 public:
 	template<typename T>
 	static bool ForEach(ElementWezla wezel, const std::string& nazwa, OperacjaWezla& funkcja){
-		if (wezel == nullptr || nazwa.empty())
+		if (wezel == nullptr)
 			return bladWezla<T>(wezel, nazwa) != nullptr;
-		for(ElementWezla element = wezel->pobierzElement(nazwa.c_str());element!=nullptr; element = element->pobierzNastepnyElement(nazwa.c_str())){
+		const char * cNazwa = nazwa.empty() ? nullptr : nazwa.c_str();
+		for (ElementWezla element = wezel->pobierzElement(cNazwa); element != nullptr; element = element->pobierzNastepnyElement(cNazwa)){
 			if(!funkcja(element))
 				return false;
 		}
@@ -129,7 +130,7 @@ public:
 	}
 	template<typename T>
 	static bool ForEach(ElementWezla wezel, OperacjaWezla& funkcja){
-		return ForEach<T>(wezel,nullptr,funkcja);
+		return ForEach<T>(wezel,std::string(),funkcja);
 	}
 
 	template<typename T>

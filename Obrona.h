@@ -70,6 +70,9 @@ namespace SpEx{
 		*/
 		Obrona* podziel(const STyp::Ilosc& ilosc) override;
 
+		bool czyMoznaPolaczyc(const Obiekt& obiektBase) const;
+
+		bool czyMoznaPodzielic(const STyp::Ilosc& ilosc) const;
 		/**
 		* Metoda atak s³u¿y do wyliczania obra¿eñ zadawanych przez obiekt.
 		* \return Obra¿enia zadane przez obiekt.

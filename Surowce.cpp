@@ -24,6 +24,10 @@ namespace SpEx{
 	}
 
 	bool Surowce::polacz(const Obiekt& obiekt){
+		if (czyMoznaPolaczyc(obiekt)){
+			wzrostAtrybutu(obiekt.pobierzAtrybut());
+			return true;
+		}
 		return false;
 	}
 

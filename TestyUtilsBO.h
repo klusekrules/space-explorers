@@ -27,6 +27,12 @@ public:
 		const STyp::Powierzchnia& powierzchnia,
 		const STyp::Bool& przewozonyWHangarze);
 
+	static std::shared_ptr<SPar::ParserElement> tworzBudynek(SPar::ParserElement& root,
+		const STyp::Identyfikator& id,
+		const STyp::Tekst& nazwa,
+		const STyp::Tekst& opis,
+		const STyp::Powierzchnia& powierzchnia);
+
 	static std::shared_ptr<SPar::ParserElement> tworzTechnologie(SPar::ParserElement& root,
 		const STyp::Identyfikator& id,
 		const STyp::Tekst& nazwa,
@@ -55,6 +61,14 @@ public:
 		const STyp::Poziom& poziom);
 
 	static std::shared_ptr<SPar::ParserElement> tworzKryterium(SPar::ParserElement& obiekt,
+		const STyp::Identyfikator& id,
+		const STyp::Ilosc& ilosc);
+
+	static std::shared_ptr<SPar::ParserElement> tworzZapotrzebowanie(SPar::ParserElement& obiekt,
+		const STyp::Identyfikator& id,
+		const STyp::Ilosc& ilosc);
+
+	static std::shared_ptr<SPar::ParserElement> tworzProdukcje(SPar::ParserElement& obiekt,
 		const STyp::Identyfikator& id,
 		const STyp::Ilosc& ilosc);
 

@@ -33,6 +33,16 @@ namespace SpEx{
 		return planeta.dodajObiekt(std::shared_ptr<Surowce>(tworzEgzemplarz(PodstawoweParametry(atrybut,PodstawoweParametry::ILOSC))));
 	}
 
+	bool SurowceInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla element) const{
+		auto surowce = std::shared_ptr<Surowce>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), PodstawoweParametry::ILOSC)));
+		if (surowce && element){
+			if (!surowce->odczytaj(element))
+				return false;
+			return planeta.dodajObiekt(surowce);
+		}
+		return false;
+	}
+
 	STyp::Czas SurowceInfo::pobierzCzas(const PodstawoweParametry& parametryPodstawowe)const{
 		return Utils::ObliczZmiane(zmianaCzasu_, STyp::Czas(parametryPodstawowe.pobierzIlosc()), parametryPodstawowe);
 	}

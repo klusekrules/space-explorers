@@ -82,6 +82,7 @@ namespace SpEx{
 		* \return Metoda zwraca true je¿eli tworzenie zakoñczy siê sukcesem. Zwraca false w przeciwnym wypadku.
 		*/
 		bool tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const override;
+		bool tworz(Planeta& planeta, const XmlBO::ElementWezla element) const override;
 
 		STyp::Bool przechowywanyWHangarze_; /// Informacja czy statek mo¿e byæ przechowywwany w hangarze drugiego statku.
 

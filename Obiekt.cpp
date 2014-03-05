@@ -10,38 +10,10 @@ namespace SpEx{
 	{
 	}
 	
-	/*Obiekt* Obiekt::kopia() const{
-		return new Obiekt(*this);
-	}
-
-	Obiekt* Obiekt::podziel(const STyp::Ilosc& ilosc){
-		if ( typAtrybutu() == ILOSC ){
-			AtrybutPodstawowy atr;
-			atr.ilosc = -ilosc();
-			this->wzrostAtrybutu(atr);
-			atr.ilosc = -atr.ilosc;
-			return new Obiekt(PodstawoweParametry(atr, ILOSC, this->pobierzIdentyfikatorPlanety()), identyfikator_);
-		}
-		return nullptr;
-	}*/
-
-	/*
-	bool ObiektBazowy::polacz( const ObiektBazowy& obiektBazowy ){
-	if(czyMoznaPolaczyc(obiektBazowy)){
-	ilosc_+=obiektBazowy.pobierzIlosc();
-	return true;
-	}else{
-	return false;
-	}
-	}
-
-	*/
-
 	bool Obiekt::czyMoznaPolaczyc(const Obiekt& obiekt)const{
 		return typeid(*this) == typeid(obiekt) && obiekt.pobierzIdentyfikator() == pobierzIdentyfikator() && obiekt.typAtrybutu()==typAtrybutu();
 	}
-
-
+	
 	bool Obiekt::czyMoznaPodzielic(const STyp::Ilosc& ilosc) const{
 		return typAtrybutu()==ILOSC && pobierzAtrybut().ilosc > ilosc();
 	}
@@ -69,7 +41,7 @@ namespace SpEx{
 	}
 
 	bool Obiekt::wybuduj(const PodstawoweParametry& parametry){
-		if (typAtrybutu() != parametry.typAtrybutu() || parametry.pobierzIdentyfikatorPlanety() != pobierzIdentyfikatorPlanety()){
+		if (typAtrybutu() != parametry.typAtrybutu()){
 			return false;
 		}
 		wzrostAtrybutu(parametry.pobierzAtrybut());

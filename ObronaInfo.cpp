@@ -16,6 +16,16 @@ namespace SpEx{
 		return new Obrona(parametry, *this);
 	}
 
+	bool ObronaInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla element) const{
+		auto obrona = std::shared_ptr<Obrona>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), PodstawoweParametry::ILOSC)));
+		if (obrona && element){
+			if (!obrona->odczytaj(element))
+				return false;
+			return planeta.dodajObiekt(obrona);
+		}
+		return false;
+	}
+
 	bool ObronaInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
 		return planeta.dodajObiekt(std::shared_ptr<Obrona>(tworzEgzemplarz(PodstawoweParametry(atrybut, PodstawoweParametry::ILOSC))));
 	}

@@ -54,6 +54,9 @@ namespace SpEx{
 
 	bool UkladSloneczny::zapisz(XmlBO::ElementWezla wezel) const{
 		auto element = wezel->tworzElement(WEZEL_XML_UKLAD_SLONECZNY);
+		element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, identyfikator_.napis().c_str());
+		element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR_RODZICA, idGalaktyki_.napis().c_str());
+		element->tworzAtrybut(ATRYBUT_XML_SREDNICA_GWIAZDY, srednicaGwiazdy_.napis().c_str());
 		element->tworzAtrybut(ATRYBUT_XML_SREDNICA_GWIAZDY, srednicaGwiazdy_.napis().c_str());
 		element->tworzAtrybut(ATRYBUT_XML_SREDNIA_TEMPERATURA_GWIAZDY, sredniaTemperaturaGwiazdy_.napis().c_str());
 		for (auto planeta : planety_)
@@ -64,7 +67,8 @@ namespace SpEx{
 
 	bool UkladSloneczny::odczytaj(XmlBO::ElementWezla wezel){
 		if (wezel){
-			//TODO:odczyt identyfikatora
+			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
+			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_RODZICA, idGalaktyki_);
 			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_SREDNICA_GWIAZDY, srednicaGwiazdy_))
 				return false;
 			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_SREDNIA_TEMPERATURA_GWIAZDY, sredniaTemperaturaGwiazdy_))
