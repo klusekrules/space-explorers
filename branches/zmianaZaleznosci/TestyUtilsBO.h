@@ -37,6 +37,12 @@ public:
 		const STyp::Identyfikator& id,
 		const STyp::Tekst& nazwa,
 		const STyp::Tekst& opis);
+	
+	static std::shared_ptr<SPar::ParserElement> tworzObrone(SPar::ParserElement& root,
+		const STyp::Identyfikator& id,
+		const STyp::Tekst& nazwa,
+		const STyp::Tekst& opis,
+		const STyp::Powierzchnia& powierzchnia);
 
 	static std::shared_ptr<SPar::ParserElement> tworzJednostkaAtakujaca(SPar::ParserElement& statek,
 		const STyp::Obrazenia& atak,

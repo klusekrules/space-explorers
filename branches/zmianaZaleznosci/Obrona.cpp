@@ -47,7 +47,7 @@ namespace SpEx{
 	}
 
 	STyp::Powierzchnia Obrona::pobierzPowierzchnie()const{
-		return pobierzPowierzchnie(*this);
+		return pobierzPowierzchnie(*this)() * pobierzIlosc()();
 	}
 
 	const ObronaInfo& Obrona::pobierzObronaInfo() const{

@@ -253,6 +253,42 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 	tworzKryterium(*bfabryka, STyp::Identyfikator(3), STyp::Ilosc(96));
 	// BUDYNEK - FABRYKA ROBOTOW END
 
+	// OBRONA - WYRZUTNIA RAKIET
+	auto owyrzutnia = tworzObrone(
+		*root,
+		STyp::Identyfikator(14),
+		STyp::Tekst("Wyrzutnia rakiet"),
+		STyp::Tekst("Opis wyrzutni rakiet."),
+		STyp::Powierzchnia(2.31)
+		);
+	tworzJednostkaAtakujaca(
+		*owyrzutnia,
+		STyp::Obrazenia(90),
+		STyp::Obrazenia(120),
+		STyp::Obrazenia(10)
+		);
+	tworzKryterium(*owyrzutnia, STyp::Identyfikator(1), STyp::Ilosc(2000));
+	// OBRONA - WYRZUTNIA RAKIET END
+
+	// OBRONA - DZIALO LASEROWE
+	auto olaserowe = tworzObrone(
+		*root,
+		STyp::Identyfikator(15),
+		STyp::Tekst("Dzia³o laserowe"),
+		STyp::Tekst("Opis dzia³a laserowego."),
+		STyp::Powierzchnia(4.62)
+		);
+	tworzJednostkaAtakujaca(
+		*olaserowe,
+		STyp::Obrazenia(80),
+		STyp::Obrazenia(60),
+		STyp::Obrazenia(30)
+		);
+	tworzKryterium(*olaserowe, STyp::Identyfikator(1), STyp::Ilosc(1500));
+	tworzKryterium(*olaserowe, STyp::Identyfikator(2), STyp::Ilosc(500));
+	tworzKryterium(*olaserowe, STyp::Identyfikator(3), STyp::Ilosc(100));
+	// OBRONA - DZIALO LASEROWE END
+
 	return dokument;
 }
 
@@ -316,6 +352,20 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzBudynek(SPar::ParserElem
 	UNIT_TEST_ASSERT_NOTNULL(budynek->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA, powierzchnia.napis().c_str()));
 	UNIT_TEST_ASSERT_TRUE(budynek->ustawTekst(opis().c_str()));
 	return budynek;
+}
+
+std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzObrone(SPar::ParserElement& root,
+	const STyp::Identyfikator& id,
+	const STyp::Tekst& nazwa,
+	const STyp::Tekst& opis,
+	const STyp::Powierzchnia& powierzchnia){
+	auto obrona = root.tworzElement(WEZEL_XML_OBRONA_INFO);
+	UNIT_TEST_ASSERT_NOTNULL(obrona);
+	UNIT_TEST_ASSERT_NOTNULL(obrona->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(obrona->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(obrona->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA, powierzchnia.napis().c_str()));
+	UNIT_TEST_ASSERT_TRUE(obrona->ustawTekst(opis().c_str()));
+	return obrona;
 }
 
 std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzJednostkaAtakujaca(SPar::ParserElement& statek,

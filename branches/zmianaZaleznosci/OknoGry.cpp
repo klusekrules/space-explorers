@@ -85,8 +85,7 @@ bool OknoGry::inicjalizacja( ){
 	std::lock_guard<std::mutex> blokada(mutexInicjalizacja_);
 	przetwarzanie_ = false;
 	logujInfo();
-
-	oknoGlowne_.create(sf::VideoMode(800,500),"Space-Explorers",sf::Style::None);
+	oknoGlowne_.create(sf::VideoMode(800, 500), "Space-Explorers", sf::Style::None);
 	oknoGlowne_.setVisible(false);
 	oknoGlowne_.setVerticalSyncEnabled(true);
 
@@ -148,14 +147,19 @@ void OknoGry::obslugaZdarzen( Stan& stan ){
 	sf::Event zdarzenie;
 	while(oknoGlowne_.pollEvent(zdarzenie))
 	{
-		if(zdarzenie.type == sf::Event::EventType::Closed){
-			MaszynaStanow::pobierzInstancje().inicjujZamykanie();
-		}
-
-		if (zdarzenie.type == sf::Event::Resized)
-		{
-			sf::FloatRect visibleArea(0, 0, static_cast<float>(zdarzenie.size.width), static_cast<float>(zdarzenie.size.height));
-			oknoGlowne_.setView(sf::View(visibleArea));
+		switch (zdarzenie.type){
+			case sf::Event::Closed:
+				MaszynaStanow::pobierzInstancje().inicjujZamykanie();
+				break;
+			case sf::Event::MouseButtonPressed:
+				SetActiveWindow(oknoGlowne_.getSystemHandle());
+				break;
+			case sf::Event::Resized:
+				{
+					sf::FloatRect visibleArea(0, 0, static_cast<float>(zdarzenie.size.width), static_cast<float>(zdarzenie.size.height));
+					oknoGlowne_.setView(sf::View(visibleArea));
+				}
+				break;
 		}
 
 		for( auto ekran : stosEkranow_)

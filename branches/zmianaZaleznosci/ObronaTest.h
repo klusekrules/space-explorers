@@ -20,7 +20,7 @@ public:
 
 private:
 	const SpEx::Obrona* a;
-	SpEx::Obrona* b;
+	const SpEx::Obrona* b;
 	std::shared_ptr<SpEx::Planeta> planeta;
 };
 

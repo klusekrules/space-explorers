@@ -1,5 +1,5 @@
 #include "MaszynaStanow.h"
-//#include "TestyJednostkowe.h"
+#include "TestyJednostkowe.h"
 
 extern "C"{ 
 	__declspec(dllexport) int __cdecl barfunc(int foo)
@@ -57,7 +57,7 @@ extern "C"{
 
 	__declspec(dllexport) void __cdecl testyJednostkowe()
 	{
-		//TestyJednostkowe::pobierzInstancje().wykonajTesty();
+		TestyJednostkowe::pobierzInstancje().wykonajTesty();
 	}
 
 	
