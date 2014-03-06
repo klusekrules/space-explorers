@@ -5,7 +5,7 @@
 #include "plugin\plugin.h"
 #include "NiezainicjalizowanaKlasa.h"
 #include "Gra.h"
-
+#include "Singleton.h"
 
 typedef struct _SYMBOL_INFO {
 	ULONG       SizeOfStruct;
@@ -38,10 +38,11 @@ namespace SpEx {
 	* \version 1
 	* \date 26-07-2013
 	*/
-	class Aplikacja
+	class Aplikacja:
+		public se::Singleton<Aplikacja>
 	{
 		friend class Testy;
-
+		friend class se::Singleton<Aplikacja>;
 	public:
 
 		/**
@@ -88,14 +89,7 @@ namespace SpEx {
 		* \return true je¿eli uda siê wczytaæ stan gry, false w przeciwnym wypadku.
 		*/
 		bool wczytajGre(std::shared_ptr<SPar::ParserElement> root, const std::string& nazwa, const std::string& hash);
-
-		/**
-		* \brief Metoda pobieraj¹ca instacjê Aplikacji.
-		*
-		* \return Referencja do instancji apalikacji.
-		*/
-		static Aplikacja& pobierzInstancje();
-
+		
 		/**
 		* \brief Metoda pobieraj¹ca œla stosu.
 		*
@@ -119,18 +113,6 @@ namespace SpEx {
 		* \throw NiezainicjalizowanaKlasa
 		*/
 		Aplikacja() throw(NiezainicjalizowanaKlasa);
-
-		/**
-		* \brief Konstruktor kopiuj¹cy.
-		* \todo Oznaczenie metody jako delete kiedy kompilator bêdzie to wspieraæ.
-		*/
-		Aplikacja(const Aplikacja& aplikacja);
-
-		/**
-		* \brief Operator przypisania.
-		* \todo Oznaczenie metody jako delete kiedy kompilator bêdzie to wspieraæ.
-		*/
-		Aplikacja& operator=(const Aplikacja& aplikacja);
 
 		/**
 		* \brief Metoda wcztuj¹ca opcje aplikacji.

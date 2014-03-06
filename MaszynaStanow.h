@@ -44,7 +44,7 @@ public:
 		void ustawNastepny(const Stan&);
 	};
 	
-	~MaszynaStanow();
+	~MaszynaStanow() = default;
 
 	void start();
 

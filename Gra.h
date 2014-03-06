@@ -13,7 +13,7 @@
 
 
 namespace SpEx {
-
+	class Aplikacja;
 	/**
 	* \brief Klasa reprezentuj¹ca grê.
 	*
@@ -23,11 +23,18 @@ namespace SpEx {
 	* \date 26-07-2013
 	*/
 	class Gra :
-		virtual public Serializacja
+		virtual public Serializacja,
+		public se::NonCopyable,
+		public se::NonMoveable
 	{
-		friend class Aplikacja;
-
 	public:
+
+		/**
+		* \brief Konstruktor.
+		*
+		* \param[in] aplikacja - instancja aplikacji dla której jest tworzona gra..
+		*/
+		explicit Gra(Aplikacja& aplikacja);
 
 		/**
 		* \brief Destruktor.
@@ -242,29 +249,6 @@ namespace SpEx {
 		bool generujNowaGalaktyke();
 
 	private:
-
-		/**
-		* \brief Konstruktor.
-		*
-		* \param[in] aplikacja - instancja aplikacji dla której jest tworzona gra..
-		*/
-		Gra(Aplikacja& aplikacja);
-
-		/**
-		* \brief Konstrutkor kopiuj¹cy.
-		*
-		* \param[in] gra - Obiekt z którego jest tworzona kopia.
-		* \todo Oznaczenie metody jako delete kiedy kompilator bêdzie to wspieraæ.
-		*/
-		Gra(const Gra& gra);
-
-		/**
-		* \brief Operator przypisania.
-		*
-		* \param[in] gra - Obiekt z którego jest tworzona kopia.
-		* \todo Oznaczenie metody jako delete kiedy kompilator bêdzie to wspieraæ.
-		*/
-		Gra& operator=(const Gra& gra);
 
 		/**
 		* \brief Metoda wczytuj¹ca dane surowców.

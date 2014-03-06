@@ -10,8 +10,8 @@ namespace SpEx{
 	}
 
 	STyp::Wartosc ZmianaPoziomObiektu::policzWartosc(const STyp::Wartosc& wartosc, const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety) const{
-		//TODO: Wypisywanie wartosci. auto obiekt = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(identyfikatorPlanety)->pobierzObiekt(parametr_.pobierzIdentyfikatorObiektu());
-		return STyp::Wartosc();
+		auto obiekt = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(identyfikatorPlanety)->pobierzPoziomObiektu(parametr_.pobierzIdentyfikatorObiektu());
+		return STyp::Wartosc(obiekt());
 	}
 
 	ZmianaPoziomObiektu* ZmianaPoziomObiektu::Kopia()const{

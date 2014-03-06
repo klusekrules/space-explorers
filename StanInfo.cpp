@@ -15,11 +15,11 @@ StanInfo::StanInfo( XmlBO::ElementWezla wezel )
 		if( luaFile_.empty() && !( luaFuncInside_.empty() && luaFuncOut_.empty() && luaFuncIn_.empty() ) ) 
 			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst());
 
-		//TODO: U¿yc pêtli forach
-		for(auto element = wezel->pobierzElement(WEZEL_XML_ZDARZENIE); element ; element = element->pobierzNastepnyElement(WEZEL_XML_ZDARZENIE)){
+		XmlBO::ForEach<THROW>(wezel, WEZEL_XML_ZDARZENIE, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 			auto zdarzenie = std::make_shared<ZdarzenieInfo>(element);
 			zdarzenia_.insert(std::make_pair(zdarzenie->pobierzIdentyfikator(), zdarzenie));
-		}
+			return true;
+		}));
 
 		if( !luaFile_.empty() ){
 			skrypt_.zaladuj(luaFile_);

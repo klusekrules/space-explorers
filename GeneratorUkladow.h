@@ -65,7 +65,7 @@ namespace SpEx{
 		/**
 		* \brief Destruktor.
 		*/
-		virtual ~GeneratorUkladow();
+		virtual ~GeneratorUkladow() = default;
 
 		/**
 		* \brief Metoda generuj¹ca galaktykê.

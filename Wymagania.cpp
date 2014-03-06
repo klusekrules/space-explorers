@@ -7,15 +7,14 @@ namespace SpEx{
 
 	Wymagania::Wymagania(XmlBO::ElementWezla wezel)
 	{
-		auto warunki = std::ref(warunki_);
-		XmlBO::ForEach<THROW>(wezel, WEZEL_XML_KRYTERIUM, XmlBO::OperacjaWezla([&warunki](XmlBO::ElementWezla warunek)->bool{
+		XmlBO::ForEach<THROW>(wezel, WEZEL_XML_KRYTERIUM, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla warunek)->bool{
 			Warunek obiekt(warunek);
 			auto identyfikator = obiekt.pobierzObiekt()->pobierzIdentyfikator();
-			for (auto element : warunki.get()){
+			for (auto element : warunki_){
 				if (element.pobierzObiekt()->pobierzIdentyfikator() == identyfikator)
 					SPar::ParserUtils::generujWyjatekBleduStruktury(warunek);
 			}
-			warunki.get().push_back(obiekt);
+			warunki_.push_back(obiekt);
 			return true;
 		}));
 
@@ -28,7 +27,8 @@ namespace SpEx{
 			if (element.pobierzObiekt() && element.pobierzObiekt()->typAtrybutu() == Kryterium::ILOSC)
 			{
 				Kryterium::AtrybutKryterium atrybut = wylicz(element, parametry);
-				suma += 0.0l; //TODO: Pobranie planety, surowca info, wyliczenie czasu ze zmiany. Pobierz surowiec na planecie Wyliczanie czasu rozbudowy obiektu. atrybut.ilosc;
+				PodstawoweParametry parametry(PodstawoweParametry::wpisIlosc(STyp::Ilosc(atrybut.ilosc)), PodstawoweParametry::ILOSC, parametry.pobierzIdentyfikatorPlanety());
+				suma += Aplikacja::pobierzInstancje().pobierzGre().pobierzStatek(element.pobierzObiekt()->pobierzIdentyfikator()).pobierzCzasBudowy(parametry);
 			}
 		}
 		return Utils::ObliczZmiane(zmianaCzasuBudowy_, suma, parametry);

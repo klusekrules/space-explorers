@@ -27,10 +27,9 @@ namespace SpEx{
 		return identyfikator_;
 	}
 
-
 	bool Galaktyka::zapisz(XmlBO::ElementWezla wezel) const{
 		auto element = wezel->tworzElement(WEZEL_XML_GALAKTYKA);
-		//TODO: zapisywanie identyfikatora.
+		element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, identyfikator_.napis().c_str());
 		for (auto uklad : uklady_)
 		if (!uklad.second->zapisz(element))
 			return false;
@@ -39,9 +38,8 @@ namespace SpEx{
 
 	bool Galaktyka::odczytaj(XmlBO::ElementWezla wezel){
 		if (wezel){
-			//TODO: Odczytywanie identyfikatora galaktyki.
-			//TODO: U¿yæ foreach na wezle.
-			for (XmlBO::ElementWezla element = wezel->pobierzElement(WEZEL_XML_UKLAD_SLONECZNY); element; element = element->pobierzNastepnyElement(WEZEL_XML_UKLAD_SLONECZNY)){
+			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
+			return XmlBO::ForEach<THROW>(wezel, WEZEL_XML_UKLAD_SLONECZNY, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 				auto uklad = std::make_shared<UkladSloneczny>(STyp::Identyfikator(), pobierzIdentyfikator());
 				if (!uklad->odczytaj(element))
 					return false;
@@ -49,15 +47,14 @@ namespace SpEx{
 				if (iter != uklady_.end())
 					return false;
 				uklady_.insert(std::make_pair(uklad->pobierzIdentyfikator(), uklad));
-			}
-			return true;
+				return true;
+			}));
 		}
 		return false;
 	}
 
 	std::string Galaktyka::napis() const{
 		SLog::Logger str(NAZWAKLASY(Galaktyka));
-		//str.dodajKlase(Bazowa::napis());
 		for (auto a : uklady_){
 			if (a.second){
 				str.dodajPole("Uklad", *a.second);

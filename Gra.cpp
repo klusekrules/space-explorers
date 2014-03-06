@@ -13,15 +13,6 @@ namespace SpEx{
 	{
 	}
 
-	Gra::Gra(const Gra& gra)
-		: aplikacja_(gra.aplikacja_), fabryka_(SZmi::ZmianaFabryka::pobierzInstancje()), uzytkownik_(gra.uzytkownik_)
-	{
-	}
-
-	Gra& Gra::operator=(const Gra& gra){
-		return *this;
-	}
-
 	SZmi::ZmianaFabryka& Gra::pobierzFabrykeZmian() const{
 		return fabryka_;
 	}
@@ -308,7 +299,7 @@ namespace SpEx{
 
 	bool Gra::zapisz(const std::string& nazwa, const std::string& hash) const{
 		std::string plik;
-		auto dokument = plikUzytkownika(nazwa, hash, plik, false);
+		auto dokument = plikUzytkownika(nazwa, hash, plik, true);
 		if (!dokument || !uzytkownik_->zapisz(dokument->pobierzElement(nullptr)))
 			return false;
 		return dokument->zapisz(plik.c_str());
@@ -326,7 +317,6 @@ namespace SpEx{
 				return nullptr;
 			if (tworzPlik){
 				dokument = std::make_shared<SPar::ParserDokumentXml>();
-				dokument->odczytaj(plik.c_str());
 				XmlBO::ElementWezla uzytkownik = dokument->tworzElement(WEZEL_XML_UZYTKOWNIK);
 				uzytkownik->tworzAtrybut(ATRYBUT_XML_HASH, hash.c_str());
 				uzytkownik->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa.c_str());

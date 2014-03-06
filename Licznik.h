@@ -12,7 +12,7 @@ namespace SpEx{
 	* \version 1
 	* \date 22-07-2013
 	*/
-	class Licznik : //TODO: Dodanie atrybutu identyfikatora.
+	class Licznik :
 		virtual public SLog::LoggerInterface,
 		virtual public Serializacja
 	{
@@ -93,7 +93,7 @@ namespace SpEx{
 		std::string napis() const override;
 
 	private:
-		STyp::Identyfikator identyfikator_ = 0;///
+		STyp::Identyfikator identyfikator_ = 0;/// identyfikatyr licznika
 		STyp::Ilosc wartoscLicznika_ = 0;/// Wartoœæ licznika.
 	};
 }

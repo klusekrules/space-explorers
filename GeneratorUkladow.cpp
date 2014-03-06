@@ -69,19 +69,10 @@ namespace SpEx{
 
 		//TODO: Walidacja sta³ych, wyswietlanie sta³ych w logach.
 	}
-
-	GeneratorUkladow::~GeneratorUkladow()
-	{
-	}
-
+	
 	std::shared_ptr<Galaktyka> GeneratorUkladow::generujGalaktyke() const{
 		auto galaktyka = std::make_shared<Galaktyka>(STyp::Identyfikator(static_cast<STyp::Identyfikator::nazwa_typu>(licznikIdGalaktyk()())));
 		galaktyka->iloscUkladow_ = dystrybutorIlosciUkladow(generator);
-		/*
-		for(; iloscUkladow > 0 ; --iloscUkladow){
-		auto uklad = generujUklad(galaktyka->pobierzIdentyfikator());
-		galaktyka->dodajUklad(uklad);
-		}*/
 		return galaktyka;
 	}
 
@@ -131,7 +122,7 @@ namespace SpEx{
 			procentWody = dystrybutorPowierzchniWody(generator);
 		}
 		auto powierzchniaUzytkowa = dystrybucjaPowierzchniUzytkowej(generator);
-
+		planeta->ustawNazwePlanety(STyp::Tekst("Kolonia"));
 		planeta->ustawSrednice(STyp::Dystans(srednica));
 		planeta->ustawTemperature(STyp::Temperatura(temperatura));
 		planeta->ustawOdlegloscOdSrodkaUkladu(odlegloscOdCentrum);
