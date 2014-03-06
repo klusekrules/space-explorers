@@ -1,9 +1,9 @@
 #include "Main.h"
 #include "Biblioteki.h"
 #include "Aplikacja.h"
-//#include <SFML/Graphics.hpp>
-//#include "MaszynaStanow.h"
-//#include "lua.hpp"
+#include <SFML/Graphics.hpp>
+#include "MaszynaStanow.h"
+#include "lua.hpp"
 
 #ifdef TESTS
 #include "TestyJednostkowe.h"
@@ -22,8 +22,8 @@ void main( int argv , char* argc[] ){
 	SpEx::Aplikacja::argumenty = argc;
 	SpEx::Aplikacja::pobierzInstancje();
 
-	//MaszynaStanow::pobierzInstancje().start();
-	TestyJednostkowe::pobierzInstancje().wykonajTesty();
+	MaszynaStanow::pobierzInstancje().start();
+	//TestyJednostkowe::pobierzInstancje().wykonajTesty();
 
 }
 
