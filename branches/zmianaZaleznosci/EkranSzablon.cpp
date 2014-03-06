@@ -17,18 +17,21 @@ EkranSzablon::EkranSzablon(XmlBO::ElementWezla wezel){
 				czcionka_.loadFromFile(czcionka);
 				interfejs_.setGlobalFont(czcionka_);
 			}
-			if( !interfejs_.loadWidgetsFromFile(konfiguracja) )
+
+			if (!interfejs_.loadWidgetsFromFile(konfiguracja)){
 				throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst());
-			//TODO:uzycie petli foreach
-			for(auto element = wezel->pobierzElement(WEZEL_XML_KONTROLKA); element ; element = element->pobierzNastepnyElement(WEZEL_XML_KONTROLKA)){
+			}
+
+			XmlBO::ForEach<THROW>(wezel, WEZEL_XML_KONTROLKA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 				std::string nazwa = XmlBO::WczytajAtrybut(element,ATRYBUT_XML_NAZWA,std::string());
 				if(  !nazwa.empty() ){
 					auto kontrolka = interfejs_.get(nazwa);
 					if( kontrolka!=nullptr ){
-						wczytajDaneKontrolki(element,kontrolka);
+						wczytajDaneKontrolki(element, kontrolka);
 					}
 				}
-			}
+				return true;
+			}));
 		}
 	}
 }
@@ -63,24 +66,25 @@ void EkranSzablon::callback( const tgui::Callback& callback, unsigned int idZdar
 
 bool EkranSzablon::wczytajDaneKontrolki(XmlBO::ElementWezla wezel, tgui::Widget::Ptr kontrolka){
 	if(wezel){
-		for (auto element = wezel->pobierzElement(WEZEL_XML_ATRYBUT); element; element = element->pobierzNastepnyElement(WEZEL_XML_ATRYBUT)){
+		XmlBO::ForEach<THROW>(wezel, WEZEL_XML_ATRYBUT, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 			std::string nazwa = XmlBO::WczytajAtrybut(element,ATRYBUT_XML_NAZWA,std::string());
 			std::string wartosc = XmlBO::WczytajAtrybut(element,ATRYBUT_XML_WARTOSC,std::string());
 			if( !( nazwa.empty() || wartosc.empty() ) ){
 				kontrolka->setProperty(nazwa,wartosc);
 			}
-		}
-		for (auto element = wezel->pobierzElement(WEZEL_XML_AKCJA); element; element = element->pobierzNastepnyElement(WEZEL_XML_AKCJA)){
+			return true;
+		}));
+		XmlBO::ForEach<THROW>(wezel, WEZEL_XML_AKCJA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 			unsigned int akcja = XmlBO::WczytajAtrybut<unsigned int>(element,ATRYBUT_XML_IDENTYFIKATOR,0);
 			unsigned int zdarzenie = XmlBO::WczytajAtrybut<unsigned int>(element,ATRYBUT_XML_ID_ZDARZENIA,0);
 			if( !( akcja == 0 || zdarzenie == 0 ) ){
 				kontrolka->bindCallbackEx(std::bind(&EkranSzablon::callback, std::ref(*this), std::placeholders::_1, zdarzenie ), akcja);
 			}
-		}
+			return true;
+		}));
 	}
 	return true;
 }
-
 
 void EkranSzablon::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 	interfejs_.draw();

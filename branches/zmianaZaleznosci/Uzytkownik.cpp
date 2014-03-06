@@ -53,9 +53,10 @@ namespace SpEx{
 
 	bool Uzytkownik::odczytaj(XmlBO::ElementWezla wezel){
 		if (wezel){
-			XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_NAZWA, nazwaUzytkownika_);
-			//TODO: U¿yæ for each
-			for (auto element = wezel->pobierzElement(WEZEL_XML_PLANETA); element; element = element->pobierzNastepnyElement(WEZEL_XML_PLANETA)){
+
+			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_NAZWA, nazwaUzytkownika_);
+
+			return XmlBO::ForEach<THROW>(wezel, WEZEL_XML_PLANETA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 				STyp::Identyfikator idPlanety;
 				if (!XmlBO::WczytajAtrybut<NOTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR_RODZICA, idPlanety))
 					return false;
@@ -64,8 +65,8 @@ namespace SpEx{
 					return false;
 				planeta->ustawWlasciciela(this);
 				planety_[idPlanety] = planeta;
-			}
-			return true;
+				return true;
+			}));
 		}
 		return false;
 	}

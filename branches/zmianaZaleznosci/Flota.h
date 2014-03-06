@@ -14,7 +14,7 @@ namespace SpEx {
 	* \version 1
 	* \date 25-07-2013
 	*/
-	class Flota : //TODO: Dodanie identyfikatra floty
+	class Flota :
 		virtual public SLog::LoggerInterface,
 		virtual public Serializacja
 	{

@@ -24,7 +24,6 @@ void main( int argv , char* argc[] ){
 
 	MaszynaStanow::pobierzInstancje().start();
 	//TestyJednostkowe::pobierzInstancje().wykonajTesty();
-
 }
 
 #endif

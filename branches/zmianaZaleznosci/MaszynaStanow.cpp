@@ -9,17 +9,17 @@ MaszynaStanow::LuaStan::LuaStan()
 }
 
 MaszynaStanow::MaszynaStanow()
-	: watekGraficzny_(true), stan_(nullptr), stanNastepny_(nullptr), pulaWatkow_(4)
+	: watekGraficzny_(true), stan_(nullptr), stanNastepny_(nullptr), pulaWatkow_(4) //TODO: Parametryzowana pula w¹tków
 {
 	SPar::ParserDokumentXml doc;
 	doc.odczytaj("resource\\state.xml");
 	auto root = doc.pobierzElement(nullptr);
 	XmlBO::WczytajAtrybut<THROW>(root,ATRYBUT_XML_STAN_POCZATKOWY,idStanuPoczatkowy_);
-	//TODO: U¿yæ pêtli foreach.
-	for(auto element = root->pobierzElement(WEZEL_XML_STAN); element ; element = element->pobierzNastepnyElement(WEZEL_XML_STAN)){
+	XmlBO::ForEach<THROW>(root, WEZEL_XML_STAN, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 		auto stan = std::make_shared<StanInfo>(element);
 		wszystkieStany_.insert(std::make_pair(stan->pobierzIdentyfikator(), stan));
-	}
+		return true;
+	}));
 	watekGraficzny_.zatrzymajPoInicjalizacji();
 	watekGraficzny_.odblokuj();
 }
@@ -36,9 +36,6 @@ bool MaszynaStanow::kolejkujOkno( int id ){
 void MaszynaStanow::wyczyscKolejkeOkien( ){
 	std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
 	stosEkranow_.clear();
-}
-
-MaszynaStanow::~MaszynaStanow(){
 }
 
 Stan MaszynaStanow::pobierzStan( OknoGry::StosEkranow& stos ) const{

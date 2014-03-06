@@ -62,7 +62,7 @@ namespace SpEx{
 		for (auto planeta : planety_)
 		if (!planeta.second->zapisz(element))
 			return false;
-		return true; //TODO: Zapis identyfikatora.
+		return true;
 	}
 
 	bool UkladSloneczny::odczytaj(XmlBO::ElementWezla wezel){
@@ -73,14 +73,12 @@ namespace SpEx{
 				return false;
 			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_SREDNIA_TEMPERATURA_GWIAZDY, sredniaTemperaturaGwiazdy_))
 				return false;
-			//TODO:Uzycie foreach.
-			for (auto element = wezel->pobierzElement(WEZEL_XML_PLANETA); element; element = element->pobierzNastepnyElement(WEZEL_XML_PLANETA)){
+			return XmlBO::ForEach<THROW>(wezel, WEZEL_XML_PLANETA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 				auto planeta = std::make_shared<SpEx::Planeta>(STyp::Identyfikator(), pobierzIdentyfikator());
 				if (!planeta->odczytaj(element))
 					return false;
 				planety_[planeta->pobierzIdentyfikator()] = planeta;
-			}
-			return true;
+			}));
 		}
 		return false;
 	}

@@ -171,26 +171,6 @@ namespace SpEx{
 		}
 	}
 
-	/*void Planeta::wybuduj(std::shared_ptr< Obiekt > obiekt){
-		auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
-		if (iterator != listaObiektow_.end()){
-			iterator->second->wybuduj(*obiekt);
-		}
-		else{
-			//TODO: Aplikacja::pobierzInstancje().pobierzGre().wybudujNaPlanecie(*this, , obiekt->pobierzIlosc(), obiekt->pobierzPoziom());
-		}
-	}
-
-	void Planeta::wybuduj(std::shared_ptr< Statek > obiekt){
-		auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
-		if (iterator != listaObiektow_.end()){
-			iterator->second->wybuduj(*obiekt);
-		}
-		else{
-			dodajObiekt(obiekt);
-		}
-	}*/
-
 	STyp::Identyfikator Planeta::dodajFlote(){
 		auto flota = std::make_shared< Flota >(STyp::Identyfikator(static_cast<STyp::Identyfikator::nazwa_typu>(licznikIdentyfikatorowFloty_()())), STyp::Identyfikator(), STyp::Identyfikator(), Flota::CelPodrozy::Transport);
 		listaFlot_.insert(std::make_pair(flota->pobierzIdentyfikator(), flota));
@@ -266,11 +246,7 @@ namespace SpEx{
 		}
 		return true;
 	}
-	/*
-	bool Planeta::czyMaWlasciciela()const{
-		return wlasciciel_ != nullptr;
-	}
-	*/
+	
 	void Planeta::rozladujStatek(std::shared_ptr< Statek > statek){
 		if (statek){
 			for (auto element : statek->oproznijLadownie()){
@@ -330,6 +306,12 @@ namespace SpEx{
 
 	bool Planeta::odczytaj(XmlBO::ElementWezla wezel){
 		if (wezel){
+
+			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
+			Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(identyfikator_);
+
+			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_NAZWA, nazwaPlanety_);
+
 			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_ODLEGLOSC_OD_SLONCA, odlegloscOdSlonca_))
 				return false;
 			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_SREDNICA, srednicaPlanety_))
@@ -355,44 +337,35 @@ namespace SpEx{
 				return false;
 			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA_UZYTKOWA_LADOW, powierzchniaUzytkowaLadow_))
 				return false;
-			XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_NAZWA, nazwaPlanety_);
-			XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
-			Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(identyfikator_);
-
-			auto refDostepneZasobyPlanety_ = std::ref(dostepneZasobyPlanety_);
-
-			if (!XmlBO::ForEach<THROW>(wezel, WEZEL_XML_ZASOB, XmlBO::OperacjaWezla([&refDostepneZasobyPlanety_](XmlBO::ElementWezla zasob)->bool{
+						
+			if (!XmlBO::ForEach<THROW>(wezel, WEZEL_XML_ZASOB, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla zasob)->bool{
 				STyp::Identyfikator identyfikator;
 				STyp::Ilosc ilosc;
 				if (!XmlBO::WczytajAtrybut<NOTHROW>(zasob, ATRYBUT_XML_IDENTYFIKATOR, identyfikator))
 					return false;
 				if (!XmlBO::WczytajAtrybut<NOTHROW>(zasob, ATRYBUT_XML_ILOSC, ilosc))
 					return false;
-				auto iter = refDostepneZasobyPlanety_.get().find(identyfikator);
-				if (iter != refDostepneZasobyPlanety_.get().end())
+				auto iter = dostepneZasobyPlanety_.find(identyfikator);
+				if (iter != dostepneZasobyPlanety_.end())
 					return false;
-				refDostepneZasobyPlanety_.get().insert(std::make_pair(identyfikator, ilosc));
+				dostepneZasobyPlanety_.insert(std::make_pair(identyfikator, ilosc));
 				return true;
 			}))){
 				return false;
 			}
 
 			auto obiekt = wezel->pobierzElement(WEZEL_XML_OBIEKTY);
-
-			auto refIdentyfikator_ = std::ref(identyfikator_);
-			auto refListaObiektow_ = std::ref(listaObiektow_);
-			auto refWybuduj_ = std::bind((bool(Planeta::*)(const Indeks&, const XmlBO::ElementWezla))&Planeta::wybuduj, this, std::placeholders::_1, std::placeholders::_2);
 			if (obiekt){
-				if (!XmlBO::ForEach<THROW>(obiekt, XmlBO::OperacjaWezla([&refWybuduj_, &refIdentyfikator_, &refListaObiektow_](XmlBO::ElementWezla element)->bool{
+				if (!XmlBO::ForEach<THROW>(obiekt, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 					STyp::Identyfikator identyfikator;
 					if (!XmlBO::WczytajAtrybut<NOTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR, identyfikator))
 						return false;
-					if (!refWybuduj_(identyfikator, element))
+					if (!wybuduj(identyfikator, element))
 						return false;
-					auto iter = refListaObiektow_.get().find(identyfikator);
-					if (iter == refListaObiektow_.get().end())
+					auto iter = listaObiektow_.find(identyfikator);
+					if (iter == listaObiektow_.end())
 						return false;
-					if (iter->second->pobierzIdentyfikatorPlanety() != refIdentyfikator_.get())
+					if (iter->second->pobierzIdentyfikatorPlanety() != identyfikator_)
 						return false;
 					return true;
 				}))){
@@ -400,22 +373,21 @@ namespace SpEx{
 				}
 			}
 
-			auto refListaFlot_ = std::ref(listaFlot_);
 			auto flota = wezel->pobierzElement(WEZEL_XML_FLOTY);
 			if (flota){
-				if (!XmlBO::ForEach<THROW>(flota, XmlBO::OperacjaWezla([&refIdentyfikator_, &refListaFlot_](XmlBO::ElementWezla element)->bool{
+				if (!XmlBO::ForEach<THROW>(flota, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 					STyp::Identyfikator identyfikator;
 					if (!XmlBO::WczytajAtrybut<NOTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR, identyfikator))
 						return false;
 					auto wskaznik = std::make_shared<Flota>(identyfikator, STyp::Identyfikator(), STyp::Identyfikator(), Flota::CelPodrozy::Transport);
-					auto iterator = refListaFlot_.get().find(identyfikator);
-					if (iterator != refListaFlot_.get().end() || !wskaznik->odczytaj(element))
+					auto iterator = listaFlot_.find(identyfikator);
+					if (iterator != listaFlot_.end() || !wskaznik->odczytaj(element))
 						return false;
-					if (wskaznik->pobierzPlanetePoczatkowa() != refIdentyfikator_.get())
+					if (wskaznik->pobierzPlanetePoczatkowa() != identyfikator_)
 						return false;
 					Walidator::pobierzInstancje().dodajUzytyIdentyfikatorPlanety(wskaznik->pobierzPlanetePoczatkowa());
 					Walidator::pobierzInstancje().dodajUzytyIdentyfikatorPlanety(wskaznik->pobierzPlaneteDocelowa());
-					refListaFlot_.get().insert(std::make_pair(wskaznik->pobierzIdentyfikator(), wskaznik));
+					listaFlot_.insert(std::make_pair(wskaznik->pobierzIdentyfikator(), wskaznik));
 					return true;
 				}))){
 					return false;
@@ -479,8 +451,8 @@ namespace SpEx{
 		str.dodajPole("powierzchniaLadow", powierzchniaLadow_);
 		str.dodajPole("powierzchniaUzytkowaLadow", powierzchniaUzytkowaLadow_);
 		str.dodajPole("nazwaPlanety", nazwaPlanety_);
-		//for( auto element : dostepneZasobyPlanety_ )
-		//	str.dodajPole("Zasob", element.second);
+		for( auto element : dostepneZasobyPlanety_ )
+			str.dodajPole("Zasob", element.second);
 		for (auto element : listaObiektow_)
 			str.dodajPole("Obiekt", *(element.second));
 		for (auto element : listaFlot_)

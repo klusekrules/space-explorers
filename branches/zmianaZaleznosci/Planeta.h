@@ -117,24 +117,6 @@ namespace SpEx{
 		bool wybuduj(const Indeks& identyfikator, const XmlBO::ElementWezla element);
 		
 		/**
-		* \brief Metoda buduje statek na planecie.
-		*
-		* Metoda buduje statek na planecie.
-		* \param[in] obiekt - Sprytny wskaünik na obiekt dodawany do planety.
-		* \remark Metoda tworzy kopie elementu, nie zapamiÍtuje wskaünika przekazanego jako parametr.
-		*/
-		//void wybuduj(std::shared_ptr< Obiekt > obiekt);
-
-		/**
-		* \brief Metoda buduje statek na planecie.
-		*
-		* Metoda buduje statek na planecie.
-		* \param[in] obiekt - Sprytny wskaünik na obiekt dodawany do planety.
-		* \remark Jeøeli nie ma øadnuych obiektÛw tego typu na planecie metoda zapisuje wskaünik, nie tworzy kopii.
-		*/
-		//void wybuduj(std::shared_ptr< Statek > obiekt);
-
-		/**
 		* \brief Metoda tworzy flotÍ na planecie.
 		*
 		* Metoda tworzy pusty obiekt floty na planecie i zwraca identyfikator.

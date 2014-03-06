@@ -237,25 +237,21 @@ namespace SpEx{
 		default:
 			return false;
 		}
-		ListaStatkow& ref = lista_;
-		if (!XmlBO::ForEach<THROW>(wezel, XmlBO::OperacjaWezla([&ref](XmlBO::ElementWezla element)->bool{
+		return XmlBO::ForEach<THROW>(wezel, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 			STyp::Identyfikator identyfikator;
 			if (!XmlBO::WczytajAtrybut<THROW>(element, ATRYBUT_XML_IDENTYFIKATOR, identyfikator))
 				return false;
-			std::shared_ptr<Statek> statek = std::shared_ptr<Statek>(Aplikacja::pobierzInstancje().pobierzGre().pobierzStatek(identyfikator).tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::wpisIlosc(STyp::Ilosc()), PodstawoweParametry::ILOSC, STyp::Identyfikator())));
+			PodstawoweParametry parametry(PodstawoweParametry::wpisIlosc(STyp::Ilosc()), PodstawoweParametry::ILOSC, STyp::Identyfikator());
+			auto statek = std::shared_ptr<Statek>(Aplikacja::pobierzInstancje().pobierzGre().pobierzStatek(identyfikator).tworzEgzemplarz(parametry));
 			if (!statek->odczytaj(element))
 				return false;
-			ref.insert(make_pair(statek->pobierzIdentyfikator(), statek));
+			lista_.insert(make_pair(statek->pobierzIdentyfikator(), statek));
 			return true;
-		}))){
-			return false;
-		}
-		return true;
+		}));
 	}
 
 	std::string Flota::napis()const {
 		SLog::Logger str(NAZWAKLASY(Ladownia));
-		//str.dodajKlase(Bazowa::napis());
 		str.dodajPole(NAZWAPOLA(celPodrozy_), std::to_string(celPodrozy_));
 		str.dodajPole(NAZWAPOLA(planetaDocelowa_), planetaDocelowa_);
 		str.dodajPole(NAZWAPOLA(planetaPoczatkowa_), planetaPoczatkowa_);

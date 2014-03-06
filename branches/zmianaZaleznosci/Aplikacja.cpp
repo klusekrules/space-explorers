@@ -36,12 +36,7 @@ namespace SpEx{
 
 	int Aplikacja::iloscArgumentow = 0;
 	char** Aplikacja::argumenty = nullptr;
-
-	Aplikacja& Aplikacja::pobierzInstancje(){
-		static Aplikacja instancja;
-		return instancja;
-	}
-
+	
 	Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
 		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), instancjaGry_(new Gra(*this))
 	{
@@ -116,16 +111,7 @@ namespace SpEx{
 		_set_invalid_parameter_handler(myInvalidParameterHandler);
 
 	}
-
-	Aplikacja::Aplikacja(const Aplikacja& aplikacja)
-		:logger_(SLog::Log::pobierzInstancje())
-	{
-	}
-
-	Aplikacja& Aplikacja::operator=(const Aplikacja& aplikacja){
-		return *this;
-	}
-
+	
 	SLog::Log& Aplikacja::pobierzLogger() const{
 		return logger_;
 	}
