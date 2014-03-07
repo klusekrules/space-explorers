@@ -4,6 +4,9 @@
 #include "keccak.h"
 namespace SpEx{
 
+	const STyp::Fluktuacja Utils::FMAX = 1.0;
+	const STyp::Fluktuacja Utils::FMIN = 1.0;
+
 	std::shared_ptr<SZmi::ZmianaInterfejs> Utils::TworzZmiane(XmlBO::ElementWezla wezel){
 		if (!wezel)
 			return nullptr;

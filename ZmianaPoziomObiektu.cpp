@@ -35,10 +35,6 @@ namespace SpEx{
 	const STyp::Identyfikator ZmianaPoziomObiektu::identyfikator_(6);
 
 	bool RejestrujZmianaPoziomObiektu(SZmi::ZmianaFabryka& fabryka, SLog::Log& logger){
-		if (ZmianaPoziomObiektu::RejestrujZmianaPoziomObiektu(fabryka))
-			logger.loguj(SLog::Log::Info, "Zaladowano ZmianaPoziomObiektu."); //TODO: przeniesc do sta³ej.
-		else
-			logger.loguj(SLog::Log::Info, "Nie zaladowano ZmianaPoziomObiektu."); //TODO: przeniesc do sta³ej.
-		return true;
+		return ZmianaPoziomObiektu::RejestrujZmianaPoziomObiektu(fabryka);
 	}
 }

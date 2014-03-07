@@ -251,7 +251,6 @@ namespace SpEx{
 		* \brief Metoda czyœci zawartoœæ planety.
 		*
 		* Metoda czyœci zawartoœæ planety. Usuwa tak¿e powi¹zanie z u¿ytkownikiem je¿eli takowe istnieje oraz zalogowany jest u¿ytkownik który jest przypisany do planety.
-		* \todo Metoda do zmiany. Usuniêcie sprawdzania warunku tego samego u¿ytkownika. Przeniesienie tego w inne miejsce.
 		*/
 		void wyczyscZawartoscPlanety();
 

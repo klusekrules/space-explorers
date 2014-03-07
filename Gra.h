@@ -34,7 +34,7 @@ namespace SpEx {
 		*
 		* \param[in] aplikacja - instancja aplikacji dla której jest tworzona gra..
 		*/
-		explicit Gra(Aplikacja& aplikacja);
+		explicit Gra(Aplikacja& aplikacja, SZmi::ZmianaFabryka& fabryka);
 
 		/**
 		* \brief Destruktor.

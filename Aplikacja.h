@@ -79,7 +79,7 @@ namespace SpEx {
 		/**
 		* \brief Metoda zapisuj¹ca stan gry.
 		*
-		* \return true je¿eli uda siê zapisac grê, flase w przeciwnym wypadku.
+		* \return true je¿eli uda siê zapisac grê, false w przeciwnym wypadku.
 		*/
 		bool zapiszGre(const std::string& nazwa, const std::string& hash) const;
 
