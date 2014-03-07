@@ -5,7 +5,7 @@
 #include "TypyProste\TypyProsteBO.h"
 
 namespace SpEx{
-	StatekInfo::StatekInfo(XmlBO::ElementWezla wezel) throw(WyjatekParseraXML)
+	StatekInfo::StatekInfo(XmlBO::ElementWezla wezel)
 		: ObiektInfo(wezel),
 		JednostkaLatajacaInfo(XmlBO::ZnajdzWezel<THROW>(wezel, WEZEL_XML_JEDNOSTKA_LATAJACA_INFO)),
 		JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<THROW>(wezel, WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO)),
@@ -22,7 +22,7 @@ namespace SpEx{
 			break;
 		case 0: przechowywanyWHangarze_ = false;
 			break;
-		default: SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+		default: Utils::generujWyjatekBleduStruktury(wezel);
 		}
 	}
 

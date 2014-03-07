@@ -3,23 +3,14 @@
 #include "Aplikacja.h"
 
 namespace SpEx{
-	NiepowodzenieTranzakcji::NiepowodzenieTranzakcji(const STyp::Tekst& tPlik, const STyp::Ilosc& iLinia, const STyp::Tekst& tranzakcja)
-		: Wyjatek(tPlik, iLinia,Aplikacja::pobierzInstancje().pobierzSladStosu(), domyslnyNiepowodzenieTranzakcjiID, domyslnyNiepowodzenieTranzakcjiTytul, domyslnyNiepowodzenieTranzakcjiTresc), tranzakcja_(tranzakcja)
+	NiepowodzenieTranzakcji::NiepowodzenieTranzakcji(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia, const STyp::Tekst& tranzakcja)
+		: Wyjatek(tPlik, funkcja, iLinia,Aplikacja::pobierzInstancje().pobierzSladStosu(), domyslnyNiepowodzenieTranzakcjiID, domyslnyNiepowodzenieTranzakcjiTytul, domyslnyNiepowodzenieTranzakcjiTresc), tranzakcja_(tranzakcja)
 	{
 	}
 
 	STyp::Tekst NiepowodzenieTranzakcji::generujKomunikat() const
 	{
-		return Wyjatek::generujKomunikat();
-			//TODO: Dokonczyc metode
-			/*STyp::Tekst("Tytul: ") + tytul +
-			STyp::Tekst("\nID: ") + numerWyjatku.napis() +
-			STyp::Tekst("\nPlik: ") + plik +
-			STyp::Tekst("\nLinia: ") + linia.napis() +
-			STyp::Tekst("\nData kompilacji: ") + data +
-			STyp::Tekst("\nTresc: ") + tresc +
-			STyp::Tekst("\nOpis Tranzakcji: ") + tranzakcja_ +
-			STyp::Tekst("\nStos wywo³añ: ") + stack + STyp::Tekst("\n");*/
+		return Wyjatek::generujKomunikat() + STyp::Tekst("\nOpis Tranzakcji: ") + tranzakcja_;
 	}
 
 	std::string NiepowodzenieTranzakcji::napis() const{

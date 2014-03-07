@@ -11,7 +11,7 @@ namespace SZmi{
 		if (fabryka_ && zmiana){
 			wykladnik_ = fabryka_->Tworz(zmiana);
 			if (!wykladnik_)
-				SPar::ParserUtils::generujWyjatekBleduStruktury(zmiana);
+				SPar::ParserUtils::generujWyjatekBleduStruktury(zmiana,STyp::Tekst());
 		}
 	}
 

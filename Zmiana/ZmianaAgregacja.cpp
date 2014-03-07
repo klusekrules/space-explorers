@@ -8,20 +8,20 @@ namespace SZmi{
 		if (wezel && fabryka_){
 			XmlBO::ElementWezla wezelNastepny = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, XML_WEZEL_ZMIANA, XML_ATRYBUT_ZMIANA_FOR, XML_WARTOSC_ATRYBUTU_ZMIANA_NASTEPNY);
 			if (!wezelNastepny)
-				SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+				SPar::ParserUtils::generujWyjatekBleduStruktury(wezel, STyp::Tekst());
 			nastepna_ = fabryka_->Tworz(wezelNastepny);
 			if (!nastepna_)
-				SPar::ParserUtils::generujWyjatekBleduStruktury(wezelNastepny);
+				SPar::ParserUtils::generujWyjatekBleduStruktury(wezelNastepny, STyp::Tekst());
 
 			XmlBO::ElementWezla dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, XML_WEZEL_ZMIANA, XML_ATRYBUT_ZMIANA_FOR, XML_WARTOSC_ATRYBUTU_ZMIANA_BRAT);
 			if (!dziecko)
-				SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+				SPar::ParserUtils::generujWyjatekBleduStruktury(wezel, STyp::Tekst());
 			for (; dziecko; dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, XML_WEZEL_ZMIANA, XML_ATRYBUT_ZMIANA_FOR, XML_WARTOSC_ATRYBUTU_ZMIANA_BRAT, dziecko)){
 				auto element = fabryka_->Tworz(dziecko);
 				if (element)
 					listaZmian_.push_back(element);
 				else
-					SPar::ParserUtils::generujWyjatekBleduStruktury(dziecko);
+					SPar::ParserUtils::generujWyjatekBleduStruktury(dziecko, STyp::Tekst());
 			}
 		}
 	}

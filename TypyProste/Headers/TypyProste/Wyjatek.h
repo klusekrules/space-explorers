@@ -4,7 +4,7 @@
 namespace STyp{
 
 	//Makro wstawiajace nazwe pliku i liniê i datê pliku.
-	#define EXCEPTION_PLACE STyp::Tekst(__FILE__) , STyp::Ilosc(__LINE__)
+	#define EXCEPTION_PLACE STyp::Tekst(__FILE__) , STyp::Tekst(__func__) , STyp::Ilosc(__LINE__) 
 
 	/**
 	* Podstawowa klasa wyj¹tku. S³u¿¹ca jako klasa bazowa dla pozosta³ych wyj¹tków
@@ -17,6 +17,7 @@ namespace STyp{
 	public:
 		Wyjatek(
 			const Tekst& plik,
+			const Tekst& funkcja,
 			const Ilosc& linia,
 			const Tekst& sladStosu,
 			const Identyfikator& id = Identyfikator(),
@@ -37,6 +38,7 @@ namespace STyp{
 		Tekst tytul_;
 		Tekst tresc_;
 		Tekst plik_;
+		Tekst funkcja_;
 		Ilosc linia_;
 		Tekst data_;
 		Tekst stack_;

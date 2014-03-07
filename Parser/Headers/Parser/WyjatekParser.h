@@ -10,6 +10,7 @@ namespace SPar{
 	public:
 		WyjatekParser(
 			const STyp::Tekst& plik,
+			const STyp::Tekst& funkcja,
 			const STyp::Ilosc& linia,
 			const STyp::Tekst& sladStosu,
 			const ParserAtrybut* atrybut,
@@ -18,6 +19,7 @@ namespace SPar{
 
 		WyjatekParser(
 			const STyp::Tekst& plik,
+			const STyp::Tekst& funkcja,
 			const STyp::Ilosc& linia,
 			const STyp::Tekst& sladStosu,
 			const ParserElement* element,
@@ -26,6 +28,7 @@ namespace SPar{
 
 		WyjatekParser(
 			const STyp::Tekst& plik,
+			const STyp::Tekst& funkcja,
 			const STyp::Ilosc& linia,
 			const STyp::Tekst& sladStosu,
 			const ParserDokument* dokument,

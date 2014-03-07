@@ -40,8 +40,6 @@ namespace SpEx{
 	}
 
 	STyp::Ilosc Planeta::pobierzIloscTypowObiektow()const{
-		if (listaObiektow_.size() != listaBudynkow_.size() + listaStatkow_.size() + listaSurowcow_.size() + listaTechnologii_.size())
-			throw NiepoprawnaIloscObiektow(EXCEPTION_PLACE, STyp::Ilosc(static_cast<long double>(listaObiektow_.size())));
 		return STyp::Ilosc(static_cast<long double>(listaObiektow_.size()));
 	}
 
@@ -369,6 +367,18 @@ namespace SpEx{
 				}))){
 					return false;
 				}
+			}
+
+			// Sprawdzanie spójnoœci obiektów na planecie.
+			if (listaObiektow_.size() != listaBudynkow_.size() + listaStatkow_.size() + listaSurowcow_.size() + listaTechnologii_.size() + listaObrona_.size()){
+				throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), STyp::Identyfikator(145), STyp::Tekst("Niespójnoœæ danych!"),
+					STyp::Tekst("Wykryto niespójnoœæ danych obiektów znajduj¹cych siê na planecie o id = " + identyfikator_.napis()
+					+ ". Iloœæ typów wszystkich obiektów = " + std::to_string(listaObiektow_.size())
+					+ ". Iloœæ typów budynków = " + std::to_string(listaBudynkow_.size())
+					+ ". Iloœæ typów statków = " + std::to_string(listaStatkow_.size())
+					+ ". Iloœæ typów surowców = " + std::to_string(listaSurowcow_.size())
+					+ ". Iloœæ typów technologii = " + std::to_string(listaTechnologii_.size())
+					+ ". Iloœæ typów obrony = " + std::to_string(listaObrona_.size()) + "."));
 			}
 
 			auto flota = wezel->pobierzElement(WEZEL_XML_FLOTY);

@@ -268,10 +268,6 @@
     <ClInclude Include="Operacja.h" />
     <ClInclude Include="PaczkaTestow.h" />
     <ClInclude Include="Biblioteki.h" />
-    <ClInclude Include="BladDzieleniaLadowni.h" />
-    <ClInclude Include="BladLaczeniaObiektow.h" />
-    <ClInclude Include="BrakAtrybutuXML.h" />
-    <ClInclude Include="BrakMaski.h" />
     <ClInclude Include="Budynek.h" />
     <ClInclude Include="BudynekInfo.h" />
     <ClInclude Include="definicjeWezlowXML.h" />
@@ -301,9 +297,7 @@
     <ClInclude Include="LadowniaInfo.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="MakeVector.h" />
-    <ClInclude Include="NiepoprawnaIloscObiektow.h" />
     <ClInclude Include="NiepoprawneParametryFunkcji.h" />
-    <ClInclude Include="NiezainicjalizowanaKlasa.h" />
     <ClInclude Include="NiezgodnyTypSurowca.h" />
     <ClInclude Include="NieznalezionoObiektu.h" />
     <ClInclude Include="Obiekt.h" />
@@ -316,9 +310,7 @@
     <ClInclude Include="Surowce.h" />
     <ClInclude Include="SurowceInfo.h" />
     <ClInclude Include="svn_version.h" />
-    <ClInclude Include="WyjatekParseraXML.h" />
     <ClInclude Include="WyjatekSprawdzeniaWarunku.h" />
-    <ClInclude Include="WyjatekSTL.h" />
     <ClInclude Include="Wymagania.h" />
     <ClInclude Include="WymaganiaTest.h" />
     <ClInclude Include="ZapisStanuGryTest.h" />
@@ -329,10 +321,6 @@
   <ItemGroup>
     <ClCompile Include="ApInfo.cpp" />
     <ClCompile Include="Aplikacja.cpp" />
-    <ClCompile Include="BladDzieleniaLadowni.cpp" />
-    <ClCompile Include="BladLaczeniaObiektow.cpp" />
-    <ClCompile Include="BrakAtrybutuXML.cpp" />
-    <ClCompile Include="BrakMaski.cpp" />
     <ClCompile Include="Budynek.cpp" />
     <ClCompile Include="BudynekInfo.cpp" />
     <ClCompile Include="BudynekTest.cpp" />
@@ -367,11 +355,9 @@
     <ClCompile Include="MaszynaStanow.cpp" />
     <ClCompile Include="MenadzerWatkow.cpp" />
     <ClCompile Include="MenedzerTranzakcji.cpp" />
-    <ClCompile Include="NiepoprawnaIloscObiektow.cpp" />
     <ClCompile Include="NiepoprawneParametryFunkcji.cpp" />
     <ClCompile Include="NiepoprawneParametryFunkcjiTest.cpp" />
     <ClCompile Include="NiepowodzenieTranzakcji.cpp" />
-    <ClCompile Include="NiezainicjalizowanaKlasa.cpp" />
     <ClCompile Include="NiezgodnyTypSurowca.cpp" />
     <ClCompile Include="NieznalezionoObiektu.cpp" />
     <ClCompile Include="Obiekt.cpp" />
@@ -408,9 +394,7 @@
     <ClCompile Include="Walidator.cpp" />
     <ClCompile Include="Watek.cpp" />
     <ClCompile Include="WatekZarzadzany.cpp" />
-    <ClCompile Include="WyjatekParseraXML.cpp" />
     <ClCompile Include="WyjatekSprawdzeniaWarunku.cpp" />
-    <ClCompile Include="WyjatekSTL.cpp" />
     <ClCompile Include="Wyjatki.cpp" />
     <ClCompile Include="Wymagania.cpp" />
     <ClCompile Include="WymaganiaTest.cpp" />

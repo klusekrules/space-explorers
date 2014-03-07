@@ -6,7 +6,6 @@
 #include "Statek.h"
 #include "Technologia.h"
 #include "Surowce.h"
-#include "NiepoprawnaIloscObiektow.h"
 #include "Flota.h"
 #include "Licznik.h"
 #include "Obrona.h"

@@ -1,7 +1,6 @@
 #pragma once
 #include "Info.h"
 #include "Ladownia.h"
-#include "WyjatekParseraXML.h"
 #include "PodstawoweParametry.h"
 namespace SpEx{
 	/**

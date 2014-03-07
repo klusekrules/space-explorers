@@ -4,8 +4,8 @@
 
 namespace STyp{
 
-	Wyjatek::Wyjatek(const Tekst& plik, const Ilosc& linia, const Tekst& sladStosu, const Identyfikator& id, const Tekst& tytul, const Tekst& tresc)
-		: identyfikator_(id), tytul_(tytul), tresc_(tresc), plik_(plik), linia_(linia), stack_(sladStosu), data_(Tekst(__DATE__) + Tekst(", ") + Tekst(__TIME__))
+	Wyjatek::Wyjatek(const Tekst& plik,	const Tekst& funkcja, const Ilosc& linia, const Tekst& sladStosu, const Identyfikator& id, const Tekst& tytul, const Tekst& tresc)
+		: identyfikator_(id), tytul_(tytul), tresc_(tresc), plik_(plik), funkcja_(funkcja), linia_(linia), stack_(sladStosu), data_(Tekst(__DATE__) + Tekst(", ") + Tekst(__TIME__))
 	{
 	}
 
@@ -14,6 +14,7 @@ namespace STyp{
 		return std::move(Tekst("Tytul: ") + tytul_ +
 			Tekst("\nID: ") + identyfikator_.napis() +
 			Tekst("\nPlik: ") + plik_ +
+			Tekst("\nFunkcja: ") + funkcja_ +
 			Tekst("\nLinia: ") + linia_.napis() +
 			Tekst("\nData kompilacji: ") + data_ +
 			Tekst("\nTresc: ") + tresc_ +
@@ -37,6 +38,7 @@ namespace STyp{
 		str.dodajPole(NAZWAPOLA(identyfikator_), identyfikator_);
 		str.dodajPole(NAZWAPOLA(tytul_), tytul_);
 		str.dodajPole(NAZWAPOLA(tresc_), tresc_);
+		str.dodajPole(NAZWAPOLA(funkcja_), funkcja_);
 		str.dodajPole(NAZWAPOLA(plik_), plik_);
 		str.dodajPole(NAZWAPOLA(linia_), linia_);
 		str.dodajPole(NAZWAPOLA(data_), data_);

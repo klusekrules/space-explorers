@@ -12,7 +12,7 @@ namespace SpEx{
 			auto identyfikator = obiekt.pobierzObiekt()->pobierzIdentyfikator();
 			for (auto element : warunki_){
 				if (element.pobierzObiekt()->pobierzIdentyfikator() == identyfikator)
-					SPar::ParserUtils::generujWyjatekBleduStruktury(warunek);
+					Utils::generujWyjatekBleduStruktury(warunek);
 			}
 			warunki_.push_back(obiekt);
 			return true;

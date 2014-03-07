@@ -5,6 +5,7 @@
 namespace SPar{
 	WyjatekParser::WyjatekParser(
 		const STyp::Tekst& plik,
+		const STyp::Tekst& funkcja,
 		const STyp::Ilosc& linia,
 		const STyp::Tekst& sladStosu,
 		const ParserAtrybut* atrybut,
@@ -12,6 +13,7 @@ namespace SPar{
 		)
 		: Wyjatek(
 		plik,
+		funkcja,
 		linia,
 		sladStosu,
 		STyp::Identyfikator(PARSER_WYJATEK_ATRYBUTU_ID),
@@ -23,6 +25,7 @@ namespace SPar{
 
 	WyjatekParser::WyjatekParser(
 		const STyp::Tekst& plik,
+		const STyp::Tekst& funkcja,
 		const STyp::Ilosc& linia,
 		const STyp::Tekst& sladStosu,
 		const ParserElement* element,
@@ -30,6 +33,7 @@ namespace SPar{
 		)
 		: Wyjatek(
 		plik,
+		funkcja,
 		linia,
 		sladStosu,
 		STyp::Identyfikator(PARSER_WYJATEK_ELEMENTU_ID),
@@ -41,12 +45,14 @@ namespace SPar{
 
 	WyjatekParser::WyjatekParser(
 		const STyp::Tekst& plik,
+		const STyp::Tekst& funkcja,
 		const STyp::Ilosc& linia,
 		const STyp::Tekst& sladStosu,
 		const ParserDokument* dokument,
 		const STyp::Tekst& tekst
 		) : Wyjatek(
 		plik,
+		funkcja,
 		linia,
 		sladStosu,
 		STyp::Identyfikator(PARSER_WYJATEK_DOKUMENTU_ID),

@@ -10,12 +10,6 @@
     <ClCompile Include="NiezgodnyTypSurowca.cpp">
       <Filter>SourceFile\Wyjatki</Filter>
     </ClCompile>
-    <ClCompile Include="BrakAtrybutuXML.cpp">
-      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
-    </ClCompile>
-    <ClCompile Include="BrakMaski.cpp">
-      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
-    </ClCompile>
     <ClCompile Include="Ladownia.cpp">
       <Filter>SourceFile\Model\Obiekty\Ladownia</Filter>
     </ClCompile>
@@ -39,30 +33,6 @@
     </ClCompile>
     <ClCompile Include="JednostkaLatajacaInfo.cpp">
       <Filter>SourceFile\Model\Obiekty\JednostkaLatajaca</Filter>
-    </ClCompile>
-    <ClCompile Include="WyjatekParseraXML.cpp">
-      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
-    </ClCompile>
-    <ClCompile Include="BladLaczeniaObiektow.cpp">
-      <Filter>SourceFile\Wyjatki</Filter>
-    </ClCompile>
-    <ClCompile Include="BladDzieleniaLadowni.cpp">
-      <Filter>SourceFile\Wyjatki</Filter>
-    </ClCompile>
-    <ClCompile Include="NiepoprawneParametryFunkcji.cpp">
-      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
-    </ClCompile>
-    <ClCompile Include="NiezainicjalizowanaKlasa.cpp">
-      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
-    </ClCompile>
-    <ClCompile Include="NieznalezionoObiektu.cpp">
-      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
-    </ClCompile>
-    <ClCompile Include="NiepoprawnaIloscObiektow.cpp">
-      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
-    </ClCompile>
-    <ClCompile Include="WyjatekSTL.cpp">
-      <Filter>SourceFile\Wyjatki\KlasaBazowa</Filter>
     </ClCompile>
     <ClCompile Include="Aplikacja.cpp">
       <Filter>SourceFile\KlasyGlowne</Filter>
@@ -280,6 +250,12 @@
     <ClCompile Include="TestyUtilsBO.cpp">
       <Filter>Testy\KlasyTestowe\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="NiepoprawneParametryFunkcji.cpp">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClCompile>
+    <ClCompile Include="NieznalezionoObiektu.cpp">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -287,12 +263,6 @@
     </ClInclude>
     <ClInclude Include="NiezgodnyTypSurowca.h">
       <Filter>SourceFile\Wyjatki</Filter>
-    </ClInclude>
-    <ClInclude Include="BrakAtrybutuXML.h">
-      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
-    </ClInclude>
-    <ClInclude Include="BrakMaski.h">
-      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
     </ClInclude>
     <ClInclude Include="Ladownia.h">
       <Filter>SourceFile\Model\Obiekty\Ladownia</Filter>
@@ -317,30 +287,6 @@
     </ClInclude>
     <ClInclude Include="JednostkaLatajaca.h">
       <Filter>SourceFile\Model\Obiekty\JednostkaLatajaca</Filter>
-    </ClInclude>
-    <ClInclude Include="WyjatekParseraXML.h">
-      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
-    </ClInclude>
-    <ClInclude Include="BladLaczeniaObiektow.h">
-      <Filter>SourceFile\Wyjatki</Filter>
-    </ClInclude>
-    <ClInclude Include="BladDzieleniaLadowni.h">
-      <Filter>SourceFile\Wyjatki</Filter>
-    </ClInclude>
-    <ClInclude Include="NiepoprawneParametryFunkcji.h">
-      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
-    </ClInclude>
-    <ClInclude Include="NiezainicjalizowanaKlasa.h">
-      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
-    </ClInclude>
-    <ClInclude Include="NieznalezionoObiektu.h">
-      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
-    </ClInclude>
-    <ClInclude Include="NiepoprawnaIloscObiektow.h">
-      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
-    </ClInclude>
-    <ClInclude Include="WyjatekSTL.h">
-      <Filter>SourceFile\Wyjatki\KlasaBazowa</Filter>
     </ClInclude>
     <ClInclude Include="Aplikacja.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
@@ -612,6 +558,12 @@
     <ClInclude Include="TestyUtilsBO.h">
       <Filter>Testy\KlasyTestowe\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="NieznalezionoObiektu.h">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClInclude>
+    <ClInclude Include="NiepoprawneParametryFunkcji.h">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -625,15 +577,6 @@
     </Filter>
     <Filter Include="Doc">
       <UniqueIdentifier>{c3fb4279-d815-4008-a8cc-069b4a8e4b95}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Wyjatki\ParserXML">
-      <UniqueIdentifier>{ba14294d-6d92-4503-81b4-e7f6ac67aeec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Wyjatki\WyjatkiOgolne">
-      <UniqueIdentifier>{c1f4d8fa-8d8e-45d3-92fb-0b506e96d594}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Wyjatki\KlasaBazowa">
-      <UniqueIdentifier>{b8371ecf-9bbc-4a68-94eb-8f90aeef3e71}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\KlasyGlowne">
       <UniqueIdentifier>{703f8f7c-63c3-4bf3-9541-c8f98fd4902e}</UniqueIdentifier>

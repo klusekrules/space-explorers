@@ -15,17 +15,17 @@ namespace SpEx{
 	{
 		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_ATAK, atak_);
 		if (atak_ < STyp::Obrazenia(0))
-			SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+			Utils::generujWyjatekBleduStruktury(wezel);
 		zmianaAtaku_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<THROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_ATAK));
 
 		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_PANCERZ, pancerz_);
 		if (pancerz_ < STyp::Obrazenia(0))
-			SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+			Utils::generujWyjatekBleduStruktury(wezel);
 		zmianaPancerza_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<THROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_PANCERZ));
 
 		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_OSLONA, oslona_);
 		if (oslona_ < STyp::Obrazenia(0))
-			SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+			Utils::generujWyjatekBleduStruktury(wezel);
 		zmianaOslony_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<THROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_OSLONA));
 	}
 

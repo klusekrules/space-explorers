@@ -234,7 +234,7 @@ namespace SpEx{
 			[&](XmlBO::ElementWezla element)->bool{
 			std::shared_ptr<Surowce> obiekt = gra.tworzSurowce(element);
 			if (!obiekt || !obiekt->odczytaj(element)){
-				SPar::ParserUtils::generujWyjatekBleduStruktury(element);
+				Utils::generujWyjatekBleduStruktury(element);
 			}
 			obiekty_.dodaj(obiekt);
 			return true;

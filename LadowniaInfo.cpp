@@ -20,7 +20,7 @@ namespace SpEx{
 	{
 		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_POJEMNOSC_MAKSYMALNA, pojemnoscMaksymalna_);
 		if (pojemnoscMaksymalna_ < STyp::Objetosc(0))
-			SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+			Utils::generujWyjatekBleduStruktury(wezel);
 		przyrostPojemnosciMaksymalnej_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<THROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_POJEMNOSC_MAKSYMALNA));
 	}
 
