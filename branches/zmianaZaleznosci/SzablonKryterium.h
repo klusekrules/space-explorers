@@ -61,7 +61,7 @@ namespace SpEx{
 		*/
 		SzablonKryterium(XmlBO::ElementWezla wezel){
 			obiekt_ = std::make_shared<T>(wezel);
-			zmiana_ = Utils::TworzZmiane(XmlBO::ZnajdzWezel<THROW>(wezel, WEZEL_XML_ZMIANA));
+			zmiana_ = Utils::TworzZmiane(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_ZMIANA));
 		}
 
 		//--- Destruktor ---

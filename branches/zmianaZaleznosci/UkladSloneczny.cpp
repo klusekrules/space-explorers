@@ -67,13 +67,13 @@ namespace SpEx{
 
 	bool UkladSloneczny::odczytaj(XmlBO::ElementWezla wezel){
 		if (wezel){
-			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
-			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_RODZICA, idGalaktyki_);
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_RODZICA, idGalaktyki_);
 			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_SREDNICA_GWIAZDY, srednicaGwiazdy_))
 				return false;
 			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_SREDNIA_TEMPERATURA_GWIAZDY, sredniaTemperaturaGwiazdy_))
 				return false;
-			return XmlBO::ForEach<THROW>(wezel, WEZEL_XML_PLANETA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
+			return XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_PLANETA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 				auto planeta = std::make_shared<SpEx::Planeta>(STyp::Identyfikator(), pobierzIdentyfikator());
 				if (!planeta->odczytaj(element))
 					return false;

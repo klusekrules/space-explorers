@@ -230,7 +230,7 @@ namespace SpEx{
 
 		Gra& gra = Aplikacja::pobierzInstancje().pobierzGre();
 
-		XmlBO::ForEach<THROW>(wezel, WEZEL_XML_SUROWCE, XmlBO::OperacjaWezla(
+		XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_SUROWCE, XmlBO::OperacjaWezla(
 			[&](XmlBO::ElementWezla element)->bool{
 			std::shared_ptr<Surowce> obiekt = gra.tworzSurowce(element);
 			if (!obiekt || !obiekt->odczytaj(element)){

@@ -7,10 +7,10 @@ namespace SpEx{
 	BudynekInfo::BudynekInfo(XmlBO::ElementWezla wezel)
 		: ObiektInfo(wezel)
 	{
-		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_POWIERZCHNIA, powierzchnia_);
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA, powierzchnia_);
 		zmianaPowierzchni_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_POWIERZCHNIA));
 		auto zapotrzebowanie = std::ref(zapotrzebowanie_);
-		XmlBO::ForEach<THROW>(wezel, WEZEL_XML_ZAPOTRZEBOWANIE, XmlBO::OperacjaWezla([&zapotrzebowanie](XmlBO::ElementWezla warunek)->bool{
+		XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_ZAPOTRZEBOWANIE, XmlBO::OperacjaWezla([&zapotrzebowanie](XmlBO::ElementWezla warunek)->bool{
 			Warunek obiekt(warunek);
 			auto identyfikator = obiekt.pobierzObiekt()->pobierzIdentyfikator();
 			for (auto element : zapotrzebowanie.get()){
@@ -22,7 +22,7 @@ namespace SpEx{
 		}));
 		
 		auto produkcja = std::ref(produkcja_);
-		XmlBO::ForEach<THROW>(wezel, WEZEL_XML_PRODUKCJA, XmlBO::OperacjaWezla([&produkcja](XmlBO::ElementWezla warunek)->bool{
+		XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_PRODUKCJA, XmlBO::OperacjaWezla([&produkcja](XmlBO::ElementWezla warunek)->bool{
 			Warunek obiekt(warunek);
 			auto identyfikator = obiekt.pobierzObiekt()->pobierzIdentyfikator();
 			for (auto element : produkcja.get()){

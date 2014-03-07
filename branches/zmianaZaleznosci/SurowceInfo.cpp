@@ -9,9 +9,9 @@ namespace SpEx{
 		: ObiektInfo(wezel), przyrostowy_(false), zmianaCzasu_(nullptr)
 	{
 		if (wezel){
-			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_MASA, masa_);
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_MASA, masa_);
 			zmianaMasy_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_MASA));
-			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_OBJETOSC, objetosc_);
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_OBJETOSC, objetosc_);
 			zmianaObjetosci_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_OBJETOSC));
 			zmianaCzasu_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WEZEL_XML_CZAS));
 			auto przyrostowy = XmlBO::WczytajAtrybut<int>(wezel, ATRYBUT_XML_TYP, -1);

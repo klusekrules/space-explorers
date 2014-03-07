@@ -67,7 +67,7 @@ namespace SpEx{
 		if (!PodstawoweParametry::odczytaj(wezel)){
 			return false;
 		}
-		return XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
+		return XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
 	}
 
 	std::string Obiekt::napis() const{

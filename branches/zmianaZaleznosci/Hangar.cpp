@@ -219,13 +219,13 @@ namespace SpEx{
 
 	bool Hangar::odczytaj(XmlBO::ElementWezla wezel) {
 
-		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_ZAJETE_MIEJSCE, zajete_);
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_ZAJETE_MIEJSCE, zajete_);
 		if (zajete_ < STyp::Powierzchnia(0))
 			Utils::generujWyjatekBleduStruktury(wezel);
 
 		Gra& gra = Aplikacja::pobierzInstancje().pobierzGre();
 
-		XmlBO::ForEach<THROW>(wezel, WEZEL_XML_STATEK, XmlBO::OperacjaWezla(
+		XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_STATEK, XmlBO::OperacjaWezla(
 			[&](XmlBO::ElementWezla element)->bool{
 			std::shared_ptr<Statek> obiekt = gra.tworzStatek(element);
 			if (!obiekt || !obiekt->odczytaj(element)){

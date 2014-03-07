@@ -127,7 +127,7 @@ namespace ParserTesty
 			Assert::IsNotNull(XmlBO::ZnajdzWezelJezeli<NOTHROW>(root, "Element", "atrybut", "Napis").get());
 			Assert::IsNull(XmlBO::ZnajdzWezel<NOTHROW>(root, "Dziecko").get());
 			Assert::IsNull(XmlBO::ZnajdzWezel<THROW>(root, "Dziecko").get());
-			Assert::ExpectException<SPar::WyjatekParser>([&]()->void { XmlBO::ZnajdzWezel<THROW>(root, "" ); });
+			Assert::ExpectException<SPar::WyjatekParser>([&]()->void { XmlBO::ZnajdzWezel<THROW>(root, ""); });
 			Assert::ExpectException<SPar::WyjatekParser>([&]()->void { XmlBO::ZnajdzWezel<THROW>(nullptr, "Dziecko"); });
 			auto element = XmlBO::ZnajdzWezel<NOTHROW>(root, "Element");
 			auto dziecko = XmlBO::ZnajdzWezel<NOTHROW>(element, "Dziecko");
@@ -137,7 +137,7 @@ namespace ParserTesty
 			Assert::IsNotNull(XmlBO::ZnajdzWezelJezeli<NOTHROW>(element, "Dziecko","id","3", dziecko).get());
 			Assert::IsNull(XmlBO::ZnajdzWezelJezeli<NOTHROW>(element, "Dziecko", "id", "4", dziecko).get());
 			Assert::IsNull(XmlBO::ZnajdzWezelJezeli<THROW>(element, "Dziecko", "id", "4", dziecko).get());
-			Assert::ExpectException<SPar::WyjatekParser>([&]()->void { XmlBO::ZnajdzWezelJezeli<THROW>(element, "" , "id", "4"); });
+			Assert::ExpectException<SPar::WyjatekParser>([&]()->void { XmlBO::ZnajdzWezelJezeli<THROW>(element, "", "id", "4"); });
 			Assert::ExpectException<SPar::WyjatekParser>([&]()->void { XmlBO::ZnajdzWezelJezeli<THROW>(element, "Dziecko", "", "4"); });
 			Assert::ExpectException<SPar::WyjatekParser>([&]()->void { XmlBO::ZnajdzWezelJezeli<THROW>(nullptr, "Dziecko", "id", "4"); });
 			auto dziecko3 = XmlBO::ZnajdzWezelJezeli<NOTHROW>(element, "Dziecko", "id", "3", dziecko);

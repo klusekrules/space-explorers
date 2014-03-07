@@ -303,10 +303,10 @@ namespace SpEx{
 	bool Planeta::odczytaj(XmlBO::ElementWezla wezel){
 		if (wezel){
 
-			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
 			Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(identyfikator_);
 
-			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_NAZWA, nazwaPlanety_);
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_NAZWA, nazwaPlanety_);
 
 			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_ODLEGLOSC_OD_SLONCA, odlegloscOdSlonca_))
 				return false;
@@ -334,7 +334,7 @@ namespace SpEx{
 			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA_UZYTKOWA_LADOW, powierzchniaUzytkowaLadow_))
 				return false;
 						
-			if (!XmlBO::ForEach<THROW>(wezel, WEZEL_XML_ZASOB, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla zasob)->bool{
+			if (!XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_ZASOB, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla zasob)->bool{
 				STyp::Identyfikator identyfikator;
 				STyp::Ilosc ilosc;
 				if (!XmlBO::WczytajAtrybut<NOTHROW>(zasob, ATRYBUT_XML_IDENTYFIKATOR, identyfikator))
@@ -352,7 +352,7 @@ namespace SpEx{
 
 			auto obiekt = wezel->pobierzElement(WEZEL_XML_OBIEKTY);
 			if (obiekt){
-				if (!XmlBO::ForEach<THROW>(obiekt, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
+				if (!XmlBO::ForEach<STACKTHROW>(obiekt, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 					STyp::Identyfikator identyfikator;
 					if (!XmlBO::WczytajAtrybut<NOTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR, identyfikator))
 						return false;
@@ -383,7 +383,7 @@ namespace SpEx{
 
 			auto flota = wezel->pobierzElement(WEZEL_XML_FLOTY);
 			if (flota){
-				if (!XmlBO::ForEach<THROW>(flota, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
+				if (!XmlBO::ForEach<STACKTHROW>(flota, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 					STyp::Identyfikator identyfikator;
 					if (!XmlBO::WczytajAtrybut<NOTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR, identyfikator))
 						return false;

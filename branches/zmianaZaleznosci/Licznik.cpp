@@ -1,6 +1,7 @@
 #include "Licznik.h"
 #include "DefinicjeWezlowXML.h"
 #include "Logger\Logger.h"
+#include "Utils.h"
 
 namespace SpEx{
 	Licznik::Licznik(const STyp::Identyfikator& identyfikator, const STyp::Ilosc& wartoscPoczatkowa)
@@ -36,8 +37,8 @@ namespace SpEx{
 	}
 
 	bool Licznik::odczytaj(XmlBO::ElementWezla wezel){
-		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
-		return XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_ILOSC, wartoscLicznika_);
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
+		return XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_ILOSC, wartoscLicznika_);
 	}
 
 	std::string Licznik::napis()const{

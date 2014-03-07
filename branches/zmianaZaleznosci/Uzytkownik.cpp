@@ -54,9 +54,9 @@ namespace SpEx{
 	bool Uzytkownik::odczytaj(XmlBO::ElementWezla wezel){
 		if (wezel){
 
-			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_NAZWA, nazwaUzytkownika_);
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_NAZWA, nazwaUzytkownika_);
 
-			return XmlBO::ForEach<THROW>(wezel, WEZEL_XML_PLANETA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
+			return XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_PLANETA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 				STyp::Identyfikator idPlanety;
 				if (!XmlBO::WczytajAtrybut<NOTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR_RODZICA, idPlanety))
 					return false;

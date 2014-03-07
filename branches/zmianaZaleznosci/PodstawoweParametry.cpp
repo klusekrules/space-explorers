@@ -93,7 +93,7 @@ namespace SpEx{
 		int opcja = XmlBO::WczytajAtrybut<int>(wezel, ATRYBUT_XML_OPCJA, 0);
 		if (opcja == 1)
 			return true;
-		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_PLANETY, identyfikatorPlanety_);
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_PLANETY, identyfikatorPlanety_);
 		STyp::Poziom poziom;
 		STyp::Ilosc ilosc;
 		if (XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_POZIOM, poziom)){
@@ -104,7 +104,7 @@ namespace SpEx{
 			typAtrybutu_ = POZIOM;
 			atrybutPodstawowy_.poziom = poziom();
 		}else{
-			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_ILOSC, ilosc);
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_ILOSC, ilosc);
 			typAtrybutu_ = ILOSC;
 			atrybutPodstawowy_.ilosc = ilosc();
 		}

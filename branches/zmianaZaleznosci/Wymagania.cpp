@@ -7,7 +7,7 @@ namespace SpEx{
 
 	Wymagania::Wymagania(XmlBO::ElementWezla wezel)
 	{
-		XmlBO::ForEach<THROW>(wezel, WEZEL_XML_KRYTERIUM, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla warunek)->bool{
+		XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_KRYTERIUM, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla warunek)->bool{
 			Warunek obiekt(warunek);
 			auto identyfikator = obiekt.pobierzObiekt()->pobierzIdentyfikator();
 			for (auto element : warunki_){
