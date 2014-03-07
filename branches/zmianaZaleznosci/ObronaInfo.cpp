@@ -4,7 +4,7 @@
 
 namespace SpEx{
 	
-	ObronaInfo::ObronaInfo(XmlBO::ElementWezla wezel) throw(WyjatekParseraXML)
+	ObronaInfo::ObronaInfo(XmlBO::ElementWezla wezel)
 		: ObiektInfo(wezel),
 		JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<THROW>(wezel, WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO))
 	{

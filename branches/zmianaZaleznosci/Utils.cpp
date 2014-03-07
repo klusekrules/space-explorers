@@ -1,30 +1,33 @@
 #include "Utils.h"
 #include "Aplikacja.h"
-#include "WyjatekParseraXML.h"
 #include "keccak.h"
 namespace SpEx{
 
 	const STyp::Fluktuacja Utils::FMAX = 1.0;
 	const STyp::Fluktuacja Utils::FMIN = 1.0;
 
+
+	XmlBO::ElementWezla STACKTHROW::bladWezla(XmlBO::ElementWezla element, const std::string& nazwaWezla){
+		return THROW::bladWezla(element, nazwaWezla, Aplikacja::pobierzInstancje().pobierzSladStosu());
+	}
+
+	bool STACKTHROW::bladAtrybutu(XmlBO::ElementWezla element, const std::string& nazwaAtrybutu){
+		return THROW::bladAtrybutu(element, nazwaAtrybutu, Aplikacja::pobierzInstancje().pobierzSladStosu());
+	}
+
+	void Utils::generujWyjatekBleduStruktury(XmlBO::ElementWezla wezel){
+		SPar::ParserUtils::generujWyjatekBleduStruktury(wezel, Aplikacja::pobierzInstancje().pobierzSladStosu());
+	}
+
 	std::shared_ptr<SZmi::ZmianaInterfejs> Utils::TworzZmiane(XmlBO::ElementWezla wezel){
 		if (!wezel)
 			return nullptr;
 		auto zmiana = Aplikacja::pobierzInstancje().pobierzGre().pobierzFabrykeZmian().Tworz(wezel);
 		if (!zmiana)
-			SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+			Utils::generujWyjatekBleduStruktury(wezel);
 		return zmiana;
 	}
-
-	/*void Utils::generujWyjatekBleduStruktury(const Tekst& plik, const Ilosc& linia, tinyxml2::XMLElement* wezel)
-	{
-		std::string komunikat("B³¹d struktry pliku xml. Niepoprawny wêze³: ");
-		tinyxml2::XMLPrinter printer;
-		wezel->Accept(&printer);
-		komunikat.append(printer.CStr());
-		throw WyjatekParseraXML(plik, linia, exception(komunikat.c_str()), Tekst("B³¹d struktry pliku xml."));
-	}*/
-
+		
 	void Utils::ascii2hex(std::string& str, unsigned char c){
 		char pierwszy = (c >> 4) & 0x0F, drugi = c & 0x0F;
 		if (pierwszy < 10){

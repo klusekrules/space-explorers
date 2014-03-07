@@ -5,7 +5,7 @@
 #include "TypyProste\TypyProsteBO.h"
 
 namespace SpEx{
-	SurowceInfo::SurowceInfo(XmlBO::ElementWezla wezel) throw(WyjatekParseraXML)
+	SurowceInfo::SurowceInfo(XmlBO::ElementWezla wezel)
 		: ObiektInfo(wezel), przyrostowy_(false), zmianaCzasu_(nullptr)
 	{
 		if (wezel){
@@ -20,7 +20,7 @@ namespace SpEx{
 				break;
 			case 0: przyrostowy_ = false;
 				break;
-			default: SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+			default: Utils::generujWyjatekBleduStruktury(wezel);
 			}
 		}
 	}

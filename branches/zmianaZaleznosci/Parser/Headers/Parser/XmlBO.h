@@ -10,9 +10,6 @@
 #define ZMIANA_NAPIS_BLAD_ATRYBUTU "B³ad odczytu atrybutu o nazwie "
 #define ZMIANA_NAPIS_Z_WEZLA " z wezla: "
 
-class THROW { };
-class NOTHROW { };
-
 class XmlBO{
 
 public:
@@ -39,27 +36,7 @@ private:
 	static bool isSpace( unsigned char c ){
 		return isspace(c)!=0;
 	}
-
-	template < typename T > 
-	static ElementWezla bladWezla(ElementWezla element , const std::string& nazwaWezla){
-		return nullptr;
-	}
-
-	template < > 
-	static ElementWezla bladWezla<THROW>(ElementWezla element, const std::string& nazwaWezla){
-		throw SPar::WyjatekParser(EXCEPTION_PLACE, std::string(), element.get(), std::string(ZMIANA_NAPIS_BLAD_WEZLA + nazwaWezla + ZMIANA_NAPIS_Z_WEZLA));
-	}
-
-	template < typename T > 
-	static bool bladAtrybutu(ElementWezla element, const std::string& nazwaAtrybutu){
-		return false;
-	}
-
-	template < > 
-	static bool bladAtrybutu<THROW>(ElementWezla element, const std::string& nazwaAtrybutu){
-		throw SPar::WyjatekParser(EXCEPTION_PLACE, std::string(), element.get(), std::string(ZMIANA_NAPIS_BLAD_ATRYBUTU + nazwaAtrybutu + ZMIANA_NAPIS_Z_WEZLA));
-	}
-
+	
 	template < typename T > 
 	static void Zaladuj(const std::string& atrybut, STyp::PodstawowyInterfejs<T>& obiekt){
 		obiekt(atrybut);
@@ -107,10 +84,10 @@ private:
 	}
 	
 public:
-	template<typename T>
+	template<class T>
 	static bool ForEach(ElementWezla wezel, const std::string& nazwa, OperacjaWezla& funkcja){
 		if (wezel == nullptr)
-			return bladWezla<T>(wezel, nazwa) != nullptr;
+			return T::bladWezla(wezel, nazwa) != nullptr;
 		const char * cNazwa = nazwa.empty() ? nullptr : nazwa.c_str();
 		for (ElementWezla element = wezel->pobierzElement(cNazwa); element != nullptr; element = element->pobierzNastepnyElement(cNazwa)){
 			if(!funkcja(element))
@@ -118,32 +95,32 @@ public:
 		}
 		return true;
 	}
-	template<typename T>
+	template<class T>
 	static bool ForEach(ElementWezla wezel, OperacjaAtrybutu& funkcja){
 		if (wezel == nullptr)
-			return bladWezla<T>(wezel, "") != nullptr;
+			return T::bladWezla(wezel, "") != nullptr;
 		for (AtrybutElementu element = wezel->pobierzAtrybut(nullptr); element != nullptr; element = element->pobierzNastepnyAtrybut()){
 			if (!funkcja(element))
 				return false;
 		}
 		return true;
 	}
-	template<typename T>
+	template<class T>
 	static bool ForEach(ElementWezla wezel, OperacjaWezla& funkcja){
 		return ForEach<T>(wezel,std::string(),funkcja);
 	}
 
-	template<typename T>
+	template<class T>
 	static ElementWezla ZnajdzWezel(ElementWezla wezel, const std::string& nazwa, ElementWezla poprzedniWezel = nullptr){
 		if(wezel==nullptr || nazwa.empty())
-			return bladWezla<T>(wezel, nazwa);
+			return T::bladWezla(wezel, nazwa);
 		if(poprzedniWezel)
 			return poprzedniWezel->pobierzNastepnyElement(nazwa.c_str());
 		else
 			return wezel->pobierzElement(nazwa.c_str());
 	}
 	
-	template<typename T>
+	template<class T>
 	static ElementWezla ZnajdzWezelJezeli(ElementWezla wezel,
 		const std::string& nazwaWezla,
 		const std::string& nazwaAtrybutu,
@@ -151,7 +128,7 @@ public:
 		ElementWezla poprzedniWezel = nullptr)
 	{
 		if(wezel==nullptr || nazwaWezla.empty() || nazwaAtrybutu.empty())
-			return bladWezla<T>(wezel, nazwaWezla);
+			return T::bladWezla(wezel, nazwaWezla);
 		for (
 			auto wezelDziecko = poprzedniWezel ? poprzedniWezel->pobierzNastepnyElement(nazwaWezla.c_str()) : wezel->pobierzElement(nazwaWezla.c_str());
 			wezelDziecko != nullptr; 
@@ -164,20 +141,20 @@ public:
 		return nullptr;
 	}
 	
-	template<typename K,typename T>
+	template<class K, typename T>
 	static bool WczytajAtrybut(ElementWezla wezel, const std::string& nazwa, STyp::PodstawowyInterfejs<T>& obiekt){
 		if(!wezel)
-			return bladAtrybutu<K>( wezel, nazwa);
+			return K::bladAtrybutu(wezel, nazwa);
 		auto napis = wezel->pobierzAtrybut(nazwa.c_str());
 		if(!napis)
-			return bladAtrybutu<K>(wezel, nazwa);
+			return K::bladAtrybutu(wezel, nazwa);
 		std::string atrybut(napis->pobierzWartosc());
 		trim<T>(atrybut);
 		if(!atrybut.empty()){
 			Zaladuj<T>(atrybut,obiekt);
 			return true;
 		}
-		return bladAtrybutu<K>(wezel, nazwa);
+		return K::bladAtrybutu(wezel, nazwa);
 	}
 	
 	template<typename T>
@@ -263,10 +240,33 @@ public:
 	}
 };
 
+class THROW {
+public:
+	static XmlBO::ElementWezla bladWezla(XmlBO::ElementWezla element, const std::string& nazwaWezla, const std::string& stos = std::string()){
+		throw SPar::WyjatekParser(EXCEPTION_PLACE, stos, element.get(), std::string(ZMIANA_NAPIS_BLAD_WEZLA + nazwaWezla + ZMIANA_NAPIS_Z_WEZLA));
+	}
+
+	static bool bladAtrybutu(XmlBO::ElementWezla element, const std::string& nazwaAtrybutu, const std::string& stos = std::string()){
+		throw SPar::WyjatekParser(EXCEPTION_PLACE, stos, element.get(), std::string(ZMIANA_NAPIS_BLAD_ATRYBUTU + nazwaAtrybutu + ZMIANA_NAPIS_Z_WEZLA));
+	}
+
+};
+
+class NOTHROW {
+public:
+	static XmlBO::ElementWezla bladWezla(XmlBO::ElementWezla element, const std::string& nazwaWezla){
+		return nullptr;
+	}
+
+	static bool bladAtrybutu(XmlBO::ElementWezla element, const std::string& nazwaAtrybutu){
+		return false;
+	}
+};
+
 namespace SPar{
 	class PARSER_API ParserUtils
 	{
 	public:
-		static void generujWyjatekBleduStruktury(XmlBO::ElementWezla wezel);
+		static void generujWyjatekBleduStruktury(XmlBO::ElementWezla wezel, const STyp::Tekst& stos );
 	};
 }

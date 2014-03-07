@@ -37,7 +37,7 @@ namespace SpEx{
 	int Aplikacja::iloscArgumentow = 0;
 	char** Aplikacja::argumenty = nullptr;
 	
-	Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
+	Aplikacja::Aplikacja()
 		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), instancjaGry_(nullptr)
 	{
 
@@ -106,10 +106,10 @@ namespace SpEx{
 		}
 
 		if (!pluginy_->zaladujDomyslneKlasyZmian())
-			throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE, STyp::Tekst("Domyslne elementy zmiany."));
+			throw STyp::Wyjatek(EXCEPTION_PLACE, pobierzSladStosu(), STyp::Identyfikator(0), STyp::Tekst("Domyslne elementy zmiany."));
 
 		if (!pluginy_->zaladujZewnetrzneKlasyZmian())
-			throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE, STyp::Tekst("Dodatkowe elementy zmiany."));
+			throw STyp::Wyjatek(EXCEPTION_PLACE, pobierzSladStosu(), STyp::Identyfikator(0), STyp::Tekst("Dodatkowe elementy zmiany."));
 		
 		_set_purecall_handler(myPurecallHandler);
 		_set_invalid_parameter_handler(myInvalidParameterHandler);
@@ -169,7 +169,7 @@ namespace SpEx{
 					}
 				}
 				else{
-					throw WyjatekParseraXML(EXCEPTION_PLACE, std::exception(""), WyjatekParseraXML::trescBladStrukturyXml);
+					//TODO: Generowanie Wyjatku throw (EXCEPTION_PLACE, std::exception(""), );
 				}
 
 				auto pluginy = XmlBO::ZnajdzWezel<NOTHROW>(root_data, "plugins");
@@ -186,7 +186,7 @@ namespace SpEx{
 
 			}
 			else{
-				throw WyjatekParseraXML(EXCEPTION_PLACE, std::exception(""), WyjatekParseraXML::trescBladStrukturyXml);
+				//TODO: Generowanie Wyjatku throw (EXCEPTION_PLACE, std::exception(""), );
 			}
 		}
 		catch (std::exception &e){

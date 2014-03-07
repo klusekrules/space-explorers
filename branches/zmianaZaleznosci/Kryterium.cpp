@@ -72,7 +72,7 @@ namespace SpEx{
 		STyp::Ilosc ilosc;
 		if (XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_POZIOM, poziom)){
 			if (XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_ILOSC, ilosc)){
-				SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+				Utils::generujWyjatekBleduStruktury(wezel);
 				return false;
 			}
 			typAtrybutu_ = POZIOM;

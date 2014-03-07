@@ -14,8 +14,8 @@ namespace SpEx{
 		static const STyp::Identyfikator idNiepoprawneParametryFunkcji;
 
 		template< class... V >
-		NiepoprawneParametryFunkcji(const STyp::Tekst& tPlik, const STyp::Ilosc& iLinia, const STyp::Tekst& stos , const V&... tail)
-			: Wyjatek(tPlik, iLinia, stos, idNiepoprawneParametryFunkcji, tytulNiepoprawneParametryFunkcji, trescNiepoprawneParametryFunkcji)
+		NiepoprawneParametryFunkcji(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia, const STyp::Tekst& stos, const V&... tail)
+			: Wyjatek(tPlik, funkcja, iLinia, stos, idNiepoprawneParametryFunkcji, tytulNiepoprawneParametryFunkcji, trescNiepoprawneParametryFunkcji)
 		{
 			std::vector< std::string > a;
 			std::stringstream tmp;

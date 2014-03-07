@@ -13,7 +13,7 @@ namespace SpEx{
 
 		static const STyp::Identyfikator idNiezgodnyTypSurowca;
 
-		NiezgodnyTypSurowca(const STyp::Tekst& tPlik, const STyp::Ilosc& iLinia, const STyp::Identyfikator&, const STyp::Identyfikator&);
+		NiezgodnyTypSurowca(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia, const STyp::Identyfikator&, const STyp::Identyfikator&);
 		virtual ~NiezgodnyTypSurowca() = default;
 
 		std::string napis() const override;

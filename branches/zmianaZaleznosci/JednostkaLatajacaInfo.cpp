@@ -17,22 +17,22 @@ namespace SpEx{
 		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_RODZAJ_SILNIKA_ID, rodzajNapedu_);
 		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_MOC_SILNIKA, mocSilnika_);
 		if (mocSilnika_ < STyp::Moc(0))
-			SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+			Utils::generujWyjatekBleduStruktury(wezel);
 		przyrostMocySilnika_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<THROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_MOC_SILNIKA));
 
 		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_ZUZYCIE_PALIWA, zuzyciePaliwa_);
 		if (zuzyciePaliwa_ < STyp::ZuzyciePaliwa(0))
-			SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+			Utils::generujWyjatekBleduStruktury(wezel);
 		przyrostZuzyciaPaliwa_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<THROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_ZUZYCIE_PALIWA));
 
 		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_MASA_SILNIKA, masaNapedu_);
 		if (masaNapedu_ < STyp::Masa(0))
-			SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+			Utils::generujWyjatekBleduStruktury(wezel);
 		przyrostMasyNapedu_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<THROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_MASA_SILNIKA));
 
 		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_SPRAWNOSC_SILNIKA, sprawnoscSilnika_);
 		if (sprawnoscSilnika_ < STyp::Fluktuacja(0))
-			SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+			Utils::generujWyjatekBleduStruktury(wezel);
 		przyrostSprawnosciSilnika_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<THROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_SPRAWNOSC_SILNIKA));
 	}
 

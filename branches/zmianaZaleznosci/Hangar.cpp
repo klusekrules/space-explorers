@@ -221,7 +221,7 @@ namespace SpEx{
 
 		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_ZAJETE_MIEJSCE, zajete_);
 		if (zajete_ < STyp::Powierzchnia(0))
-			SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+			Utils::generujWyjatekBleduStruktury(wezel);
 
 		Gra& gra = Aplikacja::pobierzInstancje().pobierzGre();
 
@@ -229,7 +229,7 @@ namespace SpEx{
 			[&](XmlBO::ElementWezla element)->bool{
 			std::shared_ptr<Statek> obiekt = gra.tworzStatek(element);
 			if (!obiekt || !obiekt->odczytaj(element)){
-				SPar::ParserUtils::generujWyjatekBleduStruktury(element);
+				Utils::generujWyjatekBleduStruktury(element);
 			}
 			obiekty_.dodaj(obiekt);
 			return true;

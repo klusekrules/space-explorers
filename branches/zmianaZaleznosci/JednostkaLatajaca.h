@@ -1,6 +1,5 @@
 #pragma once
 #include "JednostkaLatajacaInfo.h"
-#include "NiezainicjalizowanaKlasa.h"
 #include "PodstawoweParametry.h"
 
 namespace SpEx{

@@ -5,6 +5,15 @@
 #include "PodstawoweParametry.h"
 
 namespace SpEx{
+	
+	class STACKTHROW {
+	public:
+		static XmlBO::ElementWezla bladWezla(XmlBO::ElementWezla element, const std::string& nazwaWezla);
+
+		static bool bladAtrybutu(XmlBO::ElementWezla element, const std::string& nazwaAtrybutu);
+
+	};
+
 	class Utils
 	{
 	public:
@@ -29,7 +38,7 @@ namespace SpEx{
 				return obiekt;
 		}
 
-		//static void generujWyjatekBleduStruktury(const STyp::Tekst& plik, const STyp::Ilosc& linia, XmlBO::ElementWezla wezel);
+		static void generujWyjatekBleduStruktury(XmlBO::ElementWezla wezel);
 
 		template<class Map, class Key>
 		static bool zamianaKlucza(Map &kontener, Key &before, Key &after){

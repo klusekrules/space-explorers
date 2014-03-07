@@ -1,8 +1,6 @@
 #pragma once
 #include "Obiekt.h"
 #include "NiezgodnyTypSurowca.h"
-#include "NiepoprawnaIloscObiektow.h"
-#include "BladLaczeniaObiektow.h"
 #include "PodstawoweParametry.h"
 #include "Logger\LoggerInterface.h"
 

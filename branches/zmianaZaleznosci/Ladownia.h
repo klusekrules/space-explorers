@@ -1,6 +1,5 @@
 #pragma once
 #include "NieznalezionoObiektu.h"
-#include "NiepoprawnaIloscObiektow.h"
 #include "Obiekt.h"
 #include "ListaObiektow.hpp"
 #include "PodstawoweParametry.h"

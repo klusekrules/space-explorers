@@ -1,6 +1,4 @@
 #pragma once
-#include "NieznalezionoObiektu.h"
-#include "BladLaczeniaObiektow.h"
 #include <map>
 #include <vector>
 #include "Logger\Logger.h"
@@ -330,7 +328,6 @@ namespace SpEx{
 		* \param[in,out] zrodlowa - èrÛd≥owa lista elementÛw.
 		* \param[out] docelowa - Docelowa lista elementÛw.
 		* \return true jeøeli uda≥o siÍ przeniúÊ obiekt. false w przeciwnym wypadku.
-		* \throws BladDzieleniaLadowni, OgolnyWyjatek
 		* \remark Metoda jest tranzakcyjna.
 		*/
 		template < class N >

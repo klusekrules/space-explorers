@@ -15,7 +15,7 @@ namespace SpEx{
 			auto identyfikator = obiekt.pobierzObiekt()->pobierzIdentyfikator();
 			for (auto element : zapotrzebowanie.get()){
 				if (element.pobierzObiekt()->pobierzIdentyfikator() == identyfikator)
-					SPar::ParserUtils::generujWyjatekBleduStruktury(warunek);
+					Utils::generujWyjatekBleduStruktury(warunek);
 			}
 			zapotrzebowanie.get().push_back(obiekt);
 			return true;
@@ -27,7 +27,7 @@ namespace SpEx{
 			auto identyfikator = obiekt.pobierzObiekt()->pobierzIdentyfikator();
 			for (auto element : produkcja.get()){
 				if (element.pobierzObiekt()->pobierzIdentyfikator() == identyfikator)
-					SPar::ParserUtils::generujWyjatekBleduStruktury(warunek);
+					Utils::generujWyjatekBleduStruktury(warunek);
 			}
 			produkcja.get().push_back(obiekt);
 			return true;

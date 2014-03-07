@@ -3,7 +3,6 @@
 #include <Windows.h>
 #include "Biblioteki.h"
 #include "plugin\plugin.h"
-#include "NiezainicjalizowanaKlasa.h"
 #include "Gra.h"
 #include "Singleton.h"
 
@@ -110,9 +109,8 @@ namespace SpEx {
 		* \brief Konstruktor.
 		*
 		* Metoda wyrzuca wyj¹tek kiedy wyst¹pi b³¹d przy inicjalizacji aplikacji.
-		* \throw NiezainicjalizowanaKlasa
 		*/
-		Aplikacja() throw(NiezainicjalizowanaKlasa);
+		Aplikacja();
 
 		/**
 		* \brief Metoda wcztuj¹ca opcje aplikacji.
