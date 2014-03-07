@@ -5,8 +5,6 @@
 #include "DefinicjeWezlowXML.h"
 #include "Walidator.h"
 #include <functional>
-#define FMIN 0.0f
-#define FMAX 1.0f
 
 namespace SpEx{
 
@@ -25,8 +23,8 @@ namespace SpEx{
 	}
 
 	void Planeta::wyczyscZawartoscPlanety(){
-
-		if (wlasciciel_ && !idUzytkownika_.isEmpty() && Aplikacja::pobierzInstancje().pobierzGre().pobierzUzytkownika().pobierzNazweUzytkownika() == idUzytkownika_){
+		//TODO: Sprawdzanie praw dostêpu.
+		if (wlasciciel_){
 			wlasciciel_->usunPlanete(pobierzIdentyfikator());
 			wlasciciel_ = nullptr;
 			idUzytkownika_ = STyp::Tekst();
@@ -423,13 +421,13 @@ namespace SpEx{
 	}
 
 	bool Planeta::wyliczPowierzchnie(const STyp::Fluktuacja& procentWody, const STyp::Fluktuacja& procentUzytkowa){
-		if (procentWody > STyp::Fluktuacja(FMAX) || procentWody < STyp::Fluktuacja(FMIN) || //TODO: Zmiennik dla fluktuacja min max
-			procentUzytkowa > STyp::Fluktuacja(FMAX) || procentUzytkowa < STyp::Fluktuacja(FMIN))
+		if (procentWody > Utils::FMAX || procentWody < Utils::FMIN ||
+			procentUzytkowa > Utils::FMAX || procentUzytkowa < Utils::FMIN)
 			return false;
 		STyp::SPG::Powierzchnia calkowita = M_PI * srednicaPlanety_() * srednicaPlanety_();
 		calkowitaPowierzchniaPlanety_(calkowita);
 		powierzchniaZajetaPrzezWode_(calkowita * procentWody());
-		powierzchniaLadow_(calkowita * (FMAX - procentWody()));
+		powierzchniaLadow_(calkowita * (Utils::FMAX() - procentWody()));
 		powierzchniaUzytkowaLadow_(powierzchniaLadow_() * procentUzytkowa());
 		return true;
 	}

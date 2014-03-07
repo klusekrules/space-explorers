@@ -27,20 +27,19 @@ void MenadzerWatkow::ElementListy::dodajZadanie( Zadanie& zadanie ){
 	nowySygnal.set_value(true);
 }
 
-MenadzerWatkow::~MenadzerWatkow()
-{
-}
-
-MenadzerWatkow::MenadzerWatkow( char iloscWatkow )
-{
+void MenadzerWatkow::ustawLiczbeWatkow(unsigned char ilosc){
+	std::lock_guard<std::mutex> blokada(mutaxPuliWatkow_);
 	numerWatku_ = 0;
-	pulaWatkow_.reserve(iloscWatkow);
-	for( int i = 0; i < iloscWatkow ; ++i)
+	pulaWatkow_.clear();
+	pulaWatkow_.reserve(ilosc);
+	for (int i = 0; i < ilosc; ++i)
 		pulaWatkow_.emplace_back();
 }
 
 void MenadzerWatkow::dodajZadanie( Zadanie& zadanie ){
 	std::lock_guard<std::mutex> blokada(mutaxPuliWatkow_);
+	if (pulaWatkow_.empty())
+		return;
 	pulaWatkow_[numerWatku_].dodajZadanie(zadanie);
 	numerWatku_ = ( numerWatku_ + 1 ) % pulaWatkow_.size();
 }

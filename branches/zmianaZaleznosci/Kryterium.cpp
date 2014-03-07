@@ -82,8 +82,7 @@ namespace SpEx{
 			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_ILOSC, ilosc);
 			typAtrybutu_ = ILOSC;
 			atrybutPodstawowy_.ilosc = ilosc();
-		}
-		//TODO: Walidacja : Walidator::pobierzInstancje().dodajUzytyIdentyfikatorPlanety(identyfikatorPlanety_);			
+		}			
 		return true;
 	}
 

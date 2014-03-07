@@ -8,6 +8,10 @@ namespace SpEx{
 	class Utils
 	{
 	public:
+
+		static const STyp::Fluktuacja FMAX;
+		static const STyp::Fluktuacja FMIN;
+
 		static std::shared_ptr<SZmi::ZmianaInterfejs> TworzZmiane(XmlBO::ElementWezla);
 
 		static std::shared_ptr<SZmi::ZmianaInterfejs> Kopiuj(std::shared_ptr<SZmi::ZmianaInterfejs> zmiana ){

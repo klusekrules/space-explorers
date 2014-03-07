@@ -1,9 +1,6 @@
 #include "GeneratorUkladow.h"
 #include "Gra.h"
 
-#define FMIN 0.0f
-#define FMAX 1.0f
-
 namespace SpEx{
 
 	const STyp::Identyfikator GeneratorUkladow::LICZNIK_PLANET_ID(0x1);
@@ -63,11 +60,62 @@ namespace SpEx{
 		dystrybutorIlosciUkladow(ILOSC_UKLADOW_MIN, ILOSC_UKLADOW_MAX),
 		dystrybucjaPowierzchniUzytkowej(POWIERZCHNIA_UZYTKOWA_MIN, POWIERZCHNIA_UZYTKOWA_MAX)
 	{
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("TEMPERATURA_GWIAZDY_PROCENT_SREDNICY = ") + std::to_string(TEMPERATURA_GWIAZDY_PROCENT_SREDNICY));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("TEMPERATURA_GWIAZDY_PROCENT_STALY = ") + std::to_string(TEMPERATURA_GWIAZDY_PROCENT_STALY));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("TEMPERATURA_GWIAZDY_PROCENT_LOSOWY = ") + std::to_string(TEMPERATURA_GWIAZDY_PROCENT_LOSOWY));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("TEMPERATURA_GWIAZDY_MIN = ") + std::to_string(TEMPERATURA_GWIAZDY_MIN));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("TEMPERATURA_GWIAZDY_MAX = ") + std::to_string(TEMPERATURA_GWIAZDY_MAX));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("SREDNICA_GWIAZDY_MIN = ") + std::to_string(SREDNICA_GWIAZDY_MIN));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("SREDNICA_GWIAZDY_MAX = ") + std::to_string(SREDNICA_GWIAZDY_MAX));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("SREDNICA_GWIAZDY_PARAM_ALFA = ") + std::to_string(SREDNICA_GWIAZDY_PARAM_ALFA));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("SREDNICA_GWIAZDY_PARAM_BETA = ") + std::to_string(SREDNICA_GWIAZDY_PARAM_BETA));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("ILOSC_PLANET_MIN = ") + std::to_string(ILOSC_PLANET_MIN));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("ILOSC_PLANET_MAX = ") + std::to_string(ILOSC_PLANET_MAX));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("ILOSC_PLANET_PARAM = ") + std::to_string(ILOSC_PLANET_PARAM));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("SREDNICA_PLANETY_MIN = ") + std::to_string(SREDNICA_PLANETY_MIN));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("SREDNICA_PLANETY_MAX = ") + std::to_string(SREDNICA_PLANETY_MAX));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("SREDNICA_PLANETY_ODCHYLENIE = ") + std::to_string(SREDNICA_PLANETY_ODCHYLENIE));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("SREDNICA_PLANETY_PRZESUNIECIE = ") + std::to_string(SREDNICA_PLANETY_PRZESUNIECIE));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("SREDNICA_PLANETY_ROZCIAGNIECIE = ") + std::to_string(SREDNICA_PLANETY_ROZCIAGNIECIE));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("ODLEGLOSC_MIEDZYPLANETARNA_MIN = ") + std::to_string(ODLEGLOSC_MIEDZYPLANETARNA_MIN));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("ODLEGLOSC_MIEDZYPLANETARNA_MAX = ") + std::to_string(ODLEGLOSC_MIEDZYPLANETARNA_MAX));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("POWIERZCHNIA_UZYTKOWA_MIN = ") + std::to_string(POWIERZCHNIA_UZYTKOWA_MIN));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("POWIERZCHNIA_UZYTKOWA_MAX = ") + std::to_string(POWIERZCHNIA_UZYTKOWA_MAX));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("TEMPERATURA_PLANETY_MAX = ") + std::to_string(TEMPERATURA_PLANETY_MAX));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("POWIERZCHNIA_WODY_MAX = ") + std::to_string(POWIERZCHNIA_WODY_MAX));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("ILOSC_UKLADOW_MIN = ") + std::to_string(ILOSC_UKLADOW_MIN));
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("ILOSC_UKLADOW_MAX = ") + std::to_string(ILOSC_UKLADOW_MAX));
+
 		if (TEMPERATURA_GWIAZDY_PROCENT_SREDNICY + TEMPERATURA_GWIAZDY_PROCENT_STALY + TEMPERATURA_GWIAZDY_PROCENT_LOSOWY >= 1.0 ||
 			TEMPERATURA_GWIAZDY_PROCENT_SREDNICY + TEMPERATURA_GWIAZDY_PROCENT_STALY + TEMPERATURA_GWIAZDY_PROCENT_LOSOWY <= 0.0)
-			throw std::exception("Invalid const params.");
+			throw std::exception("Invalid const params. TEMPERATURA_GWIAZDY_PROCENT_SREDNICY. TEMPERATURA_GWIAZDY_PROCENT_STALY. TEMPERATURA_GWIAZDY_PROCENT_LOSOWY.");
 
-		//TODO: Walidacja sta³ych, wyswietlanie sta³ych w logach.
+		if (POWIERZCHNIA_WODY_MAX > 1.0 || POWIERZCHNIA_WODY_MAX < 0.0)
+			throw std::exception("Invalid const params. POWIERZCHNIA_WODY_MAX.");
+
+		if (POWIERZCHNIA_UZYTKOWA_MIN > 1.0 || POWIERZCHNIA_UZYTKOWA_MIN < 0.0 ||
+			POWIERZCHNIA_UZYTKOWA_MAX > 1.0 || POWIERZCHNIA_UZYTKOWA_MAX < 0.0 || 
+			POWIERZCHNIA_UZYTKOWA_MAX < POWIERZCHNIA_UZYTKOWA_MIN)
+			throw std::exception("Invalid const params. POWIERZCHNIA_UZYTKOWA_MIN. POWIERZCHNIA_UZYTKOWA_MAX.");
+
+		if (ODLEGLOSC_MIEDZYPLANETARNA_MIN < 0 || ODLEGLOSC_MIEDZYPLANETARNA_MAX < 0 || ODLEGLOSC_MIEDZYPLANETARNA_MIN > ODLEGLOSC_MIEDZYPLANETARNA_MAX)
+			throw std::exception("Invalid const params. ODLEGLOSC_MIEDZYPLANETARNA_MIN. ODLEGLOSC_MIEDZYPLANETARNA_MAX.");
+
+		if (SREDNICA_PLANETY_MIN < 0 || SREDNICA_PLANETY_MAX < 0 || SREDNICA_PLANETY_MIN > SREDNICA_PLANETY_MAX)
+			throw std::exception("Invalid const params. SREDNICA_PLANETY_MIN. SREDNICA_PLANETY_MAX.");
+
+		if (TEMPERATURA_GWIAZDY_MIN > TEMPERATURA_GWIAZDY_MAX)
+			throw std::exception("Invalid const params. TEMPERATURA_GWIAZDY_MIN. TEMPERATURA_GWIAZDY_MAX.");
+
+		if (ILOSC_PLANET_MIN < 0 || ILOSC_PLANET_MAX < 0 || ILOSC_PLANET_MIN > ILOSC_PLANET_MAX)
+			throw std::exception("Invalid const params. ILOSC_PLANET_MIN. ILOSC_PLANET_MAX.");
+
+		if (SREDNICA_GWIAZDY_MIN < 0 || SREDNICA_GWIAZDY_MAX < 0 || SREDNICA_GWIAZDY_MIN > SREDNICA_GWIAZDY_MAX)
+			throw std::exception("Invalid const params. SREDNICA_GWIAZDY_MIN. SREDNICA_GWIAZDY_MAX.");
+
+		if (ILOSC_UKLADOW_MIN < 0 || ILOSC_UKLADOW_MAX < 0 || ILOSC_UKLADOW_MIN > ILOSC_UKLADOW_MAX)
+			throw std::exception("Invalid const params. ILOSC_UKLADOW_MIN. ILOSC_UKLADOW_MAX.");
+
 	}
 	
 	std::shared_ptr<Galaktyka> GeneratorUkladow::generujGalaktyke() const{
@@ -115,10 +163,10 @@ namespace SpEx{
 		auto srednica = generujSrednicePlanety(odlegloscOdCentrum);
 		auto temperatura = generujTemperaturePlanety(odlegloscOdCentrum, mocGwiazdy);
 
-		STyp::SPG::Fluktuacja procentWody = FMIN;
+		STyp::SPG::Fluktuacja procentWody = Utils::FMIN();
 		if (temperatura < 373.0){
 			STyp::SPG::Fluktuacja temp = (static_cast<STyp::SPG::Fluktuacja>(temperatura)-273.0f) / 100.0f;
-			std::uniform_real_distribution<STyp::SPG::Fluktuacja> dystrybutorPowierzchniWody(FMIN, temp <= FMIN || temp > POWIERZCHNIA_WODY_MAX ? POWIERZCHNIA_WODY_MAX : POWIERZCHNIA_WODY_MAX - temp);
+			std::uniform_real_distribution<STyp::SPG::Fluktuacja> dystrybutorPowierzchniWody(Utils::FMIN(), temp <= Utils::FMIN() || temp > POWIERZCHNIA_WODY_MAX ? POWIERZCHNIA_WODY_MAX : POWIERZCHNIA_WODY_MAX - temp);
 			procentWody = dystrybutorPowierzchniWody(generator);
 		}
 		auto powierzchniaUzytkowa = dystrybucjaPowierzchniUzytkowej(generator);

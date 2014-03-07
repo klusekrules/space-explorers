@@ -8,8 +8,8 @@
 
 namespace SpEx{
 
-	Gra::Gra(Aplikacja& aplikacja)
-		: aplikacja_(aplikacja), fabryka_(SZmi::ZmianaFabryka::pobierzInstancje()), uzytkownik_(nullptr)
+	Gra::Gra(Aplikacja& aplikacja, SZmi::ZmianaFabryka& fabryka)
+		: aplikacja_(aplikacja), fabryka_(fabryka), uzytkownik_(nullptr)
 	{
 	}
 

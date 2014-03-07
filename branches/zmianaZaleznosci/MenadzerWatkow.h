@@ -23,11 +23,12 @@ private:
 
 	std::mutex mutaxPuliWatkow_;
 	std::vector<ElementListy> pulaWatkow_;
-	char numerWatku_;
+	char numerWatku_ = 0;
 public:
 	
-	MenadzerWatkow( char iloscWatkow );
+	MenadzerWatkow() = default;
+	void ustawLiczbeWatkow(unsigned char ilosc);
 	void dodajZadanie( Zadanie& );
-	virtual ~MenadzerWatkow();
+	virtual ~MenadzerWatkow() = default;
 };
 

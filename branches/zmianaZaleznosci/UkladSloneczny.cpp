@@ -78,6 +78,7 @@ namespace SpEx{
 				if (!planeta->odczytaj(element))
 					return false;
 				planety_[planeta->pobierzIdentyfikator()] = planeta;
+				return true;
 			}));
 		}
 		return false;

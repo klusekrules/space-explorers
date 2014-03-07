@@ -219,6 +219,34 @@ public:
 	}
 
 	template< >
+	static char WczytajAtrybut<char>(ElementWezla wezel, const std::string& nazwa, char domyslnaWartosc){
+		if (!wezel)
+			return domyslnaWartosc;
+		auto ptr = wezel->pobierzAtrybut(nazwa.c_str());
+		if (!ptr)
+			return domyslnaWartosc;
+		const std::string napis(ptr->pobierzWartosc());
+		if (!napis.empty()){
+			return static_cast<char>(stoul(napis, nullptr, 0));
+		}
+		return domyslnaWartosc;
+	}
+
+	template< >
+	static unsigned char WczytajAtrybut<unsigned char>(ElementWezla wezel, const std::string& nazwa, unsigned char domyslnaWartosc){
+		if (!wezel)
+			return domyslnaWartosc;
+		auto ptr = wezel->pobierzAtrybut(nazwa.c_str());
+		if (!ptr)
+			return domyslnaWartosc;
+		const std::string napis(ptr->pobierzWartosc());
+		if (!napis.empty()){
+			return static_cast<unsigned char>(stoul(napis, nullptr, 0));
+		}
+		return domyslnaWartosc;
+	}
+
+	template< >
 	static long double WczytajAtrybut<long double>(ElementWezla wezel, const std::string& nazwa, long double domyslnaWartosc){
 		if(!wezel)
 			return domyslnaWartosc;

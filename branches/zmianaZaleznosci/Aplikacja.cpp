@@ -38,7 +38,7 @@ namespace SpEx{
 	char** Aplikacja::argumenty = nullptr;
 	
 	Aplikacja::Aplikacja() throw(NiezainicjalizowanaKlasa)
-		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), instancjaGry_(new Gra(*this))
+		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), instancjaGry_(nullptr)
 	{
 
 #ifdef TESTS
@@ -75,7 +75,7 @@ namespace SpEx{
 		logger_.dodajGniazdoWyjsciowe([](SLog::Log::TypLogow typ, const std::string& komunikat)->void{ std::cout << komunikat; });
 		logger_.dodajGniazdoWyjsciowe([&filename](SLog::Log::TypLogow typ, const std::string& komunikat)->void{ static std::fstream plik(filename, std::ios_base::app); plik << komunikat; });
 		/* ------------------------------------ */
-
+		logger_.loguj(SLog::Log::Info, "Start aplikacji Space-Explorers.");
 		if (!zaladujOpcje()){
 			throw STyp::Wyjatek(EXCEPTION_PLACE,STyp::Tekst());
 		}
@@ -95,21 +95,26 @@ namespace SpEx{
 		else{
 			logger_.loguj(SLog::Log::Warning, "Nie za³adowano biblioteki Dbghelp.dll");
 		}
+		
+		pluginy_ = std::make_shared<SPlu::Cplugin>(folderPluginow_, SZmi::ZmianaFabryka::pobierzInstancje(), logger_);
 
-		pluginy_ = std::shared_ptr<SPlu::Cplugin>(new SPlu::Cplugin(folderPluginow_, instancjaGry_->pobierzFabrykeZmian(), logger_));
-
-		RejestrujZmianaPoziomObiektu(instancjaGry_->pobierzFabrykeZmian(), logger_);
+		if (RejestrujZmianaPoziomObiektu(SZmi::ZmianaFabryka::pobierzInstancje(), logger_)){
+			logger_.loguj(SLog::Log::Info, "Zaladowano ZmianaPoziomObiektu.");
+		}
+		else{
+			logger_.loguj(SLog::Log::Info, "Nie zaladowano ZmianaPoziomObiektu.");
+		}
 
 		if (!pluginy_->zaladujDomyslneKlasyZmian())
 			throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE, STyp::Tekst("Domyslne elementy zmiany."));
 
 		if (!pluginy_->zaladujZewnetrzneKlasyZmian())
 			throw NiezainicjalizowanaKlasa(EXCEPTION_PLACE, STyp::Tekst("Dodatkowe elementy zmiany."));
-
-
+		
 		_set_purecall_handler(myPurecallHandler);
 		_set_invalid_parameter_handler(myInvalidParameterHandler);
 
+		instancjaGry_ = std::make_shared<Gra>(*this, SZmi::ZmianaFabryka::pobierzInstancje());
 	}
 	
 	SLog::Log& Aplikacja::pobierzLogger() const{
@@ -125,7 +130,7 @@ namespace SpEx{
 	}
 
 	void Aplikacja::wyczyscDane(){
-		instancjaGry_ = std::shared_ptr<Gra>(new Gra(*this));
+		instancjaGry_ = std::make_shared<Gra>(*this, SZmi::ZmianaFabryka::pobierzInstancje());
 	}
 
 	bool Aplikacja::zaladujOpcje(){
@@ -208,7 +213,6 @@ namespace SpEx{
 			symbol->MaxNameLen = 255;
 			symbol->SizeOfStruct = sizeof (SYMBOL_INFO);
 			if (frames > 0){
-
 				time_t rawtime;
 				char buf[30];
 				time(&rawtime);
@@ -256,7 +260,7 @@ namespace SpEx{
 		if (wezel && *wezel){
 			std::shared_ptr<Gra> gra = instancjaGry_;
 			try{
-				instancjaGry_ = std::shared_ptr<Gra>(new Gra(*this));
+				instancjaGry_ = std::make_shared<Gra>(*this, SZmi::ZmianaFabryka::pobierzInstancje());
 				Walidator::pobierzInstancje().wyczysc();
 				Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(STyp::Identyfikator(0x0)); // Poprawna wartoœæ; U¿ywana gdy obiekty znajduj¹ siê we flocie.
 				if (root && instancjaGry_->wczytajDane(root)){
