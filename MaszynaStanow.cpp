@@ -14,9 +14,9 @@ MaszynaStanow::MaszynaStanow()
 	SPar::ParserDokumentXml doc;
 	doc.odczytaj("resource\\state.xml");
 	auto root = doc.pobierzElement(nullptr);
-	XmlBO::WczytajAtrybut<THROW>(root,ATRYBUT_XML_STAN_POCZATKOWY,idStanuPoczatkowy_);
+	XmlBO::WczytajAtrybut<SpEx::STACKTHROW>(root,ATRYBUT_XML_STAN_POCZATKOWY,idStanuPoczatkowy_);
 	pulaWatkow_.ustawLiczbeWatkow(XmlBO::WczytajAtrybut<unsigned char>(root, ATRYBUT_XML_PULA_WATKOW, 4));
-	XmlBO::ForEach<THROW>(root, WEZEL_XML_STAN, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
+	XmlBO::ForEach<SpEx::STACKTHROW>(root, WEZEL_XML_STAN, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 		auto stan = std::make_shared<StanInfo>(element);
 		wszystkieStany_.insert(std::make_pair(stan->pobierzIdentyfikator(), stan));
 		return true;

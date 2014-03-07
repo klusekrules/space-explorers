@@ -2,11 +2,12 @@
 #include "Logger\Log.h"
 #include "Logger\Logger.h"
 #include "definicjeWezlowXML.h"
+#include "Utils.h"
 
 StanInfo::StanInfo( XmlBO::ElementWezla wezel )
 {
 	if(wezel){
-		XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,id_);		
+		XmlBO::WczytajAtrybut<SpEx::STACKTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,id_);		
 		luaFile_ = XmlBO::WczytajAtrybut<std::string>(wezel,ATRYBUT_XML_STAN_LUA_FILE,std::string());
 		luaFuncIn_ = XmlBO::WczytajAtrybut<std::string>(wezel,ATRYBUT_XML_STAN_LUA_IN,std::string());
 		luaFuncOut_ = XmlBO::WczytajAtrybut<std::string>(wezel,ATRYBUT_XML_STAN_LUA_OUT,std::string());
@@ -15,7 +16,7 @@ StanInfo::StanInfo( XmlBO::ElementWezla wezel )
 		if( luaFile_.empty() && !( luaFuncInside_.empty() && luaFuncOut_.empty() && luaFuncIn_.empty() ) ) 
 			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst());
 
-		XmlBO::ForEach<THROW>(wezel, WEZEL_XML_ZDARZENIE, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
+		XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_ZDARZENIE, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 			auto zdarzenie = std::make_shared<ZdarzenieInfo>(element);
 			zdarzenia_.insert(std::make_pair(zdarzenie->pobierzIdentyfikator(), zdarzenie));
 			return true;

@@ -208,11 +208,11 @@ namespace SpEx{
 	}
 
 	bool Flota::odczytaj(XmlBO::ElementWezla wezel) {
-		if (!XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, idFloty_))
+		if (!XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, idFloty_))
 			return false;
-		if (!XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_PLANETA_POCZATKOWA, planetaPoczatkowa_))
+		if (!XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_PLANETA_POCZATKOWA, planetaPoczatkowa_))
 			return false;
-		if (!XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_PLANETA_DOCELOWA, planetaDocelowa_))
+		if (!XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_PLANETA_DOCELOWA, planetaDocelowa_))
 			return false;
 		int cel;
 		auto atrybut = wezel->pobierzAtrybut(ATRYBUT_XML_CEL_PODROZY);
@@ -237,9 +237,9 @@ namespace SpEx{
 		default:
 			return false;
 		}
-		return XmlBO::ForEach<THROW>(wezel, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
+		return XmlBO::ForEach<STACKTHROW>(wezel, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 			STyp::Identyfikator identyfikator;
-			if (!XmlBO::WczytajAtrybut<THROW>(element, ATRYBUT_XML_IDENTYFIKATOR, identyfikator))
+			if (!XmlBO::WczytajAtrybut<STACKTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR, identyfikator))
 				return false;
 			PodstawoweParametry parametry(PodstawoweParametry::wpisIlosc(STyp::Ilosc()), PodstawoweParametry::ILOSC, STyp::Identyfikator());
 			auto statek = std::shared_ptr<Statek>(Aplikacja::pobierzInstancje().pobierzGre().pobierzStatek(identyfikator).tworzEgzemplarz(parametry));

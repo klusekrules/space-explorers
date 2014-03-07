@@ -3,10 +3,11 @@
 #include "Zdarzenie.h"
 #include "Logger\Log.h"
 #include "MaszynaStanow.h"
+#include "Utils.h"
 
 EkranSzablon::EkranSzablon(XmlBO::ElementWezla wezel){
 	if(wezel){
-		XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,id_);
+		XmlBO::WczytajAtrybut<SpEx::STACKTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,id_);
 		std::string konfiguracja = XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_KONFIGURACJA,std::string());
 		std::string czcionka = XmlBO::WczytajAtrybut(wezel,ATRYBUT_XML_CZCIONKA,std::string());
 		if( konfiguracja.empty() ){
@@ -22,7 +23,7 @@ EkranSzablon::EkranSzablon(XmlBO::ElementWezla wezel){
 				throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst());
 			}
 
-			XmlBO::ForEach<THROW>(wezel, WEZEL_XML_KONTROLKA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
+			XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_KONTROLKA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 				std::string nazwa = XmlBO::WczytajAtrybut(element,ATRYBUT_XML_NAZWA,std::string());
 				if(  !nazwa.empty() ){
 					auto kontrolka = interfejs_.get(nazwa);
@@ -66,7 +67,7 @@ void EkranSzablon::callback( const tgui::Callback& callback, unsigned int idZdar
 
 bool EkranSzablon::wczytajDaneKontrolki(XmlBO::ElementWezla wezel, tgui::Widget::Ptr kontrolka){
 	if(wezel){
-		XmlBO::ForEach<THROW>(wezel, WEZEL_XML_ATRYBUT, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
+		XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_ATRYBUT, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 			std::string nazwa = XmlBO::WczytajAtrybut(element,ATRYBUT_XML_NAZWA,std::string());
 			std::string wartosc = XmlBO::WczytajAtrybut(element,ATRYBUT_XML_WARTOSC,std::string());
 			if( !( nazwa.empty() || wartosc.empty() ) ){
@@ -74,7 +75,7 @@ bool EkranSzablon::wczytajDaneKontrolki(XmlBO::ElementWezla wezel, tgui::Widget:
 			}
 			return true;
 		}));
-		XmlBO::ForEach<THROW>(wezel, WEZEL_XML_AKCJA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
+		XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_AKCJA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 			unsigned int akcja = XmlBO::WczytajAtrybut<unsigned int>(element,ATRYBUT_XML_IDENTYFIKATOR,0);
 			unsigned int zdarzenie = XmlBO::WczytajAtrybut<unsigned int>(element,ATRYBUT_XML_ID_ZDARZENIA,0);
 			if( !( akcja == 0 || zdarzenie == 0 ) ){

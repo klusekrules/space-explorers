@@ -38,8 +38,8 @@ namespace SpEx{
 
 	bool Galaktyka::odczytaj(XmlBO::ElementWezla wezel){
 		if (wezel){
-			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
-			return XmlBO::ForEach<THROW>(wezel, WEZEL_XML_UKLAD_SLONECZNY, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
+			return XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_UKLAD_SLONECZNY, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 				auto uklad = std::make_shared<UkladSloneczny>(STyp::Identyfikator(), pobierzIdentyfikator());
 				if (!uklad->odczytaj(element))
 					return false;

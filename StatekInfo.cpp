@@ -7,14 +7,14 @@
 namespace SpEx{
 	StatekInfo::StatekInfo(XmlBO::ElementWezla wezel)
 		: ObiektInfo(wezel),
-		JednostkaLatajacaInfo(XmlBO::ZnajdzWezel<THROW>(wezel, WEZEL_XML_JEDNOSTKA_LATAJACA_INFO)),
-		JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<THROW>(wezel, WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO)),
-		LadowniaInfo(XmlBO::ZnajdzWezel<THROW>(wezel, WEZEL_XML_LADOWNIA_INFO)),
-		HangarInfo(XmlBO::ZnajdzWezel<THROW>(wezel, WEZEL_XML_HANGAR_INFO)), przechowywanyWHangarze_(false)
+		JednostkaLatajacaInfo(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_JEDNOSTKA_LATAJACA_INFO)),
+		JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO)),
+		LadowniaInfo(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_LADOWNIA_INFO)),
+		HangarInfo(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_HANGAR_INFO)), przechowywanyWHangarze_(false)
 	{
-		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_MASA, masa_);
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_MASA, masa_);
 		zmianaMasy_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_MASA));
-		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_POWIERZCHNIA, powierzchnia_);
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA, powierzchnia_);
 		zmianaPowierzchni_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_POWIERZCHNIA));
 		auto przyrostowy = XmlBO::WczytajAtrybut<int>(wezel, ATRYBUT_XML_HANGAR, -1);
 		switch (przyrostowy){

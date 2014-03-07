@@ -161,7 +161,7 @@ namespace SpEx{
 					std::locale::global(pl);
 				}
 
-				auto plikDanych = XmlBO::ZnajdzWezel<THROW>(root_data, "data");
+				auto plikDanych = XmlBO::ZnajdzWezel<STACKTHROW>(root_data, "data");
 				if (plikDanych){
 					nazwaPlikuDanych_ = plikDanych->pobierzTekst();
 					if (_access(nazwaPlikuDanych_.c_str(), 0) == -1){ // Sprawdzenie czy folder istnieje

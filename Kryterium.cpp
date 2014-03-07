@@ -67,7 +67,7 @@ namespace SpEx{
 	}
 
 	bool Kryterium::odczytaj(XmlBO::ElementWezla wezel){
-		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
 		STyp::Poziom poziom;
 		STyp::Ilosc ilosc;
 		if (XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_POZIOM, poziom)){
@@ -79,7 +79,7 @@ namespace SpEx{
 			atrybutPodstawowy_.poziom = poziom();
 		}
 		else{
-			XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_ILOSC, ilosc);
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_ILOSC, ilosc);
 			typAtrybutu_ = ILOSC;
 			atrybutPodstawowy_.ilosc = ilosc();
 		}			

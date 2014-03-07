@@ -13,20 +13,20 @@ namespace SpEx{
 	JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(XmlBO::ElementWezla wezel)
 		: zmianaAtaku_(nullptr), zmianaPancerza_(nullptr), zmianaOslony_(nullptr)
 	{
-		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_ATAK, atak_);
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_ATAK, atak_);
 		if (atak_ < STyp::Obrazenia(0))
 			Utils::generujWyjatekBleduStruktury(wezel);
-		zmianaAtaku_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<THROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_ATAK));
+		zmianaAtaku_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<STACKTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_ATAK));
 
-		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_PANCERZ, pancerz_);
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_PANCERZ, pancerz_);
 		if (pancerz_ < STyp::Obrazenia(0))
 			Utils::generujWyjatekBleduStruktury(wezel);
-		zmianaPancerza_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<THROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_PANCERZ));
+		zmianaPancerza_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<STACKTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_PANCERZ));
 
-		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_OSLONA, oslona_);
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_OSLONA, oslona_);
 		if (oslona_ < STyp::Obrazenia(0))
 			Utils::generujWyjatekBleduStruktury(wezel);
-		zmianaOslony_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<THROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_OSLONA));
+		zmianaOslony_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<STACKTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_OSLONA));
 	}
 
 	JednostkaAtakujacaInfo::JednostkaAtakujacaInfo(const JednostkaAtakujacaInfo& obiekt)

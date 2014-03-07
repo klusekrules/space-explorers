@@ -6,9 +6,9 @@ namespace SpEx{
 	
 	ObronaInfo::ObronaInfo(XmlBO::ElementWezla wezel)
 		: ObiektInfo(wezel),
-		JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<THROW>(wezel, WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO))
+		JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO))
 	{
-		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_POWIERZCHNIA, powierzchnia_);
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA, powierzchnia_);
 		zmianaPowierzchni_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_POWIERZCHNIA));
 	}
 	

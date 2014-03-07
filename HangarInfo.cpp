@@ -18,10 +18,10 @@ namespace SpEx{
 	HangarInfo::HangarInfo(XmlBO::ElementWezla wezel)
 		: przyrostPojemnosciMaksymalnej_(nullptr)
 	{
-		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_POJEMNOSC_MAKSYMALNA, pojemnoscMaksymalna_);
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POJEMNOSC_MAKSYMALNA, pojemnoscMaksymalna_);
 		if (pojemnoscMaksymalna_ < STyp::Powierzchnia(0))
 			Utils::generujWyjatekBleduStruktury(wezel);
-		przyrostPojemnosciMaksymalnej_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<THROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_POJEMNOSC_MAKSYMALNA));
+		przyrostPojemnosciMaksymalnej_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<STACKTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_POJEMNOSC_MAKSYMALNA));
 	}
 	
 	STyp::Powierzchnia HangarInfo::pobierzMaksymalnaIloscPrzewozonychStatkow(const PodstawoweParametry& parametry) const{

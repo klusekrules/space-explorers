@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include "definicjeWezlowXML.h"
 #include "MaszynaStanow.h"
+#include "Utils.h"
 
 using namespace std::chrono;
 
@@ -9,8 +10,8 @@ EkranStartowy::EkranStartowy( sf::RenderWindow& okno , XmlBO::ElementWezla wezel
 	: EkranSzablon(wezel),czasWlaczania_(3000),czasTrwalosci_(2000), czasChwilowy_(0), okno_(okno.getSystemHandle())
 {
 	interfejs_.setWindow(okno);
-	XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_EKRAN_STAN_WEJSCIOWY,idStanuWejscia_);
-	XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_EKRAN_ZDARZENIE_WYJSCIA,idZdarzeniaWyjscia_);
+	XmlBO::WczytajAtrybut<SpEx::STACKTHROW>(wezel,ATRYBUT_XML_EKRAN_STAN_WEJSCIOWY,idStanuWejscia_);
+	XmlBO::WczytajAtrybut<SpEx::STACKTHROW>(wezel,ATRYBUT_XML_EKRAN_ZDARZENIE_WYJSCIA,idZdarzeniaWyjscia_);
 }
 
 void EkranStartowy::uaktualnij( Stan& stan ){

@@ -1,6 +1,7 @@
 #include "Info.h"
 #include "definicjeWezlowXML.h"
 #include "Logger\Logger.h"
+#include "Utils.h"
 
 namespace SpEx {
 
@@ -10,8 +11,8 @@ namespace SpEx {
 	}
 
 	Info::Info(XmlBO::ElementWezla wezel){
-		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
-		XmlBO::WczytajAtrybut<THROW>(wezel, ATRYBUT_XML_NAZWA, nazwa_);
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_NAZWA, nazwa_);
 		auto tablicaZnakow = wezel->pobierzTekst();
 		if (tablicaZnakow){
 			ustawOpis(std::string(tablicaZnakow));

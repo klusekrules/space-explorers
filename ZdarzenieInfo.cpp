@@ -2,12 +2,13 @@
 #include "Logger\Log.h"
 #include "Logger\Logger.h"
 #include "definicjeWezlowXML.h"
+#include "Utils.h"
 
 ZdarzenieInfo::ZdarzenieInfo(XmlBO::ElementWezla wezel)
 	: nastepnyStan_(nullptr), nastepnyNumer_(nullptr)
 {
 	if(wezel){
-		XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,id_);		
+		XmlBO::WczytajAtrybut<SpEx::STACKTHROW>(wezel,ATRYBUT_XML_IDENTYFIKATOR,id_);		
 		luaFuncInside_ = XmlBO::WczytajAtrybut<std::string>(wezel,ATRYBUT_XML_STAN_LUA_INSIDE,std::string());
 		luaFile_ = XmlBO::WczytajAtrybut<std::string>(wezel,ATRYBUT_XML_STAN_LUA_FILE,std::string());
 		if( luaFile_.empty() && !luaFuncInside_.empty() ) 

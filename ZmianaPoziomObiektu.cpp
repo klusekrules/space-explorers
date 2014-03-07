@@ -5,7 +5,7 @@
 namespace SpEx{
 
 	ZmianaPoziomObiektu::ZmianaPoziomObiektu(XmlBO::ElementWezla e)
-		: parametr_(XmlBO::ZnajdzWezel<THROW>(e, XML_WEZEL_ZMIANA_PARAM))
+		: parametr_(XmlBO::ZnajdzWezel<STACKTHROW>(e, XML_WEZEL_ZMIANA_PARAM))
 	{
 	}
 
