@@ -1,14 +1,14 @@
 #pragma once
 #include "stdafx.h"
-
-class Zadanie
-{
-private:
-	std::function<void()> funkcja_;
-public:
-	Zadanie();
-	Zadanie( std::function<void()>& );
-	void wykonaj();
-	~Zadanie(void);
+namespace SpEx{
+	class Zadanie
+	{
+	private:
+		std::function<void()> funkcja_;
+	public:
+		Zadanie() = default;
+		Zadanie(std::function<void()>&);
+		void wykonaj();
+		~Zadanie(void) = default;
+	};
 };
-

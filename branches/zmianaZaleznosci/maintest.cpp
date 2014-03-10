@@ -22,7 +22,7 @@ void main( int argv , char* argc[] ){
 	SpEx::Aplikacja::argumenty = argc;
 	SpEx::Aplikacja::pobierzInstancje();
 
-	MaszynaStanow::pobierzInstancje().start();
+	SpEx::MaszynaStanow::pobierzInstancje().start();
 	//TestyJednostkowe::pobierzInstancje().wykonajTesty();
 }
 

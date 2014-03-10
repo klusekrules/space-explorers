@@ -1,25 +1,26 @@
 #pragma once
 #include "stdafx.h"
 #include "EkranSzablon.h"
+namespace SpEx{
+	class EkranStartowy :
+		public EkranSzablon
+	{
+	public:
+		EkranStartowy(sf::RenderWindow& okno, XmlBO::ElementWezla wezel);
+		virtual ~EkranStartowy(void) = default;
 
-class EkranStartowy: 
-	public EkranSzablon
-{
-public:
-	EkranStartowy(  sf::RenderWindow& okno , XmlBO::ElementWezla wezel);
-	virtual ~EkranStartowy(void) = default;
+		void uaktualnij(Stan& stan) override;
 
-	void uaktualnij( Stan& stan ) override;
-	
-protected:
-	
-	sf::WindowHandle okno_;
+	protected:
 
-	const Stan::KrokCzasu czasWlaczania_;
-	const Stan::KrokCzasu czasTrwalosci_;
-	Stan::KrokCzasu czasChwilowy_;
+		sf::WindowHandle okno_;
 
-	STyp::Identyfikator idStanuWejscia_;	
-	STyp::Identyfikator idZdarzeniaWyjscia_;
+		const Stan::KrokCzasu czasWlaczania_;
+		const Stan::KrokCzasu czasTrwalosci_;
+		Stan::KrokCzasu czasChwilowy_;
+
+		STyp::Identyfikator idStanuWejscia_;
+		STyp::Identyfikator idZdarzeniaWyjscia_;
+	};
 };
 

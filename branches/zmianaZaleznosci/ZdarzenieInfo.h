@@ -3,30 +3,30 @@
 #include "Logger\LoggerInterface.h"
 #include "LuaSkrypt.h"
 #include "Parser\XmlBO.h"
+namespace SpEx{
+	class ZdarzenieInfo :
+		virtual public SLog::LoggerInterface
+	{
+	public:
+		ZdarzenieInfo(XmlBO::ElementWezla wezel);
+		virtual ~ZdarzenieInfo(void) = default;
 
-class ZdarzenieInfo :
-	virtual public SLog::LoggerInterface
-{
-public:
-	ZdarzenieInfo( XmlBO::ElementWezla wezel );
-	virtual ~ZdarzenieInfo(void) = default;
+		bool wykonaj();
 
-	bool wykonaj();
+		const STyp::Identyfikator& pobierzIdentyfikator() const;
 
-	const STyp::Identyfikator& pobierzIdentyfikator() const;
-	
-	std::shared_ptr< STyp::Identyfikator > pobierzStan() const;
-	std::shared_ptr< int > pobierzNumer() const;
-	
-	std::string napis() const override;
+		std::shared_ptr< STyp::Identyfikator > pobierzStan() const;
+		std::shared_ptr< int > pobierzNumer() const;
 
-private:
-	LuaSkrypt skrypt_;
-	std::string luaFuncInside_;
-	std::string luaFile_;
-	STyp::Identyfikator id_;
-	std::shared_ptr < STyp::Identyfikator > nastepnyStan_;
-	std::shared_ptr < int > nastepnyNumer_;
+		std::string napis() const override;
 
+	private:
+		LuaSkrypt skrypt_;
+		std::string luaFuncInside_;
+		std::string luaFile_;
+		STyp::Identyfikator id_;
+		std::shared_ptr < STyp::Identyfikator > nastepnyStan_;
+		std::shared_ptr < int > nastepnyNumer_;
+
+	};
 };
-
