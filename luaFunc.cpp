@@ -9,50 +9,50 @@ extern "C"{
 
 	__declspec(dllexport) bool __cdecl ustawOkno(int id)
 	{
-		return MaszynaStanow::pobierzInstancje().kolejkujOkno(id);
+		return SpEx::MaszynaStanow::pobierzInstancje().kolejkujOkno(id);
 	}
 
 	__declspec(dllexport) bool __cdecl pobierzZdarzenie( struct Zdarzenie_t& z )
 	{
-		return MaszynaStanow::pobierzInstancje().luaStan_.pobierzZdarzenie(z);
+		return SpEx::MaszynaStanow::pobierzInstancje().luaStan_.pobierzZdarzenie(z);
 	}
 
 	__declspec(dllexport) bool __cdecl pobierzPoprzedniStan( struct Stan_t& s )
 	{
-		return MaszynaStanow::pobierzInstancje().luaStan_.pobierzPoprzedniStan(s);
+		return SpEx::MaszynaStanow::pobierzInstancje().luaStan_.pobierzPoprzedniStan(s);
 	}
 
 	__declspec(dllexport) bool __cdecl pobierzAktualnyStan( struct Stan_t& s )
 	{
-		return MaszynaStanow::pobierzInstancje().luaStan_.pobierzAktualnyStan(s);
+		return SpEx::MaszynaStanow::pobierzInstancje().luaStan_.pobierzAktualnyStan(s);
 	}
 
 	__declspec(dllexport) bool __cdecl pobierzNastepnyStan( struct Stan_t& s )
 	{
-		return MaszynaStanow::pobierzInstancje().luaStan_.pobierzNastepnyStan(s);
+		return SpEx::MaszynaStanow::pobierzInstancje().luaStan_.pobierzNastepnyStan(s);
 	}
 
 	__declspec(dllexport) void __cdecl kolejkujZdarzenie( struct Zdarzenie_t& s )
 	{
-		Zdarzenie z;
+		SpEx::Zdarzenie z;
 		z.idStanu_( s.idStanu_);
 		z.numer_ = s.numer_;
 		z.idZdarzenia_( s.idZdarzenia_ );
-		MaszynaStanow::pobierzInstancje().kolejkujZdarzenie(z);
+		SpEx::MaszynaStanow::pobierzInstancje().kolejkujZdarzenie(z);
 	}
 
 	__declspec(dllexport) void __cdecl wstawZdarzenie( struct Zdarzenie_t& s )
 	{
-		Zdarzenie z;
+		SpEx::Zdarzenie z;
 		z.idStanu_( s.idStanu_);
 		z.numer_ = s.numer_;
 		z.idZdarzenia_( s.idZdarzenia_ );
-		MaszynaStanow::pobierzInstancje().wstawZdarzenie(z);
+		SpEx::MaszynaStanow::pobierzInstancje().wstawZdarzenie(z);
 	}
 
 	__declspec(dllexport) void __cdecl wyczyscListeOkien()
 	{
-		MaszynaStanow::pobierzInstancje().wyczyscKolejkeOkien();
+		SpEx::MaszynaStanow::pobierzInstancje().wyczyscKolejkeOkien();
 	}
 
 	__declspec(dllexport) void __cdecl testyJednostkowe()
@@ -73,9 +73,9 @@ extern "C"{
 			luaFunkcja.append(funkcja);
 		}
 
-		MaszynaStanow::pobierzInstancje().dodajZadanie(Zadanie( std::function<void()>(
+		SpEx::MaszynaStanow::pobierzInstancje().dodajZadanie(SpEx::Zadanie(std::function<void()>(
 		[luaPlik, luaFunkcja](){ 
-			LuaSkrypt luaSkrypt(luaPlik);
+			SpEx::LuaSkrypt luaSkrypt(luaPlik);
 			luaSkrypt.wykonaj();
 			luaSkrypt.wykonaj(luaFunkcja);
 		}
@@ -84,7 +84,7 @@ extern "C"{
 
 	__declspec(dllexport) void __cdecl zamknijAplikacje()
 	{
-		MaszynaStanow::pobierzInstancje().inicjujZamykanie();
+		SpEx::MaszynaStanow::pobierzInstancje().inicjujZamykanie();
 	}
 
 	__declspec(dllexport) void __cdecl loguj(const char *komunikat )

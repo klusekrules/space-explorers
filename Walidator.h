@@ -1,26 +1,26 @@
 #pragma once
 #include <set>
 #include "TypyProste\TypyProste.h"
+namespace SpEx{
+	class Walidator
+	{
+	public:
+		virtual ~Walidator() = default;
 
-class Walidator
-{
-public:
-	virtual ~Walidator() = default;
+		static Walidator& pobierzInstancje();
 
-	static Walidator& pobierzInstancje();
+		void dodajNowyIdentyfikatorPlanety(const STyp::Identyfikator &);
+		void dodajUzytyIdentyfikatorPlanety(const STyp::Identyfikator &);
 
-	void dodajNowyIdentyfikatorPlanety( const STyp::Identyfikator & );
-	void dodajUzytyIdentyfikatorPlanety(const STyp::Identyfikator &);
-	
-	void wyczysc();
+		void wyczysc();
 
-	bool waliduj()const;
+		bool waliduj()const;
 
-private:
-	std::set<STyp::Identyfikator> zbiorNowychIdPlanet;
-	std::set<STyp::Identyfikator> zbiorUzytychIdPlanet;
-	Walidator() = default;
-	Walidator( const Walidator& ) = delete;
-	Walidator& operator=( const Walidator& ) = delete;
+	private:
+		std::set<STyp::Identyfikator> zbiorNowychIdPlanet;
+		std::set<STyp::Identyfikator> zbiorUzytychIdPlanet;
+		Walidator() = default;
+		Walidator(const Walidator&) = delete;
+		Walidator& operator=(const Walidator&) = delete;
+	};
 };
-

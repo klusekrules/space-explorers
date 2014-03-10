@@ -2,228 +2,231 @@
 #include "OknoGry.h"
 #include "Aplikacja.h"
 #include "Parser\ParserDokumentXml.h"
-
-MaszynaStanow::LuaStan::LuaStan()
-	: poprawne_aktualny_(false), poprawne_nastepny_(false), poprawne_poprzedni_(false), poprawne_zdarzenie_(false)
-{
-}
-
-MaszynaStanow::MaszynaStanow()
-	: watekGraficzny_(true), stan_(nullptr), stanNastepny_(nullptr), pulaWatkow_()
-{
-	SPar::ParserDokumentXml doc;
-	doc.odczytaj("resource\\state.xml");
-	auto root = doc.pobierzElement(nullptr);
-	XmlBO::WczytajAtrybut<SpEx::STACKTHROW>(root,ATRYBUT_XML_STAN_POCZATKOWY,idStanuPoczatkowy_);
-	pulaWatkow_.ustawLiczbeWatkow(XmlBO::WczytajAtrybut<unsigned char>(root, ATRYBUT_XML_PULA_WATKOW, 4));
-	XmlBO::ForEach<SpEx::STACKTHROW>(root, WEZEL_XML_STAN, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
-		auto stan = std::make_shared<StanInfo>(element);
-		wszystkieStany_.insert(std::make_pair(stan->pobierzIdentyfikator(), stan));
-		return true;
-	}));
-	watekGraficzny_.zatrzymajPoInicjalizacji();
-	watekGraficzny_.odblokuj();
-}
-
-bool MaszynaStanow::kolejkujOkno( int id ){
-	auto ptr = watekGraficzny_.pobierzEkran(STyp::Identyfikator(id));
-	if(ptr!=nullptr){
-		std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
-		stosEkranow_.push_back(ptr);
-		return true;
-	}
-	return false;
-}
-void MaszynaStanow::wyczyscKolejkeOkien( ){
-	std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
-	stosEkranow_.clear();
-}
-
-Stan MaszynaStanow::pobierzStan( OknoGry::StosEkranow& stos ) const{
-	std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
-	stos = stosEkranow_;
-	return stan_;
-}
-
-Stan MaszynaStanow::pobierzStan( ) const{
-	std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
-	return stan_;
-}
-
-void MaszynaStanow::kolejkujZdarzenie( const Zdarzenie &komunikat ){
-	std::lock_guard<std::mutex> blokada(mutexZdarzen_);
-	kolejkaZdarzen_.push_back(komunikat);
-}
-
-void MaszynaStanow::wstawZdarzenie( const Zdarzenie &komunikat ){
-	std::lock_guard<std::mutex> blokada(mutexZdarzen_);
-	kolejkaZdarzen_.push_front(komunikat);
-}
-
-std::shared_ptr<StanInfo> MaszynaStanow::pobierzOpisStanu(const STyp::Identyfikator& id) const{
-	auto iter = wszystkieStany_.find(id);
-	if(iter != wszystkieStany_.end())
-		return iter->second;
-	else
-		return nullptr;
-}
-
-bool MaszynaStanow::pobierzKomunikat( Zdarzenie &komunikat ){
-	std::lock_guard<std::mutex> blokada(mutexZdarzen_);
-	if(kolejkaZdarzen_.empty())
-		return false;
-	komunikat = kolejkaZdarzen_.front();
-	kolejkaZdarzen_.pop_front();
-	return true;
-}
-
-void MaszynaStanow::start(){
-	Stan s(wszystkieStany_.at(idStanuPoczatkowy_));
-	ustawNastepnyStan(s);
-	
-	wlaczone = watekGraficzny_.czekajNaInicjalizacje();
-
-	if(wlaczone)
-		przejdzDoNastepnegoStanu();
-
-	watekGraficzny_.uruchom();
-
-	while( wlaczone )
+namespace SpEx{
+	MaszynaStanow::LuaStan::LuaStan()
+		: poprawne_aktualny_(false), poprawne_nastepny_(false), poprawne_poprzedni_(false), poprawne_zdarzenie_(false)
 	{
-		luaStan_.poprawne_zdarzenie_ = false;
-		obslugaZdarzenia();
-		przejdzDoNastepnegoStanu();
-		std::this_thread::yield();
 	}
-	watekGraficzny_.czekajNaZakonczenie();
-}
 
-void MaszynaStanow::przejdzDoNastepnegoStanu(){
-	std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
-	if(stanNastepny_.opisStanu()){
-		luaStan_.poprawne_poprzedni_= false;
-		luaStan_.ustawAktualny(stan_);
-		luaStan_.ustawNastepny(stanNastepny_);
-		stan_.akcjaWyjscia();
-		
-		luaStan_.poprawne_nastepny_= false;
-		luaStan_.ustawPoprzedni(stan_);
-		stan_ = stanNastepny_;
-		luaStan_.ustawAktualny(stan_);
-		stan_.akcjaWejscia();
-
-	}else{
-
-		luaStan_.poprawne_nastepny_= false;
-		luaStan_.ustawPoprzedni(stan_);
-		stan_.numer_ = stanNastepny_.numer_;
-		luaStan_.ustawAktualny(stan_);
-		stan_.akcjaWewnetrzna();
+	MaszynaStanow::MaszynaStanow()
+		: watekGraficzny_(true), stan_(nullptr), stanNastepny_(nullptr), pulaWatkow_()
+	{
+		SPar::ParserDokumentXml doc;
+		doc.odczytaj("resource\\state.xml");
+		auto root = doc.pobierzElement(nullptr);
+		XmlBO::WczytajAtrybut<SpEx::STACKTHROW>(root, ATRYBUT_XML_STAN_POCZATKOWY, idStanuPoczatkowy_);
+		pulaWatkow_.ustawLiczbeWatkow(XmlBO::WczytajAtrybut<unsigned char>(root, ATRYBUT_XML_PULA_WATKOW, 4));
+		XmlBO::ForEach<SpEx::STACKTHROW>(root, WEZEL_XML_STAN, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
+			auto stan = std::make_shared<StanInfo>(element);
+			wszystkieStany_.insert(std::make_pair(stan->pobierzIdentyfikator(), stan));
+			return true;
+		}));
+		watekGraficzny_.zatrzymajPoInicjalizacji();
+		watekGraficzny_.odblokuj();
 	}
-}
 
-void MaszynaStanow::obslugaZdarzenia(){
-	
-	Zdarzenie komunikat;
-	Stan aktualny = pobierzStan();
-	Stan nowy(nullptr);
-	nowy.numer_ = aktualny.numer_;
+	bool MaszynaStanow::kolejkujOkno(int id){
+		auto ptr = watekGraficzny_.pobierzEkran(STyp::Identyfikator(id));
+		if (ptr != nullptr){
+			std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
+			stosEkranow_.push_back(ptr);
+			return true;
+		}
+		return false;
+	}
+	void MaszynaStanow::wyczyscKolejkeOkien(){
+		std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
+		stosEkranow_.clear();
+	}
 
-	if(pobierzKomunikat(komunikat)){
-		if(aktualny == komunikat ){
-			auto opisStanu = aktualny.opisStanu();
-			auto opisZdarzenia = opisStanu->pobierzZdarzenie(komunikat.idZdarzenia_);
-			if(opisZdarzenia){
-				luaStan_.ustawAktualny(aktualny);
-				auto idNowegoStanu = opisZdarzenia->pobierzStan();
-				if(idNowegoStanu && *idNowegoStanu!=aktualny.id_){
-					auto nowyStan = pobierzOpisStanu(*idNowegoStanu);
-					if(nowyStan){
-						nowy=Stan(nowyStan);
-					}
-				}
-				
-				auto numerNowegoStanu = opisZdarzenia->pobierzNumer();
-				if(numerNowegoStanu){
-					aktualny.numer_ = nowy.numer_ = *numerNowegoStanu;
-				}
+	Stan MaszynaStanow::pobierzStan(OknoGry::StosEkranow& stos) const{
+		std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
+		stos = stosEkranow_;
+		return stan_;
+	}
 
-				if(idNowegoStanu){
-					luaStan_.ustawNastepny(nowy);
-				}else{
-					luaStan_.ustawNastepny(aktualny);
-				}
+	Stan MaszynaStanow::pobierzStan() const{
+		std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
+		return stan_;
+	}
 
-				luaStan_.ustawZdarzenie(komunikat);
-				opisZdarzenia->wykonaj();
-			}
+	void MaszynaStanow::kolejkujZdarzenie(const Zdarzenie &komunikat){
+		std::lock_guard<std::mutex> blokada(mutexZdarzen_);
+		kolejkaZdarzen_.push_back(komunikat);
+	}
+
+	void MaszynaStanow::wstawZdarzenie(const Zdarzenie &komunikat){
+		std::lock_guard<std::mutex> blokada(mutexZdarzen_);
+		kolejkaZdarzen_.push_front(komunikat);
+	}
+
+	std::shared_ptr<StanInfo> MaszynaStanow::pobierzOpisStanu(const STyp::Identyfikator& id) const{
+		auto iter = wszystkieStany_.find(id);
+		if (iter != wszystkieStany_.end())
+			return iter->second;
+		else
+			return nullptr;
+	}
+
+	bool MaszynaStanow::pobierzKomunikat(Zdarzenie &komunikat){
+		std::lock_guard<std::mutex> blokada(mutexZdarzen_);
+		if (kolejkaZdarzen_.empty())
+			return false;
+		komunikat = kolejkaZdarzen_.front();
+		kolejkaZdarzen_.pop_front();
+		return true;
+	}
+
+	void MaszynaStanow::start(){
+		Stan s(wszystkieStany_.at(idStanuPoczatkowy_));
+		ustawNastepnyStan(s);
+
+		wlaczone = watekGraficzny_.czekajNaInicjalizacje();
+
+		if (wlaczone)
+			przejdzDoNastepnegoStanu();
+
+		watekGraficzny_.uruchom();
+
+		while (wlaczone)
+		{
+			luaStan_.poprawne_zdarzenie_ = false;
+			obslugaZdarzenia();
+			przejdzDoNastepnegoStanu();
+			std::this_thread::yield();
+		}
+		watekGraficzny_.czekajNaZakonczenie();
+	}
+
+	void MaszynaStanow::przejdzDoNastepnegoStanu(){
+		std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
+		if (stanNastepny_.opisStanu()){
+			luaStan_.poprawne_poprzedni_ = false;
+			luaStan_.ustawAktualny(stan_);
+			luaStan_.ustawNastepny(stanNastepny_);
+			stan_.akcjaWyjscia();
+
+			luaStan_.poprawne_nastepny_ = false;
+			luaStan_.ustawPoprzedni(stan_);
+			stan_ = stanNastepny_;
+			luaStan_.ustawAktualny(stan_);
+			stan_.akcjaWejscia();
+
+		}
+		else{
+
+			luaStan_.poprawne_nastepny_ = false;
+			luaStan_.ustawPoprzedni(stan_);
+			stan_.numer_ = stanNastepny_.numer_;
+			luaStan_.ustawAktualny(stan_);
+			stan_.akcjaWewnetrzna();
 		}
 	}
 
-	ustawNastepnyStan(nowy);
-}
+	void MaszynaStanow::obslugaZdarzenia(){
 
-void MaszynaStanow::ustawNastepnyStan( Stan& stan ){
-	stanNastepny_ = stan;
-}
+		Zdarzenie komunikat;
+		Stan aktualny = pobierzStan();
+		Stan nowy(nullptr);
+		nowy.numer_ = aktualny.numer_;
 
-void MaszynaStanow::inicjujZamykanie(){
-	watekGraficzny_.zakmnij();
-	wlaczone = false;
-}
+		if (pobierzKomunikat(komunikat)){
+			if (aktualny == komunikat){
+				auto opisStanu = aktualny.opisStanu();
+				auto opisZdarzenia = opisStanu->pobierzZdarzenie(komunikat.idZdarzenia_);
+				if (opisZdarzenia){
+					luaStan_.ustawAktualny(aktualny);
+					auto idNowegoStanu = opisZdarzenia->pobierzStan();
+					if (idNowegoStanu && *idNowegoStanu != aktualny.id_){
+						auto nowyStan = pobierzOpisStanu(*idNowegoStanu);
+						if (nowyStan){
+							nowy = Stan(nowyStan);
+						}
+					}
 
-void MaszynaStanow::dodajZadanie( Zadanie& zadanie ){
-	pulaWatkow_.dodajZadanie(zadanie);
-}
+					auto numerNowegoStanu = opisZdarzenia->pobierzNumer();
+					if (numerNowegoStanu){
+						aktualny.numer_ = nowy.numer_ = *numerNowegoStanu;
+					}
 
-bool MaszynaStanow::LuaStan::pobierzZdarzenie( struct Zdarzenie_t& z ){
-	if(poprawne_zdarzenie_)
-		z = zdarzenie_;
-	return poprawne_zdarzenie_;
-}
+					if (idNowegoStanu){
+						luaStan_.ustawNastepny(nowy);
+					}
+					else{
+						luaStan_.ustawNastepny(aktualny);
+					}
 
-bool MaszynaStanow::LuaStan::pobierzPoprzedniStan( struct Stan_t& s ){
-	if(poprawne_poprzedni_)
-		s = poprzedni_;
-	return poprawne_poprzedni_;
-}
+					luaStan_.ustawZdarzenie(komunikat);
+					opisZdarzenia->wykonaj();
+				}
+			}
+		}
 
-bool MaszynaStanow::LuaStan::pobierzAktualnyStan( struct Stan_t& s ){
-	if(poprawne_aktualny_)
-		s = aktualny_;
-	return poprawne_aktualny_;
-}
+		ustawNastepnyStan(nowy);
+	}
 
-bool MaszynaStanow::LuaStan::pobierzNastepnyStan( struct Stan_t& s ){
-	if(poprawne_nastepny_)
-		s = nastepny_;
-	return poprawne_nastepny_;
-}
+	void MaszynaStanow::ustawNastepnyStan(Stan& stan){
+		stanNastepny_ = stan;
+	}
 
-void MaszynaStanow::LuaStan::ustawZdarzenie(const Zdarzenie& z){
-	poprawne_zdarzenie_ = true;
-	zdarzenie_.idStanu_ = z.idStanu_();
-	zdarzenie_.numer_ = z.numer_;
-	zdarzenie_.idZdarzenia_ = z.idZdarzenia_();
-}
+	void MaszynaStanow::inicjujZamykanie(){
+		watekGraficzny_.zakmnij();
+		wlaczone = false;
+	}
 
-void MaszynaStanow::LuaStan::ustawPoprzedni(const Stan& z){
-	poprawne_poprzedni_ = true;
-	poprzedni_.idStanu_ = z.id_();
-	poprzedni_.numer_ = z.numer_;
-	poprzedni_.dt_ = z.dt_.count();
-}
+	void MaszynaStanow::dodajZadanie(Zadanie& zadanie){
+		pulaWatkow_.dodajZadanie(zadanie);
+	}
 
-void MaszynaStanow::LuaStan::ustawAktualny(const Stan& z){
-	poprawne_aktualny_ = true;
-	aktualny_.idStanu_ = z.id_();
-	aktualny_.numer_ = z.numer_;
-	aktualny_.dt_ = z.dt_.count();
-}
+	bool MaszynaStanow::LuaStan::pobierzZdarzenie(struct Zdarzenie_t& z){
+		if (poprawne_zdarzenie_)
+			z = zdarzenie_;
+		return poprawne_zdarzenie_;
+	}
 
-void MaszynaStanow::LuaStan::ustawNastepny(const Stan& z){
-	poprawne_nastepny_ = true;
-	nastepny_.idStanu_ = z.id_();
-	nastepny_.numer_ = z.numer_;
-	nastepny_.dt_ = z.dt_.count();
-}
+	bool MaszynaStanow::LuaStan::pobierzPoprzedniStan(struct Stan_t& s){
+		if (poprawne_poprzedni_)
+			s = poprzedni_;
+		return poprawne_poprzedni_;
+	}
+
+	bool MaszynaStanow::LuaStan::pobierzAktualnyStan(struct Stan_t& s){
+		if (poprawne_aktualny_)
+			s = aktualny_;
+		return poprawne_aktualny_;
+	}
+
+	bool MaszynaStanow::LuaStan::pobierzNastepnyStan(struct Stan_t& s){
+		if (poprawne_nastepny_)
+			s = nastepny_;
+		return poprawne_nastepny_;
+	}
+
+	void MaszynaStanow::LuaStan::ustawZdarzenie(const Zdarzenie& z){
+		poprawne_zdarzenie_ = true;
+		zdarzenie_.idStanu_ = z.idStanu_();
+		zdarzenie_.numer_ = z.numer_;
+		zdarzenie_.idZdarzenia_ = z.idZdarzenia_();
+	}
+
+	void MaszynaStanow::LuaStan::ustawPoprzedni(const Stan& z){
+		poprawne_poprzedni_ = true;
+		poprzedni_.idStanu_ = z.id_();
+		poprzedni_.numer_ = z.numer_;
+		poprzedni_.dt_ = z.dt_.count();
+	}
+
+	void MaszynaStanow::LuaStan::ustawAktualny(const Stan& z){
+		poprawne_aktualny_ = true;
+		aktualny_.idStanu_ = z.id_();
+		aktualny_.numer_ = z.numer_;
+		aktualny_.dt_ = z.dt_.count();
+	}
+
+	void MaszynaStanow::LuaStan::ustawNastepny(const Stan& z){
+		poprawne_nastepny_ = true;
+		nastepny_.idStanu_ = z.id_();
+		nastepny_.numer_ = z.numer_;
+		nastepny_.dt_ = z.dt_.count();
+	}
+};

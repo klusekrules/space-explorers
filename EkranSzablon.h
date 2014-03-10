@@ -1,36 +1,37 @@
 #pragma once
 #include "stdafx.h"
 #include "Stan.h"
+namespace SpEx{
+	class EkranSzablon :
+		public sf::Drawable,
+		public sf::Transformable
+	{
+	public:
+		EkranSzablon(XmlBO::ElementWezla wezel);
 
-class EkranSzablon: 
-	public sf::Drawable,
-	public sf::Transformable
-{
-public:
-	EkranSzablon( XmlBO::ElementWezla wezel );
+		virtual ~EkranSzablon(void) = default;
 
-	virtual ~EkranSzablon(void) = default;
-	
-	virtual void uaktualnij( Stan& stan );
+		virtual void uaktualnij(Stan& stan);
 
-	virtual void odbierz( Stan& stan, const sf::Event& zdarzenie );
+		virtual void odbierz(Stan& stan, const sf::Event& zdarzenie);
 
-	virtual void podlacz( sf::RenderWindow& );
-	
-	virtual void odlacz( sf::RenderWindow& );
+		virtual void podlacz(sf::RenderWindow&);
 
-	const STyp::Identyfikator& pobierzId() const;
+		virtual void odlacz(sf::RenderWindow&);
 
-protected:
+		const STyp::Identyfikator& pobierzId() const;
 
-	void callback( const tgui::Callback& callback, unsigned int funkcja );
+	protected:
 
-	bool wczytajDaneKontrolki(XmlBO::ElementWezla wezel, tgui::Widget::Ptr kontrolka);
+		void callback(const tgui::Callback& callback, unsigned int funkcja);
 
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		bool wczytajDaneKontrolki(XmlBO::ElementWezla wezel, tgui::Widget::Ptr kontrolka);
 
-	STyp::Identyfikator id_;
-	STyp::Identyfikator idStanu_;
-	mutable tgui::Gui interfejs_;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+		STyp::Identyfikator id_;
+		STyp::Identyfikator idStanu_;
+		mutable tgui::Gui interfejs_;
+	};
 };
 

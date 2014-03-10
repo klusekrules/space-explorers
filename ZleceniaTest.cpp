@@ -8,20 +8,20 @@ void ZleceniaTest::startTestow(){
 }
 
 void ZleceniaTest::tranzakcja_poprawna(){
-	MenedzerTranzakcji tranzakcja;
+	SpEx::MenedzerTranzakcji tranzakcja;
 	STyp::Ilosc jeden(1);
 	std::shared_ptr<SpEx::Statek> statek(gra->pobierzStatek(STyp::Identyfikator(5)).tworzEgzemplarz(SpEx::PodstawoweParametry(jeden)));
 	STyp::Ilosc dwa(2);
 	STyp::Ilosc pietnascie(15);
-	tranzakcja.dodaj(std::make_shared< Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
+	tranzakcja.dodaj(std::make_shared< SpEx::Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
 		, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() + i)); return true; }
 	, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() - i)); return true; }
 	));
-	tranzakcja.dodaj(std::make_shared< Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
+	tranzakcja.dodaj(std::make_shared< SpEx::Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
 		, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() *i)); return true; }
 	, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() / i)); return true; }
 	));
-	tranzakcja.dodaj(std::make_shared< Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(pietnascie, statek
+	tranzakcja.dodaj(std::make_shared< SpEx::Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(pietnascie, statek
 		, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() + i)); return true; }
 	, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() - i)); return true; }
 	));
@@ -31,47 +31,47 @@ void ZleceniaTest::tranzakcja_poprawna(){
 }
 
 void ZleceniaTest::tranzakcja_cofnieta(){
-	MenedzerTranzakcji tranzakcja;
+	SpEx::MenedzerTranzakcji tranzakcja;
 	STyp::Ilosc jeden(1);
 	std::shared_ptr<SpEx::Statek> statek(gra->pobierzStatek(STyp::Identyfikator(5)).tworzEgzemplarz(SpEx::PodstawoweParametry(jeden)));
 	STyp::Ilosc dwa(2);
 	STyp::Ilosc pietnascie(15);
-	tranzakcja.dodaj(std::make_shared< Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
+	tranzakcja.dodaj(std::make_shared< SpEx::Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
 		, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() + i)); return true; }
 	, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() - i)); return true; }
 	));
-	tranzakcja.dodaj(std::make_shared< Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
+	tranzakcja.dodaj(std::make_shared< SpEx::Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
 		, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() *i)); return true; }
 	, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() / i)); return true; }
 	));
-	tranzakcja.dodaj(std::make_shared< Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(pietnascie, statek
+	tranzakcja.dodaj(std::make_shared< SpEx::Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(pietnascie, statek
 		, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() + i)); return true; }
 	, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() - i)); return true; }
 	));
-	tranzakcja.dodaj(std::make_shared< Operacja >());
+	tranzakcja.dodaj(std::make_shared< SpEx::Operacja >());
 	UNIT_TEST_ASSERT_FALSE(tranzakcja.wykonaj());
 	UNIT_TEST_ASSERT_EQUAL(jeden, statek->pobierzIlosc());
 }
 
 void ZleceniaTest::tranzakcja_throw(){
-	MenedzerTranzakcji tranzakcja;
+	SpEx::MenedzerTranzakcji tranzakcja;
 	STyp::Ilosc jeden(1);
 	std::shared_ptr<SpEx::Statek> statek(gra->pobierzStatek(STyp::Identyfikator(5)).tworzEgzemplarz(SpEx::PodstawoweParametry(jeden)));
 	STyp::Ilosc dwa(2);
 	STyp::Ilosc pietnascie(15);
-	tranzakcja.dodaj(std::make_shared< Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
+	tranzakcja.dodaj(std::make_shared< SpEx::Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
 		, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() + i)); return true; }
 	, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() - i)); return true; }
 	));
-	tranzakcja.dodaj(std::make_shared< Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
+	tranzakcja.dodaj(std::make_shared< SpEx::Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
 		, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() *i)); return true; }
 	, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() / i)); return true; }
 	));
-	tranzakcja.dodaj(std::make_shared< Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(pietnascie, statek
+	tranzakcja.dodaj(std::make_shared< SpEx::Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(pietnascie, statek
 		, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() + i)); return true; }
 	, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() - i)); return true; }
 	));
-	tranzakcja.dodaj(std::make_shared< Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(pietnascie, statek
+	tranzakcja.dodaj(std::make_shared< SpEx::Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(pietnascie, statek
 		, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst()); }
 	, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst()); }
 	));
@@ -82,24 +82,24 @@ void ZleceniaTest::tranzakcja_throw(){
 }
 
 void ZleceniaTest::tranzakcja_throw2(){
-	MenedzerTranzakcji tranzakcja;
+	SpEx::MenedzerTranzakcji tranzakcja;
 	STyp::Ilosc jeden(1);
 	std::shared_ptr<SpEx::Statek> statek(gra->pobierzStatek(STyp::Identyfikator(5)).tworzEgzemplarz(SpEx::PodstawoweParametry(jeden)));
 	STyp::Ilosc dwa(2);
 	STyp::Ilosc pietnascie(15);
-	tranzakcja.dodaj(std::make_shared< Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
+	tranzakcja.dodaj(std::make_shared< SpEx::Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
 		, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() + i)); return true; }
 	, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst()); }
 	));
-	tranzakcja.dodaj(std::make_shared< Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
+	tranzakcja.dodaj(std::make_shared< SpEx::Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
 		, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() *i)); return true; }
 	, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() / i)); return true; }
 	));
-	tranzakcja.dodaj(std::make_shared< Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(pietnascie, statek
+	tranzakcja.dodaj(std::make_shared< SpEx::Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(pietnascie, statek
 		, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() + i)); return true; }
 	, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{s->ustawAtrybut(SpEx::PodstawoweParametry::wpisIlosc(s->pobierzIlosc() - i)); return true; }
 	));
-	tranzakcja.dodaj(std::make_shared< Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(pietnascie, statek
+	tranzakcja.dodaj(std::make_shared< SpEx::Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(pietnascie, statek
 		, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst()); }
 	, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst()); }
 	));

@@ -52,9 +52,6 @@
     <ClCompile Include="Gra.cpp">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClCompile>
-    <ClCompile Include="Uzytkownik.cpp">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClCompile>
     <ClCompile Include="TechnologiaInfo.cpp">
       <Filter>SourceFile\Model\Obiekty\Technologia</Filter>
     </ClCompile>
@@ -256,6 +253,9 @@
     <ClCompile Include="NieznalezionoObiektu.cpp">
       <Filter>SourceFile\Wyjatki</Filter>
     </ClCompile>
+    <ClCompile Include="Uzytkownik.cpp">
+      <Filter>SourceFile\Model\Users</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -316,9 +316,6 @@
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
     <ClInclude Include="Gra.h">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClInclude>
-    <ClInclude Include="Uzytkownik.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
     <ClInclude Include="TechnologiaInfo.h">
@@ -564,6 +561,9 @@
     <ClInclude Include="NiepoprawneParametryFunkcji.h">
       <Filter>SourceFile\Wyjatki</Filter>
     </ClInclude>
+    <ClInclude Include="Uzytkownik.h">
+      <Filter>SourceFile\Model\Users</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -709,6 +709,9 @@
     </Filter>
     <Filter Include="Testy\KlasyTestowe\Utils">
       <UniqueIdentifier>{7e5c077d-d62b-4bdc-b4a8-5a466d3ddb58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Model\Users">
+      <UniqueIdentifier>{b7c38fbf-2e4d-4fc8-9a60-10c124adf6ac}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
