@@ -5,7 +5,7 @@
 
 namespace SpEx{
 	Flota::Flota(const STyp::Identyfikator& id, const STyp::Identyfikator& planetaPoczatkowa, const STyp::Identyfikator& planetaDocelowa, CelPodrozy celPodrozy)
-		: idFloty_(id),planetaPoczatkowa_(planetaPoczatkowa), planetaDocelowa_(planetaDocelowa), celPodrozy_(celPodrozy)
+		: idFloty_(id), planetaPoczatkowa_(planetaPoczatkowa), planetaDocelowa_(planetaDocelowa), celPodrozy_(celPodrozy)
 	{
 	}
 
@@ -137,50 +137,60 @@ namespace SpEx{
 
 	bool Flota::rozladujLadownieNaPlanecie(){
 		std::shared_ptr<Planeta> planeta;
-		switch (celPodrozy_){
-		case Stacjonowanie:
-		case Transport: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaDocelowa_);
-			break;
-		case Powrot: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaPoczatkowa_);
-			break;
-		case Zwiad:
-		case Szczatki:
-		case Ekspedycja:
-		case Atak:
-		default:
+		try{
+			switch (celPodrozy_){
+			case Stacjonowanie:
+			case Transport: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaDocelowa_);
+				break;
+			case Powrot: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaPoczatkowa_);
+				break;
+			case Zwiad:
+			case Szczatki:
+			case Ekspedycja:
+			case Atak:
+			default:
+				return false;
+			}
+		}
+		catch (NieznalezionoObiektu& e){
 			return false;
 		}
 		if (!planeta)
 			return false;
 		for (auto statek : lista_)
-		if (statek.second){
-			planeta->rozladujStatek(statek.second);
-		}
+			if (statek.second){
+				planeta->rozladujStatek(statek.second);
+			}
 		return true;
 	}
 
 	bool Flota::rozladujFloteNaPlanecie(){
 		std::shared_ptr<Planeta> planeta;
-		switch (celPodrozy_){
-		case Stacjonowanie:
-		case Transport: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaDocelowa_);
-			break;
-		case Powrot: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaPoczatkowa_);
-			break;
-		case Zwiad:
-		case Szczatki:
-		case Ekspedycja:
-		case Atak:
-		default:
+		try{
+			switch (celPodrozy_){
+			case Stacjonowanie:
+			case Transport: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaDocelowa_);
+				break;
+			case Powrot: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaPoczatkowa_);
+				break;
+			case Zwiad:
+			case Szczatki:
+			case Ekspedycja:
+			case Atak:
+			default:
+				return false;
+			}
+		}
+		catch (NieznalezionoObiektu& e){
 			return false;
 		}
 		if (!planeta)
 			return false;
 		for (auto statek : lista_)
-		if (statek.second){
-			planeta->rozladujStatek(statek.second);
-			planeta->dodajObiekt(statek.second);
-		}
+			if (statek.second){
+				planeta->rozladujStatek(statek.second);
+				planeta->dodajObiekt(statek.second);
+			}
 		lista_.clear();
 		return true;
 	}
@@ -200,20 +210,17 @@ namespace SpEx{
 			element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR_PLANETA_DOCELOWA, planetaDocelowa_.napis().c_str());
 			element->tworzAtrybut(ATRYBUT_XML_CEL_PODROZY, "")->ustawWartoscInt(celPodrozy_);
 			for (auto statek : lista_)
-			if (statek.second)
-				statek.second->zapisz(element);
+				if (statek.second)
+					statek.second->zapisz(element);
 			return true;
 		}
 		return false;
 	}
 
 	bool Flota::odczytaj(XmlBO::ElementWezla wezel) {
-		if (!XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, idFloty_))
-			return false;
-		if (!XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_PLANETA_POCZATKOWA, planetaPoczatkowa_))
-			return false;
-		if (!XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_PLANETA_DOCELOWA, planetaDocelowa_))
-			return false;
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, idFloty_);
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_PLANETA_POCZATKOWA, planetaPoczatkowa_);
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_PLANETA_DOCELOWA, planetaDocelowa_);
 		int cel;
 		auto atrybut = wezel->pobierzAtrybut(ATRYBUT_XML_CEL_PODROZY);
 		if (!atrybut && atrybut->operator bool())
@@ -239,8 +246,7 @@ namespace SpEx{
 		}
 		return XmlBO::ForEach<STACKTHROW>(wezel, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 			STyp::Identyfikator identyfikator;
-			if (!XmlBO::WczytajAtrybut<STACKTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR, identyfikator))
-				return false;
+			XmlBO::WczytajAtrybut<STACKTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR, identyfikator);
 			PodstawoweParametry parametry(PodstawoweParametry::wpisIlosc(STyp::Ilosc()), PodstawoweParametry::ILOSC, STyp::Identyfikator());
 			auto statek = std::shared_ptr<Statek>(Aplikacja::pobierzInstancje().pobierzGre().pobierzStatek(identyfikator).tworzEgzemplarz(parametry));
 			if (!statek->odczytaj(element))
@@ -256,8 +262,8 @@ namespace SpEx{
 		str.dodajPole(NAZWAPOLA(planetaDocelowa_), planetaDocelowa_);
 		str.dodajPole(NAZWAPOLA(planetaPoczatkowa_), planetaPoczatkowa_);
 		for (auto s : lista_)
-		if (s.second)
-			str.dodajPole(NAZWAPOLA(Statek), *s.second);
+			if (s.second)
+				str.dodajPole(NAZWAPOLA(Statek), *s.second);
 		return str.napis();
 	}
 }

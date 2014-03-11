@@ -223,8 +223,7 @@ namespace SpEx{
 
 	bool Ladownia::odczytaj(XmlBO::ElementWezla wezel) {
 
-		if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_ZAJETE_MIEJSCE, zajete_))
-			return false;
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_ZAJETE_MIEJSCE, zajete_);
 		if (zajete_ < STyp::Objetosc(0))
 			return false;
 
