@@ -35,7 +35,7 @@ namespace SpEx{
 		typedef std::map< Indeks, std::shared_ptr< Obrona > > ListaObrona;
 		typedef std::map< Indeks, std::shared_ptr< Surowce > > ListaSurowcow;
 		typedef std::map< STyp::Identyfikator, std::shared_ptr< Flota > > ListaFlot;
-		typedef std::map< Indeks, STyp::Ilosc > ListaZasobow;
+		// Nie u¿ywana funkcjonalnoœæ - typedef std::map< Indeks, STyp::Ilosc > ListaZasobow;
 
 		/**
 		* \brief Konstruktor.
@@ -382,7 +382,7 @@ namespace SpEx{
 		STyp::Powierzchnia powierzchniaZajetaPrzezWode_; /// Atrybut przechowuj¹cy informacje o powierzchni planety zajêtej przez wodê.
 		STyp::Powierzchnia powierzchniaLadow_; /// Atrybut przechowuj¹cy informacje o powierzchni planety zajêtej przez l¹dy.
 		STyp::Powierzchnia powierzchniaUzytkowaLadow_; /// Atrybut przechowuj¹cy informacje o powierzchni u¿ytkowej planety.
-		ListaZasobow dostepneZasobyPlanety_; /// Lista zasobów jakie mo¿na wydobyæ na planecie.
+		// Nie u¿ywana funkcjonalnoœæ - ListaZasobow dostepneZasobyPlanety_; /// Lista zasobów jakie mo¿na wydobyæ na planecie.
 		STyp::Tekst nazwaPlanety_; /// Nazwa planety.
 
 		STyp::Identyfikator identyfikator_;

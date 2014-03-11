@@ -282,11 +282,12 @@ namespace SpEx{
 		planeta->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwaPlanety_().c_str());
 		planeta->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, identyfikator_.napis().c_str());
 		licznikIdentyfikatorowFloty_.zapisz(planeta);
+		/* Nie u¿ywana funkcjonalnoœæ
 		for (auto element : dostepneZasobyPlanety_){
 			auto zasob = planeta->tworzElement(WEZEL_XML_ZASOB);
 			zasob->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, element.first.napis().c_str());
 			zasob->tworzAtrybut(ATRYBUT_XML_ILOSC, element.second.napis().c_str());
-		}
+		}*/
 		auto obiekty = planeta->tworzElement(WEZEL_XML_OBIEKTY);
 		for (auto element : listaObiektow_){
 			if (!element.second->zapisz(obiekty))
@@ -322,7 +323,8 @@ namespace SpEx{
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA_ZAJETA_PRZEZ_WODE, powierzchniaZajetaPrzezWode_);
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA_LADOW, powierzchniaLadow_);
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA_UZYTKOWA_LADOW, powierzchniaUzytkowaLadow_);
-						
+
+			/* Nie u¿ywana funkcjonalnoœæ
 			if (!XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_ZASOB, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla zasob)->bool{
 				STyp::Identyfikator identyfikator;
 				STyp::Ilosc ilosc;
@@ -335,7 +337,7 @@ namespace SpEx{
 				return true;
 			}))){
 				return false;
-			}
+			}*/
 
 			auto obiekt = wezel->pobierzElement(WEZEL_XML_OBIEKTY);
 			if (obiekt){
@@ -434,18 +436,20 @@ namespace SpEx{
 	std::string Planeta::napis() const{
 		SLog::Logger str(NAZWAKLASY(Planeta));
 		str.dodajPole(NAZWAKLASY(Licznik), licznikIdentyfikatorowFloty_);
-		str.dodajPole("odlegloscOdSlonca", odlegloscOdSlonca_);
+		str.dodajPole(NAZWAPOLA(), odlegloscOdSlonca_);
 		//str.dodajPole("predkoscKatowaPlanety",predkoscKatowaPlanety_);
 		//str.dodajPole("naslonecznieniePlanety",naslonecznieniePlanety_);
-		str.dodajPole("idUkladu", idUkladu_);
-		str.dodajPole("temperaturaPlanety", temperaturaPlanety_);
-		str.dodajPole("calkowitaPowierzchniaPlanety", calkowitaPowierzchniaPlanety_);
-		str.dodajPole("powierzchniaZajetaPrzezWode", powierzchniaZajetaPrzezWode_);
-		str.dodajPole("powierzchniaLadow", powierzchniaLadow_);
-		str.dodajPole("powierzchniaUzytkowaLadow", powierzchniaUzytkowaLadow_);
-		str.dodajPole("nazwaPlanety", nazwaPlanety_);
+		str.dodajPole(NAZWAPOLA(idUkladu_), idUkladu_);
+		str.dodajPole(NAZWAPOLA(temperaturaPlanety_), temperaturaPlanety_);
+		str.dodajPole(NAZWAPOLA(calkowitaPowierzchniaPlanety_), calkowitaPowierzchniaPlanety_);
+		str.dodajPole(NAZWAPOLA(powierzchniaZajetaPrzezWode_), powierzchniaZajetaPrzezWode_);
+		str.dodajPole(NAZWAPOLA(powierzchniaLadow_), powierzchniaLadow_);
+		str.dodajPole(NAZWAPOLA(powierzchniaUzytkowaLadow_), powierzchniaUzytkowaLadow_);
+		str.dodajPole(NAZWAPOLA(nazwaPlanety_), nazwaPlanety_);
+		/* Nie u¿ywana funkcjonalnoœæ
 		for( auto element : dostepneZasobyPlanety_ )
 			str.dodajPole("Zasob", element.second);
+			*/
 		for (auto element : listaObiektow_)
 			str.dodajPole("Obiekt", *(element.second));
 		for (auto element : listaFlot_)

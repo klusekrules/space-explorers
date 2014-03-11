@@ -69,7 +69,7 @@ namespace SpEx{
 
 	std::string Uzytkownik::napis() const{
 		SLog::Logger str(NAZWAKLASY(Uzytkownik));
-		str.dodajPole("Nazwa", nazwaUzytkownika_);
+		str.dodajPole(NAZWAPOLA(nazwaUzytkownika_), nazwaUzytkownika_);
 		for (auto planeta : planety_)
 		if (!planeta.second)
 			str.dodajPole(NAZWAKLASY(Planeta), *(planeta.second));
