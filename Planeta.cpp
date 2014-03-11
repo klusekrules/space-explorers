@@ -436,7 +436,7 @@ namespace SpEx{
 	std::string Planeta::napis() const{
 		SLog::Logger str(NAZWAKLASY(Planeta));
 		str.dodajPole(NAZWAKLASY(Licznik), licznikIdentyfikatorowFloty_);
-		str.dodajPole(NAZWAPOLA(), odlegloscOdSlonca_);
+		str.dodajPole(NAZWAPOLA(odlegloscOdSlonca_), odlegloscOdSlonca_);
 		//str.dodajPole("predkoscKatowaPlanety",predkoscKatowaPlanety_);
 		//str.dodajPole("naslonecznieniePlanety",naslonecznieniePlanety_);
 		str.dodajPole(NAZWAPOLA(idUkladu_), idUkladu_);
