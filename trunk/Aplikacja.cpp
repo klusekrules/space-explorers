@@ -58,7 +58,9 @@ namespace SpEx{
 
 		/* ------- Konfiguracja parametrów programu -------*/
 		if (!przetworzArgumenty()){
-			throw STyp::Wyjatek(EXCEPTION_PLACE,STyp::Tekst());
+			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), STyp::Identyfikator(),
+				STyp::Tekst("B³¹d inicjalizacji argumentów"),
+				STyp::Tekst("Podczas inicjalizacji argumentów wyst¹pi³ b³¹d."));
 		}
 
 		/* ------- Konfiguracja Loggera -------*/
@@ -76,12 +78,6 @@ namespace SpEx{
 		/* ------------------------------------ */
 		logger_.loguj(SLog::Log::Info, "Start aplikacji Space-Explorers.");
 
-		zarzadca_.zaladujPliki();
-
-		if (!zaladujOpcje()){
-			throw STyp::Wyjatek(EXCEPTION_PLACE,STyp::Tekst());
-		}
-
 		//Wyswietlanie informacji o aplikacji
 		logApInfo();
 
@@ -97,21 +93,31 @@ namespace SpEx{
 		else{
 			logger_.loguj(SLog::Log::Warning, "Nie za³adowano biblioteki Dbghelp.dll");
 		}
-		
+
+		zarzadca_.zaladujPliki();
+
+		if (!zaladujOpcje()){
+			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), STyp::Identyfikator(),
+				STyp::Tekst("B³¹d przetwarzania pliku z opcjami"),
+				STyp::Tekst("Podczas przetwa¿ania pliku z opcjami wyst¹pi³ b³¹d."));
+		}
+				
 		pluginy_ = std::make_shared<SPlu::Cplugin>(folderPluginow_, SZmi::ZmianaFabryka::pobierzInstancje(), logger_);
 
-		if (RejestrujZmianaPoziomObiektu(SZmi::ZmianaFabryka::pobierzInstancje(), logger_)){
-			logger_.loguj(SLog::Log::Info, "Zaladowano ZmianaPoziomObiektu.");
-		}
-		else{
-			logger_.loguj(SLog::Log::Info, "Nie zaladowano ZmianaPoziomObiektu.");
-		}
+		if (!RejestrujZmianaPoziomObiektu(SZmi::ZmianaFabryka::pobierzInstancje(), logger_))
+			throw STyp::Wyjatek(EXCEPTION_PLACE, pobierzSladStosu(), STyp::Identyfikator(), 
+			STyp::Tekst("B³ad rejestracji zmiany."),
+			STyp::Tekst("Nie powiod³a siê rejestracja zmiany sparawdzaj¹cej poziom obiektu."));
 
 		if (!pluginy_->zaladujDomyslneKlasyZmian())
-			throw STyp::Wyjatek(EXCEPTION_PLACE, pobierzSladStosu(), STyp::Identyfikator(0), STyp::Tekst("Domyslne elementy zmiany."));
+			throw STyp::Wyjatek(EXCEPTION_PLACE, pobierzSladStosu(), STyp::Identyfikator(),
+			STyp::Tekst("B³ad rejestracji zmiany."),
+			STyp::Tekst("Nie powiod³a siê rejestracja domyœlnych obiektów zmiany."));
 
 		if (!pluginy_->zaladujZewnetrzneKlasyZmian())
-			throw STyp::Wyjatek(EXCEPTION_PLACE, pobierzSladStosu(), STyp::Identyfikator(0), STyp::Tekst("Dodatkowe elementy zmiany."));
+			throw STyp::Wyjatek(EXCEPTION_PLACE, pobierzSladStosu(), STyp::Identyfikator(),
+			STyp::Tekst("B³ad rejestracji zmiany."),
+			STyp::Tekst("Nie powiod³a siê rejestracja dodatkowych obiektów zmiany."));
 		
 		_set_purecall_handler(myPurecallHandler);
 		_set_invalid_parameter_handler(myInvalidParameterHandler);
@@ -165,11 +171,11 @@ namespace SpEx{
 				if (plikDanych){
 					nazwaPlikuDanych_ = plikDanych->pobierzTekst();
 					if (_access(nazwaPlikuDanych_.c_str(), 0) == -1){ // Sprawdzenie czy folder istnieje
-						throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(), STyp::Tekst("Brak pliku danych."), STyp::Tekst("Plik z danymi programu nie zosta³ znaleziony!"));
+						throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), STyp::Identyfikator(), STyp::Tekst("Brak pliku danych."), STyp::Tekst("Plik z danymi programu nie zosta³ znaleziony!"));
 					}
 				}
 				else{
-					//TODO: Generowanie Wyjatku throw (EXCEPTION_PLACE, std::exception(""), );
+					Utils::generujWyjatekBleduStruktury(root_data);
 				}
 
 				auto pluginy = XmlBO::ZnajdzWezel<NOTHROW>(root_data, "plugins");
@@ -186,7 +192,7 @@ namespace SpEx{
 
 			}
 			else{
-				//TODO: Generowanie Wyjatku throw (EXCEPTION_PLACE, std::exception(""), );
+				Utils::generujWyjatekBleduStruktury(root_data);
 			}
 		}
 		catch (std::exception &e){
@@ -259,15 +265,12 @@ namespace SpEx{
 				Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(STyp::Identyfikator(0x0)); // Poprawna wartoœæ; U¿ywana gdy obiekty znajduj¹ siê we flocie.
 				if (root && instancjaGry_->wczytajDane(root)){
 					if (instancjaGry_->odczytaj(wezel->pobierzElement(WEZEL_XML_GRA)))
-					if (instancjaGry_->odczytaj(nazwa, hash))
-					if (Walidator::pobierzInstancje().waliduj())
-						return true;
+						if (instancjaGry_->odczytaj(nazwa, hash))
+							if (Walidator::pobierzInstancje().waliduj())
+								return true;
 				}
 				instancjaGry_ = gra;
 				return false;
-			}
-			catch (STyp::Wyjatek& e){
-				logger_.loguj(SLog::Log::Error, e);
 			}
 			catch (std::exception& e){
 				logger_.loguj(SLog::Log::Error, e.what());

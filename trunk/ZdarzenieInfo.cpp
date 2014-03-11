@@ -3,6 +3,8 @@
 #include "Logger\Logger.h"
 #include "definicjeWezlowXML.h"
 #include "Utils.h"
+#include "Aplikacja.h"
+
 namespace SpEx{
 	ZdarzenieInfo::ZdarzenieInfo(XmlBO::ElementWezla wezel)
 		: nastepnyStan_(nullptr), nastepnyNumer_(nullptr)
@@ -12,7 +14,9 @@ namespace SpEx{
 			luaFuncInside_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_STAN_LUA_INSIDE, std::string());
 			luaFile_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_STAN_LUA_FILE, std::string());
 			if (luaFile_.empty() && !luaFuncInside_.empty())
-				throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst());
+				throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), STyp::Identyfikator(),
+				STyp::Tekst("B³¹d struktury stanu."),
+				STyp::Tekst("Nie podano pliku skryptu, a wpisano metody do wykonania."));
 
 			STyp::Identyfikator stan;
 			if (XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_STAN_NASTEPNY, stan)){

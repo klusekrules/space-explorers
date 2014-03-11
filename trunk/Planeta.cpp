@@ -307,40 +307,27 @@ namespace SpEx{
 			Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(identyfikator_);
 
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_NAZWA, nazwaPlanety_);
-
-			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_ODLEGLOSC_OD_SLONCA, odlegloscOdSlonca_))
-				return false;
-			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_SREDNICA, srednicaPlanety_))
-				return false;
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_ODLEGLOSC_OD_SLONCA, odlegloscOdSlonca_);
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_SREDNICA, srednicaPlanety_);
 			/*if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_PREDKOSC_KATOWA_PLANETY,predkoscKatowaPlanety_))
 				return false;
 				if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_NASLONECZNIENIE_PLANETY,naslonecznieniePlanety_))
 				return false;
 				if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_WIETRZNOSC_PLANETY,wietrznoscPlanety_))
 				return false;*/
-			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_RODZICA, idUkladu_))
-				return false;
-
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_RODZICA, idUkladu_);
 			XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_NAZWAGRACZA, idUzytkownika_);
-
-			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_TEMPERATURA_PLANETY, temperaturaPlanety_))
-				return false;
-			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_CALKOWITA_POWIERZNIA_PLANETY, calkowitaPowierzchniaPlanety_))
-				return false;
-			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA_ZAJETA_PRZEZ_WODE, powierzchniaZajetaPrzezWode_))
-				return false;
-			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA_LADOW, powierzchniaLadow_))
-				return false;
-			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA_UZYTKOWA_LADOW, powierzchniaUzytkowaLadow_))
-				return false;
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_TEMPERATURA_PLANETY, temperaturaPlanety_);
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_CALKOWITA_POWIERZNIA_PLANETY, calkowitaPowierzchniaPlanety_);
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA_ZAJETA_PRZEZ_WODE, powierzchniaZajetaPrzezWode_);
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA_LADOW, powierzchniaLadow_);
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA_UZYTKOWA_LADOW, powierzchniaUzytkowaLadow_);
 						
 			if (!XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_ZASOB, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla zasob)->bool{
 				STyp::Identyfikator identyfikator;
 				STyp::Ilosc ilosc;
-				if (!XmlBO::WczytajAtrybut<NOTHROW>(zasob, ATRYBUT_XML_IDENTYFIKATOR, identyfikator))
-					return false;
-				if (!XmlBO::WczytajAtrybut<NOTHROW>(zasob, ATRYBUT_XML_ILOSC, ilosc))
-					return false;
+				XmlBO::WczytajAtrybut<STACKTHROW>(zasob, ATRYBUT_XML_IDENTYFIKATOR, identyfikator);
+				XmlBO::WczytajAtrybut<STACKTHROW>(zasob, ATRYBUT_XML_ILOSC, ilosc);
 				auto iter = dostepneZasobyPlanety_.find(identyfikator);
 				if (iter != dostepneZasobyPlanety_.end())
 					return false;
@@ -354,8 +341,7 @@ namespace SpEx{
 			if (obiekt){
 				if (!XmlBO::ForEach<STACKTHROW>(obiekt, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 					STyp::Identyfikator identyfikator;
-					if (!XmlBO::WczytajAtrybut<NOTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR, identyfikator))
-						return false;
+					XmlBO::WczytajAtrybut<STACKTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR, identyfikator);
 					if (!wybuduj(identyfikator, element))
 						return false;
 					auto iter = listaObiektow_.find(identyfikator);
@@ -385,8 +371,7 @@ namespace SpEx{
 			if (flota){
 				if (!XmlBO::ForEach<STACKTHROW>(flota, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 					STyp::Identyfikator identyfikator;
-					if (!XmlBO::WczytajAtrybut<NOTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR, identyfikator))
-						return false;
+					XmlBO::WczytajAtrybut<STACKTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR, identyfikator);
 					auto wskaznik = std::make_shared<Flota>(identyfikator, STyp::Identyfikator(), STyp::Identyfikator(), Flota::CelPodrozy::Transport);
 					auto iterator = listaFlot_.find(identyfikator);
 					if (iterator != listaFlot_.end() || !wskaznik->odczytaj(element))

@@ -64,7 +64,10 @@ namespace SpEx{
 	}
 
 	std::shared_ptr<Planeta> Gra::pobierzPlanete(const STyp::Identyfikator& identyfikator){
-		return aplikacja_.pobierzZarzadce().pobierzPlanete(identyfikator);
+		auto ptr = aplikacja_.pobierzZarzadce().pobierzPlanete(identyfikator);
+		if (!ptr)
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+		return ptr;
 	}
 
 	StatekInfo& Gra::pobierzStatek(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
