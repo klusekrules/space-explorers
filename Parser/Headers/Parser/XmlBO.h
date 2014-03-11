@@ -114,10 +114,14 @@ public:
 	static ElementWezla ZnajdzWezel(ElementWezla wezel, const std::string& nazwa, ElementWezla poprzedniWezel = nullptr){
 		if(wezel==nullptr || nazwa.empty())
 			return T::bladWezla(wezel, nazwa);
+		ElementWezla element;
 		if(poprzedniWezel)
-			return poprzedniWezel->pobierzNastepnyElement(nazwa.c_str());
+			element = poprzedniWezel->pobierzNastepnyElement(nazwa.c_str());
 		else
-			return wezel->pobierzElement(nazwa.c_str());
+			element = wezel->pobierzElement(nazwa.c_str());
+		if (element == nullptr)
+			return T::bladWezla(wezel, nazwa);
+		return element;
 	}
 	
 	template<class T>
@@ -127,18 +131,23 @@ public:
 		const std::string& wartoscAtrybutu,
 		ElementWezla poprzedniWezel = nullptr)
 	{
-		if(wezel==nullptr || nazwaWezla.empty() || nazwaAtrybutu.empty())
+		if (wezel == nullptr || nazwaWezla.empty() || nazwaAtrybutu.empty())
 			return T::bladWezla(wezel, nazwaWezla);
+		ElementWezla element;
 		for (
 			auto wezelDziecko = poprzedniWezel ? poprzedniWezel->pobierzNastepnyElement(nazwaWezla.c_str()) : wezel->pobierzElement(nazwaWezla.c_str());
-			wezelDziecko != nullptr; 
-			wezelDziecko = wezelDziecko->pobierzNastepnyElement(nazwaWezla.c_str())
-				){
+			wezelDziecko != nullptr;
+		wezelDziecko = wezelDziecko->pobierzNastepnyElement(nazwaWezla.c_str())
+			){
 			auto tmp = wezelDziecko->pobierzAtrybut(nazwaAtrybutu.c_str());
-			if (tmp && !strcmp(wartoscAtrybutu.c_str(), tmp->pobierzWartosc()))
-				return wezelDziecko;
+			if (tmp && !strcmp(wartoscAtrybutu.c_str(), tmp->pobierzWartosc())){
+				element = wezelDziecko;
+				break;
+			}
 		}
-		return nullptr;
+		if (element == nullptr)
+			return T::bladWezla(wezel, nazwaWezla);
+		return element;
 	}
 	
 	template<class K, typename T>

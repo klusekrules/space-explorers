@@ -52,23 +52,19 @@ namespace SpEx{
 	}
 
 	bool Uzytkownik::odczytaj(XmlBO::ElementWezla wezel){
-		if (wezel){
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_NAZWA, nazwaUzytkownika_);
 
-			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_NAZWA, nazwaUzytkownika_);
-
-			return XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_PLANETA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
-				STyp::Identyfikator idPlanety;
-				if (!XmlBO::WczytajAtrybut<NOTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR_RODZICA, idPlanety))
-					return false;
-				auto planeta = instancjaGry.pobierzPlanete(idPlanety);
-				if (!planeta)
-					return false;
-				planeta->ustawWlasciciela(this);
-				planety_[idPlanety] = planeta;
-				return true;
-			}));
-		}
-		return false;
+		return XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_PLANETA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
+			STyp::Identyfikator idPlanety;
+			if (!XmlBO::WczytajAtrybut<NOTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR_RODZICA, idPlanety))
+				return false;
+			auto planeta = instancjaGry.pobierzPlanete(idPlanety);
+			if (!planeta)
+				return false;
+			planeta->ustawWlasciciela(this);
+			planety_[idPlanety] = planeta;
+			return true;
+		}));
 	}
 
 	std::string Uzytkownik::napis() const{

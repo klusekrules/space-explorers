@@ -1,6 +1,8 @@
 #include "ZarzadcaPamieci.h"
 #include "definicjeWezlowXML.h"
 #include "Parser\ParserDokumentXml.h"
+#include "Aplikacja.h"
+
 namespace SpEx{
 	
 	std::shared_ptr< Planeta > ZarzadcaPamieci::pobierzPlanete(const STyp::Identyfikator& identyfikator){
@@ -48,15 +50,21 @@ namespace SpEx{
 	void ZarzadcaPamieci::zaladujPliki(){
 		dokumentMaszynyStanow_ = std::make_shared<SPar::ParserDokumentXml>();
 		if (!dokumentMaszynyStanow_->odczytaj("resource\\state.xml")){
-			//TODO: Generuj wyj¹tek.
+			throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), STyp::Identyfikator(),
+				STyp::Tekst("B³ad odczytu pliku."),
+				STyp::Tekst("Nie powiod³a siê operacja wczytywania danych z pliku: state.xml."));
 		}
 		dokumentOknaGry_ = std::make_shared<SPar::ParserDokumentXml>();
 		if (!dokumentOknaGry_->odczytaj("resource\\Menu.xml")){
-			//TODO: Generuj wyj¹tek.
+			throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), STyp::Identyfikator(),
+				STyp::Tekst("B³ad odczytu pliku."),
+				STyp::Tekst("Nie powiod³a siê operacja wczytywania danych z pliku: Menu.xml."));
 		}
 		dokumentKonfiguracyjny_ = std::make_shared<SPar::ParserDokumentXml>();
 		if (!dokumentKonfiguracyjny_->odczytaj(nazwaPlikuOpcji_.c_str())){
-			//TODO: Generuj wyj¹tek.
+			throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), STyp::Identyfikator(),
+				STyp::Tekst("B³ad odczytu pliku."),
+				STyp::Tekst("Nie powiod³a siê operacja wczytywania danych z pliku:" + nazwaPlikuOpcji_ + "."));
 		}
 	}
 
@@ -154,43 +162,45 @@ namespace SpEx{
 	}
 
 	bool ZarzadcaPamieci::odczytaj(XmlBO::ElementWezla wezel){
-		if (!wezel)
-			return false;
 
-		if (!generator_.odczytaj(XmlBO::ZnajdzWezel<NOTHROW>(wezel, WEZEL_XML_GENERATOR_UKLADOW)))
+		if (!generator_.odczytaj(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_GENERATOR_UKLADOW)))
 			return false;
-		for (auto galaktyka = wezel->pobierzElement(WEZEL_XML_GALAKTYKA); galaktyka; galaktyka = galaktyka->pobierzNastepnyElement(WEZEL_XML_GALAKTYKA)){
+		XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_GALAKTYKA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla galaktyka)->bool{
 			STyp::Identyfikator idGalaktyki;
-			if (!XmlBO::WczytajAtrybut<NOTHROW>(galaktyka, ATRYBUT_XML_IDENTYFIKATOR, idGalaktyki))
+			if (!XmlBO::WczytajAtrybut<STACKTHROW>(galaktyka, ATRYBUT_XML_IDENTYFIKATOR, idGalaktyki))
 				return false;
 
 			std::vector<STyp::Identyfikator> listUkladow;
-
-			for (auto uklad = galaktyka->pobierzElement(WEZEL_XML_UKLAD_SLONECZNY); uklad; uklad = uklad->pobierzNastepnyElement(WEZEL_XML_UKLAD_SLONECZNY)){
+			if(!XmlBO::ForEach<STACKTHROW>(galaktyka, WEZEL_XML_UKLAD_SLONECZNY, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla uklad)->bool{
 				STyp::Identyfikator idUklad;
-				if (!XmlBO::WczytajAtrybut<NOTHROW>(uklad, ATRYBUT_XML_IDENTYFIKATOR, idUklad))
+				if (!XmlBO::WczytajAtrybut<STACKTHROW>(uklad, ATRYBUT_XML_IDENTYFIKATOR, idUklad))
 					return false;
 
 				std::vector<STyp::Identyfikator> listPlanet;
 
-				for (auto planeta = uklad->pobierzElement(WEZEL_XML_PLANETA); planeta; planeta = planeta->pobierzNastepnyElement(WEZEL_XML_PLANETA)){
+				if(!XmlBO::ForEach<STACKTHROW>(uklad, WEZEL_XML_PLANETA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla planeta)->bool{
 					STyp::Identyfikator idPlanety;
-					if (!XmlBO::WczytajAtrybut<NOTHROW>(planeta, ATRYBUT_XML_IDENTYFIKATOR, idPlanety))
+					if (!XmlBO::WczytajAtrybut<STACKTHROW>(planeta, ATRYBUT_XML_IDENTYFIKATOR, idPlanety))
 						return false;
 
 					listPlanet.push_back(idPlanety);
 					struct ZarzadcaPamieci::ObjPlaneta nowaPlaneta = { idUklad, nullptr };
 					planety_[idPlanety] = nowaPlaneta;
+					return true;
+				})))
+					return false;
 
-				}
 				listUkladow.push_back(idUklad);
 				struct ZarzadcaPamieci::ObjUklad nowyUklad = { idGalaktyki, nullptr, listPlanet };
 				ukladySloneczne_[idUklad] = nowyUklad;
-			}
+				return true;
+			})))
+				return false;
 
 			struct ZarzadcaPamieci::ObjGalakatyka nowaGalaktyka = { nullptr, listUkladow };
 			galaktyki_[idGalaktyki] = nowaGalaktyka;
-		}
+			return true;
+		}));
 
 		return true;
 	}
