@@ -3,13 +3,11 @@
 #include "TworzenieObiektowTest.h"
 #include "ZapisStanuGryTest.h"
 #include "ZleceniaTest.h"
-#include "KluczTest.h"
 #include "GenerowanieTest.h"
 #include "CzyszczenieDanychTest.h"
 #include "ParserTest.h"
 
 REJESTRUJ_PACZKE_TESTOW_JAKO_INICJALIZACJA(ParserTest);
-REJESTRUJ_PACZKE_TESTOW_JAKO_INICJALIZACJA(KluczTest);
 REJESTRUJ_PACZKE_TESTOW_JAKO_INICJALIZACJA(InicjalizacjaDanychTestowych);
 REJESTRUJ_PACZKE_TESTOW_JAKO_INICJALIZACJA(LogowanieTest);
 REJESTRUJ_PACZKE_TESTOW_JAKO_INICJALIZACJA(GenerowanieTest);

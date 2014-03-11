@@ -15,12 +15,12 @@ public:
 	void Test1();
 	void Test2();
 	void Test3();
-	ObronaTest(void);
-	virtual ~ObronaTest(void);
+	ObronaTest(void) = default;
+	virtual ~ObronaTest(void) = default;
 
 private:
-	const Obrona* a;
-	Obrona* b;
-	shared_ptr<Planeta> planeta;
+	const SpEx::Obrona* a;
+	const SpEx::Obrona* b;
+	std::shared_ptr<SpEx::Planeta> planeta;
 };
 

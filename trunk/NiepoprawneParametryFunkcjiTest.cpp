@@ -1,32 +1,24 @@
 #include "NiepoprawneParametryFunkcjiTest.h"
 
-
-NiepoprawneParametryFunkcjiTest::NiepoprawneParametryFunkcjiTest(void)
-{
-}
-
 void NiepoprawneParametryFunkcjiTest::startTestow(){
-	Gra* gra = &(Aplikacja::pobierzInstancje().pobierzGre());
+	SpEx::Gra* gra = &(SpEx::Aplikacja::pobierzInstancje().pobierzGre());
 	UNIT_TEST_ASSERT_NOTNULL(gra);
-	planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(Identyfikator(0x7));
+	planeta = SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(STyp::Identyfikator(0x7));
 	UNIT_TEST_ASSERT_NOTNULL(planeta);
 	planeta->wyczyscZawartoscPlanety();
 	UNIT_TEST_ASSERT_TRUE(gra->przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
-	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(Planeta::Indeks(Identyfikator(0xC),Poziom(1)),Ilosc(100)));
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(SpEx::Planeta::Indeks(STyp::Identyfikator(5)), STyp::Ilosc(100)));
 }
 
 void NiepoprawneParametryFunkcjiTest::tworzenieWyjatku(){
 	try{
-		Ilosc temp(5);
-		const Statek& tmp = planeta->pobierzStatek(Planeta::Indeks(Identyfikator(0xC),Poziom(1)));
-		throw NiepoprawneParametryFunkcji( EXCEPTION_PLACE , tmp , temp );
-	}catch( const NiepoprawneParametryFunkcji& e ){
+		STyp::Ilosc temp(5);
+		const SpEx::Statek& tmp = planeta->pobierzStatek(STyp::Identyfikator(5));
+		throw SpEx::NiepoprawneParametryFunkcji(EXCEPTION_PLACE, STyp::Tekst() , tmp, temp);
+	}
+	catch (const SpEx::NiepoprawneParametryFunkcji& e){
 		UNIT_TEST_ASSERT_FALSE(e.getParametry().isEmpty());
 	}
-}
-
-NiepoprawneParametryFunkcjiTest::~NiepoprawneParametryFunkcjiTest(void)
-{
 }
 
 REJESTRUJ_PACZKE_TESTOW(NiepoprawneParametryFunkcjiTest);

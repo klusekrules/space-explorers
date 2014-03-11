@@ -1,37 +1,38 @@
 #pragma once
 #include "Zlecenie.h"
-#include "Identyfikator.h"
 #include "PodstawoweParametry.h"
 #include <functional>
+namespace SpEx{
+	class ZlecenieUstawIdentyfikatorPlanety :
+		public Zlecenie < STyp::Identyfikator, std::shared_ptr< SpEx::PodstawoweParametry > >,
+		virtual public SLog::LoggerInterface
+	{
+	private:
+		STyp::Identyfikator staryIdentyfikator_;
 
-using namespace std::placeholders;
-class ZlecenieUstawIdentyfikatorPlanety:
-	public Zlecenie < Identyfikator, shared_ptr< PodstawoweParametry > >,
-	virtual public LoggerInterface
-{
-private:
-	Identyfikator staryIdentyfikator;
-	
-	bool ustawIdentyfikator( Identyfikator& id , shared_ptr< PodstawoweParametry >& obiekt ){
-		staryIdentyfikator = obiekt->pobierzIdentyfikatorPlanety();
-		obiekt->ustawIdentyfikatorPlanety(id);
-		return true;
-	}
+		bool ustawIdentyfikator(STyp::Identyfikator& id, std::shared_ptr< SpEx::PodstawoweParametry >& obiekt){
+			staryIdentyfikator_ = obiekt->pobierzIdentyfikatorPlanety();
+			obiekt->ustawIdentyfikatorPlanety(id);
+			return true;
+		}
 
-	bool cofnijUstawIdentyfikator( Identyfikator& id , shared_ptr< PodstawoweParametry >& obiekt ){
-		obiekt->ustawIdentyfikatorPlanety(staryIdentyfikator);
-		return true;
-	}
-public:
-	ZlecenieUstawIdentyfikatorPlanety( Identyfikator& identyfikator, shared_ptr< PodstawoweParametry >& obiekt )
-		: Zlecenie( identyfikator, obiekt, bind(&ZlecenieUstawIdentyfikatorPlanety::ustawIdentyfikator,this,_1,_2), bind(&ZlecenieUstawIdentyfikatorPlanety::cofnijUstawIdentyfikator,this,_1,_2))
-	{}
-	~ZlecenieUstawIdentyfikatorPlanety(){}
+		bool cofnijUstawIdentyfikator(STyp::Identyfikator& id, std::shared_ptr< SpEx::PodstawoweParametry >& obiekt){
+			obiekt->ustawIdentyfikatorPlanety(staryIdentyfikator_);
+			return true;
+		}
+	public:
+		ZlecenieUstawIdentyfikatorPlanety(STyp::Identyfikator& identyfikator, std::shared_ptr< SpEx::PodstawoweParametry >& obiekt)
+			: Zlecenie(identyfikator, obiekt, bind(&ZlecenieUstawIdentyfikatorPlanety::ustawIdentyfikator, this, std::placeholders::_1, std::placeholders::_2),
+			bind(&ZlecenieUstawIdentyfikatorPlanety::cofnijUstawIdentyfikator, this, std::placeholders::_1, std::placeholders::_2))
+		{}
 
-	string napis() const override{
-		Logger str(NAZWAKLASY(ZlecenieUstawIdentyfikatorPlanety));
-		str.dodajKlase(Zlecenie::napis());
-		str.dodajPole("StaryIdentyfikator",staryIdentyfikator);
-		return str.napis();
-	}
+		virtual ~ZlecenieUstawIdentyfikatorPlanety() = default;
+
+		std::string napis() const override{
+			SLog::Logger str(NAZWAKLASY(ZlecenieUstawIdentyfikatorPlanety));
+			str.dodajKlase(Zlecenie::napis());
+			str.dodajPole(NAZWAPOLA(staryIdentyfikator_), staryIdentyfikator_);
+			return str.napis();
+		}
+	};
 };

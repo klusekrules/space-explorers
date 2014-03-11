@@ -11,11 +11,11 @@ class TechnologiaTest:
 public:
 	void startTestow() override;
 	void podstawowyTest();
-	TechnologiaTest(void);
-	virtual ~TechnologiaTest(void);
+	TechnologiaTest(void) = default;
+	virtual ~TechnologiaTest(void) = default;
 private:
-	const Technologia* a;
-	const Technologia* b;
-	shared_ptr<Planeta> planeta;
+	const SpEx::Technologia* a;
+	const SpEx::Technologia* b;
+	std::shared_ptr<SpEx::Planeta> planeta;
 };
 

@@ -15,11 +15,11 @@ public:
 	void tworzenieObiektow();
 	void falszyweObiekty();
 
-	TworzenieObiektowTest();
-	virtual ~TworzenieObiektowTest();
+	TworzenieObiektowTest() = default;
+	virtual ~TworzenieObiektowTest() = default;
 private:
-	Gra *gra;
-	Identyfikator id;
-	shared_ptr<Planeta> planeta;
+	SpEx::Gra *gra;
+	STyp::Identyfikator id;
+	std::shared_ptr<SpEx::Planeta> planeta;
 };
 

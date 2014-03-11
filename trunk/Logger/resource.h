@@ -1,7 +1,16 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
 // Used by Logger.rc
-#include "../version.h"
+
+#ifdef _WIN64
+#define VER_PRODUCTNAME_STR         "Space Explorers (64-bit)"
+#else
+#define VER_PRODUCTNAME_STR         "Space Explorers (32-bit)"
+#endif
+
+#define VER_COPYRIGHT_STR           "Copyright (C) 2012-2013"
+
+#define VER_COMPANY_NAME_STR        "N/A"
 
 #define LANG_POLISH 0x15
 #define SUBLANG_DEFAULT 0x1

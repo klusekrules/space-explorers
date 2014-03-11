@@ -1,21 +1,16 @@
 #include "LadowniaTest.h"
 
-
-LadowniaTest::LadowniaTest(void)
-{
-}
-
 void LadowniaTest::startTestow(){
-	gra = &(Aplikacja::pobierzInstancje().pobierzGre());
+	gra = &(SpEx::Aplikacja::pobierzInstancje().pobierzGre());
 	UNIT_TEST_ASSERT_NOTNULL(gra);
-	StatekInfo& statekInfo = gra->pobierzStatek(Identyfikator(0xB));
-	SurowceInfo& surowceInfo3 = gra->pobierzSurowce(Identyfikator(0x6));
-	SurowceInfo& surowceInfo = gra->pobierzSurowce(Identyfikator(0x1));
-	SurowceInfo& surowceInfo2 = gra->pobierzSurowce(Identyfikator(0xA));
-	statekTransportowy = shared_ptr<Statek> ( statekInfo.tworzEgzemplarz(Ilosc(10),Identyfikator(0)) );
-	metal = shared_ptr<Surowce> ( surowceInfo.tworzEgzemplarz(Ilosc(10000),Identyfikator(0)) );
-	energia = shared_ptr<Surowce> ( surowceInfo2.tworzEgzemplarz(Ilosc(10000),Identyfikator(0)) );
-	krysztal = shared_ptr<Surowce> ( surowceInfo3.tworzEgzemplarz(Ilosc(1000),Identyfikator(0)) );
+	SpEx::StatekInfo& statekInfo = gra->pobierzStatek(STyp::Identyfikator(0x6));
+	SpEx::SurowceInfo& surowceInfo3 = gra->pobierzSurowce(STyp::Identyfikator(0x2));
+	SpEx::SurowceInfo& surowceInfo = gra->pobierzSurowce(STyp::Identyfikator(0x1));
+	SpEx::SurowceInfo& surowceInfo2 = gra->pobierzSurowce(STyp::Identyfikator(0x4));
+	statekTransportowy = std::shared_ptr<SpEx::Statek>(statekInfo.tworzEgzemplarz(STyp::Ilosc(5)));
+	metal = std::shared_ptr<SpEx::Surowce>(surowceInfo.tworzEgzemplarz(STyp::Ilosc(10000)));
+	energia = std::shared_ptr<SpEx::Surowce>(surowceInfo2.tworzEgzemplarz(STyp::Ilosc(10000)));
+	krysztal = std::shared_ptr<SpEx::Surowce>(surowceInfo3.tworzEgzemplarz(STyp::Ilosc(1000)));
 }
 
 void LadowniaTest::podstawowyTest(){
@@ -25,23 +20,19 @@ void LadowniaTest::podstawowyTest(){
 }
 
 void LadowniaTest::oproznianieLadowni(){
-	UNIT_TEST_ASSERT_NOTEQUAL(statekTransportowy->pobierzZajeteMiejsceLadowni(),Objetosc(0));
+	UNIT_TEST_ASSERT_NOTEQUAL(statekTransportowy->pobierzZajeteMiejsceLadowni(), STyp::Objetosc(0));
 	statekTransportowy->oproznijLadownie();
-	UNIT_TEST_ASSERT_EQUAL(statekTransportowy->pobierzZajeteMiejsceLadowni(),Objetosc(0));
+	UNIT_TEST_ASSERT_EQUAL(statekTransportowy->pobierzZajeteMiejsceLadowni(), STyp::Objetosc(0));
 }
 
 void LadowniaTest::dzielenieLadowni(){
-	UNIT_TEST_ASSERT_EQUAL(statekTransportowy->pobierzZajeteMiejsceLadowni(),Objetosc(0));
+	UNIT_TEST_ASSERT_EQUAL(statekTransportowy->pobierzZajeteMiejsceLadowni(), STyp::Objetosc(0));
 	UNIT_TEST_ASSERT_TRUE(statekTransportowy->dodajObiektDoLadowni(*metal));
 	UNIT_TEST_ASSERT_TRUE(statekTransportowy->dodajObiektDoLadowni(*krysztal));
-	Ladownia::Zbiornik tmp = statekTransportowy->podzielLadownie(Objetosc(10500),Objetosc(11000));
+	SpEx::Ladownia::Zbiornik tmp = statekTransportowy->podzielLadownie(STyp::Objetosc(10500), STyp::Objetosc(11000));
 	UNIT_TEST_ASSERT_FALSE(tmp.pusty());
-	UNIT_TEST_ASSERT_EQUAL(Ilosc(0),statekTransportowy->pobierzIloscObiektowLadowni(krysztal->ID()));
-	UNIT_TEST_ASSERT_NOTEQUAL(Ilosc(0),statekTransportowy->pobierzIloscObiektowLadowni(metal->ID()));
-}
-
-LadowniaTest::~LadowniaTest(void)
-{
+	UNIT_TEST_ASSERT_EQUAL(STyp::Ilosc(0), statekTransportowy->pobierzIloscObiektowLadowni(krysztal->pobierzIdentyfikator()));
+	UNIT_TEST_ASSERT_NOTEQUAL(STyp::Ilosc(0), statekTransportowy->pobierzIloscObiektowLadowni(metal->pobierzIdentyfikator()));
 }
 
 REJESTRUJ_PACZKE_TESTOW(LadowniaTest);

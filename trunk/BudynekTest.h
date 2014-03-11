@@ -11,12 +11,12 @@ class BudynekTest:
 public:
 	void startTestow() override;
 	void podstawowyTest();
-	BudynekTest(void);
-	virtual ~BudynekTest(void);
+	BudynekTest(void) = default;
+	virtual ~BudynekTest(void) = default;
 private:
-	const Budynek* a;
-	const Budynek* b;
-	const Budynek* c;
-	shared_ptr<Planeta> planeta;
+	const SpEx::Budynek* a;
+	const SpEx::Budynek* b;
+	const SpEx::Budynek* c;
+	std::shared_ptr<SpEx::Planeta> planeta;
 };
 

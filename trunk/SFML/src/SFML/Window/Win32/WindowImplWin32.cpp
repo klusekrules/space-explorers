@@ -31,6 +31,7 @@
 #ifdef _WIN32_WINNT
     #undef _WIN32_WINNT
 #endif
+#pragma warning(disable : 4996)
 #define _WIN32_WINDOWS 0x0501
 #define _WIN32_WINNT   0x0501
 #include <SFML/Window/Win32/WindowImplWin32.hpp>

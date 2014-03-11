@@ -1,28 +1,19 @@
 #include "TechnologiaTest.h"
 
-
-TechnologiaTest::TechnologiaTest(void)
-{
-}
-
 void TechnologiaTest::startTestow(){
-	planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(Identyfikator(0x3));
+	planeta = SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(STyp::Identyfikator(0x3));
 	UNIT_TEST_ASSERT_NOTNULL(planeta);
 	planeta->wyczyscZawartoscPlanety();
-	UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(15),Poziom(1)),Ilosc(20)) );
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(16),Poziom(1)),Ilosc(20)) );
-	a = &(planeta->pobierzTechnologie(Planeta::Indeks(Identyfikator(15),Poziom(1))));
-	b = &(planeta->pobierzTechnologie(Planeta::Indeks(Identyfikator(16),Poziom(1))));
+	UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(9), STyp::Poziom(1)));
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(10), STyp::Poziom(2)));
+	a = &(planeta->pobierzTechnologie(STyp::Identyfikator(9)));
+	b = &(planeta->pobierzTechnologie(STyp::Identyfikator(10)));
 }
 
 void TechnologiaTest::podstawowyTest(){
-	UNIT_TEST_ASSERT_EQUAL(Ilosc(1),a->pobierzIlosc());
-	UNIT_TEST_ASSERT_EQUAL(Ilosc(1),b->pobierzIlosc());
-}
-
-TechnologiaTest::~TechnologiaTest(void)
-{
+	UNIT_TEST_ASSERT_EQUAL(STyp::Poziom(1), a->pobierzPoziom());
+	UNIT_TEST_ASSERT_EQUAL(STyp::Poziom(2), b->pobierzPoziom());
 }
 
 REJESTRUJ_PACZKE_TESTOW(TechnologiaTest);

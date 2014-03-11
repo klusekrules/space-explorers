@@ -1,57 +1,49 @@
 #include "Licznik.h"
-#include "Logger.h"
-#include "Utils.h"
 #include "DefinicjeWezlowXML.h"
-#include "XmlBO.h"
+#include "Logger\Logger.h"
+#include "Utils.h"
 
-Licznik::Licznik(const Identyfikator& identyfikator, const Ilosc& wartoscPoczatkowa)
-	: Bazowa(identyfikator), wartoscLicznika_(wartoscPoczatkowa)
-{
-}
-
-Licznik::Licznik(const Identyfikator& identyfikator)
-	: Bazowa(identyfikator), wartoscLicznika_(0)
-{
-}
-
-Licznik::Licznik()
-	: Bazowa(Identyfikator(-1)), wartoscLicznika_(0)
-{
-}
-
-Ilosc Licznik::operator()(){
-	return wartoscLicznika_++;
-}
-
-Ilosc Licznik::pobierzWartosc()const{
-	return wartoscLicznika_;
-}
-
-void Licznik::resetujWartosc(){
-	wartoscLicznika_ = Ilosc(0);
-}
-
-void Licznik::ustawWartosc( const Ilosc& wartosc ){
-	wartoscLicznika_ = wartosc;
-}
-
-bool Licznik::zapisz( tinyxml2::XMLElement* wezel ) const{
-	tinyxml2::XMLElement* dziecko = wezel->GetDocument()->NewElement(WEZEL_XML_LICZNIK);
-	wezel->LinkEndChild( dziecko );
-	dziecko->SetAttribute(ATRYBUT_XML_ILOSC,wartoscLicznika_.napis().c_str());
-	return Bazowa::zapisz(dziecko);
-}
-
-bool Licznik::odczytaj( tinyxml2::XMLElement* wezel ){
-	if(wezel && Bazowa::odczytaj(wezel)){
-		return XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_ILOSC,wartoscLicznika_);
+namespace SpEx{
+	Licznik::Licznik(const STyp::Identyfikator& identyfikator, const STyp::Ilosc& wartoscPoczatkowa)
+		: identyfikator_(identyfikator),wartoscLicznika_(wartoscPoczatkowa)
+	{
 	}
-	return false;
-}
+	
+	const STyp::Identyfikator& Licznik::pobierzIdentyfikator()const{
+		return identyfikator_;
+	}
 
-string Licznik::napis()const{
-	Logger str(NAZWAKLASY(Licznik));
-	str.dodajKlase(Bazowa::napis());
-	str.dodajPole("WartoœæLicznika",wartoscLicznika_);
-	return str.napis();
+	STyp::Ilosc Licznik::operator()(){
+		return wartoscLicznika_++;
+	}
+
+	STyp::Ilosc Licznik::pobierzWartosc()const{
+		return wartoscLicznika_;
+	}
+
+	void Licznik::resetujWartosc(){
+		wartoscLicznika_ = STyp::Ilosc(0);
+	}
+
+	void Licznik::ustawWartosc(const STyp::Ilosc& wartosc){
+		wartoscLicznika_ = wartosc;
+	}
+
+	bool Licznik::zapisz(XmlBO::ElementWezla wezel) const{
+		XmlBO::ElementWezla dziecko = wezel->tworzElement(WEZEL_XML_LICZNIK);
+		if (dziecko == nullptr)
+			return false;
+		return dziecko->tworzAtrybut(ATRYBUT_XML_ILOSC, wartoscLicznika_.napis().c_str()) != nullptr && dziecko->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, identyfikator_.napis().c_str()) != nullptr;
+	}
+
+	bool Licznik::odczytaj(XmlBO::ElementWezla wezel){
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
+		return XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_ILOSC, wartoscLicznika_);
+	}
+
+	std::string Licznik::napis()const{
+		SLog::Logger str(NAZWAKLASY(Licznik));
+		str.dodajPole(NAZWAPOLA(wartoscLicznika_), wartoscLicznika_);
+		return str.napis();
+	}
 }

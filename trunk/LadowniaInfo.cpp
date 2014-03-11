@@ -1,49 +1,38 @@
 #include "LadowniaInfo.h"
-#include "Logger.h"
-#include "XmlBO.h"
+#include "Logger\Logger.h"
 #include "Aplikacja.h"
 #include "definicjeWezlowXML.h"
+#include "TypyProste\TypyProsteBO.h"
 
-LadowniaInfo::LadowniaInfo( const Objetosc& maksymalnaObjetosc, const Info& info ) throw()
-	: Info(info), pojemnoscMaksymalna_(maksymalnaObjetosc), przyrostPojemnosciMaksymalnej_(nullptr)
-{
-}
-
-LadowniaInfo::LadowniaInfo( const LadowniaInfo& obiekt )
-	: Info(obiekt), pojemnoscMaksymalna_(obiekt.pojemnoscMaksymalna_), przyrostPojemnosciMaksymalnej_(nullptr)
-{
-}
-
-LadowniaInfo::~LadowniaInfo(){
-}
-
-LadowniaInfo::LadowniaInfo( tinyxml2::XMLElement* wezel ) throw(WyjatekParseraXML)
-	: Info(wezel), przyrostPojemnosciMaksymalnej_(nullptr)
-{
-	if(wezel){
-		try{
-			XmlBO::WczytajAtrybut<THROW>(wezel,ATRYBUT_XML_POJEMNOSC_MAKSYMALNA,pojemnoscMaksymalna_);
-			if( pojemnoscMaksymalna_ < Objetosc(0) )
-				throw OgolnyWyjatek(EXCEPTION_PLACE,Identyfikator(-1), Tekst("Nie poprawny atrybut."), Tekst("Atrybut \"pojemnoscMaksymalna\" posiada niepoprawn¹ wartoœæ.") );
-			przyrostPojemnosciMaksymalnej_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel,WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,ATRYBUT_XML_POJEMNOSC_MAKSYMALNA));
-		}catch(exception& wyjatek){
-			throw WyjatekParseraXML(EXCEPTION_PLACE,wyjatek,WyjatekParseraXML::trescBladStrukturyXml);
-		}
+namespace SpEx{
+	LadowniaInfo::LadowniaInfo(const STyp::Objetosc& maksymalnaObjetosc)
+		: pojemnoscMaksymalna_(maksymalnaObjetosc), przyrostPojemnosciMaksymalnej_(nullptr)
+	{
 	}
-}
 
-Objetosc LadowniaInfo::pobierzPojemnoscMaksymalna(const PodstawoweParametry& parametry ) const{
-	if(przyrostPojemnosciMaksymalnej_)
-		return Objetosc(przyrostPojemnosciMaksymalnej_->policzWartosc(pojemnoscMaksymalna_(),static_cast<int>(parametry.pobierzPoziom()()),parametry.pobierzIdentyfikatorPlanety()()));
-	else
-		return pojemnoscMaksymalna_;
-}
-		
-string LadowniaInfo::napis() const{
-	Logger str(NAZWAKLASY(LadowniaInfo));
-	str.dodajKlase(Info::napis());
-	str.dodajPole("MaksymalnaPojemnosc",pojemnoscMaksymalna_);
-	if(przyrostPojemnosciMaksymalnej_)
-		str.dodajPole("ZmianaMaksymalnaPojemnosc",*przyrostPojemnosciMaksymalnej_);
-	return str.napis();
+	LadowniaInfo::LadowniaInfo(const LadowniaInfo& obiekt)
+		: pojemnoscMaksymalna_(obiekt.pojemnoscMaksymalna_), przyrostPojemnosciMaksymalnej_(Utils::Kopiuj(obiekt.przyrostPojemnosciMaksymalnej_))
+	{
+	}
+
+	LadowniaInfo::LadowniaInfo(XmlBO::ElementWezla wezel)
+		: przyrostPojemnosciMaksymalnej_(nullptr)
+	{
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POJEMNOSC_MAKSYMALNA, pojemnoscMaksymalna_);
+		if (pojemnoscMaksymalna_ < STyp::Objetosc(0))
+			Utils::generujWyjatekBleduStruktury(wezel);
+		przyrostPojemnosciMaksymalnej_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<STACKTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_POJEMNOSC_MAKSYMALNA));
+	}
+
+	STyp::Objetosc LadowniaInfo::pobierzPojemnoscMaksymalna(const PodstawoweParametry& parametry) const{
+		return Utils::ObliczZmiane(przyrostPojemnosciMaksymalnej_, pojemnoscMaksymalna_, parametry);
+	}
+
+	std::string LadowniaInfo::napis() const{
+		SLog::Logger str(NAZWAKLASY(LadowniaInfo));
+		str.dodajPole(NAZWAPOLA(pojemnoscMaksymalna_), pojemnoscMaksymalna_);
+		if (przyrostPojemnosciMaksymalnej_)
+			str.dodajPole(NAZWAPOLA(przyrostPojemnosciMaksymalnej_), *przyrostPojemnosciMaksymalnej_);
+		return str.napis();
+	}
 }

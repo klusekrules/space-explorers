@@ -13,9 +13,9 @@ public:
 	void zapis();
 	void odczyt();
 	ZapisStanuGryTest(void);
-	virtual ~ZapisStanuGryTest(void);
+	virtual ~ZapisStanuGryTest(void) = default;
 private:
-	Planeta p_a;
+	STyp::Ilosc p_a;
 	int ptr_a;
 };
 

@@ -1,63 +1,73 @@
 #include "StatekInfo.h"
-#include "XmlBO.h"
 #include "Gra.h"
 #include "definicjeWezlowXML.h"
 #include "Logger\Logger.h"
+#include "TypyProste\TypyProsteBO.h"
 
-StatekInfo::StatekInfo(	const ObiektInfo& obiektInfo , const JednostkaLatajacaInfo& jednostkaLatajacaInfo , const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo , const LadowniaInfo& ladowniaInfo, const HangarInfo& hangarInfo ) throw()
-	: ObiektInfo(obiektInfo), JednostkaLatajacaInfo(jednostkaLatajacaInfo), JednostkaAtakujacaInfo(jednostkaAtakujacaInfo), LadowniaInfo(ladowniaInfo), HangarInfo(hangarInfo),przechowywanyWHangarze_(false)
-{
-}
-
-StatekInfo::StatekInfo( tinyxml2::XMLElement* wezel ) throw(WyjatekParseraXML)
-	: ObiektInfo(wezel),
-	JednostkaLatajacaInfo(XmlBO::ZnajdzWezel<THROW>(wezel,WEZEL_XML_JEDNOSTKA_LATAJACA_INFO)),
-	JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<THROW>(wezel,WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO)),
-	LadowniaInfo(XmlBO::ZnajdzWezel<THROW>(wezel,WEZEL_XML_LADOWNIA_INFO)),
-	HangarInfo(XmlBO::ZnajdzWezel<THROW>(wezel,WEZEL_XML_HANGAR_INFO)),przechowywanyWHangarze_(false)
-{
-	if(wezel){
-		auto przyrostowy = XmlBO::WczytajAtrybut<int>(wezel,ATRYBUT_XML_HANGAR,0);
-		switch(przyrostowy){
-		case 1 : przechowywanyWHangarze_ = true;
+namespace SpEx{
+	StatekInfo::StatekInfo(XmlBO::ElementWezla wezel)
+		: ObiektInfo(wezel),
+		JednostkaLatajacaInfo(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_JEDNOSTKA_LATAJACA_INFO)),
+		JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO)),
+		LadowniaInfo(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_LADOWNIA_INFO)),
+		HangarInfo(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_HANGAR_INFO)), przechowywanyWHangarze_(false)
+	{
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_MASA, masa_);
+		zmianaMasy_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_MASA));
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA, powierzchnia_);
+		zmianaPowierzchni_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_POWIERZCHNIA));
+		auto przyrostowy = XmlBO::WczytajAtrybut<int>(wezel, ATRYBUT_XML_HANGAR, -1);
+		switch (przyrostowy){
+		case 1: przechowywanyWHangarze_ = true;
 			break;
-		case 2 : przechowywanyWHangarze_ = false;
+		case 0: przechowywanyWHangarze_ = false;
 			break;
-		default: Utils::generujWyjatekBleduStruktury(EXCEPTION_PLACE,wezel);
+		default: Utils::generujWyjatekBleduStruktury(wezel);
 		}
 	}
-}
 
-StatekInfo::~StatekInfo(){
-}
+	bool StatekInfo::czyMoznaDodacDoHangaru() const{
+		return przechowywanyWHangarze_();
+	}
 
-bool StatekInfo::czyMoznaDodacDoHangaru() const{
-	return przechowywanyWHangarze_();
-}
+	const STyp::Identyfikator& StatekInfo::pobierzIdentyfikator() const{
+		return ObiektInfo::pobierzIdentyfikator();
+	}
 
-const Identyfikator& StatekInfo::pobierzIdentyfikator() const{
-	return ObiektInfo::pobierzIdentyfikator();
-}
+	STyp::Powierzchnia StatekInfo::pobierzPowierzchnie(const PodstawoweParametry& parametry)const{
+		return STyp::pomnozPrzezIlosc(Utils::ObliczZmiane(zmianaPowierzchni_, powierzchnia_, parametry), parametry.pobierzIlosc());
+	}
 
-Statek* StatekInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety ) const{
-	return tworzEgzemplarz(ilosc, identyfikatorPlanety,pobierzPoziom());
-}
+	STyp::Masa StatekInfo::pobierzMase(const PodstawoweParametry& parametry)const{
+		return STyp::pomnozPrzezIlosc(Utils::ObliczZmiane(zmianaMasy_, masa_, parametry), parametry.pobierzIlosc());
+	}
 
-Statek* StatekInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety, const Poziom& poziom ) const{
-	return new Statek(ilosc,poziom, identyfikatorPlanety, *this);
-}
+	Statek* StatekInfo::tworzEgzemplarz(const PodstawoweParametry& parametry) const{
+		return new Statek(parametry, *this);
+	}
 
-bool StatekInfo::tworz( const Gra& gra, Planeta& planeta , const Ilosc& ilosc, const Poziom& poziom ) const{
-	return gra.wybudujNaPlanecie(planeta,*this,ilosc, poziom);
-}
+	bool StatekInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla element) const{
+		auto statek = std::shared_ptr<Statek>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), PodstawoweParametry::ILOSC)));
+		if (statek && element){
+			if (!statek->odczytaj(element))
+				return false;
+			return planeta.dodajObiekt(statek);
+		}
+		return false;
+	}
 
-string StatekInfo::napis() const{
-	Logger str(NAZWAKLASY(StatekInfo));
-	str.dodajKlase(ObiektInfo::napis());
-	str.dodajKlase(JednostkaLatajacaInfo::napis());
-	str.dodajKlase(JednostkaAtakujacaInfo::napis());
-	str.dodajKlase(LadowniaInfo::napis());
-	str.dodajKlase(HangarInfo::napis());
-	str.dodajPole("CzyMoznaDodacDoHangaru",przechowywanyWHangarze_);
-	return str.napis();
+	bool StatekInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
+		return planeta.dodajObiekt(std::shared_ptr<Statek>(tworzEgzemplarz(PodstawoweParametry(atrybut, PodstawoweParametry::ILOSC))));
+	}
+
+	std::string StatekInfo::napis() const{
+		SLog::Logger str(NAZWAKLASY(StatekInfo));
+		str.dodajKlase(ObiektInfo::napis());
+		str.dodajKlase(JednostkaLatajacaInfo::napis());
+		str.dodajKlase(JednostkaAtakujacaInfo::napis());
+		str.dodajKlase(LadowniaInfo::napis());
+		str.dodajKlase(HangarInfo::napis());
+		str.dodajPole(NAZWAPOLA(przechowywanyWHangarze_), przechowywanyWHangarze_);
+		return str.napis();
+	}
 }

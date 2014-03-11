@@ -1,32 +1,59 @@
 #pragma once
 #include <string>
 #include <algorithm>
-#include "FuncTransf\ZmianaInterfejs.h"
-#include "tinyxml2.h"
-#include "Tekst.h"
-#include "Ilosc.h"
-using namespace std;
+#include "Zmiana\ZmianaInterfejs.h"
+#include "PodstawoweParametry.h"
 
-class Utils
-{
-public:
-	static shared_ptr<ZmianaInterfejs> TworzZmiane( tinyxml2::XMLElement* );
+namespace SpEx{
+	
+	class STACKTHROW {
+	public:
+		static XmlBO::ElementWezla bladWezla(XmlBO::ElementWezla element, const std::string& nazwaWezla);
 
-	static void generujWyjatekBleduStruktury(  const Tekst& plik, const Ilosc& linia, tinyxml2::XMLElement* wezel );
+		static bool bladAtrybutu(XmlBO::ElementWezla element, const std::string& nazwaAtrybutu);
 
-	template<class Map, class Key>
-	static bool zamianaKlucza ( Map &kontener, Key &before, Key &after ){
-		if(kontener.find(after) != kontener.end())
-			return false;
-		auto iterator = kontener.find(before);
-		if(iterator == kontener.end())
-			return false;
-		auto obiekt = iterator->second;
-		kontener.erase(iterator);
-		kontener.insert(make_pair(after,obiekt));
-		return true;
-	}
+	};
 
-	static void ascii2hex(string& str, unsigned char c);
-	static void sha3(string& str);
-};
+	class Utils
+	{
+	public:
+
+		static const STyp::Fluktuacja FMAX;
+		static const STyp::Fluktuacja FMIN;
+
+		static std::shared_ptr<SZmi::ZmianaInterfejs> TworzZmiane(XmlBO::ElementWezla);
+
+		static std::shared_ptr<SZmi::ZmianaInterfejs> Kopiuj(std::shared_ptr<SZmi::ZmianaInterfejs> zmiana ){
+			if (zmiana)
+				return std::shared_ptr<SZmi::ZmianaInterfejs>(zmiana->Kopia());
+			else
+				return nullptr;
+		}
+
+		template<typename T>
+		static T ObliczZmiane(std::shared_ptr<SZmi::ZmianaInterfejs> zmiana, const T& obiekt, const PodstawoweParametry& param){
+			if (zmiana)
+				return T(static_cast<T::nazwa_typu>(zmiana->policzWartosc(obiekt(), param.pobierzPoziom(), param.pobierzIdentyfikatorPlanety())()));
+			else
+				return obiekt;
+		}
+
+		static void generujWyjatekBleduStruktury(XmlBO::ElementWezla wezel);
+
+		template<class Map, class Key>
+		static bool zamianaKlucza(Map &kontener, Key &before, Key &after){
+			if (kontener.find(after) != kontener.end())
+				return false;
+			auto iterator = kontener.find(before);
+			if (iterator == kontener.end())
+				return false;
+			auto obiekt = iterator->second;
+			kontener.erase(iterator);
+			kontener.insert(make_pair(after, obiekt));
+			return true;
+		}
+
+		static void ascii2hex(std::string& str, unsigned char c);
+		static void sha3(std::string& str);
+	};
+}

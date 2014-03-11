@@ -1,30 +1,31 @@
 #pragma once
-#include "OgolnyWyjatek.h"
+#include "TypyProste\Wyjatek.h"
 
-/**
-* Wyj¹tek infomuje, ¿e obiekt nie zosta³ znaleziony.
-*/
-class NieznalezionoObiektu :
-	virtual public LoggerInterface,
-	public OgolnyWyjatek
-{
-public:
-	static const Identyfikator idNieznalezionoObiektu;
+namespace SpEx{
+	/**
+	* Wyj¹tek infomuje, ¿e obiekt nie zosta³ znaleziony.
+	*/
+	class NieznalezionoObiektu :
+		virtual public SLog::LoggerInterface,
+		public STyp::Wyjatek
+	{
+	public:
+		static const STyp::Identyfikator idNieznalezionoObiektu;
 
-	NieznalezionoObiektu(const Tekst& tPlik, const Ilosc& iLinia, const Tekst& tNazwa);
-	virtual ~NieznalezionoObiektu(void);
-	
-	const Tekst& getIdentyfikator() const;
-	void setIdentyfikator( const Tekst& );
+		NieznalezionoObiektu(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia, const STyp::Tekst& tNazwa);
+		virtual ~NieznalezionoObiektu(void) = default;
 
-	Tekst generujKomunikat() const override;
+		const STyp::Tekst& getIdentyfikator() const;
+		void setIdentyfikator(const STyp::Tekst&);
 
-	std::string napis() const override;
+		STyp::Tekst generujKomunikat() const override;
 
-private:
-	Tekst identyfikator;
+		std::string napis() const override;
 
-	static const Tekst tytulNieznalezionoObiektu;
-	static const Tekst trescNieznalezionoObiektu;
-};
+	private:
+		STyp::Tekst identyfikator;
 
+		static const STyp::Tekst tytulNieznalezionoObiektu;
+		static const STyp::Tekst trescNieznalezionoObiektu;
+	};
+}

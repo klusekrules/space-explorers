@@ -6,7 +6,7 @@ CzyszczenieDanychTest::CzyszczenieDanychTest(void)
 }
 
 void CzyszczenieDanychTest::czysc(){
-	Aplikacja::pobierzInstancje().wyczyscDane();
+	SpEx::Aplikacja::pobierzInstancje().wyczyscDane();
 }
 
 CzyszczenieDanychTest::~CzyszczenieDanychTest(void)

@@ -1,24 +1,17 @@
 #include "NiezgodnyTypSurowca.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
+#include "Aplikacja.h"
 
-NiezgodnyTypSurowca::NiezgodnyTypSurowca( const Tekst& tPlik, const Ilosc& iLinia, const Klucz & tsP, const Klucz & tsD )
-	: OgolnyWyjatek (  tPlik, iLinia, idNiezgodnyTypSurowca , tytulNiezgodnyTypSurowcaDomyslny , Tekst() )
-{
-	std::stringstream str;
-	str<<"Brak zgodnosci typow. Uzyte typy = [ID Pierwszy = " << tsP.pobierzIdentyfikator().napis() << ", Poziom = "<< tsP.pobierzPoziom().napis() << " ], [ID Drugi = "<< tsD.pobierzIdentyfikator().napis()<< ", Poziom = "<< tsD.pobierzPoziom().napis() <<" ].";
-	setTresc(str.str());
-}
+namespace SpEx{
+	NiezgodnyTypSurowca::NiezgodnyTypSurowca(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia, const STyp::Identyfikator & tsP, const STyp::Identyfikator & tsD)
+		: Wyjatek(tPlik, funkcja, iLinia,Aplikacja::pobierzInstancje().pobierzSladStosu(), idNiezgodnyTypSurowca, tytulNiezgodnyTypSurowcaDomyslny, 
+		STyp::Tekst("Brak zgodnosci typow. Uzyte typy = [ID Pierwszy = " + tsP.napis() + " ], [ID Drugi = " + tsD.napis() + " ]." ))
+	{
+	}
 
-NiezgodnyTypSurowca::NiezgodnyTypSurowca( const NiezgodnyTypSurowca& wyjatek )
-	: OgolnyWyjatek( wyjatek )
-{
-}
-
-NiezgodnyTypSurowca::~NiezgodnyTypSurowca(){
-}
-
-std::string NiezgodnyTypSurowca::napis() const{
-	Logger str(NAZWAKLASY(NiezgodnyTypSurowca));
-	str.dodajKlase(OgolnyWyjatek::napis());
-	return str.napis();
+	std::string NiezgodnyTypSurowca::napis() const{
+		SLog::Logger str(NAZWAKLASY(NiezgodnyTypSurowca));
+		str.dodajKlase(Wyjatek::napis());
+		return str.napis();
+	}
 }

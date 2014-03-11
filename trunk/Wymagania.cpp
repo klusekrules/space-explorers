@@ -1,167 +1,108 @@
 #include "Wymagania.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
 #include "Aplikacja.h"
-#include "XmlBO.h"
 #include "definicjeWezlowXML.h"
-#include "LiczenieKosztow.h"
-#include "LiczenieWymogow.h"
-using namespace std::placeholders;
-Wymagania::Wymagania( tinyxml2::XMLElement* wezel  )
-{
-	if(wezel){
-		try{
-			auto wymog = wezel->FirstChildElement(WEZEL_XML_WYMOG);
-			while(wymog){
-				auto obiekt = Wymog(wymog,WEZEL_XML_OBIEKTBASE_INFO);
-				auto identyfikator = obiekt.pobierzObiekt()->pobierzIdentyfikator();
-				for(auto element : warunki_ ){
-					if(element.pobierzObiekt()->pobierzIdentyfikator() == identyfikator)
-						Utils::generujWyjatekBleduStruktury(EXCEPTION_PLACE,wymog);
-				}
-				warunki_.push_back(obiekt);					
-				wymog = wymog->NextSiblingElement(WEZEL_XML_WYMOG);
+
+namespace SpEx{
+
+	Wymagania::Wymagania(XmlBO::ElementWezla wezel)
+	{
+		XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_KRYTERIUM, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla warunek)->bool{
+			Warunek obiekt(warunek);
+			auto identyfikator = obiekt.pobierzObiekt()->pobierzIdentyfikator();
+			for (auto element : warunki_){
+				if (element.pobierzObiekt()->pobierzIdentyfikator() == identyfikator)
+					Utils::generujWyjatekBleduStruktury(warunek);
 			}
+			warunki_.push_back(obiekt);
+			return true;
+		}));
 
-			auto zmiana = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel->FirstChildElement(WEZEL_XML_CZAS),WEZEL_XML_ZMIANA,ATRYBUT_XML_FOR,WEZEL_XML_CZAS);
-			if(zmiana)
-				zmianaCzasuBudowy_=Utils::TworzZmiane(zmiana);
-			auto cena = wezel->FirstChildElement(WEZEL_XML_CENA);
-			while(cena){
-				auto obiekt = Cena(cena,WEZEL_XML_SUROWCE,std::bind(&Gra::tworzSurowce,&(Aplikacja::pobierzInstancje().pobierzGre()),_1));
-				auto identyfikator = obiekt.pobierzObiekt()->pobierzIdentyfikator();
-				for(auto element : koszty_ ){
-					if(element.pobierzObiekt()->pobierzIdentyfikator() == identyfikator)
-						Utils::generujWyjatekBleduStruktury(EXCEPTION_PLACE,cena);
-				}
-				koszty_.push_back(obiekt);					
-				cena = cena->NextSiblingElement(WEZEL_XML_CENA);
+		zmianaCzasuBudowy_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WEZEL_XML_CZAS));
+	}
+	
+	STyp::Czas Wymagania::pobierzCzasBudowy(const PodstawoweParametry& parametry)const{
+		STyp::Czas suma(0.0l);
+		for (auto element : warunki_){
+			if (element.pobierzObiekt() && element.pobierzObiekt()->typAtrybutu() == Kryterium::ILOSC)
+			{
+				Kryterium::AtrybutKryterium atrybut = wylicz(element, parametry);
+				PodstawoweParametry parametry(PodstawoweParametry::wpisIlosc(STyp::Ilosc(atrybut.ilosc)), PodstawoweParametry::ILOSC, parametry.pobierzIdentyfikatorPlanety());
+				suma += Aplikacja::pobierzInstancje().pobierzGre().pobierzStatek(element.pobierzObiekt()->pobierzIdentyfikator()).pobierzCzasBudowy(parametry);
 			}
-		}catch(exception& wyjatek){
-			throw WyjatekParseraXML(EXCEPTION_PLACE,wyjatek,WyjatekParseraXML::trescBladStrukturyXml);
 		}
-
+		return Utils::ObliczZmiane(zmianaCzasuBudowy_, suma, parametry);
 	}
-}
 
-Wymagania::~Wymagania(){
-}
-
-Czas Wymagania::pobierzCzasBudowy( const Ilosc& ilosc, const PodstawoweParametry& parametry )const{
-	auto koszty = pobierzKoszty(ilosc,parametry);
-	Czas suma(0.0l);
-	for( auto element : koszty ){
-		if(element)
-			suma+=element->pobierzCzas();
-	}
-	if(zmianaCzasuBudowy_){		
-		suma = zmianaCzasuBudowy_->policzWartosc(suma(),static_cast<int>(parametry.pobierzPoziom()()),parametry.pobierzIdentyfikatorPlanety()());
-	}
-	return suma;
-}
-
-bool Wymagania::czySpelniaWymagania( const Ilosc& ilosc, const PodstawoweParametry& parametry ) const{
-	return czySpelniaKoszty(ilosc,parametry) && czySpelniaWymogi(parametry);
-}
-
-bool Wymagania::czySpelniaWymogi( const PodstawoweParametry& parametry ) const{	
-	if(warunki_.empty())
+	bool Wymagania::czySpelniaWymagania(const PodstawoweParametry& parametry) const{
+		//TODO: Zrobiæ schemat blokowy algorytmu sprawdzania spe³nienia warunków.
+		if (warunki_.empty())
+			return true;
+		std::shared_ptr<Planeta> planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(parametry.pobierzIdentyfikatorPlanety());
+		if (!planeta){
+			return false;
+		}
+		for (auto element : warunki_){
+			if (element.pobierzObiekt())
+			{
+				Kryterium::AtrybutKryterium atrybut = wylicz(element, parametry);
+				switch (element.pobierzObiekt()->typAtrybutu()){
+				case Kryterium::POZIOM:
+					if (!(planeta->pobierzPoziomObiektu(element.pobierzObiekt()->pobierzIdentyfikator()) >= atrybut.poziom))
+						return false;
+					break;
+				case Kryterium::ILOSC:
+					if (!(planeta->pobierzIloscObiektu(element.pobierzObiekt()->pobierzIdentyfikator()) >= atrybut.ilosc))
+						return false;
+					break;
+				}
+			}
+		}
 		return true;
-	shared_ptr<Planeta> planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(parametry.pobierzIdentyfikatorPlanety());
-	if(!planeta){
-		return false;
 	}
-	for (auto element : warunki_){
-		Poziom poziom;
-		if(element.wykonaj(
-			[&](Wymog::TypObiektu obiekt,Wymog::Zmiana zmiana)->bool{
-				if (!obiekt)
-					return false;
-				if(zmiana)
-					poziom = Poziom(static_cast<Poziom::type_name>(zmiana->policzWartosc(obiekt->pobierzPoziom()(),parametry.pobierzPoziom()(),parametry.pobierzIdentyfikatorPlanety()())));
-				else
-					poziom = obiekt->pobierzPoziom();
-				return true;
-		}			
-		))
-		{
-			if(planeta->pobierzPoziomObiektu(element.pobierzObiekt()->pobierzIdentyfikator())<poziom)
-				return false;
+
+	Wymagania::PrzetworzoneWarunki Wymagania::pobierzWarunki(const PodstawoweParametry& parametry) const{
+		PrzetworzoneWarunki zbiornik;
+		for (auto element : warunki_){
+			if (element.pobierzObiekt())
+				zbiornik.emplace_back(std::make_shared<Wymagania::TypWarunku>(wylicz(element, parametry), element.pobierzObiekt()->typAtrybutu(), element.pobierzObiekt()->pobierzIdentyfikator()));
 		}
+		return std::move(zbiornik);
 	}
-	return true;
-}
 
-bool Wymagania::czySpelniaKoszty( const Ilosc& ilosc, const PodstawoweParametry& parametry ) const{
-	if(koszty_.empty())
-		return true;
-	shared_ptr<Planeta> planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(parametry.pobierzIdentyfikatorPlanety());
-	if(!planeta){
-		return false;
-	}
-	for( auto element : koszty_ ){
-		Ilosc iloscObiektow;
-		if(element.wykonaj(
-			[&](Cena::TypObiektu obiekt,Cena::Zmiana zmiana)->bool{
-				if (!obiekt)
-					return false;
-				if(zmiana)
-					iloscObiektow = Ilosc(static_cast<Ilosc::type_name>(zmiana->policzWartosc(obiekt->pobierzIlosc()(),parametry.pobierzPoziom()(),parametry.pobierzIdentyfikatorPlanety()())));
-				else
-					iloscObiektow = obiekt->pobierzIlosc();
-				return true;
-		}			
-		))
-		{
-			if( planeta->pobierzIloscObiektu(element.pobierzObiekt()->ID()) < (iloscObiektow*ilosc ) )
-				return false;
+	Kryterium::AtrybutKryterium Wymagania::wylicz(const Warunek& warunek, const PodstawoweParametry& parametry){
+		Kryterium::AtrybutKryterium atrybut;
+		auto obiekt = warunek.pobierzObiekt();
+		auto zmiana = warunek.pobierzZmiane();
+		switch (obiekt->typAtrybutu()){
+		case Kryterium::POZIOM:
+			atrybut.poziom = Utils::ObliczZmiane(zmiana, STyp::Poziom(obiekt->pobierzAtrybut().poziom), parametry)();
+			break;
+		case Kryterium::ILOSC:
+			atrybut.ilosc = Utils::ObliczZmiane(zmiana, STyp::Ilosc(obiekt->pobierzAtrybut().ilosc), parametry)();
 		}
+		if (parametry.typAtrybutu() == PodstawoweParametry::ILOSC)
+			atrybut.ilosc *= parametry.pobierzAtrybut().ilosc;
+		return std::move(atrybut);
 	}
-	return true;
-}
 
-Wymagania::PrzetworzoneWymogi Wymagania::pobierzWymogi( const PodstawoweParametry& parametry ) const{
-	PrzetworzoneWymogi zbiornik;
-	for (auto element : warunki_){
-		LiczenieWymogow(element,zbiornik,parametry)();
-	}
-	return zbiornik;
-}
+	std::string Wymagania::napis() const{
+		SLog::Logger str(NAZWAKLASY(Wymagania));
 
-Wymagania::PrzetworzonaCena Wymagania::pobierzKoszty( const Ilosc& ilosc, const PodstawoweParametry& parametry ) const{
-	PrzetworzonaCena zbiornik;
-	for( auto element : koszty_ ){
-		LiczenieKosztow (element,zbiornik,ilosc,parametry)();
-	}
-	return zbiornik;
-}
-
-string Wymagania::napis() const{
-	Logger str(NAZWAKLASY(Wymagania));
-
-	str.rozpocznijPodKlase("ListaCen");
-	for(auto element : koszty_){
-		str.rozpocznijPodKlase(NAZWAKLASY(Wymagania::Cena));
-		if(element.pobierzObiekt())
-			str.dodajPole("Obiekt",*element.pobierzObiekt());
-		if(element.pobierzZmiane())
-			str.dodajPole("Zmiana",*element.pobierzZmiane());
+		str.rozpocznijPodKlase(NAZWAKLASY(Wymagania::ListaWarunkow));
+		for (auto element : warunki_){
+			str.rozpocznijPodKlase(NAZWAKLASY(Wymagania::Warunek));
+			if (element.pobierzObiekt())
+				str.dodajPole("Obiekt", *element.pobierzObiekt());
+			if (element.pobierzZmiane())
+				str.dodajPole("Zmiana", *element.pobierzZmiane());
+			str.zakonczPodKlase();
+		}
 		str.zakonczPodKlase();
+
+		if (zmianaCzasuBudowy_)
+			str.dodajPole(NAZWAPOLA(zmianaCzasuBudowy_), *zmianaCzasuBudowy_);
+
+		return str.napis();
 	}
-	str.zakonczPodKlase();
-
-	str.rozpocznijPodKlase("ListaWymogów");
-	for(auto element : warunki_){
-		str.rozpocznijPodKlase(NAZWAKLASY(Wymagania::Wymog));
-		if(element.pobierzObiekt())
-			str.dodajPole("Obiekt",*element.pobierzObiekt());
-		if(element.pobierzZmiane())
-			str.dodajPole("Zmiana",*element.pobierzZmiane());
-		str.zakonczPodKlase();
-	}
-	str.zakonczPodKlase();
-
-	if(zmianaCzasuBudowy_)
-		str.dodajPole("ZmianaCzasuBudowy",*zmianaCzasuBudowy_);
-
-	return str.napis();
 }

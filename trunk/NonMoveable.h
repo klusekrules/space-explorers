@@ -3,9 +3,11 @@ namespace se{
 	class NonMoveable
 	{
 	public:
-		NonMoveable(void){}
-	private:
-		NonMoveable& operator=( NonMoveable&& ){}
-		NonMoveable( NonMoveable&& ){}
+		NonMoveable() = default;
+		virtual ~NonMoveable() = default;
+		NonMoveable& operator=(NonMoveable&&) = delete;
+		NonMoveable(NonMoveable&&) = delete;
+		NonMoveable& operator=(const NonMoveable&) = default;
+		NonMoveable(const NonMoveable&) = default;
 	};
 }

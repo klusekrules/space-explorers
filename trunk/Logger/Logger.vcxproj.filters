@@ -18,35 +18,29 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ExportSymbol.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LoggerInterface.h">
-      <Filter>Source Files\Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="Logger.h">
-      <Filter>Source Files\Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="Log.h">
-      <Filter>Source Files\Logger</Filter>
-    </ClInclude>
     <ClInclude Include="afxres.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="LoggerNazwaKlasy.h">
+    <ClInclude Include="Headers\Logger\Log.h">
       <Filter>Source Files\Logger</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h">
+    <ClInclude Include="Headers\Logger\Logger.h">
+      <Filter>Source Files\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Logger\LoggerInterface.h">
+      <Filter>Source Files\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Logger\LoggerNazwaKlasy.h">
+      <Filter>Source Files\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Logger\LoggerSymbol.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Log.cpp">
       <Filter>Source Files\Logger</Filter>
     </ClCompile>
