@@ -2,127 +2,43 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Surowce.cpp">
-      <Filter>SourceFile\Surowce</Filter>
+      <Filter>SourceFile\Model\Obiekty\Surowce</Filter>
     </ClCompile>
     <ClCompile Include="SurowceInfo.cpp">
-      <Filter>SourceFile\Surowce</Filter>
+      <Filter>SourceFile\Model\Obiekty\Surowce</Filter>
     </ClCompile>
     <ClCompile Include="NiezgodnyTypSurowca.cpp">
       <Filter>SourceFile\Wyjatki</Filter>
     </ClCompile>
-    <ClCompile Include="BrakAtrybutuXML.cpp">
-      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
-    </ClCompile>
-    <ClCompile Include="BrakMaski.cpp">
-      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
-    </ClCompile>
     <ClCompile Include="Ladownia.cpp">
-      <Filter>SourceFile\Flota\Ladownia</Filter>
+      <Filter>SourceFile\Model\Obiekty\Ladownia</Filter>
     </ClCompile>
     <ClCompile Include="LadowniaInfo.cpp">
-      <Filter>SourceFile\Flota\Ladownia</Filter>
+      <Filter>SourceFile\Model\Obiekty\Ladownia</Filter>
     </ClCompile>
     <ClCompile Include="Statek.cpp">
-      <Filter>SourceFile\Flota\Statek</Filter>
+      <Filter>SourceFile\Model\Obiekty\Statek</Filter>
     </ClCompile>
     <ClCompile Include="StatekInfo.cpp">
-      <Filter>SourceFile\Flota\Statek</Filter>
-    </ClCompile>
-    <ClCompile Include="Obiekt.cpp">
-      <Filter>SourceFile\BaseClass\Obiekt</Filter>
-    </ClCompile>
-    <ClCompile Include="Poziom.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Ilosc.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Tekst.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Klucz.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Fluktuacja.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Info.cpp">
-      <Filter>SourceFile\BaseClass\Info</Filter>
-    </ClCompile>
-    <ClCompile Include="Powierzchnia.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Masa.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Objetosc.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Dystans.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Predkosc.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Obrazenia.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClCompile>
-    <ClCompile Include="ZuzyciePaliwa.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
+      <Filter>SourceFile\Model\Obiekty\Statek</Filter>
     </ClCompile>
     <ClCompile Include="JednostkaAtakujaca.cpp">
-      <Filter>SourceFile\Flota\JednostkaAtakujaca</Filter>
+      <Filter>SourceFile\Model\Obiekty\JednostkaAtakujaca</Filter>
     </ClCompile>
     <ClCompile Include="JednostkaAtakujacaInfo.cpp">
-      <Filter>SourceFile\Flota\JednostkaAtakujaca</Filter>
+      <Filter>SourceFile\Model\Obiekty\JednostkaAtakujaca</Filter>
     </ClCompile>
     <ClCompile Include="JednostkaLatajaca.cpp">
-      <Filter>SourceFile\Flota\JednostkaLatajaca</Filter>
+      <Filter>SourceFile\Model\Obiekty\JednostkaLatajaca</Filter>
     </ClCompile>
     <ClCompile Include="JednostkaLatajacaInfo.cpp">
-      <Filter>SourceFile\Flota\JednostkaLatajaca</Filter>
-    </ClCompile>
-    <ClCompile Include="WyjatekParseraXML.cpp">
-      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
-    </ClCompile>
-    <ClCompile Include="BladLaczeniaObiektow.cpp">
-      <Filter>SourceFile\Wyjatki</Filter>
-    </ClCompile>
-    <ClCompile Include="BladDzieleniaLadowni.cpp">
-      <Filter>SourceFile\Wyjatki</Filter>
-    </ClCompile>
-    <ClCompile Include="NiepoprawneParametryFunkcji.cpp">
-      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
-    </ClCompile>
-    <ClCompile Include="NiezainicjalizowanaKlasa.cpp">
-      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
-    </ClCompile>
-    <ClCompile Include="NieznalezionoObiektu.cpp">
-      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
-    </ClCompile>
-    <ClCompile Include="NiepoprawnaIloscObiektow.cpp">
-      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
-    </ClCompile>
-    <ClCompile Include="OgolnyWyjatek.cpp">
-      <Filter>SourceFile\Wyjatki\KlasaBazowa</Filter>
-    </ClCompile>
-    <ClCompile Include="WyjatekSTL.cpp">
-      <Filter>SourceFile\Wyjatki\KlasaBazowa</Filter>
+      <Filter>SourceFile\Model\Obiekty\JednostkaLatajaca</Filter>
     </ClCompile>
     <ClCompile Include="Aplikacja.cpp">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClCompile>
-    <ClCompile Include="ObiektInfo.cpp">
-      <Filter>SourceFile\BaseClass\Obiekt</Filter>
-    </ClCompile>
-    <ClCompile Include="Parametr.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Bool.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClCompile>
     <ClCompile Include="Wymagania.cpp">
-      <Filter>SourceFile\Wymagania</Filter>
+      <Filter>SourceFile\Model\Wymagania</Filter>
     </ClCompile>
     <ClCompile Include="Wyjatki.cpp">
       <Filter>SourceFile\DomysleWartosci</Filter>
@@ -136,47 +52,20 @@
     <ClCompile Include="Gra.cpp">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClCompile>
-    <ClCompile Include="Uzytkownik.cpp">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClCompile>
     <ClCompile Include="TechnologiaInfo.cpp">
-      <Filter>SourceFile\Technologia</Filter>
+      <Filter>SourceFile\Model\Obiekty\Technologia</Filter>
     </ClCompile>
     <ClCompile Include="Technologia.cpp">
-      <Filter>SourceFile\Technologia</Filter>
+      <Filter>SourceFile\Model\Obiekty\Technologia</Filter>
     </ClCompile>
     <ClCompile Include="Budynek.cpp">
-      <Filter>SourceFile\Budynek</Filter>
+      <Filter>SourceFile\Model\Obiekty\Budynek</Filter>
     </ClCompile>
     <ClCompile Include="BudynekInfo.cpp">
-      <Filter>SourceFile\Budynek</Filter>
-    </ClCompile>
-    <ClCompile Include="PodstawoweParametry.cpp">
-      <Filter>SourceFile\BaseClass\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Czas.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClCompile>
-    <ClCompile Include="ZmianaPoziomObiektu.cpp">
-      <Filter>SourceFile\BaseClass\Zmiana</Filter>
-    </ClCompile>
-    <ClCompile Include="Licznik.cpp">
-      <Filter>SourceFile\BaseClass\Licznik</Filter>
+      <Filter>SourceFile\Model\Obiekty\Budynek</Filter>
     </ClCompile>
     <ClCompile Include="Flota.cpp">
-      <Filter>SourceFile\Flota</Filter>
-    </ClCompile>
-    <ClCompile Include="Identyfikator.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClCompile>
-    <ClCompile Include="PaczkaTestow.cpp">
-      <Filter>Testy\Biblioteka</Filter>
-    </ClCompile>
-    <ClCompile Include="TestyJednostkowe.cpp">
-      <Filter>Testy\Biblioteka</Filter>
-    </ClCompile>
-    <ClCompile Include="WyjatekSprawdzeniaWarunku.cpp">
-      <Filter>Testy\Biblioteka</Filter>
+      <Filter>SourceFile\Model\Obiekty\Flota</Filter>
     </ClCompile>
     <ClCompile Include="InicjalizacjaDanychTestowych.cpp">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
@@ -217,26 +106,11 @@
     <ClCompile Include="Utils.cpp">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClCompile>
-    <ClCompile Include="LiczenieKosztow.cpp">
-      <Filter>SourceFile\Wymagania</Filter>
-    </ClCompile>
-    <ClCompile Include="Bazowa.cpp">
-      <Filter>SourceFile\BaseClass\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="ObiektBazowy.cpp">
-      <Filter>SourceFile\BaseClass\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="ObiektBazowyInfo.cpp">
-      <Filter>SourceFile\BaseClass\Info</Filter>
-    </ClCompile>
-    <ClCompile Include="LiczenieWymogow.cpp">
-      <Filter>SourceFile\Wymagania</Filter>
-    </ClCompile>
     <ClCompile Include="HangarInfo.cpp">
-      <Filter>SourceFile\Flota\Hangar</Filter>
+      <Filter>SourceFile\Model\Obiekty\Hangar</Filter>
     </ClCompile>
     <ClCompile Include="Hangar.cpp">
-      <Filter>SourceFile\Flota\Hangar</Filter>
+      <Filter>SourceFile\Model\Obiekty\Hangar</Filter>
     </ClCompile>
     <ClCompile Include="HangarTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
@@ -254,16 +128,13 @@
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClCompile>
     <ClCompile Include="ObronaInfo.cpp">
-      <Filter>SourceFile\Obrona</Filter>
+      <Filter>SourceFile\Model\Obiekty\Obrona</Filter>
     </ClCompile>
     <ClCompile Include="Obrona.cpp">
-      <Filter>SourceFile\Obrona</Filter>
+      <Filter>SourceFile\Model\Obiekty\Obrona</Filter>
     </ClCompile>
     <ClCompile Include="ObronaTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
-    </ClCompile>
-    <ClCompile Include="KluczTest.cpp">
-      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClCompile>
     <ClCompile Include="StatekTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
@@ -275,25 +146,19 @@
       <Filter>Biblioteki\sha-3</Filter>
     </ClCompile>
     <ClCompile Include="Planeta.cpp">
-      <Filter>SourceFile\Lokacje</Filter>
+      <Filter>SourceFile\Model\Lokacje</Filter>
     </ClCompile>
     <ClCompile Include="Walidator.cpp">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClCompile>
     <ClCompile Include="UkladSloneczny.cpp">
-      <Filter>SourceFile\Lokacje</Filter>
-    </ClCompile>
-    <ClCompile Include="Temperatura.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Moc.cpp">
-      <Filter>SourceFile\Typy podstawowe</Filter>
+      <Filter>SourceFile\Model\Lokacje</Filter>
     </ClCompile>
     <ClCompile Include="GeneratorUkladow.cpp">
-      <Filter>SourceFile\Lokacje</Filter>
+      <Filter>SourceFile\Model\Lokacje</Filter>
     </ClCompile>
     <ClCompile Include="Galaktyka.cpp">
-      <Filter>SourceFile\Lokacje</Filter>
+      <Filter>SourceFile\Model\Lokacje</Filter>
     </ClCompile>
     <ClCompile Include="GenerowanieTest.cpp">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
@@ -346,148 +211,82 @@
     <ClCompile Include="Zadanie.cpp">
       <Filter>SourceFile\MultiThreading</Filter>
     </ClCompile>
-    <ClCompile Include="ParserAtrybut.cpp">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\Szkielet</Filter>
-    </ClCompile>
-    <ClCompile Include="ParserDokument.cpp">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\Szkielet</Filter>
-    </ClCompile>
-    <ClCompile Include="ParserElement.cpp">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\Szkielet</Filter>
-    </ClCompile>
-    <ClCompile Include="ParserDokumentXml.cpp">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\XmlParser</Filter>
-    </ClCompile>
-    <ClCompile Include="ParserElementXml.cpp">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\XmlParser</Filter>
-    </ClCompile>
-    <ClCompile Include="ParserAtrybutXml.cpp">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\XmlParser</Filter>
-    </ClCompile>
     <ClCompile Include="ParserTest.cpp">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClCompile>
+    <ClCompile Include="PodstawoweParametry.cpp">
+      <Filter>SourceFile\Model\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Info.cpp">
+      <Filter>SourceFile\Model\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Obiekt.cpp">
+      <Filter>SourceFile\Model\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Kryterium.cpp">
+      <Filter>SourceFile\Model\Wymagania</Filter>
+    </ClCompile>
+    <ClCompile Include="Licznik.cpp">
+      <Filter>SourceFile\Model\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="ObiektInfo.cpp">
+      <Filter>SourceFile\Model\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="ZmianaPoziomObiektu.cpp">
+      <Filter>SourceFile\Model\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="PaczkaTestow.cpp">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClCompile>
+    <ClCompile Include="TestyJednostkowe.cpp">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClCompile>
+    <ClCompile Include="WyjatekSprawdzeniaWarunku.cpp">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClCompile>
+    <ClCompile Include="TestyUtilsBO.cpp">
+      <Filter>Testy\KlasyTestowe\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="NiepoprawneParametryFunkcji.cpp">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClCompile>
+    <ClCompile Include="NieznalezionoObiektu.cpp">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClCompile>
+    <ClCompile Include="Uzytkownik.cpp">
+      <Filter>SourceFile\Model\Users</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SurowceInfo.h">
-      <Filter>SourceFile\Surowce</Filter>
-    </ClInclude>
     <ClInclude Include="Surowce.h">
-      <Filter>SourceFile\Surowce</Filter>
-    </ClInclude>
-    <ClInclude Include="parser\ticpp.h">
-      <Filter>Biblioteki\Parser</Filter>
-    </ClInclude>
-    <ClInclude Include="parser\ticpprc.h">
-      <Filter>Biblioteki\Parser</Filter>
-    </ClInclude>
-    <ClInclude Include="parser\tinystr.h">
-      <Filter>Biblioteki\Parser</Filter>
-    </ClInclude>
-    <ClInclude Include="parser\tinyxml.h">
-      <Filter>Biblioteki\Parser</Filter>
+      <Filter>SourceFile\Model\Obiekty\Surowce</Filter>
     </ClInclude>
     <ClInclude Include="NiezgodnyTypSurowca.h">
       <Filter>SourceFile\Wyjatki</Filter>
     </ClInclude>
-    <ClInclude Include="BrakAtrybutuXML.h">
-      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
-    </ClInclude>
-    <ClInclude Include="BrakMaski.h">
-      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
-    </ClInclude>
     <ClInclude Include="Ladownia.h">
-      <Filter>SourceFile\Flota\Ladownia</Filter>
+      <Filter>SourceFile\Model\Obiekty\Ladownia</Filter>
     </ClInclude>
     <ClInclude Include="LadowniaInfo.h">
-      <Filter>SourceFile\Flota\Ladownia</Filter>
+      <Filter>SourceFile\Model\Obiekty\Ladownia</Filter>
     </ClInclude>
     <ClInclude Include="Statek.h">
-      <Filter>SourceFile\Flota\Statek</Filter>
+      <Filter>SourceFile\Model\Obiekty\Statek</Filter>
     </ClInclude>
     <ClInclude Include="StatekInfo.h">
-      <Filter>SourceFile\Flota\Statek</Filter>
-    </ClInclude>
-    <ClInclude Include="Obiekt.h">
-      <Filter>SourceFile\BaseClass\Obiekt</Filter>
-    </ClInclude>
-    <ClInclude Include="Poziom.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Ilosc.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Tekst.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Klucz.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Fluktuacja.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Info.h">
-      <Filter>SourceFile\BaseClass\Info</Filter>
-    </ClInclude>
-    <ClInclude Include="Powierzchnia.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Masa.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Objetosc.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Dystans.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Predkosc.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Obrazenia.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
-    <ClInclude Include="ZuzyciePaliwa.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
+      <Filter>SourceFile\Model\Obiekty\Statek</Filter>
     </ClInclude>
     <ClInclude Include="JednostkaAtakujaca.h">
-      <Filter>SourceFile\Flota\JednostkaAtakujaca</Filter>
+      <Filter>SourceFile\Model\Obiekty\JednostkaAtakujaca</Filter>
     </ClInclude>
     <ClInclude Include="JednostkaAtakujacaInfo.h">
-      <Filter>SourceFile\Flota\JednostkaAtakujaca</Filter>
+      <Filter>SourceFile\Model\Obiekty\JednostkaAtakujaca</Filter>
     </ClInclude>
     <ClInclude Include="JednostkaLatajacaInfo.h">
-      <Filter>SourceFile\Flota\JednostkaLatajaca</Filter>
+      <Filter>SourceFile\Model\Obiekty\JednostkaLatajaca</Filter>
     </ClInclude>
     <ClInclude Include="JednostkaLatajaca.h">
-      <Filter>SourceFile\Flota\JednostkaLatajaca</Filter>
-    </ClInclude>
-    <ClInclude Include="WyjatekParseraXML.h">
-      <Filter>SourceFile\Wyjatki\ParserXML</Filter>
-    </ClInclude>
-    <ClInclude Include="BladLaczeniaObiektow.h">
-      <Filter>SourceFile\Wyjatki</Filter>
-    </ClInclude>
-    <ClInclude Include="BladDzieleniaLadowni.h">
-      <Filter>SourceFile\Wyjatki</Filter>
-    </ClInclude>
-    <ClInclude Include="NiepoprawneParametryFunkcji.h">
-      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
-    </ClInclude>
-    <ClInclude Include="NiezainicjalizowanaKlasa.h">
-      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
-    </ClInclude>
-    <ClInclude Include="NieznalezionoObiektu.h">
-      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
-    </ClInclude>
-    <ClInclude Include="NiepoprawnaIloscObiektow.h">
-      <Filter>SourceFile\Wyjatki\WyjatkiOgolne</Filter>
-    </ClInclude>
-    <ClInclude Include="OgolnyWyjatek.h">
-      <Filter>SourceFile\Wyjatki\KlasaBazowa</Filter>
-    </ClInclude>
-    <ClInclude Include="WyjatekSTL.h">
-      <Filter>SourceFile\Wyjatki\KlasaBazowa</Filter>
+      <Filter>SourceFile\Model\Obiekty\JednostkaLatajaca</Filter>
     </ClInclude>
     <ClInclude Include="Aplikacja.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
@@ -501,26 +300,14 @@
     <ClInclude Include="MakeVector.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
-    <ClInclude Include="ObiektInfo.h">
-      <Filter>SourceFile\BaseClass\Obiekt</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resource</Filter>
     </ClInclude>
     <ClInclude Include="afxres.h">
       <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="XmlBO.h">
-      <Filter>SourceFile\KlasyPomocnicze</Filter>
-    </ClInclude>
-    <ClInclude Include="Parametr.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Bool.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
     <ClInclude Include="Wymagania.h">
-      <Filter>SourceFile\Wymagania</Filter>
+      <Filter>SourceFile\Model\Wymagania</Filter>
     </ClInclude>
     <ClInclude Include="Stale.h">
       <Filter>SourceFile\DomysleWartosci</Filter>
@@ -528,38 +315,20 @@
     <ClInclude Include="Library.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
-    <ClInclude Include="Logger.h">
-      <Filter>SourceFile\Log</Filter>
-    </ClInclude>
     <ClInclude Include="Gra.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
-    <ClInclude Include="Uzytkownik.h">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClInclude>
     <ClInclude Include="TechnologiaInfo.h">
-      <Filter>SourceFile\Technologia</Filter>
+      <Filter>SourceFile\Model\Obiekty\Technologia</Filter>
     </ClInclude>
     <ClInclude Include="Technologia.h">
-      <Filter>SourceFile\Technologia</Filter>
+      <Filter>SourceFile\Model\Obiekty\Technologia</Filter>
     </ClInclude>
     <ClInclude Include="Budynek.h">
-      <Filter>SourceFile\Budynek</Filter>
+      <Filter>SourceFile\Model\Obiekty\Budynek</Filter>
     </ClInclude>
     <ClInclude Include="BudynekInfo.h">
-      <Filter>SourceFile\Budynek</Filter>
-    </ClInclude>
-    <ClInclude Include="PodstawoweParametry.h">
-      <Filter>SourceFile\BaseClass\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Czas.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
-    <ClInclude Include="ZmianaPoziomObiektu.h">
-      <Filter>SourceFile\BaseClass\Zmiana</Filter>
-    </ClInclude>
-    <ClInclude Include="Licznik.h">
-      <Filter>SourceFile\BaseClass\Licznik</Filter>
+      <Filter>SourceFile\Model\Obiekty\Budynek</Filter>
     </ClInclude>
     <ClInclude Include="Serializacja.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
@@ -568,31 +337,7 @@
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
     <ClInclude Include="Flota.h">
-      <Filter>SourceFile\Flota</Filter>
-    </ClInclude>
-    <ClInclude Include="DefinicjeWezlowXML.h">
-      <Filter>SourceFile\KlasyPomocnicze</Filter>
-    </ClInclude>
-    <ClInclude Include="PodstawowyInterfejs.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
-    <ClInclude Include="TypyProste.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Identyfikator.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
-    <ClInclude Include="MakraDlaTestow.h">
-      <Filter>Testy\Biblioteka</Filter>
-    </ClInclude>
-    <ClInclude Include="PaczkaTestow.h">
-      <Filter>Testy\Biblioteka</Filter>
-    </ClInclude>
-    <ClInclude Include="TestyJednostkowe.h">
-      <Filter>Testy\Biblioteka</Filter>
-    </ClInclude>
-    <ClInclude Include="WyjatekSprawdzeniaWarunku.h">
-      <Filter>Testy\Biblioteka</Filter>
+      <Filter>SourceFile\Model\Obiekty\Flota</Filter>
     </ClInclude>
     <ClInclude Include="LogowanieTest.h">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
@@ -627,32 +372,11 @@
     <ClInclude Include="BudynekTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClInclude>
-    <ClInclude Include="SzablonKosztow.h">
-      <Filter>SourceFile\Wymagania</Filter>
-    </ClInclude>
-    <ClInclude Include="LiczenieKosztow.h">
-      <Filter>SourceFile\Wymagania</Filter>
-    </ClInclude>
-    <ClInclude Include="Bazowa.h">
-      <Filter>SourceFile\BaseClass\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="ObiektBazowy.h">
-      <Filter>SourceFile\BaseClass\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="ObiektBazowyInfo.h">
-      <Filter>SourceFile\BaseClass\Info</Filter>
-    </ClInclude>
-    <ClInclude Include="ListaObiektow.hpp">
-      <Filter>SourceFile\BaseClass\Obiekt</Filter>
-    </ClInclude>
-    <ClInclude Include="LiczenieWymogow.h">
-      <Filter>SourceFile\Wymagania</Filter>
-    </ClInclude>
     <ClInclude Include="HangarInfo.h">
-      <Filter>SourceFile\Flota\Hangar</Filter>
+      <Filter>SourceFile\Model\Obiekty\Hangar</Filter>
     </ClInclude>
     <ClInclude Include="Hangar.h">
-      <Filter>SourceFile\Flota\Hangar</Filter>
+      <Filter>SourceFile\Model\Obiekty\Hangar</Filter>
     </ClInclude>
     <ClInclude Include="HangarTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
@@ -676,16 +400,13 @@
       <Filter>SourceFile\KlasyPomocnicze\Tranzakcyjnosc</Filter>
     </ClInclude>
     <ClInclude Include="ObronaInfo.h">
-      <Filter>SourceFile\Obrona</Filter>
+      <Filter>SourceFile\Model\Obiekty\Obrona</Filter>
     </ClInclude>
     <ClInclude Include="Obrona.h">
-      <Filter>SourceFile\Obrona</Filter>
+      <Filter>SourceFile\Model\Obiekty\Obrona</Filter>
     </ClInclude>
     <ClInclude Include="ObronaTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="KluczTest.h">
-      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClInclude>
     <ClInclude Include="PlanetaTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
@@ -694,25 +415,19 @@
       <Filter>Biblioteki\sha-3</Filter>
     </ClInclude>
     <ClInclude Include="Planeta.h">
-      <Filter>SourceFile\Lokacje</Filter>
+      <Filter>SourceFile\Model\Lokacje</Filter>
     </ClInclude>
     <ClInclude Include="Walidator.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
     <ClInclude Include="UkladSloneczny.h">
-      <Filter>SourceFile\Lokacje</Filter>
-    </ClInclude>
-    <ClInclude Include="Temperatura.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Moc.h">
-      <Filter>SourceFile\Typy podstawowe</Filter>
+      <Filter>SourceFile\Model\Lokacje</Filter>
     </ClInclude>
     <ClInclude Include="GeneratorUkladow.h">
-      <Filter>SourceFile\Lokacje</Filter>
+      <Filter>SourceFile\Model\Lokacje</Filter>
     </ClInclude>
     <ClInclude Include="Galaktyka.h">
-      <Filter>SourceFile\Lokacje</Filter>
+      <Filter>SourceFile\Model\Lokacje</Filter>
     </ClInclude>
     <ClInclude Include="GenerowanieTest.h">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
@@ -789,52 +504,70 @@
     <ClInclude Include="Zadanie.h">
       <Filter>SourceFile\MultiThreading</Filter>
     </ClInclude>
-    <ClInclude Include="ParserAtrybut.h">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\Szkielet</Filter>
-    </ClInclude>
-    <ClInclude Include="ParserDokument.h">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\Szkielet</Filter>
-    </ClInclude>
-    <ClInclude Include="ParserElement.h">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\Szkielet</Filter>
-    </ClInclude>
-    <ClInclude Include="ParserDokumentXml.h">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\XmlParser</Filter>
-    </ClInclude>
-    <ClInclude Include="ParserElementXml.h">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\XmlParser</Filter>
-    </ClInclude>
-    <ClInclude Include="ParserAtrybutXml.h">
-      <Filter>SourceFile\KlasyPomocnicze\Parser\XmlParser</Filter>
-    </ClInclude>
     <ClInclude Include="ParserTest.h">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+    </ClInclude>
+    <ClInclude Include="PodstawoweParametry.h">
+      <Filter>SourceFile\Model\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Info.h">
+      <Filter>SourceFile\Model\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Obiekt.h">
+      <Filter>SourceFile\Model\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Kryterium.h">
+      <Filter>SourceFile\Model\Wymagania</Filter>
+    </ClInclude>
+    <ClInclude Include="SzablonKryterium.h">
+      <Filter>SourceFile\Model\Wymagania</Filter>
+    </ClInclude>
+    <ClInclude Include="definicjeWezlowXML.h">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClInclude>
+    <ClInclude Include="Licznik.h">
+      <Filter>SourceFile\Model\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="ListaObiektow.hpp">
+      <Filter>SourceFile\Model\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="ObiektInfo.h">
+      <Filter>SourceFile\Model\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="ZmianaPoziomObiektu.h">
+      <Filter>SourceFile\Model\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="MakraDlaTestow.h">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClInclude>
+    <ClInclude Include="PaczkaTestow.h">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClInclude>
+    <ClInclude Include="TestyJednostkowe.h">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClInclude>
+    <ClInclude Include="WyjatekSprawdzeniaWarunku.h">
+      <Filter>Testy\Biblioteka</Filter>
+    </ClInclude>
+    <ClInclude Include="SurowceInfo.h">
+      <Filter>SourceFile\Model\Obiekty\Surowce</Filter>
+    </ClInclude>
+    <ClInclude Include="TestyUtilsBO.h">
+      <Filter>Testy\KlasyTestowe\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="NieznalezionoObiektu.h">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClInclude>
+    <ClInclude Include="NiepoprawneParametryFunkcji.h">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClInclude>
+    <ClInclude Include="Uzytkownik.h">
+      <Filter>SourceFile\Model\Users</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
       <UniqueIdentifier>{2f5eb13d-0853-4047-b9a1-ec20ebf69b8d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\BaseClass">
-      <UniqueIdentifier>{9d8a7d3a-124f-4dbd-a3d1-adcf7d6c7eaf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\BaseClass\Obiekt">
-      <UniqueIdentifier>{2b4166a5-4382-4c2e-819c-588897dacc6c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\BaseClass\Base">
-      <UniqueIdentifier>{2ccecc3c-45e0-4036-8114-1418c1f1ae2d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Flota">
-      <UniqueIdentifier>{dc1fd519-fc16-4507-a10e-d21d3c64dfce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Flota\Ladownia">
-      <UniqueIdentifier>{03762c6f-908a-4990-9bf9-977b817b8629}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Flota\Statek">
-      <UniqueIdentifier>{a3232f94-989e-43da-bcd0-d47ac77070f5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Surowce">
-      <UniqueIdentifier>{a390535b-424a-4e6b-8d1d-465b594806c8}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\Wyjatki">
       <UniqueIdentifier>{0fc566f9-2bd3-44e6-9764-130d86fb8010}</UniqueIdentifier>
@@ -845,50 +578,14 @@
     <Filter Include="Doc">
       <UniqueIdentifier>{c3fb4279-d815-4008-a8cc-069b4a8e4b95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\BaseClass\Info">
-      <UniqueIdentifier>{e458c7bd-7f61-4fe1-8652-1ee020171182}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Flota\JednostkaAtakujaca">
-      <UniqueIdentifier>{c1c838c6-395b-42ed-b146-e35d2ba27d6e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Flota\JednostkaLatajaca">
-      <UniqueIdentifier>{1860f67a-1995-4e2e-b859-85c5d68d2b65}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Wyjatki\ParserXML">
-      <UniqueIdentifier>{ba14294d-6d92-4503-81b4-e7f6ac67aeec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Wyjatki\WyjatkiOgolne">
-      <UniqueIdentifier>{c1f4d8fa-8d8e-45d3-92fb-0b506e96d594}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Wyjatki\KlasaBazowa">
-      <UniqueIdentifier>{b8371ecf-9bbc-4a68-94eb-8f90aeef3e71}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SourceFile\KlasyGlowne">
       <UniqueIdentifier>{703f8f7c-63c3-4bf3-9541-c8f98fd4902e}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\KlasyPomocnicze">
       <UniqueIdentifier>{6a43f607-5cee-48af-be60-d2eb6e1b0e2b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\Technologia">
-      <UniqueIdentifier>{bc5c5a03-cd07-44c7-aded-44408c5cf55e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Budynek">
-      <UniqueIdentifier>{7e323fa0-ec8d-4092-a64b-064d0ff758f7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SourceFile\DomysleWartosci">
       <UniqueIdentifier>{6f405ef5-dac8-4c81-a144-5dde19dd7b2b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Log">
-      <UniqueIdentifier>{dc092ba4-3917-4952-ba8c-70fbc190425c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\BaseClass\Zmiana">
-      <UniqueIdentifier>{3bd69905-452c-402e-8f40-8585e7a66d28}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\BaseClass\Licznik">
-      <UniqueIdentifier>{5b0a9ca3-c1e4-4d05-8150-0408c4a6c044}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Typy podstawowe">
-      <UniqueIdentifier>{af75c20b-e3eb-4482-9766-342b4916ee6a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Testy">
       <UniqueIdentifier>{4ab78a3d-48b6-4c0f-b276-81d74c71f295}</UniqueIdentifier>
@@ -908,26 +605,14 @@
     <Filter Include="Testy\KlasyTestowe\Inicjalizowanie">
       <UniqueIdentifier>{6d536f1e-ee1d-47c4-ac57-d3e813d83b91}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\Flota\Hangar">
-      <UniqueIdentifier>{46df6a8b-cd48-418b-a20d-fba74a6ed859}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SourceFile\KlasyPomocnicze\Tranzakcyjnosc">
       <UniqueIdentifier>{6156b04e-fb15-434b-be8e-f5569dbf75b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Obrona">
-      <UniqueIdentifier>{28f11c3d-95ec-422e-b8d3-c63278d629e6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Biblioteki">
       <UniqueIdentifier>{e46ac25c-7352-419b-ab07-6128bee61ffe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Biblioteki\Parser">
-      <UniqueIdentifier>{790afcb6-335b-472a-b157-b083a9161f65}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Biblioteki\sha-3">
       <UniqueIdentifier>{bd1fb878-dd1e-4c99-a8e1-5e17071e54e6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Lokacje">
-      <UniqueIdentifier>{d953153c-1cf5-4af3-8a6a-c76e85db08ea}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\GUI">
       <UniqueIdentifier>{12ef1bc6-48d0-45bd-8c71-62ce5a122f43}</UniqueIdentifier>
@@ -974,26 +659,62 @@
     <Filter Include="SourceFile\GUI\Ekrany\Instancje">
       <UniqueIdentifier>{795eed1f-324f-4471-b8db-0bf85c28d80c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\Wymagania">
-      <UniqueIdentifier>{b4bdf8e7-69d8-42b7-828c-db385f251073}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SourceFile\KlasyGlowne\Szkielet">
       <UniqueIdentifier>{d5caacdb-fb36-45ec-9357-2ef8cf749f5f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\KlasyPomocnicze\Parser">
-      <UniqueIdentifier>{1ffeb2c1-25d8-40f0-b514-19ee66db0e71}</UniqueIdentifier>
+    <Filter Include="SourceFile\Model">
+      <UniqueIdentifier>{348e4036-e1a8-4a14-8758-978d5817d486}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\KlasyPomocnicze\Parser\Szkielet">
-      <UniqueIdentifier>{829d8fb2-c1bb-47ba-bd15-0b3f2bab2955}</UniqueIdentifier>
+    <Filter Include="SourceFile\Model\BaseClass">
+      <UniqueIdentifier>{9d8a7d3a-124f-4dbd-a3d1-adcf7d6c7eaf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\KlasyPomocnicze\Parser\XmlParser">
-      <UniqueIdentifier>{1622057d-4273-4b79-8961-65d18333474b}</UniqueIdentifier>
+    <Filter Include="SourceFile\Model\Lokacje">
+      <UniqueIdentifier>{d953153c-1cf5-4af3-8a6a-c76e85db08ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Model\Wymagania">
+      <UniqueIdentifier>{b4bdf8e7-69d8-42b7-828c-db385f251073}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Model\Obiekty">
+      <UniqueIdentifier>{2f467fd5-0d24-473c-9bdc-dd33f37371ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Model\Obiekty\Surowce">
+      <UniqueIdentifier>{a390535b-424a-4e6b-8d1d-465b594806c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Model\Obiekty\Obrona">
+      <UniqueIdentifier>{28f11c3d-95ec-422e-b8d3-c63278d629e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Model\Obiekty\Technologia">
+      <UniqueIdentifier>{bc5c5a03-cd07-44c7-aded-44408c5cf55e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Model\Obiekty\Budynek">
+      <UniqueIdentifier>{7e323fa0-ec8d-4092-a64b-064d0ff758f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Model\Obiekty\Flota">
+      <UniqueIdentifier>{dc1fd519-fc16-4507-a10e-d21d3c64dfce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Model\Obiekty\Hangar">
+      <UniqueIdentifier>{46df6a8b-cd48-418b-a20d-fba74a6ed859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Model\Obiekty\JednostkaAtakujaca">
+      <UniqueIdentifier>{c1c838c6-395b-42ed-b146-e35d2ba27d6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Model\Obiekty\JednostkaLatajaca">
+      <UniqueIdentifier>{1860f67a-1995-4e2e-b859-85c5d68d2b65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Model\Obiekty\Ladownia">
+      <UniqueIdentifier>{03762c6f-908a-4990-9bf9-977b817b8629}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Model\Obiekty\Statek">
+      <UniqueIdentifier>{a3232f94-989e-43da-bcd0-d47ac77070f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Testy\KlasyTestowe\Utils">
+      <UniqueIdentifier>{7e5c077d-d62b-4bdc-b4a8-5a466d3ddb58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Model\Users">
+      <UniqueIdentifier>{b7c38fbf-2e4d-4fc8-9a60-10c124adf6ac}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="parser\build_instructions.txt">
-      <Filter>Biblioteki\Parser</Filter>
-    </None>
     <None Include="TODO.txt">
       <Filter>Doc</Filter>
     </None>

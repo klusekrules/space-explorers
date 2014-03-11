@@ -1,13 +1,13 @@
 #pragma once
 #include "stdafx.h"
-#include "Identyfikator.h"
+#include "TypyProste\TypyProste.h"
 
-class Zdarzenie
-{
-public:
-	Identyfikator idStanu_;
-	int numer_;
-	Identyfikator idZdarzenia_;
-	tgui::Callback zdarzenieGui_;
+namespace SpEx{
+	struct Zdarzenie
+	{
+		STyp::Identyfikator idStanu_;
+		int numer_;
+		STyp::Identyfikator idZdarzenia_;
+		tgui::Callback zdarzenieGui_;
+	};
 };
-

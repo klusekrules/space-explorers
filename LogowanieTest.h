@@ -9,7 +9,7 @@ class LogowanieTest:
 	TWORZ_PACZKE_TESTOW_END();
 public:
 	void zaloguj();
-	LogowanieTest(void);
-	virtual ~LogowanieTest(void);
+	LogowanieTest(void) = default;
+	virtual ~LogowanieTest(void) = default;
 };
 

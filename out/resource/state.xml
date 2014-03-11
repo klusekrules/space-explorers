@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MaszynaStanow idStanuPoczatkowego="2">
+<MaszynaStanow idStanuPoczatkowego="2" pulaWatkow="4">
   <Stan id="0x1" luaFile="lua\test.lua" luaIn="ustawOknoMenu" luaOut="wyjscieZeStanu">
     <Zdarzenie id="0x3" luaFile="lua\test.lua" luaInside="zamknijAplikacje" stanNastepny="0x1" numerNastepny="0x0"/>
     <Zdarzenie id="0x2" stanNastepny="0x3" numerNastepny="0x0"/>

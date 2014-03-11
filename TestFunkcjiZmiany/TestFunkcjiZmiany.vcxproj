@@ -1,28 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug-DLL|Win32">
-      <Configuration>Debug-DLL</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug-DLL|x64">
-      <Configuration>Debug-DLL</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release-DLL|Win32">
-      <Configuration>Release-DLL</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release-DLL|x64">
-      <Configuration>Release-DLL</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
@@ -43,52 +27,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-DLL|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-DLL|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -98,37 +56,17 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release-DLL|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release-DLL|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)out\plugins\zmiana\</OutDir>
-    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName>test-zmiana-$(PlatformTarget)-d</TargetName>
-    <LibraryPath>$(SolutionDir)out\;$(LibraryPath)</LibraryPath>
-    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)out\plugins\zmiana\</OutDir>
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
@@ -144,14 +82,6 @@
     <OutDir>$(SolutionDir)out\plugins\zmiana-x64\</OutDir>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|x64'">
-    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName>test-zmiana-$(PlatformTarget)-d</TargetName>
-    <LibraryPath>$(SolutionDir)out\;$(LibraryPath)</LibraryPath>
-    <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)out\plugins\zmiana-x64\</OutDir>
-    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)out\plugins\zmiana\</OutDir>
@@ -160,23 +90,7 @@
     <LibraryPath>$(SolutionDir)out\;$(LibraryPath)</LibraryPath>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-DLL|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)out\plugins\zmiana\</OutDir>
-    <TargetName>test-zmiana-$(PlatformTarget)-r</TargetName>
-    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <LibraryPath>$(SolutionDir)out\;$(LibraryPath)</LibraryPath>
-    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <TargetName>test-zmiana-$(PlatformTarget)-r</TargetName>
-    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <LibraryPath>$(SolutionDir)out\;$(LibraryPath)</LibraryPath>
-    <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)out\plugins\zmiana-x64\</OutDir>
-    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-DLL|x64'">
     <TargetName>test-zmiana-$(PlatformTarget)-r</TargetName>
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LibraryPath>$(SolutionDir)out\;$(LibraryPath)</LibraryPath>
@@ -209,76 +123,23 @@
       <ShowProgress>false</ShowProgress>
     </ResourceCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">
-    <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;TESTFUNKCJIZMIANY_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
-      <MinimalRebuild>false</MinimalRebuild>
-      <SmallerTypeCheck>true</SmallerTypeCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)tinyxml2-master</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ImportLibrary>$(SolutionDir)libs\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
-      <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;tinyxml2-$(PlatformTarget)-$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-    <ResourceCompile>
-      <Culture>0x0015</Culture>
-    </ResourceCompile>
-    <ResourceCompile>
-      <ShowProgress>false</ShowProgress>
-    </ResourceCompile>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;TESTFUNKCJIZMIANY_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;TESTFUNKCJIZMIANY_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <MinimalRebuild>false</MinimalRebuild>
       <SmallerTypeCheck>true</SmallerTypeCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)tinyxml2-master</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(ProjectDir)\Headers\$(ProjectName);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ImportLibrary>$(SolutionDir)libs\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
-      <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;tinyxml2-$(PlatformTarget)-$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-    <ResourceCompile>
-      <PreprocessorDefinitions>_WIN64</PreprocessorDefinitions>
-    </ResourceCompile>
-    <ResourceCompile>
-      <Culture>0x0015</Culture>
-    </ResourceCompile>
-    <ResourceCompile>
-      <ShowProgress>false</ShowProgress>
-    </ResourceCompile>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|x64'">
-    <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;TESTFUNKCJIZMIANY_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
-      <MinimalRebuild>false</MinimalRebuild>
-      <SmallerTypeCheck>true</SmallerTypeCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)tinyxml2-master</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ImportLibrary>$(SolutionDir)libs\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
-      <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;tinyxml2-$(PlatformTarget)-$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Link>
     <ResourceCompile>
       <PreprocessorDefinitions>_WIN64</PreprocessorDefinitions>
@@ -291,33 +152,6 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;TESTFUNKCJIZMIANY_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)tinyxml2-master</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <ImportLibrary>$(SolutionDir)libs\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
-      <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;tinyxml2-$(PlatformTarget)-$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-    <ResourceCompile>
-      <Culture>0x0015</Culture>
-    </ResourceCompile>
-    <ResourceCompile>
-      <ShowProgress>false</ShowProgress>
-    </ResourceCompile>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-DLL|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -374,72 +208,31 @@
       <ShowProgress>false</ShowProgress>
     </ResourceCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-DLL|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;TESTFUNKCJIZMIANY_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)tinyxml2-master</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <ImportLibrary>$(SolutionDir)libs\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
-      <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ftrans-$(PlatformTarget)-$(Configuration).lib;logger-$(PlatformTarget)-$(Configuration).lib;plugin-$(PlatformTarget)-$(Configuration).lib;tinyxml2-$(PlatformTarget)-$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-    <ResourceCompile>
-      <PreprocessorDefinitions>_WIN64</PreprocessorDefinitions>
-    </ResourceCompile>
-    <ResourceCompile>
-      <Culture>0x0015</Culture>
-    </ResourceCompile>
-    <ResourceCompile>
-      <ShowProgress>false</ShowProgress>
-    </ResourceCompile>
-  </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="afxres.h" />
+    <ClInclude Include="Headers\TestFunkcjiZmiany\TestFunkcjiZmiany.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="TestFunkcjiZmiany.h" />
+    <ClInclude Include="TestFunkcjiZmianyStale.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp">
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">false</CompileAsManaged>
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</CompileAsManaged>
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|x64'">false</CompileAsManaged>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|Win32'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|x64'">
-      </PrecompiledHeader>
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release-DLL|Win32'">false</CompileAsManaged>
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</CompileAsManaged>
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release-DLL|x64'">false</CompileAsManaged>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-DLL|Win32'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-DLL|x64'">
-      </PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="TestFunkcjiZmiany.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TestFunkcjiZmiany.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Logger\Logger.vcxproj">
+      <Project>{da49481f-e328-4c1f-927c-44f818d30472}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Parser\Parser.vcxproj">
+      <Project>{c8c552aa-0fb6-40ca-805d-122e7eb00225}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\TypyProste\TypyProste.vcxproj">
+      <Project>{c4cb2f58-bb6e-4ab4-894e-25c8ef668dce}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Zmiana\Zmiana.vcxproj">
+      <Project>{e939d2d1-17b7-4720-8de2-135a14dad2a6}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -12,15 +12,15 @@ public:
 	void startTestow() override;
 	void podstawowyTest();
 	void koniecTestow() override;
-	ObiektListTest(void);
-	virtual ~ObiektListTest(void);
+	ObiektListTest(void) = default;
+	virtual ~ObiektListTest(void) = default;
 private:
-	ListaObiektow<Statek> lista;
-	ListaObiektow<Statek> listaDruga;
+	SpEx::ListaObiektow<SpEx::Statek> lista;
+	SpEx::ListaObiektow<SpEx::Statek> listaDruga;
 	
-	shared_ptr<Statek> a;
-	shared_ptr<Statek> b;
-	shared_ptr<Statek> c;
-	shared_ptr<Statek> d;
+	std::shared_ptr<SpEx::Statek> a;
+	std::shared_ptr<SpEx::Statek> b;
+	std::shared_ptr<SpEx::Statek> c;
+	std::shared_ptr<SpEx::Statek> d;
 };
 

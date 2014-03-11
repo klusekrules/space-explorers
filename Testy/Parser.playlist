@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="ParserTesty::ParserTest::SprawdzanieZawartosciPliku" /><Add Test="ParserTesty::ParserTest::WczytywaniePliku" /><Add Test="ParserTesty::ParserTest::xmlbo" /><Add Test="ParserTesty::ParserTest::ZapisDoPliku" /><Add Test="ParserTesty::ParserTest::XmlBOTest" /></Playlist>

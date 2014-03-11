@@ -7,21 +7,19 @@ class StatekTest:
 {
 	TWORZ_PACZKE_TESTOW(StatekTest);
 		DODAJ_TEST(Issue42Test);
-		DODAJ_TEST(Issue52Test);
 		DODAJ_TEST(FlotaTest);
 	TWORZ_PACZKE_TESTOW_END();
 public:
 	void startTestow() override;
 	void Issue42Test();
-	void Issue52Test();
 	void FlotaTest();
-	StatekTest(void);
-	virtual ~StatekTest(void);
+	StatekTest(void) = default;
+	virtual ~StatekTest(void) = default;
 private:
-	const Statek* a;
-	const Statek* b;
-	const Statek* c;
-	const Statek* d;
-	shared_ptr<Planeta> planeta;
+	const SpEx::Statek* a;
+	const SpEx::Statek* b;
+	const SpEx::Statek* c;
+	const SpEx::Statek* d;
+	std::shared_ptr<SpEx::Planeta> planeta;
 };
 

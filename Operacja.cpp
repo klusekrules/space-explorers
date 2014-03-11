@@ -1,23 +1,16 @@
 #include "Operacja.h"
 #include "Logger\Logger.h"
+namespace SpEx{
+	bool Operacja::wykonaj(){
+		return false;
+	}
 
-Operacja::Operacja(void)
-{
-}
+	bool Operacja::cofnij(){
+		return false;
+	}
 
-Operacja::~Operacja(void)
-{
-}
-
-bool Operacja::wykonaj(){
-	return false;
-}
-
-bool Operacja::cofnij(){
-	return false;
-}
-
-std::string Operacja::napis() const {
-	Logger str (NAZWAKLASY(Operacja));
-	return str.napis();
-}
+	std::string Operacja::napis() const {
+		SLog::Logger str(NAZWAKLASY(Operacja));
+		return str.napis();
+	}
+};

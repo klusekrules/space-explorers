@@ -1,101 +1,73 @@
 #pragma once
-#include "ObiektBazowyInfo.h"
-#include "Obiekt.h"
-#include "NiezainicjalizowanaKlasa.h"
-#include "FuncTransf\ZmianaInterfejs.h"
+#include "Info.h"
+#include "Wymagania.h"
 
-/**
-* \brief Klasa opisowa obiektu.
-*
-* Klasa zawieraj¹ca elementy opisowe obiektu gry.
-* \author Daniel Wojdak
-* \version 1
-* \date 22-07-2013
-*/
-class ObiektInfo :
-	public ObiektBazowyInfo,
-	virtual public LoggerInterface
-{
-private:
-	Powierzchnia powierzchnia_; /// Powierzchnia obiektu.
-	shared_ptr<ZmianaInterfejs> zmianaPowierzchni_; /// Zmiana powierzchni obiektu.
-
-	Objetosc objetosc_; /// Objêtoœæ obiektu.
-	shared_ptr<ZmianaInterfejs> zmianaObjetosci_; /// Zmiana objêtoœci obiektu.
-
-	Masa masa_; /// Masa obiektu.
-	shared_ptr<ZmianaInterfejs> zmianaMasy_; /// Zmiana masy obiektu.
-
-public:
-
+namespace SpEx{
+	class Obiekt;
 	/**
-	* \brief Konstruktor.
-	* 
-	* \param[in] masa - Masa obiektu.
-	* \param[in] objetosc - Objetoœæ obiektu.
-	* \param[in] powierzchnia - Powierzchnia obiektu.
-	* \param[in] obiektBazowyInfo - Referencja do obiektu bazowego.
-	*/
-	ObiektInfo( const Masa& masa, const Objetosc& objetosc, const Powierzchnia& powierzchnia, const ObiektBazowyInfo& obiektBazowyInfo ) throw();
-
-	/**
-	* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
-	* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
-	*/
-	explicit ObiektInfo( tinyxml2::XMLElement* wezel ) throw(WyjatekParseraXML);
-
-	/**
-	* \brief Destruktor.
-	*/
-	virtual ~ObiektInfo();
-
-	/**
-	* \brief Metoda wyliczaj¹ca powierzchniê obiektu.
+	* \brief Klasa opisowa obiektu.
 	*
-	* Metoda liczy powierzchniê dla podanego poziomu i identyfikatora planety.
-	* Je¿eli dla powierzchni nie ma klasy zmiany, zawsze zwracana jest podstawowa wartoœæ powierzchni dla obiektu.
-	* \param[in] poziom - Poziom obiektu.
-	* \param[in] identyfikatorPlanety - Identyfikator planety obiektu.
-	* \return Wyliczona wartoœæ powierzchni.
+	* Klasa zawieraj¹ca elementy opisowe obiektu gry.
+	* \author Daniel Wojdak
+	* \version 1
+	* \date 22-07-2013
 	*/
-	Powierzchnia pobierzPowierzchnie(const Poziom& poziom, const Identyfikator& identyfikatorPlanety) const;
+	class ObiektInfo:
+		public Wymagania,
+		public Info,
+		virtual public SLog::LoggerInterface
+	{
+		friend class Planeta;
+	public:
 
-	/**
-	* \brief Metoda wyliczaj¹ca objêtoœæ obiektu.
-	*
-	* Metoda liczy objêtoœæ dla podanego poziomu i identyfikatora planety.
-	* Je¿eli dla objêtoœæi nie ma klasy zmiany, zawsze zwracana jest podstawowa wartoœæ objêtoœci dla obiektu.
-	* \param[in] poziom - Poziom obiektu.
-	* \param[in] identyfikatorPlanety - Identyfikator planety obiektu.	
-	* \return Wyliczona wartoœæ objêtoœci.
-	*/
-	Objetosc pobierzObjetosc(const Poziom& poziom, const Identyfikator& identyfikatorPlanety) const;
+		/**
+		* \brief Konstruktor.
+		*
+		* \param[in] masa - Masa obiektu.
+		* \param[in] objetosc - Objetoœæ obiektu.
+		* \param[in] powierzchnia - Powierzchnia obiektu.
+		* \param[in] obiektBazowyInfo - Referencja do obiektu bazowego.
+		*/
+		//ObiektInfo(const Wymagania& wymagania, const Info& info);
 
-	/**
-	* \brief Metoda wyliczaj¹ca masê obiektu.
-	*
-	* Metoda liczy masê dla podanego poziomu i identyfikatora planety.
-	* Je¿eli dla masy nie ma klasy zmiany, zawsze zwracana jest podstawowa wartoœæ masy dla obiektu.
-	* \param[in] poziom - Poziom obiektu.
-	* \param[in] identyfikatorPlanety - Identyfikator planety obiektu.
-	* \return Wyliczona wartoœæ masy.
-	*/
-	Masa pobierzMase(const Poziom& poziom, const Identyfikator& identyfikatorPlanety) const;
+		/**
+		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
+		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
+		*/
+		explicit ObiektInfo(XmlBO::ElementWezla wezel);
 
-	/**
-	* \brief Metoda tworz¹ca egzemplarz obiektu.
-	*
-	*  Metoda tworzy egzemplarz obiektu o podanej iloœci i dla podanej planety.
-	* \param[in] ilosc - Iloœæ tworzonych obiektów.
-	* \param[in] identyfikatorPlanety - Identyfikator planety rodzica obiektu.
-	* \warning Metoda allokuje pamiêæ dla nowego obiektu, który musi zostaæ zwolniony wywo³aniem delete.
-	* \return Metoda zwraca wskaŸnika na obiekt.
-	*/
-	Obiekt* tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety ) const override;
+		/**
+		* \brief Metoda tworz¹ca egzemplarz obiektu.
+		*
+		*  Metoda tworzy egzemplarz obiektu o podanej iloœci i dla podanej planety.
+		* \param[in] parametry - Iloœæ tworzonych obiektów.
+		* \warning Metoda allokuje pamiêæ dla nowego obiektu, który musi zostaæ zwolniony wywo³aniem delete.
+		* \return Metoda zwraca wskaŸnika na obiekt.
+		*/
+		virtual Obiekt* tworzEgzemplarz(const PodstawoweParametry& parametry) const = 0;
 
-	/**
-	* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
-	* \return Napis zwieraj¹cy opis klasy.
-	*/
-	string napis() const override;
-};
+		/**
+		* \brief Destruktor.
+		*/
+		virtual ~ObiektInfo() = default;
+
+		/**
+		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
+		* \return Napis zwieraj¹cy opis klasy.
+		*/
+		std::string napis() const override;
+
+	protected:
+		/**
+		* \brief Metoda tworz¹ca egzemplarz obiektu na planecie.
+		*
+		*  Metoda tworzy egzemplarz obiektu na planecie. U¿ywana jest podczas wywo³ywania metody wybuduj w klasie Planeta.
+		* \param[in] planeta - Referencja do obiektu planety
+		* \param[in] atrybut - Iloœæ tworzonych obiektów.
+		* \return Metoda zwraca true je¿eli tworzenie zakoñczy siê sukcesem. Zwraca false w przeciwnym wypadku.
+		*/
+		virtual bool tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const = 0;
+
+		virtual bool tworz(Planeta& planeta, const XmlBO::ElementWezla element) const = 0;
+	};
+}

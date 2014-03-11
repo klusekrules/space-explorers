@@ -3,94 +3,90 @@
 #include "ObiektInfo.h"
 #include "PodstawoweParametry.h"
 
-/**
-* \brief Klasa opisowa budynku.
-*
-* Klasa zawieraj¹ca komplet atrybutów i metod opisuj¹cych budynek.
-* \author Daniel Wojdak
-* \version 1
-* \date 24-07-2013
-*/
-class BudynekInfo :
-	public ObiektInfo,
-	virtual public LoggerInterface
-{
-public:
-
+namespace SpEx{
 	/**
-	* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
-	* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
-	*/
-	BudynekInfo( tinyxml2::XMLElement* wezel );
-
-	/**
-	* \brief Destruktor.
-	*/
-	virtual ~BudynekInfo();
-
-	/**
-	* \brief Metoda wyliczaj¹ca zapotrzebowanie.
+	* \brief Klasa opisowa budynku.
 	*
-	* Metoda wylicza na podstawie przekazanych parametrów zapotrzebowanie budynku na zasoby.
-	* \param[in] parametry - Parametry obiektu wymagane do wykonania obliczeñ.
-	* \return Lista elementów zapotrzebowania obiektu.
+	* Klasa zawieraj¹ca komplet atrybutów i metod opisuj¹cych budynek.
+	* \author Daniel Wojdak
+	* \version 1
+	* \date 24-07-2013
 	*/
-	Wymagania::PrzetworzonaCena pobierzZapotrzebowanie( const PodstawoweParametry& parametry )const;
+	class BudynekInfo :
+		public ObiektInfo,
+		virtual public SLog::LoggerInterface
+	{
+	public:
 
-	/**
-	* \brief Metoda wyliczaj¹ca produkcjê.
-	*
-	* Metoda wylicza na podstawie przekazanych parametrów produkcjê budynku.
-	* \param[in] parametry - Parametry obiektu wymagane do wykonania obliczeñ.
-	* \return Lista elementów produkcji obiektu.
-	*/
-	Wymagania::PrzetworzonaCena pobierzProdukcje( const PodstawoweParametry& parametry )const;
+		/**
+		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
+		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
+		*/
+		explicit BudynekInfo(XmlBO::ElementWezla wezel);
 
-	/**
-	* \brief Metoda tworz¹ca egzemplarz obiektu.
-	*
-	*  Metoda tworzy egzemplarz obiektu dla podanej planety.
-	* \param[in] ilosc - nieu¿ywana
-	* \param[in] identyfikatorPlanety - Identyfikator planety rodzica obiektu.
-	* \warning Metoda allokuje pamiêæ dla nowego obiektu, który musi zostaæ zwolniony wywo³aniem delete.
-	* \return Metoda zwraca wskaŸnika na obiekt.
-	*/
-	Budynek* tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety ) const override;
+		/**
+		* \brief Destruktor.
+		*/
+		virtual ~BudynekInfo() = default;
 
-	/**
-	* \brief Metoda tworz¹ca egzemplarz obiektu.
-	*
-	*  Metoda tworzy egzemplarz obiektu dla podanej planety.
-	* \param[in] ilosc - nieu¿ywana
-	* \param[in] identyfikatorPlanety - Identyfikator planety rodzica obiektu.
-	* \param[in] poziom - Poziom tworzonego obiektu.
-	* \warning Metoda allokuje pamiêæ dla nowego obiektu, który musi zostaæ zwolniony wywo³aniem delete.
-	* \return Metoda zwraca wskaŸnika na obiekt.
-	*/
-	Budynek* tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety, const Poziom& poziom ) const override;
+		/**
+		* \brief Metoda wyliczaj¹ca zapotrzebowanie.
+		*
+		* Metoda wylicza na podstawie przekazanych parametrów zapotrzebowanie budynku na zasoby.
+		* \param[in] parametry - Parametry obiektu wymagane do wykonania obliczeñ.
+		* \return Lista elementów zapotrzebowania obiektu.
+		*/
+		Wymagania::PrzetworzoneWarunki pobierzZapotrzebowanie(const PodstawoweParametry& parametry)const;
 
-	/**
-	* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
-	* \return Napis zwieraj¹cy opis klasy.
-	*/
-	string napis()const override;
-protected:
+		/**
+		* \brief Metoda wyliczaj¹ca produkcjê.
+		*
+		* Metoda wylicza na podstawie przekazanych parametrów produkcjê budynku.
+		* \param[in] parametry - Parametry obiektu wymagane do wykonania obliczeñ.
+		* \return Lista elementów produkcji obiektu.
+		*/
+		Wymagania::PrzetworzoneWarunki pobierzProdukcje(const PodstawoweParametry& parametry)const;
 
-	Wymagania::ListaCen zapotrzebowanie_; /// Lista bazowych elementów zapotrzebowania.
-	Wymagania::ListaCen produkcja_; /// Lista bazowych elementów produkcji.
+		/**
+		* \brief Metoda tworz¹ca egzemplarz obiektu.
+		*
+		*  Metoda tworzy egzemplarz obiektu dla podanej planety.
+		* \param[in] ilosc - nieu¿ywana
+		* \param[in] identyfikatorPlanety - Identyfikator planety rodzica obiektu.
+		* \warning Metoda allokuje pamiêæ dla nowego obiektu, który musi zostaæ zwolniony wywo³aniem delete.
+		* \return Metoda zwraca wskaŸnika na obiekt.
+		*/
+		Budynek* tworzEgzemplarz(const PodstawoweParametry& parametry) const override;
 
-private:
+		STyp::Powierzchnia pobierzPowierzchnie(const PodstawoweParametry& parametry)const;
 
-	/**
-	* \brief Metoda tworz¹ca egzemplarz obiektu na planecie.
-	*
-	*  Metoda tworzy egzemplarz obiektu na planecie. U¿ywana jest podczas wywo³ywania metody wybuduj w klasie Planeta.
-	* \param[in] gra - Referencja do obiektu gry.
-	* \param[in] planeta - Referencja do obiektu planety
-	* \param[in] ilosc - Iloœæ tworzonych obiektów.
-	* \param[in] poziom - Iloœæ tworzonych obiektów.
-	* \return Metoda zwraca true je¿eli tworzenie zakoñczy siê sukcesem. Zwraca false w przeciwnym wypadku.
-	*/
-	bool tworz( const Gra& gra , Planeta& planeta , const Ilosc& ilosc, const Poziom& poziom ) const override;
-};
+		/**
+		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
+		* \return Napis zwieraj¹cy opis klasy.
+		*/
+		std::string napis()const override;
 
+	protected:
+
+		Wymagania::ListaWarunkow zapotrzebowanie_; /// Lista bazowych elementów zapotrzebowania.
+		Wymagania::ListaWarunkow produkcja_; /// Lista bazowych elementów produkcji.
+
+	private:
+
+		STyp::Powierzchnia powierzchnia_;
+		Zmiana zmianaPowierzchni_;
+
+		/**
+		* \brief Metoda tworz¹ca egzemplarz obiektu na planecie.
+		*
+		*  Metoda tworzy egzemplarz obiektu na planecie. U¿ywana jest podczas wywo³ywania metody wybuduj w klasie Planeta.
+		* \param[in] gra - Referencja do obiektu gry.
+		* \param[in] planeta - Referencja do obiektu planety
+		* \param[in] ilosc - Iloœæ tworzonych obiektów.
+		* \param[in] poziom - Iloœæ tworzonych obiektów.
+		* \return Metoda zwraca true je¿eli tworzenie zakoñczy siê sukcesem. Zwraca false w przeciwnym wypadku.
+		*/
+		bool tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const override;
+		bool tworz(Planeta& planeta, const XmlBO::ElementWezla element) const override;
+	};
+}

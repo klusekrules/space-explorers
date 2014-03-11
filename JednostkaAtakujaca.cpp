@@ -1,34 +1,32 @@
 #include "JednostkaAtakujaca.h"
-#include "Logger.h"
-#include "Aplikacja.h"
+#include "Logger\Logger.h"
 
-JednostkaAtakujaca::JednostkaAtakujaca( const Poziom& p , const Identyfikator& idP, const JednostkaAtakujacaInfo& jInfo )
-	: PodstawoweParametry(p,idP), jednostkaAtakujacaInfo_(jInfo)
-{
-}
+namespace SpEx{
+	JednostkaAtakujaca::JednostkaAtakujaca(const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety, const JednostkaAtakujacaInfo& jInfo)
+		: PodstawoweParametry(wpisPoziom(poziom), POZIOM, identyfikatorPlanety), jednostkaAtakujacaInfo_(jInfo)
+	{
+	}
 
-JednostkaAtakujaca::JednostkaAtakujaca( const PodstawoweParametry& p, const JednostkaAtakujacaInfo& jInfo )
-	: PodstawoweParametry(p), jednostkaAtakujacaInfo_(jInfo)
-{
-}
+	JednostkaAtakujaca::JednostkaAtakujaca(const PodstawoweParametry& parametry, const JednostkaAtakujacaInfo& jInfo)
+		: PodstawoweParametry(parametry), jednostkaAtakujacaInfo_(jInfo)
+	{
+	}
 
-JednostkaAtakujaca::~JednostkaAtakujaca(){
-}
+	STyp::Obrazenia JednostkaAtakujaca::pobierzAtak() const {
+		return jednostkaAtakujacaInfo_.pobierzAtak(*this);
+	}
 
-Obrazenia JednostkaAtakujaca::pobierzAtak() const {
-	return jednostkaAtakujacaInfo_.pobierzAtak(*this);
-}
+	STyp::Obrazenia JednostkaAtakujaca::pobierzPancerz() const{
+		return jednostkaAtakujacaInfo_.pobierzPancerz(*this);
+	}
 
-Obrazenia JednostkaAtakujaca::pobierzPancerz() const{
-	return jednostkaAtakujacaInfo_.pobierzPancerz(*this);
-}
+	STyp::Obrazenia JednostkaAtakujaca::pobierzOslone() const{
+		return jednostkaAtakujacaInfo_.pobierzOslone(*this);
+	}
 
-Obrazenia JednostkaAtakujaca::pobierzOslone() const{
-	return jednostkaAtakujacaInfo_.pobierzOslone(*this);
-}
-
-string JednostkaAtakujaca::napis() const{
-	Logger str(NAZWAKLASY(JednostkaAtakujaca));
-	str.dodajPole(NAZWAKLASY(JednostkaAtakujacaInfo)+"ID",jednostkaAtakujacaInfo_.pobierzIdentyfikator());
-	return str.napis();
+	std::string JednostkaAtakujaca::napis() const{
+		SLog::Logger str(NAZWAKLASY(JednostkaAtakujaca));
+		str.dodajPole(NAZWAPOLA(jednostkaAtakujacaInfo_), jednostkaAtakujacaInfo_);
+		return str.napis();
+	}
 }

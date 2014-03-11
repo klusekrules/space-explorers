@@ -1,64 +1,72 @@
 #include "Obrona.h"
 #include "ObronaInfo.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
 #include "DefinicjeWezlowXML.h"
 
-Obrona::Obrona( const Ilosc& ilosc, const Poziom& poziom, const Identyfikator& identyfikatorPlanety, const ObronaInfo& obronaInfo )
-	: PodstawoweParametry(poziom, identyfikatorPlanety), Obiekt( ilosc, poziom, identyfikatorPlanety, obronaInfo ), JednostkaAtakujaca(poziom,identyfikatorPlanety,obronaInfo),obronaInfo_(obronaInfo)
-{
-}
+namespace SpEx{
 
-Obrona::Obrona( const Ilosc& ilosc, const PodstawoweParametry& podstawoweParametry, const ObronaInfo& obronaInfo )
-	: PodstawoweParametry(podstawoweParametry), Obiekt( ilosc, podstawoweParametry, obronaInfo ), JednostkaAtakujaca(podstawoweParametry,obronaInfo), obronaInfo_(obronaInfo)
-{
-}
-
-Obrona* Obrona::kopia() const{
-	return new Obrona(*this);
-}
-
-Obrona::~Obrona(){
-}
-	
-Obrazenia Obrona::pobierzAtak() const{
-	return Obrazenia (JednostkaAtakujaca::pobierzAtak()() * ilosc_());
-}
-
-Obrona* Obrona::podziel( const Ilosc& ilosc ){
-	if( ilosc_>ilosc ){
-		Obrona* o = new Obrona( ilosc , pobierzPoziom(), pobierzIdentyfikatorPlanety(), obronaInfo_ );
-		ilosc_-=ilosc;
-		return o; 
+	Obrona::Obrona(const PodstawoweParametry& podstawoweParametry, const ObronaInfo& obronaInfo)
+		: PodstawoweParametry(podstawoweParametry), Obiekt(podstawoweParametry, obronaInfo), JednostkaAtakujaca(podstawoweParametry, obronaInfo), obronaInfo_(obronaInfo)
+	{
 	}
-	return nullptr;
-}
 
-Obrazenia Obrona::pobierzPancerz() const{
-	return Obrazenia (JednostkaAtakujaca::pobierzPancerz()() * ilosc_());
-}
+	Obrona* Obrona::kopia() const{
+		return new Obrona(*this);
+	}
 
-Obrazenia Obrona::pobierzOslone() const{
-	return Obrazenia (JednostkaAtakujaca::pobierzOslone()() * ilosc_());
-}
+	bool Obrona::polacz(const Obiekt& obiekt){
+		return false;
+	}
 
-const ObronaInfo& Obrona::pobierzObronaInfo() const{
-	return obronaInfo_;
-}
+	STyp::Obrazenia Obrona::pobierzAtak() const{
+		return STyp::Obrazenia(JednostkaAtakujaca::pobierzAtak()() * pobierzIlosc()());
+	}
 
-bool Obrona::zapisz( tinyxml2::XMLElement* wezel ) const {
-	tinyxml2::XMLElement* element = wezel->GetDocument()->NewElement(WEZEL_XML_OBRONA);
-	wezel->LinkEndChild( element );
-	return Obiekt::zapisz(element);
-}
+	Obrona* Obrona::podziel(const STyp::Ilosc& ilosc){
+		return nullptr;
+	}
 
-bool Obrona::odczytaj( tinyxml2::XMLElement* wezel ) {
-	return Obiekt::odczytaj(wezel);
-}
+	bool Obrona::czyMoznaPolaczyc(const Obiekt& obiektBase) const{
+		return false;
+	}
 
-string Obrona::napis() const{
-	Logger str(NAZWAKLASY(Obrona));
-	str.dodajKlase(Obiekt::napis());
-	str.dodajKlase(JednostkaAtakujaca::napis());
-	str.dodajPole(NAZWAKLASY(ObronaInfo)+"ID",obronaInfo_.pobierzIdentyfikator());
-	return str.napis();
+	bool Obrona::czyMoznaPodzielic(const STyp::Ilosc& ilosc) const{
+		return false;
+	}
+
+	STyp::Obrazenia Obrona::pobierzPancerz() const{
+		return STyp::Obrazenia(JednostkaAtakujaca::pobierzPancerz()() * pobierzIlosc()());
+	}
+
+	STyp::Obrazenia Obrona::pobierzOslone() const{
+		return STyp::Obrazenia(JednostkaAtakujaca::pobierzOslone()() * pobierzIlosc()());
+	}
+
+	STyp::Powierzchnia Obrona::pobierzPowierzchnie(const PodstawoweParametry& podstawoweParametry)const{
+		return obronaInfo_.pobierzPowierzchnie(podstawoweParametry);
+	}
+
+	STyp::Powierzchnia Obrona::pobierzPowierzchnie()const{
+		return pobierzPowierzchnie(*this)() * pobierzIlosc()();
+	}
+
+	const ObronaInfo& Obrona::pobierzObronaInfo() const{
+		return obronaInfo_;
+	}
+
+	bool Obrona::zapisz(XmlBO::ElementWezla wezel) const {
+		return Obiekt::zapisz(wezel->tworzElement(WEZEL_XML_OBRONA));
+	}
+
+	bool Obrona::odczytaj(XmlBO::ElementWezla wezel) {
+		return Obiekt::odczytaj(wezel);
+	}
+
+	std::string Obrona::napis() const{
+		SLog::Logger str(NAZWAKLASY(Obrona));
+		str.dodajKlase(Obiekt::napis());
+		str.dodajKlase(JednostkaAtakujaca::napis());
+		str.dodajPole(NAZWAPOLA(obronaInfo_), obronaInfo_);
+		return str.napis();
+	}
 }

@@ -1,96 +1,98 @@
 #include "UkladSloneczny.h"
 #include <random>
-#include "Logger.h"
-#include "XmlBO.h"
 #include "definicjeWezlowXML.h"
 
-UkladSloneczny::UkladSloneczny( const Identyfikator& id , const Identyfikator& idGalaktyki )
-	: Bazowa(id), idGalaktyki_(idGalaktyki)
-{
-}
+namespace SpEx{
 
-UkladSloneczny::~UkladSloneczny()
-{
-}
+	UkladSloneczny::UkladSloneczny(const STyp::Identyfikator& id, const STyp::Identyfikator& idGalaktyki)
+		: identyfikator_(id), idGalaktyki_(idGalaktyki)
+	{
+	}
+	
+	void UkladSloneczny::ustawSredniceGwiazdy(const STyp::Dystans& srednica){
+		srednicaGwiazdy_=srednica;
+	}
 
-void UkladSloneczny::ustawSredniceGwiazdy(SPG::Dystans srednica){
-	srednicaGwiazdy_(srednica);
-}
+	const STyp::Dystans& UkladSloneczny::pobierzSredniceGwiazdy() const{
+		return srednicaGwiazdy_;
+	}
 
-const Dystans& UkladSloneczny::pobierzSredniceGwiazdy() const{
-	return srednicaGwiazdy_;
-}
+	const STyp::Identyfikator& UkladSloneczny::pobierzIdentyfikator()const{
+		return identyfikator_;
+	}
 
-void UkladSloneczny::ustawSredniaTemperatureGwiazdy(SPG::Temperatura temperatura){
-	sredniaTemperaturaGwiazdy_(temperatura);
-}
+	void UkladSloneczny::ustawSredniaTemperatureGwiazdy(const STyp::Temperatura& temperatura){
+		sredniaTemperaturaGwiazdy_ = temperatura;
+	}
 
-const Temperatura& UkladSloneczny::pobierzSredniaTemperatureGwiazdy() const{
-	return sredniaTemperaturaGwiazdy_;
-}
+	const STyp::Temperatura& UkladSloneczny::pobierzSredniaTemperatureGwiazdy() const{
+		return sredniaTemperaturaGwiazdy_;
+	}
 
-Moc UkladSloneczny::pobierzMocGwiazdy() const{
-	return Moc(srednicaGwiazdy_()*sredniaTemperaturaGwiazdy_());
-}
+	STyp::Moc UkladSloneczny::pobierzMocGwiazdy() const{
+		return STyp::Moc(srednicaGwiazdy_()*sredniaTemperaturaGwiazdy_());
+	}
 
-bool UkladSloneczny::dodajPlanete( UkladSloneczny::Planeta planeta ){
-	if( !planeta || planety_.find(planeta->pobierzIdentyfikator()) != planety_.end() )
-		return false;
-	planety_[planeta->pobierzIdentyfikator()] = planeta;
-	return true;
-}
-
-UkladSloneczny::Planeta UkladSloneczny::pobierzPlanete( const Identyfikator& numer ){
-	return planety_[numer];
-}
-
-int UkladSloneczny::liczbaPlanet() const{
-	return static_cast<int>( planety_.size() );
-}
-
-const Identyfikator& UkladSloneczny::pobierzIdGalaktyki() const{
-	return idGalaktyki_;
-}
-
-bool UkladSloneczny::zapisz( tinyxml2::XMLElement* wezel ) const{
-	tinyxml2::XMLElement* element = wezel->GetDocument()->NewElement(WEZEL_XML_UKLAD_SLONECZNY);
-	wezel->LinkEndChild( element );
-	element->SetAttribute(ATRYBUT_XML_SREDNICA_GWIAZDY, srednicaGwiazdy_.napis().c_str());
-	element->SetAttribute(ATRYBUT_XML_SREDNIA_TEMPERATURA_GWIAZDY, sredniaTemperaturaGwiazdy_.napis().c_str());
-	for(auto planeta :  planety_)
-		if(!planeta.second->zapisz(element))
+	bool UkladSloneczny::dodajPlanete(UkladSloneczny::Planeta planeta){
+		if (!planeta || planety_.find(planeta->pobierzIdentyfikator()) != planety_.end())
 			return false;
-	return Bazowa::zapisz(element);
-}
+		planety_[planeta->pobierzIdentyfikator()] = planeta;
+		return true;
+	}
 
-bool UkladSloneczny::odczytaj( tinyxml2::XMLElement* wezel ){
-	if(wezel){
-		if(!Bazowa::odczytaj(wezel))
+	UkladSloneczny::Planeta UkladSloneczny::pobierzPlanete(const STyp::Identyfikator& numer){
+		return planety_[numer];
+	}
+
+	int UkladSloneczny::liczbaPlanet() const{
+		return static_cast<int>(planety_.size());
+	}
+
+	const STyp::Identyfikator& UkladSloneczny::pobierzIdGalaktyki() const{
+		return idGalaktyki_;
+	}
+
+	bool UkladSloneczny::zapisz(XmlBO::ElementWezla wezel) const{
+		auto element = wezel->tworzElement(WEZEL_XML_UKLAD_SLONECZNY);
+		element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, identyfikator_.napis().c_str());
+		element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR_RODZICA, idGalaktyki_.napis().c_str());
+		element->tworzAtrybut(ATRYBUT_XML_SREDNICA_GWIAZDY, srednicaGwiazdy_.napis().c_str());
+		element->tworzAtrybut(ATRYBUT_XML_SREDNICA_GWIAZDY, srednicaGwiazdy_.napis().c_str());
+		element->tworzAtrybut(ATRYBUT_XML_SREDNIA_TEMPERATURA_GWIAZDY, sredniaTemperaturaGwiazdy_.napis().c_str());
+		for (auto planeta : planety_)
+		if (!planeta.second->zapisz(element))
 			return false;
-		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_SREDNICA_GWIAZDY,srednicaGwiazdy_))
-			return false;
-		if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_SREDNIA_TEMPERATURA_GWIAZDY,sredniaTemperaturaGwiazdy_))
-			return false;
-		for(tinyxml2::XMLElement* element = wezel->FirstChildElement(WEZEL_XML_PLANETA) ; element ; element = element->NextSiblingElement(WEZEL_XML_PLANETA)){
-			auto planeta = make_shared<::Planeta>(Identyfikator(),pobierzIdentyfikator());
-			if(!planeta->odczytaj(element))
+		return true;
+	}
+
+	bool UkladSloneczny::odczytaj(XmlBO::ElementWezla wezel){
+		if (wezel){
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_RODZICA, idGalaktyki_);
+			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_SREDNICA_GWIAZDY, srednicaGwiazdy_))
 				return false;
-			planety_[planeta->pobierzIdentyfikator()] =planeta;
+			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_SREDNIA_TEMPERATURA_GWIAZDY, sredniaTemperaturaGwiazdy_))
+				return false;
+			return XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_PLANETA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
+				auto planeta = std::make_shared<SpEx::Planeta>(STyp::Identyfikator(), pobierzIdentyfikator());
+				if (!planeta->odczytaj(element))
+					return false;
+				planety_[planeta->pobierzIdentyfikator()] = planeta;
+				return true;
+			}));
 		}
-		return true; 
+		return false;
 	}
-	return false;
-}
 
-string UkladSloneczny::napis() const {
-	Logger str(NAZWAKLASY(UkladSloneczny));
-	str.dodajKlase(Bazowa::napis());
-	str.dodajPole("srednicaGwiazdy",srednicaGwiazdy_);
-	str.dodajPole("sredniaTemperaturaGwiazdy",sredniaTemperaturaGwiazdy_);
-	for( auto planeta : planety_ ){
-		if(planeta.second){
-			str.dodajPole("Planeta",*planeta.second);
+	std::string UkladSloneczny::napis() const {
+		SLog::Logger str(NAZWAKLASY(UkladSloneczny));
+		str.dodajPole(NAZWAPOLA(srednicaGwiazdy_), srednicaGwiazdy_);
+		str.dodajPole(NAZWAPOLA(sredniaTemperaturaGwiazdy_), sredniaTemperaturaGwiazdy_);
+		for (auto planeta : planety_){
+			if (planeta.second){
+				str.dodajPole(NAZWAPOLA(planeta), *planeta.second);
+			}
 		}
+		return str.napis();
 	}
-	return str.napis();
 }

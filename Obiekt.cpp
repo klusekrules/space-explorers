@@ -1,60 +1,80 @@
 #include "Obiekt.h"
-#include "ObiektInfo.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
+#include "definicjeWezlowXML.h"
+#include "ObronaInfo.h"
 
-Obiekt::Obiekt( const Ilosc& ilosc, const Poziom& poziom, const Identyfikator& identyfikatorPlanety, const ObiektInfo& obiektInfo ) throw()
-	: PodstawoweParametry(poziom, identyfikatorPlanety), ObiektBazowy( ilosc, poziom, identyfikatorPlanety, obiektInfo ), obiektInfo_( obiektInfo )
-{
-}
+namespace SpEx{
 
-Obiekt::Obiekt( const Ilosc& ilosc, const PodstawoweParametry& podstawoweParametry , const ObiektInfo& obiektInfo ) throw()
-	: PodstawoweParametry(podstawoweParametry), ObiektBazowy( ilosc, podstawoweParametry, obiektInfo ), obiektInfo_( obiektInfo )
-{
-}
-
-Obiekt::~Obiekt(){
-}
-
-Obiekt* Obiekt::kopia() const{
-	return new Obiekt(*this);
-}
-
-Obiekt* Obiekt::podziel( const Ilosc& ilosc ){
-	if( ilosc_>ilosc ){
-		Obiekt* o = new Obiekt( ilosc , pobierzPoziom(), pobierzIdentyfikatorPlanety(), obiektInfo_ );
-		ilosc_-=ilosc;
-		return o; 
+	Obiekt::Obiekt(const PodstawoweParametry& parametry, const ObiektInfo& obiektinfo) throw()
+		: PodstawoweParametry(parametry), identyfikator_(obiektinfo.pobierzIdentyfikator()), obiektInfo_(obiektinfo)
+	{
 	}
-	return nullptr;
-}	
+	
+	bool Obiekt::czyMoznaPolaczyc(const Obiekt& obiekt)const{
+		return typeid(*this) == typeid(obiekt) && obiekt.pobierzIdentyfikator() == pobierzIdentyfikator() && obiekt.typAtrybutu()==typAtrybutu();
+	}
+	
+	bool Obiekt::czyMoznaPodzielic(const STyp::Ilosc& ilosc) const{
+		return typAtrybutu()==ILOSC && pobierzAtrybut().ilosc > ilosc();
+	}
 
-Powierzchnia Obiekt::pobierzPowierzchnie() const{
-	return Powierzchnia(obiektInfo_.pobierzPowierzchnie(pobierzPoziom(), pobierzIdentyfikatorPlanety())()*(pobierzIlosc()()));
+	Wymagania::PrzetworzoneWarunki Obiekt::pobierzKryteriaRozbudowy() const{
+		PodstawoweParametry parametry(pobierzAtrybut(), typAtrybutu(), pobierzIdentyfikatorPlanety());
+		switch (parametry.typAtrybutu()){
+		case ILOSC: parametry.ustawAtrybut(wpisIlosc(1.0));
+			break;
+		case POZIOM: parametry.ustawAtrybut(wpisPoziom(parametry.pobierzAtrybut().poziom + 1));
+			break; 
+		}
+		return obiektInfo_.pobierzWarunki(parametry);
+	}
+	
+	bool Obiekt::czyMoznaRozbudowac()const{
+		PodstawoweParametry parametry(pobierzAtrybut(), typAtrybutu(), pobierzIdentyfikatorPlanety());
+		switch (parametry.typAtrybutu()){
+		case ILOSC: parametry.ustawAtrybut(wpisIlosc(1.0));
+			break;
+		case POZIOM: parametry.ustawAtrybut(wpisPoziom(parametry.pobierzAtrybut().poziom + 1));
+			break; 
+		}
+		return obiektInfo_.czySpelniaWymagania(parametry);
+	}
+
+	bool Obiekt::wybuduj(const PodstawoweParametry& parametry){
+		if (typAtrybutu() != parametry.typAtrybutu()){
+			return false;
+		}
+		wzrostAtrybutu(parametry.pobierzAtrybut());
+		return true;
+	}
+
+	const STyp::Identyfikator& Obiekt::pobierzIdentyfikator() const{
+		return identyfikator_;
+	}
+
+	void Obiekt::ustawIdentyfikator(const STyp::Identyfikator& identyfikator){
+		identyfikator_ = identyfikator;
+	}
+
+	bool Obiekt::zapisz(XmlBO::ElementWezla wezel) const{
+		if (!PodstawoweParametry::zapisz(wezel)){
+			return false;
+		}
+		return wezel->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, identyfikator_.napis().c_str()) != nullptr;
+	}
+
+	bool Obiekt::odczytaj(XmlBO::ElementWezla wezel){
+		if (!PodstawoweParametry::odczytaj(wezel)){
+			return false;
+		}
+		return XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
+	}
+
+	std::string Obiekt::napis() const{
+		SLog::Logger str(NAZWAKLASY(Obiekt));
+		str.dodajKlase(PodstawoweParametry::napis());
+		str.dodajPole(NAZWAPOLA(identyfikator_), identyfikator_);
+		return str.napis();
+	}
 }
 
-Objetosc Obiekt::pobierzObjetosc() const{
-	return Objetosc(obiektInfo_.pobierzObjetosc(pobierzPoziom(), pobierzIdentyfikatorPlanety())()*(pobierzIlosc()()));
-}
-
-Objetosc Obiekt::pobierzObjetoscJednostkowa() const{
-	return obiektInfo_.pobierzObjetosc(pobierzPoziom(), pobierzIdentyfikatorPlanety());
-}
-
-Masa Obiekt::pobierzMase() const{
-	return Masa(obiektInfo_.pobierzMase(pobierzPoziom(), pobierzIdentyfikatorPlanety())()*(pobierzIlosc()()));
-}
-
-bool Obiekt::zapisz( tinyxml2::XMLElement* wezel) const{
-	return ObiektBazowy::zapisz(wezel);
-}
-
-bool Obiekt::odczytaj (tinyxml2::XMLElement* wezel){
-	return ObiektBazowy::odczytaj(wezel);
-}
-
-string Obiekt::napis() const{
-	Logger str(NAZWAKLASY(Obiekt));
-	str.dodajKlase(ObiektBazowy::napis());
-	str.dodajPole(NAZWAKLASY(ObiektInfo)+"ID",obiektInfo_.pobierzIdentyfikator());
-	return str.napis();
-}

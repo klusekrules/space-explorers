@@ -1,149 +1,170 @@
 #include "Surowce.h"
 #include "SurowceInfo.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
 #include "Ladownia.h"
 #include "DefinicjeWezlowXML.h"
 #include "Aplikacja.h"
-#include "XmlBO.h"
 
-Surowce::Surowce( const Ilosc& ilosc, const Poziom& poziom, const Identyfikator& identyfikatorPlanety, const SurowceInfo& surowceInfo )
-	:  PodstawoweParametry(poziom, identyfikatorPlanety), Obiekt( ilosc, poziom, identyfikatorPlanety, surowceInfo ), surowceInfo_(surowceInfo)
-{
-}
+namespace SpEx{
 
-Surowce::Surowce( const Ilosc& ilosc , const Surowce& surowce )
-	:  PodstawoweParametry(surowce), Obiekt( ilosc, surowce, surowce.surowceInfo_ ), surowceInfo_(surowce.surowceInfo_)
-{
-}
+	Surowce::Surowce(const STyp::Ilosc& ilosc, const Surowce& obiekt)
+		: PodstawoweParametry(wpisIlosc(ilosc), ILOSC, obiekt.pobierzIdentyfikatorPlanety()),
+		Obiekt(PodstawoweParametry(wpisIlosc(ilosc), ILOSC, obiekt.pobierzIdentyfikatorPlanety()), obiekt.surowceInfo_),
+		surowceInfo_(obiekt.surowceInfo_)
+	{
+	}
 
-Surowce::Surowce( const Ilosc& ilosc, const PodstawoweParametry& parametryPodstawowe, const SurowceInfo& surowceInfo )
-	:  PodstawoweParametry(parametryPodstawowe), Obiekt( ilosc, parametryPodstawowe, surowceInfo ), surowceInfo_(surowceInfo)
-{
-}
+	Surowce::Surowce(const PodstawoweParametry& parametryPodstawowe, const SurowceInfo& surowceInfo)
+		: PodstawoweParametry(parametryPodstawowe), Obiekt(parametryPodstawowe, surowceInfo), surowceInfo_(surowceInfo)
+	{
+	}
+	
+	Surowce* Surowce::kopia() const{
+		return new Surowce(*this);
+	}
 
-Surowce::~Surowce(){
-}
-
-Surowce* Surowce::kopia() const{
-	return new Surowce( *this );
-}
-
-Surowce* Surowce::podziel( const Ilosc& ilosc ){
-	if( ilosc <= Ilosc(0.0l) || ilosc >= this->ilosc_ )
-		return nullptr;
-	this->ilosc_ -= ilosc;
-	return new Surowce( ilosc , *this );
-}
-
-Surowce& Surowce::operator=( const Surowce& obiekt )  throw ( NiezgodnyTypSurowca ) {
-	if( this->ID() != obiekt.ID() )
-		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , obiekt.ID() );
-	ilosc_ = obiekt.ilosc_;
-	return *this;
-}
-
-bool Surowce::operator==( const Surowce& obiekt ) const throw ( NiezgodnyTypSurowca ){
-	if( this->ID() != obiekt.ID() )
-		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , obiekt.ID() );
-	return ilosc_ == obiekt.ilosc_;
-}
-
-bool Surowce::operator!=( const Surowce& obiekt ) const throw ( NiezgodnyTypSurowca ){
-	if( this->ID() != obiekt.ID() )
-		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , obiekt.ID() );
-	return ilosc_ != obiekt.ilosc_;
-}
-
-bool Surowce::operator>( const Surowce& obiekt ) const throw ( NiezgodnyTypSurowca ){
-	if( this->ID() != obiekt.ID() )
-		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , obiekt.ID() );
-	return ilosc_ > obiekt.ilosc_;
-}
-
-bool Surowce::operator<( const Surowce& obiekt ) const throw ( NiezgodnyTypSurowca ){
-	if( this->ID() != obiekt.ID() )
-		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , obiekt.ID() );
-	return ilosc_ < obiekt.ilosc_;
-}
-
-bool Surowce::operator>=( const Surowce& obiekt ) const throw ( NiezgodnyTypSurowca ){
-	if( this->ID() != obiekt.ID() )
-		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , obiekt.ID() );
-	return ilosc_ >= obiekt.ilosc_;
-}
-
-bool Surowce::operator<=( const Surowce& obiekt ) const throw ( NiezgodnyTypSurowca ){
-	if( this->ID() != obiekt.ID() )
-		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , obiekt.ID() );
-	return ilosc_ <= obiekt.ilosc_ ;
-}
-
-Surowce Surowce::operator+( const Surowce& obiekt ) const throw ( NiezgodnyTypSurowca ){
-	if( this->ID() != obiekt.ID() )
-		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , obiekt.ID() );
-	return Surowce( ilosc_ + obiekt.ilosc_ , obiekt );
-}
-
-Surowce& Surowce::operator+=( const Surowce& obiekt )  throw ( NiezgodnyTypSurowca ){
-	if( this->ID() != obiekt.ID() )
-		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , obiekt.ID() );
-	ilosc_ += obiekt.ilosc_;
-	return *this;
-}
-
-Surowce Surowce::operator-( const Surowce& obiekt ) const throw ( NiezgodnyTypSurowca ){
-	if( this->ID() != obiekt.ID() )
-		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , obiekt.ID() );
-	return Surowce( ilosc_ - obiekt.ilosc_, obiekt  );
-}
-
-Surowce& Surowce::operator-=( const Surowce& obiekt ) throw ( NiezgodnyTypSurowca ){
-	if( this->ID() != obiekt.ID() )
-		throw NiezgodnyTypSurowca( EXCEPTION_PLACE, this->ID() , obiekt.ID() );
-	ilosc_ -= obiekt.ilosc_;
-	return *this;
-}
-
-bool Surowce::Dodaj( const Surowce& obiekt ){
-	if( this->ID() != obiekt.ID() )
+	bool Surowce::polacz(const Obiekt& obiekt){
+		if (czyMoznaPolaczyc(obiekt)){
+			wzrostAtrybutu(obiekt.pobierzAtrybut());
+			return true;
+		}
 		return false;
-	ilosc_ += obiekt.ilosc_;
-	return true;
-}
+	}
 
-bool Surowce::Usun( const Surowce& obiekt ){
-	if( this->ID() != obiekt.ID() )
-		return false;
-	ilosc_ -= obiekt.ilosc_;
-	return true;
-}
+	STyp::Objetosc Surowce::pobierzObjetosc(const PodstawoweParametry& parametryPodstawowe)const{
+		return surowceInfo_.pobierzObjetosc(parametryPodstawowe);
+	}
 
-const SurowceInfo& Surowce::pobierzSurowceInfo() const{
-	return surowceInfo_;
-}
+	STyp::Masa Surowce::pobierzMase(const PodstawoweParametry& parametryPodstawowe)const{
+		return surowceInfo_.pobierzMase(parametryPodstawowe);
+	}
 
-bool Surowce::czyTypPrzyrostowy()const{
-	return surowceInfo_.czyTypPrzyrostowy();
-}
+	STyp::Objetosc Surowce::pobierzObjetosc()const{ 
+		return pobierzObjetosc(*this);
+	}
 
-Czas Surowce::pobierzCzas()const{
-	return surowceInfo_.pobierzCzas(ilosc_,*this);
-}
+	STyp::Objetosc Surowce::pobierzObjetoscJednostkowa()const{
+		return pobierzObjetosc( PodstawoweParametry( STyp::Ilosc(1),pobierzIdentyfikatorPlanety() ) );
+	}
 
-bool Surowce::zapisz( tinyxml2::XMLElement* wezel ) const {
-	tinyxml2::XMLElement* element = wezel->GetDocument()->NewElement(WEZEL_XML_SUROWCE);
-	wezel->LinkEndChild( element );
-	return Obiekt::zapisz(element);
-}
+	STyp::Masa Surowce::pobierzMase()const{
+		return pobierzMase(*this);
+	}
 
-bool Surowce::odczytaj( tinyxml2::XMLElement* wezel ) {
-	return Obiekt::odczytaj(wezel);
-}
+	Surowce* Surowce::podziel(const STyp::Ilosc& ilosc){
+		if (ilosc <= STyp::Ilosc(0.0l) || ilosc >= this->pobierzIlosc())
+			return nullptr;
+		this->wzrostAtrybutu(wpisIlosc( -ilosc ));
+		return new Surowce(ilosc, *this);
+	}
 
-string Surowce::napis() const{
-	Logger str(NAZWAKLASY(Surowce));
-	str.dodajKlase(Obiekt::napis());
-	str.dodajPole(NAZWAKLASY(Ilosc),ilosc_);
-	str.dodajPole(NAZWAKLASY(SurowceInfo)+"ID",surowceInfo_.pobierzIdentyfikator());
-	return str.napis();
+	Surowce& Surowce::operator=(const Surowce& obiekt)  throw (NiezgodnyTypSurowca) {
+		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+		this->ustawAtrybut(obiekt.pobierzAtrybut());
+		return *this;
+	}
+
+	bool Surowce::operator==(const Surowce& obiekt) const throw (NiezgodnyTypSurowca){
+		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+		return pobierzIlosc() == obiekt.pobierzIlosc();
+	}
+
+	bool Surowce::operator!=(const Surowce& obiekt) const throw (NiezgodnyTypSurowca){
+		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+		return pobierzIlosc() != obiekt.pobierzIlosc();
+	}
+
+	bool Surowce::operator>(const Surowce& obiekt) const throw (NiezgodnyTypSurowca){
+		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+		return pobierzIlosc() > obiekt.pobierzIlosc();
+	}
+
+	bool Surowce::operator<(const Surowce& obiekt) const throw (NiezgodnyTypSurowca){
+		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+		return pobierzIlosc() < obiekt.pobierzIlosc();
+	}
+
+	bool Surowce::operator>=(const Surowce& obiekt) const throw (NiezgodnyTypSurowca){
+		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+		return pobierzIlosc() >= obiekt.pobierzIlosc();
+	}
+
+	bool Surowce::operator<=(const Surowce& obiekt) const throw (NiezgodnyTypSurowca){
+		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+		return pobierzIlosc() <= obiekt.pobierzIlosc();
+	}
+
+	Surowce Surowce::operator+(const Surowce& obiekt) const throw (NiezgodnyTypSurowca){
+		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+		return Surowce(pobierzIlosc() + obiekt.pobierzIlosc(), obiekt);
+	}
+
+	Surowce& Surowce::operator+=(const Surowce& obiekt)  throw (NiezgodnyTypSurowca){
+		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+		wzrostAtrybutu(wpisIlosc(obiekt.pobierzIlosc()));
+		return *this;
+	}
+
+	Surowce Surowce::operator-(const Surowce& obiekt) const throw (NiezgodnyTypSurowca){
+		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+		return Surowce(pobierzIlosc() - obiekt.pobierzIlosc(), obiekt);
+	}
+
+	Surowce& Surowce::operator-=(const Surowce& obiekt) throw (NiezgodnyTypSurowca){
+		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+		wzrostAtrybutu(wpisIlosc(-obiekt.pobierzIlosc()));
+		return *this;
+	}
+
+	bool Surowce::Dodaj(const Surowce& obiekt){
+		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
+			return false;
+		wzrostAtrybutu(wpisIlosc(obiekt.pobierzIlosc()));
+		return true;
+	}
+
+	bool Surowce::Usun(const Surowce& obiekt){
+		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
+			return false;
+		wzrostAtrybutu(wpisIlosc(-obiekt.pobierzIlosc()));
+		return true;
+	}
+
+	const SurowceInfo& Surowce::pobierzSurowceInfo() const{
+		return surowceInfo_;
+	}
+
+	bool Surowce::czyTypPrzyrostowy()const{
+		return surowceInfo_.czyTypPrzyrostowy();
+	}
+
+	STyp::Czas Surowce::pobierzCzas()const{
+		return surowceInfo_.pobierzCzas(*this);
+	}
+
+	bool Surowce::zapisz(XmlBO::ElementWezla wezel) const {
+		return Obiekt::zapisz(wezel->tworzElement(WEZEL_XML_SUROWCE));
+	}
+
+	bool Surowce::odczytaj(XmlBO::ElementWezla wezel) {
+		return Obiekt::odczytaj(wezel);
+	}
+
+	std::string Surowce::napis() const{
+		SLog::Logger str(NAZWAKLASY(Surowce));
+		str.dodajKlase(Obiekt::napis());
+		str.dodajPole(NAZWAPOLA(surowceInfo_), surowceInfo_);
+		return str.napis();
+	}
 }

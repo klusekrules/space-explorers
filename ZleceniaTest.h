@@ -19,8 +19,8 @@ public:
 	void tranzakcja_throw();
 	void tranzakcja_throw2();
 
-	ZleceniaTest(void);
-	virtual ~ZleceniaTest(void);
+	ZleceniaTest(void) = default;
+	virtual ~ZleceniaTest(void) = default;
 private:
-	Gra *gra;
+	SpEx::Gra *gra;
 };

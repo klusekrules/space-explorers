@@ -1,25 +1,24 @@
 #include "NiepoprawneParametryFunkcji.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
 
+namespace SpEx{
 
-NiepoprawneParametryFunkcji::~NiepoprawneParametryFunkcji(){
-}
+	STyp::Tekst NiepoprawneParametryFunkcji::generujKomunikat() const{
+		return Wyjatek::generujKomunikat() + STyp::Tekst("Lista parametrów:\n") + parametry + STyp::Tekst("\n");
+	}
 
-Tekst NiepoprawneParametryFunkcji::generujKomunikat() const{
-	return OgolnyWyjatek::generujKomunikat() + Tekst("Lista parametrów:\n")  + parametry + Tekst("\n");
-}
+	const STyp::Tekst& NiepoprawneParametryFunkcji::getParametry() const{
+		return parametry;
+	}
 
-const Tekst& NiepoprawneParametryFunkcji::getParametry() const{
-	return parametry;
-}
+	void NiepoprawneParametryFunkcji::setParametry(const STyp::Tekst& wwTresc){
+		parametry = wwTresc;
+	}
 
-void NiepoprawneParametryFunkcji::setParametry ( const Tekst& wwTresc ){
-	parametry = wwTresc;
-}
-
-std::string NiepoprawneParametryFunkcji::napis() const{
-	Logger str(NAZWAKLASY(NiepoprawneParametryFunkcji));
-	str.dodajKlase(OgolnyWyjatek::napis());
-	str.dodajPole("Parametry funkcji",parametry);
-	return str.napis();
+	std::string NiepoprawneParametryFunkcji::napis() const{
+		SLog::Logger str(NAZWAKLASY(NiepoprawneParametryFunkcji));
+		str.dodajKlase(Wyjatek::napis());
+		str.dodajPole(NAZWAPOLA(parametry), parametry);
+		return str.napis();
+	}
 }

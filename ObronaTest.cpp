@@ -1,69 +1,52 @@
 #include "ObronaTest.h"
 
-
-ObronaTest::ObronaTest(void)
-{
-}
-
-
-ObronaTest::~ObronaTest(void)
-{
-}
-
-
 void ObronaTest::startTestow(){
-	planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(Identyfikator(0x6));
+	planeta = SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(STyp::Identyfikator(0x6));
 	UNIT_TEST_ASSERT_NOTNULL(planeta);
 	planeta->wyczyscZawartoscPlanety();
-	UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(0x14),Poziom(1)),Ilosc(2)) );
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(0x15),Poziom(1)),Ilosc(0)) );
-	a = &(planeta->pobierzObrone(Planeta::Indeks(Identyfikator(0x14),Poziom(1))));
-	b = const_cast<Obrona*>(&(planeta->pobierzObrone(Planeta::Indeks(Identyfikator(0x15),Poziom(1)))));
+	UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(14), STyp::Ilosc(2)));
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(15), STyp::Ilosc(1)));
+	a = &(planeta->pobierzObrone(STyp::Identyfikator(14)));
+	b = &(planeta->pobierzObrone(STyp::Identyfikator(15)));
 }
 
 void ObronaTest::Test1(){
-	UNIT_TEST_ASSERT_EQUAL( Masa(900.0*2.0), a->pobierzMase() );
-	UNIT_TEST_ASSERT_EQUAL( Objetosc(50.0*2.0), a->pobierzObjetosc() );
-	UNIT_TEST_ASSERT_EQUAL( Powierzchnia(10.0*2.0), a->pobierzPowierzchnie() );
-	UNIT_TEST_ASSERT_EQUAL( Obrazenia(90.0*2.0), a->pobierzAtak() );
-	UNIT_TEST_ASSERT_EQUAL( Obrazenia(60.0*2.0), a->pobierzPancerz() );
-	UNIT_TEST_ASSERT_EQUAL( Obrazenia(0), a->pobierzOslone() );
+	UNIT_TEST_ASSERT_EQUAL(STyp::Powierzchnia(2.31*2.0), a->pobierzPowierzchnie());
+	UNIT_TEST_ASSERT_EQUAL(STyp::Obrazenia(90.0*2.0), a->pobierzAtak());
+	UNIT_TEST_ASSERT_EQUAL(STyp::Obrazenia(120.0*2.0), a->pobierzPancerz());
+	UNIT_TEST_ASSERT_EQUAL(STyp::Obrazenia(10.0*2.0), a->pobierzOslone());
+	UNIT_TEST_ASSERT_EQUAL(STyp::Powierzchnia(4.62), b->pobierzPowierzchnie());
+	UNIT_TEST_ASSERT_EQUAL(STyp::Obrazenia(80.0), b->pobierzAtak());
+	UNIT_TEST_ASSERT_EQUAL(STyp::Obrazenia(60.0), b->pobierzPancerz());
+	UNIT_TEST_ASSERT_EQUAL(STyp::Obrazenia(30.0), b->pobierzOslone());
 }
 
 void ObronaTest::Test2(){
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(0x1),Poziom(1)),Ilosc(500)));
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(0x4),Poziom(1)),Ilosc(200)));
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(0x7),Poziom(1)),Ilosc(150)));
-	UNIT_TEST_ASSERT_FALSE( b->pobierzObronaInfo().ObiektInfo::czySpelniaWymagania(Ilosc(1),PodstawoweParametry(Poziom(1),b->pobierzIdentyfikatorPlanety())));
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(0xF),Poziom(1)),Ilosc(1)));
-	UNIT_TEST_ASSERT_FALSE( b->pobierzObronaInfo().ObiektInfo::czySpelniaWymagania(Ilosc(1),PodstawoweParametry(Poziom(1),b->pobierzIdentyfikatorPlanety())));
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(0xF),Poziom(1)),Ilosc(1)));
-	UNIT_TEST_ASSERT_TRUE( b->pobierzObronaInfo().ObiektInfo::czySpelniaWymagania(Ilosc(1),PodstawoweParametry(Poziom(1),b->pobierzIdentyfikatorPlanety())));
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(0x15),Poziom(1)),Ilosc(1)));
-	UNIT_TEST_ASSERT_EQUAL( Masa(60.0), b->pobierzMase() );
-	UNIT_TEST_ASSERT_EQUAL( Objetosc(40.0 * 0.9), b->pobierzObjetosc() );
-	UNIT_TEST_ASSERT_EQUAL( Powierzchnia(30.0 * 0.8), b->pobierzPowierzchnie() );
-	UNIT_TEST_ASSERT_EQUAL( Obrazenia(0.0), b->pobierzAtak() );
-	UNIT_TEST_ASSERT_EQUAL( Obrazenia(60.0*4.0), b->pobierzPancerz() );
-	UNIT_TEST_ASSERT_EQUAL( Obrazenia(2500.0*2.0), b->pobierzOslone() );
-	
+	UNIT_TEST_ASSERT_FALSE(b->pobierzObronaInfo().czySpelniaWymagania(SpEx::PodstawoweParametry(STyp::Ilosc(1), b->pobierzIdentyfikatorPlanety())));
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(0x1), STyp::Ilosc(1500)));
+	UNIT_TEST_ASSERT_FALSE(b->pobierzObronaInfo().czySpelniaWymagania(SpEx::PodstawoweParametry(STyp::Ilosc(1), b->pobierzIdentyfikatorPlanety())));
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(0x2), STyp::Ilosc(500)));
+	UNIT_TEST_ASSERT_FALSE(b->pobierzObronaInfo().czySpelniaWymagania(SpEx::PodstawoweParametry(STyp::Ilosc(1), b->pobierzIdentyfikatorPlanety())));
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(0x3), STyp::Ilosc(100)));
+	UNIT_TEST_ASSERT_TRUE(b->pobierzObronaInfo().czySpelniaWymagania(SpEx::PodstawoweParametry(STyp::Ilosc(1), b->pobierzIdentyfikatorPlanety())));	
 }
 
 void ObronaTest::Test3(){
-	b->wzrostPoziomu();
-	UNIT_TEST_ASSERT_FALSE( b->pobierzObronaInfo().ObiektInfo::czySpelniaWymagania(Ilosc(1),PodstawoweParametry(Poziom(2),b->pobierzIdentyfikatorPlanety())));
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(0x1),Poziom(1)),Ilosc(500)));
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(0x4),Poziom(1)),Ilosc(200)));
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(0x7),Poziom(1)),Ilosc(150)));
-	UNIT_TEST_ASSERT_TRUE( b->pobierzObronaInfo().ObiektInfo::czySpelniaWymagania(Ilosc(1),PodstawoweParametry(Poziom(2),b->pobierzIdentyfikatorPlanety())));
-	UNIT_TEST_ASSERT_TRUE( planeta->wybuduj(Planeta::Indeks(Identyfikator(0x15),Poziom(1)),Ilosc(1)));
-	UNIT_TEST_ASSERT_EQUAL( Masa(60.0*4.0 * 2.0), b->pobierzMase() );
-	UNIT_TEST_ASSERT_EQUAL( Objetosc(40.0 * 0.9 * 2.0 * 2.0), b->pobierzObjetosc() );
-	UNIT_TEST_ASSERT_EQUAL( Powierzchnia(30.0 * 0.8* 2.0* 2.0), b->pobierzPowierzchnie() );
-	UNIT_TEST_ASSERT_EQUAL( Obrazenia(0.0), b->pobierzAtak() );
-	UNIT_TEST_ASSERT_EQUAL( Obrazenia(60.0*4.0* 2.0* 2.0), b->pobierzPancerz() );
-	UNIT_TEST_ASSERT_EQUAL( Obrazenia(2500.0*2.0* 2.0* 2.0), b->pobierzOslone() );
+	UNIT_TEST_ASSERT_FALSE(b->pobierzObronaInfo().czySpelniaWymagania(SpEx::PodstawoweParametry(STyp::Ilosc(2), b->pobierzIdentyfikatorPlanety())));
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(0x1), STyp::Ilosc(500)));
+	UNIT_TEST_ASSERT_FALSE(b->pobierzObronaInfo().czySpelniaWymagania(SpEx::PodstawoweParametry(STyp::Ilosc(2), b->pobierzIdentyfikatorPlanety())));
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(0x2), STyp::Ilosc(400)));
+	UNIT_TEST_ASSERT_FALSE(b->pobierzObronaInfo().czySpelniaWymagania(SpEx::PodstawoweParametry(STyp::Ilosc(2), b->pobierzIdentyfikatorPlanety())));
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(0x3), STyp::Ilosc(50)));
+	UNIT_TEST_ASSERT_TRUE(b->pobierzObronaInfo().czySpelniaWymagania(SpEx::PodstawoweParametry(STyp::Ilosc(1), b->pobierzIdentyfikatorPlanety())));
+	UNIT_TEST_ASSERT_FALSE(b->pobierzObronaInfo().czySpelniaWymagania(SpEx::PodstawoweParametry(STyp::Ilosc(2), b->pobierzIdentyfikatorPlanety())));
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(0x1), STyp::Ilosc(1500)));
+	UNIT_TEST_ASSERT_FALSE(b->pobierzObronaInfo().czySpelniaWymagania(SpEx::PodstawoweParametry(STyp::Ilosc(2), b->pobierzIdentyfikatorPlanety())));
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(0x2), STyp::Ilosc(500)));
+	UNIT_TEST_ASSERT_FALSE(b->pobierzObronaInfo().czySpelniaWymagania(SpEx::PodstawoweParametry(STyp::Ilosc(2), b->pobierzIdentyfikatorPlanety())));
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(0x3), STyp::Ilosc(100)));
+	UNIT_TEST_ASSERT_TRUE(b->pobierzObronaInfo().czySpelniaWymagania(SpEx::PodstawoweParametry(STyp::Ilosc(2), b->pobierzIdentyfikatorPlanety())));
 }
 
 REJESTRUJ_PACZKE_TESTOW(ObronaTest);

@@ -9,7 +9,7 @@ class GenerowanieTest:
 	TWORZ_PACZKE_TESTOW_END();
 public:
 	void generuj();
-	GenerowanieTest(void);
-	virtual ~GenerowanieTest(void);
+	GenerowanieTest(void) = default;
+	virtual ~GenerowanieTest(void) = default;
 };
 
