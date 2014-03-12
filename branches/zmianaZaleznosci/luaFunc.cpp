@@ -1,5 +1,7 @@
 #include "MaszynaStanow.h"
 #include "TestyJednostkowe.h"
+#include "Aplikacja.h"
+#include "LuaSkrypt.h"
 
 extern "C"{ 
 	__declspec(dllexport) int __cdecl barfunc(int foo)
@@ -75,9 +77,13 @@ extern "C"{
 
 		SpEx::MaszynaStanow::pobierzInstancje().dodajZadanie(SpEx::Zadanie(std::function<void()>(
 		[luaPlik, luaFunkcja](){ 
-			SpEx::LuaSkrypt luaSkrypt(luaPlik);
-			luaSkrypt.wykonaj();
-			luaSkrypt.wykonaj(luaFunkcja);
+			std::shared_ptr<SpEx::Skrypt> luaSkrypt = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadce().TworzSkrypt(
+				SpEx::FabrykaSkryptow::Identyfikator(XML_ATRYBUT_TYP_SKRYPT_LUA), nullptr);
+			if (luaSkrypt){
+				luaSkrypt->zaladuj(luaPlik);
+				luaSkrypt->wykonaj();
+				luaSkrypt->wykonaj(luaFunkcja);
+			}
 		}
 			) ));
 	}

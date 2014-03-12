@@ -27,8 +27,11 @@ namespace SpEx{
 				nastepnyNumer_ = std::make_shared<int>(stan());
 			}
 			if (!luaFile_.empty()){
-				skrypt_.zaladuj(luaFile_);
-				skrypt_.wykonaj();
+				skrypt_ = Aplikacja::pobierzInstancje().pobierzZarzadce().TworzSkrypt(wezel);
+				if (!skrypt_)
+					Utils::generujWyjatekBleduStruktury(wezel);
+				skrypt_->zaladuj(luaFile_);
+				skrypt_->wykonaj();
 			}
 		}
 	}
@@ -36,7 +39,7 @@ namespace SpEx{
 	bool ZdarzenieInfo::wykonaj(){
 		if (luaFuncInside_.empty())
 			return true;
-		return skrypt_.wykonaj(luaFuncInside_);
+		return skrypt_->wykonaj(luaFuncInside_);
 	}
 
 	const STyp::Identyfikator& ZdarzenieInfo::pobierzIdentyfikator() const{
