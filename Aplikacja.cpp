@@ -10,23 +10,23 @@
 #include "Walidator.h"
 
 void myPurecallHandler(){
-	SLog::Log::pobierzInstancje().loguj(SLog::Log::Error,SpEx::Aplikacja::pobierzInstancje().pobierzSladStosu());
+	SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, SpEx::Aplikacja::pobierzInstancje().pobierzSladStosu());
 }
 
 void myInvalidParameterHandler(const wchar_t* expression,
-							   const wchar_t* function, 
-							   const wchar_t* file, 
-							   unsigned int line, 
-							   uintptr_t pReserved)
+	const wchar_t* function,
+	const wchar_t* file,
+	unsigned int line,
+	uintptr_t pReserved)
 {
-	char* c_expression = new char[wcslen(expression)+1];
-	char* c_function = new char[wcslen(function)+1];
-	char* c_file = new char[wcslen(file)+1];
-	wcstombs_s(nullptr,c_expression,wcslen(expression)+1,expression,wcslen(expression));	
-	wcstombs_s(nullptr,c_function,wcslen(function)+1,function,wcslen(function));
-	wcstombs_s(nullptr,c_file,wcslen(file)+1,file,wcslen(file));
+	char* c_expression = new char[wcslen(expression) + 1];
+	char* c_function = new char[wcslen(function) + 1];
+	char* c_file = new char[wcslen(file) + 1];
+	wcstombs_s(nullptr, c_expression, wcslen(expression) + 1, expression, wcslen(expression));
+	wcstombs_s(nullptr, c_function, wcslen(function) + 1, function, wcslen(function));
+	wcstombs_s(nullptr, c_file, wcslen(file) + 1, file, wcslen(file));
 	std::stringstream str;
-	str<<"Invalid parameter detected in function: "<<c_function<<". File: " << c_file <<". Line: "<<line<<".\nExpression: "<< c_expression;
+	str << "Invalid parameter detected in function: " << c_function << ". File: " << c_file << ". Line: " << line << ".\nExpression: " << c_expression;
 	SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, str.str());
 	SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, SpEx::Aplikacja::pobierzInstancje().pobierzSladStosu());
 }
@@ -35,11 +35,11 @@ namespace SpEx{
 
 	int Aplikacja::iloscArgumentow = 0;
 	char** Aplikacja::argumenty = nullptr;
-	
+
 	Aplikacja::Aplikacja()
 		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), instancjaGry_(nullptr)
 	{
-
+				
 #ifdef TESTS
 		/* Wylaczenie logow typu debug na potrzeby ograniczenia logow testow*/
 		logger_.zablokujLogi(SLog::Log::Debug);
@@ -76,6 +76,8 @@ namespace SpEx{
 		logger_.dodajGniazdoWyjsciowe([](SLog::Log::TypLogow typ, const std::string& komunikat)->void{ std::cout << komunikat; });
 		logger_.dodajGniazdoWyjsciowe([&filename](SLog::Log::TypLogow typ, const std::string& komunikat)->void{ static std::fstream plik(filename, std::ios_base::app); plik << komunikat; });
 		/* ------------------------------------ */
+		ustawienia_.zaladuj(plikKonfiguracyjny_);
+
 		logger_.loguj(SLog::Log::Info, "Start aplikacji Space-Explorers.");
 
 		//Wyswietlanie informacji o aplikacji
@@ -101,11 +103,11 @@ namespace SpEx{
 				STyp::Tekst("B³¹d przetwarzania pliku z opcjami"),
 				STyp::Tekst("Podczas przetwa¿ania pliku z opcjami wyst¹pi³ b³¹d."));
 		}
-				
-		pluginy_ = std::make_shared<SPlu::Cplugin>(folderPluginow_, SZmi::ZmianaFabryka::pobierzInstancje(), logger_);
+
+		pluginy_ = std::make_shared<SPlu::Cplugin>(ustawienia_.pobierzFolderPlugin(), SZmi::ZmianaFabryka::pobierzInstancje(), logger_);
 
 		if (!RejestrujZmianaPoziomObiektu(SZmi::ZmianaFabryka::pobierzInstancje(), logger_))
-			throw STyp::Wyjatek(EXCEPTION_PLACE, pobierzSladStosu(), STyp::Identyfikator(), 
+			throw STyp::Wyjatek(EXCEPTION_PLACE, pobierzSladStosu(), STyp::Identyfikator(),
 			STyp::Tekst("B³ad rejestracji zmiany."),
 			STyp::Tekst("Nie powiod³a siê rejestracja zmiany sparawdzaj¹cej poziom obiektu."));
 
@@ -118,13 +120,13 @@ namespace SpEx{
 			throw STyp::Wyjatek(EXCEPTION_PLACE, pobierzSladStosu(), STyp::Identyfikator(),
 			STyp::Tekst("B³ad rejestracji zmiany."),
 			STyp::Tekst("Nie powiod³a siê rejestracja dodatkowych obiektów zmiany."));
-		
+
 		_set_purecall_handler(myPurecallHandler);
 		_set_invalid_parameter_handler(myInvalidParameterHandler);
-				
+
 		instancjaGry_ = std::make_shared<Gra>(*this, SZmi::ZmianaFabryka::pobierzInstancje());
 	}
-	
+
 	SLog::Log& Aplikacja::pobierzLogger() const{
 		return logger_;
 	}
@@ -143,56 +145,18 @@ namespace SpEx{
 
 	bool Aplikacja::zaladujOpcje(){
 		try{
-			auto root_data = zarzadca_.pobierzWezelKonfiguracyjny();
-			if (root_data){
+			std::locale pl(ustawienia_.pobierzJezykAplikacji());
+			std::locale::global(pl);
+			this->logger_.loguj(SLog::Log::Debug, std::string("Separator u³amka: ") + std::use_facet<std::numpunct<char>>(pl).decimal_point());
 
-				auto jezyk = XmlBO::ZnajdzWezel<NOTHROW>(root_data, "locale");
-				if (jezyk){
-					jezykAplikacji_ = jezyk->pobierzTekst();
-					if (jezykAplikacji_.size() != 0){
-						try{
-							std::locale pl(jezykAplikacji_);
-							std::locale::global(pl);
-							this->logger_.loguj(SLog::Log::Debug, std::string("Separator u³amka: ") + std::use_facet<std::numpunct<char>>(pl).decimal_point());
-						}
-						catch (std::exception&){
-							jezykAplikacji_.clear();
-						}
-					}
-				}
-
-				if (jezykAplikacji_.size() == 0){
-					jezykAplikacji_ = "Polish";
-					std::locale pl(jezykAplikacji_);
-					std::locale::global(pl);
-				}
-
-				auto plikDanych = XmlBO::ZnajdzWezel<STACKTHROW>(root_data, "data");
-				if (plikDanych){
-					nazwaPlikuDanych_ = plikDanych->pobierzTekst();
-					if (_access(nazwaPlikuDanych_.c_str(), 0) == -1){ // Sprawdzenie czy folder istnieje
-						throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), STyp::Identyfikator(), STyp::Tekst("Brak pliku danych."), STyp::Tekst("Plik z danymi programu nie zosta³ znaleziony!"));
-					}
-				}
-				else{
-					Utils::generujWyjatekBleduStruktury(root_data);
-				}
-
-				auto pluginy = XmlBO::ZnajdzWezel<NOTHROW>(root_data, "plugins");
-				if (pluginy){
-					folderPluginow_ = pluginy->pobierzTekst();
-					if (_access(folderPluginow_.c_str(), 0) == -1){ // Sprawdzenie czy folder istnieje
-						folderPluginow_.clear();
-					}
-				}
-
-				if (folderPluginow_.size() == 0){
-					folderPluginow_ = "plugins\\";
-				}
-
+			auto nazwaPlikuDanych_ = ustawienia_.pobierzPlikDanych();
+			if (_access(nazwaPlikuDanych_.c_str(), 0) == -1){ // Sprawdzenie czy folder istnieje
+				throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), STyp::Identyfikator(), STyp::Tekst("Brak pliku danych."), STyp::Tekst("Plik : " + nazwaPlikuDanych_ +  " z danymi programu nie zosta³ znaleziony!"));
 			}
-			else{
-				Utils::generujWyjatekBleduStruktury(root_data);
+
+			auto folderPluginow_ = ustawienia_.pobierzFolderPlugin();
+			if (_access(folderPluginow_.c_str(), 0) == -1){ // Sprawdzenie czy folder istnieje
+				throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), STyp::Identyfikator(), STyp::Tekst("Brak folderu plugin."), STyp::Tekst("Folder :" + folderPluginow_ + " nie zosta³ znaleziony!"));
 			}
 		}
 		catch (std::exception &e){
@@ -247,11 +211,17 @@ namespace SpEx{
 
 		auto wezel = zarzadca_.tworzWezelGry();
 		std::locale::global(std::locale("C"));
-		if (instancjaGry_->zapisz(wezel) && instancjaGry_->zapisz(nazwa, hash)){
-			std::locale::global(std::locale(jezykAplikacji_));
-			return zarzadca_.zapiszWezelGry();
+		try{
+			if (instancjaGry_->zapisz(wezel) && instancjaGry_->zapisz(nazwa, hash)){
+				std::locale::global(std::locale(ustawienia_.pobierzJezykAplikacji()));
+				return zarzadca_.zapiszWezelGry();
+			}
 		}
-		std::locale::global(std::locale(jezykAplikacji_));
+		catch (...){
+			std::locale::global(std::locale(ustawienia_.pobierzJezykAplikacji()));
+			throw;
+		}
+		std::locale::global(std::locale(ustawienia_.pobierzJezykAplikacji()));
 		return false;
 	}
 
@@ -265,9 +235,9 @@ namespace SpEx{
 				Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(STyp::Identyfikator(0x0)); // Poprawna wartoœæ; U¿ywana gdy obiekty znajduj¹ siê we flocie.
 				if (root && instancjaGry_->wczytajDane(root)){
 					if (instancjaGry_->odczytaj(wezel->pobierzElement(WEZEL_XML_GRA)))
-						if (instancjaGry_->odczytaj(nazwa, hash))
-							if (Walidator::pobierzInstancje().waliduj())
-								return true;
+					if (instancjaGry_->odczytaj(nazwa, hash))
+					if (Walidator::pobierzInstancje().waliduj())
+						return true;
 				}
 				instancjaGry_ = gra;
 				return false;
@@ -285,7 +255,7 @@ namespace SpEx{
 	bool Aplikacja::przetworzArgumenty(){
 		if (!argumenty || iloscArgumentow <= 0)
 			return false;
-		zarzadca_.ustawNazwePlikuOpcji( "options.xml" );
+		plikKonfiguracyjny_ = "options.xml";
 		for (int numer = 0; numer < iloscArgumentow; ++numer){
 			if (!argumenty[numer])
 				continue;
@@ -299,9 +269,9 @@ namespace SpEx{
 				std::string nazwa(argumenty[numer]);
 				if (nazwa.empty())
 					return false;
-				zarzadca_.ustawNazwePlikuOpcji( nazwa );
+				plikKonfiguracyjny_ = nazwa;
 			}
 		}
 		return true;
 	}
-}
+};
