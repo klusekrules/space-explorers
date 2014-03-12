@@ -5,6 +5,7 @@
 #include "plugin\plugin.h"
 #include "Gra.h"
 #include "Singleton.h"
+#include "UstawieniaAplikacji.h"
 
 typedef struct _SYMBOL_INFO {
 	ULONG       SizeOfStruct;
@@ -139,10 +140,6 @@ namespace SpEx {
 		std::shared_ptr<SPlu::Cplugin> pluginy_; /// Obiekt zarz¹dzaj¹cy plugginami.
 		std::shared_ptr<Gra> instancjaGry_; /// Obiekt prezentuj¹cy instancjê gry.
 
-		std::string nazwaPlikuDanych_; /// Opcja: Nazwa pliku z danymi.
-		std::string jezykAplikacji_; /// Opcja: Jêzyk apllikacji.
-		std::string folderPluginow_; /// Opcja: lokalizacja folderu z pluginami.
-
 		SymInitializeS symInitialize_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
 		SymFromAddrS symFromAddr_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
 		HMODULE uchwyt_; /// Uchwyt blioteki pomocniczej.
@@ -151,5 +148,8 @@ namespace SpEx {
 		STyp::Identyfikator idEkranuStartowego_;
 		
 		ZarzadcaPamieci zarzadca_; /// Obiekt zarz¹dzaj¹cy lokacjami.
+
+		std::string plikKonfiguracyjny_;
+		UstawieniaAplikacji ustawienia_;
 	};
 }

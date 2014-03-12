@@ -99,12 +99,7 @@ namespace SpEx{
 
 		XmlBO::ElementWezla pobierzWezelKonfiguracyjnyMaszynyStanow()const;
 		XmlBO::ElementWezla pobierzWezelKonfiguracyjnyOknaGry()const;
-		XmlBO::ElementWezla pobierzWezelKonfiguracyjny()const;
-
-		void ustawNazwePlikuOpcji( const std::string& plikOpcji );
-
-		const std::string& pobierzNazwePlikuOpcji() const;
-
+		
 		XmlBO::ElementWezla tworzWezelGry();
 		bool zapiszWezelGry();
 		XmlBO::ElementWezla otworzWezelGry();
@@ -177,7 +172,6 @@ namespace SpEx{
 		UkladySloneczne ukladySloneczne_; /// Lista uk³adów.
 		Planety planety_; /// Lista planet.
 
-		std::string nazwaPlikuOpcji_; /// Nazwa pliku z opcjami.
 		std::shared_ptr<SPar::ParserDokument> dokumentMaszynyStanow_;
 		std::shared_ptr<SPar::ParserDokument> dokumentOknaGry_;
 		std::shared_ptr<SPar::ParserDokument> dokumentKonfiguracyjny_;

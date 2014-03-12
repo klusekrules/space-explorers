@@ -28,10 +28,6 @@ namespace SpEx{
 		return dokumentOknaGry_->pobierzElement(nullptr);
 	}
 
-	XmlBO::ElementWezla ZarzadcaPamieci::pobierzWezelKonfiguracyjny()const{
-		return dokumentKonfiguracyjny_->pobierzElement("SpaceGame");
-	}
-
 	XmlBO::ElementWezla ZarzadcaPamieci::tworzWezelGry(){
 		dokumentGry_ = std::make_shared<SPar::ParserDokumentXml>();
 		return dokumentGry_->tworzElement(WEZEL_XML_ROOT);
@@ -64,22 +60,9 @@ namespace SpEx{
 				STyp::Tekst("B³ad odczytu pliku."),
 				STyp::Tekst("Nie powiod³a siê operacja wczytywania danych z pliku: Menu.xml."));
 		}
-		dokumentKonfiguracyjny_ = std::make_shared<SPar::ParserDokumentXml>();
-		if (!dokumentKonfiguracyjny_->odczytaj(nazwaPlikuOpcji_.c_str())){
-			throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), STyp::Identyfikator(),
-				STyp::Tekst("B³ad odczytu pliku."),
-				STyp::Tekst("Nie powiod³a siê operacja wczytywania danych z pliku:" + nazwaPlikuOpcji_ + "."));
-		}
+		
 	}
-
-	void ZarzadcaPamieci::ustawNazwePlikuOpcji(const std::string& plikOpcji){
-		nazwaPlikuOpcji_ = plikOpcji;
-	}
-
-	const std::string& ZarzadcaPamieci::pobierzNazwePlikuOpcji() const{
-		return nazwaPlikuOpcji_;
-	}
-
+	
 	int ZarzadcaPamieci::pobierzIloscGalaktyk() const{
 		return static_cast<int>(galaktyki_.size());
 	}
