@@ -1,5 +1,7 @@
 #include "LuaSkrypt.h"
 #include "Logger\Log.h"
+#include "FabrykaSkryptow.h"
+
 namespace SpEx{
 	LuaSkrypt::LuaSkrypt(const std::string& plik)
 		: plik_(plik), L(luaL_newstate())
@@ -44,5 +46,13 @@ namespace SpEx{
 
 	LuaSkrypt::~LuaSkrypt(void){
 		lua_close(L);
+	}
+
+	bool LuaSkrypt::Rejestruj(FabrykaSkryptow &fabryka){
+		return fabryka.rejestracjaSkryptu(FabrykaSkryptow::Identyfikator(XML_ATRYBUT_TYP_SKRYPT_LUA), LuaSkrypt::Tworz);
+	}
+
+	std::shared_ptr<Skrypt> LuaSkrypt::Tworz(XmlBO::ElementWezla wezel){
+		return std::make_shared<LuaSkrypt>();
 	}
 };
