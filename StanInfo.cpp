@@ -27,8 +27,11 @@ namespace SpEx{
 			}));
 
 			if (!luaFile_.empty()){
-				skrypt_.zaladuj(luaFile_);
-				skrypt_.wykonaj();
+				skrypt_ = Aplikacja::pobierzInstancje().pobierzZarzadce().TworzSkrypt(wezel);
+				if (!skrypt_)
+					Utils::generujWyjatekBleduStruktury(wezel);
+				skrypt_->zaladuj(luaFile_);
+				skrypt_->wykonaj();
 			}
 		}
 	}
@@ -56,7 +59,7 @@ namespace SpEx{
 		default:
 			return false;
 		}
-		return skrypt_.wykonaj(*ptr);
+		return skrypt_->wykonaj(*ptr);
 	}
 
 	const STyp::Identyfikator& StanInfo::pobierzIdentyfikator() const{

@@ -1,7 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "Logger\LoggerInterface.h"
-#include "LuaSkrypt.h"
+#include "Skrypt.h"
 #include "ZdarzenieInfo.h"
 namespace SpEx{
 	class StanInfo :
@@ -26,7 +26,7 @@ namespace SpEx{
 		std::string napis() const override;
 
 	private:
-		LuaSkrypt skrypt_;
+		std::shared_ptr<Skrypt> skrypt_ = nullptr;
 		std::string luaFuncIn_;
 		std::string luaFuncOut_;
 		std::string luaFuncInside_;

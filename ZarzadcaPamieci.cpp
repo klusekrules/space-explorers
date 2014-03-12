@@ -2,9 +2,13 @@
 #include "definicjeWezlowXML.h"
 #include "Parser\ParserDokumentXml.h"
 #include "Aplikacja.h"
+#include "LuaSkrypt.h"
 
 namespace SpEx{
-	
+	ZarzadcaPamieci::ZarzadcaPamieci(){
+		LuaSkrypt::Rejestruj(fabrykaSkryptow_);
+	}
+
 	std::shared_ptr< Planeta > ZarzadcaPamieci::pobierzPlanete(const STyp::Identyfikator& identyfikator){
 		auto planeta = planety_.find(identyfikator);
 		if (planeta == planety_.end())
@@ -233,5 +237,13 @@ namespace SpEx{
 		}
 		nazwaPliku = plik;
 		return dokument;
+	}
+
+	std::shared_ptr<Skrypt> ZarzadcaPamieci::TworzSkrypt(XmlBO::ElementWezla wezel){
+		return fabrykaSkryptow_.Tworz(wezel);
+	}
+
+	std::shared_ptr<Skrypt> ZarzadcaPamieci::TworzSkrypt(const FabrykaSkryptow::Identyfikator& identyfikator, XmlBO::ElementWezla wezel){
+		return fabrykaSkryptow_.Tworz(identyfikator,wezel);
 	}
 }

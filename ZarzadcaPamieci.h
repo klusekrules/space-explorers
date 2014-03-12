@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include "Galaktyka.h"
 #include "GeneratorUkladow.h"
+#include "FabrykaSkryptow.h"
 #include <vector>
 
 namespace SpEx{
@@ -67,7 +68,7 @@ namespace SpEx{
 		/**
 		* \brief Konstruktor.
 		*/
-		ZarzadcaPamieci() = default;
+		ZarzadcaPamieci();
 
 		/**
 		* \brief Metoda zwracaj¹ca wskaŸnik na planetê.
@@ -108,6 +109,8 @@ namespace SpEx{
 		bool zapiszWezelGry();
 		XmlBO::ElementWezla otworzWezelGry();
 
+		std::shared_ptr<Skrypt> TworzSkrypt(XmlBO::ElementWezla wezel);
+		std::shared_ptr<Skrypt> TworzSkrypt(const FabrykaSkryptow::Identyfikator& identyfikator, XmlBO::ElementWezla wezel);
 		/**
 		* \brief Metoda otwieraj¹ca plik u¿ytkownika
 		*
@@ -169,7 +172,7 @@ namespace SpEx{
 		bool zapiszUkladSloneczny(std::shared_ptr<UkladSloneczny> uklad) const;
 
 		GeneratorUkladow generator_; /// Obiekt generuj¹cy lokacje.
-
+		FabrykaSkryptow fabrykaSkryptow_;
 		Galaktyki galaktyki_; /// Lista galaktyk.
 		UkladySloneczne ukladySloneczne_; /// Lista uk³adów.
 		Planety planety_; /// Lista planet.

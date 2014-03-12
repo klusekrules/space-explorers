@@ -222,6 +222,7 @@
     <ClInclude Include="Dokumentacja.h" />
     <ClInclude Include="EkranStartowy.h" />
     <ClInclude Include="EkranSzablon.h" />
+    <ClInclude Include="FabrykaSkryptow.h" />
     <ClInclude Include="Galaktyka.h" />
     <ClInclude Include="GeneratorUkladow.h" />
     <ClInclude Include="GenerowanieTest.h" />
@@ -243,6 +244,7 @@
     <ClInclude Include="PlanetaTest.h" />
     <ClInclude Include="RoundedRectangleShape.hpp" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Skrypt.h" />
     <ClInclude Include="Stan.h" />
     <ClInclude Include="StanInfo.h" />
     <ClInclude Include="stdafx.h" />
@@ -327,6 +329,7 @@
     <ClCompile Include="CzyszczenieDanychTest.cpp" />
     <ClCompile Include="EkranStartowy.cpp" />
     <ClCompile Include="EkranSzablon.cpp" />
+    <ClCompile Include="FabrykaSkryptow.cpp" />
     <ClCompile Include="Flota.cpp" />
     <ClCompile Include="Galaktyka.cpp" />
     <ClCompile Include="GeneratorUkladow.cpp" />
@@ -374,6 +377,7 @@
     <ClCompile Include="PlanetaTest.cpp" />
     <ClCompile Include="PodstawoweParametry.cpp" />
     <ClCompile Include="RoundedRectangleShape.cpp" />
+    <ClCompile Include="Skrypt.cpp" />
     <ClCompile Include="Stale.cpp" />
     <ClCompile Include="Stan.cpp" />
     <ClCompile Include="StanInfo.cpp" />

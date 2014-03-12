@@ -202,9 +202,6 @@
     <ClCompile Include="MenadzerWatkow.cpp">
       <Filter>SourceFile\MultiThreading</Filter>
     </ClCompile>
-    <ClCompile Include="LuaSkrypt.cpp">
-      <Filter>SourceFile\MaszynaStanow</Filter>
-    </ClCompile>
     <ClCompile Include="WatekZarzadzany.cpp">
       <Filter>SourceFile\MultiThreading</Filter>
     </ClCompile>
@@ -255,6 +252,15 @@
     </ClCompile>
     <ClCompile Include="Uzytkownik.cpp">
       <Filter>SourceFile\Model\Users</Filter>
+    </ClCompile>
+    <ClCompile Include="FabrykaSkryptow.cpp">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+    </ClCompile>
+    <ClCompile Include="Skrypt.cpp">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaSkrypt.cpp">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -495,9 +501,6 @@
     <ClInclude Include="MenadzerWatkow.h">
       <Filter>SourceFile\MultiThreading</Filter>
     </ClInclude>
-    <ClInclude Include="LuaSkrypt.h">
-      <Filter>SourceFile\MaszynaStanow</Filter>
-    </ClInclude>
     <ClInclude Include="WatekZarzadzany.h">
       <Filter>SourceFile\MultiThreading</Filter>
     </ClInclude>
@@ -563,6 +566,15 @@
     </ClInclude>
     <ClInclude Include="Uzytkownik.h">
       <Filter>SourceFile\Model\Users</Filter>
+    </ClInclude>
+    <ClInclude Include="Skrypt.h">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+    </ClInclude>
+    <ClInclude Include="FabrykaSkryptow.h">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaSkrypt.h">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -712,6 +724,9 @@
     </Filter>
     <Filter Include="SourceFile\Model\Users">
       <UniqueIdentifier>{b7c38fbf-2e4d-4fc8-9a60-10c124adf6ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\MaszynaStanow\Skrypty">
+      <UniqueIdentifier>{8f9e819d-6388-450e-8f96-4e62fe41f25f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
