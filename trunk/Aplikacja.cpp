@@ -71,6 +71,14 @@ namespace SpEx{
 				STyp::Tekst("Nie powiod³o siê wczytywanie pliku konfiguracyjnego: " + plikKonfiguracyjny_ ));
 		}
 		logger_.ustawFormatCzasu(ustawienia_.pobierzFormatDatyLogow());
+		
+		for (auto typ : ustawienia_.pobierzOdblokowaneLogi()){
+			logger_.odblokujLogi(typ);
+		}
+
+		for (auto typ : ustawienia_.pobierzZablokowaneLogi()){
+			logger_.zablokujLogi(typ);
+		}
 
 		struct tm timeinfo;
 		time_t t = time(nullptr);

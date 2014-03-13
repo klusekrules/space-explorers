@@ -25,7 +25,11 @@ namespace SpEx{
 				return false;
 			if (!ustawPrzedrostekPlikuLogow(logi))
 				return false;
-		
+			if (!ustawZablokowaneLogi(logi))
+				return false;
+			if (!ustawOdblokowaneLogi(logi))
+				return false;
+
 			return true;
 		}
 		return false;
@@ -64,14 +68,14 @@ namespace SpEx{
 	const std::string& UstawieniaAplikacji::pobierzPlikDanych() const{
 		return plikDanych_;
 	}
-	
+
 	bool UstawieniaAplikacji::ustawFolderPlugin(XmlBO::ElementWezla wezel){
 		if (wezel){
 			folderPlugin_ = wezel->pobierzTekst();
 		}
 		return !folderPlugin_.empty();
 	}
-	
+
 	const std::string& UstawieniaAplikacji::pobierzFolderPlugin() const{
 		return folderPlugin_;
 	}
@@ -113,5 +117,92 @@ namespace SpEx{
 
 	const std::string& UstawieniaAplikacji::pobierzFormatDatyPlikuLogow() const{
 		return formatDatyPlikuLogow_;
+	}
+
+	bool UstawieniaAplikacji::ustawZablokowaneLogi(XmlBO::ElementWezla wezel){
+		auto logi = XmlBO::WczytajAtrybut<std::string>(wezel, XML_ATRYBUT_ZABLOKOWANE_LOGI, std::string());
+		if (logi.empty())
+			return true;
+		size_t pos = 0;
+		size_t start = 0;
+		std::string sub;
+		bool processing = true;
+		while (processing){
+			pos = logi.find_first_of(',', pos);
+			if (pos == std::string::npos){
+				sub = std::move(logi.substr(start));
+				processing = false;
+			}else{
+				sub = std::move(logi.substr(start, pos - start));
+			}
+			if (sub.empty())
+				break;
+			int i = stoi(sub);
+			start = ++pos;
+			switch (i)
+			{
+			case SLog::Log::All: zablokowaneLogi_.emplace_back(SLog::Log::All);
+				break;
+			case SLog::Log::Debug: zablokowaneLogi_.emplace_back(SLog::Log::Debug);
+				break;
+			case SLog::Log::Info: zablokowaneLogi_.emplace_back(SLog::Log::Info);
+				break;
+			case SLog::Log::Warning: zablokowaneLogi_.emplace_back(SLog::Log::Warning);
+				break;
+			case SLog::Log::Error: zablokowaneLogi_.emplace_back(SLog::Log::Error);
+				break;
+			default: SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+				break;
+			}
+		}
+		return true;
+	}
+
+	const std::vector< SLog::Log::TypLogow >& UstawieniaAplikacji::pobierzZablokowaneLogi() const{
+		return zablokowaneLogi_;
+	}
+
+	bool UstawieniaAplikacji::ustawOdblokowaneLogi(XmlBO::ElementWezla wezel){
+		auto logi = XmlBO::WczytajAtrybut<std::string>(wezel, XML_ATRYBUT_ODBLOKOWANE_LOGI, std::string());
+		if (logi.empty())
+			return true;
+		size_t pos = 0;
+		size_t start = 0;
+		std::string sub;
+		bool processing = true;
+		while (processing){
+			pos = logi.find_first_of(',', pos);
+			if (pos == std::string::npos){
+				sub = std::move(logi.substr(start));
+				processing = false;
+			}
+			else{
+				sub = std::move(logi.substr(start, pos - start));
+			}
+			if (sub.empty())
+				break;
+			int i = stoi(sub);
+			start = ++pos;
+			switch (i)
+			{
+			case SLog::Log::All: odblokowaneLogi_.emplace_back(SLog::Log::All);
+				break;
+			case SLog::Log::Debug: odblokowaneLogi_.emplace_back(SLog::Log::Debug);
+				break;
+			case SLog::Log::Info: odblokowaneLogi_.emplace_back(SLog::Log::Info);
+				break;
+			case SLog::Log::Warning: odblokowaneLogi_.emplace_back(SLog::Log::Warning);
+				break;
+			case SLog::Log::Error: odblokowaneLogi_.emplace_back(SLog::Log::Error);
+				break;
+			default: SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+				break;
+			}
+		}
+		return true;
+	}
+
+	const std::vector< SLog::Log::TypLogow >& UstawieniaAplikacji::pobierzOdblokowaneLogi() const{
+		return odblokowaneLogi_;
 	}
 };
