@@ -29,6 +29,16 @@
   WARN: Ważniejsze są blokady. Oznacza to że jeżeli ten sam poziom zostanie wymieniony w obu listach, wtedy obowiązuje blokada danego typu logów.
   INFO: Domyślnie wszystkie typy logów są odblokowane oprócz typu debug.
   -->
-  <logi numerFormatuDaty="1" formatDatyWNazwiePliku="%Y-%m-%d" prefixPlikuLogow="space-explorers-" zablokowaneLogi="1,2"/>
+  <logi numerFormatuDaty="1"
+        formatDatyWNazwiePliku="%Y-%m-%d"
+        prefixPlikuLogow="space-explorers-"
+        zablokowaneLogi="1,2"/>
 
+  <!-- Wszystkie atrybuty są wymagane. -->
+  <zarzadca plikGry="save\\gra.xml" 
+            plikStanow="resource\\state.xml"
+            plikOkien="resource\\Menu.xml"
+            folderPlikowUzytkownikow="save\\"
+            folderPlikowOpisuUkladow="save\\uklad\\" />
+ 
 </SpaceGame>
