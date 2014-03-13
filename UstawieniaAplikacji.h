@@ -12,6 +12,9 @@
 #define XML_ATRYBUT_PREFIX_PLIKU_LOGOW "prefixPlikuLogow"
 #define XML_ATRYBUT_FORMAT_DATY_NAZWY_PLIKU_LOGOW "formatDatyWNazwiePliku"
 
+#define XML_ATRYBUT_ZABLOKOWANE_LOGI "zablokowaneLogi"
+#define XML_ATRYBUT_ODBLOKOWANE_LOGI "odblokowaneLogi"
+
 #define USTAWIENIA_DOMYSLNE_JEZYK_APLIKACJI "Polish"
 
 namespace SpEx{
@@ -26,7 +29,11 @@ namespace SpEx{
 		SLog::Log::FormatCzasu pobierzFormatDatyLogow() const;
 		const std::string& pobierzPrzedrostekPlikuLogow() const;
 		const std::string& pobierzFormatDatyPlikuLogow() const;
+
+		const std::vector< SLog::Log::TypLogow >& pobierzZablokowaneLogi() const;
+		const std::vector< SLog::Log::TypLogow >& pobierzOdblokowaneLogi() const;
 		~UstawieniaAplikacji() = default;
+
 	private:
 		std::string jezykAplikacji_;
 		bool ustawJezykAplikacji(XmlBO::ElementWezla wezel);
@@ -45,6 +52,12 @@ namespace SpEx{
 
 		std::string formatDatyPlikuLogow_;
 		bool ustawFormatDatyPlikuLogow(XmlBO::ElementWezla wezel);
+
+		std::vector< SLog::Log::TypLogow > zablokowaneLogi_;
+		bool ustawZablokowaneLogi(XmlBO::ElementWezla wezel);
+
+		std::vector< SLog::Log::TypLogow > odblokowaneLogi_;
+		bool ustawOdblokowaneLogi(XmlBO::ElementWezla wezel);
 
 	};
 };
