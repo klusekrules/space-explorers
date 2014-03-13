@@ -39,12 +39,14 @@ namespace SpEx{
 	Aplikacja::Aplikacja()
 		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), instancjaGry_(nullptr)
 	{
-				
+		/* ------- Wstêpna konfiguracja logów ------- */
 #ifdef TESTS
 		/* Wylaczenie logow typu debug na potrzeby ograniczenia logow testow*/
 		logger_.zablokujLogi(SLog::Log::Debug);
 		/* ------------------------------------ */
 #endif
+		logger_.dodajGniazdoWyjsciowe([](SLog::Log::TypLogow typ, const std::string& komunikat)->void{ std::cout << komunikat; });
+		/* ------------------------------------------ */
 
 		//Ladowanie potrzebnych bibliotek
 		uchwyt_ = LoadLibrary("Dbghelp.dll");
@@ -63,20 +65,28 @@ namespace SpEx{
 				STyp::Tekst("Podczas inicjalizacji argumentów wyst¹pi³ b³¹d."));
 		}
 
-		/* ------- Konfiguracja Loggera -------*/
+		if (!ustawienia_.zaladuj(plikKonfiguracyjny_)){
+			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), STyp::Identyfikator(),
+				STyp::Tekst("B³¹d inicjalizacji argumentów"),
+				STyp::Tekst("Nie powiod³o siê wczytywanie pliku konfiguracyjnego: " + plikKonfiguracyjny_ ));
+		}
+		logger_.ustawFormatCzasu(ustawienia_.pobierzFormatDatyLogow());
+
 		struct tm timeinfo;
 		time_t t = time(nullptr);
 		localtime_s(&timeinfo, &t);
 		char s[20];
-		strftime(s, 20, "%Y-%m-%d", &timeinfo);
+		if (strftime(s, 20, ustawienia_.pobierzFormatDatyPlikuLogow().c_str(), &timeinfo) == 0){
+			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), STyp::Identyfikator(),
+				STyp::Tekst("B³¹d inicjalizacji argumentów"),
+				STyp::Tekst("Nie poprawny format daty u¿ytej w nazwie pliku logów."));
+		}
 		std::stringstream sfile;
-		sfile << "space-explorers-" << s << ".log";
+		sfile << ustawienia_.pobierzPrzedrostekPlikuLogow() << s << ".log";
 		std::string filename = sfile.str();
-		logger_.ustawFormatCzasu(SLog::Log::Czas);
-		logger_.dodajGniazdoWyjsciowe([](SLog::Log::TypLogow typ, const std::string& komunikat)->void{ std::cout << komunikat; });
 		logger_.dodajGniazdoWyjsciowe([&filename](SLog::Log::TypLogow typ, const std::string& komunikat)->void{ static std::fstream plik(filename, std::ios_base::app); plik << komunikat; });
 		/* ------------------------------------ */
-		ustawienia_.zaladuj(plikKonfiguracyjny_);
+		
 
 		logger_.loguj(SLog::Log::Info, "Start aplikacji Space-Explorers.");
 
