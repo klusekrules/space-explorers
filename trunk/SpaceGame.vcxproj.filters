@@ -262,7 +262,9 @@
     <ClCompile Include="LuaSkrypt.cpp">
       <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
     </ClCompile>
-    <ClCompile Include="UstawieniaAplikacji.cpp" />
+    <ClCompile Include="UstawieniaAplikacji.cpp">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -577,7 +579,9 @@
     <ClInclude Include="LuaSkrypt.h">
       <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
     </ClInclude>
-    <ClInclude Include="UstawieniaAplikacji.h" />
+    <ClInclude Include="UstawieniaAplikacji.h">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
