@@ -219,6 +219,7 @@
     <ClInclude Include="Aplikacja.h" />
     <ClInclude Include="BudynekTest.h" />
     <ClInclude Include="CzyszczenieDanychTest.h" />
+    <ClInclude Include="DllSkrypt.h" />
     <ClInclude Include="Dokumentacja.h" />
     <ClInclude Include="EkranStartowy.h" />
     <ClInclude Include="EkranSzablon.h" />
@@ -328,6 +329,7 @@
     <ClCompile Include="BudynekInfo.cpp" />
     <ClCompile Include="BudynekTest.cpp" />
     <ClCompile Include="CzyszczenieDanychTest.cpp" />
+    <ClCompile Include="DllSkrypt.cpp" />
     <ClCompile Include="EkranStartowy.cpp" />
     <ClCompile Include="EkranSzablon.cpp" />
     <ClCompile Include="FabrykaSkryptow.cpp" />

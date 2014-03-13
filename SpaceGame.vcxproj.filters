@@ -265,6 +265,9 @@
     <ClCompile Include="UstawieniaAplikacji.cpp">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClCompile>
+    <ClCompile Include="DllSkrypt.cpp">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -581,6 +584,9 @@
     </ClInclude>
     <ClInclude Include="UstawieniaAplikacji.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClInclude>
+    <ClInclude Include="DllSkrypt.h">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

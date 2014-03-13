@@ -3,10 +3,12 @@
 #include "Parser\ParserDokumentXml.h"
 #include "Aplikacja.h"
 #include "LuaSkrypt.h"
+#include "DllSkrypt.h"
 
 namespace SpEx{
 	ZarzadcaPamieci::ZarzadcaPamieci(){
 		LuaSkrypt::Rejestruj(fabrykaSkryptow_);
+		DllSkrypt::Rejestruj(fabrykaSkryptow_);
 	}
 
 	std::shared_ptr< Planeta > ZarzadcaPamieci::pobierzPlanete(const STyp::Identyfikator& identyfikator){
