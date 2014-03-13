@@ -114,7 +114,7 @@ namespace SpEx{
 			logger_.loguj(SLog::Log::Warning, "Nie za³adowano biblioteki Dbghelp.dll");
 		}
 
-		zarzadca_.zaladujPliki();
+		zarzadca_.zaladujPliki(ustawienia_);
 
 		if (!zaladujOpcje()){
 			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), STyp::Identyfikator(),

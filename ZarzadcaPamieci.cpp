@@ -34,12 +34,12 @@ namespace SpEx{
 	}
 
 	bool ZarzadcaPamieci::zapiszWezelGry(){
-		return dokumentGry_->zapisz("save\\gra.xml");
+		return dokumentGry_->zapisz(adresPlikuGry_.c_str());
 	}
 
 	XmlBO::ElementWezla ZarzadcaPamieci::otworzWezelGry(){
 		dokumentGry_ = std::make_shared<SPar::ParserDokumentXml>();
-		if (!dokumentGry_->odczytaj("save\\gra.xml")){
+		if (!dokumentGry_->odczytaj(adresPlikuGry_.c_str())){
 			auto wezel = tworzWezelGry();
 			auto gra = wezel->tworzElement(WEZEL_XML_GRA);
 			zapiszWezelGry();
@@ -47,16 +47,20 @@ namespace SpEx{
 		return dokumentGry_->pobierzElement(WEZEL_XML_ROOT);
 	}
 
-	void ZarzadcaPamieci::zaladujPliki(){
+	void ZarzadcaPamieci::zaladujPliki( const UstawieniaAplikacji& ustawienia ){
+		adresPlikuGry_ = ustawienia.pobierzAdresPlikuGry();
+		folderPlikuUzytkownika_ = ustawienia.pobierzFolderPlikuUzytkownika();
+		folderPlikuUkladu_ = ustawienia.pobierzFolderPlikuUkladu();
+
 		dokumentMaszynyStanow_ = std::make_shared<SPar::ParserDokumentXml>();
-		if (!dokumentMaszynyStanow_->odczytaj("resource\\state.xml")){
-			throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), STyp::Identyfikator(),
+		if (!dokumentMaszynyStanow_->odczytaj(ustawienia.pobierzAdresPlikuStanow().c_str())){
+			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(),
 				STyp::Tekst("B³ad odczytu pliku."),
 				STyp::Tekst("Nie powiod³a siê operacja wczytywania danych z pliku: state.xml."));
 		}
 		dokumentOknaGry_ = std::make_shared<SPar::ParserDokumentXml>();
-		if (!dokumentOknaGry_->odczytaj("resource\\Menu.xml")){
-			throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), STyp::Identyfikator(),
+		if (!dokumentOknaGry_->odczytaj(ustawienia.pobierzAdresPlikuOkien().c_str())){
+			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(),
 				STyp::Tekst("B³ad odczytu pliku."),
 				STyp::Tekst("Nie powiod³a siê operacja wczytywania danych z pliku: Menu.xml."));
 		}
@@ -90,7 +94,7 @@ namespace SpEx{
 
 	bool ZarzadcaPamieci::wczytajUkladSloneczny(const STyp::Identyfikator& identyfikator){
 		SPar::ParserDokumentXml dokument;
-		std::string plik("save\\uklad\\");
+		std::string plik = folderPlikuUkladu_.c_str();
 		plik += identyfikator.napis();
 		plik += ".xml";
 		if (!dokument.odczytaj(plik.c_str()))
@@ -110,7 +114,7 @@ namespace SpEx{
 
 	bool ZarzadcaPamieci::zapiszUkladSloneczny(std::shared_ptr<UkladSloneczny> uklad) const{
 		SPar::ParserDokumentXml dokument;
-		std::string plik("save\\uklad\\");
+		std::string plik = folderPlikuUkladu_.c_str();
 		plik += uklad->pobierzIdentyfikator().napis();
 		plik += ".xml";
 
@@ -195,7 +199,7 @@ namespace SpEx{
 	std::shared_ptr<SPar::ParserDokument> ZarzadcaPamieci::plikUzytkownika(const std::string& nazwa, const std::string& hash, std::string& nazwaPliku, bool tworzPlik) const{
 		if (hash.empty() || nazwa.empty())
 			return nullptr;
-		std::string plik("save\\");
+		std::string plik = folderPlikuUzytkownika_.c_str();
 		plik.append(nazwa);
 		plik.append("_.xml");
 		auto dokument = std::make_shared<SPar::ParserDokumentXml>();

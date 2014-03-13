@@ -7,13 +7,19 @@
 #define XML_WEZEL_JEZYK_APLIKACJI "locale"
 #define XML_WEZEL_FOLDER_PLUGIN "plugins"
 #define XML_WEZEL_USTAWIENIA_LOGOW "logi"
+#define XML_WEZEL_ZARZADCA_PAMIECI "zarzadca"
 
 #define XML_ATRYBUT_NUMER_FORMATU_DATY "numerFormatuDaty"
 #define XML_ATRYBUT_PREFIX_PLIKU_LOGOW "prefixPlikuLogow"
 #define XML_ATRYBUT_FORMAT_DATY_NAZWY_PLIKU_LOGOW "formatDatyWNazwiePliku"
-
 #define XML_ATRYBUT_ZABLOKOWANE_LOGI "zablokowaneLogi"
 #define XML_ATRYBUT_ODBLOKOWANE_LOGI "odblokowaneLogi"
+
+#define XML_ATRYBUT_PLIK_GRY "plikGry"
+#define XML_ATRYBUT_PLIK_STANOW "plikStanow"
+#define XML_ATRYBUT_PLIK_OKIEN "plikOkien"
+#define XML_ATRYBUT_FOLDER_UZYTKOWNIKA "folderPlikowUzytkownikow"
+#define XML_ATRYBUT_FOLDER_UKLADU "folderPlikowOpisuUkladow"
 
 #define USTAWIENIA_DOMYSLNE_JEZYK_APLIKACJI "Polish"
 
@@ -32,6 +38,13 @@ namespace SpEx{
 
 		const std::vector< SLog::Log::TypLogow >& pobierzZablokowaneLogi() const;
 		const std::vector< SLog::Log::TypLogow >& pobierzOdblokowaneLogi() const;
+
+		const std::string& pobierzAdresPlikuGry() const;
+		const std::string& pobierzAdresPlikuStanow() const;
+		const std::string& pobierzAdresPlikuOkien() const;
+		const std::string& pobierzFolderPlikuUzytkownika() const;
+		const std::string& pobierzFolderPlikuUkladu() const;
+
 		~UstawieniaAplikacji() = default;
 
 	private:
@@ -58,6 +71,21 @@ namespace SpEx{
 
 		std::vector< SLog::Log::TypLogow > odblokowaneLogi_;
 		bool ustawOdblokowaneLogi(XmlBO::ElementWezla wezel);
+
+		std::string adresPlikuGry_;
+		bool ustawAdresPlikuGry(XmlBO::ElementWezla wezel);
+
+		std::string adresPlikuStanow_;
+		bool ustawAdresPlikuStanow(XmlBO::ElementWezla wezel);
+
+		std::string adresPlikuOkien_;
+		bool ustawAdresPlikuOkien(XmlBO::ElementWezla wezel);
+
+		std::string folderPlikuUzytkownika_;
+		bool ustawFolderPlikuUzytkownika(XmlBO::ElementWezla wezel);
+
+		std::string folderPlikuUkladu_;
+		bool ustawFolderPlikuUkladu(XmlBO::ElementWezla wezel);
 
 	};
 };

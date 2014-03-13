@@ -5,6 +5,7 @@
 #include "GeneratorUkladow.h"
 #include "FabrykaSkryptow.h"
 #include <vector>
+#include "UstawieniaAplikacji.h"
 
 namespace SpEx{
 	/**
@@ -118,7 +119,7 @@ namespace SpEx{
 		std::shared_ptr<SPar::ParserDokument> plikUzytkownika(const std::string& nazwa, const std::string& hash, std::string& nazwaPliku, bool tworzPlik = true) const;
 
 
-		void zaladujPliki();
+		void zaladujPliki( const UstawieniaAplikacji& );
 
 		/**
 		* \brief Destruktor.
@@ -174,7 +175,10 @@ namespace SpEx{
 
 		std::shared_ptr<SPar::ParserDokument> dokumentMaszynyStanow_;
 		std::shared_ptr<SPar::ParserDokument> dokumentOknaGry_;
-		std::shared_ptr<SPar::ParserDokument> dokumentKonfiguracyjny_;
+
+		std::string folderPlikuUzytkownika_;
+		std::string folderPlikuUkladu_;
+		std::string adresPlikuGry_;
 		std::shared_ptr<SPar::ParserDokument> dokumentGry_;
 		
 	};

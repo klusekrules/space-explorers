@@ -30,6 +30,19 @@ namespace SpEx{
 			if (!ustawOdblokowaneLogi(logi))
 				return false;
 
+			auto zarzadca = XmlBO::ZnajdzWezel<THROW>(root_data, XML_WEZEL_ZARZADCA_PAMIECI);
+
+			if (!ustawAdresPlikuGry(zarzadca))
+				return false;
+			if (!ustawAdresPlikuOkien(zarzadca))
+				return false;
+			if (!ustawAdresPlikuStanow(zarzadca))
+				return false;
+			if (!ustawFolderPlikuUzytkownika(zarzadca))
+				return false;
+			if (!ustawFolderPlikuUkladu(zarzadca))
+				return false;
+
 			return true;
 		}
 		return false;
@@ -126,19 +139,18 @@ namespace SpEx{
 		size_t pos = 0;
 		size_t start = 0;
 		std::string sub;
-		bool processing = true;
-		while (processing){
+		while (pos != std::string::npos){
 			pos = logi.find_first_of(',', pos);
 			if (pos == std::string::npos){
 				sub = std::move(logi.substr(start));
-				processing = false;
-			}else{
+			}
+			else{
 				sub = std::move(logi.substr(start, pos - start));
+				start = ++pos;
 			}
 			if (sub.empty())
 				break;
 			int i = stoi(sub);
-			start = ++pos;
 			switch (i)
 			{
 			case SLog::Log::All: zablokowaneLogi_.emplace_back(SLog::Log::All);
@@ -169,20 +181,18 @@ namespace SpEx{
 		size_t pos = 0;
 		size_t start = 0;
 		std::string sub;
-		bool processing = true;
-		while (processing){
+		while (pos != std::string::npos){
 			pos = logi.find_first_of(',', pos);
 			if (pos == std::string::npos){
 				sub = std::move(logi.substr(start));
-				processing = false;
 			}
 			else{
 				sub = std::move(logi.substr(start, pos - start));
+				start = ++pos;
 			}
 			if (sub.empty())
 				break;
 			int i = stoi(sub);
-			start = ++pos;
 			switch (i)
 			{
 			case SLog::Log::All: odblokowaneLogi_.emplace_back(SLog::Log::All);
@@ -204,5 +214,50 @@ namespace SpEx{
 
 	const std::vector< SLog::Log::TypLogow >& UstawieniaAplikacji::pobierzOdblokowaneLogi() const{
 		return odblokowaneLogi_;
+	}
+
+	bool UstawieniaAplikacji::ustawAdresPlikuGry(XmlBO::ElementWezla wezel){
+		adresPlikuGry_ = XmlBO::WczytajAtrybut<std::string>(wezel, XML_ATRYBUT_PLIK_GRY, std::string());
+		return !adresPlikuGry_.empty();
+	}
+
+	const std::string& UstawieniaAplikacji::pobierzAdresPlikuGry() const{
+		return adresPlikuGry_;
+	}
+
+	bool UstawieniaAplikacji::ustawAdresPlikuStanow(XmlBO::ElementWezla wezel){
+		adresPlikuStanow_ = XmlBO::WczytajAtrybut<std::string>(wezel, XML_ATRYBUT_PLIK_STANOW, std::string());
+		return !adresPlikuStanow_.empty();
+	}
+
+	const std::string& UstawieniaAplikacji::pobierzAdresPlikuStanow() const{
+		return adresPlikuStanow_;
+	}
+
+	bool UstawieniaAplikacji::ustawAdresPlikuOkien(XmlBO::ElementWezla wezel){
+		adresPlikuOkien_ = XmlBO::WczytajAtrybut<std::string>(wezel, XML_ATRYBUT_PLIK_OKIEN, std::string());
+		return !adresPlikuOkien_.empty();
+	}
+
+	const std::string& UstawieniaAplikacji::pobierzAdresPlikuOkien() const{
+		return adresPlikuOkien_;
+	}
+
+	bool UstawieniaAplikacji::ustawFolderPlikuUzytkownika(XmlBO::ElementWezla wezel){
+		folderPlikuUzytkownika_ = XmlBO::WczytajAtrybut<std::string>(wezel, XML_ATRYBUT_FOLDER_UZYTKOWNIKA, std::string());
+		return !folderPlikuUzytkownika_.empty();
+	}
+
+	const std::string& UstawieniaAplikacji::pobierzFolderPlikuUzytkownika() const{
+		return folderPlikuUzytkownika_;
+	}
+
+	bool UstawieniaAplikacji::ustawFolderPlikuUkladu(XmlBO::ElementWezla wezel){
+		folderPlikuUkladu_ = XmlBO::WczytajAtrybut<std::string>(wezel, XML_ATRYBUT_FOLDER_UKLADU, std::string());
+		return !folderPlikuUkladu_.empty();
+	}
+
+	const std::string& UstawieniaAplikacji::pobierzFolderPlikuUkladu() const{
+		return folderPlikuUkladu_;
 	}
 };
