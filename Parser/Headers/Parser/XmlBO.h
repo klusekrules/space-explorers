@@ -276,6 +276,6 @@ namespace SPar{
 	class PARSER_API ParserUtils
 	{
 	public:
-		static void generujWyjatekBleduStruktury(XmlBO::ElementWezla wezel, const STyp::Tekst& stos );
+		static void generujWyjatekBleduStruktury(XmlBO::ElementWezla wezel, const STyp::Tekst& stos = STyp::Tekst());
 	};
 }
