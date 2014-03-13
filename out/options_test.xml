@@ -4,4 +4,5 @@
   <data>test.xml</data>
   <!-- <messages>message.xml</messages> -->
   <plugins>plugins\\</plugins>
+  <logi numerFormatuDaty="1" formatDatyWNazwiePliku="%Y-%m-%d" prefixPlikuLogow="space-explorers-"></logi>
 </SpaceGame>
