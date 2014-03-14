@@ -4,7 +4,7 @@
 namespace SpEx{
 
 	const STyp::Fluktuacja Utils::FMAX = 1.0;
-	const STyp::Fluktuacja Utils::FMIN = 1.0;
+	const STyp::Fluktuacja Utils::FMIN = 0.0;
 
 
 	XmlBO::ElementWezla STACKTHROW::bladWezla(XmlBO::ElementWezla element, const std::string& nazwaWezla){
