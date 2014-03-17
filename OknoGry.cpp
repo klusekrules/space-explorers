@@ -4,6 +4,7 @@
 #include "EkranStartowy.h"
 #include "definicjeWezlowXML.h"
 #include "Aplikacja.h"
+#include "FPSCounter.h"
 
 #define GL_SHADING_LANGUAGE_VERSION       0x8B8C
 namespace SpEx{
@@ -65,8 +66,12 @@ namespace SpEx{
 		Stan::KrokCzasu accumulator;
 		oknoGlowne_.setVisible(true);
 
+		FPSCounter fpsCounter;
+
 		while (przetwarzanie_)
 		{
+			fpsCounter.nextFrame();
+
 			Stan stan = MaszynaStanow::pobierzInstancje().pobierzStan(stosEkranow_);
 			accumulator += obliczZmianeCzasu(std::chrono::high_resolution_clock::now());
 
@@ -78,6 +83,11 @@ namespace SpEx{
 			accumulator = stan.dt_;
 
 			odmaluj();
+						
+			if (fpsCounter.ready())
+			{
+				Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Error, std::string("OknoGry: ") + std::to_string(fpsCounter.FPS()));
+			}
 		}
 		oknoGlowne_.close();
 	}

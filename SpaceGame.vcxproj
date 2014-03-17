@@ -223,6 +223,7 @@
     <ClInclude Include="EkranStartowy.h" />
     <ClInclude Include="EkranSzablon.h" />
     <ClInclude Include="FabrykaSkryptow.h" />
+    <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="Galaktyka.h" />
     <ClInclude Include="GeneratorUkladow.h" />
     <ClInclude Include="GenerowanieTest.h" />
@@ -333,6 +334,7 @@
     <ClCompile Include="EkranSzablon.cpp" />
     <ClCompile Include="FabrykaSkryptow.cpp" />
     <ClCompile Include="Flota.cpp" />
+    <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="Galaktyka.cpp" />
     <ClCompile Include="GeneratorUkladow.cpp" />
     <ClCompile Include="GenerowanieTest.cpp" />
