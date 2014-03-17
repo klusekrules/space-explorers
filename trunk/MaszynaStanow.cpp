@@ -1,6 +1,8 @@
 #include "MaszynaStanow.h"
 #include "OknoGry.h"
 #include "Aplikacja.h"
+#include "FPSCounter.h"
+
 namespace SpEx{
 	MaszynaStanow::LuaStan::LuaStan()
 		: poprawne_aktualny_(false), poprawne_nastepny_(false), poprawne_poprzedni_(false), poprawne_zdarzenie_(false)
@@ -85,13 +87,23 @@ namespace SpEx{
 
 		watekGraficzny_.uruchom();
 
+		FPSCounter fpsCounter;
+
 		while (wlaczone)
 		{
+			fpsCounter.nextFrame();
+			
 			luaStan_.poprawne_zdarzenie_ = false;
 			obslugaZdarzenia();
 			przejdzDoNastepnegoStanu();
-			std::this_thread::yield();
+			std::this_thread::yield(); 
+			std::this_thread::sleep_for(std::chrono::milliseconds(10));
+			if (fpsCounter.ready())
+			{
+				Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Error, std::string("MaszynaStanow: ") + std::to_string(fpsCounter.FPS()));
+			}
 		}
+		
 		watekGraficzny_.czekajNaZakonczenie();
 	}
 
