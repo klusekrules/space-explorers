@@ -32,7 +32,7 @@
   <logi numerFormatuDaty="1"
         formatDatyWNazwiePliku="%Y-%m-%d"
         prefixPlikuLogow="space-explorers-"
-        zablokowaneLogi="1,2"/>
+        zablokowaneLogi="1"/>
 
   <!-- Wszystkie atrybuty są wymagane. -->
   <zarzadca plikGry="save\\gra.xml" 

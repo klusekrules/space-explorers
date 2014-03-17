@@ -66,15 +66,21 @@
         <File Id='PLUGIN_DLL_FILE' Source='..\out\plugin-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
       </Component>
       <Component Id='LOGGER_DLL' Guid='07CEBB01-446A-4BB8-8A5C-49CAC8354360' Win64='$(var.isPlatformx64)'>
-        <File Id='LOGGER_DLL_FILE' Source='..\out\Logger-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+        <File Id='LOGGER_DLL_FILE' Source='..\out\logger-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
       </Component>
-      <Component Id='TRANSF_DLL' Guid='C9CDD52F-E2F0-49F4-8804-97CDB1DFA530' Win64='$(var.isPlatformx64)'>
-        <File Id='TRANSF_DLL_FILE' Source='..\out\ftrans-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+      <Component Id='ZMIANA_DLL' Guid='C9CDD52F-E2F0-49F4-8804-97CDB1DFA530' Win64='$(var.isPlatformx64)'>
+        <File Id='ZMIANA_DLL_FILE' Source='..\out\zmiana-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+      </Component>
+      <Component Id='PARSER_DLL' Guid='{3C25F409-4B45-486F-9BAD-70E8646C3DAC}' Win64='$(var.isPlatformx64)'>
+        <File Id='PARSER_DLL_FILE' Source='..\out\parser-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+      </Component>
+      <Component Id='TYPY_DLL' Guid='{5E69159D-4A74-43CB-A593-75F1BFD4150C}' Win64='$(var.isPlatformx64)'>
+        <File Id='TYPY_DLL_FILE' Source='..\out\typy-proste-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
       </Component>
     </DirectoryRef>
     
     <DirectoryRef Id="TARGETDIR">
-      <Merge Id="VCRedist" SourceFile="Microsoft_VC110_CRT_$(var.Platforma).msm" DiskId="1" Language="0"/>
+      <Merge Id="VCRedist" SourceFile="Microsoft_VC120_$(var.CRTName)CRT_$(var.Platforma).msm" DiskId="1" Language="0"/>
     </DirectoryRef>
 
     <DirectoryRef Id='DOC_DIR'>
@@ -186,7 +192,9 @@
       <ComponentRef Id='DATA_XML' />
       <ComponentRef Id='PLUGIN_DLL' />
       <ComponentRef Id='LOGGER_DLL' />
-      <ComponentRef Id='TRANSF_DLL' />
+      <ComponentRef Id='ZMIANA_DLL' />
+      <ComponentRef Id='PARSER_DLL' />
+      <ComponentRef Id='TYPY_DLL' />
       <ComponentRef Id='ZMIANA_TEST_DLL' />
       <ComponentRef Id='ProgramMenuDir' />
       <ComponentRef Id='SPACE_EXPLORERS_REM' />
@@ -212,7 +220,7 @@
       <ComponentRef Id='BLACK_PNG_FILE_COMP' />
     </Feature>
     
-    <Feature Id="VCRedist" Title="Visual C++ 11.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
+    <Feature Id="VCRedist" Title="Visual C++ 12.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
       <MergeRef Id="VCRedist"/>
     </Feature>
 

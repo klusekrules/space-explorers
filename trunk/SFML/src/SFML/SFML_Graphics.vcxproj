@@ -113,7 +113,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\libfreetype\windows\freetype;$(SolutionDir)SFML\extlibs\headers\libfreetype\windows;$(SolutionDir)SFML\extlibs\headers\jpeg;$(SolutionDir)SFML\extlibs\headers</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>SFML_GRAPHICS_EXPORTS;GLEW_STATIC;SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

@@ -152,7 +152,7 @@ namespace SpEx{
 				return false;
 			}
 		}
-		catch (NieznalezionoObiektu& e){
+		catch (NieznalezionoObiektu&){
 			return false;
 		}
 		if (!planeta)
@@ -181,7 +181,7 @@ namespace SpEx{
 				return false;
 			}
 		}
-		catch (NieznalezionoObiektu& e){
+		catch (NieznalezionoObiektu&){
 			return false;
 		}
 		if (!planeta)
