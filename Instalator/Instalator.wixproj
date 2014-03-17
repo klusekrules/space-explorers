@@ -103,6 +103,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="definicje.wxi" />
+    <Content Include="Microsoft_VC110_DebugCRT_x64.msm" />
+    <Content Include="Microsoft_VC110_DebugCRT_x86.msm" />
+    <Content Include="Microsoft_VC120_CRT_x64.msm" />
+    <Content Include="Microsoft_VC120_CRT_x86.msm" />
+    <Content Include="Microsoft_VC120_DebugCRT_x64.msm" />
+    <Content Include="Microsoft_VC120_DebugCRT_x86.msm" />
     <None Include="Microsoft_VC110_CRT_x64.msm" />
     <None Include="Microsoft_VC110_CRT_x86.msm" />
   </ItemGroup>
