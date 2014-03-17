@@ -17,8 +17,7 @@ namespace SpEx{
 	bool DllSkrypt::wykonaj(const std::string& funkcja){
 		if (!funkcja.empty()){
 			auto procedura = GetProcAddress(handle_, funkcja.c_str());
-			int status = procedura();
-			if (status) {
+			if (procedura()) {
 				std::stringstream ss;
 				ss << "Nie udalo sie wywolac skryptu: " << funkcja << " z pliku :  " << plik_ << std::endl;
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, ss.str());

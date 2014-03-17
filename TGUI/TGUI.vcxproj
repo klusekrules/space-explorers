@@ -93,7 +93,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>tgui_EXPORTS;SFML_STATIC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>tgui_EXPORTS;GLEW_STATIC;SFML_STATIC;</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
@@ -133,7 +133,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
-      <PreprocessorDefinitions>tgui_EXPORTS;SFML_STATIC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>tgui_EXPORTS;GLEW_STATIC;SFML_STATIC;</PreprocessorDefinitions>
       <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\include;$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -155,7 +155,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
-      <PreprocessorDefinitions>tgui_EXPORTS;SFML_STATIC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>tgui_EXPORTS;GLEW_STATIC;SFML_STATIC;</PreprocessorDefinitions>
       <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\include;$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
