@@ -65,13 +65,14 @@ namespace SpEx{
 
 		Stan::KrokCzasu accumulator;
 		oknoGlowne_.setVisible(true);
-
+#ifdef _FPS_COUNT
 		FPSCounter fpsCounter;
-
+#endif
 		while (przetwarzanie_)
 		{
+#ifdef _FPS_COUNT
 			fpsCounter.nextFrame();
-
+#endif
 			Stan stan = MaszynaStanow::pobierzInstancje().pobierzStan(stosEkranow_);
 			accumulator += obliczZmianeCzasu(std::chrono::high_resolution_clock::now());
 
@@ -83,11 +84,12 @@ namespace SpEx{
 			accumulator = stan.dt_;
 
 			odmaluj();
-						
+#ifdef _FPS_COUNT	
 			if (fpsCounter.ready())
 			{
 				Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Error, std::string("OknoGry: ") + std::to_string(fpsCounter.FPS()));
 			}
+#endif
 		}
 		oknoGlowne_.close();
 	}
