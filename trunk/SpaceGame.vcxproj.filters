@@ -268,7 +268,9 @@
     <ClCompile Include="DllSkrypt.cpp">
       <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
     </ClCompile>
-    <ClCompile Include="FPSCounter.cpp" />
+    <ClCompile Include="FPSCounter.cpp">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -589,7 +591,9 @@
     <ClInclude Include="DllSkrypt.h">
       <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
     </ClInclude>
-    <ClInclude Include="FPSCounter.h" />
+    <ClInclude Include="FPSCounter.h">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">

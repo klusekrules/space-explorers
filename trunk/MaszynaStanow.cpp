@@ -86,22 +86,25 @@ namespace SpEx{
 			przejdzDoNastepnegoStanu();
 
 		watekGraficzny_.uruchom();
-
+#ifdef _FPS_COUNT
 		FPSCounter fpsCounter;
-
+#endif
 		while (wlaczone)
 		{
+#ifdef _FPS_COUNT
 			fpsCounter.nextFrame();
-			
+#endif
 			luaStan_.poprawne_zdarzenie_ = false;
 			obslugaZdarzenia();
 			przejdzDoNastepnegoStanu();
 			std::this_thread::yield(); 
 			std::this_thread::sleep_for(std::chrono::milliseconds(10));
+#ifdef _FPS_COUNT
 			if (fpsCounter.ready())
 			{
 				Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Error, std::string("MaszynaStanow: ") + std::to_string(fpsCounter.FPS()));
 			}
+#endif
 		}
 		
 		watekGraficzny_.czekajNaZakonczenie();
