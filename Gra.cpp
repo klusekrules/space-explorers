@@ -1,5 +1,4 @@
 #include "Gra.h"
-#include "Aplikacja.h"
 #include "DefinicjeWezlowXML.h"
 #include <iostream>
 #include <fstream>
@@ -7,28 +6,24 @@
 
 namespace SpEx{
 
-	Gra::Gra(Aplikacja& aplikacja, SZmi::ZmianaFabryka& fabryka)
-		: aplikacja_(aplikacja), fabryka_(fabryka), uzytkownik_(nullptr)
+	Gra::Gra(SLog::Log& logger, ZarzadcaPamieci& zarzadca)
+		: logger_(logger), zarzadca_(zarzadca), uzytkownik_(nullptr)
 	{
 	}
 
-	SZmi::ZmianaFabryka& Gra::pobierzFabrykeZmian() const{
-		return fabryka_;
-	}
-
 	bool Gra::przeniesPlaneteDoUzytkownika(const STyp::Identyfikator& identyfikator){
-		auto planeta = aplikacja_.pobierzZarzadce().pobierzPlanete(identyfikator);
+		auto planeta = zarzadca_.pobierzPlanete(identyfikator);
 		if (!planeta)
 			return false;
 		return uzytkownik_->dodajPlanete(planeta);
 	}
 
 	int Gra::pobierzIloscGalaktyk() const{
-		return aplikacja_.pobierzZarzadce().pobierzIloscGalaktyk();
+		return zarzadca_.pobierzIloscGalaktyk();
 	}
 
 	bool Gra::generujNowaGalaktyke(){
-		return aplikacja_.pobierzZarzadce().generujNowaGalaktyke();
+		return zarzadca_.generujNowaGalaktyke();
 	}
 
 	std::shared_ptr<Surowce> Gra::tworzSurowce(XmlBO::ElementWezla wezel)const{
@@ -64,7 +59,7 @@ namespace SpEx{
 	}
 
 	std::shared_ptr<Planeta> Gra::pobierzPlanete(const STyp::Identyfikator& identyfikator){
-		auto ptr = aplikacja_.pobierzZarzadce().pobierzPlanete(identyfikator);
+		auto ptr = zarzadca_.pobierzPlanete(identyfikator);
 		if (!ptr)
 			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
 		return ptr;
@@ -128,11 +123,11 @@ namespace SpEx{
 			}
 		}
 		catch (STyp::Wyjatek& wyjatek){
-			aplikacja_.pobierzLogger().loguj(SLog::Log::Error, wyjatek.generujKomunikat());
+			logger_.loguj(SLog::Log::Error, wyjatek.generujKomunikat());
 			return false;
 		}
 		catch (std::exception& wyjatek){
-			aplikacja_.pobierzLogger().loguj(SLog::Log::Error, wyjatek.what());
+			logger_.loguj(SLog::Log::Error, wyjatek.what());
 			return false;
 		}
 		return true;
@@ -144,7 +139,7 @@ namespace SpEx{
 			do{
 				if (element){
 					std::shared_ptr<TechnologiaInfo> obiekt = std::make_shared<TechnologiaInfo>(element);
-					aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, *obiekt);
+					logger_.loguj(SLog::Log::Debug, *obiekt);
 					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
 						throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(""), STyp::Identyfikator(-1), STyp::Tekst("B³¹d wczytywania danych"), STyp::Tekst("Obiekt o podanym id istnieje"));
 					listaTechnologiInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
@@ -154,8 +149,8 @@ namespace SpEx{
 			} while (element);
 		}
 		catch (STyp::Wyjatek& wyjatek){
-			aplikacja_.pobierzLogger().loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
-			aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, wyjatek);
+			logger_.loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
+			logger_.loguj(SLog::Log::Debug, wyjatek);
 			return false;
 		}
 		return true;
@@ -167,7 +162,7 @@ namespace SpEx{
 			do{
 				if (element){
 					std::shared_ptr<BudynekInfo> obiekt(new BudynekInfo(element));
-					aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, *obiekt);
+					logger_.loguj(SLog::Log::Debug, *obiekt);
 					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
 						throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(""), STyp::Identyfikator(-1), STyp::Tekst("B³¹d wczytywania danych"), STyp::Tekst("Obiekt o podanym id istnieje"));
 					listaBudynkowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
@@ -177,8 +172,8 @@ namespace SpEx{
 			} while (element);
 		}
 		catch (STyp::Wyjatek& wyjatek){
-			aplikacja_.pobierzLogger().loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
-			aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, wyjatek);
+			logger_.loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
+			logger_.loguj(SLog::Log::Debug, wyjatek);
 			return false;
 		}
 		return true;
@@ -190,7 +185,7 @@ namespace SpEx{
 			do{
 				if (element){
 					std::shared_ptr<SurowceInfo> obiekt(new SurowceInfo(element));
-					aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, *obiekt);
+					logger_.loguj(SLog::Log::Debug, *obiekt);
 					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
 						throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(""), STyp::Identyfikator(-1), STyp::Tekst("B³¹d wczytywania danych"), STyp::Tekst("Obiekt o podanym id istnieje"));
 					listaSurowcowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
@@ -200,8 +195,8 @@ namespace SpEx{
 			} while (element);
 		}
 		catch (STyp::Wyjatek& wyjatek){
-			aplikacja_.pobierzLogger().loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
-			aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, wyjatek);
+			logger_.loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
+			logger_.loguj(SLog::Log::Debug, wyjatek);
 			return false;
 		}
 		return true;
@@ -213,7 +208,7 @@ namespace SpEx{
 			do{
 				if (element){
 					std::shared_ptr<ObronaInfo> obiekt(new ObronaInfo(element));
-					aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, *obiekt);
+					logger_.loguj(SLog::Log::Debug, *obiekt);
 					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
 						throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(""), STyp::Identyfikator(-1), STyp::Tekst("B³¹d wczytywania danych"), STyp::Tekst("Obiekt o podanym id istnieje"));
 					listaObronaInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
@@ -223,8 +218,8 @@ namespace SpEx{
 			} while (element);
 		}
 		catch (STyp::Wyjatek& wyjatek){
-			aplikacja_.pobierzLogger().loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
-			aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, wyjatek);
+			logger_.loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
+			logger_.loguj(SLog::Log::Debug, wyjatek);
 			return false;
 		}
 		return true;
@@ -236,7 +231,7 @@ namespace SpEx{
 			do{
 				if (element){
 					std::shared_ptr<StatekInfo> obiekt(new StatekInfo(element));
-					aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, *obiekt);
+					logger_.loguj(SLog::Log::Debug, *obiekt);
 					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
 						throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(""), STyp::Identyfikator(-1), STyp::Tekst("B³¹d wczytywania danych"), STyp::Tekst("Obiekt o podanym id istnieje"));
 					listaStatkowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
@@ -246,22 +241,22 @@ namespace SpEx{
 			} while (element);
 		}
 		catch (STyp::Wyjatek& wyjatek){
-			aplikacja_.pobierzLogger().loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
-			aplikacja_.pobierzLogger().loguj(SLog::Log::Debug, wyjatek);
+			logger_.loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
+			logger_.loguj(SLog::Log::Debug, wyjatek);
 			return false;
 		}
 		return true;
 	}
 
 	bool Gra::zapisz(XmlBO::ElementWezla wezel) const{
-		return aplikacja_.pobierzZarzadce().zapisz(wezel->tworzElement(WEZEL_XML_GRA));
+		return zarzadca_.zapisz(wezel->tworzElement(WEZEL_XML_GRA));
 	}
 
 	bool Gra::odczytaj(XmlBO::ElementWezla wezel){
 		if (wezel){
 			auto element = XmlBO::ZnajdzWezel<NOTHROW>(wezel, WEZEL_XML_ZARZADCA);
 			if (element)
-				return aplikacja_.pobierzZarzadce().odczytaj(element);
+				return zarzadca_.odczytaj(element);
 			return true;
 		}
 		return false;
@@ -273,7 +268,7 @@ namespace SpEx{
 
 	bool Gra::logowanie(const std::string& nazwa, const std::string& hash){
 		std::string plik;
-		auto dokument = aplikacja_.pobierzZarzadce().plikUzytkownika(nazwa, hash, plik, false);
+		auto dokument = zarzadca_.plikUzytkownika(nazwa, hash, plik, false);
 		if (!dokument)
 			return false;
 		auto nowyUzytkownik = std::make_shared<Uzytkownik>(*this);
@@ -286,14 +281,14 @@ namespace SpEx{
 
 	bool Gra::nowyGracz(const std::string& nazwa, const std::string& hash){
 		std::string plik;
-		if (aplikacja_.pobierzZarzadce().plikUzytkownika(nazwa, hash, plik, false))
+		if (zarzadca_.plikUzytkownika(nazwa, hash, plik, false))
 			return false;
-		return aplikacja_.pobierzZarzadce().plikUzytkownika(nazwa, hash, plik) != nullptr;
+		return zarzadca_.plikUzytkownika(nazwa, hash, plik) != nullptr;
 	}
 
 	bool Gra::usunGracza(const std::string& nazwa, const std::string& hash){
 		std::string plik;
-		auto dokument = aplikacja_.pobierzZarzadce().plikUzytkownika(nazwa, hash, plik, false);
+		auto dokument = zarzadca_.plikUzytkownika(nazwa, hash, plik, false);
 		if (!dokument)
 			return false;
 		return !remove(plik.c_str());
@@ -301,7 +296,7 @@ namespace SpEx{
 
 	bool Gra::zapisz(const std::string& nazwa, const std::string& hash) const{
 		std::string plik;
-		auto dokument = aplikacja_.pobierzZarzadce().plikUzytkownika(nazwa, hash, plik, true);
+		auto dokument = zarzadca_.plikUzytkownika(nazwa, hash, plik, true);
 		if (!dokument || !uzytkownik_->zapisz(dokument->pobierzElement(nullptr)))
 			return false;
 		return dokument->zapisz(plik.c_str());

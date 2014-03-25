@@ -75,9 +75,9 @@ void ZleceniaTest::tranzakcja_throw(){
 		, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst()); }
 	, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst()); }
 	));
-	SpEx::Aplikacja::pobierzInstancje().pobierzLogger().zablokujLogi(SLog::Log::Warning);
+	SpEx::Aplikacja::pobierzInstancje().logger_.zablokujLogi(SLog::Log::Warning);
 	UNIT_TEST_ASSERT_FALSE(tranzakcja.wykonaj());
-	SpEx::Aplikacja::pobierzInstancje().pobierzLogger().odblokujLogi(SLog::Log::Warning);
+	SpEx::Aplikacja::pobierzInstancje().logger_.odblokujLogi(SLog::Log::Warning);
 	UNIT_TEST_ASSERT_EQUAL(jeden, statek->pobierzIlosc());
 }
 
@@ -104,12 +104,12 @@ void ZleceniaTest::tranzakcja_throw2(){
 	, [](STyp::Ilosc& i, std::shared_ptr<SpEx::Statek>& s)->bool{throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst()); }
 	));
 	try{
-		SpEx::Aplikacja::pobierzInstancje().pobierzLogger().zablokujLogi(SLog::Log::Warning);
+		SpEx::Aplikacja::pobierzInstancje().logger_.zablokujLogi(SLog::Log::Warning);
 		UNIT_TEST_ASSERT_FALSE(tranzakcja.wykonaj());
-		SpEx::Aplikacja::pobierzInstancje().pobierzLogger().odblokujLogi(SLog::Log::Warning);
+		SpEx::Aplikacja::pobierzInstancje().logger_.odblokujLogi(SLog::Log::Warning);
 	}
 	catch (STyp::Wyjatek&){
-		SpEx::Aplikacja::pobierzInstancje().pobierzLogger().odblokujLogi(SLog::Log::Warning);
+		SpEx::Aplikacja::pobierzInstancje().logger_.odblokujLogi(SLog::Log::Warning);
 		STyp::Ilosc trzy(3);
 		UNIT_TEST_ASSERT_EQUAL(trzy, statek->pobierzIlosc());
 		return;

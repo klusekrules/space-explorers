@@ -56,20 +56,6 @@ namespace SpEx {
 		static char** argumenty;
 
 		/**
-		* \brief Metoda pobieraj¹ca instacjê gry.
-		*
-		* \return Referencja do obiektu gry.
-		*/
-		Gra& pobierzGre() const;
-
-		/**
-		* \brief Metoda pobieraj¹ca instacjê obiektu tworz¹cego logi.
-		*
-		* \return Referencja do loggera.
-		*/
-		SLog::Log& pobierzLogger() const;
-
-		/**
 		* \brief Metoda ³aduj¹ca dane gry.
 		*
 		* \return true je¿eli uda siê wczytaæ dane, false w przeciwnym wypadku.
@@ -99,14 +85,27 @@ namespace SpEx {
 
 		void wyczyscDane();
 
+		/**
+		* \brief Metoda pobieraj¹ca instacjê gry.
+		*
+		* \return Referencja do obiektu gry.
+		*/
+		inline Gra& pobierzGre() const{
+			return *instancjaGry_;
+		}
+		
 		inline ZarzadcaPamieci& pobierzZarzadce(){
 			return zarzadca_;
 		}
-
+		
 		/**
 		* \brief Destruktor.
 		*/
 		~Aplikacja();
+
+		SLog::Log& logger_; /// Instancja loggera.
+
+		SZmi::ZmianaFabryka& fabrykaZmian_; /// Instancja fabryki zmian.
 
 	private:
 
@@ -136,7 +135,6 @@ namespace SpEx {
 		*/
 		void logApInfo() const;
 
-		SLog::Log& logger_; /// Instancja loggera.
 		std::shared_ptr<SPlu::Cplugin> pluginy_; /// Obiekt zarz¹dzaj¹cy plugginami.
 		std::shared_ptr<Gra> instancjaGry_; /// Obiekt prezentuj¹cy instancjê gry.
 

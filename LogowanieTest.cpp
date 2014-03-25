@@ -6,11 +6,11 @@
 void LogowanieTest::zaloguj(){
 	std::string haslo("haslo");
 	SpEx::Utils::sha3(haslo);
-	SpEx::Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Info, haslo);
+	SpEx::Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Info, haslo);
 	if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().nowyGracz("Daniel", haslo)){
-		SpEx::Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Debug, "U¿ytkownik zosta³ utworzony.");
+		SpEx::Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Debug, "U¿ytkownik zosta³ utworzony.");
 	}else{
-		SpEx::Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Debug, "U¿ytkownik istnieje.");
+		SpEx::Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Debug, "U¿ytkownik istnieje.");
 	}
 
 	auto dokument = TestyUtilsBO::dane();
