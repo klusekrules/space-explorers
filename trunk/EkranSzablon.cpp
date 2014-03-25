@@ -14,7 +14,7 @@ namespace SpEx{
 			std::string czcionka = XmlBO::WczytajAtrybut(wezel, ATRYBUT_XML_CZCIONKA, std::string());
 			if (konfiguracja.empty()){
 				throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(),STyp::Identyfikator(),
-					STyp::Tekst("Brak pliku konfiguracyjnego"),
+					STyp::Tekst("Brak pliku konfiguracyjnego!"),
 					STyp::Tekst("Brak pliku konfiguracyjengo dla okna szablonowego, nie zaimplementowano innego sposobu opisu okna."));
 			}
 			else{
@@ -26,7 +26,7 @@ namespace SpEx{
 
 				if (!interfejs_.loadWidgetsFromFile(konfiguracja)){
 					throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), STyp::Identyfikator(),
-						STyp::Tekst("B³¹d konfiguracji okna"),
+						STyp::Tekst("B³¹d konfiguracji okna!"),
 						STyp::Tekst("Nie powiod³o sie konfigurowanie okna na podstawie pliku konfiguracyjnego."));
 				}
 

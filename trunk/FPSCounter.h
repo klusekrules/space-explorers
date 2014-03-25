@@ -4,7 +4,7 @@ namespace SpEx{
 	{
 	private:
 		unsigned long long Frames = 0;
-		double time1, time2;
+		double time;
 		double fpsTime = 0;
 		long double fps_;
 	public:
