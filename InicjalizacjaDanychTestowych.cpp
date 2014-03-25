@@ -5,7 +5,7 @@
 void InicjalizacjaDanychTestowych::zaladujDane(){
 	auto dokument = TestyUtilsBO::dane();
 	UNIT_TEST_ASSERT_NOTNULL(dokument);
-	if(SpEx::Aplikacja::pobierzInstancje().pobierzLogger().czyLogiOdblokowane(SLog::Log::Debug)){
+	if (SpEx::Aplikacja::pobierzInstancje().logger_.czyLogiOdblokowane(SLog::Log::Debug)){
 		dokument->zapisz("danetestowe.xml");
 	}
 	auto root = dokument->pobierzElement(WEZEL_XML_ROOT);
