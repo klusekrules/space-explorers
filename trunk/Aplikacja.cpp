@@ -37,7 +37,7 @@ namespace SpEx{
 	char** Aplikacja::argumenty = nullptr;
 
 	Aplikacja::Aplikacja()
-		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), instancjaGry_(nullptr)
+		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), fabrykaZmian_(SZmi::ZmianaFabryka::pobierzInstancje()), instancjaGry_(nullptr)
 	{
 		/* ------- Wstêpna konfiguracja logów ------- */
 #ifdef TESTS
@@ -122,7 +122,7 @@ namespace SpEx{
 				STyp::Tekst("Podczas przetwa¿ania pliku z opcjami wyst¹pi³ b³¹d."));
 		}
 
-		pluginy_ = std::make_shared<SPlu::Cplugin>(ustawienia_.pobierzFolderPlugin(), SZmi::ZmianaFabryka::pobierzInstancje(), logger_);
+		pluginy_ = std::make_shared<SPlu::Cplugin>(ustawienia_.pobierzFolderPlugin(), fabrykaZmian_, logger_);
 
 		if (!RejestrujZmianaPoziomObiektu(SZmi::ZmianaFabryka::pobierzInstancje(), logger_))
 			throw STyp::Wyjatek(EXCEPTION_PLACE, pobierzSladStosu(), STyp::Identyfikator(),
@@ -142,15 +142,7 @@ namespace SpEx{
 		_set_purecall_handler(myPurecallHandler);
 		_set_invalid_parameter_handler(myInvalidParameterHandler);
 
-		instancjaGry_ = std::make_shared<Gra>(*this, SZmi::ZmianaFabryka::pobierzInstancje());
-	}
-
-	SLog::Log& Aplikacja::pobierzLogger() const{
-		return logger_;
-	}
-
-	Gra& Aplikacja::pobierzGre() const{
-		return *instancjaGry_;
+		instancjaGry_ = std::make_shared<Gra>(logger_, zarzadca_);
 	}
 
 	bool Aplikacja::wczytajDane(std::shared_ptr<SPar::ParserElement> root){
@@ -158,7 +150,7 @@ namespace SpEx{
 	}
 
 	void Aplikacja::wyczyscDane(){
-		instancjaGry_ = std::make_shared<Gra>(*this, SZmi::ZmianaFabryka::pobierzInstancje());
+		instancjaGry_ = std::make_shared<Gra>(logger_, zarzadca_);
 	}
 
 	bool Aplikacja::zaladujOpcje(){
@@ -248,7 +240,7 @@ namespace SpEx{
 		if (wezel && *wezel){
 			std::shared_ptr<Gra> gra = instancjaGry_;
 			try{
-				instancjaGry_ = std::make_shared<Gra>(*this, SZmi::ZmianaFabryka::pobierzInstancje());
+				instancjaGry_ = std::make_shared<Gra>(logger_, zarzadca_);
 				Walidator::pobierzInstancje().wyczysc();
 				Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(STyp::Identyfikator(0x0)); // Poprawna wartoœæ; U¿ywana gdy obiekty znajduj¹ siê we flocie.
 				if (root && instancjaGry_->wczytajDane(root)){

@@ -21,11 +21,11 @@ namespace SpEx{
 			}
 		}
 		catch (STyp::Wyjatek& e){
-			SpEx::Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.generujKomunikat());
+			Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, e.generujKomunikat());
 			powodzenie = false;
 		}
 		catch (std::exception& e){
-			SpEx::Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.what());
+			Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, e.what());
 			powodzenie = false;
 		}
 		catch (...){
@@ -40,20 +40,20 @@ namespace SpEx{
 					}
 				}
 			}
-			catch (SpEx::NiepowodzenieTranzakcji& e){
-				SpEx::Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.generujKomunikat());
+			catch (NiepowodzenieTranzakcji& e){
+				Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, e.generujKomunikat());
 				throw;
 			}
 			catch (STyp::Wyjatek& e){
-				SpEx::Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.generujKomunikat());
+				Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, e.generujKomunikat());
 				throw SpEx::NiepowodzenieTranzakcji(EXCEPTION_PLACE, listaOperacji_[iterator]->napis());
 			}
 			catch (std::exception& e){
-				SpEx::Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Warning, e.what());
-				throw SpEx::NiepowodzenieTranzakcji(EXCEPTION_PLACE, listaOperacji_[iterator]->napis());
+				Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, e.what());
+				throw NiepowodzenieTranzakcji(EXCEPTION_PLACE, listaOperacji_[iterator]->napis());
 			}
 			catch (...){
-				throw SpEx::NiepowodzenieTranzakcji(EXCEPTION_PLACE, listaOperacji_[iterator]->napis());
+				throw NiepowodzenieTranzakcji(EXCEPTION_PLACE, listaOperacji_[iterator]->napis());
 			}
 		}
 		return powodzenie;
