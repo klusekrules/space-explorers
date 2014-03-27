@@ -167,13 +167,13 @@ namespace SpEx{
 		}
 	}
 
-	STyp::Identyfikator Planeta::dodajFlote(){
+	Planeta::Indeks Planeta::dodajFlote(){
 		auto flota = std::make_shared< Flota >(STyp::Identyfikator(static_cast<STyp::Identyfikator::nazwa_typu>(licznikIdentyfikatorowFloty_()())), STyp::Identyfikator(), STyp::Identyfikator(), Flota::CelPodrozy::Transport);
 		listaFlot_.insert(std::make_pair(flota->pobierzIdentyfikator(), flota));
 		return flota->pobierzIdentyfikator();
 	}
 
-	bool Planeta::przeniesDoFloty(const STyp::Identyfikator& identyfikatorFloty, const Indeks& obiekt, const STyp::Ilosc& ilosc){
+	bool Planeta::przeniesDoFloty(const Indeks& identyfikatorFloty, const Indeks& obiekt, const STyp::Ilosc& ilosc){
 		auto statek = listaStatkow_.find(obiekt);
 		if (statek != listaStatkow_.end()){
 			auto flota = listaFlot_.find(identyfikatorFloty);
@@ -205,7 +205,7 @@ namespace SpEx{
 		return false;
 	}
 
-	bool Planeta::zaladujSurowceNaFlote(const STyp::Identyfikator& identyfikatorFloty, const Indeks& identyfikator, const STyp::Ilosc& ilosc){
+	bool Planeta::zaladujSurowceNaFlote(const Indeks& identyfikatorFloty, const Indeks& identyfikator, const STyp::Ilosc& ilosc){
 		auto iterator = listaSurowcow_.find(identyfikator);
 		if (iterator == listaSurowcow_.end())
 			return false;
@@ -224,7 +224,7 @@ namespace SpEx{
 		return true;
 	}
 
-	bool Planeta::zaladujStatekNaFlote(const STyp::Identyfikator& identyfikatorFloty, const Indeks& identyfikator, const STyp::Ilosc& ilosc){
+	bool Planeta::zaladujStatekNaFlote(const Indeks& identyfikatorFloty, const Indeks& identyfikator, const STyp::Ilosc& ilosc){
 		auto iterator = listaStatkow_.find(identyfikator);
 		if (iterator == listaStatkow_.end())
 			return false;
@@ -254,14 +254,14 @@ namespace SpEx{
 		}
 	}
 
-	std::shared_ptr< Flota > Planeta::pobierzFlote(const STyp::Identyfikator& identyfikator) const{
+	std::shared_ptr< Flota > Planeta::pobierzFlote(const Indeks& identyfikator) const{
 		auto iterator = listaFlot_.find(identyfikator);
 		if (iterator != listaFlot_.end())
 			return iterator->second;
 		return nullptr;
 	}
 
-	bool Planeta::usunFlote(const STyp::Identyfikator& identyfikator){
+	bool Planeta::usunFlote(const Indeks& identyfikator){
 		return listaFlot_.erase(identyfikator) != 0;
 	}
 
@@ -342,7 +342,7 @@ namespace SpEx{
 			auto obiekt = wezel->pobierzElement(WEZEL_XML_OBIEKTY);
 			if (obiekt){
 				if (!XmlBO::ForEach<STACKTHROW>(obiekt, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
-					STyp::Identyfikator identyfikator;
+					Indeks identyfikator;
 					XmlBO::WczytajAtrybut<STACKTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR, identyfikator);
 					if (!wybuduj(identyfikator, element))
 						return false;
@@ -372,7 +372,7 @@ namespace SpEx{
 			auto flota = wezel->pobierzElement(WEZEL_XML_FLOTY);
 			if (flota){
 				if (!XmlBO::ForEach<STACKTHROW>(flota, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
-					STyp::Identyfikator identyfikator;
+					Indeks identyfikator;
 					XmlBO::WczytajAtrybut<STACKTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR, identyfikator);
 					auto wskaznik = std::make_shared<Flota>(identyfikator, STyp::Identyfikator(), STyp::Identyfikator(), Flota::CelPodrozy::Transport);
 					auto iterator = listaFlot_.find(identyfikator);
