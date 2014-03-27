@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2013 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -104,7 +104,7 @@ namespace tgui
 
     bool Container::setGlobalFont(const std::string& filename)
     {
-        return m_GlobalFont.loadFromFile(filename);
+        return m_GlobalFont.loadFromFile(getResourcePath() + filename);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -288,7 +288,7 @@ namespace tgui
     void Container::focusNextWidget()
     {
         // Loop all widgets behind the focused one
-        for (size_t i = m_FocusedWidget; i < m_Widgets.size(); ++i)
+        for (unsigned int i = m_FocusedWidget; i < m_Widgets.size(); ++i)
         {
             // If you are not allowed to focus the widget, then skip it
             if (m_Widgets[i]->m_AllowFocus == true)
@@ -346,7 +346,7 @@ namespace tgui
         // Loop the widgets before the focused one
         if (m_FocusedWidget)
         {
-            for (size_t i = m_FocusedWidget - 1; i > 0; --i)
+            for (unsigned int i = m_FocusedWidget - 1; i > 0; --i)
             {
                 // If you are not allowed to focus the widget, then skip it
                 if (m_Widgets[i-1]->m_AllowFocus == true)
@@ -370,7 +370,7 @@ namespace tgui
         }
 
         // None of the widgets before the focused one could be focused, so loop all widgets behind the focused one
-        for (size_t i = m_Widgets.size(); i > m_FocusedWidget; --i)
+        for (unsigned int i = m_Widgets.size(); i > m_FocusedWidget; --i)
         {
             // If you are not allowed to focus the widget, then skip it
             if (m_Widgets[i-1]->m_AllowFocus == true)
@@ -415,7 +415,7 @@ namespace tgui
         for (unsigned int i = 0; i < m_Widgets.size(); ++i)
         {
             if (m_Widgets[i]->m_Callback.widgetType == Type_RadioButton)
-                static_cast<RadioButton::Ptr>(m_Widgets[i])->forceUncheck();
+                static_cast<RadioButton::Ptr>(m_Widgets[i])->uncheck();
         }
     }
 
@@ -520,7 +520,7 @@ namespace tgui
         std::list<Widget*> widgetPtr;
 
         // Open the file
-        std::ifstream m_File(filename);
+        std::ifstream m_File(getResourcePath() + filename);
 
         // Check if the file was not opened
         if (m_File.is_open() == false)
@@ -1109,7 +1109,7 @@ namespace tgui
         else if (event.type == sf::Event::TextEntered)
         {
             // Check if the character that we pressed is allowed
-            if ((event.text.unicode >= 30) && (event.text.unicode != 127))
+            if ((event.text.unicode >= 32) && (event.text.unicode != 127))
             {
                 // Tell the widget that the key was pressed
                 if (m_FocusedWidget)
@@ -1145,11 +1145,11 @@ namespace tgui
     bool Container::focusNextWidgetInContainer()
     {
         // Don't do anything when the tab key usage is disabled
-        if (tabKeyUsageEnabled == false)
+        if (TGUI_TabKeyUsageEnabled == false)
             return false;
 
         // Loop through all widgets
-        for (size_t i = m_FocusedWidget; i < m_Widgets.size(); ++i)
+        for (unsigned int i = m_FocusedWidget; i < m_Widgets.size(); ++i)
         {
             // If you are not allowed to focus the widget, then skip it
             if (m_Widgets[i]->m_AllowFocus == true)
@@ -1188,7 +1188,7 @@ namespace tgui
     bool Container::tabKeyPressed()
     {
         // Don't do anything when the tab key usage is disabled
-        if (tabKeyUsageEnabled == false)
+        if (TGUI_TabKeyUsageEnabled == false)
             return false;
 
         // Check if a container is focused
@@ -1203,7 +1203,7 @@ namespace tgui
         }
 
         // Loop all widgets behind the focused one
-        for (size_t i = m_FocusedWidget; i < m_Widgets.size(); ++i)
+        for (unsigned int i = m_FocusedWidget; i < m_Widgets.size(); ++i)
         {
             // If you are not allowed to focus the widget, then skip it
             if (m_Widgets[i]->m_AllowFocus == true)

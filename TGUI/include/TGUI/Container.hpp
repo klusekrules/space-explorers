@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2013 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -541,7 +541,7 @@ namespace tgui
         std::vector<sf::String>  m_ObjName;
 
         // The id of the focused widget
-        size_t m_FocusedWidget;
+        unsigned int m_FocusedWidget;
 
         sf::Font m_GlobalFont;
 

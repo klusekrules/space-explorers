@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2013 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -890,7 +890,7 @@ void FormBuilder::recreateProperties()
         value->bindCallback([=](){ propertyChanged = true; }, tgui::EditBox::TextChanged);
 
         // Don't allow text input for numbers
-        if ((it->second.type == "int") || (it->second.type == "uint") || (it->second.type == "byte"))
+        if ((it->second.type == "float") || (it->second.type == "int") || (it->second.type == "uint") || (it->second.type == "byte"))
             value->setNumbersOnly(true);
 
         grid->addWidget(property, row, 0);

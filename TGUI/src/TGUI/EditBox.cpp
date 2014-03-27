@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2013 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -180,7 +180,7 @@ namespace tgui
 
     bool EditBox::load(const std::string& configFileFilename)
     {
-        m_LoadedConfigFile = configFileFilename;
+        m_LoadedConfigFile = getResourcePath() + configFileFilename;
 
         // When everything is loaded successfully, this will become true.
         m_Loaded = false;
@@ -200,9 +200,9 @@ namespace tgui
 
         // Open the config file
         ConfigFile configFile;
-        if (!configFile.open(configFileFilename))
+        if (!configFile.open(m_LoadedConfigFile))
         {
-            TGUI_OUTPUT("TGUI error: Failed to open " + configFileFilename + ".");
+            TGUI_OUTPUT("TGUI error: Failed to open " + m_LoadedConfigFile + ".");
             return false;
         }
 
@@ -211,7 +211,7 @@ namespace tgui
         std::vector<std::string> values;
         if (!configFile.read("EditBox", properties, values))
         {
-            TGUI_OUTPUT("TGUI error: Failed to parse " + configFileFilename + ".");
+            TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile + ".");
             return false;
         }
 
@@ -220,9 +220,9 @@ namespace tgui
 
         // Find the folder that contains the config file
         std::string configFileFolder = "";
-        std::string::size_type slashPos = configFileFilename.find_last_of("/\\");
+        std::string::size_type slashPos = m_LoadedConfigFile.find_last_of("/\\");
         if (slashPos != std::string::npos)
-            configFileFolder = configFileFilename.substr(0, slashPos+1);
+            configFileFolder = m_LoadedConfigFile.substr(0, slashPos+1);
 
         // Handle the read properties
         for (unsigned int i = 0; i < properties.size(); ++i)
@@ -266,7 +266,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureNormal_M))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for NormalImage in section EditBox in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for NormalImage in section EditBox in " + m_LoadedConfigFile + ".");
                     return false;
                 }
 
@@ -276,7 +276,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureHover_M))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for HoverImage in section EditBox in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for HoverImage in section EditBox in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -284,7 +284,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureFocused_M))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for FocusedImage in section EditBox in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for FocusedImage in section EditBox in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -292,7 +292,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureNormal_L))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for NormalImage_L in section EditBox in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for NormalImage_L in section EditBox in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -300,7 +300,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureNormal_M))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for NormalImage_M in section EditBox in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for NormalImage_M in section EditBox in " + m_LoadedConfigFile + ".");
                     return false;
                 }
 
@@ -310,7 +310,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureNormal_R))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for NormalImage_R in section EditBox in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for NormalImage_R in section EditBox in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -318,7 +318,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureHover_L))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for HoverImage_L in section EditBox in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for HoverImage_L in section EditBox in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -326,7 +326,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureHover_M))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for HoverImage_M in section EditBox in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for HoverImage_M in section EditBox in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -334,7 +334,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureHover_R))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for HoverImage_R in section EditBox in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for HoverImage_R in section EditBox in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -342,7 +342,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureFocused_L))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for FocusedImage_L in section EditBox in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for FocusedImage_L in section EditBox in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -350,7 +350,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureFocused_M))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for FocusedImage_M in section EditBox in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for FocusedImage_M in section EditBox in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -358,12 +358,12 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureFocused_R))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for FocusedImage_R in section EditBox in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for FocusedImage_R in section EditBox in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
             else
-                TGUI_OUTPUT("TGUI error: Unrecognized property '" + property + "' in section EditBox in " + configFileFilename + ".");
+                TGUI_OUTPUT("TGUI error: Unrecognized property '" + property + "' in section EditBox in " + m_LoadedConfigFile + ".");
         }
 
         // Check if the image is split
@@ -380,7 +380,7 @@ namespace tgui
             }
             else
             {
-                TGUI_OUTPUT("TGUI error: Not all needed images were loaded for the edit box. Is the EditBox section in " + configFileFilename + " complete?");
+                TGUI_OUTPUT("TGUI error: Not all needed images were loaded for the edit box. Is the EditBox section in " + m_LoadedConfigFile + " complete?");
                 return false;
             }
 
@@ -408,7 +408,7 @@ namespace tgui
             }
             else
             {
-                TGUI_OUTPUT("TGUI error: NormalImage wasn't loaded. Is the EditBox section in " + configFileFilename + " complete?");
+                TGUI_OUTPUT("TGUI error: NormalImage wasn't loaded. Is the EditBox section in " + m_LoadedConfigFile + " complete?");
                 return false;
             }
 
@@ -878,7 +878,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void EditBox::setSelectionPointPosition(size_t charactersBeforeSelectionPoint)
+    void EditBox::setSelectionPointPosition(unsigned int charactersBeforeSelectionPoint)
     {
         // The selection point position has to stay inside the string
         if (charactersBeforeSelectionPoint > m_Text.getSize())
@@ -886,8 +886,8 @@ namespace tgui
 
         // Set the selection point to the correct position
         m_SelChars = 0;
-        m_SelStart = static_cast<unsigned int>(charactersBeforeSelectionPoint);
-        m_SelEnd = static_cast<unsigned int>(charactersBeforeSelectionPoint);
+        m_SelStart = charactersBeforeSelectionPoint;
+        m_SelEnd = charactersBeforeSelectionPoint;
 
         // Change our texts
         m_TextBeforeSelection.setString(m_DisplayedText);
@@ -1046,8 +1046,8 @@ namespace tgui
 
             // Select the whole text
             m_SelStart = 0;
-            m_SelEnd = static_cast<unsigned int>(m_Text.getSize());
-			m_SelChars = static_cast<unsigned int>(m_Text.getSize());
+            m_SelEnd = m_Text.getSize();
+            m_SelChars = m_Text.getSize();
 
             // Change the texts
             m_TextBeforeSelection.setString("");
@@ -2008,6 +2008,10 @@ namespace tgui
 
     void EditBox::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
+        // Don't draw anything when the edit box was not loaded correctly
+        if (m_Loaded == false)
+            return;
+
         if (m_SplitImage)
         {
             if (m_SeparateHoverImage)

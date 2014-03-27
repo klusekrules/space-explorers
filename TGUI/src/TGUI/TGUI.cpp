@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2013 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -34,7 +34,43 @@ namespace tgui
 
     Clipboard TGUI_Clipboard;
 
-    bool tabKeyUsageEnabled = true;
+    bool TGUI_TabKeyUsageEnabled = true;
+
+    std::string TGUI_ResourcePath = "";
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void enableTabKeyUsage()
+    {
+        TGUI_TabKeyUsageEnabled = true;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void disableTabKeyUsage()
+    {
+        TGUI_TabKeyUsageEnabled = false;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void setResourcePath(const std::string& path)
+    {
+        TGUI_ResourcePath = path;
+
+        if (!TGUI_ResourcePath.empty())
+        {
+            if (TGUI_ResourcePath[TGUI_ResourcePath.length()-1] != '/')
+                TGUI_ResourcePath.push_back('/');
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    const std::string& getResourcePath()
+    {
+        return TGUI_ResourcePath;
+    }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

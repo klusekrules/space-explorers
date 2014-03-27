@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2013 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -28,16 +28,6 @@
 
 
 #include <TGUI/Widget.hpp>
-
-/// \todo  Rename Selection point position to caret position
-/// \todo  Double clicking should only select one word in TextBox. To select the whole text, you should click 3 times.
-/// \todo  Add a horizontal scrollbar in Textbox.
-///
-/// \todo  Fix behavior problem: When pressing the down arrow when the selection point is at the beginning of the text,
-///                              the selection point moves at the end of the line because it is not allowed to be in front.
-///                              This problem will be hard to correct: m_DisplayedText may not be used as reference to m_SelEnd.
-///                              This bug can thus only be solved after implementing decent word wrapping.
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -119,6 +109,8 @@ namespace tgui
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// \brief Changes the size of the text box.
         ///
+        /// This size does not include the borders.
+        ///
         /// \param width   The new width of the text box
         /// \param height  The new height of the text box
         ///
@@ -129,10 +121,23 @@ namespace tgui
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// \brief Returns the size of the text box.
         ///
+        /// This size does not include the borders.
+        ///
         /// \return Size of the text box
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         virtual sf::Vector2f getSize() const;
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \brief Returns the full size of the text box.
+        ///
+        /// This is the size including the borders.
+        ///
+        /// \return Full size of the text box
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        virtual sf::Vector2f getFullSize() const;
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -376,7 +381,7 @@ namespace tgui
         /// Normally you will not need this function.
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setSelectionPointPosition(size_t charactersBeforeSelectionPoint);
+        void setSelectionPointPosition(unsigned int charactersBeforeSelectionPoint);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -515,7 +520,7 @@ namespace tgui
         // This function will search where the selection point should be. It will not change the selection point.
         // It will return after which character the selection point should be.
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        size_t findSelectionPointPosition(float posX, float posY);
+        unsigned int findSelectionPointPosition(float posX, float posY);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
