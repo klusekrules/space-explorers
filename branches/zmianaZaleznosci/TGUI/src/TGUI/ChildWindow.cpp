@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2013 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -31,8 +31,6 @@
 #include <TGUI/SharedWidgetPtr.inl>
 #include <TGUI/ChildWindow.hpp>
 
-/// \todo Add SplitImage to title bar
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace tgui
@@ -40,7 +38,7 @@ namespace tgui
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ChildWindow::ChildWindow() :
-    m_Size             (200, 150),
+    m_Size             (0, 0),
     m_BackgroundTexture(nullptr),
     m_TitleBarHeight   (0),
     m_SplitImage       (false),
@@ -155,7 +153,7 @@ namespace tgui
 
     bool ChildWindow::load(const std::string& configFileFilename)
     {
-        m_LoadedConfigFile = configFileFilename;
+        m_LoadedConfigFile = getResourcePath() + configFileFilename;
 
         // Until the loading succeeds, the child window will be marked as unloaded
         m_Loaded = false;
@@ -170,9 +168,9 @@ namespace tgui
 
         // Open the config file
         ConfigFile configFile;
-        if (!configFile.open(configFileFilename))
+        if (!configFile.open(m_LoadedConfigFile))
         {
-            TGUI_OUTPUT("TGUI error: Failed to open " + configFileFilename + ".");
+            TGUI_OUTPUT("TGUI error: Failed to open " + m_LoadedConfigFile + ".");
             return false;
         }
 
@@ -181,7 +179,7 @@ namespace tgui
         std::vector<std::string> values;
         if (!configFile.read("ChildWindow", properties, values))
         {
-            TGUI_OUTPUT("TGUI error: Failed to parse " + configFileFilename + ".");
+            TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile + ".");
             return false;
         }
 
@@ -190,9 +188,9 @@ namespace tgui
 
         // Find the folder that contains the config file
         std::string configFileFolder = "";
-        std::string::size_type slashPos = configFileFilename.find_last_of("/\\");
+        std::string::size_type slashPos = m_LoadedConfigFile.find_last_of("/\\");
         if (slashPos != std::string::npos)
-            configFileFolder = configFileFilename.substr(0, slashPos+1);
+            configFileFolder = m_LoadedConfigFile.substr(0, slashPos+1);
 
         // Handle the read properties
         for (unsigned int i = 0; i < properties.size(); ++i)
@@ -216,7 +214,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureTitleBar_M))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for TitlebarImage in section ChildWindow in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for TitlebarImage in section ChildWindow in " + m_LoadedConfigFile + ".");
                     return false;
                 }
 
@@ -226,7 +224,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureTitleBar_L))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for TitlebarImage_L in section ChildWindow in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for TitlebarImage_L in section ChildWindow in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -234,7 +232,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureTitleBar_M))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for TitlebarImage_M in section ChildWindow in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for TitlebarImage_M in section ChildWindow in " + m_LoadedConfigFile + ".");
                     return false;
                 }
 
@@ -244,7 +242,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureTitleBar_R))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for TitlebarImage_R in section ChildWindow in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for TitlebarImage_R in section ChildWindow in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -256,7 +254,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_CloseButton->m_TextureNormal_M))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for CloseButtonNormalImage in section Button in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for CloseButtonNormalImage in section Button in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -264,7 +262,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_CloseButton->m_TextureHover_M))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for CloseButtonHoverImage in section Button in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for CloseButtonHoverImage in section Button in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -272,7 +270,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_CloseButton->m_TextureDown_M))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for CloseButtonDownImage in section Button in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for CloseButtonDownImage in section Button in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -287,7 +285,7 @@ namespace tgui
                 setDistanceToSide(static_cast<unsigned int>(atoi(value.c_str())));
             }
             else
-                TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section ChildWindow in " + configFileFilename + ".");
+                TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section ChildWindow in " + m_LoadedConfigFile + ".");
         }
 
         // Initialize the close button if it was loaded
@@ -308,7 +306,7 @@ namespace tgui
         }
         else // Close button wan't loaded
         {
-            TGUI_OUTPUT("TGUI error: Missing a CloseButtonNormalImage property in section ChildWindow in " + configFileFilename + ".");
+            TGUI_OUTPUT("TGUI error: Missing a CloseButtonNormalImage property in section ChildWindow in " + m_LoadedConfigFile + ".");
             return false;
         }
 
@@ -320,11 +318,16 @@ namespace tgui
             {
                 m_TitleBarHeight = m_TextureTitleBar_M.getSize().y;
 
+                float width = static_cast<float>(m_TextureTitleBar_L.getSize().x + m_TextureTitleBar_M.getSize().x + m_TextureTitleBar_R.getSize().x);
+
+                m_Loaded = true;
+                setSize(width, width * 3.0f / 4.0f);
+
                 m_TextureTitleBar_M.data->texture.setRepeated(true);
             }
             else
             {
-                TGUI_OUTPUT("TGUI error: Not all needed images were loaded for the child window. Is the ChildWindow section in " + configFileFilename + " complete?");
+                TGUI_OUTPUT("TGUI error: Not all needed images were loaded for the child window. Is the ChildWindow section in " + m_LoadedConfigFile + " complete?");
                 return false;
             }
         }
@@ -334,10 +337,13 @@ namespace tgui
             if (m_TextureTitleBar_M.data != nullptr)
             {
                 m_TitleBarHeight = m_TextureTitleBar_M.getSize().y;
+
+                m_Loaded = true;
+                setSize(static_cast<float>(m_TextureTitleBar_M.getSize().x), m_TextureTitleBar_M.getSize().x * 3.0f / 4.0f);
             }
             else
             {
-                TGUI_OUTPUT("TGUI error: Not all needed images were loaded for the child window. Is the ChildWindow section in " + configFileFilename + " complete?");
+                TGUI_OUTPUT("TGUI error: Not all needed images were loaded for the child window. Is the ChildWindow section in " + m_LoadedConfigFile + " complete?");
                 return false;
             }
         }
@@ -346,7 +352,7 @@ namespace tgui
         m_TitleText.setCharacterSize(m_TitleBarHeight * 8 / 10);
 
         // When there is no error we will return true
-        return m_Loaded = true;
+        return true;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -373,8 +379,8 @@ namespace tgui
             float scalingY = static_cast<float>(m_TitleBarHeight) / m_TextureTitleBar_M.getSize().y;
             float minimumWidth = ((m_TextureTitleBar_L.getSize().x + m_TextureTitleBar_R.getSize().x) * scalingY);
 
-            if (m_Size.x < minimumWidth + m_LeftBorder + m_RightBorder)
-                m_Size.x = minimumWidth + m_LeftBorder + m_RightBorder;
+            if (m_Size.x + m_LeftBorder + m_RightBorder < minimumWidth)
+                m_Size.x = minimumWidth - m_LeftBorder - m_RightBorder;
 
             m_TextureTitleBar_L.sprite.setScale(scalingY, scalingY);
             m_TextureTitleBar_M.sprite.setScale(scalingY, scalingY);
@@ -398,6 +404,14 @@ namespace tgui
     sf::Vector2f ChildWindow::getSize() const
     {
         return sf::Vector2f(m_Size.x, m_Size.y);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    sf::Vector2f ChildWindow::getFullSize() const
+    {
+        return sf::Vector2f(m_Size.x + m_LeftBorder + m_RightBorder,
+                            m_Size.y + m_TopBorder + m_BottomBorder + m_TitleBarHeight);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -446,8 +460,8 @@ namespace tgui
             float scalingY = static_cast<float>(m_TitleBarHeight) / m_TextureTitleBar_M.getSize().y;
             float minimumWidth = ((m_TextureTitleBar_L.getSize().x + m_TextureTitleBar_R.getSize().x) * scalingY);
 
-            if (m_Size.x < minimumWidth + m_LeftBorder + m_RightBorder)
-                m_Size.x = minimumWidth + m_LeftBorder + m_RightBorder;
+            if (m_Size.x + m_LeftBorder + m_RightBorder < minimumWidth)
+                m_Size.x = minimumWidth - m_LeftBorder - m_RightBorder;
 
             m_TextureTitleBar_L.sprite.setScale(scalingY, scalingY);
             m_TextureTitleBar_M.sprite.setScale(scalingY, scalingY);
@@ -558,8 +572,8 @@ namespace tgui
             float scalingY = static_cast<float>(m_TitleBarHeight) / m_TextureTitleBar_M.getSize().y;
             float minimumWidth = ((m_TextureTitleBar_L.getSize().x + m_TextureTitleBar_R.getSize().x) * scalingY);
 
-            if (m_Size.x < minimumWidth + m_LeftBorder + m_RightBorder)
-                m_Size.x = minimumWidth + m_LeftBorder + m_RightBorder;
+            if (m_Size.x + m_LeftBorder + m_RightBorder < minimumWidth)
+                m_Size.x = minimumWidth - m_LeftBorder - m_RightBorder;
 
             m_TextureTitleBar_M.sprite.setTextureRect(sf::IntRect(0, 0, static_cast<int>(((m_Size.x + m_LeftBorder + m_RightBorder) - minimumWidth) / scalingY), m_TextureTitleBar_M.getSize().y));
         }
@@ -678,7 +692,7 @@ namespace tgui
             return false;
 
         // Check if the mouse is on top of the title bar
-        if (getTransform().transformRect(sf::FloatRect(0, 0, m_Size.x + m_LeftBorder + m_RightBorder, static_cast<float>(m_TitleBarHeight + m_TopBorder))).contains(x, y))
+        if (getTransform().transformRect(sf::FloatRect(0, 0, m_Size.x + m_LeftBorder + m_RightBorder, static_cast<float>(m_TitleBarHeight))).contains(x, y))
         {
             for (unsigned int i = 0; i < m_Widgets.size(); ++i)
                 m_Widgets[i]->mouseNotOnWidget();
@@ -1093,9 +1107,9 @@ namespace tgui
 
         // Get the global position
         sf::Vector2f topLeftPanelPosition = states.transform.transformPoint(position.x + m_LeftBorder + viewPosition.x,
-                                                                        position.y + m_TitleBarHeight + m_TopBorder + viewPosition.y);
+                                                                            position.y + m_TitleBarHeight + m_TopBorder + viewPosition.y);
         sf::Vector2f bottomRightPanelPosition = states.transform.transformPoint(position.x + m_Size.x + m_LeftBorder + viewPosition.x,
-                                                                            position.y + m_TitleBarHeight + m_Size.y + m_TopBorder + viewPosition.y);
+                                                                                position.y + m_TitleBarHeight + m_Size.y + m_TopBorder + viewPosition.y);
         sf::Vector2f topLeftTitleBarPosition;
         sf::Vector2f bottomRightTitleBarPosition;
 
@@ -1203,22 +1217,22 @@ namespace tgui
         states.transform = oldTransform.translate(0, static_cast<float>(m_TitleBarHeight));
 
         // Draw left border
-        sf::RectangleShape border(sf::Vector2f(static_cast<float>(m_LeftBorder), m_Size.y + m_TopBorder + m_BottomBorder));
+        sf::RectangleShape border(sf::Vector2f(static_cast<float>(m_LeftBorder), m_Size.y + m_TopBorder));
         border.setFillColor(m_BorderColor);
         target.draw(border, states);
 
         // Draw top border
-        border.setSize(sf::Vector2f(m_Size.x + m_LeftBorder + m_RightBorder, static_cast<float>(m_TopBorder)));
+        border.setSize(sf::Vector2f(m_Size.x + m_RightBorder, static_cast<float>(m_TopBorder)));
         target.draw(border, states);
 
         // Draw right border
+        border.setSize(sf::Vector2f(static_cast<float>(m_RightBorder), m_Size.y + m_BottomBorder));
         border.setPosition(m_Size.x + m_LeftBorder, 0);
-        border.setSize(sf::Vector2f(static_cast<float>(m_RightBorder), m_Size.y + m_TopBorder + m_BottomBorder));
         target.draw(border, states);
 
         // Draw bottom border
+        border.setSize(sf::Vector2f(m_Size.x + m_LeftBorder, static_cast<float>(m_BottomBorder)));
         border.setPosition(0, m_Size.y + m_TopBorder);
-        border.setSize(sf::Vector2f(m_Size.x + m_LeftBorder + m_RightBorder, static_cast<float>(m_BottomBorder)));
         target.draw(border, states);
 
         // Make room for the borders

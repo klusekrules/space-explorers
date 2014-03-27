@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2013 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -107,13 +107,13 @@ namespace tgui
     bool AnimatedPicture::addFrame(const std::string& filename, sf::Time frameDuration)
     {
         // Check if the filename is empty
-        if (filename.empty() == true)
+        if (filename.empty())
             return false;
 
         Texture tempTexture;
 
         // Try to load the texture from the file
-        if (TGUI_TextureManager.getTexture(filename, tempTexture))
+        if (TGUI_TextureManager.getTexture(getResourcePath() + filename, tempTexture))
         {
             // If this is the first frame then set it as the current displayed frame
             if (m_Textures.empty())
@@ -192,7 +192,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool AnimatedPicture::setFrame(size_t frame)
+    bool AnimatedPicture::setFrame(unsigned int frame)
     {
         // Check if there are no frames
         if (m_Textures.empty() == true)
@@ -205,20 +205,20 @@ namespace tgui
         if (frame >= m_Textures.size())
         {
             // Display the last frame
-            m_CurrentFrame = static_cast<int>(m_Textures.size()-1);
+            m_CurrentFrame = m_Textures.size()-1;
             return false;
         }
 
         // The frame number isn't too high
-        m_CurrentFrame = static_cast<int>(frame);
+        m_CurrentFrame = frame;
         return true;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    size_t AnimatedPicture::getCurrentFrame() const
+    int AnimatedPicture::getCurrentFrame() const
     {
-        return static_cast<size_t>(m_CurrentFrame);
+        return m_CurrentFrame;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -236,14 +236,14 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    size_t AnimatedPicture::getFrames() const
+    unsigned int AnimatedPicture::getFrames() const
     {
         return m_Textures.size();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool AnimatedPicture::removeFrame(size_t frame)
+    bool AnimatedPicture::removeFrame(unsigned int frame)
     {
         // Make sure the number isn't too high
         if (frame >= m_Textures.size())

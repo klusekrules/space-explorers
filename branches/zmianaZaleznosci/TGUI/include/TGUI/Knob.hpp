@@ -23,8 +23,8 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef TGUI_MENU_BAR_HPP
-#define TGUI_MENU_BAR_HPP
+#ifndef TGUI_KNOB_HPP
+#define TGUI_KNOB_HPP
 
 
 #include <TGUI/Widget.hpp>
@@ -35,42 +35,70 @@ namespace tgui
 {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    class TGUI_API MenuBar : public Widget
+    class TGUI_API Knob : public Widget
     {
       public:
 
-        typedef SharedWidgetPtr<MenuBar> Ptr;
+        typedef SharedWidgetPtr<Knob> Ptr;
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Default constructor
+        /// @brief Default constructor
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        MenuBar();
+        Knob();
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// @brief Copy constructor
+        ///
+        /// @param copy  Instance to copy
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        Knob(const Knob& copy);
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// @brief Destructor
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        virtual ~Knob();
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// @brief Overload of assignment operator
+        ///
+        /// @param right  Instance to assign
+        ///
+        /// @return Reference to itself
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        Knob& operator= (const Knob& right);
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// @internal
         // Makes a copy of the widget by calling the copy constructor.
         // This function calls new and if you use this function then you are responsible for calling delete.
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        virtual MenuBar* clone();
+        virtual Knob* clone();
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Loads the widget.
+        /// @brief Loads the widget.
         ///
-        /// \param configFileFilename  Filename of the config file.
+        /// @param configFileFilename  Filename of the config file.
         ///
-        /// The config file must contain a MenuBar section with the needed information.
+        /// The config file must contain a Knob section with the needed information.
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         bool load(const std::string& configFileFilename);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Returns the filename of the config file that was used to load the widget.
+        /// @brief Returns the filename of the config file that was used to load the widget.
         ///
-        /// \return Filename of loaded config file.
+        /// @return Filename of loaded config file.
         ///         Empty string when no config file was loaded yet.
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,291 +106,214 @@ namespace tgui
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Changes the size of the menu bar.
+        /// @brief Set the position of the knob
         ///
-        /// \param width  The width of the menu bar.
-        /// \param height  The height of the menu bar.
+        /// This function completely overwrites the previous position.
+        /// See the move function to apply an offset based on the previous position instead.
+        /// The default position of a transformable widget is (0, 0).
         ///
-        /// By default the height is 20 pixels.
+        /// @param x X coordinate of the new position
+        /// @param y Y coordinate of the new position
+        ///
+        /// @see move, getPosition
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        virtual void setPosition(float x, float y);
+        using Transformable::setPosition;
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// @brief Changes the size of the knob.
+        ///
+        /// @param width   The new width of the knob
+        /// @param height  The new height of the knob
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         virtual void setSize(float width, float height);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Returns the size of the menu bar.
+        /// @brief Returns the size of the widget.
         ///
-        /// \return Size of the menu bar
-        ///
-        /// By default, the menu bar has the same width as the window.
-        /// The height used by default is the height of the background image(s).
+        /// @return Size of the widget
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         virtual sf::Vector2f getSize() const;
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Adds a new menu.
+        /// @brief Set the start rotation, which is the place where the value should be minimal.
         ///
-        /// \param text  The text written on the menu
+        /// @param rotation  New start rotation.
+        ///
+        /// The rotation is a number in the interval [0,360[, for which 0 to to the right and the rotation goes counter-clockwise.
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void addMenu(const sf::String& text);
+        void setStartRotation(float startRotation);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Adds a new menu item.
+        /// @brief Set the end rotation, which is the place where the value should be maximal.
         ///
-        /// \param menu  The name of the menu to which the menu item will be added
-        /// \param text  The text written on this menu item
+        /// @param rotation  New end rotation.
         ///
-        /// \return True when the item was added, false when \a menu was not found.
-        ///
-        /// \code
-        /// menuBar->addMenu("File");
-        /// menuBar->addMenuItem("File", "Load");
-        /// menuBar->addMenuItem("File", "Save");
-        /// \endcode
+        /// The rotation is a number in the interval [0,360[, for which 0 to to the right and the rotation goes counter-clockwise.
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        bool addMenuItem(const sf::String& menu, const sf::String& text);
+        void setEndRotation(float endRotation);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Removes a menu.
+        /// @brief Sets the value for when the knob would be rotated in the direction of StartRotation.
         ///
-        /// Any menu items that belong to this menu will be removed as well.
+        /// @param minimum  The new minimum value
         ///
-        /// \param menu  The name of the menu to remove
+        /// The knob will be rotated to keep representing the value correctly.
         ///
-        /// \return True when the menu was removed, false when \a menu was not found.
+        /// When the value is too small then it will be changed to this minimum.
+        /// When the maximum value is lower than the new minimum then it will be changed to this new minimum value.
+        /// The default minimum value is 0.
+        ///
+        /// @see setStartRotation
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        bool removeMenu(const sf::String& menu);
+        virtual void setMinimum(int minimum);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Removes all menus.
+        /// @brief Sets the value for when the knob would be rotated in the direction of EndRotation.
+        ///
+        /// @param maximum  The new maximum value
+        ///
+        /// The knob will be rotated to keep representing the value correctly.
+        ///
+        /// When the value is too big then it will be changed to this maximum.
+        /// When the minimum value is higher than the new maximum then it will be changed to this new maximum value.
+        /// The default maximum value is 360.
+        ///
+        /// @see setEndRotation
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void removeAllMenus();
+        virtual void setMaximum(int maximum);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Removes a menu item.
+        /// @brief Changes the current value.
         ///
-        /// \param menu      The name of the menu in which the menu item is located
-        /// \param menuItem  The name of the menu item to remove
+        /// @param value  The new value
         ///
-        /// \return True when the item was removed, false when \a menu or \a menuItem was not found.
+        /// The knob will be rotated to correctly represent this new value.
+        ///
+        /// The value can't be smaller than the minimum or bigger than the maximum.
+        /// The default value is 0.
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        bool removeMenuItem(const sf::String& menu, const sf::String& menuItem);
+        virtual void setValue(int value);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Changes the colors used in the menu bar.
+        /// @brief Returns the value when the knob would be rotated in the direction of StartRotation.
         ///
-        /// \param backgroundColor          The color of the background of the menu bar
-        /// \param textColor                The color of the text
-        /// \param selectedBackgroundColor  The color of the background of the selected item
-        /// \param selectedTextColor        The color of the text when it is selected
+        /// @return The current minimum value
+        ///
+        /// The default minimum value is 0.
+        ///
+        /// @see getStartRotation
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void changeColors(const sf::Color& backgroundColor         = sf::Color::White,
-                          const sf::Color& textColor               = sf::Color::Black,
-                          const sf::Color& selectedBackgroundColor = sf::Color(50, 100, 200),
-                          const sf::Color& selectedTextColor       = sf::Color::White);
+        int getMinimum() const;
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Set the background color that will be used inside the menu bar.
+        /// @brief Returns the value when the knob would be rotated in the direction of EndRotation.
         ///
-        /// \param backgroundColor  The color of the background of the menu bar
+        /// @return The current maximum value
+        ///
+        /// The default maximum value is 360.
+        ///
+        /// @see getEndRotation
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setBackgroundColor(const sf::Color& backgroundColor);
+        int getMaximum() const;
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Set the text color that will be used inside the menu bar.
+        /// @brief Returns the current value.
         ///
-        /// \param textColor  The color of the text
+        /// @return The current value, determined by the Minimum, Maximum, StartRotation and EndRotation
+        ///
+        /// The default value is 0.
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setTextColor(const sf::Color& textColor);
+        int getValue() const;
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Set the background color of the selected text that will be used inside the menu bar.
+        /// @brief Should the value increase when turning the knob clockwise?
         ///
-        /// \param selectedBackgroundColor  The color of the background of the selected item
+        /// @param clockwise  Does the value increase when turning clockwise?
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setSelectedBackgroundColor(const sf::Color& selectedBackgroundColor);
+        void setClockwiseTurning(bool clockwise);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Set the text color of the selected text that will be used inside the menu bar.
+        /// @brief Returns whether the value increases when turning the knob clockwise?
         ///
-        /// \param selectedTextColor  The color of the text when it is selected
+        /// @return Does the value increase when turning clockwise?
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setSelectedTextColor(const sf::Color& selectedTextColor);
+        bool getClockwiseTurning();
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Get the background color that is currently being used inside the menu bar.
+        /// @brief Changes the transparency of the widget.
         ///
-        /// \return The color of the background of the menu bar
+        /// @param transparency  The transparency of the widget.
+        ///                      0 is completely transparent, while 255 (default) means fully opaque.
+        ///
+        /// Note that this will only change the transparency of the images. The parts of the widgets that use a color will not
+        /// be changed. You must change them yourself by setting the alpha channel of the color.
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        const sf::Color& getBackgroundColor() const;
+        virtual void setTransparency(unsigned char transparency);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Get the text color that is currently being used inside the menu bar.
-        ///
-        /// \return The color of the text
-        ///
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        const sf::Color& getTextColor() const;
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Get the background color of the selected text that is currently being used inside the menu bar.
-        ///
-        /// \return The color of the background of the selected item
-        ///
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        const sf::Color& getSelectedBackgroundColor() const;
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Get the text color of the selected text that is currently being used inside the menu bar.
-        ///
-        /// \return The color of the text when it is selected
-        ///
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        const sf::Color& getSelectedTextColor() const;
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Changes the font used in the menu bar.
-        ///
-        /// When you don't call this function then the global font will be use.
-        /// This global font can be changed with the setGlobalFont function from the parent.
-        ///
-        /// \param font  The new font.
-        ///
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setTextFont(const sf::Font& font);
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Returns the font that is used in the menu bar.
-        ///
-        /// \return  Pointer to the font that is currently being used.
-        ///
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        const sf::Font* getTextFont() const;
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Changes the character size of the text.
-        ///
-        /// \param size  The new size of the text.
-        ///              If the size is 0 (default) then the text will be scaled to fit in the menu bar.
-        ///
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setTextSize(unsigned int size);
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Returns the character size of the text.
-        ///
-        /// \return The text size.
-        ///
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        unsigned int getTextSize() const;
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Changes the distance between the text and the side of the menu item.
-        ///
-        /// \param distanceToSide  distance between the text and the side of the menu item
-        ///
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setDistanceToSide(unsigned int distanceToSide);
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Returns the distance between the text and the side of the menu item.
-        ///
-        /// \return distance between the text and the side of the menu item
-        ///
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        unsigned int getDistanceToSide() const;
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Changes the minimum width of the submenus.
-        ///
-        /// When a submenu is displayed, the width will be either this or the width of the longest text in the submenu.
-        /// The default minimum width is 125 pixels.
-        ///
-        /// \param minimumWidth  minimum width of the submenus
-        ///
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setMinimumSubMenuWidth(unsigned int minimumWidth);
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Returns the distance between the text and the side of the menu item.
-        ///
-        /// \return minimum width of the submenus
-        ///
-        /// \see setMinimumSubMenuWidth
-        ///
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        unsigned int getMinimumSubMenuWidth() const;
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \internal
+        /// @internal
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         virtual bool mouseOnWidget(float x, float y);
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \internal
+        /// @internal
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         virtual void leftMousePressed(float x, float y);
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \internal
+        /// @internal
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         virtual void leftMouseReleased(float x, float y);
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \internal
+        /// @internal
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         virtual void mouseMoved(float x, float y);
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \internal
+        /// @internal
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        virtual void mouseNoLongerDown();
+        virtual void widgetFocused();
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \internal
+        /// @internal
         // This function is a (slow) way to set properties on the widget, no matter what type it is.
         // When the requested property doesn't exist in the widget then the functions will return false.
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         virtual bool setProperty(std::string property, const std::string& value);
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \internal
+        /// @internal
         // This function is a (slow) way to get properties of the widget, no matter what type it is.
         // When the requested property doesn't exist in the widget then the functions will return false.
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -370,7 +321,7 @@ namespace tgui
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \internal
+        /// @internal
         // Returns a list of all properties that can be used in setProperty and getProperty.
         // The second value in the pair is the type of the property (e.g. int, uint, string, ...).
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -381,9 +332,9 @@ namespace tgui
       protected:
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // This function is called when the widget is added to a container.
+        // Recalculates the rotation of the knob.
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        virtual void initialize(Container *const container);
+        void recalculateRotation();
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -396,54 +347,40 @@ namespace tgui
       public:
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// Defines specific triggers to MenuBar.
+        /// Defines specific triggers to Knob.
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        enum MenuBarCallbacks
+        enum KnobCallbacks
         {
-            MenuItemClicked = WidgetCallbacksCount * 1,         ///< A menu item was clicked
-            AllMenuBarCallbacks = WidgetCallbacksCount * 2 - 1, ///< All triggers defined in MenuBar and its base classes
-            MenuBarCallbacksCount = WidgetCallbacksCount * 2
+            ValueChanged       = WidgetCallbacksCount * 1,     ///< Value changed (knob turned)
+            AllKnobCallbacks   = WidgetCallbacksCount * 2 - 1, ///< All triggers defined in Knob and its base classes
+            KnobCallbacksCount = WidgetCallbacksCount * 2
         };
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       protected:
 
-        struct Menu
-        {
-            sf::Text text;
-            std::vector<sf::Text> menuItems;
-            int selectedMenuItem;
-        };
+        std::string m_loadedConfigFile;
 
-        std::string m_LoadedConfigFile;
+        Texture m_backgroundTexture;
+        Texture m_foregroundTexture;
 
-        std::vector<Menu> m_Menus;
+        sf::Vector2f m_size;
 
-        int m_VisibleMenu;
+        bool m_clockwiseTurning; // Does rotating clockwise increment the value?
+        float m_imageRotation;
+        float m_startRotation;
+        float m_endRotation;
 
-        const sf::Font* m_TextFont;
-
-        sf::Vector2f m_Size;
-
-        unsigned int m_TextSize;
-
-        unsigned int m_DistanceToSide;
-
-        unsigned int m_MinimumSubMenuWidth;
-
-        sf::Color m_BackgroundColor;
-        sf::Color m_TextColor;
-        sf::Color m_SelectedBackgroundColor;
-        sf::Color m_SelectedTextColor;
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        int m_minimum;
+        int m_value;
+        int m_maximum;
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#endif // TGUI_MENU_BAR_HPP
+#endif // TGUI_KNOB_HPP
+

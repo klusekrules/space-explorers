@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2013 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -135,14 +135,25 @@ namespace tgui
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Returns the size of the panel.
+        /// \brief Returns the size of the drawable area of the child window.
         ///
-        /// \return Size of the panel
+        /// \return Size of the child window
         ///
         /// The size returned by this function is the size of the child window, without the title bar nor the borders.
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         virtual sf::Vector2f getSize() const;
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \brief Returns the size of the full child window.
+        ///
+        /// \return Size of the child window
+        ///
+        /// The size returned by this function is the size of the child window, including the title bar and the borders.
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        virtual sf::Vector2f getFullSize() const;
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
