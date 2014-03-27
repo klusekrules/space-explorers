@@ -262,6 +262,7 @@
     <ClCompile Include="src\TGUI\EditBox.cpp" />
     <ClCompile Include="src\TGUI\Grid.cpp" />
     <ClCompile Include="src\TGUI\Gui.cpp" />
+    <ClCompile Include="src\TGUI\Knob.cpp" />
     <ClCompile Include="src\TGUI\Label.cpp" />
     <ClCompile Include="src\TGUI\ListBox.cpp" />
     <ClCompile Include="src\TGUI\LoadingBar.cpp" />
