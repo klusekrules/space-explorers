@@ -34,7 +34,7 @@ namespace SpEx{
 		typedef std::map< Indeks, std::shared_ptr< Statek > > ListaStatkow;
 		typedef std::map< Indeks, std::shared_ptr< Obrona > > ListaObrona;
 		typedef std::map< Indeks, std::shared_ptr< Surowce > > ListaSurowcow;
-		typedef std::map< STyp::Identyfikator, std::shared_ptr< Flota > > ListaFlot;
+		typedef std::map< Indeks, std::shared_ptr< Flota > > ListaFlot;
 		// Nie u¿ywana funkcjonalnoœæ - typedef std::map< Indeks, STyp::Ilosc > ListaZasobow;
 
 		/**
@@ -121,7 +121,7 @@ namespace SpEx{
 		* Metoda tworzy pusty obiekt floty na planecie i zwraca identyfikator.
 		* \return Identyfikator nowo stworzonej floty.
 		*/
-		STyp::Identyfikator dodajFlote();
+		Indeks dodajFlote();
 
 		/**
 		* \brief Metoda pobiera flotê.
@@ -130,7 +130,7 @@ namespace SpEx{
 		* \param[in] identyfikator - Identyfikator floty.
 		* \return Sprytny wskaŸnik do floty lub nullptr jezeli flota o podanym identyfikatorze nie istnieje.
 		*/
-		std::shared_ptr< Flota > pobierzFlote(const STyp::Identyfikator& identyfikator) const;
+		std::shared_ptr< Flota > pobierzFlote(const Indeks& identyfikator) const;
 
 		/**
 		* \brief Metoda usuwaj¹ca flotê z planety.
@@ -139,7 +139,7 @@ namespace SpEx{
 		* \param[in] identyfikator - Identyfikator floty do usuniêcia.
 		* \return true je¿eli uda³o siê usun¹æ, false w przecwnym wypadku.
 		*/
-		bool usunFlote(const STyp::Identyfikator& identyfikator);
+		bool usunFlote(const Indeks& identyfikator);
 
 		/**
 		* \brief Metoda przenoœci obiekt do floty.
@@ -150,7 +150,7 @@ namespace SpEx{
 		* \param[in] ilosc - Iloœæ obiektów do przeniesienia.
 		* \return true je¿eli uda siê przenieœæ obiekt, false w przeciwnym wypadku.
 		*/
-		bool przeniesDoFloty(const STyp::Identyfikator& flota, const Indeks& obiekt, const STyp::Ilosc& ilosc);
+		bool przeniesDoFloty(const Indeks& flota, const Indeks& obiekt, const STyp::Ilosc& ilosc);
 
 		/**
 		* \brief Metoda przenoœci obiekt do ³adowni floty.
@@ -161,7 +161,7 @@ namespace SpEx{
 		* \param[in] ilosc - Iloœæ obiektów do przeniesienia.
 		* \return true je¿eli uda siê przenieœæ obiekt, false w przeciwnym wypadku.
 		*/
-		bool zaladujSurowceNaFlote(const STyp::Identyfikator& flota, const Indeks& obiekt, const STyp::Ilosc& ilosc);
+		bool zaladujSurowceNaFlote(const Indeks& flota, const Indeks& obiekt, const STyp::Ilosc& ilosc);
 
 		/**
 		* \brief Metoda przenoœci obiekt do hangaru floty.
@@ -172,7 +172,7 @@ namespace SpEx{
 		* \param[in] ilosc - Iloœæ obiektów do przeniesienia.
 		* \return true je¿eli uda siê przenieœæ obiekt, false w przeciwnym wypadku.
 		*/
-		bool zaladujStatekNaFlote(const STyp::Identyfikator& flota, const Indeks& obiekt, const STyp::Ilosc& ilosc);
+		bool zaladujStatekNaFlote(const Indeks& flota, const Indeks& obiekt, const STyp::Ilosc& ilosc);
 
 		/**
 		* \brief Metoda rozladowujaca statek.
