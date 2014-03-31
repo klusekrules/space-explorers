@@ -520,8 +520,8 @@ namespace tgui
     void Button::setText(const sf::String& text)
     {
         // Don't do anything when the button wasn't loaded correctly
-        if (m_Loaded == false)
-            return;
+        //if (m_Loaded == false)
+        //    return;
 
         // Set the new text
         m_Text.setString(text);

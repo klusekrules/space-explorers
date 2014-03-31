@@ -263,6 +263,7 @@
     <ClCompile Include="src\TGUI\Grid.cpp" />
     <ClCompile Include="src\TGUI\Gui.cpp" />
     <ClCompile Include="src\TGUI\Knob.cpp" />
+    <ClCompile Include="src\TGUI\KontrolkaObiektu.cpp" />
     <ClCompile Include="src\TGUI\Label.cpp" />
     <ClCompile Include="src\TGUI\ListBox.cpp" />
     <ClCompile Include="src\TGUI\LoadingBar.cpp" />
@@ -293,6 +294,50 @@
     <ProjectReference Include="..\SFML\src\SFML\SFML_Window.vcxproj">
       <Project>{ece7a458-22f2-406c-991e-36d0e579e457}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\TGUI\AnimatedPicture.hpp" />
+    <ClInclude Include="include\TGUI\Borders.hpp" />
+    <ClInclude Include="include\TGUI\Button.hpp" />
+    <ClInclude Include="include\TGUI\Callback.hpp" />
+    <ClInclude Include="include\TGUI\ChatBox.hpp" />
+    <ClInclude Include="include\TGUI\Checkbox.hpp" />
+    <ClInclude Include="include\TGUI\ChildWindow.hpp" />
+    <ClInclude Include="include\TGUI\ClickableWidget.hpp" />
+    <ClInclude Include="include\TGUI\Clipboard.hpp" />
+    <ClInclude Include="include\TGUI\ComboBox.hpp" />
+    <ClInclude Include="include\TGUI\Config.hpp" />
+    <ClInclude Include="include\TGUI\ConfigFile.hpp" />
+    <ClInclude Include="include\TGUI\Container.hpp" />
+    <ClInclude Include="include\TGUI\Defines.hpp" />
+    <ClInclude Include="include\TGUI\EditBox.hpp" />
+    <ClInclude Include="include\TGUI\Grid.hpp" />
+    <ClInclude Include="include\TGUI\Gui.hpp" />
+    <ClInclude Include="include\TGUI\Knob.hpp" />
+    <ClInclude Include="include\TGUI\KontrolkaObiektu.h" />
+    <ClInclude Include="include\TGUI\Label.hpp" />
+    <ClInclude Include="include\TGUI\ListBox.hpp" />
+    <ClInclude Include="include\TGUI\LoadingBar.hpp" />
+    <ClInclude Include="include\TGUI\MenuBar.hpp" />
+    <ClInclude Include="include\TGUI\MessageBox.hpp" />
+    <ClInclude Include="include\TGUI\Panel.hpp" />
+    <ClInclude Include="include\TGUI\Picture.hpp" />
+    <ClInclude Include="include\TGUI\RadioButton.hpp" />
+    <ClInclude Include="include\TGUI\Scrollbar.hpp" />
+    <ClInclude Include="include\TGUI\SharedWidgetPtr.hpp" />
+    <ClInclude Include="include\TGUI\Slider.hpp" />
+    <ClInclude Include="include\TGUI\Slider2d.hpp" />
+    <ClInclude Include="include\TGUI\SpinButton.hpp" />
+    <ClInclude Include="include\TGUI\SpriteSheet.hpp" />
+    <ClInclude Include="include\TGUI\Tab.hpp" />
+    <ClInclude Include="include\TGUI\TextBox.hpp" />
+    <ClInclude Include="include\TGUI\TextureManager.hpp" />
+    <ClInclude Include="include\TGUI\TGUI.hpp" />
+    <ClInclude Include="include\TGUI\Transformable.hpp" />
+    <ClInclude Include="include\TGUI\Widget.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\TGUI\SharedWidgetPtr.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

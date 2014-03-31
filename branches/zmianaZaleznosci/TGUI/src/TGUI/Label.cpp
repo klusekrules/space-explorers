@@ -102,7 +102,7 @@ namespace tgui
                 TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section Label in " + m_LoadedConfigFile + ".");
         }
 
-        return false;
+        return true;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -699,6 +699,14 @@ namespace tgui
                 else COMPARE_WIDGET(12, "childwindow:", ChildWindow)
                 else COMPARE_WIDGET(12, "spritesheet:", SpriteSheet)
                 else COMPARE_WIDGET(16, "animatedpicture:", AnimatedPicture)
+				else //COMPARE_WIDGET(17, "kontrolkaobiektu:", KontrolkaObiektu)
+					if (line.substr(0, 17).compare("kontrolkaobiektu:") == 0)
+					{ 
+					line.erase(0, 17); 
+					
+					widgetPtr.push_back(KontrolkaObiektu::Ptr(*static_cast<Container*>(widgetPtr.back()), line).get());
+					progress.push(0); 
+					}
                 else
                     widgetFound = false;
 
@@ -775,6 +783,7 @@ namespace tgui
                     case Type_ChildWindow:      m_File << tabs << "ChildWindow: "; break;
                     case Type_SpriteSheet:      m_File << tabs << "SpriteSheet: "; break;
                     case Type_AnimatedPicture:  m_File << tabs << "AnimatedPicture: "; break;
+					case Type_KontrolkaObiektu: m_File << tabs << "KontrolkaObiektu: "; break;
                     default:
                         continue;
                 }
