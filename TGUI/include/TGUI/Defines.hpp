@@ -103,7 +103,8 @@ namespace tgui
         Type_Panel,
         Type_ChildWindow,
         Type_Grid,
-        Type_MessageBox
+        Type_MessageBox,
+		Type_KontrolkaObiektu
     };
 }
 
