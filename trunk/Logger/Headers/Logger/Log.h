@@ -44,21 +44,7 @@ namespace SLog{
 		*/
 		typedef std::function<void(TypLogow, const std::string&)> Strumien;
 
-		/**
-		* Konstruktor.
-		*/
-		Log() = default;
-
-		/**
-		* Konstruktor kopiuj¹cy.
-		*/
-		Log(const Log&) = default;
-
-		/**
-		* Operator przypisania.
-		*/
-		Log& operator=(const Log&) = default;
-
+		
 		/**
 		* Metoda dodaj¹ca strumien wyjœciowy do
 		* \param[in] strumien - Strumieñ do wysy³ania danych
@@ -119,6 +105,22 @@ namespace SLog{
 		~Log() = default;
 
 	private:
+
+		/**
+		* Konstruktor.
+		*/
+		Log() = default;
+
+		/**
+		* Konstruktor kopiuj¹cy.
+		*/
+		Log(const Log&) = default;
+
+		/**
+		* Operator przypisania.
+		*/
+		Log& operator=(const Log&) = default;
+
 
 		std::vector< Strumien > outstream; /// Tablica strumieni do których ma zostaæ wysy³any log.
 

@@ -105,7 +105,7 @@ namespace SpEx {
 
 		SLog::Log& logger_; /// Instancja loggera.
 
-		SZmi::ZmianaFabryka& fabrykaZmian_; /// Instancja fabryki zmian.
+		SZmi::ZmianaFabryka fabrykaZmian_; /// Instancja fabryki zmian.
 
 	private:
 

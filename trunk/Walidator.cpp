@@ -1,10 +1,6 @@
 #include "Walidator.h"
 #include <algorithm>
 namespace SpEx{
-	Walidator& Walidator::pobierzInstancje(){
-		static Walidator w;
-		return w;
-	}
 
 	void Walidator::dodajNowyIdentyfikatorPlanety(const STyp::Identyfikator & id){
 		zbiorNowychIdPlanet.insert(id);
@@ -21,6 +17,6 @@ namespace SpEx{
 
 	bool Walidator::waliduj()const{
 		const std::set<STyp::Identyfikator>& zbior = zbiorNowychIdPlanet;
-		return all_of(zbiorUzytychIdPlanet.begin(), zbiorUzytychIdPlanet.end(), [&zbior](const STyp::Identyfikator& i){ return zbior.find(i) != zbior.end(); });
+		return std::all_of(zbiorUzytychIdPlanet.begin(), zbiorUzytychIdPlanet.end(), [&zbior](const STyp::Identyfikator& i){ return zbior.find(i) != zbior.end(); });
 	}
 };

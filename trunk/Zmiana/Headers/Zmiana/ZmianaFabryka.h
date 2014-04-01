@@ -36,10 +36,9 @@ namespace SZmi{
 		typedef bool(*RejestrujZmiane)(ZmianaFabryka& fabryka, SLog::Log& logger);
 
 		/**
-		* Metoda pobieraj¹ca instancjê klasy ZmianaFabryka.
-		* \return Obiekt klasy ZmianaFabryka.
+		* Konstruktor bezparametrowy.
 		*/
-		static ZmianaFabryka& pobierzInstancje();
+		ZmianaFabryka() = default;
 
 		~ZmianaFabryka() = default;
 
@@ -69,11 +68,6 @@ namespace SZmi{
 		typedef std::map<STyp::Identyfikator, KreatorZmiany> Callbacks;
 
 		Callbacks callbacks_; ///S³ownik funkcji tworz¹cych obiekty pochodzne po ZmianaInterfejs.
-
-		/**
-		* Konstruktor bezparametrowy.
-		*/
-		ZmianaFabryka() = default;
 
 		/**
 		* Konstruktor kopiuj¹cy.
