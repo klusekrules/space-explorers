@@ -8,12 +8,7 @@ namespace SZmi{
 		callbacks_[id] = funkcja;
 		return true;
 	}
-
-	ZmianaFabryka& ZmianaFabryka::pobierzInstancje(){
-		static ZmianaFabryka instancja;
-		return instancja;
-	}
-
+	
 	std::shared_ptr<ZmianaInterfejs> ZmianaFabryka::Tworz(XmlBO::ElementWezla wezel) const {
 		if (wezel){
 			STyp::Identyfikator id;

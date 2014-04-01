@@ -1,5 +1,4 @@
 #pragma once
-#include "Singleton.h"
 #include "WatekZarzadzany.h"
 namespace SpEx{
 	class MenadzerWatkow

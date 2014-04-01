@@ -37,7 +37,7 @@ namespace SpEx{
 	char** Aplikacja::argumenty = nullptr;
 
 	Aplikacja::Aplikacja()
-		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), fabrykaZmian_(SZmi::ZmianaFabryka::pobierzInstancje()), instancjaGry_(nullptr)
+		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), fabrykaZmian_(), instancjaGry_(nullptr)
 	{
 		/* ------- Wstêpna konfiguracja logów ------- */
 #ifdef TESTS
@@ -124,7 +124,7 @@ namespace SpEx{
 
 		pluginy_ = std::make_shared<SPlu::Cplugin>(ustawienia_.pobierzFolderPlugin(), fabrykaZmian_, logger_);
 
-		if (!RejestrujZmianaPoziomObiektu(SZmi::ZmianaFabryka::pobierzInstancje(), logger_))
+		if (!RejestrujZmianaPoziomObiektu(fabrykaZmian_, logger_))
 			throw STyp::Wyjatek(EXCEPTION_PLACE, pobierzSladStosu(), STyp::Identyfikator(),
 			STyp::Tekst("B³ad rejestracji zmiany."),
 			STyp::Tekst("Nie powiod³a siê rejestracja zmiany sparawdzaj¹cej poziom obiektu."));
