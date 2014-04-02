@@ -837,6 +837,12 @@
     <Image Include="out\resource\SpaceExplorers_logo_640x348.png">
       <Filter>Resource\Obrazy</Filter>
     </Image>
+    <Image Include="out\resource\Ikona.ico">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="out\resource\IkonaBlue.ico">
+      <Filter>Resource</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SpaceGame.rc">
