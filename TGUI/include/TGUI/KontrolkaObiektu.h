@@ -1,15 +1,16 @@
 #pragma once
 #include <TGUI\TGUI.hpp>
 namespace tgui{
-	class KontrolkaObiektu :
+	class TGUI_API KontrolkaObiektu :
 		public Panel
 	{
 	public:
+		static Widget* createWidget(Container*, const std::string& name);
 
 		typedef SharedWidgetPtr<KontrolkaObiektu> Ptr;
 
 		KontrolkaObiektu();
-		KontrolkaObiektu(const KontrolkaObiektu& );
+		KontrolkaObiektu(const KontrolkaObiektu&);
 		virtual ~KontrolkaObiektu() = default;
 
 		bool ustawObrazek(const std::string& obraz);
@@ -20,7 +21,7 @@ namespace tgui{
 		void blokowanieCancel(bool zablokowane);
 
 		void setSize(float width, float hight);
-		bool load(const std::string& configFileFilename); 
+		bool load(const std::string& configFileFilename);
 		virtual KontrolkaObiektu* clone();
 		const std::string& getLoadedConfigFile() const;
 		virtual bool setProperty(std::string property, const std::string& value);
