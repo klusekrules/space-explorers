@@ -283,6 +283,7 @@
     <ClCompile Include="src\TGUI\TGUI.cpp" />
     <ClCompile Include="src\TGUI\Transformable.cpp" />
     <ClCompile Include="src\TGUI\Widget.cpp" />
+    <ClCompile Include="src\TGUI\WidgetFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFML\src\SFML\SFML_Graphics.vcxproj">
@@ -335,6 +336,7 @@
     <ClInclude Include="include\TGUI\TGUI.hpp" />
     <ClInclude Include="include\TGUI\Transformable.hpp" />
     <ClInclude Include="include\TGUI\Widget.hpp" />
+    <ClInclude Include="include\TGUI\WidgetFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\TGUI\SharedWidgetPtr.inl" />
