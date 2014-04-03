@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
   <?include definicje.wxi ?>
   <Product Name='Space-Explorers 0.0.5' Id='C5D410BC-EB65-48AD-966D-24830261DF12' UpgradeCode='90B73C3B-7192-4C3F-A82B-CB7A2C07F571'
     Language='1045' Codepage='1250' Version='0.0.5' Manufacturer='Daniel Wojdak'>
@@ -48,6 +49,11 @@
     </Directory>
 
     <DirectoryRef Id='INSTALL_DIR'>
+      <Component Id="INSTALLFOLDER_Permission" Guid="{FF3790E7-757E-4DAD-ACE7-A819C253F578}">
+            <CreateFolder>
+                <util:PermissionEx User="Users" GenericAll="yes"/>
+            </CreateFolder>
+      </Component>
       <Component Id='SPACE_EXPLORERS_COM' Guid='5BE847C4-843E-4D82-93EF-16190F994885' Win64='$(var.isPlatformx64)'>
         <File Id='SPACE_EXPLORERS_EXE' Name='space.exe'  Source='..\out\SpaceExplorers-$(var.Platforma)-$(var.Configuration).exe' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'>
           <Shortcut Id="MENU_SHORTCUT_SPACE_EXPLORERS_EXE" Directory="ProgramMenuDir" Name="Space-Explorers"
@@ -187,6 +193,7 @@
     
     <Feature Id='Complete' Title='Space-Explorers 0.0.4' Description='Moja aplikacja'
       Display='expand' Level='1' AllowAdvertise='no' ConfigurableDirectory="SPACE_EXPLORERS" >
+      <ComponentRef Id="INSTALLFOLDER_Permission"/>
       <ComponentRef Id='SPACE_EXPLORERS_COM' />
       <ComponentRef Id='CONFIG_XML' />
       <ComponentRef Id='DATA_XML' />
