@@ -3,6 +3,10 @@
 
 namespace tgui{
 
+	Widget* KontrolkaObiektu::createWidget(Container* container, const std::string& name){
+		return KontrolkaObiektu::Ptr(*container, name).get();
+	}
+
 	KontrolkaObiektu::KontrolkaObiektu(){
 		m_Callback.widgetType = Type_KontrolkaObiektu;
 		m_ContainerWidget = false;
@@ -228,15 +232,23 @@ namespace tgui{
 	}
 
 	bool KontrolkaObiektu::setProperty(std::string property, const std::string& value){
-		return Panel::setProperty(property, value);
+		if (property == "configfile"){
+			return load(value);
+		}else
+			return Panel::setProperty(property, value);
 	}
 
 	bool KontrolkaObiektu::getProperty(std::string property, std::string& value) const{
-		return Panel::getProperty(property, value);
+		if (property == "ConfigFile"){
+			value = m_LoadedConfigFile;
+			return true;
+		}else
+			return Panel::getProperty(property, value);
 	}
 
 	std::list< std::pair<std::string, std::string> > KontrolkaObiektu::getPropertyList() const{
 		auto list = Panel::getPropertyList();
+		list.push_back(std::pair<std::string, std::string>("ConfigFile", "string"));
 		return list;
 	}
 

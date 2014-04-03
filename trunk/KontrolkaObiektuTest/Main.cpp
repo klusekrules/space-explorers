@@ -13,13 +13,13 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	tgui::Gui gui(window);
 	gui.setGlobalFont("resource\\arial.ttf");
-	tgui::Grid::Ptr siatka(gui, "Siatka");
-	tgui::KontrolkaObiektu::Ptr kontrolka1(gui, "Moja Kontrolka");
-	tgui::KontrolkaObiektu::Ptr kontrolka2(*siatka, "Moja Kontrolka2");
+	//tgui::Grid::Ptr siatka(gui, "Siatka");
+	//tgui::KontrolkaObiektu::Ptr kontrolka1(gui, "Moja Kontrolka");
+	/*tgui::KontrolkaObiektu::Ptr kontrolka2(*siatka, "Moja Kontrolka2");
 	tgui::KontrolkaObiektu::Ptr kontrolka3(*siatka, "Moja Kontrolka3");
-
-	kontrolka1->load("widgets\\Black.conf");
-	kontrolka2->load("widgets\\Black.conf");
+	*/
+	//kontrolka1->load("widgets\\Black.conf");
+	/*kontrolka2->load("widgets\\Black.conf");
 	kontrolka3->load("widgets\\Black.conf");
 
 	kontrolka1->setBackgroundTexture(&tlo_);
@@ -30,8 +30,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	siatka->addWidget(kontrolka1, 0, 0, tgui::Borders(2, 2, 2, 2));
 	siatka->addWidget(kontrolka2, 1, 0, tgui::Borders(2, 2, 2, 2));
-	siatka->addWidget(kontrolka3, 2, 0, tgui::Borders(2, 2, 2, 2));
-	//gui.loadWidgetsFromFile("resource\\test.wdg");
+	siatka->addWidget(kontrolka3, 2, 0, tgui::Borders(2, 2, 2, 2));*/
+	gui.loadWidgetsFromFile("resource\\test.wdg");
 	while (window.isOpen())
 	{
 		sf::Event event;
