@@ -8,6 +8,7 @@ namespace tgui{
 	}
 
 	KontrolkaObiektu::KontrolkaObiektu(){
+		background_.data = nullptr;
 		m_Callback.widgetType = Type_KontrolkaObiektu;
 		m_ContainerWidget = false;
 	}
@@ -145,9 +146,14 @@ namespace tgui{
 			std::string property = properties[i];
 			std::string value = values[i];
 			//setTextColor(extractColor(value));
-			if (property == "picture")
+			if (property == "background")
 			{				
-				picture_->load(configFileFolder + value);
+				if (!configFile.readTexture(value, configFileFolder, background_))
+				{
+					TGUI_OUTPUT("TGUI error: Failed to parse value for NormalImage in section Button in " + m_LoadedConfigFile + ".");
+					return false;
+				}
+				setBackgroundTexture(&(background_.data->texture));
 			}
 			else if(property == "nameconfig")
 			{
@@ -232,14 +238,19 @@ namespace tgui{
 	}
 
 	bool KontrolkaObiektu::setProperty(std::string property, const std::string& value){
-		if (property == "configfile"){
+		if (property == "image"){
+			return picture_->load(value);
+		}else if(property == "configfile"){
 			return load(value);
 		}else
 			return Panel::setProperty(property, value);
 	}
 
 	bool KontrolkaObiektu::getProperty(std::string property, std::string& value) const{
-		if (property == "ConfigFile"){
+		if (property == "Image"){
+			value = picture_->getLoadedFilename();
+			return true;
+		}else if(property == "ConfigFile"){
 			value = m_LoadedConfigFile;
 			return true;
 		}else
@@ -249,6 +260,7 @@ namespace tgui{
 	std::list< std::pair<std::string, std::string> > KontrolkaObiektu::getPropertyList() const{
 		auto list = Panel::getPropertyList();
 		list.push_back(std::pair<std::string, std::string>("ConfigFile", "string"));
+		list.push_back(std::pair<std::string, std::string>("Image", "string"));
 		return list;
 	}
 

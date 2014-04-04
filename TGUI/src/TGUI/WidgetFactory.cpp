@@ -15,6 +15,13 @@ namespace tgui{
 		return iter->second(kontener, name);
 	}
 
+	bool WidgetFactory::RejestrujKreatorWidzetu(const std::string& id, KreatorWidzetu funckja){
+		if (callbacks_.find(id) != callbacks_.end())
+			return false;
+		callbacks_.insert(std::make_pair(id, funckja));
+		return true;
+	}
+
 	WidgetFactory::WidgetFactory()
 	{
 		callbacks_.insert(std::make_pair("tab", Tab::createWidget));
