@@ -50,5 +50,6 @@ namespace tgui{
 		float marginButtonLeft = 11.f;
 		float marginButtonRight = 5.f;
 		float ratio = 3.7f;
+		float interspace_ = 5;
 	};
 };
