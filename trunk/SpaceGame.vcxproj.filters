@@ -271,6 +271,9 @@
     <ClCompile Include="FPSCounter.cpp">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClCompile>
+    <ClCompile Include="ListaObiektowGui.cpp">
+      <Filter>SourceFile\GUI\TGUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -594,6 +597,9 @@
     <ClInclude Include="FPSCounter.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
+    <ClInclude Include="ListaObiektowGui.h">
+      <Filter>SourceFile\GUI\TGUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -745,6 +751,9 @@
     </Filter>
     <Filter Include="SourceFile\MaszynaStanow\Skrypty">
       <UniqueIdentifier>{8f9e819d-6388-450e-8f96-4e62fe41f25f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\GUI\TGUI">
+      <UniqueIdentifier>{9979501e-6db8-4299-b72f-b291d1d46e2c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

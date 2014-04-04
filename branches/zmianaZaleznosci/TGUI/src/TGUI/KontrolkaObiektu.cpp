@@ -73,13 +73,13 @@ namespace tgui{
 
 		float secondRow = pictureSize + marginLeft + distance;
 		float labelSize = pictureSize + pictureSize;
-		float titleHight = labelSize / 20.f;
+		float titleHight = labelSize / 19.f;
 
 		nazwa_->setPosition(secondRow, marginUp);
 		nazwa_->setSize(labelSize, titleHight);
 
-		tresc_->setPosition(secondRow, marginUp + titleHight + titleHight);
-		tresc_->setSize(labelSize, hight - (marginUp + titleHight + titleHight + marginDown));
+		tresc_->setPosition(secondRow, marginUp + titleHight + interspace_);
+		tresc_->setSize(labelSize, hight - (marginUp + titleHight + interspace_ + marginDown));
 		
 		float thirdRow = secondRow + labelSize + distance + marginButtonLeft;
 		float buttonSize = width - (thirdRow + marginButtonRight + marginRight);
@@ -198,6 +198,10 @@ namespace tgui{
 			else if (property == "distance")
 			{
 				distance = strtof(value.c_str(), nullptr);
+			}
+			else if(property == "interspace")
+			{
+				interspace_ = std::strtof(value.c_str(), nullptr);
 			}
 			else
 				TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section KontrolkaObiektu in " + m_LoadedConfigFile + ".");

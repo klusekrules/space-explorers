@@ -334,6 +334,7 @@
     <ClInclude Include="HangarTest.h" />
     <ClInclude Include="keccak.h" />
     <ClInclude Include="Kryterium.h" />
+    <ClInclude Include="ListaObiektowGui.h" />
     <ClInclude Include="LuaSkrypt.h" />
     <ClInclude Include="MaszynaStanow.h" />
     <ClInclude Include="MenadzerWatkow.h" />
@@ -457,6 +458,7 @@
     <ClCompile Include="LadowniaInfo.cpp" />
     <ClCompile Include="LadowniaTest.cpp" />
     <ClCompile Include="Licznik.cpp" />
+    <ClCompile Include="ListaObiektowGui.cpp" />
     <ClCompile Include="LogowanieTest.cpp" />
     <ClCompile Include="luaFunc.cpp" />
     <ClCompile Include="LuaSkrypt.cpp" />
