@@ -700,6 +700,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </Image>
+    <Image Include="out\widgets\tlo.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="out\resource\arial.ttf">

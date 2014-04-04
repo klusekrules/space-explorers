@@ -10,8 +10,9 @@ namespace tgui{
 		typedef Widget* (*KreatorWidzetu)(Container*, const std::string&);
 
 		Widget* createWidget(const std::string& id , Container*, const std::string& name);
-		//typedef bool(*RejestrujKreatorWidzetu)(const std::string&, KreatorWidzetu);
 
+		bool RejestrujKreatorWidzetu(const std::string& id, KreatorWidzetu funckja);
+		
 		~WidgetFactory() = default;
 		static WidgetFactory& getInstance();
 	private:

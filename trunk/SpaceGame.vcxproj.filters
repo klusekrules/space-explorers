@@ -843,6 +843,9 @@
     <Image Include="out\resource\IkonaBlue.ico">
       <Filter>Resource</Filter>
     </Image>
+    <Image Include="out\widgets\tlo.png">
+      <Filter>Resource\Obrazy</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SpaceGame.rc">

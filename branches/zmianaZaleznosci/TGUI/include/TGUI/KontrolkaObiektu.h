@@ -33,6 +33,7 @@ namespace tgui{
 
 		std::string m_LoadedConfigFile;
 
+		Texture background_;
 		Picture::Ptr picture_;
 		Label::Ptr nazwa_;
 		Label::Ptr tresc_;
