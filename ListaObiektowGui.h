@@ -1,0 +1,40 @@
+#pragma once
+#include <TGUI\TGUI.hpp>
+namespace tgui{
+	class ListaObiektowGui :
+		public Panel
+	{
+	public:
+		static Widget* createWidget(Container*, const std::string& name);
+
+		typedef SharedWidgetPtr<ListaObiektowGui> Ptr;
+		ListaObiektowGui();
+		ListaObiektowGui(const ListaObiektowGui&);
+		~ListaObiektowGui() = default;
+
+		void addElement(const std::string& name);
+		void setSize(float width, float hight);
+		bool load(const std::string& configFileFilename);
+		virtual ListaObiektowGui* clone();
+		const std::string& getLoadedConfigFile() const;
+		virtual bool setProperty(std::string property, const std::string& value);
+		virtual bool getProperty(std::string property, std::string& value) const;
+		virtual std::list< std::pair<std::string, std::string> > getPropertyList() const;
+	private:
+
+		void scrollbarValueChanged(const tgui::Callback& callback);
+
+		virtual void initialize(Container *const container);
+
+		std::string m_LoadedConfigFile;
+
+		Panel::Ptr inside_;
+		Scrollbar::Ptr scroll_;
+		KontrolkaObiektu::Ptr template_;
+		std::list<KontrolkaObiektu::Ptr> objects_;
+		Borders insideBorders_;
+		float scrollWidth_;
+		float interspace_;
+
+	};
+};
