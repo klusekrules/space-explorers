@@ -12,7 +12,8 @@ namespace tgui{
 		ListaObiektowGui(const ListaObiektowGui&);
 		~ListaObiektowGui() = default;
 
-		void addElement(const std::string& name);
+		std::size_t addElement(const std::string& name);
+		KontrolkaObiektu::Ptr getElement( std::size_t );
 		void setSize(float width, float hight);
 		bool load(const std::string& configFileFilename);
 		virtual ListaObiektowGui* clone();
@@ -31,7 +32,7 @@ namespace tgui{
 		Panel::Ptr inside_;
 		Scrollbar::Ptr scroll_;
 		KontrolkaObiektu::Ptr template_;
-		std::list<KontrolkaObiektu::Ptr> objects_;
+		std::vector<KontrolkaObiektu::Ptr> objects_;
 		Borders insideBorders_;
 		float scrollWidth_;
 		float interspace_;

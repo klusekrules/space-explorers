@@ -4,20 +4,25 @@ namespace tgui {
 
 	void ListaObiektowGui::scrollbarValueChanged(const tgui::Callback& callback)
 	{
-		template_->setPosition(0, -callback.value);
-		inside_->setPosition(0, -callback.value);
+		//template_->setPosition(0, -callback.value);
+		inside_->setPosition(0, static_cast<float>(-callback.value));
 	}
 
 	Widget* ListaObiektowGui::createWidget(Container* container, const std::string& name){
 		return ListaObiektowGui::Ptr(*container, name).get();
 	}
 
-	void ListaObiektowGui::addElement( const std::string& name ){
+	std::size_t ListaObiektowGui::addElement( const std::string& name ){
 		auto widget = inside_->copy(template_, name);
 		widget->show();
 		objects_.push_back(widget);
 		sf::Vector2f temp = getSize();
 		setSize(temp.x, temp.y);
+		return objects_.size() - 1;
+	}
+
+	KontrolkaObiektu::Ptr ListaObiektowGui::getElement(std::size_t pos){
+		return objects_.at(pos);
 	}
 
 	ListaObiektowGui::ListaObiektowGui()
@@ -124,7 +129,7 @@ namespace tgui {
 		auto size = template_->getSize();
 		for (auto e : objects_){
 			e->setSize(size.x, size.y);
-			e->setPosition(insideBorders_.left, t*(size.y + interspace_) + insideBorders_.top);
+			e->setPosition(static_cast<float>(insideBorders_.left), t*(size.y + interspace_) + insideBorders_.top);
 			t++;
 		}
 		float insideHight = t*(size.y + interspace_) + insideBorders_.top + insideBorders_.bottom - interspace_;
@@ -139,8 +144,8 @@ namespace tgui {
 			scroll_->setMaximum(0);
 		}
 		else{
-			scroll_->setLowValue(hight);
-			scroll_->setMaximum(insideHight + 1.f);
+			scroll_->setLowValue(static_cast<unsigned int>(hight));
+			scroll_->setMaximum(static_cast<unsigned int>(insideHight + 1.f));
 		}
 
 		scroll_->setPosition(width - scrollWidth_, 0);
