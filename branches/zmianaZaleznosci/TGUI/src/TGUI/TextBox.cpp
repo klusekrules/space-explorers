@@ -622,7 +622,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void TextBox::setSelectionPointPosition(unsigned int charactersBeforeSelectionPoint)
+	void TextBox::setSelectionPointPosition(size_t charactersBeforeSelectionPoint)
     {
         // The selection point position has to stay inside the string
         if (charactersBeforeSelectionPoint > m_Text.getSize())
@@ -852,7 +852,7 @@ namespace tgui
             if (m_LineHeight == 0)
                 return;
 
-            unsigned int selectionPointPosition = findSelectionPointPosition(x - getPosition().x - 4, y - getPosition().y);
+			size_t selectionPointPosition = findSelectionPointPosition(x - getPosition().x - 4, y - getPosition().y);
 
             // Check if this is a double click
             if ((m_PossibleDoubleClick) && (m_SelChars == 0) && (selectionPointPosition == m_SelEnd))
@@ -1147,7 +1147,7 @@ namespace tgui
             bool newlineAdded = false;
             unsigned int newlinesAdded = 0;
 
-            unsigned int character;
+            size_t character;
             unsigned int newTopPosition = 0;
             sf::Vector2u newPosition(0, 0);
 
@@ -1242,7 +1242,7 @@ namespace tgui
             bool newlineAdded = false;
             unsigned int newlinesAdded = 0;
 
-            unsigned int character;
+			size_t character;
             unsigned int newTopPosition = 0;
             sf::Vector2u newPosition(0, 0);
 
@@ -1460,7 +1460,7 @@ namespace tgui
                     {
                         deleteSelectedCharacters();
 
-                        unsigned int oldCaretPos = m_SelEnd;
+						size_t oldCaretPos = m_SelEnd;
 
                         if (m_Text.getSize() > m_SelEnd)
                             setText(m_Text.toWideString().substr(0, m_SelEnd) + TGUI_Clipboard.get() + m_Text.toWideString().substr(m_SelEnd, m_Text.getSize() - m_SelEnd));
@@ -1775,7 +1775,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    unsigned int TextBox::findSelectionPointPosition(float posX, float posY)
+    size_t TextBox::findSelectionPointPosition(float posX, float posY)
     {
         // This code will crash when the text box is empty. We need to avoid this.
         if (m_Text.isEmpty())
@@ -2177,15 +2177,15 @@ namespace tgui
         else // Some text is selected
         {
             // Make some preparations
-            unsigned i;
-            unsigned int selectionStart = TGUI_MINIMUM(m_SelEnd, m_SelStart);
-            unsigned int selectionEnd = TGUI_MAXIMUM(m_SelEnd, m_SelStart);
+			size_t i;
+			size_t selectionStart = TGUI_MINIMUM(m_SelEnd, m_SelStart);
+			size_t selectionEnd = TGUI_MAXIMUM(m_SelEnd, m_SelStart);
 
             sf::Text tempText(m_TextBeforeSelection);
-            unsigned int beginChar = 0;
-            unsigned int newlinesAddedBeforeSelection = 0;
-            unsigned int newlinesAddedInsideSelection = 0;
-            unsigned int lastNewlineBeforeSelection = 0;
+			size_t beginChar = 0;
+			size_t newlinesAddedBeforeSelection = 0;
+			size_t newlinesAddedInsideSelection = 0;
+			size_t lastNewlineBeforeSelection = 0;
             bool newlineFoundInsideSelection = false;
 
             // Clear the list of selection rectangle sizes
@@ -2431,9 +2431,9 @@ namespace tgui
         if (m_SelChars > 0)
         {
             // Store the lenghts of the texts
-            unsigned int textBeforeSelectionLength = m_TextBeforeSelection.getString().getSize() + 1;
-            unsigned int textSelection1Length = m_TextSelection1.getString().getSize() + 1;
-            unsigned int textSelection2Length = m_TextSelection2.getString().getSize() + 1;
+			size_t textBeforeSelectionLength = m_TextBeforeSelection.getString().getSize() + 1;
+			size_t textSelection1Length = m_TextSelection1.getString().getSize() + 1;
+			size_t textSelection2Length = m_TextSelection2.getString().getSize() + 1;
 
             // Set the text on the correct position
             states.transform.translate(m_TextBeforeSelection.findCharacterPos(textBeforeSelectionLength).x, m_TextBeforeSelection.findCharacterPos(textBeforeSelectionLength).y);

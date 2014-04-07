@@ -755,6 +755,9 @@
     <Filter Include="SourceFile\GUI\TGUI">
       <UniqueIdentifier>{9979501e-6db8-4299-b72f-b291d1d46e2c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SourceFile\Kontroler">
+      <UniqueIdentifier>{8bb9a1d7-532c-4345-a620-7d82340eec29}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="TODO.txt">

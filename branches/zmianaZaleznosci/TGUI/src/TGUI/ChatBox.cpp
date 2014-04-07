@@ -416,7 +416,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    unsigned int ChatBox::getLineAmount()
+	size_t ChatBox::getLineAmount()
     {
         return m_Panel->getWidgets().size();
     }
@@ -932,7 +932,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    unsigned int ChatBox::getLineSpacing(unsigned int lineNumber)
+	size_t ChatBox::getLineSpacing(size_t lineNumber)
     {
         assert(lineNumber < m_Panel->getWidgets().size());
 
@@ -941,12 +941,12 @@ namespace tgui
             return m_LineSpacing;
 
         auto line = tgui::Label::Ptr(m_Panel->getWidgets()[lineNumber]);
-        unsigned int lineSpacing = m_Panel->getGlobalFont().getLineSpacing(line->getTextSize());
+		size_t lineSpacing = m_Panel->getGlobalFont().getLineSpacing(line->getTextSize());
 
         if (lineSpacing > line->getTextSize())
             return lineSpacing;
         else
-            return static_cast<unsigned int>(std::ceil(line->getSize().y * 13.5 / 10.0));
+			return static_cast<size_t>(std::ceil(line->getSize().y * 13.5 / 10.0));
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

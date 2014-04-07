@@ -208,7 +208,7 @@ namespace tgui
         if (frame >= m_Textures.size())
         {
             // Display the last frame
-            m_CurrentFrame = m_Textures.size()-1;
+            m_CurrentFrame = static_cast<int>(m_Textures.size())-1;
             return false;
         }
 
@@ -239,7 +239,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    unsigned int AnimatedPicture::getFrames() const
+	size_t AnimatedPicture::getFrames() const
     {
         return m_Textures.size();
     }

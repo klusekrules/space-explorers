@@ -390,7 +390,7 @@ namespace tgui
 		/// Normally you will not need this function.
 		///
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		void setSelectionPointPosition(unsigned int charactersBeforeSelectionPoint);
+		void setSelectionPointPosition(size_t charactersBeforeSelectionPoint);
 
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -492,7 +492,7 @@ namespace tgui
 		// This function will search where the selection point should be. It will not change the selection point.
 		// It will return after which character the selection point should be.
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		unsigned int findSelectionPointPosition(float PosX);
+		size_t findSelectionPointPosition(float PosX);
 
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -565,9 +565,9 @@ namespace tgui
 		Alignment::Alignments m_TextAlignment;
 
 		// The selection
-		unsigned int  m_SelChars;
-		unsigned int  m_SelStart;
-		unsigned int  m_SelEnd;
+		size_t  m_SelChars;
+		size_t  m_SelStart;
+		size_t  m_SelEnd;
 
 		// The password character
 		char          m_PasswordChar;
