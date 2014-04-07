@@ -383,7 +383,7 @@ namespace tgui
 		/// Normally you will not need this function.
 		///
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		void setSelectionPointPosition(unsigned int charactersBeforeSelectionPoint);
+		void setSelectionPointPosition(size_t charactersBeforeSelectionPoint);
 
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -522,7 +522,7 @@ namespace tgui
 		// This function will search where the selection point should be. It will not change the selection point.
 		// It will return after which character the selection point should be.
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		unsigned int findSelectionPointPosition(float posX, float posY);
+		size_t findSelectionPointPosition(float posX, float posY);
 
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -608,9 +608,9 @@ namespace tgui
 		unsigned int m_VisibleLines;
 
 		// Information about the selection
-		unsigned int m_SelChars;
-		unsigned int m_SelStart;
-		unsigned int m_SelEnd;
+		size_t m_SelChars;
+		size_t m_SelStart;
+		size_t m_SelEnd;
 
 		// Information about the selection pointer
 		sf::Vector2u m_SelectionPointPosition;

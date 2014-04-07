@@ -882,7 +882,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void EditBox::setSelectionPointPosition(unsigned int charactersBeforeSelectionPoint)
+	void EditBox::setSelectionPointPosition(size_t charactersBeforeSelectionPoint)
     {
         // The selection point position has to stay inside the string
         if (charactersBeforeSelectionPoint > m_Text.getSize())
@@ -1029,7 +1029,7 @@ namespace tgui
         else
             positionX = x - getPosition().x - (m_LeftBorder * (m_Size.x / m_TextureNormal_M.getSize().x));
 
-        unsigned int selectionPointPosition = findSelectionPointPosition(positionX);
+        auto selectionPointPosition = findSelectionPointPosition(positionX);
 
         // When clicking on the left of the first character, move the pointer to the left
         if ((positionX < 0) && (selectionPointPosition > 0))
@@ -1419,7 +1419,7 @@ namespace tgui
                     {
                         deleteSelectedCharacters();
 
-                        unsigned int oldCaretPos = m_SelEnd;
+						auto oldCaretPos = m_SelEnd;
 
                         if (m_Text.getSize() > m_SelEnd)
                             setText(m_Text.toWideString().substr(0, m_SelEnd) + TGUI_Clipboard.get() + m_Text.toWideString().substr(m_SelEnd, m_Text.getSize() - m_SelEnd));
@@ -1746,14 +1746,14 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    unsigned int EditBox::findSelectionPointPosition(float posX)
+	size_t EditBox::findSelectionPointPosition(float posX)
     {
         // This code will crash when the editbox is empty. We need to avoid this.
         if (m_DisplayedText.isEmpty())
             return 0;
 
         // Find out what the first visible character is
-        unsigned int firstVisibleChar;
+		size_t firstVisibleChar;
         if (m_TextCropPosition)
         {
             // Start searching near the selection point to quickly find the character even in a very long string
@@ -1770,7 +1770,7 @@ namespace tgui
         float textWidthWithoutLastChar;
         float fullTextWidth;
         float halfOfLastCharWidth;
-        unsigned int lastVisibleChar;
+		size_t lastVisibleChar;
 
         // Calculate the space inside the edit box
         float width;
@@ -1821,7 +1821,7 @@ namespace tgui
         fullTextWidth = m_TextFull.findCharacterPos(firstVisibleChar).x;
 
         // for all the other characters, check where you have clicked.
-        for (unsigned int i = firstVisibleChar; i < lastVisibleChar; ++i)
+		for (size_t i = firstVisibleChar; i < lastVisibleChar; ++i)
         {
             // Add the next character to the temporary string
             tempString += m_DisplayedText[i];
