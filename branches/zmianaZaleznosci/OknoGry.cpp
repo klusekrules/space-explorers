@@ -3,7 +3,8 @@
 #include <SFML\OpenGL.hpp>
 #include "EkranStartowy.h"
 #include "definicjeWezlowXML.h"
-#include "Parser\ParserDokumentXml.h"
+#include "Aplikacja.h"
+#include "FPSCounter.h"
 
 #define GL_SHADING_LANGUAGE_VERSION       0x8B8C
 namespace SpEx{
@@ -64,9 +65,14 @@ namespace SpEx{
 
 		Stan::KrokCzasu accumulator;
 		oknoGlowne_.setVisible(true);
-
+#ifdef _FPS_COUNT
+		FPSCounter fpsCounter;
+#endif
 		while (przetwarzanie_)
 		{
+#ifdef _FPS_COUNT
+			fpsCounter.nextFrame();
+#endif
 			Stan stan = MaszynaStanow::pobierzInstancje().pobierzStan(stosEkranow_);
 			accumulator += obliczZmianeCzasu(std::chrono::high_resolution_clock::now());
 
@@ -78,6 +84,12 @@ namespace SpEx{
 			accumulator = stan.dt_;
 
 			odmaluj();
+#ifdef _FPS_COUNT	
+			if (fpsCounter.ready())
+			{
+				Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Error, std::string("OknoGry: ") + std::to_string(fpsCounter.FPS()));
+			}
+#endif
 		}
 		oknoGlowne_.close();
 	}
@@ -126,19 +138,20 @@ namespace SpEx{
 	}
 
 	bool OknoGry::wczytajEkrany(){
-		SPar::ParserDokumentXml dokument;
-		dokument.odczytaj("resource\\Menu.xml");
-		auto wezel = dokument.pobierzElement(nullptr);
+		auto wezel = Aplikacja::pobierzInstancje().pobierzZarzadce().pobierzWezelKonfiguracyjnyOknaGry();
 		if (wezel){
-			for (auto element = wezel->pobierzElement(WEZEL_XML_EKRAN_STARTOWY); element; element = element->pobierzNastepnyElement(WEZEL_XML_EKRAN_STARTOWY)){
+			XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_EKRAN_STARTOWY, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 				auto ptr = std::make_shared<EkranStartowy>(oknoGlowne_, element);
 				listaEkranow_.insert(std::make_pair(ptr->pobierzId(), ptr));
-			}
-			for (auto element = wezel->pobierzElement(WEZEL_XML_EKRAN); element; element = element->pobierzNastepnyElement(WEZEL_XML_EKRAN)){
+				return true;
+			}));
+
+			XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_EKRAN, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 				auto ptr = std::make_shared<EkranSzablon>(element);
 				ptr->podlacz(oknoGlowne_);
 				listaEkranow_.insert(std::make_pair(ptr->pobierzId(), ptr));
-			}
+				return true;
+			}));
 		}
 		return !listaEkranow_.empty();
 	}

@@ -4,7 +4,7 @@
 
 namespace SpEx{
 	TechnologiaInfo::TechnologiaInfo(XmlBO::ElementWezla wezel)
-		: ObiektInfo(wezel)
+		: ObiektInfo(TECHNOLOGIA, wezel)
 	{
 	}
 	

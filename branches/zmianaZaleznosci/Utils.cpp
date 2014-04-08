@@ -4,7 +4,7 @@
 namespace SpEx{
 
 	const STyp::Fluktuacja Utils::FMAX = 1.0;
-	const STyp::Fluktuacja Utils::FMIN = 1.0;
+	const STyp::Fluktuacja Utils::FMIN = 0.0;
 
 
 	XmlBO::ElementWezla STACKTHROW::bladWezla(XmlBO::ElementWezla element, const std::string& nazwaWezla){
@@ -22,7 +22,7 @@ namespace SpEx{
 	std::shared_ptr<SZmi::ZmianaInterfejs> Utils::TworzZmiane(XmlBO::ElementWezla wezel){
 		if (!wezel)
 			return nullptr;
-		auto zmiana = Aplikacja::pobierzInstancje().pobierzGre().pobierzFabrykeZmian().Tworz(wezel);
+		auto zmiana = Aplikacja::pobierzInstancje().fabrykaZmian_.Tworz(wezel);
 		if (!zmiana)
 			Utils::generujWyjatekBleduStruktury(wezel);
 		return zmiana;

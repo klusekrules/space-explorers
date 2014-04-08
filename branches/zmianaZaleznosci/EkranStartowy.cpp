@@ -15,9 +15,7 @@ namespace SpEx{
 	}
 
 	void EkranStartowy::uaktualnij(Stan& stan){
-
-		EkranSzablon::uaktualnij(stan);
-
+		
 		if (stan.id_ == idStanuWejscia_){
 			czasChwilowy_ += stan.dt_;
 			unsigned char kolor;

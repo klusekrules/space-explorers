@@ -5,8 +5,8 @@
 
 namespace SpEx{
 
-	ObiektInfo::ObiektInfo(XmlBO::ElementWezla wezel)
-		: Info(wezel), Wymagania(wezel)
+	ObiektInfo::ObiektInfo(const STyp::Identyfikator& typ, XmlBO::ElementWezla wezel)
+		: Info(typ, wezel), Wymagania(wezel)
 	{
 	}
 

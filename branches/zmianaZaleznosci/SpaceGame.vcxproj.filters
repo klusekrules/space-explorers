@@ -202,9 +202,6 @@
     <ClCompile Include="MenadzerWatkow.cpp">
       <Filter>SourceFile\MultiThreading</Filter>
     </ClCompile>
-    <ClCompile Include="LuaSkrypt.cpp">
-      <Filter>SourceFile\MaszynaStanow</Filter>
-    </ClCompile>
     <ClCompile Include="WatekZarzadzany.cpp">
       <Filter>SourceFile\MultiThreading</Filter>
     </ClCompile>
@@ -255,6 +252,27 @@
     </ClCompile>
     <ClCompile Include="Uzytkownik.cpp">
       <Filter>SourceFile\Model\Users</Filter>
+    </ClCompile>
+    <ClCompile Include="FabrykaSkryptow.cpp">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+    </ClCompile>
+    <ClCompile Include="Skrypt.cpp">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaSkrypt.cpp">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+    </ClCompile>
+    <ClCompile Include="UstawieniaAplikacji.cpp">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClCompile>
+    <ClCompile Include="DllSkrypt.cpp">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSCounter.cpp">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClCompile>
+    <ClCompile Include="ListaObiektowGui.cpp">
+      <Filter>SourceFile\GUI\TGUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -495,9 +513,6 @@
     <ClInclude Include="MenadzerWatkow.h">
       <Filter>SourceFile\MultiThreading</Filter>
     </ClInclude>
-    <ClInclude Include="LuaSkrypt.h">
-      <Filter>SourceFile\MaszynaStanow</Filter>
-    </ClInclude>
     <ClInclude Include="WatekZarzadzany.h">
       <Filter>SourceFile\MultiThreading</Filter>
     </ClInclude>
@@ -563,6 +578,27 @@
     </ClInclude>
     <ClInclude Include="Uzytkownik.h">
       <Filter>SourceFile\Model\Users</Filter>
+    </ClInclude>
+    <ClInclude Include="Skrypt.h">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+    </ClInclude>
+    <ClInclude Include="FabrykaSkryptow.h">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaSkrypt.h">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+    </ClInclude>
+    <ClInclude Include="UstawieniaAplikacji.h">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClInclude>
+    <ClInclude Include="DllSkrypt.h">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCounter.h">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClInclude>
+    <ClInclude Include="ListaObiektowGui.h">
+      <Filter>SourceFile\GUI\TGUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -713,6 +749,15 @@
     <Filter Include="SourceFile\Model\Users">
       <UniqueIdentifier>{b7c38fbf-2e4d-4fc8-9a60-10c124adf6ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SourceFile\MaszynaStanow\Skrypty">
+      <UniqueIdentifier>{8f9e819d-6388-450e-8f96-4e62fe41f25f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\GUI\TGUI">
+      <UniqueIdentifier>{9979501e-6db8-4299-b72f-b291d1d46e2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Kontroler">
+      <UniqueIdentifier>{8bb9a1d7-532c-4345-a620-7d82340eec29}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="TODO.txt">
@@ -802,6 +847,15 @@
       <Filter>Resource\Obrazy</Filter>
     </Image>
     <Image Include="out\resource\SpaceExplorers_logo_640x348.png">
+      <Filter>Resource\Obrazy</Filter>
+    </Image>
+    <Image Include="out\resource\Ikona.ico">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="out\resource\IkonaBlue.ico">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="out\widgets\tlo.png">
       <Filter>Resource\Obrazy</Filter>
     </Image>
   </ItemGroup>

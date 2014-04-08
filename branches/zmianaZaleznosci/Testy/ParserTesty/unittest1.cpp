@@ -17,7 +17,7 @@ namespace ParserTesty
 	{
 	public:
 		std::string nazwaPliku_ = "plik.xml";
-		static SLog::Log log;
+		static SLog::Log& log;
 		SPar::ParserDokumentXml dokument_;
 
 		TEST_CLASS_INITIALIZE(logger){
@@ -156,5 +156,5 @@ namespace ParserTesty
 		}
 	};
 
-	SLog::Log ParserTesty::ParserTest::log;
+	SLog::Log& ParserTesty::ParserTest::log = SLog::Log::pobierzInstancje();
 }

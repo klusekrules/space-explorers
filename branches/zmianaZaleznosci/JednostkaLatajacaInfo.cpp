@@ -18,22 +18,22 @@ namespace SpEx{
 		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_MOC_SILNIKA, mocSilnika_);
 		if (mocSilnika_ < STyp::Moc(0))
 			Utils::generujWyjatekBleduStruktury(wezel);
-		przyrostMocySilnika_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<STACKTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_MOC_SILNIKA));
+		przyrostMocySilnika_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_MOC_SILNIKA));
 
 		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_ZUZYCIE_PALIWA, zuzyciePaliwa_);
 		if (zuzyciePaliwa_ < STyp::ZuzyciePaliwa(0))
 			Utils::generujWyjatekBleduStruktury(wezel);
-		przyrostZuzyciaPaliwa_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<STACKTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_ZUZYCIE_PALIWA));
+		przyrostZuzyciaPaliwa_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_ZUZYCIE_PALIWA));
 
 		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_MASA_SILNIKA, masaNapedu_);
 		if (masaNapedu_ < STyp::Masa(0))
 			Utils::generujWyjatekBleduStruktury(wezel);
-		przyrostMasyNapedu_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<STACKTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_MASA_SILNIKA));
+		przyrostMasyNapedu_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_MASA_SILNIKA));
 
 		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_SPRAWNOSC_SILNIKA, sprawnoscSilnika_);
 		if (sprawnoscSilnika_ < STyp::Fluktuacja(0))
 			Utils::generujWyjatekBleduStruktury(wezel);
-		przyrostSprawnosciSilnika_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<STACKTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_SPRAWNOSC_SILNIKA));
+		przyrostSprawnosciSilnika_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_SPRAWNOSC_SILNIKA));
 	}
 
 	JednostkaLatajacaInfo::JednostkaLatajacaInfo(const JednostkaLatajacaInfo& obiekt)
