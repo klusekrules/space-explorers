@@ -15,6 +15,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(1),
 		STyp::Tekst("Metal"),
+		STyp::Tekst("resource\\Brak_obrazka.png"),
 		STyp::Tekst("Opis metalu."),
 		STyp::Masa(3),
 		STyp::Objetosc(1),
@@ -32,6 +33,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(2),
 		STyp::Tekst("Krysztal"),
+		STyp::Tekst("resource\\Brak_obrazka.png"),
 		STyp::Tekst("Opis kryszta³u."),
 		STyp::Masa(2),
 		STyp::Objetosc(1.3),
@@ -49,6 +51,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(3),
 		STyp::Tekst("Deuter"),
+		STyp::Tekst("resource\\Brak_obrazka.png"),
 		STyp::Tekst("Opis deuteru."),
 		STyp::Masa(1),
 		STyp::Objetosc(3),
@@ -64,6 +67,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(4),
 		STyp::Tekst("Energia"),
+		STyp::Tekst("resource\\Brak_obrazka.png"),
 		STyp::Tekst("Opis energii."),
 		STyp::Masa(0),
 		STyp::Objetosc(0),
@@ -75,6 +79,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(5),
 		STyp::Tekst("Ma³y transportowiec"),
+		STyp::Tekst("resource\\Brak_obrazka.png"),
 		STyp::Tekst("Opis ma³ego transportowca."),
 		STyp::Masa(560),
 		STyp::Powierzchnia(120),
@@ -106,6 +111,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(6),
 		STyp::Tekst("Du¿y transportowiec"),
+		STyp::Tekst("resource\\Brak_obrazka.png"),
 		STyp::Tekst("Opis du¿ego transportowca."),
 		STyp::Masa(560 * 3),
 		STyp::Powierzchnia(120 * 2.5),
@@ -138,6 +144,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(7),
 		STyp::Tekst("Myœliwiec"),
+		STyp::Tekst("resource\\Brak_obrazka.png"),
 		STyp::Tekst("Opis myœliwca."),
 		STyp::Masa(900),
 		STyp::Powierzchnia(200),
@@ -168,6 +175,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(8),
 		STyp::Tekst("Transporter"),
+		STyp::Tekst("resource\\Brak_obrazka.png"),
 		STyp::Tekst("Opis transportera."),
 		STyp::Masa(10000),
 		STyp::Powierzchnia(20000),
@@ -199,6 +207,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root, 
 		STyp::Identyfikator(9),
 		STyp::Tekst("Technologia komputerowa"),
+		STyp::Tekst("resource\\Brak_obrazka.png"),
 		STyp::Tekst("Opis technologii komputerowej.")
 		);
 	tworzKryterium(*tKomputerowa, STyp::Identyfikator(10), STyp::Poziom(2));
@@ -209,6 +218,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(10),
 		STyp::Tekst("Technologia energetyczna"),
+		STyp::Tekst("resource\\Brak_obrazka.png"),
 		STyp::Tekst("Opis technologii energetycznej.")
 		);
 	// TECHNOLOGIA - ENERGETYCZNA END
@@ -218,6 +228,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(11),
 		STyp::Tekst("Kopalnia metalu"),
+		STyp::Tekst("resource\\Brak_obrazka.png"),
 		STyp::Tekst("Opis kopalni metalu."),
 		STyp::Powierzchnia(1200)
 		);
@@ -232,6 +243,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(12),
 		STyp::Tekst("Elektrownia s³oneczna"),
+		STyp::Tekst("resource\\Brak_obrazka.png"),
 		STyp::Tekst("Opis elektrowni s³onecznej."),
 		STyp::Powierzchnia(2500)
 		);
@@ -245,6 +257,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(13),
 		STyp::Tekst("Fabryka robotów"),
+		STyp::Tekst("resource\\Brak_obrazka.png"),
 		STyp::Tekst("Opis fabryki robotów."),
 		STyp::Powierzchnia(500)
 		);
@@ -258,6 +271,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(14),
 		STyp::Tekst("Wyrzutnia rakiet"),
+		STyp::Tekst("resource\\Brak_obrazka.png"),
 		STyp::Tekst("Opis wyrzutni rakiet."),
 		STyp::Powierzchnia(2.31)
 		);
@@ -275,6 +289,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(15),
 		STyp::Tekst("Dzia³o laserowe"),
+		STyp::Tekst("resource\\Brak_obrazka.png"),
 		STyp::Tekst("Opis dzia³a laserowego."),
 		STyp::Powierzchnia(4.62)
 		);
@@ -295,6 +310,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzSurowiec(SPar::ParserElement& root,
 	const STyp::Identyfikator& id,
 	const STyp::Tekst& nazwa,
+	const STyp::Tekst& obrazek,
 	const STyp::Tekst& opis,
 	const STyp::Masa& masa,
 	const STyp::Objetosc& objetosc,
@@ -303,6 +319,7 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzSurowiec(SPar::ParserEle
 	UNIT_TEST_ASSERT_NOTNULL(surowiec);
 	UNIT_TEST_ASSERT_NOTNULL(surowiec->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(surowiec->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(surowiec->tworzAtrybut(ATRYBUT_XML_ADRES_OBRAZKA, obrazek().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(surowiec->tworzAtrybut(ATRYBUT_XML_MASA, masa.napis().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(surowiec->tworzAtrybut(ATRYBUT_XML_OBJETOSC, objetosc.napis().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(surowiec->tworzAtrybut(ATRYBUT_XML_TYP, przyrostowy.napis().c_str()));
@@ -313,6 +330,7 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzSurowiec(SPar::ParserEle
 std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzStatek(SPar::ParserElement& root,
 	const STyp::Identyfikator& id,
 	const STyp::Tekst& nazwa,
+	const STyp::Tekst& obrazek,
 	const STyp::Tekst& opis,
 	const STyp::Masa& masa,
 	const STyp::Powierzchnia& powierzchnia,
@@ -321,6 +339,7 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzStatek(SPar::ParserEleme
 	UNIT_TEST_ASSERT_NOTNULL(statek);
 	UNIT_TEST_ASSERT_NOTNULL(statek->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(statek->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(statek->tworzAtrybut(ATRYBUT_XML_ADRES_OBRAZKA, obrazek().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(statek->tworzAtrybut(ATRYBUT_XML_MASA, masa.napis().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(statek->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA, powierzchnia.napis().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(statek->tworzAtrybut(ATRYBUT_XML_HANGAR, przewozonyWHangarze.napis().c_str()));
@@ -331,11 +350,13 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzStatek(SPar::ParserEleme
 std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzTechnologie(SPar::ParserElement& root,
 	const STyp::Identyfikator& id,
 	const STyp::Tekst& nazwa,
+	const STyp::Tekst& obrazek,
 	const STyp::Tekst& opis){
 	auto technologia = root.tworzElement(WEZEL_XML_TECHNOLOGIA_INFO);
 	UNIT_TEST_ASSERT_NOTNULL(technologia);
 	UNIT_TEST_ASSERT_NOTNULL(technologia->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(technologia->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(technologia->tworzAtrybut(ATRYBUT_XML_ADRES_OBRAZKA, obrazek().c_str()));
 	UNIT_TEST_ASSERT_TRUE(technologia->ustawTekst(opis().c_str()));
 	return technologia;
 }
@@ -343,12 +364,14 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzTechnologie(SPar::Parser
 std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzBudynek(SPar::ParserElement& root,
 	const STyp::Identyfikator& id,
 	const STyp::Tekst& nazwa,
+	const STyp::Tekst& obrazek,
 	const STyp::Tekst& opis,
 	const STyp::Powierzchnia& powierzchnia){
 	auto budynek = root.tworzElement(WEZEL_XML_BUDYNEK_INFO);
 	UNIT_TEST_ASSERT_NOTNULL(budynek);
 	UNIT_TEST_ASSERT_NOTNULL(budynek->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(budynek->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(budynek->tworzAtrybut(ATRYBUT_XML_ADRES_OBRAZKA, obrazek().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(budynek->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA, powierzchnia.napis().c_str()));
 	UNIT_TEST_ASSERT_TRUE(budynek->ustawTekst(opis().c_str()));
 	return budynek;
@@ -357,12 +380,14 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzBudynek(SPar::ParserElem
 std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzObrone(SPar::ParserElement& root,
 	const STyp::Identyfikator& id,
 	const STyp::Tekst& nazwa,
+	const STyp::Tekst& obrazek,
 	const STyp::Tekst& opis,
 	const STyp::Powierzchnia& powierzchnia){
 	auto obrona = root.tworzElement(WEZEL_XML_OBRONA_INFO);
 	UNIT_TEST_ASSERT_NOTNULL(obrona);
 	UNIT_TEST_ASSERT_NOTNULL(obrona->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(obrona->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(obrona->tworzAtrybut(ATRYBUT_XML_ADRES_OBRAZKA, obrazek().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(obrona->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA, powierzchnia.napis().c_str()));
 	UNIT_TEST_ASSERT_TRUE(obrona->ustawTekst(opis().c_str()));
 	return obrona;

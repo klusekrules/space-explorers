@@ -13,7 +13,6 @@
 
 
 namespace SpEx {
-	class Aplikacja;
 	/**
 	* \brief Klasa reprezentuj¹ca grê.
 	*
@@ -34,7 +33,7 @@ namespace SpEx {
 		*
 		* \param[in] aplikacja - instancja aplikacji dla której jest tworzona gra..
 		*/
-		explicit Gra(Aplikacja& aplikacja, SZmi::ZmianaFabryka& fabryka);
+		explicit Gra(SLog::Log& logger, ZarzadcaPamieci& zarzadca);
 
 		/**
 		* \brief Destruktor.
@@ -96,13 +95,6 @@ namespace SpEx {
 		* \return true je¿eli uda siê przeniœæ, false w przeciwnym wypadku.
 		*/
 		bool przeniesPlaneteDoUzytkownika(const STyp::Identyfikator& identyfikator);
-
-		/**
-		* \brief Metoda pobieraj¹ca instacjê fabryki zmian.
-		*
-		* \return Instacja fabryki zmian.
-		*/
-		SZmi::ZmianaFabryka& pobierzFabrykeZmian() const;
 
 		/**
 		* \brief Metoda pobieraj¹ca obiekt opisowy Obrony.
@@ -295,19 +287,8 @@ namespace SpEx {
 		*/
 		bool wczytajObrone(XmlBO::ElementWezla wezel);
 
-		/**
-		* \brief Metoda otwieraj¹ca plik u¿ytkownika
-		*
-		* Metoda na podstawie nazwy i hashu has³a u¿ytkownika otwiera plik z danymi u¿ytkownika.
-		* \param[in] nazwa - Nazwa u¿ytkownika.
-		* \param[in] hash - Hash has³a u¿ytkownika.
-		* \param[in] tworzPlik - informacje czy ma zostaæ utworzony plik je¿eli nie istnieje.
-		* \return nullptr je¿eli hash sie nie zgadza, wska¿nik na dokument.
-		*/
-		std::shared_ptr<SPar::ParserDokument> plikUzytkownika(const std::string& nazwa, const std::string& hash, std::string& nazwaPliku, bool tworzPlik = true) const;
-
-		SZmi::ZmianaFabryka &fabryka_; /// Referencja do obiektu fabryki zmian.
-		Aplikacja& aplikacja_; /// Referencja do obiektu aplikacji.
+		SLog::Log& logger_;
+		ZarzadcaPamieci& zarzadca_;
 		std::shared_ptr<Uzytkownik> uzytkownik_; /// Aktualnie zalogowany u¿ytkownik.
 
 		std::unordered_map<STyp::Identyfikator, std::shared_ptr<SurowceInfo>, STyp::IdTypeHash > listaSurowcowInfo_; /// Lista obiektów opisowych surowców.
@@ -317,6 +298,5 @@ namespace SpEx {
 		std::unordered_map<STyp::Identyfikator, std::shared_ptr<BudynekInfo>, STyp::IdTypeHash > listaBudynkowInfo_; /// Lista obiektów opisowych budynku.
 		std::unordered_map<STyp::Identyfikator, std::shared_ptr<ObiektInfo>, STyp::IdTypeHash > listaObiektowInfo_; /// Lista obiektów opisowych.
 		
-		ZarzadcaPamieci zarzadca_; /// Obiekt zarz¹dzaj¹cy lokacjami.
 	};
 }

@@ -5,6 +5,7 @@
 #include "plugin\plugin.h"
 #include "Gra.h"
 #include "Singleton.h"
+#include "UstawieniaAplikacji.h"
 
 typedef struct _SYMBOL_INFO {
 	ULONG       SizeOfStruct;
@@ -55,20 +56,6 @@ namespace SpEx {
 		static char** argumenty;
 
 		/**
-		* \brief Metoda pobieraj¹ca instacjê gry.
-		*
-		* \return Referencja do obiektu gry.
-		*/
-		Gra& pobierzGre() const;
-
-		/**
-		* \brief Metoda pobieraj¹ca instacjê obiektu tworz¹cego logi.
-		*
-		* \return Referencja do loggera.
-		*/
-		SLog::Log& pobierzLogger() const;
-
-		/**
 		* \brief Metoda ³aduj¹ca dane gry.
 		*
 		* \return true je¿eli uda siê wczytaæ dane, false w przeciwnym wypadku.
@@ -80,7 +67,7 @@ namespace SpEx {
 		*
 		* \return true je¿eli uda siê zapisac grê, false w przeciwnym wypadku.
 		*/
-		bool zapiszGre(const std::string& nazwa, const std::string& hash) const;
+		bool zapiszGre(const std::string& nazwa, const std::string& hash);
 
 		/**
 		* \brief Metoda wczytuj¹ca stan gry.
@@ -99,9 +86,26 @@ namespace SpEx {
 		void wyczyscDane();
 
 		/**
+		* \brief Metoda pobieraj¹ca instacjê gry.
+		*
+		* \return Referencja do obiektu gry.
+		*/
+		inline Gra& pobierzGre() const{
+			return *instancjaGry_;
+		}
+		
+		inline ZarzadcaPamieci& pobierzZarzadce(){
+			return zarzadca_;
+		}
+		
+		/**
 		* \brief Destruktor.
 		*/
 		~Aplikacja();
+
+		SLog::Log& logger_; /// Instancja loggera.
+
+		SZmi::ZmianaFabryka fabrykaZmian_; /// Instancja fabryki zmian.
 
 	private:
 
@@ -131,14 +135,8 @@ namespace SpEx {
 		*/
 		void logApInfo() const;
 
-		SLog::Log& logger_; /// Instancja loggera.
 		std::shared_ptr<SPlu::Cplugin> pluginy_; /// Obiekt zarz¹dzaj¹cy plugginami.
 		std::shared_ptr<Gra> instancjaGry_; /// Obiekt prezentuj¹cy instancjê gry.
-
-		std::string nazwaPlikuOpcji_; /// Nazwa pliku z opcjami.
-		std::string nazwaPlikuDanych_; /// Opcja: Nazwa pliku z danymi.
-		std::string jezykAplikacji_; /// Opcja: Jêzyk apllikacji.
-		std::string folderPluginow_; /// Opcja: lokalizacja folderu z pluginami.
 
 		SymInitializeS symInitialize_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
 		SymFromAddrS symFromAddr_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
@@ -146,5 +144,10 @@ namespace SpEx {
 		bool czyZainicjalizowanaBiblioteka_; /// Informacja czy uda³osiê za³adowaæ bibliotekê pomocnicz¹.
 
 		STyp::Identyfikator idEkranuStartowego_;
+		
+		ZarzadcaPamieci zarzadca_; /// Obiekt zarz¹dzaj¹cy lokacjami.
+
+		std::string plikKonfiguracyjny_;
+		UstawieniaAplikacji ustawienia_;
 	};
 }

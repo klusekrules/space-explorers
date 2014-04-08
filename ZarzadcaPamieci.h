@@ -3,7 +3,9 @@
 #include <unordered_map>
 #include "Galaktyka.h"
 #include "GeneratorUkladow.h"
+#include "FabrykaSkryptow.h"
 #include <vector>
+#include "UstawieniaAplikacji.h"
 
 namespace SpEx{
 	/**
@@ -67,7 +69,7 @@ namespace SpEx{
 		/**
 		* \brief Konstruktor.
 		*/
-		ZarzadcaPamieci() = default;
+		ZarzadcaPamieci();
 
 		/**
 		* \brief Metoda zwracaj¹ca wskaŸnik na planetê.
@@ -95,6 +97,29 @@ namespace SpEx{
 		* \return true je¿eli siê powiedzie, false w przeciwnym wypadku.
 		*/
 		bool generujNowaGalaktyke();
+
+		XmlBO::ElementWezla pobierzWezelKonfiguracyjnyMaszynyStanow()const;
+		XmlBO::ElementWezla pobierzWezelKonfiguracyjnyOknaGry()const;
+		
+		XmlBO::ElementWezla tworzWezelGry();
+		bool zapiszWezelGry();
+		XmlBO::ElementWezla otworzWezelGry();
+
+		std::shared_ptr<Skrypt> TworzSkrypt(XmlBO::ElementWezla wezel);
+		std::shared_ptr<Skrypt> TworzSkrypt(const FabrykaSkryptow::Identyfikator& identyfikator, XmlBO::ElementWezla wezel);
+		/**
+		* \brief Metoda otwieraj¹ca plik u¿ytkownika
+		*
+		* Metoda na podstawie nazwy i hashu has³a u¿ytkownika otwiera plik z danymi u¿ytkownika.
+		* \param[in] nazwa - Nazwa u¿ytkownika.
+		* \param[in] hash - Hash has³a u¿ytkownika.
+		* \param[in] tworzPlik - informacje czy ma zostaæ utworzony plik je¿eli nie istnieje.
+		* \return nullptr je¿eli hash sie nie zgadza, wska¿nik na dokument.
+		*/
+		std::shared_ptr<SPar::ParserDokument> plikUzytkownika(const std::string& nazwa, const std::string& hash, std::string& nazwaPliku, bool tworzPlik = true) const;
+
+
+		void zaladujPliki( const UstawieniaAplikacji& );
 
 		/**
 		* \brief Destruktor.
@@ -143,10 +168,18 @@ namespace SpEx{
 		bool zapiszUkladSloneczny(std::shared_ptr<UkladSloneczny> uklad) const;
 
 		GeneratorUkladow generator_; /// Obiekt generuj¹cy lokacje.
-
+		FabrykaSkryptow fabrykaSkryptow_;
 		Galaktyki galaktyki_; /// Lista galaktyk.
 		UkladySloneczne ukladySloneczne_; /// Lista uk³adów.
 		Planety planety_; /// Lista planet.
 
+		std::shared_ptr<SPar::ParserDokument> dokumentMaszynyStanow_;
+		std::shared_ptr<SPar::ParserDokument> dokumentOknaGry_;
+
+		std::string folderPlikuUzytkownika_;
+		std::string folderPlikuUkladu_;
+		std::string adresPlikuGry_;
+		std::shared_ptr<SPar::ParserDokument> dokumentGry_;
+		
 	};
 }

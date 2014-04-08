@@ -1,7 +1,8 @@
 #include "MaszynaStanow.h"
 #include "OknoGry.h"
 #include "Aplikacja.h"
-#include "Parser\ParserDokumentXml.h"
+#include "FPSCounter.h"
+
 namespace SpEx{
 	MaszynaStanow::LuaStan::LuaStan()
 		: poprawne_aktualny_(false), poprawne_nastepny_(false), poprawne_poprzedni_(false), poprawne_zdarzenie_(false)
@@ -11,9 +12,7 @@ namespace SpEx{
 	MaszynaStanow::MaszynaStanow()
 		: watekGraficzny_(true), stan_(nullptr), stanNastepny_(nullptr), pulaWatkow_()
 	{
-		SPar::ParserDokumentXml doc;
-		doc.odczytaj("resource\\state.xml");
-		auto root = doc.pobierzElement(nullptr);
+		auto root = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadce().pobierzWezelKonfiguracyjnyMaszynyStanow();
 		XmlBO::WczytajAtrybut<SpEx::STACKTHROW>(root, ATRYBUT_XML_STAN_POCZATKOWY, idStanuPoczatkowy_);
 		pulaWatkow_.ustawLiczbeWatkow(XmlBO::WczytajAtrybut<unsigned char>(root, ATRYBUT_XML_PULA_WATKOW, 4));
 		XmlBO::ForEach<SpEx::STACKTHROW>(root, WEZEL_XML_STAN, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
@@ -87,14 +86,27 @@ namespace SpEx{
 			przejdzDoNastepnegoStanu();
 
 		watekGraficzny_.uruchom();
-
+#ifdef _FPS_COUNT
+		FPSCounter fpsCounter;
+#endif
 		while (wlaczone)
 		{
+#ifdef _FPS_COUNT
+			fpsCounter.nextFrame();
+#endif
 			luaStan_.poprawne_zdarzenie_ = false;
 			obslugaZdarzenia();
 			przejdzDoNastepnegoStanu();
-			std::this_thread::yield();
+			std::this_thread::yield(); 
+			std::this_thread::sleep_for(std::chrono::milliseconds(10));
+#ifdef _FPS_COUNT
+			if (fpsCounter.ready())
+			{
+				Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Error, std::string("MaszynaStanow: ") + std::to_string(fpsCounter.FPS()));
+			}
+#endif
 		}
+		
 		watekGraficzny_.czekajNaZakonczenie();
 	}
 

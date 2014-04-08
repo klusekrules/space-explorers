@@ -1,324 +1,86 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Space-Explorers>
-
-  <!-- Surowce typu metal -->
-  <SurowceInfo typ="1" masa="1" objetosc="1" id="0x0001" nazwa="Stal">
-    Opis Stali.
+  <SurowceInfo id="1" nazwa="Metal" masa="3" objetosc="1" typ="1">
+    Opis metalu.
     <Zmiana id="3" for="Czas">
-      <Param id="0x0" wspolczynnik="1.0"/>
+      <Param id="0" wspolczynnik="1"/>
     </Zmiana>
   </SurowceInfo>
-
-  <SurowceInfo typ="1" masa="1" objetosc="1" id="0x0002" nazwa="Tytan">
-    Opis Tytanu.
-  </SurowceInfo>
-
-  <SurowceInfo typ="1" masa="1" objetosc="1" id="0x0003" nazwa="Naquadah">
-    Opis Naquadah'u.
-  </SurowceInfo>
-
-  <!-- Surowce typu elektronika -->
-  <SurowceInfo typ="1" masa="1" objetosc="1" id="0x0004" nazwa="Miedź">
-    Opis miedzi.
-  </SurowceInfo>
-
-  <SurowceInfo typ="1" masa="1" objetosc="1" id="0x0005" nazwa="Krzem">
-    Opis krzemu.
-  </SurowceInfo>
-
-  <SurowceInfo typ="1" masa="1" objetosc="2" id="0x0006" nazwa="Kryształ">
+  <SurowceInfo id="2" nazwa="Krysztal" masa="2" objetosc="1,3" typ="1">
     Opis kryształu.
+    <Zmiana id="3" for="Czas">
+      <Param id="0" wspolczynnik="2"/>
+    </Zmiana>
   </SurowceInfo>
-
-  <!-- Surowce typu paliwo -->
-  <SurowceInfo typ="1" masa="1" objetosc="1" id="0x0007" nazwa="Wodór">
-    Opis wodoru.
-  </SurowceInfo>
-
-  <SurowceInfo typ="1" masa="1" objetosc="1" id="0x0008" nazwa="Deuter">
+  <SurowceInfo id="3" nazwa="Deuter" masa="1" objetosc="3" typ="1">
     Opis deuteru.
+    <Zmiana id="3" for="Czas">
+      <Param id="0" wspolczynnik="0,1"/>
+    </Zmiana>
   </SurowceInfo>
-
-  <SurowceInfo typ="1" masa="1" objetosc="1" id="0x0009" nazwa="Tryt">
-    Opis trytu.
-  </SurowceInfo>
-
-  <!-- Surowce nieprzyrostowe, energia -->
-  <SurowceInfo typ="2" masa="1" objetosc="1" id="0x000A" nazwa="Energia">
+  <SurowceInfo id="4" nazwa="Energia" masa="0" objetosc="0" typ="0">
     Opis energii.
   </SurowceInfo>
-
-  <!-- Statki -->
-  <StatekInfo masa="1" powierzchnia="1" id="0x00B" nazwa="Transportowiec" hangar="1">
-    Opis Transportowca.
-    <Cena>
-      <Surowce id="0x1" ilosc="1000" opcja="1" />
-      <Zmiana id="2">
-        <Zmiana id="3" for="nastepny">
-          <Param id="0x0" wspolczynnik="3.0"/>
-        </Zmiana>
-        <Zmiana id="3" for="brat">
-          <Param id="0x0" wspolczynnik="5.0"/>
-        </Zmiana>
-      </Zmiana>
-    </Cena>
-    <Cena>
-      <Surowce id="0x4" ilosc="500" opcja="1"/>
-      <Zmiana id="4">
-        <Param id="0x1" wspolczynnik="1.0"/>
-        <Param id="0x2" wspolczynnik="2.0"/>
-      </Zmiana>
-    </Cena>
-    <Cena>
-      <Surowce id="0x7" ilosc="200" opcja="1"/>
-      <Zmiana id="5">
-        <Param id="0x0" wspolczynnik="5.0"/>
-      </Zmiana>
-    </Cena>
-    <Wymog>
-      <ObiektBaseInfo poziom="5" id="0x10"/>
-      <Zmiana id="3">
-        <Param id="0x0" wspolczynnik="5.0"/>
-      </Zmiana>
-    </Wymog>
-    <Wymog>
-      <ObiektBaseInfo poziom="1" id="0x20"/>
-      <Zmiana id="3">
-        <Param id="0x0" wspolczynnik="5.0"/>
-      </Zmiana>
-    </Wymog>
-    <JednostkaLatajacaInfo rodzajSilnikaId="0x01" mocSilnika="1" zuzyciePaliwa="1" masaSilnika="1" sprawnoscSilnika="0.97"/>
-    <JednostkaAtakujacaInfo atak="90" pancerz="20" oslona="30"/>
-    <LadowniaInfo pojemnoscMaksymalna="1300"/>
-    <HangarInfo pojemnoscMaksymalna="1300"/>
+  <StatekInfo id="5" nazwa="Mały transportowiec" masa="560" powierzchnia="120" hangar="1">
+    Opis małego transportowca.
+    <JednostkaAtakujacaInfo atak="50" pancerz="130" oslona="40"/>
+    <JednostkaLatajacaInfo rodzajSilnikaId="1" mocSilnika="500" zuzyciePaliwa="300" masaSilnika="40" sprawnoscSilnika="0,7"/>
+    <HangarInfo pojemnoscMaksymalna="0"/>
+    <LadowniaInfo pojemnoscMaksymalna="500"/>
+    <Kryterium id="1" ilosc="2 000"/>
+    <Kryterium id="2" ilosc="2 000"/>
   </StatekInfo>
-
-  <StatekInfo masa="1" objetosc="90" powierzchnia="1" poziom="1" id="0x00C" nazwa="Myśliwiec" hangar="1">
-    Opis Myśliwca.
-    <Cena>
-      <Surowce id="0x1" ilosc="1000" opcja="1"/>
-      <Zmiana id="2">
-        <Zmiana id="3" for="nastepny">
-          <Param id="0x0" wspolczynnik="3.0"/>
-        </Zmiana>
-        <Zmiana id="3" for="brat">
-          <Param id="0x0" wspolczynnik="5.0"/>
-        </Zmiana>
-      </Zmiana>
-    </Cena>
-    <Cena>
-      <Surowce id="0x4" ilosc="500" opcja="1"/>
-      <Zmiana id="4">
-        <Param id="0x1" wspolczynnik="1.0"/>
-        <Param id="0x2" wspolczynnik="2.0"/>
-      </Zmiana>
-    </Cena>
-    <Cena>
-      <Surowce id="0x7" ilosc="200" opcja="1"/>
-      <Zmiana id="5">
-        <Param id="0x0" wspolczynnik="5.0"/>
-      </Zmiana>
-    </Cena>
-    <Wymog>
-      <ObiektBaseInfo poziom="1" id="0x13"/>
-      <Zmiana id="3">
-        <Param id="0x0" wspolczynnik="2.0"/>
-      </Zmiana>
-    </Wymog>
-    <Wymog>
-      <ObiektBaseInfo poziom="1" id="0x10"/>
-      <Zmiana id="3">
-        <Param id="0x0" wspolczynnik="2.0"/>
-      </Zmiana>
-    </Wymog>
-    <Zmiana id="3" for="masa">
-      <Param id="0x0" wspolczynnik="2.0"/>
-    </Zmiana>
-    <Zmiana id="3" for="objetosc">
-      <Param id="0x0" wspolczynnik="3.0"/>
-    </Zmiana>
-    <Zmiana id="3" for="powierzchnia">
-      <Param id="0x0" wspolczynnik="4.0"/>
-    </Zmiana>
-    <JednostkaLatajacaInfo rodzajSilnikaId="0x03" rodzajSilnikaPoziom="1" mocSilnika="1" zuzyciePaliwa="1" masaSilnika="1" sprawnoscSilnika="0.97" id="0x020" nazwa="Nazwa jednostki latajacej myśliwca">
-      Opis jednoscki latajacej myśliwca.
-      <Zmiana id="3" for="mocSilnika">
-        <Param id="0x0" wspolczynnik="5.0"/>
-      </Zmiana>
-      <Zmiana id="3" for="zuzyciePaliwa">
-        <Param id="0x0" wspolczynnik="6.0"/>
-      </Zmiana>
-      <Zmiana id="3" for="masaSilnika">
-        <Param id="0x0" wspolczynnik="7.0"/>
-      </Zmiana>
-      <Zmiana id="3" for="sprawnoscSilnika">
-        <Param id="0x0" wspolczynnik="8.0"/>
-      </Zmiana>
-    </JednostkaLatajacaInfo>
-    <JednostkaAtakujacaInfo atak="90" pancerz="250" oslona="300" id="0x021" nazwa="Nazwa Jednostki atakujacej myśliwca">
-      Opis jednostki atakujacej myśliwca.
-      <Zmiana id="3" for="atak">
-        <Param id="0x0" wspolczynnik="9.0"/>
-      </Zmiana>
-      <Zmiana id="3" for="pancerz">
-        <Param id="0x0" wspolczynnik="10.0"/>
-      </Zmiana>
-      <Zmiana id="3" for="oslona">
-        <Param id="0x0" wspolczynnik="11.0"/>
-      </Zmiana>
-    </JednostkaAtakujacaInfo>
-    <LadowniaInfo pojemnoscMaksymalna="1300" id="0x022" nazwa="Nazwa ladowni myśliwca">
-      Opis ladowni myśliwca.
-      <Zmiana id="3" for="pojemnoscMaksymalna">
-        <Param id="0x0" wspolczynnik="12.0"/>
-      </Zmiana>
-    </LadowniaInfo>
-    <HangarInfo pojemnoscMaksymalna="1300" id="0x012" nazwa="Nazwa hangaru myśliwca">
-      Opis hangaru myśliwca.
-    </HangarInfo>
+  <StatekInfo id="6" nazwa="Duży transportowiec" masa="1 680" powierzchnia="300" hangar="1">
+    Opis dużego transportowca.
+    <JednostkaAtakujacaInfo atak="100" pancerz="195" oslona="160"/>
+    <JednostkaLatajacaInfo rodzajSilnikaId="1" mocSilnika="2 000" zuzyciePaliwa="900" masaSilnika="136" sprawnoscSilnika="0,75"/>
+    <HangarInfo pojemnoscMaksymalna="0"/>
+    <LadowniaInfo pojemnoscMaksymalna="2 500"/>
+    <Kryterium id="1" ilosc="6 000"/>
+    <Kryterium id="2" ilosc="6 000"/>
   </StatekInfo>
-
-  <StatekInfo masa="1" objetosc="1" powierzchnia="1" poziom="4" id="0x00D" nazwa="Myśliwiec 2" hangar="2">
-    Opis Myśliwca 2.
-    <JednostkaLatajacaInfo rodzajSilnikaId="0x03" rodzajSilnikaPoziom="1" mocSilnika="1" zuzyciePaliwa="1" masaSilnika="1" sprawnoscSilnika="0.97" id="0x030" nazwa="Nazwa jednostki latajacej myśliwca 2">
-      Opis jednoscki latajacej myśliwca 2.
-    </JednostkaLatajacaInfo>
-    <JednostkaAtakujacaInfo atak="90" pancerz="250" oslona="300" id="0x031" nazwa="Nazwa Jednostki atakujacej myśliwca 2">
-      Opis jednostki atakujacej myśliwca 2.
-    </JednostkaAtakujacaInfo>
-    <LadowniaInfo pojemnoscMaksymalna="1300" id="0x032" nazwa="Nazwa ladowni myśliwca 2">
-      Opis ladowni myśliwca 2.
-    </LadowniaInfo>
-    <HangarInfo pojemnoscMaksymalna="1300" id="0x012" nazwa="Nazwa hangaru myśliwca 2">
-      Opis hangaru myśliwca 2.
-    </HangarInfo>
+  <StatekInfo id="7" nazwa="Myśliwiec" masa="900" powierzchnia="200" hangar="1">
+    Opis myśliwca.
+    <JednostkaAtakujacaInfo atak="200" pancerz="160" oslona="200"/>
+    <JednostkaLatajacaInfo rodzajSilnikaId="2" mocSilnika="1 500" zuzyciePaliwa="400" masaSilnika="80" sprawnoscSilnika="0,72"/>
+    <HangarInfo pojemnoscMaksymalna="0"/>
+    <LadowniaInfo pojemnoscMaksymalna="100"/>
+    <Kryterium id="1" ilosc="3 000"/>
+    <Kryterium id="2" ilosc="1 000"/>
   </StatekInfo>
-
-  <StatekInfo masa="1" objetosc="2000" powierzchnia="1" poziom="2" id="0x00E" nazwa="Transportowiec 2"  hangar="2">
-    Opis Transportowca 2.
-    <JednostkaLatajacaInfo rodzajSilnikaId="0x01" rodzajSilnikaPoziom="1" mocSilnika="1" zuzyciePaliwa="1" masaSilnika="1" sprawnoscSilnika="0.97" id="0x040" nazwa="Nazwa jednostki latajacej transportowca 2">
-      Opis jednoscki latajacej transportowca 2.
-    </JednostkaLatajacaInfo>
-    <JednostkaAtakujacaInfo atak="90" pancerz="250" oslona="300" id="0x041" nazwa="Nazwa Jednostki atakujacej transportowca 2">
-      Opis jednostki atakujacej transportowca 2.
-    </JednostkaAtakujacaInfo>
-    <LadowniaInfo pojemnoscMaksymalna="13000" id="0x042" nazwa="Nazwa ladowni transportowca 2">
-      Opis ladowni transportowca 2.
-    </LadowniaInfo>
-    <HangarInfo pojemnoscMaksymalna="1400" id="0x012" nazwa="Nazwa hangaru transportowca 2">
-      Opis hangaru transportowca 2.
-    </HangarInfo>
+  <StatekInfo id="8" nazwa="Transporter" masa="10 000" powierzchnia="20 000" hangar="0">
+    Opis transportera.
+    <JednostkaAtakujacaInfo atak="300" pancerz="1 500" oslona="2 000"/>
+    <JednostkaLatajacaInfo rodzajSilnikaId="4" mocSilnika="5 000" zuzyciePaliwa="1 000" masaSilnika="150" sprawnoscSilnika="0,86"/>
+    <HangarInfo pojemnoscMaksymalna="18 000"/>
+    <LadowniaInfo pojemnoscMaksymalna="8 000"/>
+    <Kryterium id="1" ilosc="25 000"/>
+    <Kryterium id="2" ilosc="20 000"/>
+    <Kryterium id="3" ilosc="5 000"/>
   </StatekInfo>
-
-  <!-- Technologie -->
-  <TechnologiaInfo poziom="1" id="0x000F" nazwa="Technologia komputerowa">
-    Opis technologii.
+  <TechnologiaInfo id="9" nazwa="Technologia komputerowa">
+    Opis technologii komputerowej.
+    <Kryterium id="10" poziom="2"/>
   </TechnologiaInfo>
-
-  <TechnologiaInfo poziom="1" id="0x0010" nazwa="Technologia podprzestrzenna">
-    Opis technologii podprzestrzennej.
+  <TechnologiaInfo id="10" nazwa="Technologia energetyczna">
+    Opis technologii energetycznej.
   </TechnologiaInfo>
-
-  <!-- Budynki -->
-  <BudynekInfo masa="1" objetosc="1" powierzchnia="1" poziom="1" id="0x0011" nazwa="Kopalnia Metalu">
+  <BudynekInfo id="11" nazwa="Kopalnia metalu" powierzchnia="1 200">
     Opis kopalni metalu.
-    <Cena>
-      <Surowce id="0x1" ilosc="150" opcja="1"/>
-      <Zmiana id="3">
-        <Param id="0x0" wspolczynnik="2.0"/>
-      </Zmiana>
-    </Cena>
-    <Zapotrzebowanie>
-      <Surowce id="0xA" ilosc="20" opcja="1"/>
-      <Zmiana id="3">
-        <Param id="0x0" wspolczynnik="3.0"/>
-      </Zmiana>
-    </Zapotrzebowanie>
-    <Produkcja>
-      <Surowce id="0x1" ilosc="1000" opcja="1"/>
-      <Zmiana id="3">
-        <Param id="0x0" wspolczynnik="2.0"/>
-      </Zmiana>
-    </Produkcja>
+    <Kryterium id="1" ilosc="60"/>
+    <Kryterium id="2" ilosc="24"/>
+    <Produkcja id="1" ilosc="50"/>
+    <Zapotrzebowanie id="4" ilosc="120"/>
   </BudynekInfo>
-
-  <BudynekInfo masa="1" objetosc="1" powierzchnia="1" poziom="1" id="0x0012" nazwa="Elektrownia słoneczna">
+  <BudynekInfo id="12" nazwa="Elektrownia słoneczna" powierzchnia="2 500">
     Opis elektrowni słonecznej.
-    <Cena>
-      <Surowce id="0x1" ilosc="156" opcja="1"/>
-      <Zmiana id="3">
-        <Param id="0x0" wspolczynnik="2.0"/>
-      </Zmiana>
-    </Cena>
-    <Czas>
-      <Zmiana id="7" for="Czas">
-        <Param id="0x0" wspolczynnik="2.0"/>
-        <Zmiana id="6">
-          <Param id="0x13" wspolczynnik="0"/>
-        </Zmiana>
-      </Zmiana>
-    </Czas>
-    <Produkcja>
-      <Surowce id="0xA" ilosc="1000" opcja="1"/>
-      <Zmiana id="3">
-        <Param id="0x0" wspolczynnik="3.0"/>
-      </Zmiana>
-    </Produkcja>
+    <Kryterium id="1" ilosc="40"/>
+    <Kryterium id="2" ilosc="13"/>
+    <Produkcja id="4" ilosc="320"/>
   </BudynekInfo>
-
-  <BudynekInfo masa="1" objetosc="1" powierzchnia="1" poziom="1" id="0x0013" nazwa="Fabryka robotów">
-    Opis Fabryki robotów.
+  <BudynekInfo id="13" nazwa="Fabryka robotów" powierzchnia="500">
+    Opis fabryki robotów.
+    <Kryterium id="1" ilosc="200"/>
+    <Kryterium id="2" ilosc="140"/>
+    <Kryterium id="3" ilosc="96"/>
   </BudynekInfo>
-
-  <ObronaInfo masa="900" objetosc="50" powierzchnia="10" poziom="1" id="0x014" nazwa="Wyrzutnia rakiet">
-    Opis wyrzutni rakiet
-    <JednostkaAtakujacaInfo atak="90" pancerz="60" oslona="0" id="0x0" nazwa="Nazwa Jednostki atakujacej wyrzutni rakiet">
-      Opis jednostki atakujacej wyrzutni rakiet
-    </JednostkaAtakujacaInfo>
-  </ObronaInfo>
-
-  <ObronaInfo masa="60" objetosc="40" powierzchnia="30" poziom="1" id="0x015" nazwa="Tarcza">
-    Opis tarczy.
-    <Cena>
-      <Surowce id="0x1" ilosc="1000" opcja="1"/>
-      <Zmiana id="3">
-        <Param id="0x0" wspolczynnik="0.5"/>
-      </Zmiana>
-    </Cena>
-    <Cena>
-      <Surowce id="0x4" ilosc="400" opcja="1"/>
-      <Zmiana id="3">
-        <Param id="0x0" wspolczynnik="0.5"/>
-      </Zmiana>
-    </Cena>
-    <Cena>
-      <Surowce id="0x7" ilosc="300" opcja="1"/>
-      <Zmiana id="3">
-        <Param id="0x0" wspolczynnik="0.5"/>
-      </Zmiana>
-    </Cena>
-    <Wymog>
-      <ObiektBaseInfo poziom="2" id="0xf"/>
-    </Wymog>
-    <Zmiana id="4" for="masa">
-      <Param id="0x1" wspolczynnik="1.0"/>
-      <Param id="0x2" wspolczynnik="2.0"/>
-    </Zmiana>
-    <Zmiana id="3" for="objetosc">
-      <Param id="0x0" wspolczynnik="0.9"/>
-    </Zmiana>
-    <Zmiana id="3" for="powierzchnia">
-      <Param id="0x0" wspolczynnik="0.8"/>
-    </Zmiana>
-    <JednostkaAtakujacaInfo atak="0" pancerz="60" oslona="2500" id="0x0" nazwa="Nazwa Jednostki atakujacej tarczy">
-      Opis jednostki atakujacej tarczy
-      <Zmiana id="3" for="pancerz">
-        <Param id="0x0" wspolczynnik="4.0"/>
-      </Zmiana>
-      <Zmiana id="3" for="oslona">
-        <Param id="0x0" wspolczynnik="2.0"/>
-      </Zmiana>
-    </JednostkaAtakujacaInfo>
-  </ObronaInfo>
-
 </Space-Explorers>

@@ -5,7 +5,7 @@
 namespace SpEx{
 
 	BudynekInfo::BudynekInfo(XmlBO::ElementWezla wezel)
-		: ObiektInfo(wezel)
+		: ObiektInfo(BUDYNEK, wezel)
 	{
 		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA, powierzchnia_);
 		zmianaPowierzchni_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_POWIERZCHNIA));

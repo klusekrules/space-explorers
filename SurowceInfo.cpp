@@ -6,7 +6,7 @@
 
 namespace SpEx{
 	SurowceInfo::SurowceInfo(XmlBO::ElementWezla wezel)
-		: ObiektInfo(wezel), przyrostowy_(false), zmianaCzasu_(nullptr)
+		: ObiektInfo(SUROWIEC, wezel), przyrostowy_(false), zmianaCzasu_(nullptr)
 	{
 		if (wezel){
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_MASA, masa_);

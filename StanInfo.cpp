@@ -3,6 +3,8 @@
 #include "Logger\Logger.h"
 #include "definicjeWezlowXML.h"
 #include "Utils.h"
+#include "Aplikacja.h"
+
 namespace SpEx{
 	StanInfo::StanInfo(XmlBO::ElementWezla wezel)
 	{
@@ -14,7 +16,9 @@ namespace SpEx{
 			luaFuncInside_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_STAN_LUA_INSIDE, std::string());
 
 			if (luaFile_.empty() && !(luaFuncInside_.empty() && luaFuncOut_.empty() && luaFuncIn_.empty()))
-				throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst());
+				throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), STyp::Identyfikator(),
+				STyp::Tekst("B³¹d struktury stanu."),
+				STyp::Tekst("Nie podano pliku skryptu, a wpisano metody do wykonania."));
 
 			XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_ZDARZENIE, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 				auto zdarzenie = std::make_shared<ZdarzenieInfo>(element);
@@ -23,8 +27,11 @@ namespace SpEx{
 			}));
 
 			if (!luaFile_.empty()){
-				skrypt_.zaladuj(luaFile_);
-				skrypt_.wykonaj();
+				skrypt_ = Aplikacja::pobierzInstancje().pobierzZarzadce().TworzSkrypt(wezel);
+				if (!skrypt_)
+					Utils::generujWyjatekBleduStruktury(wezel);
+				skrypt_->zaladuj(luaFile_);
+				skrypt_->wykonaj();
 			}
 		}
 	}
@@ -52,7 +59,7 @@ namespace SpEx{
 		default:
 			return false;
 		}
-		return skrypt_.wykonaj(*ptr);
+		return skrypt_->wykonaj(*ptr);
 	}
 
 	const STyp::Identyfikator& StanInfo::pobierzIdentyfikator() const{

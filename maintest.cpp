@@ -17,13 +17,38 @@ void main( int argv , char* argc[] ){
     _CrtSetReportFile( _CRT_ERROR, _CRTDBG_FILE_STDOUT );
     _CrtSetReportMode( _CRT_ASSERT, _CRTDBG_MODE_FILE );
     _CrtSetReportFile( _CRT_ASSERT, _CRTDBG_FILE_STDOUT );
-		
-	SpEx::Aplikacja::iloscArgumentow = argv;
-	SpEx::Aplikacja::argumenty = argc;
-	SpEx::Aplikacja::pobierzInstancje();
+	try{
+		SpEx::Aplikacja::iloscArgumentow = argv;
+		SpEx::Aplikacja::argumenty = argc;
+		SpEx::Aplikacja::pobierzInstancje();
 
-	SpEx::MaszynaStanow::pobierzInstancje().start();
-	//TestyJednostkowe::pobierzInstancje().wykonajTesty();
+		SpEx::MaszynaStanow::pobierzInstancje().start();
+		//TestyJednostkowe::pobierzInstancje().wykonajTesty();
+	}
+	catch (STyp::Wyjatek& wyjatek){
+		MessageBox(
+			nullptr,
+			wyjatek.getTresc()().c_str(),
+			wyjatek.getTytul()().c_str(),
+			MB_ICONERROR
+			);
+	}
+	catch (std::exception& exception){
+		MessageBox(
+			nullptr,
+			exception.what(),
+			"Fatal error",
+			MB_ICONERROR
+			);
+	}
+	catch (...){
+		MessageBox(
+			nullptr,
+			"Unknown Exception!",
+			"Fatal error",
+			MB_ICONERROR
+			);
+	}
 }
 
 #endif
