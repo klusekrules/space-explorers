@@ -2,12 +2,12 @@ Window:
 {
 	Picture: "tlo"
 	{
-		Filename = "resource\\space.jpg"
+		Filename = "resource\space.jpg"
 	}
 	
 	Picture: "logo"
 	{
-		Filename = "resource\\SpaceExplorers_logo_640x348.png"
+		Filename = "resource\SpaceExplorers_logo_640x348.png"
 		Left = 10
 		Top = 10
 		Width = 192
