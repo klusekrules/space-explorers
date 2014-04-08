@@ -5,7 +5,7 @@
 namespace SpEx{
 	
 	ObronaInfo::ObronaInfo(XmlBO::ElementWezla wezel)
-		: ObiektInfo(wezel),
+		: ObiektInfo(OBRONA, wezel),
 		JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO))
 	{
 		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA, powierzchnia_);

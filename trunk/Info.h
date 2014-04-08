@@ -20,24 +20,23 @@ namespace SpEx{
 		public se::NonMoveable
 	{
 	public:
+
+		enum TYPY_OBIEKTOW {
+			NIEZNANY = 0,
+			BUDYNEK,
+			SUROWIEC,
+			TECHNOLOGIA,
+			STATEK,
+			OBRONA
+		};
+
 		virtual ~Info() = default;
 
-		/**
-		* \brief Konstruktor.
-		*
-		* Podstawowy konstruktor obiektu.
-		* \param[in] nazwa - Nazwa obiektu.
-		* \param[in] opis - Opis obiektu.
-		* \param[in] identyfikator - Identyfikator obiektu.
-		* \param[in] wymagania - Wymagania obiektu.
-		*/
-		Info(const STyp::Tekst& nazwa, const STyp::Tekst& opis, const STyp::Identyfikator& identyfikator);
-		
 		/**
 		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
 		*/
-		explicit Info(XmlBO::ElementWezla wezel);
+		explicit Info(const STyp::Identyfikator& typ, XmlBO::ElementWezla wezel);
 
 		/**
 		* Metoda zwracaj¹ca Identyfikator obiektu.
@@ -88,6 +87,12 @@ namespace SpEx{
 		* \return Napis zwieraj¹cy opis klasy.
 		*/
 		std::string napis() const override;
+
+		const STyp::Identyfikator typ_ = NIEZNANY; /// Typ obiektu.
+
+	protected:
+		
+		STyp::Tekst adresObrazka_; /// Adres do obrazka wyœwietlonego w GUI.
 
 	private:
 		STyp::Tekst nazwa_; /// Nazwa obiektu.
