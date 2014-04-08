@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SpaceGame>
-  <EkranStartowy id="0x0" stanWejsciowy="2" zdarzenieWyjscia="0x1" konfiguracja="resource\\pusteOkno.wdg"/>
-  <Ekran id="0x1" czcionka="resource\\arial.ttf" konfiguracja="resource\\menu.wdg">
+  <EkranStartowy id="0x0" stanWejsciowy="2" zdarzenieWyjscia="0x1" konfiguracja="resource\pusteOkno.wdg"/>
+  <Ekran id="0x1" czcionka="resource\arial.ttf" konfiguracja="resource\menu.wdg">
     <Kontrolka nazwa="zamknij">
       <Akcja id="64" idZdarzenia="1"/>
     </Kontrolka>
@@ -9,6 +9,6 @@
       <Akcja id="64" idZdarzenia="2"/>
     </Kontrolka>
   </Ekran>
-  <Ekran id="0x2" czcionka="resource\\arial.ttf" konfiguracja="resource\\testowanie.wdg">
+  <Ekran id="0x2" czcionka="resource\arial.ttf" konfiguracja="resource\testowanie.wdg">
   </Ekran>
 </SpaceGame>
