@@ -1,42 +1,43 @@
 #include "ObronaInfo.h"
 #include "Logger\Logger.h"
-#include "XmlBO.h"
 #include "Gra.h"
 
-ObronaInfo::ObronaInfo(	const ObiektInfo& obiektInfo , const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo )
-	: ObiektInfo(obiektInfo),JednostkaAtakujacaInfo(jednostkaAtakujacaInfo)
-{
-}
+namespace SpEx{
+	
+	ObronaInfo::ObronaInfo(XmlBO::ElementWezla wezel)
+		: ObiektInfo(OBRONA, wezel),
+		JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO))
+	{
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA, powierzchnia_);
+		zmianaPowierzchni_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_POWIERZCHNIA));
+	}
+	
+	Obrona* ObronaInfo::tworzEgzemplarz(const PodstawoweParametry& parametry) const{
+		return new Obrona(parametry, *this);
+	}
 
-ObronaInfo::~ObronaInfo()
-{
-}
+	bool ObronaInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla element) const{
+		auto obrona = std::shared_ptr<Obrona>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), PodstawoweParametry::ILOSC)));
+		if (obrona && element){
+			if (!obrona->odczytaj(element))
+				return false;
+			return planeta.dodajObiekt(obrona);
+		}
+		return false;
+	}
 
-ObronaInfo::ObronaInfo( tinyxml2::XMLElement* wezel ) throw(WyjatekParseraXML)
-	: ObiektInfo(wezel),
-	JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<THROW>(wezel,WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO))
-{
-}
+	bool ObronaInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
+		return planeta.dodajObiekt(std::shared_ptr<Obrona>(tworzEgzemplarz(PodstawoweParametry(atrybut, PodstawoweParametry::ILOSC))));
+	}
 
-const Identyfikator& ObronaInfo::pobierzIdentyfikator() const{
-	return ObiektInfo::pobierzIdentyfikator();
-}
+	STyp::Powierzchnia ObronaInfo::pobierzPowierzchnie(const PodstawoweParametry& parametry)const{
+		return Utils::ObliczZmiane(zmianaPowierzchni_, powierzchnia_, parametry);
+	}
 
-Obrona* ObronaInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety ) const{
-	return tworzEgzemplarz(ilosc, identyfikatorPlanety,pobierzPoziom());
-}
-
-Obrona* ObronaInfo::tworzEgzemplarz( const Ilosc& ilosc, const Identyfikator& identyfikatorPlanety, const Poziom& poziom ) const{
-	return new Obrona(ilosc,poziom, identyfikatorPlanety, *this);
-}
-
-bool ObronaInfo::tworz( const Gra& gra, Planeta& planeta , const Ilosc& ilosc, const Poziom& poziom ) const{
-	return gra.wybudujNaPlanecie(planeta,*this,ilosc,poziom);
-}
-
-string ObronaInfo::napis() const{
-	Logger str(NAZWAKLASY(ObronaInfo));
-	str.dodajKlase(ObiektInfo::napis());
-	str.dodajKlase(JednostkaAtakujacaInfo::napis());
-	return str.napis();
+	std::string ObronaInfo::napis() const{
+		SLog::Logger str(NAZWAKLASY(ObronaInfo));
+		str.dodajKlase(ObiektInfo::napis());
+		str.dodajKlase(JednostkaAtakujacaInfo::napis());
+		return str.napis();
+	}
 }

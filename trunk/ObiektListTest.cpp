@@ -1,16 +1,11 @@
 #include "ObiektListTest.h"
 
-
-ObiektListTest::ObiektListTest(void)
-{
-}
-
 void ObiektListTest::startTestow(){
-	Gra& gra = Aplikacja::pobierzInstancje().pobierzGre();
-	a = shared_ptr<Statek>(gra.pobierzStatek(Identyfikator(11)).tworzEgzemplarz(Ilosc(8),Identyfikator(0)));
-	b = shared_ptr<Statek>(gra.pobierzStatek(Identyfikator(12)).tworzEgzemplarz(Ilosc(8),Identyfikator(0)));
-	c = shared_ptr<Statek>(gra.pobierzStatek(Identyfikator(13)).tworzEgzemplarz(Ilosc(8),Identyfikator(0)));
-	d = shared_ptr<Statek>(gra.pobierzStatek(Identyfikator(14)).tworzEgzemplarz(Ilosc(8),Identyfikator(0)));
+	SpEx::Gra& gra = SpEx::Aplikacja::pobierzInstancje().pobierzGre();
+	a = std::shared_ptr<SpEx::Statek>(gra.pobierzStatek(STyp::Identyfikator(5)).tworzEgzemplarz(STyp::Ilosc(8)));
+	b = std::shared_ptr<SpEx::Statek>(gra.pobierzStatek(STyp::Identyfikator(6)).tworzEgzemplarz(STyp::Ilosc(8)));
+	c = std::shared_ptr<SpEx::Statek>(gra.pobierzStatek(STyp::Identyfikator(7)).tworzEgzemplarz(STyp::Ilosc(8)));
+	d = std::shared_ptr<SpEx::Statek>(gra.pobierzStatek(STyp::Identyfikator(8)).tworzEgzemplarz(STyp::Ilosc(8)));
 	UNIT_TEST_ASSERT_NOTNULL(a);
 	UNIT_TEST_ASSERT_NOTNULL(b);
 	UNIT_TEST_ASSERT_NOTNULL(c);
@@ -26,21 +21,19 @@ void ObiektListTest::podstawowyTest(){
 	UNIT_TEST_ASSERT_FALSE(l.empty());
 	auto r = lista.listaKluczy();
 	UNIT_TEST_ASSERT_FALSE(r.empty());
-	Statek& sTmp1 = *lista.pobierz(Klucz(Identyfikator( 12 ),Poziom( 1 )));
-	UNIT_TEST_ASSERT_EQUAL(Identyfikator( 12 ),sTmp1.pobierzIdentyfikator());
-	UNIT_TEST_ASSERT_EQUAL(Poziom( 1 ),sTmp1.pobierzPoziom());
-	UNIT_TEST_ASSERT_TRUE(lista.usun(Klucz(Identyfikator( 11 ),Poziom( 1 ))));
-	shared_ptr<Statek> sTmp2 = lista.wyjmij(Klucz(Identyfikator( 14 ),Poziom( 2 )));
-	UNIT_TEST_ASSERT_EQUAL(Identyfikator( 14 ),sTmp2->pobierzIdentyfikator());
-	UNIT_TEST_ASSERT_EQUAL(Poziom( 2 ),sTmp2->pobierzPoziom());
+	SpEx::Statek& sTmp1 = *lista.pobierz(STyp::Identyfikator(6));
+	UNIT_TEST_ASSERT_EQUAL(STyp::Identyfikator(6), sTmp1.pobierzIdentyfikator());
+	UNIT_TEST_ASSERT_TRUE(lista.usun(STyp::Identyfikator(5)));
+	std::shared_ptr<SpEx::Statek> sTmp2 = lista.wyjmij(STyp::Identyfikator(8));
+	UNIT_TEST_ASSERT_EQUAL(STyp::Identyfikator(8), sTmp2->pobierzIdentyfikator());
 	l = lista.listaObiektow();
 	UNIT_TEST_ASSERT_FALSE(l.empty());
 	r = lista.listaKluczy();
 	UNIT_TEST_ASSERT_FALSE(r.empty());
-	UNIT_TEST_ASSERT_TRUE(ListaObiektow<Statek>::przenies(r.front(),Ilosc(1),lista,listaDruga));
-	Ilosc porownanie = lista.pobierz(r.front())->pobierzIlosc() + listaDruga.pobierz(r.front())->pobierzIlosc();
+	UNIT_TEST_ASSERT_TRUE(SpEx::ListaObiektow<SpEx::Statek>::przenies(r.front(), STyp::Ilosc(1), lista, listaDruga));
+	STyp::Ilosc porownanie = lista.pobierz(r.front())->pobierzIlosc() + listaDruga.pobierz(r.front())->pobierzIlosc();
 	UNIT_TEST_ASSERT_EQUAL(1,listaDruga.rozmiar());
-	UNIT_TEST_ASSERT_TRUE(ListaObiektow<Statek>::przenies(r.front(),lista,listaDruga));
+	UNIT_TEST_ASSERT_TRUE(SpEx::ListaObiektow<SpEx::Statek>::przenies(r.front(), lista, listaDruga));
 	UNIT_TEST_ASSERT_EQUAL(porownanie,listaDruga.pobierz(r.front())->pobierzIlosc());
 	UNIT_TEST_ASSERT_EQUAL(1,listaDruga.rozmiar());
 	listaDruga.wyczysc();
@@ -50,10 +43,6 @@ void ObiektListTest::podstawowyTest(){
 void ObiektListTest::koniecTestow(){
 	lista.wyczysc();
 	listaDruga.wyczysc();
-}
-
-ObiektListTest::~ObiektListTest(void)
-{
 }
 
 REJESTRUJ_PACZKE_TESTOW(ObiektListTest);

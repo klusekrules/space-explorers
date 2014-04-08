@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
   <?include definicje.wxi ?>
   <Product Name='Space-Explorers 0.0.5' Id='C5D410BC-EB65-48AD-966D-24830261DF12' UpgradeCode='90B73C3B-7192-4C3F-A82B-CB7A2C07F571'
     Language='1045' Codepage='1250' Version='0.0.5' Manufacturer='Daniel Wojdak'>
-
+    
     <Package Id='*' Keywords='Installer' Description="Space-Explorers 0.0.5 Instalator"
       Comments='Komentarz' Manufacturer='Daniel Wojdak' InstallScope='perMachine'
       InstallerVersion='405' Languages='1045' Compressed='yes' SummaryCodepage='1250' Platform='$(var.Platforma)'/>
-
+    <Icon Id="ikona.ico" SourceFile="..\out\resource\IkonaBlue.ico"/>
     <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' DiskPrompt='CD-ROM #1'/>
+    <Property Id="ARPPRODUCTICON" Value="ikona.ico" />
     <Property Id='DiskPrompt' Value="Space-Explorers 0.0.5 Installation [1]" />
-
     <Directory Id='TARGETDIR' Name='SourceDir'>
 
       <Directory Id='$(var.ProgramFiles)' Name="PFiles">
@@ -48,12 +49,17 @@
     </Directory>
 
     <DirectoryRef Id='INSTALL_DIR'>
+      <Component Id="INSTALLFOLDER_Permission" Guid="{FF3790E7-757E-4DAD-ACE7-A819C253F578}">
+            <CreateFolder>
+                <util:PermissionEx User="Users" GenericAll="yes"/>
+            </CreateFolder>
+      </Component>
       <Component Id='SPACE_EXPLORERS_COM' Guid='5BE847C4-843E-4D82-93EF-16190F994885' Win64='$(var.isPlatformx64)'>
         <File Id='SPACE_EXPLORERS_EXE' Name='space.exe'  Source='..\out\SpaceExplorers-$(var.Platforma)-$(var.Configuration).exe' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'>
           <Shortcut Id="MENU_SHORTCUT_SPACE_EXPLORERS_EXE" Directory="ProgramMenuDir" Name="Space-Explorers"
-              WorkingDirectory='INSTALL_DIR' Advertise="yes" Arguments="-O $(var.PlikOpcji)"/>
+              WorkingDirectory='INSTALL_DIR' Advertise="yes" Arguments="-O $(var.PlikOpcji)" Icon="ikona.ico"/>
           <Shortcut Id="DESKTOP_SHORTCUT_SPACE_EXPLORERS_EXE" Directory="DesktopFolder" Name="Space-Explorers"
-            WorkingDirectory='INSTALL_DIR' Advertise="yes" Arguments="-O $(var.PlikOpcji)" />
+            WorkingDirectory='INSTALL_DIR' Advertise="yes" Arguments="-O $(var.PlikOpcji)" Icon="ikona.ico"/>
         </File>
       </Component>
       <Component Id='CONFIG_XML' Guid='71AFE2C6-5700-4DC5-BB15-2539017DF28B'>
@@ -66,15 +72,21 @@
         <File Id='PLUGIN_DLL_FILE' Source='..\out\plugin-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
       </Component>
       <Component Id='LOGGER_DLL' Guid='07CEBB01-446A-4BB8-8A5C-49CAC8354360' Win64='$(var.isPlatformx64)'>
-        <File Id='LOGGER_DLL_FILE' Source='..\out\Logger-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+        <File Id='LOGGER_DLL_FILE' Source='..\out\logger-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
       </Component>
-      <Component Id='TRANSF_DLL' Guid='C9CDD52F-E2F0-49F4-8804-97CDB1DFA530' Win64='$(var.isPlatformx64)'>
-        <File Id='TRANSF_DLL_FILE' Source='..\out\ftrans-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+      <Component Id='ZMIANA_DLL' Guid='C9CDD52F-E2F0-49F4-8804-97CDB1DFA530' Win64='$(var.isPlatformx64)'>
+        <File Id='ZMIANA_DLL_FILE' Source='..\out\zmiana-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+      </Component>
+      <Component Id='PARSER_DLL' Guid='{3C25F409-4B45-486F-9BAD-70E8646C3DAC}' Win64='$(var.isPlatformx64)'>
+        <File Id='PARSER_DLL_FILE' Source='..\out\parser-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+      </Component>
+      <Component Id='TYPY_DLL' Guid='{5E69159D-4A74-43CB-A593-75F1BFD4150C}' Win64='$(var.isPlatformx64)'>
+        <File Id='TYPY_DLL_FILE' Source='..\out\typy-proste-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
       </Component>
     </DirectoryRef>
     
     <DirectoryRef Id="TARGETDIR">
-      <Merge Id="VCRedist" SourceFile="Microsoft_VC110_CRT_$(var.Platforma).msm" DiskId="1" Language="0"/>
+      <Merge Id="VCRedist" SourceFile="Microsoft_VC120_$(var.CRTName)CRT_$(var.Platforma).msm" DiskId="1" Language="0"/>
     </DirectoryRef>
 
     <DirectoryRef Id='DOC_DIR'>
@@ -181,12 +193,15 @@
     
     <Feature Id='Complete' Title='Space-Explorers 0.0.4' Description='Moja aplikacja'
       Display='expand' Level='1' AllowAdvertise='no' ConfigurableDirectory="SPACE_EXPLORERS" >
+      <ComponentRef Id="INSTALLFOLDER_Permission"/>
       <ComponentRef Id='SPACE_EXPLORERS_COM' />
       <ComponentRef Id='CONFIG_XML' />
       <ComponentRef Id='DATA_XML' />
       <ComponentRef Id='PLUGIN_DLL' />
       <ComponentRef Id='LOGGER_DLL' />
-      <ComponentRef Id='TRANSF_DLL' />
+      <ComponentRef Id='ZMIANA_DLL' />
+      <ComponentRef Id='PARSER_DLL' />
+      <ComponentRef Id='TYPY_DLL' />
       <ComponentRef Id='ZMIANA_TEST_DLL' />
       <ComponentRef Id='ProgramMenuDir' />
       <ComponentRef Id='SPACE_EXPLORERS_REM' />
@@ -212,7 +227,7 @@
       <ComponentRef Id='BLACK_PNG_FILE_COMP' />
     </Feature>
     
-    <Feature Id="VCRedist" Title="Visual C++ 11.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
+    <Feature Id="VCRedist" Title="Visual C++ 12.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
       <MergeRef Id="VCRedist"/>
     </Feature>
 

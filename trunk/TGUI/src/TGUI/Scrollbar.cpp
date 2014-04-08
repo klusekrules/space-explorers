@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2013 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -24,32 +24,61 @@
 
 
 #include <TGUI/Scrollbar.hpp>
-
-/// \todo Support SplitImage.
-/// \todo Arrow images should be allowed to point left and right. This will mess up most of the current calculations.
-
+#include <TGUI\TGUI.hpp>
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace tgui
 {
+	Widget* Scrollbar::createWidget(Container* container, const std::string& name){
+		return Scrollbar::Ptr(*container, name).get();
+	}
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     Scrollbar::Scrollbar() :
-    m_LowValue          (6),
+    m_MouseDownOnThumb  (false),
+    m_Maximum           (10),
+    m_Value             ( 0),
+    m_LowValue          ( 6),
+    m_VerticalScroll    (true),
+    m_VerticalImage     (true),
+    m_ScrollAmount      ( 1),
     m_AutoHide          (true),
-    m_MouseDownOnArrow  (false)
+    m_MouseDownOnArrow  (false),
+    m_SplitImage        (false),
+    m_SeparateHoverImage(false)
     {
         m_Callback.widgetType = Type_Scrollbar;
+        m_DraggableWidget = true;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     Scrollbar::Scrollbar(const Scrollbar& copy) :
-    Slider            (copy),
-    m_LowValue        (copy.m_LowValue),
-    m_AutoHide        (copy.m_AutoHide),
-    m_MouseDownOnArrow(copy.m_MouseDownOnArrow)
+    Widget               (copy),
+    m_LoadedConfigFile   (copy.m_LoadedConfigFile),
+    m_MouseDownOnThumb   (copy.m_MouseDownOnThumb),
+    m_MouseDownOnThumbPos(copy.m_MouseDownOnThumbPos),
+    m_Maximum            (copy.m_Maximum),
+    m_Value              (copy.m_Value),
+    m_LowValue           (copy.m_LowValue),
+    m_VerticalScroll     (copy.m_VerticalScroll),
+    m_VerticalImage      (copy.m_VerticalImage),
+    m_ScrollAmount       (copy.m_ScrollAmount),
+    m_AutoHide           (copy.m_AutoHide),
+    m_MouseDownOnArrow   (copy.m_MouseDownOnArrow),
+    m_SplitImage         (copy.m_SplitImage),
+    m_SeparateHoverImage (copy.m_SeparateHoverImage),
+    m_Size               (copy.m_Size),
+    m_ThumbSize          (copy.m_ThumbSize)
     {
+        TGUI_TextureManager.copyTexture(copy.m_TextureTrackNormal_L, m_TextureTrackNormal_L);
+        TGUI_TextureManager.copyTexture(copy.m_TextureTrackHover_L, m_TextureTrackHover_L);
+        TGUI_TextureManager.copyTexture(copy.m_TextureTrackNormal_M, m_TextureTrackNormal_M);
+        TGUI_TextureManager.copyTexture(copy.m_TextureTrackHover_M, m_TextureTrackHover_M);
+        TGUI_TextureManager.copyTexture(copy.m_TextureTrackNormal_R, m_TextureTrackNormal_R);
+        TGUI_TextureManager.copyTexture(copy.m_TextureTrackHover_R, m_TextureTrackHover_R);
+        TGUI_TextureManager.copyTexture(copy.m_TextureThumbNormal, m_TextureThumbNormal);
+        TGUI_TextureManager.copyTexture(copy.m_TextureThumbHover, m_TextureThumbHover);
         TGUI_TextureManager.copyTexture(copy.m_TextureArrowUpNormal, m_TextureArrowUpNormal);
         TGUI_TextureManager.copyTexture(copy.m_TextureArrowUpHover, m_TextureArrowUpHover);
         TGUI_TextureManager.copyTexture(copy.m_TextureArrowDownNormal, m_TextureArrowDownNormal);
@@ -64,6 +93,14 @@ namespace tgui
         if (m_TextureArrowUpHover.data != nullptr)    TGUI_TextureManager.removeTexture(m_TextureArrowUpHover);
         if (m_TextureArrowDownNormal.data != nullptr) TGUI_TextureManager.removeTexture(m_TextureArrowDownNormal);
         if (m_TextureArrowDownHover.data != nullptr)  TGUI_TextureManager.removeTexture(m_TextureArrowDownHover);
+        if (m_TextureTrackNormal_L.data != nullptr)   TGUI_TextureManager.removeTexture(m_TextureTrackNormal_L);
+        if (m_TextureTrackHover_L.data != nullptr)    TGUI_TextureManager.removeTexture(m_TextureTrackHover_L);
+        if (m_TextureTrackNormal_M.data != nullptr)   TGUI_TextureManager.removeTexture(m_TextureTrackNormal_M);
+        if (m_TextureTrackHover_M.data != nullptr)    TGUI_TextureManager.removeTexture(m_TextureTrackHover_M);
+        if (m_TextureTrackNormal_R.data != nullptr)   TGUI_TextureManager.removeTexture(m_TextureTrackNormal_R);
+        if (m_TextureTrackHover_R.data != nullptr)    TGUI_TextureManager.removeTexture(m_TextureTrackHover_R);
+        if (m_TextureThumbNormal.data != nullptr)     TGUI_TextureManager.removeTexture(m_TextureThumbNormal);
+        if (m_TextureThumbHover.data != nullptr)      TGUI_TextureManager.removeTexture(m_TextureThumbHover);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -74,11 +111,31 @@ namespace tgui
         if (this != &right)
         {
             Scrollbar temp(right);
-            this->Slider::operator=(right);
+            this->Widget::operator=(right);
 
+            std::swap(m_LoadedConfigFile,       temp.m_LoadedConfigFile);
+            std::swap(m_MouseDownOnThumb,       temp.m_MouseDownOnThumb);
+            std::swap(m_MouseDownOnThumbPos,    temp.m_MouseDownOnThumbPos);
+            std::swap(m_Maximum,                temp.m_Maximum);
+            std::swap(m_Value,                  temp.m_Value);
             std::swap(m_LowValue,               temp.m_LowValue);
+            std::swap(m_VerticalScroll,         temp.m_VerticalScroll);
+            std::swap(m_VerticalImage,          temp.m_VerticalImage);
+            std::swap(m_ScrollAmount,           temp.m_ScrollAmount);
             std::swap(m_AutoHide,               temp.m_AutoHide);
             std::swap(m_MouseDownOnArrow,       temp.m_MouseDownOnArrow);
+            std::swap(m_SplitImage,             temp.m_SplitImage);
+            std::swap(m_SeparateHoverImage,     temp.m_SeparateHoverImage);
+            std::swap(m_Size,                   temp.m_Size);
+            std::swap(m_ThumbSize,              temp.m_ThumbSize);
+            std::swap(m_TextureTrackNormal_L,   temp.m_TextureTrackNormal_L);
+            std::swap(m_TextureTrackHover_L,    temp.m_TextureTrackHover_L);
+            std::swap(m_TextureTrackNormal_M,   temp.m_TextureTrackNormal_M);
+            std::swap(m_TextureTrackHover_M,    temp.m_TextureTrackHover_M);
+            std::swap(m_TextureTrackNormal_R,   temp.m_TextureTrackNormal_R);
+            std::swap(m_TextureTrackHover_R,    temp.m_TextureTrackHover_R);
+            std::swap(m_TextureThumbNormal,     temp.m_TextureThumbNormal);
+            std::swap(m_TextureThumbHover,      temp.m_TextureThumbHover);
             std::swap(m_TextureArrowUpNormal,   temp.m_TextureArrowUpNormal);
             std::swap(m_TextureArrowUpHover,    temp.m_TextureArrowUpHover);
             std::swap(m_TextureArrowDownNormal, temp.m_TextureArrowDownNormal);
@@ -99,7 +156,7 @@ namespace tgui
 
     bool Scrollbar::load(const std::string& configFileFilename)
     {
-        m_LoadedConfigFile = configFileFilename;
+        m_LoadedConfigFile = getResourcePath() + configFileFilename;
 
         // When everything is loaded successfully, this will become true.
         m_Loaded = false;
@@ -120,9 +177,9 @@ namespace tgui
 
         // Open the config file
         ConfigFile configFile;
-        if (!configFile.open(configFileFilename))
+        if (!configFile.open(m_LoadedConfigFile))
         {
-            TGUI_OUTPUT("TGUI error: Failed to open " + configFileFilename + ".");
+            TGUI_OUTPUT("TGUI error: Failed to open " + m_LoadedConfigFile + ".");
             return false;
         }
 
@@ -131,7 +188,7 @@ namespace tgui
         std::vector<std::string> values;
         if (!configFile.read("Scrollbar", properties, values))
         {
-            TGUI_OUTPUT("TGUI error: Failed to parse " + configFileFilename + ".");
+            TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile + ".");
             return false;
         }
 
@@ -140,9 +197,9 @@ namespace tgui
 
         // Find the folder that contains the config file
         std::string configFileFolder = "";
-        std::string::size_type slashPos = configFileFilename.find_last_of("/\\");
+        std::string::size_type slashPos = m_LoadedConfigFile.find_last_of("/\\");
         if (slashPos != std::string::npos)
-            configFileFolder = configFileFilename.substr(0, slashPos+1);
+            configFileFolder = m_LoadedConfigFile.substr(0, slashPos+1);
 
         // Handle the read properties
         for (unsigned int i = 0; i < properties.size(); ++i)
@@ -163,7 +220,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureTrackNormal_M))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for TrackNormalImage in section Scrollbar in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for TrackNormalImage in section Scrollbar in " + m_LoadedConfigFile + ".");
                     return false;
                 }
 
@@ -173,7 +230,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureTrackHover_M))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for TrackHoverImage in section Scrollbar in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for TrackHoverImage in section Scrollbar in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -181,7 +238,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureThumbNormal))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for ThumbNormalImage in section Scrollbar in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for ThumbNormalImage in section Scrollbar in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -189,7 +246,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureThumbHover))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for ThumbHoverImage in section Scrollbar in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for ThumbHoverImage in section Scrollbar in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -197,7 +254,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureArrowUpNormal))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for ArrowUpNormalImage in section Scrollbar in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for ArrowUpNormalImage in section Scrollbar in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -205,7 +262,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureArrowUpHover))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for ArrowUpHoverImage in section Scrollbar in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for ArrowUpHoverImage in section Scrollbar in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -213,7 +270,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureArrowDownNormal))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for ArrowDownNormalImage in section Scrollbar in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for ArrowDownNormalImage in section Scrollbar in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -221,7 +278,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureArrowDownHover))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for ArrowDownHoverImage in section Scrollbar in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for ArrowDownHoverImage in section Scrollbar in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -229,7 +286,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureTrackNormal_L))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for TrackNormalImage_L in section Scrollbar in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for TrackNormalImage_L in section Scrollbar in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -237,7 +294,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureTrackNormal_M))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for TrackNormalImage_M in section Scrollbar in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for TrackNormalImage_M in section Scrollbar in " + m_LoadedConfigFile + ".");
                     return false;
                 }
 
@@ -247,7 +304,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureTrackNormal_R))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for TrackNormalImage_R in section Scrollbar in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for TrackNormalImage_R in section Scrollbar in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -255,7 +312,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureTrackHover_L))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for TrackHoverImage_L in section Scrollbar in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for TrackHoverImage_L in section Scrollbar in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -263,7 +320,7 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureTrackHover_M))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for TrackHoverImage_M in section Scrollbar in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for TrackHoverImage_M in section Scrollbar in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
@@ -271,18 +328,18 @@ namespace tgui
             {
                 if (!configFile.readTexture(value, configFileFolder, m_TextureTrackHover_R))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for TrackHoverImage_R in section Scrollbar in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for TrackHoverImage_R in section Scrollbar in " + m_LoadedConfigFile + ".");
                     return false;
                 }
             }
             else
-                TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section Scrollbar in " + configFileFilename + ".");
+                TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section Scrollbar in " + m_LoadedConfigFile + ".");
         }
 
         // Check if the image is split
         if (m_SplitImage)
         {
-            TGUI_OUTPUT("TGUI error: SplitImage is not supported in Scrollbar.");
+            TGUI_OUTPUT("TGUI error: SplitImage is not yet supported in Scrollbar.");
             return false;
 /*
             // Make sure the required textures were loaded
@@ -302,7 +359,7 @@ namespace tgui
             }
             else
             {
-                TGUI_OUTPUT("TGUI error: Not all needed images were loaded for the scrollbar. Is the Scrollbar section in " + configFileFilename + " complete?");
+                TGUI_OUTPUT("TGUI error: Not all needed images were loaded for the scrollbar. Is the Scrollbar section in " + m_LoadedConfigFile + " complete?");
                 return false;
             }
 
@@ -326,7 +383,7 @@ namespace tgui
             }
             else
             {
-                TGUI_OUTPUT("TGUI error: Not all needed images were loaded for the scrollbar. Is the Scrollbar section in " + configFileFilename + " complete?");
+                TGUI_OUTPUT("TGUI error: Not all needed images were loaded for the scrollbar. Is the Scrollbar section in " + m_LoadedConfigFile + " complete?");
                 return false;
             }
 
@@ -344,16 +401,75 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void Scrollbar::setMinimum(unsigned int)
+    const std::string& Scrollbar::getLoadedConfigFile() const
     {
-        // Do nothing. The minimum may not be changed.
+        return m_LoadedConfigFile;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Scrollbar::setSize(float width, float height)
+    {
+        // Don't do anything when the scrollbar wasn't loaded correctly
+        if (m_Loaded == false)
+            return;
+
+        // Set the size of the scrollbar
+        m_Size.x = width;
+        m_Size.y = height;
+
+        // A negative size is not allowed for this widget
+        if (m_Size.x < 0) m_Size.x = -m_Size.x;
+        if (m_Size.y < 0) m_Size.y = -m_Size.y;
+
+        // Set the thumb size
+        if (m_VerticalImage == m_VerticalScroll)
+        {
+            if (m_VerticalScroll)
+            {
+                m_ThumbSize.x = (m_Size.x / m_TextureTrackNormal_M.getSize().x) * m_TextureThumbNormal.getSize().x;
+                m_ThumbSize.y = (m_Size.x / m_TextureTrackNormal_M.getSize().x) * m_TextureThumbNormal.getSize().y;
+            }
+            else
+            {
+                m_ThumbSize.x = (m_Size.y / m_TextureTrackNormal_M.getSize().y) * m_TextureThumbNormal.getSize().x;
+                m_ThumbSize.y = (m_Size.y / m_TextureTrackNormal_M.getSize().y) * m_TextureThumbNormal.getSize().y;
+            }
+        }
+        else // m_VerticalImage != m_VerticalScroll
+        {
+            if (m_VerticalScroll)
+            {
+                m_ThumbSize.x = (m_Size.x / m_TextureTrackNormal_M.getSize().y) * m_TextureThumbNormal.getSize().y;
+                m_ThumbSize.y = (m_Size.x / m_TextureTrackNormal_M.getSize().y) * m_TextureThumbNormal.getSize().x;
+            }
+            else
+            {
+                m_ThumbSize.x = (m_Size.y / m_TextureTrackNormal_M.getSize().x) * m_TextureThumbNormal.getSize().y;
+                m_ThumbSize.y = (m_Size.y / m_TextureTrackNormal_M.getSize().x) * m_TextureThumbNormal.getSize().x;
+            }
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    sf::Vector2f Scrollbar::getSize() const
+    {
+        if (m_Loaded)
+            return sf::Vector2f(m_Size.x, m_Size.y);
+        else
+            return sf::Vector2f(0, 0);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void Scrollbar::setMaximum(unsigned int maximum)
     {
-        Slider::setMaximum(maximum);
+        // Set the new maximum
+        if (maximum > 0)
+            m_Maximum = maximum;
+        else
+            m_Maximum = 1;
 
         // When the value is above the maximum then adjust it
         if (m_Maximum < m_LowValue)
@@ -403,9 +519,72 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    void Scrollbar::setVerticalScroll(bool verticalScroll)
+    {
+        // Only continue when the value changed
+        if (m_VerticalScroll != verticalScroll)
+        {
+            // Change the internal value
+            m_VerticalScroll = verticalScroll;
+
+            // Swap the width and height if needed
+            if (m_VerticalScroll)
+            {
+                if (m_Size.x > m_Size.y)
+                    setSize(m_Size.y, m_Size.x);
+                else
+                    setSize(m_Size.x, m_Size.y);
+            }
+            else // The scrollbar lies horizontal
+            {
+                if (m_Size.y > m_Size.x)
+                    setSize(m_Size.y, m_Size.x);
+                else
+                    setSize(m_Size.x, m_Size.y);
+            }
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    unsigned int Scrollbar::getMaximum() const
+    {
+        return m_Maximum;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    unsigned int Scrollbar::getValue() const
+    {
+        return m_Value;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     unsigned int Scrollbar::getLowValue() const
     {
         return m_LowValue;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    bool Scrollbar::getVerticalScroll() const
+    {
+        return m_VerticalScroll;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Scrollbar::setArrowScrollAmount(unsigned int scrollAmount)
+    {
+        m_ScrollAmount = scrollAmount;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    unsigned int Scrollbar::getArrowScrollAmount()
+    {
+        return m_ScrollAmount;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -426,10 +605,21 @@ namespace tgui
 
     void Scrollbar::setTransparency(unsigned char transparency)
     {
-        Slider::setTransparency(transparency);
+        Widget::setTransparency(transparency);
+
+        m_TextureTrackNormal_L.sprite.setColor(sf::Color(255, 255, 255, m_Opacity));
+        m_TextureTrackHover_L.sprite.setColor(sf::Color(255, 255, 255, m_Opacity));
+        m_TextureTrackNormal_M.sprite.setColor(sf::Color(255, 255, 255, m_Opacity));
+        m_TextureTrackHover_M.sprite.setColor(sf::Color(255, 255, 255, m_Opacity));
+        m_TextureTrackNormal_R.sprite.setColor(sf::Color(255, 255, 255, m_Opacity));
+        m_TextureTrackHover_R.sprite.setColor(sf::Color(255, 255, 255, m_Opacity));
+
+        m_TextureThumbNormal.sprite.setColor(sf::Color(255, 255, 255, m_Opacity));
+        m_TextureThumbHover.sprite.setColor(sf::Color(255, 255, 255, m_Opacity));
 
         m_TextureArrowUpNormal.sprite.setColor(sf::Color(255, 255, 255, m_Opacity));
         m_TextureArrowUpHover.sprite.setColor(sf::Color(255, 255, 255, m_Opacity));
+
         m_TextureArrowDownNormal.sprite.setColor(sf::Color(255, 255, 255, m_Opacity));
         m_TextureArrowDownHover.sprite.setColor(sf::Color(255, 255, 255, m_Opacity));
     }
@@ -448,84 +638,7 @@ namespace tgui
 
         // Check if the mouse is on top of the scrollbar
         if (getTransform().transformRect(sf::FloatRect(0, 0, m_Size.x, m_Size.y)).contains(x, y))
-        {
-            // Get the current position
-            sf::Vector2f position = getPosition();
-
-            float thumbLeft = 0;
-            float thumbTop = 0;
-
-            // Calculate the thumb size
-            float thumbWidth = m_ThumbSize.x;
-            float thumbHeight = m_ThumbSize.y;
-
-            // The scaling depends on how the scrollbar lies
-            if (m_VerticalScroll)
-            {
-                float scalingX;
-                if (m_VerticalImage == m_VerticalScroll)
-                    scalingX = m_Size.x / m_TextureTrackNormal_M.getSize().x;
-                else
-                    scalingX = m_Size.x / m_TextureTrackNormal_M.getSize().y;
-
-                // Check if the arrows are drawn at full size
-                if (m_Size.y > (m_TextureArrowUpNormal.getSize().y + m_TextureArrowDownNormal.getSize().y) * scalingX)
-                {
-                    // Calculate the track and thumb height
-                    float realTrackHeight = m_Size.y - ((m_TextureArrowUpNormal.getSize().y + m_TextureArrowDownNormal.getSize().y) * scalingX);
-                    thumbHeight = ((static_cast<float>(m_LowValue) / m_Maximum) * realTrackHeight);
-
-                    // Calculate the top position of the thumb
-                    thumbTop = (m_TextureArrowUpNormal.getSize().y * scalingX) + ((static_cast<float>(m_Value) / (m_Maximum - m_LowValue)) * (realTrackHeight - thumbHeight));
-                }
-                else // The arrows are not drawn at full size
-                {
-                    thumbHeight = 0;
-                    thumbTop = static_cast<float>(m_TextureArrowUpNormal.getSize().y);
-                }
-            }
-            else // The scrollbar lies horizontal
-            {
-                float scalingY;
-                if (m_VerticalImage == m_VerticalScroll)
-                    scalingY = m_Size.y / m_TextureTrackNormal_M.getSize().y;
-                else
-                    scalingY = m_Size.y / m_TextureTrackNormal_M.getSize().x;
-
-                // Check if the arrows are drawn at full size
-                if (m_Size.x > (m_TextureArrowUpNormal.getSize().y + m_TextureArrowDownNormal.getSize().y) * scalingY)
-                {
-                    // Calculate the track and thumb height
-                    float realTrackWidth = m_Size.x - ((m_TextureArrowUpNormal.getSize().y + m_TextureArrowDownNormal.getSize().y) * scalingY);
-                    thumbWidth = ((static_cast<float>(m_LowValue) / m_Maximum) * realTrackWidth);
-
-                    // Calculate the left position of the thumb
-                    thumbLeft = (m_TextureArrowUpNormal.getSize().y * scalingY) + ((static_cast<float>(m_Value) / (m_Maximum - m_LowValue)) * (realTrackWidth - thumbWidth));
-                }
-                else // The arrows are not drawn at full size
-                {
-                    thumbWidth = 0;
-                    thumbLeft = static_cast<float>(m_TextureArrowUpNormal.getSize().y);
-                }
-            }
-
-            // Check if the mouse is on top of the thumb
-            if (sf::FloatRect(position.x + thumbLeft, position.y + thumbTop, thumbWidth, thumbHeight).contains(x, y))
-            {
-                if (m_MouseDown == false)
-                {
-                    m_MouseDownOnThumbPos.x = x - position.x - thumbLeft;
-                    m_MouseDownOnThumbPos.y = y - position.y - thumbTop;
-                }
-
-                m_MouseDownOnThumb = true;
-                return true;
-            }
-            else // The mouse is not on top of the thumb
-                m_MouseDownOnThumb = false;
-
             return true;
-        }
 
         if (m_MouseHover)
             mouseLeftWidget();
@@ -584,6 +697,20 @@ namespace tgui
                 m_MouseDownOnArrow = true;
         }
 
+        sf::Vector2f position = getPosition();
+        sf::FloatRect thumbRect = getThumbRect();
+
+        // Check if the mouse is on top of the thumb
+        if (sf::FloatRect(position.x + thumbRect.left, position.y + thumbRect.top, thumbRect.width, thumbRect.height).contains(x, y))
+        {
+            m_MouseDownOnThumbPos.x = x - position.x - thumbRect.left;
+            m_MouseDownOnThumbPos.y = y - position.y - thumbRect.top;
+
+            m_MouseDownOnThumb = true;
+        }
+        else // The mouse is not on top of the thumb
+            m_MouseDownOnThumb = false;
+
         // Refresh the scrollbar value
         if (m_MouseDownOnArrow == false)
             mouseMoved(x, y);
@@ -599,6 +726,9 @@ namespace tgui
             // Only continue when the calculations can be made
             if (m_Maximum > m_LowValue)
             {
+                bool valueDown = false;
+                bool valueUp = false;
+
                 // Check in which direction the scrollbar lies
                 if (m_VerticalScroll)
                 {
@@ -613,31 +743,19 @@ namespace tgui
                     {
                         // Check if you clicked on the top arrow
                         if (y < getPosition().y + (m_TextureArrowUpNormal.getSize().y * scalingX))
-                        {
-                            if (m_Value > 0)
-                                setValue(m_Value - 1);
-                        }
+                            valueDown = true;
 
                         // Check if you clicked the down arrow
                         else if (y > getPosition().y + m_Size.y - (m_TextureArrowUpNormal.getSize().y * scalingX))
-                        {
-                            if (m_Value < (m_Maximum - m_LowValue))
-                                setValue(m_Value + 1);
-                        }
+                            valueUp = true;
                     }
                     else // The arrows are not drawn at full size
                     {
                         // Check on which arrow you clicked
                         if (y < getPosition().y + (m_TextureArrowUpNormal.getSize().y * ((m_Size.y * 0.5f) / m_TextureArrowUpNormal.getSize().y)))
-                        {
-                            if (m_Value > 0)
-                                setValue(m_Value - 1);
-                        }
+                            valueDown = true;
                         else // You clicked on the bottom arrow
-                        {
-                            if (m_Value < (m_Maximum - m_LowValue))
-                                setValue(m_Value + 1);
-                        }
+                            valueUp = true;
                     }
                 }
                 else // The scrollbar lies horizontal
@@ -653,32 +771,35 @@ namespace tgui
                     {
                         // Check if you clicked on the left arrow
                         if (x < getPosition().x + (m_TextureArrowUpNormal.getSize().y * scalingY))
-                        {
-                            if (m_Value > 0)
-                                setValue(m_Value - 1);
-                        }
+                            valueDown = true;
 
                         // Check if you clicked the right arrow
                         else if (x > getPosition().x + m_Size.x - (m_TextureArrowUpNormal.getSize().y * scalingY))
-                        {
-                            if (m_Value < (m_Maximum - m_LowValue))
-                                setValue(m_Value + 1);
-                        }
+                            valueUp = true;
                     }
                     else // The arrows are not drawn at full size
                     {
                         // Check on which arrow you clicked
                         if (x < getPosition().x + (m_TextureArrowUpNormal.getSize().y * ((m_Size.x * 0.5f) / m_TextureArrowUpNormal.getSize().y)))
-                        {
-                            if (m_Value > 0)
-                                setValue(m_Value - 1);
-                        }
+                            valueDown = true;
                         else // You clicked on the right arrow
-                        {
-                            if (m_Value < (m_Maximum - m_LowValue))
-                                setValue(m_Value + 1);
-                        }
+                            valueUp = true;
                     }
+                }
+
+                if (valueDown)
+                {
+                    if (m_Value > m_ScrollAmount)
+                        setValue(m_Value - m_ScrollAmount);
+                    else
+                        setValue(0);
+                }
+                else if (valueUp)
+                {
+                    if (m_Value + m_ScrollAmount < m_Maximum - m_LowValue + 1)
+                        setValue(m_Value + m_ScrollAmount);
+                    else
+                        setValue(m_Maximum - m_LowValue);
                 }
             }
         }
@@ -774,6 +895,12 @@ namespace tgui
                             }
                         }
                     }
+
+                    sf::FloatRect thumbRect = getThumbRect();
+
+                    m_MouseDownOnThumbPos.x = x - position.x - thumbRect.left;
+                    m_MouseDownOnThumbPos.y = y - position.y - thumbRect.top;
+                    m_MouseDownOnThumb = true;
                 }
             }
             else // the scrollbar lies horizontal
@@ -839,9 +966,33 @@ namespace tgui
                             }
                         }
                     }
+
+                    sf::FloatRect thumbRect = getThumbRect();
+
+                    m_MouseDownOnThumbPos.x = x - position.x - thumbRect.left;
+                    m_MouseDownOnThumbPos.y = y - position.y - thumbRect.top;
+                    m_MouseDownOnThumb = true;
                 }
             }
         }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Scrollbar::mouseWheelMoved(int delta, int, int)
+    {
+        if (static_cast<int>(m_Value) - delta < 0)
+            setValue(0);
+        else
+            setValue(static_cast<unsigned int>(m_Value - delta));
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Scrollbar::widgetFocused()
+    {
+        // A scrollbar can't be focused (yet)
+        unfocus();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -850,9 +1001,43 @@ namespace tgui
     {
         property = toLower(property);
 
-        if (property == "lowvalue")
+        if (property == "configfile")
+        {
+            load(value);
+        }
+        else if (property == "maximum")
+        {
+            setMaximum(atoi(value.c_str()));
+        }
+        else if (property == "value")
+        {
+            setValue(atoi(value.c_str()));
+        }
+        else if (property == "lowvalue")
         {
             setLowValue(atoi(value.c_str()));
+        }
+        else if (property == "verticalscroll")
+        {
+            if ((value == "true") || (value == "True"))
+                setVerticalScroll(true);
+            else if ((value == "false") || (value == "False"))
+                setVerticalScroll(false);
+            else
+                TGUI_OUTPUT("TGUI error: Failed to parse 'VerticalScroll' property.");
+        }
+        else if (property == "callback")
+        {
+            Widget::setProperty(property, value);
+
+            std::vector<sf::String> callbacks;
+            decodeList(value, callbacks);
+
+            for (auto it = callbacks.begin(); it != callbacks.end(); ++it)
+            {
+                if ((*it == "ValueChanged") || (*it == "valuechanged"))
+                    bindCallback(ValueChanged);
+            }
         }
         else if (property == "autohide")
         {
@@ -864,7 +1049,7 @@ namespace tgui
                 TGUI_OUTPUT("TGUI error: Failed to parse 'AutoHide' property.");
         }
         else // The property didn't match
-            return Slider::setProperty(property, value);
+            return Widget::setProperty(property, value);
 
         // You pass here when one of the properties matched
         return true;
@@ -876,12 +1061,37 @@ namespace tgui
     {
         property = toLower(property);
 
-        if (property == "lowvalue")
+        if (property == "configfile")
+            value = getLoadedConfigFile();
+        else if (property == "maximum")
+            value = to_string(getMaximum());
+        else if (property == "value")
+            value = to_string(getValue());
+        else if (property == "lowvalue")
             value = to_string(getLowValue());
+        else if (property == "verticalscroll")
+            value = m_VerticalScroll ? "true" : "false";
+        else if (property == "callback")
+        {
+            std::string tempValue;
+            Widget::getProperty(property, tempValue);
+
+            std::vector<sf::String> callbacks;
+
+            if ((m_CallbackFunctions.find(ValueChanged) != m_CallbackFunctions.end()) && (m_CallbackFunctions.at(ValueChanged).size() == 1) && (m_CallbackFunctions.at(ValueChanged).front() == nullptr))
+                callbacks.push_back("ValueChanged");
+
+            encodeList(callbacks, value);
+
+            if (value.empty())
+                value = tempValue;
+            else if (!tempValue.empty())
+                value += "," + tempValue;
+        }
         else if (property == "autohide")
             value = m_AutoHide ? "true" : "false";
         else // The property didn't match
-            return Slider::getProperty(property, value);
+            return Widget::getProperty(property, value);
 
         // You pass here when one of the properties matched
         return true;
@@ -892,13 +1102,72 @@ namespace tgui
     std::list< std::pair<std::string, std::string> > Scrollbar::getPropertyList() const
     {
         auto list = Widget::getPropertyList();
-
+        list.push_back(std::pair<std::string, std::string>("ConfigFile", "string"));
         list.push_back(std::pair<std::string, std::string>("Maximum", "uint"));
-        list.push_back(std::pair<std::string, std::string>("LowValue", "uint"));
         list.push_back(std::pair<std::string, std::string>("Value", "uint"));
-        list.push_back(std::pair<std::string, std::string>("AutoHide", "bool"));
+        list.push_back(std::pair<std::string, std::string>("LowValue", "uint"));
         list.push_back(std::pair<std::string, std::string>("VerticalScroll", "bool"));
+        list.push_back(std::pair<std::string, std::string>("AutoHide", "bool"));
         return list;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    sf::FloatRect Scrollbar::getThumbRect()
+    {
+        sf::FloatRect thumbRect(0, 0, m_ThumbSize.x, m_ThumbSize.y);
+
+        // The scaling depends on how the scrollbar lies
+        if (m_VerticalScroll)
+        {
+            float scalingX;
+            if (m_VerticalImage == m_VerticalScroll)
+                scalingX = m_Size.x / m_TextureTrackNormal_M.getSize().x;
+            else
+                scalingX = m_Size.x / m_TextureTrackNormal_M.getSize().y;
+
+            // Check if the arrows are drawn at full size
+            if (m_Size.y > (m_TextureArrowUpNormal.getSize().y + m_TextureArrowDownNormal.getSize().y) * scalingX)
+            {
+                // Calculate the track and thumb height
+                float realTrackHeight = m_Size.y - ((m_TextureArrowUpNormal.getSize().y + m_TextureArrowDownNormal.getSize().y) * scalingX);
+                thumbRect.height = ((static_cast<float>(m_LowValue) / m_Maximum) * realTrackHeight);
+
+                // Calculate the top position of the thumb
+                thumbRect.top = (m_TextureArrowUpNormal.getSize().y * scalingX) + ((static_cast<float>(m_Value) / (m_Maximum - m_LowValue)) * (realTrackHeight - thumbRect.height));
+            }
+            else // The arrows are not drawn at full size
+            {
+                thumbRect.height = 0;
+                thumbRect.top = static_cast<float>(m_TextureArrowUpNormal.getSize().y);
+            }
+        }
+        else // The scrollbar lies horizontal
+        {
+            float scalingY;
+            if (m_VerticalImage == m_VerticalScroll)
+                scalingY = m_Size.y / m_TextureTrackNormal_M.getSize().y;
+            else
+                scalingY = m_Size.y / m_TextureTrackNormal_M.getSize().x;
+
+            // Check if the arrows are drawn at full size
+            if (m_Size.x > (m_TextureArrowUpNormal.getSize().y + m_TextureArrowDownNormal.getSize().y) * scalingY)
+            {
+                // Calculate the track and thumb height
+                float realTrackWidth = m_Size.x - ((m_TextureArrowUpNormal.getSize().y + m_TextureArrowDownNormal.getSize().y) * scalingY);
+                thumbRect.width = ((static_cast<float>(m_LowValue) / m_Maximum) * realTrackWidth);
+
+                // Calculate the left position of the thumb
+                thumbRect.left = (m_TextureArrowUpNormal.getSize().y * scalingY) + ((static_cast<float>(m_Value) / (m_Maximum - m_LowValue)) * (realTrackWidth - thumbRect.width));
+            }
+            else // The arrows are not drawn at full size
+            {
+                thumbRect.width = 0;
+                thumbRect.left = static_cast<float>(m_TextureArrowUpNormal.getSize().y);
+            }
+        }
+
+        return thumbRect;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -913,32 +1182,29 @@ namespace tgui
         if ((m_AutoHide == true) && (m_Maximum <= m_LowValue))
             return;
 
-        sf::Vector2f scaling;
-
-        // Apply the transformation
-        states.transform *= getTransform();
-
-        // Remember the current transformation
-        sf::Transform oldTransform = states.transform;
-
         // Get the scale factors
+        sf::Vector2f scaling;
         if (m_VerticalScroll == m_VerticalImage)
         {
-            // Set the scaling
             scaling.x = m_Size.x / m_TextureTrackNormal_M.getSize().x;
             scaling.y = m_Size.y / m_TextureTrackNormal_M.getSize().y;
-            states.transform.scale(scaling);
         }
         else
         {
-            // Set the scaling
             scaling.x = m_Size.x / m_TextureTrackNormal_M.getSize().y;
             scaling.y = m_Size.y / m_TextureTrackNormal_M.getSize().x;
-            states.transform.scale(scaling);
-
-            // Set the rotation
-            states.transform.rotate(-90, m_TextureTrackNormal_M.getSize().x * 0.5f, m_TextureTrackNormal_M.getSize().x * 0.5f);
         }
+
+        // Remember the current transformation
+        states.transform *= getTransform();
+        sf::Transform oldTransform = states.transform;
+
+        // Set the scale of the track image
+        states.transform.scale(scaling.x, scaling.y);
+
+        // Set the rotation
+        if (m_VerticalScroll != m_VerticalImage)
+            states.transform.rotate(-90, m_TextureTrackNormal_M.getSize().x * 0.5f, m_TextureTrackNormal_M.getSize().x * 0.5f);
 
         // Draw the track image
         if (m_SeparateHoverImage)
@@ -1023,13 +1289,9 @@ namespace tgui
                         target.draw(m_TextureThumbHover, states);
                 }
 
-                // Reset the transformation
+                // Set the transformation of the second arrow
                 states.transform = oldTransform;
-
-                // Change the position of the second arrow
                 states.transform.translate(0, m_Size.y - (m_TextureArrowDownNormal.getSize().y * scaling.x));
-
-                // Set the scale of the arrow
                 states.transform.scale(scaling.x, scaling.x);
             }
             else // The arrows can't be drawn at full size
@@ -1053,30 +1315,8 @@ namespace tgui
                         target.draw(m_TextureArrowUpHover, states);
                 }
 
-                // Reset the transformation
-                states.transform = oldTransform;
-
                 // Change the position of the second arrow
-                states.transform.translate(0, m_Size.y - (m_TextureArrowDownNormal.getSize().y * scaling.x));
-
-                // Set the scale of the arrow
-                states.transform.scale(scaling.x, (m_Size.y * 0.5f) / m_TextureArrowUpNormal.getSize().y);
-            }
-
-            // Draw the second arrow
-            if (m_SeparateHoverImage)
-            {
-                if ((m_MouseHover) && (m_WidgetPhase & WidgetPhase_Hover))
-                    target.draw(m_TextureArrowUpHover, states);
-                else
-                    target.draw(m_TextureArrowDownNormal, states);
-            }
-            else // The hover image should be drawn on top of the normal image
-            {
-                target.draw(m_TextureArrowDownNormal, states);
-
-                if ((m_MouseHover) && (m_WidgetPhase & WidgetPhase_Hover))
-                    target.draw(m_TextureArrowUpHover, states);
+                states.transform.translate(0, static_cast<float>(m_TextureArrowUpNormal.getSize().y));
             }
         }
         else // The scrollbar lies horizontal
@@ -1145,14 +1385,11 @@ namespace tgui
                         target.draw(m_TextureThumbHover, states);
                 }
 
-                // Reset the transformation
+                // Set the transformation of the second arrow
                 states.transform = oldTransform;
-
-                // Change the position of the second arrow
                 states.transform.translate(m_Size.x - (m_TextureArrowDownNormal.getSize().y * scaling.y), 0);
-
-                // Set the scale of the arrow
                 states.transform.scale(scaling.y, scaling.y);
+                states.transform.rotate(-90, m_TextureArrowUpNormal.getSize().x * 0.5f, m_TextureArrowUpNormal.getSize().x * 0.5f);
             }
             else // The arrows can't be drawn at full size
             {
@@ -1178,34 +1415,25 @@ namespace tgui
                         target.draw(m_TextureArrowUpHover, states);
                 }
 
-                // Reset the transformation
-                states.transform = oldTransform;
-
-                // Change the position of the second arrow
-                states.transform.translate(m_Size.x - (m_TextureArrowDownNormal.getSize().y * scaling.y), 0);
-
-                // Set the scale of the arrow
-                states.transform.scale((m_Size.x * 0.5f) / m_TextureArrowUpNormal.getSize().y, scaling.y);
+                // Set the translation of the second arrow
+                states.transform.translate(0, static_cast<float>(m_TextureArrowDownNormal.getSize().y));
             }
+        }
 
-            // Rotate the arrow
-            states.transform.rotate(-90, m_TextureArrowUpNormal.getSize().x * 0.5f, m_TextureArrowUpNormal.getSize().x * 0.5f);
-
-            // Draw the second arrow
-            if (m_SeparateHoverImage)
-            {
-                if ((m_MouseHover) && (m_WidgetPhase & WidgetPhase_Hover))
-                    target.draw(m_TextureArrowUpHover, states);
-                else
-                    target.draw(m_TextureArrowDownNormal, states);
-            }
-            else // The hover image should be drawn on top of the normal image
-            {
+        // Draw the second arrow
+        if (m_SeparateHoverImage)
+        {
+            if ((m_MouseHover) && (m_WidgetPhase & WidgetPhase_Hover))
+                target.draw(m_TextureArrowDownHover, states);
+            else
                 target.draw(m_TextureArrowDownNormal, states);
+        }
+        else // The hover image should be drawn on top of the normal image
+        {
+            target.draw(m_TextureArrowDownNormal, states);
 
-                if ((m_MouseHover) && (m_WidgetPhase & WidgetPhase_Hover))
-                    target.draw(m_TextureArrowUpHover, states);
-            }
+            if ((m_MouseHover) && (m_WidgetPhase & WidgetPhase_Hover))
+                target.draw(m_TextureArrowDownHover, states);
         }
     }
 
