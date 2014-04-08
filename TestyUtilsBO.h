@@ -14,6 +14,7 @@ public:
 	static std::shared_ptr<SPar::ParserElement> tworzSurowiec(SPar::ParserElement& root,
 		const STyp::Identyfikator& id,
 		const STyp::Tekst& nazwa,
+		const STyp::Tekst& obrazek,
 		const STyp::Tekst& opis,
 		const STyp::Masa& masa,
 		const STyp::Objetosc& objetosc,
@@ -22,6 +23,7 @@ public:
 	static std::shared_ptr<SPar::ParserElement> tworzStatek(SPar::ParserElement& root,
 		const STyp::Identyfikator& id,
 		const STyp::Tekst& nazwa,
+		const STyp::Tekst& obrazek,
 		const STyp::Tekst& opis,
 		const STyp::Masa& masa,
 		const STyp::Powierzchnia& powierzchnia,
@@ -30,17 +32,20 @@ public:
 	static std::shared_ptr<SPar::ParserElement> tworzBudynek(SPar::ParserElement& root,
 		const STyp::Identyfikator& id,
 		const STyp::Tekst& nazwa,
+		const STyp::Tekst& obrazek,
 		const STyp::Tekst& opis,
 		const STyp::Powierzchnia& powierzchnia);
 
 	static std::shared_ptr<SPar::ParserElement> tworzTechnologie(SPar::ParserElement& root,
 		const STyp::Identyfikator& id,
 		const STyp::Tekst& nazwa,
+		const STyp::Tekst& obrazek,
 		const STyp::Tekst& opis);
 	
 	static std::shared_ptr<SPar::ParserElement> tworzObrone(SPar::ParserElement& root,
 		const STyp::Identyfikator& id,
 		const STyp::Tekst& nazwa,
+		const STyp::Tekst& obrazek,
 		const STyp::Tekst& opis,
 		const STyp::Powierzchnia& powierzchnia);
 

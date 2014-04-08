@@ -65,6 +65,7 @@
 #define ATRYBUT_XML_POWIERZCHNIA "powierzchnia"
 #define ATRYBUT_XML_WSPOLCZYNNIK "wspolczynnik"
 #define ATRYBUT_XML_NAZWA "nazwa"
+#define ATRYBUT_XML_ADRES_OBRAZKA "obrazek"
 #define ATRYBUT_XML_NAZWAGRACZA "nazwaGracza"
 #define ATRYBUT_XML_RODZAJ_SILNIKA_ID "rodzajSilnikaId"
 #define ATRYBUT_XML_RODZAJ_SILNIKA_POZIOM "rodzajSilnikaPoziom"

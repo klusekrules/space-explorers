@@ -6,7 +6,7 @@
 
 namespace SpEx{
 	StatekInfo::StatekInfo(XmlBO::ElementWezla wezel)
-		: ObiektInfo(wezel),
+		: ObiektInfo(STATEK, wezel),
 		JednostkaLatajacaInfo(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_JEDNOSTKA_LATAJACA_INFO)),
 		JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO)),
 		LadowniaInfo(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_LADOWNIA_INFO)),
