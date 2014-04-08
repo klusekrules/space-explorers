@@ -507,14 +507,6 @@ namespace tgui
 
 	bool Container::loadWidgetsFromFile(const std::string& filename)
 	{
-#define COMPARE_WIDGET(length, name, widgetName) \
-		if (line.substr(0, length).compare(name) == 0) \
-		{ \
-		line.erase(0, length); \
-		\
-		widgetPtr.push_back(widgetName::Ptr(*static_cast<Container*>(widgetPtr.back()), line).get()); \
-		progress.push(0); \
-	}
 
 		std::stack<unsigned int> progress;
 		std::list<Widget*> widgetPtr;
@@ -677,42 +669,10 @@ namespace tgui
 
 				// The line doesn't contain a '}', so check if it contains another widget
 				bool widgetFound = true;
-				/*COMPARE_WIDGET(4, "tab:", Tab)
-				else COMPARE_WIDGET(5, "grid:", Grid)
-				else COMPARE_WIDGET(6, "panel:", Panel)
-				else COMPARE_WIDGET(6, "label:", Label)
-				else COMPARE_WIDGET(7, "button:", Button)
-				else COMPARE_WIDGET(7, "slider:", Slider)
-				else COMPARE_WIDGET(8, "picture:", Picture)
-				else COMPARE_WIDGET(8, "listbox:", ListBox)
-				else COMPARE_WIDGET(8, "editbox:", EditBox)
-				else COMPARE_WIDGET(8, "textbox:", TextBox)
-				else COMPARE_WIDGET(8, "chatbox:", ChatBox)
-				else COMPARE_WIDGET(8, "menubar:", MenuBar)
-				else COMPARE_WIDGET(9, "checkbox:", Checkbox)
-				else COMPARE_WIDGET(9, "combobox:", ComboBox)
-				else COMPARE_WIDGET(9, "slider2d:", Slider2d)
-				else COMPARE_WIDGET(10, "scrollbar:", Scrollbar)
-				else COMPARE_WIDGET(11, "loadingbar:", LoadingBar)
-				else COMPARE_WIDGET(11, "spinbutton:", SpinButton)
-				else COMPARE_WIDGET(12, "radiobutton:", RadioButton)
-				else COMPARE_WIDGET(12, "childwindow:", ChildWindow)
-				else COMPARE_WIDGET(12, "spritesheet:", SpriteSheet)
-				else COMPARE_WIDGET(16, "animatedpicture:", AnimatedPicture)
-				else //COMPARE_WIDGET(17, "kontrolkaobiektu:", KontrolkaObiektu)
-				if (line.substr(0, 17).compare("kontrolkaobiektu:") == 0)
-				{
-				line.erase(0, 17);
-
-				widgetPtr.push_back(KontrolkaObiektu::Ptr(*static_cast<Container*>(widgetPtr.back()), line).get());
-				progress.push(0);
-				}
-				else
-				widgetFound = false;*/
 				auto pos = line.find_first_of(':');
 				if (pos != std::string::npos){
 					std::string nazwa = line.substr(0, pos);
-					line.erase(0, pos);
+					line.erase(0, pos+1);
 					auto obiekt = WidgetFactory::getInstance().createWidget(nazwa, static_cast<Container*>(widgetPtr.back()), line);
 					if (obiekt != nullptr){
 						widgetPtr.push_back(obiekt);
