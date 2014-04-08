@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2013 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -24,11 +24,14 @@
 
 
 #include <TGUI/Picture.hpp>
-
+#include <TGUI\TGUI.hpp>
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace tgui
 {
+	Widget* Picture::createWidget(Container* container, const std::string& name){
+		return Picture::Ptr(*container, name).get();
+	}
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     Picture::Picture()
@@ -83,8 +86,6 @@ namespace tgui
 
     bool Picture::load(const std::string& filename)
     {
-        m_LoadedFilename = filename;
-
         // When everything is loaded successfully, this will become true.
         m_Loaded = false;
         m_Size.x = 0;
@@ -94,12 +95,14 @@ namespace tgui
         if (filename.empty())
             return false;
 
+        m_LoadedFilename = getResourcePath() + filename;
+
         // If we have already loaded a texture then first delete it
         if (m_Texture.data != nullptr)
             TGUI_TextureManager.removeTexture(m_Texture);
 
         // Try to load the texture from the file
-        if (TGUI_TextureManager.getTexture(filename, m_Texture))
+        if (TGUI_TextureManager.getTexture(m_LoadedFilename, m_Texture))
         {
             m_Loaded = true;
 

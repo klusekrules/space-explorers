@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2013 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -28,6 +28,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include <TGUI/Widget.hpp>
+#include <TGUI\WidgetFactory.h>
 #include <TGUI/ClickableWidget.hpp>
 #include <TGUI/Clipboard.hpp>
 #include <TGUI/Label.hpp>
@@ -49,6 +50,7 @@
 #include <TGUI/Tab.hpp>
 #include <TGUI/MenuBar.hpp>
 #include <TGUI/ChatBox.hpp>
+#include <TGUI/Knob.hpp>
 
 #include <TGUI/Container.hpp>
 #include <TGUI/Panel.hpp>
@@ -59,6 +61,7 @@
 
 #include <TGUI/SharedWidgetPtr.inl>
 
+#include <TGUI/KontrolkaObiektu.h>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

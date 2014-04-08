@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2013 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -49,8 +49,6 @@ namespace tgui
     m_ButtonConfigFileFilename(messageBoxToCopy.m_ButtonConfigFileFilename),
     m_TextSize                (messageBoxToCopy.m_TextSize)
     {
-        removeAllWidgets();
-
         m_Label = copy(messageBoxToCopy.m_Label, "MessageBoxText");
 
         for (auto it = messageBoxToCopy.m_Buttons.begin(); it != messageBoxToCopy.m_Buttons.end(); ++it)
@@ -99,16 +97,16 @@ namespace tgui
 
     bool MessageBox::load(const std::string& configFileFilename)
     {
-        m_LoadedConfigFile = configFileFilename;
+        m_LoadedConfigFile = getResourcePath() + configFileFilename;
 
         // When everything is loaded successfully, this will become true.
         m_Loaded = false;
 
         // Open the config file
         ConfigFile configFile;
-        if (!configFile.open(configFileFilename))
+        if (!configFile.open(m_LoadedConfigFile))
         {
-            TGUI_OUTPUT("TGUI error: Failed to open " + configFileFilename + ".");
+            TGUI_OUTPUT("TGUI error: Failed to open " + m_LoadedConfigFile + ".");
             return false;
         }
 
@@ -117,7 +115,7 @@ namespace tgui
         std::vector<std::string> values;
         if (!configFile.read("MessageBox", properties, values))
         {
-            TGUI_OUTPUT("TGUI error: Failed to parse " + configFileFilename + ".");
+            TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile + ".");
             return false;
         }
 
@@ -147,7 +145,7 @@ namespace tgui
             {
                 if ((value.length() < 3) || (value[0] != '"') || (value[value.length()-1] != '"'))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for ChildWindow in section MessageBox in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for ChildWindow in section MessageBox in " + m_LoadedConfigFile + ".");
                     return false;
                 }
 
@@ -162,7 +160,7 @@ namespace tgui
             {
                 if ((value.length() < 3) || (value[0] != '"') || (value[value.length()-1] != '"'))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for Button in section MessageBox in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for Button in section MessageBox in " + m_LoadedConfigFile + ".");
                     return false;
                 }
 
@@ -171,18 +169,18 @@ namespace tgui
             }
             else
             {
-                TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section MessageBox in " + configFileFilename + ".");
+                TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section MessageBox in " + m_LoadedConfigFile + ".");
             }
         }
 
         if (!childWindowPropertyFound)
         {
-            TGUI_OUTPUT("TGUI error: Missing a ChildWindow property in section MessageBox in " + configFileFilename + ".");
+            TGUI_OUTPUT("TGUI error: Missing a ChildWindow property in section MessageBox in " + m_LoadedConfigFile + ".");
             return false;
         }
         if (!buttonPropertyFound)
         {
-            TGUI_OUTPUT("TGUI error: Missing a Button property in section MessageBox in " + configFileFilename + ".");
+            TGUI_OUTPUT("TGUI error: Missing a Button property in section MessageBox in " + m_LoadedConfigFile + ".");
             return false;
         }
 

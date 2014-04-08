@@ -15,19 +15,22 @@
     <OutputPath>$(SolutionDir)out\instalator\Debug-x86\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>Debug</DefineConstants>
-    <LinkerAdditionalOptions>-ext WixUIExtension -cultures:pl-pl</LinkerAdditionalOptions>
+    <LinkerAdditionalOptions>-ext WixUIExtension -ext WixUtilExtension -cultures:pl-pl</LinkerAdditionalOptions>
+    <CompilerAdditionalOptions>-ext WixUtilExtension</CompilerAdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>$(SolutionDir)out\instalator\Release-x86\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <VerboseOutput>True</VerboseOutput>
-    <LinkerAdditionalOptions>-ext WixUIExtension -cultures:pl-pl</LinkerAdditionalOptions>
+    <LinkerAdditionalOptions>-ext WixUIExtension -ext WixUtilExtension -cultures:pl-pl</LinkerAdditionalOptions>
+    <CompilerAdditionalOptions>-ext WixUtilExtension</CompilerAdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <DefineConstants>Debug</DefineConstants>
     <OutputPath>$(SolutionDir)out\instalator\Debug-x64\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-    <LinkerAdditionalOptions>-ext WixUIExtension -cultures:pl-pl</LinkerAdditionalOptions>
+    <LinkerAdditionalOptions>-ext WixUIExtension -ext WixUtilExtension -cultures:pl-pl</LinkerAdditionalOptions>
+    <CompilerAdditionalOptions>-ext WixUtilExtension</CompilerAdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>$(SolutionDir)out\instalator\Release-x64\</OutputPath>
@@ -37,72 +40,34 @@
     <DefineConstants>
     </DefineConstants>
     <SuppressPdbOutput>False</SuppressPdbOutput>
-    <LinkerAdditionalOptions>-ext WixUIExtension -cultures:pl-pl</LinkerAdditionalOptions>
+    <LinkerAdditionalOptions>-ext WixUIExtension -ext WixUtilExtension -cultures:pl-pl</LinkerAdditionalOptions>
+    <CompilerAdditionalOptions>-ext WixUtilExtension</CompilerAdditionalOptions>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-DLL|x86' ">
-    <VerboseOutput>True</VerboseOutput>
-    <LinkerAdditionalOptions>-ext WixUIExtension -cultures:pl-pl</LinkerAdditionalOptions>
-    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
-    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-DLL|x64' ">
-    <VerboseOutput>True</VerboseOutput>
-    <LeaveTemporaryFiles>False</LeaveTemporaryFiles>
-    <DefineConstants />
-    <SuppressPdbOutput>False</SuppressPdbOutput>
-    <LinkerAdditionalOptions>-ext WixUIExtension -cultures:pl-pl</LinkerAdditionalOptions>
-    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
-    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-DLL|AnyCPU' ">
-    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
-    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-DLL|Any CPU' ">
-    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
-    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-DLL|x86' ">
-    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
-    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-DLL|x64' ">
-    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
-    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-DLL|AnyCPU' ">
-    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
-    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-DLL|Any CPU' ">
-    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
-    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-DLL|x86' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Tests|x86' ">
     <DefineConstants>Debug</DefineConstants>
-    <LinkerAdditionalOptions>-ext WixUIExtension -cultures:pl-pl</LinkerAdditionalOptions>
+    <LinkerAdditionalOptions>-ext WixUIExtension -ext WixUtilExtension -cultures:pl-pl</LinkerAdditionalOptions>
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+    <CompilerAdditionalOptions>-ext WixUtilExtension</CompilerAdditionalOptions>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-DLL|x64' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Tests|x64' ">
     <DefineConstants>Debug</DefineConstants>
-    <LinkerAdditionalOptions>-ext WixUIExtension -cultures:pl-pl</LinkerAdditionalOptions>
+    <LinkerAdditionalOptions>-ext WixUIExtension -ext WixUtilExtension -cultures:pl-pl</LinkerAdditionalOptions>
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-DLL|AnyCPU' ">
-    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
-    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-DLL|Any CPU' ">
-    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
-    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+    <CompilerAdditionalOptions>-ext WixUtilExtension</CompilerAdditionalOptions>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="definicje.wxi" />
+    <Content Include="Microsoft_VC110_DebugCRT_x64.msm" />
+    <Content Include="Microsoft_VC110_DebugCRT_x86.msm" />
+    <Content Include="Microsoft_VC120_CRT_x64.msm" />
+    <Content Include="Microsoft_VC120_CRT_x86.msm" />
+    <Content Include="Microsoft_VC120_DebugCRT_x64.msm" />
+    <Content Include="Microsoft_VC120_DebugCRT_x86.msm" />
     <None Include="Microsoft_VC110_CRT_x64.msm" />
     <None Include="Microsoft_VC110_CRT_x86.msm" />
   </ItemGroup>

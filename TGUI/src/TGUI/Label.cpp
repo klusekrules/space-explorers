@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2013 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -29,11 +29,14 @@
 
 #include <TGUI/Container.hpp>
 #include <TGUI/Label.hpp>
-
+#include <TGUI\TGUI.hpp>
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace tgui
 {
+	Widget* Label::createWidget(Container* container, const std::string& name){
+		return Label::Ptr(*container, name).get();
+	}
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     Label::Label() :
@@ -62,13 +65,17 @@ namespace tgui
 
     bool Label::load(const std::string& configFileFilename)
     {
-        m_LoadedConfigFile = configFileFilename;
+        // Don't continue when the config file was empty
+        if (configFileFilename.empty())
+            return true;
+
+        m_LoadedConfigFile = getResourcePath() + configFileFilename;
 
         // Open the config file
         ConfigFile configFile;
-        if (!configFile.open(configFileFilename))
+        if (!configFile.open(m_LoadedConfigFile))
         {
-            TGUI_OUTPUT("TGUI error: Failed to open " + configFileFilename + ".");
+            TGUI_OUTPUT("TGUI error: Failed to open " + m_LoadedConfigFile + ".");
             return false;
         }
 
@@ -77,7 +84,7 @@ namespace tgui
         std::vector<std::string> values;
         if (!configFile.read("Label", properties, values))
         {
-            TGUI_OUTPUT("TGUI error: Failed to parse " + configFileFilename + ".");
+            TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile + ".");
             return false;
         }
 
@@ -95,10 +102,10 @@ namespace tgui
                 setTextColor(extractColor(value));
             }
             else
-                TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section Label in " + configFileFilename + ".");
+                TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section Label in " + m_LoadedConfigFile + ".");
         }
 
-        return false;
+        return true;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -147,7 +154,7 @@ namespace tgui
         // Change the size of the label if necessary
         if (m_AutoSize)
         {
-			m_Size = sf::Vector2f(m_Text.getLocalBounds().width, m_Text.getLocalBounds().height + m_Text.getLocalBounds().top);
+            m_Size = sf::Vector2f(m_Text.getLocalBounds().width, m_Text.getLocalBounds().height);
             m_Background.setSize(m_Size);
         }
     }
@@ -199,7 +206,7 @@ namespace tgui
         // Change the size of the label if necessary
         if (m_AutoSize)
         {
-            m_Size = sf::Vector2f(m_Text.getLocalBounds().width, m_Text.getLocalBounds().height + m_Text.getLocalBounds().top);
+			m_Size = sf::Vector2f(m_Text.getLocalBounds().width + m_Text.getLocalBounds().left, m_Text.getLocalBounds().height + m_Text.getLocalBounds().top);
             m_Background.setSize(m_Size);
         }
     }
@@ -234,7 +241,7 @@ namespace tgui
         // Change the size of the label if necessary
         if (m_AutoSize)
         {
-            m_Size = sf::Vector2f(m_Text.getLocalBounds().width, m_Text.getLocalBounds().height + m_Text.getLocalBounds().top);
+            m_Size = sf::Vector2f(m_Text.getLocalBounds().width, m_Text.getLocalBounds().height);
             m_Background.setSize(m_Size);
         }
     }

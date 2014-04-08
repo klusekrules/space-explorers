@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2013 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -29,11 +29,14 @@
 #include <TGUI/Container.hpp>
 #include <TGUI/TextBox.hpp>
 #include <TGUI/Clipboard.hpp>
-
+#include <TGUI\TGUI.hpp>
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace tgui
 {
+	Widget* TextBox::createWidget(Container* container, const std::string& name){
+		return TextBox::Ptr(*container, name).get();
+	}
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     TextBox::TextBox() :
@@ -178,7 +181,7 @@ namespace tgui
 
     bool TextBox::load(const std::string& configFileFilename)
     {
-        m_LoadedConfigFile = configFileFilename;
+        m_LoadedConfigFile = getResourcePath() + configFileFilename;
 
         // If there already was a scrollbar then delete it now
         if (m_Scroll != nullptr)
@@ -189,9 +192,9 @@ namespace tgui
 
         // Open the config file
         ConfigFile configFile;
-        if (!configFile.open(configFileFilename))
+        if (!configFile.open(m_LoadedConfigFile))
         {
-            TGUI_OUTPUT("TGUI error: Failed to open " + configFileFilename + ".");
+            TGUI_OUTPUT("TGUI error: Failed to open " + m_LoadedConfigFile + ".");
             return false;
         }
 
@@ -200,7 +203,7 @@ namespace tgui
         std::vector<std::string> values;
         if (!configFile.read("TextBox", properties, values))
         {
-            TGUI_OUTPUT("TGUI error: Failed to parse " + configFileFilename + ".");
+            TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile + ".");
             return false;
         }
 
@@ -253,7 +256,7 @@ namespace tgui
             {
                 if ((value.length() < 3) || (value[0] != '"') || (value[value.length()-1] != '"'))
                 {
-                    TGUI_OUTPUT("TGUI error: Failed to parse value for Scrollbar in section ChatBox in " + configFileFilename + ".");
+                    TGUI_OUTPUT("TGUI error: Failed to parse value for Scrollbar in section ChatBox in " + m_LoadedConfigFile + ".");
                     return false;
                 }
 
@@ -271,12 +274,12 @@ namespace tgui
                 {
                     // Initialize the scrollbar
                     m_Scroll->setVerticalScroll(true);
-                    m_Scroll->setLowValue(m_Size.y - m_TopBorder - m_BottomBorder);
-                    m_Scroll->setSize(m_Scroll->getSize().x, static_cast<float>(m_Size.y - m_TopBorder - m_BottomBorder));
+                    m_Scroll->setLowValue(m_Size.y);
+                    m_Scroll->setSize(m_Scroll->getSize().x, static_cast<float>(m_Size.y));
                 }
             }
             else
-                TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section ChatBox in " + configFileFilename + ".");
+                TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section ChatBox in " + m_LoadedConfigFile + ".");
         }
 
         return true;
@@ -307,9 +310,9 @@ namespace tgui
 
         // There is a minimum width
         if (m_Scroll == nullptr)
-            width = TGUI_MAXIMUM(50 + m_LeftBorder + m_RightBorder, width);
+            width = TGUI_MAXIMUM(50, width);
         else
-            width = TGUI_MAXIMUM(50 + m_LeftBorder + m_RightBorder + m_Scroll->getSize().x, width);
+            width = TGUI_MAXIMUM(50 + m_Scroll->getSize().x, width);
 
         // There is also a minimum height
         if (m_Scroll == nullptr)
@@ -317,27 +320,27 @@ namespace tgui
             // If there is a text then it should still fit inside the text box
             if (m_Text.getSize() > 0)
             {
-                if (m_Size.y < ((m_Lines * m_LineHeight) - m_TopBorder - m_BottomBorder))
-                    m_Size.y = (m_Lines * m_LineHeight) - m_TopBorder - m_BottomBorder;
+                if (m_Size.y < (m_Lines * m_LineHeight))
+                    m_Size.y = (m_Lines * m_LineHeight);
             }
             else // There are no items
             {
                 // At least one item should fit inside the text box
-                if (m_Size.y < (m_LineHeight - m_TopBorder - m_BottomBorder))
-                    m_Size.y = m_LineHeight - m_TopBorder - m_BottomBorder;
+                if (m_Size.y < m_LineHeight)
+                    m_Size.y = m_LineHeight;
             }
         }
         else // There is a scrollbar
         {
             // At least one item should fit inside the text box
-            if (m_Size.y < (m_LineHeight - m_TopBorder - m_BottomBorder))
-                m_Size.y = m_LineHeight - m_TopBorder - m_BottomBorder;
+            if (m_Size.y < m_LineHeight)
+                m_Size.y = m_LineHeight;
         }
 
         // There is also a minimum height
-        if (height < (m_LineHeight + m_TopBorder + m_BottomBorder))
+        if (height < m_LineHeight)
         {
-            height = static_cast<float>(m_LineHeight + m_TopBorder + m_BottomBorder);
+            height = static_cast<float>(m_LineHeight);
         }
 
         // Store the values
@@ -347,8 +350,8 @@ namespace tgui
         // If there is a scrollbar then reinitialize it
         if (m_Scroll != nullptr)
         {
-            m_Scroll->setLowValue(m_Size.y - m_TopBorder - m_BottomBorder);
-            m_Scroll->setSize(m_Scroll->getSize().x, static_cast<float>(m_Size.y - m_TopBorder - m_BottomBorder));
+            m_Scroll->setLowValue(m_Size.y);
+            m_Scroll->setSize(m_Scroll->getSize().x, static_cast<float>(m_Size.y));
         }
 
         // The size of the textbox has changed, update the text
@@ -361,6 +364,14 @@ namespace tgui
     sf::Vector2f TextBox::getSize() const
     {
         return sf::Vector2f(static_cast<float>(m_Size.x), static_cast<float>(m_Size.y));
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    sf::Vector2f TextBox::getFullSize() const
+    {
+        return sf::Vector2f(static_cast<float>(m_Size.x + m_LeftBorder + m_RightBorder),
+                            static_cast<float>(m_Size.y + m_TopBorder + m_BottomBorder));
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -444,16 +455,14 @@ namespace tgui
             return;
 
         // There is also a minimum height
-        if (m_Size.y < (m_LineHeight + m_TopBorder + m_BottomBorder))
-        {
-            m_Size.y = m_LineHeight + m_TopBorder + m_BottomBorder;
-        }
+        if (m_Size.y < m_LineHeight)
+            m_Size.y = m_LineHeight;
 
         // If there is a scrollbar then reinitialize it
         if (m_Scroll != nullptr)
         {
-            m_Scroll->setLowValue(m_Size.y - m_TopBorder - m_BottomBorder);
-            m_Scroll->setSize(m_Scroll->getSize().x, static_cast<float>(m_Size.y - m_TopBorder - m_BottomBorder));
+            m_Scroll->setLowValue(m_Size.y);
+            m_Scroll->setSize(m_Scroll->getSize().x, static_cast<float>(m_Size.y));
         }
 
         // The size has changed, update the text
@@ -497,51 +506,10 @@ namespace tgui
 
     void TextBox::setBorders(unsigned int leftBorder, unsigned int topBorder, unsigned int rightBorder, unsigned int bottomBorder)
     {
-        // Don't do anything when the text box wasn't loaded correctly
-        if (m_Loaded == false)
-            return;
-
-        // Don't continue when line height is 0
-        if (m_LineHeight == 0)
-            return;
-
-        // Set the new border size
         m_LeftBorder   = leftBorder;
         m_TopBorder    = topBorder;
         m_RightBorder  = rightBorder;
         m_BottomBorder = bottomBorder;
-
-        // There is a minimum width
-        if (m_Size.x < (50 + m_LeftBorder + m_RightBorder))
-            m_Size.x = 50 + m_LeftBorder + m_RightBorder;
-
-        // There is also a minimum height (when there is no scrollbar)
-        if (m_Scroll == nullptr)
-        {
-            // If there is a text then it should still fit inside the text box
-            if (m_Text.getSize() > 0)
-            {
-                if (m_Size.y < ((m_Lines * m_LineHeight) - m_TopBorder - m_BottomBorder))
-                    m_Size.y = (m_Lines * m_LineHeight) - m_TopBorder - m_BottomBorder;
-            }
-            else // There are no items
-            {
-                // At least one item should fit inside the text box
-                if (m_Size.y < (m_LineHeight - m_TopBorder - m_BottomBorder))
-                    m_Size.y = m_LineHeight - m_TopBorder - m_BottomBorder;
-            }
-        }
-
-        // If there is a scrollbar then reinitialize it
-        if (m_Scroll != nullptr)
-        {
-            m_Scroll->setLowValue(m_Size.y - m_TopBorder - m_BottomBorder);
-            m_Scroll->setSize(m_Scroll->getSize().x, static_cast<float>(m_Size.y - m_TopBorder - m_BottomBorder));
-        }
-
-        // The space for the text has changed, so update the text
-        m_SelectionTextsNeedUpdate = true;
-        updateDisplayedText();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -654,7 +622,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void TextBox::setSelectionPointPosition(size_t charactersBeforeSelectionPoint)
+	void TextBox::setSelectionPointPosition(size_t charactersBeforeSelectionPoint)
     {
         // The selection point position has to stay inside the string
         if (charactersBeforeSelectionPoint > m_Text.getSize())
@@ -666,8 +634,8 @@ namespace tgui
 
         // Set the selection point to the correct position
         m_SelChars = 0;
-        m_SelStart = static_cast<unsigned int>(charactersBeforeSelectionPoint);
-        m_SelEnd = static_cast<unsigned int>(charactersBeforeSelectionPoint);
+        m_SelStart = charactersBeforeSelectionPoint;
+        m_SelEnd = charactersBeforeSelectionPoint;
 
         // Change our three texts
         m_TextBeforeSelection.setString(m_DisplayedText);
@@ -759,8 +727,8 @@ namespace tgui
         {
             // Initialize the scrollbar
             m_Scroll->setVerticalScroll(true);
-            m_Scroll->setSize(m_Scroll->getSize().x, static_cast<float>(m_Size.y - m_TopBorder - m_BottomBorder));
-            m_Scroll->setLowValue(m_Size.y - m_TopBorder - m_BottomBorder);
+            m_Scroll->setSize(m_Scroll->getSize().x, static_cast<float>(m_Size.y));
+            m_Scroll->setLowValue(m_Size.y);
             m_Scroll->setMaximum(m_Lines * m_LineHeight);
 
             return true;
@@ -817,7 +785,7 @@ namespace tgui
         if (m_Scroll != nullptr)
         {
             // Temporarily set the position of the scroll
-            m_Scroll->setPosition(position.x + m_Size.x - m_RightBorder - m_Scroll->getSize().x, position.y + m_TopBorder);
+            m_Scroll->setPosition(position.x + m_Size.x - m_Scroll->getSize().x, position.y);
 
             // Pass the event
             m_Scroll->mouseOnWidget(x, y);
@@ -826,10 +794,10 @@ namespace tgui
             m_Scroll->setPosition(0, 0);
         }
 
-        // Check if the mouse is on top of the list box
-        if (getTransform().transformRect(sf::FloatRect(static_cast<float>(m_LeftBorder), static_cast<float>(m_TopBorder), static_cast<float>(m_Size.x - m_LeftBorder - m_RightBorder), static_cast<float>(m_Size.y - m_TopBorder - m_BottomBorder))).contains(x, y))
+        // Check if the mouse is on top of the text box
+        if (getTransform().transformRect(sf::FloatRect(0, 0, static_cast<float>(m_Size.x), static_cast<float>(m_Size.y))).contains(x, y))
             return true;
-        else // The mouse is not on top of the list box
+        else // The mouse is not on top of the text box
         {
             if (m_MouseHover)
                 mouseLeftWidget();
@@ -847,7 +815,7 @@ namespace tgui
         if (m_Loaded == false)
             return;
 
-        // Set the mouse down flag to true
+        // Set the mouse down flag
         m_MouseDown = true;
 
         // This will be true when the click didn't occur on the scrollbar
@@ -860,7 +828,7 @@ namespace tgui
             unsigned int oldValue = m_Scroll->getValue();
 
             // Temporarily set the position of the scroll
-            m_Scroll->setPosition(getPosition().x + m_Size.x - m_RightBorder - m_Scroll->getSize().x, getPosition().y + m_TopBorder);
+            m_Scroll->setPosition(getPosition().x + m_Size.x - m_Scroll->getSize().x, getPosition().y);
 
             // Pass the event
             if (m_Scroll->mouseOnWidget(x, y))
@@ -884,7 +852,7 @@ namespace tgui
             if (m_LineHeight == 0)
                 return;
 
-            size_t selectionPointPosition = findSelectionPointPosition(x - getPosition().x - m_LeftBorder - 4, y - getPosition().y - m_TopBorder);
+			size_t selectionPointPosition = findSelectionPointPosition(x - getPosition().x - 4, y - getPosition().y);
 
             // Check if this is a double click
             if ((m_PossibleDoubleClick) && (m_SelChars == 0) && (selectionPointPosition == m_SelEnd))
@@ -894,8 +862,8 @@ namespace tgui
 
                 // Select the whole text
                 m_SelStart = 0;
-                m_SelEnd = static_cast<unsigned int>(m_Text.getSize());
-                m_SelChars = static_cast<unsigned int>(m_Text.getSize());
+                m_SelEnd = m_Text.getSize();
+                m_SelChars = m_Text.getSize();
 
                 // Update the text
                 m_SelectionTextsNeedUpdate = true;
@@ -963,9 +931,6 @@ namespace tgui
                 m_PossibleDoubleClick = true;
             }
 
-            // Set the mouse down flag
-            m_MouseDown = true;
-
             // The selection point should be visible
             m_SelectionPointVisible = true;
             m_AnimationTimeElapsed = sf::Time();
@@ -994,7 +959,7 @@ namespace tgui
                 unsigned int oldValue = m_Scroll->getValue();
 
                 // Temporarily set the position of the scroll
-                m_Scroll->setPosition(getPosition().x + m_Size.x - m_RightBorder - m_Scroll->getSize().x, getPosition().y + m_TopBorder);
+                m_Scroll->setPosition(getPosition().x + m_Size.x - m_Scroll->getSize().x, getPosition().y);
 
                 // Pass the event
                 m_Scroll->leftMouseReleased(x, y);
@@ -1055,10 +1020,10 @@ namespace tgui
         if (m_Scroll != nullptr)
         {
             // Temporarily set the position of the scroll
-            m_Scroll->setPosition(getPosition().x + m_Size.x - m_RightBorder - m_Scroll->getSize().x, getPosition().y + m_TopBorder);
+            m_Scroll->setPosition(getPosition().x + m_Size.x - m_Scroll->getSize().x, getPosition().y);
 
             // Check if you are dragging the thumb of the scrollbar
-            if ((m_Scroll->m_MouseDown) && (m_Scroll->m_MouseDownOnThumb))
+            if (m_Scroll->m_MouseDown)
             {
                 // Remember the old scrollbar value
                 unsigned int oldValue = m_Scroll->getValue();
@@ -1182,7 +1147,7 @@ namespace tgui
             bool newlineAdded = false;
             unsigned int newlinesAdded = 0;
 
-            unsigned int character;
+            size_t character;
             unsigned int newTopPosition = 0;
             sf::Vector2u newPosition(0, 0);
 
@@ -1277,7 +1242,7 @@ namespace tgui
             bool newlineAdded = false;
             unsigned int newlinesAdded = 0;
 
-            unsigned int character;
+			size_t character;
             unsigned int newTopPosition = 0;
             sf::Vector2u newPosition(0, 0);
 
@@ -1495,7 +1460,7 @@ namespace tgui
                     {
                         deleteSelectedCharacters();
 
-                        unsigned int oldCaretPos = m_SelEnd;
+						size_t oldCaretPos = m_SelEnd;
 
                         if (m_Text.getSize() > m_SelEnd)
                             setText(m_Text.toWideString().substr(0, m_SelEnd) + TGUI_Clipboard.get() + m_Text.toWideString().substr(m_SelEnd, m_Text.getSize() - m_SelEnd));
@@ -1544,11 +1509,7 @@ namespace tgui
             if (m_LineHeight == 0)
                 return;
 
-            float maxLineWidth = static_cast<float>(m_Size.x - m_LeftBorder - m_RightBorder - 4);
-
-            // If the width is negative then the text box is too small to be displayed
-            if (maxLineWidth < 0)
-                maxLineWidth = 0;
+            float maxLineWidth = TGUI_MAXIMUM(m_Size.x - 4.0f, 0);
 
             // Make some preparations
             sf::Text tempText(m_TextBeforeSelection);
@@ -1589,7 +1550,7 @@ namespace tgui
                 }
 
                 // Check if you passed this limit
-                if (lines > (m_Size.y - m_TopBorder - m_BottomBorder) / m_LineHeight)
+                if (lines > m_Size.y / m_LineHeight)
                 {
                     // The character can't be added
                     return;
@@ -1629,7 +1590,7 @@ namespace tgui
                 if (delta < 0)
                 {
                     // Scroll down
-                    m_Scroll->setValue( m_Scroll->getValue() + (static_cast<unsigned int>(-delta) * (m_LineHeight / 2)) );
+                    m_Scroll->setValue(m_Scroll->getValue() + (static_cast<unsigned int>(-delta) * (m_LineHeight / 2)));
                 }
                 else // You are scrolling up
                 {
@@ -1637,7 +1598,7 @@ namespace tgui
 
                     // Scroll up
                     if (change < m_Scroll->getValue())
-                        m_Scroll->setValue( m_Scroll->getValue() - change );
+                        m_Scroll->setValue(m_Scroll->getValue() - change);
                     else
                         m_Scroll->setValue(0);
                 }
@@ -1893,19 +1854,16 @@ namespace tgui
             sf::String   tempString2 = m_Text;
 
             // Calculate the maximum line width
-            float maxLineWidth;
-
-            if (m_Scroll == nullptr)
-                maxLineWidth = m_Size.x - m_LeftBorder - m_RightBorder - 4.f;
-            else
-                maxLineWidth = m_Size.x - m_LeftBorder - m_RightBorder - 4.f - m_Scroll->getSize().x;
+            float maxLineWidth = m_Size.x - 4.0f;
+            if (m_Scroll != nullptr)
+                maxLineWidth -= m_Scroll->getSize().x;
 
             // If the width is negative then the text box is too small to be displayed
             if (maxLineWidth < 0)
                 maxLineWidth = 0;
 
             // Loop through every character
-            for (unsigned i=1; (i < m_Text.getSize() + 1) && (totalNewlinesAdded != line - 1); ++i)
+            for (unsigned i = 1; (i < m_Text.getSize() + 1) && (totalNewlinesAdded != line - 1); ++i)
             {
                 // Make sure the character is not a newline
                 if (m_Text[i-1] != '\n')
@@ -1959,7 +1917,7 @@ namespace tgui
             }
 
             // Try to find between which characters the mouse is standing
-            for (unsigned int i=1; i<=tempString.getSize(); ++i)
+            for (unsigned int i = 1; i <= tempString.getSize(); ++i)
             {
                 if (posX < (tempText.findCharacterPos(i-1).x + tempText.findCharacterPos(i).x) / 2.f)
                 {
@@ -1994,7 +1952,7 @@ namespace tgui
             return;
 
         // Find out where the selection point should be
-        m_SelEnd = static_cast<unsigned int>(findSelectionPointPosition(posX - getPosition().x - m_LeftBorder - 4, posY - getPosition().y - m_TopBorder));
+        m_SelEnd = findSelectionPointPosition(posX - getPosition().x - 4, posY - getPosition().y);
 
         // Calculate how many character are being selected
         if (m_SelEnd < m_SelStart)
@@ -2087,13 +2045,9 @@ namespace tgui
         if (m_LineHeight == 0)
             return;
 
-        float maxLineWidth;
-
-        // Calculate the maximum line width
-        if (m_Scroll == nullptr)
-            maxLineWidth = m_Size.x - m_LeftBorder - m_RightBorder - 4.f;
-        else
-            maxLineWidth = m_Size.x - m_LeftBorder - m_TopBorder - m_Scroll->getSize().x - 4.f;
+        float maxLineWidth = m_Size.x - 4.0f;
+        if (m_Scroll != nullptr)
+            maxLineWidth -= m_Scroll->getSize().x;
 
         // If the width is negative then the text box is too small to be displayed
         if (maxLineWidth < 0)
@@ -2143,7 +2097,7 @@ namespace tgui
             if (m_Scroll == nullptr)
             {
                 // Check if you passed this limit
-                if (m_Lines > (m_Size.y - m_TopBorder - m_BottomBorder) / m_LineHeight)
+                if (m_Lines > m_Size.y / m_LineHeight)
                 {
                     // Remove all exceeding lines
                     m_DisplayedText.erase(i + newlinesAdded - 1, sf::String::InvalidPos);
@@ -2172,9 +2126,9 @@ namespace tgui
 
             // Calculate the number of visible lines
             if ((m_Scroll->getValue() % m_LineHeight) == 0)
-                m_VisibleLines = TGUI_MINIMUM((m_Size.y - m_LeftBorder - m_TopBorder) / m_LineHeight, m_Lines);
+                m_VisibleLines = TGUI_MINIMUM(m_Size.y / m_LineHeight, m_Lines);
             else
-                m_VisibleLines = TGUI_MINIMUM(((m_Size.y - m_LeftBorder - m_TopBorder) / m_LineHeight) + 1, m_Lines);
+                m_VisibleLines = TGUI_MINIMUM((m_Size.y / m_LineHeight) + 1, m_Lines);
         }
         else // There is no scrollbar
         {
@@ -2182,7 +2136,7 @@ namespace tgui
             m_TopLine = 1;
 
             // Calculate the number of visible lines
-            m_VisibleLines = TGUI_MINIMUM((m_Size.y - m_LeftBorder - m_TopBorder) / m_LineHeight, m_Lines);
+            m_VisibleLines = TGUI_MINIMUM(m_Size.y / m_LineHeight, m_Lines);
         }
 
         // Fill the temporary text widget with the whole text
@@ -2223,15 +2177,15 @@ namespace tgui
         else // Some text is selected
         {
             // Make some preparations
-            unsigned i;
-            unsigned int selectionStart = TGUI_MINIMUM(m_SelEnd, m_SelStart);
-            unsigned int selectionEnd = TGUI_MAXIMUM(m_SelEnd, m_SelStart);
+			size_t i;
+			size_t selectionStart = TGUI_MINIMUM(m_SelEnd, m_SelStart);
+			size_t selectionEnd = TGUI_MAXIMUM(m_SelEnd, m_SelStart);
 
             sf::Text tempText(m_TextBeforeSelection);
-            unsigned int beginChar = 0;
-            unsigned int newlinesAddedBeforeSelection = 0;
-            unsigned int newlinesAddedInsideSelection = 0;
-            unsigned int lastNewlineBeforeSelection = 0;
+			size_t beginChar = 0;
+			size_t newlinesAddedBeforeSelection = 0;
+			size_t newlinesAddedInsideSelection = 0;
+			size_t lastNewlineBeforeSelection = 0;
             bool newlineFoundInsideSelection = false;
 
             // Clear the list of selection rectangle sizes
@@ -2404,8 +2358,8 @@ namespace tgui
         float scaleViewY = target.getSize().y / target.getView().getSize().y;
 
         // Get the global position
-        sf::Vector2f topLeftPosition = states.transform.transformPoint(getPosition() + sf::Vector2f(static_cast<float>(m_LeftBorder), static_cast<float>(m_TopBorder)) - target.getView().getCenter() + (target.getView().getSize() / 2.f));
-        sf::Vector2f bottomRightPosition = states.transform.transformPoint(getPosition() + sf::Vector2f(m_Size) - sf::Vector2f(static_cast<float>(m_RightBorder), static_cast<float>(m_BottomBorder)) - target.getView().getCenter() + (target.getView().getSize() / 2.f));
+        sf::Vector2f topLeftPosition = states.transform.transformPoint(getPosition() - target.getView().getCenter() + (target.getView().getSize() / 2.f));
+        sf::Vector2f bottomRightPosition = states.transform.transformPoint(getPosition() + sf::Vector2f(m_Size) - target.getView().getCenter() + (target.getView().getSize() / 2.f));
 
         // Adjust the transformation
         states.transform *= getTransform();
@@ -2416,30 +2370,29 @@ namespace tgui
         // Draw the borders
         {
             // Draw left border
-            sf::RectangleShape border(sf::Vector2f(static_cast<float>(m_LeftBorder), static_cast<float>(m_Size.y)));
+            sf::RectangleShape border(sf::Vector2f(static_cast<float>(m_LeftBorder), static_cast<float>(m_Size.y + m_TopBorder)));
+            border.setPosition(-static_cast<float>(m_LeftBorder), -static_cast<float>(m_TopBorder));
             border.setFillColor(m_BorderColor);
             target.draw(border, states);
 
             // Draw top border
-            border.setSize(sf::Vector2f(static_cast<float>(m_Size.x), static_cast<float>(m_TopBorder)));
+            border.setSize(sf::Vector2f(static_cast<float>(m_Size.x + m_RightBorder), static_cast<float>(m_TopBorder)));
+            border.setPosition(0, -static_cast<float>(m_TopBorder));
             target.draw(border, states);
 
             // Draw right border
-            border.setPosition(static_cast<float>(m_Size.x - m_RightBorder), 0);
-            border.setSize(sf::Vector2f(static_cast<float>(m_RightBorder), static_cast<float>(m_Size.y)));
+            border.setSize(sf::Vector2f(static_cast<float>(m_RightBorder), static_cast<float>(m_Size.y + m_BottomBorder)));
+            border.setPosition(static_cast<float>(m_Size.x), 0);
             target.draw(border, states);
 
             // Draw bottom border
-            border.setPosition(0, static_cast<float>(m_Size.y - m_BottomBorder));
-            border.setSize(sf::Vector2f(static_cast<float>(m_Size.x), static_cast<float>(m_BottomBorder)));
+            border.setSize(sf::Vector2f(static_cast<float>(m_Size.x + m_LeftBorder), static_cast<float>(m_BottomBorder)));
+            border.setPosition(-static_cast<float>(m_LeftBorder), static_cast<float>(m_Size.y));
             target.draw(border, states);
         }
 
-        // Don't draw on top of the borders
-        states.transform.translate(static_cast<float>(m_LeftBorder), static_cast<float>(m_TopBorder));
-
         // Draw the background
-        sf::RectangleShape front(sf::Vector2f(static_cast<float>(m_Size.x - m_LeftBorder - m_RightBorder), static_cast<float>(m_Size.y - m_TopBorder - m_BottomBorder)));
+        sf::RectangleShape front(sf::Vector2f(static_cast<float>(m_Size.x), static_cast<float>(m_Size.y)));
         front.setFillColor(m_BackgroundColor);
         target.draw(front, states);
 
@@ -2478,9 +2431,9 @@ namespace tgui
         if (m_SelChars > 0)
         {
             // Store the lenghts of the texts
-            size_t textBeforeSelectionLength = m_TextBeforeSelection.getString().getSize() + 1;
-            size_t textSelection1Length = m_TextSelection1.getString().getSize() + 1;
-            size_t textSelection2Length = m_TextSelection2.getString().getSize() + 1;
+			size_t textBeforeSelectionLength = m_TextBeforeSelection.getString().getSize() + 1;
+			size_t textSelection1Length = m_TextSelection1.getString().getSize() + 1;
+			size_t textSelection2Length = m_TextSelection2.getString().getSize() + 1;
 
             // Set the text on the correct position
             states.transform.translate(m_TextBeforeSelection.findCharacterPos(textBeforeSelectionLength).x, m_TextBeforeSelection.findCharacterPos(textBeforeSelectionLength).y);
@@ -2603,7 +2556,7 @@ namespace tgui
         {
             // Reset the transformation
             states.transform = origTransform;
-            states.transform.translate(m_Size.x - m_RightBorder - m_Scroll->getSize().x, static_cast<float>(m_TopBorder));
+            states.transform.translate(m_Size.x - m_Scroll->getSize().x, 0);
 
             // Draw the scrollbar
             target.draw(*m_Scroll, states);

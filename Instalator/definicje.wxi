@@ -23,9 +23,11 @@
 
   <?if $(var.Configuration)="Release" ?>
   <?define Konfiguracja="Release" ?>
+  <?define CRTName="" ?>
   <?define KonfiguracjaShort="r" ?>
   <?else?>
   <?define Konfiguracja="Debug" ?>
+  <?define CRTName="Debug" ?>
   <?define KonfiguracjaShort="d" ?>
   <?endif?>
 

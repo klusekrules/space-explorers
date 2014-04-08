@@ -1,30 +1,22 @@
 #include "NiepowodzenieTranzakcji.h"
 #include "Logger\Logger.h"
+#include "Aplikacja.h"
 
-NiepowodzenieTranzakcji::NiepowodzenieTranzakcji(const Tekst& tPlik, const Ilosc& iLinia, const Tekst& tranzakcja)
-	: OgolnyWyjatek(tPlik,iLinia,domyslnyNiepowodzenieTranzakcjiID,domyslnyNiepowodzenieTranzakcjiTytul,domyslnyNiepowodzenieTranzakcjiTresc), tranzakcja_(tranzakcja)
-{
-}
+namespace SpEx{
+	NiepowodzenieTranzakcji::NiepowodzenieTranzakcji(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia, const STyp::Tekst& tranzakcja)
+		: Wyjatek(tPlik, funkcja, iLinia,Aplikacja::pobierzInstancje().pobierzSladStosu(), domyslnyNiepowodzenieTranzakcjiID, domyslnyNiepowodzenieTranzakcjiTytul, domyslnyNiepowodzenieTranzakcjiTresc), tranzakcja_(tranzakcja)
+	{
+	}
 
-Tekst NiepowodzenieTranzakcji::generujKomunikat() const
-{
-	return  Tekst( "Tytul: " ) + tytul + 
-		Tekst( "\nID: " ) + numerWyjatku.napis() +
-		Tekst( "\nPlik: ") + plik +
-		Tekst( "\nLinia: ") + linia.napis() +
-		Tekst( "\nData kompilacji: ") + data + 
-		Tekst( "\nTresc: " ) + tresc +
-		Tekst( "\nOpis Tranzakcji: " ) + tranzakcja_ +
-		Tekst( "\nStos wywo³añ: " ) + stack + Tekst( "\n" ); 
-}
+	STyp::Tekst NiepowodzenieTranzakcji::generujKomunikat() const
+	{
+		return Wyjatek::generujKomunikat() + STyp::Tekst("\nOpis Tranzakcji: ") + tranzakcja_;
+	}
 
-NiepowodzenieTranzakcji::~NiepowodzenieTranzakcji(void)
-{
-}
-
-std::string NiepowodzenieTranzakcji::napis() const{
-	Logger str(NAZWAKLASY(NiepowodzenieTranzakcji));
-	str.dodajKlase(OgolnyWyjatek::napis());
-	str.dodajPole("OpisTranzakcji",tranzakcja_);
-	return str.napis();
+	std::string NiepowodzenieTranzakcji::napis() const{
+		SLog::Logger str(NAZWAKLASY(NiepowodzenieTranzakcji));
+		str.dodajKlase(Wyjatek::napis());
+		str.dodajPole(NAZWAPOLA(tranzakcja_), tranzakcja_);
+		return str.napis();
+	}
 }
