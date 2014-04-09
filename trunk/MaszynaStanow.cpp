@@ -177,6 +177,10 @@ namespace SpEx{
 		ustawNastepnyStan(nowy);
 	}
 
+	OknoGry& MaszynaStanow::pobierzOknoGry(){
+		return watekGraficzny_;
+	}
+
 	void MaszynaStanow::ustawNastepnyStan(Stan& stan){
 		stanNastepny_ = stan;
 	}

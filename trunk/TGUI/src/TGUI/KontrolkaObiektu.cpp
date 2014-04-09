@@ -33,7 +33,7 @@ namespace tgui{
 		picture_ = Picture::Ptr(*this,"ObrazObiektu");
 				
 		nazwa_ = Label::Ptr(*this, "NazwaObiektu");
-		nazwa_->setTextSize(12);
+		nazwa_->setTextSize(11);
 		nazwa_->setText("Nazwa");
 		
 		tresc_ = Label::Ptr(*this, "OpisObiektu");
@@ -49,6 +49,33 @@ namespace tgui{
 		can_->setText("Zburz");
 
 		setSize(410.f, 110.f);
+	}
+
+	void KontrolkaObiektu::setTransparency(unsigned char transparency){
+		Panel::setBackgroundColor(sf::Color(255, 255, 255, transparency));
+		Panel::setTransparency(transparency);
+		picture_->setTransparency(transparency);
+
+		nazwa_->setTransparency(transparency);
+		auto kolor = nazwa_->getTextColor();
+		kolor.a = transparency;
+		nazwa_->setTextColor(kolor);
+
+		tresc_->setTransparency(transparency);
+		kolor = tresc_->getTextColor();
+		kolor.a = transparency;
+		tresc_->setTextColor(kolor);
+
+		ok_->setTransparency(transparency);
+		kolor = ok_->getTextColor();
+		kolor.a = transparency;
+		ok_->setTextColor(kolor);
+
+		can_->setTransparency(transparency);
+		kolor = can_->getTextColor();
+		kolor.a = transparency;
+		can_->setTextColor(kolor);
+
 	}
 
 	void KontrolkaObiektu::setSize(float width, float hight){
@@ -69,11 +96,12 @@ namespace tgui{
 
 		float pictureSize = hight - (marginUp + marginDown);
 		picture_->setPosition(marginUp, marginLeft);
-		picture_->setSize(pictureSize, pictureSize);
+		if (picture_->isLoaded())
+			picture_->setSize(pictureSize, pictureSize);
 
 		float secondRow = pictureSize + marginLeft + distance;
 		float labelSize = pictureSize + pictureSize;
-		float titleHight = labelSize / 19.f;
+		float titleHight = labelSize / 18.f;
 
 		nazwa_->setPosition(secondRow, marginUp);
 		nazwa_->setSize(labelSize, titleHight);
@@ -219,11 +247,11 @@ namespace tgui{
 		return picture_->load(obraz);
 	}
 
-	void KontrolkaObiektu::ustawNazwe(sf::String& tekst){
+	void KontrolkaObiektu::ustawNazwe(const sf::String& tekst){
 		nazwa_->setText(tekst);
 	}
 
-	void KontrolkaObiektu::ustawOpis(sf::String& opis){
+	void KontrolkaObiektu::ustawOpis(const sf::String& opis){
 		tresc_->setText(opis);
 	}
 

@@ -34,6 +34,10 @@ namespace SpEx{
 		mutexUruchom_.unlock();
 	}
 
+	OknoGry::StosEkranow& OknoGry::pobierzStosEkranow(){
+		return stosEkranow_;
+	}
+
 	OknoGry::EkranPtr OknoGry::pobierzEkran(const STyp::Identyfikator& ekranId){
 		auto iter = listaEkranow_.find(ekranId);
 		if (iter != listaEkranow_.end()){

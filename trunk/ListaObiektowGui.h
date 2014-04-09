@@ -17,12 +17,13 @@ namespace tgui{
 		void setSize(float width, float hight);
 		bool load(const std::string& configFileFilename);
 		virtual ListaObiektowGui* clone();
+		void clear();
 		const std::string& getLoadedConfigFile() const;
 		virtual bool setProperty(std::string property, const std::string& value);
 		virtual bool getProperty(std::string property, std::string& value) const;
 		virtual std::list< std::pair<std::string, std::string> > getPropertyList() const;
 	private:
-
+		void mouseWheelMoved(int delta, int x, int y) override;
 		void scrollbarValueChanged(const tgui::Callback& callback);
 
 		virtual void initialize(Container *const container);

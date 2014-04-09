@@ -14,12 +14,13 @@ namespace tgui{
 		virtual ~KontrolkaObiektu() = default;
 
 		bool ustawObrazek(const std::string& obraz);
-		void ustawNazwe(sf::String& tekst);
-		void ustawOpis(sf::String& opis);
+		void ustawNazwe(const sf::String& tekst);
+		void ustawOpis(const sf::String& opis);
 
 		void blokowanieOk(bool zablokowane);
 		void blokowanieCancel(bool zablokowane);
 
+		void setTransparency(unsigned char transparency);
 		void setSize(float width, float hight);
 		bool load(const std::string& configFileFilename);
 		virtual KontrolkaObiektu* clone();

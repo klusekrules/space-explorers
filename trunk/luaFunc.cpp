@@ -2,6 +2,7 @@
 #include "TestyJednostkowe.h"
 #include "Aplikacja.h"
 #include "LuaSkrypt.h"
+#include "ListaObiektowGui.h"
 
 extern "C"{ 
 	__declspec(dllexport) int __cdecl barfunc(int foo)
@@ -97,6 +98,31 @@ extern "C"{
 	{
 		if(komunikat)
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, komunikat);
+	}
+
+	__declspec(dllexport) void __cdecl wypelnijKontrolkeObiektu(int idPlanety, int typ, const char *nazwaKontrolki)
+	{
+		if (nazwaKontrolki){
+			SpEx::Gra& gra = SpEx::Aplikacja::pobierzInstancje().pobierzGre();
+			//auto planeta = gra.pobierzPlanete(idPlanety);
+			//if (planeta){
+			auto ekran = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzEkran(idPlanety);
+			if(ekran!=nullptr){
+				auto obiekt = ekran->pobierzGUI().get<tgui::ListaObiektowGui>(nazwaKontrolki);
+				obiekt->clear();
+				if (obiekt != nullptr){
+					for (auto element : gra.pobierzObiektyInfo()){
+						if (typ == 0 || element.second->typ_ == typ){
+							auto pozycja = obiekt->getElement(obiekt->addElement(element.second->pobierzNazwe()()));
+							pozycja->ustawNazwe(element.second->pobierzNazwe()());
+							pozycja->ustawOpis(element.second->pobierzOpis()());
+							pozycja->ustawObrazek(element.second->pobierzAdresObrazka()());
+						}
+					}
+				}
+			}
+			//}
+		}
 	}
 }
 

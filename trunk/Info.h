@@ -90,8 +90,9 @@ namespace SpEx{
 
 		const STyp::Identyfikator typ_ = NIEZNANY; /// Typ obiektu.
 
+		const STyp::Tekst& pobierzAdresObrazka() const;
+
 	protected:
-		
 		STyp::Tekst adresObrazka_; /// Adres do obrazka wyœwietlonego w GUI.
 
 	private:

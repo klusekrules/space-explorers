@@ -18,7 +18,8 @@ namespace SpEx{
 		bool czekajNaInicjalizacje();
 		void uruchom();
 		EkranPtr pobierzEkran(const STyp::Identyfikator& ekranId);
-
+		StosEkranow& pobierzStosEkranow();
+		
 		virtual ~OknoGry(void) = default;
 	private:
 		sf::RenderWindow oknoGlowne_;

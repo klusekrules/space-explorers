@@ -673,7 +673,7 @@ namespace tgui
 				if (pos != std::string::npos){
 					std::string nazwa = line.substr(0, pos);
 					line.erase(0, pos+1);
-					auto obiekt = WidgetFactory::getInstance().createWidget(nazwa, static_cast<Container*>(widgetPtr.back()), line);
+					auto obiekt = TGUI_WidgetFactory.createWidget(nazwa, static_cast<Container*>(widgetPtr.back()), line);
 					if (obiekt != nullptr){
 						widgetPtr.push_back(obiekt);
 						progress.push(0);

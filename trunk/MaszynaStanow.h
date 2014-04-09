@@ -66,6 +66,8 @@ namespace SpEx{
 
 		LuaStan luaStan_;
 
+		OknoGry& pobierzOknoGry();
+
 	private:
 
 		OknoGry watekGraficzny_;

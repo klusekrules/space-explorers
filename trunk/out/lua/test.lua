@@ -79,3 +79,15 @@ function testy ()
 	zdarzenie.numer_ = 0
 	ffi.C.kolejkujZdarzenie(zdarzenie);
 end
+
+function ustawOknoListy()
+	wejscieDoStanu()
+	ffi.C.wyczyscListeOkien();
+	ffi.C.loguj("Ustawianie okna o id 3")
+	if ffi.C.ustawOkno(3) == true then
+		ffi.C.loguj("Ustawianiono")
+	else
+		ffi.C.loguj("Nieustawianiono")
+	end
+	ffi.C.wypelnijKontrolkeObiektu(3,0,"MojaKontrolka")
+end

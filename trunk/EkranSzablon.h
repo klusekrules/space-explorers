@@ -21,6 +21,8 @@ namespace SpEx{
 
 		const STyp::Identyfikator& pobierzId() const;
 
+		tgui::Gui& pobierzGUI();
+
 	protected:
 
 		void callback(const tgui::Callback& callback, unsigned int funkcja);

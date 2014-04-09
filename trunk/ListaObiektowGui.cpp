@@ -5,7 +5,30 @@ namespace tgui {
 	void ListaObiektowGui::scrollbarValueChanged(const tgui::Callback& callback)
 	{
 		//template_->setPosition(0, -callback.value);
-		inside_->setPosition(0, static_cast<float>(-callback.value));
+		//inside_->setPosition(0, static_cast<float>(-callback.value));
+		int t = 1;
+		auto size = template_->getSize();
+		auto upMargin = t*(size.y + interspace_) + insideBorders_.top - 50;
+		auto downMargin = (t+1)*(size.y + interspace_) + insideBorders_.top + 50;
+		for (auto e : objects_){
+			auto hight = t*(size.y + interspace_) + insideBorders_.top - callback.value;
+			e->setPosition(static_cast<float>(insideBorders_.left), hight);
+			if (hight < upMargin){
+				if (size.y + (hight - upMargin) > 0)
+					e->setTransparency(static_cast<unsigned char>(255 * ((size.y + (hight - upMargin)) / size.y)));
+				else
+					e->setTransparency(0);
+			}
+			else
+			if ((hight + size.y) > downMargin){
+				if (hight < downMargin)
+					e->setTransparency(static_cast<unsigned char>(255 * ((downMargin - hight) / size.y)));
+				else
+					e->setTransparency(0);
+			}else
+				e->setTransparency(255);
+			t++;
+		}
 	}
 
 	Widget* ListaObiektowGui::createWidget(Container* container, const std::string& name){
@@ -13,7 +36,7 @@ namespace tgui {
 	}
 
 	std::size_t ListaObiektowGui::addElement( const std::string& name ){
-		auto widget = inside_->copy(template_, name);
+		auto widget = this->copy(template_, name);
 		widget->show();
 		objects_.push_back(widget);
 		sf::Vector2f temp = getSize();
@@ -33,14 +56,14 @@ namespace tgui {
 	ListaObiektowGui::ListaObiektowGui(const ListaObiektowGui& o)
 		: Panel(o)
 	{
-		inside_ = this->get<Panel>("PanelWewnetrzny");
+		//inside_ = this->get<Panel>("PanelWewnetrzny");
 		template_ = this->get<KontrolkaObiektu>("Szablon");
 		scroll_ = this->get<Scrollbar>("PasekPrzewijania");
 		for (auto e : o.objects_ ){
 			std::string nazwa;
-			if (o.inside_->getWidgetName(e, nazwa)){
+			if (o.getWidgetName(e, nazwa)){
 				if (!nazwa.empty()){
-					objects_.push_back(inside_->get<KontrolkaObiektu>(nazwa));
+					objects_.push_back(this->get<KontrolkaObiektu>(nazwa));
 				}
 			}
 		}
@@ -122,23 +145,44 @@ namespace tgui {
 		return m_LoadedConfigFile;
 	}
 
+	void ListaObiektowGui::clear(){
+		for (auto e : objects_){
+			this->remove(e);
+		}
+		objects_.clear();
+	}
+
 	void ListaObiektowGui::setSize(float width, float hight){
 		Panel::setSize(width, hight);
-		template_->setSize(width - (scrollWidth_ + insideBorders_.left + insideBorders_.right), hight);
-		int t = 0;
+		template_->setSize(width - (insideBorders_.left + insideBorders_.right), hight);
+		int t = 1;
 		auto size = template_->getSize();
+		auto upMargin = t*(size.y + interspace_) + insideBorders_.top - 50;
+		auto downMargin = (t + 1)*(size.y + interspace_) + insideBorders_.top + 50;
 		for (auto e : objects_){
+			auto hight = t*(size.y + interspace_) + insideBorders_.top;
 			e->setSize(size.x, size.y);
-			e->setPosition(static_cast<float>(insideBorders_.left), t*(size.y + interspace_) + insideBorders_.top);
+			e->setPosition(static_cast<float>(insideBorders_.left), hight);
+			if (hight < upMargin){
+				if (size.y + (hight - upMargin) > 0)
+					e->setTransparency(static_cast<unsigned char>(255 * ((size.y + (hight - upMargin)) / size.y)));
+				else
+					e->setTransparency(0);
+			}
+			else
+			if ((hight + size.y) > downMargin){
+				if (hight < downMargin)
+					e->setTransparency(static_cast<unsigned char>(255 * ((downMargin - hight) / size.y)));
+				else
+					e->setTransparency(0);
+			}
+			else
+				e->setTransparency(255);
 			t++;
 		}
+		t++;
 		float insideHight = t*(size.y + interspace_) + insideBorders_.top + insideBorders_.bottom - interspace_;
-
-		if (insideHight < 0)
-			inside_->setSize(width - scrollWidth_, 0);
-		else
-			inside_->setSize(width - scrollWidth_, insideHight);
-
+		
 		if (insideHight <= hight){
 			scroll_->setLowValue(0);
 			scroll_->setMaximum(0);
@@ -148,22 +192,26 @@ namespace tgui {
 			scroll_->setMaximum(static_cast<unsigned int>(insideHight + 1.f));
 		}
 
-		scroll_->setPosition(width - scrollWidth_, 0);
-		scroll_->setSize(scrollWidth_, hight);
+		/*scroll_->setPosition(width - scrollWidth_, 0);
+		scroll_->setSize(scrollWidth_, hight);*/
 	}
 
 	void ListaObiektowGui::initialize(Container *const container){
 		Panel::setGlobalFont(container->getGlobalFont());
 
-		inside_ = Panel::Ptr(*this, "PanelWewnetrzny");
-
-		template_ = KontrolkaObiektu::Ptr(*inside_.get(), "Szablon");
+		template_ = KontrolkaObiektu::Ptr(*this, "Szablon");
 		template_->hide();
 
 		scroll_ = Scrollbar::Ptr(*this, "PasekPrzewijania");
 		scroll_->bindCallbackEx(std::bind(&ListaObiektowGui::scrollbarValueChanged, this, std::placeholders::_1), tgui::Scrollbar::ValueChanged);
-		
+		scroll_->hide();
+
 		setSize(430.f, 350.f);
+	}
+
+	void ListaObiektowGui::mouseWheelMoved(int delta, int x, int y)
+	{
+		scroll_->mouseWheelMoved(delta*15,x,y);
 	}
 
 	bool ListaObiektowGui::setProperty(std::string property, const std::string& value){
