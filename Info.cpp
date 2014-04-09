@@ -44,6 +44,10 @@ namespace SpEx {
 		opis_ = opis;
 	}
 
+	const STyp::Tekst& Info::pobierzAdresObrazka() const{
+		return adresObrazka_;
+	}
+
 	std::string Info::napis() const{
 		SLog::Logger str(NAZWAKLASY(Info));
 		str.dodajPole(NAZWAPOLA(typ_), typ_);

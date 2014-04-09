@@ -37,6 +37,7 @@
 #include <TGUI/Borders.hpp>
 
 #include <TGUI/TextureManager.hpp>
+#include <TGUI\WidgetFactory.h>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -165,6 +166,7 @@ namespace tgui
     /// \internal The resource path is added in front of every filename that is used to load a resource.
     extern TGUI_API std::string TGUI_ResourcePath;
 
+	extern TGUI_API WidgetFactory TGUI_WidgetFactory;
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /// \internal

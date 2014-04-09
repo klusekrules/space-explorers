@@ -1,13 +1,7 @@
-
 #include <TGUI\TGUI.hpp>
 
 namespace tgui{
-
-	WidgetFactory& WidgetFactory::getInstance(){
-		static WidgetFactory factory;
-		return factory;
-	}
-
+	
 	Widget* WidgetFactory::createWidget(const std::string& id, Container* kontener, const std::string& name){
 		auto iter = callbacks_.find(id);
 		if (iter == callbacks_.end())

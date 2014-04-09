@@ -97,4 +97,8 @@ namespace SpEx{
 	void EkranSzablon::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 		interfejs_.draw();
 	}
+	
+	tgui::Gui& EkranSzablon::pobierzGUI(){
+		return interfejs_;
+	}
 };

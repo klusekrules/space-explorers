@@ -8,6 +8,8 @@
 #include "ZmianaPoziomObiektu.h"
 #include "DefinicjeWezlowXML.h"
 #include "Walidator.h"
+#include "TGUI\TGUI.hpp"
+#include "ListaObiektowGui.h"
 
 void myPurecallHandler(){
 	SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, SpEx::Aplikacja::pobierzInstancje().pobierzSladStosu());
@@ -39,6 +41,7 @@ namespace SpEx{
 	Aplikacja::Aplikacja()
 		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), fabrykaZmian_(), instancjaGry_(nullptr)
 	{
+		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listaobiektowgui", tgui::ListaObiektowGui::createWidget);
 		/* ------- Wstêpna konfiguracja logów ------- */
 #ifdef TESTS
 		/* Wylaczenie logow typu debug na potrzeby ograniczenia logow testow*/

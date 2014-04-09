@@ -5,10 +5,18 @@
     <Kontrolka nazwa="zamknij">
       <Akcja id="64" idZdarzenia="1"/>
     </Kontrolka>
+	<Kontrolka nazwa="listaobiektow">
+      <Akcja id="64" idZdarzenia="4"/>
+    </Kontrolka>
     <Kontrolka nazwa="testowanie">
       <Akcja id="64" idZdarzenia="2"/>
     </Kontrolka>
   </Ekran>
   <Ekran id="0x2" czcionka="resource\arial.ttf" konfiguracja="resource\testowanie.wdg">
+  </Ekran>
+  <Ekran id="0x3" czcionka="resource\arial.ttf" konfiguracja="resource\lista.wdg">
+	<Kontrolka nazwa="zamknij">
+      <Akcja id="64" idZdarzenia="1"/>
+    </Kontrolka>
   </Ekran>
 </SpaceGame>

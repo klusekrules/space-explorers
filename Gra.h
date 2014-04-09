@@ -240,6 +240,10 @@ namespace SpEx {
 		*/
 		bool generujNowaGalaktyke();
 
+		std::unordered_map<STyp::Identyfikator, std::shared_ptr<ObiektInfo>, STyp::IdTypeHash > pobierzObiektyInfo(){
+			return listaObiektowInfo_;
+		}
+
 	private:
 
 		/**

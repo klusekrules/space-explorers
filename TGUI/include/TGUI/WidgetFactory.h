@@ -1,7 +1,10 @@
 #pragma once
-#include <TGUI\Widget.hpp>
+#include <map>
+#include <string>
 
 namespace tgui{
+	class Widget;
+	class Container;
 
 	class WidgetFactory
 	{
@@ -14,14 +17,15 @@ namespace tgui{
 		bool RejestrujKreatorWidzetu(const std::string& id, KreatorWidzetu funckja);
 		
 		~WidgetFactory() = default;
-		static WidgetFactory& getInstance();
+
+		WidgetFactory();
+
 	private:
 
 		typedef std::map<std::string, KreatorWidzetu> Callbacks;
 
 		Callbacks callbacks_; 
 
-		WidgetFactory();
 		WidgetFactory(const WidgetFactory&) = delete;
 		WidgetFactory& operator=(const WidgetFactory&) = delete;
 	};
