@@ -1,5 +1,7 @@
 #pragma once
 #include <TGUI\TGUI.hpp>
+#include <memory>
+
 namespace tgui{
 	class ListaObiektowGui :
 		public Panel
@@ -34,6 +36,8 @@ namespace tgui{
 		Scrollbar::Ptr scroll_;
 		KontrolkaObiektu::Ptr template_;
 		std::vector<KontrolkaObiektu::Ptr> objects_;
+		std::shared_ptr<sf::Shader> shader_ = nullptr;
+
 		Borders insideBorders_;
 		float scrollWidth_;
 		float interspace_;

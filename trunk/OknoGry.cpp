@@ -130,8 +130,15 @@ namespace SpEx{
 	void OknoGry::logujInfo(){
 		if (sf::Shader::isAvailable())
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Shadery dostepne");
-		else
+		else{
+			MessageBox(
+				nullptr,
+				"Karta graficzna nie wspiera shaderów.",
+				"Fatal error",
+				MB_ICONERROR
+				);
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Shadery niedostepne");
+		}
 
 		char* p = (char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, p ? p : "");

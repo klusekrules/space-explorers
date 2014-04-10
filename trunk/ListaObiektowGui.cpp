@@ -1,11 +1,10 @@
 #include "ListaObiektowGui.h"
 
+#include <SFML\OpenGL.hpp>
 namespace tgui {
 
 	void ListaObiektowGui::scrollbarValueChanged(const tgui::Callback& callback)
 	{
-		//template_->setPosition(0, -callback.value);
-		//inside_->setPosition(0, static_cast<float>(-callback.value));
 		int t = 1;
 		auto size = template_->getSize();
 		auto upMargin = t*(size.y + interspace_) + insideBorders_.top - 50;
@@ -13,20 +12,6 @@ namespace tgui {
 		for (auto e : objects_){
 			auto hight = t*(size.y + interspace_) + insideBorders_.top - callback.value;
 			e->setPosition(static_cast<float>(insideBorders_.left), hight);
-			if (hight < upMargin){
-				if (size.y + (hight - upMargin) > 0)
-					e->setTransparency(static_cast<unsigned char>(255 * ((size.y + (hight - upMargin)) / size.y)));
-				else
-					e->setTransparency(0);
-			}
-			else
-			if ((hight + size.y) > downMargin){
-				if (hight < downMargin)
-					e->setTransparency(static_cast<unsigned char>(255 * ((downMargin - hight) / size.y)));
-				else
-					e->setTransparency(0);
-			}else
-				e->setTransparency(255);
 			t++;
 		}
 	}
@@ -39,6 +24,8 @@ namespace tgui {
 		auto widget = this->copy(template_, name);
 		widget->show();
 		objects_.push_back(widget);
+		if (shader_)
+			objects_.back()->ustawShader(shader_.get());
 		sf::Vector2f temp = getSize();
 		setSize(temp.x, temp.y);
 		return objects_.size() - 1;
@@ -163,21 +150,6 @@ namespace tgui {
 			auto hight = t*(size.y + interspace_) + insideBorders_.top;
 			e->setSize(size.x, size.y);
 			e->setPosition(static_cast<float>(insideBorders_.left), hight);
-			if (hight < upMargin){
-				if (size.y + (hight - upMargin) > 0)
-					e->setTransparency(static_cast<unsigned char>(255 * ((size.y + (hight - upMargin)) / size.y)));
-				else
-					e->setTransparency(0);
-			}
-			else
-			if ((hight + size.y) > downMargin){
-				if (hight < downMargin)
-					e->setTransparency(static_cast<unsigned char>(255 * ((downMargin - hight) / size.y)));
-				else
-					e->setTransparency(0);
-			}
-			else
-				e->setTransparency(255);
 			t++;
 		}
 		t++;
@@ -191,14 +163,27 @@ namespace tgui {
 			scroll_->setLowValue(static_cast<unsigned int>(hight));
 			scroll_->setMaximum(static_cast<unsigned int>(insideHight + 1.f));
 		}
-
-		/*scroll_->setPosition(width - scrollWidth_, 0);
-		scroll_->setSize(scrollWidth_, hight);*/
+		if (shader_){
+			auto pozycja = Panel::getPosition();
+			GLint viewport[4];
+			GLfloat upBorder, downBorder;
+			//glGetIntegerv(GL_VIEWPORT, viewport);
+			viewport[3] = 500;
+			downBorder = (float)viewport[3] - (pozycja.y + hight);
+			upBorder = (float)viewport[3] - pozycja.y;
+			shader_->setParameter("zakres", size.y);
+			shader_->setParameter("upMargin", upBorder - size.y);
+			shader_->setParameter("downMargin", downBorder + size.y);
+		}
 	}
 
 	void ListaObiektowGui::initialize(Container *const container){
 		Panel::setGlobalFont(container->getGlobalFont());
-
+		if (sf::Shader::isAvailable()){
+			shader_ = std::make_shared<sf::Shader>();
+			shader_->loadFromFile("resource\\simple.frag", sf::Shader::Type::Fragment);
+			shader_->setParameter("texture", sf::Shader::CurrentTexture);
+		}
 		template_ = KontrolkaObiektu::Ptr(*this, "Szablon");
 		template_->hide();
 
