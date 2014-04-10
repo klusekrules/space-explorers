@@ -296,4 +296,15 @@ namespace tgui{
 		return list;
 	}
 
+	void KontrolkaObiektu::ustawShader(sf::Shader* shader){
+		shader_ = shader;
+	}
+	
+	void KontrolkaObiektu::draw(sf::RenderTarget& target, sf::RenderStates states) const{
+		if (shader_ != nullptr){
+			states.shader = shader_;
+		}
+		Panel::draw(target,states);
+	}
+
 };

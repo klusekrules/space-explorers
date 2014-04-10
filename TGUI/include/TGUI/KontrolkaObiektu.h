@@ -16,6 +16,7 @@ namespace tgui{
 		bool ustawObrazek(const std::string& obraz);
 		void ustawNazwe(const sf::String& tekst);
 		void ustawOpis(const sf::String& opis);
+		void ustawShader(sf::Shader* shader = nullptr);
 
 		void blokowanieOk(bool zablokowane);
 		void blokowanieCancel(bool zablokowane);
@@ -28,6 +29,13 @@ namespace tgui{
 		virtual bool setProperty(std::string property, const std::string& value);
 		virtual bool getProperty(std::string property, std::string& value) const;
 		virtual std::list< std::pair<std::string, std::string> > getPropertyList() const;
+	protected:
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// Draws the widget on the render target.
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
 	private:
 
 		virtual void initialize(Container *const container);
@@ -40,6 +48,7 @@ namespace tgui{
 		Label::Ptr tresc_;
 		Button::Ptr ok_;
 		Button::Ptr can_;
+		sf::Shader* shader_ = nullptr;
 
 		float marginUp = 5.f;
 		float marginDown = 5.f;

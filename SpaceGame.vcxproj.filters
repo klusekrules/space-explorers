@@ -790,6 +790,9 @@
     <None Include="out\resource\testowanie.wdg">
       <Filter>Data</Filter>
     </None>
+    <None Include="out\resource\lista.wdg">
+      <Filter>Data</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="out\data.xml">

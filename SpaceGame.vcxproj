@@ -217,7 +217,7 @@
       <LinkStatus>
       </LinkStatus>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Debug-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>lua51.lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lua51.lib;glew.lib;Glu32.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>SubWCRev.exe $(SolutionDir) $(ProjectDir)\svn_version.h.tmpl $(ProjectDir)\svn_version.h</Command>
@@ -523,6 +523,7 @@
     <None Include="gpl-3.0.rtf" />
     <None Include="out\lua\interfejs.lua" />
     <None Include="out\lua\test.lua" />
+    <None Include="out\resource\lista.wdg" />
     <None Include="out\resource\menu.wdg">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>

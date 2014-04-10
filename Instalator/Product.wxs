@@ -166,7 +166,15 @@
       </Component>
       
       <Component Id='TESTOWANIE_WDG_FILE_COMP' Guid='{F0A8104D-A726-43AD-8781-4B00B080ECB0}' Win64='$(var.isPlatformx64)'>
-        <File Id='TESTOWANIE_WDG_FILE_COMP' Source='..\out\resource\testowanie.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+        <File Id='TESTOWANIE_WDG_FILE' Source='..\out\resource\testowanie.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+      
+     <Component Id='BRAK_OBRAZKA_PNG_COMP' Guid='{8E22F9F2-9FD3-45FD-B867-BBFB7C80F0C8}' Win64='$(var.isPlatformx64)'>
+        <File Id='BRAK_OBRAZKA_PNG_FILE' Source='..\out\resource\Brak_obrazka.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+      
+     <Component Id='OKNO_LISTY_PNG_COMP' Guid='{C1207F94-CE35-496D-8993-998E494F7E00}' Win64='$(var.isPlatformx64)'>
+        <File Id='OKNO_LISTY_PNG_FILE' Source='..\out\resource\lista.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
       </Component>
       
     </DirectoryRef>
@@ -188,6 +196,10 @@
 
       <Component Id='BLACK_PNG_FILE_COMP' Guid='{9B28AAD0-EE18-4742-9AA6-799777BAC0C3}' Win64='$(var.isPlatformx64)'>
         <File Id='BLACK_PNG_FILE' Source='..\out\widgets\Black.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='TLO_PNG_FILE_COMP' Guid='{644918D0-ECCC-4E64-BC2A-BF5BC980A86C}' Win64='$(var.isPlatformx64)'>
+        <File Id='TLO_PNG_FILE' Source='..\out\widgets\tlo.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
       </Component>
     </DirectoryRef>
     
@@ -225,6 +237,9 @@
       <ComponentRef Id='TESTOWANIE_WDG_FILE_COMP' />
       <ComponentRef Id='BLACK_CONF_FILE_COMP' />
       <ComponentRef Id='BLACK_PNG_FILE_COMP' />
+      <ComponentRef Id='BRAK_OBRAZKA_PNG_COMP' />
+      <ComponentRef Id='OKNO_LISTY_PNG_COMP' />
+      <ComponentRef Id='TLO_PNG_FILE_COMP' />
     </Feature>
     
     <Feature Id="VCRedist" Title="Visual C++ 12.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
