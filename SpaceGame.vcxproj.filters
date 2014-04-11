@@ -816,6 +816,9 @@
     <Xml Include="out\resource\state.xml">
       <Filter>Data</Filter>
     </Xml>
+    <Xml Include="out\danetestowe.xml">
+      <Filter>Data</Filter>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <Text Include="gpl-3.0.txt">

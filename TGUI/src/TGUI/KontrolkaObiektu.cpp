@@ -14,11 +14,9 @@ namespace tgui{
 	}
 
 	KontrolkaObiektu::KontrolkaObiektu(const KontrolkaObiektu& copy)
-		: Panel(copy), marginUp(copy.marginUp), marginDown(copy.marginDown),
-		marginLeft(copy.marginLeft), marginRight(copy.marginRight),
-		marginButtonDown(copy.marginButtonDown), marginButtonUp(copy.marginButtonUp),
-		marginButtonLeft(copy.marginButtonLeft), marginButtonRight(copy.marginButtonRight),
-		ratio(copy.ratio), distance(copy.distance)
+		: Panel(copy), size_(copy.size_),pictureRect_(copy.pictureRect_),titleRect_(copy.titleRect_),
+		DescribeRect_(copy.DescribeRect_), ButtonOKRect_(copy.ButtonOKRect_), ButtonCanRect_(copy.ButtonCanRect_),
+		constSize_(copy.constSize_), propotional_(copy.propotional_)
 	{
 		picture_ = this->get<Picture>("ObrazObiektu");
 		nazwa_ = this->get<Label>("NazwaObiektu");
@@ -80,54 +78,43 @@ namespace tgui{
 
 	void KontrolkaObiektu::setSize(float width, float hight){
 
-		float absWidth = width - (marginLeft + distance + distance + marginButtonLeft + marginButtonRight + marginRight);
-		float absHight = hight - (marginUp + marginDown);
+		float absWidth = width;
+		float absHight = hight;
 
-		if (absWidth / absHight > ratio){
-			width = absHight*ratio + marginLeft + distance + distance + marginButtonLeft + marginButtonRight + marginRight;
-		}
-		else{
-			if (absWidth / absHight < ratio){
-				hight = absWidth / ratio + marginUp + marginDown;
+		if (constSize_){
+			absWidth = size_.x;
+			absHight = size_.y;
+		}else{
+			if (propotional_){
+				auto ratio = size_.x / size_.y;
+				if (absWidth / absHight > ratio ) {
+					absWidth = absHight * ratio;
+				}else{
+					if (absWidth / absHight < ratio){
+						absHight = absWidth / ratio;
+					}
+				}
 			}
 		}
 
-		Panel::setSize(width, hight);
+		Panel::setSize(absWidth, absHight);
 
-		float pictureSize = hight - (marginUp + marginDown);
-		picture_->setPosition(marginUp, marginLeft);
+		picture_->setPosition(pictureRect_.left * absWidth, pictureRect_.top * absHight);
 		if (picture_->isLoaded())
-			picture_->setSize(pictureSize, pictureSize);
+			picture_->setSize(pictureRect_.width * absWidth, pictureRect_.height * absHight);
 
-		float secondRow = pictureSize + marginLeft + distance;
-		float labelSize = pictureSize + pictureSize;
-		float titleHight = labelSize / 18.f;
+		nazwa_->setPosition(titleRect_.left * absWidth, titleRect_.top * absHight);
+		nazwa_->setSize(titleRect_.width * absWidth, titleRect_.height * absHight);
 
-		nazwa_->setPosition(secondRow, marginUp);
-		nazwa_->setSize(labelSize, titleHight);
+		tresc_->setPosition(DescribeRect_.left * absWidth, DescribeRect_.top * absHight);
+		tresc_->setSize(DescribeRect_.width * absWidth, DescribeRect_.height * absHight);
 
-		tresc_->setPosition(secondRow, marginUp + titleHight + interspace_);
-		tresc_->setSize(labelSize, hight - (marginUp + titleHight + interspace_ + marginDown));
+		ok_->setPosition(ButtonOKRect_.left * absWidth, ButtonOKRect_.top * absHight);
+		ok_->setSize(ButtonOKRect_.width * absWidth, ButtonOKRect_.height * absHight);
+
+		can_->setPosition(ButtonCanRect_.left * absWidth, ButtonCanRect_.top * absHight);
+		can_->setSize(ButtonCanRect_.width * absWidth, ButtonCanRect_.height * absHight);
 		
-		float thirdRow = secondRow + labelSize + distance + marginButtonLeft;
-		float buttonSize = width - (thirdRow + marginButtonRight + marginRight);
-		
-		sf::Text tekst;
-		tekst.setFont(*(ok_->getTextFont()));
-		tekst.setCharacterSize(ok_->getTextSize());
-
-		tekst.setString(ok_->getText());
-		auto bounds = tekst.getLocalBounds();
-		float buttonHight = bounds.top + bounds.height + 20.f;
-		ok_->setPosition(thirdRow, marginUp + marginButtonUp);
-		ok_->setSize(buttonSize, buttonHight);
-
-		tekst.setString(can_->getText());
-		bounds = tekst.getLocalBounds();
-		buttonHight = bounds.top + bounds.height + 20.f;
-		can_->setPosition(thirdRow, hight - (buttonHight + marginDown + marginButtonDown));
-		can_->setSize(buttonSize, buttonHight);
-
 	}
 
 	KontrolkaObiektu* KontrolkaObiektu::clone(){
@@ -183,7 +170,43 @@ namespace tgui{
 				}
 				setBackgroundTexture(&(background_.data->texture));
 			}
-			else if(property == "nameconfig")
+			else if (property == "titletextsize")
+			{
+				nazwa_->setTextSize(std::strtol(value.c_str(), nullptr, 10));
+			}
+			else if (property == "describetextsize")
+			{
+				tresc_->setTextSize(std::strtol(value.c_str(), nullptr, 10));
+			}
+			else if (property == "buttonoktextsize")
+			{
+				ok_->setTextSize(std::strtol(value.c_str(), nullptr, 10));
+			}
+			else if (property == "buttoncantextsize")
+			{
+				can_->setTextSize(std::strtol(value.c_str(),nullptr,10));
+			}
+			else if (property == "titletextcolor")
+			{
+				nazwa_->setTextColor(extractColor(value));
+			}
+			else if (property == "describetextcolor")
+			{
+				tresc_->setTextColor(extractColor(value));
+			}
+			else if (property == "buttonoktextcolor")
+			{
+				ok_->setTextColor(extractColor(value));
+			}
+			else if (property == "buttoncantextcolor")
+			{
+				can_->setTextColor(extractColor(value));
+			}
+			else if (property == "canconfig")
+			{
+				can_->load(configFileFolder + value);
+			}
+			else if (property == "nameconfig")
 			{
 				nazwa_->load(configFileFolder + value);
 			}
@@ -199,43 +222,119 @@ namespace tgui{
 			{
 				can_->load(configFileFolder + value);
 			}
-			else if(property == "margin")
+			else if(property == "size")
 			{
-				Borders margin;
-				if (extractBorders(value, margin)){
-					marginUp = static_cast<float>(margin.top);
-					marginDown = static_cast<float>(margin.bottom);
-					marginLeft = static_cast<float>(margin.left);
-					marginRight = static_cast<float>(margin.right);
-				}
+				sf::Vector2u temp;
+				extractVector2u(value, temp);
+				size_.x = static_cast<float>(temp.x);
+				size_.y = static_cast<float>(temp.y);
 			}
-			else if (property == "marginbutton")
+			else if (property == "picturerect")
 			{
-				Borders margin;
-				if (extractBorders(value, margin)){
-					marginButtonUp = static_cast<float>(margin.top);
-					marginButtonDown = static_cast<float>(margin.bottom);
-					marginButtonLeft = static_cast<float>(margin.left);
-					marginButtonRight = static_cast<float>(margin.right);
-				}
+				Borders temp;
+				extractBorders(value, temp);
+				pictureRect_.left = static_cast<float>(temp.left);
+				pictureRect_.top = static_cast<float>(temp.top);
+				pictureRect_.width = static_cast<float>(temp.right);
+				pictureRect_.height = static_cast<float>(temp.bottom);
 			}
-			else if (property == "ratio")
+			else if (property == "titlerect")
 			{
-				ratio = strtof(value.c_str(),nullptr);
+				Borders temp;
+				extractBorders(value, temp);
+				titleRect_.left = static_cast<float>(temp.left);
+				titleRect_.top = static_cast<float>(temp.top);
+				titleRect_.width = static_cast<float>(temp.right);
+				titleRect_.height = static_cast<float>(temp.bottom);
 			}
-			else if (property == "distance")
+			else if (property == "describerect")
 			{
-				distance = strtof(value.c_str(), nullptr);
+				Borders temp;
+				extractBorders(value, temp);
+				DescribeRect_.left = static_cast<float>(temp.left);
+				DescribeRect_.top = static_cast<float>(temp.top);
+				DescribeRect_.width = static_cast<float>(temp.right);
+				DescribeRect_.height = static_cast<float>(temp.bottom);
 			}
-			else if(property == "interspace")
+			else if (property == "buttonokrect")
 			{
-				interspace_ = std::strtof(value.c_str(), nullptr);
+				Borders temp;
+				extractBorders(value, temp);
+				ButtonOKRect_.left = static_cast<float>(temp.left);
+				ButtonOKRect_.top = static_cast<float>(temp.top);
+				ButtonOKRect_.width = static_cast<float>(temp.right);
+				ButtonOKRect_.height = static_cast<float>(temp.bottom);
+			}
+			else if (property == "buttoncanrect")
+			{
+				Borders temp;
+				extractBorders(value, temp);
+				ButtonCanRect_.left = static_cast<float>(temp.left);
+				ButtonCanRect_.top = static_cast<float>(temp.top);
+				ButtonCanRect_.width = static_cast<float>(temp.right);
+				ButtonCanRect_.height = static_cast<float>(temp.bottom);
+			}
+			else if (property == "proportional")
+			{
+				if ((value == "true") || (value == "True"))
+					propotional_ = true;
+				else if ((value == "false") || (value == "False"))
+					propotional_ = false;
+				else
+					TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
+			}
+			else if (property == "constsize")
+			{
+				if ((value == "true") || (value == "True"))
+					constSize_ = true;
+				else if ((value == "false") || (value == "False"))
+					constSize_ = false;
+				else
+					TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
 			}
 			else
 				TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section KontrolkaObiektu in " + m_LoadedConfigFile + ".");
 		}
-		sf::Vector2f temp = getSize();
-		setSize(temp.x,temp.y);
+
+		float percent = 100.f;
+		if (size_.x > 0){
+			percent = size_.x;
+		}
+		pictureRect_.left /= percent;
+		pictureRect_.width /= percent;
+
+		titleRect_.left /= percent;
+		titleRect_.width /= percent;
+
+		DescribeRect_.left /= percent;
+		DescribeRect_.width /= percent;
+
+		ButtonOKRect_.left /= percent;
+		ButtonOKRect_.width /= percent;
+
+		ButtonCanRect_.left /= percent;
+		ButtonCanRect_.width /= percent;
+
+		percent = 100.f;
+		if (size_.y > 0){
+			percent = size_.y;
+		}
+		pictureRect_.top /= percent;
+		pictureRect_.height /= percent;
+
+		titleRect_.top /= percent;
+		titleRect_.height /= percent;
+
+		DescribeRect_.top /= percent;
+		DescribeRect_.height /= percent;
+
+		ButtonOKRect_.top /= percent;
+		ButtonOKRect_.height /= percent;
+
+		ButtonCanRect_.top /= percent;
+		ButtonCanRect_.height /= percent;
+
+		setSize(size_.x, size_.y);
 		return true;
 	}
 
@@ -247,11 +346,11 @@ namespace tgui{
 		return picture_->load(obraz);
 	}
 
-	void KontrolkaObiektu::ustawNazwe(const sf::String& tekst){
+	void KontrolkaObiektu::ustawNazwe(const std::string& tekst){
 		nazwa_->setText(tekst);
 	}
 
-	void KontrolkaObiektu::ustawOpis(const sf::String& opis){
+	void KontrolkaObiektu::ustawOpis(const std::string& opis){
 		tresc_->setText(opis);
 	}
 

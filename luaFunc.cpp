@@ -3,6 +3,7 @@
 #include "Aplikacja.h"
 #include "LuaSkrypt.h"
 #include "ListaObiektowGui.h"
+#include "Parser\ParserDokumentXml.h"
 
 extern "C"{ 
 	__declspec(dllexport) int __cdecl barfunc(int foo)
@@ -100,6 +101,27 @@ extern "C"{
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, komunikat);
 	}
 
+	__declspec(dllexport) bool __cdecl wczytajDane(const char *plik)
+	{
+		SPar::ParserDokumentXml dokument;
+		if (dokument.odczytaj(plik)){
+			auto root = dokument.pobierzElement(WEZEL_XML_ROOT);
+			if (root){
+				SpEx::Aplikacja::pobierzInstancje().wyczyscDane();
+				if (SpEx::Aplikacja::pobierzInstancje().wczytajDane(root)){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	inline std::string trim(const std::string &s)
+	{
+		auto  wsfront = std::find_if_not(s.begin(), s.end(), [](int c){return std::isspace(c); });
+		return std::string(wsfront, std::find_if_not(s.rbegin(), std::string::const_reverse_iterator(wsfront), [](int c){return std::isspace(c); }).base());
+	}
+
 	__declspec(dllexport) void __cdecl wypelnijKontrolkeObiektu(int idPlanety, int typ, const char *nazwaKontrolki)
 	{
 		if (nazwaKontrolki){
@@ -115,10 +137,11 @@ extern "C"{
 						if (typ == 0 || element.second->typ_ == typ){
 							auto pozycja = obiekt->getElement(obiekt->addElement(element.second->pobierzNazwe()()));
 							pozycja->ustawNazwe(element.second->pobierzNazwe()());
-							pozycja->ustawOpis(element.second->pobierzOpis()());
+							pozycja->ustawOpis(trim(element.second->pobierzOpis()()));
 							pozycja->ustawObrazek(element.second->pobierzAdresObrazka()());
 						}
 					}
+					obiekt->refresh();
 				}
 			}
 			//}
