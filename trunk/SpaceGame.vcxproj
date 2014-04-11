@@ -570,6 +570,7 @@
     <ResourceCompile Include="SpaceGame.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="out\danetestowe.xml" />
     <Xml Include="out\data.xml">
       <SubType>Designer</SubType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

@@ -13,10 +13,13 @@ namespace tgui{
 		ListaObiektowGui();
 		ListaObiektowGui(const ListaObiektowGui&);
 		~ListaObiektowGui() = default;
+		
+		void refresh();
 
 		std::size_t addElement(const std::string& name);
 		KontrolkaObiektu::Ptr getElement( std::size_t );
-		void setSize(float width, float hight);
+		void setSize(float width, float hight) override;
+		void setPosition(float x, float y) override;
 		bool load(const std::string& configFileFilename);
 		virtual ListaObiektowGui* clone();
 		void clear();
@@ -27,12 +30,12 @@ namespace tgui{
 	private:
 		void mouseWheelMoved(int delta, int x, int y) override;
 		void scrollbarValueChanged(const tgui::Callback& callback);
-
+		void przeliczPozycjeKontrolek(int delta, bool uaktualnijRozmiar = false);
+		void uaktualnijSuwak( float hight );
 		virtual void initialize(Container *const container);
 
 		std::string m_LoadedConfigFile;
 
-		Panel::Ptr inside_;
 		Scrollbar::Ptr scroll_;
 		KontrolkaObiektu::Ptr template_;
 		std::vector<KontrolkaObiektu::Ptr> objects_;
@@ -41,6 +44,8 @@ namespace tgui{
 		Borders insideBorders_;
 		float scrollWidth_;
 		float interspace_;
-
+		int mnoznikRolki_ = 15;
+		bool pokazScrollBar_ = false;
+		bool kontrolkaAutoSize_ = true;
 	};
 };

@@ -14,8 +14,8 @@ namespace tgui{
 		virtual ~KontrolkaObiektu() = default;
 
 		bool ustawObrazek(const std::string& obraz);
-		void ustawNazwe(const sf::String& tekst);
-		void ustawOpis(const sf::String& opis);
+		void ustawNazwe(const std::string& tekst);
+		void ustawOpis(const std::string& opis);
 		void ustawShader(sf::Shader* shader = nullptr);
 
 		void blokowanieOk(bool zablokowane);
@@ -49,17 +49,15 @@ namespace tgui{
 		Button::Ptr ok_;
 		Button::Ptr can_;
 		sf::Shader* shader_ = nullptr;
+		
+		sf::Vector2f size_;
+		sf::Rect<float> pictureRect_;
+		sf::Rect<float> titleRect_;
+		sf::Rect<float> DescribeRect_;
+		sf::Rect<float> ButtonOKRect_;
+		sf::Rect<float> ButtonCanRect_;
 
-		float marginUp = 5.f;
-		float marginDown = 5.f;
-		float marginLeft = 5.f;
-		float marginRight = 5.f;
-		float distance = 7.f;
-		float marginButtonUp = 10.f;
-		float marginButtonDown = 10.f;
-		float marginButtonLeft = 11.f;
-		float marginButtonRight = 5.f;
-		float ratio = 3.7f;
-		float interspace_ = 5;
+		bool constSize_ = false;
+		bool propotional_ = true;
 	};
 };

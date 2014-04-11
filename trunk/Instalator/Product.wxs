@@ -64,6 +64,9 @@
       </Component>
       <Component Id='CONFIG_XML' Guid='71AFE2C6-5700-4DC5-BB15-2539017DF28B'>
         <File Id='CONFIG_XML_FILE' Source='..\out\options_test.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>      
+      <Component Id='DANE_TESTOWE_COMP' Guid='{32750E86-5BC2-45DA-8004-99B972CFFDF2}'>
+        <File Id='DANE_TESTOWE_FILE' Source='..\out\danetestowe.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
       </Component>
      <Component Id='DATA_XML' Guid='7C5B3D1A-409B-4158-9F33-46606E344BF2'>
         <File Id='DATA_XML_FILE' Source='..\out\test.xml' KeyPath='yes' Vital='yes'/>
@@ -240,6 +243,7 @@
       <ComponentRef Id='BRAK_OBRAZKA_PNG_COMP' />
       <ComponentRef Id='OKNO_LISTY_PNG_COMP' />
       <ComponentRef Id='TLO_PNG_FILE_COMP' />
+      <ComponentRef Id='DANE_TESTOWE_COMP' />    
     </Feature>
     
     <Feature Id="VCRedist" Title="Visual C++ 12.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">

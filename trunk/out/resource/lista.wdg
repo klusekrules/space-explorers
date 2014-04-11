@@ -36,9 +36,13 @@ Window:
 	ListaObiektowGui: "MojaKontrolka"
 	{
 		ConfigFile = widgets\Black.conf
+		MnozniKrolki = 15
+		ScrollbarPokaz = false
+		ScrollbarSzerokosc = 20
+		KontrolkaAutoSize = true
 		Left = 10
 		Top = 140
-		Width = 420
+		Width = 500
 		Height = 350
 		Visible = true
 		Enabled = true

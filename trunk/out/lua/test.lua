@@ -91,3 +91,11 @@ function ustawOknoListy()
 	end
 	ffi.C.wypelnijKontrolkeObiektu(3,0,"MojaKontrolka")
 end
+
+function wczytajDane ()	
+	if ffi.C.wczytajDane("danetestowe.xml") == true then
+		ffi.C.loguj("Za³adowano dane.")
+	else
+		ffi.C.loguj("Nie uda³o siê za³adowaæ danych.")
+	end
+end
