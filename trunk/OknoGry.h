@@ -19,7 +19,10 @@ namespace SpEx{
 		void uruchom();
 		EkranPtr pobierzEkran(const STyp::Identyfikator& ekranId);
 		StosEkranow& pobierzStosEkranow();
+
+		void przeladujEkran( const STyp::Identyfikator& id );
 		
+		void dodajZadanie(std::function < void() >&);
 		virtual ~OknoGry(void) = default;
 	private:
 		sf::RenderWindow oknoGlowne_;
@@ -30,7 +33,11 @@ namespace SpEx{
 		std::future<bool> inicjalizacjaWynik_;
 		mutable std::mutex mutexUruchom_;
 		mutable std::mutex mutexInicjalizacja_;
+
+		mutable std::recursive_mutex mutexListaEkranow_;
 		std::map< STyp::Identyfikator, EkranPtr > listaEkranow_;
+		mutable std::mutex listaZadanMux_;
+		std::list< std::function < void() > > listaZadan_;
 		StosEkranow stosEkranow_;
 
 		void wykonuj() override;

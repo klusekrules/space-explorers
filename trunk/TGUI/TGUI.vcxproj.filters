@@ -117,17 +117,11 @@
     <ClCompile Include="src\TGUI\Knob.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\KontrolkaObiektu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\TGUI\WidgetFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\TGUI\KontrolkaObiektu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\TGUI\AnimatedPicture.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

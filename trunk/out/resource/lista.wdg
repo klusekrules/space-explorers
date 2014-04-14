@@ -36,10 +36,9 @@ Window:
 	ListaObiektowGui: "MojaKontrolka"
 	{
 		ConfigFile = widgets\Black.conf
-		MnozniKrolki = 15
-		ScrollbarPokaz = false
+		MnoznikRolki = 15
+		ScrollbarPokaz = true
 		ScrollbarSzerokosc = 20
-		KontrolkaAutoSize = true
 		Left = 10
 		Top = 140
 		Width = 500
@@ -51,11 +50,27 @@ Window:
 		BackgroundColor = (220,220,220,0)
 	}
 	
+	Button: "przeladujOkno"
+	{
+		ConfigFile = "widgets\Black.conf"
+		Left = 630
+		Top = 110
+		Width = 150
+		Height = 30
+		Visible = true
+		Enabled = true
+		Transparency = 255
+		CallbackId = 0
+		Text = "Prze³aduj dane"
+		TextColor = (200,200,200,255)
+		TextSize = 15
+	}
+
 	Button: "zamknij"
 	{
 		ConfigFile = "widgets\Black.conf"
 		Left = 630
-		Top = 70
+		Top = 150
 		Width = 150
 		Height = 30
 		Visible = true

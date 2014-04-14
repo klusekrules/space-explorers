@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MaszynaStanow idStanuPoczatkowego="2" pulaWatkow="4">
   <Stan id="0x1" typSkryptu="lua" luaFile="lua\test.lua" luaIn="ustawOknoMenu" luaOut="wyjscieZeStanu">
-	<Zdarzenie id="0x5" typSkryptu="lua" luaFile="lua\test.lua" luaInside="wczytajDane" stanNastepny="0x1" numerNastepny="0x0"/>
+    <Zdarzenie id="0x6" typSkryptu="lua" luaFile="lua\test.lua" luaInside="przeladujOknoListeObiektow" stanNastepny="0x1" numerNastepny="0x0"/>
+    <Zdarzenie id="0x5" typSkryptu="lua" luaFile="lua\test.lua" luaInside="wczytajDane" stanNastepny="0x1" numerNastepny="0x0"/>
     <Zdarzenie id="0x4" stanNastepny="0x4" numerNastepny="0x0"/>
     <Zdarzenie id="0x3" typSkryptu="lua" luaFile="lua\test.lua" luaInside="zamknijAplikacje" stanNastepny="0x1" numerNastepny="0x0"/>
     <Zdarzenie id="0x2" stanNastepny="0x3" numerNastepny="0x0"/>
-	<Zdarzenie id="0x1" typSkryptu="lua" luaFile="lua\test.lua" luaInside="przejdzDoZamykania" stanNastepny="0x1" numerNastepny="0x0"/>
+    <Zdarzenie id="0x1" typSkryptu="lua" luaFile="lua\test.lua" luaInside="przejdzDoZamykania" stanNastepny="0x1" numerNastepny="0x0"/>
   </Stan>
   <Stan id="0x2" typSkryptu="lua" luaFile="lua\test.lua" luaIn="stanPoczatkowy" luaOut="wyjscieZeStanu">
     <Zdarzenie id="0x1" stanNastepny="0x1" numerNastepny="0x0"/>
   </Stan>
   <Stan id="0x3" typSkryptu="lua" luaFile="lua\test.lua" luaIn="wlaczTestowanie" luaOut="wyjscieZeStanu">
     <Zdarzenie id="0x1" stanNastepny="0x1" numerNastepny="0x0"/>
-	<Zdarzenie id="0x2" typSkryptu="lua" luaFile="lua\test.lua" luaInside="testy" stanNastepny="0x1" numerNastepny="0x0"/>
+    <Zdarzenie id="0x2" typSkryptu="lua" luaFile="lua\test.lua" luaInside="testy" stanNastepny="0x1" numerNastepny="0x0"/>
   </Stan>
   <Stan id="0x4" typSkryptu="lua" luaFile="lua\test.lua" luaIn="ustawOknoListy" luaOut="wyjscieZeStanu">
+    <Zdarzenie id="0x6" typSkryptu="lua" luaFile="lua\test.lua" luaInside="wczytajPonownieListeObiektow" stanNastepny="0x4" numerNastepny="0x0"/>
     <Zdarzenie id="0x1" stanNastepny="0x1" numerNastepny="0x0"/>
   </Stan>
 </MaszynaStanow>

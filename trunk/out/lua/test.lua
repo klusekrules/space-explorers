@@ -13,6 +13,7 @@ end
 
 function wyjscieZeStanu()
 	local stan = ffi.new('struct Stan_t');
+	ffi.C.zdejmijOkno()
 	if ffi.C.pobierzAktualnyStan(stan) == true then
 		ffi.C.loguj("Wyjscie ze stanu " .. tostring(stan.idStanu_))
 	else
@@ -89,7 +90,7 @@ function ustawOknoListy()
 	else
 		ffi.C.loguj("Nieustawianiono")
 	end
-	ffi.C.wypelnijKontrolkeObiektu(3,0,"MojaKontrolka")
+	ffi.C.wypelnijKontrolkeObiektu(3,1,"MojaKontrolka")
 end
 
 function wczytajDane ()	
@@ -98,4 +99,14 @@ function wczytajDane ()
 	else
 		ffi.C.loguj("Nie uda³o siê za³adowaæ danych.")
 	end
+end
+
+function przeladujOknoListeObiektow ()	
+	ffi.C.przeladujOkno(3)
+end
+
+function wczytajPonownieListeObiektow ()	
+	ffi.C.przeladujOkno(3)
+	wczytajDane()
+	ustawOknoListy()
 end

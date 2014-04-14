@@ -42,7 +42,23 @@ Window:
 		Enabled = true
 		Transparency = 255
 		CallbackId = 0
-		Text = "Wczytaj Dane"
+		Text = "Wczytaj dane"
+		TextColor = (200,200,200,255)
+		TextSize = 15
+	}
+
+	Button: "przeladujOkno"
+	{
+		ConfigFile = "widgets\Black.conf"
+		Left = 630
+		Top = 110
+		Width = 150
+		Height = 30
+		Visible = true
+		Enabled = true
+		Transparency = 255
+		CallbackId = 0
+		Text = "Prze³aduj listê obiektów"
 		TextColor = (200,200,200,255)
 		TextSize = 15
 	}
@@ -51,7 +67,7 @@ Window:
 	{
 		ConfigFile = "widgets\Black.conf"
 		Left = 630
-		Top = 110
+		Top = 150
 		Width = 150
 		Height = 30
 		Visible = true
@@ -67,7 +83,7 @@ Window:
 	{
 		ConfigFile = "widgets\Black.conf"
 		Left = 630
-		Top = 150
+		Top = 190
 		Width = 150
 		Height = 30
 		Visible = true

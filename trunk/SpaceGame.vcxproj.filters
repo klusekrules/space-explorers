@@ -274,6 +274,9 @@
     <ClCompile Include="ListaObiektowGui.cpp">
       <Filter>SourceFile\GUI\TGUI</Filter>
     </ClCompile>
+    <ClCompile Include="KontrolkaObiektu.cpp">
+      <Filter>SourceFile\GUI\TGUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -598,6 +601,9 @@
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
     <ClInclude Include="ListaObiektowGui.h">
+      <Filter>SourceFile\GUI\TGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="KontrolkaObiektu.h">
       <Filter>SourceFile\GUI\TGUI</Filter>
     </ClInclude>
   </ItemGroup>
