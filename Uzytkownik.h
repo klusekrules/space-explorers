@@ -40,6 +40,14 @@ namespace SpEx{
 		Planeta& pobierzPlanete(const STyp::Identyfikator& identyfikator) const;
 
 		/**
+		* \brief Metoda zwracaj¹ca planetê nale¿¹c¹ do u¿ytkownika.
+		*
+		* Metoda pobiera planete nale¿¹c¹ do u¿ytkownika. Nie usuwa jej z listy jego planet.
+		* \return Referencja do planety u¿ytkownika.
+		*/
+		Planeta& pobierzPlanete() const;
+
+		/**
 		* \brief Metoda pobieraj¹ca nazwê u¿ytkownika.
 		*
 		* Metoda pobiera nazwê u¿ytkownika.
@@ -100,9 +108,11 @@ namespace SpEx{
 		*/
 		std::string napis() const override;
 
+		bool ustawPlaneteAktywna(const STyp::Identyfikator& id);
 	private:
 		STyp::Tekst nazwaUzytkownika_; /// Nazwa u¿ytkownika. Cz³on nazwy pliku z danymi.
 		Planety planety_; /// Lista planet u¿ytkownika.
 		Gra& instancjaGry; /// Instancja gry do której nale¿y u¿ytkowni.
+		STyp::Identyfikator aktywnaPlaneta_;
 	};
 }

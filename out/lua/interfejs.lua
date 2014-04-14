@@ -35,8 +35,14 @@ void wstawZdarzenie( struct Zdarzenie_t& s );
 void testyJednostkowe();
 void zamknijAplikacje();
 void zlecZadanie( const char *plik , const char *funkcja );
+void zlecZadanieGraficzne(const char *plik, const char *funkcja);
 void wypelnijKontrolkeObiektu(int idPlanety, int typ, const char *nazwaKontrolki);
 bool wczytajDane(const char *plik);
+
+//Gracz
+bool zaloguj(const char *nazwa, const char *haslo);
+bool nowyGracz(const char *nazwa, const char *haslo);
+bool usunGracza(const char *nazwa, const char *haslo);
 ]]
 mymodule = ffi
 return mymodule

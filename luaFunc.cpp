@@ -123,25 +123,28 @@ extern "C"{
 
 	__declspec(dllexport) void __cdecl wypelnijKontrolkeObiektu(int idPlanety, int typ, const char *nazwaKontrolki)
 	{
-		if (nazwaKontrolki){
-			SpEx::Gra& gra = SpEx::Aplikacja::pobierzInstancje().pobierzGre();
-			//auto planeta = gra.pobierzPlanete(idPlanety);
-			//if (planeta){
-			auto ekran = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzEkran(idPlanety);
-			if(ekran!=nullptr){
-				auto obiekt = ekran->pobierzGUI().get<tgui::ListaObiektowGui>(nazwaKontrolki);
-				obiekt->clear();
-				if (obiekt != nullptr){
-					for (auto element : gra.pobierzObiektyInfo()){
-						if (typ == 0 || element.second->typ_ == typ){
-							auto pozycja = obiekt->getElement(obiekt->addElement(element.second->pobierzNazwe()()));
-							pozycja->ustawDane(*element.second);
+		try{
+			if (nazwaKontrolki){
+				SpEx::Gra& gra = SpEx::Aplikacja::pobierzInstancje().pobierzGre();
+				//auto planeta = gra.pobierzUzytkownika().pobierzPlanete();
+				auto ekran = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzEkran(idPlanety);
+				if (ekran){
+					auto obiekt = ekran->pobierzGUI().get<tgui::ListaObiektowGui>(nazwaKontrolki);
+					obiekt->clear();
+					if (obiekt != nullptr){
+						for (auto element : gra.pobierzObiektyInfo()){
+							if (typ == 0 || element.second->typ_ == typ){
+								auto pozycja = obiekt->getElement(obiekt->addElement(element.second->pobierzNazwe()()));
+								pozycja->ustawDane(*element.second/*, planeta*/);
+							}
 						}
+						obiekt->refresh();
 					}
-					obiekt->refresh();
 				}
 			}
-			//}
+		}
+		catch (std::exception& e){
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Error");
 		}
 	}
 
@@ -154,6 +157,49 @@ extern "C"{
 					STyp::Identyfikator(id))
 				)
 			);
+	}
+
+	__declspec(dllexport) bool __cdecl zaloguj(const char *nazwa, const char *haslo){
+		if (nazwa && haslo)
+			return SpEx::Aplikacja::pobierzInstancje().pobierzGre().logowanie(nazwa,haslo);
+		return false;
+	}
+
+	__declspec(dllexport) bool __cdecl nowyGracz(const char *nazwa, const char *haslo){
+		if (nazwa && haslo)
+			return SpEx::Aplikacja::pobierzInstancje().pobierzGre().nowyGracz(nazwa, haslo);
+		return false;
+	}
+
+	__declspec(dllexport) bool __cdecl usunGracza(const char *nazwa, const char *haslo){
+		if (nazwa && haslo)
+			return SpEx::Aplikacja::pobierzInstancje().pobierzGre().usunGracza(nazwa, haslo);
+		return false;
+	}
+
+	__declspec(dllexport) void __cdecl zlecZadanieGraficzne(const char *plik, const char *funkcja)
+	{
+		std::string luaPlik, luaFunkcja;
+
+		if (plik){
+			luaPlik.append(plik);
+		}
+
+		if (funkcja){
+			luaFunkcja.append(funkcja);
+		}
+
+		SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().dodajZadanie(std::function<void()>(
+			[luaPlik, luaFunkcja](){
+			std::shared_ptr<SpEx::Skrypt> luaSkrypt = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadce().TworzSkrypt(
+				SpEx::FabrykaSkryptow::Identyfikator(XML_ATRYBUT_TYP_SKRYPT_LUA), nullptr);
+			if (luaSkrypt){
+				luaSkrypt->zaladuj(luaPlik);
+				luaSkrypt->wykonaj();
+				luaSkrypt->wykonaj(luaFunkcja);
+			}
+		}
+		));
 	}
 }
 

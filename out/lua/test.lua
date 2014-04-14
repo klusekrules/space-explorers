@@ -105,8 +105,12 @@ function przeladujOknoListeObiektow ()
 	ffi.C.przeladujOkno(3)
 end
 
-function wczytajPonownieListeObiektow ()	
-	ffi.C.przeladujOkno(3)
+function wczytajPonownieListeObiektow ()
+    ffi.C.przeladujOkno(3)
+	ffi.C.zlecZadanieGraficzne("lua\\test.lua","wczytajPonownieListeObiektowImpl");
+end
+
+function wczytajPonownieListeObiektowImpl ()
 	wczytajDane()
 	ustawOknoListy()
 end

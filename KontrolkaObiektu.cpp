@@ -76,9 +76,11 @@ namespace tgui{
 	KontrolkaObiektu::KontrolkaObiektu(const KontrolkaObiektu& copy)
 		: Panel(copy), size_(copy.size_), pictureRect_(copy.pictureRect_), titleRect_(copy.titleRect_),
 		describeRect_(copy.describeRect_), buttonRozbudujRect_(copy.buttonRozbudujRect_), buttonZniszczRect_(copy.buttonZniszczRect_),
-		constSize_(copy.constSize_), propotional_(copy.propotional_), czasRozbudowyRect_(copy.czasRozbudowyRect_), 
+		constSize_(copy.constSize_), propotional_(copy.propotional_), czasRozbudowyRect_(copy.czasRozbudowyRect_), czasZburzeniaRect_(copy.czasZburzeniaRect_),
 		czasRozbudowyWyrownanieHoryzontalne_(copy.czasRozbudowyWyrownanieHoryzontalne_),
-		czasRozbudowyWyrownanieWertykalne_(copy.czasRozbudowyWyrownanieWertykalne_),
+		czasRozbudowyWyrownanieWertykalne_(copy.czasRozbudowyWyrownanieWertykalne_), 
+		czasZburzeniaWyrownanieHoryzontalne_(copy.czasZburzeniaWyrownanieHoryzontalne_),
+		czasZburzeniaWyrownanieWertykalne_(copy.czasZburzeniaWyrownanieWertykalne_),
 		titleWyrownanieHoryzontalne_(copy.titleWyrownanieHoryzontalne_),
 		titleWyrownanieWertykalne_(copy.titleWyrownanieWertykalne_),
 		describeWyrownanieHoryzontalne_(copy.describeWyrownanieHoryzontalne_),
@@ -90,6 +92,7 @@ namespace tgui{
 		rozbuduj_ = this->get<Button>("Rozbuduj");
 		zniszcz_ = this->get<Button>("Zburz");
 		czasRozbudowy_ = this->get<Label>("CzasRozbudowy");
+		czasZburzenia_ = this->get<Label>("CzasZburzenia");
 	}
 
 	void KontrolkaObiektu::initialize(Container *const container){
@@ -108,6 +111,10 @@ namespace tgui{
 		czasRozbudowy_ = Label::Ptr(*this, "CzasRozbudowy");
 		czasRozbudowy_->setTextSize(11);
 		czasRozbudowy_->setText("00:00:00");
+
+		czasZburzenia_ = Label::Ptr(*this, "CzasZburzenia");
+		czasZburzenia_->setTextSize(11);
+		czasZburzenia_->setText("00:00:00");
 		
 		rozbuduj_ = Button::Ptr(*this, "Rozbuduj");
 		rozbuduj_->setTextSize(10);
@@ -139,6 +146,11 @@ namespace tgui{
 		kolor = czasRozbudowy_->getTextColor();
 		kolor.a = transparency;
 		czasRozbudowy_->setTextColor(kolor);
+
+		czasZburzenia_->setTransparency(transparency);
+		kolor = czasZburzenia_->getTextColor();
+		kolor.a = transparency;
+		czasZburzenia_->setTextColor(kolor);
 
 		rozbuduj_->setTransparency(transparency);
 		kolor = rozbuduj_->getTextColor();
@@ -190,6 +202,10 @@ namespace tgui{
 		auto czasRozbudowyRect = pozycjonujLabel(czasRozbudowy_, czasRozbudowyRect_, absWidth, absHight, czasRozbudowyWyrownanieHoryzontalne_,czasRozbudowyWyrownanieWertykalne_);
 		czasRozbudowy_->setPosition(czasRozbudowyRect.left, czasRozbudowyRect.top);
 		czasRozbudowy_->setSize(czasRozbudowyRect.width, czasRozbudowyRect.height);
+
+		auto czasZburzeniaRect = pozycjonujLabel(czasZburzenia_, czasZburzeniaRect_, absWidth, absHight, czasZburzeniaWyrownanieHoryzontalne_, czasZburzeniaWyrownanieWertykalne_);
+		czasZburzenia_->setPosition(czasZburzeniaRect.left, czasZburzeniaRect.top);
+		czasZburzenia_->setSize(czasZburzeniaRect.width, czasZburzeniaRect.height);
 
 		rozbuduj_->setPosition(buttonRozbudujRect_.left * absWidth, buttonRozbudujRect_.top * absHight);
 		rozbuduj_->setSize(buttonRozbudujRect_.width * absWidth, buttonRozbudujRect_.height * absHight);
@@ -272,6 +288,10 @@ namespace tgui{
 			{
 				czasRozbudowy_->setTextSize(std::strtol(value.c_str(), nullptr, 10));
 			}
+			else if (property == "czaszburzeniatextsize")
+			{
+				czasZburzenia_->setTextSize(std::strtol(value.c_str(), nullptr, 10));
+			}
 			else if (property == "titletextcolor")
 			{
 				nazwa_->setTextColor(extractColor(value));
@@ -292,6 +312,10 @@ namespace tgui{
 			{
 				czasRozbudowy_->setTextColor(extractColor(value));
 			}
+			else if (property == "czaszburzeniatextcolor")
+			{
+				czasZburzenia_->setTextColor(extractColor(value));
+			}
 			else if (property == "titleconfig")
 			{
 				nazwa_->load(configFileFolder + value);
@@ -303,6 +327,10 @@ namespace tgui{
 			else if (property == "czasrozbudowyconfig")
 			{
 				czasRozbudowy_->load(configFileFolder + value);
+			}
+			else if (property == "czaszburzeniaconfig")
+			{
+				czasZburzenia_->load(configFileFolder + value);
 			}
 			else if (property == "buttonrozbudujconfig")
 			{
@@ -354,6 +382,34 @@ namespace tgui{
 				Borders temp;
 				extractBorders(value, temp);
 				convertFromBorderToRect(temp, czasRozbudowyRect_);
+			}
+			else if (property == "czaszburzeniarect")
+			{
+				Borders temp;
+				extractBorders(value, temp);
+				convertFromBorderToRect(temp, czasZburzeniaRect_);
+			}
+			else if (property == "czaszburzeniatexthaling")
+			{
+				if ((value == "left") || (value == "Left"))
+					czasZburzeniaWyrownanieHoryzontalne_ = LEFT;
+				else if ((value == "center") || (value == "Center"))
+					czasZburzeniaWyrownanieHoryzontalne_ = CENTER;
+				else if ((value == "right") || (value == "Right"))
+					czasZburzeniaWyrownanieHoryzontalne_ = RIGHT;
+				else
+					TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
+			}
+			else if (property == "czaszburzeniatextvaling")
+			{
+				if ((value == "top") || (value == "Top"))
+					czasZburzeniaWyrownanieWertykalne_ = TOP;
+				else if ((value == "middle") || (value == "Middle"))
+					czasZburzeniaWyrownanieWertykalne_ = MIDDLE;
+				else if ((value == "bottom") || (value == "Bottom"))
+					czasZburzeniaWyrownanieWertykalne_ = BOTTOM;
+				else
+					TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
 			}
 			else if (property == "czasrozbudowytexthaling")
 			{
@@ -457,6 +513,7 @@ namespace tgui{
 		normalizujRect(titleRect_, percentLW, percentTH);
 		normalizujRect(describeRect_, percentLW, percentTH);
 		normalizujRect(czasRozbudowyRect_, percentLW, percentTH);
+		normalizujRect(czasZburzeniaRect_, percentLW, percentTH);
 		normalizujRect(buttonRozbudujRect_, percentLW, percentTH);
 		normalizujRect(buttonZniszczRect_, percentLW, percentTH);
 
@@ -469,10 +526,11 @@ namespace tgui{
 	}
 
 
-	bool KontrolkaObiektu::ustawDane(const SpEx::ObiektInfo& obj){
+	bool KontrolkaObiektu::ustawDane(const SpEx::ObiektInfo& obj/*,const SpEx::Planeta& planeta*/){
 		nazwa_->setText(obj.pobierzNazwe()());
 		tresc_->setText(SpEx::Utils::trim(obj.pobierzOpis()()));
 		picture_->load(obj.pobierzAdresObrazka()());
+		
 		return true;
 	}
 

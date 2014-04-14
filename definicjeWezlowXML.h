@@ -48,6 +48,7 @@
 #define WEZEL_XML_AKCJA "Akcja"
 #define WEZEL_XML_KONTROLKA "Kontrolka"
 
+#define ATRYBUT_XML_PLANETA_AKTYWNA "planetaAktywna"
 #define ATRYBUT_XML_IDENTYFIKATOR "id"
 #define ATRYBUT_XML_IDENTYFIKATOR_RODZICA "idRodzica"
 #define ATRYBUT_XML_IDENTYFIKATOR_PLANETA_POCZATKOWA "idPlanetaPoczatkowa"
