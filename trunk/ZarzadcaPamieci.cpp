@@ -213,6 +213,7 @@ namespace SpEx{
 				XmlBO::ElementWezla uzytkownik = dokument->tworzElement(WEZEL_XML_UZYTKOWNIK);
 				uzytkownik->tworzAtrybut(ATRYBUT_XML_HASH, hash.c_str());
 				uzytkownik->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa.c_str());
+				uzytkownik->tworzAtrybut(ATRYBUT_XML_PLANETA_AKTYWNA, STyp::Identyfikator(0).napis().c_str());
 				dokument->zapisz(plik.c_str());
 			}
 		}
@@ -222,6 +223,7 @@ namespace SpEx{
 			XmlBO::ElementWezla uzytkownik = dokument->tworzElement(WEZEL_XML_UZYTKOWNIK);
 			uzytkownik->tworzAtrybut(ATRYBUT_XML_HASH, hash.c_str());
 			uzytkownik->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa.c_str());
+			uzytkownik->tworzAtrybut(ATRYBUT_XML_PLANETA_AKTYWNA, STyp::Identyfikator(0).napis().c_str());
 			dokument->zapisz(plik.c_str());
 		}
 		nazwaPliku = plik;

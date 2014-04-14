@@ -18,7 +18,7 @@ namespace tgui{
 		KontrolkaObiektu();
 		KontrolkaObiektu(const KontrolkaObiektu&);
 		virtual ~KontrolkaObiektu() = default;
-		bool ustawDane(const SpEx::ObiektInfo& obj);
+		bool ustawDane(const SpEx::ObiektInfo& obj/*, const SpEx::Planeta& planeta*/);
 		void ustawShader(sf::Shader* shader = nullptr);
 
 		void setTransparency(unsigned char transparency);
@@ -61,6 +61,7 @@ namespace tgui{
 		Button::Ptr rozbuduj_;
 		Button::Ptr zniszcz_;
 		Label::Ptr czasRozbudowy_;
+		Label::Ptr czasZburzenia_;
 		sf::Shader* shader_ = nullptr;
 		
 		sf::Vector2f size_;
@@ -70,9 +71,13 @@ namespace tgui{
 		sf::Rect<float> buttonRozbudujRect_;
 		sf::Rect<float> buttonZniszczRect_;
 		sf::Rect<float> czasRozbudowyRect_;
+		sf::Rect<float> czasZburzeniaRect_;
 
 		WYROWNANIE_WERTYKALNE czasRozbudowyWyrownanieWertykalne_ = MIDDLE;
 		WYROWNANIE_HORYZONTALNE czasRozbudowyWyrownanieHoryzontalne_ = LEFT;
+
+		WYROWNANIE_WERTYKALNE czasZburzeniaWyrownanieWertykalne_ = MIDDLE;
+		WYROWNANIE_HORYZONTALNE czasZburzeniaWyrownanieHoryzontalne_ = LEFT;
 
 		WYROWNANIE_WERTYKALNE titleWyrownanieWertykalne_ = MIDDLE;
 		WYROWNANIE_HORYZONTALNE titleWyrownanieHoryzontalne_ = LEFT;

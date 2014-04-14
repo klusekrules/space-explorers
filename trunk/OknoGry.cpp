@@ -58,6 +58,19 @@ namespace SpEx{
 		std::lock_guard<std::mutex>lock(listaZadanMux_);
 		listaZadan_.push_back(zadanie);
 	}
+	
+	void OknoGry::pause(){
+		mutexPauza_.lock();
+		boolPauza_ = true;
+	}
+
+	bool OknoGry::isPause() const{
+		return boolPauza_;
+	}
+
+	void OknoGry::unpause(){
+		mutexPauza_.unlock();
+	}
 
 	void OknoGry::wykonuj(){
 		try{
@@ -95,13 +108,24 @@ namespace SpEx{
 
 			odmaluj();
 
-			if(!listaZadan_.empty()){
-				std::lock_guard<std::mutex>lock(listaZadanMux_);
-				for (auto zadanie : listaZadan_){
-					zadanie();
+			do{
+				if (!listaZadan_.empty()){
+					std::lock_guard<std::mutex>lock(listaZadanMux_);
+					for (auto zadanie : listaZadan_){
+						zadanie();
+					}
+					listaZadan_.clear();
 				}
-				listaZadan_.clear();
-			}
+				if (boolPauza_){
+					if (mutexPauza_.try_lock()){
+						boolPauza_ = false;
+						mutexPauza_.unlock();
+					}else{
+						std::this_thread::yield();
+					}
+				}
+			} while (boolPauza_);
+
 #ifdef _FPS_COUNT	
 			if (fpsCounter.ready())
 			{
@@ -131,11 +155,7 @@ namespace SpEx{
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nieuda³o siê wczytaæ ekranów.");
 			return false;
 		}
-		/*
-		if(!testShadera_.loadFromFile("resource\\simple.frag",sf::Shader::Type::Fragment))
-		Log::pobierzInstancje().loguj(Log::Error,"Nie uda³o siê wczytaæ shadera");
 
-		testShadera_.setParameter("texture", sf::Shader::CurrentTexture);*/
 		inicjalizacja_.set_value(true);
 		przetwarzanie_ = true;
 		return true;
@@ -235,9 +255,6 @@ namespace SpEx{
 		static float balans = 0.0f;
 		sf::RenderStates states;
 		oknoGlowne_.clear(sf::Color(255, 255, 255, 0));
-
-		/*testShadera_.setParameter("time",balans+=0.001f);
-		states.shader = &testShadera_;*/
 
 		for (auto ekran : stosEkranow_)
 			oknoGlowne_.draw(*ekran);

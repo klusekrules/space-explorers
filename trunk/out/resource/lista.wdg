@@ -37,7 +37,7 @@ Window:
 	{
 		ConfigFile = widgets\Black.conf
 		MnoznikRolki = 15
-		ScrollbarPokaz = true
+		ScrollbarPokaz = false
 		ScrollbarSzerokosc = 20
 		Left = 10
 		Top = 140

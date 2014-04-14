@@ -23,6 +23,11 @@ namespace SpEx{
 		void przeladujEkran( const STyp::Identyfikator& id );
 		
 		void dodajZadanie(std::function < void() >&);
+
+		void pause();
+		bool isPause() const;
+		void unpause();
+
 		virtual ~OknoGry(void) = default;
 	private:
 		sf::RenderWindow oknoGlowne_;
@@ -33,6 +38,9 @@ namespace SpEx{
 		std::future<bool> inicjalizacjaWynik_;
 		mutable std::mutex mutexUruchom_;
 		mutable std::mutex mutexInicjalizacja_;
+
+		std::atomic_bool boolPauza_;
+		std::mutex mutexPauza_;
 
 		mutable std::recursive_mutex mutexListaEkranow_;
 		std::map< STyp::Identyfikator, EkranPtr > listaEkranow_;
