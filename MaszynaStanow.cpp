@@ -25,14 +25,23 @@ namespace SpEx{
 	}
 
 	bool MaszynaStanow::kolejkujOkno(int id){
+		std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
 		auto ptr = watekGraficzny_.pobierzEkran(STyp::Identyfikator(id));
 		if (ptr != nullptr){
-			std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
 			stosEkranow_.push_back(ptr);
 			return true;
 		}
 		return false;
 	}
+
+	bool MaszynaStanow::zdejmijOkno(){
+		std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
+		if (stosEkranow_.empty())
+			return false;
+		stosEkranow_.pop_back();
+		return true;
+	}
+		
 	void MaszynaStanow::wyczyscKolejkeOkien(){
 		std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
 		stosEkranow_.clear();

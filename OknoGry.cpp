@@ -39,6 +39,7 @@ namespace SpEx{
 	}
 
 	OknoGry::EkranPtr OknoGry::pobierzEkran(const STyp::Identyfikator& ekranId){
+		std::lock_guard<std::recursive_mutex> lock(mutexListaEkranow_);
 		auto iter = listaEkranow_.find(ekranId);
 		if (iter != listaEkranow_.end()){
 			return iter->second;
@@ -51,6 +52,11 @@ namespace SpEx{
 		auto ret = punkt - punktCzasu;
 		punktCzasu = punkt;
 		return ret;
+	}
+
+	void OknoGry::dodajZadanie(std::function < void() >& zadanie){
+		std::lock_guard<std::mutex>lock(listaZadanMux_);
+		listaZadan_.push_back(zadanie);
 	}
 
 	void OknoGry::wykonuj(){
@@ -88,6 +94,14 @@ namespace SpEx{
 			accumulator = stan.dt_;
 
 			odmaluj();
+
+			if(!listaZadan_.empty()){
+				std::lock_guard<std::mutex>lock(listaZadanMux_);
+				for (auto zadanie : listaZadan_){
+					zadanie();
+				}
+				listaZadan_.clear();
+			}
 #ifdef _FPS_COUNT	
 			if (fpsCounter.ready())
 			{
@@ -149,6 +163,7 @@ namespace SpEx{
 	}
 
 	bool OknoGry::wczytajEkrany(){
+		std::lock_guard<std::recursive_mutex> lock(mutexListaEkranow_);
 		auto wezel = Aplikacja::pobierzInstancje().pobierzZarzadce().pobierzWezelKonfiguracyjnyOknaGry();
 		if (wezel){
 			XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_EKRAN_STARTOWY, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
@@ -166,8 +181,21 @@ namespace SpEx{
 		}
 		return !listaEkranow_.empty();
 	}
-
-
+	
+	void OknoGry::przeladujEkran(const STyp::Identyfikator& id){
+		std::lock_guard<std::recursive_mutex> lock(mutexListaEkranow_);
+		auto iter = listaEkranow_.find(id);
+		if (iter!= listaEkranow_.end()){
+			auto wezel = Aplikacja::pobierzInstancje().pobierzZarzadce().pobierzWezelKonfiguracyjnyOknaGry();
+			auto okno = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_EKRAN, ATRYBUT_XML_IDENTYFIKATOR, id.napis());
+			if (okno){
+				auto ptr = std::make_shared<EkranSzablon>(okno);
+				ptr->podlacz(oknoGlowne_);
+				iter->second = ptr;
+			}
+		}
+	}
+	
 	void OknoGry::obslugaZdarzen(Stan& stan){
 		sf::Event zdarzenie;
 		while (oknoGlowne_.pollEvent(zdarzenie))

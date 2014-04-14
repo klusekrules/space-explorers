@@ -333,6 +333,7 @@
     <ClInclude Include="HangarInfo.h" />
     <ClInclude Include="HangarTest.h" />
     <ClInclude Include="keccak.h" />
+    <ClInclude Include="KontrolkaObiektu.h" />
     <ClInclude Include="Kryterium.h" />
     <ClInclude Include="ListaObiektowGui.h" />
     <ClInclude Include="LuaSkrypt.h" />
@@ -453,6 +454,7 @@
     <ClCompile Include="JednostkaLatajaca.cpp" />
     <ClCompile Include="JednostkaLatajacaInfo.cpp" />
     <ClCompile Include="keccak.cpp" />
+    <ClCompile Include="KontrolkaObiektu.cpp" />
     <ClCompile Include="Kryterium.cpp" />
     <ClCompile Include="Ladownia.cpp" />
     <ClCompile Include="LadowniaInfo.cpp" />

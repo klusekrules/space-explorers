@@ -263,7 +263,6 @@
     <ClCompile Include="src\TGUI\Grid.cpp" />
     <ClCompile Include="src\TGUI\Gui.cpp" />
     <ClCompile Include="src\TGUI\Knob.cpp" />
-    <ClCompile Include="src\TGUI\KontrolkaObiektu.cpp" />
     <ClCompile Include="src\TGUI\Label.cpp" />
     <ClCompile Include="src\TGUI\ListBox.cpp" />
     <ClCompile Include="src\TGUI\LoadingBar.cpp" />
@@ -315,7 +314,6 @@
     <ClInclude Include="include\TGUI\Grid.hpp" />
     <ClInclude Include="include\TGUI\Gui.hpp" />
     <ClInclude Include="include\TGUI\Knob.hpp" />
-    <ClInclude Include="include\TGUI\KontrolkaObiektu.h" />
     <ClInclude Include="include\TGUI\Label.hpp" />
     <ClInclude Include="include\TGUI\ListBox.hpp" />
     <ClInclude Include="include\TGUI\LoadingBar.hpp" />

@@ -53,6 +53,11 @@ namespace SpEx{
 			return true;
 		}
 
+		static inline std::string trim(const std::string &s){
+			auto  wsfront = std::find_if_not(s.begin(), s.end(), [](int c){return ::isspace(c); });
+			return std::string(wsfront, std::find_if_not(s.rbegin(), std::string::const_reverse_iterator(wsfront), [](int c){return ::isspace(c); }).base());
+		}
+
 		static void ascii2hex(std::string& str, unsigned char c);
 		static void sha3(std::string& str);
 	};

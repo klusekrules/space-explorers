@@ -1,6 +1,7 @@
 #pragma once
 #include <TGUI\TGUI.hpp>
 #include <memory>
+#include "KontrolkaObiektu.h"
 
 namespace tgui{
 	class ListaObiektowGui :

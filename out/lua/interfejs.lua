@@ -25,6 +25,8 @@ bool pobierzNastepnyStan( struct Stan_t& s );
 
 //Sterowanie stanami
 bool ustawOkno(int id);
+void przeladujOkno(int id);
+bool zdejmijOkno();
 void wyczyscListeOkien();
 void kolejkujZdarzenie( struct Zdarzenie_t& s );
 void wstawZdarzenie( struct Zdarzenie_t& s );

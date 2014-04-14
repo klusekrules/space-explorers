@@ -58,6 +58,8 @@ namespace SpEx{
 
 		bool kolejkujOkno(int id);
 
+		bool zdejmijOkno();
+		
 		void wyczyscKolejkeOkien();
 
 		void inicjujZamykanie();

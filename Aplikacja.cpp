@@ -42,6 +42,7 @@ namespace SpEx{
 		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), fabrykaZmian_(), instancjaGry_(nullptr)
 	{
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listaobiektowgui", tgui::ListaObiektowGui::createWidget);
+		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("kontrolkaobiektu", tgui::KontrolkaObiektu::createWidget);
 		/* ------- Wstêpna konfiguracja logów ------- */
 #ifdef TESTS
 		/* Wylaczenie logow typu debug na potrzeby ograniczenia logow testow*/

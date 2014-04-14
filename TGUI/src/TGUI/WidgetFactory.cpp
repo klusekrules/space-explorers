@@ -40,7 +40,6 @@ namespace tgui{
 		callbacks_.insert(std::make_pair("childwindow", ChildWindow::createWidget));
 		callbacks_.insert(std::make_pair("spritesheet", SpriteSheet::createWidget));
 		callbacks_.insert(std::make_pair("animatedpicture", AnimatedPicture::createWidget));
-		callbacks_.insert(std::make_pair("kontrolkaobiektu", KontrolkaObiektu::createWidget));
 	}
 
 }

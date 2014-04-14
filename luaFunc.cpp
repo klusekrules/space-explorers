@@ -16,6 +16,11 @@ extern "C"{
 		return SpEx::MaszynaStanow::pobierzInstancje().kolejkujOkno(id);
 	}
 
+	__declspec(dllexport) bool __cdecl zdejmijOkno()
+	{
+		return SpEx::MaszynaStanow::pobierzInstancje().zdejmijOkno();
+	}
+
 	__declspec(dllexport) bool __cdecl pobierzZdarzenie( struct Zdarzenie_t& z )
 	{
 		return SpEx::MaszynaStanow::pobierzInstancje().luaStan_.pobierzZdarzenie(z);
@@ -115,12 +120,6 @@ extern "C"{
 		}
 		return false;
 	}
-	
-	inline std::string trim(const std::string &s)
-	{
-		auto  wsfront = std::find_if_not(s.begin(), s.end(), [](int c){return std::isspace(c); });
-		return std::string(wsfront, std::find_if_not(s.rbegin(), std::string::const_reverse_iterator(wsfront), [](int c){return std::isspace(c); }).base());
-	}
 
 	__declspec(dllexport) void __cdecl wypelnijKontrolkeObiektu(int idPlanety, int typ, const char *nazwaKontrolki)
 	{
@@ -136,9 +135,7 @@ extern "C"{
 					for (auto element : gra.pobierzObiektyInfo()){
 						if (typ == 0 || element.second->typ_ == typ){
 							auto pozycja = obiekt->getElement(obiekt->addElement(element.second->pobierzNazwe()()));
-							pozycja->ustawNazwe(element.second->pobierzNazwe()());
-							pozycja->ustawOpis(trim(element.second->pobierzOpis()()));
-							pozycja->ustawObrazek(element.second->pobierzAdresObrazka()());
+							pozycja->ustawDane(*element.second);
 						}
 					}
 					obiekt->refresh();
@@ -146,6 +143,17 @@ extern "C"{
 			}
 			//}
 		}
+	}
+
+	__declspec(dllexport) void __cdecl przeladujOkno(int id){
+		SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().dodajZadanie(
+			std::function<void()>(
+				std::bind(
+					&SpEx::OknoGry::przeladujEkran, 
+					&SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry(), 
+					STyp::Identyfikator(id))
+				)
+			);
 	}
 }
 
