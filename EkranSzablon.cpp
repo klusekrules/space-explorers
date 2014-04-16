@@ -78,7 +78,10 @@ namespace SpEx{
 				std::string nazwa = XmlBO::WczytajAtrybut(element, ATRYBUT_XML_NAZWA, std::string());
 				std::string wartosc = XmlBO::WczytajAtrybut(element, ATRYBUT_XML_WARTOSC, std::string());
 				if (!(nazwa.empty() || wartosc.empty())){
-					kontrolka->setProperty(nazwa, wartosc);
+					if (!kontrolka->setProperty(nazwa, wartosc)){
+						throw STyp::Wyjatek(EXCEPTION_PLACE,Aplikacja::pobierzInstancje().pobierzSladStosu(),-1,STyp::Tekst("B³¹d ustawienia w³aœciwoœci."),
+							STyp::Tekst("Ekran id:" + id_.napis() + ". Nie uda³o siê ustawiæ w³aœciwoœci: "+ nazwa +" = " + wartosc +"."));
+					}
 				}
 				return true;
 			}));

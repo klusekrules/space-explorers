@@ -74,6 +74,61 @@ namespace tgui
     {
     }
 
+	bool Grid::setProperty(std::string property, const std::string& value){
+		if (property == "addWidget"){
+			std::string linia = value;
+			auto pos = linia.find_first_of(',');
+			auto kontrolka = linia.substr(0,pos);
+			auto widget = get<Widget>(kontrolka);
+			if (widget == nullptr)
+				return false;
+			linia.erase(0,pos + 1);
+
+			pos = linia.find_first_of(')');
+			auto pozycja = linia.substr(0, pos+1);
+			sf::Vector2u poz;
+			if (!extractVector2u(pozycja, poz))
+				return false;
+			linia.erase(0, pos + 2);
+
+			pos = linia.find_first_of(')');
+			auto borders = linia.substr(0, pos+1);
+			Borders bBorders;
+			if(!extractBorders(borders, bBorders))
+				return false;
+			linia.erase(0, pos + 2);
+
+			int layount = std::strtol(linia.c_str(),nullptr,10);
+			Layout::Layouts uklad;
+			switch (layount)
+			{
+			case tgui::Grid::Layout::UpperLeft: uklad = Layout::UpperLeft;
+				break;
+			case tgui::Grid::Layout::Up: uklad = Layout::Up;
+				break;
+			case tgui::Grid::Layout::UpperRight: uklad = Layout::UpperRight;
+				break;
+			case tgui::Grid::Layout::Right: uklad = Layout::Right;
+				break;
+			case tgui::Grid::Layout::BottomRight: uklad = Layout::BottomRight;
+				break;
+			case tgui::Grid::Layout::Bottom: uklad = Layout::Bottom;
+				break;
+			case tgui::Grid::Layout::BottomLeft: uklad = Layout::BottomLeft;
+				break;
+			case tgui::Grid::Layout::Left: uklad = Layout::Left;
+				break;
+			case tgui::Grid::Layout::Center: uklad = Layout::Center;
+				break;
+			default: uklad = Layout::Center;
+				break;
+			}
+
+			addWidget(widget, poz.y, poz.x, bBorders, uklad);
+			return true;
+		}else
+			return Container::setProperty(property,value);
+	}
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     Grid& Grid::operator= (const Grid& right)

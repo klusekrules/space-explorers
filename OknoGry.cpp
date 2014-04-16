@@ -58,7 +58,7 @@ namespace SpEx{
 		std::lock_guard<std::mutex>lock(listaZadanMux_);
 		listaZadan_.push_back(zadanie);
 	}
-	
+
 	void OknoGry::pause(){
 		mutexPauza_.lock();
 		boolPauza_ = true;
@@ -74,66 +74,81 @@ namespace SpEx{
 
 	void OknoGry::wykonuj(){
 		try{
-			if (!inicjalizacja()){
-				inicjalizacja_.set_value(false);
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d inicjalizacji.");
-				return;
+			try{
+				if (!inicjalizacja()){
+					inicjalizacja_.set_value(false);
+					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d inicjalizacji.");
+					return;
+				}
 			}
-		}
-		catch (...){
-			inicjalizacja_.set_value(false);
-			throw;
-		}
-		std::lock_guard<std::mutex> blokada(mutexUruchom_);
+			catch (...){
+				inicjalizacja_.set_value(false);
+				throw;
+			}
+			std::lock_guard<std::mutex> blokada(mutexUruchom_);
 
-		Stan::KrokCzasu accumulator;
-		oknoGlowne_.setVisible(true);
+			Stan::KrokCzasu accumulator;
+			oknoGlowne_.setVisible(true);
 #ifdef _FPS_COUNT
-		FPSCounter fpsCounter;
+			FPSCounter fpsCounter;
 #endif
-		while (przetwarzanie_)
-		{
+			while (przetwarzanie_)
+			{
 #ifdef _FPS_COUNT
-			fpsCounter.nextFrame();
+				fpsCounter.nextFrame();
 #endif
-			Stan stan = MaszynaStanow::pobierzInstancje().pobierzStan(stosEkranow_);
-			accumulator += obliczZmianeCzasu(std::chrono::high_resolution_clock::now());
+				Stan stan = MaszynaStanow::pobierzInstancje().pobierzStan(stosEkranow_);
+				accumulator += obliczZmianeCzasu(std::chrono::high_resolution_clock::now());
 
-			stan.dt_ = accumulator;
+				stan.dt_ = accumulator;
 
-			obslugaZdarzen(stan);
-			uaktualnianie(stan);
+				obslugaZdarzen(stan);
+				uaktualnianie(stan);
 
-			accumulator = stan.dt_;
+				accumulator = stan.dt_;
 
-			odmaluj();
+				odmaluj();
 
-			do{
-				if (!listaZadan_.empty()){
-					std::lock_guard<std::mutex>lock(listaZadanMux_);
-					for (auto zadanie : listaZadan_){
-						zadanie.wykonaj();
+				do{
+					if (!listaZadan_.empty()){
+						std::lock_guard<std::mutex>lock(listaZadanMux_);
+						for (auto zadanie : listaZadan_){
+							zadanie.wykonaj();
+						}
+						listaZadan_.clear();
 					}
-					listaZadan_.clear();
-				}
-				if (boolPauza_){
-					if (mutexPauza_.try_lock()){
-						boolPauza_ = false;
-						mutexPauza_.unlock();
-					}else{
-						std::this_thread::yield();
+					if (boolPauza_){
+						if (mutexPauza_.try_lock()){
+							boolPauza_ = false;
+							mutexPauza_.unlock();
+						}
+						else{
+							std::this_thread::yield();
+						}
 					}
-				}
-			} while (boolPauza_);
+				} while (boolPauza_);
 
 #ifdef _FPS_COUNT	
-			if (fpsCounter.ready())
-			{
-				Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Error, std::string("OknoGry: ") + std::to_string(fpsCounter.FPS()));
-			}
+				if (fpsCounter.ready())
+				{
+					Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Error, std::string("OknoGry: ") + std::to_string(fpsCounter.FPS()));
+				}
 #endif
+			}
+			oknoGlowne_.close();
 		}
-		oknoGlowne_.close();
+		catch (STyp::Wyjatek& e){
+			ustawBlad(e);
+			MaszynaStanow::pobierzInstancje().inicjujZamykanie();
+		}
+		catch (std::exception& e){
+			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), -1, STyp::Tekst("Przechwycono wyj¹tek!"), STyp::Tekst(e.what())));
+			MaszynaStanow::pobierzInstancje().inicjujZamykanie();
+		}
+		catch (...){
+			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), -1, STyp::Tekst("Przechwycono wyj¹tek!"), STyp::Tekst("Nieznany typ wyj¹tku!")));
+			MaszynaStanow::pobierzInstancje().inicjujZamykanie();
+		}
 	}
 
 	bool OknoGry::inicjalizacja(){

@@ -117,6 +117,9 @@ namespace SpEx{
 		}
 		
 		watekGraficzny_.czekajNaZakonczenie();
+		if (watekGraficzny_.blad()){
+			throw watekGraficzny_.bladInfo();
+		}
 	}
 
 	void MaszynaStanow::przejdzDoNastepnegoStanu(){

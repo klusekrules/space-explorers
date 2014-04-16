@@ -98,20 +98,32 @@ Window:
 		TextSize = 25
 	}
 	
-	Label: "info"
-	{
-		ConfigFile = "widgets\Black.conf"
-		Left = 300
+	Grid: "grid"
+	{	
+		Left = 0
 		Top = 320
-		Visible = false
+		Width = 800
+		Height = 80
+		Visible = true
 		Enabled = true
 		Transparency = 255
 		CallbackId = 0
-		Text = "Utworzono konto!"
-		TextColor = (0,255,0)
-		BackgroundColor = (0,0,0,0)
-		AutoSize = true
-		TextSize = 25
+		
+		Label: "info"
+		{
+			ConfigFile = "widgets\Black.conf"
+			Left = 0
+			Top = 0
+			Visible = true
+			Enabled = true
+			Transparency = 255
+			CallbackId = 0
+			Text = "Utworzono konto!"
+			TextColor = (0,255,0)
+			BackgroundColor = (0,0,0,0)
+			AutoSize = true
+			TextSize = 25
+		}
 	}
 	
 	Button: "zamknij"

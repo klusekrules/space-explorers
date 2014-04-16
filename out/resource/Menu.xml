@@ -29,6 +29,9 @@
     </Kontrolka>
   </Ekran>
   <Ekran id="4" czcionka="resource\arial.ttf" konfiguracja="resource\logowanie.wdg">
+	<Kontrolka nazwa="grid">
+      <Atrybut nazwa="addWidget" wartosc="info,(0,0),(0,0,0,0),1"/>
+    </Kontrolka>
 	<Kontrolka nazwa="zamknij">
       <Akcja id="64" idZdarzenia="1"/>
     </Kontrolka>
