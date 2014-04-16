@@ -12,10 +12,25 @@ namespace SpEx{
 	}
 
 	bool Gra::przeniesPlaneteDoUzytkownika(const STyp::Identyfikator& identyfikator){
-		auto planeta = zarzadca_.pobierzPlanete(identyfikator);
+		auto planeta = zarzadca_.pobierzIZarezerwujPlanete(identyfikator);
 		if (!planeta)
 			return false;
-		return uzytkownik_->dodajPlanete(planeta);
+		if (!uzytkownik_->dodajPlanete(planeta)){
+			zarzadca_.anulujRezerwacjePlanety(identyfikator);
+			return false;
+		}
+		return true;
+	}
+
+	bool Gra::przeniesPlaneteDoUzytkownika(){
+		auto planeta = zarzadca_.pobierzIZarezerwujPlanete();
+		if (!planeta)
+			return false;
+		if (!uzytkownik_->dodajPlanete(planeta)){
+			zarzadca_.anulujRezerwacjePlanety(planeta->pobierzIdentyfikator());
+			return false;
+		}
+		return true;
 	}
 
 	int Gra::pobierzIloscGalaktyk() const{

@@ -47,8 +47,8 @@ namespace SpEx{
 
 #else
 
-	const int GeneratorUkladow::ILOSC_UKLADOW_MIN = 1000;
-	const int GeneratorUkladow::ILOSC_UKLADOW_MAX = 10000;
+	const int GeneratorUkladow::ILOSC_UKLADOW_MIN = 100;
+	const int GeneratorUkladow::ILOSC_UKLADOW_MAX = 1000;
 
 #endif // DEBUG
 

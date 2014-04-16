@@ -154,7 +154,7 @@ namespace tgui
         // Change the size of the label if necessary
         if (m_AutoSize)
         {
-            m_Size = sf::Vector2f(m_Text.getLocalBounds().width, m_Text.getLocalBounds().height);
+			m_Size = sf::Vector2f(m_Text.getLocalBounds().width + m_Text.getLocalBounds().left, m_Text.getLocalBounds().height + m_Text.getLocalBounds().top);
             m_Background.setSize(m_Size);
         }
     }

@@ -17,6 +17,7 @@ void LogowanieTest::zaloguj(){
 	UNIT_TEST_ASSERT_NOTNULL(dokument);
 	auto root = dokument->pobierzElement(WEZEL_XML_ROOT);
 	UNIT_TEST_ASSERT_NOTNULL(root);
-	UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().wczytajGre(root,"Daniel", haslo));
+	UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().wczytajGre(root, "Daniel", haslo));
+	UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().pobierzGre().logowanie("Daniel", haslo));
 	//UNIT_TEST_ASSERT_TRUE(Aplikacja::pobierzInstancje().pobierzGre().usunGracza("Daniel",haslo));
 }

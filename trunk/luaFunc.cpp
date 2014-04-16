@@ -121,6 +121,19 @@ extern "C"{
 		return false;
 	}
 
+	__declspec(dllexport) bool __cdecl zaladujGre(const char *plik){
+		if (plik){
+			SPar::ParserDokumentXml dokument;
+			if (dokument.odczytaj(plik)){
+				auto root = dokument.pobierzElement(WEZEL_XML_ROOT);
+				if (root){
+					return SpEx::Aplikacja::pobierzInstancje().wczytajGre(root, std::string(), std::string());
+				}
+			}
+		}
+		return true;
+	}
+
 	__declspec(dllexport) void __cdecl wypelnijKontrolkeObiektu(int idPlanety, int typ, const char *nazwaKontrolki)
 	{
 		try{
@@ -159,21 +172,16 @@ extern "C"{
 			);
 	}
 
-	__declspec(dllexport) bool __cdecl zaloguj(const char *plik, const char *kontrolkaNazwy, const char *kontrolkaHasla){
-		if (kontrolkaNazwy && kontrolkaHasla && plik){
-			SPar::ParserDokumentXml dokument;
-			if (dokument.odczytaj(plik)){
-				auto root = dokument.pobierzElement(WEZEL_XML_ROOT);
-				if (root){
-					auto nazwa = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzStosEkranow().back()->pobierzGUI().get<tgui::EditBox>(kontrolkaNazwy);
-					auto haslo = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzStosEkranow().back()->pobierzGUI().get<tgui::EditBox>(kontrolkaHasla);
-					if (nazwa != nullptr && haslo != nullptr){
-						std::string hash(haslo->getText());
-						SpEx::Utils::sha3(hash);
-						if (SpEx::Aplikacja::pobierzInstancje().wczytajGre(root, nazwa->getText(), hash)){
-							return true;
-						}
-					}
+	__declspec(dllexport) bool __cdecl zaloguj(const char *kontrolkaNazwy, const char *kontrolkaHasla){
+		if (kontrolkaNazwy && kontrolkaHasla){
+
+			auto nazwa = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzStosEkranow().back()->pobierzGUI().get<tgui::EditBox>(kontrolkaNazwy);
+			auto haslo = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzStosEkranow().back()->pobierzGUI().get<tgui::EditBox>(kontrolkaHasla);
+			if (nazwa != nullptr && haslo != nullptr){
+				std::string hash(haslo->getText());
+				SpEx::Utils::sha3(hash);
+				if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().logowanie(nazwa->getText(), hash)){
+					return true;
 				}
 			}
 		}
@@ -181,15 +189,45 @@ extern "C"{
 		return false;
 	}
 
-	__declspec(dllexport) bool __cdecl nowyGracz(const char *kontrolkaNazwy, const char *kontrolkaHasla){
-		if (kontrolkaNazwy && kontrolkaHasla){
+	__declspec(dllexport) bool __cdecl nowyGracz(const char *kontrolkaKomunikatow, const char *kontrolkaNazwy, const char *kontrolkaHasla){
+		if (kontrolkaNazwy && kontrolkaHasla && kontrolkaKomunikatow){
 			auto nazwa = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzStosEkranow().back()->pobierzGUI().get<tgui::EditBox>(kontrolkaNazwy);
 			auto haslo = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzStosEkranow().back()->pobierzGUI().get<tgui::EditBox>(kontrolkaHasla);
+			auto komunikat = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzStosEkranow().back()->pobierzGUI().get<tgui::Label>(kontrolkaKomunikatow);
+			komunikat->setText("Inicjowanie tworzenia gracza.");
+			komunikat->show();
 			if (nazwa != nullptr && haslo != nullptr){
 				std::string hash(haslo->getText());
 				SpEx::Utils::sha3(hash);
-				if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().nowyGracz(nazwa->getText(), hash))
+				if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzIloscGalaktyk() <= 0){
+					komunikat->setText("Generowanie galaktyki.");
+					if(!SpEx::Aplikacja::pobierzInstancje().pobierzGre().generujNowaGalaktyke())
+						return false;
+				}
+				komunikat->setText("Tworzenie nowego gracza.");
+				if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().nowyGracz(nazwa->getText(), hash))
+					return false;
+
+				komunikat->setText("Logowanie do gry.");
+				if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().logowanie(nazwa->getText(), hash))
+					return false;
+				
+				komunikat->setText("Ustawianie podstawowych danych.");
+				if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika()){
+					komunikat->setText("Generowanie galaktyki.");
+					if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().generujNowaGalaktyke())
+						return false;
+					komunikat->setText("Ustawianie podstawowych danych.");
+					if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika())
+						return false;
+				}
+
+				komunikat->setText("Zapisywanie wprowadzonych danych.");
+				if (SpEx::Aplikacja::pobierzInstancje().zapiszGre(nazwa->getText(), hash)){
+
+					komunikat->setText("Ukoñczono.");
 					return true;
+				}
 			}
 		}
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Nie uda³o siê stworzyæ nowego gracza!");
