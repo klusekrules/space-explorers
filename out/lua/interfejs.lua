@@ -40,9 +40,11 @@ void wypelnijKontrolkeObiektu(int idPlanety, int typ, const char *nazwaKontrolki
 bool wczytajDane(const char *plik);
 
 //Gracz
-bool zaloguj(const char *nazwa, const char *haslo);
-bool nowyGracz(const char *nazwa, const char *haslo);
-bool usunGracza(const char *nazwa, const char *haslo);
+bool zaloguj( const char *plik, const char *kontrolkaNazwy, const char *kontrolkaHasla);
+bool nowyGracz(const char *kontrolkaNazwy, const char *kontrolkaHasla);
+bool usunGracza(const char *kontrolkaNazwy, const char *kontrolkaHasla);
+bool ustawWlasciwosc(int ekran, const char *kontrolka, const char *nazwaWlasciwosci, const char *nowaWartosc);
+
 ]]
 mymodule = ffi
 return mymodule

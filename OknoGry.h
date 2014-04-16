@@ -3,6 +3,8 @@
 #include "Watek.h"
 #include "Logger\Log.h"
 #include "EkranSzablon.h"
+#include "Zadanie.h"
+
 namespace SpEx{
 	class OknoGry :
 		public Watek
@@ -22,7 +24,7 @@ namespace SpEx{
 
 		void przeladujEkran( const STyp::Identyfikator& id );
 		
-		void dodajZadanie(std::function < void() >&);
+		void dodajZadanie(SpEx::Zadanie&);
 
 		void pause();
 		bool isPause() const;
@@ -45,7 +47,7 @@ namespace SpEx{
 		mutable std::recursive_mutex mutexListaEkranow_;
 		std::map< STyp::Identyfikator, EkranPtr > listaEkranow_;
 		mutable std::mutex listaZadanMux_;
-		std::list< std::function < void() > > listaZadan_;
+		std::list< SpEx::Zadanie > listaZadan_;
 		StosEkranow stosEkranow_;
 
 		void wykonuj() override;
