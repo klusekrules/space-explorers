@@ -5,7 +5,7 @@
 #include "ListaObiektowGui.h"
 #include "Parser\ParserDokumentXml.h"
 
-extern "C"{ 
+extern "C"{
 	__declspec(dllexport) int __cdecl barfunc(int foo)
 	{
 		return foo + 1;
@@ -21,41 +21,41 @@ extern "C"{
 		return SpEx::MaszynaStanow::pobierzInstancje().zdejmijOkno();
 	}
 
-	__declspec(dllexport) bool __cdecl pobierzZdarzenie( struct Zdarzenie_t& z )
+	__declspec(dllexport) bool __cdecl pobierzZdarzenie(struct Zdarzenie_t& z)
 	{
 		return SpEx::MaszynaStanow::pobierzInstancje().luaStan_.pobierzZdarzenie(z);
 	}
 
-	__declspec(dllexport) bool __cdecl pobierzPoprzedniStan( struct Stan_t& s )
+	__declspec(dllexport) bool __cdecl pobierzPoprzedniStan(struct Stan_t& s)
 	{
 		return SpEx::MaszynaStanow::pobierzInstancje().luaStan_.pobierzPoprzedniStan(s);
 	}
 
-	__declspec(dllexport) bool __cdecl pobierzAktualnyStan( struct Stan_t& s )
+	__declspec(dllexport) bool __cdecl pobierzAktualnyStan(struct Stan_t& s)
 	{
 		return SpEx::MaszynaStanow::pobierzInstancje().luaStan_.pobierzAktualnyStan(s);
 	}
 
-	__declspec(dllexport) bool __cdecl pobierzNastepnyStan( struct Stan_t& s )
+	__declspec(dllexport) bool __cdecl pobierzNastepnyStan(struct Stan_t& s)
 	{
 		return SpEx::MaszynaStanow::pobierzInstancje().luaStan_.pobierzNastepnyStan(s);
 	}
 
-	__declspec(dllexport) void __cdecl kolejkujZdarzenie( struct Zdarzenie_t& s )
+	__declspec(dllexport) void __cdecl kolejkujZdarzenie(struct Zdarzenie_t& s)
 	{
 		SpEx::Zdarzenie z;
-		z.idStanu_( s.idStanu_);
+		z.idStanu_(s.idStanu_);
 		z.numer_ = s.numer_;
-		z.idZdarzenia_( s.idZdarzenia_ );
+		z.idZdarzenia_(s.idZdarzenia_);
 		SpEx::MaszynaStanow::pobierzInstancje().kolejkujZdarzenie(z);
 	}
 
-	__declspec(dllexport) void __cdecl wstawZdarzenie( struct Zdarzenie_t& s )
+	__declspec(dllexport) void __cdecl wstawZdarzenie(struct Zdarzenie_t& s)
 	{
 		SpEx::Zdarzenie z;
-		z.idStanu_( s.idStanu_);
+		z.idStanu_(s.idStanu_);
 		z.numer_ = s.numer_;
-		z.idZdarzenia_( s.idZdarzenia_ );
+		z.idZdarzenia_(s.idZdarzenia_);
 		SpEx::MaszynaStanow::pobierzInstancje().wstawZdarzenie(z);
 	}
 
@@ -69,21 +69,21 @@ extern "C"{
 		TestyJednostkowe::pobierzInstancje().wykonajTesty();
 	}
 
-	
-	__declspec(dllexport) void __cdecl zlecZadanie( const char *plik , const char *funkcja )
+
+	__declspec(dllexport) void __cdecl zlecZadanie(const char *plik, const char *funkcja)
 	{
 		std::string luaPlik, luaFunkcja;
 
-		if(plik){
+		if (plik){
 			luaPlik.append(plik);
 		}
 
-		if(funkcja){
+		if (funkcja){
 			luaFunkcja.append(funkcja);
 		}
 
 		SpEx::MaszynaStanow::pobierzInstancje().dodajZadanie(SpEx::Zadanie(std::function<void()>(
-		[luaPlik, luaFunkcja](){ 
+			[luaPlik, luaFunkcja](){
 			std::shared_ptr<SpEx::Skrypt> luaSkrypt = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadce().TworzSkrypt(
 				SpEx::FabrykaSkryptow::Identyfikator(XML_ATRYBUT_TYP_SKRYPT_LUA), nullptr);
 			if (luaSkrypt){
@@ -92,7 +92,7 @@ extern "C"{
 				luaSkrypt->wykonaj(luaFunkcja);
 			}
 		}
-			) ));
+		)));
 	}
 
 	__declspec(dllexport) void __cdecl zamknijAplikacje()
@@ -100,9 +100,9 @@ extern "C"{
 		SpEx::MaszynaStanow::pobierzInstancje().inicjujZamykanie();
 	}
 
-	__declspec(dllexport) void __cdecl loguj(const char *komunikat )
+	__declspec(dllexport) void __cdecl loguj(const char *komunikat)
 	{
-		if(komunikat)
+		if (komunikat)
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, komunikat);
 	}
 
@@ -149,31 +149,66 @@ extern "C"{
 	}
 
 	__declspec(dllexport) void __cdecl przeladujOkno(int id){
-		SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().dodajZadanie(
+		SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().dodajZadanie(SpEx::Zadanie(
 			std::function<void()>(
 				std::bind(
-					&SpEx::OknoGry::przeladujEkran, 
-					&SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry(), 
+					&SpEx::OknoGry::przeladujEkran,
+					&SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry(),
 					STyp::Identyfikator(id))
-				)
+				))
 			);
 	}
 
-	__declspec(dllexport) bool __cdecl zaloguj(const char *nazwa, const char *haslo){
-		if (nazwa && haslo)
-			return SpEx::Aplikacja::pobierzInstancje().pobierzGre().logowanie(nazwa,haslo);
+	__declspec(dllexport) bool __cdecl zaloguj(const char *plik, const char *kontrolkaNazwy, const char *kontrolkaHasla){
+		if (kontrolkaNazwy && kontrolkaHasla && plik){
+			SPar::ParserDokumentXml dokument;
+			if (dokument.odczytaj(plik)){
+				auto root = dokument.pobierzElement(WEZEL_XML_ROOT);
+				if (root){
+					auto nazwa = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzStosEkranow().back()->pobierzGUI().get<tgui::EditBox>(kontrolkaNazwy);
+					auto haslo = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzStosEkranow().back()->pobierzGUI().get<tgui::EditBox>(kontrolkaHasla);
+					if (nazwa != nullptr && haslo != nullptr){
+						std::string hash(haslo->getText());
+						SpEx::Utils::sha3(hash);
+						if (SpEx::Aplikacja::pobierzInstancje().wczytajGre(root, nazwa->getText(), hash)){
+							return true;
+						}
+					}
+				}
+			}
+		}
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Nie uda³o siê zalogowaæ!");
 		return false;
 	}
 
-	__declspec(dllexport) bool __cdecl nowyGracz(const char *nazwa, const char *haslo){
-		if (nazwa && haslo)
-			return SpEx::Aplikacja::pobierzInstancje().pobierzGre().nowyGracz(nazwa, haslo);
+	__declspec(dllexport) bool __cdecl nowyGracz(const char *kontrolkaNazwy, const char *kontrolkaHasla){
+		if (kontrolkaNazwy && kontrolkaHasla){
+			auto nazwa = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzStosEkranow().back()->pobierzGUI().get<tgui::EditBox>(kontrolkaNazwy);
+			auto haslo = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzStosEkranow().back()->pobierzGUI().get<tgui::EditBox>(kontrolkaHasla);
+			if (nazwa != nullptr && haslo != nullptr){
+				std::string hash(haslo->getText());
+				SpEx::Utils::sha3(hash);
+				if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().nowyGracz(nazwa->getText(), hash))
+					return true;
+			}
+		}
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Nie uda³o siê stworzyæ nowego gracza!");
 		return false;
 	}
 
-	__declspec(dllexport) bool __cdecl usunGracza(const char *nazwa, const char *haslo){
-		if (nazwa && haslo)
-			return SpEx::Aplikacja::pobierzInstancje().pobierzGre().usunGracza(nazwa, haslo);
+	__declspec(dllexport) bool __cdecl usunGracza(const char *kontrolkaNazwy, const char *kontrolkaHasla){
+		if (kontrolkaNazwy && kontrolkaHasla){
+			auto nazwa = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzStosEkranow().back()->pobierzGUI().get<tgui::EditBox>(kontrolkaNazwy);
+			auto haslo = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzStosEkranow().back()->pobierzGUI().get<tgui::EditBox>(kontrolkaHasla);
+			if (nazwa != nullptr && haslo != nullptr){
+				std::string hash(haslo->getText());
+				SpEx::Utils::sha3(hash);
+				if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().usunGracza(nazwa->getText(), hash)){
+					return true;
+				}
+			}
+		}
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Nie uda³o siê usun¹æ gracza!");
 		return false;
 	}
 
@@ -189,7 +224,7 @@ extern "C"{
 			luaFunkcja.append(funkcja);
 		}
 
-		SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().dodajZadanie(std::function<void()>(
+		SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().dodajZadanie(SpEx::Zadanie(std::function<void()>(
 			[luaPlik, luaFunkcja](){
 			std::shared_ptr<SpEx::Skrypt> luaSkrypt = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadce().TworzSkrypt(
 				SpEx::FabrykaSkryptow::Identyfikator(XML_ATRYBUT_TYP_SKRYPT_LUA), nullptr);
@@ -199,7 +234,27 @@ extern "C"{
 				luaSkrypt->wykonaj(luaFunkcja);
 			}
 		}
-		));
+		)));
+	}
+	__declspec(dllexport) bool __cdecl ustawWlasciwosc(int ekran, const char *kontrolka, const char *nazwaWlasciwosci, const char *nowaWartosc){
+		if (!kontrolka && !nazwaWlasciwosci)
+			return false;
+		SpEx::OknoGry::EkranPtr ekranPtr;
+		if ( ekran < 0 )
+			ekranPtr = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzStosEkranow().back();
+		else
+			ekranPtr = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzEkran(ekran);
+
+		if (!ekranPtr)
+			return false;
+		
+		std::string value;
+		if (nowaWartosc)
+			value.append(nowaWartosc);
+		auto widget = ekranPtr->pobierzGUI().get<tgui::Widget>(kontrolka);
+		if (!widget)
+			return false;
+		return widget->setProperty(nazwaWlasciwosci,value);
 	}
 }
 

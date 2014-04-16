@@ -54,7 +54,7 @@ namespace SpEx{
 		return ret;
 	}
 
-	void OknoGry::dodajZadanie(std::function < void() >& zadanie){
+	void OknoGry::dodajZadanie(SpEx::Zadanie& zadanie){
 		std::lock_guard<std::mutex>lock(listaZadanMux_);
 		listaZadan_.push_back(zadanie);
 	}
@@ -112,7 +112,7 @@ namespace SpEx{
 				if (!listaZadan_.empty()){
 					std::lock_guard<std::mutex>lock(listaZadanMux_);
 					for (auto zadanie : listaZadan_){
-						zadanie();
+						zadanie.wykonaj();
 					}
 					listaZadan_.clear();
 				}

@@ -11,6 +11,17 @@ function ustawOknoMenu ()
 	end
 end
 
+function ustawOknoLogowania ()
+	wejscieDoStanu()
+	ffi.C.wyczyscListeOkien();
+	ffi.C.loguj("Ustawianie okna o id 1")
+	if ffi.C.ustawOkno(4) == true then
+		ffi.C.loguj("Ustawianiono")
+	else
+		ffi.C.loguj("Nieustawianiono")
+	end
+end
+
 function wyjscieZeStanu()
 	local stan = ffi.new('struct Stan_t');
 	ffi.C.zdejmijOkno()
@@ -113,4 +124,31 @@ end
 function wczytajPonownieListeObiektowImpl ()
 	wczytajDane()
 	ustawOknoListy()
+end
+
+function tworzGracza()
+	if ffi.C.nowyGracz("login","pass") == true then
+		ffi.C.ustawWlasciwosc(4,"info","visible","true")
+		ffi.C.ustawWlasciwosc(4,"error","visible","false")
+	else		
+		ffi.C.ustawWlasciwosc(4,"info","visible","false")
+		ffi.C.ustawWlasciwosc(4,"error","visible","true")
+	end
+end
+
+function zaloguj()
+	if ffi.C.zaloguj("danetestowe.xml","login","pass") == true then	
+		
+		ffi.C.ustawWlasciwosc(4,"info","visible","false")
+		local stan = ffi.new('struct Stan_t')
+		local zdarzenie = ffi.new('struct Zdarzenie_t')
+		ffi.C.pobierzAktualnyStan(stan)
+		zdarzenie.idStanu_ = stan.idStanu_
+		zdarzenie.numer_ = 0
+		zdarzenie.idZdarzenia_ = 4
+		ffi.C.wstawZdarzenie(zdarzenie)
+	else
+		ffi.C.ustawWlasciwosc(4,"info","visible","false")
+		ffi.C.ustawWlasciwosc(4,"error","visible","true")
+	end
 end

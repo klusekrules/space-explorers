@@ -28,4 +28,15 @@
       <Akcja id="64" idZdarzenia="6"/>
     </Kontrolka>
   </Ekran>
+  <Ekran id="4" czcionka="resource\arial.ttf" konfiguracja="resource\logowanie.wdg">
+	<Kontrolka nazwa="zamknij">
+      <Akcja id="64" idZdarzenia="1"/>
+    </Kontrolka>
+	<Kontrolka nazwa="nowygracz">
+      <Akcja id="64" idZdarzenia="2"/>
+    </Kontrolka>
+	<Kontrolka nazwa="zaloguj">
+      <Akcja id="64" idZdarzenia="3"/>
+    </Kontrolka>
+  </Ekran>
 </SpaceGame>

@@ -764,6 +764,9 @@
     <Filter Include="SourceFile\Kontroler">
       <UniqueIdentifier>{8bb9a1d7-532c-4345-a620-7d82340eec29}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data\Ekrany">
+      <UniqueIdentifier>{57c3805b-d750-4715-8674-b37ff4bd7581}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="TODO.txt">
@@ -781,23 +784,26 @@
     <None Include="svn_version.h.tmpl">
       <Filter>Resource\Wersja</Filter>
     </None>
-    <None Include="out\resource\menu.wdg">
-      <Filter>Data</Filter>
-    </None>
-    <None Include="out\resource\pusteOkno.wdg">
-      <Filter>Data</Filter>
-    </None>
     <None Include="out\lua\interfejs.lua">
       <Filter>Data\Skrypty</Filter>
     </None>
     <None Include="out\lua\test.lua">
       <Filter>Data\Skrypty</Filter>
     </None>
-    <None Include="out\resource\testowanie.wdg">
-      <Filter>Data</Filter>
-    </None>
     <None Include="out\resource\lista.wdg">
-      <Filter>Data</Filter>
+      <Filter>Data\Ekrany</Filter>
+    </None>
+    <None Include="out\resource\menu.wdg">
+      <Filter>Data\Ekrany</Filter>
+    </None>
+    <None Include="out\resource\pusteOkno.wdg">
+      <Filter>Data\Ekrany</Filter>
+    </None>
+    <None Include="out\resource\testowanie.wdg">
+      <Filter>Data\Ekrany</Filter>
+    </None>
+    <None Include="out\resource\logowanie.wdg">
+      <Filter>Data\Ekrany</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
