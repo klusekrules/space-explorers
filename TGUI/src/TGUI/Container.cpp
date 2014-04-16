@@ -150,12 +150,30 @@ namespace tgui
 
 	Widget::Ptr Container::get(const sf::String& widgetName) const
 	{
-		for (unsigned int i = 0; i < m_ObjName.size(); ++i)
-		{
-			if (m_ObjName[i] == widgetName)
-				return m_Widgets[i];
+		unsigned int i = 0;
+		bool ok = false;
+
+		std::string cwidgetName = widgetName;
+		auto pos = cwidgetName.find_first_of('\\');
+		std::string name;
+		if (pos != std::string::npos){
+			name = cwidgetName.substr(0, pos);
+			cwidgetName.erase(0, pos + 1);
+		}
+		else{
+			name = cwidgetName;
+			cwidgetName.clear();
 		}
 
+		for (; i < m_ObjName.size(); ++i)
+		{
+			if (m_ObjName[i] == name){
+				if (cwidgetName.empty())
+					return m_Widgets[i];
+				else
+					return Container::Ptr(m_Widgets[i])->get(cwidgetName);
+			}
+		}
 		return nullptr;
 	}
 

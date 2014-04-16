@@ -24,7 +24,7 @@ end
 function ustawOknoLogowania ()
 	wejscieDoStanu()
 	ffi.C.wyczyscListeOkien();
-	ffi.C.loguj("Ustawianie okna o id 1")
+	ffi.C.loguj("Ustawianie okna o id 4")
 	if ffi.C.ustawOkno(4) == true then
 		ffi.C.loguj("Ustawianiono")
 	else
@@ -139,20 +139,20 @@ end
 
 function tworzGracza()
 	ffi.C.ustawWlasciwosc(4,"error","visible","false")
-	if ffi.C.nowyGracz("info","login","pass") == true then
+	if ffi.C.nowyGracz("grid\\info","login","pass") == true then
 		wstawZdarzenieDlaAktualnegoStanu ( 4, 0 )
 	else
-		ffi.C.ustawWlasciwosc(4,"info","visible","false")
+		ffi.C.ustawWlasciwosc(4,"grid","visible","false")
 		ffi.C.ustawWlasciwosc(4,"error","visible","true")
 	end
 end
 
 function zaloguj()
 	if ffi.C.zaloguj("login","pass") == true then
-		ffi.C.ustawWlasciwosc(4,"info","visible","false")
+		ffi.C.ustawWlasciwosc(4,"grid","visible","false")
 		wstawZdarzenieDlaAktualnegoStanu ( 4, 0 )
 	else
-		ffi.C.ustawWlasciwosc(4,"info","visible","false")
+		ffi.C.ustawWlasciwosc(4,"grid","visible","false")
 		ffi.C.ustawWlasciwosc(4,"error","visible","true")
 	end
 end

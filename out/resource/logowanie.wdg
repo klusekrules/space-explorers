@@ -104,7 +104,7 @@ Window:
 		Top = 320
 		Width = 800
 		Height = 80
-		Visible = true
+		Visible = false
 		Enabled = true
 		Transparency = 255
 		CallbackId = 0
@@ -114,7 +114,7 @@ Window:
 			ConfigFile = "widgets\Black.conf"
 			Left = 0
 			Top = 0
-			Visible = true
+			Visible = false
 			Enabled = true
 			Transparency = 255
 			CallbackId = 0
