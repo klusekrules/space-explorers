@@ -1,5 +1,15 @@
 local ffi = require "interfejs"
 
+function wstawZdarzenieDlaAktualnegoStanu ( id, addNumber )
+	local stan = ffi.new('struct Stan_t')
+	local zdarzenie = ffi.new('struct Zdarzenie_t')
+	ffi.C.pobierzAktualnyStan(stan)
+	zdarzenie.idStanu_ = stan.idStanu_
+	zdarzenie.numer_ = addNumber
+	zdarzenie.idZdarzenia_ = id
+	ffi.C.wstawZdarzenie(zdarzenie)
+end
+
 function ustawOknoMenu ()
 	wejscieDoStanu()
 	ffi.C.wyczyscListeOkien();
@@ -59,6 +69,7 @@ end
 function stanPoczatkowy ()
 	wejscieDoStanu()
 	ffi.C.wyczyscListeOkien();
+	ffi.C.zaladujGre("danetestowe.xml")
 	ffi.C.loguj("Ustawianie okna o id 0")
 	if ffi.C.ustawOkno(0) == true then
 		ffi.C.loguj("Ustawianiono")
@@ -127,26 +138,19 @@ function wczytajPonownieListeObiektowImpl ()
 end
 
 function tworzGracza()
-	if ffi.C.nowyGracz("login","pass") == true then
-		ffi.C.ustawWlasciwosc(4,"info","visible","true")
-		ffi.C.ustawWlasciwosc(4,"error","visible","false")
-	else		
+	ffi.C.ustawWlasciwosc(4,"error","visible","false")
+	if ffi.C.nowyGracz("info","login","pass") == true then
+		wstawZdarzenieDlaAktualnegoStanu ( 4, 0 )
+	else
 		ffi.C.ustawWlasciwosc(4,"info","visible","false")
 		ffi.C.ustawWlasciwosc(4,"error","visible","true")
 	end
 end
 
 function zaloguj()
-	if ffi.C.zaloguj("danetestowe.xml","login","pass") == true then	
-		
+	if ffi.C.zaloguj("login","pass") == true then
 		ffi.C.ustawWlasciwosc(4,"info","visible","false")
-		local stan = ffi.new('struct Stan_t')
-		local zdarzenie = ffi.new('struct Zdarzenie_t')
-		ffi.C.pobierzAktualnyStan(stan)
-		zdarzenie.idStanu_ = stan.idStanu_
-		zdarzenie.numer_ = 0
-		zdarzenie.idZdarzenia_ = 4
-		ffi.C.wstawZdarzenie(zdarzenie)
+		wstawZdarzenieDlaAktualnegoStanu ( 4, 0 )
 	else
 		ffi.C.ustawWlasciwosc(4,"info","visible","false")
 		ffi.C.ustawWlasciwosc(4,"error","visible","true")

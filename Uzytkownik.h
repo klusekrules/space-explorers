@@ -45,7 +45,7 @@ namespace SpEx{
 		* Metoda pobiera planete nale¿¹c¹ do u¿ytkownika. Nie usuwa jej z listy jego planet.
 		* \return Referencja do planety u¿ytkownika.
 		*/
-		Planeta& pobierzPlanete() const;
+		Planeta& pobierzPlanete();
 
 		/**
 		* \brief Metoda pobieraj¹ca nazwê u¿ytkownika.

@@ -95,6 +95,7 @@ namespace SpEx {
 		* \return true je¿eli uda siê przeniœæ, false w przeciwnym wypadku.
 		*/
 		bool przeniesPlaneteDoUzytkownika(const STyp::Identyfikator& identyfikator);
+		bool przeniesPlaneteDoUzytkownika();
 
 		/**
 		* \brief Metoda pobieraj¹ca obiekt opisowy Obrony.

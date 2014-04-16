@@ -21,6 +21,40 @@ namespace SpEx{
 		}
 		return planeta->second.planeta_;
 	}
+
+	std::shared_ptr< Planeta > ZarzadcaPamieci::pobierzIZarezerwujPlanete(const STyp::Identyfikator& identyfikator){
+		auto planeta = planety_.find(identyfikator);
+		if (planeta == planety_.end())
+			return nullptr;
+		if (!planeta->second.planeta_){
+			wczytajUkladSloneczny(planeta->second.idUkladu_);
+			planety_[identyfikator].wolna_ = false;
+			return planety_[identyfikator].planeta_;
+		}
+		if (!planeta->second.wolna_)
+			return false;
+		planeta->second.wolna_ = false;
+		return planeta->second.planeta_;
+	}
+
+	std::shared_ptr< Planeta > ZarzadcaPamieci::pobierzIZarezerwujPlanete(){
+		auto planeta = std::find_if(planety_.begin(), planety_.end(), [](const std::pair< const STyp::Identyfikator, ObjPlaneta>& element)->bool{ return element.second.wolna_; });
+		if (planeta == planety_.end())
+			return nullptr;
+		if (!planeta->second.planeta_){
+			wczytajUkladSloneczny(planeta->second.idUkladu_);
+			planety_[planeta->first].wolna_ = false;
+			return planety_[planeta->first].planeta_;
+		}
+		planeta->second.wolna_ = false;
+		return planeta->second.planeta_;
+	}
+
+	void ZarzadcaPamieci::anulujRezerwacjePlanety(const STyp::Identyfikator& identyfikator){
+		auto planeta = planety_.find(identyfikator);
+		if (planeta != planety_.end())
+			planeta->second.wolna_ = true;
+	}
 	
 	XmlBO::ElementWezla ZarzadcaPamieci::pobierzWezelKonfiguracyjnyMaszynyStanow()const{
 		return dokumentMaszynyStanow_->pobierzElement(nullptr);
@@ -81,7 +115,7 @@ namespace SpEx{
 			std::vector< STyp::Identyfikator> listaPlanet;
 			for (auto planeta : uklad->planety_){
 				listaPlanet.push_back(planeta.first);
-				struct ZarzadcaPamieci::ObjPlaneta nowaPlaneta = { uklad->pobierzIdentyfikator(), nullptr };
+				struct ZarzadcaPamieci::ObjPlaneta nowaPlaneta = { uklad->pobierzIdentyfikator(), nullptr, true };
 				planety_[planeta.first] = nowaPlaneta;
 			}
 			listaUkladow.push_back(uklad->pobierzIdentyfikator());
@@ -145,6 +179,11 @@ namespace SpEx{
 				for (auto planeta : ukladSloneczny->second.planety_){
 					auto wezelPlaneta = wezelUklad->tworzElement(WEZEL_XML_PLANETA);
 					wezelPlaneta->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, planeta.napis().c_str());
+					auto objPlaneta = planety_.find(planeta);
+					if (objPlaneta != planety_.end())
+						wezelPlaneta->tworzAtrybut(ATRYBUT_XML_WOLNA, objPlaneta->second.wolna_ ? "1" : "0");
+					else
+						wezelPlaneta->tworzAtrybut(ATRYBUT_XML_WOLNA, "1");
 				}
 				if (ukladSloneczny->second.uklad_){
 					zapiszUkladSloneczny(ukladSloneczny->second.uklad_);
@@ -173,11 +212,16 @@ namespace SpEx{
 
 				if(!XmlBO::ForEach<STACKTHROW>(uklad, WEZEL_XML_PLANETA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla planeta)->bool{
 					STyp::Identyfikator idPlanety;
+					int wolna;
 					if (!XmlBO::WczytajAtrybut<STACKTHROW>(planeta, ATRYBUT_XML_IDENTYFIKATOR, idPlanety))
 						return false;
 
+					wolna = XmlBO::WczytajAtrybut<int>(planeta, ATRYBUT_XML_WOLNA, -1);
+					if (wolna != 0 && wolna != 1)
+						return false;
+
 					listPlanet.push_back(idPlanety);
-					struct ZarzadcaPamieci::ObjPlaneta nowaPlaneta = { idUklad, nullptr };
+					struct ZarzadcaPamieci::ObjPlaneta nowaPlaneta = { idUklad, nullptr, true };
 					planety_[idPlanety] = nowaPlaneta;
 					return true;
 				})))

@@ -222,10 +222,9 @@ namespace SpEx{
 	}
 
 	bool Aplikacja::zapiszGre(const std::string& nazwa, const std::string& hash){
-
-		auto wezel = zarzadca_.tworzWezelGry();
 		std::locale::global(std::locale("C"));
 		try{
+			auto wezel = zarzadca_.tworzWezelGry();
 			if (instancjaGry_->zapisz(wezel) && instancjaGry_->zapisz(nazwa, hash)){
 				std::locale::global(std::locale(ustawienia_.pobierzJezykAplikacji()));
 				return zarzadca_.zapiszWezelGry();
@@ -239,7 +238,7 @@ namespace SpEx{
 		return false;
 	}
 
-	bool Aplikacja::wczytajGre(std::shared_ptr<SPar::ParserElement> root, const std::string& nazwa, const std::string& hash){
+	bool Aplikacja::wczytajGre(std::shared_ptr<SPar::ParserElement> root, const std::string&, const std::string&){
 		auto wezel = zarzadca_.otworzWezelGry();
 		if (wezel && *wezel){
 			std::shared_ptr<Gra> gra = instancjaGry_;
@@ -249,7 +248,7 @@ namespace SpEx{
 				Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(STyp::Identyfikator(0x0)); // Poprawna wartoœæ; U¿ywana gdy obiekty znajduj¹ siê we flocie.
 				if (root && instancjaGry_->wczytajDane(root)){
 					if (instancjaGry_->odczytaj(wezel->pobierzElement(WEZEL_XML_GRA)))
-					if (instancjaGry_->odczytaj(nazwa, hash))
+//					if (instancjaGry_->odczytaj(nazwa, hash))
 					if (Walidator::pobierzInstancje().waliduj())
 						return true;
 				}

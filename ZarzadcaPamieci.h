@@ -33,6 +33,7 @@ namespace SpEx{
 		struct ObjPlaneta{
 			STyp::Identyfikator idUkladu_; /// Identyfikator uk³adu. U¿ywane do wczytania odpowiedniego uk³adu do za³adowania planety.
 			std::shared_ptr< Planeta > planeta_; /// wskaŸnik na planetê.
+			bool wolna_; /// Informacja o przynaleznosci planety do gracza.
 		};
 
 		/**
@@ -80,6 +81,20 @@ namespace SpEx{
 		* \return WskaŸnik na planetê je¿eli planeta zosta³a znaleziona, nullptr w przeciwnym wypadku.
 		*/
 		std::shared_ptr< Planeta > pobierzPlanete(const STyp::Identyfikator& identyfikator);
+
+		/**
+		* \brief Metoda zwracaj¹ca wskaŸnik na planetê.
+		*
+		* Metoda zwraca wskaŸnik na planetê o wskazanym identyfikatorze.
+		* Je¿eli planeta nie jest wczytana, metoda wczytuje ca³y uk³ad i zwraca planetê.
+		* \param[in] identyfikator - Identyfikator planety.
+		* \return WskaŸnik na planetê je¿eli planeta zosta³a znaleziona, nullptr w przeciwnym wypadku.
+		*/
+		std::shared_ptr< Planeta > pobierzIZarezerwujPlanete(const STyp::Identyfikator& identyfikator);
+
+		std::shared_ptr< Planeta > pobierzIZarezerwujPlanete();
+
+		void anulujRezerwacjePlanety(const STyp::Identyfikator& identyfikator);
 
 		/**
 		* \brief Metoda zwraca liczba galaktyk.

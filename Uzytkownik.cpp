@@ -39,7 +39,11 @@ namespace SpEx{
 		throw NieznalezionoObiektu(EXCEPTION_PLACE, STyp::Tekst("Nieznaleziono planety"));
 	}
 
-	Planeta& Uzytkownik::pobierzPlanete() const{
+	Planeta& Uzytkownik::pobierzPlanete(){
+		if (!planety_.empty()){
+			if (planety_.find(aktywnaPlaneta_) == planety_.end())
+				aktywnaPlaneta_ = planety_.begin()->first;
+		}
 		return pobierzPlanete(aktywnaPlaneta_);
 	}
 
@@ -58,7 +62,7 @@ namespace SpEx{
 		wezel->tworzAtrybut(ATRYBUT_XML_PLANETA_AKTYWNA, aktywnaPlaneta_.napis().c_str());
 		for (auto planeta : planety_){
 			auto element = wezel->tworzElement(WEZEL_XML_PLANETA);
-			element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR_RODZICA, planeta.first.napis().c_str());
+			element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, planeta.first.napis().c_str());
 		}
 		return true;
 	}
@@ -68,7 +72,7 @@ namespace SpEx{
 		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_PLANETA_AKTYWNA, aktywnaPlaneta_);
 		return XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_PLANETA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 			STyp::Identyfikator idPlanety;
-			if (!XmlBO::WczytajAtrybut<NOTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR_RODZICA, idPlanety))
+			if (!XmlBO::WczytajAtrybut<NOTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR, idPlanety))
 				return false;
 			auto planeta = instancjaGry.pobierzPlanete(idPlanety);
 			if (!planeta)
