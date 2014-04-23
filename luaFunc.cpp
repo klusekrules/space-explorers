@@ -3,6 +3,7 @@
 #include "Aplikacja.h"
 #include "LuaSkrypt.h"
 #include "ListaObiektowGui.h"
+#include "LogListGui.h"
 #include "Parser\ParserDokumentXml.h"
 
 extern "C"{
@@ -186,6 +187,19 @@ extern "C"{
 			}
 		}
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Nie uda³o siê zalogowaæ!");
+		return false;
+	}
+
+	__declspec(dllexport) bool __cdecl komunikat(const char *kontrolka, const char *komunikat){
+		if (kontrolka && komunikat){
+
+			auto nazwa = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzStosEkranow().back()->pobierzGUI().get<tgui::LogListGui>(kontrolka);
+			if (nazwa != nullptr ){
+				nazwa->addMessage(0, komunikat);
+				return true;
+			}
+		}
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Nie uda³o siê wyœwietliæ komunikatu!");
 		return false;
 	}
 

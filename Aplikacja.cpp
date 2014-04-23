@@ -10,7 +10,7 @@
 #include "Walidator.h"
 #include "TGUI\TGUI.hpp"
 #include "ListaObiektowGui.h"
-
+#include "LogListGui.h"
 void myPurecallHandler(){
 	SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, SpEx::Aplikacja::pobierzInstancje().pobierzSladStosu());
 }
@@ -43,6 +43,7 @@ namespace SpEx{
 	{
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listaobiektowgui", tgui::ListaObiektowGui::createWidget);
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("kontrolkaobiektu", tgui::KontrolkaObiektu::createWidget);
+		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("loglistgui", tgui::LogListGui::createWidget);
 		/* ------- Wstêpna konfiguracja logów ------- */
 #ifdef TESTS
 		/* Wylaczenie logow typu debug na potrzeby ograniczenia logow testow*/
