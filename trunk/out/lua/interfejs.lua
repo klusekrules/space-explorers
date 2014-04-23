@@ -3,7 +3,7 @@ local ffi = require("ffi")
 ffi.cdef[[
 //Logowanie w stylu aplikacji
 void loguj(const char *komunikat );
-
+bool komunikat(const char *kontrolka, const char *komunikat);
 //Struktury
 struct Zdarzenie_t{
 	int idStanu_;

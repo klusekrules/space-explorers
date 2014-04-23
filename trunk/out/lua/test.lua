@@ -1,5 +1,10 @@
 local ffi = require "interfejs"
 
+-- Komentarz lua
+--[[ 
+	Komentarz wieloliniowy.
+]]
+
 function wstawZdarzenieDlaAktualnegoStanu ( id, addNumber )
 	local stan = ffi.new('struct Stan_t')
 	local zdarzenie = ffi.new('struct Zdarzenie_t')
@@ -148,11 +153,17 @@ function tworzGracza()
 end
 
 function zaloguj()
-	if ffi.C.zaloguj("login","pass") == true then
+	--[[if ffi.C.zaloguj("login","pass") == true then
 		ffi.C.ustawWlasciwosc(4,"grid","visible","false")
 		wstawZdarzenieDlaAktualnegoStanu ( 4, 0 )
 	else
 		ffi.C.ustawWlasciwosc(4,"grid","visible","false")
 		ffi.C.ustawWlasciwosc(4,"error","visible","true")
-	end
+	end]]
+	ffi.C.komunikat("komunikaty","Komunikat 1")
+	ffi.C.komunikat("komunikaty","Komunikat 2")
+	ffi.C.komunikat("komunikaty","Komunikat 3")
+	ffi.C.komunikat("komunikaty","Komunikat 4")
+	ffi.C.komunikat("komunikaty","Komunikat 5")
+	ffi.C.komunikat("komunikaty","Komunikat 6")
 end

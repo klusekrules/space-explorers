@@ -277,6 +277,9 @@
     <ClCompile Include="KontrolkaObiektu.cpp">
       <Filter>SourceFile\GUI\TGUI</Filter>
     </ClCompile>
+    <ClCompile Include="LogListGui.cpp">
+      <Filter>SourceFile\GUI\TGUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -604,6 +607,9 @@
       <Filter>SourceFile\GUI\TGUI</Filter>
     </ClInclude>
     <ClInclude Include="KontrolkaObiektu.h">
+      <Filter>SourceFile\GUI\TGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="LogListGui.h">
       <Filter>SourceFile\GUI\TGUI</Filter>
     </ClInclude>
   </ItemGroup>
