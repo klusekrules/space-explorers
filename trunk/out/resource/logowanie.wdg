@@ -93,7 +93,7 @@ Window:
 		Enabled = true
 		Transparency = 255
 		CallbackId = 0
-		BackgroundColor = (255,255,255,128)
+		BackgroundColor = (255,255,255,0)
 	}
 	
 	Button: "zamknij"
