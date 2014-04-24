@@ -88,12 +88,12 @@ Window:
 		Left = 0
 		Top = 330
 		Width = 800
-		Height = 80
+		Height = 120
 		Visible = true
 		Enabled = true
 		Transparency = 255
 		CallbackId = 0
-		BackgroundColor = (220,220,220,0)
+		BackgroundColor = (255,255,255,128)
 	}
 	
 	Button: "zamknij"
