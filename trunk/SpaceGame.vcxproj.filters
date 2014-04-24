@@ -811,6 +811,9 @@
     <None Include="out\resource\logowanie.wdg">
       <Filter>Data\Ekrany</Filter>
     </None>
+    <None Include="out\widgets\Black.conf">
+      <Filter>Resource</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="out\data.xml">
