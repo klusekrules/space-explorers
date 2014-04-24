@@ -38,6 +38,11 @@ namespace SpEx{
 				return obiekt;
 		}
 
+		template<class T>
+		static typename T::Ptr PobierzWidzetZAktywnegoEkranu(const char * kontrolkaNazwy){
+			return SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzStosEkranow().back()->pobierzGUI().get<T>(kontrolkaNazwy);
+		}
+
 		static void generujWyjatekBleduStruktury(XmlBO::ElementWezla wezel);
 
 		template<class Map, class Key>
