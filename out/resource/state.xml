@@ -19,7 +19,7 @@
     <Zdarzenie id="0x6" typSkryptu="lua" luaFile="lua\test.lua" luaInside="wczytajPonownieListeObiektow" stanNastepny="0x4" numerNastepny="0x0"/>
     <Zdarzenie id="0x1" stanNastepny="0x1" numerNastepny="0x0"/>
   </Stan>
-  <Stan id="0x5" typSkryptu="lua" luaFile="lua\test.lua" luaIn="ustawOknoLogowania" luaOut="wyjscieZeStanu">
+  <Stan id="0x5" typSkryptu="lua" luaFile="lua\test.lua" luaIn="ustawOknoLogowania" luaOut="wyjscieZeStanuLogowania">
 	<Zdarzenie id="0x1" typSkryptu="lua" luaFile="lua\test.lua" luaInside="zamknijAplikacje" stanNastepny="0x5" numerNastepny="0x0"/>
 	<Zdarzenie id="0x2" typSkryptu="lua" luaFile="lua\test.lua" luaInside="tworzGracza" stanNastepny="0x5" numerNastepny="0x0"/>
 	<Zdarzenie id="0x3" typSkryptu="lua" luaFile="lua\test.lua" luaInside="zaloguj" stanNastepny="0x5" numerNastepny="0x0"/>

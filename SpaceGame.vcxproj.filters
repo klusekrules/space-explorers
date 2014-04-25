@@ -280,6 +280,9 @@
     <ClCompile Include="LogListGui.cpp">
       <Filter>SourceFile\GUI\TGUI</Filter>
     </ClCompile>
+    <ClCompile Include="UtilsGui.cpp">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -611,6 +614,9 @@
     </ClInclude>
     <ClInclude Include="LogListGui.h">
       <Filter>SourceFile\GUI\TGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="UtilsGui.h">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

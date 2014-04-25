@@ -358,6 +358,7 @@
     <ClInclude Include="TypyEksportowne.h" />
     <ClInclude Include="UkladSloneczny.h" />
     <ClInclude Include="UstawieniaAplikacji.h" />
+    <ClInclude Include="UtilsGui.h" />
     <ClInclude Include="Walidator.h" />
     <ClInclude Include="Watek.h" />
     <ClInclude Include="WatekZarzadzany.h" />
@@ -507,6 +508,7 @@
     <ClCompile Include="UkladSloneczny.cpp" />
     <ClCompile Include="UstawieniaAplikacji.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="UtilsGui.cpp" />
     <ClCompile Include="Uzytkownik.cpp" />
     <ClCompile Include="Walidator.cpp" />
     <ClCompile Include="Watek.cpp" />

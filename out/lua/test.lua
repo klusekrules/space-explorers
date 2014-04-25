@@ -31,10 +31,16 @@ function ustawOknoLogowania ()
 	ffi.C.wyczyscListeOkien();
 	ffi.C.loguj("Ustawianie okna o id 4")
 	if ffi.C.ustawOkno(4) == true then
+		ffi.C.podlaczOknoKomunikatow(4,"komunikaty")
 		ffi.C.loguj("Ustawianiono")
 	else
 		ffi.C.loguj("Nieustawianiono")
 	end
+end
+
+function wyjscieZeStanuLogowania ()
+	wyjscieZeStanu()
+	ffi.C.odlaczOknoKomunikatow()
 end
 
 function wyjscieZeStanu()
@@ -143,7 +149,7 @@ function wczytajPonownieListeObiektowImpl ()
 end
 
 function tworzGracza()
-	if ffi.C.nowyGracz("komunikaty","login","pass") == true then
+	if ffi.C.nowyGracz("login","pass") == true then
 		wstawZdarzenieDlaAktualnegoStanu ( 4, 0 )
 	end
 end

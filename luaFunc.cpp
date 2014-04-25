@@ -5,11 +5,23 @@
 #include "ListaObiektowGui.h"
 #include "LogListGui.h"
 #include "Parser\ParserDokumentXml.h"
+#include "UtilsGui.h"
 
 extern "C"{
-	__declspec(dllexport) int __cdecl barfunc(int foo)
+
+	__declspec(dllexport) void __cdecl odlaczOknoKomunikatow()
 	{
-		return foo + 1;
+		SpEx::UtilsGui::odlaczOknoKomunikatow();
+	}
+
+	__declspec(dllexport) void __cdecl podlaczOknoKomunikatow( int idOkna, const char * widzet )
+	{
+		SpEx::UtilsGui::ustawOknoKomunikatow(idOkna,widzet);
+	}
+
+	__declspec(dllexport) void __cdecl logujWOknieKomunikatow(unsigned int typ, const char * komunikat)
+	{
+		SpEx::UtilsGui::logToGUI(typ,komunikat);
 	}
 
 	__declspec(dllexport) bool __cdecl ustawOkno(int id)
@@ -176,8 +188,8 @@ extern "C"{
 	__declspec(dllexport) bool __cdecl zaloguj(const char *kontrolkaNazwy, const char *kontrolkaHasla){
 		if (kontrolkaNazwy && kontrolkaHasla){
 
-			auto nazwa = SpEx::Utils::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaNazwy);
-			auto haslo = SpEx::Utils::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaHasla);
+			auto nazwa = SpEx::UtilsGui::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaNazwy);
+			auto haslo = SpEx::UtilsGui::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaHasla);
 			if (nazwa != nullptr && haslo != nullptr){
 				std::string hash(haslo->getText());
 				SpEx::Utils::sha3(hash);
@@ -190,77 +202,74 @@ extern "C"{
 		return false;
 	}
 
-	__declspec(dllexport) bool __cdecl komunikat(const char *kontrolka, const char *komunikat){
-		if (kontrolka && komunikat){
-
-			auto nazwa = SpEx::Utils::PobierzWidzetZAktywnegoEkranu<tgui::LogListGui>(kontrolka);
-			if (nazwa != nullptr ){
-				nazwa->addMessage(0, komunikat);
-				return true;
-			}
-		}
-		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Nie uda³o siê wyœwietliæ komunikatu!");
-		return false;
-	}
-
-	__declspec(dllexport) bool __cdecl nowyGracz(const char *kontrolkaKomunikatow, const char *kontrolkaNazwy, const char *kontrolkaHasla){
-		if (kontrolkaNazwy && kontrolkaHasla && kontrolkaKomunikatow){
-			auto nazwa = SpEx::Utils::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaNazwy);
-			auto haslo = SpEx::Utils::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaHasla);
-			auto komunikat = SpEx::Utils::PobierzWidzetZAktywnegoEkranu<tgui::LogListGui>(kontrolkaKomunikatow);
-			komunikat->addMessage(1,"Inicjowanie tworzenia gracza.");
-			komunikat->show();
+	__declspec(dllexport) bool __cdecl nowyGracz(const char *kontrolkaNazwy, const char *kontrolkaHasla){
+		if (kontrolkaNazwy && kontrolkaHasla ){
+			auto nazwa = SpEx::UtilsGui::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaNazwy);
+			auto haslo = SpEx::UtilsGui::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaHasla);
+			SpEx::UtilsGui::logToGUI(1, "Inicjowanie tworzenia gracza.");
 			if (nazwa != nullptr && haslo != nullptr){
 				std::string hash(haslo->getText());
 				if (nazwa->getText().isEmpty() || hash.empty()){
-					komunikat->addMessage(0, "Brak has³a lub nazwy gracza.");
+					SpEx::UtilsGui::logToGUI(0, "Brak has³a lub nazwy gracza.");
 					return false;
 				}
 
 				SpEx::Utils::sha3(hash);
 				if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzIloscGalaktyk() <= 0){
-					komunikat->addMessage(1, "Generowanie galaktyki.");
-					if(!SpEx::Aplikacja::pobierzInstancje().pobierzGre().generujNowaGalaktyke())
+					SpEx::UtilsGui::logToGUI(1, "Generowanie galaktyki.");
+					if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().generujNowaGalaktyke()){
+						SpEx::UtilsGui::logToGUI(0, "B³¹d generowania galaktyki.");
 						return false;
+					}
 				}
-				komunikat->addMessage(1, "Tworzenie nowego gracza.");
-				if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().nowyGracz(nazwa->getText(), hash))
+				SpEx::UtilsGui::logToGUI(1, "Tworzenie nowego gracza.");
+				if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().nowyGracz(nazwa->getText(), hash)){
+					SpEx::UtilsGui::logToGUI(0, "B³¹d tworzenia gracza.");
 					return false;
+				}
 
-				komunikat->addMessage(1, "Logowanie do gry.");
-				if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().logowanie(nazwa->getText(), hash))
+				SpEx::UtilsGui::logToGUI(1, "Logowanie do gry.");
+				if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().logowanie(nazwa->getText(), hash)){
+					SpEx::UtilsGui::logToGUI(0, "B³¹d logowania do gry.");
 					return false;
+				}
 				
-				komunikat->addMessage(1, "Ustawianie podstawowych danych.");
+				SpEx::UtilsGui::logToGUI(1, "Ustawianie podstawowych danych.");
 				if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika()){
-					komunikat->addMessage(1, "Generowanie galaktyki.");
-					if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().generujNowaGalaktyke())
+					SpEx::UtilsGui::logToGUI(1, "Generowanie galaktyki.");
+					if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().generujNowaGalaktyke()){
+						SpEx::UtilsGui::logToGUI(0, "B³¹d generowania galaktyki.");
 						return false;
-					komunikat->addMessage(1, "Ustawianie podstawowych danych.");
-					if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika())
+					}
+
+					SpEx::UtilsGui::logToGUI(1, "Ustawianie podstawowych danych.");
+					if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika()){
+						SpEx::UtilsGui::logToGUI(0, "B³¹d przypisywania planety do u¿ytkownika.");
 						return false;
+					}
 				}
 
-				komunikat->addMessage(1, "Zapisywanie wprowadzonych danych.");
+				SpEx::UtilsGui::logToGUI(1, "Zapisywanie wprowadzonych danych.");
 				if (SpEx::Aplikacja::pobierzInstancje().zapiszGre(nazwa->getText(), hash)){
 
-					komunikat->addMessage(1, "Ukoñczono.");
+					SpEx::UtilsGui::logToGUI(1, "Ukoñczono.");
 					return true;
 				}
 			}
 			else{
-				komunikat->addMessage(0, "Brak kontrolki has³a lub nazwy gracza.");
+				SpEx::UtilsGui::logToGUI(0, "Brak kontrolki has³a lub nazwy gracza.");
 			}
 
 		}
+		SpEx::UtilsGui::logToGUI(0, "Nie uda³o siê stworzyæ nowego gracza!");
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Nie uda³o siê stworzyæ nowego gracza!");
 		return false;
 	}
 
 	__declspec(dllexport) bool __cdecl usunGracza(const char *kontrolkaNazwy, const char *kontrolkaHasla){
 		if (kontrolkaNazwy && kontrolkaHasla){
-			auto nazwa = SpEx::Utils::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaNazwy);
-			auto haslo = SpEx::Utils::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaHasla);
+			auto nazwa = SpEx::UtilsGui::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaNazwy);
+			auto haslo = SpEx::UtilsGui::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaHasla);
 			if (nazwa != nullptr && haslo != nullptr){
 				std::string hash(haslo->getText());
 				SpEx::Utils::sha3(hash);

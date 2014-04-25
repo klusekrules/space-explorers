@@ -38,6 +38,29 @@ namespace SpEx{
 		return stosEkranow_;
 	}
 
+	void OknoGry::logToGUI(unsigned int typ, const std::string& tresc){
+		if (oknoKomunikatow_ != nullptr){
+			oknoKomunikatow_->addMessage(typ, tresc);
+		}
+	}
+
+	void OknoGry::ustawOknoKomunikatow(int idOkna, const char * kontrolkaNazwy){
+		if (kontrolkaNazwy != nullptr){
+			if (strlen(kontrolkaNazwy) >= 0){
+				auto ekran = pobierzEkran(idOkna);
+				if (ekran){
+					oknoKomunikatow_ = ekran->pobierzGUI().get<tgui::LogListGui>(kontrolkaNazwy);
+					return;
+				}
+			}
+		}
+		odlaczOknoKomunikatow();
+	}
+
+	void OknoGry::odlaczOknoKomunikatow(){
+		oknoKomunikatow_.reset();
+	}
+
 	OknoGry::EkranPtr OknoGry::pobierzEkran(const STyp::Identyfikator& ekranId){
 		std::lock_guard<std::recursive_mutex> lock(mutexListaEkranow_);
 		auto iter = listaEkranow_.find(ekranId);
