@@ -38,11 +38,6 @@ namespace SpEx{
 				return obiekt;
 		}
 
-		template<class T>
-		static typename T::Ptr PobierzWidzetZAktywnegoEkranu(const char * kontrolkaNazwy){
-			return SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzStosEkranow().back()->pobierzGUI().get<T>(kontrolkaNazwy);
-		}
-
 		static void generujWyjatekBleduStruktury(XmlBO::ElementWezla wezel);
 
 		template<class Map, class Key>
@@ -65,5 +60,6 @@ namespace SpEx{
 
 		static void ascii2hex(std::string& str, unsigned char c);
 		static void sha3(std::string& str);
+
 	};
 }

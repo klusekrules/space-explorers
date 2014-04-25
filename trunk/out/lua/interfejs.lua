@@ -3,7 +3,10 @@ local ffi = require("ffi")
 ffi.cdef[[
 //Logowanie w stylu aplikacji
 void loguj(const char *komunikat );
-bool komunikat(const char *kontrolka, const char *komunikat);
+void odlaczOknoKomunikatow();
+void podlaczOknoKomunikatow(int idOkna, const char * widzet);
+void logujWOknieKomunikatow(unsigned int typ, const char * komunikat);
+
 //Struktury
 struct Zdarzenie_t{
 	int idStanu_;
@@ -25,6 +28,7 @@ bool pobierzNastepnyStan( struct Stan_t& s );
 
 //Sterowanie stanami
 bool ustawOkno(int id);
+bool ustawWlasciwosc(int ekran, const char *kontrolka, const char *nazwaWlasciwosci, const char *nowaWartosc);
 void przeladujOkno(int id);
 bool zdejmijOkno();
 void wyczyscListeOkien();
@@ -42,9 +46,8 @@ bool zaladujGre(const char *plik);
 
 //Gracz
 bool zaloguj(const char *kontrolkaNazwy, const char *kontrolkaHasla);
-bool nowyGracz(const char *kontrolkaKomunikatow, const char *kontrolkaNazwy, const char *kontrolkaHasla);
+bool nowyGracz(const char *kontrolkaNazwy, const char *kontrolkaHasla);
 bool usunGracza(const char *kontrolkaNazwy, const char *kontrolkaHasla);
-bool ustawWlasciwosc(int ekran, const char *kontrolka, const char *nazwaWlasciwosci, const char *nowaWartosc);
 
 ]]
 mymodule = ffi

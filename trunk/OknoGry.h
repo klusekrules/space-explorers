@@ -4,6 +4,7 @@
 #include "Logger\Log.h"
 #include "EkranSzablon.h"
 #include "Zadanie.h"
+#include "LogListGui.h"
 
 namespace SpEx{
 	class OknoGry :
@@ -30,6 +31,10 @@ namespace SpEx{
 		bool isPause() const;
 		void unpause();
 
+		void odlaczOknoKomunikatow();
+		void logToGUI(unsigned int typ, const std::string& tresc);
+		void ustawOknoKomunikatow(int, const char *);
+
 		virtual ~OknoGry(void) = default;
 	private:
 		sf::RenderWindow oknoGlowne_;
@@ -49,6 +54,8 @@ namespace SpEx{
 		mutable std::mutex listaZadanMux_;
 		std::list< SpEx::Zadanie > listaZadan_;
 		StosEkranow stosEkranow_;
+
+		tgui::LogListGui::Ptr oknoKomunikatow_;
 
 		void wykonuj() override;
 		bool inicjalizacja();
