@@ -154,10 +154,12 @@ namespace tgui {
 		if (insideHight <= hight){
 			scroll_->setLowValue(0);
 			scroll_->setMaximum(0);
+			scroll_->setValue(0);
 		}
 		else{
 			scroll_->setLowValue(static_cast<unsigned int>(hight));
 			scroll_->setMaximum(static_cast<unsigned int>(insideHight + 1.f));
+			scroll_->setValue(0);
 		}
 	}
 

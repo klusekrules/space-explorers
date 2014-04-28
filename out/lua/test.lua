@@ -5,6 +5,7 @@ local ffi = require "interfejs"
 	Komentarz wieloliniowy.
 ]]
 
+-- Lokalne
 function wstawZdarzenieDlaAktualnegoStanu ( id, addNumber )
 	local stan = ffi.new('struct Stan_t')
 	local zdarzenie = ffi.new('struct Zdarzenie_t')
@@ -13,6 +14,19 @@ function wstawZdarzenieDlaAktualnegoStanu ( id, addNumber )
 	zdarzenie.numer_ = addNumber
 	zdarzenie.idZdarzenia_ = id
 	ffi.C.wstawZdarzenie(zdarzenie)
+end
+
+-- Ustawianie Okna
+function stanPoczatkowy ()
+	wejscieDoStanu()
+	ffi.C.wyczyscListeOkien();
+	ffi.C.zaladujGre("danetestowe.xml")
+	ffi.C.loguj("Ustawianie okna o id 0")
+	if ffi.C.ustawOkno(0) == true then
+		ffi.C.loguj("Ustawianiono")
+	else
+		ffi.C.loguj("Nieustawianiono")
+	end
 end
 
 function ustawOknoMenu ()
@@ -38,11 +52,20 @@ function ustawOknoLogowania ()
 	end
 end
 
-function wyjscieZeStanuLogowania ()
-	wyjscieZeStanu()
-	ffi.C.odlaczOknoKomunikatow()
+function ustawOknoListy()
+	ffi.C.wypelnijKontrolkeObiektu(3,1,"MojaKontrolka")
+	wejscieDoStanu()
+	ffi.C.wyczyscListeOkien();
+	ffi.C.loguj("Ustawianie okna o id 3")
+	if ffi.C.ustawOkno(3) == true then	
+		ffi.C.podlaczOknoKomunikatow(3,"komunikaty")
+		ffi.C.loguj("Ustawianiono")
+	else
+		ffi.C.loguj("Nieustawianiono")
+	end
 end
 
+-- przejscia miedzy stanami
 function wyjscieZeStanu()
 	local stan = ffi.new('struct Stan_t');
 	ffi.C.zdejmijOkno()
@@ -51,6 +74,7 @@ function wyjscieZeStanu()
 	else
 		ffi.C.loguj("Wyjscie z nieznanego stanu")
 	end
+	ffi.C.odlaczOknoKomunikatow()
 end
 
 function wejscieDoStanu()
@@ -62,6 +86,7 @@ function wejscieDoStanu()
 	end
 end
 
+-- zadania menu g³ównego
 function zamknijAplikacje ()
 	ffi.C.zamknijAplikacje()
 end
@@ -74,18 +99,6 @@ function przejdzDoZamykania ()
 	else
 		ffi.C.loguj("Wymuszenie zamykania aplikacji")
 		ffi.C.zamknijAplikacje()
-	end
-end
-
-function stanPoczatkowy ()
-	wejscieDoStanu()
-	ffi.C.wyczyscListeOkien();
-	ffi.C.zaladujGre("danetestowe.xml")
-	ffi.C.loguj("Ustawianie okna o id 0")
-	if ffi.C.ustawOkno(0) == true then
-		ffi.C.loguj("Ustawianiono")
-	else
-		ffi.C.loguj("Nieustawianiono")
 	end
 end
 
@@ -102,7 +115,6 @@ function wlaczTestowanie ()
 	ffi.C.zlecZadanie("lua\\test.lua","testy");
 end
 
-
 function testy ()
 	ffi.C.loguj("Testowanie")
 	ffi.C.testyJednostkowe()
@@ -114,18 +126,6 @@ function testy ()
 	ffi.C.kolejkujZdarzenie(zdarzenie);
 end
 
-function ustawOknoListy()
-	wejscieDoStanu()
-	ffi.C.wyczyscListeOkien();
-	ffi.C.loguj("Ustawianie okna o id 3")
-	if ffi.C.ustawOkno(3) == true then
-		ffi.C.loguj("Ustawianiono")
-	else
-		ffi.C.loguj("Nieustawianiono")
-	end
-	ffi.C.wypelnijKontrolkeObiektu(3,1,"MojaKontrolka")
-end
-
 function wczytajDane ()	
 	if ffi.C.wczytajDane("danetestowe.xml") == true then
 		ffi.C.loguj("Za³adowano dane.")
@@ -134,6 +134,7 @@ function wczytajDane ()
 	end
 end
 
+-- Zadania listy okien
 function przeladujOknoListeObiektow ()	
 	ffi.C.przeladujOkno(3)
 end
@@ -148,6 +149,7 @@ function wczytajPonownieListeObiektowImpl ()
 	ustawOknoListy()
 end
 
+-- Zadania okna logowania
 function tworzGracza()
 	if ffi.C.nowyGracz("login","pass") == true then
 		wstawZdarzenieDlaAktualnegoStanu ( 4, 0 )
@@ -158,12 +160,4 @@ function zaloguj()
 	if ffi.C.zaloguj("login","pass") == true then
 		wstawZdarzenieDlaAktualnegoStanu ( 4, 0 )
 	end
-	--[[
-	ffi.C.komunikat("komunikaty","Komunikat 1")
-	ffi.C.komunikat("komunikaty","Komunikat 2")
-	ffi.C.komunikat("komunikaty","Komunikat 3")
-	ffi.C.komunikat("komunikaty","Komunikat 4")
-	ffi.C.komunikat("komunikaty","Komunikat 5")
-	ffi.C.komunikat("komunikaty","Komunikat 6")
-	]]
 end

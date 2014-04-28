@@ -82,4 +82,18 @@ Window:
 		TextSize = 15
 	}
 
+	LogListGui: "komunikaty"
+	{
+		ConfigFile = "widgets\Black.conf"
+		Left = 630
+		Top = 200
+		Width = 150
+		Height = 240
+		Visible = true
+		Enabled = true
+		Transparency = 255
+		CallbackId = 0
+		BackgroundColor = (200,200,200,50)
+	}
+
 }

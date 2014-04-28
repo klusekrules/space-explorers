@@ -186,16 +186,29 @@ extern "C"{
 
 	__declspec(dllexport) bool __cdecl zaloguj(const char *kontrolkaNazwy, const char *kontrolkaHasla){
 		if (kontrolkaNazwy && kontrolkaHasla){
-
 			auto nazwa = SpEx::UtilsGui::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaNazwy);
 			auto haslo = SpEx::UtilsGui::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaHasla);
 			if (nazwa != nullptr && haslo != nullptr){
 				std::string hash(haslo->getText());
-				SpEx::Utils::sha3(hash);
-				if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().logowanie(nazwa->getText(), hash)){
-					return true;
+				if (!(nazwa->getText().isEmpty() || hash.empty())){
+					SpEx::Utils::sha3(hash);
+					if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().logowanie(nazwa->getText(), hash)){
+						return true;
+					}
+					else{
+						SpEx::UtilsGui::logToGUI(0, "Nie uda³o siê zalogowaæ!");
+					}
+				}
+				else{
+					SpEx::UtilsGui::logToGUI(0, "Brak has³a lub loginu!");
 				}
 			}
+			else{
+				SpEx::UtilsGui::logToGUI(0, "Brak widzetu has³a lub loginu!");
+			}
+		}
+		else{
+			SpEx::UtilsGui::logToGUI(0, "Brak nazwy widzetu has³a lub loginu!");
 		}
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Nie uda³o siê zalogowaæ!");
 		return false;
