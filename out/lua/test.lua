@@ -46,6 +46,7 @@ function ustawOknoLogowania ()
 	ffi.C.loguj("Ustawianie okna o id 4")
 	if ffi.C.ustawOkno(4) == true then
 		ffi.C.podlaczOknoKomunikatow(4,"komunikaty")
+		ffi.C.ustawWlasciwosc(4,"login","focused","true")
 		ffi.C.loguj("Ustawianiono")
 	else
 		ffi.C.loguj("Nieustawianiono")
