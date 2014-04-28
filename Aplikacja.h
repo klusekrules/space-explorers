@@ -41,7 +41,7 @@ namespace SpEx {
 	class Aplikacja:
 		public se::Singleton<Aplikacja>
 	{
-		friend class Testy;
+		friend class TestyJednostkowe;
 		friend class se::Singleton<Aplikacja>;
 	public:
 

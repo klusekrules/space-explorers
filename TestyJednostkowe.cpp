@@ -3,6 +3,7 @@
 #include <sstream>
 #include "TypyProste\Wyjatek.h"
 #include "Logger\Log.h"
+#include "Aplikacja.h"
 
 void TestyJednostkowe::inicjalizacjaDanych( PaczkaTestow* paczka ){
 	inicjalizacja_.push_back(paczka);
@@ -22,6 +23,9 @@ TestyJednostkowe& TestyJednostkowe::pobierzInstancje(){
 }
 
 void TestyJednostkowe::wykonajTesty(){
+
+	auto kopia = SpEx::Aplikacja::pobierzInstancje().instancjaGry_;
+	SpEx::Aplikacja::pobierzInstancje().instancjaGry_ = std::make_shared<SpEx::Gra>(SpEx::Aplikacja::pobierzInstancje().logger_, SpEx::Aplikacja::pobierzInstancje().zarzadca_);
 	try{
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Inicjalizacja testów...");
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "---------------------------------");
@@ -99,6 +103,7 @@ void TestyJednostkowe::wykonajTesty(){
 	}
 	SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Zakoñczono czyszczenie testów");
 	podsumowanie();
+	SpEx::Aplikacja::pobierzInstancje().instancjaGry_ = kopia;
 }
 
 TestyJednostkowe::~TestyJednostkowe(){

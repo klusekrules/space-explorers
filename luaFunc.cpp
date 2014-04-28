@@ -82,7 +82,6 @@ extern "C"{
 		TestyJednostkowe::pobierzInstancje().wykonajTesty();
 	}
 
-
 	__declspec(dllexport) void __cdecl zlecZadanie(const char *plik, const char *funkcja)
 	{
 		std::string luaPlik, luaFunkcja;
@@ -306,6 +305,7 @@ extern "C"{
 		}
 		)));
 	}
+
 	__declspec(dllexport) bool __cdecl ustawWlasciwosc(int ekran, const char *kontrolka, const char *nazwaWlasciwosci, const char *nowaWartosc){
 		if (!kontrolka && !nazwaWlasciwosci)
 			return false;
@@ -327,4 +327,3 @@ extern "C"{
 		return widget->setProperty(nazwaWlasciwosci,value);
 	}
 }
-
