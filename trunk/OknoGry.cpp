@@ -58,7 +58,7 @@ namespace SpEx{
 	}
 
 	void OknoGry::odlaczOknoKomunikatow(){
-		oknoKomunikatow_.reset();
+		oknoKomunikatow_ = tgui::LogListGui::Ptr(nullptr);
 	}
 
 	OknoGry::EkranPtr OknoGry::pobierzEkran(const STyp::Identyfikator& ekranId){
@@ -243,7 +243,7 @@ namespace SpEx{
 	}
 	
 	void OknoGry::usunWszystkieEkrany(){
-		oknoKomunikatow_.reset();
+		odlaczOknoKomunikatow();
 		for (auto ekran : listaEkranow_){
 			ekran.second->odlacz(oknoGlowne_);
 			ekran.second->clear();
