@@ -23,6 +23,8 @@ namespace SpEx{
 
 		tgui::Gui& pobierzGUI();
 
+		virtual void clear();
+
 	protected:
 
 		void callback(const tgui::Callback& callback, unsigned int funkcja);

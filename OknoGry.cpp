@@ -172,6 +172,8 @@ namespace SpEx{
 			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), -1, STyp::Tekst("Przechwycono wyj¹tek!"), STyp::Tekst("Nieznany typ wyj¹tku!")));
 			MaszynaStanow::pobierzInstancje().inicjujZamykanie();
 		}
+
+		usunWszystkieEkrany();
 	}
 
 	bool OknoGry::inicjalizacja(){
@@ -238,6 +240,14 @@ namespace SpEx{
 			}));
 		}
 		return !listaEkranow_.empty();
+	}
+	
+	void OknoGry::usunWszystkieEkrany(){
+		oknoKomunikatow_.reset();
+		for (auto ekran : listaEkranow_){
+			ekran.second->odlacz(oknoGlowne_);
+			ekran.second->clear();
+		}
 	}
 	
 	void OknoGry::przeladujEkran(const STyp::Identyfikator& id){
