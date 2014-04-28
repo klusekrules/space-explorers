@@ -46,6 +46,11 @@ namespace SpEx{
 
 	void EkranSzablon::uaktualnij(Stan& stan){
 	}
+	
+	void EkranSzablon::clear(){
+		interfejs_.removeAllWidgets();
+		interfejs_.setGlobalFont(sf::Font());
+	}
 
 	void EkranSzablon::odbierz(Stan& stan, const sf::Event& zdarzenie){
 		idStanu_ = stan.id_;

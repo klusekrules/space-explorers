@@ -66,6 +66,7 @@ namespace SpEx{
 		Stan::KrokCzasu obliczZmianeCzasu(std::chrono::high_resolution_clock::time_point);
 
 		bool wczytajEkrany();
+		void usunWszystkieEkrany();
 
 		void logujInfo();
 	};
