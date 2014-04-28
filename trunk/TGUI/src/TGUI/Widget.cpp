@@ -427,7 +427,16 @@ namespace tgui
             else
                 TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
         }
-        else if (property == "transparency")
+		else if(property == "focused")
+		{
+			if ((value == "true") || (value == "True"))
+				focus();
+			else if ((value == "false") || (value == "False"))
+				unfocus();
+			else
+				TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
+		}
+		else if (property == "transparency")
         {
             setTransparency(static_cast<char>(atoi(value.c_str())));
         }
@@ -477,7 +486,9 @@ namespace tgui
             value = m_Visible ? "true" : "false";
         else if (property == "enabled")
             value = m_Enabled ? "true" : "false";
-        else if (property == "transparency")
+		else if (property == "focused")
+			value = isFocused() ? "true" : "false";
+		else if (property == "transparency")
             value = to_string(int(getTransparency()));
         else if (property == "callbackid")
             value = to_string(m_Callback.id);
@@ -513,7 +524,8 @@ namespace tgui
         list.push_back(std::pair<std::string, std::string>("Width", "uint"));
         list.push_back(std::pair<std::string, std::string>("Height", "uint"));
         list.push_back(std::pair<std::string, std::string>("Visible", "bool"));
-        list.push_back(std::pair<std::string, std::string>("Enabled", "bool"));
+		list.push_back(std::pair<std::string, std::string>("Enabled", "bool"));
+		list.push_back(std::pair<std::string, std::string>("Focused", "bool"));
         list.push_back(std::pair<std::string, std::string>("Transparency", "byte"));
         list.push_back(std::pair<std::string, std::string>("Callback", "custom"));
         list.push_back(std::pair<std::string, std::string>("CallbackId", "uint"));
