@@ -93,6 +93,7 @@
 #define ATRYBUT_XML_POWIERZCHNIA_LADOW "powierzchniaLadow"
 #define ATRYBUT_XML_POWIERZCHNIA_UZYTKOWA_LADOW "powierzchniaUzytkowaLadow"
 #define ATRYBUT_XML_WOLNA "wolna"
+#define ATRYBUT_XML_NUMER "numer"
 
 #define ATRYBUT_XML_EKRAN_STAN_WEJSCIOWY "stanWejsciowy"
 #define ATRYBUT_XML_EKRAN_ZDARZENIE_WYJSCIA "zdarzenieWyjscia"
