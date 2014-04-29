@@ -68,11 +68,11 @@ namespace SpEx{
 		return id_;
 	}
 
-	void EkranSzablon::callback(const tgui::Callback& callback, unsigned int idZdarzenia){
+	void EkranSzablon::callback(const tgui::Callback& callback, unsigned int idZdarzenia , unsigned int numer){
 		Zdarzenie zdarzenie;
 		zdarzenie.idStanu_ = idStanu_;
 		zdarzenie.idZdarzenia_ = STyp::Identyfikator(idZdarzenia);
-		zdarzenie.numer_ = 0;
+		zdarzenie.numer_ = numer;
 		zdarzenie.zdarzenieGui_ = callback;
 		MaszynaStanow::pobierzInstancje().kolejkujZdarzenie(zdarzenie);
 	}
@@ -92,14 +92,19 @@ namespace SpEx{
 			}));
 			XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_AKCJA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 				unsigned int akcja = XmlBO::WczytajAtrybut<unsigned int>(element, ATRYBUT_XML_IDENTYFIKATOR, 0);
+				unsigned int numer = XmlBO::WczytajAtrybut<unsigned int>(element, ATRYBUT_XML_NUMER, 0);
 				unsigned int zdarzenie = XmlBO::WczytajAtrybut<unsigned int>(element, ATRYBUT_XML_ID_ZDARZENIA, 0);
-				if (!(akcja == 0 || zdarzenie == 0)){
-					kontrolka->bindCallbackEx(std::bind(&EkranSzablon::callback, std::ref(*this), std::placeholders::_1, zdarzenie), akcja);
-				}
+				bindCallbackEvent(kontrolka, zdarzenie, numer, akcja);				
 				return true;
 			}));
 		}
 		return true;
+	}
+
+	void EkranSzablon::bindCallbackEvent(const tgui::Widget::Ptr widzet, unsigned int zdarzenie, unsigned int numer, unsigned int akcja){
+		if (!(akcja == 0 || zdarzenie == 0) && widzet != nullptr){
+			widzet->bindCallbackEx(std::bind(&EkranSzablon::callback, std::ref(*this), std::placeholders::_1, zdarzenie, numer), akcja);
+		}
 	}
 
 	void EkranSzablon::draw(sf::RenderTarget& target, sf::RenderStates states) const{

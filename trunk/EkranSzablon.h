@@ -26,8 +26,8 @@ namespace SpEx{
 		virtual void clear();
 
 	protected:
-
-		void callback(const tgui::Callback& callback, unsigned int funkcja);
+		void bindCallbackEvent(const tgui::Widget::Ptr widzet, unsigned int zdarzenie, unsigned int numer, unsigned int akcja);
+		void callback(const tgui::Callback& callback, unsigned int funkcja, unsigned int numer);
 
 		bool wczytajDaneKontrolki(XmlBO::ElementWezla wezel, tgui::Widget::Ptr kontrolka);
 
