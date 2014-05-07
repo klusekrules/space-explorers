@@ -26,15 +26,12 @@ namespace SpEx{
 		virtual void clear();
 
 	protected:
-		void bindCallbackEvent(const tgui::Widget::Ptr widzet, unsigned int zdarzenie, unsigned int numer, unsigned int akcja);
-		void callback(const tgui::Callback& callback, unsigned int funkcja, unsigned int numer);
 
 		bool wczytajDaneKontrolki(XmlBO::ElementWezla wezel, tgui::Widget::Ptr kontrolka);
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 		STyp::Identyfikator id_;
-		STyp::Identyfikator idStanu_;
 		mutable tgui::Gui interfejs_;
 	};
 };
