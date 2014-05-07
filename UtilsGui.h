@@ -23,6 +23,9 @@ namespace SpEx{
 		static void logToGUI(unsigned int, const std::string&);
 		static void ustawOknoKomunikatow(int, const char *);
 		static void odlaczOknoKomunikatow();
+		static void bindCallbackEvent(const tgui::Widget::Ptr widzet, unsigned int zdarzenie, unsigned int numer, unsigned int akcja);
 	private:
+
+		static void callback(const tgui::Callback& callback, unsigned int idZdarzenia, unsigned int numer);
 	};
 };
