@@ -1,5 +1,6 @@
 
 #include "KontrolkaObiektu.h"
+#include "UtilsGui.h"
 
 namespace tgui{
 	
@@ -84,7 +85,10 @@ namespace tgui{
 		titleWyrownanieHoryzontalne_(copy.titleWyrownanieHoryzontalne_),
 		titleWyrownanieWertykalne_(copy.titleWyrownanieWertykalne_),
 		describeWyrownanieHoryzontalne_(copy.describeWyrownanieHoryzontalne_),
-		describeWyrownanieWertykalne_(copy.describeWyrownanieWertykalne_)
+		describeWyrownanieWertykalne_(copy.describeWyrownanieWertykalne_),
+		idZdarzeniaBudowy_(copy.idZdarzeniaBudowy_),
+		idZdarzeniaBurzenia_(copy.idZdarzeniaBurzenia_),
+		idZdarzeniaKlikniecia_(copy.idZdarzeniaKlikniecia_)
 	{
 		picture_ = this->get<Picture>("ObrazObiektu");
 		nazwa_ = this->get<Label>("NazwaObiektu");
@@ -530,14 +534,41 @@ namespace tgui{
 		nazwa_->setText(obj.pobierzNazwe()());
 		tresc_->setText(SpEx::Utils::trim(obj.pobierzOpis()()));
 		picture_->load(obj.pobierzAdresObrazka()());
-		
+		int idObj = obj.pobierzIdentyfikator()();
+
+		rozbuduj_->unbindCallback(64);
+		if (idZdarzeniaBudowy_ != 0){
+			SpEx::UtilsGui::bindCallbackEvent(rozbuduj_, idZdarzeniaBudowy_, idObj, Button::LeftMouseClicked);
+		}
+
+		zniszcz_->unbindCallback(64);
+		if (idZdarzeniaBurzenia_ != 0){
+			SpEx::UtilsGui::bindCallbackEvent(zniszcz_, idZdarzeniaBurzenia_, idObj, Button::LeftMouseClicked);
+		}
+
+		picture_->unbindCallback(64);
+		if (idZdarzeniaKlikniecia_ != 0){
+			SpEx::UtilsGui::bindCallbackEvent(picture_, idZdarzeniaKlikniecia_, idObj, Button::LeftMouseClicked);
+		}
 		return true;
 	}
 
 	bool KontrolkaObiektu::setProperty(std::string property, const std::string& value){
 		if (property == "image"){
 			return picture_->load(value);
-		}else if(property == "configfile"){
+		}else if(property == "idzdarzeniabudowy"){
+			idZdarzeniaBudowy_ = std::strtol(value.c_str(), nullptr, 10);
+			return true;
+		}
+		else if (property == "idzdarzeniaburzenia"){
+			idZdarzeniaBurzenia_ = std::strtol(value.c_str(), nullptr, 10);
+			return true;
+		}
+		else if (property == "idzdarzeniaklikniecia"){
+			idZdarzeniaKlikniecia_ = std::strtol(value.c_str(), nullptr, 10);
+			return true;
+		}
+		else if (property == "configfile"){
 			return load(value);
 		}else
 			return Panel::setProperty(property, value);
@@ -547,17 +578,30 @@ namespace tgui{
 		if (property == "Image"){
 			value = picture_->getLoadedFilename();
 			return true;
-		}else if(property == "ConfigFile"){
+		}else if (property == "ConfigFile"){
 			value = m_LoadedConfigFile;
 			return true;
-		}else
+		}else if(property == "IdZdarzeniaBudowy"){
+			value = idZdarzeniaBudowy_;
+		}
+		else if (property == "IdZdarzeniaBurzenia"){
+			value = idZdarzeniaBurzenia_;
+		}
+		else if (property == "IdZdarzeniaKlikniecia"){
+			value = idZdarzeniaKlikniecia_;
+		}
+		else
 			return Panel::getProperty(property, value);
+		return true;
 	}
 
 	std::list< std::pair<std::string, std::string> > KontrolkaObiektu::getPropertyList() const{
 		auto list = Panel::getPropertyList();
 		list.push_back(std::pair<std::string, std::string>("ConfigFile", "string"));
 		list.push_back(std::pair<std::string, std::string>("Image", "string"));
+		list.push_back(std::pair<std::string, std::string>("IdZdarzeniaBudowy", "int"));
+		list.push_back(std::pair<std::string, std::string>("IdZdarzeniaBurzenia", "int"));
+		list.push_back(std::pair<std::string, std::string>("IdZdarzeniaKlikniecia", "int"));
 		return list;
 	}
 

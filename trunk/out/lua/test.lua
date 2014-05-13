@@ -136,6 +136,25 @@ function wczytajDane ()
 end
 
 -- Zadania listy okien
+
+function rozbuduj ()
+	local zdarzenie = ffi.new('struct Zdarzenie_t')
+	ffi.C.pobierzZdarzenie(zdarzenie)
+	ffi.C.logujWOknieKomunikatow(1,"Rozbuduj " .. tostring(zdarzenie.numer_) )
+end
+
+function zniszcz ()
+	local zdarzenie = ffi.new('struct Zdarzenie_t')
+	ffi.C.pobierzZdarzenie(zdarzenie)
+	ffi.C.logujWOknieKomunikatow(1,"Zburz " .. tostring(zdarzenie.numer_))
+end
+
+function info ()
+	local zdarzenie = ffi.new('struct Zdarzenie_t')
+	ffi.C.pobierzZdarzenie(zdarzenie)
+	ffi.C.logujWOknieKomunikatow(1,"Info " .. tostring(zdarzenie.numer_))
+end
+
 function przeladujOknoListeObiektow ()	
 	ffi.C.przeladujOkno(3)
 end

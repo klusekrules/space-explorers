@@ -201,6 +201,10 @@
         <File Id='BLACK_PNG_FILE' Source='..\out\widgets\Black.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
       </Component>
 
+      <Component Id='LOG_LIST_GUI_CONF_FILE_COMP' Guid='{F10C4524-88A2-455A-8698-F3FF47FBDEF1}' Win64='$(var.isPlatformx64)'>
+        <File Id='LOG_LIST_GUI_CONF_FILE' Source='..\out\widgets\LogListGui.conf' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
       <Component Id='TLO_PNG_FILE_COMP' Guid='{644918D0-ECCC-4E64-BC2A-BF5BC980A86C}' Win64='$(var.isPlatformx64)'>
         <File Id='TLO_PNG_FILE' Source='..\out\widgets\tlo.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
       </Component>
@@ -239,6 +243,7 @@
       <ComponentRef Id='STATE_XML_FILE_COMP' />
       <ComponentRef Id='TESTOWANIE_WDG_FILE_COMP' />
       <ComponentRef Id='BLACK_CONF_FILE_COMP' />
+      <ComponentRef Id='LOG_LIST_GUI_CONF_FILE_COMP' />
       <ComponentRef Id='BLACK_PNG_FILE_COMP' />
       <ComponentRef Id='BRAK_OBRAZKA_PNG_COMP' />
       <ComponentRef Id='OKNO_LISTY_PNG_COMP' />

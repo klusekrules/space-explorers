@@ -238,6 +238,15 @@ namespace tgui {
 		if (property == "mnoznikrolki"){
 			mnoznikRolki_ = std::strtol(value.c_str(), nullptr, 10);
 		}
+		else if (property == "idzdarzeniabudowy"){
+			template_->setProperty(property, value);
+		}
+		else if (property == "idzdarzeniaburzenia"){
+			template_->setProperty(property, value);
+		}
+		else if (property == "idzdarzeniaklikniecia"){
+			template_->setProperty(property, value);
+		}
 		else if(property == "scrollbarpokaz"){
 			if ((value == "true") || (value == "True"))
 				pokazScrollBar_ = true;
@@ -287,6 +296,15 @@ namespace tgui {
 		}
 		else if (property == "ConfigFile"){
 			value = m_LoadedConfigFile;
+		}
+		else if (property == "IdZdarzeniaBudowy"){
+			template_->getProperty(property, value);
+		}
+		else if (property == "IdZdarzeniaBurzenia"){
+			template_->getProperty(property, value);
+		}
+		else if (property == "IdZdarzeniaKlikniecia"){
+			template_->getProperty(property, value);
 		}
 		else
 			return Panel::getProperty(property, value);

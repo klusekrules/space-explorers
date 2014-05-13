@@ -34,7 +34,7 @@ namespace SpEx{
 	}
 
 	bool Stan::operator==(const Zdarzenie & s)const{
-		return numer_ == s.numer_ && id_ == s.idStanu_;
+		return id_ == s.idStanu_;
 	}
 
 	std::shared_ptr<StanInfo> Stan::opisStanu() const{
