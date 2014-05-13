@@ -87,5 +87,10 @@ namespace tgui{
 
 		bool constSize_ = false;
 		bool propotional_ = true;
+
+		int idZdarzeniaBudowy_ = 0;
+		int idZdarzeniaBurzenia_ = 0;
+		int idZdarzeniaKlikniecia_ = 0;
+
 	};
 };

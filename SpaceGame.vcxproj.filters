@@ -820,6 +820,9 @@
     <None Include="out\widgets\Black.conf">
       <Filter>Resource</Filter>
     </None>
+    <None Include="out\widgets\LogListGui.conf">
+      <Filter>Resource</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="out\data.xml">

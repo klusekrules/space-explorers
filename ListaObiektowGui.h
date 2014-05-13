@@ -46,6 +46,9 @@ namespace tgui{
 		float scrollWidth_;
 		float interspace_;
 		int mnoznikRolki_ = 15;
+		int idZdarzeniaBudowy_ = 0;
+		int idZdarzeniaBurzenia_ = 0;
+		int idZdarzeniaKlikniecia_ = 0;
 		unsigned int zadanieRozbudowy_ = 0;
 		unsigned int zadanieBurzenia_ = 0;
 		bool pokazScrollBar_ = false;

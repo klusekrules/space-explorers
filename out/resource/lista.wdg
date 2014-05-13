@@ -37,6 +37,9 @@ Window:
 	{
 		ConfigFile = widgets\Black.conf
 		MnoznikRolki = 15
+		IdZdarzeniaBudowy = 2
+		IdZdarzeniaBurzenia = 3
+		IdZdarzeniaKlikniecia = 4
 		ScrollbarPokaz = false
 		ScrollbarSzerokosc = 20
 		Left = 10
@@ -84,7 +87,7 @@ Window:
 
 	LogListGui: "komunikaty"
 	{
-		ConfigFile = "widgets\Black.conf"
+		ConfigFile = "widgets\LogListGui.conf"
 		Left = 630
 		Top = 200
 		Width = 150
