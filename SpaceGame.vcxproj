@@ -318,6 +318,7 @@
   <ItemGroup>
     <ClInclude Include="afxres.h" />
     <ClInclude Include="Aplikacja.h" />
+    <ClInclude Include="BladKonfiguracjiAplikacji.h" />
     <ClInclude Include="BladKonfiguracjiEkranu.h" />
     <ClInclude Include="BudynekTest.h" />
     <ClInclude Include="CzyszczenieDanychTest.h" />
@@ -432,6 +433,7 @@
   <ItemGroup>
     <ClCompile Include="ApInfo.cpp" />
     <ClCompile Include="Aplikacja.cpp" />
+    <ClCompile Include="BladKonfiguracjiAplikacji.cpp" />
     <ClCompile Include="BladKonfiguracjiEkranu.cpp" />
     <ClCompile Include="Budynek.cpp" />
     <ClCompile Include="BudynekInfo.cpp" />

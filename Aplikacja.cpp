@@ -11,6 +11,18 @@
 #include "TGUI\TGUI.hpp"
 #include "ListaObiektowGui.h"
 #include "LogListGui.h"
+#include "BladKonfiguracjiAplikacji.h"
+
+#define KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU STyp::Tekst("Podczas przetwarzabua argumentów wyst¹pi³ b³¹d.")
+#define KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plik) STyp::Tekst("Nie powiod³o siê wczytywanie pliku konfiguracyjnego: " + plik)
+#define KOMUNIKAT_BLAD_FORMATU_DATY STyp::Tekst("Nie poprawny format daty u¿ytej w nazwie pliku logów.")
+#define KOMUNIKAT_BLAD_LADOWANIA_OPCJI STyp::Tekst("Podczas przetwa¿ania pliku z opcjami wyst¹pi³ b³¹d.")
+#define KOMUNIKAT_BLAD_REJESTRACJI_ZMIANY_POZIOMU STyp::Tekst("Nie powiod³a siê rejestracja zmiany sparawdzaj¹cej poziom obiektu.")
+#define KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DOMYSLNYCH STyp::Tekst("Nie powiod³a siê rejestracja domyœlnych obiektów zmiany.")
+#define KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DODATKOWYCH STyp::Tekst("Nie powiod³a siê rejestracja dodatkowych obiektów zmiany.")
+#define KOMUNIKAT_BLAD_BRAK_PLIKU_DANYCH(plik) STyp::Tekst("Plik : " + plik + " z danymi programu nie zosta³ znaleziony!")
+#define KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folder) STyp::Tekst("Folder :" + folder + " nie zosta³ znaleziony!")
+
 void myPurecallHandler(){
 	SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, SpEx::Aplikacja::pobierzInstancje().pobierzSladStosu());
 }
@@ -65,15 +77,11 @@ namespace SpEx{
 
 		/* ------- Konfiguracja parametrów programu -------*/
 		if (!przetworzArgumenty()){
-			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), STyp::Identyfikator(),
-				STyp::Tekst("B³¹d inicjalizacji argumentów"),
-				STyp::Tekst("Podczas inicjalizacji argumentów wyst¹pi³ b³¹d."));
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU);
 		}
 
 		if (!ustawienia_.zaladuj(plikKonfiguracyjny_)){
-			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), STyp::Identyfikator(),
-				STyp::Tekst("B³¹d inicjalizacji argumentów"),
-				STyp::Tekst("Nie powiod³o siê wczytywanie pliku konfiguracyjnego: " + plikKonfiguracyjny_ ));
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plikKonfiguracyjny_));
 		}
 		logger_.ustawFormatCzasu(ustawienia_.pobierzFormatDatyLogow());
 		
@@ -90,9 +98,7 @@ namespace SpEx{
 		localtime_s(&timeinfo, &t);
 		char s[20];
 		if (strftime(s, 20, ustawienia_.pobierzFormatDatyPlikuLogow().c_str(), &timeinfo) == 0){
-			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), STyp::Identyfikator(),
-				STyp::Tekst("B³¹d inicjalizacji argumentów"),
-				STyp::Tekst("Nie poprawny format daty u¿ytej w nazwie pliku logów."));
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_FORMATU_DATY);
 		}
 		std::stringstream sfile;
 		sfile << ustawienia_.pobierzPrzedrostekPlikuLogow() << s << ".log";
@@ -122,27 +128,19 @@ namespace SpEx{
 		zarzadca_.zaladujPliki(ustawienia_);
 
 		if (!zaladujOpcje()){
-			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), STyp::Identyfikator(),
-				STyp::Tekst("B³¹d przetwarzania pliku z opcjami"),
-				STyp::Tekst("Podczas przetwa¿ania pliku z opcjami wyst¹pi³ b³¹d."));
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_LADOWANIA_OPCJI);
 		}
 
 		pluginy_ = std::make_shared<SPlu::Cplugin>(ustawienia_.pobierzFolderPlugin(), fabrykaZmian_, logger_);
 
 		if (!RejestrujZmianaPoziomObiektu(fabrykaZmian_, logger_))
-			throw STyp::Wyjatek(EXCEPTION_PLACE, pobierzSladStosu(), STyp::Identyfikator(),
-			STyp::Tekst("B³ad rejestracji zmiany."),
-			STyp::Tekst("Nie powiod³a siê rejestracja zmiany sparawdzaj¹cej poziom obiektu."));
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_REJESTRACJI_ZMIANY_POZIOMU);
 
 		if (!pluginy_->zaladujDomyslneKlasyZmian())
-			throw STyp::Wyjatek(EXCEPTION_PLACE, pobierzSladStosu(), STyp::Identyfikator(),
-			STyp::Tekst("B³ad rejestracji zmiany."),
-			STyp::Tekst("Nie powiod³a siê rejestracja domyœlnych obiektów zmiany."));
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DOMYSLNYCH);
 
 		if (!pluginy_->zaladujZewnetrzneKlasyZmian())
-			throw STyp::Wyjatek(EXCEPTION_PLACE, pobierzSladStosu(), STyp::Identyfikator(),
-			STyp::Tekst("B³ad rejestracji zmiany."),
-			STyp::Tekst("Nie powiod³a siê rejestracja dodatkowych obiektów zmiany."));
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DODATKOWYCH);
 
 		_set_purecall_handler(myPurecallHandler);
 		_set_invalid_parameter_handler(myInvalidParameterHandler);
@@ -166,12 +164,12 @@ namespace SpEx{
 
 			auto nazwaPlikuDanych_ = ustawienia_.pobierzPlikDanych();
 			if (_access(nazwaPlikuDanych_.c_str(), 0) == -1){ // Sprawdzenie czy folder istnieje
-				throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), STyp::Identyfikator(), STyp::Tekst("Brak pliku danych."), STyp::Tekst("Plik : " + nazwaPlikuDanych_ +  " z danymi programu nie zosta³ znaleziony!"));
+				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_BRAK_PLIKU_DANYCH(nazwaPlikuDanych_));
 			}
 
 			auto folderPluginow_ = ustawienia_.pobierzFolderPlugin();
 			if (_access(folderPluginow_.c_str(), 0) == -1){ // Sprawdzenie czy folder istnieje
-				throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), STyp::Identyfikator(), STyp::Tekst("Brak folderu plugin."), STyp::Tekst("Folder :" + folderPluginow_ + " nie zosta³ znaleziony!"));
+				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folderPluginow_));
 			}
 		}
 		catch (std::exception &e){

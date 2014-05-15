@@ -16,6 +16,6 @@ namespace SpEx{
 		
 		std::string napis() const override;
 	private:
-		STyp::Identyfikator identyfikator_;
+		STyp::Identyfikator identyfikatorEkranu_;
 	};
 };
