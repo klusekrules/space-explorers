@@ -283,6 +283,9 @@
     <ClCompile Include="UtilsGui.cpp">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClCompile>
+    <ClCompile Include="BladKonfiguracjiEkranu.cpp">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -617,6 +620,9 @@
     </ClInclude>
     <ClInclude Include="UtilsGui.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClInclude>
+    <ClInclude Include="BladKonfiguracjiEkranu.h">
+      <Filter>SourceFile\Wyjatki</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

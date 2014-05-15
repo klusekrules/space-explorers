@@ -6,6 +6,10 @@
 #include "Utils.h"
 #include "Aplikacja.h"
 #include "UtilsGui.h"
+#include "BladKonfiguracjiEkranu.h"
+#define KOMUNIKAT_BRAK_PLIKU STyp::Tekst("Brak pliku konfiguracyjengo dla okna szablonowego, nie zaimplementowano innego sposobu opisu okna.")
+#define KOMUNIKAT_BLAD_PLIKU(plik) STyp::Tekst("Nie powiod³o sie konfigurowanie okna na podstawie pliku konfiguracyjnego o nazwie: " + (plik))
+#define KOMUNIKAT_BLAD_WLASCIWOSCI(nazwa,wartosc) STyp::Tekst("Nie uda³o siê ustawiæ w³aœciwoœci: " + (nazwa) + " = " + (wartosc) + ".")
 
 namespace SpEx{
 	EkranSzablon::EkranSzablon(XmlBO::ElementWezla wezel){
@@ -14,9 +18,7 @@ namespace SpEx{
 			std::string konfiguracja = XmlBO::WczytajAtrybut(wezel, ATRYBUT_XML_KONFIGURACJA, std::string());
 			std::string czcionka = XmlBO::WczytajAtrybut(wezel, ATRYBUT_XML_CZCIONKA, std::string());
 			if (konfiguracja.empty()){
-				throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(),STyp::Identyfikator(),
-					STyp::Tekst("Brak pliku konfiguracyjnego!"),
-					STyp::Tekst("Brak pliku konfiguracyjengo dla okna szablonowego, nie zaimplementowano innego sposobu opisu okna."));
+				throw SpEx::BladKonfiguracjiEkranu(EXCEPTION_PLACE, id_, KOMUNIKAT_BRAK_PLIKU);
 			}
 			else{
 				if (!czcionka.empty()){
@@ -26,9 +28,7 @@ namespace SpEx{
 				}
 
 				if (!interfejs_.loadWidgetsFromFile(konfiguracja)){
-					throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), STyp::Identyfikator(),
-						STyp::Tekst("B³¹d konfiguracji okna!"),
-						STyp::Tekst("Nie powiod³o sie konfigurowanie okna na podstawie pliku konfiguracyjnego."));
+					throw SpEx::BladKonfiguracjiEkranu(EXCEPTION_PLACE, id_, KOMUNIKAT_BLAD_PLIKU(konfiguracja) );
 				}
 
 				XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_KONTROLKA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
@@ -75,8 +75,7 @@ namespace SpEx{
 				std::string wartosc = XmlBO::WczytajAtrybut(element, ATRYBUT_XML_WARTOSC, std::string());
 				if (!(nazwa.empty() || wartosc.empty())){
 					if (!kontrolka->setProperty(nazwa, wartosc)){
-						throw STyp::Wyjatek(EXCEPTION_PLACE,Aplikacja::pobierzInstancje().pobierzSladStosu(),-1,STyp::Tekst("B³¹d ustawienia w³aœciwoœci."),
-							STyp::Tekst("Ekran id:" + id_.napis() + ". Nie uda³o siê ustawiæ w³aœciwoœci: "+ nazwa +" = " + wartosc +"."));
+						throw SpEx::BladKonfiguracjiEkranu(EXCEPTION_PLACE, id_, KOMUNIKAT_BLAD_WLASCIWOSCI(nazwa,wartosc));
 					}
 				}
 				return true;
