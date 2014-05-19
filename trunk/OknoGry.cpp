@@ -231,7 +231,7 @@ namespace SpEx{
 			XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_EKRAN_STARTOWY, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 				auto ptr = std::make_shared<EkranStartowy>(oknoGlowne_, element); 
 				if (listaEkranow_.find(ptr->pobierzId()) != listaEkranow_.end())
-					throw PowtorzenieIdObiektu(EXCEPTION_PLACE, ptr->pobierzId(), KOMUNIKAT_POWTORZENIE_OBIEKTU(TechnologiaInfo));
+					throw PowtorzenieIdObiektu(EXCEPTION_PLACE, ptr->pobierzId(), KOMUNIKAT_POWTORZENIE_OBIEKTU(EkranStartowy));
 				listaEkranow_.insert(std::make_pair(ptr->pobierzId(), ptr));
 				return true;
 			}));
@@ -239,7 +239,7 @@ namespace SpEx{
 			XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_EKRAN, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 				auto ptr = std::make_shared<EkranSzablon>(element);
 				if (listaEkranow_.find(ptr->pobierzId()) != listaEkranow_.end())
-					throw PowtorzenieIdObiektu(EXCEPTION_PLACE, ptr->pobierzId(), KOMUNIKAT_POWTORZENIE_OBIEKTU(TechnologiaInfo));
+					throw PowtorzenieIdObiektu(EXCEPTION_PLACE, ptr->pobierzId(), KOMUNIKAT_POWTORZENIE_OBIEKTU(EkranSzablon));
 				ptr->podlacz(oknoGlowne_);
 				listaEkranow_.insert(std::make_pair(ptr->pobierzId(), ptr));
 				return true;
