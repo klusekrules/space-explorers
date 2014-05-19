@@ -320,6 +320,7 @@
     <ClInclude Include="Aplikacja.h" />
     <ClInclude Include="BladKonfiguracjiAplikacji.h" />
     <ClInclude Include="BladKonfiguracjiEkranu.h" />
+    <ClInclude Include="BladStukturyStanu.h" />
     <ClInclude Include="BudynekTest.h" />
     <ClInclude Include="CzyszczenieDanychTest.h" />
     <ClInclude Include="DllSkrypt.h" />
@@ -437,6 +438,7 @@
     <ClCompile Include="Aplikacja.cpp" />
     <ClCompile Include="BladKonfiguracjiAplikacji.cpp" />
     <ClCompile Include="BladKonfiguracjiEkranu.cpp" />
+    <ClCompile Include="BladStukturyStanu.cpp" />
     <ClCompile Include="Budynek.cpp" />
     <ClCompile Include="BudynekInfo.cpp" />
     <ClCompile Include="BudynekTest.cpp" />

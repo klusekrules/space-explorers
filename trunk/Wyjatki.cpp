@@ -6,9 +6,10 @@
 #include "BladKonfiguracjiAplikacji.h"
 #include "PowtorzenieIdObiektu.h"
 #include "NieznalezionoPliku.h"
+#include "BladStukturyStanu.h"
 
 namespace SpEx{
-
+	const STyp::Identyfikator BladStukturyStanu::idBladStukturyStanu(0x5);
 	const STyp::Identyfikator NieznalezionoPliku::idNieznalezionoPliku(0x4);
 	const STyp::Identyfikator PowtorzenieIdObiektu::idPowtorzeniaIdObiektu(0x3);
 	const STyp::Identyfikator BladKonfiguracjiEkranu::idBladKonfiguracjiEkranu(0x2);

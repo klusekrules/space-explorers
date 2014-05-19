@@ -10,7 +10,7 @@ namespace SpEx{
 	{
 	}
 
-	const STyp::Identyfikator& PowtorzenieIdObiektu::getIdentyfikator() const{
+	const STyp::Identyfikator& PowtorzenieIdObiektu::pobierzIdentyfikatorObiektu() const{
 		return identyfikatorObiektu_;
 	}
 

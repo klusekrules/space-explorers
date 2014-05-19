@@ -295,6 +295,9 @@
     <ClCompile Include="NieznalezionoPliku.cpp">
       <Filter>SourceFile\Wyjatki</Filter>
     </ClCompile>
+    <ClCompile Include="BladStukturyStanu.cpp">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -640,6 +643,9 @@
       <Filter>SourceFile\Wyjatki</Filter>
     </ClInclude>
     <ClInclude Include="NieznalezionoPliku.h">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClInclude>
+    <ClInclude Include="BladStukturyStanu.h">
       <Filter>SourceFile\Wyjatki</Filter>
     </ClInclude>
   </ItemGroup>
