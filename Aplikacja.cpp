@@ -125,7 +125,7 @@ namespace SpEx{
 			logger_.loguj(SLog::Log::Warning, "Nie za³adowano biblioteki Dbghelp.dll");
 		}
 
-		zarzadca_.zaladujPliki(ustawienia_);
+		zarzadca_.zaladujPliki(ustawienia_,std::bind(&Aplikacja::pobierzSladStosu,this));
 
 		if (!zaladujOpcje()){
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_LADOWANIA_OPCJI);

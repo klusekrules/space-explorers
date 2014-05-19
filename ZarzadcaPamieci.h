@@ -134,7 +134,7 @@ namespace SpEx{
 		std::shared_ptr<SPar::ParserDokument> plikUzytkownika(const std::string& nazwa, const std::string& hash, std::string& nazwaPliku, bool tworzPlik = true) const;
 
 
-		void zaladujPliki( const UstawieniaAplikacji& );
+		void zaladujPliki(const UstawieniaAplikacji&, const std::function<std::string()>& );
 
 		/**
 		* \brief Destruktor.
