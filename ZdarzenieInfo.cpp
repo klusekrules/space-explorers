@@ -4,6 +4,11 @@
 #include "definicjeWezlowXML.h"
 #include "Utils.h"
 #include "Aplikacja.h"
+#include "BladStukturyStanu.h"
+
+#define KOMUNIAKT_BRAK_PLIKU STyp::Tekst("Dla zdarzenia o ww id nie podano pliku skryptu, a wpisano metody do wykonania.")
+#define KOMUNIAKT_BLAD_WCZYTYWANIA(plik) STyp::Tekst("Dla zdarzenia o ww id nie uda³o siê wczytac pliku lua." + plik)
+#define KOMUNIAKT_BLAD_WYKONYWANIA STyp::Tekst("Dla zdarzenia o ww id nie uda³o siê wykonaæ inicjalizacji skryptu.")
 
 namespace SpEx{
 	ZdarzenieInfo::ZdarzenieInfo(XmlBO::ElementWezla wezel)
@@ -14,9 +19,7 @@ namespace SpEx{
 			luaFuncInside_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_STAN_LUA_INSIDE, std::string());
 			luaFile_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_STAN_LUA_FILE, std::string());
 			if (luaFile_.empty() && !luaFuncInside_.empty())
-				throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), STyp::Identyfikator(),
-				STyp::Tekst("B³¹d struktury stanu."),
-				STyp::Tekst("Nie podano pliku skryptu, a wpisano metody do wykonania."));
+				throw BladStukturyStanu(EXCEPTION_PLACE, id_, KOMUNIAKT_BRAK_PLIKU);
 
 			STyp::Identyfikator stan;
 			if (XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_STAN_NASTEPNY, stan)){
@@ -30,8 +33,10 @@ namespace SpEx{
 				skrypt_ = Aplikacja::pobierzInstancje().pobierzZarzadce().TworzSkrypt(wezel);
 				if (!skrypt_)
 					Utils::generujWyjatekBleduStruktury(wezel);
-				skrypt_->zaladuj(luaFile_);
-				skrypt_->wykonaj();
+				if(!skrypt_->zaladuj(luaFile_))
+					throw BladStukturyStanu(EXCEPTION_PLACE, id_, KOMUNIAKT_BLAD_WCZYTYWANIA(luaFile_));
+				if (!skrypt_->wykonaj())
+					throw BladStukturyStanu(EXCEPTION_PLACE, id_, KOMUNIAKT_BLAD_WYKONYWANIA);
 			}
 		}
 	}

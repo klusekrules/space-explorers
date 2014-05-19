@@ -11,7 +11,7 @@ namespace SpEx{
 		PowtorzenieIdObiektu(const STyp::Tekst&, const STyp::Tekst&, const STyp::Ilosc&, const STyp::Identyfikator&, const STyp::Tekst&);
 		virtual ~PowtorzenieIdObiektu() = default;
 
-		const STyp::Identyfikator& PowtorzenieIdObiektu::getIdentyfikator() const;
+		const STyp::Identyfikator& pobierzIdentyfikatorObiektu() const;
 
 		std::string napis() const override;
 	private:
