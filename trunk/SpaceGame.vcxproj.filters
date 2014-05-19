@@ -289,6 +289,9 @@
     <ClCompile Include="BladKonfiguracjiAplikacji.cpp">
       <Filter>SourceFile\Wyjatki</Filter>
     </ClCompile>
+    <ClCompile Include="PowtorzenieIdObiektu.cpp">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -628,6 +631,9 @@
       <Filter>SourceFile\Wyjatki</Filter>
     </ClInclude>
     <ClInclude Include="BladKonfiguracjiAplikacji.h">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClInclude>
+    <ClInclude Include="PowtorzenieIdObiektu.h">
       <Filter>SourceFile\Wyjatki</Filter>
     </ClInclude>
   </ItemGroup>
