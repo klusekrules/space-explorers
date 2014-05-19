@@ -4,9 +4,11 @@
 #include "NiepowodzenieTranzakcji.h"
 #include "BladKonfiguracjiEkranu.h"
 #include "BladKonfiguracjiAplikacji.h"
+#include "PowtorzenieIdObiektu.h"
 
 namespace SpEx{
 
+	const STyp::Identyfikator PowtorzenieIdObiektu::idPowtorzeniaIdObiektu(0x3);
 	const STyp::Identyfikator BladKonfiguracjiEkranu::idBladKonfiguracjiEkranu(0x2);
 	const STyp::Identyfikator BladKonfiguracjiAplikacji::idBladKonfiguracjiAplikacji(0x1);
 

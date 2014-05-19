@@ -350,6 +350,7 @@
     <ClInclude Include="OknoGry.h" />
     <ClInclude Include="ParserTest.h" />
     <ClInclude Include="PlanetaTest.h" />
+    <ClInclude Include="PowtorzenieIdObiektu.h" />
     <ClInclude Include="RoundedRectangleShape.hpp" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Skrypt.h" />
@@ -493,6 +494,7 @@
     <ClCompile Include="Planeta.cpp" />
     <ClCompile Include="PlanetaTest.cpp" />
     <ClCompile Include="PodstawoweParametry.cpp" />
+    <ClCompile Include="PowtorzenieIdObiektu.cpp" />
     <ClCompile Include="RoundedRectangleShape.cpp" />
     <ClCompile Include="Skrypt.cpp" />
     <ClCompile Include="Stale.cpp" />

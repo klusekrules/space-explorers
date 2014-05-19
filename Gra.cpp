@@ -3,6 +3,9 @@
 #include <iostream>
 #include <fstream>
 #include "Walidator.h"
+#include "PowtorzenieIdObiektu.h"
+
+#define KOMUNIKAT_POWTORZENIE_OBIEKTU(a) STyp::Tekst("Obiekt typu: "#a )
 
 namespace SpEx{
 
@@ -156,7 +159,7 @@ namespace SpEx{
 					std::shared_ptr<TechnologiaInfo> obiekt = std::make_shared<TechnologiaInfo>(element);
 					logger_.loguj(SLog::Log::Debug, *obiekt);
 					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
-						throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(""), STyp::Identyfikator(-1), STyp::Tekst("B³¹d wczytywania danych"), STyp::Tekst("Obiekt o podanym id istnieje"));
+						throw PowtorzenieIdObiektu(EXCEPTION_PLACE, obiekt->pobierzIdentyfikator(), KOMUNIKAT_POWTORZENIE_OBIEKTU(TechnologiaInfo));
 					listaTechnologiInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
 					listaObiektowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
 					element = element->pobierzNastepnyElement(WEZEL_XML_TECHNOLOGIA_INFO);
@@ -179,7 +182,7 @@ namespace SpEx{
 					std::shared_ptr<BudynekInfo> obiekt(new BudynekInfo(element));
 					logger_.loguj(SLog::Log::Debug, *obiekt);
 					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
-						throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(""), STyp::Identyfikator(-1), STyp::Tekst("B³¹d wczytywania danych"), STyp::Tekst("Obiekt o podanym id istnieje"));
+						throw PowtorzenieIdObiektu(EXCEPTION_PLACE, obiekt->pobierzIdentyfikator(), KOMUNIKAT_POWTORZENIE_OBIEKTU(BudynekInfo));
 					listaBudynkowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
 					listaObiektowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
 					element = element->pobierzNastepnyElement(WEZEL_XML_BUDYNEK_INFO);
@@ -202,7 +205,7 @@ namespace SpEx{
 					std::shared_ptr<SurowceInfo> obiekt(new SurowceInfo(element));
 					logger_.loguj(SLog::Log::Debug, *obiekt);
 					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
-						throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(""), STyp::Identyfikator(-1), STyp::Tekst("B³¹d wczytywania danych"), STyp::Tekst("Obiekt o podanym id istnieje"));
+						throw PowtorzenieIdObiektu(EXCEPTION_PLACE, obiekt->pobierzIdentyfikator(), KOMUNIKAT_POWTORZENIE_OBIEKTU(SurowceInfo));
 					listaSurowcowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
 					listaObiektowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
 					element = element->pobierzNastepnyElement(WEZEL_XML_SUROWCE_INFO);
@@ -225,7 +228,7 @@ namespace SpEx{
 					std::shared_ptr<ObronaInfo> obiekt(new ObronaInfo(element));
 					logger_.loguj(SLog::Log::Debug, *obiekt);
 					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
-						throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(""), STyp::Identyfikator(-1), STyp::Tekst("B³¹d wczytywania danych"), STyp::Tekst("Obiekt o podanym id istnieje"));
+						throw PowtorzenieIdObiektu(EXCEPTION_PLACE, obiekt->pobierzIdentyfikator(), KOMUNIKAT_POWTORZENIE_OBIEKTU(ObronaInfo));
 					listaObronaInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
 					listaObiektowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
 					element = element->pobierzNastepnyElement(WEZEL_XML_OBRONA_INFO);
@@ -248,7 +251,7 @@ namespace SpEx{
 					std::shared_ptr<StatekInfo> obiekt(new StatekInfo(element));
 					logger_.loguj(SLog::Log::Debug, *obiekt);
 					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
-						throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(""), STyp::Identyfikator(-1), STyp::Tekst("B³¹d wczytywania danych"), STyp::Tekst("Obiekt o podanym id istnieje"));
+						throw PowtorzenieIdObiektu(EXCEPTION_PLACE, obiekt->pobierzIdentyfikator(), KOMUNIKAT_POWTORZENIE_OBIEKTU(StatekInfo));
 					listaStatkowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
 					listaObiektowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
 					element = element->pobierzNastepnyElement(WEZEL_XML_STATEK_INFO);
