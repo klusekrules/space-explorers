@@ -342,6 +342,7 @@
     <ClInclude Include="LuaSkrypt.h" />
     <ClInclude Include="MaszynaStanow.h" />
     <ClInclude Include="MenadzerWatkow.h" />
+    <ClInclude Include="NieznalezionoPliku.h" />
     <ClInclude Include="NonCopyable.h" />
     <ClInclude Include="NonMoveable.h" />
     <ClInclude Include="Obrona.h" />
@@ -481,6 +482,7 @@
     <ClCompile Include="NiepowodzenieTranzakcji.cpp" />
     <ClCompile Include="NiezgodnyTypSurowca.cpp" />
     <ClCompile Include="NieznalezionoObiektu.cpp" />
+    <ClCompile Include="NieznalezionoPliku.cpp" />
     <ClCompile Include="Obiekt.cpp" />
     <ClCompile Include="ObiektInfo.cpp" />
     <ClCompile Include="ObiektListTest.cpp" />

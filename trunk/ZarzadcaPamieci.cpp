@@ -4,6 +4,7 @@
 #include "Aplikacja.h"
 #include "LuaSkrypt.h"
 #include "DllSkrypt.h"
+#include "NieznalezionoPliku.h"
 
 namespace SpEx{
 	ZarzadcaPamieci::ZarzadcaPamieci(){
@@ -83,22 +84,18 @@ namespace SpEx{
 		return dokumentGry_->pobierzElement(WEZEL_XML_ROOT);
 	}
 
-	void ZarzadcaPamieci::zaladujPliki( const UstawieniaAplikacji& ustawienia ){
+	void ZarzadcaPamieci::zaladujPliki(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos){
 		adresPlikuGry_ = ustawienia.pobierzAdresPlikuGry();
 		folderPlikuUzytkownika_ = ustawienia.pobierzFolderPlikuUzytkownika();
 		folderPlikuUkladu_ = ustawienia.pobierzFolderPlikuUkladu();
 
 		dokumentMaszynyStanow_ = std::make_shared<SPar::ParserDokumentXml>();
 		if (!dokumentMaszynyStanow_->odczytaj(ustawienia.pobierzAdresPlikuStanow().c_str())){
-			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(),
-				STyp::Tekst("B³ad odczytu pliku."),
-				STyp::Tekst("Nie powiod³a siê operacja wczytywania danych z pliku: state.xml."));
+			throw NieznalezionoPliku(EXCEPTION_PLACE, stos(), ustawienia.pobierzAdresPlikuStanow());
 		}
 		dokumentOknaGry_ = std::make_shared<SPar::ParserDokumentXml>();
 		if (!dokumentOknaGry_->odczytaj(ustawienia.pobierzAdresPlikuOkien().c_str())){
-			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(),
-				STyp::Tekst("B³ad odczytu pliku."),
-				STyp::Tekst("Nie powiod³a siê operacja wczytywania danych z pliku: Menu.xml."));
+			throw NieznalezionoPliku(EXCEPTION_PLACE, stos(), ustawienia.pobierzAdresPlikuOkien());
 		}
 		
 	}
