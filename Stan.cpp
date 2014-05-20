@@ -8,6 +8,11 @@ namespace SpEx{
 			id_ = info_->pobierzIdentyfikator();
 	}
 
+	Stan::Stan(const Stan& stan, std::shared_ptr<StanInfo> info)
+		: info_(info), id_(stan.id_), numer_(stan.numer_), dt_(stan.dt_)
+	{
+	}
+
 	bool Stan::akcjaWejscia(){
 		if (info_)
 			return info_->wykonaj(StanInfo::AkcjaWejsciowa);

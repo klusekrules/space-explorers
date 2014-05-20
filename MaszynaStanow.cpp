@@ -125,24 +125,18 @@ namespace SpEx{
 	void MaszynaStanow::przejdzDoNastepnegoStanu(){
 		std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
 		if (stanNastepny_.opisStanu()){
-			luaStan_.poprawne_poprzedni_ = false;
-			luaStan_.ustawAktualny(stan_);
-			luaStan_.ustawNastepny(stanNastepny_);
 			stan_.akcjaWyjscia();
 
-			luaStan_.poprawne_nastepny_ = false;
 			luaStan_.ustawPoprzedni(stan_);
 			stan_ = stanNastepny_;
 			luaStan_.ustawAktualny(stan_);
-			stan_.akcjaWejscia();
-
-		}
-		else{
-
 			luaStan_.poprawne_nastepny_ = false;
+			stan_.akcjaWejscia();
+		}else{
 			luaStan_.ustawPoprzedni(stan_);
 			stan_.numer_ = stanNastepny_.numer_;
 			luaStan_.ustawAktualny(stan_);
+			luaStan_.poprawne_nastepny_ = false;
 			stan_.akcjaWewnetrzna();
 		}
 	}
@@ -151,15 +145,13 @@ namespace SpEx{
 
 		Zdarzenie komunikat;
 		Stan aktualny = pobierzStan();
-		Stan nowy(nullptr);
-		nowy.numer_ = aktualny.numer_;
+		Stan nowy(aktualny,nullptr);
 
 		if (pobierzKomunikat(komunikat)){
 			if (aktualny == komunikat){
 				auto opisStanu = aktualny.opisStanu();
 				auto opisZdarzenia = opisStanu->pobierzZdarzenie(komunikat.idZdarzenia_);
 				if (opisZdarzenia){
-					luaStan_.ustawAktualny(aktualny);
 					auto idNowegoStanu = opisZdarzenia->pobierzStan();
 					if (idNowegoStanu && *idNowegoStanu != aktualny.id_){
 						auto nowyStan = pobierzOpisStanu(*idNowegoStanu);
@@ -173,13 +165,7 @@ namespace SpEx{
 						aktualny.numer_ = nowy.numer_ = *numerNowegoStanu;
 					}
 
-					if (idNowegoStanu){
-						luaStan_.ustawNastepny(nowy);
-					}
-					else{
-						luaStan_.ustawNastepny(aktualny);
-					}
-
+					luaStan_.ustawNastepny(nowy);
 					luaStan_.ustawZdarzenie(komunikat);
 					opisZdarzenia->wykonaj();
 				}
@@ -194,7 +180,9 @@ namespace SpEx{
 	}
 
 	void MaszynaStanow::ustawNastepnyStan(Stan& stan){
+		std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
 		stanNastepny_ = stan;
+		luaStan_.ustawNastepny(stanNastepny_);
 	}
 
 	void MaszynaStanow::inicjujZamykanie(){
@@ -241,20 +229,20 @@ namespace SpEx{
 		poprawne_poprzedni_ = true;
 		poprzedni_.idStanu_ = z.id_();
 		poprzedni_.numer_ = z.numer_;
-		poprzedni_.dt_ = z.dt_.count();
+		//poprzedni_.dt_ = z.dt_.count();
 	}
 
 	void MaszynaStanow::LuaStan::ustawAktualny(const Stan& z){
 		poprawne_aktualny_ = true;
 		aktualny_.idStanu_ = z.id_();
 		aktualny_.numer_ = z.numer_;
-		aktualny_.dt_ = z.dt_.count();
+		//aktualny_.dt_ = z.dt_.count();
 	}
 
 	void MaszynaStanow::LuaStan::ustawNastepny(const Stan& z){
 		poprawne_nastepny_ = true;
 		nastepny_.idStanu_ = z.id_();
 		nastepny_.numer_ = z.numer_;
-		nastepny_.dt_ = z.dt_.count();
+		//nastepny_.dt_ = z.dt_.count();
 	}
 };

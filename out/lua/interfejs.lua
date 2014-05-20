@@ -17,7 +17,6 @@ struct Zdarzenie_t{
 struct Stan_t{
 	int idStanu_;
 	int numer_;
-	long double dt_; //Milisekundy
 };
 
 //Pobieranie informacji
