@@ -9,6 +9,7 @@ namespace SpEx{
 		typedef std::chrono::duration<long double, std::milli> KrokCzasu;
 
 		Stan(std::shared_ptr<StanInfo>);
+		Stan(const Stan&,std::shared_ptr<StanInfo>);
 		~Stan() = default;
 
 		bool akcjaWejscia();
