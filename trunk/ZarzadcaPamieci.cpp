@@ -17,7 +17,8 @@ namespace SpEx{
 		if (planeta == planety_.end())
 			return nullptr;
 		if (!planeta->second.planeta_){
-			wczytajUkladSloneczny(planeta->second.idUkladu_);
+			if(!wczytajUkladSloneczny(planeta->second.idUkladu_))
+				return false;
 			return planety_[identyfikator].planeta_;
 		}
 		return planeta->second.planeta_;
@@ -28,7 +29,8 @@ namespace SpEx{
 		if (planeta == planety_.end())
 			return nullptr;
 		if (!planeta->second.planeta_){
-			wczytajUkladSloneczny(planeta->second.idUkladu_);
+			if(!wczytajUkladSloneczny(planeta->second.idUkladu_))
+				return false;
 			planety_[identyfikator].wolna_ = false;
 			return planety_[identyfikator].planeta_;
 		}
@@ -43,7 +45,8 @@ namespace SpEx{
 		if (planeta == planety_.end())
 			return nullptr;
 		if (!planeta->second.planeta_){
-			wczytajUkladSloneczny(planeta->second.idUkladu_);
+			if(!wczytajUkladSloneczny(planeta->second.idUkladu_))
+				return false;
 			planety_[planeta->first].wolna_ = false;
 			return planety_[planeta->first].planeta_;
 		}
@@ -79,7 +82,8 @@ namespace SpEx{
 		if (!dokumentGry_->odczytaj(adresPlikuGry_.c_str())){
 			auto wezel = tworzWezelGry();
 			auto gra = wezel->tworzElement(WEZEL_XML_GRA);
-			zapiszWezelGry();
+			if(!zapiszWezelGry())
+				return nullptr;
 		}
 		return dokumentGry_->pobierzElement(WEZEL_XML_ROOT);
 	}
@@ -107,18 +111,41 @@ namespace SpEx{
 	bool ZarzadcaPamieci::generujNowaGalaktyke(){
 		auto galaktyka = generator_.generujGalaktyke();
 		std::vector< STyp::Identyfikator> listaUkladow;
-		for (int n = galaktyka->iloscUkladow_; n > 0; --n){
-			auto uklad = generator_.generujUklad(galaktyka->pobierzIdentyfikator());
-			std::vector< STyp::Identyfikator> listaPlanet;
-			for (auto planeta : uklad->planety_){
-				listaPlanet.push_back(planeta.first);
-				struct ZarzadcaPamieci::ObjPlaneta nowaPlaneta = { uklad->pobierzIdentyfikator(), nullptr, true };
-				planety_[planeta.first] = nowaPlaneta;
+		std::list< std::string > listaPlikow;
+
+		auto czyszczenie = [&listaPlikow](){
+			for (auto plik : listaPlikow){
+				if (!plik.empty()){
+					remove(plik.c_str());
+				}
 			}
-			listaUkladow.push_back(uklad->pobierzIdentyfikator());
-			struct ZarzadcaPamieci::ObjUklad nowyUklad = { galaktyka->pobierzIdentyfikator(), nullptr, listaPlanet };
-			ukladySloneczne_[uklad->pobierzIdentyfikator()] = nowyUklad;
-			zapiszUkladSloneczny(uklad);
+		};
+
+		try{
+			for (int n = galaktyka->iloscUkladow_; n > 0; --n){
+				auto uklad = generator_.generujUklad(galaktyka->pobierzIdentyfikator());
+				if (!uklad){
+					czyszczenie();
+					return false;
+				}
+				std::vector< STyp::Identyfikator> listaPlanet;
+				for (auto planeta : uklad->planety_){
+					listaPlanet.push_back(planeta.first);
+					struct ZarzadcaPamieci::ObjPlaneta nowaPlaneta = { uklad->pobierzIdentyfikator(), nullptr, true };
+					planety_[planeta.first] = nowaPlaneta;
+				}
+				listaUkladow.push_back(uklad->pobierzIdentyfikator());
+				struct ZarzadcaPamieci::ObjUklad nowyUklad = { galaktyka->pobierzIdentyfikator(), nullptr, listaPlanet };
+				ukladySloneczne_[uklad->pobierzIdentyfikator()] = nowyUklad;
+				if (!zapiszUkladSloneczny(uklad)){
+					czyszczenie();
+					return false;
+				}
+			}
+		}
+		catch (...){
+			czyszczenie();
+			throw;
 		}
 		struct ZarzadcaPamieci::ObjGalakatyka nowaGalaktyka = { nullptr, listaUkladow };
 		galaktyki_[galaktyka->pobierzIdentyfikator()] = nowaGalaktyka;
@@ -127,9 +154,8 @@ namespace SpEx{
 
 	bool ZarzadcaPamieci::wczytajUkladSloneczny(const STyp::Identyfikator& identyfikator){
 		SPar::ParserDokumentXml dokument;
-		std::string plik = folderPlikuUkladu_.c_str();
-		plik += identyfikator.napis();
-		plik += ".xml";
+		auto plik = generujNazwePlikuUkladuSlonecznego(identyfikator);
+		
 		if (!dokument.odczytaj(plik.c_str()))
 			return false;
 		auto root = dokument.pobierzElement(nullptr);
@@ -147,10 +173,8 @@ namespace SpEx{
 
 	bool ZarzadcaPamieci::zapiszUkladSloneczny(std::shared_ptr<UkladSloneczny> uklad) const{
 		SPar::ParserDokumentXml dokument;
-		std::string plik = folderPlikuUkladu_.c_str();
-		plik += uklad->pobierzIdentyfikator().napis();
-		plik += ".xml";
-
+		auto plik = generujNazwePlikuUkladuSlonecznego(uklad->pobierzIdentyfikator());
+		
 		auto root = dokument.tworzElement(WEZEL_XML_ROOT);
 		if (!uklad->zapisz(root))
 			return false;
@@ -277,5 +301,12 @@ namespace SpEx{
 
 	std::shared_ptr<Skrypt> ZarzadcaPamieci::TworzSkrypt(const FabrykaSkryptow::Identyfikator& identyfikator, XmlBO::ElementWezla wezel){
 		return fabrykaSkryptow_.Tworz(identyfikator,wezel);
+	}
+	
+	std::string ZarzadcaPamieci::generujNazwePlikuUkladuSlonecznego(const STyp::Identyfikator& id) const{
+		std::string plik = folderPlikuUkladu_.c_str();
+		plik += id.napis();
+		plik += ".xml";
+		return std::move(plik);
 	}
 }
