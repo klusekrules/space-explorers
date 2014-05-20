@@ -138,7 +138,8 @@ namespace SpEx{
 		for (; iloscPlanet > 0; --iloscPlanet){
 			odlegloscOdSrodkaUkladu += STyp::Dystans(dystrybutorOdleglosciMiedzyplanetarnej(generator));
 			auto planeta = generujPlanete(odlegloscOdSrodkaUkladu, mocGwiazdy, uklad->pobierzIdentyfikator());
-			uklad->dodajPlanete(planeta);
+			if(!uklad->dodajPlanete(planeta))
+				return nullptr;
 		}
 		return uklad;
 	}

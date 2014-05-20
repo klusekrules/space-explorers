@@ -182,6 +182,8 @@ namespace SpEx{
 		*/
 		bool zapiszUkladSloneczny(std::shared_ptr<UkladSloneczny> uklad) const;
 
+		std::string generujNazwePlikuUkladuSlonecznego(const STyp::Identyfikator&) const;
+
 		GeneratorUkladow generator_; /// Obiekt generuj¹cy lokacje.
 		FabrykaSkryptow fabrykaSkryptow_;
 		Galaktyki galaktyki_; /// Lista galaktyk.
