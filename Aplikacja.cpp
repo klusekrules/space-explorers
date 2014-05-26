@@ -106,7 +106,6 @@ namespace SpEx{
 		logger_.dodajGniazdoWyjsciowe([&filename](SLog::Log::TypLogow typ, const std::string& komunikat)->void{ static std::fstream plik(filename, std::ios_base::app); plik << komunikat; });
 		/* ------------------------------------ */
 		
-
 		logger_.loguj(SLog::Log::Info, "Start aplikacji Space-Explorers.");
 
 		//Wyswietlanie informacji o aplikacji
@@ -246,10 +245,10 @@ namespace SpEx{
 				Walidator::pobierzInstancje().wyczysc();
 				Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(STyp::Identyfikator(0x0)); // Poprawna wartoœæ; U¿ywana gdy obiekty znajduj¹ siê we flocie.
 				if (root && instancjaGry_->wczytajDane(root)){
-					if (instancjaGry_->odczytaj(wezel->pobierzElement(WEZEL_XML_GRA)))
-//					if (instancjaGry_->odczytaj(nazwa, hash))
-					if (Walidator::pobierzInstancje().waliduj())
-						return true;
+					if (instancjaGry_->odczytaj(wezel->pobierzElement(WEZEL_XML_GRA))){
+						if (Walidator::pobierzInstancje().waliduj())
+							return true;
+					}
 				}
 				instancjaGry_ = gra;
 				return false;
