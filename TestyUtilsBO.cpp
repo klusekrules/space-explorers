@@ -20,7 +20,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		STyp::Masa(3),
 		STyp::Objetosc(1),
 		STyp::Bool(true)),
-		STyp::Identyfikator(3),
+		STyp::Identyfikator(8),
 		STyp::Tekst(WEZEL_XML_CZAS)),
 		STyp::Identyfikator(0),
 		STyp::Wartosc(1.0));
@@ -38,7 +38,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		STyp::Masa(2),
 		STyp::Objetosc(1.3),
 		STyp::Bool(true)),
-		STyp::Identyfikator(3),
+		STyp::Identyfikator(8),
 		STyp::Tekst(WEZEL_XML_CZAS)),
 		STyp::Identyfikator(0),
 		STyp::Wartosc(2.0));
@@ -56,7 +56,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		STyp::Masa(1),
 		STyp::Objetosc(3),
 		STyp::Bool(true)),
-		STyp::Identyfikator(3),
+		STyp::Identyfikator(8),
 		STyp::Tekst(WEZEL_XML_CZAS)),
 		STyp::Identyfikator(0),
 		STyp::Wartosc(0.1));

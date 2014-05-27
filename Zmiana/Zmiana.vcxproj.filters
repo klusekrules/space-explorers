@@ -36,6 +36,9 @@
     <ClCompile Include="ZmianaParametr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ZmianaLiniowaIlosciowa.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Zmiana\ZmianaInterfejs.h">
@@ -66,6 +69,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Zmiana\ZmianaStaleNapisy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Zmiana\ZmianaLiniowaIlosciowa.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -233,13 +233,13 @@
       <Filter>SourceFile\Model\BaseClass</Filter>
     </ClCompile>
     <ClCompile Include="PaczkaTestow.cpp">
-      <Filter>Testy\Biblioteka</Filter>
+      <Filter>Testy\KlasyTestowe\Biblioteka</Filter>
     </ClCompile>
     <ClCompile Include="TestyJednostkowe.cpp">
-      <Filter>Testy\Biblioteka</Filter>
+      <Filter>Testy\KlasyTestowe\Biblioteka</Filter>
     </ClCompile>
     <ClCompile Include="WyjatekSprawdzeniaWarunku.cpp">
-      <Filter>Testy\Biblioteka</Filter>
+      <Filter>Testy\KlasyTestowe\Biblioteka</Filter>
     </ClCompile>
     <ClCompile Include="TestyUtilsBO.cpp">
       <Filter>Testy\KlasyTestowe\Utils</Filter>
@@ -577,16 +577,16 @@
       <Filter>SourceFile\Model\BaseClass</Filter>
     </ClInclude>
     <ClInclude Include="MakraDlaTestow.h">
-      <Filter>Testy\Biblioteka</Filter>
+      <Filter>Testy\KlasyTestowe\Biblioteka</Filter>
     </ClInclude>
     <ClInclude Include="PaczkaTestow.h">
-      <Filter>Testy\Biblioteka</Filter>
+      <Filter>Testy\KlasyTestowe\Biblioteka</Filter>
     </ClInclude>
     <ClInclude Include="TestyJednostkowe.h">
-      <Filter>Testy\Biblioteka</Filter>
+      <Filter>Testy\KlasyTestowe\Biblioteka</Filter>
     </ClInclude>
     <ClInclude Include="WyjatekSprawdzeniaWarunku.h">
-      <Filter>Testy\Biblioteka</Filter>
+      <Filter>Testy\KlasyTestowe\Biblioteka</Filter>
     </ClInclude>
     <ClInclude Include="SurowceInfo.h">
       <Filter>SourceFile\Model\Obiekty\Surowce</Filter>
@@ -673,9 +673,6 @@
     </Filter>
     <Filter Include="Testy">
       <UniqueIdentifier>{4ab78a3d-48b6-4c0f-b276-81d74c71f295}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Testy\Biblioteka">
-      <UniqueIdentifier>{9dd14e70-ad3e-4f45-9407-eae3efdc90cd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Testy\KlasyTestowe">
       <UniqueIdentifier>{a00cb81f-9947-477b-8c7d-a392a9e4ca6d}</UniqueIdentifier>
@@ -808,6 +805,9 @@
     </Filter>
     <Filter Include="Data\Ekrany">
       <UniqueIdentifier>{57c3805b-d750-4715-8674-b37ff4bd7581}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Testy\KlasyTestowe\Biblioteka">
+      <UniqueIdentifier>{9dd14e70-ad3e-4f45-9407-eae3efdc90cd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

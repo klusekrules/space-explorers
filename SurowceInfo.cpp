@@ -43,7 +43,7 @@ namespace SpEx{
 		return false;
 	}
 
-	STyp::Czas SurowceInfo::pobierzCzas(const PodstawoweParametry& parametryPodstawowe)const{
+	STyp::Czas SurowceInfo::pobierzCzasBudowy(const PodstawoweParametry& parametryPodstawowe)const{
 		return Utils::ObliczZmiane(zmianaCzasu_, STyp::Czas(parametryPodstawowe.pobierzIlosc()), parametryPodstawowe);
 	}
 

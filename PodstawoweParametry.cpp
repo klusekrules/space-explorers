@@ -20,7 +20,12 @@ namespace SpEx{
 		: atrybutPodstawowy_(wpisPoziom(poziom)), typAtrybutu_(POZIOM), identyfikatorPlanety_(identyfikatorPlanety)
 	{
 	}
-	
+
+	PodstawoweParametry::PodstawoweParametry(PodstawoweParametry&& e)
+		: atrybutPodstawowy_(std::move(e.atrybutPodstawowy_)), typAtrybutu_(std::move(e.typAtrybutu_)), identyfikatorPlanety_(std::move(e.identyfikatorPlanety_))
+	{
+	}
+
 	const PodstawoweParametry::AtrybutPodstawowy& PodstawoweParametry::pobierzAtrybut() const{
 		return atrybutPodstawowy_;
 	}

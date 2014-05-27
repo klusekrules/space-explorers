@@ -315,7 +315,7 @@ namespace SpEx{
 	bool Gra::zapisz(const std::string& nazwa, const std::string& hash) const{
 		std::string plik;
 		auto dokument = zarzadca_.plikUzytkownika(nazwa, hash, plik, true);
-		if (!dokument || !uzytkownik_->zapisz(dokument->pobierzElement(nullptr)))
+		if (!dokument || !uzytkownik_ || !uzytkownik_->zapisz(dokument->pobierzElement(nullptr)))
 			return false;
 		return dokument->zapisz(plik.c_str());
 	}

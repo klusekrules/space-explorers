@@ -50,6 +50,8 @@ namespace SpEx{
 
 		PodstawoweParametry(const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety = STyp::Identyfikator(0));
 
+		PodstawoweParametry(PodstawoweParametry&&);
+
 		/**
 		* \brief Metoda pobieraj¹ca atrybut.
 		*
