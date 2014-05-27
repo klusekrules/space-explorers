@@ -18,7 +18,7 @@ namespace tgui{
 		KontrolkaObiektu();
 		KontrolkaObiektu(const KontrolkaObiektu&);
 		virtual ~KontrolkaObiektu() = default;
-		bool ustawDane(const SpEx::ObiektInfo& obj/*, const SpEx::Planeta& planeta*/);
+		bool ustawDane(const SpEx::ObiektInfo& obj, const SpEx::Planeta& planeta);
 		void ustawShader(sf::Shader* shader = nullptr);
 
 		void setTransparency(unsigned char transparency);

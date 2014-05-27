@@ -151,7 +151,7 @@ extern "C"{
 		try{
 			if (nazwaKontrolki){
 				SpEx::Gra& gra = SpEx::Aplikacja::pobierzInstancje().pobierzGre();
-				//auto planeta = gra.pobierzUzytkownika().pobierzPlanete();
+				auto planeta = gra.pobierzUzytkownika().pobierzPlanete();
 				auto ekran = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzEkran(idPlanety);
 				if (ekran){
 					auto obiekt = ekran->pobierzGUI().get<tgui::ListaObiektowGui>(nazwaKontrolki);
@@ -160,7 +160,7 @@ extern "C"{
 						for (auto element : gra.pobierzObiektyInfo()){
 							if (typ == 0 || element.second->typ_ == typ){
 								auto pozycja = obiekt->getElement(obiekt->addElement(element.second->pobierzNazwe()()));
-								pozycja->ustawDane(*element.second/*, planeta*/);
+								pozycja->ustawDane(*element.second, planeta);
 							}
 						}
 						obiekt->refresh();
