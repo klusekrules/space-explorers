@@ -49,6 +49,13 @@ namespace SpEx{
 			return *(iterator->second);
 		throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
 	}
+
+	std::shared_ptr< Obiekt > Planeta::pobierzObiektJesliIstnieje(const Indeks& identyfikator) const{
+		auto iterator = listaObiektow_.find(identyfikator);
+		if (iterator != listaObiektow_.end())
+			return iterator->second;
+		return nullptr;
+	}
 	
 	STyp::Poziom Planeta::pobierzPoziomObiektu(const Indeks& identyfikator) const{
 		auto iterator = listaObiektow_.find(identyfikator);

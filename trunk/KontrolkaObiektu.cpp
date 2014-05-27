@@ -1,6 +1,6 @@
-
 #include "KontrolkaObiektu.h"
 #include "UtilsGui.h"
+#include "Planeta.h"
 
 namespace tgui{
 	
@@ -530,7 +530,7 @@ namespace tgui{
 	}
 
 
-	bool KontrolkaObiektu::ustawDane(const SpEx::ObiektInfo& obj/*,const SpEx::Planeta& planeta*/){
+	bool KontrolkaObiektu::ustawDane(const SpEx::ObiektInfo& obj, const SpEx::Planeta& planeta){
 		nazwa_->setText(obj.pobierzNazwe()());
 		tresc_->setText(SpEx::Utils::trim(obj.pobierzOpis()()));
 		picture_->load(obj.pobierzAdresObrazka()());
@@ -549,6 +549,20 @@ namespace tgui{
 		picture_->unbindCallback(64);
 		if (idZdarzeniaKlikniecia_ != 0){
 			SpEx::UtilsGui::bindCallbackEvent(picture_, idZdarzeniaKlikniecia_, idObj, Button::LeftMouseClicked);
+		}
+
+		auto wsk = planeta.pobierzObiektJesliIstnieje(idObj);
+		if (wsk){
+			czasRozbudowy_->setText(obj.pobierzCzasBudowy(*wsk).napis());
+		}
+		else{
+			//TODO: Dodaæ sprawdzanie czasu budowy na pierwszy poziom.
+			/*if (SpEx::PodstawoweParametry::POZIOM){
+				czasRozbudowy_->setText(obj.pobierzCzasBudowy(SpEx::PodstawoweParametry(STyp::Poziom(1),planeta.pobierzIdentyfikator())).napis());
+			}
+			else{
+				czasRozbudowy_->setText(obj.pobierzCzasBudowy(SpEx::PodstawoweParametry(STyp::Ilosc(1), planeta.pobierzIdentyfikator())).napis());
+			}*/
 		}
 		return true;
 	}

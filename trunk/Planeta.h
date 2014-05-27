@@ -67,6 +67,8 @@ namespace SpEx{
 		* \return Referencja do obiektu.
 		*/
 		const Obiekt& pobierzObiekt(const Indeks& identyfikator) const;
+
+		std::shared_ptr< Obiekt > pobierzObiektJesliIstnieje(const Indeks& identyfikator) const;
 		
 		/**
 		* \brief Metoda pobiera statek o podanym identyfikatorze.
