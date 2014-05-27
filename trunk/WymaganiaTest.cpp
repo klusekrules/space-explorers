@@ -52,10 +52,11 @@ void WymaganiaTest::czyMoznaWybudowacTest(){
 }
 
 void WymaganiaTest::czasBudowy(){
-	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(1), STyp::Ilosc(3)));
-	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(2), STyp::Ilosc(6)));
-	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(3), STyp::Ilosc(7)));
-	//UNIT_TEST_ASSERT_EQUAL(STyp::Czas(4.875), planeta->pobierzObiekt(STyp::Identyfikator(0x12)).po());
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(1), STyp::Ilosc(3000)));
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(2), STyp::Ilosc(600)));
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(3), STyp::Ilosc(70)));
+	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(12), STyp::Poziom(1)));
+	UNIT_TEST_ASSERT_EQUAL(STyp::Czas(66), planeta->pobierzObiekt(STyp::Identyfikator(12)).pobierzCzasRozbudowy());
 }
 
 REJESTRUJ_PACZKE_TESTOW(WymaganiaTest);

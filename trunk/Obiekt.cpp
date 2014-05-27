@@ -48,6 +48,17 @@ namespace SpEx{
 		return true;
 	}
 
+	STyp::Czas Obiekt::pobierzCzasRozbudowy()const{
+		PodstawoweParametry parametry(pobierzAtrybut(), typAtrybutu(), pobierzIdentyfikatorPlanety());
+		switch (parametry.typAtrybutu()){
+		case ILOSC: parametry.ustawAtrybut(wpisIlosc(1.0));
+			break;
+		case POZIOM: parametry.ustawAtrybut(wpisPoziom(parametry.pobierzAtrybut().poziom + 1));
+			break;
+		}
+		return obiektInfo_.pobierzCzasBudowy(parametry);
+	}
+
 	const STyp::Identyfikator& Obiekt::pobierzIdentyfikator() const{
 		return identyfikator_;
 	}

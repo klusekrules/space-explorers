@@ -72,7 +72,7 @@ namespace SpEx{
 		* \param[in] parametry - Podstawowe parametry potrzebne do wyliczenia czasu.
 		* \return Czas jaki zosta³ wyliczony.
 		*/
-		STyp::Czas pobierzCzasBudowy(const PodstawoweParametry& parametry)const;
+		virtual STyp::Czas pobierzCzasBudowy(const PodstawoweParametry& parametry)const;
 
 		/**
 		* \brief Metoda wyliczaj¹ca wymagania budowy obiektu.

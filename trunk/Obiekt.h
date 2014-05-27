@@ -87,7 +87,7 @@ namespace SpEx{
 		* Metoda wyliczaj¹ca czas trwania rozbudowy jednego obiektu na kolejny poziom.
 		* \return Czas trwania rozbudowy.
 		*/
-		//Czas pobierzCzasRozbudowy()const;
+		virtual STyp::Czas pobierzCzasRozbudowy()const;
 
 		/**
 		* Metoda sprawdzaj¹ca wymagania obiektu.

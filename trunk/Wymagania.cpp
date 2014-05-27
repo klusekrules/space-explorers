@@ -23,12 +23,19 @@ namespace SpEx{
 	
 	STyp::Czas Wymagania::pobierzCzasBudowy(const PodstawoweParametry& parametry)const{
 		STyp::Czas suma(0.0l);
+		auto &gra = Aplikacja::pobierzInstancje().pobierzGre();
 		for (auto element : warunki_){
-			if (element.pobierzObiekt() && element.pobierzObiekt()->typAtrybutu() == Kryterium::ILOSC)
-			{
-				Kryterium::AtrybutKryterium atrybut = wylicz(element, parametry);
-				PodstawoweParametry parametry(PodstawoweParametry::wpisIlosc(STyp::Ilosc(atrybut.ilosc)), PodstawoweParametry::ILOSC, parametry.pobierzIdentyfikatorPlanety());
-				suma += Aplikacja::pobierzInstancje().pobierzGre().pobierzStatek(element.pobierzObiekt()->pobierzIdentyfikator()).pobierzCzasBudowy(parametry);
+			auto obiekt = element.pobierzObiekt();
+			if (obiekt){
+				auto idObiektu = obiekt->pobierzIdentyfikator();
+				if (obiekt->typAtrybutu() == Kryterium::ILOSC ){
+					auto &obiektInfo = gra.pobierzObiekt(idObiektu);
+					if (obiektInfo.typ_ == Info::SUROWIEC){
+						Kryterium::AtrybutKryterium atrybut = wylicz(element, parametry);
+						PodstawoweParametry nowe(STyp::Ilosc(atrybut.ilosc), parametry.pobierzIdentyfikatorPlanety());
+						suma += obiektInfo.pobierzCzasBudowy(nowe);
+					}
+				}
 			}
 		}
 		return Utils::ObliczZmiane(zmianaCzasuBudowy_, suma, parametry);

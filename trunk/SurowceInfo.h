@@ -44,7 +44,7 @@ namespace SpEx{
 		* \param[in] parametryPodstawowe - Podstawowe parametry potrzebne do wyliczenia czasu.
 		* \return Czas budowy dla podanej iloœci u¿ytych surowców.
 		*/
-		STyp::Czas pobierzCzas(const PodstawoweParametry& parametryPodstawowe)const;
+		STyp::Czas pobierzCzasBudowy(const PodstawoweParametry& parametryPodstawowe)const override;
 
 		/**
 		* \brief Metoda tworz¹ca egzemplarz obiektu.

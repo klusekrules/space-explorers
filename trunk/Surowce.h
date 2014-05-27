@@ -142,7 +142,7 @@ namespace SpEx{
 		* Metoda wylicza czas budowy dla takiej obecnej iloœci surowców.
 		* \return Czas budowy dla podanej iloœci u¿ytych surowców.
 		*/
-		STyp::Czas pobierzCzas()const;
+		STyp::Czas pobierzCzasRozbudowy() const override;
 
 		/**
 		* Metoda kopiuj¹ca obiekt.

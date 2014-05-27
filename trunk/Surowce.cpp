@@ -149,8 +149,8 @@ namespace SpEx{
 		return surowceInfo_.czyTypPrzyrostowy();
 	}
 
-	STyp::Czas Surowce::pobierzCzas()const{
-		return surowceInfo_.pobierzCzas(*this);
+	STyp::Czas Surowce::pobierzCzasRozbudowy()const{
+		return surowceInfo_.pobierzCzasBudowy(*this);
 	}
 
 	bool Surowce::zapisz(XmlBO::ElementWezla wezel) const {

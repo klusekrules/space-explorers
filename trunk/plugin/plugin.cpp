@@ -4,6 +4,7 @@
 #include <io.h>
 #include "Zmiana\ZmianaAgregacja.h"
 #include "Zmiana\ZmianaLiniowa.h"
+#include "Zmiana\ZmianaLiniowaIlosciowa.h"
 #include "Zmiana\ZmianaPotegowa.h"
 #include "Zmiana\ZmianaPotegowaAlt.h"
 #include "Logger\LoggerNazwaKlasy.h"
@@ -74,6 +75,11 @@ namespace SPlu{
 		if (!SZmi::ZmianaLiniowa::RejestrujZmianaLiniowa(fabryka_)){
 			log_.loguj(SLog::Log::Debug, PLUGIN_NIE_ZAREJESTROWANO_ZMIANY);
 			log_.loguj(SLog::Log::Debug, NAZWAKLASY(SZmi::ZmianaLiniowa));
+			rezultat = false;
+		}
+		if (!SZmi::ZmianaLiniowaIlosciowa::RejestrujZmianaLiniowaIlosciowa(fabryka_)){
+			log_.loguj(SLog::Log::Debug, PLUGIN_NIE_ZAREJESTROWANO_ZMIANY);
+			log_.loguj(SLog::Log::Debug, NAZWAKLASY(SZmi::ZmianaLiniowaIlosciowa));
 			rezultat = false;
 		}
 		if (!SZmi::ZmianaPotegowa::RejestrujZmianaPotegowa(fabryka_)){

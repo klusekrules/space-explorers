@@ -226,6 +226,7 @@
     <ClCompile Include="ZmianaFabryka.cpp" />
     <ClCompile Include="ZmianaIdKlas.cpp" />
     <ClCompile Include="ZmianaLiniowa.cpp" />
+    <ClCompile Include="ZmianaLiniowaIlosciowa.cpp" />
     <ClCompile Include="ZmianaParametr.cpp" />
     <ClCompile Include="ZmianaPotegowa.cpp" />
     <ClCompile Include="ZmianaPotegowaAlt.cpp" />
@@ -244,6 +245,7 @@
   <ItemGroup>
     <ClInclude Include="Headers\Zmiana\ZmianaAgregacja.h" />
     <ClInclude Include="Headers\Zmiana\ZmianaLiniowa.h" />
+    <ClInclude Include="Headers\Zmiana\ZmianaLiniowaIlosciowa.h" />
     <ClInclude Include="Headers\Zmiana\ZmianaParametr.h" />
     <ClInclude Include="Headers\Zmiana\ZmianaPotegowa.h" />
     <ClInclude Include="Headers\Zmiana\ZmianaPotegowaAlt.h" />
