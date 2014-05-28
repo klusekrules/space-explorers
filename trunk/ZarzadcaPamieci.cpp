@@ -309,4 +309,10 @@ namespace SpEx{
 		plik += ".xml";
 		return std::move(plik);
 	}
+
+	void ZarzadcaPamieci::wyczyscDane(){
+		galaktyki_.clear();
+		ukladySloneczne_.clear();
+		planety_.clear();
+	}
 }

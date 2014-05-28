@@ -74,7 +74,7 @@ namespace SpEx {
 		*
 		* \return true je¿eli uda siê wczytaæ stan gry, false w przeciwnym wypadku.
 		*/
-		bool wczytajGre(std::shared_ptr<SPar::ParserElement> root, const std::string& nazwa, const std::string& hash);
+		bool wczytajGre(std::shared_ptr<SPar::ParserElement> root);
 		
 		/**
 		* \brief Metoda pobieraj¹ca œla stosu.

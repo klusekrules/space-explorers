@@ -40,7 +40,6 @@ void zamknijAplikacje();
 void zlecZadanie( const char *plik , const char *funkcja );
 void zlecZadanieGraficzne(const char *plik, const char *funkcja);
 void wypelnijKontrolkeObiektu(int idPlanety, int typ, const char *nazwaKontrolki);
-bool wczytajDane(const char *plik);
 bool zaladujGre(const char *plik);
 
 //Gracz

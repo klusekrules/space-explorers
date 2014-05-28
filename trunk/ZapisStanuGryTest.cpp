@@ -21,7 +21,7 @@ void ZapisStanuGryTest::odczyt(){
 	UNIT_TEST_ASSERT_NOTNULL(dokument);
 	auto root = dokument->pobierzElement(WEZEL_XML_ROOT);
 	UNIT_TEST_ASSERT_NOTNULL(root);
-	UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().wczytajGre(root,std::string("Daniel"), haslo));
+	UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().wczytajGre(root));
 	STyp::Ilosc p_b = SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(STyp::Identyfikator(5))->pobierzObiekt(STyp::Identyfikator(1)).pobierzIlosc();
 	int ptr_b = (int)(&(SpEx::Aplikacja::pobierzInstancje().pobierzGre()));
 	UNIT_TEST_ASSERT_NOTEQUAL(ptr_a,ptr_b);

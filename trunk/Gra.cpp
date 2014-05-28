@@ -12,6 +12,7 @@ namespace SpEx{
 	Gra::Gra(SLog::Log& logger, ZarzadcaPamieci& zarzadca)
 		: logger_(logger), zarzadca_(zarzadca), uzytkownik_(nullptr)
 	{
+		zarzadca.wyczyscDane();
 	}
 
 	bool Gra::przeniesPlaneteDoUzytkownika(const STyp::Identyfikator& identyfikator){
