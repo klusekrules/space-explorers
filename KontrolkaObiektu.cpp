@@ -531,7 +531,6 @@ namespace tgui{
 
 
 	bool KontrolkaObiektu::ustawDane(const SpEx::ObiektInfo& obj, const SpEx::Planeta& planeta){
-		nazwa_->setText(obj.pobierzNazwe()());
 		tresc_->setText(SpEx::Utils::trim(obj.pobierzOpis()()));
 		picture_->load(obj.pobierzAdresObrazka()());
 		int idObj = obj.pobierzIdentyfikator()();
@@ -553,16 +552,33 @@ namespace tgui{
 
 		auto wsk = planeta.pobierzObiektJesliIstnieje(idObj);
 		if (wsk){
-			czasRozbudowy_->setText(obj.pobierzCzasBudowy(*wsk).napis());
+
+			switch (obj.pobierzTypAtrybutu())
+			{
+			case SpEx::PodstawoweParametry::POZIOM:
+				nazwa_->setText(obj.pobierzNazwe()() + " ( Poziom " + wsk->pobierzPoziom().napis() + " )");
+				break;
+			case SpEx::PodstawoweParametry::ILOSC:
+				nazwa_->setText(obj.pobierzNazwe()() + " ( Iloœæ " + wsk->pobierzIlosc().napis() + " )");
+				break;
+			default:
+				break;
+			}
+			czasRozbudowy_->setText(wsk->pobierzCzasRozbudowy().napis());
 		}
 		else{
-			//TODO: Dodaæ sprawdzanie czasu budowy na pierwszy poziom.
-			/*if (SpEx::PodstawoweParametry::POZIOM){
-				czasRozbudowy_->setText(obj.pobierzCzasBudowy(SpEx::PodstawoweParametry(STyp::Poziom(1),planeta.pobierzIdentyfikator())).napis());
-			}
-			else{
+			switch (obj.pobierzTypAtrybutu())
+			{
+			case SpEx::PodstawoweParametry::POZIOM:
+				czasRozbudowy_->setText(obj.pobierzCzasBudowy(SpEx::PodstawoweParametry(STyp::Poziom(1), planeta.pobierzIdentyfikator())).napis());
+				break;
+			case SpEx::PodstawoweParametry::ILOSC:
 				czasRozbudowy_->setText(obj.pobierzCzasBudowy(SpEx::PodstawoweParametry(STyp::Ilosc(1), planeta.pobierzIdentyfikator())).napis());
-			}*/
+				break;
+			default:
+				break;
+			}
+			nazwa_->setText(obj.pobierzNazwe()());
 		}
 		return true;
 	}

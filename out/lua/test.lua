@@ -53,6 +53,28 @@ function ustawOknoLogowania ()
 	end
 end
 
+function ustawOknoPonownegoLogowania ()
+	wejscieDoStanu()
+	ffi.C.wyczyscListeOkien();
+	ffi.C.loguj("Ustawianie okna o id 4")
+	if ffi.C.ustawOkno(4) == true then
+		ffi.C.podlaczOknoKomunikatow(4,"komunikaty")
+		ffi.C.ustawWlasciwosc(4,"pass","focused","true")
+		ffi.C.ustawWlasciwosc(4,"login","text","Daniel")
+		ffi.C.ustawWlasciwosc(4,"login","enabled","false")
+		ffi.C.ustawWlasciwosc(4,"nowygracz","enabled","false")
+		ffi.C.loguj("Ustawianiono")
+	else
+		ffi.C.loguj("Nieustawianiono")
+	end
+end
+
+function wyjdzOknoPonownegoLogowania ()
+	ffi.C.ustawWlasciwosc(4,"login","enabled","true")
+	ffi.C.ustawWlasciwosc(4,"nowygracz","enabled","true")
+	wyjscieZeStanu()
+end
+
 function ustawOknoListy()
 	ffi.C.wypelnijKontrolkeObiektu(3,1,"MojaKontrolka")
 	wejscieDoStanu()
@@ -126,15 +148,6 @@ function testy ()
 	zdarzenie.numer_ = 0
 	ffi.C.kolejkujZdarzenie(zdarzenie);
 end
-
-function wczytajDane ()	
-	if ffi.C.wczytajDane("danetestowe.xml") == true then
-		ffi.C.loguj("Za³adowano dane.")
-	else
-		ffi.C.loguj("Nie uda³o siê za³adowaæ danych.")
-	end
-end
-
 -- Zadania listy okien
 
 function rozbuduj ()
@@ -159,14 +172,12 @@ function przeladujOknoListeObiektow ()
 	ffi.C.przeladujOkno(3)
 end
 
-function wczytajPonownieListeObiektow ()
-    ffi.C.przeladujOkno(3)
-	ffi.C.zlecZadanieGraficzne("lua\\test.lua","wczytajPonownieListeObiektowImpl");
-end
-
-function wczytajPonownieListeObiektowImpl ()
-	wczytajDane()
-	ustawOknoListy()
+function wczytajDane ()
+    if ffi.C.zaladujGre("danetestowe.xml") == true then
+		ffi.C.loguj("Za³adowano dane.")
+	else
+		ffi.C.loguj("Nie uda³o siê za³adowaæ danych.")
+	end
 end
 
 -- Zadania okna logowania
@@ -174,10 +185,14 @@ function tworzGracza()
 	if ffi.C.nowyGracz("login","pass") == true then
 		wstawZdarzenieDlaAktualnegoStanu ( 4, 0 )
 	end
+	ffi.C.ustawWlasciwosc(4,"login","text","")
+	ffi.C.ustawWlasciwosc(4,"pass","text","")
 end
 
 function zaloguj()
 	if ffi.C.zaloguj("login","pass") == true then
 		wstawZdarzenieDlaAktualnegoStanu ( 4, 0 )
 	end
+	ffi.C.ustawWlasciwosc(4,"login","text","")
+	ffi.C.ustawWlasciwosc(4,"pass","text","")
 end

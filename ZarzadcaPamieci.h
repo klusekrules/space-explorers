@@ -162,6 +162,8 @@ namespace SpEx{
 		*/
 		bool odczytaj(XmlBO::ElementWezla wezel) override;
 
+		void wyczyscDane();
+
 	private:
 
 		/**

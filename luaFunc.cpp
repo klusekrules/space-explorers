@@ -118,28 +118,13 @@ extern "C"{
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, komunikat);
 	}
 
-	__declspec(dllexport) bool __cdecl wczytajDane(const char *plik)
-	{
-		SPar::ParserDokumentXml dokument;
-		if (dokument.odczytaj(plik)){
-			auto root = dokument.pobierzElement(WEZEL_XML_ROOT);
-			if (root){
-				SpEx::Aplikacja::pobierzInstancje().wyczyscDane();
-				if (SpEx::Aplikacja::pobierzInstancje().wczytajDane(root)){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
 	__declspec(dllexport) bool __cdecl zaladujGre(const char *plik){
 		if (plik){
 			SPar::ParserDokumentXml dokument;
 			if (dokument.odczytaj(plik)){
 				auto root = dokument.pobierzElement(WEZEL_XML_ROOT);
 				if (root){
-					return SpEx::Aplikacja::pobierzInstancje().wczytajGre(root, std::string(), std::string());
+					return SpEx::Aplikacja::pobierzInstancje().wczytajGre(root);
 				}
 			}
 		}
@@ -168,8 +153,11 @@ extern "C"{
 				}
 			}
 		}
+		catch (STyp::Wyjatek& e){
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.generujKomunikat());
+		}
 		catch (std::exception& e){
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Error");
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.what());
 		}
 	}
 

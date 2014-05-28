@@ -236,7 +236,7 @@ namespace SpEx{
 		return false;
 	}
 
-	bool Aplikacja::wczytajGre(std::shared_ptr<SPar::ParserElement> root, const std::string&, const std::string&){
+	bool Aplikacja::wczytajGre(std::shared_ptr<SPar::ParserElement> root){
 		auto wezel = zarzadca_.otworzWezelGry();
 		if (wezel && *wezel){
 			std::shared_ptr<Gra> gra = instancjaGry_;
@@ -252,6 +252,9 @@ namespace SpEx{
 				}
 				instancjaGry_ = gra;
 				return false;
+			}
+			catch (STyp::Wyjatek& e){
+				logger_.loguj(SLog::Log::Error, e.generujKomunikat());
 			}
 			catch (std::exception& e){
 				logger_.loguj(SLog::Log::Error, e.what());
