@@ -5,9 +5,13 @@
 
 namespace SpEx{
 
-	ObiektInfo::ObiektInfo(const STyp::Identyfikator& typ, XmlBO::ElementWezla wezel)
-		: Info(typ, wezel), Wymagania(wezel)
+	ObiektInfo::ObiektInfo(const STyp::Identyfikator& typ, PodstawoweParametry::TypAtrybutu typAtrybutu, XmlBO::ElementWezla wezel)
+		: Info(typ, wezel), Wymagania(wezel), typAtrybutu_(typAtrybutu)
 	{
+	}
+
+	PodstawoweParametry::TypAtrybutu ObiektInfo::pobierzTypAtrybutu()const{
+		return typAtrybutu_;
 	}
 
 	std::string ObiektInfo::napis() const{
