@@ -7,12 +7,12 @@
 
 namespace SpEx{
 	Statek::Statek(const STyp::Ilosc& ilosc, const STyp::Identyfikator& identyfikatorPlanety, const StatekInfo& statekInfo)
-		: PodstawoweParametry(wpisIlosc(ilosc),ILOSC, identyfikatorPlanety),
-		Obiekt(PodstawoweParametry(wpisIlosc(ilosc), ILOSC, identyfikatorPlanety), statekInfo),
-		JednostkaAtakujaca(PodstawoweParametry(wpisIlosc(ilosc), ILOSC, identyfikatorPlanety), statekInfo),
-		JednostkaLatajaca(PodstawoweParametry(wpisIlosc(ilosc), ILOSC, identyfikatorPlanety), statekInfo),
-		Ladownia(PodstawoweParametry(wpisIlosc(ilosc), ILOSC, identyfikatorPlanety), statekInfo),
-		Hangar(PodstawoweParametry(wpisIlosc(ilosc), ILOSC, identyfikatorPlanety), statekInfo),
+		: PodstawoweParametry(wpisIlosc(ilosc), statekInfo.pobierzTypAtrybutu(), identyfikatorPlanety),
+		Obiekt(PodstawoweParametry(wpisIlosc(ilosc), statekInfo.pobierzTypAtrybutu(), identyfikatorPlanety), statekInfo),
+		JednostkaAtakujaca(PodstawoweParametry(wpisIlosc(ilosc), statekInfo.pobierzTypAtrybutu(), identyfikatorPlanety), statekInfo),
+		JednostkaLatajaca(PodstawoweParametry(wpisIlosc(ilosc), statekInfo.pobierzTypAtrybutu(), identyfikatorPlanety), statekInfo),
+		Ladownia(PodstawoweParametry(wpisIlosc(ilosc), statekInfo.pobierzTypAtrybutu(), identyfikatorPlanety), statekInfo),
+		Hangar(PodstawoweParametry(wpisIlosc(ilosc), statekInfo.pobierzTypAtrybutu(), identyfikatorPlanety), statekInfo),
 		statekinfo_(statekInfo)
 	{
 	}

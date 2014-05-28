@@ -6,8 +6,8 @@
 namespace SpEx{
 
 	Budynek::Budynek(const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety, const BudynekInfo& obiektInfo)
-		: PodstawoweParametry(wpisPoziom(poziom), POZIOM, identyfikatorPlanety),
-		Obiekt(PodstawoweParametry(wpisPoziom(poziom), POZIOM, identyfikatorPlanety), obiektInfo),
+		: PodstawoweParametry(wpisPoziom(poziom), obiektInfo.pobierzTypAtrybutu(), identyfikatorPlanety),
+		Obiekt(PodstawoweParametry(wpisPoziom(poziom), obiektInfo.pobierzTypAtrybutu(), identyfikatorPlanety), obiektInfo),
 		budynekInfo_(obiektInfo)
 	{}
 
@@ -27,15 +27,7 @@ namespace SpEx{
 	bool Budynek::polacz(const Obiekt& obiektbazowy) {
 		return false;
 	}
-	/*
-	bool Budynek::czyMoznaPolaczyc(const ObiektBazowy& obiektbazowy) const{
-		return false;
-	}
-
-	bool Budynek::czyMoznaPodzielic(const Ilosc& ilosc) const{
-		return false;
-	}*/
-
+	
 	Wymagania::PrzetworzoneWarunki Budynek::pobierzZapotrzebowanie()const{
 		return budynekInfo_.pobierzZapotrzebowanie(*this);
 	}

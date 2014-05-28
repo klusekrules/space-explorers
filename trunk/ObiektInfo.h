@@ -34,7 +34,7 @@ namespace SpEx{
 		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
 		*/
-		explicit ObiektInfo(const STyp::Identyfikator& typ, XmlBO::ElementWezla wezel);
+		explicit ObiektInfo(const STyp::Identyfikator& typ, PodstawoweParametry::TypAtrybutu typAtrybutu, XmlBO::ElementWezla wezel);
 
 		/**
 		* \brief Metoda tworz¹ca egzemplarz obiektu.
@@ -50,6 +50,8 @@ namespace SpEx{
 		* \brief Destruktor.
 		*/
 		virtual ~ObiektInfo() = default;
+
+		PodstawoweParametry::TypAtrybutu pobierzTypAtrybutu()const;
 
 		/**
 		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
@@ -69,5 +71,7 @@ namespace SpEx{
 		virtual bool tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const = 0;
 
 		virtual bool tworz(Planeta& planeta, const XmlBO::ElementWezla element) const = 0;
+
+		PodstawoweParametry::TypAtrybutu typAtrybutu_;
 	};
 }

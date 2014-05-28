@@ -6,7 +6,7 @@
 
 namespace SpEx{
 	SurowceInfo::SurowceInfo(XmlBO::ElementWezla wezel)
-		: ObiektInfo(SUROWIEC, wezel), przyrostowy_(false), zmianaCzasu_(nullptr)
+		: ObiektInfo(SUROWIEC,PodstawoweParametry::ILOSC, wezel), przyrostowy_(false), zmianaCzasu_(nullptr)
 	{
 		if (wezel){
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_MASA, masa_);
@@ -30,11 +30,11 @@ namespace SpEx{
 	}
 
 	bool SurowceInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
-		return planeta.dodajObiekt(std::shared_ptr<Surowce>(tworzEgzemplarz(PodstawoweParametry(atrybut,PodstawoweParametry::ILOSC))));
+		return planeta.dodajObiekt(std::shared_ptr<Surowce>(tworzEgzemplarz(PodstawoweParametry(atrybut, typAtrybutu_))));
 	}
 
 	bool SurowceInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla element) const{
-		auto surowce = std::shared_ptr<Surowce>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), PodstawoweParametry::ILOSC)));
+		auto surowce = std::shared_ptr<Surowce>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), typAtrybutu_)));
 		if (surowce && element){
 			if (!surowce->odczytaj(element))
 				return false;

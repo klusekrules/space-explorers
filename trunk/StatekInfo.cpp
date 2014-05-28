@@ -6,7 +6,7 @@
 
 namespace SpEx{
 	StatekInfo::StatekInfo(XmlBO::ElementWezla wezel)
-		: ObiektInfo(STATEK, wezel),
+		: ObiektInfo(STATEK, PodstawoweParametry::ILOSC, wezel),
 		JednostkaLatajacaInfo(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_JEDNOSTKA_LATAJACA_INFO)),
 		JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO)),
 		LadowniaInfo(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_LADOWNIA_INFO)),
@@ -47,7 +47,7 @@ namespace SpEx{
 	}
 
 	bool StatekInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla element) const{
-		auto statek = std::shared_ptr<Statek>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), PodstawoweParametry::ILOSC)));
+		auto statek = std::shared_ptr<Statek>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), typAtrybutu_)));
 		if (statek && element){
 			if (!statek->odczytaj(element))
 				return false;
@@ -57,7 +57,7 @@ namespace SpEx{
 	}
 
 	bool StatekInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
-		return planeta.dodajObiekt(std::shared_ptr<Statek>(tworzEgzemplarz(PodstawoweParametry(atrybut, PodstawoweParametry::ILOSC))));
+		return planeta.dodajObiekt(std::shared_ptr<Statek>(tworzEgzemplarz(PodstawoweParametry(atrybut, typAtrybutu_))));
 	}
 
 	std::string StatekInfo::napis() const{
