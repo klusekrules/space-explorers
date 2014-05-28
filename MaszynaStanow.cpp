@@ -9,6 +9,19 @@ namespace SpEx{
 	{
 	}
 
+	void MaszynaStanow::LuaStan::ustawNowyStanNastepny(const STyp::Identyfikator& id){
+		if (komunikat_){
+			nastepny_.idStanu_ = id();
+			komunikat_->idNowegoStanu_ = std::make_shared<STyp::Identyfikator>(id);
+		}
+	}
+
+	void MaszynaStanow::LuaStan::ustawNowyNumerNastepny(int numer){
+		if (komunikat_){
+			nastepny_.numer_ = numer;
+		}
+	}
+
 	MaszynaStanow::MaszynaStanow()
 		: watekGraficzny_(true), stan_(nullptr), stanNastepny_(nullptr), pulaWatkow_()
 	{
@@ -162,12 +175,22 @@ namespace SpEx{
 
 					auto numerNowegoStanu = opisZdarzenia->pobierzNumer();
 					if (numerNowegoStanu){
-						aktualny.numer_ = nowy.numer_ = *numerNowegoStanu;
+						nowy.numer_ = *numerNowegoStanu;
 					}
 
 					luaStan_.ustawNastepny(nowy);
 					luaStan_.ustawZdarzenie(komunikat);
+					luaStan_.komunikat_ = &komunikat;
 					opisZdarzenia->wykonaj();
+					luaStan_.komunikat_ = nullptr;
+
+					if (komunikat.idNowegoStanu_){
+						auto nowyStan = pobierzOpisStanu(*komunikat.idNowegoStanu_);
+						if (nowyStan){
+							nowy = Stan(nowyStan);
+						}
+					}
+					nowy.numer_ = luaStan_.nastepny_.numer_;
 				}
 			}
 		}

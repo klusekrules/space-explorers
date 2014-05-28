@@ -190,12 +190,7 @@ end
 function powrotDoOkna()
 	local stan = ffi.new('struct Stan_t')
 	ffi.C.pobierzAktualnyStan(stan)
-	if stan.numer_ == 1 then
-		wstawZdarzenieDlaAktualnegoStanu ( 6, 0 )
-	end
-	if stan.numer_ == 4 then
-		wstawZdarzenieDlaAktualnegoStanu ( 5, 0 )
-	end
+	ffi.C.ustawNowyStanNastepny(stan.numer_);
 end
 
 -- Zadania okna logowania

@@ -72,6 +72,14 @@ extern "C"{
 		SpEx::MaszynaStanow::pobierzInstancje().wstawZdarzenie(z);
 	}
 
+	__declspec(dllexport) void __cdecl ustawNowyStanNastepny(int id){
+		SpEx::MaszynaStanow::pobierzInstancje().luaStan_.ustawNowyStanNastepny(id);
+	}
+
+	__declspec(dllexport) void __cdecl ustawNowyNumerNastepny(int numer){
+		SpEx::MaszynaStanow::pobierzInstancje().luaStan_.ustawNowyNumerNastepny(numer);
+	}
+
 	__declspec(dllexport) void __cdecl wyczyscListeOkien()
 	{
 		SpEx::MaszynaStanow::pobierzInstancje().wyczyscKolejkeOkien();
@@ -328,7 +336,7 @@ extern "C"{
 		return widget->setProperty(nazwaWlasciwosci,value);
 	}
 
-	__declspec(dllexport) const char * pobierzNazweAktualnegoGracza(){
+	__declspec(dllexport) const char * __cdecl pobierzNazweAktualnegoGracza(){
 		if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().czyZalogowano())
 			return SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzUzytkownika().pobierzNazweUzytkownika()().c_str();
 		else

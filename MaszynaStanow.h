@@ -26,8 +26,12 @@ namespace SpEx{
 			bool pobierzAktualnyStan(struct Stan_t&);
 			bool pobierzNastepnyStan(struct Stan_t&);
 
+			void ustawNowyStanNastepny(const STyp::Identyfikator&);
+			void ustawNowyNumerNastepny(int);
+
 		private:
 			struct Zdarzenie_t zdarzenie_;
+			Zdarzenie* komunikat_ = nullptr;
 			bool poprawne_zdarzenie_;
 			void ustawZdarzenie(const Zdarzenie&);
 
@@ -47,7 +51,7 @@ namespace SpEx{
 		~MaszynaStanow() = default;
 
 		void start();
-
+		
 		Stan pobierzStan(OknoGry::StosEkranow&) const;
 
 		Stan pobierzStan() const;
