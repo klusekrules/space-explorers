@@ -32,8 +32,6 @@
     <Zdarzenie id="0x1" typSkryptu="lua" luaFile="lua\test.lua" luaInside="zamknijAplikacje"/>
     <Zdarzenie id="0x2"/>
     <Zdarzenie id="0x3" typSkryptu="lua" luaFile="lua\test.lua" luaInside="zaloguj"/>
-    <Zdarzenie id="0x4" typSkryptu="lua" luaFile="lua\test.lua" luaInside="powrotDoOkna"/>
-    <Zdarzenie id="0x5" stanNastepny="0x4" numerNastepny="0x0"/>
-    <Zdarzenie id="0x6" stanNastepny="0x1" numerNastepny="0x0"/>
+    <Zdarzenie id="0x4" typSkryptu="lua" luaFile="lua\test.lua" luaInside="powrotDoOkna" numerNastepny="0x0"/>
   </Stan>
 </MaszynaStanow>

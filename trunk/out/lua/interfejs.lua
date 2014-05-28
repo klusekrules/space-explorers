@@ -24,6 +24,8 @@ bool pobierzZdarzenie( struct Zdarzenie_t& z );
 bool pobierzPoprzedniStan( struct Stan_t& s );
 bool pobierzAktualnyStan( struct Stan_t& s );
 bool pobierzNastepnyStan( struct Stan_t& s );
+void ustawNowyStanNastepny( int id );
+void ustawNowyNumerNastepny( int numer );
 
 //Sterowanie stanami
 bool ustawOkno(int id);

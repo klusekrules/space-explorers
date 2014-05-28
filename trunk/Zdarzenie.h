@@ -7,6 +7,7 @@ namespace SpEx{
 	{
 		STyp::Identyfikator idStanu_;
 		int numer_;
+		std::shared_ptr<STyp::Identyfikator> idNowegoStanu_;
 		STyp::Identyfikator idZdarzenia_;
 		tgui::Callback zdarzenieGui_;
 	};
