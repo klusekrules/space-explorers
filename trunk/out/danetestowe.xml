@@ -1,19 +1,19 @@
 <Space-Explorers>
     <SurowceInfo id="1" nazwa="Metal" obrazek="resource\Brak_obrazka.png" masa="3" objetosc="1" typ="1">
         Opis metalu.
-        <Zmiana id="3" for="Czas">
+        <Zmiana id="8" for="Czas">
             <Param id="0" wspolczynnik="1"/>
         </Zmiana>
     </SurowceInfo>
     <SurowceInfo id="2" nazwa="Krysztal" obrazek="resource\Brak_obrazka.png" masa="2" objetosc="1,3" typ="1">
         Opis kryszta³u.
-        <Zmiana id="3" for="Czas">
+        <Zmiana id="8" for="Czas">
             <Param id="0" wspolczynnik="2"/>
         </Zmiana>
     </SurowceInfo>
     <SurowceInfo id="3" nazwa="Deuter" obrazek="resource\Brak_obrazka.png" masa="1" objetosc="3" typ="1">
         Opis deuteru.
-        <Zmiana id="3" for="Czas">
+        <Zmiana id="8" for="Czas">
             <Param id="0" wspolczynnik="0,1"/>
         </Zmiana>
     </SurowceInfo>
@@ -73,18 +73,27 @@
         <Kryterium id="2" ilosc="24"/>
         <Produkcja id="1" ilosc="50"/>
         <Zapotrzebowanie id="4" ilosc="120"/>
+		<Zmiana id="3" for="Czas">
+            <Param id="0" wspolczynnik="1"/>
+        </Zmiana>
     </BudynekInfo>
     <BudynekInfo id="12" nazwa="Elektrownia s³oneczna" obrazek="resource\Brak_obrazka.png" powierzchnia="2 500">
         Opis elektrowni s³onecznej.
         <Kryterium id="1" ilosc="40"/>
         <Kryterium id="2" ilosc="13"/>
         <Produkcja id="4" ilosc="320"/>
+		<Zmiana id="3" for="Czas">
+            <Param id="0" wspolczynnik="1"/>
+        </Zmiana>
     </BudynekInfo>
     <BudynekInfo id="13" nazwa="Fabryka robotów" obrazek="resource\Brak_obrazka.png" powierzchnia="500">
         Opis fabryki robotów.
         <Kryterium id="1" ilosc="200"/>
         <Kryterium id="2" ilosc="140"/>
         <Kryterium id="3" ilosc="96"/>
+		<Zmiana id="3" for="Czas">
+            <Param id="0" wspolczynnik="1"/>
+        </Zmiana>
     </BudynekInfo>
     <ObronaInfo id="14" nazwa="Wyrzutnia rakiet" obrazek="resource\Brak_obrazka.png" powierzchnia="2,31">
         Opis wyrzutni rakiet.
