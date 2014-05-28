@@ -54,7 +54,7 @@ namespace STyp{
 
 		PodstawowyInterfejs(const nazwa_typu& wartosc) : wartosc_(wartosc) {}
 
-		nazwa_typu operator()() const { return wartosc_; }
+		const nazwa_typu& operator()() const { return wartosc_; }
 
 		void operator()(const nazwa_typu& wartosc){ wartosc_ = wartosc; }
 

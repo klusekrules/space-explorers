@@ -16,6 +16,16 @@ function wstawZdarzenieDlaAktualnegoStanu ( id, addNumber )
 	ffi.C.wstawZdarzenie(zdarzenie)
 end
 
+function wstawZdarzenieDlaAktualnegoStanu ( id )
+	local stan = ffi.new('struct Stan_t')
+	local zdarzenie = ffi.new('struct Zdarzenie_t')
+	ffi.C.pobierzAktualnyStan(stan)
+	zdarzenie.idStanu_ = stan.idStanu_
+	zdarzenie.numer_ = stan.numer_
+	zdarzenie.idZdarzenia_ = id
+	ffi.C.wstawZdarzenie(zdarzenie)
+end
+
 -- Ustawianie Okna
 function stanPoczatkowy ()
 	wejscieDoStanu()
@@ -58,12 +68,17 @@ function ustawOknoPonownegoLogowania ()
 	ffi.C.wyczyscListeOkien();
 	ffi.C.loguj("Ustawianie okna o id 4")
 	if ffi.C.ustawOkno(4) == true then
+		ffi.C.loguj("Ustawianiono")
 		ffi.C.podlaczOknoKomunikatow(4,"komunikaty")
 		ffi.C.ustawWlasciwosc(4,"pass","focused","true")
-		ffi.C.ustawWlasciwosc(4,"login","text","Daniel")
+		ffi.C.ustawWlasciwosc(4,"login","text", ffi.C.pobierzNazweAktualnegoGracza())
 		ffi.C.ustawWlasciwosc(4,"login","enabled","false")
 		ffi.C.ustawWlasciwosc(4,"nowygracz","enabled","false")
-		ffi.C.loguj("Ustawianiono")
+		if ffi.C.zaladujGre("danetestowe.xml") == true then
+			ffi.C.loguj("Za³adowano dane.")
+		else
+			ffi.C.loguj("Nie uda³o siê za³adowaæ danych.")
+		end
 	else
 		ffi.C.loguj("Nieustawianiono")
 	end
@@ -172,18 +187,21 @@ function przeladujOknoListeObiektow ()
 	ffi.C.przeladujOkno(3)
 end
 
-function wczytajDane ()
-    if ffi.C.zaladujGre("danetestowe.xml") == true then
-		ffi.C.loguj("Za³adowano dane.")
-	else
-		ffi.C.loguj("Nie uda³o siê za³adowaæ danych.")
+function powrotDoOkna()
+	local stan = ffi.new('struct Stan_t')
+	ffi.C.pobierzAktualnyStan(stan)
+	if stan.numer_ == 1 then
+		wstawZdarzenieDlaAktualnegoStanu ( 6, 0 )
+	end
+	if stan.numer_ == 4 then
+		wstawZdarzenieDlaAktualnegoStanu ( 5, 0 )
 	end
 end
 
 -- Zadania okna logowania
 function tworzGracza()
 	if ffi.C.nowyGracz("login","pass") == true then
-		wstawZdarzenieDlaAktualnegoStanu ( 4, 0 )
+		wstawZdarzenieDlaAktualnegoStanu ( 4 )
 	end
 	ffi.C.ustawWlasciwosc(4,"login","text","")
 	ffi.C.ustawWlasciwosc(4,"pass","text","")
@@ -191,7 +209,7 @@ end
 
 function zaloguj()
 	if ffi.C.zaloguj("login","pass") == true then
-		wstawZdarzenieDlaAktualnegoStanu ( 4, 0 )
+		wstawZdarzenieDlaAktualnegoStanu ( 4 )
 	end
 	ffi.C.ustawWlasciwosc(4,"login","text","")
 	ffi.C.ustawWlasciwosc(4,"pass","text","")

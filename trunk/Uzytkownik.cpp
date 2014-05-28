@@ -47,7 +47,7 @@ namespace SpEx{
 		return pobierzPlanete(aktywnaPlaneta_);
 	}
 
-	STyp::Tekst Uzytkownik::pobierzNazweUzytkownika()const{
+	const STyp::Tekst& Uzytkownik::pobierzNazweUzytkownika()const{
 		return nazwaUzytkownika_;
 	}
 

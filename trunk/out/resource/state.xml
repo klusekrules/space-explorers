@@ -2,7 +2,7 @@
 <MaszynaStanow idStanuPoczatkowego="2" pulaWatkow="4">
   <Stan id="0x1" typSkryptu="lua" luaFile="lua\test.lua" luaIn="ustawOknoMenu" luaOut="wyjscieZeStanu">
     <Zdarzenie id="0x6" typSkryptu="lua" luaFile="lua\test.lua" luaInside="przeladujOknoListeObiektow"/>
-    <Zdarzenie id="0x5" typSkryptu="lua" luaFile="lua\test.lua" luaInside="wczytajDane" stanNastepny="0x6" numerNastepny="0x0"/>
+    <Zdarzenie id="0x5" stanNastepny="0x6" numerNastepny="0x1"/>
     <Zdarzenie id="0x4" stanNastepny="0x4" numerNastepny="0x0"/>
     <Zdarzenie id="0x3" typSkryptu="lua" luaFile="lua\test.lua" luaInside="zamknijAplikacje"/>
     <Zdarzenie id="0x2" stanNastepny="0x3" numerNastepny="0x0"/>
@@ -20,7 +20,7 @@
     <Zdarzenie id="0x2" typSkryptu="lua" luaFile="lua\test.lua" luaInside="rozbuduj"/>
     <Zdarzenie id="0x3" typSkryptu="lua" luaFile="lua\test.lua" luaInside="zniszcz"/>
     <Zdarzenie id="0x4" typSkryptu="lua" luaFile="lua\test.lua" luaInside="info"/>
-    <Zdarzenie id="0x6" typSkryptu="lua" luaFile="lua\test.lua" luaInside="wczytajDane" stanNastepny="0x6" numerNastepny="0x0"/>
+    <Zdarzenie id="0x6" stanNastepny="0x6" numerNastepny="0x4"/>
   </Stan>
   <Stan id="0x5" typSkryptu="lua" luaFile="lua\test.lua" luaIn="ustawOknoLogowania" luaOut="wyjscieZeStanu">
 	  <Zdarzenie id="0x1" typSkryptu="lua" luaFile="lua\test.lua" luaInside="zamknijAplikacje"/>
@@ -32,6 +32,8 @@
     <Zdarzenie id="0x1" typSkryptu="lua" luaFile="lua\test.lua" luaInside="zamknijAplikacje"/>
     <Zdarzenie id="0x2"/>
     <Zdarzenie id="0x3" typSkryptu="lua" luaFile="lua\test.lua" luaInside="zaloguj"/>
-    <Zdarzenie id="0x4" stanNastepny="0x4" numerNastepny="0x0"/>
+    <Zdarzenie id="0x4" typSkryptu="lua" luaFile="lua\test.lua" luaInside="powrotDoOkna"/>
+    <Zdarzenie id="0x5" stanNastepny="0x4" numerNastepny="0x0"/>
+    <Zdarzenie id="0x6" stanNastepny="0x1" numerNastepny="0x0"/>
   </Stan>
 </MaszynaStanow>

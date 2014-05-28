@@ -245,6 +245,10 @@ namespace SpEx {
 			return listaObiektowInfo_;
 		}
 
+		bool czyZalogowano()const{
+			return uzytkownik_ != nullptr;
+		}
+
 	private:
 
 		/**
