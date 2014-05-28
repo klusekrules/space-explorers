@@ -53,7 +53,7 @@ namespace SpEx{
 		* Metoda pobiera nazwê u¿ytkownika.
 		*\return Nazwa u¿ytkownika reprezentowanego przez obiekt.
 		*/
-		STyp::Tekst pobierzNazweUzytkownika()const;
+		const STyp::Tekst& pobierzNazweUzytkownika()const;
 
 		/**
 		* \brief Metoda ustawiaj¹ca nazwê u¿ytkownika.

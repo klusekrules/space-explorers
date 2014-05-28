@@ -327,4 +327,11 @@ extern "C"{
 			return false;
 		return widget->setProperty(nazwaWlasciwosci,value);
 	}
+
+	__declspec(dllexport) const char * pobierzNazweAktualnegoGracza(){
+		if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().czyZalogowano())
+			return SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzUzytkownika().pobierzNazweUzytkownika()().c_str();
+		else
+			return nullptr;
+	}
 }

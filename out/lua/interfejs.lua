@@ -46,6 +46,7 @@ bool zaladujGre(const char *plik);
 bool zaloguj(const char *kontrolkaNazwy, const char *kontrolkaHasla);
 bool nowyGracz(const char *kontrolkaNazwy, const char *kontrolkaHasla);
 bool usunGracza(const char *kontrolkaNazwy, const char *kontrolkaHasla);
+const char * pobierzNazweAktualnegoGracza();
 
 ]]
 mymodule = ffi
