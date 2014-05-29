@@ -41,8 +41,9 @@ void testyJednostkowe();
 void zamknijAplikacje();
 void zlecZadanie( const char *plik , const char *funkcja );
 void zlecZadanieGraficzne(const char *plik, const char *funkcja);
-void wypelnijKontrolkeObiektu(int idPlanety, int typ, const char *nazwaKontrolki);
+void aktualizujDaneListyObiektow(int idEkranu,const char *nazwaKontrolki);
 bool zaladujGre(const char *plik);
+bool wybudujObiekt(int id, int ilosc);
 
 //Gracz
 bool zaloguj(const char *kontrolkaNazwy, const char *kontrolkaHasla);

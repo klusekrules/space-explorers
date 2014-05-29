@@ -50,6 +50,7 @@ Window:
 		Enabled = true
 		Transparency = 255
 		CallbackId = 0
+		TypObiektu = 1
 		BackgroundColor = (220,220,220,0)
 	}
 	

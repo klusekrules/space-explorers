@@ -66,6 +66,25 @@ namespace SpEx{
 		return atr;
 	}
 
+	PodstawoweParametry::AtrybutPodstawowy PodstawoweParametry::wartoscJednostkowaAtrybutu(TypAtrybutu typ){
+		switch (typ)
+		{
+		case SpEx::PodstawoweParametry::POZIOM:
+			return wpisPoziom(STyp::Poziom(1));
+			break;
+		case SpEx::PodstawoweParametry::ILOSC:
+			return wpisIlosc(STyp::Ilosc(1));
+			break;
+		default:
+			break;
+		}
+		return AtrybutPodstawowy();
+	}
+
+	PodstawoweParametry PodstawoweParametry::wartoscJednostkowaParametru(TypAtrybutu typ){
+		return PodstawoweParametry(wartoscJednostkowaAtrybutu(typ),typ);
+	}
+
 	PodstawoweParametry::TypAtrybutu PodstawoweParametry::typAtrybutu()const{
 		return typAtrybutu_;
 	}

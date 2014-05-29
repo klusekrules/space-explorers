@@ -6,6 +6,7 @@
 #include "LogListGui.h"
 #include "Parser\ParserDokumentXml.h"
 #include "UtilsGui.h"
+#include "Planeta.h"
 
 extern "C"{
 
@@ -137,36 +138,6 @@ extern "C"{
 			}
 		}
 		return true;
-	}
-
-	__declspec(dllexport) void __cdecl wypelnijKontrolkeObiektu(int idPlanety, int typ, const char *nazwaKontrolki)
-	{
-		try{
-			if (nazwaKontrolki){
-				SpEx::Gra& gra = SpEx::Aplikacja::pobierzInstancje().pobierzGre();
-				auto planeta = gra.pobierzUzytkownika().pobierzPlanete();
-				auto ekran = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzEkran(idPlanety);
-				if (ekran){
-					auto obiekt = ekran->pobierzGUI().get<tgui::ListaObiektowGui>(nazwaKontrolki);
-					obiekt->clear();
-					if (obiekt != nullptr){
-						for (auto element : gra.pobierzObiektyInfo()){
-							if (typ == 0 || element.second->typ_ == typ){
-								auto pozycja = obiekt->getElement(obiekt->addElement(element.second->pobierzNazwe()()));
-								pozycja->ustawDane(*element.second, planeta);
-							}
-						}
-						obiekt->refresh();
-					}
-				}
-			}
-		}
-		catch (STyp::Wyjatek& e){
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.generujKomunikat());
-		}
-		catch (std::exception& e){
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.what());
-		}
 	}
 
 	__declspec(dllexport) void __cdecl przeladujOkno(int id){
@@ -341,5 +312,48 @@ extern "C"{
 			return SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzUzytkownika().pobierzNazweUzytkownika()().c_str();
 		else
 			return nullptr;
+	}
+
+	__declspec(dllexport) bool __cdecl wybudujObiekt(int id, int ilosc){
+		try{
+			auto &gra = SpEx::Aplikacja::pobierzInstancje().pobierzGre();
+			if (gra.czyZalogowano()){
+				auto &planeta = gra.pobierzUzytkownika().pobierzPlanete();
+				planeta.wybuduj(id, SpEx::PodstawoweParametry::wartoscJednostkowaParametru(gra.pobierzObiekt(id).pobierzTypAtrybutu()));
+			}
+		}
+		catch (STyp::Wyjatek& e){
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.generujKomunikat());
+		}
+		catch (std::exception& e){
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.what());
+		}
+		return false;
+	}
+	
+	__declspec(dllexport) void __cdecl aktualizujDaneListyObiektow(int idEkranu, const char *nazwaKontrolki)
+	{
+		try{
+			auto &gra = SpEx::Aplikacja::pobierzInstancje().pobierzGre();
+			if (nazwaKontrolki && gra.czyZalogowano()){
+				auto &planeta = gra.pobierzUzytkownika().pobierzPlanete();
+				auto ekran = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzEkran(idEkranu);
+				if (ekran){
+					auto kontrolka = ekran->pobierzGUI().get<tgui::ListaObiektowGui>(nazwaKontrolki);
+					if (kontrolka != nullptr){
+						std::vector<STyp::Identyfikator> idObiektow;
+						auto obiektyGry = gra.pobierzDostepneObiektyInfo(planeta, kontrolka->getTypObiektu(), idObiektow);
+						std::sort(idObiektow.begin(), idObiektow.end());
+						kontrolka->aktualizacjaDanych(planeta, idObiektow, obiektyGry);
+					}
+				}
+			}
+		}
+		catch (STyp::Wyjatek& e){
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.generujKomunikat());
+		}
+		catch (std::exception& e){
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.what());
+		}
 	}
 }

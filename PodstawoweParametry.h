@@ -32,6 +32,8 @@ namespace SpEx{
 
 		static AtrybutPodstawowy wpisPoziom(const STyp::Poziom&);
 		static AtrybutPodstawowy wpisIlosc(const STyp::Ilosc&);
+		static AtrybutPodstawowy wartoscJednostkowaAtrybutu(TypAtrybutu);
+		static PodstawoweParametry wartoscJednostkowaParametru(TypAtrybutu);
 
 		STyp::Poziom pobierzPoziom()const;
 		STyp::Ilosc pobierzIlosc()const;

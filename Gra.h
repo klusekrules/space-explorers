@@ -241,9 +241,11 @@ namespace SpEx {
 		*/
 		bool generujNowaGalaktyke();
 
-		std::unordered_map<STyp::Identyfikator, std::shared_ptr<ObiektInfo>, STyp::IdTypeHash > pobierzObiektyInfo(){
+		const std::unordered_map<STyp::Identyfikator, std::shared_ptr<ObiektInfo>, STyp::IdTypeHash >& pobierzObiektyInfo(){
 			return listaObiektowInfo_;
 		}
+
+		const std::unordered_map<STyp::Identyfikator, std::shared_ptr<ObiektInfo>, STyp::IdTypeHash >& pobierzDostepneObiektyInfo(const Planeta&, const STyp::Identyfikator&, std::vector<STyp::Identyfikator>&);
 
 		bool czyZalogowano()const{
 			return uzytkownik_ != nullptr;
