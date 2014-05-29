@@ -19,6 +19,7 @@ namespace tgui{
 		KontrolkaObiektu(const KontrolkaObiektu&);
 		virtual ~KontrolkaObiektu() = default;
 		bool ustawDane(const SpEx::ObiektInfo& obj, const SpEx::Planeta& planeta);
+		const STyp::Identyfikator& pobierzIdObiektu() const;
 		void ustawShader(sf::Shader* shader = nullptr);
 
 		void setTransparency(unsigned char transparency);
@@ -55,6 +56,7 @@ namespace tgui{
 		std::string m_LoadedConfigFile;
 
 		Texture background_;
+		STyp::Identyfikator idObiektu_;
 		Picture::Ptr picture_;
 		Label::Ptr nazwa_;
 		Label::Ptr tresc_;

@@ -7,25 +7,55 @@ namespace tgui {
 		return ListaObiektowGui::Ptr(*container, name).get();
 	}
 
-	std::size_t ListaObiektowGui::addElement( const std::string& name ){
-		auto widget = this->copy(template_, name);
-		widget->show();
-		objects_.push_back(widget);
-		if (shader_)
-			objects_.back()->ustawShader(shader_.get());
-		return objects_.size() - 1;
+	void ListaObiektowGui::aktualizacjaDanych(const SpEx::Planeta& planeta, const std::vector<STyp::Identyfikator>& listaId,
+		const std::unordered_map<STyp::Identyfikator, std::shared_ptr<SpEx::ObiektInfo>, STyp::IdTypeHash >& listaObj){
+		if (objects_.size() == listaId.size()){ // Je¿eli iloœæ kontrolek jest taka sama, jak iloœæ obiektów to tylko aktualizujemy dane.
+			int n = 0;
+			for (auto element : objects_)
+				element->ustawDane(*listaObj.at(listaId[n++]), planeta);
+		}else{
+
+			// Usuniêcie niepotrzebnych okien
+			for (auto iter = objects_.begin(); iter != objects_.end();){
+				if (std::find(listaId.begin(), listaId.end(), (*iter)->pobierzIdObiektu()) != listaId.end()){
+					++iter;
+				}else{
+					std::lock_guard<std::mutex> lock(zmianaDanych_);
+					this->remove(*iter);
+					iter= objects_.erase(iter);				
+				}
+			}
+
+			// Dodanie brakuj¹cych elementów oraz uaktualnienie obecnych.
+			auto iter = objects_.begin();
+			for (auto &id : listaId){
+				if (iter == objects_.end() || (*iter)->pobierzIdObiektu() != id){
+					std::lock_guard<std::mutex> lock(zmianaDanych_);
+					auto widget = this->copy(template_, listaObj.at(id)->pobierzNazwe()());
+					widget->show();
+					iter = objects_.emplace(iter, widget);
+					if (shader_)
+						(*iter)->ustawShader(shader_.get());					
+				}
+				if (iter != objects_.end()){
+					(*iter)->ustawDane(*listaObj.at(id), planeta);
+					++iter;
+				}
+			}
+		}
+		refresh(false);
+	}
+	
+	int ListaObiektowGui::getTypObiektu() const{
+		return typObiektu_;
 	}
 
-	void ListaObiektowGui::refresh(){
+	void ListaObiektowGui::refresh(bool pos){
 		auto size = Panel::getSize();
-		uaktualnijSuwak(size.y);
+		uaktualnijSuwak(size.y, pos);
 		przeliczPozycjeKontrolek(scroll_->getValue(), true);
 	}
-
-	KontrolkaObiektu::Ptr ListaObiektowGui::getElement(std::size_t pos){
-		return objects_.at(pos);
-	}
-
+	
 	ListaObiektowGui::ListaObiektowGui()
 	{
 		scrollWidth_ = 20;
@@ -36,7 +66,7 @@ namespace tgui {
 	{
 		template_ = this->get<KontrolkaObiektu>("Szablon");
 		scroll_ = this->get<Scrollbar>("PasekPrzewijania");
-		for (auto e : o.objects_ ){
+		for (auto e : o.objects_){
 			std::string nazwa;
 			if (o.getWidgetName(e, nazwa)){
 				if (!nazwa.empty()){
@@ -98,13 +128,13 @@ namespace tgui {
 			{
 				scroll_->load(configFileFolder + value);
 			}
-			else if(property == "borders")
+			else if (property == "borders")
 			{
 				extractBorders(value, insideBorders_);
 			}
 			else if (property == "scrollwidth")
 			{
-				scrollWidth_ = std::strtof(value.c_str(),nullptr);
+				scrollWidth_ = std::strtof(value.c_str(), nullptr);
 			}
 			else if (property == "interspace")
 			{
@@ -121,14 +151,7 @@ namespace tgui {
 	const std::string& ListaObiektowGui::getLoadedConfigFile() const{
 		return m_LoadedConfigFile;
 	}
-
-	void ListaObiektowGui::clear(){
-		for (auto e : objects_){
-			this->remove(e);
-		}
-		objects_.clear();
-	}
-
+	
 	void ListaObiektowGui::scrollbarValueChanged(const tgui::Callback& callback){
 		przeliczPozycjeKontrolek(callback.value);
 	}
@@ -147,7 +170,7 @@ namespace tgui {
 		}
 	}
 
-	void ListaObiektowGui::uaktualnijSuwak(float hight){
+	void ListaObiektowGui::uaktualnijSuwak(float hight, bool pos){
 		auto size = template_->getSize();
 		float insideHight = (objects_.size() + 2)*(size.y + interspace_) + insideBorders_.top + insideBorders_.bottom - interspace_;
 
@@ -159,7 +182,12 @@ namespace tgui {
 		else{
 			scroll_->setLowValue(static_cast<unsigned int>(hight));
 			scroll_->setMaximum(static_cast<unsigned int>(insideHight + 1.f));
-			scroll_->setValue(0);
+			if (pos)
+				scroll_->setValue(0);
+			else{
+				if (scroll_->getValue() > scroll_->getMaximum())
+					scroll_->setValue(0);
+			}
 		}
 	}
 
@@ -195,7 +223,7 @@ namespace tgui {
 		}
 		
 		przeliczPozycjeKontrolek(0,true);
-		uaktualnijSuwak(hight);
+		uaktualnijSuwak(hight,false);
 		if (shader_){
 			auto size = template_->getSize();
 			auto pozycja = Panel::getPosition();
@@ -237,6 +265,9 @@ namespace tgui {
 	bool ListaObiektowGui::setProperty(std::string property, const std::string& value){
 		if (property == "mnoznikrolki"){
 			mnoznikRolki_ = std::strtol(value.c_str(), nullptr, 10);
+		}
+		else if (property == "typobiektu"){
+			typObiektu_ = std::strtol(value.c_str(), nullptr, 10);
 		}
 		else if (property == "idzdarzeniabudowy"){
 			template_->setProperty(property, value);
@@ -285,6 +316,9 @@ namespace tgui {
 		if (property == "mnoznikrolki"){
 			value = std::to_string(mnoznikRolki_);
 		}
+		else if (property == "typobiektu"){
+			value = std::to_string(typObiektu_);
+		}
 		else if (property == "scrollbarpokaz"){
 			value = std::string( pokazScrollBar_ ? "true" : "false" );
 		}
@@ -319,6 +353,11 @@ namespace tgui {
 		list.push_back(std::pair<std::string, std::string>("scrollbarszerokosc", "float"));
 		list.push_back(std::pair<std::string, std::string>("kontrolkaautosize", "bool"));
 		return list;
+	}
+
+	void ListaObiektowGui::draw(sf::RenderTarget& target, sf::RenderStates states) const{
+		std::lock_guard<std::mutex> lock(zmianaDanych_);
+		Panel::draw(target, states);
 	}
 
 };

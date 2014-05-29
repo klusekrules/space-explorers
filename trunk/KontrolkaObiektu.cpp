@@ -79,7 +79,7 @@ namespace tgui{
 		describeRect_(copy.describeRect_), buttonRozbudujRect_(copy.buttonRozbudujRect_), buttonZniszczRect_(copy.buttonZniszczRect_),
 		constSize_(copy.constSize_), propotional_(copy.propotional_), czasRozbudowyRect_(copy.czasRozbudowyRect_), czasZburzeniaRect_(copy.czasZburzeniaRect_),
 		czasRozbudowyWyrownanieHoryzontalne_(copy.czasRozbudowyWyrownanieHoryzontalne_),
-		czasRozbudowyWyrownanieWertykalne_(copy.czasRozbudowyWyrownanieWertykalne_), 
+		czasRozbudowyWyrownanieWertykalne_(copy.czasRozbudowyWyrownanieWertykalne_),
 		czasZburzeniaWyrownanieHoryzontalne_(copy.czasZburzeniaWyrownanieHoryzontalne_),
 		czasZburzeniaWyrownanieWertykalne_(copy.czasZburzeniaWyrownanieWertykalne_),
 		titleWyrownanieHoryzontalne_(copy.titleWyrownanieHoryzontalne_),
@@ -88,7 +88,8 @@ namespace tgui{
 		describeWyrownanieWertykalne_(copy.describeWyrownanieWertykalne_),
 		idZdarzeniaBudowy_(copy.idZdarzeniaBudowy_),
 		idZdarzeniaBurzenia_(copy.idZdarzeniaBurzenia_),
-		idZdarzeniaKlikniecia_(copy.idZdarzeniaKlikniecia_)
+		idZdarzeniaKlikniecia_(copy.idZdarzeniaKlikniecia_),
+		idObiektu_(copy.idObiektu_)
 	{
 		picture_ = this->get<Picture>("ObrazObiektu");
 		nazwa_ = this->get<Label>("NazwaObiektu");
@@ -529,30 +530,32 @@ namespace tgui{
 		return m_LoadedConfigFile;
 	}
 
+	const STyp::Identyfikator& KontrolkaObiektu::pobierzIdObiektu() const{
+		return idObiektu_;
+	}
 
 	bool KontrolkaObiektu::ustawDane(const SpEx::ObiektInfo& obj, const SpEx::Planeta& planeta){
 		tresc_->setText(SpEx::Utils::trim(obj.pobierzOpis()()));
 		picture_->load(obj.pobierzAdresObrazka()());
-		int idObj = obj.pobierzIdentyfikator()();
+		idObiektu_ = obj.pobierzIdentyfikator()();
 
 		rozbuduj_->unbindCallback(64);
 		if (idZdarzeniaBudowy_ != 0){
-			SpEx::UtilsGui::bindCallbackEvent(rozbuduj_, idZdarzeniaBudowy_, idObj, Button::LeftMouseClicked);
+			SpEx::UtilsGui::bindCallbackEvent(rozbuduj_, idZdarzeniaBudowy_, idObiektu_(), Button::LeftMouseClicked);
 		}
 
 		zniszcz_->unbindCallback(64);
 		if (idZdarzeniaBurzenia_ != 0){
-			SpEx::UtilsGui::bindCallbackEvent(zniszcz_, idZdarzeniaBurzenia_, idObj, Button::LeftMouseClicked);
+			SpEx::UtilsGui::bindCallbackEvent(zniszcz_, idZdarzeniaBurzenia_, idObiektu_(), Button::LeftMouseClicked);
 		}
 
 		picture_->unbindCallback(64);
 		if (idZdarzeniaKlikniecia_ != 0){
-			SpEx::UtilsGui::bindCallbackEvent(picture_, idZdarzeniaKlikniecia_, idObj, Button::LeftMouseClicked);
+			SpEx::UtilsGui::bindCallbackEvent(picture_, idZdarzeniaKlikniecia_, idObiektu_(), Button::LeftMouseClicked);
 		}
 
-		auto wsk = planeta.pobierzObiektJesliIstnieje(idObj);
+		auto wsk = planeta.pobierzObiektJesliIstnieje(idObiektu_);
 		if (wsk){
-
 			switch (obj.pobierzTypAtrybutu())
 			{
 			case SpEx::PodstawoweParametry::POZIOM:
@@ -564,16 +567,16 @@ namespace tgui{
 			default:
 				break;
 			}
-			czasRozbudowy_->setText(wsk->pobierzCzasRozbudowy().napis());
+			czasRozbudowy_->setText(SpEx::Utils::konwersja(wsk->pobierzCzasRozbudowy()));
 		}
 		else{
 			switch (obj.pobierzTypAtrybutu())
 			{
 			case SpEx::PodstawoweParametry::POZIOM:
-				czasRozbudowy_->setText(obj.pobierzCzasBudowy(SpEx::PodstawoweParametry(STyp::Poziom(1), planeta.pobierzIdentyfikator())).napis());
+				czasRozbudowy_->setText(SpEx::Utils::konwersja(obj.pobierzCzasBudowy(SpEx::PodstawoweParametry(STyp::Poziom(1), planeta.pobierzIdentyfikator()))));
 				break;
 			case SpEx::PodstawoweParametry::ILOSC:
-				czasRozbudowy_->setText(obj.pobierzCzasBudowy(SpEx::PodstawoweParametry(STyp::Ilosc(1), planeta.pobierzIdentyfikator())).napis());
+				czasRozbudowy_->setText(SpEx::Utils::konwersja(obj.pobierzCzasBudowy(SpEx::PodstawoweParametry(STyp::Ilosc(1), planeta.pobierzIdentyfikator()))));
 				break;
 			default:
 				break;

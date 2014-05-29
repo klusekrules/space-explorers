@@ -91,7 +91,7 @@ function wyjdzOknoPonownegoLogowania ()
 end
 
 function ustawOknoListy()
-	ffi.C.wypelnijKontrolkeObiektu(3,1,"MojaKontrolka")
+	ffi.C.aktualizujDaneListyObiektow(3,"MojaKontrolka")
 	wejscieDoStanu()
 	ffi.C.wyczyscListeOkien();
 	ffi.C.loguj("Ustawianie okna o id 3")
@@ -169,6 +169,10 @@ function rozbuduj ()
 	local zdarzenie = ffi.new('struct Zdarzenie_t')
 	ffi.C.pobierzZdarzenie(zdarzenie)
 	ffi.C.logujWOknieKomunikatow(1,"Rozbuduj " .. tostring(zdarzenie.numer_) )
+	ffi.C.ustawWlasciwosc(3,"MojaKontrolka","enabled","false")
+	ffi.C.wybudujObiekt(zdarzenie.numer_,1)
+	ffi.C.aktualizujDaneListyObiektow(3,"MojaKontrolka")
+	ffi.C.ustawWlasciwosc(3,"MojaKontrolka","enabled","true")
 end
 
 function zniszcz ()

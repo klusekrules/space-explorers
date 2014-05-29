@@ -26,6 +26,13 @@ namespace SpEx{
 			Utils::generujWyjatekBleduStruktury(wezel);
 		return zmiana;
 	}
+
+	std::string Utils::konwersja(const STyp::Czas& czas){
+		auto sekundy = static_cast <__int64>(round(czas()));
+		char temp[64];
+		sprintf_s(temp, 64, "%02lli:%02lli:%02lli", sekundy / 3600, (sekundy % 3600) / 60, (sekundy % 3600) % 60);
+		return temp;
+	}
 		
 	void Utils::ascii2hex(std::string& str, unsigned char c){
 		char pierwszy = (c >> 4) & 0x0F, drugi = c & 0x0F;

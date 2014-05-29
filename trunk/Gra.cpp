@@ -320,4 +320,24 @@ namespace SpEx{
 			return false;
 		return dokument->zapisz(plik.c_str());
 	}
+
+	const std::unordered_map<STyp::Identyfikator, std::shared_ptr<ObiektInfo>, STyp::IdTypeHash >& Gra::pobierzDostepneObiektyInfo(const Planeta& planeta, const STyp::Identyfikator& typObiektu , std::vector<STyp::Identyfikator>& listaId){
+		listaId.reserve(listaObiektowInfo_.size());
+		for (auto &element : listaObiektowInfo_){
+			if ((typObiektu == 0 || element.second->typ_ == typObiektu)){
+				PodstawoweParametry::AtrybutPodstawowy atrybut;
+				auto obiekt = planeta.pobierzObiektJesliIstnieje(element.first);
+				if (obiekt != nullptr){
+					atrybut = obiekt->pobierzAtrybut();
+				}else{
+					atrybut = PodstawoweParametry::wartoscJednostkowaAtrybutu(element.second->pobierzTypAtrybutu());
+				}
+
+				if (element.second->czySpelniaWymagania(SpEx::PodstawoweParametry(atrybut, element.second->pobierzTypAtrybutu(), planeta.pobierzIdentyfikator()))){
+					listaId.emplace_back(element.first);
+				}
+			}
+		}
+		return listaObiektowInfo_;
+	}
 }

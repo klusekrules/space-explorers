@@ -90,7 +90,8 @@
         Opis fabryki robotów.
         <Kryterium id="1" ilosc="200"/>
         <Kryterium id="2" ilosc="140"/>
-        <Kryterium id="3" ilosc="96"/>
+        <Kryterium id="11" poziom="3"/>
+        <Kryterium id="12" poziom="2"/>
 		<Zmiana id="3" for="Czas">
             <Param id="0" wspolczynnik="1"/>
         </Zmiana>
