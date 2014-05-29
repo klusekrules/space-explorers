@@ -1,6 +1,7 @@
 #include "KontrolkaObiektu.h"
 #include "UtilsGui.h"
 #include "Planeta.h"
+#include "Aplikacja.h"
 
 namespace tgui{
 	
@@ -535,7 +536,6 @@ namespace tgui{
 	}
 
 	bool KontrolkaObiektu::ustawDane(const SpEx::ObiektInfo& obj, const SpEx::Planeta& planeta){
-		tresc_->setText(SpEx::Utils::trim(obj.pobierzOpis()()));
 		picture_->load(obj.pobierzAdresObrazka()());
 		idObiektu_ = obj.pobierzIdentyfikator()();
 
@@ -556,6 +556,17 @@ namespace tgui{
 
 		auto wsk = planeta.pobierzObiektJesliIstnieje(idObiektu_);
 		if (wsk){
+			auto &gra = SpEx::Aplikacja::pobierzInstancje().pobierzGre();
+			auto warunki = wsk->pobierzKryteriaRozbudowy();
+			std::string opisObiektu;
+			opisObiektu = SpEx::Utils::trim(obj.pobierzOpis()());
+			for (auto &element : warunki){
+				if (element->typAtrybutu() == SpEx::Kryterium::ILOSC){
+					opisObiektu += "\n" + gra.pobierzObiekt(element->pobierzIdentyfikator()).pobierzNazwe()() + " : " + element->pobierzIlosc().napis();
+				}
+			}
+			tresc_->setText(opisObiektu);
+
 			switch (obj.pobierzTypAtrybutu())
 			{
 			case SpEx::PodstawoweParametry::POZIOM:
@@ -570,17 +581,20 @@ namespace tgui{
 			czasRozbudowy_->setText(SpEx::Utils::konwersja(wsk->pobierzCzasRozbudowy()));
 		}
 		else{
-			switch (obj.pobierzTypAtrybutu())
-			{
-			case SpEx::PodstawoweParametry::POZIOM:
-				czasRozbudowy_->setText(SpEx::Utils::konwersja(obj.pobierzCzasBudowy(SpEx::PodstawoweParametry(STyp::Poziom(1), planeta.pobierzIdentyfikator()))));
-				break;
-			case SpEx::PodstawoweParametry::ILOSC:
-				czasRozbudowy_->setText(SpEx::Utils::konwersja(obj.pobierzCzasBudowy(SpEx::PodstawoweParametry(STyp::Ilosc(1), planeta.pobierzIdentyfikator()))));
-				break;
-			default:
-				break;
+			auto &gra = SpEx::Aplikacja::pobierzInstancje().pobierzGre();
+			auto parametry = SpEx::PodstawoweParametry::wartoscJednostkowaParametru(obj.pobierzTypAtrybutu());
+			parametry.ustawIdentyfikatorPlanety(planeta.pobierzIdentyfikator());
+			auto warunki = obj.pobierzWarunki(parametry);
+			std::string opisObiektu;
+			opisObiektu = SpEx::Utils::trim(obj.pobierzOpis()());
+			for (auto &element : warunki){
+				if (element->typAtrybutu() == SpEx::Kryterium::ILOSC){
+					opisObiektu += "\n" + gra.pobierzObiekt(element->pobierzIdentyfikator()).pobierzNazwe()() + " : " + element->pobierzIlosc().napis();
+				}
 			}
+
+			tresc_->setText(opisObiektu);
+			czasRozbudowy_->setText(SpEx::Utils::konwersja(obj.pobierzCzasBudowy(parametry)));
 			nazwa_->setText(obj.pobierzNazwe()());
 		}
 		return true;
