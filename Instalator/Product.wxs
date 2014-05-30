@@ -176,8 +176,12 @@
         <File Id='BRAK_OBRAZKA_PNG_FILE' Source='..\out\resource\Brak_obrazka.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
       </Component>
       
-     <Component Id='OKNO_LISTY_PNG_COMP' Guid='{C1207F94-CE35-496D-8993-998E494F7E00}' Win64='$(var.isPlatformx64)'>
-        <File Id='OKNO_LISTY_PNG_FILE' Source='..\out\resource\lista.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+     <Component Id='OKNO_LISTY_COMP' Guid='{C1207F94-CE35-496D-8993-998E494F7E00}' Win64='$(var.isPlatformx64)'>
+        <File Id='OKNO_LISTY_FILE' Source='..\out\resource\lista.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='OKNO_LOGOWANIA_COMP' Guid='{8E9A4902-AD3A-4240-8967-888BBEA6F0F5}' Win64='$(var.isPlatformx64)'>
+        <File Id='OKNO_LOGOWANIA_FILE' Source='..\out\resource\logowanie.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
       </Component>
       
     </DirectoryRef>
@@ -246,7 +250,8 @@
       <ComponentRef Id='LOG_LIST_GUI_CONF_FILE_COMP' />
       <ComponentRef Id='BLACK_PNG_FILE_COMP' />
       <ComponentRef Id='BRAK_OBRAZKA_PNG_COMP' />
-      <ComponentRef Id='OKNO_LISTY_PNG_COMP' />
+      <ComponentRef Id='OKNO_LISTY_COMP' />
+      <ComponentRef Id='OKNO_LOGOWANIA_COMP' />
       <ComponentRef Id='TLO_PNG_FILE_COMP' />
       <ComponentRef Id='DANE_TESTOWE_COMP' />    
     </Feature>
