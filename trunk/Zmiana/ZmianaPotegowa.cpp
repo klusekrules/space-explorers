@@ -14,7 +14,7 @@ namespace SZmi{
 	}
 
 	STyp::Wartosc ZmianaPotegowa::policzWartosc(const STyp::Wartosc& wartosc, const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety)const{
-		return wartosc * wspolczynnik_.pobierzWspolczynnik() * pow(static_cast<long double>(poziom()), wykladnik_.pobierzWspolczynnik()());
+		return wartosc * wspolczynnik_.pobierzWspolczynnik() * pow(wykladnik_.pobierzWspolczynnik()(), static_cast<long double>(poziom()-1));
 	}
 
 	ZmianaPotegowa* ZmianaPotegowa::Kopia()const{
