@@ -41,7 +41,7 @@ namespace SpEx{
 		return Utils::ObliczZmiane(zmianaCzasuBudowy_, suma, parametry);
 	}
 
-	bool Wymagania::czySpelniaWymagania(const PodstawoweParametry& parametry) const{
+	bool Wymagania::czySpelniaWymagania(const PodstawoweParametry& parametry, std::function<bool(const Kryterium&)> warunek) const{
 		//TODO: Zrobiæ schemat blokowy algorytmu sprawdzania spe³nienia warunków.
 		if (warunki_.empty())
 			return true;
@@ -52,6 +52,11 @@ namespace SpEx{
 		for (auto element : warunki_){
 			if (element.pobierzObiekt())
 			{
+				if (warunek){
+					if (!warunek(*element.pobierzObiekt())){
+						continue;
+					}
+				}
 				Kryterium::AtrybutKryterium atrybut = wylicz(element, parametry);
 				switch (element.pobierzObiekt()->typAtrybutu()){
 				case Kryterium::POZIOM:

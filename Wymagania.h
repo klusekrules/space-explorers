@@ -91,7 +91,7 @@ namespace SpEx{
 		* \param[in] parametry - Podstawowe parametry potrzebne do wyliczenia wymagañ i kosztów.
 		* \return true je¿eli mo¿na wybudowaæ obiekty, false w przeciwnym wypadku.
 		*/
-		bool czySpelniaWymagania(const PodstawoweParametry& parametry)const;
+		bool czySpelniaWymagania(const PodstawoweParametry& parametry, std::function<bool(const Kryterium&)> warunek = nullptr )const;
 
 	private:
 
