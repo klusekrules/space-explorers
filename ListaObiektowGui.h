@@ -15,7 +15,7 @@ namespace tgui{
 		typedef SharedWidgetPtr<ListaObiektowGui> Ptr;
 		ListaObiektowGui();
 		ListaObiektowGui(const ListaObiektowGui&);
-		~ListaObiektowGui() = default;
+		virtual ~ListaObiektowGui() = default;
 		
 		void refresh(bool pos = true);
 

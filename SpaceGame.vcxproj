@@ -339,6 +339,7 @@
     <ClInclude Include="KontrolkaObiektu.h" />
     <ClInclude Include="Kryterium.h" />
     <ClInclude Include="ListaObiektowGui.h" />
+    <ClInclude Include="ListaSurowcowGui.h" />
     <ClInclude Include="LogListGui.h" />
     <ClInclude Include="LuaSkrypt.h" />
     <ClInclude Include="MaszynaStanow.h" />
@@ -471,6 +472,7 @@
     <ClCompile Include="LadowniaTest.cpp" />
     <ClCompile Include="Licznik.cpp" />
     <ClCompile Include="ListaObiektowGui.cpp" />
+    <ClCompile Include="ListaSurowcowGui.cpp" />
     <ClCompile Include="LogListGui.cpp" />
     <ClCompile Include="LogowanieTest.cpp" />
     <ClCompile Include="luaFunc.cpp" />

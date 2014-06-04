@@ -10,6 +10,7 @@
 #include "Walidator.h"
 #include "TGUI\TGUI.hpp"
 #include "ListaObiektowGui.h"
+#include "ListaSurowcowGui.h"
 #include "LogListGui.h"
 #include "BladKonfiguracjiAplikacji.h"
 
@@ -53,6 +54,7 @@ namespace SpEx{
 	Aplikacja::Aplikacja()
 		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), fabrykaZmian_(), instancjaGry_(nullptr)
 	{
+		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listasurowcowgui", tgui::ListaSurowcowGui::createWidget);
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listaobiektowgui", tgui::ListaObiektowGui::createWidget);
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("kontrolkaobiektu", tgui::KontrolkaObiektu::createWidget);
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("loglistgui", tgui::LogListGui::createWidget);

@@ -2,7 +2,7 @@
 #include <TGUI\TGUI.hpp>
 
 namespace tgui{
-	class TGUI_API LogListGui :
+	class LogListGui :
 		public Panel
 	{
 	private:

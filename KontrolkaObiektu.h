@@ -7,7 +7,7 @@ namespace tgui{
 	void convertFromBorderToRect(const Borders&, sf::Rect<float>&);
 	void normalizujRect(sf::Rect<float>&, float leftWidth, float topHeight);
 
-	class TGUI_API KontrolkaObiektu :
+	class KontrolkaObiektu :
 		public Panel
 	{
 	public:
