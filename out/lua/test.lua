@@ -92,6 +92,7 @@ end
 
 function ustawOknoListy()
 	ffi.C.aktualizujDaneListyObiektow(3,"MojaKontrolka")
+	ffi.C.aktualizujDaneListySurowcow(3,"ListaSurowcow")
 	wejscieDoStanu()
 	ffi.C.wyczyscListeOkien();
 	ffi.C.loguj("Ustawianie okna o id 3")

@@ -1,14 +1,17 @@
 #include "ListaObiektowGui.h"
-
+#include "Aplikacja.h"
 #include <SFML\OpenGL.hpp>
+
 namespace tgui {
 
 	Widget* ListaObiektowGui::createWidget(Container* container, const std::string& name){
 		return ListaObiektowGui::Ptr(*container, name).get();
 	}
 
-	void ListaObiektowGui::aktualizacjaDanych(const SpEx::Planeta& planeta, const std::vector<STyp::Identyfikator>& listaId,
-		const std::unordered_map<STyp::Identyfikator, std::shared_ptr<SpEx::ObiektInfo>, STyp::IdTypeHash >& listaObj){
+	void ListaObiektowGui::aktualizacjaDanych(const SpEx::Planeta& planeta){
+		std::vector<STyp::Identyfikator> listaId;
+		auto listaObj = SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzDostepneObiektyInfo(planeta, getTypObiektu(), listaId);
+		std::sort(listaId.begin(), listaId.end());
 		if (objects_.size() == listaId.size()){ // Je¿eli iloœæ kontrolek jest taka sama, jak iloœæ obiektów to tylko aktualizujemy dane.
 			int n = 0;
 			for (auto element : objects_)

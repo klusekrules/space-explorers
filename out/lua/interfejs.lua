@@ -42,6 +42,7 @@ void zamknijAplikacje();
 void zlecZadanie( const char *plik , const char *funkcja );
 void zlecZadanieGraficzne(const char *plik, const char *funkcja);
 void aktualizujDaneListyObiektow(int idEkranu,const char *nazwaKontrolki);
+void aktualizujDaneListySurowcow(int idEkranu, const char *nazwaKontrolki);
 bool zaladujGre(const char *plik);
 bool wybudujObiekt(int id, int ilosc);
 

@@ -1,4 +1,5 @@
 #include "ListaSurowcowGui.h"
+#include "Aplikacja.h"
 
 namespace tgui {
 
@@ -47,7 +48,6 @@ namespace tgui {
 		Panel::setGlobalFont(container->getGlobalFont());
 		template_ = SurowiecGui::Ptr(*this, "Szablon");
 		template_->hide();
-
 	}
 
 	void ListaSurowcowGui::setTransparency(unsigned char transparency){
@@ -66,9 +66,68 @@ namespace tgui {
 	const std::string& ListaSurowcowGui::getLoadedConfigFile() const{
 		return m_LoadedConfigFile_;
 	}
+
+	void ListaSurowcowGui::draw(sf::RenderTarget& target, sf::RenderStates states) const{
+		std::lock_guard<std::mutex> lock(zmianaDanych_);
+		Panel::draw(target, states);
+	}
+
+	void ListaSurowcowGui::ustawDane(const SpEx::Planeta& planeta){
+		auto listaObj = planeta.pobierzSurowce();
+		if (objects_.size() == listaObj.size()){ // Je¿eli iloœæ kontrolek jest taka sama, jak iloœæ obiektów to tylko aktualizujemy dane.
+			int n = 0;
+			for (auto element : objects_)
+				element->ustawDane(*listaObj.at(n++));
+		}
+		else{
+
+			// Usuniêcie niepotrzebnych okien
+			for (auto iter = objects_.begin(); iter != objects_.end();){
+				if (listaObj.find((*iter)->pobierzIdObiektu()) != listaObj.end()){
+					++iter;
+				}
+				else{
+					std::lock_guard<std::mutex> lock(zmianaDanych_);
+					this->remove(*iter);
+					iter = objects_.erase(iter);
+				}
+			}
+
+			// Dodanie brakuj¹cych elementów oraz uaktualnienie obecnych.
+			auto iter = objects_.begin();
+			for (auto &id : listaObj){
+				if (iter == objects_.end() || (*iter)->pobierzIdObiektu() != id.first){
+					std::lock_guard<std::mutex> lock(zmianaDanych_);
+					auto widget = this->copy(template_, id.second->pobierzSurowceInfo().pobierzNazwe()());
+					widget->show();
+					iter = objects_.emplace(iter, widget);
+					/*if (shader_)
+						(*iter)->ustawShader(shader_.get());*/
+				}
+				if (iter != objects_.end()){
+					(*iter)->ustawDane(*id.second);
+					++iter;
+				}
+			}
+		}
+		refreshPosition();
+	}
 	
+	void ListaSurowcowGui::refreshPosition(){
+		//auto panelSize = getSize();
+		//decltype(panelSize) obszarSize;
+		float positionX = 0.f;
+		for (auto element : objects_){
+			auto temp = element->getSize();
+			element->setPosition(positionX, 0.f);
+			positionX += temp.x + 20;
+		}
+		
+	}
+
 	void ListaSurowcowGui::setSize(float width, float hight){
 		Panel::setSize(width, hight);
+		refreshPosition();
 	}
 
 	bool ListaSurowcowGui::load(const std::string& configFileFilename){
@@ -113,6 +172,14 @@ namespace tgui {
 			{
 				template_->load(configFileFolder + value);
 			}
+			else if(property == "textsize")
+			{
+				template_->setTextSize(std::strtoul(value.c_str(),nullptr,10));
+			}
+			else if (property == "textcolor")
+			{
+				template_->setTextColor(extractColor(value));
+			}
 			else
 				TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section KontrolkaObiektu in " + m_LoadedConfigFile_ + ".");
 		}
@@ -126,9 +193,13 @@ namespace tgui {
 	//-------------
 
 	ListaSurowcowGui::SurowiecGui::SurowiecGui(const SurowiecGui& o)
-		: m_LoadedConfigFile_(o.m_LoadedConfigFile_), Panel(o)
+		: m_LoadedConfigFile_(o.m_LoadedConfigFile_), Panel(o), idObiektu_(o.idObiektu_)
 	{
 		tekst_ = this->get<Label>("Nazwa");
+	}
+
+	const STyp::Identyfikator& ListaSurowcowGui::SurowiecGui::pobierzIdObiektu() const{
+		return idObiektu_;
 	}
 
 	bool ListaSurowcowGui::SurowiecGui::setProperty(std::string property, const std::string& value){
@@ -157,6 +228,7 @@ namespace tgui {
 	void ListaSurowcowGui::SurowiecGui::initialize(Container *const container){
 		Panel::setGlobalFont(container->getGlobalFont());
 		tekst_ = Label::Ptr(*this, "Nazwa");
+		Panel::setBackgroundColor(sf::Color::Transparent);
 	}
 
 	void ListaSurowcowGui::SurowiecGui::setTransparency(unsigned char transparency){
@@ -173,10 +245,23 @@ namespace tgui {
 		return m_LoadedConfigFile_;
 	}
 
-	void ListaSurowcowGui::SurowiecGui::setSize(float width, float hight){
-		Panel::setSize(width, hight);
+	void ListaSurowcowGui::SurowiecGui::ustawDane(const SpEx::Obiekt& obiekt){
+		std::string napis;
+		idObiektu_ = obiekt.pobierzIdentyfikator();
+		napis += obiekt.pobierzObiektInfo().pobierzNazwe()() + "\n" + obiekt.pobierzIlosc().napis();
+		tekst_->setText(napis);
+		auto size = tekst_->getSize();
+		setSize(size.x,size.y);
+	}
+	
+	void ListaSurowcowGui::SurowiecGui::setTextSize(unsigned int size){
+		tekst_->setTextSize(size);
 	}
 
+	void ListaSurowcowGui::SurowiecGui::setTextColor(sf::Color color){
+		tekst_->setTextColor(color);
+	}
+	
 	bool ListaSurowcowGui::SurowiecGui::load(const std::string& configFileFilename){
 		// Don't continue when the config file was empty
 		if (configFileFilename.empty())
