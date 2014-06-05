@@ -310,6 +310,14 @@ namespace SpEx{
 		auto dokument = zarzadca_.plikUzytkownika(nazwa, hash, plik, false);
 		if (!dokument)
 			return false;
+		auto nowyUzytkownik = std::make_shared<Uzytkownik>(*this);
+		if (nowyUzytkownik->odczytaj(dokument->pobierzElement(nullptr)) && Walidator::pobierzInstancje().waliduj()){
+			if (uzytkownik_ && nowyUzytkownik->pobierzNazweUzytkownika() == uzytkownik_->pobierzNazweUzytkownika())
+				return false;
+			nowyUzytkownik->odpinaniePlanet();
+		}
+		else
+			return false;
 		return !remove(plik.c_str());
 	}
 
