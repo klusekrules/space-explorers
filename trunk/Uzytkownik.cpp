@@ -16,14 +16,24 @@ namespace SpEx{
 		planeta->ustawWlasciciela(this);
 		return true;
 	}
+	
+	bool Uzytkownik::odpinaniePlanet(){
+		for (auto &planeta : planety_){
+			planeta.second->wyczyscZawartoscPlanety();
+		}
+		planety_.clear();
+		return true;
+	}
 
-	bool Uzytkownik::usunPlanete(const STyp::Identyfikator& identyfikator){
-		auto iterator = planety_.find(identyfikator);
+	bool Uzytkownik::odpinaniePlanet(const STyp::Identyfikator& id){
+		auto iterator = planety_.find(id);
 		if (iterator == planety_.end())
 			return false;
+		iterator->second->wyczyscZawartoscPlanety();
 		planety_.erase(iterator);
 		return true;
 	}
+
 
 	bool Uzytkownik::ustawPlaneteAktywna(const STyp::Identyfikator& identyfikator){
 		if (planety_.find(identyfikator) == planety_.end())

@@ -29,7 +29,6 @@ namespace SpEx{
 	void Planeta::wyczyscZawartoscPlanety(){
 		//TODO: Sprawdzanie praw dostêpu.
 		if (wlasciciel_){
-			wlasciciel_->usunPlanete(pobierzIdentyfikator());
 			wlasciciel_ = nullptr;
 			idUzytkownika_ = STyp::Tekst();
 		}

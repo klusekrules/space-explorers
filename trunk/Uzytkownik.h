@@ -73,15 +73,6 @@ namespace SpEx{
 		bool dodajPlanete(std::shared_ptr<Planeta> planeta);
 
 		/**
-		* \brief Metoda usuwaj¹ca planetê z listy.
-		*
-		* Metoda usuwa planetê o podanym identyfikatorze z listy planet.
-		* \param[in] identyfikator - Numer identyfikuj¹cy planetê.
-		* \return true je¿eli planeta zostanie usuniêta, false je¿eli nie znaleziono planety.
-		*/
-		bool usunPlanete(const STyp::Identyfikator& identyfikator);
-
-		/**
 		* \brief Metoda zapisuj¹ca.
 		*
 		* Metoda s³u¿¹ca do zapisu danych do wêz³a xml podanego jako parametr.
@@ -107,6 +98,9 @@ namespace SpEx{
 		* \return Napis zwieraj¹cy opis klasy.
 		*/
 		std::string napis() const override;
+
+		bool odpinaniePlanet();
+		bool odpinaniePlanet(const STyp::Identyfikator& id);
 
 		bool ustawPlaneteAktywna(const STyp::Identyfikator& id);
 	private:
