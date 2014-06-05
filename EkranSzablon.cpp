@@ -1,12 +1,9 @@
 #include "EkranSzablon.h"
 #include "definicjeWezlowXML.h"
-#include "Zdarzenie.h"
-#include "Logger\Log.h"
-#include "MaszynaStanow.h"
-#include "Utils.h"
-#include "Aplikacja.h"
-#include "UtilsGui.h"
 #include "BladKonfiguracjiEkranu.h"
+#include "UtilsGui.h"
+#include "Utils.h"
+
 #define KOMUNIKAT_BRAK_PLIKU STyp::Tekst("Brak pliku konfiguracyjengo dla okna szablonowego, nie zaimplementowano innego sposobu opisu okna.")
 #define KOMUNIKAT_BLAD_PLIKU(plik) STyp::Tekst("Nie powiod³o sie konfigurowanie okna na podstawie pliku konfiguracyjnego o nazwie: " + (plik))
 #define KOMUNIKAT_BLAD_WLASCIWOSCI(nazwa,wartosc) STyp::Tekst("Nie uda³o siê ustawiæ w³aœciwoœci: " + (nazwa) + " = " + (wartosc) + ".")

@@ -420,7 +420,6 @@
     <ClInclude Include="ObiektInfo.h" />
     <ClInclude Include="ListaObiektow.hpp" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Stale.h" />
     <ClInclude Include="Statek.h" />
     <ClInclude Include="StatekInfo.h" />
     <ClInclude Include="Surowce.h" />
@@ -503,7 +502,6 @@
     <ClCompile Include="PowtorzenieIdObiektu.cpp" />
     <ClCompile Include="RoundedRectangleShape.cpp" />
     <ClCompile Include="Skrypt.cpp" />
-    <ClCompile Include="Stale.cpp" />
     <ClCompile Include="Stan.cpp" />
     <ClCompile Include="StanInfo.cpp" />
     <ClCompile Include="Statek.cpp" />

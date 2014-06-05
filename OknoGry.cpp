@@ -17,11 +17,6 @@ namespace SpEx{
 		inicjalizacjaWynik_ = inicjalizacja_.get_future();
 	}
 
-	bool OknoGry::zainicjalizowe(){
-		std::lock_guard<std::mutex> blokada(mutexInicjalizacja_);
-		return przetwarzanie_;
-	}
-
 	bool OknoGry::czekajNaInicjalizacje(){
 		inicjalizacjaWynik_.wait();
 		return inicjalizacjaWynik_.get();
