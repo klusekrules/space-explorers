@@ -43,9 +43,6 @@
     <ClCompile Include="Wyjatki.cpp">
       <Filter>SourceFile\DomysleWartosci</Filter>
     </ClCompile>
-    <ClCompile Include="Stale.cpp">
-      <Filter>SourceFile\DomysleWartosci</Filter>
-    </ClCompile>
     <ClCompile Include="ApInfo.cpp">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClCompile>
@@ -353,9 +350,6 @@
     </ClInclude>
     <ClInclude Include="Wymagania.h">
       <Filter>SourceFile\Model\Wymagania</Filter>
-    </ClInclude>
-    <ClInclude Include="Stale.h">
-      <Filter>SourceFile\DomysleWartosci</Filter>
     </ClInclude>
     <ClInclude Include="Library.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
