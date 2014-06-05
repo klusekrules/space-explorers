@@ -63,6 +63,10 @@ namespace SpEx{
 		return identyfikator_;
 	}
 
+	const ObiektInfo& Obiekt::pobierzObiektInfo()const{
+		return obiektInfo_;
+	}
+
 	void Obiekt::ustawIdentyfikator(const STyp::Identyfikator& identyfikator){
 		identyfikator_ = identyfikator;
 	}

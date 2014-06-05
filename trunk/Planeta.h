@@ -106,6 +106,7 @@ namespace SpEx{
 		*/
 		const Budynek& pobierzBudynek(const Indeks& identyfikator) const;
 
+		const ListaSurowcow& pobierzSurowce()const;
 		/**
 		* \brief Metoda buduje obiekt na planecie.
 		*

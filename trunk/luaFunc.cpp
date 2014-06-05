@@ -3,6 +3,7 @@
 #include "Aplikacja.h"
 #include "LuaSkrypt.h"
 #include "ListaObiektowGui.h"
+#include "ListaSurowcowGui.h"
 #include "LogListGui.h"
 #include "Parser\ParserDokumentXml.h"
 #include "UtilsGui.h"
@@ -341,10 +342,30 @@ extern "C"{
 				if (ekran){
 					auto kontrolka = ekran->pobierzGUI().get<tgui::ListaObiektowGui>(nazwaKontrolki);
 					if (kontrolka != nullptr){
-						std::vector<STyp::Identyfikator> idObiektow;
-						auto obiektyGry = gra.pobierzDostepneObiektyInfo(planeta, kontrolka->getTypObiektu(), idObiektow);
-						std::sort(idObiektow.begin(), idObiektow.end());
-						kontrolka->aktualizacjaDanych(planeta, idObiektow, obiektyGry);
+						kontrolka->aktualizacjaDanych(planeta);
+					}
+				}
+			}
+		}
+		catch (STyp::Wyjatek& e){
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.generujKomunikat());
+		}
+		catch (std::exception& e){
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.what());
+		}
+	}
+
+	__declspec(dllexport) void __cdecl aktualizujDaneListySurowcow(int idEkranu, const char *nazwaKontrolki)
+	{
+		try{
+			auto &gra = SpEx::Aplikacja::pobierzInstancje().pobierzGre();
+			if (nazwaKontrolki && gra.czyZalogowano()){
+				auto &planeta = gra.pobierzUzytkownika().pobierzPlanete();
+				auto ekran = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzEkran(idEkranu);
+				if (ekran){
+					auto kontrolka = ekran->pobierzGUI().get<tgui::ListaSurowcowGui>(nazwaKontrolki);
+					if (kontrolka != nullptr){
+						kontrolka->ustawDane(planeta);
 					}
 				}
 			}

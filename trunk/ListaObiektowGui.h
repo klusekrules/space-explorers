@@ -19,8 +19,7 @@ namespace tgui{
 		
 		void refresh(bool pos = true);
 
-		void aktualizacjaDanych(const SpEx::Planeta&, const std::vector<STyp::Identyfikator>&,
-			const std::unordered_map<STyp::Identyfikator, std::shared_ptr<SpEx::ObiektInfo>, STyp::IdTypeHash >& );
+		void aktualizacjaDanych(const SpEx::Planeta&);
 
 		void setSize(float width, float hight) override;
 		void setPosition(float x, float y) override;

@@ -22,6 +22,10 @@ namespace SpEx{
 		return wlasciciel_;
 	}
 
+	const Planeta::ListaSurowcow& Planeta::pobierzSurowce()const{
+		return listaSurowcow_;
+	}
+
 	void Planeta::wyczyscZawartoscPlanety(){
 		//TODO: Sprawdzanie praw dostêpu.
 		if (wlasciciel_){

@@ -140,6 +140,8 @@ namespace SpEx{
 		*/
 		std::string napis() const override;
 
+		const ObiektInfo& pobierzObiektInfo()const;
+
 	protected:
 
 		Obiekt(const Obiekt&) = default;
