@@ -6,6 +6,16 @@
 #include "ObiektInfo.h"
 
 namespace tgui{
+
+	/**
+	* \brief Klasa listy kontrolek surowców.
+	*
+	* Klasa reprezentuje listê kontrolek surowców. Wyœwietla listê surowców dostênych na planecie.
+	* \warn Uwaga!!! Klasa przeznaczona do refaktoryzacji. Z tego powodu brak dokumentacji metod.
+	* \author Daniel Wojdak
+	* \version 1
+	* \date 06-06-2014
+	*/
 	class ListaSurowcowGui :
 		public Panel
 	{
@@ -31,6 +41,16 @@ namespace tgui{
 	private:
 		virtual void initialize(Container *const container);
 		void refreshPosition();
+
+		/**
+		* \brief Klasa kontrolki surowca.
+		*
+		* Klasa reprezentuje kontrolkê surowca. Wyœwietla iloœæ surowca na planecie.
+		* \warn Uwaga!!! Klasa przeznaczona do refaktoryzacji. Z tego powodu brak dokumentacji metod.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 06-06-2014
+		*/
 		class SurowiecGui :
 			public Panel
 		{

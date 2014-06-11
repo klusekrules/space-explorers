@@ -267,20 +267,6 @@ namespace SpEx{
 		return true;
 	}
 
-	bool Gra::zapisz(XmlBO::ElementWezla wezel) const{
-		return zarzadca_.zapisz(wezel->tworzElement(WEZEL_XML_GRA));
-	}
-
-	bool Gra::odczytaj(XmlBO::ElementWezla wezel){
-		if (wezel){
-			auto element = XmlBO::ZnajdzWezel<NOTHROW>(wezel, WEZEL_XML_ZARZADCA);
-			if (element)
-				return zarzadca_.odczytaj(element);
-			return true;
-		}
-		return false;
-	}
-
 	bool Gra::odczytaj(const std::string& nazwa, const std::string& hash){
 		return logowanie(nazwa, hash);
 	}

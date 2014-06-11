@@ -150,7 +150,9 @@ namespace SpEx{
 	}
 
 	bool Aplikacja::wczytajDane(std::shared_ptr<SPar::ParserElement> root){
-		return instancjaGry_->wczytajDane(root);
+		if (instancjaGry_)
+			return instancjaGry_->wczytajDane(root);
+		return false;
 	}
 
 	void Aplikacja::wyczyscDane(){
@@ -225,7 +227,7 @@ namespace SpEx{
 		std::locale::global(std::locale("C"));
 		try{
 			auto wezel = zarzadca_.tworzWezelGry();
-			if (instancjaGry_->zapisz(wezel) && instancjaGry_->zapisz(nazwa, hash)){
+			if (zarzadca_.zapisz(wezel->tworzElement(WEZEL_XML_GRA)) && instancjaGry_->zapisz(nazwa, hash)){
 				std::locale::global(std::locale(ustawienia_.pobierzJezykAplikacji()));
 				return zarzadca_.zapiszWezelGry();
 			}
@@ -247,9 +249,16 @@ namespace SpEx{
 				Walidator::pobierzInstancje().wyczysc();
 				Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(STyp::Identyfikator(0x0)); // Poprawna wartoœæ; U¿ywana gdy obiekty znajduj¹ siê we flocie.
 				if (root && instancjaGry_->wczytajDane(root)){
-					if (instancjaGry_->odczytaj(wezel->pobierzElement(WEZEL_XML_GRA))){
-						if (Walidator::pobierzInstancje().waliduj())
-							return true;
+					auto gra = wezel->pobierzElement(WEZEL_XML_GRA);
+					if (gra){
+						auto element = XmlBO::ZnajdzWezel<NOTHROW>(gra, WEZEL_XML_ZARZADCA);
+						if (element){
+							if (zarzadca_.odczytaj(element)){
+								if (Walidator::pobierzInstancje().waliduj()){
+									return true;
+								}
+							}
+						}
 					}
 				}
 				instancjaGry_ = gra;

@@ -35,8 +35,8 @@ namespace SpEx {
 	*
 	* G³ówna klasa programu. Reprezentuje ca³¹ apliakcje.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 26-07-2013
+	* \version 2
+	* \date 06-06-2014
 	*/
 	class Aplikacja:
 		public se::Singleton<Aplikacja>
@@ -58,31 +58,44 @@ namespace SpEx {
 		/**
 		* \brief Metoda ³aduj¹ca dane gry.
 		*
-		* \return true je¿eli uda siê wczytaæ dane, false w przeciwnym wypadku.
+		* Metoda wczytuje z wêz³a przekazanego jako parametr informacje o obiektach opisuj¹cych ( ObiektInfo ). Dane wczytywane s¹ do istniej¹cej instacji gry.
+		* \param[in] root - G³ówny wêze³ zawieraj¹cy dane obiektów opisuj¹cych.
+		* \return Zwraca wartoœæ true, je¿eli uda siê wczytaæ dane. Zwraca wartoœæ false, je¿eli wyst¹pi³ b³¹d podczas wczytywania lub instancja gry nie istnieje.
 		*/
 		bool wczytajDane( std::shared_ptr<SPar::ParserElement> root );
 
 		/**
 		* \brief Metoda zapisuj¹ca stan gry.
 		*
-		* \return true je¿eli uda siê zapisac grê, false w przeciwnym wypadku.
+		* Metoda zapisuje dane gracza oraz dane planet.
+		* \param[in] nazwa - Nazwa u¿ytkownika.
+		* \param[in] hash - Hash has³a u¿ytkownika.
+		* \return Zwraca wartoœæ true, je¿eli uda siê zapisaæ dane, false w przeciwnym wypadku.
 		*/
 		bool zapiszGre(const std::string& nazwa, const std::string& hash);
 
 		/**
 		* \brief Metoda wczytuj¹ca stan gry.
 		*
-		* \return true je¿eli uda siê wczytaæ stan gry, false w przeciwnym wypadku.
+		* Metoda wczytuje dane opisowe obiektów oraz parametry zarz¹dcy pamiêci. Metoda waliduje wczytane dane.
+		* \param[in] root - G³ówny wêze³ zawieraj¹cy dane obiektów opisuj¹cych.
+		* \return Zwraca wartoœæ true, je¿eli uda siê wczytaæ stan gry, false w przeciwnym wypadku.
 		*/
 		bool wczytajGre(std::shared_ptr<SPar::ParserElement> root);
 		
 		/**
-		* \brief Metoda pobieraj¹ca œla stosu.
+		* \brief Metoda pobieraj¹ca œlad stosu.
 		*
+		* Metoda generuje œlad stosu aktualnego w¹tku, w wktórym zosta³a wywo³ana.
 		* \return Napis zawieraj¹cy œlad stosu.
 		*/
 		std::string pobierzSladStosu() const;
 
+		/**
+		* \brief Metoda czyœci wczytane dane.
+		*
+		* Metoda tworzy now¹ instancje gry, usuwaj¹c star¹ bez zapisania danych. Usuwa równie¿ informacje galaktykach, uk³adach s³onecznych oraz planetach, bez zapisywania aktualnych danych.
+		*/
 		void wyczyscDane();
 
 		/**
@@ -94,6 +107,11 @@ namespace SpEx {
 			return *instancjaGry_;
 		}
 		
+		/**
+		* \brief Metoda pobieraj¹ca zarz¹dcê pamiêci.
+		*
+		* \return Referencja do obiektu zarz¹dcy.
+		*/
 		inline ZarzadcaPamieci& pobierzZarzadce(){
 			return zarzadca_;
 		}
@@ -143,11 +161,9 @@ namespace SpEx {
 		HMODULE uchwyt_; /// Uchwyt blioteki pomocniczej.
 		bool czyZainicjalizowanaBiblioteka_; /// Informacja czy uda³osiê za³adowaæ bibliotekê pomocnicz¹.
 
-		STyp::Identyfikator idEkranuStartowego_;
-		
 		ZarzadcaPamieci zarzadca_; /// Obiekt zarz¹dzaj¹cy lokacjami.
 
-		std::string plikKonfiguracyjny_;
-		UstawieniaAplikacji ustawienia_;
+		std::string plikKonfiguracyjny_; /// Adres pliku z danymi konfiguracyjnymi. Domyœlnie options.xml z katalogu z plikiem wykonywalnym.
+		UstawieniaAplikacji ustawienia_; /// Klasa wczytuj¹ca ustawienia z pliku konfiguracyjnego.
 	};
 }

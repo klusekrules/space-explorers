@@ -22,7 +22,6 @@ namespace SpEx {
 	* \date 26-07-2013
 	*/
 	class Gra :
-		virtual public Serializacja,
 		public se::NonCopyable,
 		public se::NonMoveable
 	{
@@ -31,7 +30,8 @@ namespace SpEx {
 		/**
 		* \brief Konstruktor.
 		*
-		* \param[in] aplikacja - instancja aplikacji dla której jest tworzona gra..
+		* \param[in] logger - instancja loggera.
+		* \param[in] zarzadca - instancja zarz¹dcy pamiêci.
 		*/
 		explicit Gra(SLog::Log& logger, ZarzadcaPamieci& zarzadca);
 
@@ -43,37 +43,38 @@ namespace SpEx {
 		/**
 		* \brief Metoda wszytuj¹ca dane z pliku.
 		*
-		* \param[in] adresPliku - Adres pliku z którego maj¹ zostaæ wczytane dane.
-		* \return true je¿eli uda siê wczytaæ dane, false w przeciwnym wypadku.
+		* Metoda wczytuje obiekty opisowe.
+		* \param[in] root - Wêze³ z którego maj¹ zostaæ wczytane dane.
+		* \return Zwraca wartoœæ true, je¿eli uda siê wczytaæ dane, false w przeciwnym wypadku.
 		*/
 		bool wczytajDane(std::shared_ptr<SPar::ParserElement> root);
 
 		/**
 		* \brief Metoda loguj¹ca u¿ytkownika.
 		*
-		* Metoda s³u¿y do logowania u¿ytkownika.
+		* Metoda s³u¿y do logowania u¿ytkownika. Zostaj¹ za³adowane do pamiêci planety nale¿¹ce do u¿ytkownika.
 		* \param[in] nazwa - Nazwa u¿ytkownika.
-		* \param [in] hash - Hash has³a u¿ytkownika.
-		* \return true je¿eli uda siê zalogowaæ, false w przeciwnym przypadku.
+		* \param[in] hash - Hash has³a u¿ytkownika.
+		* \return Zwraca wartoœæ true, je¿eli uda siê zalogowaæ, false w przeciwnym przypadku.
 		*/
 		bool logowanie(const std::string& nazwa, const std::string& hash);
 
 		/**
 		* \brief Metoda dodaj¹ca nowego u¿ytkownika.
 		*
-		* Metoda s³u¿y do dodawania nowego u¿ytkownika.
+		* Metoda tworzy wêze³ oraz plik z danymi gracza. Sprawdza czy gracz ju¿ istnieje.
 		* \param[in] nazwa - Nazwa u¿ytkownika.
-		* \param [in] hash - Hash has³a u¿ytkownika.
-		* \return true je¿eli uda siê dodaæ u¿ytkownika, false w przeciwnym przypadku.
+		* \param[in] hash - Hash has³a u¿ytkownika.
+		* \return Zwraca wartoœæ true, je¿eli uda siê dodaæ u¿ytkownika, false w przeciwnym przypadku.
 		*/
 		bool nowyGracz(const std::string& nazwa, const std::string& hash);
 
 		/**
 		* \brief Metoda usuwaj¹ca u¿ytkownika.
 		*
-		* Metoda s³u¿y do usuwania u¿ytkownika.
+		* Metoda usuwa plik u¿ytkownika, odpinaj¹æ przypisane do niego planety. Usuwa wszystkie obiektu przypisane do planety.
 		* \param[in] nazwa - Nazwa u¿ytkownika.
-		* \param [in] hash - Hash has³a u¿ytkownika.
+		* \param[in] hash - Hash has³a u¿ytkownika.
 		* \return true je¿eli uda siê usun¹æ u¿ytkownika, false w przeciwnym przypadku.
 		*/
 		bool usunGracza(const std::string& nazwa, const std::string& hash);
@@ -178,33 +179,12 @@ namespace SpEx {
 		/**
 		* \brief Metoda zapisuj¹ca.
 		*
-		* Metoda s³u¿¹ca do zapisu danych do wêz³a xml podanego jako parametr.
-		* \param[out] wezel - Wêze³ do którego s¹ zapisywane dane.
-		* \return Zwracana jest wartoœæ true, je¿eli zapisano obiekt poprawnie. False, je¿eli zapis siê nie powiód³.
-		* \warning Je¿eli zwrócono wartoœæ false wêze³ przekazany jako parametr nie jest zmodyfokowany.
-		*/
-		bool zapisz(XmlBO::ElementWezla wezel) const override;
-
-		/**
-		* \brief Metoda zapisuj¹ca.
-		*
 		* Metoda s³u¿¹ca do zapisu danych u¿ytkownika do pliku xml generowanego z nazwy u¿ytkownika.
 		* \param[in] nazwa - Nazwa u¿ytkownika.
 		* \param[in] hash - Hash has³a u¿ytkownika.
 		* \return Zwracana jest wartoœæ true, je¿eli zapisano obiekt poprawnie. False, je¿eli zapis siê nie powiód³.
 		*/
 		bool zapisz(const std::string& nazwa, const std::string& hash) const;
-
-		/**
-		* \brief Metoda odczytuj¹ca.
-		*
-		* Metoda s³u¿¹ca do odczytu danych z wêz³a xml podanego jako parametr.
-		* \param[in] wezel - Wêze³ z którego s¹ odczytywane dane.
-		* \return Zwracana jest wartoœæ true, je¿eli odczytano obiekt poprawnie. False, je¿eli odczyt siê nie powiód³.
-		* \warning Metoda nie modyfikuje wêz³a.
-		* \warning Je¿eli metoda zwróci wartoœæ false, obiekt mo¿e znajdowaæ siê w stanie nieustalonym. Nie jest zalecane u¿ywanie takiego obiektu.
-		*/
-		bool odczytaj(XmlBO::ElementWezla wezel) override;
 
 		/**
 		* \brief Metoda odczytuj¹ca.
