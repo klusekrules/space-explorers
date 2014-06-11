@@ -7,6 +7,16 @@ namespace tgui{
 	void convertFromBorderToRect(const Borders&, sf::Rect<float>&);
 	void normalizujRect(sf::Rect<float>&, float leftWidth, float topHeight);
 
+
+	/**
+	* \brief Klasa kontrolki obiektu.
+	*
+	* Klasa reprezentuje kontrolkê obiektu. Wyœwietla aktualne dane o obiekcie znajduj¹cym sie na planecie. Pozwala na rozbudowe.
+	* \warn Uwaga!!! Klasa przeznaczona do refaktoryzacji. Z tego powodu brak dokumentacji metod.
+	* \author Daniel Wojdak
+	* \version 1
+	* \date 06-06-2014
+	*/
 	class KontrolkaObiektu :
 		public Panel
 	{
@@ -32,9 +42,6 @@ namespace tgui{
 		virtual std::list< std::pair<std::string, std::string> > getPropertyList() const;
 	protected:
 
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// Draws the widget on the render target.
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	private:
