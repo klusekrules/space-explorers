@@ -5,7 +5,7 @@ void NiepoprawneParametryFunkcjiTest::startTestow(){
 	UNIT_TEST_ASSERT_NOTNULL(gra);
 	planeta = SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(STyp::Identyfikator(0x7));
 	UNIT_TEST_ASSERT_NOTNULL(planeta);
-	planeta->wyczyscZawartoscPlanety();
+	planeta->odepnijPlanete();
 	UNIT_TEST_ASSERT_TRUE(gra->przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(SpEx::Planeta::Indeks(STyp::Identyfikator(5)), STyp::Ilosc(100)));
 }

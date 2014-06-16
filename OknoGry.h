@@ -1,10 +1,10 @@
 #pragma once
-#include "stdafx.h"
 #include "Watek.h"
 #include "Logger\Log.h"
 #include "EkranSzablon.h"
 #include "Zadanie.h"
 #include "LogListGui.h"
+#include <future>
 
 namespace SpEx{
 	/**

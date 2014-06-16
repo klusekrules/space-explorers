@@ -1,5 +1,6 @@
 #pragma once
-#include "stdafx.h"
+#include <memory>
+#include "TGUI\Callback.hpp"
 #include "TypyProste\TypyProste.h"
 
 namespace SpEx{

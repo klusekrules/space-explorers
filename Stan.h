@@ -1,7 +1,8 @@
 #pragma once
-#include "stdafx.h"
 #include "StanInfo.h"
 #include "Zdarzenie.h"
+#include <chrono>
+
 namespace SpEx{
 	class Stan
 	{

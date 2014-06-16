@@ -1,7 +1,6 @@
 #pragma once
-#include "stdafx.h"
 #include "Stan.h"
-
+#include "TGUI\Gui.hpp"
 namespace SpEx{
 	/**
 	* \brief Klasa szablonowa dla nowych ekranow.

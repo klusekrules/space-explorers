@@ -1,5 +1,4 @@
 #include "Main.h"
-#include "Biblioteki.h"
 #include "Aplikacja.h"
 #include <SFML/Graphics.hpp>
 #include "MaszynaStanow.h"
@@ -24,7 +23,6 @@ void main( int argv , char* argc[] ){
 		SpEx::Aplikacja::pobierzInstancje();
 
 		SpEx::MaszynaStanow::pobierzInstancje().start();
-		//TestyJednostkowe::pobierzInstancje().wykonajTesty();
 	}
 	catch (STyp::Wyjatek& wyjatek){
 		MessageBox(

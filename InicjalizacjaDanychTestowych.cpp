@@ -11,5 +11,5 @@ void InicjalizacjaDanychTestowych::zaladujDane(){
 	}
 	auto root = dokument->pobierzElement(WEZEL_XML_ROOT);
 	UNIT_TEST_ASSERT_NOTNULL(root);
-	UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().wczytajDane(root));
+	UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().wczytajGre(root));
 }

@@ -149,12 +149,6 @@ namespace SpEx{
 		instancjaGry_ = std::make_shared<Gra>(logger_, zarzadca_);
 	}
 
-	bool Aplikacja::wczytajDane(std::shared_ptr<SPar::ParserElement> root){
-		if (instancjaGry_)
-			return instancjaGry_->wczytajDane(root);
-		return false;
-	}
-
 	void Aplikacja::wyczyscDane(){
 		instancjaGry_ = std::make_shared<Gra>(logger_, zarzadca_);
 	}

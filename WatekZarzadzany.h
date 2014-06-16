@@ -1,7 +1,9 @@
 #pragma once
 #include "Zadanie.h"
 #include "Watek.h"
-#include "stdafx.h"
+#include <future>
+#include <list>
+
 namespace SpEx{
 	class WatekZarzadzany
 		: public Watek

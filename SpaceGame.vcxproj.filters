@@ -333,9 +333,6 @@
     <ClInclude Include="Aplikacja.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
-    <ClInclude Include="Biblioteki.h">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClInclude>
     <ClInclude Include="Main.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
@@ -472,9 +469,6 @@
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClInclude>
     <ClInclude Include="ZarzadcaPamieci.h">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
     <ClInclude Include="RoundedRectangleShape.hpp">
