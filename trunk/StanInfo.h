@@ -1,8 +1,9 @@
 #pragma once
-#include "stdafx.h"
 #include "Logger\LoggerInterface.h"
 #include "Skrypt.h"
 #include "ZdarzenieInfo.h"
+#include <map>
+
 namespace SpEx{
 	class StanInfo :
 		virtual public SLog::LoggerInterface

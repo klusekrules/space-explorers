@@ -359,7 +359,6 @@
     <ClInclude Include="Skrypt.h" />
     <ClInclude Include="Stan.h" />
     <ClInclude Include="StanInfo.h" />
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="TestyUtilsBO.h" />
     <ClInclude Include="TypyEksportowne.h" />
     <ClInclude Include="UkladSloneczny.h" />
@@ -383,7 +382,6 @@
     <ClInclude Include="ObiektListTest.h" />
     <ClInclude Include="Operacja.h" />
     <ClInclude Include="PaczkaTestow.h" />
-    <ClInclude Include="Biblioteki.h" />
     <ClInclude Include="Budynek.h" />
     <ClInclude Include="BudynekInfo.h" />
     <ClInclude Include="definicjeWezlowXML.h" />

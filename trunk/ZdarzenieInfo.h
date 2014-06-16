@@ -1,5 +1,4 @@
 #pragma once
-#include "stdafx.h"
 #include "Logger\LoggerInterface.h"
 #include "Skrypt.h"
 #include "Parser\XmlBO.h"

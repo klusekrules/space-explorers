@@ -1,5 +1,4 @@
 #pragma once
-#include "stdafx.h"
 #include "Logger\\Log.h"
 #include "OknoGry.h"
 #include "StanInfo.h"

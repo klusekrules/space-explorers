@@ -18,8 +18,8 @@ namespace SpEx {
 	*
 	* Klasa przechowuje wszystkie informacje i obiekty do poprawnego dzia³ania gry.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 26-07-2013
+	* \version 2
+	* \date 16-06-2014
 	*/
 	class Gra :
 		public se::NonCopyable,
@@ -96,6 +96,13 @@ namespace SpEx {
 		* \return true je¿eli uda siê przeniœæ, false w przeciwnym wypadku.
 		*/
 		bool przeniesPlaneteDoUzytkownika(const STyp::Identyfikator& identyfikator);
+
+		/**
+		* \brief Metoda przenosi planetê do zalogowane u¿ytkownika.
+		*
+		* Metoda przenosi pierwsz¹ woln¹ planetê do aktualnie zalogowanego u¿ytkownika. Przypisuje jego jako w³aœciciela. Usuwa planetê z listy wolnych planet.
+		* \return true je¿eli uda siê przeniœæ, false w przeciwnym wypadku.
+		*/
 		bool przeniesPlaneteDoUzytkownika();
 
 		/**
@@ -221,12 +228,36 @@ namespace SpEx {
 		*/
 		bool generujNowaGalaktyke();
 
+		/**
+		* \brief Metoda zwraca listê wszystkich obiektów opisowych.
+		*
+		* Metoda zwraca listê wszystkich obiektów opisowych.
+		* \return Zwraca listê obiektów.
+		*/
 		const std::unordered_map<STyp::Identyfikator, std::shared_ptr<ObiektInfo>, STyp::IdTypeHash >& pobierzObiektyInfo(){
 			return listaObiektowInfo_;
 		}
 
-		const std::unordered_map<STyp::Identyfikator, std::shared_ptr<ObiektInfo>, STyp::IdTypeHash >& pobierzDostepneObiektyInfo(const Planeta&, const STyp::Identyfikator&, std::vector<STyp::Identyfikator>&);
+		/**
+		* \brief Metoda Zwraca listê obiektów info spe³niaj¹chych wymagania.
+		*
+		* Metoda zwraca listê obiektów info, które spe³niaj¹ wymagania rozbudowy na planecie podanej w parametrze oraz obiekt jest tego samego typu przezkazanego w parametrze.
+		* \param[in] planeta - Planeta, dla której obliczane s¹ wymagania.
+		* \param[in] typObiektu - Typ obiektu jaki ma byæ brany pod uwagê.
+		* \param[out] listaIdentyfikatorow - Lista identyfikatorów obiektów zwróconych przez metodê.
+		* \return Zwraca listê obiektów spe³niaj¹cych warunki.
+		*/
+		const std::unordered_map<STyp::Identyfikator, std::shared_ptr<ObiektInfo>, STyp::IdTypeHash >& pobierzDostepneObiektyInfo(const Planeta& planeta, const STyp::Identyfikator& typObiektu, std::vector<STyp::Identyfikator>& listaIdentyfikatorow);
 
+		/**
+		* \brief Metoda sprawdza czy u¿ytkownik jest zalogowany.
+		*
+		* Metoda metoda sprawdzaj¹ca czy zalogowano u¿ytkownika.
+		* \return Zwraca wartoœæ true je¿eli u¿ytkownik jest zalogowany, false w przeciwnym przypadku.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 16-06-2014
+		*/
 		bool czyZalogowano()const{
 			return uzytkownik_ != nullptr;
 		}
@@ -278,8 +309,8 @@ namespace SpEx {
 		*/
 		bool wczytajObrone(XmlBO::ElementWezla wezel);
 
-		SLog::Log& logger_;
-		ZarzadcaPamieci& zarzadca_;
+		SLog::Log& logger_; /// Referencja do obiektu loguj¹cego.
+		ZarzadcaPamieci& zarzadca_; /// Referencja do aktualnego obiektu zarz¹dcy pamiêci.
 		std::shared_ptr<Uzytkownik> uzytkownik_; /// Aktualnie zalogowany u¿ytkownik.
 
 		std::unordered_map<STyp::Identyfikator, std::shared_ptr<SurowceInfo>, STyp::IdTypeHash > listaSurowcowInfo_; /// Lista obiektów opisowych surowców.

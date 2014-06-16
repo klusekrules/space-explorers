@@ -3,7 +3,7 @@
 void BudynekTest::startTestow() {
 	planeta = SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(STyp::Identyfikator(0x8));
 	UNIT_TEST_ASSERT_NOTNULL(planeta);
-	planeta->wyczyscZawartoscPlanety();
+	planeta->odepnijPlanete();
 	UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(SpEx::Planeta::Indeks(STyp::Identyfikator(11)), SpEx::PodstawoweParametry(STyp::Poziom(1))));
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(SpEx::Planeta::Indeks(STyp::Identyfikator(11)), SpEx::PodstawoweParametry(STyp::Poziom(1))));

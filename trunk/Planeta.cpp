@@ -26,6 +26,13 @@ namespace SpEx{
 		return listaSurowcow_;
 	}
 
+	bool Planeta::odepnijPlanete(){
+		if (wlasciciel_){
+			return wlasciciel_->odpinaniePlanet(identyfikator_);
+		}
+		return true;
+	}
+
 	void Planeta::wyczyscZawartoscPlanety(){
 		//TODO: Sprawdzanie praw dostêpu.
 		if (wlasciciel_){

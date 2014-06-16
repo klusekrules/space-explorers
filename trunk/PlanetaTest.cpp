@@ -3,7 +3,7 @@
 void PlanetaTest::tworzenieNiezaleznejPlanety(){
 	std::shared_ptr<SpEx::Planeta> planeta = SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(STyp::Identyfikator(0x5));
 	UNIT_TEST_ASSERT_NOTNULL(planeta);
-	planeta->wyczyscZawartoscPlanety();
+	planeta->odepnijPlanete();
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(1), STyp::Ilosc(500)));
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(2), STyp::Ilosc(600)));
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(3), STyp::Ilosc(700)));

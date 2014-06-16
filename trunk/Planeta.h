@@ -256,6 +256,8 @@ namespace SpEx{
 		*/
 		void wyczyscZawartoscPlanety();
 
+		bool odepnijPlanete();
+
 		/**
 		* \brief Metoda zwracaj¹ca poziom obiektu.
 		*

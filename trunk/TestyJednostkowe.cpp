@@ -73,6 +73,8 @@ void TestyJednostkowe::wykonajTesty(){
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.generujKomunikat());
 	}catch(std::exception& e){
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.what());
+	}catch (WyjatekSprawdzeniaWarunku& e){
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.komunikat());
 	}catch(...){
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Wyst¹pi³ nieznany wyjatek!");
 	}
@@ -97,7 +99,9 @@ void TestyJednostkowe::wykonajTesty(){
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.generujKomunikat());
 		}catch(std::exception& e){
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.what());
-		}catch(...){
+		}catch (WyjatekSprawdzeniaWarunku& e){
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.komunikat());
+		}catch (...){
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Wyst¹pi³ nieznany wyjatek!");
 		}
 	}

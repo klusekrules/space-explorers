@@ -5,7 +5,7 @@ void TworzenieObiektowTest::startTestow(){
 	UNIT_TEST_ASSERT_NOTNULL(gra);
 	planeta = gra->pobierzPlanete(STyp::Identyfikator(0x2));
 	UNIT_TEST_ASSERT_NOTNULL(planeta);
-	planeta->wyczyscZawartoscPlanety();
+	planeta->odepnijPlanete();
 	UNIT_TEST_ASSERT_TRUE(gra->przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
 	UNIT_TEST_ASSERT_NOTNULL(planeta);
 }

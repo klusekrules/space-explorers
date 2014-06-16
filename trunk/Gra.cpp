@@ -323,6 +323,9 @@ namespace SpEx{
 				auto obiekt = planeta.pobierzObiektJesliIstnieje(element.first);
 				if (obiekt != nullptr){
 					atrybut = obiekt->pobierzAtrybut();
+					if (obiekt->typAtrybutu() == PodstawoweParametry::POZIOM){
+						++atrybut.poziom;
+					}
 				}else{
 					atrybut = PodstawoweParametry::wartoscJednostkowaAtrybutu(element.second->pobierzTypAtrybutu());
 				}

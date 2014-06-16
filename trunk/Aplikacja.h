@@ -1,7 +1,9 @@
 #pragma once
 #include "Main.h"
 #include <Windows.h>
-#include "Biblioteki.h"
+#include <cstdlib>
+#include <string>
+#include <locale>
 #include "plugin\plugin.h"
 #include "Gra.h"
 #include "Singleton.h"
@@ -35,8 +37,8 @@ namespace SpEx {
 	*
 	* G³ówna klasa programu. Reprezentuje ca³¹ apliakcje.
 	* \author Daniel Wojdak
-	* \version 2
-	* \date 06-06-2014
+	* \version 3
+	* \date 16-06-2014
 	*/
 	class Aplikacja:
 		public se::Singleton<Aplikacja>
@@ -54,15 +56,6 @@ namespace SpEx {
 		* Argumenty przekazane w linii komend
 		*/
 		static char** argumenty;
-
-		/**
-		* \brief Metoda ³aduj¹ca dane gry.
-		*
-		* Metoda wczytuje z wêz³a przekazanego jako parametr informacje o obiektach opisuj¹cych ( ObiektInfo ). Dane wczytywane s¹ do istniej¹cej instacji gry.
-		* \param[in] root - G³ówny wêze³ zawieraj¹cy dane obiektów opisuj¹cych.
-		* \return Zwraca wartoœæ true, je¿eli uda siê wczytaæ dane. Zwraca wartoœæ false, je¿eli wyst¹pi³ b³¹d podczas wczytywania lub instancja gry nie istnieje.
-		*/
-		bool wczytajDane( std::shared_ptr<SPar::ParserElement> root );
 
 		/**
 		* \brief Metoda zapisuj¹ca stan gry.
