@@ -34,7 +34,6 @@ namespace SpEx{
 		/**
 		* \brief Konstruktor.
 		*
-		* \param[in] info - referencja do obiektu opisowego.
 		* \param[in] atak - podstawowny atak obiektu
 		* \param[in] pancerz - podstawowy pancerz obiektu
 		* \param[in] oslona - postawowa oslona obiektu

@@ -41,7 +41,7 @@ namespace sf
 		///
 		/// \param size Size of the rectangle
 		/// \param radius Radius for each rounded corner
-		/// \param pointCount Number of points of each corner
+		/// \param cornerPointCount Number of points of each corner
 		///
 		////////////////////////////////////////////////////////////
 		explicit RoundedRectangleShape(const Vector2f& size = Vector2f(0, 0), float radius = 0, unsigned int cornerPointCount = 0);
@@ -69,7 +69,7 @@ namespace sf
 		////////////////////////////////////////////////////////////
 		/// \brief Set the radius of the rounded corners
 		///
-		/// \param Radius of the rounded corners
+		/// \param radius of the rounded corners
 		///
 		/// \see GetRadius
 		///

@@ -34,7 +34,7 @@ namespace SpEx{
 		* \brief Metoda przeliczaj¹ca parametry ekranu wzglêdem aktualnego stanu.
 		*
 		* Metoda przelicza prametry ekranu w zale¿noœci od stanu jaki zosta³ przekazany jako parametr.
-		* \param[in/out] stan - Aktualnie przetwarzany stan aplikacji.
+		* \param[inout] stan - Aktualnie przetwarzany stan aplikacji.
 		*/
 		virtual void uaktualnij(Stan& stan);
 
@@ -42,7 +42,7 @@ namespace SpEx{
 		* \brief Metoda odbieraj¹ca zdarzenie.
 		*
 		* Metoda odbiera zdarzenie i przypisuje je do odpowiedniego okna nale¿¹cego do ekranu.
-		* \param[in/out] stan - Aktualnie przetwarzany stan aplikacji.
+		* \param[inout] stan - Aktualnie przetwarzany stan aplikacji.
 		* \param[in] zdarzenie - Wykryte zdarzenie.
 		*/
 		virtual void odbierz(Stan& stan, const sf::Event& zdarzenie);

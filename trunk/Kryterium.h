@@ -130,7 +130,7 @@ namespace SpEx{
 		* \brief Metoda ustawiaj¹ca atrybut.
 		*
 		* Metoda ustawiaj¹ca atrybut obiektu.
-		* \param[in] identyfikatorPlanety - Nowa wartoœæ identyfikatora planety rodzica obiektu.
+		* \param[in] identyfikator - Nowa wartoœæ identyfikatora planety rodzica obiektu.
 		*/
 		void ustawIdentyfikator(const STyp::Identyfikator& identyfikator);
 		

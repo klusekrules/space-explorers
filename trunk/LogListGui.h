@@ -7,7 +7,7 @@ namespace tgui{
 	* \brief Klasa kontrolki wyœwietlaj¹cej logi.
 	*
 	* Klasa reprezentuje kontrolkê wyœwietlaj¹cej logi.
-	* \warn Uwaga!!! Klasa przeznaczona do refaktoryzacji. Z tego powodu brak dokumentacji metod.
+	* \warning Uwaga!!! Klasa przeznaczona do refaktoryzacji. Z tego powodu brak dokumentacji metod.
 	* \author Daniel Wojdak
 	* \version 1
 	* \date 06-06-2014

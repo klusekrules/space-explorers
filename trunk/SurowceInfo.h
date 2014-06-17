@@ -40,7 +40,6 @@ namespace SpEx{
 		* \brief Metoda wyliczaj¹ca czas budowy.
 		*
 		* Metoda wylicza czas na podstawie iloœci surowca i zmiany.
-		* \param[in] ilosc - Iloœæ surowców na bazie których bêdzie wyliczany czas.
 		* \param[in] parametryPodstawowe - Podstawowe parametry potrzebne do wyliczenia czasu.
 		* \return Czas budowy dla podanej iloœci u¿ytych surowców.
 		*/
@@ -50,8 +49,7 @@ namespace SpEx{
 		* \brief Metoda tworz¹ca egzemplarz obiektu.
 		*
 		*  Metoda tworzy egzemplarz obiektu dla podanej planety.
-		* \param[in] ilosc - nieu¿ywana
-		* \param[in] identyfikatorPlanety - Identyfikator planety rodzica obiektu.
+		* \param[in] parametry - parametry obiektu
 		* \warning Metoda allokuje pamiêæ dla nowego obiektu, który musi zostaæ zwolniony wywo³aniem delete.
 		* \return Metoda zwraca wskaŸnika na obiekt.
 		*/
@@ -72,13 +70,20 @@ namespace SpEx{
 		* \brief Metoda tworz¹ca egzemplarz obiektu na planecie.
 		*
 		*  Metoda tworzy egzemplarz obiektu na planecie. U¿ywana jest podczas wywo³ywania metody wybuduj w klasie Planeta.
-		* \param[in] gra - Referencja do obiektu gry.
 		* \param[in] planeta - Referencja do obiektu planety
-		* \param[in] ilosc - Iloœæ tworzonych obiektów.
-		* \param[in] poziom - Poziom tworzonego obiektu.
+		* \param[in] atrybut - Atrybut tworzonego obiektu.
 		* \return Metoda zwraca true je¿eli tworzenie zakoñczy siê sukcesem. Zwraca false w przeciwnym wypadku.
 		*/
 		bool tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const override;
+
+		/**
+		* \brief Metoda tworz¹ca egzemplarz obiektu na planecie.
+		*
+		*  Metoda tworzy egzemplarz obiektu na planecie. U¿ywana jest podczas wywo³ywania metody wybuduj w klasie Planeta.
+		* \param[in] planeta - Referencja do obiektu planety
+		* \param[in] element - Wezel zawieraj¹cy dane obiektu.
+		* \return Metoda zwraca true je¿eli tworzenie zakoñczy siê sukcesem. Zwraca false w przeciwnym wypadku.
+		*/
 		bool tworz(Planeta& planeta, const XmlBO::ElementWezla element) const override;
 
 		STyp::Bool przyrostowy_; /// Informacja czy podany tym jest przyrostowy

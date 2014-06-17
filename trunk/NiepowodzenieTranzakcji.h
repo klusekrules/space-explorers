@@ -18,6 +18,7 @@ namespace SpEx{
 		* \brief Konstruktor.
 		*
 		* \param[in] tPlik - Plik wyst¹pienia wyj¹tku.
+		* \param[in] funkcja - Nazwa funkcji w której zosta³ wygenerowany wyj¹tek.
 		* \param[in] iLinia - Linia wytapienia wyj¹tku.
 		* \param[in] tranzakcja - Opis tranzakcji dla ktorej wyst¹pi³ wyj¹tek.
 		*/

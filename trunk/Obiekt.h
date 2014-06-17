@@ -23,9 +23,7 @@ namespace SpEx{
 		/**
 		* \brief Konstruktor.
 		*
-		* \param[in] ilosc - Iloœæ tworzonych obiektów.
-		* \param[in] poziom - Poziom tworzonych obiektów.
-		* \param[in] identyfikatorPlanety - Identyfikator planety rodzica obiektu.
+		* \param[in] parametry - Parametry obiektu wymagane do poprawnego utworzenia instancji.
 		* \param[in] obiektInfo - Referencja do obiektu opisuj¹cego.
 		*/
 		Obiekt(const PodstawoweParametry& parametry, const ObiektInfo& obiektInfo);
@@ -56,7 +54,7 @@ namespace SpEx{
 
 		/**
 		* Metoda ³¹czy obiekt bazowy z obiektem przekazanym przez parametr.
-		* \param[in] obiektbazowy - Obiekt do po³¹czenia.
+		* \param[in] obiekt - Obiekt do po³¹czenia.
 		* \warning Metoda nie zwalnia pamiêci przekazanego obiektu.
 		* \return Kiedy obiekty zostan¹ po³¹czone, zwracana wartoœæ to true, w przeciwnym wypadku zwrócona wartoœæ to false.
 		* \remark Metoda jest tranzakcyjna.
@@ -65,7 +63,7 @@ namespace SpEx{
 
 		/**
 		* Metoda sprawdzaj¹ca warunki po³¹czenia obiektów.
-		* \param[in] obiektbazowy - Obiekt dla którego maj¹ byæ sprawdzone warunki po³¹czenia.
+		* \param[in] obiekt - Obiekt dla którego maj¹ byæ sprawdzone warunki po³¹czenia.
 		* \return Kiedy obiekt mo¿e byæ po³¹czony, zwracana wartoœæ to true, w przeciwnym wypadku zwrócona wartoœæ to false.
 		*/
 		virtual bool czyMoznaPolaczyc(const Obiekt& obiekt) const;

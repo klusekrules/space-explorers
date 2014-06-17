@@ -33,9 +33,12 @@ namespace SLog{
 		* Enumeracja zawieraj¹ca definicje dostêpnych formatów daty i czasu zwracanych przez funkcjê pobierzDateCzas().
 		*/
 		enum FormatCzasu{
-			Data, /// Sama data
-			Czas, /// Sam czas
-			DataCzas /// Data i Czas
+			/// Sama data
+			Data,
+			/// Sam czas
+			Czas,
+			/// Data i Czas
+			DataCzas 
 		};
 
 		/**
@@ -75,12 +78,14 @@ namespace SLog{
 
 		/**
 		* Funkcja wysy³aj¹ca komunikat typu Info do strumienia.
+		* \param[in] typ - poziom wa¿noœci komunikatu.
 		* \param[in] komunikat - Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
 		*/
 		void loguj(TypLogow typ, const std::string& komunikat) const;
 
 		/**
 		* Funkcja wysy³aj¹ca komunikat typu Info do strumienia.
+		* \param[in] typ - poziom wa¿noœci komunikatu.
 		* \param[in] komunikat - Wiadomoœæ u¿ytkownika wysy³ana do strumienia.
 		*/
 		void loguj(TypLogow typ, const LoggerInterface& komunikat) const;
@@ -126,6 +131,7 @@ namespace SLog{
 
 		/**
 		* Funkcja wysy³aj¹ca napis do strumienia.
+		* \param[in] typ - poziom wa¿noœci komunikatu.
 		* \param[in] napis - Napis wysy³any do strumienia.
 		*/
 		void wyswietl(TypLogow typ, const std::string& napis) const;

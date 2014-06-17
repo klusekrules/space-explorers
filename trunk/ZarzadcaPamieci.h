@@ -128,6 +128,7 @@ namespace SpEx{
 		* Metoda na podstawie nazwy i hashu has³a u¿ytkownika otwiera plik z danymi u¿ytkownika.
 		* \param[in] nazwa - Nazwa u¿ytkownika.
 		* \param[in] hash - Hash has³a u¿ytkownika.
+		* \param[out] nazwaPliku - Nazwa pliku u¿ytkownika.
 		* \param[in] tworzPlik - informacje czy ma zostaæ utworzony plik je¿eli nie istnieje.
 		* \return nullptr je¿eli hash sie nie zgadza, wska¿nik na dokument.
 		*/

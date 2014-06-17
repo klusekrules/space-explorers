@@ -11,7 +11,7 @@ namespace SpEx{
 	* \brief G³ówna klasa zarz¹dzaj¹ca oknem gry.
 	*
 	* Klasa zarz¹dza ekranami. Klasa wykonuje siê w osobnym w¹tku dla którego to s¹ tworzone okna.
-	* \warn Uwaga!!! Klasa ma specyficzn¹ kombinajcê metod w³asnych oraz maszyny stanów, aby zosta³a zainicjalizowana poprawnie. Nazle¿y zwróciæ na to uwagê przy dokonywaniu zmian w okolicahc sposobu inicjalizacji okien lub maszyny stanów.
+	* \warning Uwaga!!! Klasa ma specyficzn¹ kombinajcê metod w³asnych oraz maszyny stanów, aby zosta³a zainicjalizowana poprawnie. Nazle¿y zwróciæ na to uwagê przy dokonywaniu zmian w okolicahc sposobu inicjalizacji okien lub maszyny stanów.
 	* \author Daniel Wojdak
 	* \version 1
 	* \date 05-06-2014
@@ -44,7 +44,7 @@ namespace SpEx{
 		*
 		* Metoda ustawiaj¹ca flagê która blokuje w¹tek po inicjalizacji. 
 		* Nale¿y jej u¿yæ przed odblokowaniem w¹tku. Aby odblokowaæ w¹tek po inicjalizacji nale¿y u¿yæ metody uruchom.
-		* \warn Uwaga!!! Nie nale¿y u¿ywaæ tej metody po zainicjalizowaniu. Spowoduje ona zablokowanie w¹tku wywo³uj¹cego tê metodê.
+		* \warning Uwaga!!! Nie nale¿y u¿ywaæ tej metody po zainicjalizowaniu. Spowoduje ona zablokowanie w¹tku wywo³uj¹cego tê metodê.
 		*/
 		void zatrzymajPoInicjalizacji();
 
@@ -85,8 +85,8 @@ namespace SpEx{
 		*
 		* Metoda ponownie konfiguruje ekran o podanym identyfikatorze. 
 		* \param[in] id - Identyfikator ekranu do prze³adowania.
-		* \info Je¿eli ekran o podanym id nie jest aktualnie wczytany, a znajduje siê w pliku, nie zostanie za³adowany do aplikacji.
-		* \info Je¿eli ekran o podanym id jest aktualnie wczytany, a nie znajduje siê w pliku, pozostanie niezmieniony.
+		* \note Je¿eli ekran o podanym id nie jest aktualnie wczytany, a znajduje siê w pliku, nie zostanie za³adowany do aplikacji.
+		* \note Je¿eli ekran o podanym id jest aktualnie wczytany, a nie znajduje siê w pliku, pozostanie niezmieniony.
 		*/
 		void przeladujEkran( const STyp::Identyfikator& id );
 		
@@ -96,7 +96,7 @@ namespace SpEx{
 		* Metoda dodaje zadanie do wykonania w w¹tku rysuj¹cym okna. 
 		* Zadanie bêdzie wykonane miêdzy wywo³aniami rysowania okna.
 		* \param[in] zadanie - Zadanie jakie ma zostaæ wykonane w w¹tku graficznym.
-		* \warn Uwaga!!! Nie nale¿y znacznie obci¹¿¹æ w¹tku rysuj¹cego okna, poniewa¿ mo¿e to spowodowaæ spadek p³ynnoœci gry. Nale¿y dodawaæ zadania do tej kolejki tylko w ostatecznoœci.
+		* \warning Uwaga!!! Nie nale¿y znacznie obci¹¿¹æ w¹tku rysuj¹cego okna, poniewa¿ mo¿e to spowodowaæ spadek p³ynnoœci gry. Nale¿y dodawaæ zadania do tej kolejki tylko w ostatecznoœci.
 		*/
 		void dodajZadanie(SpEx::Zadanie& zadanie);
 

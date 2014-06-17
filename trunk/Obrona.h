@@ -26,7 +26,6 @@ namespace SpEx{
 		/**
 		* \brief Konstruktor.
 		*
-		* \param[in] ilosc - iloœæ tworzonych obiektów.
 		* \param[in] podstawoweParametry - Podstawowe parametry tworzonych obiektów.
 		* \param[in] obronaInfo - Referencja do obiektu opisuj¹cego.
 		*/
@@ -52,7 +51,7 @@ namespace SpEx{
 
 		/**
 		* Metoda ³¹czy obiekt bazowy z obiektem przekazanym przez parametr.
-		* \param[in] obiektbazowy - Obiekt do po³¹czenia.
+		* \param[in] obiekt - Obiekt do po³¹czenia.
 		* \warning Metoda nie zwalnia pamiêci przekazanego obiektu.
 		* \return Kiedy obiekty zostan¹ po³¹czone, zwracana wartoœæ to true, w przeciwnym wypadku zwrócona wartoœæ to false.
 		* \remark Metoda jest tranzakcyjna.
@@ -70,9 +69,12 @@ namespace SpEx{
 		*/
 		Obrona* podziel(const STyp::Ilosc& ilosc) override;
 
+
 		bool czyMoznaPolaczyc(const Obiekt& obiektBase) const;
 
+
 		bool czyMoznaPodzielic(const STyp::Ilosc& ilosc) const;
+
 		/**
 		* Metoda atak s³u¿y do wyliczania obra¿eñ zadawanych przez obiekt.
 		* \return Obra¿enia zadane przez obiekt.

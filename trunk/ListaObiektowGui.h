@@ -11,7 +11,7 @@ namespace tgui{
 	* \brief Klasa listy kontrolek obiektów.
 	*
 	* Klasa reprezentuje listê kontrolek obiektów. Wyœwietla listê obiektów wybudowanych na planecie.
-	* \warn Uwaga!!! Klasa przeznaczona do refaktoryzacji. Z tego powodu brak dokumentacji metod.
+	* \warning Uwaga!!! Klasa przeznaczona do refaktoryzacji. Z tego powodu brak dokumentacji metod.
 	* \author Daniel Wojdak
 	* \version 1
 	* \date 06-06-2014

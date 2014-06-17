@@ -57,7 +57,6 @@ namespace SpEx{
 		*
 		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
-		* \param[in] nazwa - Nazwa wêz³a obiektu.
 		*/
 		SzablonKryterium(XmlBO::ElementWezla wezel){
 			obiekt_ = std::make_shared<T>(wezel);

@@ -18,7 +18,6 @@ namespace SpEx{
 	public:
 		/**
 		* Konstruktor parametryczny
-		* \param[in] info - referencja do obiektu opisowego.
 		* \param[in] klucz - Rodzaj napêdu ( silnika )
 		* \param[in] mocSilnika - Moc silnika
 		* \param[in] zuzyciePaliwa - Zu¿ycia paliwa przez silnik

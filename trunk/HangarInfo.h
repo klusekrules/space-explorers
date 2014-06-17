@@ -17,7 +17,6 @@ namespace SpEx{
 		* \brief Konstruktor.
 		*
 		* \param[in] maksymalnaObjetosc - Podstatwowa maksymlana obiejêtoœæ hangaru.
-		* \param[in] info - Obiekt opisuj¹cy.
 		*/
 		HangarInfo(const STyp::Powierzchnia& maksymalnaObjetosc);
 

@@ -76,32 +76,11 @@ namespace SpEx{
 
 		/**
 		* Metoda ³¹czy obiekt bazowy z obiektem przekazanym przez parametr.
-		* \param[in] obiektbazowy - Nieu¿ywany.
+		* \param[in] obiekt - Nieu¿ywany.
 		* \return Zawsze zwraca wartoœæ false.
 		*/
 		//bool polacz()override;
 		bool polacz(const Obiekt& obiekt) override;
-
-		/**
-		* Metoda sprawdzaj¹ca warunki po³¹czenia obiektów.
-		* \param[in] obiektbazowy - Nieu¿ywany.
-		* \return Zawsze zwraca wartoœæ false.
-		*/
-		//bool czyMoznaPolaczyc(const ObiektBazowy& obiektbazowy) const override;
-
-		/**
-		* Metoda sprawdzaj¹ca czy mo¿na podzieliæ obiekt wed³ug podanej iloœci.
-		* \param[in] ilosc - Nieu¿ywany.
-		* \return Zawsze zwraca wartoœæ false.
-		*/
-		//bool czyMoznaPodzielic(const Ilosc& ilosc) const override;
-
-		/**
-		* Metoda buduj¹ca obiekty o podanej iloœci.
-		* \param[in] ilosc - nieu¿ywany
-		* \warning Metoda nie sprawdza czy obiekty moga byæ wybudowane.
-		*/
-		//bool wybuduj(const PodstawoweParametry& parametry) override;
 
 		/**
 		* \brief Metoda zapisuj¹ca.

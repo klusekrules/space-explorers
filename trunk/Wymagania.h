@@ -68,7 +68,6 @@ namespace SpEx{
 		* \brief Metoda wyliczaj¹ca czas trwania budowy obiektu.
 		*
 		* Metoda wylicza czas jaki jest potrzebny, aby wybudowaæ obiekty o podanej iloœci, na planecie przekazanej przez parametry.
-		* \param[in] ilosc - Iloœæ obiektów dla których jest wyliczany czas.
 		* \param[in] parametry - Podstawowe parametry potrzebne do wyliczenia czasu.
 		* \return Czas jaki zosta³ wyliczony.
 		*/
@@ -87,8 +86,8 @@ namespace SpEx{
 		* \brief Metoda sprawdzaj¹ca czy obiekt spe³nia wymagania i koszty budowy.
 		*
 		* Metoda wylicza potrzebne wymagania i koszty, a nastêpnie sprawdza czy planeta spe³nia wymagania i zawiera potrzebne zasoby.
-		* \param[in] ilosc - Iloœæ obiektów, które maj¹ spe³niæ wymagania.
 		* \param[in] parametry - Podstawowe parametry potrzebne do wyliczenia wymagañ i kosztów.
+		* \param[in] warunek - warunek uwzglêdnienia kryterium.
 		* \return true je¿eli mo¿na wybudowaæ obiekty, false w przeciwnym wypadku.
 		*/
 		bool czySpelniaWymagania(const PodstawoweParametry& parametry, std::function<bool(const Kryterium&)> warunek = nullptr )const;
