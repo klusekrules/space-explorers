@@ -20,7 +20,6 @@ namespace SpEx{
 		* \brief Konstruktor.
 		*
 		* \param[in] maksymalnaObjetosc - Podstatwowa maksymlana obiejêtoœæ ³adowni.
-		* \param[in] info - Obiekt opisuj¹cy.
 		*/
 		LadowniaInfo(const STyp::Objetosc& maksymalnaObjetosc);
 

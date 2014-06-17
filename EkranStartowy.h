@@ -4,7 +4,7 @@
 namespace SpEx{
 
 	/**
-	* \brief Klasa ekranu startowego..
+	* \brief Klasa ekranu startowego.
 	*
 	* Klasa zarz¹dza ekranem startowym aplikajci.
 	* \author Daniel Wojdak
@@ -34,7 +34,7 @@ namespace SpEx{
 		* \brief Metoda przeliczaj¹ca parametry ekranu wzglêdem aktualnego stanu.
 		*
 		* Metoda przelicza prametry ekranu w zale¿noœci od stanu jaki zosta³ przekazany jako parametr.
-		* \param[in/out] stan - Aktualnie przetwarzany stan aplikacji. 
+		* \param[inout] stan - Aktualnie przetwarzany stan aplikacji. 
 		*/
 		void uaktualnij(Stan& stan) override;
 

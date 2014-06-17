@@ -22,6 +22,7 @@ namespace SpEx{
 		* \brief Konstruktor.
 		*
 		* Konstruktor tworzy obiekt na podstawie identyfikatora i wartoœci licznika.
+		* \param[in] identyfikator - Identyfikator licznika.
 		* \param[in] wartoscPoczatkowa - Wartoœæ pocz¹tkowa licznika.
 		*/
 		Licznik(const STyp::Identyfikator& identyfikator, const STyp::Ilosc& wartoscPoczatkowa);

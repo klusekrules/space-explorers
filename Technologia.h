@@ -49,14 +49,14 @@ namespace SpEx{
 
 		/**
 		* Metoda ³¹czy obiekt bazowy z obiektem przekazanym przez parametr.
-		* \param[in] obiektBazowy - Nieu¿ywany.
+		* \param[in] obiekt - Nieu¿ywany.
 		* \return Zawsze zwraca wartoœæ false.
 		*/
 		bool polacz(const Obiekt& obiekt) override;
 
 		/**
 		* Metoda sprawdzaj¹ca warunki po³¹czenia obiektów.
-		* \param[in] obiektBazowy - Nieu¿ywany.
+		* \param[in] obiekt - Nieu¿ywany.
 		* \return Zawsze zwraca wartoœæ false.
 		*/
 		bool czyMoznaPolaczyc(const Obiekt& obiekt) const override;

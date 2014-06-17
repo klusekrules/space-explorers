@@ -11,7 +11,7 @@ namespace tgui{
 	* \brief Klasa listy kontrolek surowców.
 	*
 	* Klasa reprezentuje listê kontrolek surowców. Wyœwietla listê surowców dostênych na planecie.
-	* \warn Uwaga!!! Klasa przeznaczona do refaktoryzacji. Z tego powodu brak dokumentacji metod.
+	* \warning Uwaga!!! Klasa przeznaczona do refaktoryzacji. Z tego powodu brak dokumentacji metod.
 	* \author Daniel Wojdak
 	* \version 1
 	* \date 06-06-2014
@@ -46,7 +46,7 @@ namespace tgui{
 		* \brief Klasa kontrolki surowca.
 		*
 		* Klasa reprezentuje kontrolkê surowca. Wyœwietla iloœæ surowca na planecie.
-		* \warn Uwaga!!! Klasa przeznaczona do refaktoryzacji. Z tego powodu brak dokumentacji metod.
+		* \warning Uwaga!!! Klasa przeznaczona do refaktoryzacji. Z tego powodu brak dokumentacji metod.
 		* \author Daniel Wojdak
 		* \version 1
 		* \date 06-06-2014

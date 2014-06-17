@@ -32,7 +32,6 @@ namespace SpEx{
 		* \brief Konstruktor.
 		*
 		* \param[in] ilosc - iloœæ tworzonych obiektów.
-		* \param[in] poziom - Poziom tworzonych obiektów.
 		* \param[in] identyfikatorPlanety - Identyfikator planety rodzica obiektu.
 		* \param[in] statekInfo - Referencja do obiektu opisuj¹cego.
 		*/
@@ -41,7 +40,6 @@ namespace SpEx{
 		/**
 		* \brief Konstruktor.
 		*
-		* \param[in] ilosc - iloœæ tworzonych obiektów.
 		* \param[in] podstawoweParametry - Podstawowe parametry tworzonych obiektów.
 		* \param[in] statekInfo - Referencja do obiektu opisuj¹cego.
 		*/
@@ -89,12 +87,11 @@ namespace SpEx{
 
 		/**
 		* Metoda ³¹czy obiekt bazowy z obiektem przekazanym przez parametr.
-		* \param[in] obiektbazowy - Obiekt do po³¹czenia.
+		* \param[in] obiekt - Obiekt do po³¹czenia.
 		* \warning Metoda nie zwalnia pamiêci przekazanego obiektu.
 		* \return Kiedy obiekty zostan¹ po³¹czone, zwracana wartoœæ to true, w przeciwnym wypadku zwrócona wartoœæ to false.
 		* \remark Metoda jest tranzakcyjna.
 		*/
-		//bool polacz(const ObiektBazowy& obiektbazowy) override;
 		bool polacz(const Obiekt& obiekt) override;
 
 		/**

@@ -35,6 +35,7 @@ namespace SpEx{
 		/**
 		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
+		* \param[in] typ - Typ obiektu opisuj¹cego.
 		*/
 		explicit Info(const STyp::Identyfikator& typ, XmlBO::ElementWezla wezel);
 

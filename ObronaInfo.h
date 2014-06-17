@@ -33,9 +33,7 @@ namespace SpEx{
 		* \brief Metoda tworz¹ca egzemplarz obiektu.
 		*
 		*  Metoda tworzy egzemplarz obiektu dla podanej planety.
-		* \param[in] ilosc - iloœæ obiektów.
-		* \param[in] identyfikatorPlanety - Identyfikator planety rodzica obiektu.
-		* \param[in] poziom - Poziom tworzonego obiektu.
+		* \param[in] parametry - parametry obiektu
 		* \warning Metoda allokuje pamiêæ dla nowego obiektu, który musi zostaæ zwolniony wywo³aniem delete.
 		* \return Metoda zwraca wskaŸnika na obiekt.
 		*/
@@ -57,13 +55,20 @@ namespace SpEx{
 		* \brief Metoda tworz¹ca egzemplarz obiektu na planecie.
 		*
 		*  Metoda tworzy egzemplarz obiektu na planecie. U¿ywana jest podczas wywo³ywania metody wybuduj w klasie Planeta.
-		* \param[in] gra - Referencja do obiektu gry.
 		* \param[in] planeta - Referencja do obiektu planety
-		* \param[in] ilosc - Iloœæ tworzonych obiektów.
-		* \param[in] poziom - Poziom tworzonego obiektu.
+		* \param[in] atrybut - Atrybut tworzonego obiektu.
 		* \return Metoda zwraca true je¿eli tworzenie zakoñczy siê sukcesem. Zwraca false w przeciwnym wypadku.
 		*/
 		bool tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const override;
+
+		/**
+		* \brief Metoda tworz¹ca egzemplarz obiektu na planecie.
+		*
+		*  Metoda tworzy egzemplarz obiektu na planecie. U¿ywana jest podczas wywo³ywania metody wybuduj w klasie Planeta.
+		* \param[in] planeta - Referencja do obiektu planety
+		* \param[in] element - Wezel zawieraj¹cy dane obiektu.
+		* \return Metoda zwraca true je¿eli tworzenie zakoñczy siê sukcesem. Zwraca false w przeciwnym wypadku.
+		*/
 		bool tworz(Planeta& planeta, const XmlBO::ElementWezla element) const override;
 	};
 

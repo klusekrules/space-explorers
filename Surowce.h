@@ -164,7 +164,7 @@ namespace SpEx{
 
 		/**
 		* Metoda ³¹czy obiekt bazowy z obiektem przekazanym przez parametr.
-		* \param[in] obiektbazowy - Obiekt do po³¹czenia.
+		* \param[in] obiekt - Obiekt do po³¹czenia.
 		* \warning Metoda nie zwalnia pamiêci przekazanego obiektu.
 		* \return Kiedy obiekty zostan¹ po³¹czone, zwracana wartoœæ to true, w przeciwnym wypadku zwrócona wartoœæ to false.
 		* \remark Metoda jest tranzakcyjna.
@@ -218,7 +218,6 @@ namespace SpEx{
 		/**
 		* \brief Konstruktor.
 		*
-		* \param[in] ilosc - Iloœæ tworzonego obiektu.
 		* \param[in] parametryPodstawowe - Podstawowe parametry.
 		* \param[in] surowceInfo - Referencja do obiektu opisuj¹cego.
 		*/

@@ -21,18 +21,10 @@ namespace SpEx{
 	public:
 
 		/**
-		* \brief Konstruktor.
-		*
-		* \param[in] masa - Masa obiektu.
-		* \param[in] objetosc - Objetoœæ obiektu.
-		* \param[in] powierzchnia - Powierzchnia obiektu.
-		* \param[in] obiektBazowyInfo - Referencja do obiektu bazowego.
-		*/
-		//ObiektInfo(const Wymagania& wymagania, const Info& info);
-
-		/**
 		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
-		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
+		* \param[in] typ - Typ obiektu przechowywanego przez instancjê.
+		* \param[in] typAtrybutu - Typ atrybutu obiektu jaki bêdzie reprezentowany przez dan¹ instancjê.
+		* \param[in] wezel - Wêze³ XML, opisuj¹cy obiekt.
 		*/
 		explicit ObiektInfo(const STyp::Identyfikator& typ, PodstawoweParametry::TypAtrybutu typAtrybutu, XmlBO::ElementWezla wezel);
 

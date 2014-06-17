@@ -12,7 +12,7 @@ namespace tgui{
 	* \brief Klasa kontrolki obiektu.
 	*
 	* Klasa reprezentuje kontrolkê obiektu. Wyœwietla aktualne dane o obiekcie znajduj¹cym sie na planecie. Pozwala na rozbudowe.
-	* \warn Uwaga!!! Klasa przeznaczona do refaktoryzacji. Z tego powodu brak dokumentacji metod.
+	* \warning Uwaga!!! Klasa przeznaczona do refaktoryzacji. Z tego powodu brak dokumentacji metod.
 	* \author Daniel Wojdak
 	* \version 1
 	* \date 06-06-2014
