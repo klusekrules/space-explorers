@@ -54,17 +54,35 @@ namespace STyp{
 
 		PodstawowyInterfejs(const nazwa_typu& wartosc) : wartosc_(wartosc) {}
 
-		const nazwa_typu& operator()() const { return wartosc_; }
+		inline const nazwa_typu& operator()() const { return wartosc_; }
 
-		void operator()(const nazwa_typu& wartosc){ wartosc_ = wartosc; }
-
-		std::string napis() const override{
+		inline void operator()(const nazwa_typu& wartosc){ wartosc_ = wartosc; }
+		
+		/**
+		* \brief Metoda zwracaj¹ca opis obiektu.
+		*
+		* Metoda zwraca opis obiektu.
+		* \return Tekst opisuj¹cy ca³y obiekt.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 10-07-2013
+		*/
+		inline std::string napis() const override{
 			std::stringstream str;
 			str << wartosc_;
 			return std::move(str.str());
 		}
 	};
 	
+	/**
+	* \brief Klasa bazowa dla typów liczbowych atrybutów.
+	*
+	* Klasa bazowa z uniwersalnym interfejsem dla u³atwienia zmiany typów podstawowych w grze
+	* oraz dla ujednolicenia interfejsu.
+	* \author Daniel Wojdak
+	* \version 1
+	* \date 10-07-2013
+	*/
 	template < typename T >
 	class TypObliczeniowy :
 		public PodstawowyInterfejs < T >
@@ -84,42 +102,51 @@ namespace STyp{
 
 		TypObliczeniowy(const nazwa_typu& wartosc) : PodstawowyInterfejs(wartosc) {}
 
-		bool operator==(const TypObliczeniowy& wartosc)const{ return wartosc_ == wartosc.wartosc_; }
+		inline bool operator==(const TypObliczeniowy& wartosc)const{ return wartosc_ == wartosc.wartosc_; }
 
-		bool operator!=(const TypObliczeniowy& wartosc)const{ return wartosc_ != wartosc.wartosc_; }
+		inline bool operator!=(const TypObliczeniowy& wartosc)const{ return wartosc_ != wartosc.wartosc_; }
 
-		bool operator<(const TypObliczeniowy& wartosc)const{ return wartosc_ < wartosc.wartosc_; }
+		inline bool operator<(const TypObliczeniowy& wartosc)const{ return wartosc_ < wartosc.wartosc_; }
 
-		bool operator>(const TypObliczeniowy& wartosc)const{ return wartosc_ > wartosc.wartosc_; }
+		inline bool operator>(const TypObliczeniowy& wartosc)const{ return wartosc_ > wartosc.wartosc_; }
 
-		bool operator<=(const TypObliczeniowy& wartosc)const{ return wartosc_ <= wartosc.wartosc_; }
+		inline bool operator<=(const TypObliczeniowy& wartosc)const{ return wartosc_ <= wartosc.wartosc_; }
 
-		bool operator>=(const TypObliczeniowy& wartosc)const{ return wartosc_ >= wartosc.wartosc_; }
+		inline bool operator>=(const TypObliczeniowy& wartosc)const{ return wartosc_ >= wartosc.wartosc_; }
 
-		TypObliczeniowy& operator-=(const TypObliczeniowy& wartosc){ wartosc_ -= wartosc.wartosc_; return *this; }
+		inline TypObliczeniowy& operator-=(const TypObliczeniowy& wartosc){ wartosc_ -= wartosc.wartosc_; return *this; }
 
-		TypObliczeniowy& operator+=(const TypObliczeniowy& wartosc){ wartosc_ += wartosc.wartosc_; return *this; }
+		inline TypObliczeniowy& operator+=(const TypObliczeniowy& wartosc){ wartosc_ += wartosc.wartosc_; return *this; }
 
-		TypObliczeniowy operator-(const TypObliczeniowy& wartosc)const{ return wartosc_ - wartosc.wartosc_; }
+		inline TypObliczeniowy operator-(const TypObliczeniowy& wartosc)const{ return wartosc_ - wartosc.wartosc_; }
 
-		TypObliczeniowy operator-()const{ return -wartosc_; }
+		inline TypObliczeniowy operator-()const{ return -wartosc_; }
 
-		TypObliczeniowy operator+(const TypObliczeniowy& wartosc)const{ return wartosc_ + wartosc.wartosc_; }
+		inline TypObliczeniowy operator+(const TypObliczeniowy& wartosc)const{ return wartosc_ + wartosc.wartosc_; }
 
-		TypObliczeniowy& operator*=(const TypObliczeniowy& wartosc){ wartosc_ *= wartosc.wartosc_; return *this; }
+		inline TypObliczeniowy& operator*=(const TypObliczeniowy& wartosc){ wartosc_ *= wartosc.wartosc_; return *this; }
 
-		TypObliczeniowy& operator/=(const TypObliczeniowy& wartosc){ wartosc_ /= wartosc.wartosc_; return *this; }
+		inline TypObliczeniowy& operator/=(const TypObliczeniowy& wartosc){ wartosc_ /= wartosc.wartosc_; return *this; }
 
-		TypObliczeniowy operator*(const TypObliczeniowy& wartosc)const{ return wartosc_ * wartosc.wartosc_; }
+		inline TypObliczeniowy operator*(const TypObliczeniowy& wartosc)const{ return wartosc_ * wartosc.wartosc_; }
 
-		TypObliczeniowy operator/(const TypObliczeniowy& wartosc)const{ return wartosc_ / wartosc.wartosc_; }
+		inline TypObliczeniowy operator/(const TypObliczeniowy& wartosc)const{ return wartosc_ / wartosc.wartosc_; }
 
-		TypObliczeniowy& operator++(){ ++wartosc_;	return (*this); }
+		inline TypObliczeniowy& operator++(){ ++wartosc_;	return (*this); }
 
-		TypObliczeniowy operator++(int){ TypObliczeniowy t(*this); ++wartosc_; return t; }
+		inline TypObliczeniowy operator++(int){ TypObliczeniowy t(*this); ++wartosc_; return t; }
 
 	};
 	
+	/**
+	* \brief Klasa bazowa dla typów boolowskich atrybutów.
+	*
+	* Klasa bazowa z uniwersalnym interfejsem dla u³atwienia zmiany typów podstawowych w grze
+	* oraz dla ujednolicenia interfejsu.
+	* \author Daniel Wojdak
+	* \version 1
+	* \date 10-07-2013
+	*/
 	template < typename T >
 	class TypBoolowski :
 		public PodstawowyInterfejs < T >
@@ -139,22 +166,31 @@ namespace STyp{
 		
 		TypBoolowski(const nazwa_typu& wartosc) : PodstawowyInterfejs(wartosc) {}
 
-		bool operator==(const TypBoolowski& wartosc)const{ return wartosc_ == wartosc.wartosc_; }
+		inline bool operator==(const TypBoolowski& wartosc)const{ return wartosc_ == wartosc.wartosc_; }
 
-		bool operator!=(const TypBoolowski& wartosc)const{ return wartosc_ != wartosc.wartosc_; }
+		inline bool operator!=(const TypBoolowski& wartosc)const{ return wartosc_ != wartosc.wartosc_; }
 
-		bool operator<(const TypBoolowski& wartosc)const{ return wartosc_ < wartosc.wartosc_; }
+		inline bool operator<(const TypBoolowski& wartosc)const{ return wartosc_ < wartosc.wartosc_; }
 
-		bool operator>(const TypBoolowski& wartosc)const{ return wartosc_ > wartosc.wartosc_; }
+		inline bool operator>(const TypBoolowski& wartosc)const{ return wartosc_ > wartosc.wartosc_; }
 
-		bool operator<=(const TypBoolowski& wartosc)const{ return wartosc_ <= wartosc.wartosc_; }
+		inline bool operator<=(const TypBoolowski& wartosc)const{ return wartosc_ <= wartosc.wartosc_; }
 
-		bool operator>=(const TypBoolowski& wartosc)const{ return wartosc_ >= wartosc.wartosc_; }
+		inline bool operator>=(const TypBoolowski& wartosc)const{ return wartosc_ >= wartosc.wartosc_; }
 
-		operator size_t(){ return static_cast<size_t>(wartosc_); }
+		inline operator size_t(){ return static_cast<size_t>(wartosc_); }
 
 	};
 
+	/**
+	* \brief Klasa bazowa dla typów tekstowych atrybutów.
+	*
+	* Klasa bazowa z uniwersalnym interfejsem dla u³atwienia zmiany typów podstawowych w grze
+	* oraz dla ujednolicenia interfejsu.
+	* \author Daniel Wojdak
+	* \version 1
+	* \date 10-07-2013
+	*/
 	template < typename T >
 	class TypTekstowy :
 		public PodstawowyInterfejs < T >
@@ -174,25 +210,34 @@ namespace STyp{
 
 		TypTekstowy(const nazwa_typu& wartosc) : PodstawowyInterfejs(wartosc) {}
 
-		bool operator==(const TypTekstowy& wartosc)const{ return wartosc_ == wartosc.wartosc_; }
+		inline bool operator==(const TypTekstowy& wartosc)const{ return wartosc_ == wartosc.wartosc_; }
 
-		bool operator!=(const TypTekstowy& wartosc)const{ return wartosc_ != wartosc.wartosc_; }
+		inline bool operator!=(const TypTekstowy& wartosc)const{ return wartosc_ != wartosc.wartosc_; }
 
-		bool operator<(const TypTekstowy& wartosc)const{ return wartosc_ < wartosc.wartosc_; }
+		inline bool operator<(const TypTekstowy& wartosc)const{ return wartosc_ < wartosc.wartosc_; }
 
-		bool operator>(const TypTekstowy& wartosc)const{ return wartosc_ > wartosc.wartosc_; }
+		inline bool operator>(const TypTekstowy& wartosc)const{ return wartosc_ > wartosc.wartosc_; }
 
-		bool operator<=(const TypTekstowy& wartosc)const{ return wartosc_ <= wartosc.wartosc_; }
+		inline bool operator<=(const TypTekstowy& wartosc)const{ return wartosc_ <= wartosc.wartosc_; }
 
-		bool operator>=(const TypTekstowy& wartosc)const{ return wartosc_ >= wartosc.wartosc_; }
+		inline bool operator>=(const TypTekstowy& wartosc)const{ return wartosc_ >= wartosc.wartosc_; }
 
-		TypTekstowy& operator+=(const TypTekstowy& wartosc){ wartosc_ += wartosc.wartosc_; return *this; }
+		inline TypTekstowy& operator+=(const TypTekstowy& wartosc){ wartosc_ += wartosc.wartosc_; return *this; }
 
-		TypTekstowy operator+(const TypTekstowy& wartosc)const{ return wartosc_ + wartosc.wartosc_; }
+		inline TypTekstowy operator+(const TypTekstowy& wartosc)const{ return wartosc_ + wartosc.wartosc_; }
 
-		bool isEmpty() const{ return wartosc_.empty(); }
-
-		std::string napis() const override{ return std::move(dodajCudzyslow()); }
+		inline bool isEmpty() const{ return wartosc_.empty(); }
+		
+		/**
+		* \brief Metoda zwracaj¹ca opis obiektu.
+		*
+		* Metoda zwraca opis obiektu.
+		* \return Tekst opisuj¹cy ca³y obiekt.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 10-07-2013
+		*/
+		inline std::string napis() const override{ return std::move(dodajCudzyslow()); }
 
 	private:
 		nazwa_typu dodajCudzyslow() const {
@@ -245,8 +290,16 @@ namespace STyp{
 	typedef class TypObliczeniowy<SPG::ZuzyciePaliwa> ZuzyciePaliwa;
 	typedef class TypObliczeniowy<SPG::Wartosc> Wartosc;
 
+	/**
+	* \brief Struktura pomocnicza.
+	*
+	* Struktrura posiadaj¹ca metodê generuj¹c¹ hash dla typu Identyfikator.
+	* \author Daniel Wojdak
+	* \version 1
+	* \date 10-07-2013
+	*/
 	struct IdTypeHash {
-		size_t operator()(const Identyfikator& t) const {
+		inline size_t operator()(const Identyfikator& t) const {
 			return static_cast<size_t>(t());
 		}
 	};
