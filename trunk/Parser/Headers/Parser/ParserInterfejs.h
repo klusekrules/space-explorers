@@ -448,6 +448,7 @@ namespace SPar{
 		* \brief Metoda usuwaj¹ca wêze³.
 		*
 		* Metoda usuwaj¹ca wêze³ przekazany w parametrze.
+		* \param[in] wezel - WskaŸnik na wêze³ do usuniêcia.
 		* \return Zwracana jest true je¿eli uda³o siê usun¹æ lub wartoœæ false, w przypadku gdy nie ususniêto wêz³a.
 		*/
 		virtual bool usunElement(std::shared_ptr<ParserElement> wezel) = 0;
