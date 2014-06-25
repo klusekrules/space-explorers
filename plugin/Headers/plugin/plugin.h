@@ -47,18 +47,27 @@ namespace SPlu{
 		* \param[in] folderPluginow - Œcie¿ka do folderu zawierajacy pluginy.
 		* \param[in] fabryka - Referencja na fabrykê zmian.
 		* \param[in] log - Referencja na obiekt logów.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 11-07-2013
 		*/
 		Cplugin(const std::string& folderPluginow, SZmi::ZmianaFabryka& fabryka, SLog::Log& log);
 
 		/**
 		* Metoda wywo³uj¹ca funkcje rejestruj¹ce domyœlne Zminay zaimplementowane w aplikcji w pliku ftrans.dll.
 		* \return Metoda zwraca wartoœæ true, je¿eli uda siê poprawnie zarejestrowaæ wszystkie zmiany. Zwraca false w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 11-07-2013
 		*/
 		bool zaladujDomyslneKlasyZmian();
 
 		/**
 		* Metoda wywo³uj¹ca funkcje rejestruj¹ce zmiany z dodatkowych bibliotek do³aczonych do aplikacji.
 		* \return Metoda zawsze zwraca wartoœæ true.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 11-07-2013
 		*/
 		bool zaladujZewnetrzneKlasyZmian();
 	};
