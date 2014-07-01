@@ -333,9 +333,6 @@
     <ClInclude Include="Aplikacja.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
-    <ClInclude Include="Main.h">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClInclude>
     <ClInclude Include="MakeVector.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
