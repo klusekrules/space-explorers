@@ -1,5 +1,7 @@
 #pragma once
-#include "Main.h"
+#pragma warning( disable : 4290 )
+//#pragma warning( disable : 4996 )
+
 #include <Windows.h>
 #include <cstdlib>
 #include <string>

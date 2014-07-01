@@ -1,10 +1,11 @@
-#include "Main.h"
 #include "Aplikacja.h"
 #include <SFML/Graphics.hpp>
 #include "MaszynaStanow.h"
 #include "lua.hpp"
 
 #ifdef TESTS
+#define _CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
 #include "TestyJednostkowe.h"
 
 void main( int argv , char* argc[] ){
