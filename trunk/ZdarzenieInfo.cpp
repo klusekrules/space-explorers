@@ -42,7 +42,7 @@ namespace SpEx{
 	}
 
 	bool ZdarzenieInfo::wykonaj(){
-		if (luaFuncInside_.empty())
+		if (!skrypt_)
 			return true;
 		return skrypt_->wykonaj(luaFuncInside_);
 	}
