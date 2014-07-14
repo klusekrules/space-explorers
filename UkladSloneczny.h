@@ -28,14 +28,28 @@ namespace SpEx {
 		*
 		* \param[in] identyfikator - Numer identyfikuj¹cy uk³ad s³oneczny
 		* \param[in] identyfikatorGalaktyki - Numer identyfikuj¹cy galaktykê w której znajduje sie uk³ad s³oneczny.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		UkladSloneczny(const STyp::Identyfikator& identyfikator, const STyp::Identyfikator& identyfikatorGalaktyki);
 
 		/**
-		* \brief Destruktor
+		* \brief Domyœlny destruktor.
+		*
+		* Domyœlny destruktor.
 		*/
 		virtual ~UkladSloneczny() = default;
 
+		/**
+		* \brief Metoda pobieraj¹ca identyfikator.
+		*
+		* Metoda pobiera identyfikator obiektu.
+		* \return Identyfikator obiektu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 14-07-2014
+		*/
 		const STyp::Identyfikator& pobierzIdentyfikator()const;
 
 		/**
@@ -43,6 +57,9 @@ namespace SpEx {
 		*
 		* Metoda ustawia œrednicê gwiazdy na podan¹ w parametrze.
 		* \param[in] srednica - nowa wartoœc srednicy gwiazdy uk³adu s³onecznego.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		void ustawSredniceGwiazdy(const STyp::Dystans& srednica);
 
@@ -51,6 +68,9 @@ namespace SpEx {
 		*
 		* Metoda zwraca œrednicê gwiazdy uk³adu w mln km.
 		* \return Œrednica gwiady uk³adu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		const STyp::Dystans& pobierzSredniceGwiazdy() const;
 
@@ -59,6 +79,9 @@ namespace SpEx {
 		*
 		* Metoda ustawia œredni¹ temperaturê gwiazdy na podan¹ w parametrze.
 		* \param[in] temperatura - nowa wartoœæ œredniej temperatury gwiazdy w kelwinach.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		void ustawSredniaTemperatureGwiazdy(const STyp::Temperatura& temperatura);
 
@@ -67,6 +90,9 @@ namespace SpEx {
 		*
 		* Metoda zwraca œredni¹ temperaturê gwiazdy podan¹ w kelwinach.
 		* \return Œrednia temperatura gwiazdy.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		const STyp::Temperatura& pobierzSredniaTemperatureGwiazdy() const;
 
@@ -75,6 +101,9 @@ namespace SpEx {
 		*
 		* Metoda zwraca moc gwiazdy.
 		* \return Moc gwiazdy.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		STyp::Moc pobierzMocGwiazdy() const;
 
@@ -84,6 +113,9 @@ namespace SpEx {
 		* Metoda dodaj planetê do listy planet znajduj¹cych sie w uk³adzie.
 		* \param[in] planeta - WskaŸnik na planetê dodawan¹ do listy.
 		* \return true je¿eli uda siê dodaæ planetê, false w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		bool dodajPlanete(UkladSloneczny::Planeta planeta);
 
@@ -93,6 +125,9 @@ namespace SpEx {
 		* Metoda zwraca planetê o podanym id, która znajduje siê na liœcie planet uk³adu.
 		* \param[in] identyfikator - Numer identyfikuj¹cy planetê.
 		* \return WskaŸnik na planetê lub nullptr je¿eli planeta nie zostanie znaleziona.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		UkladSloneczny::Planeta pobierzPlanete(const STyp::Identyfikator& identyfikator);
 
@@ -101,6 +136,9 @@ namespace SpEx {
 		*
 		* Metoda zwraca liczbê planet znajduj¹cych w uk³adzie s³onecznym.
 		* \return liczba planet.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		int liczbaPlanet() const;
 
@@ -109,6 +147,9 @@ namespace SpEx {
 		*
 		* Metoda zwraca identyfikator galaktyki w której le¿y uk³ad.
 		* \return Identyfikator galaktyki.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		const STyp::Identyfikator& pobierzIdGalaktyki() const;
 
@@ -119,6 +160,9 @@ namespace SpEx {
 		* \param[out] wezel - Wêze³ do którego s¹ zapisywane dane.
 		* \return Zwracana jest wartoœæ true, je¿eli zapisano obiekt poprawnie. False, je¿eli zapis siê nie powiód³.
 		* \warning Je¿eli zwrócono wartoœæ false wêze³ przekazany jako parametr nie jest zmodyfokowany.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		bool zapisz(XmlBO::ElementWezla wezel) const override;
 
@@ -130,6 +174,9 @@ namespace SpEx {
 		* \return Zwracana jest wartoœæ true, je¿eli odczytano obiekt poprawnie. False, je¿eli odczyt siê nie powiód³.
 		* \warning Metoda nie modyfikuje wêz³a.
 		* \warning Je¿eli metoda zwróci wartoœæ false, obiekt mo¿e znajdowaæ siê w stanie nieustalonym. Nie jest zalecane u¿ywanie takiego obiektu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		bool odczytaj(XmlBO::ElementWezla wezel) override;
 
@@ -145,7 +192,7 @@ namespace SpEx {
 
 		STyp::Dystans srednicaGwiazdy_; /// Œrednica gwiazdy
 		STyp::Temperatura sredniaTemperaturaGwiazdy_; /// Œrednia temperatura  gwiazdy
-		STyp::Identyfikator identyfikator_;
+		STyp::Identyfikator identyfikator_; /// Identyfikator obiektu.
 		Planety planety_; /// Lista planet przynale¿nych  do uk³adu.
 	};
 }

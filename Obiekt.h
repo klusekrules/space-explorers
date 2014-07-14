@@ -12,6 +12,9 @@ namespace SpEx{
 	*
 	* Klasa bazowa dla obiektów w grze. Poszerza interfejs o metody sprawdzaj¹ce powierzchniê, objêtoœæ i masê.
 	* Rozsze¿a tak¿e interfejs o metodê sprawdzaj¹c¹ mo¿liwoœæ dodania obiektu do ³adowni.
+	* \author Daniel Wojdak
+	* \version 2
+	* \date 14-07-2014
 	*/
 	class Obiekt :
 		virtual public PodstawoweParametry,
@@ -19,17 +22,19 @@ namespace SpEx{
 		virtual public Serializacja
 	{
 	public:
-
 		/**
 		* \brief Konstruktor.
 		*
+		* Konstruktor.
 		* \param[in] parametry - Parametry obiektu wymagane do poprawnego utworzenia instancji.
 		* \param[in] obiektInfo - Referencja do obiektu opisuj¹cego.
 		*/
 		Obiekt(const PodstawoweParametry& parametry, const ObiektInfo& obiektInfo);
 
 		/**
-		* \brief Destruktor.
+		* \brief Domyœlny destruktor.
+		*
+		* Domyœlny destruktor.
 		*/
 		virtual ~Obiekt() = default;
 
@@ -138,11 +143,25 @@ namespace SpEx{
 		*/
 		std::string napis() const override;
 
+		/**
+		* \brief Metoda pobieraj¹ca obiekt opisowy.
+		*
+		* Metoda pobiera referencjê do obiektu opisowego.
+		* \return Referencja do obiektu opisowego.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 14-07-2014
+		*/
 		const ObiektInfo& pobierzObiektInfo()const;
 
 	protected:
-
+		/**
+		* \brief Domyœlny konstruktor kopiuj¹cy.
+		*
+		* Domyœlny konstruktor kopiuj¹cy.
+		*/
 		Obiekt(const Obiekt&) = default;
+
 		const ObiektInfo& obiektInfo_; /// Referencja do obiektu opisowego.
 
 	private:

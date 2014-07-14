@@ -9,8 +9,8 @@ namespace SpEx{
 	*
 	* Klasa s³u¿¹ca do generowania unikalnych identyfikatorów dla planet, flot itp.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 22-07-2013
+	* \version 2
+	* \date 14-07-2014
 	*/
 	class Licznik :
 		virtual public SLog::LoggerInterface,
@@ -29,9 +29,20 @@ namespace SpEx{
 
 		/**
 		* \brief Konstruktor domyœlny.
+		*
+		* Konstruktor domyœlny.
 		*/
 		Licznik() = default;
 
+		/**
+		* \brief Metoda pobieraj¹ca identyfikator.
+		*
+		* Metoda pobiera identyfikator licznika.
+		* \return Identyfikator licznika.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
+		*/
 		const STyp::Identyfikator& pobierzIdentyfikator()const;
 
 		/**

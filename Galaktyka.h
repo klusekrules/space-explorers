@@ -9,8 +9,8 @@ namespace SpEx{
 	* Klasa reprezentuje galaktykê. Przechowuje informacje o przynale¿nyc uk³adach.
 	* \note Klasa nie jest u¿ywna.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 18-10-2013
+	* \version 2
+	* \date 14-07-2014
 	*/
 	class Galaktyka :
 		virtual public SLog::LoggerInterface,
@@ -24,15 +24,30 @@ namespace SpEx{
 		/**
 		* \brief Konstruktor.
 		*
+		* Konstruktor.
 		* \param[in] identyfikator - Identyfikator galaktyki.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		Galaktyka(const STyp::Identyfikator& identyfikator);
 
 		/**
-		* \brief Destruktor.
+		* \brief Domyœlny destruktor.
+		*
+		* Domyœlny destruktor.
 		*/
 		virtual ~Galaktyka() = default;
 
+		/**
+		* \brief Metoda pobieraj¹ca identyfikator.
+		*
+		* Metoda pobiera identyfikator obiektu.
+		* \return Identyfikator obiektu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 14-07-2014
+		*/
 		const STyp::Identyfikator& pobierzIdentyfikator()const;
 
 		/**
@@ -41,6 +56,9 @@ namespace SpEx{
 		* Metoda zwracaj¹ca uk³ad o podanym identyfikatorze.
 		* \param[in] identyfikator - Numer identyfikuj¹cy uk³ad.
 		* \return WskaŸnik na uklad s³oneczny lub nullptr je¿eli nie znaleziono uk³adu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		std::shared_ptr<UkladSloneczny> pobierzUklad(const STyp::Identyfikator& identyfikator) const;
 
@@ -50,6 +68,9 @@ namespace SpEx{
 		* Metoda dodaje do listy uk³ad przekazany jako wskaŸnik.
 		* \param[in] uklad - wskaznik na uklad.
 		* \return true je¿eli uda siê dodaæ uk³ad, false w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		bool dodajUklad(std::shared_ptr<UkladSloneczny> uklad);
 
@@ -60,6 +81,9 @@ namespace SpEx{
 		* \param[out] wezel - Wêze³ do którego s¹ zapisywane dane.
 		* \return Zwracana jest wartoœæ true, je¿eli zapisano obiekt poprawnie. False, je¿eli zapis siê nie powiód³.
 		* \warning Je¿eli zwrócono wartoœæ false wêze³ przekazany jako parametr nie jest zmodyfokowany.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		bool zapisz(XmlBO::ElementWezla wezel) const override;
 
@@ -71,6 +95,9 @@ namespace SpEx{
 		* \return Zwracana jest wartoœæ true, je¿eli odczytano obiekt poprawnie. False, je¿eli odczyt siê nie powiód³.
 		* \warning Metoda nie modyfikuje wêz³a.
 		* \warning Je¿eli metoda zwróci wartoœæ false, obiekt mo¿e znajdowaæ siê w stanie nieustalonym. Nie jest zalecane u¿ywanie takiego obiektu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		bool odczytaj(XmlBO::ElementWezla wezel) override;
 
@@ -84,7 +111,7 @@ namespace SpEx{
 
 		int iloscUkladow_; /// Liczba uk³adów przynale¿nych do galaktyki
 
-		STyp::Identyfikator identyfikator_;
+		STyp::Identyfikator identyfikator_; /// Identyfikator galaktyki.
 
 		UkladySloneczne uklady_; /// Lista uk³adów.
 	};
