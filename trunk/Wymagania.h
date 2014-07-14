@@ -13,8 +13,8 @@ namespace SpEx{
 	*
 	* Klasa gromadzi i zarz¹dza wymaganiami obiektu.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 23-07-2013
+	* \version 2
+	* \date 14-07-2014
 	*/
 	class Wymagania :
 		virtual public SLog::LoggerInterface,
@@ -22,47 +22,49 @@ namespace SpEx{
 		public se::NonMoveable
 	{
 	public:
-		//--- Definicje typów lokalnych ---
-		typedef Kryterium TypWarunku;
-		typedef SzablonKryterium< TypWarunku > Warunek;
-		typedef std::vector< Warunek::TypObiektu > PrzetworzoneWarunki;
-		typedef std::vector< Warunek > ListaWarunkow;
-		typedef std::shared_ptr<SZmi::ZmianaInterfejs> Zmiana;
+		typedef Kryterium TypWarunku; /// Typ warunku
+		typedef SzablonKryterium< TypWarunku > Warunek; /// Warunek
+		typedef std::vector< Warunek::TypObiektu > PrzetworzoneWarunki; /// Przetworzony warunek
+		typedef std::vector< Warunek > ListaWarunkow;  /// Lista warunków
+		typedef std::shared_ptr<SZmi::ZmianaInterfejs> Zmiana; /// Zmiana warunku
 
-		//--- Metody domyœlne ---
+		/**
+		* \brief Domyœlny destruktor.
+		*
+		* Domyœlny destruktor.
+		*/
 		virtual ~Wymagania() = default;
 
-		//--- Metody usuniête ---
-
-		//--- Metody statyczne ---
-
-		static Kryterium::AtrybutKryterium wylicz(const Warunek&, const PodstawoweParametry&);
-
-		//--- Konstruktory ---
-
+		/**
+		* \brief Metoda wyliczaj¹ca wartoœæ warunku w zale¿noœci od parametrów.
+		*
+		* Metoda wylicza wartoœæ przekazanego warunku uwzglêdniaj¹c wartoœæ podstawowych parametrów.
+		* \param[in] warunek - Wyliczany warunek.
+		* \param[in] parametry - Parametry uwzglêdniane przy wyliczaniu.
+		* \return Obliczona wartoœc warunku.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
+		*/
+		static Kryterium::AtrybutKryterium wylicz(const Warunek& warunek, const PodstawoweParametry& parametry);
+		
 		/**
 		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		explicit Wymagania(XmlBO::ElementWezla wezel);
-
-		//--- Destruktor ---
-
-		//--- Operatory ---
-
-		//--- Metody wirtualne ---
-
-		//--- Metody przeci¹¿one ---
 
 		/**
 		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
 		* \return Napis zwieraj¹cy opis klasy.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		std::string napis() const override;
-
-		//--- Metody typu Get/Set ---
-
-		//--- Pozosta³e metody ---
 
 		/**
 		* \brief Metoda wyliczaj¹ca czas trwania budowy obiektu.
@@ -70,6 +72,9 @@ namespace SpEx{
 		* Metoda wylicza czas jaki jest potrzebny, aby wybudowaæ obiekty o podanej iloœci, na planecie przekazanej przez parametry.
 		* \param[in] parametry - Podstawowe parametry potrzebne do wyliczenia czasu.
 		* \return Czas jaki zosta³ wyliczony.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		virtual STyp::Czas pobierzCzasBudowy(const PodstawoweParametry& parametry)const;
 
@@ -79,6 +84,9 @@ namespace SpEx{
 		* Metoda wylicza potrzebne wymagania, aby wybudowaæ obiekty, na planecie przekazanej przez parametry.
 		* \param[in] parametry - Podstawowe parametry potrzebne do wyliczenia wymagañ.
 		* \return Lista wymagañ jaka zosta³a wyliczona.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		PrzetworzoneWarunki pobierzWarunki(const PodstawoweParametry& parametry) const;
 		
@@ -89,12 +97,13 @@ namespace SpEx{
 		* \param[in] parametry - Podstawowe parametry potrzebne do wyliczenia wymagañ i kosztów.
 		* \param[in] warunek - warunek uwzglêdnienia kryterium.
 		* \return true je¿eli mo¿na wybudowaæ obiekty, false w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		bool czySpelniaWymagania(const PodstawoweParametry& parametry, std::function<bool(const Kryterium&)> warunek = nullptr )const;
 
 	private:
-
-		//--- Atrybuty ---
 		ListaWarunkow warunki_; /// Lista warunków.
 		Zmiana zmianaCzasuBudowy_; /// Zmiana czasu budowy.
 		

@@ -25,17 +25,23 @@ namespace SpEx{
 		typedef typename std::map< STyp::Identyfikator, std::shared_ptr<T> >::const_iterator const_iterator;
 
 		/**
-		* \brief Konstruktor.
+		* \brief Domyœlny konstruktor.
+		*
+		*  Domyœlny konstruktor.
 		*/
 		ListaObiektow() = default;
 
 		/**
-		* \brief Destruktor.
+		* \brief Domyœlny destruktor.
+		*
+		* Domyœlny destruktor.
 		*/
 		virtual ~ListaObiektow() = default;
 
 		/**
 		* \brief Konstruktor kopiuj¹cy.
+		*
+		* Konstruktor kopiuj¹cy.
 		* \param[in] lista - Lista obiektów, która zostanie skopiowana do tworzonego obiektu.
 		*/
 		ListaObiektow(const ListaObiektow& lista){
@@ -53,6 +59,8 @@ namespace SpEx{
 
 		/**
 		* \brief Konstruktor przenosz¹cy.
+		*
+		* Konstruktor przenosz¹cy.
 		* \param[in] lista - Lista obiektów, która zostanie przeniesiona do tworzonego obiektu.
 		*/
 		ListaObiektow(ListaObiektow&& lista){
@@ -62,6 +70,12 @@ namespace SpEx{
 			lista.wyczysc();
 		}
 
+		/**
+		* \brief Operator kopiuj¹cy.
+		*
+		* Operator kopiuj¹cy.
+		* \param[in] lista - Lista obiektów, która zostanie skopiowana do obiektu.
+		*/
 		ListaObiektow& operator=(ListaObiektow&& lista){
 			wyczysc();
 			for (auto element : lista){

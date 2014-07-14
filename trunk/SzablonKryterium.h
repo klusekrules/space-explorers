@@ -19,64 +19,76 @@ namespace SpEx{
 	class SzablonKryterium
 	{
 	public:
-		//--- Definicje typów lokalnych ---
-
-		typedef std::shared_ptr<T> TypObiektu;
-		typedef std::shared_ptr<SZmi::ZmianaInterfejs> Zmiana;
-
-		//--- Metody domyœlne ---
-
+		typedef std::shared_ptr<T> TypObiektu; /// Typ obiektu przechowywanego w szablonie.
+		typedef std::shared_ptr<SZmi::ZmianaInterfejs> Zmiana; /// Typ zmiany przechowywanej w szablonie.
+		
+		/**
+		* \brief Domyœlny destruktor.
+		*
+		* Domyœlny destruktor.
+		*/
 		virtual ~SzablonKryterium() = default;
 
-		SzablonKryterium(const SzablonKryterium&) = default;
+		/**
+		* \brief Domyœlny konstruktor kopiuj¹cy.
+		*
+		* Domyœlny konstruktor kopiuj¹cy.
+		* \param[in] obiekt - Obiekt Ÿród³owy.
+		*/
+		SzablonKryterium(const SzablonKryterium& obiekt) = default;
 
-		SzablonKryterium(SzablonKryterium&& obiekt) = default; /*{
-			*this = std::move(obiekt);
-		}*/
+		/**
+		* \brief Domyœlny konstruktor przenosz¹cy.
+		*
+		* Domyœlny konstruktor przenosz¹cy.
+		* \param[inout] obiekt - Obiekt Ÿród³owy.
+		*/
+		SzablonKryterium(SzablonKryterium&& obiekt) = default;
 
-		SzablonKryterium& operator=(const SzablonKryterium&) = default;
+		/**
+		* \brief Domyœlny operator kopiuj¹cy.
+		*
+		* Domyœlny operator kopiuj¹cy.
+		* \param[inout] obiekt - Obiekt Ÿród³owy.
+		* \return Referencja do obiektu.
+		*/
+		SzablonKryterium& operator=(const SzablonKryterium& obiekt) = default;
 
-		SzablonKryterium& operator=(SzablonKryterium&& obiekt) = default;/*{
-			if (*this != &obiekt){
-				zmiana_ = std::move(obiekt.zmiana_);
-				obiekt_ = std::move(obiekt.obiekt_);
-			}
-			return *this;
-		};*/
+		/**
+		* \brief Domyœlny operator przenosz¹cy.
+		*
+		* Domyœlny operator przenosz¹cy.
+		* \param[inout] obiekt - Obiekt Ÿród³owy.
+		* \return Referencja do obiektu.
+		*/
+		SzablonKryterium& operator=(SzablonKryterium&& obiekt) = default;
 
-		//--- Metody usuniête ---
-
+		/**
+		* \brief Konstruktor.
+		*/
 		SzablonKryterium() = delete;
-
-		//--- Metody statyczne ---
-
-		//--- Konstruktory ---
 
 		/**
 		* \brief Konstruktor.
 		*
 		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 23-07-2013
 		*/
 		SzablonKryterium(XmlBO::ElementWezla wezel){
 			obiekt_ = std::make_shared<T>(wezel);
 			zmiana_ = Utils::TworzZmiane(XmlBO::ZnajdzWezel<NOTHROW>(wezel, WEZEL_XML_ZMIANA));
 		}
 
-		//--- Destruktor ---
-
-		//--- Operatory ---
-
-		//--- Metody wirtualne ---
-
-		//--- Metody przeci¹¿one ---
-		
-		//--- Metody typu Get/Set ---
-
 		/**
 		* \brief Metoda pobieraj¹ca atrybut.
 		*
 		* \return WskaŸnik na przechowywany obiekt.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 23-07-2013
 		*/
 		TypObiektu pobierzObiekt() const{
 			return obiekt_;
@@ -86,28 +98,29 @@ namespace SpEx{
 		* \brief Metoda pobieraj¹ca atrybut.
 		*
 		* \return WskaŸnik na przechowywan¹ zmianê.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 23-07-2013
 		*/
 		Zmiana pobierzZmiane()const{
 			return zmiana_;
 		}
 
-		//--- Pozosta³e metody ---
-		
 		/**
 		* \brief Metoda wykonuj¹ca akcje na obiekcie.
 		*
 		* Metoda wykonuje dowoln¹ akcjê na obiekcie.
 		* \param[in,out] funkcja - Funktor wykonuj¹cy akcje na obiekcie.
 		* \return Wartoœæ zwracana przez funktor.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 23-07-2013
 		*/
 		bool wykonaj(std::function<bool(TypObiektu, Zmiana)> funkcja){
 			return funkcja(obiekt_, zmiana_);
 		}
 
 	private:
-
-		//--- Atrybuty ---
-
 		Zmiana zmiana_ = nullptr; /// WskaŸnika na zmianê parametru obiektu.
 		TypObiektu obiekt_ = nullptr; /// WskaŸnik na obiekt.
 	};

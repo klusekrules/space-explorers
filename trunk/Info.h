@@ -11,8 +11,8 @@ namespace SpEx{
 	*
 	* Klasa bazowa dla obiektu opisuj¹cego. Zawiera podstawowy opis obiektu. Zawiera wymagania obiektu.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 22-07-2013
+	* \version 2
+	* \date 14-07-2014
 	*/
 	class Info :
 		virtual public SLog::LoggerInterface,
@@ -20,7 +20,14 @@ namespace SpEx{
 		public se::NonMoveable
 	{
 	public:
-
+		/**
+		* \brief Wyliczenie wszystkich typów obiektów.
+		*
+		* Wszystkie typy obiektów.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 14-07-2014
+		*/
 		enum TYPY_OBIEKTOW {
 			NIEZNANY = 0,
 			BUDYNEK,
@@ -30,6 +37,13 @@ namespace SpEx{
 			OBRONA
 		};
 
+		Info() = delete;
+
+		/**
+		* \brief Domyœlny destruktor.
+		*
+		* Domyœlny destruktor.
+		*/
 		virtual ~Info() = default;
 
 		/**
@@ -89,9 +103,18 @@ namespace SpEx{
 		*/
 		std::string napis() const override;
 
-		const STyp::Identyfikator typ_ = NIEZNANY; /// Typ obiektu.
-
+		/**
+		* \brief Metoda pobieraj¹ca adres obrazka.
+		*
+		* Metoda pobiera adres obrazka.
+		* \return Adres do obrazka obiektu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 14-07-2014
+		*/
 		const STyp::Tekst& pobierzAdresObrazka() const;
+
+		const STyp::Identyfikator typ_ = NIEZNANY; /// Typ obiektu.
 
 	protected:
 		STyp::Tekst adresObrazka_; /// Adres do obrazka wyœwietlonego w GUI.

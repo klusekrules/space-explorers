@@ -17,8 +17,8 @@ namespace SpEx{
 	*
 	* Klasa reprezentuj¹ca planetê.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 26-07-2013
+	* \version 2
+	* \date 14-07-2014
 	*/
 	class Planeta :
 		virtual public SLog::LoggerInterface,
@@ -35,27 +35,44 @@ namespace SpEx{
 		typedef std::map< Indeks, std::shared_ptr< Obrona > > ListaObrona;
 		typedef std::map< Indeks, std::shared_ptr< Surowce > > ListaSurowcow;
 		typedef std::map< Indeks, std::shared_ptr< Flota > > ListaFlot;
-		// Nie u¿ywana funkcjonalnoœæ - typedef std::map< Indeks, STyp::Ilosc > ListaZasobow;
-
+		
 		/**
 		* \brief Konstruktor.
 		*
+		* Konstruktor.
 		* \param[in] identyfikator - Identyfikator planety.
 		* \param[in] identyfikatorUkladu - Numer identyfikuj¹cy uk³ad s³oneczny
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		Planeta(const STyp::Identyfikator& identyfikator, const STyp::Identyfikator& identyfikatorUkladu);
 
 		/**
-		* \brief Destruktor.
+		* \brief Domyœlny destruktor.
+		*
+		* Domyœlny destruktor.
 		*/
 		virtual ~Planeta(void) = default;
 		
+		/**
+		* \brief Metoda pobieraj¹ca identyfikator.
+		*
+		* Metoda pobiera identyfikator obiektu.
+		* \return Identyfikator obiektu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 14-07-2014
+		*/
 		const STyp::Identyfikator& pobierzIdentyfikator()const;
 
 		/**
 		* \brief Metoda pobiera iloœæ ró¿nych typów obiektów dostêpnych na planecie.
 		*
 		* \return Iloœæ typów obiektów na planecie.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		STyp::Ilosc pobierzIloscTypowObiektow()const;
 
@@ -64,10 +81,23 @@ namespace SpEx{
 		*
 		* Metoda pobiera z planety obiekt o podanym identyfikatorze.
 		* \param[in] identyfikator - Identyfikator obiektu.
-		* \return Referencja do obiektu.
+		* \return Referencja do obiektu. Je¿eli obiekt nie zostanie znaleziony jest wyrzucany wyj¹tek.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		const Obiekt& pobierzObiekt(const Indeks& identyfikator) const;
 
+		/**
+		* \brief Metoda pobiera obiekt o podanym identyfikatorze.
+		*
+		* Metoda pobiera z planety obiekt o podanym identyfikatorze.
+		* \param[in] identyfikator - Identyfikator obiektu.
+		* \return WskaŸnik obiektu lub nullptr.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 14-07-2014
+		*/
 		std::shared_ptr< Obiekt > pobierzObiektJesliIstnieje(const Indeks& identyfikator) const;
 		
 		/**
@@ -75,7 +105,10 @@ namespace SpEx{
 		*
 		* Metoda pobiera z planety statek o podanym identyfikatorze.
 		* \param[in] identyfikator - Identyfikator obiektu.
-		* \return Referencja do obiektu.
+		* \return Referencja do obiektu. Je¿eli obiekt nie zostanie znaleziony jest wyrzucany wyj¹tek.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		const Statek& pobierzStatek(const Indeks& identyfikator) const;
 
@@ -84,7 +117,10 @@ namespace SpEx{
 		*
 		* Metoda pobiera z planety obronê o podanym identyfikatorze.
 		* \param[in] identyfikator - Identyfikator obiektu.
-		* \return Referencja do obiektu.
+		* \return Referencja do obiektu. Je¿eli obiekt nie zostanie znaleziony jest wyrzucany wyj¹tek.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		const Obrona& pobierzObrone(const Indeks& identyfikator) const;
 
@@ -93,7 +129,10 @@ namespace SpEx{
 		*
 		* Metoda pobiera z planety tehcnologie o podanym identyfikatorze.
 		* \param[in] identyfikator - Identyfikator obiektu.
-		* \return Referencja do obiektu.
+		* \return Referencja do obiektu. Je¿eli obiekt nie zostanie znaleziony jest wyrzucany wyj¹tek.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		const Technologia& pobierzTechnologie(const Indeks& identyfikator) const;
 
@@ -102,20 +141,48 @@ namespace SpEx{
 		*
 		* Metoda pobiera z planety budynek o podanym identyfikatorze.
 		* \param[in] identyfikator - Identyfikator obiektu.
-		* \return Referencja do obiektu.
+		* \return Referencja do obiektu. Je¿eli obiekt nie zostanie znaleziony jest wyrzucany wyj¹tek.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		const Budynek& pobierzBudynek(const Indeks& identyfikator) const;
 
+		/**
+		* \brief Metoda pobiera listê surowców.
+		*
+		* Metoda pobiera z planety listê surowców.
+		* \return Referencja do listy surowców.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 14-07-2014
+		*/
 		const ListaSurowcow& pobierzSurowce()const;
+		
 		/**
 		* \brief Metoda buduje obiekt na planecie.
 		*
-		* Metoda buduje obiekt o podanym identyfikatorze i iloœci na planecie.
+		* Metoda buduje obiekt o podanym identyfikatorze na planecie.
 		* \param[in] identyfikator - Identyfikator obiektu.
-		* \param[in] ilosc - Atrybut iloœci tworzonego obieku.
+		* \param[in] parametr - Parametr podstawowy tworzonego obieku.
 		* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
-		bool wybuduj(const Indeks& identyfikator, const PodstawoweParametry& );
+		bool wybuduj(const Indeks& identyfikator, const PodstawoweParametry& parametr);
+
+		/**
+		* \brief Metoda buduje obiekt na planecie.
+		*
+		* Metoda buduje obiekt o podanym identyfikatorze na planecie.
+		* \param[in] identyfikator - Identyfikator obiektu.
+		* \param[in] element - Wêze³ opisuj¹cy tworzony obiek.
+		* \return true je¿eli uda siê wybudowaæ obiekt, false w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 14-07-2014
+		*/
 		bool wybuduj(const Indeks& identyfikator, const XmlBO::ElementWezla element);
 		
 		/**
@@ -123,6 +190,9 @@ namespace SpEx{
 		*
 		* Metoda tworzy pusty obiekt floty na planecie i zwraca identyfikator.
 		* \return Identyfikator nowo stworzonej floty.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		Indeks dodajFlote();
 
@@ -132,6 +202,9 @@ namespace SpEx{
 		* Metoda pobiera sprytny wskaŸnik do floty o podanym identyfikatorze.
 		* \param[in] identyfikator - Identyfikator floty.
 		* \return Sprytny wskaŸnik do floty lub nullptr jezeli flota o podanym identyfikatorze nie istnieje.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		std::shared_ptr< Flota > pobierzFlote(const Indeks& identyfikator) const;
 
@@ -141,6 +214,9 @@ namespace SpEx{
 		* Metoda usuwa flotê z listy flot na planecie. Nie roz³adowuje jej ani nie przenosi statków na planete.
 		* \param[in] identyfikator - Identyfikator floty do usuniêcia.
 		* \return true je¿eli uda³o siê usun¹æ, false w przecwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		bool usunFlote(const Indeks& identyfikator);
 
@@ -152,6 +228,9 @@ namespace SpEx{
 		* \param[in] obiekt - Identyfikator obiektu, który ma byc przenisiony do floty.
 		* \param[in] ilosc - Iloœæ obiektów do przeniesienia.
 		* \return true je¿eli uda siê przenieœæ obiekt, false w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		bool przeniesDoFloty(const Indeks& flota, const Indeks& obiekt, const STyp::Ilosc& ilosc);
 
@@ -163,6 +242,9 @@ namespace SpEx{
 		* \param[in] obiekt - Identyfikator obiektu, który ma byc przenisiony do ³adowni floty.
 		* \param[in] ilosc - Iloœæ obiektów do przeniesienia.
 		* \return true je¿eli uda siê przenieœæ obiekt, false w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		bool zaladujSurowceNaFlote(const Indeks& flota, const Indeks& obiekt, const STyp::Ilosc& ilosc);
 
@@ -174,6 +256,9 @@ namespace SpEx{
 		* \param[in] obiekt - Identyfikator obiektu, który ma byc przenisiony do hangaru floty.
 		* \param[in] ilosc - Iloœæ obiektów do przeniesienia.
 		* \return true je¿eli uda siê przenieœæ obiekt, false w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		bool zaladujStatekNaFlote(const Indeks& flota, const Indeks& obiekt, const STyp::Ilosc& ilosc);
 
@@ -181,13 +266,21 @@ namespace SpEx{
 		* \brief Metoda rozladowujaca statek.
 		*
 		* Metoda przenosi obiekty z ³adowni na planetê.
+		* \param[in] statek - Statek do roz³adowania
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
+		* \todo Metoda oznaczona do przeniesienia do klasy Statek.
 		*/
-		void rozladujStatek(std::shared_ptr< Statek > statek); //- Przeniesc do metod statku
+		void rozladujStatek(std::shared_ptr< Statek > statek);
 
 		/**
 		* \brief Metoda sprawdzaj¹ca czy planeta ma w³asciciela.
 		*
 		* \return true je¿eli obiekt posiada w³aœciciela, false w przeciwnym przypadku.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		bool czyMaWlasciciela()const;
 
@@ -196,6 +289,9 @@ namespace SpEx{
 		*
 		* Metoda pobiera nazwê planety
 		* \return Nazwa planety.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		STyp::Tekst pobierzNazwePlanety() const;
 
@@ -204,6 +300,9 @@ namespace SpEx{
 		*
 		* Metoda ustawia nazwê planety
 		* \param[in] nazwa - Nowa nazwa planety.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		void ustawNazwePlanety(const STyp::Tekst& nazwa);
 
@@ -212,6 +311,9 @@ namespace SpEx{
 		*
 		* Metoda ustawiaj¹ca œredni¹ temperaturê na planecie.
 		* \param[in] temperatura - wartoœæ temperatury w kelwinach, jaka ma byæ ustawiona w obiekcie.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		void ustawTemperature(const STyp::Temperatura& temperatura);
 
@@ -220,6 +322,9 @@ namespace SpEx{
 		*
 		* Metoda ustawiaj¹ca œrednicê planety.
 		* \param[in] srednica - wartoœæ srednicy w mln km, jaka ma byæ ustawiona w obiekcie.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		void ustawSrednice(const STyp::Dystans& srednica);
 
@@ -228,6 +333,9 @@ namespace SpEx{
 		*
 		* Metoda ustawiaj¹ca odleg³oœæ planety od œrodka uk³adu s³onecznego.
 		* \param[in] odleglosc - wartoœæ odleglosci w mln km, jaka ma byæ ustawiona w obiekcie.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		void ustawOdlegloscOdSrodkaUkladu(const STyp::Dystans& odleglosc);
 
@@ -238,6 +346,9 @@ namespace SpEx{
 		* \param[in] procentWody - procenty powierzchni bêd¹cej wod¹.
 		* \param[in] procentUzytkowa - procent powierzchni u¿ytkowej.
 		* \return true je¿eli argumety s¹ w poprawnym zakresie false w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		bool wyliczPowierzchnie(const STyp::Fluktuacja& procentWody, const STyp::Fluktuacja& procentUzytkowa);
 
@@ -246,6 +357,9 @@ namespace SpEx{
 		*
 		* Metoda zwraca identyfikator uk³adu s³onecznego w którym znajduje sie planeta.
 		* \return Identyfikator uk³adu.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		const STyp::Identyfikator& pobierzIdUkladu() const;
 
@@ -253,9 +367,21 @@ namespace SpEx{
 		* \brief Metoda czyœci zawartoœæ planety.
 		*
 		* Metoda czyœci zawartoœæ planety. Usuwa tak¿e powi¹zanie z u¿ytkownikiem je¿eli takowe istnieje oraz zalogowany jest u¿ytkownik który jest przypisany do planety.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		void wyczyscZawartoscPlanety();
 
+		/**
+		* \brief Metoda od³¹czaj¹ca planetê.
+		*
+		* Metoda od³¹cza planetê od w³aœciciela.
+		* \return Wartoœæ true, je¿eli od³¹czono w³aœciciela lub nie ma w³aœciciela, wartoœæ false, je¿eli nie uda³o siê od³¹czyæ w³aœciciela.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
+		*/
 		bool odepnijPlanete();
 
 		/**
@@ -264,6 +390,9 @@ namespace SpEx{
 		* Metoda zwraca nawy¿szy poziom obiektu o podanym identyfikatorze.
 		* \param[in] identyfikator - Numer identyfikuj¹cy obiekt.
 		* \return Poziom obiektu lub 0 je¿eli nie znaleziono obiektu.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		STyp::Poziom pobierzPoziomObiektu(const Indeks& identyfikator) const;
 
@@ -273,6 +402,9 @@ namespace SpEx{
 		* Metoda zwraca iloœæobiektu o podanym indeksie.
 		* \param[in] indeks - Indeks obiekt.
 		* \return Iloœæ obiektu lub 0 je¿eli nie znaleziono obiektu.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		STyp::Ilosc pobierzIloscObiektu(const Indeks& indeks) const;
 
@@ -283,6 +415,9 @@ namespace SpEx{
 		* \param[out] wezel - Wêze³ do którego s¹ zapisywane dane.
 		* \return Zwracana jest wartoœæ true, je¿eli zapisano obiekt poprawnie. False, je¿eli zapis siê nie powiód³.
 		* \warning Je¿eli zwrócono wartoœæ false wêze³ przekazany jako parametr nie jest zmodyfokowany.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		bool zapisz(XmlBO::ElementWezla wezel) const override;
 
@@ -294,6 +429,9 @@ namespace SpEx{
 		* \return Zwracana jest wartoœæ true, je¿eli odczytano obiekt poprawnie. False, je¿eli odczyt siê nie powiód³.
 		* \warning Metoda nie modyfikuje wêz³a.
 		* \warning Je¿eli metoda zwróci wartoœæ false, obiekt mo¿e znajdowaæ siê w stanie nieustalonym. Nie jest zalecane u¿ywanie takiego obiektu.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		bool odczytaj(XmlBO::ElementWezla wezel) override;
 
@@ -309,6 +447,9 @@ namespace SpEx{
 		* Metoda dodaje Budynek do planety. Nie tworzy kopii. Sprawdza czy istnieje budynek o takim samym identyfikatorze.
 		* \param[in] obiekt - Sprytny wskaŸnik na dodawany obiekt.
 		* \return true je¿eli uda siê dodaæ obiekt, fasle w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		bool dodajObiekt(std::shared_ptr< Budynek > obiekt);
 
@@ -318,6 +459,9 @@ namespace SpEx{
 		* Metoda dodaje Obronê do planety. Nie tworzy kopii. Sprawdza czy istnieje obrona o takim samym identyfikatorze.
 		* \param[in] obiekt - Sprytny wskaŸnik na dodawany obiekt.
 		* \return true je¿eli uda siê dodaæ obiekt, fasle w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		bool dodajObiekt(std::shared_ptr< Obrona > obiekt);
 
@@ -327,6 +471,9 @@ namespace SpEx{
 		* Metoda dodaje Statek do planety. Nie tworzy kopii. Sprawdza czy istnieje budynek o takim samym identyfikatorze.
 		* \param[in] obiekt - Sprytny wskaŸnik na dodawany obiekt.
 		* \return true je¿eli uda siê dodaæ obiekt, fasle w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		bool dodajObiekt(std::shared_ptr< Statek > obiekt);
 
@@ -336,6 +483,9 @@ namespace SpEx{
 		* Metoda dodaje Technologie do planety. Nie tworzy kopii. Sprawdza czy istnieje budynek o takim samym identyfikatorze.
 		* \param[in] obiekt - Sprytny wskaŸnik na dodawany obiekt.
 		* \return true je¿eli uda siê dodaæ obiekt, fasle w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		bool dodajObiekt(std::shared_ptr< Technologia > obiekt);
 
@@ -345,6 +495,9 @@ namespace SpEx{
 		* Metoda dodaje Surowce do planety. Nie tworzy kopii. Sprawdza czy istnieje budynek o takim samym identyfikatorze.
 		* \param[in] obiekt - Sprytny wskaŸnik na dodawany obiekt.
 		* \return true je¿eli uda siê dodaæ obiekt, fasle w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		bool dodajObiekt(std::shared_ptr< Surowce > obiekt);
 	
@@ -355,13 +508,20 @@ namespace SpEx{
 		*
 		* Metoda zamienia bierz¹cego w³aœciciela na podanego w parametrze.
 		* \param[in] uzytkownik - WskaŸnik na u¿ytkownika.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		void ustawWlasciciela(Uzytkownik* uzytkownik);
 
 		/**
 		* \brief Metoda pobiera w³aœciciela.
 		*
-		*\return WskaŸnika na w³aœciciela.
+		* Metoda pobiera w³aœciciela planety.
+		* \return WskaŸnika na w³aœciciela.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
 		*/
 		Uzytkownik* pobierzWlasciciela() const;
 
@@ -379,18 +539,14 @@ namespace SpEx{
 		/* Lista parametrów planety */
 		STyp::Dystans srednicaPlanety_; /// Atrybut przechowuje informacje o œrednicy planety.
 		STyp::Dystans odlegloscOdSlonca_; /// Atrybut przechowuje informacje o odleg³oœci planety od centrum uk³adu s³onecznego.
-		//Predkosc predkoscKatowaPlanety_ ; /// Atrybut przechowuje informacje o prêdkoœci obiegu planety woko³o s³oñca.
-		//Fluktuacja naslonecznieniePlanety_; /// Atrybut przechowuj¹cy informacje o nas³onecznieniu planety.
-		//Fluktuacja wietrznoscPlanety_; /// Atrybut przechowuj¹cy informacje o natê¿eniu wiatrów na planecie.
 		STyp::Temperatura temperaturaPlanety_; /// Atrybut przechowuj¹cy informacje o œredniej temperaturze planety.
 		STyp::Powierzchnia calkowitaPowierzchniaPlanety_; /// Atrybut przehcowuj¹cy informacje o ca³kowitej powierzchni planety.
 		STyp::Powierzchnia powierzchniaZajetaPrzezWode_; /// Atrybut przechowuj¹cy informacje o powierzchni planety zajêtej przez wodê.
 		STyp::Powierzchnia powierzchniaLadow_; /// Atrybut przechowuj¹cy informacje o powierzchni planety zajêtej przez l¹dy.
 		STyp::Powierzchnia powierzchniaUzytkowaLadow_; /// Atrybut przechowuj¹cy informacje o powierzchni u¿ytkowej planety.
-		// Nie u¿ywana funkcjonalnoœæ - ListaZasobow dostepneZasobyPlanety_; /// Lista zasobów jakie mo¿na wydobyæ na planecie.
 		STyp::Tekst nazwaPlanety_; /// Nazwa planety.
 
-		STyp::Identyfikator identyfikator_;
+		STyp::Identyfikator identyfikator_; /// Identyfikator planety.
 		STyp::Identyfikator idUkladu_; /// Uk³ad s³oneczny w którym znajduje siê planeta.
 		STyp::Tekst idUzytkownika_; /// Nazwa u¿ytkownika przypisanego do planety.
 	};

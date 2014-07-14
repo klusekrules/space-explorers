@@ -59,11 +59,18 @@ namespace SpEx{
 
 		/**
 		* \brief Konstruktor.
+		*
+		* Konstruktor.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		GeneratorUkladow();
 
 		/**
-		* \brief Destruktor.
+		* \brief Domyœlny destruktor.
+		*
+		* Domyœlny destruktor.
 		*/
 		virtual ~GeneratorUkladow() = default;
 
@@ -72,6 +79,9 @@ namespace SpEx{
 		*
 		* Metoda generuje galaktykê.
 		* \return WskaŸnik na galaktykê.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		std::shared_ptr<Galaktyka> generujGalaktyke() const;
 
@@ -81,6 +91,9 @@ namespace SpEx{
 		* Metoda generuje uk³ad s³oneczny.
 		* \param[in] identyfikatorGalatyki - Numer identyfikuj¹cy galaktykê.
 		* \return WskaŸnik na uk³ad s³oneczny.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		std::shared_ptr<UkladSloneczny> generujUklad(const STyp::Identyfikator& identyfikatorGalatyki) const;
 
@@ -92,6 +105,9 @@ namespace SpEx{
 		* \param[in] mocGwiazdy - moc gwiazdy znajduj¹cej siê u uk³adzie.
 		* \param[in] identyfikatorUkladu - Numer identyfikuj¹cy uk³ad s³oneczny
 		* \return WskaŸnik na planetê.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		std::shared_ptr<Planeta> generujPlanete(const STyp::Dystans& odlegloscOdCentrum, const STyp::Moc& mocGwiazdy, const STyp::Identyfikator& identyfikatorUkladu) const;
 
@@ -102,6 +118,9 @@ namespace SpEx{
 		* \param[out] wezel - Wêze³ do którego s¹ zapisywane dane.
 		* \return Zwracana jest wartoœæ true, je¿eli zapisano obiekt poprawnie. False, je¿eli zapis siê nie powiód³.
 		* \warning Je¿eli zwrócono wartoœæ false wêze³ przekazany jako parametr nie jest zmodyfokowany.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		bool zapisz(XmlBO::ElementWezla wezel) const override;
 
@@ -113,6 +132,9 @@ namespace SpEx{
 		* \return Zwracana jest wartoœæ true, je¿eli odczytano obiekt poprawnie. False, je¿eli odczyt siê nie powiód³.
 		* \warning Metoda nie modyfikuje wêz³a.
 		* \warning Je¿eli metoda zwróci wartoœæ false, obiekt mo¿e znajdowaæ siê w stanie nieustalonym. Nie jest zalecane u¿ywanie takiego obiektu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		bool odczytaj(XmlBO::ElementWezla wezel) override;
 
@@ -138,6 +160,9 @@ namespace SpEx{
 		*
 		* Metoda generuje œrednicê gwiazdy.
 		* \return Œrednica gwiazdy w mln km.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		STyp::SPG::Dystans generujSredniceGwiazdy() const;
 
@@ -147,6 +172,9 @@ namespace SpEx{
 		* Metoda generuje œrednicê planety.
 		* \param[in] odlegloscOdCentrum - Odleg³oœæ planety od œrodka uk³adu s³onecznego.
 		* \return Œrednica planety w mln km.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		STyp::SPG::Dystans generujSrednicePlanety(const STyp::Dystans& odlegloscOdCentrum) const;
 
@@ -156,6 +184,9 @@ namespace SpEx{
 		* Metoda generuje temperaturê gwiazdy.
 		* \param[in] srednica - œrednica gwiazdy.
 		* \return Temperatura gwiazdy w kelwinach.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		STyp::SPG::Temperatura generujTemperatureGwiazdy(STyp::SPG::Dystans srednica) const;
 
@@ -166,6 +197,9 @@ namespace SpEx{
 		* \param[in] odlegloscOdCentrum - Odleg³oœæ planety od œrodka uk³adu s³onecznego.
 		* \param[in] mocGwiazdy - moc gwiazdy znajduj¹cej siê u uk³adzie.
 		* \return Temperatura planety w kelwinach.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 18-10-2013
 		*/
 		STyp::SPG::Temperatura generujTemperaturePlanety(const STyp::Dystans& odlegloscOdCentrum, const STyp::Moc& mocGwiazdy) const;
 	};
