@@ -11,8 +11,8 @@
 #include "Zlecenia.h"
 	
 namespace SpEx{
-	Ladownia::Ladownia(const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety, const LadowniaInfo& ladowniaInfo)
-		: PodstawoweParametry( wpisPoziom(poziom),POZIOM, identyfikatorPlanety), obiekty_(), zajete_(), ladowniaInfo_(ladowniaInfo)
+	Ladownia::Ladownia(const STyp::Ilosc& ilosc, const STyp::Identyfikator& identyfikatorPlanety, const LadowniaInfo& ladowniaInfo)
+		: PodstawoweParametry(wpisIlosc(ilosc), ILOSC, identyfikatorPlanety), obiekty_(), zajete_(), ladowniaInfo_(ladowniaInfo)
 	{
 	}
 

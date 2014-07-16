@@ -18,22 +18,32 @@ namespace SpEx{
 		/**
 		* \brief Konstruktor.
 		*
+		* Konstruktor.
 		* \param[in] poziom - Poziom tworzonych obiektów.
 		* \param[in] identyfikatorPlanety - Identyfikator planety rodzica obiektu.
 		* \param[in] jednostkaLatajacaInfo - Referencja do obiektu opisuj¹cego.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		JednostkaLatajaca(const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety, const JednostkaLatajacaInfo& jednostkaLatajacaInfo);
 
 		/**
 		* \brief Konstruktor.
 		*
+		* Konstruktor.
 		* \param[in] podstawoweParametry - Podstawowe parametry tworzonych obiektów.
 		* \param[in] jednostkaLatajacaInfo - Referencja do obiektu opisuj¹cego.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		JednostkaLatajaca(const PodstawoweParametry& podstawoweParametry, const JednostkaLatajacaInfo& jednostkaLatajacaInfo);
 
 		/**
-		* \brief Destruktor.
+		* \brief Dommyœlny destruktor.
+		*
+		* Domyœlny destruktor.
 		*/
 		virtual ~JednostkaLatajaca() = default;
 
@@ -44,40 +54,60 @@ namespace SpEx{
 		* \param[in] dystans - Dystans, na którym ma poruszaæ siê statek.
 		* \param[in] predkosc - Prêdkoœæ, któr¹ ma lecieæ statek.
 		* \return Paliwo zu¿yte przez statek.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		virtual STyp::ZuzyciePaliwa wyliczZuzyciePaliwa(const STyp::Dystans& dystans, const STyp::Predkosc& predkosc) const;
 
 		/**
 		* \brief Metoda wyliczaj¹ca jednostkowe zu¿ycie paliwa.
 		*
+		* Metoda oblicza jednostkowe zu¿ycie paliwa.
 		* \return Paliwo zu¿yte przez statek.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		virtual STyp::ZuzyciePaliwa pobierzJednostkoweZuzyciePaliwa()const;
 
 		/**
 		* \brief Metoda wyliczaj¹ca moc silnika.
 		*
+		* Metoda oblicza moc silnika.
 		* \return Moc silnika.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		virtual STyp::Moc pobierzMocSilnika()const;
 
 		/**
 		* \brief Metoda wyliczaj¹ca masê silnika.
 		*
+		* Metoda oblicza masê silnika.
 		* \return Masa silnika.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		virtual STyp::Masa pobierzMasaSilnika()const;
 
 		/**
 		* \brief Metoda wyliczaj¹ca sprawnoœæ silnika.
 		*
+		* Metoda oblicza sprawnoœæ silnika.
 		* \return Sprawnoœæ silnika.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		virtual STyp::Fluktuacja pobierzSprawnoscSilnika()const;
 
 		/**
 		* \brief Maksymalna prêkoœæ jak¹ mo¿e rozwin¹æ statek.
 		*
+		* Metoda wyliczaj¹ca maksymaln¹ prêdkoœæ jak¹ mo¿e rozwin¹æ statek.
 		* Kod pomocniczy w dobraniu wspó³czynników wzoru.
 		* \code {.cpp}
 		* locale pl ("Polish");
@@ -96,6 +126,9 @@ namespace SpEx{
 		* }
 		* \endcode
 		* \return prêdkoœæ jak¹ mo¿e rozwin¹æ statek.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		STyp::Predkosc predkoscMaksymalna() const;
 
@@ -110,7 +143,11 @@ namespace SpEx{
 		/**
 		* \brief Metoda zwracaj¹ca ca³kowit¹ masê statku w raz z mas¹ ³adowni.
 		*
+		* Metoda obliczaj¹ca ca³kowit¹ masê jednostki lataj¹cej.
 		* \return Ca³kowita masa statku.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		virtual STyp::Masa calkowitaMasaJednostki() const;
 

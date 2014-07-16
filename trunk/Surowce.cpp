@@ -31,24 +31,16 @@ namespace SpEx{
 		return false;
 	}
 
-	STyp::Objetosc Surowce::pobierzObjetosc(const PodstawoweParametry& parametryPodstawowe)const{
-		return surowceInfo_.pobierzObjetosc(parametryPodstawowe);
-	}
-
-	STyp::Masa Surowce::pobierzMase(const PodstawoweParametry& parametryPodstawowe)const{
-		return surowceInfo_.pobierzMase(parametryPodstawowe);
-	}
-
 	STyp::Objetosc Surowce::pobierzObjetosc()const{ 
-		return pobierzObjetosc(*this);
+		return surowceInfo_.pobierzObjetosc(*this);
 	}
 
 	STyp::Objetosc Surowce::pobierzObjetoscJednostkowa()const{
-		return pobierzObjetosc( PodstawoweParametry( STyp::Ilosc(1),pobierzIdentyfikatorPlanety() ) );
+		return surowceInfo_.pobierzObjetosc(PodstawoweParametry(STyp::Ilosc(1), pobierzIdentyfikatorPlanety()));
 	}
 
 	STyp::Masa Surowce::pobierzMase()const{
-		return pobierzMase(*this);
+		return surowceInfo_.pobierzMase(*this);
 	}
 
 	Surowce* Surowce::podziel(const STyp::Ilosc& ilosc){

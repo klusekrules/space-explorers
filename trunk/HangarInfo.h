@@ -8,6 +8,9 @@ namespace SpEx{
 	* \brief Klasa opisowa obiektu hangaru.
 	*
 	* Klasa opisowa obiektu hangaru.
+	* \author Daniel Wojdak
+	* \version 2
+	* \date 11-03-2014
 	*/
 	class HangarInfo :
 		virtual public SLog::LoggerInterface
@@ -16,25 +19,40 @@ namespace SpEx{
 		/**
 		* \brief Konstruktor.
 		*
+		* Konstruktor.
 		* \param[in] maksymalnaObjetosc - Podstatwowa maksymlana obiejêtoœæ hangaru.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 11-03-2014
 		*/
 		HangarInfo(const STyp::Powierzchnia& maksymalnaObjetosc);
 
 		/**
+		* \brief Konstruktor.
+		*
 		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 11-03-2014
 		*/
 		explicit HangarInfo(XmlBO::ElementWezla wezel);
 
 		/**
 		* \brief Konstruktor kopiuj¹cy.
 		*
+		* Konstruktor kopiuj¹cy.
 		* \param[in] obiekt - Obiekt Ÿród³owy.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 11-03-2014
 		*/
 		HangarInfo(const HangarInfo& obiekt);
 
 		/**
-		* \brief Destruktor.
+		* \brief Domyœlny destruktor.
+		*
+		* Domyœlny destruktor.
 		*/
 		virtual ~HangarInfo() = default;
 
@@ -44,6 +62,9 @@ namespace SpEx{
 		* Metoda wylicza ile statków mo¿e zmieœciciæ siê w hangarze.
 		* \param[in] parametry - Referencja do podstawowych parametrów obiektu dla którego wyliczany jest atrybut.
 		* \return Maksymalna objêtoœæ statków znajduj¹cych siê w hangarze.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 11-03-2014
 		*/
 		STyp::Powierzchnia pobierzMaksymalnaIloscPrzewozonychStatkow(const PodstawoweParametry& parametry) const;
 

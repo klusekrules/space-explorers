@@ -8,8 +8,8 @@
 #include "Aplikacja.h"
 
 namespace SpEx{
-	Hangar::Hangar(const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety, const HangarInfo& hangarInfo)
-		: PodstawoweParametry(wpisPoziom(poziom), POZIOM, identyfikatorPlanety), hangarInfo_(hangarInfo)
+	Hangar::Hangar(const STyp::Ilosc& ilosc, const STyp::Identyfikator& identyfikatorPlanety, const HangarInfo& hangarInfo)
+		: PodstawoweParametry(wpisIlosc(ilosc), ILOSC, identyfikatorPlanety), hangarInfo_(hangarInfo)
 	{
 	}
 

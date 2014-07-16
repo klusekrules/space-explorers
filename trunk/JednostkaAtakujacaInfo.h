@@ -34,27 +34,42 @@ namespace SpEx{
 		/**
 		* \brief Konstruktor.
 		*
+		* Konstruktor.
 		* \param[in] atak - podstawowny atak obiektu
 		* \param[in] pancerz - podstawowy pancerz obiektu
 		* \param[in] oslona - postawowa oslona obiektu
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		JednostkaAtakujacaInfo(const STyp::Obrazenia& atak, const STyp::Obrazenia& pancerz, const STyp::Obrazenia& oslona) throw();
 
 		/**
+		* \brief Konstruktor.
+		*
 		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		explicit JednostkaAtakujacaInfo(XmlBO::ElementWezla wezel);
 
 		/**
 		* \brief Konstruktor kopiuj¹cy.
 		*
+		* Konstruktor kopiuj¹cy.
 		* \param[in] obiekt - Obiekt Ÿród³owy.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		JednostkaAtakujacaInfo(const JednostkaAtakujacaInfo& obiekt);
 
 		/**
-		* \brief Destruktor.
+		* \brief Domyslny destruktor.
+		*
+		* Domyœlny destruktor.
 		*/
 		virtual ~JednostkaAtakujacaInfo() = default;
 
@@ -64,6 +79,9 @@ namespace SpEx{
 		* Metoda zwraca obra¿enia jakie mo¿e zadaæ obiekt.
 		* \param[in] parametry - Podstawowe parametry niezbêdne do wyliczenia obra¿eñ.
 		* \return Wartoœæ obra¿eñ ataku.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		STyp::Obrazenia pobierzAtak(const PodstawoweParametry& parametry) const;
 
@@ -73,6 +91,9 @@ namespace SpEx{
 		* Metoda zwraca obra¿enia jakie mo¿e przyj¹æ pancerz.
 		* \param[in] parametry - Podstawowe parametry niezbêdne do wyliczenia obra¿eñ.
 		* \return Wartoœæ obra¿eñ pancerza.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		STyp::Obrazenia pobierzPancerz(const PodstawoweParametry& parametry) const;
 
@@ -82,6 +103,9 @@ namespace SpEx{
 		* Metoda zwraca obra¿enia jakie mo¿e przyj¹æ os³ona.
 		* \param[in] parametry - Podstawowe parametry niezbêdne do wyliczenia obra¿eñ.
 		* \return Wartoœæ obra¿eñ oslony.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		STyp::Obrazenia pobierzOslone(const PodstawoweParametry& parametry) const;
 

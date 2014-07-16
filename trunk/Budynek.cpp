@@ -36,12 +36,8 @@ namespace SpEx{
 		return budynekInfo_.pobierzProdukcje(*this);
 	}
 
-	STyp::Powierzchnia Budynek::pobierzPowierzchnie(const PodstawoweParametry& podstawoweParametry)const{
-		return budynekInfo_.pobierzPowierzchnie(podstawoweParametry);
-	}
-
 	STyp::Powierzchnia Budynek::pobierzPowierzchnie()const{
-		return pobierzPowierzchnie(*this);
+		return budynekInfo_.pobierzPowierzchnie(*this);
 	}
 
 	bool Budynek::zapisz(XmlBO::ElementWezla wezel) const {
