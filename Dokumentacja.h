@@ -2,7 +2,7 @@
  * <CENTER><H1>
  * <A HREF="http://space-explorers.googlecode.com/">Link do g³ównej strony projektu</A>
  * </H1></CENTER>
- * \section lista_zmian Lista zmian
+ * \section lista_zmian_main Lista zmian
  * \link milestone-prealppha0_0_1
  * Lista zmian miêdzy wersj¹ 0.0.1 a 0.0.2
  * \endlink
@@ -21,7 +21,7 @@
  */
 
 /** \page milestone Zmiany miêdzy wersjami
- * \section lista_zmian Lista zmian
+ * \section lista_zmian_milestone Lista zmian
  * \li \subpage milestone-prealppha0_0_1 "Lista zmian miêdzy wersj¹ 0.0.1 a 0.0.2" 
  * \li \subpage milestone-prealppha0_0_2 "Lista zmian miêdzy wersj¹ 0.0.2 a 0.0.3" 
  * \li \subpage milestone-prealppha0_0_3 "Lista zmian miêdzy wersj¹ 0.0.3 a 0.0.4"
@@ -106,7 +106,7 @@
  * \li \c masaSilnika - Podstawowa wartoœæ pancerza obiektu.
  * \li \c sprawnoscSilnika - Wartoœæ informuj¹ca jaki procent mocy silnika jest przekazywana na napêd statku, 0 = 0%, 1 = 100%. Dopuszczalna jest wartoœæ wiêksza od 1, natomiast wartoœæ mniejsza od 0 jest nie dopuszczalna.
  *
- * \subsubsection jednostka_ataujaca Opis wêz³a JednostkaAtakujacaInfo
+ * \subsubsection jednostka_atakujaca Opis wêz³a JednostkaAtakujacaInfo
  * Kolejnym ze wspomnianych wêz³ów jest \c %JednostkaAtakujacaInfo opisuje ona parametry statku odpowiedzialne na walkê. Weze³ musi sie znajdowaæ w opisywanym statku. Wêze³ posiada nastêpuj¹ce atrybuty:
  * \li \c id - zarezerwowany, ale musi zostaæ poprawnie wype³niony.
  * \li \c nazwa - Nazwa obiektu u¿ywana w grze.
@@ -228,7 +228,7 @@
  * \li \c objetosc - Objêtoœæ jak¹ zajmuje jeden obiekt.
  * \li \c masa - %Masa jak¹ posiada jeden obiekt.
  *
- * \subsubsection jednostka_ataujaca Opis wêz³a JednostkaAtakujacaInfo
+ * \subsection jednostkaatakujaca_subsection Opis wêz³a JednostkaAtakujacaInfo
  * Elementem podrzêdnym jest %JednostkaAtakujacaInfo opisuje ona parametry obrony odpowiedzialne na walkê. Weze³ musi sie znajdowaæ w opisywanej obronie. Wêze³ posiada nastêpuj¹ce atrybuty:
  * \li \c id - zarezerwowany, ale musi zostaæ poprawnie wype³niony.
  * \li \c nazwa - Nazwa obiektu u¿ywana w grze.
@@ -257,9 +257,9 @@
 */
 
 /** \page milestone-prealppha0_0_1 Zmiany od wersji 0.0.1 do 0.0.2
- * \section lista_zew Link do listy zadañ
+ * \section lista_zew_0_0_1 Link do listy zadañ
  * <A HREF="http://code.google.com/p/space-explorers/issues/list?can=1&q=Milestone%3DPreAlppha0.0.1&sort=priority+-modified&groupby=milestone&colspec=ID+Type+Status+Priority+Owner+Summary&x=priority&y=milestone&cells=tiles">Pe³na lista zadañ dla wersji 0.0.1</A>
- * \section lista_zmian Opis zmian
+ * \section lista_zmian_0_0_1 Opis zmian
  * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=1">[Issue-1]</A> </tt> Przeniesienie projektu na nowy serwer.
  * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=3">[Issue-3]</A> </tt> Dodano bibliotekê TinyXML++ do parsowania plików xml.
  * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=5">[Issue-5]</A> </tt> Dodano klasê JednostkaAtakujaca.
@@ -282,9 +282,9 @@
  */
 
 /** \page milestone-prealppha0_0_2 Zmiany od wersji 0.0.2 do 0.0.3
- * \section lista_zew Link do listy zadañ
+ * \section lista_zew_0_0_2 Link do listy zadañ
  * <A HREF="http://code.google.com/p/space-explorers/issues/list?can=1&q=Milestone%3DPreAlppha0.0.2&sort=priority+-modified&groupby=milestone&colspec=ID+Type+Status+Priority+Owner+Summary&x=priority&y=milestone&cells=tiles">Pe³na lista zadañ dla wersji 0.0.2</A>
- * \section lista_zmian Opis zmian
+ * \section lista_zmian_0_0_2 Opis zmian
  * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=4">[Issue-4]</A> </tt> Dodano wczytywanie obiektów z pliku xml.
  * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=11">[Issue-11]</A> </tt> Dodano klasy Budynek i BudynekInfo.
  * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=19">[Issue-19]</A> </tt> Dodano klasy opisuj¹ce wymagania obiektu.
@@ -306,9 +306,9 @@
  */
 
 /** \page milestone-prealppha0_0_3 Zmiany od wersji 0.0.3 do 0.0.4
- * \section lista_zew Link do listy zadañ
+ * \section lista_zew_0_0_3 Link do listy zadañ
  * <A HREF="http://code.google.com/p/space-explorers/issues/list?can=1&q=Milestone%3DPreAlppha0.0.3&sort=priority+-modified&groupby=milestone&colspec=ID+Type+Status+Priority+Owner+Summary&x=priority&y=milestone&cells=tiles">Pe³na lista zadañ dla wersji 0.0.3</A>
- * \section lista_zmian Opis zmian
+ * \section lista_zmian_0_0_3 Opis zmian
  * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=10">[Issue-10]</A> </tt> Dodano dokumentacje klas projektu.
  * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=37">[Issue-37]</A> </tt> Dodano zapis i odczyt stanów gry.
  * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=38">[Issue-38]</A> </tt> Dodano klasê Planeta.
@@ -323,9 +323,9 @@
  */
 
  /** \page milestone-prealppha0_0_4 Zmiany od wersji 0.0.4 do 0.0.5
- * \section lista_zew Link do listy zadañ
+ * \section lista_zew_0_0_4 Link do listy zadañ
  * <A HREF="http://code.google.com/p/space-explorers/issues/list?can=1&q=Milestone%3DPreAlppha0.0.4&sort=priority+-modified&groupby=milestone&colspec=ID+Type+Status+Priority+Owner+Summary&x=priority&y=milestone&cells=tiles">Pe³na lista zadañ dla wersji 0.0.4</A>
- * \section lista_zmian Opis zmian
+ * \section lista_zmian_0_0_4 Opis zmian
  * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=56">[Issue-56]</A> </tt> Dodano obiekt Obrona.
  * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=58">[Issue-58]</A> </tt> Dodano poprawne logowanie u¿ytkownika.
  * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=59">[Issue-59]</A> </tt> Dodanie generowania lokacji takich jak Galaktyka, Uk³ad S³oneczny, Planeta.

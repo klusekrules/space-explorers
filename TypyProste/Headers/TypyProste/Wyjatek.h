@@ -30,7 +30,7 @@ namespace STyp{
 		* \param[in] sladStosu - Œlad stosu w momencie wyst¹pienia wyj¹tku.
 		* \param[in] id - Identyfikator wyj¹tku.
 		* \param[in] tytul - Tytu³ wyj¹tku.
-		* \param[in] tekst - Opis Wyj¹tku.
+		* \param[in] tresc - Opis Wyj¹tku.
 		* \author Daniel Wojdak
 		* \version 1
 		* \date 25-06-2014

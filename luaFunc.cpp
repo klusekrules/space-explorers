@@ -11,6 +11,15 @@
 
 extern "C"{
 
+	/**
+	* \brief Metoda od³¹czaj¹ca okno komunikatów.
+	*
+	* Metoda od³¹cza okno komunikatów od okna g³ównego.
+	* Powoduje to, ¿e okno nie dostanie kolejnego komunikatu logu dopuki nie zostanie ponownie pod³¹czone.
+	* \author Daniel Wojdak
+	* \version 1
+	* \date 16-07-2014
+	*/
 	__declspec(dllexport) void __cdecl odlaczOknoKomunikatow()
 	{
 		SpEx::UtilsGui::odlaczOknoKomunikatow();
@@ -95,6 +104,7 @@ extern "C"{
 	__declspec(dllexport) void __cdecl zlecZadanie(const char *plik, const char *funkcja)
 	{
 		std::string luaPlik, luaFunkcja;
+		auto& maszynaStanow = SpEx::MaszynaStanow::pobierzInstancje();
 
 		if (plik){
 			luaPlik.append(plik);
@@ -103,18 +113,18 @@ extern "C"{
 		if (funkcja){
 			luaFunkcja.append(funkcja);
 		}
-
-		SpEx::MaszynaStanow::pobierzInstancje().dodajZadanie(SpEx::Zadanie(std::function<void()>(
-			[luaPlik, luaFunkcja](){
-			std::shared_ptr<SpEx::Skrypt> luaSkrypt = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadce().TworzSkrypt(
-				SpEx::FabrykaSkryptow::Identyfikator(XML_ATRYBUT_TYP_SKRYPT_LUA), nullptr);
+		std::function<void()> lambda = [luaPlik, luaFunkcja](void)->void{
+			std::shared_ptr<SpEx::Skrypt> luaSkrypt = 
+				SpEx::Aplikacja::pobierzInstancje().pobierzZarzadce().TworzSkrypt(SpEx::FabrykaSkryptow::Identyfikator(XML_ATRYBUT_TYP_SKRYPT_LUA), nullptr);
 			if (luaSkrypt){
 				luaSkrypt->zaladuj(luaPlik);
 				luaSkrypt->wykonaj();
 				luaSkrypt->wykonaj(luaFunkcja);
 			}
-		}
-		)));
+			return;
+		};
+		SpEx::Zadanie zadanie(lambda);
+		maszynaStanow.dodajZadanie(zadanie);
 	}
 
 	__declspec(dllexport) void __cdecl zamknijAplikacje()
@@ -241,8 +251,9 @@ extern "C"{
 			}
 
 		}
-		SpEx::UtilsGui::logToGUI(0, "Nie uda³o siê stworzyæ nowego gracza!");
+
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Nie uda³o siê stworzyæ nowego gracza!");
+		SpEx::UtilsGui::logToGUI(0, "Nie uda³o siê stworzyæ nowego gracza!");
 		return false;
 	}
 
@@ -265,6 +276,7 @@ extern "C"{
 	__declspec(dllexport) void __cdecl zlecZadanieGraficzne(const char *plik, const char *funkcja)
 	{
 		std::string luaPlik, luaFunkcja;
+		auto & maszynaStanow = SpEx::MaszynaStanow::pobierzInstancje();
 
 		if (plik){
 			luaPlik.append(plik);
@@ -274,8 +286,7 @@ extern "C"{
 			luaFunkcja.append(funkcja);
 		}
 
-		SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().dodajZadanie(SpEx::Zadanie(std::function<void()>(
-			[luaPlik, luaFunkcja](){
+		std::function<void()> lambda = [luaPlik, luaFunkcja]()->void{
 			std::shared_ptr<SpEx::Skrypt> luaSkrypt = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadce().TworzSkrypt(
 				SpEx::FabrykaSkryptow::Identyfikator(XML_ATRYBUT_TYP_SKRYPT_LUA), nullptr);
 			if (luaSkrypt){
@@ -283,8 +294,9 @@ extern "C"{
 				luaSkrypt->wykonaj();
 				luaSkrypt->wykonaj(luaFunkcja);
 			}
-		}
-		)));
+		};
+		SpEx::Zadanie zadanie(lambda);
+		maszynaStanow.pobierzOknoGry().dodajZadanie(zadanie);
 	}
 
 	__declspec(dllexport) bool __cdecl ustawWlasciwosc(int ekran, const char *kontrolka, const char *nazwaWlasciwosci, const char *nowaWartosc){

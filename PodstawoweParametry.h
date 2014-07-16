@@ -129,7 +129,7 @@ namespace SpEx{
 		* \brief Konstruktor
 		*
 		* Podstawowy konstruktor obiektu. Ustawia iloœæ reprezentowanych elementów i identyfikator planety, do której przypisany jest dany obiekt.
-		* \param[in] iloœæ - iloœæ reprezentowanych elementów.
+		* \param[in] ilosc - iloœæ reprezentowanych elementów.
 		* \param[in] identyfikatorPlanety - Identyfikator planety zawieraj¹cej obiekt.
 		* \author Daniel Wojdak
 		* \version 2

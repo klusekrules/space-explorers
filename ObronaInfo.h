@@ -59,7 +59,7 @@ namespace SpEx{
 		* \version 1
 		* \date 16-07-2014
 		*/
-		STyp::Powierzchnia pobierzPowierzchnie(const PodstawoweParametry& podstawoweParametry)const;
+		STyp::Powierzchnia pobierzPowierzchnie(const PodstawoweParametry& parametry)const;
 		
 		/**
 		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.

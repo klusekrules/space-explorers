@@ -345,9 +345,6 @@
     <ClInclude Include="Wymagania.h">
       <Filter>SourceFile\Model\Wymagania</Filter>
     </ClInclude>
-    <ClInclude Include="Library.h">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClInclude>
     <ClInclude Include="Gra.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
