@@ -19,25 +19,40 @@ namespace SpEx{
 		/**
 		* \brief Konstruktor.
 		*
+		* Konstruktor.
 		* \param[in] maksymalnaObjetosc - Podstatwowa maksymlana obiejêtoœæ ³adowni.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		LadowniaInfo(const STyp::Objetosc& maksymalnaObjetosc);
 
 		/**
+		* \brief Konstruktor.
+		*
 		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		explicit LadowniaInfo(XmlBO::ElementWezla wezel);
 
 		/**
 		* \brief Konstruktor kopiuj¹cy.
 		*
+		* Konstruktor kopiuj¹cy.
 		* \param[in] obiekt - Obiekt Ÿród³owy.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		LadowniaInfo(const LadowniaInfo& obiekt);
 
 		/**
-		* \brief Destruktor.
+		* \brief Domyœlny destruktor.
+		*
+		* Domyœlny destruktor.
 		*/
 		virtual ~LadowniaInfo() = default;
 
@@ -47,6 +62,9 @@ namespace SpEx{
 		* Metoda wylicza objêtoœæ wzglêdem parametrów podanych podczas wywo³ania.
 		* \param[in] parametry - Wymagane parametry do wykonania obliczeñ.
 		* \return Maksymalna objêtoœæ ³adowni.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		STyp::Objetosc pobierzPojemnoscMaksymalna(const PodstawoweParametry& parametry) const;
 

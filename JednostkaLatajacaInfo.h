@@ -17,68 +17,104 @@ namespace SpEx{
 	{
 	public:
 		/**
-		* Konstruktor parametryczny
+		* \brief Konstruktor.
+		*
+		* Konstruktor parametryczny.
 		* \param[in] klucz - Rodzaj napêdu ( silnika )
 		* \param[in] mocSilnika - Moc silnika
 		* \param[in] zuzyciePaliwa - Zu¿ycia paliwa przez silnik
 		* \param[in] masa - Masa uk³adu napêdowego
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		JednostkaLatajacaInfo(const STyp::Identyfikator& klucz, const STyp::Moc& mocSilnika, const STyp::ZuzyciePaliwa& zuzyciePaliwa, const STyp::Masa& masa);
 
 		/**
+		* \brief Konstruktor.
+		*
 		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		explicit JednostkaLatajacaInfo(XmlBO::ElementWezla wezel);
 
 		/**
 		* \brief Konstruktor kopiuj¹cy.
 		*
+		* Konstruktor kopiuj¹cy.
 		* \param[in] obiekt - Obiekt Ÿród³owy.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		JednostkaLatajacaInfo(const JednostkaLatajacaInfo& obiekt);
 
 		/**
-		* \brief Destruktor.
+		* \brief Domyœlny destruktor.
+		*
+		* Domyœlny destruktor.
 		*/
 		virtual ~JednostkaLatajacaInfo() = default;
 
 		/**
 		* \brief Metoda zwracaj¹ca rodzaj napêdu jednostki.
 		*
+		* Metoda zwracaj¹ca rodzaj napêdu.
 		* \return Rodzaj napêdu jednostki.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		const STyp::Identyfikator& pobierzRodzajNapedu() const;
 
 		/**
 		* \brief Metoda wyliczaj¹ca moc silnika jednostki.
 		*
+		* Metoda wyliczaj¹ca moc jednostkow¹ silnika.
 		* \param[in] parametry - Parametry wymagane do policzenia atrybutu.
 		* \return Moc silnika jednostki.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		STyp::Moc pobierzMocSilnika(const PodstawoweParametry& parametry) const;
 
 		/**
 		* \brief Metoda wyliczaj¹ca zu¿ycie paliwa jednostki.
 		*
+		* Metoda wyliaczaj¹ca zu¿ycie paliwa.
 		* \param[in] parametry - Parametry wymagane do policzenia atrybutu.
 		* \return Zu¿ycie paliwa jednostki.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		STyp::ZuzyciePaliwa pobierzZuzyciePaliwa(const PodstawoweParametry& parametry) const;
 
 		/**
 		* Metoda wyliczaj¹ca masê napêdu jednostki.
 		*
+		* Metoda wyliczaj¹ca masê napêdu.
 		* \param[in] parametry - Parametry wymagane do policzenia atrybutu.
 		* \return Masa napêdu jednostki.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		STyp::Masa pobierzMasaNapedu(const PodstawoweParametry& parametry) const;
 
 		/**
 		* Metoda wyliczaj¹ca sprawnoœæ silnika jednostki.
 		*
+		* Metoda wyliczaj¹ca sprawnoœæ silnika.
 		* \param[in] parametry - Parametry wymagane do policzenia atrybutu.
 		* \return Sprawnoœæ silnika jednostki.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
 		*/
 		STyp::Fluktuacja pobierzSprawnoscSilnika(const PodstawoweParametry& parametry) const;
 

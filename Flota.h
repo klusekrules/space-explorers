@@ -19,6 +19,15 @@ namespace SpEx {
 		virtual public Serializacja
 	{
 	public:
+
+		/**
+		* \brief Rodzaje celów podró¿y floty.
+		*
+		* Wszystkie rodzaje celów podró¿y floty.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
+		*/
 		enum CelPodrozy{
 			Zwiad,
 			Atak,
@@ -29,22 +38,38 @@ namespace SpEx {
 			Powrot
 		};
 
-		typedef std::map< STyp::Identyfikator, std::shared_ptr<Statek> > ListaStatkow;
+		typedef std::map< STyp::Identyfikator, std::shared_ptr<Statek> > ListaStatkow; /// Typ listy statków we flocie.
 
 		/**
 		* \brief Konstruktor.
 		*
+		* Konstruktor.
 		* \param[in] identyfikatorFloty - Identyfikator floty.
 		* \param[in] planetaPoczatkowa - Identyfikator planety pocz¹tkowej.
 		* \param[in] planetaDocelowa - Identyfikator planety docelowej.
 		* \param[in] celPodrozy - cel podró¿y floty.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		Flota(const STyp::Identyfikator& identyfikatorFloty, const STyp::Identyfikator& planetaPoczatkowa, const STyp::Identyfikator& planetaDocelowa, CelPodrozy celPodrozy);
 
 		/**
-		* \brief Destruktor.
+		* \brief Domyœlny destruktor.
+		*
+		* Domyœlny destruktor.
 		*/
 		virtual ~Flota(void) = default;
+
+		/**
+		* \brief Metoda pobieraj¹ca identyfikator floty.
+		*
+		* Metoda pobiera identyfikator floty.
+		* \return Identyfikator floty.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
+		*/
 		const STyp::Identyfikator& pobierzIdentyfikator()const;
 
 		/**
@@ -53,6 +78,9 @@ namespace SpEx {
 		* Metoda dodaje kolejny statek do floty.
 		* \param[in] statek - WskaŸnik do statku, który ma zostaæ dodany do floty.
 		* \return true je¿eli uda siê dodaæ statek. false w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		bool dodajStatek(std::shared_ptr<Statek> statek);
 
@@ -62,6 +90,9 @@ namespace SpEx {
 		* Metoda dodaje surowiec do ³adowni do floty.
 		* \param[in] obiekt - WskaŸnik do surowca, który ma zostaæ dodany do ³adowni floty.
 		* \return true je¿eli uda siê dodaæ surowiec. false w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		bool dodajLadunek(std::shared_ptr<Surowce> obiekt);
 
@@ -71,6 +102,9 @@ namespace SpEx {
 		* Metoda dodaje statek do hangaru do floty.
 		* \param[in] obiekt - WskaŸnik do statku, który ma zostaæ dodany do hangaru floty.
 		* \return true je¿eli uda siê dodaæ statek. false w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		bool dodajLadunek(std::shared_ptr<Statek> obiekt);
 
@@ -79,6 +113,9 @@ namespace SpEx {
 		*
 		* Metoda pobiera wolne miejsce znajduj¹ce siê na wszysktich statkach floty.
 		* \return Objêtoœæ jaka jest dostêpna na statkach.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		STyp::Objetosc pobierzDostepneMiejsceLadowni() const;
 
@@ -87,6 +124,9 @@ namespace SpEx {
 		*
 		* Metoda pobiera wolne miejsce znajduj¹ce siê na wszysktich statkach floty.
 		* \return Objêtoœæ jaka jest dostêpna na statkach.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		STyp::Objetosc pobierzDostepneMiejsceHangaru() const;
 
@@ -95,6 +135,9 @@ namespace SpEx {
 		*
 		* Metoda ustawia identyfikator planety docelowej do której zmierza flota.
 		* \param[in] identyfikatorPlanety - Identyfikator planety docelowej.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		void ustawPlaneteDocelowa(const STyp::Identyfikator& identyfikatorPlanety);
 
@@ -103,6 +146,9 @@ namespace SpEx {
 		*
 		* Metoda ustawia identyfikator planety pocz¹tkowej z której zmierza flota.
 		* \param[in] identyfikatorPlanety - Identyfikator planety pocz¹tkowej.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		void ustawPlanetePoczatkowa(const STyp::Identyfikator& identyfikatorPlanety);
 
@@ -111,6 +157,9 @@ namespace SpEx {
 		*
 		* Metoda pobiera identyfikator planety docelowej do której zmierza flota.
 		* \return Identyfikator planety docelowej.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		STyp::Identyfikator pobierzPlaneteDocelowa() const;
 
@@ -119,6 +168,9 @@ namespace SpEx {
 		*
 		* Metoda pobiera identyfikator planety pocz¹tkowej z której zmierza flota.
 		* \return Identyfikator planety pocz¹tkowej.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		STyp::Identyfikator pobierzPlanetePoczatkowa() const;
 
@@ -127,6 +179,9 @@ namespace SpEx {
 		*
 		* Metoda ustawia cel podró¿y floty.
 		* \param[in] cel - Cel podró¿y floty
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		void ustawCelPodrozy(CelPodrozy cel);
 
@@ -135,6 +190,9 @@ namespace SpEx {
 		*
 		* Metoda roz³adowuje zawartoœæ ³adowni na planecie. W zale¿noœci o celu mo¿e to byæ rózna planeta.
 		* \return true je¿eli uda sie rozladowaæ ³adownie, false w przeciwnym przypadku.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		bool rozladujLadownieNaPlanecie();
 
@@ -143,6 +201,9 @@ namespace SpEx {
 		*
 		* Metoda wprowadza flotê do planety. Nie usuwa wskaŸnika floty z planety do której flota jest przypisana.
 		* \return true je¿eli uda sie wprowadziæ flotê, false w przeciwnym przypadku.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		bool rozladujFloteNaPlanecie();
 
@@ -151,6 +212,9 @@ namespace SpEx {
 		*
 		* Metoda ustawia misje na powrót.
 		* \return true je¿eli zostanie ustawiona misja jako powrót. false je¿eli misja jest ju¿ ustawiona na powrót.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		bool zawrocFlote();
 
@@ -161,6 +225,9 @@ namespace SpEx {
 		* \param[out] wezel - Wêze³ do którego s¹ zapisywane dane.
 		* \return Zwracana jest wartoœæ true, je¿eli zapisano obiekt poprawnie. False, je¿eli zapis siê nie powiód³.
 		* \warning Je¿eli zwrócono wartoœæ false wêze³ przekazany jako parametr nie jest zmodyfokowany.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		bool zapisz(XmlBO::ElementWezla wezel) const override;
 
@@ -172,6 +239,9 @@ namespace SpEx {
 		* \return Zwracana jest wartoœæ true, je¿eli odczytano obiekt poprawnie. False, je¿eli odczyt siê nie powiód³.
 		* \warning Metoda nie modyfikuje wêz³a.
 		* \warning Je¿eli metoda zwróci wartoœæ false, obiekt mo¿e znajdowaæ siê w stanie nieustalonym. Nie jest zalecane u¿ywanie takiego obiektu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		bool odczytaj(XmlBO::ElementWezla wezel) override;
 

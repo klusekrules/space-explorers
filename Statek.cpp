@@ -67,22 +67,15 @@ namespace SpEx{
 	}
 	
 	STyp::Powierzchnia Statek::pobierzPowierzchnie()const{
-		return pobierzPowierzchnie(*this);
+		return statekinfo_.pobierzPowierzchnie(*this);
 	}
+
 	STyp::Powierzchnia Statek::pobierzPowierzchnieJednostkowa()const{
-		return pobierzPowierzchnie( PodstawoweParametry(STyp::Ilosc(1),pobierzIdentyfikatorPlanety()));
-	}
-
-	STyp::Powierzchnia Statek::pobierzPowierzchnie(const PodstawoweParametry& podstawoweParametry)const{
-		return statekinfo_.pobierzPowierzchnie(podstawoweParametry);
-	}
-
-	STyp::Masa Statek::pobierzMase(const PodstawoweParametry& podstawoweParametry)const{
-		return statekinfo_.pobierzMase(podstawoweParametry);
+		return statekinfo_.pobierzPowierzchnie(PodstawoweParametry(STyp::Ilosc(1), pobierzIdentyfikatorPlanety()));
 	}
 
 	STyp::Masa Statek::pobierzMase()const{
-		return pobierzMase(*this) + Ladownia::pobierzMaseZawartosciLadowni() + Statek::pobierzMasaSilnika() + Hangar::pobierzMaseZawartosciHangaru();
+		return statekinfo_.pobierzMase(*this) + Ladownia::pobierzMaseZawartosciLadowni() + Statek::pobierzMasaSilnika() + Hangar::pobierzMaseZawartosciHangaru();
 	}
 
 	bool Statek::czyMoznaDodacDoHangaru() const{

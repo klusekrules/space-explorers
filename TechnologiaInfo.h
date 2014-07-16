@@ -17,13 +17,20 @@ namespace SpEx{
 	{
 	public:
 		/**
+		* \brief Konstruktor.
+		*
 		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
 		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		explicit TechnologiaInfo(XmlBO::ElementWezla wezel);
 
 		/**
-		* \brief Destruktor.
+		* \brief Domyœlny destruktor.
+		*
+		* Domyœlny destruktor.
 		*/
 		virtual ~TechnologiaInfo() = default;
 
@@ -34,6 +41,9 @@ namespace SpEx{
 		* \param[in] parametry - parametry obiektu
 		* \warning Metoda allokuje pamiêæ dla nowego obiektu, który musi zostaæ zwolniony wywo³aniem delete.
 		* \return Metoda zwraca wskaŸnika na obiekt.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		Technologia* tworzEgzemplarz(const PodstawoweParametry& parametry ) const override;
 
@@ -51,6 +61,9 @@ namespace SpEx{
 		* \param[in] planeta - Referencja do obiektu planety
 		* \param[in] atrybut - Atrybut tworzonego obiektu.
 		* \return Metoda zwraca true je¿eli tworzenie zakoñczy siê sukcesem. Zwraca false w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		bool tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const override;
 
@@ -61,6 +74,9 @@ namespace SpEx{
 		* \param[in] planeta - Referencja do obiektu planety
 		* \param[in] element - Wezel zawieraj¹cy dane obiektu.
 		* \return Metoda zwraca true je¿eli tworzenie zakoñczy siê sukcesem. Zwraca false w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-07-2013
 		*/
 		bool tworz(Planeta& planeta, const XmlBO::ElementWezla element) const override;
 	};
