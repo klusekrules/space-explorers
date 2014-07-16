@@ -387,7 +387,6 @@
     <ClInclude Include="definicjeWezlowXML.h" />
     <ClInclude Include="Flota.h" />
     <ClInclude Include="Gra.h" />
-    <ClInclude Include="Library.h" />
     <ClInclude Include="Licznik.h" />
     <ClInclude Include="Planeta.h" />
     <ClInclude Include="PodstawoweParametry.h" />

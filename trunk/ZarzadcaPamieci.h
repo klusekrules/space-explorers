@@ -13,10 +13,10 @@ namespace SpEx{
 	*
 	* Klasa zarzadza wczytanymi lokacjami. Wczytuje na tylko uzywane planety i uklady.
 	* Nie usuwa ich z czasem ¿ycia programu
-	* \todo Usuwanie nieuzywanych lokacji.
 	* \author Daniel Wojdak
 	* \version 2
 	* \date 01-07-2014
+	* \todo Usuwanie nieuzywanych lokacji.
 	*/
 	class ZarzadcaPamieci :
 		virtual public Serializacja
@@ -246,7 +246,7 @@ namespace SpEx{
 		*
 		* Metoda pobiera dane i inicjuje obiekt zarz¹dcy na podstawie danych przekazanych przez parametry.
 		* \param[in] ustawienia - Obiekt zawierajacy ustawienia apliakcji.
-		* \param[in] wezel - Funkcja tworz¹ca œlad stosu.
+		* \param[in] stos - Funkcja tworz¹ca œlad stosu.
 		* \author Daniel Wojdak
 		* \version 2
 		* \date 01-07-2014
