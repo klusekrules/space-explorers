@@ -1,3 +1,8 @@
+
+/** @weakgroup group1 
+*  @{
+*/
+
 extern "C"{ 
 	/**
 	* \brief Struktura opisuj¹ca stan
@@ -26,3 +31,5 @@ extern "C"{
 		int idZdarzenia_; /// Numer zdarzenia.
 	};
 };
+
+/** @} */

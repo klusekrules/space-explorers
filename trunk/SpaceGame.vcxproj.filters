@@ -477,9 +477,6 @@
     <ClInclude Include="svn_version.h">
       <Filter>Resource\Wersja</Filter>
     </ClInclude>
-    <ClInclude Include="Dokumentacja.h">
-      <Filter>Resource\Dokumentacja</Filter>
-    </ClInclude>
     <ClInclude Include="OknoGry.h">
       <Filter>SourceFile\GUI\Ekrany</Filter>
     </ClInclude>
@@ -706,9 +703,6 @@
     </Filter>
     <Filter Include="Resource\Wersja">
       <UniqueIdentifier>{5b4859f7-adc4-401e-bb35-b2cfae124e15}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource\Dokumentacja">
-      <UniqueIdentifier>{1e530654-1ce7-423a-8674-facc800920cd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource\Czcionki">
       <UniqueIdentifier>{8b775081-01d3-4c5b-b25e-75e2dc65e7e7}</UniqueIdentifier>

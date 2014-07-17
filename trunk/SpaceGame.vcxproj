@@ -324,7 +324,6 @@
     <ClInclude Include="BudynekTest.h" />
     <ClInclude Include="CzyszczenieDanychTest.h" />
     <ClInclude Include="DllSkrypt.h" />
-    <ClInclude Include="Dokumentacja.h" />
     <ClInclude Include="EkranStartowy.h" />
     <ClInclude Include="EkranSzablon.h" />
     <ClInclude Include="FabrykaSkryptow.h" />
