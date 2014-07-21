@@ -1767,9 +1767,7 @@ namespace tgui
             firstVisibleChar = 0;
 
         sf::String tempString;
-        float textWidthWithoutLastChar;
         float fullTextWidth;
-        float halfOfLastCharWidth;
 		size_t lastVisibleChar;
 
         // Calculate the space inside the edit box
@@ -1823,6 +1821,8 @@ namespace tgui
         // for all the other characters, check where you have clicked.
 		for (size_t i = firstVisibleChar; i < lastVisibleChar; ++i)
         {
+			float textWidthWithoutLastChar;
+			float halfOfLastCharWidth;
             // Add the next character to the temporary string
             tempString += m_DisplayedText[i];
             m_TextFull.setString(tempString);

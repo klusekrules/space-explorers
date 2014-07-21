@@ -1151,7 +1151,7 @@ namespace tgui
             unsigned int newTopPosition = 0;
             sf::Vector2u newPosition(0, 0);
 
-            int distanceX;
+            
             unsigned int previousdistanceX = m_Size.x;
 
             // Loop through all characters
@@ -1206,9 +1206,9 @@ namespace tgui
                         setSelectionPointPosition(character + newlineAdded);
                         return;
                     }
-
+					
                     // Calculate the distance to the original position
-                    distanceX = newPosition.x - originalPosition.x;
+                    int distanceX = newPosition.x - originalPosition.x;
 
                     // Check if the distance is going away again
                     if (static_cast<unsigned int>(abs(distanceX)) > previousdistanceX)
@@ -1246,8 +1246,8 @@ namespace tgui
             unsigned int newTopPosition = 0;
             sf::Vector2u newPosition(0, 0);
 
-            int distanceX;
-            int previousdistanceX = m_Size.x;
+            
+			int previousdistanceX = m_Size.x;
 
             // Loop through all characters
             for (unsigned int i=0; i<m_Text.getSize(); ++i)
@@ -1313,7 +1313,7 @@ namespace tgui
                     }
 
                     // Calculate the distance to the original position
-                    distanceX = newPosition.x - originalPosition.x;
+                    int distanceX = newPosition.x - originalPosition.x;
 
                     // Check if the distance is going away again
                     if (abs(distanceX) > previousdistanceX)

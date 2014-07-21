@@ -151,7 +151,7 @@ namespace tgui
 	Widget::Ptr Container::get(const sf::String& widgetName) const
 	{
 		unsigned int i = 0;
-		bool ok = false;
+		//bool ok = false;
 
 		std::string cwidgetName = widgetName;
 		auto pos = cwidgetName.find_first_of('\\');
