@@ -4,8 +4,8 @@
 
 namespace SZmi{
 	ZmianaPotegowa::ZmianaPotegowa(XmlBO::ElementWezla wezel)
-		: wspolczynnik_(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, XML_WEZEL_ZMIANA_PARAM, XML_ATRYBUT_ZMIANA_ID, XML_WARTOSC_ATRYBUTU_ZMIANA_0X1)),
-		wykladnik_(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, XML_WEZEL_ZMIANA_PARAM, XML_ATRYBUT_ZMIANA_ID, XML_WARTOSC_ATRYBUTU_ZMIANA_0X2))
+		: wspolczynnik_(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, XML_WEZEL_ZMIANA_PARAM, XML_ATRYBUT_ZMIANA_ID, XML_WARTOSC_ATRYBUTU_ZMIANA_1)),
+		wykladnik_(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, XML_WEZEL_ZMIANA_PARAM, XML_ATRYBUT_ZMIANA_ID, XML_WARTOSC_ATRYBUTU_ZMIANA_2))
 	{
 	}
 

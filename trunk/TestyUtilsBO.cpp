@@ -233,8 +233,18 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		STyp::Tekst("Opis kopalni metalu."),
 		STyp::Powierzchnia(1200)
 		);
-	tworzKryterium(*bkopalnia, STyp::Identyfikator(1), STyp::Ilosc(60));
-	tworzKryterium(*bkopalnia, STyp::Identyfikator(2), STyp::Ilosc(24));
+	auto bKopalniaKryteriuMetal = tworzZmiana(*tworzKryterium(*bkopalnia, STyp::Identyfikator(1), STyp::Ilosc(60)), STyp::Identyfikator(4));
+	tworzParam(*bKopalniaKryteriuMetal, STyp::Identyfikator(1),STyp::Wartosc(1));
+	tworzParam(*bKopalniaKryteriuMetal, STyp::Identyfikator(2), STyp::Wartosc(2));
+
+	auto bKopalniaKryteriuKrysztal = tworzZmiana(*tworzKryterium(*bkopalnia, STyp::Identyfikator(2), STyp::Ilosc(24)), STyp::Identyfikator(4));
+	tworzParam(*bKopalniaKryteriuKrysztal, STyp::Identyfikator(1), STyp::Wartosc(1));
+	tworzParam(*bKopalniaKryteriuKrysztal, STyp::Identyfikator(2), STyp::Wartosc(2));
+
+	auto bKopalniaZmianaCzas = tworzZmiana(*bkopalnia, STyp::Identyfikator(7),STyp::Tekst("Czas"));
+	tworzParam(*bKopalniaZmianaCzas, STyp::Identyfikator(0), STyp::Wartosc(2));
+	tworzParam(*tworzZmiana(*bKopalniaZmianaCzas, STyp::Identyfikator(6)), STyp::Identyfikator(13), STyp::Wartosc(0));
+
 	tworzProdukcje(*bkopalnia, STyp::Identyfikator(1), STyp::Ilosc(50));
 	tworzZapotrzebowanie(*bkopalnia, STyp::Identyfikator(4), STyp::Ilosc(120));
 	// BUDYNEK - KOPALNIA METALU END
@@ -248,8 +258,17 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		STyp::Tekst("Opis elektrowni s³onecznej."),
 		STyp::Powierzchnia(2500)
 		);
-	tworzKryterium(*belektrownia, STyp::Identyfikator(1), STyp::Ilosc(40));
-	tworzKryterium(*belektrownia, STyp::Identyfikator(2), STyp::Ilosc(13));
+	auto belektrowniaKryteriuMetal = tworzZmiana(*tworzKryterium(*belektrownia, STyp::Identyfikator(1), STyp::Ilosc(40)), STyp::Identyfikator(4));
+	tworzParam(*belektrowniaKryteriuMetal, STyp::Identyfikator(1), STyp::Wartosc(1));
+	tworzParam(*belektrowniaKryteriuMetal, STyp::Identyfikator(2), STyp::Wartosc(2));
+
+	auto belektrowniaKryteriuKrysztal = tworzZmiana(*tworzKryterium(*belektrownia, STyp::Identyfikator(2), STyp::Ilosc(13)), STyp::Identyfikator(4));
+	tworzParam(*belektrowniaKryteriuKrysztal, STyp::Identyfikator(1), STyp::Wartosc(1));
+	tworzParam(*belektrowniaKryteriuKrysztal, STyp::Identyfikator(2), STyp::Wartosc(2));
+
+	auto belektrowniaZmianaCzas = tworzZmiana(*belektrownia, STyp::Identyfikator(7), STyp::Tekst("Czas"));
+	tworzParam(*belektrowniaZmianaCzas, STyp::Identyfikator(0), STyp::Wartosc(2));
+	tworzParam(*tworzZmiana(*belektrowniaZmianaCzas, STyp::Identyfikator(6)), STyp::Identyfikator(13), STyp::Wartosc(0));
 	tworzProdukcje(*belektrownia, STyp::Identyfikator(4), STyp::Ilosc(320));
 	// BUDYNEK - ELEKTROWNIA SLONECZNA END
 
@@ -262,9 +281,22 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		STyp::Tekst("Opis fabryki robotów."),
 		STyp::Powierzchnia(500)
 		);
-	tworzKryterium(*bfabryka, STyp::Identyfikator(1), STyp::Ilosc(200));
-	tworzKryterium(*bfabryka, STyp::Identyfikator(2), STyp::Ilosc(140));
-	tworzKryterium(*bfabryka, STyp::Identyfikator(3), STyp::Ilosc(96));
+	//tworzKryterium(*bfabryka, STyp::Identyfikator(3), STyp::Ilosc(96));
+
+	auto bfabrykaKryteriuMetal = tworzZmiana(*tworzKryterium(*bfabryka, STyp::Identyfikator(1), STyp::Ilosc(200)), STyp::Identyfikator(4));
+	tworzParam(*bfabrykaKryteriuMetal, STyp::Identyfikator(1), STyp::Wartosc(1));
+	tworzParam(*bfabrykaKryteriuMetal, STyp::Identyfikator(2), STyp::Wartosc(2));
+
+	auto bfabrykaKryteriuKrysztal = tworzZmiana(*tworzKryterium(*bfabryka, STyp::Identyfikator(2), STyp::Ilosc(140)), STyp::Identyfikator(4));
+	tworzParam(*bfabrykaKryteriuKrysztal, STyp::Identyfikator(1), STyp::Wartosc(1));
+	tworzParam(*bfabrykaKryteriuKrysztal, STyp::Identyfikator(2), STyp::Wartosc(2));
+
+	tworzKryterium(*bfabryka, STyp::Identyfikator(11), STyp::Poziom(3));
+	tworzKryterium(*bfabryka, STyp::Identyfikator(12), STyp::Poziom(2));
+
+	auto bfabrykaZmianaCzas = tworzZmiana(*bfabryka, STyp::Identyfikator(7), STyp::Tekst("Czas"));
+	tworzParam(*bfabrykaZmianaCzas, STyp::Identyfikator(0), STyp::Wartosc(2));
+	tworzParam(*tworzZmiana(*bfabrykaZmianaCzas, STyp::Identyfikator(6)), STyp::Identyfikator(13), STyp::Wartosc(0));
 	// BUDYNEK - FABRYKA ROBOTOW END
 
 	// OBRONA - WYRZUTNIA RAKIET

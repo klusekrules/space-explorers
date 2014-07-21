@@ -56,7 +56,7 @@ void WymaganiaTest::czasBudowy(){
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(2), STyp::Ilosc(600)));
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(3), STyp::Ilosc(70)));
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(12), STyp::Poziom(1)));
-	UNIT_TEST_ASSERT_EQUAL(STyp::Czas(66), planeta->pobierzObiekt(STyp::Identyfikator(12)).pobierzCzasRozbudowy());
+	UNIT_TEST_ASSERT_EQUAL(STyp::Czas(132), planeta->pobierzObiekt(STyp::Identyfikator(12)).pobierzCzasRozbudowy());
 }
 
 REJESTRUJ_PACZKE_TESTOW(WymaganiaTest);
