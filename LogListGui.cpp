@@ -23,14 +23,14 @@ namespace tgui{
 			prev.second->setTextColor(opisTypowKomunikatow_[prev.first].colorSecondary_);
 			prev.second->setTextSize(opisTypowKomunikatow_[prev.first].textSizeSecondary_);
 			if (!autoSized_)
-				prev.second->setSize(panelSize.x - (margin_.left + margin_.right), opisTypowKomunikatow_[prev.first].textSizeSecondary_);
+				prev.second->setSize(panelSize.x - static_cast<float>(margin_.left + margin_.right), static_cast<float>(opisTypowKomunikatow_[prev.first].textSizeSecondary_));
 		}
 
 		auto actual = listaObiektow_[empty_];
 		actual.second->setTextColor(opisTypowKomunikatow_[number].colorFirst_);
 		actual.second->setTextSize(opisTypowKomunikatow_[number].textSizeFirst_);
 		if (!autoSized_)
-			actual.second->setSize(panelSize.x - (margin_.left + margin_.right), opisTypowKomunikatow_[number].textSizeFirst_);
+			actual.second->setSize(panelSize.x - static_cast<float>(margin_.left + margin_.right), static_cast<float>(opisTypowKomunikatow_[number].textSizeFirst_));
 		actual.second->setText(text);
 
 		listaObiektow_[empty_].first = number;
@@ -63,7 +63,7 @@ namespace tgui{
 			switch (wPoziomie_)
 			{
 			case tgui::LogListGui::LEFT:
-				xPos = margin_.left;
+				xPos = static_cast<float>(margin_.left);
 				break;
 			case tgui::LogListGui::CENTER:
 				xPos = (panelSize.x - (margin_.left + margin_.right + labelSize.x)) / 2.f + margin_.left;
@@ -79,7 +79,7 @@ namespace tgui{
 			{
 			case tgui::LogListGui::TOP: 
 				if (numer == 1){
-					yPos = margin_.top;
+					yPos = static_cast<float>(margin_.top);
 				}
 				else{
 					yPos += interspace_;
@@ -118,7 +118,7 @@ namespace tgui{
 		if (!autoSized_){
 			float xPos = width - (margin_.left + margin_.right);
 			for (auto e : listaObiektow_){
-				e.second->setSize(xPos, opisTypowKomunikatow_[e.first].textSizeSecondary_);
+				e.second->setSize(xPos, static_cast<float>(opisTypowKomunikatow_[e.first].textSizeSecondary_));
 			}
 		}
 		recalculatePosition();

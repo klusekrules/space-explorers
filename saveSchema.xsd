@@ -25,15 +25,16 @@
                               <xs:sequence>
                                 <xs:element name="Planeta" minOccurs="0" maxOccurs="unbounded">
                                   <xs:complexType>
-                                    <xs:attribute name="id" type="idType" use="required"/>
+                                    <xs:attribute name="id" type="xs:unsignedLong" use="required"/>
+                                    <xs:attribute name="wolna" type="xs:boolean" use="required"/>
                                   </xs:complexType>
                                 </xs:element>
                               </xs:sequence>
-                              <xs:attribute name="id" type="idType" use="required"/>
+                              <xs:attribute name="id" type="xs:unsignedLong" use="required"/>
                             </xs:complexType>
                           </xs:element>
                         </xs:sequence>
-                        <xs:attribute name="id" type="idType" use="required"/>
+                        <xs:attribute name="id" type="xs:unsignedLong" use="required"/>
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
@@ -47,7 +48,7 @@
   </xs:element>
   <!-- Definicja typow zlozonych-->
   <xs:complexType name="LicznikTyp">
-    <xs:attribute name="id" type="idType" use="required"/>
+    <xs:attribute name="id" type="xs:unsignedLong" use="required"/>
     <xs:attribute name="ilosc" use="required">
       <xs:simpleType>
         <xs:restriction base="xs:double">
@@ -56,12 +57,4 @@
       </xs:simpleType>
     </xs:attribute>
   </xs:complexType>
-
-  <!-- Definicja typow prostych -->
-  <xs:simpleType name="idType">
-    <xs:restriction base="xs:string">
-      <xs:pattern value="0x([a-fA-F0-9]{1,8})"/>
-    </xs:restriction>
-  </xs:simpleType>
-
 </xs:schema>

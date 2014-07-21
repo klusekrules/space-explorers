@@ -4,6 +4,7 @@
 #include "definicjeWezlowXML.h"
 
 std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
+	auto before = std::locale::global(std::locale("C"));
 	std::shared_ptr<SPar::ParserDokument>dokument = std::make_shared<SPar::ParserDokumentXml>();
 	auto root = dokument->tworzElement(WEZEL_XML_ROOT);
 	UNIT_TEST_ASSERT_NOTNULL(root);
@@ -304,6 +305,8 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 	tworzKryterium(*olaserowe, STyp::Identyfikator(3), STyp::Ilosc(100));
 	// OBRONA - DZIALO LASEROWE END
 
+
+	std::locale::global(before);
 	return dokument;
 }
 

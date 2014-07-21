@@ -126,7 +126,7 @@ namespace ParserTesty
 			Assert::IsNotNull(XmlBO::ZnajdzWezel<NOTHROW>(root, "Element").get());
 			Assert::IsNotNull(XmlBO::ZnajdzWezelJezeli<NOTHROW>(root, "Element", "atrybut", "Napis").get());
 			Assert::IsNull(XmlBO::ZnajdzWezel<NOTHROW>(root, "Dziecko").get());
-			Assert::IsNull(XmlBO::ZnajdzWezel<THROW>(root, "Dziecko").get());
+			Assert::ExpectException<SPar::WyjatekParser>([&]()->void { XmlBO::ZnajdzWezel<THROW>(root, "Dziecko");  });
 			Assert::ExpectException<SPar::WyjatekParser>([&]()->void { XmlBO::ZnajdzWezel<THROW>(root, ""); });
 			Assert::ExpectException<SPar::WyjatekParser>([&]()->void { XmlBO::ZnajdzWezel<THROW>(nullptr, "Dziecko"); });
 			auto element = XmlBO::ZnajdzWezel<NOTHROW>(root, "Element");
@@ -136,7 +136,7 @@ namespace ParserTesty
 			Assert::AreEqual(1, XmlBO::WczytajAtrybut<int>(dziecko, "id", 0));
 			Assert::IsNotNull(XmlBO::ZnajdzWezelJezeli<NOTHROW>(element, "Dziecko","id","3", dziecko).get());
 			Assert::IsNull(XmlBO::ZnajdzWezelJezeli<NOTHROW>(element, "Dziecko", "id", "4", dziecko).get());
-			Assert::IsNull(XmlBO::ZnajdzWezelJezeli<THROW>(element, "Dziecko", "id", "4", dziecko).get());
+			Assert::ExpectException<SPar::WyjatekParser>([&]()->void { XmlBO::ZnajdzWezelJezeli<THROW>(element, "Dziecko", "id", "4", dziecko); });
 			Assert::ExpectException<SPar::WyjatekParser>([&]()->void { XmlBO::ZnajdzWezelJezeli<THROW>(element, "", "id", "4"); });
 			Assert::ExpectException<SPar::WyjatekParser>([&]()->void { XmlBO::ZnajdzWezelJezeli<THROW>(element, "Dziecko", "", "4"); });
 			Assert::ExpectException<SPar::WyjatekParser>([&]()->void { XmlBO::ZnajdzWezelJezeli<THROW>(nullptr, "Dziecko", "id", "4"); });
@@ -152,7 +152,7 @@ namespace ParserTesty
 		}
 		//TODO: Dodac test dla metody XmlBO::ForEach iterujacej po atrybutach.
 		TEST_METHOD_CLEANUP(Czyszczenie){
-			Assert::IsTrue(remove(nazwaPliku_.c_str())==0, L"Nie uda³o siê wczytaæ pliku.", LINE_INFO());
+			Assert::IsTrue(remove(nazwaPliku_.c_str())==0, L"Nie uda³o siê usun¹æ pliku.", LINE_INFO());
 		}
 	};
 

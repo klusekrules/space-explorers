@@ -2,12 +2,12 @@
 #include <Windows.h>
 namespace SpEx{
 	FPSCounter::FPSCounter()
-		: time(GetTickCount64() / 1000)
+		: time(GetTickCount64() / 1000.0)
 	{
 	}
 
 	void FPSCounter::nextFrame(){
-		auto tmp = GetTickCount64() / 1000;
+		auto tmp = GetTickCount64() / 1000.0;
 		double dt = tmp - time;
 		time = tmp;
 		++Frames;
