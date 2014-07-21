@@ -78,11 +78,7 @@ namespace tgui
 
     sf::Color extractColor(std::string string)
     {
-        int red;
-        int green;
-        int blue;
-        int alpha = 255;
-
+        
         // Make sure that the line isn't empty
         if (string.empty() == false)
         {
@@ -97,6 +93,7 @@ namespace tgui
                 std::string::size_type commaPos = string.find(',');
                 if (commaPos != std::string::npos)
                 {
+					int red;
                     // Get the red value and delete this part of the string
                     red = atoi(string.substr(0, commaPos).c_str());
                     string.erase(0, commaPos+1);
@@ -104,7 +101,10 @@ namespace tgui
                     // Search for the second comma
                     commaPos = string.find(',');
                     if (commaPos != std::string::npos)
-                    {
+                    {					
+						int green;
+						int blue;
+						int alpha = 255;
                         // Get the green value and delete this part of the string
                         green = atoi(string.substr(0, commaPos).c_str());
                         string.erase(0, commaPos+1);
@@ -363,6 +363,9 @@ namespace tgui
                     TGUI_OUTPUT(std::string("TGUI warning: Escape character in front of '") + *next + "'. Ignoring escape character.");
                     continue;
                 }
+				if(it == encodedString.cend()){
+					return;
+				}
             }
             else // No escape character, just a normal character to be added to the string
                 decodedString += *it;
