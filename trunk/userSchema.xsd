@@ -6,18 +6,13 @@
       <xs:sequence>
         <xs:element name="Planeta" minOccurs="0" maxOccurs="unbounded">
           <xs:complexType>
-            <xs:attribute name="idRodzica" type="idType" use="required"/>
+            <xs:attribute name="id" type="xs:unsignedInt" use="required"/>
           </xs:complexType>
         </xs:element>
       </xs:sequence>
       <xs:attribute name="hash" type="xs:string" use="required"/>
       <xs:attribute name="nazwa" type="xs:string" use="required"/>
+      <xs:attribute name="planetaAktywna" type="xs:unsignedInt" use="required"/>
     </xs:complexType>
   </xs:element>
-  <!-- Definicja typow prostych -->
-  <xs:simpleType name="idType">
-    <xs:restriction base="xs:string">
-      <xs:pattern value="0x([a-fA-F0-9]{1,8})"/>
-    </xs:restriction>
-  </xs:simpleType>
 </xs:schema>
