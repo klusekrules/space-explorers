@@ -69,22 +69,71 @@
     </TechnologiaInfo>
     <BudynekInfo id="11" nazwa="Kopalnia metalu" obrazek="resource\Brak_obrazka.png" powierzchnia="1200">
         Opis kopalni metalu.
-        <Kryterium id="1" ilosc="60"/>
-        <Kryterium id="2" ilosc="24"/>
+        <Kryterium id="1" ilosc="60">
+            <Zmiana id="4">
+                <Param id="1" wspolczynnik="1"/>
+                <Param id="2" wspolczynnik="2"/>
+            </Zmiana>
+        </Kryterium>
+        <Kryterium id="2" ilosc="24">
+            <Zmiana id="4">
+                <Param id="1" wspolczynnik="1"/>
+                <Param id="2" wspolczynnik="2"/>
+            </Zmiana>
+        </Kryterium>
+        <Zmiana id="7" for="Czas">
+            <Param id="0" wspolczynnik="2"/>
+            <Zmiana id="6">
+                <Param id="13" wspolczynnik="0"/>
+            </Zmiana>
+        </Zmiana>
         <Produkcja id="1" ilosc="50"/>
         <Zapotrzebowanie id="4" ilosc="120"/>
     </BudynekInfo>
     <BudynekInfo id="12" nazwa="Elektrownia s³oneczna" obrazek="resource\Brak_obrazka.png" powierzchnia="2500">
         Opis elektrowni s³onecznej.
-        <Kryterium id="1" ilosc="40"/>
-        <Kryterium id="2" ilosc="13"/>
+        <Kryterium id="1" ilosc="40">
+            <Zmiana id="4">
+                <Param id="1" wspolczynnik="1"/>
+                <Param id="2" wspolczynnik="2"/>
+            </Zmiana>
+        </Kryterium>
+        <Kryterium id="2" ilosc="13">
+            <Zmiana id="4">
+                <Param id="1" wspolczynnik="1"/>
+                <Param id="2" wspolczynnik="2"/>
+            </Zmiana>
+        </Kryterium>
+        <Zmiana id="7" for="Czas">
+            <Param id="0" wspolczynnik="2"/>
+            <Zmiana id="6">
+                <Param id="13" wspolczynnik="0"/>
+            </Zmiana>
+        </Zmiana>
         <Produkcja id="4" ilosc="320"/>
     </BudynekInfo>
     <BudynekInfo id="13" nazwa="Fabryka robotów" obrazek="resource\Brak_obrazka.png" powierzchnia="500">
         Opis fabryki robotów.
-        <Kryterium id="1" ilosc="200"/>
-        <Kryterium id="2" ilosc="140"/>
-        <Kryterium id="3" ilosc="96"/>
+        <Kryterium id="1" ilosc="200">
+            <Zmiana id="4">
+                <Param id="1" wspolczynnik="1"/>
+                <Param id="2" wspolczynnik="2"/>
+            </Zmiana>
+        </Kryterium>
+        <Kryterium id="2" ilosc="140">
+            <Zmiana id="4">
+                <Param id="1" wspolczynnik="1"/>
+                <Param id="2" wspolczynnik="2"/>
+            </Zmiana>
+        </Kryterium>
+        <Kryterium id="11" poziom="3"/>
+        <Kryterium id="12" poziom="2"/>
+        <Zmiana id="7" for="Czas">
+            <Param id="0" wspolczynnik="2"/>
+            <Zmiana id="6">
+                <Param id="13" wspolczynnik="0"/>
+            </Zmiana>
+        </Zmiana>
     </BudynekInfo>
     <ObronaInfo id="14" nazwa="Wyrzutnia rakiet" obrazek="resource\Brak_obrazka.png" powierzchnia="2.31">
         Opis wyrzutni rakiet.
