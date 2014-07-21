@@ -351,7 +351,7 @@ namespace SpEx{
 			if (obiekt == nullptr){
 				return false;
 			}
-			if (!docelowa.dodaj(obiekt)){
+			if (!docelowa.dodaj(obiektPodzielony)){
 				if (!zrodlowa.dodaj(obiekt))
 					throw STyp::Wyjatek(EXCEPTION_PLACE,STyp::Tekst(), STyp::Identyfikator(-1), STyp::Tekst("Nieoczekiwany wyjatek"), STyp::Tekst("Wystapi³ nieoczekiwany wyjatek, który zaburzy³ dzia³anie aplikacji."));
 				else

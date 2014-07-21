@@ -46,7 +46,7 @@ namespace tgui{
 	}
 	
 	void LogListGui::recalculatePosition(){
-		float xPos = 0.f, yPos = 0.f, ySum = 0.f;
+		float yPos = 0.f, ySum = 0.f;
 
 		if (wPionie_ == MIDDLE){
 			for (unsigned int numer = 1, position = static_cast<unsigned int>(pos(static_cast<int>(empty_)-1)); numer <= sum_; ++numer, position = static_cast<unsigned int>(pos(static_cast<int>(position)-1))){
@@ -56,7 +56,7 @@ namespace tgui{
 		}
 
 		for (unsigned int numer = 1, position = static_cast<unsigned int>(pos(static_cast<int>(empty_)-1)); numer <= sum_; ++numer, position = static_cast<unsigned int>(pos(static_cast<int>(position)-1))){
-			xPos = 0.f;
+			float xPos = 0.f;
 			auto labelSize = listaObiektow_[position].second->getSize();
 			auto panelSize = Panel::getSize();
 
@@ -166,10 +166,10 @@ namespace tgui{
 		configFile.close();
 
 		// Find the folder that contains the config file
-		std::string configFileFolder = "";
+		/*std::string configFileFolder = "";
 		std::string::size_type slashPos = m_LoadedConfigFile.find_last_of("/\\");
 		if (slashPos != std::string::npos)
-			configFileFolder = m_LoadedConfigFile.substr(0, slashPos + 1);
+			configFileFolder = m_LoadedConfigFile.substr(0, slashPos + 1);*/
 
 
 		// Handle the read properties
@@ -240,11 +240,9 @@ namespace tgui{
 				TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section KontrolkaObiektu in " + m_LoadedConfigFile + ".");
 		}
 
-		if (max_ >= 0){
-			listaObiektow_.resize(max_);
-			for (unsigned int i = 0; i < max_; ++i){
-				listaObiektow_[i] = std::make_pair( 0 ,Label::Ptr(*this, std::to_string(i) ) );
-			}
+		listaObiektow_.resize(max_);
+		for (unsigned int i = 0; i < max_; ++i){
+			listaObiektow_[i] = std::make_pair( 0 ,Label::Ptr(*this, std::to_string(i) ) );
 		}
 		return true;
 	}

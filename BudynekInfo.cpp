@@ -35,11 +35,11 @@ namespace SpEx{
 		
 	}
 
-	bool BudynekInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
+	bool BudynekInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy& atrybut) const{
 		return planeta.dodajObiekt(std::shared_ptr<Budynek>(tworzEgzemplarz(PodstawoweParametry(atrybut, typAtrybutu_))));
 	}
 
-	bool BudynekInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla element) const{
+	bool BudynekInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla& element) const{
 		auto budynek = std::shared_ptr<Budynek>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), typAtrybutu_)));
 		if (budynek && element){
 			if (!budynek->odczytaj(element))

@@ -2,7 +2,7 @@
 #include "TestyUtilsBO.h"
 
 ZapisStanuGryTest::ZapisStanuGryTest(void)
-: p_a(0)
+	: p_a(0), ptr_a(0)
 {
 }
 

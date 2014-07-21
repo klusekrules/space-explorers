@@ -46,7 +46,7 @@ namespace SpEx{
 		return new Statek(parametry, *this);
 	}
 
-	bool StatekInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla element) const{
+	bool StatekInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla& element) const{
 		auto statek = std::shared_ptr<Statek>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), typAtrybutu_)));
 		if (statek && element){
 			if (!statek->odczytaj(element))
@@ -56,7 +56,7 @@ namespace SpEx{
 		return false;
 	}
 
-	bool StatekInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
+	bool StatekInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy& atrybut) const{
 		return planeta.dodajObiekt(std::shared_ptr<Statek>(tworzEgzemplarz(PodstawoweParametry(atrybut, typAtrybutu_))));
 	}
 

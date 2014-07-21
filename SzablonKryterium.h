@@ -77,9 +77,9 @@ namespace SpEx{
 		* \version 1
 		* \date 23-07-2013
 		*/
-		SzablonKryterium(XmlBO::ElementWezla wezel){
-			obiekt_ = std::make_shared<T>(wezel);
-			zmiana_ = Utils::TworzZmiane(XmlBO::ZnajdzWezel<NOTHROW>(wezel, WEZEL_XML_ZMIANA));
+		SzablonKryterium(XmlBO::ElementWezla wezel)
+			: obiekt_ (std::make_shared<T>(wezel)),
+			zmiana_(Utils::TworzZmiane(XmlBO::ZnajdzWezel<NOTHROW>(wezel, WEZEL_XML_ZMIANA))){
 		}
 
 		/**

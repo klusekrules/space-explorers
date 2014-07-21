@@ -14,7 +14,7 @@ namespace SpEx{
 		unsigned long long Frames = 0; /// Iloœæ zmierzonych ramek, od ostatniego pobrania wyniku
 		double time; /// Chwilowy punkt czasu.
 		double fpsTime = 0; /// Czas pomiaru, który min¹³ od ostatniego pobrania wyniku
-		long double fps_; /// Iloœæ fps.
+		long double fps_ = 0; /// Iloœæ fps.
 	public:
 		/**
 		* \brief Konstruktor.

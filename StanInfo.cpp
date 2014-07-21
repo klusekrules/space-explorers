@@ -44,6 +44,7 @@ namespace SpEx{
 
 	bool StanInfo::wykonaj(Akcja akcja){
 		std::string funkcja, *ptr;
+		UNREFERENCED_PARAMETER(funkcja);
 		ptr = &funkcja;
 		switch (akcja)
 		{

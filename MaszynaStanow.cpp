@@ -5,7 +5,7 @@
 
 namespace SpEx{
 	MaszynaStanow::LuaStan::LuaStan()
-		: poprawne_aktualny_(false), poprawne_nastepny_(false), poprawne_poprzedni_(false), poprawne_zdarzenie_(false)
+		: aktualny_(), poprawne_aktualny_(false), nastepny_(), poprawne_nastepny_(false), poprzedni_(), poprawne_poprzedni_(false), zdarzenie_(), poprawne_zdarzenie_(false)
 	{
 	}
 
