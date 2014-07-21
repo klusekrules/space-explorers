@@ -109,7 +109,7 @@ namespace SpEx{
 
 	private:
 
-		int iloscUkladow_; /// Liczba uk³adów przynale¿nych do galaktyki
+		int iloscUkladow_ = 0; /// Liczba uk³adów przynale¿nych do galaktyki
 
 		STyp::Identyfikator identyfikator_; /// Identyfikator galaktyki.
 

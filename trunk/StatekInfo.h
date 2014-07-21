@@ -121,7 +121,7 @@ namespace SpEx{
 		* \version 1
 		* \date 24-07-2013
 		*/
-		bool tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const override;
+		bool tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy& atrybut) const override;
 
 		/**
 		* \brief Metoda tworz¹ca egzemplarz obiektu na planecie.
@@ -134,7 +134,7 @@ namespace SpEx{
 		* \version 1
 		* \date 24-07-2013
 		*/
-		bool tworz(Planeta& planeta, const XmlBO::ElementWezla element) const override;
+		bool tworz(Planeta& planeta, const XmlBO::ElementWezla& element) const override;
 
 		STyp::Bool przechowywanyWHangarze_; /// Informacja czy statek mo¿e byæ przechowywwany w hangarze drugiego statku.
 

@@ -31,10 +31,11 @@ void ObiektListTest::podstawowyTest(){
 	r = lista.listaKluczy();
 	UNIT_TEST_ASSERT_FALSE(r.empty());
 	UNIT_TEST_ASSERT_TRUE(SpEx::ListaObiektow<SpEx::Statek>::przenies(r.front(), STyp::Ilosc(1), lista, listaDruga));
+	UNIT_TEST_ASSERT_EQUAL(STyp::Ilosc(1), listaDruga.pobierz(r.front())->pobierzIlosc());
 	STyp::Ilosc porownanie = lista.pobierz(r.front())->pobierzIlosc() + listaDruga.pobierz(r.front())->pobierzIlosc();
 	UNIT_TEST_ASSERT_EQUAL(1,listaDruga.rozmiar());
 	UNIT_TEST_ASSERT_TRUE(SpEx::ListaObiektow<SpEx::Statek>::przenies(r.front(), lista, listaDruga));
-	UNIT_TEST_ASSERT_EQUAL(porownanie,listaDruga.pobierz(r.front())->pobierzIlosc());
+	UNIT_TEST_ASSERT_EQUAL(porownanie, listaDruga.pobierz(r.front())->pobierzIlosc());
 	UNIT_TEST_ASSERT_EQUAL(1,listaDruga.rozmiar());
 	listaDruga.wyczysc();
 	UNIT_TEST_ASSERT_TRUE(listaDruga.pusty());

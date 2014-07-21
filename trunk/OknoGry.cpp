@@ -301,7 +301,7 @@ namespace SpEx{
 	}
 
 	void OknoGry::odmaluj(){
-		static float balans = 0.0f;
+		//static float balans = 0.0f;
 		sf::RenderStates states;
 		oknoGlowne_.clear(sf::Color(255, 255, 255, 0));
 

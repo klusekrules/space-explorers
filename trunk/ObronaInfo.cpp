@@ -16,7 +16,7 @@ namespace SpEx{
 		return new Obrona(parametry, *this);
 	}
 
-	bool ObronaInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla element) const{
+	bool ObronaInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla& element) const{
 		auto obrona = std::shared_ptr<Obrona>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), typAtrybutu_)));
 		if (obrona && element){
 			if (!obrona->odczytaj(element))
@@ -26,7 +26,7 @@ namespace SpEx{
 		return false;
 	}
 
-	bool ObronaInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
+	bool ObronaInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy& atrybut) const{
 		return planeta.dodajObiekt(std::shared_ptr<Obrona>(tworzEgzemplarz(PodstawoweParametry(atrybut, typAtrybutu_))));
 	}
 

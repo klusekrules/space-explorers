@@ -57,8 +57,8 @@ namespace tgui{
 		std::shared_ptr<sf::Shader> shader_ = nullptr;
 		mutable std::mutex zmianaDanych_;
 		Borders insideBorders_;
-		float scrollWidth_;
-		float interspace_;
+		float scrollWidth_; 
+		float interspace_ = 0.0f;
 		int mnoznikRolki_ = 15;
 		int idZdarzeniaBudowy_ = 0;
 		int idZdarzeniaBurzenia_ = 0;

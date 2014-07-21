@@ -82,7 +82,7 @@ namespace SpEx{
 		* \version 2
 		* \date 14-07-2014
 		*/
-		virtual bool tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const = 0;
+		virtual bool tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy &atrybut) const = 0;
 
 		/**
 		* \brief Metoda tworz¹ca egzemplarz obiektu na planecie.
@@ -95,7 +95,7 @@ namespace SpEx{
 		* \version 2
 		* \date 14-07-2014
 		*/
-		virtual bool tworz(Planeta& planeta, const XmlBO::ElementWezla element) const = 0;
+		virtual bool tworz(Planeta& planeta, const XmlBO::ElementWezla& element) const = 0;
 
 		PodstawoweParametry::TypAtrybutu typAtrybutu_; /// Typ atrybutu u¿ywanego w obiekcie.
 	};

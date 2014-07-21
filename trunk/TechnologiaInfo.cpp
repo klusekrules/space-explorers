@@ -12,11 +12,11 @@ namespace SpEx{
 		return new Technologia(parametry, *this);
 	}
 	
-	bool TechnologiaInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
+	bool TechnologiaInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy& atrybut) const{
 		return planeta.dodajObiekt(std::shared_ptr<Technologia>(tworzEgzemplarz(PodstawoweParametry(atrybut, typAtrybutu_))));
 	}
 
-	bool TechnologiaInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla element) const{
+	bool TechnologiaInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla& element) const{
 		auto technologia = std::shared_ptr<Technologia>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), typAtrybutu_)));
 		if (technologia && element){
 			if (!technologia->odczytaj(element))

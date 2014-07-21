@@ -29,11 +29,11 @@ namespace SpEx{
 		return przyrostowy_();
 	}
 
-	bool SurowceInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy atrybut) const{
+	bool SurowceInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy& atrybut) const{
 		return planeta.dodajObiekt(std::shared_ptr<Surowce>(tworzEgzemplarz(PodstawoweParametry(atrybut, typAtrybutu_))));
 	}
 
-	bool SurowceInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla element) const{
+	bool SurowceInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla& element) const{
 		auto surowce = std::shared_ptr<Surowce>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), typAtrybutu_)));
 		if (surowce && element){
 			if (!surowce->odczytaj(element))
