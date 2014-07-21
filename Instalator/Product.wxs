@@ -2,16 +2,16 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
   <?include definicje.wxi ?>
-  <Product Name='Space-Explorers 0.0.5' Id='C5D410BC-EB65-48AD-966D-24830261DF12' UpgradeCode='90B73C3B-7192-4C3F-A82B-CB7A2C07F571'
-    Language='1045' Codepage='1250' Version='0.0.5' Manufacturer='Daniel Wojdak'>
+  <Product Name='Space-Explorers 0.0.6' Id='C5D410BC-EB65-48AD-966D-24830261DF12' UpgradeCode='90B73C3B-7192-4C3F-A82B-CB7A2C07F571'
+    Language='1045' Codepage='1250' Version='0.0.6' Manufacturer='Daniel Wojdak'>
     
-    <Package Id='*' Keywords='Installer' Description="Space-Explorers 0.0.5 Instalator"
+    <Package Id='*' Keywords='Installer' Description="Space-Explorers 0.0.6 Instalator"
       Comments='Komentarz' Manufacturer='Daniel Wojdak' InstallScope='perMachine'
       InstallerVersion='405' Languages='1045' Compressed='yes' SummaryCodepage='1250' Platform='$(var.Platforma)'/>
     <Icon Id="ikona.ico" SourceFile="..\out\resource\IkonaBlue.ico"/>
     <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' DiskPrompt='CD-ROM #1'/>
     <Property Id="ARPPRODUCTICON" Value="ikona.ico" />
-    <Property Id='DiskPrompt' Value="Space-Explorers 0.0.5 Installation [1]" />
+    <Property Id='DiskPrompt' Value="Space-Explorers 0.0.6 Installation [1]" />
     <Directory Id='TARGETDIR' Name='SourceDir'>
 
       <Directory Id='$(var.ProgramFiles)' Name="PFiles">
@@ -214,7 +214,7 @@
       </Component>
     </DirectoryRef>
     
-    <Feature Id='Complete' Title='Space-Explorers 0.0.4' Description='Moja aplikacja'
+    <Feature Id='Complete' Title='Space-Explorers 0.0.6' Description='Moja aplikacja'
       Display='expand' Level='1' AllowAdvertise='no' ConfigurableDirectory="SPACE_EXPLORERS" >
       <ComponentRef Id="INSTALLFOLDER_Permission"/>
       <ComponentRef Id='SPACE_EXPLORERS_COM' />
