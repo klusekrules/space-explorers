@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include "Licznik.h"
 #include "GeneratorUkladow.h"
+#include "ZarzadcaLokacji.h"
 #include "ZarzadcaPamieci.h"
 #include "Zmiana\ZmianaFabryka.h"
 
@@ -18,8 +19,8 @@ namespace SpEx {
 	*
 	* Klasa przechowuje wszystkie informacje i obiekty do poprawnego dzia³ania gry.
 	* \author Daniel Wojdak
-	* \version 2
-	* \date 16-06-2014
+	* \version 3
+	* \date 25-07-2014
 	*/
 	class Gra :
 		public se::NonCopyable,
@@ -31,9 +32,13 @@ namespace SpEx {
 		* \brief Konstruktor.
 		*
 		* \param[in] logger - instancja loggera.
-		* \param[in] zarzadca - instancja zarz¹dcy pamiêci.
+		* \param[in] zarzadcaLokacji - instancja zarz¹dcy lokacji.
+		* \param[in] zarzadcaPamieci - instancja zarz¹dcy pamiêci.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 25-07-2014
 		*/
-		explicit Gra(SLog::Log& logger, ZarzadcaPamieci& zarzadca);
+		explicit Gra(SLog::Log& logger, ZarzadcaLokacji& zarzadcaLokacji, ZarzadcaPamieci& zarzadcaPamieci);
 
 		/**
 		* \brief Destruktor.
@@ -310,7 +315,8 @@ namespace SpEx {
 		bool wczytajObrone(XmlBO::ElementWezla wezel);
 
 		SLog::Log& logger_; /// Referencja do obiektu loguj¹cego.
-		ZarzadcaPamieci& zarzadca_; /// Referencja do aktualnego obiektu zarz¹dcy pamiêci.
+		ZarzadcaLokacji& zarzadcaLokacji_; /// Referencja do aktualnego obiektu zarz¹dcy lokacji.
+		ZarzadcaPamieci& zarzadcaPamieci_; /// Referencja do aktualnego obiektu zarz¹dcy pamiêci.
 		std::shared_ptr<Uzytkownik> uzytkownik_; /// Aktualnie zalogowany u¿ytkownik.
 
 		std::unordered_map<STyp::Identyfikator, std::shared_ptr<SurowceInfo>, STyp::IdTypeHash > listaSurowcowInfo_; /// Lista obiektów opisowych surowców.

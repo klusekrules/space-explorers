@@ -40,7 +40,7 @@ namespace SpEx {
 	*
 	* G³ówna klasa programu. Reprezentuje ca³¹ apliakcje.
 	* \author Daniel Wojdak
-	* \version 4
+	* \version 5
 	* \date 25-07-2014
 	*/
 	class Aplikacja:
@@ -108,8 +108,17 @@ namespace SpEx {
 		*
 		* \return Referencja do obiektu zarz¹dcy.
 		*/
-		inline ZarzadcaPamieci& pobierzZarzadce(){
-			return zarzadca_;
+		inline ZarzadcaPamieci& pobierzZarzadcePamieci(){
+			return zarzadcaPamieci_;
+		}
+
+		/**
+		* \brief Metoda pobieraj¹ca zarz¹dcê lokacji.
+		*
+		* \return Referencja do obiektu zarz¹dcy.
+		*/
+		inline ZarzadcaLokacji& pobierzZarzadceLokacji(){
+			return zarzadcaLokacji_;
 		}
 		
 		/**
@@ -156,7 +165,8 @@ namespace SpEx {
 		HMODULE uchwyt_; /// Uchwyt blioteki pomocniczej.
 		bool czyZainicjalizowanaBiblioteka_; /// Informacja czy uda³osiê za³adowaæ bibliotekê pomocnicz¹.
 
-		ZarzadcaPamieci zarzadca_; /// Obiekt zarz¹dzaj¹cy lokacjami.
+		ZarzadcaPamieci zarzadcaPamieci_; /// Obiekt zarz¹dzaj¹cy lokacjami.
+		ZarzadcaLokacji zarzadcaLokacji_; /// Obiekt zarz¹dzaj¹cy lokacjami.
 
 		std::string plikKonfiguracyjny_; /// Adres pliku z danymi konfiguracyjnymi. Domyœlnie options.xml z katalogu z plikiem wykonywalnym.
 		UstawieniaAplikacji ustawienia_; /// Klasa wczytuj¹ca ustawienia z pliku konfiguracyjnego.
