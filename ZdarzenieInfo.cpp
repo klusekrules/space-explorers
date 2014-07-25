@@ -30,7 +30,7 @@ namespace SpEx{
 				nastepnyNumer_ = std::make_shared<int>(stan());
 			}
 			if (!luaFile_.empty()){
-				skrypt_ = Aplikacja::pobierzInstancje().pobierzZarzadce().TworzSkrypt(wezel);
+				skrypt_ = Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(wezel);
 				if (!skrypt_)
 					Utils::generujWyjatekBleduStruktury(wezel);
 				if(!skrypt_->zaladuj(luaFile_))

@@ -10,6 +10,7 @@
 #include "Gra.h"
 #include "Singleton.h"
 #include "UstawieniaAplikacji.h"
+#include "Fabrykator.h"
 
 typedef struct _SYMBOL_INFO {
 	ULONG       SizeOfStruct;
@@ -39,8 +40,8 @@ namespace SpEx {
 	*
 	* G³ówna klasa programu. Reprezentuje ca³¹ apliakcje.
 	* \author Daniel Wojdak
-	* \version 3
-	* \date 16-06-2014
+	* \version 4
+	* \date 25-07-2014
 	*/
 	class Aplikacja:
 		public se::Singleton<Aplikacja>
@@ -117,9 +118,8 @@ namespace SpEx {
 		~Aplikacja();
 
 		SLog::Log& logger_; /// Instancja loggera.
-
-		SZmi::ZmianaFabryka fabrykaZmian_; /// Instancja fabryki zmian.
-
+		
+		Fabrykator fabrykator_; /// Instacja obiektu przechowuj¹cego zbiór fabryk.
 	private:
 
 		/**
