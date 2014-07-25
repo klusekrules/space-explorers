@@ -9,40 +9,40 @@
 
 namespace SpEx{
 
-	Gra::Gra(SLog::Log& logger, ZarzadcaPamieci& zarzadca)
-		: logger_(logger), zarzadca_(zarzadca), uzytkownik_(nullptr)
+	Gra::Gra(SLog::Log& logger, ZarzadcaLokacji& zarzadcaLokacji, ZarzadcaPamieci& zarzadcaPamieci)
+		: logger_(logger), zarzadcaLokacji_(zarzadcaLokacji), zarzadcaPamieci_(zarzadcaPamieci), uzytkownik_(nullptr)
 	{
-		zarzadca.wyczyscDane();
+		zarzadcaLokacji_.wyczyscDane();
 	}
 
 	bool Gra::przeniesPlaneteDoUzytkownika(const STyp::Identyfikator& identyfikator){
-		auto planeta = zarzadca_.pobierzIZarezerwujPlanete(identyfikator);
+		auto planeta = zarzadcaLokacji_.pobierzIZarezerwujPlanete(identyfikator);
 		if (!planeta)
 			return false;
 		if (!uzytkownik_->dodajPlanete(planeta)){
-			zarzadca_.anulujRezerwacjePlanety(identyfikator);
+			zarzadcaLokacji_.anulujRezerwacjePlanety(identyfikator);
 			return false;
 		}
 		return true;
 	}
 
 	bool Gra::przeniesPlaneteDoUzytkownika(){
-		auto planeta = zarzadca_.pobierzIZarezerwujPlanete();
+		auto planeta = zarzadcaLokacji_.pobierzIZarezerwujPlanete();
 		if (!planeta)
 			return false;
 		if (!uzytkownik_->dodajPlanete(planeta)){
-			zarzadca_.anulujRezerwacjePlanety(planeta->pobierzIdentyfikator());
+			zarzadcaLokacji_.anulujRezerwacjePlanety(planeta->pobierzIdentyfikator());
 			return false;
 		}
 		return true;
 	}
 
 	int Gra::pobierzIloscGalaktyk() const{
-		return zarzadca_.pobierzIloscGalaktyk();
+		return zarzadcaLokacji_.pobierzIloscGalaktyk();
 	}
 
 	bool Gra::generujNowaGalaktyke(){
-		return zarzadca_.generujNowaGalaktyke();
+		return zarzadcaLokacji_.generujNowaGalaktyke();
 	}
 
 	std::shared_ptr<Surowce> Gra::tworzSurowce(XmlBO::ElementWezla wezel)const{
@@ -78,7 +78,7 @@ namespace SpEx{
 	}
 
 	std::shared_ptr<Planeta> Gra::pobierzPlanete(const STyp::Identyfikator& identyfikator){
-		auto ptr = zarzadca_.pobierzPlanete(identyfikator);
+		auto ptr = zarzadcaLokacji_.pobierzPlanete(identyfikator);
 		if (!ptr)
 			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
 		return ptr;
@@ -273,7 +273,7 @@ namespace SpEx{
 
 	bool Gra::logowanie(const std::string& nazwa, const std::string& hash){
 		std::string plik;
-		auto dokument = zarzadca_.plikUzytkownika(nazwa, hash, plik, false);
+		auto dokument = zarzadcaPamieci_.plikUzytkownika(nazwa, hash, plik, false);
 		if (!dokument)
 			return false;
 		auto nowyUzytkownik = std::make_shared<Uzytkownik>(*this);
@@ -286,14 +286,14 @@ namespace SpEx{
 
 	bool Gra::nowyGracz(const std::string& nazwa, const std::string& hash){
 		std::string plik;
-		if (zarzadca_.plikUzytkownika(nazwa, hash, plik, false))
+		if (zarzadcaPamieci_.plikUzytkownika(nazwa, hash, plik, false))
 			return false;
-		return zarzadca_.plikUzytkownika(nazwa, hash, plik) != nullptr;
+		return zarzadcaPamieci_.plikUzytkownika(nazwa, hash, plik) != nullptr;
 	}
 
 	bool Gra::usunGracza(const std::string& nazwa, const std::string& hash){
 		std::string plik;
-		auto dokument = zarzadca_.plikUzytkownika(nazwa, hash, plik, false);
+		auto dokument = zarzadcaPamieci_.plikUzytkownika(nazwa, hash, plik, false);
 		if (!dokument)
 			return false;
 		auto nowyUzytkownik = std::make_shared<Uzytkownik>(*this);
@@ -309,7 +309,7 @@ namespace SpEx{
 
 	bool Gra::zapisz(const std::string& nazwa, const std::string& hash) const{
 		std::string plik;
-		auto dokument = zarzadca_.plikUzytkownika(nazwa, hash, plik, true);
+		auto dokument = zarzadcaPamieci_.plikUzytkownika(nazwa, hash, plik, true);
 		if (!dokument || !uzytkownik_ || !uzytkownik_->zapisz(dokument->pobierzElement(nullptr)))
 			return false;
 		return dokument->zapisz(plik.c_str());

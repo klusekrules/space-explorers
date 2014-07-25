@@ -18,7 +18,7 @@ namespace SpEx {
 		virtual public SLog::LoggerInterface,
 		virtual public Serializacja
 	{
-		friend class ZarzadcaPamieci;
+		friend class ZarzadcaLokacji;
 	public:
 		typedef std::shared_ptr<Planeta> Planeta;
 		typedef std::unordered_map< STyp::Identyfikator, Planeta, STyp::IdTypeHash > Planety; /// Typ listy planet

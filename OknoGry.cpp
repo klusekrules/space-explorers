@@ -221,7 +221,7 @@ namespace SpEx{
 
 	bool OknoGry::wczytajEkrany(){
 		std::lock_guard<std::recursive_mutex> lock(mutexListaEkranow_);
-		auto wezel = Aplikacja::pobierzInstancje().pobierzZarzadce().pobierzWezelKonfiguracyjnyOknaGry();
+		auto wezel = Aplikacja::pobierzInstancje().pobierzZarzadcePamieci().pobierzWezelKonfiguracyjnyOknaGry();
 		if (wezel){
 			XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_EKRAN_STARTOWY, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 				auto ptr = std::make_shared<EkranStartowy>(oknoGlowne_, element); 
@@ -255,7 +255,7 @@ namespace SpEx{
 		std::lock_guard<std::recursive_mutex> lock(mutexListaEkranow_);
 		auto iter = listaEkranow_.find(id);
 		if (iter!= listaEkranow_.end()){
-			auto wezel = Aplikacja::pobierzInstancje().pobierzZarzadce().pobierzWezelKonfiguracyjnyOknaGry();
+			auto wezel = Aplikacja::pobierzInstancje().pobierzZarzadcePamieci().pobierzWezelKonfiguracyjnyOknaGry();
 			auto okno = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_EKRAN, ATRYBUT_XML_IDENTYFIKATOR, id.napis());
 			if (okno){
 				auto ptr = std::make_shared<EkranSzablon>(okno);

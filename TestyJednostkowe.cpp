@@ -25,7 +25,8 @@ TestyJednostkowe& TestyJednostkowe::pobierzInstancje(){
 void TestyJednostkowe::wykonajTesty(){
 
 	auto kopia = SpEx::Aplikacja::pobierzInstancje().instancjaGry_;
-	SpEx::Aplikacja::pobierzInstancje().instancjaGry_ = std::make_shared<SpEx::Gra>(SpEx::Aplikacja::pobierzInstancje().logger_, SpEx::Aplikacja::pobierzInstancje().zarzadca_);
+	auto& aplikacja = SpEx::Aplikacja::pobierzInstancje();
+	aplikacja.instancjaGry_ = std::make_shared<SpEx::Gra>(aplikacja.logger_, aplikacja.pobierzZarzadceLokacji(), aplikacja.pobierzZarzadcePamieci());
 	try{
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Inicjalizacja testów...");
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "---------------------------------");

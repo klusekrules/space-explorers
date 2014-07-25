@@ -16,7 +16,7 @@ namespace SpEx{
 		virtual public SLog::LoggerInterface,
 		virtual public Serializacja
 	{
-		friend class ZarzadcaPamieci;
+		friend class ZarzadcaLokacji;
 		friend class GeneratorUkladow;
 	public:
 		typedef std::unordered_map< STyp::Identyfikator, std::shared_ptr<UkladSloneczny>, STyp::IdTypeHash > UkladySloneczne; /// Typ listy uk³adów s³onecznych.
