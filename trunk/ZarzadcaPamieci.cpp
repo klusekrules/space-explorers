@@ -2,15 +2,9 @@
 #include "definicjeWezlowXML.h"
 #include "Parser\ParserDokumentXml.h"
 #include "Aplikacja.h"
-#include "LuaSkrypt.h"
-#include "DllSkrypt.h"
 #include "NieznalezionoPliku.h"
 
 namespace SpEx{
-	ZarzadcaPamieci::ZarzadcaPamieci(){
-		LuaSkrypt::Rejestruj(fabrykaSkryptow_);
-		DllSkrypt::Rejestruj(fabrykaSkryptow_);
-	}
 
 	std::shared_ptr< Planeta > ZarzadcaPamieci::pobierzPlanete(const STyp::Identyfikator& identyfikator){
 		auto planeta = planety_.find(identyfikator);
@@ -293,14 +287,6 @@ namespace SpEx{
 		}
 		nazwaPliku = plik;
 		return dokument;
-	}
-
-	std::shared_ptr<Skrypt> ZarzadcaPamieci::TworzSkrypt(XmlBO::ElementWezla wezel){
-		return fabrykaSkryptow_.Tworz(wezel);
-	}
-
-	std::shared_ptr<Skrypt> ZarzadcaPamieci::TworzSkrypt(const FabrykaSkryptow::Identyfikator& identyfikator, XmlBO::ElementWezla wezel){
-		return fabrykaSkryptow_.Tworz(identyfikator,wezel);
 	}
 	
 	std::string ZarzadcaPamieci::generujNazwePlikuUkladuSlonecznego(const STyp::Identyfikator& id) const{

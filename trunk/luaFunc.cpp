@@ -275,7 +275,7 @@ extern "C"{
 		}
 		std::function<void()> lambda = [luaPlik, luaFunkcja](void)->void{
 			std::shared_ptr<SpEx::Skrypt> luaSkrypt = 
-				SpEx::Aplikacja::pobierzInstancje().pobierzZarzadce().TworzSkrypt(SpEx::FabrykaSkryptow::Identyfikator(XML_ATRYBUT_TYP_SKRYPT_LUA), nullptr);
+				SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(SpEx::FabrykaSkryptow::Identyfikator(XML_ATRYBUT_TYP_SKRYPT_LUA), nullptr);
 			if (luaSkrypt){
 				luaSkrypt->zaladuj(luaPlik);
 				luaSkrypt->wykonaj();
@@ -534,7 +534,7 @@ extern "C"{
 		}
 
 		std::function<void()> lambda = [luaPlik, luaFunkcja]()->void{
-			std::shared_ptr<SpEx::Skrypt> luaSkrypt = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadce().TworzSkrypt(
+			std::shared_ptr<SpEx::Skrypt> luaSkrypt = SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(
 				SpEx::FabrykaSkryptow::Identyfikator(XML_ATRYBUT_TYP_SKRYPT_LUA), nullptr);
 			if (luaSkrypt){
 				luaSkrypt->zaladuj(luaPlik);

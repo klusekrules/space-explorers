@@ -21,7 +21,7 @@ namespace SpEx{
 	std::shared_ptr<SZmi::ZmianaInterfejs> Utils::TworzZmiane(XmlBO::ElementWezla wezel){
 		if (!wezel)
 			return nullptr;
-		auto zmiana = Aplikacja::pobierzInstancje().fabrykaZmian_.Tworz(wezel);
+		auto zmiana = Aplikacja::pobierzInstancje().fabrykator_.TworzZmiane(wezel);
 		if (!zmiana)
 			Utils::generujWyjatekBleduStruktury(wezel);
 		return zmiana;

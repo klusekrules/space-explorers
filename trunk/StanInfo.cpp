@@ -31,7 +31,7 @@ namespace SpEx{
 				throw BladStukturyStanu(EXCEPTION_PLACE, id_, KOMUNIAKT_BLAD_ZDARZENIA + e.generujKomunikat());
 			}
 			if (!luaFile_.empty()){
-				skrypt_ = Aplikacja::pobierzInstancje().pobierzZarzadce().TworzSkrypt(wezel);
+				skrypt_ = Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(wezel);
 				if (!skrypt_)
 					Utils::generujWyjatekBleduStruktury(wezel);
 				if (!skrypt_->zaladuj(luaFile_))

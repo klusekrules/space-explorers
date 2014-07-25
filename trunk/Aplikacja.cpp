@@ -52,7 +52,7 @@ namespace SpEx{
 	char** Aplikacja::argumenty = nullptr;
 
 	Aplikacja::Aplikacja()
-		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), fabrykaZmian_(), instancjaGry_(nullptr)
+		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), fabrykator_(), instancjaGry_(nullptr)
 	{
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listasurowcowgui", tgui::ListaSurowcowGui::createWidget);
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listaobiektowgui", tgui::ListaObiektowGui::createWidget);
@@ -132,9 +132,9 @@ namespace SpEx{
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_LADOWANIA_OPCJI);
 		}
 
-		pluginy_ = std::make_shared<SPlu::Cplugin>(ustawienia_.pobierzFolderPlugin(), fabrykaZmian_, logger_);
+		pluginy_ = std::make_shared<SPlu::Cplugin>(ustawienia_.pobierzFolderPlugin(), fabrykator_.pobierzFabrykeZmian(), logger_);
 
-		if (!RejestrujZmianaPoziomObiektu(fabrykaZmian_, logger_))
+		if (!RejestrujZmianaPoziomObiektu(fabrykator_.pobierzFabrykeZmian(), logger_))
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_REJESTRACJI_ZMIANY_POZIOMU);
 
 		if (!pluginy_->zaladujDomyslneKlasyZmian())

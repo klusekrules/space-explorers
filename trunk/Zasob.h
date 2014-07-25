@@ -14,7 +14,7 @@ namespace SpEx{
 
 		const STyp::Identyfikator& pobierzIdentyfikator() const;
 
-		virtual bool inicjalizuj();
+		virtual bool inicjalizuj() = 0;
 
 	private:
 		STyp::Identyfikator identyfikator_;

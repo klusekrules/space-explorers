@@ -3,7 +3,6 @@
 #include <unordered_map>
 #include "Galaktyka.h"
 #include "GeneratorUkladow.h"
-#include "FabrykaSkryptow.h"
 #include <vector>
 #include "UstawieniaAplikacji.h"
 
@@ -14,8 +13,8 @@ namespace SpEx{
 	* Klasa zarzadza wczytanymi lokacjami. Wczytuje na tylko uzywane planety i uklady.
 	* Nie usuwa ich z czasem ¿ycia programu
 	* \author Daniel Wojdak
-	* \version 2
-	* \date 01-07-2014
+	* \version 3
+	* \date 25-07-2014
 	* \todo Usuwanie nieuzywanych lokacji.
 	*/
 	class ZarzadcaPamieci :
@@ -72,7 +71,7 @@ namespace SpEx{
 		*
 		* Bezparametrowy konstruktor obiektu.
 		*/
-		ZarzadcaPamieci();
+		ZarzadcaPamieci() = default;
 
 		/**
 		* \brief Metoda zwracaj¹ca wskaŸnik na planetê.
@@ -200,32 +199,7 @@ namespace SpEx{
 		* \date 01-07-2014
 		*/
 		XmlBO::ElementWezla otworzWezelGry();
-		
-		/**
-		* \brief Metoda tworzy skrypt.
-		*
-		* Metoda tworzy obiekt skryptu na podstawie danych przekazanych w wêŸle przez parametr.
-		* \param[in] wezel - Wêze³ opisuj¹cy skrypt.
-		* \return Zwracany jest wskaŸnik do skryptu, je¿eli operacja siê powiedzie lub nullptr w przypadku b³êdu.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 01-07-2014
-		*/
-		std::shared_ptr<Skrypt> TworzSkrypt(XmlBO::ElementWezla wezel);
-
-		/**
-		* \brief Metoda tworzy skrypt.
-		*
-		* Metoda tworzy obiekt skryptu na podstawie danych przekazanych przez parametry.
-		* \param[in] identyfikator - Identyfikator typu skryptu.
-		* \param[in] wezel - Wêze³ opisuj¹cy skrypt.
-		* \return Zwracany jest wskaŸnik do skryptu, je¿eli operacja siê powiedzie lub nullptr w przypadku b³êdu.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 01-07-2014
-		*/
-		std::shared_ptr<Skrypt> TworzSkrypt(const FabrykaSkryptow::Identyfikator& identyfikator, XmlBO::ElementWezla wezel);
-
+				
 		/**
 		* \brief Metoda otwieraj¹ca plik u¿ytkownika
 		*
@@ -335,7 +309,6 @@ namespace SpEx{
 		std::string generujNazwePlikuUkladuSlonecznego(const STyp::Identyfikator& identyfikator) const;
 
 		GeneratorUkladow generator_; /// Obiekt generuj¹cy planety, uk³ady, galaktyki.
-		FabrykaSkryptow fabrykaSkryptow_; /// Obiekt tworz¹cy instancje skryptów. Implementuje wzorzec fabryki.
 		Galaktyki galaktyki_; /// Lista galaktyk.
 		UkladySloneczne ukladySloneczne_; /// Lista uk³adów.
 		Planety planety_; /// Lista planet.
