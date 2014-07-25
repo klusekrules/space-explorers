@@ -327,8 +327,10 @@
     <ClInclude Include="EkranStartowy.h" />
     <ClInclude Include="EkranSzablon.h" />
     <ClInclude Include="FabrykaSkryptow.h" />
+    <ClInclude Include="Fabrykator.h" />
     <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="Galaktyka.h" />
+    <ClInclude Include="GeneratorIdentyfikatorow.h" />
     <ClInclude Include="GeneratorUkladow.h" />
     <ClInclude Include="GenerowanieTest.h" />
     <ClInclude Include="Hangar.h" />
@@ -367,7 +369,10 @@
     <ClInclude Include="Watek.h" />
     <ClInclude Include="WatekZarzadzany.h" />
     <ClInclude Include="Zadanie.h" />
+    <ClInclude Include="ZarzadcaLokacji.h" />
     <ClInclude Include="ZarzadcaPamieci.h" />
+    <ClInclude Include="ZarzadcaZasobow.h" />
+    <ClInclude Include="Zasob.h" />
     <ClInclude Include="Zdarzenie.h" />
     <ClInclude Include="ZdarzenieInfo.h" />
     <ClInclude Include="Zlecenia.h" />
@@ -442,9 +447,11 @@
     <ClCompile Include="EkranStartowy.cpp" />
     <ClCompile Include="EkranSzablon.cpp" />
     <ClCompile Include="FabrykaSkryptow.cpp" />
+    <ClCompile Include="Fabrykator.cpp" />
     <ClCompile Include="Flota.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="Galaktyka.cpp" />
+    <ClCompile Include="GeneratorIdentyfikatorow.cpp" />
     <ClCompile Include="GeneratorUkladow.cpp" />
     <ClCompile Include="GenerowanieTest.cpp" />
     <ClCompile Include="Gra.cpp" />
@@ -524,7 +531,10 @@
     <ClCompile Include="WymaganiaTest.cpp" />
     <ClCompile Include="Zadanie.cpp" />
     <ClCompile Include="ZapisStanuGryTest.cpp" />
+    <ClCompile Include="ZarzadcaLokacji.cpp" />
     <ClCompile Include="ZarzadcaPamieci.cpp" />
+    <ClCompile Include="ZarzadcaZasobow.cpp" />
+    <ClCompile Include="Zasob.cpp" />
     <ClCompile Include="ZdarzenieInfo.cpp" />
     <ClCompile Include="ZleceniaTest.cpp" />
     <ClCompile Include="ZmianaPoziomObiektu.cpp" />
