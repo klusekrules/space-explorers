@@ -160,9 +160,6 @@
     <ClCompile Include="GenerowanieTest.cpp">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClCompile>
-    <ClCompile Include="ZarzadcaPamieci.cpp">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClCompile>
     <ClCompile Include="RoundedRectangleShape.cpp">
       <Filter>SourceFile\GUI\SFML</Filter>
     </ClCompile>
@@ -297,6 +294,24 @@
     </ClCompile>
     <ClCompile Include="ListaSurowcowGui.cpp">
       <Filter>SourceFile\GUI\TGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratorIdentyfikatorow.cpp">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClCompile>
+    <ClCompile Include="ZarzadcaZasobow.cpp">
+      <Filter>SourceFile\Kontroler</Filter>
+    </ClCompile>
+    <ClCompile Include="Zasob.cpp">
+      <Filter>SourceFile\Kontroler</Filter>
+    </ClCompile>
+    <ClCompile Include="ZarzadcaPamieci.cpp">
+      <Filter>SourceFile\Kontroler</Filter>
+    </ClCompile>
+    <ClCompile Include="ZarzadcaLokacji.cpp">
+      <Filter>SourceFile\Kontroler</Filter>
+    </ClCompile>
+    <ClCompile Include="Fabrykator.cpp">
+      <Filter>SourceFile\Kontroler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -461,9 +476,6 @@
     </ClInclude>
     <ClInclude Include="GenerowanieTest.h">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
-    </ClInclude>
-    <ClInclude Include="ZarzadcaPamieci.h">
-      <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
     <ClInclude Include="RoundedRectangleShape.hpp">
       <Filter>SourceFile\GUI\SFML</Filter>
@@ -632,6 +644,24 @@
     </ClInclude>
     <ClInclude Include="ListaSurowcowGui.h">
       <Filter>SourceFile\GUI\TGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratorIdentyfikatorow.h">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClInclude>
+    <ClInclude Include="ZarzadcaZasobow.h">
+      <Filter>SourceFile\Kontroler</Filter>
+    </ClInclude>
+    <ClInclude Include="Zasob.h">
+      <Filter>SourceFile\Kontroler</Filter>
+    </ClInclude>
+    <ClInclude Include="ZarzadcaPamieci.h">
+      <Filter>SourceFile\Kontroler</Filter>
+    </ClInclude>
+    <ClInclude Include="ZarzadcaLokacji.h">
+      <Filter>SourceFile\Kontroler</Filter>
+    </ClInclude>
+    <ClInclude Include="Fabrykator.h">
+      <Filter>SourceFile\Kontroler</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
