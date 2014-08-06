@@ -15,8 +15,8 @@ namespace SpEx{
 	*
 	* Klasa obs³ugujê zdarzenia oraz zarz¹dza stanami. W metodzie tej klasy jest zaimplementowana g³ówna pêtla z obs³ug¹ zdarzeñ.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 09-07-2014
+	* \version 2
+	* \date 06-08-2014
 	*/
 	class MaszynaStanow
 		: public se::Singleton<MaszynaStanow>
@@ -115,7 +115,7 @@ namespace SpEx{
 			* \date 09-07-2014
 			*/
 			void ustawNowyNumerNastepny(int numer);
-
+			
 		private:
 			struct Zdarzenie_t zdarzenie_; /// Informacje o zdarzeniu.
 			Zdarzenie* komunikat_ = nullptr; /// WskaŸnik do obiektu zdarzenia.
@@ -181,6 +181,16 @@ namespace SpEx{
 		* Domyœlny destruktor.
 		*/
 		~MaszynaStanow() = default;
+
+		/**
+		* \brief Metoda inicjuj¹ca obiekt.
+		*
+		* Metoda Inicjalizuje obiekt klasy maszyny stanów.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 06-08-2014
+		*/
+		void inicjalizuj();
 
 		/**
 		* \brief Metoda pêtli g³ównej.

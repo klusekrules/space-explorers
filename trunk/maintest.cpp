@@ -23,6 +23,7 @@ void main( int argv , char* argc[] ){
 		SpEx::Aplikacja::argumenty = argc;
 		SpEx::Aplikacja::pobierzInstancje();
 
+		SpEx::MaszynaStanow::pobierzInstancje().inicjalizuj();
 		SpEx::MaszynaStanow::pobierzInstancje().start();
 	}
 	catch (STyp::Wyjatek& wyjatek){

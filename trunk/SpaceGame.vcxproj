@@ -343,6 +343,7 @@
     <ClInclude Include="ListaSurowcowGui.h" />
     <ClInclude Include="LogListGui.h" />
     <ClInclude Include="LuaSkrypt.h" />
+    <ClInclude Include="LuaState.h" />
     <ClInclude Include="MaszynaStanow.h" />
     <ClInclude Include="MenadzerWatkow.h" />
     <ClInclude Include="NieznalezionoPliku.h" />
@@ -478,6 +479,7 @@
     <ClCompile Include="LogowanieTest.cpp" />
     <ClCompile Include="luaFunc.cpp" />
     <ClCompile Include="LuaSkrypt.cpp" />
+    <ClCompile Include="LuaState.cpp" />
     <ClCompile Include="maintest.cpp" />
     <ClCompile Include="MaszynaStanow.cpp" />
     <ClCompile Include="MenadzerWatkow.cpp" />
@@ -503,7 +505,6 @@
     <ClCompile Include="PodstawoweParametry.cpp" />
     <ClCompile Include="PowtorzenieIdObiektu.cpp" />
     <ClCompile Include="RoundedRectangleShape.cpp" />
-    <ClCompile Include="Skrypt.cpp" />
     <ClCompile Include="Stan.cpp" />
     <ClCompile Include="StanInfo.cpp" />
     <ClCompile Include="Statek.cpp" />
@@ -534,7 +535,6 @@
     <ClCompile Include="ZarzadcaLokacji.cpp" />
     <ClCompile Include="ZarzadcaPamieci.cpp" />
     <ClCompile Include="ZarzadcaZasobow.cpp" />
-    <ClCompile Include="Zasob.cpp" />
     <ClCompile Include="ZdarzenieInfo.cpp" />
     <ClCompile Include="ZleceniaTest.cpp" />
     <ClCompile Include="ZmianaPoziomObiektu.cpp" />

@@ -9,8 +9,8 @@ namespace SpEx{
 	*
 	* Klasa mapuje identyfikatory znakowe na kolejne identyfikatory liczbowe.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 25-07-2014
+	* \version 2
+	* \date 05-08-2014
 	*/
 	class GeneratorIdentyfikatorow
 	{
@@ -34,13 +34,14 @@ namespace SpEx{
 		*
 		* Metoda mapuje identyfikator tekstowy na identyfikator liczbowy. Je¿eli identyfikator zosta³ wczesniej zmapowany to jest zwracany numer mu przypisany.
 		* \param[in] napis - Tekstowy identyfikator.
-		* \return Numer odpowiadaj¹cy tekstowemu identyfikatorowi.
+		* \param[out] id - Numer odpowiadaj¹cy tekstowemu identyfikatorowi.
+		* \return Zwracana jest wartoœc true, je¿eli pierwszy raz odwo³ano siê do identyfikatora. Zwracana jest wartoœc false, je¿eli jest to klejne odwo³anie do identyfikatora.
 		* \throw Je¿eli napis jest pusty wyrzucany jest wyj¹tek.
 		* \author Daniel Wojdak
-		* \version 1
-		* \date 25-07-2014
+		* \version 2
+		* \date 05-08-2014
 		*/
-		STyp::Identyfikator pobierzIdentyfikator(const std::string& napis);
+		bool pobierzIdentyfikator(const std::string& napis, STyp::Identyfikator& id);
 
 		/**
 		* \brief Metoda pobieraj¹ca identyfikator tekstowy.

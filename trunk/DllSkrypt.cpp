@@ -9,11 +9,6 @@ namespace SpEx{
 		odczytaj();
 	}
 
-	bool DllSkrypt::zaladuj(const std::string& plik){
-		plik_ = plik;
-		return odczytaj();
-	}
-
 	bool DllSkrypt::wykonaj(const std::string& funkcja){
 		if (!funkcja.empty()){
 			auto procedura = GetProcAddress(handle_, funkcja.c_str());

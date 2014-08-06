@@ -15,6 +15,10 @@ namespace SpEx{
 	std::shared_ptr<Skrypt> Fabrykator::TworzSkrypt(const FabrykaSkryptow::Identyfikator& identyfikator, XmlBO::ElementWezla wezel) const{
 		return fabrykaSkryptow_.Tworz(identyfikator, wezel);
 	}
+	
+	std::shared_ptr<Skrypt> Fabrykator::TworzSkrypt(const std::string& plik) const{
+		return fabrykaSkryptow_.Tworz(plik);
+	}
 
 	std::shared_ptr<SZmi::ZmianaInterfejs> Fabrykator::TworzZmiane(XmlBO::ElementWezla wezel) const{
 		return fabrykaZmian_.Tworz(wezel);

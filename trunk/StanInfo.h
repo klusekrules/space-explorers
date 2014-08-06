@@ -11,8 +11,8 @@ namespace SpEx{
 	*
 	* Klasa zawiera opisowe informacje o stanie.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 09-07-2014
+	* \version 2
+	* \date 05-08-2014
 	*/
 	class StanInfo :
 		virtual public SLog::LoggerInterface
@@ -101,7 +101,6 @@ namespace SpEx{
 		std::string luaFuncIn_; /// Nazwa metody wykonanej przy wejœciu do stanu.
 		std::string luaFuncOut_; /// Nazwa metody wykonanej przy wyjœciu ze stanu.
 		std::string luaFuncInside_; /// Nazwa metody wykonanej w momencie pomownego wejœcia do tego samego stanu ( pomijane s¹ metody wejœcia i wyjœcia ).
-		std::string luaFile_; /// Lokalizacja skryptu.
 		STyp::Identyfikator id_; /// Identyfikator stanu.
 		std::map < STyp::Identyfikator, std::shared_ptr<ZdarzenieInfo> > zdarzenia_; /// Zbiór skojarzonych zdarzeñ.
 	};

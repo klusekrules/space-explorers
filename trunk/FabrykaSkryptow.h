@@ -14,8 +14,8 @@ namespace SpEx{
 	*
 	* Klasa implementuj¹ca wzorzec fabryki, tworz¹ca instancje klas skryptów.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 09-07-2014
+	* \version 2
+	* \date 06-08-2014
 	*/
 	class FabrykaSkryptow
 		: public se::NonCopyable
@@ -49,6 +49,18 @@ namespace SpEx{
 		* \date 09-07-2014
 		*/
 		std::shared_ptr<Skrypt> Tworz(const Identyfikator& identyfikator, XmlBO::ElementWezla wezel) const;
+		
+		/**
+		* \brief Metoda tworz¹ca skrypt.
+		*
+		* Metoda tworzy instancje skryptu na podstawie idenntyfikatora oraz wez³a opisuj¹cego.
+		* \param[in] plik - Adres pliku, który ma byæ wczytany jako skrypt.
+		* \return WskaŸnik do utworzonego skryptu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 06-08-2014
+		*/
+		std::shared_ptr<Skrypt> Tworz(const std::string& plik) const;
 
 		/**
 		* \brief Metoda rejestruj¹ca typ skryptu.

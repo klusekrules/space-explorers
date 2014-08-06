@@ -263,23 +263,22 @@ extern "C"{
 	*/
 	__declspec(dllexport) void __cdecl zlecZadanie(const char *plik, const char *funkcja)
 	{
-		std::string luaPlik, luaFunkcja;
+		std::string sPlik, sFunkcja;
 		auto& maszynaStanow = SpEx::MaszynaStanow::pobierzInstancje();
 
 		if (plik){
-			luaPlik.append(plik);
+			sPlik.append(plik);
 		}
 
 		if (funkcja){
-			luaFunkcja.append(funkcja);
+			sFunkcja.append(funkcja);
 		}
-		std::function<void()> lambda = [luaPlik, luaFunkcja](void)->void{
+		std::function<void()> lambda = [sPlik, sFunkcja](void)->void{
 			std::shared_ptr<SpEx::Skrypt> luaSkrypt = 
-				SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(SpEx::FabrykaSkryptow::Identyfikator(XML_ATRYBUT_TYP_SKRYPT_LUA), nullptr);
+				SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(sPlik);
 			if (luaSkrypt){
-				luaSkrypt->zaladuj(luaPlik);
 				luaSkrypt->wykonaj();
-				luaSkrypt->wykonaj(luaFunkcja);
+				luaSkrypt->wykonaj(sFunkcja);
 			}
 			return;
 		};
@@ -522,24 +521,22 @@ extern "C"{
 	*/
 	__declspec(dllexport) void __cdecl zlecZadanieGraficzne(const char *plik, const char *funkcja)
 	{
-		std::string luaPlik, luaFunkcja;
+		std::string sPlik, sFunkcja;
 		auto & maszynaStanow = SpEx::MaszynaStanow::pobierzInstancje();
 
 		if (plik){
-			luaPlik.append(plik);
+			sPlik.append(plik);
 		}
 
 		if (funkcja){
-			luaFunkcja.append(funkcja);
+			sFunkcja.append(funkcja);
 		}
 
-		std::function<void()> lambda = [luaPlik, luaFunkcja]()->void{
-			std::shared_ptr<SpEx::Skrypt> luaSkrypt = SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(
-				SpEx::FabrykaSkryptow::Identyfikator(XML_ATRYBUT_TYP_SKRYPT_LUA), nullptr);
+		std::function<void()> lambda = [sPlik, sFunkcja]()->void{
+			std::shared_ptr<SpEx::Skrypt> luaSkrypt = SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(sPlik);
 			if (luaSkrypt){
-				luaSkrypt->zaladuj(luaPlik);
 				luaSkrypt->wykonaj();
-				luaSkrypt->wykonaj(luaFunkcja);
+				luaSkrypt->wykonaj(sFunkcja);
 			}
 		};
 		SpEx::Zadanie zadanie(lambda);

@@ -50,8 +50,8 @@ namespace SpEx{
 	*
 	* Klasa zawiera kilka przydatnych metod wykorzystywanych w aplikacji.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 08-07-2014
+	* \version 2
+	* \date 06-08-2014
 	*/
 	class Utils
 	{
@@ -197,6 +197,19 @@ namespace SpEx{
 		* \date 08-07-2014
 		*/
 		static void sha3(std::string& str);
+
+		/**
+		* \brief Metoda wyodrêbnia rozsze¿enie pliku.
+		*
+		* Metoda wyodrêbnia rozsze¿enie pliku zawartego w adresie.
+		* \param[in] adres - Adres pliku.
+		* \param[out] rozszezenie - Rozsze¿enie pliku znajduj¹cego.
+		* \return Zwracana jest wartoœæ true je¿eli uda siê wyodrêbniæ rozsze¿enie, zwracana jest wartoœæ false w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 06-08-2014
+		*/
+		static bool pobierzRozszezenie(const std::string & adres, std::string& rozszezenie);
 
 	};
 }

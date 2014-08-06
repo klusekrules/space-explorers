@@ -9,8 +9,8 @@ namespace SpEx{
 	*
 	* Klasa zawiera opisowe informacje o zdarzeniu.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 09-07-2014
+	* \version 2
+	* \date 06-08-2014
 	*/
 	class ZdarzenieInfo :
 		virtual public SLog::LoggerInterface
@@ -93,7 +93,6 @@ namespace SpEx{
 	private:
 		std::shared_ptr<Skrypt> skrypt_ = nullptr; /// Skrypt wykonywany w momencie wyst¹pienia zdarzenia.
 		std::string luaFuncInside_; /// Nazwa metody.
-		std::string luaFile_; /// Nazwa pliku.
 		STyp::Identyfikator id_; /// Identyfikator zdarzenia.
 		std::shared_ptr < STyp::Identyfikator > nastepnyStan_; /// Nastêpny domyœlny stan.
 		std::shared_ptr < int > nastepnyNumer_; /// Nastêpny domyœlny numer.
