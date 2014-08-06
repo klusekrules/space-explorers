@@ -25,7 +25,7 @@ namespace SpEx{
 				nastepnyNumer_ = std::make_shared<int>(stan());
 			}
 
-			if (wezel->pobierzAtrybut(XML_ATRYBUT_TYP_SKRYPTU)){
+			if (wezel->pobierzAtrybut(ATRYBUT_XML_SKRYPT_TYP)){
 
 				luaFuncInside_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FUNC_INSIDE, std::string());
 

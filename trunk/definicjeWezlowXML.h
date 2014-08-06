@@ -112,6 +112,7 @@
 #define ATRYBUT_XML_SKRYPT_FUNC_INSIDE "funcInside"
 #define ATRYBUT_XML_SKRYPT_FILE "file"
 #define ATRYBUT_XML_SKRYPT_INSTANCE "instancja"
+#define ATRYBUT_XML_SKRYPT_TYP "typSkryptu"
 
 #define WARTOSC_ATRYBUTU_XML_NASTEPNY "nastepny"
 #define WARTOSC_ATRYBUTU_XML_BRAT "brat"

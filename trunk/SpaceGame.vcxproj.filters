@@ -304,9 +304,6 @@
     <ClCompile Include="Fabrykator.cpp">
       <Filter>SourceFile\Kontroler\Fabryki</Filter>
     </ClCompile>
-    <ClCompile Include="FabrykaSkryptow.cpp">
-      <Filter>SourceFile\Kontroler\Fabryki</Filter>
-    </ClCompile>
     <ClCompile Include="LuaState.cpp">
       <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
     </ClCompile>
@@ -655,9 +652,6 @@
       <Filter>SourceFile\Kontroler</Filter>
     </ClInclude>
     <ClInclude Include="Fabrykator.h">
-      <Filter>SourceFile\Kontroler\Fabryki</Filter>
-    </ClInclude>
-    <ClInclude Include="FabrykaSkryptow.h">
       <Filter>SourceFile\Kontroler\Fabryki</Filter>
     </ClInclude>
     <ClInclude Include="LuaState.h">

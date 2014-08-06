@@ -1,6 +1,5 @@
 #include "LuaSkrypt.h"
 #include "Logger\Log.h"
-#include "FabrykaSkryptow.h"
 #include "definicjeWezlowXML.h"
 #include "Aplikacja.h"
 
@@ -23,8 +22,8 @@ namespace SpEx{
 		return true;
 	}
 
-	bool LuaSkrypt::Rejestruj(FabrykaSkryptow &fabryka){
-		return fabryka.rejestracjaSkryptu(FabrykaSkryptow::Identyfikator(XML_ATRYBUT_TYP_SKRYPT_LUA), LuaSkrypt::Tworz);
+	bool LuaSkrypt::Rejestruj(Fabrykator &fabryka){
+		return fabryka.rejestracjaSkryptu(Fabrykator::IdentyfikatorSkryptu(XML_ATRYBUT_TYP_SKRYPT_LUA), LuaSkrypt::Tworz);
 	}
 
 	std::shared_ptr<Skrypt> LuaSkrypt::Tworz(XmlBO::ElementWezla wezel){

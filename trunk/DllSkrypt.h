@@ -18,7 +18,7 @@ namespace SpEx{
 	class DllSkrypt
 		: public Skrypt
 	{
-		friend class FabrykaSkryptow;
+		friend class Fabrykator;
 		friend class std::_Ref_count_obj<DllSkrypt>;
 	public:
 
@@ -32,7 +32,7 @@ namespace SpEx{
 		* \version 1
 		* \date 09-07-2014
 		*/
-		static bool Rejestruj(FabrykaSkryptow &fabryka);
+		static bool Rejestruj(Fabrykator &fabryka);
 
 		/**
 		* \brief Metoda wykonuj¹ca skrypt.
