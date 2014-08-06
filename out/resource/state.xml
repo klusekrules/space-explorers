@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MaszynaStanow idStanuPoczatkowego="2" pulaWatkow="4">
-  <Stan id="0x1" typSkryptu="lua" luaFile="lua\test.lua" luaIn="ustawOknoMenu" luaOut="wyjscieZeStanu">
-    <Zdarzenie id="0x6" typSkryptu="lua" luaFile="lua\test.lua" luaInside="przeladujOknoListeObiektow"/>
+  <Stan id="0x1" typSkryptu="lua" file="lua\test.lua" funcIn="ustawOknoMenu" funcOut="wyjscieZeStanu">
+    <Zdarzenie id="0x6" typSkryptu="lua" file="lua\test.lua" funcInside="przeladujOknoListeObiektow"/>
     <Zdarzenie id="0x5" stanNastepny="0x6" numerNastepny="0x1"/>
     <Zdarzenie id="0x4" stanNastepny="0x4" numerNastepny="0x0"/>
-    <Zdarzenie id="0x3" typSkryptu="lua" luaFile="lua\test.lua" luaInside="zamknijAplikacje"/>
+    <Zdarzenie id="0x3" typSkryptu="lua" file="lua\test.lua" funcInside="zamknijAplikacje"/>
     <Zdarzenie id="0x2" stanNastepny="0x3" numerNastepny="0x0"/>
-    <Zdarzenie id="0x1" typSkryptu="lua" luaFile="lua\test.lua" luaInside="przejdzDoZamykania"/>
+    <Zdarzenie id="0x1" typSkryptu="lua" file="lua\test.lua" funcInside="przejdzDoZamykania"/>
   </Stan>
-  <Stan id="0x2" typSkryptu="lua" luaFile="lua\test.lua" luaIn="stanPoczatkowy" luaOut="wyjscieZeStanu">
+  <Stan id="0x2" typSkryptu="lua" file="lua\test.lua" funcIn="stanPoczatkowy" funcOut="wyjscieZeStanu">
     <Zdarzenie id="0x1" stanNastepny="0x5" numerNastepny="0x0"/>
   </Stan>
-  <Stan id="0x3" typSkryptu="lua" luaFile="lua\test.lua" luaIn="wlaczTestowanie" luaOut="wyjscieZeStanu">
+  <Stan id="0x3" typSkryptu="lua" file="lua\test.lua" funcIn="wlaczTestowanie" funcOut="wyjscieZeStanu">
     <Zdarzenie id="0x1" stanNastepny="0x1" numerNastepny="0x0"/>
-    <Zdarzenie id="0x2" typSkryptu="lua" luaFile="lua\test.lua" luaInside="testy" stanNastepny="0x1" numerNastepny="0x0"/>
+    <Zdarzenie id="0x2" typSkryptu="lua" file="lua\test.lua" funcInside="testy" stanNastepny="0x1" numerNastepny="0x0"/>
   </Stan>
-  <Stan id="0x4" typSkryptu="lua" luaFile="lua\test.lua" luaIn="ustawOknoListy" luaOut="wyjscieZeStanu">
+  <Stan id="0x4" typSkryptu="lua" file="lua\test.lua" funcIn="ustawOknoListy" funcOut="wyjscieZeStanu">
     <Zdarzenie id="0x1" stanNastepny="0x1" numerNastepny="0x0"/>
-    <Zdarzenie id="0x2" typSkryptu="lua" luaFile="lua\test.lua" luaInside="rozbuduj"/>
-    <Zdarzenie id="0x3" typSkryptu="lua" luaFile="lua\test.lua" luaInside="zniszcz"/>
-    <Zdarzenie id="0x4" typSkryptu="lua" luaFile="lua\test.lua" luaInside="info"/>
+    <Zdarzenie id="0x2" typSkryptu="lua" file="lua\test.lua" funcInside="rozbuduj"/>
+    <Zdarzenie id="0x3" typSkryptu="lua" file="lua\test.lua" funcInside="zniszcz"/>
+    <Zdarzenie id="0x4" typSkryptu="lua" file="lua\test.lua" funcInside="info"/>
     <Zdarzenie id="0x6" stanNastepny="0x6" numerNastepny="0x4"/>
   </Stan>
-  <Stan id="0x5" typSkryptu="lua" luaFile="lua\test.lua" luaIn="ustawOknoLogowania" luaOut="wyjscieZeStanu">
-	  <Zdarzenie id="0x1" typSkryptu="lua" luaFile="lua\test.lua" luaInside="zamknijAplikacje"/>
-	  <Zdarzenie id="0x2" typSkryptu="lua" luaFile="lua\test.lua" luaInside="tworzGracza"/>
-	  <Zdarzenie id="0x3" typSkryptu="lua" luaFile="lua\test.lua" luaInside="zaloguj"/>
+  <Stan id="0x5" typSkryptu="lua" file="lua\test.lua" funcIn="ustawOknoLogowania" funcOut="wyjscieZeStanu">
+	  <Zdarzenie id="0x1" typSkryptu="lua" file="lua\test.lua" funcInside="zamknijAplikacje"/>
+	  <Zdarzenie id="0x2" typSkryptu="lua" file="lua\test.lua" funcInside="tworzGracza"/>
+	  <Zdarzenie id="0x3" typSkryptu="lua" file="lua\test.lua" funcInside="zaloguj"/>
 	  <Zdarzenie id="0x4" stanNastepny="0x1" numerNastepny="0x0"/>
   </Stan>
-  <Stan id="0x6" typSkryptu="lua" luaFile="lua\test.lua" luaIn="ustawOknoPonownegoLogowania" luaOut="wyjdzOknoPonownegoLogowania">
-    <Zdarzenie id="0x1" typSkryptu="lua" luaFile="lua\test.lua" luaInside="zamknijAplikacje"/>
+  <Stan id="0x6" typSkryptu="lua" file="lua\test.lua" funcIn="ustawOknoPonownegoLogowania" funcOut="wyjdzOknoPonownegoLogowania">
+    <Zdarzenie id="0x1" typSkryptu="lua" file="lua\test.lua" funcInside="zamknijAplikacje"/>
     <Zdarzenie id="0x2"/>
-    <Zdarzenie id="0x3" typSkryptu="lua" luaFile="lua\test.lua" luaInside="zaloguj"/>
-    <Zdarzenie id="0x4" typSkryptu="lua" luaFile="lua\test.lua" luaInside="powrotDoOkna" numerNastepny="0x0"/>
+    <Zdarzenie id="0x3" typSkryptu="lua" file="lua\test.lua" funcInside="zaloguj"/>
+    <Zdarzenie id="0x4" typSkryptu="lua" file="lua\test.lua" funcInside="powrotDoOkna" numerNastepny="0x0"/>
   </Stan>
 </MaszynaStanow>
