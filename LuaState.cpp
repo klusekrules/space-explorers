@@ -15,14 +15,6 @@ namespace SpEx{
 	}
 
 	bool LuaState::inicjalizuj(){
-		return odczytaj();
-	}
-
-	bool LuaState::Rejestruj(ZarzadcaZasobow &fabryka){
-		return fabryka.rejestrujInicjalizator(XML_ATRYBUT_TYP_ZASOBU_LUA, LuaState::Tworz);
-	}
-
-	bool LuaState::odczytaj(){
 		if (!plik_.empty()){
 			int status = luaL_loadfile(L, plik_.c_str());
 			if (status) {
@@ -34,6 +26,10 @@ namespace SpEx{
 			return true;
 		}
 		return false;
+	}
+
+	bool LuaState::Rejestruj(ZarzadcaZasobow &fabryka){
+		return fabryka.rejestrujInicjalizator(XML_ATRYBUT_TYP_ZASOBU_LUA, LuaState::Tworz);
 	}
 
 	Zasob::SharedPtr LuaState::Tworz(const ZarzadcaZasobow::Parametr& parametr, bool){
