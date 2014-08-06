@@ -26,7 +26,7 @@ namespace SpEx{
 				throw BladStukturyStanu(EXCEPTION_PLACE, id_, KOMUNIAKT_BLAD_ZDARZENIA + e.generujKomunikat());
 			}
 
-			if (wezel->pobierzAtrybut(XML_ATRYBUT_TYP_SKRYPTU)){
+			if (wezel->pobierzAtrybut(ATRYBUT_XML_SKRYPT_TYP)){
 
 				luaFuncIn_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FUNC_IN, std::string());
 				luaFuncOut_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FUNC_OUT, std::string());

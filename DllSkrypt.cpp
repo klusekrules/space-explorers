@@ -1,6 +1,6 @@
 #include "DllSkrypt.h"
 #include "Logger\Log.h"
-#include "FabrykaSkryptow.h"
+#include "Fabrykator.h"
 
 namespace SpEx{
 	DllSkrypt::DllSkrypt(const std::string& plik)
@@ -42,8 +42,8 @@ namespace SpEx{
 			FreeLibrary(handle_);
 	}
 
-	bool DllSkrypt::Rejestruj(FabrykaSkryptow &fabryka){
-		return fabryka.rejestracjaSkryptu(FabrykaSkryptow::Identyfikator(XML_ATRYBUT_TYP_SKRYPT_DLL), DllSkrypt::Tworz);
+	bool DllSkrypt::Rejestruj(Fabrykator &fabryka){
+		return fabryka.rejestracjaSkryptu(Fabrykator::IdentyfikatorSkryptu(XML_ATRYBUT_TYP_SKRYPT_DLL), DllSkrypt::Tworz);
 	}
 
 	std::shared_ptr<Skrypt> DllSkrypt::Tworz(XmlBO::ElementWezla wezel){

@@ -326,7 +326,6 @@
     <ClInclude Include="DllSkrypt.h" />
     <ClInclude Include="EkranStartowy.h" />
     <ClInclude Include="EkranSzablon.h" />
-    <ClInclude Include="FabrykaSkryptow.h" />
     <ClInclude Include="Fabrykator.h" />
     <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="Galaktyka.h" />
@@ -447,7 +446,6 @@
     <ClCompile Include="DllSkrypt.cpp" />
     <ClCompile Include="EkranStartowy.cpp" />
     <ClCompile Include="EkranSzablon.cpp" />
-    <ClCompile Include="FabrykaSkryptow.cpp" />
     <ClCompile Include="Fabrykator.cpp" />
     <ClCompile Include="Flota.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
