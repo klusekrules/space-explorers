@@ -102,14 +102,16 @@
 #define ATRYBUT_XML_KONFIGURACJA "konfiguracja"
 #define ATRYBUT_XML_CZCIONKA "czcionka"
 
-#define ATRYBUT_XML_STAN_LUA_IN "luaIn"
-#define ATRYBUT_XML_STAN_LUA_OUT "luaOut"
-#define ATRYBUT_XML_STAN_LUA_INSIDE "luaInside"
-#define ATRYBUT_XML_STAN_LUA_FILE "luaFile"
 #define ATRYBUT_XML_STAN_NASTEPNY "stanNastepny"
 #define ATRYBUT_XML_NUMER_NASTEPNY "numerNastepny"
 #define ATRYBUT_XML_WARTOSC "wartosc"
 #define ATRYBUT_XML_ID_ZDARZENIA "idZdarzenia"
+
+#define ATRYBUT_XML_SKRYPT_FUNC_IN "funcIn"
+#define ATRYBUT_XML_SKRYPT_FUNC_OUT "funcOut"
+#define ATRYBUT_XML_SKRYPT_FUNC_INSIDE "funcInside"
+#define ATRYBUT_XML_SKRYPT_FILE "file"
+#define ATRYBUT_XML_SKRYPT_INSTANCE "instancja"
 
 #define WARTOSC_ATRYBUTU_XML_NASTEPNY "nastepny"
 #define WARTOSC_ATRYBUTU_XML_BRAT "brat"

@@ -6,7 +6,6 @@
 #include "Aplikacja.h"
 #include "BladStukturyStanu.h"
 
-#define KOMUNIAKT_BRAK_PLIKU STyp::Tekst("Dla zdarzenia o ww id nie podano pliku skryptu, a wpisano metody do wykonania.")
 #define KOMUNIAKT_BLAD_WCZYTYWANIA(plik) STyp::Tekst("Dla zdarzenia o ww id nie uda³o siê wczytac pliku lua." + plik)
 #define KOMUNIAKT_BLAD_WYKONYWANIA STyp::Tekst("Dla zdarzenia o ww id nie uda³o siê wykonaæ inicjalizacji skryptu.")
 
@@ -16,10 +15,6 @@ namespace SpEx{
 	{
 		if (wezel){
 			XmlBO::WczytajAtrybut<SpEx::STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, id_);
-			luaFuncInside_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_STAN_LUA_INSIDE, std::string());
-			luaFile_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_STAN_LUA_FILE, std::string());
-			if (luaFile_.empty() && !luaFuncInside_.empty())
-				throw BladStukturyStanu(EXCEPTION_PLACE, id_, KOMUNIAKT_BRAK_PLIKU);
 
 			STyp::Identyfikator stan;
 			if (XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_STAN_NASTEPNY, stan)){
@@ -29,12 +24,14 @@ namespace SpEx{
 			if (XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_NUMER_NASTEPNY, stan)){
 				nastepnyNumer_ = std::make_shared<int>(stan());
 			}
-			if (!luaFile_.empty()){
+
+			if (wezel->pobierzAtrybut(XML_ATRYBUT_TYP_SKRYPTU)){
+
+				luaFuncInside_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FUNC_INSIDE, std::string());
+
 				skrypt_ = Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(wezel);
 				if (!skrypt_)
 					Utils::generujWyjatekBleduStruktury(wezel);
-				if(!skrypt_->zaladuj(luaFile_))
-					throw BladStukturyStanu(EXCEPTION_PLACE, id_, KOMUNIAKT_BLAD_WCZYTYWANIA(luaFile_));
 				if (!skrypt_->wykonaj())
 					throw BladStukturyStanu(EXCEPTION_PLACE, id_, KOMUNIAKT_BLAD_WYKONYWANIA);
 			}
@@ -63,7 +60,6 @@ namespace SpEx{
 		SLog::Logger log(NAZWAKLASY(ZdarzenieInfo));
 		log.dodajPole(NAZWAPOLA(id_), id_);
 		log.dodajPole(NAZWAPOLA(luaFuncInside_), luaFuncInside_);
-		log.dodajPole(NAZWAPOLA(luaFile_), luaFile_);
 		log.dodajPole(NAZWAPOLA(nastepnyStan_), nastepnyStan_);
 		if (nastepnyNumer_)
 			log.dodajPole(NAZWAPOLA(nastepnyNumer_), STyp::Identyfikator(*nastepnyNumer_));

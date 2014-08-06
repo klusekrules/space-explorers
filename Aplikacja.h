@@ -11,6 +11,7 @@
 #include "Singleton.h"
 #include "UstawieniaAplikacji.h"
 #include "Fabrykator.h"
+#include "ZarzadcaZasobow.h"
 
 typedef struct _SYMBOL_INFO {
 	ULONG       SizeOfStruct;
@@ -120,7 +121,7 @@ namespace SpEx {
 		inline ZarzadcaLokacji& pobierzZarzadceLokacji(){
 			return zarzadcaLokacji_;
 		}
-		
+
 		/**
 		* \brief Destruktor.
 		*/
@@ -129,6 +130,9 @@ namespace SpEx {
 		SLog::Log& logger_; /// Instancja loggera.
 		
 		Fabrykator fabrykator_; /// Instacja obiektu przechowuj¹cego zbiór fabryk.
+
+		ZarzadcaZasobow zarzadcaZasobow_; /// Zarz¹dca zasobów.
+
 	private:
 
 		/**
@@ -167,6 +171,7 @@ namespace SpEx {
 
 		ZarzadcaPamieci zarzadcaPamieci_; /// Obiekt zarz¹dzaj¹cy lokacjami.
 		ZarzadcaLokacji zarzadcaLokacji_; /// Obiekt zarz¹dzaj¹cy lokacjami.
+		
 
 		std::string plikKonfiguracyjny_; /// Adres pliku z danymi konfiguracyjnymi. Domyœlnie options.xml z katalogu z plikiem wykonywalnym.
 		UstawieniaAplikacji ustawienia_; /// Klasa wczytuj¹ca ustawienia z pliku konfiguracyjnego.

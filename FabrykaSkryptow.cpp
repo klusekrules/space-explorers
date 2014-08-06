@@ -1,5 +1,7 @@
 #include "FabrykaSkryptow.h"
 #include "Utils.h"
+#include "Parser\ParserDokumentXml.h"
+#include "definicjeWezlowXML.h"
 
 namespace SpEx{
 	bool FabrykaSkryptow::rejestracjaSkryptu(const Identyfikator& id, KreatorSkryptu funkcja){
@@ -20,6 +22,22 @@ namespace SpEx{
 
 	std::shared_ptr<Skrypt> FabrykaSkryptow::Tworz(const Identyfikator& identyfikator, XmlBO::ElementWezla wezel) const {
 		auto iterator = callbacks_.find(identyfikator());
+		if (iterator == callbacks_.end())
+			return nullptr;
+		return iterator->second(wezel);
+	}
+
+	std::shared_ptr<Skrypt> FabrykaSkryptow::Tworz(const std::string& plik) const{
+		std::string ext;
+		if (!Utils::pobierzRozszezenie(plik, ext)){
+			return nullptr;
+		}
+
+		SPar::ParserDokumentXml dokument;
+		auto wezel = dokument.tworzElement("Skrypt");
+		wezel->tworzAtrybut(ATRYBUT_XML_SKRYPT_FILE,plik.c_str());
+		
+		auto iterator = callbacks_.find(ext);
 		if (iterator == callbacks_.end())
 			return nullptr;
 		return iterator->second(wezel);

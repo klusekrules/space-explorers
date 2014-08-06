@@ -63,4 +63,15 @@ namespace SpEx{
 			Utils::ascii2hex(str, md[a]);
 		}
 	}
+
+	bool Utils::pobierzRozszezenie(const std::string & adres, std::string& rozszezenie){
+		auto pos = adres.find_last_of('.');
+		if (pos == std::string::npos)
+			return false;
+		auto end = adres.substr(pos+1);
+		if (end.empty())
+			return false;
+		rozszezenie = std::move(end);
+		return true;
+	}
 }

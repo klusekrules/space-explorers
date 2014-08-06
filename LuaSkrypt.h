@@ -1,6 +1,7 @@
 #pragma once
 #include "lua.hpp"
 #include "Skrypt.h"
+#include "LuaState.h"
 #include <memory>
 #include "Parser\XmlBO.h"
 
@@ -13,8 +14,8 @@ namespace SpEx{
 	*
 	* Klasa implementuje metody dla skryptów lua.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 09-07-2014
+	* \version 2
+	* \date 05-08-2014
 	*/
 	class LuaSkrypt
 		: public Skrypt
@@ -35,18 +36,6 @@ namespace SpEx{
 		static bool Rejestruj(FabrykaSkryptow &fabryka);
 
 		/**
-		* \brief Metoda ³aduj¹ca skrypt.
-		*
-		* Metoda s³u¿¹ca do ³¹dowania skryptu.
-		* \param[in] lokalizacja - Napis lokalizuj¹cy Ÿród³o skryptu.
-		* \return Zwracana jest wartoœæ true, je¿eli uda siê za³adowaæ skrypt lub false w przeciwnym wypadku.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 09-07-2014
-		*/
-		bool zaladuj(const std::string& lokalizacja) override;
-
-		/**
 		* \brief Metoda wykonuj¹ca skrypt.
 		*
 		* Metoda s³u¿¹ca do wykonywania skryptu.
@@ -59,11 +48,11 @@ namespace SpEx{
 		bool wykonaj(const std::string& metoda = std::string()) override;
 
 		/**
-		* \brief Destruktor.
+		* \brief Domyœlny destruktor.
 		*
-		* Destruktor.
+		* Domyœlny destruktor.
 		*/
-		virtual ~LuaSkrypt();
+		virtual ~LuaSkrypt() = default;
 
 	private:
 
@@ -83,25 +72,13 @@ namespace SpEx{
 		* \brief Konstruktor.
 		*
 		* Konstruktor.
-		* \param[in] lokalizacja - Napis lokalizuj¹cy Ÿród³o skryptu.
+		* \param[in] stan - Stan skryptu lua.
 		* \author Daniel Wojdak
-		* \version 1
-		* \date 09-07-2014
+		* \version 2
+		* \date 05-08-2014
 		*/
-		LuaSkrypt(const std::string& lokalizacja = std::string());
+		LuaSkrypt(LuaState::SharedPtr stan);
 
-		/**
-		* \brief Metoda wczytuj¹ca dane skryptu lua.
-		*
-		* Metoda wczytuje dane skryptu do pamiêciu z lokalizacji podanej w atrybucie plik_.
-		* \return Zwracana jest wartoœæ true, je¿eli uda siê za³adowaæ skrypt lub false w przeciwnym wypadku.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 09-07-2014
-		*/
-		bool odczytaj();
-
-		std::string plik_; /// Lokalizacja skryptu.
-		lua_State *L; /// WskaŸnik na obiekt opisuj¹cy stan skryptu.
+		LuaState::SharedPtr L; /// WskaŸnik na obiekt opisuj¹cy stan skryptu.
 	};
 };

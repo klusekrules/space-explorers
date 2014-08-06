@@ -9,8 +9,8 @@ namespace SpEx{
 	*
 	* Klasa przechowuje obiekty fabryk.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 25-07-2014
+	* \version 2
+	* \date 06-08-2014
 	*/
 	class Fabrykator
 	{
@@ -57,6 +57,18 @@ namespace SpEx{
 		* \date 25-07-2014
 		*/
 		std::shared_ptr<Skrypt> TworzSkrypt(const FabrykaSkryptow::Identyfikator& identyfikator, XmlBO::ElementWezla wezel) const;
+
+		/**
+		* \brief Metoda tworzy skrypt.
+		*
+		* Metoda tworzy obiekt skryptu na podstawie danych przekazanych przez parametry.
+		* \param[in] plik - Adres pliku, który ma byæ wczytany jako skrypt.
+		* \return Zwracany jest wskaŸnik do skryptu, je¿eli operacja siê powiedzie lub nullptr w przypadku b³êdu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 06-08-2014
+		*/
+		std::shared_ptr<Skrypt> TworzSkrypt(const std::string& plik) const;
 
 		/**
 		* \brief Metoda tworz¹ca zmianê.

@@ -247,9 +247,6 @@
     <ClCompile Include="Uzytkownik.cpp">
       <Filter>SourceFile\Model\Users</Filter>
     </ClCompile>
-    <ClCompile Include="Skrypt.cpp">
-      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
-    </ClCompile>
     <ClCompile Include="LuaSkrypt.cpp">
       <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
     </ClCompile>
@@ -298,9 +295,6 @@
     <ClCompile Include="ZarzadcaZasobow.cpp">
       <Filter>SourceFile\Kontroler</Filter>
     </ClCompile>
-    <ClCompile Include="Zasob.cpp">
-      <Filter>SourceFile\Kontroler</Filter>
-    </ClCompile>
     <ClCompile Include="ZarzadcaPamieci.cpp">
       <Filter>SourceFile\Kontroler</Filter>
     </ClCompile>
@@ -312,6 +306,9 @@
     </ClCompile>
     <ClCompile Include="FabrykaSkryptow.cpp">
       <Filter>SourceFile\Kontroler\Fabryki</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaState.cpp">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -662,6 +659,9 @@
     </ClInclude>
     <ClInclude Include="FabrykaSkryptow.h">
       <Filter>SourceFile\Kontroler\Fabryki</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaState.h">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

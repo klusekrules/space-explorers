@@ -25,6 +25,9 @@ namespace SpEx{
 	MaszynaStanow::MaszynaStanow()
 		: watekGraficzny_(true), stan_(nullptr), stanNastepny_(nullptr), pulaWatkow_()
 	{
+	}
+
+	void MaszynaStanow::inicjalizuj(){
 		auto root = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadcePamieci().pobierzWezelKonfiguracyjnyMaszynyStanow();
 		XmlBO::WczytajAtrybut<SpEx::STACKTHROW>(root, ATRYBUT_XML_STAN_POCZATKOWY, idStanuPoczatkowy_);
 		pulaWatkow_.ustawLiczbeWatkow(XmlBO::WczytajAtrybut<unsigned char>(root, ATRYBUT_XML_PULA_WATKOW, 4));
