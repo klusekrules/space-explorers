@@ -13,8 +13,8 @@ namespace SpEx{
 	*
 	* Klasa przechowuje stan maszyny skryptów lua. Udostêpnia metody pozwalaj¹ce na dostêp do stanu maszyny lua.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 05-08-2014
+	* \version 2
+	* \date 06-08-2014
 	*/
 	class LuaState
 		: public Zasob
@@ -77,19 +77,7 @@ namespace SpEx{
 			return L;
 		}
 
-		/**
-		* \brief Metoda wczytuj¹ca dane skryptu lua.
-		*
-		* Metoda wczytuje dane skryptu do pamiêciu z lokalizacji podanej w atrybucie plik_.
-		* \return Zwracana jest wartoœæ true, je¿eli uda siê za³adowaæ skrypt lub false w przeciwnym wypadku.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 05-08-2014
-		*/
-		bool odczytaj();
-
 	private:
-
 		/**
 		* \brief Metoda tworz¹ca obiekt.
 		*
