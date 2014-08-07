@@ -1,8 +1,9 @@
 #pragma once
 #include <Windows.h>
-#include "Skrypt.h"
+#include "DllModule.h"
 #include <memory>
 #include "Parser\XmlBO.h"
+#include "Skrypt.h"
 
 #define XML_ATRYBUT_TYP_SKRYPT_DLL "dll"
 namespace SpEx{
@@ -12,8 +13,8 @@ namespace SpEx{
 	*
 	* Klasa implementuje metody dla plików dll.
 	* \author Daniel Wojdak
-	* \version 2
-	* \date 05-08-2014
+	* \version 3
+	* \date 07-08-2014
 	*/
 	class DllSkrypt
 		: public Skrypt
@@ -47,11 +48,12 @@ namespace SpEx{
 		bool wykonaj(const std::string& metoda = std::string()) override;
 
 		/**
-		* \brief Destruktor.
+		* \brief Domyœlny destruktor.
 		*
-		* Destruktor.
+		* Domyœlny destruktor.
 		*/
-		virtual ~DllSkrypt();
+		virtual ~DllSkrypt() = default;
+
 	private:
 
 		/**
@@ -70,26 +72,14 @@ namespace SpEx{
 		* \brief Konstruktor.
 		*
 		* Konstruktor.
-		* \param[in] lokalizacja - Napis lokalizuj¹cy Ÿród³o skryptu.
+		* \param[in] ptr - Modu³ dll.
 		* \author Daniel Wojdak
-		* \version 1
-		* \date 09-07-2014
+		* \version 2
+		* \date 07-08-2014
 		*/
-		DllSkrypt(const std::string& lokalizacja = std::string());
+		DllSkrypt(DllModule::SharedPtr ptr);
 
-		/**
-		* \brief Metoda wczytuj¹ca dane skryptu lua.
-		*
-		* Metoda wczytuje dane skryptu do pamiêciu z lokalizacji podanej w atrybucie plik_.
-		* \return Zwracana jest wartoœæ true, je¿eli uda siê za³adowaæ skrypt lub false w przeciwnym wypadku.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 09-07-2014
-		*/
-		bool odczytaj();
+		DllModule::SharedPtr modul_; /// WskaŸnik na obiekt z uchwytem do modu³u dll.  
 
-
-		std::string plik_; /// Lokalizacja pliku dll.
-		HMODULE handle_; /// Uchwyt do wczytanego modu³u dll.
 	};
 };

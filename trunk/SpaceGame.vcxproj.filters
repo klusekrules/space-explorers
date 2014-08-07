@@ -307,6 +307,9 @@
     <ClCompile Include="LuaState.cpp">
       <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
     </ClCompile>
+    <ClCompile Include="DllModule.cpp">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -655,6 +658,9 @@
       <Filter>SourceFile\Kontroler\Fabryki</Filter>
     </ClInclude>
     <ClInclude Include="LuaState.h">
+      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+    </ClInclude>
+    <ClInclude Include="DllModule.h">
       <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
     </ClInclude>
   </ItemGroup>
