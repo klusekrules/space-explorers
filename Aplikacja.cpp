@@ -14,6 +14,7 @@
 #include "LogListGui.h"
 #include "BladKonfiguracjiAplikacji.h"
 #include "LuaState.h"
+#include "DllModule.h"
 
 #define KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU STyp::Tekst("Podczas przetwarzabua argumentów wyst¹pi³ b³¹d.")
 #define KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plik) STyp::Tekst("Nie powiod³o siê wczytywanie pliku konfiguracyjnego: " + plik)
@@ -60,6 +61,7 @@ namespace SpEx{
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("kontrolkaobiektu", tgui::KontrolkaObiektu::createWidget);
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("loglistgui", tgui::LogListGui::createWidget);
 		LuaState::Rejestruj(zarzadcaZasobow_);
+		DllModule::Rejestruj(zarzadcaZasobow_);
 
 		/* ------- Wstêpna konfiguracja logów ------- */
 #ifdef TESTS

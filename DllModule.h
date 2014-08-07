@@ -1,27 +1,26 @@
 #pragma once
-#include "lua.hpp"
+#include <Windows.h>
 #include <string>
 #include <memory>
 #include "ZarzadcaZasobow.h"
 
-#define XML_ATRYBUT_TYP_ZASOBU_LUA "lua"
-
-namespace SpEx{
+#define XML_ATRYBUT_TYP_ZASOBU_DLL "dll"
+namespace SpEx {
 
 	/**
-	* \brief Klasa przechowuj¹ca stan maszyny skryptów lua.
+	* \brief Klasa przechowuj¹ca uchwyt do modu³u dll.
 	*
-	* Klasa przechowuje stan maszyny skryptów lua. Udostêpnia metody pozwalaj¹ce na dostêp do stanu maszyny lua.
+	* Klasa przechowuje uchwyt do modu³u dll. Udostêpnia metody pozwalaj¹ce na dostêp do modu³u dll.
 	* \author Daniel Wojdak
-	* \version 2
-	* \date 06-08-2014
+	* \version 1
+	* \date 07-08-2014
 	*/
-	class LuaState
+	class DllModule
 		: public Zasob
 	{
 	public:
-		typedef std::shared_ptr<LuaState> SharedPtr; /// Silny wskaŸnik na klasê.
-		typedef std::weak_ptr<LuaState> WeakPtr; /// S³aby wskaŸnik na klasê.
+		typedef std::shared_ptr<DllModule> SharedPtr; /// Silny wskaŸnik na klasê.
+		typedef std::weak_ptr<DllModule> WeakPtr; /// S³aby wskaŸnik na klasê.
 		
 		/**
 		* \brief Konstruktor.
@@ -30,16 +29,16 @@ namespace SpEx{
 		* \param[in] plik - Adres pliku, który ma zostaæ wczytany.
 		* \author Daniel Wojdak
 		* \version 1
-		* \date 05-08-2014
+		* \date 07-08-2014
 		*/
-		LuaState(const std::string& plik);
+		DllModule(const std::string& plik);
 
 		/**
 		* \brief Destruktor.
 		*
 		* Destruktor.
 		*/
-		virtual ~LuaState();
+		virtual ~DllModule();
 
 		/**
 		* \brief Metoda inicjalizuj¹ca obiekt.
@@ -48,36 +47,50 @@ namespace SpEx{
 		* \return Zwraca wartoœæ true je¿eli zostanie zainicjalizowany poprawnie. Zwraca wartoœc false w przeciwnym wypadku.
 		* \author Daniel Wojdak
 		* \version 1
-		* \date 05-08-2014
+		* \date 07-08-2014
 		*/
 		bool inicjalizuj() override;
 
 		/**
-		* \brief Metoda rejestruj¹ca klasê LuaState w zarz¹dcy zasobów.
+		* \brief Metoda rejestruj¹ca klasê DllModule w zarz¹dcy zasobów.
 		*
-		* Metoda rejestruje klasê LuaState w zarz¹dcy zasobów podanym w parametrze metody.
+		* Metoda rejestruje klasê DllModule w zarz¹dcy zasobów podanym w parametrze metody.
 		* \param[in] fabryka - Referencja do zarz¹dcy zasobów.
 		* \return Zwracana jest wartoœc true, je¿eli operacja sê powiedzie lub false w przeciwnym wypadku.
 		* \author Daniel Wojdak
 		* \version 1
-		* \date 06-08-2014
+		* \date 07-08-2014
 		*/
 		static bool Rejestruj(ZarzadcaZasobow &fabryka);
-		
+
 		/**
-		* \brief Operator zwracaj¹cy wskaŸnik do obiektu stanu maszyny lua.
+		* \brief Operator zwracaj¹cy uchwyt modu³u dll.
 		*
-		* Operator zwraca wskaŸnik do obiektu stanu maszyny lua.
-		* \return WskaŸnik do obiektu stanu maszyny lua.
+		* Operator zwraca uchwyt modu³u dll.
+		* \return Uchwyt modu³u dll.
 		* \author Daniel Wojdak
 		* \version 1
-		* \date 06-08-2014
+		* \date 07-08-2014
 		*/
-		inline lua_State* operator()() const{
-			return L;
+		inline HMODULE operator()() const{
+			return handle_;
+		}
+
+		/**
+		* \brief Metoda zwracaj¹ca adres pliku.
+		*
+		* Metoda zwraca adres pliku dll.
+		* \return Adres pliku dll.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 07-08-2014
+		*/
+		inline const std::string& pobierzPlik() const{
+			return plik_;
 		}
 
 	private:
+
 		/**
 		* \brief Metoda tworz¹ca obiekt.
 		*
@@ -87,12 +100,11 @@ namespace SpEx{
 		* \return Zwracana jest wskaŸnik do zasobu.
 		* \author Daniel Wojdak
 		* \version 1
-		* \date 05-08-2014
+		* \date 07-08-2014
 		*/
 		static Zasob::SharedPtr Tworz(const ZarzadcaZasobow::Parametr& parametr, bool cache);
-
-		std::string plik_; /// Lokalizacja skryptu.
-		lua_State *L; /// WskaŸnik na obiekt opisuj¹cy stan skryptu.
+		
+		std::string plik_; /// Lokalizacja pliku dll.
+		HMODULE handle_; /// Uchwyt do wczytanego modu³u dll.
 	};
 };
-

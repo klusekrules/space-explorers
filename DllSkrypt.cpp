@@ -1,45 +1,27 @@
 #include "DllSkrypt.h"
 #include "Logger\Log.h"
 #include "Fabrykator.h"
+#include "definicjeWezlowXML.h"
+#include "Aplikacja.h"
 
 namespace SpEx{
-	DllSkrypt::DllSkrypt(const std::string& plik)
-		: plik_(plik), handle_(nullptr)
+	DllSkrypt::DllSkrypt(DllModule::SharedPtr ptr)
+		: modul_(ptr)
 	{
-		odczytaj();
 	}
 
 	bool DllSkrypt::wykonaj(const std::string& funkcja){
 		if (!funkcja.empty()){
-			auto procedura = GetProcAddress(handle_, funkcja.c_str());
+			auto procedura = GetProcAddress((*modul_)(), funkcja.c_str());
 			if (procedura()) {
 				std::stringstream ss;
-				ss << "Nie udalo sie wywolac skryptu: " << funkcja << " z pliku :  " << plik_ << std::endl;
+				ss << "Nie udalo sie wywolac skryptu: " << funkcja << " z pliku :  " << modul_->pobierzPlik() << std::endl;
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, ss.str());
 				return false;
 			}
 			return true;
 		}
 		return false;
-	}
-
-	bool DllSkrypt::odczytaj(){
-		if (!plik_.empty()){
-			handle_ = LoadLibrary(plik_.c_str());
-			if (!handle_) {
-				std::stringstream ss;
-				ss << "Nie udalo sie wczytac pliku: " << plik_ << std::endl;
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, ss.str());
-				return false;
-			}
-			return true;
-		}
-		return false;
-	}
-
-	DllSkrypt::~DllSkrypt(void){
-		if (handle_)
-			FreeLibrary(handle_);
 	}
 
 	bool DllSkrypt::Rejestruj(Fabrykator &fabryka){
@@ -47,6 +29,12 @@ namespace SpEx{
 	}
 
 	std::shared_ptr<Skrypt> DllSkrypt::Tworz(XmlBO::ElementWezla wezel){
-		return std::make_shared<DllSkrypt>();
+		std::string luaFile = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FILE, std::string());
+		if (luaFile.empty())
+			return nullptr;
+		DllModule::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzZasob<DllModule>(luaFile, false);
+		if (uchwyt == nullptr)
+			return nullptr;
+		return std::make_shared<DllSkrypt>(uchwyt);
 	}
 }

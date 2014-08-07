@@ -323,6 +323,7 @@
     <ClInclude Include="BladStukturyStanu.h" />
     <ClInclude Include="BudynekTest.h" />
     <ClInclude Include="CzyszczenieDanychTest.h" />
+    <ClInclude Include="DllModule.h" />
     <ClInclude Include="DllSkrypt.h" />
     <ClInclude Include="EkranStartowy.h" />
     <ClInclude Include="EkranSzablon.h" />
@@ -443,6 +444,7 @@
     <ClCompile Include="BudynekInfo.cpp" />
     <ClCompile Include="BudynekTest.cpp" />
     <ClCompile Include="CzyszczenieDanychTest.cpp" />
+    <ClCompile Include="DllModule.cpp" />
     <ClCompile Include="DllSkrypt.cpp" />
     <ClCompile Include="EkranStartowy.cpp" />
     <ClCompile Include="EkranSzablon.cpp" />
