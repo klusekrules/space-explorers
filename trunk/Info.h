@@ -109,15 +109,15 @@ namespace SpEx{
 		* Metoda pobiera adres obrazka.
 		* \return Adres do obrazka obiektu.
 		* \author Daniel Wojdak
-		* \version 1
-		* \date 14-07-2014
+		* \version 2
+		* \date 09-09-2014
 		*/
-		const STyp::Tekst& pobierzAdresObrazka() const;
+		const STyp::Identyfikator& pobierzIdentyfikatorObrazka() const;
 
 		const STyp::Identyfikator typ_ = NIEZNANY; /// Typ obiektu.
 
 	protected:
-		STyp::Tekst adresObrazka_; /// Adres do obrazka wyœwietlonego w GUI.
+		STyp::Identyfikator idObrazka_; /// Identyfikator do obrazka wyœwietlonego w GUI.
 
 	private:
 		STyp::Tekst nazwa_; /// Nazwa obiektu.

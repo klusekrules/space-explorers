@@ -2,6 +2,7 @@
 #include "definicjeWezlowXML.h"
 #include "Logger\Logger.h"
 #include "Utils.h"
+#include "Aplikacja.h"
 
 namespace SpEx {
 
@@ -10,7 +11,10 @@ namespace SpEx {
 	{
 		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
 		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_NAZWA, nazwa_);
-		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_ADRES_OBRAZKA, adresObrazka_);
+		STyp::Tekst adresObrazka;
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_ADRES_OBRAZKA, adresObrazka);
+
+		idObrazka_ = Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzKlucz(adresObrazka());
 		auto tablicaZnakow = wezel->pobierzTekst();
 		if (tablicaZnakow){
 			ustawOpis(std::string(tablicaZnakow));
@@ -44,8 +48,8 @@ namespace SpEx {
 		opis_ = opis;
 	}
 
-	const STyp::Tekst& Info::pobierzAdresObrazka() const{
-		return adresObrazka_;
+	const STyp::Identyfikator& Info::pobierzIdentyfikatorObrazka() const{
+		return idObrazka_;
 	}
 
 	std::string Info::napis() const{
@@ -54,7 +58,7 @@ namespace SpEx {
 		str.dodajPole(NAZWAPOLA(identyfikator_), identyfikator_);
 		str.dodajPole(NAZWAPOLA(nazwa_), nazwa_);
 		str.dodajPole(NAZWAPOLA(opis_), opis_);
-		str.dodajPole(NAZWAPOLA(adresObrazka_), adresObrazka_);
+		str.dodajPole(NAZWAPOLA(idObrazka_), idObrazka_);
 		return str.napis();
 	}
 }

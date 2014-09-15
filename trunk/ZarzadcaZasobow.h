@@ -10,8 +10,8 @@ namespace SpEx {
 	*
 	* Klasa zarz¹dzaj¹ca zasobami, przechowuje wskaŸniki na zasoby.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 06-08-2014
+	* \version 2
+	* \date 02-09-2014
 	*/
 	class ZarzadcaZasobow
 		: se::NonCopyable
@@ -37,6 +37,18 @@ namespace SpEx {
 		* Domyœlny destruktor.
 		*/
 		virtual ~ZarzadcaZasobow() = default;
+		
+		/**
+		* \brief Metoda pobieraj¹ca klucz zasobu.
+		*
+		* Metoda na podstawie klucza znakowego zwraca klucz liczbowy.
+		* \param[in] identyfikator - Napis identyfikuj¹cy zasób.
+		* \return Identyfikator liczbowy.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 02-09-2014
+		*/
+		Identyfikator pobierzKlucz(const Parametr& identyfikator);
 
 		/**
 		* \brief Metoda pobierajaca zasób.
