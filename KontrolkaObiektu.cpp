@@ -536,7 +536,7 @@ namespace tgui{
 	}
 
 	bool KontrolkaObiektu::ustawDane(const SpEx::ObiektInfo& obj, const SpEx::Planeta& planeta){
-		picture_->load(obj.pobierzAdresObrazka()());
+		///TODO: £adowanie tekstury przez zarz¹dce zasobów. picture_->load(obj.pobierzAdresObrazka()()); 
 		idObiektu_ = obj.pobierzIdentyfikator()();
 
 		rozbuduj_->unbindCallback(64);

@@ -3,6 +3,12 @@
 
 namespace SpEx{
 
+	ZarzadcaZasobow::Identyfikator ZarzadcaZasobow::pobierzKlucz(const Parametr& identyfikator){
+		STyp::Identyfikator id;
+		mapujIdentyfikator(identyfikator, id);
+		return id;
+	}
+
 	Zasob::SharedPtr ZarzadcaZasobow::pobierzZasob(const Parametr& parametr, bool cache){
 		STyp::Identyfikator identyfikator;
 		mapujIdentyfikator(parametr, identyfikator);
