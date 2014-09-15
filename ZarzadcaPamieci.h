@@ -13,8 +13,8 @@ namespace SpEx{
 	* Klasa zarzadza dokumetami xml.
 	* \deprecated Klasa do usuniêcia. Fukcjonalnoœæ zostanie przeniesiona do zarz¹dcy zasobów.
 	* \author Daniel Wojdak
-	* \version 3
-	* \date 25-07-2014
+	* \version 4
+	* \date 15-09-2014
 	*/
 	class ZarzadcaPamieci
 	{
@@ -117,6 +117,7 @@ namespace SpEx{
 		virtual ~ZarzadcaPamieci() = default;
 
 	private:
+		bool czyZainicjalizowany_ = false; /// Informacja czy klasa zosta³a ju¿ zainicjalizowana poprawnie.
 
 		std::shared_ptr<SPar::ParserDokument> dokumentMaszynyStanow_; /// Dokument z opisem stanów.
 		std::shared_ptr<SPar::ParserDokument> dokumentOknaGry_; /// Dokument z list¹ okien.
