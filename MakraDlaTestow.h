@@ -58,4 +58,17 @@ static Rejestrator rejestrator
 	if( otrzymane ) \
 		throw WyjatekSprawdzeniaWarunku(MIEJSCE_WYJATKU,"false",GENERUJ_NAPIS(otrzymane))
 
+#define UNIT_TEST_ASSERT_THROW( otrzymane , typ) \
+	{ \
+	bool r = true; \
+	try{ \
+		otrzymane; \
+	} \
+	catch(typ){ \
+		r = false; \
+	} \
+	if(r) \
+		throw WyjatekSprawdzeniaWarunku(MIEJSCE_WYJATKU,"false",GENERUJ_NAPIS(otrzymane)); \
+	}
+
 

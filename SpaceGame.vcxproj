@@ -361,6 +361,7 @@
     <ClInclude Include="Skrypt.h" />
     <ClInclude Include="Stan.h" />
     <ClInclude Include="StanInfo.h" />
+    <ClInclude Include="SurowceTest.h" />
     <ClInclude Include="TestyUtilsBO.h" />
     <ClInclude Include="TypyEksportowne.h" />
     <ClInclude Include="UkladSloneczny.h" />
@@ -512,6 +513,7 @@
     <ClCompile Include="StatekTest.cpp" />
     <ClCompile Include="Surowce.cpp" />
     <ClCompile Include="SurowceInfo.cpp" />
+    <ClCompile Include="SurowceTest.cpp" />
     <ClCompile Include="Technologia.cpp" />
     <ClCompile Include="TechnologiaInfo.cpp" />
     <ClCompile Include="TechnologiaTest.cpp" />
