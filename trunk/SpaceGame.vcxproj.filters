@@ -310,6 +310,9 @@
     <ClCompile Include="DllModule.cpp">
       <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
     </ClCompile>
+    <ClCompile Include="SurowceTest.cpp">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -662,6 +665,9 @@
     </ClInclude>
     <ClInclude Include="DllModule.h">
       <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+    </ClInclude>
+    <ClInclude Include="SurowceTest.h">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
