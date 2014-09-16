@@ -13,8 +13,8 @@ namespace SpEx{
 	*
 	* Klasa reprezentuj¹ca surowiec.
 	* \author Daniel Wojdak
-	* \version 2
-	* \date 16-07-2014
+	* \version 3
+	* \date 16-09-2014
 	*/
 	class Surowce :
 		public Obiekt,
@@ -24,6 +24,18 @@ namespace SpEx{
 		friend class SurowceInfo;
 	public:
 
+		/**
+		* \brief Konstruktor.
+		*
+		* Konstruktor.
+		* \param[in] parametryPodstawowe - Podstawowe parametry.
+		* \param[in] surowceInfo - Referencja do obiektu opisuj¹cego.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 16-09-2014
+		*/
+		Surowce(const PodstawoweParametry& parametryPodstawowe, const SurowceInfo& surowceInfo);
+		
 		/**
 		* \brief Domyœlny destruktor.
 		*
@@ -231,6 +243,7 @@ namespace SpEx{
 		* \warning Metoda allokuje pamiêæ dla nowego obiektu, który musi zostaæ zwolniony wywo³aniem delete.
 		* \return Wskazanie na podzielony obiekt. Je¿eli nie mo¿na by³o podzieliæ obiektu, zostaje zwrócony nullptr.
 		* \remark Metoda jest tranzakcyjna.
+		* \todo Dodanie zabezpieczenia przez wyœcigiem przy u¿ywaniu tego samego obiektu w wielu w¹tkach.
 		* \author Daniel Wojdak
 		* \version 1
 		* \date 25-07-2013
@@ -318,30 +331,6 @@ namespace SpEx{
 		STyp::Masa pobierzMase()const;
 
 	private:
-		/**
-		* \brief Konstruktor.
-		*
-		* Konstruktor.
-		* \param[in] ilosc - Iloœæ tworzonego obiektu.
-		* \param[in] obiekt - Obiekt na bazie którego jest tworzona aktualna instancja.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 25-07-2013
-		*/
-		Surowce(const STyp::Ilosc& ilosc, const Surowce& obiekt);
-
-		/**
-		* \brief Konstruktor.
-		*
-		* Konstruktor.
-		* \param[in] parametryPodstawowe - Podstawowe parametry.
-		* \param[in] surowceInfo - Referencja do obiektu opisuj¹cego.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 25-07-2013
-		*/
-		Surowce(const PodstawoweParametry& parametryPodstawowe, const SurowceInfo& surowceInfo);
-
 		const SurowceInfo& surowceInfo_; /// Referencja do obiektu opisowego.
 	};
 }

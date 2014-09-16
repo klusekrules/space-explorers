@@ -62,6 +62,7 @@ namespace SpEx{
 		/**
 		* Metoda ustawiaj¹ca identyfikator obiektu.
 		* \param[in] identyfikator - Nowa wartoœæ identyfikatora obiektu.
+		* \deprecated Metoda przeznaczona do usuniêcia.
 		*/
 		void ustawIdentyfikator(const STyp::Identyfikator& identyfikator);
 
@@ -78,6 +79,7 @@ namespace SpEx{
 		*
 		* Metoda ustawiaj¹ca atrybut obiektu.
 		* \param[in] nazwa - Nowa wartoœæ nazwy obiektu.
+		* \deprecated Metoda przeznaczona do usuniêcia.
 		*/
 		void ustawNazwe(const STyp::Tekst& nazwa);
 
@@ -94,6 +96,7 @@ namespace SpEx{
 		*
 		* Metoda ustawiaj¹ca atrybut obiektu.
 		* \param[in] opis - Nowa wartoœæ opisu obiektu.
+		* \deprecated Metoda przeznaczona do usuniêcia.
 		*/
 		void ustawOpis(const STyp::Tekst& opis);
 
