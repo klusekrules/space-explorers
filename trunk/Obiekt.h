@@ -113,6 +113,7 @@ namespace SpEx{
 		/**
 		* Metoda ustawiaj¹ca identyfikator obiektu.
 		* \param[in] identyfikator - Nowa wartoœæ identyfikatora obiektu.
+		* \deprecated Metoda przeznaczona do usuniêcia.
 		*/
 		void ustawIdentyfikator(const STyp::Identyfikator& identyfikator);
 

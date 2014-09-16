@@ -7,12 +7,12 @@
 
 namespace SpEx{
 
-	Surowce::Surowce(const STyp::Ilosc& ilosc, const Surowce& obiekt)
+	/*Surowce::Surowce(const STyp::Ilosc& ilosc, const Surowce& obiekt)
 		: PodstawoweParametry(wpisIlosc(ilosc), obiekt.surowceInfo_.pobierzTypAtrybutu(), obiekt.pobierzIdentyfikatorPlanety()),
 		Obiekt(PodstawoweParametry(wpisIlosc(ilosc), obiekt.surowceInfo_.pobierzTypAtrybutu(), obiekt.pobierzIdentyfikatorPlanety()), obiekt.surowceInfo_),
 		surowceInfo_(obiekt.surowceInfo_)
 	{
-	}
+	}*/
 
 	Surowce::Surowce(const PodstawoweParametry& parametryPodstawowe, const SurowceInfo& surowceInfo)
 		: PodstawoweParametry(parametryPodstawowe), Obiekt(parametryPodstawowe, surowceInfo), surowceInfo_(surowceInfo)
@@ -47,7 +47,7 @@ namespace SpEx{
 		if (ilosc <= STyp::Ilosc(0.0l) || ilosc >= this->pobierzIlosc())
 			return nullptr;
 		this->wzrostAtrybutu(wpisIlosc( -ilosc ));
-		return new Surowce(ilosc, *this);
+		return new Surowce(ilosc, surowceInfo_);
 	}
 
 	Surowce& Surowce::operator=(const Surowce& obiekt)  throw (NiezgodnyTypSurowca) {
@@ -96,7 +96,7 @@ namespace SpEx{
 	Surowce Surowce::operator+(const Surowce& obiekt) const throw (NiezgodnyTypSurowca){
 		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
 			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
-		return Surowce(pobierzIlosc() + obiekt.pobierzIlosc(), obiekt);
+		return Surowce(pobierzIlosc() + obiekt.pobierzIlosc(), obiekt.surowceInfo_);
 	}
 
 	Surowce& Surowce::operator+=(const Surowce& obiekt)  throw (NiezgodnyTypSurowca){
@@ -109,7 +109,7 @@ namespace SpEx{
 	Surowce Surowce::operator-(const Surowce& obiekt) const throw (NiezgodnyTypSurowca){
 		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
 			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
-		return Surowce(pobierzIlosc() - obiekt.pobierzIlosc(), obiekt);
+		return Surowce(pobierzIlosc() - obiekt.pobierzIlosc(), obiekt.surowceInfo_);
 	}
 
 	Surowce& Surowce::operator-=(const Surowce& obiekt) throw (NiezgodnyTypSurowca){
