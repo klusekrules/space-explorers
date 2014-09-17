@@ -2,6 +2,9 @@
 #include "Logger\Log.h"
 #include "definicjeWezlowXML.h"
 #include "Aplikacja.h"
+#include "BladStukturyStanu.h"
+
+#define KOMUNIAKT_BLAD_WYKONYWANIA STyp::Tekst("Dla zdarzenia o ww id nie uda³o siê wykonaæ inicjalizacji skryptu.")
 
 namespace SpEx{
 	LuaSkrypt::LuaSkrypt(LuaState::SharedPtr ptr)
@@ -41,12 +44,18 @@ namespace SpEx{
 			LuaState::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzZasob<LuaState>(id, luaFile, !instancja.empty());
 			if (uchwyt == nullptr)
 				return nullptr;
-			return std::make_shared<LuaSkrypt>(uchwyt);
+			auto skrypt = std::make_shared<LuaSkrypt>(uchwyt);
+			if (!skrypt->wykonaj())
+				throw BladStukturyStanu(EXCEPTION_PLACE, uchwyt->pobierzIdentyfikator(), KOMUNIAKT_BLAD_WYKONYWANIA);
+			return skrypt;
 		}else{
 			LuaState::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzUnikalnyZasob<LuaState>(luaFile);
 			if (uchwyt == nullptr)
 				return nullptr;
-			return std::make_shared<LuaSkrypt>(uchwyt);
+			auto skrypt = std::make_shared<LuaSkrypt>(uchwyt);
+			if (!skrypt->wykonaj())
+				throw BladStukturyStanu(EXCEPTION_PLACE, uchwyt->pobierzIdentyfikator(), KOMUNIAKT_BLAD_WYKONYWANIA);
+			return skrypt;
 		}
 	}
 };

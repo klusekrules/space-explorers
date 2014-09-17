@@ -35,8 +35,6 @@ namespace SpEx{
 				skrypt_ = Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(wezel);
 				if (!skrypt_)
 					Utils::generujWyjatekBleduStruktury(wezel);
-				if (!skrypt_->wykonaj())
-					throw BladStukturyStanu(EXCEPTION_PLACE, id_, KOMUNIAKT_BLAD_WYKONYWANIA);
 			}
 		}
 	}

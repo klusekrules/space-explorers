@@ -4,10 +4,8 @@
 #include "definicjeWezlowXML.h"
 #include "Utils.h"
 #include "Aplikacja.h"
-#include "BladStukturyStanu.h"
 
 #define KOMUNIAKT_BLAD_WCZYTYWANIA(plik) STyp::Tekst("Dla zdarzenia o ww id nie uda³o siê wczytac pliku lua." + plik)
-#define KOMUNIAKT_BLAD_WYKONYWANIA STyp::Tekst("Dla zdarzenia o ww id nie uda³o siê wykonaæ inicjalizacji skryptu.")
 
 namespace SpEx{
 	ZdarzenieInfo::ZdarzenieInfo(XmlBO::ElementWezla wezel)
@@ -32,8 +30,6 @@ namespace SpEx{
 				skrypt_ = Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(wezel);
 				if (!skrypt_)
 					Utils::generujWyjatekBleduStruktury(wezel);
-				if (!skrypt_->wykonaj())
-					throw BladStukturyStanu(EXCEPTION_PLACE, id_, KOMUNIAKT_BLAD_WYKONYWANIA);
 			}
 		}
 	}

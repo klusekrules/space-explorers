@@ -277,7 +277,6 @@ extern "C"{
 			std::shared_ptr<SpEx::Skrypt> luaSkrypt = 
 				SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(sPlik);
 			if (luaSkrypt){
-				luaSkrypt->wykonaj();
 				luaSkrypt->wykonaj(sFunkcja);
 			}
 			return;
@@ -535,7 +534,6 @@ extern "C"{
 		std::function<void()> lambda = [sPlik, sFunkcja]()->void{
 			std::shared_ptr<SpEx::Skrypt> luaSkrypt = SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(sPlik);
 			if (luaSkrypt){
-				luaSkrypt->wykonaj();
 				luaSkrypt->wykonaj(sFunkcja);
 			}
 		};

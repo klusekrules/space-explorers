@@ -20,6 +20,7 @@
             <Directory Id='DOC_DIR' Name='doc'/>
             <Directory Id='INSTALL_DIR' Name='bin'>
               <Directory Id='LUA_DIR' Name='lua'/>
+              <Directory Id='DLL_DIR' Name='dll'/>
               <Directory Id='WIDGETS_DIR' Name='widgets'/>
               <Directory Id='RESOURCE_DIR' Name='resource'/>
                 
@@ -55,7 +56,7 @@
             </CreateFolder>
       </Component>
       <Component Id='SPACE_EXPLORERS_COM' Guid='5BE847C4-843E-4D82-93EF-16190F994885' Win64='$(var.isPlatformx64)'>
-        <File Id='SPACE_EXPLORERS_EXE' Name='space.exe'  Source='..\out\SpaceExplorers-$(var.Platforma)-$(var.Configuration).exe' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'>
+        <File Id='SPACE_EXPLORERS_EXE' Source='..\out\SpaceExplorers-$(var.Platforma)-$(var.Configuration).exe' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'>
           <Shortcut Id="MENU_SHORTCUT_SPACE_EXPLORERS_EXE" Directory="ProgramMenuDir" Name="Space-Explorers"
               WorkingDirectory='INSTALL_DIR' Advertise="yes" Arguments="-O $(var.PlikOpcji)" Icon="ikona.ico"/>
           <Shortcut Id="DESKTOP_SHORTCUT_SPACE_EXPLORERS_EXE" Directory="DesktopFolder" Name="Space-Explorers"
@@ -213,6 +214,12 @@
         <File Id='TLO_PNG_FILE' Source='..\out\widgets\tlo.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
       </Component>
     </DirectoryRef>
+
+    <DirectoryRef Id='DLL_DIR'>
+      <Component Id='DLL_TEST_SKRYPTU_COMP' Guid='{0D5B4AB5-C43C-4B30-96E1-7AD1DF3AC6E8}' Win64='$(var.isPlatformx64)'>
+        <File Id='DLL_TEST_SKRYPTU_FILE' Source='..\out\dll\TestSkryptuDll.dll' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+    </DirectoryRef>
     
     <Feature Id='Complete' Title='Space-Explorers 0.0.6' Description='Moja aplikacja'
       Display='expand' Level='1' AllowAdvertise='no' ConfigurableDirectory="SPACE_EXPLORERS" >
@@ -253,7 +260,8 @@
       <ComponentRef Id='OKNO_LISTY_COMP' />
       <ComponentRef Id='OKNO_LOGOWANIA_COMP' />
       <ComponentRef Id='TLO_PNG_FILE_COMP' />
-      <ComponentRef Id='DANE_TESTOWE_COMP' />    
+      <ComponentRef Id='DANE_TESTOWE_COMP' />
+      <ComponentRef Id='DLL_TEST_SKRYPTU_COMP' />
     </Feature>
     
     <Feature Id="VCRedist" Title="Visual C++ 12.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
