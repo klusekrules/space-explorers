@@ -1,7 +1,25 @@
 #include "ZarzadcaZasobow.h"
 #include "Utils.h"
+#include "definicjeWezlowXML.h"
 
 namespace SpEx{
+
+	bool ZarzadcaZasobow::inicjalizuj(XmlBO::ElementWezla wezel){
+		if (!wezel)
+			return false;
+		return XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_LOKALIZACJA_ZASOBU, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla wpis)->bool{
+			std::string nazwa;
+			std::string lokalizacja;
+
+			nazwa = XmlBO::WczytajAtrybut(wpis, ATRYBUT_XML_NAZWA, std::string());
+			lokalizacja = XmlBO::WczytajAtrybut(wpis, ATRYBUT_XML_LOKALIZACJA, std::string());
+
+			if (nazwa.empty() || lokalizacja.empty())
+				return false;
+			lokalizacjeZasobow_.push_back(std::make_pair(nazwa, lokalizacja));
+			return true;
+		}));
+	}
 
 	ZarzadcaZasobow::Identyfikator ZarzadcaZasobow::pobierzKlucz(const Parametr& identyfikator){
 		STyp::Identyfikator id;

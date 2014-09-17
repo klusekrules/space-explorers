@@ -48,6 +48,8 @@
 #define WEZEL_XML_AKCJA "Akcja"
 #define WEZEL_XML_KONTROLKA "Kontrolka"
 
+#define WEZEL_XML_LOKALIZACJA_ZASOBU "LokalizacjaZasobu"
+
 #define ATRYBUT_XML_PLANETA_AKTYWNA "planetaAktywna"
 #define ATRYBUT_XML_IDENTYFIKATOR "id"
 #define ATRYBUT_XML_IDENTYFIKATOR_RODZICA "idRodzica"
@@ -94,6 +96,8 @@
 #define ATRYBUT_XML_POWIERZCHNIA_UZYTKOWA_LADOW "powierzchniaUzytkowaLadow"
 #define ATRYBUT_XML_WOLNA "wolna"
 #define ATRYBUT_XML_NUMER "numer"
+
+#define ATRYBUT_XML_LOKALIZACJA "lokalizacja"
 
 #define ATRYBUT_XML_EKRAN_STAN_WEJSCIOWY "stanWejsciowy"
 #define ATRYBUT_XML_EKRAN_ZDARZENIE_WYJSCIA "zdarzenieWyjscia"

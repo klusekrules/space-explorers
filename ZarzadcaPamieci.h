@@ -41,7 +41,7 @@ namespace SpEx{
 		/**
 		* \brief Metoda zwraca wezel z opisem okien gry.
 		*
-		* Metoda zwraca wêze³ a opisem okien gry.
+		* Metoda zwraca wêze³ z opisem okien gry.
 		* \return Zwracany jest wêze³, je¿eli operacja siê powiedzie lub nullptr w przypadku b³êdu.
 		* \author Daniel Wojdak
 		* \version 2
@@ -59,6 +59,17 @@ namespace SpEx{
 		* \date 01-07-2014
 		*/
 		XmlBO::ElementWezla tworzWezelGry();
+
+		/**
+		* \brief Metoda zwraca wezel z powi¹zaniami zasobów.
+		*
+		* Metoda zwraca wêze³ z powi¹zaniami nazw symbolicznych z lokalizacj¹ zasobów.
+		* \return Zwracany jest wêze³, je¿eli operacja siê powiedzie lub nullptr w przypadku b³êdu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 17-09-2014
+		*/
+		XmlBO::ElementWezla ZarzadcaPamieci::pobierzWezelPowiazanZasobow()const;
 
 		/**
 		* \brief Metoda zapisuje wêze³ gry.
@@ -122,6 +133,7 @@ namespace SpEx{
 		std::shared_ptr<SPar::ParserDokument> dokumentMaszynyStanow_; /// Dokument z opisem stanów.
 		std::shared_ptr<SPar::ParserDokument> dokumentOknaGry_; /// Dokument z list¹ okien.
 		std::shared_ptr<SPar::ParserDokument> dokumentGry_; /// Dokument z opisem obiektów gry.
+		std::shared_ptr<SPar::ParserDokument> dokumentPowiazanZasobow_; /// Dokument z opisem powi¹zañ zasobów.
 
 		std::string folderPlikuUzytkownika_; /// Adres folderu z plikami u¿ytkownika.
 		std::string adresPlikuGry_; /// Adres pliku z opisem obiektów gry.		

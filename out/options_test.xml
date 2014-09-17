@@ -11,7 +11,8 @@
   
   <!-- Względny adres folderu, w którym znajduja się pliki dll z pluginami. W podfolderze tej ścieżki są wyszukiwane i wczytywane zmiany. -->
   <plugins>plugins\\</plugins>
-    
+
+  <powiazaniaZasobow>powiazania.xml</powiazaniaZasobow>
   <!-- Opis Konfiguracji loggera.
   Atrybuty obligatoryjne: 
   numerFormatuDaty - dopuszczalne wartosci = [0, 1, 2]

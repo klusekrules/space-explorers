@@ -11,6 +11,8 @@
 #define XML_WEZEL_USTAWIENIA_LOGOW "logi"
 #define XML_WEZEL_ZARZADCA_PAMIECI "zarzadca"
 
+#define XML_WEZEL_POWIAZANIA_ZASOBOW "powiazaniaZasobow"
+
 #define XML_ATRYBUT_NUMER_FORMATU_DATY "numerFormatuDaty"
 #define XML_ATRYBUT_PREFIX_PLIKU_LOGOW "prefixPlikuLogow"
 #define XML_ATRYBUT_FORMAT_DATY_NAZWY_PLIKU_LOGOW "formatDatyWNazwiePliku"
@@ -31,8 +33,8 @@ namespace SpEx{
 	*
 	* Klasa s³u¿aca do wczytywania, przechowywyania, zarz¹dzania i zapisywania ustawieñ aplikacji.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 01-07-2014
+	* \version 2
+	* \date 17-09-2014
 	*/
 	class UstawieniaAplikacji : 
 		public se::NonCopyable,
@@ -213,6 +215,18 @@ namespace SpEx{
 		* \date 01-07-2014
 		*/
 		const std::string& pobierzFolderPlikuUkladu() const;
+
+		/**
+		* \brief Metoda zwracaj¹ca adres pliku z powi¹zaniami zasobów.
+		*
+		* Metoda zwraca adres pliku zawieraj¹cego powi¹zania nazw symbolicznych z lokalizacj¹ zasobów.
+		* \return Zwracany jest napis zawieraj¹cy adres pliku folderu z plikami opisuj¹cymi planety.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 17-09-2014
+		*/
+		const std::string& pobierzAdresPlikuPowiazanZasobow() const;
+
 		
 	private:
 		std::string jezykAplikacji_; /// Atrybut przechowuj¹cy napis z nazw¹ u¿ywanego jêzyka aplikacji.
@@ -396,6 +410,20 @@ namespace SpEx{
 		* \date 01-07-2014
 		*/
 		bool ustawFolderPlikuUkladu(XmlBO::ElementWezla wezel);
+
+		std::string plikPowiazanZasobow_; /// Atrybut przechowuj¹cy adres pliku z powi¹zaniami nazw symbolicznych z lokalizacj¹ zasobu.
+
+		/**
+		* \brief Metoda wczytuj¹ca do obiektu adres pliku powi¹zañ zasobów.
+		*
+		* Metoda wczytuj¹ca do obiektu nazwê pliku z powi¹zaniami nazw symbolicznych z lokalizacj¹ zasobu, z wêz³a przekazanego w parametrze.
+		* \param[in] wezel - Wêze³ zawieraj¹cy informacje o nazwie pliku z powi¹zaniami.
+		* \return Zwracany jest wartoœæ true, je¿eli uda siê poprawnie wczytaæ dane. Zwracana jest wartoœæ false w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 17-09-2014
+		*/
+		bool ustawPlikPowiazanZasobow(XmlBO::ElementWezla wezel);
 
 	};
 };

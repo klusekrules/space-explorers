@@ -16,6 +16,8 @@ namespace SpEx{
 				return false;
 			if (!ustawFolderPlugin(XmlBO::ZnajdzWezel<NOTHROW>(root_data, XML_WEZEL_FOLDER_PLUGIN)))
 				return false;
+			if (!ustawPlikPowiazanZasobow(XmlBO::ZnajdzWezel<NOTHROW>(root_data, XML_WEZEL_POWIAZANIA_ZASOBOW)))
+				return false;
 
 			auto logi = XmlBO::ZnajdzWezel<THROW>(root_data, XML_WEZEL_USTAWIENIA_LOGOW);
 
@@ -259,5 +261,24 @@ namespace SpEx{
 
 	const std::string& UstawieniaAplikacji::pobierzFolderPlikuUkladu() const{
 		return folderPlikuUkladu_;
+	}
+
+	bool UstawieniaAplikacji::ustawPlikPowiazanZasobow(XmlBO::ElementWezla wezel){
+		if (wezel){
+			auto temp = wezel->pobierzTekst();
+			if (!temp){
+				SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+			}
+			plikPowiazanZasobow_ = temp;
+			if (plikPowiazanZasobow_.empty()){
+				SPar::ParserUtils::generujWyjatekBleduStruktury(wezel);
+			}
+			return true;
+		}
+		return false;
+	}
+
+	const std::string& UstawieniaAplikacji::pobierzAdresPlikuPowiazanZasobow() const{
+		return plikPowiazanZasobow_;
 	}
 };
