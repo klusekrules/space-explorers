@@ -69,8 +69,11 @@
       <Component Id='DANE_TESTOWE_COMP' Guid='{32750E86-5BC2-45DA-8004-99B972CFFDF2}'>
         <File Id='DANE_TESTOWE_FILE' Source='..\out\danetestowe.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
       </Component>
-     <Component Id='DATA_XML' Guid='7C5B3D1A-409B-4158-9F33-46606E344BF2'>
+      <Component Id='DATA_XML' Guid='7C5B3D1A-409B-4158-9F33-46606E344BF2'>
         <File Id='DATA_XML_FILE' Source='..\out\test.xml' KeyPath='yes' Vital='yes'/>
+      </Component>
+      <Component Id='POZWIAZANIA_XML_COMP' Guid='{9BD28ACA-2256-4ADE-A18F-EC04A3B008A7}'>
+        <File Id='POZWIAZANIA_XML_FILE' Source='..\out\powiazania.xml' KeyPath='yes' Vital='yes'/>
       </Component>
       <Component Id='PLUGIN_DLL' Guid='52493997-1318-4CD2-A046-0E1E309D7FB6' Win64='$(var.isPlatformx64)'>
         <File Id='PLUGIN_DLL_FILE' Source='..\out\plugin-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
@@ -262,6 +265,7 @@
       <ComponentRef Id='TLO_PNG_FILE_COMP' />
       <ComponentRef Id='DANE_TESTOWE_COMP' />
       <ComponentRef Id='DLL_TEST_SKRYPTU_COMP' />
+      <ComponentRef Id='POZWIAZANIA_XML_COMP' />
     </Feature>
     
     <Feature Id="VCRedist" Title="Visual C++ 12.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">

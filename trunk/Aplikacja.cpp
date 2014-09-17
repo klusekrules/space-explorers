@@ -133,6 +133,7 @@ namespace SpEx{
 
 		zarzadcaPamieci_.zaladujPliki(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 		zarzadcaLokacji_.zaladujUstawienia(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
+		zarzadcaZasobow_.inicjalizuj(zarzadcaPamieci_.pobierzWezelPowiazanZasobow());
 
 		if (!zaladujOpcje()){
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_LADOWANIA_OPCJI);

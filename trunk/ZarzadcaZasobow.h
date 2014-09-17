@@ -3,6 +3,7 @@
 #include "Zasob.h"
 #include "NonCopyable.h"
 #include <functional>
+#include "Parser\XmlBO.h"
 
 namespace SpEx {
 	/**
@@ -18,6 +19,8 @@ namespace SpEx {
 	{
 	public:
 		typedef std::string Parametr; /// Typ parametru przekazywanego do zasobu.
+		typedef std::pair < Parametr, std::string > WpisLokalizacjiZasobu; /// Typ wi¹¿¹cy nazwê symboliczn¹ z lokalizacj¹ zasobu.
+		typedef std::vector < WpisLokalizacjiZasobu > TablicaLokalizacjiZasobu; /// Tablica powi¹zañ nazw symbolicznych z lokalizacj¹ zasobu.
 		typedef STyp::Identyfikator Identyfikator; /// Identyfikator zasobu.
 		typedef std::pair< std::pair< Zasob::WeakPtr, Zasob::SharedPtr >, bool > WpisZasobu; /// Wpis zasobu przechowanego w zarz¹dcy.
 		typedef std::function< Zasob::SharedPtr(const Parametr&, bool) > Inicjalizator; /// Typ metody tworz¹cej zasób.
@@ -211,9 +214,11 @@ namespace SpEx {
 		*/
 		bool mapujIdentyfikator(const Parametr& parametr, Identyfikator& identyfikator);
 		
+		bool inicjalizuj(XmlBO::ElementWezla wezel);
 	private:
 		GeneratorIdentyfikatorow generator_; /// Generator identyfikatorów.
-
+		TablicaLokalizacjiZasobu lokalizacjeZasobow_; /// Tablica zawieraj¹ca powi¹zania nazw symbolicznych z lokalizacj¹ zasobu na dysku.
+		
 		/**
 		* \brief Metoda wczytuj¹ca zasób.
 		*

@@ -29,6 +29,13 @@ namespace SpEx{
 			return nullptr;
 	}
 
+	XmlBO::ElementWezla ZarzadcaPamieci::pobierzWezelPowiazanZasobow()const{
+		if (czyZainicjalizowany_)
+			return dokumentPowiazanZasobow_->pobierzElement(nullptr);
+		else
+			return nullptr;
+	}
+
 	bool ZarzadcaPamieci::zapiszWezelGry(){
 		if (czyZainicjalizowany_)
 			return dokumentGry_->zapisz(adresPlikuGry_.c_str());
@@ -63,6 +70,11 @@ namespace SpEx{
 		if (!dokumentOknaGry_->odczytaj(ustawienia.pobierzAdresPlikuOkien().c_str())){
 			throw NieznalezionoPliku(EXCEPTION_PLACE, stos(), ustawienia.pobierzAdresPlikuOkien());
 		}
+		dokumentPowiazanZasobow_ = std::make_shared<SPar::ParserDokumentXml>();
+		if (!dokumentPowiazanZasobow_->odczytaj(ustawienia.pobierzAdresPlikuPowiazanZasobow().c_str())){
+			throw NieznalezionoPliku(EXCEPTION_PLACE, stos(), ustawienia.pobierzAdresPlikuPowiazanZasobow());
+		}
+
 		czyZainicjalizowany_ = true;
 	}
 	
