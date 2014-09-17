@@ -7,13 +7,6 @@
 
 namespace SpEx{
 
-	/*Surowce::Surowce(const STyp::Ilosc& ilosc, const Surowce& obiekt)
-		: PodstawoweParametry(wpisIlosc(ilosc), obiekt.surowceInfo_.pobierzTypAtrybutu(), obiekt.pobierzIdentyfikatorPlanety()),
-		Obiekt(PodstawoweParametry(wpisIlosc(ilosc), obiekt.surowceInfo_.pobierzTypAtrybutu(), obiekt.pobierzIdentyfikatorPlanety()), obiekt.surowceInfo_),
-		surowceInfo_(obiekt.surowceInfo_)
-	{
-	}*/
-
 	Surowce::Surowce(const PodstawoweParametry& parametryPodstawowe, const SurowceInfo& surowceInfo)
 		: PodstawoweParametry(parametryPodstawowe), Obiekt(parametryPodstawowe, surowceInfo), surowceInfo_(surowceInfo)
 	{
