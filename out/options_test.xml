@@ -38,7 +38,7 @@
   <!-- Wszystkie atrybuty są wymagane. -->
   <zarzadca plikGry="save\\gra.xml" 
             plikStanow="resource\\state.xml"
-            plikOkien="resource\\Menu.xml"
+            plikOkien="resource\\ekrany.xml"
             folderPlikowUzytkownikow="save\\"
             folderPlikowOpisuUkladow="save\\uklad\\" />
  

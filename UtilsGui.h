@@ -66,30 +66,6 @@ namespace SpEx{
 
 
 		/**
-		* \brief Metoda ustawiaj¹ca okno komunikatów.
-		*
-		* Metoda ustawia okno komunikatów do którego wysy³ane s¹ logi.
-		* \param[in] id - Identyfikator ekranu.
-		* \param[in] nazwa - Nazwa wid¿etu.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 08-07-2014
-		* \note Metoda zostanie usuniêta. Funkcjonalnoœæ bêdzie przeniesiona.
-		*/
-		static void ustawOknoKomunikatow(int id, const char * nazwa);
-
-		/**
-		* \brief Metoda od³¹czaj¹ca okno komunikatów.
-		*
-		* Metoda od³¹cza okno komunikatów do którego wysy³ane s¹ logi.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 08-07-2014
-		* \note Metoda zostanie usuniêta. Funkcjonalnoœæ bêdzie przeniesiona.
-		*/
-		static void odlaczOknoKomunikatow();
-
-		/**
 		* \brief Metoda pod³¹czaj¹ca zdarzenie do wid¿etu.
 		*
 		* Metoda ³¹czy wid¿et i zdarzenie.

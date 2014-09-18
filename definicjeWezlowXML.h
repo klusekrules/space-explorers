@@ -104,6 +104,7 @@
 #define ATRYBUT_XML_STAN_POCZATKOWY "idStanuPoczatkowego"
 #define ATRYBUT_XML_PULA_WATKOW "pulaWatkow"
 #define ATRYBUT_XML_KONFIGURACJA "konfiguracja"
+#define ATRYBUT_XML_OKNO_KOMUNIKATOW "oknoKomunikatow"
 #define ATRYBUT_XML_CZCIONKA "czcionka"
 
 #define ATRYBUT_XML_STAN_NASTEPNY "stanNastepny"

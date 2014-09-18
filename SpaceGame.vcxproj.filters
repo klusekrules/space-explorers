@@ -894,9 +894,6 @@
     <Xml Include="out\options_test.xml">
       <Filter>Data</Filter>
     </Xml>
-    <Xml Include="out\resource\Menu.xml">
-      <Filter>Data</Filter>
-    </Xml>
     <Xml Include="out\resource\state.xml">
       <Filter>Data</Filter>
     </Xml>
@@ -904,6 +901,9 @@
       <Filter>Data</Filter>
     </Xml>
     <Xml Include="out\powiazania.xml">
+      <Filter>Data</Filter>
+    </Xml>
+    <Xml Include="out\resource\ekrany.xml">
       <Filter>Data</Filter>
     </Xml>
   </ItemGroup>

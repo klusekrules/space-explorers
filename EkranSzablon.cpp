@@ -28,6 +28,12 @@ namespace SpEx{
 					throw SpEx::BladKonfiguracjiEkranu(EXCEPTION_PLACE, id_, KOMUNIKAT_BLAD_PLIKU(konfiguracja) );
 				}
 
+				std::string nazwaOknaKomunikatow = XmlBO::WczytajAtrybut(wezel, ATRYBUT_XML_OKNO_KOMUNIKATOW, std::string());
+
+				if (!nazwaOknaKomunikatow.empty()){
+					oknoKomunikatow_ = interfejs_.get<tgui::LogListGui>(nazwaOknaKomunikatow);
+				}
+
 				XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_KONTROLKA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 					std::string nazwa = XmlBO::WczytajAtrybut(element, ATRYBUT_XML_NAZWA, std::string());
 					if (!nazwa.empty()){
