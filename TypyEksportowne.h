@@ -1,3 +1,9 @@
+#pragma once
+#ifdef SPACE_EXPLORERS_API_EXPORT
+#define SPACE_EXPLORERS_API __declspec(dllexport)
+#else
+#define SPACE_EXPLORERS_API __declspec(dllimport)
+#endif
 
 /** @weakgroup group1 
 *  @{
@@ -12,7 +18,7 @@ extern "C"{
 	* \version 1
 	* \date 09-07-2014
 	*/
-	struct __declspec(dllexport) Stan_t{
+	struct SPACE_EXPLORERS_API Stan_t{
 		int idStanu_; /// Numer stanu.
 		int numer_; /// Numer dodatkowy.
 	};
@@ -25,7 +31,7 @@ extern "C"{
 	* \version 1
 	* \date 09-07-2014
 	*/
-	struct __declspec(dllexport) Zdarzenie_t{
+	struct SPACE_EXPLORERS_API Zdarzenie_t{
 		int idStanu_; /// Numer stanu.
 		int numer_; /// Numer dodatkowy.
 		int idZdarzenia_; /// Numer zdarzenia.
