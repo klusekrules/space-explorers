@@ -11,33 +11,6 @@
 extern "C"{
 
 	/**
-	* \brief Funkcja od³¹czaj¹ca okno komunikatów.
-	*
-	* Funkcja od³¹cza okno komunikatów od okna g³ównego.
-	* Powoduje to, ¿e okno nie dostanie kolejnego komunikatu logu dopuki nie zostanie ponownie pod³¹czone.
-	* \author Daniel Wojdak
-	* \version 1
-	* \date 16-07-2014
-	* \deprecated Funkcjonalnoœæ zostanie zautomatyzowana.
-	*/
-	SPACE_EXPLORERS_API void __cdecl odlaczOknoKomunikatow();
-
-	/**
-	* \brief Funkcja pod³¹cza okno komunikatów.
-	*
-	* Funkcja pod³¹cza okno komunikatów do okna g³ównego.
-	* Powoduje to, ¿e okno dostaje kolejnego komunikaty logów dopuki nie zostanie od³aczone.
-	* Je¿eli nie uda siê pod³¹czyæ okna logów, wtedy ustawiane jest puste okno.
-	* \param[in] idOkna - Identyfikator ekranu, na którym znajduje siê kontrolka.
-	* \param[in] widzet - Nazwa identyfikuj¹ca kontrolkê.
-	* \author Daniel Wojdak
-	* \version 1
-	* \date 17-07-2014
-	* \deprecated Funkcjonalnoœæ zostanie zautomatyzowana.
-	*/
-	SPACE_EXPLORERS_API void __cdecl podlaczOknoKomunikatow(int idOkna, const char * widzet);
-
-	/**
 	* \brief Funkcja wysy³a komunikat do kontrolki wyœwietlaj¹cej logi.
 	*
 	* Funkcja wysy³a komunikat, przekazany w parametrze, do kontrolki przystosowanej do wyœwietlania logów.

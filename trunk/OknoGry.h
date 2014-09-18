@@ -122,30 +122,14 @@ namespace SpEx{
 		* Metoda odblokowuje rysowanie okien w w¹tku graficznym.
 		*/
 		void unpause();
-
-		/**
-		* \brief Metoda od³¹czaj¹ca globaln¹ kontrolkê komunikatów.
-		*
-		* Metoda od³¹czaj¹ca kontrolkê komunikatów.
-		*/
-		void odlaczOknoKomunikatow();
-
+		
 		/**
 		* \brief Metoda dodaje komunikat logów.
 		*
 		* Metoda wyœwietla komunikat logów w globalnej kontrolce komunikatów.
 		*/
 		void logToGUI(unsigned int typ, const std::string& tresc);
-
-		/**
-		* \brief Metoda pod³¹czaj¹ca globaln¹ kontrolkê komunikatów.
-		*
-		* Metoda pod³¹czaj¹ca kontrolkê komunikatów.
-		* \param[in] id - Identyfikator ekranu.
-		* \param[in] nazwa - Nazwa kontrolki.
-		*/
-		void ustawOknoKomunikatow(int id, const char * nazwa);
-
+		
 		/**
 		* \brief Destruktor.
 		*/
@@ -170,8 +154,6 @@ namespace SpEx{
 		mutable std::mutex listaZadanMux_; /// Mutex dostêpu do zadañ.
 		std::list< SpEx::Zadanie > listaZadan_; /// Kolejka zadañ.
 		StosEkranow stosEkranow_; /// Stos ekranów.
-
-		tgui::LogListGui::Ptr oknoKomunikatow_; /// WskaŸnik na globalne okno komunikatów.
 
 		/**
 		* \brief Metoda w¹tku.

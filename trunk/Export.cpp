@@ -12,14 +12,6 @@
 
 extern "C"{
 
-	SPACE_EXPLORERS_API void __cdecl odlaczOknoKomunikatow(){
-		SpEx::UtilsGui::odlaczOknoKomunikatow();
-	}
-
-	SPACE_EXPLORERS_API void __cdecl podlaczOknoKomunikatow(int idOkna, const char * widzet){
-		SpEx::UtilsGui::ustawOknoKomunikatow(idOkna,widzet);
-	}
-
 	SPACE_EXPLORERS_API void __cdecl logujWOknieKomunikatow(unsigned int typ, const char * komunikat){
 		SpEx::UtilsGui::logToGUI(typ,komunikat);
 	}

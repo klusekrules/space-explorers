@@ -55,7 +55,6 @@ function ustawOknoLogowania ()
 	ffi.C.wyczyscListeOkien();
 	ffi.C.loguj("Ustawianie okna o id 4")
 	if ffi.C.ustawOkno(4) == true then
-		ffi.C.podlaczOknoKomunikatow(4,"komunikaty")
 		ffi.C.ustawWlasciwosc(4,"login","focused","true")
 		ffi.C.loguj("Ustawianiono")
 	else
@@ -69,7 +68,6 @@ function ustawOknoPonownegoLogowania ()
 	ffi.C.loguj("Ustawianie okna o id 4")
 	if ffi.C.ustawOkno(4) == true then
 		ffi.C.loguj("Ustawianiono")
-		ffi.C.podlaczOknoKomunikatow(4,"komunikaty")
 		ffi.C.ustawWlasciwosc(4,"pass","focused","true")
 		ffi.C.ustawWlasciwosc(4,"login","text", ffi.C.pobierzNazweAktualnegoGracza())
 		ffi.C.ustawWlasciwosc(4,"login","enabled","false")
@@ -97,7 +95,6 @@ function ustawOknoListy()
 	ffi.C.wyczyscListeOkien();
 	ffi.C.loguj("Ustawianie okna o id 3")
 	if ffi.C.ustawOkno(3) == true then	
-		ffi.C.podlaczOknoKomunikatow(3,"komunikaty")
 		ffi.C.loguj("Ustawianiono")
 	else
 		ffi.C.loguj("Nieustawianiono")
@@ -113,7 +110,6 @@ function wyjscieZeStanu()
 	else
 		ffi.C.loguj("Wyjscie z nieznanego stanu")
 	end
-	ffi.C.odlaczOknoKomunikatow()
 end
 
 function wejscieDoStanu()

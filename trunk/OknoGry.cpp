@@ -36,26 +36,14 @@ namespace SpEx{
 	}
 
 	void OknoGry::logToGUI(unsigned int typ, const std::string& tresc){
-		if (oknoKomunikatow_ != nullptr){
-			oknoKomunikatow_->addMessage(typ, tresc);
-		}
-	}
-
-	void OknoGry::ustawOknoKomunikatow(int idOkna, const char * kontrolkaNazwy){
-		if (kontrolkaNazwy != nullptr){
-			if (strlen(kontrolkaNazwy) >= 0){
-				auto ekran = pobierzEkran(idOkna);
-				if (ekran){
-					oknoKomunikatow_ = ekran->pobierzGUI().get<tgui::LogListGui>(kontrolkaNazwy);
-					return;
+		for (auto& ekran : stosEkranow_){
+			if (ekran){
+				if (!!ekran->oknoKomunikatow_){
+					ekran->oknoKomunikatow_->addMessage(typ,tresc);
+					break;
 				}
 			}
 		}
-		odlaczOknoKomunikatow();
-	}
-
-	void OknoGry::odlaczOknoKomunikatow(){
-		oknoKomunikatow_ = tgui::LogListGui::Ptr(nullptr);
 	}
 
 	OknoGry::EkranPtr OknoGry::pobierzEkran(const STyp::Identyfikator& ekranId){
@@ -244,7 +232,6 @@ namespace SpEx{
 	}
 	
 	void OknoGry::usunWszystkieEkrany(){
-		odlaczOknoKomunikatow();
 		for (auto ekran : listaEkranow_){
 			ekran.second->odlacz(oknoGlowne_);
 			ekran.second->clear();

@@ -1,6 +1,8 @@
 #pragma once
 #include "Stan.h"
 #include "TGUI\Gui.hpp"
+#include "LogListGui.h"
+
 namespace SpEx{
 	/**
 	* \brief Klasa szablonowa dla nowych ekranow.
@@ -87,6 +89,7 @@ namespace SpEx{
 		*/
 		virtual void clear();
 
+		tgui::LogListGui::Ptr oknoKomunikatow_ = nullptr; /// WskaŸnik na okno komunikatów.
 	protected:
 
 		/**
@@ -110,6 +113,7 @@ namespace SpEx{
 
 		STyp::Identyfikator id_; /// Identyfikator ekranu.
 		mutable tgui::Gui interfejs_; /// Interfejs GUI na którym tworzone s¹ kontrolki.
+		
 	};
 };
 

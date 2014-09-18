@@ -20,7 +20,7 @@
   </Ekran>
   <Ekran id="2" czcionka="resource\arial.ttf" konfiguracja="resource\testowanie.wdg">
   </Ekran>
-  <Ekran id="3" czcionka="resource\arial.ttf" konfiguracja="resource\lista.wdg">
+  <Ekran id="3" czcionka="resource\arial.ttf" konfiguracja="resource\lista.wdg" oknoKomunikatow="komunikaty">
     <Kontrolka nazwa="zamknij">
       <Akcja id="64" idZdarzenia="1"/>
     </Kontrolka>
@@ -28,7 +28,7 @@
       <Akcja id="64" idZdarzenia="6"/>
     </Kontrolka>
   </Ekran>
-  <Ekran id="4" czcionka="resource\arial.ttf" konfiguracja="resource\logowanie.wdg">
+  <Ekran id="4" czcionka="resource\arial.ttf" konfiguracja="resource\logowanie.wdg" oknoKomunikatow="komunikaty">
     <Kontrolka nazwa="zamknij">
       <Akcja id="64" idZdarzenia="1"/>
     </Kontrolka>

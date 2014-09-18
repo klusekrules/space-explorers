@@ -3,8 +3,6 @@ local ffi = require("ffi")
 ffi.cdef[[
 //Logowanie w stylu aplikacji
 void loguj(const char *komunikat );
-void odlaczOknoKomunikatow();
-void podlaczOknoKomunikatow(int idOkna, const char * widzet);
 void logujWOknieKomunikatow(unsigned int typ, const char * komunikat);
 
 //Struktury
