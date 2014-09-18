@@ -128,7 +128,7 @@ namespace SpEx{
 		*
 		* Metoda wyœwietla komunikat logów w globalnej kontrolce komunikatów.
 		*/
-		void logToGUI(unsigned int typ, const std::string& tresc);
+		void wyswietlWiadomoscWGUI(unsigned int typ, const std::string& tresc);
 		
 		/**
 		* \brief Destruktor.

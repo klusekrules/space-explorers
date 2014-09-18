@@ -22,7 +22,7 @@ extern "C"{
 	* \version 1
 	* \date 17-07-2014
 	*/
-	SPACE_EXPLORERS_API void __cdecl logujWOknieKomunikatow(unsigned int typ, const char * komunikat);
+	SPACE_EXPLORERS_API void __cdecl wyswietlWiadomoscWGUI(unsigned int typ, const char * komunikat);
 
 	/**
 	* \brief Funkcja dodaje ekran do stosu.
@@ -34,7 +34,7 @@ extern "C"{
 	* \version 1
 	* \date 17-07-2014
 	*/
-	SPACE_EXPLORERS_API bool __cdecl ustawOkno(int id);
+	SPACE_EXPLORERS_API bool __cdecl wstawEkranNaStos(int id);
 
 	/**
 	* \brief Funkcja zdejmuje ekran z wierzchu stosu.
@@ -45,7 +45,7 @@ extern "C"{
 	* \version 1
 	* \date 17-07-2014
 	*/
-	SPACE_EXPLORERS_API bool __cdecl zdejmijOkno();
+	SPACE_EXPLORERS_API bool __cdecl zdejmijEkranZeStosu();
 
 	/**
 	* \brief Funkcja pobiera zdarzenie.
@@ -149,7 +149,7 @@ extern "C"{
 	* \version 1
 	* \date 17-07-2014
 	*/
-	SPACE_EXPLORERS_API void __cdecl wyczyscListeOkien();
+	SPACE_EXPLORERS_API void __cdecl wyczyscListeEkranow();
 
 	/**
 	* \brief Funkcja uruchamiaj¹ca testy jednostkowe.
@@ -220,7 +220,7 @@ extern "C"{
 	* \version 1
 	* \date 17-07-2014
 	*/
-	SPACE_EXPLORERS_API void __cdecl przeladujOkno(int id);
+	SPACE_EXPLORERS_API void __cdecl przeladujEkran(int id);
 
 	/**
 	* \brief Funkcja logowania.

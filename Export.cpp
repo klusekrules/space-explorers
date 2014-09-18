@@ -12,32 +12,47 @@
 
 extern "C"{
 
-	SPACE_EXPLORERS_API void __cdecl logujWOknieKomunikatow(unsigned int typ, const char * komunikat){
-		SpEx::UtilsGui::logToGUI(typ,komunikat);
+	SPACE_EXPLORERS_API void __cdecl wyswietlWiadomoscWGUI(unsigned int typ, const char * komunikat){
+		SpEx::UtilsGui::wyswietlWiadomoscWGUI(typ, komunikat);
 	}
 
-	SPACE_EXPLORERS_API bool __cdecl ustawOkno(int id){
-		return SpEx::MaszynaStanow::pobierzInstancje().kolejkujOkno(id);
+	SPACE_EXPLORERS_API bool __cdecl wstawEkranNaStos(int id){
+		return SpEx::MaszynaStanow::pobierzInstancje().kolejkujEkran(id);
 	}
 
-	SPACE_EXPLORERS_API bool __cdecl zdejmijOkno(){
-		return SpEx::MaszynaStanow::pobierzInstancje().zdejmijOkno();
+	SPACE_EXPLORERS_API bool __cdecl zdejmijEkranZeStosu(){
+		return SpEx::MaszynaStanow::pobierzInstancje().zdejmijEkran();
+	}
+
+	SPACE_EXPLORERS_API void __cdecl przeladujEkran(int id){
+		SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().dodajZadanie(SpEx::Zadanie(
+			std::function<void()>(
+				std::bind(
+					&SpEx::OknoGry::przeladujEkran,
+					&SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry(),
+					STyp::Identyfikator(id))
+				))
+			);
+	}
+
+	SPACE_EXPLORERS_API void __cdecl wyczyscListeEkranow(){
+		SpEx::MaszynaStanow::pobierzInstancje().wyczyscKolejkeEkranow();
 	}
 
 	SPACE_EXPLORERS_API bool __cdecl pobierzZdarzenie(struct Zdarzenie_t& z){
-		return SpEx::MaszynaStanow::pobierzInstancje().luaStan_.pobierzZdarzenie(z);
+		return SpEx::MaszynaStanow::pobierzInstancje().stanDlaSkryptu_.pobierzZdarzenie(z);
 	}
 
 	SPACE_EXPLORERS_API bool __cdecl pobierzPoprzedniStan(struct Stan_t& s){
-		return SpEx::MaszynaStanow::pobierzInstancje().luaStan_.pobierzPoprzedniStan(s);
+		return SpEx::MaszynaStanow::pobierzInstancje().stanDlaSkryptu_.pobierzPoprzedniStan(s);
 	}
 
 	SPACE_EXPLORERS_API bool __cdecl pobierzAktualnyStan(struct Stan_t& s){
-		return SpEx::MaszynaStanow::pobierzInstancje().luaStan_.pobierzAktualnyStan(s);
+		return SpEx::MaszynaStanow::pobierzInstancje().stanDlaSkryptu_.pobierzAktualnyStan(s);
 	}
 
 	SPACE_EXPLORERS_API bool __cdecl pobierzNastepnyStan(struct Stan_t& s){
-		return SpEx::MaszynaStanow::pobierzInstancje().luaStan_.pobierzNastepnyStan(s);
+		return SpEx::MaszynaStanow::pobierzInstancje().stanDlaSkryptu_.pobierzNastepnyStan(s);
 	}
 
 	SPACE_EXPLORERS_API void __cdecl kolejkujZdarzenie(struct Zdarzenie_t& s){
@@ -57,15 +72,11 @@ extern "C"{
 	}
 
 	SPACE_EXPLORERS_API void __cdecl ustawNowyStanNastepny(int id){
-		SpEx::MaszynaStanow::pobierzInstancje().luaStan_.ustawNowyStanNastepny(id);
+		SpEx::MaszynaStanow::pobierzInstancje().stanDlaSkryptu_.ustawNowyStanNastepny(id);
 	}
 
 	SPACE_EXPLORERS_API void __cdecl ustawNowyNumerNastepny(int numer){
-		SpEx::MaszynaStanow::pobierzInstancje().luaStan_.ustawNowyNumerNastepny(numer);
-	}
-
-	SPACE_EXPLORERS_API void __cdecl wyczyscListeOkien(){
-		SpEx::MaszynaStanow::pobierzInstancje().wyczyscKolejkeOkien();
+		SpEx::MaszynaStanow::pobierzInstancje().stanDlaSkryptu_.ustawNowyNumerNastepny(numer);
 	}
 
 	SPACE_EXPLORERS_API void __cdecl testyJednostkowe(){
@@ -117,17 +128,6 @@ extern "C"{
 		return true;
 	}
 
-	SPACE_EXPLORERS_API void __cdecl przeladujOkno(int id){
-		SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().dodajZadanie(SpEx::Zadanie(
-			std::function<void()>(
-				std::bind(
-					&SpEx::OknoGry::przeladujEkran,
-					&SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry(),
-					STyp::Identyfikator(id))
-				))
-			);
-	}
-
 	SPACE_EXPLORERS_API bool __cdecl zaloguj(const char *kontrolkaNazwy, const char *kontrolkaHasla){
 		if (kontrolkaNazwy && kontrolkaHasla){
 			auto nazwa = SpEx::UtilsGui::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaNazwy);
@@ -140,19 +140,19 @@ extern "C"{
 						return true;
 					}
 					else{
-						SpEx::UtilsGui::logToGUI(0, "Nie uda³o siê zalogowaæ!");
+						SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "Nie uda³o siê zalogowaæ!");
 					}
 				}
 				else{
-					SpEx::UtilsGui::logToGUI(0, "Brak has³a lub loginu!");
+					SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "Brak has³a lub loginu!");
 				}
 			}
 			else{
-				SpEx::UtilsGui::logToGUI(0, "Brak widzetu has³a lub loginu!");
+				SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "Brak widzetu has³a lub loginu!");
 			}
 		}
 		else{
-			SpEx::UtilsGui::logToGUI(0, "Brak nazwy widzetu has³a lub loginu!");
+			SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "Brak nazwy widzetu has³a lub loginu!");
 		}
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Nie uda³o siê zalogowaæ!");
 		return false;
@@ -162,64 +162,64 @@ extern "C"{
 		if (kontrolkaNazwy && kontrolkaHasla ){
 			auto nazwa = SpEx::UtilsGui::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaNazwy);
 			auto haslo = SpEx::UtilsGui::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaHasla);
-			SpEx::UtilsGui::logToGUI(1, "Inicjowanie tworzenia gracza.");
+			SpEx::UtilsGui::wyswietlWiadomoscWGUI(1, "Inicjowanie tworzenia gracza.");
 			if (nazwa != nullptr && haslo != nullptr){
 				std::string hash(haslo->getText());
 				if (nazwa->getText().isEmpty() || hash.empty()){
-					SpEx::UtilsGui::logToGUI(0, "Brak has³a lub nazwy gracza.");
+					SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "Brak has³a lub nazwy gracza.");
 					return false;
 				}
 
 				SpEx::Utils::sha3(hash);
 				if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzIloscGalaktyk() <= 0){
-					SpEx::UtilsGui::logToGUI(1, "Generowanie galaktyki.");
+					SpEx::UtilsGui::wyswietlWiadomoscWGUI(1, "Generowanie galaktyki.");
 					if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().generujNowaGalaktyke()){
-						SpEx::UtilsGui::logToGUI(0, "B³¹d generowania galaktyki.");
+						SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "B³¹d generowania galaktyki.");
 						return false;
 					}
 				}
-				SpEx::UtilsGui::logToGUI(1, "Tworzenie nowego gracza.");
+				SpEx::UtilsGui::wyswietlWiadomoscWGUI(1, "Tworzenie nowego gracza.");
 				if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().nowyGracz(nazwa->getText(), hash)){
-					SpEx::UtilsGui::logToGUI(0, "B³¹d tworzenia gracza.");
+					SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "B³¹d tworzenia gracza.");
 					return false;
 				}
 
-				SpEx::UtilsGui::logToGUI(1, "Logowanie do gry.");
+				SpEx::UtilsGui::wyswietlWiadomoscWGUI(1, "Logowanie do gry.");
 				if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().logowanie(nazwa->getText(), hash)){
-					SpEx::UtilsGui::logToGUI(0, "B³¹d logowania do gry.");
+					SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "B³¹d logowania do gry.");
 					return false;
 				}
 				
-				SpEx::UtilsGui::logToGUI(1, "Ustawianie podstawowych danych.");
+				SpEx::UtilsGui::wyswietlWiadomoscWGUI(1, "Ustawianie podstawowych danych.");
 				if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika()){
-					SpEx::UtilsGui::logToGUI(1, "Generowanie galaktyki.");
+					SpEx::UtilsGui::wyswietlWiadomoscWGUI(1, "Generowanie galaktyki.");
 					if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().generujNowaGalaktyke()){
-						SpEx::UtilsGui::logToGUI(0, "B³¹d generowania galaktyki.");
+						SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "B³¹d generowania galaktyki.");
 						return false;
 					}
 
-					SpEx::UtilsGui::logToGUI(1, "Ustawianie podstawowych danych.");
+					SpEx::UtilsGui::wyswietlWiadomoscWGUI(1, "Ustawianie podstawowych danych.");
 					if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika()){
-						SpEx::UtilsGui::logToGUI(0, "B³¹d przypisywania planety do u¿ytkownika.");
+						SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "B³¹d przypisywania planety do u¿ytkownika.");
 						return false;
 					}
 				}
 
-				SpEx::UtilsGui::logToGUI(1, "Zapisywanie wprowadzonych danych.");
+				SpEx::UtilsGui::wyswietlWiadomoscWGUI(1, "Zapisywanie wprowadzonych danych.");
 				if (SpEx::Aplikacja::pobierzInstancje().zapiszGre(nazwa->getText(), hash)){
 
-					SpEx::UtilsGui::logToGUI(1, "Ukoñczono.");
+					SpEx::UtilsGui::wyswietlWiadomoscWGUI(1, "Ukoñczono.");
 					return true;
 				}
 			}
 			else{
-				SpEx::UtilsGui::logToGUI(0, "Brak kontrolki has³a lub nazwy gracza.");
+				SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "Brak kontrolki has³a lub nazwy gracza.");
 			}
 
 		}
 
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Nie uda³o siê stworzyæ nowego gracza!");
-		SpEx::UtilsGui::logToGUI(0, "Nie uda³o siê stworzyæ nowego gracza!");
+		SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "Nie uda³o siê stworzyæ nowego gracza!");
 		return false;
 	}
 

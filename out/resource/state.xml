@@ -31,7 +31,7 @@
   <Stan id="0x6" typSkryptu="lua" file="lua\test.lua" funcIn="ustawOknoPonownegoLogowania" funcOut="wyjdzOknoPonownegoLogowania">
     <Zdarzenie id="0x1" typSkryptu="dll" file="dll\TestSkryptuDll.dll" funcInside="zamknijAplikacjeSkryptDll"/>
     <Zdarzenie id="0x2"/>
-    <Zdarzenie id="0x3" typSkryptu="lua" file="lua\test.lua" funcInside="zaloguj"/>
+    <Zdarzenie id="0x3" typSkryptu="lua" file="lua\test.lua" funcInside="ponownieZaloguj"/>
     <Zdarzenie id="0x4" typSkryptu="lua" file="lua\test.lua" funcInside="powrotDoOkna" numerNastepny="0x0"/>
   </Stan>
 </MaszynaStanow>

@@ -62,7 +62,7 @@ namespace SpEx{
 		* \date 08-07-2014
 		* \note Metoda zostanie usuniêta. Funkcjonalnoœæ bêdzie przeniesiona.
 		*/
-		static void logToGUI(unsigned int typ, const std::string& komunikat);
+		static void wyswietlWiadomoscWGUI(unsigned int typ, const std::string& komunikat);
 
 
 		/**

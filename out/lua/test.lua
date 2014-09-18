@@ -29,10 +29,10 @@ end
 -- Ustawianie Okna
 function stanPoczatkowy ()
 	wejscieDoStanu()
-	ffi.C.wyczyscListeOkien();
+	ffi.C.wyczyscListeEkranow();
 	ffi.C.zaladujGre("danetestowe.xml")
 	ffi.C.loguj("Ustawianie okna o id 0")
-	if ffi.C.ustawOkno(0) == true then
+	if ffi.C.wstawEkranNaStos(0) == true then
 		ffi.C.loguj("Ustawianiono")
 	else
 		ffi.C.loguj("Nieustawianiono")
@@ -41,9 +41,9 @@ end
 
 function ustawOknoMenu ()
 	wejscieDoStanu()
-	ffi.C.wyczyscListeOkien();
+	ffi.C.wyczyscListeEkranow();
 	ffi.C.loguj("Ustawianie okna o id 1")
-	if ffi.C.ustawOkno(1) == true then
+	if ffi.C.wstawEkranNaStos(1) == true then
 		ffi.C.loguj("Ustawianiono")
 	else
 		ffi.C.loguj("Nieustawianiono")
@@ -52,9 +52,9 @@ end
 
 function ustawOknoLogowania ()
 	wejscieDoStanu()
-	ffi.C.wyczyscListeOkien();
+	ffi.C.wyczyscListeEkranow();
 	ffi.C.loguj("Ustawianie okna o id 4")
-	if ffi.C.ustawOkno(4) == true then
+	if ffi.C.wstawEkranNaStos(4) == true then
 		ffi.C.ustawWlasciwosc(4,"login","focused","true")
 		ffi.C.loguj("Ustawianiono")
 	else
@@ -64,9 +64,9 @@ end
 
 function ustawOknoPonownegoLogowania ()
 	wejscieDoStanu()
-	ffi.C.wyczyscListeOkien();
+	ffi.C.wyczyscListeEkranow();
 	ffi.C.loguj("Ustawianie okna o id 4")
-	if ffi.C.ustawOkno(4) == true then
+	if ffi.C.wstawEkranNaStos(4) == true then
 		ffi.C.loguj("Ustawianiono")
 		ffi.C.ustawWlasciwosc(4,"pass","focused","true")
 		ffi.C.ustawWlasciwosc(4,"login","text", ffi.C.pobierzNazweAktualnegoGracza())
@@ -92,9 +92,9 @@ function ustawOknoListy()
 	ffi.C.aktualizujDaneListyObiektow(3,"MojaKontrolka")
 	ffi.C.aktualizujDaneListySurowcow(3,"ListaSurowcow")
 	wejscieDoStanu()
-	ffi.C.wyczyscListeOkien();
+	ffi.C.wyczyscListeEkranow();
 	ffi.C.loguj("Ustawianie okna o id 3")
-	if ffi.C.ustawOkno(3) == true then	
+	if ffi.C.wstawEkranNaStos(3) == true then	
 		ffi.C.loguj("Ustawianiono")
 	else
 		ffi.C.loguj("Nieustawianiono")
@@ -104,7 +104,7 @@ end
 -- przejscia miedzy stanami
 function wyjscieZeStanu()
 	local stan = ffi.new('struct Stan_t');
-	ffi.C.zdejmijOkno()
+	ffi.C.zdejmijEkranZeStosu()
 	if ffi.C.pobierzAktualnyStan(stan) == true then
 		ffi.C.loguj("Wyjscie ze stanu " .. tostring(stan.idStanu_))
 	else
@@ -139,9 +139,9 @@ end
 
 function wlaczTestowanie ()
 	wejscieDoStanu()
-	ffi.C.wyczyscListeOkien();
+	ffi.C.wyczyscListeEkranow();
 	ffi.C.loguj("Ustawianie okna o id 2")
-	if ffi.C.ustawOkno(2) == true then
+	if ffi.C.wstawEkranNaStos(2) == true then
 		ffi.C.loguj("Ustawianiono")
 	else
 		ffi.C.loguj("Nieustawianiono")
@@ -165,7 +165,7 @@ end
 function rozbuduj ()
 	local zdarzenie = ffi.new('struct Zdarzenie_t')
 	ffi.C.pobierzZdarzenie(zdarzenie)
-	ffi.C.logujWOknieKomunikatow(1,"Rozbuduj " .. tostring(zdarzenie.numer_) )
+	ffi.C.wyswietlWiadomoscWGUI(1,"Rozbuduj " .. tostring(zdarzenie.numer_) )
 	ffi.C.ustawWlasciwosc(3,"MojaKontrolka","enabled","false")
 	ffi.C.wybudujObiekt(zdarzenie.numer_,1)
 	ffi.C.aktualizujDaneListyObiektow(3,"MojaKontrolka")
@@ -175,17 +175,17 @@ end
 function zniszcz ()
 	local zdarzenie = ffi.new('struct Zdarzenie_t')
 	ffi.C.pobierzZdarzenie(zdarzenie)
-	ffi.C.logujWOknieKomunikatow(1,"Zburz " .. tostring(zdarzenie.numer_))
+	ffi.C.wyswietlWiadomoscWGUI(1,"Zburz " .. tostring(zdarzenie.numer_))
 end
 
 function info ()
 	local zdarzenie = ffi.new('struct Zdarzenie_t')
 	ffi.C.pobierzZdarzenie(zdarzenie)
-	ffi.C.logujWOknieKomunikatow(1,"Info " .. tostring(zdarzenie.numer_))
+	ffi.C.wyswietlWiadomoscWGUI(1,"Info " .. tostring(zdarzenie.numer_))
 end
 
 function przeladujOknoListeObiektow ()	
-	ffi.C.przeladujOkno(3)
+	ffi.C.przeladujEkran(3)
 end
 
 function powrotDoOkna()
@@ -208,5 +208,12 @@ function zaloguj()
 		wstawZdarzenieDlaAktualnegoStanu ( 4 )
 	end
 	ffi.C.ustawWlasciwosc(4,"login","text","")
+	ffi.C.ustawWlasciwosc(4,"pass","text","")
+end
+
+function ponownieZaloguj()
+	if ffi.C.zaloguj("login","pass") == true then
+		wstawZdarzenieDlaAktualnegoStanu ( 4 )
+	end
 	ffi.C.ustawWlasciwosc(4,"pass","text","")
 end

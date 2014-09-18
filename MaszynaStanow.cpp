@@ -4,19 +4,19 @@
 #include "FPSCounter.h"
 
 namespace SpEx{
-	MaszynaStanow::LuaStan::LuaStan()
+	MaszynaStanow::StanDlaSkryptu::StanDlaSkryptu()
 		: aktualny_(), poprawne_aktualny_(false), nastepny_(), poprawne_nastepny_(false), poprzedni_(), poprawne_poprzedni_(false), zdarzenie_(), poprawne_zdarzenie_(false)
 	{
 	}
 
-	void MaszynaStanow::LuaStan::ustawNowyStanNastepny(const STyp::Identyfikator& id){
+	void MaszynaStanow::StanDlaSkryptu::ustawNowyStanNastepny(const STyp::Identyfikator& id){
 		if (komunikat_){
 			nastepny_.idStanu_ = id();
 			komunikat_->idNowegoStanu_ = std::make_shared<STyp::Identyfikator>(id);
 		}
 	}
 
-	void MaszynaStanow::LuaStan::ustawNowyNumerNastepny(int numer){
+	void MaszynaStanow::StanDlaSkryptu::ustawNowyNumerNastepny(int numer){
 		if (komunikat_){
 			nastepny_.numer_ = numer;
 		}
@@ -40,7 +40,7 @@ namespace SpEx{
 		watekGraficzny_.odblokuj();
 	}
 
-	bool MaszynaStanow::kolejkujOkno(int id){
+	bool MaszynaStanow::kolejkujEkran(int id){
 		std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
 		auto ptr = watekGraficzny_.pobierzEkran(STyp::Identyfikator(id));
 		if (ptr != nullptr){
@@ -50,7 +50,7 @@ namespace SpEx{
 		return false;
 	}
 
-	bool MaszynaStanow::zdejmijOkno(){
+	bool MaszynaStanow::zdejmijEkran(){
 		std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
 		if (stosEkranow_.empty())
 			return false;
@@ -58,7 +58,7 @@ namespace SpEx{
 		return true;
 	}
 		
-	void MaszynaStanow::wyczyscKolejkeOkien(){
+	void MaszynaStanow::wyczyscKolejkeEkranow(){
 		std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
 		stosEkranow_.clear();
 	}
@@ -119,7 +119,7 @@ namespace SpEx{
 #ifdef _FPS_COUNT
 			fpsCounter.nextFrame();
 #endif
-			luaStan_.poprawne_zdarzenie_ = false;
+			stanDlaSkryptu_.poprawne_zdarzenie_ = false;
 			obslugaZdarzenia();
 			przejdzDoNastepnegoStanu();
 			std::this_thread::yield(); 
@@ -143,16 +143,16 @@ namespace SpEx{
 		if (stanNastepny_.opisStanu()){
 			stan_.akcjaWyjscia();
 
-			luaStan_.ustawPoprzedni(stan_);
+			stanDlaSkryptu_.ustawPoprzedni(stan_);
 			stan_ = stanNastepny_;
-			luaStan_.ustawAktualny(stan_);
-			luaStan_.poprawne_nastepny_ = false;
+			stanDlaSkryptu_.ustawAktualny(stan_);
+			stanDlaSkryptu_.poprawne_nastepny_ = false;
 			stan_.akcjaWejscia();
 		}else{
-			luaStan_.ustawPoprzedni(stan_);
+			stanDlaSkryptu_.ustawPoprzedni(stan_);
 			stan_.numer_ = stanNastepny_.numer_;
-			luaStan_.ustawAktualny(stan_);
-			luaStan_.poprawne_nastepny_ = false;
+			stanDlaSkryptu_.ustawAktualny(stan_);
+			stanDlaSkryptu_.poprawne_nastepny_ = false;
 			stan_.akcjaWewnetrzna();
 		}
 	}
@@ -181,11 +181,11 @@ namespace SpEx{
 						nowy.numer_ = *numerNowegoStanu;
 					}
 
-					luaStan_.ustawNastepny(nowy);
-					luaStan_.ustawZdarzenie(komunikat);
-					luaStan_.komunikat_ = &komunikat;
+					stanDlaSkryptu_.ustawNastepny(nowy);
+					stanDlaSkryptu_.ustawZdarzenie(komunikat);
+					stanDlaSkryptu_.komunikat_ = &komunikat;
 					opisZdarzenia->wykonaj();
-					luaStan_.komunikat_ = nullptr;
+					stanDlaSkryptu_.komunikat_ = nullptr;
 
 					if (komunikat.idNowegoStanu_){
 						auto nowyStan = pobierzOpisStanu(*komunikat.idNowegoStanu_);
@@ -193,7 +193,7 @@ namespace SpEx{
 							nowy = Stan(nowyStan);
 						}
 					}
-					nowy.numer_ = luaStan_.nastepny_.numer_;
+					nowy.numer_ = stanDlaSkryptu_.nastepny_.numer_;
 				}
 			}
 		}
@@ -208,7 +208,7 @@ namespace SpEx{
 	void MaszynaStanow::ustawNastepnyStan(Stan& stan){
 		std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
 		stanNastepny_ = stan;
-		luaStan_.ustawNastepny(stanNastepny_);
+		stanDlaSkryptu_.ustawNastepny(stanNastepny_);
 	}
 
 	void MaszynaStanow::inicjujZamykanie(){
@@ -220,52 +220,52 @@ namespace SpEx{
 		pulaWatkow_.dodajZadanie(zadanie);
 	}
 
-	bool MaszynaStanow::LuaStan::pobierzZdarzenie(struct Zdarzenie_t& z){
+	bool MaszynaStanow::StanDlaSkryptu::pobierzZdarzenie(struct Zdarzenie_t& z){
 		if (poprawne_zdarzenie_)
 			z = zdarzenie_;
 		return poprawne_zdarzenie_;
 	}
 
-	bool MaszynaStanow::LuaStan::pobierzPoprzedniStan(struct Stan_t& s){
+	bool MaszynaStanow::StanDlaSkryptu::pobierzPoprzedniStan(struct Stan_t& s){
 		if (poprawne_poprzedni_)
 			s = poprzedni_;
 		return poprawne_poprzedni_;
 	}
 
-	bool MaszynaStanow::LuaStan::pobierzAktualnyStan(struct Stan_t& s){
+	bool MaszynaStanow::StanDlaSkryptu::pobierzAktualnyStan(struct Stan_t& s){
 		if (poprawne_aktualny_)
 			s = aktualny_;
 		return poprawne_aktualny_;
 	}
 
-	bool MaszynaStanow::LuaStan::pobierzNastepnyStan(struct Stan_t& s){
+	bool MaszynaStanow::StanDlaSkryptu::pobierzNastepnyStan(struct Stan_t& s){
 		if (poprawne_nastepny_)
 			s = nastepny_;
 		return poprawne_nastepny_;
 	}
 
-	void MaszynaStanow::LuaStan::ustawZdarzenie(const Zdarzenie& z){
+	void MaszynaStanow::StanDlaSkryptu::ustawZdarzenie(const Zdarzenie& z){
 		poprawne_zdarzenie_ = true;
 		zdarzenie_.idStanu_ = z.idStanu_();
 		zdarzenie_.numer_ = z.numer_;
 		zdarzenie_.idZdarzenia_ = z.idZdarzenia_();
 	}
 
-	void MaszynaStanow::LuaStan::ustawPoprzedni(const Stan& z){
+	void MaszynaStanow::StanDlaSkryptu::ustawPoprzedni(const Stan& z){
 		poprawne_poprzedni_ = true;
 		poprzedni_.idStanu_ = z.id_();
 		poprzedni_.numer_ = z.numer_;
 		//poprzedni_.dt_ = z.dt_.count();
 	}
 
-	void MaszynaStanow::LuaStan::ustawAktualny(const Stan& z){
+	void MaszynaStanow::StanDlaSkryptu::ustawAktualny(const Stan& z){
 		poprawne_aktualny_ = true;
 		aktualny_.idStanu_ = z.id_();
 		aktualny_.numer_ = z.numer_;
 		//aktualny_.dt_ = z.dt_.count();
 	}
 
-	void MaszynaStanow::LuaStan::ustawNastepny(const Stan& z){
+	void MaszynaStanow::StanDlaSkryptu::ustawNastepny(const Stan& z){
 		poprawne_nastepny_ = true;
 		nastepny_.idStanu_ = z.id_();
 		nastepny_.numer_ = z.numer_;

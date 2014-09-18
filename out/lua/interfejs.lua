@@ -3,7 +3,7 @@ local ffi = require("ffi")
 ffi.cdef[[
 //Logowanie w stylu aplikacji
 void loguj(const char *komunikat );
-void logujWOknieKomunikatow(unsigned int typ, const char * komunikat);
+void wyswietlWiadomoscWGUI(unsigned int typ, const char * komunikat);
 
 //Struktury
 struct Zdarzenie_t{
@@ -26,11 +26,11 @@ void ustawNowyStanNastepny( int id );
 void ustawNowyNumerNastepny( int numer );
 
 //Sterowanie stanami
-bool ustawOkno(int id);
+bool wstawEkranNaStos(int id);
 bool ustawWlasciwosc(int ekran, const char *kontrolka, const char *nazwaWlasciwosci, const char *nowaWartosc);
-void przeladujOkno(int id);
-bool zdejmijOkno();
-void wyczyscListeOkien();
+void przeladujEkran(int id);
+bool zdejmijEkranZeStosu();
+void wyczyscListeEkranow();
 void kolejkujZdarzenie( struct Zdarzenie_t& s );
 void wstawZdarzenie( struct Zdarzenie_t& s );
 
