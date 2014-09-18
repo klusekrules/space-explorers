@@ -1,8 +1,8 @@
 #include "UtilsGui.h"
 namespace SpEx{
 
-	void UtilsGui::logToGUI(unsigned int typ, const std::string& tresc){
-		SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().logToGUI(typ, tresc);
+	void UtilsGui::wyswietlWiadomoscWGUI(unsigned int typ, const std::string& tresc){
+		SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().wyswietlWiadomoscWGUI(typ, tresc);
 	}
 	
 	void UtilsGui::callback(const tgui::Callback& callback, unsigned int idZdarzenia, unsigned int numer){

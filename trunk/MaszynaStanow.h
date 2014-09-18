@@ -32,7 +32,7 @@ namespace SpEx{
 		* \version 1
 		* \date 09-07-2014
 		*/
-		class LuaStan{
+		class StanDlaSkryptu{
 			friend class MaszynaStanow;
 		public:
 
@@ -44,7 +44,7 @@ namespace SpEx{
 			* \version 1
 			* \date 09-07-2014
 			*/
-			LuaStan();
+			StanDlaSkryptu();
 
 			/**
 			* \brief Metoda pobieraj¹ca dane zdarzenia.
@@ -257,7 +257,7 @@ namespace SpEx{
 		* \version 1
 		* \date 09-07-2014
 		*/
-		bool kolejkujOkno(int id);
+		bool kolejkujEkran(int id);
 
 		/**
 		* \brief Metoda zdejmuj¹ca ekran.
@@ -268,7 +268,7 @@ namespace SpEx{
 		* \version 1
 		* \date 09-07-2014
 		*/
-		bool zdejmijOkno();
+		bool zdejmijEkran();
 		
 		/**
 		* \brief Metoda czyœci stos ekranów.
@@ -278,7 +278,7 @@ namespace SpEx{
 		* \version 1
 		* \date 09-07-2014
 		*/
-		void wyczyscKolejkeOkien();
+		void wyczyscKolejkeEkranow();
 
 		/**
 		* \brief Metoda inicjuj¹ca zamykanie.
@@ -301,7 +301,7 @@ namespace SpEx{
 		*/
 		void dodajZadanie(Zadanie& zadanie);
 
-		LuaStan luaStan_; /// Stan aplikacji dla skryptów.
+		StanDlaSkryptu stanDlaSkryptu_; /// Stan aplikacji dla skryptów.
 
 		/**
 		* \brief Metoda pobiera obiekt zarz¹dzaj¹cy GUI.

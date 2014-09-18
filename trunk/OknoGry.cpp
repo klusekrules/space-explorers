@@ -35,7 +35,7 @@ namespace SpEx{
 		return stosEkranow_;
 	}
 
-	void OknoGry::logToGUI(unsigned int typ, const std::string& tresc){
+	void OknoGry::wyswietlWiadomoscWGUI(unsigned int typ, const std::string& tresc){
 		for (auto& ekran : stosEkranow_){
 			if (ekran){
 				if (!!ekran->oknoKomunikatow_){
