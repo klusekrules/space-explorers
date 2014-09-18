@@ -187,9 +187,6 @@
     <ClCompile Include="EkranStartowy.cpp">
       <Filter>SourceFile\GUI\Ekrany\Instancje</Filter>
     </ClCompile>
-    <ClCompile Include="luaFunc.cpp">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClCompile>
     <ClCompile Include="CzyszczenieDanychTest.cpp">
       <Filter>Testy\KlasyTestowe\Czyszczenie</Filter>
     </ClCompile>
@@ -312,6 +309,9 @@
     </ClCompile>
     <ClCompile Include="SurowceTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Export.cpp">
+      <Filter>SourceFile\KlasyGlowne</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -668,6 +668,9 @@
     </ClInclude>
     <ClInclude Include="SurowceTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Export.h">
+      <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "TestSkryptuDll.h"
-
-extern "C" __declspec(dllimport) void __cdecl zamknijAplikacje();
-extern "C" __declspec(dllimport) void __cdecl loguj(const char *komunikat);
+#include "../../Export.h"
 
 extern "C" TESTSKRYPTUDLL_API int zamknijAplikacjeSkryptDll(void)
 {
