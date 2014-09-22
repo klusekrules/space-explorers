@@ -21,20 +21,24 @@ void SurowceTest::TworzenieSurowcaTest(){
 void SurowceTest::DodawanieSurowcaTest(){
 	UNIT_TEST_ASSERT_NOTNULL(krysztal_);
 	UNIT_TEST_ASSERT_NOTNULL(krysztal2_);
-	UNIT_TEST_ASSERT_EQUAL((*krysztal_ + *krysztal2_).pobierzIlosc(), STyp::Ilosc(750));
+	auto s = (*krysztal_ + *krysztal2_);
+	UNIT_TEST_ASSERT_EQUAL(s.pobierzIlosc(), STyp::Ilosc(750));
 	UNIT_TEST_ASSERT_NOTNULL(metal_);
 	UNIT_TEST_ASSERT_THROW(*krysztal_ + *metal_, SpEx::NiezgodnyTypSurowca);
 }
 
-SurowceTest::~SurowceTest(){
+void SurowceTest::koniecTestow() {
 	if (krysztal_){
 		delete krysztal_;
+		krysztal_ = nullptr;
 	}
 	if (metal_){
 		delete metal_;
+		metal_ = nullptr;
 	}
 	if (krysztal2_){
 		delete krysztal2_;
+		krysztal2_ = nullptr;
 	}
 }
 
