@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MaszynaStanow idStanuPoczatkowego="2" pulaWatkow="4">
-  <Stan id="0x1" typSkryptu="lua" file="lua\test.lua" funcIn="ustawOknoMenu" funcOut="wyjscieZeStanu">
+  <Stan id="0x1" typSkryptu="lua" file="lua\test.lua" funcIn="ustawOknoMenu" funcOut="wyjscieZeStanu" instancja="wspolna">
     <Zdarzenie id="0x6" typSkryptu="lua" file="lua\test.lua" funcInside="przeladujOknoListeObiektow"/>
     <Zdarzenie id="0x5" stanNastepny="0x6" numerNastepny="0x1"/>
     <Zdarzenie id="0x4" stanNastepny="0x4" numerNastepny="0x0"/>
@@ -11,9 +11,8 @@
   <Stan id="0x2" typSkryptu="lua" file="lua\test.lua" funcIn="stanPoczatkowy" funcOut="wyjscieZeStanu">
     <Zdarzenie id="0x1" stanNastepny="0x5" numerNastepny="0x0"/>
   </Stan>
-  <Stan id="0x3" typSkryptu="lua" file="lua\test.lua" funcIn="wlaczTestowanie" funcOut="wyjscieZeStanu">
+  <Stan id="0x3" typSkryptu="lua" file="lua\test.lua" funcIn="wlaczTestowanie" funcInside="testy" funcOut="wyjscieZeStanu" instancja="wspolna">
     <Zdarzenie id="0x1" stanNastepny="0x1" numerNastepny="0x0"/>
-    <Zdarzenie id="0x2" typSkryptu="lua" file="lua\test.lua" funcInside="testy" stanNastepny="0x1" numerNastepny="0x0"/>
   </Stan>
   <Stan id="0x4" typSkryptu="lua" file="lua\test.lua" funcIn="ustawOknoListy" funcOut="wyjscieZeStanu">
     <Zdarzenie id="0x1" stanNastepny="0x1" numerNastepny="0x0"/>
@@ -31,7 +30,7 @@
   <Stan id="0x6" typSkryptu="lua" file="lua\test.lua" funcIn="ustawOknoPonownegoLogowania" funcOut="wyjdzOknoPonownegoLogowania">
     <Zdarzenie id="0x1" typSkryptu="dll" file="dll\TestSkryptuDll.dll" funcInside="zamknijAplikacjeSkryptDll"/>
     <Zdarzenie id="0x2"/>
-    <Zdarzenie id="0x3" typSkryptu="lua" file="lua\test.lua" funcInside="ponownieZaloguj"/>
+    <Zdarzenie id="0x3" typSkryptu="lua" file="lua\test.lua" funcInside="ponownieZaloguj" instancja="wspolna"/>
     <Zdarzenie id="0x4" typSkryptu="lua" file="lua\test.lua" funcInside="powrotDoOkna" numerNastepny="0x0"/>
   </Stan>
 </MaszynaStanow>
