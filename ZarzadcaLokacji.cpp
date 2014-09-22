@@ -18,7 +18,7 @@ namespace SpEx {
 		if (planeta == planety_.end())
 			return nullptr;
 		bool val = true;
-		if (!planeta->second.wolna_.compare_exchange_weak(val, false))
+		if (!planeta->second.wolna_.compare_exchange_strong(val, false))
 			return nullptr;
 	
 		std::call_once(planeta->second.flaga_inicjalizacji_ukladu, &ZarzadcaLokacji::wczytajUkladSloneczny, this, planeta->second.idUkladu_);
@@ -30,7 +30,7 @@ namespace SpEx {
 		if (planeta == planety_.end())
 			return nullptr;
 		bool val = true;
-		if (!planeta->second.wolna_.compare_exchange_weak(val, false))
+		if (!planeta->second.wolna_.compare_exchange_strong(val, false))
 			return nullptr;
 
 		std::call_once(planeta->second.flaga_inicjalizacji_ukladu, &ZarzadcaLokacji::wczytajUkladSloneczny, this, planeta->second.idUkladu_);
@@ -41,7 +41,7 @@ namespace SpEx {
 		auto planeta = planety_.find(identyfikator);
 		if (planeta != planety_.end()){
 			bool val = false;
-			planeta->second.wolna_.compare_exchange_weak(val, true);
+			planeta->second.wolna_.compare_exchange_strong(val, true);
 		}
 	}
 
