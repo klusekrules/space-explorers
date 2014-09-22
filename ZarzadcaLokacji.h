@@ -3,6 +3,8 @@
 #include "GeneratorUkladow.h"
 #include <functional>
 #include "UstawieniaAplikacji.h"
+#include <mutex>
+#include <atomic>
 
 namespace SpEx {
 	/**
@@ -11,8 +13,8 @@ namespace SpEx {
 	* Klasa zarzadza wczytanymi lokacjami. Wczytuje na tylko uzywane planety i uklady.
 	* Nie usuwa ich z czasem ¿ycia programu
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 25-07-2014
+	* \version 2
+	* \date 22-09-2014
 	* \todo Usuwanie nieuzywanych lokacji.
 	*/
 	class ZarzadcaLokacji:	
@@ -38,13 +40,14 @@ namespace SpEx {
 		*
 		* Struktura przechowuje planetê, je¿eli zosta³a wczytana oraz identyfikator uk³adu rodzica.
 		* \author Daniel Wojdak
-		* \version 1
-		* \date 25-07-2014
+		* \version 2
+		* \date 22-09-2014
 		*/
 		struct ObjPlaneta{
 			STyp::Identyfikator idUkladu_; /// Identyfikator uk³adu. U¿ywane do wczytania odpowiedniego uk³adu do za³adowania planety.
 			std::shared_ptr< Planeta > planeta_; /// wskaŸnik na planetê.
-			bool wolna_; /// Informacja o przynaleznosci planety do gracza.
+			std::atomic_bool wolna_; /// Informacja o przynaleznosci planety do gracza.
+			std::once_flag& flaga_inicjalizacji_ukladu; /// Flaga inicjalizacji. 
 		};
 
 		/**
@@ -52,13 +55,14 @@ namespace SpEx {
 		*
 		* Struktura przechowuje uk³ad, je¿eli zosta³ wczytany, identyfikator galaktyki rodzica oraz przynale¿ne planety.
 		* \author Daniel Wojdak
-		* \version 1
-		* \date 25-07-2014
+		* \version 2
+		* \date 22-09-2014
 		*/
 		struct ObjUklad{
 			STyp::Identyfikator idGalaktyki_; /// Identyfikator Galaktyki. Aktualnie nie u¿ywany.
 			std::shared_ptr< UkladSloneczny > uklad_; /// wskaŸnik do uk³adu.
 			std::vector< STyp::Identyfikator > planety_; /// Lista przynaleznych planet. U¿ywane przy zapisie informacji do pliku.
+			std::once_flag flaga_inicjalizacji_ukladu; /// Flaga inicjalizacji. 
 		};
 
 		/**
@@ -239,7 +243,6 @@ namespace SpEx {
 		Galaktyki galaktyki_; /// Lista galaktyk.
 		UkladySloneczne ukladySloneczne_; /// Lista uk³adów.
 		Planety planety_; /// Lista planet.
-
 		std::string folderPlikuUkladu_; /// Adres folderu z plikami opisuj¹cymi planety.
 
 	};

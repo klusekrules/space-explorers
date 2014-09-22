@@ -8,11 +8,8 @@ namespace SpEx {
 		auto planeta = planety_.find(identyfikator);
 		if (planeta == planety_.end())
 			return nullptr;
-		if (!planeta->second.planeta_){
-			if (!wczytajUkladSloneczny(planeta->second.idUkladu_))
-				return false;
-			return planety_[identyfikator].planeta_;
-		}
+
+		std::call_once(planeta->second.flaga_inicjalizacji_ukladu, &ZarzadcaLokacji::wczytajUkladSloneczny, this, planeta->second.idUkladu_);
 		return planeta->second.planeta_;
 	}
 
@@ -20,15 +17,11 @@ namespace SpEx {
 		auto planeta = planety_.find(identyfikator);
 		if (planeta == planety_.end())
 			return nullptr;
-		if (!planeta->second.planeta_){
-			if (!wczytajUkladSloneczny(planeta->second.idUkladu_))
-				return false;
-			planety_[identyfikator].wolna_ = false;
-			return planety_[identyfikator].planeta_;
-		}
-		if (!planeta->second.wolna_)
-			return false;
-		planeta->second.wolna_ = false;
+		bool val = true;
+		if (!planeta->second.wolna_.compare_exchange_weak(val, false))
+			return nullptr;
+	
+		std::call_once(planeta->second.flaga_inicjalizacji_ukladu, &ZarzadcaLokacji::wczytajUkladSloneczny, this, planeta->second.idUkladu_);
 		return planeta->second.planeta_;
 	}
 
@@ -36,20 +29,20 @@ namespace SpEx {
 		auto planeta = std::find_if(planety_.begin(), planety_.end(), [](const std::pair< const STyp::Identyfikator, ObjPlaneta>& element)->bool{ return element.second.wolna_; });
 		if (planeta == planety_.end())
 			return nullptr;
-		if (!planeta->second.planeta_){
-			if (!wczytajUkladSloneczny(planeta->second.idUkladu_))
-				return false;
-			planety_[planeta->first].wolna_ = false;
-			return planety_[planeta->first].planeta_;
-		}
-		planeta->second.wolna_ = false;
+		bool val = true;
+		if (!planeta->second.wolna_.compare_exchange_weak(val, false))
+			return nullptr;
+
+		std::call_once(planeta->second.flaga_inicjalizacji_ukladu, &ZarzadcaLokacji::wczytajUkladSloneczny, this, planeta->second.idUkladu_);
 		return planeta->second.planeta_;
 	}
 
 	void ZarzadcaLokacji::anulujRezerwacjePlanety(const STyp::Identyfikator& identyfikator){
 		auto planeta = planety_.find(identyfikator);
-		if (planeta != planety_.end())
-			planeta->second.wolna_ = true;
+		if (planeta != planety_.end()){
+			bool val = false;
+			planeta->second.wolna_.compare_exchange_weak(val, true);
+		}
 	}
 
 	int ZarzadcaLokacji::pobierzIloscGalaktyk() const{
@@ -58,7 +51,6 @@ namespace SpEx {
 
 	bool ZarzadcaLokacji::generujNowaGalaktyke(){
 		auto galaktyka = generator_.generujGalaktyke();
-		std::vector< STyp::Identyfikator> listaUkladow;
 		std::list< std::string > listaPlikow;
 
 		auto czyszczenie = [&listaPlikow](){
@@ -69,6 +61,8 @@ namespace SpEx {
 			}
 		};
 
+		auto& sGalaktyka = galaktyki_[galaktyka->pobierzIdentyfikator()];
+		sGalaktyka.galaktyka_ = nullptr;
 		try{
 			for (int n = galaktyka->iloscUkladow_; n > 0; --n){
 				auto uklad = generator_.generujUklad(galaktyka->pobierzIdentyfikator());
@@ -76,15 +70,17 @@ namespace SpEx {
 					czyszczenie();
 					return false;
 				}
-				std::vector< STyp::Identyfikator> listaPlanet;
+				sGalaktyka.uklady_.push_back(uklad->pobierzIdentyfikator());
+				auto& sUklad = ukladySloneczne_[uklad->pobierzIdentyfikator()];
+				sUklad.idGalaktyki_ = galaktyka->pobierzIdentyfikator();
+				sUklad.uklad_ = nullptr;
+
 				for (auto planeta : uklad->planety_){
-					listaPlanet.push_back(planeta.first);
-					struct ZarzadcaLokacji::ObjPlaneta nowaPlaneta = { uklad->pobierzIdentyfikator(), nullptr, true };
-					planety_[planeta.first] = nowaPlaneta;
+					sUklad.planety_.push_back(planeta.first);
+					ObjPlaneta obj = { uklad->pobierzIdentyfikator(), nullptr, true, sUklad.flaga_inicjalizacji_ukladu };
+					planety_.emplace(planeta.first, std::move(obj));
 				}
-				listaUkladow.push_back(uklad->pobierzIdentyfikator());
-				struct ZarzadcaLokacji::ObjUklad nowyUklad = { galaktyka->pobierzIdentyfikator(), nullptr, listaPlanet };
-				ukladySloneczne_[uklad->pobierzIdentyfikator()] = nowyUklad;
+				
 				if (!zapiszUkladSloneczny(uklad)){
 					czyszczenie();
 					return false;
@@ -95,8 +91,7 @@ namespace SpEx {
 			czyszczenie();
 			throw;
 		}
-		struct ZarzadcaLokacji::ObjGalakatyka nowaGalaktyka = { nullptr, listaUkladow };
-		galaktyki_[galaktyka->pobierzIdentyfikator()] = nowaGalaktyka;
+		
 		return true;
 	}
 
@@ -112,9 +107,13 @@ namespace SpEx {
 		auto uklad = std::make_shared<UkladSloneczny>(STyp::Identyfikator(), STyp::Identyfikator());
 		if (!uklad->odczytaj(root->pobierzElement(nullptr)))
 			return false;
+		if (identyfikator != uklad->pobierzIdentyfikator())
+			return false;
 		ukladySloneczne_[uklad->pobierzIdentyfikator()].uklad_ = uklad;
 		for (auto planeta : uklad->planety_){
-			planety_[planeta.first].planeta_ = planeta.second;
+			auto iter = planety_.find(planeta.first);
+			if (iter != planety_.end())
+				iter->second.planeta_ = planeta.second;
 		}
 		return true;
 	}
@@ -170,14 +169,18 @@ namespace SpEx {
 			STyp::Identyfikator idGalaktyki;
 			if (!XmlBO::WczytajAtrybut<STACKTHROW>(galaktyka, ATRYBUT_XML_IDENTYFIKATOR, idGalaktyki))
 				return false;
+			auto& sGalaktyka = galaktyki_[idGalaktyki];
+			sGalaktyka.galaktyka_ = nullptr;
 
-			std::vector<STyp::Identyfikator> listUkladow;
 			if (!XmlBO::ForEach<STACKTHROW>(galaktyka, WEZEL_XML_UKLAD_SLONECZNY, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla uklad)->bool{
-				STyp::Identyfikator idUklad;
-				if (!XmlBO::WczytajAtrybut<STACKTHROW>(uklad, ATRYBUT_XML_IDENTYFIKATOR, idUklad))
+				STyp::Identyfikator idUkladu;
+				if (!XmlBO::WczytajAtrybut<STACKTHROW>(uklad, ATRYBUT_XML_IDENTYFIKATOR, idUkladu))
 					return false;
 
-				std::vector<STyp::Identyfikator> listPlanet;
+				sGalaktyka.uklady_.push_back(idUkladu);
+				auto& sUklad = ukladySloneczne_[idUkladu];
+				sUklad.idGalaktyki_ = idGalaktyki;
+				sUklad.uklad_ = nullptr;
 
 				if (!XmlBO::ForEach<STACKTHROW>(uklad, WEZEL_XML_PLANETA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla planeta)->bool{
 					STyp::Identyfikator idPlanety;
@@ -189,22 +192,17 @@ namespace SpEx {
 					if (wolna != 0 && wolna != 1)
 						return false;
 
-					listPlanet.push_back(idPlanety);
-					struct ZarzadcaLokacji::ObjPlaneta nowaPlaneta = { idUklad, nullptr, true };
-					planety_[idPlanety] = nowaPlaneta;
+					sUklad.planety_.push_back(idPlanety);
+					ObjPlaneta obj = { idUkladu, nullptr, wolna, sUklad.flaga_inicjalizacji_ukladu };
+					planety_.emplace(idPlanety, std::move(obj));
 					return true;
 				})))
 					return false;
 
-				listUkladow.push_back(idUklad);
-				struct ZarzadcaLokacji::ObjUklad nowyUklad = { idGalaktyki, nullptr, listPlanet };
-				ukladySloneczne_[idUklad] = nowyUklad;
 				return true;
 			})))
 				return false;
 
-			struct ZarzadcaLokacji::ObjGalakatyka nowaGalaktyka = { nullptr, listUkladow };
-			galaktyki_[idGalaktyki] = nowaGalaktyka;
 			return true;
 		}));
 
