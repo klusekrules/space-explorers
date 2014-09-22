@@ -27,10 +27,20 @@ namespace SpEx{
 	}
 
 	bool Planeta::odepnijPlanete(){
+		bool rezultat = false;
 		if (wlasciciel_){
-			return wlasciciel_->odpinaniePlanet(identyfikator_);
+			rezultat = wlasciciel_->odpinaniePlanet(identyfikator_);
+		}else{ 
+			if (!idUzytkownika_.isEmpty()){
+				wyczyscZawartoscPlanety();
+				rezultat = true;
+			} 
 		}
-		return true;
+		
+		if (rezultat)
+			SpEx::Aplikacja::pobierzInstancje().pobierzZarzadceLokacji().anulujRezerwacjePlanety(identyfikator_);
+
+		return rezultat;
 	}
 
 	void Planeta::wyczyscZawartoscPlanety(){
