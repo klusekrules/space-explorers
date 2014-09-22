@@ -23,6 +23,13 @@ namespace SpEx{
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, ss.str());
 				return false;
 			}
+			status = lua_pcall(L, 0, LUA_MULTRET, 0);
+			if (status) {
+				std::stringstream ss;
+				ss << "Nie udalo sie zaladowac skryptu:" << lua_tostring(L, -1) << std::endl;
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, ss.str());
+				return false;
+			}
 			return true;
 		}
 		return false;
