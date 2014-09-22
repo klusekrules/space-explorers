@@ -13,7 +13,8 @@ public:
 	SurowceTest() = default;
 	void TworzenieSurowcaTest();
 	void DodawanieSurowcaTest();
-	~SurowceTest();
+	void koniecTestow() override;
+	~SurowceTest() = default;
 private:
 	SpEx::Surowce* krysztal_ = nullptr;
 	SpEx::Surowce* krysztal2_ = nullptr;
