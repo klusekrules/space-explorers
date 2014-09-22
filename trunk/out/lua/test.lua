@@ -1,5 +1,5 @@
 local ffi = require "interfejs"
-
+local przeprowadzonoTesty = false
 -- Komentarz lua
 --[[ 
 	Komentarz wieloliniowy.
@@ -47,6 +47,12 @@ function ustawOknoMenu ()
 		ffi.C.loguj("Ustawianiono")
 	else
 		ffi.C.loguj("Nieustawianiono")
+	end
+	ffi.C.loguj("przeprowadzonoTesty: " .. tostring(przeprowadzonoTesty) )
+	if przeprowadzonoTesty == true then
+		ffi.C.ustawWlasciwosc(1,"listaobiektow","enabled","false")
+	else
+		ffi.C.ustawWlasciwosc(1,"listaobiektow","enabled","true")
 	end
 end
 
@@ -147,14 +153,15 @@ function wlaczTestowanie ()
 		ffi.C.loguj("Nieustawianiono")
 	end
 	
-	ffi.C.zlecZadanie("lua\\test.lua","testy");
+	-- ffi.C.zlecZadanie("lua\\test.lua","testy");
 end
 
 function testy ()
 	ffi.C.loguj("Testowanie")
 	ffi.C.testyJednostkowe()
-	
-	local zdarzenie = ffi.new('struct Zdarzenie_t');
+	przeprowadzonoTesty = true
+	ffi.C.loguj("przeprowadzonoTesty: " .. tostring(przeprowadzonoTesty) )
+	local zdarzenie = ffi.new('struct Zdarzenie_t')
 	zdarzenie.idZdarzenia_ = 1
 	zdarzenie.idStanu_ = 3
 	zdarzenie.numer_ = 0
@@ -214,6 +221,8 @@ end
 function ponownieZaloguj()
 	if ffi.C.zaloguj("login","pass") == true then
 		wstawZdarzenieDlaAktualnegoStanu ( 4 )
+		przeprowadzonoTesty = false
+		ffi.C.loguj("przeprowadzonoTesty: " .. tostring(przeprowadzonoTesty) )
 	end
 	ffi.C.ustawWlasciwosc(4,"pass","text","")
 end
