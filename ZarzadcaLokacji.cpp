@@ -52,11 +52,19 @@ namespace SpEx {
 	bool ZarzadcaLokacji::generujNowaGalaktyke(){
 		auto galaktyka = generator_.generujGalaktyke();
 		std::list< std::string > listaPlikow;
-
-		auto czyszczenie = [&listaPlikow](){
+		std::list< STyp::Identyfikator > listaUkladow;
+		std::list< STyp::Identyfikator > listaPlanet;
+		auto czyszczenie = [&](){
 			for (auto plik : listaPlikow){
 				if (!plik.empty()){
 					remove(plik.c_str());
+				}
+				galaktyki_.erase(galaktyka->pobierzIdentyfikator());
+				for (auto& id : listaUkladow){
+					ukladySloneczne_.erase(id);
+				}
+				for (auto& id : listaPlanet){
+					planety_.erase(id);
 				}
 			}
 		};
@@ -74,11 +82,13 @@ namespace SpEx {
 				auto& sUklad = ukladySloneczne_[uklad->pobierzIdentyfikator()];
 				sUklad.idGalaktyki_ = galaktyka->pobierzIdentyfikator();
 				sUklad.uklad_ = nullptr;
+				listaUkladow.push_back(uklad->pobierzIdentyfikator());
 
 				for (auto planeta : uklad->planety_){
 					sUklad.planety_.push_back(planeta.first);
 					ObjPlaneta obj = { uklad->pobierzIdentyfikator(), nullptr, true, sUklad.flaga_inicjalizacji_ukladu };
 					planety_.emplace(planeta.first, std::move(obj));
+					listaPlanet.push_back(planeta.first);
 				}
 				
 				if (!zapiszUkladSloneczny(uklad)){
