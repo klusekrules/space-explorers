@@ -44,18 +44,12 @@ namespace SpEx{
 			LuaState::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzZasob<LuaState>(id, luaFile, !instancja.empty());
 			if (uchwyt == nullptr)
 				return nullptr;
-			auto skrypt = std::make_shared<LuaSkrypt>(uchwyt);
-			if (!skrypt->wykonaj())
-				throw BladStukturyStanu(EXCEPTION_PLACE, uchwyt->pobierzIdentyfikator(), KOMUNIAKT_BLAD_WYKONYWANIA);
-			return skrypt;
+			return std::make_shared<LuaSkrypt>(uchwyt);
 		}else{
 			LuaState::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzUnikalnyZasob<LuaState>(luaFile);
 			if (uchwyt == nullptr)
 				return nullptr;
-			auto skrypt = std::make_shared<LuaSkrypt>(uchwyt);
-			if (!skrypt->wykonaj())
-				throw BladStukturyStanu(EXCEPTION_PLACE, uchwyt->pobierzIdentyfikator(), KOMUNIAKT_BLAD_WYKONYWANIA);
-			return skrypt;
+			return std::make_shared<LuaSkrypt>(uchwyt);
 		}
 	}
 };
