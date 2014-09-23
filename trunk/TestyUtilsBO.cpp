@@ -16,7 +16,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(1),
 		STyp::Tekst("Metal"),
-		STyp::Tekst("resource\\Brak_obrazka.png"),
+		STyp::Tekst("BrakObrazka"),
 		STyp::Tekst("Opis metalu."),
 		STyp::Masa(3),
 		STyp::Objetosc(1),
@@ -34,7 +34,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(2),
 		STyp::Tekst("Krysztal"),
-		STyp::Tekst("resource\\Brak_obrazka.png"),
+		STyp::Tekst("BrakObrazka"),
 		STyp::Tekst("Opis kryszta³u."),
 		STyp::Masa(2),
 		STyp::Objetosc(1.3),
@@ -52,7 +52,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(3),
 		STyp::Tekst("Deuter"),
-		STyp::Tekst("resource\\Brak_obrazka.png"),
+		STyp::Tekst("BrakObrazka"),
 		STyp::Tekst("Opis deuteru."),
 		STyp::Masa(1),
 		STyp::Objetosc(3),
@@ -68,7 +68,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(4),
 		STyp::Tekst("Energia"),
-		STyp::Tekst("resource\\Brak_obrazka.png"),
+		STyp::Tekst("BrakObrazka"),
 		STyp::Tekst("Opis energii."),
 		STyp::Masa(0),
 		STyp::Objetosc(0),
@@ -80,7 +80,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(5),
 		STyp::Tekst("Ma³y transportowiec"),
-		STyp::Tekst("resource\\Brak_obrazka.png"),
+		STyp::Tekst("BrakObrazka"),
 		STyp::Tekst("Opis ma³ego transportowca."),
 		STyp::Masa(560),
 		STyp::Powierzchnia(120),
@@ -112,7 +112,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(6),
 		STyp::Tekst("Du¿y transportowiec"),
-		STyp::Tekst("resource\\Brak_obrazka.png"),
+		STyp::Tekst("BrakObrazka"),
 		STyp::Tekst("Opis du¿ego transportowca."),
 		STyp::Masa(560 * 3),
 		STyp::Powierzchnia(120 * 2.5),
@@ -145,7 +145,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(7),
 		STyp::Tekst("Myœliwiec"),
-		STyp::Tekst("resource\\Brak_obrazka.png"),
+		STyp::Tekst("BrakObrazka"),
 		STyp::Tekst("Opis myœliwca."),
 		STyp::Masa(900),
 		STyp::Powierzchnia(200),
@@ -176,7 +176,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(8),
 		STyp::Tekst("Transporter"),
-		STyp::Tekst("resource\\Brak_obrazka.png"),
+		STyp::Tekst("BrakObrazka"),
 		STyp::Tekst("Opis transportera."),
 		STyp::Masa(10000),
 		STyp::Powierzchnia(20000),
@@ -208,7 +208,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root, 
 		STyp::Identyfikator(9),
 		STyp::Tekst("Technologia komputerowa"),
-		STyp::Tekst("resource\\Brak_obrazka.png"),
+		STyp::Tekst("BrakObrazka"),
 		STyp::Tekst("Opis technologii komputerowej.")
 		);
 	tworzKryterium(*tKomputerowa, STyp::Identyfikator(10), STyp::Poziom(2));
@@ -219,7 +219,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(10),
 		STyp::Tekst("Technologia energetyczna"),
-		STyp::Tekst("resource\\Brak_obrazka.png"),
+		STyp::Tekst("BrakObrazka"),
 		STyp::Tekst("Opis technologii energetycznej.")
 		);
 	// TECHNOLOGIA - ENERGETYCZNA END
@@ -229,7 +229,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(11),
 		STyp::Tekst("Kopalnia metalu"),
-		STyp::Tekst("resource\\Brak_obrazka.png"),
+		STyp::Tekst("BrakObrazka"),
 		STyp::Tekst("Opis kopalni metalu."),
 		STyp::Powierzchnia(1200)
 		);
@@ -254,7 +254,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(12),
 		STyp::Tekst("Elektrownia s³oneczna"),
-		STyp::Tekst("resource\\Brak_obrazka.png"),
+		STyp::Tekst("BrakObrazka"),
 		STyp::Tekst("Opis elektrowni s³onecznej."),
 		STyp::Powierzchnia(2500)
 		);
@@ -277,7 +277,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(13),
 		STyp::Tekst("Fabryka robotów"),
-		STyp::Tekst("resource\\Brak_obrazka.png"),
+		STyp::Tekst("BrakObrazka"),
 		STyp::Tekst("Opis fabryki robotów."),
 		STyp::Powierzchnia(500)
 		);
@@ -304,7 +304,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(14),
 		STyp::Tekst("Wyrzutnia rakiet"),
-		STyp::Tekst("resource\\Brak_obrazka.png"),
+		STyp::Tekst("BrakObrazka"),
 		STyp::Tekst("Opis wyrzutni rakiet."),
 		STyp::Powierzchnia(2.31)
 		);
@@ -322,7 +322,7 @@ std::shared_ptr<SPar::ParserDokument> TestyUtilsBO::dane(){
 		*root,
 		STyp::Identyfikator(15),
 		STyp::Tekst("Dzia³o laserowe"),
-		STyp::Tekst("resource\\Brak_obrazka.png"),
+		STyp::Tekst("BrakObrazka"),
 		STyp::Tekst("Opis dzia³a laserowego."),
 		STyp::Powierzchnia(4.62)
 		);

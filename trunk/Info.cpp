@@ -11,10 +11,10 @@ namespace SpEx {
 	{
 		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
 		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_NAZWA, nazwa_);
-		STyp::Tekst adresObrazka;
-		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_ADRES_OBRAZKA, adresObrazka);
+		STyp::Tekst nazwaObrazka;
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_ADRES_OBRAZKA, nazwaObrazka);
 
-		idObrazka_ = Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzKlucz(adresObrazka());
+		idObrazka_ = Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzIdentyfikator(nazwaObrazka());
 		auto tablicaZnakow = wezel->pobierzTekst();
 		if (tablicaZnakow){
 			ustawOpis(std::string(tablicaZnakow));

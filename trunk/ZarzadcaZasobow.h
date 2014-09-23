@@ -215,6 +215,11 @@ namespace SpEx {
 		bool mapujIdentyfikator(const Parametr& parametr, Identyfikator& identyfikator);
 		
 		bool inicjalizuj(XmlBO::ElementWezla wezel);
+
+		const std::string& pobierzAdresObrazka( const STyp::Identyfikator& identyfikator) const;
+
+		STyp::Identyfikator pobierzIdentyfikator(const Parametr& nazwaObrazka) const;
+
 	private:
 		GeneratorIdentyfikatorow generator_; /// Generator identyfikatorów.
 		TablicaLokalizacjiZasobu lokalizacjeZasobow_; /// Tablica zawieraj¹ca powi¹zania nazw symbolicznych z lokalizacj¹ zasobu na dysku.
@@ -235,7 +240,7 @@ namespace SpEx {
 
 		MapaZasobow zasobyPrzechowywane_; /// Obiekt przechowuj¹cy zasoby.
 		MapaInicjalizatorow inicjalizatory_; /// Obiekt przechowuj¹cy inicjalizatory.
-
+		const std::string pustyNapis_ = std::string();
 	};
 };
 

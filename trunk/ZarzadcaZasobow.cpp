@@ -20,6 +20,20 @@ namespace SpEx{
 			return true;
 		}));
 	}
+	
+	STyp::Identyfikator ZarzadcaZasobow::pobierzIdentyfikator(const Parametr& nazwaObrazka) const{
+		for (unsigned int n = 0; n < lokalizacjeZasobow_.size(); ++n){
+			if (lokalizacjeZasobow_[n].first == nazwaObrazka)
+				return n;
+		}
+		return -1; // Niepoprawny identyfikator.
+	}
+
+	const std::string& ZarzadcaZasobow::pobierzAdresObrazka(const STyp::Identyfikator& identyfikator) const{
+		if (lokalizacjeZasobow_.size() <= identyfikator() || identyfikator() < 0)
+			return pustyNapis_;
+		return lokalizacjeZasobow_[identyfikator()].second;
+	}
 
 	ZarzadcaZasobow::Identyfikator ZarzadcaZasobow::pobierzKlucz(const Parametr& identyfikator){
 		STyp::Identyfikator id;

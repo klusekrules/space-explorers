@@ -64,11 +64,6 @@ namespace SpEx{
 		DllModule::Rejestruj(zarzadcaZasobow_);
 
 		/* ------- Wstêpna konfiguracja logów ------- */
-#ifdef TESTS
-		/* Wylaczenie logow typu debug na potrzeby ograniczenia logow testow*/
-		logger_.zablokujLogi(SLog::Log::Debug);
-		/* ------------------------------------ */
-#endif
 		logger_.dodajGniazdoWyjsciowe([](SLog::Log::TypLogow typ, const std::string& komunikat)->void{ std::cout << komunikat; });
 		/* ------------------------------------------ */
 
