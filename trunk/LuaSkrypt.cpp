@@ -33,20 +33,19 @@ namespace SpEx{
 		std::string luaFile = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FILE, std::string());
 		if (luaFile.empty())
 			return nullptr;
-
-		std::string instancja = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_INSTANCE, std::string());
-		if (!instancja.empty()){
-			STyp::Identyfikator id;
-			std::string temp(XML_ATRYBUT_TYP_SKRYPT_LUA);
-			temp.push_back('_');
-			temp += instancja;
-			SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.mapujIdentyfikator(temp, id);
-			LuaState::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzZasob<LuaState>(id, luaFile, !instancja.empty());
+		
+		if (!XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_UNIKAT, std::string("false")).compare("true")){
+			LuaState::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzUnikalnyZasob<LuaState>(luaFile);
 			if (uchwyt == nullptr)
 				return nullptr;
 			return std::make_shared<LuaSkrypt>(uchwyt);
 		}else{
-			LuaState::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzUnikalnyZasob<LuaState>(luaFile);
+			STyp::Identyfikator id;
+			std::string temp(XML_ATRYBUT_TYP_SKRYPT_LUA);
+			temp.push_back('_');
+			temp += XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_INSTANCE, std::string());
+			SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.mapujIdentyfikator(temp, id);
+			LuaState::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzZasob<LuaState>(id, luaFile, true);
 			if (uchwyt == nullptr)
 				return nullptr;
 			return std::make_shared<LuaSkrypt>(uchwyt);

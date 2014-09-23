@@ -32,7 +32,11 @@ namespace SpEx{
 		std::string luaFile = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FILE, std::string());
 		if (luaFile.empty())
 			return nullptr;
-		DllModule::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzZasob<DllModule>(luaFile, false);
+		STyp::Identyfikator id;
+		std::string temp(XML_ATRYBUT_TYP_SKRYPT_DLL);
+		temp.push_back('_');
+		SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.mapujIdentyfikator(temp, id);
+		DllModule::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzZasob<DllModule>(id, luaFile, true);
 		if (uchwyt == nullptr)
 			return nullptr;
 		return std::make_shared<DllSkrypt>(uchwyt);
