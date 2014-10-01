@@ -1,5 +1,6 @@
 #pragma once
 #include <TGUI\TGUI.hpp>
+#include "PomocniczeTypyTGUI.h"
 #include "ObiektInfo.h"
 
 namespace tgui{
