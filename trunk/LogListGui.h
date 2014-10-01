@@ -112,7 +112,7 @@ namespace tgui{
 		*
 		* Metoda ustawia rozmiar kontrolki
 		* \param[in] szerokosc - szerokoœæ kontrolki.
-		* \param[in] wysokosc - wysokoœæ przeŸroczystoœci kontrolki.
+		* \param[in] wysokosc - wysokoœæ kontrolki.
 		* \author Daniel Wojdak
 		* \version 2
 		* \date 30-09-2014
