@@ -105,12 +105,12 @@ namespace tgui{
 		* \brief Metoda ustawiaj¹ca przeŸroczystoœæ kontrolki.
 		*
 		* Metoda ustawia przeŸroczystoœæ kontrolki
-		* \param[in] transparency - stopieñ przeŸroczystoœci kontrolki.
+		* \param[in] przezroczystosc - stopieñ przeŸroczystoœci kontrolki.
 		* \author Daniel Wojdak
 		* \version 2
 		* \date 30-09-2014
 		*/
-		void setTransparency(unsigned char transparency);
+		void setTransparency(unsigned char przezroczystosc) override;
 
 		/**
 		* \brief Metoda ustawiaj¹ca rozmiar kontrolki.

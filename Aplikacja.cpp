@@ -95,6 +95,10 @@ namespace SpEx{
 			logger_.zablokujLogi(typ);
 		}
 
+		if (!zaladujOpcje()){
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_LADOWANIA_OPCJI);
+		}
+
 		struct tm timeinfo;
 		time_t t = time(nullptr);
 		localtime_s(&timeinfo, &t);
@@ -129,10 +133,6 @@ namespace SpEx{
 		zarzadcaPamieci_.zaladujPliki(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 		zarzadcaLokacji_.zaladujUstawienia(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 		zarzadcaZasobow_.inicjalizuj(zarzadcaPamieci_.pobierzWezelPowiazanZasobow());
-
-		if (!zaladujOpcje()){
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_LADOWANIA_OPCJI);
-		}
 
 		pluginy_ = std::make_shared<SPlu::Cplugin>(ustawienia_.pobierzFolderPlugin(), fabrykator_.pobierzFabrykeZmian(), logger_);
 
