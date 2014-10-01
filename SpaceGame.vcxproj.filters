@@ -672,6 +672,9 @@
     <ClInclude Include="Export.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
+    <ClInclude Include="PomocniczeTypyTGUI.h">
+      <Filter>SourceFile\GUI\TGUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">

@@ -7,9 +7,9 @@ namespace tgui{
 	}
 
 	bool LogListGui::deleteLastMessage(){
-		if (sum_ == 0)
+		if (zajete_ == 0)
 			return false;
-		listaObiektow_[pos(static_cast<int>(empty_)-static_cast<int>(sum_--))].second->hide();
+		listaObiektow_[pos(static_cast<int>(puste_)-static_cast<int>(zajete_--))].second->hide();
 		return true;
 	}
 
@@ -18,28 +18,28 @@ namespace tgui{
 			return false;
 		auto panelSize = Panel::getSize();
 
-		if (sum_ > 0){
-			auto prev = listaObiektow_[empty_ == 0 ? max_ - 1 : empty_ - 1];
-			prev.second->setTextColor(opisTypowKomunikatow_[prev.first].colorSecondary_);
-			prev.second->setTextSize(opisTypowKomunikatow_[prev.first].textSizeSecondary_);
-			if (!autoSized_)
-				prev.second->setSize(panelSize.x - static_cast<float>(margin_.left + margin_.right), static_cast<float>(opisTypowKomunikatow_[prev.first].textSizeSecondary_));
+		if (zajete_ > 0){
+			auto prev = listaObiektow_[puste_ == 0 ? wszystkie_ - 1 : puste_ - 1];
+			prev.second->setTextColor(opisTypowKomunikatow_[prev.first].drugiKolor_);
+			prev.second->setTextSize(opisTypowKomunikatow_[prev.first].drugiRozmiarCzcionki_);
+			if (!czyAutoRozmiar_)
+				prev.second->setSize(panelSize.x - static_cast<float>(margines_.left + margines_.right), static_cast<float>(opisTypowKomunikatow_[prev.first].drugiRozmiarCzcionki_));
 		}
 
-		auto actual = listaObiektow_[empty_];
-		actual.second->setTextColor(opisTypowKomunikatow_[number].colorFirst_);
-		actual.second->setTextSize(opisTypowKomunikatow_[number].textSizeFirst_);
-		if (!autoSized_)
-			actual.second->setSize(panelSize.x - static_cast<float>(margin_.left + margin_.right), static_cast<float>(opisTypowKomunikatow_[number].textSizeFirst_));
+		auto actual = listaObiektow_[puste_];
+		actual.second->setTextColor(opisTypowKomunikatow_[number].pierwszyKolor_);
+		actual.second->setTextSize(opisTypowKomunikatow_[number].pierwszyRozmiarCzcionki_);
+		if (!czyAutoRozmiar_)
+			actual.second->setSize(panelSize.x - static_cast<float>(margines_.left + margines_.right), static_cast<float>(opisTypowKomunikatow_[number].pierwszyRozmiarCzcionki_));
 		actual.second->setText(text);
 
-		listaObiektow_[empty_].first = number;
-		empty_++;
-		if (empty_ >= max_)
-			empty_ -= max_;
-		sum_++;
-		if (sum_ >= max_)
-			sum_ = max_;
+		listaObiektow_[puste_].first = number;
+		puste_++;
+		if (puste_ >= wszystkie_)
+			puste_ -= wszystkie_;
+		zajete_++;
+		if (zajete_ >= wszystkie_)
+			zajete_ = wszystkie_;
 		recalculatePosition();
 
 		return true;
@@ -49,27 +49,27 @@ namespace tgui{
 		float yPos = 0.f, ySum = 0.f;
 
 		if (wPionie_ == MIDDLE){
-			for (unsigned int numer = 1, position = static_cast<unsigned int>(pos(static_cast<int>(empty_)-1)); numer <= sum_; ++numer, position = static_cast<unsigned int>(pos(static_cast<int>(position)-1))){
-				ySum += listaObiektow_[position].second->getSize().y + interspace_;
+			for (unsigned int numer = 1, position = static_cast<unsigned int>(pos(static_cast<int>(puste_)-1)); numer <= zajete_; ++numer, position = static_cast<unsigned int>(pos(static_cast<int>(position)-1))){
+				ySum += listaObiektow_[position].second->getSize().y + odstep_;
 			}
-			ySum -= interspace_;
+			ySum -= odstep_;
 		}
 
-		for (unsigned int numer = 1, position = static_cast<unsigned int>(pos(static_cast<int>(empty_)-1)); numer <= sum_; ++numer, position = static_cast<unsigned int>(pos(static_cast<int>(position)-1))){
+		for (unsigned int numer = 1, position = static_cast<unsigned int>(pos(static_cast<int>(puste_)-1)); numer <= zajete_; ++numer, position = static_cast<unsigned int>(pos(static_cast<int>(position)-1))){
 			float xPos = 0.f;
 			auto labelSize = listaObiektow_[position].second->getSize();
 			auto panelSize = Panel::getSize();
 
 			switch (wPoziomie_)
 			{
-			case tgui::LogListGui::LEFT:
-				xPos = static_cast<float>(margin_.left);
+			case tgui::LEFT:
+				xPos = static_cast<float>(margines_.left);
 				break;
-			case tgui::LogListGui::CENTER:
-				xPos = (panelSize.x - (margin_.left + margin_.right + labelSize.x)) / 2.f + margin_.left;
+			case tgui::CENTER:
+				xPos = (panelSize.x - (margines_.left + margines_.right + labelSize.x)) / 2.f + margines_.left;
 				break;
-			case tgui::LogListGui::RIGHT:
-				xPos  = panelSize.x - (margin_.right + labelSize.x);
+			case tgui::RIGHT:
+				xPos = panelSize.x - (margines_.right + labelSize.x);
 				break;
 			default:
 				break;
@@ -77,28 +77,25 @@ namespace tgui{
 
 			switch (wPionie_)
 			{
-			case tgui::LogListGui::TOP: 
+			case tgui::TOP: 
 				if (numer == 1){
-					yPos = static_cast<float>(margin_.top);
-				}
-				else{
-					yPos += interspace_;
+					yPos = static_cast<float>(margines_.top);
+				}else{
+					yPos += odstep_;
 				}
 				break;
-			case tgui::LogListGui::MIDDLE:
+			case tgui::MIDDLE:
 				if (numer == 1){
 					yPos = (panelSize.y - ySum) / 2.f;
-				}
-				else{
-					yPos += interspace_;
+				}else{
+					yPos += odstep_;
 				}
 				break;
-			case tgui::LogListGui::BOTTOM:
+			case tgui::BOTTOM:
 				if (numer == 1){
-					yPos = panelSize.y - (margin_.bottom + labelSize.y);
-				}
-				else{
-					yPos -= interspace_ + labelSize.y;
+					yPos = panelSize.y - (margines_.bottom + labelSize.y);
+				}else{
+					yPos -= odstep_ + labelSize.y;
 				}
 				break;
 			default:
@@ -115,10 +112,10 @@ namespace tgui{
 
 	void LogListGui::setSize(float width, float hight){
 		Panel::setSize(width,hight);
-		if (!autoSized_){
-			float xPos = width - (margin_.left + margin_.right);
+		if (!czyAutoRozmiar_){
+			float xPos = width - (margines_.left + margines_.right);
 			for (auto e : listaObiektow_){
-				e.second->setSize(xPos, static_cast<float>(opisTypowKomunikatow_[e.first].textSizeSecondary_));
+				e.second->setSize(xPos, static_cast<float>(opisTypowKomunikatow_[e.first].drugiRozmiarCzcionki_));
 			}
 		}
 		recalculatePosition();
@@ -129,7 +126,7 @@ namespace tgui{
 	}
 
 	void LogListGui::clear(){
-		sum_ = 0;
+		zajete_ = 0;
 		for (auto e : listaObiektow_)
 			e.second->hide();
 	}
@@ -196,23 +193,23 @@ namespace tgui{
 			else if (property == "autosize")
 			{
 				if ((value == "true") || (value == "True"))
-					autoSized_ = true;
+					czyAutoRozmiar_ = true;
 				else if ((value == "false") || (value == "False"))
-					autoSized_ = false;
+					czyAutoRozmiar_ = false;
 				else
 					TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
 			}
 			else if (property == "margin")
 			{
-				extractBorders(value, margin_);
+				extractBorders(value, margines_);
 			}
 			else if (property == "lines")
 			{
-				max_ = std::strtol(value.c_str(), nullptr, 10);
+				wszystkie_ = std::strtol(value.c_str(), nullptr, 10);
 			}
 			else if (property == "interspace")
 			{
-				interspace_ = std::strtof(value.c_str(), nullptr);
+				odstep_ = std::strtof(value.c_str(), nullptr);
 			}
 			else if (property == "horizontal")
 			{
@@ -240,8 +237,8 @@ namespace tgui{
 				TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section KontrolkaObiektu in " + m_LoadedConfigFile + ".");
 		}
 
-		listaObiektow_.resize(max_);
-		for (unsigned int i = 0; i < max_; ++i){
+		listaObiektow_.resize(wszystkie_);
+		for (unsigned int i = 0; i < wszystkie_; ++i){
 			listaObiektow_[i] = std::make_pair( 0 ,Label::Ptr(*this, std::to_string(i) ) );
 		}
 		return true;
@@ -275,6 +272,6 @@ namespace tgui{
 	}
 
 	std::vector<Label::Ptr>::size_type LogListGui::pos(int position)const{
-		return static_cast<std::vector<Label::Ptr>::size_type>(position < 0 ? max_ + position : position);
+		return static_cast<std::vector<Label::Ptr>::size_type>(position < 0 ? wszystkie_ + position : position);
 	}
 };

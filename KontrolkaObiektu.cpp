@@ -19,6 +19,54 @@ namespace tgui{
 		rect.height /= topHeight;
 	}
 
+	KontrolkaObiektu::KontrolkaObiektu(){
+		tlo_.data = nullptr;
+		m_Callback.widgetType = Type_KontrolkaObiektu;
+		m_ContainerWidget = false;
+	}
+
+	KontrolkaObiektu::KontrolkaObiektu(const KontrolkaObiektu& copy)
+		: Panel(copy), 
+		rozmiarKontrolki_(copy.rozmiarKontrolki_), 
+		obrazRect_(copy.obrazRect_), 
+
+		nazwaRect_(copy.nazwaRect_),
+		nazwaWyrownanieHoryzontalne_(copy.nazwaWyrownanieHoryzontalne_),
+		nazwaWyrownanieWertykalne_(copy.nazwaWyrownanieWertykalne_),
+
+		trescRect_(copy.trescRect_),
+		trescWyrownanieHoryzontalne_(copy.trescWyrownanieHoryzontalne_),
+		trescWyrownanieWertykalne_(copy.trescWyrownanieWertykalne_),
+		
+		czasRozbudowyRect_(copy.czasRozbudowyRect_),
+		czasRozbudowyWyrownanieHoryzontalne_(copy.czasRozbudowyWyrownanieHoryzontalne_),
+		czasRozbudowyWyrownanieWertykalne_(copy.czasRozbudowyWyrownanieWertykalne_),
+
+		czasZburzeniaRect_(copy.czasZburzeniaRect_),
+		czasZburzeniaWyrownanieHoryzontalne_(copy.czasZburzeniaWyrownanieHoryzontalne_),
+		czasZburzeniaWyrownanieWertykalne_(copy.czasZburzeniaWyrownanieWertykalne_),
+		
+		rozbudujRect_(copy.rozbudujRect_),
+		idZdarzeniaBudowy_(copy.idZdarzeniaBudowy_),
+
+		zniszczRect_(copy.zniszczRect_),
+		idZdarzeniaBurzenia_(copy.idZdarzeniaBurzenia_),
+
+		idZdarzeniaKlikniecia_(copy.idZdarzeniaKlikniecia_),
+		idObiektu_(copy.idObiektu_),
+		czyStalyRozmiar_(copy.czyStalyRozmiar_),
+		czyProporcjonalny_(copy.czyProporcjonalny_)
+
+	{
+		obraz_ = this->get<Picture>("ObrazObiektu");
+		nazwa_ = this->get<Label>("NazwaObiektu");
+		tresc_ = this->get<Label>("OpisObiektu");
+		rozbuduj_ = this->get<Button>("Rozbuduj");
+		zniszcz_ = this->get<Button>("Zburz");
+		czasRozbudowy_ = this->get<Label>("CzasRozbudowy");
+		czasZburzenia_ = this->get<Label>("CzasZburzenia");
+	}
+
 	sf::Rect<float> KontrolkaObiektu::pozycjonujLabel(Label::Ptr label, const sf::Rect<float>& rect, float width, float height, WYROWNANIE_HORYZONTALNE horyzontalne, WYROWNANIE_WERTYKALNE wertykalne ){
 		sf::Text text;
 		text.setFont(*label->getTextFont());
@@ -30,15 +78,15 @@ namespace tgui{
 		sf::Rect<float> labelRect(rect.left*width, rect.top*height, rect.width*width, rect.height*height);
 		switch (horyzontalne)
 		{
-		case LEFT:			
+		case tgui::LEFT:
 			break;
-		case CENTER:
+		case tgui::CENTER:
 			if (labelRect.width >= bounds.width){
 				labelRect.left += (labelRect.width - bounds.width) / 2;
 				labelRect.width = bounds.width;
 			}
 			break;
-		case RIGHT:
+		case tgui::RIGHT:
 			if (labelRect.width >= bounds.width){
 				labelRect.left += labelRect.width - bounds.width;
 				labelRect.width = bounds.width;
@@ -47,15 +95,15 @@ namespace tgui{
 		}
 		switch (wertykalne)
 		{
-		case tgui::KontrolkaObiektu::TOP:
+		case tgui::TOP:
 			break;
-		case tgui::KontrolkaObiektu::MIDDLE:
+		case tgui::MIDDLE:
 			if (labelRect.height >= bounds.height){
 				labelRect.top += (labelRect.height - bounds.height) / 2;
 				labelRect.height = bounds.height;
 			}
 			break;
-		case tgui::KontrolkaObiektu::BOTTOM:
+		case tgui::BOTTOM:
 			if (labelRect.height >= bounds.height){
 				labelRect.top += labelRect.height - bounds.height;
 				labelRect.height = bounds.height;
@@ -68,43 +116,11 @@ namespace tgui{
 	Widget* KontrolkaObiektu::createWidget(Container* container, const std::string& name){
 		return KontrolkaObiektu::Ptr(*container, name).get();
 	}
-
-	KontrolkaObiektu::KontrolkaObiektu(){
-		background_.data = nullptr;
-		m_Callback.widgetType = Type_KontrolkaObiektu;
-		m_ContainerWidget = false;
-	}
-
-	KontrolkaObiektu::KontrolkaObiektu(const KontrolkaObiektu& copy)
-		: Panel(copy), size_(copy.size_), pictureRect_(copy.pictureRect_), titleRect_(copy.titleRect_),
-		describeRect_(copy.describeRect_), buttonRozbudujRect_(copy.buttonRozbudujRect_), buttonZniszczRect_(copy.buttonZniszczRect_),
-		constSize_(copy.constSize_), propotional_(copy.propotional_), czasRozbudowyRect_(copy.czasRozbudowyRect_), czasZburzeniaRect_(copy.czasZburzeniaRect_),
-		czasRozbudowyWyrownanieHoryzontalne_(copy.czasRozbudowyWyrownanieHoryzontalne_),
-		czasRozbudowyWyrownanieWertykalne_(copy.czasRozbudowyWyrownanieWertykalne_),
-		czasZburzeniaWyrownanieHoryzontalne_(copy.czasZburzeniaWyrownanieHoryzontalne_),
-		czasZburzeniaWyrownanieWertykalne_(copy.czasZburzeniaWyrownanieWertykalne_),
-		titleWyrownanieHoryzontalne_(copy.titleWyrownanieHoryzontalne_),
-		titleWyrownanieWertykalne_(copy.titleWyrownanieWertykalne_),
-		describeWyrownanieHoryzontalne_(copy.describeWyrownanieHoryzontalne_),
-		describeWyrownanieWertykalne_(copy.describeWyrownanieWertykalne_),
-		idZdarzeniaBudowy_(copy.idZdarzeniaBudowy_),
-		idZdarzeniaBurzenia_(copy.idZdarzeniaBurzenia_),
-		idZdarzeniaKlikniecia_(copy.idZdarzeniaKlikniecia_),
-		idObiektu_(copy.idObiektu_)
-	{
-		picture_ = this->get<Picture>("ObrazObiektu");
-		nazwa_ = this->get<Label>("NazwaObiektu");
-		tresc_ = this->get<Label>("OpisObiektu");
-		rozbuduj_ = this->get<Button>("Rozbuduj");
-		zniszcz_ = this->get<Button>("Zburz");
-		czasRozbudowy_ = this->get<Label>("CzasRozbudowy");
-		czasZburzenia_ = this->get<Label>("CzasZburzenia");
-	}
-
+	
 	void KontrolkaObiektu::initialize(Container *const container){
 		Panel::setGlobalFont(container->getGlobalFont());
 		
-		picture_ = Picture::Ptr(*this,"ObrazObiektu");
+		obraz_ = Picture::Ptr(*this, "ObrazObiektu");
 				
 		nazwa_ = Label::Ptr(*this, "NazwaObiektu");
 		nazwa_->setTextSize(11);
@@ -136,7 +152,7 @@ namespace tgui{
 	void KontrolkaObiektu::setTransparency(unsigned char transparency){
 		Panel::setBackgroundColor(sf::Color(255, 255, 255, transparency));
 		Panel::setTransparency(transparency);
-		picture_->setTransparency(transparency);
+		obraz_->setTransparency(transparency);
 
 		nazwa_->setTransparency(transparency);
 		auto kolor = nazwa_->getTextColor();
@@ -175,12 +191,12 @@ namespace tgui{
 		float absWidth = width;
 		float absHight = hight;
 
-		if (constSize_){
-			absWidth = size_.x;
-			absHight = size_.y;
+		if (czyStalyRozmiar_){
+			absWidth = rozmiarKontrolki_.x;
+			absHight = rozmiarKontrolki_.y;
 		}else{
-			if (propotional_){
-				auto ratio = size_.x / size_.y;
+			if (czyProporcjonalny_){
+				auto ratio = rozmiarKontrolki_.x / rozmiarKontrolki_.y;
 				if (absWidth / absHight > ratio ) {
 					absWidth = absHight * ratio;
 				}else{
@@ -193,15 +209,15 @@ namespace tgui{
 
 		Panel::setSize(absWidth, absHight);
 
-		picture_->setPosition(pictureRect_.left * absWidth, pictureRect_.top * absHight);
-		if (picture_->isLoaded())
-			picture_->setSize(pictureRect_.width * absWidth, pictureRect_.height * absHight);
+		obraz_->setPosition(obrazRect_.left * absWidth, obrazRect_.top * absHight);
+		if (obraz_->isLoaded())
+			obraz_->setSize(obrazRect_.width * absWidth, obrazRect_.height * absHight);
 
-		auto nazwaRect = pozycjonujLabel(nazwa_, titleRect_, absWidth, absHight, titleWyrownanieHoryzontalne_, titleWyrownanieWertykalne_);
+		auto nazwaRect = pozycjonujLabel(nazwa_, nazwaRect_, absWidth, absHight, nazwaWyrownanieHoryzontalne_, nazwaWyrownanieWertykalne_);
 		nazwa_->setPosition(nazwaRect.left, nazwaRect.top);
 		nazwa_->setSize(nazwaRect.width, nazwaRect.height);
 
-		auto trescRect = pozycjonujLabel(tresc_, describeRect_, absWidth, absHight, describeWyrownanieHoryzontalne_, describeWyrownanieWertykalne_);
+		auto trescRect = pozycjonujLabel(tresc_, trescRect_, absWidth, absHight, trescWyrownanieHoryzontalne_, trescWyrownanieWertykalne_);
 		tresc_->setPosition(trescRect.left, trescRect.top);
 		tresc_->setSize(trescRect.width, trescRect.height);
 
@@ -213,11 +229,11 @@ namespace tgui{
 		czasZburzenia_->setPosition(czasZburzeniaRect.left, czasZburzeniaRect.top);
 		czasZburzenia_->setSize(czasZburzeniaRect.width, czasZburzeniaRect.height);
 
-		rozbuduj_->setPosition(buttonRozbudujRect_.left * absWidth, buttonRozbudujRect_.top * absHight);
-		rozbuduj_->setSize(buttonRozbudujRect_.width * absWidth, buttonRozbudujRect_.height * absHight);
+		rozbuduj_->setPosition(rozbudujRect_.left * absWidth, rozbudujRect_.top * absHight);
+		rozbuduj_->setSize(rozbudujRect_.width * absWidth, rozbudujRect_.height * absHight);
 
-		zniszcz_->setPosition(buttonZniszczRect_.left * absWidth, buttonZniszczRect_.top * absHight);
-		zniszcz_->setSize(buttonZniszczRect_.width * absWidth, buttonZniszczRect_.height * absHight);
+		zniszcz_->setPosition(zniszczRect_.left * absWidth, zniszczRect_.top * absHight);
+		zniszcz_->setSize(zniszczRect_.width * absWidth, zniszczRect_.height * absHight);
 		
 	}
 
@@ -230,13 +246,13 @@ namespace tgui{
 		if (configFileFilename.empty())
 			return true;
 
-		m_LoadedConfigFile = getResourcePath() + configFileFilename;
+		plikKonfiguracyjny_ = getResourcePath() + configFileFilename;
 
 		// Open the config file
 		ConfigFile configFile;
-		if (!configFile.open(m_LoadedConfigFile))
+		if (!configFile.open(plikKonfiguracyjny_))
 		{
-			TGUI_OUTPUT("TGUI error: Failed to open " + m_LoadedConfigFile + ".");
+			TGUI_OUTPUT("TGUI error: Failed to open " + plikKonfiguracyjny_ + ".");
 			return false;
 		}
 
@@ -245,7 +261,7 @@ namespace tgui{
 		std::vector<std::string> values;
 		if (!configFile.read("KontrolkaObiektu", properties, values))
 		{
-			TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile + ".");
+			TGUI_OUTPUT("TGUI error: Failed to parse " + plikKonfiguracyjny_ + ".");
 			return false;
 		}
 
@@ -254,9 +270,9 @@ namespace tgui{
 
 		// Find the folder that contains the config file
 		std::string configFileFolder = "";
-		std::string::size_type slashPos = m_LoadedConfigFile.find_last_of("/\\");
+		std::string::size_type slashPos = plikKonfiguracyjny_.find_last_of("/\\");
 		if (slashPos != std::string::npos)
-			configFileFolder = m_LoadedConfigFile.substr(0, slashPos + 1);
+			configFileFolder = plikKonfiguracyjny_.substr(0, slashPos + 1);
 
 
 		// Handle the read properties
@@ -267,12 +283,12 @@ namespace tgui{
 			//setTextColor(extractColor(value));
 			if (property == "background")
 			{				
-				if (!configFile.readTexture(value, configFileFolder, background_))
+				if (!configFile.readTexture(value, configFileFolder, tlo_))
 				{
-					TGUI_OUTPUT("TGUI error: Failed to parse value for NormalImage in section Button in " + m_LoadedConfigFile + ".");
+					TGUI_OUTPUT("TGUI error: Failed to parse value for NormalImage in section Button in " + plikKonfiguracyjny_ + ".");
 					return false;
 				}
-				setBackgroundTexture(&(background_.data->texture));
+				setBackgroundTexture(&(tlo_.data->texture));
 			}
 			else if (property == "titletextsize")
 			{
@@ -350,38 +366,38 @@ namespace tgui{
 			{
 				sf::Vector2u temp;
 				extractVector2u(value, temp);
-				size_.x = static_cast<float>(temp.x);
-				size_.y = static_cast<float>(temp.y);
+				rozmiarKontrolki_.x = static_cast<float>(temp.x);
+				rozmiarKontrolki_.y = static_cast<float>(temp.y);
 			}
 			else if (property == "picturerect")
 			{
 				Borders temp;
 				extractBorders(value, temp);
-				convertFromBorderToRect(temp, pictureRect_);
+				convertFromBorderToRect(temp, obrazRect_);
 			}
 			else if (property == "titlerect")
 			{
 				Borders temp;
 				extractBorders(value, temp);
-				convertFromBorderToRect(temp, titleRect_);
+				convertFromBorderToRect(temp, nazwaRect_);
 			}
 			else if (property == "describerect")
 			{
 				Borders temp;
 				extractBorders(value, temp);
-				convertFromBorderToRect(temp, describeRect_);
+				convertFromBorderToRect(temp, trescRect_);
 			}
 			else if (property == "buttonrozbudujrect")
 			{
 				Borders temp;
 				extractBorders(value, temp);
-				convertFromBorderToRect(temp, buttonRozbudujRect_);
+				convertFromBorderToRect(temp, rozbudujRect_);
 			}
 			else if (property == "buttonzniszczrect")
 			{
 				Borders temp;
 				extractBorders(value, temp);
-				convertFromBorderToRect(temp, buttonZniszczRect_);
+				convertFromBorderToRect(temp, zniszczRect_);
 			}
 			else if (property == "czasrozbudowyrect")
 			{
@@ -404,7 +420,7 @@ namespace tgui{
 				else if ((value == "right") || (value == "Right"))
 					czasZburzeniaWyrownanieHoryzontalne_ = RIGHT;
 				else
-					TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
+					TGUI_OUTPUT("TGUI error: Failed to parse 'czaszburzeniatexthaling' property.");
 			}
 			else if (property == "czaszburzeniatextvaling")
 			{
@@ -415,7 +431,7 @@ namespace tgui{
 				else if ((value == "bottom") || (value == "Bottom"))
 					czasZburzeniaWyrownanieWertykalne_ = BOTTOM;
 				else
-					TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
+					TGUI_OUTPUT("TGUI error: Failed to parse 'czaszburzeniatextvaling' property.");
 			}
 			else if (property == "czasrozbudowytexthaling")
 			{
@@ -426,7 +442,7 @@ namespace tgui{
 				else if((value == "right") || (value == "Right"))
 					czasRozbudowyWyrownanieHoryzontalne_ = RIGHT;
 				else 
-					TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
+					TGUI_OUTPUT("TGUI error: Failed to parse 'czasrozbudowytexthaling' property.");
 			}
 			else if (property == "czasrozbudowytextvaling")
 			{
@@ -437,98 +453,98 @@ namespace tgui{
 				else if ((value == "bottom") || (value == "Bottom"))
 					czasRozbudowyWyrownanieWertykalne_ = BOTTOM;
 				else
-					TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
+					TGUI_OUTPUT("TGUI error: Failed to parse 'czasrozbudowytextvaling' property.");
 			}
 			else if (property == "titletexthaling")
 			{
 				if ((value == "left") || (value == "Left"))
-					titleWyrownanieHoryzontalne_ = LEFT;
+					nazwaWyrownanieHoryzontalne_ = LEFT;
 				else if ((value == "center") || (value == "Center"))
-					titleWyrownanieHoryzontalne_ = CENTER;
+					nazwaWyrownanieHoryzontalne_ = CENTER;
 				else if ((value == "right") || (value == "Right"))
-					titleWyrownanieHoryzontalne_ = RIGHT;
+					nazwaWyrownanieHoryzontalne_ = RIGHT;
 				else
-					TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
+					TGUI_OUTPUT("TGUI error: Failed to parse 'titletexthaling' property.");
 			}
 			else if (property == "titletextvaling")
 			{
 				if ((value == "top") || (value == "Top"))
-					titleWyrownanieWertykalne_ = TOP;
+					nazwaWyrownanieWertykalne_ = TOP;
 				else if ((value == "middle") || (value == "Middle"))
-					titleWyrownanieWertykalne_ = MIDDLE;
+					nazwaWyrownanieWertykalne_ = MIDDLE;
 				else if ((value == "bottom") || (value == "Bottom"))
-					titleWyrownanieWertykalne_ = BOTTOM;
+					nazwaWyrownanieWertykalne_ = BOTTOM;
 				else
-					TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
+					TGUI_OUTPUT("TGUI error: Failed to parse 'titletextvaling' property.");
 			}
 			else if (property == "describetexthaling")
 			{
 				if ((value == "left") || (value == "Left"))
-					describeWyrownanieHoryzontalne_ = LEFT;
+					trescWyrownanieHoryzontalne_ = LEFT;
 				else if ((value == "center") || (value == "Center"))
-					describeWyrownanieHoryzontalne_ = CENTER;
+					trescWyrownanieHoryzontalne_ = CENTER;
 				else if ((value == "right") || (value == "Right"))
-					describeWyrownanieHoryzontalne_ = RIGHT;
+					trescWyrownanieHoryzontalne_ = RIGHT;
 				else
-					TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
+					TGUI_OUTPUT("TGUI error: Failed to parse 'describetexthaling' property.");
 			}
 			else if (property == "describetextvaling")
 			{
 				if ((value == "top") || (value == "Top"))
-					describeWyrownanieWertykalne_ = TOP;
+					trescWyrownanieWertykalne_ = TOP;
 				else if ((value == "middle") || (value == "Middle"))
-					describeWyrownanieWertykalne_ = MIDDLE;
+					trescWyrownanieWertykalne_ = MIDDLE;
 				else if ((value == "bottom") || (value == "Bottom"))
-					describeWyrownanieWertykalne_ = BOTTOM;
+					trescWyrownanieWertykalne_ = BOTTOM;
 				else
-					TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
+					TGUI_OUTPUT("TGUI error: Failed to parse 'describetextvaling' property.");
 			}
 			else if (property == "proportional")
 			{
 				if ((value == "true") || (value == "True"))
-					propotional_ = true;
+					czyProporcjonalny_ = true;
 				else if ((value == "false") || (value == "False"))
-					propotional_ = false;
+					czyProporcjonalny_ = false;
 				else
-					TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
+					TGUI_OUTPUT("TGUI error: Failed to parse 'proportional' property.");
 			}
 			else if (property == "constsize")
 			{
 				if ((value == "true") || (value == "True"))
-					constSize_ = true;
+					czyStalyRozmiar_ = true;
 				else if ((value == "false") || (value == "False"))
-					constSize_ = false;
+					czyStalyRozmiar_ = false;
 				else
-					TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
+					TGUI_OUTPUT("TGUI error: Failed to parse 'constsize' property.");
 			}
 			else
-				TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section KontrolkaObiektu in " + m_LoadedConfigFile + ".");
+				TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section KontrolkaObiektu in " + plikKonfiguracyjny_ + ".");
 		}
 
 		float percentLW = 100.f;
-		if (size_.x > 0){
-			percentLW = size_.x;
+		if (rozmiarKontrolki_.x > 0){
+			percentLW = rozmiarKontrolki_.x;
 		}
 
 		float percentTH = 100.f;
-		if (size_.y > 0){
-			percentTH = size_.y;
+		if (rozmiarKontrolki_.y > 0){
+			percentTH = rozmiarKontrolki_.y;
 		}
 
-		normalizujRect(pictureRect_, percentLW, percentTH);
-		normalizujRect(titleRect_, percentLW, percentTH);
-		normalizujRect(describeRect_, percentLW, percentTH);
+		normalizujRect(obrazRect_, percentLW, percentTH);
+		normalizujRect(nazwaRect_, percentLW, percentTH);
+		normalizujRect(trescRect_, percentLW, percentTH);
 		normalizujRect(czasRozbudowyRect_, percentLW, percentTH);
 		normalizujRect(czasZburzeniaRect_, percentLW, percentTH);
-		normalizujRect(buttonRozbudujRect_, percentLW, percentTH);
-		normalizujRect(buttonZniszczRect_, percentLW, percentTH);
+		normalizujRect(rozbudujRect_, percentLW, percentTH);
+		normalizujRect(zniszczRect_, percentLW, percentTH);
 
-		setSize(size_.x, size_.y);
+		setSize(rozmiarKontrolki_.x, rozmiarKontrolki_.y);
 		return true;
 	}
 
 	const std::string& KontrolkaObiektu::getLoadedConfigFile() const{
-		return m_LoadedConfigFile;
+		return plikKonfiguracyjny_;
 	}
 
 	const STyp::Identyfikator& KontrolkaObiektu::pobierzIdObiektu() const{
@@ -536,7 +552,7 @@ namespace tgui{
 	}
 
 	bool KontrolkaObiektu::ustawDane(const SpEx::ObiektInfo& obj, const SpEx::Planeta& planeta){
-		picture_->load(SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzAdresObrazka(obj.pobierzIdentyfikatorObrazka()));
+		obraz_->load(SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzAdresObrazka(obj.pobierzIdentyfikatorObrazka()));
 		idObiektu_ = obj.pobierzIdentyfikator()();
 
 		rozbuduj_->unbindCallback(64);
@@ -549,9 +565,9 @@ namespace tgui{
 			SpEx::UtilsGui::bindCallbackEvent(zniszcz_, idZdarzeniaBurzenia_, idObiektu_(), Button::LeftMouseClicked);
 		}
 
-		picture_->unbindCallback(64);
+		obraz_->unbindCallback(64);
 		if (idZdarzeniaKlikniecia_ != 0){
-			SpEx::UtilsGui::bindCallbackEvent(picture_, idZdarzeniaKlikniecia_, idObiektu_(), Button::LeftMouseClicked);
+			SpEx::UtilsGui::bindCallbackEvent(obraz_, idZdarzeniaKlikniecia_, idObiektu_(), Button::LeftMouseClicked);
 		}
 
 		auto wsk = planeta.pobierzObiektJesliIstnieje(idObiektu_);
@@ -602,7 +618,7 @@ namespace tgui{
 
 	bool KontrolkaObiektu::setProperty(std::string property, const std::string& value){
 		if (property == "image"){
-			return picture_->load(value);
+			return obraz_->load(value);
 		}else if(property == "idzdarzeniabudowy"){
 			idZdarzeniaBudowy_ = std::strtol(value.c_str(), nullptr, 10);
 			return true;
@@ -623,10 +639,10 @@ namespace tgui{
 
 	bool KontrolkaObiektu::getProperty(std::string property, std::string& value) const{
 		if (property == "Image"){
-			value = picture_->getLoadedFilename();
+			value = obraz_->getLoadedFilename();
 			return true;
 		}else if (property == "ConfigFile"){
-			value = m_LoadedConfigFile;
+			value = plikKonfiguracyjny_;
 			return true;
 		}else if(property == "IdZdarzeniaBudowy"){
 			value = idZdarzeniaBudowy_;
