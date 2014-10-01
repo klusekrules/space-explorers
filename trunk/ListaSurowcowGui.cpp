@@ -8,14 +8,14 @@ namespace tgui {
 	}
 	
 	ListaSurowcowGui::ListaSurowcowGui(const ListaSurowcowGui& o)
-		: m_LoadedConfigFile_(o.m_LoadedConfigFile_), Panel(o)
+		: plikKonfiguracyjny_(o.plikKonfiguracyjny_), Panel(o)
 	{
-		template_ = this->get<SurowiecGui>("Szablon");
-		for (auto e : o.objects_){
+		szablonKontrolki_ = this->get<SurowiecGui>("Szablon");
+		for (auto e : o.kontrolki_){
 			std::string nazwa;
 			if (o.getWidgetName(e, nazwa)){
 				if (!nazwa.empty()){
-					objects_.push_back(this->get<SurowiecGui>(nazwa));
+					kontrolki_.push_back(this->get<SurowiecGui>(nazwa));
 				}
 			}
 		}
@@ -31,7 +31,7 @@ namespace tgui {
 
 	bool ListaSurowcowGui::getProperty(std::string property, std::string& value) const{
 		if (property == "ConfigFile"){
-			value = m_LoadedConfigFile_;
+			value = plikKonfiguracyjny_;
 			return true;
 		}
 		else
@@ -46,15 +46,15 @@ namespace tgui {
 
 	void ListaSurowcowGui::initialize(Container *const container){
 		Panel::setGlobalFont(container->getGlobalFont());
-		template_ = SurowiecGui::Ptr(*this, "Szablon");
-		template_->hide();
+		szablonKontrolki_ = SurowiecGui::Ptr(*this, "Szablon");
+		szablonKontrolki_->hide();
 	}
 
 	void ListaSurowcowGui::setTransparency(unsigned char transparency){
 		Panel::setBackgroundColor(sf::Color(255, 255, 255, transparency));
 		Panel::setTransparency(transparency);
-		template_->setTransparency(transparency);
-		for (auto &element : objects_){
+		szablonKontrolki_->setTransparency(transparency);
+		for (auto &element : kontrolki_){
 			element->setTransparency(transparency);
 		}
 	}
@@ -64,7 +64,7 @@ namespace tgui {
 	}
 
 	const std::string& ListaSurowcowGui::getLoadedConfigFile() const{
-		return m_LoadedConfigFile_;
+		return plikKonfiguracyjny_;
 	}
 
 	void ListaSurowcowGui::draw(sf::RenderTarget& target, sf::RenderStates states) const{
@@ -72,52 +72,50 @@ namespace tgui {
 		Panel::draw(target, states);
 	}
 
-	void ListaSurowcowGui::ustawDane(const SpEx::Planeta& planeta){
+	void ListaSurowcowGui::aktualizacjaDanych(const SpEx::Planeta& planeta){
 		auto listaObj = planeta.pobierzSurowce();
-		if (objects_.size() == listaObj.size()){ // Je¿eli iloœæ kontrolek jest taka sama, jak iloœæ obiektów to tylko aktualizujemy dane.
+		if (kontrolki_.size() == listaObj.size()){ // Je¿eli iloœæ kontrolek jest taka sama, jak iloœæ obiektów to tylko aktualizujemy dane.
 			int n = 0;
-			for (auto element : objects_)
+			for (auto element : kontrolki_)
 				element->ustawDane(*listaObj.at(n++));
 		}
 		else{
 
 			// Usuniêcie niepotrzebnych okien
-			for (auto iter = objects_.begin(); iter != objects_.end();){
+			for (auto iter = kontrolki_.begin(); iter != kontrolki_.end();){
 				if (listaObj.find((*iter)->pobierzIdObiektu()) != listaObj.end()){
 					++iter;
 				}
 				else{
 					std::lock_guard<std::mutex> lock(zmianaDanych_);
 					this->remove(*iter);
-					iter = objects_.erase(iter);
+					iter = kontrolki_.erase(iter);
 				}
 			}
 
 			// Dodanie brakuj¹cych elementów oraz uaktualnienie obecnych.
-			auto iter = objects_.begin();
+			auto iter = kontrolki_.begin();
 			for (auto &id : listaObj){
-				if (iter == objects_.end() || (*iter)->pobierzIdObiektu() != id.first){
+				if (iter == kontrolki_.end() || (*iter)->pobierzIdObiektu() != id.first){
 					std::lock_guard<std::mutex> lock(zmianaDanych_);
-					auto widget = this->copy(template_, id.second->pobierzSurowceInfo().pobierzNazwe()());
+					auto widget = this->copy(szablonKontrolki_, id.second->pobierzSurowceInfo().pobierzNazwe()());
 					widget->show();
-					iter = objects_.emplace(iter, widget);
+					iter = kontrolki_.emplace(iter, widget);
 					/*if (shader_)
 						(*iter)->ustawShader(shader_.get());*/
 				}
-				if (iter != objects_.end()){
+				if (iter != kontrolki_.end()){
 					(*iter)->ustawDane(*id.second);
 					++iter;
 				}
 			}
 		}
-		refreshPosition();
+		odswiezPozycje();
 	}
 	
-	void ListaSurowcowGui::refreshPosition(){
-		//auto panelSize = getSize();
-		//decltype(panelSize) obszarSize;
+	void ListaSurowcowGui::odswiezPozycje(){
 		float positionX = 0.f;
-		for (auto element : objects_){
+		for (auto element : kontrolki_){
 			auto temp = element->getSize();
 			element->setPosition(positionX, 0.f);
 			positionX += temp.x + 20;
@@ -127,7 +125,7 @@ namespace tgui {
 
 	void ListaSurowcowGui::setSize(float width, float hight){
 		Panel::setSize(width, hight);
-		refreshPosition();
+		odswiezPozycje();
 	}
 
 	bool ListaSurowcowGui::load(const std::string& configFileFilename){
@@ -135,13 +133,13 @@ namespace tgui {
 		if (configFileFilename.empty())
 			return true;
 
-		m_LoadedConfigFile_ = getResourcePath() + configFileFilename;
+		plikKonfiguracyjny_ = getResourcePath() + configFileFilename;
 
 		// Open the config file
 		ConfigFile configFile;
-		if (!configFile.open(m_LoadedConfigFile_))
+		if (!configFile.open(plikKonfiguracyjny_))
 		{
-			TGUI_OUTPUT("TGUI error: Failed to open " + m_LoadedConfigFile_ + ".");
+			TGUI_OUTPUT("TGUI error: Failed to open " + plikKonfiguracyjny_ + ".");
 			return false;
 		}
 
@@ -150,7 +148,7 @@ namespace tgui {
 		std::vector<std::string> values;
 		if (!configFile.read("ListaSurowcowGui", properties, values))
 		{
-			TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile_ + ".");
+			TGUI_OUTPUT("TGUI error: Failed to parse " + plikKonfiguracyjny_ + ".");
 			return false;
 		}
 
@@ -159,9 +157,9 @@ namespace tgui {
 
 		// Find the folder that contains the config file
 		std::string configFileFolder = "";
-		std::string::size_type slashPos = m_LoadedConfigFile_.find_last_of("/\\");
+		std::string::size_type slashPos = plikKonfiguracyjny_.find_last_of("/\\");
 		if (slashPos != std::string::npos)
-			configFileFolder = m_LoadedConfigFile_.substr(0, slashPos + 1);
+			configFileFolder = plikKonfiguracyjny_.substr(0, slashPos + 1);
 
 		// Handle the read properties
 		for (unsigned int i = 0; i < properties.size(); ++i)
@@ -170,18 +168,18 @@ namespace tgui {
 			std::string value = values[i];
 			if (property == "templateconfig")
 			{
-				template_->load(configFileFolder + value);
+				szablonKontrolki_->load(configFileFolder + value);
 			}
 			else if(property == "textsize")
 			{
-				template_->setTextSize(std::strtoul(value.c_str(),nullptr,10));
+				szablonKontrolki_->setTextSize(std::strtoul(value.c_str(), nullptr, 10));
 			}
 			else if (property == "textcolor")
 			{
-				template_->setTextColor(extractColor(value));
+				szablonKontrolki_->setTextColor(extractColor(value));
 			}
 			else
-				TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section KontrolkaObiektu in " + m_LoadedConfigFile_ + ".");
+				TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section KontrolkaObiektu in " + plikKonfiguracyjny_ + ".");
 		}
 		return true;
 	}
@@ -193,7 +191,7 @@ namespace tgui {
 	//-------------
 
 	ListaSurowcowGui::SurowiecGui::SurowiecGui(const SurowiecGui& o)
-		: m_LoadedConfigFile_(o.m_LoadedConfigFile_), Panel(o), idObiektu_(o.idObiektu_)
+		: plikKonfiguracyjny_(o.plikKonfiguracyjny_), Panel(o), idObiektu_(o.idObiektu_)
 	{
 		tekst_ = this->get<Label>("Nazwa");
 	}
@@ -212,7 +210,7 @@ namespace tgui {
 
 	bool ListaSurowcowGui::SurowiecGui::getProperty(std::string property, std::string& value) const{
 		if (property == "ConfigFile"){
-			value = m_LoadedConfigFile_;
+			value = plikKonfiguracyjny_;
 			return true;
 		}
 		else
@@ -242,7 +240,7 @@ namespace tgui {
 	}
 
 	const std::string& ListaSurowcowGui::SurowiecGui::getLoadedConfigFile() const{
-		return m_LoadedConfigFile_;
+		return plikKonfiguracyjny_;
 	}
 
 	void ListaSurowcowGui::SurowiecGui::ustawDane(const SpEx::Obiekt& obiekt){
@@ -267,13 +265,13 @@ namespace tgui {
 		if (configFileFilename.empty())
 			return true;
 
-		m_LoadedConfigFile_ = getResourcePath() + configFileFilename;
+		plikKonfiguracyjny_ = getResourcePath() + configFileFilename;
 
 		// Open the config file
 		ConfigFile configFile;
-		if (!configFile.open(m_LoadedConfigFile_))
+		if (!configFile.open(plikKonfiguracyjny_))
 		{
-			TGUI_OUTPUT("TGUI error: Failed to open " + m_LoadedConfigFile_ + ".");
+			TGUI_OUTPUT("TGUI error: Failed to open " + plikKonfiguracyjny_ + ".");
 			return false;
 		}
 
@@ -282,7 +280,7 @@ namespace tgui {
 		std::vector<std::string> values;
 		if (!configFile.read("SurowiecGui", properties, values))
 		{
-			TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile_ + ".");
+			TGUI_OUTPUT("TGUI error: Failed to parse " + plikKonfiguracyjny_ + ".");
 			return false;
 		}
 
@@ -291,9 +289,9 @@ namespace tgui {
 
 		// Find the folder that contains the config file
 		std::string configFileFolder = "";
-		std::string::size_type slashPos = m_LoadedConfigFile_.find_last_of("/\\");
+		std::string::size_type slashPos = plikKonfiguracyjny_.find_last_of("/\\");
 		if (slashPos != std::string::npos)
-			configFileFolder = m_LoadedConfigFile_.substr(0, slashPos + 1);
+			configFileFolder = plikKonfiguracyjny_.substr(0, slashPos + 1);
 		
 		// Handle the read properties
 		for (unsigned int i = 0; i < properties.size(); ++i)
@@ -305,7 +303,7 @@ namespace tgui {
 				tekst_->load(configFileFolder + value);
 			}
 			else
-				TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section KontrolkaObiektu in " + m_LoadedConfigFile_ + ".");
+				TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section KontrolkaObiektu in " + plikKonfiguracyjny_ + ".");
 		}
 		return true;
 	}

@@ -340,7 +340,7 @@ extern "C"{
 				if (ekran){
 					auto kontrolka = ekran->pobierzGUI().get<tgui::ListaSurowcowGui>(nazwaKontrolki);
 					if (kontrolka != nullptr){
-						kontrolka->ustawDane(planeta);
+						kontrolka->aktualizacjaDanych(planeta);
 					}
 				}
 			}
