@@ -1,4 +1,4 @@
-
+#pragma once
 namespace tgui{
 	enum WYROWNANIE_WERTYKALNE{
 		TOP,
