@@ -63,7 +63,7 @@ namespace SLog{
 		* \version 2
 		* \date 18-06-2014
 		*/
-		typedef std::function<void(TypLogow, const std::string&)> Strumien;
+		typedef std::function<void(TypLogow, const std::string&, const std::string&)> Strumien;
 
 		
 		/**
@@ -177,12 +177,13 @@ namespace SLog{
 		/**
 		* Funkcja wysy³aj¹ca napis do strumienia.
 		* \param[in] typ - poziom wa¿noœci komunikatu.
+		* \param[in] czas - czas stworzenia komunikatu.
 		* \param[in] napis - Napis wysy³any do strumienia.
 		* \author Daniel Wojdak
 		* \version 2
 		* \date 18-06-2014
 		*/
-		void wyswietl(TypLogow typ, const std::string& napis) const;
+		void wyswietl(TypLogow typ, const std::string& czas, const std::string& napis) const;
 
 		std::vector< bool > poziomy_ = { { true, true, true, true, true } }; /// Wartoœæ w³¹czenia/wy³¹czenia poziomów logowania. Domyœlenie wszystkie na w³¹czone.
 		std::string formatCzasu_ = "%Y-%m-%d %H:%M:%S"; /// Format w jakim ma zosta³ wyœiwetlany czas logowania. Domyœlenie: \%Y-\%m-\%d \%H:\%M:\%S.
