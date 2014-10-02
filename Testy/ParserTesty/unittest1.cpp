@@ -35,8 +35,45 @@ namespace ParserTesty
 			log.zablokujLogi(SLog::Log::Debug);
 #endif
 			log.ustawFormatCzasu(SLog::Log::Czas);
-			log.dodajGniazdoWyjsciowe([filename](SLog::Log::TypLogow typ, const std::string& komunikat)->void{ static std::fstream plik(filename, std::ios_base::app); plik << komunikat; });
-			log.dodajGniazdoWyjsciowe([](SLog::Log::TypLogow typ, const std::string& komunikat)->void{ if(!komunikat.empty())Logger::WriteMessage(komunikat.c_str()); });
+			log.dodajGniazdoWyjsciowe([filename](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{
+				static std::fstream plik(filename, std::ios_base::app); 
+				std::string sTyp;
+				switch (typ)
+				{
+				case SLog::Log::Debug: sTyp = " [DEBUG] ";
+					break;
+				case SLog::Log::Info: sTyp = " [INFO] ";
+					break;
+				case SLog::Log::Warning: sTyp = " [WARNING] ";
+					break;
+				case SLog::Log::Error: sTyp = " [ERROR] ";
+					break;
+				case SLog::Log::All:
+				default:
+					break;
+				}
+				plik << czas << sTyp << komunikat; 
+			});
+			log.dodajGniazdoWyjsciowe([](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{ 
+				if (!komunikat.empty()){
+					std::string sTyp;
+					switch (typ)
+					{
+					case SLog::Log::Debug: sTyp = " [DEBUG] ";
+						break;
+					case SLog::Log::Info: sTyp = " [INFO] ";
+						break;
+					case SLog::Log::Warning: sTyp = " [WARNING] ";
+						break;
+					case SLog::Log::Error: sTyp = " [ERROR] ";
+						break;
+					case SLog::Log::All:
+					default:
+						break;
+					}
+					Logger::WriteMessage((czas + sTyp + komunikat).c_str());
+				}
+			});
 		}
 
 		TEST_METHOD_INITIALIZE(Inicjalizacja){
