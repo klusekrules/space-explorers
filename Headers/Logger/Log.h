@@ -16,8 +16,8 @@ namespace SLog{
 	*	- Warning
 	*	- Error
 	* \author Daniel Wojdak
-	* \version 2
-	* \date 18-06-2014
+	* \version 3
+	* \date 02-10-2014
 	*/
 	class LOGGER_API Log
 	{
@@ -61,7 +61,7 @@ namespace SLog{
 		* Napis jest pe³nym komunikatem z datê i nazwê poziomu logów.
 		* \author Daniel Wojdak
 		* \version 2
-		* \date 18-06-2014
+		* \date 02-10-2014
 		*/
 		typedef std::function<void(TypLogow, const std::string&, const std::string&)> Strumien;
 
@@ -180,8 +180,8 @@ namespace SLog{
 		* \param[in] czas - czas stworzenia komunikatu.
 		* \param[in] napis - Napis wysy³any do strumienia.
 		* \author Daniel Wojdak
-		* \version 2
-		* \date 18-06-2014
+		* \version 3
+		* \date 02-10-2014
 		*/
 		void wyswietl(TypLogow typ, const std::string& czas, const std::string& napis) const;
 
