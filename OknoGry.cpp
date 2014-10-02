@@ -13,7 +13,7 @@ namespace SpEx{
 	OknoGry::OknoGry(bool wstrzymany)
 		: Watek(wstrzymany)
 	{
-		przetwarzanie_ = false;
+		przetwarzanie_ = true;
 		inicjalizacjaWynik_ = inicjalizacja_.get_future();
 	}
 
@@ -81,6 +81,9 @@ namespace SpEx{
 	}
 
 	void OknoGry::wykonuj(){
+		if (!przetwarzanie_){
+			return;
+		}
 		try{
 			try{
 				if (!inicjalizacja()){

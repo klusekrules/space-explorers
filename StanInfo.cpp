@@ -77,6 +77,10 @@ namespace SpEx{
 		return iter->second;
 	}
 
+	const std::map < STyp::Identyfikator, std::shared_ptr<ZdarzenieInfo> >& StanInfo::pobierzListeZdarzen() const{
+		return zdarzenia_;
+	}
+
 	std::string StanInfo::napis()const{
 		SLog::Logger log(NAZWAKLASY(StanInfo));
 		log.dodajPole(NAZWAPOLA(id_), id_);
