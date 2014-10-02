@@ -2,6 +2,8 @@
 #include "OknoGry.h"
 #include "Aplikacja.h"
 #include "FPSCounter.h"
+#include <set>
+#include "BladStukturyStanu.h"
 
 namespace SpEx{
 	MaszynaStanow::StanDlaSkryptu::StanDlaSkryptu()
@@ -28,16 +30,48 @@ namespace SpEx{
 	}
 
 	void MaszynaStanow::inicjalizuj(){
-		auto root = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadcePamieci().pobierzWezelKonfiguracyjnyMaszynyStanow();
-		XmlBO::WczytajAtrybut<SpEx::STACKTHROW>(root, ATRYBUT_XML_STAN_POCZATKOWY, idStanuPoczatkowy_);
-		pulaWatkow_.ustawLiczbeWatkow(XmlBO::WczytajAtrybut<unsigned char>(root, ATRYBUT_XML_PULA_WATKOW, 4));
-		XmlBO::ForEach<SpEx::STACKTHROW>(root, WEZEL_XML_STAN, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
-			auto stan = std::make_shared<StanInfo>(element);
-			wszystkieStany_.insert(std::make_pair(stan->pobierzIdentyfikator(), stan));
-			return true;
-		}));
-		watekGraficzny_.zatrzymajPoInicjalizacji();
-		watekGraficzny_.odblokuj();
+		try{
+			auto root = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadcePamieci().pobierzWezelKonfiguracyjnyMaszynyStanow();
+			XmlBO::WczytajAtrybut<SpEx::STACKTHROW>(root, ATRYBUT_XML_STAN_POCZATKOWY, idStanuPoczatkowy_);
+			pulaWatkow_.ustawLiczbeWatkow(XmlBO::WczytajAtrybut<unsigned char>(root, ATRYBUT_XML_PULA_WATKOW, 4));
+			XmlBO::ForEach<SpEx::STACKTHROW>(root, WEZEL_XML_STAN, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
+				auto stan = std::make_shared<StanInfo>(element);
+				wszystkieStany_.insert(std::make_pair(stan->pobierzIdentyfikator(), stan));
+				return true;
+			}));
+			walidujStany();
+			watekGraficzny_.zatrzymajPoInicjalizacji();
+			watekGraficzny_.odblokuj();
+		}
+		catch (...){
+			watekGraficzny_.zakmnij();
+			watekGraficzny_.odblokuj();
+			watekGraficzny_.czekajNaZakonczenie();
+			throw;
+		}
+	}
+
+	void MaszynaStanow::walidujStany() const{
+		std::set<STyp::Identyfikator> wczytane;
+		for (auto& stan : wszystkieStany_)
+			wczytane.insert(stan.first);
+		std::stringstream strumien;
+		bool error = false;
+		for (auto& stan : wszystkieStany_){
+			for (auto& zdarzenie : stan.second->pobierzListeZdarzen()){
+				auto idStanu = zdarzenie.second->pobierzStan();
+				if (idStanu){
+					if (wczytane.find(*idStanu) == wczytane.end()){
+						strumien << " Zdarzenie: " << zdarzenie.second->pobierzIdentyfikator().napis() << " w stanie: "
+							<< stan.first.napis() << " odwo³uje siê do nie istniej¹cego stanu: " << idStanu->napis() << ".\n";
+						error = true;
+					}
+				}
+			}
+		}
+		
+		if (error)
+			throw SpEx::BladStukturyStanu(EXCEPTION_PLACE,1,strumien.str());
 	}
 
 	bool MaszynaStanow::kolejkujEkran(int id){

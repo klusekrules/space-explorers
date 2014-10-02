@@ -15,15 +15,15 @@ namespace SpEx{
 	*
 	* Klasa obs³ugujê zdarzenia oraz zarz¹dza stanami. W metodzie tej klasy jest zaimplementowana g³ówna pêtla z obs³ug¹ zdarzeñ.
 	* \author Daniel Wojdak
-	* \version 2
-	* \date 06-08-2014
+	* \version 3
+	* \date 02-10-2014
 	*/
 	class MaszynaStanow
 		: public se::Singleton<MaszynaStanow>
 	{
 		friend class se::Singleton<MaszynaStanow>;
 	public:
-
+		
 		/**
 		* \brief Klasa stanu dla skryptów.
 		*
@@ -343,6 +343,16 @@ namespace SpEx{
 		* \date 09-07-2014
 		*/
 		MaszynaStanow();
+
+		/**
+		* \brief Metoda sprawdzaj¹ca spójnoœæ wczytanych stanów.
+		*
+		* Metoda sprawdza czy wczytane staney s¹ spójne. Porównuje liste stanów z odwo³aniami do stanów.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 02-10-2014
+		*/
+		void walidujStany() const;
 
 		/**
 		* \brief Metoda obs³uguj¹ca kolejkê zdarzeñ.

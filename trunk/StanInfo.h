@@ -11,8 +11,8 @@ namespace SpEx{
 	*
 	* Klasa zawiera opisowe informacje o stanie.
 	* \author Daniel Wojdak
-	* \version 2
-	* \date 05-08-2014
+	* \version 3
+	* \date 02-10-2014
 	*/
 	class StanInfo :
 		virtual public SLog::LoggerInterface
@@ -84,6 +84,17 @@ namespace SpEx{
 		* \date 09-07-2014
 		*/
 		std::shared_ptr<ZdarzenieInfo> pobierzZdarzenie(const STyp::Identyfikator& identyfikator) const;
+
+		/**
+		* \brief Metoda pobieraj¹ca listê zdarzeñ.
+		*
+		* Metoda pobiera listê zdarzeñ jakie s¹ obs³ugiwane w danym stanie.
+		* \return Referencja do listy zdarzeñ.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 02-10-2014
+		*/
+		const std::map < STyp::Identyfikator, std::shared_ptr<ZdarzenieInfo> >& pobierzListeZdarzen() const;
 
 		/**
 		* \brief Metoda tworz¹ca tekstowy opis obiektu.
