@@ -154,7 +154,7 @@ extern "C"{
 		else{
 			SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "Brak nazwy widzetu has³a lub loginu!");
 		}
-		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Nie uda³o siê zalogowaæ!");
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Nie uda³o siê zalogowaæ!");
 		return false;
 	}
 
@@ -218,7 +218,7 @@ extern "C"{
 
 		}
 
-		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Nie uda³o siê stworzyæ nowego gracza!");
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Nie uda³o siê stworzyæ nowego gracza!");
 		SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "Nie uda³o siê stworzyæ nowego gracza!");
 		return false;
 	}

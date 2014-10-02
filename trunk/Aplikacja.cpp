@@ -64,7 +64,24 @@ namespace SpEx{
 		DllModule::Rejestruj(zarzadcaZasobow_);
 
 		/* ------- Wstêpna konfiguracja logów ------- */
-		logger_.dodajGniazdoWyjsciowe([](SLog::Log::TypLogow typ, const std::string& komunikat)->void{ std::cout << komunikat; });
+		logger_.dodajGniazdoWyjsciowe([](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{ 
+			std::string sTyp;
+			switch (typ)
+			{
+			case SLog::Log::Debug: sTyp = " [DEBUG] ";
+				break;
+			case SLog::Log::Info: sTyp = " [INFO] ";
+				break;
+			case SLog::Log::Warning: sTyp = " [WARNING] ";
+				break;
+			case SLog::Log::Error: sTyp = " [ERROR] ";
+				break;
+			case SLog::Log::All:
+			default:
+				break;
+			}
+			std::cout << czas << sTyp << komunikat;
+		});
 		/* ------------------------------------------ */
 
 		//Ladowanie potrzebnych bibliotek
@@ -109,7 +126,25 @@ namespace SpEx{
 		std::stringstream sfile;
 		sfile << ustawienia_.pobierzPrzedrostekPlikuLogow() << s << ".log";
 		std::string filename = sfile.str();
-		logger_.dodajGniazdoWyjsciowe([&filename](SLog::Log::TypLogow typ, const std::string& komunikat)->void{ static std::fstream plik(filename, std::ios_base::app); plik << komunikat; });
+		logger_.dodajGniazdoWyjsciowe([&filename](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{
+			static std::fstream plik(filename, std::ios_base::app); 
+			std::string sTyp;
+			switch (typ)
+			{
+			case SLog::Log::Debug: sTyp = " [DEBUG] ";
+				break;
+			case SLog::Log::Info: sTyp = " [INFO] ";
+				break;
+			case SLog::Log::Warning: sTyp = " [WARNING] ";
+				break;
+			case SLog::Log::Error: sTyp = " [ERROR] ";
+				break;
+			case SLog::Log::All:
+			default:
+				break;
+			}
+			plik << czas << sTyp << komunikat;
+		});
 		/* ------------------------------------ */
 		
 		logger_.loguj(SLog::Log::Info, "Start aplikacji Space-Explorers.");

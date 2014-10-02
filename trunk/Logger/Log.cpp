@@ -4,9 +4,9 @@
 
 namespace SLog{
 
-	void Log::wyswietl(TypLogow typ, const std::string& p) const{
+	void Log::wyswietl(TypLogow typ, const std::string& c, const std::string& p) const{
 		for (auto f : outstream)
-			f(typ, p);
+			f(typ, c, p);
 	}
 
 	void Log::dodajGniazdoWyjsciowe(const Strumien &t){
@@ -46,13 +46,13 @@ namespace SLog{
 
 	void Log::loguj(TypLogow typ, const std::string& komunikat) const{
 		if (poziomy_[TypLogow::All] && poziomy_[typ]){
-			wyswietl(typ, pobierzDateCzas() + " [INFO] " + komunikat + "\n");
+			wyswietl(typ, pobierzDateCzas() , komunikat + "\n");
 		}
 	}
 
 	void Log::loguj(TypLogow typ, const LoggerInterface& komunikat) const{
 		if (poziomy_[TypLogow::All] && poziomy_[typ]){
-			wyswietl(typ, pobierzDateCzas() + " [INFO] " + komunikat.napis() + "\n");
+			wyswietl(typ, pobierzDateCzas() , komunikat.napis() + "\n");
 		}
 	}
 
