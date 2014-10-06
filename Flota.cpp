@@ -248,7 +248,7 @@ namespace SpEx{
 			STyp::Identyfikator identyfikator;
 			XmlBO::WczytajAtrybut<STACKTHROW>(element, ATRYBUT_XML_IDENTYFIKATOR, identyfikator);
 			PodstawoweParametry parametry(PodstawoweParametry::wpisIlosc(STyp::Ilosc()), PodstawoweParametry::ILOSC, STyp::Identyfikator());
-			auto statek = std::shared_ptr<Statek>(Aplikacja::pobierzInstancje().pobierzGre().pobierzStatek(identyfikator).tworzEgzemplarz(parametry));
+			auto statek = std::shared_ptr<Statek>(Aplikacja::pobierzInstancje().pobierzGre().pobierzObiekt<SpEx::StatekInfo>(identyfikator).tworzEgzemplarz(parametry));
 			if (!statek->odczytaj(element))
 				return false;
 			lista_.insert(make_pair(statek->pobierzIdentyfikator(), statek));

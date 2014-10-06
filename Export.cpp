@@ -295,7 +295,7 @@ extern "C"{
 			auto &gra = SpEx::Aplikacja::pobierzInstancje().pobierzGre();
 			if (gra.czyZalogowano()){
 				auto &planeta = gra.pobierzUzytkownika().pobierzPlanete();
-				planeta.wybuduj(id, SpEx::PodstawoweParametry::wartoscJednostkowaParametru(gra.pobierzObiekt(id).pobierzTypAtrybutu()));
+				planeta.wybuduj(id, SpEx::PodstawoweParametry::wartoscJednostkowaParametru(gra.pobierzObiekt<SpEx::ObiektInfo>(id).pobierzTypAtrybutu()));
 			}
 		}
 		catch (STyp::Wyjatek& e){

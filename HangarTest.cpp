@@ -3,10 +3,10 @@
 void HangarTest::startTestow(){
 	gra = &(SpEx::Aplikacja::pobierzInstancje().pobierzGre());
 	UNIT_TEST_ASSERT_NOTNULL(gra);
-	SpEx::StatekInfo& statekInfo = gra->pobierzStatek(STyp::Identyfikator(5));
-	SpEx::StatekInfo& statekInfo2 = gra->pobierzStatek(STyp::Identyfikator(6));
-	SpEx::StatekInfo& statekInfo3 = gra->pobierzStatek(STyp::Identyfikator(7));
-	SpEx::StatekInfo& statekInfo4 = gra->pobierzStatek(STyp::Identyfikator(8));
+	auto& statekInfo = gra->pobierzObiekt<SpEx::StatekInfo>(STyp::Identyfikator(5));
+	auto& statekInfo2 = gra->pobierzObiekt<SpEx::StatekInfo>(STyp::Identyfikator(6));
+	auto& statekInfo3 = gra->pobierzObiekt<SpEx::StatekInfo>(STyp::Identyfikator(7));
+	auto& statekInfo4 = gra->pobierzObiekt<SpEx::StatekInfo>(STyp::Identyfikator(8));
 	statekTransportowy = std::shared_ptr<SpEx::Statek>(statekInfo.tworzEgzemplarz(STyp::Ilosc(25)));
 	statekTransportowyDuzy = std::shared_ptr<SpEx::Statek>(statekInfo2.tworzEgzemplarz(STyp::Ilosc(50)));
 	mysliwiec = std::shared_ptr<SpEx::Statek>(statekInfo3.tworzEgzemplarz(STyp::Ilosc(5)));

@@ -227,7 +227,7 @@ namespace SpEx{
 
 		XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_STATEK, XmlBO::OperacjaWezla(
 			[&](XmlBO::ElementWezla element)->bool{
-			std::shared_ptr<Statek> obiekt = gra.tworzStatek(element);
+			std::shared_ptr<Statek> obiekt = gra.tworzObiekt<Statek,StatekInfo>(element);
 			if (!obiekt || !obiekt->odczytaj(element)){
 				Utils::generujWyjatekBleduStruktury(element);
 			}

@@ -578,7 +578,7 @@ namespace tgui{
 			opisObiektu = SpEx::Utils::trim(obj.pobierzOpis()());
 			for (auto &element : warunki){
 				if (element->typAtrybutu() == SpEx::Kryterium::ILOSC){
-					opisObiektu += "\n" + gra.pobierzObiekt(element->pobierzIdentyfikator()).pobierzNazwe()() + " : " + element->pobierzIlosc().napis();
+					opisObiektu += "\n" + gra.pobierzObiekt<SpEx::ObiektInfo>(element->pobierzIdentyfikator()).pobierzNazwe()() + " : " + element->pobierzIlosc().napis();
 				}
 			}
 			tresc_->setText(opisObiektu);
@@ -605,7 +605,7 @@ namespace tgui{
 			opisObiektu = SpEx::Utils::trim(obj.pobierzOpis()());
 			for (auto &element : warunki){
 				if (element->typAtrybutu() == SpEx::Kryterium::ILOSC){
-					opisObiektu += "\n" + gra.pobierzObiekt(element->pobierzIdentyfikator()).pobierzNazwe()() + " : " + element->pobierzIlosc().napis();
+					opisObiektu += "\n" + gra.pobierzObiekt<SpEx::ObiektInfo>(element->pobierzIdentyfikator()).pobierzNazwe()() + " : " + element->pobierzIlosc().napis();
 				}
 			}
 

@@ -17,6 +17,7 @@ namespace SpEx{
 		virtual public SLog::LoggerInterface
 	{
 	public:
+		typedef std::shared_ptr<const BudynekInfo> ConstSharedPtr;
 
 		/**
 		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.

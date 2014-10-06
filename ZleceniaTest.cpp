@@ -10,7 +10,7 @@ void ZleceniaTest::startTestow(){
 void ZleceniaTest::tranzakcja_poprawna(){
 	SpEx::MenedzerTranzakcji tranzakcja;
 	STyp::Ilosc jeden(1);
-	std::shared_ptr<SpEx::Statek> statek(gra->pobierzStatek(STyp::Identyfikator(5)).tworzEgzemplarz(SpEx::PodstawoweParametry(jeden)));
+	std::shared_ptr<SpEx::Statek> statek(gra->pobierzObiekt<SpEx::StatekInfo>(STyp::Identyfikator(5)).tworzEgzemplarz(SpEx::PodstawoweParametry(jeden)));
 	STyp::Ilosc dwa(2);
 	STyp::Ilosc pietnascie(15);
 	tranzakcja.dodaj(std::make_shared< SpEx::Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
@@ -33,7 +33,7 @@ void ZleceniaTest::tranzakcja_poprawna(){
 void ZleceniaTest::tranzakcja_cofnieta(){
 	SpEx::MenedzerTranzakcji tranzakcja;
 	STyp::Ilosc jeden(1);
-	std::shared_ptr<SpEx::Statek> statek(gra->pobierzStatek(STyp::Identyfikator(5)).tworzEgzemplarz(SpEx::PodstawoweParametry(jeden)));
+	std::shared_ptr<SpEx::Statek> statek(gra->pobierzObiekt<SpEx::StatekInfo>(STyp::Identyfikator(5)).tworzEgzemplarz(SpEx::PodstawoweParametry(jeden)));
 	STyp::Ilosc dwa(2);
 	STyp::Ilosc pietnascie(15);
 	tranzakcja.dodaj(std::make_shared< SpEx::Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
@@ -56,7 +56,7 @@ void ZleceniaTest::tranzakcja_cofnieta(){
 void ZleceniaTest::tranzakcja_throw(){
 	SpEx::MenedzerTranzakcji tranzakcja;
 	STyp::Ilosc jeden(1);
-	std::shared_ptr<SpEx::Statek> statek(gra->pobierzStatek(STyp::Identyfikator(5)).tworzEgzemplarz(SpEx::PodstawoweParametry(jeden)));
+	std::shared_ptr<SpEx::Statek> statek(gra->pobierzObiekt<SpEx::StatekInfo>(STyp::Identyfikator(5)).tworzEgzemplarz(SpEx::PodstawoweParametry(jeden)));
 	STyp::Ilosc dwa(2);
 	STyp::Ilosc pietnascie(15);
 	tranzakcja.dodaj(std::make_shared< SpEx::Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
@@ -84,7 +84,7 @@ void ZleceniaTest::tranzakcja_throw(){
 void ZleceniaTest::tranzakcja_throw2(){
 	SpEx::MenedzerTranzakcji tranzakcja;
 	STyp::Ilosc jeden(1);
-	std::shared_ptr<SpEx::Statek> statek(gra->pobierzStatek(STyp::Identyfikator(5)).tworzEgzemplarz(SpEx::PodstawoweParametry(jeden)));
+	std::shared_ptr<SpEx::Statek> statek(gra->pobierzObiekt<SpEx::StatekInfo>(STyp::Identyfikator(5)).tworzEgzemplarz(SpEx::PodstawoweParametry(jeden)));
 	STyp::Ilosc dwa(2);
 	STyp::Ilosc pietnascie(15);
 	tranzakcja.dodaj(std::make_shared< SpEx::Zlecenie< STyp::Ilosc, std::shared_ptr<SpEx::Statek> > >(dwa, statek
