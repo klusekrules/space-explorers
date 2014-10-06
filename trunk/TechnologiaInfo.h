@@ -16,6 +16,8 @@ namespace SpEx{
 		virtual public SLog::LoggerInterface
 	{
 	public:
+		typedef std::shared_ptr<const TechnologiaInfo> ConstSharedPtr;
+
 		/**
 		* \brief Konstruktor.
 		*

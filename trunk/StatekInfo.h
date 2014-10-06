@@ -24,6 +24,7 @@ namespace SpEx{
 		virtual public SLog::LoggerInterface
 	{
 	public:
+		typedef std::shared_ptr<const StatekInfo> ConstSharedPtr;
 
 		/**
 		* \brief Konstruktor.

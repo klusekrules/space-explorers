@@ -181,7 +181,7 @@ namespace SpEx{
 			return true;
 		}
 		else{
-			return Aplikacja::pobierzInstancje().pobierzGre().pobierzObiekt(identyfikator).tworz(*this, ilosc.pobierzAtrybut());
+			return Aplikacja::pobierzInstancje().pobierzGre().pobierzObiekt<SpEx::ObiektInfo>(identyfikator).tworz(*this, ilosc.pobierzAtrybut());
 		}
 	}
 
@@ -190,7 +190,7 @@ namespace SpEx{
 		if (iterator != listaObiektow_.end()){
 			return false;
 		}else{
-			return Aplikacja::pobierzInstancje().pobierzGre().pobierzObiekt(identyfikator).tworz(*this, element);
+			return Aplikacja::pobierzInstancje().pobierzGre().pobierzObiekt<SpEx::ObiektInfo>(identyfikator).tworz(*this, element);
 		}
 	}
 

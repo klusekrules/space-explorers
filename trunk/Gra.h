@@ -12,6 +12,9 @@
 #include "ZarzadcaPamieci.h"
 #include "Zmiana\ZmianaFabryka.h"
 
+#include "PowtorzenieIdObiektu.h"
+
+#define KOMUNIKAT_POWTORZENIE_OBIEKTU(a) STyp::Tekst("Obiekt typu: "#a )
 
 namespace SpEx {
 	/**
@@ -19,14 +22,20 @@ namespace SpEx {
 	*
 	* Klasa przechowuje wszystkie informacje i obiekty do poprawnego dzia³ania gry.
 	* \author Daniel Wojdak
-	* \version 3
-	* \date 25-07-2014
+	* \version 4
+	* \date 03-10-2014
 	*/
 	class Gra :
 		public se::NonCopyable,
 		public se::NonMoveable
 	{
 	public:
+		typedef std::unordered_map<STyp::Identyfikator, SurowceInfo::ConstSharedPtr, STyp::IdTypeHash > ListaSurowcowInfoTyp; /// Typ listy obiektów opisowych surowców.
+		typedef std::unordered_map<STyp::Identyfikator, StatekInfo::ConstSharedPtr, STyp::IdTypeHash > ListaStatkowInfoTyp; /// Typ listy obiektów opisowych statku.
+		typedef std::unordered_map<STyp::Identyfikator, ObronaInfo::ConstSharedPtr, STyp::IdTypeHash > ListaObronyInfoTyp; /// Typ listy obiektów opisowych obrony.
+		typedef std::unordered_map<STyp::Identyfikator, TechnologiaInfo::ConstSharedPtr, STyp::IdTypeHash > ListaTechnologiInfoTyp; /// Typ listy obiektów opisowych  technologii.
+		typedef std::unordered_map<STyp::Identyfikator, BudynekInfo::ConstSharedPtr, STyp::IdTypeHash > ListaBudynkowInfoTyp; /// Typ listy obiektów opisowych budynku.
+		typedef std::unordered_map<STyp::Identyfikator, ObiektInfo::ConstSharedPtr, STyp::IdTypeHash > ListaObiektowInfoTyp; /// Typ listy obiektów opisowych.
 
 		/**
 		* \brief Konstruktor.
@@ -111,56 +120,6 @@ namespace SpEx {
 		bool przeniesPlaneteDoUzytkownika();
 
 		/**
-		* \brief Metoda pobieraj¹ca obiekt opisowy Obrony.
-		*
-		* Metoda pobiera obiekt opisowy obrony.
-		* \param[in] identyfikator - identyfikator obiektu.
-		* \return Referencja do obiektu opisowego. Je¿eli nie znaleziono obiektu zostaje wyrzucony wyj¹tek.
-		* \throw NieznalezionoObiektu
-		*/
-		ObronaInfo& pobierzObrone(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu);
-
-		/**
-		* \brief Metoda pobieraj¹ca obiekt opisowy Statku.
-		*
-		* Metoda pobiera obiekt opisowy statku.
-		* \param[in] identyfikator - identyfikator obiektu.
-		* \return Referencja do obiektu opisowego. Je¿eli nie znaleziono obiektu zostaje wyrzucony wyj¹tek.
-		* \throw NieznalezionoObiektu
-		*/
-		StatekInfo& pobierzStatek(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu);
-
-		/**
-		* \brief Metoda pobieraj¹ca obiekt opisowy Surowca.
-		*
-		* Metoda pobiera obiekt opisowy surowca.
-		* \param[in] identyfikator - identyfikator obiektu.
-		* \return Referencja do obiektu opisowego. Je¿eli nie znaleziono obiektu zostaje wyrzucony wyj¹tek.
-		* \throw NieznalezionoObiektu
-		*/
-		SurowceInfo& pobierzSurowce(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu);
-
-		/**
-		* \brief Metoda pobieraj¹ca obiekt opisowy Technologii.
-		*
-		* Metoda pobiera obiekt opisowy technologii.
-		* \param[in] identyfikator - identyfikator obiektu.
-		* \return Referencja do obiektu opisowego. Je¿eli nie znaleziono obiektu zostaje wyrzucony wyj¹tek.
-		* \throw NieznalezionoObiektu
-		*/
-		TechnologiaInfo& pobierzTechnologia(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu);
-
-		/**
-		* \brief Metoda pobieraj¹ca obiekt opisowy Budynku.
-		*
-		* Metoda pobiera obiekt opisowy budynku.
-		* \param[in] identyfikator - identyfikator obiektu.
-		* \return Referencja do obiektu opisowego. Je¿eli nie znaleziono obiektu zostaje wyrzucony wyj¹tek.
-		* \throw NieznalezionoObiektu
-		*/
-		BudynekInfo& pobierzBudynek(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu);
-
-		/**
 		* \brief Metoda pobieraj¹ca obiekt opisowy.
 		*
 		* Metoda pobiera obiekt opisowy.
@@ -168,8 +127,35 @@ namespace SpEx {
 		* \return Referencja do obiektu opisowego. Je¿eli nie znaleziono obiektu zostaje wyrzucony wyj¹tek.
 		* \throw NieznalezionoObiektu
 		*/
-		ObiektInfo& pobierzObiekt(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu);
+		template <class T> 
+		const T& pobierzObiekt(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu){
+			return znajdzObiektInfo<T>(listaObiektowInfo_, identyfikator);
+		}
 
+		template < > 
+		const ObronaInfo& pobierzObiekt<ObronaInfo>(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu){
+			return znajdzObiektInfo<ObronaInfo>(listaObronaInfo_, identyfikator);
+		}
+
+		template < >
+		const StatekInfo& pobierzObiekt<StatekInfo>(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu){
+			return znajdzObiektInfo<StatekInfo>(listaStatkowInfo_, identyfikator);
+		}
+
+		template < >
+		const SurowceInfo& pobierzObiekt<SurowceInfo>(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu){
+			return znajdzObiektInfo<SurowceInfo>(listaSurowcowInfo_, identyfikator);
+		}
+
+		template < >
+		const TechnologiaInfo& pobierzObiekt<TechnologiaInfo>(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu){
+			return znajdzObiektInfo<TechnologiaInfo>(listaTechnologiInfo_, identyfikator);
+		}
+
+		template < >
+		const BudynekInfo& pobierzObiekt<BudynekInfo>(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu){
+			return znajdzObiektInfo<BudynekInfo>(listaBudynkowInfo_, identyfikator);
+		}
 		/**
 		* \brief Metoda tworz¹ca instancje surowców nie przypisan¹ do planety.
 		*
@@ -177,7 +163,16 @@ namespace SpEx {
 		* \param[in] wezel - Wêze³ z którego s¹ odczytywane dane.
 		* \return Sprytny wskaŸnik do obiektu surowców. WskaŸnik na nullptr, je¿eli wyst¹pi³ b³¹d.
 		*/
-		std::shared_ptr<Surowce> tworzSurowce(XmlBO::ElementWezla wezel)const;
+		template <class T, class K>
+		std::shared_ptr<T> tworzObiekt(XmlBO::ElementWezla wezel)const{
+			STyp::Identyfikator identyfikator;
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator);
+			auto& obiektOpisowy = pobierzObiekt<K>(identyfikator);
+			std::shared_ptr<T> obiekt = std::shared_ptr<T>(obiektOpisowy.tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), PodstawoweParametry::ILOSC, STyp::Identyfikator())));
+			if (!obiekt || !obiekt->odczytaj(wezel))
+				return nullptr;
+			return obiekt;
+		}
 
 		/**
 		* \brief Metoda tworz¹ca instancje statków nie przypisan¹ do planety.
@@ -186,7 +181,7 @@ namespace SpEx {
 		* \param[in] wezel - Wêze³ z którego s¹ odczytywane dane.
 		* \return Sprytny wskaŸnik do obiektu statku. WskaŸnik na nullptr, je¿eli wyst¹pi³ b³¹d.
 		*/
-		std::shared_ptr<Statek> tworzStatek(XmlBO::ElementWezla wezel)const;
+		//std::shared_ptr<Statek> tworzStatek(XmlBO::ElementWezla wezel)const;
 
 		/**
 		* \brief Metoda zapisuj¹ca.
@@ -239,7 +234,7 @@ namespace SpEx {
 		* Metoda zwraca listê wszystkich obiektów opisowych.
 		* \return Zwraca listê obiektów.
 		*/
-		const std::unordered_map<STyp::Identyfikator, std::shared_ptr<ObiektInfo>, STyp::IdTypeHash >& pobierzObiektyInfo(){
+		const ListaObiektowInfoTyp& pobierzObiektyInfo(){
 			return listaObiektowInfo_;
 		}
 
@@ -252,7 +247,7 @@ namespace SpEx {
 		* \param[out] listaIdentyfikatorow - Lista identyfikatorów obiektów zwróconych przez metodê.
 		* \return Zwraca listê obiektów spe³niaj¹cych warunki.
 		*/
-		const std::unordered_map<STyp::Identyfikator, std::shared_ptr<ObiektInfo>, STyp::IdTypeHash >& pobierzDostepneObiektyInfo(const Planeta& planeta, const STyp::Identyfikator& typObiektu, std::vector<STyp::Identyfikator>& listaIdentyfikatorow);
+		const ListaObiektowInfoTyp& pobierzDostepneObiektyInfo(const Planeta& planeta, const STyp::Identyfikator& typObiektu, std::vector<STyp::Identyfikator>& listaIdentyfikatorow);
 
 		/**
 		* \brief Metoda sprawdza czy u¿ytkownik jest zalogowany.
@@ -270,61 +265,49 @@ namespace SpEx {
 	private:
 
 		/**
-		* \brief Metoda wczytuj¹ca dane surowców.
+		* \brief Metoda wczytuj¹ca dane obiektow gry.
 		*
-		* Metoda wczytuje z wêz³a xml dane opisowe surowców. Tworzy obiekty SurowceInfo oraz dodaje je do listy.
+		* Metoda wczytuje z wêz³a xml dane opisowe obiektów gry. Tworzy obiekty typu T oraz dodaje je do listy wszystkich obiektów i listy przekazanej jako listaInfo.
 		* \param[in] wezel - Wêze³ xml zawieraj¹cy dane.
-		* \return true je¿eli wszystkie dane zostaj¹ poprawnie wczytane, fasle w przeciwnym wypadku.
+		* \param[in] listaInfo - Specjalizowana lista do której maj¹ zostaæ wczytane obiekty.
+		* \param[in] nazwaWezla - Nazwa wêz³a obiektu gry.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 03-10-2014
 		*/
-		bool wczytajSurowce(XmlBO::ElementWezla wezel);
+		template < class T, class K>
+		void wczytajObiekty(XmlBO::ElementWezla wezel, K& listaInfo, const char * nazwaWezla){
+			XmlBO::ElementWezla element = wezel->pobierzElement(nazwaWezla);
+			while (element){
+				std::shared_ptr<T> obiekt(new T(element));
+				logger_.loguj(SLog::Log::Debug, *obiekt);
+				if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
+					throw PowtorzenieIdObiektu(EXCEPTION_PLACE, obiekt->pobierzIdentyfikator(), KOMUNIKAT_POWTORZENIE_OBIEKTU(T));
+				listaInfo[obiekt->pobierzIdentyfikator()] = obiekt;
+				listaObiektowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+				element = element->pobierzNastepnyElement(nazwaWezla);
+			}
+		}
 
-		/**
-		* \brief Metoda wczytuj¹ca dane statków.
-		*
-		* Metoda wczytuje z wêz³a xml dane opisowe statków. Tworzy obiekty StatekInfo oraz dodaje je do listy.
-		* \param[in] wezel - Wêze³ xml zawieraj¹cy dane.
-		* \return true je¿eli wszystkie dane zostaj¹ poprawnie wczytane, fasle w przeciwnym wypadku.
-		*/
-		bool wczytajStatki(XmlBO::ElementWezla wezel);
-
-		/**
-		* \brief Metoda wczytuj¹ca dane technologii.
-		*
-		* Metoda wczytuje z wêz³a xml dane opisowe technologii. Tworzy obiekty TechnologiaInfo oraz dodaje je do listy.
-		* \param[in] wezel - Wêze³ xml zawieraj¹cy dane.
-		* \return true je¿eli wszystkie dane zostaj¹ poprawnie wczytane, fasle w przeciwnym wypadku.
-		*/
-		bool wczytajTechnologie(XmlBO::ElementWezla wezel);
-
-		/**
-		* \brief Metoda wczytuj¹ca dane budynków.
-		*
-		* Metoda wczytuje z wêz³a xml dane opisowe budynków. Tworzy obiekty BudynekInfo oraz dodaje je do listy.
-		* \param[in] wezel - Wêze³ xml zawieraj¹cy dane.
-		* \return true je¿eli wszystkie dane zostaj¹ poprawnie wczytane, fasle w przeciwnym wypadku.
-		*/
-		bool wczytajBudynki(XmlBO::ElementWezla wezel);
-
-		/**
-		* \brief Metoda wczytuj¹ca dane obrony.
-		*
-		* Metoda wczytuje z wêz³a xml dane opisowe budynków. Tworzy obiekty ObronaInfo oraz dodaje je do listy.
-		* \param[in] wezel - Wêze³ xml zawieraj¹cy dane.
-		* \return true je¿eli wszystkie dane zostaj¹ poprawnie wczytane, fasle w przeciwnym wypadku.
-		*/
-		bool wczytajObrone(XmlBO::ElementWezla wezel);
+		template < class T, class K > 
+		const T& znajdzObiektInfo(const K& listaInfo, const STyp::Identyfikator& identyfikator)const{
+			auto iterator = listaInfo.find(identyfikator);
+			if (iterator == listaInfo.end())
+				throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+			return *(iterator->second);
+		}
 
 		SLog::Log& logger_; /// Referencja do obiektu loguj¹cego.
 		ZarzadcaLokacji& zarzadcaLokacji_; /// Referencja do aktualnego obiektu zarz¹dcy lokacji.
 		ZarzadcaPamieci& zarzadcaPamieci_; /// Referencja do aktualnego obiektu zarz¹dcy pamiêci.
 		std::shared_ptr<Uzytkownik> uzytkownik_; /// Aktualnie zalogowany u¿ytkownik.
 
-		std::unordered_map<STyp::Identyfikator, std::shared_ptr<SurowceInfo>, STyp::IdTypeHash > listaSurowcowInfo_; /// Lista obiektów opisowych surowców.
-		std::unordered_map<STyp::Identyfikator, std::shared_ptr<StatekInfo>, STyp::IdTypeHash > listaStatkowInfo_; /// Lista obiektów opisowych statku.
-		std::unordered_map<STyp::Identyfikator, std::shared_ptr<ObronaInfo>, STyp::IdTypeHash > listaObronaInfo_; /// Lista obiektów opisowych obrony.
-		std::unordered_map<STyp::Identyfikator, std::shared_ptr<TechnologiaInfo>, STyp::IdTypeHash > listaTechnologiInfo_; /// Lista obiektów opisowych  technologii.
-		std::unordered_map<STyp::Identyfikator, std::shared_ptr<BudynekInfo>, STyp::IdTypeHash > listaBudynkowInfo_; /// Lista obiektów opisowych budynku.
-		std::unordered_map<STyp::Identyfikator, std::shared_ptr<ObiektInfo>, STyp::IdTypeHash > listaObiektowInfo_; /// Lista obiektów opisowych.
+		ListaSurowcowInfoTyp listaSurowcowInfo_; /// Lista obiektów opisowych surowców.
+		ListaStatkowInfoTyp listaStatkowInfo_; /// Lista obiektów opisowych statku.
+		ListaObronyInfoTyp listaObronaInfo_; /// Lista obiektów opisowych obrony.
+		ListaTechnologiInfoTyp listaTechnologiInfo_; /// Lista obiektów opisowych  technologii.
+		ListaBudynkowInfoTyp listaBudynkowInfo_; /// Lista obiektów opisowych budynku.
+		ListaObiektowInfoTyp listaObiektowInfo_; /// Lista obiektów opisowych.
 		
 	};
 }
