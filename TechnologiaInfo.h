@@ -16,7 +16,9 @@ namespace SpEx{
 		virtual public SLog::LoggerInterface
 	{
 	public:
+		typedef std::shared_ptr<TechnologiaInfo> SharedPtr;
 		typedef std::shared_ptr<const TechnologiaInfo> ConstSharedPtr;
+		static const PodstawoweParametry::TypAtrybutu typAtrybutu = PodstawoweParametry::POZIOM;
 
 		/**
 		* \brief Konstruktor.

@@ -22,6 +22,9 @@ namespace SpEx{
 	{
 		friend class ObronaInfo;
 	public:
+		typedef ObronaInfo Info;
+		typedef std::shared_ptr<Obrona> SharedPtr;
+		typedef std::shared_ptr<const Obrona> ConstSharedPtr;
 
 		/**
 		* \brief Konstruktor.

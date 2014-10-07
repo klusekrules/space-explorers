@@ -13,7 +13,7 @@ void NiepoprawneParametryFunkcjiTest::startTestow(){
 void NiepoprawneParametryFunkcjiTest::tworzenieWyjatku(){
 	try{
 		STyp::Ilosc temp(5);
-		const SpEx::Statek& tmp = planeta->pobierzStatek(STyp::Identyfikator(5));
+		const SpEx::Statek& tmp = planeta->pobierzObiekt<SpEx::Statek>(STyp::Identyfikator(5));
 		throw SpEx::NiepoprawneParametryFunkcji(EXCEPTION_PLACE, STyp::Tekst() , tmp, temp);
 	}
 	catch (const SpEx::NiepoprawneParametryFunkcji& e){

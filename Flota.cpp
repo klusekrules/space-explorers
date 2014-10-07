@@ -189,7 +189,7 @@ namespace SpEx{
 		for (auto statek : lista_)
 			if (statek.second){
 				planeta->rozladujStatek(statek.second);
-				planeta->dodajObiekt(statek.second);
+				planeta->dodajObiekt<Statek>(statek.second);
 			}
 		lista_.clear();
 		return true;

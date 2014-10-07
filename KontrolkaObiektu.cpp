@@ -570,7 +570,7 @@ namespace tgui{
 			SpEx::UtilsGui::bindCallbackEvent(obraz_, idZdarzeniaKlikniecia_, idObiektu_(), Button::LeftMouseClicked);
 		}
 
-		auto wsk = planeta.pobierzObiektJesliIstnieje(idObiektu_);
+		auto wsk = planeta.pobierzObiektJesliIstnieje<SpEx::Obiekt>(idObiektu_);
 		if (wsk){
 			auto &gra = SpEx::Aplikacja::pobierzInstancje().pobierzGre();
 			auto warunki = wsk->pobierzKryteriaRozbudowy();

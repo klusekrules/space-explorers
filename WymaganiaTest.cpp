@@ -6,7 +6,7 @@ void WymaganiaTest::startTestow(){
 	planeta->odepnijPlanete();
 	UNIT_TEST_ASSERT_TRUE( SpEx::Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(5), STyp::Ilosc(8)));
-	a = &(planeta->pobierzStatek(STyp::Identyfikator(5)));
+	a = &(planeta->pobierzObiekt<SpEx::Statek>(STyp::Identyfikator(5)));
 }
 
 void WymaganiaTest::sprawdzenieKosztow(){
@@ -22,33 +22,33 @@ void WymaganiaTest::sprawdzenieKosztow(){
 
 void WymaganiaTest::czyMoznaWybudowacTest(){
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(6), STyp::Ilosc(1)));
-	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt(STyp::Identyfikator(6)).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(6)).czyMoznaRozbudowac());
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(1), STyp::Ilosc(6000)));
-	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt(STyp::Identyfikator(6)).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(6)).czyMoznaRozbudowac());
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(2), STyp::Ilosc(6000)));
-	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt(STyp::Identyfikator(6)).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(6)).czyMoznaRozbudowac());
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(9), STyp::Poziom(1)));
-	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt(STyp::Identyfikator(6)).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(6)).czyMoznaRozbudowac());
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(9), STyp::Poziom(1)));
-	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt(STyp::Identyfikator(6)).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(6)).czyMoznaRozbudowac());
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(9), STyp::Poziom(1)));
-	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt(STyp::Identyfikator(6)).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(6)).czyMoznaRozbudowac());
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(10), STyp::Poziom(1)));
-	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt(STyp::Identyfikator(6)).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(6)).czyMoznaRozbudowac());
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(10), STyp::Poziom(1)));
-	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt(STyp::Identyfikator(6)).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(6)).czyMoznaRozbudowac());
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(10), STyp::Poziom(1)));
-	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt(STyp::Identyfikator(6)).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(6)).czyMoznaRozbudowac());
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(10), STyp::Poziom(1)));
-	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt(STyp::Identyfikator(6)).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(6)).czyMoznaRozbudowac());
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(10), STyp::Poziom(1)));
-	UNIT_TEST_ASSERT_TRUE(planeta->pobierzObiekt(STyp::Identyfikator(6)).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_TRUE(planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(6)).czyMoznaRozbudowac());
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(10), STyp::Poziom(1)));
-	UNIT_TEST_ASSERT_TRUE(planeta->pobierzObiekt(STyp::Identyfikator(6)).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_TRUE(planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(6)).czyMoznaRozbudowac());
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(9), STyp::Poziom(1)));
-	UNIT_TEST_ASSERT_TRUE(planeta->pobierzObiekt(STyp::Identyfikator(6)).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_TRUE(planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(6)).czyMoznaRozbudowac());
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(1), STyp::Ilosc(6000)));
-	UNIT_TEST_ASSERT_TRUE(planeta->pobierzObiekt(STyp::Identyfikator(6)).czyMoznaRozbudowac());
+	UNIT_TEST_ASSERT_TRUE(planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(6)).czyMoznaRozbudowac());
 }
 
 void WymaganiaTest::czasBudowy(){
@@ -56,7 +56,7 @@ void WymaganiaTest::czasBudowy(){
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(2), STyp::Ilosc(600)));
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(3), STyp::Ilosc(70)));
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(12), STyp::Poziom(1)));
-	UNIT_TEST_ASSERT_EQUAL(STyp::Czas(132), planeta->pobierzObiekt(STyp::Identyfikator(12)).pobierzCzasRozbudowy());
+	UNIT_TEST_ASSERT_EQUAL(STyp::Czas(132), planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(12)).pobierzCzasRozbudowy());
 }
 
 REJESTRUJ_PACZKE_TESTOW(WymaganiaTest);

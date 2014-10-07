@@ -17,7 +17,9 @@ namespace SpEx{
 		virtual public SLog::LoggerInterface
 	{
 	public:
+		typedef std::shared_ptr<BudynekInfo> SharedPtr;
 		typedef std::shared_ptr<const BudynekInfo> ConstSharedPtr;
+		static const PodstawoweParametry::TypAtrybutu typAtrybutu = PodstawoweParametry::POZIOM;
 
 		/**
 		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.

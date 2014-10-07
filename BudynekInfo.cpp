@@ -5,7 +5,7 @@
 namespace SpEx{
 
 	BudynekInfo::BudynekInfo(XmlBO::ElementWezla wezel)
-		: ObiektInfo(BUDYNEK, PodstawoweParametry::POZIOM, wezel)
+		: ObiektInfo(BUDYNEK, typAtrybutu, wezel)
 	{
 		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA, powierzchnia_);
 		zmianaPowierzchni_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_POWIERZCHNIA));
@@ -36,15 +36,15 @@ namespace SpEx{
 	}
 
 	bool BudynekInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy& atrybut) const{
-		return planeta.dodajObiekt(std::shared_ptr<Budynek>(tworzEgzemplarz(PodstawoweParametry(atrybut, typAtrybutu_))));
+		return planeta.dodajObiekt<Budynek>(Budynek::SharedPtr(tworzEgzemplarz(PodstawoweParametry(atrybut, typAtrybutu_))));
 	}
 
 	bool BudynekInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla& element) const{
-		auto budynek = std::shared_ptr<Budynek>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), typAtrybutu_)));
+		auto budynek = Budynek::SharedPtr(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), typAtrybutu_)));
 		if (budynek && element){
 			if (!budynek->odczytaj(element))
 				return false;
-			return planeta.dodajObiekt(budynek);
+			return planeta.dodajObiekt<Budynek>(budynek);
 		}
 		return false;
 	}

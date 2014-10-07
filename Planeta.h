@@ -28,13 +28,13 @@ namespace SpEx{
 		friend class Uzytkownik;
 	public:
 		typedef STyp::Identyfikator Indeks;
-		typedef std::map< Indeks, std::shared_ptr< Obiekt > > ListaObiektow;
-		typedef std::map< Indeks, std::shared_ptr< Budynek > > ListaBudynkow;
-		typedef std::map< Indeks, std::shared_ptr< Technologia > > ListaTechnologii;
-		typedef std::map< Indeks, std::shared_ptr< Statek > > ListaStatkow;
-		typedef std::map< Indeks, std::shared_ptr< Obrona > > ListaObrona;
-		typedef std::map< Indeks, std::shared_ptr< Surowce > > ListaSurowcow;
-		typedef std::map< Indeks, std::shared_ptr< Flota > > ListaFlot;
+		typedef std::map< Indeks, Obiekt::SharedPtr > ListaObiektow;
+		typedef std::map< Indeks, Budynek::SharedPtr > ListaBudynkow;
+		typedef std::map< Indeks, Technologia::SharedPtr > ListaTechnologii;
+		typedef std::map< Indeks, Statek::SharedPtr > ListaStatkow;
+		typedef std::map< Indeks, Obrona::SharedPtr > ListaObrona;
+		typedef std::map< Indeks, Surowce::SharedPtr > ListaSurowcow;
+		typedef std::map< Indeks, Flota::SharedPtr > ListaFlot;
 		
 		/**
 		* \brief Konstruktor.
@@ -81,73 +81,35 @@ namespace SpEx{
 		*
 		* Metoda pobiera z planety obiekt o podanym identyfikatorze.
 		* \param[in] identyfikator - Identyfikator obiektu.
-		* \return Referencja do obiektu. Je¿eli obiekt nie zostanie znaleziony jest wyrzucany wyj¹tek.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 14-07-2014
-		*/
-		const Obiekt& pobierzObiekt(const Indeks& identyfikator) const;
-
-		/**
-		* \brief Metoda pobiera obiekt o podanym identyfikatorze.
-		*
-		* Metoda pobiera z planety obiekt o podanym identyfikatorze.
-		* \param[in] identyfikator - Identyfikator obiektu.
 		* \return WskaŸnik obiektu lub nullptr.
 		* \author Daniel Wojdak
 		* \version 1
 		* \date 14-07-2014
 		*/
-		std::shared_ptr< Obiekt > pobierzObiektJesliIstnieje(const Indeks& identyfikator) const;
+		template <class T>
+		typename T::ConstSharedPtr pobierzObiektJesliIstnieje(const Indeks& identyfikator) const{
+			return znajdzObiekt<T,NOTHROW>(identyfikator);
+		}
 		
+		template <class T>
+		typename T::SharedPtr pobierzObiektJesliIstnieje(const Indeks& identyfikator){
+			return znajdzObiekt<T, NOTHROW>(identyfikator);
+		}
 		/**
-		* \brief Metoda pobiera statek o podanym identyfikatorze.
+		* \brief Metoda pobiera obiekt o podanym identyfikatorze.
 		*
-		* Metoda pobiera z planety statek o podanym identyfikatorze.
+		* Metoda pobiera z planety obiekt o podanym identyfikatorze.
 		* \param[in] identyfikator - Identyfikator obiektu.
 		* \return Referencja do obiektu. Je¿eli obiekt nie zostanie znaleziony jest wyrzucany wyj¹tek.
 		* \author Daniel Wojdak
 		* \version 2
 		* \date 14-07-2014
 		*/
-		const Statek& pobierzStatek(const Indeks& identyfikator) const;
-
-		/**
-		* \brief Metoda pobiera obronê o podanym identyfikatorze.
-		*
-		* Metoda pobiera z planety obronê o podanym identyfikatorze.
-		* \param[in] identyfikator - Identyfikator obiektu.
-		* \return Referencja do obiektu. Je¿eli obiekt nie zostanie znaleziony jest wyrzucany wyj¹tek.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 14-07-2014
-		*/
-		const Obrona& pobierzObrone(const Indeks& identyfikator) const;
-
-		/**
-		* \brief Metoda pobiera tehcnologie o podanym identyfikatorze.
-		*
-		* Metoda pobiera z planety tehcnologie o podanym identyfikatorze.
-		* \param[in] identyfikator - Identyfikator obiektu.
-		* \return Referencja do obiektu. Je¿eli obiekt nie zostanie znaleziony jest wyrzucany wyj¹tek.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 14-07-2014
-		*/
-		const Technologia& pobierzTechnologie(const Indeks& identyfikator) const;
-
-		/**
-		* \brief Metoda pobiera budynek o podanym identyfikatorze.
-		*
-		* Metoda pobiera z planety budynek o podanym identyfikatorze.
-		* \param[in] identyfikator - Identyfikator obiektu.
-		* \return Referencja do obiektu. Je¿eli obiekt nie zostanie znaleziony jest wyrzucany wyj¹tek.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 14-07-2014
-		*/
-		const Budynek& pobierzBudynek(const Indeks& identyfikator) const;
-
+		template <class T>
+		const T& pobierzObiekt(const Indeks& identyfikator) const{
+			return *(znajdzObiekt<T, THROW>(identyfikator));
+		}
+		
 		/**
 		* \brief Metoda pobiera listê surowców.
 		*
@@ -195,18 +157,6 @@ namespace SpEx{
 		* \date 14-07-2014
 		*/
 		Indeks dodajFlote();
-
-		/**
-		* \brief Metoda pobiera flotê.
-		*
-		* Metoda pobiera sprytny wskaŸnik do floty o podanym identyfikatorze.
-		* \param[in] identyfikator - Identyfikator floty.
-		* \return Sprytny wskaŸnik do floty lub nullptr jezeli flota o podanym identyfikatorze nie istnieje.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 14-07-2014
-		*/
-		std::shared_ptr< Flota > pobierzFlote(const Indeks& identyfikator) const;
 
 		/**
 		* \brief Metoda usuwaj¹ca flotê z planety.
@@ -272,7 +222,7 @@ namespace SpEx{
 		* \date 14-07-2014
 		* \todo Metoda oznaczona do przeniesienia do klasy Statek.
 		*/
-		void rozladujStatek(std::shared_ptr< Statek > statek);
+		void rozladujStatek(Statek::SharedPtr statek);
 
 		/**
 		* \brief Metoda sprawdzaj¹ca czy planeta ma w³asciciela.
@@ -442,66 +392,257 @@ namespace SpEx{
 		std::string napis() const override;
 
 		/**
-		* \brief Metoda dodaj¹ca Budynek do planety.
+		* \brief Metoda dodaj¹ca obiekt gry do planety.
 		*
-		* Metoda dodaje Budynek do planety. Nie tworzy kopii. Sprawdza czy istnieje budynek o takim samym identyfikatorze.
+		* Metoda dodaje obiekt gry do planety. Nie tworzy kopii. Sprawdza czy istnieje obiekt o takim samym identyfikatorze.
 		* \param[in] obiekt - Sprytny wskaŸnik na dodawany obiekt.
 		* \return true je¿eli uda siê dodaæ obiekt, fasle w przeciwnym wypadku.
 		* \author Daniel Wojdak
-		* \version 2
-		* \date 14-07-2014
-		*/
-		bool dodajObiekt(std::shared_ptr< Budynek > obiekt);
+		* \version 3
+		* \date 07-10-2014
+		*/	
+		template < class T>
+		bool dodajObiekt(typename T::SharedPtr obiekt){
+			return false;
+		}
+		
+		template < >
+		bool dodajObiekt<Surowce>(Surowce::SharedPtr obiekt){
+			return dodajObiekt<Surowce>(listaSurowcow_, obiekt);
+		}
 
-		/**
-		* \brief Metoda dodaj¹ca Obronê do planety.
-		*
-		* Metoda dodaje Obronê do planety. Nie tworzy kopii. Sprawdza czy istnieje obrona o takim samym identyfikatorze.
-		* \param[in] obiekt - Sprytny wskaŸnik na dodawany obiekt.
-		* \return true je¿eli uda siê dodaæ obiekt, fasle w przeciwnym wypadku.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 14-07-2014
-		*/
-		bool dodajObiekt(std::shared_ptr< Obrona > obiekt);
+		template < >
+		bool dodajObiekt<Technologia>(Technologia::SharedPtr obiekt){
+			return dodajObiekt<Technologia>(listaTechnologii_, obiekt);
+		}
 
-		/**
-		* \brief Metoda dodaj¹ca Statek do planety.
-		*
-		* Metoda dodaje Statek do planety. Nie tworzy kopii. Sprawdza czy istnieje budynek o takim samym identyfikatorze.
-		* \param[in] obiekt - Sprytny wskaŸnik na dodawany obiekt.
-		* \return true je¿eli uda siê dodaæ obiekt, fasle w przeciwnym wypadku.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 14-07-2014
-		*/
-		bool dodajObiekt(std::shared_ptr< Statek > obiekt);
+		template < >
+		bool dodajObiekt<Obrona>(Obrona::SharedPtr obiekt){
+			return dodajObiekt<Obrona>(listaObrona_, obiekt);
+		}
 
-		/**
-		* \brief Metoda dodaj¹ca Technologie do planety.
-		*
-		* Metoda dodaje Technologie do planety. Nie tworzy kopii. Sprawdza czy istnieje budynek o takim samym identyfikatorze.
-		* \param[in] obiekt - Sprytny wskaŸnik na dodawany obiekt.
-		* \return true je¿eli uda siê dodaæ obiekt, fasle w przeciwnym wypadku.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 14-07-2014
-		*/
-		bool dodajObiekt(std::shared_ptr< Technologia > obiekt);
+		template < >
+		bool dodajObiekt<Statek>(Statek::SharedPtr obiekt){
+			return dodajObiekt<Statek>(listaStatkow_, obiekt);
+		}
 
-		/**
-		* \brief Metoda dodaj¹ca Surowce do planety.
-		*
-		* Metoda dodaje Surowce do planety. Nie tworzy kopii. Sprawdza czy istnieje budynek o takim samym identyfikatorze.
-		* \param[in] obiekt - Sprytny wskaŸnik na dodawany obiekt.
-		* \return true je¿eli uda siê dodaæ obiekt, fasle w przeciwnym wypadku.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 14-07-2014
-		*/
-		bool dodajObiekt(std::shared_ptr< Surowce > obiekt);
-	
+		template < >
+		bool dodajObiekt<Budynek>(Budynek::SharedPtr obiekt){
+			return dodajObiekt<Budynek>(listaBudynkow_, obiekt);
+		}
+
 	private:
+
+		/**
+		* \brief Metoda obs³uguj¹ca b³¹d wyszukiwania.
+		*
+		* Metoda w zdefiniowany sposób reaguje na b³¹d wyszukiwania.
+		* \param[in] identyfikator - Identyfikator wyszukiwanego obiektu.
+		* \return Zwracany jest nullptr.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 07-10-2014
+		*/
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<TRAIT, NOTHROW>::value, typename T::ConstSharedPtr>::type obsluzBladWyszukiwania(const STyp::Identyfikator& identyfikator) const{
+			return nullptr;
+		}
+
+		/**
+		* \brief Metoda obs³uguj¹ca b³¹d wyszukiwania.
+		*
+		* Metoda w zdefiniowany sposób reaguje na b³¹d wyszukiwania.
+		* \param[in] identyfikator - Identyfikator wyszukiwanego obiektu.
+		* \return Generowany jest wyj¹tek, metoda nie zwraca wartoœci.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 07-10-2014
+		*/
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<TRAIT, THROW>::value, typename T::ConstSharedPtr>::type obsluzBladWyszukiwania(const STyp::Identyfikator& identyfikator) const{
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+		}
+
+		/**
+		* \brief Metoda obs³uguj¹ca b³¹d wyszukiwania.
+		*
+		* Metoda w zdefiniowany sposób reaguje na b³¹d wyszukiwania.
+		* \param[in] identyfikator - Identyfikator wyszukiwanego obiektu.
+		* \return Zwracany jest nullptr.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 07-10-2014
+		*/
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<TRAIT, NOTHROW>::value, typename T::SharedPtr>::type obsluzBladWyszukiwania(const STyp::Identyfikator& identyfikator){
+			return nullptr;
+		}
+
+		/**
+		* \brief Metoda obs³uguj¹ca b³¹d wyszukiwania.
+		*
+		* Metoda w zdefiniowany sposób reaguje na b³¹d wyszukiwania.
+		* \param[in] identyfikator - Identyfikator wyszukiwanego obiektu.
+		* \return Generowany jest wyj¹tek, metoda nie zwraca wartoœci.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 07-10-2014
+		*/
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<TRAIT, THROW>::value, typename T::SharedPtr>::type obsluzBladWyszukiwania(const STyp::Identyfikator& identyfikator){
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+		}
+
+		/**
+		* \brief Metoda dodaj¹ca obiekt gry do planety.
+		*
+		* Metoda dodaje obiekt gry do planety. Nie tworzy kopii. Sprawdza czy istnieje obiekt o takim samym identyfikatorze.
+		* \param[in] obiekt - Sprytny wskaŸnik na dodawany obiekt.
+		* \param[in] lista - Specjalizowana lista, do której ma zostaæ dodany obiekt.
+		* \return true je¿eli uda siê dodaæ obiekt, fasle w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 3
+		* \date 07-10-2014
+		*/
+		template < class T , class K >
+		bool dodajObiekt(K& lista, typename T::SharedPtr obiekt){
+			auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
+			if (iterator != listaObiektow_.end()){
+				return iterator->second->polacz(*obiekt);
+			}
+			obiekt->ustawIdentyfikatorPlanety(identyfikator_);
+			lista.insert(std::make_pair(obiekt->pobierzIdentyfikator(), obiekt));
+			listaObiektow_.insert(std::make_pair(obiekt->pobierzIdentyfikator(), obiekt));
+			return true;
+		}
+
+		/**
+		* \brief Metoda wyszukuje obiekt o podanym identyfikatorze.
+		*
+		* Metoda wyszukuje z planety obiekt o podanym identyfikatorze.
+		* \param[in] identyfikator - Identyfikator obiektu.
+		* \param[in] lista - lista obiektów, w której jest wyszukiwany obiekt.
+		* \return Referencja do obiektu. Je¿eli obiekt nie zostanie znaleziony podejmowane dzia³anie zale¿y od typu TRAIT.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 07-10-2014
+		*/
+		template < class T, class TRAIT, class K >
+		typename T::ConstSharedPtr znajdzObiekt(const K& lista, const STyp::Identyfikator& identyfikator)const{
+			auto iterator = lista.find(identyfikator);
+			if (iterator == lista.end())
+				return obsluzBladWyszukiwania<T, TRAIT>(identyfikator);
+			return iterator->second;
+		}
+
+		/**
+		* \brief Metoda wyszukuje obiekt o podanym identyfikatorze.
+		*
+		* Metoda wyszukuje z planety obiekt o podanym identyfikatorze.
+		* \param[in] identyfikator - Identyfikator obiektu.
+		* \param[in] lista - lista obiektów, w której jest wyszukiwany obiekt.
+		* \return Referencja do obiektu. Je¿eli obiekt nie zostanie znaleziony podejmowane dzia³anie zale¿y od typu TRAIT.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 07-10-2014
+		*/
+		template < class T, class TRAIT, class K >
+		typename T::SharedPtr znajdzObiekt(const K& lista, const STyp::Identyfikator& identyfikator){
+			auto iterator = lista.find(identyfikator);
+			if (iterator == lista.end())
+				return obsluzBladWyszukiwania<T, TRAIT>(identyfikator);
+			return iterator->second;
+		}
+
+		/**
+		* \brief Metoda wyszukuje obiekt o podanym identyfikatorze.
+		*
+		* Metoda wyszukuje z planety obiekt o podanym identyfikatorze.
+		* \param[in] identyfikator - Identyfikator obiektu.
+		* \return Referencja do obiektu. Je¿eli obiekt nie zostanie znaleziony podejmowane dzia³anie zale¿y od typu TRAIT.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 07-10-2014
+		*/
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, Obiekt>::value, typename T::ConstSharedPtr>::type znajdzObiekt(const STyp::Identyfikator& identyfikator)const{
+			return znajdzObiekt<T, TRAIT>(listaObiektow_, identyfikator);
+		}
+
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, Statek>::value, typename T::ConstSharedPtr>::type znajdzObiekt(const STyp::Identyfikator& identyfikator)const{
+			return znajdzObiekt<T, TRAIT>(listaStatkow_, identyfikator);
+		}
+
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, Obrona>::value, typename T::ConstSharedPtr>::type znajdzObiekt(const STyp::Identyfikator& identyfikator)const{
+			return znajdzObiekt<T, TRAIT>(listaObrona_, identyfikator);
+		}
+
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, Surowce>::value, typename T::ConstSharedPtr>::type znajdzObiekt(const STyp::Identyfikator& identyfikator)const{
+			return znajdzObiekt<T, TRAIT>(listaSurowcow_, identyfikator);
+		}
+
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, Budynek>::value, typename T::ConstSharedPtr>::type znajdzObiekt(const STyp::Identyfikator& identyfikator)const{
+			return znajdzObiekt<T, TRAIT>(listaBudynkow_, identyfikator);
+		}
+
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, Technologia>::value, typename T::ConstSharedPtr>::type znajdzObiekt(const STyp::Identyfikator& identyfikator)const{
+			return znajdzObiekt<T, TRAIT>(listaTechnologii_, identyfikator);
+		}
+
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, Flota>::value, typename T::ConstSharedPtr>::type znajdzObiekt(const STyp::Identyfikator& identyfikator)const{
+			return znajdzObiekt<T, TRAIT>(listaFlot_, identyfikator);
+		}
+
+		/**
+		* \brief Metoda wyszukuje obiekt o podanym identyfikatorze.
+		*
+		* Metoda wyszukuje z planety obiekt o podanym identyfikatorze.
+		* \param[in] identyfikator - Identyfikator obiektu.
+		* \return Referencja do obiektu. Je¿eli obiekt nie zostanie znaleziony podejmowane dzia³anie zale¿y od typu TRAIT.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 07-10-2014
+		*/
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, Obiekt>::value, typename T::SharedPtr>::type znajdzObiekt(const STyp::Identyfikator& identyfikator){
+			return znajdzObiekt<T, TRAIT>(listaObiektow_, identyfikator);
+		}
+
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, Statek>::value, typename T::SharedPtr>::type znajdzObiekt(const STyp::Identyfikator& identyfikator){
+			return znajdzObiekt<T, TRAIT>(listaStatkow_, identyfikator);
+		}
+
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, Obrona>::value, typename T::SharedPtr>::type znajdzObiekt(const STyp::Identyfikator& identyfikator){
+			return znajdzObiekt<T, TRAIT>(listaObrona_, identyfikator);
+		}
+
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, Surowce>::value, typename T::SharedPtr>::type znajdzObiekt(const STyp::Identyfikator& identyfikator){
+			return znajdzObiekt<T, TRAIT>(listaSurowcow_, identyfikator);
+		}
+
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, Budynek>::value, typename T::SharedPtr>::type znajdzObiekt(const STyp::Identyfikator& identyfikator){
+			return znajdzObiekt<T, TRAIT>(listaBudynkow_, identyfikator);
+		}
+
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, Technologia>::value, typename T::SharedPtr>::type znajdzObiekt(const STyp::Identyfikator& identyfikator){
+			return znajdzObiekt<T, TRAIT>(listaTechnologii_, identyfikator);
+		}
+
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, Flota>::value, typename T::SharedPtr>::type znajdzObiekt(const STyp::Identyfikator& identyfikator){
+			return znajdzObiekt<T, TRAIT>(listaFlot_, identyfikator);
+		}
 
 		/**
 		* \brief Metoda ustawia w³aœciciela planety.
