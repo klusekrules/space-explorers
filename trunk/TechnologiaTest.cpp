@@ -7,8 +7,8 @@ void TechnologiaTest::startTestow(){
 	UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().pobierzGre().przeniesPlaneteDoUzytkownika(planeta->pobierzIdentyfikator()));
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(9), STyp::Poziom(1)));
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(STyp::Identyfikator(10), STyp::Poziom(2)));
-	a = &(planeta->pobierzTechnologie(STyp::Identyfikator(9)));
-	b = &(planeta->pobierzTechnologie(STyp::Identyfikator(10)));
+	a = &(planeta->pobierzObiekt<SpEx::Technologia>(STyp::Identyfikator(9)));
+	b = &(planeta->pobierzObiekt<SpEx::Technologia>(STyp::Identyfikator(10)));
 }
 
 void TechnologiaTest::podstawowyTest(){

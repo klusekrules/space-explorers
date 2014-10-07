@@ -5,7 +5,7 @@
 namespace SpEx{
 	
 	ObronaInfo::ObronaInfo(XmlBO::ElementWezla wezel)
-		: ObiektInfo(OBRONA, PodstawoweParametry::ILOSC, wezel),
+		: ObiektInfo(OBRONA, typAtrybutu, wezel),
 		JednostkaAtakujacaInfo(XmlBO::ZnajdzWezel<STACKTHROW>(wezel, WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO))
 	{
 		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA, powierzchnia_);
@@ -17,17 +17,17 @@ namespace SpEx{
 	}
 
 	bool ObronaInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla& element) const{
-		auto obrona = std::shared_ptr<Obrona>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), typAtrybutu_)));
+		auto obrona = Obrona::SharedPtr(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), typAtrybutu_)));
 		if (obrona && element){
 			if (!obrona->odczytaj(element))
 				return false;
-			return planeta.dodajObiekt(obrona);
+			return planeta.dodajObiekt<Obrona>(obrona);
 		}
 		return false;
 	}
 
 	bool ObronaInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy& atrybut) const{
-		return planeta.dodajObiekt(std::shared_ptr<Obrona>(tworzEgzemplarz(PodstawoweParametry(atrybut, typAtrybutu_))));
+		return planeta.dodajObiekt<Obrona>(Obrona::SharedPtr(tworzEgzemplarz(PodstawoweParametry(atrybut, typAtrybutu_))));
 	}
 
 	STyp::Powierzchnia ObronaInfo::pobierzPowierzchnie(const PodstawoweParametry& parametry)const{

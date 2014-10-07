@@ -23,6 +23,9 @@ namespace SpEx{
 	{
 		friend class SurowceInfo;
 	public:
+		typedef SurowceInfo Info;
+		typedef std::shared_ptr<Surowce> SharedPtr;
+		typedef std::shared_ptr<const Surowce> ConstSharedPtr;
 
 		/**
 		* \brief Konstruktor.

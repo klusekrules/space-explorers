@@ -27,6 +27,9 @@ namespace SpEx{
 	{
 		friend class StatekInfo;
 	public:
+		typedef StatekInfo Info;
+		typedef std::shared_ptr<Statek> SharedPtr;
+		typedef std::shared_ptr<const Statek> ConstSharedPtr;
 
 		/**
 		* \brief Konstruktor.

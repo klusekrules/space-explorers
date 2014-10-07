@@ -17,8 +17,10 @@ namespace SpEx{
 		virtual public SLog::LoggerInterface
 	{
 	public:
+		typedef std::shared_ptr<SurowceInfo> SharedPtr;
 		typedef std::shared_ptr<const SurowceInfo> ConstSharedPtr;
-
+		static const PodstawoweParametry::TypAtrybutu typAtrybutu = PodstawoweParametry::ILOSC;
+		
 		/**
 		* \brief Konstruktor.
 		*

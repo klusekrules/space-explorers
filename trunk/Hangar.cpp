@@ -223,11 +223,11 @@ namespace SpEx{
 		if (zajete_ < STyp::Powierzchnia(0))
 			Utils::generujWyjatekBleduStruktury(wezel);
 
-		Gra& gra = Aplikacja::pobierzInstancje().pobierzGre();
+		auto& gra = Aplikacja::pobierzInstancje().pobierzGre();
 
 		XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_STATEK, XmlBO::OperacjaWezla(
 			[&](XmlBO::ElementWezla element)->bool{
-			std::shared_ptr<Statek> obiekt = gra.tworzObiekt<Statek,StatekInfo>(element);
+			auto obiekt = gra.tworzObiekt<Statek>(element);
 			if (!obiekt || !obiekt->odczytaj(element)){
 				Utils::generujWyjatekBleduStruktury(element);
 			}

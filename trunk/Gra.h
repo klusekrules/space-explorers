@@ -22,8 +22,8 @@ namespace SpEx {
 	*
 	* Klasa przechowuje wszystkie informacje i obiekty do poprawnego dzia³ania gry.
 	* \author Daniel Wojdak
-	* \version 4
-	* \date 03-10-2014
+	* \version 5
+	* \date 06-10-2014
 	*/
 	class Gra :
 		public se::NonCopyable,
@@ -126,6 +126,9 @@ namespace SpEx {
 		* \param[in] identyfikator - identyfikator obiektu.
 		* \return Referencja do obiektu opisowego. Je¿eli nie znaleziono obiektu zostaje wyrzucony wyj¹tek.
 		* \throw NieznalezionoObiektu
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 03-10-2014
 		*/
 		template <class T> 
 		const T& pobierzObiekt(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu){
@@ -156,32 +159,28 @@ namespace SpEx {
 		const BudynekInfo& pobierzObiekt<BudynekInfo>(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu){
 			return znajdzObiektInfo<BudynekInfo>(listaBudynkowInfo_, identyfikator);
 		}
+
 		/**
-		* \brief Metoda tworz¹ca instancje surowców nie przypisan¹ do planety.
+		* \brief Metoda tworz¹ca instancje obiektu nie przypisan¹ do planety.
 		*
-		* Metoda tworzy obiekt surowców na podstawie wêz³a xml, nie przypisuje go do ¿adnej planety.
+		* Metoda tworzy obiekt na podstawie wêz³a xml, nie przypisuje go do ¿adnej planety.
 		* \param[in] wezel - Wêze³ z którego s¹ odczytywane dane.
-		* \return Sprytny wskaŸnik do obiektu surowców. WskaŸnik na nullptr, je¿eli wyst¹pi³ b³¹d.
+		* \return Sprytny wskaŸnik do obiektu. WskaŸnik na nullptr, je¿eli wyst¹pi³ b³¹d.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 06-10-2014
 		*/
-		template <class T, class K>
-		std::shared_ptr<T> tworzObiekt(XmlBO::ElementWezla wezel)const{
+		template <class T>
+		typename T::SharedPtr tworzObiekt(XmlBO::ElementWezla wezel)const throw (NieznalezionoObiektu){
 			STyp::Identyfikator identyfikator;
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator);
-			auto& obiektOpisowy = pobierzObiekt<K>(identyfikator);
-			std::shared_ptr<T> obiekt = std::shared_ptr<T>(obiektOpisowy.tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), PodstawoweParametry::ILOSC, STyp::Identyfikator())));
+			auto& obiektOpisowy = pobierzObiekt<typename T::Info>(identyfikator);
+			typename T::SharedPtr obiekt = typename T::SharedPtr(obiektOpisowy.tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), T::Info::typAtrybutu, STyp::Identyfikator())));
+			//TODO: Zamiast zwracania nullptr, generowanie wyj¹tku.
 			if (!obiekt || !obiekt->odczytaj(wezel))
 				return nullptr;
 			return obiekt;
 		}
-
-		/**
-		* \brief Metoda tworz¹ca instancje statków nie przypisan¹ do planety.
-		*
-		* Metoda tworzy obiekt statku na podstawie wêz³a xml, nie przypisuje go do ¿adnej planety.
-		* \param[in] wezel - Wêze³ z którego s¹ odczytywane dane.
-		* \return Sprytny wskaŸnik do obiektu statku. WskaŸnik na nullptr, je¿eli wyst¹pi³ b³¹d.
-		*/
-		//std::shared_ptr<Statek> tworzStatek(XmlBO::ElementWezla wezel)const;
 
 		/**
 		* \brief Metoda zapisuj¹ca.
@@ -269,7 +268,7 @@ namespace SpEx {
 		*
 		* Metoda wczytuje z wêz³a xml dane opisowe obiektów gry. Tworzy obiekty typu T oraz dodaje je do listy wszystkich obiektów i listy przekazanej jako listaInfo.
 		* \param[in] wezel - Wêze³ xml zawieraj¹cy dane.
-		* \param[in] listaInfo - Specjalizowana lista do której maj¹ zostaæ wczytane obiekty.
+		* \param[in] listaInfo - Specjalizowana lista, do której maj¹ zostaæ wczytane obiekty.
 		* \param[in] nazwaWezla - Nazwa wêz³a obiektu gry.
 		* \author Daniel Wojdak
 		* \version 1
@@ -279,7 +278,7 @@ namespace SpEx {
 		void wczytajObiekty(XmlBO::ElementWezla wezel, K& listaInfo, const char * nazwaWezla){
 			XmlBO::ElementWezla element = wezel->pobierzElement(nazwaWezla);
 			while (element){
-				std::shared_ptr<T> obiekt(new T(element));
+				typename T::SharedPtr obiekt = std::make_shared<T>(element);
 				logger_.loguj(SLog::Log::Debug, *obiekt);
 				if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
 					throw PowtorzenieIdObiektu(EXCEPTION_PLACE, obiekt->pobierzIdentyfikator(), KOMUNIKAT_POWTORZENIE_OBIEKTU(T));
@@ -289,6 +288,16 @@ namespace SpEx {
 			}
 		}
 
+		/**
+		* \brief Metoda wyszukuj¹ca obiekt opisowy.
+		*
+		* Metoda wyszukuje obiekt o podanym identyfikatorze w liœcie obiektów przezkazanej przez parametr.
+		* \param[in] listaInfo - Specjalizowana lista, w której wyszukiwany obiekt.
+		* \param[in] identyfikator - Identyfikator obiektu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 03-10-2014
+		*/
 		template < class T, class K > 
 		const T& znajdzObiektInfo(const K& listaInfo, const STyp::Identyfikator& identyfikator)const{
 			auto iterator = listaInfo.find(identyfikator);

@@ -22,6 +22,9 @@ namespace SpEx{
 		virtual public Serializacja
 	{
 	public:
+		typedef std::shared_ptr<Obiekt> SharedPtr;
+		typedef std::shared_ptr<const Obiekt> ConstSharedPtr;
+
 		/**
 		* \brief Konstruktor.
 		*

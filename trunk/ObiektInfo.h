@@ -19,6 +19,7 @@ namespace SpEx{
 	{
 		friend class Planeta;
 	public:
+		typedef std::shared_ptr<ObiektInfo> SharedPtr;
 		typedef std::shared_ptr<const ObiektInfo> ConstSharedPtr;
 
 		/**

@@ -145,7 +145,7 @@ namespace SpEx{
 		for (auto &element : listaObiektowInfo_){
 			if ((typObiektu == 0 || element.second->typ_ == typObiektu)){
 				PodstawoweParametry::AtrybutPodstawowy atrybut;
-				auto obiekt = planeta.pobierzObiektJesliIstnieje(element.first);
+				auto obiekt = planeta.pobierzObiektJesliIstnieje<Obiekt>(element.first);
 				if (obiekt != nullptr){
 					atrybut = obiekt->pobierzAtrybut();
 					if (obiekt->typAtrybutu() == PodstawoweParametry::POZIOM){

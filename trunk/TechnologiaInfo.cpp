@@ -4,7 +4,7 @@
 
 namespace SpEx{
 	TechnologiaInfo::TechnologiaInfo(XmlBO::ElementWezla wezel)
-		: ObiektInfo(TECHNOLOGIA, PodstawoweParametry::POZIOM, wezel)
+		: ObiektInfo(TECHNOLOGIA, typAtrybutu, wezel)
 	{
 	}
 	
@@ -13,15 +13,15 @@ namespace SpEx{
 	}
 	
 	bool TechnologiaInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy& atrybut) const{
-		return planeta.dodajObiekt(std::shared_ptr<Technologia>(tworzEgzemplarz(PodstawoweParametry(atrybut, typAtrybutu_))));
+		return planeta.dodajObiekt<Technologia>(Technologia::SharedPtr(tworzEgzemplarz(PodstawoweParametry(atrybut, typAtrybutu_))));
 	}
 
 	bool TechnologiaInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla& element) const{
-		auto technologia = std::shared_ptr<Technologia>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), typAtrybutu_)));
+		auto technologia = Technologia::SharedPtr(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), typAtrybutu_)));
 		if (technologia && element){
 			if (!technologia->odczytaj(element))
 				return false;
-			return planeta.dodajObiekt(technologia);
+			return planeta.dodajObiekt<Technologia>(technologia);
 		}
 		return false;
 	}

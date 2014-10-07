@@ -63,20 +63,6 @@ namespace SpEx{
 		return STyp::Ilosc(static_cast<long double>(listaObiektow_.size()));
 	}
 
-	const Obiekt& Planeta::pobierzObiekt(const Indeks& identyfikator) const{
-		auto iterator = listaObiektow_.find(identyfikator);
-		if (iterator != listaObiektow_.end())
-			return *(iterator->second);
-		throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
-	}
-
-	std::shared_ptr< Obiekt > Planeta::pobierzObiektJesliIstnieje(const Indeks& identyfikator) const{
-		auto iterator = listaObiektow_.find(identyfikator);
-		if (iterator != listaObiektow_.end())
-			return iterator->second;
-		return nullptr;
-	}
-	
 	STyp::Poziom Planeta::pobierzPoziomObiektu(const Indeks& identyfikator) const{
 		auto iterator = listaObiektow_.find(identyfikator);
 		if (iterator != listaObiektow_.end() && iterator->second->typAtrybutu() == PodstawoweParametry::POZIOM)
@@ -89,89 +75,6 @@ namespace SpEx{
 		if (iterator != listaObiektow_.end() && iterator->second->typAtrybutu() == PodstawoweParametry::ILOSC)
 			return iterator->second->pobierzIlosc();
 		return STyp::Ilosc(0.0);
-	}
-
-	const Statek& Planeta::pobierzStatek(const Indeks& identyfikator) const{
-		auto iterator = listaStatkow_.find(identyfikator);
-		if (iterator != listaStatkow_.end())
-			return *(iterator->second);
-		throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
-	}
-
-	const Obrona& Planeta::pobierzObrone(const Indeks& identyfikator) const{
-		auto iterator = listaObrona_.find(identyfikator);
-		if (iterator != listaObrona_.end())
-			return *(iterator->second);
-		throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
-	}
-
-	const Technologia& Planeta::pobierzTechnologie(const Indeks& identyfikator) const{
-		auto iterator = listaTechnologii_.find(identyfikator);
-		if (iterator != listaTechnologii_.end())
-			return *(iterator->second);
-		throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
-	}
-
-	const Budynek& Planeta::pobierzBudynek(const Indeks& identyfikator) const{
-		auto iterator = listaBudynkow_.find(identyfikator);
-		if (iterator != listaBudynkow_.end())
-			return *(iterator->second);
-		throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
-	}
-
-	bool Planeta::dodajObiekt(std::shared_ptr< Budynek > obiekt){
-		auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
-		if (iterator != listaObiektow_.end()){
-			return iterator->second->polacz(*obiekt);
-		}
-		obiekt->ustawIdentyfikatorPlanety(identyfikator_);
-		listaBudynkow_.insert(make_pair(obiekt->pobierzIdentyfikator(), obiekt));
-		listaObiektow_.insert(make_pair(obiekt->pobierzIdentyfikator(), obiekt));
-		return true;
-	}
-
-	bool Planeta::dodajObiekt(std::shared_ptr< Obrona > obiekt){
-		auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
-		if (iterator != listaObiektow_.end()){
-			return iterator->second->polacz(*obiekt);
-		}
-		obiekt->ustawIdentyfikatorPlanety(identyfikator_);
-		listaObrona_.insert(std::make_pair(obiekt->pobierzIdentyfikator(), obiekt));
-		listaObiektow_.insert(std::make_pair(obiekt->pobierzIdentyfikator(), obiekt));
-		return true;
-	}
-
-	bool Planeta::dodajObiekt(std::shared_ptr< Statek > obiekt){
-		auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
-		if (iterator != listaObiektow_.end()){
-			return iterator->second->polacz(*obiekt);
-		}
-		obiekt->ustawIdentyfikatorPlanety(identyfikator_);
-		listaStatkow_.insert(std::make_pair(obiekt->pobierzIdentyfikator(), obiekt));
-		listaObiektow_.insert(std::make_pair(obiekt->pobierzIdentyfikator(), obiekt));
-		return true;
-	}
-
-	bool Planeta::dodajObiekt(std::shared_ptr< Technologia > obiekt){
-		auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
-		if (iterator != listaObiektow_.end()){
-			return iterator->second->polacz(*obiekt);
-		}
-		obiekt->ustawIdentyfikatorPlanety(identyfikator_);
-		listaTechnologii_.insert(std::make_pair(obiekt->pobierzIdentyfikator(), obiekt));
-		listaObiektow_.insert(std::make_pair(obiekt->pobierzIdentyfikator(), obiekt));
-		return true;
-	}
-
-	bool Planeta::dodajObiekt(std::shared_ptr< Surowce > obiekt){
-		auto iterator = listaObiektow_.find(obiekt->pobierzIdentyfikator());
-		if (iterator != listaObiektow_.end()){
-			return iterator->second->polacz(*obiekt);
-		}
-		obiekt->ustawIdentyfikatorPlanety(identyfikator_);
-		listaSurowcow_.insert(std::make_pair(obiekt->pobierzIdentyfikator(), obiekt));
-		listaObiektow_.insert(std::make_pair(obiekt->pobierzIdentyfikator(), obiekt));
-		return true;
 	}
 
 	bool Planeta::wybuduj(const Indeks& identyfikator, const PodstawoweParametry& ilosc){
@@ -273,19 +176,12 @@ namespace SpEx{
 	void Planeta::rozladujStatek(std::shared_ptr< Statek > statek){
 		if (statek){
 			for (auto element : statek->oproznijLadownie()){
-				dodajObiekt(element.second);
+				dodajObiekt<Surowce>(element.second);
 			}
 			for (auto element : statek->oproznijHangar()){
-				dodajObiekt(element.second);
+				dodajObiekt<Statek>(element.second);
 			}
 		}
-	}
-
-	std::shared_ptr< Flota > Planeta::pobierzFlote(const Indeks& identyfikator) const{
-		auto iterator = listaFlot_.find(identyfikator);
-		if (iterator != listaFlot_.end())
-			return iterator->second;
-		return nullptr;
 	}
 
 	bool Planeta::usunFlote(const Indeks& identyfikator){
@@ -296,9 +192,6 @@ namespace SpEx{
 		auto planeta = wezel->tworzElement(WEZEL_XML_PLANETA);
 		planeta->tworzAtrybut(ATRYBUT_XML_ODLEGLOSC_OD_SLONCA, odlegloscOdSlonca_.napis().c_str());
 		planeta->tworzAtrybut(ATRYBUT_XML_SREDNICA, srednicaPlanety_.napis().c_str());
-		/*planeta->SetAttribute(ATRYBUT_XML_PREDKOSC_KATOWA_PLANETY, predkoscKatowaPlanety_.napis());
-		planeta->SetAttribute(ATRYBUT_XML_NASLONECZNIENIE_PLANETY, naslonecznieniePlanety_.napis());
-		planeta->SetAttribute(ATRYBUT_XML_WIETRZNOSC_PLANETY, wietrznoscPlanety_.napis());*/
 		planeta->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR_RODZICA, idUkladu_.napis().c_str());
 		planeta->tworzAtrybut(ATRYBUT_XML_NAZWAGRACZA, idUzytkownika_().c_str());
 		planeta->tworzAtrybut(ATRYBUT_XML_TEMPERATURA_PLANETY, temperaturaPlanety_.napis().c_str());
@@ -309,12 +202,6 @@ namespace SpEx{
 		planeta->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwaPlanety_().c_str());
 		planeta->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, identyfikator_.napis().c_str());
 		licznikIdentyfikatorowFloty_.zapisz(planeta);
-		/* Nie u¿ywana funkcjonalnoœæ
-		for (auto element : dostepneZasobyPlanety_){
-			auto zasob = planeta->tworzElement(WEZEL_XML_ZASOB);
-			zasob->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, element.first.napis().c_str());
-			zasob->tworzAtrybut(ATRYBUT_XML_ILOSC, element.second.napis().c_str());
-		}*/
 		auto obiekty = planeta->tworzElement(WEZEL_XML_OBIEKTY);
 		for (auto element : listaObiektow_){
 			if (!element.second->zapisz(obiekty))
@@ -337,12 +224,6 @@ namespace SpEx{
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_NAZWA, nazwaPlanety_);
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_ODLEGLOSC_OD_SLONCA, odlegloscOdSlonca_);
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_SREDNICA, srednicaPlanety_);
-			/*if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_PREDKOSC_KATOWA_PLANETY,predkoscKatowaPlanety_))
-				return false;
-				if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_NASLONECZNIENIE_PLANETY,naslonecznieniePlanety_))
-				return false;
-				if(!XmlBO::WczytajAtrybut<NOTHROW>(wezel,ATRYBUT_XML_WIETRZNOSC_PLANETY,wietrznoscPlanety_))
-				return false;*/
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR_RODZICA, idUkladu_);
 			XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_NAZWAGRACZA, idUzytkownika_);
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_TEMPERATURA_PLANETY, temperaturaPlanety_);
@@ -350,21 +231,6 @@ namespace SpEx{
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA_ZAJETA_PRZEZ_WODE, powierzchniaZajetaPrzezWode_);
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA_LADOW, powierzchniaLadow_);
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA_UZYTKOWA_LADOW, powierzchniaUzytkowaLadow_);
-
-			/* Nie u¿ywana funkcjonalnoœæ
-			if (!XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_ZASOB, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla zasob)->bool{
-				STyp::Identyfikator identyfikator;
-				STyp::Ilosc ilosc;
-				XmlBO::WczytajAtrybut<STACKTHROW>(zasob, ATRYBUT_XML_IDENTYFIKATOR, identyfikator);
-				XmlBO::WczytajAtrybut<STACKTHROW>(zasob, ATRYBUT_XML_ILOSC, ilosc);
-				auto iter = dostepneZasobyPlanety_.find(identyfikator);
-				if (iter != dostepneZasobyPlanety_.end())
-					return false;
-				dostepneZasobyPlanety_.insert(std::make_pair(identyfikator, ilosc));
-				return true;
-			}))){
-				return false;
-			}*/
 
 			auto obiekt = wezel->pobierzElement(WEZEL_XML_OBIEKTY);
 			if (obiekt){
@@ -464,8 +330,6 @@ namespace SpEx{
 		SLog::Logger str(NAZWAKLASY(Planeta));
 		str.dodajPole(NAZWAKLASY(Licznik), licznikIdentyfikatorowFloty_);
 		str.dodajPole(NAZWAPOLA(odlegloscOdSlonca_), odlegloscOdSlonca_);
-		//str.dodajPole("predkoscKatowaPlanety",predkoscKatowaPlanety_);
-		//str.dodajPole("naslonecznieniePlanety",naslonecznieniePlanety_);
 		str.dodajPole(NAZWAPOLA(idUkladu_), idUkladu_);
 		str.dodajPole(NAZWAPOLA(temperaturaPlanety_), temperaturaPlanety_);
 		str.dodajPole(NAZWAPOLA(calkowitaPowierzchniaPlanety_), calkowitaPowierzchniaPlanety_);
@@ -473,10 +337,6 @@ namespace SpEx{
 		str.dodajPole(NAZWAPOLA(powierzchniaLadow_), powierzchniaLadow_);
 		str.dodajPole(NAZWAPOLA(powierzchniaUzytkowaLadow_), powierzchniaUzytkowaLadow_);
 		str.dodajPole(NAZWAPOLA(nazwaPlanety_), nazwaPlanety_);
-		/* Nie u¿ywana funkcjonalnoœæ
-		for( auto element : dostepneZasobyPlanety_ )
-			str.dodajPole("Zasob", element.second);
-			*/
 		for (auto element : listaObiektow_)
 			str.dodajPole("Obiekt", *(element.second));
 		for (auto element : listaFlot_)

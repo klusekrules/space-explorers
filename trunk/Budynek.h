@@ -17,6 +17,9 @@ namespace SpEx{
 	{
 		friend class BudynekInfo;
 	public:
+		typedef BudynekInfo Info;
+		typedef std::shared_ptr<Budynek> SharedPtr;
+		typedef std::shared_ptr<const Budynek> ConstSharedPtr;
 
 		/**
 		* \brief Konstruktor.

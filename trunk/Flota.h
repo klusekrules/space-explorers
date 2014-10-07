@@ -19,6 +19,8 @@ namespace SpEx {
 		virtual public Serializacja
 	{
 	public:
+		typedef std::shared_ptr<Flota> SharedPtr;
+		typedef std::shared_ptr<const Flota> ConstSharedPtr;
 
 		/**
 		* \brief Rodzaje celów podró¿y floty.

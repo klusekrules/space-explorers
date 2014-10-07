@@ -12,9 +12,9 @@ void BudynekTest::startTestow() {
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(SpEx::Planeta::Indeks(STyp::Identyfikator(12)), SpEx::PodstawoweParametry(STyp::Poziom(1))));
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(SpEx::Planeta::Indeks(STyp::Identyfikator(13)), SpEx::PodstawoweParametry(STyp::Poziom(1))));
 	UNIT_TEST_ASSERT_TRUE(planeta->wybuduj(SpEx::Planeta::Indeks(STyp::Identyfikator(13)), SpEx::PodstawoweParametry(STyp::Poziom(1))));
-	a = &(planeta->pobierzBudynek(SpEx::Planeta::Indeks(STyp::Identyfikator(11))));
-	b = &(planeta->pobierzBudynek(SpEx::Planeta::Indeks(STyp::Identyfikator(12))));
-	c = &(planeta->pobierzBudynek(SpEx::Planeta::Indeks(STyp::Identyfikator(13))));
+	a = &(planeta->pobierzObiekt<SpEx::Budynek>(SpEx::Planeta::Indeks(STyp::Identyfikator(11))));
+	b = &(planeta->pobierzObiekt<SpEx::Budynek>(SpEx::Planeta::Indeks(STyp::Identyfikator(12))));
+	c = &(planeta->pobierzObiekt<SpEx::Budynek>(SpEx::Planeta::Indeks(STyp::Identyfikator(13))));
 }
 
 void BudynekTest::podstawowyTest(){
