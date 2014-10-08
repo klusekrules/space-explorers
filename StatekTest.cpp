@@ -44,8 +44,8 @@ void StatekTest::FlotaTest(){
 
 	UNIT_TEST_ASSERT_TRUE(planeta->przeniesDoFloty(idFlotyDo, STyp::Identyfikator(5), STyp::Ilosc(10)));
 	UNIT_TEST_ASSERT_TRUE(planeta->przeniesDoFloty(idFlotyDo, STyp::Identyfikator(6), STyp::Ilosc(10)));
-	UNIT_TEST_ASSERT_TRUE(planeta->zaladujSurowceNaFlote(idFlotyDo, STyp::Identyfikator(1), STyp::Ilosc(5000)));
-	UNIT_TEST_ASSERT_FALSE(planeta->zaladujStatekNaFlote(idFlotyDo, STyp::Identyfikator(7), STyp::Ilosc(1)));
+	UNIT_TEST_ASSERT_TRUE(planeta->zaladujNaFlote<SpEx::Surowce>(idFlotyDo, STyp::Identyfikator(1), STyp::Ilosc(5000)));
+	UNIT_TEST_ASSERT_FALSE(planeta->zaladujNaFlote<SpEx::Statek>(idFlotyDo, STyp::Identyfikator(7), STyp::Ilosc(1)));
 
 	UNIT_TEST_ASSERT_NOTEQUAL(obiektA, planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(5)).pobierzIlosc());
 	UNIT_TEST_ASSERT_NOTEQUAL(obiektB, planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(6)).pobierzIlosc());
@@ -68,8 +68,8 @@ void StatekTest::FlotaTest(){
 	planeta->pobierzObiektJesliIstnieje<SpEx::Flota>(idFloty)->ustawPlanetePoczatkowa(planeta->pobierzIdentyfikator());
 	UNIT_TEST_ASSERT_TRUE(planeta->przeniesDoFloty(idFloty, STyp::Identyfikator(6), STyp::Ilosc(10)));
 	UNIT_TEST_ASSERT_TRUE(planeta->przeniesDoFloty(idFloty, STyp::Identyfikator(8), STyp::Ilosc(10)));
-	UNIT_TEST_ASSERT_TRUE(planeta->zaladujSurowceNaFlote(idFloty, STyp::Identyfikator(1), STyp::Ilosc(5000)));
-	UNIT_TEST_ASSERT_TRUE(planeta->zaladujStatekNaFlote(idFloty, STyp::Identyfikator(7), STyp::Ilosc(30)));
+	UNIT_TEST_ASSERT_TRUE(planeta->zaladujNaFlote<SpEx::Surowce>(idFloty, STyp::Identyfikator(1), STyp::Ilosc(5000)));
+	UNIT_TEST_ASSERT_TRUE(planeta->zaladujNaFlote<SpEx::Statek>(idFloty, STyp::Identyfikator(7), STyp::Ilosc(30)));
 	
 	obiektA = planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(3)).pobierzIlosc();
 	obiektB = planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(5)).pobierzIlosc();
@@ -78,8 +78,8 @@ void StatekTest::FlotaTest(){
 	auto idFlotyDoRozladunku = planeta->dodajFlote();
 	UNIT_TEST_ASSERT_TRUE(planeta->przeniesDoFloty(idFlotyDoRozladunku, STyp::Identyfikator(6), STyp::Ilosc(10)));
 	UNIT_TEST_ASSERT_TRUE(planeta->przeniesDoFloty(idFlotyDoRozladunku, STyp::Identyfikator(8), STyp::Ilosc(10)));
-	UNIT_TEST_ASSERT_TRUE(planeta->zaladujSurowceNaFlote(idFlotyDoRozladunku, STyp::Identyfikator(3), STyp::Ilosc(3000)));
-	UNIT_TEST_ASSERT_TRUE(planeta->zaladujStatekNaFlote(idFlotyDoRozladunku, STyp::Identyfikator(5), STyp::Ilosc(20)));
+	UNIT_TEST_ASSERT_TRUE(planeta->zaladujNaFlote<SpEx::Surowce>(idFlotyDoRozladunku, STyp::Identyfikator(3), STyp::Ilosc(3000)));
+	UNIT_TEST_ASSERT_TRUE(planeta->zaladujNaFlote<SpEx::Statek>(idFlotyDoRozladunku, STyp::Identyfikator(5), STyp::Ilosc(20)));
 
 	UNIT_TEST_ASSERT_FALSE(planeta->pobierzObiektJesliIstnieje<SpEx::Flota>(idFlotyDoRozladunku)->rozladujLadownieNaPlanecie());
 
