@@ -144,8 +144,8 @@
         <File Id='MENU_WDG_FILE' Source='..\out\resource\menu.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
       </Component>
 
-      <Component Id='MENU_XML_FILE_COMP' Guid='{7ED8FF88-D1E4-4040-833D-8B95383A3F18}' Win64='$(var.isPlatformx64)'>
-        <File Id='MENU_XML_FILE' Source='..\out\resource\Menu.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      <Component Id='EKRANY_XML_FILE_COMP' Guid='{7ED8FF88-D1E4-4040-833D-8B95383A3F18}' Win64='$(var.isPlatformx64)'>
+        <File Id='EKRANY_XML_FILE' Source='..\out\resource\ekrany.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
       </Component>
 
       <Component Id='PUSTE_OKNO_WDG_FILE_COMP' Guid='{6140D9A0-4D3F-41BB-ACD0-10ABEFB1C53E}' Win64='$(var.isPlatformx64)'>
@@ -248,7 +248,7 @@
       <ComponentRef Id='TEST_LUA_FILE_COMP' />
       <ComponentRef Id='INTERFEJS_LUA_FILE_COMP' />
       <ComponentRef Id='MENU_WDG_FILE_COMP' />
-      <ComponentRef Id='MENU_XML_FILE_COMP' />
+      <ComponentRef Id='EKRANY_XML_FILE_COMP' />
       <ComponentRef Id='PUSTE_OKNO_WDG_FILE_COMP' />
       <ComponentRef Id='SIMPLE_FRAG_FILE_COMP' />
       <ComponentRef Id='SPACE_JPG_FILE_COMP' />

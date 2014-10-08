@@ -1,1 +1,0 @@
-cloc --by-file-by-lang --windows --out="%1doc\ProjStat.txt" --exclude-dir=out,allegro,Debug,doc,obj,SFML,parser --exclude-ext=.cppcheck,.sln,.opensdf,.rc,.sdf,.txt,.tmpl,.vsproj,.filters,.user,.suo .

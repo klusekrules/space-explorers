@@ -125,7 +125,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>$(SolutionDir)stat.bat $(SolutionDir)</Command>
+      <Command>$(SolutionDir)stat.bat ..</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>
@@ -142,7 +142,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>$(SolutionDir)stat.bat $(SolutionDir)</Command>
+      <Command>$(SolutionDir)stat.bat ..</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>
@@ -159,7 +159,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>$(SolutionDir)stat.bat $(SolutionDir)</Command>
+      <Command>$(SolutionDir)stat.bat ..</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>
@@ -176,7 +176,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>$(SolutionDir)stat.bat $(SolutionDir)</Command>
+      <Command>$(SolutionDir)stat.bat ..</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>
@@ -197,7 +197,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PreBuildEvent>
-      <Command>$(SolutionDir)stat.bat $(SolutionDir)</Command>
+      <Command>$(SolutionDir)stat.bat ..</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>
@@ -218,7 +218,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PreBuildEvent>
-      <Command>$(SolutionDir)stat.bat $(SolutionDir)</Command>
+      <Command>$(SolutionDir)stat.bat ..</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>
