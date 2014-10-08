@@ -30,7 +30,7 @@ namespace SpEx{
 	}
 
 	const std::string& ZarzadcaZasobow::pobierzAdresObrazka(const STyp::Identyfikator& identyfikator) const{
-		if (lokalizacjeZasobow_.size() <= identyfikator() || identyfikator() < 0)
+		if (static_cast<STyp::SPG::Identyfikator>(lokalizacjeZasobow_.size()) <= identyfikator() || identyfikator() < 0)
 			return pustyNapis_;
 		return lokalizacjeZasobow_[identyfikator()].second;
 	}
