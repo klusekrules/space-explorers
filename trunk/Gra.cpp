@@ -43,21 +43,6 @@ namespace SpEx{
 		return zarzadcaLokacji_.generujNowaGalaktyke();
 	}
 
-	
-
-	/*std::shared_ptr<Statek> Gra::tworzStatek(XmlBO::ElementWezla wezel)const{
-		STyp::Identyfikator identyfikator;
-		if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator))
-			return nullptr;
-		auto obiektOpisowy = listaStatkowInfo_.find(identyfikator);
-		if (obiektOpisowy == listaStatkowInfo_.end())
-			return nullptr;
-		std::shared_ptr<Statek> obiekt = std::shared_ptr<Statek>(obiektOpisowy->second->tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), PodstawoweParametry::ILOSC, STyp::Identyfikator())));
-		if (!obiekt || !obiekt->odczytaj(wezel))
-			return nullptr;
-		return obiekt;
-	}*/
-
 	Uzytkownik& Gra::pobierzUzytkownika() const throw (NieznalezionoObiektu) {
 		if (!uzytkownik_)
 			throw NieznalezionoObiektu(EXCEPTION_PLACE, STyp::Tekst("Uzytkownik"));
@@ -82,11 +67,15 @@ namespace SpEx{
 			}
 		}
 		catch (STyp::Wyjatek& wyjatek){
+#ifndef LOG_OFF_ALL
 			logger_.loguj(SLog::Log::Error, wyjatek.generujKomunikat());
+#endif
 			return false;
 		}
 		catch (std::exception& wyjatek){
+#ifndef LOG_OFF_ALL
 			logger_.loguj(SLog::Log::Error, wyjatek.what());
+#endif
 			return false;
 		}
 		return true;

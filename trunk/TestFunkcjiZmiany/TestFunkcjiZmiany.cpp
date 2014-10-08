@@ -37,9 +37,13 @@ namespace SZmi{
 
 bool RejestrujZmiany(SZmi::ZmianaFabryka& fabryka, SLog::Log& logger){
 	if (SZmi::ZmianaTest::RejestrujZmianaTest(fabryka))
+#ifndef LOG_OFF_ALL
 		logger.loguj(SLog::Log::Info, TEST_FUNKCJI_ZMIANY_ZALADOWANO);
+#endif
 	else
+#ifndef LOG_OFF_ALL
 		logger.loguj(SLog::Log::Info, TEST_FUNKCJI_ZMIANY_NIE_ZALADOWANO);
+#endif
 	return true;
 }
 

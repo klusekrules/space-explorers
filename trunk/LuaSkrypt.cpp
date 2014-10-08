@@ -19,7 +19,9 @@ namespace SpEx{
 		if (status) {
 			std::stringstream ss;
 			ss << "Nie udalo sie wywolac skryptu:" << lua_tostring((*L)(), -1) << std::endl;
+#ifndef LOG_OFF_ALL
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, ss.str());
+#endif
 			return false;
 		}
 		return true;

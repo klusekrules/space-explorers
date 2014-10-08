@@ -27,7 +27,9 @@
 #define KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folder) STyp::Tekst("Folder :" + folder + " nie zosta³ znaleziony!")
 
 void myPurecallHandler(){
+#ifndef LOG_OFF_ALL
 	SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, SpEx::Aplikacja::pobierzInstancje().pobierzSladStosu());
+#endif
 }
 
 void myInvalidParameterHandler(const wchar_t* expression,
@@ -36,6 +38,7 @@ void myInvalidParameterHandler(const wchar_t* expression,
 	unsigned int line,
 	uintptr_t pReserved)
 {
+#ifndef LOG_OFF_ALL
 	char* c_expression = new char[wcslen(expression) + 1];
 	char* c_function = new char[wcslen(function) + 1];
 	char* c_file = new char[wcslen(file) + 1];
@@ -46,6 +49,7 @@ void myInvalidParameterHandler(const wchar_t* expression,
 	str << "Invalid parameter detected in function: " << c_function << ". File: " << c_file << ". Line: " << line << ".\nExpression: " << c_expression;
 	SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, str.str());
 	SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, SpEx::Aplikacja::pobierzInstancje().pobierzSladStosu());
+#endif
 }
 
 namespace SpEx{
@@ -146,12 +150,12 @@ namespace SpEx{
 			plik << czas << sTyp << komunikat;
 		});
 		/* ------------------------------------ */
-		
+#ifndef LOG_OFF_ALL
 		logger_.loguj(SLog::Log::Info, "Start aplikacji Space-Explorers.");
-
+#endif
 		//Wyswietlanie informacji o aplikacji
 		logApInfo();
-
+#ifndef LOG_OFF_ALL
 		//Wyswietlanie informacji o zaladowanej bibliotece
 		if (uchwyt_){
 			if (czyZainicjalizowanaBiblioteka_){
@@ -164,7 +168,7 @@ namespace SpEx{
 		else{
 			logger_.loguj(SLog::Log::Warning, "Nie za³adowano biblioteki Dbghelp.dll");
 		}
-
+#endif
 		zarzadcaPamieci_.zaladujPliki(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 		zarzadcaLokacji_.zaladujUstawienia(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 		zarzadcaZasobow_.inicjalizuj(zarzadcaPamieci_.pobierzWezelPowiazanZasobow());
@@ -194,8 +198,9 @@ namespace SpEx{
 		try{
 			std::locale pl(ustawienia_.pobierzJezykAplikacji());
 			std::locale::global(pl);
-			this->logger_.loguj(SLog::Log::Debug, std::string("Separator u³amka: ") + std::use_facet<std::numpunct<char>>(pl).decimal_point());
-
+#if !(defined(LOG_OFF_ALL) || defined(LOG_OFF_DEBUG))
+			logger_.loguj(SLog::Log::Debug, std::string("Separator u³amka: ") + std::use_facet<std::numpunct<char>>(pl).decimal_point());
+#endif
 			auto nazwaPlikuDanych_ = ustawienia_.pobierzPlikDanych();
 			if (_access(nazwaPlikuDanych_.c_str(), 0) == -1){ // Sprawdzenie czy folder istnieje
 				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_BRAK_PLIKU_DANYCH(nazwaPlikuDanych_));
@@ -207,7 +212,9 @@ namespace SpEx{
 			}
 		}
 		catch (std::exception &e){
+#ifndef LOG_OFF_ALL
 			logger_.loguj(SLog::Log::Error, e.what());
+#endif
 			return false;
 		}
 		return true;
@@ -296,10 +303,14 @@ namespace SpEx{
 				return false;
 			}
 			catch (STyp::Wyjatek& e){
+#ifndef LOG_OFF_ALL
 				logger_.loguj(SLog::Log::Error, e.generujKomunikat());
+#endif
 			}
 			catch (std::exception& e){
+#ifndef LOG_OFF_ALL
 				logger_.loguj(SLog::Log::Error, e.what());
+#endif
 			}
 			catch (...){
 			}

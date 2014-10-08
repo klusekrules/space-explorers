@@ -161,7 +161,9 @@ namespace SpEx{
 #ifdef _FPS_COUNT
 			if (fpsCounter.ready())
 			{
+#ifndef LOG_OFF_ALL
 				Aplikacja::pobierzInstancje().pobierzLogger().loguj(SLog::Log::Error, std::string("MaszynaStanow: ") + std::to_string(fpsCounter.FPS()));
+#endif
 			}
 #endif
 		}

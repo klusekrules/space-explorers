@@ -16,7 +16,9 @@ namespace SpEx{
 			if (procedura()) {
 				std::stringstream ss;
 				ss << "Nie udalo sie wywolac skryptu: " << funkcja << " z pliku :  " << modul_->pobierzPlik() << std::endl;
+#ifndef LOG_OFF_ALL
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, ss.str());
+#endif
 				return false;
 			}
 			return true;

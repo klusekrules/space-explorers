@@ -60,6 +60,7 @@ namespace SpEx{
 		dystrybutorIlosciUkladow(ILOSC_UKLADOW_MIN, ILOSC_UKLADOW_MAX),
 		dystrybucjaPowierzchniUzytkowej(POWIERZCHNIA_UZYTKOWA_MIN, POWIERZCHNIA_UZYTKOWA_MAX)
 	{
+#if !(defined(LOG_OFF_ALL) || defined(LOG_OFF_DEBUG))
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("TEMPERATURA_GWIAZDY_PROCENT_SREDNICY = ") + std::to_string(TEMPERATURA_GWIAZDY_PROCENT_SREDNICY));
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("TEMPERATURA_GWIAZDY_PROCENT_STALY = ") + std::to_string(TEMPERATURA_GWIAZDY_PROCENT_STALY));
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("TEMPERATURA_GWIAZDY_PROCENT_LOSOWY = ") + std::to_string(TEMPERATURA_GWIAZDY_PROCENT_LOSOWY));
@@ -85,7 +86,7 @@ namespace SpEx{
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("POWIERZCHNIA_WODY_MAX = ") + std::to_string(POWIERZCHNIA_WODY_MAX));
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("ILOSC_UKLADOW_MIN = ") + std::to_string(ILOSC_UKLADOW_MIN));
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::string("ILOSC_UKLADOW_MAX = ") + std::to_string(ILOSC_UKLADOW_MAX));
-
+#endif
 		if (TEMPERATURA_GWIAZDY_PROCENT_SREDNICY + TEMPERATURA_GWIAZDY_PROCENT_STALY + TEMPERATURA_GWIAZDY_PROCENT_LOSOWY >= 1.0 ||
 			TEMPERATURA_GWIAZDY_PROCENT_SREDNICY + TEMPERATURA_GWIAZDY_PROCENT_STALY + TEMPERATURA_GWIAZDY_PROCENT_LOSOWY <= 0.0)
 			throw std::exception("Invalid const params. TEMPERATURA_GWIAZDY_PROCENT_SREDNICY. TEMPERATURA_GWIAZDY_PROCENT_STALY. TEMPERATURA_GWIAZDY_PROCENT_LOSOWY.");

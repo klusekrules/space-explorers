@@ -28,7 +28,9 @@ void PaczkaTestow::wykonajTesty(){
 		}catch(WyjatekSprawdzeniaWarunku& e){
 			e.ustawNazweMetody( a.first );
 			++bledy;
+#ifndef LOG_OFF_ALL
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, e.komunikat());
+#endif
 		}catch(...){
 			++bledy;
 			++bledyKrytyczne;
@@ -46,14 +48,18 @@ void PaczkaTestow::ustawNazwe(const std::string& napis){
 }
 
 void PaczkaTestow::naglowek(){
+#ifndef LOG_OFF_ALL
 	std::stringstream str;
 	str<< "Klasa: "<< nazwa_ << "... Testy: "<< zbiorTestow_.size();
 	SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, str.str());
+#endif
 }
  
 void PaczkaTestow::podsumowanie(){
+#ifndef LOG_OFF_ALL
 	std::stringstream str;
 	str << "Przeprowadzono: " << poprawneTesty + bledy << ", bledy: "<< bledy << ", krytyczne: "<< bledyKrytyczne << ", pominieto: "<<pominieteTesty;
 	SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, str.str());
 	SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "---------------------------------");
+#endif
 }

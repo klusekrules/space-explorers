@@ -88,7 +88,9 @@ namespace SpEx{
 			try{
 				if (!inicjalizacja()){
 					inicjalizacja_.set_value(false);
+#ifndef LOG_OFF_ALL
 					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d inicjalizacji.");
+#endif
 					return;
 				}
 			}
@@ -176,11 +178,15 @@ namespace SpEx{
 
 		SetWindowLong(oknoGlowne_.getSystemHandle(), GWL_EXSTYLE, GetWindowLong(oknoGlowne_.getSystemHandle(), GWL_EXSTYLE) | WS_EX_LAYERED);
 		if (!SetLayeredWindowAttributes(oknoGlowne_.getSystemHandle(), NULL, 0, LWA_ALPHA)){
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Nie dziala przezroczstosc.");
+#ifndef LOG_OFF_ALL
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Nie dziala przezroczstosc.");
+#endif
 		}
 
 		if (!wczytajEkrany()){
+#ifndef LOG_OFF_ALL
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nieuda³o siê wczytaæ ekranów.");
+#endif
 			return false;
 		}
 
@@ -190,8 +196,11 @@ namespace SpEx{
 	}
 
 	void OknoGry::logujInfo(){
-		if (sf::Shader::isAvailable())
+		if (sf::Shader::isAvailable()){
+#ifndef LOG_OFF_ALL
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Shadery dostepne");
+#endif
+		}
 		else{
 			MessageBox(
 				nullptr,
@@ -199,15 +208,18 @@ namespace SpEx{
 				"Fatal error",
 				MB_ICONERROR
 				);
+#ifndef LOG_OFF_ALL
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Shadery niedostepne");
+#endif
 		}
-
+#ifndef LOG_OFF_ALL
 		char* p = (char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, p ? p : "");
 		p = (char*)glGetString(GL_VERSION);
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, p ? p : "");
 		p = (char*)glGetString(GL_VENDOR);
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, p ? p : "");
+#endif
 	}
 
 	bool OknoGry::wczytajEkrany(){
@@ -291,7 +303,6 @@ namespace SpEx{
 	}
 
 	void OknoGry::odmaluj(){
-		//static float balans = 0.0f;
 		sf::RenderStates states;
 		oknoGlowne_.clear(sf::Color(255, 255, 255, 0));
 
