@@ -134,44 +134,6 @@ namespace SpEx{
 		}
 		return false;
 	}
-
-	bool Planeta::zaladujSurowceNaFlote(const Indeks& identyfikatorFloty, const Indeks& identyfikator, const STyp::Ilosc& ilosc){
-		auto iterator = listaSurowcow_.find(identyfikator);
-		if (iterator == listaSurowcow_.end())
-			return false;
-
-		if (ilosc <= STyp::Ilosc(0.0) || iterator->second->pobierzIlosc() < ilosc)
-			return false;
-
-		auto flota = listaFlot_.find(identyfikatorFloty);
-		if (flota == listaFlot_.end())
-			return false;
-		std::shared_ptr<Surowce> ladunek = std::shared_ptr<Surowce>(iterator->second->podziel(ilosc));
-		if (!flota->second->dodajLadunek(ladunek)){
-			iterator->second->polacz(*ladunek);
-			return false;
-		}
-		return true;
-	}
-
-	bool Planeta::zaladujStatekNaFlote(const Indeks& identyfikatorFloty, const Indeks& identyfikator, const STyp::Ilosc& ilosc){
-		auto iterator = listaStatkow_.find(identyfikator);
-		if (iterator == listaStatkow_.end())
-			return false;
-
-		if (ilosc <= STyp::Ilosc(0.0) || iterator->second->pobierzIlosc() < ilosc)
-			return false;
-
-		auto flota = listaFlot_.find(identyfikatorFloty);
-		if (flota == listaFlot_.end())
-			return false;
-		std::shared_ptr<Statek> ladunek = std::shared_ptr<Statek>(iterator->second->podziel(ilosc));
-		if (!flota->second->dodajLadunek(ladunek)){
-			iterator->second->polacz(*ladunek);
-			return false;
-		}
-		return true;
-	}
 	
 	void Planeta::rozladujStatek(std::shared_ptr< Statek > statek){
 		if (statek){
