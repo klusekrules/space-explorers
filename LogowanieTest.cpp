@@ -6,11 +6,17 @@
 void LogowanieTest::zaloguj(){
 	std::string haslo("haslo");
 	SpEx::Utils::sha3(haslo);
+#ifndef LOG_OFF_ALL
 	SpEx::Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Info, haslo);
+#endif
 	if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().nowyGracz("Daniel", haslo)){
+#if !(defined(LOG_OFF_ALL) || defined(LOG_OFF_DEBUG))
 		SpEx::Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Debug, "U¿ytkownik zosta³ utworzony.");
+#endif
 	}else{
+#if !(defined(LOG_OFF_ALL) || defined(LOG_OFF_DEBUG))
 		SpEx::Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Debug, "U¿ytkownik istnieje.");
+#endif
 	}
 
 	auto dokument = TestyUtilsBO::dane();

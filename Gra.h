@@ -279,7 +279,9 @@ namespace SpEx {
 			XmlBO::ElementWezla element = wezel->pobierzElement(nazwaWezla);
 			while (element){
 				typename T::SharedPtr obiekt = std::make_shared<T>(element);
+#if !(defined(LOG_OFF_ALL) || defined(LOG_OFF_DEBUG))
 				logger_.loguj(SLog::Log::Debug, *obiekt);
+#endif
 				if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
 					throw PowtorzenieIdObiektu(EXCEPTION_PLACE, obiekt->pobierzIdentyfikator(), KOMUNIKAT_POWTORZENIE_OBIEKTU(T));
 				listaInfo[obiekt->pobierzIdentyfikator()] = obiekt;

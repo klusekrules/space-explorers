@@ -111,8 +111,10 @@ extern "C"{
 	}
 
 	SPACE_EXPLORERS_API void __cdecl loguj(const char *komunikat){
+#ifndef LOG_OFF_ALL
 		if (komunikat)
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, komunikat);
+#endif
 	}
 
 	SPACE_EXPLORERS_API bool __cdecl zaladujGre(const char *plik){
@@ -154,7 +156,9 @@ extern "C"{
 		else{
 			SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "Brak nazwy widzetu has³a lub loginu!");
 		}
+#ifndef LOG_OFF_ALL
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Nie uda³o siê zalogowaæ!");
+#endif
 		return false;
 	}
 
@@ -217,8 +221,9 @@ extern "C"{
 			}
 
 		}
-
+#ifndef LOG_OFF_ALL
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Nie uda³o siê stworzyæ nowego gracza!");
+#endif
 		SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "Nie uda³o siê stworzyæ nowego gracza!");
 		return false;
 	}
@@ -235,7 +240,9 @@ extern "C"{
 				}
 			}
 		}
+#ifndef LOG_OFF_ALL
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Nie uda³o siê usun¹æ gracza!");
+#endif
 		return false;
 	}
 
@@ -299,10 +306,14 @@ extern "C"{
 			}
 		}
 		catch (STyp::Wyjatek& e){
+#ifndef LOG_OFF_ALL
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.generujKomunikat());
+#endif
 		}
 		catch (std::exception& e){
+#ifndef LOG_OFF_ALL
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.what());
+#endif
 		}
 		return false;
 	}
@@ -323,10 +334,14 @@ extern "C"{
 			}
 		}
 		catch (STyp::Wyjatek& e){
+#ifndef LOG_OFF_ALL
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.generujKomunikat());
+#endif
 		}
 		catch (std::exception& e){
+#ifndef LOG_OFF_ALL
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.what());
+#endif
 		}
 	}
 
@@ -346,10 +361,14 @@ extern "C"{
 			}
 		}
 		catch (STyp::Wyjatek& e){
+#ifndef LOG_OFF_ALL
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.generujKomunikat());
+#endif
 		}
 		catch (std::exception& e){
+#ifndef LOG_OFF_ALL
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.what());
+#endif
 		}
 	}
 }
