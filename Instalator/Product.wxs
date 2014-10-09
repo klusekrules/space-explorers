@@ -17,7 +17,9 @@
       <Directory Id='$(var.ProgramFiles)' Name="PFiles">
         <Directory Id='DANIEL_WOJDAK' Name='Daniel Wojdak'>
           <Directory Id='SPACE_EXPLORERS' Name='Space-Explorers'>
-            <Directory Id='DOC_DIR' Name='doc'/>
+            <Directory Id='DOC_DIR' Name='doc'>
+              <Directory Id='LIB_DIR' Name='bin'/>
+            </Directory>
             <Directory Id='INSTALL_DIR' Name='bin'>
               <Directory Id='LUA_DIR' Name='lua'/>
               <Directory Id='DLL_DIR' Name='dll'/>
@@ -106,8 +108,14 @@
       <Component Id='DOC_USER_SHEMA_COMP' Guid='17C3EF77-4D13-4DFF-90A5-A78B03DAD795'>
         <File Id='DOC_USER_SHEMA_FILE' Source='..\userSchema.xsd' Name='SchematUzytkownika.xsd' KeyPath='yes' Vital='yes'/>
       </Component>
-       <Component Id='DOC_UKLAD_SHEMA_COMP' Guid='C0E893B5-D97D-4B4B-ABC2-3463E39C20FC'>
+      <Component Id='DOC_UKLAD_SHEMA_COMP' Guid='C0E893B5-D97D-4B4B-ABC2-3463E39C20FC'>
         <File Id='DOC_UKLAD_SHEMA_FILE' Source='..\saveSchema.xsd' Name='SchematUkladuSlonecznego.xsd' KeyPath='yes' Vital='yes'/>
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id='LIB_DIR'>
+      <Component Id='SPACE_EXPLORERS_LIB_COMP' Guid='{00A6CCFA-9FAD-454D-A7CD-F3EFC3304590}'>
+        <File Id='SPACE_EXPLORERS_LIB' Source='..\out\SpaceExplorers-$(var.Platforma)-$(var.Configuration).lib' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
       </Component>
     </DirectoryRef>
     
@@ -266,6 +274,7 @@
       <ComponentRef Id='DANE_TESTOWE_COMP' />
       <ComponentRef Id='DLL_TEST_SKRYPTU_COMP' />
       <ComponentRef Id='POZWIAZANIA_XML_COMP' />
+      <ComponentRef Id='SPACE_EXPLORERS_LIB_COMP' />
     </Feature>
     
     <Feature Id="VCRedist" Title="Visual C++ 12.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
