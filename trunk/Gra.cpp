@@ -45,14 +45,14 @@ namespace SpEx{
 
 	Uzytkownik& Gra::pobierzUzytkownika() const throw (NieznalezionoObiektu) {
 		if (!uzytkownik_)
-			throw NieznalezionoObiektu(EXCEPTION_PLACE, STyp::Tekst("Uzytkownik"));
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), STyp::Tekst("Uzytkownik"));
 		return *uzytkownik_;
 	}
 
 	std::shared_ptr<Planeta> Gra::pobierzPlanete(const STyp::Identyfikator& identyfikator){
 		auto ptr = zarzadcaLokacji_.pobierzPlanete(identyfikator);
 		if (!ptr)
-			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), identyfikator.napis());
 		return ptr;
 	}
 	

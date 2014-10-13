@@ -8,6 +8,7 @@ namespace SPar{
 		const STyp::Tekst& funkcja,
 		const STyp::Ilosc& linia,
 		const STyp::Tekst& sladStosu,
+		const STyp::Tekst& debug,
 		const ParserAtrybut* atrybut,
 		const STyp::Tekst& tekst
 		)
@@ -15,7 +16,8 @@ namespace SPar{
 		plik,
 		funkcja,
 		linia,
-		sladStosu,
+		sladStosu, 
+		debug,
 		STyp::Identyfikator(PARSER_WYJATEK_ATRYBUTU_ID),
 		STyp::Tekst(PARSER_WYJATEK_ATRYBUTU_TYTUL),
 		STyp::Tekst(tekst.isEmpty() ? (STyp::Tekst(PARSER_WYJATEK_ATRYBUTU_TRESC) + STyp::Tekst(atrybut ? atrybut->error() : PARSER_WYJATEK_NULLPTR)) : (tekst + STyp::Tekst(atrybut ? atrybut->error() : PARSER_WYJATEK_NULLPTR)))),
@@ -28,6 +30,7 @@ namespace SPar{
 		const STyp::Tekst& funkcja,
 		const STyp::Ilosc& linia,
 		const STyp::Tekst& sladStosu,
+		const STyp::Tekst& debug,
 		const ParserElement* element,
 		const STyp::Tekst& tekst
 		)
@@ -35,7 +38,8 @@ namespace SPar{
 		plik,
 		funkcja,
 		linia,
-		sladStosu,
+		sladStosu, 
+		debug,
 		STyp::Identyfikator(PARSER_WYJATEK_ELEMENTU_ID),
 		STyp::Tekst(PARSER_WYJATEK_ELEMENTU_TYTUL),
 		STyp::Tekst(tekst.isEmpty() ? (STyp::Tekst(PARSER_WYJATEK_ELEMENTU_TRESC) + STyp::Tekst(element ? element->error() : PARSER_WYJATEK_NULLPTR)) : (tekst + STyp::Tekst(element ? element->error() : PARSER_WYJATEK_NULLPTR)))),
@@ -48,13 +52,15 @@ namespace SPar{
 		const STyp::Tekst& funkcja,
 		const STyp::Ilosc& linia,
 		const STyp::Tekst& sladStosu,
+		const STyp::Tekst& debug,
 		const ParserDokument* dokument,
 		const STyp::Tekst& tekst
 		) : Wyjatek(
 		plik,
 		funkcja,
 		linia,
-		sladStosu,
+		sladStosu, 
+		debug,
 		STyp::Identyfikator(PARSER_WYJATEK_DOKUMENTU_ID),
 		STyp::Tekst(PARSER_WYJATEK_DOKUMENTU_TYTUL),
 		STyp::Tekst(tekst.isEmpty() ? STyp::Tekst(PARSER_WYJATEK_DOKUMENTU_TRESC) + STyp::Tekst(dokument ? dokument->error() : PARSER_WYJATEK_NULLPTR) : tekst + STyp::Tekst(dokument ? dokument->error() : PARSER_WYJATEK_NULLPTR))),

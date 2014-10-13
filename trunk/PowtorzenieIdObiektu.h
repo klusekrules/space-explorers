@@ -8,7 +8,7 @@ namespace SpEx{
 	{
 	public:
 		static const STyp::Identyfikator idPowtorzeniaIdObiektu;
-		PowtorzenieIdObiektu(const STyp::Tekst&, const STyp::Tekst&, const STyp::Ilosc&, const STyp::Identyfikator&, const STyp::Tekst&);
+		PowtorzenieIdObiektu(const STyp::Tekst&, const STyp::Tekst&, const STyp::Ilosc&, const STyp::Tekst& debug, const STyp::Identyfikator&, const STyp::Tekst&);
 		virtual ~PowtorzenieIdObiektu() = default;
 
 		const STyp::Identyfikator& pobierzIdentyfikatorObiektu() const;

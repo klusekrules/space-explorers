@@ -464,7 +464,7 @@ namespace SpEx{
 		*/
 		template < class T, class TRAIT>
 		typename std::enable_if<std::is_same<TRAIT, THROW>::value, typename T::SharedPtr>::type obsluzBladWyszukiwania(const STyp::Identyfikator& identyfikator) const{
-			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), identyfikator.napis());
 		}
 
 		/**

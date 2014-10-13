@@ -5,7 +5,7 @@
 namespace SpEx{
 	bool GeneratorIdentyfikatorow::pobierzIdentyfikator(const std::string& napis, STyp::Identyfikator& id){
 		if (napis.empty())
-			throw NiepoprawneParametryFunkcji(EXCEPTION_PLACE, SpEx::Aplikacja::pobierzInstancje().pobierzSladStosu(), STyp::Tekst(napis));
+			throw NiepoprawneParametryFunkcji(EXCEPTION_PLACE, SpEx::Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo(), STyp::Tekst(napis));
 		int pozycja = -1;
 		for (auto& element : mapa_){
 			++pozycja;

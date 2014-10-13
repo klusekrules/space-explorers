@@ -46,7 +46,7 @@ namespace SpEx{
 		auto iterator = planety_.find(identyfikator);
 		if (iterator != planety_.end())
 			return *(iterator->second);
-		throw NieznalezionoObiektu(EXCEPTION_PLACE, STyp::Tekst("Nieznaleziono planety"));
+		throw NieznalezionoObiektu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), STyp::Tekst("Nieznaleziono planety"));
 	}
 
 	Planeta& Uzytkownik::pobierzPlanete(){

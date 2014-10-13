@@ -15,7 +15,7 @@ namespace SpEx{
 			std::string konfiguracja = XmlBO::WczytajAtrybut(wezel, ATRYBUT_XML_KONFIGURACJA, std::string());
 			std::string czcionka = XmlBO::WczytajAtrybut(wezel, ATRYBUT_XML_CZCIONKA, std::string());
 			if (konfiguracja.empty()){
-				throw SpEx::BladKonfiguracjiEkranu(EXCEPTION_PLACE, id_, KOMUNIKAT_BRAK_PLIKU);
+				throw SpEx::BladKonfiguracjiEkranu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), id_, KOMUNIKAT_BRAK_PLIKU);
 			}
 			else{
 				if (!czcionka.empty()){
@@ -25,7 +25,7 @@ namespace SpEx{
 				}
 
 				if (!interfejs_.loadWidgetsFromFile(konfiguracja)){
-					throw SpEx::BladKonfiguracjiEkranu(EXCEPTION_PLACE, id_, KOMUNIKAT_BLAD_PLIKU(konfiguracja) );
+					throw SpEx::BladKonfiguracjiEkranu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), id_, KOMUNIKAT_BLAD_PLIKU(konfiguracja));
 				}
 
 				std::string nazwaOknaKomunikatow = XmlBO::WczytajAtrybut(wezel, ATRYBUT_XML_OKNO_KOMUNIKATOW, std::string());
@@ -78,7 +78,7 @@ namespace SpEx{
 				std::string wartosc = XmlBO::WczytajAtrybut(element, ATRYBUT_XML_WARTOSC, std::string());
 				if (!(nazwa.empty() || wartosc.empty())){
 					if (!kontrolka->setProperty(nazwa, wartosc)){
-						throw SpEx::BladKonfiguracjiEkranu(EXCEPTION_PLACE, id_, KOMUNIKAT_BLAD_WLASCIWOSCI(nazwa,wartosc));
+						throw SpEx::BladKonfiguracjiEkranu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), id_, KOMUNIKAT_BLAD_WLASCIWOSCI(nazwa, wartosc));
 					}
 				}
 				return true;

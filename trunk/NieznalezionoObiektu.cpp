@@ -4,8 +4,8 @@
 
 namespace SpEx{
 
-	NieznalezionoObiektu::NieznalezionoObiektu(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia, const STyp::Tekst& tNazwa)
-		: Wyjatek(tPlik, funkcja, iLinia, Aplikacja::pobierzInstancje().pobierzSladStosu(), idNieznalezionoObiektu, tytulNieznalezionoObiektu, trescNieznalezionoObiektu), identyfikator(tNazwa)
+	NieznalezionoObiektu::NieznalezionoObiektu(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia, const STyp::Tekst& debug, const STyp::Tekst& tNazwa)
+		: Wyjatek(tPlik, funkcja, iLinia, Aplikacja::pobierzInstancje().pobierzSladStosu(), debug, idNieznalezionoObiektu, tytulNieznalezionoObiektu, trescNieznalezionoObiektu), identyfikator(tNazwa)
 	{
 	}
 

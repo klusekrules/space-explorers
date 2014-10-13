@@ -88,6 +88,7 @@ namespace SpEx {
 		*/
 		std::string pobierzSladStosu() const;
 
+		std::string pobierzDebugInfo() const;
 		/**
 		* \brief Metoda czyœci wczytane dane.
 		*

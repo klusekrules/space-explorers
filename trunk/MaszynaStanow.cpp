@@ -71,7 +71,7 @@ namespace SpEx{
 		}
 		
 		if (error)
-			throw SpEx::BladStukturyStanu(EXCEPTION_PLACE,1,strumien.str());
+			throw SpEx::BladStukturyStanu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), 1, strumien.str());
 	}
 
 	bool MaszynaStanow::kolejkujEkran(int id){
@@ -254,6 +254,17 @@ namespace SpEx{
 
 	void MaszynaStanow::dodajZadanie(Zadanie& zadanie){
 		pulaWatkow_.dodajZadanie(zadanie);
+	}
+
+	std::string MaszynaStanow::pobierzDaneDebug() const{
+		SLog::Logger log(NAZWAKLASY(MaszynaStanow));
+		log.dodajPole("Aktualny stan aplikacji", stan_);
+		log.rozpocznijPodKlase("Lista Ekranow");
+		for (auto &e : wszystkieStany_){
+			log.dodajPole("Opis Stanu", *(e.second));
+		}
+		log.zakonczPodKlase();
+		return log.napis();
 	}
 
 	bool MaszynaStanow::StanDlaSkryptu::pobierzZdarzenie(struct Zdarzenie_t& z){

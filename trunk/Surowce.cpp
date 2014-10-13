@@ -45,69 +45,69 @@ namespace SpEx{
 
 	Surowce& Surowce::operator=(const Surowce& obiekt)  throw (NiezgodnyTypSurowca) {
 		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
-			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
 		this->ustawAtrybut(obiekt.pobierzAtrybut());
 		return *this;
 	}
 
 	bool Surowce::operator==(const Surowce& obiekt) const throw (NiezgodnyTypSurowca){
 		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
-			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
 		return pobierzIlosc() == obiekt.pobierzIlosc();
 	}
 
 	bool Surowce::operator!=(const Surowce& obiekt) const throw (NiezgodnyTypSurowca){
 		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
-			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
 		return pobierzIlosc() != obiekt.pobierzIlosc();
 	}
 
 	bool Surowce::operator>(const Surowce& obiekt) const throw (NiezgodnyTypSurowca){
 		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
-			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
 		return pobierzIlosc() > obiekt.pobierzIlosc();
 	}
 
 	bool Surowce::operator<(const Surowce& obiekt) const throw (NiezgodnyTypSurowca){
 		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
-			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
 		return pobierzIlosc() < obiekt.pobierzIlosc();
 	}
 
 	bool Surowce::operator>=(const Surowce& obiekt) const throw (NiezgodnyTypSurowca){
 		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
-			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
 		return pobierzIlosc() >= obiekt.pobierzIlosc();
 	}
 
 	bool Surowce::operator<=(const Surowce& obiekt) const throw (NiezgodnyTypSurowca){
 		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
-			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
 		return pobierzIlosc() <= obiekt.pobierzIlosc();
 	}
 
 	Surowce Surowce::operator+(const Surowce& obiekt) const throw (NiezgodnyTypSurowca){
 		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
-			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
 		return Surowce(pobierzIlosc() + obiekt.pobierzIlosc(), obiekt.surowceInfo_);
 	}
 
 	Surowce& Surowce::operator+=(const Surowce& obiekt)  throw (NiezgodnyTypSurowca){
 		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
-			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
 		wzrostAtrybutu(wpisIlosc(obiekt.pobierzIlosc()));
 		return *this;
 	}
 
 	Surowce Surowce::operator-(const Surowce& obiekt) const throw (NiezgodnyTypSurowca){
 		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
-			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
 		return Surowce(pobierzIlosc() - obiekt.pobierzIlosc(), obiekt.surowceInfo_);
 	}
 
 	Surowce& Surowce::operator-=(const Surowce& obiekt) throw (NiezgodnyTypSurowca){
 		if (this->pobierzIdentyfikator() != obiekt.pobierzIdentyfikator())
-			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
+			throw NiezgodnyTypSurowca(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), this->pobierzIdentyfikator(), obiekt.pobierzIdentyfikator());
 		wzrostAtrybutu(wpisIlosc(-obiekt.pobierzIlosc()));
 		return *this;
 	}

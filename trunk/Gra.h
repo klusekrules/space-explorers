@@ -283,7 +283,7 @@ namespace SpEx {
 				logger_.loguj(SLog::Log::Debug, *obiekt);
 #endif
 				if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
-					throw PowtorzenieIdObiektu(EXCEPTION_PLACE, obiekt->pobierzIdentyfikator(), KOMUNIKAT_POWTORZENIE_OBIEKTU(T));
+					throw PowtorzenieIdObiektu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), obiekt->pobierzIdentyfikator(), KOMUNIKAT_POWTORZENIE_OBIEKTU(T));
 				listaInfo[obiekt->pobierzIdentyfikator()] = obiekt;
 				listaObiektowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
 				element = element->pobierzNastepnyElement(nazwaWezla);
@@ -304,7 +304,7 @@ namespace SpEx {
 		const T& znajdzObiektInfo(const K& listaInfo, const STyp::Identyfikator& identyfikator)const{
 			auto iterator = listaInfo.find(identyfikator);
 			if (iterator == listaInfo.end())
-				throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+				throw NieznalezionoObiektu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), identyfikator.napis());
 			return *(iterator->second);
 		}
 

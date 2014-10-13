@@ -135,6 +135,9 @@ namespace SpEx{
 		*/
 		static void generujWyjatekBleduStruktury(XmlBO::ElementWezla wezel);
 
+
+		static std::string pobierzDebugInfo();
+
 		/**
 		* \brief Metoda zamieniaj¹ca klucz dla wartoœci w mapie.
 		*
