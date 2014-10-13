@@ -100,11 +100,11 @@ namespace SpEx{
 
 		/* ------- Konfiguracja parametrów programu -------*/
 		if (!przetworzArgumenty()){
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU,pobierzDebugInfo());
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU);
 		}
 
 		if (!ustawienia_.zaladuj(plikKonfiguracyjny_)){
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plikKonfiguracyjny_), pobierzDebugInfo());
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plikKonfiguracyjny_));
 		}
 		logger_.ustawFormatCzasu(ustawienia_.pobierzFormatDatyLogow());
 		
@@ -117,7 +117,7 @@ namespace SpEx{
 		}
 
 		if (!zaladujOpcje()){
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_LADOWANIA_OPCJI, pobierzDebugInfo());
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_LADOWANIA_OPCJI);
 		}
 
 		struct tm timeinfo;
@@ -125,7 +125,7 @@ namespace SpEx{
 		localtime_s(&timeinfo, &t);
 		char s[20];
 		if (strftime(s, 20, ustawienia_.pobierzFormatDatyPlikuLogow().c_str(), &timeinfo) == 0){
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_FORMATU_DATY, pobierzDebugInfo());
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_FORMATU_DATY);
 		}
 		std::stringstream sfile;
 		sfile << ustawienia_.pobierzPrzedrostekPlikuLogow() << s << ".log";
@@ -176,13 +176,13 @@ namespace SpEx{
 		pluginy_ = std::make_shared<SPlu::Cplugin>(ustawienia_.pobierzFolderPlugin(), fabrykator_.pobierzFabrykeZmian(), logger_);
 
 		if (!RejestrujZmianaPoziomObiektu(fabrykator_.pobierzFabrykeZmian(), logger_))
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_REJESTRACJI_ZMIANY_POZIOMU, pobierzDebugInfo());
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIANY_POZIOMU);
 
 		if (!pluginy_->zaladujDomyslneKlasyZmian())
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DOMYSLNYCH, pobierzDebugInfo());
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DOMYSLNYCH);
 
 		if (!pluginy_->zaladujZewnetrzneKlasyZmian())
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DODATKOWYCH, pobierzDebugInfo());
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DODATKOWYCH);
 
 		_set_purecall_handler(myPurecallHandler);
 		_set_invalid_parameter_handler(myInvalidParameterHandler);
@@ -203,12 +203,12 @@ namespace SpEx{
 #endif
 			auto nazwaPlikuDanych_ = ustawienia_.pobierzPlikDanych();
 			if (_access(nazwaPlikuDanych_.c_str(), 0) == -1){ // Sprawdzenie czy folder istnieje
-				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_BRAK_PLIKU_DANYCH(nazwaPlikuDanych_), pobierzDebugInfo());
+				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_PLIKU_DANYCH(nazwaPlikuDanych_));
 			}
 
 			auto folderPluginow_ = ustawienia_.pobierzFolderPlugin();
 			if (_access(folderPluginow_.c_str(), 0) == -1){ // Sprawdzenie czy folder istnieje
-				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folderPluginow_), pobierzDebugInfo());
+				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folderPluginow_));
 			}
 		}
 		catch (std::exception &e){
