@@ -1,5 +1,7 @@
 #include "Stan.h"
 #include "Zdarzenie.h"
+#include "Logger\Logger.h"
+
 namespace SpEx{
 	Stan::Stan(std::shared_ptr<StanInfo> info)
 		: info_(info), numer_(0), dt_(0)
@@ -44,5 +46,18 @@ namespace SpEx{
 
 	std::shared_ptr<StanInfo> Stan::opisStanu() const{
 		return info_;
+	}
+
+	std::string Stan::napis()const{
+		SLog::Logger log(NAZWAKLASY(Stan));
+		log.dodajPole(NAZWAPOLA(id_), id_);
+		log.dodajPole(NAZWAPOLA(numer_), std::to_string(numer_));
+		log.dodajPole(NAZWAPOLA(dt_), std::to_string(dt_.count()));
+		log.rozpocznijPodKlase("Lista Ekranow");
+		for (auto &e : listaEkranow_){
+			log.dodajPole("Id Ekranu", e);
+		}
+		log.zakonczPodKlase();
+		return log.napis();
 	}
 };

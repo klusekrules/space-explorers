@@ -155,11 +155,11 @@ namespace SpEx{
 			MaszynaStanow::pobierzInstancje().inicjujZamykanie();
 		}
 		catch (std::exception& e){
-			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), -1, STyp::Tekst("Przechwycono wyj¹tek!"), STyp::Tekst(e.what())));
+			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Tekst(), -1, STyp::Tekst("Przechwycono wyj¹tek!"), STyp::Tekst(e.what())));
 			MaszynaStanow::pobierzInstancje().inicjujZamykanie();
 		}
 		catch (...){
-			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), -1, STyp::Tekst("Przechwycono wyj¹tek!"), STyp::Tekst("Nieznany typ wyj¹tku!")));
+			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Tekst(), -1, STyp::Tekst("Przechwycono wyj¹tek!"), STyp::Tekst("Nieznany typ wyj¹tku!")));
 			MaszynaStanow::pobierzInstancje().inicjujZamykanie();
 		}
 
@@ -229,7 +229,7 @@ namespace SpEx{
 			XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_EKRAN_STARTOWY, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 				auto ptr = std::make_shared<EkranStartowy>(oknoGlowne_, element); 
 				if (listaEkranow_.find(ptr->pobierzId()) != listaEkranow_.end())
-					throw PowtorzenieIdObiektu(EXCEPTION_PLACE, ptr->pobierzId(), KOMUNIKAT_POWTORZENIE_OBIEKTU(EkranStartowy));
+					throw PowtorzenieIdObiektu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), ptr->pobierzId(), KOMUNIKAT_POWTORZENIE_OBIEKTU(EkranStartowy));
 				listaEkranow_.insert(std::make_pair(ptr->pobierzId(), ptr));
 				return true;
 			}));
@@ -237,7 +237,7 @@ namespace SpEx{
 			XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_EKRAN, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 				auto ptr = std::make_shared<EkranSzablon>(element);
 				if (listaEkranow_.find(ptr->pobierzId()) != listaEkranow_.end())
-					throw PowtorzenieIdObiektu(EXCEPTION_PLACE, ptr->pobierzId(), KOMUNIKAT_POWTORZENIE_OBIEKTU(EkranSzablon));
+					throw PowtorzenieIdObiektu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), ptr->pobierzId(), KOMUNIKAT_POWTORZENIE_OBIEKTU(EkranSzablon));
 				ptr->podlacz(oknoGlowne_);
 				listaEkranow_.insert(std::make_pair(ptr->pobierzId(), ptr));
 				return true;

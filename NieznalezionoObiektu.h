@@ -12,7 +12,7 @@ namespace SpEx{
 	public:
 		static const STyp::Identyfikator idNieznalezionoObiektu;
 
-		NieznalezionoObiektu(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia, const STyp::Tekst& tNazwa);
+		NieznalezionoObiektu(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia, const STyp::Tekst& debug, const STyp::Tekst& tNazwa);
 		virtual ~NieznalezionoObiektu(void) = default;
 
 		const STyp::Tekst& getIdentyfikator() const;

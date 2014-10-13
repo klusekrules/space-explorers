@@ -64,15 +64,15 @@ namespace SpEx{
 		
 		dokumentMaszynyStanow_ = std::make_shared<SPar::ParserDokumentXml>();
 		if (!dokumentMaszynyStanow_->odczytaj(ustawienia.pobierzAdresPlikuStanow().c_str())){
-			throw NieznalezionoPliku(EXCEPTION_PLACE, stos(), ustawienia.pobierzAdresPlikuStanow());
+			throw NieznalezionoPliku(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), ustawienia.pobierzAdresPlikuStanow());
 		}
 		dokumentOknaGry_ = std::make_shared<SPar::ParserDokumentXml>();
 		if (!dokumentOknaGry_->odczytaj(ustawienia.pobierzAdresPlikuOkien().c_str())){
-			throw NieznalezionoPliku(EXCEPTION_PLACE, stos(), ustawienia.pobierzAdresPlikuOkien());
+			throw NieznalezionoPliku(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), ustawienia.pobierzAdresPlikuOkien());
 		}
 		dokumentPowiazanZasobow_ = std::make_shared<SPar::ParserDokumentXml>();
 		if (!dokumentPowiazanZasobow_->odczytaj(ustawienia.pobierzAdresPlikuPowiazanZasobow().c_str())){
-			throw NieznalezionoPliku(EXCEPTION_PLACE, stos(), ustawienia.pobierzAdresPlikuPowiazanZasobow());
+			throw NieznalezionoPliku(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), ustawienia.pobierzAdresPlikuPowiazanZasobow());
 		}
 
 		czyZainicjalizowany_ = true;

@@ -15,8 +15,8 @@ namespace SpEx{
 	*
 	* Klasa obs³ugujê zdarzenia oraz zarz¹dza stanami. W metodzie tej klasy jest zaimplementowana g³ówna pêtla z obs³ug¹ zdarzeñ.
 	* \author Daniel Wojdak
-	* \version 3
-	* \date 02-10-2014
+	* \version 4
+	* \date 13-10-2014
 	*/
 	class MaszynaStanow
 		: public se::Singleton<MaszynaStanow>
@@ -313,6 +313,17 @@ namespace SpEx{
 		* \date 09-07-2014
 		*/
 		OknoGry& pobierzOknoGry();
+
+		/**
+		* \brief Metoda pobiera dane obiektu.
+		*
+		* Metoda pobiera dane pomocne przy odtwarzaniu stanu aplikacji.
+		* \return Napis zawieraj¹cy tekstowy opis stanu obiektu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 13-10-2014
+		*/
+		std::string pobierzDaneDebug() const;
 
 	private:
 

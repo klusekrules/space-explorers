@@ -8,7 +8,7 @@ namespace SpEx{
 	{
 	public:
 		static const STyp::Identyfikator idBladStukturyStanu;
-		BladStukturyStanu(const STyp::Tekst&, const STyp::Tekst&, const STyp::Ilosc&, const STyp::Identyfikator&, const STyp::Tekst&);
+		BladStukturyStanu(const STyp::Tekst&, const STyp::Tekst&, const STyp::Ilosc&, const STyp::Tekst& debug, const STyp::Identyfikator&, const STyp::Tekst&);
 		virtual ~BladStukturyStanu() = default; 
 		const STyp::Identyfikator& pobierzIdentyfikatorStanu() const;
 

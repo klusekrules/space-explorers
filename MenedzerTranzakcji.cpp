@@ -40,7 +40,7 @@ namespace SpEx{
 			try{
 				for (--iterator; iterator >= 0; --iterator){
 					if (!listaOperacji_[iterator]->cofnij()){
-						throw SpEx::NiepowodzenieTranzakcji(EXCEPTION_PLACE, listaOperacji_[iterator]->napis());
+						throw SpEx::NiepowodzenieTranzakcji(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), listaOperacji_[iterator]->napis());
 					}
 				}
 			}
@@ -54,16 +54,16 @@ namespace SpEx{
 #ifndef LOG_OFF_ALL
 				Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, e.generujKomunikat());
 #endif
-				throw SpEx::NiepowodzenieTranzakcji(EXCEPTION_PLACE, listaOperacji_[iterator]->napis());
+				throw SpEx::NiepowodzenieTranzakcji(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), listaOperacji_[iterator]->napis());
 			}
 			catch (std::exception& e){
 #ifndef LOG_OFF_ALL
 				Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, e.what());
 #endif
-				throw NiepowodzenieTranzakcji(EXCEPTION_PLACE, listaOperacji_[iterator]->napis());
+				throw NiepowodzenieTranzakcji(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), listaOperacji_[iterator]->napis());
 			}
 			catch (...){
-				throw NiepowodzenieTranzakcji(EXCEPTION_PLACE, listaOperacji_[iterator]->napis());
+				throw NiepowodzenieTranzakcji(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), listaOperacji_[iterator]->napis());
 			}
 		}
 		return powodzenie;

@@ -23,7 +23,7 @@ namespace SpEx{
 					return true;
 				}));
 			}catch(BladStukturyStanu& e){
-				throw BladStukturyStanu(EXCEPTION_PLACE, id_, KOMUNIAKT_BLAD_ZDARZENIA + e.generujKomunikat());
+				throw BladStukturyStanu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), id_, KOMUNIAKT_BLAD_ZDARZENIA + e.generujKomunikat());
 			}
 
 			if (wezel->pobierzAtrybut(ATRYBUT_XML_SKRYPT_TYP)){

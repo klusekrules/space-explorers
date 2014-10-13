@@ -10,10 +10,11 @@ namespace SpEx{
 	*
 	* Klasa zawiera informacje o stanie.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 09-07-2014
+	* \version 2
+	* \date 13-10-2014
 	*/
-	class Stan
+	class Stan :
+		virtual public SLog::LoggerInterface
 	{
 	public:
 		typedef std::chrono::duration<long double, std::milli> KrokCzasu; /// Typ czasu.
@@ -120,6 +121,17 @@ namespace SpEx{
 		* \date 09-07-2014
 		*/
 		std::shared_ptr<StanInfo> opisStanu() const;
+
+		/**
+		* \brief Metoda tworz¹ca tekstowy opis obiektu.
+		*
+		* Metoda generuje czytelny tekstowy opis obiektu.
+		* \return Opis obiektu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 09-07-2014
+		*/
+		std::string napis() const override;
 	private:
 		std::shared_ptr<StanInfo> info_; /// Obiekt opisuj¹cy stan.
 	};

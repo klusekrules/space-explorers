@@ -12,8 +12,8 @@ namespace STyp{
 	* Podstawowa klasa wyj¹tku. S³u¿¹ca jako klasa bazowa dla pozosta³ych wyj¹tków
 	* lub jako klasa do tworzenia wyj¹tków nie posiadaj¹cych w³asnego typu.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 25-06-2014
+	* \version 2
+	* \date 13-10-2014
 	*/
 	class TYPY_PROSTE_LIB Wyjatek :
 		public std::exception,
@@ -31,15 +31,17 @@ namespace STyp{
 		* \param[in] id - Identyfikator wyj¹tku.
 		* \param[in] tytul - Tytu³ wyj¹tku.
 		* \param[in] tresc - Opis Wyj¹tku.
+		* \param[in] debug - Dane opisuj¹ce stan aplikacji.
 		* \author Daniel Wojdak
-		* \version 1
-		* \date 25-06-2014
+		* \version 2
+		* \date 13-10-2014
 		*/
 		Wyjatek(
 			const Tekst& plik,
 			const Tekst& funkcja,
 			const Ilosc& linia,
 			const Tekst& sladStosu,
+			const Tekst& debug = Tekst(),
 			const Identyfikator& id = Identyfikator(),
 			const Tekst& tytul = Tekst(),
 			const Tekst& tresc = Tekst()
@@ -105,6 +107,17 @@ namespace STyp{
 		const Tekst& getTresc() const;
 
 		/**
+		* \brief Metoda pobieraj¹ca opis stanu aplikacji.
+		*
+		* Metoda pobiera opis stanu aplikacji.
+		* \return Opis wyj¹tku.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-06-2014
+		*/
+		const Tekst& getDebug() const;
+
+		/**
 		* \brief Metoda zwracaj¹ca opis obiektu.
 		*
 		* Metoda zwraca opis obiektu.
@@ -135,6 +148,7 @@ namespace STyp{
 		Ilosc linia_; /// Linia, w której wyst¹pi³ wyj¹tek.
 		Tekst data_; /// Data kompilacji klasy.
 		Tekst stack_; /// Œlad stosu w momencie wyst¹pienia wyj¹tku.
+		Tekst debug_; /// Dodatkowe dane o aplikacji.
 
 		mutable Tekst komunikat_; /// Obiekt przechowuj¹cy komunikat.
 	};

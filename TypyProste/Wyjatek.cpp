@@ -4,8 +4,8 @@
 
 namespace STyp{
 
-	Wyjatek::Wyjatek(const Tekst& plik,	const Tekst& funkcja, const Ilosc& linia, const Tekst& sladStosu, const Identyfikator& id, const Tekst& tytul, const Tekst& tresc)
-		: identyfikator_(id), tytul_(tytul), tresc_(tresc), plik_(plik), funkcja_(funkcja), linia_(linia), stack_(sladStosu), data_(Tekst(__DATE__) + Tekst(", ") + Tekst(__TIME__))
+	Wyjatek::Wyjatek(const Tekst& plik, const Tekst& funkcja, const Ilosc& linia, const Tekst& sladStosu, const Tekst& debug, const Identyfikator& id, const Tekst& tytul, const Tekst& tresc)
+		: identyfikator_(id), tytul_(tytul), tresc_(tresc), plik_(plik), funkcja_(funkcja), linia_(linia), stack_(sladStosu), data_(Tekst(__DATE__) + Tekst(", ") + Tekst(__TIME__)), debug_(debug)
 	{
 	}
 
@@ -33,6 +33,10 @@ namespace STyp{
 		return tresc_;
 	}
 
+	const Tekst& Wyjatek::getDebug() const{
+		return debug_;
+	}
+
 	std::string Wyjatek::napis() const{
 		SLog::Logger str(NAZWAKLASY(Wyjatek));
 		str.dodajPole(NAZWAPOLA(identyfikator_), identyfikator_);
@@ -43,6 +47,7 @@ namespace STyp{
 		str.dodajPole(NAZWAPOLA(linia_), linia_);
 		str.dodajPole(NAZWAPOLA(data_), data_);
 		str.dodajPole(NAZWAPOLA(stack_), stack_);
+		str.dodajPole(NAZWAPOLA(debug_), debug_);
 		return std::move(str.napis());
 	}
 
