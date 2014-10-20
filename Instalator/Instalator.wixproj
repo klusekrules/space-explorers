@@ -40,8 +40,8 @@
     <DefineConstants>
     </DefineConstants>
     <SuppressPdbOutput>False</SuppressPdbOutput>
-    <LinkerAdditionalOptions>-ext WixUIExtension -ext WixUtilExtension -cultures:pl-pl</LinkerAdditionalOptions>
-    <CompilerAdditionalOptions>-ext WixUtilExtension</CompilerAdditionalOptions>
+    <LinkerAdditionalOptions>-ext WixUIExtension -ext WixGamingExtension -ext WixUtilExtension -cultures:pl-pl</LinkerAdditionalOptions>
+    <CompilerAdditionalOptions>-ext WixUtilExtension -ext WixGamingExtension</CompilerAdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Tests|x86' ">
     <DefineConstants>Debug</DefineConstants>
