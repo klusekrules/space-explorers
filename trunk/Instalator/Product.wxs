@@ -21,6 +21,11 @@
             <Directory Id='DOC_DIR' Name='doc'>
               <Directory Id='LIB_DIR' Name='bin'/>
             </Directory>
+            <Directory Id='ERRORS_DIR' Name='errors'>
+                  <Component Id="ERRORS_DIR_COMP" Guid="{CA52CDAB-8491-4C41-B627-F708F2385328}">
+                    <CreateFolder />
+                  </Component>
+                </Directory>
             <Directory Id='INSTALL_DIR' Name='bin'>
               <Directory Id='LUA_DIR' Name='lua'/>
               <Directory Id='DLL_DIR' Name='dll'/>
@@ -280,6 +285,7 @@
       <ComponentRef Id='DLL_TEST_SKRYPTU_COMP' />
       <ComponentRef Id='POZWIAZANIA_XML_COMP' />
       <ComponentRef Id='SPACE_EXPLORERS_LIB_COMP' />
+      <ComponentRef Id='ERRORS_DIR_COMP' />
     </Feature>
     
     <Feature Id="VCRedist" Title="Visual C++ 12.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">

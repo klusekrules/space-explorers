@@ -2,6 +2,7 @@
 #include "Parser\ParserDokumentXml.h"
 #include "Aplikacja.h"
 #include "Utils.h"
+#include "Logger\Logger.h"
 
 namespace SpEx{
 	bool UstawieniaAplikacji::zaladuj(const std::string& plik){
@@ -280,5 +281,26 @@ namespace SpEx{
 
 	const std::string& UstawieniaAplikacji::pobierzAdresPlikuPowiazanZasobow() const{
 		return plikPowiazanZasobow_;
+	}
+
+	std::string UstawieniaAplikacji::napis() const{
+		SLog::Logger str(NAZWAKLASY(UstawieniaAplikacji));
+		str.dodajPole(NAZWAPOLA(jezykAplikacji_), jezykAplikacji_);
+		str.dodajPole(NAZWAPOLA(plikDanych_), plikDanych_);
+		str.dodajPole(NAZWAPOLA(folderPlugin_), folderPlugin_);
+		str.dodajPole(NAZWAPOLA(formatDatyLogow_), std::to_string(formatDatyLogow_));
+		str.dodajPole(NAZWAPOLA(przedrostekPlikuLogow_), przedrostekPlikuLogow_);
+		str.dodajPole(NAZWAPOLA(formatDatyPlikuLogow_), formatDatyPlikuLogow_);
+		for (auto& element : zablokowaneLogi_)
+			str.dodajPole("zablokowaneLogi_", std::to_string(element));
+		for (auto& element : odblokowaneLogi_)
+			str.dodajPole("odblokowaneLogi_", std::to_string(element));
+		str.dodajPole(NAZWAPOLA(adresPlikuGry_), adresPlikuGry_);
+		str.dodajPole(NAZWAPOLA(adresPlikuStanow_), adresPlikuStanow_);
+		str.dodajPole(NAZWAPOLA(adresPlikuOkien_), adresPlikuOkien_);
+		str.dodajPole(NAZWAPOLA(folderPlikuUzytkownika_), folderPlikuUzytkownika_);
+		str.dodajPole(NAZWAPOLA(folderPlikuUkladu_), folderPlikuUkladu_);
+		str.dodajPole(NAZWAPOLA(plikPowiazanZasobow_), plikPowiazanZasobow_);
+		return str.napis();
 	}
 };
