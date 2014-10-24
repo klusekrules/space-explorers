@@ -221,8 +221,22 @@ namespace SpEx{
 	}
 
 	std::string Aplikacja::pobierzDebugInfo() const{
+#if !(defined(LOG_OFF_ALL) || defined(LOG_OFF_DEBUG))
+		std::string str;
+		SLog::Logger logger(NAZWAKLASY(Aplikacja));
+		logger.dodajPole(NAZWAPOLA(czyZainicjalizowanaBiblioteka_), std::to_string(czyZainicjalizowanaBiblioteka_));
+		logger.dodajPole(NAZWAPOLA(uchwyt_), std::to_string(uchwyt_->unused));
+		logger.dodajPole(NAZWAPOLA(symInitialize_), std::to_string((unsigned int)symInitialize_));
+		logger.dodajPole(NAZWAPOLA(symFromAddr_), std::to_string((unsigned int)symFromAddr_));
+		logger.dodajPole(NAZWAPOLA(plikKonfiguracyjny_), plikKonfiguracyjny_);
+		logger.dodajPole(NAZWAPOLA(ustawienia_), ustawienia_);
+		logger.dodajPole(NAZWAPOLA(zarzadcaLokacji_), zarzadcaLokacji_);
+		return str;
+#else
 		return std::string();
+#endif
 	}
+
 	std::string Aplikacja::pobierzSladStosu() const{
 		std::stringstream stackTrace;
 		if (czyZainicjalizowanaBiblioteka_)

@@ -33,10 +33,11 @@ namespace SpEx{
 	*
 	* Klasa s³u¿aca do wczytywania, przechowywyania, zarz¹dzania i zapisywania ustawieñ aplikacji.
 	* \author Daniel Wojdak
-	* \version 2
-	* \date 17-09-2014
+	* \version 3
+	* \date 20-10-2014
 	*/
-	class UstawieniaAplikacji : 
+	class UstawieniaAplikacji :
+		virtual public SLog::LoggerInterface,
 		public se::NonCopyable,
 		public se::NonMoveable
 	{
@@ -227,6 +228,14 @@ namespace SpEx{
 		*/
 		const std::string& pobierzAdresPlikuPowiazanZasobow() const;
 
+		/**
+		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
+		* \return Napis zwieraj¹cy opis klasy.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 20-10-2014
+		*/
+		std::string napis() const override;
 		
 	private:
 		std::string jezykAplikacji_; /// Atrybut przechowuj¹cy napis z nazw¹ u¿ywanego jêzyka aplikacji.

@@ -173,7 +173,6 @@ namespace SpEx {
 		ZarzadcaPamieci zarzadcaPamieci_; /// Obiekt zarz¹dzaj¹cy lokacjami.
 		ZarzadcaLokacji zarzadcaLokacji_; /// Obiekt zarz¹dzaj¹cy lokacjami.
 		
-
 		std::string plikKonfiguracyjny_; /// Adres pliku z danymi konfiguracyjnymi. Domyœlnie options.xml z katalogu z plikiem wykonywalnym.
 		UstawieniaAplikacji ustawienia_; /// Klasa wczytuj¹ca ustawienia z pliku konfiguracyjnego.
 	};

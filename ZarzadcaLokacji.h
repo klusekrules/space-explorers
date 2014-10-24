@@ -13,12 +13,13 @@ namespace SpEx {
 	* Klasa zarzadza wczytanymi lokacjami. Wczytuje na tylko uzywane planety i uklady.
 	* Nie usuwa ich z czasem ¿ycia programu
 	* \author Daniel Wojdak
-	* \version 2
-	* \date 22-09-2014
+	* \version 3
+	* \date 20-10-2014
 	* \todo Usuwanie nieuzywanych lokacji.
 	*/
-	class ZarzadcaLokacji:	
-		public Serializacja
+	class ZarzadcaLokacji :
+		virtual public SLog::LoggerInterface,
+		virtual public Serializacja
 	{
 	public:
 		/**
@@ -202,6 +203,15 @@ namespace SpEx {
 		* \date 25-07-2014
 		*/
 		void zaladujUstawienia(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos);
+		
+		/**
+		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
+		* \return Napis zwieraj¹cy opis klasy.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 20-10-2014
+		*/
+		std::string napis() const override;
 
 	private:
 		/**

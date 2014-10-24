@@ -235,4 +235,47 @@ namespace SpEx {
 	void ZarzadcaLokacji::zaladujUstawienia(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos){
 		folderPlikuUkladu_ = ustawienia.pobierzFolderPlikuUkladu();
 	}
+
+	std::string ZarzadcaLokacji::napis() const{
+		SLog::Logger str(NAZWAKLASY(ZarzadcaLokacji));
+		str.dodajPole(NAZWAPOLA(folderPlikuUkladu_), folderPlikuUkladu_);
+		str.dodajPole(NAZWAPOLA(generator_), generator_);
+		for (auto& galaktyka : galaktyki_){
+			str.rozpocznijPodKlase("Galaktyka");
+			str.dodajPole("Id", galaktyka.first);
+			if (galaktyka.second.galaktyka_!=nullptr)
+				str.dodajPole("GalaktykaPtr", *(galaktyka.second.galaktyka_));
+			else
+				str.dodajPole("GalaktykaPtr", "nullptr");
+			for (auto& element : galaktyka.second.uklady_)
+				str.dodajPole("Uklad ID", element);
+			str.zakonczPodKlase();
+		}
+		for (auto& uklad : ukladySloneczne_){
+			str.rozpocznijPodKlase("Uklad");
+			str.dodajPole("Id", uklad.first);
+			str.dodajPole("Galaktyka Id", uklad.second.idGalaktyki_);
+			str.dodajPole("Flaga inicjalizacji", std::to_string(uklad.second.flaga_inicjalizacji_ukladu._Flag));
+			if (uklad.second.uklad_ != nullptr)
+				str.dodajPole("UkladPtr", *(uklad.second.uklad_));
+			else
+				str.dodajPole("UkladPtr", "nullptr");
+			for (auto& element : uklad.second.planety_)
+				str.dodajPole("Planeta ID", element);
+			str.zakonczPodKlase();
+		}
+		for (auto& uklad : planety_){
+			str.rozpocznijPodKlase("Planeta");
+			str.dodajPole("Id", uklad.first);
+			str.dodajPole("Uklad Id", uklad.second.idUkladu_);
+			str.dodajPole("Flaga inicjalizacji", std::to_string(uklad.second.flaga_inicjalizacji_ukladu._Flag));
+			str.dodajPole("Planeta Wolna", std::to_string(uklad.second.wolna_));
+			if (uklad.second.planeta_ != nullptr)
+				str.dodajPole("PlanetaPtr", *(uklad.second.planeta_));
+			else
+				str.dodajPole("PlanetaPtr", "nullptr");
+			str.zakonczPodKlase();
+		}
+		return str.napis();
+	}
 };
