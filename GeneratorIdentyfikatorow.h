@@ -2,6 +2,7 @@
 #include <string>
 #include <unordered_map>
 #include "TypyProste\TypyProste.h"
+#include "Logger\LoggerInterface.h"
 
 namespace SpEx{
 	/**
@@ -9,10 +10,11 @@ namespace SpEx{
 	*
 	* Klasa mapuje identyfikatory znakowe na kolejne identyfikatory liczbowe.
 	* \author Daniel Wojdak
-	* \version 2
-	* \date 05-08-2014
+	* \version 3
+	* \date 13-11-2014
 	*/
-	class GeneratorIdentyfikatorow
+	class GeneratorIdentyfikatorow :
+		public virtual SLog::LoggerInterface
 	{
 	public:
 		/**
@@ -54,6 +56,15 @@ namespace SpEx{
 		* \date 25-07-2014
 		*/
 		std::string pobierzNapis(const STyp::Identyfikator& identyfikator) const;
+		
+		/**
+		* Funkcja s³u¿¹ca jako podstawa do tworzenia napisów z opisem klasy.
+		* \return Napis zawieraj¹cy opis klasy.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 13-11-2014
+		*/
+		std::string napis() const override;
 
 	private:
 		typedef std::vector<std::string> Kontener; /// Typ kontenera mapuj¹cego identyfikatory.
