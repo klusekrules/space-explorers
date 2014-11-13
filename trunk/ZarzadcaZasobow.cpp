@@ -1,6 +1,7 @@
 #include "ZarzadcaZasobow.h"
 #include "Utils.h"
 #include "definicjeWezlowXML.h"
+#include "Logger\Logger.h"
 
 namespace SpEx{
 
@@ -17,7 +18,7 @@ namespace SpEx{
 			if (nazwa.empty() || lokalizacja.empty())
 				return false;
 			lokalizacjeZasobow_.push_back(std::make_pair(nazwa, lokalizacja));
-			return true;
+			return mapujIdentyfikator(nazwa, STyp::Identyfikator());
 		}));
 	}
 	
@@ -149,5 +150,66 @@ namespace SpEx{
 
 	bool ZarzadcaZasobow::mapujIdentyfikator(const Parametr& parametr, STyp::Identyfikator& identyfikator){
 		return generator_.pobierzIdentyfikator(parametr, identyfikator);
+	}
+
+	std::string ZarzadcaZasobow::napis() const{
+		SLog::Logger logger(NAZWAKLASY(ZarzadcaZasobow));
+
+		logger.rozpocznijPodKlase(NAZWAPOLA(MapaInicjalizatorow));
+		for (auto &element : inicjalizatory_){
+			logger.rozpocznijPodKlase("Inicjalizator");
+			logger.dodajPole("Typ", element.first);
+			std::stringstream streamValid;
+			streamValid.imbue(std::locale());
+			streamValid << std::boolalpha << element.second.operator bool();
+			logger.dodajPole("Poprawny", streamValid.str());
+			logger.zakonczPodKlase();
+		}
+		logger.zakonczPodKlase();
+
+
+		logger.rozpocznijPodKlase(NAZWAPOLA(TablicaLokalizacjiZasobu));
+		for (size_t i = 0; i < lokalizacjeZasobow_.size(); ++i){
+			logger.rozpocznijPodKlase(NAZWAPOLA(WpisLokalizacjiZasobu));
+			auto &element = lokalizacjeZasobow_[i];
+			//logger.dodajPole("IdentyfikatorWpisu", std::to_string(i));
+			logger.dodajPole("IdentyfikatorZasobu", element.first);
+			logger.dodajPole("Lokalizacja", element.second);
+			logger.zakonczPodKlase();
+		}
+		logger.zakonczPodKlase();
+
+		logger.dodajPole(NAZWAPOLA(generator_), generator_);
+
+		logger.rozpocznijPodKlase(NAZWAPOLA(MapaZasobow));
+		for (auto &element : zasobyPrzechowywane_){
+
+			logger.rozpocznijPodKlase("Element");
+			logger.dodajPole("Identyfikator", element.first);
+			logger.rozpocznijPodKlase(NAZWAPOLA(WpisZasobu));
+
+			std::stringstream streamWeakPtr;
+			streamWeakPtr.imbue(std::locale());
+			streamWeakPtr << "0x" << std::hex << (unsigned int)(element.second.first.first._Get());
+			logger.dodajPole("SlabyWsk", streamWeakPtr.str());
+			
+			std::stringstream streamSharedPtr;
+			streamSharedPtr.imbue(std::locale());
+			streamSharedPtr << "0x" << std::hex << (unsigned int)(element.second.first.second._Get());
+			logger.dodajPole("SilnyWsk", streamSharedPtr.str());
+
+			std::stringstream streamCached;
+			streamCached.imbue(std::locale());
+			streamCached << std::boolalpha << element.second.second;
+			logger.dodajPole("Przechowywany", streamCached.str());
+
+			logger.zakonczPodKlase();
+			logger.zakonczPodKlase();
+		}
+		logger.zakonczPodKlase();
+
+		logger.dodajPole(NAZWAPOLA(pustyNapis_), pustyNapis_);
+
+		return logger.napis();
 	}
 };

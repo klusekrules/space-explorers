@@ -4,6 +4,7 @@
 #include "NonCopyable.h"
 #include <functional>
 #include "Parser\XmlBO.h"
+#include "Logger\LoggerInterface.h"
 
 namespace SpEx {
 	/**
@@ -14,8 +15,9 @@ namespace SpEx {
 	* \version 2
 	* \date 02-09-2014
 	*/
-	class ZarzadcaZasobow
-		: se::NonCopyable
+	class ZarzadcaZasobow: 
+		public virtual SLog::LoggerInterface,
+		se::NonCopyable
 	{
 	public:
 		typedef std::string Parametr; /// Typ parametru przekazywanego do zasobu.
@@ -220,6 +222,15 @@ namespace SpEx {
 
 		STyp::Identyfikator pobierzIdentyfikator(const Parametr& nazwaObrazka) const;
 
+		/**
+		* Funkcja s³u¿¹ca jako podstawa do tworzenia napisów z opisem klasy.
+		* \return Napis zawieraj¹cy opis klasy.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 13-11-2014
+		*/
+		std::string napis() const override;
+
 	private:
 		GeneratorIdentyfikatorow generator_; /// Generator identyfikatorów.
 		TablicaLokalizacjiZasobu lokalizacjeZasobow_; /// Tablica zawieraj¹ca powi¹zania nazw symbolicznych z lokalizacj¹ zasobu na dysku.
@@ -243,7 +254,3 @@ namespace SpEx {
 		const std::string pustyNapis_ = std::string();
 	};
 };
-
-
-
-

@@ -1,6 +1,7 @@
 #include "GeneratorIdentyfikatorow.h"
 #include "NiepoprawneParametryFunkcji.h"
 #include "Aplikacja.h"
+#include "Logger\Logger.h"
 
 namespace SpEx{
 	bool GeneratorIdentyfikatorow::pobierzIdentyfikator(const std::string& napis, STyp::Identyfikator& id){
@@ -24,5 +25,13 @@ namespace SpEx{
 			return std::string();
 		else
 			return mapa_.at(identyfikator());
+	}
+
+	std::string GeneratorIdentyfikatorow::napis() const{
+		SLog::Logger logger(NAZWAKLASY(GeneratorIdentyfikatorow));
+		for (size_t i = 0; i < mapa_.size(); ++i){
+			logger.dodajPole(NAZWAPOLA(mapa_)+std::to_string(i), mapa_[i]);
+		}
+		return logger.napis();
 	}
 };

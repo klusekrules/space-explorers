@@ -231,6 +231,7 @@ namespace SpEx{
 		logger.dodajPole(NAZWAPOLA(plikKonfiguracyjny_), plikKonfiguracyjny_);
 		logger.dodajPole(NAZWAPOLA(ustawienia_), ustawienia_);
 		logger.dodajPole(NAZWAPOLA(zarzadcaLokacji_), zarzadcaLokacji_);
+		logger.dodajPole(NAZWAPOLA(zarzadcaZasobow_), zarzadcaZasobow_);
 		return str;
 #else
 		return std::string();
@@ -274,6 +275,7 @@ namespace SpEx{
 
 	Aplikacja::~Aplikacja()
 	{
+		logger_.loguj(SLog::Log::Info,zarzadcaZasobow_);
 		if (uchwyt_)
 			FreeLibrary(uchwyt_);
 	}
