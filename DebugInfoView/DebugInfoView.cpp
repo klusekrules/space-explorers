@@ -5,7 +5,6 @@
 #include "DebugInfoView.h"
 #include "resource.h"
 
-#include <CommCtrl.h>
 
 #define MAX_LOADSTRING 100
 
@@ -19,6 +18,7 @@ ATOM				MyRegisterClass(HINSTANCE hInstance);
 BOOL				InitInstance(HINSTANCE, int);
 LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
+void				Otworz();
 HWND hTree;
 
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
@@ -147,35 +147,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 		case IDM_OTWORZ:
 			{
-				TVITEM tvi;
-				tvi.mask = TVIF_TEXT | TVIF_PARAM;
-				tvi.pszText = "Element Jeden";
-				tvi.lParam = 10;
-
-				TVINSERTSTRUCT tvins;
-				tvins.item = tvi;
-				tvins.hParent = tvins.hInsertAfter = TVI_ROOT;
-
-				HTREEITEM hItem1 = TreeView_InsertItem(hTree, &tvins);
-
-				tvi.pszText = "Element Dwa";
-				tvi.lParam = 20;
-				tvins.item = tvi;
-				tvins.hInsertAfter = TVI_LAST; // ...albo hItem1HTREEITEM
-				HTREEITEM hItem2 = TreeView_InsertItem(hTree, &tvins);
-
-				tvi.pszText = "Element Trzy";
-				tvi.lParam = 30;
-				tvins.item = tvi;
-				tvins.hInsertAfter = TVI_LAST; // ...albo hItem2HTREEITEM
-				HTREEITEM hItem3 = TreeView_InsertItem(hTree, &tvins);
-
-				tvi.pszText = "Dziecko Elementu Jeden";
-				tvi.lParam = 40;
-				tvins.item = tvi;
-				tvins.hParent = hItem1;
-				tvins.hInsertAfter = TVI_FIRST; // ...albo TVI_LASTHTREEITEM
-				HTREEITEM hItemChild = TreeView_InsertItem(hTree, &tvins);
+			Otworz();
 			}
 			break;
 		case IDM_ABOUT:
@@ -240,4 +212,141 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	}
 	return (INT_PTR)FALSE;
+}
+
+class Parser{
+public:
+	Parser(const std::string& napis, HWND hTreeView)
+		: str_(napis), hTreeView_(hTreeView)
+	{
+		znSp_[0] = '[';
+		znSp_[1] = '=';
+		znSp_[2] = ',';
+		znSp_[3] = ']';
+
+		tvi_.mask = TVIF_TEXT | TVIF_PARAM;
+		tvi_.lParam = 10;
+
+		tvins_.item = tvi_;
+		tvins_.hParent = TVI_ROOT;
+		tvins_.hInsertAfter = TVI_LAST;
+	}
+
+	void parsuj(){
+		while (Krok()){
+			switch (znakSpecjalny_){
+			case '[':
+				dodajElement(napis_, true, false);
+				break;
+			case ',':
+				if (!czyZmiennaPusta()){
+					if (!napis_.empty()) // do analizy
+						dodajElement(napis_, false, false);
+					pop();
+				}
+				break;
+			case '=':
+				dodajElement(napis_, true, true);
+				break;
+			case ']':
+				if (!czyZmiennaPusta()){
+					dodajElement(napis_, false, false);
+					pop();
+				}
+				pop();
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+private:
+
+	struct Level
+	{
+		HTREEITEM handle_;
+		bool zmienna_;
+	};
+
+	TVITEM tvi_;
+	TVINSERTSTRUCT tvins_;
+	std::stack<Level> stos_;
+	std::string str_;
+	HWND hTreeView_;
+
+	std::string::size_type pos_ = 0;
+	char znSp_[4];
+	std::string napis_;
+	char znakSpecjalny_;
+
+	bool Krok(){
+		std::string nowy;
+
+		if (pos_ >= str_.size())
+			return false;
+
+		if (str_[pos_] != '"'){
+			for (; pos_ < str_.size() && !czyZnakSpecjalny(str_[pos_]); ++pos_)
+				nowy.push_back(str_[pos_]);
+		}else{
+			for (++pos_; pos_ < str_.size() && str_[pos_] != '"'; ++pos_)
+				nowy.push_back(str_[pos_]);
+			for (; pos_ < str_.size() && !czyZnakSpecjalny(str_[pos_]); ++pos_);
+		}
+
+		napis_ = std::move(nowy);
+		znakSpecjalny_ = str_[pos_];
+		++pos_;
+		return true;
+	}
+
+	bool czyZnakSpecjalny(char c){
+		for (int i = 0; i < 4; ++i)
+			if (znSp_[i] == c)
+				return true;
+		return false;
+	}
+
+	void ustawNazwe( const std::string& nazwa ){
+		tvi_.pszText = (char *)nazwa.c_str();
+		tvi_.cchTextMax = (int)nazwa.size();
+	}
+
+	void ustawRodzica(){
+		if (stos_.empty())
+			tvins_.hParent = TVI_ROOT;
+		else
+			tvins_.hParent = stos_.top().handle_;
+	}
+
+	void wstawElement(bool naStos , bool zmienna){
+		tvins_.item = tvi_; 
+		if (naStos)
+			stos_.push(Level({ TreeView_InsertItem(hTreeView_, &tvins_), zmienna }));
+		else
+			TreeView_InsertItem(hTreeView_, &tvins_);
+	}
+
+	void dodajElement( const std::string& napis, bool naStos, bool zeZmienna){
+		ustawNazwe(napis);
+		ustawRodzica();
+		wstawElement(naStos, zeZmienna);
+	}
+
+	void pop(){
+		if (!stos_.empty())
+			stos_.pop();
+	}
+
+	bool czyZmiennaPusta(){
+		return !stos_.empty() && !stos_.top().zmienna_;
+	}
+};
+
+
+void Otworz(){
+	std::string str = "SpEx::ZarzadcaZasobow[MapaInicjalizatorow[ Inicjalizator[  Typ=lua,  Valid=true ], Inicjalizator[  Typ=dll,  Valid=true ] ], TablicaLokalizacjiZasobu[ WpisLokalizacjiZasobu[  IdentyfikatorZasobu=StartScreen,  Lokalizacja=resource\\Space_start_screen.png ], WpisLokalizacjiZasobu[  IdentyfikatorZasobu=BrakObrazka,  Lokalizacja=resource\\Brak_obrazka.png ] ],  generator_=SpEx::GeneratorIdentyfikatorow[ mapa_0=StartScreen,  mapa_1=BrakObrazka,  mapa_2=lua_,  mapa_3=dll_,  mapa_4=lua_wspolna ], MapaZasobow[ Element[  Identyfikator=2, WpisZasobu[  WeakPtr=0x3 e9c 3c0,  SharedPtr=0x3 e9c 3c0,  Cached=true ] ], Element[  Identyfikator=3, WpisZasobu[  WeakPtr=0x3 e9c 060,  SharedPtr=0x3 e9c 060,  Cached=true ] ], Element[  Identyfikator=4, WpisZasobu[  WeakPtr=0x3 e9d 110,  SharedPtr=0x3 e9d 110,  Cached=true ] ] ],  pustyNapis_= ]";
+	Parser parser(str,hTree);
+	parser.parsuj();
 }
