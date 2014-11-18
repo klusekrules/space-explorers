@@ -11,52 +11,35 @@ namespace SLog{
 	}
 
 	void Logger::dodajKlase(const std::string& opisKlasy){
-		testPierwszegoPola();
 		napis_ << " " << opisKlasy;
 	}
 
-	std::string Logger::tworzPole(const std::string& nazwa, const LoggerInterface& obiektPierwszy, const LoggerInterface& obiektDrugi){
-		return std::move(nazwa + " { " + obiektPierwszy.napis() + " , " + obiektDrugi.napis() + " }");
-	}
-
-	std::string Logger::tworzKlase(const std::string& nazwaKlasy, const std::string& opisKlasy){
-		return std::move(nazwaKlasy + "[ " + opisKlasy + " ]");
-	}
-
 	void Logger::dodajPole(const std::string& nazwa, const LoggerInterface& obiekt){
-		dodajPole(nazwa, obiekt.napis());
+		wstaw(nazwa, obiekt.napis());
 	}
 
 	void Logger::dodajPole(const std::string& nazwa, const std::shared_ptr<LoggerInterface> obiekt){
 		if (obiekt)
-			dodajPole(nazwa, obiekt->napis());
+			wstaw(nazwa, obiekt->napis());
 	}
 
-	void Logger::dodajPole(const std::string& nazwa, const std::string& opisPola){
-		testPierwszegoPola();
+	void Logger::dodajPole(const std::string& nazwa, const std::string& typ,const std::string& opisPola){
+		wstaw(nazwa, typ + "[ \"" + opisPola + "\" ]");
+	}
+
+	void Logger::wstaw(const std::string& nazwa, const std::string& opisPola){
 		napis_ << " " << nazwa << "=" << opisPola;
 	}
 
-	void Logger::dodajPole(const std::string& nazwa, const LoggerInterface& obiektPierwszy, const LoggerInterface& obiektDrugi){
-		testPierwszegoPola();
-		napis_ << nazwa << " { " << obiektPierwszy.napis() << " , " << obiektDrugi.napis() << " }";
+	void Logger::rozpocznijPodKlase(const std::string& zmienna, const std::string& nazwa){
+		napis_ << " " << zmienna << "=" << nazwa << "[";
 	}
 
 	void Logger::rozpocznijPodKlase(const std::string& nazwa){
-		testPierwszegoPola();
-		napis_ << nazwa << "[ ";
-		stos_.push(true);
+		napis_ << " " << nazwa << "[";
 	}
 
 	void Logger::zakonczPodKlase(){
-		stos_.pop();
 		napis_ << " ]";
-	}
-
-	void Logger::testPierwszegoPola(){
-		if (!stos_.top())
-			napis_ << ", ";
-		else
-			stos_.top() = false;
 	}
 }
