@@ -97,17 +97,17 @@ namespace SpEx{
 	}
 
 	bool PodstawoweParametry::zapisz(XmlBO::ElementWezla wezel) const{
-		wezel->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR_PLANETY, identyfikatorPlanety_.napis().c_str());
+		wezel->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR_PLANETY, std::to_string(identyfikatorPlanety_()).c_str());
 		switch (typAtrybutu_){
 		case POZIOM:
 			if (atrybutPodstawowy_.poziom <= 0)
 				return false;
-			wezel->tworzAtrybut(ATRYBUT_XML_POZIOM, STyp::Poziom(atrybutPodstawowy_.poziom).napis().c_str());
+			wezel->tworzAtrybut(ATRYBUT_XML_POZIOM, std::to_string(STyp::Poziom(atrybutPodstawowy_.poziom)()).c_str());
 			break;
 		case ILOSC:
 			if (atrybutPodstawowy_.ilosc <= 0)
 				return false;
-			wezel->tworzAtrybut(ATRYBUT_XML_ILOSC, STyp::Ilosc(atrybutPodstawowy_.ilosc).napis().c_str());
+			wezel->tworzAtrybut(ATRYBUT_XML_ILOSC, std::to_string(STyp::Ilosc(atrybutPodstawowy_.ilosc)()).c_str());
 			break;
 		}
 		return true;

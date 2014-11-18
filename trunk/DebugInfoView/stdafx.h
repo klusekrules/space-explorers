@@ -21,5 +21,7 @@
 // C++
 #include <string>
 #include <stack>
+#include <vector>
+#include <memory>
 
 // TODO: reference additional headers your program requires here

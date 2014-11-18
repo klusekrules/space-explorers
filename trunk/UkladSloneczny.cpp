@@ -54,11 +54,11 @@ namespace SpEx{
 
 	bool UkladSloneczny::zapisz(XmlBO::ElementWezla wezel) const{
 		auto element = wezel->tworzElement(WEZEL_XML_UKLAD_SLONECZNY);
-		element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, identyfikator_.napis().c_str());
-		element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR_RODZICA, idGalaktyki_.napis().c_str());
-		element->tworzAtrybut(ATRYBUT_XML_SREDNICA_GWIAZDY, srednicaGwiazdy_.napis().c_str());
-		element->tworzAtrybut(ATRYBUT_XML_SREDNICA_GWIAZDY, srednicaGwiazdy_.napis().c_str());
-		element->tworzAtrybut(ATRYBUT_XML_SREDNIA_TEMPERATURA_GWIAZDY, sredniaTemperaturaGwiazdy_.napis().c_str());
+		element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(identyfikator_()).c_str());
+		element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR_RODZICA, std::to_string(idGalaktyki_()).c_str());
+		element->tworzAtrybut(ATRYBUT_XML_SREDNICA_GWIAZDY, std::to_string(srednicaGwiazdy_()).c_str());
+		element->tworzAtrybut(ATRYBUT_XML_SREDNICA_GWIAZDY, std::to_string(srednicaGwiazdy_()).c_str());
+		element->tworzAtrybut(ATRYBUT_XML_SREDNIA_TEMPERATURA_GWIAZDY, std::to_string(sredniaTemperaturaGwiazdy_()).c_str());
 		for (auto planeta : planety_)
 		if (!planeta.second->zapisz(element))
 			return false;

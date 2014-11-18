@@ -51,8 +51,8 @@ namespace SpEx{
 	std::string Stan::napis()const{
 		SLog::Logger log(NAZWAKLASY(Stan));
 		log.dodajPole(NAZWAPOLA(id_), id_);
-		log.dodajPole(NAZWAPOLA(numer_), std::to_string(numer_));
-		log.dodajPole(NAZWAPOLA(dt_), std::to_string(dt_.count()));
+		log.dodajPole(NAZWAPOLA(numer_), NAZWAKLASY2(numer_), std::to_string(numer_));
+		log.dodajPole(NAZWAPOLA(dt_), NAZWAKLASY2(dt_.count()), std::to_string(dt_.count()));
 		log.rozpocznijPodKlase("Lista Ekranow");
 		for (auto &e : listaEkranow_){
 			log.dodajPole("Id Ekranu", e);

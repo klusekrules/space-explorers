@@ -73,7 +73,7 @@ namespace TypyProsteTesty
 		{
 			STyp::Tekst napis("Wynik");
 			Assert::AreEqual<STyp::Tekst::nazwa_typu>("Wynik", napis(), L"Nie poprawne dzia³anie klasy STyp::Tekst.", LINE_INFO());
-			Assert::AreEqual<STyp::Tekst::nazwa_typu>("\"Wynik\"", napis.napis(), L"Nie poprawne dzia³anie klasy STyp::Tekst.", LINE_INFO());
+			//Assert::AreEqual<STyp::Tekst::nazwa_typu>("\"Wynik\"", napis.napis(), L"Nie poprawne dzia³anie klasy STyp::Tekst.", LINE_INFO());
 		}
 
 		TEST_METHOD(KlasaWyjatek)

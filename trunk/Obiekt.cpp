@@ -75,7 +75,7 @@ namespace SpEx{
 		if (!PodstawoweParametry::zapisz(wezel)){
 			return false;
 		}
-		return wezel->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, identyfikator_.napis().c_str()) != nullptr;
+		return wezel->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(identyfikator_()).c_str()) != nullptr;
 	}
 
 	bool Obiekt::odczytaj(XmlBO::ElementWezla wezel){

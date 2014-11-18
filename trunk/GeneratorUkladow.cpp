@@ -199,15 +199,15 @@ namespace SpEx{
 	}
 
 	bool GeneratorUkladow::odczytaj(XmlBO::ElementWezla wezel){
-			auto element = XmlBO::ZnajdzWezelJezeli<STACKTHROW>(wezel, WEZEL_XML_LICZNIK, ATRYBUT_XML_IDENTYFIKATOR, LICZNIK_PLANET_ID.napis());
+			auto element = XmlBO::ZnajdzWezelJezeli<STACKTHROW>(wezel, WEZEL_XML_LICZNIK, ATRYBUT_XML_IDENTYFIKATOR, std::to_string(LICZNIK_PLANET_ID()));
 			if (!licznikIdPlanet.odczytaj(element))
 				return false;
 
-			element = XmlBO::ZnajdzWezelJezeli<STACKTHROW>(wezel, WEZEL_XML_LICZNIK, ATRYBUT_XML_IDENTYFIKATOR, LICZNIK_UKLADOW_ID.napis());
+			element = XmlBO::ZnajdzWezelJezeli<STACKTHROW>(wezel, WEZEL_XML_LICZNIK, ATRYBUT_XML_IDENTYFIKATOR, std::to_string(LICZNIK_UKLADOW_ID()));
 			if (!licznikIdUkladow.odczytaj(element))
 				return false;
 
-			element = XmlBO::ZnajdzWezelJezeli<STACKTHROW>(wezel, WEZEL_XML_LICZNIK, ATRYBUT_XML_IDENTYFIKATOR, LICZNIK_GALAKTYK_ID.napis());
+			element = XmlBO::ZnajdzWezelJezeli<STACKTHROW>(wezel, WEZEL_XML_LICZNIK, ATRYBUT_XML_IDENTYFIKATOR, std::to_string(LICZNIK_GALAKTYK_ID()));
 			if (!licznikIdGalaktyk.odczytaj(element))
 				return false;
 			return true;

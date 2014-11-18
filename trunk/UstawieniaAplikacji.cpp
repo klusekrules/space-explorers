@@ -285,22 +285,22 @@ namespace SpEx{
 
 	std::string UstawieniaAplikacji::napis() const{
 		SLog::Logger str(NAZWAKLASY(UstawieniaAplikacji));
-		str.dodajPole(NAZWAPOLA(jezykAplikacji_), jezykAplikacji_);
-		str.dodajPole(NAZWAPOLA(plikDanych_), plikDanych_);
-		str.dodajPole(NAZWAPOLA(folderPlugin_), folderPlugin_);
-		str.dodajPole(NAZWAPOLA(formatDatyLogow_), std::to_string(formatDatyLogow_));
-		str.dodajPole(NAZWAPOLA(przedrostekPlikuLogow_), przedrostekPlikuLogow_);
-		str.dodajPole(NAZWAPOLA(formatDatyPlikuLogow_), formatDatyPlikuLogow_);
+		str.dodajPole(NAZWAPOLA(jezykAplikacji_), NAZWAKLASY2(jezykAplikacji_), jezykAplikacji_);
+		str.dodajPole(NAZWAPOLA(plikDanych_), NAZWAKLASY2(plikDanych_), plikDanych_);
+		str.dodajPole(NAZWAPOLA(folderPlugin_), NAZWAKLASY2(folderPlugin_), folderPlugin_);
+		str.dodajPole(NAZWAPOLA(formatDatyLogow_), NAZWAKLASY2(formatDatyLogow_), std::to_string(formatDatyLogow_));
+		str.dodajPole(NAZWAPOLA(przedrostekPlikuLogow_), NAZWAKLASY2(przedrostekPlikuLogow_), przedrostekPlikuLogow_);
+		str.dodajPole(NAZWAPOLA(formatDatyPlikuLogow_), NAZWAKLASY2(formatDatyPlikuLogow_), formatDatyPlikuLogow_);
 		for (auto& element : zablokowaneLogi_)
-			str.dodajPole("zablokowaneLogi_", std::to_string(element));
+			str.dodajPole("zablokowaneLogi_", NAZWAKLASY2(element), std::to_string(element));
 		for (auto& element : odblokowaneLogi_)
-			str.dodajPole("odblokowaneLogi_", std::to_string(element));
-		str.dodajPole(NAZWAPOLA(adresPlikuGry_), adresPlikuGry_);
-		str.dodajPole(NAZWAPOLA(adresPlikuStanow_), adresPlikuStanow_);
-		str.dodajPole(NAZWAPOLA(adresPlikuOkien_), adresPlikuOkien_);
-		str.dodajPole(NAZWAPOLA(folderPlikuUzytkownika_), folderPlikuUzytkownika_);
-		str.dodajPole(NAZWAPOLA(folderPlikuUkladu_), folderPlikuUkladu_);
-		str.dodajPole(NAZWAPOLA(plikPowiazanZasobow_), plikPowiazanZasobow_);
+			str.dodajPole("odblokowaneLogi_", NAZWAKLASY2(element), std::to_string(element));
+		str.dodajPole(NAZWAPOLA(adresPlikuGry_), NAZWAKLASY2(adresPlikuGry_), adresPlikuGry_);
+		str.dodajPole(NAZWAPOLA(adresPlikuStanow_), NAZWAKLASY2(adresPlikuStanow_), adresPlikuStanow_);
+		str.dodajPole(NAZWAPOLA(adresPlikuOkien_), NAZWAKLASY2(adresPlikuOkien_), adresPlikuOkien_);
+		str.dodajPole(NAZWAPOLA(folderPlikuUzytkownika_), NAZWAKLASY2(folderPlikuUzytkownika_), folderPlikuUzytkownika_);
+		str.dodajPole(NAZWAPOLA(folderPlikuUkladu_), NAZWAKLASY2(folderPlikuUkladu_), folderPlikuUkladu_);
+		str.dodajPole(NAZWAPOLA(plikPowiazanZasobow_), NAZWAKLASY2(plikPowiazanZasobow_), plikPowiazanZasobow_);
 		return str.napis();
 	}
 };

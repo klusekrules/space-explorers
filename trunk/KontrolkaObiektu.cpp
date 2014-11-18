@@ -578,7 +578,7 @@ namespace tgui{
 			opisObiektu = SpEx::Utils::trim(obj.pobierzOpis()());
 			for (auto &element : warunki){
 				if (element->typAtrybutu() == SpEx::Kryterium::ILOSC){
-					opisObiektu += "\n" + gra.pobierzObiekt<SpEx::ObiektInfo>(element->pobierzIdentyfikator()).pobierzNazwe()() + " : " + element->pobierzIlosc().napis();
+					opisObiektu += "\n" + gra.pobierzObiekt<SpEx::ObiektInfo>(element->pobierzIdentyfikator()).pobierzNazwe()() + " : " + std::to_string(element->pobierzIlosc()());
 				}
 			}
 			tresc_->setText(opisObiektu);
@@ -586,10 +586,10 @@ namespace tgui{
 			switch (obj.pobierzTypAtrybutu())
 			{
 			case SpEx::PodstawoweParametry::POZIOM:
-				nazwa_->setText(obj.pobierzNazwe()() + " ( Poziom " + wsk->pobierzPoziom().napis() + " )");
+				nazwa_->setText(obj.pobierzNazwe()() + " ( Poziom " + std::to_string(wsk->pobierzPoziom()()) + " )");
 				break;
 			case SpEx::PodstawoweParametry::ILOSC:
-				nazwa_->setText(obj.pobierzNazwe()() + " ( Iloœæ " + wsk->pobierzIlosc().napis() + " )");
+				nazwa_->setText(obj.pobierzNazwe()() + " ( Iloœæ " + std::to_string(wsk->pobierzIlosc()()) + " )");
 				break;
 			default:
 				break;
@@ -605,7 +605,7 @@ namespace tgui{
 			opisObiektu = SpEx::Utils::trim(obj.pobierzOpis()());
 			for (auto &element : warunki){
 				if (element->typAtrybutu() == SpEx::Kryterium::ILOSC){
-					opisObiektu += "\n" + gra.pobierzObiekt<SpEx::ObiektInfo>(element->pobierzIdentyfikator()).pobierzNazwe()() + " : " + element->pobierzIlosc().napis();
+					opisObiektu += "\n" + gra.pobierzObiekt<SpEx::ObiektInfo>(element->pobierzIdentyfikator()).pobierzNazwe()() + " : " + std::to_string(element->pobierzIlosc()());
 				}
 			}
 

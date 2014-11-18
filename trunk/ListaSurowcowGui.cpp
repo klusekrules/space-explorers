@@ -246,7 +246,7 @@ namespace tgui {
 	void ListaSurowcowGui::SurowiecGui::ustawDane(const SpEx::Obiekt& obiekt){
 		std::string napis;
 		idObiektu_ = obiekt.pobierzIdentyfikator();
-		napis += obiekt.pobierzObiektInfo().pobierzNazwe()() + "\n" + obiekt.pobierzIlosc().napis();
+		napis += obiekt.pobierzObiektInfo().pobierzNazwe()() + "\n" + std::to_string(obiekt.pobierzIlosc()());
 		tekst_->setText(napis);
 		auto size = tekst_->getSize();
 		setSize(size.x,size.y);

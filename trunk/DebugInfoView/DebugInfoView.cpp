@@ -13,6 +13,7 @@ HINSTANCE hInst;								// current instance
 TCHAR szTitle[MAX_LOADSTRING];					// The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
 
+
 // Forward declarations of functions included in this code module:
 ATOM				MyRegisterClass(HINSTANCE hInstance);
 BOOL				InitInstance(HINSTANCE, int);
@@ -104,7 +105,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // Store instance handle in our global variable
 
    hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
+      CW_USEDEFAULT, 0, 900, 520, NULL, NULL, hInstance, NULL);
 
    hTree = CreateWindowEx(WS_EX_CLIENTEDGE, WC_TREEVIEW, "Drzefko",
 	   WS_CHILD | WS_VISIBLE | WS_BORDER | TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT,
@@ -121,139 +122,88 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    return TRUE;
 }
 
-//
-//  FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)
-//
-//  PURPOSE:  Processes messages for the main window.
-//
-//  WM_COMMAND	- process the application menu
-//  WM_PAINT	- Paint the main window
-//  WM_DESTROY	- post a quit message and return
-//
-//
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	int wmId, wmEvent;
-	PAINTSTRUCT ps;
-	HDC hdc;
-
-	switch (message)
-	{
-	case WM_COMMAND:
-		wmId    = LOWORD(wParam);
-		wmEvent = HIWORD(wParam);
-		// Parse the menu selections:
-		switch (wmId)
-		{
-		case IDM_OTWORZ:
-			{
-			Otworz();
-			}
-			break;
-		case IDM_ABOUT:
-			DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-			break;
-		case IDM_EXIT:
-			DestroyWindow(hWnd);
-			break;
-		default:
-			return DefWindowProc(hWnd, message, wParam, lParam);
-		}
-		break;
-	case WM_NOTIFY:
-	{
-		switch (((LPNMHDR)lParam)->code)
-		{
-			case TVN_SELCHANGED:
-				{
-				NMTREEVIEW* pnmtv = (LPNMTREEVIEW)lParam;
-				//LPTSTR str = (pnmtv->itemNew.pszText);
-				if (pnmtv->itemNew.lParam == 40){
-					MessageBox(hWnd, "Odczytano", "load", MB_OK);
-				}
-				//MessageBox(hWnd, str, "load", MB_OK);
-				HTREEITEM hCurrentItem = TreeView_GetSelection(hTree);
-					//DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-				}
-				break;
-
-		}
-	}
-		break;
-	case WM_PAINT:
-		hdc = BeginPaint(hWnd, &ps);
-		// TODO: Add any drawing code here...
-		EndPaint(hWnd, &ps);
-		break;
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
-	default:
-		return DefWindowProc(hWnd, message, wParam, lParam);
-	}
-	return 0;
-}
-
-// Message handler for about box.
-INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	UNREFERENCED_PARAMETER(lParam);
-	switch (message)
-	{
-	case WM_INITDIALOG:
-		return (INT_PTR)TRUE;
-
-	case WM_COMMAND:
-		if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
-		{
-			EndDialog(hDlg, LOWORD(wParam));
-			return (INT_PTR)TRUE;
-		}
-		break;
-	}
-	return (INT_PTR)FALSE;
-}
-
 class Parser{
 public:
-	Parser(const std::string& napis, HWND hTreeView)
-		: str_(napis), hTreeView_(hTreeView)
+	struct Element{
+		std::string nazwaTypu_;
+		std::string nazwaZmiennej_;
+		std::string wartosc_;
+
+		Element(){
+			nazwaTypu_.clear();
+			nazwaZmiennej_.clear();
+			wartosc_.clear();
+		}
+
+		bool ok(){
+			return !nazwaTypu_.empty();
+		}
+	};
+
+	std::vector<std::shared_ptr<Element>> elementy_;
+
+	Parser()
 	{
 		znSp_[0] = '[';
 		znSp_[1] = '=';
-		znSp_[2] = ',';
+		znSp_[2] = ';';
 		znSp_[3] = ']';
 
 		tvi_.mask = TVIF_TEXT | TVIF_PARAM;
-		tvi_.lParam = 10;
+		tvi_.lParam = -1;
 
 		tvins_.item = tvi_;
 		tvins_.hParent = TVI_ROOT;
 		tvins_.hInsertAfter = TVI_LAST;
 	}
 
-	void parsuj(){
-		while (Krok()){
+	void parsuj(const std::string& napis, HWND hTreeView){
+		str_ = napis;
+		hTreeView_ = hTreeView;
+		el_ = std::make_shared<Element>();
+		tvi_.lParam = elementy_.size();
+		elementy_.push_back(el_);
+
+		while (krok()){
 			switch (znakSpecjalny_){
 			case '[':
-				dodajElement(napis_, true, false);
+				if (el_->ok()){
+					stosEl_.push(el_);
+					el_ = std::make_shared<Element>();
+					tvi_.lParam = elementy_.size();
+					elementy_.push_back(el_);
+				}
+				el_->nazwaTypu_ = napis_;
+				if (czyZmiennaPusta()){
+					dodajElement(napis_, true, false);
+				}
 				break;
-			case ',':
-				if (!czyZmiennaPusta()){
+			case ';':
+				/*if (!czyZmiennaPusta()){
 					if (!napis_.empty()) // do analizy
 						dodajElement(napis_, false, false);
 					pop();
-				}
+				}*/
 				break;
 			case '=':
+				if (el_->ok()){
+					stosEl_.push(el_);
+					el_ = std::make_shared<Element>();
+					tvi_.lParam = elementy_.size();
+					elementy_.push_back(el_);
+				}
+				el_->nazwaZmiennej_ = napis_;
 				dodajElement(napis_, true, true);
 				break;
 			case ']':
-				if (!czyZmiennaPusta()){
-					dodajElement(napis_, false, false);
-					pop();
+				if (nawiasy_){
+					el_->wartosc_ = napis_;
 				}
 				pop();
+				if (!stosEl_.empty()){
+					el_ = stosEl_.top();
+					stosEl_.pop();
+				}
 				break;
 			default:
 				break;
@@ -265,6 +215,7 @@ private:
 
 	struct Level
 	{
+		Level(HTREEITEM h, bool z):handle_(h), zmienna_(z){}
 		HTREEITEM handle_;
 		bool zmienna_;
 	};
@@ -272,6 +223,8 @@ private:
 	TVITEM tvi_;
 	TVINSERTSTRUCT tvins_;
 	std::stack<Level> stos_;
+	std::stack<std::shared_ptr<Element>> stosEl_;
+	std::shared_ptr<Element> el_;
 	std::string str_;
 	HWND hTreeView_;
 
@@ -279,17 +232,21 @@ private:
 	char znSp_[4];
 	std::string napis_;
 	char znakSpecjalny_;
+	bool nawiasy_;
 
-	bool Krok(){
+	bool krok(){
 		std::string nowy;
 
 		if (pos_ >= str_.size())
 			return false;
 
+		nawiasy_ = false;
+		for (; pos_ < str_.size() && isspace(str_[pos_]); ++pos_);
 		if (str_[pos_] != '"'){
 			for (; pos_ < str_.size() && !czyZnakSpecjalny(str_[pos_]); ++pos_)
 				nowy.push_back(str_[pos_]);
 		}else{
+			nawiasy_ = true;
 			for (++pos_; pos_ < str_.size() && str_[pos_] != '"'; ++pos_)
 				nowy.push_back(str_[pos_]);
 			for (; pos_ < str_.size() && !czyZnakSpecjalny(str_[pos_]); ++pos_);
@@ -323,7 +280,7 @@ private:
 	void wstawElement(bool naStos , bool zmienna){
 		tvins_.item = tvi_; 
 		if (naStos)
-			stos_.push(Level({ TreeView_InsertItem(hTreeView_, &tvins_), zmienna }));
+			stos_.emplace(TreeView_InsertItem(hTreeView_, &tvins_), zmienna);
 		else
 			TreeView_InsertItem(hTreeView_, &tvins_);
 	}
@@ -340,13 +297,116 @@ private:
 	}
 
 	bool czyZmiennaPusta(){
-		return !stos_.empty() && !stos_.top().zmienna_;
+		return stos_.empty() || (!stos_.empty() && !stos_.top().zmienna_);
 	}
 };
 
+Parser parser;
 
 void Otworz(){
-	std::string str = "SpEx::ZarzadcaZasobow[MapaInicjalizatorow[ Inicjalizator[  Typ=lua,  Valid=true ], Inicjalizator[  Typ=dll,  Valid=true ] ], TablicaLokalizacjiZasobu[ WpisLokalizacjiZasobu[  IdentyfikatorZasobu=StartScreen,  Lokalizacja=resource\\Space_start_screen.png ], WpisLokalizacjiZasobu[  IdentyfikatorZasobu=BrakObrazka,  Lokalizacja=resource\\Brak_obrazka.png ] ],  generator_=SpEx::GeneratorIdentyfikatorow[ mapa_0=StartScreen,  mapa_1=BrakObrazka,  mapa_2=lua_,  mapa_3=dll_,  mapa_4=lua_wspolna ], MapaZasobow[ Element[  Identyfikator=2, WpisZasobu[  WeakPtr=0x3 e9c 3c0,  SharedPtr=0x3 e9c 3c0,  Cached=true ] ], Element[  Identyfikator=3, WpisZasobu[  WeakPtr=0x3 e9c 060,  SharedPtr=0x3 e9c 060,  Cached=true ] ], Element[  Identyfikator=4, WpisZasobu[  WeakPtr=0x3 e9d 110,  SharedPtr=0x3 e9d 110,  Cached=true ] ] ],  pustyNapis_= ]";
-	Parser parser(str,hTree);
-	parser.parsuj();
+	std::string str = "SpEx::ZarzadcaZasobow[ MapaInicjalizatorow[  Inicjalizator[  Typ=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"lua\" ] Poprawny=bool[ \"true\" ] ] Inicjalizator[  Typ=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"dll\" ] Poprawny=bool[ \"true\" ] ] ] TablicaLokalizacjiZasobu[  WpisLokalizacjiZasobu[  IdentyfikatorZasobu=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"StartScreen\" ] Lokalizacja=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"resource\\Space_start_screen.png\" ] ] WpisLokalizacjiZasobu[  IdentyfikatorZasobu=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"BrakObrazka\" ] Lokalizacja=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"resource\\Brak_obrazka.png\" ] ] ] generator_=SpEx::GeneratorIdentyfikatorow[ mapa_0=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"StartScreen\" ] mapa_1=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"BrakObrazka\" ] mapa_2=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"lua_\" ] mapa_3=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"dll_\" ] mapa_4=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"lua_wspolna\" ] ] MapaZasobow[  Element[  Identyfikator=int[ \"2\" ] WpisZasobu[  SlabyWsk=std::weak_ptr<class SpEx::Zasob>[ \"0x40cc3c0\" ] SilnyWsk=std::shared_ptr<class SpEx::Zasob>[ \"0x40cc3c0\" ] Przechowywany=bool[ \"true\" ] ] ] Element[  Identyfikator=int[ \"3\" ] WpisZasobu[  SlabyWsk=std::weak_ptr<class SpEx::Zasob>[ \"0x40cc060\" ] SilnyWsk=std::shared_ptr<class SpEx::Zasob>[ \"0x40cc060\" ] Przechowywany=bool[ \"true\" ] ] ] Element[  Identyfikator=int[ \"4\" ] WpisZasobu[  SlabyWsk=std::weak_ptr<class SpEx::Zasob>[ \"0x40cd110\" ] SilnyWsk=std::shared_ptr<class SpEx::Zasob>[ \"0x40cd110\" ] Przechowywany=bool[ \"true\" ] ] ] ] pustyNapis_=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"\" ] ]";
+	//std::string str = "typ[typ[zmienna=typ[\"value\"]; zmienna=typ[\"value\"]]]";
+	parser.parsuj(str, hTree);
+}
+
+//
+//  FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)
+//
+//  PURPOSE:  Processes messages for the main window.
+//
+//  WM_COMMAND	- process the application menu
+//  WM_PAINT	- Paint the main window
+//  WM_DESTROY	- post a quit message and return
+//
+//
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	int wmId, wmEvent;
+	PAINTSTRUCT ps;
+	HDC hdc;
+	static std::string str;
+	RECT rect;
+	rect.top = 10;
+	rect.left = 310;
+	rect.bottom = 440;
+	rect.right = 890;
+
+	switch (message)
+	{
+	case WM_COMMAND:
+		wmId = LOWORD(wParam);
+		wmEvent = HIWORD(wParam);
+		// Parse the menu selections:
+		switch (wmId)
+		{
+		case IDM_OTWORZ:
+		{
+			Otworz();
+		}
+			break;
+		case IDM_ABOUT:
+			DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+			break;
+		case IDM_EXIT:
+			DestroyWindow(hWnd);
+			break;
+		default:
+			return DefWindowProc(hWnd, message, wParam, lParam);
+		}
+		break;
+	case WM_NOTIFY:
+	{
+		switch (((LPNMHDR)lParam)->code)
+		{
+		case TVN_SELCHANGED:
+		{
+			NMTREEVIEW* pnmtv = (LPNMTREEVIEW)lParam;
+			//LPTSTR str = (pnmtv->itemNew.pszText);
+			if (pnmtv->itemNew.lParam >= 0 && pnmtv->itemNew.lParam < parser.elementy_.size()){
+				str = "Typ: " + parser.elementy_[pnmtv->itemNew.lParam]->nazwaTypu_ + "\nZmienna: " 
+					+ parser.elementy_[pnmtv->itemNew.lParam]->nazwaZmiennej_ + "\nWartosc: " + parser.elementy_[pnmtv->itemNew.lParam]->wartosc_;
+				InvalidateRect(hWnd, &rect, true);
+				//MessageBox(hWnd, str.c_str(), "load", MB_OK);
+			}
+			//MessageBox(hWnd, str, "load", MB_OK);
+			//HTREEITEM hCurrentItem = TreeView_GetSelection(hTree);
+			//DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+		}
+			break;
+
+		}
+	}
+		break;
+	case WM_PAINT:
+		hdc = BeginPaint(hWnd, &ps); 
+		DrawText(hdc, str.c_str(), str.size(), &rect, DT_WORDBREAK | DT_END_ELLIPSIS);
+		EndPaint(hWnd, &ps);
+		break;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	default:
+		return DefWindowProc(hWnd, message, wParam, lParam);
+	}
+	return 0;
+}
+
+// Message handler for about box.
+INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	UNREFERENCED_PARAMETER(lParam);
+	switch (message)
+	{
+	case WM_INITDIALOG:
+		return (INT_PTR)TRUE;
+
+	case WM_COMMAND:
+		if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
+		{
+			EndDialog(hDlg, LOWORD(wParam));
+			return (INT_PTR)TRUE;
+		}
+		break;
+	}
+	return (INT_PTR)FALSE;
 }

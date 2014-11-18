@@ -12,10 +12,10 @@ namespace STyp{
 	Tekst Wyjatek::generujKomunikat()const
 	{
 		return std::move(Tekst("Tytul: ") + tytul_ +
-			Tekst("\nID: ") + identyfikator_.napis() +
+			Tekst("\nID: ") + std::to_string(identyfikator_()) +
 			Tekst("\nPlik: ") + plik_ +
 			Tekst("\nFunkcja: ") + funkcja_ +
-			Tekst("\nLinia: ") + linia_.napis() +
+			Tekst("\nLinia: ") + std::to_string(linia_()) +
 			Tekst("\nData kompilacji: ") + data_ +
 			Tekst("\nTresc: ") + tresc_ +
 			Tekst("\nStos wywo³añ: ") + stack_ + Tekst("\n"));

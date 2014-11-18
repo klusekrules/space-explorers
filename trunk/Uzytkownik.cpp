@@ -69,10 +69,10 @@ namespace SpEx{
 		if (!wezel)
 			return false;
 		wezel->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwaUzytkownika_().c_str());
-		wezel->tworzAtrybut(ATRYBUT_XML_PLANETA_AKTYWNA, aktywnaPlaneta_.napis().c_str());
+		wezel->tworzAtrybut(ATRYBUT_XML_PLANETA_AKTYWNA, std::to_string(aktywnaPlaneta_()).c_str());
 		for (auto planeta : planety_){
 			auto element = wezel->tworzElement(WEZEL_XML_PLANETA);
-			element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, planeta.first.napis().c_str());
+			element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(planeta.first()).c_str());
 		}
 		return true;
 	}
