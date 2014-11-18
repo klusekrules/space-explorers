@@ -149,14 +149,14 @@ namespace SpEx {
 			return false;
 		for (auto galaktyka : galaktyki_){
 			auto wezelGalaktyka = zarzadca->tworzElement(WEZEL_XML_GALAKTYKA);
-			wezelGalaktyka->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, galaktyka.first.napis().c_str());
+			wezelGalaktyka->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(galaktyka.first()).c_str());
 			for (auto uklad : galaktyka.second.uklady_){
 				auto wezelUklad = wezelGalaktyka->tworzElement(WEZEL_XML_UKLAD_SLONECZNY);
-				wezelUklad->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, uklad.napis().c_str());
+				wezelUklad->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(uklad()).c_str());
 				auto ukladSloneczny = ukladySloneczne_.find(uklad);
 				for (auto planeta : ukladSloneczny->second.planety_){
 					auto wezelPlaneta = wezelUklad->tworzElement(WEZEL_XML_PLANETA);
-					wezelPlaneta->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, planeta.napis().c_str());
+					wezelPlaneta->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(planeta()).c_str());
 					auto objPlaneta = planety_.find(planeta);
 					if (objPlaneta != planety_.end())
 						wezelPlaneta->tworzAtrybut(ATRYBUT_XML_WOLNA, objPlaneta->second.wolna_ ? "1" : "0");
@@ -221,7 +221,7 @@ namespace SpEx {
 
 	std::string ZarzadcaLokacji::generujNazwePlikuUkladuSlonecznego(const STyp::Identyfikator& id) const{
 		std::string plik = folderPlikuUkladu_.c_str();
-		plik += id.napis();
+		plik += std::to_string(id());
 		plik += ".xml";
 		return std::move(plik);
 	}
@@ -238,7 +238,7 @@ namespace SpEx {
 
 	std::string ZarzadcaLokacji::napis() const{
 		SLog::Logger str(NAZWAKLASY(ZarzadcaLokacji));
-		str.dodajPole(NAZWAPOLA(folderPlikuUkladu_), folderPlikuUkladu_);
+		str.dodajPole(NAZWAPOLA(folderPlikuUkladu_), NAZWAKLASY2(folderPlikuUkladu_), folderPlikuUkladu_);
 		str.dodajPole(NAZWAPOLA(generator_), generator_);
 		for (auto& galaktyka : galaktyki_){
 			str.rozpocznijPodKlase("Galaktyka");
@@ -246,7 +246,7 @@ namespace SpEx {
 			if (galaktyka.second.galaktyka_!=nullptr)
 				str.dodajPole("GalaktykaPtr", *(galaktyka.second.galaktyka_));
 			else
-				str.dodajPole("GalaktykaPtr", "nullptr");
+				str.dodajPole("GalaktykaPtr", NAZWAKLASY2(galaktyka.second.galaktyka_), "nullptr");
 			for (auto& element : galaktyka.second.uklady_)
 				str.dodajPole("Uklad ID", element);
 			str.zakonczPodKlase();
@@ -255,11 +255,11 @@ namespace SpEx {
 			str.rozpocznijPodKlase("Uklad");
 			str.dodajPole("Id", uklad.first);
 			str.dodajPole("Galaktyka Id", uklad.second.idGalaktyki_);
-			str.dodajPole("Flaga inicjalizacji", std::to_string(uklad.second.flaga_inicjalizacji_ukladu._Flag));
+			str.dodajPole("Flaga inicjalizacji", NAZWAKLASY2(uklad.second.flaga_inicjalizacji_ukladu._Flag), std::to_string(uklad.second.flaga_inicjalizacji_ukladu._Flag));
 			if (uklad.second.uklad_ != nullptr)
 				str.dodajPole("UkladPtr", *(uklad.second.uklad_));
 			else
-				str.dodajPole("UkladPtr", "nullptr");
+				str.dodajPole("UkladPtr", NAZWAKLASY2(uklad.second.uklad_), "nullptr");
 			for (auto& element : uklad.second.planety_)
 				str.dodajPole("Planeta ID", element);
 			str.zakonczPodKlase();
@@ -268,12 +268,12 @@ namespace SpEx {
 			str.rozpocznijPodKlase("Planeta");
 			str.dodajPole("Id", uklad.first);
 			str.dodajPole("Uklad Id", uklad.second.idUkladu_);
-			str.dodajPole("Flaga inicjalizacji", std::to_string(uklad.second.flaga_inicjalizacji_ukladu._Flag));
-			str.dodajPole("Planeta Wolna", std::to_string(uklad.second.wolna_));
+			str.dodajPole("Flaga inicjalizacji", NAZWAKLASY2(uklad.second.flaga_inicjalizacji_ukladu._Flag), std::to_string(uklad.second.flaga_inicjalizacji_ukladu._Flag));
+			str.dodajPole("Planeta Wolna", NAZWAKLASY2(uklad.second.wolna_), std::to_string(uklad.second.wolna_));
 			if (uklad.second.planeta_ != nullptr)
 				str.dodajPole("PlanetaPtr", *(uklad.second.planeta_));
 			else
-				str.dodajPole("PlanetaPtr", "nullptr");
+				str.dodajPole("PlanetaPtr", NAZWAKLASY2(uklad.second.planeta_), "nullptr");
 			str.zakonczPodKlase();
 		}
 		return str.napis();

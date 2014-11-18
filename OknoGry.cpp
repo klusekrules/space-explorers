@@ -258,7 +258,7 @@ namespace SpEx{
 		auto iter = listaEkranow_.find(id);
 		if (iter!= listaEkranow_.end()){
 			auto wezel = Aplikacja::pobierzInstancje().pobierzZarzadcePamieci().pobierzWezelKonfiguracyjnyOknaGry();
-			auto okno = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_EKRAN, ATRYBUT_XML_IDENTYFIKATOR, id.napis());
+			auto okno = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_EKRAN, ATRYBUT_XML_IDENTYFIKATOR, std::to_string(id()));
 			if (okno){
 				auto ptr = std::make_shared<EkranSzablon>(okno);
 				ptr->podlacz(oknoGlowne_);

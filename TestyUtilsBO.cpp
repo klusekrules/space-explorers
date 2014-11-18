@@ -352,12 +352,12 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzSurowiec(SPar::ParserEle
 	const STyp::Bool& przyrostowy){
 	auto surowiec = root.tworzElement(WEZEL_XML_SUROWCE_INFO);
 	UNIT_TEST_ASSERT_NOTNULL(surowiec);
-	UNIT_TEST_ASSERT_NOTNULL(surowiec->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(surowiec->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(id()).c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(surowiec->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(surowiec->tworzAtrybut(ATRYBUT_XML_ADRES_OBRAZKA, obrazek().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(surowiec->tworzAtrybut(ATRYBUT_XML_MASA, masa.napis().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(surowiec->tworzAtrybut(ATRYBUT_XML_OBJETOSC, objetosc.napis().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(surowiec->tworzAtrybut(ATRYBUT_XML_TYP, przyrostowy.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(surowiec->tworzAtrybut(ATRYBUT_XML_MASA, std::to_string(masa()).c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(surowiec->tworzAtrybut(ATRYBUT_XML_OBJETOSC, std::to_string(objetosc()).c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(surowiec->tworzAtrybut(ATRYBUT_XML_TYP, std::to_string(przyrostowy()).c_str()));
 	UNIT_TEST_ASSERT_TRUE(surowiec->ustawTekst(opis().c_str()));
 	return surowiec;
 }
@@ -372,12 +372,12 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzStatek(SPar::ParserEleme
 	const STyp::Bool& przewozonyWHangarze){
 	auto statek = root.tworzElement(WEZEL_XML_STATEK_INFO);
 	UNIT_TEST_ASSERT_NOTNULL(statek);
-	UNIT_TEST_ASSERT_NOTNULL(statek->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(statek->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(id()).c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(statek->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(statek->tworzAtrybut(ATRYBUT_XML_ADRES_OBRAZKA, obrazek().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(statek->tworzAtrybut(ATRYBUT_XML_MASA, masa.napis().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(statek->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA, powierzchnia.napis().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(statek->tworzAtrybut(ATRYBUT_XML_HANGAR, przewozonyWHangarze.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(statek->tworzAtrybut(ATRYBUT_XML_MASA, std::to_string(masa()).c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(statek->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA, std::to_string(powierzchnia()).c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(statek->tworzAtrybut(ATRYBUT_XML_HANGAR, std::to_string(przewozonyWHangarze()).c_str()));
 	UNIT_TEST_ASSERT_TRUE(statek->ustawTekst(opis().c_str()));
 	return statek;
 }
@@ -389,7 +389,7 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzTechnologie(SPar::Parser
 	const STyp::Tekst& opis){
 	auto technologia = root.tworzElement(WEZEL_XML_TECHNOLOGIA_INFO);
 	UNIT_TEST_ASSERT_NOTNULL(technologia);
-	UNIT_TEST_ASSERT_NOTNULL(technologia->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(technologia->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(id()).c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(technologia->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(technologia->tworzAtrybut(ATRYBUT_XML_ADRES_OBRAZKA, obrazek().c_str()));
 	UNIT_TEST_ASSERT_TRUE(technologia->ustawTekst(opis().c_str()));
@@ -404,10 +404,10 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzBudynek(SPar::ParserElem
 	const STyp::Powierzchnia& powierzchnia){
 	auto budynek = root.tworzElement(WEZEL_XML_BUDYNEK_INFO);
 	UNIT_TEST_ASSERT_NOTNULL(budynek);
-	UNIT_TEST_ASSERT_NOTNULL(budynek->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(budynek->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(id()).c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(budynek->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(budynek->tworzAtrybut(ATRYBUT_XML_ADRES_OBRAZKA, obrazek().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(budynek->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA, powierzchnia.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(budynek->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA, std::to_string(powierzchnia()).c_str()));
 	UNIT_TEST_ASSERT_TRUE(budynek->ustawTekst(opis().c_str()));
 	return budynek;
 }
@@ -420,10 +420,10 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzObrone(SPar::ParserEleme
 	const STyp::Powierzchnia& powierzchnia){
 	auto obrona = root.tworzElement(WEZEL_XML_OBRONA_INFO);
 	UNIT_TEST_ASSERT_NOTNULL(obrona);
-	UNIT_TEST_ASSERT_NOTNULL(obrona->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(obrona->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(id()).c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(obrona->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa().c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(obrona->tworzAtrybut(ATRYBUT_XML_ADRES_OBRAZKA, obrazek().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(obrona->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA, powierzchnia.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(obrona->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA, std::to_string(powierzchnia()).c_str()));
 	UNIT_TEST_ASSERT_TRUE(obrona->ustawTekst(opis().c_str()));
 	return obrona;
 }
@@ -434,9 +434,9 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzJednostkaAtakujaca(SPar:
 	const STyp::Obrazenia& tarcza){
 	auto jednostka = statek.tworzElement(WEZEL_XML_JEDNOSTKA_ATAKUJACA_INFO);
 	UNIT_TEST_ASSERT_NOTNULL(jednostka);
-	UNIT_TEST_ASSERT_NOTNULL(jednostka->tworzAtrybut(ATRYBUT_XML_ATAK, atak.napis().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(jednostka->tworzAtrybut(ATRYBUT_XML_PANCERZ, obrona.napis().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(jednostka->tworzAtrybut(ATRYBUT_XML_OSLONA, tarcza.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(jednostka->tworzAtrybut(ATRYBUT_XML_ATAK, std::to_string(atak()).c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(jednostka->tworzAtrybut(ATRYBUT_XML_PANCERZ, std::to_string(obrona()).c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(jednostka->tworzAtrybut(ATRYBUT_XML_OSLONA, std::to_string(tarcza()).c_str()));
 	return jednostka;
 }
 
@@ -448,11 +448,11 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzJednostkaLatajaca(SPar::
 	const STyp::Fluktuacja& sprawnoscSilnika){
 	auto jednostka = statek.tworzElement(WEZEL_XML_JEDNOSTKA_LATAJACA_INFO);
 	UNIT_TEST_ASSERT_NOTNULL(jednostka);
-	UNIT_TEST_ASSERT_NOTNULL(jednostka->tworzAtrybut(ATRYBUT_XML_RODZAJ_SILNIKA_ID, idSilnika.napis().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(jednostka->tworzAtrybut(ATRYBUT_XML_MOC_SILNIKA, mocSilnika.napis().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(jednostka->tworzAtrybut(ATRYBUT_XML_ZUZYCIE_PALIWA, zuzuciePaliwa.napis().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(jednostka->tworzAtrybut(ATRYBUT_XML_MASA_SILNIKA, masaSilnika.napis().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(jednostka->tworzAtrybut(ATRYBUT_XML_SPRAWNOSC_SILNIKA, sprawnoscSilnika.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(jednostka->tworzAtrybut(ATRYBUT_XML_RODZAJ_SILNIKA_ID, std::to_string(idSilnika()).c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(jednostka->tworzAtrybut(ATRYBUT_XML_MOC_SILNIKA, std::to_string(mocSilnika()).c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(jednostka->tworzAtrybut(ATRYBUT_XML_ZUZYCIE_PALIWA, std::to_string(zuzuciePaliwa()).c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(jednostka->tworzAtrybut(ATRYBUT_XML_MASA_SILNIKA, std::to_string(masaSilnika()).c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(jednostka->tworzAtrybut(ATRYBUT_XML_SPRAWNOSC_SILNIKA, std::to_string(sprawnoscSilnika()).c_str()));
 	return jednostka;
 }
 
@@ -460,7 +460,7 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzHangar(SPar::ParserEleme
 	const STyp::Powierzchnia& powierzchniaHangaru){
 	auto hangar = statek.tworzElement(WEZEL_XML_HANGAR_INFO);
 	UNIT_TEST_ASSERT_NOTNULL(hangar);
-	UNIT_TEST_ASSERT_NOTNULL(hangar->tworzAtrybut(ATRYBUT_XML_POJEMNOSC_MAKSYMALNA, powierzchniaHangaru.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(hangar->tworzAtrybut(ATRYBUT_XML_POJEMNOSC_MAKSYMALNA, std::to_string(powierzchniaHangaru()).c_str()));
 	return hangar;
 }
 
@@ -468,7 +468,7 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzLadownia(SPar::ParserEle
 	const STyp::Objetosc& objetoscLadowni){
 	auto ladownia = statek.tworzElement(WEZEL_XML_LADOWNIA_INFO);
 	UNIT_TEST_ASSERT_NOTNULL(ladownia);
-	UNIT_TEST_ASSERT_NOTNULL(ladownia->tworzAtrybut(ATRYBUT_XML_POJEMNOSC_MAKSYMALNA, objetoscLadowni.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(ladownia->tworzAtrybut(ATRYBUT_XML_POJEMNOSC_MAKSYMALNA, std::to_string(objetoscLadowni()).c_str()));
 	return ladownia;
 }
 
@@ -477,8 +477,8 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzKryterium(SPar::ParserEl
 	const STyp::Poziom& poziom){
 	auto kryterium = obiekt.tworzElement(WEZEL_XML_KRYTERIUM);
 	UNIT_TEST_ASSERT_NOTNULL(kryterium);
-	UNIT_TEST_ASSERT_NOTNULL(kryterium->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(kryterium->tworzAtrybut(ATRYBUT_XML_POZIOM, poziom.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(kryterium->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(id()).c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(kryterium->tworzAtrybut(ATRYBUT_XML_POZIOM, std::to_string(poziom()).c_str()));
 	return kryterium;
 }
 
@@ -487,8 +487,8 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzKryterium(SPar::ParserEl
 	const STyp::Ilosc& ilosc){
 	auto kryterium = obiekt.tworzElement(WEZEL_XML_KRYTERIUM);
 	UNIT_TEST_ASSERT_NOTNULL(kryterium);
-	UNIT_TEST_ASSERT_NOTNULL(kryterium->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(kryterium->tworzAtrybut(ATRYBUT_XML_ILOSC, ilosc.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(kryterium->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(id()).c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(kryterium->tworzAtrybut(ATRYBUT_XML_ILOSC, std::to_string(ilosc()).c_str()));
 	return kryterium;
 }
 
@@ -497,8 +497,8 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzZapotrzebowanie(SPar::Pa
 	const STyp::Ilosc& ilosc){
 	auto zapotrzebowanie = obiekt.tworzElement(WEZEL_XML_ZAPOTRZEBOWANIE);
 	UNIT_TEST_ASSERT_NOTNULL(zapotrzebowanie);
-	UNIT_TEST_ASSERT_NOTNULL(zapotrzebowanie->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(zapotrzebowanie->tworzAtrybut(ATRYBUT_XML_ILOSC, ilosc.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(zapotrzebowanie->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(id()).c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(zapotrzebowanie->tworzAtrybut(ATRYBUT_XML_ILOSC, std::to_string(ilosc()).c_str()));
 	return zapotrzebowanie;
 }
 
@@ -507,8 +507,8 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzProdukcje(SPar::ParserEl
 	const STyp::Ilosc& ilosc){
 	auto produkcja = obiekt.tworzElement(WEZEL_XML_PRODUKCJA);
 	UNIT_TEST_ASSERT_NOTNULL(produkcja);
-	UNIT_TEST_ASSERT_NOTNULL(produkcja->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(produkcja->tworzAtrybut(ATRYBUT_XML_ILOSC, ilosc.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(produkcja->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(id()).c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(produkcja->tworzAtrybut(ATRYBUT_XML_ILOSC, std::to_string(ilosc()).c_str()));
 	return produkcja;
 }
 
@@ -517,7 +517,7 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzZmiana(SPar::ParserEleme
 	const STyp::Tekst& atrybutFor){
 	auto zmiana = root.tworzElement(WEZEL_XML_ZMIANA);
 	UNIT_TEST_ASSERT_NOTNULL(zmiana);
-	UNIT_TEST_ASSERT_NOTNULL(zmiana->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(zmiana->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(id()).c_str()));
 	UNIT_TEST_ASSERT_NOTNULL(zmiana->tworzAtrybut(ATRYBUT_XML_FOR, atrybutFor().c_str()));
 	return zmiana;
 }
@@ -526,7 +526,7 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzZmiana(SPar::ParserEleme
 	const STyp::Identyfikator& id){
 	auto zmiana = root.tworzElement(WEZEL_XML_ZMIANA);
 	UNIT_TEST_ASSERT_NOTNULL(zmiana);
-	UNIT_TEST_ASSERT_NOTNULL(zmiana->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(zmiana->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(id()).c_str()));
 	return zmiana;
 }
 
@@ -535,7 +535,7 @@ std::shared_ptr<SPar::ParserElement> TestyUtilsBO::tworzParam(SPar::ParserElemen
 	const STyp::Wartosc& atrybutFor){
 	auto param = root.tworzElement(WEZEL_XML_PARAM);
 	UNIT_TEST_ASSERT_NOTNULL(param);
-	UNIT_TEST_ASSERT_NOTNULL(param->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, id.napis().c_str()));
-	UNIT_TEST_ASSERT_NOTNULL(param->tworzAtrybut(ATRYBUT_XML_WSPOLCZYNNIK, atrybutFor.napis().c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(param->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(id()).c_str()));
+	UNIT_TEST_ASSERT_NOTNULL(param->tworzAtrybut(ATRYBUT_XML_WSPOLCZYNNIK, std::to_string(atrybutFor()).c_str()));
 	return param;
 }

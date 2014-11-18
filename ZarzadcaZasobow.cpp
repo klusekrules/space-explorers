@@ -158,11 +158,11 @@ namespace SpEx{
 		logger.rozpocznijPodKlase(NAZWAPOLA(MapaInicjalizatorow));
 		for (auto &element : inicjalizatory_){
 			logger.rozpocznijPodKlase("Inicjalizator");
-			logger.dodajPole("Typ", element.first);
+			logger.dodajPole("Typ", NAZWAKLASY2(element.first), element.first);
 			std::stringstream streamValid;
 			streamValid.imbue(std::locale());
 			streamValid << std::boolalpha << element.second.operator bool();
-			logger.dodajPole("Poprawny", streamValid.str());
+			logger.dodajPole("Poprawny", "bool", streamValid.str());
 			logger.zakonczPodKlase();
 		}
 		logger.zakonczPodKlase();
@@ -173,8 +173,8 @@ namespace SpEx{
 			logger.rozpocznijPodKlase(NAZWAPOLA(WpisLokalizacjiZasobu));
 			auto &element = lokalizacjeZasobow_[i];
 			//logger.dodajPole("IdentyfikatorWpisu", std::to_string(i));
-			logger.dodajPole("IdentyfikatorZasobu", element.first);
-			logger.dodajPole("Lokalizacja", element.second);
+			logger.dodajPole("IdentyfikatorZasobu", NAZWAKLASY2(element.first), element.first);
+			logger.dodajPole("Lokalizacja", NAZWAKLASY2(element.second), element.second);
 			logger.zakonczPodKlase();
 		}
 		logger.zakonczPodKlase();
@@ -189,26 +189,26 @@ namespace SpEx{
 			logger.rozpocznijPodKlase(NAZWAPOLA(WpisZasobu));
 
 			std::stringstream streamWeakPtr;
-			streamWeakPtr.imbue(std::locale());
+			streamWeakPtr.imbue(std::locale("C"));
 			streamWeakPtr << "0x" << std::hex << (unsigned int)(element.second.first.first._Get());
-			logger.dodajPole("SlabyWsk", streamWeakPtr.str());
+			logger.dodajPole("SlabyWsk", NAZWAKLASY2(element.second.first.first), streamWeakPtr.str());
 			
 			std::stringstream streamSharedPtr;
-			streamSharedPtr.imbue(std::locale());
+			streamSharedPtr.imbue(std::locale("C"));
 			streamSharedPtr << "0x" << std::hex << (unsigned int)(element.second.first.second._Get());
-			logger.dodajPole("SilnyWsk", streamSharedPtr.str());
+			logger.dodajPole("SilnyWsk", NAZWAKLASY2(element.second.first.second), streamSharedPtr.str());
 
 			std::stringstream streamCached;
-			streamCached.imbue(std::locale());
+			streamCached.imbue(std::locale("C"));
 			streamCached << std::boolalpha << element.second.second;
-			logger.dodajPole("Przechowywany", streamCached.str());
+			logger.dodajPole("Przechowywany", NAZWAKLASY2(element.second.second), streamCached.str());
 
 			logger.zakonczPodKlase();
 			logger.zakonczPodKlase();
 		}
 		logger.zakonczPodKlase();
 
-		logger.dodajPole(NAZWAPOLA(pustyNapis_), pustyNapis_);
+		logger.dodajPole(NAZWAPOLA(pustyNapis_), NAZWAKLASY2(pustyNapis_), pustyNapis_);
 
 		return logger.napis();
 	}

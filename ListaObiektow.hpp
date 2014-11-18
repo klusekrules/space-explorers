@@ -302,9 +302,12 @@ namespace SpEx{
 		*/
 		std::string napis() const override{
 			SLog::Logger str(NAZWAKLASY(ListaObiektow<T>));
-			str.rozpocznijPodKlase("map");
+			str.rozpocznijPodKlase("mapa");
 			for (auto element : *this){
-				str.dodajPole("", element.first, *(element.second));
+				str.rozpocznijPodKlase("element");
+				str.dodajPole("klucz", element.first);
+				str.dodajPole("wartosc", *(element.second));
+				str.zakonczPodKlase();
 			}
 			str.zakonczPodKlase();
 			return str.napis();

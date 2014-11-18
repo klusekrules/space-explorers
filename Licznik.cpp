@@ -33,7 +33,7 @@ namespace SpEx{
 		XmlBO::ElementWezla dziecko = wezel->tworzElement(WEZEL_XML_LICZNIK);
 		if (dziecko == nullptr)
 			return false;
-		return dziecko->tworzAtrybut(ATRYBUT_XML_ILOSC, wartoscLicznika_.napis().c_str()) != nullptr && dziecko->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, identyfikator_.napis().c_str()) != nullptr;
+		return dziecko->tworzAtrybut(ATRYBUT_XML_ILOSC, std::to_string(wartoscLicznika_()).c_str()) != nullptr && dziecko->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(identyfikator_()).c_str()) != nullptr;
 	}
 
 	bool Licznik::odczytaj(XmlBO::ElementWezla wezel){

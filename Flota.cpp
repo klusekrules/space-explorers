@@ -205,9 +205,9 @@ namespace SpEx{
 	bool Flota::zapisz(XmlBO::ElementWezla wezel) const{
 		if (wezel){
 			auto element = wezel->tworzElement(WEZEL_XML_FLOTA);
-			element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, idFloty_.napis().c_str());
-			element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR_PLANETA_POCZATKOWA, planetaPoczatkowa_.napis().c_str());
-			element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR_PLANETA_DOCELOWA, planetaDocelowa_.napis().c_str());
+			element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(idFloty_()).c_str());
+			element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR_PLANETA_POCZATKOWA, std::to_string(planetaPoczatkowa_()).c_str());
+			element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR_PLANETA_DOCELOWA, std::to_string(planetaDocelowa_()).c_str());
 			element->tworzAtrybut(ATRYBUT_XML_CEL_PODROZY, "")->ustawWartoscInt(celPodrozy_);
 			for (auto statek : lista_)
 				if (statek.second)
@@ -258,7 +258,7 @@ namespace SpEx{
 
 	std::string Flota::napis()const {
 		SLog::Logger str(NAZWAKLASY(Ladownia));
-		str.dodajPole(NAZWAPOLA(celPodrozy_), std::to_string(celPodrozy_));
+		str.dodajPole(NAZWAPOLA(celPodrozy_), NAZWAKLASY2(celPodrozy_), std::to_string(celPodrozy_));
 		str.dodajPole(NAZWAPOLA(planetaDocelowa_), planetaDocelowa_);
 		str.dodajPole(NAZWAPOLA(planetaPoczatkowa_), planetaPoczatkowa_);
 		for (auto s : lista_)

@@ -55,7 +55,7 @@ namespace SpEx{
 	std::string ZdarzenieInfo::napis() const{
 		SLog::Logger log(NAZWAKLASY(ZdarzenieInfo));
 		log.dodajPole(NAZWAPOLA(id_), id_);
-		log.dodajPole(NAZWAPOLA(luaFuncInside_), luaFuncInside_);
+		log.dodajPole(NAZWAPOLA(luaFuncInside_), NAZWAKLASY2(luaFuncInside_), luaFuncInside_);
 		log.dodajPole(NAZWAPOLA(nastepnyStan_), nastepnyStan_);
 		if (nastepnyNumer_)
 			log.dodajPole(NAZWAPOLA(nastepnyNumer_), STyp::Identyfikator(*nastepnyNumer_));

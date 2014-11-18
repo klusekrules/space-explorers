@@ -69,7 +69,7 @@ namespace STyp{
 		*/
 		inline std::string napis() const override{
 			std::stringstream str;
-			str << wartosc_;
+			str << NAZWAKLASY(T) <<"[ \""<< wartosc_ << "\" ]";
 			return std::move(str.str());
 		}
 	};
@@ -227,24 +227,6 @@ namespace STyp{
 		inline TypTekstowy operator+(const TypTekstowy& wartosc)const{ return wartosc_ + wartosc.wartosc_; }
 
 		inline bool isEmpty() const{ return wartosc_.empty(); }
-		
-		/**
-		* \brief Metoda zwracaj¹ca opis obiektu.
-		*
-		* Metoda zwraca opis obiektu.
-		* \return Tekst opisuj¹cy ca³y obiekt.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 10-07-2013
-		*/
-		inline std::string napis() const override{ return std::move(dodajCudzyslow()); }
-
-	private:
-		nazwa_typu dodajCudzyslow() const {
-			nazwa_typu s("\"");
-			s += wartosc_ + "\"";
-			return std::move(s);
-		}
 
 	};
 

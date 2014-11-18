@@ -29,7 +29,7 @@ namespace SpEx{
 
 	bool Galaktyka::zapisz(XmlBO::ElementWezla wezel) const{
 		auto element = wezel->tworzElement(WEZEL_XML_GALAKTYKA);
-		element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, identyfikator_.napis().c_str());
+		element->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(identyfikator_()).c_str());
 		for (auto uklad : uklady_)
 		if (!uklad.second->zapisz(element))
 			return false;

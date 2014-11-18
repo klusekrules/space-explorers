@@ -152,17 +152,17 @@ namespace SpEx{
 
 	bool Planeta::zapisz(XmlBO::ElementWezla wezel) const{
 		auto planeta = wezel->tworzElement(WEZEL_XML_PLANETA);
-		planeta->tworzAtrybut(ATRYBUT_XML_ODLEGLOSC_OD_SLONCA, odlegloscOdSlonca_.napis().c_str());
-		planeta->tworzAtrybut(ATRYBUT_XML_SREDNICA, srednicaPlanety_.napis().c_str());
-		planeta->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR_RODZICA, idUkladu_.napis().c_str());
+		planeta->tworzAtrybut(ATRYBUT_XML_ODLEGLOSC_OD_SLONCA, std::to_string(odlegloscOdSlonca_()).c_str());
+		planeta->tworzAtrybut(ATRYBUT_XML_SREDNICA, std::to_string(srednicaPlanety_()).c_str());
+		planeta->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR_RODZICA, std::to_string(idUkladu_()).c_str());
 		planeta->tworzAtrybut(ATRYBUT_XML_NAZWAGRACZA, idUzytkownika_().c_str());
-		planeta->tworzAtrybut(ATRYBUT_XML_TEMPERATURA_PLANETY, temperaturaPlanety_.napis().c_str());
-		planeta->tworzAtrybut(ATRYBUT_XML_CALKOWITA_POWIERZNIA_PLANETY, calkowitaPowierzchniaPlanety_.napis().c_str());
-		planeta->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA_ZAJETA_PRZEZ_WODE, powierzchniaZajetaPrzezWode_.napis().c_str());
-		planeta->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA_LADOW, powierzchniaLadow_.napis().c_str());
-		planeta->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA_UZYTKOWA_LADOW, powierzchniaUzytkowaLadow_.napis().c_str());
+		planeta->tworzAtrybut(ATRYBUT_XML_TEMPERATURA_PLANETY, std::to_string(temperaturaPlanety_()).c_str());
+		planeta->tworzAtrybut(ATRYBUT_XML_CALKOWITA_POWIERZNIA_PLANETY, std::to_string(calkowitaPowierzchniaPlanety_()).c_str());
+		planeta->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA_ZAJETA_PRZEZ_WODE, std::to_string(powierzchniaZajetaPrzezWode_()).c_str());
+		planeta->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA_LADOW, std::to_string(powierzchniaLadow_()).c_str());
+		planeta->tworzAtrybut(ATRYBUT_XML_POWIERZCHNIA_UZYTKOWA_LADOW, std::to_string(powierzchniaUzytkowaLadow_()).c_str());
 		planeta->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwaPlanety_().c_str());
-		planeta->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, identyfikator_.napis().c_str());
+		planeta->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, std::to_string(identyfikator_()).c_str());
 		licznikIdentyfikatorowFloty_.zapisz(planeta);
 		auto obiekty = planeta->tworzElement(WEZEL_XML_OBIEKTY);
 		for (auto element : listaObiektow_){
@@ -215,7 +215,7 @@ namespace SpEx{
 			// Sprawdzanie spójnoœci obiektów na planecie.
 			if (listaObiektow_.size() != listaBudynkow_.size() + listaStatkow_.size() + listaSurowcow_.size() + listaTechnologii_.size() + listaObrona_.size()){
 				throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo(), STyp::Identyfikator(145), STyp::Tekst("Niespójnoœæ danych!"),
-					STyp::Tekst("Wykryto niespójnoœæ danych obiektów znajduj¹cych siê na planecie o id = " + identyfikator_.napis()
+					STyp::Tekst("Wykryto niespójnoœæ danych obiektów znajduj¹cych siê na planecie o id = " + std::to_string(identyfikator_())
 					+ ". Iloœæ typów wszystkich obiektów = " + std::to_string(listaObiektow_.size())
 					+ ". Iloœæ typów budynków = " + std::to_string(listaBudynkow_.size())
 					+ ". Iloœæ typów statków = " + std::to_string(listaStatkow_.size())

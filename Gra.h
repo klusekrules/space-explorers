@@ -304,7 +304,7 @@ namespace SpEx {
 		const T& znajdzObiektInfo(const K& listaInfo, const STyp::Identyfikator& identyfikator)const{
 			auto iterator = listaInfo.find(identyfikator);
 			if (iterator == listaInfo.end())
-				throw NieznalezionoObiektu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), identyfikator.napis());
+				throw NieznalezionoObiektu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), std::to_string(identyfikator()));
 			return *(iterator->second);
 		}
 

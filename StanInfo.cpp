@@ -84,9 +84,9 @@ namespace SpEx{
 	std::string StanInfo::napis()const{
 		SLog::Logger log(NAZWAKLASY(StanInfo));
 		log.dodajPole(NAZWAPOLA(id_), id_);
-		log.dodajPole(NAZWAPOLA(luaFuncIn_), luaFuncIn_);
-		log.dodajPole(NAZWAPOLA(luaFuncOut_), luaFuncOut_);
-		log.dodajPole(NAZWAPOLA(luaFuncInside_), luaFuncInside_);
+		log.dodajPole(NAZWAPOLA(luaFuncIn_), NAZWAKLASY2(luaFuncIn_), luaFuncIn_);
+		log.dodajPole(NAZWAPOLA(luaFuncOut_), NAZWAKLASY2(luaFuncOut_), luaFuncOut_);
+		log.dodajPole(NAZWAPOLA(luaFuncInside_), NAZWAKLASY2(luaFuncInside_), luaFuncInside_);
 		return log.napis();
 	}
 };

@@ -30,7 +30,7 @@ namespace SpEx{
 	std::string GeneratorIdentyfikatorow::napis() const{
 		SLog::Logger logger(NAZWAKLASY(GeneratorIdentyfikatorow));
 		for (size_t i = 0; i < mapa_.size(); ++i){
-			logger.dodajPole(NAZWAPOLA(mapa_)+std::to_string(i), mapa_[i]);
+			logger.dodajPole(NAZWAPOLA(mapa_) + std::to_string(i), NAZWAKLASY2(mapa_[i]), mapa_[i]);
 		}
 		return logger.napis();
 	}

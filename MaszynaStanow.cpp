@@ -62,8 +62,8 @@ namespace SpEx{
 				auto idStanu = zdarzenie.second->pobierzStan();
 				if (idStanu){
 					if (wczytane.find(*idStanu) == wczytane.end()){
-						strumien << " Zdarzenie: " << zdarzenie.second->pobierzIdentyfikator().napis() << " w stanie: "
-							<< stan.first.napis() << " odwo³uje siê do nie istniej¹cego stanu: " << idStanu->napis() << ".\n";
+						strumien << " Zdarzenie: " << zdarzenie.second->pobierzIdentyfikator()() << " w stanie: "
+							<< stan.first() << " odwo³uje siê do nie istniej¹cego stanu: " << idStanu->operator()() << ".\n";
 						error = true;
 					}
 				}

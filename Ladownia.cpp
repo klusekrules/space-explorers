@@ -213,7 +213,7 @@ namespace SpEx{
 		XmlBO::ElementWezla element = wezel->tworzElement(WEZEL_XML_LADOWNIA);
 		if (zajete_ < STyp::Objetosc(0))
 			return false;
-		element->tworzAtrybut(ATRYBUT_XML_ZAJETE_MIEJSCE, zajete_.napis().c_str());
+		element->tworzAtrybut(ATRYBUT_XML_ZAJETE_MIEJSCE, std::to_string(zajete_()).c_str());
 		for (auto o : obiekty_){
 			if (!o.second->zapisz(element))
 				return false;
