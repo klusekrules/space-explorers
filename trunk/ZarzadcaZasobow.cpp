@@ -155,9 +155,9 @@ namespace SpEx{
 	std::string ZarzadcaZasobow::napis() const{
 		SLog::Logger logger(NAZWAKLASY(ZarzadcaZasobow));
 
-		logger.rozpocznijPodKlase(NAZWAPOLA(MapaInicjalizatorow));
+		logger.rozpocznijPodKlase("SpEx::ZarzadcaZasobow::MapaInicjalizatorow");
 		for (auto &element : inicjalizatory_){
-			logger.rozpocznijPodKlase("Inicjalizator");
+			logger.rozpocznijPodKlase("Element");
 			logger.dodajPole("Typ", NAZWAKLASY2(element.first), element.first);
 			std::stringstream streamValid;
 			streamValid.imbue(std::locale());
@@ -168,9 +168,9 @@ namespace SpEx{
 		logger.zakonczPodKlase();
 
 
-		logger.rozpocznijPodKlase(NAZWAPOLA(TablicaLokalizacjiZasobu));
+		logger.rozpocznijPodKlase("SpEx::ZarzadcaZasobow::TablicaLokalizacjiZasobu");
 		for (size_t i = 0; i < lokalizacjeZasobow_.size(); ++i){
-			logger.rozpocznijPodKlase(NAZWAPOLA(WpisLokalizacjiZasobu));
+			logger.rozpocznijPodKlase("SpEx::ZarzadcaZasobow::WpisLokalizacjiZasobu");
 			auto &element = lokalizacjeZasobow_[i];
 			//logger.dodajPole("IdentyfikatorWpisu", std::to_string(i));
 			logger.dodajPole("IdentyfikatorZasobu", NAZWAKLASY2(element.first), element.first);
@@ -181,12 +181,12 @@ namespace SpEx{
 
 		logger.dodajPole(NAZWAPOLA(generator_), generator_);
 
-		logger.rozpocznijPodKlase(NAZWAPOLA(MapaZasobow));
+		logger.rozpocznijPodKlase("SpEx::ZarzadcaZasobow::MapaZasobow");
 		for (auto &element : zasobyPrzechowywane_){
 
 			logger.rozpocznijPodKlase("Element");
 			logger.dodajPole("Identyfikator", element.first);
-			logger.rozpocznijPodKlase(NAZWAPOLA(WpisZasobu));
+			logger.rozpocznijPodKlase("SpEx::ZarzadcaZasobow::WpisZasobu");
 
 			std::stringstream streamWeakPtr;
 			streamWeakPtr.imbue(std::locale("C"));

@@ -222,17 +222,28 @@ namespace SpEx{
 
 	std::string Aplikacja::pobierzDebugInfo() const{
 #if !(defined(LOG_OFF_ALL) || defined(LOG_OFF_DEBUG))
-		std::string str;
 		SLog::Logger logger(NAZWAKLASY(Aplikacja));
-		logger.dodajPole(NAZWAPOLA(czyZainicjalizowanaBiblioteka_), NAZWAKLASY2(czyZainicjalizowanaBiblioteka_), std::to_string(czyZainicjalizowanaBiblioteka_));
+		std::stringstream streamCzyZainicjalizowanaBiblioteka_;
+		streamCzyZainicjalizowanaBiblioteka_.imbue(std::locale());
+		streamCzyZainicjalizowanaBiblioteka_ << std::boolalpha << czyZainicjalizowanaBiblioteka_;
+		logger.dodajPole(NAZWAPOLA(czyZainicjalizowanaBiblioteka_), NAZWAKLASY2(czyZainicjalizowanaBiblioteka_), streamCzyZainicjalizowanaBiblioteka_.str());
 		logger.dodajPole(NAZWAPOLA(uchwyt_), NAZWAKLASY2(uchwyt_->unused), std::to_string(uchwyt_->unused));
-		logger.dodajPole(NAZWAPOLA(symInitialize_), NAZWAKLASY2(symInitialize_), std::to_string((unsigned int)symInitialize_));
-		logger.dodajPole(NAZWAPOLA(symFromAddr_), NAZWAKLASY2(symFromAddr_), std::to_string((unsigned int)symFromAddr_));
+		
+		std::stringstream streamSymInitialize_;
+		streamSymInitialize_.imbue(std::locale("C"));
+		streamSymInitialize_ << "0x" << std::hex << (unsigned int)(symInitialize_);
+		logger.dodajPole(NAZWAPOLA(symInitialize_), NAZWAKLASY2(symInitialize_), streamSymInitialize_.str());
+		
+		std::stringstream streamSymFromAddr_;
+		streamSymFromAddr_.imbue(std::locale("C"));
+		streamSymFromAddr_ << "0x" << std::hex << (unsigned int)(symFromAddr_);
+		logger.dodajPole(NAZWAPOLA(symFromAddr_), NAZWAKLASY2(symFromAddr_), streamSymFromAddr_.str());
+
 		logger.dodajPole(NAZWAPOLA(plikKonfiguracyjny_), NAZWAKLASY2(plikKonfiguracyjny_), plikKonfiguracyjny_);
 		logger.dodajPole(NAZWAPOLA(ustawienia_), ustawienia_);
 		logger.dodajPole(NAZWAPOLA(zarzadcaLokacji_), zarzadcaLokacji_);
 		logger.dodajPole(NAZWAPOLA(zarzadcaZasobow_), zarzadcaZasobow_);
-		return str;
+		return std::move(logger.napis());
 #else
 		return std::string();
 #endif
@@ -275,7 +286,8 @@ namespace SpEx{
 
 	Aplikacja::~Aplikacja()
 	{
-		logger_.loguj(SLog::Log::Info,zarzadcaZasobow_);
+		std::fstream plik("zrzut.txt", std::ios_base::app);
+		plik << pobierzDebugInfo();
 		if (uchwyt_)
 			FreeLibrary(uchwyt_);
 	}

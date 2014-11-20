@@ -177,6 +177,10 @@ public:
 				if (czyZmiennaPusta()){
 					dodajElement(napis_, true, false);
 				}
+				else{
+					if (!stos_.empty())
+						stos_.top().zmienna_ = false;
+				}
 				break;
 			case ';':
 				/*if (!czyZmiennaPusta()){
@@ -304,9 +308,12 @@ private:
 Parser parser;
 
 void Otworz(){
-	std::string str = "SpEx::ZarzadcaZasobow[ MapaInicjalizatorow[  Inicjalizator[  Typ=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"lua\" ] Poprawny=bool[ \"true\" ] ] Inicjalizator[  Typ=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"dll\" ] Poprawny=bool[ \"true\" ] ] ] TablicaLokalizacjiZasobu[  WpisLokalizacjiZasobu[  IdentyfikatorZasobu=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"StartScreen\" ] Lokalizacja=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"resource\\Space_start_screen.png\" ] ] WpisLokalizacjiZasobu[  IdentyfikatorZasobu=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"BrakObrazka\" ] Lokalizacja=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"resource\\Brak_obrazka.png\" ] ] ] generator_=SpEx::GeneratorIdentyfikatorow[ mapa_0=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"StartScreen\" ] mapa_1=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"BrakObrazka\" ] mapa_2=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"lua_\" ] mapa_3=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"dll_\" ] mapa_4=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"lua_wspolna\" ] ] MapaZasobow[  Element[  Identyfikator=int[ \"2\" ] WpisZasobu[  SlabyWsk=std::weak_ptr<class SpEx::Zasob>[ \"0x40cc3c0\" ] SilnyWsk=std::shared_ptr<class SpEx::Zasob>[ \"0x40cc3c0\" ] Przechowywany=bool[ \"true\" ] ] ] Element[  Identyfikator=int[ \"3\" ] WpisZasobu[  SlabyWsk=std::weak_ptr<class SpEx::Zasob>[ \"0x40cc060\" ] SilnyWsk=std::shared_ptr<class SpEx::Zasob>[ \"0x40cc060\" ] Przechowywany=bool[ \"true\" ] ] ] Element[  Identyfikator=int[ \"4\" ] WpisZasobu[  SlabyWsk=std::weak_ptr<class SpEx::Zasob>[ \"0x40cd110\" ] SilnyWsk=std::shared_ptr<class SpEx::Zasob>[ \"0x40cd110\" ] Przechowywany=bool[ \"true\" ] ] ] ] pustyNapis_=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"\" ] ]";
-	//std::string str = "typ[typ[zmienna=typ[\"value\"]; zmienna=typ[\"value\"]]]";
-	parser.parsuj(str, hTree);
+	//std::string str = "SpEx::ZarzadcaZasobow[ MapaInicjalizatorow[  Inicjalizator[  Typ=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"lua\" ] Poprawny=bool[ \"true\" ] ] Inicjalizator[  Typ=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"dll\" ] Poprawny=bool[ \"true\" ] ] ] TablicaLokalizacjiZasobu[  WpisLokalizacjiZasobu[  IdentyfikatorZasobu=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"StartScreen\" ] Lokalizacja=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"resource\\Space_start_screen.png\" ] ] WpisLokalizacjiZasobu[  IdentyfikatorZasobu=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"BrakObrazka\" ] Lokalizacja=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"resource\\Brak_obrazka.png\" ] ] ] generator_=SpEx::GeneratorIdentyfikatorow[ mapa_0=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"StartScreen\" ] mapa_1=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"BrakObrazka\" ] mapa_2=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"lua_\" ] mapa_3=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"dll_\" ] mapa_4=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"lua_wspolna\" ] ] MapaZasobow[  Element[  Identyfikator=int[ \"2\" ] WpisZasobu[  SlabyWsk=std::weak_ptr<class SpEx::Zasob>[ \"0x40cc3c0\" ] SilnyWsk=std::shared_ptr<class SpEx::Zasob>[ \"0x40cc3c0\" ] Przechowywany=bool[ \"true\" ] ] ] Element[  Identyfikator=int[ \"3\" ] WpisZasobu[  SlabyWsk=std::weak_ptr<class SpEx::Zasob>[ \"0x40cc060\" ] SilnyWsk=std::shared_ptr<class SpEx::Zasob>[ \"0x40cc060\" ] Przechowywany=bool[ \"true\" ] ] ] Element[  Identyfikator=int[ \"4\" ] WpisZasobu[  SlabyWsk=std::weak_ptr<class SpEx::Zasob>[ \"0x40cd110\" ] SilnyWsk=std::shared_ptr<class SpEx::Zasob>[ \"0x40cd110\" ] Przechowywany=bool[ \"true\" ] ] ] ] pustyNapis_=std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >[ \"\" ] ]";
+	//std::string str = "Uklad ID=int[ \"3\" ]";
+	std::ifstream t("zrzut.txt");
+	std::stringstream buffer;
+	buffer << t.rdbuf();
+	parser.parsuj(buffer.str(), hTree);
 }
 
 //

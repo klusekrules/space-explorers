@@ -62,7 +62,10 @@ namespace SpEx{
 	std::string SurowceInfo::napis() const{
 		SLog::Logger str(NAZWAKLASY(SurowceInfo));
 		str.dodajKlase(ObiektInfo::napis());
-		str.dodajPole(NAZWAPOLA(przyrostowy_), przyrostowy_);
+		std::stringstream streamPrzyrostowy_;
+		streamPrzyrostowy_.imbue(std::locale());
+		streamPrzyrostowy_ << std::boolalpha << przyrostowy_();
+		str.dodajPole(NAZWAPOLA(przyrostowy_), NAZWAKLASY2(przyrostowy_), streamPrzyrostowy_.str());
 		if (zmianaCzasu_)
 			str.dodajPole(NAZWAPOLA(zmianaCzasu_), *zmianaCzasu_);
 		return str.napis();
