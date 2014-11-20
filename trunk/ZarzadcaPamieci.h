@@ -5,6 +5,7 @@
 #include "GeneratorUkladow.h"
 #include <vector>
 #include "UstawieniaAplikacji.h"
+#include "Logger\LoggerInterface.h"
 
 namespace SpEx{
 	/**
@@ -16,7 +17,8 @@ namespace SpEx{
 	* \version 4
 	* \date 15-09-2014
 	*/
-	class ZarzadcaPamieci
+	class ZarzadcaPamieci :
+		virtual public SLog::LoggerInterface
 	{
 	public:
 		
@@ -126,6 +128,8 @@ namespace SpEx{
 		* Domyœlny destruktor obiektu.
 		*/
 		virtual ~ZarzadcaPamieci() = default;
+
+		std::string napis() const override;
 
 	private:
 		bool czyZainicjalizowany_ = false; /// Informacja czy klasa zosta³a ju¿ zainicjalizowana poprawnie.

@@ -223,6 +223,14 @@ namespace SpEx{
 	std::string Aplikacja::pobierzDebugInfo() const{
 #if !(defined(LOG_OFF_ALL) || defined(LOG_OFF_DEBUG))
 		SLog::Logger logger(NAZWAKLASY(Aplikacja));
+
+		// int iloscArgumentow;
+		// char** argumenty;
+		// SLog::Log& logger_;
+		// Fabrykator fabrykator_;
+		// std::shared_ptr<SPlu::Cplugin> pluginy_;
+		// std::shared_ptr<Gra> instancjaGry_;
+		
 		std::stringstream streamCzyZainicjalizowanaBiblioteka_;
 		streamCzyZainicjalizowanaBiblioteka_.imbue(std::locale());
 		streamCzyZainicjalizowanaBiblioteka_ << std::boolalpha << czyZainicjalizowanaBiblioteka_;
@@ -243,6 +251,7 @@ namespace SpEx{
 		logger.dodajPole(NAZWAPOLA(ustawienia_), ustawienia_);
 		logger.dodajPole(NAZWAPOLA(zarzadcaLokacji_), zarzadcaLokacji_);
 		logger.dodajPole(NAZWAPOLA(zarzadcaZasobow_), zarzadcaZasobow_);
+		logger.dodajPole(NAZWAPOLA(zarzadcaPamieci_), zarzadcaPamieci_);
 		return std::move(logger.napis());
 #else
 		return std::string();
