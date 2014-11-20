@@ -109,4 +109,53 @@ namespace SpEx{
 		nazwaPliku = plik;
 		return dokument;
 	}
+
+	std::string ZarzadcaPamieci::napis() const{
+		SLog::Logger logger(NAZWAKLASY(ZarzadcaPamieci));
+		logger.dodajPole(NAZWAPOLA(adresPlikuGry_), NAZWAKLASY2(adresPlikuGry_), adresPlikuGry_);
+		logger.dodajPole(NAZWAPOLA(folderPlikuUzytkownika_), NAZWAKLASY2(folderPlikuUzytkownika_), folderPlikuUzytkownika_); 
+
+		std::stringstream streamCzyZainicjalizowany_;
+		streamCzyZainicjalizowany_.imbue(std::locale());
+		streamCzyZainicjalizowany_ << std::boolalpha << czyZainicjalizowany_;
+		logger.dodajPole(NAZWAPOLA(czyZainicjalizowany_), NAZWAKLASY2(czyZainicjalizowany_), streamCzyZainicjalizowany_.str());
+
+		if (dokumentMaszynyStanow_ != nullptr){
+			std::stringstream streamPtr;
+			streamPtr.imbue(std::locale("C"));
+			streamPtr << "0x" << std::hex << (unsigned int)(dokumentMaszynyStanow_.get());
+			logger.dodajPole(NAZWAPOLA(dokumentMaszynyStanow_), NAZWAKLASY2(dokumentMaszynyStanow_), streamPtr.str());
+		}
+		else
+			logger.dodajPole(NAZWAPOLA(dokumentMaszynyStanow_), NAZWAKLASY2(dokumentMaszynyStanow_), "nullptr");
+
+		if (dokumentOknaGry_ != nullptr){
+			std::stringstream streamPtr;
+			streamPtr.imbue(std::locale("C"));
+			streamPtr << "0x" << std::hex << (unsigned int)(dokumentOknaGry_.get());
+			logger.dodajPole(NAZWAPOLA(dokumentOknaGry_), NAZWAKLASY2(dokumentOknaGry_), streamPtr.str());
+		}
+		else
+			logger.dodajPole(NAZWAPOLA(dokumentOknaGry_), NAZWAKLASY2(dokumentOknaGry_), "nullptr");
+
+		if (dokumentGry_ != nullptr){
+			std::stringstream streamPtr;
+			streamPtr.imbue(std::locale("C"));
+			streamPtr << "0x" << std::hex << (unsigned int)(dokumentGry_.get());
+			logger.dodajPole(NAZWAPOLA(dokumentGry_), NAZWAKLASY2(dokumentGry_), streamPtr.str());
+		}
+		else
+			logger.dodajPole(NAZWAPOLA(dokumentGry_), NAZWAKLASY2(dokumentGry_), "nullptr");
+
+		if (dokumentPowiazanZasobow_ != nullptr){
+			std::stringstream streamPtr;
+			streamPtr.imbue(std::locale("C"));
+			streamPtr << "0x" << std::hex << (unsigned int)(dokumentPowiazanZasobow_.get());
+			logger.dodajPole(NAZWAPOLA(dokumentPowiazanZasobow_), NAZWAKLASY2(dokumentPowiazanZasobow_), streamPtr.str());
+		}
+		else
+			logger.dodajPole(NAZWAPOLA(dokumentPowiazanZasobow_), NAZWAKLASY2(dokumentPowiazanZasobow_), "nullptr");
+
+		return logger.napis();
+	}
 }
