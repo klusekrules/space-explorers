@@ -240,8 +240,10 @@ namespace SpEx {
 		SLog::Logger str(NAZWAKLASY(ZarzadcaLokacji));
 		str.dodajPole(NAZWAPOLA(folderPlikuUkladu_), NAZWAKLASY2(folderPlikuUkladu_), folderPlikuUkladu_);
 		str.dodajPole(NAZWAPOLA(generator_), generator_);
+
+		str.rozpocznijPodKlase("SpEx::ZarzadcaLokacji::Galaktyki");
 		for (auto& galaktyka : galaktyki_){
-			str.rozpocznijPodKlase("Galaktyka");
+			str.rozpocznijPodKlase("Element");
 			str.dodajPole("Id", galaktyka.first);
 			if (galaktyka.second.galaktyka_!=nullptr)
 				str.dodajPole("GalaktykaPtr", *(galaktyka.second.galaktyka_));
@@ -251,8 +253,12 @@ namespace SpEx {
 				str.dodajPole("Uklad ID", element);
 			str.zakonczPodKlase();
 		}
+		str.zakonczPodKlase();
+
+		str.rozpocznijPodKlase("SpEx::ZarzadcaLokacji::UkladySloneczne");
+		SpEx::ZarzadcaLokacji::UkladySloneczne::allocator_type a;
 		for (auto& uklad : ukladySloneczne_){
-			str.rozpocznijPodKlase("Uklad");
+			str.rozpocznijPodKlase("Element");
 			str.dodajPole("Id", uklad.first);
 			str.dodajPole("Galaktyka Id", uklad.second.idGalaktyki_);
 			str.dodajPole("Flaga inicjalizacji", NAZWAKLASY2(uklad.second.flaga_inicjalizacji_ukladu._Flag), std::to_string(uklad.second.flaga_inicjalizacji_ukladu._Flag));
@@ -264,18 +270,26 @@ namespace SpEx {
 				str.dodajPole("Planeta ID", element);
 			str.zakonczPodKlase();
 		}
+		str.zakonczPodKlase();
+
+		str.rozpocznijPodKlase("SpEx::ZarzadcaLokacji::Planety");
 		for (auto& uklad : planety_){
-			str.rozpocznijPodKlase("Planeta");
+			str.rozpocznijPodKlase("Element");
 			str.dodajPole("Id", uklad.first);
 			str.dodajPole("Uklad Id", uklad.second.idUkladu_);
 			str.dodajPole("Flaga inicjalizacji", NAZWAKLASY2(uklad.second.flaga_inicjalizacji_ukladu._Flag), std::to_string(uklad.second.flaga_inicjalizacji_ukladu._Flag));
-			str.dodajPole("Planeta Wolna", NAZWAKLASY2(uklad.second.wolna_), std::to_string(uklad.second.wolna_));
+			std::stringstream streamWolna;
+			streamWolna.imbue(std::locale());
+			streamWolna << std::boolalpha << uklad.second.wolna_;
+			str.dodajPole("Planeta Wolna", NAZWAKLASY2(uklad.second.wolna_), streamWolna.str());
 			if (uklad.second.planeta_ != nullptr)
 				str.dodajPole("PlanetaPtr", *(uklad.second.planeta_));
 			else
 				str.dodajPole("PlanetaPtr", NAZWAKLASY2(uklad.second.planeta_), "nullptr");
 			str.zakonczPodKlase();
 		}
+		str.zakonczPodKlase();
+
 		return str.napis();
 	}
 };

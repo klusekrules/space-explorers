@@ -67,7 +67,10 @@ namespace SpEx{
 		str.dodajKlase(JednostkaAtakujacaInfo::napis());
 		str.dodajKlase(LadowniaInfo::napis());
 		str.dodajKlase(HangarInfo::napis());
-		str.dodajPole(NAZWAPOLA(przechowywanyWHangarze_), przechowywanyWHangarze_);
+		std::stringstream streamPrzechowywanyWHangarze_;
+		streamPrzechowywanyWHangarze_.imbue(std::locale());
+		streamPrzechowywanyWHangarze_ << std::boolalpha << przechowywanyWHangarze_();
+		str.dodajPole(NAZWAPOLA(przechowywanyWHangarze_), NAZWAKLASY2(przechowywanyWHangarze_), streamPrzechowywanyWHangarze_.str());
 		return str.napis();
 	}
 }
