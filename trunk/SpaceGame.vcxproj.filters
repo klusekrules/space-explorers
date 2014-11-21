@@ -313,6 +313,9 @@
     <ClCompile Include="Export.cpp">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClCompile>
+    <ClCompile Include="XmlModul.cpp">
+      <Filter>SourceFile\Kontroler\Zasoby</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -648,9 +651,6 @@
     <ClInclude Include="ZarzadcaZasobow.h">
       <Filter>SourceFile\Kontroler</Filter>
     </ClInclude>
-    <ClInclude Include="Zasob.h">
-      <Filter>SourceFile\Kontroler</Filter>
-    </ClInclude>
     <ClInclude Include="ZarzadcaPamieci.h">
       <Filter>SourceFile\Kontroler</Filter>
     </ClInclude>
@@ -674,6 +674,12 @@
     </ClInclude>
     <ClInclude Include="PomocniczeTypyTGUI.h">
       <Filter>SourceFile\GUI\TGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Zasob.h">
+      <Filter>SourceFile\Kontroler\Zasoby</Filter>
+    </ClInclude>
+    <ClInclude Include="XmlModul.h">
+      <Filter>SourceFile\Kontroler\Zasoby</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -835,6 +841,9 @@
     </Filter>
     <Filter Include="SourceFile\Kontroler\Fabryki">
       <UniqueIdentifier>{7c47fe9a-f2ba-4b9b-9506-b634d368a278}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Kontroler\Zasoby">
+      <UniqueIdentifier>{4b40de96-8dad-4bc6-ac96-c03390bd19d6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

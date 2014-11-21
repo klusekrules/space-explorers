@@ -375,6 +375,7 @@
     <ClInclude Include="Walidator.h" />
     <ClInclude Include="Watek.h" />
     <ClInclude Include="WatekZarzadzany.h" />
+    <ClInclude Include="XmlModul.h" />
     <ClInclude Include="Zadanie.h" />
     <ClInclude Include="ZarzadcaLokacji.h" />
     <ClInclude Include="ZarzadcaPamieci.h" />
@@ -537,6 +538,7 @@
     <ClCompile Include="Wyjatki.cpp" />
     <ClCompile Include="Wymagania.cpp" />
     <ClCompile Include="WymaganiaTest.cpp" />
+    <ClCompile Include="XmlModul.cpp" />
     <ClCompile Include="Zadanie.cpp" />
     <ClCompile Include="ZapisStanuGryTest.cpp" />
     <ClCompile Include="ZarzadcaLokacji.cpp" />

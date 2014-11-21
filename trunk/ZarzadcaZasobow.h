@@ -24,7 +24,14 @@ namespace SpEx {
 		typedef std::pair < Parametr, std::string > WpisLokalizacjiZasobu; /// Typ wi¹¿¹cy nazwê symboliczn¹ z lokalizacj¹ zasobu.
 		typedef std::vector < WpisLokalizacjiZasobu > TablicaLokalizacjiZasobu; /// Tablica powi¹zañ nazw symbolicznych z lokalizacj¹ zasobu.
 		typedef STyp::Identyfikator Identyfikator; /// Identyfikator zasobu.
-		typedef std::pair< std::pair< Zasob::WeakPtr, Zasob::SharedPtr >, bool > WpisZasobu; /// Wpis zasobu przechowanego w zarz¹dcy.
+		
+		struct WpisZasobu{
+			Zasob::WeakPtr weakptr_;
+			Zasob::SharedPtr sharedptr_;
+			bool cached_;
+			Parametr parametr_;
+		};
+		
 		typedef std::function< Zasob::SharedPtr(const Parametr&, bool) > Inicjalizator; /// Typ metody tworz¹cej zasób.
 		typedef std::unordered_map < Identyfikator, WpisZasobu, STyp::IdTypeHash> MapaZasobow; /// Typ kontenera przechowuj¹cego zasoby.
 		typedef std::unordered_map < std::string, Inicjalizator> MapaInicjalizatorow; /// Typ kontenera przechowuj¹cego inicjalizatory.
@@ -66,7 +73,7 @@ namespace SpEx {
 		* \version 1
 		* \date 06-08-2014
 		*/
-		Zasob::SharedPtr pobierzZasob(const Parametr& parametr, bool cache = false);
+		Zasob::SharedPtr pobierzZasob(const Parametr& parametr, bool cache = false, Identyfikator& identyfikator = Identyfikator());
 		
 		/**
 		* \brief Metoda pobierajaca zasób.
@@ -80,8 +87,8 @@ namespace SpEx {
 		* \date 06-08-2014
 		*/
 		template <class T_>
-		inline std::shared_ptr<T_> pobierzZasob(const Parametr& parametr, bool cache = false){
-			return std::dynamic_pointer_cast<T_>(pobierzZasob(parametr, cache));
+		inline std::shared_ptr<T_> pobierzZasob(const Parametr& parametr, bool cache = false, Identyfikator& identyfikator = Identyfikator()){
+			return std::dynamic_pointer_cast<T_>(pobierzZasob(parametr, cache, identyfikator));
 		}
 
 		/**
@@ -96,7 +103,7 @@ namespace SpEx {
 		* \version 1
 		* \date 06-08-2014
 		*/
-		Zasob::SharedPtr pobierzZasob(const Identyfikator& identyfikator, const Parametr& parametr, bool cache = false);
+		Zasob::SharedPtr pobierzZasob(const Identyfikator& identyfikator, const Parametr& parametr, bool cache = false, Identyfikator& id = Identyfikator());
 
 		/**
 		* \brief Metoda pobierajaca zasób.
@@ -111,8 +118,8 @@ namespace SpEx {
 		* \date 06-08-2014
 		*/
 		template <class T_>
-		inline std::shared_ptr<T_> pobierzZasob(const Identyfikator& identyfikator, const Parametr& parametr, bool cache = false){
-			return std::dynamic_pointer_cast<T_>(pobierzZasob(identyfikator, parametr, cache));
+		inline std::shared_ptr<T_> pobierzZasob(const Identyfikator& identyfikator, const Parametr& parametr, bool cache = false, Identyfikator& id = Identyfikator()){
+			return std::dynamic_pointer_cast<T_>(pobierzZasob(identyfikator, parametr, cache, id));
 		}
 
 		/**
@@ -247,7 +254,7 @@ namespace SpEx {
 		* \version 1
 		* \date 06-08-2014
 		*/
-		Zasob::SharedPtr wczytajZasob(const Identyfikator& identyfikator, const Parametr& parametr, bool cache = false);
+		Zasob::SharedPtr wczytajZasob(const Identyfikator& identyfikator, const Parametr& parametr, bool cache = false, Identyfikator& id = Identyfikator());
 
 		MapaZasobow zasobyPrzechowywane_; /// Obiekt przechowuj¹cy zasoby.
 		MapaInicjalizatorow inicjalizatory_; /// Obiekt przechowuj¹cy inicjalizatory.

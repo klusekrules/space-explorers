@@ -2,4 +2,5 @@
 <Space-Explorers>
   <LokalizacjaZasobu nazwa="StartScreen" lokalizacja="resource\\Space_start_screen.png" />
   <LokalizacjaZasobu nazwa="BrakObrazka" lokalizacja="resource\\Brak_obrazka.png" />
+  <LokalizacjaZasobu nazwa="KonfiguracjaMaszStanow" lokalizacja="resource\\state.xml" />
 </Space-Explorers>
