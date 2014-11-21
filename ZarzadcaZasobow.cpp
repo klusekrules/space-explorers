@@ -42,10 +42,14 @@ namespace SpEx{
 		return id;
 	}
 
-	Zasob::SharedPtr ZarzadcaZasobow::pobierzZasob(const Parametr& parametr, bool cache){
+	Zasob::SharedPtr ZarzadcaZasobow::pobierzZasob(const Parametr& parametr, bool cache, Identyfikator& id){
 		STyp::Identyfikator identyfikator;
 		mapujIdentyfikator(parametr, identyfikator);
-		return pobierzZasob(identyfikator, parametr, cache);
+		STyp::Identyfikator lokalizator = pobierzIdentyfikator(parametr);
+		if (lokalizator() != -1){
+			return pobierzZasob(identyfikator, pobierzAdresObrazka(lokalizator), cache, id);
+		}
+		return pobierzZasob(identyfikator, parametr, cache, id);
 	}
 
 	Zasob::SharedPtr ZarzadcaZasobow::pobierzUnikalnyZasob(const Parametr& parametr){
@@ -64,29 +68,30 @@ namespace SpEx{
 		return nullptr;
 	}
 
-	Zasob::SharedPtr ZarzadcaZasobow::pobierzZasob(const Identyfikator& identyfikator, const Parametr& parametr, bool cache){
+	Zasob::SharedPtr ZarzadcaZasobow::pobierzZasob(const Identyfikator& identyfikator, const Parametr& parametr, bool cache, Identyfikator& id){
 		auto found = zasobyPrzechowywane_.find(identyfikator);
 
 		if (found != zasobyPrzechowywane_.end()){
-			if (found->second.second){
-				return found->second.first.second;
+			if (found->second.cached_){
+				return found->second.sharedptr_;
 			}else{
-				Zasob::WeakPtr asset = found->second.first.first;
+				Zasob::WeakPtr asset = found->second.weakptr_;
 
 				if (!asset.expired()){
 					return asset.lock();
 				}else{
-					return wczytajZasob(identyfikator, parametr, cache);
+					zasobyPrzechowywane_.erase(found);
+					return wczytajZasob(identyfikator, parametr, cache, id);
 				}
 			}
 		}else{
-			return wczytajZasob(identyfikator, parametr, cache);
+			return wczytajZasob(identyfikator, parametr, cache, id);
 		}
 	}
 
 	bool ZarzadcaZasobow::przechowywanyZasob(const Identyfikator& identyfikator) const{
 		auto iter = zasobyPrzechowywane_.find(identyfikator);
-		return iter != zasobyPrzechowywane_.end() ? iter->second.second : false;
+		return iter != zasobyPrzechowywane_.end() ? iter->second.cached_ : false;
 	}
 
 	bool ZarzadcaZasobow::rejestrujInicjalizator(const std::string& typ, Inicjalizator funkcja){
@@ -121,7 +126,7 @@ namespace SpEx{
 		return nullptr;
 	}
 
-	Zasob::SharedPtr ZarzadcaZasobow::wczytajZasob(const Identyfikator& identyfikator, const Parametr& parametr, bool cache){
+	Zasob::SharedPtr ZarzadcaZasobow::wczytajZasob(const Identyfikator& identyfikator, const Parametr& parametr, bool cache, Identyfikator& id ){
 		if (zasobyPrzechowywane_.find(identyfikator) != zasobyPrzechowywane_.end()){
 			return nullptr;
 		}
@@ -134,13 +139,15 @@ namespace SpEx{
 			Zasob::SharedPtr asset = found->second(parametr, cache);
 			asset->identyfikator_ = identyfikator;
 			if (cache){
-				zasobyPrzechowywane_[identyfikator] = std::make_pair(std::make_pair(asset, asset), cache);
+				zasobyPrzechowywane_[identyfikator] = WpisZasobu({asset, asset, cache, parametr});
 			}else{
-				zasobyPrzechowywane_[identyfikator] = std::make_pair(std::make_pair(asset, nullptr), cache);
+				zasobyPrzechowywane_[identyfikator] = WpisZasobu({asset, nullptr, cache, parametr});
 			}
 			if (!asset->inicjalizuj()){
+				zasobyPrzechowywane_.erase(identyfikator);
 				return nullptr;
 			}
+			id = identyfikator;
 			return asset;
 		}else{
 			throw std::exception("unsupported asset extension detected");
@@ -190,18 +197,20 @@ namespace SpEx{
 
 			std::stringstream streamWeakPtr;
 			streamWeakPtr.imbue(std::locale("C"));
-			streamWeakPtr << "0x" << std::hex << (unsigned int)(element.second.first.first._Get());
-			logger.dodajPole("SlabyWsk", NAZWAKLASY2(element.second.first.first), streamWeakPtr.str());
+			streamWeakPtr << "0x" << std::hex << (unsigned int)(element.second.weakptr_._Get());
+			logger.dodajPole("weakptr_", NAZWAKLASY2(element.second.weakptr_), streamWeakPtr.str());
 			
 			std::stringstream streamSharedPtr;
 			streamSharedPtr.imbue(std::locale("C"));
-			streamSharedPtr << "0x" << std::hex << (unsigned int)(element.second.first.second._Get());
-			logger.dodajPole("SilnyWsk", NAZWAKLASY2(element.second.first.second), streamSharedPtr.str());
+			streamSharedPtr << "0x" << std::hex << (unsigned int)(element.second.sharedptr_._Get());
+			logger.dodajPole("sharedptr_", NAZWAKLASY2(element.second.sharedptr_), streamSharedPtr.str());
 
 			std::stringstream streamCached;
 			streamCached.imbue(std::locale("C"));
-			streamCached << std::boolalpha << element.second.second;
-			logger.dodajPole("Przechowywany", NAZWAKLASY2(element.second.second), streamCached.str());
+			streamCached << std::boolalpha << element.second.cached_;
+			logger.dodajPole("cached_", NAZWAKLASY2(element.second.cached_), streamCached.str());
+
+			logger.dodajPole("parametr_", NAZWAKLASY2(element.second.parametr_), element.second.parametr_);
 
 			logger.zakonczPodKlase();
 			logger.zakonczPodKlase();

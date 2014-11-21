@@ -4,6 +4,8 @@
 #include "FPSCounter.h"
 #include <set>
 #include "BladStukturyStanu.h"
+#include "NieznalezionoPliku.h"
+#include "XmlModul.h"
 
 namespace SpEx{
 	MaszynaStanow::StanDlaSkryptu::StanDlaSkryptu()
@@ -31,7 +33,10 @@ namespace SpEx{
 
 	void MaszynaStanow::inicjalizuj(){
 		try{
-			auto root = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadcePamieci().pobierzWezelKonfiguracyjnyMaszynyStanow();
+			auto zasob = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzZasob<XmlModul>("KonfiguracjaMaszStanow");
+			if (!zasob)
+				throw NieznalezionoPliku(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo(), STyp::Tekst("Nie udalo sie wczytac dokumentu xml: KonfiguracjaMaszStanow"));
+			auto root = (*zasob)()->pobierzElement(nullptr);
 			XmlBO::WczytajAtrybut<SpEx::STACKTHROW>(root, ATRYBUT_XML_STAN_POCZATKOWY, idStanuPoczatkowy_);
 			pulaWatkow_.ustawLiczbeWatkow(XmlBO::WczytajAtrybut<unsigned char>(root, ATRYBUT_XML_PULA_WATKOW, 4));
 			XmlBO::ForEach<SpEx::STACKTHROW>(root, WEZEL_XML_STAN, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
