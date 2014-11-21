@@ -6,6 +6,8 @@
 #include "Aplikacja.h"
 #include "FPSCounter.h"
 #include "PowtorzenieIdObiektu.h"
+#include "XmlModul.h"
+#include "NieznalezionoPliku.h"
 
 #define KOMUNIKAT_POWTORZENIE_OBIEKTU(a) STyp::Tekst("Obiekt typu: "#a )
 #define GL_SHADING_LANGUAGE_VERSION       0x8B8C
@@ -224,7 +226,10 @@ namespace SpEx{
 
 	bool OknoGry::wczytajEkrany(){
 		std::lock_guard<std::recursive_mutex> lock(mutexListaEkranow_);
-		auto wezel = Aplikacja::pobierzInstancje().pobierzZarzadcePamieci().pobierzWezelKonfiguracyjnyOknaGry();
+		auto zasob = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzZasob<XmlModul>("KonfiguracjaOknaGry");
+		if (!zasob)
+			throw NieznalezionoPliku(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo(), STyp::Tekst("Nie udalo sie wczytac dokumentu xml: KonfiguracjaOknaGry"));
+		auto wezel = (*zasob)()->pobierzElement(nullptr);
 		if (wezel){
 			XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_EKRAN_STARTOWY, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 				auto ptr = std::make_shared<EkranStartowy>(oknoGlowne_, element); 
@@ -257,7 +262,10 @@ namespace SpEx{
 		std::lock_guard<std::recursive_mutex> lock(mutexListaEkranow_);
 		auto iter = listaEkranow_.find(id);
 		if (iter!= listaEkranow_.end()){
-			auto wezel = Aplikacja::pobierzInstancje().pobierzZarzadcePamieci().pobierzWezelKonfiguracyjnyOknaGry();
+			auto zasob = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzZasob<XmlModul>("KonfiguracjaOknaGry");
+			if (!zasob)
+				throw NieznalezionoPliku(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo(), STyp::Tekst("Nie udalo sie wczytac dokumentu xml: KonfiguracjaOknaGry"));
+			auto wezel = (*zasob)()->pobierzElement(nullptr);
 			auto okno = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_EKRAN, ATRYBUT_XML_IDENTYFIKATOR, std::to_string(id()));
 			if (okno){
 				auto ptr = std::make_shared<EkranSzablon>(okno);
