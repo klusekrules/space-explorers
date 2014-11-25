@@ -34,4 +34,8 @@ namespace SpEx{
 		}
 		return logger.napis();
 	}
+
+	void GeneratorIdentyfikatorow::resetuj(){
+		mapa_.clear();
+	}
 };

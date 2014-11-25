@@ -42,12 +42,10 @@ namespace SpEx{
 				return nullptr;
 			return std::make_shared<LuaSkrypt>(uchwyt);
 		}else{
-			STyp::Identyfikator id;
-			std::string temp(XML_ATRYBUT_TYP_SKRYPT_LUA);
-			temp.push_back('_');
-			temp += XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_INSTANCE, std::string());
-			SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.mapujIdentyfikator(temp, id);
-			LuaState::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzZasob<LuaState>(id, luaFile, true);
+			std::string nazwa(XML_ATRYBUT_TYP_SKRYPT_LUA);
+			nazwa.push_back('_');
+			nazwa += XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_INSTANCE, std::string());
+			LuaState::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzZasob<LuaState>(nazwa, luaFile, true);
 			if (uchwyt == nullptr)
 				return nullptr;
 			return std::make_shared<LuaSkrypt>(uchwyt);

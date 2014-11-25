@@ -10,8 +10,8 @@ namespace SpEx{
 	*
 	* Klasa mapuje identyfikatory znakowe na kolejne identyfikatory liczbowe.
 	* \author Daniel Wojdak
-	* \version 3
-	* \date 13-11-2014
+	* \version 4
+	* \date 25-11-2014
 	*/
 	class GeneratorIdentyfikatorow :
 		public virtual SLog::LoggerInterface
@@ -65,6 +65,14 @@ namespace SpEx{
 		* \date 13-11-2014
 		*/
 		std::string napis() const override;
+
+		/**
+		* Funkcja resetuj¹ca stan obiektu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-11-2014
+		*/
+		void resetuj();
 
 	private:
 		typedef std::vector<std::string> Kontener; /// Typ kontenera mapuj¹cego identyfikatory.

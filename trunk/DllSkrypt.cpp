@@ -31,14 +31,10 @@ namespace SpEx{
 	}
 
 	std::shared_ptr<Skrypt> DllSkrypt::Tworz(XmlBO::ElementWezla wezel){
-		std::string luaFile = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FILE, std::string());
-		if (luaFile.empty())
+		std::string dllFile = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FILE, std::string());
+		if (dllFile.empty())
 			return nullptr;
-		STyp::Identyfikator id;
-		std::string temp(XML_ATRYBUT_TYP_SKRYPT_DLL);
-		temp.push_back('_');
-		SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.mapujIdentyfikator(temp, id);
-		DllModule::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzZasob<DllModule>(id, luaFile, true);
+		DllModule::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzZasob<DllModule>(dllFile, true);
 		if (uchwyt == nullptr)
 			return nullptr;
 		return std::make_shared<DllSkrypt>(uchwyt);

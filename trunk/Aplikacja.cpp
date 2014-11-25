@@ -65,10 +65,7 @@ namespace SpEx{
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listaobiektowgui", tgui::ListaObiektowGui::createWidget);
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("kontrolkaobiektu", tgui::KontrolkaObiektu::createWidget);
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("loglistgui", tgui::LogListGui::createWidget);
-		LuaState::Rejestruj(zarzadcaZasobow_);
-		DllModule::Rejestruj(zarzadcaZasobow_);
-		XmlModul::Rejestruj(zarzadcaZasobow_);
-
+		
 		/* ------- Wstêpna konfiguracja logów ------- */
 		logger_.dodajGniazdoWyjsciowe([](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{ 
 			std::string sTyp;
@@ -173,6 +170,9 @@ namespace SpEx{
 #endif
 		zarzadcaLokacji_.inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 		zarzadcaZasobow_.inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
+		LuaState::Rejestruj(zarzadcaZasobow_);
+		DllModule::Rejestruj(zarzadcaZasobow_);
+		XmlModul::Rejestruj(zarzadcaZasobow_);
 
 		pluginy_ = std::make_shared<SPlu::Cplugin>(ustawienia_.pobierzFolderPlugin(), fabrykator_.pobierzFabrykeZmian(), logger_);
 
