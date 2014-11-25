@@ -96,31 +96,33 @@ namespace SpEx {
 		* \brief Metoda pobierajaca zasób.
 		*
 		* Metoda pobiera lub tworzy zasób.
+		* \param[in] nazwa - W³asna nazwa identyfikuj¹ca zasób generowana w trakcie dzia³ania programu.
 		* \param[in] identyfikator - Identyfikator zasobu.
 		* \param[in] parametr - Adres pliku na bazie którgo ma zostaæ zainicjalizowany zasób.
 		* \param[in] cache - Informacja czy zasób ma byæ lokalnie przechowywany.
 		* \return WskaŸnik na zasób lub nullptr.
 		* \author Daniel Wojdak
 		* \version 1
-		* \date 06-08-2014
+		* \date 25-11-2014
 		*/
-		Zasob::SharedPtr pobierzZasob(const Identyfikator& identyfikator, const Parametr& parametr, bool cache = false, Identyfikator& id = Identyfikator());
+		Zasob::SharedPtr pobierzZasob(const std::string& nazwa, const Parametr& parametr, bool cache = false, Identyfikator& id = Identyfikator());
 
 		/**
 		* \brief Metoda pobierajaca zasób.
 		*
 		* Metoda pobiera lub tworzy zasób.
+		* \param[in] nazwa - W³asna nazwa identyfikuj¹ca zasób generowana w trakcie dzia³ania programu.
 		* \param[in] identyfikator - Identyfikator zasobu.
 		* \param[in] parametr - Adres pliku na bazie którgo ma zostaæ zainicjalizowany zasób.
 		* \param[in] cache - Informacja czy zasób ma byæ lokalnie przechowywany.
 		* \return WskaŸnik na zasób lub nullptr.
 		* \author Daniel Wojdak
 		* \version 1
-		* \date 06-08-2014
+		* \date 25-11-2014
 		*/
 		template <class T_>
-		inline std::shared_ptr<T_> pobierzZasob(const Identyfikator& identyfikator, const Parametr& parametr, bool cache = false, Identyfikator& id = Identyfikator()){
-			return std::dynamic_pointer_cast<T_>(pobierzZasob(identyfikator, parametr, cache, id));
+		inline std::shared_ptr<T_> pobierzZasob(const std::string& nazwa, const Parametr& parametr, bool cache = false, Identyfikator& id = Identyfikator()){
+			return std::dynamic_pointer_cast<T_>(pobierzZasob(nazwa, parametr, cache, id));
 		}
 
 		/**
@@ -211,19 +213,6 @@ namespace SpEx {
 		*/
 		Inicjalizator wyrejestrujInicjalizator(const std::string& typ);
 
-		/**
-		* \brief Metoda mapuje parametr na identyfikator.
-		*
-		* Metoda mapuje parametr tekstowy na identyfikator liczbowy.
-		* \param[in] parametr - Adres pliku na bazie którgo ma zostaæ zainicjalizowany zasób.
-		* \param[out] identyfikator - Identyfikator zasobu.
-		* \return Zwracana jest wartoœc true, je¿eli pierwszy raz odwo³ano siê do tego identyfikatora. Zwracana jest wartoœæ false, w przeciwnym przypadku.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 06-08-2014
-		*/
-		bool mapujIdentyfikator(const Parametr& parametr, Identyfikator& identyfikator);
-		
 		bool inicjalizuj(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos);
 
 		const std::string& pobierzAdresObrazka( const STyp::Identyfikator& identyfikator) const;
@@ -239,10 +228,45 @@ namespace SpEx {
 		*/
 		std::string napis() const override;
 
+		/**
+		* Funkcja resetuj¹ca stan obiektu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-11-2014
+		*/
+		void resetuj();
+
 	private:
 		GeneratorIdentyfikatorow generator_; /// Generator identyfikatorów.
 		TablicaLokalizacjiZasobu lokalizacjeZasobow_; /// Tablica zawieraj¹ca powi¹zania nazw symbolicznych z lokalizacj¹ zasobu na dysku.
 		
+		/**
+		* \brief Metoda mapuje parametr na identyfikator.
+		*
+		* Metoda mapuje parametr tekstowy na identyfikator liczbowy.
+		* \param[in] parametr - Adres pliku na bazie którgo ma zostaæ zainicjalizowany zasób.
+		* \param[out] identyfikator - Identyfikator zasobu.
+		* \return Zwracana jest wartoœc true, je¿eli pierwszy raz odwo³ano siê do tego identyfikatora. Zwracana jest wartoœæ false, w przeciwnym przypadku.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 06-08-2014
+		*/
+		bool mapujIdentyfikator(const Parametr& parametr, Identyfikator& identyfikator);
+
+		/**
+		* \brief Metoda pobierajaca zasób.
+		*
+		* Metoda pobiera lub tworzy zasób.
+		* \param[in] identyfikator - Identyfikator zasobu.
+		* \param[in] parametr - Adres pliku na bazie którgo ma zostaæ zainicjalizowany zasób.
+		* \param[in] cache - Informacja czy zasób ma byæ lokalnie przechowywany.
+		* \return WskaŸnik na zasób lub nullptr.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 06-08-2014
+		*/
+		Zasob::SharedPtr pobierzZasob(const Identyfikator& identyfikator, const Parametr& parametr, bool cache = false, Identyfikator& id = Identyfikator());
+
 		/**
 		* \brief Metoda wczytuj¹ca zasób.
 		*

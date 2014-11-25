@@ -16,8 +16,12 @@ namespace SpEx{
 
 		auto wezel = dokument->pobierzElement(nullptr);
 
-		if (!wezel)
-			return false; // TODO: informowanie o b³êdzie za pomoc¹ wyj¹tku.
+		if (!wezel){
+			throw STyp::Wyjatek(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), STyp::Tekst("Nie uda³o siê pobraæ elementu parsera!"),
+				STyp::Tekst("Podczas próby dostêpu do g³ównego wêz³a wyst¹pi³ b³¹d. Dokument wczytany z pliku: " + ustawienia.pobierzAdresPlikuPowiazanZasobow()));
+		}
+
+		resetuj();
 
 		return XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_LOKALIZACJA_ZASOBU, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla wpis)->bool{
 			std::string nazwa;
@@ -26,10 +30,20 @@ namespace SpEx{
 			nazwa = XmlBO::WczytajAtrybut(wpis, ATRYBUT_XML_NAZWA, std::string());
 			lokalizacja = XmlBO::WczytajAtrybut(wpis, ATRYBUT_XML_LOKALIZACJA, std::string());
 
-			if (nazwa.empty() || lokalizacja.empty())
-				return false; // TODO: informowanie o b³êdzie za pomoc¹ wyj¹tku.
+			if (nazwa.empty() || lokalizacja.empty()){
+				throw STyp::Wyjatek(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), STyp::Tekst("Niepoprawna struktura elementu!"),
+					STyp::Tekst("Podczas próby odczytania danych wyst¹pi³a niespójnoœæ w elemencie: " + wpis->error() + ". Dokument wczytany z pliku: " + ustawienia.pobierzAdresPlikuPowiazanZasobow()));
+			}
+
 			lokalizacjeZasobow_.push_back(std::make_pair(nazwa, lokalizacja));
-			return mapujIdentyfikator(nazwa, STyp::Identyfikator()); // TODO: informowanie o b³êdzie za pomoc¹ wyj¹tku.
+			STyp::Identyfikator id;
+
+			if (!mapujIdentyfikator(nazwa, id)){
+				throw STyp::Wyjatek(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), STyp::Tekst("Element istnieje!"),
+					STyp::Tekst("Nazwa: " + nazwa + " posiada ju¿ przypisane id: " + id.napis() + ". Wêze³: " + wpis->error() + ". Dokument wczytany z pliku: " + ustawienia.pobierzAdresPlikuPowiazanZasobow()));
+
+			}
+			return true;
 		}));
 	}
 	
@@ -54,8 +68,12 @@ namespace SpEx{
 	}
 
 	Zasob::SharedPtr ZarzadcaZasobow::pobierzZasob(const Parametr& parametr, bool cache, Identyfikator& id){
+		return pobierzZasob(parametr, parametr, cache, id);
+	}
+
+	Zasob::SharedPtr ZarzadcaZasobow::pobierzZasob(const std::string& nazwa, const Parametr& parametr, bool cache, Identyfikator& id){
 		STyp::Identyfikator identyfikator;
-		mapujIdentyfikator(parametr, identyfikator);
+		mapujIdentyfikator(nazwa, identyfikator);
 		STyp::Identyfikator lokalizator = pobierzIdentyfikator(parametr);
 		if (lokalizator() != -1){
 			return pobierzZasob(identyfikator, pobierzAdresObrazka(lokalizator), cache, id);
@@ -231,5 +249,12 @@ namespace SpEx{
 		logger.dodajPole(NAZWAPOLA(pustyNapis_), NAZWAKLASY2(pustyNapis_), pustyNapis_);
 
 		return logger.napis();
+	}
+	
+	void ZarzadcaZasobow::resetuj(){
+		generator_.resetuj();
+		lokalizacjeZasobow_.clear();
+		zasobyPrzechowywane_.clear();
+		inicjalizatory_.clear();
 	}
 };
