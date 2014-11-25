@@ -202,7 +202,7 @@ namespace SpEx {
 		* \version 1
 		* \date 25-07-2014
 		*/
-		void zaladujUstawienia(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos);
+		void inicjalizuj(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos);
 		
 		/**
 		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.

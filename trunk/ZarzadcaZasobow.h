@@ -5,6 +5,7 @@
 #include <functional>
 #include "Parser\XmlBO.h"
 #include "Logger\LoggerInterface.h"
+#include "UstawieniaAplikacji.h"
 
 namespace SpEx {
 	/**
@@ -223,7 +224,7 @@ namespace SpEx {
 		*/
 		bool mapujIdentyfikator(const Parametr& parametr, Identyfikator& identyfikator);
 		
-		bool inicjalizuj(XmlBO::ElementWezla wezel);
+		bool inicjalizuj(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos);
 
 		const std::string& pobierzAdresObrazka( const STyp::Identyfikator& identyfikator) const;
 

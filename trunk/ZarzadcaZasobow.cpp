@@ -2,12 +2,23 @@
 #include "Utils.h"
 #include "definicjeWezlowXML.h"
 #include "Logger\Logger.h"
+#include "Parser\ParserDokumentXml.h"
+#include "NieznalezionoPliku.h"
 
 namespace SpEx{
 
-	bool ZarzadcaZasobow::inicjalizuj(XmlBO::ElementWezla wezel){
+	bool ZarzadcaZasobow::inicjalizuj(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos){
+		
+		auto dokument = std::make_shared<SPar::ParserDokumentXml>();
+		if (!dokument->odczytaj(ustawienia.pobierzAdresPlikuPowiazanZasobow().c_str())){
+			throw NieznalezionoPliku(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), ustawienia.pobierzAdresPlikuPowiazanZasobow());
+		}
+
+		auto wezel = dokument->pobierzElement(nullptr);
+
 		if (!wezel)
-			return false;
+			return false; // TODO: informowanie o b³êdzie za pomoc¹ wyj¹tku.
+
 		return XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_LOKALIZACJA_ZASOBU, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla wpis)->bool{
 			std::string nazwa;
 			std::string lokalizacja;
@@ -16,9 +27,9 @@ namespace SpEx{
 			lokalizacja = XmlBO::WczytajAtrybut(wpis, ATRYBUT_XML_LOKALIZACJA, std::string());
 
 			if (nazwa.empty() || lokalizacja.empty())
-				return false;
+				return false; // TODO: informowanie o b³êdzie za pomoc¹ wyj¹tku.
 			lokalizacjeZasobow_.push_back(std::make_pair(nazwa, lokalizacja));
-			return mapujIdentyfikator(nazwa, STyp::Identyfikator());
+			return mapujIdentyfikator(nazwa, STyp::Identyfikator()); // TODO: informowanie o b³êdzie za pomoc¹ wyj¹tku.
 		}));
 	}
 	
