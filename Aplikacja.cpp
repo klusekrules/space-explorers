@@ -171,9 +171,8 @@ namespace SpEx{
 			logger_.loguj(SLog::Log::Warning, "Nie za³adowano biblioteki Dbghelp.dll");
 		}
 #endif
-		zarzadcaPamieci_.zaladujPliki(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
-		zarzadcaLokacji_.zaladujUstawienia(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
-		zarzadcaZasobow_.inicjalizuj(zarzadcaPamieci_.pobierzWezelPowiazanZasobow());
+		zarzadcaLokacji_.inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
+		zarzadcaZasobow_.inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 
 		pluginy_ = std::make_shared<SPlu::Cplugin>(ustawienia_.pobierzFolderPlugin(), fabrykator_.pobierzFabrykeZmian(), logger_);
 
@@ -189,11 +188,11 @@ namespace SpEx{
 		_set_purecall_handler(myPurecallHandler);
 		_set_invalid_parameter_handler(myInvalidParameterHandler);
 
-		instancjaGry_ = std::make_shared<Gra>(logger_, zarzadcaLokacji_, zarzadcaPamieci_);
+		instancjaGry_ = std::make_shared<Gra>(logger_, zarzadcaLokacji_, ustawienia_);
 	}
 
 	void Aplikacja::wyczyscDane(){
-		instancjaGry_ = std::make_shared<Gra>(logger_, zarzadcaLokacji_, zarzadcaPamieci_);
+		instancjaGry_ = std::make_shared<Gra>(logger_, zarzadcaLokacji_, ustawienia_);
 	}
 
 	bool Aplikacja::zaladujOpcje(){
@@ -253,7 +252,6 @@ namespace SpEx{
 		logger.dodajPole(NAZWAPOLA(ustawienia_), ustawienia_);
 		logger.dodajPole(NAZWAPOLA(zarzadcaLokacji_), zarzadcaLokacji_);
 		logger.dodajPole(NAZWAPOLA(zarzadcaZasobow_), zarzadcaZasobow_);
-		logger.dodajPole(NAZWAPOLA(zarzadcaPamieci_), zarzadcaPamieci_);
 		return std::move(logger.napis());
 #else
 		return std::string();
@@ -306,10 +304,21 @@ namespace SpEx{
 	bool Aplikacja::zapiszGre(const std::string& nazwa, const std::string& hash){
 		std::locale::global(std::locale("C"));
 		try{
-			auto wezel = zarzadcaPamieci_.tworzWezelGry();
+			auto dokumentGry = std::make_shared<SPar::ParserDokumentXml>();
+			if (!dokumentGry->odczytaj(ustawienia_.pobierzAdresPlikuGry().c_str())){
+				dokumentGry->tworzElement(WEZEL_XML_ROOT)->tworzElement(WEZEL_XML_GRA);
+				if (!dokumentGry->zapisz(ustawienia_.pobierzAdresPlikuGry().c_str())){
+					return false;
+				}
+			}
+
+			auto wezel = dokumentGry->pobierzElement(WEZEL_XML_ROOT);
+			if (!wezel){
+				return false;
+			}
 			if (zarzadcaLokacji_.zapisz(wezel->tworzElement(WEZEL_XML_GRA)) && instancjaGry_->zapisz(nazwa, hash)){
 				std::locale::global(std::locale(ustawienia_.pobierzJezykAplikacji()));
-				return zarzadcaPamieci_.zapiszWezelGry();
+				return dokumentGry->zapisz(ustawienia_.pobierzAdresPlikuGry().c_str());
 			}
 		}
 		catch (...){
@@ -321,11 +330,22 @@ namespace SpEx{
 	}
 
 	bool Aplikacja::wczytajGre(std::shared_ptr<SPar::ParserElement> root){
-		auto wezel = zarzadcaPamieci_.otworzWezelGry();
+		auto dokumentGry = std::make_shared<SPar::ParserDokumentXml>();
+		if (!dokumentGry->odczytaj(ustawienia_.pobierzAdresPlikuGry().c_str())){
+			dokumentGry->tworzElement(WEZEL_XML_ROOT)->tworzElement(WEZEL_XML_GRA);
+			if (!dokumentGry->zapisz(ustawienia_.pobierzAdresPlikuGry().c_str())){
+				return false;
+			}
+		}
+
+		auto wezel = dokumentGry->pobierzElement(WEZEL_XML_ROOT);
+		if (!wezel){
+			return false;
+		}
 		if (wezel && *wezel){
 			std::shared_ptr<Gra> gra = instancjaGry_;
 			try{
-				instancjaGry_ = std::make_shared<Gra>(logger_, zarzadcaLokacji_, zarzadcaPamieci_);
+				instancjaGry_ = std::make_shared<Gra>(logger_, zarzadcaLokacji_, ustawienia_);
 				Walidator::pobierzInstancje().wyczysc();
 				Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(STyp::Identyfikator(0x0)); // Poprawna wartoœæ; U¿ywana gdy obiekty znajduj¹ siê we flocie.
 				if (root && instancjaGry_->wczytajDane(root)){

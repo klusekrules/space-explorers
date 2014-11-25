@@ -378,7 +378,6 @@
     <ClInclude Include="XmlModul.h" />
     <ClInclude Include="Zadanie.h" />
     <ClInclude Include="ZarzadcaLokacji.h" />
-    <ClInclude Include="ZarzadcaPamieci.h" />
     <ClInclude Include="ZarzadcaZasobow.h" />
     <ClInclude Include="Zasob.h" />
     <ClInclude Include="Zdarzenie.h" />
@@ -542,7 +541,6 @@
     <ClCompile Include="Zadanie.cpp" />
     <ClCompile Include="ZapisStanuGryTest.cpp" />
     <ClCompile Include="ZarzadcaLokacji.cpp" />
-    <ClCompile Include="ZarzadcaPamieci.cpp" />
     <ClCompile Include="ZarzadcaZasobow.cpp" />
     <ClCompile Include="ZdarzenieInfo.cpp" />
     <ClCompile Include="ZleceniaTest.cpp" />

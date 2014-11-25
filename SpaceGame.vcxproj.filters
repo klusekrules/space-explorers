@@ -292,9 +292,6 @@
     <ClCompile Include="ZarzadcaZasobow.cpp">
       <Filter>SourceFile\Kontroler</Filter>
     </ClCompile>
-    <ClCompile Include="ZarzadcaPamieci.cpp">
-      <Filter>SourceFile\Kontroler</Filter>
-    </ClCompile>
     <ClCompile Include="ZarzadcaLokacji.cpp">
       <Filter>SourceFile\Kontroler</Filter>
     </ClCompile>
@@ -649,9 +646,6 @@
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
     <ClInclude Include="ZarzadcaZasobow.h">
-      <Filter>SourceFile\Kontroler</Filter>
-    </ClInclude>
-    <ClInclude Include="ZarzadcaPamieci.h">
       <Filter>SourceFile\Kontroler</Filter>
     </ClInclude>
     <ClInclude Include="ZarzadcaLokacji.h">

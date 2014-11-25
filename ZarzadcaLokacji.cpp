@@ -232,7 +232,7 @@ namespace SpEx {
 		planety_.clear();
 	}
 
-	void ZarzadcaLokacji::zaladujUstawienia(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos){
+	void ZarzadcaLokacji::inicjalizuj(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos){
 		folderPlikuUkladu_ = ustawienia.pobierzFolderPlikuUkladu();
 	}
 

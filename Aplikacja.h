@@ -106,15 +106,6 @@ namespace SpEx {
 		}
 		
 		/**
-		* \brief Metoda pobieraj¹ca zarz¹dcê pamiêci.
-		*
-		* \return Referencja do obiektu zarz¹dcy.
-		*/
-		inline ZarzadcaPamieci& pobierzZarzadcePamieci(){
-			return zarzadcaPamieci_;
-		}
-
-		/**
 		* \brief Metoda pobieraj¹ca zarz¹dcê lokacji.
 		*
 		* \return Referencja do obiektu zarz¹dcy.
@@ -170,7 +161,6 @@ namespace SpEx {
 		HMODULE uchwyt_; /// Uchwyt blioteki pomocniczej.
 		bool czyZainicjalizowanaBiblioteka_; /// Informacja czy uda³osiê za³adowaæ bibliotekê pomocnicz¹.
 
-		ZarzadcaPamieci zarzadcaPamieci_; /// Obiekt zarz¹dzaj¹cy lokacjami.
 		ZarzadcaLokacji zarzadcaLokacji_; /// Obiekt zarz¹dzaj¹cy lokacjami.
 		
 		std::string plikKonfiguracyjny_; /// Adres pliku z danymi konfiguracyjnymi. Domyœlnie options.xml z katalogu z plikiem wykonywalnym.

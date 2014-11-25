@@ -9,9 +9,7 @@
 #include "Licznik.h"
 #include "GeneratorUkladow.h"
 #include "ZarzadcaLokacji.h"
-#include "ZarzadcaPamieci.h"
 #include "Zmiana\ZmianaFabryka.h"
-
 #include "PowtorzenieIdObiektu.h"
 
 #define KOMUNIKAT_POWTORZENIE_OBIEKTU(a) STyp::Tekst("Obiekt typu: "#a )
@@ -22,8 +20,8 @@ namespace SpEx {
 	*
 	* Klasa przechowuje wszystkie informacje i obiekty do poprawnego dzia³ania gry.
 	* \author Daniel Wojdak
-	* \version 5
-	* \date 06-10-2014
+	* \version 6
+	* \date 25-11-2014
 	*/
 	class Gra :
 		public se::NonCopyable,
@@ -42,12 +40,12 @@ namespace SpEx {
 		*
 		* \param[in] logger - instancja loggera.
 		* \param[in] zarzadcaLokacji - instancja zarz¹dcy lokacji.
-		* \param[in] zarzadcaPamieci - instancja zarz¹dcy pamiêci.
+		* \param[in] ustawieniaAplikacji - ustwaienia aplikacji.
 		* \author Daniel Wojdak
-		* \version 2
-		* \date 25-07-2014
+		* \version 3
+		* \date 25-11-2014
 		*/
-		explicit Gra(SLog::Log& logger, ZarzadcaLokacji& zarzadcaLokacji, ZarzadcaPamieci& zarzadcaPamieci);
+		explicit Gra(SLog::Log& logger, ZarzadcaLokacji& zarzadcaLokacji, UstawieniaAplikacji& ustawieniaAplikacji);
 
 		/**
 		* \brief Destruktor.
@@ -308,10 +306,25 @@ namespace SpEx {
 			return *(iterator->second);
 		}
 
+		/**
+		* \brief Metoda otwieraj¹ca plik u¿ytkownika
+		*
+		* Metoda na podstawie nazwy i hashu has³a u¿ytkownika otwiera plik z danymi u¿ytkownika.
+		* \param[in] nazwa - Nazwa u¿ytkownika.
+		* \param[in] hash - Hash has³a u¿ytkownika.
+		* \param[out] nazwaPliku - Nazwa pliku u¿ytkownika.
+		* \param[in] tworzPlik - informacje czy ma zostaæ utworzony plik je¿eli nie istnieje.
+		* \return nullptr je¿eli hash sie nie zgadza, wska¿nik na dokument.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-11-2014
+		*/
+		std::shared_ptr<SPar::ParserDokument> plikUzytkownika(const std::string& nazwa, const std::string& hash, std::string& nazwaPliku, bool tworzPlik = true) const;
+
 		SLog::Log& logger_; /// Referencja do obiektu loguj¹cego.
 		ZarzadcaLokacji& zarzadcaLokacji_; /// Referencja do aktualnego obiektu zarz¹dcy lokacji.
-		ZarzadcaPamieci& zarzadcaPamieci_; /// Referencja do aktualnego obiektu zarz¹dcy pamiêci.
 		std::shared_ptr<Uzytkownik> uzytkownik_; /// Aktualnie zalogowany u¿ytkownik.
+		std::string folderPlikowUzytkownika_; /// Œcie¿ka do folderu w którym znajduj¹ siê pliki gry.
 
 		ListaSurowcowInfoTyp listaSurowcowInfo_; /// Lista obiektów opisowych surowców.
 		ListaStatkowInfoTyp listaStatkowInfo_; /// Lista obiektów opisowych statku.
