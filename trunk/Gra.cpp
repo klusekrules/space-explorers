@@ -4,6 +4,7 @@
 #include <fstream>
 #include "Walidator.h"
 #include "Parser\ParserDokumentXml.h"
+#include "Logger\Logger.h"
 
 namespace SpEx{
 
@@ -182,5 +183,72 @@ namespace SpEx{
 			}
 		}
 		return listaObiektowInfo_;
+	}
+
+	std::string Gra::napis() const{
+		SLog::Logger logger(NAZWAKLASY(Gra));
+
+		if (uzytkownik_){
+			logger.dodajPole(NAZWAPOLA(uzytkownik_), uzytkownik_);
+		}else{
+			logger.dodajPole(NAZWAPOLA(uzytkownik_), NAZWAKLASY2(uzytkownik_),"nullptr");
+		}
+		logger.dodajPole(NAZWAPOLA(folderPlikowUzytkownika_), NAZWAKLASY2(folderPlikowUzytkownika_), folderPlikowUzytkownika_);
+
+		logger.rozpocznijPodKlase(NAZWAPOLA(listaSurowcowInfo_), "SpEx::Gra::ListaSurowcowInfoTyp");
+		for (auto& element : listaSurowcowInfo_){
+			logger.rozpocznijPodKlase("Para");
+			logger.dodajPole("first", element.first);
+			logger.dodajPole("second", element.second);
+			logger.zakonczPodKlase();
+		}
+		logger.zakonczPodKlase();
+
+		logger.rozpocznijPodKlase(NAZWAPOLA(listaStatkowInfo_), "SpEx::Gra::ListaStatkowInfoTyp");
+		for (auto& element : listaStatkowInfo_){
+			logger.rozpocznijPodKlase("Para");
+			logger.dodajPole("first", element.first);
+			logger.dodajPole("second", element.second);
+			logger.zakonczPodKlase();
+		}
+		logger.zakonczPodKlase();
+
+		logger.rozpocznijPodKlase(NAZWAPOLA(listaObronaInfo_), "SpEx::Gra::ListaObronyInfoTyp");
+		for (auto& element : listaObronaInfo_){
+			logger.rozpocznijPodKlase("Para");
+			logger.dodajPole("first", element.first);
+			logger.dodajPole("second", element.second);
+			logger.zakonczPodKlase();
+		}
+		logger.zakonczPodKlase();
+
+		logger.rozpocznijPodKlase(NAZWAPOLA(listaTechnologiInfo_), "SpEx::Gra::ListaTechnologiInfoTyp");
+		for (auto& element : listaTechnologiInfo_){
+			logger.rozpocznijPodKlase("Para");
+			logger.dodajPole("first", element.first);
+			logger.dodajPole("second", element.second);
+			logger.zakonczPodKlase();
+		}
+		logger.zakonczPodKlase();
+
+		logger.rozpocznijPodKlase(NAZWAPOLA(listaBudynkowInfo_), "SpEx::Gra::ListaBudynkowInfoTyp");
+		for (auto& element : listaBudynkowInfo_){
+			logger.rozpocznijPodKlase("Para");
+			logger.dodajPole("first", element.first);
+			logger.dodajPole("second", element.second);
+			logger.zakonczPodKlase();
+		}
+		logger.zakonczPodKlase();
+
+		logger.rozpocznijPodKlase(NAZWAPOLA(listaObiektowInfo_), "SpEx::Gra::ListaObiektowInfoTyp");
+		for (auto& element : listaObiektowInfo_){
+			logger.rozpocznijPodKlase("Para");
+			logger.dodajPole("first", element.first);
+			logger.dodajPole("second", element.second);
+			logger.zakonczPodKlase();
+		}
+		logger.zakonczPodKlase();
+
+		return logger.napis();
 	}
 }

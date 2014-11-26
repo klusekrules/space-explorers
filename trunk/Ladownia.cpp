@@ -245,7 +245,6 @@ namespace SpEx{
 		SLog::Logger str(NAZWAKLASY(Ladownia));
 		str.dodajPole(NAZWAPOLA(zajete_), zajete_);
 		str.dodajPole(NAZWAPOLA(obiekty_), obiekty_);
-		str.dodajPole(NAZWAPOLA(ladowniaInfo_), ladowniaInfo_);
 		return str.napis();
 	}
 }

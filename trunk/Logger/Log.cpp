@@ -1,6 +1,7 @@
 #include <chrono>
 #include <iomanip>
 #include "Log.h"
+#include "Logger.h"
 
 namespace SLog{
 
@@ -68,5 +69,21 @@ namespace SLog{
 		std::stringstream str;
 		str << s << "." << std::setw(3) << std::setfill('0') << pMilisekundy;
 		return std::move(str.str());
+	}
+
+	std::string Log::napis() const{
+		Logger logger(NAZWAKLASY(Log));
+		logger.dodajPole(NAZWAPOLA(formatCzasu_), NAZWAKLASY2(formatCzasu_), formatCzasu_);
+
+		logger.rozpocznijPodKlase(NAZWAPOLA(poziomy_),"std::vector< bool >");
+		for (int i = 0; i < poziomy_.size(); ++i){
+			std::stringstream streamOn;
+			streamOn.imbue(std::locale("C"));
+			streamOn << std::boolalpha << poziomy_[i];
+			logger.dodajPole("Element-" + std::to_string(i), NAZWAKLASY2(poziomy_[i]), streamOn.str());
+		}
+		logger.zakonczPodKlase();
+
+		return std::move(logger.napis());
 	}
 }

@@ -16,10 +16,11 @@ namespace SLog{
 	*	- Warning
 	*	- Error
 	* \author Daniel Wojdak
-	* \version 3
-	* \date 02-10-2014
+	* \version 4
+	* \date 26-11-2014
 	*/
-	class LOGGER_API Log
+	class LOGGER_API Log :
+		public virtual LoggerInterface
 	{
 	public:
 		/**
@@ -152,7 +153,16 @@ namespace SLog{
 		/**
 		* Destruktor.
 		*/
-		~Log() = default;
+		virtual ~Log() = default;
+
+		/**
+		* Funkcja s³u¿¹ca do tworzenia napisów z opisem klasy.
+		* \return Napis zawieraj¹cy opis klasy.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 26-11-2014
+		*/
+		std::string napis() const override;
 
 	private:
 

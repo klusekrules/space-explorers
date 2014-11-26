@@ -24,6 +24,7 @@ namespace SpEx {
 	* \date 25-11-2014
 	*/
 	class Gra :
+		public virtual SLog::LoggerInterface,
 		public se::NonCopyable,
 		public se::NonMoveable
 	{
@@ -258,6 +259,15 @@ namespace SpEx {
 		bool czyZalogowano()const{
 			return uzytkownik_ != nullptr;
 		}
+		
+		/**
+		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
+		* \return Napis zwieraj¹cy opis klasy.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 20-10-2014
+		*/
+		std::string napis() const override;
 
 	private:
 

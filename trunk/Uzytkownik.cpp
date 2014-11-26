@@ -33,8 +33,7 @@ namespace SpEx{
 		planety_.erase(iterator);
 		return true;
 	}
-
-
+	
 	bool Uzytkownik::ustawPlaneteAktywna(const STyp::Identyfikator& identyfikator){
 		if (planety_.find(identyfikator) == planety_.end())
 			return false;
@@ -96,9 +95,24 @@ namespace SpEx{
 	std::string Uzytkownik::napis() const{
 		SLog::Logger str(NAZWAKLASY(Uzytkownik));
 		str.dodajPole(NAZWAPOLA(nazwaUzytkownika_), nazwaUzytkownika_);
-		for (auto planeta : planety_)
-		if (!planeta.second)
-			str.dodajPole(NAZWAKLASY(Planeta), *(planeta.second));
+		str.dodajPole(NAZWAPOLA(aktywnaPlaneta_), aktywnaPlaneta_);
+
+		str.rozpocznijPodKlase(NAZWAPOLA(planety_), "SpEx::Uzytkownik::Planety");
+		for (auto planeta : planety_){
+			str.rozpocznijPodKlase(NAZWAPOLA(planety_), "Para");			
+			str.dodajPole("first", planeta.first);
+			if (planeta.second){
+				std::stringstream streamPlanetaPtr;
+				streamPlanetaPtr.imbue(std::locale("C"));
+				streamPlanetaPtr << "0x" << std::hex << (unsigned int)(planeta.second._Get());
+				str.dodajPole("second", NAZWAKLASY(Planeta), streamPlanetaPtr.str());
+			}else{
+				str.dodajPole("second", NAZWAKLASY(Planeta), "nullptr");
+			}
+			
+			str.zakonczPodKlase();
+		}
+		str.zakonczPodKlase();
 		return str.napis();
 	}
 }

@@ -26,7 +26,6 @@ namespace SpEx{
 
 	std::string JednostkaAtakujaca::napis() const{
 		SLog::Logger str(NAZWAKLASY(JednostkaAtakujaca));
-		str.dodajPole(NAZWAPOLA(jednostkaAtakujacaInfo_), jednostkaAtakujacaInfo_);
 		return str.napis();
 	}
 }

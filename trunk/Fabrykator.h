@@ -9,10 +9,11 @@ namespace SpEx{
 	*
 	* Klasa przechowuje obiekty fabryk.
 	* \author Daniel Wojdak
-	* \version 3
-	* \date 06-08-2014
+	* \version 4
+	* \date 26-11-2014
 	*/
-	class Fabrykator
+	class Fabrykator :
+		public virtual SLog::LoggerInterface
 	{
 	public:
 		typedef STyp::Tekst IdentyfikatorSkryptu; /// Typ skryptu.
@@ -34,7 +35,7 @@ namespace SpEx{
 		*
 		* Domyœlny destruktor.
 		*/
-		~Fabrykator() = default;
+		virtual ~Fabrykator() = default;
 
 		/**
 		* \brief Metoda tworzy skrypt.
@@ -109,6 +110,15 @@ namespace SpEx{
 		* \date 06-08-2014
 		*/
 		bool rejestracjaSkryptu(const IdentyfikatorSkryptu& identyfikator, KreatorSkryptu funkcja);
+
+		/**
+		* Funkcja s³u¿¹ca do tworzenia napisów z opisem klasy.
+		* \return Napis zawieraj¹cy opis klasy.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 26-11-2014
+		*/
+		std::string napis() const override;
 
 	private:
 		typedef std::map<IdentyfikatorSkryptu, KreatorSkryptu> ScriptCallbacks; /// Typ kontenera przechowuj¹cego metody tworz¹ce instancje skryptów.

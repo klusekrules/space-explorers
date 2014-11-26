@@ -62,7 +62,7 @@ namespace SpEx{
 		SLog::Logger str(NAZWAKLASY(Obrona));
 		str.dodajKlase(Obiekt::napis());
 		str.dodajKlase(JednostkaAtakujaca::napis());
-		str.dodajPole(NAZWAPOLA(obronaInfo_), obronaInfo_);
+		str.dodajPole(NAZWAPOLA(obronaInfo_), obronaInfo_.pobierzIdentyfikator());
 		return str.napis();
 	}
 }

@@ -225,13 +225,6 @@ namespace SpEx{
 #if !(defined(LOG_OFF_ALL) || defined(LOG_OFF_DEBUG))
 		SLog::Logger logger(NAZWAKLASY(Aplikacja));
 
-		// int iloscArgumentow;
-		// char** argumenty;
-		// SLog::Log& logger_;
-		// Fabrykator fabrykator_;
-		// std::shared_ptr<SPlu::Cplugin> pluginy_;
-		// std::shared_ptr<Gra> instancjaGry_;
-		
 		std::stringstream streamCzyZainicjalizowanaBiblioteka_;
 		streamCzyZainicjalizowanaBiblioteka_.imbue(std::locale());
 		streamCzyZainicjalizowanaBiblioteka_ << std::boolalpha << czyZainicjalizowanaBiblioteka_;
@@ -252,6 +245,32 @@ namespace SpEx{
 		logger.dodajPole(NAZWAPOLA(ustawienia_), ustawienia_);
 		logger.dodajPole(NAZWAPOLA(zarzadcaLokacji_), zarzadcaLokacji_);
 		logger.dodajPole(NAZWAPOLA(zarzadcaZasobow_), zarzadcaZasobow_);
+
+		if (instancjaGry_){
+			logger.dodajPole(NAZWAPOLA(instancjaGry_),instancjaGry_);
+		}else{
+			logger.dodajPole(NAZWAPOLA(instancjaGry_), NAZWAKLASY2(instancjaGry_), "nullptr");
+		}
+
+		if (pluginy_){
+			logger.dodajPole(NAZWAPOLA(pluginy_), pluginy_);
+		}else{
+			logger.dodajPole(NAZWAPOLA(pluginy_), NAZWAKLASY2(pluginy_), "nullptr");
+		}
+
+		logger.dodajPole(NAZWAPOLA(fabrykator_), fabrykator_);
+
+		logger.dodajPole(NAZWAPOLA(iloscArgumentow), NAZWAKLASY2(iloscArgumentow), std::to_string(iloscArgumentow));
+
+		for (int i = 0; i < iloscArgumentow; ++i){
+			if (argumenty[i]!=nullptr)
+				logger.dodajPole(NAZWAPOLA(argumenty) + std::to_string(i), NAZWAKLASY2(argumenty[i]), argumenty[i]);
+			else
+				logger.dodajPole(NAZWAPOLA(argumenty) + std::to_string(i), "char*", "nullptr");
+		}
+
+		logger.dodajPole(NAZWAPOLA(logger_), logger_);
+
 		return std::move(logger.napis());
 #else
 		return std::string();

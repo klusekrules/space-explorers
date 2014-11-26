@@ -18,7 +18,7 @@ namespace SLog{
 		wstaw(nazwa, obiekt.napis());
 	}
 
-	void Logger::dodajPole(const std::string& nazwa, const std::shared_ptr<LoggerInterface> obiekt){
+	void Logger::dodajPole(const std::string& nazwa, const std::shared_ptr<const LoggerInterface> obiekt){
 		if (obiekt)
 			wstaw(nazwa, obiekt->napis());
 	}
