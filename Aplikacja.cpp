@@ -148,6 +148,12 @@ namespace SpEx{
 			}
 			plik << czas << sTyp << komunikat;
 		});
+		
+		/* ------------------------------------ */
+
+		_set_purecall_handler(myPurecallHandler);
+		_set_invalid_parameter_handler(myInvalidParameterHandler);
+
 		/* ------------------------------------ */
 #ifndef LOG_OFF_ALL
 		logger_.loguj(SLog::Log::Info, "Start aplikacji Space-Explorers.");
@@ -184,9 +190,6 @@ namespace SpEx{
 
 		if (!pluginy_->zaladujZewnetrzneKlasyZmian())
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DODATKOWYCH);
-
-		_set_purecall_handler(myPurecallHandler);
-		_set_invalid_parameter_handler(myInvalidParameterHandler);
 
 		instancjaGry_ = std::make_shared<Gra>(logger_, zarzadcaLokacji_, ustawienia_);
 	}
