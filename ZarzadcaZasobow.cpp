@@ -1,24 +1,40 @@
 #include "ZarzadcaZasobow.h"
 #include "Utils.h"
+#include "Aplikacja.h"
 #include "definicjeWezlowXML.h"
 #include "Logger\Logger.h"
 #include "Parser\ParserDokumentXml.h"
 #include "NieznalezionoPliku.h"
 
+#define TYTUL_BLAD_WEZLA_ROOT STyp::Tekst("Nie uda³o siê pobraæ elementu parsera!")
+#define KOMUNIKAT_BLAD_WEZLA_ROOT( a ) STyp::Tekst("Podczas próby dostêpu do g³ównego wêz³a wyst¹pi³ b³¹d. Dokument wczytany z pliku: " + a)
+
+#define TYTUL_BLAD_ATRYBUTU STyp::Tekst("Niepoprawna struktura elementu!")
+#define KOMUNIKAT_BLAD_ATRYBUTU( a , b ) STyp::Tekst("Podczas próby odczytania danych wyst¹pi³a niespójnoœæ w elemencie: " + a + ". Dokument wczytany z pliku: " + b)
+
+#define TYTUL_BLAD_MAPOWANIA STyp::Tekst("Element istnieje!")
+#define KOMUNIKAT_BLAD_MAPOWANIA( a , b , c , d ) STyp::Tekst("Nazwa: " + a + " posiada ju¿ przypisane id: " + b + ". Wêze³: " + c + ". Dokument wczytany z pliku: " + d)
+
+#define TYTUL_BLAD_UNIKALNEGO_ZASOBU STyp::Tekst("B³¹d tworzenia unikalnego zasobu!")
+#define KOMUNIKAT_BLAD_UNIKALNEGO_ZASOBU( a , b ) STyp::Tekst("Próba wczytania typu, który nie jest obs³ugiwany. Typ: [" + a + "]. Parametr: " + b )
+
+#define TYTUL_BLAD_ZASOBU STyp::Tekst("B³¹d tworzenia zasobu!")
+#define KOMUNIKAT_BLAD_ZASOBU( a , b ) STyp::Tekst("Próba wczytania typu, który nie jest obs³ugiwany. Typ: [" + a + "]. Parametr: " + b )
+
 namespace SpEx{
 
 	bool ZarzadcaZasobow::inicjalizuj(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos){
 		
+		auto plik = ustawienia.pobierzAdresPlikuPowiazanZasobow();
 		auto dokument = std::make_shared<SPar::ParserDokumentXml>();
-		if (!dokument->odczytaj(ustawienia.pobierzAdresPlikuPowiazanZasobow().c_str())){
-			throw NieznalezionoPliku(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), ustawienia.pobierzAdresPlikuPowiazanZasobow());
+		if (!dokument->odczytaj(plik.c_str())){
+			throw NieznalezionoPliku(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), plik);
 		}
 
 		auto wezel = dokument->pobierzElement(nullptr);
 
 		if (!wezel){
-			throw STyp::Wyjatek(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), STyp::Tekst("Nie uda³o siê pobraæ elementu parsera!"),
-				STyp::Tekst("Podczas próby dostêpu do g³ównego wêz³a wyst¹pi³ b³¹d. Dokument wczytany z pliku: " + ustawienia.pobierzAdresPlikuPowiazanZasobow()));
+			throw STyp::Wyjatek(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), TYTUL_BLAD_WEZLA_ROOT, KOMUNIKAT_BLAD_WEZLA_ROOT(plik));
 		}
 
 		resetuj();
@@ -31,16 +47,16 @@ namespace SpEx{
 			lokalizacja = XmlBO::WczytajAtrybut(wpis, ATRYBUT_XML_LOKALIZACJA, std::string());
 
 			if (nazwa.empty() || lokalizacja.empty()){
-				throw STyp::Wyjatek(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), STyp::Tekst("Niepoprawna struktura elementu!"),
-					STyp::Tekst("Podczas próby odczytania danych wyst¹pi³a niespójnoœæ w elemencie: " + wpis->error() + ". Dokument wczytany z pliku: " + ustawienia.pobierzAdresPlikuPowiazanZasobow()));
+				throw STyp::Wyjatek(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), TYTUL_BLAD_ATRYBUTU,
+					KOMUNIKAT_BLAD_ATRYBUTU(wpis->error(), ustawienia.pobierzAdresPlikuPowiazanZasobow()));
 			}
 
 			lokalizacjeZasobow_.push_back(std::make_pair(nazwa, lokalizacja));
 			STyp::Identyfikator id;
 
 			if (!mapujIdentyfikator(nazwa, id)){
-				throw STyp::Wyjatek(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), STyp::Tekst("Element istnieje!"),
-					STyp::Tekst("Nazwa: " + nazwa + " posiada ju¿ przypisane id: " + id.napis() + ". Wêze³: " + wpis->error() + ". Dokument wczytany z pliku: " + ustawienia.pobierzAdresPlikuPowiazanZasobow()));
+				throw STyp::Wyjatek(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), TYTUL_BLAD_MAPOWANIA,
+					KOMUNIKAT_BLAD_MAPOWANIA(nazwa, id.napis(), wpis->error(), ustawienia.pobierzAdresPlikuPowiazanZasobow()));
 
 			}
 			return true;
@@ -92,7 +108,8 @@ namespace SpEx{
 				return nullptr;
 			return asset;
 		}else{
-			throw std::exception("unsupported asset extension detected");
+			throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1),
+				TYTUL_BLAD_UNIKALNEGO_ZASOBU, KOMUNIKAT_BLAD_UNIKALNEGO_ZASOBU(typ, parametr));
 		}
 		return nullptr;
 	}
@@ -179,7 +196,8 @@ namespace SpEx{
 			id = identyfikator;
 			return asset;
 		}else{
-			throw std::exception("unsupported asset extension detected");
+			throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1),
+				TYTUL_BLAD_ZASOBU, KOMUNIKAT_BLAD_ZASOBU(typ, parametr));
 		}
 		return nullptr;
 	}

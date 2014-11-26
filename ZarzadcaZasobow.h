@@ -13,8 +13,8 @@ namespace SpEx {
 	*
 	* Klasa zarz¹dzaj¹ca zasobami, przechowuje wskaŸniki na zasoby.
 	* \author Daniel Wojdak
-	* \version 2
-	* \date 02-09-2014
+	* \version 3
+	* \date 25-11-2014
 	*/
 	class ZarzadcaZasobow: 
 		public virtual SLog::LoggerInterface,
@@ -26,11 +26,19 @@ namespace SpEx {
 		typedef std::vector < WpisLokalizacjiZasobu > TablicaLokalizacjiZasobu; /// Tablica powi¹zañ nazw symbolicznych z lokalizacj¹ zasobu.
 		typedef STyp::Identyfikator Identyfikator; /// Identyfikator zasobu.
 		
+		/**
+		* \brief Klasa pomocnicza przechowywanego zasobu.
+		*
+		* Klasa pomocnicza, s³u¿¹ca do zarz¹dzania przechowywanymi zasobami.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-11-2014
+		*/
 		struct WpisZasobu{
-			Zasob::WeakPtr weakptr_;
-			Zasob::SharedPtr sharedptr_;
-			bool cached_;
-			Parametr parametr_;
+			Zasob::WeakPtr weakptr_; /// S³aby wskaŸnik do zasobu.
+			Zasob::SharedPtr sharedptr_; /// Silny wskaŸnik do zasobu.
+			bool cached_; /// Informacja czy zasób jest przechowywany.
+			Parametr parametr_; /// Parametr inicjalizuj¹cy zasób.
 		};
 		
 		typedef std::function< Zasob::SharedPtr(const Parametr&, bool) > Inicjalizator; /// Typ metody tworz¹cej zasób.
@@ -69,12 +77,13 @@ namespace SpEx {
 		* Metoda pobiera lub tworzy zasób.
 		* \param[in] parametr - Adres pliku na bazie którgo ma zostaæ zainicjalizowany zasób.
 		* \param[in] cache - Informacja czy zasób ma byæ lokalnie przechowywany.
+		* \param[out] id - Identyfikator utworzonego zasobu.
 		* \return WskaŸnik na zasób lub nullptr.
 		* \author Daniel Wojdak
 		* \version 1
 		* \date 06-08-2014
 		*/
-		Zasob::SharedPtr pobierzZasob(const Parametr& parametr, bool cache = false, Identyfikator& identyfikator = Identyfikator());
+		Zasob::SharedPtr pobierzZasob(const Parametr& parametr, bool cache = false, Identyfikator& id = Identyfikator());
 		
 		/**
 		* \brief Metoda pobierajaca zasób.
@@ -82,14 +91,15 @@ namespace SpEx {
 		* Metoda pobiera lub tworzy zasób.
 		* \param[in] parametr - Adres pliku na bazie którgo ma zostaæ zainicjalizowany zasób.
 		* \param[in] cache - Informacja czy zasób ma byæ lokalnie przechowywany.
+		* \param[out] id - Identyfikator utworzonego zasobu.
 		* \return WskaŸnik na zasób lub nullptr.
 		* \author Daniel Wojdak
 		* \version 1
 		* \date 06-08-2014
 		*/
 		template <class T_>
-		inline std::shared_ptr<T_> pobierzZasob(const Parametr& parametr, bool cache = false, Identyfikator& identyfikator = Identyfikator()){
-			return std::dynamic_pointer_cast<T_>(pobierzZasob(parametr, cache, identyfikator));
+		inline std::shared_ptr<T_> pobierzZasob(const Parametr& parametr, bool cache = false, Identyfikator& id = Identyfikator()){
+			return std::dynamic_pointer_cast<T_>(pobierzZasob(parametr, cache, id));
 		}
 
 		/**
@@ -100,6 +110,7 @@ namespace SpEx {
 		* \param[in] identyfikator - Identyfikator zasobu.
 		* \param[in] parametr - Adres pliku na bazie którgo ma zostaæ zainicjalizowany zasób.
 		* \param[in] cache - Informacja czy zasób ma byæ lokalnie przechowywany.
+		* \param[out] id - Identyfikator utworzonego zasobu.
 		* \return WskaŸnik na zasób lub nullptr.
 		* \author Daniel Wojdak
 		* \version 1
@@ -115,6 +126,7 @@ namespace SpEx {
 		* \param[in] identyfikator - Identyfikator zasobu.
 		* \param[in] parametr - Adres pliku na bazie którgo ma zostaæ zainicjalizowany zasób.
 		* \param[in] cache - Informacja czy zasób ma byæ lokalnie przechowywany.
+		* \param[out] id - Identyfikator utworzonego zasobu.
 		* \return WskaŸnik na zasób lub nullptr.
 		* \author Daniel Wojdak
 		* \version 1
@@ -213,10 +225,41 @@ namespace SpEx {
 		*/
 		Inicjalizator wyrejestrujInicjalizator(const std::string& typ);
 
+		/**
+		* \brief Metoda inicjuj¹ca dane zarz¹dcy.
+		*
+		* Metoda pobiera dane i inicjuje obiekt zarz¹dcy na podstawie danych przekazanych przez parametry.
+		* \param[in] ustawienia - Obiekt zawierajacy ustawienia apliakcji.
+		* \param[in] stos - Funkcja tworz¹ca œlad stosu.
+		* \return Zwracana jest wartoœæ true je¿eli uda siê poprawnie zainicjowaæ obiekt.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-11-2014
+		*/
 		bool inicjalizuj(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos);
 
+		/**
+		* \brief Metoda pobieraj¹ca adres obrazka.
+		*
+		* Metoda pobiera adres obrazka o padanym identyfikatorze.
+		* \param[in] identyfikator - Identyfikator obrazka.
+		* \return Adres obrazka.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-11-2014
+		*/
 		const std::string& pobierzAdresObrazka( const STyp::Identyfikator& identyfikator) const;
 
+		/**
+		* \brief Metoda pobieraj¹ca identyfikator obrazka.
+		*
+		* Metoda pobiera identyfikator obrazka na podstawie nazwy obrazka.
+		* \param[in] nazwaObrazka - Nazwa obrazka.
+		* \return Identyfikator obrazka.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-11-2014
+		*/
 		STyp::Identyfikator pobierzIdentyfikator(const Parametr& nazwaObrazka) const;
 
 		/**
@@ -260,6 +303,7 @@ namespace SpEx {
 		* \param[in] identyfikator - Identyfikator zasobu.
 		* \param[in] parametr - Adres pliku na bazie którgo ma zostaæ zainicjalizowany zasób.
 		* \param[in] cache - Informacja czy zasób ma byæ lokalnie przechowywany.
+		* \param[out] id - Identyfikator utworzonego zasobu.
 		* \return WskaŸnik na zasób lub nullptr.
 		* \author Daniel Wojdak
 		* \version 1
@@ -274,6 +318,7 @@ namespace SpEx {
 		* \param[in] identyfikator - Identyfikator zasobu.
 		* \param[in] parametr - Adres pliku na bazie którgo ma zostaæ zainicjalizowany zasób.
 		* \param[in] cache - Informacja czy zasób ma byæ lokalnie przechowywany.
+		* \param[out] id - Identyfikator utworzonego zasobu.
 		* \return WskaŸnik na zasób lub nullptr.
 		* \author Daniel Wojdak
 		* \version 1
@@ -283,6 +328,6 @@ namespace SpEx {
 
 		MapaZasobow zasobyPrzechowywane_; /// Obiekt przechowuj¹cy zasoby.
 		MapaInicjalizatorow inicjalizatory_; /// Obiekt przechowuj¹cy inicjalizatory.
-		const std::string pustyNapis_ = std::string();
+		const std::string pustyNapis_ = std::string(); /// Pusty napis. U¿ywany przy nie znalezieniu adresu obrazka.
 	};
 };
