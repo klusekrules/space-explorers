@@ -46,7 +46,6 @@ namespace SpEx{
 
 	std::string JednostkaLatajaca::napis() const{
 		SLog::Logger str(NAZWAKLASY(JednostkaLatajaca));
-		str.dodajPole(NAZWAPOLA(jednostkaLatajacaInfo_), jednostkaLatajacaInfo_);
 		return str.napis();
 	}
 }

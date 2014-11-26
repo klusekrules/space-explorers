@@ -23,10 +23,12 @@ namespace SPlu{
 	*
 	* Klasa odpowiada za ladowanie pluginów i wywo³anie funkcji rejestruj¹cych plugin w aplikacji.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 11-07-2013
+	* \version 2
+	* \date 26-11-2014
 	*/
-	class PLUGIN_API Cplugin {
+	class PLUGIN_API Cplugin:
+		public virtual SLog::LoggerInterface
+	{
 	private:
 		SZmi::ZmianaFabryka& fabryka_; /// Referencja na fabrykê zmian.
 		SLog::Log& log_; /// Referencja na obiekt logów.
@@ -40,7 +42,7 @@ namespace SPlu{
 		/**
 		* Destruktor
 		*/
-		~Cplugin() = default;
+		virtual ~Cplugin() = default;
 
 		/**
 		* Konstruktor klasy Cplugin
@@ -70,5 +72,15 @@ namespace SPlu{
 		* \date 11-07-2013
 		*/
 		bool zaladujZewnetrzneKlasyZmian();
+
+		/**
+		* Funkcja s³u¿¹ca do tworzenia napisów z opisem klasy.
+		* \return Napis zawieraj¹cy opis klasy.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 26-11-2014
+		*/
+		std::string napis() const override;
+
 	};
 }

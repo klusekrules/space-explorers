@@ -7,9 +7,9 @@
 #include "Zmiana\ZmianaLiniowaIlosciowa.h"
 #include "Zmiana\ZmianaPotegowa.h"
 #include "Zmiana\ZmianaPotegowaAlt.h"
-#include "Logger\LoggerNazwaKlasy.h"
 #include "Zmiana\ZmianaStaleNapisy.h"
 #include "PluginStale.h"
+#include "Logger\Logger.h"
 
 namespace SPlu{
 	Cplugin::Cplugin(const std::string& folderPluginow, SZmi::ZmianaFabryka& fabryka, SLog::Log& log)
@@ -113,5 +113,11 @@ namespace SPlu{
 			rezultat = false;
 		}
 		return rezultat;
+	}
+
+	std::string Cplugin::napis() const{
+		SLog::Logger logger(NAZWAKLASY(Cplugin));
+		logger.dodajPole(NAZWAKLASY(folderPluginow_), NAZWAKLASY2(folderPluginow_), folderPluginow_);
+		return logger.napis();
 	}
 }

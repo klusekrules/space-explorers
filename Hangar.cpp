@@ -242,7 +242,6 @@ namespace SpEx{
 		SLog::Logger str(NAZWAKLASY(Hangar));
 		str.dodajPole(NAZWAPOLA(zajete_), zajete_);
 		str.dodajPole(NAZWAPOLA(obiekty_), obiekty_);
-		str.dodajPole(NAZWAPOLA(hangarInfo_), hangarInfo_);
 		return str.napis();
 	}
 }

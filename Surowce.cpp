@@ -149,7 +149,7 @@ namespace SpEx{
 	std::string Surowce::napis() const{
 		SLog::Logger str(NAZWAKLASY(Surowce));
 		str.dodajKlase(Obiekt::napis());
-		str.dodajPole(NAZWAPOLA(surowceInfo_), surowceInfo_);
+		str.dodajPole(NAZWAPOLA(surowceInfo_), surowceInfo_.pobierzIdentyfikator());
 		return str.napis();
 	}
 }

@@ -5,6 +5,7 @@
 #include "Utils.h"
 #include "Parser\ParserDokumentXml.h"
 #include "definicjeWezlowXML.h"
+#include "Logger\Logger.h"
 
 namespace SpEx{
 	Fabrykator::Fabrykator(){
@@ -57,5 +58,22 @@ namespace SpEx{
 
 	SZmi::ZmianaFabryka& Fabrykator::pobierzFabrykeZmian(){
 		return fabrykaZmian_;
+	}
+
+	std::string Fabrykator::napis() const{
+		SLog::Logger logger(NAZWAKLASY(Fabrykator));
+		logger.dodajPole(NAZWAPOLA(fabrykaZmian_), fabrykaZmian_);
+		logger.rozpocznijPodKlase(NAZWAPOLA(callbacks_),"SpEx::Fabrykator::ScriptCallbacks");
+		for (auto& element : callbacks_ ){
+			logger.rozpocznijPodKlase("Para");
+			logger.dodajPole("first", element.first);
+			std::stringstream streamKreator;
+			streamKreator.imbue(std::locale("C"));
+			streamKreator << "0x" << std::hex << (unsigned int)(element.second);
+			logger.dodajPole("second", "SpEx::Fabrykator::KreatorSkryptu", streamKreator.str());
+			logger.zakonczPodKlase();
+		}
+		logger.zakonczPodKlase();
+		return logger.napis();
 	}
 };

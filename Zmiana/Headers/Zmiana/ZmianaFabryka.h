@@ -12,10 +12,11 @@ namespace SZmi{
 	*
 	* Klasa tworz¹ca instacje klas zmian. Klasa implementuje wzorzec singleton.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 10-07-2013
+	* \version 2
+	* \date 26-11-2014
 	*/
-	class ZMIANA_API ZmianaFabryka
+	class ZMIANA_API ZmianaFabryka :
+		public virtual SLog::LoggerInterface
 	{
 	public:
 		/**
@@ -40,7 +41,7 @@ namespace SZmi{
 		*/
 		ZmianaFabryka() = default;
 
-		~ZmianaFabryka() = default;
+		virtual ~ZmianaFabryka() = default;
 
 		/**
 		* Metoda tworz¹ca obiekt klasy zmiana zarejestrownej w fabryce, na podstawie wêz³a przekazanego przez parametr wezel. Wywo³uje ona funckjê zarejestrowan¹ przez metodê rejestracjaZmiany i przekazuje jej wezel.
@@ -60,6 +61,15 @@ namespace SZmi{
 		*/
 		bool rejestracjaZmiany(const STyp::Identyfikator& identyfikator, KreatorZmiany funkcja);
 
+		/**
+		* Funkcja s³u¿¹ca do tworzenia napisów z opisem klasy.
+		* \return Napis zawieraj¹cy opis klasy.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 26-11-2014
+		*/
+		std::string napis() const override;
+
 	private:
 
 		/**
@@ -69,18 +79,9 @@ namespace SZmi{
 
 		Callbacks callbacks_; ///S³ownik funkcji tworz¹cych obiekty pochodzne po ZmianaInterfejs.
 
-		/**
-		* Konstruktor kopiuj¹cy.
-		* \param[in] obiekt - Obiekt klasy ZmianaFabryka, z którego zostanie utworzony kolejny obiekt.
-		*/
-		ZmianaFabryka(const ZmianaFabryka& obiekt) = delete;
+		ZmianaFabryka(const ZmianaFabryka&) = delete;
 
-		/**
-		* Operator przypisania.
-		* \param[in] obiekt - Obiekt klasy ZmianaFabryka, z którego zostanie utworzona kopia.
-		* \return Referencja do obiektu klasy ZmianaFabryka.
-		*/
-		ZmianaFabryka& operator=(const ZmianaFabryka& obiekt) = delete;
+		ZmianaFabryka& operator=(const ZmianaFabryka&) = delete;
 
 		ZmianaFabryka(ZmianaFabryka&&) = delete;
 

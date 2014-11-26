@@ -55,7 +55,7 @@ namespace SLog{
 		* \version 2
 		* \date 18-06-2014
 		*/
-		void dodajPole(const std::string& nazwa, const std::shared_ptr<LoggerInterface> obiekt);
+		void dodajPole(const std::string& nazwa, const std::shared_ptr<const LoggerInterface> obiekt);
 
 		/**
 		* Metoda dodaj¹ca pole o podanej nazwie i zawartoœci.
