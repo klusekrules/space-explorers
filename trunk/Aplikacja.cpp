@@ -16,6 +16,7 @@
 #include "LuaState.h"
 #include "DllModule.h"
 #include "XmlModul.h"
+#include "MaszynaStanow.h"
 
 #define KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU STyp::Tekst("Podczas przetwarzabua argumentów wyst¹pi³ b³¹d.")
 #define KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plik) STyp::Tekst("Nie powiod³o siê wczytywanie pliku konfiguracyjnego: " + plik)
@@ -226,55 +227,7 @@ namespace SpEx{
 
 	std::string Aplikacja::pobierzDebugInfo() const{
 #if !(defined(LOG_OFF_ALL) || defined(LOG_OFF_DEBUG))
-		SLog::Logger logger(NAZWAKLASY(Aplikacja));
-
-		std::stringstream streamCzyZainicjalizowanaBiblioteka_;
-		streamCzyZainicjalizowanaBiblioteka_.imbue(std::locale());
-		streamCzyZainicjalizowanaBiblioteka_ << std::boolalpha << czyZainicjalizowanaBiblioteka_;
-		logger.dodajPole(NAZWAPOLA(czyZainicjalizowanaBiblioteka_), NAZWAKLASY2(czyZainicjalizowanaBiblioteka_), streamCzyZainicjalizowanaBiblioteka_.str());
-		logger.dodajPole(NAZWAPOLA(uchwyt_), NAZWAKLASY2(uchwyt_->unused), std::to_string(uchwyt_->unused));
-		
-		std::stringstream streamSymInitialize_;
-		streamSymInitialize_.imbue(std::locale("C"));
-		streamSymInitialize_ << "0x" << std::hex << (unsigned int)(symInitialize_);
-		logger.dodajPole(NAZWAPOLA(symInitialize_), NAZWAKLASY2(symInitialize_), streamSymInitialize_.str());
-		
-		std::stringstream streamSymFromAddr_;
-		streamSymFromAddr_.imbue(std::locale("C"));
-		streamSymFromAddr_ << "0x" << std::hex << (unsigned int)(symFromAddr_);
-		logger.dodajPole(NAZWAPOLA(symFromAddr_), NAZWAKLASY2(symFromAddr_), streamSymFromAddr_.str());
-
-		logger.dodajPole(NAZWAPOLA(plikKonfiguracyjny_), NAZWAKLASY2(plikKonfiguracyjny_), plikKonfiguracyjny_);
-		logger.dodajPole(NAZWAPOLA(ustawienia_), ustawienia_);
-		logger.dodajPole(NAZWAPOLA(zarzadcaLokacji_), zarzadcaLokacji_);
-		logger.dodajPole(NAZWAPOLA(zarzadcaZasobow_), zarzadcaZasobow_);
-
-		if (instancjaGry_){
-			logger.dodajPole(NAZWAPOLA(instancjaGry_),instancjaGry_);
-		}else{
-			logger.dodajPole(NAZWAPOLA(instancjaGry_), NAZWAKLASY2(instancjaGry_), "nullptr");
-		}
-
-		if (pluginy_){
-			logger.dodajPole(NAZWAPOLA(pluginy_), pluginy_);
-		}else{
-			logger.dodajPole(NAZWAPOLA(pluginy_), NAZWAKLASY2(pluginy_), "nullptr");
-		}
-
-		logger.dodajPole(NAZWAPOLA(fabrykator_), fabrykator_);
-
-		logger.dodajPole(NAZWAPOLA(iloscArgumentow), NAZWAKLASY2(iloscArgumentow), std::to_string(iloscArgumentow));
-
-		for (int i = 0; i < iloscArgumentow; ++i){
-			if (argumenty[i]!=nullptr)
-				logger.dodajPole(NAZWAPOLA(argumenty) + std::to_string(i), NAZWAKLASY2(argumenty[i]), argumenty[i]);
-			else
-				logger.dodajPole(NAZWAPOLA(argumenty) + std::to_string(i), "char*", "nullptr");
-		}
-
-		logger.dodajPole(NAZWAPOLA(logger_), logger_);
-
-		return std::move(logger.napis());
+		return std::move(Aplikacja::napis() + " " +  MaszynaStanow::pobierzInstancje().napis());
 #else
 		return std::string();
 #endif
@@ -317,8 +270,6 @@ namespace SpEx{
 
 	Aplikacja::~Aplikacja()
 	{
-		std::fstream plik("zrzut.txt", std::ios_base::app);
-		plik << pobierzDebugInfo();
 		if (uchwyt_)
 			FreeLibrary(uchwyt_);
 	}
@@ -424,5 +375,59 @@ namespace SpEx{
 			}
 		}
 		return true;
+	}
+
+	std::string Aplikacja::napis() const{
+		SLog::Logger logger(NAZWAKLASY(Aplikacja));
+
+		std::stringstream streamCzyZainicjalizowanaBiblioteka_;
+		streamCzyZainicjalizowanaBiblioteka_.imbue(std::locale());
+		streamCzyZainicjalizowanaBiblioteka_ << std::boolalpha << czyZainicjalizowanaBiblioteka_;
+		logger.dodajPole(NAZWAPOLA(czyZainicjalizowanaBiblioteka_), NAZWAKLASY2(czyZainicjalizowanaBiblioteka_), streamCzyZainicjalizowanaBiblioteka_.str());
+		logger.dodajPole(NAZWAPOLA(uchwyt_), NAZWAKLASY2(uchwyt_->unused), std::to_string(uchwyt_->unused));
+
+		std::stringstream streamSymInitialize_;
+		streamSymInitialize_.imbue(std::locale("C"));
+		streamSymInitialize_ << "0x" << std::hex << (unsigned int)(symInitialize_);
+		logger.dodajPole(NAZWAPOLA(symInitialize_), NAZWAKLASY2(symInitialize_), streamSymInitialize_.str());
+
+		std::stringstream streamSymFromAddr_;
+		streamSymFromAddr_.imbue(std::locale("C"));
+		streamSymFromAddr_ << "0x" << std::hex << (unsigned int)(symFromAddr_);
+		logger.dodajPole(NAZWAPOLA(symFromAddr_), NAZWAKLASY2(symFromAddr_), streamSymFromAddr_.str());
+
+		logger.dodajPole(NAZWAPOLA(plikKonfiguracyjny_), NAZWAKLASY2(plikKonfiguracyjny_), plikKonfiguracyjny_);
+		logger.dodajPole(NAZWAPOLA(ustawienia_), ustawienia_);
+		logger.dodajPole(NAZWAPOLA(zarzadcaLokacji_), zarzadcaLokacji_);
+		logger.dodajPole(NAZWAPOLA(zarzadcaZasobow_), zarzadcaZasobow_);
+
+		if (instancjaGry_){
+			logger.dodajPole(NAZWAPOLA(instancjaGry_), instancjaGry_);
+		}
+		else{
+			logger.dodajPole(NAZWAPOLA(instancjaGry_), NAZWAKLASY2(instancjaGry_), "nullptr");
+		}
+
+		if (pluginy_){
+			logger.dodajPole(NAZWAPOLA(pluginy_), pluginy_);
+		}
+		else{
+			logger.dodajPole(NAZWAPOLA(pluginy_), NAZWAKLASY2(pluginy_), "nullptr");
+		}
+
+		logger.dodajPole(NAZWAPOLA(fabrykator_), fabrykator_);
+
+		logger.dodajPole(NAZWAPOLA(iloscArgumentow), NAZWAKLASY2(iloscArgumentow), std::to_string(iloscArgumentow));
+
+		for (int i = 0; i < iloscArgumentow; ++i){
+			if (argumenty[i] != nullptr)
+				logger.dodajPole(NAZWAPOLA(argumenty) + std::to_string(i), NAZWAKLASY2(argumenty[i]), argumenty[i]);
+			else
+				logger.dodajPole(NAZWAPOLA(argumenty) + std::to_string(i), "char*", "nullptr");
+		}
+
+		logger.dodajPole(NAZWAPOLA(logger_), logger_);
+
+		return std::move(logger.napis());
 	}
 };

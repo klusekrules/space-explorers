@@ -13,11 +13,12 @@ namespace SpEx{
 	* Klasa zarz¹dza ekranami. Klasa wykonuje siê w osobnym w¹tku dla którego to s¹ tworzone okna.
 	* \warning Uwaga!!! Klasa ma specyficzn¹ kombinajcê metod w³asnych oraz maszyny stanów, aby zosta³a zainicjalizowana poprawnie. Nazle¿y zwróciæ na to uwagê przy dokonywaniu zmian w okolicahc sposobu inicjalizacji okien lub maszyny stanów.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 05-06-2014
+	* \version 2
+	* \date 27-11-2014
 	*/
 	class OknoGry :
-		public Watek
+		public Watek,
+		virtual public SLog::LoggerInterface
 	{
 	public:
 		typedef std::shared_ptr< EkranSzablon > EkranPtr; /// Typ wskaŸnika do ekranu.
@@ -134,6 +135,17 @@ namespace SpEx{
 		* \brief Destruktor.
 		*/
 		virtual ~OknoGry(void) = default;
+
+		/**
+		* \brief Metoda tworz¹ca tekstowy opis obiektu.
+		*
+		* Metoda generuje czytelny tekstowy opis obiektu.
+		* \return Opis obiektu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 27-11-2014
+		*/
+		std::string napis() const override;
 
 	private:
 
