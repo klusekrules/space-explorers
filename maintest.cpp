@@ -25,6 +25,8 @@ void main( int argv , char* argc[] ){
 
 		SpEx::MaszynaStanow::pobierzInstancje().inicjalizuj();
 		SpEx::MaszynaStanow::pobierzInstancje().start();
+		std::fstream plik("zrzut.txt", std::ios_base::app);
+		plik << SpEx::Aplikacja::pobierzInstancje().pobierzDebugInfo();
 	}
 	catch (STyp::Wyjatek& wyjatek){
 		MessageBox(

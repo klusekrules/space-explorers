@@ -41,11 +41,12 @@ namespace SpEx {
 	*
 	* G³ówna klasa programu. Reprezentuje ca³¹ apliakcje.
 	* \author Daniel Wojdak
-	* \version 5
-	* \date 25-07-2014
+	* \version 6
+	* \date 27-11-2014
 	*/
 	class Aplikacja:
-		public se::Singleton<Aplikacja>
+		public se::Singleton<Aplikacja>,
+		virtual public SLog::LoggerInterface
 	{
 		friend class TestyJednostkowe;
 		friend class se::Singleton<Aplikacja>;
@@ -125,6 +126,16 @@ namespace SpEx {
 
 		ZarzadcaZasobow zarzadcaZasobow_; /// Zarz¹dca zasobów.
 
+		/**
+		* \brief Metoda tworz¹ca tekstowy opis obiektu.
+		*
+		* Metoda generuje czytelny tekstowy opis obiektu.
+		* \return Opis obiektu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 27-11-2014
+		*/
+		std::string napis() const override;
 	private:
 
 		/**

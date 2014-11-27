@@ -3,6 +3,7 @@
 #include "BladKonfiguracjiEkranu.h"
 #include "UtilsGui.h"
 #include "Utils.h"
+#include "Logger\Logger.h"
 
 #define KOMUNIKAT_BRAK_PLIKU STyp::Tekst("Brak pliku konfiguracyjengo dla okna szablonowego, nie zaimplementowano innego sposobu opisu okna.")
 #define KOMUNIKAT_BLAD_PLIKU(plik) STyp::Tekst("Nie powiod³o sie konfigurowanie okna na podstawie pliku konfiguracyjnego o nazwie: " + (plik))
@@ -100,5 +101,11 @@ namespace SpEx{
 	
 	tgui::Gui& EkranSzablon::pobierzGUI(){
 		return interfejs_;
+	}
+
+	std::string EkranSzablon::napis() const{
+		SLog::Logger logger(NAZWAKLASY(EkranSzablon));
+		logger.dodajPole(NAZWAPOLA(id_),id_);
+		return logger.napis();
 	}
 };

@@ -10,12 +10,13 @@ namespace SpEx{
 	* Klasa bazowa dla klas ekranow. Najprostrza wersja klasy ekranu pozwalaj¹ca na wczytywnie danych z pliku. 
 	* Dostarcza uniwersalny interfejs u¿ywany w aplikacji.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 05-06-2014
+	* \version 3
+	* \date 27-11-2014
 	*/
 	class EkranSzablon :
 		public sf::Drawable,
-		public sf::Transformable
+		public sf::Transformable,
+		virtual public SLog::LoggerInterface
 	{
 	public:
 		/**
@@ -90,6 +91,18 @@ namespace SpEx{
 		virtual void clear();
 
 		tgui::LogListGui::Ptr oknoKomunikatow_ = nullptr; /// WskaŸnik na okno komunikatów.
+
+		/**
+		* \brief Metoda tworz¹ca tekstowy opis obiektu.
+		*
+		* Metoda generuje czytelny tekstowy opis obiektu.
+		* \return Opis obiektu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 27-11-2014
+		*/
+		std::string napis() const override;
+
 	protected:
 
 		/**

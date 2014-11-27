@@ -15,11 +15,12 @@ namespace SpEx{
 	*
 	* Klasa obs³ugujê zdarzenia oraz zarz¹dza stanami. W metodzie tej klasy jest zaimplementowana g³ówna pêtla z obs³ug¹ zdarzeñ.
 	* \author Daniel Wojdak
-	* \version 4
-	* \date 13-10-2014
+	* \version 5
+	* \date 27-11-2014
 	*/
-	class MaszynaStanow
-		: public se::Singleton<MaszynaStanow>
+	class MaszynaStanow : 
+		public se::Singleton<MaszynaStanow>,
+		virtual public SLog::LoggerInterface
 	{
 		friend class se::Singleton<MaszynaStanow>;
 	public:
@@ -29,10 +30,12 @@ namespace SpEx{
 		*
 		* Klasa stanu dla skryptów, u³awiaj¹ca przepisywanie informacji oraz zabezpiecza przez niekontrolowan¹ zmian¹.
 		* \author Daniel Wojdak
-		* \version 1
-		* \date 09-07-2014
+		* \version 2
+		* \date 27-11-2014
 		*/
-		class StanDlaSkryptu{
+		class StanDlaSkryptu :
+			virtual public SLog::LoggerInterface
+		{
 			friend class MaszynaStanow;
 		public:
 
@@ -115,6 +118,17 @@ namespace SpEx{
 			* \date 09-07-2014
 			*/
 			void ustawNowyNumerNastepny(int numer);
+
+			/**
+			* \brief Metoda tworz¹ca tekstowy opis obiektu.
+			*
+			* Metoda generuje czytelny tekstowy opis obiektu.
+			* \return Opis obiektu.
+			* \author Daniel Wojdak
+			* \version 1
+			* \date 27-11-2014
+			*/
+			std::string napis() const override;
 			
 		private:
 			struct Zdarzenie_t zdarzenie_; /// Informacje o zdarzeniu.
@@ -173,6 +187,7 @@ namespace SpEx{
 			* \date 09-07-2014
 			*/
 			void ustawNastepny(const Stan& stan);
+
 		};
 
 		/**
@@ -324,6 +339,17 @@ namespace SpEx{
 		* \date 13-10-2014
 		*/
 		std::string pobierzDaneDebug() const;
+		
+		/**
+		* \brief Metoda tworz¹ca tekstowy opis obiektu.
+		*
+		* Metoda generuje czytelny tekstowy opis obiektu.
+		* \return Opis obiektu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 27-11-2014
+		*/
+		std::string napis() const override;
 
 	private:
 

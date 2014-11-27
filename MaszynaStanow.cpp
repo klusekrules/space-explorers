@@ -6,6 +6,7 @@
 #include "BladStukturyStanu.h"
 #include "NieznalezionoPliku.h"
 #include "XmlModul.h"
+#include "Logger\Logger.h"
 
 namespace SpEx{
 	MaszynaStanow::StanDlaSkryptu::StanDlaSkryptu()
@@ -323,4 +324,118 @@ namespace SpEx{
 		nastepny_.numer_ = z.numer_;
 		//nastepny_.dt_ = z.dt_.count();
 	}
+
+	std::string MaszynaStanow::napis() const{
+		SLog::Logger logger(NAZWAKLASY(MaszynaStanow));
+		logger.dodajPole(NAZWAPOLA(stanDlaSkryptu_), stanDlaSkryptu_);
+		logger.dodajPole(NAZWAPOLA(stan_), stan_);
+		logger.dodajPole(NAZWAPOLA(idStanuPoczatkowy_), idStanuPoczatkowy_);
+		logger.dodajPole(NAZWAPOLA(stanNastepny_), stanNastepny_);
+		logger.dodajPole(NAZWAPOLA(watekGraficzny_), watekGraficzny_);
+
+		logger.rozpocznijPodKlase(NAZWAPOLA(wszystkieStany_),"MapaOpisowStanow");
+		for (auto& element : wszystkieStany_){
+			logger.rozpocznijPodKlase("Para");
+			logger.dodajPole("first",element.first);
+			if (element.second != nullptr){
+				logger.dodajPole("second", element.second);
+			}else{
+				logger.dodajPole("second", NAZWAKLASY2(element.second), "nullptr");
+			}
+			logger.zakonczPodKlase();
+		}
+		logger.zakonczPodKlase();
+
+		std::stringstream streamwlaczone;
+		streamwlaczone.imbue(std::locale());
+		streamwlaczone << std::boolalpha << wlaczone;
+		logger.dodajPole(NAZWAPOLA(wlaczone), NAZWAKLASY2(wlaczone), streamwlaczone.str());
+
+		logger.rozpocznijPodKlase(NAZWAPOLA(kolejkaZdarzen_), "ListaZdarzen");
+		for (auto& element : kolejkaZdarzen_){
+			logger.rozpocznijPodKlase(NAZWAPOLA(element), NAZWAKLASY2(element));
+			logger.dodajPole("idStanu_", element.idStanu_);
+			logger.dodajPole("numer_", NAZWAKLASY2(element.numer_), std::to_string(element.numer_));
+			logger.dodajPole("idZdarzenia_", element.idZdarzenia_);
+			if (element.idNowegoStanu_ != nullptr){
+				logger.dodajPole("idNowegoStanu_", element.idNowegoStanu_);
+			}else{
+				logger.dodajPole("idNowegoStanu_", NAZWAKLASY2(element.idNowegoStanu_), "nullptr");
+			}
+			logger.zakonczPodKlase();
+		}
+		logger.zakonczPodKlase();
+
+		logger.rozpocznijPodKlase(NAZWAPOLA(stosEkranow_), "StosEkranow");
+		for (auto& element : stosEkranow_){
+			if (element != nullptr){
+				logger.dodajPole(NAZWAPOLA(element), element);
+			}else{
+				logger.dodajPole(NAZWAPOLA(element), NAZWAKLASY2(element), "nullptr");
+			}
+		}
+		logger.zakonczPodKlase();
+
+		return logger.napis();
+	}
+
+	std::string MaszynaStanow::StanDlaSkryptu::napis() const{
+		SLog::Logger logger(NAZWAKLASY(StanDlaSkryptu));
+
+		std::stringstream streamPoprawne_zdarzenie_;
+		streamPoprawne_zdarzenie_.imbue(std::locale());
+		streamPoprawne_zdarzenie_ << std::boolalpha << poprawne_zdarzenie_;
+		logger.dodajPole(NAZWAPOLA(poprawne_zdarzenie_), NAZWAKLASY2(poprawne_zdarzenie_), streamPoprawne_zdarzenie_.str());
+
+		if (komunikat_ != nullptr){
+			logger.rozpocznijPodKlase(NAZWAPOLA(komunikat_), NAZWAKLASY2(komunikat_));
+			logger.dodajPole("idStanu_", komunikat_->idStanu_);
+			logger.dodajPole("numer_", NAZWAKLASY2(komunikat_->numer_), std::to_string(komunikat_->numer_));
+			logger.dodajPole("idZdarzenia_", komunikat_->idZdarzenia_);
+			if (komunikat_->idNowegoStanu_ != nullptr){
+				logger.dodajPole("idNowegoStanu_", komunikat_->idNowegoStanu_);
+			}else{
+				logger.dodajPole("idNowegoStanu_", NAZWAKLASY2(komunikat_->idNowegoStanu_), "nullptr");
+			}
+			logger.zakonczPodKlase();
+		}else{
+			logger.dodajPole(NAZWAPOLA(komunikat_), NAZWAKLASY2(komunikat_), "nullptr");
+		}
+
+		logger.rozpocznijPodKlase(NAZWAPOLA(zdarzenie_), NAZWAKLASY2(zdarzenie_));
+		logger.dodajPole("idStanu_", NAZWAKLASY2(zdarzenie_.idStanu_), std::to_string(zdarzenie_.idStanu_));
+		logger.dodajPole("idZdarzenia_", NAZWAKLASY2(zdarzenie_.idZdarzenia_), std::to_string(zdarzenie_.idZdarzenia_));
+		logger.dodajPole("numer_", NAZWAKLASY2(zdarzenie_.numer_), std::to_string(zdarzenie_.numer_));
+		logger.zakonczPodKlase();
+
+		std::stringstream streamPoprawne_poprzedni_;
+		streamPoprawne_poprzedni_.imbue(std::locale());
+		streamPoprawne_poprzedni_ << std::boolalpha << poprawne_poprzedni_;
+		logger.dodajPole(NAZWAPOLA(poprawne_poprzedni_), NAZWAKLASY2(poprawne_poprzedni_), streamPoprawne_poprzedni_.str());
+		logger.rozpocznijPodKlase(NAZWAPOLA(poprzedni_), NAZWAKLASY2(poprzedni_));
+		logger.dodajPole("idStanu_", NAZWAKLASY2(poprzedni_.idStanu_), std::to_string(poprzedni_.idStanu_));
+		logger.dodajPole("numer_", NAZWAKLASY2(poprzedni_.numer_), std::to_string(poprzedni_.numer_));
+		logger.zakonczPodKlase();
+
+		std::stringstream streamPoprawne_aktualny_;
+		streamPoprawne_aktualny_.imbue(std::locale());
+		streamPoprawne_aktualny_ << std::boolalpha << poprawne_aktualny_;
+		logger.dodajPole(NAZWAPOLA(poprawne_aktualny_), NAZWAKLASY2(poprawne_aktualny_), streamPoprawne_aktualny_.str());
+		logger.rozpocznijPodKlase(NAZWAPOLA(aktualny_), NAZWAKLASY2(aktualny_));
+		logger.dodajPole("idStanu_", NAZWAKLASY2(aktualny_.idStanu_), std::to_string(aktualny_.idStanu_));
+		logger.dodajPole("numer_", NAZWAKLASY2(aktualny_.numer_), std::to_string(aktualny_.numer_));
+		logger.zakonczPodKlase();
+
+		std::stringstream streamPoprawne_nastepny_;
+		streamPoprawne_nastepny_.imbue(std::locale());
+		streamPoprawne_nastepny_ << std::boolalpha << poprawne_nastepny_;
+		logger.dodajPole(NAZWAPOLA(poprawne_nastepny_), NAZWAKLASY2(poprawne_nastepny_), streamPoprawne_nastepny_.str());
+		logger.rozpocznijPodKlase(NAZWAPOLA(nastepny_), NAZWAKLASY2(nastepny_));
+		logger.dodajPole("idStanu_", NAZWAKLASY2(nastepny_.idStanu_), std::to_string(nastepny_.idStanu_));
+		logger.dodajPole("numer_", NAZWAKLASY2(nastepny_.numer_), std::to_string(nastepny_.numer_));
+		logger.zakonczPodKlase();
+
+		return logger.napis();
+	}
+
 };

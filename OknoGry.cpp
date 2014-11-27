@@ -8,6 +8,7 @@
 #include "PowtorzenieIdObiektu.h"
 #include "XmlModul.h"
 #include "NieznalezionoPliku.h"
+#include "Logger\Logger.h"
 
 #define KOMUNIKAT_POWTORZENIE_OBIEKTU(a) STyp::Tekst("Obiekt typu: "#a )
 #define GL_SHADING_LANGUAGE_VERSION       0x8B8C
@@ -322,5 +323,46 @@ namespace SpEx{
 
 	void OknoGry::zakmnij(){
 		przetwarzanie_ = false;
+	}
+
+	std::string OknoGry::napis() const{
+		SLog::Logger logger(NAZWAKLASY(OknoGry));
+
+		std::stringstream streamPrzetwarzanie;
+		streamPrzetwarzanie.imbue(std::locale());
+		streamPrzetwarzanie << std::boolalpha << przetwarzanie_;
+		logger.dodajPole(NAZWAPOLA(przetwarzanie_), NAZWAKLASY2(przetwarzanie_), streamPrzetwarzanie.str());
+		
+		std::stringstream streamBoolPauza_;
+		streamBoolPauza_.imbue(std::locale());
+		streamBoolPauza_ << std::boolalpha << boolPauza_;
+		logger.dodajPole(NAZWAPOLA(boolPauza_), NAZWAKLASY2(boolPauza_), streamBoolPauza_.str());
+
+		logger.rozpocznijPodKlase(NAZWAPOLA(listaEkranow_), "MapaEkranow");
+		for (auto& element : listaEkranow_){
+			logger.rozpocznijPodKlase("Para");
+			logger.dodajPole("first", element.first);
+			if (element.second != nullptr){
+				logger.dodajPole("second", element.second);
+			}
+			else{
+				logger.dodajPole("second", NAZWAKLASY2(element.second), "nullptr");
+			}
+			logger.zakonczPodKlase();
+		}
+		logger.zakonczPodKlase();
+
+		logger.rozpocznijPodKlase(NAZWAPOLA(stosEkranow_), "StosEkranow");
+		for (auto& element : stosEkranow_){
+			if (element != nullptr){
+				logger.dodajPole(NAZWAPOLA(element), element);
+			}
+			else{
+				logger.dodajPole(NAZWAPOLA(element), NAZWAKLASY2(element), "nullptr");
+			}
+		}
+		logger.zakonczPodKlase();
+
+		return logger.napis();
 	}
 };
