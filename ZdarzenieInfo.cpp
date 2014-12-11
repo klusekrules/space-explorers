@@ -25,7 +25,7 @@ namespace SpEx{
 
 			if (wezel->pobierzAtrybut(ATRYBUT_XML_SKRYPT_TYP)){
 
-				luaFuncInside_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FUNC_INSIDE, std::string());
+				funcInside_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FUNC_INSIDE, std::string());
 
 				skrypt_ = Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(wezel);
 				if (!skrypt_)
@@ -37,7 +37,7 @@ namespace SpEx{
 	bool ZdarzenieInfo::wykonaj(){
 		if (!skrypt_)
 			return true;
-		return skrypt_->wykonaj(luaFuncInside_);
+		return skrypt_->wykonaj(funcInside_);
 	}
 
 	const STyp::Identyfikator& ZdarzenieInfo::pobierzIdentyfikator() const{
@@ -55,7 +55,7 @@ namespace SpEx{
 	std::string ZdarzenieInfo::napis() const{
 		SLog::Logger log(NAZWAKLASY(ZdarzenieInfo));
 		log.dodajPole(NAZWAPOLA(id_), id_);
-		log.dodajPole(NAZWAPOLA(luaFuncInside_), NAZWAKLASY2(luaFuncInside_), luaFuncInside_);
+		log.dodajPole(NAZWAPOLA(funcInside_), NAZWAKLASY2(funcInside_), funcInside_);
 		log.dodajPole(NAZWAPOLA(nastepnyStan_), nastepnyStan_);
 		if (nastepnyNumer_)
 			log.dodajPole(NAZWAPOLA(nastepnyNumer_), STyp::Identyfikator(*nastepnyNumer_));

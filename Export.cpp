@@ -95,10 +95,9 @@ extern "C"{
 			sFunkcja.append(funkcja);
 		}
 		std::function<void()> lambda = [sPlik, sFunkcja](void)->void{
-			std::shared_ptr<SpEx::Skrypt> luaSkrypt = 
-				SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(sPlik);
-			if (luaSkrypt){
-				luaSkrypt->wykonaj(sFunkcja);
+			std::shared_ptr<SpEx::Skrypt> skrypt = SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(sPlik);
+			if (skrypt){
+				skrypt->wykonaj(sFunkcja);
 			}
 			return;
 		};
@@ -260,9 +259,9 @@ extern "C"{
 		}
 
 		std::function<void()> lambda = [sPlik, sFunkcja]()->void{
-			std::shared_ptr<SpEx::Skrypt> luaSkrypt = SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(sPlik);
-			if (luaSkrypt){
-				luaSkrypt->wykonaj(sFunkcja);
+			std::shared_ptr<SpEx::Skrypt> skrypt = SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(sPlik);
+			if (skrypt){
+				skrypt->wykonaj(sFunkcja);
 			}
 		};
 		SpEx::Zadanie zadanie(lambda);

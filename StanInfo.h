@@ -109,9 +109,9 @@ namespace SpEx{
 
 	private:
 		std::shared_ptr<Skrypt> skrypt_ = nullptr; /// Skrypt stanu.
-		std::string luaFuncIn_; /// Nazwa metody wykonanej przy wejœciu do stanu.
-		std::string luaFuncOut_; /// Nazwa metody wykonanej przy wyjœciu ze stanu.
-		std::string luaFuncInside_; /// Nazwa metody wykonanej w momencie pomownego wejœcia do tego samego stanu ( pomijane s¹ metody wejœcia i wyjœcia ).
+		std::string funcIn_; /// Nazwa metody wykonanej przy wejœciu do stanu.
+		std::string funcOut_; /// Nazwa metody wykonanej przy wyjœciu ze stanu.
+		std::string funcInside_; /// Nazwa metody wykonanej w momencie pomownego wejœcia do tego samego stanu ( pomijane s¹ metody wejœcia i wyjœcia ).
 		STyp::Identyfikator id_; /// Identyfikator stanu.
 		std::map < STyp::Identyfikator, std::shared_ptr<ZdarzenieInfo> > zdarzenia_; /// Zbiór skojarzonych zdarzeñ.
 	};

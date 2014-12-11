@@ -92,7 +92,7 @@ namespace SpEx{
 
 	private:
 		std::shared_ptr<Skrypt> skrypt_ = nullptr; /// Skrypt wykonywany w momencie wyst¹pienia zdarzenia.
-		std::string luaFuncInside_; /// Nazwa metody.
+		std::string funcInside_; /// Nazwa metody.
 		STyp::Identyfikator id_; /// Identyfikator zdarzenia.
 		std::shared_ptr < STyp::Identyfikator > nastepnyStan_; /// Nastêpny domyœlny stan.
 		std::shared_ptr < int > nastepnyNumer_; /// Nastêpny domyœlny numer.
