@@ -172,8 +172,6 @@ extern "C"{
 	* \author Daniel Wojdak
 	* \version 1
 	* \date 17-07-2014
-	* \note Funkcjonalnoœæ zostanie poprawiona. Zostanie rozci¹gniêta na wszysktie typy skryptów. Aktualnie u¿ywa jest tylko dla skrytpów lua.
-	* \todo Rozsze¿yæ na wiele typów skryptów.
 	*/
 	SPACE_EXPLORERS_API void __cdecl zlecZadanie(const char *plik, const char *funkcja);
 
@@ -275,8 +273,6 @@ extern "C"{
 	* \author Daniel Wojdak
 	* \version 1
 	* \date 17-07-2014
-	* \note Funkcjonalnoœæ zostanie poprawiona. Zostanie rozci¹gniêta na wszysktie typy skryptów. Aktualnie u¿ywa jest tylko dla skrytpów lua.
-	* \todo Rozsze¿yæ na wiele typów skryptów.
 	*/
 	SPACE_EXPLORERS_API void __cdecl zlecZadanieGraficzne(const char *plik, const char *funkcja);
 

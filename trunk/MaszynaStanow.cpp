@@ -66,12 +66,10 @@ namespace SpEx{
 		for (auto& stan : wszystkieStany_){
 			for (auto& zdarzenie : stan.second->pobierzListeZdarzen()){
 				auto idStanu = zdarzenie.second->pobierzStan();
-				if (idStanu){
-					if (wczytane.find(*idStanu) == wczytane.end()){
-						strumien << " Zdarzenie: " << zdarzenie.second->pobierzIdentyfikator()() << " w stanie: "
-							<< stan.first() << " odwo³uje siê do nie istniej¹cego stanu: " << idStanu->operator()() << ".\n";
-						error = true;
-					}
+				if (idStanu && wczytane.find(*idStanu) == wczytane.end()){
+					strumien << " Zdarzenie: " << zdarzenie.second->pobierzIdentyfikator()() << " w stanie: "
+						<< stan.first() << " odwo³uje siê do nie istniej¹cego stanu: " << idStanu->operator()() << ".\n";
+					error = true;
 				}
 			}
 		}

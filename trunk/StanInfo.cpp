@@ -28,9 +28,9 @@ namespace SpEx{
 
 			if (wezel->pobierzAtrybut(ATRYBUT_XML_SKRYPT_TYP)){
 
-				luaFuncIn_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FUNC_IN, std::string());
-				luaFuncOut_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FUNC_OUT, std::string());
-				luaFuncInside_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FUNC_INSIDE, std::string());
+				funcIn_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FUNC_IN, std::string());
+				funcOut_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FUNC_OUT, std::string());
+				funcInside_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FUNC_INSIDE, std::string());
 
 				skrypt_ = Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(wezel);
 				if (!skrypt_)
@@ -46,19 +46,19 @@ namespace SpEx{
 		switch (akcja)
 		{
 		case StanInfo::AkcjaWejsciowa:
-			if (luaFuncIn_.empty())
+			if (funcIn_.empty())
 				return true;
-			ptr = &luaFuncIn_;
+			ptr = &funcIn_;
 			break;
 		case StanInfo::AkcjaWyjsciowa:
-			if (luaFuncOut_.empty())
+			if (funcOut_.empty())
 				return true;
-			ptr = &luaFuncOut_;
+			ptr = &funcOut_;
 			break;
 		case StanInfo::AkcjaWewnetrzna:
-			if (luaFuncInside_.empty())
+			if (funcInside_.empty())
 				return true;
-			ptr = &luaFuncInside_;
+			ptr = &funcInside_;
 			break;
 		default:
 			return false;
@@ -84,9 +84,9 @@ namespace SpEx{
 	std::string StanInfo::napis()const{
 		SLog::Logger log(NAZWAKLASY(StanInfo));
 		log.dodajPole(NAZWAPOLA(id_), id_);
-		log.dodajPole(NAZWAPOLA(luaFuncIn_), NAZWAKLASY2(luaFuncIn_), luaFuncIn_);
-		log.dodajPole(NAZWAPOLA(luaFuncOut_), NAZWAKLASY2(luaFuncOut_), luaFuncOut_);
-		log.dodajPole(NAZWAPOLA(luaFuncInside_), NAZWAKLASY2(luaFuncInside_), luaFuncInside_);
+		log.dodajPole(NAZWAPOLA(funcIn_), NAZWAKLASY2(funcIn_), funcIn_);
+		log.dodajPole(NAZWAPOLA(funcOut_), NAZWAKLASY2(funcOut_), funcOut_);
+		log.dodajPole(NAZWAPOLA(funcInside_), NAZWAKLASY2(funcInside_), funcInside_);
 		return log.napis();
 	}
 };
