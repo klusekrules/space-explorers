@@ -137,22 +137,17 @@ namespace SpEx{
 
 	bool Flota::rozladujLadownieNaPlanecie(){
 		std::shared_ptr<Planeta> planeta;
-		try{
-			switch (celPodrozy_){
-			case Stacjonowanie:
-			case Transport: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaDocelowa_);
-				break;
-			case Powrot: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaPoczatkowa_);
-				break;
-			case Zwiad:
-			case Szczatki:
-			case Ekspedycja:
-			case Atak:
-			default:
-				return false;
-			}
-		}
-		catch (NieznalezionoObiektu&){
+		switch (celPodrozy_){
+		case Stacjonowanie:
+		case Transport: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaDocelowa_);
+			break;
+		case Powrot: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaPoczatkowa_);
+			break;
+		case Zwiad:
+		case Szczatki:
+		case Ekspedycja:
+		case Atak:
+		default:
 			return false;
 		}
 		if (!planeta)
@@ -165,23 +160,18 @@ namespace SpEx{
 	}
 
 	bool Flota::rozladujFloteNaPlanecie(){
-		std::shared_ptr<Planeta> planeta;
-		try{
-			switch (celPodrozy_){
-			case Stacjonowanie:
-			case Transport: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaDocelowa_);
-				break;
-			case Powrot: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaPoczatkowa_);
-				break;
-			case Zwiad:
-			case Szczatki:
-			case Ekspedycja:
-			case Atak:
-			default:
-				return false;
-			}
-		}
-		catch (NieznalezionoObiektu&){
+		std::shared_ptr<Planeta> planeta;		
+		switch (celPodrozy_){
+		case Stacjonowanie:
+		case Transport: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaDocelowa_);
+			break;
+		case Powrot: planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(planetaPoczatkowa_);
+			break;
+		case Zwiad:
+		case Szczatki:
+		case Ekspedycja:
+		case Atak:
+		default:
 			return false;
 		}
 		if (!planeta)

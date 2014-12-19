@@ -51,10 +51,7 @@ namespace SpEx{
 	}
 
 	std::shared_ptr<Planeta> Gra::pobierzPlanete(const STyp::Identyfikator& identyfikator){
-		auto ptr = zarzadcaLokacji_.pobierzPlanete(identyfikator);
-		if (!ptr)
-			throw NieznalezionoObiektu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), std::to_string(identyfikator()));
-		return ptr;
+		return zarzadcaLokacji_.pobierzPlanete(identyfikator);
 	}
 	
 	bool Gra::wczytajDane(std::shared_ptr<SPar::ParserElement> root){
