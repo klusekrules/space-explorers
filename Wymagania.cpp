@@ -45,7 +45,7 @@ namespace SpEx{
 		//TODO: Zrobiæ schemat blokowy algorytmu sprawdzania spe³nienia warunków.
 		if (warunki_.empty())
 			return true;
-		std::shared_ptr<Planeta> planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(parametry.pobierzIdentyfikatorPlanety());
+		auto planeta = Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(parametry.pobierzIdentyfikatorPlanety());
 		if (!planeta){
 			return false;
 		}

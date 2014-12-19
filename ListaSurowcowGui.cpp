@@ -75,9 +75,9 @@ namespace tgui {
 	void ListaSurowcowGui::aktualizacjaDanych(const SpEx::Planeta& planeta){
 		auto listaObj = planeta.pobierzSurowce();
 		if (kontrolki_.size() == listaObj.size()){ // Je¿eli iloœæ kontrolek jest taka sama, jak iloœæ obiektów to tylko aktualizujemy dane.
-			int n = 0;
+			auto iter = listaObj.begin();
 			for (auto element : kontrolki_)
-				element->ustawDane(*listaObj.at(n++));
+				element->ustawDane(*((iter++)->second));
 		}
 		else{
 
