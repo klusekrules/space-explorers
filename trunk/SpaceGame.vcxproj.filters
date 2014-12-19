@@ -883,6 +883,15 @@
     <None Include="out\widgets\LogListGui.conf">
       <Filter>Resource</Filter>
     </None>
+    <None Include="out\lua\class.lua">
+      <Filter>Data\Skrypty</Filter>
+    </None>
+    <None Include="out\lua\aplikacja.lua">
+      <Filter>Data\Skrypty</Filter>
+    </None>
+    <None Include="out\lua\gui.lua">
+      <Filter>Data\Skrypty</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="out\data.xml">
