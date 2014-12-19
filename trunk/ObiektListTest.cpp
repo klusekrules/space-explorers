@@ -2,10 +2,10 @@
 
 void ObiektListTest::startTestow(){
 	SpEx::Gra& gra = SpEx::Aplikacja::pobierzInstancje().pobierzGre();
-	a = std::shared_ptr<SpEx::Statek>(gra.pobierzObiekt<SpEx::StatekInfo>(STyp::Identyfikator(5)).tworzEgzemplarz(STyp::Ilosc(8)));
-	b = std::shared_ptr<SpEx::Statek>(gra.pobierzObiekt<SpEx::StatekInfo>(STyp::Identyfikator(6)).tworzEgzemplarz(STyp::Ilosc(8)));
-	c = std::shared_ptr<SpEx::Statek>(gra.pobierzObiekt<SpEx::StatekInfo>(STyp::Identyfikator(7)).tworzEgzemplarz(STyp::Ilosc(8)));
-	d = std::shared_ptr<SpEx::Statek>(gra.pobierzObiekt<SpEx::StatekInfo>(STyp::Identyfikator(8)).tworzEgzemplarz(STyp::Ilosc(8)));
+	a = std::shared_ptr<SpEx::Statek>(gra.pobierzObiektInfo<SpEx::StatekInfo>(STyp::Identyfikator(5)).tworzEgzemplarz(STyp::Ilosc(8)));
+	b = std::shared_ptr<SpEx::Statek>(gra.pobierzObiektInfo<SpEx::StatekInfo>(STyp::Identyfikator(6)).tworzEgzemplarz(STyp::Ilosc(8)));
+	c = std::shared_ptr<SpEx::Statek>(gra.pobierzObiektInfo<SpEx::StatekInfo>(STyp::Identyfikator(7)).tworzEgzemplarz(STyp::Ilosc(8)));
+	d = std::shared_ptr<SpEx::Statek>(gra.pobierzObiektInfo<SpEx::StatekInfo>(STyp::Identyfikator(8)).tworzEgzemplarz(STyp::Ilosc(8)));
 	UNIT_TEST_ASSERT_NOTNULL(a);
 	UNIT_TEST_ASSERT_NOTNULL(b);
 	UNIT_TEST_ASSERT_NOTNULL(c);

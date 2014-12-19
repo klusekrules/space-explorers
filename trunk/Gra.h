@@ -119,47 +119,6 @@ namespace SpEx {
 		bool przeniesPlaneteDoUzytkownika();
 
 		/**
-		* \brief Metoda pobieraj¹ca obiekt opisowy.
-		*
-		* Metoda pobiera obiekt opisowy.
-		* \param[in] identyfikator - identyfikator obiektu.
-		* \return Referencja do obiektu opisowego. Je¿eli nie znaleziono obiektu zostaje wyrzucony wyj¹tek.
-		* \throw NieznalezionoObiektu
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 03-10-2014
-		*/
-		template <class T> 
-		const T& pobierzObiekt(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu){
-			return znajdzObiektInfo<T>(listaObiektowInfo_, identyfikator);
-		}
-
-		template < > 
-		const ObronaInfo& pobierzObiekt<ObronaInfo>(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu){
-			return znajdzObiektInfo<ObronaInfo>(listaObronaInfo_, identyfikator);
-		}
-
-		template < >
-		const StatekInfo& pobierzObiekt<StatekInfo>(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu){
-			return znajdzObiektInfo<StatekInfo>(listaStatkowInfo_, identyfikator);
-		}
-
-		template < >
-		const SurowceInfo& pobierzObiekt<SurowceInfo>(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu){
-			return znajdzObiektInfo<SurowceInfo>(listaSurowcowInfo_, identyfikator);
-		}
-
-		template < >
-		const TechnologiaInfo& pobierzObiekt<TechnologiaInfo>(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu){
-			return znajdzObiektInfo<TechnologiaInfo>(listaTechnologiInfo_, identyfikator);
-		}
-
-		template < >
-		const BudynekInfo& pobierzObiekt<BudynekInfo>(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu){
-			return znajdzObiektInfo<BudynekInfo>(listaBudynkowInfo_, identyfikator);
-		}
-
-		/**
 		* \brief Metoda tworz¹ca instancje obiektu nie przypisan¹ do planety.
 		*
 		* Metoda tworzy obiekt na podstawie wêz³a xml, nie przypisuje go do ¿adnej planety.
@@ -173,12 +132,48 @@ namespace SpEx {
 		typename T::SharedPtr tworzObiekt(XmlBO::ElementWezla wezel)const throw (NieznalezionoObiektu){
 			STyp::Identyfikator identyfikator;
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator);
-			auto& obiektOpisowy = pobierzObiekt<typename T::Info>(identyfikator);
+			auto& obiektOpisowy = pobierzObiektInfo<typename T::Info>(identyfikator);
 			typename T::SharedPtr obiekt = typename T::SharedPtr(obiektOpisowy.tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), T::Info::typAtrybutu, STyp::Identyfikator())));
 			//TODO: Zamiast zwracania nullptr, generowanie wyj¹tku.
 			if (!obiekt || !obiekt->odczytaj(wezel))
 				return nullptr;
 			return obiekt;
+		}
+
+		/**
+		* \brief Metoda pobieraj¹ca obiekt opisowy.
+		*
+		* Metoda pobiera obiekt opisowy.
+		* \param[in] identyfikator - identyfikator obiektu.
+		* \return Referencja do obiektu opisowego. Je¿eli nie znaleziono obiektu zwraca nullptr.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 14-07-2014
+		*/
+		template <class T>
+		typename T::ConstSharedPtr pobierzObiektInfoJesliIstnieje(const STyp::Identyfikator& identyfikator) const{
+			return znajdzObiektInfo<T, NOTHROW>(identyfikator);
+		}
+		/*
+		template <class T>
+		typename T::SharedPtr pobierzObiektInfoJesliIstnieje(const Indeks& identyfikator){
+			return znajdzObiekt<T, NOTHROW>(identyfikator);
+		}*/
+
+		/**
+		* \brief Metoda pobieraj¹ca obiekt opisowy.
+		*
+		* Metoda pobiera obiekt opisowy.
+		* \param[in] identyfikator - identyfikator obiektu.
+		* \return Referencja do obiektu opisowego. Je¿eli nie znaleziono obiektu zostaje wyrzucony wyj¹tek.
+		* \throw NieznalezionoObiektu
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 19-12-2014
+		*/
+		template <class T>
+		const T& pobierzObiektInfo(const STyp::Identyfikator& identyfikator) const{
+			return *(znajdzObiektInfo<T, THROW>(identyfikator));
 		}
 
 		/**
@@ -272,6 +267,36 @@ namespace SpEx {
 	private:
 
 		/**
+		* \brief Metoda obs³uguj¹ca b³¹d wyszukiwania.
+		*
+		* Metoda w zdefiniowany sposób reaguje na b³¹d wyszukiwania.
+		* \param[in] identyfikator - Identyfikator wyszukiwanego obiektu.
+		* \return Zwracany jest nullptr.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 07-10-2014
+		*/
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<TRAIT, NOTHROW>::value, typename T::ConstSharedPtr>::type obsluzBladWyszukiwania(const STyp::Identyfikator& identyfikator) const{
+			return nullptr;
+		}
+
+		/**
+		* \brief Metoda obs³uguj¹ca b³¹d wyszukiwania.
+		*
+		* Metoda w zdefiniowany sposób reaguje na b³¹d wyszukiwania.
+		* \param[in] identyfikator - Identyfikator wyszukiwanego obiektu.
+		* \return Generowany jest wyj¹tek, metoda nie zwraca wartoœci.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 07-10-2014
+		*/
+		template < class T, class TRAIT>
+		typename std::enable_if<std::is_same<TRAIT, THROW>::value, typename T::ConstSharedPtr>::type obsluzBladWyszukiwania(const STyp::Identyfikator& identyfikator) const{
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), std::to_string(identyfikator()));
+		}
+
+		/**
 		* \brief Metoda wczytuj¹ca dane obiektow gry.
 		*
 		* Metoda wczytuje z wêz³a xml dane opisowe obiektów gry. Tworzy obiekty typu T oraz dodaje je do listy wszystkich obiektów i listy przekazanej jako listaInfo.
@@ -283,7 +308,7 @@ namespace SpEx {
 		* \date 03-10-2014
 		*/
 		template < class T, class K>
-		void wczytajObiekty(XmlBO::ElementWezla wezel, K& listaInfo, const char * nazwaWezla){
+		void wczytajObiektyInfo(XmlBO::ElementWezla wezel, K& listaInfo, const char * nazwaWezla){
 			XmlBO::ElementWezla element = wezel->pobierzElement(nazwaWezla);
 			while (element){
 				typename T::SharedPtr obiekt = std::make_shared<T>(element);
@@ -299,6 +324,47 @@ namespace SpEx {
 		}
 
 		/**
+		* \brief Metoda pobieraj¹ca obiekt opisowy.
+		*
+		* Metoda pobiera obiekt opisowy.
+		* \param[in] identyfikator - identyfikator obiektu.
+		* \return Referencja do obiektu opisowego. Je¿eli nie znaleziono obiektu zostaje wyrzucony wyj¹tek.
+		* \throw NieznalezionoObiektu
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 03-10-2014
+		*/
+		template <class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, ObiektInfo>::value, typename T::ConstSharedPtr>::type znajdzObiektInfo(const STyp::Identyfikator& identyfikator)const{
+			return znajdzObiektInfo<T, TRAIT>(listaObiektowInfo_, identyfikator);
+		}
+
+		template <class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, ObronaInfo>::value, typename T::ConstSharedPtr>::type znajdzObiektInfo(const STyp::Identyfikator& identyfikator)const{
+			return znajdzObiektInfo<T,TRAIT>(listaObronaInfo_, identyfikator);
+		}
+
+		template <class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, StatekInfo>::value, typename T::ConstSharedPtr>::type znajdzObiektInfo(const STyp::Identyfikator& identyfikator)const{
+			return znajdzObiektInfo<T, TRAIT>(listaStatkowInfo_, identyfikator);
+		}
+
+		template <class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, SurowceInfo>::value, typename T::ConstSharedPtr>::type znajdzObiektInfo(const STyp::Identyfikator& identyfikator)const{
+			return znajdzObiektInfo<T, TRAIT>(listaSurowcowInfo_, identyfikator);
+		}
+
+		template <class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, TechnologiaInfo>::value, typename T::ConstSharedPtr>::type znajdzObiektInfo(const STyp::Identyfikator& identyfikator)const{
+			return znajdzObiektInfo<T, TRAIT>(listaTechnologiInfo_, identyfikator);
+		}
+
+		template <class T, class TRAIT>
+		typename std::enable_if<std::is_same<T, BudynekInfo>::value, typename T::ConstSharedPtr>::type znajdzObiektInfo(const STyp::Identyfikator& identyfikator)const{
+			return znajdzObiektInfo<T, TRAIT>(listaBudynkowInfo_, identyfikator);
+		}
+		
+		/**
 		* \brief Metoda wyszukuj¹ca obiekt opisowy.
 		*
 		* Metoda wyszukuje obiekt o podanym identyfikatorze w liœcie obiektów przezkazanej przez parametr.
@@ -308,12 +374,13 @@ namespace SpEx {
 		* \version 1
 		* \date 03-10-2014
 		*/
-		template < class T, class K > 
-		const T& znajdzObiektInfo(const K& listaInfo, const STyp::Identyfikator& identyfikator)const{
+		template < class T, class TRAIT, class K > 
+		typename T::ConstSharedPtr znajdzObiektInfo(const K& listaInfo, const STyp::Identyfikator& identyfikator)const{
 			auto iterator = listaInfo.find(identyfikator);
 			if (iterator == listaInfo.end())
-				throw NieznalezionoObiektu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), std::to_string(identyfikator()));
-			return *(iterator->second);
+				return obsluzBladWyszukiwania<T, TRAIT>(identyfikator);
+				//throw NieznalezionoObiektu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), std::to_string(identyfikator()));
+			return iterator->second;
 		}
 
 		/**

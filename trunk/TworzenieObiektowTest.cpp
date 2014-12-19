@@ -21,7 +21,7 @@ void TworzenieObiektowTest::falszyweObiekty(){
 	for(int i = 0xffff ; i>=0xfff0 ; --i ){
 		try{
 			UNIT_TEST_ASSERT_FALSE(planeta->wybuduj(STyp::Identyfikator(i), SpEx::PodstawoweParametry(STyp::Ilosc(100))));
-			UNIT_TEST_ASSERT_EQUAL(STyp::Identyfikator(0), planeta->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(i)).pobierzIdentyfikator());
+			UNIT_TEST_ASSERT_NULL(planeta->pobierzObiektJesliIstnieje<SpEx::Obiekt>(STyp::Identyfikator(i)));
 		}
 		catch (STyp::Wyjatek&){
 
