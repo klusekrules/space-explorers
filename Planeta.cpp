@@ -84,7 +84,10 @@ namespace SpEx{
 			return true;
 		}
 		else{
-			return Aplikacja::pobierzInstancje().pobierzGre().pobierzObiekt<SpEx::ObiektInfo>(identyfikator).tworz(*this, ilosc.pobierzAtrybut());
+			auto info = Aplikacja::pobierzInstancje().pobierzGre().pobierzObiektInfoJesliIstnieje<SpEx::ObiektInfo>(identyfikator);
+			if (info)
+				return info->tworz(*this, ilosc.pobierzAtrybut());
+			return false;
 		}
 	}
 
@@ -93,7 +96,10 @@ namespace SpEx{
 		if (iterator != listaObiektow_.end()){
 			return false;
 		}else{
-			return Aplikacja::pobierzInstancje().pobierzGre().pobierzObiekt<SpEx::ObiektInfo>(identyfikator).tworz(*this, element);
+			auto info = Aplikacja::pobierzInstancje().pobierzGre().pobierzObiektInfoJesliIstnieje<SpEx::ObiektInfo>(identyfikator);
+			if (info)
+				return info->tworz(*this, element);
+			return false;
 		}
 	}
 

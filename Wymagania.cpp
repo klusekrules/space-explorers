@@ -29,11 +29,11 @@ namespace SpEx{
 			if (obiekt){
 				auto idObiektu = obiekt->pobierzIdentyfikator();
 				if (obiekt->typAtrybutu() == Kryterium::ILOSC ){
-					auto &obiektInfo = gra.pobierzObiekt<SpEx::ObiektInfo>(idObiektu);
-					if (obiektInfo.typ_ == Info::SUROWIEC){
+					auto obiektInfo = gra.pobierzObiektInfoJesliIstnieje<SpEx::ObiektInfo>(idObiektu);
+					if (obiektInfo && obiektInfo->typ_ == Info::SUROWIEC){
 						Kryterium::AtrybutKryterium atrybut = wylicz(element, parametry);
 						PodstawoweParametry nowe(STyp::Ilosc(atrybut.ilosc), parametry.pobierzIdentyfikatorPlanety());
-						suma += obiektInfo.pobierzCzasBudowy(nowe);
+						suma += obiektInfo->pobierzCzasBudowy(nowe);
 					}
 				}
 			}

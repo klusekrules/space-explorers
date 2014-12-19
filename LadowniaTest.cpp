@@ -3,10 +3,10 @@
 void LadowniaTest::startTestow(){
 	gra = &(SpEx::Aplikacja::pobierzInstancje().pobierzGre());
 	UNIT_TEST_ASSERT_NOTNULL(gra);
-	auto& statekInfo = gra->pobierzObiekt<SpEx::StatekInfo>(STyp::Identyfikator(0x6));
-	auto& surowceInfo3 = gra->pobierzObiekt<SpEx::SurowceInfo>(STyp::Identyfikator(0x2));
-	auto& surowceInfo = gra->pobierzObiekt<SpEx::SurowceInfo>(STyp::Identyfikator(0x1));
-	auto& surowceInfo2 = gra->pobierzObiekt<SpEx::SurowceInfo>(STyp::Identyfikator(0x4));
+	auto& statekInfo = gra->pobierzObiektInfo<SpEx::StatekInfo>(STyp::Identyfikator(0x6));
+	auto& surowceInfo3 = gra->pobierzObiektInfo<SpEx::SurowceInfo>(STyp::Identyfikator(0x2));
+	auto& surowceInfo = gra->pobierzObiektInfo<SpEx::SurowceInfo>(STyp::Identyfikator(0x1));
+	auto& surowceInfo2 = gra->pobierzObiektInfo<SpEx::SurowceInfo>(STyp::Identyfikator(0x4));
 	statekTransportowy = std::shared_ptr<SpEx::Statek>(statekInfo.tworzEgzemplarz(STyp::Ilosc(5)));
 	metal = std::shared_ptr<SpEx::Surowce>(surowceInfo.tworzEgzemplarz(STyp::Ilosc(10000)));
 	energia = std::shared_ptr<SpEx::Surowce>(surowceInfo2.tworzEgzemplarz(STyp::Ilosc(10000)));

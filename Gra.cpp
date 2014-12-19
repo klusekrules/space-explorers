@@ -57,11 +57,11 @@ namespace SpEx{
 	bool Gra::wczytajDane(std::shared_ptr<SPar::ParserElement> root){
 		try{			
 			if (root){
-				wczytajObiekty<TechnologiaInfo>(root, listaTechnologiInfo_, WEZEL_XML_TECHNOLOGIA_INFO);
-				wczytajObiekty<BudynekInfo>(root, listaBudynkowInfo_, WEZEL_XML_BUDYNEK_INFO);
-				wczytajObiekty<SurowceInfo>(root, listaSurowcowInfo_, WEZEL_XML_SUROWCE_INFO);
-				wczytajObiekty<ObronaInfo>(root, listaObronaInfo_, WEZEL_XML_OBRONA_INFO);
-				wczytajObiekty<StatekInfo>(root, listaStatkowInfo_, WEZEL_XML_STATEK_INFO);
+				wczytajObiektyInfo<TechnologiaInfo>(root, listaTechnologiInfo_, WEZEL_XML_TECHNOLOGIA_INFO);
+				wczytajObiektyInfo<BudynekInfo>(root, listaBudynkowInfo_, WEZEL_XML_BUDYNEK_INFO);
+				wczytajObiektyInfo<SurowceInfo>(root, listaSurowcowInfo_, WEZEL_XML_SUROWCE_INFO);
+				wczytajObiektyInfo<ObronaInfo>(root, listaObronaInfo_, WEZEL_XML_OBRONA_INFO);
+				wczytajObiektyInfo<StatekInfo>(root, listaStatkowInfo_, WEZEL_XML_STATEK_INFO);
 			}
 		}
 		catch (STyp::Wyjatek& wyjatek){
