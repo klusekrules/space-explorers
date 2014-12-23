@@ -2,6 +2,8 @@
 #include "Parser\ParserDokumentXml.h"
 #include "Aplikacja.h"
 
+#define ATRYBUT_FOLDER_PLIKU_UKLADU "folderPlikowOpisuUkladow"
+
 namespace SpEx {
 
 	std::shared_ptr< Planeta > ZarzadcaLokacji::pobierzPlanete(const STyp::Identyfikator& identyfikator){
@@ -233,7 +235,7 @@ namespace SpEx {
 	}
 
 	void ZarzadcaLokacji::inicjalizuj(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos){
-		folderPlikuUkladu_ = ustawienia.pobierzFolderPlikuUkladu();
+		folderPlikuUkladu_ = ustawienia[ATRYBUT_FOLDER_PLIKU_UKLADU];
 	}
 
 	std::string ZarzadcaLokacji::napis() const{

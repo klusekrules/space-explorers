@@ -21,12 +21,24 @@
 #define KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU STyp::Tekst("Podczas przetwarzabua argumentów wyst¹pi³ b³¹d.")
 #define KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plik) STyp::Tekst("Nie powiod³o siê wczytywanie pliku konfiguracyjnego: " + plik)
 #define KOMUNIKAT_BLAD_FORMATU_DATY STyp::Tekst("Nie poprawny format daty u¿ytej w nazwie pliku logów.")
+#define KOMUNIKAT_BLAD_FORMATU_DATY_LOGOW(format) STyp::Tekst("Nie poprawny format daty logów: " + format )
 #define KOMUNIKAT_BLAD_LADOWANIA_OPCJI STyp::Tekst("Podczas przetwa¿ania pliku z opcjami wyst¹pi³ b³¹d.")
 #define KOMUNIKAT_BLAD_REJESTRACJI_ZMIANY_POZIOMU STyp::Tekst("Nie powiod³a siê rejestracja zmiany sparawdzaj¹cej poziom obiektu.")
 #define KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DOMYSLNYCH STyp::Tekst("Nie powiod³a siê rejestracja domyœlnych obiektów zmiany.")
 #define KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DODATKOWYCH STyp::Tekst("Nie powiod³a siê rejestracja dodatkowych obiektów zmiany.")
 #define KOMUNIKAT_BLAD_BRAK_PLIKU_DANYCH(plik) STyp::Tekst("Plik : " + plik + " z danymi programu nie zosta³ znaleziony!")
 #define KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folder) STyp::Tekst("Folder :" + folder + " nie zosta³ znaleziony!")
+
+#define ATRYBUT_FORMAT_DATY_LOGOW "formatDatyWNazwiePliku"
+#define ATRYBUT_NUMER_FORMATU_DATY "numerFormatuDaty"
+#define ATRYBUT_ODBLOKOWANE_LOGI "odblokowaneLogi"
+#define ATRYBUT_ZABLOKOWANE_LOGI "zablokowaneLogi"
+#define ATRYBUT_PRZEDROSTEK_PLIKU_LOGOW "prefixPlikuLogow"
+#define ATRYBUT_FOLDER_PLUGINOW "plugins"
+#define ATRYBUT_JEZYK_APLIKACJI "locale"
+#define ATRYBUT_JEZYK_APLIKACJI_DOMYSLNY "Polish"
+#define ATRYBUT_PLIK_DANYCH "data"
+#define ATRYBUT_PLIK_GRY "plikGry"
 
 void myPurecallHandler(){
 #ifndef LOG_OFF_ALL
@@ -106,13 +118,30 @@ namespace SpEx{
 		if (!ustawienia_.zaladuj(plikKonfiguracyjny_)){
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plikKonfiguracyjny_));
 		}
-		logger_.ustawFormatCzasu(ustawienia_.pobierzFormatDatyLogow());
+
+		if (ustawienia_[ATRYBUT_JEZYK_APLIKACJI].empty()){
+			ustawienia_[ATRYBUT_JEZYK_APLIKACJI] = ATRYBUT_JEZYK_APLIKACJI_DOMYSLNY;
+		}
+
+		auto i = std::stol(ustawienia_[ATRYBUT_NUMER_FORMATU_DATY], nullptr, 10);
+		switch (i)
+		{
+		case SLog::Log::Data: logger_.ustawFormatCzasu(SLog::Log::Data);
+			break;
+		case SLog::Log::Czas: logger_.ustawFormatCzasu(SLog::Log::Czas);
+			break;
+		case SLog::Log::DataCzas: logger_.ustawFormatCzasu(SLog::Log::DataCzas);
+			break;
+		default:
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_FORMATU_DATY_LOGOW(std::to_string(i)));
+			break;
+		}
 		
-		for (auto typ : ustawienia_.pobierzOdblokowaneLogi()){
+		for (auto typ : Utils::dekodujListeTypowLogow(ustawienia_[ATRYBUT_ODBLOKOWANE_LOGI])){
 			logger_.odblokujLogi(typ);
 		}
 
-		for (auto typ : ustawienia_.pobierzZablokowaneLogi()){
+		for (auto typ : Utils::dekodujListeTypowLogow(ustawienia_[ATRYBUT_ZABLOKOWANE_LOGI])){
 			logger_.zablokujLogi(typ);
 		}
 
@@ -124,11 +153,11 @@ namespace SpEx{
 		time_t t = time(nullptr);
 		localtime_s(&timeinfo, &t);
 		char s[20];
-		if (strftime(s, 20, ustawienia_.pobierzFormatDatyPlikuLogow().c_str(), &timeinfo) == 0){
+		if (strftime(s, 20, ustawienia_[ATRYBUT_FORMAT_DATY_LOGOW].c_str(), &timeinfo) == 0){
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_FORMATU_DATY);
 		}
 		std::stringstream sfile;
-		sfile << ustawienia_.pobierzPrzedrostekPlikuLogow() << s << ".log";
+		sfile << ustawienia_[ATRYBUT_PRZEDROSTEK_PLIKU_LOGOW] << s << ".log";
 		std::string filename = sfile.str();
 		logger_.dodajGniazdoWyjsciowe([&filename](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{
 			static std::fstream plik(filename, std::ios_base::app); 
@@ -181,7 +210,7 @@ namespace SpEx{
 		DllModule::Rejestruj(zarzadcaZasobow_);
 		XmlModul::Rejestruj(zarzadcaZasobow_);
 
-		pluginy_ = std::make_shared<SPlu::Cplugin>(ustawienia_.pobierzFolderPlugin(), fabrykator_.pobierzFabrykeZmian(), logger_);
+		pluginy_ = std::make_shared<SPlu::Cplugin>(ustawienia_[ATRYBUT_FOLDER_PLUGINOW], fabrykator_.pobierzFabrykeZmian(), logger_);
 
 		if (!RejestrujZmianaPoziomObiektu(fabrykator_.pobierzFabrykeZmian(), logger_))
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIANY_POZIOMU);
@@ -201,17 +230,17 @@ namespace SpEx{
 
 	bool Aplikacja::zaladujOpcje(){
 		try{
-			std::locale pl(ustawienia_.pobierzJezykAplikacji());
+			std::locale pl(ustawienia_[ATRYBUT_JEZYK_APLIKACJI]);
 			std::locale::global(pl);
 #if !(defined(LOG_OFF_ALL) || defined(LOG_OFF_DEBUG))
 			logger_.loguj(SLog::Log::Debug, std::string("Separator u³amka: ") + std::use_facet<std::numpunct<char>>(pl).decimal_point());
 #endif
-			auto nazwaPlikuDanych_ = ustawienia_.pobierzPlikDanych();
+			auto nazwaPlikuDanych_ = ustawienia_[ATRYBUT_PLIK_DANYCH];
 			if (_access(nazwaPlikuDanych_.c_str(), 0) == -1){ // Sprawdzenie czy folder istnieje
 				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_PLIKU_DANYCH(nazwaPlikuDanych_));
 			}
 
-			auto folderPluginow_ = ustawienia_.pobierzFolderPlugin();
+			auto folderPluginow_ = ustawienia_[ATRYBUT_FOLDER_PLUGINOW];
 			if (_access(folderPluginow_.c_str(), 0) == -1){ // Sprawdzenie czy folder istnieje
 				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folderPluginow_));
 			}
@@ -278,9 +307,9 @@ namespace SpEx{
 		std::locale::global(std::locale("C"));
 		try{
 			auto dokumentGry = std::make_shared<SPar::ParserDokumentXml>();
-			if (!dokumentGry->odczytaj(ustawienia_.pobierzAdresPlikuGry().c_str())){
+			if (!dokumentGry->odczytaj(ustawienia_[ATRYBUT_PLIK_GRY].c_str())){
 				dokumentGry->tworzElement(WEZEL_XML_ROOT)->tworzElement(WEZEL_XML_GRA);
-				if (!dokumentGry->zapisz(ustawienia_.pobierzAdresPlikuGry().c_str())){
+				if (!dokumentGry->zapisz(ustawienia_[ATRYBUT_PLIK_GRY].c_str())){
 					return false;
 				}
 			}
@@ -290,23 +319,23 @@ namespace SpEx{
 				return false;
 			}
 			if (zarzadcaLokacji_.zapisz(wezel->tworzElement(WEZEL_XML_GRA)) && instancjaGry_->zapisz(nazwa, hash)){
-				std::locale::global(std::locale(ustawienia_.pobierzJezykAplikacji()));
-				return dokumentGry->zapisz(ustawienia_.pobierzAdresPlikuGry().c_str());
+				std::locale::global(std::locale(ustawienia_[ATRYBUT_JEZYK_APLIKACJI]));
+				return dokumentGry->zapisz(ustawienia_[ATRYBUT_PLIK_GRY].c_str());
 			}
 		}
 		catch (...){
-			std::locale::global(std::locale(ustawienia_.pobierzJezykAplikacji()));
+			std::locale::global(std::locale(ustawienia_[ATRYBUT_JEZYK_APLIKACJI]));
 			throw;
 		}
-		std::locale::global(std::locale(ustawienia_.pobierzJezykAplikacji()));
+		std::locale::global(std::locale(ustawienia_[ATRYBUT_JEZYK_APLIKACJI]));
 		return false;
 	}
 
 	bool Aplikacja::wczytajGre(std::shared_ptr<SPar::ParserElement> root){
 		auto dokumentGry = std::make_shared<SPar::ParserDokumentXml>();
-		if (!dokumentGry->odczytaj(ustawienia_.pobierzAdresPlikuGry().c_str())){
+		if (!dokumentGry->odczytaj(ustawienia_[ATRYBUT_PLIK_GRY].c_str())){
 			dokumentGry->tworzElement(WEZEL_XML_ROOT)->tworzElement(WEZEL_XML_GRA);
-			if (!dokumentGry->zapisz(ustawienia_.pobierzAdresPlikuGry().c_str())){
+			if (!dokumentGry->zapisz(ustawienia_[ATRYBUT_PLIK_GRY].c_str())){
 				return false;
 			}
 		}

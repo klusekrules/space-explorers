@@ -1,8 +1,10 @@
 #pragma once
 #include <string>
 #include <algorithm>
+#include <vector>
 #include "Zmiana\ZmianaInterfejs.h"
 #include "PodstawoweParametry.h"
+#include "Logger\Log.h"
 
 namespace SpEx{
 	
@@ -213,6 +215,8 @@ namespace SpEx{
 		* \date 06-08-2014
 		*/
 		static bool pobierzRozszezenie(const std::string & adres, std::string& rozszezenie);
+
+		static std::vector < SLog::Log::TypLogow > dekodujListeTypowLogow(const std::string& str);
 
 	};
 }

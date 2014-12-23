@@ -77,4 +77,40 @@ namespace SpEx{
 		rozszezenie = std::move(end);
 		return true;
 	}
+
+	std::vector < SLog::Log::TypLogow > Utils::dekodujListeTypowLogow(const std::string& str){
+		std::vector < SLog::Log::TypLogow > ret;
+		if (str.empty())
+			return ret;
+		size_t pos = 0;
+		size_t start = 0;
+		std::string sub;
+		while (pos != std::string::npos){
+			pos = str.find_first_of(',', pos);
+			if (pos == std::string::npos){
+				sub = std::move(str.substr(start));
+			}
+			else{
+				sub = std::move(str.substr(start, pos - start));
+				start = ++pos;
+			}
+			if (sub.empty())
+				break;
+			int i = stoi(sub);
+			switch (i)
+			{
+			case SLog::Log::All: ret.emplace_back(SLog::Log::All);
+				break;
+			case SLog::Log::Debug: ret.emplace_back(SLog::Log::Debug);
+				break;
+			case SLog::Log::Info: ret.emplace_back(SLog::Log::Info);
+				break;
+			case SLog::Log::Warning: ret.emplace_back(SLog::Log::Warning);
+				break;
+			case SLog::Log::Error: ret.emplace_back(SLog::Log::Error);
+				break;
+			}
+		}
+		return ret;
+	}
 }
