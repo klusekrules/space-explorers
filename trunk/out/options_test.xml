@@ -41,5 +41,19 @@
             plikOkien="resource\\ekrany.xml"
             folderPlikowUzytkownikow="save\\"
             folderPlikowOpisuUkladow="save\\uklad\\" />
- 
+  
+  <opcja nazwa="locale" wartosc="Polish"/>
+  <opcja nazwa="data" wartosc="test.xml"/>
+  <opcja nazwa="plugins" wartosc="plugins\\"/>
+  <opcja nazwa="powiazaniaZasobow" wartosc="powiazania.xml"/>
+  <opcja nazwa="numerFormatuDaty" wartosc="1"/>
+  <opcja nazwa="formatDatyWNazwiePliku" wartosc="%Y-%m-%d"/>
+  <opcja nazwa="prefixPlikuLogow" wartosc="space-explorers-"/>
+  <opcja nazwa="zablokowaneLogi" wartosc="1"/>
+  <opcja nazwa="plikGry" wartosc="save\\gra.xml"/>
+  <opcja nazwa="plikStanow" wartosc="resource\\state.xml"/>
+  <opcja nazwa="plikOkien" wartosc="resource\\ekrany.xml"/>
+  <opcja nazwa="folderPlikowUzytkownikow" wartosc="save\\"/>
+  <opcja nazwa="folderPlikowOpisuUkladow" wartosc="save\\uklad\\"/>
+
 </SpaceGame>

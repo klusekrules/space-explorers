@@ -154,12 +154,7 @@ namespace SpEx {
 		typename T::ConstSharedPtr pobierzObiektInfoJesliIstnieje(const STyp::Identyfikator& identyfikator) const{
 			return znajdzObiektInfo<T, NOTHROW>(identyfikator);
 		}
-		/*
-		template <class T>
-		typename T::SharedPtr pobierzObiektInfoJesliIstnieje(const Indeks& identyfikator){
-			return znajdzObiekt<T, NOTHROW>(identyfikator);
-		}*/
-
+	
 		/**
 		* \brief Metoda pobieraj¹ca obiekt opisowy.
 		*
@@ -379,7 +374,6 @@ namespace SpEx {
 			auto iterator = listaInfo.find(identyfikator);
 			if (iterator == listaInfo.end())
 				return obsluzBladWyszukiwania<T, TRAIT>(identyfikator);
-				//throw NieznalezionoObiektu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), std::to_string(identyfikator()));
 			return iterator->second;
 		}
 
@@ -406,7 +400,7 @@ namespace SpEx {
 		ListaSurowcowInfoTyp listaSurowcowInfo_; /// Lista obiektów opisowych surowców.
 		ListaStatkowInfoTyp listaStatkowInfo_; /// Lista obiektów opisowych statku.
 		ListaObronyInfoTyp listaObronaInfo_; /// Lista obiektów opisowych obrony.
-		ListaTechnologiInfoTyp listaTechnologiInfo_; /// Lista obiektów opisowych  technologii.
+		ListaTechnologiInfoTyp listaTechnologiInfo_; /// Lista obiektów opisowych technologii.
 		ListaBudynkowInfoTyp listaBudynkowInfo_; /// Lista obiektów opisowych budynku.
 		ListaObiektowInfoTyp listaObiektowInfo_; /// Lista obiektów opisowych.
 		

@@ -6,10 +6,12 @@
 #include "Parser\ParserDokumentXml.h"
 #include "Logger\Logger.h"
 
+#define ATRYBUT_FOLDER_PLIKU_UZYTKOWNIKA "folderPlikowUzytkownikow"
+
 namespace SpEx{
 
 	Gra::Gra(SLog::Log& logger, ZarzadcaLokacji& zarzadcaLokacji, UstawieniaAplikacji& ustawieniaAplikacji)
-		: logger_(logger), zarzadcaLokacji_(zarzadcaLokacji), folderPlikowUzytkownika_(ustawieniaAplikacji.pobierzFolderPlikuUzytkownika()), uzytkownik_(nullptr)
+		: logger_(logger), zarzadcaLokacji_(zarzadcaLokacji), folderPlikowUzytkownika_(ustawieniaAplikacji[ATRYBUT_FOLDER_PLIKU_UZYTKOWNIKA]), uzytkownik_(nullptr)
 	{
 		zarzadcaLokacji_.wyczyscDane();
 	}

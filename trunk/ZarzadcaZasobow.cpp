@@ -21,11 +21,13 @@
 #define TYTUL_BLAD_ZASOBU STyp::Tekst("B³¹d tworzenia zasobu!")
 #define KOMUNIKAT_BLAD_ZASOBU( a , b ) STyp::Tekst("Próba wczytania typu, który nie jest obs³ugiwany. Typ: [" + a + "]. Parametr: " + b )
 
+#define ATRYBUT_POWIAZANIA_ZASOBOW "powiazaniaZasobow"
+
 namespace SpEx{
 
 	bool ZarzadcaZasobow::inicjalizuj(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos){
 		
-		auto plik = ustawienia.pobierzAdresPlikuPowiazanZasobow();
+		auto plik = ustawienia[ATRYBUT_POWIAZANIA_ZASOBOW];
 		auto dokument = std::make_shared<SPar::ParserDokumentXml>();
 		if (!dokument->odczytaj(plik.c_str())){
 			throw NieznalezionoPliku(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), plik);
@@ -48,7 +50,7 @@ namespace SpEx{
 
 			if (nazwa.empty() || lokalizacja.empty()){
 				throw STyp::Wyjatek(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), TYTUL_BLAD_ATRYBUTU,
-					KOMUNIKAT_BLAD_ATRYBUTU(wpis->error(), ustawienia.pobierzAdresPlikuPowiazanZasobow()));
+					KOMUNIKAT_BLAD_ATRYBUTU(wpis->error(), ustawienia[ATRYBUT_POWIAZANIA_ZASOBOW]));
 			}
 
 			lokalizacjeZasobow_.push_back(std::make_pair(nazwa, lokalizacja));
@@ -56,7 +58,7 @@ namespace SpEx{
 
 			if (!mapujIdentyfikator(nazwa, id)){
 				throw STyp::Wyjatek(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), TYTUL_BLAD_MAPOWANIA,
-					KOMUNIKAT_BLAD_MAPOWANIA(nazwa, id.napis(), wpis->error(), ustawienia.pobierzAdresPlikuPowiazanZasobow()));
+					KOMUNIKAT_BLAD_MAPOWANIA(nazwa, id.napis(), wpis->error(), ustawienia[ATRYBUT_POWIAZANIA_ZASOBOW]));
 
 			}
 			return true;
