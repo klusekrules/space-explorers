@@ -341,6 +341,7 @@
     <ClInclude Include="HangarTest.h" />
     <ClInclude Include="Export.h" />
     <ClInclude Include="keccak.h" />
+    <ClInclude Include="Klient.h" />
     <ClInclude Include="KontrolkaObiektu.h" />
     <ClInclude Include="Kryterium.h" />
     <ClInclude Include="ListaObiektowGui.h" />
@@ -362,6 +363,7 @@
     <ClInclude Include="PomocniczeTypyTGUI.h" />
     <ClInclude Include="PowtorzenieIdObiektu.h" />
     <ClInclude Include="RoundedRectangleShape.hpp" />
+    <ClInclude Include="Serwer.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Skrypt.h" />
     <ClInclude Include="Stan.h" />
@@ -473,6 +475,7 @@
     <ClCompile Include="JednostkaLatajaca.cpp" />
     <ClCompile Include="JednostkaLatajacaInfo.cpp" />
     <ClCompile Include="keccak.cpp" />
+    <ClCompile Include="Klient.cpp" />
     <ClCompile Include="KontrolkaObiektu.cpp" />
     <ClCompile Include="Kryterium.cpp" />
     <ClCompile Include="Ladownia.cpp" />
@@ -511,6 +514,7 @@
     <ClCompile Include="PodstawoweParametry.cpp" />
     <ClCompile Include="PowtorzenieIdObiektu.cpp" />
     <ClCompile Include="RoundedRectangleShape.cpp" />
+    <ClCompile Include="Serwer.cpp" />
     <ClCompile Include="Stan.cpp" />
     <ClCompile Include="StanInfo.cpp" />
     <ClCompile Include="Statek.cpp" />

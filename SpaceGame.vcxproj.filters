@@ -313,6 +313,12 @@
     <ClCompile Include="XmlModul.cpp">
       <Filter>SourceFile\Kontroler\Zasoby</Filter>
     </ClCompile>
+    <ClCompile Include="Serwer.cpp">
+      <Filter>SourceFile\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Klient.cpp">
+      <Filter>SourceFile\Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -675,6 +681,12 @@
     <ClInclude Include="XmlModul.h">
       <Filter>SourceFile\Kontroler\Zasoby</Filter>
     </ClInclude>
+    <ClInclude Include="Serwer.h">
+      <Filter>SourceFile\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Klient.h">
+      <Filter>SourceFile\Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -838,6 +850,9 @@
     </Filter>
     <Filter Include="SourceFile\Kontroler\Zasoby">
       <UniqueIdentifier>{4b40de96-8dad-4bc6-ac96-c03390bd19d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Network">
+      <UniqueIdentifier>{8787c751-8ec2-419c-a963-c2bfe00aad86}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
