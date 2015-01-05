@@ -351,6 +351,7 @@
     <ClInclude Include="LuaState.h" />
     <ClInclude Include="MaszynaStanow.h" />
     <ClInclude Include="MenadzerWatkow.h" />
+    <ClInclude Include="MetodaRPC.h" />
     <ClInclude Include="NieznalezionoPliku.h" />
     <ClInclude Include="NonCopyable.h" />
     <ClInclude Include="NonMoveable.h" />
@@ -362,6 +363,7 @@
     <ClInclude Include="PlanetaTest.h" />
     <ClInclude Include="PomocniczeTypyTGUI.h" />
     <ClInclude Include="PowtorzenieIdObiektu.h" />
+    <ClInclude Include="ProceduraRPC.h" />
     <ClInclude Include="RoundedRectangleShape.hpp" />
     <ClInclude Include="Serwer.h" />
     <ClInclude Include="Singleton.h" />
@@ -493,6 +495,7 @@
     <ClCompile Include="MaszynaStanow.cpp" />
     <ClCompile Include="MenadzerWatkow.cpp" />
     <ClCompile Include="MenedzerTranzakcji.cpp" />
+    <ClCompile Include="MetodaRPC.cpp" />
     <ClCompile Include="NiepoprawneParametryFunkcji.cpp" />
     <ClCompile Include="NiepoprawneParametryFunkcjiTest.cpp" />
     <ClCompile Include="NiepowodzenieTranzakcji.cpp" />
@@ -513,6 +516,7 @@
     <ClCompile Include="PlanetaTest.cpp" />
     <ClCompile Include="PodstawoweParametry.cpp" />
     <ClCompile Include="PowtorzenieIdObiektu.cpp" />
+    <ClCompile Include="ProceduraRPC.cpp" />
     <ClCompile Include="RoundedRectangleShape.cpp" />
     <ClCompile Include="Serwer.cpp" />
     <ClCompile Include="Stan.cpp" />

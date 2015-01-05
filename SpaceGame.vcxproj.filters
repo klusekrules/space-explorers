@@ -319,6 +319,12 @@
     <ClCompile Include="Klient.cpp">
       <Filter>SourceFile\Network</Filter>
     </ClCompile>
+    <ClCompile Include="ProceduraRPC.cpp">
+      <Filter>SourceFile\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="MetodaRPC.cpp">
+      <Filter>SourceFile\Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -685,6 +691,12 @@
       <Filter>SourceFile\Network</Filter>
     </ClInclude>
     <ClInclude Include="Klient.h">
+      <Filter>SourceFile\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="ProceduraRPC.h">
+      <Filter>SourceFile\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="MetodaRPC.h">
       <Filter>SourceFile\Network</Filter>
     </ClInclude>
   </ItemGroup>
