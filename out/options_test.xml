@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SpaceGame>
-  
+<SpaceGame>  
   <!-- Ustawienia regionalne jakie są używane w aplikacji.
   WARN: O tych ustawień zależy sposób interpretacji liczb. Należy zwrócic uwagę czy separator dzięsiętny w plikach danych jest zgodny z separaterem używanym w wybranych utawieniach regionalnych.
   -->
@@ -32,23 +31,19 @@
   0 - wszystkie, 1 - tylko debug, 2 - tylko info, 3 - tylko warnig, 4 - tylko error. 
   -->
   <opcja nazwa="zablokowaneLogi" wartosc="1"/>
-  
   <!--
   odblokowaneLogi - Lista numerów poziomów logów, które zostaną odblokowane. 
   Jakie typy logów zostaną odblokowane przy wpisaniu numeru:
   0 - wszystkie, 1 - tylko debug, 2 - tylko info, 3 - tylko warnig, 4 - tylko error. 
   -->  
-  <!-- <opcja nazwa="odblokowaneLogi" wartosc="1"/> -->
-  
+  <!-- <opcja nazwa="odblokowaneLogi" wartosc="1"/> -->  
   <!--
   WARN: Ważniejsze są blokady. Oznacza to że jeżeli ten sam poziom zostanie wymieniony w obu listach, wtedy obowiązuje blokada danego typu logów.
   INFO: Domyślnie wszystkie typy logów są odblokowane oprócz typu debug.
-  -->
-  
+  -->  
   <opcja nazwa="plikGry" wartosc="save\\gra.xml"/>
   <opcja nazwa="plikStanow" wartosc="resource\\state.xml"/>
   <opcja nazwa="plikOkien" wartosc="resource\\ekrany.xml"/>
   <opcja nazwa="folderPlikowUzytkownikow" wartosc="save\\"/>
   <opcja nazwa="folderPlikowOpisuUkladow" wartosc="save\\uklad\\"/>
-
 </SpaceGame>
