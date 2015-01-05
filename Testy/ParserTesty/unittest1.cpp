@@ -202,6 +202,24 @@ namespace ParserTesty
 			auto node = writer.write(value);
 			log.loguj(SLog::Log::Debug, node);
 			Assert::AreEqual(node, std::string("{\"Node\":\"value\"}\n"));
+			Assert::AreEqual(value["Node"].asString(), std::string("value"));
+			for (auto& val : value.getMemberNames()){
+				log.loguj(SLog::Log::Debug, val);
+			}
+		}
+
+		BEGIN_TEST_METHOD_ATTRIBUTE(JSON_Test_isNULL)
+			TEST_OWNER(L"Parser")
+			TEST_PRIORITY(2)
+		END_TEST_METHOD_ATTRIBUTE()
+
+		TEST_METHOD(JSON_Test_isNULL){
+			Json::Value value;
+			value["Node"] = "value";
+			Assert::IsFalse(value["Node"].isNull());
+			Assert::IsTrue(value["node"].isNull());
+			Assert::IsFalse(!value["Node"]);
+			Assert::IsTrue(!value["node"]);
 		}
 
 		//TODO: Dodac test dla metody XmlBO::ForEach iterujacej po atrybutach.
