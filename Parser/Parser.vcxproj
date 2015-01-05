@@ -135,7 +135,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(ProjectDir);$(SolutionDir)\Logger\Headers\;$(SolutionDir)\TypyProste\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>PARSER_EXPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PARSER_EXPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;JSON_DLL_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -147,7 +147,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(ProjectDir);$(SolutionDir)\Logger\Headers\;$(SolutionDir)\TypyProste\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>PARSER_EXPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PARSER_EXPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;JSON_DLL_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -159,7 +159,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(ProjectDir);$(SolutionDir)\Logger\Headers\;$(SolutionDir)\TypyProste\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>PARSER_EXPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PARSER_EXPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;JSON_DLL_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -172,7 +172,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(ProjectDir);$(SolutionDir)\Logger\Headers\;$(SolutionDir)\TypyProste\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>PARSER_EXPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PARSER_EXPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;JSON_DLL_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -187,7 +187,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(ProjectDir);$(SolutionDir)\Logger\Headers\;$(SolutionDir)\TypyProste\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>PARSER_EXPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PARSER_EXPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;JSON_DLL_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -203,7 +203,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(ProjectDir);$(SolutionDir)\Logger\Headers\;$(SolutionDir)\TypyProste\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>PARSER_EXPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PARSER_EXPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;JSON_DLL_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -212,6 +212,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="json_reader.cpp" />
+    <ClCompile Include="json_value.cpp" />
+    <ClCompile Include="json_writer.cpp" />
     <ClCompile Include="ParserAtrybutXml.cpp" />
     <ClCompile Include="ParserDokumentXml.cpp" />
     <ClCompile Include="ParserElementXml.cpp" />
@@ -220,6 +223,16 @@
     <ClCompile Include="WyjatekParser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\Parser\json\assertions.h" />
+    <ClInclude Include="Headers\Parser\json\autolink.h" />
+    <ClInclude Include="Headers\Parser\json\config.h" />
+    <ClInclude Include="Headers\Parser\json\features.h" />
+    <ClInclude Include="Headers\Parser\json\forwards.h" />
+    <ClInclude Include="Headers\Parser\json\json.h" />
+    <ClInclude Include="Headers\Parser\json\reader.h" />
+    <ClInclude Include="Headers\Parser\json\value.h" />
+    <ClInclude Include="Headers\Parser\json\version.h" />
+    <ClInclude Include="Headers\Parser\json\writer.h" />
     <ClInclude Include="Headers\Parser\ParserAtrybutXml.h" />
     <ClInclude Include="Headers\Parser\ParserInterfejs.h" />
     <ClInclude Include="Headers\Parser\ParserDokumentXml.h" />
@@ -229,6 +242,8 @@
     <ClInclude Include="Headers\Parser\tinyxml2.h" />
     <ClInclude Include="Headers\Parser\WyjatekParser.h" />
     <ClInclude Include="Headers\Parser\XmlBO.h" />
+    <ClInclude Include="json_batchallocator.h" />
+    <ClInclude Include="json_tool.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logger\Logger.vcxproj">
@@ -237,6 +252,11 @@
     <ProjectReference Include="..\TypyProste\TypyProste.vcxproj">
       <Project>{c4cb2f58-bb6e-4ab4-894e-25c8ef668dce}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="json_internalarray.inl" />
+    <None Include="json_internalmap.inl" />
+    <None Include="json_valueiterator.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -13,54 +13,122 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\JSON">
+      <UniqueIdentifier>{a8be7a4c-b930-4fb6-be44-c640b0cff949}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\XML">
+      <UniqueIdentifier>{f592e0ad-30c9-494e-8ffe-2e965a7948e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\JSON">
+      <UniqueIdentifier>{a3ab9e50-2b65-4aa1-94de-91156912ae7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\XML">
+      <UniqueIdentifier>{9a5957c4-72d6-48cd-8fea-6f08d29ea7c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="tinyxml2.cpp">
+    <ClCompile Include="ParserUtils.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="json_reader.cpp">
+      <Filter>Source Files\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="json_value.cpp">
+      <Filter>Source Files\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="json_writer.cpp">
+      <Filter>Source Files\JSON</Filter>
     </ClCompile>
     <ClCompile Include="ParserAtrybutXml.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\XML</Filter>
     </ClCompile>
     <ClCompile Include="ParserDokumentXml.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\XML</Filter>
     </ClCompile>
     <ClCompile Include="ParserElementXml.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\XML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml2.cpp">
+      <Filter>Source Files\XML</Filter>
     </ClCompile>
     <ClCompile Include="WyjatekParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ParserUtils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Headers\Parser\ParserAtrybutXml.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Parser\ParserDokumentXml.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Parser\ParserElementXml.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\Parser\ParserSymbol.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Parser\ParserInterfejs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\Parser\XmlBO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\Parser\WyjatekParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Parser\tinyxml2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Parser\ParserStale.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="json_batchallocator.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="json_tool.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Parser\XmlBO.h">
+      <Filter>Header Files\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Parser\tinyxml2.h">
+      <Filter>Header Files\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Parser\ParserElementXml.h">
+      <Filter>Header Files\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Parser\ParserDokumentXml.h">
+      <Filter>Header Files\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Parser\ParserAtrybutXml.h">
+      <Filter>Header Files\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Parser\json\assertions.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Parser\json\autolink.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Parser\json\config.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Parser\json\features.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Parser\json\forwards.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Parser\json\json.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Parser\json\reader.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Parser\json\value.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Parser\json\version.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Parser\json\writer.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="json_internalarray.inl">
+      <Filter>Header Files\JSON</Filter>
+    </None>
+    <None Include="json_internalmap.inl">
+      <Filter>Header Files\JSON</Filter>
+    </None>
+    <None Include="json_valueiterator.inl">
+      <Filter>Header Files\JSON</Filter>
+    </None>
   </ItemGroup>
 </Project>

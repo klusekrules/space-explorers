@@ -7,6 +7,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include "Parser\json\json.h"
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 #define TEST_MY_TRAIT(traitValue) TEST_METHOD_ATTRIBUTE(L"MyTrait", traitValue)
@@ -187,6 +189,21 @@ namespace ParserTesty
 			Assert::ExpectException<SPar::WyjatekParser>([&]()->void { XmlBO::WczytajAtrybut<THROW>(dziecko3, "", id2); });
 			Assert::AreNotEqual(3, id2());
 		}
+
+		BEGIN_TEST_METHOD_ATTRIBUTE(JSON_Test)
+			TEST_OWNER(L"Parser")
+			TEST_PRIORITY(2)
+		END_TEST_METHOD_ATTRIBUTE()
+
+		TEST_METHOD(JSON_Test){
+			Json::Value value;
+			value["Node"] = "value";
+			Json::FastWriter writer;
+			auto node = writer.write(value);
+			log.loguj(SLog::Log::Debug, node);
+			Assert::AreEqual(node, std::string("{\"Node\":\"value\"}\n"));
+		}
+
 		//TODO: Dodac test dla metody XmlBO::ForEach iterujacej po atrybutach.
 		TEST_METHOD_CLEANUP(Czyszczenie){
 			Assert::IsTrue(remove(nazwaPliku_.c_str())==0, L"Nie uda³o siê usun¹æ pliku.", LINE_INFO());
