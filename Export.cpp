@@ -126,7 +126,7 @@ extern "C"{
 				}
 			}
 		}
-		return true;
+		return false;
 	}
 
 	SPACE_EXPLORERS_API bool __cdecl zaloguj(const char *kontrolkaNazwy, const char *kontrolkaHasla){

@@ -46,4 +46,7 @@
   <opcja nazwa="plikOkien" wartosc="resource\\ekrany.xml"/>
   <opcja nazwa="folderPlikowUzytkownikow" wartosc="save\\"/>
   <opcja nazwa="folderPlikowOpisuUkladow" wartosc="save\\uklad\\"/>
+  
+  <opcja nazwa="portSerwera" wartosc="15015"/>
+  <opcja nazwa="adresSerwera" wartosc="localhost"/>
 </SpaceGame>

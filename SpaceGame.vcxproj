@@ -361,6 +361,7 @@
     <ClInclude Include="OknoGry.h" />
     <ClInclude Include="ParserTest.h" />
     <ClInclude Include="PlanetaTest.h" />
+    <ClInclude Include="PolaczenieTCP.h" />
     <ClInclude Include="PomocniczeTypyTGUI.h" />
     <ClInclude Include="PowtorzenieIdObiektu.h" />
     <ClInclude Include="ProceduraRPC.h" />
@@ -515,6 +516,7 @@
     <ClCompile Include="Planeta.cpp" />
     <ClCompile Include="PlanetaTest.cpp" />
     <ClCompile Include="PodstawoweParametry.cpp" />
+    <ClCompile Include="PolaczenieTCP.cpp" />
     <ClCompile Include="PowtorzenieIdObiektu.cpp" />
     <ClCompile Include="ProceduraRPC.cpp" />
     <ClCompile Include="RoundedRectangleShape.cpp" />
