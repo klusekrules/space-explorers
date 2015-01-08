@@ -1,7 +1,52 @@
 <?xml version="1.0" encoding="windows-1250" ?>
 <SpaceGame>
-  <locale>Polish</locale>
-  <data>data.xml</data>
-  <messages>message.xml</messages>
-  <plugins>plugins\\zmiana\\</plugins>
+  <!-- Ustawienia regionalne jakie są używane w aplikacji.
+  WARN: O tych ustawień zależy sposób interpretacji liczb. Należy zwrócic uwagę czy separator dzięsiętny w plikach danych jest zgodny z separaterem używanym w wybranych utawieniach regionalnych.
+  -->
+  <opcja nazwa="locale" wartosc="Polish"/>
+
+  <!-- Względny adres do pliku z danymi ładowanymi do aplikacji. -->
+  <opcja nazwa="data" wartosc="test.xml"/>
+
+  <!-- Względny adres folderu, w którym znajduja się pliki dll z pluginami. W podfolderze tej ścieżki są wyszukiwane i wczytywane zmiany. -->
+  <opcja nazwa="plugins" wartosc="plugins\\"/>
+
+  <opcja nazwa="powiazaniaZasobow" wartosc="powiazania.xml"/>
+  <!-- Opis Konfiguracji loggera. -->
+
+  <!-- numerFormatuDaty - dopuszczalne wartosci = [0, 1, 2] -->
+  <opcja nazwa="numerFormatuDaty" wartosc="1"/>
+
+  <!-- formatDatyWNazwiePliku - format identyczny jak w funkcji strftime. Maksymalna dopuszczalna ilość znaków po przetworzeniu formatu wynosi 20.-->
+  <opcja nazwa="formatDatyWNazwiePliku" wartosc="%Y-%m-%d"/>
+
+  <!--prefixPlikuLogow - przedrostek w nazwie plik dodany przed datą wyświetloną podanym wyżej formacie.-->
+  <opcja nazwa="prefixPlikuLogow" wartosc="space-explorers-"/>
+
+  <!-- WARN: Plik tworzony jest raz na początku działania aplikacji. W przypadku zmiany daty nie jest tworzony nowy, dopuki aplikacja nie zostanie uruchomiona ponownie. -->
+  <!--
+  Atrybuty opcjonalne:
+  zablokowaneLogi - Lista numerów poziomów logów, które zostaną zablokowane. 
+  Jakie typy logów zostaną zablokowane przy wpisaniu numeru:
+  0 - wszystkie, 1 - tylko debug, 2 - tylko info, 3 - tylko warnig, 4 - tylko error. 
+  -->
+  <opcja nazwa="zablokowaneLogi" wartosc="1"/>
+  <!--
+  odblokowaneLogi - Lista numerów poziomów logów, które zostaną odblokowane. 
+  Jakie typy logów zostaną odblokowane przy wpisaniu numeru:
+  0 - wszystkie, 1 - tylko debug, 2 - tylko info, 3 - tylko warnig, 4 - tylko error. 
+  -->
+  <!-- <opcja nazwa="odblokowaneLogi" wartosc="1"/> -->
+  <!--
+  WARN: Ważniejsze są blokady. Oznacza to że jeżeli ten sam poziom zostanie wymieniony w obu listach, wtedy obowiązuje blokada danego typu logów.
+  INFO: Domyślnie wszystkie typy logów są odblokowane oprócz typu debug.
+  -->
+  <opcja nazwa="plikGry" wartosc="save\\gra.xml"/>
+  <opcja nazwa="plikStanow" wartosc="resource\\state.xml"/>
+  <opcja nazwa="plikOkien" wartosc="resource\\ekrany.xml"/>
+  <opcja nazwa="folderPlikowUzytkownikow" wartosc="save\\"/>
+  <opcja nazwa="folderPlikowOpisuUkladow" wartosc="save\\uklad\\"/>
+
+  <opcja nazwa="portSerwera" wartosc="15015"/>
+  <opcja nazwa="adresSerwera" wartosc="localhost"/>
 </SpaceGame>

@@ -12,7 +12,10 @@ namespace SpEx{
 		MetodaRPC() = default;
 		~MetodaRPC() = default;
 
-		bool odczytajWezel(const Json::Value &);
+		bool operator<<(const Json::Value &);
+
+		const MetodaRPC& operator>>(Json::Value &) const;
+
 	private:
 		std::string id_;
 		std::string nazwa_;

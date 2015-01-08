@@ -5,6 +5,8 @@
 #include <fstream>
 #include <iostream>
 #include <io.h>
+#include <WinSock2.h>
+
 #include "ZmianaPoziomObiektu.h"
 #include "DefinicjeWezlowXML.h"
 #include "Walidator.h"
@@ -28,6 +30,13 @@
 #define KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DODATKOWYCH STyp::Tekst("Nie powiod³a siê rejestracja dodatkowych obiektów zmiany.")
 #define KOMUNIKAT_BLAD_BRAK_PLIKU_DANYCH(plik) STyp::Tekst("Plik : " + plik + " z danymi programu nie zosta³ znaleziony!")
 #define KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folder) STyp::Tekst("Folder :" + folder + " nie zosta³ znaleziony!")
+#define KOMUNIKAT_BLAD_INICJALIZACJI_WINSOCK STyp::Tekst("B³¹d inicjalizcji biblioteki winsock")
+
+#define KOMUNIKAT_STATUS_WINSOCK_WERSJA(wersja) ("Wersja WinSock: " + std::to_string(HIBYTE(wersja.wHighVersion)) + "." + std::to_string(LOBYTE(wersja.wHighVersion)))
+#define KOMUNIKAT_STATUS_WINSOCK_OPIS(wersja) ("Opis: " + std::string(wersja.szDescription))
+#define KOMUNIKAT_STATUS_WINSOCK_STAN_SYSTEMU(wersja) ("Stan systemu: " + std::string(wersja.szSystemStatus))
+#define KOMUNIKAT_STATUS_WINSOCK_LICZBA_GNIAZD(wersja) ("Maksymalna liczba gniazd: " + std::to_string(wersja.iMaxSockets))
+#define KOMUNIKAT_STATUS_WINSOCK_ROZMIAR_DATAGRAMU(wersja) ("Maksymalny rozmiar datagramu UDP: " + std::to_string(wersja.iMaxUdpDg))
 
 #define ATRYBUT_FORMAT_DATY_LOGOW "formatDatyWNazwiePliku"
 #define ATRYBUT_NUMER_FORMATU_DATY "numerFormatuDaty"
@@ -190,6 +199,22 @@ namespace SpEx{
 #endif
 		//Wyswietlanie informacji o aplikacji
 		logApInfo();
+
+		WORD RequiredVersion;
+		WSADATA WData;
+
+		RequiredVersion = MAKEWORD(2, 0);
+
+		if (WSAStartup(RequiredVersion, &WData) != 0) {
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_INICJALIZACJI_WINSOCK);
+		}
+
+		logger_.loguj(SLog::Log::Info, KOMUNIKAT_STATUS_WINSOCK_WERSJA(WData));
+		logger_.loguj(SLog::Log::Info, KOMUNIKAT_STATUS_WINSOCK_OPIS(WData));
+		logger_.loguj(SLog::Log::Info, KOMUNIKAT_STATUS_WINSOCK_STAN_SYSTEMU(WData));
+		logger_.loguj(SLog::Log::Info, KOMUNIKAT_STATUS_WINSOCK_LICZBA_GNIAZD(WData));
+		logger_.loguj(SLog::Log::Info, KOMUNIKAT_STATUS_WINSOCK_ROZMIAR_DATAGRAMU(WData));
+
 #ifndef LOG_OFF_ALL
 		//Wyswietlanie informacji o zaladowanej bibliotece
 		if (uchwyt_){
@@ -301,6 +326,8 @@ namespace SpEx{
 	{
 		if (uchwyt_)
 			FreeLibrary(uchwyt_);
+
+		WSACleanup();
 	}
 
 	bool Aplikacja::zapiszGre(const std::string& nazwa, const std::string& hash){

@@ -12,7 +12,7 @@
 
 namespace SpEx{
 
-	bool MetodaRPC::odczytajWezel(const Json::Value & root){
+	bool MetodaRPC::operator<< (const Json::Value & root){
 		auto &v_Id = root[METODA_RPC_ID];
 		if (!v_Id){
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, BRAK_ELEMENTU(METODA_RPC_ID));
@@ -61,6 +61,19 @@ namespace SpEx{
 		}
 
 		return true;
+	}
+	
+	const MetodaRPC& MetodaRPC::operator>>(Json::Value &root) const{
+		root[METODA_RPC_ID] = id_;
+		root[METODA_RPC_NAZWA] = nazwa_;
+		root[METODA_RPC_ID_UNIKALNE] = id_unikalne_;
+		root[METODA_RPC_POWTORZENIE] = powtorzenie_;
+		root[METODA_RPC_CZAS_WYWOLANIA] = czas_wywolania_;
+		root[METODA_RPC_CZAS_ODPOWIEDZI] = czas_odpowiedzi_;
+		for (auto& p : parametry_){
+			root[METODA_RPC_PARAMETRY][p.first] = p.second;
+		}
+		return *this;
 	}
 
 }

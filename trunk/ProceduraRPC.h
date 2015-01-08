@@ -6,6 +6,9 @@ namespace SpEx{
 	{
 	public:
 		ProceduraRPC();
+
+		bool wykonaj();
+
 		~ProceduraRPC();
 	private:
 		std::string autoryzacja_;

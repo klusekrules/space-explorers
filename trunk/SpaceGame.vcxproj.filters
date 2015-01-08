@@ -325,6 +325,9 @@
     <ClCompile Include="MetodaRPC.cpp">
       <Filter>SourceFile\Network</Filter>
     </ClCompile>
+    <ClCompile Include="PolaczenieTCP.cpp">
+      <Filter>SourceFile\Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -697,6 +700,9 @@
       <Filter>SourceFile\Network</Filter>
     </ClInclude>
     <ClInclude Include="MetodaRPC.h">
+      <Filter>SourceFile\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="PolaczenieTCP.h">
       <Filter>SourceFile\Network</Filter>
     </ClInclude>
   </ItemGroup>

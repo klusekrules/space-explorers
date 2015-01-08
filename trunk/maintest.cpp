@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "MaszynaStanow.h"
 #include "lua.hpp"
+#include "Serwer.h"
+#include "Klient.h"
 
 #ifdef TESTS
 #define _CRTDBG_MAP_ALLOC
@@ -22,9 +24,17 @@ void main( int argv , char* argc[] ){
 		SpEx::Aplikacja::iloscArgumentow = argv;
 		SpEx::Aplikacja::argumenty = argc;
 		SpEx::Aplikacja::pobierzInstancje();
-
+		SpEx::Serwer serwer(SpEx::Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji());
+		SpEx::Klient klient(SpEx::Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji());
+		serwer.odblokuj();
+		klient.odblokuj();
 		SpEx::MaszynaStanow::pobierzInstancje().inicjalizuj();
 		SpEx::MaszynaStanow::pobierzInstancje().start();
+		klient.zakoncz();
+		klient.czekajNaZakonczenie();
+		serwer.zakoncz();
+		serwer.czekajNaZakonczenie();
+		
 		std::fstream plik("zrzut.txt", std::ios_base::app);
 		plik << SpEx::Aplikacja::pobierzInstancje().pobierzDebugInfo();
 	}
