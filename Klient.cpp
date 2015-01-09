@@ -38,110 +38,104 @@ namespace SpEx{
 			return;
 		}
 
-		long rozmiar = 0;
-		int rezultat = 0;
 		std::string dane("Jan Kowalski");
-		rozmiar = dane.size();
-
-		rezultat = send(gniazdo_, (char*)&rozmiar, sizeof(long), 0);
-
-		if (!(rezultat > 0)){
-			if (rezultat == 0){
+		int blad;
+		if (!wyslij(dane, blad)){
+			if (blad == 0){
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
-				return;
+			}else{
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji send: " + std::to_string(blad));
 			}
-			else{
-				auto error = WSAGetLastError();
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji send: " + std::to_string(error));
-				return;
-			}
-		}
-
-		long tempRozmiar = rozmiar;
-		do{
-			rezultat = send(gniazdo_, &(dane.c_str()[rozmiar - tempRozmiar]), rozmiar, 0);
-
-			if (!(rezultat > 0)){
-				if (rezultat == 0){
-					SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
-					return;
-				}
-				else{
-					auto error = WSAGetLastError();
-					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji send: " + std::to_string(error));
-					return;
-				}
-			}
-			tempRozmiar -= rezultat;
-		} while (tempRozmiar != 0);
+		}		
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Wys³ano: " + dane);
-
-		shutdown(gniazdo_, SD_SEND);
-		closesocket(gniazdo_);
-		gniazdo_ = INVALID_SOCKET;
 	}
 
 	void Klient::odbieraj(){
 		while (!czyZakonczyc()){
-			long rozmiar = 0;
-			int rezultat = 0;
+			std::string dane;
+			int blad;
 
-			rezultat = recv(gniazdo_, (char*) &rozmiar, sizeof(long), 0);
-
-			if (!(rezultat > 0)){
-				if (rezultat == 0){
+			if (!odbierz(dane, blad)){
+				if (blad == 0){
 					SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
 					break;
-				}
-				else{
-					auto error = WSAGetLastError();
-					if (WSAEWOULDBLOCK != error){
-						SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji recv: " + std::to_string(error));
+				}else{
+					if (WSAEWOULDBLOCK != blad){
+						SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji recv: " + std::to_string(blad));
 						break;
-					}
-					else{
+					}else{
 						Sleep(100);
 						continue;
 					}
 				}
 			}
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Odebrano: " + dane);
+		}
+	}
 
-			long tempRozmiar = 0;
-			std::vector <char> bufor_;
-			bufor_.reserve(rozmiar + 1);
-			bufor_.resize(rozmiar + 1,0);
-			do{
-				rezultat = recv(gniazdo_, &bufor_.data()[tempRozmiar], rozmiar - tempRozmiar, 0);
 
-				if (!(rezultat > 0)){
-					if (rezultat == 0){
-						SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
-						break;
-					}
-					else{
-						auto error = WSAGetLastError();
-						if (WSAEWOULDBLOCK != error){
-							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji recv: " + std::to_string(error));
-							break;
-						}
-						else{
-							Sleep(100);
-							continue;
-						}
-					}
-				}
-				tempRozmiar += rezultat;
-			} while (tempRozmiar!=rozmiar);
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Odebrano: " + std::string(bufor_.data()));
+	bool Klient::wyslij(const std::string& dane, int& error){
+		u_long rozmiar = dane.size();
+		int rezultat = 0;
 
+		rozmiar = htonl(rozmiar);
+		rezultat = send(gniazdo_, (char*)&rozmiar, sizeof(u_long), 0);
+		rozmiar = ntohl(rozmiar);
+
+		if (rezultat <= 0){
+			error = (rezultat == 0 ? 0 : WSAGetLastError());
+			return false;
+		}
+		long tempRozmiar = rozmiar;
+		do{
+			rezultat = send(gniazdo_, &(dane.c_str()[rozmiar - tempRozmiar]), rozmiar, 0);
+			if (rezultat <= 0){
+				error = (rezultat == 0 ? 0 : WSAGetLastError());
+				return false;
+			}
+			tempRozmiar -= rezultat;
+		} while (tempRozmiar != 0);
+		error = 0;
+		return true;
+	}
+
+	bool Klient::odbierz(std::string& dane, int& error){
+		long rozmiar = 0;
+		int rezultat = 0;
+
+		rezultat = recv(gniazdo_, (char*)&rozmiar, sizeof(long), 0);
+		rozmiar = ntohl(rozmiar);
+		if (rezultat <= 0){
+			error = (rezultat == 0 ? 0 : WSAGetLastError());
+			return false;
+		}
+		long tempRozmiar = 0;
+		std::vector <char> bufor;
+		bufor.reserve(rozmiar + 1);
+		bufor.resize(rozmiar + 1, 0);
+		do{
+			rezultat = recv(gniazdo_, &bufor.data()[tempRozmiar], rozmiar - tempRozmiar, 0);
+			if (rezultat <= 0){
+				error = (rezultat == 0 ? 0 : WSAGetLastError());
+				return false;
+			}
+			tempRozmiar += rezultat;
+		} while (tempRozmiar != rozmiar);
+		dane = bufor.data();
+		error = 0;
+		return rozmiar;
+	}
+
+	void Klient::zamknijPolaczenie(){
+		if (gniazdo_ != INVALID_SOCKET){
+			shutdown(gniazdo_, SD_SEND);
+			closesocket(gniazdo_);
+			gniazdo_ = INVALID_SOCKET;
 		}
 	}
 
 	Klient::~Klient()
 	{
-		if (gniazdo_ != INVALID_SOCKET){
-			shutdown(gniazdo_, SD_SEND);
-			closesocket(gniazdo_);
-		}
+		zamknijPolaczenie();
 	}
 }
