@@ -15,6 +15,7 @@ namespace SpEx{
 
 		// Konstruktor po stronie serwera.
 		Klient(SOCKET gniazdo, struct sockaddr_in &addr);
+		void zamknijPolaczenie();
 		virtual ~Klient();
 	private:
 		SOCKET gniazdo_ = INVALID_SOCKET;
@@ -23,8 +24,9 @@ namespace SpEx{
 
 		void odbieraj();
 		void wysylaj();
-
 		void wykonuj() override;
 
+		bool wyslij(const std::string&, int&);
+		bool odbierz(std::string&, int&);
 	};
 }

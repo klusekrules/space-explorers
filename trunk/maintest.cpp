@@ -30,13 +30,16 @@ void main( int argv , char* argc[] ){
 		klient.odblokuj();
 		SpEx::MaszynaStanow::pobierzInstancje().inicjalizuj();
 		SpEx::MaszynaStanow::pobierzInstancje().start();
+		klient.zamknijPolaczenie();
 		klient.zakoncz();
 		klient.czekajNaZakonczenie();
 		serwer.zakoncz();
 		serwer.czekajNaZakonczenie();
-		
+
+		/*
 		std::fstream plik("zrzut.txt", std::ios_base::app);
 		plik << SpEx::Aplikacja::pobierzInstancje().pobierzDebugInfo();
+		*/
 	}
 	catch (STyp::Wyjatek& wyjatek){
 		MessageBox(
