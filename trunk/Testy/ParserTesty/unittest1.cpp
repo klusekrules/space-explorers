@@ -222,6 +222,52 @@ namespace ParserTesty
 			Assert::IsTrue(!value["node"]);
 		}
 
+		BEGIN_TEST_METHOD_ATTRIBUTE(JSON_Test_iterator)
+			TEST_OWNER(L"Parser")
+			TEST_PRIORITY(2)
+		END_TEST_METHOD_ATTRIBUTE()
+
+		TEST_METHOD(JSON_Test_iterator){
+			Json::Value value;
+			value["Node"] = "value";
+			value["Array"] = Json::Value(Json::arrayValue);
+			value["Array"][0] = "first";
+			value["Array"][1] = "second";
+			Json::FastWriter writer;
+			auto node = writer.write(value);
+			log.loguj(SLog::Log::Debug, node);
+			myPrint(value);
+		}
+
+		void myPrint(const Json::Value& value){
+			for (auto iter = value.begin(); iter != value.end(); ++iter){
+				if (iter->isArray() || iter->isObject()){
+					std::stringstream ss;
+					ss << "Member: " << iter.memberName() << " Key: " << iter.key() << " Index: " << iter.index();
+					log.loguj(SLog::Log::Debug, ss.str());
+					myPrint(*iter);
+				}else{
+					std::stringstream ss;
+					ss << "Member: " << iter.memberName() << " Key: " << iter.key() << " Index: " << iter.index() << " Value: " << *iter;
+					log.loguj(SLog::Log::Debug, ss.str());
+				}
+			}
+		}
+
+		BEGIN_TEST_METHOD_ATTRIBUTE(JSON_Test_DoubleNode)
+			TEST_OWNER(L"Parser")
+			TEST_PRIORITY(2)
+		END_TEST_METHOD_ATTRIBUTE()
+
+		TEST_METHOD(JSON_Test_DoubleNode){
+			Json::Value value;
+			Json::Reader reader;
+			Assert::IsTrue(reader.parse("{\"node\":\"value\",\"node\":{\"obj\":\"objval\"}}", value));
+			Json::FastWriter writer;
+			auto node = writer.write(value);
+			log.loguj(SLog::Log::Debug, node);
+			myPrint(value);
+		}
 		//TODO: Dodac test dla metody XmlBO::ForEach iterujacej po atrybutach.
 		TEST_METHOD_CLEANUP(Czyszczenie){
 			Assert::IsTrue(remove(nazwaPliku_.c_str())==0, L"Nie uda³o siê usun¹æ pliku.", LINE_INFO());

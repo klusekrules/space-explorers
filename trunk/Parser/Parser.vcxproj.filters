@@ -54,6 +54,15 @@
     <ClCompile Include="WyjatekParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ParserAtrybutJSON.cpp">
+      <Filter>Source Files\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="ParserElementJSON.cpp">
+      <Filter>Source Files\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="ParserDokumentJSON.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Parser\ParserSymbol.h">
@@ -118,6 +127,15 @@
     </ClInclude>
     <ClInclude Include="Headers\Parser\json\writer.h">
       <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="ParserAtrybutJSON.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="ParserElementJSON.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="ParserDokumentJSON.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

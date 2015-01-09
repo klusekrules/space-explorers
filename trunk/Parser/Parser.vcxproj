@@ -215,8 +215,11 @@
     <ClCompile Include="json_reader.cpp" />
     <ClCompile Include="json_value.cpp" />
     <ClCompile Include="json_writer.cpp" />
+    <ClCompile Include="ParserAtrybutJSON.cpp" />
     <ClCompile Include="ParserAtrybutXml.cpp" />
+    <ClCompile Include="ParserDokumentJSON.cpp" />
     <ClCompile Include="ParserDokumentXml.cpp" />
+    <ClCompile Include="ParserElementJSON.cpp" />
     <ClCompile Include="ParserElementXml.cpp" />
     <ClCompile Include="ParserUtils.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
@@ -244,6 +247,9 @@
     <ClInclude Include="Headers\Parser\XmlBO.h" />
     <ClInclude Include="json_batchallocator.h" />
     <ClInclude Include="json_tool.h" />
+    <ClInclude Include="ParserAtrybutJSON.h" />
+    <ClInclude Include="ParserDokumentJSON.h" />
+    <ClInclude Include="ParserElementJSON.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logger\Logger.vcxproj">
