@@ -6,6 +6,7 @@ namespace SpEx{
 	}
 	
 	bool ProceduraRPC::wykonaj(){
+		/*
 		//Wyúlij przez otwarte po≥πczenie polecenie i czekaj na odpowiedü.
 		
 		// Polecenie do wys≥ania
@@ -28,6 +29,7 @@ namespace SpEx{
 
 		reader.parse(daneOdebrane, odpowiedz);
 		odpowiedz_ << odpowiedz["metoda"];
+		*/
 		return true;
 	}
 

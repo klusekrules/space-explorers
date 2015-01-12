@@ -48,8 +48,9 @@ namespace SpEx{
 			if (gniazdoKlienta != INVALID_SOCKET){
 				polaczenia_.emplace_back(gniazdoKlienta, addr);
 				polaczenia_.back().odblokuj();
-			}else{
-				Sleep(100);
+			}
+			else{
+				std::this_thread::sleep_for(std::chrono::milliseconds(100));
 			}
 		}
 

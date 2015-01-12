@@ -1,19 +1,22 @@
 #include "PolaczenieTCP.h"
 #include "Logger\Logger.h"
+#include <future>
+
 namespace SpEx{
 
-	PolaczenieTCP::PolaczenieTCP()
+	PolaczenieTCP::PolaczenieTCP( Klient& klient)
+		:klient_(klient)
 	{
 	}
 
-	bool PolaczenieTCP::wyslij(const std::string &, std::string&) const{
-		return false;
+	bool PolaczenieTCP::wyslij(std::shared_ptr<const std::string> zadanie, std::shared_ptr<std::string> rezultat) const{
+		if (zadanie == nullptr || rezultat == nullptr)
+			return false;
+		auto czyZakonczono = klient_.dodajZadanie(zadanie, rezultat);
+		czyZakonczono.wait();
+		return czyZakonczono.get();
 	}
-
-	PolaczenieTCP::~PolaczenieTCP()
-	{
-	}
-
+	
 	std::string PolaczenieTCP::napis() const{
 		SLog::Logger log(NAZWAKLASY(PolaczenieTCP));
 		return log.napis();
