@@ -40,16 +40,20 @@ namespace SPar{
 	bool ParserDokumentJSON::zapisz(const char* nazwa){
 		if (nazwa){
 			nazwa_ = nazwa;
-			std::ifstream plik(nazwa_);
-			Json::Reader reader;
-			return reader.parse(plik, root_);
+			std::ofstream plik(nazwa_);
+			Json::StyledStreamWriter writer;
+			writer.write(plik, root_);
+			plik.flush();
+			return plik.good();
 		}
 		else{
 			if (nazwa_.empty())
 				return false;
-			std::ifstream plik(nazwa_);
-			Json::Reader reader;
-			return reader.parse(plik, root_);
+			std::ofstream plik(nazwa_);
+			Json::StyledStreamWriter writer;
+			writer.write(plik, root_);
+			plik.flush();
+			return plik.good();
 		}
 	}
 
