@@ -14,6 +14,10 @@
 
 namespace SpEx{
 
+	MetodaRPC::MetodaRPC(const PolaczenieTCP& polaczenie)
+		: polaczenie_(polaczenie)
+	{}
+
 	bool MetodaRPC::operator<< (const Json::Value & root){
 		auto &v_Id = root[METODA_RPC_ID];
 		if (!v_Id){
@@ -75,19 +79,19 @@ namespace SpEx{
 				Json::Value procedura;
 				(*this) >> procedura;
 				Json::FastWriter writer;
-				auto zadanie = writer.write(procedura);
-				std::string wiadomoscZwrotna;
+				auto zadanie = std::make_shared<const std::string>(writer.write(procedura));
+				auto wiadomoscZwrotna = std::make_shared<std::string>();
 				if (polaczenie_.wyslij(zadanie, wiadomoscZwrotna)){
 					Json::Reader reader;
 					Json::Value result;
-					if (reader.parse(wiadomoscZwrotna, result)){
+					if (reader.parse(*wiadomoscZwrotna, result)){
 						return obslugaOdpowiedzi(result);
 					}else{
-						SLog::Log::pobierzInstancje().loguj(SLog::Log::Error,"Nieuda³o siê zintepretowaæ wiadomoœci zwrotnej: " + wiadomoscZwrotna);
+						SLog::Log::pobierzInstancje().loguj(SLog::Log::Error,"Nieuda³o siê zintepretowaæ wiadomoœci zwrotnej: " + *wiadomoscZwrotna);
 						SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
 					}
 				}else{
-					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Wyst¹pi³ b³¹d przy próbie wys³ania ¿adania: " + zadanie);
+					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Wyst¹pi³ b³¹d przy próbie wys³ania ¿adania: " + *zadanie);
 					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
 				}
 			}else{

@@ -2,6 +2,8 @@
 #include "MetodaRPC.h"
 
 namespace SpEx{
+
+	//Prawdopodobnie do usuniêcia.
 	class ProceduraRPC
 	{
 	public:
@@ -14,8 +16,8 @@ namespace SpEx{
 		std::string autoryzacja_;
 		std::string instancja_;
 		
-		MetodaRPC komunikat_;
-		MetodaRPC odpowiedz_;
+		//MetodaRPC komunikat_;
+		//MetodaRPC odpowiedz_;
 
 	};
 }

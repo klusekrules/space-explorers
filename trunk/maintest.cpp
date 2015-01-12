@@ -24,17 +24,17 @@ void main( int argv , char* argc[] ){
 		SpEx::Aplikacja::iloscArgumentow = argv;
 		SpEx::Aplikacja::argumenty = argc;
 		SpEx::Aplikacja::pobierzInstancje();
-		SpEx::Serwer serwer(SpEx::Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji());
+		/*SpEx::Serwer serwer(SpEx::Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji());
 		SpEx::Klient klient(SpEx::Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji());
 		serwer.odblokuj();
-		klient.odblokuj();
+		klient.odblokuj();*/
 		SpEx::MaszynaStanow::pobierzInstancje().inicjalizuj();
 		SpEx::MaszynaStanow::pobierzInstancje().start();
-		klient.zamknijPolaczenie();
+		/*klient.zamknijPolaczenie();
 		klient.zakoncz();
 		klient.czekajNaZakonczenie();
 		serwer.zakoncz();
-		serwer.czekajNaZakonczenie();
+		serwer.czekajNaZakonczenie();*/
 
 		/*
 		std::fstream plik("zrzut.txt", std::ios_base::app);

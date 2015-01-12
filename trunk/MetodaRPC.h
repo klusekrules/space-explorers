@@ -11,7 +11,7 @@ namespace SpEx{
 	public:
 		typedef std::pair<std::string, std::string> Parametr;
 
-		MetodaRPC() = default;
+		MetodaRPC( const PolaczenieTCP& );
 		~MetodaRPC() = default;
 
 		virtual void operator()(const Json::Value &, Json::Value&);
