@@ -352,6 +352,7 @@
     <ClInclude Include="MaszynaStanow.h" />
     <ClInclude Include="MenadzerWatkow.h" />
     <ClInclude Include="MetodaRPC.h" />
+    <ClInclude Include="NiezaimplementowanaMetoda.h" />
     <ClInclude Include="NieznalezionoPliku.h" />
     <ClInclude Include="NonCopyable.h" />
     <ClInclude Include="NonMoveable.h" />
@@ -500,6 +501,7 @@
     <ClCompile Include="NiepoprawneParametryFunkcji.cpp" />
     <ClCompile Include="NiepoprawneParametryFunkcjiTest.cpp" />
     <ClCompile Include="NiepowodzenieTranzakcji.cpp" />
+    <ClCompile Include="NiezaimplementowanaMetoda.cpp" />
     <ClCompile Include="NiezgodnyTypSurowca.cpp" />
     <ClCompile Include="NieznalezionoObiektu.cpp" />
     <ClCompile Include="NieznalezionoPliku.cpp" />

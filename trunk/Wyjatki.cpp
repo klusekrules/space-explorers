@@ -7,8 +7,13 @@
 #include "PowtorzenieIdObiektu.h"
 #include "NieznalezionoPliku.h"
 #include "BladStukturyStanu.h"
+#include "NiezaimplementowanaMetoda.h"
 
 namespace SpEx{
+	const STyp::Identyfikator NiezaimplementowanaMetoda::idNiezaimplementowanaMetoda(0x6);
+	const STyp::Tekst NiezaimplementowanaMetoda::tytulNiezaimplementowanaMetoda("Metoda jest niezaimplementowana!");
+	const STyp::Tekst NiezaimplementowanaMetoda::trescNiezaimplementowanaMetoda("Wywo³ano niezaimplementowan¹ metodê: ");
+
 	const STyp::Identyfikator BladStukturyStanu::idBladStukturyStanu(0x5);
 	const STyp::Identyfikator NieznalezionoPliku::idNieznalezionoPliku(0x4);
 	const STyp::Identyfikator PowtorzenieIdObiektu::idPowtorzeniaIdObiektu(0x3);
