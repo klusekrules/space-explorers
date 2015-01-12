@@ -61,7 +61,7 @@
       <Filter>Source Files\JSON</Filter>
     </ClCompile>
     <ClCompile Include="ParserDokumentJSON.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\JSON</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,14 +128,14 @@
     <ClInclude Include="Headers\Parser\json\writer.h">
       <Filter>Header Files\JSON</Filter>
     </ClInclude>
-    <ClInclude Include="ParserAtrybutJSON.h">
+    <ClInclude Include="Headers\Parser\ParserDokumentJSON.h">
       <Filter>Header Files\JSON</Filter>
     </ClInclude>
-    <ClInclude Include="ParserElementJSON.h">
+    <ClInclude Include="Headers\Parser\ParserElementJSON.h">
       <Filter>Header Files\JSON</Filter>
     </ClInclude>
-    <ClInclude Include="ParserDokumentJSON.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Headers\Parser\ParserAtrybutJSON.h">
+      <Filter>Header Files\JSON</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

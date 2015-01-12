@@ -1,9 +1,9 @@
 #pragma once
 #include "ParserInterfejs.h"
-#include <json\json.h>
+#include "json\json.h"
 
 namespace SPar{
-	class ParserDokumentJSON :
+	class PARSER_API ParserDokumentJSON :
 		public ParserDokument
 	{
 	public:
