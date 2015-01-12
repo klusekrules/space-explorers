@@ -328,6 +328,9 @@
     <ClCompile Include="PolaczenieTCP.cpp">
       <Filter>SourceFile\Network</Filter>
     </ClCompile>
+    <ClCompile Include="NiezaimplementowanaMetoda.cpp">
+      <Filter>SourceFile\Wyjatki</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -704,6 +707,9 @@
     </ClInclude>
     <ClInclude Include="PolaczenieTCP.h">
       <Filter>SourceFile\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="NiezaimplementowanaMetoda.h">
+      <Filter>SourceFile\Wyjatki</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

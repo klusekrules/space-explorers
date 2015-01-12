@@ -1,5 +1,7 @@
 #include "MetodaRPC.h"
 #include "Logger\Log.h"
+#include "Logger\Logger.h"
+#include "NiezaimplementowanaMetoda.h"
 
 #define BRAK_ELEMENTU(n) "MetodaRPC::odczytajWezel -> " + std::string(n)
 #define METODA_RPC_ID "id"
@@ -62,6 +64,52 @@ namespace SpEx{
 
 		return true;
 	}
+
+	void MetodaRPC::operator()(const Json::Value &, Json::Value&){
+		throw NiezaimplementowanaMetoda(EXCEPTION_PLACE);
+	}
+
+	bool MetodaRPC::operator()(){
+		try{
+			if (inicjalizacjaParametrow()){
+				Json::Value procedura;
+				(*this) >> procedura;
+				Json::FastWriter writer;
+				auto zadanie = writer.write(procedura);
+				std::string wiadomoscZwrotna;
+				if (polaczenie_.wyslij(zadanie, wiadomoscZwrotna)){
+					Json::Reader reader;
+					Json::Value result;
+					if (reader.parse(wiadomoscZwrotna, result)){
+						return obslugaOdpowiedzi(result);
+					}else{
+						SLog::Log::pobierzInstancje().loguj(SLog::Log::Error,"Nieuda³o siê zintepretowaæ wiadomoœci zwrotnej: " + wiadomoscZwrotna);
+						SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
+					}
+				}else{
+					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Wyst¹pi³ b³¹d przy próbie wys³ania ¿adania: " + zadanie);
+					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
+				}
+			}else{
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Wyst¹pi³ b³¹d podczas inicjalizacji parametrów.");
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
+			}
+		}
+		catch (NiezaimplementowanaMetoda& e){
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Wyst¹pi³ wyj¹tek podczas wykonywania metody RPC.");
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.generujKomunikat());
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
+		}
+		return false;
+	}
+
+	bool MetodaRPC::inicjalizacjaParametrow(){
+		throw NiezaimplementowanaMetoda(EXCEPTION_PLACE);
+	}
+
+	bool MetodaRPC::obslugaOdpowiedzi(const Json::Value &){
+		throw NiezaimplementowanaMetoda(EXCEPTION_PLACE);
+	}
 	
 	const MetodaRPC& MetodaRPC::operator>>(Json::Value &root) const{
 		root[METODA_RPC_ID] = id_;
@@ -76,4 +124,25 @@ namespace SpEx{
 		return *this;
 	}
 
+	std::string MetodaRPC::napis() const{
+		SLog::Logger log(NAZWAKLASY(MetodaRPC));
+		log.dodajPole(NAZWAPOLA(id_), "std::string", id_);
+		log.dodajPole(NAZWAPOLA(nazwa_), "std::string", nazwa_);
+		log.dodajPole(NAZWAPOLA(id_unikalne_), "std::string", id_unikalne_);
+		log.dodajPole(NAZWAPOLA(czas_wywolania_), "std::string", czas_wywolania_);
+		log.dodajPole(NAZWAPOLA(czas_odpowiedzi_), "std::string", czas_odpowiedzi_);
+		log.dodajPole(NAZWAPOLA(powtorzenie_), NAZWAKLASY2(powtorzenie_), std::to_string(powtorzenie_));
+
+		log.rozpocznijPodKlase(NAZWAPOLA(parametry_), "std::vector <Parametr>");
+		for (auto e : parametry_){
+			log.rozpocznijPodKlase("para", "Parametr");
+			log.dodajPole("first", "std::string", e.first);
+			log.dodajPole("second", "std::string", e.second);
+			log.zakonczPodKlase();
+		}
+		log.zakonczPodKlase();
+
+		log.dodajPole(NAZWAPOLA(polaczenie_), polaczenie_);
+		return log.napis();
+	}
 }
