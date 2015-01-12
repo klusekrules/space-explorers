@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include "Parser\XmlBO.h"
 #include "Parser\ParserDokumentXml.h"
+#include "Parser\ParserDokumentJSON.h"
 #include "Logger\Log.h"
 #include <time.h>
 #include <iostream>
@@ -18,9 +19,11 @@ namespace ParserTesty
 	TEST_CLASS(ParserTest)
 	{
 	public:
-		std::string nazwaPliku_ = "plik.xml";
+		std::string nazwaPlikuXml_ = "plik.xml";
+		std::string nazwaPlikuJson_ = "plik.json";
 		static SLog::Log& log;
-		SPar::ParserDokumentXml dokument_;
+		SPar::ParserDokumentXml dokumentXml_;
+		SPar::ParserDokumentJSON dokumentJson_;
 
 		TEST_CLASS_INITIALIZE(logger){
 			struct tm timeinfo;
@@ -79,34 +82,36 @@ namespace ParserTesty
 		}
 
 		TEST_METHOD_INITIALIZE(Inicjalizacja){
-			FILE *fp;
-			Assert::IsTrue(fopen_s(&fp, nazwaPliku_.c_str(), "w+")==0, L"Nie uda³o siê otworzyæ pliku do zapisu.", LINE_INFO());
-			fprintf(fp, "<root> <Element atrybut=\"Napis\"> <Dziecko id=\"1\"/> <Dziecko id=\"2\"/> <Dziecko id=\"3\"/> </Element> </root>");
-			fclose(fp);
-		}
-
-		BEGIN_TEST_METHOD_ATTRIBUTE(WczytywaniePliku)
-			TEST_OWNER(L"Parser")
-			TEST_PRIORITY(1)
-			TEST_MY_TRAIT(L"thisTraitValue")
-		END_TEST_METHOD_ATTRIBUTE()
-
-		TEST_METHOD(WczytywaniePliku){
-			bool ret = dokument_.odczytaj(nazwaPliku_.c_str());
+			FILE *fpXml;
+			Assert::IsTrue(fopen_s(&fpXml, nazwaPlikuXml_.c_str(), "w+") == 0, L"Nie uda³o siê otworzyæ pliku do zapisu.", LINE_INFO());
+			fprintf(fpXml, "<root> <Element atrybut=\"Napis\"> <Dziecko id=\"1\"/> <Dziecko id=\"2\"/> <Dziecko id=\"3\"/> </Element> </root>");
+			fclose(fpXml);
+			bool ret = dokumentXml_.odczytaj(nazwaPlikuXml_.c_str());
 			if (!ret){
-				log.loguj(SLog::Log::Error, dokument_.error());
+				log.loguj(SLog::Log::Error, dokumentXml_.error());
+			}
+			Assert::IsTrue(ret, L"Nie uda³o siê wczytaæ pliku.", LINE_INFO());
+
+			FILE *fpJson;
+			Assert::IsTrue(fopen_s(&fpJson, nazwaPlikuJson_.c_str(), "w+") == 0, L"Nie uda³o siê otworzyæ pliku do zapisu.", LINE_INFO());
+			fprintf(fpJson, "{\"test\":\"wartosc\"}");
+			fclose(fpJson);
+
+			ret = dokumentJson_.odczytaj(nazwaPlikuJson_.c_str());
+			if (!ret){
+				log.loguj(SLog::Log::Error, dokumentJson_.error());
 			}
 			Assert::IsTrue(ret, L"Nie uda³o siê wczytaæ pliku.", LINE_INFO());
 		}
 
-		BEGIN_TEST_METHOD_ATTRIBUTE(SprawdzanieZawartosciPliku)
+		BEGIN_TEST_METHOD_ATTRIBUTE(Parser_XML_Sprawdzanie_Zawartosci)
 			TEST_OWNER(L"Parser")
 			TEST_PRIORITY(2)
 		END_TEST_METHOD_ATTRIBUTE()
 
-		TEST_METHOD(SprawdzanieZawartosciPliku){
-			Assert::IsTrue(dokument_.odczytaj(nazwaPliku_.c_str()), L"Nie uda³o siê wczytaæ pliku.", LINE_INFO());
-			auto root = dokument_.pobierzElement(nullptr);
+		TEST_METHOD(Parser_XML_Sprawdzanie_Zawartosci){
+			Assert::IsTrue(dokumentXml_.odczytaj(nazwaPlikuXml_.c_str()), L"Nie uda³o siê wczytaæ pliku.", LINE_INFO());
+			auto root = dokumentXml_.pobierzElement(nullptr);
 			Assert::IsNotNull(root.get(), L"Nie uda³o siê wczytaæ elementu root.", LINE_INFO());
 			Assert::IsTrue(root->operator bool(), L"Nie uda³o siê wczytaæ elementu root.", LINE_INFO());
 
@@ -131,12 +136,12 @@ namespace ParserTesty
 			})), L"Nie uda³o siê iterowaæ po elementach Dziecko.", LINE_INFO());
 		}
 
-		BEGIN_TEST_METHOD_ATTRIBUTE(ZapisDoPliku)
+		BEGIN_TEST_METHOD_ATTRIBUTE(Parser_XML_Zapis_do_pliku)
 			TEST_OWNER(L"Parser")
 			TEST_PRIORITY(2)
 		END_TEST_METHOD_ATTRIBUTE()
 
-		TEST_METHOD(ZapisDoPliku){
+		TEST_METHOD(Parser_XML_Zapis_do_pliku){
 			SPar::ParserDokumentXml dokument;
 			auto root = dokument.tworzElement("root");
 			Assert::IsNotNull(root.get(), L"Nie uda³o siê wczytaæ elementu root.", LINE_INFO());
@@ -150,18 +155,18 @@ namespace ParserTesty
 			Assert::IsNotNull(atrybut.get(), L"Nie uda³o siê wczytaæ atrybutu elementu.", LINE_INFO());
 			Assert::IsTrue(atrybut->operator bool(), L"Nie uda³o siê wczytaæ atrybutu elementu.", LINE_INFO());
 			Assert::AreEqual("Napis", atrybut->pobierzWartosc(), L"Nie uda³o siê wczytaæ atrybutu elementu.", LINE_INFO());
-			Assert::IsTrue(dokument.zapisz(nazwaPliku_.c_str()), L"Nie uda³o siê zapisaæ pliku.", LINE_INFO());
+			Assert::IsTrue(dokument.zapisz(nazwaPlikuXml_.c_str()), L"Nie uda³o siê zapisaæ pliku.", LINE_INFO());
 			log.loguj(SLog::Log::Debug, root->error());
 		}
 
-		BEGIN_TEST_METHOD_ATTRIBUTE(XmlBOTest)
+		BEGIN_TEST_METHOD_ATTRIBUTE(Parser_XML_XmlBO)
 			TEST_OWNER(L"Parser")
 			TEST_PRIORITY(2)
 		END_TEST_METHOD_ATTRIBUTE()
 
-		TEST_METHOD(XmlBOTest){
-			Assert::IsTrue(dokument_.odczytaj(nazwaPliku_.c_str()), L"Nie uda³o siê wczytaæ pliku.", LINE_INFO());
-			auto root = dokument_.pobierzElement(nullptr);
+		TEST_METHOD(Parser_XML_XmlBO){
+			Assert::IsTrue(dokumentXml_.odczytaj(nazwaPlikuXml_.c_str()), L"Nie uda³o siê wczytaæ pliku.", LINE_INFO());
+			auto root = dokumentXml_.pobierzElement(nullptr);
 			Assert::IsNotNull(XmlBO::ZnajdzWezel<NOTHROW>(root, "Element").get());
 			Assert::IsNotNull(XmlBO::ZnajdzWezelJezeli<NOTHROW>(root, "Element", "atrybut", "Napis").get());
 			Assert::IsNull(XmlBO::ZnajdzWezel<NOTHROW>(root, "Dziecko").get());
@@ -270,7 +275,19 @@ namespace ParserTesty
 		}
 		//TODO: Dodac test dla metody XmlBO::ForEach iterujacej po atrybutach.
 		TEST_METHOD_CLEANUP(Czyszczenie){
-			Assert::IsTrue(remove(nazwaPliku_.c_str())==0, L"Nie uda³o siê usun¹æ pliku.", LINE_INFO());
+			Assert::IsTrue(remove(nazwaPlikuXml_.c_str()) == 0, L"Nie uda³o siê usun¹æ pliku.", LINE_INFO());
+			Assert::IsTrue(remove(nazwaPlikuJson_.c_str()) == 0, L"Nie uda³o siê usun¹æ pliku.", LINE_INFO());
+		}
+
+		BEGIN_TEST_METHOD_ATTRIBUTE(Parser_JSON_Sprawdzanie_Zawartosci)
+			TEST_OWNER(L"Parser")
+			TEST_PRIORITY(2)
+		END_TEST_METHOD_ATTRIBUTE()
+
+		TEST_METHOD(Parser_JSON_Sprawdzanie_Zawartosci){
+			auto element = dokumentJson_.pobierzElement("test");
+			Assert::IsNotNull(element.get());
+			Assert::AreEqual(std::string(element->pobierzTekst()),std::string("wartosc"));
 		}
 	};
 

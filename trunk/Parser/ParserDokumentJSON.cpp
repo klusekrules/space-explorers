@@ -1,5 +1,6 @@
 #include "ParserDokumentJSON.h"
 #include "ParserElementJSON.h"
+#include <fstream>
 
 namespace SPar{
 	std::shared_ptr<ParserElement> ParserDokumentJSON::pobierzElement(const char* nazwa){
@@ -31,18 +32,24 @@ namespace SPar{
 		if (!nazwa)
 			return false;
 		nazwa_ = nazwa;
-		return; // TODO:: Wczytywanie pliku
+		std::ifstream plik(nazwa_);
+		Json::Reader reader;
+		return reader.parse(plik, root_);
 	}
 
 	bool ParserDokumentJSON::zapisz(const char* nazwa){
 		if (nazwa){
 			nazwa_ = nazwa;
-			return;// TODO:: Zapisywanie pliku
+			std::ifstream plik(nazwa_);
+			Json::Reader reader;
+			return reader.parse(plik, root_);
 		}
 		else{
 			if (nazwa_.empty())
 				return false;
-			return; // TODO:: Zapisywanie pliku
+			std::ifstream plik(nazwa_);
+			Json::Reader reader;
+			return reader.parse(plik, root_);
 		}
 	}
 
