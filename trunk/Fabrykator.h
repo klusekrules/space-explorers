@@ -1,6 +1,7 @@
 #pragma once
 #include "Zmiana\ZmianaFabryka.h"
 #include "Skrypt.h"
+#include "MetodaRPC.h"
 
 namespace SpEx{
 
@@ -19,6 +20,10 @@ namespace SpEx{
 		typedef STyp::Tekst IdentyfikatorSkryptu; /// Typ skryptu.
 		typedef std::shared_ptr<Skrypt>(*KreatorSkryptu)(XmlBO::ElementWezla wezel); /// Nag³ówek metody tworz¹cej skrypt.
 		typedef bool(*RejestrujSkrypt)(Fabrykator& fabryka, SLog::Log& logger); /// Nag³ówek metody rejestruj¹cej skrypt w fabryce.
+
+		typedef STyp::Tekst IdentyfikatorMetoryRPC;
+		typedef std::unique_ptr<MetodaRPC>(*KreatorMetodyRPC)(const Json::Value & , Klient&);
+		typedef bool(*RejestratorMetodyRPC)(Fabrykator& fabryka, SLog::Log& logger);
 
 		/**
 		* \brief Konstruktor.
@@ -111,6 +116,11 @@ namespace SpEx{
 		*/
 		bool rejestracjaSkryptu(const IdentyfikatorSkryptu& identyfikator, KreatorSkryptu funkcja);
 
+		bool rejestracjaMetodyRPC(const IdentyfikatorMetoryRPC& identyfikator, KreatorMetodyRPC funkcja);
+
+		std::unique_ptr<MetodaRPC> TworzMetodeRPC(const Json::Value &, Klient&) const;
+		std::unique_ptr<MetodaRPC> TworzMetodeRPC(const std::string &, Klient&) const;
+
 		/**
 		* Funkcja s³u¿¹ca do tworzenia napisów z opisem klasy.
 		* \return Napis zawieraj¹cy opis klasy.
@@ -122,6 +132,10 @@ namespace SpEx{
 
 	private:
 		typedef std::map<IdentyfikatorSkryptu, KreatorSkryptu> ScriptCallbacks; /// Typ kontenera przechowuj¹cego metody tworz¹ce instancje skryptów.
+
+		typedef std::map<IdentyfikatorMetoryRPC, KreatorMetodyRPC> TablicaKreatorowMetodRPC;
+
+		TablicaKreatorowMetodRPC metodRpcCallbacks_;
 
 		ScriptCallbacks callbacks_; /// Kontener przechowuj¹cy metody tworz¹ce instancje skryptów.
 

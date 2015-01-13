@@ -17,7 +17,7 @@ namespace SpEx{
 		Klient(SOCKET gniazdo, struct sockaddr_in &addr);
 		void zamknijPolaczenie();
 		
-		std::future<bool> dodajZadanie(std::shared_ptr<const std::string>, std::shared_ptr<std::string>);
+		std::future<bool> dodajZadanie(std::shared_ptr<std::promise<bool> >, std::shared_ptr<const std::string>, std::shared_ptr<std::string>);
 
 		virtual ~Klient();
 	private:
@@ -26,25 +26,24 @@ namespace SpEx{
 		std::function<void(void)> funkcja_;
 
 		struct Zadanie{
-			std::promise<bool> zakonczenie_;
+			std::shared_ptr<std::promise<bool> > zakonczenie_;
 			std::shared_ptr<const std::string> zadanie_;
 			std::shared_ptr<std::string> rezultat_;
 
-			Zadanie(std::promise<bool> &zakonczenie, std::shared_ptr<const std::string> zadanie, std::shared_ptr<std::string> rezultat)
-				: zakonczenie_(std::move(zakonczenie)), zadanie_(zadanie), rezultat_(rezultat)
+			Zadanie(std::shared_ptr<std::promise<bool> >zakonczenie, std::shared_ptr<const std::string> zadanie, std::shared_ptr<std::string> rezultat)
+				: zakonczenie_(zakonczenie), zadanie_(zadanie), rezultat_(rezultat)
 			{}
 		};
 
 		std::list<std::shared_ptr<Zadanie> > listaZadan_;
 		std::mutex dostepDoZadan_;
 
-		void odbieraj();
-		void wysylaj();
 		void wykonuj() override;
 
 		bool wyslij(const std::string&, int&);
 		bool odbierz(std::string&, int&);
 
 		void pracujJakoKlient();
+		void pracujJakoSerwer();
 	};
 }

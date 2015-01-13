@@ -1,7 +1,6 @@
 #pragma once
 #pragma warning( disable : 4290 )
 //#pragma warning( disable : 4996 )
-#define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 #include <cstdlib>
 #include <string>

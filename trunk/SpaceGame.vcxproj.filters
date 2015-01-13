@@ -331,6 +331,9 @@
     <ClCompile Include="NiezaimplementowanaMetoda.cpp">
       <Filter>SourceFile\Wyjatki</Filter>
     </ClCompile>
+    <ClCompile Include="EchoRPC.cpp">
+      <Filter>SourceFile\Network\MetodyRPC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -711,6 +714,9 @@
     <ClInclude Include="NiezaimplementowanaMetoda.h">
       <Filter>SourceFile\Wyjatki</Filter>
     </ClInclude>
+    <ClInclude Include="EchoRPC.h">
+      <Filter>SourceFile\Network\MetodyRPC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -877,6 +883,9 @@
     </Filter>
     <Filter Include="SourceFile\Network">
       <UniqueIdentifier>{8787c751-8ec2-419c-a963-c2bfe00aad86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Network\MetodyRPC">
+      <UniqueIdentifier>{a9720839-b446-4609-83a2-d3f190535e35}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
