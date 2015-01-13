@@ -39,6 +39,7 @@ namespace SpEx{
 
 	void Klient::pracujJakoKlient(){
 
+		// £¹czenie siê z serwerem
 		if (SOCKET_ERROR == connect(gniazdo_, (struct sockaddr*) &addr_, sizeof(addr_))){
 			auto error = WSAGetLastError();
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji connect: " + std::to_string(error));
@@ -46,8 +47,11 @@ namespace SpEx{
 			return;
 		}
 
+		// Pêtla wysy³aj¹ca ¿¹dania do serwera.
 		while (!czyZakonczyc()){
 			std::shared_ptr<Zadanie> zadanie_ = nullptr;
+
+			// Pobieranie ¿¹dania
 			{
 				std::lock_guard<std::mutex> lock(dostepDoZadan_);
 				if (listaZadan_.size()){
@@ -55,12 +59,17 @@ namespace SpEx{
 					listaZadan_.pop_front();
 				}
 			}
+
+			// Dzia³ania w przypadku braku oczekuj¹cych ¿¹dañ.
 			if (zadanie_ == nullptr){
 				std::this_thread::sleep_for( std::chrono::milliseconds(100));
 				continue;
 			}
 
+			//Proces obs³ugi ¿¹dania.
 			int blad;
+
+			// Wysy³anie ¿¹dania do serwera.
 			if (!wyslij(*(zadanie_->zadanie_), blad)){
 				if (blad == 0){
 					SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
@@ -73,9 +82,13 @@ namespace SpEx{
 				}
 			}
 
+			// Odbieranie wiadomoœci zwrotnej
 			while (!czyZakonczyc()){
 
+				// Próba odebrania wiadomoœci zwrotniej
 				if (!odbierz(*(zadanie_->rezultat_), blad)){
+
+					// Obs³uga sytuacji b³êdu odbierania wiadomoœci zwrotnej 
 					if (blad == 0){
 						SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
 						zakoncz();
@@ -86,16 +99,49 @@ namespace SpEx{
 							zakoncz();
 							break;
 						}else{
+							// Obs³uga gniazd nie blokuj¹cych.
+							// Oczekiwanie nadejœcie danych z mo¿liwoœci¹ zewnêtrznego zakoñczenia w¹tku.
 							std::this_thread::sleep_for(std::chrono::milliseconds(100));
 							continue;
 						}
 					}
 				}
 				break;
-
 			}
 		}
-	
+		zakoncz();
+	}
+
+	bool Klient::odbierz(std::string& dane, int& error){
+		long rozmiar = 0;
+		int rezultat = 0;
+
+		rezultat = recv(gniazdo_, (char*)&rozmiar, sizeof(long), 0);
+		rozmiar = ntohl(rozmiar);
+		if (rezultat <= 0){
+			error = (rezultat == 0 ? 0 : WSAGetLastError());
+			return false;
+		}
+		long tempRozmiar = 0;
+		std::vector <char> bufor;
+		bufor.reserve(rozmiar + 1);
+		bufor.resize(rozmiar + 1, 0);
+		do{
+			rezultat = recv(gniazdo_, &bufor.data()[tempRozmiar], rozmiar - tempRozmiar, 0);
+			if (rezultat <= 0){
+				error = (rezultat == 0 ? 0 : WSAGetLastError());
+				if (WSAEWOULDBLOCK == error){
+					continue;
+				}
+				else{
+					return false;
+				}
+			}
+			tempRozmiar += rezultat;
+		} while (tempRozmiar != rozmiar && !czyZakonczyc());
+		dane = bufor.data();
+		error = 0;
+		return rozmiar;
 	}
 
 	void Klient::wysylaj(){
@@ -141,7 +187,6 @@ namespace SpEx{
 		}
 	}
 
-
 	bool Klient::wyslij(const std::string& dane, int& error){
 		u_long rozmiar = dane.size();
 		int rezultat = 0;
@@ -165,33 +210,6 @@ namespace SpEx{
 		} while (tempRozmiar != 0);
 		error = 0;
 		return true;
-	}
-
-	bool Klient::odbierz(std::string& dane, int& error){
-		long rozmiar = 0;
-		int rezultat = 0;
-
-		rezultat = recv(gniazdo_, (char*)&rozmiar, sizeof(long), 0);
-		rozmiar = ntohl(rozmiar);
-		if (rezultat <= 0){
-			error = (rezultat == 0 ? 0 : WSAGetLastError());
-			return false;
-		}
-		long tempRozmiar = 0;
-		std::vector <char> bufor;
-		bufor.reserve(rozmiar + 1);
-		bufor.resize(rozmiar + 1, 0);
-		do{
-			rezultat = recv(gniazdo_, &bufor.data()[tempRozmiar], rozmiar - tempRozmiar, 0);
-			if (rezultat <= 0){
-				error = (rezultat == 0 ? 0 : WSAGetLastError());
-				return false;
-			}
-			tempRozmiar += rezultat;
-		} while (tempRozmiar != rozmiar);
-		dane = bufor.data();
-		error = 0;
-		return rozmiar;
 	}
 
 	void Klient::zamknijPolaczenie(){
