@@ -9,6 +9,8 @@ namespace SpEx{
 		virtual public SLog::LoggerInterface
 	{
 	public:
+		friend class Fabrykator;
+
 		typedef std::pair<std::string, std::string> Parametr;
 
 		MetodaRPC( const PolaczenieTCP& );
@@ -28,7 +30,10 @@ namespace SpEx{
 
 		std::string napis() const override;
 
-	private:
+	protected:
+		std::string autoryzacja_;
+		std::string instancja_;
+
 		std::string id_;
 		std::string nazwa_;
 		std::string id_unikalne_;

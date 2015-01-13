@@ -1,6 +1,7 @@
 #include "Klient.h"
 #include <vector>
 #include <chrono>
+#include "Aplikacja.h"
 
 #define ROZMIAR_BUFORA 1024
 #define ATRYBUT_PORT_SERWERA "portSerwera"
@@ -24,17 +25,17 @@ namespace SpEx{
 	{
 		gniazdo_ = gniazdo;
 		addr_ = addr;
-		funkcja_ = std::bind(&Klient::odbieraj, this);
+		funkcja_ = std::bind(&Klient::pracujJakoSerwer, this);
 	}
 
 	void Klient::wykonuj(){
 		funkcja_();
 	}
 
-	std::future<bool> Klient::dodajZadanie(std::shared_ptr<const std::string> parametry, std::shared_ptr<std::string> rezultat){
+	std::future<bool> Klient::dodajZadanie(std::shared_ptr<std::promise<bool> > zakonczenie, std::shared_ptr<const std::string> parametry, std::shared_ptr<std::string> rezultat){
 		std::lock_guard<std::mutex> lock(dostepDoZadan_);
-		listaZadan_.emplace_back(std::make_shared<Zadanie>(std::promise<bool>(), parametry, rezultat));
-		return listaZadan_.back()->zakonczenie_.get_future();
+		listaZadan_.emplace_back(std::make_shared<Zadanie>(zakonczenie, parametry, rezultat));
+		return listaZadan_.back()->zakonczenie_->get_future();
 	}
 
 	void Klient::pracujJakoKlient(){
@@ -74,10 +75,12 @@ namespace SpEx{
 				if (blad == 0){
 					SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
 					zakoncz();
+					zadanie_->zakonczenie_->set_value(false);
 					break;
 				}else{
 					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji send: " + std::to_string(blad));
 					zakoncz();
+					zadanie_->zakonczenie_->set_value(false);
 					break;
 				}
 			}
@@ -92,11 +95,13 @@ namespace SpEx{
 					if (blad == 0){
 						SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
 						zakoncz();
+						zadanie_->zakonczenie_->set_value(false);
 						break;
 					}else{
 						if (WSAEWOULDBLOCK != blad){
 							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji recv: " + std::to_string(blad));
 							zakoncz();
+							zadanie_->zakonczenie_->set_value(false);
 							break;
 						}else{
 							// Obs³uga gniazd nie blokuj¹cych.
@@ -106,10 +111,60 @@ namespace SpEx{
 						}
 					}
 				}
+				zadanie_->zakonczenie_->set_value(true);
 				break;
 			}
 		}
 		zakoncz();
+	}
+
+	void Klient::pracujJakoSerwer(){
+		while (!czyZakonczyc()){
+			std::string dane;
+			int blad;
+
+			if (!odbierz(dane, blad)){
+				if (blad == 0){
+					SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
+					break;
+				} else{
+					if (WSAEWOULDBLOCK != blad){
+						SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji recv: " + std::to_string(blad));
+						break;
+					} else{
+						std::this_thread::sleep_for(std::chrono::milliseconds(100));
+						continue;
+					}
+				}
+			}
+			Json::Value root;
+			Json::Reader reader;
+			if (reader.parse(dane,root)){
+				auto metoda = Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(root, *this);
+				if (metoda){
+					Json::Value result(Json::objectValue);
+					(*metoda)(root,result);
+					std::string ret;
+					Json::FastWriter writer;
+					ret = writer.write(result);
+					if (ret.size()){
+						int blad;
+
+						if (!wyslij(ret, blad)){
+							if (blad == 0){
+								SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
+								zakoncz();
+								break;
+							} else{
+								SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji send: " + std::to_string(blad));
+								zakoncz();
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	bool Klient::odbierz(std::string& dane, int& error){
@@ -132,8 +187,7 @@ namespace SpEx{
 				error = (rezultat == 0 ? 0 : WSAGetLastError());
 				if (WSAEWOULDBLOCK == error){
 					continue;
-				}
-				else{
+				} else{
 					return false;
 				}
 			}
@@ -142,49 +196,6 @@ namespace SpEx{
 		dane = bufor.data();
 		error = 0;
 		return rozmiar;
-	}
-
-	void Klient::wysylaj(){
-
-		if (SOCKET_ERROR == connect(gniazdo_, (struct sockaddr*) &addr_, sizeof(addr_))){
-			auto error = WSAGetLastError();
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji connect: " + std::to_string(error));
-			return;
-		}
-
-		std::string dane("Jan Kowalski");
-		int blad;
-		if (!wyslij(dane, blad)){
-			if (blad == 0){
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
-			}else{
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji send: " + std::to_string(blad));
-			}
-		}
-		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Wys³ano: " + dane);
-	}
-
-	void Klient::odbieraj(){
-		while (!czyZakonczyc()){
-			std::string dane;
-			int blad;
-
-			if (!odbierz(dane, blad)){
-				if (blad == 0){
-					SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
-					break;
-				}else{
-					if (WSAEWOULDBLOCK != blad){
-						SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji recv: " + std::to_string(blad));
-						break;
-					}else{
-						Sleep(100);
-						continue;
-					}
-				}
-			}
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Odebrano: " + dane);
-		}
 	}
 
 	bool Klient::wyslij(const std::string& dane, int& error){

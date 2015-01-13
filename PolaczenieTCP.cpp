@@ -12,7 +12,8 @@ namespace SpEx{
 	bool PolaczenieTCP::wyslij(std::shared_ptr<const std::string> zadanie, std::shared_ptr<std::string> rezultat) const{
 		if (zadanie == nullptr || rezultat == nullptr)
 			return false;
-		auto czyZakonczono = klient_.dodajZadanie(zadanie, rezultat);
+		auto zakoncz = std::make_shared<std::promise<bool>>();
+		auto czyZakonczono = klient_.dodajZadanie(zakoncz,zadanie, rezultat);
 		czyZakonczono.wait();
 		return czyZakonczono.get();
 	}

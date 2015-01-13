@@ -208,13 +208,7 @@ namespace SpEx{
 		if (WSAStartup(RequiredVersion, &WData) != 0) {
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_INICJALIZACJI_WINSOCK);
 		}
-
-		logger_.loguj(SLog::Log::Info, KOMUNIKAT_STATUS_WINSOCK_WERSJA(WData));
-		logger_.loguj(SLog::Log::Info, KOMUNIKAT_STATUS_WINSOCK_OPIS(WData));
-		logger_.loguj(SLog::Log::Info, KOMUNIKAT_STATUS_WINSOCK_STAN_SYSTEMU(WData));
-		logger_.loguj(SLog::Log::Info, KOMUNIKAT_STATUS_WINSOCK_LICZBA_GNIAZD(WData));
-		logger_.loguj(SLog::Log::Info, KOMUNIKAT_STATUS_WINSOCK_ROZMIAR_DATAGRAMU(WData));
-
+				
 #ifndef LOG_OFF_ALL
 		//Wyswietlanie informacji o zaladowanej bibliotece
 		if (uchwyt_){
