@@ -139,26 +139,29 @@ namespace SpEx{
 			}
 			Json::Value root;
 			Json::Reader reader;
-			if (reader.parse(dane,root)){
-				auto metoda = Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(root, *this);
-				if (metoda){
-					Json::Value result(Json::objectValue);
-					(*metoda)(root,result);
-					std::string ret;
-					Json::FastWriter writer;
-					ret = writer.write(result);
-					if (ret.size()){
-						int blad;
+			if (reader.parse(dane, root)){
+				if (MetodaRPC::sprawdzCRC(root)){
+					auto metoda = Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(root, *this);
+					if (metoda){
+						Json::Value result(Json::objectValue);
+						metoda->obslugaZadania(root, result);
+						std::string ret;
+						Json::FastWriter writer;
+						MetodaRPC::dodajCRC(result);
+						ret = writer.write(result);
+						if (ret.size()){
+							int blad;
 
-						if (!wyslij(ret, blad)){
-							if (blad == 0){
-								SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
-								zakoncz();
-								break;
-							} else{
-								SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji send: " + std::to_string(blad));
-								zakoncz();
-								break;
+							if (!wyslij(ret, blad)){
+								if (blad == 0){
+									SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
+									zakoncz();
+									break;
+								} else{
+									SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji send: " + std::to_string(blad));
+									zakoncz();
+									break;
+								}
 							}
 						}
 					}

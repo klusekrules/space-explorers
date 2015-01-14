@@ -2,6 +2,7 @@
 #include "Logger\Log.h"
 #include "Logger\Logger.h"
 #include "NiezaimplementowanaMetoda.h"
+#include "CRC64.h"
 
 #define BRAK_ELEMENTU(n) "MetodaRPC::odczytajWezel -> " + std::string(n)
 #define METODA_RPC_AUTORYZACJA "autoryzacja"
@@ -40,12 +41,6 @@ namespace SpEx{
 			return false;
 		}
 
-		auto &v_Id = metoda[METODA_RPC_ID];
-		if (!v_Id){
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, BRAK_ELEMENTU(METODA_RPC_ID));
-			return false;
-		}
-
 		auto &v_Nazwa = metoda[METODA_RPC_NAZWA];
 		if (!v_Nazwa){
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, BRAK_ELEMENTU(METODA_RPC_NAZWA));
@@ -78,7 +73,6 @@ namespace SpEx{
 
 		autoryzacja_ = v_Autoryzacja.asString();
 		instancja_ = v_Instancja.asString();
-		id_ = v_Id.asString();
 		nazwa_ = v_Nazwa.asString();
 		id_unikalne_ = v_Id_Unikalne.asString();
 		powtorzenie_ = v_Powtorzenie.asUInt();
@@ -92,8 +86,31 @@ namespace SpEx{
 		return true;
 	}
 
-	void MetodaRPC::operator()(const Json::Value &, Json::Value&){
+	void MetodaRPC::obslugaZadania(const Json::Value &, Json::Value&){
 		throw NiezaimplementowanaMetoda(EXCEPTION_PLACE);
+	}
+
+
+	void MetodaRPC::dodajCRC(Json::Value& procedura){
+		procedura["CRC"] = "";
+		Json::FastWriter writer;
+		auto jsZadanie = writer.write(procedura);
+		procedura["CRC"] = CRC64().calc(jsZadanie.c_str(), jsZadanie.size());
+	}
+	
+	bool MetodaRPC::sprawdzCRC(Json::Value& result){
+		Json::FastWriter writer;
+		auto crc = result["CRC"].asUInt64();
+		result["CRC"] = "";
+		auto toCheck = writer.write(result);
+		auto newCRC = CRC64().calc(toCheck.c_str(), toCheck.size());
+		if (newCRC == crc){
+			return true;
+		} else{
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, std::to_string(crc));
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, std::to_string(newCRC));
+			return false;
+		}
 	}
 
 	bool MetodaRPC::operator()(){
@@ -102,13 +119,19 @@ namespace SpEx{
 				Json::Value procedura;
 				(*this) >> procedura;
 				Json::FastWriter writer;
+				dodajCRC(procedura);
 				auto zadanie = std::make_shared<const std::string>(writer.write(procedura));
 				auto wiadomoscZwrotna = std::make_shared<std::string>();
 				if (polaczenie_.wyslij(zadanie, wiadomoscZwrotna)){
 					Json::Reader reader;
 					Json::Value result;
 					if (reader.parse(*wiadomoscZwrotna, result)){
-						return obslugaOdpowiedzi(result);
+						if (sprawdzCRC(result)){
+							return obslugaOdpowiedzi(result);
+						} else{
+							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Niepoprawne dane. B³¹d sumy kontrolnej. Wiadomoœæ: " + *wiadomoscZwrotna);
+							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
+						}
 					}else{
 						SLog::Log::pobierzInstancje().loguj(SLog::Log::Error,"Nieuda³o siê zintepretowaæ wiadomoœci zwrotnej: " + *wiadomoscZwrotna);
 						SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
@@ -144,7 +167,6 @@ namespace SpEx{
 
 		root[METODA_RPC_METODA] = Json::Value(Json::objectValue);
 		auto& metoda = root[METODA_RPC_METODA];
-		metoda[METODA_RPC_ID] = id_;
 		metoda[METODA_RPC_NAZWA] = nazwa_;
 		metoda[METODA_RPC_ID_UNIKALNE] = id_unikalne_;
 		metoda[METODA_RPC_POWTORZENIE] = powtorzenie_;
@@ -160,7 +182,6 @@ namespace SpEx{
 		SLog::Logger log(NAZWAKLASY(MetodaRPC));
 		log.dodajPole(NAZWAPOLA(autoryzacja_), "std::string", autoryzacja_);
 		log.dodajPole(NAZWAPOLA(instancja_), "std::string", instancja_);
-		log.dodajPole(NAZWAPOLA(id_), "std::string", id_);
 		log.dodajPole(NAZWAPOLA(nazwa_), "std::string", nazwa_);
 		log.dodajPole(NAZWAPOLA(id_unikalne_), "std::string", id_unikalne_);
 		log.dodajPole(NAZWAPOLA(czas_wywolania_), "std::string", czas_wywolania_);

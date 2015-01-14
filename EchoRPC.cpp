@@ -12,12 +12,11 @@ namespace SpEx{
 		if (metoda.isNull()){
 			// Dodanie wszystkich niezbêdnych danych.
 			ptr->nazwa_ = "Echo";
-			ptr->id_ = "0";
 			ptr->powtorzenie_ = 0;
 			ptr->id_unikalne_ = "1";
 		} else{
 			if ((*ptr) << metoda){
-				// Sprawdzenie wstêpnej poprawnoœci. CRC, itp. Uwierzytelnianie nastêpuje póŸniej.
+				// Uda³o siê odtworzyæ metodê, przypisanie parametrów wymaganych przez metodê do atrybutów metody.
 			} else{
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nie powiod³a siê deserializacja metody Echo.");
 			}
@@ -31,7 +30,7 @@ namespace SpEx{
 	{
 	}
 
-	void EchoRPC::operator()(const Json::Value & zadanie, Json::Value& odpowiedz){
+	void EchoRPC::obslugaZadania(const Json::Value & zadanie, Json::Value& odpowiedz){
 		odpowiedz["rezultat"] = " OdpowiedŸ serwera na komunikat Echo.";
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Echo na serwerze.");
 	}
