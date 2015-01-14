@@ -14,7 +14,7 @@ namespace SpEx{
 		EchoRPC(const PolaczenieTCP&);
 		virtual ~EchoRPC() = default;
 
-		void operator()(const Json::Value &, Json::Value&) override;
+		void obslugaZadania(const Json::Value &, Json::Value&) override;
 		bool inicjalizacjaParametrow() override;
 
 		bool obslugaOdpowiedzi(const Json::Value &) override;

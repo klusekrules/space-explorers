@@ -334,6 +334,15 @@
     <ClCompile Include="EchoRPC.cpp">
       <Filter>SourceFile\Network\MetodyRPC</Filter>
     </ClCompile>
+    <ClCompile Include="CRC16.cpp">
+      <Filter>SourceFile\KlasyPomocnicze\Algorytmy\CRC</Filter>
+    </ClCompile>
+    <ClCompile Include="CRC32.cpp">
+      <Filter>SourceFile\KlasyPomocnicze\Algorytmy\CRC</Filter>
+    </ClCompile>
+    <ClCompile Include="CRC64.cpp">
+      <Filter>SourceFile\KlasyPomocnicze\Algorytmy\CRC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -717,6 +726,18 @@
     <ClInclude Include="EchoRPC.h">
       <Filter>SourceFile\Network\MetodyRPC</Filter>
     </ClInclude>
+    <ClInclude Include="CRC.h">
+      <Filter>SourceFile\KlasyPomocnicze\Algorytmy\CRC</Filter>
+    </ClInclude>
+    <ClInclude Include="CRC16.h">
+      <Filter>SourceFile\KlasyPomocnicze\Algorytmy\CRC</Filter>
+    </ClInclude>
+    <ClInclude Include="CRC32.h">
+      <Filter>SourceFile\KlasyPomocnicze\Algorytmy\CRC</Filter>
+    </ClInclude>
+    <ClInclude Include="CRC64.h">
+      <Filter>SourceFile\KlasyPomocnicze\Algorytmy\CRC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -886,6 +907,12 @@
     </Filter>
     <Filter Include="SourceFile\Network\MetodyRPC">
       <UniqueIdentifier>{a9720839-b446-4609-83a2-d3f190535e35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\KlasyPomocnicze\Algorytmy">
+      <UniqueIdentifier>{04ab3f86-1059-460d-bbc1-281a246408b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\KlasyPomocnicze\Algorytmy\CRC">
+      <UniqueIdentifier>{123df74f-2fb7-4355-a00c-49ddfdd170df}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

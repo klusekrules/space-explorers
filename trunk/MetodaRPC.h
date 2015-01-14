@@ -16,8 +16,8 @@ namespace SpEx{
 		MetodaRPC( const PolaczenieTCP& );
 		~MetodaRPC() = default;
 
-		virtual void operator()(const Json::Value &, Json::Value&);
-
+		virtual void obslugaZadania(const Json::Value &, Json::Value&);
+		
 		bool operator()();
 
 		virtual bool inicjalizacjaParametrow();
@@ -30,11 +30,13 @@ namespace SpEx{
 
 		std::string napis() const override;
 
+		static bool sprawdzCRC(Json::Value&);
+
+		static void dodajCRC(Json::Value&);
 	protected:
 		std::string autoryzacja_;
 		std::string instancja_;
 
-		std::string id_;
 		std::string nazwa_;
 		std::string id_unikalne_;
 		unsigned int powtorzenie_;

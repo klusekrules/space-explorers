@@ -325,6 +325,10 @@
     <ClInclude Include="BladKonfiguracjiEkranu.h" />
     <ClInclude Include="BladStukturyStanu.h" />
     <ClInclude Include="BudynekTest.h" />
+    <ClInclude Include="CRC.h" />
+    <ClInclude Include="CRC16.h" />
+    <ClInclude Include="CRC32.h" />
+    <ClInclude Include="CRC64.h" />
     <ClInclude Include="CzyszczenieDanychTest.h" />
     <ClInclude Include="DllModule.h" />
     <ClInclude Include="DllSkrypt.h" />
@@ -456,6 +460,9 @@
     <ClCompile Include="Budynek.cpp" />
     <ClCompile Include="BudynekInfo.cpp" />
     <ClCompile Include="BudynekTest.cpp" />
+    <ClCompile Include="CRC16.cpp" />
+    <ClCompile Include="CRC32.cpp" />
+    <ClCompile Include="CRC64.cpp" />
     <ClCompile Include="CzyszczenieDanychTest.cpp" />
     <ClCompile Include="DllModule.cpp" />
     <ClCompile Include="DllSkrypt.cpp" />
