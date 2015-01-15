@@ -3,18 +3,9 @@
 #include "Logger\Logger.h"
 #include "NiezaimplementowanaMetoda.h"
 #include "CRC64.h"
+#include "StaleRPC.h"
 
 #define BRAK_ELEMENTU(n) "MetodaRPC::odczytajWezel -> " + std::string(n)
-#define METODA_RPC_AUTORYZACJA "autoryzacja"
-#define METODA_RPC_INSTANCJA "instancja"
-#define METODA_RPC_METODA "metoda"
-#define METODA_RPC_ID "id"
-#define METODA_RPC_NAZWA "nazwa"
-#define METODA_RPC_ID_UNIKALNE "id-unikalne"
-#define METODA_RPC_POWTORZENIE "powtorzenie"
-#define METODA_RPC_CZAS_WYWOLANIA "czas-wywolania"
-#define METODA_RPC_CZAS_ODPOWIEDZI "czas-odpowiedzi"
-#define METODA_RPC_PARAMETRY "parametry"
 
 namespace SpEx{
 
@@ -127,7 +118,13 @@ namespace SpEx{
 					Json::Value result;
 					if (reader.parse(*wiadomoscZwrotna, result)){
 						if (sprawdzCRC(result)){
-							return obslugaOdpowiedzi(result);
+							//Sprawdzenie czy zosta³ wyrzucony wyj¹tek;
+							if (!result[METODA_RPC_THROW].isNull()){
+								SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Otrzymano wyj¹tek: typ: " + result[METODA_RPC_THROW][METODA_RPC_TYPE].asString() + " komunikat:  " + result[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT].asString());
+								SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
+							} else{
+								return obslugaOdpowiedzi(result);
+							}
 						} else{
 							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Niepoprawne dane. B³¹d sumy kontrolnej. Wiadomoœæ: " + *wiadomoscZwrotna);
 							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));

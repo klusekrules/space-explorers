@@ -19,11 +19,16 @@ namespace SpEx{
 		
 		std::future<bool> dodajZadanie(std::shared_ptr<std::promise<bool> >, std::shared_ptr<const std::string>, std::shared_ptr<std::string>);
 
+		void autoryzujMetode(std::string&, std::string&);
+
 		virtual ~Klient();
 	private:
 		SOCKET gniazdo_ = INVALID_SOCKET;
 		struct sockaddr_in addr_;		
 		std::function<void(void)> funkcja_;
+
+		std::string autoryzacja_ = "0";
+		std::string instancja_ = "0";
 
 		struct Zadanie{
 			std::shared_ptr<std::promise<bool> > zakonczenie_;
@@ -42,6 +47,8 @@ namespace SpEx{
 
 		bool wyslij(const std::string&, int&);
 		bool odbierz(std::string&, int&);
+
+		bool czyMetodaRPCUprzywilejowana(const std::string&)const;
 
 		void pracujJakoKlient();
 		void pracujJakoSerwer();

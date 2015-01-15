@@ -10,15 +10,13 @@ namespace SpEx{
 	std::unique_ptr<MetodaRPC> EchoRPC::TworzObiekt(const Json::Value & metoda, Klient& klient){
 		auto ptr = std::make_unique<EchoRPC>(klient);
 		if (metoda.isNull()){
-			// Dodanie wszystkich niezbêdnych danych.
-			ptr->nazwa_ = "Echo";
-			ptr->powtorzenie_ = 0;
-			ptr->id_unikalne_ = "1";
+			// Tworzenie nowej pustej metody, do wys³ania na serwer
 		} else{
 			if ((*ptr) << metoda){
 				// Uda³o siê odtworzyæ metodê, przypisanie parametrów wymaganych przez metodê do atrybutów metody.
 			} else{
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nie powiod³a siê deserializacja metody Echo.");
+				return nullptr;
 			}
 		}
 		return std::move(ptr);

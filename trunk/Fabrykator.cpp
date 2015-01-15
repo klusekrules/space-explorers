@@ -33,7 +33,15 @@ namespace SpEx{
 			auto iterator = metodRpcCallbacks_.find(nazwa);
 			if (iterator == metodRpcCallbacks_.end())
 				return nullptr;
-			return iterator->second(Json::Value(Json::nullValue), klient);
+			auto ptr = iterator->second(Json::Value(Json::nullValue), klient);
+			if (ptr){
+				ptr->nazwa_ = nazwa;
+				ptr->id_unikalne_ = std::to_string(static_cast<unsigned long long>(identyfikatorZadania_()()));
+				ptr->powtorzenie_ = 0;
+				klient.autoryzujMetode(ptr->instancja_, ptr->autoryzacja_);
+				ptr->czas_wywolania_ = SLog::Log::pobierzInstancje().pobierzDateCzas();
+			}
+			return std::move(ptr);
 		}
 		return nullptr;
 	}

@@ -738,6 +738,9 @@
     <ClInclude Include="CRC64.h">
       <Filter>SourceFile\KlasyPomocnicze\Algorytmy\CRC</Filter>
     </ClInclude>
+    <ClInclude Include="StaleRPC.h">
+      <Filter>SourceFile\Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
