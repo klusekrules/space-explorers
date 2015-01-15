@@ -64,7 +64,7 @@ namespace SpEx{
 
 			// Dzia³ania w przypadku braku oczekuj¹cych ¿¹dañ.
 			if (zadanie_ == nullptr){
-				std::this_thread::sleep_for( std::chrono::milliseconds(100));
+				std::this_thread::sleep_for(std::chrono::milliseconds(100));
 				continue;
 			}
 
@@ -78,7 +78,7 @@ namespace SpEx{
 					zakoncz();
 					zadanie_->zakonczenie_->set_value(false);
 					break;
-				}else{
+				} else{
 					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji send: " + std::to_string(blad));
 					zakoncz();
 					zadanie_->zakonczenie_->set_value(false);
@@ -98,13 +98,13 @@ namespace SpEx{
 						zakoncz();
 						zadanie_->zakonczenie_->set_value(false);
 						break;
-					}else{
+					} else{
 						if (WSAEWOULDBLOCK != blad){
 							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji recv: " + std::to_string(blad));
 							zakoncz();
 							zadanie_->zakonczenie_->set_value(false);
 							break;
-						}else{
+						} else{
 							// Obs³uga gniazd nie blokuj¹cych.
 							// Oczekiwanie nadejœcie danych z mo¿liwoœci¹ zewnêtrznego zakoñczenia w¹tku.
 							std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -143,30 +143,36 @@ namespace SpEx{
 			Json::Reader reader;
 			if (reader.parse(dane, root)){
 				if (MetodaRPC::sprawdzCRC(root)){
-					Json::Value result(Json::objectValue);
+					Json::Value& metoda = root[METODA_RPC_METODA];
 					// Sprawdzanie czy wymagane parametry s¹ zawarte w ¿¹daniu.
-					bool validParametr = root[METODA_RPC_AUTORYZACJA].isString() && root[METODA_RPC_INSTANCJA].isString() && root[METODA_RPC_METODA][METODA_RPC_NAZWA].isString();
+					if (metoda.isNull()){
+						metoda = Json::Value(Json::objectValue);
+					}
+					bool validParametr = root[METODA_RPC_AUTORYZACJA].isString() && root[METODA_RPC_INSTANCJA].isString() && metoda[METODA_RPC_NAZWA].isString();
 					if (validParametr){
 						//Sprawdzenie czy metoda jest uprzywilejowana do obs³ugi bez autoryzacji.
 						if ((root[METODA_RPC_AUTORYZACJA].asString() == "0" || root[METODA_RPC_INSTANCJA].asString() == "0")
-							&& !czyMetodaRPCUprzywilejowana(root[METODA_RPC_METODA][METODA_RPC_NAZWA].asString())){
-							result[METODA_RPC_THROW][METODA_RPC_TYPE] = "Unautorized";
-							result[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT] = "Brak autoryzacji zdalnej metody.";
+							&& !czyMetodaRPCUprzywilejowana(metoda[METODA_RPC_NAZWA].asString())){
+							metoda[METODA_RPC_THROW][METODA_RPC_TYPE] = "Unautorized";
+							metoda[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT] = "Brak autoryzacji zdalnej metody.";
 						} else{
-							auto metoda = Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(root, *this);
-							if (metoda){
-								metoda->obslugaZadania(root, result);
+							auto metodaRPC = Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(root, *this);
+							if (metodaRPC){
+								Json::Value result(Json::objectValue);
+								metodaRPC->obslugaZadania(root, result);
+								metoda[METODA_RPC_RETURN] = result;
 							}
 						}
 					} else{
-						result[METODA_RPC_THROW][METODA_RPC_TYPE] = "Invalid params";
-						result[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT] = "Nie poprawna sk³adnia ¿¹dania.";
+						metoda[METODA_RPC_THROW][METODA_RPC_TYPE] = "Invalid params";
+						metoda[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT] = "Nie poprawna sk³adnia ¿¹dania.";
 					}
+
 
 					std::string ret;
 					Json::FastWriter writer;
-					MetodaRPC::dodajCRC(result);
-					ret = writer.write(result);
+					MetodaRPC::dodajCRC(root);
+					ret = writer.write(root);
 					if (ret.size()){
 						int blad;
 

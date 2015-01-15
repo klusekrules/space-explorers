@@ -8,6 +8,7 @@
 #define METODA_RPC_CZAS_WYWOLANIA "czas-wywolania"
 #define METODA_RPC_CZAS_ODPOWIEDZI "czas-odpowiedzi"
 #define METODA_RPC_PARAMETRY "parametry"
+#define METODA_RPC_RETURN "return"
 
 
 #define METODA_RPC_THROW "throw"
