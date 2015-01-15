@@ -115,19 +115,25 @@ namespace SpEx{
 				auto wiadomoscZwrotna = std::make_shared<std::string>();
 				if (polaczenie_.wyslij(zadanie, wiadomoscZwrotna)){
 					Json::Reader reader;
-					Json::Value result;
-					if (reader.parse(*wiadomoscZwrotna, result)){
-						if (sprawdzCRC(result)){
-							//Sprawdzenie czy zosta³ wyrzucony wyj¹tek;
-							if (!result[METODA_RPC_THROW].isNull()){
-								SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Otrzymano wyj¹tek: typ: " + result[METODA_RPC_THROW][METODA_RPC_TYPE].asString() + " komunikat:  " + result[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT].asString());
-								SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
-							} else{
-								return obslugaOdpowiedzi(result);
-							}
-						} else{
-							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Niepoprawne dane. B³¹d sumy kontrolnej. Wiadomoœæ: " + *wiadomoscZwrotna);
+					Json::Value root;
+					if (reader.parse(*wiadomoscZwrotna, root)){
+						Json::Value& metoda = root[METODA_RPC_METODA];
+						if (metoda.isNull()){
+							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nieuda³o siê zintepretowaæ wiadomoœci zwrotnej: " + *wiadomoscZwrotna);
 							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
+						} else{
+							if (sprawdzCRC(root)){
+								//Sprawdzenie czy zosta³ wyrzucony wyj¹tek;
+								if (!metoda[METODA_RPC_THROW].isNull()){
+									SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Otrzymano wyj¹tek: typ: " + metoda[METODA_RPC_THROW][METODA_RPC_TYPE].asString() + " komunikat:  " + metoda[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT].asString());
+									SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
+								} else{
+									return obslugaOdpowiedzi(metoda[METODA_RPC_RETURN]);
+								}
+							} else{
+								SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Niepoprawne dane. B³¹d sumy kontrolnej. Wiadomoœæ: " + *wiadomoscZwrotna);
+								SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
+							}
 						}
 					}else{
 						SLog::Log::pobierzInstancje().loguj(SLog::Log::Error,"Nieuda³o siê zintepretowaæ wiadomoœci zwrotnej: " + *wiadomoscZwrotna);
