@@ -2,6 +2,7 @@
 #include "Zmiana\ZmianaFabryka.h"
 #include "Skrypt.h"
 #include "MetodaRPC.h"
+#include "Licznik.h"
 
 namespace SpEx{
 
@@ -140,5 +141,7 @@ namespace SpEx{
 		ScriptCallbacks callbacks_; /// Kontener przechowuj¹cy metody tworz¹ce instancje skryptów.
 
 		SZmi::ZmianaFabryka fabrykaZmian_; /// Instancja fabryki zmian.
+
+		mutable Licznik identyfikatorZadania_;
 	};
 };

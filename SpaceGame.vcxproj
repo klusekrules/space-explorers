@@ -375,6 +375,7 @@
     <ClInclude Include="Serwer.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Skrypt.h" />
+    <ClInclude Include="StaleRPC.h" />
     <ClInclude Include="Stan.h" />
     <ClInclude Include="StanInfo.h" />
     <ClInclude Include="SurowceTest.h" />

@@ -2,6 +2,7 @@
 #include <vector>
 #include <chrono>
 #include "Aplikacja.h"
+#include "StaleRPC.h"
 
 #define ROZMIAR_BUFORA 1024
 #define ATRYBUT_PORT_SERWERA "portSerwera"
@@ -137,31 +138,47 @@ namespace SpEx{
 					}
 				}
 			}
+
 			Json::Value root;
 			Json::Reader reader;
 			if (reader.parse(dane, root)){
 				if (MetodaRPC::sprawdzCRC(root)){
-					auto metoda = Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(root, *this);
-					if (metoda){
-						Json::Value result(Json::objectValue);
-						metoda->obslugaZadania(root, result);
-						std::string ret;
-						Json::FastWriter writer;
-						MetodaRPC::dodajCRC(result);
-						ret = writer.write(result);
-						if (ret.size()){
-							int blad;
+					Json::Value result(Json::objectValue);
+					// Sprawdzanie czy wymagane parametry s¹ zawarte w ¿¹daniu.
+					bool validParametr = root[METODA_RPC_AUTORYZACJA].isString() && root[METODA_RPC_INSTANCJA].isString() && root[METODA_RPC_METODA][METODA_RPC_NAZWA].isString();
+					if (validParametr){
+						//Sprawdzenie czy metoda jest uprzywilejowana do obs³ugi bez autoryzacji.
+						if ((root[METODA_RPC_AUTORYZACJA].asString() == "0" || root[METODA_RPC_INSTANCJA].asString() == "0")
+							&& !czyMetodaRPCUprzywilejowana(root[METODA_RPC_METODA][METODA_RPC_NAZWA].asString())){
+							result[METODA_RPC_THROW][METODA_RPC_TYPE] = "Unautorized";
+							result[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT] = "Brak autoryzacji zdalnej metody.";
+						} else{
+							auto metoda = Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(root, *this);
+							if (metoda){
+								metoda->obslugaZadania(root, result);
+							}
+						}
+					} else{
+						result[METODA_RPC_THROW][METODA_RPC_TYPE] = "Invalid params";
+						result[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT] = "Nie poprawna sk³adnia ¿¹dania.";
+					}
 
-							if (!wyslij(ret, blad)){
-								if (blad == 0){
-									SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
-									zakoncz();
-									break;
-								} else{
-									SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji send: " + std::to_string(blad));
-									zakoncz();
-									break;
-								}
+					std::string ret;
+					Json::FastWriter writer;
+					MetodaRPC::dodajCRC(result);
+					ret = writer.write(result);
+					if (ret.size()){
+						int blad;
+
+						if (!wyslij(ret, blad)){
+							if (blad == 0){
+								SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
+								zakoncz();
+								break;
+							} else{
+								SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji send: " + std::to_string(blad));
+								zakoncz();
+								break;
 							}
 						}
 					}
@@ -224,6 +241,17 @@ namespace SpEx{
 		} while (tempRozmiar != 0);
 		error = 0;
 		return true;
+	}
+
+	bool Klient::czyMetodaRPCUprzywilejowana(const std::string& nazwa)const{
+		if (nazwa == "Echo" || nazwa == "Zaloguj")
+			return true;
+		return false;
+	}
+
+	void Klient::autoryzujMetode(std::string& instancja, std::string& autoryzacja){
+		instancja = instancja_;
+		autoryzacja = autoryzacja_;
 	}
 
 	void Klient::zamknijPolaczenie(){
