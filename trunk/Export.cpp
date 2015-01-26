@@ -9,6 +9,7 @@
 #include "UtilsGui.h"
 #include "Planeta.h"
 #include "Export.h"
+#include "SHA3.h"
 
 extern "C"{
 
@@ -136,7 +137,8 @@ extern "C"{
 			if (nazwa != nullptr && haslo != nullptr){
 				std::string hash(haslo->getText());
 				if (!(nazwa->getText().isEmpty() || hash.empty())){
-					SpEx::Utils::sha3(hash);
+					SHA3 sha3(hash);
+					hash = sha3.pobierzNapis();
 					if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().logowanie(nazwa->getText(), hash)){
 						return true;
 					}
@@ -173,7 +175,8 @@ extern "C"{
 					return false;
 				}
 
-				SpEx::Utils::sha3(hash);
+				SHA3 sha3(hash);
+				hash = sha3.pobierzNapis();
 				if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzIloscGalaktyk() <= 0){
 					SpEx::UtilsGui::wyswietlWiadomoscWGUI(1, "Generowanie galaktyki.");
 					if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().generujNowaGalaktyke()){
@@ -233,7 +236,8 @@ extern "C"{
 			auto haslo = SpEx::UtilsGui::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaHasla);
 			if (nazwa != nullptr && haslo != nullptr){
 				std::string hash(haslo->getText());
-				SpEx::Utils::sha3(hash);
+				SHA3 sha3(hash);
+				hash = sha3.pobierzNapis();
 				if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().usunGracza(nazwa->getText(), hash)){
 					return true;
 				}

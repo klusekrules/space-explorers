@@ -373,17 +373,20 @@
     <ClInclude Include="ProceduraRPC.h" />
     <ClInclude Include="RoundedRectangleShape.hpp" />
     <ClInclude Include="Serwer.h" />
+    <ClInclude Include="SHA3.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Skrypt.h" />
     <ClInclude Include="StaleRPC.h" />
     <ClInclude Include="Stan.h" />
     <ClInclude Include="StanInfo.h" />
     <ClInclude Include="SurowceTest.h" />
+    <ClInclude Include="SzyfrowanieTest.h" />
     <ClInclude Include="TestyUtilsBO.h" />
     <ClInclude Include="TypyEksportowne.h" />
     <ClInclude Include="UkladSloneczny.h" />
     <ClInclude Include="UstawieniaAplikacji.h" />
     <ClInclude Include="UtilsGui.h" />
+    <ClInclude Include="VMPC_MAC.h" />
     <ClInclude Include="Walidator.h" />
     <ClInclude Include="Watek.h" />
     <ClInclude Include="WatekZarzadzany.h" />
@@ -533,6 +536,7 @@
     <ClCompile Include="ProceduraRPC.cpp" />
     <ClCompile Include="RoundedRectangleShape.cpp" />
     <ClCompile Include="Serwer.cpp" />
+    <ClCompile Include="SHA3.cpp" />
     <ClCompile Include="Stan.cpp" />
     <ClCompile Include="StanInfo.cpp" />
     <ClCompile Include="Statek.cpp" />
@@ -541,6 +545,7 @@
     <ClCompile Include="Surowce.cpp" />
     <ClCompile Include="SurowceInfo.cpp" />
     <ClCompile Include="SurowceTest.cpp" />
+    <ClCompile Include="SzyfrowanieTest.cpp" />
     <ClCompile Include="Technologia.cpp" />
     <ClCompile Include="TechnologiaInfo.cpp" />
     <ClCompile Include="TechnologiaTest.cpp" />
@@ -552,6 +557,7 @@
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="UtilsGui.cpp" />
     <ClCompile Include="Uzytkownik.cpp" />
+    <ClCompile Include="VMPC_MAC.cpp" />
     <ClCompile Include="Walidator.cpp" />
     <ClCompile Include="Watek.cpp" />
     <ClCompile Include="WatekZarzadzany.cpp" />

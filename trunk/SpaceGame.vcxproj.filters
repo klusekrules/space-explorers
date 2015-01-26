@@ -343,6 +343,13 @@
     <ClCompile Include="CRC64.cpp">
       <Filter>SourceFile\KlasyPomocnicze\Algorytmy\CRC</Filter>
     </ClCompile>
+    <ClCompile Include="SHA3.cpp">
+      <Filter>SourceFile\KlasyPomocnicze\Algorytmy\SHA3</Filter>
+    </ClCompile>
+    <ClCompile Include="VMPC_MAC.cpp">
+      <Filter>SourceFile\KlasyPomocnicze\Algorytmy\VMPC</Filter>
+    </ClCompile>
+    <ClCompile Include="SzyfrowanieTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -741,6 +748,13 @@
     <ClInclude Include="StaleRPC.h">
       <Filter>SourceFile\Network</Filter>
     </ClInclude>
+    <ClInclude Include="SHA3.h">
+      <Filter>SourceFile\KlasyPomocnicze\Algorytmy\SHA3</Filter>
+    </ClInclude>
+    <ClInclude Include="VMPC_MAC.h">
+      <Filter>SourceFile\KlasyPomocnicze\Algorytmy\VMPC</Filter>
+    </ClInclude>
+    <ClInclude Include="SzyfrowanieTest.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -916,6 +930,12 @@
     </Filter>
     <Filter Include="SourceFile\KlasyPomocnicze\Algorytmy\CRC">
       <UniqueIdentifier>{123df74f-2fb7-4355-a00c-49ddfdd170df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\KlasyPomocnicze\Algorytmy\SHA3">
+      <UniqueIdentifier>{2b896c66-4d12-4a0e-8839-53e553e32534}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\KlasyPomocnicze\Algorytmy\VMPC">
+      <UniqueIdentifier>{ab50ab69-ca22-4550-abb1-301c57d1f5b5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

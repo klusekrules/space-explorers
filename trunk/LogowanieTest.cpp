@@ -2,10 +2,12 @@
 #include "Aplikacja.h"
 #include "Utils.h"
 #include "TestyUtilsBO.h"
+#include "SHA3.h"
 
 void LogowanieTest::zaloguj(){
 	std::string haslo("haslo");
-	SpEx::Utils::sha3(haslo);
+	SHA3 sha3(haslo);
+	haslo = sha3.pobierzNapis();
 #ifndef LOG_OFF_ALL
 	SpEx::Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Info, haslo);
 #endif
