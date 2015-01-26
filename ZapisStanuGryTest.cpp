@@ -1,5 +1,6 @@
 #include "ZapisStanuGryTest.h"
 #include "TestyUtilsBO.h"
+#include "SHA3.h"
 
 ZapisStanuGryTest::ZapisStanuGryTest(void)
 	: p_a(0), ptr_a(0)
@@ -8,15 +9,13 @@ ZapisStanuGryTest::ZapisStanuGryTest(void)
 
 void ZapisStanuGryTest::zapis(){
 	std::string haslo("haslo");
-	SpEx::Utils::sha3(haslo);
+	SHA3 sha3(haslo);
 	ptr_a = (int)(&(SpEx::Aplikacja::pobierzInstancje().pobierzGre()));
 	p_a = SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(STyp::Identyfikator(5))->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(1)).pobierzIlosc();
-	UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().zapiszGre(std::string("Daniel"), haslo));
+	UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().zapiszGre(std::string("Daniel"), sha3.pobierzNapis()));
 }
 
 void ZapisStanuGryTest::odczyt(){
-	std::string haslo("haslo");
-	SpEx::Utils::sha3(haslo);
 	auto dokument = TestyUtilsBO::dane();
 	UNIT_TEST_ASSERT_NOTNULL(dokument);
 	auto root = dokument->pobierzElement(WEZEL_XML_ROOT);

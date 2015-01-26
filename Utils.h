@@ -181,29 +181,6 @@ namespace SpEx{
 		}
 
 		/**
-		* \brief Metoda zapisuj¹ca bajt w postaci szesnastkowej.
-		*
-		* Metoda dodaje do napisu bajt zapisany w postaci szesnastkowej.
-		* \param[out] str - Ci¹g znaków.
-		* \param[in] c - Bajt do konwersji.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 08-07-2014
-		*/
-		static void ascii2hex(std::string& str, unsigned char c);
-
-		/**
-		* \brief Metoda oblicza sumê sha3 podanego ci¹gu.
-		*
-		* Metoda zamienia podany ci¹g na jego sumê sha3. U¿ywany jest do tego algorytm keccak
-		* \param[inout] str - Ci¹g znaków.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 08-07-2014
-		*/
-		static void sha3(std::string& str);
-
-		/**
 		* \brief Metoda wyodrêbnia rozsze¿enie pliku.
 		*
 		* Metoda wyodrêbnia rozsze¿enie pliku zawartego w adresie.
