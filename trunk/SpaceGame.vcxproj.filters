@@ -319,9 +319,6 @@
     <ClCompile Include="Klient.cpp">
       <Filter>SourceFile\Network</Filter>
     </ClCompile>
-    <ClCompile Include="ProceduraRPC.cpp">
-      <Filter>SourceFile\Network</Filter>
-    </ClCompile>
     <ClCompile Include="MetodaRPC.cpp">
       <Filter>SourceFile\Network</Filter>
     </ClCompile>
@@ -349,7 +346,9 @@
     <ClCompile Include="VMPC_MAC.cpp">
       <Filter>SourceFile\KlasyPomocnicze\Algorytmy\VMPC</Filter>
     </ClCompile>
-    <ClCompile Include="SzyfrowanieTest.cpp" />
+    <ClCompile Include="SzyfrowanieTest.cpp">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -718,9 +717,6 @@
     <ClInclude Include="Klient.h">
       <Filter>SourceFile\Network</Filter>
     </ClInclude>
-    <ClInclude Include="ProceduraRPC.h">
-      <Filter>SourceFile\Network</Filter>
-    </ClInclude>
     <ClInclude Include="MetodaRPC.h">
       <Filter>SourceFile\Network</Filter>
     </ClInclude>
@@ -754,7 +750,9 @@
     <ClInclude Include="VMPC_MAC.h">
       <Filter>SourceFile\KlasyPomocnicze\Algorytmy\VMPC</Filter>
     </ClInclude>
-    <ClInclude Include="SzyfrowanieTest.h" />
+    <ClInclude Include="SzyfrowanieTest.h">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">

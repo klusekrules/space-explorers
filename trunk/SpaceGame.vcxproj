@@ -370,7 +370,6 @@
     <ClInclude Include="PolaczenieTCP.h" />
     <ClInclude Include="PomocniczeTypyTGUI.h" />
     <ClInclude Include="PowtorzenieIdObiektu.h" />
-    <ClInclude Include="ProceduraRPC.h" />
     <ClInclude Include="RoundedRectangleShape.hpp" />
     <ClInclude Include="Serwer.h" />
     <ClInclude Include="SHA3.h" />
@@ -533,7 +532,6 @@
     <ClCompile Include="PodstawoweParametry.cpp" />
     <ClCompile Include="PolaczenieTCP.cpp" />
     <ClCompile Include="PowtorzenieIdObiektu.cpp" />
-    <ClCompile Include="ProceduraRPC.cpp" />
     <ClCompile Include="RoundedRectangleShape.cpp" />
     <ClCompile Include="Serwer.cpp" />
     <ClCompile Include="SHA3.cpp" />
