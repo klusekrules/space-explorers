@@ -140,7 +140,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;PLUGIN_IMPORT;ZMIANA_IMPORT;PARSER_IMPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;TESTS;SPACE_EXPLORERS_API_EXPORT;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
@@ -176,7 +176,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;PLUGIN_IMPORT;ZMIANA_IMPORT;PARSER_IMPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;TESTS;SPACE_EXPLORERS_API_EXPORT;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
@@ -205,7 +205,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;PLUGIN_IMPORT;ZMIANA_IMPORT;PARSER_IMPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;TESTS;SPACE_EXPLORERS_API_EXPORT;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
@@ -233,7 +233,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;PLUGIN_IMPORT;ZMIANA_IMPORT;PARSER_IMPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;TESTS;SPACE_EXPLORERS_API_EXPORT;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
@@ -266,7 +266,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;PLUGIN_IMPORT;ZMIANA_IMPORT;PARSER_IMPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;TESTS;SPACE_EXPLORERS_API_EXPORT;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -296,7 +296,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;PLUGIN_IMPORT;ZMIANA_IMPORT;PARSER_IMPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;TESTS;SPACE_EXPLORERS_API_EXPORT;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -391,6 +391,7 @@
     <ClInclude Include="WatekZarzadzany.h" />
     <ClInclude Include="XmlModul.h" />
     <ClInclude Include="Zadanie.h" />
+    <ClInclude Include="ZalogujRPC.h" />
     <ClInclude Include="ZarzadcaLokacji.h" />
     <ClInclude Include="ZarzadcaZasobow.h" />
     <ClInclude Include="Zasob.h" />
@@ -565,6 +566,7 @@
     <ClCompile Include="WymaganiaTest.cpp" />
     <ClCompile Include="XmlModul.cpp" />
     <ClCompile Include="Zadanie.cpp" />
+    <ClCompile Include="ZalogujRPC.cpp" />
     <ClCompile Include="ZapisStanuGryTest.cpp" />
     <ClCompile Include="ZarzadcaLokacji.cpp" />
     <ClCompile Include="ZarzadcaZasobow.cpp" />
@@ -897,6 +899,9 @@
     </ProjectReference>
     <ProjectReference Include="TypyProste\TypyProste.vcxproj">
       <Project>{c4cb2f58-bb6e-4ab4-894e-25c8ef668dce}</Project>
+    </ProjectReference>
+    <ProjectReference Include="zlib\zlib.vcxproj">
+      <Project>{ddc0027d-5cdb-444d-9e0f-e2090d9add96}</Project>
     </ProjectReference>
     <ProjectReference Include="Zmiana\Zmiana.vcxproj">
       <Project>{e939d2d1-17b7-4720-8de2-135a14dad2a6}</Project>

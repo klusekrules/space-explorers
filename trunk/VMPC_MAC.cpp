@@ -49,7 +49,6 @@ void VMPC_MAC::InitKey(const Bufor& Key, const Bufor& Vec)   //LeyLen, VecLen={1
 
 void VMPC_MAC::Encrypt(Bufor& Data)
 {
-	unsigned char t; 
 	auto Len = Data.size();
 	for (unsigned int x = 0; x<Len; x++)
 	{

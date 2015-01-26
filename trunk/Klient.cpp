@@ -3,6 +3,8 @@
 #include <chrono>
 #include "Aplikacja.h"
 #include "StaleRPC.h"
+#include <Ws2tcpip.h>
+#include "TypyProste\Wyjatek.h"
 
 #define ROZMIAR_BUFORA 1024
 #define ATRYBUT_PORT_SERWERA "portSerwera"
@@ -12,11 +14,15 @@ namespace SpEx{
 	Klient::Klient(const UstawieniaAplikacji& opcje)
 		: Watek(true)
 	{
-		struct hostent *he;
-		he = gethostbyname(opcje[ATRYBUT_ADRES_SERWERA].c_str());
+
+		struct addrinfo *result = NULL;
+		if (getaddrinfo(opcje[ATRYBUT_ADRES_SERWERA].c_str(), nullptr, nullptr, &result)){
+			throw STyp::Wyjatek(EXCEPTION_PLACE,Aplikacja::pobierzInstancje().pobierzSladStosu());
+		}
+		decltype(addr_) &sock = *((decltype(addr_)*)(result->ai_addr));
 		addr_.sin_family = AF_INET;
 		addr_.sin_port = htons(stoi(opcje[ATRYBUT_PORT_SERWERA], nullptr, 10));
-		addr_.sin_addr.s_addr = *((unsigned long*)he->h_addr);
+		addr_.sin_addr.s_addr = sock.sin_addr.s_addr;
 		gniazdo_ = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 		funkcja_ = std::bind(&Klient::pracujJakoKlient, this);
 	}
@@ -221,7 +227,7 @@ namespace SpEx{
 		} while (tempRozmiar != rozmiar && !czyZakonczyc());
 		dane = bufor.data();
 		error = 0;
-		return rozmiar;
+		return rozmiar > 0;
 	}
 
 	bool Klient::wyslij(const std::string& dane, int& error){
