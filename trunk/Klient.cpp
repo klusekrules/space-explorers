@@ -10,6 +10,19 @@
 #define ATRYBUT_PORT_SERWERA "portSerwera"
 #define ATRYBUT_ADRES_SERWERA "adresSerwera"
 
+#define RPC_OK 0
+#define RPC_ERROR_MISSING_AUTORYZACJA -1
+#define RPC_ERROR_MISSING_INSTANCJA -2
+#define RPC_ERROR_MISSING_METODA -3
+#define RPC_ERROR_MISSING_NAZWA_METODY -4
+#define RPC_ERROR_MISSING_ID_UNIKALNE -5
+#define RPC_ERROR_MISSING_POWTORZENIE -6
+#define RPC_ERROR_MISSING_CZAS_WYWOLANIA -7
+
+#define RPC_ERROR_UNAUTHORIZED -8
+#define RPC_ERROR_WITHOUT_AUTHORIZED -9
+#define RPC_ERROR_NEED_AUTHORIZATION -10
+
 namespace SpEx{
 	Klient::Klient(const UstawieniaAplikacji& opcje)
 		: Watek(true)
@@ -44,6 +57,70 @@ namespace SpEx{
 		listaZadan_.emplace_back(std::make_shared<Zadanie>(zakonczenie, parametry, rezultat));
 		return listaZadan_.back()->zakonczenie_->get_future();
 	}
+
+	int Klient::sprawdzMetode(const Json::Value& root) const{
+
+		if (!root[METODA_RPC_AUTORYZACJA].isString())
+			return RPC_ERROR_MISSING_AUTORYZACJA;
+
+		if (!root[METODA_RPC_INSTANCJA].isString())
+			return RPC_ERROR_MISSING_INSTANCJA;
+
+		const Json::Value& metoda = root[METODA_RPC_METODA];
+
+		if (!metoda.isObject())
+			return RPC_ERROR_MISSING_METODA;
+
+		if (!metoda[METODA_RPC_NAZWA].isString())
+			return RPC_ERROR_MISSING_NAZWA_METODY;
+
+
+		if (!metoda[METODA_RPC_ID_UNIKALNE].isString())
+			return RPC_ERROR_MISSING_ID_UNIKALNE;
+
+
+		if (!metoda[METODA_RPC_POWTORZENIE].isUInt())
+			return RPC_ERROR_MISSING_POWTORZENIE;
+
+
+		if (!metoda[METODA_RPC_CZAS_WYWOLANIA].isString())
+			return RPC_ERROR_MISSING_CZAS_WYWOLANIA;
+
+		return RPC_OK;
+	}
+
+	int Klient::sprawdzAutoryzacje(const Json::Value& root) const{
+		if (root[METODA_RPC_AUTORYZACJA].asString() == "0" && root[METODA_RPC_INSTANCJA].asString() == "0")
+			return RPC_ERROR_WITHOUT_AUTHORIZED;
+
+		if (root[METODA_RPC_AUTORYZACJA].asString() == "0" || root[METODA_RPC_INSTANCJA].asString() == "0")
+			return RPC_ERROR_UNAUTHORIZED;
+
+		return RPC_OK;
+	}
+
+	void Klient::dodajKomunikatBledu(int blad, Json::Value& root){
+		switch (blad){
+		case RPC_OK:
+			break;
+		case RPC_ERROR_NEED_AUTHORIZATION:
+			root[METODA_RPC_THROW][METODA_RPC_TYPE] = "Wymagana autoryzacja.";
+			root[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT] = "Metoda wymaga autoryzacji.";
+			break;
+		default:
+			root[METODA_RPC_THROW][METODA_RPC_TYPE] = "Nieznany blad";
+			root[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT] = "Wystapil nieznany blad.";
+			break;
+		}
+	}
+
+	int Klient::sprawdzMetodeUprzywilejowana(const Json::Value& root)const{
+		auto nazwa = root[METODA_RPC_METODA][METODA_RPC_NAZWA].asString();
+		if (nazwa == "Echo" || nazwa == "Zaloguj")
+			return RPC_OK;
+		return RPC_ERROR_NEED_AUTHORIZATION;
+	}
+
 
 	void Klient::pracujJakoKlient(){
 
@@ -149,32 +226,29 @@ namespace SpEx{
 			Json::Reader reader;
 			if (reader.parse(dane, root)){
 				if (MetodaRPC::sprawdzCRC(root)){
-					Json::Value& metoda = root[METODA_RPC_METODA];
-					// Sprawdzanie czy wymagane parametry s¹ zawarte w ¿¹daniu.
-					if (metoda.isNull()){
-						metoda = Json::Value(Json::objectValue);
-					}
-					bool validParametr = root[METODA_RPC_AUTORYZACJA].isString() && root[METODA_RPC_INSTANCJA].isString() && metoda[METODA_RPC_NAZWA].isString();
-					if (validParametr){
-						//Sprawdzenie czy metoda jest uprzywilejowana do obs³ugi bez autoryzacji.
-						if ((root[METODA_RPC_AUTORYZACJA].asString() == "0" || root[METODA_RPC_INSTANCJA].asString() == "0")
-							&& !czyMetodaRPCUprzywilejowana(metoda[METODA_RPC_NAZWA].asString())){
-							metoda[METODA_RPC_THROW][METODA_RPC_TYPE] = "Unautorized";
-							metoda[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT] = "Brak autoryzacji zdalnej metody.";
-						} else{
-							auto metodaRPC = Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(root, *this);
-							if (metodaRPC){
-								Json::Value result(Json::objectValue);
-								metodaRPC->obslugaZadania(root, result);
-								metoda[METODA_RPC_RETURN] = result;
-							}
+
+					//Sprawdzanie metody
+					auto error = sprawdzMetode(root);
+					if (!error){
+						error = sprawdzAutoryzacje(root);
+						if (error == RPC_ERROR_WITHOUT_AUTHORIZED){
+							error = sprawdzMetodeUprzywilejowana(root);
 						}
-					} else{
-						metoda[METODA_RPC_THROW][METODA_RPC_TYPE] = "Invalid params";
-						metoda[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT] = "Nie poprawna sk³adnia ¿¹dania.";
 					}
-
-
+					
+					//Obs³uga b³êdu lub wykonanie metody.
+					if (error){
+						dodajKomunikatBledu(error,root);
+					} else{
+						auto metodaRPC = Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(root, *this);
+						if (metodaRPC){
+							Json::Value result(Json::objectValue);
+							metodaRPC->obslugaZadania(root, result);
+							root[METODA_RPC_METODA][METODA_RPC_RETURN] = result;
+						}
+					}
+					
+					//Wys³anie rezultatu do klienta.
 					std::string ret;
 					Json::FastWriter writer;
 					MetodaRPC::dodajCRC(root);
@@ -253,12 +327,6 @@ namespace SpEx{
 		} while (tempRozmiar != 0);
 		error = 0;
 		return true;
-	}
-
-	bool Klient::czyMetodaRPCUprzywilejowana(const std::string& nazwa)const{
-		if (nazwa == "Echo" || nazwa == "Zaloguj")
-			return true;
-		return false;
 	}
 
 	void Klient::autoryzujMetode(std::string& instancja, std::string& autoryzacja){

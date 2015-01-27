@@ -4,6 +4,7 @@
 #include <WinSock2.h>
 #include <future>
 #include <list>
+#include "Parser\json\json.h"
 
 namespace SpEx{
 	class Klient :
@@ -48,9 +49,13 @@ namespace SpEx{
 		bool wyslij(const std::string&, int&);
 		bool odbierz(std::string&, int&);
 
-		bool czyMetodaRPCUprzywilejowana(const std::string&)const;
 
 		void pracujJakoKlient();
 		void pracujJakoSerwer();
+
+		int sprawdzMetode(const Json::Value&) const;
+		int sprawdzMetodeUprzywilejowana(const Json::Value&)const;
+		int sprawdzAutoryzacje(const Json::Value&) const;
+		void dodajKomunikatBledu(int, Json::Value&);
 	};
 }
