@@ -352,6 +352,9 @@
     <ClCompile Include="ZalogujRPC.cpp">
       <Filter>SourceFile\Network\MetodyRPC</Filter>
     </ClCompile>
+    <ClCompile Include="KlientDane.cpp">
+      <Filter>SourceFile\Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
