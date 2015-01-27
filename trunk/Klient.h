@@ -24,6 +24,30 @@ namespace SpEx{
 
 		virtual ~Klient();
 	private:
+
+		class Dane{
+		public:
+			Dane(Klient&);
+			Dane(Klient&, std::string&&);
+			bool odbierz(int & error);
+			void wlaczKompresje();
+			void wlaczAutoryzacje();
+			int przygotujDoWyslania();
+			int przetworzPoOdebraniu();
+			bool wyslij(int & error);
+			const std::string& pobierzDane();
+			~Dane() = default;
+		private:
+			bool kompresja();
+			bool dekompresja();
+			bool szyfrowanie();
+			bool deszyfrowanie();
+			Klient & ref_;
+			u_int64 flagi_;
+			std::string dane_;
+			int error_;
+		};
+
 		SOCKET gniazdo_ = INVALID_SOCKET;
 		struct sockaddr_in addr_;		
 		std::function<void(void)> funkcja_;
@@ -45,10 +69,6 @@ namespace SpEx{
 		std::mutex dostepDoZadan_;
 
 		void wykonuj() override;
-
-		bool wyslij(const std::string&, int&);
-		bool odbierz(std::string&, int&);
-
 
 		void pracujJakoKlient();
 		void pracujJakoSerwer();

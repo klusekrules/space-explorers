@@ -5,6 +5,7 @@
 #include "StaleRPC.h"
 #include <Ws2tcpip.h>
 #include "TypyProste\Wyjatek.h"
+#include "zlib.h"
 
 #define ROZMIAR_BUFORA 1024
 #define ATRYBUT_PORT_SERWERA "portSerwera"
@@ -153,9 +154,18 @@ namespace SpEx{
 
 			//Proces obs³ugi ¿¹dania.
 			int blad;
-
+			std::string zadanie = *(zadanie_->zadanie_);
+			Dane daneW(*this, std::move(zadanie));
+			daneW.wlaczKompresje();
+			blad = daneW.przygotujDoWyslania();
+			if (blad){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji send: " + std::to_string(blad));
+				zakoncz();
+				zadanie_->zakonczenie_->set_value(false);
+				break;
+			}
 			// Wysy³anie ¿¹dania do serwera.
-			if (!wyslij(*(zadanie_->zadanie_), blad)){
+			if (!daneW.wyslij(blad)){
 				if (blad == 0){
 					SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
 					zakoncz();
@@ -169,11 +179,12 @@ namespace SpEx{
 				}
 			}
 
+
+			Dane daneO(*this);
 			// Odbieranie wiadomoœci zwrotnej
 			while (!czyZakonczyc()){
-
 				// Próba odebrania wiadomoœci zwrotniej
-				if (!odbierz(*(zadanie_->rezultat_), blad)){
+				if (!daneO.odbierz(blad)){
 
 					// Obs³uga sytuacji b³êdu odbierania wiadomoœci zwrotnej 
 					if (blad == 0){
@@ -195,6 +206,8 @@ namespace SpEx{
 						}
 					}
 				}
+				daneO.przetworzPoOdebraniu();
+				*(zadanie_->rezultat_) = daneO.pobierzDane();
 				zadanie_->zakonczenie_->set_value(true);
 				break;
 			}
@@ -204,10 +217,9 @@ namespace SpEx{
 
 	void Klient::pracujJakoSerwer(){
 		while (!czyZakonczyc()){
-			std::string dane;
 			int blad;
-
-			if (!odbierz(dane, blad)){
+			Dane daneO(*this);
+			if (!daneO.odbierz(blad)){
 				if (blad == 0){
 					SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
 					break;
@@ -224,7 +236,13 @@ namespace SpEx{
 
 			Json::Value root;
 			Json::Reader reader;
-			if (reader.parse(dane, root)){
+			int ret;
+			if (ret = daneO.przetworzPoOdebraniu()){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d : " + std::to_string(ret));
+				zakoncz();
+				break;
+			}
+			if (reader.parse(daneO.pobierzDane(), root)){
 				if (MetodaRPC::sprawdzCRC(root)){
 
 					//Sprawdzanie metody
@@ -255,8 +273,14 @@ namespace SpEx{
 					ret = writer.write(root);
 					if (ret.size()){
 						int blad;
-
-						if (!wyslij(ret, blad)){
+						Dane daneW(*this, std::move(ret));
+						daneW.wlaczKompresje();
+						if (blad = daneW.przygotujDoWyslania()){
+							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d : " + std::to_string(blad));
+							zakoncz();
+							break;
+						}
+						if (!daneW.wyslij(blad)){
 							if (blad == 0){
 								SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
 								zakoncz();
@@ -272,63 +296,7 @@ namespace SpEx{
 			}
 		}
 	}
-
-	bool Klient::odbierz(std::string& dane, int& error){
-		long rozmiar = 0;
-		int rezultat = 0;
-
-		rezultat = recv(gniazdo_, (char*)&rozmiar, sizeof(long), 0);
-		rozmiar = ntohl(rozmiar);
-		if (rezultat <= 0){
-			error = (rezultat == 0 ? 0 : WSAGetLastError());
-			return false;
-		}
-		long tempRozmiar = 0;
-		std::vector <char> bufor;
-		bufor.reserve(rozmiar + 1);
-		bufor.resize(rozmiar + 1, 0);
-		do{
-			rezultat = recv(gniazdo_, &bufor.data()[tempRozmiar], rozmiar - tempRozmiar, 0);
-			if (rezultat <= 0){
-				error = (rezultat == 0 ? 0 : WSAGetLastError());
-				if (WSAEWOULDBLOCK == error){
-					continue;
-				} else{
-					return false;
-				}
-			}
-			tempRozmiar += rezultat;
-		} while (tempRozmiar != rozmiar && !czyZakonczyc());
-		dane = bufor.data();
-		error = 0;
-		return rozmiar > 0;
-	}
-
-	bool Klient::wyslij(const std::string& dane, int& error){
-		u_long rozmiar = dane.size();
-		int rezultat = 0;
-
-		rozmiar = htonl(rozmiar);
-		rezultat = send(gniazdo_, (char*)&rozmiar, sizeof(u_long), 0);
-		rozmiar = ntohl(rozmiar);
-
-		if (rezultat <= 0){
-			error = (rezultat == 0 ? 0 : WSAGetLastError());
-			return false;
-		}
-		long tempRozmiar = rozmiar;
-		do{
-			rezultat = send(gniazdo_, &(dane.c_str()[rozmiar - tempRozmiar]), rozmiar, 0);
-			if (rezultat <= 0){
-				error = (rezultat == 0 ? 0 : WSAGetLastError());
-				return false;
-			}
-			tempRozmiar -= rezultat;
-		} while (tempRozmiar != 0);
-		error = 0;
-		return true;
-	}
-
+	
 	void Klient::autoryzujMetode(std::string& instancja, std::string& autoryzacja){
 		instancja = instancja_;
 		autoryzacja = autoryzacja_;

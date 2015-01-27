@@ -493,6 +493,7 @@
     <ClCompile Include="JednostkaLatajacaInfo.cpp" />
     <ClCompile Include="keccak.cpp" />
     <ClCompile Include="Klient.cpp" />
+    <ClCompile Include="KlientDane.cpp" />
     <ClCompile Include="KontrolkaObiektu.cpp" />
     <ClCompile Include="Kryterium.cpp" />
     <ClCompile Include="Ladownia.cpp" />
