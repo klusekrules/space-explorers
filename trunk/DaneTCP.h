@@ -9,7 +9,6 @@ namespace SpEx{
 
 		bool odbierz();
 		bool wyslij();
-		std::unique_ptr<MetodaRPC> pobierzMetode();
 
 		bool wykonajMetode();
 		
