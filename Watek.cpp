@@ -31,19 +31,19 @@ namespace SpEx{
 		zakoncz_ = true;
 	}
 
-	std::atomic<bool>& Watek::zakonczony(){
+	const std::atomic<bool>& Watek::zakonczony() const{
 		return zakonczony_;
 	}
 
-	std::atomic<bool>& Watek::czyZakonczyc(){
+	const std::atomic<bool>& Watek::czyZakonczyc() const{
 		return zakoncz_;
 	}
 	
-	std::atomic<bool>& Watek::blad(){
+	const std::atomic<bool>& Watek::blad() const{
 		return blad_;
 	}
 	
-	STyp::Wyjatek& Watek::bladInfo(){
+	const STyp::Wyjatek& Watek::bladInfo() const{
 		return bladInfo_;
 	}
 

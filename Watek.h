@@ -84,7 +84,7 @@ namespace SpEx{
 		* \version 1
 		* \date 10-07-2014
 		*/
-		std::atomic<bool>& zakonczony();
+		const std::atomic<bool>& zakonczony() const;
 
 		/**
 		* \brief Metoda informuj¹ca czy wyst¹pi³ b³¹d.
@@ -94,7 +94,7 @@ namespace SpEx{
 		* \version 1
 		* \date 10-07-2014
 		*/
-		std::atomic<bool>& blad();
+		const std::atomic<bool>& blad() const;
 
 		/**
 		* \brief Metoda pobieraj¹ca informacje o wyj¹tku.
@@ -104,7 +104,7 @@ namespace SpEx{
 		* \version 1
 		* \date 10-07-2014
 		*/
-		STyp::Wyjatek& bladInfo();
+		const STyp::Wyjatek& bladInfo() const;
 
 	protected:
 		std::atomic<bool> zakoncz_; /// ¯¹danie zakoñczenia wykonywania w¹tku.
@@ -144,7 +144,7 @@ namespace SpEx{
 		* \version 1
 		* \date 10-07-2014
 		*/
-		std::atomic<bool>& czyZakonczyc();
+		const std::atomic<bool>& czyZakonczyc() const;
 		std::thread* uchwyt_; /// WskaŸnik na obiekt w¹tku.
 
 		/**

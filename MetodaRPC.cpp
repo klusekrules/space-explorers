@@ -89,19 +89,84 @@ namespace SpEx{
 		procedura["CRC"] = CRC64().calc(jsZadanie.c_str(), jsZadanie.size());
 	}
 	
-	bool MetodaRPC::sprawdzCRC(Json::Value& result){
+	int MetodaRPC::sprawdzCRC(Json::Value& result){
 		Json::FastWriter writer;
+		if (!result["CRC"].isUInt64()){
+			return RPC_ERROR_MISSING_CRC;
+		}
 		auto crc = result["CRC"].asUInt64();
 		result["CRC"] = "";
 		auto toCheck = writer.write(result);
 		auto newCRC = CRC64().calc(toCheck.c_str(), toCheck.size());
 		if (newCRC == crc){
-			return true;
+			return RPC_OK;
 		} else{
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, std::to_string(crc));
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, std::to_string(newCRC));
-			return false;
+			return RPC_ERROR_INVALID_CRC;
 		}
+	}
+
+
+	int MetodaRPC::waliduj(Json::Value& result){
+		int error = sprawdzCRC(result);
+		if (error){
+			return error;
+		}
+		if (error = sprawdzMetode(result)){
+			return error;
+		}
+		if ((error = sprawdzAutoryzacje(result)) == RPC_ERROR_WITHOUT_AUTHORIZED){
+			error = sprawdzMetodeUprzywilejowana(result);
+		}
+		return error;
+	}
+
+	int MetodaRPC::sprawdzMetode(const Json::Value& root){
+		if (!root[METODA_RPC_AUTORYZACJA].isString())
+			return RPC_ERROR_MISSING_AUTORYZACJA;
+
+		if (!root[METODA_RPC_INSTANCJA].isString())
+			return RPC_ERROR_MISSING_INSTANCJA;
+
+		const Json::Value& metoda = root[METODA_RPC_METODA];
+
+		if (!metoda.isObject())
+			return RPC_ERROR_MISSING_METODA;
+
+		if (!metoda[METODA_RPC_NAZWA].isString())
+			return RPC_ERROR_MISSING_NAZWA_METODY;
+
+
+		if (!metoda[METODA_RPC_ID_UNIKALNE].isString())
+			return RPC_ERROR_MISSING_ID_UNIKALNE;
+
+
+		if (!metoda[METODA_RPC_POWTORZENIE].isUInt())
+			return RPC_ERROR_MISSING_POWTORZENIE;
+
+
+		if (!metoda[METODA_RPC_CZAS_WYWOLANIA].isString())
+			return RPC_ERROR_MISSING_CZAS_WYWOLANIA;
+
+		return RPC_OK;
+	}
+
+	int MetodaRPC::sprawdzAutoryzacje(const Json::Value& root){
+		if (root[METODA_RPC_AUTORYZACJA].asString() == "0" && root[METODA_RPC_INSTANCJA].asString() == "0")
+			return RPC_ERROR_WITHOUT_AUTHORIZED;
+
+		if (root[METODA_RPC_AUTORYZACJA].asString() == "0" || root[METODA_RPC_INSTANCJA].asString() == "0")
+			return RPC_ERROR_UNAUTHORIZED;
+
+		return RPC_OK;
+	}
+
+	int MetodaRPC::sprawdzMetodeUprzywilejowana(const Json::Value& root){
+		auto nazwa = root[METODA_RPC_METODA][METODA_RPC_NAZWA].asString();
+		if (nazwa == "Echo" || nazwa == "Zaloguj")
+			return RPC_OK;
+		return RPC_ERROR_NEED_AUTHORIZATION;
 	}
 
 	bool MetodaRPC::operator()(){
@@ -122,7 +187,7 @@ namespace SpEx{
 							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nieuda³o siê zintepretowaæ wiadomoœci zwrotnej: " + *wiadomoscZwrotna);
 							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
 						} else{
-							if (sprawdzCRC(root)){
+							if (sprawdzCRC(root) == RPC_OK){
 								//Sprawdzenie czy zosta³ wyrzucony wyj¹tek;
 								if (!metoda[METODA_RPC_THROW].isNull()){
 									SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Otrzymano wyj¹tek: typ: " + metoda[METODA_RPC_THROW][METODA_RPC_TYPE].asString() + " komunikat:  " + metoda[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT].asString());
