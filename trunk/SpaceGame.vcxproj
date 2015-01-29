@@ -330,6 +330,7 @@
     <ClInclude Include="CRC32.h" />
     <ClInclude Include="CRC64.h" />
     <ClInclude Include="CzyszczenieDanychTest.h" />
+    <ClInclude Include="DaneTCP.h" />
     <ClInclude Include="DllModule.h" />
     <ClInclude Include="DllSkrypt.h" />
     <ClInclude Include="EchoRPC.h" />
@@ -493,7 +494,7 @@
     <ClCompile Include="JednostkaLatajacaInfo.cpp" />
     <ClCompile Include="keccak.cpp" />
     <ClCompile Include="Klient.cpp" />
-    <ClCompile Include="KlientDane.cpp" />
+    <ClCompile Include="DaneTCP.cpp" />
     <ClCompile Include="KontrolkaObiektu.cpp" />
     <ClCompile Include="Kryterium.cpp" />
     <ClCompile Include="Ladownia.cpp" />

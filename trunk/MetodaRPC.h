@@ -4,12 +4,14 @@
 #include "Parser\json\json.h"
 #include "PolaczenieTCP.h"
 #include "Logger\LoggerInterface.h"
+
 namespace SpEx{
 	class MetodaRPC :
 		virtual public SLog::LoggerInterface
 	{
 	public:
 		friend class Fabrykator;
+		friend class Klient;
 
 		typedef std::pair<std::string, std::string> Parametr;
 
@@ -30,9 +32,12 @@ namespace SpEx{
 
 		std::string napis() const override;
 
-		static bool sprawdzCRC(Json::Value&);
+		static int sprawdzCRC(Json::Value&);
 
 		static void dodajCRC(Json::Value&);
+
+		static int waliduj(Json::Value&);
+				
 	protected:
 		std::string autoryzacja_;
 		std::string instancja_;
@@ -44,6 +49,11 @@ namespace SpEx{
 		std::string czas_odpowiedzi_;
 		std::vector <Parametr> parametry_;
 		PolaczenieTCP polaczenie_;
+
+		static int sprawdzMetode(const Json::Value&);
+		static int sprawdzMetodeUprzywilejowana(const Json::Value&);
+		static int sprawdzAutoryzacje(const Json::Value&);
+
 
 	};
 }

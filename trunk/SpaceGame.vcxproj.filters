@@ -352,7 +352,7 @@
     <ClCompile Include="ZalogujRPC.cpp">
       <Filter>SourceFile\Network\MetodyRPC</Filter>
     </ClCompile>
-    <ClCompile Include="KlientDane.cpp">
+    <ClCompile Include="DaneTCP.cpp">
       <Filter>SourceFile\Network</Filter>
     </ClCompile>
   </ItemGroup>
@@ -761,6 +761,9 @@
     </ClInclude>
     <ClInclude Include="ZalogujRPC.h">
       <Filter>SourceFile\Network\MetodyRPC</Filter>
+    </ClInclude>
+    <ClInclude Include="DaneTCP.h">
+      <Filter>SourceFile\Network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
