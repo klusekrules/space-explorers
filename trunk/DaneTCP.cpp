@@ -200,12 +200,15 @@ namespace SpEx{
 			break;
 		case Z_MEM_ERROR:
 			error_ = -1;
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d kompresji danych: Z_MEM_ERROR");
 			break;
 		case Z_BUF_ERROR:
 			error_ = -1;
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d kompresji danych: Z_BUF_ERROR");
 			break;
 		default:
 			error_ = -1;
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d kompresji danych: Niezidentyfikowany.");
 			break;
 		}
 		return error_ == 0;
@@ -229,15 +232,19 @@ namespace SpEx{
 			break;
 		case Z_MEM_ERROR:
 			error_ = -1;
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d dekompresji danych: Z_MEM_ERROR");
 			break; 
 		case Z_BUF_ERROR:
 			error_ = -1;
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d dekompresji danych: Z_BUF_ERROR");
 			break;
 		case Z_DATA_ERROR:
 			error_ = -1;
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d dekompresji danych: Z_DATA_ERROR");
 			break;
 		default:
 			error_ = -1;
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d dekompresji danych: Niezidentyfikowany");
 			break;
 		}
 		return error_ == 0;
