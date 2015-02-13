@@ -50,9 +50,9 @@ namespace SpEx{
 		return uzytkownik_->pobierzSkrotKlucza()();
 	}
 
-	std::future<bool> Klient::dodajZadanie(std::shared_ptr<std::promise<bool> > zakonczenie, std::shared_ptr<const std::string> parametry, std::shared_ptr<std::string> rezultat){
+	std::future<bool> Klient::dodajZadanie(std::shared_ptr<std::promise<bool> > zakonczenie, std::shared_ptr<const std::string> parametry, std::shared_ptr<std::string> rezultat, int flagi){
 		std::lock_guard<std::mutex> lock(dostepDoZadan_);
-		listaZadan_.emplace_back(std::make_shared<Zadanie>(zakonczenie, parametry, rezultat, 0));
+		listaZadan_.emplace_back(std::make_shared<Zadanie>(zakonczenie, parametry, rezultat, flagi));
 		return listaZadan_.back()->zakonczenie_->get_future();
 	}
 	

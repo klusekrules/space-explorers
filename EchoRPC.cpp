@@ -1,5 +1,6 @@
 #include "EchoRPC.h"
 #include "Logger\Logger.h"
+#include "StaleRPC.h"
 
 namespace SpEx{
 
@@ -9,6 +10,7 @@ namespace SpEx{
 
 	std::unique_ptr<MetodaRPC> EchoRPC::TworzObiekt(const Json::Value & metoda, Klient& klient){
 		auto ptr = std::make_unique<EchoRPC>(klient);
+		ptr->flagi_ = RPC_FLAG_COMPRESSION | RPC_FLAG_AUTHORIZATION;
 		if (metoda.isNull()){
 			// Tworzenie nowej pustej metody, do wys³ania na serwer
 		} else{

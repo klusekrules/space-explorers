@@ -15,7 +15,7 @@ namespace SpEx{
 
 		typedef std::pair<std::string, std::string> Parametr;
 
-		MetodaRPC( const PolaczenieTCP& );
+		MetodaRPC(const PolaczenieTCP&);
 		~MetodaRPC() = default;
 
 		virtual void obslugaZadania(const Json::Value &, Json::Value&);
@@ -29,6 +29,8 @@ namespace SpEx{
 		bool operator<<(const Json::Value &);
 
 		const MetodaRPC& operator>>(Json::Value &) const;
+
+		int pobierzFlagi() const;
 
 		std::string napis() const override;
 
@@ -48,6 +50,7 @@ namespace SpEx{
 		std::string czas_wywolania_;
 		std::string czas_odpowiedzi_;
 		std::vector <Parametr> parametry_;
+		int flagi_;
 		PolaczenieTCP polaczenie_;
 
 		static int sprawdzMetode(const Json::Value&);

@@ -10,7 +10,7 @@
 namespace SpEx{
 
 	MetodaRPC::MetodaRPC(const PolaczenieTCP& polaczenie)
-		: polaczenie_(polaczenie)
+		: polaczenie_(polaczenie), flagi_(0)
 	{}
 
 	bool MetodaRPC::operator<< (const Json::Value & root){
@@ -81,6 +81,9 @@ namespace SpEx{
 		throw NiezaimplementowanaMetoda(EXCEPTION_PLACE);
 	}
 
+	int MetodaRPC::pobierzFlagi() const{
+		return flagi_;
+	}
 
 	void MetodaRPC::dodajCRC(Json::Value& procedura){
 		procedura["CRC"] = "";
@@ -178,7 +181,7 @@ namespace SpEx{
 				dodajCRC(procedura);
 				auto zadanie = std::make_shared<const std::string>(writer.write(procedura));
 				auto wiadomoscZwrotna = std::make_shared<std::string>();
-				if (polaczenie_.wyslij(zadanie, wiadomoscZwrotna)){
+				if (polaczenie_.wyslij(zadanie, wiadomoscZwrotna, flagi_)){
 					Json::Reader reader;
 					Json::Value root;
 					if (reader.parse(*wiadomoscZwrotna, root)){
