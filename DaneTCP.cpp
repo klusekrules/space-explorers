@@ -2,6 +2,8 @@
 #include "zlib.h"
 #include "StaleRPC.h"
 #include "Aplikacja.h"
+#include "VMPC_MAC.h"
+#include "SHA3.h"
 
 namespace SpEx{
 	DaneTCP::DaneTCP(Klient& ref)
@@ -27,6 +29,7 @@ namespace SpEx{
 
 	bool DaneTCP::wyslij(){
 		wlaczKompresje(); // TODO: Usun¹æ zahardcodowane polecenie kompresji.
+		wlaczAutoryzacje();
 		auto error = przygotujDoWyslania();
 		if (error){
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d przetwarzania wysy³anych danych: " + std::to_string(error));
@@ -106,8 +109,8 @@ namespace SpEx{
 			rozmiar = (0xFFFFFFFF00000000 & header) >> 32;
 			flagi_ = header & 0x00000000FFFFFFFF;
 
-			bufor.reserve(rozmiar + 1);
-			bufor.resize(rozmiar + 1, 0);
+			bufor.reserve(rozmiar);
+			bufor.resize(rozmiar, 0);
 			do{
 				rezultat = ref_.odbierz(&bufor.data()[tempRozmiar], rozmiar - tempRozmiar);
 				if (rezultat <= 0){
@@ -250,12 +253,40 @@ namespace SpEx{
 		return error_ == 0;
 	}
 
-	bool DaneTCP::szyfrowanie(){
-		return error_ == 0;
+	bool DaneTCP::szyfrowanie(const std::string& klucz){
+
+		std::string vektor(SLog::Log::pobierzInstancje().pobierzDateCzas());
+		VMPC_MAC szyfr;
+		SHA3 skrotKlucza(klucz);
+		SHA3 skrotVektora(vektor);
+		auto &vektorV = skrotVektora.pobierzKontener();
+
+		szyfr.InitKey(skrotKlucza.pobierzKontener(), vektorV);
+		szyfr.EncryptMAC(wyslij_);
+
+		auto &macV = szyfr.OutputMAC();
+
+		std::string macS(macV.begin(), macV.end());
+		std::string vectorS(vektorV.begin(), vektorV.end());
+		wyslij_ = macS + vectorS + wyslij_;
+
+		return !wyslij_.empty();
 	}
 
-	bool DaneTCP::deszyfrowanie(){
-		return error_ == 0;
+	bool DaneTCP::deszyfrowanie(const std::string& klucz){
+		VMPC_MAC szyfr;
+		SHA3 skrotKlucza(klucz);
+		auto firstWektor = odbierz_.begin() + 20;
+		auto firstMessage = firstWektor + skrotKlucza.pobierzKontener().size();
+		VMPC_MAC::Bufor macVO(odbierz_.begin(), firstWektor);
+		VMPC_MAC::Bufor vektorVO(firstWektor, firstMessage);
+
+		odbierz_.erase(odbierz_.begin(), firstMessage);
+
+		szyfr.InitKey(skrotKlucza.pobierzKontener(), vektorVO);
+		szyfr.DecryptMAC(odbierz_);
+		
+		return !odbierz_.empty() && szyfr.OutputMAC() == macVO;
 	}
 
 	int DaneTCP::przygotujDoWyslania(){
@@ -265,8 +296,13 @@ namespace SpEx{
 				return error_;
 		}
 		if (flagi_ & 0x2){
-			if (!szyfrowanie())
-				return error_;
+			if (ref_.czyAutoryzowany()){
+				if (!szyfrowanie(ref_.pobierzKlucz()))
+					return error_;
+			} else{
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Próba szyfrowania bez podania klucza.");
+				flagi_ &= ~0x2;
+			}
 		}
 		return error_;
 	}
@@ -274,8 +310,13 @@ namespace SpEx{
 	int DaneTCP::przetworzPoOdebraniu(){
 		error_ = 0;
 		if (flagi_ & 0x2){
-			if (!deszyfrowanie())
-				return error_;
+			if (ref_.czyAutoryzowany()){
+				if (!deszyfrowanie(ref_.pobierzKlucz()))
+					return error_;
+			} else{
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Próba deszyfrowania bez podania klucza.");
+				flagi_ &= ~0x2;
+			}
 		}
 		if (flagi_ & 0x1){
 			if (!dekompresja())
