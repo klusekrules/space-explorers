@@ -60,6 +60,10 @@ namespace SpEx{
 		return nazwaUzytkownika_;
 	}
 
+	const STyp::Tekst& Uzytkownik::pobierzSkrotKlucza()const{
+		return skrotKlucza_;
+	}
+
 	void Uzytkownik::ustawNazweUzytkownika(const STyp::Tekst& nazwa){
 		nazwaUzytkownika_ = nazwa;
 	}
@@ -68,6 +72,7 @@ namespace SpEx{
 		if (!wezel)
 			return false;
 		wezel->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwaUzytkownika_().c_str());
+		wezel->tworzAtrybut(ATRYBUT_XML_HASH, skrotKlucza_().c_str());
 		wezel->tworzAtrybut(ATRYBUT_XML_PLANETA_AKTYWNA, std::to_string(aktywnaPlaneta_()).c_str());
 		for (auto planeta : planety_){
 			auto element = wezel->tworzElement(WEZEL_XML_PLANETA);
@@ -78,6 +83,7 @@ namespace SpEx{
 
 	bool Uzytkownik::odczytaj(XmlBO::ElementWezla wezel){
 		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_NAZWA, nazwaUzytkownika_);
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_HASH, skrotKlucza_);
 		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_PLANETA_AKTYWNA, aktywnaPlaneta_);
 		return XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_PLANETA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 			STyp::Identyfikator idPlanety;
@@ -95,6 +101,7 @@ namespace SpEx{
 	std::string Uzytkownik::napis() const{
 		SLog::Logger str(NAZWAKLASY(Uzytkownik));
 		str.dodajPole(NAZWAPOLA(nazwaUzytkownika_), nazwaUzytkownika_);
+		str.dodajPole(NAZWAPOLA(skrotKlucza_), skrotKlucza_);
 		str.dodajPole(NAZWAPOLA(aktywnaPlaneta_), aktywnaPlaneta_);
 
 		str.rozpocznijPodKlase(NAZWAPOLA(planety_), "SpEx::Uzytkownik::Planety");

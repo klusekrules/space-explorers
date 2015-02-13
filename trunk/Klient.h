@@ -4,6 +4,7 @@
 #include <WinSock2.h>
 #include <future>
 #include <list>
+#include "Uzytkownik.h"
 
 namespace SpEx{
 
@@ -27,6 +28,10 @@ namespace SpEx{
 
 		int wyslij(const char* wiadomosc, int dlugosc, int flagi = 0) const;
 
+		bool czyAutoryzowany()const;
+
+		const std::string& pobierzKlucz() const;
+
 		const std::atomic<bool>& czyCzekaNaZakonczenie() const;
 
 		virtual ~Klient();
@@ -38,6 +43,8 @@ namespace SpEx{
 
 		std::string autoryzacja_ = "0";
 		std::string instancja_ = "0";
+
+		std::shared_ptr<Uzytkownik> uzytkownik_;
 
 		struct Zadanie{
 			std::shared_ptr<std::promise<bool> > zakonczenie_;

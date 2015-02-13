@@ -81,6 +81,8 @@ namespace SpEx{
 		*/
 		void ustawNazweUzytkownika(const STyp::Tekst& nazwa);
 
+		const STyp::Tekst& pobierzSkrotKlucza() const;
+
 		/**
 		* \brief Metoda dodaje palanetê do listy planet u¿ytkownika.
 		*
@@ -165,5 +167,6 @@ namespace SpEx{
 		Planety planety_; /// Lista planet u¿ytkownika.
 		Gra& instancjaGry; /// Instancja gry do której nale¿y u¿ytkowni.
 		STyp::Identyfikator aktywnaPlaneta_; /// Identyfikator aktywnej planety.
+		STyp::Tekst skrotKlucza_;
 	};
 }

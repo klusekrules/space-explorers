@@ -42,6 +42,14 @@ namespace SpEx{
 		funkcja_();
 	}
 
+	bool Klient::czyAutoryzowany()const{
+		return uzytkownik_!=nullptr;
+	}
+
+	const std::string& Klient::pobierzKlucz() const{
+		return uzytkownik_->pobierzSkrotKlucza()();
+	}
+
 	std::future<bool> Klient::dodajZadanie(std::shared_ptr<std::promise<bool> > zakonczenie, std::shared_ptr<const std::string> parametry, std::shared_ptr<std::string> rezultat){
 		std::lock_guard<std::mutex> lock(dostepDoZadan_);
 		listaZadan_.emplace_back(std::make_shared<Zadanie>(zakonczenie, parametry, rezultat, 0));

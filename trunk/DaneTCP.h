@@ -23,8 +23,8 @@ namespace SpEx{
 		int przetworzPoOdebraniu();
 		bool kompresja();
 		bool dekompresja();
-		bool szyfrowanie();
-		bool deszyfrowanie();
+		bool szyfrowanie(const std::string& klucz);
+		bool deszyfrowanie(const std::string& klucz);
 		void dodajKomunikatBledu(int, Json::Value&);
 
 		Klient & ref_;
