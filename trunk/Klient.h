@@ -20,7 +20,7 @@ namespace SpEx{
 
 		void zamknijPolaczenie();
 		
-		std::future<bool> dodajZadanie(std::shared_ptr<std::promise<bool> >, std::shared_ptr<const std::string>, std::shared_ptr<std::string>);
+		std::future<bool> dodajZadanie(std::shared_ptr<std::promise<bool> >, std::shared_ptr<const std::string>, std::shared_ptr<std::string>, int);
 
 		void autoryzujMetode(std::string& instancja, std::string& autoryzacja) const;
 		

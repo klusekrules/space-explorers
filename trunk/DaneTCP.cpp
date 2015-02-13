@@ -28,8 +28,6 @@ namespace SpEx{
 	}
 
 	bool DaneTCP::wyslij(){
-		wlaczKompresje(); // TODO: Usun¹æ zahardcodowane polecenie kompresji.
-		wlaczAutoryzacje();
 		auto error = przygotujDoWyslania();
 		if (error){
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d przetwarzania wysy³anych danych: " + std::to_string(error));
@@ -54,6 +52,7 @@ namespace SpEx{
 				if (metodaRPC){
 					Json::Value result(Json::objectValue);
 					metodaRPC->obslugaZadania(root, result);
+					flagi_ = metodaRPC->pobierzFlagi();
 					root[METODA_RPC_METODA][METODA_RPC_RETURN] = result;
 				}
 			}

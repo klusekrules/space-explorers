@@ -8,7 +8,7 @@ namespace SpEx{
 	public:
 		PolaczenieTCP(Klient&);
 		~PolaczenieTCP() = default;
-		bool wyslij(std::shared_ptr<const std::string>, std::shared_ptr<std::string>) const;
+		bool wyslij(std::shared_ptr<const std::string>, std::shared_ptr<std::string>, int) const;
 		std::string napis() const override;
 	private:
 		Klient& klient_;
