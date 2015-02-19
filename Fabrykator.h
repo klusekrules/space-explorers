@@ -23,7 +23,7 @@ namespace SpEx{
 		typedef bool(*RejestrujSkrypt)(Fabrykator& fabryka, SLog::Log& logger); /// Nag³ówek metody rejestruj¹cej skrypt w fabryce.
 
 		typedef STyp::Tekst IdentyfikatorMetoryRPC;
-		typedef std::unique_ptr<MetodaRPC>(*KreatorMetodyRPC)(const Json::Value & , Klient&);
+		typedef std::shared_ptr<MetodaRPC>(*KreatorMetodyRPC)(const Json::Value &, Klient&);
 		typedef bool(*RejestratorMetodyRPC)(Fabrykator& fabryka, SLog::Log& logger);
 
 		/**
@@ -119,8 +119,8 @@ namespace SpEx{
 
 		bool rejestracjaMetodyRPC(const IdentyfikatorMetoryRPC& identyfikator, KreatorMetodyRPC funkcja);
 
-		std::unique_ptr<MetodaRPC> TworzMetodeRPC(const Json::Value &, Klient&) const;
-		std::unique_ptr<MetodaRPC> TworzMetodeRPC(const std::string &, Klient&) const;
+		std::shared_ptr<MetodaRPC> TworzMetodeRPC(const Json::Value &, Klient&) const;
+		std::shared_ptr<MetodaRPC> TworzMetodeRPC(const std::string &, Klient&) const;
 
 		/**
 		* Funkcja s³u¿¹ca do tworzenia napisów z opisem klasy.

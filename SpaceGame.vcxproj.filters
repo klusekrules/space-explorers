@@ -322,9 +322,6 @@
     <ClCompile Include="MetodaRPC.cpp">
       <Filter>SourceFile\Network</Filter>
     </ClCompile>
-    <ClCompile Include="PolaczenieTCP.cpp">
-      <Filter>SourceFile\Network</Filter>
-    </ClCompile>
     <ClCompile Include="NiezaimplementowanaMetoda.cpp">
       <Filter>SourceFile\Wyjatki</Filter>
     </ClCompile>
@@ -354,6 +351,12 @@
     </ClCompile>
     <ClCompile Include="DaneTCP.cpp">
       <Filter>SourceFile\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="InicjujLogowanieRPC.cpp">
+      <Filter>SourceFile\Network\MetodyRPC</Filter>
+    </ClCompile>
+    <ClCompile Include="ZarzadcaUzytkownikow.cpp">
+      <Filter>SourceFile\Kontroler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -726,9 +729,6 @@
     <ClInclude Include="MetodaRPC.h">
       <Filter>SourceFile\Network</Filter>
     </ClInclude>
-    <ClInclude Include="PolaczenieTCP.h">
-      <Filter>SourceFile\Network</Filter>
-    </ClInclude>
     <ClInclude Include="NiezaimplementowanaMetoda.h">
       <Filter>SourceFile\Wyjatki</Filter>
     </ClInclude>
@@ -764,6 +764,12 @@
     </ClInclude>
     <ClInclude Include="DaneTCP.h">
       <Filter>SourceFile\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="InicjujLogowanieRPC.h">
+      <Filter>SourceFile\Network\MetodyRPC</Filter>
+    </ClInclude>
+    <ClInclude Include="ZarzadcaUzytkownikow.h">
+      <Filter>SourceFile\Kontroler</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

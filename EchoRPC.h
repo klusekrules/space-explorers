@@ -9,9 +9,9 @@ namespace SpEx{
 	public:
 
 		static bool RejestratorMetodyRPC(Fabrykator& fabryka, SLog::Log& logger);
-		static std::unique_ptr<MetodaRPC> TworzObiekt(const Json::Value &, Klient&);
+		static std::shared_ptr<MetodaRPC> TworzObiekt(const Json::Value &, Klient&);
 
-		EchoRPC(const PolaczenieTCP&);
+		EchoRPC(Klient&);
 		virtual ~EchoRPC() = default;
 
 		void obslugaZadania(const Json::Value &, Json::Value&) override;

@@ -28,7 +28,7 @@ namespace SpEx{
 		return true;
 	}
 
-	std::unique_ptr<MetodaRPC> Fabrykator::TworzMetodeRPC(const std::string & nazwa, Klient& klient) const{
+	std::shared_ptr<MetodaRPC> Fabrykator::TworzMetodeRPC(const std::string & nazwa, Klient& klient) const{
 		if (!nazwa.empty()){
 			auto iterator = metodRpcCallbacks_.find(nazwa);
 			if (iterator == metodRpcCallbacks_.end())
@@ -41,12 +41,12 @@ namespace SpEx{
 				klient.autoryzujMetode(ptr->instancja_, ptr->autoryzacja_);
 				ptr->czas_wywolania_ = SLog::Log::pobierzInstancje().pobierzDateCzas();
 			}
-			return std::move(ptr);
+			return ptr;
 		}
 		return nullptr;
 	}
 
-	std::unique_ptr<MetodaRPC> Fabrykator::TworzMetodeRPC(const Json::Value & root, Klient& klient) const{
+	std::shared_ptr<MetodaRPC> Fabrykator::TworzMetodeRPC(const Json::Value & root, Klient& klient) const{
 		auto value = root["metoda"]["nazwa"];
 		if (value.isString()){
 			auto iterator = metodRpcCallbacks_.find(value.asString());

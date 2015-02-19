@@ -8,8 +8,8 @@ namespace SpEx{
 		return fabryka.rejestracjaMetodyRPC(STyp::Tekst("Echo"), EchoRPC::TworzObiekt);
 	}
 
-	std::unique_ptr<MetodaRPC> EchoRPC::TworzObiekt(const Json::Value & metoda, Klient& klient){
-		auto ptr = std::make_unique<EchoRPC>(klient);
+	std::shared_ptr<MetodaRPC> EchoRPC::TworzObiekt(const Json::Value & metoda, Klient& klient){
+		auto ptr = std::make_shared<EchoRPC>(klient);
 		ptr->flagi_ = RPC_FLAG_COMPRESSION | RPC_FLAG_AUTHORIZATION;
 		if (metoda.isNull()){
 			// Tworzenie nowej pustej metody, do wys³ania na serwer
@@ -25,7 +25,7 @@ namespace SpEx{
 	}
 
 
-	EchoRPC::EchoRPC(const PolaczenieTCP& polaczenie)
+	EchoRPC::EchoRPC(Klient& polaczenie)
 		: MetodaRPC(polaczenie)
 	{
 	}

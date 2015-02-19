@@ -1,8 +1,9 @@
 #include "ZalogujRPC.h"
 #include "Logger\Logger.h"
+#include "StaleRPC.h"
 
 namespace SpEx{
-	ZalogujRPC::ZalogujRPC(const PolaczenieTCP& gniazdo)
+	ZalogujRPC::ZalogujRPC(Klient& gniazdo)
 		: MetodaRPC(gniazdo)
 	{
 	}
@@ -11,15 +12,15 @@ namespace SpEx{
 		return fabryka.rejestracjaMetodyRPC(STyp::Tekst("Zaloguj"), ZalogujRPC::TworzObiekt);
 	}
 
-	std::unique_ptr<MetodaRPC> ZalogujRPC::TworzObiekt(const Json::Value & metoda, Klient& klient){
-		auto ptr = std::make_unique<ZalogujRPC>(klient);
+	std::shared_ptr<MetodaRPC> ZalogujRPC::TworzObiekt(const Json::Value & metoda, Klient& klient){
+		auto ptr = std::make_shared<ZalogujRPC>(klient);
 		if (metoda.isNull()){
 			// Tworzenie nowej pustej metody, do wys³ania na serwer
 		} else{
 			if ((*ptr) << metoda){
 				// Uda³o siê odtworzyæ metodê, przypisanie parametrów wymaganych przez metodê do atrybutów metody.
 			} else{
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nie powiod³a siê deserializacja metody Echo.");
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nie powiod³a siê deserializacja metody ZalogujRPC.");
 				return nullptr;
 			}
 		}

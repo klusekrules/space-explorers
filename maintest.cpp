@@ -10,6 +10,8 @@
 #include <crtdbg.h>
 #include "TestyJednostkowe.h"
 #include "EchoRPC.h"
+#include "InicjujLogowanieRPC.h"
+
 void main( int argv , char* argc[] ){
 
 	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
@@ -29,14 +31,24 @@ void main( int argv , char* argc[] ){
 		serwer.odblokuj();
 		klient.odblokuj();
 		SpEx::EchoRPC::RejestratorMetodyRPC(SpEx::Aplikacja::pobierzInstancje().fabrykator_, SLog::Log::pobierzInstancje());
+		SpEx::InicjujLogowanieRPC::RejestratorMetodyRPC(SpEx::Aplikacja::pobierzInstancje().fabrykator_, SLog::Log::pobierzInstancje());
 
-		auto ptr = SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(std::string("Echo"), klient);
-		if (ptr){
-			(*ptr)();
-		} else{
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning,"Nieuda³o siê wywo³aæ metody Echo.");
+		{
+			auto ptrE = SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(std::string("Echo"), klient);
+			if (ptrE){
+				(*ptrE)();
+			} else{
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Nieuda³o siê wywo³aæ metody Echo.");
+			}
+
+			auto ptrL = SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(std::string("InicjujLogowanie"), klient);
+			((SpEx::InicjujLogowanieRPC*)(ptrL.get()))->login_ = "Daniel";
+			if (ptrL){
+				(*ptrL)();
+			} else{
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Nieuda³o siê wywo³aæ metody InicjujLogowanie.");
+			}
 		}
-		ptr.reset();
 
 		SpEx::MaszynaStanow::pobierzInstancje().inicjalizuj();
 		SpEx::MaszynaStanow::pobierzInstancje().start();

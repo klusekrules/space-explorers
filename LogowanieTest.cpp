@@ -8,6 +8,7 @@ void LogowanieTest::zaloguj(){
 	std::string haslo("haslo");
 	SHA3 sha3(haslo);
 	haslo = sha3.pobierzNapis();
+	
 #ifndef LOG_OFF_ALL
 	SpEx::Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Info, haslo);
 #endif
@@ -20,7 +21,7 @@ void LogowanieTest::zaloguj(){
 		SpEx::Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Debug, "U¿ytkownik istnieje.");
 #endif
 	}
-
+	
 	auto dokument = TestyUtilsBO::dane();
 	UNIT_TEST_ASSERT_NOTNULL(dokument);
 	auto root = dokument->pobierzElement(WEZEL_XML_ROOT);

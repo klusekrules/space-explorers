@@ -3,6 +3,7 @@
 #define METODA_RPC_INSTANCJA "instancja"
 #define METODA_RPC_METODA "metoda"
 #define METODA_RPC_NAZWA "nazwa"
+#define METODA_RPC_CRC "crc"
 #define METODA_RPC_ID_UNIKALNE "id-unikalne"
 #define METODA_RPC_POWTORZENIE "powtorzenie"
 #define METODA_RPC_CZAS_WYWOLANIA "czas-wywolania"
