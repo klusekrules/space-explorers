@@ -3,7 +3,6 @@
 #include "Aplikacja.h"
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
-#include "Walidator.h"
 #include <functional>
 
 namespace SpEx{
@@ -187,8 +186,6 @@ namespace SpEx{
 		if (wezel){
 
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
-			Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(identyfikator_);
-
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_NAZWA, nazwaPlanety_);
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_ODLEGLOSC_OD_SLONCA, odlegloscOdSlonca_);
 			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_SREDNICA, srednicaPlanety_);
@@ -241,8 +238,6 @@ namespace SpEx{
 						return false;
 					if (wskaznik->pobierzPlanetePoczatkowa() != identyfikator_)
 						return false;
-					Walidator::pobierzInstancje().dodajUzytyIdentyfikatorPlanety(wskaznik->pobierzPlanetePoczatkowa());
-					Walidator::pobierzInstancje().dodajUzytyIdentyfikatorPlanety(wskaznik->pobierzPlaneteDocelowa());
 					listaFlot_.insert(std::make_pair(wskaznik->pobierzIdentyfikator(), wskaznik));
 					return true;
 				}))){
