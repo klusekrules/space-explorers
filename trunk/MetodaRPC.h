@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include "Parser\json\json.h"
-#include "PolaczenieTCP.h"
+#include "Klient.h"
 #include "Logger\LoggerInterface.h"
 
 namespace SpEx{
@@ -15,24 +15,24 @@ namespace SpEx{
 
 		typedef std::pair<std::string, std::string> Parametr;
 
-		MetodaRPC(const PolaczenieTCP&);
+		MetodaRPC(Klient&);
 		~MetodaRPC() = default;
 
 		virtual void obslugaZadania(const Json::Value &, Json::Value&);
 		
-		bool operator()();
-
 		virtual bool inicjalizacjaParametrow();
 
 		virtual bool obslugaOdpowiedzi(const Json::Value &);
 
+		std::string napis() const override;
+		
 		bool operator<<(const Json::Value &);
 
 		const MetodaRPC& operator>>(Json::Value &) const;
 
 		int pobierzFlagi() const;
 
-		std::string napis() const override;
+		bool operator()();
 
 		static int sprawdzCRC(Json::Value&);
 
@@ -51,7 +51,7 @@ namespace SpEx{
 		std::string czas_odpowiedzi_;
 		std::vector <Parametr> parametry_;
 		int flagi_;
-		PolaczenieTCP polaczenie_;
+		Klient& klient_;
 
 		static int sprawdzMetode(const Json::Value&);
 		static int sprawdzMetodeUprzywilejowana(const Json::Value&);

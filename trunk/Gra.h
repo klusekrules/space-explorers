@@ -63,6 +63,32 @@ namespace SpEx {
 		bool wczytajDane(std::shared_ptr<SPar::ParserElement> root);
 
 		/**
+		* \brief Metoda pobiera aktualnie zalogowanego u¿ytkownika.
+		*
+		* Metoda s³u¿y do pobrania aktualnie zalogowanego u¿ytkownika.
+		* \return Referencja do zalogowanego u¿ytkownika.
+		* \throw NieznalezionoObiektu
+		*/
+		Uzytkownik& pobierzUzytkownika() const throw (NieznalezionoObiektu);
+
+		/**
+		* \brief Metoda przenosi planetê do zalogowane u¿ytkownika.
+		*
+		* Metoda przenosi planetê o podanym identyfikatorze do aktualnie zalogowanego u¿ytkownika. Przypisuje jego jako w³aœciciela. Usuwa planetê z listy wolnych planet.
+		* \param[in] identyfikator - identyfikator planety.
+		* \return true je¿eli uda siê przeniœæ, false w przeciwnym wypadku.
+		*/
+		bool przeniesPlaneteDoUzytkownika(const STyp::Identyfikator& identyfikator);
+
+		/**
+		* \brief Metoda przenosi planetê do zalogowane u¿ytkownika.
+		*
+		* Metoda przenosi pierwsz¹ woln¹ planetê do aktualnie zalogowanego u¿ytkownika. Przypisuje jego jako w³aœciciela. Usuwa planetê z listy wolnych planet.
+		* \return true je¿eli uda siê przeniœæ, false w przeciwnym wypadku.
+		*/
+		bool przeniesPlaneteDoUzytkownika();
+
+		/**
 		* \brief Metoda loguj¹ca u¿ytkownika.
 		*
 		* Metoda s³u¿y do logowania u¿ytkownika. Zostaj¹ za³adowane do pamiêci planety nale¿¹ce do u¿ytkownika.
@@ -92,31 +118,6 @@ namespace SpEx {
 		*/
 		bool usunGracza(const std::string& nazwa, const std::string& hash);
 
-		/**
-		* \brief Metoda pobiera aktualnie zalogowanego u¿ytkownika.
-		*
-		* Metoda s³u¿y do pobrania aktualnie zalogowanego u¿ytkownika.
-		* \return Referencja do zalogowanego u¿ytkownika.
-		* \throw NieznalezionoObiektu
-		*/
-		Uzytkownik& pobierzUzytkownika() const throw (NieznalezionoObiektu);
-
-		/**
-		* \brief Metoda przenosi planetê do zalogowane u¿ytkownika.
-		*
-		* Metoda przenosi planetê o podanym identyfikatorze do aktualnie zalogowanego u¿ytkownika. Przypisuje jego jako w³aœciciela. Usuwa planetê z listy wolnych planet.
-		* \param[in] identyfikator - identyfikator planety.
-		* \return true je¿eli uda siê przeniœæ, false w przeciwnym wypadku.
-		*/
-		bool przeniesPlaneteDoUzytkownika(const STyp::Identyfikator& identyfikator);
-
-		/**
-		* \brief Metoda przenosi planetê do zalogowane u¿ytkownika.
-		*
-		* Metoda przenosi pierwsz¹ woln¹ planetê do aktualnie zalogowanego u¿ytkownika. Przypisuje jego jako w³aœciciela. Usuwa planetê z listy wolnych planet.
-		* \return true je¿eli uda siê przeniœæ, false w przeciwnym wypadku.
-		*/
-		bool przeniesPlaneteDoUzytkownika();
 
 		/**
 		* \brief Metoda tworz¹ca instancje obiektu nie przypisan¹ do planety.
@@ -170,27 +171,7 @@ namespace SpEx {
 		const T& pobierzObiektInfo(const STyp::Identyfikator& identyfikator) const{
 			return *(znajdzObiektInfo<T, THROW>(identyfikator));
 		}
-
-		/**
-		* \brief Metoda zapisuj¹ca.
-		*
-		* Metoda s³u¿¹ca do zapisu danych u¿ytkownika do pliku xml generowanego z nazwy u¿ytkownika.
-		* \param[in] nazwa - Nazwa u¿ytkownika.
-		* \param[in] hash - Hash has³a u¿ytkownika.
-		* \return Zwracana jest wartoœæ true, je¿eli zapisano obiekt poprawnie. False, je¿eli zapis siê nie powiód³.
-		*/
-		bool zapisz(const std::string& nazwa, const std::string& hash) const;
-
-		/**
-		* \brief Metoda odczytuj¹ca.
-		*
-		* Metoda s³u¿¹ca do odczytu danych uzytkownika.
-		* \param[in] nazwa - Nazwa u¿ytkownika.
-		* \param[in] hash - Hash has³a u¿ytkownika.
-		* \return Zwracana jest wartoœæ true, je¿eli odczytano obiekt poprawnie. False, je¿eli odczyt siê nie powiód³.
-		*/
-		bool odczytaj(const std::string& nazwa, const std::string& hash);
-
+				
 		/**
 		* \brief Metoda zwracaj¹ca wskaŸnik na planetê.
 		*
@@ -376,26 +357,10 @@ namespace SpEx {
 				return obsluzBladWyszukiwania<T, TRAIT>(identyfikator);
 			return iterator->second;
 		}
-
-		/**
-		* \brief Metoda otwieraj¹ca plik u¿ytkownika
-		*
-		* Metoda na podstawie nazwy i hashu has³a u¿ytkownika otwiera plik z danymi u¿ytkownika.
-		* \param[in] nazwa - Nazwa u¿ytkownika.
-		* \param[in] hash - Hash has³a u¿ytkownika.
-		* \param[out] nazwaPliku - Nazwa pliku u¿ytkownika.
-		* \param[in] tworzPlik - informacje czy ma zostaæ utworzony plik je¿eli nie istnieje.
-		* \return nullptr je¿eli hash sie nie zgadza, wska¿nik na dokument.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 25-11-2014
-		*/
-		std::shared_ptr<SPar::ParserDokument> plikUzytkownika(const std::string& nazwa, const std::string& hash, std::string& nazwaPliku, bool tworzPlik = true) const;
-
+				
 		SLog::Log& logger_; /// Referencja do obiektu loguj¹cego.
 		ZarzadcaLokacji& zarzadcaLokacji_; /// Referencja do aktualnego obiektu zarz¹dcy lokacji.
 		std::shared_ptr<Uzytkownik> uzytkownik_; /// Aktualnie zalogowany u¿ytkownik.
-		std::string folderPlikowUzytkownika_; /// Œcie¿ka do folderu w którym znajduj¹ siê pliki gry.
 
 		ListaSurowcowInfoTyp listaSurowcowInfo_; /// Lista obiektów opisowych surowców.
 		ListaStatkowInfoTyp listaStatkowInfo_; /// Lista obiektów opisowych statku.

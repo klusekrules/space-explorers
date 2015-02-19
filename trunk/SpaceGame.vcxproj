@@ -346,6 +346,7 @@
     <ClInclude Include="HangarInfo.h" />
     <ClInclude Include="HangarTest.h" />
     <ClInclude Include="Export.h" />
+    <ClInclude Include="InicjujLogowanieRPC.h" />
     <ClInclude Include="keccak.h" />
     <ClInclude Include="Klient.h" />
     <ClInclude Include="KontrolkaObiektu.h" />
@@ -368,7 +369,6 @@
     <ClInclude Include="OknoGry.h" />
     <ClInclude Include="ParserTest.h" />
     <ClInclude Include="PlanetaTest.h" />
-    <ClInclude Include="PolaczenieTCP.h" />
     <ClInclude Include="PomocniczeTypyTGUI.h" />
     <ClInclude Include="PowtorzenieIdObiektu.h" />
     <ClInclude Include="RoundedRectangleShape.hpp" />
@@ -394,6 +394,7 @@
     <ClInclude Include="Zadanie.h" />
     <ClInclude Include="ZalogujRPC.h" />
     <ClInclude Include="ZarzadcaLokacji.h" />
+    <ClInclude Include="ZarzadcaUzytkownikow.h" />
     <ClInclude Include="ZarzadcaZasobow.h" />
     <ClInclude Include="Zasob.h" />
     <ClInclude Include="Zdarzenie.h" />
@@ -488,6 +489,7 @@
     <ClCompile Include="Info.cpp" />
     <ClCompile Include="InicjalizacjaDanychTestowych.cpp" />
     <ClCompile Include="InicjalizacjaTestow.cpp" />
+    <ClCompile Include="InicjujLogowanieRPC.cpp" />
     <ClCompile Include="JednostkaAtakujaca.cpp" />
     <ClCompile Include="JednostkaAtakujacaInfo.cpp" />
     <ClCompile Include="JednostkaLatajaca.cpp" />
@@ -533,7 +535,6 @@
     <ClCompile Include="Planeta.cpp" />
     <ClCompile Include="PlanetaTest.cpp" />
     <ClCompile Include="PodstawoweParametry.cpp" />
-    <ClCompile Include="PolaczenieTCP.cpp" />
     <ClCompile Include="PowtorzenieIdObiektu.cpp" />
     <ClCompile Include="RoundedRectangleShape.cpp" />
     <ClCompile Include="Serwer.cpp" />
@@ -571,6 +572,7 @@
     <ClCompile Include="ZalogujRPC.cpp" />
     <ClCompile Include="ZapisStanuGryTest.cpp" />
     <ClCompile Include="ZarzadcaLokacji.cpp" />
+    <ClCompile Include="ZarzadcaUzytkownikow.cpp" />
     <ClCompile Include="ZarzadcaZasobow.cpp" />
     <ClCompile Include="ZdarzenieInfo.cpp" />
     <ClCompile Include="ZleceniaTest.cpp" />

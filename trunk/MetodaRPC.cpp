@@ -9,8 +9,8 @@
 
 namespace SpEx{
 
-	MetodaRPC::MetodaRPC(const PolaczenieTCP& polaczenie)
-		: polaczenie_(polaczenie), flagi_(0)
+	MetodaRPC::MetodaRPC(Klient& klient)
+		: klient_(klient), flagi_(0)
 	{}
 
 	bool MetodaRPC::operator<< (const Json::Value & root){
@@ -86,19 +86,19 @@ namespace SpEx{
 	}
 
 	void MetodaRPC::dodajCRC(Json::Value& procedura){
-		procedura["CRC"] = "";
+		procedura[METODA_RPC_CRC] = 0;
 		Json::FastWriter writer;
 		auto jsZadanie = writer.write(procedura);
-		procedura["CRC"] = CRC64().calc(jsZadanie.c_str(), jsZadanie.size());
+		procedura[METODA_RPC_CRC] = CRC64().calc(jsZadanie.c_str(), jsZadanie.size());
 	}
 	
 	int MetodaRPC::sprawdzCRC(Json::Value& result){
 		Json::FastWriter writer;
-		if (!result["CRC"].isUInt64()){
+		if (!result[METODA_RPC_CRC].isUInt64()){
 			return RPC_ERROR_MISSING_CRC;
 		}
-		auto crc = result["CRC"].asUInt64();
-		result["CRC"] = "";
+		auto crc = result[METODA_RPC_CRC].asUInt64();
+		result[METODA_RPC_CRC] = 0;
 		auto toCheck = writer.write(result);
 		auto newCRC = CRC64().calc(toCheck.c_str(), toCheck.size());
 		if (newCRC == crc){
@@ -109,8 +109,7 @@ namespace SpEx{
 			return RPC_ERROR_INVALID_CRC;
 		}
 	}
-
-
+	
 	int MetodaRPC::waliduj(Json::Value& result){
 		int error = sprawdzCRC(result);
 		if (error){
@@ -167,7 +166,7 @@ namespace SpEx{
 
 	int MetodaRPC::sprawdzMetodeUprzywilejowana(const Json::Value& root){
 		auto nazwa = root[METODA_RPC_METODA][METODA_RPC_NAZWA].asString();
-		if (nazwa == "Echo" || nazwa == "Zaloguj")
+		if (nazwa == "Echo" || nazwa == "InicjujLogowanie")
 			return RPC_OK;
 		return RPC_ERROR_NEED_AUTHORIZATION;
 	}
@@ -181,7 +180,9 @@ namespace SpEx{
 				dodajCRC(procedura);
 				auto zadanie = std::make_shared<const std::string>(writer.write(procedura));
 				auto wiadomoscZwrotna = std::make_shared<std::string>();
-				if (polaczenie_.wyslij(zadanie, wiadomoscZwrotna, flagi_)){
+				auto czyZakonczono = klient_.dodajZadanie(std::make_shared<std::promise<bool>>(), zadanie, wiadomoscZwrotna, flagi_);
+				czyZakonczono.wait();
+				if (czyZakonczono.get()){
 					Json::Reader reader;
 					Json::Value root;
 					if (reader.parse(*wiadomoscZwrotna, root)){
@@ -268,7 +269,7 @@ namespace SpEx{
 		}
 		log.zakonczPodKlase();
 
-		log.dodajPole(NAZWAPOLA(polaczenie_), polaczenie_);
+		// TODO: log.dodajPole(NAZWAPOLA(klient_), klient_);
 		return log.napis();
 	}
 }

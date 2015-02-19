@@ -5,13 +5,14 @@
 #include "Walidator.h"
 #include "Parser\ParserDokumentXml.h"
 #include "Logger\Logger.h"
+#include "Aplikacja.h"
 
 #define ATRYBUT_FOLDER_PLIKU_UZYTKOWNIKA "folderPlikowUzytkownikow"
 
 namespace SpEx{
 
 	Gra::Gra(SLog::Log& logger, ZarzadcaLokacji& zarzadcaLokacji, UstawieniaAplikacji& ustawieniaAplikacji)
-		: logger_(logger), zarzadcaLokacji_(zarzadcaLokacji), folderPlikowUzytkownika_(ustawieniaAplikacji[ATRYBUT_FOLDER_PLIKU_UZYTKOWNIKA]), uzytkownik_(nullptr)
+		: logger_(logger), zarzadcaLokacji_(zarzadcaLokacji), uzytkownik_(nullptr)
 	{
 		zarzadcaLokacji_.wyczyscDane();
 	}
@@ -55,6 +56,20 @@ namespace SpEx{
 	std::shared_ptr<Planeta> Gra::pobierzPlanete(const STyp::Identyfikator& identyfikator){
 		return zarzadcaLokacji_.pobierzPlanete(identyfikator);
 	}
+
+	
+	bool Gra::logowanie(const std::string& nazwa, const std::string& hash){
+		uzytkownik_ = Aplikacja::pobierzInstancje().zarzadcaUzytkownikow_.logowanie(*this,nazwa,hash);
+		return uzytkownik_.operator bool();
+	}
+	
+	bool Gra::nowyGracz(const std::string& nazwa, const std::string& hash){
+		return Aplikacja::pobierzInstancje().zarzadcaUzytkownikow_.nowyGracz(nazwa, hash);
+	}
+
+	bool Gra::usunGracza(const std::string& nazwa, const std::string& hash){
+		return Aplikacja::pobierzInstancje().zarzadcaUzytkownikow_.usunGracza(*this, nazwa, hash);
+	}
 	
 	bool Gra::wczytajDane(std::shared_ptr<SPar::ParserElement> root){
 		try{			
@@ -81,86 +96,6 @@ namespace SpEx{
 		return true;
 	}
 	
-	bool Gra::odczytaj(const std::string& nazwa, const std::string& hash){
-		return logowanie(nazwa, hash);
-	}
-
-	bool Gra::logowanie(const std::string& nazwa, const std::string& hash){
-		std::string plik;
-		auto dokument = plikUzytkownika(nazwa, hash, plik, false);
-		if (!dokument)
-			return false;
-		auto nowyUzytkownik = std::make_shared<Uzytkownik>(*this);
-		if (nowyUzytkownik->odczytaj(dokument->pobierzElement(nullptr)) && Walidator::pobierzInstancje().waliduj())
-			uzytkownik_ = nowyUzytkownik;
-		else
-			return false;
-		return true;
-	}
-
-	bool Gra::nowyGracz(const std::string& nazwa, const std::string& hash){
-		std::string plik;
-		if (plikUzytkownika(nazwa, hash, plik, false))
-			return false;
-		return plikUzytkownika(nazwa, hash, plik) != nullptr;
-	}
-
-	bool Gra::usunGracza(const std::string& nazwa, const std::string& hash){
-		std::string plik;
-		auto dokument = plikUzytkownika(nazwa, hash, plik, false);
-		if (!dokument)
-			return false;
-		auto nowyUzytkownik = std::make_shared<Uzytkownik>(*this);
-		if (nowyUzytkownik->odczytaj(dokument->pobierzElement(nullptr)) && Walidator::pobierzInstancje().waliduj()){
-			if (uzytkownik_ && nowyUzytkownik->pobierzNazweUzytkownika() == uzytkownik_->pobierzNazweUzytkownika())
-				return false;
-			nowyUzytkownik->odpinaniePlanet();
-		}
-		else
-			return false;
-		return !remove(plik.c_str());
-	}
-
-	bool Gra::zapisz(const std::string& nazwa, const std::string& hash) const{
-		std::string plik;
-		auto dokument = plikUzytkownika(nazwa, hash, plik, true);
-		if (!dokument || !uzytkownik_ || !uzytkownik_->zapisz(dokument->pobierzElement(nullptr)))
-			return false;
-		return dokument->zapisz(plik.c_str());
-	}
-
-	std::shared_ptr<SPar::ParserDokument> Gra::plikUzytkownika(const std::string& nazwa, const std::string& hash, std::string& nazwaPliku, bool tworzPlik) const{
-		if (hash.empty() || nazwa.empty())
-			return nullptr;
-		std::string plik = folderPlikowUzytkownika_.c_str();
-		plik.append(nazwa);
-		plik.append("_.xml");
-		auto dokument = std::make_shared<SPar::ParserDokumentXml>();
-		if (dokument->odczytaj(plik.c_str())){
-			if (hash != XmlBO::WczytajAtrybut(dokument->pobierzElement(nullptr), "hash", std::string()))
-				return nullptr;
-			if (tworzPlik){
-				dokument = std::make_shared<SPar::ParserDokumentXml>();
-				XmlBO::ElementWezla uzytkownik = dokument->tworzElement(WEZEL_XML_UZYTKOWNIK);
-				uzytkownik->tworzAtrybut(ATRYBUT_XML_HASH, hash.c_str());
-				uzytkownik->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa.c_str());
-				uzytkownik->tworzAtrybut(ATRYBUT_XML_PLANETA_AKTYWNA, std::to_string(STyp::Identyfikator(0)()).c_str());
-				dokument->zapisz(plik.c_str());
-			}
-		}
-		else{
-			if (!tworzPlik)
-				return nullptr;
-			XmlBO::ElementWezla uzytkownik = dokument->tworzElement(WEZEL_XML_UZYTKOWNIK);
-			uzytkownik->tworzAtrybut(ATRYBUT_XML_HASH, hash.c_str());
-			uzytkownik->tworzAtrybut(ATRYBUT_XML_NAZWA, nazwa.c_str());
-			uzytkownik->tworzAtrybut(ATRYBUT_XML_PLANETA_AKTYWNA, std::to_string(STyp::Identyfikator(0)()).c_str());
-			dokument->zapisz(plik.c_str());
-		}
-		nazwaPliku = plik;
-		return dokument;
-	}
-
 	const Gra::ListaObiektowInfoTyp& Gra::pobierzDostepneObiektyInfo(const Planeta& planeta, const STyp::Identyfikator& typObiektu, std::vector<STyp::Identyfikator>& listaId){
 		listaId.reserve(listaObiektowInfo_.size());
 		for (auto &element : listaObiektowInfo_){
@@ -192,7 +127,6 @@ namespace SpEx{
 		}else{
 			logger.dodajPole(NAZWAPOLA(uzytkownik_), NAZWAKLASY2(uzytkownik_),"nullptr");
 		}
-		logger.dodajPole(NAZWAPOLA(folderPlikowUzytkownika_), NAZWAKLASY2(folderPlikowUzytkownika_), folderPlikowUzytkownika_);
 
 		logger.rozpocznijPodKlase(NAZWAPOLA(listaSurowcowInfo_), "SpEx::Gra::ListaSurowcowInfoTyp");
 		for (auto& element : listaSurowcowInfo_){

@@ -11,6 +11,7 @@
 #include "UstawieniaAplikacji.h"
 #include "Fabrykator.h"
 #include "ZarzadcaZasobow.h"
+#include "ZarzadcaUzytkownikow.h"
 
 typedef struct _SYMBOL_INFO {
 	ULONG       SizeOfStruct;
@@ -64,12 +65,9 @@ namespace SpEx {
 		/**
 		* \brief Metoda zapisuj¹ca stan gry.
 		*
-		* Metoda zapisuje dane gracza oraz dane planet.
-		* \param[in] nazwa - Nazwa u¿ytkownika.
-		* \param[in] hash - Hash has³a u¿ytkownika.
 		* \return Zwraca wartoœæ true, je¿eli uda siê zapisaæ dane, false w przeciwnym wypadku.
 		*/
-		bool zapiszGre(const std::string& nazwa, const std::string& hash);
+		bool zapiszGre();
 
 		/**
 		* \brief Metoda wczytuj¹ca stan gry.
@@ -128,6 +126,8 @@ namespace SpEx {
 		Fabrykator fabrykator_; /// Instacja obiektu przechowuj¹cego zbiór fabryk.
 
 		ZarzadcaZasobow zarzadcaZasobow_; /// Zarz¹dca zasobów.
+
+		ZarzadcaUzytkownikow zarzadcaUzytkownikow_; /// Zarz¹dca u¿ytkowników.
 
 		/**
 		* \brief Metoda tworz¹ca tekstowy opis obiektu.

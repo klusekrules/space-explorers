@@ -46,8 +46,12 @@ namespace SpEx{
 		return uzytkownik_!=nullptr;
 	}
 
+	void Klient::ustawKlucz(const std::string& hash){
+		hash_ = hash;
+	}
+
 	const std::string& Klient::pobierzKlucz() const{
-		return uzytkownik_->pobierzSkrotKlucza()();
+		return hash_;
 	}
 
 	std::future<bool> Klient::dodajZadanie(std::shared_ptr<std::promise<bool> > zakonczenie, std::shared_ptr<const std::string> parametry, std::shared_ptr<std::string> rezultat, int flagi){

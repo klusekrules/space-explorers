@@ -30,6 +30,8 @@ namespace SpEx{
 
 		bool czyAutoryzowany()const;
 
+		void ustawKlucz(const std::string&);
+
 		const std::string& pobierzKlucz() const;
 
 		const std::atomic<bool>& czyCzekaNaZakonczenie() const;
@@ -40,6 +42,8 @@ namespace SpEx{
 		SOCKET gniazdo_ = INVALID_SOCKET;
 		struct sockaddr_in addr_;		
 		std::function<void(void)> funkcja_;
+
+		std::string hash_;
 
 		std::string autoryzacja_ = "0";
 		std::string instancja_ = "0";

@@ -225,6 +225,7 @@ namespace SpEx{
 #endif
 		zarzadcaLokacji_.inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 		zarzadcaZasobow_.inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
+		zarzadcaUzytkownikow_.inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 		LuaState::Rejestruj(zarzadcaZasobow_);
 		DllModule::Rejestruj(zarzadcaZasobow_);
 		XmlModul::Rejestruj(zarzadcaZasobow_);
@@ -324,7 +325,7 @@ namespace SpEx{
 		WSACleanup();
 	}
 
-	bool Aplikacja::zapiszGre(const std::string& nazwa, const std::string& hash){
+	bool Aplikacja::zapiszGre(){
 		std::locale::global(std::locale("C"));
 		try{
 			auto dokumentGry = std::make_shared<SPar::ParserDokumentXml>();
@@ -339,7 +340,7 @@ namespace SpEx{
 			if (!wezel){
 				return false;
 			}
-			if (zarzadcaLokacji_.zapisz(wezel->tworzElement(WEZEL_XML_GRA)) && instancjaGry_->zapisz(nazwa, hash)){
+			if (zarzadcaLokacji_.zapisz(wezel->tworzElement(WEZEL_XML_GRA))){
 				std::locale::global(std::locale(ustawienia_[ATRYBUT_JEZYK_APLIKACJI]));
 				return dokumentGry->zapisz(ustawienia_[ATRYBUT_PLIK_GRY].c_str());
 			}

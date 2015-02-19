@@ -164,6 +164,7 @@ extern "C"{
 	}
 
 	SPACE_EXPLORERS_API bool __cdecl nowyGracz(const char *kontrolkaNazwy, const char *kontrolkaHasla){
+		return false; //TODO: Refaktoryzacja po przesiesieniu u¿ytkownika
 		if (kontrolkaNazwy && kontrolkaHasla ){
 			auto nazwa = SpEx::UtilsGui::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaNazwy);
 			auto haslo = SpEx::UtilsGui::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaHasla);
@@ -184,12 +185,13 @@ extern "C"{
 						return false;
 					}
 				}
+				
 				SpEx::UtilsGui::wyswietlWiadomoscWGUI(1, "Tworzenie nowego gracza.");
 				if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().nowyGracz(nazwa->getText(), hash)){
 					SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "B³¹d tworzenia gracza.");
 					return false;
 				}
-
+				
 				SpEx::UtilsGui::wyswietlWiadomoscWGUI(1, "Logowanie do gry.");
 				if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().logowanie(nazwa->getText(), hash)){
 					SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "B³¹d logowania do gry.");
@@ -211,12 +213,15 @@ extern "C"{
 					}
 				}
 
+				SpEx::UtilsGui::wyswietlWiadomoscWGUI(1, "Ukoñczono.");
+				return true;
+				/*
 				SpEx::UtilsGui::wyswietlWiadomoscWGUI(1, "Zapisywanie wprowadzonych danych.");
 				if (SpEx::Aplikacja::pobierzInstancje().zapiszGre(nazwa->getText(), hash)){
 
 					SpEx::UtilsGui::wyswietlWiadomoscWGUI(1, "Ukoñczono.");
 					return true;
-				}
+				}*/
 			}
 			else{
 				SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "Brak kontrolki has³a lub nazwy gracza.");
@@ -231,6 +236,7 @@ extern "C"{
 	}
 
 	SPACE_EXPLORERS_API bool __cdecl usunGracza(const char *kontrolkaNazwy, const char *kontrolkaHasla){
+		return false; //TODO: Refaktoryzacja po przesiesieniu u¿ytkownika
 		if (kontrolkaNazwy && kontrolkaHasla){
 			auto nazwa = SpEx::UtilsGui::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaNazwy);
 			auto haslo = SpEx::UtilsGui::PobierzWidzetZAktywnegoEkranu<tgui::EditBox>(kontrolkaHasla);
