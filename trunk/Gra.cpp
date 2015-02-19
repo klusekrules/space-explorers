@@ -2,12 +2,9 @@
 #include "DefinicjeWezlowXML.h"
 #include <iostream>
 #include <fstream>
-#include "Walidator.h"
 #include "Parser\ParserDokumentXml.h"
 #include "Logger\Logger.h"
 #include "Aplikacja.h"
-
-#define ATRYBUT_FOLDER_PLIKU_UZYTKOWNIKA "folderPlikowUzytkownikow"
 
 namespace SpEx{
 

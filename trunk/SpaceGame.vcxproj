@@ -387,7 +387,6 @@
     <ClInclude Include="UstawieniaAplikacji.h" />
     <ClInclude Include="UtilsGui.h" />
     <ClInclude Include="VMPC_MAC.h" />
-    <ClInclude Include="Walidator.h" />
     <ClInclude Include="Watek.h" />
     <ClInclude Include="WatekZarzadzany.h" />
     <ClInclude Include="XmlModul.h" />
@@ -560,7 +559,6 @@
     <ClCompile Include="UtilsGui.cpp" />
     <ClCompile Include="Uzytkownik.cpp" />
     <ClCompile Include="VMPC_MAC.cpp" />
-    <ClCompile Include="Walidator.cpp" />
     <ClCompile Include="Watek.cpp" />
     <ClCompile Include="WatekZarzadzany.cpp" />
     <ClCompile Include="WyjatekSprawdzeniaWarunku.cpp" />

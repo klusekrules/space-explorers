@@ -9,7 +9,6 @@
 
 #include "ZmianaPoziomObiektu.h"
 #include "DefinicjeWezlowXML.h"
-#include "Walidator.h"
 #include "TGUI\TGUI.hpp"
 #include "ListaObiektowGui.h"
 #include "ListaSurowcowGui.h"
@@ -370,17 +369,13 @@ namespace SpEx{
 			std::shared_ptr<Gra> gra = instancjaGry_;
 			try{
 				instancjaGry_ = std::make_shared<Gra>(logger_, zarzadcaLokacji_, ustawienia_);
-				Walidator::pobierzInstancje().wyczysc();
-				Walidator::pobierzInstancje().dodajNowyIdentyfikatorPlanety(STyp::Identyfikator(0x0)); // Poprawna wartoœæ; U¿ywana gdy obiekty znajduj¹ siê we flocie.
 				if (root && instancjaGry_->wczytajDane(root)){
 					auto gra = wezel->pobierzElement(WEZEL_XML_GRA);
 					if (gra){
 						auto element = XmlBO::ZnajdzWezel<NOTHROW>(gra, WEZEL_XML_ZARZADCA);
 						if (element){
-							if (zarzadcaLokacji_.odczytaj(element)){
-								if (Walidator::pobierzInstancje().waliduj()){
-									return true;
-								}
+							if (zarzadcaLokacji_.odczytaj(element)){							
+								return true;
 							}
 						}
 					}

@@ -2,7 +2,6 @@
 #include "Logger\Logger.h"
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
-#include "Walidator.h"
 
 namespace SpEx{
 
@@ -132,7 +131,6 @@ namespace SpEx{
 			typAtrybutu_ = ILOSC;
 			atrybutPodstawowy_.ilosc = ilosc();
 		}
-		Walidator::pobierzInstancje().dodajUzytyIdentyfikatorPlanety(identyfikatorPlanety_);
 		return true;
 	}
 
