@@ -46,6 +46,7 @@
   <opcja nazwa="plikOkien" wartosc="resource\\ekrany.xml"/>
   <opcja nazwa="folderPlikowUzytkownikow" wartosc="save\\"/>
   <opcja nazwa="folderPlikowOpisuUkladow" wartosc="save\\uklad\\"/>
+  <opcja nazwa="plikAutoryzacji" wartosc="hash.xml"/>
   
   <opcja nazwa="portSerwera" wartosc="15015"/>
   <opcja nazwa="adresSerwera" wartosc="localhost"/>

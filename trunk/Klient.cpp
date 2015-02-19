@@ -43,7 +43,7 @@ namespace SpEx{
 	}
 
 	bool Klient::czyAutoryzowany()const{
-		return uzytkownik_!=nullptr;
+		return !hash_.empty();
 	}
 
 	void Klient::ustawKlucz(const std::string& hash){

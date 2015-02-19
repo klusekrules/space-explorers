@@ -5,11 +5,18 @@
 #include "Logger\Logger.h"
 
 #define ATRYBUT_FOLDER_PLIKU_UZYTKOWNIKA "folderPlikowUzytkownikow"
+#define ATRYBUT_PLIK_AUTORYZACJI "plikAutoryzacji"
 
 namespace SpEx{
 	bool ZarzadcaUzytkownikow::inicjalizuj(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos){
 		folderPlikowUzytkownika_ = ustawienia[ATRYBUT_FOLDER_PLIKU_UZYTKOWNIKA];
-		return true;
+
+		auto plikAutoryzacji = ustawienia[ATRYBUT_PLIK_AUTORYZACJI];
+		auto dokumentHash = std::make_shared<SPar::ParserDokumentXml>();
+		if (dokumentHash->odczytaj( (folderPlikowUzytkownika_+ plikAutoryzacji).c_str() )){
+			return odczytaj(dokumentHash->pobierzElement(WEZEL_XML_ROOT));
+		}
+		return false;
 	}
 
 	bool ZarzadcaUzytkownikow::zapisz(XmlBO::ElementWezla wezel) const{
