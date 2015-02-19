@@ -376,7 +376,7 @@ public:
 		auto ptr = wezel->pobierzAtrybut(nazwa.c_str());
 		if(!ptr)
 			return domyslnaWartosc;
-		return std::string(ptr->pobierzWartosc());
+		return std::move(std::string(ptr->pobierzWartosc()));
 	}
 
 	/**
