@@ -20,6 +20,18 @@ namespace SpEx{
 	}
 
 	bool ZarzadcaUzytkownikow::zapisz(XmlBO::ElementWezla wezel) const{
+		if (wezel != nullptr){
+			std::lock_guard<std::mutex> lock(mutexAutoryzacja_);
+			for (auto& para : autoryzacja_){
+				auto uzytkownik = wezel->tworzElement(WEZEL_XML_UZYTKOWNIK);
+				if (uzytkownik == nullptr){
+					return false;
+				}
+				uzytkownik->tworzAtrybut(ATRYBUT_XML_NAZWA, para.first.c_str());
+				uzytkownik->tworzAtrybut(ATRYBUT_XML_HASH, para.second.c_str());
+			}
+			return true;
+		}
 		return false;
 	}
 	
@@ -74,6 +86,16 @@ namespace SpEx{
 		if (plikUzytkownika(nazwa, hash, plik, false))
 			return false;
 		return plikUzytkownika(nazwa, hash, plik) != nullptr;
+	}
+
+	bool ZarzadcaUzytkownikow::zapiszGracza(std::shared_ptr<Uzytkownik> ptr){
+		std::string plik;
+		if (ptr == nullptr)
+			return false;
+		auto dokument = plikUzytkownika(ptr->pobierzNazweUzytkownika()(), ptr->pobierzSkrotKlucza()(), plik, true);
+		if (!dokument || !ptr->zapisz(dokument->pobierzElement(nullptr)))
+			return false;
+		return dokument->zapisz(plik.c_str());
 	}
 
 	bool ZarzadcaUzytkownikow::usunGracza(Gra& gra, const std::string& nazwa, const std::string& hash){

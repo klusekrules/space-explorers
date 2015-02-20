@@ -67,6 +67,10 @@ namespace SpEx{
 	bool Gra::usunGracza(const std::string& nazwa, const std::string& hash){
 		return Aplikacja::pobierzInstancje().zarzadcaUzytkownikow_.usunGracza(*this, nazwa, hash);
 	}
+
+	bool Gra::zapiszGracza(){
+		return Aplikacja::pobierzInstancje().zarzadcaUzytkownikow_.zapiszGracza(uzytkownik_);
+	}
 	
 	bool Gra::wczytajDane(std::shared_ptr<SPar::ParserElement> root){
 		try{			

@@ -118,6 +118,8 @@ namespace SpEx {
 		*/
 		bool usunGracza(const std::string& nazwa, const std::string& hash);
 
+		bool zapiszGracza();
+
 
 		/**
 		* \brief Metoda tworz¹ca instancje obiektu nie przypisan¹ do planety.

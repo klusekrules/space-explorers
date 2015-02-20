@@ -339,10 +339,15 @@ namespace SpEx{
 			if (!wezel){
 				return false;
 			}
+			if (instancjaGry_){
+				if(!instancjaGry_->zapiszGracza())
+					return false;
+			}
 			if (zarzadcaLokacji_.zapisz(wezel->tworzElement(WEZEL_XML_GRA))){
 				std::locale::global(std::locale(ustawienia_[ATRYBUT_JEZYK_APLIKACJI]));
 				return dokumentGry->zapisz(ustawienia_[ATRYBUT_PLIK_GRY].c_str());
 			}
+			
 		}
 		catch (...){
 			std::locale::global(std::locale(ustawienia_[ATRYBUT_JEZYK_APLIKACJI]));
