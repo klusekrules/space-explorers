@@ -94,6 +94,8 @@ namespace SpEx{
 		* \return true je¿eli uda siê usun¹æ u¿ytkownika, false w przeciwnym przypadku.
 		*/
 		bool usunGracza(Gra& gra, const std::string& nazwa, const std::string& hash);
+				
+		bool zapiszGracza(std::shared_ptr<Uzytkownik>);
 
 		/**
 		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.

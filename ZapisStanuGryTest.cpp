@@ -12,7 +12,7 @@ void ZapisStanuGryTest::zapis(){
 	SHA3 sha3(haslo);
 	ptr_a = (int)(&(SpEx::Aplikacja::pobierzInstancje().pobierzGre()));
 	p_a = SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(STyp::Identyfikator(5))->pobierzObiekt<SpEx::Obiekt>(STyp::Identyfikator(1)).pobierzIlosc();
-	//UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().zapiszGre(std::string("Daniel"), sha3.pobierzNapis()));
+	UNIT_TEST_ASSERT_TRUE(SpEx::Aplikacja::pobierzInstancje().zapiszGre());
 }
 
 void ZapisStanuGryTest::odczyt(){
