@@ -44,6 +44,8 @@ namespace SpEx{
 					liczba = Utils::pobierzLiczbeLosowa();
 					klient_.ustawInstancje(Utils::konwertujDoHex((const char *)&(liczba), sizeof(__int64), true));
 					klient_.autoryzujMetode(instancja_, autoryzacja_);
+					odpowiedz[METODA_RPC_AUTORYZACJA] = autoryzacja_;
+					odpowiedz[METODA_RPC_INSTANCJA] = instancja_;
 					flagi_ |= RPC_FLAG_AUTHORIZATION;
 				}
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, p.second);
@@ -64,8 +66,10 @@ namespace SpEx{
 
 	bool InicjujLogowanieRPC::obslugaOdpowiedzi(const Json::Value & odpowiedz){
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "InicjujLogowanieRPC::obslugaOdpowiedzi");
-		klient_.ustawAutoryzacje(autoryzacja_);
-		klient_.ustawInstancje(instancja_);
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Odebrano - autoryzacja: " + odpowiedz[METODA_RPC_AUTORYZACJA].asString());
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Odebrano - instancja: " + odpowiedz[METODA_RPC_INSTANCJA].asString());
+		klient_.ustawAutoryzacje(odpowiedz[METODA_RPC_AUTORYZACJA].asString());
+		klient_.ustawInstancje(odpowiedz[METODA_RPC_INSTANCJA].asString());
 		return true;
 	}
 
