@@ -129,6 +129,8 @@ namespace SpEx {
 
 		ZarzadcaUzytkownikow zarzadcaUzytkownikow_; /// Zarz¹dca u¿ytkowników.
 
+		__int64 pobierzNumerLosowy();
+
 		/**
 		* \brief Metoda tworz¹ca tekstowy opis obiektu.
 		*
@@ -179,5 +181,8 @@ namespace SpEx {
 		
 		std::string plikKonfiguracyjny_; /// Adres pliku z danymi konfiguracyjnymi. Domyœlnie options.xml z katalogu z plikiem wykonywalnym.
 		UstawieniaAplikacji ustawienia_; /// Klasa wczytuj¹ca ustawienia z pliku konfiguracyjnego.
+
+		std::mt19937_64 generator_;
+		std::uniform_int_distribution <__int64> dystrybutor_;
 	};
 }
