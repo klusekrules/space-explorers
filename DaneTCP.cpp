@@ -71,6 +71,7 @@ namespace SpEx{
 					Json::Value result(Json::objectValue);
 					metodaRPC->obslugaZadania(root, result);
 					flagi_ = metodaRPC->pobierzFlagi();
+					(*metodaRPC) >> root;
 					root[METODA_RPC_METODA][METODA_RPC_RETURN] = result;
 				}
 			}
