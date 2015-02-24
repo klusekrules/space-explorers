@@ -31,9 +31,11 @@ namespace SpEx{
 		bool czyAutoryzowany()const;
 
 		void ustawKlucz(const std::string&);
+		void ustawAutoryzacje(const std::string&);
+		void ustawInstancje(const std::string&);
 
 		const std::string& pobierzKlucz() const;
-
+		
 		const std::atomic<bool>& czyCzekaNaZakonczenie() const;
 
 		virtual ~Klient();

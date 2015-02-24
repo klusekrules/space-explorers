@@ -50,6 +50,14 @@ namespace SpEx{
 		hash_ = hash;
 	}
 
+	void Klient::ustawAutoryzacje(const std::string& autoryzacja){
+		autoryzacja_ = autoryzacja;
+	}
+
+	void Klient::ustawInstancje(const std::string& instancja){
+		instancja_ = instancja;
+	}
+
 	const std::string& Klient::pobierzKlucz() const{
 		return hash_;
 	}

@@ -428,6 +428,10 @@ namespace SpEx{
 		return true;
 	}
 
+	__int64 Aplikacja::pobierzNumerLosowy(){
+		return dystrybutor_(generator_);
+	}
+
 	std::string Aplikacja::napis() const{
 		SLog::Logger logger(NAZWAKLASY(Aplikacja));
 
