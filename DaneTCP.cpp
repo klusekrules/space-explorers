@@ -20,6 +20,14 @@ namespace SpEx{
 		if (odbierzWewnetrzna()){
 			auto error = przetworzPoOdebraniu();
 			if (!error){
+				{
+					Json::Value root;
+					Json::Reader reader;
+					Json::StyledWriter writer;
+					if (reader.parse(odbierz_, root)){
+						SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Odebrano :\n" + writer.write(root));
+					}
+				}
 				return true;
 			}
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d przetwarzania odebranych danych : " + std::to_string(error));
@@ -28,6 +36,16 @@ namespace SpEx{
 	}
 
 	bool DaneTCP::wyslij(){
+
+		{
+			Json::Value root;
+			Json::Reader reader;
+			Json::StyledWriter writer;
+			if (reader.parse(wyslij_, root)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Wys³ano :\n" + writer.write(root));
+			}
+		}
+
 		auto error = przygotujDoWyslania();
 		if (error){
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d przetwarzania wysy³anych danych: " + std::to_string(error));
