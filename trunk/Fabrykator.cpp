@@ -52,7 +52,11 @@ namespace SpEx{
 			auto iterator = metodRpcCallbacks_.find(value.asString());
 			if (iterator == metodRpcCallbacks_.end())
 				return nullptr;
-			return iterator->second(root, klient);
+			auto ptr = iterator->second(root, klient);
+			if (ptr){
+				ptr->czas_odpowiedzi_ = SLog::Log::pobierzInstancje().pobierzDateCzas();
+				return ptr;
+			}
 		}
 		return nullptr;
 	}
