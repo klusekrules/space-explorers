@@ -11,6 +11,7 @@
 #include "TestyJednostkowe.h"
 #include "EchoRPC.h"
 #include "InicjujLogowanieRPC.h"
+#include "PotwierdzLogowanieRPC.h"
 
 void main( int argv , char* argc[] ){
 
@@ -32,6 +33,7 @@ void main( int argv , char* argc[] ){
 		klient.odblokuj();
 		SpEx::EchoRPC::RejestratorMetodyRPC(SpEx::Aplikacja::pobierzInstancje().fabrykator_, SLog::Log::pobierzInstancje());
 		SpEx::InicjujLogowanieRPC::RejestratorMetodyRPC(SpEx::Aplikacja::pobierzInstancje().fabrykator_, SLog::Log::pobierzInstancje());
+		SpEx::PotwierdzLogowanieRPC::RejestratorMetodyRPC(SpEx::Aplikacja::pobierzInstancje().fabrykator_, SLog::Log::pobierzInstancje());
 
 		{
 			auto ptrE = SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(std::string("Echo"), klient);
@@ -50,6 +52,13 @@ void main( int argv , char* argc[] ){
 				ptrL->wykonajMetode();
 			} else{
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Nieuda³o siê wywo³aæ metody InicjujLogowanie.");
+			}
+
+			auto ptrP = SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(std::string("PotwierdzLogowanie"), klient);
+			if (ptrP){
+				ptrP->wykonajMetode();
+			} else{
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Nieuda³o siê wywo³aæ metody PotwierdzLogowanie.");
 			}
 		}
 

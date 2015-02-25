@@ -343,9 +343,6 @@
     <ClCompile Include="SzyfrowanieTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClCompile>
-    <ClCompile Include="ZalogujRPC.cpp">
-      <Filter>SourceFile\Network\MetodyRPC</Filter>
-    </ClCompile>
     <ClCompile Include="DaneTCP.cpp">
       <Filter>SourceFile\Network</Filter>
     </ClCompile>
@@ -354,6 +351,9 @@
     </ClCompile>
     <ClCompile Include="ZarzadcaUzytkownikow.cpp">
       <Filter>SourceFile\Kontroler</Filter>
+    </ClCompile>
+    <ClCompile Include="PotwierdzLogowanieRPC.cpp">
+      <Filter>SourceFile\Network\MetodyRPC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -753,9 +753,6 @@
     <ClInclude Include="SzyfrowanieTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClInclude>
-    <ClInclude Include="ZalogujRPC.h">
-      <Filter>SourceFile\Network\MetodyRPC</Filter>
-    </ClInclude>
     <ClInclude Include="DaneTCP.h">
       <Filter>SourceFile\Network</Filter>
     </ClInclude>
@@ -764,6 +761,9 @@
     </ClInclude>
     <ClInclude Include="ZarzadcaUzytkownikow.h">
       <Filter>SourceFile\Kontroler</Filter>
+    </ClInclude>
+    <ClInclude Include="PotwierdzLogowanieRPC.h">
+      <Filter>SourceFile\Network\MetodyRPC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
