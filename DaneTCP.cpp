@@ -20,12 +20,12 @@ namespace SpEx{
 		if (odbierzWewnetrzna()){
 			auto error = przetworzPoOdebraniu();
 			if (!error){
-				if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
+				if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Debug)){
 					Json::Value root;
 					Json::Reader reader;
 					Json::StyledWriter writer;
 					if (reader.parse(odbierz_, root)){
-						SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Odebrano :\n" + writer.write(root));
+						SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, "Odebrano :\n" + writer.write(root));
 					}
 				}
 				return true;
@@ -39,12 +39,12 @@ namespace SpEx{
 
 	bool DaneTCP::wyslij(){
 
-		if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
+		if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Debug)){
 			Json::Value root;
 			Json::Reader reader;
 			Json::StyledWriter writer;
 			if (reader.parse(wyslij_, root)){
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Wys³ano :\n" + writer.write(root));
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, "Wys³ano :\n" + writer.write(root));
 			}
 		}
 
