@@ -1,5 +1,5 @@
 #pragma once
-#include "Fabrykator.h"
+#include "MetodaRPC.h"
 
 namespace SpEx{
 	class ZalogujRPC :
@@ -7,18 +7,18 @@ namespace SpEx{
 		public MetodaRPC
 	{
 	public:
-
-		ZalogujRPC(Klient&);
-		virtual ~ZalogujRPC() = default;
-
+		friend class std::_Ref_count_obj<ZalogujRPC>;
 		static bool RejestratorMetodyRPC(Fabrykator& fabryka, SLog::Log& logger);
 		static std::shared_ptr<MetodaRPC> TworzObiekt(const Json::Value &, Klient&);
-		
-		void obslugaZadania(const Json::Value &, Json::Value&) override;
-		bool inicjalizacjaParametrow() override;
 
-		bool obslugaOdpowiedzi(const Json::Value &) override;
+		virtual ~ZalogujRPC() = default;
 		std::string napis() const override;
+
+	private:
+
+		ZalogujRPC(Klient&);
+		void obslugaZadania(const Json::Value &, Json::Value&) override;		
+		bool obslugaOdpowiedzi(const Json::Value &) override;
 		
 	};
 }

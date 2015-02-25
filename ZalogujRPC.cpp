@@ -1,4 +1,5 @@
 #include "ZalogujRPC.h"
+#include "Fabrykator.h"
 #include "Logger\Logger.h"
 #include "StaleRPC.h"
 
@@ -30,10 +31,6 @@ namespace SpEx{
 	void ZalogujRPC::obslugaZadania(const Json::Value & zadanie, Json::Value& odpowiedz) {
 	}
 	
-	bool ZalogujRPC::inicjalizacjaParametrow(){
-		return true;
-	}
-
 	bool ZalogujRPC::obslugaOdpowiedzi(const Json::Value & odpowiedz) {
 		return false;
 	}

@@ -10,37 +10,32 @@ namespace SpEx{
 		virtual public SLog::LoggerInterface
 	{
 	public:
+		friend class std::_Ref_count_obj<MetodaRPC>;
 		friend class Fabrykator;
 		friend class Klient;
 
 		typedef std::pair<std::string, std::string> Parametr;
 
-		MetodaRPC(Klient&);
+		static int sprawdzCRC(Json::Value&);
+		static void dodajCRC(Json::Value&);
+		static int waliduj(Json::Value&, bool);
+
+
 		~MetodaRPC() = default;
-
-		virtual void obslugaZadania(const Json::Value &, Json::Value&);
-		
-		virtual bool inicjalizacjaParametrow();
-
-		virtual bool obslugaOdpowiedzi(const Json::Value &);
-
-		std::string napis() const override;
-		
-		bool operator<<(const Json::Value &);
-
-		const MetodaRPC& operator>>(Json::Value &) const;
 
 		int pobierzFlagi() const;
 
-		bool operator()();
+		int wykonajMetode();
 
-		static int sprawdzCRC(Json::Value&);
+		void dodajParametr(const std::string&, std::string&);
 
-		static void dodajCRC(Json::Value&);
+		bool obsluzMetode(Json::Value&);
 
-		static int waliduj(Json::Value&);
+		std::string napis() const override;
 				
 	protected:
+		MetodaRPC(Klient&);
+
 		std::string autoryzacja_;
 		std::string instancja_;
 
@@ -52,11 +47,20 @@ namespace SpEx{
 		std::vector <Parametr> parametry_;
 		int flagi_;
 		Klient& klient_;
+		
+		int wykonajMetode_impl();
 
-		static int sprawdzMetode(const Json::Value&);
+		int obslugaWyjatku(const Json::Value&);
+
+		static int sprawdzMetode(const Json::Value&, bool);
 		static int sprawdzMetodeUprzywilejowana(const Json::Value&);
 		static int sprawdzAutoryzacje(const Json::Value&);
-
+		
+		virtual void obslugaZadania(const Json::Value &, Json::Value&);
+		virtual bool przygotowanieDoWyslania();
+		virtual bool obslugaOdpowiedzi(const Json::Value &);
+		virtual bool operator<<(const Json::Value &);
+		virtual const MetodaRPC& operator>>(Json::Value &) const;
 
 	};
 }

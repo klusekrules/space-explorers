@@ -1,4 +1,5 @@
 #include "EchoRPC.h"
+#include "Fabrykator.h"
 #include "Logger\Logger.h"
 #include "StaleRPC.h"
 
@@ -10,20 +11,14 @@ namespace SpEx{
 
 	std::shared_ptr<MetodaRPC> EchoRPC::TworzObiekt(const Json::Value & metoda, Klient& klient){
 		auto ptr = std::make_shared<EchoRPC>(klient);
-		ptr->flagi_ = RPC_FLAG_COMPRESSION | RPC_FLAG_AUTHORIZATION;
-		if (metoda.isNull()){
-			// Tworzenie nowej pustej metody, do wys³ania na serwer
-		} else{
-			if ((*ptr) << metoda){
-				// Uda³o siê odtworzyæ metodê, przypisanie parametrów wymaganych przez metodê do atrybutów metody.
-			} else{
+		if (!metoda.isNull() && !((*ptr) << metoda)){
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nie powiod³a siê deserializacja metody Echo.");
-				return nullptr;
 			}
+			return nullptr;
 		}
 		return std::move(ptr);
 	}
-
 
 	EchoRPC::EchoRPC(Klient& polaczenie)
 		: MetodaRPC(polaczenie)
@@ -31,21 +26,38 @@ namespace SpEx{
 	}
 
 	void EchoRPC::obslugaZadania(const Json::Value & zadanie, Json::Value& odpowiedz){
-		odpowiedz["rezultat"] = " OdpowiedŸ serwera na komunikat Echo.";
-		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Echo na serwerze.");
-	}
+		for (auto& p : parametry_){
+			if (p.first == "Echo"){
+				p.second = "Do klienta";
+			}
+		}
+		odpowiedz["rezultat"] = "OdpowiedŸ serwera na komunikat Echo.";
 
-	bool EchoRPC::inicjalizacjaParametrow(){
-		return true;
+		if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Echo na serwerze.");
+		}
 	}
 
 	bool EchoRPC::obslugaOdpowiedzi(const Json::Value & odpowiedz){
 		auto value = odpowiedz["rezultat"];
+
+		for (auto& p : parametry_){
+			if (p.first == "Echo"){
+				if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
+					SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, p.second);
+				}
+			}
+		}
+
 		if (value.isString()){
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Komunikat Echo: " + value.asString());
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Komunikat Echo: " + value.asString());
+			}
 			return true;
 		}else{
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Niepoprawna odpowiedŸ na komunikat Echo.");
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Niepoprawna odpowiedŸ na komunikat Echo.");
+			}
 			return false;
 		}
 	}

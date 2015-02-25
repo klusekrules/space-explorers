@@ -20,7 +20,7 @@ namespace SpEx{
 		if (odbierzWewnetrzna()){
 			auto error = przetworzPoOdebraniu();
 			if (!error){
-				{
+				if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
 					Json::Value root;
 					Json::Reader reader;
 					Json::StyledWriter writer;
@@ -30,14 +30,16 @@ namespace SpEx{
 				}
 				return true;
 			}
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d przetwarzania odebranych danych : " + std::to_string(error));
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d przetwarzania odebranych danych : " + std::to_string(error));
+			}
 		}
 		return false;
 	}
 
 	bool DaneTCP::wyslij(){
 
-		{
+		if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
 			Json::Value root;
 			Json::Reader reader;
 			Json::StyledWriter writer;
@@ -48,7 +50,9 @@ namespace SpEx{
 
 		auto error = przygotujDoWyslania();
 		if (error){
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d przetwarzania wysy³anych danych: " + std::to_string(error));
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d przetwarzania wysy³anych danych: " + std::to_string(error));
+			}
 			return false;
 		}
 		return wyslijWewnetrzna();
@@ -60,7 +64,7 @@ namespace SpEx{
 		if (reader.parse(odbierz_, root)){
 
 			//Sprawdzanie metody
-			auto error = MetodaRPC::waliduj(root);
+			auto error = MetodaRPC::waliduj(root,false);
 
 			//Obs³uga b³êdu lub wykonanie metody.
 			if (error){
@@ -68,11 +72,10 @@ namespace SpEx{
 			} else{
 				auto metodaRPC = Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(root, ref_);
 				if (metodaRPC){
-					Json::Value result(Json::objectValue);
-					metodaRPC->obslugaZadania(root, result);
-					flagi_ = metodaRPC->pobierzFlagi();
-					(*metodaRPC) >> root;
-					root[METODA_RPC_METODA][METODA_RPC_RETURN] = result;
+					if (metodaRPC->obsluzMetode(root)){
+						//Pobieranie flag steruj¹cych dla pakietu zwrotnego.
+						flagi_ = metodaRPC->pobierzFlagi();
+					}
 				}
 			}
 
@@ -109,14 +112,18 @@ namespace SpEx{
 			rezultat = ref_.odbierz((char*)&header, sizeof(u_int64));
 			if (rezultat <= 0){
 				if (rezultat == 0){
-					SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
+					if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){
+						SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
+					}
 					return false;
 				} else{
 					if (WSAEWOULDBLOCK == WSAGetLastError()){
 						std::this_thread::sleep_for(std::chrono::milliseconds(100));
 						continue;
 					} else{
-						SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji recv: " + std::to_string(WSAGetLastError()));
+						if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji recv: " + std::to_string(WSAGetLastError()));
+						}
 						return false;
 					}
 				}
@@ -133,14 +140,18 @@ namespace SpEx{
 				rezultat = ref_.odbierz(&bufor.data()[tempRozmiar], rozmiar - tempRozmiar);
 				if (rezultat <= 0){
 					if (rezultat == 0){
-						SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
+						if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){
+							SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
+						}
 						return false;
 					} else{
 						if (WSAEWOULDBLOCK == WSAGetLastError()){
 							std::this_thread::sleep_for(std::chrono::milliseconds(100));
 							continue;
 						} else{
-							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji recv: " + std::to_string(WSAGetLastError()));
+							if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+								SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji recv: " + std::to_string(WSAGetLastError()));
+							}
 							return false;
 						}
 					}
@@ -165,9 +176,13 @@ namespace SpEx{
 		rezultat = ref_.wyslij((char*)&header, sizeof(u_int64));
 		if (rezultat <= 0){
 			if (rezultat == 0){
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
+				if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){
+					SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
+				}
 			} else{
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji send: " + std::to_string(WSAGetLastError()));
+				if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji send: " + std::to_string(WSAGetLastError()));
+				}
 			}
 			return false;
 		}
@@ -177,9 +192,13 @@ namespace SpEx{
 			rezultat = ref_.wyslij(&(wyslij_.data()[rozmiar - tempRozmiar]), rozmiar);
 			if (rezultat <= 0){
 				if (rezultat == 0){
-					SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");					
+					if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){
+						SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
+					}
 				} else{
-					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji send: " + std::to_string(WSAGetLastError()));
+					if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+						SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji send: " + std::to_string(WSAGetLastError()));
+					}
 				}
 				return false;
 			}
@@ -221,15 +240,21 @@ namespace SpEx{
 			break;
 		case Z_MEM_ERROR:
 			error_ = -1;
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d kompresji danych: Z_MEM_ERROR");
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d kompresji danych: Z_MEM_ERROR");
+			}
 			break;
 		case Z_BUF_ERROR:
 			error_ = -1;
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d kompresji danych: Z_BUF_ERROR");
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d kompresji danych: Z_BUF_ERROR");
+			}
 			break;
 		default:
 			error_ = -1;
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d kompresji danych: Niezidentyfikowany.");
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d kompresji danych: Niezidentyfikowany.");
+			}
 			break;
 		}
 		return error_ == 0;
@@ -253,19 +278,27 @@ namespace SpEx{
 			break;
 		case Z_MEM_ERROR:
 			error_ = -1;
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d dekompresji danych: Z_MEM_ERROR");
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d dekompresji danych: Z_MEM_ERROR");
+			}
 			break; 
 		case Z_BUF_ERROR:
 			error_ = -1;
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d dekompresji danych: Z_BUF_ERROR");
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d dekompresji danych: Z_BUF_ERROR");
+			}
 			break;
 		case Z_DATA_ERROR:
 			error_ = -1;
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d dekompresji danych: Z_DATA_ERROR");
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d dekompresji danych: Z_DATA_ERROR");
+			}
 			break;
 		default:
 			error_ = -1;
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d dekompresji danych: Niezidentyfikowany");
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d dekompresji danych: Niezidentyfikowany");
+			}
 			break;
 		}
 		return error_ == 0;
@@ -318,7 +351,9 @@ namespace SpEx{
 				if (!szyfrowanie(ref_.pobierzKlucz()))
 					return error_;
 			} else{
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Próba szyfrowania bez podania klucza.");
+				if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){
+					SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Próba szyfrowania bez podania klucza. Wy³aczenie szyfrowania.");
+				}
 				flagi_ &= ~0x2;
 			}
 		}
@@ -332,7 +367,9 @@ namespace SpEx{
 				if (!deszyfrowanie(ref_.pobierzKlucz()))
 					return error_;
 			} else{
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Próba deszyfrowania bez podania klucza.");
+				if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){
+					SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Próba deszyfrowania bez podania klucza.");
+				}
 				flagi_ &= ~0x2;
 			}
 		}
