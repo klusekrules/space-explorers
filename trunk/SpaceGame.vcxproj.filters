@@ -355,6 +355,9 @@
     <ClCompile Include="PotwierdzLogowanieRPC.cpp">
       <Filter>SourceFile\Network\MetodyRPC</Filter>
     </ClCompile>
+    <ClCompile Include="KomunikacjaSieciowaTest.cpp">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -764,6 +767,9 @@
     </ClInclude>
     <ClInclude Include="PotwierdzLogowanieRPC.h">
       <Filter>SourceFile\Network\MetodyRPC</Filter>
+    </ClInclude>
+    <ClInclude Include="KomunikacjaSieciowaTest.h">
+      <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

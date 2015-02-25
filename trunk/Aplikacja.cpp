@@ -19,6 +19,10 @@
 #include "XmlModul.h"
 #include "MaszynaStanow.h"
 
+#include "EchoRPC.h"
+#include "InicjujLogowanieRPC.h"
+#include "PotwierdzLogowanieRPC.h"
+
 #define KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU STyp::Tekst("Podczas przetwarzabua argumentów wyst¹pi³ b³¹d.")
 #define KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plik) STyp::Tekst("Nie powiod³o siê wczytywanie pliku konfiguracyjnego: " + plik)
 #define KOMUNIKAT_BLAD_FORMATU_DATY STyp::Tekst("Nie poprawny format daty u¿ytej w nazwie pliku logów.")
@@ -225,9 +229,16 @@ namespace SpEx{
 		zarzadcaLokacji_.inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 		zarzadcaZasobow_.inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 		zarzadcaUzytkownikow_.inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
+
 		LuaState::Rejestruj(zarzadcaZasobow_);
 		DllModule::Rejestruj(zarzadcaZasobow_);
 		XmlModul::Rejestruj(zarzadcaZasobow_);
+
+		/* ------- Rejestrowanie zdalnych metod -------*/
+		EchoRPC::RejestratorMetodyRPC(fabrykator_, logger_);
+		InicjujLogowanieRPC::RejestratorMetodyRPC(fabrykator_, logger_);
+		PotwierdzLogowanieRPC::RejestratorMetodyRPC(fabrykator_, logger_);
+
 
 		pluginy_ = std::make_shared<SPlu::Cplugin>(ustawienia_[ATRYBUT_FOLDER_PLUGINOW], fabrykator_.pobierzFabrykeZmian(), logger_);
 

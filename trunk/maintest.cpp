@@ -9,9 +9,6 @@
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
 #include "TestyJednostkowe.h"
-#include "EchoRPC.h"
-#include "InicjujLogowanieRPC.h"
-#include "PotwierdzLogowanieRPC.h"
 
 void main( int argv , char* argc[] ){
 
@@ -27,50 +24,8 @@ void main( int argv , char* argc[] ){
 		SpEx::Aplikacja::iloscArgumentow = argv;
 		SpEx::Aplikacja::argumenty = argc;
 		SpEx::Aplikacja::pobierzInstancje();
-		SpEx::Serwer serwer(SpEx::Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji());
-		SpEx::Klient klient(SpEx::Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji());
-		serwer.odblokuj();
-		klient.odblokuj();
-		SpEx::EchoRPC::RejestratorMetodyRPC(SpEx::Aplikacja::pobierzInstancje().fabrykator_, SLog::Log::pobierzInstancje());
-		SpEx::InicjujLogowanieRPC::RejestratorMetodyRPC(SpEx::Aplikacja::pobierzInstancje().fabrykator_, SLog::Log::pobierzInstancje());
-		SpEx::PotwierdzLogowanieRPC::RejestratorMetodyRPC(SpEx::Aplikacja::pobierzInstancje().fabrykator_, SLog::Log::pobierzInstancje());
-
-		{
-			auto ptrE = SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(std::string("Echo"), klient);
-			if (ptrE){
-				std::string echo("Do Serwera");
-				ptrE->dodajParametr("Echo", echo);
-				ptrE->wykonajMetode();
-			} else{
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Nieuda³o siê wywo³aæ metody Echo.");
-			}
-
-			auto ptrL = SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(std::string("InicjujLogowanie"), klient);
-			if (ptrL){
-				std::string login("Daniel");
-				ptrL->dodajParametr("Login", login);
-				ptrL->wykonajMetode();
-			} else{
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Nieuda³o siê wywo³aæ metody InicjujLogowanie.");
-			}
-
-			auto ptrP = SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(std::string("PotwierdzLogowanie"), klient);
-			if (ptrP){
-				ptrP->wykonajMetode();
-			} else{
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Nieuda³o siê wywo³aæ metody PotwierdzLogowanie.");
-			}
-		}
-
 		SpEx::MaszynaStanow::pobierzInstancje().inicjalizuj();
 		SpEx::MaszynaStanow::pobierzInstancje().start();
-
-		klient.zamknijPolaczenie();
-		klient.zakoncz();
-		klient.czekajNaZakonczenie();
-		serwer.zakoncz();
-		serwer.czekajNaZakonczenie();
-
 		/*
 		std::fstream plik("zrzut.txt", std::ios_base::app);
 		plik << SpEx::Aplikacja::pobierzInstancje().pobierzDebugInfo();

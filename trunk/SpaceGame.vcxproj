@@ -349,6 +349,7 @@
     <ClInclude Include="InicjujLogowanieRPC.h" />
     <ClInclude Include="keccak.h" />
     <ClInclude Include="Klient.h" />
+    <ClInclude Include="KomunikacjaSieciowaTest.h" />
     <ClInclude Include="KontrolkaObiektu.h" />
     <ClInclude Include="Kryterium.h" />
     <ClInclude Include="ListaObiektowGui.h" />
@@ -496,6 +497,7 @@
     <ClCompile Include="keccak.cpp" />
     <ClCompile Include="Klient.cpp" />
     <ClCompile Include="DaneTCP.cpp" />
+    <ClCompile Include="KomunikacjaSieciowaTest.cpp" />
     <ClCompile Include="KontrolkaObiektu.cpp" />
     <ClCompile Include="Kryterium.cpp" />
     <ClCompile Include="Ladownia.cpp" />
