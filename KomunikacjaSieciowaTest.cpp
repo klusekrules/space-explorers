@@ -3,6 +3,7 @@
 #include "InicjujLogowanieRPC.h"
 #include "PotwierdzLogowanieRPC.h"
 #include "StaleRPC.h"
+#include "SHA3.h"
 
 void KomunikacjaSieciowaTest::startTestow() {
 	if (serwer_ != nullptr)
@@ -35,8 +36,12 @@ void KomunikacjaSieciowaTest::testInicjalizacjiLogowania(){
 
 	auto ptr = SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(std::string("InicjujLogowanie"), *klient_);
 	if (ptr){
+		std::string haslo("haslo");
+		SHA3 sha3(haslo);
+		haslo = sha3.pobierzNapis();
 		std::string login("Daniel");
 		ptr->dodajParametr("Login", login);
+		ptr->dodajParametr("Hash", haslo);
 		UNIT_TEST_ASSERT_EQUAL(ptr->wykonajMetode(), RPC_OK);
 	}
 }

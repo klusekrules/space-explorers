@@ -87,7 +87,7 @@ namespace SpEx{
 		czas_odpowiedzi_ = v_Czas_Odpowiedzi.asString();
 		auto & v_parametry = metoda[METODA_RPC_PARAMETRY];
 		for (auto& val : v_parametry.getMemberNames()){
-			parametry_.emplace_back(val, v_parametry[val].asString());
+			parametry_[val] = v_parametry[val].asString();
 		}
 
 		return true;
@@ -195,7 +195,7 @@ namespace SpEx{
 	}
 
 	void MetodaRPC::dodajParametr(const std::string& nazwa, std::string& wartosc){
-		parametry_.emplace_back(nazwa, wartosc);
+		parametry_[nazwa]=wartosc;
 	}
 
 	bool MetodaRPC::obsluzMetode(Json::Value & root){
