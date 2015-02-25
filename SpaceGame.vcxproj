@@ -391,7 +391,7 @@
     <ClInclude Include="WatekZarzadzany.h" />
     <ClInclude Include="XmlModul.h" />
     <ClInclude Include="Zadanie.h" />
-    <ClInclude Include="ZalogujRPC.h" />
+    <ClInclude Include="PotwierdzLogowanieRPC.h" />
     <ClInclude Include="ZarzadcaLokacji.h" />
     <ClInclude Include="ZarzadcaUzytkownikow.h" />
     <ClInclude Include="ZarzadcaZasobow.h" />
@@ -567,7 +567,7 @@
     <ClCompile Include="WymaganiaTest.cpp" />
     <ClCompile Include="XmlModul.cpp" />
     <ClCompile Include="Zadanie.cpp" />
-    <ClCompile Include="ZalogujRPC.cpp" />
+    <ClCompile Include="PotwierdzLogowanieRPC.cpp" />
     <ClCompile Include="ZapisStanuGryTest.cpp" />
     <ClCompile Include="ZarzadcaLokacji.cpp" />
     <ClCompile Include="ZarzadcaUzytkownikow.cpp" />
