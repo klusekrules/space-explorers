@@ -16,49 +16,65 @@ namespace SpEx{
 	bool MetodaRPC::operator<< (const Json::Value & root){
 		auto &v_Autoryzacja = root[METODA_RPC_AUTORYZACJA];
 		if (!v_Autoryzacja){
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, BRAK_ELEMENTU(METODA_RPC_AUTORYZACJA));
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, BRAK_ELEMENTU(METODA_RPC_AUTORYZACJA));
+			}
 			return false;
 		}
 
 		auto &v_Instancja = root[METODA_RPC_INSTANCJA];
 		if (!v_Instancja){
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, BRAK_ELEMENTU(METODA_RPC_INSTANCJA));
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, BRAK_ELEMENTU(METODA_RPC_INSTANCJA));
+			}
 			return false;
 		}
 
 		auto metoda = root[METODA_RPC_METODA];
 		if (!metoda.isObject()){
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, BRAK_ELEMENTU(METODA_RPC_METODA));
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, BRAK_ELEMENTU(METODA_RPC_METODA));
+			}
 			return false;
 		}
 
 		auto &v_Nazwa = metoda[METODA_RPC_NAZWA];
 		if (!v_Nazwa){
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, BRAK_ELEMENTU(METODA_RPC_NAZWA));
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, BRAK_ELEMENTU(METODA_RPC_NAZWA));
+			}
 			return false;
 		}
 
 		auto &v_Id_Unikalne = metoda[METODA_RPC_ID_UNIKALNE];
 		if (!v_Id_Unikalne){
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, BRAK_ELEMENTU(METODA_RPC_ID_UNIKALNE));
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, BRAK_ELEMENTU(METODA_RPC_ID_UNIKALNE));
+			}
 			return false;
 		}
 
 		auto &v_Powtorzenie = metoda[METODA_RPC_POWTORZENIE];
 		if (!v_Powtorzenie){
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, BRAK_ELEMENTU(METODA_RPC_POWTORZENIE));
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, BRAK_ELEMENTU(METODA_RPC_POWTORZENIE));
+			}
 			return false;
 		}
 
 		auto &v_Czas_Wywolania = metoda[METODA_RPC_CZAS_WYWOLANIA];
 		if (!v_Czas_Wywolania){
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, BRAK_ELEMENTU(METODA_RPC_CZAS_WYWOLANIA));
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, BRAK_ELEMENTU(METODA_RPC_CZAS_WYWOLANIA));
+			}
 			return false;
 		}
 
 		auto &v_Czas_Odpowiedzi = metoda[METODA_RPC_CZAS_ODPOWIEDZI];
 		if (!v_Czas_Odpowiedzi){
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, BRAK_ELEMENTU(METODA_RPC_CZAS_ODPOWIEDZI));
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, BRAK_ELEMENTU(METODA_RPC_CZAS_ODPOWIEDZI));
+			}
 			return false;
 		}
 
@@ -91,7 +107,7 @@ namespace SpEx{
 		auto jsZadanie = writer.write(procedura);
 		procedura[METODA_RPC_CRC] = CRC64().calc(jsZadanie.c_str(), jsZadanie.size());
 	}
-	
+
 	int MetodaRPC::sprawdzCRC(Json::Value& result){
 		Json::FastWriter writer;
 		if (!result[METODA_RPC_CRC].isUInt64()){
@@ -104,18 +120,20 @@ namespace SpEx{
 		if (newCRC == crc){
 			return RPC_OK;
 		} else{
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, std::to_string(crc));
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, std::to_string(newCRC));
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, std::string("Podane crc: ") + std::to_string(crc));
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, std::string("Wyliczone crc: ") + std::to_string(newCRC));
+			}
 			return RPC_ERROR_INVALID_CRC;
 		}
 	}
-	
-	int MetodaRPC::waliduj(Json::Value& result){
+
+	int MetodaRPC::waliduj(Json::Value& result, bool odpowiedz){
 		int error = sprawdzCRC(result);
 		if (error){
 			return error;
 		}
-		if (error = sprawdzMetode(result)){
+		if (error = sprawdzMetode(result, odpowiedz)){
 			return error;
 		}
 		if ((error = sprawdzAutoryzacje(result)) == RPC_ERROR_WITHOUT_AUTHORIZED){
@@ -124,7 +142,7 @@ namespace SpEx{
 		return error;
 	}
 
-	int MetodaRPC::sprawdzMetode(const Json::Value& root){
+	int MetodaRPC::sprawdzMetode(const Json::Value& root, bool odpowiedz){
 		if (!root[METODA_RPC_AUTORYZACJA].isString())
 			return RPC_ERROR_MISSING_AUTORYZACJA;
 
@@ -139,17 +157,22 @@ namespace SpEx{
 		if (!metoda[METODA_RPC_NAZWA].isString())
 			return RPC_ERROR_MISSING_NAZWA_METODY;
 
-
 		if (!metoda[METODA_RPC_ID_UNIKALNE].isString())
 			return RPC_ERROR_MISSING_ID_UNIKALNE;
-
 
 		if (!metoda[METODA_RPC_POWTORZENIE].isUInt())
 			return RPC_ERROR_MISSING_POWTORZENIE;
 
-
 		if (!metoda[METODA_RPC_CZAS_WYWOLANIA].isString())
 			return RPC_ERROR_MISSING_CZAS_WYWOLANIA;
+
+		if (odpowiedz){
+			if (!metoda[METODA_RPC_CZAS_ODPOWIEDZI].isString())
+				return RPC_ERROR_MISSING_CZAS_ODPOWIEDZI;
+
+			if (!metoda[METODA_RPC_RETURN].isObject())
+				return RPC_ERROR_MISSING_RETURN;
+		}
 
 		return RPC_OK;
 	}
@@ -171,68 +194,96 @@ namespace SpEx{
 		return RPC_ERROR_NEED_AUTHORIZATION;
 	}
 
-	bool MetodaRPC::operator()(){
-		try{
-			if (inicjalizacjaParametrow()){
-				Json::Value procedura;
-				(*this) >> procedura;
-				Json::FastWriter writer;
-				dodajCRC(procedura);
-				auto zadanie = std::make_shared<const std::string>(writer.write(procedura));
-				auto wiadomoscZwrotna = std::make_shared<std::string>();
-				auto czyZakonczono = klient_.dodajZadanie(std::make_shared<std::promise<bool>>(), zadanie, wiadomoscZwrotna, flagi_);
-				czyZakonczono.wait();
-				if (czyZakonczono.get()){
-					Json::Reader reader;
-					Json::Value root;
-					if (reader.parse(*wiadomoscZwrotna, root)){
-						Json::Value& metoda = root[METODA_RPC_METODA];
-						if (metoda.isNull()){
-							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nieuda³o siê zintepretowaæ wiadomoœci zwrotnej: " + *wiadomoscZwrotna);
-							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
-						} else{
-							if (sprawdzCRC(root) == RPC_OK){
-								//Sprawdzenie czy zosta³ wyrzucony wyj¹tek;
-								if (!metoda[METODA_RPC_THROW].isNull()){
-									SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Otrzymano wyj¹tek: typ: " + metoda[METODA_RPC_THROW][METODA_RPC_TYPE].asString() + " komunikat:  " + metoda[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT].asString());
-									SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
-								} else{
-									return obslugaOdpowiedzi(metoda[METODA_RPC_RETURN]);
-								}
-							} else{
-								SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Niepoprawne dane. B³¹d sumy kontrolnej. Wiadomoœæ: " + *wiadomoscZwrotna);
-								SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
-							}
-						}
-					}else{
-						SLog::Log::pobierzInstancje().loguj(SLog::Log::Error,"Nieuda³o siê zintepretowaæ wiadomoœci zwrotnej: " + *wiadomoscZwrotna);
-						SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
-					}
-				}else{
-					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Wyst¹pi³ b³¹d przy próbie wys³ania ¿adania: " + *zadanie);
-					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
-				}
-			}else{
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Wyst¹pi³ b³¹d podczas inicjalizacji parametrów.");
+	void MetodaRPC::dodajParametr(const std::string& nazwa, std::string& wartosc){
+		parametry_.emplace_back(nazwa, wartosc);
+	}
+
+	bool MetodaRPC::obsluzMetode(Json::Value & root){
+		Json::Value result(Json::objectValue);
+		obslugaZadania(root, result);
+		czas_odpowiedzi_ = SLog::Log::pobierzInstancje().pobierzDateCzas();
+		(*this) >> root;
+		root[METODA_RPC_METODA][METODA_RPC_RETURN] = result;
+		return true;
+	}
+
+	int MetodaRPC::wykonajMetode(){
+		auto ret = wykonajMetode_impl();
+		if (ret != RPC_OK){
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, std::string("Error number: ") + std::to_string(ret));
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
 			}
 		}
-		catch (NiezaimplementowanaMetoda& e){
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Wyst¹pi³ wyj¹tek podczas wykonywania metody RPC.");
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.generujKomunikat());
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, (*this));
-		}
-		return false;
+		return ret;
 	}
 
-	bool MetodaRPC::inicjalizacjaParametrow(){
-		throw NiezaimplementowanaMetoda(EXCEPTION_PLACE);
+	int MetodaRPC::obslugaWyjatku(const Json::Value& root){
+		const auto &  throwNode = root[METODA_RPC_THROW];
+		if (throwNode.isNull())
+			return RPC_OK;
+		if (!throwNode.isObject())
+			return RPC_ERROR_INVALID_THROW_OBJECT;
+		//TODO: Obs³uga otrzymanego wyj¹tku
+		return RPC_ERROR_METHOD_THROW;
+	}
+
+	int MetodaRPC::wykonajMetode_impl(){
+		//Inicjalizacja w³aœciwoœci.
+		powtorzenie_ = 0;
+		klient_.autoryzujMetode(instancja_, autoryzacja_);
+		czas_wywolania_ = SLog::Log::pobierzInstancje().pobierzDateCzas();
+
+		if (!przygotowanieDoWyslania())
+			return RPC_ERROR_PREPROCESSING_FAIL;
+
+		//Budowanie zapytania
+		Json::Value procedura;
+		(*this) >> procedura;
+		Json::FastWriter writer;
+		dodajCRC(procedura);
+
+		// Wys³anie metody do serwera i oczekiwanie na zakoñczenie.
+		auto zadanie = std::make_shared<const std::string>(writer.write(procedura));
+		auto wiadomoscZwrotna = std::make_shared<std::string>();
+		auto czyZakonczono = klient_.dodajZadanie(std::make_shared<std::promise<bool>>(), zadanie, wiadomoscZwrotna, flagi_);
+		czyZakonczono.wait();
+		if (!czyZakonczono.get())
+			return RPC_ERROR_SENDING_FAIL;
+
+		//Parsowanie odpowiedzi
+		Json::Reader reader;
+		Json::Value root;
+		if (!reader.parse(*wiadomoscZwrotna, root))
+			return RPC_ERROR_PARSING_FAIL;
+
+		//Sprawdzenie czy serwer odpowiedzia³ wyj¹tkiem		
+		auto throwError = obslugaWyjatku(root);
+		if (throwError != RPC_OK)
+			return throwError;
+
+		//Walidowanie metody
+		auto error = waliduj(root, true);
+		if (error != RPC_OK)
+			return error;
+
+		(*this) << root;
+
+		//Obs³uga odpowiedzi.
+		if (!obslugaOdpowiedzi(root[METODA_RPC_METODA][METODA_RPC_RETURN]))
+			return RPC_ERROR_RESPONSE_SERVICE_FAIL;
+
+		return RPC_OK;
+	}
+
+	bool MetodaRPC::przygotowanieDoWyslania(){
+		return true;
 	}
 
 	bool MetodaRPC::obslugaOdpowiedzi(const Json::Value &){
-		throw NiezaimplementowanaMetoda(EXCEPTION_PLACE);
+		return false;
 	}
-	
+
 	const MetodaRPC& MetodaRPC::operator>>(Json::Value &root) const{
 		root[METODA_RPC_AUTORYZACJA] = autoryzacja_;
 		root[METODA_RPC_INSTANCJA] = instancja_;

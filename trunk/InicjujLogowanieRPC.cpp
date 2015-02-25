@@ -11,23 +11,17 @@ namespace SpEx{
 	{
 	}
 
-
 	bool InicjujLogowanieRPC::RejestratorMetodyRPC(Fabrykator& fabryka, SLog::Log& logger){
 		return fabryka.rejestracjaMetodyRPC(STyp::Tekst("InicjujLogowanie"), InicjujLogowanieRPC::TworzObiekt);
 	}
 
 	std::shared_ptr<MetodaRPC> InicjujLogowanieRPC::TworzObiekt(const Json::Value& metoda, Klient& klient){
 		auto ptr = std::make_shared<InicjujLogowanieRPC>(klient);
-		if (metoda.isNull()){
-			// Tworzenie nowej pustej metody, do wys³ania na serwer
-		} else{
-			if ((*ptr) << metoda){
-				//ptr->flagi_ = RPC_FLAG_AUTHORIZATION;
-				// Uda³o siê odtworzyæ metodê, przypisanie parametrów wymaganych przez metodê do atrybutów metody.
-			} else{
+		if (!metoda.isNull() && !((*ptr) << metoda)){
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nie powiod³a siê deserializacja metody InicjujLogowanieRPC.");
-				return nullptr;
 			}
+			return nullptr;
 		}
 		return std::move(ptr);
 	}
@@ -48,26 +42,29 @@ namespace SpEx{
 					odpowiedz[METODA_RPC_INSTANCJA] = instancja_;
 					flagi_ |= RPC_FLAG_AUTHORIZATION;
 				}
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, p.second);
 			}
 		}
 	}
 
-	bool InicjujLogowanieRPC::inicjalizacjaParametrow(){
-		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "InicjujLogowanieRPC::inicjalizacjaParametrow");
-		parametry_.emplace_back("Login", login_);
-		auto hash = Aplikacja::pobierzInstancje().zarzadcaUzytkownikow_.pobierzHash(login_);
-		if (!hash.empty()){
-			klient_.ustawKlucz(hash);
-			return true;
+	bool InicjujLogowanieRPC::przygotowanieDoWyslania(){
+		for (auto& p : parametry_){
+			if (p.first == "Login"){
+				auto hash = Aplikacja::pobierzInstancje().zarzadcaUzytkownikow_.pobierzHash(p.second);
+				if (!hash.empty()){
+					klient_.ustawKlucz(hash);
+					return true;
+				}
+			}
 		}
 		return false;
 	}
 
 	bool InicjujLogowanieRPC::obslugaOdpowiedzi(const Json::Value & odpowiedz){
-		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "InicjujLogowanieRPC::obslugaOdpowiedzi");
-		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Odebrano - autoryzacja: " + odpowiedz[METODA_RPC_AUTORYZACJA].asString());
-		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Odebrano - instancja: " + odpowiedz[METODA_RPC_INSTANCJA].asString());
+		if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "InicjujLogowanieRPC::obslugaOdpowiedzi");
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Odebrano - autoryzacja: " + odpowiedz[METODA_RPC_AUTORYZACJA].asString());
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Odebrano - instancja: " + odpowiedz[METODA_RPC_INSTANCJA].asString());
+		}
 		klient_.ustawAutoryzacje(odpowiedz[METODA_RPC_AUTORYZACJA].asString());
 		klient_.ustawInstancje(odpowiedz[METODA_RPC_INSTANCJA].asString());
 		return true;

@@ -6,6 +6,7 @@
 #include "Parser\ParserDokumentXml.h"
 #include "definicjeWezlowXML.h"
 #include "Logger\Logger.h"
+#include "MetodaRPC.h"
 
 namespace SpEx{
 	Fabrykator::Fabrykator(){
@@ -37,9 +38,6 @@ namespace SpEx{
 			if (ptr){
 				ptr->nazwa_ = nazwa;
 				ptr->id_unikalne_ = std::to_string(static_cast<unsigned long long>(identyfikatorZadania_()()));
-				ptr->powtorzenie_ = 0;
-				klient.autoryzujMetode(ptr->instancja_, ptr->autoryzacja_);
-				ptr->czas_wywolania_ = SLog::Log::pobierzInstancje().pobierzDateCzas();
 			}
 			return ptr;
 		}
@@ -52,11 +50,7 @@ namespace SpEx{
 			auto iterator = metodRpcCallbacks_.find(value.asString());
 			if (iterator == metodRpcCallbacks_.end())
 				return nullptr;
-			auto ptr = iterator->second(root, klient);
-			if (ptr){
-				ptr->czas_odpowiedzi_ = SLog::Log::pobierzInstancje().pobierzDateCzas();
-				return ptr;
-			}
+			return iterator->second(root, klient);
 		}
 		return nullptr;
 	}

@@ -36,15 +36,18 @@ void main( int argv , char* argc[] ){
 		{
 			auto ptrE = SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(std::string("Echo"), klient);
 			if (ptrE){
-				(*ptrE)();
+				std::string echo("Do Serwera");
+				ptrE->dodajParametr("Echo", echo);
+				ptrE->wykonajMetode();
 			} else{
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Nieuda³o siê wywo³aæ metody Echo.");
 			}
 
 			auto ptrL = SpEx::Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(std::string("InicjujLogowanie"), klient);
-			((SpEx::InicjujLogowanieRPC*)(ptrL.get()))->login_ = "Daniel";
 			if (ptrL){
-				(*ptrL)();
+				std::string login("Daniel");
+				ptrL->dodajParametr("Login", login);
+				ptrL->wykonajMetode();
 			} else{
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Nieuda³o siê wywo³aæ metody InicjujLogowanie.");
 			}

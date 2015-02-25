@@ -1,11 +1,12 @@
 #pragma once
 #include "Zmiana\ZmianaFabryka.h"
 #include "Skrypt.h"
-#include "MetodaRPC.h"
+#include "Parser\json\json.h"
 #include "Licznik.h"
 
 namespace SpEx{
-
+	class MetodaRPC;
+	class Klient;
 	/**
 	* \brief Klasa przechowuj¹ca obiekty fabryk.
 	*
