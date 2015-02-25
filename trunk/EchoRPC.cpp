@@ -26,11 +26,7 @@ namespace SpEx{
 	}
 
 	void EchoRPC::obslugaZadania(const Json::Value & zadanie, Json::Value& odpowiedz){
-		for (auto& p : parametry_){
-			if (p.first == "Echo"){
-				p.second = "Do klienta";
-			}
-		}
+		parametry_["Echo"] = "Do klienta";
 		odpowiedz["rezultat"] = "Odpowiedü serwera na komunikat Echo.";
 
 		if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
@@ -41,11 +37,9 @@ namespace SpEx{
 	bool EchoRPC::obslugaOdpowiedzi(const Json::Value & odpowiedz){
 		auto value = odpowiedz["rezultat"];
 
-		for (auto& p : parametry_){
-			if (p.first == "Echo"){
-				if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
-					SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, p.second);
-				}
+		if (!parametry_["Echo"].empty()){
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, parametry_["Echo"]);
 			}
 		}
 
