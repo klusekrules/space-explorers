@@ -107,7 +107,8 @@ namespace SpEx{
 		u_int64 header = 0;
 		int rezultat = 0;
 		std::vector <char> bufor;
-		long tempRozmiar = 0;
+		size_t tempRozmiar = 0;
+		size_t lrozmiar = 0;
 		do{
 			rezultat = ref_.odbierz((char*)&header, sizeof(u_int64));
 			if (rezultat <= 0){
@@ -134,10 +135,11 @@ namespace SpEx{
 			rozmiar = (0xFFFFFFFF00000000 & header) >> 32;
 			flagi_ = header & 0x00000000FFFFFFFF;
 
-			bufor.reserve(rozmiar);
-			bufor.resize(rozmiar, 0);
+			lrozmiar = static_cast<size_t>(rozmiar);
+			bufor.reserve(lrozmiar);
+			bufor.resize(lrozmiar, 0);
 			do{
-				rezultat = ref_.odbierz(&bufor.data()[tempRozmiar], rozmiar - tempRozmiar);
+				rezultat = ref_.odbierz(&bufor.data()[tempRozmiar], lrozmiar - tempRozmiar);
 				if (rezultat <= 0){
 					if (rezultat == 0){
 						if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){
@@ -157,9 +159,9 @@ namespace SpEx{
 					}
 				}
 				tempRozmiar += rezultat;
-			} while (tempRozmiar != rozmiar && !ref_.czyCzekaNaZakonczenie());
+			} while (tempRozmiar != lrozmiar && !ref_.czyCzekaNaZakonczenie());
 
-		} while ( (rozmiar == 0 || tempRozmiar != rozmiar) && !ref_.czyCzekaNaZakonczenie());
+		} while ((rozmiar == 0 || tempRozmiar != rozmiar) && !ref_.czyCzekaNaZakonczenie());
 
 		std::string s(bufor.begin(), bufor.end());
 		odbierz_ = std::move(s);
@@ -186,10 +188,10 @@ namespace SpEx{
 			}
 			return false;
 		}
-
-		long tempRozmiar = rozmiar;
+		size_t lrozmiar = static_cast<size_t>(rozmiar);
+		size_t tempRozmiar = lrozmiar;
 		do{
-			rezultat = ref_.wyslij(&(wyslij_.data()[rozmiar - tempRozmiar]), rozmiar);
+			rezultat = ref_.wyslij(&(wyslij_.data()[lrozmiar - tempRozmiar]), lrozmiar);
 			if (rezultat <= 0){
 				if (rezultat == 0){
 					if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){

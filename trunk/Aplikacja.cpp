@@ -359,7 +359,7 @@ namespace SpEx{
 			if (!zarzadcaUzytkownikow_.zapiszDane())
 				return false;
 
-			if (zarzadcaLokacji_.zapisz(wezel->tworzElement(WEZEL_XML_GRA))){
+			if (zarzadcaLokacji_.zapisz(wezel->pobierzElement(WEZEL_XML_GRA))){
 				std::locale::global(std::locale(ustawienia_[ATRYBUT_JEZYK_APLIKACJI]));
 				return dokumentGry->zapisz(ustawienia_[ATRYBUT_PLIK_GRY].c_str());
 			}
