@@ -3,6 +3,7 @@
 #include "definicjeWezlowXML.h"
 #include "Utils.h"
 #include "Logger\Logger.h"
+#include <io.h>
 
 #define ATRYBUT_FOLDER_PLIKU_UZYTKOWNIKA "folderPlikowUzytkownikow"
 #define ATRYBUT_PLIK_AUTORYZACJI "plikAutoryzacji"
@@ -10,12 +11,23 @@
 namespace SpEx{
 	bool ZarzadcaUzytkownikow::inicjalizuj(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos){
 		folderPlikowUzytkownika_ = ustawienia[ATRYBUT_FOLDER_PLIKU_UZYTKOWNIKA];
+		plikAutoryzacji_ = ustawienia[ATRYBUT_PLIK_AUTORYZACJI];
+		auto plikAutoryzacji = (folderPlikowUzytkownika_ + plikAutoryzacji_);
+		if (_access(plikAutoryzacji.c_str(), 0) == -1){
+			zapiszDane();
+		}
 
-		auto plikAutoryzacji = ustawienia[ATRYBUT_PLIK_AUTORYZACJI];
 		auto dokumentHash = std::make_shared<SPar::ParserDokumentXml>();
-		if (dokumentHash->odczytaj( (folderPlikowUzytkownika_+ plikAutoryzacji).c_str() )){
+		if (dokumentHash->odczytaj(plikAutoryzacji.c_str())){
 			return odczytaj(dokumentHash->pobierzElement(WEZEL_XML_ROOT));
 		}
+		return false;
+	}
+	
+	bool ZarzadcaUzytkownikow::zapiszDane() const{
+		auto dokumentHash = std::make_shared<SPar::ParserDokumentXml>();
+		if (zapisz(dokumentHash->tworzElement(WEZEL_XML_ROOT)))
+			return dokumentHash->zapisz((folderPlikowUzytkownika_ + plikAutoryzacji_).c_str());
 		return false;
 	}
 
@@ -85,7 +97,12 @@ namespace SpEx{
 		std::string plik;
 		if (plikUzytkownika(nazwa, hash, plik, false))
 			return false;
-		return plikUzytkownika(nazwa, hash, plik) != nullptr;
+		if (plikUzytkownika(nazwa, hash, plik) != nullptr){
+			std::lock_guard<std::mutex> lock(mutexAutoryzacja_);
+			autoryzacja_[nazwa] = hash;
+			return true;
+		}
+		return false;
 	}
 
 	bool ZarzadcaUzytkownikow::zapiszGracza(std::shared_ptr<Uzytkownik> ptr){
@@ -109,6 +126,10 @@ namespace SpEx{
 			//if (uzytkownik_ && nowyUzytkownik->pobierzNazweUzytkownika() == uzytkownik_->pobierzNazweUzytkownika())
 			//	return false;
 			nowyUzytkownik->odpinaniePlanet();
+			std::lock_guard<std::mutex> lock(mutexAutoryzacja_);
+			auto iter = autoryzacja_.find(nazwa);
+			if (iter != autoryzacja_.end())
+				autoryzacja_.erase(iter);
 		} else
 			return false;
 		return !remove(plik.c_str());

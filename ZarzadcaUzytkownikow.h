@@ -97,6 +97,8 @@ namespace SpEx{
 				
 		bool zapiszGracza(std::shared_ptr<Uzytkownik>);
 
+		bool zapiszDane() const;
+
 		/**
 		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
 		* \return Napis zwieraj¹cy opis klasy.
@@ -126,6 +128,7 @@ namespace SpEx{
 
 
 		std::string folderPlikowUzytkownika_; /// Œcie¿ka do folderu w którym znajduj¹ siê pliki gry.
+		std::string plikAutoryzacji_; /// Nazwa pliku autoryzacji u¿ytkowników.
 
 		MapaAutoryzacji autoryzacja_;
 		mutable std::mutex mutexAutoryzacja_;
