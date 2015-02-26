@@ -339,14 +339,7 @@ namespace SpEx{
 		std::locale::global(std::locale("C"));
 		try{
 			auto dokumentGry = std::make_shared<SPar::ParserDokumentXml>();
-			if (!dokumentGry->odczytaj(ustawienia_[ATRYBUT_PLIK_GRY].c_str())){
-				dokumentGry->tworzElement(WEZEL_XML_ROOT)->tworzElement(WEZEL_XML_GRA);
-				if (!dokumentGry->zapisz(ustawienia_[ATRYBUT_PLIK_GRY].c_str())){
-					return false;
-				}
-			}
-
-			auto wezel = dokumentGry->pobierzElement(WEZEL_XML_ROOT);
+			auto wezel = dokumentGry->tworzElement(WEZEL_XML_ROOT);
 			if (!wezel){
 				return false;
 			}
@@ -359,7 +352,7 @@ namespace SpEx{
 			if (!zarzadcaUzytkownikow_.zapiszDane())
 				return false;
 
-			if (zarzadcaLokacji_.zapisz(wezel->pobierzElement(WEZEL_XML_GRA))){
+			if (zarzadcaLokacji_.zapisz(wezel->tworzElement(WEZEL_XML_GRA))){
 				std::locale::global(std::locale(ustawienia_[ATRYBUT_JEZYK_APLIKACJI]));
 				return dokumentGry->zapisz(ustawienia_[ATRYBUT_PLIK_GRY].c_str());
 			}
