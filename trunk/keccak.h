@@ -6,6 +6,7 @@
 
 #include <stdint.h>
 #include <string.h>
+#include <stdio.h>
 
 #ifndef KECCAK_ROUNDS
 #define KECCAK_ROUNDS 24
@@ -17,6 +18,7 @@
 
 // compute a keccak hash (md) of given byte length from "in"
 int keccak(const uint8_t *in, int inlen, uint8_t *md, int mdlen);
+int keccak(FILE *fp, uint8_t *md, size_t mdlen);
 
 // update the state
 void keccakf(uint64_t st[25], int norounds);

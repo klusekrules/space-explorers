@@ -17,6 +17,7 @@
 #include "LuaState.h"
 #include "DllModule.h"
 #include "XmlModul.h"
+#include "SumaKontrolnaPliku.h"
 #include "MaszynaStanow.h"
 
 #include "EchoRPC.h"
@@ -233,6 +234,7 @@ namespace SpEx{
 		LuaState::Rejestruj(zarzadcaZasobow_);
 		DllModule::Rejestruj(zarzadcaZasobow_);
 		XmlModul::Rejestruj(zarzadcaZasobow_);
+		SumaKontrolnaPliku::Rejestruj(zarzadcaZasobow_);
 
 		/* ------- Rejestrowanie zdalnych metod -------*/
 		EchoRPC::RejestratorMetodyRPC(fabrykator_, logger_);

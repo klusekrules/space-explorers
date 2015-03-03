@@ -104,3 +104,39 @@ int keccak(const uint8_t *in, int inlen, uint8_t *md, int mdlen)
     return 0;
 }
 
+
+// compute a keccak hash (md) of given file "fp"
+
+int keccak(FILE *fp, uint8_t *md, size_t mdlen)
+{
+	uint64_t st[25];
+	uint8_t temp[144];
+	size_t i, rsiz, rsizw;
+
+	rsiz = 200 - 2 * mdlen;
+	rsizw = rsiz / 8;
+
+	memset(st, 0, sizeof(st)); 
+	size_t inlen = fread_s(temp, 144, 1, rsiz, fp);
+	for (; inlen >= rsiz; inlen = fread_s(temp, 144, 1, rsiz, fp)) {
+		for (i = 0; i < rsizw; i++)
+			st[i] ^= ((uint64_t *)temp)[i];
+		keccakf(st, KECCAK_ROUNDS);
+	}
+
+	// last block and padding
+	//memcpy(temp, in, inlen);
+	temp[inlen++] = 1;
+	memset(temp + inlen, 0, rsiz - inlen);
+	temp[rsiz - 1] |= 0x80;
+
+	for (i = 0; i < rsizw; i++)
+		st[i] ^= ((uint64_t *)temp)[i];
+
+	keccakf(st, KECCAK_ROUNDS);
+
+	memcpy(md, st, mdlen);
+
+	return 0;
+}
+

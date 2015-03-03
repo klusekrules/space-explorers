@@ -295,12 +295,6 @@
     <ClCompile Include="Fabrykator.cpp">
       <Filter>SourceFile\Kontroler\Fabryki</Filter>
     </ClCompile>
-    <ClCompile Include="LuaState.cpp">
-      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
-    </ClCompile>
-    <ClCompile Include="DllModule.cpp">
-      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
-    </ClCompile>
     <ClCompile Include="SurowceTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClCompile>
@@ -357,6 +351,18 @@
     </ClCompile>
     <ClCompile Include="KomunikacjaSieciowaTest.cpp">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClCompile>
+    <ClCompile Include="DllModule.cpp">
+      <Filter>SourceFile\Kontroler\Zasoby</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaState.cpp">
+      <Filter>SourceFile\Kontroler\Zasoby</Filter>
+    </ClCompile>
+    <ClCompile Include="SumaKontrolnaPliku.cpp">
+      <Filter>SourceFile\Kontroler\Zasoby</Filter>
+    </ClCompile>
+    <ClCompile Include="SumakontrolnaPlikuTest.cpp">
+      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -696,12 +702,6 @@
     <ClInclude Include="Fabrykator.h">
       <Filter>SourceFile\Kontroler\Fabryki</Filter>
     </ClInclude>
-    <ClInclude Include="LuaState.h">
-      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
-    </ClInclude>
-    <ClInclude Include="DllModule.h">
-      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
-    </ClInclude>
     <ClInclude Include="SurowceTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClInclude>
@@ -770,6 +770,18 @@
     </ClInclude>
     <ClInclude Include="KomunikacjaSieciowaTest.h">
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="DllModule.h">
+      <Filter>SourceFile\Kontroler\Zasoby</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaState.h">
+      <Filter>SourceFile\Kontroler\Zasoby</Filter>
+    </ClInclude>
+    <ClInclude Include="SumaKontrolnaPliku.h">
+      <Filter>SourceFile\Kontroler\Zasoby</Filter>
+    </ClInclude>
+    <ClInclude Include="SumakontrolnaPlikuTest.h">
+      <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

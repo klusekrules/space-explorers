@@ -6,7 +6,13 @@ SHA3::SHA3(const std::string& str){
 	keccak(reinterpret_cast<const uint8_t*>(str.c_str()), static_cast<int>(str.size()), sha.data(), 64);
 }
 
-std::string SHA3::pobierzNapis(){
+SHA3::SHA3(FILE* fp){
+	sha.resize(64, 0);
+	if (fp!=nullptr)
+		keccak(fp, sha.data(), 64);
+}
+
+std::string SHA3::pobierzNapis() const{
 	std::string str;
 	for (auto c : sha){
 		ascii2hex(c, str);
@@ -14,12 +20,12 @@ std::string SHA3::pobierzNapis(){
 	return str;
 }
 
-const std::vector<unsigned char > & SHA3::pobierzKontener(){
+const std::vector<unsigned char > & SHA3::pobierzKontener() const{
 	return sha;
 }
 
 
-void SHA3::ascii2hex(unsigned char c, std::string & str){
+void SHA3::ascii2hex(unsigned char c, std::string & str) const{
 	char pierwszy = (c >> 4) & 0x0F, drugi = c & 0x0F;
 	if (pierwszy < 10){
 		pierwszy += 0x30;
