@@ -6,7 +6,9 @@
 #include "GenerowanieTest.h"
 #include "CzyszczenieDanychTest.h"
 #include "ParserTest.h"
+#include "SumakontrolnaPlikuTest.h"
 
+REJESTRUJ_PACZKE_TESTOW_JAKO_INICJALIZACJA(SumaKontrolnaPlikuTest);
 REJESTRUJ_PACZKE_TESTOW_JAKO_INICJALIZACJA(ParserTest);
 REJESTRUJ_PACZKE_TESTOW_JAKO_INICJALIZACJA(InicjalizacjaDanychTestowych);
 REJESTRUJ_PACZKE_TESTOW_JAKO_INICJALIZACJA(LogowanieTest);

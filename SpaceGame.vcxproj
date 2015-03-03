@@ -218,7 +218,7 @@
       <LinkStatus>
       </LinkStatus>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Debug-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>lua51.lib;glew.lib;Glu32.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lua51.lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>SubWCRev.exe $(SolutionDir) $(ProjectDir)\svn_version.h.tmpl $(ProjectDir)\svn_version.h</Command>
@@ -380,6 +380,8 @@
     <ClInclude Include="StaleRPC.h" />
     <ClInclude Include="Stan.h" />
     <ClInclude Include="StanInfo.h" />
+    <ClInclude Include="SumaKontrolnaPliku.h" />
+    <ClInclude Include="SumakontrolnaPlikuTest.h" />
     <ClInclude Include="SurowceTest.h" />
     <ClInclude Include="SzyfrowanieTest.h" />
     <ClInclude Include="TestyUtilsBO.h" />
@@ -545,6 +547,8 @@
     <ClCompile Include="Statek.cpp" />
     <ClCompile Include="StatekInfo.cpp" />
     <ClCompile Include="StatekTest.cpp" />
+    <ClCompile Include="SumaKontrolnaPliku.cpp" />
+    <ClCompile Include="SumakontrolnaPlikuTest.cpp" />
     <ClCompile Include="Surowce.cpp" />
     <ClCompile Include="SurowceInfo.cpp" />
     <ClCompile Include="SurowceTest.cpp" />
@@ -906,6 +910,11 @@
     </ProjectReference>
     <ProjectReference Include="zlib\zlib.vcxproj">
       <Project>{ddc0027d-5cdb-444d-9e0f-e2090d9add96}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
     <ProjectReference Include="Zmiana\Zmiana.vcxproj">
       <Project>{e939d2d1-17b7-4720-8de2-135a14dad2a6}</Project>
