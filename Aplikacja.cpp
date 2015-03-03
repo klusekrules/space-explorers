@@ -24,6 +24,8 @@
 #include "InicjujLogowanieRPC.h"
 #include "PotwierdzLogowanieRPC.h"
 
+#include "Fabrykator.h"
+
 #define KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU STyp::Tekst("Podczas przetwarzabua argumentów wyst¹pi³ b³¹d.")
 #define KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plik) STyp::Tekst("Nie powiod³o siê wczytywanie pliku konfiguracyjnego: " + plik)
 #define KOMUNIKAT_BLAD_FORMATU_DATY STyp::Tekst("Nie poprawny format daty u¿ytej w nazwie pliku logów.")
@@ -85,13 +87,14 @@ namespace SpEx{
 	char** Aplikacja::argumenty = nullptr;
 
 	Aplikacja::Aplikacja()
-		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), fabrykator_(), instancjaGry_(nullptr)
+		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), fabrykator_(nullptr), instancjaGry_(nullptr)
 	{
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listasurowcowgui", tgui::ListaSurowcowGui::createWidget);
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listaobiektowgui", tgui::ListaObiektowGui::createWidget);
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("kontrolkaobiektu", tgui::KontrolkaObiektu::createWidget);
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("loglistgui", tgui::LogListGui::createWidget);
 		
+		fabrykator_ = std::make_shared<Fabrykator>();
 		/* ------- Wstêpna konfiguracja logów ------- */
 		logger_.dodajGniazdoWyjsciowe([](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{ 
 			std::string sTyp;
@@ -237,14 +240,13 @@ namespace SpEx{
 		SumaKontrolnaPliku::Rejestruj(zarzadcaZasobow_);
 
 		/* ------- Rejestrowanie zdalnych metod -------*/
-		EchoRPC::RejestratorMetodyRPC(fabrykator_, logger_);
-		InicjujLogowanieRPC::RejestratorMetodyRPC(fabrykator_, logger_);
-		PotwierdzLogowanieRPC::RejestratorMetodyRPC(fabrykator_, logger_);
+		fabrykator_->RejestrujMetodeRPC<EchoRPC>();
+		fabrykator_->RejestrujMetodeRPC<InicjujLogowanieRPC>();
+		fabrykator_->RejestrujMetodeRPC<PotwierdzLogowanieRPC>();
 
+		pluginy_ = std::make_shared<SPlu::Cplugin>(ustawienia_[ATRYBUT_FOLDER_PLUGINOW], fabrykator_->pobierzFabrykeZmian(), logger_);
 
-		pluginy_ = std::make_shared<SPlu::Cplugin>(ustawienia_[ATRYBUT_FOLDER_PLUGINOW], fabrykator_.pobierzFabrykeZmian(), logger_);
-
-		if (!RejestrujZmianaPoziomObiektu(fabrykator_.pobierzFabrykeZmian(), logger_))
+		if (!RejestrujZmianaPoziomObiektu(fabrykator_->pobierzFabrykeZmian(), logger_))
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIANY_POZIOMU);
 
 		if (!pluginy_->zaladujDomyslneKlasyZmian())

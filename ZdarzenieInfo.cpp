@@ -4,6 +4,7 @@
 #include "definicjeWezlowXML.h"
 #include "Utils.h"
 #include "Aplikacja.h"
+#include "Fabrykator.h"
 
 #define KOMUNIAKT_BLAD_WCZYTYWANIA(plik) STyp::Tekst("Dla zdarzenia o ww id nie uda³o siê wczytac pliku lua." + plik)
 
@@ -27,7 +28,7 @@ namespace SpEx{
 
 				funcInside_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FUNC_INSIDE, std::string());
 
-				skrypt_ = Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(wezel);
+				skrypt_ = Aplikacja::pobierzInstancje().pobierzFabrykator().TworzSkrypt(wezel);
 				if (!skrypt_)
 					Utils::generujWyjatekBleduStruktury(wezel);
 			}

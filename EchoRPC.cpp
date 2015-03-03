@@ -1,13 +1,10 @@
 #include "EchoRPC.h"
-#include "Fabrykator.h"
 #include "Logger\Logger.h"
 #include "StaleRPC.h"
 
 namespace SpEx{
 
-	bool EchoRPC::RejestratorMetodyRPC(Fabrykator& fabryka, SLog::Log& logger){
-		return fabryka.rejestracjaMetodyRPC(STyp::Tekst("Echo"), EchoRPC::TworzObiekt);
-	}
+	const std::string EchoRPC::NazwaTypu_ = "Echo";
 
 	std::shared_ptr<MetodaRPC> EchoRPC::TworzObiekt(const Json::Value & metoda, Klient& klient){
 		auto ptr = std::make_shared<EchoRPC>(klient);
@@ -19,12 +16,7 @@ namespace SpEx{
 		}
 		return std::move(ptr);
 	}
-
-	EchoRPC::EchoRPC(Klient& polaczenie)
-		: MetodaRPC(polaczenie)
-	{
-	}
-
+	
 	void EchoRPC::obslugaZadania(const Json::Value & zadanie, Json::Value& odpowiedz){
 		parametry_["Echo"] = "Do klienta";
 		odpowiedz["rezultat"] = "Odpowiedü serwera na komunikat Echo.";

@@ -5,6 +5,7 @@
 #include "Utils.h"
 #include "Aplikacja.h"
 #include "BladStukturyStanu.h"
+#include "Fabrykator.h"
 
 #define KOMUNIAKT_BLAD_ZDARZENIA STyp::Tekst("B³¹d wczytywania zdarzeñ dla stanu: ")
 #define KOMUNIAKT_BLAD_WCZYTYWANIA(plik) STyp::Tekst("Nie uda³o siê wczytac pliku lua." + plik)
@@ -32,7 +33,7 @@ namespace SpEx{
 				funcOut_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FUNC_OUT, std::string());
 				funcInside_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FUNC_INSIDE, std::string());
 
-				skrypt_ = Aplikacja::pobierzInstancje().fabrykator_.TworzSkrypt(wezel);
+				skrypt_ = Aplikacja::pobierzInstancje().pobierzFabrykator().TworzSkrypt(wezel);
 				if (!skrypt_)
 					Utils::generujWyjatekBleduStruktury(wezel);
 			}

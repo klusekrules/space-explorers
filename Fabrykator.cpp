@@ -21,14 +21,6 @@ namespace SpEx{
 		return true;
 	}
 
-
-	bool Fabrykator::rejestracjaMetodyRPC(const IdentyfikatorMetoryRPC& identyfikator, KreatorMetodyRPC funkcja){
-		if (funkcja == nullptr || identyfikator.isEmpty() || metodRpcCallbacks_.find(identyfikator) != metodRpcCallbacks_.end())
-			return false;
-		metodRpcCallbacks_[identyfikator] = funkcja;
-		return true;
-	}
-
 	std::shared_ptr<MetodaRPC> Fabrykator::TworzMetodeRPC(const std::string & nazwa, Klient& klient) const{
 		if (!nazwa.empty()){
 			auto iterator = metodRpcCallbacks_.find(nazwa);

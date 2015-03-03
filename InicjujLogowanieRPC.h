@@ -7,15 +7,15 @@ namespace SpEx{
 		public MetodaRPC
 	{
 	public:
+		static const std::string NazwaTypu_;
 		friend class std::_Ref_count_obj<InicjujLogowanieRPC>;
-		static bool RejestratorMetodyRPC(Fabrykator& fabryka, SLog::Log& logger);
 		static std::shared_ptr<MetodaRPC> TworzObiekt(const Json::Value &, Klient&);
 
 		virtual ~InicjujLogowanieRPC() = default;		
 		std::string napis() const override;
 
 	private:
-		InicjujLogowanieRPC(Klient&);
+		using MetodaRPC::MetodaRPC;
 
 		void obslugaZadania(const Json::Value &, Json::Value&) override;
 		bool przygotowanieDoWyslania() override;
