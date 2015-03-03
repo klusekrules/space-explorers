@@ -1,19 +1,11 @@
 #include "InicjujLogowanieRPC.h"
-#include "Fabrykator.h"
 #include "StaleRPC.h"
 #include "Parser\ParserDokumentXml.h"
 #include "Aplikacja.h"
 
 namespace SpEx{
 
-	InicjujLogowanieRPC::InicjujLogowanieRPC(Klient& polaczenie)
-		: MetodaRPC(polaczenie)
-	{
-	}
-
-	bool InicjujLogowanieRPC::RejestratorMetodyRPC(Fabrykator& fabryka, SLog::Log& logger){
-		return fabryka.rejestracjaMetodyRPC(STyp::Tekst("InicjujLogowanie"), InicjujLogowanieRPC::TworzObiekt);
-	}
+	const std::string InicjujLogowanieRPC::NazwaTypu_ = "InicjujLogowanie";
 
 	std::shared_ptr<MetodaRPC> InicjujLogowanieRPC::TworzObiekt(const Json::Value& metoda, Klient& klient){
 		auto ptr = std::make_shared<InicjujLogowanieRPC>(klient);

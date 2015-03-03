@@ -377,6 +377,7 @@
     <ClInclude Include="SHA3.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Skrypt.h" />
+    <ClInclude Include="SprawdzSumyKontrolneRPC.h" />
     <ClInclude Include="StaleRPC.h" />
     <ClInclude Include="Stan.h" />
     <ClInclude Include="StanInfo.h" />
@@ -542,6 +543,7 @@
     <ClCompile Include="RoundedRectangleShape.cpp" />
     <ClCompile Include="Serwer.cpp" />
     <ClCompile Include="SHA3.cpp" />
+    <ClCompile Include="SprawdzSumyKontrolneRPC.cpp" />
     <ClCompile Include="Stan.cpp" />
     <ClCompile Include="StanInfo.cpp" />
     <ClCompile Include="Statek.cpp" />

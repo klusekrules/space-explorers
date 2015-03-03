@@ -20,20 +20,11 @@ namespace SpEx{
 		: public Zasob
 	{
 	public:
+		friend class std::_Ref_count_obj<LuaState>;
 		typedef std::shared_ptr<LuaState> SharedPtr; /// Silny wskaŸnik na klasê.
 		typedef std::weak_ptr<LuaState> WeakPtr; /// S³aby wskaŸnik na klasê.
 		
-		/**
-		* \brief Konstruktor.
-		*
-		* Konstruktor.
-		* \param[in] plik - Adres pliku, który ma zostaæ wczytany.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 05-08-2014
-		*/
-		LuaState(const std::string& plik);
-
+		
 		/**
 		* \brief Destruktor.
 		*
@@ -78,6 +69,19 @@ namespace SpEx{
 		}
 
 	private:
+
+		/**
+		* \brief Konstruktor.
+		*
+		* Konstruktor.
+		* \param[in] plik - Adres pliku, który ma zostaæ wczytany.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 05-08-2014
+		*/
+		LuaState(const std::string& plik);
+
+
 		/**
 		* \brief Metoda tworz¹ca obiekt.
 		*

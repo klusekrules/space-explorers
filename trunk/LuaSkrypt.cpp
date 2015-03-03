@@ -3,6 +3,7 @@
 #include "definicjeWezlowXML.h"
 #include "Aplikacja.h"
 #include "BladStukturyStanu.h"
+#include "Fabrykator.h"
 
 #define KOMUNIAKT_BLAD_WYKONYWANIA STyp::Tekst("Dla zdarzenia o ww id nie uda³o siê wykonaæ inicjalizacji skryptu.")
 

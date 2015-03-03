@@ -4,6 +4,7 @@
 #include "Aplikacja.h"
 #include "VMPC_MAC.h"
 #include "SHA3.h"
+#include "Fabrykator.h"
 
 namespace SpEx{
 	DaneTCP::DaneTCP(Klient& ref)
@@ -70,7 +71,7 @@ namespace SpEx{
 			if (error){
 				dodajKomunikatBledu(error, root);
 			} else{
-				auto metodaRPC = Aplikacja::pobierzInstancje().fabrykator_.TworzMetodeRPC(root, ref_);
+				auto metodaRPC = Aplikacja::pobierzInstancje().pobierzFabrykator().TworzMetodeRPC(root, ref_);
 				if (metodaRPC){
 					if (metodaRPC->obsluzMetode(root)){
 						//Pobieranie flag steruj¹cych dla pakietu zwrotnego.

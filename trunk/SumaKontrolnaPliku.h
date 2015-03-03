@@ -8,13 +8,13 @@ namespace SpEx{
 		: public Zasob
 	{
 	public:
+		friend class std::_Ref_count_obj<SumaKontrolnaPliku>;
 		typedef std::shared_ptr<SumaKontrolnaPliku> SharedPtr; /// Silny wskaŸnik na klasê.
 		typedef std::weak_ptr<SumaKontrolnaPliku> WeakPtr; /// S³aby wskaŸnik na klasê.
 
 		static bool Rejestruj(ZarzadcaZasobow &fabryka);
 
-		SumaKontrolnaPliku(const std::string& plik);
-
+		
 		bool inicjalizuj() override;
 
 		virtual ~SumaKontrolnaPliku() = default;
@@ -28,6 +28,8 @@ namespace SpEx{
 		}
 
 	private:
+		SumaKontrolnaPliku(const std::string& plik);
+
 		static Zasob::SharedPtr Tworz(const ZarzadcaZasobow::Parametr& parametr, bool cache);
 		std::string plik_;
 		SHA3 sumaKontrolna_;

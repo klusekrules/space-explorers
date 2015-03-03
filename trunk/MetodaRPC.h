@@ -13,7 +13,7 @@ namespace SpEx{
 		friend class std::_Ref_count_obj<MetodaRPC>;
 		friend class Fabrykator;
 		friend class Klient;
-		
+
 		static int sprawdzCRC(Json::Value&);
 		static void dodajCRC(Json::Value&);
 		static int waliduj(Json::Value&, bool);

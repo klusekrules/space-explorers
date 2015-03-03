@@ -364,6 +364,9 @@
     <ClCompile Include="SumakontrolnaPlikuTest.cpp">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClCompile>
+    <ClCompile Include="SprawdzSumyKontrolneRPC.cpp">
+      <Filter>SourceFile\Network\MetodyRPC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -782,6 +785,9 @@
     </ClInclude>
     <ClInclude Include="SumakontrolnaPlikuTest.h">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
+    </ClInclude>
+    <ClInclude Include="SprawdzSumyKontrolneRPC.h">
+      <Filter>SourceFile\Network\MetodyRPC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

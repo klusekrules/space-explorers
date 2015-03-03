@@ -9,7 +9,6 @@
 #include "Gra.h"
 #include "Singleton.h"
 #include "UstawieniaAplikacji.h"
-#include "Fabrykator.h"
 #include "ZarzadcaZasobow.h"
 #include "ZarzadcaUzytkownikow.h"
 
@@ -36,6 +35,7 @@ typedef BOOL (WINAPI *SymFromAddrS)( _In_ HANDLE hProcess, _In_ DWORD64 Address,
 
 namespace SpEx {
 
+	class Fabrykator;
 	/**
 	* \brief Klasa reprezentuj¹ca aplikacje.
 	*
@@ -116,6 +116,10 @@ namespace SpEx {
 			return ustawienia_;
 		}
 
+		inline Fabrykator& pobierzFabrykator(){
+			return *fabrykator_;
+		}
+
 		/**
 		* \brief Destruktor.
 		*/
@@ -123,8 +127,6 @@ namespace SpEx {
 
 		SLog::Log& logger_; /// Instancja loggera.
 		
-		Fabrykator fabrykator_; /// Instacja obiektu przechowuj¹cego zbiór fabryk.
-
 		ZarzadcaZasobow zarzadcaZasobow_; /// Zarz¹dca zasobów.
 
 		ZarzadcaUzytkownikow zarzadcaUzytkownikow_; /// Zarz¹dca u¿ytkowników.
@@ -171,6 +173,7 @@ namespace SpEx {
 
 		std::shared_ptr<SPlu::Cplugin> pluginy_; /// Obiekt zarz¹dzaj¹cy plugginami.
 		std::shared_ptr<Gra> instancjaGry_; /// Obiekt prezentuj¹cy instancjê gry.
+		std::shared_ptr<Fabrykator> fabrykator_; /// Instacja obiektu przechowuj¹cego zbiór fabryk.
 
 		SymInitializeS symInitialize_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
 		SymFromAddrS symFromAddr_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.

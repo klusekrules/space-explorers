@@ -1,5 +1,6 @@
 #include "Utils.h"
 #include "Aplikacja.h"
+#include "Fabrykator.h"
 
 namespace SpEx{
 
@@ -62,7 +63,7 @@ namespace SpEx{
 	std::shared_ptr<SZmi::ZmianaInterfejs> Utils::TworzZmiane(XmlBO::ElementWezla wezel){
 		if (!wezel)
 			return nullptr;
-		auto zmiana = Aplikacja::pobierzInstancje().fabrykator_.TworzZmiane(wezel);
+		auto zmiana = Aplikacja::pobierzInstancje().pobierzFabrykator().TworzZmiane(wezel);
 		if (!zmiana)
 			Utils::generujWyjatekBleduStruktury(wezel);
 		return zmiana;

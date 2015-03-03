@@ -117,12 +117,22 @@ namespace SpEx{
 		* \date 06-08-2014
 		*/
 		bool rejestracjaSkryptu(const IdentyfikatorSkryptu& identyfikator, KreatorSkryptu funkcja);
-
-		bool rejestracjaMetodyRPC(const IdentyfikatorMetoryRPC& identyfikator, KreatorMetodyRPC funkcja);
-
+		
 		std::shared_ptr<MetodaRPC> TworzMetodeRPC(const Json::Value &, Klient&) const;
-		std::shared_ptr<MetodaRPC> TworzMetodeRPC(const std::string &, Klient&) const;
+		
+		template <class T_>
+		inline std::shared_ptr<T_> TworzMetodeRPC(Klient& klient){
+			return std::dynamic_pointer_cast<T_>(TworzMetodeRPC(typename T_::NazwaTypu_, klient));
+		}
 
+		template <class T_>
+		inline bool RejestrujMetodeRPC(){
+			if (typename T_::NazwaTypu_.empty() || metodRpcCallbacks_.find(typename T_::NazwaTypu_) != metodRpcCallbacks_.end())
+				return false;
+			metodRpcCallbacks_[typename T_::NazwaTypu_] = typename T_::TworzObiekt;
+			return true;
+		}
+		
 		/**
 		* Funkcja s³u¿¹ca do tworzenia napisów z opisem klasy.
 		* \return Napis zawieraj¹cy opis klasy.
@@ -136,6 +146,8 @@ namespace SpEx{
 		typedef std::map<IdentyfikatorSkryptu, KreatorSkryptu> ScriptCallbacks; /// Typ kontenera przechowuj¹cego metody tworz¹ce instancje skryptów.
 
 		typedef std::map<IdentyfikatorMetoryRPC, KreatorMetodyRPC> TablicaKreatorowMetodRPC;
+
+		std::shared_ptr<MetodaRPC> TworzMetodeRPC(const std::string &, Klient&) const;
 
 		TablicaKreatorowMetodRPC metodRpcCallbacks_;
 

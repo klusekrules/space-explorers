@@ -9,10 +9,10 @@ namespace SpEx {
 		: public Zasob
 	{
 	public:
+		friend class std::_Ref_count_obj<XmlModul>;
 		typedef std::shared_ptr<XmlModul> SharedPtr; /// Silny wskaŸnik na klasê.
 		typedef std::weak_ptr<XmlModul> WeakPtr; /// S³aby wskaŸnik na klasê.
 
-		XmlModul(const std::string& plik);
 		virtual ~XmlModul();
 
 		bool inicjalizuj() override;
@@ -27,6 +27,7 @@ namespace SpEx {
 		}
 
 	private:
+		XmlModul(const std::string& plik);
 
 		static Zasob::SharedPtr Tworz(const ZarzadcaZasobow::Parametr& parametr, bool cache);
 
