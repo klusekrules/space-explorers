@@ -13,7 +13,6 @@ namespace SpEx {
 		static const std::string NazwaTypu_;
 		typedef std::shared_ptr<XmlModul> SharedPtr; /// Silny wskaŸnik na klasê.
 		typedef std::weak_ptr<XmlModul> WeakPtr; /// S³aby wskaŸnik na klasê.
-		static Zasob::SharedPtr Tworz(const ZarzadcaZasobow::Parametr& parametr, bool cache);
 
 		virtual ~XmlModul() = default;
 

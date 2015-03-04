@@ -26,19 +26,6 @@ namespace SpEx{
 		typedef std::weak_ptr<LuaState> WeakPtr; /// S³aby wskaŸnik na klasê.
 
 		/**
-		* \brief Metoda tworz¹ca obiekt.
-		*
-		* Metoda tworzy obiekt na podstawie parametrów.
-		* \param[in] parametr - Adres do pliku.
-		* \param[in] cache - Informacje czy zasób jest przechowywany.
-		* \return Zwracana jest wskaŸnik do zasobu.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 05-08-2014
-		*/
-		static Zasob::SharedPtr Tworz(const ZarzadcaZasobow::Parametr& parametr, bool cache);
-		
-		/**
 		* \brief Destruktor.
 		*
 		* Destruktor.

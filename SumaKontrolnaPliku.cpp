@@ -5,15 +5,11 @@ namespace SpEx{
 
 	SumaKontrolnaPliku::SumaKontrolnaPliku(const std::string& plik)
 		: sumaKontrolna_(fopen(plik.c_str(),"rb"))
-	{}
-
-
+	{
+	}
+	
 	bool SumaKontrolnaPliku::inicjalizuj(){
 		return true;
 	}
 	
-	Zasob::SharedPtr SumaKontrolnaPliku::Tworz(const ZarzadcaZasobow::Parametr& parametr, bool cache){
-		return std::make_shared<SumaKontrolnaPliku>(parametr);
-	}
-
 }

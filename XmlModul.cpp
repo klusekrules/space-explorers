@@ -10,11 +10,6 @@ namespace SpEx {
 	{
 	}
 
-
-	Zasob::SharedPtr XmlModul::Tworz(const ZarzadcaZasobow::Parametr& parametr, bool cache){
-		return std::make_shared<XmlModul>(parametr);
-	}
-
 	bool XmlModul::inicjalizuj(){
 		handle_ = std::make_shared<SPar::ParserDokumentXml>();
 		return handle_->odczytaj(plik_.c_str());

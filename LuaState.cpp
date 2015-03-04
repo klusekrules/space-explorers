@@ -40,7 +40,4 @@ namespace SpEx{
 		return false;
 	}
 
-	Zasob::SharedPtr LuaState::Tworz(const ZarzadcaZasobow::Parametr& parametr, bool){
-		return std::make_shared<LuaState>(parametr);
-	}
 };

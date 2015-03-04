@@ -4,6 +4,7 @@
 namespace SpEx{
 
 	const std::string DllModule::NazwaTypu_ = XML_ATRYBUT_TYP_ZASOBU_DLL;
+
 	DllModule::DllModule(const std::string& plik)
 		: plik_(plik), handle_(NULL)
 	{
@@ -12,10 +13,6 @@ namespace SpEx{
 	DllModule::~DllModule(){
 		if (handle_)
 			FreeLibrary(handle_);
-	}
-
-	Zasob::SharedPtr DllModule::Tworz(const ZarzadcaZasobow::Parametr& parametr, bool cache){
-		return std::make_shared<DllModule>(parametr);
 	}
 
 	bool DllModule::inicjalizuj(){

@@ -17,10 +17,10 @@
 #define KOMUNIKAT_BLAD_MAPOWANIA( a , b , c , d ) STyp::Tekst("Nazwa: " + a + " posiada ju¿ przypisane id: " + b + ". Wêze³: " + c + ". Dokument wczytany z pliku: " + d)
 
 #define TYTUL_BLAD_UNIKALNEGO_ZASOBU STyp::Tekst("B³¹d tworzenia unikalnego zasobu!")
-#define KOMUNIKAT_BLAD_UNIKALNEGO_ZASOBU( a , b ) STyp::Tekst("Próba wczytania typu, który nie jest obs³ugiwany. Typ: [" + a + "]. Parametr: " + b )
+#define KOMUNIKAT_BLAD_UNIKALNEGO_ZASOBU( a ) STyp::Tekst("Próba wczytania typu, który nie jest obs³ugiwany. Parametr: " + a )
 
 #define TYTUL_BLAD_ZASOBU STyp::Tekst("B³¹d tworzenia zasobu!")
-#define KOMUNIKAT_BLAD_ZASOBU( a , b ) STyp::Tekst("Próba wczytania typu, który nie jest obs³ugiwany. Typ: [" + a + "]. Parametr: " + b )
+#define KOMUNIKAT_BLAD_ZASOBU( a ) STyp::Tekst("Próba wczytania typu, który nie jest obs³ugiwany. Parametr: " + a )
 
 #define ATRYBUT_POWIAZANIA_ZASOBOW "powiazaniaZasobow"
 
@@ -86,38 +86,48 @@ namespace SpEx{
 		return id;
 	}
 
-	Zasob::SharedPtr ZarzadcaZasobow::pobierzZasob(const Parametr& parametr, bool cache, Identyfikator& id){
-		return pobierzZasob(parametr, parametr, cache, id);
+	bool ZarzadcaZasobow::dodajInicjalizator(const std::string& typ, Inicjalizator inicjalizator){
+		auto found = inicjalizatory_.find(typ);
+		if (found == inicjalizatory_.end()){
+			inicjalizatory_.emplace(typ, inicjalizator);
+			return true;
+		}
+		return false;
 	}
 
-	Zasob::SharedPtr ZarzadcaZasobow::pobierzZasob(const std::string& nazwa, const Parametr& parametr, bool cache, Identyfikator& id){
+	
+	ZarzadcaZasobow::Inicjalizator ZarzadcaZasobow::pobierzInicjalizator(const std::string& typ){
+		auto found = inicjalizatory_.find(typ);
+		if (found != inicjalizatory_.end()){
+			return found->second;
+		}
+		return nullptr;
+	}
+
+	Zasob::SharedPtr ZarzadcaZasobow::pobierzZasob(Inicjalizator inicjalizator, const std::string& nazwa, const Parametr& parametr, bool cache, Identyfikator& id){
 		STyp::Identyfikator identyfikator;
 		mapujIdentyfikator(nazwa, identyfikator);
 		STyp::Identyfikator lokalizator = pobierzIdentyfikator(parametr);
 		if (lokalizator() != -1){
-			return pobierzZasob(identyfikator, pobierzAdresObrazka(lokalizator), cache, id);
+			return pobierzZasob(inicjalizator, identyfikator, pobierzAdresObrazka(lokalizator), cache, id);
 		}
-		return pobierzZasob(identyfikator, parametr, cache, id);
+		return pobierzZasob(inicjalizator, identyfikator, parametr, cache, id);
 	}
 
-	Zasob::SharedPtr ZarzadcaZasobow::pobierzUnikalnyZasob(const Parametr& parametr){
-		std::string typ;
-		if (!Utils::pobierzRozszezenie(parametr, typ))
-			return nullptr;
-		auto found = inicjalizatory_.find(typ);
-		if (found != inicjalizatory_.end()){
-			Zasob::SharedPtr asset = found->second(parametr, false);
+	Zasob::SharedPtr ZarzadcaZasobow::pobierzUnikalnyZasob(Inicjalizator inicjalizator, const Parametr& parametr){
+		if (inicjalizator!=nullptr){
+			Zasob::SharedPtr asset = inicjalizator(parametr, false);
 			if(!asset->inicjalizuj())
 				return nullptr;
 			return asset;
 		}else{
 			throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1),
-				TYTUL_BLAD_UNIKALNEGO_ZASOBU, KOMUNIKAT_BLAD_UNIKALNEGO_ZASOBU(typ, parametr));
+				TYTUL_BLAD_UNIKALNEGO_ZASOBU, KOMUNIKAT_BLAD_UNIKALNEGO_ZASOBU(parametr));
 		}
 		return nullptr;
 	}
 
-	Zasob::SharedPtr ZarzadcaZasobow::pobierzZasob(const Identyfikator& identyfikator, const Parametr& parametr, bool cache, Identyfikator& id){
+	Zasob::SharedPtr ZarzadcaZasobow::pobierzZasob(Inicjalizator inicjalizator, const Identyfikator& identyfikator, const Parametr& parametr, bool cache, Identyfikator& id){
 		auto found = zasobyPrzechowywane_.find(identyfikator);
 
 		if (found != zasobyPrzechowywane_.end()){
@@ -130,21 +140,17 @@ namespace SpEx{
 					return asset.lock();
 				}else{
 					zasobyPrzechowywane_.erase(found);
-					return wczytajZasob(identyfikator, parametr, cache, id);
+					return wczytajZasob(inicjalizator, identyfikator, parametr, cache, id);
 				}
 			}
 		}else{
-			return wczytajZasob(identyfikator, parametr, cache, id);
+			return wczytajZasob(inicjalizator, identyfikator, parametr, cache, id);
 		}
 	}
 
 	bool ZarzadcaZasobow::przechowywanyZasob(const Identyfikator& identyfikator) const{
 		auto iter = zasobyPrzechowywane_.find(identyfikator);
 		return iter != zasobyPrzechowywane_.end() ? iter->second.cached_ : false;
-	}
-
-	bool ZarzadcaZasobow::dostepnyInicjalizator(const std::string& typ) const{
-		return inicjalizatory_.find(typ) != inicjalizatory_.end();
 	}
 
 	bool ZarzadcaZasobow::zwolnijZasobPrzechowywany(const Identyfikator& identyfikator){
@@ -155,28 +161,14 @@ namespace SpEx{
 		}
 		return false;
 	}
-
-	ZarzadcaZasobow::Inicjalizator ZarzadcaZasobow::wyrejestrujInicjalizator(const std::string& typ){
-		auto found = inicjalizatory_.find(typ);
-		if (found != inicjalizatory_.end()){
-			Inicjalizator loader = found->second;
-			inicjalizatory_.erase(found);
-			return loader;
-		}
-		return nullptr;
-	}
-
-	Zasob::SharedPtr ZarzadcaZasobow::wczytajZasob(const Identyfikator& identyfikator, const Parametr& parametr, bool cache, Identyfikator& id ){
+	
+	Zasob::SharedPtr ZarzadcaZasobow::wczytajZasob(Inicjalizator inicjalizator, const Identyfikator& identyfikator, const Parametr& parametr, bool cache, Identyfikator& id){
 		if (zasobyPrzechowywane_.find(identyfikator) != zasobyPrzechowywane_.end()){
 			return nullptr;
 		}
-		std::string typ;
-		if (!Utils::pobierzRozszezenie(parametr, typ))
-			return nullptr;
 
-		auto found = inicjalizatory_.find(typ);
-		if (found != inicjalizatory_.end()){
-			Zasob::SharedPtr asset = found->second(parametr, cache);
+		if (inicjalizator!=nullptr){
+			Zasob::SharedPtr asset = inicjalizator(parametr, cache);
 			asset->identyfikator_ = identyfikator;
 			if (cache){
 				zasobyPrzechowywane_[identyfikator] = WpisZasobu({asset, asset, cache, parametr});
@@ -191,7 +183,7 @@ namespace SpEx{
 			return asset;
 		}else{
 			throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1),
-				TYTUL_BLAD_ZASOBU, KOMUNIKAT_BLAD_ZASOBU(typ, parametr));
+				TYTUL_BLAD_ZASOBU, KOMUNIKAT_BLAD_ZASOBU(parametr));
 		}
 		return nullptr;
 	}
