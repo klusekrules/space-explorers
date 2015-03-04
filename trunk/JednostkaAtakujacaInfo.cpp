@@ -1,7 +1,8 @@
 #include "JednostkaAtakujacaInfo.h"
-#include "Aplikacja.h"
+#include "Logger\Logger.h"
 #include "definicjeWezlowXML.h"
 #include "Utils.h"
+#include "StackThrow.h"
 
 namespace SpEx{
 

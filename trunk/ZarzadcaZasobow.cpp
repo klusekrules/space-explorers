@@ -5,6 +5,7 @@
 #include "Logger\Logger.h"
 #include "Parser\ParserDokumentXml.h"
 #include "NieznalezionoPliku.h"
+#include "StackThrow.h"
 
 #define TYTUL_BLAD_WEZLA_ROOT STyp::Tekst("Nie uda³o siê pobraæ elementu parsera!")
 #define KOMUNIKAT_BLAD_WEZLA_ROOT( a ) STyp::Tekst("Podczas próby dostêpu do g³ównego wêz³a wyst¹pi³ b³¹d. Dokument wczytany z pliku: " + a)

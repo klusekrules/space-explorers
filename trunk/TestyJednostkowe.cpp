@@ -4,6 +4,7 @@
 #include "TypyProste\Wyjatek.h"
 #include "Logger\Log.h"
 #include "Aplikacja.h"
+#include "Gra.h"
 
 void TestyJednostkowe::inicjalizacjaDanych( PaczkaTestow* paczka ){
 	inicjalizacja_.push_back(paczka);

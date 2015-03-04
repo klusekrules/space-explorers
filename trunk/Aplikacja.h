@@ -5,11 +5,10 @@
 #include <cstdlib>
 #include <string>
 #include <locale>
-#include "plugin\plugin.h"
-#include "Gra.h"
+#include <memory>
+#include <random>
 #include "Singleton.h"
 #include "UstawieniaAplikacji.h"
-#include "ZarzadcaUzytkownikow.h"
 
 typedef struct _SYMBOL_INFO {
 	ULONG       SizeOfStruct;
@@ -32,10 +31,29 @@ typedef struct _SYMBOL_INFO {
 typedef BOOL (WINAPI *SymInitializeS)( _In_ HANDLE hProcess,  _In_opt_ PCSTR UserSearchPath,   _In_ BOOL fInvadeProcess );
 typedef BOOL (WINAPI *SymFromAddrS)( _In_ HANDLE hProcess, _In_ DWORD64 Address, _Out_opt_ PDWORD64 Displacement, _Inout_ PSYMBOL_INFO Symbol );
 
+
+// ----------------------------
+namespace SPlu{
+	class Cplugin;
+}
+
+namespace SPar{
+	class ParserElement;
+}
+
 namespace SpEx {
 
 	class Fabrykator;
+	class Gra;
+	class ZarzadcaLokacji;
+	class ZarzadcaUzytkownikow;
 	class ZarzadcaZasobow;
+}
+// ----------------------------
+
+
+namespace SpEx {
+
 	/**
 	* \brief Klasa reprezentuj¹ca aplikacje.
 	*
@@ -109,7 +127,7 @@ namespace SpEx {
 		* \return Referencja do obiektu zarz¹dcy.
 		*/
 		inline ZarzadcaLokacji& pobierzZarzadceLokacji(){
-			return zarzadcaLokacji_;
+			return *zarzadcaLokacji_;
 		}
 
 		inline UstawieniaAplikacji& pobierzUstawieniaAplikacji(){
@@ -124,6 +142,9 @@ namespace SpEx {
 			return *zarzadcaZasobow_;
 		}
 
+		inline ZarzadcaUzytkownikow& pobierzZarzadceUzytkownikow(){
+			return *zarzadcaUzytkownikow_;
+		}
 		/**
 		* \brief Destruktor.
 		*/
@@ -131,7 +152,6 @@ namespace SpEx {
 
 		SLog::Log& logger_; /// Instancja loggera.
 		
-		ZarzadcaUzytkownikow zarzadcaUzytkownikow_; /// Zarz¹dca u¿ytkowników.
 
 		__int64 pobierzNumerLosowy();
 
@@ -177,13 +197,14 @@ namespace SpEx {
 		std::shared_ptr<Gra> instancjaGry_; /// Obiekt prezentuj¹cy instancjê gry.
 		std::shared_ptr<Fabrykator> fabrykator_; /// Instacja obiektu przechowuj¹cego zbiór fabryk.
 		std::shared_ptr<ZarzadcaZasobow> zarzadcaZasobow_; /// Zarz¹dca zasobów.
+		std::shared_ptr<ZarzadcaUzytkownikow> zarzadcaUzytkownikow_; /// Zarz¹dca u¿ytkowników.
+		std::shared_ptr<ZarzadcaLokacji> zarzadcaLokacji_; /// Obiekt zarz¹dzaj¹cy lokacjami.
 
 		SymInitializeS symInitialize_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
 		SymFromAddrS symFromAddr_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
 		HMODULE uchwyt_; /// Uchwyt blioteki pomocniczej.
 		bool czyZainicjalizowanaBiblioteka_; /// Informacja czy uda³osiê za³adowaæ bibliotekê pomocnicz¹.
 
-		ZarzadcaLokacji zarzadcaLokacji_; /// Obiekt zarz¹dzaj¹cy lokacjami.
 		
 		std::string plikKonfiguracyjny_; /// Adres pliku z danymi konfiguracyjnymi. Domyœlnie options.xml z katalogu z plikiem wykonywalnym.
 		UstawieniaAplikacji ustawienia_; /// Klasa wczytuj¹ca ustawienia z pliku konfiguracyjnego.

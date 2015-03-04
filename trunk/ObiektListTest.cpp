@@ -1,4 +1,6 @@
 #include "ObiektListTest.h"
+#include "Aplikacja.h"
+#include "Gra.h"
 
 void ObiektListTest::startTestow(){
 	SpEx::Gra& gra = SpEx::Aplikacja::pobierzInstancje().pobierzGre();

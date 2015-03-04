@@ -3,6 +3,8 @@
 #include "Utils.h"
 #include "TestyUtilsBO.h"
 #include "SHA3.h"
+#include "Gra.h"
+#include "definicjeWezlowXML.h"
 
 void LogowanieTest::zaloguj(){
 	std::string haslo("haslo");

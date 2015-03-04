@@ -2,6 +2,8 @@
 #include "StaleRPC.h"
 #include "Parser\ParserDokumentXml.h"
 #include "Aplikacja.h"
+#include "ZarzadcaUzytkownikow.h"
+#include "Utils.h"
 
 namespace SpEx{
 
@@ -35,7 +37,7 @@ namespace SpEx{
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Login");
 		auto iter = parametry_.find("Login");
 		if (iter!=parametry_.end()){
-			auto hash = Aplikacja::pobierzInstancje().zarzadcaUzytkownikow_.pobierzHash(iter->second);
+			auto hash = Aplikacja::pobierzInstancje().pobierzZarzadceUzytkownikow().pobierzHash(iter->second);
 			if (!hash.empty()){
 				klient_.ustawKlucz(hash);
 				auto liczba = Utils::pobierzLiczbeLosowa();

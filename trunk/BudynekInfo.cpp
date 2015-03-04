@@ -1,6 +1,8 @@
 #include "BudynekInfo.h"
-#include "Aplikacja.h"
+#include "Planeta.h"
 #include "definicjeWezlowXML.h"
+#include "Utils.h"
+#include "StackThrow.h"
 
 namespace SpEx{
 

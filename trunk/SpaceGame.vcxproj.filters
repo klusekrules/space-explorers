@@ -367,6 +367,12 @@
     <ClCompile Include="SprawdzSumyKontrolneRPC.cpp">
       <Filter>SourceFile\Network\MetodyRPC</Filter>
     </ClCompile>
+    <ClCompile Include="SzablonKryteriumPriv.cpp">
+      <Filter>SourceFile\Model\Wymagania</Filter>
+    </ClCompile>
+    <ClCompile Include="StackThrow.cpp">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -788,6 +794,9 @@
     </ClInclude>
     <ClInclude Include="SprawdzSumyKontrolneRPC.h">
       <Filter>SourceFile\Network\MetodyRPC</Filter>
+    </ClInclude>
+    <ClInclude Include="StackThrow.h">
+      <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

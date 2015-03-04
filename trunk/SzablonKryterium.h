@@ -1,11 +1,15 @@
 #pragma once
 #include "Zmiana\ZmianaInterfejs.h"
 #include "Parser\XmlBO.h"
-#include "definicjeWezlowXML.h"
-#include "Utils.h"
 #include <functional>
 
 namespace SpEx{
+
+	//Klasa stworzona w celu pozbycia siê k³opotliwych zale¿noœci plików nag³ówkowych.
+	class SzablonKryteriumPriv{
+	public:
+		static std::shared_ptr<SZmi::ZmianaInterfejs> TworzZmiane(XmlBO::ElementWezla);
+	};
 
 	/**
 	* \brief Szablon do tworzenia klasy kosztów lub wymogów.
@@ -79,7 +83,7 @@ namespace SpEx{
 		*/
 		SzablonKryterium(XmlBO::ElementWezla wezel)
 			: obiekt_ (std::make_shared<T>(wezel)),
-			zmiana_(Utils::TworzZmiane(XmlBO::ZnajdzWezel<NOTHROW>(wezel, WEZEL_XML_ZMIANA))){
+			zmiana_(SzablonKryteriumPriv::TworzZmiane(wezel)){
 		}
 
 		/**

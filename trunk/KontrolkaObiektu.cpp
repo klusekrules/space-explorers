@@ -3,6 +3,8 @@
 #include "Planeta.h"
 #include "Aplikacja.h"
 #include "ZarzadcaZasobow.h"
+#include "Gra.h"
+#include "Utils.h"
 
 namespace tgui{
 	

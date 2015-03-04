@@ -11,6 +11,9 @@
 #include "Export.h"
 #include "SHA3.h"
 #include "Fabrykator.h"
+#include "Gra.h"
+#include "Uzytkownik.h"
+#include "definicjeWezlowXML.h"
 
 extern "C"{
 

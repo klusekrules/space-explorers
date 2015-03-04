@@ -1,7 +1,6 @@
 #pragma once
 #include "TestyJednostkowe.h"
-#include "Aplikacja.h"
-#include "NiepoprawneParametryFunkcji.h"
+#include "Planeta.h"
 
 class NiepoprawneParametryFunkcjiTest : 
 	public PaczkaTestow

@@ -1,6 +1,9 @@
 #include "ObronaInfo.h"
 #include "Logger\Logger.h"
-#include "Gra.h"
+#include "Planeta.h"
+#include "Utils.h"
+#include "definicjeWezlowXML.h"
+#include "StackThrow.h"
 
 namespace SpEx{
 	

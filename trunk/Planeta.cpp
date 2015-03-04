@@ -4,9 +4,16 @@
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
 #include <functional>
+#include "Uzytkownik.h"
+#include "Gra.h"
+#include "ZarzadcaLokacji.h"
+#include "StackThrow.h"
 
 namespace SpEx{
 
+	std::string Planeta::pobierzDebugInfo() const{
+		return std::move(Utils::pobierzDebugInfo());
+	}
 	Planeta::Planeta(const STyp::Identyfikator& identyfikator, const STyp::Identyfikator& idUkladu)
 		: identyfikator_(identyfikator),wlasciciel_(nullptr), idUkladu_(idUkladu)
 	{

@@ -2,6 +2,10 @@
 #include "Logger\Logger.h"
 #include "Aplikacja.h"
 #include "definicjeWezlowXML.h"
+#include "Gra.h"
+#include "Planeta.h"
+#include "Utils.h"
+#include "StackThrow.h"
 
 namespace SpEx{
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "TestyJednostkowe.h"
 #include "Aplikacja.h"
+#include "TypyProste\TypyProste.h"
 
 class ZapisStanuGryTest : 
 	public PaczkaTestow

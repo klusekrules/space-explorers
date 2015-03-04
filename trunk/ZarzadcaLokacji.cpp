@@ -1,6 +1,7 @@
 #include "ZarzadcaLokacji.h"
 #include "Parser\ParserDokumentXml.h"
-#include "Aplikacja.h"
+#include "definicjeWezlowXML.h"
+#include "StackThrow.h"
 
 #define ATRYBUT_FOLDER_PLIKU_UKLADU "folderPlikowOpisuUkladow"
 

@@ -4,6 +4,7 @@
 #include "Ladownia.h"
 #include "DefinicjeWezlowXML.h"
 #include "Aplikacja.h"
+#include "Utils.h"
 
 namespace SpEx{
 

@@ -1,6 +1,10 @@
 #include "ZmianaPoziomObiektu.h"
 #include "Aplikacja.h"
+#include "Logger\Logger.h"
+#include "StackThrow.h"
+#include "Gra.h"
 #include "Zmiana\ZmianaStaleXml.h"
+#include "Planeta.h"
 
 namespace SpEx{
 

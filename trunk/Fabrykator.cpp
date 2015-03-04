@@ -7,6 +7,7 @@
 #include "definicjeWezlowXML.h"
 #include "Logger\Logger.h"
 #include "MetodaRPC.h"
+#include "StackThrow.h"
 
 namespace SpEx{
 	Fabrykator::Fabrykator(){

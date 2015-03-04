@@ -1,4 +1,6 @@
 #include "TworzenieObiektowTest.h"
+#include "Aplikacja.h"
+#include "Planeta.h"
 
 void TworzenieObiektowTest::startTestow(){
 	gra = &(SpEx::Aplikacja::pobierzInstancje().pobierzGre());

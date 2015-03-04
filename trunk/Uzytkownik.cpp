@@ -1,6 +1,8 @@
 #include "Uzytkownik.h"
 #include "DefinicjeWezlowXML.h"
 #include "Gra.h"
+#include "Utils.h"
+#include "StackThrow.h"
 
 namespace SpEx{
 	Uzytkownik::Uzytkownik(Gra& gra)

@@ -1,4 +1,7 @@
 #include "PlanetaTest.h"
+#include "Planeta.h"
+#include "Aplikacja.h"
+#include "Gra.h"
 
 void PlanetaTest::tworzenieNiezaleznejPlanety(){
 	std::shared_ptr<SpEx::Planeta> planeta = SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(STyp::Identyfikator(0x5));

@@ -1,4 +1,5 @@
 #include "LadowniaTest.h"
+#include "Aplikacja.h"
 
 void LadowniaTest::startTestow(){
 	gra = &(SpEx::Aplikacja::pobierzInstancje().pobierzGre());

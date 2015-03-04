@@ -10,6 +10,8 @@
 #include "NieznalezionoPliku.h"
 #include "Logger\Logger.h"
 #include "ZarzadcaZasobow.h"
+#include "Utils.h"
+#include "StackThrow.h"
 
 #define KOMUNIKAT_POWTORZENIE_OBIEKTU(a) STyp::Tekst("Obiekt typu: "#a )
 #define GL_SHADING_LANGUAGE_VERSION       0x8B8C

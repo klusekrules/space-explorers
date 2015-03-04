@@ -1,6 +1,7 @@
 #include "TechnologiaInfo.h"
 #include "Logger\Logger.h"
 #include "Gra.h"
+#include "Planeta.h"
 
 namespace SpEx{
 	TechnologiaInfo::TechnologiaInfo(XmlBO::ElementWezla wezel)

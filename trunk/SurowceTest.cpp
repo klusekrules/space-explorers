@@ -1,5 +1,6 @@
 #include "SurowceTest.h"
-
+#include "Aplikacja.h"
+#include "Gra.h"
 
 void SurowceTest::TworzenieSurowcaTest(){
 	UNIT_TEST_ASSERT_NULL(krysztal_);

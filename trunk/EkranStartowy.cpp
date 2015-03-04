@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include "definicjeWezlowXML.h"
 #include "MaszynaStanow.h"
-#include "Utils.h"
+#include "StackThrow.h"
 
 using namespace std::chrono;
 namespace SpEx{

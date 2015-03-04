@@ -26,6 +26,12 @@
 
 #include "Fabrykator.h"
 #include "ZarzadcaZasobow.h"
+#include "Gra.h"
+#include "plugin\plugin.h"
+#include "ZarzadcaUzytkownikow.h"
+#include "ZarzadcaLokacji.h"
+
+#include "Utils.h"
 
 #define KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU STyp::Tekst("Podczas przetwarzabua argumentów wyst¹pi³ b³¹d.")
 #define KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plik) STyp::Tekst("Nie powiod³o siê wczytywanie pliku konfiguracyjnego: " + plik)
@@ -88,7 +94,8 @@ namespace SpEx{
 	char** Aplikacja::argumenty = nullptr;
 
 	Aplikacja::Aplikacja()
-		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), fabrykator_(nullptr), instancjaGry_(nullptr), zarzadcaZasobow_(nullptr)
+		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), 
+		fabrykator_(nullptr), instancjaGry_(nullptr), zarzadcaZasobow_(nullptr), zarzadcaUzytkownikow_(nullptr), zarzadcaLokacji_(nullptr)
 	{
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listasurowcowgui", tgui::ListaSurowcowGui::createWidget);
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listaobiektowgui", tgui::ListaObiektowGui::createWidget);
@@ -97,6 +104,8 @@ namespace SpEx{
 		
 		fabrykator_ = std::make_shared<Fabrykator>();
 		zarzadcaZasobow_ = std::make_shared<ZarzadcaZasobow>();
+		zarzadcaLokacji_ = std::make_shared<ZarzadcaLokacji>();
+		zarzadcaUzytkownikow_ = std::make_shared<ZarzadcaUzytkownikow>();
 		/* ------- Wstêpna konfiguracja logów ------- */
 		logger_.dodajGniazdoWyjsciowe([](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{ 
 			std::string sTyp;
@@ -232,9 +241,9 @@ namespace SpEx{
 			logger_.loguj(SLog::Log::Warning, "Nie za³adowano biblioteki Dbghelp.dll");
 		}
 #endif
-		zarzadcaLokacji_.inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
+		zarzadcaLokacji_->inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 		zarzadcaZasobow_->inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
-		zarzadcaUzytkownikow_.inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
+		zarzadcaUzytkownikow_->inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 
 		zarzadcaZasobow_->rejestruj<LuaState>();
 		zarzadcaZasobow_->rejestruj<DllModule>();
@@ -257,11 +266,11 @@ namespace SpEx{
 		if (!pluginy_->zaladujZewnetrzneKlasyZmian())
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DODATKOWYCH);
 
-		instancjaGry_ = std::make_shared<Gra>(logger_, zarzadcaLokacji_, ustawienia_);
+		instancjaGry_ = std::make_shared<Gra>(logger_, *zarzadcaLokacji_, ustawienia_);
 	}
 
 	void Aplikacja::wyczyscDane(){
-		instancjaGry_ = std::make_shared<Gra>(logger_, zarzadcaLokacji_, ustawienia_);
+		instancjaGry_ = std::make_shared<Gra>(logger_, *zarzadcaLokacji_, ustawienia_);
 	}
 
 	bool Aplikacja::zaladujOpcje(){
@@ -355,10 +364,10 @@ namespace SpEx{
 					return false;
 			}
 
-			if (!zarzadcaUzytkownikow_.zapiszDane())
+			if (!zarzadcaUzytkownikow_->zapiszDane())
 				return false;
 
-			if (zarzadcaLokacji_.zapisz(wezel->tworzElement(WEZEL_XML_GRA))){
+			if (zarzadcaLokacji_->zapisz(wezel->tworzElement(WEZEL_XML_GRA))){
 				std::locale::global(std::locale(ustawienia_[ATRYBUT_JEZYK_APLIKACJI]));
 				return dokumentGry->zapisz(ustawienia_[ATRYBUT_PLIK_GRY].c_str());
 			}
@@ -388,13 +397,13 @@ namespace SpEx{
 		if (wezel && *wezel){
 			std::shared_ptr<Gra> gra = instancjaGry_;
 			try{
-				instancjaGry_ = std::make_shared<Gra>(logger_, zarzadcaLokacji_, ustawienia_);
+				instancjaGry_ = std::make_shared<Gra>(logger_, *zarzadcaLokacji_, ustawienia_);
 				if (root && instancjaGry_->wczytajDane(root)){
 					auto gra = wezel->pobierzElement(WEZEL_XML_GRA);
 					if (gra){
 						auto element = XmlBO::ZnajdzWezel<NOTHROW>(gra, WEZEL_XML_ZARZADCA);
 						if (element){
-							if (zarzadcaLokacji_.odczytaj(element)){							
+							if (zarzadcaLokacji_->odczytaj(element)){							
 								return true;
 							}
 						}

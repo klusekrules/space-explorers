@@ -1,6 +1,6 @@
 #pragma once
 #include "TestyJednostkowe.h"
-#include "Aplikacja.h"
+#include "Surowce.h"
 
 class SurowceTest:
 	public PaczkaTestow

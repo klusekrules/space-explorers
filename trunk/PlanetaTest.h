@@ -1,6 +1,5 @@
 #pragma once
 #include "TestyJednostkowe.h"
-#include "Aplikacja.h"
 
 class PlanetaTest: 
 	public PaczkaTestow

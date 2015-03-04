@@ -1,7 +1,6 @@
 #pragma once
 #include "NonMoveable.h"
 #include "NonCopyable.h"
-#include "Parser\XmlBO.h"
 #include "Logger\Log.h"
 #include <map>
 

@@ -1,6 +1,8 @@
 #include "ZleceniaTest.h"
 #include "MenedzerTranzakcji.h"
 #include "Zlecenie.h"
+#include "TypyProste\TypyProste.h"
+#include "Gra.h"
 
 void ZleceniaTest::startTestow(){
 	gra = &(SpEx::Aplikacja::pobierzInstancje().pobierzGre());

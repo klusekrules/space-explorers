@@ -5,8 +5,15 @@
 #include "Parser\ParserDokumentXml.h"
 #include "Logger\Logger.h"
 #include "Aplikacja.h"
+#include "ZarzadcaUzytkownikow.h"
+#include "ZarzadcaLokacji.h"
+#include "Utils.h"
 
 namespace SpEx{
+
+	std::string Gra::pobierzDebugInfo() const{
+		return std::move(Utils::pobierzDebugInfo());
+	}
 
 	Gra::Gra(SLog::Log& logger, ZarzadcaLokacji& zarzadcaLokacji, UstawieniaAplikacji& ustawieniaAplikacji)
 		: logger_(logger), zarzadcaLokacji_(zarzadcaLokacji), uzytkownik_(nullptr)
@@ -56,20 +63,20 @@ namespace SpEx{
 
 	
 	bool Gra::logowanie(const std::string& nazwa, const std::string& hash){
-		uzytkownik_ = Aplikacja::pobierzInstancje().zarzadcaUzytkownikow_.logowanie(*this,nazwa,hash);
+		uzytkownik_ = Aplikacja::pobierzInstancje().pobierzZarzadceUzytkownikow().logowanie(*this,nazwa,hash);
 		return uzytkownik_.operator bool();
 	}
 	
 	bool Gra::nowyGracz(const std::string& nazwa, const std::string& hash){
-		return Aplikacja::pobierzInstancje().zarzadcaUzytkownikow_.nowyGracz(nazwa, hash);
+		return Aplikacja::pobierzInstancje().pobierzZarzadceUzytkownikow().nowyGracz(nazwa, hash);
 	}
 
 	bool Gra::usunGracza(const std::string& nazwa, const std::string& hash){
-		return Aplikacja::pobierzInstancje().zarzadcaUzytkownikow_.usunGracza(*this, nazwa, hash);
+		return Aplikacja::pobierzInstancje().pobierzZarzadceUzytkownikow().usunGracza(*this, nazwa, hash);
 	}
 
 	bool Gra::zapiszGracza(){
-		return Aplikacja::pobierzInstancje().zarzadcaUzytkownikow_.zapiszGracza(uzytkownik_);
+		return Aplikacja::pobierzInstancje().pobierzZarzadceUzytkownikow().zapiszGracza(uzytkownik_);
 	}
 	
 	bool Gra::wczytajDane(std::shared_ptr<SPar::ParserElement> root){
