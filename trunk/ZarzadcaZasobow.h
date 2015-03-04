@@ -83,40 +83,10 @@ namespace SpEx {
 		* \version 1
 		* \date 06-08-2014
 		*/
-		Zasob::SharedPtr pobierzZasob(const Parametr& parametr, bool cache = false, Identyfikator& id = Identyfikator());
-		
-		/**
-		* \brief Metoda pobierajaca zasób.
-		*
-		* Metoda pobiera lub tworzy zasób.
-		* \param[in] parametr - Adres pliku na bazie którgo ma zostaæ zainicjalizowany zasób.
-		* \param[in] cache - Informacja czy zasób ma byæ lokalnie przechowywany.
-		* \param[out] id - Identyfikator utworzonego zasobu.
-		* \return WskaŸnik na zasób lub nullptr.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 06-08-2014
-		*/
 		template <class T_>
 		inline std::shared_ptr<T_> pobierzZasob(const Parametr& parametr, bool cache = false, Identyfikator& id = Identyfikator()){
-			return std::dynamic_pointer_cast<T_>(pobierzZasob(parametr, cache, id));
+			return std::dynamic_pointer_cast<T_>(pobierzZasob(pobierzInicjalizator(typename T_::NazwaTypu_), parametr, parametr, cache, id));
 		}
-
-		/**
-		* \brief Metoda pobierajaca zasób.
-		*
-		* Metoda pobiera lub tworzy zasób.
-		* \param[in] nazwa - W³asna nazwa identyfikuj¹ca zasób generowana w trakcie dzia³ania programu.
-		* \param[in] identyfikator - Identyfikator zasobu.
-		* \param[in] parametr - Adres pliku na bazie którgo ma zostaæ zainicjalizowany zasób.
-		* \param[in] cache - Informacja czy zasób ma byæ lokalnie przechowywany.
-		* \param[out] id - Identyfikator utworzonego zasobu.
-		* \return WskaŸnik na zasób lub nullptr.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 25-11-2014
-		*/
-		Zasob::SharedPtr pobierzZasob(const std::string& nazwa, const Parametr& parametr, bool cache = false, Identyfikator& id = Identyfikator());
 
 		/**
 		* \brief Metoda pobierajaca zasób.
@@ -134,20 +104,8 @@ namespace SpEx {
 		*/
 		template <class T_>
 		inline std::shared_ptr<T_> pobierzZasob(const std::string& nazwa, const Parametr& parametr, bool cache = false, Identyfikator& id = Identyfikator()){
-			return std::dynamic_pointer_cast<T_>(pobierzZasob(nazwa, parametr, cache, id));
+			return std::dynamic_pointer_cast<T_>(pobierzZasob(pobierzInicjalizator(typename T_::NazwaTypu_), nazwa, parametr, cache, id));
 		}
-
-		/**
-		* \brief Metoda pobierajaca zasób.
-		*
-		* Metoda pobiera lub tworzy zasób.
-		* \param[in] parametr - Adres pliku na bazie którgo ma zostaæ zainicjalizowany zasób.
-		* \return WskaŸnik na zasób lub nullptr.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 06-08-2014
-		*/
-		Zasob::SharedPtr pobierzUnikalnyZasob(const Parametr& parametr);
 
 		/**
 		* \brief Metoda pobierajaca zasób.
@@ -161,7 +119,7 @@ namespace SpEx {
 		*/
 		template <class T_>
 		inline std::shared_ptr<T_> pobierzUnikalnyZasob(const Parametr& parametr){
-			return std::dynamic_pointer_cast<T_>(pobierzUnikalnyZasob(parametr));
+			return std::dynamic_pointer_cast<T_>(pobierzUnikalnyZasob(pobierzInicjalizator(typename T_::NazwaTypu_), parametr));
 		}
 
 		/**
@@ -187,25 +145,13 @@ namespace SpEx {
 		*/
 		template <class T_>
 		bool rejestruj(){
-			auto found = inicjalizatory_.find(typename T_::NazwaTypu_);
-			if (found == inicjalizatory_.end()){
-				inicjalizatory_.emplace(typename T_::NazwaTypu_, typename T_::Tworz);
-				return true;
-			}
-			return false;
+			return dodajInicjalizator(typename T_::NazwaTypu_, &ZarzadcaZasobow::tworz<T_>);
 		}
 
-		/**
-		* \brief Metoda sprawdzaj¹ca inicjalizator.
-		*
-		* Metoda sprawdza czy jest dostêpny inicjalizator dla danego typu.
-		* \param[in] typ - Typ obiektu.
-		* \return Zwracana jest wartoœc true, je¿eli jest dostêpny inicjalizator. Zwracana jest wartoœæ false, w przeciwnym przypadku.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 06-08-2014
-		*/
-		bool dostepnyInicjalizator(const std::string& typ) const;
+		template <class T_>
+		static Zasob::SharedPtr tworz(const ZarzadcaZasobow::Parametr& parametr, bool cache){
+			return std::make_shared<T_>(parametr);
+		}
 
 		/**
 		* \brief Metoda zwalaniaj¹ca przechowywany zasób.
@@ -218,18 +164,6 @@ namespace SpEx {
 		* \date 06-08-2014
 		*/
 		bool zwolnijZasobPrzechowywany(const Identyfikator& identyfikator);
-
-		/**
-		* \brief Metoda usuwaj¹ca funkcjê inicjalizuj¹c¹.
-		*
-		* Metoda usuwa funkcjê inicjalizuj¹c¹ z zarz¹dcy zasobów.
-		* \param[in] typ - Typ zasobu.
-		* \return Zwracana jest funkcja inicjalizuj¹ca, je¿eli usuniêto. Zwracany jest nullptr, je¿eli funkcja nie istnieje.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 06-08-2014
-		*/
-		Inicjalizator wyrejestrujInicjalizator(const std::string& typ);
 
 		/**
 		* \brief Metoda inicjuj¹ca dane zarz¹dcy.
@@ -302,6 +236,38 @@ namespace SpEx {
 		*/
 		bool mapujIdentyfikator(const Parametr& parametr, Identyfikator& identyfikator);
 
+		Inicjalizator pobierzInicjalizator(const std::string&);
+
+		bool dodajInicjalizator(const std::string&, Inicjalizator);
+
+		/**
+		* \brief Metoda pobierajaca zasób.
+		*
+		* Metoda pobiera lub tworzy zasób.
+		* \param[in] parametr - Adres pliku na bazie którgo ma zostaæ zainicjalizowany zasób.
+		* \return WskaŸnik na zasób lub nullptr.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 06-08-2014
+		*/
+		Zasob::SharedPtr pobierzUnikalnyZasob(Inicjalizator inicjalizator, const Parametr& parametr);
+
+		/**
+		* \brief Metoda pobierajaca zasób.
+		*
+		* Metoda pobiera lub tworzy zasób.
+		* \param[in] nazwa - W³asna nazwa identyfikuj¹ca zasób generowana w trakcie dzia³ania programu.
+		* \param[in] identyfikator - Identyfikator zasobu.
+		* \param[in] parametr - Adres pliku na bazie którgo ma zostaæ zainicjalizowany zasób.
+		* \param[in] cache - Informacja czy zasób ma byæ lokalnie przechowywany.
+		* \param[out] id - Identyfikator utworzonego zasobu.
+		* \return WskaŸnik na zasób lub nullptr.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-11-2014
+		*/
+		Zasob::SharedPtr pobierzZasob(Inicjalizator inicjalizator, const std::string& nazwa, const Parametr& parametr, bool cache = false, Identyfikator& id = Identyfikator());
+
 		/**
 		* \brief Metoda pobierajaca zasób.
 		*
@@ -315,7 +281,7 @@ namespace SpEx {
 		* \version 1
 		* \date 06-08-2014
 		*/
-		Zasob::SharedPtr pobierzZasob(const Identyfikator& identyfikator, const Parametr& parametr, bool cache = false, Identyfikator& id = Identyfikator());
+		Zasob::SharedPtr pobierzZasob(Inicjalizator inicjalizator, const Identyfikator& identyfikator, const Parametr& parametr, bool cache = false, Identyfikator& id = Identyfikator());
 
 		/**
 		* \brief Metoda wczytuj¹ca zasób.
@@ -330,7 +296,7 @@ namespace SpEx {
 		* \version 1
 		* \date 06-08-2014
 		*/
-		Zasob::SharedPtr wczytajZasob(const Identyfikator& identyfikator, const Parametr& parametr, bool cache = false, Identyfikator& id = Identyfikator());
+		Zasob::SharedPtr wczytajZasob(Inicjalizator inicjalizator, const Identyfikator& identyfikator, const Parametr& parametr, bool cache = false, Identyfikator& id = Identyfikator());
 
 		MapaZasobow zasobyPrzechowywane_; /// Obiekt przechowuj¹cy zasoby.
 		MapaInicjalizatorow inicjalizatory_; /// Obiekt przechowuj¹cy inicjalizatory.
