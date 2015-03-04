@@ -34,7 +34,7 @@ namespace SpEx{
 
 	void MaszynaStanow::inicjalizuj(){
 		try{
-			auto zasob = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzZasob<XmlModul>("KonfiguracjaMaszStanow");
+			auto zasob = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadceZasobow().pobierzZasob<XmlModul>("KonfiguracjaMaszStanow");
 			if (!zasob)
 				throw NieznalezionoPliku(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo(), STyp::Tekst("Nie udalo sie wczytac dokumentu xml: KonfiguracjaMaszStanow"));
 			auto root = (*zasob)()->pobierzElement(nullptr);

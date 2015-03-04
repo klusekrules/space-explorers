@@ -3,6 +3,7 @@
 
 namespace SpEx{
 
+	const std::string LuaState::NazwaTypu_ = XML_ATRYBUT_TYP_ZASOBU_LUA;
 	LuaState::LuaState(const std::string& plik)
 		: plik_(plik), L(luaL_newstate())
 	{
@@ -37,10 +38,6 @@ namespace SpEx{
 			return true;
 		}
 		return false;
-	}
-
-	bool LuaState::Rejestruj(ZarzadcaZasobow &fabryka){
-		return fabryka.rejestrujInicjalizator(XML_ATRYBUT_TYP_ZASOBU_LUA, LuaState::Tworz);
 	}
 
 	Zasob::SharedPtr LuaState::Tworz(const ZarzadcaZasobow::Parametr& parametr, bool){

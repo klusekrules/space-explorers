@@ -2,6 +2,7 @@
 #include "UtilsGui.h"
 #include "Planeta.h"
 #include "Aplikacja.h"
+#include "ZarzadcaZasobow.h"
 
 namespace tgui{
 	
@@ -552,7 +553,7 @@ namespace tgui{
 	}
 
 	bool KontrolkaObiektu::ustawDane(const SpEx::ObiektInfo& obj, const SpEx::Planeta& planeta){
-		obraz_->load(SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzAdresObrazka(obj.pobierzIdentyfikatorObrazka()));
+		obraz_->load(SpEx::Aplikacja::pobierzInstancje().pobierzZarzadceZasobow().pobierzAdresObrazka(obj.pobierzIdentyfikatorObrazka()));
 		idObiektu_ = obj.pobierzIdentyfikator()();
 
 		rozbuduj_->unbindCallback(64);

@@ -38,7 +38,7 @@ namespace SpEx{
 			return nullptr;
 		
 		if (!XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_UNIKAT, std::string("false")).compare("true")){
-			LuaState::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzUnikalnyZasob<LuaState>(luaFile);
+			LuaState::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadceZasobow().pobierzUnikalnyZasob<LuaState>(luaFile);
 			if (uchwyt == nullptr)
 				return nullptr;
 			return std::make_shared<LuaSkrypt>(uchwyt);
@@ -46,7 +46,7 @@ namespace SpEx{
 			std::string nazwa(XML_ATRYBUT_TYP_SKRYPT_LUA);
 			nazwa.push_back('_');
 			nazwa += XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_INSTANCE, std::string());
-			LuaState::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzZasob<LuaState>(nazwa, luaFile, true);
+			LuaState::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadceZasobow().pobierzZasob<LuaState>(nazwa, luaFile, true);
 			if (uchwyt == nullptr)
 				return nullptr;
 			return std::make_shared<LuaSkrypt>(uchwyt);

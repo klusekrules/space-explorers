@@ -25,6 +25,7 @@
 #include "PotwierdzLogowanieRPC.h"
 
 #include "Fabrykator.h"
+#include "ZarzadcaZasobow.h"
 
 #define KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU STyp::Tekst("Podczas przetwarzabua argumentów wyst¹pi³ b³¹d.")
 #define KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plik) STyp::Tekst("Nie powiod³o siê wczytywanie pliku konfiguracyjnego: " + plik)
@@ -87,7 +88,7 @@ namespace SpEx{
 	char** Aplikacja::argumenty = nullptr;
 
 	Aplikacja::Aplikacja()
-		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), fabrykator_(nullptr), instancjaGry_(nullptr)
+		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), fabrykator_(nullptr), instancjaGry_(nullptr), zarzadcaZasobow_(nullptr)
 	{
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listasurowcowgui", tgui::ListaSurowcowGui::createWidget);
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listaobiektowgui", tgui::ListaObiektowGui::createWidget);
@@ -95,6 +96,7 @@ namespace SpEx{
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("loglistgui", tgui::LogListGui::createWidget);
 		
 		fabrykator_ = std::make_shared<Fabrykator>();
+		zarzadcaZasobow_ = std::make_shared<ZarzadcaZasobow>();
 		/* ------- Wstêpna konfiguracja logów ------- */
 		logger_.dodajGniazdoWyjsciowe([](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{ 
 			std::string sTyp;
@@ -231,13 +233,13 @@ namespace SpEx{
 		}
 #endif
 		zarzadcaLokacji_.inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
-		zarzadcaZasobow_.inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
+		zarzadcaZasobow_->inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 		zarzadcaUzytkownikow_.inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 
-		LuaState::Rejestruj(zarzadcaZasobow_);
-		DllModule::Rejestruj(zarzadcaZasobow_);
-		XmlModul::Rejestruj(zarzadcaZasobow_);
-		SumaKontrolnaPliku::Rejestruj(zarzadcaZasobow_);
+		zarzadcaZasobow_->rejestruj<LuaState>();
+		zarzadcaZasobow_->rejestruj<DllModule>();
+		zarzadcaZasobow_->rejestruj<XmlModul>();
+		zarzadcaZasobow_->rejestruj<SumaKontrolnaPliku>();
 
 		/* ------- Rejestrowanie zdalnych metod -------*/
 		fabrykator_->RejestrujMetodeRPC<EchoRPC>();
