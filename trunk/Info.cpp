@@ -3,6 +3,7 @@
 #include "Logger\Logger.h"
 #include "Utils.h"
 #include "Aplikacja.h"
+#include "ZarzadcaZasobow.h"
 
 namespace SpEx {
 
@@ -14,7 +15,7 @@ namespace SpEx {
 		STyp::Tekst nazwaObrazka;
 		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_ADRES_OBRAZKA, nazwaObrazka);
 
-		idObrazka_ = Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzIdentyfikator(nazwaObrazka());
+		idObrazka_ = Aplikacja::pobierzInstancje().pobierzZarzadceZasobow().pobierzIdentyfikator(nazwaObrazka());
 		auto tablicaZnakow = wezel->pobierzTekst();
 		if (tablicaZnakow){
 			ustawOpis(std::string(tablicaZnakow));

@@ -9,6 +9,7 @@
 #include "XmlModul.h"
 #include "NieznalezionoPliku.h"
 #include "Logger\Logger.h"
+#include "ZarzadcaZasobow.h"
 
 #define KOMUNIKAT_POWTORZENIE_OBIEKTU(a) STyp::Tekst("Obiekt typu: "#a )
 #define GL_SHADING_LANGUAGE_VERSION       0x8B8C
@@ -227,7 +228,7 @@ namespace SpEx{
 
 	bool OknoGry::wczytajEkrany(){
 		std::lock_guard<std::recursive_mutex> lock(mutexListaEkranow_);
-		auto zasob = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzZasob<XmlModul>("KonfiguracjaOknaGry");
+		auto zasob = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadceZasobow().pobierzZasob<XmlModul>("KonfiguracjaOknaGry");
 		if (!zasob)
 			throw NieznalezionoPliku(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo(), STyp::Tekst("Nie udalo sie wczytac dokumentu xml: KonfiguracjaOknaGry"));
 		auto wezel = (*zasob)()->pobierzElement(nullptr);
@@ -263,7 +264,7 @@ namespace SpEx{
 		std::lock_guard<std::recursive_mutex> lock(mutexListaEkranow_);
 		auto iter = listaEkranow_.find(id);
 		if (iter!= listaEkranow_.end()){
-			auto zasob = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzZasob<XmlModul>("KonfiguracjaOknaGry");
+			auto zasob = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadceZasobow().pobierzZasob<XmlModul>("KonfiguracjaOknaGry");
 			if (!zasob)
 				throw NieznalezionoPliku(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo(), STyp::Tekst("Nie udalo sie wczytac dokumentu xml: KonfiguracjaOknaGry"));
 			auto wezel = (*zasob)()->pobierzElement(nullptr);

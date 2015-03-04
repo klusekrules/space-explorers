@@ -34,7 +34,7 @@ namespace SpEx{
 		std::string dllFile = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FILE, std::string());
 		if (dllFile.empty())
 			return nullptr;
-		DllModule::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().zarzadcaZasobow_.pobierzZasob<DllModule>(dllFile, true);
+		DllModule::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadceZasobow().pobierzZasob<DllModule>(dllFile, true);
 		if (uchwyt == nullptr)
 			return nullptr;
 		return std::make_shared<DllSkrypt>(uchwyt);

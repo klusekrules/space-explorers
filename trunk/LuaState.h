@@ -21,9 +21,22 @@ namespace SpEx{
 	{
 	public:
 		friend class std::_Ref_count_obj<LuaState>;
+		static const std::string NazwaTypu_;
 		typedef std::shared_ptr<LuaState> SharedPtr; /// Silny wskaŸnik na klasê.
 		typedef std::weak_ptr<LuaState> WeakPtr; /// S³aby wskaŸnik na klasê.
-		
+
+		/**
+		* \brief Metoda tworz¹ca obiekt.
+		*
+		* Metoda tworzy obiekt na podstawie parametrów.
+		* \param[in] parametr - Adres do pliku.
+		* \param[in] cache - Informacje czy zasób jest przechowywany.
+		* \return Zwracana jest wskaŸnik do zasobu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 05-08-2014
+		*/
+		static Zasob::SharedPtr Tworz(const ZarzadcaZasobow::Parametr& parametr, bool cache);
 		
 		/**
 		* \brief Destruktor.
@@ -43,18 +56,6 @@ namespace SpEx{
 		*/
 		bool inicjalizuj() override;
 
-		/**
-		* \brief Metoda rejestruj¹ca klasê LuaState w zarz¹dcy zasobów.
-		*
-		* Metoda rejestruje klasê LuaState w zarz¹dcy zasobów podanym w parametrze metody.
-		* \param[in] fabryka - Referencja do zarz¹dcy zasobów.
-		* \return Zwracana jest wartoœc true, je¿eli operacja sê powiedzie lub false w przeciwnym wypadku.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 06-08-2014
-		*/
-		static bool Rejestruj(ZarzadcaZasobow &fabryka);
-		
 		/**
 		* \brief Operator zwracaj¹cy wskaŸnik do obiektu stanu maszyny lua.
 		*
@@ -82,18 +83,6 @@ namespace SpEx{
 		LuaState(const std::string& plik);
 
 
-		/**
-		* \brief Metoda tworz¹ca obiekt.
-		*
-		* Metoda tworzy obiekt na podstawie parametrów.
-		* \param[in] parametr - Adres do pliku.
-		* \param[in] cache - Informacje czy zasób jest przechowywany.
-		* \return Zwracana jest wskaŸnik do zasobu.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 05-08-2014
-		*/
-		static Zasob::SharedPtr Tworz(const ZarzadcaZasobow::Parametr& parametr, bool cache);
 
 		std::string plik_; /// Lokalizacja skryptu.
 		lua_State *L; /// WskaŸnik na obiekt opisuj¹cy stan skryptu.

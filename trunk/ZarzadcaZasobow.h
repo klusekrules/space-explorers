@@ -180,14 +180,20 @@ namespace SpEx {
 		* \brief Metoda rejestruj¹ca inicjalizator.
 		*
 		* Metoda rejestruje inicjalizator w zarz¹dcy zasobów.
-		* \param[in] typ - Typ obiektu.
-		* \param[in] funkcja - Funkcja tworz¹ca obiekt.
 		* \return Zwracana jest wartoœc true, je¿eli uda siê zarejestrowaæ. Zwracana jest wartoœæ false, w przypadku b³êdu.
 		* \author Daniel Wojdak
 		* \version 1
 		* \date 06-08-2014
 		*/
-		bool rejestrujInicjalizator(const std::string& typ, Inicjalizator funkcja);
+		template <class T_>
+		bool rejestruj(){
+			auto found = inicjalizatory_.find(typename T_::NazwaTypu_);
+			if (found == inicjalizatory_.end()){
+				inicjalizatory_.emplace(typename T_::NazwaTypu_, typename T_::Tworz);
+				return true;
+			}
+			return false;
+		}
 
 		/**
 		* \brief Metoda sprawdzaj¹ca inicjalizator.

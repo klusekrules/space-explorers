@@ -20,9 +20,23 @@ namespace SpEx {
 	{
 	public:
 		friend class std::_Ref_count_obj<DllModule>;
+		static const std::string NazwaTypu_;
 		typedef std::shared_ptr<DllModule> SharedPtr; /// Silny wskaŸnik na klasê.
 		typedef std::weak_ptr<DllModule> WeakPtr; /// S³aby wskaŸnik na klasê.
-		
+
+
+		/**
+		* \brief Metoda tworz¹ca obiekt.
+		*
+		* Metoda tworzy obiekt na podstawie parametrów.
+		* \param[in] parametr - Adres do pliku.
+		* \param[in] cache - Informacje czy zasób jest przechowywany.
+		* \return Zwracana jest wskaŸnik do zasobu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 07-08-2014
+		*/
+		static Zasob::SharedPtr Tworz(const ZarzadcaZasobow::Parametr& parametr, bool cache);
 		
 		/**
 		* \brief Destruktor.
@@ -41,18 +55,6 @@ namespace SpEx {
 		* \date 07-08-2014
 		*/
 		bool inicjalizuj() override;
-
-		/**
-		* \brief Metoda rejestruj¹ca klasê DllModule w zarz¹dcy zasobów.
-		*
-		* Metoda rejestruje klasê DllModule w zarz¹dcy zasobów podanym w parametrze metody.
-		* \param[in] fabryka - Referencja do zarz¹dcy zasobów.
-		* \return Zwracana jest wartoœc true, je¿eli operacja sê powiedzie lub false w przeciwnym wypadku.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 07-08-2014
-		*/
-		static bool Rejestruj(ZarzadcaZasobow &fabryka);
 
 		/**
 		* \brief Operator zwracaj¹cy uchwyt modu³u dll.
@@ -93,19 +95,6 @@ namespace SpEx {
 		*/
 		DllModule(const std::string& plik);
 
-
-		/**
-		* \brief Metoda tworz¹ca obiekt.
-		*
-		* Metoda tworzy obiekt na podstawie parametrów.
-		* \param[in] parametr - Adres do pliku.
-		* \param[in] cache - Informacje czy zasób jest przechowywany.
-		* \return Zwracana jest wskaŸnik do zasobu.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 07-08-2014
-		*/
-		static Zasob::SharedPtr Tworz(const ZarzadcaZasobow::Parametr& parametr, bool cache);
 		
 		std::string plik_; /// Lokalizacja pliku dll.
 		HMODULE handle_; /// Uchwyt do wczytanego modu³u dll.

@@ -9,7 +9,6 @@
 #include "Gra.h"
 #include "Singleton.h"
 #include "UstawieniaAplikacji.h"
-#include "ZarzadcaZasobow.h"
 #include "ZarzadcaUzytkownikow.h"
 
 typedef struct _SYMBOL_INFO {
@@ -36,6 +35,7 @@ typedef BOOL (WINAPI *SymFromAddrS)( _In_ HANDLE hProcess, _In_ DWORD64 Address,
 namespace SpEx {
 
 	class Fabrykator;
+	class ZarzadcaZasobow;
 	/**
 	* \brief Klasa reprezentuj¹ca aplikacje.
 	*
@@ -120,6 +120,10 @@ namespace SpEx {
 			return *fabrykator_;
 		}
 
+		inline ZarzadcaZasobow& pobierzZarzadceZasobow(){
+			return *zarzadcaZasobow_;
+		}
+
 		/**
 		* \brief Destruktor.
 		*/
@@ -127,8 +131,6 @@ namespace SpEx {
 
 		SLog::Log& logger_; /// Instancja loggera.
 		
-		ZarzadcaZasobow zarzadcaZasobow_; /// Zarz¹dca zasobów.
-
 		ZarzadcaUzytkownikow zarzadcaUzytkownikow_; /// Zarz¹dca u¿ytkowników.
 
 		__int64 pobierzNumerLosowy();
@@ -174,6 +176,7 @@ namespace SpEx {
 		std::shared_ptr<SPlu::Cplugin> pluginy_; /// Obiekt zarz¹dzaj¹cy plugginami.
 		std::shared_ptr<Gra> instancjaGry_; /// Obiekt prezentuj¹cy instancjê gry.
 		std::shared_ptr<Fabrykator> fabrykator_; /// Instacja obiektu przechowuj¹cego zbiór fabryk.
+		std::shared_ptr<ZarzadcaZasobow> zarzadcaZasobow_; /// Zarz¹dca zasobów.
 
 		SymInitializeS symInitialize_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
 		SymFromAddrS symFromAddr_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.

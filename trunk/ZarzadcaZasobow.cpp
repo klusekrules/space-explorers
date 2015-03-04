@@ -142,15 +142,6 @@ namespace SpEx{
 		return iter != zasobyPrzechowywane_.end() ? iter->second.cached_ : false;
 	}
 
-	bool ZarzadcaZasobow::rejestrujInicjalizator(const std::string& typ, Inicjalizator funkcja){
-		auto found = inicjalizatory_.find(typ);
-		if (found == inicjalizatory_.end()){
-			inicjalizatory_.emplace(typ, funkcja);
-			return true;
-		}
-		return false;
-	}
-
 	bool ZarzadcaZasobow::dostepnyInicjalizator(const std::string& typ) const{
 		return inicjalizatory_.find(typ) != inicjalizatory_.end();
 	}
