@@ -7,20 +7,12 @@ namespace SpEx{
 	const STyp::Fluktuacja Utils::FMAX = 1.0;
 	const STyp::Fluktuacja Utils::FMIN = 0.0;
 
-	XmlBO::ElementWezla STACKTHROW::bladWezla(XmlBO::ElementWezla element, const std::string& nazwaWezla){
-		return THROW::bladWezla(element, nazwaWezla, Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo());
-	}
-
-	bool STACKTHROW::bladAtrybutu(XmlBO::ElementWezla element, const std::string& nazwaAtrybutu){
-		return THROW::bladAtrybutu(element, nazwaAtrybutu, Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo());
-	}
-
 	void Utils::generujWyjatekBleduStruktury(XmlBO::ElementWezla wezel){
 		SPar::ParserUtils::generujWyjatekBleduStruktury(wezel, Aplikacja::pobierzInstancje().pobierzSladStosu(), pobierzDebugInfo());
 	}
 
 	std::string Utils::pobierzDebugInfo(){
-		return Aplikacja::pobierzInstancje().pobierzDebugInfo();
+		return std::move(Aplikacja::pobierzInstancje().pobierzDebugInfo());
 	}
 
 	__int64 Utils::pobierzLiczbeLosowa(){

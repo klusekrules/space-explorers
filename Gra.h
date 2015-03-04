@@ -1,20 +1,19 @@
 #pragma once
+#include <unordered_map>
 #include "SurowceInfo.h"
 #include "StatekInfo.h"
 #include "TechnologiaInfo.h"
 #include "BudynekInfo.h"
 #include "ObronaInfo.h"
-#include "Uzytkownik.h"
-#include <unordered_map>
-#include "Licznik.h"
-#include "GeneratorUkladow.h"
-#include "ZarzadcaLokacji.h"
-#include "Zmiana\ZmianaFabryka.h"
 #include "PowtorzenieIdObiektu.h"
+#include "Logger\Log.h"
 
 #define KOMUNIKAT_POWTORZENIE_OBIEKTU(a) STyp::Tekst("Obiekt typu: "#a )
 
 namespace SpEx {
+	class UstawieniaAplikacji;
+	class Uzytkownik;
+	class ZarzadcaLokacji;
 	/**
 	* \brief Klasa reprezentuj¹ca grê.
 	*
@@ -119,7 +118,6 @@ namespace SpEx {
 		bool usunGracza(const std::string& nazwa, const std::string& hash);
 
 		bool zapiszGracza();
-
 
 		/**
 		* \brief Metoda tworz¹ca instancje obiektu nie przypisan¹ do planety.
@@ -271,7 +269,7 @@ namespace SpEx {
 		*/
 		template < class T, class TRAIT>
 		typename std::enable_if<std::is_same<TRAIT, THROW>::value, typename T::ConstSharedPtr>::type obsluzBladWyszukiwania(const STyp::Identyfikator& identyfikator) const{
-			throw NieznalezionoObiektu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), std::to_string(identyfikator()));
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, pobierzDebugInfo(), std::to_string(identyfikator()));
 		}
 
 		/**
@@ -294,7 +292,7 @@ namespace SpEx {
 				logger_.loguj(SLog::Log::Debug, *obiekt);
 #endif
 				if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
-					throw PowtorzenieIdObiektu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), obiekt->pobierzIdentyfikator(), KOMUNIKAT_POWTORZENIE_OBIEKTU(T));
+					throw PowtorzenieIdObiektu(EXCEPTION_PLACE, pobierzDebugInfo(), obiekt->pobierzIdentyfikator(), KOMUNIKAT_POWTORZENIE_OBIEKTU(T));
 				listaInfo[obiekt->pobierzIdentyfikator()] = obiekt;
 				listaObiektowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
 				element = element->pobierzNastepnyElement(nazwaWezla);
@@ -359,6 +357,8 @@ namespace SpEx {
 				return obsluzBladWyszukiwania<T, TRAIT>(identyfikator);
 			return iterator->second;
 		}
+
+		std::string pobierzDebugInfo() const;
 				
 		SLog::Log& logger_; /// Referencja do obiektu loguj¹cego.
 		ZarzadcaLokacji& zarzadcaLokacji_; /// Referencja do aktualnego obiektu zarz¹dcy lokacji.

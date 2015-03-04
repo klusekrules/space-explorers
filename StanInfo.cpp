@@ -6,6 +6,7 @@
 #include "Aplikacja.h"
 #include "BladStukturyStanu.h"
 #include "Fabrykator.h"
+#include "StackThrow.h"
 
 #define KOMUNIAKT_BLAD_ZDARZENIA STyp::Tekst("B³¹d wczytywania zdarzeñ dla stanu: ")
 #define KOMUNIAKT_BLAD_WCZYTYWANIA(plik) STyp::Tekst("Nie uda³o siê wczytac pliku lua." + plik)

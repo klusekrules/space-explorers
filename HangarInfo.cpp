@@ -3,6 +3,7 @@
 #include "Statek.h"
 #include "definicjeWezlowXML.h"
 #include "Utils.h"
+#include "StackThrow.h"
 
 namespace SpEx{
 	HangarInfo::HangarInfo(const STyp::Powierzchnia& maksymalnaObjetosc) throw()

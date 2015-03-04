@@ -1,4 +1,8 @@
 #include "NiepoprawneParametryFunkcjiTest.h"
+#include "Aplikacja.h"
+#include "Gra.h"
+#include "NiepoprawneParametryFunkcji.h"
+#include "Utils.h"
 
 void NiepoprawneParametryFunkcjiTest::startTestow(){
 	SpEx::Gra* gra = &(SpEx::Aplikacja::pobierzInstancje().pobierzGre());

@@ -1,5 +1,8 @@
 #include "GeneratorUkladow.h"
 #include "Gra.h"
+#include "Utils.h"
+#include "definicjeWezlowXML.h"
+#include "StackThrow.h"
 
 namespace SpEx{
 

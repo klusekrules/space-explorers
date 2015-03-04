@@ -1,7 +1,7 @@
 #include "ZarzadcaUzytkownikow.h"
 #include "Parser\ParserDokumentXml.h"
 #include "definicjeWezlowXML.h"
-#include "Utils.h"
+#include "StackThrow.h"
 #include "Logger\Logger.h"
 #include <io.h>
 

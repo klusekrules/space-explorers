@@ -2,6 +2,9 @@
 #include "Aplikacja.h"
 #include "DefinicjeWezlowXML.h"
 #include "Logger\Logger.h"
+#include "Gra.h"
+#include "Planeta.h"
+#include "StackThrow.h"
 
 namespace SpEx{
 	Flota::Flota(const STyp::Identyfikator& id, const STyp::Identyfikator& planetaPoczatkowa, const STyp::Identyfikator& planetaDocelowa, CelPodrozy celPodrozy)

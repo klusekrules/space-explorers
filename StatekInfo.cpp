@@ -1,8 +1,10 @@
 #include "StatekInfo.h"
-#include "Gra.h"
+#include "Planeta.h"
 #include "definicjeWezlowXML.h"
 #include "Logger\Logger.h"
 #include "TypyProste\TypyProsteBO.h"
+#include "Utils.h"
+#include "StackThrow.h"
 
 namespace SpEx{
 	StatekInfo::StatekInfo(XmlBO::ElementWezla wezel)

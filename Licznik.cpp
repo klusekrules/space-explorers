@@ -1,7 +1,7 @@
 #include "Licznik.h"
 #include "DefinicjeWezlowXML.h"
 #include "Logger\Logger.h"
-#include "Utils.h"
+#include "StackThrow.h"
 
 namespace SpEx{
 	Licznik::Licznik(const STyp::Identyfikator& identyfikator, const STyp::Ilosc& wartoscPoczatkowa)

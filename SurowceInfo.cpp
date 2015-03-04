@@ -1,8 +1,10 @@
 #include "SurowceInfo.h"
 #include "Logger\Logger.h"
-#include "Aplikacja.h"
+#include "Planeta.h"
 #include "definicjeWezlowXML.h"
 #include "TypyProste\TypyProsteBO.h"
+#include "Utils.h"
+#include "StackThrow.h"
 
 namespace SpEx{
 	SurowceInfo::SurowceInfo(XmlBO::ElementWezla wezel)

@@ -1,7 +1,7 @@
 #include "UstawieniaAplikacji.h"
 #include "Parser\ParserDokumentXml.h"
 #include "Aplikacja.h"
-#include "Utils.h"
+#include "StackThrow.h"
 #include "Logger\Logger.h"
 
 #define XML_WEZEL_GLOWNY "SpaceGame"

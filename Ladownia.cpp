@@ -9,7 +9,10 @@
 #include <functional>
 #include "MenedzerTranzakcji.h"
 #include "Zlecenia.h"
-	
+#include "Gra.h"
+#include "Utils.h"
+#include "StackThrow.h"
+
 namespace SpEx{
 	Ladownia::Ladownia(const STyp::Ilosc& ilosc, const STyp::Identyfikator& identyfikatorPlanety, const LadowniaInfo& ladowniaInfo)
 		: PodstawoweParametry(wpisIlosc(ilosc), ILOSC, identyfikatorPlanety), obiekty_(), zajete_(), ladowniaInfo_(ladowniaInfo)

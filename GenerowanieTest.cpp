@@ -1,5 +1,6 @@
 #include "GenerowanieTest.h"
 #include "Aplikacja.h"
+#include "Gra.h"
 
 void GenerowanieTest::generuj(){
 	if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzIloscGalaktyk() == 0){

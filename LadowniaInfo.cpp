@@ -3,6 +3,8 @@
 #include "Aplikacja.h"
 #include "definicjeWezlowXML.h"
 #include "TypyProste\TypyProsteBO.h"
+#include "Utils.h"
+#include "StackThrow.h"
 
 namespace SpEx{
 	LadowniaInfo::LadowniaInfo(const STyp::Objetosc& maksymalnaObjetosc)

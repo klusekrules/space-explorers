@@ -2,6 +2,7 @@
 #include "NiepoprawneParametryFunkcji.h"
 #include "Aplikacja.h"
 #include "Logger\Logger.h"
+#include "Utils.h"
 
 namespace SpEx{
 	bool GeneratorIdentyfikatorow::pobierzIdentyfikator(const std::string& napis, STyp::Identyfikator& id){

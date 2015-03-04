@@ -2,6 +2,7 @@
 #include "Logger\Logger.h"
 #include "Utils.h"
 #include "DefinicjeWezlowXML.h"
+#include "StackThrow.h"
 
 namespace SpEx{
 

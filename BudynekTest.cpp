@@ -1,4 +1,6 @@
 #include "BudynekTest.h"
+#include "Aplikacja.h"
+#include "Gra.h"
 
 void BudynekTest::startTestow() {
 	planeta = SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(STyp::Identyfikator(0x8));

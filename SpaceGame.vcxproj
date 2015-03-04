@@ -378,6 +378,7 @@
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Skrypt.h" />
     <ClInclude Include="SprawdzSumyKontrolneRPC.h" />
+    <ClInclude Include="StackThrow.h" />
     <ClInclude Include="StaleRPC.h" />
     <ClInclude Include="Stan.h" />
     <ClInclude Include="StanInfo.h" />
@@ -544,6 +545,7 @@
     <ClCompile Include="Serwer.cpp" />
     <ClCompile Include="SHA3.cpp" />
     <ClCompile Include="SprawdzSumyKontrolneRPC.cpp" />
+    <ClCompile Include="StackThrow.cpp" />
     <ClCompile Include="Stan.cpp" />
     <ClCompile Include="StanInfo.cpp" />
     <ClCompile Include="Statek.cpp" />
@@ -554,6 +556,7 @@
     <ClCompile Include="Surowce.cpp" />
     <ClCompile Include="SurowceInfo.cpp" />
     <ClCompile Include="SurowceTest.cpp" />
+    <ClCompile Include="SzablonKryteriumPriv.cpp" />
     <ClCompile Include="SzyfrowanieTest.cpp" />
     <ClCompile Include="Technologia.cpp" />
     <ClCompile Include="TechnologiaInfo.cpp" />

@@ -1,5 +1,6 @@
 #include "Galaktyka.h"
 #include "definicjeWezlowXML.h"
+#include "StackThrow.h"
 
 namespace SpEx{
 

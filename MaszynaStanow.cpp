@@ -7,6 +7,9 @@
 #include "NieznalezionoPliku.h"
 #include "XmlModul.h"
 #include "Logger\Logger.h"
+#include "Utils.h"
+#include "definicjeWezlowXML.h"
+#include "StackThrow.h"
 
 namespace SpEx{
 	MaszynaStanow::StanDlaSkryptu::StanDlaSkryptu()

@@ -1,6 +1,9 @@
 #include "ZapisStanuGryTest.h"
 #include "TestyUtilsBO.h"
 #include "SHA3.h"
+#include "Gra.h"
+#include "Planeta.h"
+#include "definicjeWezlowXML.h"
 
 ZapisStanuGryTest::ZapisStanuGryTest(void)
 	: p_a(0), ptr_a(0)

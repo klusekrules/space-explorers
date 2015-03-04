@@ -1,6 +1,7 @@
 #include "ListaObiektowGui.h"
 #include "Aplikacja.h"
 #include <SFML\OpenGL.hpp>
+#include "Gra.h"
 
 namespace tgui {
 

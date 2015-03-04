@@ -1,4 +1,6 @@
 #include "ObronaTest.h"
+#include "Aplikacja.h"
+#include "Gra.h"
 
 void ObronaTest::startTestow(){
 	planeta = SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzPlanete(STyp::Identyfikator(0x6));

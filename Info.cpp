@@ -1,7 +1,7 @@
 #include "Info.h"
 #include "definicjeWezlowXML.h"
 #include "Logger\Logger.h"
-#include "Utils.h"
+#include "StackThrow.h"
 #include "Aplikacja.h"
 #include "ZarzadcaZasobow.h"
 

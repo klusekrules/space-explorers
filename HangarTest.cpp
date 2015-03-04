@@ -1,4 +1,5 @@
 #include "HangarTest.h"
+#include "Aplikacja.h"
 
 void HangarTest::startTestow(){
 	gra = &(SpEx::Aplikacja::pobierzInstancje().pobierzGre());

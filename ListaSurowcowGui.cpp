@@ -1,6 +1,6 @@
 #include "ListaSurowcowGui.h"
-#include "Aplikacja.h"
-
+#include "Planeta.h"
+#include "SurowceInfo.h"
 namespace tgui {
 
 	Widget* ListaSurowcowGui::createWidget(Container* container, const std::string& name){

@@ -6,6 +6,9 @@
 #include "MenedzerTranzakcji.h"
 #include "Zlecenia.h"
 #include "Aplikacja.h"
+#include "Gra.h"
+#include "Utils.h"
+#include "StackThrow.h"
 
 namespace SpEx{
 	Hangar::Hangar(const STyp::Ilosc& ilosc, const STyp::Identyfikator& identyfikatorPlanety, const HangarInfo& hangarInfo)

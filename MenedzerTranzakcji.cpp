@@ -1,6 +1,9 @@
 #include "MenedzerTranzakcji.h"
 #include "NiepowodzenieTranzakcji.h"
 #include "Aplikacja.h"
+#include "Logger\Logger.h"
+#include "Utils.h"
+
 namespace SpEx{
 	void MenedzerTranzakcji::dodaj(Element operacja)
 	{

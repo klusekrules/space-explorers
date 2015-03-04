@@ -1,6 +1,7 @@
 #include "InicjalizacjaDanychTestowych.h"
 #include "Aplikacja.h"
 #include "TestyUtilsBO.h"
+#include "definicjeWezlowXML.h"
 
 void InicjalizacjaDanychTestowych::zaladujDane(){
 	SpEx::Aplikacja::pobierzInstancje().wyczyscDane();

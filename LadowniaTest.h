@@ -1,6 +1,7 @@
 #pragma once
 #include "TestyJednostkowe.h"
-#include "Aplikacja.h"
+#include "Gra.h"
+#include "Statek.h"
 
 class LadowniaTest : 
 	public PaczkaTestow

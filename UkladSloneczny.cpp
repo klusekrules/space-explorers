@@ -1,6 +1,7 @@
 #include "UkladSloneczny.h"
 #include <random>
 #include "definicjeWezlowXML.h"
+#include "StackThrow.h"
 
 namespace SpEx{
 

@@ -5,6 +5,7 @@
 #include "Utils.h"
 #include "Aplikacja.h"
 #include "Fabrykator.h"
+#include "StackThrow.h"
 
 #define KOMUNIAKT_BLAD_WCZYTYWANIA(plik) STyp::Tekst("Dla zdarzenia o ww id nie uda³o siê wczytac pliku lua." + plik)
 
