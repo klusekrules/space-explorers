@@ -33,7 +33,7 @@ namespace SpEx{
 		* \version 1
 		* \date 25-07-2014
 		*/
-		Fabrykator();
+		Fabrykator() = default;
 
 		/**
 		* \brief Domyœlny destruktor.
@@ -103,19 +103,6 @@ namespace SpEx{
 		*/
 		SZmi::ZmianaFabryka& pobierzFabrykeZmian();
 
-		/**
-		* \brief Metoda rejestruj¹ca typ skryptu.
-		*
-		* Metoda zapisuje do kontenera metodê tworz¹c¹ skrypt o podany typie.
-		* \param[in] identyfikator - Identyfikator skryptu.
-		* \param[in] funkcja - Metoda tworz¹ca.
-		* \return Zwracana jest wartoœæ true, je¿eli uda siê zarejestrowaæ metode lub false w przeciwnym wypadku.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 06-08-2014
-		*/
-		bool rejestracjaSkryptu(const IdentyfikatorSkryptu& identyfikator, KreatorSkryptu funkcja);
-		
 		std::shared_ptr<MetodaRPC> TworzMetodeRPC(const Json::Value &, Klient&) const;
 		
 		template <class T_>
@@ -134,10 +121,12 @@ namespace SpEx{
 
 		template <class T_>
 		inline bool RejestrujMetodeRPC(){
-			if (typename T_::NazwaTypu_.empty() || metodRpcCallbacks_.find(typename T_::NazwaTypu_) != metodRpcCallbacks_.end())
-				return false;
-			metodRpcCallbacks_[typename T_::NazwaTypu_] = &Fabrykator::tworz<T_>;
-			return true;
+			return Rejestruj<T_>(metodRpcCallbacks_, &Fabrykator::tworz<T_>);
+		}
+
+		template <class T_>
+		inline bool RejestrujSkrypt(){
+			return Rejestruj<T_>(callbacks_, &typename T_::Tworz);
 		}
 
 		/**
@@ -154,6 +143,14 @@ namespace SpEx{
 
 		typedef std::map<IdentyfikatorMetoryRPC, KreatorMetodyRPC> TablicaKreatorowMetodRPC;
 		
+		template <class T_, class K_, class F_>
+		inline bool Rejestruj(K_ & kontener, F_ funkcja){
+			if (typename T_::NazwaTypu_.empty() || kontener.find(typename T_::NazwaTypu_) != kontener.end())
+				return false;
+			kontener[typename T_::NazwaTypu_] = funkcja;
+			return true;
+		}
+
 		template <class T_>
 		static std::shared_ptr<SpEx::MetodaRPC> tworz(const Json::Value & metoda, Klient& klient){
 			auto ptr = std::make_shared<T_>(klient);			

@@ -11,18 +11,6 @@
 #include "StackThrow.h"
 
 namespace SpEx{
-	Fabrykator::Fabrykator(){
-		LuaSkrypt::Rejestruj(*this);
-		DllSkrypt::Rejestruj(*this);
-	}
-
-	bool Fabrykator::rejestracjaSkryptu(const IdentyfikatorSkryptu& id, KreatorSkryptu funkcja){
-		if (funkcja == nullptr || id.isEmpty() || callbacks_.find(id) != callbacks_.end())
-			return false;
-		callbacks_[id] = funkcja;
-		return true;
-	}
-
 	std::shared_ptr<MetodaRPC> Fabrykator::TworzMetodeRPC(const Json::Value & root, Klient& klient) const{
 		if (root.isObject()){
 			auto value = root[METODA_RPC_METODA][METODA_RPC_NAZWA];
@@ -38,10 +26,7 @@ namespace SpEx{
 	std::shared_ptr<Skrypt> Fabrykator::TworzSkrypt(XmlBO::ElementWezla wezel) const{
 		IdentyfikatorSkryptu id;
 		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_SKRYPT_TYP, id);
-		auto iterator = callbacks_.find(id());
-		if (iterator == callbacks_.end())
-			return nullptr;
-		return iterator->second(wezel);
+		return TworzSkrypt(id, wezel);
 	}
 
 	std::shared_ptr<Skrypt> Fabrykator::TworzSkrypt(const IdentyfikatorSkryptu& identyfikator, XmlBO::ElementWezla wezel) const{
@@ -61,10 +46,7 @@ namespace SpEx{
 		auto wezel = dokument.tworzElement("Skrypt");
 		wezel->tworzAtrybut(ATRYBUT_XML_SKRYPT_FILE, plik.c_str());
 
-		auto iterator = callbacks_.find(ext);
-		if (iterator == callbacks_.end())
-			return nullptr;
-		return iterator->second(wezel);
+		return TworzSkrypt(ext, wezel);
 	}
 
 	std::shared_ptr<SZmi::ZmianaInterfejs> Fabrykator::TworzZmiane(XmlBO::ElementWezla wezel) const{
