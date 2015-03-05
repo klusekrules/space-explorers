@@ -8,21 +8,6 @@ namespace SpEx{
 
 	const std::string PotwierdzLogowanieRPC::NazwaTypu_ = "PotwierdzLogowanie";
 	
-	std::shared_ptr<MetodaRPC> PotwierdzLogowanieRPC::TworzObiekt(const Json::Value & metoda, Klient& klient){
-		auto ptr = std::make_shared<PotwierdzLogowanieRPC>(klient);
-		if (metoda.isNull()){
-			// Tworzenie nowej pustej metody, do wys³ania na serwer
-		} else{
-			if ((*ptr) << metoda){
-				// Uda³o siê odtworzyæ metodê, przypisanie parametrów wymaganych przez metodê do atrybutów metody.
-			} else{
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nie powiod³a siê deserializacja metody ZalogujRPC.");
-				return nullptr;
-			}
-		}
-		return std::move(ptr);
-	}
-	
 	void PotwierdzLogowanieRPC::obslugaZadania(const Json::Value & zadanie, Json::Value& odpowiedz){
 		std::string autoryzacja, instancja;
 		klient_.autoryzujMetode(instancja, autoryzacja);

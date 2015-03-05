@@ -1,7 +1,6 @@
 #pragma once
 #include "ZarzadcaZasobow.h"
 #include "SHA3.h"
-#define TYP_ZASOBU_SUMA_KONTROLNA_PLIKU "fileSHA3"
 
 namespace SpEx{
 	class SumaKontrolnaPliku

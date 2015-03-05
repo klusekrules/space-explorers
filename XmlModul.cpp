@@ -3,7 +3,7 @@
 
 namespace SpEx {
 
-	const std::string XmlModul::NazwaTypu_ = XML_ATRYBUT_TYP_ZASOBU_XML;
+	const std::string XmlModul::NazwaTypu_ = "xml";
 
 	XmlModul::XmlModul(const std::string& plik)
 		: plik_(plik), handle_(nullptr)

@@ -3,7 +3,7 @@
 #include <memory>
 #include "ZarzadcaZasobow.h"
 #include "Parser\ParserDokumentXml.h"
-#define XML_ATRYBUT_TYP_ZASOBU_XML "xml"
+
 namespace SpEx {
 	class XmlModul
 		: public Zasob

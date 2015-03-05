@@ -3,7 +3,7 @@
 
 namespace SpEx{
 
-	const std::string DllModule::NazwaTypu_ = XML_ATRYBUT_TYP_ZASOBU_DLL;
+	const std::string DllModule::NazwaTypu_ = "dll";
 
 	DllModule::DllModule(const std::string& plik)
 		: plik_(plik), handle_(NULL)
