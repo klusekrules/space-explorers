@@ -5,6 +5,9 @@
 #include "Aplikacja.h"
 
 namespace SpEx{
+
+	const std::string DllSkrypt::NazwaTypu_ = "dll";
+
 	DllSkrypt::DllSkrypt(DllModule::SharedPtr ptr)
 		: modul_(ptr)
 	{
@@ -24,10 +27,6 @@ namespace SpEx{
 			return true;
 		}
 		return false;
-	}
-
-	bool DllSkrypt::Rejestruj(Fabrykator &fabryka){
-		return fabryka.rejestracjaSkryptu(Fabrykator::IdentyfikatorSkryptu(XML_ATRYBUT_TYP_SKRYPT_DLL), DllSkrypt::Tworz);
 	}
 
 	std::shared_ptr<Skrypt> DllSkrypt::Tworz(XmlBO::ElementWezla wezel){

@@ -8,6 +8,9 @@
 #define KOMUNIAKT_BLAD_WYKONYWANIA STyp::Tekst("Dla zdarzenia o ww id nie uda³o siê wykonaæ inicjalizacji skryptu.")
 
 namespace SpEx{
+
+	const std::string LuaSkrypt::NazwaTypu_ = "lua";
+
 	LuaSkrypt::LuaSkrypt(LuaState::SharedPtr ptr)
 		: L(ptr)
 	{}
@@ -28,10 +31,6 @@ namespace SpEx{
 		return true;
 	}
 
-	bool LuaSkrypt::Rejestruj(Fabrykator &fabryka){
-		return fabryka.rejestracjaSkryptu(Fabrykator::IdentyfikatorSkryptu(XML_ATRYBUT_TYP_SKRYPT_LUA), LuaSkrypt::Tworz);
-	}
-
 	std::shared_ptr<Skrypt> LuaSkrypt::Tworz(XmlBO::ElementWezla wezel){
 		std::string luaFile = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FILE, std::string());
 		if (luaFile.empty())
@@ -43,7 +42,7 @@ namespace SpEx{
 				return nullptr;
 			return std::make_shared<LuaSkrypt>(uchwyt);
 		}else{
-			std::string nazwa(XML_ATRYBUT_TYP_SKRYPT_LUA);
+			std::string nazwa(NazwaTypu_);
 			nazwa.push_back('_');
 			nazwa += XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_INSTANCE, std::string());
 			LuaState::SharedPtr uchwyt = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadceZasobow().pobierzZasob<LuaState>(nazwa, luaFile, true);

@@ -17,6 +17,8 @@
 #include "LuaState.h"
 #include "DllModule.h"
 #include "XmlModul.h"
+#include "LuaSkrypt.h"
+#include "DllSkrypt.h"
 #include "SumaKontrolnaPliku.h"
 #include "MaszynaStanow.h"
 
@@ -254,6 +256,8 @@ namespace SpEx{
 		fabrykator_->RejestrujMetodeRPC<EchoRPC>();
 		fabrykator_->RejestrujMetodeRPC<InicjujLogowanieRPC>();
 		fabrykator_->RejestrujMetodeRPC<PotwierdzLogowanieRPC>();
+		fabrykator_->RejestrujSkrypt<DllSkrypt>();
+		fabrykator_->RejestrujSkrypt<LuaSkrypt>();
 
 		pluginy_ = std::make_shared<SPlu::Cplugin>(ustawienia_[ATRYBUT_FOLDER_PLUGINOW], fabrykator_->pobierzFabrykeZmian(), logger_);
 

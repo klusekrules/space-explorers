@@ -5,7 +5,6 @@
 #include "Parser\XmlBO.h"
 #include "Skrypt.h"
 
-#define XML_ATRYBUT_TYP_SKRYPT_DLL "dll"
 namespace SpEx{
 
 	/**
@@ -22,18 +21,7 @@ namespace SpEx{
 		friend class Fabrykator;
 		friend class std::_Ref_count_obj<DllSkrypt>;
 	public:
-
-		/**
-		* \brief Metoda rejestruj¹ca klasê DllSkrypt w fabryce skryptu.
-		*
-		* Metoda rejestruje klasê DllSkrypt w fabryce skryptów podajen w parametrze metody.
-		* \param[in] fabryka - Referencja do fabryki skryptów.
-		* \return Zwracana jest wartoœc true, je¿eli operacja sê powiedzie lub false w przeciwnym wypadku.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 09-07-2014
-		*/
-		static bool Rejestruj(Fabrykator &fabryka);
+		static const std::string NazwaTypu_;
 
 		/**
 		* \brief Metoda wykonuj¹ca skrypt.
