@@ -21,11 +21,9 @@ namespace SpEx{
 	public:
 		typedef STyp::Tekst IdentyfikatorSkryptu; /// Typ skryptu.
 		typedef std::shared_ptr<Skrypt>(*KreatorSkryptu)(XmlBO::ElementWezla wezel); /// Nag³ówek metody tworz¹cej skrypt.
-		typedef bool(*RejestrujSkrypt)(Fabrykator& fabryka, SLog::Log& logger); /// Nag³ówek metody rejestruj¹cej skrypt w fabryce.
 
 		typedef STyp::Tekst IdentyfikatorMetoryRPC;
 		typedef std::shared_ptr<MetodaRPC>(*KreatorMetodyRPC)(const Json::Value &, Klient&);
-		typedef bool(*RejestratorMetodyRPC)(Fabrykator& fabryka, SLog::Log& logger);
 
 		/**
 		* \brief Konstruktor.
@@ -122,17 +120,26 @@ namespace SpEx{
 		
 		template <class T_>
 		inline std::shared_ptr<T_> TworzMetodeRPC(Klient& klient){
-			return std::dynamic_pointer_cast<T_>(TworzMetodeRPC(typename T_::NazwaTypu_, klient));
+			auto ptr = std::make_shared<T_>(klient);
+			ptr->nazwa_ = typename T_::NazwaTypu_;
+			ptr->id_unikalne_ = std::to_string(static_cast<unsigned long long>(identyfikatorZadania_()()));
+			if (!ptr->inicjuj()){
+				if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nie powiod³a siê inicjalizacja metody: " + typename T_::NazwaTypu_);
+				}
+				return nullptr;
+			}
+			return ptr;
 		}
 
 		template <class T_>
 		inline bool RejestrujMetodeRPC(){
 			if (typename T_::NazwaTypu_.empty() || metodRpcCallbacks_.find(typename T_::NazwaTypu_) != metodRpcCallbacks_.end())
 				return false;
-			metodRpcCallbacks_[typename T_::NazwaTypu_] = typename T_::TworzObiekt;
+			metodRpcCallbacks_[typename T_::NazwaTypu_] = &Fabrykator::tworz<T_>;
 			return true;
 		}
-		
+
 		/**
 		* Funkcja s³u¿¹ca do tworzenia napisów z opisem klasy.
 		* \return Napis zawieraj¹cy opis klasy.
@@ -146,8 +153,18 @@ namespace SpEx{
 		typedef std::map<IdentyfikatorSkryptu, KreatorSkryptu> ScriptCallbacks; /// Typ kontenera przechowuj¹cego metody tworz¹ce instancje skryptów.
 
 		typedef std::map<IdentyfikatorMetoryRPC, KreatorMetodyRPC> TablicaKreatorowMetodRPC;
-
-		std::shared_ptr<MetodaRPC> TworzMetodeRPC(const std::string &, Klient&) const;
+		
+		template <class T_>
+		static std::shared_ptr<SpEx::MetodaRPC> tworz(const Json::Value & metoda, Klient& klient){
+			auto ptr = std::make_shared<T_>(klient);			
+			if ( (*ptr) << metoda && ptr->inicjuj(metoda)){
+				return std::move(ptr);
+			}
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nie powiod³a siê deserializacja metody: " + typename T_::NazwaTypu_);
+			}
+			return nullptr;
+		}
 
 		TablicaKreatorowMetodRPC metodRpcCallbacks_;
 

@@ -9,7 +9,6 @@ namespace SpEx{
 	public:
 		static const std::string NazwaTypu_;
 		friend class std::_Ref_count_obj<PotwierdzLogowanieRPC>;
-		static std::shared_ptr<MetodaRPC> TworzObiekt(const Json::Value &, Klient&);
 
 		virtual ~PotwierdzLogowanieRPC() = default;
 		std::string napis() const override;

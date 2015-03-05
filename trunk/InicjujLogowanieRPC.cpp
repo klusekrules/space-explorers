@@ -9,17 +9,6 @@ namespace SpEx{
 
 	const std::string InicjujLogowanieRPC::NazwaTypu_ = "InicjujLogowanie";
 
-	std::shared_ptr<MetodaRPC> InicjujLogowanieRPC::TworzObiekt(const Json::Value& metoda, Klient& klient){
-		auto ptr = std::make_shared<InicjujLogowanieRPC>(klient);
-		if (!metoda.isNull() && !((*ptr) << metoda)){
-			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nie powiod³a siê deserializacja metody InicjujLogowanieRPC.");
-			}
-			return nullptr;
-		}
-		return std::move(ptr);
-	}
-	
 	bool InicjujLogowanieRPC::przygotowanieDoWyslania(){
 		auto iter = parametry_.find("Hash");		
 		if (iter!=parametry_.end()){

@@ -34,6 +34,9 @@ namespace SpEx{
 	protected:
 		MetodaRPC(Klient&);
 
+		virtual bool inicjuj();
+		virtual bool inicjuj(const Json::Value&);
+
 		std::string autoryzacja_;
 		std::string instancja_;
 

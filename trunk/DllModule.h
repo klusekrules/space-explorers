@@ -4,7 +4,6 @@
 #include <memory>
 #include "ZarzadcaZasobow.h"
 
-#define XML_ATRYBUT_TYP_ZASOBU_DLL "dll"
 namespace SpEx {
 
 	/**

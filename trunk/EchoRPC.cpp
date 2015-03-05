@@ -6,17 +6,6 @@ namespace SpEx{
 
 	const std::string EchoRPC::NazwaTypu_ = "Echo";
 
-	std::shared_ptr<MetodaRPC> EchoRPC::TworzObiekt(const Json::Value & metoda, Klient& klient){
-		auto ptr = std::make_shared<EchoRPC>(klient);
-		if (!metoda.isNull() && !((*ptr) << metoda)){
-			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nie powiod³a siê deserializacja metody Echo.");
-			}
-			return nullptr;
-		}
-		return std::move(ptr);
-	}
-	
 	void EchoRPC::obslugaZadania(const Json::Value & zadanie, Json::Value& odpowiedz){
 		parametry_["Echo"] = "Do klienta";
 		odpowiedz["rezultat"] = "OdpowiedŸ serwera na komunikat Echo.";

@@ -13,6 +13,14 @@ namespace SpEx{
 		: klient_(klient), flagi_(0)
 	{}
 
+	bool MetodaRPC::inicjuj(){
+		return true;
+	}
+
+	bool MetodaRPC::inicjuj(const Json::Value&){
+		return true;
+	}
+
 	bool MetodaRPC::operator<< (const Json::Value & root){
 		auto &v_Autoryzacja = root[METODA_RPC_AUTORYZACJA];
 		if (!v_Autoryzacja){

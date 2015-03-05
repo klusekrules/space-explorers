@@ -3,7 +3,8 @@
 
 namespace SpEx{
 
-	const std::string LuaState::NazwaTypu_ = XML_ATRYBUT_TYP_ZASOBU_LUA;
+	const std::string LuaState::NazwaTypu_ = "lua";
+
 	LuaState::LuaState(const std::string& plik)
 		: plik_(plik), L(luaL_newstate())
 	{

@@ -7,6 +7,7 @@
 #include "definicjeWezlowXML.h"
 #include "Logger\Logger.h"
 #include "MetodaRPC.h"
+#include "StaleRPC.h"
 #include "StackThrow.h"
 
 namespace SpEx{
@@ -22,28 +23,14 @@ namespace SpEx{
 		return true;
 	}
 
-	std::shared_ptr<MetodaRPC> Fabrykator::TworzMetodeRPC(const std::string & nazwa, Klient& klient) const{
-		if (!nazwa.empty()){
-			auto iterator = metodRpcCallbacks_.find(nazwa);
-			if (iterator == metodRpcCallbacks_.end())
-				return nullptr;
-			auto ptr = iterator->second(Json::Value(Json::nullValue), klient);
-			if (ptr){
-				ptr->nazwa_ = nazwa;
-				ptr->id_unikalne_ = std::to_string(static_cast<unsigned long long>(identyfikatorZadania_()()));
-			}
-			return ptr;
-		}
-		return nullptr;
-	}
-
 	std::shared_ptr<MetodaRPC> Fabrykator::TworzMetodeRPC(const Json::Value & root, Klient& klient) const{
-		auto value = root["metoda"]["nazwa"];
-		if (value.isString()){
-			auto iterator = metodRpcCallbacks_.find(value.asString());
-			if (iterator == metodRpcCallbacks_.end())
-				return nullptr;
-			return iterator->second(root, klient);
+		if (root.isObject()){
+			auto value = root[METODA_RPC_METODA][METODA_RPC_NAZWA];
+			if (value.isString()){
+				auto iterator = metodRpcCallbacks_.find(value.asString());
+				if (iterator != metodRpcCallbacks_.end())
+					return iterator->second(root, klient);
+			}
 		}
 		return nullptr;
 	}
