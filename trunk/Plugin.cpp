@@ -29,7 +29,7 @@ namespace SpEx{
 	{
 	}
 
-	bool Plugin::zaladujZewnetrzneKlasyZmian(){
+	bool Plugin::zaladujZewnetrzneKlasyZmian( ZarzadcaZasobow & zarzadcaZasobow_ ){
 		struct _finddata_t plik;
 		intptr_t uchwytPliku;
 		std::string folder;
@@ -52,7 +52,8 @@ namespace SpEx{
 		else
 		{
 			do {
-				HMODULE uchwytBiblioteki = LoadLibrary((folder + plik.name).c_str());
+				std::string plugin = folder + plik.name;
+				HMODULE uchwytBiblioteki = LoadLibrary(plugin.c_str());
 				if (uchwytBiblioteki){
 					auto fun = (SZmi::ZmianaFabryka::RejestrujZmiane)GetProcAddress(uchwytBiblioteki, ZMIANA_NAZWA_FUNKCJI_LADUJACEJ_KLASY_ZMIAN);
 					if (fun){
@@ -61,6 +62,7 @@ namespace SpEx{
 							log_.loguj(SLog::Log::Info, PLUGIN_ZALADOWANO_ZMIANE);
 							log_.loguj(SLog::Log::Info, plik.name);
 #endif
+							lista_.push_back(zarzadcaZasobow_.pobierzZasob<SumaKontrolnaPliku>(plugin));
 						} else{
 #ifndef LOG_OFF_ALL
 							log_.loguj(SLog::Log::Info, PLUGIN_BLAD_LADOWANIA_ZMIANY);
@@ -127,6 +129,12 @@ namespace SpEx{
 	std::string Plugin::napis() const{
 		SLog::Logger logger(NAZWAKLASY(Plugin));
 		logger.dodajPole(NAZWAKLASY(folderPluginow_), NAZWAKLASY2(folderPluginow_), folderPluginow_);
+		logger.rozpocznijPodKlase("ListaSumKontrolnych");
+		for (auto& e : lista_){
+			if (e)
+				logger.dodajKlase(e->napis());
+		}
+		logger.zakonczPodKlase();
 		return logger.napis();
 	}
 

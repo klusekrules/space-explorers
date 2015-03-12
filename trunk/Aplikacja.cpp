@@ -266,7 +266,7 @@ namespace SpEx{
 		if (!pluginy_->zaladujDomyslneKlasyZmian())
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DOMYSLNYCH);
 
-		if (!pluginy_->zaladujZewnetrzneKlasyZmian())
+		if (!pluginy_->zaladujZewnetrzneKlasyZmian(*zarzadcaZasobow_))
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DODATKOWYCH);
 
 		instancjaGry_ = std::make_shared<Gra>(logger_, *zarzadcaLokacji_, ustawienia_);

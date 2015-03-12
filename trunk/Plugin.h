@@ -2,7 +2,8 @@
 #include "Logger\LoggerInterface.h"
 #include "Zmiana\ZmianaFabryka.h"
 #include "UstawieniaAplikacji.h"
-
+#include "SumaKontrolnaPliku.h"
+#include <list>
 #define ATRYBUT_FOLDER_PLUGINOW "plugins"
 
 namespace SpEx{
@@ -13,7 +14,7 @@ namespace SpEx{
 		SZmi::ZmianaFabryka& fabryka_; /// Referencja na fabrykê zmian.
 		SLog::Log& log_; /// Referencja na obiekt logów.
 		std::string folderPluginow_; /// Œcie¿ka do folderu zawierajacy pluginy.
-
+		std::list < SumaKontrolnaPliku::SharedPtr > lista_;
 	public:
 		Plugin() = delete;
 		virtual ~Plugin() = default;
@@ -44,7 +45,7 @@ namespace SpEx{
 		* \version 1
 		* \date 11-07-2013
 		*/
-		bool zaladujZewnetrzneKlasyZmian();
+		bool zaladujZewnetrzneKlasyZmian(ZarzadcaZasobow & zarzadcaZasobow_);
 
 		/**
 		* Funkcja s³u¿¹ca do tworzenia napisów z opisem klasy.
