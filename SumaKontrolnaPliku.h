@@ -4,7 +4,8 @@
 
 namespace SpEx{
 	class SumaKontrolnaPliku
-		: public Zasob
+		: public Zasob,
+		virtual public SLog::LoggerInterface
 	{
 	public:
 		friend class std::_Ref_count_obj<SumaKontrolnaPliku>;
@@ -23,6 +24,8 @@ namespace SpEx{
 		inline const SHA3& pobierzSumeKontrolna() const{
 			return sumaKontrolna_;
 		}
+
+		std::string napis() const override;
 
 	private:
 		SumaKontrolnaPliku(const std::string& plik);
