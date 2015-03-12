@@ -52,7 +52,7 @@ namespace SpEx{
 		* \version 1
 		* \date 25-07-2014
 		*/
-		std::shared_ptr<Skrypt> TworzSkrypt(XmlBO::ElementWezla wezel) const;
+		std::shared_ptr<Skrypt> tworzSkrypt(XmlBO::ElementWezla wezel) const;
 
 		/**
 		* \brief Metoda tworzy skrypt.
@@ -65,7 +65,7 @@ namespace SpEx{
 		* \version 1
 		* \date 25-07-2014
 		*/
-		std::shared_ptr<Skrypt> TworzSkrypt(const IdentyfikatorSkryptu& identyfikator, XmlBO::ElementWezla wezel) const;
+		std::shared_ptr<Skrypt> tworzSkrypt(const IdentyfikatorSkryptu& identyfikator, XmlBO::ElementWezla wezel) const;
 
 		/**
 		* \brief Metoda tworzy skrypt.
@@ -77,7 +77,7 @@ namespace SpEx{
 		* \version 1
 		* \date 06-08-2014
 		*/
-		std::shared_ptr<Skrypt> TworzSkrypt(const std::string& plik) const;
+		std::shared_ptr<Skrypt> tworzSkrypt(const std::string& plik) const;
 
 		/**
 		* \brief Metoda tworz¹ca zmianê.
@@ -90,7 +90,7 @@ namespace SpEx{
 		* \version 1
 		* \date 25-07-2014
 		*/
-		std::shared_ptr<SZmi::ZmianaInterfejs> TworzZmiane(XmlBO::ElementWezla wezel) const;
+		std::shared_ptr<SZmi::ZmianaInterfejs> tworzZmiane(XmlBO::ElementWezla wezel) const;
 
 		/**
 		* \brief Metoda pobieraj¹ca fabryke zmian.
@@ -103,10 +103,10 @@ namespace SpEx{
 		*/
 		SZmi::ZmianaFabryka& pobierzFabrykeZmian();
 
-		std::shared_ptr<MetodaRPC> TworzMetodeRPC(const Json::Value &, Klient&) const;
+		std::shared_ptr<MetodaRPC> tworzMetodeRPC(const Json::Value &, Klient&) const;
 		
 		template <class T_>
-		inline std::shared_ptr<T_> TworzMetodeRPC(Klient& klient){
+		inline std::shared_ptr<T_> tworzMetodeRPC(Klient& klient){
 			auto ptr = std::make_shared<T_>(klient);
 			ptr->nazwa_ = typename T_::NazwaTypu_;
 			ptr->id_unikalne_ = std::to_string(static_cast<unsigned long long>(identyfikatorZadania_()()));
@@ -120,13 +120,13 @@ namespace SpEx{
 		}
 
 		template <class T_>
-		inline bool RejestrujMetodeRPC(){
-			return Rejestruj<T_>(metodRpcCallbacks_, &Fabrykator::tworz<T_>);
+		inline bool rejestrujMetodeRPC(){
+			return rejestruj<T_>(metodRpcCallbacks_, &Fabrykator::tworz<T_>);
 		}
 
 		template <class T_>
-		inline bool RejestrujSkrypt(){
-			return Rejestruj<T_>(callbacks_, &typename T_::Tworz);
+		inline bool rejestrujSkrypt(){
+			return rejestruj<T_>(callbacks_, &typename T_::Tworz);
 		}
 
 		/**
@@ -144,7 +144,7 @@ namespace SpEx{
 		typedef std::map<IdentyfikatorMetoryRPC, KreatorMetodyRPC> TablicaKreatorowMetodRPC;
 		
 		template <class T_, class K_, class F_>
-		inline bool Rejestruj(K_ & kontener, F_ funkcja){
+		inline bool rejestruj(K_ & kontener, F_ funkcja){
 			if (typename T_::NazwaTypu_.empty() || kontener.find(typename T_::NazwaTypu_) != kontener.end())
 				return false;
 			kontener[typename T_::NazwaTypu_] = funkcja;

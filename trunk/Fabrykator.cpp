@@ -11,7 +11,7 @@
 #include "StackThrow.h"
 
 namespace SpEx{
-	std::shared_ptr<MetodaRPC> Fabrykator::TworzMetodeRPC(const Json::Value & root, Klient& klient) const{
+	std::shared_ptr<MetodaRPC> Fabrykator::tworzMetodeRPC(const Json::Value & root, Klient& klient) const{
 		if (root.isObject()){
 			auto value = root[METODA_RPC_METODA][METODA_RPC_NAZWA];
 			if (value.isString()){
@@ -23,20 +23,20 @@ namespace SpEx{
 		return nullptr;
 	}
 
-	std::shared_ptr<Skrypt> Fabrykator::TworzSkrypt(XmlBO::ElementWezla wezel) const{
+	std::shared_ptr<Skrypt> Fabrykator::tworzSkrypt(XmlBO::ElementWezla wezel) const{
 		IdentyfikatorSkryptu id;
 		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_SKRYPT_TYP, id);
-		return TworzSkrypt(id, wezel);
+		return tworzSkrypt(id, wezel);
 	}
 
-	std::shared_ptr<Skrypt> Fabrykator::TworzSkrypt(const IdentyfikatorSkryptu& identyfikator, XmlBO::ElementWezla wezel) const{
+	std::shared_ptr<Skrypt> Fabrykator::tworzSkrypt(const IdentyfikatorSkryptu& identyfikator, XmlBO::ElementWezla wezel) const{
 		auto iterator = callbacks_.find(identyfikator());
 		if (iterator == callbacks_.end())
 			return nullptr;
 		return iterator->second(wezel);
 	}
 	
-	std::shared_ptr<Skrypt> Fabrykator::TworzSkrypt(const std::string& plik) const{
+	std::shared_ptr<Skrypt> Fabrykator::tworzSkrypt(const std::string& plik) const{
 		std::string ext;
 		if (!Utils::pobierzRozszezenie(plik, ext)){
 			return nullptr;
@@ -46,11 +46,11 @@ namespace SpEx{
 		auto wezel = dokument.tworzElement("Skrypt");
 		wezel->tworzAtrybut(ATRYBUT_XML_SKRYPT_FILE, plik.c_str());
 
-		return TworzSkrypt(ext, wezel);
+		return tworzSkrypt(ext, wezel);
 	}
 
-	std::shared_ptr<SZmi::ZmianaInterfejs> Fabrykator::TworzZmiane(XmlBO::ElementWezla wezel) const{
-		return fabrykaZmian_.Tworz(wezel);
+	std::shared_ptr<SZmi::ZmianaInterfejs> Fabrykator::tworzZmiane(XmlBO::ElementWezla wezel) const{
+		return fabrykaZmian_.tworz(wezel);
 	}
 
 	SZmi::ZmianaFabryka& Fabrykator::pobierzFabrykeZmian(){

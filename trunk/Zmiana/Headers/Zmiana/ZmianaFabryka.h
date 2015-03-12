@@ -50,7 +50,7 @@ namespace SZmi{
 		* \pre Wêze³ powinien mieæ poprawny atrybut o nazwie zdefiniowanej przez ATRYBUT_XML_IDENTYFIKATOR zawieraj¹cy identyfikator podany podczas rejestracji w funkcji rejestracjaZmiany.
 		* \sa rejestracjaZmiany(), ATRYBUT_XML_IDENTYFIKATOR
 		*/
-		std::shared_ptr<ZmianaInterfejs> Tworz(XmlBO::ElementWezla wezel) const;
+		std::shared_ptr<ZmianaInterfejs> tworz(XmlBO::ElementWezla wezel) const;
 
 		/**
 		* Metoda rejestruj¹ca funkcjê tworz¹c¹ obiekt pochodny po ZmianaInterfejs.

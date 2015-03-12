@@ -23,7 +23,7 @@ void KomunikacjaSieciowaTest::testEcho(){
 	UNIT_TEST_ASSERT_NOTNULL(serwer_);
 	UNIT_TEST_ASSERT_NOTNULL(klient_);
 
-	auto ptr = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().TworzMetodeRPC<SpEx::EchoRPC>(*klient_);
+	auto ptr = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().tworzMetodeRPC<SpEx::EchoRPC>(*klient_);
 	if (ptr){
 		std::string echo("Do Serwera");
 		ptr->dodajParametr("Echo", echo);
@@ -35,7 +35,7 @@ void KomunikacjaSieciowaTest::testInicjalizacjiLogowania(){
 	UNIT_TEST_ASSERT_NOTNULL(serwer_);
 	UNIT_TEST_ASSERT_NOTNULL(klient_);
 
-	auto ptr = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().TworzMetodeRPC<SpEx::InicjujLogowanieRPC>(*klient_);
+	auto ptr = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().tworzMetodeRPC<SpEx::InicjujLogowanieRPC>(*klient_);
 	if (ptr){
 		std::string haslo("haslo");
 		SHA3 sha3(haslo);
@@ -51,7 +51,7 @@ void KomunikacjaSieciowaTest::testPotwierdzajacyLogowanie(){
 	UNIT_TEST_ASSERT_NOTNULL(serwer_);
 	UNIT_TEST_ASSERT_NOTNULL(klient_);
 
-	auto ptr = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().TworzMetodeRPC<SpEx::PotwierdzLogowanieRPC>(*klient_);
+	auto ptr = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().tworzMetodeRPC<SpEx::PotwierdzLogowanieRPC>(*klient_);
 	if (ptr){
 		UNIT_TEST_ASSERT_EQUAL(ptr->wykonajMetode(), RPC_OK);
 	}

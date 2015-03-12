@@ -9,7 +9,7 @@ namespace SZmi{
 	{
 		XmlBO::ElementWezla zmiana = XmlBO::ZnajdzWezel<NOTHROW>(wezel, XML_WEZEL_ZMIANA);
 		if (fabryka_ && zmiana){
-			wykladnik_ = fabryka_->Tworz(zmiana);
+			wykladnik_ = fabryka_->tworz(zmiana);
 			if (!wykladnik_)
 				SPar::ParserUtils::generujWyjatekBleduStruktury(zmiana,STyp::Tekst());
 		}

@@ -252,11 +252,11 @@ namespace SpEx{
 		zarzadcaZasobow_->rejestruj<SumaKontrolnaPliku>();
 
 		/* ------- Rejestrowanie zdalnych metod -------*/
-		fabrykator_->RejestrujMetodeRPC<EchoRPC>();
-		fabrykator_->RejestrujMetodeRPC<InicjujLogowanieRPC>();
-		fabrykator_->RejestrujMetodeRPC<PotwierdzLogowanieRPC>();
-		fabrykator_->RejestrujSkrypt<DllSkrypt>();
-		fabrykator_->RejestrujSkrypt<LuaSkrypt>();
+		fabrykator_->rejestrujMetodeRPC<EchoRPC>();
+		fabrykator_->rejestrujMetodeRPC<InicjujLogowanieRPC>();
+		fabrykator_->rejestrujMetodeRPC<PotwierdzLogowanieRPC>();
+		fabrykator_->rejestrujSkrypt<DllSkrypt>();
+		fabrykator_->rejestrujSkrypt<LuaSkrypt>();
 
 		pluginy_ = std::make_shared<Plugin>(ustawienia_, fabrykator_->pobierzFabrykeZmian(), logger_);
 

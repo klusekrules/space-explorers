@@ -71,7 +71,7 @@ namespace SpEx{
 			if (error){
 				dodajKomunikatBledu(error, root);
 			} else{
-				auto metodaRPC = Aplikacja::pobierzInstancje().pobierzFabrykator().TworzMetodeRPC(root, ref_);
+				auto metodaRPC = Aplikacja::pobierzInstancje().pobierzFabrykator().tworzMetodeRPC(root, ref_);
 				if (metodaRPC){
 					if (metodaRPC->obsluzMetode(root)){
 						//Pobieranie flag steruj¹cych dla pakietu zwrotnego.
