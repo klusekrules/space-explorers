@@ -10,7 +10,7 @@ namespace SZmi{
 		return true;
 	}
 	
-	std::shared_ptr<ZmianaInterfejs> ZmianaFabryka::Tworz(XmlBO::ElementWezla wezel) const {
+	std::shared_ptr<ZmianaInterfejs> ZmianaFabryka::tworz(XmlBO::ElementWezla wezel) const {
 		if (wezel){
 			STyp::Identyfikator id;
 			if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, XML_ATRYBUT_ZMIANA_ID, id))

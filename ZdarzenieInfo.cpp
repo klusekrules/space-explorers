@@ -29,7 +29,7 @@ namespace SpEx{
 
 				funcInside_ = XmlBO::WczytajAtrybut<std::string>(wezel, ATRYBUT_XML_SKRYPT_FUNC_INSIDE, std::string());
 
-				skrypt_ = Aplikacja::pobierzInstancje().pobierzFabrykator().TworzSkrypt(wezel);
+				skrypt_ = Aplikacja::pobierzInstancje().pobierzFabrykator().tworzSkrypt(wezel);
 				if (!skrypt_)
 					Utils::generujWyjatekBleduStruktury(wezel);
 			}

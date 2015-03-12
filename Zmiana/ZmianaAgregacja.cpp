@@ -9,7 +9,7 @@ namespace SZmi{
 			XmlBO::ElementWezla wezelNastepny = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, XML_WEZEL_ZMIANA, XML_ATRYBUT_ZMIANA_FOR, XML_WARTOSC_ATRYBUTU_ZMIANA_NASTEPNY);
 			if (!wezelNastepny)
 				SPar::ParserUtils::generujWyjatekBleduStruktury(wezel, STyp::Tekst());
-			nastepna_ = fabryka_->Tworz(wezelNastepny);
+			nastepna_ = fabryka_->tworz(wezelNastepny);
 			if (!nastepna_)
 				SPar::ParserUtils::generujWyjatekBleduStruktury(wezelNastepny, STyp::Tekst());
 
@@ -17,7 +17,7 @@ namespace SZmi{
 			if (!dziecko)
 				SPar::ParserUtils::generujWyjatekBleduStruktury(wezel, STyp::Tekst());
 			for (; dziecko; dziecko = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, XML_WEZEL_ZMIANA, XML_ATRYBUT_ZMIANA_FOR, XML_WARTOSC_ATRYBUTU_ZMIANA_BRAT, dziecko)){
-				auto element = fabryka_->Tworz(dziecko);
+				auto element = fabryka_->tworz(dziecko);
 				if (element)
 					listaZmian_.push_back(element);
 				else

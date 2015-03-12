@@ -100,7 +100,7 @@ extern "C"{
 			sFunkcja.append(funkcja);
 		}
 		std::function<void()> lambda = [sPlik, sFunkcja](void)->void{
-			std::shared_ptr<SpEx::Skrypt> skrypt = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().TworzSkrypt(sPlik);
+			std::shared_ptr<SpEx::Skrypt> skrypt = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().tworzSkrypt(sPlik);
 			if (skrypt){
 				skrypt->wykonaj(sFunkcja);
 			}
@@ -267,7 +267,7 @@ extern "C"{
 		}
 
 		std::function<void()> lambda = [sPlik, sFunkcja]()->void{
-			std::shared_ptr<SpEx::Skrypt> skrypt = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().TworzSkrypt(sPlik);
+			std::shared_ptr<SpEx::Skrypt> skrypt = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().tworzSkrypt(sPlik);
 			if (skrypt){
 				skrypt->wykonaj(sFunkcja);
 			}
