@@ -370,6 +370,7 @@
     <ClInclude Include="OknoGry.h" />
     <ClInclude Include="ParserTest.h" />
     <ClInclude Include="PlanetaTest.h" />
+    <ClInclude Include="Plugin.h" />
     <ClInclude Include="PomocniczeTypyTGUI.h" />
     <ClInclude Include="PowtorzenieIdObiektu.h" />
     <ClInclude Include="RoundedRectangleShape.hpp" />
@@ -539,6 +540,7 @@
     <ClCompile Include="ParserTest.cpp" />
     <ClCompile Include="Planeta.cpp" />
     <ClCompile Include="PlanetaTest.cpp" />
+    <ClCompile Include="Plugin.cpp" />
     <ClCompile Include="PodstawoweParametry.cpp" />
     <ClCompile Include="PowtorzenieIdObiektu.cpp" />
     <ClCompile Include="RoundedRectangleShape.cpp" />
@@ -888,9 +890,6 @@
     </ProjectReference>
     <ProjectReference Include="Parser\Parser.vcxproj">
       <Project>{c8c552aa-0fb6-40ca-805d-122e7eb00225}</Project>
-    </ProjectReference>
-    <ProjectReference Include="plugin\plugin.vcxproj">
-      <Project>{a247cfe6-877a-47b4-ab8b-8dfe7bec1b9e}</Project>
     </ProjectReference>
     <ProjectReference Include="SFML\src\SFML\SFML_Audio.vcxproj">
       <Project>{ce1c0ac7-d05b-433c-a5ee-143e15037af2}</Project>

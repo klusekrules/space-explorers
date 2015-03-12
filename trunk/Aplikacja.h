@@ -33,16 +33,13 @@ typedef BOOL (WINAPI *SymFromAddrS)( _In_ HANDLE hProcess, _In_ DWORD64 Address,
 
 
 // ----------------------------
-namespace SPlu{
-	class Cplugin;
-}
 
 namespace SPar{
 	class ParserElement;
 }
 
 namespace SpEx {
-
+	class Plugin;
 	class Fabrykator;
 	class Gra;
 	class ZarzadcaLokacji;
@@ -193,7 +190,7 @@ namespace SpEx {
 		*/
 		void logApInfo() const;
 
-		std::shared_ptr<SPlu::Cplugin> pluginy_; /// Obiekt zarz¹dzaj¹cy plugginami.
+		std::shared_ptr<Plugin> pluginy_; /// Obiekt zarz¹dzaj¹cy plugginami.
 		std::shared_ptr<Gra> instancjaGry_; /// Obiekt prezentuj¹cy instancjê gry.
 		std::shared_ptr<Fabrykator> fabrykator_; /// Instacja obiektu przechowuj¹cego zbiór fabryk.
 		std::shared_ptr<ZarzadcaZasobow> zarzadcaZasobow_; /// Zarz¹dca zasobów.

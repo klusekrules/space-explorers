@@ -29,7 +29,7 @@
 #include "Fabrykator.h"
 #include "ZarzadcaZasobow.h"
 #include "Gra.h"
-#include "plugin\plugin.h"
+#include "Plugin.h"
 #include "ZarzadcaUzytkownikow.h"
 #include "ZarzadcaLokacji.h"
 
@@ -58,7 +58,6 @@
 #define ATRYBUT_ODBLOKOWANE_LOGI "odblokowaneLogi"
 #define ATRYBUT_ZABLOKOWANE_LOGI "zablokowaneLogi"
 #define ATRYBUT_PRZEDROSTEK_PLIKU_LOGOW "prefixPlikuLogow"
-#define ATRYBUT_FOLDER_PLUGINOW "plugins"
 #define ATRYBUT_JEZYK_APLIKACJI "locale"
 #define ATRYBUT_JEZYK_APLIKACJI_DOMYSLNY "Polish"
 #define ATRYBUT_PLIK_DANYCH "data"
@@ -259,7 +258,7 @@ namespace SpEx{
 		fabrykator_->RejestrujSkrypt<DllSkrypt>();
 		fabrykator_->RejestrujSkrypt<LuaSkrypt>();
 
-		pluginy_ = std::make_shared<SPlu::Cplugin>(ustawienia_[ATRYBUT_FOLDER_PLUGINOW], fabrykator_->pobierzFabrykeZmian(), logger_);
+		pluginy_ = std::make_shared<Plugin>(ustawienia_, fabrykator_->pobierzFabrykeZmian(), logger_);
 
 		if (!RejestrujZmianaPoziomObiektu(fabrykator_->pobierzFabrykeZmian(), logger_))
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIANY_POZIOMU);
