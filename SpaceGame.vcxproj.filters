@@ -373,6 +373,9 @@
     <ClCompile Include="StackThrow.cpp">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClCompile>
+    <ClCompile Include="Plugin.cpp">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -797,6 +800,9 @@
     </ClInclude>
     <ClInclude Include="StackThrow.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
+    </ClInclude>
+    <ClInclude Include="Plugin.h">
+      <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
