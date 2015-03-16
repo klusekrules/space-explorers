@@ -546,9 +546,6 @@
     <ClInclude Include="version.h">
       <Filter>Resource\Wersja</Filter>
     </ClInclude>
-    <ClInclude Include="svn_version.h">
-      <Filter>Resource\Wersja</Filter>
-    </ClInclude>
     <ClInclude Include="OknoGry.h">
       <Filter>SourceFile\GUI\Ekrany</Filter>
     </ClInclude>
@@ -999,9 +996,6 @@
     </None>
     <None Include="out\resource\simple.frag">
       <Filter>Resource\Shadery</Filter>
-    </None>
-    <None Include="svn_version.h.tmpl">
-      <Filter>Resource\Wersja</Filter>
     </None>
     <None Include="out\lua\interfejs.lua">
       <Filter>Data\Skrypty</Filter>
