@@ -1,0 +1,20 @@
+Lista dodatkowych aplikacji używanych w projekcie:
+
+Sprawdzanie poprawności kodu
+http://sourceforge.net/projects/cppcheck/
+
+Generowanie dokumentacji
+http://www.doxygen.org/‎
+http://www.graphviz.org/
+
+Diagram UML
+http://sourceforge.net/projects/whitestaruml/
+
+Usuwanie pustych folderów
+http://vanityremover.codeplex.com/
+
+Licznie linii kodu
+http://cloc.sourceforge.net/
+
+Narzędzie do tworzenia instalatora
+http://wixtoolset.org/
