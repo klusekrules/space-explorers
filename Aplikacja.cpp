@@ -107,6 +107,7 @@ namespace SpEx{
 		zarzadcaZasobow_ = std::make_shared<ZarzadcaZasobow>();
 		zarzadcaLokacji_ = std::make_shared<ZarzadcaLokacji>();
 		zarzadcaUzytkownikow_ = std::make_shared<ZarzadcaUzytkownikow>();
+
 		/* ------- Wstêpna konfiguracja logów ------- */
 		logger_.dodajGniazdoWyjsciowe([](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{ 
 			std::string sTyp;
