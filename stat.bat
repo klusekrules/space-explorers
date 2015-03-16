@@ -4,6 +4,6 @@ rem cloc --skip-win-hidden --quiet --by-file-by-lang --out="%1\doc\ProjStat.txt"
 rem echo Zakonczono zbieranie statystyk
 
 echo describe:
-call "C:\Program Files (x86)\Git\bin\git" describe --always
+call "C:\Program Files (x86)\Git\bin\git" describe --tags
 echo rev-parse:
-call "C:\Program Files (x86)\Git\bin\git" rev-parse
+call "C:\Program Files (x86)\Git\bin\git" rev-parse HEAD
