@@ -160,5 +160,7 @@ namespace SpEx{
 
 		static std::vector < SLog::Log::TypLogow > dekodujListeTypowLogow(const std::string& str);
 
+		static bool tworzSciezke(const std::string& path);
+
 	};
 }

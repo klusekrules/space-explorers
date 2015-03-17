@@ -1,6 +1,7 @@
 #include "Utils.h"
 #include "Aplikacja.h"
 #include "Fabrykator.h"
+#include <direct.h>
 
 namespace SpEx{
 
@@ -113,5 +114,23 @@ namespace SpEx{
 			}
 		}
 		return ret;
+	}
+
+	bool Utils::tworzSciezke(const std::string& path){
+		std::string::size_type pos = 0;
+		do{
+			// Pomijianie backslash i slash
+			for (; pos < path.size() && (path[pos] == '\\' || path[pos] == '/'); ++pos);
+
+			// Pobieranie kolejnego stopnia œcie¿ki
+			pos = path.find_first_of("\\/", pos);
+			std::string folder = path.substr(0, pos);
+
+			// Tworzenie œcie¿ki
+			if (_mkdir(folder.c_str()) && errno != EEXIST){
+				return false;
+			}
+		} while (pos != std::string::npos);
+		return true;
 	}
 }

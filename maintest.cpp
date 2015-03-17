@@ -1,9 +1,5 @@
 #include "Aplikacja.h"
-#include <SFML/Graphics.hpp>
 #include "MaszynaStanow.h"
-#include "lua.hpp"
-#include "Serwer.h"
-#include "Klient.h"
 
 #ifdef TESTS
 #define _CRTDBG_MAP_ALLOC

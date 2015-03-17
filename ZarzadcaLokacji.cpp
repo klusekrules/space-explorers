@@ -2,8 +2,15 @@
 #include "Parser\ParserDokumentXml.h"
 #include "definicjeWezlowXML.h"
 #include "StackThrow.h"
+#include <io.h>
+#include <direct.h>
+#include "Utils.h"
+#include "BladKonfiguracjiAplikacji.h"
 
 #define ATRYBUT_FOLDER_PLIKU_UKLADU "folderPlikowOpisuUkladow"
+
+#define KOMUNIKAT_BLAD_BRAK_DOSTEPU_DO_FOLDERU(folder) STyp::Tekst("Brak praw dostêpu do folderu :" + folder)
+#define KOMUNIKAT_BLAD_TWORZEZNIA_FOLDERU(folder) STyp::Tekst("B³ad tworzenia folderu :" + folder)
 
 namespace SpEx {
 
@@ -237,6 +244,14 @@ namespace SpEx {
 
 	void ZarzadcaLokacji::inicjalizuj(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos){
 		folderPlikuUkladu_ = ustawienia[ATRYBUT_FOLDER_PLIKU_UKLADU];
+		if (_access(folderPlikuUkladu_.c_str(), 0) == -1){
+			if (!Utils::tworzSciezke(folderPlikuUkladu_)){
+				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(stos()), STyp::Tekst(""), KOMUNIKAT_BLAD_TWORZEZNIA_FOLDERU(folderPlikuUkladu_));
+			}
+		}
+		if (_access(folderPlikuUkladu_.c_str(), 06) == -1){
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(stos()), STyp::Tekst(""), KOMUNIKAT_BLAD_BRAK_DOSTEPU_DO_FOLDERU(folderPlikuUkladu_));
+		}
 	}
 
 	std::string ZarzadcaLokacji::napis() const{
