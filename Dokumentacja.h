@@ -263,112 +263,112 @@
 
 /** \page milestone-prealppha0_0_1 Zmiany od wersji 0.0.1 do 0.0.2
  * \section lista_zew_0_0_1 Link do listy zadañ
- * <A HREF="http://code.google.com/p/space-explorers/issues/list?can=1&q=Milestone%3DPreAlppha0.0.1&sort=priority+-modified&groupby=milestone&colspec=ID+Type+Status+Priority+Owner+Summary&x=priority&y=milestone&cells=tiles">Pe³na lista zadañ dla wersji 0.0.1</A>
+ * <A HREF="https://github.com/klusekrules/space-explorers/issues?q=milestone%3A%22PreAlpha+0.0.1%22+is%3Aclosed">Pe³na lista zadañ dla wersji 0.0.1</A>
  * \section lista_zmian_0_0_1 Opis zmian
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=1">[Issue-1]</A> </tt> Przeniesienie projektu na nowy serwer.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=3">[Issue-3]</A> </tt> Dodano bibliotekê TinyXML++ do parsowania plików xml.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=5">[Issue-5]</A> </tt> Dodano klasê JednostkaAtakujaca.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=6">[Issue-6]</A> </tt> Dodano klasê JednostkaLatajaca.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=7">[Issue-7]</A> </tt> Dodano klasê Surowce.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=8">[Issue-8]</A> </tt> Dodano klasê Cena.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=9">[Issue-9]</A> </tt> Dodano klasê Wymagania.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=12">[Issue-12]</A> </tt> Dodano metodê pobieraj¹c¹ masê obiektów znajduj¹cych siê w ³adowni.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=13">[Issue-13]</A> </tt> Przebudowano klasê przechowuj¹c¹ listê obiektów.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=14">[Issue-14]</A> </tt> Rozbudowano klasê Log.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=15">[Issue-15]</A> </tt> Zaimplenetowano metody atak, pancerz, oslona w klasie JednostkaAtakuj¹ca.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=16">[Issue-16]</A> </tt> Dodano drukowanie œladu stosu razem z komunikatem wyj¹tku.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=18">[Issue-18]</A> </tt> Zmieniono klasy wyj¹tków.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=21">[Issue-21]</A> </tt> Dodano klasê Statek.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=23">[Issue-23]</A> </tt> Zmiana miejsca przechowuj¹cego wymagania.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=25">[Issue-25]</A> </tt> Dodano klasy LadowniaInfo, StatekInfo.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=26">[Issue-26]</A> </tt> Rozsze¿enie testów jednostkowych.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=27">[Issue-27]</A> </tt> Zmiana w tworzeniu logów. 
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=28">[Issue-28]</A> </tt> Dodano numer wersji programu w pliku wykonywalnym.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/1">[Issue-1]</A> </tt> Przeniesienie projektu na nowy serwer.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/3">[Issue-3]</A> </tt> Dodano bibliotekê TinyXML++ do parsowania plików xml.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/5">[Issue-5]</A> </tt> Dodano klasê JednostkaAtakujaca.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/6">[Issue-6]</A> </tt> Dodano klasê JednostkaLatajaca.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/7">[Issue-7]</A> </tt> Dodano klasê Surowce.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/8">[Issue-8]</A> </tt> Dodano klasê Cena.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/9">[Issue-9]</A> </tt> Dodano klasê Wymagania.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/12">[Issue-12]</A> </tt> Dodano metodê pobieraj¹c¹ masê obiektów znajduj¹cych siê w ³adowni.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/13">[Issue-13]</A> </tt> Przebudowano klasê przechowuj¹c¹ listê obiektów.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/14">[Issue-14]</A> </tt> Rozbudowano klasê Log.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/15">[Issue-15]</A> </tt> Zaimplenetowano metody atak, pancerz, oslona w klasie JednostkaAtakuj¹ca.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/16">[Issue-16]</A> </tt> Dodano drukowanie œladu stosu razem z komunikatem wyj¹tku.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/18">[Issue-18]</A> </tt> Zmieniono klasy wyj¹tków.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/21">[Issue-21]</A> </tt> Dodano klasê Statek.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/23">[Issue-23]</A> </tt> Zmiana miejsca przechowuj¹cego wymagania.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/25">[Issue-25]</A> </tt> Dodano klasy LadowniaInfo, StatekInfo.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/26">[Issue-26]</A> </tt> Rozsze¿enie testów jednostkowych.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/27">[Issue-27]</A> </tt> Zmiana w tworzeniu logów. 
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/28">[Issue-28]</A> </tt> Dodano numer wersji programu w pliku wykonywalnym.
  */
 
 /** \page milestone-prealppha0_0_2 Zmiany od wersji 0.0.2 do 0.0.3
  * \section lista_zew_0_0_2 Link do listy zadañ
- * <A HREF="http://code.google.com/p/space-explorers/issues/list?can=1&q=Milestone%3DPreAlppha0.0.2&sort=priority+-modified&groupby=milestone&colspec=ID+Type+Status+Priority+Owner+Summary&x=priority&y=milestone&cells=tiles">Pe³na lista zadañ dla wersji 0.0.2</A>
+ * <A HREF="https://github.com/klusekrules/space-explorers/issues?q=milestone%3A%22PreAlpha+0.0.2%22+is%3Aclosed">Pe³na lista zadañ dla wersji 0.0.2</A>
  * \section lista_zmian_0_0_2 Opis zmian
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=4">[Issue-4]</A> </tt> Dodano wczytywanie obiektów z pliku xml.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=11">[Issue-11]</A> </tt> Dodano klasy Budynek i BudynekInfo.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=19">[Issue-19]</A> </tt> Dodano klasy opisuj¹ce wymagania obiektu.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=20">[Issue-20]</A> </tt> Zmiana klasy Log ze statycznej na singleton.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=22">[Issue-22]</A> </tt> Dodano losowy czynnik do metod klasy JednostkaAtakujaca.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=30">[Issue-30]</A> </tt> Dodano wczytywanie klasy Wymagania oraz klas pochodnych po ZmianaInterfejs z pliku xml.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=31">[Issue-31]</A> </tt> Rozdzielono klasê Aplikacja.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=32">[Issue-32]</A> </tt> Dodano wspó³czynnik kosztu obiektu.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=33">[Issue-33]</A> </tt> Dodano typ surowca.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=36">[Issue-36]</A> </tt> Dodano klasy Technologia oraz TechnologiaInfo
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=42">[Issue-42]</A> </tt> Dodano zmiany parametrów dla wybranych klas.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=43">[Issue-43]</A> </tt> Dodano czas trwania testów.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=46">[Issue-46]</A> </tt> Zmiana struktury generowania logów.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=47">[Issue-47]</A> </tt> Dodano wczytywanie klas pochodznych po ZmianaInterfejs z bilbiotek dll.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=48">[Issue-48]</A> </tt> Dodano walidacje danych w pliku options.xml.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=50">[Issue-50]</A> </tt> Zmian sposobu dzi³ania testów.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=51">[Issue-51]</A> </tt> Zmiana miejsca przechowywania poziomu obiektu.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=52">[Issue-52]</A> </tt> Dodano numer wersji w bibliotekach dll.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/4">[Issue-4]</A> </tt> Dodano wczytywanie obiektów z pliku xml.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/11">[Issue-11]</A> </tt> Dodano klasy Budynek i BudynekInfo.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/19">[Issue-19]</A> </tt> Dodano klasy opisuj¹ce wymagania obiektu.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/20">[Issue-20]</A> </tt> Zmiana klasy Log ze statycznej na singleton.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/22">[Issue-22]</A> </tt> Dodano losowy czynnik do metod klasy JednostkaAtakujaca.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/30">[Issue-30]</A> </tt> Dodano wczytywanie klasy Wymagania oraz klas pochodnych po ZmianaInterfejs z pliku xml.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/31">[Issue-31]</A> </tt> Rozdzielono klasê Aplikacja.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/32">[Issue-32]</A> </tt> Dodano wspó³czynnik kosztu obiektu.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/33">[Issue-33]</A> </tt> Dodano typ surowca.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/36">[Issue-36]</A> </tt> Dodano klasy Technologia oraz TechnologiaInfo
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/42">[Issue-42]</A> </tt> Dodano zmiany parametrów dla wybranych klas.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/43">[Issue-43]</A> </tt> Dodano czas trwania testów.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/46">[Issue-46]</A> </tt> Zmiana struktury generowania logów.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/47">[Issue-47]</A> </tt> Dodano wczytywanie klas pochodznych po ZmianaInterfejs z bilbiotek dll.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/48">[Issue-48]</A> </tt> Dodano walidacje danych w pliku options.xml.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/50">[Issue-50]</A> </tt> Zmian sposobu dzi³ania testów.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/51">[Issue-51]</A> </tt> Zmiana miejsca przechowywania poziomu obiektu.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/52">[Issue-52]</A> </tt> Dodano numer wersji w bibliotekach dll.
  */
 
 /** \page milestone-prealppha0_0_3 Zmiany od wersji 0.0.3 do 0.0.4
  * \section lista_zew_0_0_3 Link do listy zadañ
- * <A HREF="http://code.google.com/p/space-explorers/issues/list?can=1&q=Milestone%3DPreAlppha0.0.3&sort=priority+-modified&groupby=milestone&colspec=ID+Type+Status+Priority+Owner+Summary&x=priority&y=milestone&cells=tiles">Pe³na lista zadañ dla wersji 0.0.3</A>
+ * <A HREF="https://github.com/klusekrules/space-explorers/issues?q=milestone%3A%22PreAlpha+0.0.3%22+is%3Aclosed">Pe³na lista zadañ dla wersji 0.0.3</A>
  * \section lista_zmian_0_0_3 Opis zmian
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=10">[Issue-10]</A> </tt> Dodano dokumentacje klas projektu.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=37">[Issue-37]</A> </tt> Dodano zapis i odczyt stanów gry.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=38">[Issue-38]</A> </tt> Dodano klasê Planeta.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=39">[Issue-39]</A> </tt> Poprawiono sprawdzanie spe³nienia wymagañ.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=40">[Issue-40]</A> </tt> Dodano definiecje nazw elementów xml.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=41">[Issue-41]</A> </tt> Dodano czas budowy i przeprowadzania badañ.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=49">[Issue-49]</A> </tt> Dodano obs³ugê systemowych sytuacji wyj¹tkowcyh.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=54">[Issue-54]</A> </tt> Gruntowna refaktoryzacja kodu.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=55">[Issue-55]</A> </tt> Dodano klasê PodstawoweParametry.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=57">[Issue-57]</A> </tt> Dodano now¹ klasê zmian.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=60">[Issue-60]</A> </tt> Dodano klasê Flota.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/10">[Issue-10]</A> </tt> Dodano dokumentacje klas projektu.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/37">[Issue-37]</A> </tt> Dodano zapis i odczyt stanów gry.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/38">[Issue-38]</A> </tt> Dodano klasê Planeta.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/39">[Issue-39]</A> </tt> Poprawiono sprawdzanie spe³nienia wymagañ.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/40">[Issue-40]</A> </tt> Dodano definiecje nazw elementów xml.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/41">[Issue-41]</A> </tt> Dodano czas budowy i przeprowadzania badañ.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/49">[Issue-49]</A> </tt> Dodano obs³ugê systemowych sytuacji wyj¹tkowcyh.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/54">[Issue-54]</A> </tt> Gruntowna refaktoryzacja kodu.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/55">[Issue-55]</A> </tt> Dodano klasê PodstawoweParametry.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/57">[Issue-57]</A> </tt> Dodano now¹ klasê zmian.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/60">[Issue-60]</A> </tt> Dodano klasê Flota.
  */
 
  /** \page milestone-prealppha0_0_4 Zmiany od wersji 0.0.4 do 0.0.5
  * \section lista_zew_0_0_4 Link do listy zadañ
- * <A HREF="http://code.google.com/p/space-explorers/issues/list?can=1&q=Milestone%3DPreAlppha0.0.4&sort=priority+-modified&groupby=milestone&colspec=ID+Type+Status+Priority+Owner+Summary&x=priority&y=milestone&cells=tiles">Pe³na lista zadañ dla wersji 0.0.4</A>
+ * <A HREF="https://github.com/klusekrules/space-explorers/issues?q=milestone%3A%22PreAlpha+0.0.4%22+is%3Aclosed">Pe³na lista zadañ dla wersji 0.0.4</A>
  * \section lista_zmian_0_0_4 Opis zmian
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=56">[Issue-56]</A> </tt> Dodano obiekt Obrona.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=58">[Issue-58]</A> </tt> Dodano poprawne logowanie u¿ytkownika.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=59">[Issue-59]</A> </tt> Dodanie generowania lokacji takich jak Galaktyka, Uk³ad S³oneczny, Planeta.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=61">[Issue-61]</A> </tt> Zmieniono rodzaj indeksy przechowywanych obiektów.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=62">[Issue-62]</A> </tt> Dodano listê misji dla klasy Flota.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=63">[Issue-63]</A> </tt> Walidacja plików xml
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=64">[Issue-64]</A> </tt> Analiza klasy Statek, wydzielenie nowej klasy Hangar do transportu obiektów.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=66">[Issue-66]</A> </tt> Zmiana tworzenia kosztu obiektu
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=67">[Issue-67]</A> </tt> Zaostrzenie kryteriów poprawnoœci plików xml.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=68">[Issue-68]</A> </tt> Tworzenie schematu plików xml.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=69">[Issue-69]</A> </tt> Analiza i implementacja nowego sposobu zapewniania tranzakcyjnoœci metod.
- * \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=70">[Issue-70]</A> </tt> Utworzenie instalatora.
- */
-
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/56">[Issue-56]</A> </tt> Dodano obiekt Obrona.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/58">[Issue-58]</A> </tt> Dodano poprawne logowanie u¿ytkownika.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/59">[Issue-59]</A> </tt> Dodanie generowania lokacji takich jak Galaktyka, Uk³ad S³oneczny, Planeta.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/61">[Issue-61]</A> </tt> Zmieniono rodzaj indeksy przechowywanych obiektów.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/62">[Issue-62]</A> </tt> Dodano listê misji dla klasy Flota.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/63">[Issue-63]</A> </tt> Walidacja plików xml
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/64">[Issue-64]</A> </tt> Analiza klasy Statek, wydzielenie nowej klasy Hangar do transportu obiektów.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/66">[Issue-66]</A> </tt> Zmiana tworzenia kosztu obiektu
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/67">[Issue-67]</A> </tt> Zaostrzenie kryteriów poprawnoœci plików xml.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/68">[Issue-68]</A> </tt> Tworzenie schematu plików xml.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/69">[Issue-69]</A> </tt> Analiza i implementacja nowego sposobu zapewniania tranzakcyjnoœci metod.
+ * \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/70">[Issue-70]</A> </tt> Utworzenie instalatora.
+ */  
+ 
 /** \page milestone-prealppha0_0_5 Zmiany od wersji 0.0.5 do 0.0.6
 * \section lista_zew_0_0_5 Link do listy zadañ
-* <A HREF="http://code.google.com/p/space-explorers/issues/list?can=1&q=Milestone%3DPreAlppha0.0.5&sort=priority+-modified&groupby=milestone&colspec=ID+Type+Status+Priority+Owner+Summary&x=priority&y=milestone&cells=tiles">Pe³na lista zadañ dla wersji 0.0.5</A>
+* <A HREF="https://github.com/klusekrules/space-explorers/issues?q=milestone%3A%22PreAlpha+0.0.5%22+is%3Aclosed">Pe³na lista zadañ dla wersji 0.0.5</A>
 * \section lista_zmian_0_0_5 Opis zmian
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=75">[Issue-75]</A> </tt> Wysypanie siê programu przy uruchomieniu bez parametrów .
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=76">[Issue-76]</A> </tt> Poprawa dokumentacji.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=77">[Issue-77]</A> </tt> Dodanie biblioteki do tworzenia GUI.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=78">[Issue-78]</A> </tt> Usprawnienie logów.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=79">[Issue-79]</A> </tt> Dodanie do instalatora plików dystrybucyjnych Visual'a.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=80">[Issue-80]</A> </tt> Dodanie menu aplikacji.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=81">[Issue-81]</A> </tt> Stworzenie maszyny stanów.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=82">[Issue-82]</A> </tt> Dodanie klasy do wywo³ywania skryptów lua.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=83">[Issue-83]</A> </tt> Wydzielenie klasy wczytuj¹cej opcje.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=84">[Issue-84]</A> </tt> Rozsze¿anie interfajsu dla skryptów lua.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=85">[Issue-85]</A> </tt> Zmiana parsera danych.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=87">[Issue-87]</A> </tt> Reorganizacja wyj¹tków.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=88">[Issue-88]</A> </tt> Dodanie wykonywania metody dll tak jak skryptu lua.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=89">[Issue-89]</A> </tt> Przeniesienie wczytywania plików skrytpu lua do zarz¹dcy pamiêci.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=90">[Issue-90]</A> </tt> Poprawa instalatora.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=91">[Issue-91]</A> </tt> Wczytywanie dokumentów w zarzadcy.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=92">[Issue-92]</A> </tt> Naprawa opcji budowania projektu.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=93">[Issue-93]</A> </tt> Rozbudowa instalatora.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=94">[Issue-94]</A> </tt> Modyfikacja biblioteki TGUI.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=95">[Issue-95]</A> </tt> Usuwanie gracza nie odpina planet.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=96">[Issue-96]</A> </tt> Dodawanie elementow do grida przez properties.
-* \li <tt> <A HREF="http://code.google.com/p/space-explorers/issues/detail?id=97">[Issue-97]</A> </tt> Wyszukiwanie elementu po drzewie okien a nie tylko po danym poziomie.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/75">[Issue-75]</A> </tt> Wysypanie siê programu przy uruchomieniu bez parametrów .
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/76">[Issue-76]</A> </tt> Poprawa dokumentacji.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/77">[Issue-77]</A> </tt> Dodanie biblioteki do tworzenia GUI.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/78">[Issue-78]</A> </tt> Usprawnienie logów.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/79">[Issue-79]</A> </tt> Dodanie do instalatora plików dystrybucyjnych Visual'a.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/80">[Issue-80]</A> </tt> Dodanie menu aplikacji.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/81">[Issue-81]</A> </tt> Stworzenie maszyny stanów.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/82">[Issue-82]</A> </tt> Dodanie klasy do wywo³ywania skryptów lua.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/83">[Issue-83]</A> </tt> Wydzielenie klasy wczytuj¹cej opcje.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/84">[Issue-84]</A> </tt> Rozsze¿anie interfajsu dla skryptów lua.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/85">[Issue-85]</A> </tt> Zmiana parsera danych.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/87">[Issue-87]</A> </tt> Reorganizacja wyj¹tków.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/88">[Issue-88]</A> </tt> Dodanie wykonywania metody dll tak jak skryptu lua.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/89">[Issue-89]</A> </tt> Przeniesienie wczytywania plików skrytpu lua do zarz¹dcy pamiêci.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/90">[Issue-90]</A> </tt> Poprawa instalatora.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/91">[Issue-91]</A> </tt> Wczytywanie dokumentów w zarzadcy.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/92">[Issue-92]</A> </tt> Naprawa opcji budowania projektu.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/93">[Issue-93]</A> </tt> Rozbudowa instalatora.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/94">[Issue-94]</A> </tt> Modyfikacja biblioteki TGUI.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/95">[Issue-95]</A> </tt> Usuwanie gracza nie odpina planet.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/96">[Issue-96]</A> </tt> Dodawanie elementow do grida przez properties.
+* \li <tt> <A HREF="https://github.com/klusekrules/space-explorers/issues/97">[Issue-97]</A> </tt> Wyszukiwanie elementu po drzewie okien a nie tylko po danym poziomie.
 */
