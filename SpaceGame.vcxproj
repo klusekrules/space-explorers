@@ -170,8 +170,7 @@
       <ShowProgress>false</ShowProgress>
     </ResourceCompile>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>$(SolutionDir)makeversion.bat ..</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">
@@ -207,8 +206,7 @@
       <ShowProgress>false</ShowProgress>
     </ResourceCompile>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>$(SolutionDir)makeversion.bat ..</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -229,8 +227,7 @@
       <AdditionalDependencies>lua51.lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>$(SolutionDir)makeversion.bat ..</Command>
     </PreBuildEvent>
     <ResourceCompile>
       <Culture>0x0015</Culture>
@@ -258,8 +255,7 @@
       <AdditionalDependencies>lua51.lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>$(SolutionDir)makeversion.bat ..</Command>
     </PreBuildEvent>
     <ResourceCompile>
       <Culture>0x0015</Culture>
@@ -289,8 +285,7 @@
       <AdditionalDependencies>lua51.lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>$(SolutionDir)makeversion.bat ..</Command>
     </PreBuildEvent>
     <ResourceCompile>
       <Culture>0x0015</Culture>
@@ -319,8 +314,7 @@
       <AdditionalDependencies>lua51.lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>$(SolutionDir)makeversion.bat ..</Command>
     </PreBuildEvent>
     <ResourceCompile>
       <Culture>0x0015</Culture>
@@ -603,6 +597,7 @@
   <ItemGroup>
     <None Include="conventions.txt" />
     <None Include="gpl-3.0.rtf" />
+    <None Include="makeversion.bat" />
     <None Include="out\lua\aplikacja.lua">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>

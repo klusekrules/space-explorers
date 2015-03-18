@@ -1,26 +1,13 @@
 #pragma once
-//#include "svn_version.h"
+#include "git_version.h"
 
 #define STRINGIZE2(s) #s
 #define STRINGIZE(s) STRINGIZE2(s)
- 
-#define VERSION_MAJOR               0
-#define VERSION_MINOR               0
-#define VERSION_REVISION            6
-#define VERSION_BUILD               577
- 
-#if SVN_LOCAL_MODIFICATIONS
-  #define VERSION_MODIFIER "M"
-#else
-  #define VERSION_MODIFIER
-#endif
- 
-#define VER_FILE_DESCRIPTION_STR    "Built " STRINGIZE(__TIMESTAMP__) " from r" STRINGIZE(577) VERSION_MODIFIER
+
+#define VER_FILE_DESCRIPTION_STR    "Built " TIMESTAMP " from " GIT_VERSION 
+
 #define VER_FILE_VERSION            VERSION_MAJOR, VERSION_MINOR, VERSION_REVISION, VERSION_BUILD
-#define VER_FILE_VERSION_STR        STRINGIZE(VERSION_MAJOR)        \
-                                    "." STRINGIZE(VERSION_MINOR)    \
-                                    "." STRINGIZE(VERSION_REVISION) \
-                                    "." STRINGIZE(VERSION_BUILD)
+#define VER_FILE_VERSION_STR        GIT_VERSION
  
 #ifdef _WIN64
 	#define VER_PRODUCTNAME_STR         "Space Explorers (64-bit)"

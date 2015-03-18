@@ -1033,6 +1033,9 @@
     <None Include="out\lua\gui.lua">
       <Filter>Data\Skrypty</Filter>
     </None>
+    <None Include="makeversion.bat">
+      <Filter>Resource\Wersja</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="out\data.xml">
