@@ -63,6 +63,10 @@ namespace SpEx{
 	}
 
 	std::future<bool> Klient::dodajZadanie(std::shared_ptr<std::promise<bool> > zakonczenie, std::shared_ptr<const std::string> parametry, std::shared_ptr<std::string> rezultat, int flagi){
+		if (czyZakonczyc()){
+			zakonczenie->set_value(false);
+			return zakonczenie->get_future();
+		}
 		std::lock_guard<std::mutex> lock(dostepDoZadan_);
 		listaZadan_.emplace_back(std::make_shared<Zadanie>(zakonczenie, parametry, rezultat, flagi));
 		return listaZadan_.back()->zakonczenie_->get_future();
@@ -73,7 +77,7 @@ namespace SpEx{
 		// £¹czenie siê z serwerem
 		if (SOCKET_ERROR == connect(gniazdo_, (struct sockaddr*) &addr_, sizeof(addr_))){
 			auto error = WSAGetLastError();
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji connect: " + std::to_string(error));
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Klient::pracujJakoKlient() -> B³¹d funkcji connect: " + std::to_string(error));
 			zakoncz();
 			return;
 		}
@@ -99,23 +103,37 @@ namespace SpEx{
 
 			//Proces obs³ugi ¿¹dania.
 			DaneTCP dane(*this, *(zadanie_->zadanie_), *(zadanie_->rezultat_), zadanie_->flagi_);
+			int error = RPC_OK;
+
 			// Wysy³anie ¿¹dania do serwera.
-			if (!dane.wyslij()){
+			error = dane.wyslij();
+			if (error != RPC_OK){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Klient::pracujJakoKlient() -> B³¹d podczas wysy³ania danych: " + std::to_string(error));
 				zakoncz();
 				zadanie_->zakonczenie_->set_value(false);
-				break; // TODO: Zastanowiæ siê czy kontynuowaæ czy przerwaæ po³¹czenie.
+				break;
 			}
+
 			// Próba odebrania wiadomoœci zwrotniej
-			if (!dane.odbierz()){
+			error = dane.odbierz();
+			if (error != RPC_OK){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Klient::pracujJakoKlient() -> B³¹d podczas odbierania danych: " + std::to_string(error));
 				zakoncz();
 				zadanie_->zakonczenie_->set_value(false);
-				break; // TODO: Zastanowiæ siê czy kontynuowaæ czy przerwaæ po³¹czenie.				
+				break;
 			}
-			zadanie_->zakonczenie_->set_value(true);			
+			zadanie_->zakonczenie_->set_value(true);
 		}
+
+		{
+			std::lock_guard<std::mutex> lock(dostepDoZadan_);
+			for (auto &zadanie : listaZadan_)
+				zadanie->zakonczenie_->set_value(false);
+			listaZadan_.clear();
+		}
+		zamknijPolaczenie();		
 	}
-
-
+	
 	int Klient::odbierz(char* bufor, int rozmiar, int flagi) const{
 		return recv(gniazdo_, bufor, rozmiar, flagi);
 	}
@@ -130,22 +148,26 @@ namespace SpEx{
 
 	void Klient::pracujJakoSerwer(){
 		while (!czyZakonczyc()){
-
 			DaneTCP dane(*this);
-
-			if (!dane.odbierz()){
+			int error = dane.odbierz();
+			if (error != RPC_OK){
+				if (error!=RPC_ERROR_CONNECTION_CLOSED)
+					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Klient::pracujJakoSerwer() -> B³¹d podczas odbierania danych: " + std::to_string(error));
 				break;
 			}
 
-			if (!dane.wykonajMetode()){
-				break;
+			error = dane.wykonajMetode();
+			if (error != RPC_OK){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Klient::pracujJakoSerwer() -> B³¹d podczas przetwarzania danych: " + std::to_string(error));
 			}
 
-			if (!dane.wyslij()){
+			error = dane.wyslij();
+			if (error != RPC_OK){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Klient::pracujJakoSerwer() -> B³¹d podczas wysy³ania danych: " + std::to_string(error));
 				break;
 			}
-
 		}
+		zamknijPolaczenie();
 	}
 	
 	void Klient::autoryzujMetode(std::string& instancja, std::string& autoryzacja) const{

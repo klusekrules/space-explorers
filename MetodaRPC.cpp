@@ -272,8 +272,11 @@ namespace SpEx{
 
 		//Walidowanie metody
 		auto error = waliduj(root, true);
-		if (error != RPC_OK)
+		if (error != RPC_OK){
+			if (error == RPC_ERROR_UNAUTHORIZED || error == RPC_ERROR_NEED_AUTHORIZATION)
+				klient_.zakoncz();
 			return error;
+		}
 
 		(*this) << root;
 

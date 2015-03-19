@@ -7,24 +7,24 @@ namespace SpEx{
 		DaneTCP(Klient&);
 		DaneTCP(Klient&, const std::string&, std::string&, int);
 
-		bool odbierz();
-		bool wyslij();
+		int odbierz();
+		int wyslij();
 
-		bool wykonajMetode();
+		int wykonajMetode();
 		
 		void wlaczKompresje();
 		void wlaczAutoryzacje();
 		~DaneTCP() = default;
 	private:
 
-		bool odbierzWewnetrzna();
-		bool wyslijWewnetrzna();
+		int odbierzWewnetrzna();
+		int wyslijWewnetrzna();
 		int przygotujDoWyslania();
 		int przetworzPoOdebraniu();
-		bool kompresja();
-		bool dekompresja();
-		bool szyfrowanie(const std::string& klucz);
-		bool deszyfrowanie(const std::string& klucz);
+		int kompresja();
+		int dekompresja();
+		int szyfrowanie(const std::string& klucz);
+		int deszyfrowanie(const std::string& klucz);
 		void dodajKomunikatBledu(int, Json::Value&);
 
 		Klient & ref_;
