@@ -12,10 +12,15 @@
 #define METODA_RPC_RETURN "return"
 
 
-#define METODA_RPC_THROW "throw"
+//#define METODA_RPC_THROW "throw"
+#define METODA_RPC_ERROR "error"
 #define METODA_RPC_TYPE "typ"
+#define METODA_RPC_EXCEPTION_TYPE "throw"
 #define METODA_RPC_KOMUNIKAT "komunikat"
 #define METODA_RPC_NUMER "numer"
+
+#define TYPE_RPC_E_ERROR 1
+#define TYPE_RPC_E_EXCEPTION 2
 
 #define RPC_FLAG_COMPRESSION 0x1
 #define RPC_FLAG_AUTHORIZATION 0x2
@@ -54,3 +59,4 @@
 #define RPC_ERROR_DECRYPTION_FAIL -27
 #define RPC_ERROR_MISSING_METHOD -28
 #define RPC_ERROR_PROCOSSING_METHOD -29
+#define RPC_ERROR_EXCEPTION -30

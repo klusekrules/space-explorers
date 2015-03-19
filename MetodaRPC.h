@@ -45,6 +45,12 @@ namespace SpEx{
 		unsigned int powtorzenie_;
 		std::string czas_wywolania_;
 		std::string czas_odpowiedzi_;
+
+		int typBledu_;
+		std::string komuniaktBledu_;
+		std::string typWyjatku_;
+		int numerBledu_;
+
 		std::map <std::string, std::string> parametry_;
 		int flagi_;
 		Klient& klient_;

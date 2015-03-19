@@ -69,11 +69,43 @@ namespace SpEx{
 			if (error == RPC_OK){
 				auto metodaRPC = Aplikacja::pobierzInstancje().pobierzFabrykator().tworzMetodeRPC(root, ref_);
 				if (metodaRPC){
-					if (metodaRPC->obsluzMetode(root)){
-						//Pobieranie flag steruj¹cych dla pakietu zwrotnego.
-						flagi_ = metodaRPC->pobierzFlagi();
-					} else{
-						error = RPC_ERROR_PROCOSSING_METHOD;
+					try{
+						if (metodaRPC->obsluzMetode(root)){
+							//Pobieranie flag steruj¹cych dla pakietu zwrotnego.
+							flagi_ = metodaRPC->pobierzFlagi();
+						} else{
+							error = RPC_ERROR_PROCOSSING_METHOD;
+						}
+					}
+					catch (STyp::Wyjatek& wyjatek){
+						error = RPC_ERROR_EXCEPTION;
+						root[METODA_RPC_ERROR][METODA_RPC_EXCEPTION_TYPE] = "STyp::Wyjatek";
+						root[METODA_RPC_ERROR][METODA_RPC_KOMUNIKAT] = wyjatek.generujKomunikat()();
+						if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, wyjatek);
+							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Odebrane ¿¹danie:");
+							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, odbierz_);
+						}						
+					}
+					catch (std::exception& exception){
+						error = RPC_ERROR_EXCEPTION;
+						root[METODA_RPC_ERROR][METODA_RPC_EXCEPTION_TYPE] = "std::exception";
+						root[METODA_RPC_ERROR][METODA_RPC_KOMUNIKAT] = exception.what();
+						if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, exception.what());
+							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Odebrane ¿¹danie:");
+							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, odbierz_);
+						}
+					}
+					catch (...){
+						error = RPC_ERROR_EXCEPTION;
+						root[METODA_RPC_ERROR][METODA_RPC_EXCEPTION_TYPE] = "unknown";
+						root[METODA_RPC_ERROR][METODA_RPC_KOMUNIKAT] = "Nieznany wyj¹tek."; 
+						if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nie obs³ugiwany wyj¹tek!");
+							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Odebrane ¿¹danie:");
+							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, odbierz_);
+						}
 					}
 				} else{
 					error = RPC_ERROR_MISSING_METHOD;
@@ -95,32 +127,36 @@ namespace SpEx{
 
 	void DaneTCP::dodajKomunikatBledu(int blad, Json::Value& root){
 		switch (blad){
+		case RPC_ERROR_EXCEPTION:
+			root[METODA_RPC_ERROR][METODA_RPC_TYPE] = TYPE_RPC_E_EXCEPTION;
+			root[METODA_RPC_ERROR][METODA_RPC_NUMER] = blad;
+			break;
 		case RPC_OK:
 			break;
 		case RPC_ERROR_NEED_AUTHORIZATION:
-			root[METODA_RPC_THROW][METODA_RPC_TYPE] = "Wymagana autoryzacja.";
-			root[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT] = "Metoda wymaga autoryzacji.";
-			root[METODA_RPC_THROW][METODA_RPC_NUMER] = blad;
+			root[METODA_RPC_ERROR][METODA_RPC_TYPE] = TYPE_RPC_E_ERROR;
+			root[METODA_RPC_ERROR][METODA_RPC_KOMUNIKAT] = "Metoda wymaga autoryzacji.";
+			root[METODA_RPC_ERROR][METODA_RPC_NUMER] = blad;
 			break;
 		case RPC_ERROR_PARSING_FAIL:
-			root[METODA_RPC_THROW][METODA_RPC_TYPE] = "Parsowanie.";
-			root[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT] = "B³¹d parsowania.";
-			root[METODA_RPC_THROW][METODA_RPC_NUMER] = blad;
+			root[METODA_RPC_ERROR][METODA_RPC_TYPE] = TYPE_RPC_E_ERROR;
+			root[METODA_RPC_ERROR][METODA_RPC_KOMUNIKAT] = "B³¹d parsowania.";
+			root[METODA_RPC_ERROR][METODA_RPC_NUMER] = blad;
 			break;
 		case RPC_ERROR_PROCOSSING_METHOD:
-			root[METODA_RPC_THROW][METODA_RPC_TYPE] = "B³¹d przetwarzania metody.";
-			root[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT] = "Przetwarznie metody zwróci³o b³¹d.";
-			root[METODA_RPC_THROW][METODA_RPC_NUMER] = blad;
+			root[METODA_RPC_ERROR][METODA_RPC_TYPE] = TYPE_RPC_E_ERROR;
+			root[METODA_RPC_ERROR][METODA_RPC_KOMUNIKAT] = "Przetwarznie metody zwróci³o b³¹d.";
+			root[METODA_RPC_ERROR][METODA_RPC_NUMER] = blad;
 			break;
 		case RPC_ERROR_MISSING_METHOD:
-			root[METODA_RPC_THROW][METODA_RPC_TYPE] = "Brak metody.";
-			root[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT] = "Nie uda³o siê stworzyæ metody na podstawie otrzymanych danych.";
-			root[METODA_RPC_THROW][METODA_RPC_NUMER] = blad;
+			root[METODA_RPC_ERROR][METODA_RPC_TYPE] = TYPE_RPC_E_ERROR;
+			root[METODA_RPC_ERROR][METODA_RPC_KOMUNIKAT] = "Nie uda³o siê stworzyæ metody na podstawie otrzymanych danych.";
+			root[METODA_RPC_ERROR][METODA_RPC_NUMER] = blad;
 			break;
 		default:
-			root[METODA_RPC_THROW][METODA_RPC_TYPE] = "Nieznany blad";
-			root[METODA_RPC_THROW][METODA_RPC_KOMUNIKAT] = "Wystapil nieznany blad.";
-			root[METODA_RPC_THROW][METODA_RPC_NUMER] = blad;
+			root[METODA_RPC_ERROR][METODA_RPC_TYPE] = TYPE_RPC_E_ERROR;
+			root[METODA_RPC_ERROR][METODA_RPC_KOMUNIKAT] = "Wystapil nieznany blad.";
+			root[METODA_RPC_ERROR][METODA_RPC_NUMER] = blad;
 			break;
 		}
 	}

@@ -208,7 +208,7 @@ namespace SpEx{
 
 	bool MetodaRPC::obsluzMetode(Json::Value & root){
 		Json::Value result(Json::objectValue);
-		obslugaZadania(root, result);
+		obslugaZadania(root, result);		
 		czas_odpowiedzi_ = SLog::Log::pobierzInstancje().pobierzDateCzas();
 		(*this) >> root;
 		root[METODA_RPC_METODA][METODA_RPC_RETURN] = result;
@@ -227,12 +227,28 @@ namespace SpEx{
 	}
 
 	int MetodaRPC::obslugaWyjatku(const Json::Value& root){
-		const auto &  throwNode = root[METODA_RPC_THROW];
+		const auto &  throwNode = root[METODA_RPC_ERROR];
 		if (throwNode.isNull())
 			return RPC_OK;
 		if (!throwNode.isObject())
 			return RPC_ERROR_INVALID_THROW_OBJECT;
-		//TODO: Obs³uga otrzymanego wyj¹tku
+
+		if (throwNode[METODA_RPC_NUMER].isInt()){
+			typBledu_ = throwNode[METODA_RPC_TYPE].asInt();
+			if (typBledu_ == TYPE_RPC_E_EXCEPTION){
+				if (throwNode[METODA_RPC_EXCEPTION_TYPE].isString())
+					typWyjatku_ = throwNode[METODA_RPC_EXCEPTION_TYPE].asCString();
+			}
+		}
+
+		if (throwNode[METODA_RPC_KOMUNIKAT].isString()){
+			komuniaktBledu_ = throwNode[METODA_RPC_KOMUNIKAT].asCString();
+		}
+
+		if (throwNode[METODA_RPC_NUMER].isInt()){
+			numerBledu_ = throwNode[METODA_RPC_NUMER].asInt();
+		}
+
 		return RPC_ERROR_METHOD_THROW;
 	}
 
@@ -321,6 +337,11 @@ namespace SpEx{
 		log.dodajPole(NAZWAPOLA(czas_wywolania_), "std::string", czas_wywolania_);
 		log.dodajPole(NAZWAPOLA(czas_odpowiedzi_), "std::string", czas_odpowiedzi_);
 		log.dodajPole(NAZWAPOLA(powtorzenie_), NAZWAKLASY2(powtorzenie_), std::to_string(powtorzenie_));
+		
+		log.dodajPole(NAZWAPOLA(typBledu_), NAZWAKLASY2(typBledu_), std::to_string(typBledu_));
+		log.dodajPole(NAZWAPOLA(komuniaktBledu_), "std::string", komuniaktBledu_);
+		log.dodajPole(NAZWAPOLA(typWyjatku_), "std::string", typWyjatku_);
+		log.dodajPole(NAZWAPOLA(numerBledu_), NAZWAKLASY2(numerBledu_), std::to_string(numerBledu_));
 
 		log.rozpocznijPodKlase(NAZWAPOLA(parametry_), "std::vector <Parametr>");
 		for (auto e : parametry_){
