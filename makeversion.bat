@@ -19,6 +19,8 @@ GOTO end
 FOR /F "tokens=*" %%i in ('CALL "%GIT_BIN%\git" describe --tags') do SET version=%%i
 ECHO #define GIT_VERSION "%version%">> git_version.h
 
+ECHO Numer wersji pliku: %version%
+
 FOR /F "tokens=1-5 delims=.-" %%A IN ("%version%") DO (
 ECHO #define VERSION_MAJOR               %%A >> git_version.h
 ECHO #define VERSION_MINOR               %%B >> git_version.h
