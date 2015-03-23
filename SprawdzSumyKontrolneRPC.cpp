@@ -1,5 +1,9 @@
 #include "SprawdzSumyKontrolneRPC.h"
 #include "Logger\Logger.h"
+#include "Aplikacja.h"
+#include "ZarzadcaZasobow.h"
+#include "SumaKontrolnaPliku.h"
+#include "Plugin.h"
 
 namespace SpEx{
 
@@ -11,7 +15,16 @@ namespace SpEx{
 		return logger.napis();
 	}
 
-	void SprawdzSumyKontrolneRPC::obslugaZadania(const Json::Value &, Json::Value&){}
+	bool SprawdzSumyKontrolneRPC::inicjuj(){
+		auto crcPlikGry = Aplikacja::pobierzInstancje().pobierzZarzadceZasobow().pobierzZasob<SumaKontrolnaPliku>(Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji()["plikGry"]);
+		if (crcPlikGry == nullptr)
+			return false;
+		return true;
+	}
+
+	void SprawdzSumyKontrolneRPC::obslugaZadania(const Json::Value &, Json::Value&){
+	
+	}
 
 	bool SprawdzSumyKontrolneRPC::obslugaOdpowiedzi(const Json::Value &){
 		return false;

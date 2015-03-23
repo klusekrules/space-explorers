@@ -16,7 +16,8 @@ namespace SpEx{
 
 	private:
 		using MetodaRPC::MetodaRPC;
-
+		
+		bool inicjuj() override;
 		void obslugaZadania(const Json::Value &, Json::Value&) override;
 		bool obslugaOdpowiedzi(const Json::Value &) override;
 	};
