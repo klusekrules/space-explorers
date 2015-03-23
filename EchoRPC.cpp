@@ -12,6 +12,7 @@ namespace SpEx{
 
 		if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Echo na serwerze.");
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Serwer: parametry_[\"Echo\"] = " + parametry_["Echo"].asString());
 		}
 	}
 
@@ -20,7 +21,7 @@ namespace SpEx{
 
 		if (!parametry_["Echo"].empty()){
 			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, parametry_["Echo"]);
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Klient: parametry_[\"Echo\"] = " + parametry_["Echo"].asString());
 			}
 		}
 

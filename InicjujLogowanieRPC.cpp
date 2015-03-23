@@ -10,10 +10,10 @@ namespace SpEx{
 	const std::string InicjujLogowanieRPC::NazwaTypu_ = "InicjujLogowanie";
 
 	bool InicjujLogowanieRPC::przygotowanieDoWyslania(){
-		auto iter = parametry_.find("Hash");		
-		if (iter!=parametry_.end()){
-			auto hash = iter->second;
-			parametry_.erase(iter);
+		auto jHash = parametry_["Hash"];		
+		if (jHash != Json::nullValue){
+			auto hash = jHash.asString();
+			parametry_.removeMember("Hash");
 			if (!hash.empty()){
 				klient_.ustawKlucz(hash);
 				return true;
@@ -24,9 +24,9 @@ namespace SpEx{
 
 	void InicjujLogowanieRPC::obslugaZadania(const Json::Value & zadanie, Json::Value& odpowiedz){
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Login");
-		auto iter = parametry_.find("Login");
-		if (iter!=parametry_.end()){
-			auto hash = Aplikacja::pobierzInstancje().pobierzZarzadceUzytkownikow().pobierzHash(iter->second);
+		auto login = parametry_["Login"];
+		if (login != Json::nullValue){
+			auto hash = Aplikacja::pobierzInstancje().pobierzZarzadceUzytkownikow().pobierzHash(login.asString());
 			if (!hash.empty()){
 				klient_.ustawKlucz(hash);
 				auto liczba = Utils::pobierzLiczbeLosowa();

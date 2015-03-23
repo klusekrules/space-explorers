@@ -25,7 +25,7 @@ namespace SpEx{
 
 		int wykonajMetode();
 
-		void dodajParametr(const std::string&, std::string&);
+		Json::Value& obiektParametrow();
 
 		bool obsluzMetode(Json::Value&);
 
@@ -51,7 +51,7 @@ namespace SpEx{
 		std::string typWyjatku_;
 		int numerBledu_;
 
-		std::map <std::string, std::string> parametry_;
+		Json::Value parametry_;
 		int flagi_;
 		Klient& klient_;
 		

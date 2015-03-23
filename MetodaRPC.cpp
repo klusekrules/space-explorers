@@ -93,11 +93,7 @@ namespace SpEx{
 		powtorzenie_ = v_Powtorzenie.asUInt();
 		czas_wywolania_ = v_Czas_Wywolania.asString();
 		czas_odpowiedzi_ = v_Czas_Odpowiedzi.asString();
-		auto & v_parametry = metoda[METODA_RPC_PARAMETRY];
-		for (auto& val : v_parametry.getMemberNames()){
-			parametry_[val] = v_parametry[val].asString();
-		}
-
+		parametry_ = metoda[METODA_RPC_PARAMETRY];
 		return true;
 	}
 
@@ -202,8 +198,8 @@ namespace SpEx{
 		return RPC_ERROR_NEED_AUTHORIZATION;
 	}
 
-	void MetodaRPC::dodajParametr(const std::string& nazwa, std::string& wartosc){
-		parametry_[nazwa]=wartosc;
+	Json::Value&  MetodaRPC::obiektParametrow(){
+		return parametry_;
 	}
 
 	bool MetodaRPC::obsluzMetode(Json::Value & root){
@@ -321,10 +317,8 @@ namespace SpEx{
 		metoda[METODA_RPC_ID_UNIKALNE] = id_unikalne_;
 		metoda[METODA_RPC_POWTORZENIE] = powtorzenie_;
 		metoda[METODA_RPC_CZAS_WYWOLANIA] = czas_wywolania_;
-		metoda[METODA_RPC_CZAS_ODPOWIEDZI] = czas_odpowiedzi_;
-		for (auto& p : parametry_){
-			metoda[METODA_RPC_PARAMETRY][p.first] = p.second;
-		}
+		metoda[METODA_RPC_CZAS_ODPOWIEDZI] = czas_odpowiedzi_;		
+		metoda[METODA_RPC_PARAMETRY] = parametry_;
 		return *this;
 	}
 
@@ -343,15 +337,8 @@ namespace SpEx{
 		log.dodajPole(NAZWAPOLA(typWyjatku_), "std::string", typWyjatku_);
 		log.dodajPole(NAZWAPOLA(numerBledu_), NAZWAKLASY2(numerBledu_), std::to_string(numerBledu_));
 
-		log.rozpocznijPodKlase(NAZWAPOLA(parametry_), "std::vector <Parametr>");
-		for (auto e : parametry_){
-			log.rozpocznijPodKlase("para", "Parametr");
-			log.dodajPole("first", "std::string", e.first);
-			log.dodajPole("second", "std::string", e.second);
-			log.zakonczPodKlase();
-		}
-		log.zakonczPodKlase();
-
+		Json::StyledWriter writer;
+		log.dodajPole(NAZWAPOLA(parametry_), "Json", writer.write(parametry_));
 		// TODO: log.dodajPole(NAZWAPOLA(klient_), klient_);
 		return log.napis();
 	}

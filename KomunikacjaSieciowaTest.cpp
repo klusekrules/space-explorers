@@ -25,8 +25,7 @@ void KomunikacjaSieciowaTest::testEcho(){
 
 	auto ptr = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().tworzMetodeRPC<SpEx::EchoRPC>(*klient_);
 	if (ptr){
-		std::string echo("Do Serwera");
-		ptr->dodajParametr("Echo", echo);
+		ptr->obiektParametrow()["Echo"] = "Do Serwera";
 		UNIT_TEST_ASSERT_EQUAL(ptr->wykonajMetode(), RPC_OK);
 	}
 }
@@ -41,8 +40,8 @@ void KomunikacjaSieciowaTest::testInicjalizacjiLogowania(){
 		SHA3 sha3(haslo);
 		haslo = sha3.pobierzNapis();
 		std::string login("Daniel");
-		ptr->dodajParametr("Login", login);
-		ptr->dodajParametr("Hash", haslo);
+		ptr->obiektParametrow()["Login"] = login;
+		ptr->obiektParametrow()["Hash"] = haslo;
 		UNIT_TEST_ASSERT_EQUAL(ptr->wykonajMetode(), RPC_OK);
 	}
 }
