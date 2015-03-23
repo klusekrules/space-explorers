@@ -15,7 +15,7 @@ namespace SpEx{
 		return logger.napis();
 	}
 
-	bool SprawdzSumyKontrolneRPC::inicjuj(){
+	bool SprawdzSumyKontrolneRPC::przygotowanieDoWyslania(){
 		auto crcPlikGry = Aplikacja::pobierzInstancje().pobierzZarzadceZasobow().pobierzZasob<SumaKontrolnaPliku>(Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji()["plikGry"]);
 		if (crcPlikGry == nullptr)
 			return false;
