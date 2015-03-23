@@ -11,6 +11,7 @@ class KomunikacjaSieciowaTest :
 		DODAJ_TEST(testEcho);
 		DODAJ_TEST(testInicjalizacjiLogowania);
 		DODAJ_TEST(testPotwierdzajacyLogowanie);
+		DODAJ_TEST(testSumyKontrolnej);
 	TWORZ_PACZKE_TESTOW_END();
 public:
 	void startTestow() override;
@@ -18,6 +19,7 @@ public:
 	void testEcho();
 	void testInicjalizacjiLogowania();
 	void testPotwierdzajacyLogowanie();
+	void testSumyKontrolnej();
 	KomunikacjaSieciowaTest() = default;
 	virtual ~KomunikacjaSieciowaTest() = default;
 private:

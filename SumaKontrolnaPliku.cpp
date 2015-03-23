@@ -5,8 +5,10 @@ namespace SpEx{
 	const std::string SumaKontrolnaPliku::NazwaTypu_ = "fileSHA3";
 
 	SumaKontrolnaPliku::SumaKontrolnaPliku(const std::string& plik)
-		: plik_(plik), sumaKontrolna_(fopen(plik.c_str(), "rb"))
+		: plik_(plik), fp_(fopen(plik.c_str(), "rb")), sumaKontrolna_(fp_)
 	{
+		fclose(fp_);
+		fp_ = nullptr;
 	}
 	
 	bool SumaKontrolnaPliku::inicjalizuj(){

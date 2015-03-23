@@ -7,13 +7,14 @@ namespace SpEx{
 	const std::string EchoRPC::NazwaTypu_ = "Echo";
 
 	void EchoRPC::obslugaZadania(const Json::Value & zadanie, Json::Value& odpowiedz){
-		parametry_["Echo"] = "Do klienta";
-		odpowiedz["rezultat"] = "Odpowiedü serwera na komunikat Echo.";
 
 		if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Echo na serwerze.");
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Serwer: parametry_[\"Echo\"] = " + parametry_["Echo"].asString());
 		}
+
+		parametry_["Echo"] = "Do klienta";
+		odpowiedz["rezultat"] = "Odpowiedü serwera na komunikat Echo.";		
 	}
 
 	bool EchoRPC::obslugaOdpowiedzi(const Json::Value & odpowiedz){

@@ -25,6 +25,7 @@
 #include "EchoRPC.h"
 #include "InicjujLogowanieRPC.h"
 #include "PotwierdzLogowanieRPC.h"
+#include "SprawdzSumyKontrolneRPC.h"
 
 #include "Fabrykator.h"
 #include "ZarzadcaZasobow.h"
@@ -34,6 +35,7 @@
 #include "ZarzadcaLokacji.h"
 
 #include "Utils.h"
+#include "StaleUstawienAplikacji.h"
 
 #define KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU STyp::Tekst("Podczas przetwarzabua argumentów wyst¹pi³ b³¹d.")
 #define KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plik) STyp::Tekst("Nie powiod³o siê wczytywanie pliku konfiguracyjnego: " + plik)
@@ -52,16 +54,6 @@
 #define KOMUNIKAT_STATUS_WINSOCK_STAN_SYSTEMU(wersja) ("Stan systemu: " + std::string(wersja.szSystemStatus))
 #define KOMUNIKAT_STATUS_WINSOCK_LICZBA_GNIAZD(wersja) ("Maksymalna liczba gniazd: " + std::to_string(wersja.iMaxSockets))
 #define KOMUNIKAT_STATUS_WINSOCK_ROZMIAR_DATAGRAMU(wersja) ("Maksymalny rozmiar datagramu UDP: " + std::to_string(wersja.iMaxUdpDg))
-
-#define ATRYBUT_FORMAT_DATY_LOGOW "formatDatyWNazwiePliku"
-#define ATRYBUT_NUMER_FORMATU_DATY "numerFormatuDaty"
-#define ATRYBUT_ODBLOKOWANE_LOGI "odblokowaneLogi"
-#define ATRYBUT_ZABLOKOWANE_LOGI "zablokowaneLogi"
-#define ATRYBUT_PRZEDROSTEK_PLIKU_LOGOW "prefixPlikuLogow"
-#define ATRYBUT_JEZYK_APLIKACJI "locale"
-#define ATRYBUT_JEZYK_APLIKACJI_DOMYSLNY "Polish"
-#define ATRYBUT_PLIK_DANYCH "data"
-#define ATRYBUT_PLIK_GRY "plikGry"
 
 void myPurecallHandler(){
 #ifndef LOG_OFF_ALL
@@ -256,6 +248,7 @@ namespace SpEx{
 		fabrykator_->rejestrujMetodeRPC<EchoRPC>();
 		fabrykator_->rejestrujMetodeRPC<InicjujLogowanieRPC>();
 		fabrykator_->rejestrujMetodeRPC<PotwierdzLogowanieRPC>();
+		fabrykator_->rejestrujMetodeRPC<SprawdzSumyKontrolneRPC>();
 		fabrykator_->rejestrujSkrypt<DllSkrypt>();
 		fabrykator_->rejestrujSkrypt<LuaSkrypt>();
 

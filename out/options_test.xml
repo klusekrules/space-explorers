@@ -6,7 +6,7 @@
   <opcja nazwa="locale" wartosc="Polish"/>
     
   <!-- Względny adres do pliku z danymi ładowanymi do aplikacji. -->
-  <opcja nazwa="data" wartosc="test.xml"/>
+  <opcja nazwa="plikDanych" wartosc="danetestowe.xml"/>
   
   <!-- Względny adres folderu, w którym znajduja się pliki dll z pluginami. W podfolderze tej ścieżki są wyszukiwane i wczytywane zmiany. -->
   <opcja nazwa="plugins" wartosc="plugins\\"/>

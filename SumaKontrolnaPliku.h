@@ -31,6 +31,7 @@ namespace SpEx{
 		SumaKontrolnaPliku(const std::string& plik);
 
 		std::string plik_;
+		FILE *fp_;
 		SHA3 sumaKontrolna_;
 	};
 }

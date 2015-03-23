@@ -801,6 +801,9 @@
     <ClInclude Include="Plugin.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
     </ClInclude>
+    <ClInclude Include="StaleUstawienAplikacji.h">
+      <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">

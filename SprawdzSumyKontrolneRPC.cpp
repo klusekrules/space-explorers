@@ -4,8 +4,18 @@
 #include "ZarzadcaZasobow.h"
 #include "SumaKontrolnaPliku.h"
 #include "Plugin.h"
+#include "StaleRPC.h"
+#include "StaleUstawienAplikacji.h"
 
 namespace SpEx{
+
+	static inline std::string& pobierzAdresPliku(const std::string nazwa){
+		return Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji()[nazwa];
+	}
+
+	static inline SumaKontrolnaPliku::SharedPtr pobierzSumeKontrolna(const std::string& adres){
+		return Aplikacja::pobierzInstancje().pobierzZarzadceZasobow().pobierzZasob<SumaKontrolnaPliku>(adres);
+	}
 
 	const std::string SprawdzSumyKontrolneRPC::NazwaTypu_ = "SprawdzSumyKontrolne";
 	
@@ -16,17 +26,26 @@ namespace SpEx{
 	}
 
 	bool SprawdzSumyKontrolneRPC::przygotowanieDoWyslania(){
-		auto crcPlikGry = Aplikacja::pobierzInstancje().pobierzZarzadceZasobow().pobierzZasob<SumaKontrolnaPliku>(Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji()["plikGry"]);
-		if (crcPlikGry == nullptr)
+		auto crcPlikGry = pobierzSumeKontrolna(pobierzAdresPliku(ATRYBUT_PLIK_DANYCH));
+		if (crcPlikGry == nullptr || crcPlikGry->pobierzSumeKontrolna().pobierzKontener().empty())
 			return false;
+		parametry_[ATRYBUT_PLIK_DANYCH] = crcPlikGry->pobierzSumeKontrolna().pobierzNapis();
 		return true;
 	}
 
-	void SprawdzSumyKontrolneRPC::obslugaZadania(const Json::Value &, Json::Value&){
-	
+	void SprawdzSumyKontrolneRPC::obslugaZadania(const Json::Value & zadanie, Json::Value& odpowiedz){
+		auto klientCrcPlikGry = zadanie[METODA_RPC_METODA][METODA_RPC_PARAMETRY][ATRYBUT_PLIK_DANYCH].asString();
+		auto crcPlikGry = pobierzSumeKontrolna(pobierzAdresPliku(ATRYBUT_PLIK_DANYCH));
+		if (crcPlikGry != nullptr && klientCrcPlikGry == crcPlikGry->pobierzSumeKontrolna().pobierzNapis()){
+			odpowiedz[ATRYBUT_PLIK_DANYCH] = true;
+		} else{
+			odpowiedz[ATRYBUT_PLIK_DANYCH] = false;
+		}
 	}
 
-	bool SprawdzSumyKontrolneRPC::obslugaOdpowiedzi(const Json::Value &){
-		return false;
+	bool SprawdzSumyKontrolneRPC::obslugaOdpowiedzi(const Json::Value & odpowiedz){
+		if (!odpowiedz[ATRYBUT_PLIK_DANYCH].asBool())
+			return false;
+		return true;
 	}
 }

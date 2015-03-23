@@ -5,6 +5,7 @@
 #include "StaleRPC.h"
 #include "SHA3.h"
 #include "Fabrykator.h"
+#include "SprawdzSumyKontrolneRPC.h"
 
 void KomunikacjaSieciowaTest::startTestow() {
 	if (serwer_ != nullptr)
@@ -27,6 +28,8 @@ void KomunikacjaSieciowaTest::testEcho(){
 	if (ptr){
 		ptr->obiektParametrow()["Echo"] = "Do Serwera";
 		UNIT_TEST_ASSERT_EQUAL(ptr->wykonajMetode(), RPC_OK);
+		// Sprawdzenie czy parametry zachowuj¹ siê jak referencje.
+		UNIT_TEST_ASSERT_EQUAL(ptr->obiektParametrow()["Echo"],"Do klienta"); 
 	}
 }
 
@@ -51,6 +54,16 @@ void KomunikacjaSieciowaTest::testPotwierdzajacyLogowanie(){
 	UNIT_TEST_ASSERT_NOTNULL(klient_);
 
 	auto ptr = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().tworzMetodeRPC<SpEx::PotwierdzLogowanieRPC>(*klient_);
+	if (ptr){
+		UNIT_TEST_ASSERT_EQUAL(ptr->wykonajMetode(), RPC_OK);
+	}
+}
+
+void KomunikacjaSieciowaTest::testSumyKontrolnej(){
+	UNIT_TEST_ASSERT_NOTNULL(serwer_);
+	UNIT_TEST_ASSERT_NOTNULL(klient_);
+
+	auto ptr = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().tworzMetodeRPC<SpEx::SprawdzSumyKontrolneRPC>(*klient_);
 	if (ptr){
 		UNIT_TEST_ASSERT_EQUAL(ptr->wykonajMetode(), RPC_OK);
 	}

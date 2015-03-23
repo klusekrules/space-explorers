@@ -387,6 +387,7 @@
     <ClInclude Include="SprawdzSumyKontrolneRPC.h" />
     <ClInclude Include="StackThrow.h" />
     <ClInclude Include="StaleRPC.h" />
+    <ClInclude Include="StaleUstawienAplikacji.h" />
     <ClInclude Include="Stan.h" />
     <ClInclude Include="StanInfo.h" />
     <ClInclude Include="SumaKontrolnaPliku.h" />
