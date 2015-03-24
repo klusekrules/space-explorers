@@ -12,7 +12,7 @@ void LogowanieTest::zaloguj(){
 	haslo = sha3.pobierzNapis();
 	
 #ifndef LOG_OFF_ALL
-	SpEx::Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Info, haslo);
+	SpEx::Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Debug, haslo);
 #endif
 	if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().nowyGracz("Daniel", haslo)){
 #if !(defined(LOG_OFF_ALL) || defined(LOG_OFF_DEBUG))

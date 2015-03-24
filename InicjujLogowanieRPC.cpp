@@ -23,7 +23,9 @@ namespace SpEx{
 	}
 
 	void InicjujLogowanieRPC::obslugaZadania(const Json::Value & zadanie, Json::Value& odpowiedz){
-		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Login");
+		if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Debug)){
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, "Login");
+		}
 		auto login = parametry_["Login"];
 		if (login != Json::nullValue){
 			auto hash = Aplikacja::pobierzInstancje().pobierzZarzadceUzytkownikow().pobierzHash(login.asString());
@@ -42,10 +44,10 @@ namespace SpEx{
 	}
 	
 	bool InicjujLogowanieRPC::obslugaOdpowiedzi(const Json::Value & odpowiedz){
-		if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "InicjujLogowanieRPC::obslugaOdpowiedzi");
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Odebrano - autoryzacja: " + odpowiedz[METODA_RPC_AUTORYZACJA].asString());
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Odebrano - instancja: " + odpowiedz[METODA_RPC_INSTANCJA].asString());
+		if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Debug)){
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, "InicjujLogowanieRPC::obslugaOdpowiedzi");
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, "Odebrano - autoryzacja: " + odpowiedz[METODA_RPC_AUTORYZACJA].asString());
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, "Odebrano - instancja: " + odpowiedz[METODA_RPC_INSTANCJA].asString());
 		}
 		klient_.ustawAutoryzacje(odpowiedz[METODA_RPC_AUTORYZACJA].asString());
 		klient_.ustawInstancje(odpowiedz[METODA_RPC_INSTANCJA].asString());

@@ -8,9 +8,9 @@ namespace SpEx{
 
 	void EchoRPC::obslugaZadania(const Json::Value & zadanie, Json::Value& odpowiedz){
 
-		if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Echo na serwerze.");
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Serwer: parametry_[\"Echo\"] = " + parametry_["Echo"].asString());
+		if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Debug)){
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, "Echo na serwerze.");
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, "Serwer: parametry_[\"Echo\"] = " + parametry_["Echo"].asString());
 		}
 
 		parametry_["Echo"] = "Do klienta";
@@ -21,14 +21,14 @@ namespace SpEx{
 		auto value = odpowiedz["rezultat"];
 
 		if (!parametry_["Echo"].empty()){
-			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Klient: parametry_[\"Echo\"] = " + parametry_["Echo"].asString());
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Debug)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, "Klient: parametry_[\"Echo\"] = " + parametry_["Echo"].asString());
 			}
 		}
 
 		if (value.isString()){
-			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Komunikat Echo: " + value.asString());
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Debug)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, "Komunikat Echo: " + value.asString());
 			}
 			return true;
 		}else{

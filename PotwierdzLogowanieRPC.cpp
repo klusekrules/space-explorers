@@ -16,7 +16,6 @@ namespace SpEx{
 		} else{
 			odpowiedz[METODA_RPC_RESULT] = false;		
 		}
-		//TODO: Inicjalizacja wczytywania gracza.
 	}
 	
 	bool PotwierdzLogowanieRPC::obslugaOdpowiedzi(const Json::Value & odpowiedz) {

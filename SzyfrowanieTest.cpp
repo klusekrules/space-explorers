@@ -38,7 +38,7 @@ void SzyfrowanieTest::kompresjaTest(){
 	compress((Bytef*)out.data(), &after, (const Bytef*)wiadomoscOryginalna.data(), wiadomoscOryginalna.size());
 	
 
-	SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, std::to_string(bound));
+	SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::to_string(bound));
 
 	uLongf unSize = wiadomoscOryginalna.size();
 	std::string uncompres;
@@ -58,7 +58,7 @@ void SzyfrowanieTest::kompresjaOrazSzyfrowanieTest(){
 
 	//Obliczanie maksymalnego rozmiaru bufora do przechowania skompresowanej wiadomoœci
 	auto bound = compressBound(wiadomoscOryginalna.size());
-	SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, std::to_string(bound));
+	SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::to_string(bound));
 
 	//Kompresja wiadomoœci
 	uLongf after = bound;
@@ -67,7 +67,7 @@ void SzyfrowanieTest::kompresjaOrazSzyfrowanieTest(){
 	compress((Bytef*)out.data(), &after, (const Bytef*)wiadomoscOryginalna.data(), wiadomoscOryginalna.size());
 	out.resize(after);
 
-	SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, std::to_string(after));
+	SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, std::to_string(after));
 
 	//Szyfrowanie wiadomoœci
 	szyfrowanie.InitKey(klucz.pobierzKontener(), wektor.pobierzKontener());

@@ -87,12 +87,12 @@ namespace SpEx{
 		for (auto& member : odpowiedz.getMemberNames()){
 			if (odpowiedz[member].isBool()){
 				if (odpowiedz[member].asBool()){
-					if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
-						SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, member + " - plik poprawny");
+					if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Debug)){
+						SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, member + " - plik poprawny");
 					}
 				} else{
-					if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
-						SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, member + " - plik nie poprawny");
+					if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){
+						SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, member + " - plik nie poprawny");
 					}
 					ok = false;
 				}
