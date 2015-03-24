@@ -27,25 +27,77 @@ namespace SpEx{
 
 	bool SprawdzSumyKontrolneRPC::przygotowanieDoWyslania(){
 		auto crcPlikGry = pobierzSumeKontrolna(pobierzAdresPliku(ATRYBUT_PLIK_DANYCH));
-		if (crcPlikGry == nullptr || crcPlikGry->pobierzSumeKontrolna().pobierzKontener().empty())
+		if (crcPlikGry == nullptr || crcPlikGry->pobierzSumeKontrolna().pobierzKontener().empty()){
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Brak sumy kontrolnej pliku z danymi.");
+			}
 			return false;
-		parametry_[ATRYBUT_PLIK_DANYCH] = crcPlikGry->pobierzSumeKontrolna().pobierzNapis();
+		}
+		parametry_[ATRYBUT_PLIK_DANYCH] = std::move(crcPlikGry->pobierzSumeKontrolna().pobierzNapis());
+		auto& lista = Aplikacja::pobierzInstancje().pobierzZarzadcePluginow().pobierzListeSumKontrolnych();
+		for (auto& ptr : lista){
+			if (ptr != nullptr){
+				parametry_[ptr->pobierzAdresPliku()] = std::move(ptr->pobierzSumeKontrolna().pobierzNapis());
+			} else{
+				if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nie poprawny zasob sumy kontrolnej.");
+				}
+				return false;
+			}
+		}
 		return true;
 	}
 
 	void SprawdzSumyKontrolneRPC::obslugaZadania(const Json::Value & zadanie, Json::Value& odpowiedz){
-		auto klientCrcPlikGry = zadanie[METODA_RPC_METODA][METODA_RPC_PARAMETRY][ATRYBUT_PLIK_DANYCH].asString();
 		auto crcPlikGry = pobierzSumeKontrolna(pobierzAdresPliku(ATRYBUT_PLIK_DANYCH));
-		if (crcPlikGry != nullptr && klientCrcPlikGry == crcPlikGry->pobierzSumeKontrolna().pobierzNapis()){
-			odpowiedz[ATRYBUT_PLIK_DANYCH] = true;
+		if (parametry_[ATRYBUT_PLIK_DANYCH].isString() && crcPlikGry != nullptr){
+			auto sumaKontrolnaKlient = std::move(parametry_[ATRYBUT_PLIK_DANYCH].asString());
+			auto sumaKontrolnaSerwer = std::move(crcPlikGry->pobierzSumeKontrolna().pobierzNapis());				
+			odpowiedz[ATRYBUT_PLIK_DANYCH] = !sumaKontrolnaKlient.empty() && !sumaKontrolnaSerwer.empty() && sumaKontrolnaKlient == sumaKontrolnaSerwer;
 		} else{
 			odpowiedz[ATRYBUT_PLIK_DANYCH] = false;
 		}
+
+		auto& lista = Aplikacja::pobierzInstancje().pobierzZarzadcePluginow().pobierzListeSumKontrolnych();
+		for (auto& ptr : lista){
+			if (ptr != nullptr){
+				auto& suma = parametry_[ptr->pobierzAdresPliku()];
+				if (suma.isString()){
+					auto sumaKontrolnaKlient = std::move(suma.asString());
+					auto sumaKontrolnaSerwer = std::move(ptr->pobierzSumeKontrolna().pobierzNapis());
+					odpowiedz[ptr->pobierzAdresPliku()] = !sumaKontrolnaKlient.empty() && !sumaKontrolnaSerwer.empty() && sumaKontrolnaKlient == sumaKontrolnaSerwer;
+				} else{
+					parametry_.removeMember(ptr->pobierzAdresPliku());
+					odpowiedz[ptr->pobierzAdresPliku()] = false;
+					if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+						SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Brak sumy kontrolnej pliku :" + ptr->pobierzAdresPliku());
+					}
+				}
+			} else{
+				if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nie poprawny zasob sumy kontrolnej.");
+				}
+			}
+		}
+
 	}
 
 	bool SprawdzSumyKontrolneRPC::obslugaOdpowiedzi(const Json::Value & odpowiedz){
-		if (!odpowiedz[ATRYBUT_PLIK_DANYCH].asBool())
-			return false;
-		return true;
+		bool ok = true;
+		for (auto& member : odpowiedz.getMemberNames()){
+			if (odpowiedz[member].isBool()){
+				if (odpowiedz[member].asBool()){
+					if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
+						SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, member + " - plik poprawny");
+					}
+				} else{
+					if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
+						SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, member + " - plik nie poprawny");
+					}
+					ok = false;
+				}
+			}
+		}		
+		return ok;
 	}
 }

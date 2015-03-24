@@ -14,8 +14,11 @@ namespace SpEx{
 		SZmi::ZmianaFabryka& fabryka_; /// Referencja na fabrykê zmian.
 		SLog::Log& log_; /// Referencja na obiekt logów.
 		std::string folderPluginow_; /// Œcie¿ka do folderu zawierajacy pluginy.
-		std::list < SumaKontrolnaPliku::SharedPtr > lista_;
+		std::list < SumaKontrolnaPliku::SharedPtr > lista_; /// Lista sum kontrolnych plików zmian.
 	public:
+
+		const std::list < SumaKontrolnaPliku::SharedPtr > pobierzListeSumKontrolnych() const;
+
 		Plugin() = delete;
 		virtual ~Plugin() = default;
 		/**

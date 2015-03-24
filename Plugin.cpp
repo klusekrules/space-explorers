@@ -29,6 +29,10 @@ namespace SpEx{
 	{
 	}
 
+	const std::list < SumaKontrolnaPliku::SharedPtr > Plugin::pobierzListeSumKontrolnych() const{
+		return lista_;	
+	}
+
 	bool Plugin::zaladujZewnetrzneKlasyZmian( ZarzadcaZasobow & zarzadcaZasobow_ ){
 		struct _finddata_t plik;
 		intptr_t uchwytPliku;

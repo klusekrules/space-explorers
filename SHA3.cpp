@@ -17,7 +17,7 @@ std::string SHA3::pobierzNapis() const{
 	for (auto c : sha){
 		ascii2hex(c, str);
 	}
-	return str;
+	return std::move(str);
 }
 
 const std::vector<unsigned char > & SHA3::pobierzKontener() const{

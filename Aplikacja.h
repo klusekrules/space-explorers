@@ -142,10 +142,14 @@ namespace SpEx {
 		inline ZarzadcaUzytkownikow& pobierzZarzadceUzytkownikow(){
 			return *zarzadcaUzytkownikow_;
 		}
+
+		inline Plugin& pobierzZarzadcePluginow(){
+			return *pluginy_;
+		}
 		/**
 		* \brief Destruktor.
 		*/
-		~Aplikacja();
+		virtual ~Aplikacja();
 
 		SLog::Log& logger_; /// Instancja loggera.
 		
