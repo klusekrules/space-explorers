@@ -39,7 +39,7 @@ namespace SPar{
 }
 
 namespace SpEx {
-	class Plugin;
+	class ZarzadcaPluginow;
 	class Fabrykator;
 	class Gra;
 	class ZarzadcaLokacji;
@@ -143,8 +143,8 @@ namespace SpEx {
 			return *zarzadcaUzytkownikow_;
 		}
 
-		inline Plugin& pobierzZarzadcePluginow(){
-			return *pluginy_;
+		inline ZarzadcaPluginow& pobierzZarzadcePluginow(){
+			return *zarzadcaPluginow_;
 		}
 		/**
 		* \brief Destruktor.
@@ -194,7 +194,7 @@ namespace SpEx {
 		*/
 		void logApInfo() const;
 
-		std::shared_ptr<Plugin> pluginy_; /// Obiekt zarz¹dzaj¹cy plugginami.
+		std::shared_ptr<ZarzadcaPluginow> zarzadcaPluginow_; /// Obiekt zarz¹dzaj¹cy plugginami.
 		std::shared_ptr<Gra> instancjaGry_; /// Obiekt prezentuj¹cy instancjê gry.
 		std::shared_ptr<Fabrykator> fabrykator_; /// Instacja obiektu przechowuj¹cego zbiór fabryk.
 		std::shared_ptr<ZarzadcaZasobow> zarzadcaZasobow_; /// Zarz¹dca zasobów.

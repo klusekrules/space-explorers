@@ -30,7 +30,7 @@
 #include "Fabrykator.h"
 #include "ZarzadcaZasobow.h"
 #include "Gra.h"
-#include "Plugin.h"
+#include "ZarzadcaPluginow.h"
 #include "ZarzadcaUzytkownikow.h"
 #include "ZarzadcaLokacji.h"
 
@@ -252,15 +252,15 @@ namespace SpEx{
 		fabrykator_->rejestrujSkrypt<DllSkrypt>();
 		fabrykator_->rejestrujSkrypt<LuaSkrypt>();
 
-		pluginy_ = std::make_shared<Plugin>(ustawienia_, fabrykator_->pobierzFabrykeZmian(), logger_);
+		zarzadcaPluginow_ = std::make_shared<ZarzadcaPluginow>(ustawienia_, fabrykator_->pobierzFabrykeZmian(), logger_);
 
 		if (!RejestrujZmianaPoziomObiektu(fabrykator_->pobierzFabrykeZmian(), logger_))
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIANY_POZIOMU);
 
-		if (!pluginy_->zaladujDomyslneKlasyZmian())
+		if (!zarzadcaPluginow_->zaladujDomyslneKlasyZmian())
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DOMYSLNYCH);
 
-		if (!pluginy_->zaladujZewnetrzneKlasyZmian(*zarzadcaZasobow_))
+		if (!zarzadcaPluginow_->zaladujZewnetrzneKlasyZmian(*zarzadcaZasobow_))
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DODATKOWYCH);
 
 		instancjaGry_ = std::make_shared<Gra>(logger_, *zarzadcaLokacji_, ustawienia_);
@@ -484,11 +484,11 @@ namespace SpEx{
 			logger.dodajPole(NAZWAPOLA(instancjaGry_), NAZWAKLASY2(instancjaGry_), "nullptr");
 		}
 
-		if (pluginy_){
-			logger.dodajPole(NAZWAPOLA(pluginy_), pluginy_);
+		if (zarzadcaPluginow_){
+			logger.dodajPole(NAZWAPOLA(zarzadcaPluginow_), zarzadcaPluginow_);
 		}
 		else{
-			logger.dodajPole(NAZWAPOLA(pluginy_), NAZWAKLASY2(pluginy_), "nullptr");
+			logger.dodajPole(NAZWAPOLA(zarzadcaPluginow_), NAZWAKLASY2(zarzadcaPluginow_), "nullptr");
 		}
 
 		logger.dodajPole(NAZWAPOLA(fabrykator_), fabrykator_);

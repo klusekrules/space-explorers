@@ -376,7 +376,7 @@
     <ClInclude Include="OknoGry.h" />
     <ClInclude Include="ParserTest.h" />
     <ClInclude Include="PlanetaTest.h" />
-    <ClInclude Include="Plugin.h" />
+    <ClInclude Include="ZarzadcaPluginow.h" />
     <ClInclude Include="PomocniczeTypyTGUI.h" />
     <ClInclude Include="PowtorzenieIdObiektu.h" />
     <ClInclude Include="RoundedRectangleShape.hpp" />
@@ -546,7 +546,7 @@
     <ClCompile Include="ParserTest.cpp" />
     <ClCompile Include="Planeta.cpp" />
     <ClCompile Include="PlanetaTest.cpp" />
-    <ClCompile Include="Plugin.cpp" />
+    <ClCompile Include="ZarzadcaPluginow.cpp" />
     <ClCompile Include="PodstawoweParametry.cpp" />
     <ClCompile Include="PowtorzenieIdObiektu.cpp" />
     <ClCompile Include="RoundedRectangleShape.cpp" />

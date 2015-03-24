@@ -3,7 +3,7 @@
 #include "Aplikacja.h"
 #include "ZarzadcaZasobow.h"
 #include "SumaKontrolnaPliku.h"
-#include "Plugin.h"
+#include "ZarzadcaPluginow.h"
 #include "StaleRPC.h"
 #include "StaleUstawienAplikacji.h"
 

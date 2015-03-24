@@ -373,8 +373,8 @@
     <ClCompile Include="StackThrow.cpp">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClCompile>
-    <ClCompile Include="Plugin.cpp">
-      <Filter>SourceFile\KlasyGlowne</Filter>
+    <ClCompile Include="ZarzadcaPluginow.cpp">
+      <Filter>SourceFile\Kontroler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -798,11 +798,11 @@
     <ClInclude Include="StackThrow.h">
       <Filter>SourceFile\KlasyPomocnicze</Filter>
     </ClInclude>
-    <ClInclude Include="Plugin.h">
-      <Filter>SourceFile\KlasyGlowne</Filter>
-    </ClInclude>
     <ClInclude Include="StaleUstawienAplikacji.h">
       <Filter>SourceFile\KlasyGlowne</Filter>
+    </ClInclude>
+    <ClInclude Include="ZarzadcaPluginow.h">
+      <Filter>SourceFile\Kontroler</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
