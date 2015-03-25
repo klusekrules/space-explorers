@@ -112,39 +112,7 @@ namespace SpEx{
 				czyZainicjalizowanaBiblioteka_ = true;
 			}
 		}
-		/* ------- Przypisanie pliku do którego bêd¹ dodawane logi ------- */
-
-		struct tm timeinfo;
-		time_t t = time(nullptr);
-		localtime_s(&timeinfo, &t);
-		char s[20];
-		if (strftime(s, 20, ustawienia_[ATRYBUT_FORMAT_DATY_LOGOW].c_str(), &timeinfo) == 0){
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_FORMATU_DATY);
-		}
-
-		std::stringstream sfile;
-		sfile << ustawienia_[ATRYBUT_PRZEDROSTEK_PLIKU_LOGOW] << s << ".log";
-		std::string filename = sfile.str();
-		logger_.dodajGniazdoWyjsciowe([&filename](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{
-			static std::fstream plik(filename, std::ios_base::app);
-			std::string sTyp;
-			switch (typ)
-			{
-			case SLog::Log::Debug: sTyp = " [DEBUG] ";
-				break;
-			case SLog::Log::Info: sTyp = " [INFO] ";
-				break;
-			case SLog::Log::Warning: sTyp = " [WARNING] ";
-				break;
-			case SLog::Log::Error: sTyp = " [ERROR] ";
-				break;
-			case SLog::Log::All:
-			default:
-				break;
-			}
-			plik << czas << sTyp << komunikat;
-		});
-
+		
 		/* ------- Konfiguracja parametrów programu -------*/
 		if (!przetworzArgumenty()){
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU);
@@ -183,6 +151,39 @@ namespace SpEx{
 		if (!zaladujOpcje()){
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_LADOWANIA_OPCJI);
 		}
+
+		/* ------- Przypisanie pliku do którego bêd¹ dodawane logi ------- */
+
+		struct tm timeinfo;
+		time_t t = time(nullptr);
+		localtime_s(&timeinfo, &t);
+		char s[20];
+		if (strftime(s, 20, ustawienia_[ATRYBUT_FORMAT_DATY_LOGOW].c_str(), &timeinfo) == 0){
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_FORMATU_DATY);
+		}
+
+		std::stringstream sfile;
+		sfile << ustawienia_[ATRYBUT_PRZEDROSTEK_PLIKU_LOGOW] << s << ".log";
+		std::string filename = sfile.str();
+		logger_.dodajGniazdoWyjsciowe([&filename](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{
+			static std::fstream plik(filename, std::ios_base::app);
+			std::string sTyp;
+			switch (typ)
+			{
+			case SLog::Log::Debug: sTyp = " [DEBUG] ";
+				break;
+			case SLog::Log::Info: sTyp = " [INFO] ";
+				break;
+			case SLog::Log::Warning: sTyp = " [WARNING] ";
+				break;
+			case SLog::Log::Error: sTyp = " [ERROR] ";
+				break;
+			case SLog::Log::All:
+			default:
+				break;
+			}
+			plik << czas << sTyp << komunikat;
+		});
 
 		konsola_ = std::make_shared<Konsola>(logger_);
 		
