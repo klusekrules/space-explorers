@@ -356,6 +356,7 @@
     <ClInclude Include="keccak.h" />
     <ClInclude Include="Klient.h" />
     <ClInclude Include="KomunikacjaSieciowaTest.h" />
+    <ClInclude Include="Konsola.h" />
     <ClInclude Include="KontrolkaObiektu.h" />
     <ClInclude Include="Kryterium.h" />
     <ClInclude Include="ListaObiektowGui.h" />
@@ -509,6 +510,7 @@
     <ClCompile Include="Klient.cpp" />
     <ClCompile Include="DaneTCP.cpp" />
     <ClCompile Include="KomunikacjaSieciowaTest.cpp" />
+    <ClCompile Include="Konsola.cpp" />
     <ClCompile Include="KontrolkaObiektu.cpp" />
     <ClCompile Include="Kryterium.cpp" />
     <ClCompile Include="Ladownia.cpp" />
@@ -877,10 +879,21 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </Font>
+    <Font Include="out\resource\consola.ttf">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Font>
     <Font Include="out\resource\TransformersMovie.ttf">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
     </Font>
   </ItemGroup>
   <ItemGroup>

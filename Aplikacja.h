@@ -39,6 +39,7 @@ namespace SPar{
 }
 
 namespace SpEx {
+	class Konsola;
 	class ZarzadcaPluginow;
 	class Fabrykator;
 	class Gra;
@@ -193,7 +194,7 @@ namespace SpEx {
 		* \brief Metoda wyrzuca do loggera podstwowe dane identyfikuj¹ce wersje aplikacji.
 		*/
 		void logApInfo() const;
-
+		std::shared_ptr<Konsola> konsola_;
 		std::shared_ptr<ZarzadcaPluginow> zarzadcaPluginow_; /// Obiekt zarz¹dzaj¹cy plugginami.
 		std::shared_ptr<Gra> instancjaGry_; /// Obiekt prezentuj¹cy instancjê gry.
 		std::shared_ptr<Fabrykator> fabrykator_; /// Instacja obiektu przechowuj¹cego zbiór fabryk.

@@ -36,6 +36,7 @@
 
 #include "Utils.h"
 #include "StaleUstawienAplikacji.h"
+#include "Konsola.h"
 
 #define KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU STyp::Tekst("Podczas przetwarzabua argumentów wyst¹pi³ b³¹d.")
 #define KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plik) STyp::Tekst("Nie powiod³o siê wczytywanie pliku konfiguracyjnego: " + plik)
@@ -199,6 +200,7 @@ namespace SpEx{
 			}
 			plik << czas << sTyp << komunikat;
 		});
+		konsola_ = std::make_shared<Konsola>();
 		
 		/* ------------------------------------ */
 
@@ -345,6 +347,11 @@ namespace SpEx{
 			FreeLibrary(uchwyt_);
 
 		WSACleanup();
+
+		if (konsola_){
+			konsola_->zakoncz();
+			konsola_->czekajNaZakonczenie();
+		}
 	}
 
 	bool Aplikacja::zapiszGre(){

@@ -376,6 +376,9 @@
     <ClCompile Include="ZarzadcaPluginow.cpp">
       <Filter>SourceFile\Kontroler</Filter>
     </ClCompile>
+    <ClCompile Include="Konsola.cpp">
+      <Filter>SourceFile\GUI\Konsola</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Surowce.h">
@@ -804,6 +807,9 @@
     <ClInclude Include="ZarzadcaPluginow.h">
       <Filter>SourceFile\Kontroler</Filter>
     </ClInclude>
+    <ClInclude Include="Konsola.h">
+      <Filter>SourceFile\GUI\Konsola</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -986,6 +992,9 @@
     <Filter Include="SourceFile\KlasyPomocnicze\Algorytmy\VMPC">
       <UniqueIdentifier>{ab50ab69-ca22-4550-abb1-301c57d1f5b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SourceFile\GUI\Konsola">
+      <UniqueIdentifier>{a0590a0e-7ed9-4db4-aa33-1288541bb963}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="TODO.txt">
@@ -1124,6 +1133,9 @@
       <Filter>Resource\Czcionki</Filter>
     </Font>
     <Font Include="out\resource\TransformersMovie.ttf">
+      <Filter>Resource\Czcionki</Filter>
+    </Font>
+    <Font Include="out\resource\consola.ttf">
       <Filter>Resource\Czcionki</Filter>
     </Font>
   </ItemGroup>
