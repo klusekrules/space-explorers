@@ -46,7 +46,7 @@ namespace tgui
         m_TextColor     (sf::Color::Black),
         m_BorderColor   (sf::Color::Black),
         m_MaxLines      (0),
-        m_FullTextHeight(0),
+        m_FullTextHeight(12),
         m_Scroll        (nullptr)
     {
         m_Callback.widgetType = Type_ChatBox;
@@ -338,20 +338,25 @@ namespace tgui
             width = 0;
 
         // Split the label over multiple lines if necessary
-        unsigned int pos = 0;
-        unsigned int size = 0;
-        while (pos + size < text.getSize())
-        {
-            tempLine->setText(text.toWideString().substr(pos, ++size));
 
-            if (tempLine->getSize().x + 4.0f > width)
-            {
-                label->setText(label->getText() + text.toWideString().substr(pos, size - 1) + "\n");
+		
+		tempLine->setText(text);
+		if (tempLine->getSize().x + 4.0f > width){
+			unsigned int pos = 0;
+			unsigned int size = 0;
+			while (pos + size < text.getSize())
+			{
+				tempLine->setText(text.toWideString().substr(pos, ++size));
 
-                pos = pos + size - 1;
-                size = 0;
-            }
-        }
+				if (tempLine->getSize().x + 4.0f > width)
+				{
+					label->setText(label->getText() + text.toWideString().substr(pos, size - 1) + "\n");
+
+					pos = pos + size - 1;
+					size = 0;
+				}
+			}
+		}
         label->setText(label->getText() + tempLine->getText());
 
         m_FullTextHeight += getLineSpacing(widgets.size()-1);
@@ -936,17 +941,9 @@ namespace tgui
     {
         assert(lineNumber < m_Panel->getWidgets().size());
 
-        // If a line spacing was manually set then just return that one
-        if (m_LineSpacing > 0)
-            return m_LineSpacing;
-
         auto line = tgui::Label::Ptr(m_Panel->getWidgets()[lineNumber]);
 		size_t lineSpacing = m_Panel->getGlobalFont().getLineSpacing(line->getTextSize());
-
-        if (lineSpacing > line->getTextSize())
-            return lineSpacing;
-        else
-			return static_cast<size_t>(std::ceil(line->getSize().y * 13.5 / 10.0));
+		return static_cast<size_t>(std::ceil(line->getSize().y - lineSpacing + m_LineSpacing));
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

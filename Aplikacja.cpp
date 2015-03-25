@@ -101,8 +101,32 @@ namespace SpEx{
 		zarzadcaLokacji_ = std::make_shared<ZarzadcaLokacji>();
 		zarzadcaUzytkownikow_ = std::make_shared<ZarzadcaUzytkownikow>();
 
-		/* ------- Wstêpna konfiguracja logów ------- */
-		logger_.dodajGniazdoWyjsciowe([](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{ 
+		/* ------------------------------------------ */
+
+		//Ladowanie potrzebnych bibliotek
+		uchwyt_ = LoadLibrary("Dbghelp.dll");
+		if (uchwyt_){
+			symInitialize_ = (SymInitializeS)GetProcAddress(uchwyt_, "SymInitialize");
+			symFromAddr_ = (SymFromAddrS)GetProcAddress(uchwyt_, "SymFromAddr");
+			if (symFromAddr_ && symInitialize_){
+				czyZainicjalizowanaBiblioteka_ = true;
+			}
+		}
+		/* ------- Przypisanie pliku do którego bêd¹ dodawane logi ------- */
+
+		struct tm timeinfo;
+		time_t t = time(nullptr);
+		localtime_s(&timeinfo, &t);
+		char s[20];
+		if (strftime(s, 20, ustawienia_[ATRYBUT_FORMAT_DATY_LOGOW].c_str(), &timeinfo) == 0){
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_FORMATU_DATY);
+		}
+
+		std::stringstream sfile;
+		sfile << ustawienia_[ATRYBUT_PRZEDROSTEK_PLIKU_LOGOW] << s << ".log";
+		std::string filename = sfile.str();
+		logger_.dodajGniazdoWyjsciowe([&filename](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{
+			static std::fstream plik(filename, std::ios_base::app);
 			std::string sTyp;
 			switch (typ)
 			{
@@ -118,19 +142,8 @@ namespace SpEx{
 			default:
 				break;
 			}
-			std::cout << czas << sTyp << komunikat;
+			plik << czas << sTyp << komunikat;
 		});
-		/* ------------------------------------------ */
-
-		//Ladowanie potrzebnych bibliotek
-		uchwyt_ = LoadLibrary("Dbghelp.dll");
-		if (uchwyt_){
-			symInitialize_ = (SymInitializeS)GetProcAddress(uchwyt_, "SymInitialize");
-			symFromAddr_ = (SymFromAddrS)GetProcAddress(uchwyt_, "SymFromAddr");
-			if (symFromAddr_ && symInitialize_){
-				czyZainicjalizowanaBiblioteka_ = true;
-			}
-		}
 
 		/* ------- Konfiguracja parametrów programu -------*/
 		if (!przetworzArgumenty()){
@@ -171,36 +184,7 @@ namespace SpEx{
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_LADOWANIA_OPCJI);
 		}
 
-		struct tm timeinfo;
-		time_t t = time(nullptr);
-		localtime_s(&timeinfo, &t);
-		char s[20];
-		if (strftime(s, 20, ustawienia_[ATRYBUT_FORMAT_DATY_LOGOW].c_str(), &timeinfo) == 0){
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_FORMATU_DATY);
-		}
-		std::stringstream sfile;
-		sfile << ustawienia_[ATRYBUT_PRZEDROSTEK_PLIKU_LOGOW] << s << ".log";
-		std::string filename = sfile.str();
-		logger_.dodajGniazdoWyjsciowe([&filename](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{
-			static std::fstream plik(filename, std::ios_base::app); 
-			std::string sTyp;
-			switch (typ)
-			{
-			case SLog::Log::Debug: sTyp = " [DEBUG] ";
-				break;
-			case SLog::Log::Info: sTyp = " [INFO] ";
-				break;
-			case SLog::Log::Warning: sTyp = " [WARNING] ";
-				break;
-			case SLog::Log::Error: sTyp = " [ERROR] ";
-				break;
-			case SLog::Log::All:
-			default:
-				break;
-			}
-			plik << czas << sTyp << komunikat;
-		});
-		konsola_ = std::make_shared<Konsola>();
+		konsola_ = std::make_shared<Konsola>(logger_);
 		
 		/* ------------------------------------ */
 
@@ -210,6 +194,7 @@ namespace SpEx{
 		/* ------------------------------------ */
 #ifndef LOG_OFF_ALL
 		logger_.loguj(SLog::Log::Info, "Start aplikacji Space-Explorers.");
+		logger_.loguj(SLog::Log::Info, "Start aplikacji Space-Explorers. Start aplikacji Space-Explorers. Start aplikacji Space-Explorers.");
 #endif
 		//Wyswietlanie informacji o aplikacji
 		logApInfo();
@@ -343,15 +328,15 @@ namespace SpEx{
 
 	Aplikacja::~Aplikacja()
 	{
-		if (uchwyt_)
-			FreeLibrary(uchwyt_);
-
-		WSACleanup();
-
 		if (konsola_){
 			konsola_->zakoncz();
 			konsola_->czekajNaZakonczenie();
 		}
+
+		if (uchwyt_)
+			FreeLibrary(uchwyt_);
+
+		WSACleanup();
 	}
 
 	bool Aplikacja::zapiszGre(){

@@ -152,8 +152,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EntryPointSymbol>
-      </EntryPointSymbol>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
       <ShowProgress>
       </ShowProgress>
       <LinkStatus>
@@ -162,6 +161,7 @@
       </Version>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Debug-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>lua51.lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <ResourceCompile>
       <Culture>0x0015</Culture>
@@ -188,8 +188,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EntryPointSymbol>
-      </EntryPointSymbol>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
       <ShowProgress>
       </ShowProgress>
       <LinkStatus>
@@ -198,6 +197,7 @@
       </Version>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Debug-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>lua51.lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <ResourceCompile>
       <Culture>0x0015</Culture>
@@ -217,14 +217,14 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EntryPointSymbol>
-      </EntryPointSymbol>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
       <ShowProgress>
       </ShowProgress>
       <LinkStatus>
       </LinkStatus>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Debug-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>lua51.lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <PreBuildEvent>
       <Command>$(SolutionDir)makeversion.bat ..</Command>
@@ -245,14 +245,14 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EntryPointSymbol>
-      </EntryPointSymbol>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
       <ShowProgress>
       </ShowProgress>
       <LinkStatus>
       </LinkStatus>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Debug-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>lua51.lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <PreBuildEvent>
       <Command>$(SolutionDir)makeversion.bat ..</Command>
@@ -283,6 +283,8 @@
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Release-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>lua51.lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PreBuildEvent>
       <Command>$(SolutionDir)makeversion.bat ..</Command>
@@ -312,6 +314,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Release-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>lua51.lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PreBuildEvent>
       <Command>$(SolutionDir)makeversion.bat ..</Command>
