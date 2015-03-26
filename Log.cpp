@@ -47,13 +47,13 @@ namespace SLog{
 
 	void Log::loguj(TypLogow typ, const std::string& komunikat) const{
 		if (poziomy_[TypLogow::All] && poziomy_[typ]){
-			wyswietl(typ, pobierzDateCzas() , komunikat + "\n");
+			wyswietl(typ, pobierzDateCzas() , komunikat);
 		}
 	}
 
 	void Log::loguj(TypLogow typ, const LoggerInterface& komunikat) const{
 		if (poziomy_[TypLogow::All] && poziomy_[typ]){
-			wyswietl(typ, pobierzDateCzas() , komunikat.napis() + "\n");
+			wyswietl(typ, pobierzDateCzas() , komunikat.napis());
 		}
 	}
 
