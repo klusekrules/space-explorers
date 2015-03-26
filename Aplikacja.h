@@ -154,8 +154,9 @@ namespace SpEx {
 
 		SLog::Log& logger_; /// Instancja loggera.
 		
-
 		__int64 pobierzNumerLosowy();
+
+		void wykonajPolecenie(std::string);
 
 		/**
 		* \brief Metoda tworz¹ca tekstowy opis obiektu.

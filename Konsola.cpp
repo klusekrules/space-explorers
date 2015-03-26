@@ -1,12 +1,15 @@
 #include "Konsola.h"
 #include "TGUI\TGUI.hpp"
 #include <Windows.h>
+#include "Aplikacja.h"
 
 namespace SpEx{
 
 	void function(const tgui::Callback& callback, tgui::ChatBox::Ptr chatbox){
-		chatbox->addLine(SLog::Log::pobierzInstancje().pobierzDateCzas() + " -> " + ((tgui::EditBox*)callback.widget)->getText(), sf::Color(0x0a, 0xd7, 0xb8, 255));
+		std::string polecenie = ((tgui::EditBox*)callback.widget)->getText();
+		chatbox->addLine(SLog::Log::pobierzInstancje().pobierzDateCzas() + " -> " + polecenie, sf::Color(0x0a, 0xd7, 0xb8, 255));
 		((tgui::EditBox*)callback.widget)->setText("");
+		Aplikacja::pobierzInstancje().wykonajPolecenie(std::move(polecenie));
 	}
 
 	Konsola::Konsola(SLog::Log& log)

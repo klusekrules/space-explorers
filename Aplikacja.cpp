@@ -441,6 +441,10 @@ namespace SpEx{
 		return true;
 	}
 
+	void Aplikacja::wykonajPolecenie(std::string polecenie){
+
+	}
+
 	__int64 Aplikacja::pobierzNumerLosowy(){
 		return dystrybutor_(generator_);
 	}
