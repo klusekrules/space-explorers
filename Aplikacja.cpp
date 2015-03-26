@@ -182,7 +182,7 @@ namespace SpEx{
 			default:
 				break;
 			}
-			plik << czas << sTyp << komunikat;
+			plik << czas << sTyp << komunikat << std::endl;
 		});
 
 		konsola_ = std::make_shared<Konsola>(logger_);
@@ -195,7 +195,6 @@ namespace SpEx{
 		/* ------------------------------------ */
 #ifndef LOG_OFF_ALL
 		logger_.loguj(SLog::Log::Info, "Start aplikacji Space-Explorers.");
-		logger_.loguj(SLog::Log::Info, "Start aplikacji Space-Explorers. Start aplikacji Space-Explorers. Start aplikacji Space-Explorers.");
 #endif
 		//Wyswietlanie informacji o aplikacji
 		logApInfo();
