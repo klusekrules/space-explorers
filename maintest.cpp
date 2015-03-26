@@ -7,14 +7,14 @@
 #include "TestyJednostkowe.h"
 
 void main( int argv , char* argc[] ){
-
-	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
-	_CrtSetReportMode( _CRT_WARN, _CRTDBG_MODE_FILE );
-    _CrtSetReportFile( _CRT_WARN, _CRTDBG_FILE_STDOUT );
-    _CrtSetReportMode( _CRT_ERROR, _CRTDBG_MODE_FILE );
-    _CrtSetReportFile( _CRT_ERROR, _CRTDBG_FILE_STDOUT );
-    _CrtSetReportMode( _CRT_ASSERT, _CRTDBG_MODE_FILE );
-    _CrtSetReportFile( _CRT_ASSERT, _CRTDBG_FILE_STDOUT );
+	HANDLE hLogFile = CreateFile("mem_leak.txt", GENERIC_WRITE, FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	_CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_FILE);
+	_CrtSetReportFile(_CRT_WARN, hLogFile);
+	_CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_FILE);
+	_CrtSetReportFile(_CRT_ERROR, hLogFile);
+	_CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_FILE);
+	_CrtSetReportFile(_CRT_ASSERT, hLogFile);
 	
 	try{
 		SpEx::Aplikacja::iloscArgumentow = argv;

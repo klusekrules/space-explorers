@@ -156,7 +156,7 @@ namespace SpEx {
 		
 		__int64 pobierzNumerLosowy();
 
-		void wykonajPolecenie(std::string);
+		void wykonajPolecenie(const std::string&);
 
 		/**
 		* \brief Metoda tworz¹ca tekstowy opis obiektu.
@@ -202,6 +202,7 @@ namespace SpEx {
 		std::shared_ptr<ZarzadcaZasobow> zarzadcaZasobow_; /// Zarz¹dca zasobów.
 		std::shared_ptr<ZarzadcaUzytkownikow> zarzadcaUzytkownikow_; /// Zarz¹dca u¿ytkowników.
 		std::shared_ptr<ZarzadcaLokacji> zarzadcaLokacji_; /// Obiekt zarz¹dzaj¹cy lokacjami.
+		std::map< std::string, std::function<void(std::string)>> poleceniaKonsoli_;
 
 		SymInitializeS symInitialize_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
 		SymFromAddrS symFromAddr_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.

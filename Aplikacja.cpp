@@ -37,6 +37,7 @@
 #include "Utils.h"
 #include "StaleUstawienAplikacji.h"
 #include "Konsola.h"
+#include "Export.h"
 
 #define KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU STyp::Tekst("Podczas przetwarzabua argumentów wyst¹pi³ b³¹d.")
 #define KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plik) STyp::Tekst("Nie powiod³o siê wczytywanie pliku konfiguracyjnego: " + plik)
@@ -185,6 +186,7 @@ namespace SpEx{
 			plik << czas << sTyp << komunikat << std::endl;
 		});
 
+		poleceniaKonsoli_.emplace("zamknij", [](std::string){ zamknijAplikacje(); });
 		konsola_ = std::make_shared<Konsola>(logger_);
 		
 		/* ------------------------------------ */
@@ -441,8 +443,21 @@ namespace SpEx{
 		return true;
 	}
 
-	void Aplikacja::wykonajPolecenie(std::string polecenie){
-
+	void Aplikacja::wykonajPolecenie(const std::string& polecenie){
+		auto sPolecenie = Utils::trim(polecenie);
+		auto iter = std::find_if(sPolecenie.begin(), sPolecenie.end(), [](int i){ return ::isspace(i); });
+		std::string nazwa(sPolecenie.begin(), iter);
+		sPolecenie.erase(sPolecenie.begin(),iter);
+		auto parametry = Utils::trim(sPolecenie);
+		if (logger_.czyLogiOdblokowane(SLog::Log::Debug)){
+			logger_.loguj(SLog::Log::Debug, "Polecenie: \"" + nazwa + "\" - Parametry: \"" + parametry + "\"");
+		}
+		if (!nazwa.empty()){
+			auto metoda = poleceniaKonsoli_.find(nazwa);
+			if (metoda != poleceniaKonsoli_.end()){
+				metoda->second(parametry);
+			}
+		}
 	}
 
 	__int64 Aplikacja::pobierzNumerLosowy(){
