@@ -339,25 +339,54 @@ namespace tgui
 
         // Split the label over multiple lines if necessary
 
-		
 		tempLine->setText(text);
 		if (tempLine->getSize().x + 4.0f > width){
+			sf::String napis;
 			unsigned int pos = 0;
-			unsigned int size = 0;
-			while (pos + size < text.getSize())
-			{
-				tempLine->setText(text.toWideString().substr(pos, ++size));
+			int size_prev = text.getSize() - 1;
+			int size = size_prev / 2;
+			bool wZakresie = false;
+			bool ok = false;
+			bool koniec = false;
+			while (!koniec){
+				tempLine->setText(text.toWideString().substr(pos, size));
 
-				if (tempLine->getSize().x + 4.0f > width)
-				{
-					label->setText(label->getText() + text.toWideString().substr(pos, size - 1) + "\n");
+				if (tempLine->getSize().x + 4.0f > width){
+					ok = wZakresie && abs(size_prev - size) == 1;
+					if (!ok){
+						auto temp = size;
+						size -= static_cast<int>(ceil(abs(size_prev - size) / 2.f));
+						size_prev = temp;
+					}
+					wZakresie = false;
+				} else{
+					ok = !wZakresie && abs(size_prev - size) == 1;
+					if (!ok){
+						auto temp = size;
+						size += static_cast<int>(ceil(abs(size_prev - size) / 2.f));
+						size_prev = temp;
+					}
+					wZakresie = true;
+				}
 
-					pos = pos + size - 1;
-					size = 0;
+				if (ok){
+					napis += text.toWideString().substr(pos, wZakresie ? size : size_prev) + L"\n";
+					pos += wZakresie ? size : size_prev;
+					size = text.getSize() - (pos + 1);
+					tempLine->setText(text.toWideString().substr(pos, size));
+					if (tempLine->getSize().x + 4.0f > width){
+						size_prev = size;
+						size /= 2;
+					} else{
+						napis += tempLine->getText();
+						label->setText(napis);
+						koniec = true;
+					}
 				}
 			}
+		} else{
+			label->setText(text);
 		}
-        label->setText(label->getText() + tempLine->getText());
 
         m_FullTextHeight += getLineSpacing(widgets.size()-1);
 
@@ -942,8 +971,7 @@ namespace tgui
         assert(lineNumber < m_Panel->getWidgets().size());
 
         auto line = tgui::Label::Ptr(m_Panel->getWidgets()[lineNumber]);
-		size_t lineSpacing = m_Panel->getGlobalFont().getLineSpacing(line->getTextSize());
-		return static_cast<size_t>(std::ceil(line->getSize().y - lineSpacing + m_LineSpacing));
+		return static_cast<size_t>(std::ceil(line->getSize().y + m_LineSpacing));
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
