@@ -372,7 +372,7 @@ namespace tgui
 				if (ok){
 					napis += text.toWideString().substr(pos, wZakresie ? size : size_prev) + L"\n";
 					pos += wZakresie ? size : size_prev;
-					size = text.getSize() - (pos + 1);
+					size = text.getSize() - pos;
 					tempLine->setText(text.toWideString().substr(pos, size));
 					if (tempLine->getSize().x + 4.0f > width){
 						size_prev = size;
