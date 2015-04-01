@@ -202,8 +202,18 @@ namespace SpEx {
 		std::shared_ptr<ZarzadcaZasobow> zarzadcaZasobow_; /// Zarz¹dca zasobów.
 		std::shared_ptr<ZarzadcaUzytkownikow> zarzadcaUzytkownikow_; /// Zarz¹dca u¿ytkowników.
 		std::shared_ptr<ZarzadcaLokacji> zarzadcaLokacji_; /// Obiekt zarz¹dzaj¹cy lokacjami.
+
 		std::map< std::string, std::function<void(std::string)>> poleceniaKonsoli_;
 		bool czyKonsola_;
+
+		struct OpcjeParametru{
+			OpcjeParametru(int iloscParametrow, std::function<bool(std::vector<char*>)> funkcja)
+				: iloscParametrow_(iloscParametrow), funkcja_(funkcja){}
+
+			int iloscParametrow_ = 0;
+			std::function<bool(std::vector<char*>)> funkcja_;
+		};
+		std::map< std::string, OpcjeParametru> parametryUruchomieniowe_;
 
 		SymInitializeS symInitialize_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
 		SymFromAddrS symFromAddr_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.

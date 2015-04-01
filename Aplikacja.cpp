@@ -90,7 +90,8 @@ namespace SpEx{
 
 	Aplikacja::Aplikacja()
 		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), czyKonsola_(true), konsola_(nullptr),
-		fabrykator_(nullptr), instancjaGry_(nullptr), zarzadcaZasobow_(nullptr), zarzadcaUzytkownikow_(nullptr), zarzadcaLokacji_(nullptr)
+		fabrykator_(nullptr), instancjaGry_(nullptr), zarzadcaZasobow_(nullptr), zarzadcaUzytkownikow_(nullptr), zarzadcaLokacji_(nullptr),
+		plikKonfiguracyjny_("options.xml")
 	{
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listasurowcowgui", tgui::ListaSurowcowGui::createWidget);
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listaobiektowgui", tgui::ListaObiektowGui::createWidget);
@@ -427,25 +428,47 @@ namespace SpEx{
 	bool Aplikacja::przetworzArgumenty(){
 		if (!argumenty || iloscArgumentow <= 0)
 			return false;
-		plikKonfiguracyjny_ = "options.xml";
+
+		parametryUruchomieniowe_.emplace("-O", OpcjeParametru(1, [&](std::vector<char*> lista)->bool{
+			if (lista.size() == 0)
+				return false;
+
+			auto wsk = lista.begin();
+			if (*wsk){
+				std::string nazwa(*wsk);
+				if (!nazwa.empty()){
+					plikKonfiguracyjny_ = nazwa;
+					return true;
+				}
+			}
+			return false;
+		}));
+
+		parametryUruchomieniowe_.emplace("-NoConsola", OpcjeParametru(0, [&](std::vector<char*> lista)->bool{
+			czyKonsola_ = false;
+			return true;
+		}));
+
 		for (int numer = 0; numer < iloscArgumentow; ++numer){
 			if (!argumenty[numer])
 				continue;
 			std::string argument(argumenty[numer]);
 			if (argument.empty())
 				continue;
-			if (!argument.compare("-O")){
-				++numer;
-				if (numer >= iloscArgumentow || !argumenty[numer])
-					return false;
-				std::string nazwa(argumenty[numer]);
-				if (nazwa.empty())
-					return false;
-				plikKonfiguracyjny_ = nazwa;
+			auto parametr = parametryUruchomieniowe_.find(argument);
+			if (parametr == parametryUruchomieniowe_.end())
+				continue;
+			if (parametr->second.iloscParametrow_ + numer >= iloscArgumentow)
+				return false;
+			std::vector<char*> lista;
+			lista.reserve(parametr->second.iloscParametrow_);
+			for (int offset = 1; offset <= parametr->second.iloscParametrow_; ++offset){
+				lista.push_back(argumenty[numer + offset]);
 			}
-			if (!argument.compare("-NoConsola")){
-				czyKonsola_ = false;
-			}
+			if (parametr->second.funkcja_(lista))
+				numer += parametr->second.iloscParametrow_;
+			else
+				return false;
 		}
 		return true;
 	}
