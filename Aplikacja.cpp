@@ -89,7 +89,7 @@ namespace SpEx{
 	char** Aplikacja::argumenty = nullptr;
 
 	Aplikacja::Aplikacja()
-		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), 
+		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), czyKonsola_(true), konsola_(nullptr),
 		fabrykator_(nullptr), instancjaGry_(nullptr), zarzadcaZasobow_(nullptr), zarzadcaUzytkownikow_(nullptr), zarzadcaLokacji_(nullptr)
 	{
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listasurowcowgui", tgui::ListaSurowcowGui::createWidget);
@@ -186,8 +186,12 @@ namespace SpEx{
 			plik << czas << sTyp << komunikat << std::endl;
 		});
 
-		poleceniaKonsoli_.emplace("zamknij", [](std::string){ zamknijAplikacje(); });
-		konsola_ = std::make_shared<Konsola>(logger_);
+		if (czyKonsola_){
+			poleceniaKonsoli_.emplace("zamknij", [](std::string){ zamknijAplikacje(); });
+			konsola_ = std::make_shared<Konsola>(logger_);
+		} else{
+			konsola_ = nullptr;
+		}
 		
 		/* ------------------------------------ */
 
@@ -438,6 +442,9 @@ namespace SpEx{
 				if (nazwa.empty())
 					return false;
 				plikKonfiguracyjny_ = nazwa;
+			}
+			if (!argument.compare("-NoConsola")){
+				czyKonsola_ = false;
 			}
 		}
 		return true;

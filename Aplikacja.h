@@ -203,6 +203,7 @@ namespace SpEx {
 		std::shared_ptr<ZarzadcaUzytkownikow> zarzadcaUzytkownikow_; /// Zarz¹dca u¿ytkowników.
 		std::shared_ptr<ZarzadcaLokacji> zarzadcaLokacji_; /// Obiekt zarz¹dzaj¹cy lokacjami.
 		std::map< std::string, std::function<void(std::string)>> poleceniaKonsoli_;
+		bool czyKonsola_;
 
 		SymInitializeS symInitialize_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
 		SymFromAddrS symFromAddr_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
