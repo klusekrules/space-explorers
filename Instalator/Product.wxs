@@ -71,7 +71,7 @@
             WorkingDirectory='INSTALL_DIR' Advertise="yes" Arguments="-O $(var.PlikOpcji)" Icon="ikona.ico"/>
           <game:Game Id="{312026C1-94A6-4C5D-89B5-76F310F3B734}">
             <game:PlayTask Name="Graj" Arguments="-O $(var.PlikOpcji)"/>
-            <game:SupportTask Name="Strona domowa" Address="http://code.google.com/p/space-explorers/"/>
+            <game:SupportTask Name="Strona domowa" Address="http://klusekrules.github.io/space-explorers/"/>
           </game:Game>
         </File>
       </Component>
@@ -86,9 +86,6 @@
       </Component>
       <Component Id='POZWIAZANIA_XML_COMP' Guid='{9BD28ACA-2256-4ADE-A18F-EC04A3B008A7}'>
         <File Id='POZWIAZANIA_XML_FILE' Source='..\out\powiazania.xml' KeyPath='yes' Vital='yes'/>
-      </Component>
-      <Component Id='PLUGIN_DLL' Guid='52493997-1318-4CD2-A046-0E1E309D7FB6' Win64='$(var.isPlatformx64)'>
-        <File Id='PLUGIN_DLL_FILE' Source='..\out\plugin-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
       </Component>
       <Component Id='LOGGER_DLL' Guid='07CEBB01-446A-4BB8-8A5C-49CAC8354360' Win64='$(var.isPlatformx64)'>
         <File Id='LOGGER_DLL_FILE' Source='..\out\logger-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
@@ -110,16 +107,16 @@
 
     <DirectoryRef Id='DOC_DIR'>
       <Component Id='DOC_DATA_SHEMA_COMP' Guid='D41EB417-BC64-46AA-9AD6-2080E8B5C620'>
-        <File Id='DOC_DATA_SHEMA_FILE' Source='..\dataSchema.xsd' Name='SchematDanych.xsd' KeyPath='yes' Vital='yes'/>
+        <File Id='DOC_DATA_SHEMA_FILE' Source='..\doc\dataSchema.xsd' Name='SchematDanych.xsd' KeyPath='yes' Vital='yes'/>
       </Component>
       <Component Id='DOC_SAVE_SHEMA_COMP' Guid='3D5D189F-67F4-4237-BB32-901DEBA86855'>
-        <File Id='DOC_SAVE_SHEMA_FILE' Source='..\saveSchema.xsd' Name='SchematStanuGry.xsd' KeyPath='yes' Vital='yes'/>
+        <File Id='DOC_SAVE_SHEMA_FILE' Source='..\doc\saveSchema.xsd' Name='SchematStanuGry.xsd' KeyPath='yes' Vital='yes'/>
       </Component>
       <Component Id='DOC_USER_SHEMA_COMP' Guid='17C3EF77-4D13-4DFF-90A5-A78B03DAD795'>
-        <File Id='DOC_USER_SHEMA_FILE' Source='..\userSchema.xsd' Name='SchematUzytkownika.xsd' KeyPath='yes' Vital='yes'/>
+        <File Id='DOC_USER_SHEMA_FILE' Source='..\doc\userSchema.xsd' Name='SchematUzytkownika.xsd' KeyPath='yes' Vital='yes'/>
       </Component>
       <Component Id='DOC_UKLAD_SHEMA_COMP' Guid='C0E893B5-D97D-4B4B-ABC2-3463E39C20FC'>
-        <File Id='DOC_UKLAD_SHEMA_FILE' Source='..\saveSchema.xsd' Name='SchematUkladuSlonecznego.xsd' KeyPath='yes' Vital='yes'/>
+        <File Id='DOC_UKLAD_SHEMA_FILE' Source='..\doc\saveSchema.xsd' Name='SchematUkladuSlonecznego.xsd' KeyPath='yes' Vital='yes'/>
       </Component>
     </DirectoryRef>
 
@@ -248,7 +245,6 @@
       <ComponentRef Id='SPACE_EXPLORERS_COM' />
       <ComponentRef Id='CONFIG_XML' />
       <ComponentRef Id='DATA_XML' />
-      <ComponentRef Id='PLUGIN_DLL' />
       <ComponentRef Id='LOGGER_DLL' />
       <ComponentRef Id='ZMIANA_DLL' />
       <ComponentRef Id='PARSER_DLL' />
@@ -303,7 +299,7 @@
     </UI>
     <Property Id="PIDTemplate"><![CDATA[12345<##### ##### ##### ##### #####>@@@@@]]></Property>
     <Property Id="WIXUI_INSTALLDIR" Value="SPACE_EXPLORERS" />
-    <WixVariable Id="WixUILicenseRtf" Value="..\gpl-3.0.rtf" />
+    <WixVariable Id="WixUILicenseRtf" Value="..\doc\gpl-3.0.rtf" />
     <!--WixVariable Id="WixUIBannerBmp" Value="Logo.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="LogoSide.Bmp" /-->
   </Product>

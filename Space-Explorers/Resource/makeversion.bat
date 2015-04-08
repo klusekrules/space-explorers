@@ -8,7 +8,7 @@ SETLOCAL
 FOR /F "tokens=*" %%i in ('DATE /T') do SET data=%%i
 FOR /F "tokens=*" %%i in ('TIME /T') do SET czas=%%i
 
-DEL /F /Q git_version.h
+DEL /F /Q %1git_version.h
 ECHO #define TIMESTAMP "%data%%czas%" >> %1git_version.h
 
 IF NOT "%GIT_BIN%" == "" GOTO version
