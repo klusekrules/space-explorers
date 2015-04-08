@@ -869,9 +869,6 @@
     <Filter Include="SourceFile\GUI\Ekrany\Szablon">
       <UniqueIdentifier>{06269db9-7054-49db-b53b-c4aa4b9d8c45}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Data\Schematy">
-      <UniqueIdentifier>{e1f93305-1c4f-4759-acc0-5d61d8d8b66a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Data\Skrypty">
       <UniqueIdentifier>{1289de74-2981-47bb-88f6-1d7c962c505d}</UniqueIdentifier>
     </Filter>
@@ -994,118 +991,121 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="out\resource\simple.frag">
-      <Filter>Resource\Shadery</Filter>
-    </None>
-    <None Include="out\lua\interfejs.lua">
-      <Filter>Data\Skrypty</Filter>
-    </None>
-    <None Include="out\lua\test.lua">
-      <Filter>Data\Skrypty</Filter>
-    </None>
-    <None Include="out\resource\lista.wdg">
-      <Filter>Data\Ekrany</Filter>
-    </None>
-    <None Include="out\resource\menu.wdg">
-      <Filter>Data\Ekrany</Filter>
-    </None>
-    <None Include="out\resource\pusteOkno.wdg">
-      <Filter>Data\Ekrany</Filter>
-    </None>
-    <None Include="out\resource\testowanie.wdg">
-      <Filter>Data\Ekrany</Filter>
-    </None>
-    <None Include="out\resource\logowanie.wdg">
-      <Filter>Data\Ekrany</Filter>
-    </None>
-    <None Include="out\lua\class.lua">
-      <Filter>Data\Skrypty</Filter>
-    </None>
-    <None Include="out\lua\aplikacja.lua">
-      <Filter>Data\Skrypty</Filter>
-    </None>
-    <None Include="out\lua\gui.lua">
-      <Filter>Data\Skrypty</Filter>
-    </None>
-    <None Include="out\widgets\LogListGui.conf">
-      <Filter>Resource\Konfiguracja</Filter>
-    </None>
-    <None Include="out\widgets\Black.conf">
-      <Filter>Resource\Konfiguracja</Filter>
-    </None>
     <None Include="Resource\makeversion.bat">
       <Filter>Resource\Wersja</Filter>
     </None>
+    <None Include="..\out\lua\aplikacja.lua">
+      <Filter>Data\Skrypty</Filter>
+    </None>
+    <None Include="..\out\lua\class.lua">
+      <Filter>Data\Skrypty</Filter>
+    </None>
+    <None Include="..\out\lua\gui.lua">
+      <Filter>Data\Skrypty</Filter>
+    </None>
+    <None Include="..\out\lua\interfejs.lua">
+      <Filter>Data\Skrypty</Filter>
+    </None>
+    <None Include="..\out\lua\test.lua">
+      <Filter>Data\Skrypty</Filter>
+    </None>
+    <None Include="..\out\resource\lista.wdg">
+      <Filter>Data\Ekrany</Filter>
+    </None>
+    <None Include="..\out\resource\logowanie.wdg">
+      <Filter>Data\Ekrany</Filter>
+    </None>
+    <None Include="..\out\resource\menu.wdg">
+      <Filter>Data\Ekrany</Filter>
+    </None>
+    <None Include="..\out\resource\pusteOkno.wdg">
+      <Filter>Data\Ekrany</Filter>
+    </None>
+    <None Include="..\out\resource\testowanie.wdg">
+      <Filter>Data\Ekrany</Filter>
+    </None>
+    <None Include="..\out\widgets\Black.conf">
+      <Filter>Resource\Konfiguracja</Filter>
+    </None>
+    <None Include="..\out\widgets\LogListGui.conf">
+      <Filter>Resource\Konfiguracja</Filter>
+    </None>
+    <None Include="..\out\resource\simple.frag">
+      <Filter>Resource\Shadery</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="out\data.xml">
-      <Filter>Data</Filter>
-    </Xml>
-    <Xml Include="out\message.xml">
-      <Filter>Data</Filter>
-    </Xml>
-    <Xml Include="out\options.xml">
-      <Filter>Data</Filter>
-    </Xml>
-    <Xml Include="out\test.xml">
-      <Filter>Data</Filter>
-    </Xml>
-    <Xml Include="out\options_test.xml">
-      <Filter>Data</Filter>
-    </Xml>
-    <Xml Include="out\resource\state.xml">
-      <Filter>Data</Filter>
-    </Xml>
-    <Xml Include="out\danetestowe.xml">
-      <Filter>Data</Filter>
-    </Xml>
-    <Xml Include="out\powiazania.xml">
-      <Filter>Data</Filter>
-    </Xml>
-    <Xml Include="out\resource\ekrany.xml">
-      <Filter>Data</Filter>
-    </Xml>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="out\resource\background.jpg">
-      <Filter>Resource\Obrazy</Filter>
-    </Image>
-    <Image Include="out\resource\Space_start_screen.png">
-      <Filter>Resource\Obrazy</Filter>
-    </Image>
-    <Image Include="out\resource\SpaceExplorers_logo_640x348.bmp">
-      <Filter>Resource\Obrazy</Filter>
-    </Image>
-    <Image Include="out\resource\space.jpg">
-      <Filter>Resource\Obrazy</Filter>
-    </Image>
-    <Image Include="out\resource\SpaceExplorers_logo_640x348.png">
-      <Filter>Resource\Obrazy</Filter>
-    </Image>
-    <Image Include="out\widgets\tlo.png">
-      <Filter>Resource\Obrazy</Filter>
-    </Image>
-    <Image Include="out\resource\Ikona.ico">
+    <Image Include="..\out\resource\Ikona.ico">
       <Filter>Resource\Ikony</Filter>
     </Image>
-    <Image Include="out\resource\IkonaBlue.ico">
+    <Image Include="..\out\resource\IkonaBlue.ico">
       <Filter>Resource\Ikony</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="out\resource\arial.ttf">
-      <Filter>Resource\Czcionki</Filter>
-    </Font>
-    <Font Include="out\resource\TransformersMovie.ttf">
-      <Filter>Resource\Czcionki</Filter>
-    </Font>
-    <Font Include="out\resource\consola.ttf">
-      <Filter>Resource\Czcionki</Filter>
-    </Font>
+    <Image Include="..\out\resource\SpaceExplorers_logo_640x348.bmp">
+      <Filter>Resource\Obrazy</Filter>
+    </Image>
+    <Image Include="..\out\resource\background.jpg">
+      <Filter>Resource\Obrazy</Filter>
+    </Image>
+    <Image Include="..\out\resource\space.jpg">
+      <Filter>Resource\Obrazy</Filter>
+    </Image>
+    <Image Include="..\out\resource\Brak_obrazka.png">
+      <Filter>Resource\Obrazy</Filter>
+    </Image>
+    <Image Include="..\out\resource\Space_start_screen.png">
+      <Filter>Resource\Obrazy</Filter>
+    </Image>
+    <Image Include="..\out\resource\SpaceExplorers_logo_640x348.png">
+      <Filter>Resource\Obrazy</Filter>
+    </Image>
+    <Image Include="..\out\widgets\tlo.png">
+      <Filter>Resource\Obrazy</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource\Space-Explorers.rc">
       <Filter>Resource</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\out\danetestowe.xml">
+      <Filter>Data</Filter>
+    </Xml>
+    <Xml Include="..\out\data.xml">
+      <Filter>Data</Filter>
+    </Xml>
+    <Xml Include="..\out\message.xml">
+      <Filter>Data</Filter>
+    </Xml>
+    <Xml Include="..\out\options.xml">
+      <Filter>Data</Filter>
+    </Xml>
+    <Xml Include="..\out\options_test.xml">
+      <Filter>Data</Filter>
+    </Xml>
+    <Xml Include="..\out\powiazania.xml">
+      <Filter>Data</Filter>
+    </Xml>
+    <Xml Include="..\out\test.xml">
+      <Filter>Data</Filter>
+    </Xml>
+    <Xml Include="..\out\resource\ekrany.xml">
+      <Filter>Data</Filter>
+    </Xml>
+    <Xml Include="..\out\resource\state.xml">
+      <Filter>Data</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\out\resource\arial.ttf">
+      <Filter>Resource\Czcionki</Filter>
+    </Font>
+    <Font Include="..\out\resource\consola.ttf">
+      <Filter>Resource\Czcionki</Filter>
+    </Font>
+    <Font Include="..\out\resource\TransformersMovie.ttf">
+      <Filter>Resource\Czcionki</Filter>
+    </Font>
   </ItemGroup>
 </Project>

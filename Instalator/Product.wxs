@@ -154,6 +154,10 @@
       <Component Id='RESOURCE_DIR_FONT_FILE_COMP' Guid='{7C45A208-EA2A-45F7-802C-780A3453E9F8}' Win64='$(var.isPlatformx64)'>
         <File Id='RESOURCE_FONT_FILE' Source='..\out\resource\arial.ttf' KeyPath='yes' Vital='yes' Checksum='yes'/>
       </Component>
+      
+      <Component Id='CONSOLA_FONT_FILE_COMP' Guid='{515130DE-AB3F-46B6-8992-9CEB2B72B595}' Win64='$(var.isPlatformx64)'>
+        <File Id='CONSOLA_FONT_FILE' Source='..\out\resource\consola.ttf' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
 
       <Component Id='MENU_WDG_FILE_COMP' Guid='{A3A08A7C-7758-4608-BFDE-BFE9EF5EECAC}' Win64='$(var.isPlatformx64)'>
         <File Id='MENU_WDG_FILE' Source='..\out\resource\menu.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
@@ -213,6 +217,18 @@
       <Component Id='INTERFEJS_LUA_FILE_COMP' Guid='{A177967B-FBB9-4738-8284-6B0D22D304EA}' Win64='$(var.isPlatformx64)'>
         <File Id='INTERFEJS_LUA_FILE' Source='..\out\lua\interfejs.lua' KeyPath='yes' Vital='yes' Checksum='yes'/>
       </Component>
+
+      <Component Id='CLASS_LUA_FILE_COMP' Guid='{BDE3256E-A66C-40DA-AA70-A4A387E4A083}' Win64='$(var.isPlatformx64)'>
+        <File Id='CLASS_LUA_FILE' Source='..\out\lua\class.lua' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='GUI_LUA_FILE_COMP' Guid='{984B8F93-AFCF-4F8B-871C-F56B895213F9}' Win64='$(var.isPlatformx64)'>
+        <File Id='GUI_LUA_FILE' Source='..\out\lua\gui.lua' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='APLIKACJA_LUA_FILE_COMP' Guid='{A5BF57DD-DB05-46E1-8516-761DFAED7BFE}' Win64='$(var.isPlatformx64)'>
+        <File Id='APLIKACJA_LUA_FILE' Source='..\out\lua\aplikacja.lua' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
     </DirectoryRef>
 
     <DirectoryRef Id='WIDGETS_DIR'>
@@ -259,8 +275,12 @@
       <ComponentRef Id='UKLAD_DIR_COMP' />
       <ComponentRef Id='RESOURCE_DIR_BACKGROUND_FILE_COMP' />
       <ComponentRef Id='RESOURCE_DIR_FONT_FILE_COMP' />
+      <ComponentRef Id='CONSOLA_FONT_FILE_COMP' />
       <ComponentRef Id='TEST_LUA_FILE_COMP' />
       <ComponentRef Id='INTERFEJS_LUA_FILE_COMP' />
+      <ComponentRef Id='CLASS_LUA_FILE_COMP' />
+      <ComponentRef Id='GUI_LUA_FILE_COMP' />
+      <ComponentRef Id='APLIKACJA_LUA_FILE_COMP' />
       <ComponentRef Id='MENU_WDG_FILE_COMP' />
       <ComponentRef Id='EKRANY_XML_FILE_COMP' />
       <ComponentRef Id='PUSTE_OKNO_WDG_FILE_COMP' />
