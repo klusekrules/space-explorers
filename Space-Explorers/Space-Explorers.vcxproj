@@ -407,6 +407,7 @@
     <ClInclude Include="Model\Wymagania.h" />
     <ClInclude Include="Model\ZmianaPoziomObiektu.h" />
     <ClInclude Include="Resource\afxres.h" />
+    <ClInclude Include="Resource\git_version.h" />
     <ClInclude Include="Resource\resource.h" />
     <ClInclude Include="Resource\version.h" />
     <ClInclude Include="Testy\BudynekTest.h" />
