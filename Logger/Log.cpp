@@ -76,7 +76,7 @@ namespace SLog{
 		logger.dodajPole(NAZWAPOLA(formatCzasu_), NAZWAKLASY2(formatCzasu_), formatCzasu_);
 
 		logger.rozpocznijPodKlase(NAZWAPOLA(poziomy_),"std::vector< bool >");
-		for (int i = 0; i < poziomy_.size(); ++i){
+		for (size_t i = 0; i < poziomy_.size(); ++i){
 			std::stringstream streamOn;
 			streamOn.imbue(std::locale("C"));
 			streamOn << std::boolalpha << poziomy_[i];

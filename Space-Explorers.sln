@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpaceGame", "SpaceGame.vcxproj", "{A8B6EFB3-277C-42D6-A05E-78516E547F38}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Space-Explorers", "Space-Explorers\Space-Explorers.vcxproj", "{A8B6EFB3-277C-42D6-A05E-78516E547F38}"
 	ProjectSection(ProjectDependencies) = postProject
 		{392C0116-BA28-41BE-9439-E0248522C0E7} = {392C0116-BA28-41BE-9439-E0248522C0E7}
 		{DA49481F-E328-4C1F-927C-44F818D30472} = {DA49481F-E328-4C1F-927C-44F818D30472}
