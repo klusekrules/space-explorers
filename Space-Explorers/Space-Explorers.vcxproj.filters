@@ -230,118 +230,118 @@
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClCompile>
     <ClCompile Include="Wyjatki\Wyjatki.cpp">
-      <Filter>SourceFile\DomysleWartosci</Filter>
+      <Filter>SourceFile\Wyjatki\DomysleWartosci</Filter>
     </ClCompile>
     <ClCompile Include="Widok\Tgui\KontrolkaObiektu.cpp">
-      <Filter>SourceFile\GUI\TGUI</Filter>
+      <Filter>SourceFile\Widok\TGUI</Filter>
     </ClCompile>
     <ClCompile Include="Widok\Tgui\ListaObiektowGui.cpp">
-      <Filter>SourceFile\GUI\TGUI</Filter>
+      <Filter>SourceFile\Widok\TGUI</Filter>
     </ClCompile>
     <ClCompile Include="Widok\Tgui\ListaSurowcowGui.cpp">
-      <Filter>SourceFile\GUI\TGUI</Filter>
+      <Filter>SourceFile\Widok\TGUI</Filter>
     </ClCompile>
     <ClCompile Include="Widok\Tgui\LogListGui.cpp">
-      <Filter>SourceFile\GUI\TGUI</Filter>
+      <Filter>SourceFile\Widok\TGUI</Filter>
     </ClCompile>
     <ClCompile Include="Widok\SFML\RoundedRectangleShape.cpp">
-      <Filter>SourceFile\GUI\SFML</Filter>
+      <Filter>SourceFile\Widok\SFML</Filter>
     </ClCompile>
     <ClCompile Include="Widok\Konsola\Konsola.cpp">
-      <Filter>SourceFile\GUI\Konsola</Filter>
+      <Filter>SourceFile\Widok\Konsola</Filter>
     </ClCompile>
     <ClCompile Include="Widok\Ekrany\Szkielet\EkranSzablon.cpp">
-      <Filter>SourceFile\GUI\Ekrany\Szablon</Filter>
+      <Filter>SourceFile\Widok\Ekrany\Szablon</Filter>
     </ClCompile>
     <ClCompile Include="Widok\Ekrany\EkranStartowy.cpp">
-      <Filter>SourceFile\GUI\Ekrany\Instancje</Filter>
+      <Filter>SourceFile\Widok\Ekrany\Instancje</Filter>
     </ClCompile>
     <ClCompile Include="Widok\Ekrany\OknoGry.cpp">
-      <Filter>SourceFile\GUI\Ekrany</Filter>
+      <Filter>SourceFile\Widok\Ekrany</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Siec\RPC\EchoRPC.cpp">
-      <Filter>SourceFile\Network\MetodyRPC</Filter>
+      <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Siec\RPC\InicjujLogowanieRPC.cpp">
-      <Filter>SourceFile\Network\MetodyRPC</Filter>
+      <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Siec\RPC\PotwierdzLogowanieRPC.cpp">
-      <Filter>SourceFile\Network\MetodyRPC</Filter>
+      <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Siec\RPC\SprawdzSumyKontrolneRPC.cpp">
-      <Filter>SourceFile\Network\MetodyRPC</Filter>
+      <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Siec\RPC\MetodaRPC.cpp">
-      <Filter>SourceFile\Network\MetodyRPC</Filter>
+      <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Siec\DaneTCP.cpp">
-      <Filter>SourceFile\Network</Filter>
+      <Filter>SourceFile\Kontroler\Network</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Siec\Klient.cpp">
-      <Filter>SourceFile\Network</Filter>
+      <Filter>SourceFile\Kontroler\Network</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Siec\Serwer.cpp">
-      <Filter>SourceFile\Network</Filter>
+      <Filter>SourceFile\Kontroler\Network</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Wielowatkowosc\MenadzerWatkow.cpp">
-      <Filter>SourceFile\MultiThreading</Filter>
+      <Filter>SourceFile\Kontroler\MultiThreading</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Wielowatkowosc\Watek.cpp">
-      <Filter>SourceFile\MultiThreading</Filter>
+      <Filter>SourceFile\Kontroler\MultiThreading</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Wielowatkowosc\WatekZarzadzany.cpp">
-      <Filter>SourceFile\MultiThreading</Filter>
+      <Filter>SourceFile\Kontroler\MultiThreading</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Wielowatkowosc\Zadanie.cpp">
-      <Filter>SourceFile\MultiThreading</Filter>
+      <Filter>SourceFile\Kontroler\MultiThreading</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Zarzadca\Fabrykator.cpp">
-      <Filter>SourceFile\Zarzadca</Filter>
+      <Filter>SourceFile\Kontroler\Zarzadca</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Zarzadca\ZarzadcaLokacji.cpp">
-      <Filter>SourceFile\Zarzadca</Filter>
+      <Filter>SourceFile\Kontroler\Zarzadca</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Zarzadca\ZarzadcaPluginow.cpp">
-      <Filter>SourceFile\Zarzadca</Filter>
+      <Filter>SourceFile\Kontroler\Zarzadca</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Zarzadca\ZarzadcaUzytkownikow.cpp">
-      <Filter>SourceFile\Zarzadca</Filter>
+      <Filter>SourceFile\Kontroler\Zarzadca</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Zarzadca\ZarzadcaZasobow.cpp">
-      <Filter>SourceFile\Zarzadca</Filter>
+      <Filter>SourceFile\Kontroler\Zarzadca</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Zarzadca\DllModule.cpp">
-      <Filter>SourceFile\Zarzadca\Zasoby</Filter>
+      <Filter>SourceFile\Kontroler\Zarzadca\Zasoby</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Zarzadca\LuaState.cpp">
-      <Filter>SourceFile\Zarzadca\Zasoby</Filter>
+      <Filter>SourceFile\Kontroler\Zarzadca\Zasoby</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Zarzadca\SumaKontrolnaPliku.cpp">
-      <Filter>SourceFile\Zarzadca\Zasoby</Filter>
+      <Filter>SourceFile\Kontroler\Zarzadca\Zasoby</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Zarzadca\XmlModul.cpp">
-      <Filter>SourceFile\Zarzadca\Zasoby</Filter>
+      <Filter>SourceFile\Kontroler\Zarzadca\Zasoby</Filter>
     </ClCompile>
     <ClCompile Include="Testy\SumakontrolnaPlikuTest.cpp">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\MaszynaStanow\Skrypty\DllSkrypt.cpp">
-      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+      <Filter>SourceFile\Kontroler\MaszynaStanow\Skrypty</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\MaszynaStanow\Skrypty\LuaSkrypt.cpp">
-      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+      <Filter>SourceFile\Kontroler\MaszynaStanow\Skrypty</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\MaszynaStanow\MaszynaStanow.cpp">
-      <Filter>SourceFile\MaszynaStanow</Filter>
+      <Filter>SourceFile\Kontroler\MaszynaStanow</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\MaszynaStanow\Stan.cpp">
-      <Filter>SourceFile\MaszynaStanow</Filter>
+      <Filter>SourceFile\Kontroler\MaszynaStanow</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\MaszynaStanow\StanInfo.cpp">
-      <Filter>SourceFile\MaszynaStanow</Filter>
+      <Filter>SourceFile\Kontroler\MaszynaStanow</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\MaszynaStanow\ZdarzenieInfo.cpp">
-      <Filter>SourceFile\MaszynaStanow</Filter>
+      <Filter>SourceFile\Kontroler\MaszynaStanow</Filter>
     </ClCompile>
     <ClCompile Include="Utils\Utils.cpp">
       <Filter>SourceFile\Utils</Filter>
@@ -359,10 +359,10 @@
       <Filter>SourceFile\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Utils\Tranzakcje\MenedzerTranzakcji.cpp">
-      <Filter>SourceFile\Tranzakcyjnosc</Filter>
+      <Filter>SourceFile\Utils\Tranzakcyjnosc</Filter>
     </ClCompile>
     <ClCompile Include="Utils\Tranzakcje\Operacja.cpp">
-      <Filter>SourceFile\Tranzakcyjnosc</Filter>
+      <Filter>SourceFile\Utils\Tranzakcyjnosc</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\ApInfo.cpp">
       <Filter>SourceFile\Kontroler</Filter>
@@ -613,130 +613,130 @@
       <Filter>Testy\KlasyTestowe\TestyJednostkowe</Filter>
     </ClInclude>
     <ClInclude Include="Widok\Tgui\KontrolkaObiektu.h">
-      <Filter>SourceFile\GUI\TGUI</Filter>
+      <Filter>SourceFile\Widok\TGUI</Filter>
     </ClInclude>
     <ClInclude Include="Widok\Tgui\ListaObiektowGui.h">
-      <Filter>SourceFile\GUI\TGUI</Filter>
+      <Filter>SourceFile\Widok\TGUI</Filter>
     </ClInclude>
     <ClInclude Include="Widok\Tgui\ListaSurowcowGui.h">
-      <Filter>SourceFile\GUI\TGUI</Filter>
+      <Filter>SourceFile\Widok\TGUI</Filter>
     </ClInclude>
     <ClInclude Include="Widok\Tgui\LogListGui.h">
-      <Filter>SourceFile\GUI\TGUI</Filter>
+      <Filter>SourceFile\Widok\TGUI</Filter>
     </ClInclude>
     <ClInclude Include="Widok\Tgui\PomocniczeTypyTGUI.h">
-      <Filter>SourceFile\GUI\TGUI</Filter>
+      <Filter>SourceFile\Widok\TGUI</Filter>
     </ClInclude>
     <ClInclude Include="Widok\SFML\RoundedRectangleShape.hpp">
-      <Filter>SourceFile\GUI\SFML</Filter>
+      <Filter>SourceFile\Widok\SFML</Filter>
     </ClInclude>
     <ClInclude Include="Widok\Konsola\Konsola.h">
-      <Filter>SourceFile\GUI\Konsola</Filter>
+      <Filter>SourceFile\Widok\Konsola</Filter>
     </ClInclude>
     <ClInclude Include="Widok\Ekrany\Szkielet\EkranSzablon.h">
-      <Filter>SourceFile\GUI\Ekrany\Szablon</Filter>
+      <Filter>SourceFile\Widok\Ekrany\Szablon</Filter>
     </ClInclude>
     <ClInclude Include="Widok\Ekrany\EkranStartowy.h">
-      <Filter>SourceFile\GUI\Ekrany\Instancje</Filter>
+      <Filter>SourceFile\Widok\Ekrany\Instancje</Filter>
     </ClInclude>
     <ClInclude Include="Widok\Ekrany\OknoGry.h">
-      <Filter>SourceFile\GUI\Ekrany</Filter>
+      <Filter>SourceFile\Widok\Ekrany</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Siec\RPC\EchoRPC.h">
-      <Filter>SourceFile\Network\MetodyRPC</Filter>
+      <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Siec\RPC\InicjujLogowanieRPC.h">
-      <Filter>SourceFile\Network\MetodyRPC</Filter>
+      <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Siec\RPC\PotwierdzLogowanieRPC.h">
-      <Filter>SourceFile\Network\MetodyRPC</Filter>
+      <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Siec\RPC\SprawdzSumyKontrolneRPC.h">
-      <Filter>SourceFile\Network\MetodyRPC</Filter>
+      <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Siec\RPC\MetodaRPC.h">
-      <Filter>SourceFile\Network\MetodyRPC</Filter>
+      <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Siec\RPC\StaleRPC.h">
-      <Filter>SourceFile\Network\MetodyRPC</Filter>
+      <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Siec\DaneTCP.h">
-      <Filter>SourceFile\Network</Filter>
+      <Filter>SourceFile\Kontroler\Network</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Siec\Klient.h">
-      <Filter>SourceFile\Network</Filter>
+      <Filter>SourceFile\Kontroler\Network</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Siec\Serwer.h">
-      <Filter>SourceFile\Network</Filter>
+      <Filter>SourceFile\Kontroler\Network</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Wielowatkowosc\MenadzerWatkow.h">
-      <Filter>SourceFile\MultiThreading</Filter>
+      <Filter>SourceFile\Kontroler\MultiThreading</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Wielowatkowosc\Watek.h">
-      <Filter>SourceFile\MultiThreading</Filter>
+      <Filter>SourceFile\Kontroler\MultiThreading</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Wielowatkowosc\WatekZarzadzany.h">
-      <Filter>SourceFile\MultiThreading</Filter>
+      <Filter>SourceFile\Kontroler\MultiThreading</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Wielowatkowosc\Zadanie.h">
-      <Filter>SourceFile\MultiThreading</Filter>
+      <Filter>SourceFile\Kontroler\MultiThreading</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Zarzadca\Fabrykator.h">
-      <Filter>SourceFile\Zarzadca</Filter>
+      <Filter>SourceFile\Kontroler\Zarzadca</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Zarzadca\ZarzadcaLokacji.h">
-      <Filter>SourceFile\Zarzadca</Filter>
+      <Filter>SourceFile\Kontroler\Zarzadca</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Zarzadca\ZarzadcaPluginow.h">
-      <Filter>SourceFile\Zarzadca</Filter>
+      <Filter>SourceFile\Kontroler\Zarzadca</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Zarzadca\ZarzadcaUzytkownikow.h">
-      <Filter>SourceFile\Zarzadca</Filter>
+      <Filter>SourceFile\Kontroler\Zarzadca</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Zarzadca\ZarzadcaZasobow.h">
-      <Filter>SourceFile\Zarzadca</Filter>
+      <Filter>SourceFile\Kontroler\Zarzadca</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Zarzadca\DllModule.h">
-      <Filter>SourceFile\Zarzadca\Zasoby</Filter>
+      <Filter>SourceFile\Kontroler\Zarzadca\Zasoby</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Zarzadca\LuaState.h">
-      <Filter>SourceFile\Zarzadca\Zasoby</Filter>
+      <Filter>SourceFile\Kontroler\Zarzadca\Zasoby</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Zarzadca\SumaKontrolnaPliku.h">
-      <Filter>SourceFile\Zarzadca\Zasoby</Filter>
+      <Filter>SourceFile\Kontroler\Zarzadca\Zasoby</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Zarzadca\XmlModul.h">
-      <Filter>SourceFile\Zarzadca\Zasoby</Filter>
+      <Filter>SourceFile\Kontroler\Zarzadca\Zasoby</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Zarzadca\Zasob.h">
-      <Filter>SourceFile\Zarzadca\Zasoby</Filter>
+      <Filter>SourceFile\Kontroler\Zarzadca\Zasoby</Filter>
     </ClInclude>
     <ClInclude Include="Testy\SumakontrolnaPlikuTest.h">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\MaszynaStanow\Skrypty\DllSkrypt.h">
-      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+      <Filter>SourceFile\Kontroler\MaszynaStanow\Skrypty</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\MaszynaStanow\Skrypty\LuaSkrypt.h">
-      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+      <Filter>SourceFile\Kontroler\MaszynaStanow\Skrypty</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\MaszynaStanow\Skrypty\Skrypt.h">
-      <Filter>SourceFile\MaszynaStanow\Skrypty</Filter>
+      <Filter>SourceFile\Kontroler\MaszynaStanow\Skrypty</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\MaszynaStanow\MaszynaStanow.h">
-      <Filter>SourceFile\MaszynaStanow</Filter>
+      <Filter>SourceFile\Kontroler\MaszynaStanow</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\MaszynaStanow\Stan.h">
-      <Filter>SourceFile\MaszynaStanow</Filter>
+      <Filter>SourceFile\Kontroler\MaszynaStanow</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\MaszynaStanow\StanInfo.h">
-      <Filter>SourceFile\MaszynaStanow</Filter>
+      <Filter>SourceFile\Kontroler\MaszynaStanow</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\MaszynaStanow\Zdarzenie.h">
-      <Filter>SourceFile\MaszynaStanow</Filter>
+      <Filter>SourceFile\Kontroler\MaszynaStanow</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\MaszynaStanow\ZdarzenieInfo.h">
-      <Filter>SourceFile\MaszynaStanow</Filter>
+      <Filter>SourceFile\Kontroler\MaszynaStanow</Filter>
     </ClInclude>
     <ClInclude Include="Utils\UtilsGui.h">
       <Filter>SourceFile\Utils</Filter>
@@ -775,16 +775,16 @@
       <Filter>SourceFile\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\Tranzakcje\MenedzerTranzakcji.h">
-      <Filter>SourceFile\Tranzakcyjnosc</Filter>
+      <Filter>SourceFile\Utils\Tranzakcyjnosc</Filter>
     </ClInclude>
     <ClInclude Include="Utils\Tranzakcje\Operacja.h">
-      <Filter>SourceFile\Tranzakcyjnosc</Filter>
+      <Filter>SourceFile\Utils\Tranzakcyjnosc</Filter>
     </ClInclude>
     <ClInclude Include="Utils\Tranzakcje\Zlecenia.h">
-      <Filter>SourceFile\Tranzakcyjnosc</Filter>
+      <Filter>SourceFile\Utils\Tranzakcyjnosc</Filter>
     </ClInclude>
     <ClInclude Include="Utils\Tranzakcje\Zlecenie.h">
-      <Filter>SourceFile\Tranzakcyjnosc</Filter>
+      <Filter>SourceFile\Utils\Tranzakcyjnosc</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Aplikacja.h">
       <Filter>SourceFile\Kontroler</Filter>
@@ -824,9 +824,6 @@
     <Filter Include="Data">
       <UniqueIdentifier>{5d287571-6848-4c07-9047-36c8210173c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\DomysleWartosci">
-      <UniqueIdentifier>{6f405ef5-dac8-4c81-a144-5dde19dd7b2b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Testy">
       <UniqueIdentifier>{4ab78a3d-48b6-4c0f-b276-81d74c71f295}</UniqueIdentifier>
     </Filter>
@@ -841,18 +838,6 @@
     </Filter>
     <Filter Include="Testy\KlasyTestowe\Inicjalizowanie">
       <UniqueIdentifier>{6d536f1e-ee1d-47c4-ac57-d3e813d83b91}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\GUI">
-      <UniqueIdentifier>{12ef1bc6-48d0-45bd-8c71-62ce5a122f43}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\GUI\SFML">
-      <UniqueIdentifier>{324a89d9-2441-499e-b64c-0a624cf66aa7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\MultiThreading">
-      <UniqueIdentifier>{0252530e-8ce4-466b-a514-a499ca0b7d71}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\GUI\Ekrany">
-      <UniqueIdentifier>{e3a1b275-8b57-4241-acc8-6836bfd82aad}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource">
       <UniqueIdentifier>{f809a59c-3db4-40e4-baa6-d18e46644843}</UniqueIdentifier>
@@ -869,17 +854,8 @@
     <Filter Include="Resource\Czcionki">
       <UniqueIdentifier>{8b775081-01d3-4c5b-b25e-75e2dc65e7e7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\GUI\Ekrany\Szablon">
-      <UniqueIdentifier>{06269db9-7054-49db-b53b-c4aa4b9d8c45}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Data\Skrypty">
       <UniqueIdentifier>{1289de74-2981-47bb-88f6-1d7c962c505d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\MaszynaStanow">
-      <UniqueIdentifier>{059b6ea8-f800-43b6-b443-9331f7b06e22}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\GUI\Ekrany\Instancje">
-      <UniqueIdentifier>{795eed1f-324f-4471-b8db-0bf85c28d80c}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\Model">
       <UniqueIdentifier>{348e4036-e1a8-4a14-8758-978d5817d486}</UniqueIdentifier>
@@ -932,12 +908,6 @@
     <Filter Include="SourceFile\Model\Users">
       <UniqueIdentifier>{b7c38fbf-2e4d-4fc8-9a60-10c124adf6ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\MaszynaStanow\Skrypty">
-      <UniqueIdentifier>{8f9e819d-6388-450e-8f96-4e62fe41f25f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\GUI\TGUI">
-      <UniqueIdentifier>{9979501e-6db8-4299-b72f-b291d1d46e2c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SourceFile\Kontroler">
       <UniqueIdentifier>{8bb9a1d7-532c-4345-a620-7d82340eec29}</UniqueIdentifier>
     </Filter>
@@ -947,29 +917,11 @@
     <Filter Include="Testy\KlasyTestowe\Biblioteka">
       <UniqueIdentifier>{9dd14e70-ad3e-4f45-9407-eae3efdc90cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\Network">
-      <UniqueIdentifier>{8787c751-8ec2-419c-a963-c2bfe00aad86}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Network\MetodyRPC">
-      <UniqueIdentifier>{a9720839-b446-4609-83a2-d3f190535e35}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\GUI\Konsola">
-      <UniqueIdentifier>{a0590a0e-7ed9-4db4-aa33-1288541bb963}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Zarzadca">
-      <UniqueIdentifier>{51b54752-beb0-4fe5-be58-bd2dacbe14c7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Zarzadca\Zasoby">
-      <UniqueIdentifier>{4b40de96-8dad-4bc6-ac96-c03390bd19d6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SourceFile\Utils">
       <UniqueIdentifier>{9db22de3-1bcc-4649-9bb1-f71fa4098df0}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\Main">
       <UniqueIdentifier>{703f8f7c-63c3-4bf3-9541-c8f98fd4902e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Tranzakcyjnosc">
-      <UniqueIdentifier>{6156b04e-fb15-434b-be8e-f5569dbf75b6}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\Algorytmy">
       <UniqueIdentifier>{04ab3f86-1059-460d-bbc1-281a246408b7}</UniqueIdentifier>
@@ -991,6 +943,54 @@
     </Filter>
     <Filter Include="SourceFile\Export">
       <UniqueIdentifier>{a8e17ce3-6522-444d-ba0d-3fb31f7ec210}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Widok">
+      <UniqueIdentifier>{12ef1bc6-48d0-45bd-8c71-62ce5a122f43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Widok\SFML">
+      <UniqueIdentifier>{324a89d9-2441-499e-b64c-0a624cf66aa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Widok\Ekrany">
+      <UniqueIdentifier>{e3a1b275-8b57-4241-acc8-6836bfd82aad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Widok\Ekrany\Szablon">
+      <UniqueIdentifier>{06269db9-7054-49db-b53b-c4aa4b9d8c45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Widok\Ekrany\Instancje">
+      <UniqueIdentifier>{795eed1f-324f-4471-b8db-0bf85c28d80c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Widok\TGUI">
+      <UniqueIdentifier>{9979501e-6db8-4299-b72f-b291d1d46e2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Widok\Konsola">
+      <UniqueIdentifier>{a0590a0e-7ed9-4db4-aa33-1288541bb963}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Kontroler\MaszynaStanow">
+      <UniqueIdentifier>{059b6ea8-f800-43b6-b443-9331f7b06e22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Kontroler\MaszynaStanow\Skrypty">
+      <UniqueIdentifier>{8f9e819d-6388-450e-8f96-4e62fe41f25f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Kontroler\MultiThreading">
+      <UniqueIdentifier>{0252530e-8ce4-466b-a514-a499ca0b7d71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Kontroler\Network">
+      <UniqueIdentifier>{8787c751-8ec2-419c-a963-c2bfe00aad86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Kontroler\Network\MetodyRPC">
+      <UniqueIdentifier>{a9720839-b446-4609-83a2-d3f190535e35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Utils\Tranzakcyjnosc">
+      <UniqueIdentifier>{6156b04e-fb15-434b-be8e-f5569dbf75b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Kontroler\Zarzadca">
+      <UniqueIdentifier>{51b54752-beb0-4fe5-be58-bd2dacbe14c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Kontroler\Zarzadca\Zasoby">
+      <UniqueIdentifier>{4b40de96-8dad-4bc6-ac96-c03390bd19d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Wyjatki\DomysleWartosci">
+      <UniqueIdentifier>{6f405ef5-dac8-4c81-a144-5dde19dd7b2b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
