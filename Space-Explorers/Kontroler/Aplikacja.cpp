@@ -430,10 +430,7 @@ namespace SpEx{
 		return false;
 	}
 
-	bool Aplikacja::przetworzArgumenty(){
-		if (!argumenty || iloscArgumentow <= 0)
-			return false;
-
+	void Aplikacja::rejestrujParametryKonsoli(){
 		parametryUruchomieniowe_.emplace("-O", OpcjeParametru(1, [&](std::vector<char*> lista)->bool{
 			if (lista.size() == 0)
 				return false;
@@ -449,10 +446,51 @@ namespace SpEx{
 			return false;
 		}));
 
+		parametryUruchomieniowe_.emplace("-T", OpcjeParametru(1, [&](std::vector<char*> lista)->bool{
+			if (lista.size() == 0)
+				return false;
+
+			auto wsk = lista.begin();
+			if (*wsk){
+				std::string nazwa(*wsk);
+				if (!nazwa.empty()){
+					if (nazwa == "Serwer"){
+						tryb_ = Serwer;
+					}
+					if (nazwa == "Klient"){
+						tryb_ = Klient;
+					}
+					return true;
+				}
+			}
+			return false;
+		}));
+
 		parametryUruchomieniowe_.emplace("-NoConsola", OpcjeParametru(0, [&](std::vector<char*> lista)->bool{
 			czyKonsola_ = false;
 			return true;
 		}));
+	}
+	
+	void Aplikacja::start(){
+		SpEx::MaszynaStanow::pobierzInstancje().inicjalizuj();
+		SpEx::MaszynaStanow::pobierzInstancje().start();
+		switch (tryb_)
+		{
+		case Serwer:
+			break;
+		case Klient:
+			break;
+		default:
+			break;
+		}
+	}
+
+	bool Aplikacja::przetworzArgumenty(){
+		if (!argumenty || iloscArgumentow <= 0)
+			return false;
+		
+		rejestrujParametryKonsoli();
 
 		for (int numer = 0; numer < iloscArgumentow; ++numer){
 			if (!argumenty[numer])
@@ -467,7 +505,7 @@ namespace SpEx{
 				return false;
 			std::vector<char*> lista;
 			lista.reserve(parametr->second.iloscParametrow_);
-			for (int offset = 1; offset <= parametr->second.iloscParametrow_; ++offset){
+			for (unsigned char offset = 1; offset <= parametr->second.iloscParametrow_; ++offset){
 				lista.push_back(argumenty[numer + offset]);
 			}
 			if (parametr->second.funkcja_(lista))

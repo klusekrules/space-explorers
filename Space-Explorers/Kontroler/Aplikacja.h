@@ -158,6 +158,8 @@ namespace SpEx {
 
 		void wykonajPolecenie(const std::string&);
 
+		void start();
+
 		/**
 		* \brief Metoda tworz¹ca tekstowy opis obiektu.
 		*
@@ -195,6 +197,8 @@ namespace SpEx {
 		* \brief Metoda wyrzuca do loggera podstwowe dane identyfikuj¹ce wersje aplikacji.
 		*/
 		void logApInfo() const;
+
+		void rejestrujParametryKonsoli();
 		std::shared_ptr<Konsola> konsola_;
 		std::shared_ptr<ZarzadcaPluginow> zarzadcaPluginow_; /// Obiekt zarz¹dzaj¹cy plugginami.
 		std::shared_ptr<Gra> instancjaGry_; /// Obiekt prezentuj¹cy instancjê gry.
@@ -206,11 +210,18 @@ namespace SpEx {
 		std::map< std::string, std::function<void(std::string)>> poleceniaKonsoli_;
 		bool czyKonsola_;
 
+		enum TrybAplikacji{
+			Serwer,
+			Klient
+		};
+
+		TrybAplikacji tryb_;
+
 		struct OpcjeParametru{
-			OpcjeParametru(int iloscParametrow, std::function<bool(std::vector<char*>)> funkcja)
+			OpcjeParametru(unsigned char iloscParametrow, std::function<bool(std::vector<char*>)> funkcja)
 				: iloscParametrow_(iloscParametrow), funkcja_(funkcja){}
 
-			int iloscParametrow_ = 0;
+			unsigned char iloscParametrow_ = 0;
 			std::function<bool(std::vector<char*>)> funkcja_;
 		};
 		std::map< std::string, OpcjeParametru> parametryUruchomieniowe_;

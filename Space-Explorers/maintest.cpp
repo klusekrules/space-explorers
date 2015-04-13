@@ -19,9 +19,7 @@ void main( int argv , char* argc[] ){
 	try{
 		SpEx::Aplikacja::iloscArgumentow = argv;
 		SpEx::Aplikacja::argumenty = argc;
-		SpEx::Aplikacja::pobierzInstancje();
-		SpEx::MaszynaStanow::pobierzInstancje().inicjalizuj();
-		SpEx::MaszynaStanow::pobierzInstancje().start();
+		SpEx::Aplikacja::pobierzInstancje().start();
 		/*
 		std::fstream plik("zrzut.txt", std::ios_base::app);
 		plik << SpEx::Aplikacja::pobierzInstancje().pobierzDebugInfo();
