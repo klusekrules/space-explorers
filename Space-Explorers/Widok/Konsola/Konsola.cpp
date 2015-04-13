@@ -38,6 +38,7 @@ namespace SpEx{
 			}
 			this->dodajKomunikat(czas + sTyp + komunikat, kolor);
 		});
+		inicjalizacjaWynik_ = inicjalizacja_.get_future();
 		odblokuj();
 	}
 
@@ -46,11 +47,17 @@ namespace SpEx{
 		lista_.emplace_back(Komunikat({ komunikat, kolor }));
 	}
 
+	bool Konsola::czekajNaInicjalizacje(){
+		inicjalizacjaWynik_.wait();
+		return inicjalizacjaWynik_.get();
+	}
+
 	void Konsola::wykonuj(){
 		sf::RenderWindow window(sf::VideoMode(650, 400), "Konsola",sf::Style::Titlebar);
 		tgui::Gui gui(window);
 
 		if (gui.setGlobalFont("resource/consola.ttf") == false){
+			inicjalizacja_.set_value(false);
 			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE,STyp::Tekst(),STyp::Tekst(),-1,STyp::Tekst("Blad inicjalizacji."),STyp::Tekst("Nie udalo sie ustawic czcionki")));
 			return;
 		}
@@ -68,6 +75,8 @@ namespace SpEx{
 		editBox->setSize(650, 28);
 		editBox->bindCallbackEx(std::bind(function,std::placeholders::_1,chatbox), tgui::EditBox::ReturnKeyPressed);
 		
+		inicjalizacja_.set_value(true);
+
 		while (window.isOpen() && !czyZakonczyc())
 		{
 			sf::Event event;

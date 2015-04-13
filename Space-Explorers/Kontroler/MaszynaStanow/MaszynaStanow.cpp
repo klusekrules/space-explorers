@@ -31,7 +31,7 @@ namespace SpEx{
 	}
 
 	MaszynaStanow::MaszynaStanow()
-		: watekGraficzny_(true), stan_(nullptr), stanNastepny_(nullptr), pulaWatkow_()
+		: watekGraficzny_(nullptr), stan_(nullptr), stanNastepny_(nullptr), pulaWatkow_()
 	{
 	}
 
@@ -49,13 +49,17 @@ namespace SpEx{
 				return true;
 			}));
 			walidujStany();
-			watekGraficzny_.zatrzymajPoInicjalizacji();
-			watekGraficzny_.odblokuj();
+			if (watekGraficzny_){
+				watekGraficzny_->zatrzymajPoInicjalizacji();
+				watekGraficzny_->odblokuj();
+			}
 		}
 		catch (...){
-			watekGraficzny_.zakmnij();
-			watekGraficzny_.odblokuj();
-			watekGraficzny_.czekajNaZakonczenie();
+			if (watekGraficzny_){
+				watekGraficzny_->zakmnij();
+				watekGraficzny_->odblokuj();
+				watekGraficzny_->czekajNaZakonczenie();
+			}
 			throw;
 		}
 	}
@@ -82,11 +86,13 @@ namespace SpEx{
 	}
 
 	bool MaszynaStanow::kolejkujEkran(int id){
-		std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
-		auto ptr = watekGraficzny_.pobierzEkran(STyp::Identyfikator(id));
-		if (ptr != nullptr){
-			stosEkranow_.push_back(ptr);
-			return true;
+		if (watekGraficzny_){
+			std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
+			auto ptr = watekGraficzny_->pobierzEkran(STyp::Identyfikator(id));
+			if (ptr != nullptr){
+				stosEkranow_.push_back(ptr);
+				return true;
+			}
 		}
 		return false;
 	}
@@ -146,12 +152,16 @@ namespace SpEx{
 		Stan s(wszystkieStany_.at(idStanuPoczatkowy_));
 		ustawNastepnyStan(s);
 
-		wlaczone = watekGraficzny_.czekajNaInicjalizacje();
+		if (watekGraficzny_)
+			wlaczone = watekGraficzny_->czekajNaInicjalizacje();
+		else
+			wlaczone = true;
 
 		if (wlaczone)
 			przejdzDoNastepnegoStanu();
 
-		watekGraficzny_.uruchom();
+		if (watekGraficzny_)
+			watekGraficzny_->uruchom();
 #ifdef _FPS_COUNT
 		FPSCounter fpsCounter;
 #endif
@@ -175,9 +185,11 @@ namespace SpEx{
 #endif
 		}
 		
-		watekGraficzny_.czekajNaZakonczenie();
-		if (watekGraficzny_.blad()){
-			throw watekGraficzny_.bladInfo();
+		if (watekGraficzny_){
+			watekGraficzny_->czekajNaZakonczenie();
+			if (watekGraficzny_->blad()){
+				throw watekGraficzny_->bladInfo();
+			}
 		}
 	}
 
@@ -244,7 +256,7 @@ namespace SpEx{
 		ustawNastepnyStan(nowy);
 	}
 
-	OknoGry& MaszynaStanow::pobierzOknoGry(){
+	std::shared_ptr<OknoGry> MaszynaStanow::pobierzOknoGry(){
 		return watekGraficzny_;
 	}
 
@@ -255,7 +267,8 @@ namespace SpEx{
 	}
 
 	void MaszynaStanow::inicjujZamykanie(){
-		watekGraficzny_.zakmnij();
+		if (watekGraficzny_)
+			watekGraficzny_->zakmnij();
 		wlaczone = false;
 	}
 

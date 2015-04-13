@@ -2,7 +2,9 @@
 namespace SpEx{
 
 	void UtilsGui::wyswietlWiadomoscWGUI(unsigned int typ, const std::string& tresc){
-		SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().wyswietlWiadomoscWGUI(typ, tresc);
+		auto ptr = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry();
+		if (ptr)
+			ptr->wyswietlWiadomoscWGUI(typ, tresc);
 	}
 	
 	void UtilsGui::callback(const tgui::Callback& callback, unsigned int idZdarzenia, unsigned int numer){

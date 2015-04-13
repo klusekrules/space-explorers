@@ -195,6 +195,7 @@ namespace SpEx{
 		if (czyKonsola_){
 			poleceniaKonsoli_.emplace("zamknij", [](std::string){ zamknijAplikacje(); });
 			konsola_ = std::make_shared<Konsola>(logger_);
+			konsola_->czekajNaInicjalizacje();
 		} else{
 			konsola_ = nullptr;
 		}
@@ -261,11 +262,9 @@ namespace SpEx{
 
 		if (!zarzadcaPluginow_->zaladujZewnetrzneKlasyZmian(*zarzadcaZasobow_))
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DODATKOWYCH);
-
-		instancjaGry_ = std::make_shared<Gra>(logger_, *zarzadcaLokacji_, ustawienia_);
 	}
 
-	void Aplikacja::wyczyscDane(){
+	void Aplikacja::nowaGra(){
 		instancjaGry_ = std::make_shared<Gra>(logger_, *zarzadcaLokacji_, ustawienia_);
 	}
 
@@ -398,7 +397,7 @@ namespace SpEx{
 		if (wezel && *wezel){
 			std::shared_ptr<Gra> gra = instancjaGry_;
 			try{
-				instancjaGry_ = std::make_shared<Gra>(logger_, *zarzadcaLokacji_, ustawienia_);
+				nowaGra();
 				if (root && instancjaGry_->wczytajDane(root)){
 					auto gra = wezel->pobierzElement(WEZEL_XML_GRA);
 					if (gra){
@@ -456,11 +455,12 @@ namespace SpEx{
 				if (!nazwa.empty()){
 					if (nazwa == "Serwer"){
 						tryb_ = Serwer;
+						return true;
 					}
 					if (nazwa == "Klient"){
 						tryb_ = Klient;
+						return true;
 					}
-					return true;
 				}
 			}
 			return false;
@@ -474,12 +474,19 @@ namespace SpEx{
 	
 	void Aplikacja::start(){
 		SpEx::MaszynaStanow::pobierzInstancje().inicjalizuj();
-		SpEx::MaszynaStanow::pobierzInstancje().start();
+
 		switch (tryb_)
 		{
 		case Serwer:
+			logger_.loguj(SLog::Log::Info, "Tryb dzia³ania aplikacji: Serwer");
+			SpEx::MaszynaStanow::pobierzInstancje().start();
 			break;
 		case Klient:
+			logger_.loguj(SLog::Log::Info, "Tryb dzia³ania aplikacji: Klient");
+			SpEx::MaszynaStanow::pobierzInstancje().start();
+			break;
+		case Invalid:
+			logger_.loguj(SLog::Log::Info, "Tryb dzia³ania aplikacji: Invalid");
 			break;
 		default:
 			break;

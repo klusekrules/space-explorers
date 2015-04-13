@@ -30,14 +30,17 @@ extern "C"{
 	}
 
 	SPACE_EXPLORERS_API void __cdecl przeladujEkran(int id){
-		SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().dodajZadanie(SpEx::Zadanie(
-			std::function<void()>(
-				std::bind(
-					&SpEx::OknoGry::przeladujEkran,
-					&SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry(),
-					STyp::Identyfikator(id))
-				))
-			);
+		auto ptr = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry();
+		if (ptr){
+			ptr->dodajZadanie(SpEx::Zadanie(
+				std::function<void()>(
+					std::bind(
+						&SpEx::OknoGry::przeladujEkran,
+						SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().get(),
+						STyp::Identyfikator(id))
+					))
+				);
+		}
 	}
 
 	SPACE_EXPLORERS_API void __cdecl wyczyscListeEkranow(){
@@ -256,34 +259,37 @@ extern "C"{
 	SPACE_EXPLORERS_API void __cdecl zlecZadanieGraficzne(const char *plik, const char *funkcja)
 	{
 		std::string sPlik, sFunkcja;
-		auto & maszynaStanow = SpEx::MaszynaStanow::pobierzInstancje();
-
-		if (plik){
-			sPlik.append(plik);
-		}
-
-		if (funkcja){
-			sFunkcja.append(funkcja);
-		}
-
-		std::function<void()> lambda = [sPlik, sFunkcja]()->void{
-			std::shared_ptr<SpEx::Skrypt> skrypt = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().tworzSkrypt(sPlik);
-			if (skrypt){
-				skrypt->wykonaj(sFunkcja);
+		auto oknoGry = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry();
+		if (oknoGry){
+			if (plik){
+				sPlik.append(plik);
 			}
-		};
-		SpEx::Zadanie zadanie(lambda);
-		maszynaStanow.pobierzOknoGry().dodajZadanie(zadanie);
+
+			if (funkcja){
+				sFunkcja.append(funkcja);
+			}
+
+			std::function<void()> lambda = [sPlik, sFunkcja]()->void{
+				std::shared_ptr<SpEx::Skrypt> skrypt = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().tworzSkrypt(sPlik);
+				if (skrypt){
+					skrypt->wykonaj(sFunkcja);
+				}
+			};
+			SpEx::Zadanie zadanie(lambda);
+			oknoGry->dodajZadanie(zadanie);
+		}
 	}
 
 	SPACE_EXPLORERS_API bool __cdecl ustawWlasciwosc(int ekran, const char *kontrolka, const char *nazwaWlasciwosci, const char *nowaWartosc){
-		if (!kontrolka && !nazwaWlasciwosci)
+
+		auto oknoGry = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry();
+		if (!kontrolka || !nazwaWlasciwosci || !oknoGry)
 			return false;
 		SpEx::OknoGry::EkranPtr ekranPtr;
 		if ( ekran < 0 )
-			ekranPtr = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzStosEkranow().back();
+			ekranPtr = oknoGry->pobierzStosEkranow().back();
 		else
-			ekranPtr = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzEkran(ekran);
+			ekranPtr = oknoGry->pobierzEkran(ekran);
 
 		if (!ekranPtr)
 			return false;
@@ -331,9 +337,10 @@ extern "C"{
 	{
 		try{
 			auto &gra = SpEx::Aplikacja::pobierzInstancje().pobierzGre();
-			if (nazwaKontrolki && gra.czyZalogowano()){
+			auto oknoGry = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry();
+			if (nazwaKontrolki && gra.czyZalogowano() && oknoGry){
 				auto &planeta = gra.pobierzUzytkownika().pobierzPlanete();
-				auto ekran = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzEkran(idEkranu);
+				auto ekran = oknoGry->pobierzEkran(idEkranu);
 				if (ekran){
 					auto kontrolka = ekran->pobierzGUI().get<tgui::ListaObiektowGui>(nazwaKontrolki);
 					if (kontrolka != nullptr){
@@ -358,9 +365,10 @@ extern "C"{
 	{
 		try{
 			auto &gra = SpEx::Aplikacja::pobierzInstancje().pobierzGre();
-			if (nazwaKontrolki && gra.czyZalogowano()){
+			auto oknoGry = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry();
+			if (nazwaKontrolki && gra.czyZalogowano() && oknoGry){
 				auto &planeta = gra.pobierzUzytkownika().pobierzPlanete();
-				auto ekran = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzEkran(idEkranu);
+				auto ekran = oknoGry->pobierzEkran(idEkranu);
 				if (ekran){
 					auto kontrolka = ekran->pobierzGUI().get<tgui::ListaSurowcowGui>(nazwaKontrolki);
 					if (kontrolka != nullptr){

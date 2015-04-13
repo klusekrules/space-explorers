@@ -108,7 +108,7 @@ namespace SpEx {
 		*
 		* Metoda tworzy now¹ instancje gry, usuwaj¹c star¹ bez zapisania danych. Usuwa równie¿ informacje galaktykach, uk³adach s³onecznych oraz planetach, bez zapisywania aktualnych danych.
 		*/
-		void wyczyscDane();
+		void nowaGra();
 
 		/**
 		* \brief Metoda pobieraj¹ca instacjê gry.
@@ -212,10 +212,11 @@ namespace SpEx {
 
 		enum TrybAplikacji{
 			Serwer,
-			Klient
+			Klient,
+			Invalid
 		};
 
-		TrybAplikacji tryb_;
+		TrybAplikacji tryb_ = Invalid;
 
 		struct OpcjeParametru{
 			OpcjeParametru(unsigned char iloscParametrow, std::function<bool(std::vector<char*>)> funkcja)

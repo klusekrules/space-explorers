@@ -4,7 +4,7 @@
 #include "Utils\DefinicjeWezlowXML.h"
 
 void InicjalizacjaDanychTestowych::zaladujDane(){
-	SpEx::Aplikacja::pobierzInstancje().wyczyscDane();
+	SpEx::Aplikacja::pobierzInstancje().nowaGra();
 	auto dokument = TestyUtilsBO::dane();
 	UNIT_TEST_ASSERT_NOTNULL(dokument);
 	if (SpEx::Aplikacja::pobierzInstancje().logger_.czyLogiOdblokowane(SLog::Log::Debug)){

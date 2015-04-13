@@ -327,7 +327,7 @@ namespace SpEx{
 		* \version 1
 		* \date 09-07-2014
 		*/
-		OknoGry& pobierzOknoGry();
+		std::shared_ptr<OknoGry> pobierzOknoGry();
 
 		/**
 		* \brief Metoda pobiera dane obiektu.
@@ -353,7 +353,7 @@ namespace SpEx{
 
 	private:
 
-		OknoGry watekGraficzny_; /// Obiekt obs³uguj¹cy interfejs u¿ytkownika.
+		std::shared_ptr<OknoGry> watekGraficzny_; /// Obiekt obs³uguj¹cy interfejs u¿ytkownika.
 
 		std::map<STyp::Identyfikator, std::shared_ptr<StanInfo> > wszystkieStany_; /// Lista wszystkich stanów.
 		STyp::Identyfikator idStanuPoczatkowy_; /// Stan pocz¹tkowy aplikacji.

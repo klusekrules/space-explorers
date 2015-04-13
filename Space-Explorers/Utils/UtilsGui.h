@@ -28,7 +28,10 @@ namespace SpEx{
 		*/
 		template<class T>
 		static typename T::Ptr PobierzWidzetZAktywnegoEkranu(const char * nazwa){
-			return SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzStosEkranow().back()->pobierzGUI().get<T>(nazwa);
+			auto oknoGry = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry();
+			if (oknoGry)
+				return oknoGry->pobierzStosEkranow().back()->pobierzGUI().get<T>(nazwa);
+			return nullptr;
 		}
 
 		/**
@@ -44,11 +47,15 @@ namespace SpEx{
 		*/
 		template<class T>
 		static typename T::Ptr PobierzWidzetZWybranegoEkranu(int id, const char * nazwa){
-			auto ekran = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry().pobierzEkran(id);
-			if (ekran)
-				return ekran->pobierzGUI().get<T>(nazwa);
-			else
-				return T::Ptr(nullptr);
+			auto oknoGry = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry();
+
+			if (oknoGry){
+				auto ekran = oknoGry->pobierzEkran(id);
+				if (ekran)
+					return ekran->pobierzGUI().get<T>(nazwa);
+			}
+			
+			return T::Ptr(nullptr);
 		}
 
 		/**
