@@ -206,8 +206,16 @@ namespace SpEx {
 		std::shared_ptr<ZarzadcaZasobow> zarzadcaZasobow_; /// Zarz¹dca zasobów.
 		std::shared_ptr<ZarzadcaUzytkownikow> zarzadcaUzytkownikow_; /// Zarz¹dca u¿ytkowników.
 		std::shared_ptr<ZarzadcaLokacji> zarzadcaLokacji_; /// Obiekt zarz¹dzaj¹cy lokacjami.
+		
+		struct OpcjePolecenia{
+			OpcjePolecenia(std::string opis, std::function<void(std::string)> funkcja)
+				: opisPolecenia_(opis), funkcja_(funkcja){}
 
-		std::map< std::string, std::function<void(std::string)>> poleceniaKonsoli_;
+			std::string opisPolecenia_;
+			std::function<void(std::string)> funkcja_;
+		};
+
+		std::map< std::string, OpcjePolecenia> poleceniaKonsoli_;
 		bool czyKonsola_;
 
 		enum TrybAplikacji{

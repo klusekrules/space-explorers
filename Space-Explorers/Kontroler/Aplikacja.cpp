@@ -193,7 +193,7 @@ namespace SpEx{
 		});
 
 		if (czyKonsola_){
-			poleceniaKonsoli_.emplace("zamknij", [](std::string){ zamknijAplikacje(); });
+			poleceniaKonsoli_.emplace("zamknij", OpcjePolecenia( "Polecenie zamykania aplikacji" ,[](std::string){ zamknijAplikacje(); }));
 			konsola_ = std::make_shared<Konsola>(logger_);
 			konsola_->czekajNaInicjalizacje();
 		} else{
@@ -535,7 +535,7 @@ namespace SpEx{
 		if (!nazwa.empty()){
 			auto metoda = poleceniaKonsoli_.find(nazwa);
 			if (metoda != poleceniaKonsoli_.end()){
-				metoda->second(parametry);
+				metoda->second.funkcja_(parametry);
 			}
 		}
 	}
