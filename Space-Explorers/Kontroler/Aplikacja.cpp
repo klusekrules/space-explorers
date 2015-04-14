@@ -193,7 +193,8 @@ namespace SpEx{
 		});
 
 		if (czyKonsola_){
-			poleceniaKonsoli_.emplace("zamknij", OpcjePolecenia( "Polecenie zamykania aplikacji" ,[](std::string){ zamknijAplikacje(); }));
+			poleceniaKonsoli_.emplace("zamknij", OpcjePolecenia("zamykanie aplikacji", [](std::string){ zamknijAplikacje(); }));
+			poleceniaKonsoli_.emplace("info", OpcjePolecenia("informacje o aplikacji", [&](std::string){ logApInfo(); }));
 			konsola_ = std::make_shared<Konsola>(logger_);
 			konsola_->czekajNaInicjalizacje();
 		} else{
@@ -266,6 +267,19 @@ namespace SpEx{
 
 	void Aplikacja::nowaGra(){
 		instancjaGry_ = std::make_shared<Gra>(logger_, *zarzadcaLokacji_, ustawienia_);
+	}
+
+
+	void Aplikacja::logujListePolecenKonsoli() const{
+		if(poleceniaKonsoli_.empty()){
+			logger_.loguj(SLog::Log::Info,"Brak polecen konsoli.");
+		} else{
+
+			logger_.loguj(SLog::Log::Info, "Lista dostêpnych poleceñ konsoli:");
+			for (auto & wpis : poleceniaKonsoli_){
+				logger_.loguj(SLog::Log::Info, wpis.first + " - " + wpis.second.opisPolecenia_);			
+			}
+		}
 	}
 
 	bool Aplikacja::zaladujOpcje(){

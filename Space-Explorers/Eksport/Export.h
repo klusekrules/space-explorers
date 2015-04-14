@@ -338,6 +338,9 @@ extern "C"{
 	* \date 17-07-2014
 	*/
 	SPACE_EXPLORERS_API void __cdecl aktualizujDaneListySurowcow(int idEkranu, const char *nazwaKontrolki);
+
+
+	SPACE_EXPLORERS_API void __cdecl logujPoleceniaKonsoli();
 }
 
 /** @} */

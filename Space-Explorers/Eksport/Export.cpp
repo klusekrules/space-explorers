@@ -17,6 +17,10 @@
 
 extern "C"{
 
+	SPACE_EXPLORERS_API void __cdecl logujPoleceniaKonsoli(){
+		SpEx::Aplikacja::pobierzInstancje().logujListePolecenKonsoli();
+	}
+
 	SPACE_EXPLORERS_API void __cdecl wyswietlWiadomoscWGUI(unsigned int typ, const char * komunikat){
 		SpEx::UtilsGui::wyswietlWiadomoscWGUI(typ, komunikat);
 	}

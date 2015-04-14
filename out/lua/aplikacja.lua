@@ -36,6 +36,10 @@ function Aplikacja:zamknij()
 	ffi.C.zamknijAplikacje()
 end
 
+function Aplikacja:listaPolecen()
+	ffi.C.logujPoleceniaKonsoli()
+end
+
 function Aplikacja:zaloguj(login, pass)	
 	return ffi.C.zaloguj(login.kontrolka_,pass.kontrolka_)
 end

@@ -2,6 +2,7 @@ local mymodule = {}
 local ffi = require("ffi")
 ffi.cdef[[
 //Logowanie w stylu aplikacji
+void logujPoleceniaKonsoli();
 void loguj(const char *komunikat );
 void wyswietlWiadomoscWGUI(unsigned int typ, const char * komunikat);
 

@@ -158,6 +158,8 @@ namespace SpEx {
 
 		void wykonajPolecenie(const std::string&);
 
+		void logujListePolecenKonsoli() const;
+
 		void start();
 
 		/**

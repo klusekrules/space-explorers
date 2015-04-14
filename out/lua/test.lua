@@ -22,6 +22,7 @@ function stanPoczatkowy ()
 	else
 		app:loguj("Nieustawianiono")
 	end
+	app:listaPolecen()
 end
 
 function ustawOknoMenu ()
