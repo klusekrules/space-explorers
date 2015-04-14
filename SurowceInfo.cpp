@@ -1,43 +1,70 @@
-
 #include "SurowceInfo.h"
-#include "Logger.h"
-#include "XmlBO.h"
+#include "Logger\Logger.h"
+#include "Aplikacja.h"
+#include "definicjeWezlowXML.h"
+#include "TypyProste\TypyProsteBO.h"
 
-SurowceInfo::~SurowceInfo(){
-}
-
-SurowceInfo::SurowceInfo( const ObiektInfo& o , bool bCzyPrzyrostowy ) throw()
-	: ObiektInfo(o) , czyPrzyrostowy(bCzyPrzyrostowy)
-{
-}
-
-SurowceInfo::SurowceInfo( ticpp::Node* n ) throw(WyjatekParseraXML)
-	: ObiektInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(ObiektInfo))) , czyPrzyrostowy (false)
-{
-	if(n){
-		auto s = n->ToElement()->GetAttribute("typ");
-		auto i = stoi(s);
-		switch(i){
-		case 1 : czyPrzyrostowy = true;
-			break;
-		case 2 : czyPrzyrostowy = false;
-			break;
-		default: throw WyjatekParseraXML(EXCEPTION_PLACE,exception( (string("typ=") + s).c_str() ),WyjatekParseraXML::trescBladStrukturyXml);
+namespace SpEx{
+	SurowceInfo::SurowceInfo(XmlBO::ElementWezla wezel)
+		: ObiektInfo(SUROWIEC,PodstawoweParametry::ILOSC, wezel), przyrostowy_(false), zmianaCzasu_(nullptr)
+	{
+		if (wezel){
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_MASA, masa_);
+			zmianaMasy_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_MASA));
+			XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_OBJETOSC, objetosc_);
+			zmianaObjetosci_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_OBJETOSC));
+			zmianaCzasu_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, WEZEL_XML_CZAS));
+			auto przyrostowy = XmlBO::WczytajAtrybut<int>(wezel, ATRYBUT_XML_TYP, -1);
+			switch (przyrostowy){
+			case 1: przyrostowy_ = true;
+				break;
+			case 0: przyrostowy_ = false;
+				break;
+			default: Utils::generujWyjatekBleduStruktury(wezel);
+			}
 		}
 	}
-}
 
-bool SurowceInfo::czyTypPrzyrostowy()const{
-	return czyPrzyrostowy.value();
-}
+	bool SurowceInfo::czyTypPrzyrostowy()const{
+		return przyrostowy_();
+	}
 
-Surowce* SurowceInfo::TworzEgzemplarz( const Ilosc& ilosc ) const{
-	return new Surowce( ilosc , getPoziom(), *this );
-}
+	bool SurowceInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy& atrybut) const{
+		return planeta.dodajObiekt(std::shared_ptr<Surowce>(tworzEgzemplarz(PodstawoweParametry(atrybut, typAtrybutu_))));
+	}
 
-string SurowceInfo::toString() const{
-	Logger str(CLASSNAME(SurowceInfo));
-	str.addClass(ObiektInfo::toString());
-	str.addField("CzyPrzyrostowy",czyPrzyrostowy);
-	return str.toString();
+	bool SurowceInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla& element) const{
+		auto surowce = std::shared_ptr<Surowce>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), typAtrybutu_)));
+		if (surowce && element){
+			if (!surowce->odczytaj(element))
+				return false;
+			return planeta.dodajObiekt(surowce);
+		}
+		return false;
+	}
+
+	STyp::Czas SurowceInfo::pobierzCzasBudowy(const PodstawoweParametry& parametryPodstawowe)const{
+		return Utils::ObliczZmiane(zmianaCzasu_, STyp::Czas(parametryPodstawowe.pobierzIlosc()), parametryPodstawowe);
+	}
+
+	Surowce* SurowceInfo::tworzEgzemplarz(const PodstawoweParametry& parametryPodstawowe) const{
+		return new Surowce(parametryPodstawowe, *this);
+	}
+
+	STyp::Objetosc SurowceInfo::pobierzObjetosc(const PodstawoweParametry& parametry)const{
+		return STyp::pomnozPrzezIlosc(Utils::ObliczZmiane(zmianaObjetosci_, objetosc_, parametry), parametry.pobierzIlosc());
+	}
+
+	STyp::Masa SurowceInfo::pobierzMase(const PodstawoweParametry& parametry)const{
+		return STyp::pomnozPrzezIlosc(Utils::ObliczZmiane(zmianaMasy_, masa_, parametry), parametry.pobierzIlosc());
+	}
+	
+	std::string SurowceInfo::napis() const{
+		SLog::Logger str(NAZWAKLASY(SurowceInfo));
+		str.dodajKlase(ObiektInfo::napis());
+		str.dodajPole(NAZWAPOLA(przyrostowy_), przyrostowy_);
+		if (zmianaCzasu_)
+			str.dodajPole(NAZWAPOLA(zmianaCzasu_), *zmianaCzasu_);
+		return str.napis();
+	}
 }

@@ -1,70 +1,36 @@
-#include "OgolnyWyjatek.h"
 #include "NiezgodnyTypSurowca.h"
-#include "WyjatekParseraXML.h"
-#include "WyjatekSTL.h"
-#include "BrakAtrybutuXML.h"
-#include "BrakMaski.h"
-#include "NiezainicjalizowanaKlasa.h"
-#include "NiepoprawnaIloscObiektow.h"
-#include "BladLaczeniaObiektow.h"
 #include "NieznalezionoObiektu.h"
 #include "NiepoprawneParametryFunkcji.h"
-#include "BladDzieleniaLadowni.h"
-/* Sta³e pola klas wyj¹tków  */
+#include "NiepowodzenieTranzakcji.h"
+#include "BladKonfiguracjiEkranu.h"
+#include "BladKonfiguracjiAplikacji.h"
+#include "PowtorzenieIdObiektu.h"
+#include "NieznalezionoPliku.h"
+#include "BladStukturyStanu.h"
 
-const IdType	OgolnyWyjatek::domyslnyOgolnyWyjatekID					( 0x0 );
-const Tekst		OgolnyWyjatek::domyslnyOgolnyWyjatekTytul				= "Ogolny wyjatek!";
-const Tekst		OgolnyWyjatek::domyslnyOgolnyWyjatekTresc				= "Wystapil ogolny wyjatek";
-	
-const IdType	NiezgodnyTypSurowca::idNiezgodnyTypSurowca				( 0x01 );
-const Tekst		NiezgodnyTypSurowca::tytulNiezgodnyTypSurowcaDomyslny	= "Niezgodny Typ Surowca";
-const Tekst		NiezgodnyTypSurowca::trescNiezgodnyTypSurowcaDomyslny	= "Brak zgodnosci typow uzytych surowcow.";
+namespace SpEx{
+	const STyp::Identyfikator BladStukturyStanu::idBladStukturyStanu(0x5);
+	const STyp::Identyfikator NieznalezionoPliku::idNieznalezionoPliku(0x4);
+	const STyp::Identyfikator PowtorzenieIdObiektu::idPowtorzeniaIdObiektu(0x3);
+	const STyp::Identyfikator BladKonfiguracjiEkranu::idBladKonfiguracjiEkranu(0x2);
+	const STyp::Identyfikator BladKonfiguracjiAplikacji::idBladKonfiguracjiAplikacji(0x1);
 
-const IdType	WyjatekParseraXML::idWyjatekParseraXML					( 0x02 );
-const Tekst		WyjatekParseraXML::tytulWyjatekParseraXML				= "Wyjatek przechwycony z biblioteki ticpp.";
-const Tekst		WyjatekParseraXML::trescWyjatekParseraXML				= "Wykryto wyjatek wyrzucony z biblioteki ticpp o nastepujacej tresci:";
-const Tekst		WyjatekParseraXML::trescBladStrukturyXml				= "Blad struktury pliku xml: ";
+	const STyp::Identyfikator	NiezgodnyTypSurowca::idNiezgodnyTypSurowca(0x10);
+	const STyp::Tekst		NiezgodnyTypSurowca::tytulNiezgodnyTypSurowcaDomyslny = "Niezgodny Typ Surowca";
+	const STyp::Tekst		NiezgodnyTypSurowca::trescNiezgodnyTypSurowcaDomyslny = "Brak zgodnosci typow uzytych surowcow.";
 
-const IdType	WyjatekSTL::idWyjatekSTL								( 0x03 );
-const Tekst		WyjatekSTL::tytulWyjatekSTL								= "Przechwycono wyjatek STL.";
-const Tekst		WyjatekSTL::trescWyjatekSTL								= "Przechwycony komunikat o wyjatku z biblioteki STL:";
+	const STyp::Identyfikator	NieznalezionoObiektu::idNieznalezionoObiektu(0x19);
+	const STyp::Tekst		NieznalezionoObiektu::tytulNieznalezionoObiektu = "Nie znaleziono obiektu.";
+	const STyp::Tekst		NieznalezionoObiektu::trescNieznalezionoObiektu = "Obiekt o podanych kluczu nie zosta³ znaleziony.";
 
-const IdType	BrakAtrybutuXML::idBrakAtrybutuXML						( 0x04 );
-const Tekst		BrakAtrybutuXML::tytulBrakAtrybutuXML					= "Brak atrybutu.";
-const Tekst		BrakAtrybutuXML::trescBrakAtrybutuXML					= "Brak szukanego atrybutu w danym elemencie. Nazwa szukanego atrybutu: ";
+	const STyp::Identyfikator	NiepoprawneParametryFunkcji::idNiepoprawneParametryFunkcji(0x1A);
+	const STyp::Tekst		NiepoprawneParametryFunkcji::tytulNiepoprawneParametryFunkcji = "Niepoprawne parametry funkcji.";
+	const STyp::Tekst		NiepoprawneParametryFunkcji::trescNiepoprawneParametryFunkcji = "Do funkcji zosta³y przekazane niepoprawne parametry.";
 
-const IdType	BrakMaski::idBrakMaski									( 0x05 );
-const Tekst		BrakMaski::tytulBrakMaski								= "Brak Maski.";
-const Tekst		BrakMaski::trescBrakMaski								= "Nie znaleziono maski: ";
+	const STyp::Identyfikator	NiepowodzenieTranzakcji::domyslnyNiepowodzenieTranzakcjiID(0x1C);
+	const STyp::Tekst		NiepowodzenieTranzakcji::domyslnyNiepowodzenieTranzakcjiTytul = "Niepowodzenie wykonania tranzakcji";
+	const STyp::Tekst		NiepowodzenieTranzakcji::domyslnyNiepowodzenieTranzakcjiTresc = "Nie uda³o siê zachowaæ tanzakcyjnoœci wykonywanych operacji. Operacja powoduj¹ca wyj¹tek: ";
 
-const IdType	NiezainicjalizowanaKlasa::idNiezainicjalizowanaKlasa	( 0x06 );
-const Tekst		NiezainicjalizowanaKlasa::tytulNiezainicjalizowanaKlasa	= "Nie zainicjalizowana klasa.";
-const Tekst		NiezainicjalizowanaKlasa::trescNiezainicjalizowanaKlasa	= "Klasa nie zosta³a zainicjalizowana.";
+}
 
-const IdType	NiepoprawnaIloscObiektow::idNiepoprawnaIloscObiektow	( 0x07 );
-const Tekst		NiepoprawnaIloscObiektow::tytulNiepoprawnaIloscObiektow = "Niepoprawna iloœæ obiektów.";
-const Tekst		NiepoprawnaIloscObiektow::trescNiepoprawnaIloscObiektow = "U¿yta iloœæ obiektów jest zbyt du¿a lub niepoprawna.";
-
-const IdType	BladLaczeniaObiektow::idBladLaczeniaObiektow			( 0x08 );
-const Tekst		BladLaczeniaObiektow::tytulBladLaczeniaObiektow			= "B³¹d ³¹czenia obiektów.";
-const Tekst		BladLaczeniaObiektow::trescBladLaczeniaObiektow			= "Nie uda³o siê po³¹czyæ obiektów.";
-
-const IdType	NieznalezionoObiektu::idNieznalezionoObiektu			( 0x09 );
-const Tekst		NieznalezionoObiektu::tytulNieznalezionoObiektu			= "Nie znaleziono obiektu.";
-const Tekst		NieznalezionoObiektu::trescNieznalezionoObiektu			= "Obiekt o podanych kluczu nie zosta³ znaleziony.";
-
-const IdType	NiepoprawneParametryFunkcji::idNiepoprawneParametryFunkcji ( 0x0A );
-const Tekst		NiepoprawneParametryFunkcji::tytulNiepoprawneParametryFunkcji = "Niepoprawne parametry funkcji.";
-const Tekst		NiepoprawneParametryFunkcji::trescNiepoprawneParametryFunkcji = "Do funkcji zosta³y przekazane niepoprawne parametry.";
-
-const IdType	BladDzieleniaLadowni::idBladDzieleniaLadowni			( 0x0B );
-const Tekst		BladDzieleniaLadowni::tytulBladDzieleniaLadowni			= "B³¹d podczas dzielenia ³adowni.";
-const Tekst		BladDzieleniaLadowni::trescBladDzieleniaLadowni			= "Podczas podzia³u ³adowni wyst¹pi³ nieoczekiwany b³¹d.";
-/*
-const IdType	idBrakElementu											( 0x06 );
-const Tekst		tytulBrakElementu										= "Brak Elementu.";
-const Tekst		trescBrakElementu										= "Nie ma elementu o podanym kluczu: ";
-*/
 /* ------------------------------------------- */
-
-

@@ -1,39 +1,46 @@
 #include "Technologia.h"
 #include "TechnologiaInfo.h"
+#include "DefinicjeWezlowXML.h"
+#include "Logger\Logger.h"
 
-Technologia::Technologia( const Poziom& p, const TechnologiaInfo& t)
-	: ObiektBase(Ilosc(1),p,t), technologiaInfo(t)
-{
-}
+namespace SpEx{
+	Technologia::Technologia(const PodstawoweParametry& podstawoweParametry, const TechnologiaInfo& technologiaInfo)
+		: PodstawoweParametry(podstawoweParametry), Obiekt(podstawoweParametry, technologiaInfo), technologiaInfo_(technologiaInfo)
+	{
+	}
 
-Technologia::~Technologia(void)
-{
-}
+	Technologia* Technologia::kopia() const{
+		return new Technologia(*this, technologiaInfo_);
+	}
 
-Technologia* Technologia::Kopia() const{
-	return new Technologia(getPoziom(),technologiaInfo);
-}
+	Technologia* Technologia::podziel(const STyp::Ilosc& ilosc){
+		return nullptr;
+	}
 
-Technologia* Technologia::Podziel( const Ilosc& ilosc){
-	return nullptr;
-}
+	bool Technologia::polacz(const Obiekt& obiektBase){
+		return false;
+	}
 
-bool Technologia::Polacz( const ObiektBase& obiektBase){
-	return false;
-}
+	bool Technologia::czyMoznaPolaczyc(const Obiekt& obiektBase) const{
+		return false;
+	}
+
+	bool Technologia::czyMoznaPodzielic(const STyp::Ilosc& ilosc) const{
+		return false;
+	}
 	
-bool Technologia::czyMoznaPolaczyc( const ObiektBase& obiektBase) const{
-	return false;
-}
+	bool Technologia::zapisz(XmlBO::ElementWezla wezel) const {
+		return Obiekt::zapisz(wezel->tworzElement(WEZEL_XML_TECHNOLOGIA));
+	}
 
-bool Technologia::czyMoznaPodzielic( const Ilosc& ilosc) const{
-	return false;
-}
+	bool Technologia::odczytaj(XmlBO::ElementWezla wezel) {
+		return Obiekt::odczytaj(wezel);
+	}
 
-string Technologia::toString() const{
-	Logger str(CLASSNAME(Technologia));
-	str.addClass(ObiektBase::toString());
-	str.addField(CLASSNAME(TechnologiaInfo)+"ID",technologiaInfo.getId());
-	return str.toString();
+	std::string Technologia::napis() const{
+		SLog::Logger str(NAZWAKLASY(Technologia));
+		str.dodajKlase(Obiekt::napis());
+		str.dodajPole(NAZWAPOLA(technologiaInfo_), technologiaInfo_);
+		return str.napis();
+	}
 }
-

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="pl-pl" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="UserRegistrationDlg_Title" Overridable="yes">Identyfikacja użytkownika</String>
+  <String Id="UserRegistrationDlg_UserName" Overridable="yes">Nazwa użytownika</String>
+  <String Id="UserRegistrationDlg_Organization" Overridable="yes">Organizacja</String>
+  <String Id="msierrSecureObjectsFailedCreateSD" Overridable="yes">msierrSecureObjectsFailedCreateSD</String>
+  <String Id="msierrSecureObjectsFailedSet" Overridable="yes">msierrSecureObjectsFailedSet</String>
+  <String Id="msierrSecureObjectsUnknownType" Overridable="yes">msierrSecureObjectsUnknownType</String>
+</WixLocalization>

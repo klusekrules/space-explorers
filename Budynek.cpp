@@ -1,47 +1,59 @@
 #include "Budynek.h"
 #include "BudynekInfo.h"
-#include "Logger.h"
+#include "DefinicjeWezlowXML.h"
+#include "Logger\Logger.h"
 
-Budynek::Budynek(const Poziom& p, const BudynekInfo& o)
-	: Obiekt( Ilosc(1), p, o ), budynekInfo(o)
-{
-}
+namespace SpEx{
 
-Budynek* Budynek::Kopia() const{
-	return new Budynek(getPoziom(),budynekInfo);
-}
+	Budynek::Budynek(const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety, const BudynekInfo& obiektInfo)
+		: PodstawoweParametry(wpisPoziom(poziom), obiektInfo.pobierzTypAtrybutu(), identyfikatorPlanety),
+		Obiekt(PodstawoweParametry(wpisPoziom(poziom), obiektInfo.pobierzTypAtrybutu(), identyfikatorPlanety), obiektInfo),
+		budynekInfo_(obiektInfo)
+	{}
 
-Budynek* Budynek::Podziel( const Ilosc& ilosc){
-	return nullptr;
-}
+	Budynek::Budynek(const PodstawoweParametry& podstawoweParametry, const BudynekInfo& obiektInfo)
+		: PodstawoweParametry(podstawoweParametry), Obiekt(podstawoweParametry, obiektInfo), budynekInfo_(obiektInfo)
+	{
+	}
 
-bool Budynek::Polacz( const ObiektBase& obiektBase){
-	return false;
-}
+	Budynek* Budynek::kopia() const{
+		return new Budynek(*this, budynekInfo_);
+	}
+
+	Budynek* Budynek::podziel(const STyp::Ilosc& ilosc){
+		return nullptr;
+	}
+
+	bool Budynek::polacz(const Obiekt& obiektbazowy) {
+		return false;
+	}
 	
-bool Budynek::czyMoznaPolaczyc( const ObiektBase& obiektBase) const{
-	return false;
-}
+	Wymagania::PrzetworzoneWarunki Budynek::pobierzZapotrzebowanie()const{
+		return budynekInfo_.pobierzZapotrzebowanie(*this);
+	}
 
-bool Budynek::czyMoznaPodzielic( const Ilosc& ilosc) const{
-	return false;
-}
+	Wymagania::PrzetworzoneWarunki Budynek::pobierzProdukcje()const{
+		return budynekInfo_.pobierzProdukcje(*this);
+	}
 
-Budynek::~Budynek(void)
-{
-}
+	STyp::Powierzchnia Budynek::pobierzPowierzchnie()const{
+		return budynekInfo_.pobierzPowierzchnie(*this);
+	}
 
-Cennik::ListaSurowcow Budynek::PobierzZapotrzebowanie( )const{
-	return budynekInfo.PobierzZapotrzebowanie(getPoziom());
-}
+	bool Budynek::zapisz(XmlBO::ElementWezla wezel) const {
+		if (!wezel)
+			return false;
+		return Obiekt::zapisz(wezel->tworzElement(WEZEL_XML_BUDYNEK));
+	}
 
-Cennik::ListaSurowcow Budynek::PobierzProdukcje( )const{
-	return budynekInfo.PobierzProdukcje(getPoziom());
-}
+	bool Budynek::odczytaj(XmlBO::ElementWezla wezel) {
+		return Obiekt::odczytaj(wezel);
+	}
 
-string Budynek::toString()const{
-	Logger str(CLASSNAME(Budynek));
-	str.addClass(Obiekt::toString());
-	str.addField(CLASSNAME(BudynekInfo)+"ID",budynekInfo.getId());
-	return str.toString();
+	std::string Budynek::napis()const{
+		SLog::Logger str(NAZWAKLASY(Budynek));
+		str.dodajKlase(Obiekt::napis());
+		str.dodajPole(NAZWAPOLA(budynekInfo_), budynekInfo_.pobierzIdentyfikator());
+		return str.napis();
+	}
 }

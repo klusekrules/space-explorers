@@ -1,167 +1,340 @@
 #include "Gra.h"
-#include "Aplikacja.h"
+#include "DefinicjeWezlowXML.h"
+#include <iostream>
+#include <fstream>
+#include "Walidator.h"
+#include "PowtorzenieIdObiektu.h"
 
-Gra::Gra(Aplikacja& app)
-	: aplikacja(app), fabryka(ZmianaFabryka::pobierzInstancje()), uzytkownik(new Uzytkownik()),
-	pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), 
-	pustyObiektBase( Ilosc(0), Poziom(0), pustyobiekBaseInfo )
-{
-}
+#define KOMUNIKAT_POWTORZENIE_OBIEKTU(a) STyp::Tekst("Obiekt typu: "#a )
 
-Gra::Gra(const Gra& g)
-	: aplikacja(g.aplikacja), fabryka(ZmianaFabryka::pobierzInstancje()),uzytkownik(g.uzytkownik),
-	pustyobiekBaseInfo( Info(Tekst(""),Tekst(""),IdType(0),Wymagania(nullptr)) , Poziom(0) ), 
-	pustyObiektBase( Ilosc(0), Poziom(0), pustyobiekBaseInfo )
-{
-}
+namespace SpEx{
 
-Gra& Gra::operator=(const Gra& g){
-	return *this;
-}
-
-ZmianaFabryka& Gra::getZmianaFabryka(){
-	return fabryka;
-}
-
-Gra::~Gra()
-{
-}
-
-StatekInfo& Gra::getStatek(const IdType& id)const throw (NieznalezionoObiektu) {
-	auto iter = listaStatkowInfo.find(id);
-	if(iter==listaStatkowInfo.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.toString());
-	return *(iter->second);
-}
-
-SurowceInfo& Gra::getSurowce(const IdType& id)const throw (NieznalezionoObiektu) {
-	auto iter = listaSurowcowInfo.find(id);
-	if(iter==listaSurowcowInfo.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.toString());
-	return *(iter->second);
-}
-
-TechnologiaInfo& Gra::getTechnologia(const IdType& id)const throw (NieznalezionoObiektu) {
-	auto iter = listaTechnologiInfo.find(id);
-	if(iter==listaTechnologiInfo.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.toString());
-	return *(iter->second);
-}
-
-BudynekInfo& Gra::getBudynek(const IdType& id)const throw (NieznalezionoObiektu) {
-	auto iter = listaBudynkowInfo.find(id);
-	if(iter==listaBudynkowInfo.end())
-		throw NieznalezionoObiektu(EXCEPTION_PLACE,id.toString());
-	return *(iter->second);
-}
-
-const ObiektBase& Gra::getObiekt(IdType id)const{
-	return pustyObiektBase;
-}
-
-bool Gra::WczytajDane( const string& sFile ){
-	ticpp::Document dane;
-	try{
-		dane.LoadFile( sFile );
-		auto root_data = dane.IterateChildren("SpaceGame",nullptr);
-		if(root_data){
-			if(!WczytajSurowce(root_data))
-				return false;
-			if(!WczytajStatki(root_data))
-				return false;
-			if(!WczytajTechnologie(root_data))
-				return false;
-			if(!WczytajBudynki(root_data))
-				return false;
-		}
-	}catch(ticpp::Exception& e){
-		cout<< e.what();
-		aplikacja.getLog().error("Nie uda³o siê otworzyæ pliku!");
-		return false;
+	Gra::Gra(SLog::Log& logger, ZarzadcaPamieci& zarzadca)
+		: logger_(logger), zarzadca_(zarzadca), uzytkownik_(nullptr)
+	{
+		zarzadca.wyczyscDane();
 	}
-	return true;
-}
 
-bool Gra::WczytajTechnologie(ticpp::Node* root){
-	ticpp::Node* ptr = nullptr;
-	do{
-		try{
-			ptr = root->IterateChildren(CLASSNAME(TechnologiaInfo),ptr);
-			if(ptr){
-				shared_ptr<TechnologiaInfo> t(new TechnologiaInfo(ptr));
-				aplikacja.getLog().debug(*t);
-				if(listaTechnologiInfo.find(t->getId())!=listaTechnologiInfo.end())
-					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Technologia o podanym id istnieje"));
-				listaTechnologiInfo[t->getId()]=t;
-			}
-		}catch(OgolnyWyjatek& e){
-			aplikacja.getLog().warn(e.generujKomunikat());
-			aplikacja.getLog().debug(e);
+	bool Gra::przeniesPlaneteDoUzytkownika(const STyp::Identyfikator& identyfikator){
+		auto planeta = zarzadca_.pobierzIZarezerwujPlanete(identyfikator);
+		if (!planeta)
+			return false;
+		if (!uzytkownik_->dodajPlanete(planeta)){
+			zarzadca_.anulujRezerwacjePlanety(identyfikator);
 			return false;
 		}
-	}while(ptr);
-	return true;
-}
+		return true;
+	}
 
-bool Gra::WczytajBudynki(ticpp::Node* root){
-	ticpp::Node* ptr = nullptr;
-	do{
-		try{
-			ptr = root->IterateChildren(CLASSNAME(BudynekInfo),ptr);
-			if(ptr){
-				shared_ptr<BudynekInfo> t(new BudynekInfo(ptr));
-				aplikacja.getLog().debug(*t);
-				if(listaBudynkowInfo.find(t->getId())!=listaBudynkowInfo.end())
-					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Budynek o podanym id istnieje"));
-				listaBudynkowInfo[t->getId()]=t;
-			}
-		}catch(OgolnyWyjatek& e){
-			aplikacja.getLog().warn(e.generujKomunikat());
-			aplikacja.getLog().debug(e);
+	bool Gra::przeniesPlaneteDoUzytkownika(){
+		auto planeta = zarzadca_.pobierzIZarezerwujPlanete();
+		if (!planeta)
+			return false;
+		if (!uzytkownik_->dodajPlanete(planeta)){
+			zarzadca_.anulujRezerwacjePlanety(planeta->pobierzIdentyfikator());
 			return false;
 		}
-	}while(ptr);
-	return true;
-}
+		return true;
+	}
 
-bool Gra::WczytajSurowce(ticpp::Node* root){
-	ticpp::Node* ptr = nullptr;
-	do{
-		try{
-			ptr = root->IterateChildren(CLASSNAME(SurowceInfo),ptr);
-			if(ptr){
-				shared_ptr<SurowceInfo> t(new SurowceInfo(ptr));
-				aplikacja.getLog().debug(*t);
-				if(listaSurowcowInfo.find(t->getId())!=listaSurowcowInfo.end())
-					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Surowiec o podanym id istnieje"));
-				listaSurowcowInfo[t->getId()]=t;
+	int Gra::pobierzIloscGalaktyk() const{
+		return zarzadca_.pobierzIloscGalaktyk();
+	}
+
+	bool Gra::generujNowaGalaktyke(){
+		return zarzadca_.generujNowaGalaktyke();
+	}
+
+	std::shared_ptr<Surowce> Gra::tworzSurowce(XmlBO::ElementWezla wezel)const{
+		STyp::Identyfikator identyfikator;
+		if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator))
+			return nullptr;
+		auto obiektOpisowy = listaSurowcowInfo_.find(identyfikator);
+		if (obiektOpisowy == listaSurowcowInfo_.end())
+			return nullptr;
+		std::shared_ptr<Surowce> obiekt = std::shared_ptr<Surowce>(obiektOpisowy->second->tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(),PodstawoweParametry::ILOSC,STyp::Identyfikator())));
+		if (!obiekt || !obiekt->odczytaj(wezel))
+			return nullptr;
+		return obiekt;
+	}
+
+	std::shared_ptr<Statek> Gra::tworzStatek(XmlBO::ElementWezla wezel)const{
+		STyp::Identyfikator identyfikator;
+		if (!XmlBO::WczytajAtrybut<NOTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator))
+			return nullptr;
+		auto obiektOpisowy = listaStatkowInfo_.find(identyfikator);
+		if (obiektOpisowy == listaStatkowInfo_.end())
+			return nullptr;
+		std::shared_ptr<Statek> obiekt = std::shared_ptr<Statek>(obiektOpisowy->second->tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), PodstawoweParametry::ILOSC, STyp::Identyfikator())));
+		if (!obiekt || !obiekt->odczytaj(wezel))
+			return nullptr;
+		return obiekt;
+	}
+
+	Uzytkownik& Gra::pobierzUzytkownika() const throw (NieznalezionoObiektu) {
+		if (!uzytkownik_)
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, STyp::Tekst("Uzytkownik"));
+		return *uzytkownik_;
+	}
+
+	std::shared_ptr<Planeta> Gra::pobierzPlanete(const STyp::Identyfikator& identyfikator){
+		auto ptr = zarzadca_.pobierzPlanete(identyfikator);
+		if (!ptr)
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+		return ptr;
+	}
+
+	StatekInfo& Gra::pobierzStatek(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
+		auto iterator = listaStatkowInfo_.find(identyfikator);
+		if (iterator == listaStatkowInfo_.end())
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+		return *(iterator->second);
+	}
+
+	SurowceInfo& Gra::pobierzSurowce(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
+		auto iterator = listaSurowcowInfo_.find(identyfikator);
+		if (iterator == listaSurowcowInfo_.end())
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+		return *(iterator->second);
+	}
+
+	TechnologiaInfo& Gra::pobierzTechnologia(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
+		auto iterator = listaTechnologiInfo_.find(identyfikator);
+		if (iterator == listaTechnologiInfo_.end())
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+		return *(iterator->second);
+	}
+
+	BudynekInfo& Gra::pobierzBudynek(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
+		auto iterator = listaBudynkowInfo_.find(identyfikator);
+		if (iterator == listaBudynkowInfo_.end())
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+		return *(iterator->second);
+	}
+
+	ObiektInfo& Gra::pobierzObiekt(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
+		auto iterator = listaObiektowInfo_.find(identyfikator);
+		if (iterator == listaObiektowInfo_.end())
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+		return *(iterator->second);
+	}
+
+	ObronaInfo& Gra::pobierzObrone(const STyp::Identyfikator& identyfikator)const throw (NieznalezionoObiektu) {
+		auto iterator = listaObronaInfo_.find(identyfikator);
+		if (iterator == listaObronaInfo_.end())
+			throw NieznalezionoObiektu(EXCEPTION_PLACE, identyfikator.napis());
+		return *(iterator->second);
+	}
+
+	bool Gra::wczytajDane(std::shared_ptr<SPar::ParserElement> root){
+		try{			
+			if (root){
+				if (!wczytajSurowce(root))
+					return false;
+				if (!wczytajStatki(root))
+					return false;
+				if (!wczytajObrone(root))
+					return false;
+				if (!wczytajTechnologie(root))
+					return false;
+				if (!wczytajBudynki(root))
+					return false;
 			}
-		}catch(OgolnyWyjatek& e){
-			aplikacja.getLog().warn(e.generujKomunikat());
-			aplikacja.getLog().debug(e);
+		}
+		catch (STyp::Wyjatek& wyjatek){
+			logger_.loguj(SLog::Log::Error, wyjatek.generujKomunikat());
 			return false;
 		}
-	}while(ptr);
-	return true;
-}
-
-bool Gra::WczytajStatki(ticpp::Node* root){
-	ticpp::Node* ptr = nullptr;
-	do{
-		try{
-			ptr = root->IterateChildren(CLASSNAME(StatekInfo),ptr);
-			if(ptr){
-				shared_ptr<StatekInfo> t(new StatekInfo(ptr));
-				aplikacja.getLog().debug(*t);
-				if(listaStatkowInfo.find(t->getId())!=listaStatkowInfo.end())
-					throw OgolnyWyjatek(EXCEPTION_PLACE,IdType(-1),Tekst("B³¹d wczytywania danych"),Tekst("Statek o podanym id istnieje"));
-				listaStatkowInfo[t->getId()]=t;
-			}
-		}catch(OgolnyWyjatek& e){
-			aplikacja.getLog().warn(e.generujKomunikat());
-			aplikacja.getLog().debug(e);
+		catch (std::exception& wyjatek){
+			logger_.loguj(SLog::Log::Error, wyjatek.what());
 			return false;
 		}
-	}while(ptr);
-	return true;
+		return true;
+	}
+
+	bool Gra::wczytajTechnologie(XmlBO::ElementWezla wezel){
+		try{
+			XmlBO::ElementWezla element = wezel->pobierzElement(WEZEL_XML_TECHNOLOGIA_INFO);
+			do{
+				if (element){
+					std::shared_ptr<TechnologiaInfo> obiekt = std::make_shared<TechnologiaInfo>(element);
+					logger_.loguj(SLog::Log::Debug, *obiekt);
+					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
+						throw PowtorzenieIdObiektu(EXCEPTION_PLACE, obiekt->pobierzIdentyfikator(), KOMUNIKAT_POWTORZENIE_OBIEKTU(TechnologiaInfo));
+					listaTechnologiInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					listaObiektowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					element = element->pobierzNastepnyElement(WEZEL_XML_TECHNOLOGIA_INFO);
+				}
+			} while (element);
+		}
+		catch (STyp::Wyjatek& wyjatek){
+			logger_.loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
+			logger_.loguj(SLog::Log::Debug, wyjatek);
+			return false;
+		}
+		return true;
+	}
+
+	bool Gra::wczytajBudynki(XmlBO::ElementWezla wezel){
+		try{
+			XmlBO::ElementWezla element = wezel->pobierzElement(WEZEL_XML_BUDYNEK_INFO);
+			do{
+				if (element){
+					std::shared_ptr<BudynekInfo> obiekt(new BudynekInfo(element));
+					logger_.loguj(SLog::Log::Debug, *obiekt);
+					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
+						throw PowtorzenieIdObiektu(EXCEPTION_PLACE, obiekt->pobierzIdentyfikator(), KOMUNIKAT_POWTORZENIE_OBIEKTU(BudynekInfo));
+					listaBudynkowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					listaObiektowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					element = element->pobierzNastepnyElement(WEZEL_XML_BUDYNEK_INFO);
+				}
+			} while (element);
+		}
+		catch (STyp::Wyjatek& wyjatek){
+			logger_.loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
+			logger_.loguj(SLog::Log::Debug, wyjatek);
+			return false;
+		}
+		return true;
+	}
+
+	bool Gra::wczytajSurowce(XmlBO::ElementWezla wezel){
+		try{
+			XmlBO::ElementWezla element = wezel->pobierzElement(WEZEL_XML_SUROWCE_INFO);
+			do{
+				if (element){
+					std::shared_ptr<SurowceInfo> obiekt(new SurowceInfo(element));
+					logger_.loguj(SLog::Log::Debug, *obiekt);
+					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
+						throw PowtorzenieIdObiektu(EXCEPTION_PLACE, obiekt->pobierzIdentyfikator(), KOMUNIKAT_POWTORZENIE_OBIEKTU(SurowceInfo));
+					listaSurowcowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					listaObiektowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					element = element->pobierzNastepnyElement(WEZEL_XML_SUROWCE_INFO);
+				}
+			} while (element);
+		}
+		catch (STyp::Wyjatek& wyjatek){
+			logger_.loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
+			logger_.loguj(SLog::Log::Debug, wyjatek);
+			return false;
+		}
+		return true;
+	}
+
+	bool Gra::wczytajObrone(XmlBO::ElementWezla wezel){
+		try{
+			XmlBO::ElementWezla element = wezel->pobierzElement(WEZEL_XML_OBRONA_INFO);
+			do{
+				if (element){
+					std::shared_ptr<ObronaInfo> obiekt(new ObronaInfo(element));
+					logger_.loguj(SLog::Log::Debug, *obiekt);
+					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
+						throw PowtorzenieIdObiektu(EXCEPTION_PLACE, obiekt->pobierzIdentyfikator(), KOMUNIKAT_POWTORZENIE_OBIEKTU(ObronaInfo));
+					listaObronaInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					listaObiektowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					element = element->pobierzNastepnyElement(WEZEL_XML_OBRONA_INFO);
+				}
+			} while (element);
+		}
+		catch (STyp::Wyjatek& wyjatek){
+			logger_.loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
+			logger_.loguj(SLog::Log::Debug, wyjatek);
+			return false;
+		}
+		return true;
+	}
+
+	bool Gra::wczytajStatki(XmlBO::ElementWezla wezel){
+		try{
+			XmlBO::ElementWezla element = wezel->pobierzElement(WEZEL_XML_STATEK_INFO);
+			do{
+				if (element){
+					std::shared_ptr<StatekInfo> obiekt(new StatekInfo(element));
+					logger_.loguj(SLog::Log::Debug, *obiekt);
+					if (listaObiektowInfo_.find(obiekt->pobierzIdentyfikator()) != listaObiektowInfo_.end())
+						throw PowtorzenieIdObiektu(EXCEPTION_PLACE, obiekt->pobierzIdentyfikator(), KOMUNIKAT_POWTORZENIE_OBIEKTU(StatekInfo));
+					listaStatkowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					listaObiektowInfo_[obiekt->pobierzIdentyfikator()] = obiekt;
+					element = element->pobierzNastepnyElement(WEZEL_XML_STATEK_INFO);
+				}
+			} while (element);
+		}
+		catch (STyp::Wyjatek& wyjatek){
+			logger_.loguj(SLog::Log::Warning, wyjatek.generujKomunikat());
+			logger_.loguj(SLog::Log::Debug, wyjatek);
+			return false;
+		}
+		return true;
+	}
+
+	bool Gra::odczytaj(const std::string& nazwa, const std::string& hash){
+		return logowanie(nazwa, hash);
+	}
+
+	bool Gra::logowanie(const std::string& nazwa, const std::string& hash){
+		std::string plik;
+		auto dokument = zarzadca_.plikUzytkownika(nazwa, hash, plik, false);
+		if (!dokument)
+			return false;
+		auto nowyUzytkownik = std::make_shared<Uzytkownik>(*this);
+		if (nowyUzytkownik->odczytaj(dokument->pobierzElement(nullptr)) && Walidator::pobierzInstancje().waliduj())
+			uzytkownik_ = nowyUzytkownik;
+		else
+			return false;
+		return true;
+	}
+
+	bool Gra::nowyGracz(const std::string& nazwa, const std::string& hash){
+		std::string plik;
+		if (zarzadca_.plikUzytkownika(nazwa, hash, plik, false))
+			return false;
+		return zarzadca_.plikUzytkownika(nazwa, hash, plik) != nullptr;
+	}
+
+	bool Gra::usunGracza(const std::string& nazwa, const std::string& hash){
+		std::string plik;
+		auto dokument = zarzadca_.plikUzytkownika(nazwa, hash, plik, false);
+		if (!dokument)
+			return false;
+		auto nowyUzytkownik = std::make_shared<Uzytkownik>(*this);
+		if (nowyUzytkownik->odczytaj(dokument->pobierzElement(nullptr)) && Walidator::pobierzInstancje().waliduj()){
+			if (uzytkownik_ && nowyUzytkownik->pobierzNazweUzytkownika() == uzytkownik_->pobierzNazweUzytkownika())
+				return false;
+			nowyUzytkownik->odpinaniePlanet();
+		}
+		else
+			return false;
+		return !remove(plik.c_str());
+	}
+
+	bool Gra::zapisz(const std::string& nazwa, const std::string& hash) const{
+		std::string plik;
+		auto dokument = zarzadca_.plikUzytkownika(nazwa, hash, plik, true);
+		if (!dokument || !uzytkownik_ || !uzytkownik_->zapisz(dokument->pobierzElement(nullptr)))
+			return false;
+		return dokument->zapisz(plik.c_str());
+	}
+
+	const std::unordered_map<STyp::Identyfikator, std::shared_ptr<ObiektInfo>, STyp::IdTypeHash >& Gra::pobierzDostepneObiektyInfo(const Planeta& planeta, const STyp::Identyfikator& typObiektu , std::vector<STyp::Identyfikator>& listaId){
+		listaId.reserve(listaObiektowInfo_.size());
+		for (auto &element : listaObiektowInfo_){
+			if ((typObiektu == 0 || element.second->typ_ == typObiektu)){
+				PodstawoweParametry::AtrybutPodstawowy atrybut;
+				auto obiekt = planeta.pobierzObiektJesliIstnieje(element.first);
+				if (obiekt != nullptr){
+					atrybut = obiekt->pobierzAtrybut();
+					if (obiekt->typAtrybutu() == PodstawoweParametry::POZIOM){
+						++atrybut.poziom;
+					}
+				}else{
+					atrybut = PodstawoweParametry::wartoscJednostkowaAtrybutu(element.second->pobierzTypAtrybutu());
+				}
+
+				if (element.second->czySpelniaWymagania(SpEx::PodstawoweParametry(atrybut, element.second->pobierzTypAtrybutu(), planeta.pobierzIdentyfikator()))){
+					listaId.emplace_back(element.first);
+				}
+			}
+		}
+		return listaObiektowInfo_;
+	}
 }

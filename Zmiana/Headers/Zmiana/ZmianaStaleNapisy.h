@@ -1,0 +1,2 @@
+
+#define ZMIANA_NAZWA_FUNKCJI_LADUJACEJ_KLASY_ZMIAN "RejestrujZmiany"

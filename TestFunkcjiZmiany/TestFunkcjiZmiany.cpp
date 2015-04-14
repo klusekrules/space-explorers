@@ -1,44 +1,45 @@
-// TestFunkcjiZmiany.cpp : Defines the exported functions for the DLL application.
-//
-
-#include "stdafx.h"
 #include "TestFunkcjiZmiany.h"
-#include "..\XmlBO.h"
-#include "..\Logger.h"
+#include "Zmiana\ZmianaStaleXml.h"
+#include "Logger\Logger.h"
+#include "TypyProste\TypyProsteBO.h"
+#include "TestFunkcjiZmianyStale.h"
 
-ZmianaTest::ZmianaTest( const ticpp::Element* e )
-	: parametr(XmlBO::IterateChildrenElementIf<NOTHROW>(e,"Param","id","0"))
-{
+namespace SZmi{
+	ZmianaTest::ZmianaTest(XmlBO::ElementWezla e)
+		: parametr_(XmlBO::ZnajdzWezel<NOTHROW>(e, XML_WEZEL_ZMIANA_PARAM))
+	{
+	}
+	
+	ZmianaInterfejs* ZmianaTest::TworzZmianaTest(XmlBO::ElementWezla wezel){
+		return new ZmianaTest(wezel);
+	}
+
+	STyp::Wartosc ZmianaTest::policzWartosc(const STyp::Wartosc& wartosc, const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety) const{
+		return STyp::pomnozWartosc( wartosc * parametr_.pobierzWspolczynnik() , poziom ) * 10;
+	}
+
+	ZmianaTest* ZmianaTest::Kopia()const{
+		return new ZmianaTest(*this);
+	}
+
+	bool ZmianaTest::RejestrujZmianaTest(ZmianaFabryka &ref){
+		return ref.rejestracjaZmiany(identyfikator_, ZmianaTest::TworzZmianaTest);
+	}
+
+	std::string ZmianaTest::napis()const{
+		SLog::Logger str(NAZWAKLASY(ZmianaTest));
+		str.dodajPole(NAZWAPOLA(parametr_), parametr_);
+		return str.napis();
+	}
+
+	const int ZmianaTest::identyfikator_(5);
 }
 
-ZmianaTest::~ZmianaTest(void)
-{
-}
-
-long double ZmianaTest::value(const long double& d, const int& p) const{
-	return d * parametr.getWspolczynnik() * p * 10 ;
-}
-
-ZmianaTest* ZmianaTest::Kopia()const{
-	return new ZmianaTest(*this);
-}
-
-bool ZmianaTest::RejestrujZmianaTest(  ZmianaFabryka &ref ){
-	return ref.RejestracjaZmiany(idKlasy,ZmianaTest::TworzZmianaTest);
-}
-
-string ZmianaTest::toString()const{
-	Logger str(CLASSNAME(ZmianaTest));
-	str.addField("Parametr",parametr);
-	return str.toString();
-}
-
-const int ZmianaTest::idKlasy(5);
-
-bool RejestrujZmiany ( ZmianaFabryka& fabryka , Log& logger ){
-	if(ZmianaTest::RejestrujZmianaTest(fabryka))
-		logger.info("Zaladowano ZmianaTest.");
+bool RejestrujZmiany(SZmi::ZmianaFabryka& fabryka, SLog::Log& logger){
+	if (SZmi::ZmianaTest::RejestrujZmianaTest(fabryka))
+		logger.loguj(SLog::Log::Info, TEST_FUNKCJI_ZMIANY_ZALADOWANO);
 	else
-		logger.info("Nie zaladowano ZmianaTest.");
+		logger.loguj(SLog::Log::Info, TEST_FUNKCJI_ZMIANY_NIE_ZALADOWANO);
 	return true;
 }
+

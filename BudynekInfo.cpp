@@ -1,64 +1,97 @@
 #include "BudynekInfo.h"
-#include "Logger.h"
-#include "XmlBO.h"
+#include "Aplikacja.h"
+#include "definicjeWezlowXML.h"
 
-BudynekInfo::BudynekInfo( ticpp::Node* n )
-	: ObiektInfo(XmlBO::IterateChildren<THROW>(n,CLASSNAME(ObiektInfo)))
-{
-	auto z = XmlBO::IterateChildrenElement<NOTHROW>(n,"Zapotrzebowanie");
-	if(z){
-		auto e = z->FirstChildElement(false);
-		while(e){
-			if(e->Value() == CLASSNAME(Cena))
-				zapotrzebowanie.push_back(shared_ptr<Cena>(new Cena(e)));
-			e = e->NextSiblingElement(false);
+namespace SpEx{
+
+	BudynekInfo::BudynekInfo(XmlBO::ElementWezla wezel)
+		: ObiektInfo(BUDYNEK, PodstawoweParametry::POZIOM, wezel)
+	{
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_POWIERZCHNIA, powierzchnia_);
+		zmianaPowierzchni_ = Utils::TworzZmiane(XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_ZMIANA, ATRYBUT_XML_FOR, ATRYBUT_XML_POWIERZCHNIA));
+		auto zapotrzebowanie = std::ref(zapotrzebowanie_);
+		XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_ZAPOTRZEBOWANIE, XmlBO::OperacjaWezla([&zapotrzebowanie](XmlBO::ElementWezla warunek)->bool{
+			Warunek obiekt(warunek);
+			auto identyfikator = obiekt.pobierzObiekt()->pobierzIdentyfikator();
+			for (auto element : zapotrzebowanie.get()){
+				if (element.pobierzObiekt()->pobierzIdentyfikator() == identyfikator)
+					Utils::generujWyjatekBleduStruktury(warunek);
+			}
+			zapotrzebowanie.get().push_back(obiekt);
+			return true;
+		}));
+		
+		auto produkcja = std::ref(produkcja_);
+		XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_PRODUKCJA, XmlBO::OperacjaWezla([&produkcja](XmlBO::ElementWezla warunek)->bool{
+			Warunek obiekt(warunek);
+			auto identyfikator = obiekt.pobierzObiekt()->pobierzIdentyfikator();
+			for (auto element : produkcja.get()){
+				if (element.pobierzObiekt()->pobierzIdentyfikator() == identyfikator)
+					Utils::generujWyjatekBleduStruktury(warunek);
+			}
+			produkcja.get().push_back(obiekt);
+			return true;
+		}));
+		
+	}
+
+	bool BudynekInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy& atrybut) const{
+		return planeta.dodajObiekt(std::shared_ptr<Budynek>(tworzEgzemplarz(PodstawoweParametry(atrybut, typAtrybutu_))));
+	}
+
+	bool BudynekInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla& element) const{
+		auto budynek = std::shared_ptr<Budynek>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), typAtrybutu_)));
+		if (budynek && element){
+			if (!budynek->odczytaj(element))
+				return false;
+			return planeta.dodajObiekt(budynek);
 		}
+		return false;
+	}
+	
+	STyp::Powierzchnia BudynekInfo::pobierzPowierzchnie(const PodstawoweParametry& parametry)const{
+		return Utils::ObliczZmiane(zmianaPowierzchni_, powierzchnia_, parametry);
 	}
 
-	auto p = XmlBO::IterateChildrenElement<NOTHROW>(n,"Produkcja");
-	if(p){
-		auto e = p->FirstChildElement(false);
-		while(e){
-			if(e->Value() == CLASSNAME(Cena))
-				produkcja.push_back(shared_ptr<Cena>(new Cena(e)));
-			e = e->NextSiblingElement(false);
+	Budynek* BudynekInfo::tworzEgzemplarz(const PodstawoweParametry& parametry) const{
+		return new Budynek(parametry, *this);
+	}
+	
+	Wymagania::PrzetworzoneWarunki BudynekInfo::pobierzZapotrzebowanie(const PodstawoweParametry& parametry)const{
+		PrzetworzoneWarunki zbiornik;
+		for (auto element : zapotrzebowanie_){
+			zbiornik.emplace_back(std::make_shared<Wymagania::TypWarunku>(wylicz(element, parametry), element.pobierzObiekt()->typAtrybutu(), element.pobierzObiekt()->pobierzIdentyfikator()));
 		}
+		return zbiornik;
 	}
-}
 
-
-BudynekInfo::~BudynekInfo(void)
-{
-}
-
-Budynek* BudynekInfo::TworzEgzemplarz( const Ilosc& ) const{
-	return new Budynek(getPoziom(),*this);
-}
-
-Cennik::ListaSurowcow BudynekInfo::PobierzZapotrzebowanie( const Poziom& p )const{
-	Cennik::ListaSurowcow list;
-	for(auto z : zapotrzebowanie){
-		list.push_back(z->PobierzKoszty(Ilosc(1),p));
+	Wymagania::PrzetworzoneWarunki BudynekInfo::pobierzProdukcje(const PodstawoweParametry& parametry)const{
+		PrzetworzoneWarunki zbiornik;
+		for (auto element : produkcja_){
+			zbiornik.emplace_back(std::make_shared<Wymagania::TypWarunku>(wylicz(element, parametry), element.pobierzObiekt()->typAtrybutu(), element.pobierzObiekt()->pobierzIdentyfikator()));
+		}
+		return zbiornik;
 	}
-	return list;
-}
 
-Cennik::ListaSurowcow BudynekInfo::PobierzProdukcje( const Poziom& p )const{
-	Cennik::ListaSurowcow list;
-	for(auto z : produkcja){
-		list.push_back(z->PobierzKoszty(Ilosc(1),p));
+	std::string BudynekInfo::napis()const{
+		SLog::Logger str(NAZWAKLASY(BudynekInfo));
+		str.dodajKlase(ObiektInfo::napis());
+		for (auto element : zapotrzebowanie_){
+			str.rozpocznijPodKlase("Zapotrzebowanie");
+			if (element.pobierzObiekt())
+				str.dodajPole("Obiekt", *element.pobierzObiekt());
+			if (element.pobierzZmiane())
+				str.dodajPole("Zmiana", *element.pobierzZmiane());
+			str.zakonczPodKlase();
+		}
+		for (auto element : produkcja_){
+			str.rozpocznijPodKlase("Produkcja");
+			if (element.pobierzObiekt())
+				str.dodajPole("Obiekt", *element.pobierzObiekt());
+			if (element.pobierzZmiane())
+				str.dodajPole("Zmiana", *element.pobierzZmiane());
+			str.zakonczPodKlase();
+		}
+		return str.napis();
 	}
-	return list;
-}
-
-string BudynekInfo::toString()const{
-	Logger str(CLASSNAME(BudynekInfo));
-	str.addClass(ObiektInfo::toString());
-	for(auto i : zapotrzebowanie)
-		if(i)
-			str.addField("ElementZapotrzebowania",*i);
-	for(auto i : produkcja)
-		if(i)
-			str.addField("ElementProdukcji",*i);
-	return str.toString();
 }

@@ -1,39 +1,102 @@
 #pragma once
-#include "Main.h"
-#include "ObiektBaseInfo.h"
-#include "Obiekt.h"
-#include "NiezainicjalizowanaKlasa.h"
-#include "FuncTransf\ZmianaInterfejs.h"
+#include "Info.h"
+#include "Wymagania.h"
 
-class ObiektInfo :
-	public ObiektBaseInfo,
-	virtual public LoggerInterface
-{
-private:
-	Powierzchnia powierzchnia;
-	shared_ptr<ZmianaInterfejs> zmPowierzchnia;
+namespace SpEx{
+	class Obiekt;
+	/**
+	* \brief Klasa opisowa obiektu.
+	*
+	* Klasa zawieraj¹ca elementy opisowe obiektu gry.
+	* \author Daniel Wojdak
+	* \version 2
+	* \date 14-07-2014
+	*/
+	class ObiektInfo:
+		public Wymagania,
+		public Info,
+		virtual public SLog::LoggerInterface
+	{
+		friend class Planeta;
+	public:
 
-	Objetosc objetosc;
-	shared_ptr<ZmianaInterfejs> zmObjetosc;
+		/**
+		* \brief Konstruktor.
+		*
+		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
+		* \param[in] typ - Typ obiektu przechowywanego przez instancjê.
+		* \param[in] typAtrybutu - Typ atrybutu obiektu jaki bêdzie reprezentowany przez dan¹ instancjê.
+		* \param[in] wezel - Wêze³ XML, opisuj¹cy obiekt.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
+		*/
+		explicit ObiektInfo(const STyp::Identyfikator& typ, PodstawoweParametry::TypAtrybutu typAtrybutu, XmlBO::ElementWezla wezel);
 
-	Masa masa;
-	shared_ptr<ZmianaInterfejs> zmMasa;
+		/**
+		* \brief Metoda tworz¹ca egzemplarz obiektu.
+		*
+		*  Metoda tworzy egzemplarz obiektu o podanej iloœci i dla podanej planety.
+		* \param[in] parametry - Iloœæ tworzonych obiektów.
+		* \warning Metoda allokuje pamiêæ dla nowego obiektu, który musi zostaæ zwolniony wywo³aniem delete.
+		* \return Metoda zwraca wskaŸnika na obiekt.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
+		*/
+		virtual Obiekt* tworzEgzemplarz(const PodstawoweParametry& parametry) const = 0;
 
-public:
-	ObiektInfo( const Masa&, const Objetosc&, const Powierzchnia&, const ObiektBaseInfo& ) throw();
+		/**
+		* \brief Domyœlny destruktor.
+		*
+		* Domyœlny destruktor.
+		*/
+		virtual ~ObiektInfo() = default;
 
-	explicit ObiektInfo( ticpp::Node* ) throw(WyjatekParseraXML);
+		/**
+		* \brief Metoda pobieraj¹ca typ atrybutu.
+		*
+		* Metoda pobiera typ atrybutu jakiego u¿ywa dany obiekt.
+		* \return Typ atrybutu.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
+		*/
+		PodstawoweParametry::TypAtrybutu pobierzTypAtrybutu()const;
 
-	~ObiektInfo( );
+		/**
+		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
+		* \return Napis zwieraj¹cy opis klasy.
+		*/
+		std::string napis() const override;
 
-	Powierzchnia getPowierzchnia(const Poziom& pz) const;
+	protected:
+		/**
+		* \brief Metoda tworz¹ca egzemplarz obiektu na planecie.
+		*
+		*  Metoda tworzy egzemplarz obiektu na planecie. U¿ywana jest podczas wywo³ywania metody wybuduj w klasie Planeta.
+		* \param[in] planeta - Referencja do obiektu planety
+		* \param[in] atrybut - Atrybut tworzonego obiektu.
+		* \return Metoda zwraca true je¿eli tworzenie zakoñczy siê sukcesem. Zwraca false w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
+		*/
+		virtual bool tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy &atrybut) const = 0;
 
-	Objetosc getObjetosc(const Poziom& pz) const;
+		/**
+		* \brief Metoda tworz¹ca egzemplarz obiektu na planecie.
+		*
+		*  Metoda tworzy egzemplarz obiektu na planecie. U¿ywana jest podczas wywo³ywania metody wybuduj w klasie Planeta.
+		* \param[in] planeta - Referencja do obiektu planety
+		* \param[in] element - Wêze³ z opisem tworzonego obiektu.
+		* \return Metoda zwraca true je¿eli tworzenie zakoñczy siê sukcesem. Zwraca false w przeciwnym wypadku.
+		* \author Daniel Wojdak
+		* \version 2
+		* \date 14-07-2014
+		*/
+		virtual bool tworz(Planeta& planeta, const XmlBO::ElementWezla& element) const = 0;
 
-	Masa getMasa(const Poziom& pz) const;
-	
-	Obiekt* TworzEgzemplarz( const Ilosc& ) const override;
-
-	string toString() const override;
-};
-
+		PodstawoweParametry::TypAtrybutu typAtrybutu_; /// Typ atrybutu u¿ywanego w obiekcie.
+	};
+}

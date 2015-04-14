@@ -1,52 +1,52 @@
 
 #include "JednostkaLatajaca.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
 
-JednostkaLatajaca::JednostkaLatajaca( const JednostkaLatajacaInfo& jInfo )
-	: jednostkaLatajacaInfo(jInfo)
-{
-}
-JednostkaLatajaca::JednostkaLatajaca( const JednostkaLatajaca& a )
-	: jednostkaLatajacaInfo(a.jednostkaLatajacaInfo)
-{
-}
-	
-JednostkaLatajaca::~JednostkaLatajaca(){
-}
+namespace SpEx{
+	JednostkaLatajaca::JednostkaLatajaca(const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety, const JednostkaLatajacaInfo& jInfo)
+		: PodstawoweParametry(wpisPoziom(poziom),POZIOM ,identyfikatorPlanety), jednostkaLatajacaInfo_(jInfo)
+	{
+	}
 
-ZuzyciePaliwa JednostkaLatajaca::WyliczZuzyciePaliwa( const Dystans& d , const Predkosc& p ,const Poziom& pz  ) const{
-	return ZuzyciePaliwa(jednostkaLatajacaInfo.getZuzyciePaliwa(pz).value()* ( d.value() / p.value() ) );
-}
+	JednostkaLatajaca::JednostkaLatajaca(const PodstawoweParametry& p, const JednostkaLatajacaInfo& jInfo)
+		: PodstawoweParametry(p), jednostkaLatajacaInfo_(jInfo)
+	{
+	}
 
-ZuzyciePaliwa JednostkaLatajaca::getJednostkoweZuzyciePaliwa( const Poziom& pz  )const{
-	return jednostkaLatajacaInfo.getZuzyciePaliwa(pz);
-}
+	STyp::ZuzyciePaliwa JednostkaLatajaca::wyliczZuzyciePaliwa(const STyp::Dystans& d, const STyp::Predkosc& p) const{
+		return STyp::ZuzyciePaliwa(pobierzJednostkoweZuzyciePaliwa()()* (d() / p()));
+	}
 
-MocSilnika JednostkaLatajaca::getMocSilnika( const Poziom& pz  )const{
-	return jednostkaLatajacaInfo.getMocSilnika(pz);
-}
+	STyp::ZuzyciePaliwa JednostkaLatajaca::pobierzJednostkoweZuzyciePaliwa()const{
+		return jednostkaLatajacaInfo_.pobierzZuzyciePaliwa(*this);
+	}
 
-Masa JednostkaLatajaca::getMasaSilnika( const Poziom& pz  )const{
-	return jednostkaLatajacaInfo.getMasaNapedu(pz);
-}
+	STyp::Moc JednostkaLatajaca::pobierzMocSilnika()const{
+		return jednostkaLatajacaInfo_.pobierzMocSilnika(*this);
+	}
 
-Fluktuacja JednostkaLatajaca::getSprawnoscSilnika( const Poziom& pz  )const{
-	return jednostkaLatajacaInfo.getSprawnoscSilnika(pz);
-}
+	STyp::Masa JednostkaLatajaca::pobierzMasaSilnika()const{
+		return jednostkaLatajacaInfo_.pobierzMasaNapedu(*this);
+	}
 
-Predkosc JednostkaLatajaca::PredkoscMaksymalna( const Poziom& p ) const{
-	long double eta_m = jednostkaLatajacaInfo.getSprawnoscSilnika(p).value();
-	long double a = 0.01;
-	long double P = jednostkaLatajacaInfo.getMocSilnika(p).value();
-	return Predkosc( ( P * eta_m )/(CalkowitaMasaJednostki().value() * a) );
-}
+	STyp::Fluktuacja JednostkaLatajaca::pobierzSprawnoscSilnika()const{
+		return jednostkaLatajacaInfo_.pobierzSprawnoscSilnika(*this);
+	}
 
-Masa JednostkaLatajaca::CalkowitaMasaJednostki() const{
-	return Masa();
-}
+	STyp::Predkosc JednostkaLatajaca::predkoscMaksymalna() const{
+		long double eta_m = jednostkaLatajacaInfo_.pobierzSprawnoscSilnika(*this)();
+		long double a = 0.01;
+		long double P = jednostkaLatajacaInfo_.pobierzMocSilnika(*this)();
+		return STyp::Predkosc((P * eta_m) / (calkowitaMasaJednostki()() * a));
+	}
 
-string JednostkaLatajaca::toString() const{
-	Logger str(CLASSNAME(JednostkaLatajaca));
-	str.addField(CLASSNAME(JednostkaLatajacaInfo)+"ID",jednostkaLatajacaInfo.getId());
-	return str.toString();
+	STyp::Masa JednostkaLatajaca::calkowitaMasaJednostki() const{
+		return STyp::Masa();
+	}
+
+	std::string JednostkaLatajaca::napis() const{
+		SLog::Logger str(NAZWAKLASY(JednostkaLatajaca));
+		str.dodajPole(NAZWAPOLA(jednostkaLatajacaInfo_), jednostkaLatajacaInfo_);
+		return str.napis();
+	}
 }

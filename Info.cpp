@@ -1,49 +1,60 @@
 #include "Info.h"
-#include "Logger.h"
-#include "XmlBO.h"
+#include "definicjeWezlowXML.h"
+#include "Logger\Logger.h"
+#include "Utils.h"
 
-Info::Info( const Tekst& tNazwa , const Tekst& tOpis, const IdType& id , const Wymagania& w ) throw()
-	: Base(id), nazwa( tNazwa ), opis( tOpis ), Wymagania(w)
-{
-}
-Info::Info( ticpp::Node* n ) throw(WyjatekParseraXML)
-	: Base( n ) , Wymagania( XmlBO::IterateChildren<NOTHROW>(n,CLASSNAME(Wymagania))  )
-{
-	if(n){
-		try{
-			ticpp::Element* e = n->ToElement();
-			setNazwa(e->GetAttribute("nazwa"));
-			setOpis(e->GetText(false));
-		}catch(exception& e){
-			throw WyjatekParseraXML(EXCEPTION_PLACE,e,WyjatekParseraXML::trescBladStrukturyXml);
+namespace SpEx {
+
+	Info::Info(const STyp::Identyfikator& typ, XmlBO::ElementWezla wezel)
+		: typ_(typ)
+	{
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_NAZWA, nazwa_);
+		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_ADRES_OBRAZKA, adresObrazka_);
+		auto tablicaZnakow = wezel->pobierzTekst();
+		if (tablicaZnakow){
+			ustawOpis(std::string(tablicaZnakow));
 		}
-	}	
-}
+		else{
+			ustawOpis(std::string());
+		}
+	}
 
-Info::~Info(){
-}
+	const STyp::Identyfikator& Info::pobierzIdentyfikator() const{
+		return identyfikator_;
+	}
 
-const Tekst& Info::getNazwa() const{
-	return nazwa;
-}
+	void Info::ustawIdentyfikator(const STyp::Identyfikator& identyfikator){
+		identyfikator_ = identyfikator;
+	}
 
-void Info::setNazwa( const Tekst& tNazwa ){
-	nazwa = tNazwa;
-}
+	const STyp::Tekst& Info::pobierzNazwe() const{
+		return nazwa_;
+	}
 
-const Tekst& Info::getOpis() const{
-	return opis;
-}
+	void Info::ustawNazwe(const STyp::Tekst& nazwa){
+		nazwa_ = nazwa;
+	}
 
-void Info::setOpis( const Tekst& tOpis ){
-	opis = tOpis;
-}
+	const STyp::Tekst& Info::pobierzOpis() const{
+		return opis_;
+	}
 
-string Info::toString() const{
-	Logger str(CLASSNAME(Info));
-	str.addClass(Base::toString());
-	str.addClass(Wymagania::toString());
-	str.addField("Nazwa",nazwa);
-	str.addField("Opis",opis);
-	return str.toString();
+	void Info::ustawOpis(const STyp::Tekst& opis){
+		opis_ = opis;
+	}
+
+	const STyp::Tekst& Info::pobierzAdresObrazka() const{
+		return adresObrazka_;
+	}
+
+	std::string Info::napis() const{
+		SLog::Logger str(NAZWAKLASY(Info));
+		str.dodajPole(NAZWAPOLA(typ_), typ_);
+		str.dodajPole(NAZWAPOLA(identyfikator_), identyfikator_);
+		str.dodajPole(NAZWAPOLA(nazwa_), nazwa_);
+		str.dodajPole(NAZWAPOLA(opis_), opis_);
+		str.dodajPole(NAZWAPOLA(adresObrazka_), adresObrazka_);
+		return str.napis();
+	}
 }

@@ -1,48 +1,32 @@
-
 #include "JednostkaAtakujaca.h"
-#include "Logger.h"
-#include "Aplikacja.h"
+#include "Logger\Logger.h"
 
-JednostkaAtakujaca::JednostkaAtakujaca( const JednostkaAtakujacaInfo& jInfo )
-	: jednostkaAtakujacaInfo(jInfo)
-{
+namespace SpEx{
+	JednostkaAtakujaca::JednostkaAtakujaca(const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety, const JednostkaAtakujacaInfo& jInfo)
+		: PodstawoweParametry(wpisPoziom(poziom), POZIOM, identyfikatorPlanety), jednostkaAtakujacaInfo_(jInfo)
+	{
+	}
+
+	JednostkaAtakujaca::JednostkaAtakujaca(const PodstawoweParametry& parametry, const JednostkaAtakujacaInfo& jInfo)
+		: PodstawoweParametry(parametry), jednostkaAtakujacaInfo_(jInfo)
+	{
+	}
+
+	STyp::Obrazenia JednostkaAtakujaca::pobierzAtak() const {
+		return jednostkaAtakujacaInfo_.pobierzAtak(*this);
+	}
+
+	STyp::Obrazenia JednostkaAtakujaca::pobierzPancerz() const{
+		return jednostkaAtakujacaInfo_.pobierzPancerz(*this);
+	}
+
+	STyp::Obrazenia JednostkaAtakujaca::pobierzOslone() const{
+		return jednostkaAtakujacaInfo_.pobierzOslone(*this);
+	}
+
+	std::string JednostkaAtakujaca::napis() const{
+		SLog::Logger str(NAZWAKLASY(JednostkaAtakujaca));
+		str.dodajPole(NAZWAPOLA(jednostkaAtakujacaInfo_), jednostkaAtakujacaInfo_);
+		return str.napis();
+	}
 }
-
-JednostkaAtakujaca::~JednostkaAtakujaca(){
-}
-
-
-Obrazenia JednostkaAtakujaca::Atak(const Poziom& p ) const {
-	return Obrazenia( jednostkaAtakujacaInfo.getAtak(p).value() * (std::normal_distribution<>(srednia,odchylenie))(jednostkaAtakujacaInfo.getGenerator()));
-}
-
-Obrazenia JednostkaAtakujaca::Pancerz( const Obrazenia& a ,const Poziom& p  ) const{
-	Obrazenia o (jednostkaAtakujacaInfo.getPancerz(p));
-	return a > o ? o : a;
-}		
-
-Obrazenia JednostkaAtakujaca::Oslona( const Obrazenia& a ,const Poziom& p  ) const{
-	Obrazenia o (jednostkaAtakujacaInfo.getOslona(p).value() * (std::normal_distribution<>(srednia,odchylenie))(jednostkaAtakujacaInfo.getGenerator()));
-	return a > o ? o : a;
-}
-
-string JednostkaAtakujaca::toString() const{
-	Logger str(CLASSNAME(JednostkaAtakujaca));
-	str.addField(CLASSNAME(JednostkaAtakujacaInfo)+"ID",jednostkaAtakujacaInfo.getId());
-	return str.toString();
-}
-
-Obrazenia JednostkaAtakujaca::getAtak( const Poziom& p ) const{
-	return jednostkaAtakujacaInfo.getAtak(p);
-}
-
-Obrazenia JednostkaAtakujaca::getPancerz( const Poziom& p  ) const{
-	return jednostkaAtakujacaInfo.getPancerz(p);
-}
-
-Obrazenia JednostkaAtakujaca:: getOslona( const Poziom& p ) const{
-	return jednostkaAtakujacaInfo.getOslona(p);
-}
-
-const double JednostkaAtakujaca::srednia = 0.8;
-const double JednostkaAtakujaca::odchylenie = 0.10;

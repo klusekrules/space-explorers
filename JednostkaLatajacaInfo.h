@@ -1,108 +1,140 @@
 #pragma once
-#include "Main.h"
 #include "Info.h"
-#include "MocSilnika.h"
-#include "ZuzyciePaliwa.h"
-#include "Masa.h"
-#include "Klucz.h"
-#include "FuncTransf\ZmianaInterfejs.h"
-#include "WyjatekParseraXML.h"
+#include "PodstawoweParametry.h"
+#include "Zmiana\ZmianaInterfejs.h"
 
-/**
-* Klasa opisuj¹ca statek pod k¹tem przemieszczania siê.
-* Przechowuje informacje odnoœnie mocy silnika, zu¿ycia paliwa przez statek, rodzaju napêdu statku, uk³adu napêdowego statku.
-*/
-class JednostkaLatajacaInfo :
-	public Info,
-	virtual public LoggerInterface
-{
-public:
+namespace SpEx{
 	/**
-	* Konstruktor parametryczny
-	* \param k - Rodzaj napêdu ( silnika )
-	* \param moc - Moc silnika
-	* \param z - Zu¿ycia paliwa przez silnik
-	* \param masa - Masa uk³adu napêdowego
+	* \brief Klasa opisuj¹ca statek pod k¹tem przemieszczania siê.
+	*
+	* Przechowuje informacje odnoœnie mocy silnika, zu¿ycia paliwa przez statek, rodzaju napêdu statku, uk³adu napêdowego statku.
+	* \author Daniel Wojdak
+	* \version 1
+	* \date 24-07-2013
 	*/
-	JednostkaLatajacaInfo(const Info& info, const Klucz& k, const MocSilnika& moc, const ZuzyciePaliwa& z, const Masa& masa ) throw();
-	
-	explicit JednostkaLatajacaInfo( ticpp::Node* ) throw(WyjatekParseraXML);
-	/**
-	* Destruktor domyœlny
-	*/
-	virtual ~JednostkaLatajacaInfo();
+	class JednostkaLatajacaInfo :
+		virtual public SLog::LoggerInterface
+	{
+	public:
+		/**
+		* \brief Konstruktor.
+		*
+		* Konstruktor parametryczny.
+		* \param[in] klucz - Rodzaj napêdu ( silnika )
+		* \param[in] mocSilnika - Moc silnika
+		* \param[in] zuzyciePaliwa - Zu¿ycia paliwa przez silnik
+		* \param[in] masa - Masa uk³adu napêdowego
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
+		*/
+		JednostkaLatajacaInfo(const STyp::Identyfikator& klucz, const STyp::Moc& mocSilnika, const STyp::ZuzyciePaliwa& zuzyciePaliwa, const STyp::Masa& masa);
 
-	/**
-	* Metoda zwracaj¹ca rodzaj napêdu jednostki.
-	* \return Rodzaj napêdu jednostki.
-	*/
-	const Klucz& getRodzajNapedu() const;
+		/**
+		* \brief Konstruktor.
+		*
+		* Konstruktor tworz¹cy obiekt na podstawie wêz³a xml.
+		* \param[in] wezel - Wêze³ na podstawie, którego jest tworzony obiekt.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
+		*/
+		explicit JednostkaLatajacaInfo(XmlBO::ElementWezla wezel);
 
-	/**
-	* Metoda zwracaj¹ca podstawow¹ moc silnika jednostki.
-	* \return Moc silnika jednostki.
-	*/
-	MocSilnika getMocSilnika() const;
+		/**
+		* \brief Konstruktor kopiuj¹cy.
+		*
+		* Konstruktor kopiuj¹cy.
+		* \param[in] obiekt - Obiekt Ÿród³owy.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
+		*/
+		JednostkaLatajacaInfo(const JednostkaLatajacaInfo& obiekt);
 
-	/**
-	* Metoda zwracaj¹ca podstawowe zu¿ycie paliwa jednostki.
-	* \return Zu¿ycie paliwa jednostki.
-	*/
-	ZuzyciePaliwa getZuzyciePaliwa() const;
-	
-	/**
-	* Metoda zwracaj¹ca podstawow¹ masê napêdu jednostki.
-	* \return Masa napêdu jednostki.
-	*/
-	Masa getMasaNapedu() const;
-	
-	/**
-	* Metoda zwracaj¹ca podstawow¹ Sprawnosc Silnika jednostki.
-	* \return Sprawnosc Silnika jednostki.
-	*/
-	Fluktuacja getSprawnoscSilnika() const;
+		/**
+		* \brief Domyœlny destruktor.
+		*
+		* Domyœlny destruktor.
+		*/
+		virtual ~JednostkaLatajacaInfo() = default;
 
-	/**
-	* Metoda zwracaj¹ca moc silnika jednostki.
-	* \return Moc silnika jednostki.
-	*/
-	MocSilnika getMocSilnika(const Poziom& p ) const;
+		/**
+		* \brief Metoda zwracaj¹ca rodzaj napêdu jednostki.
+		*
+		* Metoda zwracaj¹ca rodzaj napêdu.
+		* \return Rodzaj napêdu jednostki.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
+		*/
+		const STyp::Identyfikator& pobierzRodzajNapedu() const;
 
-	/**
-	* Metoda zwracaj¹ca zu¿ycie paliwa jednostki.
-	* \return Zu¿ycie paliwa jednostki.
-	*/
-	ZuzyciePaliwa getZuzyciePaliwa(const Poziom& p ) const;
-	
-	/**
-	* Metoda zwracaj¹ca masê napêdu jednostki.
-	* \return Masa napêdu jednostki.
-	*/
-	Masa getMasaNapedu(const Poziom& p ) const;
-	
-	/**
-	* Metoda zwracaj¹ca Sprawnosc Silnika jednostki.
-	* \return Sprawnosc Silnika jednostki.
-	*/
-	Fluktuacja getSprawnoscSilnika(const Poziom& p ) const;
-	
-	/**
-	* Metoda opisuj¹ca zawartoœæ klasy.
-	* \return CI¹g znaków opisuj¹cy klasê.
-	*/
-	string toString() const override;
-private:
-	
-	Klucz				rodzajNapedu; /// Rodzaj napêdy statku
-	MocSilnika			mocSilnika; /// Moc silnika statku
-	ZuzyciePaliwa		zuzyciePaliwa; /// Zu¿ycie paliwa przez statek
-	Masa				masaNapedu; /// Masa uk³adu napêdowego
-	Fluktuacja			sprawnoscSilnika; /// Sprawnoœæ silnika.
+		/**
+		* \brief Metoda wyliczaj¹ca moc silnika jednostki.
+		*
+		* Metoda wyliczaj¹ca moc jednostkow¹ silnika.
+		* \param[in] parametry - Parametry wymagane do policzenia atrybutu.
+		* \return Moc silnika jednostki.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
+		*/
+		STyp::Moc pobierzMocSilnika(const PodstawoweParametry& parametry) const;
 
-	
-	shared_ptr<ZmianaInterfejs>	przyrostMocySilnika; /// Klasa dekoratora wyliczaj¹ca zmianê mocy silnika
-	shared_ptr<ZmianaInterfejs>	przyrostSprawnosciSilnika; /// Klasa dekoratora wyliczaj¹ca zmianê sprawnoœci silnika
-	shared_ptr<ZmianaInterfejs>	przyrostZuzyciaPaliwa; /// Klasa dekoratora wyliczaj¹ca zmianê zu¿ycia paliwa
-	shared_ptr<ZmianaInterfejs>	przyrostMasyNapedu; /// Klasa dekoratora wyliczaj¹ca zmianê masy napêdu
-};
+		/**
+		* \brief Metoda wyliczaj¹ca zu¿ycie paliwa jednostki.
+		*
+		* Metoda wyliaczaj¹ca zu¿ycie paliwa.
+		* \param[in] parametry - Parametry wymagane do policzenia atrybutu.
+		* \return Zu¿ycie paliwa jednostki.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
+		*/
+		STyp::ZuzyciePaliwa pobierzZuzyciePaliwa(const PodstawoweParametry& parametry) const;
 
+		/**
+		* Metoda wyliczaj¹ca masê napêdu jednostki.
+		*
+		* Metoda wyliczaj¹ca masê napêdu.
+		* \param[in] parametry - Parametry wymagane do policzenia atrybutu.
+		* \return Masa napêdu jednostki.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
+		*/
+		STyp::Masa pobierzMasaNapedu(const PodstawoweParametry& parametry) const;
+
+		/**
+		* Metoda wyliczaj¹ca sprawnoœæ silnika jednostki.
+		*
+		* Metoda wyliczaj¹ca sprawnoœæ silnika.
+		* \param[in] parametry - Parametry wymagane do policzenia atrybutu.
+		* \return Sprawnoœæ silnika jednostki.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
+		*/
+		STyp::Fluktuacja pobierzSprawnoscSilnika(const PodstawoweParametry& parametry) const;
+
+		/**
+		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
+		* \return Napis zwieraj¹cy opis klasy.
+		*/
+		std::string napis() const override;
+	private:
+
+		STyp::Identyfikator	rodzajNapedu_; /// Rodzaj napêdy statku
+		STyp::Moc			mocSilnika_; /// Moc silnika statku
+		STyp::ZuzyciePaliwa	zuzyciePaliwa_; /// Zu¿ycie paliwa przez statek
+		STyp::Masa			masaNapedu_; /// Masa uk³adu napêdowego
+		STyp::Fluktuacja	sprawnoscSilnika_; /// Sprawnoœæ silnika.
+
+
+		std::shared_ptr<SZmi::ZmianaInterfejs>	przyrostMocySilnika_; /// Obiekt wyliczaj¹cy zmianê mocy silnika
+		std::shared_ptr<SZmi::ZmianaInterfejs>	przyrostSprawnosciSilnika_; /// Obiekt wyliczaj¹cy zmianê sprawnoœci silnika
+		std::shared_ptr<SZmi::ZmianaInterfejs>	przyrostZuzyciaPaliwa_; /// Obiekt wyliczaj¹cy zmianê zu¿ycia paliwa
+		std::shared_ptr<SZmi::ZmianaInterfejs>	przyrostMasyNapedu_; /// Obiekt wyliczaj¹cy zmianê masy napêdu
+	};
+}

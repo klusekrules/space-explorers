@@ -1,83 +1,97 @@
-#include "stdafx.h"
 #include "plugin.h"
-
-#include "..\FuncTransf\ZmianaLiniowa.h"
-#include "..\FuncTransf\ZmianaPotegowa.h"
-#include "..\FuncTransf\ZmianaAgregacja.h"
-#include "..\FuncTransf\ZmianaDekorator.h"
-
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
 #include <io.h>
+#include "Zmiana\ZmianaAgregacja.h"
+#include "Zmiana\ZmianaLiniowa.h"
+#include "Zmiana\ZmianaLiniowaIlosciowa.h"
+#include "Zmiana\ZmianaPotegowa.h"
+#include "Zmiana\ZmianaPotegowaAlt.h"
+#include "Logger\LoggerNazwaKlasy.h"
+#include "Zmiana\ZmianaStaleNapisy.h"
+#include "PluginStale.h"
 
-Cplugin::Cplugin( const string &folder, ZmianaFabryka& ref, Log& logFile )
-	: zFabryka(ref), lLogFile(logFile) , folderPluginow(folder)
-{
-}
-
-bool Cplugin::LoadPluginsZmiana(){
-	struct _finddata_t c_file;
-	intptr_t hFile;
-	string folder;
-	string rozszezenie;
-#ifdef _WIN64
-	folder= folderPluginow + "zmiana-x64\\";
-#else
-	folder= folderPluginow + "zmiana\\";
-#endif
-#ifdef DEBUG
-	rozszezenie="*-d.dll";
-#else
-	rozszezenie="*-r.dll";
-#endif
-	if( (hFile = _findfirst( (folder+rozszezenie).c_str() , &c_file )) == -1L )
-		lLogFile.info( "Brak plików *.dll w folderze pluginów!" );
-	else
+namespace SPlu{
+	Cplugin::Cplugin(const std::string& folderPluginow, SZmi::ZmianaFabryka& fabryka, SLog::Log& log)
+		: fabryka_(fabryka), log_(log), folderPluginow_(folderPluginow)
 	{
-		do {
-			HMODULE hLibrary = LoadLibrary((folder+c_file.name).c_str());
-			if(hLibrary){
-				auto fun = (ZmianaFabryka::RejestrujZmiane)GetProcAddress(hLibrary,"RejestrujZmiany");
-				if(fun){
-					if(fun(zFabryka,lLogFile)){
-						lLogFile.info("Za³adowano biblioteke:");
-						lLogFile.info(c_file.name);
-					}else{
-						lLogFile.info("B³¹d ³adowania bilbioteki:");
-						lLogFile.info(c_file.name);
-					}
-				}else{
-					lLogFile.warn("Nie zanaleziono funkcji RejestrujZmiane.");
-				}
-			}else{
-				lLogFile.warn("Nie za³adowano biblioteki:");
-				lLogFile.warn(c_file.name);
-			}
-		} while( _findnext( hFile, &c_file ) == 0 );
-		_findclose( hFile );
 	}
-	return true;
-}
 
-bool Cplugin::LoadDefaultZmiana(){
-	bool result = true;
-	if(!ZmianaDekorator::RejestrujZmianaDekotor(zFabryka)){
-		lLogFile.debug("Nie zarejestrowano zmiany:");
-		lLogFile.debug(CLASSNAME(ZmianaDekorator));
-		result=false;
-	} 
-	if(!ZmianaAgregacja::RejestrujZmianaAgregacja(zFabryka)){
-		lLogFile.debug("Nie zarejestrowano zmiany:");
-		lLogFile.debug(CLASSNAME(ZmianaAgregacja));
-		result=false;
+	bool Cplugin::zaladujZewnetrzneKlasyZmian(){
+		struct _finddata_t plik;
+		intptr_t uchwytPliku;
+		std::string folder;
+		std::string rozszezenie;
+#ifdef _WIN64
+		folder= folderPluginow_ + PLUGIN_FOLDER_X64;
+#else
+		folder = folderPluginow_ + PLUGIN_FOLDER_X86;
+#endif
+
+#ifdef _DEBUG
+		rozszezenie=PLUGIN_PLIK_DEBUG;
+#else
+		rozszezenie = PLUGIN_PLIK_RELEASE;
+#endif
+		if ((uchwytPliku = _findfirst((folder + rozszezenie).c_str(), &plik)) == -1L)
+			log_.loguj(SLog::Log::Info, PLUGIN_BRAK_PLIKOW_ZMIAN);
+		else
+		{
+			do {
+				HMODULE uchwytBiblioteki = LoadLibrary((folder + plik.name).c_str());
+				if (uchwytBiblioteki){
+					auto fun = (SZmi::ZmianaFabryka::RejestrujZmiane)GetProcAddress(uchwytBiblioteki, ZMIANA_NAZWA_FUNKCJI_LADUJACEJ_KLASY_ZMIAN);
+					if (fun){
+						if (fun(fabryka_, log_)){
+							log_.loguj(SLog::Log::Info, PLUGIN_ZALADOWANO_ZMIANE);
+							log_.loguj(SLog::Log::Info, plik.name);
+						}
+						else{
+							log_.loguj(SLog::Log::Info, PLUGIN_BLAD_LADOWANIA_ZMIANY);
+							log_.loguj(SLog::Log::Info, plik.name);
+						}
+					}
+					else{
+						log_.loguj(SLog::Log::Warning, PLUGIN_NIE_ZNALEZIONO_ZMIANY);
+					}
+				}
+				else{
+					log_.loguj(SLog::Log::Warning, PLUGIN_NIE_ZALADOWANO_ZMIANY);
+					log_.loguj(SLog::Log::Warning, plik.name);
+				}
+			} while (_findnext(uchwytPliku, &plik) == 0);
+			_findclose(uchwytPliku);
+		}
+		return true;
 	}
-	if(!ZmianaLiniowa::RejestrujZmianaLiniowa(zFabryka)){
-		lLogFile.debug("Nie zarejestrowano zmiany:");
-		lLogFile.debug(CLASSNAME(ZmianaLiniowa));
-		result=false;
+
+	bool Cplugin::zaladujDomyslneKlasyZmian(){
+		bool rezultat = true;
+		if (!SZmi::ZmianaAgregacja::RejestrujZmianaAgregacja(fabryka_)){
+			log_.loguj(SLog::Log::Debug, PLUGIN_NIE_ZAREJESTROWANO_ZMIANY);
+			log_.loguj(SLog::Log::Debug, NAZWAKLASY(SZmi::ZmianaAgregacja));
+			rezultat = false;
+		}
+		if (!SZmi::ZmianaLiniowa::RejestrujZmianaLiniowa(fabryka_)){
+			log_.loguj(SLog::Log::Debug, PLUGIN_NIE_ZAREJESTROWANO_ZMIANY);
+			log_.loguj(SLog::Log::Debug, NAZWAKLASY(SZmi::ZmianaLiniowa));
+			rezultat = false;
+		}
+		if (!SZmi::ZmianaLiniowaIlosciowa::RejestrujZmianaLiniowaIlosciowa(fabryka_)){
+			log_.loguj(SLog::Log::Debug, PLUGIN_NIE_ZAREJESTROWANO_ZMIANY);
+			log_.loguj(SLog::Log::Debug, NAZWAKLASY(SZmi::ZmianaLiniowaIlosciowa));
+			rezultat = false;
+		}
+		if (!SZmi::ZmianaPotegowa::RejestrujZmianaPotegowa(fabryka_)){
+			log_.loguj(SLog::Log::Debug, PLUGIN_NIE_ZAREJESTROWANO_ZMIANY);
+			log_.loguj(SLog::Log::Debug, NAZWAKLASY(SZmi::ZmianaPotegowa));
+			rezultat = false;
+		}
+		if (!SZmi::ZmianaPotegowaAlt::RejestrujZmianaPotegowaAlt(fabryka_)){
+			log_.loguj(SLog::Log::Debug, PLUGIN_NIE_ZAREJESTROWANO_ZMIANY);
+			log_.loguj(SLog::Log::Debug, NAZWAKLASY(SZmi::ZmianaPotegowa));
+			rezultat = false;
+		}
+		return rezultat;
 	}
-	if(!ZmianaPotegowa::RejestrujZmianaPotegowa(zFabryka)){
-		lLogFile.debug("Nie zarejestrowano zmiany:");
-		lLogFile.debug(CLASSNAME(ZmianaPotegowa));
-		result=false;
-	}
-	return result;
 }

@@ -1,8 +1,0 @@
-/*
-
-	Autor:
-	Wersja:
-	Plik:	
-	Opis:
-	
-*/

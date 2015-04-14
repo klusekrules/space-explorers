@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" xml:lang="pl">
+  <xs:element name="Uzytkownik">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Planeta" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:attribute name="id" type="xs:unsignedInt" use="required"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="hash" type="xs:string" use="required"/>
+      <xs:attribute name="nazwa" type="xs:string" use="required"/>
+      <xs:attribute name="planetaAktywna" type="xs:unsignedInt" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

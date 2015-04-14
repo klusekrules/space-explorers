@@ -1,0 +1,7 @@
+Window:
+{
+	Picture: "tlo"
+	{
+		Filename = "resource\\Space_start_screen.png"
+	}
+}

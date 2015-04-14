@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <?include definicje.wxi ?>
+  <Product Name='Space-Explorers 0.0.6' Id='C5D410BC-EB65-48AD-966D-24830261DF12' UpgradeCode='90B73C3B-7192-4C3F-A82B-CB7A2C07F571'
+    Language='1045' Codepage='1250' Version='0.0.6' Manufacturer='Daniel Wojdak'>
+    
+    <Package Id='*' Keywords='Installer' Description="Space-Explorers 0.0.6 Instalator"
+      Comments='Komentarz' Manufacturer='Daniel Wojdak' InstallScope='perMachine'
+      InstallerVersion='405' Languages='1045' Compressed='yes' SummaryCodepage='1250' Platform='$(var.Platforma)'/>
+    <Icon Id="ikona.ico" SourceFile="..\out\resource\IkonaBlue.ico"/>
+    <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' DiskPrompt='CD-ROM #1'/>
+    <Property Id="ARPPRODUCTICON" Value="ikona.ico" />
+    <Property Id='DiskPrompt' Value="Space-Explorers 0.0.6 Installation [1]" />
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+
+      <Directory Id='$(var.ProgramFiles)' Name="PFiles">
+        <Directory Id='DANIEL_WOJDAK' Name='Daniel Wojdak'>
+          <Directory Id='SPACE_EXPLORERS' Name='Space-Explorers'>
+            <Directory Id='DOC_DIR' Name='doc'/>
+            <Directory Id='INSTALL_DIR' Name='bin'>
+              <Directory Id='LUA_DIR' Name='lua'/>
+              <Directory Id='WIDGETS_DIR' Name='widgets'/>
+              <Directory Id='RESOURCE_DIR' Name='resource'/>
+                
+              <Directory Id='PLUGINS_DIR' Name='plugins'>
+                <Directory Id='ZMIANA_DIR' Name='$(var.FolderZmian)'/>
+              </Directory>
+                
+              <Directory Id='SAVE_DIR' Name='save' >
+                <Directory Id='UKLAD_DIR' Name='uklad'>
+                  <Component Id="UKLAD_DIR_COMP" Guid="6310BA6A-54AB-4F7C-8A8F-1506409296CD">
+                    <CreateFolder />
+                  </Component>
+                </Directory>
+              </Directory>
+        
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramMenuDir" Name="Space-Explorers"/>
+      </Directory>
+
+      <Directory Id="DesktopFolder" Name="Desktop" />
+
+    </Directory>
+
+    <DirectoryRef Id='INSTALL_DIR'>
+      <Component Id="INSTALLFOLDER_Permission" Guid="{FF3790E7-757E-4DAD-ACE7-A819C253F578}">
+            <CreateFolder>
+                <util:PermissionEx User="Users" GenericAll="yes"/>
+            </CreateFolder>
+      </Component>
+      <Component Id='SPACE_EXPLORERS_COM' Guid='5BE847C4-843E-4D82-93EF-16190F994885' Win64='$(var.isPlatformx64)'>
+        <File Id='SPACE_EXPLORERS_EXE' Name='space.exe'  Source='..\out\SpaceExplorers-$(var.Platforma)-$(var.Configuration).exe' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'>
+          <Shortcut Id="MENU_SHORTCUT_SPACE_EXPLORERS_EXE" Directory="ProgramMenuDir" Name="Space-Explorers"
+              WorkingDirectory='INSTALL_DIR' Advertise="yes" Arguments="-O $(var.PlikOpcji)" Icon="ikona.ico"/>
+          <Shortcut Id="DESKTOP_SHORTCUT_SPACE_EXPLORERS_EXE" Directory="DesktopFolder" Name="Space-Explorers"
+            WorkingDirectory='INSTALL_DIR' Advertise="yes" Arguments="-O $(var.PlikOpcji)" Icon="ikona.ico"/>
+        </File>
+      </Component>
+      <Component Id='CONFIG_XML' Guid='71AFE2C6-5700-4DC5-BB15-2539017DF28B'>
+        <File Id='CONFIG_XML_FILE' Source='..\out\options_test.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>      
+      <Component Id='DANE_TESTOWE_COMP' Guid='{32750E86-5BC2-45DA-8004-99B972CFFDF2}'>
+        <File Id='DANE_TESTOWE_FILE' Source='..\out\danetestowe.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+     <Component Id='DATA_XML' Guid='7C5B3D1A-409B-4158-9F33-46606E344BF2'>
+        <File Id='DATA_XML_FILE' Source='..\out\test.xml' KeyPath='yes' Vital='yes'/>
+      </Component>
+      <Component Id='PLUGIN_DLL' Guid='52493997-1318-4CD2-A046-0E1E309D7FB6' Win64='$(var.isPlatformx64)'>
+        <File Id='PLUGIN_DLL_FILE' Source='..\out\plugin-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+      </Component>
+      <Component Id='LOGGER_DLL' Guid='07CEBB01-446A-4BB8-8A5C-49CAC8354360' Win64='$(var.isPlatformx64)'>
+        <File Id='LOGGER_DLL_FILE' Source='..\out\logger-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+      </Component>
+      <Component Id='ZMIANA_DLL' Guid='C9CDD52F-E2F0-49F4-8804-97CDB1DFA530' Win64='$(var.isPlatformx64)'>
+        <File Id='ZMIANA_DLL_FILE' Source='..\out\zmiana-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+      </Component>
+      <Component Id='PARSER_DLL' Guid='{3C25F409-4B45-486F-9BAD-70E8646C3DAC}' Win64='$(var.isPlatformx64)'>
+        <File Id='PARSER_DLL_FILE' Source='..\out\parser-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+      </Component>
+      <Component Id='TYPY_DLL' Guid='{5E69159D-4A74-43CB-A593-75F1BFD4150C}' Win64='$(var.isPlatformx64)'>
+        <File Id='TYPY_DLL_FILE' Source='..\out\typy-proste-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+      </Component>
+    </DirectoryRef>
+    
+    <DirectoryRef Id="TARGETDIR">
+      <Merge Id="VCRedist" SourceFile="Microsoft_VC120_$(var.CRTName)CRT_$(var.Platforma).msm" DiskId="1" Language="0"/>
+    </DirectoryRef>
+
+    <DirectoryRef Id='DOC_DIR'>
+      <Component Id='DOC_DATA_SHEMA_COMP' Guid='D41EB417-BC64-46AA-9AD6-2080E8B5C620'>
+        <File Id='DOC_DATA_SHEMA_FILE' Source='..\dataSchema.xsd' Name='SchematDanych.xsd' KeyPath='yes' Vital='yes'/>
+      </Component>
+      <Component Id='DOC_SAVE_SHEMA_COMP' Guid='3D5D189F-67F4-4237-BB32-901DEBA86855'>
+        <File Id='DOC_SAVE_SHEMA_FILE' Source='..\saveSchema.xsd' Name='SchematStanuGry.xsd' KeyPath='yes' Vital='yes'/>
+      </Component>
+      <Component Id='DOC_USER_SHEMA_COMP' Guid='17C3EF77-4D13-4DFF-90A5-A78B03DAD795'>
+        <File Id='DOC_USER_SHEMA_FILE' Source='..\userSchema.xsd' Name='SchematUzytkownika.xsd' KeyPath='yes' Vital='yes'/>
+      </Component>
+       <Component Id='DOC_UKLAD_SHEMA_COMP' Guid='C0E893B5-D97D-4B4B-ABC2-3463E39C20FC'>
+        <File Id='DOC_UKLAD_SHEMA_FILE' Source='..\saveSchema.xsd' Name='SchematUkladuSlonecznego.xsd' KeyPath='yes' Vital='yes'/>
+      </Component>
+    </DirectoryRef>
+    
+    <DirectoryRef Id='ZMIANA_DIR'>
+      <Component Id='ZMIANA_TEST_DLL' Guid='5BB3843E-C319-4D3E-8896-92C9B1BDCED6' Win64='$(var.isPlatformx64)'>
+        <File Id='ZMIANA_TEST_DLL_FILE' Source='..\out\plugins\$(var.FolderZmian)\test-zmiana-$(var.Platforma)-$(var.KonfiguracjaShort).dll' ProcessorArchitecture='$(var.Platforma)' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+    </DirectoryRef>
+      
+    <DirectoryRef Id="ProgramMenuDir">
+      <Component Id="ProgramMenuDir" Guid="ABB83391-1450-4BB1-B391-1353AA8111D4">
+        <RemoveFolder Id='ProgramMenuDir' On='uninstall' />
+        <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
+      </Component>
+    </DirectoryRef>
+    
+     <DirectoryRef Id="SPACE_EXPLORERS">
+      <Component Id="SPACE_EXPLORERS_REM" Guid="D2920ACC-823F-430C-90EC-E07FC8EB400E">
+        <RemoveFolder Id='SPACE_EXPLORERS_REM_FOL' On='uninstall' />
+        <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id='RESOURCE_DIR'>
+      <Component Id='RESOURCE_DIR_BACKGROUND_FILE_COMP' Guid='{0C4245A3-396F-4BC5-8FBD-95EFEFCD5FF8}' Win64='$(var.isPlatformx64)'>
+        <File Id='RESOURCE_BACKGROUND_FILE' Source='..\out\resource\background.jpg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+      
+      <Component Id='RESOURCE_DIR_FONT_FILE_COMP' Guid='{7C45A208-EA2A-45F7-802C-780A3453E9F8}' Win64='$(var.isPlatformx64)'>
+        <File Id='RESOURCE_FONT_FILE' Source='..\out\resource\arial.ttf' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='MENU_WDG_FILE_COMP' Guid='{A3A08A7C-7758-4608-BFDE-BFE9EF5EECAC}' Win64='$(var.isPlatformx64)'>
+        <File Id='MENU_WDG_FILE' Source='..\out\resource\menu.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='MENU_XML_FILE_COMP' Guid='{7ED8FF88-D1E4-4040-833D-8B95383A3F18}' Win64='$(var.isPlatformx64)'>
+        <File Id='MENU_XML_FILE' Source='..\out\resource\Menu.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='PUSTE_OKNO_WDG_FILE_COMP' Guid='{6140D9A0-4D3F-41BB-ACD0-10ABEFB1C53E}' Win64='$(var.isPlatformx64)'>
+        <File Id='PUSTE_OKNO_WDG_FILE' Source='..\out\resource\pusteOkno.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='SIMPLE_FRAG_FILE_COMP' Guid='{889E2A2F-1483-4B18-91A6-71DF7EE45F43}' Win64='$(var.isPlatformx64)'>
+        <File Id='SIMPLE_FRAG_FILE' Source='..\out\resource\simple.frag' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='SPACE_JPG_FILE_COMP' Guid='{FB93388F-E47B-4103-BA3D-09F31297595B}' Win64='$(var.isPlatformx64)'>
+        <File Id='SPACE_JPG_FILE' Source='..\out\resource\space.jpg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='SPACE_START_SCREEN_PNG_FILE_COMP' Guid='{F75DDDDF-5BCB-43D5-AE51-E24FC72CDC09}' Win64='$(var.isPlatformx64)'>
+        <File Id='SPACE_START_SCREEN_PNG_FILE' Source='..\out\resource\Space_start_screen.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+      
+      <Component Id='LOGO_FILE_COMP' Guid='{F95CDC9E-A539-4093-9BC4-3E53F3DA6118}' Win64='$(var.isPlatformx64)'>
+        <File Id='LOGO_FILE' Source='..\out\resource\SpaceExplorers_logo_640x348.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+      
+      <Component Id='STATE_XML_FILE_COMP' Guid='{AC12E434-3822-46FF-A5F6-9EF8497D6DBA}' Win64='$(var.isPlatformx64)'>
+        <File Id='STATE_XML_FILE' Source='..\out\resource\state.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+      
+      <Component Id='TESTOWANIE_WDG_FILE_COMP' Guid='{F0A8104D-A726-43AD-8781-4B00B080ECB0}' Win64='$(var.isPlatformx64)'>
+        <File Id='TESTOWANIE_WDG_FILE' Source='..\out\resource\testowanie.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+      
+     <Component Id='BRAK_OBRAZKA_PNG_COMP' Guid='{8E22F9F2-9FD3-45FD-B867-BBFB7C80F0C8}' Win64='$(var.isPlatformx64)'>
+        <File Id='BRAK_OBRAZKA_PNG_FILE' Source='..\out\resource\Brak_obrazka.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+      
+     <Component Id='OKNO_LISTY_COMP' Guid='{C1207F94-CE35-496D-8993-998E494F7E00}' Win64='$(var.isPlatformx64)'>
+        <File Id='OKNO_LISTY_FILE' Source='..\out\resource\lista.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='OKNO_LOGOWANIA_COMP' Guid='{8E9A4902-AD3A-4240-8967-888BBEA6F0F5}' Win64='$(var.isPlatformx64)'>
+        <File Id='OKNO_LOGOWANIA_FILE' Source='..\out\resource\logowanie.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+      
+    </DirectoryRef>
+
+    <DirectoryRef Id='LUA_DIR'>
+      <Component Id='TEST_LUA_FILE_COMP' Guid='{A76FB252-9319-449A-B07B-846E90C6DF31}' Win64='$(var.isPlatformx64)'>
+        <File Id='TEST_LUA_FILE' Source='..\out\lua\test.lua' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='INTERFEJS_LUA_FILE_COMP' Guid='{A177967B-FBB9-4738-8284-6B0D22D304EA}' Win64='$(var.isPlatformx64)'>
+        <File Id='INTERFEJS_LUA_FILE' Source='..\out\lua\interfejs.lua' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id='WIDGETS_DIR'>
+      <Component Id='BLACK_CONF_FILE_COMP' Guid='{87521D7F-1201-4CA8-B61C-BCFAA6328FD5}' Win64='$(var.isPlatformx64)'>
+        <File Id='BLACK_CONF_FILE' Source='..\out\widgets\Black.conf' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='BLACK_PNG_FILE_COMP' Guid='{9B28AAD0-EE18-4742-9AA6-799777BAC0C3}' Win64='$(var.isPlatformx64)'>
+        <File Id='BLACK_PNG_FILE' Source='..\out\widgets\Black.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='LOG_LIST_GUI_CONF_FILE_COMP' Guid='{F10C4524-88A2-455A-8698-F3FF47FBDEF1}' Win64='$(var.isPlatformx64)'>
+        <File Id='LOG_LIST_GUI_CONF_FILE' Source='..\out\widgets\LogListGui.conf' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+
+      <Component Id='TLO_PNG_FILE_COMP' Guid='{644918D0-ECCC-4E64-BC2A-BF5BC980A86C}' Win64='$(var.isPlatformx64)'>
+        <File Id='TLO_PNG_FILE' Source='..\out\widgets\tlo.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
+      </Component>
+    </DirectoryRef>
+    
+    <Feature Id='Complete' Title='Space-Explorers 0.0.6' Description='Moja aplikacja'
+      Display='expand' Level='1' AllowAdvertise='no' ConfigurableDirectory="SPACE_EXPLORERS" >
+      <ComponentRef Id="INSTALLFOLDER_Permission"/>
+      <ComponentRef Id='SPACE_EXPLORERS_COM' />
+      <ComponentRef Id='CONFIG_XML' />
+      <ComponentRef Id='DATA_XML' />
+      <ComponentRef Id='PLUGIN_DLL' />
+      <ComponentRef Id='LOGGER_DLL' />
+      <ComponentRef Id='ZMIANA_DLL' />
+      <ComponentRef Id='PARSER_DLL' />
+      <ComponentRef Id='TYPY_DLL' />
+      <ComponentRef Id='ZMIANA_TEST_DLL' />
+      <ComponentRef Id='ProgramMenuDir' />
+      <ComponentRef Id='SPACE_EXPLORERS_REM' />
+      <ComponentRef Id='DOC_DATA_SHEMA_COMP' />
+      <ComponentRef Id='DOC_SAVE_SHEMA_COMP' />
+      <ComponentRef Id='DOC_USER_SHEMA_COMP' />
+      <ComponentRef Id='DOC_UKLAD_SHEMA_COMP' />
+      <ComponentRef Id='UKLAD_DIR_COMP' />
+      <ComponentRef Id='RESOURCE_DIR_BACKGROUND_FILE_COMP' />
+      <ComponentRef Id='RESOURCE_DIR_FONT_FILE_COMP' />
+      <ComponentRef Id='TEST_LUA_FILE_COMP' />
+      <ComponentRef Id='INTERFEJS_LUA_FILE_COMP' />
+      <ComponentRef Id='MENU_WDG_FILE_COMP' />
+      <ComponentRef Id='MENU_XML_FILE_COMP' />
+      <ComponentRef Id='PUSTE_OKNO_WDG_FILE_COMP' />
+      <ComponentRef Id='SIMPLE_FRAG_FILE_COMP' />
+      <ComponentRef Id='SPACE_JPG_FILE_COMP' />
+      <ComponentRef Id='SPACE_START_SCREEN_PNG_FILE_COMP' />
+      <ComponentRef Id='LOGO_FILE_COMP' />
+      <ComponentRef Id='STATE_XML_FILE_COMP' />
+      <ComponentRef Id='TESTOWANIE_WDG_FILE_COMP' />
+      <ComponentRef Id='BLACK_CONF_FILE_COMP' />
+      <ComponentRef Id='LOG_LIST_GUI_CONF_FILE_COMP' />
+      <ComponentRef Id='BLACK_PNG_FILE_COMP' />
+      <ComponentRef Id='BRAK_OBRAZKA_PNG_COMP' />
+      <ComponentRef Id='OKNO_LISTY_COMP' />
+      <ComponentRef Id='OKNO_LOGOWANIA_COMP' />
+      <ComponentRef Id='TLO_PNG_FILE_COMP' />
+      <ComponentRef Id='DANE_TESTOWE_COMP' />    
+    </Feature>
+    
+    <Feature Id="VCRedist" Title="Visual C++ 12.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
+      <MergeRef Id="VCRedist"/>
+    </Feature>
+
+    <UI Id="MyWixUI_InstallDir">
+      <UIRef Id="WixUI_InstallDir" />
+      <UIRef Id="WixUI_ErrorProgressText" />
+
+      <!--DialogRef Id="UserRegistrationDlg" />
+
+      <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="UserRegistrationDlg" Order="3">LicenseAccepted = "1"</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="UserRegistrationDlg">1</Publish-->
+    </UI>
+    <Property Id="PIDTemplate"><![CDATA[12345<##### ##### ##### ##### #####>@@@@@]]></Property>
+    <Property Id="WIXUI_INSTALLDIR" Value="SPACE_EXPLORERS" />
+    <WixVariable Id="WixUILicenseRtf" Value="..\gpl-3.0.rtf" />
+    <!--WixVariable Id="WixUIBannerBmp" Value="Logo.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="LogoSide.Bmp" /-->
+  </Product>
+  
+  <Fragment>
+    <UI>
+      <Dialog Id="UserRegistrationDlg" Width="370" Height="270" Title="!(loc.UserRegistrationDlg_Title)" NoMinimize="yes">
+        <Control Id="NameLabel" Type="Text" X="45" Y="73" Width="100" Height="15" TabSkip="no" Text="!(loc.UserRegistrationDlg_UserName)" />
+        <Control Id="NameEdit" Type="Edit" X="45" Y="85" Width="220" Height="18" Property="USERNAME" Text="{80}" />
+        <Control Id="OrganizationLabel" Type="Text" X="45" Y="110" Width="100" Height="15" TabSkip="no" Text="!(loc.UserRegistrationDlg_Organization)" />
+        <Control Id="OrganizationEdit" Type="Edit" X="45" Y="122" Width="220" Height="18" Property="COMPANYNAME" Text="{80}" />
+        <Control Id="CDKeyLabel" Type="Text" X="45" Y="147" Width="50" Height="10" TabSkip="no">
+          <Text>CD Key:</Text>
+        </Control>
+        <Control Id="CDKeyEdit" Type="MaskedEdit" X="45" Y="159" Width="250" Height="16" Property="PIDKEY" Text="[PIDTemplate]" />
+        <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)">
+          <Publish Event="NewDialog" Value="LicenseAgreementDlg">1</Publish>
+        </Control>
+        <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)">
+          <Publish Event="ValidateProductID" Value="0">1</Publish>
+          <Publish Event="SpawnWaitDialog" Value="WaitForCostingDlg">CostingComplete = 1</Publish>
+          <Publish Event="NewDialog" Value="InstallDirDlg">ProductID</Publish>
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+          <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+        </Control>
+        <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="WixUI_Bmp_Banner" />
+        <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes">
+          <Text>Please enter your customer information</Text>
+        </Control>
+        <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes">
+          <Text>{\WixUI_Font_Title}Customer Information</Text>
+        </Control>
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+      </Dialog>
+    </UI>
+  </Fragment>
+</Wix>

@@ -1,0 +1,116 @@
+Window:
+{
+	Picture: "tlo"
+	{
+		Filename = "resource\space.jpg"
+	}
+	
+	Picture: "logo"
+	{
+		Filename = "resource\SpaceExplorers_logo_640x348.png"
+		Left = 10
+		Top = 10
+		Width = 192
+		Height = 104
+		Smooth = true
+	}
+	
+	Label: "napis"
+	{
+		ConfigFile = "widgets\Black.conf"
+		Left = 280
+		Top = 30
+		Width = 0
+		Height = 0
+		Visible = true
+		Enabled = true
+		Transparency = 255
+		CallbackId = 0
+		Text = "Lista obiektów"
+		TextColor = (0,128,0,255)
+		BackgroundColor = (0,0,0,0)
+		AutoSize = true
+		TextSize = 60
+	}
+	
+	ListaSurowcowGui: "ListaSurowcow"
+	{
+		ConfigFile = widgets\Black.conf
+		Left = 200
+		Top = 100
+		Width = 400
+		Height = 40
+		Visible = true
+		Enabled = true
+		CallbackId = 0
+		BackgroundColor = (200,200,200,50)
+	}
+	
+	ListaObiektowGui: "MojaKontrolka"
+	{
+		ConfigFile = widgets\Black.conf
+		MnoznikRolki = 15
+		IdZdarzeniaBudowy = 2
+		IdZdarzeniaBurzenia = 3
+		IdZdarzeniaKlikniecia = 4
+		ScrollbarPokaz = false
+		ScrollbarSzerokosc = 20
+		Left = 10
+		Top = 140
+		Width = 500
+		Height = 350
+		Visible = true
+		Enabled = true
+		Transparency = 255
+		CallbackId = 0
+		TypObiektu = 1
+		BackgroundColor = (220,220,220,0)
+	}
+	
+	Button: "przeladujOkno"
+	{
+		ConfigFile = "widgets\Black.conf"
+		Left = 630
+		Top = 110
+		Width = 150
+		Height = 30
+		Visible = true
+		Enabled = true
+		Transparency = 255
+		CallbackId = 0
+		Text = "Prze³aduj dane"
+		TextColor = (200,200,200,255)
+		TextSize = 15
+	}
+
+	Button: "zamknij"
+	{
+		ConfigFile = "widgets\Black.conf"
+		Left = 630
+		Top = 150
+		Width = 150
+		Height = 30
+		Visible = true
+		Enabled = true
+		Transparency = 255
+		CallbackId = 0
+		Text = "Zamknij"
+		TextColor = (200,200,200,255)
+		TextSize = 15
+	}
+
+	LogListGui: "komunikaty"
+	{
+		ConfigFile = "widgets\LogListGui.conf"
+		Left = 630
+		Top = 200
+		Width = 150
+		Height = 240
+		Visible = true
+		Enabled = true
+		Transparency = 255
+		CallbackId = 0
+		BackgroundColor = (200,200,200,50)
+	}
+
+}

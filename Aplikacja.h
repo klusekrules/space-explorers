@@ -1,11 +1,15 @@
 #pragma once
-#include "Main.h"
-#include <Windows.h>
-#include "Biblioteki.h"
-#include "plugin\plugin.h"
-#include "NiezainicjalizowanaKlasa.h"
-#include "Gra.h"
+#pragma warning( disable : 4290 )
+//#pragma warning( disable : 4996 )
 
+#include <Windows.h>
+#include <cstdlib>
+#include <string>
+#include <locale>
+#include "plugin\plugin.h"
+#include "Gra.h"
+#include "Singleton.h"
+#include "UstawieniaAplikacji.h"
 
 typedef struct _SYMBOL_INFO {
 	ULONG       SizeOfStruct;
@@ -28,50 +32,133 @@ typedef struct _SYMBOL_INFO {
 typedef BOOL (WINAPI *SymInitializeS)( _In_ HANDLE hProcess,  _In_opt_ PCSTR UserSearchPath,   _In_ BOOL fInvadeProcess );
 typedef BOOL (WINAPI *SymFromAddrS)( _In_ HANDLE hProcess, _In_ DWORD64 Address, _Out_opt_ PDWORD64 Displacement, _Inout_ PSYMBOL_INFO Symbol );
 
+namespace SpEx {
 
-/**
-* Klasa reprezentuj¹ca instancjê aplikacji.
-*/
-class Aplikacja
-{
-	friend class Testy;
-private:
-	void LogApInfo();
-	Log& log;
-	shared_ptr<Cplugin> pluginy;
-	shared_ptr<Gra> instancjaGry;
+	/**
+	* \brief Klasa reprezentuj¹ca aplikacje.
+	*
+	* G³ówna klasa programu. Reprezentuje ca³¹ apliakcje.
+	* \author Daniel Wojdak
+	* \version 3
+	* \date 16-06-2014
+	*/
+	class Aplikacja:
+		public se::Singleton<Aplikacja>
+	{
+		friend class TestyJednostkowe;
+		friend class se::Singleton<Aplikacja>;
+	public:
 
-	string nazwaPlikuDanych;
-	string jezykAplikacji;
-	string folderPluginow;
+		/**
+		* Iloœæ argumentów przekazanych w linii komend.
+		*/
+		static int iloscArgumentow;
 
-protected:
+		/**
+		* Argumenty przekazane w linii komend
+		*/
+		static char** argumenty;
 
-	Aplikacja() throw(NiezainicjalizowanaKlasa);
-	Aplikacja( const Aplikacja& );
-	Aplikacja& operator=(const Aplikacja&);
+		/**
+		* \brief Metoda zapisuj¹ca stan gry.
+		*
+		* Metoda zapisuje dane gracza oraz dane planet.
+		* \param[in] nazwa - Nazwa u¿ytkownika.
+		* \param[in] hash - Hash has³a u¿ytkownika.
+		* \return Zwraca wartoœæ true, je¿eli uda siê zapisaæ dane, false w przeciwnym wypadku.
+		*/
+		bool zapiszGre(const std::string& nazwa, const std::string& hash);
 
-	SymInitializeS symInitialize;
-	SymFromAddrS symFromAddr;
-	HMODULE hLibrary;
-	bool isDbgHelpInit;
+		/**
+		* \brief Metoda wczytuj¹ca stan gry.
+		*
+		* Metoda wczytuje dane opisowe obiektów oraz parametry zarz¹dcy pamiêci. Metoda waliduje wczytane dane.
+		* \param[in] root - G³ówny wêze³ zawieraj¹cy dane obiektów opisuj¹cych.
+		* \return Zwraca wartoœæ true, je¿eli uda siê wczytaæ stan gry, false w przeciwnym wypadku.
+		*/
+		bool wczytajGre(std::shared_ptr<SPar::ParserElement> root);
+		
+		/**
+		* \brief Metoda pobieraj¹ca œlad stosu.
+		*
+		* Metoda generuje œlad stosu aktualnego w¹tku, w wktórym zosta³a wywo³ana.
+		* \return Napis zawieraj¹cy œlad stosu.
+		*/
+		std::string pobierzSladStosu() const;
 
-	bool ZaladujOpcje();
+		/**
+		* \brief Metoda czyœci wczytane dane.
+		*
+		* Metoda tworzy now¹ instancje gry, usuwaj¹c star¹ bez zapisania danych. Usuwa równie¿ informacje galaktykach, uk³adach s³onecznych oraz planetach, bez zapisywania aktualnych danych.
+		*/
+		void wyczyscDane();
 
-public:
-	
-	Gra& getGra();
-	Log& getLog();
+		/**
+		* \brief Metoda pobieraj¹ca instacjê gry.
+		*
+		* \return Referencja do obiektu gry.
+		*/
+		inline Gra& pobierzGre() const{
+			return *instancjaGry_;
+		}
+		
+		/**
+		* \brief Metoda pobieraj¹ca zarz¹dcê pamiêci.
+		*
+		* \return Referencja do obiektu zarz¹dcy.
+		*/
+		inline ZarzadcaPamieci& pobierzZarzadce(){
+			return zarzadca_;
+		}
+		
+		/**
+		* \brief Destruktor.
+		*/
+		~Aplikacja();
 
-	bool WczytajDane();
+		SLog::Log& logger_; /// Instancja loggera.
 
-	static Aplikacja& getInstance(){
-		static Aplikacja app;
-		return app;
-	}
+		SZmi::ZmianaFabryka fabrykaZmian_; /// Instancja fabryki zmian.
 
-	string getStackTrace() const;
+	private:
 
-	~Aplikacja();
-};
+		/**
+		* \brief Konstruktor.
+		*
+		* Metoda wyrzuca wyj¹tek kiedy wyst¹pi b³¹d przy inicjalizacji aplikacji.
+		*/
+		Aplikacja();
 
+		/**
+		* \brief Metoda wcztuj¹ca opcje aplikacji.
+		*
+		* \return true je¿eli uda siê wczytaæ opcje, false w przeciwnym wypadku.
+		*/
+		bool zaladujOpcje();
+
+		/**
+		* \brief Metoda przetwarzaj¹ca argumenty linii komend
+		*
+		* Metoda odczytuje i przetwarza wszysktie argumenty przekazane w linii komend. Ustawia odpowiednie opcje programu.
+		*/
+		bool przetworzArgumenty();
+
+		/**
+		* \brief Metoda wyrzuca do loggera podstwowe dane identyfikuj¹ce wersje aplikacji.
+		*/
+		void logApInfo() const;
+
+		std::shared_ptr<SPlu::Cplugin> pluginy_; /// Obiekt zarz¹dzaj¹cy plugginami.
+		std::shared_ptr<Gra> instancjaGry_; /// Obiekt prezentuj¹cy instancjê gry.
+
+		SymInitializeS symInitialize_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
+		SymFromAddrS symFromAddr_; /// Metoda pomocnicza przy zrzucaniu œladu stosu.
+		HMODULE uchwyt_; /// Uchwyt blioteki pomocniczej.
+		bool czyZainicjalizowanaBiblioteka_; /// Informacja czy uda³osiê za³adowaæ bibliotekê pomocnicz¹.
+
+		ZarzadcaPamieci zarzadca_; /// Obiekt zarz¹dzaj¹cy lokacjami.
+
+		std::string plikKonfiguracyjny_; /// Adres pliku z danymi konfiguracyjnymi. Domyœlnie options.xml z katalogu z plikiem wykonywalnym.
+		UstawieniaAplikacji ustawienia_; /// Klasa wczytuj¹ca ustawienia z pliku konfiguracyjnego.
+	};
+}

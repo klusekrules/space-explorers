@@ -1,66 +1,95 @@
-
 #pragma once
-#include "Main.h"
-#include "Obrazenia.h"
-#include "Fluktuacja.h"
 #include "JednostkaAtakujacaInfo.h"
-#include "NiezainicjalizowanaKlasa.h"
-/**
-* Klasa zawieraj¹ca interfejs jednostki atakuj¹cej, zawiera metody wyliczaj¹ce obra¿enia zadawane, 
-* obra¿enia otrzymywane oraz obra¿enia odbijane.
-*
-*/
-class JednostkaAtakujaca :
-	virtual public LoggerInterface
-{
-public:	
+#include "PodstawoweParametry.h"
+
+namespace SpEx{
 	/**
-	* Konstruktor parametryczny.
-	* /param jInfo - Wskazanie na klasê reprezentuj¹c¹ opis jednostki atakuj¹cej.
+	* \brief Klasa reprezentuj¹ca jednostkê atakuj¹c¹.
+	*
+	* Klasa zawieraj¹ca interfejs jednostki atakuj¹cej, zawiera metody wyliczaj¹ce obra¿enia zadawane,
+	* obra¿enia otrzymywane oraz obra¿enia odbijane.
+	* \author Daniel Wojdak
+	* \version 1
+	* \date 24-07-2013
 	*/
-	explicit JednostkaAtakujaca( const JednostkaAtakujacaInfo& jInfo );
-	
-	/**
-	* Wirtualny destruktor
-	*/
-	virtual ~JednostkaAtakujaca();
-	
-	/**
-	* Metoda atak s³u¿y do wyliczania obra¿eñ zadawanych przez obiekt.
-	* \return Obra¿enia zadane przez obiekt.
-	*/
-	virtual Obrazenia Atak( const Poziom& p ) const;	
+	class JednostkaAtakujaca :
+		virtual public PodstawoweParametry,
+		virtual public SLog::LoggerInterface
+	{
+	public:
 
-	/**
-	* Metoda obliczaj¹ca obra¿enia przyjête przez pancerz. Metoda zwraca obra¿enia, które nie przyj¹³ pancerz.
-	* \param o - Obra¿enia przes³ane do obiektu.
-	* \return Obra¿enia, które nie zosta³y przyjête przez obiekt.
-	*/
-	virtual Obrazenia Pancerz( const Obrazenia& o ,const Poziom& p  ) const;
+		/**
+		* \brief Konstruktor.
+		*
+		* Konstruktor.
+		* \param[in] poziom - Poziom tworzonych obiektów.
+		* \param[in] identyfikatorPlanety - Identyfikator planety rodzica obiektu.
+		* \param[in] jednostkaAtakujacaInfo - Referencja do obiektu opisuj¹cego.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
+		*/
+		JednostkaAtakujaca(const STyp::Poziom& poziom, const STyp::Identyfikator& identyfikatorPlanety, const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo);
 
-	/**
-	* Metoda obliczaj¹ca obra¿enia przyjête przez oslone. Metoda zwraca obra¿enia, które nie przyje³a os³ona
-	* \param o - Obra¿enia przes³ane do obiektu.
-	* \return Obra¿enia, które nie zosta³y przyjête przez obiekt.
-	*/
-	virtual Obrazenia Oslona( const Obrazenia& o , const Poziom& p ) const;
-	
-	/**
-	* Przeci¹¿ona funkcja generuj¹ca tekstowy opis klasy.
-	* \return Napis zawieraj¹cy opis klasy.
-	*/
-	string toString() const override;
+		/**
+		* \brief Konstruktor.
+		*
+		* Konstruktor.
+		* \param[in] podstawoweParametry - Podstawowe parametry tworzonych obiektów.
+		* \param[in] jednostkaAtakujacaInfo - Referencja do obiektu opisuj¹cego.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
+		*/
+		JednostkaAtakujaca(const PodstawoweParametry& podstawoweParametry, const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo);
 
-	virtual Obrazenia getAtak( const Poziom& p ) const;
+		/**
+		* \brief Domyœlny destruktor.
+		*
+		* Domyœlny destrutkor.
+		*/
+		virtual ~JednostkaAtakujaca() = default;
 
-	virtual Obrazenia getPancerz( const Poziom& p  ) const;
+		/**
+		* \brief Metoda wyliczaj¹c atak jednostki.
+		*
+		* Metoda atak s³u¿y do wyliczania obra¿eñ zadawanych przez obiekt.
+		* \return Obra¿enia zadane przez obiekt.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
+		*/
+		virtual STyp::Obrazenia pobierzAtak() const;
 
-	virtual Obrazenia getOslona( const Poziom& p ) const;
+		/**
+		* \brief Metoda wyliczaj¹ca pancerz jednostki.
+		*
+		* Metoda obliczaj¹ca obra¿enia mo¿liwe do przyjêcia przez pancerz.
+		* \return Obra¿enia, które mo¿e przyj¹æ pancerz.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
+		*/
+		virtual STyp::Obrazenia pobierzPancerz() const;
 
-	static const double srednia;
-	static const double odchylenie;
+		/**
+		* \brief Metoda wyliczaj¹ca os³onê jednostki.
+		*
+		* Metoda obliczaj¹ca obra¿enia mo¿liwe do przyjêcia przez oslone.
+		* \return Obra¿enia, które mo¿e przyj¹æ os³ona.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 24-07-2013
+		*/
+		virtual STyp::Obrazenia pobierzOslone() const;
 
-protected:
-	const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo; /// WskaŸnik na klasê opisuj¹c¹. Wymagany do poprawnego dzia³ania.
-	
-};
+		/**
+		* Metoda generuj¹ca opis klasy w postaci ci¹gu znaków.
+		* \return Napis zwieraj¹cy opis klasy.
+		*/
+		std::string napis() const override;
+
+	protected:
+		const JednostkaAtakujacaInfo& jednostkaAtakujacaInfo_; /// WskaŸnik na klasê opisuj¹c¹. Wymagany do poprawnego dzia³ania.
+	};
+}

@@ -1,47 +1,95 @@
 #include "Obiekt.h"
-#include "ObiektInfo.h"
-#include "Logger.h"
-#include "Ladownia.h"
+#include "Logger\Logger.h"
+#include "definicjeWezlowXML.h"
+#include "ObronaInfo.h"
 
-Obiekt::Obiekt( const Ilosc& i, const Poziom& p, const ObiektInfo& obiekt ) throw()
-	: ObiektBase( i, p, obiekt ), obiektInfoClass( obiekt )
-{
-}
+namespace SpEx{
 
-Obiekt::~Obiekt(){
-}
-
-Obiekt* Obiekt::Kopia() const{
-	return new Obiekt(*this);
-}
-
-Obiekt* Obiekt::Podziel( const Ilosc& i ){
-	if( ilosc>i ){
-		Obiekt* o = new Obiekt( i , getPoziom(), this->obiektInfoClass );
-		ilosc-=i;
-		return o; 
+	Obiekt::Obiekt(const PodstawoweParametry& parametry, const ObiektInfo& obiektinfo) throw()
+		: PodstawoweParametry(parametry), identyfikator_(obiektinfo.pobierzIdentyfikator()), obiektInfo_(obiektinfo)
+	{
 	}
-	return nullptr;
-}	
-Powierzchnia Obiekt::getPowierzchnia() const{
-	return Powierzchnia(obiektInfoClass.getPowierzchnia(getPoziom()).value()*(this->getIlosc().value()));
+	
+	bool Obiekt::czyMoznaPolaczyc(const Obiekt& obiekt)const{
+		return typeid(*this) == typeid(obiekt) && obiekt.pobierzIdentyfikator() == pobierzIdentyfikator() && obiekt.typAtrybutu()==typAtrybutu();
+	}
+	
+	bool Obiekt::czyMoznaPodzielic(const STyp::Ilosc& ilosc) const{
+		return typAtrybutu()==ILOSC && pobierzAtrybut().ilosc > ilosc();
+	}
+
+	Wymagania::PrzetworzoneWarunki Obiekt::pobierzKryteriaRozbudowy() const{
+		PodstawoweParametry parametry(pobierzAtrybut(), typAtrybutu(), pobierzIdentyfikatorPlanety());
+		switch (parametry.typAtrybutu()){
+		case ILOSC: parametry.ustawAtrybut(wpisIlosc(1.0));
+			break;
+		case POZIOM: parametry.ustawAtrybut(wpisPoziom(parametry.pobierzAtrybut().poziom + 1));
+			break; 
+		}
+		return obiektInfo_.pobierzWarunki(parametry);
+	}
+	
+	bool Obiekt::czyMoznaRozbudowac()const{
+		PodstawoweParametry parametry(pobierzAtrybut(), typAtrybutu(), pobierzIdentyfikatorPlanety());
+		switch (parametry.typAtrybutu()){
+		case ILOSC: parametry.ustawAtrybut(wpisIlosc(1.0));
+			break;
+		case POZIOM: parametry.ustawAtrybut(wpisPoziom(parametry.pobierzAtrybut().poziom + 1));
+			break; 
+		}
+		return obiektInfo_.czySpelniaWymagania(parametry);
+	}
+
+	bool Obiekt::wybuduj(const PodstawoweParametry& parametry){
+		if (typAtrybutu() != parametry.typAtrybutu()){
+			return false;
+		}
+		wzrostAtrybutu(parametry.pobierzAtrybut());
+		return true;
+	}
+
+	STyp::Czas Obiekt::pobierzCzasRozbudowy()const{
+		PodstawoweParametry parametry(pobierzAtrybut(), typAtrybutu(), pobierzIdentyfikatorPlanety());
+		switch (parametry.typAtrybutu()){
+		case ILOSC: parametry.ustawAtrybut(wpisIlosc(1.0));
+			break;
+		case POZIOM: parametry.ustawAtrybut(wpisPoziom(parametry.pobierzAtrybut().poziom + 1));
+			break;
+		}
+		return obiektInfo_.pobierzCzasBudowy(parametry);
+	}
+
+	const STyp::Identyfikator& Obiekt::pobierzIdentyfikator() const{
+		return identyfikator_;
+	}
+
+	const ObiektInfo& Obiekt::pobierzObiektInfo()const{
+		return obiektInfo_;
+	}
+
+	void Obiekt::ustawIdentyfikator(const STyp::Identyfikator& identyfikator){
+		identyfikator_ = identyfikator;
+	}
+
+	bool Obiekt::zapisz(XmlBO::ElementWezla wezel) const{
+		if (!PodstawoweParametry::zapisz(wezel)){
+			return false;
+		}
+		return wezel->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, identyfikator_.napis().c_str()) != nullptr;
+	}
+
+	bool Obiekt::odczytaj(XmlBO::ElementWezla wezel){
+		if (!PodstawoweParametry::odczytaj(wezel)){
+			return false;
+		}
+		return XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_IDENTYFIKATOR, identyfikator_);
+	}
+
+	std::string Obiekt::napis() const{
+		SLog::Logger str(NAZWAKLASY(Obiekt));
+		str.dodajKlase(PodstawoweParametry::napis());
+		str.dodajPole(NAZWAPOLA(identyfikator_), identyfikator_);
+		return str.napis();
+	}
 }
 
-Objetosc Obiekt::getObjetosc() const{
-	return Objetosc(obiektInfoClass.getObjetosc(getPoziom()).value()*(this->getIlosc().value()));
-}
-
-Masa Obiekt::getMasa() const{
-	return Masa(obiektInfoClass.getMasa(getPoziom()).value()*(this->getIlosc().value()));
-}
-
-bool Obiekt::czMoznaDodacDoLadownii( const Ladownia& c ) const{
-	return false;
-}
-
-string Obiekt::toString() const{
-	Logger str(CLASSNAME(Obiekt));
-	str.addClass(ObiektBase::toString());
-	str.addField(CLASSNAME(ObiektInfo)+"ID",obiektInfoClass.getId());
-	return str.toString();
-}

@@ -1,53 +1,54 @@
 #pragma once
-#include "OgolnyWyjatek.h"
+#include "TypyProste\Wyjatek.h"
 #include <vector>
 
-/**
-* Wyj¹tek informuje, ¿e parametry maj¹ nie poprawne wartoœci.
-*/
-class NiepoprawneParametryFunkcji :
-	virtual public LoggerInterface,
-	public OgolnyWyjatek
-{
-public:
-	static const IdType idNiepoprawneParametryFunkcji;
-		
-	template< class... V >
-	NiepoprawneParametryFunkcji( const Tekst& tPlik, const Ilosc& iLinia, const V&... tail )
-		: OgolnyWyjatek( tPlik, iLinia, idNiepoprawneParametryFunkcji, tytulNiepoprawneParametryFunkcji, trescNiepoprawneParametryFunkcji )
+namespace SpEx{
+	/**
+	* Wyj¹tek informuje, ¿e parametry maj¹ nie poprawne wartoœci.
+	*/
+	class NiepoprawneParametryFunkcji :
+		virtual public SLog::LoggerInterface,
+		public STyp::Wyjatek
 	{
-		vector< string > a;
-		stringstream tmp;
-		step(a, tail... );
-		for ( auto s : a ){
-			tmp<< "Parametr - [ " << s << " ] \n";
+	public:
+		static const STyp::Identyfikator idNiepoprawneParametryFunkcji;
+
+		template< class... V >
+		NiepoprawneParametryFunkcji(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia, const STyp::Tekst& stos, const V&... tail)
+			: Wyjatek(tPlik, funkcja, iLinia, stos, idNiepoprawneParametryFunkcji, tytulNiepoprawneParametryFunkcji, trescNiepoprawneParametryFunkcji)
+		{
+			std::vector< std::string > a;
+			std::stringstream tmp;
+			step(a, tail...);
+			for (auto s : a){
+				tmp << "Parametr - [ " << s << " ] \n";
+			}
+			parametry = tmp.str();
 		}
-		parametry = tmp.str();
-	}
-	
-	virtual ~NiepoprawneParametryFunkcji();
 
-	const Tekst& getParametry() const;
-	void setParametry ( const Tekst& wwTresc );
-	
-	Tekst generujKomunikat() const override;
+		virtual ~NiepoprawneParametryFunkcji() = default;
 
-	string toString() const override;
+		const STyp::Tekst& getParametry() const;
+		void setParametry(const STyp::Tekst& wwTresc);
 
-private:
+		STyp::Tekst generujKomunikat() const override;
 
-	template< class... V >
-	static void step( vector< string >& v, const LoggerInterface &c , const V&... tail ){
-		v.push_back(c.toString());
-		step(v, tail... );
-	}
-	
-	static void step( vector< string >& v, const LoggerInterface &c ){
-		v.push_back(c.toString());
-	}
+		std::string napis() const override;
 
-	Tekst parametry;
-	static const Tekst tytulNiepoprawneParametryFunkcji;
-	static const Tekst trescNiepoprawneParametryFunkcji;
-};
+	private:
 
+		template< class... V >
+		static void step(std::vector< std::string >& v, const LoggerInterface &c, const V&... tail){
+			v.push_back(c.napis());
+			step(v, tail...);
+		}
+
+		static void step(std::vector< std::string >& v, const LoggerInterface &c){
+			v.push_back(c.napis());
+		}
+
+		STyp::Tekst parametry;
+		static const STyp::Tekst tytulNiepoprawneParametryFunkcji;
+		static const STyp::Tekst trescNiepoprawneParametryFunkcji;
+	};
+}

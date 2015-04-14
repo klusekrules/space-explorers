@@ -1,200 +1,72 @@
-#include "Log.h"
-#include <fstream>
-#include <time.h>
-#include <iostream>
 #include <chrono>
 #include <iomanip>
-#include <sstream>
-using namespace std::chrono;
-void Log::print( const string& p ) const{
-	cout << p;
-	for( auto f : outstream)
-		(*f)<<p;
-}
+#include "Log.h"
 
-void Log::dodajGniazdoWyjsciowe(shared_ptr<ostream> &t){
-	outstream.push_back(t);
-}
+namespace SLog{
 
-Log::Log()
-	:blogEnable(true), blogDebugEnable(true), blogInfoEnable(true), blogWarnEnable(true), blogErrorEnable(true),formatCzasu("%Y-%m-%d %H:%M:%S")
-{
-}
-
-void Log::ustawFormatCzasu( FormatCzasu format ){
-	switch (format)
-	{
-	case Log::Data: formatCzasu="%Y-%m-%d";
-		break;
-	case Log::Czas: formatCzasu="%H:%M:%S";
-		break;
-	case Log::DataCzas: formatCzasu="%Y-%m-%d %H:%M:%S";
-		break;
-	default:
-		break;
+	void Log::wyswietl(TypLogow typ, const std::string& p) const{
+		for (auto f : outstream)
+			f(typ, p);
 	}
-}
 
-Log& Log::getInstance(){
-	static Log log;
-	return log;
-}
-
-bool Log::isLogEnable()const{
-	return blogEnable;
-}
-
-bool Log::isLogDebugEnable()const{
-	return blogEnable ? blogDebugEnable : false;
-}
-
-	
-bool Log::isLogInfoEnable()const{
-	return blogEnable ? blogInfoEnable : false;
-}
-
-bool Log::isLogWarnEnable()const{
-	return blogEnable ? blogWarnEnable : false;
-}
-
-	
-bool Log::isLogErrorEnable()const{
-	return blogEnable ? blogErrorEnable : false;
-}
-
-	
-void Log::logEnable(){
-	blogEnable = true;
-}
-	
-	
-void Log::logDisable(){
-	blogEnable = false;
-}
-
-	
-void Log::logDebugEnable(){
-	blogDebugEnable = true;
-}
-	
-void Log::logDebugDisable(){
-	blogDebugEnable = false;
-}
-
-	
-void Log::logInfoEnable(){
-	blogInfoEnable = true;
-}
-	
-	
-void Log::logInfoDisable(){
-	blogInfoEnable = false;
-}
-
-void Log::logWarnEnable(){
-	blogWarnEnable = true;
-}
-	
-void Log::logWarnDisable(){
-	blogWarnEnable = false;
-}
-
-
-void Log::logErrorEnable(){
-	blogErrorEnable = true;
-}
-	
-	
-void Log::logErrorDisable(){
-	blogErrorEnable = false;
-}
-
-	
-void Log::info( const string& p ){
-	if(blogEnable && blogInfoEnable){
-		print(getTimeStamp());
-		print(" [INFO] ");
-		print(p);
-		print("\n");
+	void Log::dodajGniazdoWyjsciowe(const Strumien &t){
+		outstream.push_back(t);
 	}
-}
 
-	
-void Log::info( const LoggerInterface& p ){
-	if(blogEnable && blogInfoEnable){
-		print(getTimeStamp());
-		print(" [INFO] ");
-		print(p.toString());
-		print("\n");
+	void Log::ustawFormatCzasu(FormatCzasu format){
+		switch (format)
+		{
+		case FormatCzasu::Data: formatCzasu_ = "%Y-%m-%d";
+			break;
+		case FormatCzasu::Czas: formatCzasu_ = "%H:%M:%S";
+			break;
+		case FormatCzasu::DataCzas: formatCzasu_ = "%Y-%m-%d %H:%M:%S";
+			break;
+		default:
+			break;
+		}
 	}
-}
 
-void Log::warn( const string& p ){
-	if(blogEnable && blogWarnEnable){
-		print(getTimeStamp());
-		print(" [WARN] ");
-		print(p);
-		print("\n");
+	Log& Log::pobierzInstancje(){
+		static Log log;
+		return log;
 	}
-}
 
-void Log::warn( const LoggerInterface& p ){
-	if(blogEnable && blogWarnEnable){
-		print(getTimeStamp());
-		print(" [WARN] ");
-		print(p.toString());
-		print("\n");
+	bool Log::czyLogiOdblokowane(TypLogow typ)const{
+		return poziomy_[typ];
 	}
-}
 
-void Log::error( const string& p ){
-	if(blogEnable && blogErrorEnable){
-		print(getTimeStamp());
-		print(" [ERROR] ");
-		print(p);
-		print("\n");
+	void Log::odblokujLogi(TypLogow typ){
+		poziomy_[typ] = true;
 	}
-}
 
-void Log::error( const LoggerInterface& p ){
-	if(blogEnable && blogErrorEnable){
-		print(getTimeStamp());
-		print(" [ERROR] ");
-		print(p.toString());
-		print("\n");
+	void Log::zablokujLogi(TypLogow typ){
+		poziomy_[typ] = false;
 	}
-}
 
-	
-void Log::debug( const string& p ){
-	if(blogEnable && blogDebugEnable){
-		print(getTimeStamp());
-		print(" [DEBUG] ");
-		print(p);
-		print("\n");
+	void Log::loguj(TypLogow typ, const std::string& komunikat) const{
+		if (poziomy_[TypLogow::All] && poziomy_[typ]){
+			wyswietl(typ, pobierzDateCzas() + " [INFO] " + komunikat + "\n");
+		}
 	}
-}
 
-	
-void Log::debug( const LoggerInterface& p ){
-	if(blogEnable && blogDebugEnable){
-		print(getTimeStamp());
-		print(" [DEBUG] ");
-		print(p.toString());
-		print("\n");
+	void Log::loguj(TypLogow typ, const LoggerInterface& komunikat) const{
+		if (poziomy_[TypLogow::All] && poziomy_[typ]){
+			wyswietl(typ, pobierzDateCzas() + " [INFO] " + komunikat.napis() + "\n");
+		}
 	}
-}
 
-string Log::getTimeStamp() const{
-	steady_clock::time_point t1 = steady_clock::now();
-	steady_clock::duration dtn = t1.time_since_epoch();
-	time_t pSekundy = dtn.count() * steady_clock::period::num / steady_clock::period::den;
-	struct tm timeinfo;
-	localtime_s(&timeinfo,&pSekundy);
-	short unsigned int pMilisekundy = static_cast<long long>( dtn.count() * ( static_cast<long double>(steady_clock::period::num) / static_cast<long double>(steady_clock::period::den) ) * 1000 ) % 1000;
-	char s[20];
-	strftime(s,20,formatCzasu.c_str(),&timeinfo);
-	stringstream str;
-	str << s << "." << setw (3) << setfill ('0') << pMilisekundy;
-	return str.str();
+	std::string Log::pobierzDateCzas() const{
+		std::chrono::steady_clock::time_point t1 = std::chrono::steady_clock::now();
+		std::chrono::steady_clock::duration dtn = t1.time_since_epoch();
+		time_t pSekundy = dtn.count() * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den;
+		struct tm timeinfo;
+		localtime_s(&timeinfo, &pSekundy);
+		short unsigned int pMilisekundy = static_cast<long long>(dtn.count() * (static_cast<long double>(std::chrono::steady_clock::period::num) / static_cast<long double>(std::chrono::steady_clock::period::den)) * 1000) % 1000;
+		char s[20];
+		strftime(s, 20, formatCzasu_.c_str(), &timeinfo);
+		std::stringstream str;
+		str << s << "." << std::setw(3) << std::setfill('0') << pMilisekundy;
+		return std::move(str.str());
+	}
 }

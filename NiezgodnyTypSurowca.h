@@ -1,26 +1,26 @@
 #pragma once
-#include "OgolnyWyjatek.h"
-#include "Klucz.h"
-/**
-* Porównywane surowce maj¹ ró¿ne typy.
-*/
-class NiezgodnyTypSurowca :
-	virtual public LoggerInterface,
-	public OgolnyWyjatek
-{
-public:
+#include "TypyProste\Wyjatek.h"
 
-	static const IdType idNiezgodnyTypSurowca;
-	
-	NiezgodnyTypSurowca( const Tekst& tPlik, const Ilosc& iLinia, const Klucz& , const Klucz& );
-	NiezgodnyTypSurowca( const NiezgodnyTypSurowca& );
-	virtual ~NiezgodnyTypSurowca();
+namespace SpEx{
+	/**
+	* Porównywane surowce maj¹ ró¿ne typy.
+	*/
+	class NiezgodnyTypSurowca :
+		virtual public SLog::LoggerInterface,
+		public STyp::Wyjatek
+	{
+	public:
 
-	string toString() const override;
+		static const STyp::Identyfikator idNiezgodnyTypSurowca;
 
-private:
-	static const Tekst tytulNiezgodnyTypSurowcaDomyslny;
-	static const Tekst trescNiezgodnyTypSurowcaDomyslny;
+		NiezgodnyTypSurowca(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia, const STyp::Identyfikator&, const STyp::Identyfikator&);
+		virtual ~NiezgodnyTypSurowca() = default;
 
-};
+		std::string napis() const override;
 
+	private:
+		static const STyp::Tekst tytulNiezgodnyTypSurowcaDomyslny;
+		static const STyp::Tekst trescNiezgodnyTypSurowcaDomyslny;
+
+	};
+}

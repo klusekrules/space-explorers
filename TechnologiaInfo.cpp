@@ -1,32 +1,34 @@
 #include "TechnologiaInfo.h"
-#include "XmlBO.h"
-#include "Logger.h"
+#include "Logger\Logger.h"
+#include "Gra.h"
 
-TechnologiaInfo::TechnologiaInfo( ticpp::Node* e )
-	: ObiektBaseInfo(XmlBO::IterateChildren<THROW>(e,CLASSNAME(ObiektBaseInfo)))
-{
-}
+namespace SpEx{
+	TechnologiaInfo::TechnologiaInfo(XmlBO::ElementWezla wezel)
+		: ObiektInfo(TECHNOLOGIA, PodstawoweParametry::POZIOM, wezel)
+	{
+	}
+	
+	Technologia* TechnologiaInfo::tworzEgzemplarz(const PodstawoweParametry& parametry ) const{
+		return new Technologia(parametry, *this);
+	}
+	
+	bool TechnologiaInfo::tworz(Planeta& planeta, const PodstawoweParametry::AtrybutPodstawowy& atrybut) const{
+		return planeta.dodajObiekt(std::shared_ptr<Technologia>(tworzEgzemplarz(PodstawoweParametry(atrybut, typAtrybutu_))));
+	}
 
-TechnologiaInfo::~TechnologiaInfo(void)
-{
-}
+	bool TechnologiaInfo::tworz(Planeta& planeta, const XmlBO::ElementWezla& element) const{
+		auto technologia = std::shared_ptr<Technologia>(tworzEgzemplarz(PodstawoweParametry(PodstawoweParametry::AtrybutPodstawowy(), typAtrybutu_)));
+		if (technologia && element){
+			if (!technologia->odczytaj(element))
+				return false;
+			return planeta.dodajObiekt(technologia);
+		}
+		return false;
+	}
 
-TechnologiaInfo::TechnologiaInfo( const ObiektBaseInfo& o )
-	: ObiektBaseInfo(o)
-{
-}
-
-TechnologiaInfo::TechnologiaInfo( const TechnologiaInfo& o )
-	: ObiektBaseInfo(o)
-{
-}
-
-Technologia* TechnologiaInfo::TworzEgzemplarz( const Ilosc& i ) const{
-	return new Technologia( getPoziom(), *this );
-}
-
-string TechnologiaInfo::toString()const{
-	Logger str(CLASSNAME(TechnologiaInfo));
-	str.addClass(ObiektBaseInfo::toString());
-	return str.toString();
+	std::string TechnologiaInfo::napis()const{
+		SLog::Logger str(NAZWAKLASY(TechnologiaInfo));
+		str.dodajKlase(ObiektInfo::napis());
+		return str.napis();
+	}
 }
