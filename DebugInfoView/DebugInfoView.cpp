@@ -369,7 +369,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			NMTREEVIEW* pnmtv = (LPNMTREEVIEW)lParam;
 			//LPTSTR str = (pnmtv->itemNew.pszText);
-			if (pnmtv->itemNew.lParam >= 0 && pnmtv->itemNew.lParam < parser.elementy_.size()){
+			if (pnmtv->itemNew.lParam >= 0 && static_cast<size_t>(pnmtv->itemNew.lParam) < parser.elementy_.size()){
 				str = "Typ: " + parser.elementy_[pnmtv->itemNew.lParam]->nazwaTypu_ + "\nZmienna: " 
 					+ parser.elementy_[pnmtv->itemNew.lParam]->nazwaZmiennej_ + "\nWartosc: " + parser.elementy_[pnmtv->itemNew.lParam]->wartosc_;
 				InvalidateRect(hWnd, &rect, true);

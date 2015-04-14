@@ -13,16 +13,49 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\Dokumenty">
+      <UniqueIdentifier>{e42044de-0ecb-4820-9a03-9e8bed62dafa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\DefinicjeXml">
+      <UniqueIdentifier>{1baf3363-ec06-471b-a0c6-60def300387d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="readme.txt" />
+    <Text Include="..\doc\conventions.txt">
+      <Filter>Resource Files\Dokumenty</Filter>
+    </Text>
+    <Text Include="..\doc\gpl-3.0.txt">
+      <Filter>Resource Files\Dokumenty</Filter>
+    </Text>
+    <Text Include="..\doc\TODO.txt">
+      <Filter>Resource Files\Dokumenty</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Dokumentacja.h">
+    <None Include="..\doc\gpl-3.0.rtf">
+      <Filter>Resource Files\Dokumenty</Filter>
+    </None>
+    <None Include="dokumentacjaDlaDewelopera">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Dokumentacja.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="dokumentacjaDlaDewelopera" />
+    <Xsd Include="..\doc\dataSchema.xsd">
+      <Filter>Resource Files\DefinicjeXml</Filter>
+    </Xsd>
+    <Xsd Include="..\doc\saveSchema.xsd">
+      <Filter>Resource Files\DefinicjeXml</Filter>
+    </Xsd>
+    <Xsd Include="..\doc\ukladSchema.xsd">
+      <Filter>Resource Files\DefinicjeXml</Filter>
+    </Xsd>
+    <Xsd Include="..\doc\userSchema.xsd">
+      <Filter>Resource Files\DefinicjeXml</Filter>
+    </Xsd>
   </ItemGroup>
 </Project>

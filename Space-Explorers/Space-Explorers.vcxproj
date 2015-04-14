@@ -1,0 +1,920 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Tests|Win32">
+      <Configuration>Tests</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Tests|x64">
+      <Configuration>Tests</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A8B6EFB3-277C-42D6-A05E-78516E547F38}</ProjectGuid>
+    <RootNamespace>SpaceGame</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tests|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Tests|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)out\</OutDir>
+    <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">
+    <OutDir>$(SolutionDir)out\</OutDir>
+    <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
+    <OutDir>$(SolutionDir)out\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">
+    <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
+    <OutDir>$(SolutionDir)out\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)out\</OutDir>
+    <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)out\</OutDir>
+    <TargetName>SpaceExplorers-$(PlatformTarget)-$(Configuration)</TargetName>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SFML_STATIC;PLUGIN_IMPORT;ZMIANA_IMPORT;PARSER_IMPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;TESTS;SPACE_EXPLORERS_API_EXPORT;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <ShowProgress>
+      </ShowProgress>
+      <LinkStatus>
+      </LinkStatus>
+      <Version>
+      </Version>
+      <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Debug-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lua51.lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <ResourceCompile>
+      <Culture>0x0015</Culture>
+    </ResourceCompile>
+    <ResourceCompile>
+      <ShowProgress>false</ShowProgress>
+    </ResourceCompile>
+    <PreBuildEvent>
+      <Command>$(ProjectDir)Resource\makeversion.bat .\Resource\</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SFML_STATIC;PLUGIN_IMPORT;ZMIANA_IMPORT;PARSER_IMPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;TESTS;SPACE_EXPLORERS_API_EXPORT;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <ShowProgress>
+      </ShowProgress>
+      <LinkStatus>
+      </LinkStatus>
+      <Version>
+      </Version>
+      <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Debug-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lua51.lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <ResourceCompile>
+      <Culture>0x0015</Culture>
+    </ResourceCompile>
+    <ResourceCompile>
+      <ShowProgress>false</ShowProgress>
+    </ResourceCompile>
+    <PreBuildEvent>
+      <Command>$(ProjectDir)Resource\makeversion.bat .\Resource\</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SFML_STATIC;PLUGIN_IMPORT;ZMIANA_IMPORT;PARSER_IMPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;TESTS;SPACE_EXPLORERS_API_EXPORT;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <ShowProgress>
+      </ShowProgress>
+      <LinkStatus>
+      </LinkStatus>
+      <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Debug-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lua51.lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <PreBuildEvent>
+      <Command>$(ProjectDir)Resource\makeversion.bat .\Resource\</Command>
+    </PreBuildEvent>
+    <ResourceCompile>
+      <Culture>0x0015</Culture>
+    </ResourceCompile>
+    <ResourceCompile>
+      <ShowProgress>false</ShowProgress>
+      <PreprocessorDefinitions>_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SFML_STATIC;PLUGIN_IMPORT;ZMIANA_IMPORT;PARSER_IMPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;TESTS;SPACE_EXPLORERS_API_EXPORT;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <ShowProgress>
+      </ShowProgress>
+      <LinkStatus>
+      </LinkStatus>
+      <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Debug-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lua51.lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <PreBuildEvent>
+      <Command>$(ProjectDir)Resource\makeversion.bat .\Resource\</Command>
+    </PreBuildEvent>
+    <ResourceCompile>
+      <Culture>0x0015</Culture>
+    </ResourceCompile>
+    <ResourceCompile>
+      <ShowProgress>false</ShowProgress>
+      <PreprocessorDefinitions>_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SFML_STATIC;PLUGIN_IMPORT;ZMIANA_IMPORT;PARSER_IMPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;TESTS;SPACE_EXPLORERS_API_EXPORT;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Release-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lua51.lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+    </Link>
+    <PreBuildEvent>
+      <Command>$(ProjectDir)Resource\makeversion.bat .\Resource\</Command>
+    </PreBuildEvent>
+    <ResourceCompile>
+      <Culture>0x0015</Culture>
+    </ResourceCompile>
+    <ResourceCompile>
+      <ShowProgress>false</ShowProgress>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SFML_STATIC;PLUGIN_IMPORT;ZMIANA_IMPORT;PARSER_IMPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;TESTS;SPACE_EXPLORERS_API_EXPORT;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)\libs\$(PlatformShortName)\;$(SolutionDir)LuaJIT-2.0.2\Release-$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lua51.lib;glew.lib;Opengl32.lib;jpeg.lib;Winmm.lib;ws2_32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+    </Link>
+    <PreBuildEvent>
+      <Command>$(ProjectDir)Resource\makeversion.bat .\Resource\</Command>
+    </PreBuildEvent>
+    <ResourceCompile>
+      <Culture>0x0015</Culture>
+    </ResourceCompile>
+    <ResourceCompile>
+      <ShowProgress>false</ShowProgress>
+      <PreprocessorDefinitions>_WIN64</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Algorytmy\CRC.h" />
+    <ClInclude Include="Algorytmy\CRC16.h" />
+    <ClInclude Include="Algorytmy\CRC32.h" />
+    <ClInclude Include="Algorytmy\CRC64.h" />
+    <ClInclude Include="Algorytmy\keccak.h" />
+    <ClInclude Include="Algorytmy\SHA3.h" />
+    <ClInclude Include="Algorytmy\VMPC_MAC.h" />
+    <ClInclude Include="Eksport\Export.h" />
+    <ClInclude Include="Eksport\TypyEksportowne.h" />
+    <ClInclude Include="Kontroler\Aplikacja.h" />
+    <ClInclude Include="Kontroler\Gra.h" />
+    <ClInclude Include="Kontroler\MaszynaStanow\MaszynaStanow.h" />
+    <ClInclude Include="Kontroler\MaszynaStanow\Skrypty\DllSkrypt.h" />
+    <ClInclude Include="Kontroler\MaszynaStanow\Skrypty\LuaSkrypt.h" />
+    <ClInclude Include="Kontroler\MaszynaStanow\Skrypty\Skrypt.h" />
+    <ClInclude Include="Kontroler\MaszynaStanow\Stan.h" />
+    <ClInclude Include="Kontroler\MaszynaStanow\StanInfo.h" />
+    <ClInclude Include="Kontroler\MaszynaStanow\Zdarzenie.h" />
+    <ClInclude Include="Kontroler\MaszynaStanow\ZdarzenieInfo.h" />
+    <ClInclude Include="Kontroler\Siec\DaneTCP.h" />
+    <ClInclude Include="Kontroler\Siec\Klient.h" />
+    <ClInclude Include="Kontroler\Siec\RPC\EchoRPC.h" />
+    <ClInclude Include="Kontroler\Siec\RPC\InicjujLogowanieRPC.h" />
+    <ClInclude Include="Kontroler\Siec\RPC\MetodaRPC.h" />
+    <ClInclude Include="Kontroler\Siec\RPC\PotwierdzLogowanieRPC.h" />
+    <ClInclude Include="Kontroler\Siec\RPC\SprawdzSumyKontrolneRPC.h" />
+    <ClInclude Include="Kontroler\Siec\RPC\StaleRPC.h" />
+    <ClInclude Include="Kontroler\Siec\Serwer.h" />
+    <ClInclude Include="Kontroler\UstawieniaAplikacji.h" />
+    <ClInclude Include="Kontroler\Wielowatkowosc\MenadzerWatkow.h" />
+    <ClInclude Include="Kontroler\Wielowatkowosc\Watek.h" />
+    <ClInclude Include="Kontroler\Wielowatkowosc\WatekZarzadzany.h" />
+    <ClInclude Include="Kontroler\Wielowatkowosc\Zadanie.h" />
+    <ClInclude Include="Kontroler\Zarzadca\DllModule.h" />
+    <ClInclude Include="Kontroler\Zarzadca\Fabrykator.h" />
+    <ClInclude Include="Kontroler\Zarzadca\LuaState.h" />
+    <ClInclude Include="Kontroler\Zarzadca\SumaKontrolnaPliku.h" />
+    <ClInclude Include="Kontroler\Zarzadca\XmlModul.h" />
+    <ClInclude Include="Kontroler\Zarzadca\ZarzadcaLokacji.h" />
+    <ClInclude Include="Kontroler\Zarzadca\ZarzadcaPluginow.h" />
+    <ClInclude Include="Kontroler\Zarzadca\ZarzadcaUzytkownikow.h" />
+    <ClInclude Include="Kontroler\Zarzadca\ZarzadcaZasobow.h" />
+    <ClInclude Include="Kontroler\Zarzadca\Zasob.h" />
+    <ClInclude Include="Model\Budynek.h" />
+    <ClInclude Include="Model\BudynekInfo.h" />
+    <ClInclude Include="Model\Flota.h" />
+    <ClInclude Include="Model\Galaktyka.h" />
+    <ClInclude Include="Model\GeneratorUkladow.h" />
+    <ClInclude Include="Model\Hangar.h" />
+    <ClInclude Include="Model\HangarInfo.h" />
+    <ClInclude Include="Model\Info.h" />
+    <ClInclude Include="Model\JednostkaAtakujaca.h" />
+    <ClInclude Include="Model\JednostkaAtakujacaInfo.h" />
+    <ClInclude Include="Model\JednostkaLatajaca.h" />
+    <ClInclude Include="Model\JednostkaLatajacaInfo.h" />
+    <ClInclude Include="Model\Kryterium.h" />
+    <ClInclude Include="Model\Ladownia.h" />
+    <ClInclude Include="Model\LadowniaInfo.h" />
+    <ClInclude Include="Model\Licznik.h" />
+    <ClInclude Include="Model\ListaObiektow.hpp" />
+    <ClInclude Include="Model\Obiekt.h" />
+    <ClInclude Include="Model\ObiektInfo.h" />
+    <ClInclude Include="Model\Obrona.h" />
+    <ClInclude Include="Model\ObronaInfo.h" />
+    <ClInclude Include="Model\Planeta.h" />
+    <ClInclude Include="Model\PodstawoweParametry.h" />
+    <ClInclude Include="Model\Statek.h" />
+    <ClInclude Include="Model\StatekInfo.h" />
+    <ClInclude Include="Model\Surowce.h" />
+    <ClInclude Include="Model\SurowceInfo.h" />
+    <ClInclude Include="Model\SzablonKryterium.h" />
+    <ClInclude Include="Model\Technologia.h" />
+    <ClInclude Include="Model\TechnologiaInfo.h" />
+    <ClInclude Include="Model\UkladSloneczny.h" />
+    <ClInclude Include="Model\Uzytkownik.h" />
+    <ClInclude Include="Model\Wymagania.h" />
+    <ClInclude Include="Model\ZmianaPoziomObiektu.h" />
+    <ClInclude Include="Resource\afxres.h" />
+    <ClInclude Include="Resource\git_version.h" />
+    <ClInclude Include="Resource\resource.h" />
+    <ClInclude Include="Resource\version.h" />
+    <ClInclude Include="Testy\BudynekTest.h" />
+    <ClInclude Include="Testy\CzyszczenieDanychTest.h" />
+    <ClInclude Include="Testy\GenerowanieTest.h" />
+    <ClInclude Include="Testy\HangarTest.h" />
+    <ClInclude Include="Testy\InicjalizacjaDanychTestowych.h" />
+    <ClInclude Include="Testy\KomunikacjaSieciowaTest.h" />
+    <ClInclude Include="Testy\LadowniaTest.h" />
+    <ClInclude Include="Testy\LogowanieTest.h" />
+    <ClInclude Include="Testy\NiepoprawneParametryFunkcjiTest.h" />
+    <ClInclude Include="Testy\ObiektListTest.h" />
+    <ClInclude Include="Testy\ObronaTest.h" />
+    <ClInclude Include="Testy\ParserTest.h" />
+    <ClInclude Include="Testy\PlanetaTest.h" />
+    <ClInclude Include="Testy\StatekTest.h" />
+    <ClInclude Include="Testy\SumakontrolnaPlikuTest.h" />
+    <ClInclude Include="Testy\SurowceTest.h" />
+    <ClInclude Include="Testy\Szkielet\MakraDlaTestow.h" />
+    <ClInclude Include="Testy\Szkielet\PaczkaTestow.h" />
+    <ClInclude Include="Testy\Szkielet\TestyJednostkowe.h" />
+    <ClInclude Include="Testy\Szkielet\TestyUtilsBO.h" />
+    <ClInclude Include="Testy\Szkielet\WyjatekSprawdzeniaWarunku.h" />
+    <ClInclude Include="Testy\SzyfrowanieTest.h" />
+    <ClInclude Include="Testy\TechnologiaTest.h" />
+    <ClInclude Include="Testy\TworzenieObiektowTest.h" />
+    <ClInclude Include="Testy\WymaganiaTest.h" />
+    <ClInclude Include="Testy\ZapisStanuGryTest.h" />
+    <ClInclude Include="Testy\ZleceniaTest.h" />
+    <ClInclude Include="Utils\DefinicjeWezlowXML.h" />
+    <ClInclude Include="Utils\FPSCounter.h" />
+    <ClInclude Include="Utils\GeneratorIdentyfikatorow.h" />
+    <ClInclude Include="Utils\MakeVector.h" />
+    <ClInclude Include="Utils\NonCopyable.h" />
+    <ClInclude Include="Utils\NonMoveable.h" />
+    <ClInclude Include="Utils\Serializacja.h" />
+    <ClInclude Include="Utils\Singleton.h" />
+    <ClInclude Include="Utils\StackThrow.h" />
+    <ClInclude Include="Utils\StaleUstawienAplikacji.h" />
+    <ClInclude Include="Utils\Tranzakcje\MenedzerTranzakcji.h" />
+    <ClInclude Include="Utils\Tranzakcje\Operacja.h" />
+    <ClInclude Include="Utils\Tranzakcje\Zlecenia.h" />
+    <ClInclude Include="Utils\Tranzakcje\Zlecenie.h" />
+    <ClInclude Include="Utils\Utils.h" />
+    <ClInclude Include="Utils\UtilsGui.h" />
+    <ClInclude Include="Widok\Ekrany\EkranStartowy.h" />
+    <ClInclude Include="Widok\Ekrany\OknoGry.h" />
+    <ClInclude Include="Widok\Ekrany\Szkielet\EkranSzablon.h" />
+    <ClInclude Include="Widok\Konsola\Konsola.h" />
+    <ClInclude Include="Widok\SFML\RoundedRectangleShape.hpp" />
+    <ClInclude Include="Widok\Tgui\KontrolkaObiektu.h" />
+    <ClInclude Include="Widok\Tgui\ListaObiektowGui.h" />
+    <ClInclude Include="Widok\Tgui\ListaSurowcowGui.h" />
+    <ClInclude Include="Widok\Tgui\LogListGui.h" />
+    <ClInclude Include="Widok\Tgui\PomocniczeTypyTGUI.h" />
+    <ClInclude Include="Wyjatki\BladKonfiguracjiAplikacji.h" />
+    <ClInclude Include="Wyjatki\BladKonfiguracjiEkranu.h" />
+    <ClInclude Include="Wyjatki\BladStukturyStanu.h" />
+    <ClInclude Include="Wyjatki\NiepoprawneParametryFunkcji.h" />
+    <ClInclude Include="Wyjatki\NiepowodzenieTranzakcji.h" />
+    <ClInclude Include="Wyjatki\NiezaimplementowanaMetoda.h" />
+    <ClInclude Include="Wyjatki\NiezgodnyTypSurowca.h" />
+    <ClInclude Include="Wyjatki\NieznalezionoObiektu.h" />
+    <ClInclude Include="Wyjatki\NieznalezionoPliku.h" />
+    <ClInclude Include="Wyjatki\PowtorzenieIdObiektu.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Algorytmy\CRC16.cpp" />
+    <ClCompile Include="Algorytmy\CRC32.cpp" />
+    <ClCompile Include="Algorytmy\CRC64.cpp" />
+    <ClCompile Include="Algorytmy\keccak.cpp" />
+    <ClCompile Include="Algorytmy\SHA3.cpp" />
+    <ClCompile Include="Algorytmy\VMPC_MAC.cpp" />
+    <ClCompile Include="Eksport\Export.cpp" />
+    <ClCompile Include="Kontroler\ApInfo.cpp" />
+    <ClCompile Include="Kontroler\Aplikacja.cpp" />
+    <ClCompile Include="Kontroler\Gra.cpp" />
+    <ClCompile Include="Kontroler\MaszynaStanow\MaszynaStanow.cpp" />
+    <ClCompile Include="Kontroler\MaszynaStanow\Skrypty\DllSkrypt.cpp" />
+    <ClCompile Include="Kontroler\MaszynaStanow\Skrypty\LuaSkrypt.cpp" />
+    <ClCompile Include="Kontroler\MaszynaStanow\Stan.cpp" />
+    <ClCompile Include="Kontroler\MaszynaStanow\StanInfo.cpp" />
+    <ClCompile Include="Kontroler\MaszynaStanow\ZdarzenieInfo.cpp" />
+    <ClCompile Include="Kontroler\Siec\DaneTCP.cpp" />
+    <ClCompile Include="Kontroler\Siec\Klient.cpp" />
+    <ClCompile Include="Kontroler\Siec\RPC\EchoRPC.cpp" />
+    <ClCompile Include="Kontroler\Siec\RPC\InicjujLogowanieRPC.cpp" />
+    <ClCompile Include="Kontroler\Siec\RPC\MetodaRPC.cpp" />
+    <ClCompile Include="Kontroler\Siec\RPC\PotwierdzLogowanieRPC.cpp" />
+    <ClCompile Include="Kontroler\Siec\RPC\SprawdzSumyKontrolneRPC.cpp" />
+    <ClCompile Include="Kontroler\Siec\Serwer.cpp" />
+    <ClCompile Include="Kontroler\UstawieniaAplikacji.cpp" />
+    <ClCompile Include="Kontroler\Wielowatkowosc\MenadzerWatkow.cpp" />
+    <ClCompile Include="Kontroler\Wielowatkowosc\Watek.cpp" />
+    <ClCompile Include="Kontroler\Wielowatkowosc\WatekZarzadzany.cpp" />
+    <ClCompile Include="Kontroler\Wielowatkowosc\Zadanie.cpp" />
+    <ClCompile Include="Kontroler\Zarzadca\DllModule.cpp" />
+    <ClCompile Include="Kontroler\Zarzadca\Fabrykator.cpp" />
+    <ClCompile Include="Kontroler\Zarzadca\LuaState.cpp" />
+    <ClCompile Include="Kontroler\Zarzadca\SumaKontrolnaPliku.cpp" />
+    <ClCompile Include="Kontroler\Zarzadca\XmlModul.cpp" />
+    <ClCompile Include="Kontroler\Zarzadca\ZarzadcaLokacji.cpp" />
+    <ClCompile Include="Kontroler\Zarzadca\ZarzadcaPluginow.cpp" />
+    <ClCompile Include="Kontroler\Zarzadca\ZarzadcaUzytkownikow.cpp" />
+    <ClCompile Include="Kontroler\Zarzadca\ZarzadcaZasobow.cpp" />
+    <ClCompile Include="maintest.cpp" />
+    <ClCompile Include="Model\Budynek.cpp" />
+    <ClCompile Include="Model\BudynekInfo.cpp" />
+    <ClCompile Include="Model\Flota.cpp" />
+    <ClCompile Include="Model\Galaktyka.cpp" />
+    <ClCompile Include="Model\GeneratorUkladow.cpp" />
+    <ClCompile Include="Model\Hangar.cpp" />
+    <ClCompile Include="Model\HangarInfo.cpp" />
+    <ClCompile Include="Model\Info.cpp" />
+    <ClCompile Include="Model\JednostkaAtakujaca.cpp" />
+    <ClCompile Include="Model\JednostkaAtakujacaInfo.cpp" />
+    <ClCompile Include="Model\JednostkaLatajaca.cpp" />
+    <ClCompile Include="Model\JednostkaLatajacaInfo.cpp" />
+    <ClCompile Include="Model\Kryterium.cpp" />
+    <ClCompile Include="Model\Ladownia.cpp" />
+    <ClCompile Include="Model\LadowniaInfo.cpp" />
+    <ClCompile Include="Model\Licznik.cpp" />
+    <ClCompile Include="Model\Obiekt.cpp" />
+    <ClCompile Include="Model\ObiektInfo.cpp" />
+    <ClCompile Include="Model\Obrona.cpp" />
+    <ClCompile Include="Model\ObronaInfo.cpp" />
+    <ClCompile Include="Model\Planeta.cpp" />
+    <ClCompile Include="Model\PodstawoweParametry.cpp" />
+    <ClCompile Include="Model\Statek.cpp" />
+    <ClCompile Include="Model\StatekInfo.cpp" />
+    <ClCompile Include="Model\Surowce.cpp" />
+    <ClCompile Include="Model\SurowceInfo.cpp" />
+    <ClCompile Include="Model\SzablonKryteriumPriv.cpp" />
+    <ClCompile Include="Model\Technologia.cpp" />
+    <ClCompile Include="Model\TechnologiaInfo.cpp" />
+    <ClCompile Include="Model\UkladSloneczny.cpp" />
+    <ClCompile Include="Model\Uzytkownik.cpp" />
+    <ClCompile Include="Model\Wymagania.cpp" />
+    <ClCompile Include="Model\ZmianaPoziomObiektu.cpp" />
+    <ClCompile Include="Testy\BudynekTest.cpp" />
+    <ClCompile Include="Testy\CzyszczenieDanychTest.cpp" />
+    <ClCompile Include="Testy\GenerowanieTest.cpp" />
+    <ClCompile Include="Testy\HangarTest.cpp" />
+    <ClCompile Include="Testy\InicjalizacjaDanychTestowych.cpp" />
+    <ClCompile Include="Testy\InicjalizacjaTestow.cpp" />
+    <ClCompile Include="Testy\KomunikacjaSieciowaTest.cpp" />
+    <ClCompile Include="Testy\LadowniaTest.cpp" />
+    <ClCompile Include="Testy\LogowanieTest.cpp" />
+    <ClCompile Include="Testy\NiepoprawneParametryFunkcjiTest.cpp" />
+    <ClCompile Include="Testy\ObiektListTest.cpp" />
+    <ClCompile Include="Testy\ObronaTest.cpp" />
+    <ClCompile Include="Testy\ParserTest.cpp" />
+    <ClCompile Include="Testy\PlanetaTest.cpp" />
+    <ClCompile Include="Testy\StatekTest.cpp" />
+    <ClCompile Include="Testy\SumakontrolnaPlikuTest.cpp" />
+    <ClCompile Include="Testy\SurowceTest.cpp" />
+    <ClCompile Include="Testy\Szkielet\PaczkaTestow.cpp" />
+    <ClCompile Include="Testy\Szkielet\TestyJednostkowe.cpp" />
+    <ClCompile Include="Testy\Szkielet\TestyUtilsBO.cpp" />
+    <ClCompile Include="Testy\Szkielet\WyjatekSprawdzeniaWarunku.cpp" />
+    <ClCompile Include="Testy\SzyfrowanieTest.cpp" />
+    <ClCompile Include="Testy\TechnologiaTest.cpp" />
+    <ClCompile Include="Testy\TworzenieObiektowTest.cpp" />
+    <ClCompile Include="Testy\WymaganiaTest.cpp" />
+    <ClCompile Include="Testy\ZapisStanuGryTest.cpp" />
+    <ClCompile Include="Testy\ZleceniaTest.cpp" />
+    <ClCompile Include="Utils\FPSCounter.cpp" />
+    <ClCompile Include="Utils\GeneratorIdentyfikatorow.cpp" />
+    <ClCompile Include="Utils\StackThrow.cpp" />
+    <ClCompile Include="Utils\Tranzakcje\MenedzerTranzakcji.cpp" />
+    <ClCompile Include="Utils\Tranzakcje\Operacja.cpp" />
+    <ClCompile Include="Utils\Utils.cpp" />
+    <ClCompile Include="Utils\UtilsGui.cpp" />
+    <ClCompile Include="Widok\Ekrany\EkranStartowy.cpp" />
+    <ClCompile Include="Widok\Ekrany\OknoGry.cpp" />
+    <ClCompile Include="Widok\Ekrany\Szkielet\EkranSzablon.cpp" />
+    <ClCompile Include="Widok\Konsola\Konsola.cpp" />
+    <ClCompile Include="Widok\SFML\RoundedRectangleShape.cpp" />
+    <ClCompile Include="Widok\Tgui\KontrolkaObiektu.cpp" />
+    <ClCompile Include="Widok\Tgui\ListaObiektowGui.cpp" />
+    <ClCompile Include="Widok\Tgui\ListaSurowcowGui.cpp" />
+    <ClCompile Include="Widok\Tgui\LogListGui.cpp" />
+    <ClCompile Include="Wyjatki\BladKonfiguracjiAplikacji.cpp" />
+    <ClCompile Include="Wyjatki\BladKonfiguracjiEkranu.cpp" />
+    <ClCompile Include="Wyjatki\BladStukturyStanu.cpp" />
+    <ClCompile Include="Wyjatki\NiepoprawneParametryFunkcji.cpp" />
+    <ClCompile Include="Wyjatki\NiepowodzenieTranzakcji.cpp" />
+    <ClCompile Include="Wyjatki\NiezaimplementowanaMetoda.cpp" />
+    <ClCompile Include="Wyjatki\NiezgodnyTypSurowca.cpp" />
+    <ClCompile Include="Wyjatki\NieznalezionoObiektu.cpp" />
+    <ClCompile Include="Wyjatki\NieznalezionoPliku.cpp" />
+    <ClCompile Include="Wyjatki\PowtorzenieIdObiektu.cpp" />
+    <ClCompile Include="Wyjatki\Wyjatki.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\out\lua\aplikacja.lua">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\out\lua\class.lua">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\out\lua\gui.lua">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\out\lua\interfejs.lua">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\out\lua\test.lua">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\out\resource\lista.wdg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\out\resource\logowanie.wdg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\out\resource\menu.wdg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\out\resource\pusteOkno.wdg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\out\resource\simple.frag">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\out\resource\testowanie.wdg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\out\widgets\Black.conf">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\out\widgets\LogListGui.conf">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="Resource\makeversion.bat">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\out\resource\background.jpg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Image>
+    <Image Include="..\out\resource\Brak_obrazka.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Image>
+    <Image Include="..\out\resource\Ikona.ico" />
+    <Image Include="..\out\resource\IkonaBlue.ico" />
+    <Image Include="..\out\resource\space.jpg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Image>
+    <Image Include="..\out\resource\SpaceExplorers_logo_640x348.bmp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Image>
+    <Image Include="..\out\resource\SpaceExplorers_logo_640x348.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Image>
+    <Image Include="..\out\resource\Space_start_screen.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Image>
+    <Image Include="..\out\widgets\tlo.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Logger\Logger.vcxproj">
+      <Project>{da49481f-e328-4c1f-927c-44f818d30472}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Parser\Parser.vcxproj">
+      <Project>{c8c552aa-0fb6-40ca-805d-122e7eb00225}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\SFML\src\SFML\SFML_Audio.vcxproj">
+      <Project>{ce1c0ac7-d05b-433c-a5ee-143e15037af2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\SFML\src\SFML\SFML_Graphics.vcxproj">
+      <Project>{392c0116-ba28-41be-9439-e0248522c0e7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\SFML\src\SFML\SFML_Network.vcxproj">
+      <Project>{48d28224-db5d-41ac-b9ae-080f230083f2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\SFML\src\SFML\SFML_System.vcxproj">
+      <Project>{cb8ecb60-8c6b-4804-bbbf-dacaaed773ac}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\SFML\src\SFML\SFML_Window.vcxproj">
+      <Project>{ece7a458-22f2-406c-991e-36d0e579e457}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\TGUI\TGUI.vcxproj">
+      <Project>{6adb1b59-6144-467c-acf0-f5020be17e77}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\TypyProste\TypyProste.vcxproj">
+      <Project>{c4cb2f58-bb6e-4ab4-894e-25c8ef668dce}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\zlib\zlib.vcxproj">
+      <Project>{ddc0027d-5cdb-444d-9e0f-e2090d9add96}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Zmiana\Zmiana.vcxproj">
+      <Project>{e939d2d1-17b7-4720-8de2-135a14dad2a6}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\Space-Explorers.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\out\danetestowe.xml">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Xml>
+    <Xml Include="..\out\data.xml">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Xml>
+    <Xml Include="..\out\message.xml">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Xml>
+    <Xml Include="..\out\options.xml">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Xml>
+    <Xml Include="..\out\options_test.xml">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Xml>
+    <Xml Include="..\out\powiazania.xml">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Xml>
+    <Xml Include="..\out\resource\ekrany.xml">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Xml>
+    <Xml Include="..\out\resource\state.xml">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Xml>
+    <Xml Include="..\out\test.xml">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\out\resource\arial.ttf">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Font>
+    <Font Include="..\out\resource\consola.ttf">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Font>
+    <Font Include="..\out\resource\TransformersMovie.ttf">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ExcludedFromBuild>
+    </Font>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
