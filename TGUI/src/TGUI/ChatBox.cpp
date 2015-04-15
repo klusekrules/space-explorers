@@ -342,9 +342,9 @@ namespace tgui
 		tempLine->setText(text);
 		if (tempLine->getSize().x + 4.0f > width){
 			sf::String napis;
-			unsigned int pos = 0;
-			int size_prev = text.getSize() - 1;
-			int size = size_prev / 2;
+			long long pos = 0;
+			long long size_prev = static_cast<long long>(text.getSize() - 1);
+			long long size = size_prev / 2;
 			bool wZakresie = false;
 			bool ok = false;
 			bool koniec = false;
