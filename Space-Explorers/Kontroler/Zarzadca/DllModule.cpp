@@ -20,7 +20,7 @@ namespace SpEx{
 			handle_ = LoadLibrary(plik_.c_str());
 			if (!handle_) {
 				std::stringstream ss;
-				ss << "Nie udalo sie wczytac pliku: " << plik_ << std::endl;
+				ss << "Nie udalo sie wczytac pliku: " << plik_ <<  ". Error number: " << GetLastError() << std::endl;
 #ifndef LOG_OFF_ALL
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, ss.str());
 #endif
