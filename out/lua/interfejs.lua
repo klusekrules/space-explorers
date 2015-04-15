@@ -18,6 +18,14 @@ struct Stan_t{
 	int numer_;
 };
 
+enum TrybAplikacji {
+	Serwer = 1 , 
+	Klient = 2 , 
+	Invalid = 3 
+};
+
+enum TrybAplikacji trybAplikacji();
+
 //Pobieranie informacji
 bool pobierzZdarzenie( struct Zdarzenie_t& z );
 bool pobierzPoprzedniStan( struct Stan_t& s );

@@ -5,7 +5,7 @@
 #include "Zdarzenie.h"
 #include "Stan.h"
 #include "Utils\Singleton.h"
-#include "Eksport\TypyEksportowne.h"
+#include "Eksport\TypyEksportowane.h"
 #include "Kontroler\Wielowatkowosc\MenadzerWatkow.h"
 
 namespace SpEx{

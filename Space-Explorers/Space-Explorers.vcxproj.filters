@@ -807,11 +807,11 @@
     <ClInclude Include="Eksport\Export.h">
       <Filter>SourceFile\Export</Filter>
     </ClInclude>
-    <ClInclude Include="Eksport\TypyEksportowne.h">
-      <Filter>SourceFile\Export</Filter>
-    </ClInclude>
     <ClInclude Include="Resource\git_version.h">
       <Filter>Resource\Wersja</Filter>
+    </ClInclude>
+    <ClInclude Include="Eksport\TypyEksportowane.h">
+      <Filter>SourceFile\Export</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

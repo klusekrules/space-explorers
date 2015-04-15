@@ -337,7 +337,7 @@
     <ClInclude Include="Algorytmy\SHA3.h" />
     <ClInclude Include="Algorytmy\VMPC_MAC.h" />
     <ClInclude Include="Eksport\Export.h" />
-    <ClInclude Include="Eksport\TypyEksportowne.h" />
+    <ClInclude Include="Eksport\TypyEksportowane.h" />
     <ClInclude Include="Kontroler\Aplikacja.h" />
     <ClInclude Include="Kontroler\Gra.h" />
     <ClInclude Include="Kontroler\MaszynaStanow\MaszynaStanow.h" />

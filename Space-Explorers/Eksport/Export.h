@@ -1,5 +1,5 @@
 #pragma once
-#include "TypyEksportowne.h"
+#include "TypyEksportowane.h"
 
 /** @defgroup group1 Funkcje eksportowane
 * \brief Funkcje eksportowane
@@ -341,6 +341,8 @@ extern "C"{
 
 
 	SPACE_EXPLORERS_API void __cdecl logujPoleceniaKonsoli();
+
+	SPACE_EXPLORERS_API TrybAplikacji __cdecl trybAplikacji();
 }
 
 /** @} */

@@ -40,6 +40,10 @@ function Aplikacja:listaPolecen()
 	ffi.C.logujPoleceniaKonsoli()
 end
 
+function Aplikacja:tryb()
+	return ffi.C.trybAplikacji()
+end
+
 function Aplikacja:zaloguj(login, pass)	
 	return ffi.C.zaloguj(login.kontrolka_,pass.kontrolka_)
 end

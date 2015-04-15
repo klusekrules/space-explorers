@@ -22,7 +22,9 @@ function stanPoczatkowy ()
 	else
 		app:loguj("Nieustawianiono")
 	end
-	app:listaPolecen()
+	if app:tryb() == "Serwer" then
+		app:listaPolecen()
+	end
 end
 
 function ustawOknoMenu ()

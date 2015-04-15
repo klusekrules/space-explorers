@@ -468,11 +468,11 @@ namespace SpEx{
 				std::string nazwa(*wsk);
 				if (!nazwa.empty()){
 					if (nazwa == "Serwer"){
-						tryb_ = Serwer;
+						tryb_ = TrybAplikacji::Serwer;
 						return true;
 					}
 					if (nazwa == "Klient"){
-						tryb_ = Klient;
+						tryb_ = TrybAplikacji::Klient;
 						return true;
 					}
 				}
@@ -491,15 +491,15 @@ namespace SpEx{
 
 		switch (tryb_)
 		{
-		case Serwer:
+		case TrybAplikacji::Serwer:
 			logger_.loguj(SLog::Log::Info, "Tryb dzia³ania aplikacji: Serwer");
 			SpEx::MaszynaStanow::pobierzInstancje().start();
 			break;
-		case Klient:
+		case TrybAplikacji::Klient:
 			logger_.loguj(SLog::Log::Info, "Tryb dzia³ania aplikacji: Klient");
 			SpEx::MaszynaStanow::pobierzInstancje().start();
 			break;
-		case Invalid:
+		case TrybAplikacji::Invalid:
 			logger_.loguj(SLog::Log::Info, "Tryb dzia³ania aplikacji: Invalid");
 			break;
 		default:
@@ -552,6 +552,10 @@ namespace SpEx{
 				metoda->second.funkcja_(parametry);
 			}
 		}
+	}
+
+	TrybAplikacji Aplikacja::pobierzTrybAplikacji() const{
+		return tryb_;
 	}
 
 	__int64 Aplikacja::pobierzNumerLosowy(){

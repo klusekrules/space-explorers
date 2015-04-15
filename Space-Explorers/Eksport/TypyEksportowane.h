@@ -36,6 +36,13 @@ extern "C"{
 		int numer_; /// Numer dodatkowy.
 		int idZdarzenia_; /// Numer zdarzenia.
 	};
+
+
+	enum SPACE_EXPLORERS_API TrybAplikacji{
+		Serwer = 1 ,
+		Klient = 2 ,
+		Invalid = 3
+	};
 };
 
 /** @} */

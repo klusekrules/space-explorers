@@ -9,6 +9,7 @@
 #include <random>
 #include "Utils\Singleton.h"
 #include "UstawieniaAplikacji.h"
+#include "Eksport\TypyEksportowane.h"
 
 typedef struct _SYMBOL_INFO {
 	ULONG       SizeOfStruct;
@@ -159,6 +160,8 @@ namespace SpEx {
 		void wykonajPolecenie(const std::string&);
 
 		void logujListePolecenKonsoli() const;
+		
+		TrybAplikacji pobierzTrybAplikacji() const;
 
 		void start();
 
@@ -219,12 +222,6 @@ namespace SpEx {
 
 		std::map< std::string, OpcjePolecenia> poleceniaKonsoli_;
 		bool czyKonsola_;
-
-		enum TrybAplikacji{
-			Serwer,
-			Klient,
-			Invalid
-		};
 
 		TrybAplikacji tryb_ = Invalid;
 
