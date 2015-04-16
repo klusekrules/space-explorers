@@ -128,14 +128,7 @@ namespace SpEx{
 
 		ustawPlikLogow();
 
-		if (czyKonsola_){
-			poleceniaKonsoli_.emplace("zamknij", OpcjePolecenia("zamykanie aplikacji", [](std::string){ zamknijAplikacje(); }));
-			poleceniaKonsoli_.emplace("info", OpcjePolecenia("informacje o aplikacji", [&](std::string){ logApInfo(); }));
-			konsola_ = std::make_shared<Konsola>(logger_);
-			konsola_->czekajNaInicjalizacje();
-		} else{
-			konsola_ = nullptr;
-		}
+		konfigurujKonsole();
 
 		/* ------------------------------------ */
 
@@ -334,6 +327,20 @@ namespace SpEx{
 
 	}
 
+	void Aplikacja::rejestrujMetodyKonsoli(){
+		poleceniaKonsoli_.emplace("zamknij", OpcjePolecenia("zamykanie aplikacji", [](std::string){ zamknijAplikacje(); }));
+		poleceniaKonsoli_.emplace("info", OpcjePolecenia("informacje o aplikacji", [&](std::string){ logApInfo(); }));
+	}
+	
+	void Aplikacja::konfigurujKonsole(){		
+		if (czyKonsola_){
+			rejestrujMetodyKonsoli();
+			konsola_ = std::make_shared<Konsola>(logger_);
+			konsola_->czekajNaInicjalizacje();
+		} else{
+			konsola_ = nullptr;
+		}
+	}
 
 	void Aplikacja::inicjalizujWinsock(){
 		WORD RequiredVersion;

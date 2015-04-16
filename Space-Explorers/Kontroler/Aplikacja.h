@@ -213,7 +213,11 @@ namespace SpEx {
 
 		void rejestrujMetodyRPC();
 
+		void rejestrujMetodyKonsoli();
+
 		void konfigurujLogger();
+
+		void konfigurujKonsole();
 
 		void inicjalizujWinsock();
 
