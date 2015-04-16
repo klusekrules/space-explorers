@@ -44,12 +44,22 @@ namespace SpEx {
 	class ZarzadcaPluginow;
 	class Fabrykator;
 	class Gra;
+	class Serwer;
+	class Klient;
 	class ZarzadcaLokacji;
 	class ZarzadcaUzytkownikow;
 	class ZarzadcaZasobow;
 }
 // ----------------------------
 
+#define RETURN_CODE_OK 0
+#define RETURN_CODE_SERWER_JUZ_JEST_WLACZONY 1
+#define RETURN_CODE_NIEODPOWIEDNI_TRYB_APLIKACJI 2
+
+#define RETURN_CODE_SERWER_JUZ_JEST_WYLACZONY 3
+
+#define RETURN_CODE_ISTNIEJE_POLACZENIE 4
+#define RETURN_CODE_BRAK_POLACZENIA 5
 
 namespace SpEx {
 
@@ -165,6 +175,13 @@ namespace SpEx {
 
 		void start();
 
+		int uruchomSerwer();
+		int zatrzymajSerwer();
+
+
+		int polaczDoSerwera( const std::string& ip, unsigned short port);
+		int rozlaczOdSerwera();
+
 		/**
 		* \brief Metoda tworz¹ca tekstowy opis obiektu.
 		*
@@ -231,6 +248,9 @@ namespace SpEx {
 		std::shared_ptr<ZarzadcaUzytkownikow> zarzadcaUzytkownikow_; /// Zarz¹dca u¿ytkowników.
 		std::shared_ptr<ZarzadcaLokacji> zarzadcaLokacji_; /// Obiekt zarz¹dzaj¹cy lokacjami.
 		
+		std::shared_ptr<Serwer> serwer_;
+		std::shared_ptr<Klient> klient_;
+
 		struct OpcjePolecenia{
 			OpcjePolecenia(std::string opis, std::function<void(std::string)> funkcja)
 				: opisPolecenia_(opis), funkcja_(funkcja){}

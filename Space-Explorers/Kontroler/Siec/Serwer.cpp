@@ -1,7 +1,8 @@
 #include "Serwer.h"
+#include <Ws2tcpip.h>
 
 #define ATRYBUT_PORT_SERWERA "portSerwera"
-
+#define IP_BUFOR_ROZMIAR 20
 namespace SpEx{
 	Serwer::Serwer(const UstawieniaAplikacji& ustawienia)
 		: Watek(true)
@@ -30,6 +31,7 @@ namespace SpEx{
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji listen: " + std::to_string(error));
 			return;
 		}
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Rozpoczêto nas³uchiwanie.");
 
 		struct sockaddr_in addr;
 		int addrSize = sizeof(addr);
@@ -47,6 +49,10 @@ namespace SpEx{
 			}
 			if (gniazdoKlienta != INVALID_SOCKET){
 				polaczenia_.emplace_back(gniazdoKlienta, addr);
+				char ip[IP_BUFOR_ROZMIAR];
+				ZeroMemory(ip, IP_BUFOR_ROZMIAR);
+				InetNtop(AF_INET, &addr.sin_addr, ip, IP_BUFOR_ROZMIAR);
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Przychodz¹ce po³¹czenie od: " + std::string(ip));
 				polaczenia_.back().odblokuj();
 			}
 			else{
@@ -54,6 +60,7 @@ namespace SpEx{
 			}
 		}
 
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Zamykanie po³¹czeñ.");
 		for (auto& p : polaczenia_){
 			p.zakoncz();
 		}
@@ -63,6 +70,7 @@ namespace SpEx{
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d oczekiwania na zamkniêcie polaczenia: ");			
 			}
 		}
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Zamkniêto po³¹czenia.");
 
 		polaczenia_.clear();
 	}

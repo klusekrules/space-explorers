@@ -343,6 +343,8 @@ extern "C"{
 	SPACE_EXPLORERS_API void __cdecl logujPoleceniaKonsoli();
 
 	SPACE_EXPLORERS_API TrybAplikacji __cdecl trybAplikacji();
+
+	SPACE_EXPLORERS_API int __cdecl uruchomSerwer();
 }
 
 /** @} */

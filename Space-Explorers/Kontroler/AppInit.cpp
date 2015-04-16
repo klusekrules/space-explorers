@@ -328,8 +328,94 @@ namespace SpEx{
 	}
 
 	void Aplikacja::rejestrujMetodyKonsoli(){
-		poleceniaKonsoli_.emplace("zamknij", OpcjePolecenia("zamykanie aplikacji", [](std::string){ zamknijAplikacje(); }));
+
+		poleceniaKonsoli_.emplace("zamknij", OpcjePolecenia("zamykanie aplikacji", [&](std::string){ 
+			rozlaczOdSerwera(); 
+			zatrzymajSerwer(); 
+			zamknijAplikacje(); 
+		}));
 		poleceniaKonsoli_.emplace("info", OpcjePolecenia("informacje o aplikacji", [&](std::string){ logApInfo(); }));
+
+		switch (tryb_)
+		{
+		case TrybAplikacji::Serwer:
+
+			poleceniaKonsoli_.emplace("start", OpcjePolecenia("uruchom serwer", [&](std::string){ 
+				auto ret = uruchomSerwer(); 
+				switch (ret){
+				case RETURN_CODE_OK : 
+					logger_.loguj(SLog::Log::Info, "Ok");
+					break;
+				case RETURN_CODE_SERWER_JUZ_JEST_WLACZONY:
+					logger_.loguj(SLog::Log::Warning, "Serwer jest ju¿ w³¹czony");
+					break;
+				case RETURN_CODE_NIEODPOWIEDNI_TRYB_APLIKACJI:
+					logger_.loguj(SLog::Log::Warning, "Aplikacja uruchomiona w z³ym trybie");
+					break;
+				default:
+					logger_.loguj(SLog::Log::Warning, "Nierozpoznany kod powrotu: " + std::to_string(ret));
+					break;
+				}
+			}));
+
+			poleceniaKonsoli_.emplace("stop", OpcjePolecenia("zatrzymaj serwer", [&](std::string){
+				auto ret = zatrzymajSerwer();
+				switch (ret){
+				case RETURN_CODE_OK:
+					logger_.loguj(SLog::Log::Info, "Ok");
+					break;
+				case RETURN_CODE_SERWER_JUZ_JEST_WYLACZONY:
+					logger_.loguj(SLog::Log::Warning, "Serwer jest ju¿ wy³¹czony");
+					break;
+				default:
+					logger_.loguj(SLog::Log::Warning, "Nierozpoznany kod powrotu: " + std::to_string(ret));
+					break;
+				}
+			}));
+
+			break;
+		case TrybAplikacji::Klient:
+
+			poleceniaKonsoli_.emplace("po³¹cz", OpcjePolecenia("po³acz siê z serwerem", [&](std::string param){
+				auto pos = param.find_first_of(':');
+				auto ret = polaczDoSerwera(param.substr(0,pos),std::strtol(param.substr(pos+1).c_str(),0,10));
+				switch (ret){
+				case RETURN_CODE_OK:
+					logger_.loguj(SLog::Log::Info, "Ok");
+					break;
+				case RETURN_CODE_ISTNIEJE_POLACZENIE:
+					logger_.loguj(SLog::Log::Warning, "Jest ju¿ nawi¹zane po³¹czenie.");
+					break;
+				case RETURN_CODE_NIEODPOWIEDNI_TRYB_APLIKACJI:
+					logger_.loguj(SLog::Log::Warning, "Aplikacja uruchomiona w z³ym trybie");
+					break;
+				default:
+					logger_.loguj(SLog::Log::Warning, "Nierozpoznany kod powrotu: " + std::to_string(ret));
+					break;
+				}
+			}));
+
+			poleceniaKonsoli_.emplace("roz³¹cz", OpcjePolecenia("roz³¹cz siê z serwerem", [&](std::string){
+				auto ret = rozlaczOdSerwera();
+				switch (ret){
+				case RETURN_CODE_OK:
+					logger_.loguj(SLog::Log::Info, "Ok");
+					break;
+				case RETURN_CODE_BRAK_POLACZENIA:
+					logger_.loguj(SLog::Log::Warning, "Brak po³¹czenia");
+					break;
+				default:
+					logger_.loguj(SLog::Log::Warning, "Nierozpoznany kod powrotu: " + std::to_string(ret));
+					break;
+				}
+			}));
+
+			break;
+		case TrybAplikacji::Invalid:
+			break;
+		default:
+			break;
+		}
 	}
 	
 	void Aplikacja::konfigurujKonsole(){		

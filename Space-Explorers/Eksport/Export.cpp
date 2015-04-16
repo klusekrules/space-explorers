@@ -24,7 +24,10 @@ extern "C"{
 	SPACE_EXPLORERS_API TrybAplikacji __cdecl trybAplikacji(){
 		return SpEx::Aplikacja::pobierzInstancje().pobierzTrybAplikacji();
 	}
-
+	
+	SPACE_EXPLORERS_API int __cdecl uruchomSerwer(){
+		return SpEx::Aplikacja::pobierzInstancje().uruchomSerwer();
+	}
 
 	SPACE_EXPLORERS_API void __cdecl wyswietlWiadomoscWGUI(unsigned int typ, const char * komunikat){
 		SpEx::UtilsGui::wyswietlWiadomoscWGUI(typ, komunikat);

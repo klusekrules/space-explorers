@@ -224,6 +224,9 @@ namespace SpEx{
 
 		std::string s(bufor.begin(), bufor.end());
 		odbierz_ = std::move(s);
+		if (ref_.czyCzekaNaZakonczenie())
+			return RPC_ERROR_CONNECTION_CLOSED;
+
 		if (rozmiar > 0)
 			return RPC_OK;
 		else

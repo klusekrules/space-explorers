@@ -30,6 +30,22 @@ namespace SpEx{
 		funkcja_ = std::bind(&Klient::pracujJakoKlient, this);
 	}
 
+	Klient::Klient(const std::string& ip, unsigned short port)
+		: Watek(true)
+	{
+
+		struct addrinfo *result = NULL;
+		if (getaddrinfo(ip.c_str(), nullptr, nullptr, &result)){
+			throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu());
+		}
+		decltype(addr_) &sock = *((decltype(addr_)*)(result->ai_addr));
+		addr_.sin_family = AF_INET;
+		addr_.sin_port = htons(port);
+		addr_.sin_addr.s_addr = sock.sin_addr.s_addr;
+		gniazdo_ = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+		funkcja_ = std::bind(&Klient::pracujJakoKlient, this);
+	}
+
 	Klient::Klient(SOCKET gniazdo, struct sockaddr_in &addr)
 		: Watek(true)
 	{
@@ -151,7 +167,7 @@ namespace SpEx{
 			DaneTCP dane(*this);
 			int error = dane.odbierz();
 			if (error != RPC_OK){
-				if (error!=RPC_ERROR_CONNECTION_CLOSED)
+				if (error != RPC_ERROR_CONNECTION_CLOSED)
 					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Klient::pracujJakoSerwer() -> B³¹d podczas odbierania danych: " + std::to_string(error));
 				break;
 			}

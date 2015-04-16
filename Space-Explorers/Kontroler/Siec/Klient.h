@@ -15,6 +15,9 @@ namespace SpEx{
 		// Konstruktor po stronie klienta.
 		Klient(const UstawieniaAplikacji& opcje);
 
+		// Konstruktor po stronie klienta.
+		Klient(const std::string& ip, unsigned short port);
+
 		// Konstruktor po stronie serwera.
 		Klient(SOCKET gniazdo, struct sockaddr_in &addr);
 

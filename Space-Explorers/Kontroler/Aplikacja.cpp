@@ -11,6 +11,8 @@
 
 #include "Widok\Konsola\Konsola.h"
 
+#include "Siec\Serwer.h"
+#include "Siec\Klient.h"
 #include "Zarzadca\Fabrykator.h"
 #include "Zarzadca\ZarzadcaZasobow.h"
 #include "Zarzadca\ZarzadcaPluginow.h"
@@ -36,6 +38,54 @@ namespace SpEx{
 
 	__int64 Aplikacja::pobierzNumerLosowy(){
 		return dystrybutor_(generator_);
+	}
+
+	int Aplikacja::uruchomSerwer(){
+		if (serwer_){
+			return RETURN_CODE_SERWER_JUZ_JEST_WLACZONY;
+		}
+
+		if (tryb_ != TrybAplikacji::Serwer){
+			return RETURN_CODE_NIEODPOWIEDNI_TRYB_APLIKACJI;
+		}
+
+		serwer_ = std::make_shared<Serwer>(ustawienia_);
+		serwer_->odblokuj();
+		return RETURN_CODE_OK;
+	}
+	
+	int Aplikacja::zatrzymajSerwer(){
+		if (!serwer_){
+			return RETURN_CODE_SERWER_JUZ_JEST_WYLACZONY;
+		}
+		serwer_->zakoncz();
+		serwer_->czekajNaZakonczenie();
+		serwer_ = nullptr;
+		return RETURN_CODE_OK;
+	}
+
+	int Aplikacja::polaczDoSerwera(const std::string& ip, unsigned short port){
+		if (klient_){
+			return RETURN_CODE_ISTNIEJE_POLACZENIE;
+		}
+
+		if (tryb_ != TrybAplikacji::Klient){
+			return RETURN_CODE_NIEODPOWIEDNI_TRYB_APLIKACJI;
+		}
+
+		klient_ = std::make_shared<Klient>(ip,port);
+		klient_->odblokuj();
+		return RETURN_CODE_OK;
+	}
+
+	int Aplikacja::rozlaczOdSerwera(){
+		if (!klient_){
+			return RETURN_CODE_BRAK_POLACZENIA;
+		}
+		klient_->zakoncz();
+		klient_->czekajNaZakonczenie();
+		klient_ = nullptr;
+		return RETURN_CODE_OK;
 	}
 
 	void Aplikacja::logujListePolecenKonsoli() const{
