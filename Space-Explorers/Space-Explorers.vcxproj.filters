@@ -379,6 +379,9 @@
     <ClCompile Include="Eksport\Export.cpp">
       <Filter>SourceFile\Export</Filter>
     </ClCompile>
+    <ClCompile Include="Kontroler\AppInit.cpp">
+      <Filter>SourceFile\Kontroler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Algorytmy\CRC.h">

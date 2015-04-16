@@ -484,6 +484,7 @@
     <ClCompile Include="Eksport\Export.cpp" />
     <ClCompile Include="Kontroler\ApInfo.cpp" />
     <ClCompile Include="Kontroler\Aplikacja.cpp" />
+    <ClCompile Include="Kontroler\AppInit.cpp" />
     <ClCompile Include="Kontroler\Gra.cpp" />
     <ClCompile Include="Kontroler\MaszynaStanow\MaszynaStanow.cpp" />
     <ClCompile Include="Kontroler\MaszynaStanow\Skrypty\DllSkrypt.cpp" />
