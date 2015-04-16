@@ -204,6 +204,21 @@ namespace SpEx {
 		void logApInfo() const;
 
 		void rejestrujParametryKonsoli();
+
+		void rejestrujKontrolkiDoTGUI();
+
+		void rejestrujTypyZasobow();
+
+		void rejestrujTypySkryptow();
+
+		void rejestrujMetodyRPC();
+
+		void konfigurujLogger();
+
+		void inicjalizujWinsock();
+
+		void ustawPlikLogow();
+
 		std::shared_ptr<Konsola> konsola_;
 		std::shared_ptr<ZarzadcaPluginow> zarzadcaPluginow_; /// Obiekt zarz¹dzaj¹cy plugginami.
 		std::shared_ptr<Gra> instancjaGry_; /// Obiekt prezentuj¹cy instancjê gry.

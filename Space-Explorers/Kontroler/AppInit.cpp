@@ -88,10 +88,7 @@ namespace SpEx{
 		fabrykator_(nullptr), instancjaGry_(nullptr), zarzadcaZasobow_(nullptr), zarzadcaUzytkownikow_(nullptr), zarzadcaLokacji_(nullptr),
 		plikKonfiguracyjny_("options.xml")
 	{
-		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listasurowcowgui", tgui::ListaSurowcowGui::createWidget);
-		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listaobiektowgui", tgui::ListaObiektowGui::createWidget);
-		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("kontrolkaobiektu", tgui::KontrolkaObiektu::createWidget);
-		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("loglistgui", tgui::LogListGui::createWidget);
+		rejestrujKontrolkiDoTGUI();
 
 		fabrykator_ = std::make_shared<Fabrykator>();
 		zarzadcaZasobow_ = std::make_shared<ZarzadcaZasobow>();
@@ -123,64 +120,13 @@ namespace SpEx{
 			ustawienia_[ATRYBUT_JEZYK_APLIKACJI] = ATRYBUT_JEZYK_APLIKACJI_DOMYSLNY;
 		}
 
-		auto i = std::stol(ustawienia_[ATRYBUT_NUMER_FORMATU_DATY], nullptr, 10);
-		switch (i)
-		{
-		case SLog::Log::Data: logger_.ustawFormatCzasu(SLog::Log::Data);
-			break;
-		case SLog::Log::Czas: logger_.ustawFormatCzasu(SLog::Log::Czas);
-			break;
-		case SLog::Log::DataCzas: logger_.ustawFormatCzasu(SLog::Log::DataCzas);
-			break;
-		default:
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_FORMATU_DATY_LOGOW(std::to_string(i)));
-			break;
-		}
-
-		for (auto typ : Utils::dekodujListeTypowLogow(ustawienia_[ATRYBUT_ODBLOKOWANE_LOGI])){
-			logger_.odblokujLogi(typ);
-		}
-
-		for (auto typ : Utils::dekodujListeTypowLogow(ustawienia_[ATRYBUT_ZABLOKOWANE_LOGI])){
-			logger_.zablokujLogi(typ);
-		}
-
+		konfigurujLogger();
+		
 		if (!zaladujOpcje()){
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_LADOWANIA_OPCJI);
 		}
 
-		/* ------- Przypisanie pliku do którego bêd¹ dodawane logi ------- */
-
-		struct tm timeinfo;
-		time_t t = time(nullptr);
-		localtime_s(&timeinfo, &t);
-		char s[20];
-		if (strftime(s, 20, ustawienia_[ATRYBUT_FORMAT_DATY_LOGOW].c_str(), &timeinfo) == 0){
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_FORMATU_DATY);
-		}
-
-		std::stringstream sfile;
-		sfile << ustawienia_[ATRYBUT_PRZEDROSTEK_PLIKU_LOGOW] << s << ".log";
-		std::string filename = sfile.str();
-		logger_.dodajGniazdoWyjsciowe([&filename](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{
-			static std::fstream plik(filename, std::ios_base::app);
-			std::string sTyp;
-			switch (typ)
-			{
-			case SLog::Log::Debug: sTyp = " [DEBUG] ";
-				break;
-			case SLog::Log::Info: sTyp = " [INFO] ";
-				break;
-			case SLog::Log::Warning: sTyp = " [WARNING] ";
-				break;
-			case SLog::Log::Error: sTyp = " [ERROR] ";
-				break;
-			case SLog::Log::All:
-			default:
-				break;
-			}
-			plik << czas << sTyp << komunikat << std::endl;
-		});
+		ustawPlikLogow();
 
 		if (czyKonsola_){
 			poleceniaKonsoli_.emplace("zamknij", OpcjePolecenia("zamykanie aplikacji", [](std::string){ zamknijAplikacje(); }));
@@ -197,49 +143,20 @@ namespace SpEx{
 		_set_invalid_parameter_handler(myInvalidParameterHandler);
 
 		/* ------------------------------------ */
+
 #ifndef LOG_OFF_ALL
-		logger_.loguj(SLog::Log::Info, "Start aplikacji Space-Explorers.");
-#endif
-		//Wyswietlanie informacji o aplikacji
 		logApInfo();
-
-		WORD RequiredVersion;
-		WSADATA WData;
-
-		RequiredVersion = MAKEWORD(2, 0);
-
-		if (WSAStartup(RequiredVersion, &WData) != 0) {
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_INICJALIZACJI_WINSOCK);
-		}
-
-#ifndef LOG_OFF_ALL
-		//Wyswietlanie informacji o zaladowanej bibliotece
-		if (uchwyt_){
-			if (czyZainicjalizowanaBiblioteka_){
-				logger_.loguj(SLog::Log::Info, "Za³adowano biblioteke Dbghelp.dll");
-			} else{
-				logger_.loguj(SLog::Log::Warning, "Nie zanaleziono funkcji SymInitialize i/lub SymFromAddr.");
-			}
-		} else{
-			logger_.loguj(SLog::Log::Warning, "Nie za³adowano biblioteki Dbghelp.dll");
-		}
 #endif
+
+		inicjalizujWinsock();
+
 		zarzadcaLokacji_->inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 		zarzadcaZasobow_->inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 		zarzadcaUzytkownikow_->inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 
-		zarzadcaZasobow_->rejestruj<LuaState>();
-		zarzadcaZasobow_->rejestruj<DllModule>();
-		zarzadcaZasobow_->rejestruj<XmlModul>();
-		zarzadcaZasobow_->rejestruj<SumaKontrolnaPliku>();
-
-		/* ------- Rejestrowanie zdalnych metod -------*/
-		fabrykator_->rejestrujMetodeRPC<EchoRPC>();
-		fabrykator_->rejestrujMetodeRPC<InicjujLogowanieRPC>();
-		fabrykator_->rejestrujMetodeRPC<PotwierdzLogowanieRPC>();
-		fabrykator_->rejestrujMetodeRPC<SprawdzSumyKontrolneRPC>();
-		fabrykator_->rejestrujSkrypt<DllSkrypt>();
-		fabrykator_->rejestrujSkrypt<LuaSkrypt>();
+		rejestrujTypyZasobow();
+		rejestrujMetodyRPC();
+		rejestrujTypySkryptow();
 
 		zarzadcaPluginow_ = std::make_shared<ZarzadcaPluginow>(ustawienia_, fabrykator_->pobierzFabrykeZmian(), logger_);
 
@@ -251,6 +168,13 @@ namespace SpEx{
 
 		if (!zarzadcaPluginow_->zaladujZewnetrzneKlasyZmian(*zarzadcaZasobow_))
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DODATKOWYCH);
+	}
+	
+	void Aplikacja::rejestrujKontrolkiDoTGUI(){
+		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listasurowcowgui", tgui::ListaSurowcowGui::createWidget);
+		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listaobiektowgui", tgui::ListaObiektowGui::createWidget);
+		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("kontrolkaobiektu", tgui::KontrolkaObiektu::createWidget);
+		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("loglistgui", tgui::LogListGui::createWidget);
 	}
 
 	void Aplikacja::rejestrujParametryKonsoli(){
@@ -326,6 +250,30 @@ namespace SpEx{
 		return true;
 	}
 
+	void Aplikacja::konfigurujLogger(){
+		auto i = std::stol(ustawienia_[ATRYBUT_NUMER_FORMATU_DATY], nullptr, 10);
+		switch (i)
+		{
+		case SLog::Log::Data: logger_.ustawFormatCzasu(SLog::Log::Data);
+			break;
+		case SLog::Log::Czas: logger_.ustawFormatCzasu(SLog::Log::Czas);
+			break;
+		case SLog::Log::DataCzas: logger_.ustawFormatCzasu(SLog::Log::DataCzas);
+			break;
+		default:
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_FORMATU_DATY_LOGOW(std::to_string(i)));
+			break;
+		}
+
+		for (auto typ : Utils::dekodujListeTypowLogow(ustawienia_[ATRYBUT_ODBLOKOWANE_LOGI])){
+			logger_.odblokujLogi(typ);
+		}
+
+		for (auto typ : Utils::dekodujListeTypowLogow(ustawienia_[ATRYBUT_ZABLOKOWANE_LOGI])){
+			logger_.zablokujLogi(typ);
+		}
+	}
+
 	bool Aplikacja::zaladujOpcje(){
 		try{
 			std::locale pl(ustawienia_[ATRYBUT_JEZYK_APLIKACJI]);
@@ -351,5 +299,70 @@ namespace SpEx{
 		}
 		return true;
 	}
-		
+
+	void Aplikacja::ustawPlikLogow(){
+		struct tm timeinfo;
+		time_t t = time(nullptr);
+		localtime_s(&timeinfo, &t);
+		char s[20];
+		if (strftime(s, 20, ustawienia_[ATRYBUT_FORMAT_DATY_LOGOW].c_str(), &timeinfo) == 0){
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_FORMATU_DATY);
+		}
+
+		std::stringstream sfile;
+		sfile << ustawienia_[ATRYBUT_PRZEDROSTEK_PLIKU_LOGOW] << s << ".log";
+		std::string filename = sfile.str();
+		logger_.dodajGniazdoWyjsciowe([filename](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{
+			static std::fstream plik(filename, std::ios_base::app);
+			std::string sTyp;
+			switch (typ)
+			{
+			case SLog::Log::Debug: sTyp = " [DEBUG] ";
+				break;
+			case SLog::Log::Info: sTyp = " [INFO] ";
+				break;
+			case SLog::Log::Warning: sTyp = " [WARNING] ";
+				break;
+			case SLog::Log::Error: sTyp = " [ERROR] ";
+				break;
+			case SLog::Log::All:
+			default:
+				break;
+			}
+			plik << czas << sTyp << komunikat << std::endl;
+		});
+
+	}
+
+
+	void Aplikacja::inicjalizujWinsock(){
+		WORD RequiredVersion;
+		WSADATA WData;
+
+		RequiredVersion = MAKEWORD(2, 0);
+
+		if (WSAStartup(RequiredVersion, &WData) != 0) {
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_INICJALIZACJI_WINSOCK);
+		}
+	}
+
+	void Aplikacja::rejestrujTypyZasobow(){
+		zarzadcaZasobow_->rejestruj<LuaState>();
+		zarzadcaZasobow_->rejestruj<DllModule>();
+		zarzadcaZasobow_->rejestruj<XmlModul>();
+		zarzadcaZasobow_->rejestruj<SumaKontrolnaPliku>();
+	}
+
+	void Aplikacja::rejestrujMetodyRPC(){
+		fabrykator_->rejestrujMetodeRPC<EchoRPC>();
+		fabrykator_->rejestrujMetodeRPC<InicjujLogowanieRPC>();
+		fabrykator_->rejestrujMetodeRPC<PotwierdzLogowanieRPC>();
+		fabrykator_->rejestrujMetodeRPC<SprawdzSumyKontrolneRPC>();
+	}
+
+	void Aplikacja::rejestrujTypySkryptow(){
+		fabrykator_->rejestrujSkrypt<DllSkrypt>();
+		fabrykator_->rejestrujSkrypt<LuaSkrypt>();
+	}
+	
 }
