@@ -337,6 +337,10 @@
     <ClInclude Include="Algorytmy\SHA3.h" />
     <ClInclude Include="Algorytmy\VMPC_MAC.h" />
     <ClInclude Include="Eksport\Export.h" />
+    <ClInclude Include="Eksport\IProxyBO.h" />
+    <ClInclude Include="Eksport\KodyPowrotu.h" />
+    <ClInclude Include="Eksport\ProxyBOKlient.h" />
+    <ClInclude Include="Eksport\ProxyBOSerwer.h" />
     <ClInclude Include="Eksport\TypyEksportowane.h" />
     <ClInclude Include="Kontroler\Aplikacja.h" />
     <ClInclude Include="Kontroler\Gra.h" />
@@ -482,6 +486,8 @@
     <ClCompile Include="Algorytmy\SHA3.cpp" />
     <ClCompile Include="Algorytmy\VMPC_MAC.cpp" />
     <ClCompile Include="Eksport\Export.cpp" />
+    <ClCompile Include="Eksport\ProxyBOKlient.cpp" />
+    <ClCompile Include="Eksport\ProxyBOSerwer.cpp" />
     <ClCompile Include="Kontroler\ApInfo.cpp" />
     <ClCompile Include="Kontroler\Aplikacja.cpp" />
     <ClCompile Include="Kontroler\AppInit.cpp" />

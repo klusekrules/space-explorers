@@ -37,6 +37,10 @@
 #include "Siec\RPC\SprawdzSumyKontrolneRPC.h"
 
 #include "Eksport\Export.h"
+#include "Eksport\KodyPowrotu.h"
+#include "Eksport\IProxyBO.h"
+#include "Eksport\ProxyBOKlient.h"
+#include "Eksport\ProxyBOSerwer.h"
 
 #define KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU STyp::Tekst("Podczas przetwarzabua argumentów wyst¹pi³ b³¹d.")
 #define KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plik) STyp::Tekst("Nie powiod³o siê wczytywanie pliku konfiguracyjnego: " + plik)
@@ -48,7 +52,8 @@
 #define KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DODATKOWYCH STyp::Tekst("Nie powiod³a siê rejestracja dodatkowych obiektów zmiany.")
 #define KOMUNIKAT_BLAD_BRAK_PLIKU_DANYCH(plik) STyp::Tekst("Plik : " + plik + " z danymi programu nie zosta³ znaleziony!")
 #define KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folder) STyp::Tekst("Folder :" + folder + " nie zosta³ znaleziony!")
-#define KOMUNIKAT_BLAD_INICJALIZACJI_WINSOCK STyp::Tekst("B³¹d inicjalizcji biblioteki winsock")
+#define KOMUNIKAT_BLAD_INICJALIZACJI_WINSOCK STyp::Tekst("B³¹d inicjalizcji biblioteki winsock!")
+#define KOMUNIKAT_BLAD_NIE_USTAWIONO_TRYBU_APLIKACJI STyp::Tekst("Nie ustawiono trybu aplikacji!")
 
 #define KOMUNIKAT_STATUS_WINSOCK_WERSJA(wersja) ("Wersja WinSock: " + std::to_string(HIBYTE(wersja.wHighVersion)) + "." + std::to_string(LOBYTE(wersja.wHighVersion)))
 #define KOMUNIKAT_STATUS_WINSOCK_OPIS(wersja) ("Opis: " + std::string(wersja.szDescription))
@@ -110,6 +115,10 @@ namespace SpEx{
 		/* ------- Konfiguracja parametrów programu -------*/
 		if (!przetworzArgumenty()){
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU);
+		}
+
+		if (!proxy_){
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_NIE_USTAWIONO_TRYBU_APLIKACJI);
 		}
 
 		if (!ustawienia_.zaladuj(plikKonfiguracyjny_)){
@@ -195,11 +204,17 @@ namespace SpEx{
 				std::string nazwa(*wsk);
 				if (!nazwa.empty()){
 					if (nazwa == "Serwer"){
-						tryb_ = TrybAplikacji::Serwer;
+						if (proxy_){
+							return proxy_->pobierzTrybAplikacji() == TrybAplikacji::Serwer;
+						}
+						proxy_ = std::make_shared <ProxyBOSerwer>();
 						return true;
 					}
 					if (nazwa == "Klient"){
-						tryb_ = TrybAplikacji::Klient;
+						if (proxy_){
+							return proxy_->pobierzTrybAplikacji() == TrybAplikacji::Klient;
+						}
+						proxy_ = std::make_shared <ProxyBOKlient>();
 						return true;
 					}
 				}
@@ -326,101 +341,9 @@ namespace SpEx{
 		});
 
 	}
-
-	void Aplikacja::rejestrujMetodyKonsoli(){
-
-		poleceniaKonsoli_.emplace("zamknij", OpcjePolecenia("zamykanie aplikacji", [&](std::string){ 
-			rozlaczOdSerwera(); 
-			zatrzymajSerwer(); 
-			zamknijAplikacje(); 
-		}));
-		poleceniaKonsoli_.emplace("info", OpcjePolecenia("informacje o aplikacji", [&](std::string){ logApInfo(); }));
-
-		switch (tryb_)
-		{
-		case TrybAplikacji::Serwer:
-
-			poleceniaKonsoli_.emplace("start", OpcjePolecenia("uruchom serwer", [&](std::string){ 
-				auto ret = uruchomSerwer(); 
-				switch (ret){
-				case RETURN_CODE_OK : 
-					logger_.loguj(SLog::Log::Info, "Ok");
-					break;
-				case RETURN_CODE_SERWER_JUZ_JEST_WLACZONY:
-					logger_.loguj(SLog::Log::Warning, "Serwer jest ju¿ w³¹czony");
-					break;
-				case RETURN_CODE_NIEODPOWIEDNI_TRYB_APLIKACJI:
-					logger_.loguj(SLog::Log::Warning, "Aplikacja uruchomiona w z³ym trybie");
-					break;
-				default:
-					logger_.loguj(SLog::Log::Warning, "Nierozpoznany kod powrotu: " + std::to_string(ret));
-					break;
-				}
-			}));
-
-			poleceniaKonsoli_.emplace("stop", OpcjePolecenia("zatrzymaj serwer", [&](std::string){
-				auto ret = zatrzymajSerwer();
-				switch (ret){
-				case RETURN_CODE_OK:
-					logger_.loguj(SLog::Log::Info, "Ok");
-					break;
-				case RETURN_CODE_SERWER_JUZ_JEST_WYLACZONY:
-					logger_.loguj(SLog::Log::Warning, "Serwer jest ju¿ wy³¹czony");
-					break;
-				default:
-					logger_.loguj(SLog::Log::Warning, "Nierozpoznany kod powrotu: " + std::to_string(ret));
-					break;
-				}
-			}));
-
-			break;
-		case TrybAplikacji::Klient:
-
-			poleceniaKonsoli_.emplace("po³¹cz", OpcjePolecenia("po³acz siê z serwerem", [&](std::string param){
-				auto pos = param.find_first_of(':');
-				auto ret = polaczDoSerwera(param.substr(0,pos),std::strtol(param.substr(pos+1).c_str(),0,10));
-				switch (ret){
-				case RETURN_CODE_OK:
-					logger_.loguj(SLog::Log::Info, "Ok");
-					break;
-				case RETURN_CODE_ISTNIEJE_POLACZENIE:
-					logger_.loguj(SLog::Log::Warning, "Jest ju¿ nawi¹zane po³¹czenie.");
-					break;
-				case RETURN_CODE_NIEODPOWIEDNI_TRYB_APLIKACJI:
-					logger_.loguj(SLog::Log::Warning, "Aplikacja uruchomiona w z³ym trybie");
-					break;
-				default:
-					logger_.loguj(SLog::Log::Warning, "Nierozpoznany kod powrotu: " + std::to_string(ret));
-					break;
-				}
-			}));
-
-			poleceniaKonsoli_.emplace("roz³¹cz", OpcjePolecenia("roz³¹cz siê z serwerem", [&](std::string){
-				auto ret = rozlaczOdSerwera();
-				switch (ret){
-				case RETURN_CODE_OK:
-					logger_.loguj(SLog::Log::Info, "Ok");
-					break;
-				case RETURN_CODE_BRAK_POLACZENIA:
-					logger_.loguj(SLog::Log::Warning, "Brak po³¹czenia");
-					break;
-				default:
-					logger_.loguj(SLog::Log::Warning, "Nierozpoznany kod powrotu: " + std::to_string(ret));
-					break;
-				}
-			}));
-
-			break;
-		case TrybAplikacji::Invalid:
-			break;
-		default:
-			break;
-		}
-	}
-	
+		
 	void Aplikacja::konfigurujKonsole(){		
 		if (czyKonsola_){
-			rejestrujMetodyKonsoli();
 			konsola_ = std::make_shared<Konsola>(logger_);
 			konsola_->czekajNaInicjalizacje();
 		} else{

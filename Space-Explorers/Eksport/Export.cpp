@@ -14,19 +14,25 @@
 #include "Kontroler\Gra.h"
 #include "Model\Uzytkownik.h"
 #include "Utils\DefinicjeWezlowXML.h"
+#include "IProxyBO.h"
+#include "Widok\Konsola\Konsola.h"
 
 extern "C"{
 
 	SPACE_EXPLORERS_API void __cdecl logujPoleceniaKonsoli(){
-		SpEx::Aplikacja::pobierzInstancje().logujListePolecenKonsoli();
+		if (SpEx::Aplikacja::pobierzInstancje().konsola_)
+			SpEx::Aplikacja::pobierzInstancje().konsola_->logujListePolecen();
 	}
 
 	SPACE_EXPLORERS_API TrybAplikacji __cdecl trybAplikacji(){
-		return SpEx::Aplikacja::pobierzInstancje().pobierzTrybAplikacji();
+		if (SpEx::Aplikacja::pobierzInstancje().proxy_)
+			return SpEx::Aplikacja::pobierzInstancje().proxy_->pobierzTrybAplikacji();
+		else
+			return TrybAplikacji::Invalid;
 	}
 	
 	SPACE_EXPLORERS_API int __cdecl uruchomSerwer(){
-		return SpEx::Aplikacja::pobierzInstancje().uruchomSerwer();
+		return SpEx::Aplikacja::pobierzInstancje().proxy_->uruchomSerwer();
 	}
 
 	SPACE_EXPLORERS_API void __cdecl wyswietlWiadomoscWGUI(unsigned int typ, const char * komunikat){

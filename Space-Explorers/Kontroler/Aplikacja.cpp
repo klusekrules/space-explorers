@@ -22,6 +22,7 @@
 #include "MaszynaStanow\MaszynaStanow.h"
 
 #include "Parser\ParserDokumentXml.h"
+#include "Eksport\IProxyBO.h"
 
 namespace SpEx{
 
@@ -32,72 +33,8 @@ namespace SpEx{
 		instancjaGry_ = std::make_shared<Gra>(logger_, *zarzadcaLokacji_, ustawienia_);
 	}
 	
-	TrybAplikacji Aplikacja::pobierzTrybAplikacji() const{
-		return tryb_;
-	}
-
 	__int64 Aplikacja::pobierzNumerLosowy(){
 		return dystrybutor_(generator_);
-	}
-
-	int Aplikacja::uruchomSerwer(){
-		if (serwer_){
-			return RETURN_CODE_SERWER_JUZ_JEST_WLACZONY;
-		}
-
-		if (tryb_ != TrybAplikacji::Serwer){
-			return RETURN_CODE_NIEODPOWIEDNI_TRYB_APLIKACJI;
-		}
-
-		serwer_ = std::make_shared<Serwer>(ustawienia_);
-		serwer_->odblokuj();
-		return RETURN_CODE_OK;
-	}
-	
-	int Aplikacja::zatrzymajSerwer(){
-		if (!serwer_){
-			return RETURN_CODE_SERWER_JUZ_JEST_WYLACZONY;
-		}
-		serwer_->zakoncz();
-		serwer_->czekajNaZakonczenie();
-		serwer_ = nullptr;
-		return RETURN_CODE_OK;
-	}
-
-	int Aplikacja::polaczDoSerwera(const std::string& ip, unsigned short port){
-		if (klient_){
-			return RETURN_CODE_ISTNIEJE_POLACZENIE;
-		}
-
-		if (tryb_ != TrybAplikacji::Klient){
-			return RETURN_CODE_NIEODPOWIEDNI_TRYB_APLIKACJI;
-		}
-
-		klient_ = std::make_shared<Klient>(ip,port);
-		klient_->odblokuj();
-		return RETURN_CODE_OK;
-	}
-
-	int Aplikacja::rozlaczOdSerwera(){
-		if (!klient_){
-			return RETURN_CODE_BRAK_POLACZENIA;
-		}
-		klient_->zakoncz();
-		klient_->czekajNaZakonczenie();
-		klient_ = nullptr;
-		return RETURN_CODE_OK;
-	}
-
-	void Aplikacja::logujListePolecenKonsoli() const{
-		if(poleceniaKonsoli_.empty()){
-			logger_.loguj(SLog::Log::Info,"Brak polecen konsoli.");
-		} else{
-
-			logger_.loguj(SLog::Log::Info, "Lista dostêpnych poleceñ konsoli:");
-			for (auto & wpis : poleceniaKonsoli_){
-				logger_.loguj(SLog::Log::Info, wpis.first + " - " + wpis.second.opisPolecenia_);			
-			}
-		}
 	}
 	
 	std::string Aplikacja::pobierzDebugInfo() const{
@@ -108,41 +45,29 @@ namespace SpEx{
 #endif
 	}
 
-	void Aplikacja::wykonajPolecenie(const std::string& polecenie){
-		auto sPolecenie = Utils::trim(polecenie);
-		auto iter = std::find_if(sPolecenie.begin(), sPolecenie.end(), [](int i){ return ::isspace(i); });
-		std::string nazwa(sPolecenie.begin(), iter);
-		sPolecenie.erase(sPolecenie.begin(), iter);
-		auto parametry = Utils::trim(sPolecenie);
-		if (logger_.czyLogiOdblokowane(SLog::Log::Debug)){
-			logger_.loguj(SLog::Log::Debug, "Polecenie: \"" + nazwa + "\" - Parametry: \"" + parametry + "\"");
-		}
-		if (!nazwa.empty()){
-			auto metoda = poleceniaKonsoli_.find(nazwa);
-			if (metoda != poleceniaKonsoli_.end()){
-				metoda->second.funkcja_(parametry);
-			}
-		}
-	}
-
 	void Aplikacja::start(){
-		SpEx::MaszynaStanow::pobierzInstancje().inicjalizuj();
+		if (proxy_){
 
-		switch (tryb_)
-		{
-		case TrybAplikacji::Serwer:
-			logger_.loguj(SLog::Log::Info, "Tryb dzia³ania aplikacji: Serwer");
-			SpEx::MaszynaStanow::pobierzInstancje().start();
-			break;
-		case TrybAplikacji::Klient:
-			logger_.loguj(SLog::Log::Info, "Tryb dzia³ania aplikacji: Klient");
-			SpEx::MaszynaStanow::pobierzInstancje().start();
-			break;
-		case TrybAplikacji::Invalid:
-			logger_.loguj(SLog::Log::Info, "Tryb dzia³ania aplikacji: Invalid");
-			break;
-		default:
-			break;
+			proxy_->rejestrujMetodyKonsoli();
+
+			SpEx::MaszynaStanow::pobierzInstancje().inicjalizuj();
+
+			switch (proxy_->pobierzTrybAplikacji())
+			{
+			case TrybAplikacji::Serwer:
+				logger_.loguj(SLog::Log::Info, "Tryb dzia³ania aplikacji: Serwer");
+				SpEx::MaszynaStanow::pobierzInstancje().start();
+				break;
+			case TrybAplikacji::Klient:
+				logger_.loguj(SLog::Log::Info, "Tryb dzia³ania aplikacji: Klient");
+				SpEx::MaszynaStanow::pobierzInstancje().start();
+				break;
+			case TrybAplikacji::Invalid:
+				logger_.loguj(SLog::Log::Info, "Tryb dzia³ania aplikacji: Invalid");
+				break;
+			default:
+				break;
+			}
 		}
 	}
 		

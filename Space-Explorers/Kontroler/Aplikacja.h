@@ -44,22 +44,11 @@ namespace SpEx {
 	class ZarzadcaPluginow;
 	class Fabrykator;
 	class Gra;
-	class Serwer;
-	class Klient;
+	class IProxyBO;
 	class ZarzadcaLokacji;
 	class ZarzadcaUzytkownikow;
 	class ZarzadcaZasobow;
 }
-// ----------------------------
-
-#define RETURN_CODE_OK 0
-#define RETURN_CODE_SERWER_JUZ_JEST_WLACZONY 1
-#define RETURN_CODE_NIEODPOWIEDNI_TRYB_APLIKACJI 2
-
-#define RETURN_CODE_SERWER_JUZ_JEST_WYLACZONY 3
-
-#define RETURN_CODE_ISTNIEJE_POLACZENIE 4
-#define RETURN_CODE_BRAK_POLACZENIA 5
 
 namespace SpEx {
 
@@ -158,30 +147,27 @@ namespace SpEx {
 		inline ZarzadcaPluginow& pobierzZarzadcePluginow(){
 			return *zarzadcaPluginow_;
 		}
+		
 		/**
 		* \brief Destruktor.
 		*/
 		virtual ~Aplikacja();
 
 		SLog::Log& logger_; /// Instancja loggera.
-		
+
+		std::shared_ptr<Konsola> konsola_;
+
+		std::shared_ptr<IProxyBO> proxy_;
+
 		__int64 pobierzNumerLosowy();
-
-		void wykonajPolecenie(const std::string&);
-
-		void logujListePolecenKonsoli() const;
 		
-		TrybAplikacji pobierzTrybAplikacji() const;
+		/**
+		* \brief Metoda wyrzuca do loggera podstwowe dane identyfikuj¹ce wersje aplikacji.
+		*/
+		void logApInfo() const;
+
 
 		void start();
-
-		int uruchomSerwer();
-		int zatrzymajSerwer();
-
-
-		int polaczDoSerwera( const std::string& ip, unsigned short port);
-		int rozlaczOdSerwera();
-
 		/**
 		* \brief Metoda tworz¹ca tekstowy opis obiektu.
 		*
@@ -215,11 +201,6 @@ namespace SpEx {
 		*/
 		bool przetworzArgumenty();
 
-		/**
-		* \brief Metoda wyrzuca do loggera podstwowe dane identyfikuj¹ce wersje aplikacji.
-		*/
-		void logApInfo() const;
-
 		void rejestrujParametryKonsoli();
 
 		void rejestrujKontrolkiDoTGUI();
@@ -230,8 +211,6 @@ namespace SpEx {
 
 		void rejestrujMetodyRPC();
 
-		void rejestrujMetodyKonsoli();
-
 		void konfigurujLogger();
 
 		void konfigurujKonsole();
@@ -240,30 +219,15 @@ namespace SpEx {
 
 		void ustawPlikLogow();
 
-		std::shared_ptr<Konsola> konsola_;
 		std::shared_ptr<ZarzadcaPluginow> zarzadcaPluginow_; /// Obiekt zarz¹dzaj¹cy plugginami.
 		std::shared_ptr<Gra> instancjaGry_; /// Obiekt prezentuj¹cy instancjê gry.
 		std::shared_ptr<Fabrykator> fabrykator_; /// Instacja obiektu przechowuj¹cego zbiór fabryk.
 		std::shared_ptr<ZarzadcaZasobow> zarzadcaZasobow_; /// Zarz¹dca zasobów.
 		std::shared_ptr<ZarzadcaUzytkownikow> zarzadcaUzytkownikow_; /// Zarz¹dca u¿ytkowników.
 		std::shared_ptr<ZarzadcaLokacji> zarzadcaLokacji_; /// Obiekt zarz¹dzaj¹cy lokacjami.
-		
-		std::shared_ptr<Serwer> serwer_;
-		std::shared_ptr<Klient> klient_;
 
-		struct OpcjePolecenia{
-			OpcjePolecenia(std::string opis, std::function<void(std::string)> funkcja)
-				: opisPolecenia_(opis), funkcja_(funkcja){}
-
-			std::string opisPolecenia_;
-			std::function<void(std::string)> funkcja_;
-		};
-
-		std::map< std::string, OpcjePolecenia> poleceniaKonsoli_;
 		bool czyKonsola_;
-
-		TrybAplikacji tryb_ = Invalid;
-
+		
 		struct OpcjeParametru{
 			OpcjeParametru(unsigned char iloscParametrow, std::function<bool(std::vector<char*>)> funkcja)
 				: iloscParametrow_(iloscParametrow), funkcja_(funkcja){}

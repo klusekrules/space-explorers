@@ -1,0 +1,36 @@
+#pragma once
+#include "IProxyBO.h"
+#include <memory>
+
+namespace SpEx{
+	class Serwer;
+};
+
+namespace SpEx{
+	class ProxyBOSerwer :
+		public IProxyBO
+	{
+	public:
+		ProxyBOSerwer() = default;
+
+		~ProxyBOSerwer() = default;
+
+		int uruchomSerwer() override;
+
+		int zatrzymajSerwer() override;
+
+		int polaczDoSerwera(const char* ip, unsigned short port) override;
+
+		int rozlaczOdSerwera() override;
+
+		int posptrzataj() override;
+		
+		int rejestrujMetodyKonsoli() override;
+
+		TrybAplikacji pobierzTrybAplikacji() override;
+
+	private:
+		std::shared_ptr<Serwer> serwer_;
+
+	};
+}

@@ -2,18 +2,52 @@
 #include "TGUI\TGUI.hpp"
 #include <Windows.h>
 #include "Kontroler\Aplikacja.h"
+#include "Utils\Utils.h"
 
 namespace SpEx{
 
-	void function(const tgui::Callback& callback, tgui::ChatBox::Ptr chatbox){
+	void Konsola::callback(const tgui::Callback& callback, tgui::ChatBox::Ptr chatbox) const{
 		std::string polecenie = ((tgui::EditBox*)callback.widget)->getText();
 		chatbox->addLine(SLog::Log::pobierzInstancje().pobierzDateCzas() + " -> " + polecenie, sf::Color(0x0a, 0xd7, 0xb8, 255));
 		((tgui::EditBox*)callback.widget)->setText("");
-		Aplikacja::pobierzInstancje().wykonajPolecenie(polecenie);
+		wykonajPolecenie(polecenie);
+	}
+	
+	void Konsola::wykonajPolecenie(const std::string& polecenie) const{
+		auto sPolecenie = Utils::trim(polecenie);
+		auto iter = std::find_if(sPolecenie.begin(), sPolecenie.end(), [](int i){ return ::isspace(i); });
+		std::string nazwa(sPolecenie.begin(), iter);
+		sPolecenie.erase(sPolecenie.begin(), iter);
+		auto parametry = Utils::trim(sPolecenie);
+		if (log_.czyLogiOdblokowane(SLog::Log::Debug)){
+			log_.loguj(SLog::Log::Debug, "Polecenie: \"" + nazwa + "\" - Parametry: \"" + parametry + "\"");
+		}
+		if (!nazwa.empty()){
+			auto metoda = poleceniaKonsoli_.find(nazwa);
+			if (metoda != poleceniaKonsoli_.end()){
+				metoda->second.funkcja_(parametry);
+			}
+		}
+	}
+
+	void Konsola::rejestrujPolecenie(const std::string& nazwa, const OpcjePolecenia& polecenie){
+		poleceniaKonsoli_.emplace(nazwa, polecenie);
+	}
+
+	void Konsola::logujListePolecen() const{
+		if (poleceniaKonsoli_.empty()){
+			log_.loguj(SLog::Log::Info, "Brak polecen konsoli.");
+		} else{
+
+			log_.loguj(SLog::Log::Info, "Lista dostêpnych poleceñ konsoli:");
+			for (auto & wpis : poleceniaKonsoli_){
+				log_.loguj(SLog::Log::Info, wpis.first + " - " + wpis.second.opisPolecenia_);
+			}
+		}
 	}
 
 	Konsola::Konsola(SLog::Log& log)
-		: Watek(true)
+		: Watek(true), log_(log)
 	{
 		log.dodajGniazdoWyjsciowe([this](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{
 			std::string sTyp;
@@ -73,7 +107,7 @@ namespace SpEx{
 		editBox->load("widgets/Black.conf");
 		editBox->setPosition(0, 372);
 		editBox->setSize(650, 28);
-		editBox->bindCallbackEx(std::bind(function,std::placeholders::_1,chatbox), tgui::EditBox::ReturnKeyPressed);
+		editBox->bindCallbackEx(std::bind(&SpEx::Konsola::callback, this, std::placeholders::_1, chatbox), tgui::EditBox::ReturnKeyPressed);
 		
 		inicjalizacja_.set_value(true);
 

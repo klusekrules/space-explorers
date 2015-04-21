@@ -382,6 +382,12 @@
     <ClCompile Include="Kontroler\AppInit.cpp">
       <Filter>SourceFile\Kontroler</Filter>
     </ClCompile>
+    <ClCompile Include="Eksport\ProxyBOSerwer.cpp">
+      <Filter>SourceFile\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="Eksport\ProxyBOKlient.cpp">
+      <Filter>SourceFile\Export</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Algorytmy\CRC.h">
@@ -814,6 +820,18 @@
       <Filter>Resource\Wersja</Filter>
     </ClInclude>
     <ClInclude Include="Eksport\TypyEksportowane.h">
+      <Filter>SourceFile\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="Eksport\IProxyBO.h">
+      <Filter>SourceFile\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="Eksport\ProxyBOSerwer.h">
+      <Filter>SourceFile\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="Eksport\KodyPowrotu.h">
+      <Filter>SourceFile\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="Eksport\ProxyBOKlient.h">
       <Filter>SourceFile\Export</Filter>
     </ClInclude>
   </ItemGroup>
