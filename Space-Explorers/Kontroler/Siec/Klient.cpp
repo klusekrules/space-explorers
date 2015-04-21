@@ -12,6 +12,7 @@
 #define ATRYBUT_PORT_SERWERA "portSerwera"
 #define ATRYBUT_ADRES_SERWERA "adresSerwera"
 
+#define IP_BUFOR_K_ROZMIAR 20
 
 namespace SpEx{
 	Klient::Klient(const UstawieniaAplikacji& opcje)
@@ -160,6 +161,13 @@ namespace SpEx{
 
 	const std::atomic<bool>& Klient::czyCzekaNaZakonczenie() const{
 		return czyZakonczyc();
+	}
+	
+	std::string Klient::pobierzIP() const{
+		char ip[IP_BUFOR_K_ROZMIAR];
+		ZeroMemory(ip, IP_BUFOR_K_ROZMIAR);
+		InetNtop(AF_INET, (void*)&addr_.sin_addr, ip, IP_BUFOR_K_ROZMIAR);
+		return std::move(std::string(ip));
 	}
 
 	void Klient::pracujJakoSerwer(){

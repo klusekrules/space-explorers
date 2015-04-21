@@ -41,11 +41,13 @@ namespace SpEx{
 		
 		const std::atomic<bool>& czyCzekaNaZakonczenie() const;
 
+		std::string pobierzIP() const;
+
 		virtual ~Klient();
 	private:
 		
 		SOCKET gniazdo_ = INVALID_SOCKET;
-		struct sockaddr_in addr_;		
+		struct sockaddr_in addr_;
 		std::function<void(void)> funkcja_;
 
 		std::string hash_;

@@ -51,7 +51,7 @@ namespace SpEx{
 
 		Aplikacja::pobierzInstancje().konsola_->rejestrujPolecenie("po³¹cz", Konsola::OpcjePolecenia("po³acz siê z serwerem", [&](std::string param){
 			auto pos = param.find_first_of(':');
-			auto ret = polaczDoSerwera(param.substr(0, pos).c_str(), std::strtol(param.substr(pos + 1).c_str(), 0, 10));
+			auto ret = polaczDoSerwera(param.substr(0, pos).c_str(), static_cast<unsigned short>(std::strtol(param.substr(pos + 1).c_str(), 0, 10)));
 			switch (ret){
 			case RETURN_CODE_OK:
 				Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Info, "Ok");

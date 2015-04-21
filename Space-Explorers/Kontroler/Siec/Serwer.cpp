@@ -2,7 +2,6 @@
 #include <Ws2tcpip.h>
 
 #define ATRYBUT_PORT_SERWERA "portSerwera"
-#define IP_BUFOR_ROZMIAR 20
 namespace SpEx{
 	Serwer::Serwer(const UstawieniaAplikacji& ustawienia)
 		: Watek(true)
@@ -49,10 +48,7 @@ namespace SpEx{
 			}
 			if (gniazdoKlienta != INVALID_SOCKET){
 				polaczenia_.emplace_back(gniazdoKlienta, addr);
-				char ip[IP_BUFOR_ROZMIAR];
-				ZeroMemory(ip, IP_BUFOR_ROZMIAR);
-				InetNtop(AF_INET, &addr.sin_addr, ip, IP_BUFOR_ROZMIAR);
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Przychodz¹ce po³¹czenie od: " + std::string(ip));
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Przychodz¹ce po³¹czenie od: " + polaczenia_.back().pobierzIP());
 				polaczenia_.back().odblokuj();
 			}
 			else{
