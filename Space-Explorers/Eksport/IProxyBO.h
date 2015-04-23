@@ -21,6 +21,8 @@ namespace SpEx{
 
 		virtual int rejestrujMetodyKonsoli() = 0;
 
+		virtual int zaloguj( const char * nazwa, const char* hash ) = 0;
+
 		virtual TrybAplikacji pobierzTrybAplikacji() = 0;
 	};
 };

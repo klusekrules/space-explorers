@@ -3,7 +3,7 @@
 namespace SpEx{
 
 	Watek::Watek(bool wstrzymany)
-		: zakonczony_(false), zakoncz_(false), blad_(false), bladInfo_(EXCEPTION_PLACE,STyp::Tekst())
+		: zakonczony_(false), zakoncz_(false), blad_(false), bladInfo_(EXCEPTION_PLACE, STyp::Tekst()), kodPowrotu_(0)
 	{
 		if (wstrzymany)
 			wstrzymany_.lock();
@@ -47,9 +47,17 @@ namespace SpEx{
 		return bladInfo_;
 	}
 
+	const std::atomic<int>& Watek::kodPowrotu() const{
+		return kodPowrotu_;
+	}
+
 	void Watek::ustawBlad(const STyp::Wyjatek& info){
 		bladInfo_ = info;
 		blad_ = true;
+	}
+	
+	void Watek::ustawKodPowrotu(int kod){
+		kodPowrotu_ = kod;
 	}
 
 	void Watek::wykonuj(){

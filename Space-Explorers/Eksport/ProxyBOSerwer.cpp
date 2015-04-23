@@ -50,6 +50,10 @@ namespace SpEx{
 			Aplikacja::pobierzInstancje().logApInfo(); 
 		}));
 
+		Aplikacja::pobierzInstancje().konsola_->rejestrujPolecenie("metody", Konsola::OpcjePolecenia("lista poleceñ", [&](std::string){
+			Aplikacja::pobierzInstancje().konsola_->logujListePolecen();
+		}));
+
 		Aplikacja::pobierzInstancje().konsola_->rejestrujPolecenie("start", Konsola::OpcjePolecenia("uruchom serwer", [&](std::string){
 			auto ret = uruchomSerwer();
 			switch (ret){
@@ -83,6 +87,10 @@ namespace SpEx{
 			}
 		}));
 		return RETURN_CODE_OK;
+	}
+
+	int ProxyBOSerwer::zaloguj(const char * nazwa, const char* hash){
+		return RETURN_CODE_NIEODPOWIEDNI_TRYB_APLIKACJI;
 	}
 	
 	TrybAplikacji ProxyBOSerwer::pobierzTrybAplikacji(){

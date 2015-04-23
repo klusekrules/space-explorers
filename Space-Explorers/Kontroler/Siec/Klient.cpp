@@ -96,6 +96,7 @@ namespace SpEx{
 			auto error = WSAGetLastError();
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Klient::pracujJakoKlient() -> B³¹d funkcji connect: " + std::to_string(error));
 			zakoncz();
+			ustawKodPowrotu(error);
 			return;
 		}
 
@@ -127,6 +128,7 @@ namespace SpEx{
 			if (error != RPC_OK){
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Klient::pracujJakoKlient() -> B³¹d podczas wysy³ania danych: " + std::to_string(error));
 				zakoncz();
+				ustawKodPowrotu(error);
 				zadanie_->zakonczenie_->set_value(false);
 				break;
 			}
@@ -136,6 +138,7 @@ namespace SpEx{
 			if (error != RPC_OK){
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Klient::pracujJakoKlient() -> B³¹d podczas odbierania danych: " + std::to_string(error));
 				zakoncz();
+				ustawKodPowrotu(error);
 				zadanie_->zakonczenie_->set_value(false);
 				break;
 			}

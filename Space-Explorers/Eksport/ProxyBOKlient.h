@@ -27,6 +27,8 @@ namespace SpEx{
 
 		int rejestrujMetodyKonsoli() override;
 
+		int zaloguj(const char * nazwa, const char* hash) override;
+
 		TrybAplikacji pobierzTrybAplikacji() override;
 
 	private:

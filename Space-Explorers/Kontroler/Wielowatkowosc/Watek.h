@@ -106,6 +106,9 @@ namespace SpEx{
 		*/
 		const STyp::Wyjatek& bladInfo() const;
 
+
+		const std::atomic<int>& kodPowrotu() const;
+
 	protected:
 		std::atomic<bool> zakoncz_; /// ¯¹danie zakoñczenia wykonywania w¹tku.
 		std::mutex wstrzymany_; /// Mutex wstrzymuj¹cy dzia³anie w¹tku tu¿ przed uruchomieniem funkcji g³ównej.
@@ -113,6 +116,8 @@ namespace SpEx{
 
 		std::atomic<bool> blad_; /// Informacja czy wyj¹tek zosta³ ustawiony.
 		STyp::Wyjatek bladInfo_; /// Wyj¹tek jaki zosta³ ustawiony przez w¹tek.
+
+		std::atomic<int> kodPowrotu_;
 
 		/**
 		* \brief Metoda ustawiaj¹ca wyj¹tek.
@@ -124,6 +129,8 @@ namespace SpEx{
 		* \date 10-07-2014
 		*/
 		void ustawBlad(const STyp::Wyjatek& info);
+
+		void ustawKodPowrotu(int);
 
 		/**
 		* \brief G³ówna funkcja w¹tku.

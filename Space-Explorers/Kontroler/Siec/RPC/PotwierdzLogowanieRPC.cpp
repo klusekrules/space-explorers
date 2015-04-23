@@ -13,14 +13,23 @@ namespace SpEx{
 		klient_.autoryzujMetode(instancja, autoryzacja);
 		if (autoryzacja_ == autoryzacja && instancja_ == instancja){
 			odpowiedz[METODA_RPC_RESULT] = true;
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Udane logowanie u¿ytkownika (nn) dla ip " + klient_.pobierzIP());
+			}
 		} else{
-			odpowiedz[METODA_RPC_RESULT] = false;		
+			odpowiedz[METODA_RPC_RESULT] = false;
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Nie udana próba logowania u¿ytkownika (nn) dla ip " + klient_.pobierzIP());
+			}
 		}
 	}
 	
 	bool PotwierdzLogowanieRPC::obslugaOdpowiedzi(const Json::Value & odpowiedz) {
 		if (odpowiedz[METODA_RPC_RESULT].isBool()){
 			return odpowiedz[METODA_RPC_RESULT].asBool();
+		}
+		if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nie udane logowanie. B³êdne dane.");
 		}
 		return false;
 	}

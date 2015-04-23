@@ -39,6 +39,9 @@ namespace SpEx{
 				odpowiedz[METODA_RPC_AUTORYZACJA] = autoryzacja_;
 				odpowiedz[METODA_RPC_INSTANCJA] = instancja_;
 				flagi_ |= RPC_FLAG_AUTHORIZATION;
+				if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
+					SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Inicjalizacja logowania u¿ytkownika " + login.asString() + " dla ip " + klient_.pobierzIP());
+				}
 			}
 		}		
 	}

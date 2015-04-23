@@ -5,6 +5,12 @@
 #include "Kontroler\Aplikacja.h"
 #include "Widok\Konsola\Konsola.h"
 #include "Export.h"
+#include "Kontroler\Siec\RPC\InicjujLogowanieRPC.h"
+#include "Kontroler\Siec\RPC\PotwierdzLogowanieRPC.h"
+#include "Kontroler\Zarzadca\Fabrykator.h"
+#include "Algorytmy\SHA3.h"
+#include "Kontroler\Siec\RPC\StaleRPC.h"
+
 namespace SpEx{
 	int ProxyBOKlient::uruchomSerwer(){
 		return RETURN_CODE_NIEODPOWIEDNI_TRYB_APLIKACJI;
@@ -49,6 +55,10 @@ namespace SpEx{
 			Aplikacja::pobierzInstancje().logApInfo();
 		}));
 
+		Aplikacja::pobierzInstancje().konsola_->rejestrujPolecenie("metody", Konsola::OpcjePolecenia("lista poleceñ", [&](std::string){
+			Aplikacja::pobierzInstancje().konsola_->logujListePolecen();
+		}));
+
 		Aplikacja::pobierzInstancje().konsola_->rejestrujPolecenie("po³¹cz", Konsola::OpcjePolecenia("po³acz siê z serwerem", [&](std::string param){
 			auto pos = param.find_first_of(':');
 			auto ret = polaczDoSerwera(param.substr(0, pos).c_str(), static_cast<unsigned short>(std::strtol(param.substr(pos + 1).c_str(), 0, 10)));
@@ -82,7 +92,56 @@ namespace SpEx{
 				break;
 			}
 		}));
+
+		Aplikacja::pobierzInstancje().konsola_->rejestrujPolecenie("zaloguj", Konsola::OpcjePolecenia("logowanie do serwera", [&](std::string param){
+			auto pos = param.find_first_of(' ');
+			std::string haslo(param.substr(pos + 1));
+			SHA3 sha3(haslo);
+			haslo = sha3.pobierzNapis();
+			auto ret = zaloguj(param.substr(0, pos).c_str(), haslo.c_str());
+			switch (ret){
+			case RETURN_CODE_OK:
+				Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Info, "Zalogowano!");
+				break;
+			case RETURN_CODE_BRAK_POLACZENIA:
+				Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, "Brak po³¹czenia");
+				break;
+			default:
+				Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, "Nierozpoznany kod powrotu: " + std::to_string(ret));
+				break;
+			}
+		}));
 		return RETURN_CODE_OK;
+	}
+
+	int ProxyBOKlient::zaloguj(const char * nazwa, const char* hash){
+
+		if (!klient_)
+			return RETURN_CODE_BRAK_POLACZENIA;
+
+		if (!nazwa && !hash)
+			return RETURN_CODE_BRAK_ATRYBUTOW;
+
+		auto init = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().tworzMetodeRPC<SpEx::InicjujLogowanieRPC>(*klient_);
+		if (!init){
+			return RETURN_CODE_BRAK_METOD;
+		}
+		auto conf = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().tworzMetodeRPC<SpEx::PotwierdzLogowanieRPC>(*klient_);
+		if (!conf){
+			return RETURN_CODE_BRAK_METOD;
+		}
+		init->obiektParametrow()["Login"] = nazwa;
+		init->obiektParametrow()["Hash"] = hash;
+		auto ret = init->wykonajMetode();
+		int retCode = klient_->kodPowrotu();
+		if (ret == RPC_OK && retCode == RPC_OK){
+			ret = conf->wykonajMetode();
+			retCode = klient_->kodPowrotu();
+		}
+		if (retCode != RPC_OK){
+			Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, "retCode: " + std::to_string(retCode));
+		}
+		return ret;
 	}
 
 	TrybAplikacji ProxyBOKlient::pobierzTrybAplikacji(){

@@ -26,6 +26,10 @@ namespace SpEx{
 			auto metoda = poleceniaKonsoli_.find(nazwa);
 			if (metoda != poleceniaKonsoli_.end()){
 				metoda->second.funkcja_(parametry);
+			} else{
+				if (log_.czyLogiOdblokowane(SLog::Log::Warning)){
+					log_.loguj(SLog::Log::Warning, "Nierozpoznane polecenie: " + nazwa);
+				}
 			}
 		}
 	}
