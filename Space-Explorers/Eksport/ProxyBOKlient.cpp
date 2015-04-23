@@ -106,8 +106,19 @@ namespace SpEx{
 			case RETURN_CODE_BRAK_POLACZENIA:
 				Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, "Brak po³¹czenia");
 				break;
+			case RPC_ERROR_SENDING_FAIL:
+				if (klient_->kodPowrotu() == RPC_ERROR_DECRYPTION_FAIL){
+					Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Error, "Niepoprawny login lub has³o!");
+					if (rozlaczOdSerwera() == RETURN_CODE_OK){
+						Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");						
+					}
+					break;
+				}
 			default:
 				Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, "Nierozpoznany kod powrotu: " + std::to_string(ret));
+				if (rozlaczOdSerwera() == RETURN_CODE_OK){
+					Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");
+				}
 				break;
 			}
 		}));
