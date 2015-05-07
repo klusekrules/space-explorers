@@ -36,19 +36,25 @@
     <ClCompile Include="Window\Mouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Window\Sensor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\SensorManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\Touch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Window\VideoMode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Window\Window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Window\WindowImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Window\Win32\InputImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Window\Win32\JoystickImpl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\Win32\SensorImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Window\Win32\VideoModeImpl.cpp">
@@ -60,9 +66,21 @@
     <ClCompile Include="Window\Win32\WindowImplWin32.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Window\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\WindowImpl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window\GlContext.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\glext\glext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\glext\wglext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Window\InputImpl.hpp">
@@ -74,10 +92,13 @@
     <ClInclude Include="Window\JoystickManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Window\VideoModeImpl.hpp">
+    <ClInclude Include="Window\SensorImpl.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Window\WindowImpl.hpp">
+    <ClInclude Include="Window\SensorManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\VideoModeImpl.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Window\Win32\InputImpl.hpp">
@@ -86,10 +107,16 @@
     <ClInclude Include="Window\Win32\JoystickImpl.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Window\Win32\SensorImpl.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Window\Win32\WglContext.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Window\Win32\WindowImplWin32.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\WindowImpl.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

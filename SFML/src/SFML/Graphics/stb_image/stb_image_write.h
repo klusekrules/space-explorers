@@ -153,7 +153,7 @@ static int outfile(char const *filename, int rgb_dir, int vdir, int x, int y, in
 {
    FILE *f;
    if (y < 0 || x < 0) return 0;
-   fopen_s(&f,filename, "wb");
+   f = fopen(filename, "wb");
    if (f) {
       va_list v;
       va_start(v, fmt);
@@ -318,7 +318,7 @@ unsigned char * stbi_zlib_compress(unsigned char *data, int data_len, int *out_l
       }
 
       if (bestloc) {
-         __int64 d = data+i - bestloc; // distance back
+         int d = data+i - bestloc; // distance back
          assert(d <= 32767 && best <= 258);
          for (j=0; best > lengthc[j+1]-1; ++j);
          stbi__zlib_huff(j+257);
@@ -492,7 +492,7 @@ int stbi_write_png(char const *filename, int x, int y, int comp, const void *dat
    int len;
    unsigned char *png = stbi_write_png_to_mem((unsigned char *) data, stride_bytes, x, y, comp, &len);
    if (!png) return 0;
-   fopen_s(&f,filename, "wb");
+   f = fopen(filename, "wb");
    if (!f) { free(png); return 0; }
    fwrite(png, 1, len, f);
    fclose(f);

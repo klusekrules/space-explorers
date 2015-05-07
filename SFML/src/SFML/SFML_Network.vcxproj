@@ -246,6 +246,11 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="SFML_System.vcxproj">
+      <Project>{cb8ecb60-8c6b-4804-bbbf-dacaaed773ac}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="Network\Ftp.cpp" />
     <ClCompile Include="Network\Http.cpp" />
     <ClCompile Include="Network\IpAddress.cpp" />
@@ -260,11 +265,6 @@
   <ItemGroup>
     <ClInclude Include="Network\SocketImpl.hpp" />
     <ClInclude Include="Network\Win32\SocketImpl.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="SFML_System.vcxproj">
-      <Project>{cb8ecb60-8c6b-4804-bbbf-dacaaed773ac}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

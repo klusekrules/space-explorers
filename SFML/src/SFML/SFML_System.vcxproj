@@ -26,6 +26,29 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="System\Clock.cpp" />
+    <ClCompile Include="System\Err.cpp" />
+    <ClCompile Include="System\Lock.cpp" />
+    <ClCompile Include="System\Mutex.cpp" />
+    <ClCompile Include="System\Sleep.cpp" />
+    <ClCompile Include="System\String.cpp" />
+    <ClCompile Include="System\Thread.cpp" />
+    <ClCompile Include="System\ThreadLocal.cpp" />
+    <ClCompile Include="System\Time.cpp" />
+    <ClCompile Include="System\Win32\ClockImpl.cpp" />
+    <ClCompile Include="System\Win32\MutexImpl.cpp" />
+    <ClCompile Include="System\Win32\SleepImpl.cpp" />
+    <ClCompile Include="System\Win32\ThreadImpl.cpp" />
+    <ClCompile Include="System\Win32\ThreadLocalImpl.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="System\Win32\ClockImpl.hpp" />
+    <ClInclude Include="System\Win32\MutexImpl.hpp" />
+    <ClInclude Include="System\Win32\SleepImpl.hpp" />
+    <ClInclude Include="System\Win32\ThreadImpl.hpp" />
+    <ClInclude Include="System\Win32\ThreadLocalImpl.hpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CB8ECB60-8C6B-4804-BBBF-DACAAED773AC}</ProjectGuid>
     <RootNamespace>SFML_System</RootNamespace>
@@ -243,29 +266,6 @@
       </AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="System\Clock.cpp" />
-    <ClCompile Include="System\Err.cpp" />
-    <ClCompile Include="System\Lock.cpp" />
-    <ClCompile Include="System\Mutex.cpp" />
-    <ClCompile Include="System\Sleep.cpp" />
-    <ClCompile Include="System\String.cpp" />
-    <ClCompile Include="System\Thread.cpp" />
-    <ClCompile Include="System\ThreadLocal.cpp" />
-    <ClCompile Include="System\Time.cpp" />
-    <ClCompile Include="System\Win32\ClockImpl.cpp" />
-    <ClCompile Include="System\Win32\MutexImpl.cpp" />
-    <ClCompile Include="System\Win32\SleepImpl.cpp" />
-    <ClCompile Include="System\Win32\ThreadImpl.cpp" />
-    <ClCompile Include="System\Win32\ThreadLocalImpl.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="System\Win32\ClockImpl.hpp" />
-    <ClInclude Include="System\Win32\MutexImpl.hpp" />
-    <ClInclude Include="System\Win32\SleepImpl.hpp" />
-    <ClInclude Include="System\Win32\ThreadImpl.hpp" />
-    <ClInclude Include="System\Win32\ThreadLocalImpl.hpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

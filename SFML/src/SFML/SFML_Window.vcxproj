@@ -35,39 +35,39 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>CTP_Nov2013</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>CTP_Nov2013</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>CTP_Nov2013</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tests|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>CTP_Nov2013</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>CTP_Nov2013</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>CTP_Nov2013</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -133,7 +133,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;UNICODE</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -151,7 +151,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;UNICODE</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -169,7 +169,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;UNICODE</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -189,7 +189,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;UNICODE</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -210,7 +210,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;UNICODE</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -232,7 +232,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;UNICODE</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -248,6 +248,14 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="SFML_Network.vcxproj">
+      <Project>{48d28224-db5d-41ac-b9ae-080f230083f2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="SFML_System.vcxproj">
+      <Project>{cb8ecb60-8c6b-4804-bbbf-dacaaed773ac}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="Window\Context.cpp" />
     <ClCompile Include="Window\GlContext.cpp" />
     <ClCompile Include="Window\GlResource.cpp" />
@@ -255,9 +263,13 @@
     <ClCompile Include="Window\JoystickManager.cpp" />
     <ClCompile Include="Window\Keyboard.cpp" />
     <ClCompile Include="Window\Mouse.cpp" />
+    <ClCompile Include="Window\Sensor.cpp" />
+    <ClCompile Include="Window\SensorManager.cpp" />
+    <ClCompile Include="Window\Touch.cpp" />
     <ClCompile Include="Window\VideoMode.cpp" />
     <ClCompile Include="Window\Win32\InputImpl.cpp" />
     <ClCompile Include="Window\Win32\JoystickImpl.cpp" />
+    <ClCompile Include="Window\Win32\SensorImpl.cpp" />
     <ClCompile Include="Window\Win32\VideoModeImpl.cpp" />
     <ClCompile Include="Window\Win32\WglContext.cpp" />
     <ClCompile Include="Window\Win32\WindowImplWin32.cpp" />
@@ -266,23 +278,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window\GlContext.hpp" />
+    <ClInclude Include="Window\glext\glext.h" />
+    <ClInclude Include="Window\glext\wglext.h" />
     <ClInclude Include="Window\InputImpl.hpp" />
     <ClInclude Include="Window\JoystickImpl.hpp" />
     <ClInclude Include="Window\JoystickManager.hpp" />
+    <ClInclude Include="Window\SensorImpl.hpp" />
+    <ClInclude Include="Window\SensorManager.hpp" />
     <ClInclude Include="Window\VideoModeImpl.hpp" />
     <ClInclude Include="Window\Win32\InputImpl.hpp" />
     <ClInclude Include="Window\Win32\JoystickImpl.hpp" />
+    <ClInclude Include="Window\Win32\SensorImpl.hpp" />
     <ClInclude Include="Window\Win32\WglContext.hpp" />
     <ClInclude Include="Window\Win32\WindowImplWin32.hpp" />
     <ClInclude Include="Window\WindowImpl.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="SFML_Network.vcxproj">
-      <Project>{48d28224-db5d-41ac-b9ae-080f230083f2}</Project>
-    </ProjectReference>
-    <ProjectReference Include="SFML_System.vcxproj">
-      <Project>{cb8ecb60-8c6b-4804-bbbf-dacaaed773ac}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

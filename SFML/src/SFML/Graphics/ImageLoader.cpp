@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2013 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2014 Laurent Gomila (laurent.gom@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -50,12 +50,12 @@ namespace
     }
 
     // stb_image callbacks that operate on a sf::InputStream
-    int read(void* user, char* data, size_t size)
+    int read(void* user, char* data, int size)
     {
         sf::InputStream* stream = static_cast<sf::InputStream*>(user);
         return static_cast<int>(stream->read(data, size));
     }
-    void skip(void* user, long size)
+    void skip(void* user, unsigned int size)
     {
         sf::InputStream* stream = static_cast<sf::InputStream*>(user);
         stream->seek(stream->tell() + size);
@@ -123,7 +123,7 @@ bool ImageLoader::loadImageFromFile(const std::string& filename, std::vector<Uin
     else
     {
         // Error, failed to load the image
-        err() << "Failed to load image \"" << filename << "\". Reason : " << stbi_failure_reason() << std::endl;
+        err() << "Failed to load image \"" << filename << "\". Reason: " << stbi_failure_reason() << std::endl;
 
         return false;
     }
@@ -162,7 +162,7 @@ bool ImageLoader::loadImageFromMemory(const void* data, std::size_t dataSize, st
         else
         {
             // Error, failed to load the image
-            err() << "Failed to load image from memory. Reason : " << stbi_failure_reason() << std::endl;
+            err() << "Failed to load image from memory. Reason: " << stbi_failure_reason() << std::endl;
 
             return false;
         }
@@ -212,7 +212,7 @@ bool ImageLoader::loadImageFromStream(InputStream& stream, std::vector<Uint8>& p
     else
     {
         // Error, failed to load the image
-        err() << "Failed to load image from stream. Reason : " << stbi_failure_reason() << std::endl;
+        err() << "Failed to load image from stream. Reason: " << stbi_failure_reason() << std::endl;
 
         return false;
     }
@@ -229,27 +229,27 @@ bool ImageLoader::saveImageToFile(const std::string& filename, const std::vector
         if (filename.size() > 3)
         {
             // Extract the extension
-            std::string extension = filename.substr(filename.size() - 3);
+            std::string extension = toLower(filename.substr(filename.size() - 3));
 
-            if (toLower(extension) == "bmp")
+            if (extension == "bmp")
             {
                 // BMP format
                 if (stbi_write_bmp(filename.c_str(), size.x, size.y, 4, &pixels[0]))
                     return true;
             }
-            else if (toLower(extension) == "tga")
+            else if (extension == "tga")
             {
                 // TGA format
                 if (stbi_write_tga(filename.c_str(), size.x, size.y, 4, &pixels[0]))
                     return true;
             }
-            else if(toLower(extension) == "png")
+            else if (extension == "png")
             {
                 // PNG format
                 if (stbi_write_png(filename.c_str(), size.x, size.y, 4, &pixels[0], 0))
                     return true;
             }
-            else if (toLower(extension) == "jpg")
+            else if (extension == "jpg")
             {
                 // JPG format
                 if (writeJpg(filename, pixels, size.x, size.y))
@@ -267,8 +267,7 @@ bool ImageLoader::saveImageToFile(const std::string& filename, const std::vector
 bool ImageLoader::writeJpg(const std::string& filename, const std::vector<Uint8>& pixels, unsigned int width, unsigned int height)
 {
     // Open the file to write in
-    FILE* file;
-	fopen_s(&file,filename.c_str(), "wb");
+    FILE* file = fopen(filename.c_str(), "wb");
     if (!file)
         return false;
 
@@ -287,7 +286,7 @@ bool ImageLoader::writeJpg(const std::string& filename, const std::vector<Uint8>
     jpeg_set_defaults(&compressInfos);
     jpeg_set_quality(&compressInfos, 90, TRUE);
 
-    // Get rid of the aplha channel
+    // Get rid of the alpha channel
     std::vector<Uint8> buffer(width * height * 3);
     for (std::size_t i = 0; i < width * height; ++i)
     {
