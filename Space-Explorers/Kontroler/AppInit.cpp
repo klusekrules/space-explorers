@@ -100,6 +100,7 @@ namespace SpEx{
 		zarzadcaLokacji_ = std::make_shared<ZarzadcaLokacji>();
 		zarzadcaUzytkownikow_ = std::make_shared<ZarzadcaUzytkownikow>();
 
+		
 		/* ------------------------------------------ */
 
 		//Ladowanie potrzebnych bibliotek
@@ -155,6 +156,11 @@ namespace SpEx{
 		zarzadcaLokacji_->inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 		zarzadcaZasobow_->inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 		zarzadcaUzytkownikow_->inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
+
+		zarzadcaZasobow_->dodajCallback([](const std::string& nazwa, Zasob::SharedPtr)->void{
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Zarejestrowano zasób: " + nazwa);
+		}, ZarzadcaZasobowWyzwalaczCallback::PoRejestracji);
+
 
 		rejestrujTypyZasobow();
 		rejestrujMetodyRPC();

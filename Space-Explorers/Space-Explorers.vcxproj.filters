@@ -834,6 +834,9 @@
     <ClInclude Include="Eksport\ProxyBOKlient.h">
       <Filter>SourceFile\Export</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\CallbackSystemInterfejs.h">
+      <Filter>SourceFile\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">

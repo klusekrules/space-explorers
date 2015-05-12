@@ -6,7 +6,7 @@
 #include "Parser\XmlBO.h"
 #include "Logger\LoggerInterface.h"
 #include "Kontroler\UstawieniaAplikacji.h"
-
+#include "Utils\CallbackSystemInterfejs.h"
 namespace SpEx {
 	/**
 	* \brief Klasa zarz¹dzaj¹ca zasobami.
@@ -16,7 +16,18 @@ namespace SpEx {
 	* \version 3
 	* \date 25-11-2014
 	*/
-	class ZarzadcaZasobow: 
+
+	enum ZarzadcaZasobowWyzwalaczCallback{
+		PoRejestracji,
+		PoUtworzeniu,
+		PobranoPrzechowywany
+	};
+
+	typedef CallbackSystemInterfejs < ZarzadcaZasobowWyzwalaczCallback, const std::string&, Zasob::SharedPtr > ZarzadcaZasobowCallbackSystem;
+	typedef ZarzadcaZasobowCallbackSystem::Callback ZarzadcaZasobowCallbackSystemFunction;
+
+	class ZarzadcaZasobow :
+		public ZarzadcaZasobowCallbackSystem,
 		public virtual SLog::LoggerInterface,
 		se::NonCopyable
 	{
@@ -25,6 +36,7 @@ namespace SpEx {
 		typedef std::pair < Parametr, std::string > WpisLokalizacjiZasobu; /// Typ wi¹¿¹cy nazwê symboliczn¹ z lokalizacj¹ zasobu.
 		typedef std::vector < WpisLokalizacjiZasobu > TablicaLokalizacjiZasobu; /// Tablica powi¹zañ nazw symbolicznych z lokalizacj¹ zasobu.
 		typedef STyp::Identyfikator Identyfikator; /// Identyfikator zasobu.
+		
 		
 		/**
 		* \brief Klasa pomocnicza przechowywanego zasobu.
@@ -44,6 +56,7 @@ namespace SpEx {
 		typedef std::function< Zasob::SharedPtr(const Parametr&, bool) > Inicjalizator; /// Typ metody tworz¹cej zasób.
 		typedef std::unordered_map < Identyfikator, WpisZasobu, STyp::IdTypeHash> MapaZasobow; /// Typ kontenera przechowuj¹cego zasoby.
 		typedef std::unordered_map < std::string, Inicjalizator> MapaInicjalizatorow; /// Typ kontenera przechowuj¹cego inicjalizatory.
+		
 
 		/**
 		* \brief Domyœlny konstruktor.
@@ -145,12 +158,15 @@ namespace SpEx {
 		*/
 		template <class T_>
 		bool rejestruj(){
-			return dodajInicjalizator(typename T_::NazwaTypu_, &ZarzadcaZasobow::tworz<T_>);
+			wywolaj(PoRejestracji, typename T_::NazwaTypu_, nullptr);
+			return dodajInicjalizator(typename T_::NazwaTypu_, std::bind(&ZarzadcaZasobow::tworz<T_>,this,std::placeholders::_1,std::placeholders::_2));
 		}
 
 		template <class T_>
-		static Zasob::SharedPtr tworz(const ZarzadcaZasobow::Parametr& parametr, bool cache){
-			return std::make_shared<T_>(parametr);
+		Zasob::SharedPtr tworz(const ZarzadcaZasobow::Parametr& parametr, bool cache){
+			Zasob::SharedPtr ptr = std::make_shared<T_>(parametr);
+			wywolaj(PoUtworzeniu, typename T_::NazwaTypu_, ptr);
+			return ptr;
 		}
 
 		/**

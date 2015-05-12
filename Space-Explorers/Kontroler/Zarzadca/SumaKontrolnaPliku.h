@@ -25,6 +25,10 @@ namespace SpEx{
 			return sumaKontrolna_;
 		}
 
+		const std::string& nazwa() override{
+			return NazwaTypu_;
+		}
+
 		std::string napis() const override;
 
 	private:

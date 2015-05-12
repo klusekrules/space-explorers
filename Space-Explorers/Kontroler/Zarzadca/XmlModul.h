@@ -26,6 +26,10 @@ namespace SpEx {
 			return plik_;
 		}
 
+		const std::string& nazwa() override{
+			return NazwaTypu_;
+		}
+
 	private:
 		XmlModul(const std::string& plik);
 

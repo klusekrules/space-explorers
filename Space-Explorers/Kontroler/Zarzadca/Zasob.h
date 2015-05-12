@@ -57,7 +57,9 @@ namespace SpEx{
 		* \version 1
 		* \date 06-08-2014
 		*/
-		virtual bool inicjalizuj() = 0;
+		virtual bool inicjalizuj() = 0; 
+
+		virtual const std::string& nazwa() = 0;
 
 	private:
 		STyp::Identyfikator identyfikator_; /// Identyfikator zasobu.

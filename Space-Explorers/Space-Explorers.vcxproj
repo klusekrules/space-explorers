@@ -441,6 +441,7 @@
     <ClInclude Include="Testy\WymaganiaTest.h" />
     <ClInclude Include="Testy\ZapisStanuGryTest.h" />
     <ClInclude Include="Testy\ZleceniaTest.h" />
+    <ClInclude Include="Utils\CallbackSystemInterfejs.h" />
     <ClInclude Include="Utils\DefinicjeWezlowXML.h" />
     <ClInclude Include="Utils\FPSCounter.h" />
     <ClInclude Include="Utils\GeneratorIdentyfikatorow.h" />

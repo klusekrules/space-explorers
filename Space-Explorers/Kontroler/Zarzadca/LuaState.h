@@ -54,6 +54,10 @@ namespace SpEx{
 			return L;
 		}
 
+		const std::string& nazwa() override{
+			return NazwaTypu_;
+		}
+
 	private:
 
 		/**

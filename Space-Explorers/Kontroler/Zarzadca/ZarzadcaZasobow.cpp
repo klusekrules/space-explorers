@@ -132,12 +132,15 @@ namespace SpEx{
 
 		if (found != zasobyPrzechowywane_.end()){
 			if (found->second.cached_){
+				wywolaj(PobranoPrzechowywany, found->second.sharedptr_->nazwa(), found->second.sharedptr_);
 				return found->second.sharedptr_;
 			}else{
 				Zasob::WeakPtr asset = found->second.weakptr_;
 
 				if (!asset.expired()){
-					return asset.lock();
+					Zasob::SharedPtr ptr = asset.lock();
+					wywolaj(PobranoPrzechowywany, ptr->nazwa(), ptr);
+					return ptr;
 				}else{
 					zasobyPrzechowywane_.erase(found);
 					return wczytajZasob(inicjalizator, identyfikator, parametr, cache, id);
