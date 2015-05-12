@@ -15,7 +15,7 @@ namespace SpEx{
 	
 	void Konsola::wykonajPolecenie(const std::string& polecenie) const{
 		auto sPolecenie = Utils::trim(polecenie);
-		auto iter = std::find_if(sPolecenie.begin(), sPolecenie.end(), [](int i){ return ::isspace(i); });
+		auto iter = std::find_if(sPolecenie.begin(), sPolecenie.end(), [](unsigned char i){ return ::isspace(i); });
 		std::string nazwa(sPolecenie.begin(), iter);
 		sPolecenie.erase(sPolecenie.begin(), iter);
 		auto parametry = Utils::trim(sPolecenie);

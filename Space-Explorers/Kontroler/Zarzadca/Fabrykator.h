@@ -107,7 +107,10 @@ namespace SpEx{
 		
 		template <class T_>
 		inline std::shared_ptr<T_> tworzMetodeRPC(Klient& klient){
-			auto ptr = std::make_shared<T_>(klient);
+			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "MetodaRPC -> " + typename T_::NazwaTypu_);
+			}
+			auto ptr = std::make_shared<T_>(klient);			
 			ptr->nazwa_ = typename T_::NazwaTypu_;
 			ptr->id_unikalne_ = std::to_string(static_cast<unsigned long long>(identyfikatorZadania_()()));
 			if (!ptr->inicjuj()){

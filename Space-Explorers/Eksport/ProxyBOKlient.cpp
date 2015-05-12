@@ -21,10 +21,13 @@ namespace SpEx{
 	}
 
 	int ProxyBOKlient::polaczDoSerwera(const char* ip, unsigned short port) {
-		if (klient_){
+		if (klient_ && !klient_->zakonczony()){
 			return RETURN_CODE_ISTNIEJE_POLACZENIE;
 		}
-		
+		if (klient_){
+			klient_->zakoncz();
+			klient_->czekajNaZakonczenie();
+		}
 		klient_ = std::make_shared<Klient>(ip, port);
 		klient_->odblokuj();
 		return RETURN_CODE_OK;
