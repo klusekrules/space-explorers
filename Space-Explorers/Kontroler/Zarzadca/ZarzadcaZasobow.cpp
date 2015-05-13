@@ -132,14 +132,14 @@ namespace SpEx{
 
 		if (found != zasobyPrzechowywane_.end()){
 			if (found->second.cached_){
-				wywolaj(PobranoPrzechowywany, found->second.sharedptr_->nazwa(), found->second.sharedptr_);
+				wywolaj(StrukturyZarzadcyZasobow::PobranoPrzechowywany, found->second.sharedptr_->nazwa(), found->second.sharedptr_);
 				return found->second.sharedptr_;
 			}else{
 				Zasob::WeakPtr asset = found->second.weakptr_;
 
 				if (!asset.expired()){
 					Zasob::SharedPtr ptr = asset.lock();
-					wywolaj(PobranoPrzechowywany, ptr->nazwa(), ptr);
+					wywolaj(StrukturyZarzadcyZasobow::PobranoPrzechowywany, ptr->nazwa(), ptr);
 					return ptr;
 				}else{
 					zasobyPrzechowywane_.erase(found);

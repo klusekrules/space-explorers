@@ -157,11 +157,6 @@ namespace SpEx{
 		zarzadcaZasobow_->inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 		zarzadcaUzytkownikow_->inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
 
-		zarzadcaZasobow_->dodajCallback([](const std::string& nazwa, Zasob::SharedPtr)->void{
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Zarejestrowano zasób: " + nazwa);
-		}, ZarzadcaZasobowWyzwalaczCallback::PoRejestracji);
-
-
 		rejestrujTypyZasobow();
 		rejestrujMetodyRPC();
 		rejestrujTypySkryptow();
@@ -369,6 +364,11 @@ namespace SpEx{
 	}
 
 	void Aplikacja::rejestrujTypyZasobow(){
+
+		zarzadcaZasobow_->dodajCallback([](const std::string& nazwa, Zasob::SharedPtr)->void{
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Zarejestrowano zasób: " + nazwa);
+		}, StrukturyZarzadcyZasobow::PoRejestracji);
+		
 		zarzadcaZasobow_->rejestruj<LuaState>();
 		zarzadcaZasobow_->rejestruj<DllModule>();
 		zarzadcaZasobow_->rejestruj<XmlModul>();

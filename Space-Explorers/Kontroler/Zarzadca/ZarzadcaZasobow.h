@@ -8,6 +8,18 @@
 #include "Kontroler\UstawieniaAplikacji.h"
 #include "Utils\CallbackSystemInterfejs.h"
 namespace SpEx {
+	
+	namespace StrukturyZarzadcyZasobow {
+		enum WyzwalaczCallback{
+			PoRejestracji,
+			PoUtworzeniu,
+			PobranoPrzechowywany
+		};
+
+		typedef CallbackSystemInterfejs < WyzwalaczCallback, const std::string&, Zasob::SharedPtr > CallbackSystem;
+		typedef CallbackSystem::Callback CallbackSystemFunction;
+	}
+
 	/**
 	* \brief Klasa zarz¹dzaj¹ca zasobami.
 	*
@@ -16,18 +28,8 @@ namespace SpEx {
 	* \version 3
 	* \date 25-11-2014
 	*/
-
-	enum ZarzadcaZasobowWyzwalaczCallback{
-		PoRejestracji,
-		PoUtworzeniu,
-		PobranoPrzechowywany
-	};
-
-	typedef CallbackSystemInterfejs < ZarzadcaZasobowWyzwalaczCallback, const std::string&, Zasob::SharedPtr > ZarzadcaZasobowCallbackSystem;
-	typedef ZarzadcaZasobowCallbackSystem::Callback ZarzadcaZasobowCallbackSystemFunction;
-
 	class ZarzadcaZasobow :
-		public ZarzadcaZasobowCallbackSystem,
+		public StrukturyZarzadcyZasobow::CallbackSystem,
 		public virtual SLog::LoggerInterface,
 		se::NonCopyable
 	{
@@ -158,14 +160,14 @@ namespace SpEx {
 		*/
 		template <class T_>
 		bool rejestruj(){
-			wywolaj(PoRejestracji, typename T_::NazwaTypu_, nullptr);
+			wywolaj(StrukturyZarzadcyZasobow::PoRejestracji, typename T_::NazwaTypu_, nullptr);
 			return dodajInicjalizator(typename T_::NazwaTypu_, std::bind(&ZarzadcaZasobow::tworz<T_>,this,std::placeholders::_1,std::placeholders::_2));
 		}
 
 		template <class T_>
 		Zasob::SharedPtr tworz(const ZarzadcaZasobow::Parametr& parametr, bool cache){
 			Zasob::SharedPtr ptr = std::make_shared<T_>(parametr);
-			wywolaj(PoUtworzeniu, typename T_::NazwaTypu_, ptr);
+			wywolaj(StrukturyZarzadcyZasobow::PoUtworzeniu, typename T_::NazwaTypu_, ptr);
 			return ptr;
 		}
 
