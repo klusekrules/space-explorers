@@ -16,11 +16,7 @@ namespace SpEx{
 		bool inicjalizuj() override;
 
 		virtual ~SumaKontrolnaPliku() = default;
-
-		inline const std::string& pobierzAdresPliku() const{
-			return plik_;
-		}
-
+		
 		inline const SHA3& pobierzSumeKontrolna() const{
 			return sumaKontrolna_;
 		}
@@ -34,7 +30,6 @@ namespace SpEx{
 	private:
 		SumaKontrolnaPliku(const std::string& plik);
 
-		std::string plik_;
 		FILE *fp_;
 		SHA3 sumaKontrolna_;
 	};

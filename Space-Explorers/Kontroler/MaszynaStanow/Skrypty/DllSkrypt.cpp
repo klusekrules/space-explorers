@@ -18,7 +18,7 @@ namespace SpEx{
 			auto procedura = GetProcAddress((*modul_)(), funkcja.c_str());
 			if (procedura()) {
 				std::stringstream ss;
-				ss << "Nie udalo sie wywolac skryptu: " << funkcja << " z pliku :  " << modul_->pobierzPlik() << std::endl;
+				ss << "Nie udalo sie wywolac skryptu: " << funkcja << " z pliku :  " << modul_->pobierzAdresPliku() << std::endl;
 #ifndef LOG_OFF_ALL
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, ss.str());
 #endif

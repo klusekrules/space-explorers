@@ -22,10 +22,6 @@ namespace SpEx {
 			return handle_;
 		}
 
-		inline const std::string& pobierzPlik() const{
-			return plik_;
-		}
-
 		const std::string& nazwa() override{
 			return NazwaTypu_;
 		}
@@ -34,7 +30,6 @@ namespace SpEx {
 		XmlModul(const std::string& plik);
 
 
-		std::string plik_; /// Lokalizacja pliku dll.
 		std::shared_ptr<SPar::ParserDokumentXml> handle_; /// Uchwyt do wczytanego modu³u dll.
 	};
 }

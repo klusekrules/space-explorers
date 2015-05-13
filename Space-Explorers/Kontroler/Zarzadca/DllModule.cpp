@@ -6,7 +6,7 @@ namespace SpEx{
 	const std::string DllModule::NazwaTypu_ = "dll";
 
 	DllModule::DllModule(const std::string& plik)
-		: plik_(plik), handle_(NULL)
+		: Zasob(plik), handle_(NULL)
 	{
 	}
 
@@ -16,11 +16,11 @@ namespace SpEx{
 	}
 
 	bool DllModule::inicjalizuj(){
-		if (!plik_.empty()){
-			handle_ = LoadLibrary(plik_.c_str());
+		if (!pobierzAdresPliku().empty()){
+			handle_ = LoadLibrary(pobierzAdresPliku().c_str());
 			if (!handle_) {
 				std::stringstream ss;
-				ss << "Nie udalo sie wczytac pliku: " << plik_ <<  ". Error number: " << GetLastError() << std::endl;
+				ss << "Nie udalo sie wczytac pliku: " << pobierzAdresPliku() << ". Error number: " << GetLastError() << std::endl;
 #ifndef LOG_OFF_ALL
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, ss.str());
 #endif

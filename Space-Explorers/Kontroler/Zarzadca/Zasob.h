@@ -26,7 +26,9 @@ namespace SpEx{
 		*
 		* Domyœlny konstruktor.
 		*/
-		Zasob() = default;
+		Zasob(const std::string& plik)
+			: plik_(plik)
+		{}
 
 		/**
 		* \brief Domyœlny destruktor.
@@ -48,6 +50,10 @@ namespace SpEx{
 			return identyfikator_;
 		}
 
+		inline const std::string& pobierzAdresPliku() const{
+			return plik_;
+		}
+
 		/**
 		* \brief Metoda inicjalizuj¹ca zasób.
 		*
@@ -62,6 +68,8 @@ namespace SpEx{
 		virtual const std::string& nazwa() = 0;
 
 	private:
+
+		std::string plik_; /// Lokalizacja pliku.
 		STyp::Identyfikator identyfikator_; /// Identyfikator zasobu.
 	};
 };

@@ -23,7 +23,6 @@ namespace SpEx {
 		typedef std::shared_ptr<DllModule> SharedPtr; /// Silny wskaŸnik na klasê.
 		typedef std::weak_ptr<DllModule> WeakPtr; /// S³aby wskaŸnik na klasê.
 
-
 		/**
 		* \brief Destruktor.
 		*
@@ -55,19 +54,6 @@ namespace SpEx {
 			return handle_;
 		}
 
-		/**
-		* \brief Metoda zwracaj¹ca adres pliku.
-		*
-		* Metoda zwraca adres pliku dll.
-		* \return Adres pliku dll.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 07-08-2014
-		*/
-		inline const std::string& pobierzPlik() const{
-			return plik_;
-		}
-
 		const std::string& nazwa() override{
 			return NazwaTypu_;
 		}
@@ -85,8 +71,6 @@ namespace SpEx {
 		*/
 		DllModule(const std::string& plik);
 
-		
-		std::string plik_; /// Lokalizacja pliku dll.
 		HMODULE handle_; /// Uchwyt do wczytanego modu³u dll.
 	};
 };

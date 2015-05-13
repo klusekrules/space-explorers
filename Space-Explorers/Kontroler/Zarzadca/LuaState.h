@@ -71,9 +71,6 @@ namespace SpEx{
 		*/
 		LuaState(const std::string& plik);
 
-
-
-		std::string plik_; /// Lokalizacja skryptu.
 		lua_State *L; /// Wskaünik na obiekt opisujπcy stan skryptu.
 	};
 };

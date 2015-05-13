@@ -6,7 +6,7 @@ namespace SpEx{
 	const std::string LuaState::NazwaTypu_ = "lua";
 
 	LuaState::LuaState(const std::string& plik)
-		: plik_(plik), L(luaL_newstate())
+		: Zasob(plik), L(luaL_newstate())
 	{
 		luaJIT_setmode(L, 0, LUAJIT_MODE_ENGINE | LUAJIT_MODE_ON);
 		luaL_openlibs(L);
@@ -17,8 +17,8 @@ namespace SpEx{
 	}
 
 	bool LuaState::inicjalizuj(){
-		if (!plik_.empty()){
-			int status = luaL_loadfile(L, plik_.c_str());
+		if (!pobierzAdresPliku().empty()){
+			int status = luaL_loadfile(L, pobierzAdresPliku().c_str());
 			if (status) {
 				std::stringstream ss;
 				ss << "Nie udalo sie wczytac pliku:" << lua_tostring(L, -1) << std::endl;
