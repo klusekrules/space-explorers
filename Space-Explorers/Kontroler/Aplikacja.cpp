@@ -24,6 +24,9 @@
 #include "Parser\ParserDokumentXml.h"
 #include "Eksport\IProxyBO.h"
 
+std::string base64_encode(unsigned char const* bytes_to_encode, unsigned int in_len);
+std::string base64_decode(std::string const& encoded_string);
+
 namespace SpEx{
 
 	int Aplikacja::iloscArgumentow = 0;
@@ -51,10 +54,23 @@ namespace SpEx{
 			proxy_->rejestrujMetodyKonsoli();
 
 			SpEx::MaszynaStanow::pobierzInstancje().inicjalizuj();
+			
+			std::string dane("Kodowanie base64");
+			std::string zakodowane;
+			std::string zdekodowane;
 
 			switch (proxy_->pobierzTrybAplikacji())
 			{
 			case TrybAplikacji::Serwer:
+
+				logger_.loguj(SLog::Log::Info, "Test kodowania base64");
+				logger_.loguj(SLog::Log::Info, dane);
+				zakodowane = base64_encode(reinterpret_cast<const unsigned char*>(dane.c_str()), dane.length());
+				logger_.loguj(SLog::Log::Info, zakodowane);
+				zdekodowane = base64_decode(zakodowane);
+				logger_.loguj(SLog::Log::Info, zdekodowane);
+
+
 				logger_.loguj(SLog::Log::Info, "Tryb dzia³ania aplikacji: Serwer");
 				SpEx::MaszynaStanow::pobierzInstancje().start();
 				break;

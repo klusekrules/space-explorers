@@ -391,6 +391,9 @@
     <ClCompile Include="Kontroler\Siec\RPC\ListaPlikowRPC.cpp">
       <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClCompile>
+    <ClCompile Include="Algorytmy\base64.cpp">
+      <Filter>SourceFile\Algorytmy\Base64</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Algorytmy\CRC.h">
@@ -1021,6 +1024,9 @@
     </Filter>
     <Filter Include="SourceFile\Wyjatki\DomysleWartosci">
       <UniqueIdentifier>{6f405ef5-dac8-4c81-a144-5dde19dd7b2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Algorytmy\Base64">
+      <UniqueIdentifier>{c17ad733-317b-4cd4-ae0c-e22be6acb61e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

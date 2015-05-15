@@ -481,6 +481,7 @@
     <ClInclude Include="Wyjatki\PowtorzenieIdObiektu.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Algorytmy\base64.cpp" />
     <ClCompile Include="Algorytmy\CRC16.cpp" />
     <ClCompile Include="Algorytmy\CRC32.cpp" />
     <ClCompile Include="Algorytmy\CRC64.cpp" />
