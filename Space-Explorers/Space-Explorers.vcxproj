@@ -356,6 +356,7 @@
     <ClInclude Include="Kontroler\Siec\Klient.h" />
     <ClInclude Include="Kontroler\Siec\RPC\EchoRPC.h" />
     <ClInclude Include="Kontroler\Siec\RPC\InicjujLogowanieRPC.h" />
+    <ClInclude Include="Kontroler\Siec\RPC\ListaPlikowRPC.h" />
     <ClInclude Include="Kontroler\Siec\RPC\MetodaRPC.h" />
     <ClInclude Include="Kontroler\Siec\RPC\PotwierdzLogowanieRPC.h" />
     <ClInclude Include="Kontroler\Siec\RPC\SprawdzSumyKontrolneRPC.h" />
@@ -503,6 +504,7 @@
     <ClCompile Include="Kontroler\Siec\Klient.cpp" />
     <ClCompile Include="Kontroler\Siec\RPC\EchoRPC.cpp" />
     <ClCompile Include="Kontroler\Siec\RPC\InicjujLogowanieRPC.cpp" />
+    <ClCompile Include="Kontroler\Siec\RPC\ListaPlikowRPC.cpp" />
     <ClCompile Include="Kontroler\Siec\RPC\MetodaRPC.cpp" />
     <ClCompile Include="Kontroler\Siec\RPC\PotwierdzLogowanieRPC.cpp" />
     <ClCompile Include="Kontroler\Siec\RPC\SprawdzSumyKontrolneRPC.cpp" />

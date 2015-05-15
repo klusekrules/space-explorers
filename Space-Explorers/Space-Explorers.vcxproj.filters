@@ -388,6 +388,9 @@
     <ClCompile Include="Eksport\ProxyBOKlient.cpp">
       <Filter>SourceFile\Export</Filter>
     </ClCompile>
+    <ClCompile Include="Kontroler\Siec\RPC\ListaPlikowRPC.cpp">
+      <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Algorytmy\CRC.h">
@@ -836,6 +839,9 @@
     </ClInclude>
     <ClInclude Include="Utils\CallbackSystemInterfejs.h">
       <Filter>SourceFile\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\RPC\ListaPlikowRPC.h">
+      <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
