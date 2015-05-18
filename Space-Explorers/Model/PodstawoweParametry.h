@@ -1,6 +1,6 @@
 #pragma once
 #include "Logger\LoggerInterface.h"
-#include "Utils\Serializacja.h"
+#include "Narzedzia\Serializacja.h"
 
 namespace SpEx{
 	/**

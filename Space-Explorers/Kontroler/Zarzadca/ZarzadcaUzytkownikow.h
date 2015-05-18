@@ -1,9 +1,9 @@
 #pragma once
 #include <mutex>
 #include "Logger\LoggerInterface.h"
-#include "Utils\Serializacja.h"
-#include "Utils\NonCopyable.h"
-#include "Utils\NonMoveable.h"
+#include "Narzedzia\Serializacja.h"
+#include "Narzedzia\NonCopyable.h"
+#include "Narzedzia\NonMoveable.h"
 #include "Kontroler\UstawieniaAplikacji.h"
 #include "Model\Uzytkownik.h"
 

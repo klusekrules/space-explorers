@@ -1,5 +1,5 @@
 #pragma once
-#include "Utils\Serializacja.h"
+#include "Narzedzia\Serializacja.h"
 #include "Logger\LoggerInterface.h"
 #include "PodstawoweParametry.h"
 #include "ListaObiektow.hpp"

@@ -7,7 +7,7 @@
 #include <locale>
 #include <memory>
 #include <random>
-#include "Utils\Singleton.h"
+#include "Narzedzia\Singleton.h"
 #include "UstawieniaAplikacji.h"
 #include "Eksport\TypyEksportowane.h"
 

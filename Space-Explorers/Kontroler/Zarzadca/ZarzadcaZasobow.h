@@ -1,12 +1,12 @@
 #pragma once
-#include "Utils\GeneratorIdentyfikatorow.h"
+#include "Narzedzia\GeneratorIdentyfikatorow.h"
 #include "Zasob.h"
-#include "Utils\NonCopyable.h"
+#include "Narzedzia\NonCopyable.h"
 #include <functional>
 #include "Parser\XmlBO.h"
 #include "Logger\LoggerInterface.h"
 #include "Kontroler\UstawieniaAplikacji.h"
-#include "Utils\CallbackSystemInterfejs.h"
+#include "Narzedzia\CallbackSystemInterfejs.h"
 namespace SpEx {
 	
 	namespace StrukturyZarzadcyZasobow {

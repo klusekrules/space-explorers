@@ -2,8 +2,8 @@
 #include "Logger\LoggerInterface.h"
 #include "TypyProste\TypyProste.h"
 #include "Parser\XmlBO.h"
-#include "Utils\NonCopyable.h"
-#include "Utils\NonMoveable.h"
+#include "Narzedzia\NonCopyable.h"
+#include "Narzedzia\NonMoveable.h"
 
 namespace SpEx{
 	/**

@@ -1,13 +1,12 @@
 #include "GeneratorIdentyfikatorow.h"
-#include "Wyjatki\NiepoprawneParametryFunkcji.h"
-#include "Kontroler\Aplikacja.h"
 #include "Logger\Logger.h"
-#include "Utils.h"
 
 namespace SpEx{
+	
 	bool GeneratorIdentyfikatorow::pobierzIdentyfikator(const std::string& napis, STyp::Identyfikator& id){
 		if (napis.empty())
-			throw NiepoprawneParametryFunkcji(EXCEPTION_PLACE, SpEx::Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo(), STyp::Tekst(napis));
+			throw std::exception("GeneratorIdentyfikatorow::pobierzIdentyfikator -> Brak nazwy identyfikatora.");
+
 		int pozycja = -1;
 		for (auto& element : mapa_){
 			++pozycja;

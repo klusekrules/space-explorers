@@ -2,8 +2,8 @@
 #include <thread>
 #include <atomic>
 #include <mutex>
-#include "Utils\NonCopyable.h"
-#include "Utils\NonMoveable.h"
+#include "Narzedzia\NonCopyable.h"
+#include "Narzedzia\NonMoveable.h"
 #include "TypyProste\Wyjatek.h"
 
 namespace SpEx{

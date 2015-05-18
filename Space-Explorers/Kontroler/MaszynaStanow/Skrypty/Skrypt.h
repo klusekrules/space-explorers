@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "Utils\NonCopyable.h"
+#include "Narzedzia\NonCopyable.h"
 
 namespace SpEx{
 

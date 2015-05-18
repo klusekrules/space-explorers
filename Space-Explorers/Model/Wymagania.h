@@ -4,8 +4,8 @@
 #include "PodstawoweParametry.h"
 #include "Kryterium.h"
 #include "SzablonKryterium.h"
-#include "Utils\NonCopyable.h"
-#include "Utils\NonMoveable.h"
+#include "Narzedzia\NonCopyable.h"
+#include "Narzedzia\NonMoveable.h"
 
 namespace SpEx{
 	/**

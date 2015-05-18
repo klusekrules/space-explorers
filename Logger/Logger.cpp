@@ -1,7 +1,7 @@
 #include "Logger.h"
 
 namespace SLog{
-
+	
 	Logger::Logger(const std::string& nazwa){
 		napis_ << nazwa << "[";
 	}

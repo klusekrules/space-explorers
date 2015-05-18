@@ -17,19 +17,6 @@ namespace SpEx{
 		public virtual SLog::LoggerInterface
 	{
 	public:
-		/**
-		* \brief Domyœlny konstruktor.
-		*
-		* Domyœlny konstruktor.
-		*/
-		GeneratorIdentyfikatorow() = default;
-
-		/**
-		* \brief Domyœlny destruktor.
-		* 
-		* Domylny destruktor.
-		*/
-		~GeneratorIdentyfikatorow() = default;
 
 		/**
 		* \brief Metoda mapuj¹ca identyfikator.

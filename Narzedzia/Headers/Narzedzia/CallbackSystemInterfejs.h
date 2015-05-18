@@ -1,7 +1,7 @@
 #pragma once
 #include <functional>
 #include <map>
-#include <vector>
+#include <list>
 #include <mutex>
 
 template < typename T , typename ... A>

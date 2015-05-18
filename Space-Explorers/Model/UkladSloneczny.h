@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include "Planeta.h"
-#include "Utils\Serializacja.h"
+#include "Narzedzia\Serializacja.h"
 #include <unordered_map>
 
 namespace SpEx {

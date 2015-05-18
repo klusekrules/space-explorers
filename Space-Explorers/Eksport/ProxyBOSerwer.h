@@ -11,7 +11,7 @@ namespace SpEx{
 		public IProxyBO
 	{
 	public:
-		ProxyBOSerwer() = default;
+		ProxyBOSerwer();
 
 		~ProxyBOSerwer() = default;
 

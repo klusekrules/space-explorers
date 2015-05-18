@@ -7,6 +7,11 @@
 #include "Export.h"
 
 namespace SpEx{
+
+	ProxyBOSerwer::ProxyBOSerwer(){
+	
+	}
+
 	int ProxyBOSerwer::uruchomSerwer(){
 		if (serwer_){
 			return RETURN_CODE_SERWER_JUZ_JEST_WLACZONY;

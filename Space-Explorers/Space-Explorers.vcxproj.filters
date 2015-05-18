@@ -349,9 +349,6 @@
     <ClCompile Include="Utils\UtilsGui.cpp">
       <Filter>SourceFile\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\GeneratorIdentyfikatorow.cpp">
-      <Filter>SourceFile\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="Utils\FPSCounter.cpp">
       <Filter>SourceFile\Utils</Filter>
     </ClCompile>
@@ -759,21 +756,6 @@
     <ClInclude Include="Utils\Utils.h">
       <Filter>SourceFile\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\MakeVector.h">
-      <Filter>SourceFile\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\NonMoveable.h">
-      <Filter>SourceFile\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\NonCopyable.h">
-      <Filter>SourceFile\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\Singleton.h">
-      <Filter>SourceFile\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\GeneratorIdentyfikatorow.h">
-      <Filter>SourceFile\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\FPSCounter.h">
       <Filter>SourceFile\Utils</Filter>
     </ClInclude>
@@ -784,9 +766,6 @@
       <Filter>SourceFile\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\DefinicjeWezlowXML.h">
-      <Filter>SourceFile\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\Serializacja.h">
       <Filter>SourceFile\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\Tranzakcje\MenedzerTranzakcji.h">
@@ -839,9 +818,6 @@
     </ClInclude>
     <ClInclude Include="Eksport\ProxyBOKlient.h">
       <Filter>SourceFile\Export</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\CallbackSystemInterfejs.h">
-      <Filter>SourceFile\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Siec\RPC\ListaPlikowRPC.h">
       <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>

@@ -4,7 +4,7 @@
 #include "StanInfo.h"
 #include "Zdarzenie.h"
 #include "Stan.h"
-#include "Utils\Singleton.h"
+#include "Narzedzia\Singleton.h"
 #include "Eksport\TypyEksportowane.h"
 #include "Kontroler\Wielowatkowosc\MenadzerWatkow.h"
 
