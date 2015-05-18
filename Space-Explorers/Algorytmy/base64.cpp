@@ -76,8 +76,12 @@ std::string base64_encode(unsigned char const* bytes_to_encode, unsigned int in_
 
 	}
 
-	return ret;
+	return std::move(ret);
 
+}
+
+std::string base64_encode(const std::string & dane){
+	return std::move(base64_encode(reinterpret_cast<const unsigned char*>(dane.c_str()), dane.length()));
 }
 
 std::string base64_decode(std::string const& encoded_string) {
@@ -118,5 +122,5 @@ std::string base64_decode(std::string const& encoded_string) {
 		for (j = 0; (j < i - 1); j++) ret += char_array_3[j];
 	}
 
-	return ret;
+	return std::move(ret);
 }

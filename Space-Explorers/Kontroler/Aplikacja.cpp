@@ -26,6 +26,7 @@
 
 std::string base64_encode(unsigned char const* bytes_to_encode, unsigned int in_len);
 std::string base64_decode(std::string const& encoded_string);
+std::string base64_encode(const std::string & dane);
 
 namespace SpEx{
 
@@ -65,7 +66,7 @@ namespace SpEx{
 
 				logger_.loguj(SLog::Log::Info, "Test kodowania base64");
 				logger_.loguj(SLog::Log::Info, dane);
-				zakodowane = base64_encode(reinterpret_cast<const unsigned char*>(dane.c_str()), dane.length());
+				zakodowane = base64_encode(dane);
 				logger_.loguj(SLog::Log::Info, zakodowane);
 				zdekodowane = base64_decode(zakodowane);
 				logger_.loguj(SLog::Log::Info, zdekodowane);
