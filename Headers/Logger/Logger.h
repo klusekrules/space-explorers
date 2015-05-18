@@ -17,12 +17,7 @@ namespace SLog{
 		virtual public LoggerInterface
 	{
 	public:
-
-		/**
-		* Konstruktor bezparametrowy.
-		*/
-		Logger() = default;
-
+		
 		/**
 		* Konstruktor klasy Logger. Tworzy obiekt z nadan¹ nazw¹ klasy g³ównej.
 		* \param[in] nazwaKlasy - Nazwa klasy glównej dla której jest generowany napis.
@@ -31,12 +26,7 @@ namespace SLog{
 		* \date 18-06-2014
 		*/
 		explicit Logger(const std::string& nazwaKlasy);
-
-		/**
-		* Destruktor.
-		*/
-		virtual ~Logger() = default;
-
+		
 		/**
 		* Metoda dodaj¹ca pole o podanej nazwie i zawartoœci.
 		* \param[in] nazwa - Nazwa pola.
