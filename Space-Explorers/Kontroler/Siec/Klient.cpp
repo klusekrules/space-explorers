@@ -115,8 +115,29 @@ namespace SpEx{
 
 			// Dzia³ania w przypadku braku oczekuj¹cych ¿¹dañ.
 			if (zadanie_ == nullptr){
-				std::this_thread::sleep_for(std::chrono::milliseconds(100));
-				continue;
+				u_long iModeNonBlock = 1;
+				u_long iModeBlock = 0;
+				ioctlsocket(gniazdo_, FIONBIO, &iModeNonBlock);
+				auto rezultat = recv(gniazdo_, nullptr, 0, 0);
+				int er = WSAGetLastError();
+				ioctlsocket(gniazdo_, FIONBIO, &iModeBlock);
+				if (rezultat <= 0){
+					if (rezultat == 0){
+						if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning))
+							SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie: " + pobierzIP());
+						er = RPC_ERROR_CONNECTION_CLOSED;
+					} else{
+						if (WSAEWOULDBLOCK == er){
+							std::this_thread::sleep_for(std::chrono::milliseconds(100));
+							continue;
+						} else if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error))
+							SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d po³¹cznie z serwerem: " + std::to_string(er));
+					}
+				}
+
+				zakoncz();
+				ustawKodPowrotu(er);
+				break;
 			}
 
 			//Proces obs³ugi ¿¹dania.
