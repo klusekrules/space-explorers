@@ -28,7 +28,10 @@ namespace SpEx{
 			klient_->zakoncz();
 			klient_->czekajNaZakonczenie();
 		}
-		klient_ = std::make_shared<Klient>(ip, port);
+		if (ip != nullptr)
+			klient_ = std::make_shared<Klient>(ip, port);
+		else
+			klient_ = std::make_shared<Klient>(Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji());
 		klient_->odblokuj();
 		return RETURN_CODE_OK;
 	}
@@ -63,8 +66,13 @@ namespace SpEx{
 		}));
 
 		Aplikacja::pobierzInstancje().konsola_->rejestrujPolecenie("po³¹cz", Konsola::OpcjePolecenia("po³acz siê z serwerem", [&](std::string param){
-			auto pos = param.find_first_of(':');
-			auto ret = polaczDoSerwera(param.substr(0, pos).c_str(), static_cast<unsigned short>(std::strtol(param.substr(pos + 1).c_str(), 0, 10)));
+			int ret = RETURN_CODE_OK;
+			if (!param.empty()){
+				auto pos = param.find_first_of(':');
+				ret = polaczDoSerwera(param.substr(0, pos).c_str(), static_cast<unsigned short>(std::strtol(param.substr(pos + 1).c_str(), 0, 10)));
+			} else{
+				ret = polaczDoSerwera(nullptr,0);
+			}
 			switch (ret){
 			case RETURN_CODE_OK:
 				Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Info, "Ok");
