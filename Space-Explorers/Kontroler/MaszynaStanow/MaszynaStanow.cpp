@@ -2,7 +2,7 @@
 #include "MaszynaStanow.h"
 #include "Widok\Ekrany\OknoGry.h"
 #include "Kontroler\Aplikacja.h"
-#include "Utils\FPSCounter.h"
+#include "Narzedzia\FPSCounter.h"
 #include "Wyjatki\BladStukturyStanu.h"
 #include "Wyjatki\NieznalezionoPliku.h"
 #include "Kontroler\Zarzadca\XmlModul.h"

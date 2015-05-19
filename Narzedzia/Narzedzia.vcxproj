@@ -203,6 +203,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Narzedzia\CallbackSystemInterfejs.h" />
+    <ClInclude Include="Headers\Narzedzia\FPSCounter.h" />
     <ClInclude Include="Headers\Narzedzia\GeneratorIdentyfikatorow.h" />
     <ClInclude Include="Headers\Narzedzia\MakeVector.h" />
     <ClInclude Include="Headers\Narzedzia\NonCopyable.h" />
@@ -211,6 +212,7 @@
     <ClInclude Include="Headers\Narzedzia\Singleton.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="GeneratorIdentyfikatorow.cpp" />
   </ItemGroup>
   <ItemGroup>

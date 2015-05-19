@@ -443,7 +443,6 @@
     <ClInclude Include="Testy\ZapisStanuGryTest.h" />
     <ClInclude Include="Testy\ZleceniaTest.h" />
     <ClInclude Include="Utils\DefinicjeWezlowXML.h" />
-    <ClInclude Include="Utils\FPSCounter.h" />
     <ClInclude Include="Utils\StackThrow.h" />
     <ClInclude Include="Utils\StaleUstawienAplikacji.h" />
     <ClInclude Include="Utils\Tranzakcje\MenedzerTranzakcji.h" />
@@ -578,7 +577,6 @@
     <ClCompile Include="Testy\WymaganiaTest.cpp" />
     <ClCompile Include="Testy\ZapisStanuGryTest.cpp" />
     <ClCompile Include="Testy\ZleceniaTest.cpp" />
-    <ClCompile Include="Utils\FPSCounter.cpp" />
     <ClCompile Include="Utils\StackThrow.cpp" />
     <ClCompile Include="Utils\Tranzakcje\MenedzerTranzakcji.cpp" />
     <ClCompile Include="Utils\Tranzakcje\Operacja.cpp" />

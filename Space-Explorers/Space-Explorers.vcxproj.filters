@@ -349,9 +349,6 @@
     <ClCompile Include="Utils\UtilsGui.cpp">
       <Filter>SourceFile\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\FPSCounter.cpp">
-      <Filter>SourceFile\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="Utils\StackThrow.cpp">
       <Filter>SourceFile\Utils</Filter>
     </ClCompile>
@@ -754,9 +751,6 @@
       <Filter>SourceFile\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\Utils.h">
-      <Filter>SourceFile\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\FPSCounter.h">
       <Filter>SourceFile\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\StackThrow.h">

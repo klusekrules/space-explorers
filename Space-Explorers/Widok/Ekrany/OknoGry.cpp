@@ -4,7 +4,7 @@
 #include "EkranStartowy.h"
 #include "Utils\DefinicjeWezlowXML.h"
 #include "Kontroler\Aplikacja.h"
-#include "Utils\FPSCounter.h"
+#include "Narzedzia\FPSCounter.h"
 #include "Wyjatki\PowtorzenieIdObiektu.h"
 #include "Kontroler\Zarzadca\XmlModul.h"
 #include "Wyjatki\NieznalezionoPliku.h"
