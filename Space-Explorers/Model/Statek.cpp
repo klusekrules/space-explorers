@@ -2,8 +2,8 @@
 #include "StatekInfo.h"
 #include "Logger\Logger.h"
 #include "Utils\DefinicjeWezlowXML.h"
-#include "Utils\Tranzakcje\MenedzerTranzakcji.h"
-#include "Utils\Tranzakcje\Zlecenia.h"
+#include "Narzedzia\MenedzerTranzakcji.h"
+#include "Utils\Zlecenia.h"
 
 namespace SpEx{
 	Statek::Statek(const STyp::Ilosc& ilosc, const STyp::Identyfikator& identyfikatorPlanety, const StatekInfo& statekInfo)

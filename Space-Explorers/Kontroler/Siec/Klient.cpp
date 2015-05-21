@@ -21,7 +21,7 @@ namespace SpEx{
 
 		struct addrinfo *result = NULL;
 		if (getaddrinfo(opcje[ATRYBUT_ADRES_SERWERA].c_str(), nullptr, nullptr, &result)){
-			throw STyp::Wyjatek(EXCEPTION_PLACE,Aplikacja::pobierzInstancje().pobierzSladStosu());
+			throw STyp::Wyjatek(EXCEPTION_PLACE);
 		}
 		decltype(addr_) &sock = *((decltype(addr_)*)(result->ai_addr));
 		addr_.sin_family = AF_INET;
@@ -37,7 +37,7 @@ namespace SpEx{
 
 		struct addrinfo *result = NULL;
 		if (getaddrinfo(ip.c_str(), nullptr, nullptr, &result)){
-			throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu());
+			throw STyp::Wyjatek(EXCEPTION_PLACE);
 		}
 		decltype(addr_) &sock = *((decltype(addr_)*)(result->ai_addr));
 		addr_.sin_family = AF_INET;

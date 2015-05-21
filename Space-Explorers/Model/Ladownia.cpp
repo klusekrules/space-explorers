@@ -7,8 +7,8 @@
 #include "Utils\DefinicjeWezlowXML.h"
 #include <algorithm>
 #include <functional>
-#include "Utils\Tranzakcje\MenedzerTranzakcji.h"
-#include "Utils\Tranzakcje\Zlecenia.h"
+#include "Narzedzia\MenedzerTranzakcji.h"
+#include "Utils\Zlecenia.h"
 #include "Kontroler\Gra.h"
 #include "Utils\Utils.h"
 #include "Utils\StackThrow.h"

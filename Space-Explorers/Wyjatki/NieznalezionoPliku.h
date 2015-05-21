@@ -8,7 +8,7 @@ namespace SpEx{
 	{
 	public:
 		static const STyp::Identyfikator idNieznalezionoPliku;
-		NieznalezionoPliku(const STyp::Tekst&, const STyp::Tekst&, const STyp::Ilosc&, const STyp::Tekst& debug, const STyp::Tekst&, const STyp::Tekst&);
+		NieznalezionoPliku(const STyp::Tekst&, const STyp::Tekst&, const STyp::Ilosc&, const STyp::Tekst& debug, const STyp::Tekst&);
 		virtual ~NieznalezionoPliku() = default;
 
 		const STyp::Tekst& pobierzNazwePliku() const;

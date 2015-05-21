@@ -224,7 +224,7 @@ namespace SpEx{
 
 			// Sprawdzanie spójnoœci obiektów na planecie.
 			if (listaObiektow_.size() != listaBudynkow_.size() + listaStatkow_.size() + listaSurowcow_.size() + listaTechnologii_.size() + listaObrona_.size()){
-				throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo(), STyp::Identyfikator(145), STyp::Tekst("Niespójnoœæ danych!"),
+				throw STyp::Wyjatek(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), STyp::Identyfikator(145), STyp::Tekst("Niespójnoœæ danych!"),
 					STyp::Tekst("Wykryto niespójnoœæ danych obiektów znajduj¹cych siê na planecie o id = " + std::to_string(identyfikator_())
 					+ ". Iloœæ typów wszystkich obiektów = " + std::to_string(listaObiektow_.size())
 					+ ". Iloœæ typów budynków = " + std::to_string(listaBudynkow_.size())

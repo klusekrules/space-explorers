@@ -63,7 +63,7 @@
 
 void myPurecallHandler(){
 #ifndef LOG_OFF_ALL
-	SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, SpEx::Aplikacja::pobierzInstancje().pobierzSladStosu());
+	SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, STyp::Wyjatek(EXCEPTION_PLACE).napis());
 #endif
 }
 
@@ -83,13 +83,13 @@ void myInvalidParameterHandler(const wchar_t* expression,
 	std::stringstream str;
 	str << "Invalid parameter detected in function: " << c_function << ". File: " << c_file << ". Line: " << line << ".\nExpression: " << c_expression;
 	SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, str.str());
-	SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, SpEx::Aplikacja::pobierzInstancje().pobierzSladStosu());
+	SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, STyp::Wyjatek(EXCEPTION_PLACE).napis());
 #endif
 }
 
 namespace SpEx{
 	Aplikacja::Aplikacja()
-		: czyZainicjalizowanaBiblioteka_(false), logger_(SLog::Log::pobierzInstancje()), czyKonsola_(true), konsola_(nullptr),
+		: logger_(SLog::Log::pobierzInstancje()), czyKonsola_(true), konsola_(nullptr),
 		fabrykator_(nullptr), instancjaGry_(nullptr), zarzadcaZasobow_(nullptr), zarzadcaUzytkownikow_(nullptr), zarzadcaLokacji_(nullptr),
 		plikKonfiguracyjny_("options.xml")
 	{
@@ -100,30 +100,17 @@ namespace SpEx{
 		zarzadcaLokacji_ = std::make_shared<ZarzadcaLokacji>();
 		zarzadcaUzytkownikow_ = std::make_shared<ZarzadcaUzytkownikow>();
 
-		
-		/* ------------------------------------------ */
-
-		//Ladowanie potrzebnych bibliotek
-		uchwyt_ = LoadLibrary("Dbghelp.dll");
-		if (uchwyt_){
-			symInitialize_ = (SymInitializeS)GetProcAddress(uchwyt_, "SymInitialize");
-			symFromAddr_ = (SymFromAddrS)GetProcAddress(uchwyt_, "SymFromAddr");
-			if (symFromAddr_ && symInitialize_){
-				czyZainicjalizowanaBiblioteka_ = true;
-			}
-		}
-
 		/* ------- Konfiguracja parametrów programu -------*/
 		if (!przetworzArgumenty()){
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU);
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU);
 		}
 
 		if (!proxy_){
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_NIE_USTAWIONO_TRYBU_APLIKACJI);
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_NIE_USTAWIONO_TRYBU_APLIKACJI);
 		}
 
 		if (!ustawienia_.zaladuj(plikKonfiguracyjny_)){
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plikKonfiguracyjny_));
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plikKonfiguracyjny_));
 		}
 
 		if (ustawienia_[ATRYBUT_JEZYK_APLIKACJI].empty()){
@@ -133,7 +120,7 @@ namespace SpEx{
 		konfigurujLogger();
 		
 		if (!zaladujOpcje()){
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_LADOWANIA_OPCJI);
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_LADOWANIA_OPCJI);
 		}
 
 		ustawPlikLogow();
@@ -153,9 +140,9 @@ namespace SpEx{
 
 		inicjalizujWinsock();
 
-		zarzadcaLokacji_->inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
-		zarzadcaZasobow_->inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
-		zarzadcaUzytkownikow_->inicjalizuj(ustawienia_, std::bind(&Aplikacja::pobierzSladStosu, this));
+		zarzadcaLokacji_->inicjalizuj(ustawienia_);
+		zarzadcaZasobow_->inicjalizuj(ustawienia_);
+		zarzadcaUzytkownikow_->inicjalizuj(ustawienia_);
 
 		rejestrujTypyZasobow();
 		rejestrujMetodyRPC();
@@ -164,13 +151,13 @@ namespace SpEx{
 		zarzadcaPluginow_ = std::make_shared<ZarzadcaPluginow>(ustawienia_, fabrykator_->pobierzFabrykeZmian(), logger_);
 
 		if (!RejestrujZmianaPoziomObiektu(fabrykator_->pobierzFabrykeZmian(), logger_))
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIANY_POZIOMU);
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIANY_POZIOMU);
 
 		if (!zarzadcaPluginow_->zaladujDomyslneKlasyZmian())
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DOMYSLNYCH);
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DOMYSLNYCH);
 
 		if (!zarzadcaPluginow_->zaladujZewnetrzneKlasyZmian(*zarzadcaZasobow_))
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DODATKOWYCH);
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DODATKOWYCH);
 	}
 	
 	void Aplikacja::rejestrujKontrolkiDoTGUI(){
@@ -270,7 +257,7 @@ namespace SpEx{
 		case SLog::Log::DataCzas: logger_.ustawFormatCzasu(SLog::Log::DataCzas);
 			break;
 		default:
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_FORMATU_DATY_LOGOW(std::to_string(i)));
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_FORMATU_DATY_LOGOW(std::to_string(i)));
 			break;
 		}
 
@@ -292,12 +279,12 @@ namespace SpEx{
 #endif
 			auto nazwaPlikuDanych_ = ustawienia_[ATRYBUT_PLIK_DANYCH];
 			if (_access(nazwaPlikuDanych_.c_str(), 0) == -1){ // Sprawdzenie czy folder istnieje
-				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_PLIKU_DANYCH(nazwaPlikuDanych_));
+				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_PLIKU_DANYCH(nazwaPlikuDanych_));
 			}
 
 			auto folderPluginow_ = ustawienia_[ATRYBUT_FOLDER_PLUGINOW];
 			if (_access(folderPluginow_.c_str(), 0) == -1){ // Sprawdzenie czy folder istnieje
-				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folderPluginow_));
+				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folderPluginow_));
 			}
 		}
 		catch (std::exception &e){
@@ -315,7 +302,7 @@ namespace SpEx{
 		localtime_s(&timeinfo, &t);
 		char s[20];
 		if (strftime(s, 20, ustawienia_[ATRYBUT_FORMAT_DATY_LOGOW].c_str(), &timeinfo) == 0){
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_FORMATU_DATY);
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_FORMATU_DATY);
 		}
 
 		std::stringstream sfile;
@@ -359,7 +346,7 @@ namespace SpEx{
 		RequiredVersion = MAKEWORD(2, 0);
 
 		if (WSAStartup(RequiredVersion, &WData) != 0) {
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(pobierzSladStosu()), pobierzDebugInfo(), KOMUNIKAT_BLAD_INICJALIZACJI_WINSOCK);
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_INICJALIZACJI_WINSOCK);
 		}
 	}
 

@@ -3,8 +3,8 @@
 #include "Kontroler\Aplikacja.h"
 
 namespace SpEx{
-	NieznalezionoPliku::NieznalezionoPliku(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia, const STyp::Tekst& debug, const STyp::Tekst& stos, const STyp::Tekst& plik)
-		: Wyjatek(tPlik, funkcja, iLinia, stos, debug, idNieznalezionoPliku, STyp::Tekst("Nieznaleziono pliku!")
+	NieznalezionoPliku::NieznalezionoPliku(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia, const STyp::Tekst& debug, const STyp::Tekst& plik)
+		: Wyjatek(tPlik, funkcja, iLinia, debug, idNieznalezionoPliku, STyp::Tekst("Nieznaleziono pliku!")
 		, STyp::Tekst("Nieuda³o siê otworzyæ pliku: " + plik() )),
 		nazwaPliku_(plik)
 	{

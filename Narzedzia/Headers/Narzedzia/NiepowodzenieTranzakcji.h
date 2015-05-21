@@ -22,7 +22,7 @@ namespace SpEx{
 		* \param[in] iLinia - Linia wytapienia wyj¹tku.
 		* \param[in] tranzakcja - Opis tranzakcji dla ktorej wyst¹pi³ wyj¹tek.
 		*/
-		NiepowodzenieTranzakcji(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia, const STyp::Tekst& debug, const STyp::Tekst& tranzakcja);
+		NiepowodzenieTranzakcji(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia, const STyp::Tekst& tranzakcja);
 
 		/**
 		* \brief Destruktor.

@@ -40,7 +40,6 @@ namespace STyp{
 			const Tekst& plik,
 			const Tekst& funkcja,
 			const Ilosc& linia,
-			const Tekst& sladStosu,
 			const Tekst& debug = Tekst(),
 			const Identyfikator& id = Identyfikator(),
 			const Tekst& tytul = Tekst(),

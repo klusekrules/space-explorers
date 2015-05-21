@@ -1,6 +1,6 @@
 #include "ZleceniaTest.h"
-#include "Utils\Tranzakcje\MenedzerTranzakcji.h"
-#include "Utils\Tranzakcje\Zlecenie.h"
+#include "Narzedzia\MenedzerTranzakcji.h"
+#include "Narzedzia\Zlecenie.h"
 #include "TypyProste\TypyProste.h"
 #include "Kontroler\Aplikacja.h"
 

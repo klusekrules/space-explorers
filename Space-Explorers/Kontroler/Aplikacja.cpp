@@ -1,7 +1,6 @@
 #include "Aplikacja.h"
 #include "Gra.h"
 
-#include <iomanip>
 #include <io.h>
 #include <WinSock2.h>
 
@@ -167,41 +166,6 @@ namespace SpEx{
 		return false;
 	}
 
-	std::string Aplikacja::pobierzSladStosu() const{
-		std::stringstream stackTrace;
-		if (czyZainicjalizowanaBiblioteka_)
-		{
-			void *stack[150];
-			unsigned short frames;
-			SYMBOL_INFO *symbol;
-			HANDLE hProcess;
-			std::locale l("C");
-			stackTrace.imbue(l);
-			hProcess = GetCurrentProcess();
-			symInitialize_(hProcess, nullptr, true);
-			frames = CaptureStackBackTrace(0, 150, stack, nullptr);
-			symbol = (SYMBOL_INFO *)calloc(sizeof(SYMBOL_INFO) + 256 * sizeof(char), 1);
-			symbol->MaxNameLen = 255;
-			symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
-			if (frames > 0){
-				time_t rawtime;
-				char buf[30];
-				time(&rawtime);
-				ctime_s(buf, 30, &rawtime);
-				stackTrace << buf;
-				// i = 1 - Pominiêcie wywo³ania funkcji getStackTrace
-				// i = 0 - W³¹cznie do wyœwietlanego wyniku wywo³ania funkcji getStackTrace
-				for (unsigned int i = 1; i < frames; i++)
-				{
-					symFromAddr_(hProcess, (DWORD_PTR)(stack[i]), 0, symbol);
-					stackTrace << std::dec << (unsigned short)(frames - i - 1) << ": 0x" << std::setfill('0') << std::setw(8) << stack[i] << " " << (char*)(symbol->Name) << " = 0x" << std::setfill('0') << std::setw(8) << std::hex << symbol->Address << std::endl;
-				}
-			}
-			free(symbol);
-		}
-		return stackTrace.str();
-	}
-
 	Aplikacja::~Aplikacja()
 	{
 		if (konsola_){
@@ -209,30 +173,11 @@ namespace SpEx{
 			konsola_->czekajNaZakonczenie();
 		}
 
-		if (uchwyt_)
-			FreeLibrary(uchwyt_);
-
 		WSACleanup();
 	}
 
 	std::string Aplikacja::napis() const{
 		SLog::Logger logger(NAZWAKLASY(Aplikacja));
-
-		std::stringstream streamCzyZainicjalizowanaBiblioteka_;
-		streamCzyZainicjalizowanaBiblioteka_.imbue(std::locale());
-		streamCzyZainicjalizowanaBiblioteka_ << std::boolalpha << czyZainicjalizowanaBiblioteka_;
-		logger.dodajPole(NAZWAPOLA(czyZainicjalizowanaBiblioteka_), NAZWAKLASY2(czyZainicjalizowanaBiblioteka_), streamCzyZainicjalizowanaBiblioteka_.str());
-		logger.dodajPole(NAZWAPOLA(uchwyt_), NAZWAKLASY2(uchwyt_->unused), std::to_string(uchwyt_->unused));
-
-		std::stringstream streamSymInitialize_;
-		streamSymInitialize_.imbue(std::locale("C"));
-		streamSymInitialize_ << "0x" << std::hex << (unsigned int)(symInitialize_);
-		logger.dodajPole(NAZWAPOLA(symInitialize_), NAZWAKLASY2(symInitialize_), streamSymInitialize_.str());
-
-		std::stringstream streamSymFromAddr_;
-		streamSymFromAddr_.imbue(std::locale("C"));
-		streamSymFromAddr_ << "0x" << std::hex << (unsigned int)(symFromAddr_);
-		logger.dodajPole(NAZWAPOLA(symFromAddr_), NAZWAKLASY2(symFromAddr_), streamSymFromAddr_.str());
 
 		logger.dodajPole(NAZWAPOLA(plikKonfiguracyjny_), NAZWAKLASY2(plikKonfiguracyjny_), plikKonfiguracyjny_);
 		logger.dodajPole(NAZWAPOLA(ustawienia_), ustawienia_);

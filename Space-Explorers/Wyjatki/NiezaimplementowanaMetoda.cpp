@@ -4,7 +4,7 @@
 
 namespace SpEx{
 	NiezaimplementowanaMetoda::NiezaimplementowanaMetoda(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia)
-		: Wyjatek(tPlik, funkcja, iLinia, Aplikacja::pobierzInstancje().pobierzSladStosu(), Aplikacja::pobierzInstancje().pobierzDebugInfo(), 
+		: Wyjatek(tPlik, funkcja, iLinia, Aplikacja::pobierzInstancje().pobierzDebugInfo(), 
 		idNiezaimplementowanaMetoda, tytulNiezaimplementowanaMetoda, trescNiezaimplementowanaMetoda + funkcja)
 	{
 	}

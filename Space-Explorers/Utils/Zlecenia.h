@@ -1,5 +1,5 @@
 #pragma once
-#include "Zlecenie.h"
+#include "Narzedzia\Zlecenie.h"
 #include "Model\PodstawoweParametry.h"
 #include <functional>
 namespace SpEx{

@@ -161,11 +161,11 @@ namespace SpEx{
 			MaszynaStanow::pobierzInstancje().inicjujZamykanie();
 		}
 		catch (std::exception& e){
-			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Tekst(), -1, STyp::Tekst("Przechwycono wyj¹tek!"), STyp::Tekst(e.what())));
+			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), -1, STyp::Tekst("Przechwycono wyj¹tek!"), STyp::Tekst(e.what())));
 			MaszynaStanow::pobierzInstancje().inicjujZamykanie();
 		}
 		catch (...){
-			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Tekst(), -1, STyp::Tekst("Przechwycono wyj¹tek!"), STyp::Tekst("Nieznany typ wyj¹tku!")));
+			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), -1, STyp::Tekst("Przechwycono wyj¹tek!"), STyp::Tekst("Nieznany typ wyj¹tku!")));
 			MaszynaStanow::pobierzInstancje().inicjujZamykanie();
 		}
 
@@ -232,7 +232,7 @@ namespace SpEx{
 		std::lock_guard<std::recursive_mutex> lock(mutexListaEkranow_);
 		auto zasob = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadceZasobow().pobierzZasob<XmlModul>("KonfiguracjaOknaGry");
 		if (!zasob)
-			throw NieznalezionoPliku(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo(), STyp::Tekst("Nie udalo sie wczytac dokumentu xml: KonfiguracjaOknaGry"));
+			throw NieznalezionoPliku(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), STyp::Tekst("Nie udalo sie wczytac dokumentu xml: KonfiguracjaOknaGry"));
 		auto wezel = (*zasob)()->pobierzElement(nullptr);
 		if (wezel){
 			XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_EKRAN_STARTOWY, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
@@ -268,7 +268,7 @@ namespace SpEx{
 		if (iter!= listaEkranow_.end()){
 			auto zasob = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadceZasobow().pobierzZasob<XmlModul>("KonfiguracjaOknaGry");
 			if (!zasob)
-				throw NieznalezionoPliku(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo(), STyp::Tekst("Nie udalo sie wczytac dokumentu xml: KonfiguracjaOknaGry"));
+				throw NieznalezionoPliku(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), STyp::Tekst("Nie udalo sie wczytac dokumentu xml: KonfiguracjaOknaGry"));
 			auto wezel = (*zasob)()->pobierzElement(nullptr);
 			auto okno = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_EKRAN, ATRYBUT_XML_IDENTYFIKATOR, std::to_string(id()));
 			if (okno){

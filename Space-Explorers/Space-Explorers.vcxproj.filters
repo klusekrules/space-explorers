@@ -133,9 +133,6 @@
     <ClCompile Include="Wyjatki\NiepoprawneParametryFunkcji.cpp">
       <Filter>SourceFile\Wyjatki</Filter>
     </ClCompile>
-    <ClCompile Include="Wyjatki\NiepowodzenieTranzakcji.cpp">
-      <Filter>SourceFile\Wyjatki</Filter>
-    </ClCompile>
     <ClCompile Include="Wyjatki\NiezaimplementowanaMetoda.cpp">
       <Filter>SourceFile\Wyjatki</Filter>
     </ClCompile>
@@ -352,12 +349,6 @@
     <ClCompile Include="Utils\StackThrow.cpp">
       <Filter>SourceFile\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\Tranzakcje\MenedzerTranzakcji.cpp">
-      <Filter>SourceFile\Utils\Tranzakcyjnosc</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils\Tranzakcje\Operacja.cpp">
-      <Filter>SourceFile\Utils\Tranzakcyjnosc</Filter>
-    </ClCompile>
     <ClCompile Include="Kontroler\ApInfo.cpp">
       <Filter>SourceFile\Kontroler</Filter>
     </ClCompile>
@@ -523,9 +514,6 @@
       <Filter>SourceFile\Wyjatki</Filter>
     </ClInclude>
     <ClInclude Include="Wyjatki\NiepoprawneParametryFunkcji.h">
-      <Filter>SourceFile\Wyjatki</Filter>
-    </ClInclude>
-    <ClInclude Include="Wyjatki\NiepowodzenieTranzakcji.h">
       <Filter>SourceFile\Wyjatki</Filter>
     </ClInclude>
     <ClInclude Include="Wyjatki\NiezaimplementowanaMetoda.h">
@@ -762,18 +750,6 @@
     <ClInclude Include="Utils\DefinicjeWezlowXML.h">
       <Filter>SourceFile\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\Tranzakcje\MenedzerTranzakcji.h">
-      <Filter>SourceFile\Utils\Tranzakcyjnosc</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\Tranzakcje\Operacja.h">
-      <Filter>SourceFile\Utils\Tranzakcyjnosc</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\Tranzakcje\Zlecenia.h">
-      <Filter>SourceFile\Utils\Tranzakcyjnosc</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\Tranzakcje\Zlecenie.h">
-      <Filter>SourceFile\Utils\Tranzakcyjnosc</Filter>
-    </ClInclude>
     <ClInclude Include="Kontroler\Aplikacja.h">
       <Filter>SourceFile\Kontroler</Filter>
     </ClInclude>
@@ -815,6 +791,9 @@
     </ClInclude>
     <ClInclude Include="Kontroler\Siec\RPC\ListaPlikowRPC.h">
       <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Zlecenia.h">
+      <Filter>SourceFile\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -982,9 +961,6 @@
     </Filter>
     <Filter Include="SourceFile\Kontroler\Network\MetodyRPC">
       <UniqueIdentifier>{a9720839-b446-4609-83a2-d3f190535e35}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Utils\Tranzakcyjnosc">
-      <UniqueIdentifier>{6156b04e-fb15-434b-be8e-f5569dbf75b6}</UniqueIdentifier>
     </Filter>
     <Filter Include="SourceFile\Kontroler\Zarzadca">
       <UniqueIdentifier>{51b54752-beb0-4fe5-be58-bd2dacbe14c7}</UniqueIdentifier>

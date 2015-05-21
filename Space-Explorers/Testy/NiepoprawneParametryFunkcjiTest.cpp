@@ -18,7 +18,7 @@ void NiepoprawneParametryFunkcjiTest::tworzenieWyjatku(){
 	try{
 		STyp::Ilosc temp(5);
 		const SpEx::Statek& tmp = planeta->pobierzObiekt<SpEx::Statek>(STyp::Identyfikator(5));
-		throw SpEx::NiepoprawneParametryFunkcji(EXCEPTION_PLACE, STyp::Tekst(), SpEx::Utils::pobierzDebugInfo(), tmp, temp);
+		throw SpEx::NiepoprawneParametryFunkcji(EXCEPTION_PLACE, SpEx::Utils::pobierzDebugInfo(), tmp, temp);
 	}
 	catch (const SpEx::NiepoprawneParametryFunkcji& e){
 		UNIT_TEST_ASSERT_FALSE(e.getParametry().isEmpty());

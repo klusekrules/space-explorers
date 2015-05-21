@@ -26,18 +26,18 @@
 
 namespace SpEx{
 
-	bool ZarzadcaZasobow::inicjalizuj(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos){
+	bool ZarzadcaZasobow::inicjalizuj(const UstawieniaAplikacji& ustawienia){
 		
 		auto plik = ustawienia[ATRYBUT_POWIAZANIA_ZASOBOW];
 		auto dokument = std::make_shared<SPar::ParserDokumentXml>();
 		if (!dokument->odczytaj(plik.c_str())){
-			throw NieznalezionoPliku(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), plik);
+			throw NieznalezionoPliku(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), plik);
 		}
 
 		auto wezel = dokument->pobierzElement(nullptr);
 
 		if (!wezel){
-			throw STyp::Wyjatek(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), TYTUL_BLAD_WEZLA_ROOT, KOMUNIKAT_BLAD_WEZLA_ROOT(plik));
+			throw STyp::Wyjatek(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), TYTUL_BLAD_WEZLA_ROOT, KOMUNIKAT_BLAD_WEZLA_ROOT(plik));
 		}
 
 		resetuj();
@@ -50,7 +50,7 @@ namespace SpEx{
 			lokalizacja = XmlBO::WczytajAtrybut(wpis, ATRYBUT_XML_LOKALIZACJA, std::string());
 
 			if (nazwa.empty() || lokalizacja.empty()){
-				throw STyp::Wyjatek(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), TYTUL_BLAD_ATRYBUTU,
+				throw STyp::Wyjatek(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), TYTUL_BLAD_ATRYBUTU,
 					KOMUNIKAT_BLAD_ATRYBUTU(wpis->error(), ustawienia[ATRYBUT_POWIAZANIA_ZASOBOW]));
 			}
 
@@ -58,7 +58,7 @@ namespace SpEx{
 			STyp::Identyfikator id;
 
 			if (!mapujIdentyfikator(nazwa, id)){
-				throw STyp::Wyjatek(EXCEPTION_PLACE, stos(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), TYTUL_BLAD_MAPOWANIA,
+				throw STyp::Wyjatek(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), TYTUL_BLAD_MAPOWANIA,
 					KOMUNIKAT_BLAD_MAPOWANIA(nazwa, id.napis(), wpis->error(), ustawienia[ATRYBUT_POWIAZANIA_ZASOBOW]));
 
 			}
@@ -121,7 +121,7 @@ namespace SpEx{
 				return nullptr;
 			return asset;
 		}else{
-			throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1),
+			throw STyp::Wyjatek(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), STyp::Identyfikator(-1),
 				TYTUL_BLAD_UNIKALNEGO_ZASOBU, KOMUNIKAT_BLAD_UNIKALNEGO_ZASOBU(parametr));
 		}
 		return nullptr;
@@ -185,7 +185,7 @@ namespace SpEx{
 			id = identyfikator;
 			return asset;
 		}else{
-			throw STyp::Wyjatek(EXCEPTION_PLACE, Aplikacja::pobierzInstancje().pobierzSladStosu(), Utils::pobierzDebugInfo(), STyp::Identyfikator(-1),
+			throw STyp::Wyjatek(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), STyp::Identyfikator(-1),
 				TYTUL_BLAD_ZASOBU, KOMUNIKAT_BLAD_ZASOBU(parametr));
 		}
 		return nullptr;

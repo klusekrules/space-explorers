@@ -445,12 +445,9 @@
     <ClInclude Include="Utils\DefinicjeWezlowXML.h" />
     <ClInclude Include="Utils\StackThrow.h" />
     <ClInclude Include="Utils\StaleUstawienAplikacji.h" />
-    <ClInclude Include="Utils\Tranzakcje\MenedzerTranzakcji.h" />
-    <ClInclude Include="Utils\Tranzakcje\Operacja.h" />
-    <ClInclude Include="Utils\Tranzakcje\Zlecenia.h" />
-    <ClInclude Include="Utils\Tranzakcje\Zlecenie.h" />
     <ClInclude Include="Utils\Utils.h" />
     <ClInclude Include="Utils\UtilsGui.h" />
+    <ClInclude Include="Utils\Zlecenia.h" />
     <ClInclude Include="Widok\Ekrany\EkranStartowy.h" />
     <ClInclude Include="Widok\Ekrany\OknoGry.h" />
     <ClInclude Include="Widok\Ekrany\Szkielet\EkranSzablon.h" />
@@ -465,7 +462,6 @@
     <ClInclude Include="Wyjatki\BladKonfiguracjiEkranu.h" />
     <ClInclude Include="Wyjatki\BladStukturyStanu.h" />
     <ClInclude Include="Wyjatki\NiepoprawneParametryFunkcji.h" />
-    <ClInclude Include="Wyjatki\NiepowodzenieTranzakcji.h" />
     <ClInclude Include="Wyjatki\NiezaimplementowanaMetoda.h" />
     <ClInclude Include="Wyjatki\NiezgodnyTypSurowca.h" />
     <ClInclude Include="Wyjatki\NieznalezionoObiektu.h" />
@@ -578,8 +574,6 @@
     <ClCompile Include="Testy\ZapisStanuGryTest.cpp" />
     <ClCompile Include="Testy\ZleceniaTest.cpp" />
     <ClCompile Include="Utils\StackThrow.cpp" />
-    <ClCompile Include="Utils\Tranzakcje\MenedzerTranzakcji.cpp" />
-    <ClCompile Include="Utils\Tranzakcje\Operacja.cpp" />
     <ClCompile Include="Utils\Utils.cpp" />
     <ClCompile Include="Utils\UtilsGui.cpp" />
     <ClCompile Include="Widok\Ekrany\EkranStartowy.cpp" />
@@ -595,7 +589,6 @@
     <ClCompile Include="Wyjatki\BladKonfiguracjiEkranu.cpp" />
     <ClCompile Include="Wyjatki\BladStukturyStanu.cpp" />
     <ClCompile Include="Wyjatki\NiepoprawneParametryFunkcji.cpp" />
-    <ClCompile Include="Wyjatki\NiepowodzenieTranzakcji.cpp" />
     <ClCompile Include="Wyjatki\NiezaimplementowanaMetoda.cpp" />
     <ClCompile Include="Wyjatki\NiezgodnyTypSurowca.cpp" />
     <ClCompile Include="Wyjatki\NieznalezionoObiektu.cpp" />

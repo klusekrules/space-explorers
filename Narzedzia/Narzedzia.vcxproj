@@ -206,14 +206,21 @@
     <ClInclude Include="Headers\Narzedzia\FPSCounter.h" />
     <ClInclude Include="Headers\Narzedzia\GeneratorIdentyfikatorow.h" />
     <ClInclude Include="Headers\Narzedzia\MakeVector.h" />
+    <ClInclude Include="Headers\Narzedzia\MenedzerTranzakcji.h" />
+    <ClInclude Include="Headers\Narzedzia\NiepowodzenieTranzakcji.h" />
     <ClInclude Include="Headers\Narzedzia\NonCopyable.h" />
     <ClInclude Include="Headers\Narzedzia\NonMoveable.h" />
+    <ClInclude Include="Headers\Narzedzia\Operacja.h" />
     <ClInclude Include="Headers\Narzedzia\Serializacja.h" />
     <ClInclude Include="Headers\Narzedzia\Singleton.h" />
+    <ClInclude Include="Headers\Narzedzia\Zlecenie.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="GeneratorIdentyfikatorow.cpp" />
+    <ClCompile Include="MenedzerTranzakcji.cpp" />
+    <ClCompile Include="NiepowodzenieTranzakcji.cpp" />
+    <ClCompile Include="Operacja.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logger\Logger.vcxproj">

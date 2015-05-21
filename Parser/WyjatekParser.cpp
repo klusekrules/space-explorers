@@ -7,7 +7,6 @@ namespace SPar{
 		const STyp::Tekst& plik,
 		const STyp::Tekst& funkcja,
 		const STyp::Ilosc& linia,
-		const STyp::Tekst& sladStosu,
 		const STyp::Tekst& debug,
 		const ParserAtrybut* atrybut,
 		const STyp::Tekst& tekst
@@ -16,7 +15,6 @@ namespace SPar{
 		plik,
 		funkcja,
 		linia,
-		sladStosu, 
 		debug,
 		STyp::Identyfikator(PARSER_WYJATEK_ATRYBUTU_ID),
 		STyp::Tekst(PARSER_WYJATEK_ATRYBUTU_TYTUL),
@@ -29,7 +27,6 @@ namespace SPar{
 		const STyp::Tekst& plik,
 		const STyp::Tekst& funkcja,
 		const STyp::Ilosc& linia,
-		const STyp::Tekst& sladStosu,
 		const STyp::Tekst& debug,
 		const ParserElement* element,
 		const STyp::Tekst& tekst
@@ -38,7 +35,6 @@ namespace SPar{
 		plik,
 		funkcja,
 		linia,
-		sladStosu, 
 		debug,
 		STyp::Identyfikator(PARSER_WYJATEK_ELEMENTU_ID),
 		STyp::Tekst(PARSER_WYJATEK_ELEMENTU_TYTUL),
@@ -51,7 +47,6 @@ namespace SPar{
 		const STyp::Tekst& plik,
 		const STyp::Tekst& funkcja,
 		const STyp::Ilosc& linia,
-		const STyp::Tekst& sladStosu,
 		const STyp::Tekst& debug,
 		const ParserDokument* dokument,
 		const STyp::Tekst& tekst
@@ -59,7 +54,6 @@ namespace SPar{
 		plik,
 		funkcja,
 		linia,
-		sladStosu, 
 		debug,
 		STyp::Identyfikator(PARSER_WYJATEK_DOKUMENTU_ID),
 		STyp::Tekst(PARSER_WYJATEK_DOKUMENTU_TYTUL),

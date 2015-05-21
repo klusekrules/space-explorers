@@ -535,8 +535,8 @@ public:
 	* \version 1
 	* \date 18-06-2014
 	*/
-	static XmlBO::ElementWezla bladWezla(XmlBO::ElementWezla element, const std::string& nazwaWezla, const std::string& stos = std::string(), const STyp::Tekst& debug = STyp::Tekst()){
-		throw SPar::WyjatekParser(EXCEPTION_PLACE, stos, debug, element.get(), std::string(ZMIANA_NAPIS_BLAD_WEZLA + nazwaWezla + ZMIANA_NAPIS_Z_WEZLA));
+	static XmlBO::ElementWezla bladWezla(XmlBO::ElementWezla element, const std::string& nazwaWezla, const STyp::Tekst& debug = STyp::Tekst()){
+		throw SPar::WyjatekParser(EXCEPTION_PLACE, debug, element.get(), std::string(ZMIANA_NAPIS_BLAD_WEZLA + nazwaWezla + ZMIANA_NAPIS_Z_WEZLA));
 	}
 
 	/**
@@ -551,8 +551,8 @@ public:
 	* \version 1
 	* \date 18-06-2014
 	*/
-	static bool bladAtrybutu(XmlBO::ElementWezla element, const std::string& nazwaAtrybutu, const std::string& stos = std::string(), const STyp::Tekst& debug = STyp::Tekst()){
-		throw SPar::WyjatekParser(EXCEPTION_PLACE, stos, debug, element.get(), std::string(ZMIANA_NAPIS_BLAD_ATRYBUTU + nazwaAtrybutu + ZMIANA_NAPIS_Z_WEZLA));
+	static bool bladAtrybutu(XmlBO::ElementWezla element, const std::string& nazwaAtrybutu, const STyp::Tekst& debug = STyp::Tekst()){
+		throw SPar::WyjatekParser(EXCEPTION_PLACE, debug, element.get(), std::string(ZMIANA_NAPIS_BLAD_ATRYBUTU + nazwaAtrybutu + ZMIANA_NAPIS_Z_WEZLA));
 	}
 
 };
@@ -622,6 +622,6 @@ namespace SPar{
 		* \version 1
 		* \date 18-06-2014
 		*/
-		static void generujWyjatekBleduStruktury(XmlBO::ElementWezla wezel, const STyp::Tekst& stos = STyp::Tekst(), const STyp::Tekst& debug = STyp::Tekst());
+		static void generujWyjatekBleduStruktury(XmlBO::ElementWezla wezel, const STyp::Tekst& debug = STyp::Tekst());
 	};
 }

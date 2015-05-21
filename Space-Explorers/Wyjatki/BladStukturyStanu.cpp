@@ -4,7 +4,7 @@
 
 namespace SpEx{
 	BladStukturyStanu::BladStukturyStanu(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia, const STyp::Tekst& debug, const STyp::Identyfikator& id, const STyp::Tekst& komunikat)
-		: Wyjatek(tPlik, funkcja, iLinia, Aplikacja::pobierzInstancje().pobierzSladStosu(), debug, idBladStukturyStanu, STyp::Tekst("B³¹d struktury stanu!")
+		: Wyjatek(tPlik, funkcja, iLinia, debug, idBladStukturyStanu, STyp::Tekst("B³¹d struktury stanu!")
 		, STyp::Tekst("Wyst¹pi³ b³¹d struktury stanu o id: " + std::to_string(id()) + ". Komunikat b³êdu : ") + komunikat),
 		identyfikatorStanu_(id)
 	{

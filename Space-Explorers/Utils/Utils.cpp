@@ -9,7 +9,7 @@ namespace SpEx{
 	const STyp::Fluktuacja Utils::FMIN = 0.0;
 
 	void Utils::generujWyjatekBleduStruktury(XmlBO::ElementWezla wezel){
-		SPar::ParserUtils::generujWyjatekBleduStruktury(wezel, Aplikacja::pobierzInstancje().pobierzSladStosu(), pobierzDebugInfo());
+		SPar::ParserUtils::generujWyjatekBleduStruktury(wezel,pobierzDebugInfo());
 	}
 
 	std::string Utils::pobierzDebugInfo(){

@@ -1,7 +1,6 @@
 #include "NiezgodnyTypSurowca.h"
 #include "NieznalezionoObiektu.h"
 #include "NiepoprawneParametryFunkcji.h"
-#include "NiepowodzenieTranzakcji.h"
 #include "BladKonfiguracjiEkranu.h"
 #include "BladKonfiguracjiAplikacji.h"
 #include "PowtorzenieIdObiektu.h"
@@ -32,9 +31,6 @@ namespace SpEx{
 	const STyp::Tekst		NiepoprawneParametryFunkcji::tytulNiepoprawneParametryFunkcji = "Niepoprawne parametry funkcji.";
 	const STyp::Tekst		NiepoprawneParametryFunkcji::trescNiepoprawneParametryFunkcji = "Do funkcji zosta³y przekazane niepoprawne parametry.";
 
-	const STyp::Identyfikator	NiepowodzenieTranzakcji::domyslnyNiepowodzenieTranzakcjiID(0x1C);
-	const STyp::Tekst		NiepowodzenieTranzakcji::domyslnyNiepowodzenieTranzakcjiTytul = "Niepowodzenie wykonania tranzakcji";
-	const STyp::Tekst		NiepowodzenieTranzakcji::domyslnyNiepowodzenieTranzakcjiTresc = "Nie uda³o siê zachowaæ tanzakcyjnoœci wykonywanych operacji. Operacja powoduj¹ca wyj¹tek: ";
 
 }
 

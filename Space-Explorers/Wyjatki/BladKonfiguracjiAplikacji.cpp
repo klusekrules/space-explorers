@@ -3,8 +3,8 @@
 #include "Kontroler\Aplikacja.h"
 
 namespace SpEx{
-	BladKonfiguracjiAplikacji::BladKonfiguracjiAplikacji(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia, const STyp::Tekst& stos, const STyp::Tekst& debug, const STyp::Tekst& komunikat)
-		: Wyjatek(tPlik, funkcja, iLinia, stos, debug, idBladKonfiguracjiAplikacji, STyp::Tekst("B³¹d konfigurowania aplikacji!")
+	BladKonfiguracjiAplikacji::BladKonfiguracjiAplikacji(const STyp::Tekst& tPlik, const STyp::Tekst& funkcja, const STyp::Ilosc& iLinia, const STyp::Tekst& debug, const STyp::Tekst& komunikat)
+		: Wyjatek(tPlik, funkcja, iLinia, debug, idBladKonfiguracjiAplikacji, STyp::Tekst("B³¹d konfigurowania aplikacji!")
 		, STyp::Tekst("Podczas konfigurowania aplikacji wyst¹pi³ wyj¹tek. Komunikat b³êdu : ") + komunikat)
 	{
 	}

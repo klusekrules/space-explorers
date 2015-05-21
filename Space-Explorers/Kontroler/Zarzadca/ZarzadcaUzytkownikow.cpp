@@ -9,7 +9,7 @@
 #define ATRYBUT_PLIK_AUTORYZACJI "plikAutoryzacji"
 
 namespace SpEx{
-	bool ZarzadcaUzytkownikow::inicjalizuj(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos){
+	bool ZarzadcaUzytkownikow::inicjalizuj(const UstawieniaAplikacji& ustawienia){
 		folderPlikowUzytkownika_ = ustawienia[ATRYBUT_FOLDER_PLIKU_UZYTKOWNIKA];
 		plikAutoryzacji_ = ustawienia[ATRYBUT_PLIK_AUTORYZACJI];
 		auto plikAutoryzacji = (folderPlikowUzytkownika_ + plikAutoryzacji_);

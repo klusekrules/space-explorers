@@ -242,15 +242,15 @@ namespace SpEx {
 		planety_.clear();
 	}
 
-	void ZarzadcaLokacji::inicjalizuj(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos){
+	void ZarzadcaLokacji::inicjalizuj(const UstawieniaAplikacji& ustawienia){
 		folderPlikuUkladu_ = ustawienia[ATRYBUT_FOLDER_PLIKU_UKLADU];
 		if (_access(folderPlikuUkladu_.c_str(), 0) == -1){
 			if (!Utils::tworzSciezke(folderPlikuUkladu_)){
-				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(stos()), STyp::Tekst(""), KOMUNIKAT_BLAD_TWORZEZNIA_FOLDERU(folderPlikuUkladu_));
+				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(""), KOMUNIKAT_BLAD_TWORZEZNIA_FOLDERU(folderPlikuUkladu_));
 			}
 		}
 		if (_access(folderPlikuUkladu_.c_str(), 06) == -1){
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(stos()), STyp::Tekst(""), KOMUNIKAT_BLAD_BRAK_DOSTEPU_DO_FOLDERU(folderPlikuUkladu_));
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(""), KOMUNIKAT_BLAD_BRAK_DOSTEPU_DO_FOLDERU(folderPlikuUkladu_));
 		}
 	}
 

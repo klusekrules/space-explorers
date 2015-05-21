@@ -40,7 +40,7 @@ namespace SpEx{
 		* \version 1
 		* \date 25-11-2014
 		*/
-		bool inicjalizuj(const UstawieniaAplikacji& ustawienia, const std::function<std::string()>& stos);
+		bool inicjalizuj(const UstawieniaAplikacji& ustawienia);
 		
 		/**
 		* \brief Metoda zapisuj¹ca.

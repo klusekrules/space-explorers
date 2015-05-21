@@ -48,7 +48,7 @@ void TestyJednostkowe::wykonajTesty(){
 				throw;
 			}
 			if(a->bledy>0)
-				throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Tekst(), STyp::Identyfikator(), STyp::Tekst("B³ad Ogólny"), STyp::Tekst("Nie udana inicjalizacja testów!"));
+				throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(), STyp::Tekst("B³ad Ogólny"), STyp::Tekst("Nie udana inicjalizacja testów!"));
 		}
 #ifndef LOG_OFF_ALL
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Zakoñczono inicjalizacjê testów");

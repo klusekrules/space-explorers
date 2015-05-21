@@ -96,7 +96,7 @@ namespace SpEx{
 
 		if (gui.setGlobalFont("resource/consola.ttf") == false){
 			inicjalizacja_.set_value(false);
-			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE,STyp::Tekst(),STyp::Tekst(),-1,STyp::Tekst("Blad inicjalizacji."),STyp::Tekst("Nie udalo sie ustawic czcionki")));
+			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE,STyp::Tekst(),-1,STyp::Tekst("Blad inicjalizacji."),STyp::Tekst("Nie udalo sie ustawic czcionki")));
 			return;
 		}
 

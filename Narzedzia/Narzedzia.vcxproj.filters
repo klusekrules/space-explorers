@@ -39,12 +39,33 @@
     <ClInclude Include="Headers\Narzedzia\FPSCounter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\Narzedzia\MenedzerTranzakcji.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Narzedzia\Operacja.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Narzedzia\Zlecenie.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Narzedzia\NiepowodzenieTranzakcji.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratorIdentyfikatorow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FPSCounter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenedzerTranzakcji.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Operacja.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NiepowodzenieTranzakcji.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
