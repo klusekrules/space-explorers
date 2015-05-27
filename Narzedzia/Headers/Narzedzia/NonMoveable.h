@@ -1,4 +1,5 @@
 #pragma once
+#include "NarzedziaSymbol.h"
 namespace se{
 	/**
 	* \brief Klasa blokuj¹ca przenoszenie.
@@ -8,7 +9,7 @@ namespace se{
 	* \version 1
 	* \date 06-06-2014
 	*/
-	class NonMoveable
+	class NARZEDZIA_API NonMoveable
 	{
 	public:
 		NonMoveable() = default;

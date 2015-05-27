@@ -1,4 +1,5 @@
 #pragma once
+#include "NarzedziaSymbol.h"
 #include <functional>
 #include <map>
 #include <list>

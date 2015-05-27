@@ -5,7 +5,7 @@
 #include "Parser\ParserDokumentXml.h"
 
 namespace SpEx {
-	class XmlModul
+	class NARZEDZIA_API XmlModul
 		: public Zasob
 	{
 	public:

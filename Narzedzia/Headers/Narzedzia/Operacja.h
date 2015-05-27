@@ -1,10 +1,11 @@
 #pragma once
+#include "NarzedziaSymbol.h"
 #include "Logger\LoggerInterface.h"
 namespace SpEx{
 	/**
 	* \brief Klasa bazowa zawieraj¹ca interfejs dla wykonywanych operacji.
 	*/
-	class Operacja :
+	class NARZEDZIA_API Operacja :
 		virtual public SLog::LoggerInterface
 	{
 	public:

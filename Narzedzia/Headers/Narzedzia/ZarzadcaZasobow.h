@@ -28,7 +28,7 @@ namespace SpEx {
 	* \version 3
 	* \date 25-11-2014
 	*/
-	class ZarzadcaZasobow :
+	class NARZEDZIA_API ZarzadcaZasobow :
 		public StrukturyZarzadcyZasobow::CallbackSystem,
 		public virtual SLog::LoggerInterface,
 		se::NonCopyable

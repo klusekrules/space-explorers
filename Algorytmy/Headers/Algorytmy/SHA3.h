@@ -1,8 +1,9 @@
 #pragma once
+#include "AlgorytmySymbol.h"
 #include <string>
 #include <vector>
 
-class SHA3
+class ALGORYTMY_API SHA3
 {
 public:
 	SHA3(const std::string& str);

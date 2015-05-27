@@ -1,4 +1,5 @@
 #pragma once
+#include "NarzedziaSymbol.h"
 namespace se{
 	/**
 	* \brief Klasa blokuj¹ca kopiowanie.
@@ -8,7 +9,7 @@ namespace se{
 	* \version 1
 	* \date 06-06-2014
 	*/
-	class NonCopyable
+	class NARZEDZIA_API NonCopyable
 	{
 	public:
 		NonCopyable() = default;

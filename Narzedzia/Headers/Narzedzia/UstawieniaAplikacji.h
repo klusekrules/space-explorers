@@ -13,7 +13,7 @@ namespace SpEx{
 	* \version 3
 	* \date 20-10-2014
 	*/
-	class UstawieniaAplikacji :
+	class NARZEDZIA_API UstawieniaAplikacji :
 		virtual public SLog::LoggerInterface,
 		public se::NonCopyable,
 		public se::NonMoveable

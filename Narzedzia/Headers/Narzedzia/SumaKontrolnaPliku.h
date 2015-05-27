@@ -3,7 +3,7 @@
 #include "Algorytmy\SHA3.h"
 
 namespace SpEx{
-	class SumaKontrolnaPliku
+	class NARZEDZIA_API SumaKontrolnaPliku
 		: public Zasob,
 		virtual public SLog::LoggerInterface
 	{

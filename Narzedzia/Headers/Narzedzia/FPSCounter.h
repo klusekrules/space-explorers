@@ -1,4 +1,5 @@
 #pragma once
+#include "NarzedziaSymbol.h"
 namespace SpEx{
 	/**
 	* \brief Klasa zliczaj¹ca iloœæ fps.
@@ -8,7 +9,7 @@ namespace SpEx{
 	* \version 1
 	* \date 03-07-2014
 	*/
-	class FPSCounter
+	class NARZEDZIA_API FPSCounter
 	{
 	private:
 		unsigned long long Frames = 0; /// Iloœæ zmierzonych ramek, od ostatniego pobrania wyniku

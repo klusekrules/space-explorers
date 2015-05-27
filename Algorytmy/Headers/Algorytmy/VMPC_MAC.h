@@ -1,8 +1,9 @@
 #pragma once
+#include "AlgorytmySymbol.h"
 #include <vector>
 #include <string>
 
-class VMPC_MAC
+class ALGORYTMY_API VMPC_MAC
 {
 public:
 	typedef std::vector < unsigned char > Bufor;

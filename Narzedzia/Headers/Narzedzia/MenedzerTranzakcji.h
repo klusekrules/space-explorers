@@ -1,4 +1,5 @@
 #pragma once
+#include "NarzedziaSymbol.h"
 #include "Logger\LoggerInterface.h"
 #include "Logger\Log.h"
 #include "Operacja.h"
@@ -13,7 +14,7 @@ namespace SpEx{
 	* W takim wypadku nie wiadomo co zosta³o cofniête, a co nie zosta³o cofniête. W celu zabezbieczenia siê przed
 	* dalszymi b³ednymi zmianami danych zaleca siê przerwanie dzia³ania programu.
 	*/
-	class MenedzerTranzakcji :
+	class NARZEDZIA_API MenedzerTranzakcji :
 		virtual public SLog::LoggerInterface
 	{
 	private:

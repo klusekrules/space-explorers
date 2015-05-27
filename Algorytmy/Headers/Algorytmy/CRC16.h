@@ -1,7 +1,7 @@
 #pragma once
 #include "CRC.h"
 
-class CRC16 : public CRCInterface<unsigned __int16>
+class ALGORYTMY_API CRC16 : public CRCInterface<unsigned __int16>
 {
 public:
 	CRC16() = default;

@@ -1,4 +1,5 @@
 #pragma once
+#include "NarzedziaSymbol.h"
 #include <memory>
 #include "TypyProste\TypyProste.h"
 #include "NonCopyable.h"
@@ -13,7 +14,7 @@ namespace SpEx{
 	* \version 1
 	* \date 06-08-2014
 	*/
-	class Zasob
+	class NARZEDZIA_API Zasob
 		: se::NonCopyable
 	{
 		friend class ZarzadcaZasobow;

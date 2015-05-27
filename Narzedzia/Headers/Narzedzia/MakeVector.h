@@ -1,4 +1,5 @@
 #pragma once
+#include "NarzedziaSymbol.h"
 #include <vector>
 #include <string>
 namespace SpEx{
@@ -11,7 +12,7 @@ namespace SpEx{
 	* \version 1
 	* \date 08-07-2014
 	*/
-	class MakeVector
+	class NARZEDZIA_API MakeVector
 	{
 	public:
 		/**

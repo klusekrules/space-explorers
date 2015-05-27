@@ -1,4 +1,5 @@
 #pragma once
+#include "NarzedziaSymbol.h"
 #include <string>
 #include <unordered_map>
 #include "TypyProste\TypyProste.h"
@@ -13,7 +14,7 @@ namespace SpEx{
 	* \version 4
 	* \date 25-11-2014
 	*/
-	class GeneratorIdentyfikatorow :
+	class NARZEDZIA_API GeneratorIdentyfikatorow :
 		public virtual SLog::LoggerInterface
 	{
 	public:

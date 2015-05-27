@@ -14,7 +14,7 @@ namespace SpEx{
 	* \version 2
 	* \date 06-08-2014
 	*/
-	class LuaState
+	class NARZEDZIA_API LuaState
 		: public Zasob
 	{
 	public:

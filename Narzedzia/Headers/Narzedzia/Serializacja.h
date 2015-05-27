@@ -14,7 +14,6 @@ namespace SpEx{
 	class Serializacja
 	{
 	public:
-
 		/**
 		* \brief Metoda zapisuj¹ca.
 		*

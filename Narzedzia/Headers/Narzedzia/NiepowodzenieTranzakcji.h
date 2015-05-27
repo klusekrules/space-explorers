@@ -1,4 +1,5 @@
 #pragma once
+#include "NarzedziaSymbol.h"
 #include "TypyProste\Wyjatek.h"
 
 namespace SpEx{
@@ -7,7 +8,7 @@ namespace SpEx{
 	*
 	* Wyj¹tek zostaje wyrzucony kiedy w trakcie cofania tranzakcji wyst¹pi³ wyj¹tek, b¹dŸ funkcja siê nie powiod³a.
 	*/
-	class NiepowodzenieTranzakcji :
+	class NARZEDZIA_API NiepowodzenieTranzakcji :
 		public STyp::Wyjatek,
 		virtual public SLog::LoggerInterface
 	{

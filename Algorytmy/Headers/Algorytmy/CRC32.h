@@ -1,6 +1,6 @@
 #pragma once
 #include "CRC.h"
-class CRC32 : public CRCInterface<unsigned __int32>
+class ALGORYTMY_API CRC32 : public CRCInterface<unsigned __int32>
 {
 public:
 	CRC32();

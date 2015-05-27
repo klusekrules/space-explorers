@@ -14,7 +14,7 @@ namespace SpEx {
 	* \version 1
 	* \date 07-08-2014
 	*/
-	class DllModule
+	class NARZEDZIA_API DllModule
 		: public Zasob
 	{
 	public:
