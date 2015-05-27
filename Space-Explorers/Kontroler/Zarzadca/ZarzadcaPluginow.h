@@ -1,8 +1,8 @@
 #pragma once
 #include "Logger\LoggerInterface.h"
 #include "Zmiana\ZmianaFabryka.h"
-#include "Kontroler\UstawieniaAplikacji.h"
-#include "SumaKontrolnaPliku.h"
+#include "Narzedzia\UstawieniaAplikacji.h"
+#include "Narzedzia\SumaKontrolnaPliku.h"
 #include <list>
 #define ATRYBUT_FOLDER_PLUGINOW "plugins"
 

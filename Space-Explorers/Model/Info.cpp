@@ -3,7 +3,7 @@
 #include "Logger\Logger.h"
 #include "Utils\StackThrow.h"
 #include "Kontroler\Aplikacja.h"
-#include "Kontroler\Zarzadca\ZarzadcaZasobow.h"
+#include "Narzedzia\ZarzadcaZasobow.h"
 
 namespace SpEx {
 

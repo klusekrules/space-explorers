@@ -6,10 +6,10 @@
 #include "Kontroler\Aplikacja.h"
 #include "Narzedzia\FPSCounter.h"
 #include "Wyjatki\PowtorzenieIdObiektu.h"
-#include "Kontroler\Zarzadca\XmlModul.h"
+#include "Narzedzia\XmlModul.h"
 #include "Wyjatki\NieznalezionoPliku.h"
 #include "Logger\Logger.h"
-#include "Kontroler\Zarzadca\ZarzadcaZasobow.h"
+#include "Narzedzia\ZarzadcaZasobow.h"
 #include "Utils\Utils.h"
 #include "Utils\StackThrow.h"
 

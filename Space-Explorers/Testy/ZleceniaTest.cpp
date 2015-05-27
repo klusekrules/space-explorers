@@ -10,7 +10,7 @@ void ZleceniaTest::startTestow(){
 }
 
 void ZleceniaTest::tranzakcja_poprawna(){
-	SpEx::MenedzerTranzakcji tranzakcja;
+	SpEx::MenedzerTranzakcji tranzakcja(SpEx::Aplikacja::pobierzInstancje().logger_);
 	STyp::Ilosc jeden(1);
 	std::shared_ptr<SpEx::Statek> statek(gra->pobierzObiektInfo<SpEx::StatekInfo>(STyp::Identyfikator(5)).tworzEgzemplarz(SpEx::PodstawoweParametry(jeden)));
 	STyp::Ilosc dwa(2);
@@ -33,7 +33,7 @@ void ZleceniaTest::tranzakcja_poprawna(){
 }
 
 void ZleceniaTest::tranzakcja_cofnieta(){
-	SpEx::MenedzerTranzakcji tranzakcja;
+	SpEx::MenedzerTranzakcji tranzakcja(SpEx::Aplikacja::pobierzInstancje().logger_);
 	STyp::Ilosc jeden(1);
 	std::shared_ptr<SpEx::Statek> statek(gra->pobierzObiektInfo<SpEx::StatekInfo>(STyp::Identyfikator(5)).tworzEgzemplarz(SpEx::PodstawoweParametry(jeden)));
 	STyp::Ilosc dwa(2);
@@ -56,7 +56,7 @@ void ZleceniaTest::tranzakcja_cofnieta(){
 }
 
 void ZleceniaTest::tranzakcja_throw(){
-	SpEx::MenedzerTranzakcji tranzakcja;
+	SpEx::MenedzerTranzakcji tranzakcja(SpEx::Aplikacja::pobierzInstancje().logger_);
 	STyp::Ilosc jeden(1);
 	std::shared_ptr<SpEx::Statek> statek(gra->pobierzObiektInfo<SpEx::StatekInfo>(STyp::Identyfikator(5)).tworzEgzemplarz(SpEx::PodstawoweParametry(jeden)));
 	STyp::Ilosc dwa(2);
@@ -84,7 +84,7 @@ void ZleceniaTest::tranzakcja_throw(){
 }
 
 void ZleceniaTest::tranzakcja_throw2(){
-	SpEx::MenedzerTranzakcji tranzakcja;
+	SpEx::MenedzerTranzakcji tranzakcja(SpEx::Aplikacja::pobierzInstancje().logger_);
 	STyp::Ilosc jeden(1);
 	std::shared_ptr<SpEx::Statek> statek(gra->pobierzObiektInfo<SpEx::StatekInfo>(STyp::Identyfikator(5)).tworzEgzemplarz(SpEx::PodstawoweParametry(jeden)));
 	STyp::Ilosc dwa(2);

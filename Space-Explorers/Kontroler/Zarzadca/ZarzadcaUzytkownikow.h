@@ -4,7 +4,7 @@
 #include "Narzedzia\Serializacja.h"
 #include "Narzedzia\NonCopyable.h"
 #include "Narzedzia\NonMoveable.h"
-#include "Kontroler\UstawieniaAplikacji.h"
+#include "Narzedzia\UstawieniaAplikacji.h"
 #include "Model\Uzytkownik.h"
 
 namespace SpEx{

@@ -8,7 +8,7 @@
 #include <memory>
 #include <random>
 #include "Narzedzia\Singleton.h"
-#include "UstawieniaAplikacji.h"
+#include "Narzedzia\UstawieniaAplikacji.h"
 #include "Eksport\TypyEksportowane.h"
 // ----------------------------
 

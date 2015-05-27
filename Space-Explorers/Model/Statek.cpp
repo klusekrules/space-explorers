@@ -4,6 +4,7 @@
 #include "Utils\DefinicjeWezlowXML.h"
 #include "Narzedzia\MenedzerTranzakcji.h"
 #include "Utils\Zlecenia.h"
+#include "Kontroler\Aplikacja.h"
 
 namespace SpEx{
 	Statek::Statek(const STyp::Ilosc& ilosc, const STyp::Identyfikator& identyfikatorPlanety, const StatekInfo& statekInfo)
@@ -35,7 +36,7 @@ namespace SpEx{
 		if (czyMoznaPolaczyc(obiekt)){
 			Statek & t = (Statek&)obiekt;
 			Statek* statek = this;
-			MenedzerTranzakcji tranzakcja;
+			MenedzerTranzakcji tranzakcja(SpEx::Aplikacja::pobierzInstancje().logger_);
 
 			tranzakcja.dodaj(std::make_shared< Zlecenie< const STyp::Ilosc, PodstawoweParametry > >(obiekt.pobierzIlosc(), *this,
 				[&statek, &t](const STyp::Ilosc& ilosc, PodstawoweParametry& atrybut)->bool{ atrybut.wzrostAtrybutu(PodstawoweParametry::wpisIlosc(ilosc)); statek->przeliczZajeteMiejsceLadowni(); statek->przeliczZajeteMiejsceHangaru(); t.przeliczZajeteMiejsceLadowni(); t.przeliczZajeteMiejsceHangaru(); return true; },
@@ -85,7 +86,7 @@ namespace SpEx{
 	Statek* Statek::podziel(const STyp::Ilosc& ilosc){
 		auto ilosc_ = pobierzIlosc();
 		if (ilosc_ > ilosc){
-			MenedzerTranzakcji tranzakcja;
+			MenedzerTranzakcji tranzakcja(SpEx::Aplikacja::pobierzInstancje().logger_);
 			Statek* o = new Statek(ilosc,pobierzIdentyfikatorPlanety(), this->statekinfo_);
 			Statek* statek = this;
 			tranzakcja.dodaj(std::make_shared< Zlecenie< const STyp::Ilosc, STyp::Ilosc > >(ilosc, ilosc_,

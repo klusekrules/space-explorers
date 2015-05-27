@@ -3,6 +3,13 @@
 #include "Logger\Logger.h"
 
 namespace SpEx{
+
+
+	MenedzerTranzakcji::MenedzerTranzakcji(SLog::Log& log)
+		: log_(log)
+	{	
+	}
+
 	void MenedzerTranzakcji::dodaj(Element operacja)
 	{
 		if (operacja)
@@ -23,13 +30,13 @@ namespace SpEx{
 		}
 		catch (STyp::Wyjatek& e){
 #ifndef LOG_OFF_ALL
-			//Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, e.generujKomunikat());
+			log_.loguj(SLog::Log::Warning, e.generujKomunikat());
 #endif
 			powodzenie = false;
 		}
 		catch (std::exception& e){
 #ifndef LOG_OFF_ALL
-			//Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, e.what());
+			log_.loguj(SLog::Log::Warning, e.what());
 #endif
 			powodzenie = false;
 		}
@@ -47,19 +54,19 @@ namespace SpEx{
 			}
 			catch (NiepowodzenieTranzakcji& e){
 #ifndef LOG_OFF_ALL
-				//Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, e.generujKomunikat());
+				log_.loguj(SLog::Log::Warning, e.generujKomunikat());
 #endif
 				throw;
 			}
 			catch (STyp::Wyjatek& e){
 #ifndef LOG_OFF_ALL
-				//Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, e.generujKomunikat());
+				log_.loguj(SLog::Log::Warning, e.generujKomunikat());
 #endif
 				throw SpEx::NiepowodzenieTranzakcji(EXCEPTION_PLACE, listaOperacji_[iterator]->napis());
 			}
 			catch (std::exception& e){
 #ifndef LOG_OFF_ALL
-				//Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, e.what());
+				log_.loguj(SLog::Log::Warning, e.what());
 #endif
 				throw NiepowodzenieTranzakcji(EXCEPTION_PLACE, listaOperacji_[iterator]->napis());
 			}

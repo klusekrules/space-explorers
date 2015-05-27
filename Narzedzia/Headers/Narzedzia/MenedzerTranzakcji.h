@@ -1,5 +1,6 @@
 #pragma once
 #include "Logger\LoggerInterface.h"
+#include "Logger\Log.h"
 #include "Operacja.h"
 #include <vector>
 #include <memory>
@@ -19,13 +20,14 @@ namespace SpEx{
 		typedef std::shared_ptr< Operacja > Element; /// Type elementów przechowywanych w kontenerze.
 		typedef std::vector< Element > Kontener; /// Typ kontenera przechowuj¹cego elementy.
 		Kontener listaOperacji_; /// Lista przechowywanych operacji.
+		SLog::Log& log_;
 
 	public:
 
 		/**
 		* \brief Konstruktor.
 		*/
-		MenedzerTranzakcji() = default;
+		MenedzerTranzakcji(SLog::Log& log);
 
 		/**
 		* \brief Destruktor.

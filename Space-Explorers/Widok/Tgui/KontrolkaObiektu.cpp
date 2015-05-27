@@ -2,7 +2,7 @@
 #include "Utils\UtilsGui.h"
 #include "Model\Planeta.h"
 #include "Kontroler\Aplikacja.h"
-#include "Kontroler\Zarzadca\ZarzadcaZasobow.h"
+#include "Narzedzia\ZarzadcaZasobow.h"
 #include "Kontroler\Gra.h"
 #include "Utils\Utils.h"
 

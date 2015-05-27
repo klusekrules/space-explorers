@@ -2,7 +2,7 @@
 #include "Model\Galaktyka.h"
 #include "Model\GeneratorUkladow.h"
 #include <functional>
-#include "Kontroler\UstawieniaAplikacji.h"
+#include "Narzedzia\UstawieniaAplikacji.h"
 #include <mutex>
 #include <atomic>
 

@@ -126,8 +126,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(SolutionDir)Logger\Headers;$(SolutionDir)TypyProste\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LOGGER_IMPORT;TYPY_PROSTE_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(SolutionDir)Logger\Headers;$(SolutionDir)TypyProste\Headers\;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Algorytmy\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>LOGGER_IMPORT;TYPY_PROSTE_IMPORT;PARSER_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -138,8 +138,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(SolutionDir)Logger\Headers;$(SolutionDir)TypyProste\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LOGGER_IMPORT;TYPY_PROSTE_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(SolutionDir)Logger\Headers;$(SolutionDir)TypyProste\Headers\;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Algorytmy\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>LOGGER_IMPORT;TYPY_PROSTE_IMPORT;PARSER_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -150,8 +150,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(SolutionDir)Logger\Headers;$(SolutionDir)TypyProste\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LOGGER_IMPORT;TYPY_PROSTE_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(SolutionDir)Logger\Headers;$(SolutionDir)TypyProste\Headers\;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Algorytmy\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>LOGGER_IMPORT;TYPY_PROSTE_IMPORT;PARSER_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -162,8 +162,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(SolutionDir)Logger\Headers;$(SolutionDir)TypyProste\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LOGGER_IMPORT;TYPY_PROSTE_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(SolutionDir)Logger\Headers;$(SolutionDir)TypyProste\Headers\;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Algorytmy\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>LOGGER_IMPORT;TYPY_PROSTE_IMPORT;PARSER_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -176,8 +176,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(SolutionDir)Logger\Headers;$(SolutionDir)TypyProste\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LOGGER_IMPORT;TYPY_PROSTE_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(SolutionDir)Logger\Headers;$(SolutionDir)TypyProste\Headers\;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Algorytmy\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>LOGGER_IMPORT;TYPY_PROSTE_IMPORT;PARSER_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -192,8 +192,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(SolutionDir)Logger\Headers;$(SolutionDir)TypyProste\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LOGGER_IMPORT;TYPY_PROSTE_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)\Headers\$(ProjectName);$(SolutionDir)Logger\Headers;$(SolutionDir)TypyProste\Headers\;$(SolutionDir)LuaJIT-2.0.2\include;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Algorytmy\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>LOGGER_IMPORT;TYPY_PROSTE_IMPORT;PARSER_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -203,8 +203,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Narzedzia\CallbackSystemInterfejs.h" />
+    <ClInclude Include="Headers\Narzedzia\DllModule.h" />
     <ClInclude Include="Headers\Narzedzia\FPSCounter.h" />
     <ClInclude Include="Headers\Narzedzia\GeneratorIdentyfikatorow.h" />
+    <ClInclude Include="Headers\Narzedzia\LuaState.h" />
     <ClInclude Include="Headers\Narzedzia\MakeVector.h" />
     <ClInclude Include="Headers\Narzedzia\MenedzerTranzakcji.h" />
     <ClInclude Include="Headers\Narzedzia\NiepowodzenieTranzakcji.h" />
@@ -213,18 +215,32 @@
     <ClInclude Include="Headers\Narzedzia\Operacja.h" />
     <ClInclude Include="Headers\Narzedzia\Serializacja.h" />
     <ClInclude Include="Headers\Narzedzia\Singleton.h" />
+    <ClInclude Include="Headers\Narzedzia\SumaKontrolnaPliku.h" />
+    <ClInclude Include="Headers\Narzedzia\UstawieniaAplikacji.h" />
+    <ClInclude Include="Headers\Narzedzia\XmlModul.h" />
+    <ClInclude Include="Headers\Narzedzia\ZarzadcaZasobow.h" />
+    <ClInclude Include="Headers\Narzedzia\Zasob.h" />
     <ClInclude Include="Headers\Narzedzia\Zlecenie.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DllModule.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="GeneratorIdentyfikatorow.cpp" />
+    <ClCompile Include="LuaState.cpp" />
     <ClCompile Include="MenedzerTranzakcji.cpp" />
     <ClCompile Include="NiepowodzenieTranzakcji.cpp" />
     <ClCompile Include="Operacja.cpp" />
+    <ClCompile Include="SumaKontrolnaPliku.cpp" />
+    <ClCompile Include="UstawieniaAplikacji.cpp" />
+    <ClCompile Include="XmlModul.cpp" />
+    <ClCompile Include="ZarzadcaZasobow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logger\Logger.vcxproj">
       <Project>{da49481f-e328-4c1f-927c-44f818d30472}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\parser\Parser.vcxproj">
+      <Project>{c8c552aa-0fb6-40ca-805d-122e7eb00225}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

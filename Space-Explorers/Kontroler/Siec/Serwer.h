@@ -1,6 +1,6 @@
 #pragma once
 #include "Kontroler\Wielowatkowosc\Watek.h"
-#include "Kontroler\UstawieniaAplikacji.h"
+#include "Narzedzia\UstawieniaAplikacji.h"
 #include <WinSock2.h>
 #include "Klient.h"
 #include <list>

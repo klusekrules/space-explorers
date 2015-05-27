@@ -44,7 +44,7 @@ namespace SpEx{
 			|| (obiekt->pobierzPowierzchnie() + zajete_) > pobierzPojemnoscMaksymalnaHangaru()){
 			return false;
 		}
-		MenedzerTranzakcji tranzakcja;
+		MenedzerTranzakcji tranzakcja(SpEx::Aplikacja::pobierzInstancje().logger_);
 		STyp::Identyfikator nowe(0);
 		Hangar* hangar = this;
 

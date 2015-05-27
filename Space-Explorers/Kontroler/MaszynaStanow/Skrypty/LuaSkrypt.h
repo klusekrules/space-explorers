@@ -1,7 +1,7 @@
 #pragma once
 #include "lua.hpp"
 #include "Skrypt.h"
-#include "Kontroler\Zarzadca\LuaState.h"
+#include "Narzedzia\LuaState.h"
 #include <memory>
 #include "Parser\XmlBO.h"
 

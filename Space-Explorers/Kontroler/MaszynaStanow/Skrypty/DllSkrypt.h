@@ -1,6 +1,6 @@
 #pragma once
 #include <Windows.h>
-#include "Kontroler\Zarzadca\DllModule.h"
+#include "Narzedzia\DllModule.h"
 #include <memory>
 #include "Parser\XmlBO.h"
 #include "Skrypt.h"

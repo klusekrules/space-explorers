@@ -1,6 +1,6 @@
 #pragma once
-#include "Narzedzia\NonMoveable.h"
-#include "Narzedzia\NonCopyable.h"
+#include "NonMoveable.h"
+#include "NonCopyable.h"
 #include "Logger\Log.h"
 #include <map>
 

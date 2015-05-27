@@ -1,7 +1,6 @@
 #include "UstawieniaAplikacji.h"
 #include "Parser\ParserDokumentXml.h"
-#include "Aplikacja.h"
-#include "Utils\StackThrow.h"
+#include "Parser\XmlBO.h"
 #include "Logger\Logger.h"
 
 #define XML_WEZEL_GLOWNY "SpaceGame"
@@ -20,7 +19,7 @@ namespace SpEx{
 			return false;
 		auto root_data = dokument.pobierzElement(XML_WEZEL_GLOWNY);
 		if (root_data){
-			return XmlBO::ForEach<STACKTHROW>(root_data, XML_WEZEL_OPCJA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla wezel)->bool {
+			return XmlBO::ForEach<THROW>(root_data, XML_WEZEL_OPCJA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla wezel)->bool {
 				auto nazwa = XmlBO::WczytajAtrybut(wezel, XML_OPCJA_ATRYBUT_NAZWA, std::string());
 				auto wartosc = XmlBO::WczytajAtrybut(wezel, XML_OPCJA_ATRYBUT_WARTOSC, std::string());
 				if (nazwa.empty())

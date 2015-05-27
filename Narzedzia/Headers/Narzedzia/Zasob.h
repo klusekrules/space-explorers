@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include "TypyProste\TypyProste.h"
-#include "Narzedzia\NonCopyable.h"
+#include "NonCopyable.h"
 
 namespace SpEx{
 

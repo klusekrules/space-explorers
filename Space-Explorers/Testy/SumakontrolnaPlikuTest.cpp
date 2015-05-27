@@ -1,5 +1,5 @@
 #include "SumakontrolnaPlikuTest.h"
-#include "Kontroler\Zarzadca\SumaKontrolnaPliku.h"
+#include "Narzedzia\SumaKontrolnaPliku.h"
 #include "Kontroler\Aplikacja.h"
 #pragma warning( disable : 4996 )
 

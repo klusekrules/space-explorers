@@ -4,24 +4,6 @@
     <ClCompile Include="maintest.cpp">
       <Filter>SourceFile\Main</Filter>
     </ClCompile>
-    <ClCompile Include="Algorytmy\CRC16.cpp">
-      <Filter>SourceFile\Algorytmy\CRC</Filter>
-    </ClCompile>
-    <ClCompile Include="Algorytmy\CRC32.cpp">
-      <Filter>SourceFile\Algorytmy\CRC</Filter>
-    </ClCompile>
-    <ClCompile Include="Algorytmy\CRC64.cpp">
-      <Filter>SourceFile\Algorytmy\CRC</Filter>
-    </ClCompile>
-    <ClCompile Include="Algorytmy\keccak.cpp">
-      <Filter>SourceFile\Algorytmy\SHA3</Filter>
-    </ClCompile>
-    <ClCompile Include="Algorytmy\SHA3.cpp">
-      <Filter>SourceFile\Algorytmy\SHA3</Filter>
-    </ClCompile>
-    <ClCompile Include="Algorytmy\VMPC_MAC.cpp">
-      <Filter>SourceFile\Algorytmy\VMPC</Filter>
-    </ClCompile>
     <ClCompile Include="Model\Flota.cpp">
       <Filter>SourceFile\Model\Obiekty\Flota</Filter>
     </ClCompile>
@@ -304,21 +286,6 @@
     <ClCompile Include="Kontroler\Zarzadca\ZarzadcaUzytkownikow.cpp">
       <Filter>SourceFile\Kontroler\Zarzadca</Filter>
     </ClCompile>
-    <ClCompile Include="Kontroler\Zarzadca\ZarzadcaZasobow.cpp">
-      <Filter>SourceFile\Kontroler\Zarzadca</Filter>
-    </ClCompile>
-    <ClCompile Include="Kontroler\Zarzadca\DllModule.cpp">
-      <Filter>SourceFile\Kontroler\Zarzadca\Zasoby</Filter>
-    </ClCompile>
-    <ClCompile Include="Kontroler\Zarzadca\LuaState.cpp">
-      <Filter>SourceFile\Kontroler\Zarzadca\Zasoby</Filter>
-    </ClCompile>
-    <ClCompile Include="Kontroler\Zarzadca\SumaKontrolnaPliku.cpp">
-      <Filter>SourceFile\Kontroler\Zarzadca\Zasoby</Filter>
-    </ClCompile>
-    <ClCompile Include="Kontroler\Zarzadca\XmlModul.cpp">
-      <Filter>SourceFile\Kontroler\Zarzadca\Zasoby</Filter>
-    </ClCompile>
     <ClCompile Include="Testy\SumakontrolnaPlikuTest.cpp">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClCompile>
@@ -358,9 +325,6 @@
     <ClCompile Include="Kontroler\Gra.cpp">
       <Filter>SourceFile\Kontroler</Filter>
     </ClCompile>
-    <ClCompile Include="Kontroler\UstawieniaAplikacji.cpp">
-      <Filter>SourceFile\Kontroler</Filter>
-    </ClCompile>
     <ClCompile Include="Eksport\Export.cpp">
       <Filter>SourceFile\Export</Filter>
     </ClCompile>
@@ -376,32 +340,8 @@
     <ClCompile Include="Kontroler\Siec\RPC\ListaPlikowRPC.cpp">
       <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClCompile>
-    <ClCompile Include="Algorytmy\base64.cpp">
-      <Filter>SourceFile\Algorytmy\Base64</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Algorytmy\CRC.h">
-      <Filter>SourceFile\Algorytmy\CRC</Filter>
-    </ClInclude>
-    <ClInclude Include="Algorytmy\CRC16.h">
-      <Filter>SourceFile\Algorytmy\CRC</Filter>
-    </ClInclude>
-    <ClInclude Include="Algorytmy\CRC32.h">
-      <Filter>SourceFile\Algorytmy\CRC</Filter>
-    </ClInclude>
-    <ClInclude Include="Algorytmy\CRC64.h">
-      <Filter>SourceFile\Algorytmy\CRC</Filter>
-    </ClInclude>
-    <ClInclude Include="Algorytmy\keccak.h">
-      <Filter>SourceFile\Algorytmy\SHA3</Filter>
-    </ClInclude>
-    <ClInclude Include="Algorytmy\SHA3.h">
-      <Filter>SourceFile\Algorytmy\SHA3</Filter>
-    </ClInclude>
-    <ClInclude Include="Algorytmy\VMPC_MAC.h">
-      <Filter>SourceFile\Algorytmy\VMPC</Filter>
-    </ClInclude>
     <ClInclude Include="Model\Flota.h">
       <Filter>SourceFile\Model\Obiekty\Flota</Filter>
     </ClInclude>
@@ -690,24 +630,6 @@
     <ClInclude Include="Kontroler\Zarzadca\ZarzadcaUzytkownikow.h">
       <Filter>SourceFile\Kontroler\Zarzadca</Filter>
     </ClInclude>
-    <ClInclude Include="Kontroler\Zarzadca\ZarzadcaZasobow.h">
-      <Filter>SourceFile\Kontroler\Zarzadca</Filter>
-    </ClInclude>
-    <ClInclude Include="Kontroler\Zarzadca\DllModule.h">
-      <Filter>SourceFile\Kontroler\Zarzadca\Zasoby</Filter>
-    </ClInclude>
-    <ClInclude Include="Kontroler\Zarzadca\LuaState.h">
-      <Filter>SourceFile\Kontroler\Zarzadca\Zasoby</Filter>
-    </ClInclude>
-    <ClInclude Include="Kontroler\Zarzadca\SumaKontrolnaPliku.h">
-      <Filter>SourceFile\Kontroler\Zarzadca\Zasoby</Filter>
-    </ClInclude>
-    <ClInclude Include="Kontroler\Zarzadca\XmlModul.h">
-      <Filter>SourceFile\Kontroler\Zarzadca\Zasoby</Filter>
-    </ClInclude>
-    <ClInclude Include="Kontroler\Zarzadca\Zasob.h">
-      <Filter>SourceFile\Kontroler\Zarzadca\Zasoby</Filter>
-    </ClInclude>
     <ClInclude Include="Testy\SumakontrolnaPlikuTest.h">
       <Filter>Testy\KlasyTestowe\Inicjalizowanie</Filter>
     </ClInclude>
@@ -754,9 +676,6 @@
       <Filter>SourceFile\Kontroler</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Gra.h">
-      <Filter>SourceFile\Kontroler</Filter>
-    </ClInclude>
-    <ClInclude Include="Kontroler\UstawieniaAplikacji.h">
       <Filter>SourceFile\Kontroler</Filter>
     </ClInclude>
     <ClInclude Include="Resource\afxres.h">
@@ -905,18 +824,6 @@
     <Filter Include="SourceFile\Main">
       <UniqueIdentifier>{703f8f7c-63c3-4bf3-9541-c8f98fd4902e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\Algorytmy">
-      <UniqueIdentifier>{04ab3f86-1059-460d-bbc1-281a246408b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Algorytmy\CRC">
-      <UniqueIdentifier>{123df74f-2fb7-4355-a00c-49ddfdd170df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Algorytmy\SHA3">
-      <UniqueIdentifier>{2b896c66-4d12-4a0e-8839-53e553e32534}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Algorytmy\VMPC">
-      <UniqueIdentifier>{ab50ab69-ca22-4550-abb1-301c57d1f5b5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource\Ikony">
       <UniqueIdentifier>{60c9ea0c-7bdf-438c-9b47-e74f443d7150}</UniqueIdentifier>
     </Filter>
@@ -965,14 +872,8 @@
     <Filter Include="SourceFile\Kontroler\Zarzadca">
       <UniqueIdentifier>{51b54752-beb0-4fe5-be58-bd2dacbe14c7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\Kontroler\Zarzadca\Zasoby">
-      <UniqueIdentifier>{4b40de96-8dad-4bc6-ac96-c03390bd19d6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SourceFile\Wyjatki\DomysleWartosci">
       <UniqueIdentifier>{6f405ef5-dac8-4c81-a144-5dde19dd7b2b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SourceFile\Algorytmy\Base64">
-      <UniqueIdentifier>{c17ad733-317b-4cd4-ae0c-e22be6acb61e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -13,7 +13,7 @@
 #include "Siec\Serwer.h"
 #include "Siec\Klient.h"
 #include "Zarzadca\Fabrykator.h"
-#include "Zarzadca\ZarzadcaZasobow.h"
+#include "Narzedzia\ZarzadcaZasobow.h"
 #include "Zarzadca\ZarzadcaPluginow.h"
 #include "Zarzadca\ZarzadcaUzytkownikow.h"
 #include "Zarzadca\ZarzadcaLokacji.h"
@@ -22,10 +22,7 @@
 
 #include "Parser\ParserDokumentXml.h"
 #include "Eksport\IProxyBO.h"
-
-std::string base64_encode(unsigned char const* bytes_to_encode, unsigned int in_len);
-std::string base64_decode(std::string const& encoded_string);
-std::string base64_encode(const std::string & dane);
+#include "Algorytmy\base64.h"
 
 namespace SpEx{
 

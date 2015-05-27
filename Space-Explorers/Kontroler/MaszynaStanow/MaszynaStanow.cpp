@@ -5,7 +5,7 @@
 #include "Narzedzia\FPSCounter.h"
 #include "Wyjatki\BladStukturyStanu.h"
 #include "Wyjatki\NieznalezionoPliku.h"
-#include "Kontroler\Zarzadca\XmlModul.h"
+#include "Narzedzia\XmlModul.h"
 #include "Logger\Logger.h"
 #include "Utils\Utils.h"
 #include "Utils\DefinicjeWezlowXML.h"

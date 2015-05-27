@@ -24,8 +24,7 @@ misrepresented as being the original source code.
 René Nyffenegger rene.nyffenegger@adp-gmbh.ch
 
 */
-
-#include <iostream>
+#include "base64.h"
 
 static const std::string base64_chars =
 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

@@ -1,5 +1,6 @@
 #include "VMPC_MAC.h"
 #include <string.h>
+#include "keccak.h"
 
 VMPC_MAC::VMPC_MAC()
 {

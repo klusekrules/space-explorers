@@ -67,7 +67,7 @@ namespace SpEx{
 			|| (obiekt->pobierzObjetosc() + zajete_) > pobierzPojemnoscMaksymalnaLadowni()){
 			return false;
 		}
-		MenedzerTranzakcji tranzakcja;
+		MenedzerTranzakcji tranzakcja(SpEx::Aplikacja::pobierzInstancje().logger_);
 		STyp::Identyfikator nowe(0);
 		Ladownia* ladownia = this;
 

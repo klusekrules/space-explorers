@@ -1,11 +1,13 @@
 #include "ZarzadcaZasobow.h"
-#include "Utils\Utils.h"
-#include "Kontroler\Aplikacja.h"
-#include "Utils\DefinicjeWezlowXML.h"
 #include "Logger\Logger.h"
 #include "Parser\ParserDokumentXml.h"
-#include "Wyjatki\NieznalezionoPliku.h"
-#include "Utils\StackThrow.h"
+
+#define WEZEL_XML_LOKALIZACJA_ZASOBU "LokalizacjaZasobu"
+#define ATRYBUT_XML_LOKALIZACJA "lokalizacja"
+#define ATRYBUT_XML_NAZWA "nazwa"
+
+#define TYTUL_BLAD_OTWIERANIA_PLIKU STyp::Tekst("Nie uda³o siê otworzyæ pliku!")
+#define KOMUNIKAT_BLAD_OTWIERANIA_PLIKU( a ) STyp::Tekst("Podczas próby otwierania pliku: " + a + " wyst¹pi³ b³¹d!")
 
 #define TYTUL_BLAD_WEZLA_ROOT STyp::Tekst("Nie uda³o siê pobraæ elementu parsera!")
 #define KOMUNIKAT_BLAD_WEZLA_ROOT( a ) STyp::Tekst("Podczas próby dostêpu do g³ównego wêz³a wyst¹pi³ b³¹d. Dokument wczytany z pliku: " + a)
@@ -31,18 +33,18 @@ namespace SpEx{
 		auto plik = ustawienia[ATRYBUT_POWIAZANIA_ZASOBOW];
 		auto dokument = std::make_shared<SPar::ParserDokumentXml>();
 		if (!dokument->odczytaj(plik.c_str())){
-			throw NieznalezionoPliku(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), plik);
+			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst()/*Utils::pobierzDebugInfo()*/, STyp::Identyfikator(-1), TYTUL_BLAD_OTWIERANIA_PLIKU, KOMUNIKAT_BLAD_OTWIERANIA_PLIKU(plik));
 		}
 
 		auto wezel = dokument->pobierzElement(nullptr);
 
 		if (!wezel){
-			throw STyp::Wyjatek(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), TYTUL_BLAD_WEZLA_ROOT, KOMUNIKAT_BLAD_WEZLA_ROOT(plik));
+			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(-1), TYTUL_BLAD_WEZLA_ROOT, KOMUNIKAT_BLAD_WEZLA_ROOT(plik));
 		}
 
 		resetuj();
 
-		return XmlBO::ForEach<STACKTHROW>(wezel, WEZEL_XML_LOKALIZACJA_ZASOBU, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla wpis)->bool{
+		return XmlBO::ForEach<THROW>(wezel, WEZEL_XML_LOKALIZACJA_ZASOBU, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla wpis)->bool{
 			std::string nazwa;
 			std::string lokalizacja;
 
@@ -50,7 +52,7 @@ namespace SpEx{
 			lokalizacja = XmlBO::WczytajAtrybut(wpis, ATRYBUT_XML_LOKALIZACJA, std::string());
 
 			if (nazwa.empty() || lokalizacja.empty()){
-				throw STyp::Wyjatek(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), TYTUL_BLAD_ATRYBUTU,
+				throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(-1), TYTUL_BLAD_ATRYBUTU,
 					KOMUNIKAT_BLAD_ATRYBUTU(wpis->error(), ustawienia[ATRYBUT_POWIAZANIA_ZASOBOW]));
 			}
 
@@ -58,7 +60,7 @@ namespace SpEx{
 			STyp::Identyfikator id;
 
 			if (!mapujIdentyfikator(nazwa, id)){
-				throw STyp::Wyjatek(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), STyp::Identyfikator(-1), TYTUL_BLAD_MAPOWANIA,
+				throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(-1), TYTUL_BLAD_MAPOWANIA,
 					KOMUNIKAT_BLAD_MAPOWANIA(nazwa, id.napis(), wpis->error(), ustawienia[ATRYBUT_POWIAZANIA_ZASOBOW]));
 
 			}
@@ -121,7 +123,7 @@ namespace SpEx{
 				return nullptr;
 			return asset;
 		}else{
-			throw STyp::Wyjatek(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), STyp::Identyfikator(-1),
+			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(-1),
 				TYTUL_BLAD_UNIKALNEGO_ZASOBU, KOMUNIKAT_BLAD_UNIKALNEGO_ZASOBU(parametr));
 		}
 		return nullptr;
@@ -185,7 +187,7 @@ namespace SpEx{
 			id = identyfikator;
 			return asset;
 		}else{
-			throw STyp::Wyjatek(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), STyp::Identyfikator(-1),
+			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(-1),
 				TYTUL_BLAD_ZASOBU, KOMUNIKAT_BLAD_ZASOBU(parametr));
 		}
 		return nullptr;
