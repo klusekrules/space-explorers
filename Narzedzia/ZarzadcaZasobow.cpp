@@ -1,6 +1,10 @@
 #include "ZarzadcaZasobow.h"
 #include "Logger\Logger.h"
 #include "Parser\ParserDokumentXml.h"
+#include "LuaState.h"
+#include "DllModule.h"
+#include "XmlModul.h"
+#include "SumaKontrolnaPliku.h"
 
 #define WEZEL_XML_LOKALIZACJA_ZASOBU "LokalizacjaZasobu"
 #define ATRYBUT_XML_LOKALIZACJA "lokalizacja"
@@ -66,6 +70,13 @@ namespace SpEx{
 			}
 			return true;
 		}));
+	}
+
+	void ZarzadcaZasobow::rejestrujTypyWbudowane(){
+		rejestruj<LuaState>();
+		rejestruj<DllModule>();
+		rejestruj<XmlModul>();
+		rejestruj<SumaKontrolnaPliku>();
 	}
 	
 	STyp::Identyfikator ZarzadcaZasobow::pobierzIdentyfikator(const Parametr& nazwaObrazka) const{

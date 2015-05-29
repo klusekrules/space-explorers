@@ -196,6 +196,8 @@ namespace SpEx {
 		*/
 		bool inicjalizuj(const UstawieniaAplikacji& ustawienia);
 
+		void rejestrujTypyWbudowane();
+
 		/**
 		* \brief Metoda pobieraj¹ca adres obrazka.
 		*

@@ -22,10 +22,6 @@
 #include "Zarzadca\ZarzadcaPluginow.h"
 #include "Zarzadca\ZarzadcaUzytkownikow.h"
 #include "Zarzadca\ZarzadcaLokacji.h"
-#include "Narzedzia\LuaState.h"
-#include "Narzedzia\DllModule.h"
-#include "Narzedzia\XmlModul.h"
-#include "Narzedzia\SumaKontrolnaPliku.h"
 
 #include "MaszynaStanow\Skrypty\LuaSkrypt.h"
 #include "MaszynaStanow\Skrypty\DllSkrypt.h"
@@ -355,11 +351,8 @@ namespace SpEx{
 		zarzadcaZasobow_->dodajCallback([](const std::string& nazwa, Zasob::SharedPtr)->void{
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Zarejestrowano zasób: " + nazwa);
 		}, StrukturyZarzadcyZasobow::PoRejestracji);
-		
-		zarzadcaZasobow_->rejestruj<LuaState>();
-		zarzadcaZasobow_->rejestruj<DllModule>();
-		zarzadcaZasobow_->rejestruj<XmlModul>();
-		zarzadcaZasobow_->rejestruj<SumaKontrolnaPliku>();
+
+		zarzadcaZasobow_->rejestrujTypyWbudowane();
 	}
 
 	void Aplikacja::rejestrujMetodyRPC(){
