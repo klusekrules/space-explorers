@@ -20,39 +20,6 @@ namespace SpEx{
 		return Aplikacja::pobierzInstancje().pobierzNumerLosowy();
 	}
 	
-	std::string Utils::konwertujDoHex(const char * tab, size_t size, bool prefix){
-		std::string wartosc;
-		size_t offset = 0;
-
-		if (prefix){
-			offset = 2;
-			wartosc.resize(size * 2 + offset, 0);
-			wartosc[0] = '0';
-			wartosc[1] = 'x';
-		} else{
-			wartosc.resize(size * 2, 0);		
-		}
-
-		for (size_t i = 0; i < size; ++i){
-			char pierwszy = (tab[i] >> 4) & 0x0F, drugi = tab[i] & 0x0F;
-			if (pierwszy < 10){
-				pierwszy += 0x30;
-			} else{
-				pierwszy += 55;
-			}
-
-			if (drugi < 10){
-				drugi += 0x30;
-			} else{
-				drugi += 55;
-			}
-			wartosc[(i << 1) + offset] = pierwszy;
-			wartosc[(i << 1) + 1 + offset] = drugi;
-		}
-
-		return std::move(wartosc);
-	}
-
 	std::shared_ptr<SZmi::ZmianaInterfejs> Utils::TworzZmiane(XmlBO::ElementWezla wezel){
 		if (!wezel)
 			return nullptr;

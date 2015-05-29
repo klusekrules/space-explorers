@@ -5,6 +5,7 @@
 #include "Kontroler\Zarzadca\ZarzadcaUzytkownikow.h"
 #include "Utils\Utils.h"
 #include "Algorytmy\SHA3.h"
+#include "Algorytmy\Hex.h"
 
 namespace SpEx{
 
@@ -46,9 +47,13 @@ namespace SpEx{
 			}
 
 			auto liczba = Utils::pobierzLiczbeLosowa();
-			klient_.ustawAutoryzacje(Utils::konwertujDoHex((const char *)&(liczba), sizeof(__int64), true));
+			Hex hexAutoryzacja;
+			hexAutoryzacja.dodaj((const char *)&(liczba), sizeof(__int64));
+			klient_.ustawAutoryzacje(hexAutoryzacja.pobierz());
 			liczba = Utils::pobierzLiczbeLosowa();
-			klient_.ustawInstancje(Utils::konwertujDoHex((const char *)&(liczba), sizeof(__int64), true));
+			Hex hexInstancja;
+			hexInstancja.dodaj((const char *)&(liczba), sizeof(__int64));
+			klient_.ustawInstancje(hexInstancja.pobierz());
 			klient_.autoryzujMetode(instancja_, autoryzacja_);
 			odpowiedz[METODA_RPC_AUTORYZACJA] = autoryzacja_;
 			odpowiedz[METODA_RPC_INSTANCJA] = instancja_;

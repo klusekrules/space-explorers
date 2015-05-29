@@ -212,6 +212,7 @@
     <ClCompile Include="CRC16.cpp" />
     <ClCompile Include="CRC32.cpp" />
     <ClCompile Include="CRC64.cpp" />
+    <ClCompile Include="Hex.cpp" />
     <ClCompile Include="keccak.cpp" />
     <ClCompile Include="SHA3.cpp" />
     <ClCompile Include="VMPC_MAC.cpp" />
@@ -224,6 +225,7 @@
     <ClInclude Include="Headers\Algorytmy\CRC16.h" />
     <ClInclude Include="Headers\Algorytmy\CRC32.h" />
     <ClInclude Include="Headers\Algorytmy\CRC64.h" />
+    <ClInclude Include="Headers\Algorytmy\Hex.h" />
     <ClInclude Include="Headers\Algorytmy\keccak.h" />
     <ClInclude Include="Headers\Algorytmy\SHA3.h" />
     <ClInclude Include="Headers\Algorytmy\VMPC_MAC.h" />

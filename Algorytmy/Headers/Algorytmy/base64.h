@@ -13,7 +13,7 @@ public:
 	Base64();
 	void dodaj(const std::string&);
 	void dodaj(char);
-	void dodaj(char*, int);
+	void dodaj(const char*, unsigned int);
 	std::string pobierz() const;
 	~Base64() = default;
 private:

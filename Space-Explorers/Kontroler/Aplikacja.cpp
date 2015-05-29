@@ -22,7 +22,6 @@
 
 #include "Parser\ParserDokumentXml.h"
 #include "Eksport\IProxyBO.h"
-#include "Algorytmy\base64.h"
 
 namespace SpEx{
 
@@ -52,25 +51,9 @@ namespace SpEx{
 
 			SpEx::MaszynaStanow::pobierzInstancje().inicjalizuj();
 			
-			std::string dane("Kodowanie base64");
-			std::string zakodowane;
-			std::string zdekodowane;
-			Base64 temp;
-
 			switch (proxy_->pobierzTrybAplikacji())
 			{
 			case TrybAplikacji::Serwer:
-
-				logger_.loguj(SLog::Log::Info, "Test kodowania base64");
-				logger_.loguj(SLog::Log::Info, dane);
-				zakodowane = base64_encode(dane);
-				logger_.loguj(SLog::Log::Info, zakodowane);
-				zdekodowane = base64_decode(zakodowane);
-				logger_.loguj(SLog::Log::Info, zdekodowane);
-				temp.dodaj(dane);
-				logger_.loguj(SLog::Log::Info, temp.pobierz());
-
-
 				logger_.loguj(SLog::Log::Info, "Tryb dzia³ania aplikacji: Serwer");
 				SpEx::MaszynaStanow::pobierzInstancje().start();
 				break;

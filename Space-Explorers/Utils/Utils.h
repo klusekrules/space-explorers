@@ -103,8 +103,6 @@ namespace SpEx{
 
 		static __int64 pobierzLiczbeLosowa();
 
-		static std::string konwertujDoHex( const char * , size_t , bool prefix = false);
-
 		/**
 		* \brief Metoda zamieniaj¹ca klucz dla wartoœci w mapie.
 		*

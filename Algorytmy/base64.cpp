@@ -142,8 +142,8 @@ void Base64::dodaj(char c){
 		dopisz();
 }
 
-void Base64::dodaj(char* c, int n){
-	for (int i = 0; i < n; ++i){
+void Base64::dodaj(const char* c, unsigned int n){
+	for (unsigned int i = 0; i < n; ++i){
 		dodaj(c[i]);
 	}
 }
