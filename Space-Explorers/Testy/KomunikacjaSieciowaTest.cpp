@@ -4,6 +4,7 @@
 #include "Kontroler\Siec\RPC\PotwierdzLogowanieRPC.h"
 #include "Kontroler\Siec\RPC\StaleRPC.h"
 #include "Algorytmy\SHA3.h"
+#include "Algorytmy\Hex.h"
 #include "Kontroler\Zarzadca\Fabrykator.h"
 #include "Kontroler\Siec\RPC\SprawdzSumyKontrolneRPC.h"
 
@@ -41,7 +42,7 @@ void KomunikacjaSieciowaTest::testInicjalizacjiLogowania(){
 	if (ptr){
 		std::string haslo("haslo");
 		SHA3 sha3(haslo);
-		haslo = sha3.pobierzNapis();
+		haslo = sha3.pobierzNapis<Hex>();
 		std::string login("Daniel");
 		ptr->obiektParametrow()["Login"] = login;
 		ptr->obiektParametrow()["Hash"] = haslo;

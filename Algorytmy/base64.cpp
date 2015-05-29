@@ -141,6 +141,11 @@ void Base64::dodaj(char c){
 	if (size_ >= 3)
 		dopisz();
 }
+void Base64::dodaj(const std::vector < unsigned char >& v){
+	for (auto c : v){
+		dodaj((char)c);
+	}
+}
 
 void Base64::dodaj(const char* c, unsigned int n){
 	for (unsigned int i = 0; i < n; ++i){

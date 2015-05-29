@@ -12,14 +12,6 @@ SHA3::SHA3(FILE* fp){
 		keccak(fp, sha.data(), 64);
 }
 
-std::string SHA3::pobierzNapis() const{
-	std::string str;
-	for (auto c : sha){
-		ascii2hex(c, str);
-	}
-	return std::move(str);
-}
-
 const std::vector<unsigned char > & SHA3::pobierzKontener() const{
 	return sha;
 }

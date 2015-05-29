@@ -1,6 +1,7 @@
 #pragma once
 #include "AlgorytmySymbol.h"
 #include <string>
+#include <vector>
 
 std::string ALGORYTMY_API base64_encode(unsigned char const* bytes_to_encode, unsigned int in_len);
 std::string ALGORYTMY_API base64_encode(const std::string & dane);
@@ -13,6 +14,7 @@ public:
 	Base64();
 	void dodaj(const std::string&);
 	void dodaj(char);
+	void dodaj(const std::vector < unsigned char >&);
 	void dodaj(const char*, unsigned int);
 	std::string pobierz() const;
 	~Base64() = default;

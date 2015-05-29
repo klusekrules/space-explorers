@@ -12,6 +12,7 @@
 #include "Kontroler\Siec\RPC\SprawdzSumyKontrolneRPC.h"
 #include "Kontroler\Zarzadca\Fabrykator.h"
 #include "Algorytmy\SHA3.h"
+#include "Algorytmy\Hex.h"
 
 namespace SpEx{
 	int ProxyBOKlient::uruchomSerwer(){
@@ -110,7 +111,7 @@ namespace SpEx{
 			auto pos = param.find_first_of(' ');
 			std::string haslo(param.substr(pos + 1));
 			SHA3 sha3(haslo);
-			haslo = sha3.pobierzNapis();
+			haslo = sha3.pobierzNapis<Hex>();
 			auto ret = zaloguj(param.substr(0, pos).c_str(), haslo.c_str());
 			if (ret == RETURN_CODE_OK){
 				ret = sprawdzPoprawnoscPlikow();

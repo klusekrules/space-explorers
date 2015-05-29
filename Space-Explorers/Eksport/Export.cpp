@@ -10,6 +10,7 @@
 #include "Model\Planeta.h"
 #include "Export.h"
 #include "Algorytmy\SHA3.h"
+#include "Algorytmy\Hex.h"
 #include "Kontroler\Zarzadca\Fabrykator.h"
 #include "Kontroler\Gra.h"
 #include "Model\Uzytkownik.h"
@@ -163,7 +164,7 @@ extern "C"{
 				std::string hash(haslo->getText());
 				if (!(nazwa->getText().isEmpty() || hash.empty())){
 					SHA3 sha3(hash);
-					hash = sha3.pobierzNapis();
+					hash = sha3.pobierzNapis<Hex>();
 					if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().logowanie(nazwa->getText(), hash)){
 						return true;
 					}
@@ -201,7 +202,7 @@ extern "C"{
 				}
 
 				SHA3 sha3(hash);
-				hash = sha3.pobierzNapis();
+				hash = sha3.pobierzNapis<Hex>();
 				if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzIloscGalaktyk() <= 0){
 					SpEx::UtilsGui::wyswietlWiadomoscWGUI(1, "Generowanie galaktyki.");
 					if (!SpEx::Aplikacja::pobierzInstancje().pobierzGre().generujNowaGalaktyke()){
@@ -262,7 +263,7 @@ extern "C"{
 			if (nazwa != nullptr && haslo != nullptr){
 				std::string hash(haslo->getText());
 				SHA3 sha3(hash);
-				hash = sha3.pobierzNapis();
+				hash = sha3.pobierzNapis<Hex>();
 				if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().usunGracza(nazwa->getText(), hash)){
 					return true;
 				}

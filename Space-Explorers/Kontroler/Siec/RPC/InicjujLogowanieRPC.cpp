@@ -38,7 +38,7 @@ namespace SpEx{
 				}
 			} else{
 				SHA3 fakeSha(std::to_string(Utils::pobierzLiczbeLosowa()));
-				std::string fakehash(std::move(fakeSha.pobierzNapis()));
+				std::string fakehash(std::move(fakeSha.pobierzNapis<Hex>()));
 				klient_.ustawKlucz(fakehash);
 				if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
 					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Brak u¿ytkownika o podanym loginie: " + login.asString() + " dla ip " + klient_.pobierzIP());

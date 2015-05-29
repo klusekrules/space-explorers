@@ -13,7 +13,12 @@ public:
 
 	void ascii2hex(unsigned char c, std::string & str) const;
 
-	std::string pobierzNapis() const;
+	template<class T>
+	std::string pobierzNapis() const{
+		T konwerter;
+		konwerter.dodaj(sha);
+		return std::move(konwerter.pobierz());
+	}
 
 	const std::vector<unsigned char > & pobierzKontener() const;
 

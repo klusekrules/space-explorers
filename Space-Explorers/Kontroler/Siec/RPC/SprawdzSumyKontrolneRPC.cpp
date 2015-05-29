@@ -6,6 +6,7 @@
 #include "Kontroler\Zarzadca\ZarzadcaPluginow.h"
 #include "StaleRPC.h"
 #include "Utils\StaleUstawienAplikacji.h"
+#include "Algorytmy\base64.h"
 
 #define LISTA_PLIKOW "lista"
 #define NAZWA_PLIKU "nazwa"
@@ -47,7 +48,7 @@ namespace SpEx{
 					}
 					return false;
 				}
-				plik[SUMA_PLIKU] = std::move(suma->pobierzSumeKontrolna().pobierzNapis());
+				plik[SUMA_PLIKU] = std::move(suma->pobierzSumeKontrolna().pobierzNapis<Base64>());
 				parametry_[LISTA_PLIKOW][a++] = plik;
 			}
 		}
@@ -69,7 +70,7 @@ namespace SpEx{
 					plik[NAZWA_PLIKU] = element[NAZWA_PLIKU];
 					auto iter = std::find(temp.begin(), temp.end(), element[NAZWA_PLIKU].asString());
 					if (iter != temp.end()){
-						if (pobierzSumeKontrolna(*iter)->pobierzSumeKontrolna().pobierzNapis() == element[SUMA_PLIKU].asString()){
+						if (pobierzSumeKontrolna(*iter)->pobierzSumeKontrolna().pobierzNapis<Base64>() == element[SUMA_PLIKU].asString()){
 							if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
 								SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Suma kontrolna poprawna dla pliku: " + *iter);
 							}

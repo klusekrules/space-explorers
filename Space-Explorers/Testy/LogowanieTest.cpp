@@ -3,13 +3,14 @@
 #include "Utils\Utils.h"
 #include "Szkielet\TestyUtilsBO.h"
 #include "Algorytmy\SHA3.h"
+#include "Algorytmy\Hex.h"
 #include "Kontroler\Gra.h"
 #include "Utils\DefinicjeWezlowXML.h"
 
 void LogowanieTest::zaloguj(){
 	std::string haslo("haslo");
 	SHA3 sha3(haslo);
-	haslo = sha3.pobierzNapis();
+	haslo = sha3.pobierzNapis<Hex>();
 	
 #ifndef LOG_OFF_ALL
 	SpEx::Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Debug, haslo);
