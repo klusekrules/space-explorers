@@ -12,6 +12,8 @@ namespace SpEx{
 
 		virtual ~ListaPlikowRPC() = default;
 
+		const std::vector<std::string>& pobierzListePlikow() const;
+
 		std::string napis() const override;
 	private:
 

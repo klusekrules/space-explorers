@@ -5,11 +5,13 @@
 #include "Kontroler\Aplikacja.h"
 #include "Widok\Konsola\Konsola.h"
 #include "Export.h"
+#include "Kontroler\Siec\RPC\StaleRPC.h"
+#include "Kontroler\Siec\RPC\ListaPlikowRPC.h"
 #include "Kontroler\Siec\RPC\InicjujLogowanieRPC.h"
 #include "Kontroler\Siec\RPC\PotwierdzLogowanieRPC.h"
+#include "Kontroler\Siec\RPC\SprawdzSumyKontrolneRPC.h"
 #include "Kontroler\Zarzadca\Fabrykator.h"
 #include "Algorytmy\SHA3.h"
-#include "Kontroler\Siec\RPC\StaleRPC.h"
 
 namespace SpEx{
 	int ProxyBOKlient::uruchomSerwer(){
@@ -110,6 +112,9 @@ namespace SpEx{
 			SHA3 sha3(haslo);
 			haslo = sha3.pobierzNapis();
 			auto ret = zaloguj(param.substr(0, pos).c_str(), haslo.c_str());
+			if (ret == RETURN_CODE_OK){
+				ret = sprawdzPoprawnoscPlikow();
+			}
 			switch (ret){
 			case RETURN_CODE_OK:
 				Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Info, "Zalogowano!");
@@ -132,6 +137,8 @@ namespace SpEx{
 				}
 				break;
 			}
+
+			
 		}));
 		return RETURN_CODE_OK;
 	}
@@ -164,6 +171,32 @@ namespace SpEx{
 			Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, "retCode: " + std::to_string(retCode));
 		}
 		return ret;
+	}
+
+	int ProxyBOKlient::sprawdzPoprawnoscPlikow(){
+		if (!klient_)
+			return RETURN_CODE_BRAK_POLACZENIA;
+
+		auto listaplikow = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().tworzMetodeRPC<SpEx::ListaPlikowRPC>(*klient_);
+		if (!listaplikow){
+			return RETURN_CODE_BRAK_METOD;
+		}
+		auto sprawdzSumy = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().tworzMetodeRPC<SpEx::SprawdzSumyKontrolneRPC>(*klient_);
+		if (!sprawdzSumy){
+			return RETURN_CODE_BRAK_METOD;
+		}
+		auto ret = listaplikow->wykonajMetode();
+		int retCode = klient_->kodPowrotu();
+		if (ret == RPC_OK && retCode == RPC_OK){
+			sprawdzSumy->ustawListePlikow(listaplikow->pobierzListePlikow());
+			ret = sprawdzSumy->wykonajMetode();
+			retCode = klient_->kodPowrotu();
+		}
+		if (retCode != RPC_OK){
+			Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, "retCode: " + std::to_string(retCode));
+		}
+		return ret;
+
 	}
 
 	TrybAplikacji ProxyBOKlient::pobierzTrybAplikacji(){

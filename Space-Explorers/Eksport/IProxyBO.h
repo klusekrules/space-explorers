@@ -23,6 +23,8 @@ namespace SpEx{
 
 		virtual int zaloguj( const char * nazwa, const char* hash ) = 0;
 
+		virtual int sprawdzPoprawnoscPlikow() = 0;
+
 		virtual TrybAplikacji pobierzTrybAplikacji() = 0;
 	};
 };

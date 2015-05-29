@@ -97,6 +97,10 @@ namespace SpEx{
 	int ProxyBOSerwer::zaloguj(const char * nazwa, const char* hash){
 		return RETURN_CODE_NIEODPOWIEDNI_TRYB_APLIKACJI;
 	}
+
+	int ProxyBOSerwer::sprawdzPoprawnoscPlikow(){
+		return RETURN_CODE_NIEODPOWIEDNI_TRYB_APLIKACJI;
+	}
 	
 	TrybAplikacji ProxyBOSerwer::pobierzTrybAplikacji(){
 		return TrybAplikacji::Serwer;
