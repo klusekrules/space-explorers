@@ -123,3 +123,60 @@ std::string base64_decode(std::string const& encoded_string) {
 
 	return std::move(ret);
 }
+
+Base64::Base64(){
+	tab_[0] = 0;
+	tab_[1] = 0;
+	tab_[2] = 0;
+}
+
+void Base64::dodaj(const std::string& s){
+	for (auto c : s){
+		dodaj(c);
+	}
+}
+
+void Base64::dodaj(char c){
+	tab_[size_++] = c;
+	if (size_ >= 3)
+		dopisz();
+}
+
+void Base64::dodaj(char* c, int n){
+	for (int i = 0; i < n; ++i){
+		dodaj(c[i]);
+	}
+}
+
+std::string Base64::pobierz() const{
+	std::string ret = napis_;
+	unsigned char char_array_4[4];
+	
+	char_array_4[0] = (tab_[0] & 0xfc) >> 2;
+	char_array_4[1] = ((tab_[0] & 0x03) << 4) + ((tab_[1] & 0xf0) >> 4);
+	char_array_4[2] = ((tab_[1] & 0x0f) << 2) + ((tab_[2] & 0xc0) >> 6);
+	char_array_4[3] = tab_[2] & 0x3f;
+
+	for (int j = 0; (j < size_ + 1); j++)
+		ret += base64_chars[char_array_4[j]];
+
+	int i = size_;
+	while ((i++ < 3))
+		ret += '=';
+
+	return std::move(ret);
+}
+
+void Base64::dopisz(){
+	unsigned char char_array_4[4];
+	char_array_4[0] = (tab_[0] & 0xfc) >> 2;
+	char_array_4[1] = ((tab_[0] & 0x03) << 4) + ((tab_[1] & 0xf0) >> 4);
+	char_array_4[2] = ((tab_[1] & 0x0f) << 2) + ((tab_[2] & 0xc0) >> 6);
+	char_array_4[3] = tab_[2] & 0x3f;
+	for (int i = 0; i<4; i++)
+		napis_ += base64_chars[char_array_4[i]];
+	size_ = 0;
+	tab_[0] = 0;
+	tab_[1] = 0;
+	tab_[2] = 0;
+}

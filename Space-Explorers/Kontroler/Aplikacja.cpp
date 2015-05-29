@@ -55,6 +55,7 @@ namespace SpEx{
 			std::string dane("Kodowanie base64");
 			std::string zakodowane;
 			std::string zdekodowane;
+			Base64 temp;
 
 			switch (proxy_->pobierzTrybAplikacji())
 			{
@@ -66,6 +67,8 @@ namespace SpEx{
 				logger_.loguj(SLog::Log::Info, zakodowane);
 				zdekodowane = base64_decode(zakodowane);
 				logger_.loguj(SLog::Log::Info, zdekodowane);
+				temp.dodaj(dane);
+				logger_.loguj(SLog::Log::Info, temp.pobierz());
 
 
 				logger_.loguj(SLog::Log::Info, "Tryb dzia³ania aplikacji: Serwer");
