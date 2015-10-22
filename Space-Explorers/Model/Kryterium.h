@@ -40,7 +40,7 @@ namespace SpEx{
 		* \version 1
 		* \date 22-07-2013
 		*/
-		typedef union AtrybutKryterium
+		union AtrybutKryterium
 		{
 			STyp::Poziom::nazwa_typu poziom;
 			STyp::Ilosc::nazwa_typu ilosc;

@@ -49,6 +49,9 @@ namespace SpEx {
 			std::shared_ptr< Planeta > planeta_; /// wskaŸnik na planetê.
 			std::atomic_bool wolna_; /// Informacja o przynaleznosci planety do gracza.
 			std::once_flag& flaga_inicjalizacji_ukladu; /// Flaga inicjalizacji. 
+
+			ObjPlaneta(const STyp::Identyfikator&, std::shared_ptr< Planeta >, bool, std::once_flag&);
+			ObjPlaneta(const ObjPlaneta &);
 		};
 
 		/**

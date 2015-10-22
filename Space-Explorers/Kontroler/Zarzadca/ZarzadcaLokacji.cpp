@@ -14,6 +14,14 @@
 
 namespace SpEx {
 
+	ZarzadcaLokacji::ObjPlaneta::ObjPlaneta(const STyp::Identyfikator& idUkladu, std::shared_ptr< Planeta > planeta, bool wolna, std::once_flag& flaga)
+		: idUkladu_(idUkladu), planeta_(planeta), wolna_(wolna), flaga_inicjalizacji_ukladu(flaga)
+	{}
+
+	ZarzadcaLokacji::ObjPlaneta::ObjPlaneta(const ObjPlaneta & e)
+		: idUkladu_(e.idUkladu_), planeta_(e.planeta_), wolna_(e.wolna_.operator bool()), flaga_inicjalizacji_ukladu(e.flaga_inicjalizacji_ukladu)
+	{}
+
 	std::shared_ptr< Planeta > ZarzadcaLokacji::pobierzPlanete(const STyp::Identyfikator& identyfikator){
 		auto planeta = planety_.find(identyfikator);
 		if (planeta == planety_.end())
@@ -213,7 +221,7 @@ namespace SpEx {
 						return false;
 
 					sUklad.planety_.push_back(idPlanety);
-					ObjPlaneta obj = { idUkladu, nullptr, wolna, sUklad.flaga_inicjalizacji_ukladu };
+					ObjPlaneta obj = { idUkladu, nullptr, wolna>0, sUklad.flaga_inicjalizacji_ukladu };
 					planety_.emplace(idPlanety, std::move(obj));
 					return true;
 				})))
@@ -279,7 +287,7 @@ namespace SpEx {
 			str.rozpocznijPodKlase("Element");
 			str.dodajPole("Id", uklad.first);
 			str.dodajPole("Galaktyka Id", uklad.second.idGalaktyki_);
-			str.dodajPole("Flaga inicjalizacji", NAZWAKLASY2(uklad.second.flaga_inicjalizacji_ukladu._Flag), std::to_string(uklad.second.flaga_inicjalizacji_ukladu._Flag));
+			str.dodajPole("Flaga inicjalizacji", NAZWAKLASY2(uklad.second.flaga_inicjalizacji_ukladu._Opaque), std::to_string((int)(uklad.second.flaga_inicjalizacji_ukladu._Opaque)));
 			if (uklad.second.uklad_ != nullptr)
 				str.dodajPole("UkladPtr", *(uklad.second.uklad_));
 			else
@@ -295,7 +303,7 @@ namespace SpEx {
 			str.rozpocznijPodKlase("Element");
 			str.dodajPole("Id", uklad.first);
 			str.dodajPole("Uklad Id", uklad.second.idUkladu_);
-			str.dodajPole("Flaga inicjalizacji", NAZWAKLASY2(uklad.second.flaga_inicjalizacji_ukladu._Flag), std::to_string(uklad.second.flaga_inicjalizacji_ukladu._Flag));
+			str.dodajPole("Flaga inicjalizacji", NAZWAKLASY2(uklad.second.flaga_inicjalizacji_ukladu._Opaque), std::to_string((int)(uklad.second.flaga_inicjalizacji_ukladu._Opaque)));
 			std::stringstream streamWolna;
 			streamWolna.imbue(std::locale());
 			streamWolna << std::boolalpha << uklad.second.wolna_;

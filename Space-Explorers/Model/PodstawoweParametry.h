@@ -40,7 +40,7 @@ namespace SpEx{
 		* \version 1
 		* \date 14-07-2014
 		*/
-		typedef union AtrybutPodstawowy
+		union AtrybutPodstawowy
 		{
 			STyp::Poziom::nazwa_typu poziom;
 			STyp::Ilosc::nazwa_typu ilosc;
