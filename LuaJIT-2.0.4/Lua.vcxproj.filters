@@ -235,9 +235,6 @@
     <ClInclude Include="host\buildvm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="host\buildvm_arch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib_aux.c">

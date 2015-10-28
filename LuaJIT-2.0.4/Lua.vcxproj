@@ -29,7 +29,6 @@
     <ClInclude Include="dynasm\dasm_proto.h" />
     <ClInclude Include="dynasm\dasm_x86.h" />
     <ClInclude Include="host\buildvm.h" />
-    <ClInclude Include="host\buildvm_arch.h" />
     <ClInclude Include="lauxlib.h" />
     <ClInclude Include="lj_alloc.h" />
     <ClInclude Include="lj_arch.h" />
@@ -213,26 +212,27 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <NMakeBuildCommandLine>"$(ProjectDir)msvcbuild.bat"  debug static</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine>"$(ProjectDir)msvcbuild.bat" debug static</NMakeBuildCommandLine>
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)libs\$(PlatformTarget)\</OutDir>
+    <NMakeOutput>$(OutDir)lua51-Debug.lib</NMakeOutput>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <NMakePreprocessorDefinitions>_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeBuildCommandLine>"$(ProjectDir)msvcbuild.bat" debug static</NMakeBuildCommandLine>
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)libs\$(PlatformTarget)\</OutDir>
+    <NMakeOutput>$(OutDir)lua51-Debug.lib</NMakeOutput>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <NMakeOutput>
-    </NMakeOutput>
+    <NMakeOutput>$(OutDir)lua51.lib</NMakeOutput>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeBuildCommandLine>"$(ProjectDir)msvcbuild.bat" static</NMakeBuildCommandLine>
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)libs\$(PlatformTarget)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <NMakeOutput />
+    <NMakeOutput>$(OutDir)lua51.lib</NMakeOutput>
     <NMakePreprocessorDefinitions>NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeBuildCommandLine>"$(ProjectDir)msvcbuild.bat" static</NMakeBuildCommandLine>
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>

@@ -17,7 +17,7 @@
 @set LJCOMPILE=cl /nologo /c /O2 /W3 /D_CRT_SECURE_NO_DEPRECATE
 @set LJLINK=link /nologo
 @set LJMT=mt /nologo
-@set LJLIB=lib /nologo /nodefaultlib
+@set LJLIB=lib /nologo
 @set DASMDIR=dynasm
 @set DASM=%DASMDIR%\dynasm.lua
 @set LJDLLNAME=lua51.dll
@@ -65,25 +65,28 @@ buildvm -m folddef -o lj_folddef.h lj_opt_fold.c
 
 @if "%1" neq "debug" goto :NODEBUG
 @shift
-@set LJCOMPILE=%LJCOMPILE% /Zi
+@set LJCOMPILE=%LJCOMPILE% /Zi /MDd
 @set LJLINK=%LJLINK% /debug
 @set LJLIBNAME=lua51-Debug.lib
+goto :CONTINUE
 :NODEBUG
+@set LJCOMPILE=%LJCOMPILE% /MD
+:CONTINUE
 @if "%1"=="amalg" goto :AMALGDLL
 @if "%1"=="static" goto :STATIC
-%LJCOMPILE% /MD /DLUA_BUILD_AS_DLL lj_*.c lib_*.c
+%LJCOMPILE% /DLUA_BUILD_AS_DLL lj_*.c lib_*.c
 @if errorlevel 1 goto :BAD
 %LJLINK% /DLL /out:%LJDLLNAME% lj_*.obj lib_*.obj
 @if errorlevel 1 goto :BAD
 @goto :MTDLL
 :STATIC
-%LJCOMPILE% /MD lj_*.c lib_*.c
+%LJCOMPILE% lj_*.c lib_*.c
 @if errorlevel 1 goto :BAD
 %LJLIB% /OUT:../libs/%LJARCH%/%LJLIBNAME% lj_*.obj lib_*.obj
 @if errorlevel 1 goto :BAD
 @goto :MTDLL
 :AMALGDLL
-%LJCOMPILE% /MD /DLUA_BUILD_AS_DLL ljamalg.c
+%LJCOMPILE% /DLUA_BUILD_AS_DLL ljamalg.c
 @if errorlevel 1 goto :BAD
 %LJLINK% /DLL /out:%LJDLLNAME% ljamalg.obj lj_vm.obj
 @if errorlevel 1 goto :BAD
@@ -91,7 +94,7 @@ buildvm -m folddef -o lj_folddef.h lj_opt_fold.c
 if exist %LJDLLNAME%.manifest^
   %LJMT% -manifest %LJDLLNAME%.manifest -outputresource:%LJDLLNAME%;2
 
-%LJCOMPILE% /MD luajit.c
+%LJCOMPILE% luajit.c
 @if errorlevel 1 goto :BAD
 %LJLINK% /out:luajit.exe luajit.obj ../libs/%LJARCH%/%LJLIBNAME%
 @if errorlevel 1 goto :BAD
