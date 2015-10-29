@@ -29,6 +29,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6ADB1B59-6144-467C-ACF0-F5020BE17E77}</ProjectGuid>
     <RootNamespace>TGUI</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -40,7 +41,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>CTP_Nov2013</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -52,7 +53,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tests|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>CTP_Nov2013</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
