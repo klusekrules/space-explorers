@@ -102,7 +102,7 @@
     </DirectoryRef>
     
     <DirectoryRef Id="TARGETDIR">
-      <Merge Id="VCRedist" SourceFile="Microsoft_VC120_$(var.CRTName)CRT_$(var.Platforma).msm" DiskId="1" Language="0"/>
+      <Merge Id="VCRedist" SourceFile="Microsoft_VC140_$(var.CRTName)CRT_$(var.Platforma).msm" DiskId="1" Language="0"/>
     </DirectoryRef>
 
     <DirectoryRef Id='DOC_DIR'>
@@ -304,7 +304,7 @@
       <ComponentRef Id='ERRORS_DIR_COMP' />
     </Feature>
     
-    <Feature Id="VCRedist" Title="Visual C++ 12.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
+    <Feature Id="VCRedist" Title="Visual C++ 14.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
       <MergeRef Id="VCRedist"/>
     </Feature>
 
