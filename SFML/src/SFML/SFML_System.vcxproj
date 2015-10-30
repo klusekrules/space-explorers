@@ -135,6 +135,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -153,6 +154,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -171,6 +173,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -189,6 +192,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -209,6 +213,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include</AdditionalIncludeDirectories>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -231,6 +236,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include</AdditionalIncludeDirectories>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -247,7 +253,9 @@
   <ItemGroup>
     <ClCompile Include="System\Clock.cpp" />
     <ClCompile Include="System\Err.cpp" />
+    <ClCompile Include="system\FileInputStream.cpp" />
     <ClCompile Include="System\Lock.cpp" />
+    <ClCompile Include="system\MemoryInputStream.cpp" />
     <ClCompile Include="System\Mutex.cpp" />
     <ClCompile Include="System\Sleep.cpp" />
     <ClCompile Include="System\String.cpp" />

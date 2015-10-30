@@ -102,7 +102,7 @@ namespace sf
 		/// \return Number of points of the rounded rectangle
 		///
 		////////////////////////////////////////////////////////////
-		virtual unsigned int getPointCount() const;
+		virtual std::size_t getPointCount() const;
 
 		////////////////////////////////////////////////////////////
 		/// \brief Get a point of the rounded rectangle

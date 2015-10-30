@@ -70,7 +70,7 @@ namespace sf
 	}
 
 	////////////////////////////////////////////////////////////
-	unsigned int RoundedRectangleShape::getPointCount() const
+	std::size_t RoundedRectangleShape::getPointCount() const
 	{
 		return myCornerPointCount*4;
 	}

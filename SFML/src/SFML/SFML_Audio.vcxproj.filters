@@ -36,9 +36,6 @@
     <ClCompile Include="Audio\SoundBufferRecorder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Audio\SoundFile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Audio\SoundRecorder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -46,6 +43,36 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Audio\SoundStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio\AlResource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio\InputSoundFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio\OutputSoundFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio\SoundFileFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio\SoundFileReaderFlac.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio\SoundFileReaderOgg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio\SoundFileReaderWav.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio\SoundFileWriterFlac.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio\SoundFileWriterOgg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio\SoundFileWriterWav.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,7 +83,22 @@
     <ClInclude Include="Audio\AudioDevice.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Audio\SoundFile.hpp">
+    <ClInclude Include="Audio\SoundFileReaderFlac.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio\SoundFileReaderOgg.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio\SoundFileReaderWav.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio\SoundFileWriterFlac.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio\SoundFileWriterOgg.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio\SoundFileWriterWav.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

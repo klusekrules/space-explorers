@@ -28,13 +28,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Audio\ALCheck.cpp" />
+    <ClCompile Include="Audio\AlResource.cpp" />
     <ClCompile Include="Audio\AudioDevice.cpp" />
+    <ClCompile Include="Audio\InputSoundFile.cpp" />
     <ClCompile Include="Audio\Listener.cpp" />
     <ClCompile Include="Audio\Music.cpp" />
+    <ClCompile Include="Audio\OutputSoundFile.cpp" />
     <ClCompile Include="Audio\Sound.cpp" />
     <ClCompile Include="Audio\SoundBuffer.cpp" />
     <ClCompile Include="Audio\SoundBufferRecorder.cpp" />
-    <ClCompile Include="Audio\SoundFile.cpp" />
+    <ClCompile Include="Audio\SoundFileFactory.cpp" />
+    <ClCompile Include="Audio\SoundFileReaderFlac.cpp" />
+    <ClCompile Include="Audio\SoundFileReaderOgg.cpp" />
+    <ClCompile Include="Audio\SoundFileReaderWav.cpp" />
+    <ClCompile Include="Audio\SoundFileWriterFlac.cpp" />
+    <ClCompile Include="Audio\SoundFileWriterOgg.cpp" />
+    <ClCompile Include="Audio\SoundFileWriterWav.cpp" />
     <ClCompile Include="Audio\SoundRecorder.cpp" />
     <ClCompile Include="Audio\SoundSource.cpp" />
     <ClCompile Include="Audio\SoundStream.cpp" />
@@ -42,7 +51,12 @@
   <ItemGroup>
     <ClInclude Include="Audio\ALCheck.hpp" />
     <ClInclude Include="Audio\AudioDevice.hpp" />
-    <ClInclude Include="Audio\SoundFile.hpp" />
+    <ClInclude Include="Audio\SoundFileReaderFlac.hpp" />
+    <ClInclude Include="Audio\SoundFileReaderOgg.hpp" />
+    <ClInclude Include="Audio\SoundFileReaderWav.hpp" />
+    <ClInclude Include="Audio\SoundFileWriterFlac.hpp" />
+    <ClInclude Include="Audio\SoundFileWriterOgg.hpp" />
+    <ClInclude Include="Audio\SoundFileWriterWav.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="SFML_System.vcxproj">
@@ -156,8 +170,9 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\libsndfile\windows;$(SolutionDir)SFML\extlibs\headers\AL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\AL;$(SolutionDir)SFML\extlibs\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -174,8 +189,9 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\libsndfile\windows;$(SolutionDir)SFML\extlibs\headers\AL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\AL;$(SolutionDir)SFML\extlibs\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -192,8 +208,9 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\libsndfile\windows;$(SolutionDir)SFML\extlibs\headers\AL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\AL;$(SolutionDir)SFML\extlibs\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -212,8 +229,9 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\libsndfile\windows;$(SolutionDir)SFML\extlibs\headers\AL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\AL;$(SolutionDir)SFML\extlibs\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -234,8 +252,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\libsndfile\windows;$(SolutionDir)SFML\extlibs\headers\AL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\AL;$(SolutionDir)SFML\extlibs\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -256,8 +275,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\libsndfile\windows;$(SolutionDir)SFML\extlibs\headers\AL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\AL;$(SolutionDir)SFML\extlibs\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

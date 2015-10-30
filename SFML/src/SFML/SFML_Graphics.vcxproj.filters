@@ -93,6 +93,15 @@
     <ClCompile Include="Graphics\View.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\BlendMode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\GLExtensions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\GLLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\GLCheck.hpp">
@@ -113,10 +122,10 @@
     <ClInclude Include="Graphics\TextureSaver.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\stb_image\stb_image.h">
+    <ClInclude Include="Graphics\GLExtensions.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\stb_image\stb_image_write.h">
+    <ClInclude Include="Graphics\GLLoader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

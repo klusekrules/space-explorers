@@ -133,8 +133,9 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;</PreprocessorDefinitions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -151,8 +152,9 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;</PreprocessorDefinitions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -169,8 +171,9 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;</PreprocessorDefinitions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -189,8 +192,9 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;</PreprocessorDefinitions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -212,7 +216,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers</AdditionalIncludeDirectories>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -234,7 +239,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers</AdditionalIncludeDirectories>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -256,11 +262,16 @@
     <ClCompile Include="Window\JoystickManager.cpp" />
     <ClCompile Include="Window\Keyboard.cpp" />
     <ClCompile Include="Window\Mouse.cpp" />
+    <ClCompile Include="window\Sensor.cpp" />
+    <ClCompile Include="window\SensorManager.cpp" />
+    <ClCompile Include="window\Touch.cpp" />
     <ClCompile Include="Window\VideoMode.cpp" />
     <ClCompile Include="Window\Win32\InputImpl.cpp" />
     <ClCompile Include="Window\Win32\JoystickImpl.cpp" />
+    <ClCompile Include="Window\Win32\SensorImpl.cpp" />
     <ClCompile Include="Window\Win32\VideoModeImpl.cpp" />
     <ClCompile Include="Window\Win32\WglContext.cpp" />
+    <ClCompile Include="Window\Win32\WglExtensions.cpp" />
     <ClCompile Include="Window\Win32\WindowImplWin32.cpp" />
     <ClCompile Include="Window\Window.cpp" />
     <ClCompile Include="Window\WindowImpl.cpp" />
@@ -270,10 +281,14 @@
     <ClInclude Include="Window\InputImpl.hpp" />
     <ClInclude Include="Window\JoystickImpl.hpp" />
     <ClInclude Include="Window\JoystickManager.hpp" />
+    <ClInclude Include="window\SensorImpl.hpp" />
+    <ClInclude Include="window\SensorManager.hpp" />
     <ClInclude Include="Window\VideoModeImpl.hpp" />
     <ClInclude Include="Window\Win32\InputImpl.hpp" />
     <ClInclude Include="Window\Win32\JoystickImpl.hpp" />
+    <ClInclude Include="Window\Win32\SensorImpl.hpp" />
     <ClInclude Include="Window\Win32\WglContext.hpp" />
+    <ClInclude Include="Window\Win32\WglExtensions.hpp" />
     <ClInclude Include="Window\Win32\WindowImplWin32.hpp" />
     <ClInclude Include="Window\WindowImpl.hpp" />
   </ItemGroup>
