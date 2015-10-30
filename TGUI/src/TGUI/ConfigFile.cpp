@@ -21,6 +21,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma warning(disable: 4503)
 
 
 #include <algorithm>
@@ -30,9 +31,6 @@
 #include <TGUI/ConfigFile.hpp>
 
 // Avoid "decorated name length exceeded, name was truncated" warnings in visual studio
-#if defined(SFML_SYSTEM_WINDOWS) && defined(_MSC_VER)
-    #pragma warning(disable: 4503)
-#endif
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
