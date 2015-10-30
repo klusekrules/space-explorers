@@ -105,9 +105,6 @@
     <ClCompile Include="src\TGUI\TextureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\TGUI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\TGUI\Transformable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -118,6 +115,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\TGUI\WidgetFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Global.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Canvas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -159,9 +162,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\TGUI\Container.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\TGUI\Defines.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\TGUI\EditBox.hpp">
@@ -239,9 +239,18 @@
     <ClInclude Include="include\TGUI\WidgetFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\TGUI\Global.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Canvas.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\TGUI\SharedWidgetPtr.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="include\TGUI\Config.hpp.in">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>

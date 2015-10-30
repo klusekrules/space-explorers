@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -30,7 +30,7 @@
 #include <TGUI/Button.hpp>
 #include <TGUI/SharedWidgetPtr.inl>
 #include <TGUI/ChildWindow.hpp>
-#include <TGUI\TGUI.hpp>
+#include <TGUI/TGUI.hpp>
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace tgui
@@ -41,15 +41,16 @@ namespace tgui
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ChildWindow::ChildWindow() :
-    m_Size             (0, 0),
-    m_BackgroundTexture(nullptr),
-    m_TitleBarHeight   (0),
-    m_SplitImage       (false),
-    m_DraggingPosition (0, 0),
-    m_DistanceToSide   (5),
-    m_TitleAlignment   (TitleAlignmentCentered),
-    m_BorderColor      (0, 0, 0),
-    m_KeepInParent     (false)
+    m_Size               (0, 0),
+    m_BackgroundTexture  (nullptr),
+    m_TitleBarHeight     (0),
+    m_SplitImage         (false),
+    m_DraggingPosition   (0, 0),
+    m_DistanceToSide     (5),
+    m_TitleAlignment     (TitleAlignmentCentered),
+    m_BorderColor        (0, 0, 0),
+    m_MouseDownOnTitleBar(false),
+    m_KeepInParent       (false)
     {
         m_Callback.widgetType = Type_ChildWindow;
         m_CloseButton = new Button();
@@ -58,20 +59,21 @@ namespace tgui
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ChildWindow::ChildWindow(const ChildWindow& childWindowToCopy) :
-    Container          (childWindowToCopy),
-    WidgetBorders      (childWindowToCopy),
-    m_LoadedConfigFile (childWindowToCopy.m_LoadedConfigFile),
-    m_Size             (childWindowToCopy.m_Size),
-    m_BackgroundColor  (childWindowToCopy.m_BackgroundColor),
-    m_BackgroundTexture(childWindowToCopy.m_BackgroundTexture),
-    m_TitleText        (childWindowToCopy.m_TitleText),
-    m_TitleBarHeight   (childWindowToCopy.m_TitleBarHeight),
-    m_SplitImage       (childWindowToCopy.m_SplitImage),
-    m_DraggingPosition (childWindowToCopy.m_DraggingPosition),
-    m_DistanceToSide   (childWindowToCopy.m_DistanceToSide),
-    m_TitleAlignment   (childWindowToCopy.m_TitleAlignment),
-    m_BorderColor      (childWindowToCopy.m_BorderColor),
-    m_KeepInParent     (childWindowToCopy.m_KeepInParent)
+    Container            (childWindowToCopy),
+    WidgetBorders        (childWindowToCopy),
+    m_LoadedConfigFile   (childWindowToCopy.m_LoadedConfigFile),
+    m_Size               (childWindowToCopy.m_Size),
+    m_BackgroundColor    (childWindowToCopy.m_BackgroundColor),
+    m_BackgroundTexture  (childWindowToCopy.m_BackgroundTexture),
+    m_TitleText          (childWindowToCopy.m_TitleText),
+    m_TitleBarHeight     (childWindowToCopy.m_TitleBarHeight),
+    m_SplitImage         (childWindowToCopy.m_SplitImage),
+    m_DraggingPosition   (childWindowToCopy.m_DraggingPosition),
+    m_DistanceToSide     (childWindowToCopy.m_DistanceToSide),
+    m_TitleAlignment     (childWindowToCopy.m_TitleAlignment),
+    m_BorderColor        (childWindowToCopy.m_BorderColor),
+    m_MouseDownOnTitleBar(childWindowToCopy.m_MouseDownOnTitleBar),
+    m_KeepInParent       (childWindowToCopy.m_KeepInParent)
     {
         // Copy the textures
         TGUI_TextureManager.copyTexture(childWindowToCopy.m_IconTexture, m_IconTexture);
@@ -122,24 +124,25 @@ namespace tgui
             // Delete the old close button
             delete m_CloseButton;
 
-            std::swap(m_LoadedConfigFile,  temp.m_LoadedConfigFile);
-            std::swap(m_Size,              temp.m_Size);
-            std::swap(m_BackgroundColor,   temp.m_BackgroundColor);
-            std::swap(m_BackgroundTexture, temp.m_BackgroundTexture);
-            std::swap(m_BackgroundSprite,  temp.m_BackgroundSprite);
-            std::swap(m_IconTexture,       temp.m_IconTexture);
-            std::swap(m_TitleText,         temp.m_TitleText);
-            std::swap(m_TitleBarHeight,    temp.m_TitleBarHeight);
-            std::swap(m_SplitImage,        temp.m_SplitImage);
-            std::swap(m_DraggingPosition,  temp.m_DraggingPosition);
-            std::swap(m_DistanceToSide,    temp.m_DistanceToSide);
-            std::swap(m_TitleAlignment,    temp.m_TitleAlignment);
-            std::swap(m_BorderColor,       temp.m_BorderColor);
-            std::swap(m_TextureTitleBar_L, temp.m_TextureTitleBar_L);
-            std::swap(m_TextureTitleBar_M, temp.m_TextureTitleBar_M);
-            std::swap(m_TextureTitleBar_R, temp.m_TextureTitleBar_R);
-            std::swap(m_CloseButton,       temp.m_CloseButton);
-            std::swap(m_KeepInParent,      temp.m_KeepInParent);
+            std::swap(m_LoadedConfigFile,    temp.m_LoadedConfigFile);
+            std::swap(m_Size,                temp.m_Size);
+            std::swap(m_BackgroundColor,     temp.m_BackgroundColor);
+            std::swap(m_BackgroundTexture,   temp.m_BackgroundTexture);
+            std::swap(m_BackgroundSprite,    temp.m_BackgroundSprite);
+            std::swap(m_IconTexture,         temp.m_IconTexture);
+            std::swap(m_TitleText,           temp.m_TitleText);
+            std::swap(m_TitleBarHeight,      temp.m_TitleBarHeight);
+            std::swap(m_SplitImage,          temp.m_SplitImage);
+            std::swap(m_DraggingPosition,    temp.m_DraggingPosition);
+            std::swap(m_DistanceToSide,      temp.m_DistanceToSide);
+            std::swap(m_TitleAlignment,      temp.m_TitleAlignment);
+            std::swap(m_BorderColor,         temp.m_BorderColor);
+            std::swap(m_MouseDownOnTitleBar, temp.m_MouseDownOnTitleBar);
+            std::swap(m_TextureTitleBar_L,   temp.m_TextureTitleBar_L);
+            std::swap(m_TextureTitleBar_M,   temp.m_TextureTitleBar_M);
+            std::swap(m_TextureTitleBar_R,   temp.m_TextureTitleBar_R);
+            std::swap(m_CloseButton,         temp.m_CloseButton);
+            std::swap(m_KeepInParent,        temp.m_KeepInParent);
         }
 
         return *this;
@@ -154,7 +157,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool ChildWindow::load(const std::string& configFileFilename)
+    bool ChildWindow::load(const std::string& configFileFilename, const std::string& sectionName)
     {
         m_LoadedConfigFile = getResourcePath() + configFileFilename;
 
@@ -180,7 +183,7 @@ namespace tgui
         // Read the properties and their values (as strings)
         std::vector<std::string> properties;
         std::vector<std::string> values;
-        if (!configFile.read("ChildWindow", properties, values))
+        if (!configFile.read(sectionName, properties, values))
         {
             TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile + ".");
             return false;
@@ -455,7 +458,7 @@ namespace tgui
                                static_cast<float>(height) / m_TextureTitleBar_M.getSize().y * m_CloseButton->m_TextureNormal_M.getSize().y);
 
         // Set the size of the text in the title bar
-        m_TitleText.setCharacterSize(m_TitleBarHeight * 8 / 10);
+        m_TitleText.setCharacterSize(static_cast<unsigned int>(m_TitleBarHeight * 0.75f));
 
         // Recalculate the scale of the title bar images
         if (m_SplitImage)
@@ -657,9 +660,16 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool ChildWindow::isKeptInParent()
+    bool ChildWindow::isKeptInParent() const
     {
         return m_KeepInParent;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    sf::Vector2f ChildWindow::getWidgetsOffset() const
+    {
+        return sf::Vector2f(static_cast<float>(m_LeftBorder), static_cast<float>(m_TopBorder + getTitleBarHeight()));
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -730,6 +740,8 @@ namespace tgui
 
     void ChildWindow::leftMousePressed(float x, float y)
     {
+        m_MouseDown = true;
+
         // Move the childwindow to the front
         m_Parent->moveWidgetToFront(this);
 
@@ -757,7 +769,7 @@ namespace tgui
             else
             {
                 // The mouse went down on the title bar
-                m_MouseDown = true;
+                m_MouseDownOnTitleBar = true;
 
                 // Remember where we are dragging the title bar
                 m_DraggingPosition.x = x - position.x;
@@ -790,6 +802,9 @@ namespace tgui
 
     void ChildWindow::leftMouseReleased(float x , float y)
     {
+        m_MouseDown = false;
+        m_MouseDownOnTitleBar = false;
+
         // Check if the mouse is on top of the title bar
         if (getTransform().transformRect(sf::FloatRect(0, 0, m_Size.x + m_LeftBorder + m_RightBorder, static_cast<float>(m_TitleBarHeight))).contains(x, y))
         {
@@ -798,8 +813,6 @@ namespace tgui
 
             // Temporary set the close button to the correct position
             m_CloseButton->setPosition(position.x + ((m_Size.x + m_LeftBorder + m_RightBorder - m_DistanceToSide - m_CloseButton->getSize().x)), position.y + ((m_TitleBarHeight / 2.f) - (m_CloseButton->getSize().x / 2.f)));
-
-            m_MouseDown = false;
 
             // Check if the close button was clicked
             if (m_CloseButton->m_MouseDown == true)
@@ -837,8 +850,6 @@ namespace tgui
             if (m_CloseButton->m_MouseHover)
                 m_CloseButton->mouseNotOnWidget();
 
-            // Change the mouse down flag
-            m_MouseDown = false;
             m_CloseButton->mouseNoLongerDown();
 
             // Check if the mouse is on top of the borders
@@ -864,7 +875,7 @@ namespace tgui
         m_MouseHover = true;
 
         // Check if you are dragging the child window
-        if (m_MouseDown == true)
+        if (m_MouseDown && m_MouseDownOnTitleBar)
         {
             // Move the child window
             sf::Vector2f position = getPosition();
@@ -911,7 +922,7 @@ namespace tgui
             }
         }
 
-        Container::mouseMoved(x - m_LeftBorder, y - (m_TitleBarHeight + m_TopBorder));
+        Container::mouseMoved(x - m_LeftBorder, y - m_TitleBarHeight - m_TopBorder);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1099,31 +1110,29 @@ namespace tgui
         if (m_Loaded == false)
             return;
 
-        // Get the current position
-        sf::Vector2f position = getPosition();
-
         // Calculate the scale factor of the view
-        float scaleViewX = target.getSize().x / target.getView().getSize().x;
-        float scaleViewY = target.getSize().y / target.getView().getSize().y;
-
-        sf::Vector2f viewPosition = (target.getView().getSize() / 2.f) - target.getView().getCenter();
+        const sf::View& view = target.getView();
+        float scaleViewX = target.getSize().x / view.getSize().x;
+        float scaleViewY = target.getSize().y / view.getSize().y;
 
         // Get the global position
-        sf::Vector2f topLeftPanelPosition = states.transform.transformPoint(position.x + m_LeftBorder + viewPosition.x,
-                                                                            position.y + m_TitleBarHeight + m_TopBorder + viewPosition.y);
-        sf::Vector2f bottomRightPanelPosition = states.transform.transformPoint(position.x + m_Size.x + m_LeftBorder + viewPosition.x,
-                                                                                position.y + m_TitleBarHeight + m_Size.y + m_TopBorder + viewPosition.y);
+        sf::Vector2f topLeftPanelPosition = sf::Vector2f(((getAbsolutePosition().x + m_LeftBorder - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
+                                                         ((getAbsolutePosition().y + m_TitleBarHeight + m_TopBorder - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top));
+        sf::Vector2f bottomRightPanelPosition = sf::Vector2f((getAbsolutePosition().x + m_Size.x + m_LeftBorder - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width + (view.getSize().x * view.getViewport().left),
+                                                             (getAbsolutePosition().y + m_TitleBarHeight + m_Size.y + m_TopBorder - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height + (view.getSize().y * view.getViewport().top));
+
         sf::Vector2f topLeftTitleBarPosition;
         sf::Vector2f bottomRightTitleBarPosition;
 
         if (m_IconTexture.data)
-            topLeftTitleBarPosition = states.transform.transformPoint(position.x + 2*m_DistanceToSide + (m_IconTexture.getSize().x * m_IconTexture.sprite.getScale().x) + viewPosition.x,
-                                                                      position.y + viewPosition.y);
+            topLeftTitleBarPosition = sf::Vector2f(((getAbsolutePosition().x + 2*m_DistanceToSide + m_IconTexture.getSize().x - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
+                                                   ((getAbsolutePosition().y - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top));
         else
-            topLeftTitleBarPosition = states.transform.transformPoint(position.x + m_DistanceToSide + viewPosition.x, position.y + viewPosition.y);
+            topLeftTitleBarPosition = sf::Vector2f(((getAbsolutePosition().x + m_DistanceToSide - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
+                                                   ((getAbsolutePosition().y - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top));
 
-        bottomRightTitleBarPosition = states.transform.transformPoint(position.x + m_Size.x + m_LeftBorder + m_RightBorder - (2*m_DistanceToSide) - m_CloseButton->getSize().x + viewPosition.x,
-                                                                      position.y + m_TitleBarHeight + viewPosition.y);
+        bottomRightTitleBarPosition = sf::Vector2f((getAbsolutePosition().x + m_Size.x + m_LeftBorder + m_RightBorder - (2*m_DistanceToSide) - m_CloseButton->getSize().x - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width + (view.getSize().x * view.getViewport().left),
+                                                   (getAbsolutePosition().y + m_TitleBarHeight - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height + (view.getSize().y * view.getViewport().top));
 
         // Adjust the transformation
         states.transform *= getTransform();
@@ -1179,6 +1188,9 @@ namespace tgui
 
             // Set the clipping area
             glScissor(scissorLeft, target.getSize().y - scissorBottom, scissorRight - scissorLeft, scissorBottom - scissorTop);
+
+            // Center the text vertically
+            states.transform.translate(0, std::floor(((m_TitleBarHeight - m_TitleText.getLocalBounds().height) / 2.0f) - m_TitleText.getLocalBounds().top));
 
             // Draw the text, depending on the alignment
             if (m_TitleAlignment == TitleAlignmentLeft)

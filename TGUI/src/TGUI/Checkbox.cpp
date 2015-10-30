@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -27,7 +27,7 @@
 
 #include <TGUI/Container.hpp>
 #include <TGUI/Checkbox.hpp>
-#include <TGUI\TGUI.hpp>
+#include <TGUI/TGUI.hpp>
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace tgui
@@ -51,7 +51,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool Checkbox::load(const std::string& configFileFilename)
+    bool Checkbox::load(const std::string& configFileFilename, const std::string& sectionName)
     {
         m_LoadedConfigFile = getResourcePath() + configFileFilename;
 
@@ -75,7 +75,7 @@ namespace tgui
         // Read the properties and their values (as strings)
         std::vector<std::string> properties;
         std::vector<std::string> values;
-        if (!configFile.read("Checkbox", properties, values))
+        if (!configFile.read(sectionName, properties, values))
         {
             TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile + ".");
             return false;
@@ -238,10 +238,10 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void Checkbox::keyPressed(sf::Keyboard::Key key)
+    void Checkbox::keyPressed(const sf::Event::KeyEvent& event)
     {
         // Check if the space key or the return key was pressed
-        if (key == sf::Keyboard::Space)
+        if (event.code == sf::Keyboard::Space)
         {
             // Check or uncheck the checkbox
             if (m_Checked)
@@ -257,7 +257,7 @@ namespace tgui
                 addCallback();
             }
         }
-        else if (key == sf::Keyboard::Return)
+        else if (event.code == sf::Keyboard::Return)
         {
             // Check or uncheck the checkbox
             if (m_Checked)

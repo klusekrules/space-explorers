@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -27,7 +27,7 @@
 
 #include <TGUI/Container.hpp>
 #include <TGUI/LoadingBar.hpp>
-#include <TGUI\TGUI.hpp>
+#include <TGUI/TGUI.hpp>
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace tgui
@@ -120,7 +120,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool LoadingBar::load(const std::string& configFileFilename)
+    bool LoadingBar::load(const std::string& configFileFilename, const std::string& sectionName)
     {
         m_LoadedConfigFile = getResourcePath() + configFileFilename;
 
@@ -146,7 +146,7 @@ namespace tgui
         // Read the properties and their values (as strings)
         std::vector<std::string> properties;
         std::vector<std::string> values;
-        if (!configFile.read("LoadingBar", properties, values))
+        if (!configFile.read(sectionName, properties, values))
         {
             TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile + ".");
             return false;
@@ -454,17 +454,12 @@ namespace tgui
         if (m_TextSize == 0)
         {
             // Calculate a possible text size
-            float size = m_Size.y * 0.85f;
+            float size = m_Size.y * 0.75f;
             m_Text.setCharacterSize(static_cast<unsigned int>(size));
-            m_Text.setCharacterSize(static_cast<unsigned int>(m_Text.getCharacterSize() - m_Text.getLocalBounds().top));
 
             // Make sure that the text isn't too width
             if (m_Text.getGlobalBounds().width > (m_Size.x * 0.8f))
-            {
-                // The text is too width, so make it smaller
                 m_Text.setCharacterSize(static_cast<unsigned int>(size / (m_Text.getGlobalBounds().width / (m_Size.x * 0.8f))));
-                m_Text.setCharacterSize(static_cast<unsigned int>(m_Text.getCharacterSize() - m_Text.getLocalBounds().top));
-            }
         }
         else // When the text has a fixed size
         {
@@ -749,7 +744,7 @@ namespace tgui
     void LoadingBar::initialize(Container *const parent)
     {
         m_Parent = parent;
-        m_Text.setFont(m_Parent->getGlobalFont());
+        setTextFont(m_Parent->getGlobalFont());
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

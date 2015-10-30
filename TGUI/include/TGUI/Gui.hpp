@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -37,7 +37,7 @@ namespace tgui
 {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    class TGUI_API Gui
+    class TGUI_API Gui : public sf::NonCopyable
     {
       public:
 
@@ -62,6 +62,17 @@ namespace tgui
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \brief Construct the gui and set the target on which the gui should be drawn.
+        ///
+        /// \param window  The render target that will be used by the gui.
+        ///
+        /// If you use this constructor then you will no longer have to call setWindow yourself.
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        Gui(sf::RenderTarget& window);
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// \brief Set the window on which the gui should be drawn.
         ///
         /// \param window  The sfml window that will be used by the gui.
@@ -71,12 +82,21 @@ namespace tgui
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \brief Set the target on which the gui should be drawn.
+        ///
+        /// \param window  The render target that will be used by the gui.
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        void setWindow(sf::RenderTarget& window);
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// \brief Returns the window on which the gui is being drawn.
         ///
         /// \return The sfml that is used by the gui.
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        sf::RenderWindow* getWindow();
+        sf::RenderTarget* getWindow() const;
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -140,7 +160,7 @@ namespace tgui
         /// \return Is the window currently focused?
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        bool hasFocus();
+        bool hasFocus() const;
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -152,6 +172,20 @@ namespace tgui
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         sf::Vector2f getSize() const;
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \brief Returns the internal container of the Gui.
+        ///
+        /// This could be useful when having a function that should accept both the gui and e.g. a child window as parameter.
+        ///
+        /// \warning Not all functions in the Container class make sense for the Gui (which is the reason that the Gui does not
+        ///          inherit from Container). So calling some functions (e.g. setSize) will have no effect.
+        ///
+        /// \return Reference to the internal Container class
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        Container& getContainer();
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -195,7 +229,7 @@ namespace tgui
         /// \return Vector of all widget pointers
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        std::vector< Widget::Ptr >& getWidgets();
+        const std::vector< Widget::Ptr >& getWidgets();
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -204,7 +238,7 @@ namespace tgui
         /// \return Vector of all widget names
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        std::vector<sf::String>& getWidgetNames();
+        const std::vector<sf::String>& getWidgetNames();
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -228,6 +262,7 @@ namespace tgui
         /// \brief Returns a pointer to an earlier created widget.
         ///
         /// \param widgetName The name that was given to the widget when it was added to the container.
+        /// \param recursive  Should the function also search for widgets inside containers that are inside this container?
         ///
         /// \return Pointer to the earlier created widget
         ///
@@ -240,13 +275,14 @@ namespace tgui
         /// \endcode
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Widget::Ptr get(const sf::String& widgetName) const;
+        Widget::Ptr get(const sf::String& widgetName, bool recursive = false) const;
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// \brief Returns a pointer to an earlier created widget.
         ///
         /// \param widgetName The name that was given to the widget when it was added to the container.
+        /// \param recursive  Should the function also search for widgets inside containers that are inside this container?
         ///
         /// \return Pointer to the earlier created widget.
         ///         The pointer will already be casted to the desired type.
@@ -261,9 +297,9 @@ namespace tgui
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         template <class T>
-        typename T::Ptr get(const sf::String& widgetName) const
+        typename T::Ptr get(const sf::String& widgetName, bool recursive = false) const
         {
-            return m_Container.get<T>(widgetName);
+            return m_Container.get<T>(widgetName, recursive);
         }
 
 
@@ -493,11 +529,11 @@ namespace tgui
         // The internal clock which is used for animation of widgets
         sf::Clock m_Clock;
 
-        // The sfml window
-        sf::RenderWindow* m_Window;
+        // The sfml window or other target to draw on
+        sf::RenderTarget* m_Window;
 
-        // Is the window focused?
-        bool m_Focused;
+        // Does m_Window contains a sf::RenderWindow?
+        bool m_accessToWindow;
 
         // Internal container to store all widgets
         GuiContainer m_Container;

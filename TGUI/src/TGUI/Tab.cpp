@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -29,7 +29,7 @@
 
 #include <TGUI/Container.hpp>
 #include <TGUI/Tab.hpp>
-#include <TGUI\TGUI.hpp>
+#include <TGUI/TGUI.hpp>
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace tgui
@@ -134,7 +134,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool Tab::load(const std::string& configFileFilename)
+    bool Tab::load(const std::string& configFileFilename, const std::string& sectionName)
     {
         m_LoadedConfigFile = getResourcePath() + configFileFilename;
 
@@ -160,7 +160,7 @@ namespace tgui
         // Read the properties and their values (as strings)
         std::vector<std::string> properties;
         std::vector<std::string> values;
-        if (!configFile.read("Tab", properties, values))
+        if (!configFile.read(sectionName, properties, values))
         {
             TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile + ".");
             return false;
@@ -372,10 +372,10 @@ namespace tgui
 
         // If the tab has to be selected then do so
         if (selectTab)
-            m_SelectedTab = static_cast<int>( m_TabNames.size() ) - 1 ;
+            m_SelectedTab = m_TabNames.size()-1;
 
         // Return the index of the new tab
-		return static_cast<unsigned int>( m_TabNames.size() ) - 1;
+        return m_TabNames.size()-1;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -499,6 +499,13 @@ namespace tgui
     void Tab::setTextFont(const sf::Font& font)
     {
         m_Text.setFont(font);
+
+        // Recalculate the name widths
+        for (unsigned int i = 0; i < m_NameWidth.size(); ++i)
+        {
+            m_Text.setString(m_TabNames[i]);
+            m_NameWidth[i] = m_Text.getLocalBounds().width;
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -548,8 +555,7 @@ namespace tgui
         {
             // Calculate the text size
             m_Text.setString("kg");
-            m_Text.setCharacterSize(static_cast<unsigned int>(m_TabHeight * 0.85f));
-            m_Text.setCharacterSize(static_cast<unsigned int>(m_Text.getCharacterSize() - m_Text.getLocalBounds().top));
+            m_Text.setCharacterSize(static_cast<unsigned int>(m_TabHeight * 0.75f));
         }
         else // When the text has a fixed size
         {
@@ -824,7 +830,7 @@ namespace tgui
     void Tab::initialize(Container *const parent)
     {
         m_Parent = parent;
-        m_Text.setFont(m_Parent->getGlobalFont());
+        setTextFont(m_Parent->getGlobalFont());
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -840,14 +846,16 @@ namespace tgui
         glGetIntegerv(GL_SCISSOR_BOX, scissor);
 
         // Calculate the scale factor of the view
-        float scaleViewX = target.getSize().x / target.getView().getSize().x;
-        float scaleViewY = target.getSize().y / target.getView().getSize().y;
+        const sf::View& view = target.getView();
+        float scaleViewX = target.getSize().x / view.getSize().x;
+        float scaleViewY = target.getSize().y / view.getSize().y;
 
         // Apply the transformations
         states.transform *= getTransform();
 
         float scalingY = m_TabHeight / static_cast<float>(m_TextureNormal_M.getSize().y);
         bool clippingRequired = false;
+        unsigned int accumulatedTabWidth = 0;
         unsigned int tabWidth;
         sf::FloatRect realRect;
         sf::FloatRect defaultRect;
@@ -858,7 +866,7 @@ namespace tgui
         defaultRect = tempText.getLocalBounds();
 
         // Loop through all tabs
-        for (unsigned int i=0; i<m_TabNames.size(); ++i)
+        for (unsigned int i = 0; i < m_TabNames.size(); ++i)
         {
             // Find the tab height
             if (m_MaximumTabWidth)
@@ -1037,8 +1045,10 @@ namespace tgui
                 if (clippingRequired)
                 {
                     // Get the global position
-                    sf::Vector2f topLeftPosition = states.transform.transformPoint((target.getView().getSize() / 2.f) - target.getView().getCenter());
-                    sf::Vector2f bottomRightPosition = states.transform.transformPoint(sf::Vector2f(tabWidth - (2.0f * m_DistanceToSide), (m_TabHeight + defaultRect.height) / 2.f) - target.getView().getCenter() + (target.getView().getSize() / 2.f));
+                    sf::Vector2f topLeftPosition = sf::Vector2f(((getAbsolutePosition().x + accumulatedTabWidth + m_DistanceToSide + (view.getSize().x / 2.f) - view.getCenter().x) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
+                                                                ((getAbsolutePosition().y + (view.getSize().y / 2.f) - view.getCenter().y) * view.getViewport().height) + (view.getSize().y * view.getViewport().top));
+                    sf::Vector2f bottomRightPosition = sf::Vector2f(((getAbsolutePosition().x + accumulatedTabWidth + tabWidth - m_DistanceToSide - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
+                                                                    ((getAbsolutePosition().y + ((m_TabHeight + defaultRect.height) / 2.f) - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top));
 
                     // Calculate the clipping area
                     GLint scissorLeft = TGUI_MAXIMUM(static_cast<GLint>(topLeftPosition.x * scaleViewX), scissor[0]);
@@ -1072,6 +1082,7 @@ namespace tgui
 
             // Set the next tab on the correct position
             states.transform.translate(static_cast<float>(tabWidth), 0);
+            accumulatedTabWidth += tabWidth;
         }
     }
 

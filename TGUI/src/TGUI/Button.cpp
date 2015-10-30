@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -27,7 +27,7 @@
 
 #include <TGUI/Container.hpp>
 #include <TGUI/Button.hpp>
-#include <TGUI\TGUI.hpp>
+#include <TGUI/TGUI.hpp>
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace tgui
@@ -132,7 +132,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool Button::load(const std::string& configFileFilename)
+    bool Button::load(const std::string& configFileFilename, const std::string& sectionName)
     {
         m_LoadedConfigFile = getResourcePath() + configFileFilename;
 
@@ -164,7 +164,7 @@ namespace tgui
         // Read the properties and their values (as strings)
         std::vector<std::string> properties;
         std::vector<std::string> values;
-        if (!configFile.read("Button", properties, values))
+        if (!configFile.read(sectionName, properties, values))
         {
             TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile + ".");
             return false;
@@ -523,8 +523,8 @@ namespace tgui
     void Button::setText(const sf::String& text)
     {
         // Don't do anything when the button wasn't loaded correctly
-        //if (m_Loaded == false)
-        //    return;
+        if (m_Loaded == false)
+            return;
 
         // Set the new text
         m_Text.setString(text);
@@ -534,17 +534,12 @@ namespace tgui
         if (m_TextSize == 0)
         {
             // Calculate a possible text size
-            float size = m_Size.y * 0.85f;
+            float size = m_Size.y * 0.75f;
             m_Text.setCharacterSize(static_cast<unsigned int>(size));
-            m_Text.setCharacterSize(static_cast<unsigned int>(m_Text.getCharacterSize() - m_Text.getLocalBounds().top));
 
             // Make sure that the text isn't too width
             if (m_Text.getGlobalBounds().width > (m_Size.x * 0.8f))
-            {
-                // The text is too width, so make it smaller
                 m_Text.setCharacterSize(static_cast<unsigned int>(size * m_Size.x * 0.8f / m_Text.getGlobalBounds().width));
-                m_Text.setCharacterSize(static_cast<unsigned int>(m_Text.getCharacterSize() - m_Text.getLocalBounds().top));
-            }
         }
         else // When the text has a fixed size
         {
@@ -569,6 +564,9 @@ namespace tgui
     void Button::setTextFont(const sf::Font& font)
     {
         m_Text.setFont(font);
+
+        // Call setText to reposition the text
+        setText(m_Text.getString());
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -638,10 +636,10 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void Button::keyPressed(sf::Keyboard::Key key)
+    void Button::keyPressed(const sf::Event::KeyEvent& event)
     {
         // Check if the space key or the return key was pressed
-        if (key == sf::Keyboard::Space)
+        if (event.code == sf::Keyboard::Space)
         {
             // Add the callback (if the user requested it)
             if (m_CallbackFunctions[SpaceKeyPressed].empty() == false)
@@ -650,7 +648,7 @@ namespace tgui
                 addCallback();
             }
         }
-        else if (key == sf::Keyboard::Return)
+        else if (event.code == sf::Keyboard::Return)
         {
             // Add the callback (if the user requested it)
             if (m_CallbackFunctions[ReturnKeyPressed].empty() == false)
@@ -773,7 +771,7 @@ namespace tgui
     void Button::initialize(Container *const parent)
     {
         m_Parent = parent;
-        m_Text.setFont(m_Parent->getGlobalFont());
+        setTextFont(m_Parent->getGlobalFont());
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

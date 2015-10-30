@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -122,7 +122,7 @@ namespace tgui
         /// \return Vector of all widget pointers
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        std::vector< Widget::Ptr >& getWidgets();
+        const std::vector<Widget::Ptr>& getWidgets();
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -131,7 +131,7 @@ namespace tgui
         /// \return Vector of all widget names
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        std::vector<sf::String>& getWidgetNames();
+        const std::vector<sf::String>& getWidgetNames();
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -155,6 +155,7 @@ namespace tgui
         /// \brief Returns a pointer to an earlier created widget.
         ///
         /// \param widgetName The name that was given to the widget when it was added to the container.
+        /// \param recursive  Should the function also search for widgets inside containers that are inside this container?
         ///
         /// \return Pointer to the earlier created widget
         ///
@@ -167,13 +168,14 @@ namespace tgui
         /// \endcode
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Widget::Ptr get(const sf::String& widgetName) const;
+        Widget::Ptr get(const sf::String& widgetName, bool recursive = false) const;
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// \brief Returns a pointer to an earlier created widget.
         ///
         /// \param widgetName The name that was given to the widget when it was added to the container.
+        /// \param recursive  Should the function also search for widgets inside containers that are inside this container?
         ///
         /// \return Pointer to the earlier created widget.
         ///         The pointer will already be casted to the desired type.
@@ -188,9 +190,9 @@ namespace tgui
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         template <class T>
-        typename T::Ptr get(const sf::String& widgetName) const
+        typename T::Ptr get(const sf::String& widgetName, bool recursive = false) const
         {
-            return typename T::Ptr(get(widgetName));
+            return typename T::Ptr(get(widgetName, recursive));
         }
 
 
@@ -426,6 +428,16 @@ namespace tgui
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \brief Returns the distance between the position of the container and a widget that would be drawn inside
+        ///        this container on relative position (0,0).
+        ///
+        /// \return Offset of the widgets in the container
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        virtual sf::Vector2f getWidgetsOffset() const;
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// \internal
         // This function is used internally by child widget to alert there parent about a callback.
         // If it reaches the gui, then the callback can be obtained by calling the pollCallback function of the gui.
@@ -456,7 +468,7 @@ namespace tgui
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// \internal
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        virtual void keyPressed(sf::Keyboard::Key key);
+        virtual void keyPressed(const sf::Event::KeyEvent& event);
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// \internal
@@ -540,13 +552,10 @@ namespace tgui
         std::vector<Widget::Ptr> m_Widgets;
         std::vector<sf::String>  m_ObjName;
 
-        // The id of the focused widget
-		size_t m_FocusedWidget;
+        // The focused widget
+        Widget* m_FocusedWidget;
 
         sf::Font m_GlobalFont;
-
-        // Is the container focused? If so, then one of the widgets inside the container may be focused
-        bool m_ContainerFocused;
 
         // A list that stores all functions that receive callbacks triggered by child widgets
         std::list< std::function<void(const Callback&)> > m_GlobalCallbackFunctions;
@@ -621,7 +630,7 @@ namespace tgui
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       protected:
 
-        sf::RenderWindow* m_Window;
+        sf::RenderTarget* m_Window;
 
 
         friend class Gui;

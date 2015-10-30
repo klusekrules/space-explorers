@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -31,7 +31,7 @@
 #include <TGUI/Scrollbar.hpp>
 #include <TGUI/Container.hpp>
 #include <TGUI/ListBox.hpp>
-#include <TGUI\TGUI.hpp>
+#include <TGUI/TGUI.hpp>
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace tgui
@@ -64,6 +64,7 @@ namespace tgui
     WidgetBorders            (copy),
     m_LoadedConfigFile       (copy.m_LoadedConfigFile),
     m_Items                  (copy.m_Items),
+    m_ItemIds                (copy.m_ItemIds),
     m_SelectedItem           (copy.m_SelectedItem),
     m_Size                   (copy.m_Size),
     m_ItemHeight             (copy.m_ItemHeight),
@@ -110,6 +111,7 @@ namespace tgui
 
             std::swap(m_LoadedConfigFile,        temp.m_LoadedConfigFile);
             std::swap(m_Items,                   temp.m_Items);
+            std::swap(m_ItemIds,                 temp.m_ItemIds);
             std::swap(m_SelectedItem,            temp.m_SelectedItem);
             std::swap(m_Size,                    temp.m_Size);
             std::swap(m_ItemHeight,              temp.m_ItemHeight);
@@ -136,7 +138,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool ListBox::load(const std::string& configFileFilename)
+    bool ListBox::load(const std::string& configFileFilename, const std::string& sectionName)
     {
         m_LoadedConfigFile = getResourcePath() + configFileFilename;
 
@@ -158,7 +160,7 @@ namespace tgui
         // Read the properties and their values (as strings)
         std::vector<std::string> properties;
         std::vector<std::string> values;
-        if (!configFile.read("ListBox", properties, values))
+        if (!configFile.read(sectionName, properties, values))
         {
             TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile + ".");
             return false;
@@ -229,7 +231,7 @@ namespace tgui
                     m_Scroll->setVerticalScroll(true);
                     m_Scroll->setSize(m_Scroll->getSize().x, static_cast<float>(m_Size.y));
                     m_Scroll->setLowValue(m_Size.y);
-                    m_Scroll->setMaximum(static_cast<unsigned int>(m_Items.size())* m_ItemHeight);
+                    m_Scroll->setMaximum(m_Items.size() * m_ItemHeight);
                 }
             }
             else
@@ -390,7 +392,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    int ListBox::addItem(const sf::String& itemName)
+    int ListBox::addItem(const sf::String& itemName, int id)
     {
         // Check if the item limit is reached (if there is one)
         if ((m_MaxItems == 0) || (m_Items.size() < m_MaxItems))
@@ -408,13 +410,14 @@ namespace tgui
 
             // Add the item to the list
             m_Items.push_back(itemName);
+            m_ItemIds.push_back(id);
 
             // If there is a scrollbar then tell it that another item was added
             if (m_Scroll != nullptr)
-				m_Scroll->setMaximum(static_cast<unsigned int>(m_Items.size()) * m_ItemHeight);
+                m_Scroll->setMaximum(m_Items.size() * m_ItemHeight);
 
             // Return the item index
-			return static_cast<int>(m_Items.size()) - 1;
+            return m_Items.size() - 1;
         }
         else // The item limit was reached
             return -1;
@@ -425,18 +428,26 @@ namespace tgui
     bool ListBox::setSelectedItem(const sf::String& itemName)
     {
         // Loop through all items
-        for (unsigned int i=0; i<m_Items.size(); ++i)
+        for (unsigned int i = 0; i < m_Items.size(); ++i)
         {
             // Check if a match was found
             if (m_Items[i] == itemName)
             {
                 // Select the item
                 m_SelectedItem = static_cast<int>(i);
+
+                // Move the scrollbar if needed
+                if (m_Scroll)
+                {
+                    if (m_SelectedItem * getItemHeight() < m_Scroll->getValue())
+                        m_Scroll->setValue(m_SelectedItem * getItemHeight());
+                    else if ((m_SelectedItem + 1) * getItemHeight() > m_Scroll->getValue() + m_Scroll->getLowValue())
+                        m_Scroll->setValue((m_SelectedItem + 1) * getItemHeight() - m_Scroll->getLowValue());
+                }
+
                 return true;
             }
         }
-
-        TGUI_OUTPUT("TGUI warning: Failed to select the item in the list box. The name didn't match any item.");
 
         // No match was found
         m_SelectedItem = -1;
@@ -456,13 +467,22 @@ namespace tgui
         // If the index is too high then deselect the items
         if (index > int(m_Items.size()-1))
         {
-            TGUI_OUTPUT("TGUI warning: Failed to select the item in the list box. The index was too high.");
             m_SelectedItem = -1;
             return false;
         }
 
         // Select the item
         m_SelectedItem = index;
+
+        // Move the scrollbar if needed
+        if (m_Scroll)
+        {
+            if (m_SelectedItem * getItemHeight() < m_Scroll->getValue())
+                m_Scroll->setValue(m_SelectedItem * getItemHeight());
+            else if ((m_SelectedItem + 1) * getItemHeight() > m_Scroll->getValue() + m_Scroll->getLowValue())
+                m_Scroll->setValue((m_SelectedItem + 1) * getItemHeight() - m_Scroll->getLowValue());
+        }
+
         return true;
     }
 
@@ -479,17 +499,15 @@ namespace tgui
     {
         // The index can't be too high
         if (index > m_Items.size()-1)
-        {
-            TGUI_OUTPUT("TGUI warning: Failed to remove the item from the list box. The index was too high.");
             return false;
-        }
 
         // Remove the item
         m_Items.erase(m_Items.begin() + index);
+        m_ItemIds.erase(m_ItemIds.begin() + index);
 
         // If there is a scrollbar then tell it that an item was removed
         if (m_Scroll != nullptr)
-			m_Scroll->setMaximum(static_cast<unsigned int>(m_Items.size()) * m_ItemHeight);
+            m_Scroll->setMaximum(m_Items.size() * m_ItemHeight);
 
         // Check if the selected item should change
         if (m_SelectedItem == static_cast<int>(index))
@@ -505,12 +523,13 @@ namespace tgui
     bool ListBox::removeItem(const sf::String& itemName)
     {
         // Loop through all items
-        for (unsigned int i=0; i<m_Items.size(); ++i)
+        for (unsigned int i = 0; i < m_Items.size(); ++i)
         {
             // When the name matches then delete the item
             if (m_Items[i] == itemName)
             {
                 m_Items.erase(m_Items.begin() + i);
+                m_ItemIds.erase(m_ItemIds.begin() + i);
 
                 // Check if the selected item should change
                 if (m_SelectedItem == static_cast<int>(i))
@@ -520,14 +539,35 @@ namespace tgui
 
                 // If there is a scrollbar then tell it that an item was removed
                 if (m_Scroll != nullptr)
-					m_Scroll->setMaximum(static_cast<unsigned int>(m_Items.size()) * m_ItemHeight);
+                    m_Scroll->setMaximum(m_Items.size() * m_ItemHeight);
 
                 return true;
             }
         }
 
-        TGUI_OUTPUT("TGUI warning: Failed to remove the item from the list box. The name didn't match any item.");
         return false;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    unsigned int ListBox::removeItemsById(int id)
+    {
+        unsigned int removedItems = 0;
+
+        for (unsigned int i = 0; i < m_Items.size();)
+        {
+            if (m_ItemIds[i] == id)
+            {
+                m_Items.erase(m_Items.begin() + i);
+                m_ItemIds.erase(m_ItemIds.begin() + i);
+
+                removedItems++;
+            }
+            else
+                ++i;
+        }
+
+        return removedItems;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -536,6 +576,7 @@ namespace tgui
     {
         // Clear the list, remove all items
         m_Items.clear();
+        m_ItemIds.clear();
 
         // Unselect any selected item
         m_SelectedItem = -1;
@@ -551,10 +592,7 @@ namespace tgui
     {
         // The index can't be too high
         if (index > m_Items.size()-1)
-        {
-            TGUI_OUTPUT("TGUI warning: The index of the item was too high. Returning an empty string.");
             return "";
-        }
 
         // Return the item
         return m_Items[index];
@@ -565,7 +603,7 @@ namespace tgui
     int ListBox::getItemIndex(const sf::String& itemName) const
     {
         // Loop through all items
-        for (unsigned int i=0; i<m_Items.size(); ++i)
+        for (unsigned int i = 0; i < m_Items.size(); ++i)
         {
             // When the name matches then return the index
             if (m_Items[i] == itemName)
@@ -573,7 +611,6 @@ namespace tgui
         }
 
         // No match was found
-        TGUI_OUTPUT("TGUI warning: The name didn't match any item. Returning -1 as item index.");
         return -1;
     }
 
@@ -599,6 +636,63 @@ namespace tgui
     int ListBox::getSelectedItemIndex() const
     {
         return m_SelectedItem;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    int ListBox::getSelectedItemId() const
+    {
+        if (m_SelectedItem == -1)
+            return 0;
+        else
+            return m_ItemIds[m_SelectedItem];
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    bool ListBox::changeItem(unsigned int index, const sf::String& newValue)
+    {
+        if (index >= m_Items.size()) {
+            return false;
+        }
+
+        m_Items[index] = newValue;
+        return true;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    unsigned int ListBox::changeItems(const sf::String& originalValue, const sf::String& newValue)
+    {
+        unsigned int amountChanged = 0;
+        for (auto it = m_Items.begin(); it != m_Items.end(); ++it)
+        {
+            if (*it == originalValue)
+            {
+                *it = newValue;
+                amountChanged++;
+            }
+        }
+
+        return amountChanged;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    unsigned int ListBox::changeItemsById(int id, const sf::String& newValue)
+    {
+        unsigned int amountChanged = 0;
+        auto idIt = m_ItemIds.begin();
+        for (auto it = m_Items.begin(); it != m_Items.end(); ++it, ++idIt)
+        {
+            if (*idIt == id)
+            {
+                *it = newValue;
+                amountChanged++;
+            }
+        }
+
+        return amountChanged;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -632,7 +726,7 @@ namespace tgui
             m_Scroll->setVerticalScroll(true);
             m_Scroll->setSize(m_Scroll->getSize().x, static_cast<float>(m_Size.y));
             m_Scroll->setLowValue(m_Size.y);
-			m_Scroll->setMaximum(static_cast<unsigned int>(m_Items.size()) * m_ItemHeight);
+            m_Scroll->setMaximum(m_Items.size() * m_ItemHeight);
 
             return true;
         }
@@ -654,6 +748,7 @@ namespace tgui
 
             // Remove the items that didn't fit inside the list box
             m_Items.erase(m_Items.begin() + m_MaxItems, m_Items.end());
+            m_ItemIds.erase(m_ItemIds.begin() + m_MaxItems, m_ItemIds.end());
         }
     }
 
@@ -680,12 +775,13 @@ namespace tgui
 
                 // Remove the items that didn't fit inside the list box
                 m_Items.erase(m_Items.begin() + m_MaxItems, m_Items.end());
+                m_ItemIds.erase(m_ItemIds.begin() + m_MaxItems, m_ItemIds.end());
             }
         }
         else // There is a scrollbar
         {
             // Set the maximum of the scrollbar
-			m_Scroll->setMaximum(static_cast<unsigned int>(m_Items.size()) * m_ItemHeight);
+            m_Scroll->setMaximum(m_Items.size() * m_ItemHeight);
         }
     }
 
@@ -708,10 +804,11 @@ namespace tgui
         {
             // Remove the items that passed the limitation
             m_Items.erase(m_Items.begin() + m_MaxItems, m_Items.end());
+            m_ItemIds.erase(m_ItemIds.begin() + m_MaxItems, m_ItemIds.end());
 
             // If there is a scrollbar then tell it that the number of items was changed
             if (m_Scroll != nullptr)
-				m_Scroll->setMaximum(static_cast<unsigned int>(m_Items.size()) * m_ItemHeight);
+                m_Scroll->setMaximum(m_Items.size() * m_ItemHeight);
         }
     }
 
@@ -843,7 +940,7 @@ namespace tgui
                 if (m_SelectedItem < 0)
                     m_Callback.text  = "";
                 else
-                    m_Callback.text  = m_Items[m_SelectedItem];
+                    m_Callback.text = m_Items[m_SelectedItem];
 
                 m_Callback.value   = m_SelectedItem;
                 m_Callback.trigger = ItemSelected;
@@ -1146,25 +1243,29 @@ namespace tgui
 
     void ListBox::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
+        const sf::View& view = target.getView();
+
         // Calculate the scale factor of the view
-        float scaleViewX = target.getSize().x / target.getView().getSize().x;
-        float scaleViewY = target.getSize().y / target.getView().getSize().y;
+        float scaleViewX = target.getSize().x / view.getSize().x;
+        float scaleViewY = target.getSize().y / view.getSize().y;
 
         // Get the global position
         sf::Vector2f topLeftPosition;
         sf::Vector2f bottomRightPosition;
 
-        sf::Vector2f viewPosition = (target.getView().getSize() / 2.f) - target.getView().getCenter();
-
         if ((m_Scroll != nullptr) && (m_Scroll->getLowValue() < m_Scroll->getMaximum()))
         {
-            topLeftPosition = states.transform.transformPoint(getPosition() + viewPosition);
-            bottomRightPosition = states.transform.transformPoint(getPosition().x + m_Size.x - m_Scroll->getSize().x + viewPosition.x, getPosition().y + m_Size.y + viewPosition.y);
+            topLeftPosition = sf::Vector2f(((getAbsolutePosition().x - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
+                                           ((getAbsolutePosition().y - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top));
+            bottomRightPosition = sf::Vector2f((getAbsolutePosition().x + m_Size.x - m_Scroll->getSize().x - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width + (view.getSize().x * view.getViewport().left),
+                                               (getAbsolutePosition().y + m_Size.y - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height + (view.getSize().y * view.getViewport().top));
         }
         else
         {
-            topLeftPosition = states.transform.transformPoint(getPosition() + viewPosition);
-            bottomRightPosition = states.transform.transformPoint(getPosition() + sf::Vector2f(m_Size) + viewPosition);
+            topLeftPosition = sf::Vector2f(((getAbsolutePosition().x - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
+                                           ((getAbsolutePosition().y - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top));
+            bottomRightPosition = sf::Vector2f((getAbsolutePosition().x + m_Size.x - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width + (view.getSize().x * view.getViewport().left),
+                                               (getAbsolutePosition().y + m_Size.y - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height + (view.getSize().y * view.getViewport().top));
         }
 
         // Adjust the transformation
@@ -1287,7 +1388,7 @@ namespace tgui
             // Store the current transformations
             sf::Transform storedTransform = states.transform;
 
-            for (unsigned int i=0; i<m_Items.size(); ++i)
+            for (unsigned int i = 0; i < m_Items.size(); ++i)
             {
                 // Restore the transformations
                 states.transform = storedTransform;

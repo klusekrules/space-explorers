@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -208,7 +208,7 @@ void FormBuilder::handleEvents()
     sf::Event event;
     while (window.pollEvent(event))
     {
-        gui.handleEvent(event);
+        gui.handleEvent(event, false);
 
         if (event.type == sf::Event::Closed)
         {
@@ -242,7 +242,7 @@ void FormBuilder::handleEvents()
 void FormBuilder::draw()
 {
     window.clear(sf::Color(200, 200, 200));
-    gui.draw();
+    gui.draw(false);
     window.display();
 }
 
@@ -314,6 +314,9 @@ void FormBuilder::resize(unsigned int width, unsigned int height)
                                          - activeForm->window->getBorders().left - activeForm->window->getBorders().right) / 2.0f + widgetsWindow->getPosition().x + activeForm->window->getBorders().left,
                                         (panel->getSize().y - activeForm->window->getSize().y - activeForm->window->getBorders().top
                                          - activeForm->window->getBorders().bottom - activeForm->window->getTitleBarHeight()) / 2.0f);
+
+        tgui::ComboBox::Ptr widgetSelector = propertiesWindow->get("WidgetSelector");
+        widgetSelector->setItemsToDisplay(static_cast<unsigned int>((propertiesWindow->getSize().y * 17 / 20) / TGUI_MAXIMUM(10, widgetSelector->getSize().y)));
     }
 
     window.setView(sf::View(sf::FloatRect(0, 0, static_cast<float>(width), static_cast<float>(height))));
@@ -332,7 +335,12 @@ void FormBuilder::menuBarCallback(const tgui::Callback& callback)
         tgui::Panel::Ptr formPanel = activeForm->window->get("Panel");
 
         formPanel->removeAllWidgets();
+
+    #ifdef __APPLE__
+        formPanel->loadWidgetsFromFile("../../../" + activeForm->window->getTitle());
+    #else
         formPanel->loadWidgetsFromFile(activeForm->window->getTitle());
+    #endif
 
         activeForm->widgets.clear();
         activeForm->activeWidget = &widgetsData[""];
@@ -370,7 +378,7 @@ void FormBuilder::menuBarCallback(const tgui::Callback& callback)
 
         // Add the widgets again
         for (auto it = activeForm->widgets.cbegin(); it != activeForm->widgets.cend(); ++it)
-            formPanel->add(it->widget);
+            formPanel->add(it->widget, it->properties.front().second.value);
 
         // Remove the edit menu
         menu.removeMenuItem("Edit", "To front");
@@ -380,7 +388,11 @@ void FormBuilder::menuBarCallback(const tgui::Callback& callback)
     }
     else if (callback.text == "Save")
     {
+    #ifdef __APPLE__
+        tgui::Panel::Ptr(activeForm->window->get("Panel"))->saveWidgetsToFile("../../../" + activeForm->window->getTitle());
+    #else
         tgui::Panel::Ptr(activeForm->window->get("Panel"))->saveWidgetsToFile(activeForm->window->getTitle());
+    #endif
     }
     else if (callback.text == "Exit")
     {
@@ -1157,6 +1169,7 @@ void FormBuilder::changeProperty(tgui::EditBox::Ptr value, tgui::EditBox::Ptr pr
                 if (it->first == "Name")
                 {
                     it->second.value = value->getText();
+                    activeForm->window->get<tgui::Panel>("Panel")->setWidgetName(activeForm->activeWidget->widget, value->getText());
 
                     tgui::ComboBox::Ptr widgetSelector = tgui::ChildWindow::Ptr(panel->get("PropertiesWindow"))->get("WidgetSelector");
 

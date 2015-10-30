@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -29,7 +29,7 @@
 #include <TGUI/Container.hpp>
 #include <TGUI/TextBox.hpp>
 #include <TGUI/Clipboard.hpp>
-#include <TGUI\TGUI.hpp>
+#include <TGUI/TGUI.hpp>
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace tgui
@@ -58,7 +58,8 @@ namespace tgui
     m_SelectionPointWidth     (2),
     m_SelectionTextsNeedUpdate(true),
     m_Scroll                  (nullptr),
-    m_PossibleDoubleClick     (false)
+    m_PossibleDoubleClick     (false),
+    m_readOnly                (false)
     {
         m_Callback.widgetType = Type_TextBox;
         m_AnimatedWidget = true;
@@ -102,7 +103,8 @@ namespace tgui
     m_TextAfterSelection1        (copy.m_TextAfterSelection1),
     m_TextAfterSelection2        (copy.m_TextAfterSelection2),
     m_MultilineSelectionRectWidth(copy.m_MultilineSelectionRectWidth),
-    m_PossibleDoubleClick        (copy.m_PossibleDoubleClick)
+    m_PossibleDoubleClick        (copy.m_PossibleDoubleClick),
+    m_readOnly                   (copy.m_readOnly)
     {
         // If there is a scrollbar then copy it
         if (copy.m_Scroll != nullptr)
@@ -165,6 +167,7 @@ namespace tgui
             std::swap(m_MultilineSelectionRectWidth, temp.m_MultilineSelectionRectWidth);
             std::swap(m_Scroll,                      temp.m_Scroll);
             std::swap(m_PossibleDoubleClick,         temp.m_PossibleDoubleClick);
+            std::swap(m_readOnly,                    temp.m_readOnly);
         }
 
         return *this;
@@ -179,7 +182,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool TextBox::load(const std::string& configFileFilename)
+    bool TextBox::load(const std::string& configFileFilename, const std::string& sectionName)
     {
         m_LoadedConfigFile = getResourcePath() + configFileFilename;
 
@@ -201,7 +204,7 @@ namespace tgui
         // Read the properties and their values (as strings)
         std::vector<std::string> properties;
         std::vector<std::string> values;
-        if (!configFile.read("TextBox", properties, values))
+        if (!configFile.read(sectionName, properties, values))
         {
             TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile + ".");
             return false;
@@ -420,6 +423,8 @@ namespace tgui
         m_TextSelection2.setFont(font);
         m_TextAfterSelection1.setFont(font);
         m_TextAfterSelection2.setFont(font);
+
+        setTextSize(m_TextSize);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -447,12 +452,11 @@ namespace tgui
         m_TextAfterSelection1.setCharacterSize(m_TextSize);
         m_TextAfterSelection2.setCharacterSize(m_TextSize);
 
-        // Calculate the height of one line
-        m_LineHeight = m_TextBeforeSelection.getFont()->getLineSpacing(m_TextSize);
-
-        // Don't continue when line height is 0
-        if (m_LineHeight == 0)
+        if (!m_TextBeforeSelection.getFont())
             return;
+
+        // Calculate the height of one line
+        m_LineHeight = static_cast<unsigned int>(m_TextBeforeSelection.getFont()->getLineSpacing(m_TextSize));
 
         // There is also a minimum height
         if (m_Size.y < m_LineHeight)
@@ -622,7 +626,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	void TextBox::setSelectionPointPosition(size_t charactersBeforeSelectionPoint)
+    void TextBox::setSelectionPointPosition(unsigned int charactersBeforeSelectionPoint)
     {
         // The selection point position has to stay inside the string
         if (charactersBeforeSelectionPoint > m_Text.getSize())
@@ -762,6 +766,13 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    void TextBox::setReadOnly(bool readOnly)
+    {
+        m_readOnly = readOnly;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     void TextBox::setTransparency(unsigned char transparency)
     {
         Widget::setTransparency(transparency);
@@ -852,7 +863,7 @@ namespace tgui
             if (m_LineHeight == 0)
                 return;
 
-			size_t selectionPointPosition = findSelectionPointPosition(x - getPosition().x - 4, y - getPosition().y);
+            unsigned int selectionPointPosition = findSelectionPointPosition(x - getPosition().x - 4, y - getPosition().y);
 
             // Check if this is a double click
             if ((m_PossibleDoubleClick) && (m_SelChars == 0) && (selectionPointPosition == m_SelEnd))
@@ -1082,14 +1093,14 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void TextBox::keyPressed(sf::Keyboard::Key key)
+    void TextBox::keyPressed(const sf::Event::KeyEvent& event)
     {
         // Don't do anything when the edit box wasn't loaded correctly
         if (m_Loaded == false)
             return;
 
         // Check if one of the correct keys was pressed
-        if (key == sf::Keyboard::Left)
+        if (event.code == sf::Keyboard::Left)
         {
             // Check if we have selected some text
             if (m_SelChars > 0)
@@ -1114,7 +1125,7 @@ namespace tgui
             m_SelectionPointVisible = true;
             m_AnimationTimeElapsed = sf::Time();
         }
-        else if (key == sf::Keyboard::Right)
+        else if (event.code == sf::Keyboard::Right)
         {
             // Check if we have selected some text
             if (m_SelChars > 0)
@@ -1139,7 +1150,7 @@ namespace tgui
             m_SelectionPointVisible = true;
             m_AnimationTimeElapsed = sf::Time();
         }
-        else if (key == sf::Keyboard::Up)
+        else if (event.code == sf::Keyboard::Up)
         {
             sf::Text tempText(m_TextBeforeSelection);
             tempText.setString(m_DisplayedText);
@@ -1147,11 +1158,11 @@ namespace tgui
             bool newlineAdded = false;
             unsigned int newlinesAdded = 0;
 
-            size_t character;
+            unsigned int character;
             unsigned int newTopPosition = 0;
             sf::Vector2u newPosition(0, 0);
 
-            
+            int distanceX;
             unsigned int previousdistanceX = m_Size.x;
 
             // Loop through all characters
@@ -1206,9 +1217,9 @@ namespace tgui
                         setSelectionPointPosition(character + newlineAdded);
                         return;
                     }
-					
+
                     // Calculate the distance to the original position
-                    int distanceX = newPosition.x - originalPosition.x;
+                    distanceX = newPosition.x - originalPosition.x;
 
                     // Check if the distance is going away again
                     if (static_cast<unsigned int>(abs(distanceX)) > previousdistanceX)
@@ -1234,7 +1245,7 @@ namespace tgui
                 setSelectionPointPosition(0);
             }
         }
-        else if (key == sf::Keyboard::Down)
+        else if (event.code == sf::Keyboard::Down)
         {
             sf::Text tempText(m_TextBeforeSelection);
             tempText.setString(m_DisplayedText);
@@ -1242,12 +1253,12 @@ namespace tgui
             bool newlineAdded = false;
             unsigned int newlinesAdded = 0;
 
-			size_t character;
+            unsigned int character;
             unsigned int newTopPosition = 0;
             sf::Vector2u newPosition(0, 0);
 
-            
-			int previousdistanceX = m_Size.x;
+            int distanceX;
+            int previousdistanceX = m_Size.x;
 
             // Loop through all characters
             for (unsigned int i=0; i<m_Text.getSize(); ++i)
@@ -1313,7 +1324,7 @@ namespace tgui
                     }
 
                     // Calculate the distance to the original position
-                    int distanceX = newPosition.x - originalPosition.x;
+                    distanceX = newPosition.x - originalPosition.x;
 
                     // Check if the distance is going away again
                     if (abs(distanceX) > previousdistanceX)
@@ -1331,7 +1342,7 @@ namespace tgui
                 setSelectionPointPosition(m_Text.getSize());
             }
         }
-        else if (key == sf::Keyboard::Home)
+        else if (event.code == sf::Keyboard::Home)
         {
             // Set the selection point to the beginning of the text
             setSelectionPointPosition(0);
@@ -1340,7 +1351,7 @@ namespace tgui
             m_SelectionPointVisible = true;
             m_AnimationTimeElapsed = sf::Time();
         }
-        else if (key == sf::Keyboard::End)
+        else if (event.code == sf::Keyboard::End)
         {
             // Set the selection point behind the text
             setSelectionPointPosition(m_Text.getSize());
@@ -1349,13 +1360,16 @@ namespace tgui
             m_SelectionPointVisible = true;
             m_AnimationTimeElapsed = sf::Time();
         }
-        else if (key == sf::Keyboard::Return)
+        else if (event.code == sf::Keyboard::Return)
         {
             // Add a newline
             textEntered('\n');
         }
-        else if (key == sf::Keyboard::BackSpace)
+        else if (event.code == sf::Keyboard::BackSpace)
         {
+            if (m_readOnly)
+                return;
+
             // Make sure that we didn't select any characters
             if (m_SelChars == 0)
             {
@@ -1398,8 +1412,11 @@ namespace tgui
                 addCallback();
             }
         }
-        else if (key == sf::Keyboard::Delete)
+        else if (event.code == sf::Keyboard::Delete)
         {
+            if (m_readOnly)
+                return;
+
             // Make sure that no text is selected
             if (m_SelChars == 0)
             {
@@ -1445,14 +1462,20 @@ namespace tgui
         else
         {
             // Check if you are copying, pasting or cutting text
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) || sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))
+            if (event.control)
             {
-                if (key == sf::Keyboard::C)
+                if (event.code == sf::Keyboard::C)
                 {
-                    TGUI_Clipboard.set(m_TextSelection1.getString() + m_TextSelection2.getString());
+                    if ((m_TextSelection1.getString() != "") && (m_TextSelection2.getString() != ""))
+                        TGUI_Clipboard.set(m_TextSelection1.getString() + "\n" + m_TextSelection2.getString());
+                    else
+                        TGUI_Clipboard.set(m_TextSelection1.getString() + m_TextSelection2.getString());
                 }
-                else if (key == sf::Keyboard::V)
+                else if (event.code == sf::Keyboard::V)
                 {
+                    if (m_readOnly)
+                        return;
+
                     auto clipboardContents = TGUI_Clipboard.get();
 
                     // Only continue pasting if you actually have to do something
@@ -1460,10 +1483,10 @@ namespace tgui
                     {
                         deleteSelectedCharacters();
 
-						size_t oldCaretPos = m_SelEnd;
+                        unsigned int oldCaretPos = m_SelEnd;
 
                         if (m_Text.getSize() > m_SelEnd)
-                            setText(m_Text.toWideString().substr(0, m_SelEnd) + TGUI_Clipboard.get() + m_Text.toWideString().substr(m_SelEnd, m_Text.getSize() - m_SelEnd));
+                            setText(m_Text.substring(0, m_SelEnd) + TGUI_Clipboard.get() + m_Text.substring(m_SelEnd, m_Text.getSize() - m_SelEnd));
                         else
                             setText(m_Text + clipboardContents);
 
@@ -1478,10 +1501,31 @@ namespace tgui
                         }
                     }
                 }
-                else if (key == sf::Keyboard::X)
+                else if (event.code == sf::Keyboard::X)
                 {
-                    TGUI_Clipboard.set(m_TextSelection1.getString() + m_TextSelection2.getString());
+                    if ((m_TextSelection1.getString() != "") && (m_TextSelection2.getString() != ""))
+                        TGUI_Clipboard.set(m_TextSelection1.getString() + "\n" + m_TextSelection2.getString());
+                    else
+                        TGUI_Clipboard.set(m_TextSelection1.getString() + m_TextSelection2.getString());
+
+                    if (m_readOnly)
+                        return;
+
                     deleteSelectedCharacters();
+                }
+                else if (event.code == sf::Keyboard::A)
+                {
+                    m_SelStart = 0;
+                    m_SelEnd = m_Text.getSize();
+                    m_SelChars = m_Text.getSize();
+
+                    m_TextBeforeSelection.setString("");
+                    m_TextSelection1.setString(m_DisplayedText);
+                    m_TextSelection2.setString("");
+                    m_TextAfterSelection1.setString("");
+                    m_TextAfterSelection2.setString("");
+
+                    updateDisplayedText();
                 }
             }
         }
@@ -1493,6 +1537,9 @@ namespace tgui
     {
         // Don't do anything when the text box wasn't loaded correctly
         if (m_Loaded == false)
+            return;
+
+        if (m_readOnly)
             return;
 
         // If there were selected characters then delete them first
@@ -1529,7 +1576,7 @@ namespace tgui
                 if (text[i-1] != '\n')
                 {
                     // Add the next character to the text widget
-                    tempText.setString(text.toWideString().substr(beginChar, i - beginChar));
+                    tempText.setString(text.substring(beginChar, i - beginChar));
 
                     // Check if the string still fits on the line
                     if (tempText.findCharacterPos(i).x > maxLineWidth)
@@ -1775,7 +1822,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    size_t TextBox::findSelectionPointPosition(float posX, float posY)
+    unsigned int TextBox::findSelectionPointPosition(float posX, float posY)
     {
         // This code will crash when the text box is empty. We need to avoid this.
         if (m_Text.isEmpty())
@@ -1869,7 +1916,7 @@ namespace tgui
                 if (m_Text[i-1] != '\n')
                 {
                     // Add the next character to the text widget
-                    tempText.setString(m_Text.toWideString().substr(beginChar, i - beginChar));
+                    tempText.setString(m_Text.substring(beginChar, i - beginChar));
 
                     // Check if the string still fits on the line
                     if (tempText.findCharacterPos(i).x > maxLineWidth)
@@ -1929,14 +1976,11 @@ namespace tgui
 
             }
 
-            // Check if you clicked behind the last character on the line
-            if (tempText.findCharacterPos(tempString.getSize()).x - (((3.f * tempText.findCharacterPos(tempString.getSize()-1).x) + tempText.findCharacterPos(tempString.getSize()).x) / 2.f))
-            {
-                if (line > 1)
-                    return newlinePos + tempString.getSize() + 1 - newlinesAdded;
-                else
-                    return newlinePos + tempString.getSize();
-            }
+            // The mouse is on the second half of the last character on the line
+            if (line > 1)
+                return newlinePos + tempString.getSize() + 1 - newlinesAdded;
+            else
+                return newlinePos + tempString.getSize();
         }
 
         // Something went wrong, don't move the selection point position
@@ -2069,7 +2113,7 @@ namespace tgui
             if (m_Text[i-1] != '\n')
             {
                 // Add the next character to the text widget
-                tempText.setString(m_Text.toWideString().substr(beginChar, i - beginChar));
+                tempText.setString(m_Text.substring(beginChar, i - beginChar));
 
                 // Check if the string still fits on the line
                 if (tempText.findCharacterPos(i).x > maxLineWidth)
@@ -2177,15 +2221,15 @@ namespace tgui
         else // Some text is selected
         {
             // Make some preparations
-			size_t i;
-			size_t selectionStart = TGUI_MINIMUM(m_SelEnd, m_SelStart);
-			size_t selectionEnd = TGUI_MAXIMUM(m_SelEnd, m_SelStart);
+            unsigned i;
+            unsigned int selectionStart = TGUI_MINIMUM(m_SelEnd, m_SelStart);
+            unsigned int selectionEnd = TGUI_MAXIMUM(m_SelEnd, m_SelStart);
 
             sf::Text tempText(m_TextBeforeSelection);
-			size_t beginChar = 0;
-			size_t newlinesAddedBeforeSelection = 0;
-			size_t newlinesAddedInsideSelection = 0;
-			size_t lastNewlineBeforeSelection = 0;
+            unsigned int beginChar = 0;
+            unsigned int newlinesAddedBeforeSelection = 0;
+            unsigned int newlinesAddedInsideSelection = 0;
+            unsigned int lastNewlineBeforeSelection = 0;
             bool newlineFoundInsideSelection = false;
 
             // Clear the list of selection rectangle sizes
@@ -2198,7 +2242,7 @@ namespace tgui
                 if (m_Text[i] != '\n')
                 {
                     // Add the next character to the text widget
-                    tempText.setString(m_Text.toWideString().substr(beginChar, i - beginChar + 1));
+                    tempText.setString(m_Text.substring(beginChar, i - beginChar + 1));
 
                     // Check if the string still fits on the line
                     if (tempText.findCharacterPos(i+1).x > maxLineWidth)
@@ -2225,7 +2269,7 @@ namespace tgui
                 if (m_Text[i] != '\n')
                 {
                     // Add the next character to the text widget
-                    tempText.setString(m_Text.toWideString().substr(beginChar, i - beginChar + 1));
+                    tempText.setString(m_Text.substring(beginChar, i - beginChar + 1));
 
                     // Check if the string still fits on the line
                     if (tempText.findCharacterPos(i+1).x > maxLineWidth)
@@ -2277,10 +2321,10 @@ namespace tgui
             m_MultilineSelectionRectWidth.push_back(tempText2.findCharacterPos(i).x);
 
             // Set the text before selection
-            m_TextBeforeSelection.setString(m_DisplayedText.toWideString().substr(0, selectionStart));
+            m_TextBeforeSelection.setString(m_DisplayedText.substring(0, selectionStart));
 
             // Set the text that is selected. If it consists of multiple lines then it will be changed below.
-            m_TextSelection1.setString(m_DisplayedText.toWideString().substr(selectionStart, m_SelChars));
+            m_TextSelection1.setString(m_DisplayedText.substring(selectionStart, m_SelChars));
             m_TextSelection2.setString("");
 
             // Loop through every character inside the selection
@@ -2290,14 +2334,14 @@ namespace tgui
                 if (m_DisplayedText[i] == '\n')
                 {
                     // Set the text that is selected
-                    m_TextSelection1.setString(m_DisplayedText.toWideString().substr(selectionStart, i - selectionStart));
-                    m_TextSelection2.setString(m_DisplayedText.toWideString().substr(i + 1, m_SelChars + newlinesAddedInsideSelection + selectionStart - i - 1));
+                    m_TextSelection1.setString(m_DisplayedText.substring(selectionStart, i - selectionStart));
+                    m_TextSelection2.setString(m_DisplayedText.substring(i + 1, m_SelChars + newlinesAddedInsideSelection + selectionStart - i - 1));
                     break;
                 }
             }
 
             // Set the text after the selection. If it consists of multiple lines then it will be changed below.
-            m_TextAfterSelection1.setString(m_DisplayedText.toWideString().substr(selectionEnd, m_DisplayedText.getSize() - selectionEnd));
+            m_TextAfterSelection1.setString(m_DisplayedText.substring(selectionEnd, m_DisplayedText.getSize() - selectionEnd));
             m_TextAfterSelection2.setString("");
 
             // Loop through every character after the selection
@@ -2307,8 +2351,8 @@ namespace tgui
                 if (m_DisplayedText[i] == '\n')
                 {
                     // Set the text that is selected
-                    m_TextAfterSelection1.setString(m_DisplayedText.toWideString().substr(selectionEnd, i - selectionEnd));
-                    m_TextAfterSelection2.setString(m_DisplayedText.toWideString().substr(i + 1, m_DisplayedText.getSize() - i - 1));
+                    m_TextAfterSelection1.setString(m_DisplayedText.substring(selectionEnd, i - selectionEnd));
+                    m_TextAfterSelection2.setString(m_DisplayedText.substring(i + 1, m_DisplayedText.getSize() - i - 1));
                     break;
                 }
             }
@@ -2353,13 +2397,17 @@ namespace tgui
         if (m_Loaded == false)
             return;
 
+        const sf::View& view = target.getView();
+
         // Calculate the scale factor of the view
-        float scaleViewX = target.getSize().x / target.getView().getSize().x;
-        float scaleViewY = target.getSize().y / target.getView().getSize().y;
+        float scaleViewX = target.getSize().x / view.getSize().x;
+        float scaleViewY = target.getSize().y / view.getSize().y;
 
         // Get the global position
-        sf::Vector2f topLeftPosition = states.transform.transformPoint(getPosition() - target.getView().getCenter() + (target.getView().getSize() / 2.f));
-        sf::Vector2f bottomRightPosition = states.transform.transformPoint(getPosition() + sf::Vector2f(m_Size) - target.getView().getCenter() + (target.getView().getSize() / 2.f));
+        sf::Vector2f topLeftPosition = sf::Vector2f(((getAbsolutePosition().x - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
+                                                    ((getAbsolutePosition().y - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top));
+        sf::Vector2f bottomRightPosition = sf::Vector2f((getAbsolutePosition().x + m_Size.x - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width + (view.getSize().x * view.getViewport().left),
+                                                        (getAbsolutePosition().y + m_Size.y - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height + (view.getSize().y * view.getViewport().top));
 
         // Adjust the transformation
         states.transform *= getTransform();
@@ -2424,16 +2472,22 @@ namespace tgui
         // Set the clipping area
         glScissor(scissorLeft, target.getSize().y - scissorBottom, scissorRight - scissorLeft, scissorBottom - scissorTop);
 
+        sf::Text tempText(m_TextBeforeSelection);
+        tempText.setString("kg");
+        sf::Vector2f textShift(tempText.getLocalBounds().left, tempText.getLocalBounds().top);
+
         // Draw the text
+        states.transform.translate(-textShift.x, -textShift.y);
         target.draw(m_TextBeforeSelection, states);
+        states.transform.translate(0, textShift.y);
 
         // Check if there is a selection
         if (m_SelChars > 0)
         {
             // Store the lenghts of the texts
-			size_t textBeforeSelectionLength = m_TextBeforeSelection.getString().getSize() + 1;
-			size_t textSelection1Length = m_TextSelection1.getString().getSize() + 1;
-			size_t textSelection2Length = m_TextSelection2.getString().getSize() + 1;
+            unsigned int textBeforeSelectionLength = m_TextBeforeSelection.getString().getSize() + 1;
+            unsigned int textSelection1Length = m_TextSelection1.getString().getSize() + 1;
+            unsigned int textSelection2Length = m_TextSelection2.getString().getSize() + 1;
 
             // Set the text on the correct position
             states.transform.translate(m_TextBeforeSelection.findCharacterPos(textBeforeSelectionLength).x, m_TextBeforeSelection.findCharacterPos(textBeforeSelectionLength).y);
@@ -2450,7 +2504,9 @@ namespace tgui
             target.draw(selectionBackground1, states);
 
             // Draw the first part of the selected text
+            states.transform.translate(0, -textShift.y);
             target.draw(m_TextSelection1, states);
+            states.transform.translate(0, textShift.y);
 
             // Check if there is a second part in the selection
             if (m_TextSelection2.getString().getSize() > 0)
@@ -2475,7 +2531,9 @@ namespace tgui
                 }
 
                 // Draw the second part of the selection
+                states.transform.translate(0, -textShift.y);
                 target.draw(m_TextSelection2, states);
+                states.transform.translate(0, textShift.y);
 
                 // Translate to the end of the selection
                 states.transform.translate(m_TextSelection2.findCharacterPos(textSelection2Length));
@@ -2495,7 +2553,9 @@ namespace tgui
             }
 
             // Draw the first part of the text behind the selection
+            states.transform.translate(0, -textShift.y);
             target.draw(m_TextAfterSelection1, states);
+            states.transform.translate(textShift.x, textShift.y);
 
             // Check if there is a second part in the selection
             if (m_TextAfterSelection2.getString().getSize() > 0)
@@ -2525,7 +2585,9 @@ namespace tgui
                 }
 
                 // Draw the second part of the text after the selection
+                states.transform.translate(-textShift.x, -textShift.y);
                 target.draw(m_TextAfterSelection2, states);
+                states.transform.translate(textShift.x, textShift.y);
             }
         }
 
@@ -2537,6 +2599,7 @@ namespace tgui
             {
                 // Reset the transformation
                 states.transform = oldTransform;
+                states.transform.translate(-textShift.x, 0);
 
                 // Create the selection point rectangle
                 sf::RectangleShape selectionPoint(sf::Vector2f(static_cast<float>(m_SelectionPointWidth), static_cast<float>(m_LineHeight)));

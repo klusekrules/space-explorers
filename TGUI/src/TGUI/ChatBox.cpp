@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -30,7 +30,7 @@
 #include <TGUI/ChatBox.hpp>
 
 #include <cmath>
-#include <TGUI\TGUI.hpp>
+#include <TGUI/TGUI.hpp>
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace tgui
@@ -41,13 +41,14 @@ namespace tgui
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ChatBox::ChatBox() :
-        m_LineSpacing   (0),
-        m_TextSize      (16),
-        m_TextColor     (sf::Color::Black),
-        m_BorderColor   (sf::Color::Black),
-        m_MaxLines      (0),
-        m_FullTextHeight(12),
-        m_Scroll        (nullptr)
+        m_LineSpacing         (0),
+        m_TextSize            (16),
+        m_TextColor           (sf::Color::Black),
+        m_BorderColor         (sf::Color::Black),
+        m_MaxLines            (0),
+        m_FullTextHeight      (0),
+        m_LinesStartFromBottom(false),
+        m_Scroll              (nullptr)
     {
         m_Callback.widgetType = Type_ChatBox;
         m_DraggableWidget = true;
@@ -63,15 +64,16 @@ namespace tgui
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ChatBox::ChatBox(const ChatBox& copy) :
-        Widget            (copy),
-        WidgetBorders     (copy),
-        m_LoadedConfigFile(copy.m_LoadedConfigFile),
-        m_LineSpacing     (copy.m_LineSpacing),
-        m_TextSize        (copy.m_TextSize),
-        m_TextColor       (copy.m_TextColor),
-        m_BorderColor     (copy.m_BorderColor),
-        m_MaxLines        (copy.m_MaxLines),
-        m_FullTextHeight  (copy.m_FullTextHeight)
+        Widget                (copy),
+        WidgetBorders         (copy),
+        m_LoadedConfigFile    (copy.m_LoadedConfigFile),
+        m_LineSpacing         (copy.m_LineSpacing),
+        m_TextSize            (copy.m_TextSize),
+        m_TextColor           (copy.m_TextColor),
+        m_BorderColor         (copy.m_BorderColor),
+        m_MaxLines            (copy.m_MaxLines),
+        m_FullTextHeight      (copy.m_FullTextHeight),
+        m_LinesStartFromBottom(copy.m_LinesStartFromBottom)
     {
         m_Panel = new Panel(*copy.m_Panel);
 
@@ -109,15 +111,16 @@ namespace tgui
             this->Widget::operator=(right);
             this->WidgetBorders::operator=(right);
 
-            std::swap(m_LoadedConfigFile, temp.m_LoadedConfigFile);
-            std::swap(m_LineSpacing,      temp.m_LineSpacing);
-            std::swap(m_TextSize,         temp.m_TextSize);
-            std::swap(m_TextColor,        temp.m_TextColor);
-            std::swap(m_BorderColor,      temp.m_BorderColor);
-            std::swap(m_MaxLines,         temp.m_MaxLines);
-            std::swap(m_FullTextHeight,   temp.m_FullTextHeight);
-            std::swap(m_Panel,            temp.m_Panel);
-            std::swap(m_Scroll,           temp.m_Scroll);
+            std::swap(m_LoadedConfigFile,     temp.m_LoadedConfigFile);
+            std::swap(m_LineSpacing,          temp.m_LineSpacing);
+            std::swap(m_TextSize,             temp.m_TextSize);
+            std::swap(m_TextColor,            temp.m_TextColor);
+            std::swap(m_BorderColor,          temp.m_BorderColor);
+            std::swap(m_MaxLines,             temp.m_MaxLines);
+            std::swap(m_FullTextHeight,       temp.m_FullTextHeight);
+            std::swap(m_LinesStartFromBottom, temp.m_LinesStartFromBottom);
+            std::swap(m_Panel,                temp.m_Panel);
+            std::swap(m_Scroll,               temp.m_Scroll);
         }
 
         return *this;
@@ -132,7 +135,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool ChatBox::load(const std::string& configFileFilename)
+    bool ChatBox::load(const std::string& configFileFilename, const std::string& sectionName)
     {
         m_LoadedConfigFile = getResourcePath() + configFileFilename;
 
@@ -157,7 +160,7 @@ namespace tgui
         // Read the properties and their values (as strings)
         std::vector<std::string> properties;
         std::vector<std::string> values;
-        if (!configFile.read("ChatBox", properties, values))
+        if (!configFile.read(sectionName, properties, values))
         {
             TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile + ".");
             return false;
@@ -450,7 +453,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	size_t ChatBox::getLineAmount()
+    unsigned int ChatBox::getLineAmount()
     {
         return m_Panel->getWidgets().size();
     }
@@ -482,9 +485,24 @@ namespace tgui
     {
         m_Panel->setGlobalFont(font);
 
+        m_FullTextHeight = 0;
+        unsigned int labelNr = 0;
         auto& labels = m_Panel->getWidgets();
-        for (auto it = labels.begin(); it != labels.end(); ++it)
+        for (auto it = labels.begin(); it != labels.end(); ++it, ++labelNr)
+        {
             Label::Ptr(*it)->setTextFont(font);
+            m_FullTextHeight += getLineSpacing(labelNr);
+        }
+
+        if (m_Scroll != nullptr)
+        {
+            m_Scroll->setMaximum(static_cast<unsigned int>(m_FullTextHeight));
+            if (m_Scroll->getMaximum() > m_Scroll->getLowValue())
+                m_Scroll->setValue(m_Scroll->getMaximum() - m_Scroll->getLowValue());
+        }
+
+        // Reposition the labels
+        updateDisplayedText();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -570,6 +588,15 @@ namespace tgui
     void ChatBox::setLineSpacing(unsigned int lineSpacing)
     {
         m_LineSpacing = lineSpacing;
+
+        updateDisplayedText();
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void ChatBox::setLinesStartFromBottom(bool startFromBottom)
+    {
+        m_LinesStartFromBottom = startFromBottom;
 
         updateDisplayedText();
     }
@@ -936,7 +963,7 @@ namespace tgui
         else if (property == "lines")
         {
             std::vector<sf::String> lines;
-            std::vector<Widget::Ptr>& labels = m_Panel->getWidgets();
+            const std::vector<Widget::Ptr>& labels = m_Panel->getWidgets();
 
             for (auto it = labels.cbegin(); it != labels.cend(); ++it)
                 lines.push_back("(" + Label::Ptr(*it)->getText() + "," + convertColorToString(Label::Ptr(*it)->getTextColor()) + ")");
@@ -966,12 +993,25 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	size_t ChatBox::getLineSpacing(size_t lineNumber)
+    unsigned int ChatBox::getLineSpacing(unsigned int lineNumber)
     {
         assert(lineNumber < m_Panel->getWidgets().size());
 
         auto line = tgui::Label::Ptr(m_Panel->getWidgets()[lineNumber]);
-		return static_cast<size_t>(std::ceil(line->getSize().y + m_LineSpacing));
+
+        // Count the amount of lines that the label is taking
+        std::string lineText = line->getText().toAnsiString();
+        int linesOfText = std::count(lineText.begin(), lineText.end(), '\n') + 1;
+
+        // If a line spacing was manually set then just return that one
+        if (m_LineSpacing > 0)
+            return m_LineSpacing * linesOfText;
+
+        unsigned int lineSpacing = static_cast<unsigned int>(m_Panel->getGlobalFont().getLineSpacing(line->getTextSize()));
+        if (lineSpacing > line->getTextSize())
+            return lineSpacing * linesOfText;
+        else
+            return static_cast<unsigned int>(std::ceil(line->getTextSize() * 13.5 / 10.0) * linesOfText);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -990,12 +1030,20 @@ namespace tgui
         if (m_Scroll)
             position -= static_cast<float>(m_Scroll->getValue());
 
+        sf::Text tempText("k", m_Panel->getGlobalFont(), 20);
+
         auto& labels = m_Panel->getWidgets();
         for (unsigned int i = 0; i < labels.size(); ++i)
         {
             tgui::Label::Ptr label = labels[i];
-            label->setPosition(2.0f, position);
 
+            // Not every line has the same height
+            float positionFix = 0;
+            tempText.setCharacterSize(label->getTextSize());
+            if (tempText.getLocalBounds().height > label->getSize().y)
+                positionFix = tempText.getLocalBounds().height - label->getSize().y;
+
+            label->setPosition(2.0f, position + positionFix);
             position += getLineSpacing(i);
         }
 
@@ -1010,17 +1058,27 @@ namespace tgui
                     (*it)->setPosition((*it)->getPosition().x, (*it)->getPosition().y - diff);
             }
         }
+
+        // Put the lines at the bottom of the chat box if needed
+        if (m_LinesStartFromBottom && (position < m_Panel->getSize().y))
+        {
+            float diff = m_Panel->getSize().y - position;
+            for (auto it = labels.begin(); it != labels.end(); ++it)
+                (*it)->setPosition((*it)->getPosition().x, (*it)->getPosition().y + diff);
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void ChatBox::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
-        // Adjust the transformation
-        states.transform *= getTransform();
+        m_Panel->setPosition(getAbsolutePosition());
 
         // Draw the panel
-        target.draw(*m_Panel, states);
+        target.draw(*m_Panel);
+
+        // Adjust the transformation
+        states.transform *= getTransform();
 
         // Draw left border
         sf::RectangleShape border(sf::Vector2f(static_cast<float>(m_LeftBorder), m_Panel->getSize().y + m_TopBorder));

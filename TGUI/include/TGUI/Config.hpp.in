@@ -22,44 +22,50 @@
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-#ifndef TGUI_FORM_BUILDER_MENU_BAR_HPP
-#define TGUI_FORM_BUILDER_MENU_BAR_HPP
-
-#include <TGUI/TGUI.hpp>
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-class MenuBar
-{
-public:
-
-    MenuBar(tgui::Gui& gui);
-
-    void addMenuItem(const std::string& menu, const std::string& item);
-    void removeMenuItem(const std::string& menu, const std::string& item);
-
-    void addMenuOrder(const std::string& menuName);
-    void addMenuItemOrder(const std::string& menuName, const std::string& itemName);
+#ifndef TGUI_CONFIG_HPP
+#define TGUI_CONFIG_HPP
 
 
-private:
+#ifndef SFML_STATIC
 
-    struct Menu
-    {
-        Menu(const std::string& menuName) : text(menuName) {}
-        Menu(const std::string& menuName, const std::string& itemName) : text(menuName), menuItems(1, itemName) {}
+    #ifdef SFML_SYSTEM_WINDOWS
 
-        std::string text;
-        std::vector<std::string> menuItems;
-    };
+        // Windows compilers need specific (and different) keywords for export and import
+        #ifdef tgui_EXPORTS
+            #define TGUI_API __declspec(dllexport)
+        #else
+            #define TGUI_API __declspec(dllimport)
+        #endif
 
-    tgui::MenuBar::Ptr m_Menu;
+        // For Visual C++ compilers, we also need to turn off this annoying C4251 warning
+        #ifdef _MSC_VER
+            #pragma warning(disable: 4251)
+        #endif
 
-    std::vector<Menu> m_Menus;
-    std::vector<Menu> m_MenuOrder;
-};
+    #else // Linux, FreeBSD, Mac OS X
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // GCC 4 has special keywords for showing/hidding symbols
+        #if __GNUC__ >= 4
+            #define TGUI_API __attribute__ ((__visibility__ ("default")))
+        #else
+            #define TGUI_API
+        #endif
 
-#endif // TGUI_FORM_BUILDER_FORM_HPP
+    #endif
+
+#else
+
+    // Static build doesn't need import/export macros
+    #define TGUI_API
+    #define TGUI_API
+
+#endif
+
+
+// Version of the library
+#define TGUI_VERSION_MAJOR @MAJOR_VERSION@
+#define TGUI_VERSION_MINOR @MINOR_VERSION@
+#define TGUI_VERSION_PATCH @PATCH_VERSION@
+
+
+#endif // TGUI_CONFIG_HPP

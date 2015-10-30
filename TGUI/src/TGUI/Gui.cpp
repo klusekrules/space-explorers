@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -22,10 +22,10 @@
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
 #include <SFML/OpenGL.hpp>
 
 #include <TGUI/SharedWidgetPtr.inl>
+#include <TGUI/Clipboard.hpp>
 #include <TGUI/Gui.hpp>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -35,39 +35,65 @@ namespace tgui
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     Gui::Gui() :
-    m_Window (nullptr),
-    m_Focused(true)
+        m_Window        (nullptr),
+        m_accessToWindow(false)
     {
         m_Container.bindGlobalCallback(&Gui::addChildCallback, this);
 
-        // The main window is always focused
-        m_Container.m_ContainerFocused = true;
+        m_Container.m_Focused = true;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     Gui::Gui(sf::RenderWindow& window) :
-    m_Window (&window),
-    m_Focused(true)
+        m_Window        (&window),
+        m_accessToWindow(true)
     {
         m_Container.m_Window = &window;
         m_Container.bindGlobalCallback(&Gui::addChildCallback, this);
 
-        // The main window is always focused
-        m_Container.m_ContainerFocused = true;
+        m_Container.m_Focused = true;
+
+        TGUI_Clipboard.setWindowHandle(window.getSystemHandle());
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    Gui::Gui(sf::RenderTarget& window) :
+        m_Window        (&window),
+        m_accessToWindow(false)
+    {
+        m_Container.m_Window = &window;
+        m_Container.bindGlobalCallback(&Gui::addChildCallback, this);
+
+        m_Container.m_Focused = true;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void Gui::setWindow(sf::RenderWindow& window)
     {
+        m_accessToWindow = true;
+
+        m_Window = &window;
+        m_Container.m_Window = &window;
+
+        TGUI_Clipboard.setWindowHandle(window.getSystemHandle());
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Gui::setWindow(sf::RenderTarget& window)
+    {
+        m_accessToWindow = false;
+
         m_Window = &window;
         m_Container.m_Window = &window;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    sf::RenderWindow* Gui::getWindow()
+    sf::RenderTarget* Gui::getWindow() const
     {
         return m_Window;
     }
@@ -117,11 +143,14 @@ namespace tgui
         // Keep track of whether the window is focused or not
         else if (event.type == sf::Event::LostFocus)
         {
-            m_Focused = false;
+            m_Container.m_Focused = false;
         }
         else if (event.type == sf::Event::GainedFocus)
         {
-            m_Focused = true;
+            m_Container.m_Focused = true;
+
+            if (m_accessToWindow)
+                TGUI_Clipboard.setWindowHandle(static_cast<sf::RenderWindow*>(m_Window)->getSystemHandle());
         }
 
         // Let the event manager handle the event
@@ -132,6 +161,12 @@ namespace tgui
 
     void Gui::draw(bool resetView)
     {
+        // Make sure the right opengl context is set when clipping
+        if (dynamic_cast<sf::RenderWindow*>(m_Window))
+            dynamic_cast<sf::RenderWindow*>(m_Window)->setActive(true);
+        else if (dynamic_cast<sf::RenderTexture*>(m_Window))
+            dynamic_cast<sf::RenderTexture*>(m_Window)->setActive(true);
+
         sf::View oldView = m_Window->getView();
 
         // Reset the view when requested
@@ -139,7 +174,7 @@ namespace tgui
             m_Window->setView(m_Window->getDefaultView());
 
         // Update the time
-        if (m_Focused)
+        if (m_Container.m_Focused)
             updateTime(m_Clock.restart());
         else
             m_Clock.restart();
@@ -193,9 +228,9 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool Gui::hasFocus()
+    bool Gui::hasFocus() const
     {
-        return m_Focused;
+        return m_Container.m_Focused;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -203,6 +238,13 @@ namespace tgui
     sf::Vector2f Gui::getSize() const
     {
         return sf::Vector2f(m_Window->getSize());
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    Container& Gui::getContainer()
+    {
+        return m_Container;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -228,14 +270,14 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    std::vector< Widget::Ptr >& Gui::getWidgets()
+    const std::vector< Widget::Ptr >& Gui::getWidgets()
     {
         return m_Container.getWidgets();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    std::vector<sf::String>& Gui::getWidgetNames()
+    const std::vector<sf::String>& Gui::getWidgetNames()
     {
         return m_Container.getWidgetNames();
     }
@@ -249,9 +291,9 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    Widget::Ptr Gui::get(const sf::String& widgetName) const
+    Widget::Ptr Gui::get(const sf::String& widgetName, bool recursive) const
     {
-        return m_Container.get(widgetName);
+        return m_Container.get(widgetName, recursive);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -27,7 +27,7 @@
 #include <TGUI/RadioButton.hpp>
 
 #include <cmath>
-#include <TGUI\TGUI.hpp>
+#include <TGUI/TGUI.hpp>
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace tgui
@@ -105,7 +105,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool RadioButton::load(const std::string& configFileFilename)
+    bool RadioButton::load(const std::string& configFileFilename, const std::string& sectionName)
     {
         m_LoadedConfigFile = getResourcePath() + configFileFilename;
 
@@ -129,7 +129,7 @@ namespace tgui
         // Read the properties and their values (as strings)
         std::vector<std::string> properties;
         std::vector<std::string> values;
-        if (!configFile.read("RadioButton", properties, values))
+        if (!configFile.read(sectionName, properties, values))
         {
             TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile + ".");
             return false;
@@ -347,16 +347,9 @@ namespace tgui
 
         // Check if the text is auto sized
         if (m_TextSize == 0)
-        {
-            // Set the text size
-            m_Text.setCharacterSize(static_cast<unsigned int>(m_Size.y));
-            m_Text.setCharacterSize(static_cast<unsigned int>(m_Text.getCharacterSize() - m_Text.getLocalBounds().top));
-        }
-        else // When the text has a fixed size
-        {
-            // Set the text size
+            m_Text.setCharacterSize(static_cast<unsigned int>(m_Size.y * 0.75f));
+        else
             m_Text.setCharacterSize(m_TextSize);
-        }
 
         // Reposition the text
         setPosition(getPosition());
@@ -374,6 +367,7 @@ namespace tgui
     void RadioButton::setTextFont(const sf::Font& font)
     {
         m_Text.setFont(font);
+        setText(getText());
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -500,10 +494,10 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void RadioButton::keyPressed(sf::Keyboard::Key key)
+    void RadioButton::keyPressed(const sf::Event::KeyEvent& event)
     {
         // Check if the space key or the return key was pressed
-        if (key == sf::Keyboard::Space)
+        if (event.code == sf::Keyboard::Space)
         {
             // Check the radio button
             check();
@@ -516,7 +510,7 @@ namespace tgui
                 addCallback();
             }
         }
-        else if (key == sf::Keyboard::Return)
+        else if (event.code == sf::Keyboard::Return)
         {
             // Check the radio button
             check();
@@ -679,7 +673,7 @@ namespace tgui
     void RadioButton::initialize(Container *const parent)
     {
         m_Parent = parent;
-        m_Text.setFont(m_Parent->getGlobalFont());
+        setTextFont(m_Parent->getGlobalFont());
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

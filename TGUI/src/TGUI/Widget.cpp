@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -113,6 +113,16 @@ namespace tgui
         }
 
         return *this;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    sf::Vector2f Widget::getAbsolutePosition() const
+    {
+        if (m_Parent)
+            return m_Parent->getAbsolutePosition() + m_Parent->getWidgetsOffset() + getPosition();
+        else
+            return getPosition();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -328,7 +338,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void Widget::keyPressed(sf::Keyboard::Key)
+    void Widget::keyPressed(const sf::Event::KeyEvent&)
     {
     }
 
@@ -427,16 +437,16 @@ namespace tgui
             else
                 TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
         }
-		else if(property == "focused")
-		{
-			if ((value == "true") || (value == "True"))
-				focus();
-			else if ((value == "false") || (value == "False"))
-				unfocus();
-			else
-				TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
-		}
-		else if (property == "transparency")
+        else if(property == "focused")
+        {
+            if ((value == "true") || (value == "True"))
+                focus();
+            else if ((value == "false") || (value == "False"))
+                unfocus();
+            else
+                TGUI_OUTPUT("TGUI error: Failed to parse 'Focused' property.");
+        }
+        else if (property == "transparency")
         {
             setTransparency(static_cast<char>(atoi(value.c_str())));
         }
@@ -486,9 +496,9 @@ namespace tgui
             value = m_Visible ? "true" : "false";
         else if (property == "enabled")
             value = m_Enabled ? "true" : "false";
-		else if (property == "focused")
-			value = isFocused() ? "true" : "false";
-		else if (property == "transparency")
+        else if (property == "focused")
+            value = m_Focused ? "true" : "false";
+        else if (property == "transparency")
             value = to_string(int(getTransparency()));
         else if (property == "callbackid")
             value = to_string(m_Callback.id);
@@ -524,8 +534,8 @@ namespace tgui
         list.push_back(std::pair<std::string, std::string>("Width", "uint"));
         list.push_back(std::pair<std::string, std::string>("Height", "uint"));
         list.push_back(std::pair<std::string, std::string>("Visible", "bool"));
-		list.push_back(std::pair<std::string, std::string>("Enabled", "bool"));
-		list.push_back(std::pair<std::string, std::string>("Focused", "bool"));
+        list.push_back(std::pair<std::string, std::string>("Enabled", "bool"));
+        list.push_back(std::pair<std::string, std::string>("Focused", "bool"));
         list.push_back(std::pair<std::string, std::string>("Transparency", "byte"));
         list.push_back(std::pair<std::string, std::string>("Callback", "custom"));
         list.push_back(std::pair<std::string, std::string>("CallbackId", "uint"));
@@ -547,6 +557,12 @@ namespace tgui
     m_TopBorder   (0),
     m_RightBorder (0),
     m_BottomBorder(0)
+    {
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    WidgetBorders::~WidgetBorders()
     {
     }
 

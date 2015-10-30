@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -25,7 +25,7 @@
 
 #include <TGUI/Container.hpp>
 #include <TGUI/SpinButton.hpp>
-#include <TGUI\TGUI.hpp>
+#include <TGUI/TGUI.hpp>
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace tgui
@@ -112,7 +112,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool SpinButton::load(const std::string& configFileFilename)
+    bool SpinButton::load(const std::string& configFileFilename, const std::string& sectionName)
     {
         m_LoadedConfigFile = getResourcePath() + configFileFilename;
 
@@ -136,7 +136,7 @@ namespace tgui
         // Read the properties and their values (as strings)
         std::vector<std::string> properties;
         std::vector<std::string> values;
-        if (!configFile.read("SpinButton", properties, values))
+        if (!configFile.read(sectionName, properties, values))
         {
             TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile + ".");
             return false;
@@ -338,7 +338,7 @@ namespace tgui
 
     void SpinButton::leftMousePressed(float x, float y)
     {
-        m_MouseDown = true;
+        ClickableWidget::leftMousePressed(x, y);
 
         // Check if the mouse is on top of the upper/right arrow
         if (m_VerticalScroll)
@@ -361,11 +361,11 @@ namespace tgui
 
     void SpinButton::leftMouseReleased(float x, float y)
     {
+        ClickableWidget::leftMouseReleased(x, y);
+
         // Check if the mouse went down on the spin button
         if (m_MouseDown)
         {
-            m_MouseDown = false;
-
             // Check if the arrow went down on the top/right arrow
             if (m_MouseDownOnTopArrow)
             {

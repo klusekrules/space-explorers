@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -95,7 +95,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool MessageBox::load(const std::string& configFileFilename)
+    bool MessageBox::load(const std::string& configFileFilename, const std::string& sectionName)
     {
         m_LoadedConfigFile = getResourcePath() + configFileFilename;
 
@@ -113,7 +113,7 @@ namespace tgui
         // Read the properties and their values (as strings)
         std::vector<std::string> properties;
         std::vector<std::string> values;
-        if (!configFile.read("MessageBox", properties, values))
+        if (!configFile.read(sectionName, properties, values))
         {
             TGUI_OUTPUT("TGUI error: Failed to parse " + m_LoadedConfigFile + ".");
             return false;
@@ -322,7 +322,7 @@ namespace tgui
         }
         else if (property == "callback")
         {
-            Widget::setProperty(property, value);
+            ChildWindow::setProperty(property, value);
 
             std::vector<sf::String> callbacks;
             decodeList(value, callbacks);
@@ -363,7 +363,7 @@ namespace tgui
         else if (property == "callback")
         {
             std::string tempValue;
-            Widget::getProperty(property, tempValue);
+            ChildWindow::getProperty(property, tempValue);
 
             std::vector<sf::String> callbacks;
 
