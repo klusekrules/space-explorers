@@ -23,9 +23,12 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include <TGUI/Widget.hpp>
-#include <TGUI/SharedWidgetPtr.inl>
+#include <TGUI/Loading/Theme.hpp>
+#include <TGUI/Widgets/ToolTip.hpp>
 #include <TGUI/Container.hpp>
+#include <TGUI/Animation.hpp>
+
+#include <cassert>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -33,83 +36,89 @@ namespace tgui
 {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    Widget::Widget() :
-    m_Enabled        (true),
-    m_Visible        (true),
-    m_Loaded         (false),
-    m_WidgetPhase    (0),
-    m_Parent         (nullptr),
-    m_Opacity        (255),
-    m_MouseHover     (false),
-    m_MouseDown      (false),
-    m_Focused        (false),
-    m_AllowFocus     (false),
-    m_AnimatedWidget (false),
-    m_DraggableWidget(false),
-    m_ContainerWidget(false)
+    Widget::Widget()
     {
-        m_Callback.widget = nullptr;
-        m_Callback.widgetType = Type_Unknown;
-        m_Callback.id = 0;
-    }
+        m_callback.widget = this;
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    Widget::Widget(const Widget& copy) :
-    sf::Drawable     (copy),
-    Transformable    (copy),
-    CallbackManager  (copy),
-    m_Enabled        (copy.m_Enabled),
-    m_Visible        (copy.m_Visible),
-    m_Loaded         (copy.m_Loaded),
-    m_WidgetPhase    (copy.m_WidgetPhase),
-    m_Parent         (copy.m_Parent),
-    m_Opacity        (copy.m_Opacity),
-    m_MouseHover     (false),
-    m_MouseDown      (false),
-    m_Focused        (false),
-    m_AllowFocus     (copy.m_AllowFocus),
-    m_AnimatedWidget (copy.m_AnimatedWidget),
-    m_DraggableWidget(copy.m_DraggableWidget),
-    m_ContainerWidget(copy.m_ContainerWidget)
-    {
-        m_Callback.widget = nullptr;
+        addSignal<sf::Vector2f>("PositionChanged");
+        addSignal<sf::Vector2f>("SizeChanged");
+        addSignal("Focused");
+        addSignal("Unfocused");
+        addSignal("MouseEntered");
+        addSignal("MouseLeft");
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     Widget::~Widget()
     {
+        detachTheme();
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    Widget::Widget(const Widget& copy) :
+        sf::Drawable     {copy},
+        Transformable    {copy},
+        SignalWidgetBase {copy},
+        enable_shared_from_this<Widget>{copy},
+        m_enabled        {copy.m_enabled},
+        m_visible        {copy.m_visible},
+        m_parent         {copy.m_parent},
+        m_opacity        {copy.m_opacity},
+        m_mouseHover     {false},
+        m_mouseDown      {false},
+        m_focused        {false},
+        m_allowFocus     {copy.m_allowFocus},
+        m_draggableWidget{copy.m_draggableWidget},
+        m_containerWidget{copy.m_containerWidget},
+        m_font           {copy.m_font}
+    {
+        m_callback.widget = this;
+
+        if (copy.m_toolTip != nullptr)
+            m_toolTip = copy.m_toolTip->clone();
+
+        if (copy.m_renderer != nullptr)
+            m_renderer = copy.m_renderer->clone(this);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     Widget& Widget::operator= (const Widget& right)
     {
-        // Make sure it is not the same widget
         if (this != &right)
         {
-            this->sf::Drawable::operator=(right);
-            this->Transformable::operator=(right);
-            this->CallbackManager::operator=(right);
+            sf::Drawable::operator=(right);
+            Transformable::operator=(right);
+            SignalWidgetBase::operator=(right);
+            enable_shared_from_this::operator=(right);
 
-            m_Enabled             = right.m_Enabled;
-            m_Visible             = right.m_Visible;
-            m_Loaded              = right.m_Loaded;
-            m_WidgetPhase         = right.m_WidgetPhase;
-            m_Parent              = right.m_Parent;
-            m_Opacity             = right.m_Opacity;
-            m_MouseHover          = false;
-            m_MouseDown           = false;
-            m_Focused             = false;
-            m_AllowFocus          = right.m_AllowFocus;
-            m_AnimatedWidget      = right.m_AnimatedWidget;
-            m_DraggableWidget     = right.m_DraggableWidget;
-            m_ContainerWidget     = right.m_ContainerWidget;
-            m_Callback            = Callback();
-            m_Callback.widget     = nullptr;
-            m_Callback.widgetType = right.m_Callback.widgetType;
-            m_Callback.id         = right.m_Callback.id;
+            m_enabled         = right.m_enabled;
+            m_visible         = right.m_visible;
+            m_parent          = right.m_parent;
+            m_opacity         = right.m_opacity;
+            m_mouseHover      = false;
+            m_mouseDown       = false;
+            m_focused         = false;
+            m_allowFocus      = right.m_allowFocus;
+            m_draggableWidget = right.m_draggableWidget;
+            m_containerWidget = right.m_containerWidget;
+            m_font            = right.m_font;
+            m_callback.widget = this;
+
+            if (right.m_toolTip != nullptr)
+                m_toolTip = right.m_toolTip->clone();
+            else
+                m_toolTip = nullptr;
+
+            if (right.m_renderer != nullptr)
+                m_renderer = right.m_renderer->clone(this);
+            else
+                m_renderer = nullptr;
+
+            // Animations can't be copied
+            m_showAnimations = {};
         }
 
         return *this;
@@ -117,10 +126,52 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    void Widget::setPosition(const Layout2d& position)
+    {
+        if (position.x.getImpl()->parentWidget != this)
+        {
+            position.x.getImpl()->parentWidget = this;
+            position.x.getImpl()->recalculate();
+        }
+        if (position.y.getImpl()->parentWidget != this)
+        {
+            position.y.getImpl()->parentWidget = this;
+            position.y.getImpl()->recalculate();
+        }
+
+        Transformable::setPosition(position);
+
+        m_callback.position = getPosition();
+        sendSignal("PositionChanged", getPosition());
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Widget::setSize(const Layout2d& size)
+    {
+        if (size.x.getImpl()->parentWidget != this)
+        {
+            size.x.getImpl()->parentWidget = this;
+            size.x.getImpl()->recalculate();
+        }
+        if (size.y.getImpl()->parentWidget != this)
+        {
+            size.y.getImpl()->parentWidget = this;
+            size.y.getImpl()->recalculate();
+        }
+
+        Transformable::setSize(size);
+
+        m_callback.size = getSize();
+        sendSignal("SizeChanged", getSize());
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     sf::Vector2f Widget::getAbsolutePosition() const
     {
-        if (m_Parent)
-            return m_Parent->getAbsolutePosition() + m_Parent->getWidgetsOffset() + getPosition();
+        if (m_parent)
+            return m_parent->getAbsolutePosition() + m_parent->getWidgetsOffset() + getPosition();
         else
             return getPosition();
     }
@@ -129,14 +180,74 @@ namespace tgui
 
     void Widget::show()
     {
-        m_Visible = true;
+        m_visible = true;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Widget::showWithEffect(ShowAnimationType type, sf::Time duration)
+    {
+        show();
+
+        switch (type)
+        {
+            case ShowAnimationType::Fade:
+            {
+                m_showAnimations.push_back(std::make_shared<priv::FadeAnimation>(shared_from_this(), 0.f, getOpacity(), duration));
+                setOpacity(0);
+                break;
+            }
+            case ShowAnimationType::Scale:
+            {
+                m_showAnimations.push_back(std::make_shared<priv::ScaleAnimation>(shared_from_this(), getPosition() + (getSize() / 2.f), getPosition(), sf::Vector2f{0, 0}, getSize(), duration));
+                setPosition(getPosition() + (getSize() / 2.f));
+                setSize(0, 0);
+                break;
+            }
+            case ShowAnimationType::SlideToRight:
+            {
+                m_showAnimations.push_back(std::make_shared<priv::MoveAnimation>(shared_from_this(), sf::Vector2f{-getFullSize().x, getPosition().y}, getPosition(), duration));
+                setPosition({-getSize().x, getPosition().y});
+                break;
+            }
+            case ShowAnimationType::SlideToLeft:
+            {
+                if (getParent())
+                {
+                    m_showAnimations.push_back(std::make_shared<priv::MoveAnimation>(shared_from_this(), sf::Vector2f{getParent()->getSize().x, getPosition().y}, getPosition(), duration));
+                    setPosition({getParent()->getSize().x, getPosition().y});
+                }
+                else
+                    sf::err() << "TGUI Warning: showWithEffect(SlideToLeft) does not work before widget has a parent." << std::endl;
+
+                break;
+            }
+            case ShowAnimationType::SlideToBottom:
+            {
+                m_showAnimations.push_back(std::make_shared<priv::MoveAnimation>(shared_from_this(), sf::Vector2f{getPosition().x, -getFullSize().x}, getPosition(), duration));
+                setPosition({getPosition().x, -getSize().x});
+                break;
+            }
+            case ShowAnimationType::SlideToTop:
+            {
+                if (getParent())
+                {
+                    m_showAnimations.push_back(std::make_shared<priv::MoveAnimation>(shared_from_this(), sf::Vector2f{getPosition().x, getParent()->getSize().y}, getPosition(), duration));
+                    setPosition({getPosition().x, getParent()->getSize().y});
+                }
+                else
+                    sf::err() << "TGUI Warning: showWithEffect(SlideToTop) does not work before widget has a parent." << std::endl;
+
+                break;
+            }
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void Widget::hide()
     {
-        m_Visible = false;
+        m_visible = false;
 
         // If the widget is focused then it must be unfocused
         unfocus();
@@ -144,27 +255,71 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool Widget::isVisible() const
+    void Widget::hideWithEffect(ShowAnimationType type, sf::Time duration)
     {
-        return m_Visible;
+        auto opacity = getOpacity();
+        auto position = getPosition();
+        auto size = getSize();
+
+        switch (type)
+        {
+            case ShowAnimationType::Fade:
+            {
+                m_showAnimations.push_back(std::make_shared<priv::FadeAnimation>(shared_from_this(), opacity, 0.f, duration, [=](){ hide(); setOpacity(opacity); }));
+                break;
+            }
+            case ShowAnimationType::Scale:
+            {
+                m_showAnimations.push_back(std::make_shared<priv::ScaleAnimation>(shared_from_this(), position, position + (size / 2.f), size, sf::Vector2f{0, 0}, duration, [=](){ hide(); setPosition(position); setSize(size); }));
+                break;
+            }
+            case ShowAnimationType::SlideToRight:
+            {
+                if (getParent())
+                    m_showAnimations.push_back(std::make_shared<priv::MoveAnimation>(shared_from_this(), position, sf::Vector2f{getParent()->getSize().x, position.y}, duration, [=](){ hide(); setPosition(position); }));
+                else
+                    sf::err() << "TGUI Warning: showWithEffect(SlideToRight) does not work before widget has a parent." << std::endl;
+
+                break;
+            }
+            case ShowAnimationType::SlideToLeft:
+            {
+                m_showAnimations.push_back(std::make_shared<priv::MoveAnimation>(shared_from_this(), position, sf::Vector2f{-getFullSize().x, position.y}, duration, [=](){ hide(); setPosition(position); }));
+                break;
+            }
+            case ShowAnimationType::SlideToBottom:
+            {
+                if (getParent())
+                    m_showAnimations.push_back(std::make_shared<priv::MoveAnimation>(shared_from_this(), position, sf::Vector2f{position.x, getParent()->getSize().y}, duration, [=](){ hide(); setPosition(position); }));
+                else
+                    sf::err() << "TGUI Warning: showWithEffect(SlideToBottom) does not work before widget has a parent." << std::endl;
+
+                break;
+            }
+            case ShowAnimationType::SlideToTop:
+            {
+                m_showAnimations.push_back(std::make_shared<priv::MoveAnimation>(shared_from_this(), position, sf::Vector2f{position.x, -getFullSize().x}, duration, [=](){ hide(); setPosition(position); }));
+                break;
+            }
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void Widget::enable()
     {
-        m_Enabled = true;
+        m_enabled = true;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void Widget::disable()
     {
-        m_Enabled = false;
+        m_enabled = false;
 
         // Change the mouse button state.
-        m_MouseHover = false;
-        m_MouseDown = false;
+        m_mouseHover = false;
+        m_mouseDown = false;
 
         // If the widget is focused then it must be unfocused
         unfocus();
@@ -172,145 +327,97 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool Widget::isEnabled() const
-    {
-        return m_Enabled;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    bool Widget::isDisabled() const
-    {
-        return !m_Enabled;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    bool Widget::isLoaded() const
-    {
-        return m_Loaded;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     void Widget::focus()
     {
-        if (m_Parent)
-            m_Parent->focusWidget(this);
+        if (m_parent)
+            m_parent->focusWidget(this);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void Widget::unfocus()
     {
-        if (m_Focused)
-            m_Parent->unfocusWidgets();
+        if (m_focused)
+            m_parent->unfocusWidgets();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool Widget::isFocused() const
+    void Widget::setOpacity(float opacity)
     {
-        return m_Focused;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    WidgetTypes Widget::getWidgetType() const
-    {
-        return m_Callback.widgetType;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    Container* Widget::getParent() const
-    {
-        return m_Parent;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void Widget::setTransparency(unsigned char transparency)
-    {
-        m_Opacity = transparency;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    unsigned char Widget::getTransparency() const
-    {
-        return m_Opacity;
+        if (opacity < 0)
+            m_opacity = 0;
+        else if (opacity > 1)
+            m_opacity = 1;
+        else
+            m_opacity = opacity;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void Widget::moveToFront()
     {
-        m_Parent->moveWidgetToFront(this);
+        m_parent->moveWidgetToFront(this);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void Widget::moveToBack()
     {
-        m_Parent->moveWidgetToBack(this);
+        m_parent->moveWidgetToBack(this);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void Widget::setCallbackId(unsigned int callbackId)
+    void Widget::setToolTip(Widget::Ptr toolTip)
     {
-        m_Callback.id = callbackId;
+        m_toolTip = toolTip;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    unsigned int Widget::getCallbackId()
+    Widget::Ptr Widget::getToolTip()
     {
-        return m_Callback.id;
+        return m_toolTip;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void Widget::update()
+    void Widget::setFont(const Font& font)
     {
+        m_font = font.getFont();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void Widget::addCallback()
+    std::shared_ptr<sf::Font> Widget::getFont() const
     {
-        // Loop through all callback functions
-        auto& functions = m_CallbackFunctions[m_Callback.trigger];
-        for (auto func = functions.cbegin(); func != functions.cend(); ++func)
+        return m_font;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Widget::detachTheme()
+    {
+        if (m_theme)
         {
-            // Pass the callback to the correct place
-            if (*func != nullptr)
-                (*func)();
+            m_theme->widgetDetached(this);
+            m_theme = nullptr;
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Widget::update(sf::Time elapsedTime)
+    {
+        m_animationTimeElapsed += elapsedTime;
+
+        for (unsigned int i = 0; i < m_showAnimations.size();)
+        {
+            if (m_showAnimations[i]->update(elapsedTime))
+                m_showAnimations.erase(m_showAnimations.begin() + i);
             else
-                m_Parent->addChildCallback(m_Callback);
-        }
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void Widget::mouseEnteredWidget()
-    {
-        if (m_CallbackFunctions[MouseEntered].empty() == false)
-        {
-            m_Callback.trigger = MouseEntered;
-            addCallback();
-        }
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void Widget::mouseLeftWidget()
-    {
-        if (m_CallbackFunctions[MouseLeft].empty() == false)
-        {
-            m_Callback.trigger = MouseLeft;
-            addCallback();
+                i++;
         }
     }
 
@@ -330,10 +437,8 @@ namespace tgui
 
     void Widget::mouseMoved(float, float)
     {
-        if (m_MouseHover == false)
+        if (!m_mouseHover)
             mouseEnteredWidget();
-
-        m_MouseHover = true;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -358,219 +463,121 @@ namespace tgui
 
     void Widget::widgetFocused()
     {
-        if (m_CallbackFunctions[Focused].empty() == false)
-        {
-            m_Callback.trigger = Focused;
-            addCallback();
-        }
+        sendSignal("Focused");
 
         // Make sure the parent is also focused
-        if (m_Parent)
-            m_Parent->focus();
+        if (m_parent)
+            m_parent->focus();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void Widget::widgetUnfocused()
     {
-        if (m_CallbackFunctions[Unfocused].empty() == false)
-        {
-            m_Callback.trigger = Unfocused;
-            addCallback();
-        }
+        sendSignal("Unfocused");
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void Widget::mouseNotOnWidget()
     {
-        if (m_MouseHover == true)
+        if (m_mouseHover == true)
             mouseLeftWidget();
-
-        m_MouseHover = false;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void Widget::mouseNoLongerDown()
     {
-        m_MouseDown = false;
+        m_mouseDown = false;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool Widget::setProperty(std::string property, const std::string& value)
+    Widget::Ptr Widget::askToolTip(sf::Vector2f mousePos)
     {
-        property = toLower(property);
-
-        if (property == "left")
-        {
-            setPosition(static_cast<float>(atof(value.c_str())), getPosition().y);
-        }
-        else if (property == "top")
-        {
-            setPosition(getPosition().x, static_cast<float>(atof(value.c_str())));
-        }
-        else if (property == "width")
-        {
-            setSize(static_cast<float>(atof(value.c_str())), getSize().y);
-        }
-        else if (property == "height")
-        {
-            setSize(getSize().x, static_cast<float>(atof(value.c_str())));
-        }
-        else if (property == "visible")
-        {
-            if ((value == "true") || (value == "True"))
-                m_Visible = true;
-            else if ((value == "false") || (value == "False"))
-                m_Visible = false;
-            else
-                TGUI_OUTPUT("TGUI error: Failed to parse 'Visible' property.");
-        }
-        else if (property == "enabled")
-        {
-            if ((value == "true") || (value == "True"))
-                m_Enabled = true;
-            else if ((value == "false") || (value == "False"))
-                m_Enabled = false;
-            else
-                TGUI_OUTPUT("TGUI error: Failed to parse 'Enabled' property.");
-        }
-        else if(property == "focused")
-        {
-            if ((value == "true") || (value == "True"))
-                focus();
-            else if ((value == "false") || (value == "False"))
-                unfocus();
-            else
-                TGUI_OUTPUT("TGUI error: Failed to parse 'Focused' property.");
-        }
-        else if (property == "transparency")
-        {
-            setTransparency(static_cast<char>(atoi(value.c_str())));
-        }
-        else if (property == "callbackid")
-        {
-            m_Callback.id = static_cast<unsigned int>(std::atoi(value.c_str()));
-        }
-        else if (property == "callback")
-        {
-            std::vector<sf::String> callbacks;
-            decodeList(value, callbacks);
-
-            for (auto it = callbacks.begin(); it != callbacks.end(); ++it)
-            {
-                if ((*it == "Focused") || (*it == "focused"))
-                    bindCallback(Focused);
-                else if ((*it == "Unfocused") || (*it == "unfocused"))
-                    bindCallback(Unfocused);
-                else if ((*it == "MouseEntered") || (*it == "mouseentered"))
-                    bindCallback(MouseEntered);
-                else if ((*it == "MouseLeft") || (*it == "mouseleft"))
-                    bindCallback(MouseLeft);
-            }
-        }
-        else // The property didn't match
-            return false;
-
-        // You pass here when one of the properties matched
-        return true;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    bool Widget::getProperty(std::string property, std::string& value) const
-    {
-        property = toLower(property);
-
-        if (property == "left")
-            value = to_string(getPosition().x);
-        else if (property == "top")
-            value = to_string(getPosition().y);
-        else if (property == "width")
-            value = to_string(getSize().x);
-        else if (property == "height")
-            value = to_string(getSize().y);
-        else if (property == "visible")
-            value = m_Visible ? "true" : "false";
-        else if (property == "enabled")
-            value = m_Enabled ? "true" : "false";
-        else if (property == "focused")
-            value = m_Focused ? "true" : "false";
-        else if (property == "transparency")
-            value = to_string(int(getTransparency()));
-        else if (property == "callbackid")
-            value = to_string(m_Callback.id);
-        else if (property == "callback")
-        {
-            std::vector<sf::String> callbacks;
-
-            if ((m_CallbackFunctions.find(Focused) != m_CallbackFunctions.end()) && (m_CallbackFunctions.at(Focused).size() == 1) && (m_CallbackFunctions.at(Focused).front() == nullptr))
-                callbacks.push_back("Focused");
-            if ((m_CallbackFunctions.find(Unfocused) != m_CallbackFunctions.end()) && (m_CallbackFunctions.at(Unfocused).size() == 1) && (m_CallbackFunctions.at(Unfocused).front() == nullptr))
-                callbacks.push_back("Unfocused");
-            if ((m_CallbackFunctions.find(MouseEntered) != m_CallbackFunctions.end()) && (m_CallbackFunctions.at(MouseEntered).size() == 1) && (m_CallbackFunctions.at(MouseEntered).front() == nullptr))
-                callbacks.push_back("MouseEntered");
-            if ((m_CallbackFunctions.find(MouseLeft) != m_CallbackFunctions.end()) && (m_CallbackFunctions.at(MouseLeft).size() == 1) && (m_CallbackFunctions.at(MouseLeft).front() == nullptr))
-                callbacks.push_back("MouseLeft");
-
-            encodeList(callbacks, value);
-        }
-        else // The property didn't match
-            return false;
-
-        // You pass here when one of the properties matched
-        return true;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    std::list< std::pair<std::string, std::string> > Widget::getPropertyList() const
-    {
-        std::list< std::pair<std::string, std::string> > list;
-        list.push_back(std::pair<std::string, std::string>("Left", "int"));
-        list.push_back(std::pair<std::string, std::string>("Top", "int"));
-        list.push_back(std::pair<std::string, std::string>("Width", "uint"));
-        list.push_back(std::pair<std::string, std::string>("Height", "uint"));
-        list.push_back(std::pair<std::string, std::string>("Visible", "bool"));
-        list.push_back(std::pair<std::string, std::string>("Enabled", "bool"));
-        list.push_back(std::pair<std::string, std::string>("Focused", "bool"));
-        list.push_back(std::pair<std::string, std::string>("Transparency", "byte"));
-        list.push_back(std::pair<std::string, std::string>("Callback", "custom"));
-        list.push_back(std::pair<std::string, std::string>("CallbackId", "uint"));
-        return list;
+        if (m_toolTip && mouseOnWidget(mousePos.x, mousePos.y))
+            return getToolTip();
+        else
+            return nullptr;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void Widget::initialize(Container *const parent)
     {
-        m_Parent = parent;
+        assert(parent);
+
+        m_parent = parent;
+
+        m_position.x.getImpl()->recalculate();
+        m_position.y.getImpl()->recalculate();
+        m_size.x.getImpl()->recalculate();
+        m_size.y.getImpl()->recalculate();
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Widget::attachTheme(std::shared_ptr<BaseTheme> theme)
+    {
+        detachTheme();
+        m_theme = theme;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Widget::reload(const std::string& primary, const std::string& secondary, bool)
+    {
+        m_primaryLoadingParameter = primary;
+        m_secondaryLoadingParameter = secondary;
+
+        if (m_theme && primary != "")
+            m_theme->initWidget(this, primary, secondary);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Widget::mouseEnteredWidget()
+    {
+        m_mouseHover = true;
+        sendSignal("MouseEntered");
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Widget::mouseLeftWidget()
+    {
+        m_mouseHover = false;
+        sendSignal("MouseLeft");
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    WidgetBorders::WidgetBorders() :
-    m_LeftBorder  (0),
-    m_TopBorder   (0),
-    m_RightBorder (0),
-    m_BottomBorder(0)
+    void WidgetRenderer::setProperty(std::string property, const std::string&)
     {
+        throw Exception{"Could not set property '" + property + "', widget does not has this property."};
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    WidgetBorders::~WidgetBorders()
+    void WidgetRenderer::setProperty(std::string property, ObjectConverter&&)
     {
+        throw Exception{"Could not set property '" + property + "', widget does not has this property."};
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    Borders WidgetBorders::getBorders() const
+    ObjectConverter WidgetRenderer::getProperty(std::string) const
     {
-        return Borders(m_LeftBorder, m_TopBorder, m_RightBorder, m_BottomBorder);
+        return {};
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    std::map<std::string, ObjectConverter> WidgetRenderer::getPropertyValuePairs() const
+    {
+        return std::map<std::string, ObjectConverter>{};
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

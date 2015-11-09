@@ -37,17 +37,9 @@ namespace tgui
 {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    Clipboard::Clipboard() :
-        m_windowHandle     (),
-        m_isWindowHandleSet(false)
-    {
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    Clipboard::~Clipboard()
-    {
-    }
+    sf::String Clipboard::m_contents;
+    sf::WindowHandle Clipboard::m_windowHandle = sf::WindowHandle();
+    bool Clipboard::m_isWindowHandleSet = false;
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -97,7 +89,12 @@ namespace tgui
                     char* pchData = static_cast<char*>(GlobalLock(hGlobal));
                     if (pchData != NULL)
                     {
-                        memcpy(pchData, m_contents.toAnsiString().c_str(), m_contents.getSize() + 1);
+                        #if defined(_MSC_VER)
+                            strcpy_s(pchData, sizeof(pchData), m_contents.toAnsiString().c_str());
+                        #else
+                            strcpy(pchData, m_contents.toAnsiString().c_str());
+                        #endif
+
                         SetClipboardData(CF_TEXT, hGlobal);
 
                         GlobalUnlock(hGlobal);

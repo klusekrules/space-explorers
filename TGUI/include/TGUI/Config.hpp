@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2014 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -25,6 +25,9 @@
 #ifndef TGUI_CONFIG_HPP
 #define TGUI_CONFIG_HPP
 
+#include <SFML/Config.hpp>
+
+#include <SFML/Config.hpp>
 
 #ifndef SFML_STATIC
 
@@ -64,8 +67,8 @@
 
 // Version of the library
 #define TGUI_VERSION_MAJOR 0
-#define TGUI_VERSION_MINOR 6
-#define TGUI_VERSION_PATCH 2
+#define TGUI_VERSION_MINOR 7
+#define TGUI_VERSION_PATCH 0
 
 
 #endif // TGUI_CONFIG_HPP

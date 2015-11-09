@@ -25,22 +25,22 @@
 
 #include <TGUI/Global.hpp>
 #include <TGUI/Clipboard.hpp>
+#include <TGUI/Texture.hpp>
+#include <TGUI/Loading/Deserializer.hpp>
 
+#include <functional>
 #include <cctype>
+#include <cmath>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace tgui
 {
-    TextureManager TGUI_TextureManager;
-
     Clipboard TGUI_Clipboard;
 
     bool TGUI_TabKeyUsageEnabled = true;
 
-    std::string TGUI_ResourcePath = "";
-	
-	WidgetFactory TGUI_WidgetFactory;
+    TGUI_API std::string TGUI_ResourcePath = "";
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -78,411 +78,67 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    sf::Color extractColor(std::string string)
+    bool compareFloats(float x, float y)
     {
-        int red;
-        int green;
-        int blue;
-        int alpha = 255;
-
-        // Make sure that the line isn't empty
-        if (string.empty() == false)
-        {
-            // The first and last character have to be brackets
-            if ((string[0] == '(') && (string[string.length()-1] == ')'))
-            {
-                // Remove the brackets
-                string.erase(0, 1);
-                string.erase(string.length()-1);
-
-                // Search for the first comma
-                std::string::size_type commaPos = string.find(',');
-                if (commaPos != std::string::npos)
-                {
-                    // Get the red value and delete this part of the string
-                    red = atoi(string.substr(0, commaPos).c_str());
-                    string.erase(0, commaPos+1);
-
-                    // Search for the second comma
-                    commaPos = string.find(',');
-                    if (commaPos != std::string::npos)
-                    {
-                        // Get the green value and delete this part of the string
-                        green = atoi(string.substr(0, commaPos).c_str());
-                        string.erase(0, commaPos+1);
-
-                        // Search for the third comma (optional)
-                        commaPos = string.find(',');
-                        if (commaPos != std::string::npos)
-                        {
-                            // Get the blue value and delete this part of the string
-                            blue = atoi(string.substr(0, commaPos).c_str());
-                            string.erase(0, commaPos+1);
-
-                            // Get the alpha value
-                            alpha = atoi(string.c_str());
-                        }
-                        else // No alpha value was passed
-                        {
-                            // Get the blue value
-                            blue = atoi(string.substr(0, commaPos).c_str());
-                        }
-
-                        // All values have to be unsigned chars
-                        return sf::Color(static_cast <unsigned char> (red),
-                                         static_cast <unsigned char> (green),
-                                         static_cast <unsigned char> (blue),
-                                         static_cast <unsigned char> (alpha));
-                    }
-                }
-            }
-        }
-
-        // If you pass here then something is wrong about the line, the color will be black
-        return sf::Color::Black;
+        return (std::abs(x - y) < 0.00000001f);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    std::string convertColorToString(const sf::Color& color)
+    bool isWhitespace(char character)
     {
-        // Return the color as a string
-        if (color.a < 255)
-            return "(" + tgui::to_string((unsigned int)color.r)
-                 + "," + tgui::to_string((unsigned int)color.g)
-                 + "," + tgui::to_string((unsigned int)color.b)
-                 + "," + tgui::to_string((unsigned int)color.a)
-                 + ")";
+        if (character == ' ' || character == '\t' || character == '\r' || character == '\n')
+            return true;
         else
-            return "(" + tgui::to_string((unsigned int)color.r)
-                 + "," + tgui::to_string((unsigned int)color.g)
-                 + "," + tgui::to_string((unsigned int)color.b)
-                 + ")";
+            return false;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool extractVector2f(std::string string, sf::Vector2f& vector)
+    int stoi(const std::string& value)
     {
-        // Make sure that the string isn't empty
-        if (string.empty() == false)
-        {
-            // The first and last character have to be brackets
-            if ((string[0] == '(') && (string[string.length()-1] == ')'))
-            {
-                // Remove the brackets
-                string.erase(0, 1);
-                string.erase(string.length()-1);
-
-                // Search for the first comma
-                std::string::size_type commaPos = string.find(',');
-                if (commaPos != std::string::npos)
-                {
-                    // Get the x value and delete this part of the string
-                    vector.x = static_cast<float>(atof(string.substr(0, commaPos).c_str()));
-                    string.erase(0, commaPos+1);
-
-                    // Get the y value
-                    vector.y = static_cast<float>(atof(string.c_str()));
-
-                    return true;
-                }
-            }
-        }
-
-        // If you pass here then something is wrong with the string
-        return false;
+        return std::atoi(value.c_str());
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool extractVector2u(std::string string, sf::Vector2u& vector)
+    float stof(const std::string& value)
     {
-        // Make sure that the string isn't empty
-        if (string.empty() == false)
-        {
-            // The first and last character have to be brackets
-            if ((string[0] == '(') && (string[string.length()-1] == ')'))
-            {
-                // Remove the brackets
-                string.erase(0, 1);
-                string.erase(string.length()-1);
-
-                // Search for the first comma
-                std::string::size_type commaPos = string.find(',');
-                if (commaPos != std::string::npos)
-                {
-                    // Get the x value and delete this part of the string
-                    vector.x = static_cast<unsigned int>(atoi(string.substr(0, commaPos).c_str()));
-                    string.erase(0, commaPos+1);
-
-                    // Get the y value
-                    vector.y = static_cast<unsigned int>(atoi(string.c_str()));
-
-                    return true;
-                }
-            }
-        }
-
-        // If you pass here then something is wrong with the string
-        return false;
+        return static_cast<float>(std::atof(value.c_str()));
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool extractBorders(std::string string, Borders& borders)
+    unsigned long stoul(const std::string& value)
     {
-        // Make sure that the line isn't empty
-        if (string.empty() == false)
-        {
-            // The first and last character have to be brackets
-            if ((string[0] == '(') && (string[string.length()-1] == ')'))
-            {
-                // Remove the brackets
-                string.erase(0, 1);
-                string.erase(string.length()-1);
-
-                // Search for the first comma
-                std::string::size_type commaPos = string.find(',');
-                if (commaPos != std::string::npos)
-                {
-                    // Get the first value and delete this part of the string
-                    borders.left = atoi(string.substr(0, commaPos).c_str());
-                    string.erase(0, commaPos+1);
-
-                    // Search for the second comma
-                    commaPos = string.find(',');
-                    if (commaPos != std::string::npos)
-                    {
-                        // Get the second value and delete this part of the string
-                        borders.top = atoi(string.substr(0, commaPos).c_str());
-                        string.erase(0, commaPos+1);
-
-                        // Search for the third comma
-                        commaPos = string.find(',');
-                        if (commaPos != std::string::npos)
-                        {
-                            // Get the third value and delete this part of the string
-                            borders.right = atoi(string.substr(0, commaPos).c_str());
-                            string.erase(0, commaPos+1);
-
-                            // Get the fourth value
-                            borders.bottom = atoi(string.c_str());
-
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-
-        // If you pass here then something is wrong with the string
-        return false;
+        return static_cast<unsigned long>(std::atoi(value.c_str()));
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void encodeString(const std::string& origString, std::string& encodedString)
+    bool extractBoolFromString(const std::string& property, const std::string& value)
     {
-        encodedString = origString;
-
-        // Escape backslashes
-        std::string::size_type pos = encodedString.find('\\');
-        while (pos != std::string::npos)
-        {
-            encodedString.replace(pos, 1, "\\\\");
-            pos = encodedString.find('\\', pos + 2);
-        }
-
-        // Escape newlines
-        pos = encodedString.find('\n');
-        while (pos != std::string::npos)
-        {
-            encodedString.replace(pos, 1, "\\n");
-            pos = encodedString.find('\n', pos + 2);
-        }
-
-        // Escape tabs
-        pos = encodedString.find('\t');
-        while (pos != std::string::npos)
-        {
-            encodedString.replace(pos, 1, "\\t");
-            pos = encodedString.find('\t', pos + 2);
-        }
-
-        // Escape quotes
-        pos = encodedString.find('\"');
-        while (pos != std::string::npos)
-        {
-            encodedString.replace(pos, 1, "\\\"");
-            pos = encodedString.find('\"', pos + 2);
-        }
-
-        // Escape commas
-        pos = encodedString.find(',');
-        while (pos != std::string::npos)
-        {
-            encodedString.insert(pos, "\\");
-            pos = encodedString.find(',', pos + 2);
-        }
+        if ((value == "true") || (value == "True") || (value == "TRUE") || (value == "1"))
+            return true;
+        else if ((value == "false") || (value == "False") || (value == "FALSE") || (value == "0"))
+            return false;
+        else
+            throw Exception{"Failed to parse boolean value of property '" + property + "'."};
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void decodeString(const std::string& encodedString, std::string& decodedString)
+    bool removeWhitespace(const std::string& line, std::string::const_iterator& c)
     {
-        decodedString = "";
-
-        for (auto it = encodedString.cbegin(); it != encodedString.cend(); ++it)
+        while (c != line.end())
         {
-            // Check if the character is an escape character
-            if (*it == '\\')
-            {
-                auto next = it + 1;
-
-                if (next == encodedString.cend())
-                {
-                    TGUI_OUTPUT("TGUI warning: Escape character at the end of the string. Ignoring character.");
-                    continue;
-                }
-                else if ((*next == '\\') || (*next == '\"'))
-                {
-                    decodedString += *next;
-                    ++it;
-                }
-                else if (*next == 'n')
-                {
-                    decodedString += '\n';
-                    ++it;
-                }
-                else if (*next == 't')
-                {
-                    decodedString += '\t';
-                    ++it;
-                }
-                else
-                {
-                    TGUI_OUTPUT(std::string("TGUI warning: Escape character in front of '") + *next + "'. Ignoring escape character.");
-                    continue;
-                }
-            }
-            else // No escape character, just a normal character to be added to the string
-                decodedString += *it;
-        }
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void encodeList(const std::vector<sf::String>& list, std::string& encodedString)
-    {
-        encodedString = "";
-
-        for (auto it = list.cbegin(); it != list.cend(); ++it)
-        {
-            std::string item = *it;
-
-            // Escape backslashes
-            std::string::size_type pos = item.find('\\');
-            while (pos != std::string::npos)
-            {
-                item.replace(pos, 1, "\\\\");
-                pos = item.find('\\', pos + 2);
-            }
-
-            // Escape newlines
-            pos = item.find('\n');
-            while (pos != std::string::npos)
-            {
-                item.replace(pos, 1, "\\n");
-                pos = item.find('\n', pos + 2);
-            }
-
-            // Escape tabs
-            pos = item.find('\t');
-            while (pos != std::string::npos)
-            {
-                item.replace(pos, 1, "\\t");
-                pos = item.find('\t', pos + 2);
-            }
-
-            // Escape quotes
-            pos = item.find('\"');
-            while (pos != std::string::npos)
-            {
-                item.replace(pos, 1, "\\\"");
-                pos = item.find('\"', pos + 2);
-            }
-
-            // Escape commas
-            pos = item.find(',');
-            while (pos != std::string::npos)
-            {
-                item.replace(pos, 1, "\\,");
-                pos = item.find(',', pos + 2);
-            }
-
-            // Add the item to the string
-            if (it == list.cbegin())
-                encodedString += item;
+            if ((*c == ' ') || (*c == '\t') || (*c == '\r'))
+                ++c;
             else
-                encodedString += "," + item;
-        }
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void decodeList(const std::string& encodedString, std::vector<sf::String>& list)
-    {
-        std::string item;
-
-        for (auto it = encodedString.cbegin(); it != encodedString.cend(); ++it)
-        {
-            // Check if the character is an escape character
-            if (*it == '\\')
-            {
-                auto next = it + 1;
-
-                if (next == encodedString.cend())
-                {
-                    TGUI_OUTPUT("TGUI warning: Escape character at the end of the string. Ignoring character.");
-                    continue;
-                }
-                else if ((*next == '\\') || (*next == '\"') || (*next == ','))
-                {
-                    item += *next;
-                    ++it;
-                }
-                else if (*next == 'n')
-                {
-                    item += '\n';
-                    ++it;
-                }
-                else if (*next == 't')
-                {
-                    item += '\t';
-                    ++it;
-                }
-                else
-                {
-                    TGUI_OUTPUT(std::string("TGUI warning: Escape character in front of '") + *next + "'. Ignoring escape character.");
-                    continue;
-                }
-            }
-            else // No escape character
-            {
-                // Check if the next item starts here
-                if (*it == ',')
-                {
-                    list.push_back(item);
-                    item = "";
-                }
-                else // Just a normal character to be added to the string
-                    item += *it;
-            }
+                return true;
         }
 
-        if (!item.empty())
-            list.push_back(item);
+        return false;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -493,6 +149,101 @@ namespace tgui
             *i = static_cast<char>(std::tolower(*i));
 
         return str;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    std::string trim(std::string str)
+    {
+        str.erase(str.begin(), std::find_if(str.begin(), str.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
+        str.erase(std::find_if(str.rbegin(), str.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), str.end());
+        return str;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    std::vector<std::string> split(const std::string& str, char delim)
+    {
+        std::vector<std::string> tokens;
+
+        std::size_t start = 0;
+        std::size_t end = 0;
+        while ((end = str.find(delim, start)) != std::string::npos) {
+            tokens.push_back(str.substr(start, end - start));
+            start = end + 1;
+        }
+
+        tokens.push_back(str.substr(start));
+        return tokens;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    sf::Color calcColorOpacity(sf::Color color, float alpha)
+    {
+        if (alpha == 1)
+            return color;
+        else
+            return {color.r, color.g, color.b, static_cast<sf::Uint8>(color.a * alpha)};
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    float getTextVerticalCorrection(std::shared_ptr<sf::Font> font, unsigned int characterSize, sf::Uint32 style)
+    {
+        if (!font)
+            return 0;
+
+        bool bold = (style & sf::Text::Bold) != 0;
+
+        // Calculate the height of the first line (char size = everything above baseline, height + top = part below baseline)
+        float lineHeight = characterSize
+                           + font->getGlyph('g', characterSize, bold).bounds.height
+                           + font->getGlyph('g', characterSize, bold).bounds.top;
+
+        // Get the line spacing sfml returns
+        float lineSpacing = font->getLineSpacing(characterSize);
+
+        // Calculate the offset of the text
+        return lineHeight - lineSpacing;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    unsigned int findBestTextSize(std::shared_ptr<sf::Font> font, float height, int fit)
+    {
+        if (!font)
+            return 0;
+
+        if (height < 2)
+            return 1;
+
+        std::vector<unsigned int> textSizes(static_cast<std::size_t>(height));
+        for (unsigned int i = 0; i < static_cast<unsigned int>(height); ++i)
+            textSizes[i] = i + 1;
+
+        auto high = std::lower_bound(textSizes.begin(), textSizes.end(), height, [&font](unsigned int charSize, float h){ return font->getLineSpacing(charSize) < h; });
+        if (high == textSizes.end())
+            return static_cast<unsigned int>(height);
+
+        float highLineSpacing = font->getLineSpacing(*high);
+        if (highLineSpacing == height)
+            return *high;
+
+        auto low = high - 1;
+        float lowLineSpacing = font->getLineSpacing(*low);
+
+        if (fit < 0)
+            return *low;
+        else if (fit > 0)
+            return *high;
+        else
+        {
+            if (std::abs(height - lowLineSpacing) < std::abs(height - highLineSpacing))
+                return *low;
+            else
+                return *high;
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

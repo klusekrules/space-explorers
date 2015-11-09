@@ -28,94 +28,63 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#include <TGUI/TextureData.hpp>
+#include <TGUI/Config.hpp>
+
 #include <list>
+#include <map>
+#include <memory>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace tgui
 {
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    struct TextureData
-    {
-        TextureData() : image(nullptr) {}
-
-        sf::Image*    image;
-        sf::Texture   texture;
-        sf::IntRect   rect;
-        std::string   filename;
-        unsigned int  users;
-    };
+    class Texture;
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    struct Texture
+    class TGUI_API TextureManager
     {
+    public:
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        Texture();
-
-        sf::Vector2u getSize() const;
-        bool isTransparentPixel(unsigned int x, unsigned int y);
-
-        operator const sf::Sprite&() const;
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        TextureData* data;
-        sf::Sprite   sprite;
-    };
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    class TGUI_API TextureManager : public sf::NonCopyable
-    {
-      public:
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Loads a texture.
+        /// @brief Loads a texture.
         ///
-        /// \param filename  Filename of the image to load.
-        /// \param texture   The texture object to store the loaded image.
-        /// \param rect      Load only part of the image. Don't pass this parameter if you want to load the full image.
+        /// @param texture    The texture object to store the loaded image.
+        /// @param filename   Filename of the image to load.
+        /// @param partRect   Load only part of the image. Don't pass this parameter if you want to load the full image.
         ///
         /// The second time you call this function with the same filename, the previously loaded image will be reused.
         ///
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        bool getTexture(const std::string& filename, Texture& texture, const sf::IntRect& rect = sf::IntRect(0, 0, 0, 0));
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Share the image with another texture.
-        ///
-        /// \param textureToCopy  The original texture.
-        /// \param newTexture     The texture that will get the same image as the texture that is being copied
+        /// @return False when the image could not be loaded, true otherwise.
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        bool copyTexture(const Texture& textureToCopy, Texture& newTexture);
+        static bool getTexture(Texture& texture, const std::string& filename, const sf::IntRect& partRect = sf::IntRect(0, 0, 0, 0));
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// \brief Removes the texture.
+        /// @brief Share the image with another texture.
         ///
-        /// \param textureToRemove  The texture that should be removed.
+        /// @param textureDataToCopy  The original texture data that will now be reused.
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        static void copyTexture(std::shared_ptr<TextureData> textureDataToCopy);
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// @brief Removes the texture.
+        ///
+        /// @param textureDataToRemove  The texture data that should be removed.
         ///
         /// When no other texture is using the same image then the image will be removed from memory.
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void removeTexture(Texture& textureToRemove);
+        static void removeTexture(std::shared_ptr<TextureData> textureDataToRemove);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      protected:
+    protected:
 
-        struct ImageMapData
-        {
-            sf::Image image;
-            std::list<TextureData> data;
-        };
-
-        std::map<std::string, ImageMapData> m_ImageMap;
+        static std::map<std::string, std::list<TextureDataHolder>> m_imageMap;
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -23,8 +23,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include <cmath>
-
 #include <TGUI/Transformable.hpp>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -33,92 +31,108 @@ namespace tgui
 {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    Transformable::Transformable() :
-    m_Position(0, 0),
-    m_TransformNeedUpdate(true),
-    m_Transform()
+    Transformable::Transformable(const Transformable& copy)
     {
+        setPosition(copy.m_position);
+        setSize(copy.m_size);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    Transformable::~Transformable()
+    Transformable& Transformable::operator=(const Transformable& right)
     {
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void Transformable::setPosition(float x, float y)
-    {
-        m_Position.x = std::floor(x + 0.5f);
-        m_Position.y = std::floor(y + 0.5f);
-
-        m_TransformNeedUpdate = true;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void Transformable::setPosition(const sf::Vector2f& position)
-    {
-        setPosition(position.x, position.y);
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    const sf::Vector2f& Transformable::getPosition() const
-    {
-        return m_Position;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void Transformable::move(float offsetX, float offsetY)
-    {
-        setPosition(m_Position.x + offsetX, m_Position.y + offsetY);
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void Transformable::move(const sf::Vector2f& offset)
-    {
-        setPosition(m_Position.x + offset.x, m_Position.y + offset.y);
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    sf::Vector2f Transformable::getFullSize() const
-    {
-        return getSize();
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void Transformable::scale(float factorX, float factorY)
-    {
-        setSize(getSize().x * factorX, getSize().y * factorY);
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void Transformable::scale(const sf::Vector2f& factors)
-    {
-        setSize(getSize().x * factors.x, getSize().y * factors.y);
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    const sf::Transform& Transformable::getTransform() const
-    {
-        if (m_TransformNeedUpdate)
+        if (this != &right)
         {
-            m_Transform = sf::Transform( 1, 0, m_Position.x,
-                                         0, 1, m_Position.y,
-                                         0.f, 0.f, 1.f);
-
-            m_TransformNeedUpdate = false;
+            setPosition(right.m_position);
+            setSize(right.m_size);
         }
 
-        return m_Transform;
+        return *this;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Transformable::setPosition(const Layout2d& position)
+    {
+        m_position = position;
+        m_position.x.connectUpdateCallback(std::bind(&Transformable::updatePosition, this, false));
+        m_position.y.connectUpdateCallback(std::bind(&Transformable::updatePosition, this, false));
+
+        m_prevPosition = m_position.getValue();
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Transformable::move(const Layout2d& offset)
+    {
+        setPosition(m_position + offset);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Transformable::move(const Layout& x, const Layout& y)
+    {
+        setPosition({m_position.x + x, m_position.y + y});
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Transformable::setSize(const Layout2d& size)
+    {
+        if (size.getValue().x >= 0)
+            m_size.x = size.x;
+        else
+            m_size.x = size.x * -1;
+
+        if (size.getValue().y >= 0)
+            m_size.y = size.y;
+        else
+            m_size.y = size.y * -1;
+
+        m_size.x.connectUpdateCallback(std::bind(&Transformable::updateSize, this, false));
+        m_size.y.connectUpdateCallback(std::bind(&Transformable::updateSize, this, false));
+
+        m_prevSize = m_size.getValue();
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Transformable::scale(const Layout2d& factors)
+    {
+        setSize({m_size.x * factors.x, m_size.y * factors.y});
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Transformable::scale(const Layout& x, const Layout& y)
+    {
+        setSize({m_size.x * x, m_size.y * y});
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Transformable::updatePosition(bool forceUpdate)
+    {
+        if (forceUpdate)
+            setPosition(m_position);
+        else
+        {
+            if (m_prevPosition != m_position.getValue())
+                setPosition(m_position);
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Transformable::updateSize(bool forceUpdate)
+    {
+        if (forceUpdate)
+            setSize(m_size);
+        else
+        {
+            if (m_prevSize != m_size.getValue())
+                setSize(m_size);
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

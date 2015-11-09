@@ -23,11 +23,15 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include <stack>
-#include <cmath>
-#include <cassert>
+#include <TGUI/Container.hpp>
+#include <TGUI/Widgets/ToolTip.hpp>
+#include <TGUI/Widgets/RadioButton.hpp>
+#include <TGUI/Loading/WidgetSaver.hpp>
+#include <TGUI/Loading/WidgetLoader.hpp>
 
-#include <TGUI/TGUI.hpp>
+#include <stack>
+#include <cassert>
+#include <fstream>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -35,37 +39,21 @@ namespace tgui
 {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    Container::Container() :
-        m_FocusedWidget(nullptr)
+    Container::Container()
     {
-        m_ContainerWidget = true;
-        m_AnimatedWidget = true;
-        m_AllowFocus = true;
+        m_containerWidget = true;
+        m_allowFocus = true;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     Container::Container(const Container& containerToCopy) :
-        Widget                   (containerToCopy),
-        m_FocusedWidget          (nullptr),
-        m_GlobalFont             (containerToCopy.m_GlobalFont),
-        m_GlobalCallbackFunctions(containerToCopy.m_GlobalCallbackFunctions)
+        Widget                   {containerToCopy},
+        m_focusedWidget          {0}
     {
         // Copy all the widgets
-        for (unsigned int i = 0; i < containerToCopy.m_Widgets.size(); ++i)
-        {
-            m_Widgets.push_back(containerToCopy.m_Widgets[i].clone());
-            m_ObjName.push_back(containerToCopy.m_ObjName[i]);
-
-            m_Widgets.back()->m_Parent = this;
-        }
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    Container::~Container()
-    {
-        removeAllWidgets();
+        for (std::size_t i = 0; i < containerToCopy.m_widgets.size(); ++i)
+            add(containerToCopy.m_widgets[i]->clone(), containerToCopy.m_objName[i]);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,21 +66,14 @@ namespace tgui
             Widget::operator=(right);
 
             // Copy the font and the callback functions
-            m_FocusedWidget = nullptr;
-            m_GlobalFont = right.m_GlobalFont;
-            m_GlobalCallbackFunctions = right.m_GlobalCallbackFunctions;
+            m_focusedWidget = 0;
 
             // Remove all the old widgets
             removeAllWidgets();
 
             // Copy all the widgets
-            for (unsigned int i = 0; i < right.m_Widgets.size(); ++i)
-            {
-                m_Widgets.push_back(right.m_Widgets[i].clone());
-                m_ObjName.push_back(right.m_ObjName[i]);
-
-                m_Widgets.back()->m_Parent = this;
-            }
+            for (std::size_t i = 0; i < right.m_widgets.size(); ++i)
+                add(right.m_widgets[i]->clone(), right.m_objName[i]);
         }
 
         return *this;
@@ -100,37 +81,12 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool Container::setGlobalFont(const std::string& filename)
+    void Container::setFont(const Font& font)
     {
-        return m_GlobalFont.loadFromFile(getResourcePath() + filename);
-    }
+        Widget::setFont(font);
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void Container::setGlobalFont(const sf::Font& font)
-    {
-        m_GlobalFont = font;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    const sf::Font& Container::getGlobalFont() const
-    {
-        return m_GlobalFont;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    const std::vector<Widget::Ptr>& Container::getWidgets()
-    {
-        return m_Widgets;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    const std::vector<sf::String>& Container::getWidgetNames()
-    {
-        return m_ObjName;
+        for (auto& widget : m_widgets)
+            widget->setFont(font);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -139,24 +95,31 @@ namespace tgui
     {
         assert(widgetPtr != nullptr);
 
+        // Let the widget inherit our font if it did not had a font yet
+        if (!widgetPtr->getFont() && getFont())
+            widgetPtr->setFont(getFont());
+
         widgetPtr->initialize(this);
-        m_Widgets.push_back(widgetPtr);
-        m_ObjName.push_back(widgetName);
+        m_widgets.push_back(widgetPtr);
+        m_objName.push_back(widgetName);
+
+        if (m_opacity < 1)
+            widgetPtr->setOpacity(m_opacity);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     Widget::Ptr Container::get(const sf::String& widgetName, bool recursive) const
     {
-        for (unsigned int i = 0; i < m_ObjName.size(); ++i)
+        for (std::size_t i = 0; i < m_objName.size(); ++i)
         {
-            if (m_ObjName[i] == widgetName)
+            if (m_objName[i] == widgetName)
             {
-                return m_Widgets[i];
+                return m_widgets[i];
             }
-            else if (recursive && m_Widgets[i]->m_ContainerWidget)
+            else if (recursive && m_widgets[i]->m_containerWidget)
             {
-                Widget::Ptr widget = Container::Ptr(m_Widgets[i])->get(widgetName, true);
+                Widget::Ptr widget = std::static_pointer_cast<Container>(m_widgets[i])->get(widgetName, true);
                 if (widget != nullptr)
                     return widget;
             }
@@ -167,45 +130,33 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    Widget::Ptr Container::copy(const Widget::Ptr& oldWidget, const sf::String& newWidgetName)
-    {
-        Widget::Ptr newWidget = oldWidget.clone();
-        newWidget->initialize(this);
-        m_Widgets.push_back(newWidget);
-        m_ObjName.push_back(newWidgetName);
-        return newWidget;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void Container::remove(const Widget::Ptr& widget)
-    {
-        remove(widget.get());
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void Container::remove(Widget* widget)
+    bool Container::remove(const Widget::Ptr& widget)
     {
         // Loop through every widget
-        for (unsigned int i = 0; i < m_Widgets.size(); ++i)
+        for (std::size_t i = 0; i < m_widgets.size(); ++i)
         {
             // Check if the pointer matches
-            if (m_Widgets[i].get() == widget)
+            if (m_widgets[i] == widget)
             {
                 // Unfocus the widget if it was focused
-                if (m_FocusedWidget == widget)
+                if (m_focusedWidget == i+1)
                     unfocusWidgets();
 
+                // Change the index of the focused widget if this is needed
+                else if (m_focusedWidget > i+1)
+                    m_focusedWidget--;
+
                 // Remove the widget
-                m_Widgets.erase(m_Widgets.begin() + i);
+                m_widgets.erase(m_widgets.begin() + i);
 
                 // Also emove the name it from the list
-                m_ObjName.erase(m_ObjName.begin() + i);
+                m_objName.erase(m_objName.begin() + i);
 
-                break;
+                return true;
             }
         }
+
+        return false;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -213,22 +164,22 @@ namespace tgui
     void Container::removeAllWidgets()
     {
         // Clear the lists
-        m_Widgets.clear();
-        m_ObjName.clear();
+        m_widgets.clear();
+        m_objName.clear();
 
         // There are no more widgets, so none of the widgets can be focused
-        m_FocusedWidget = nullptr;
+        m_focusedWidget = 0;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     bool Container::setWidgetName(const Widget::Ptr& widget, const std::string& name)
     {
-        for (unsigned int i = 0; i < m_Widgets.size(); ++i)
+        for (std::size_t i = 0; i < m_widgets.size(); ++i)
         {
-            if (m_Widgets[i] == widget)
+            if (m_widgets[i] == widget)
             {
-                m_ObjName[i] = name;
+                m_objName[i] = name;
                 return true;
             }
         }
@@ -240,11 +191,11 @@ namespace tgui
 
     bool Container::getWidgetName(const Widget::Ptr& widget, std::string& name) const
     {
-        for (unsigned int i = 0; i < m_Widgets.size(); ++i)
+        for (std::size_t i = 0; i < m_widgets.size(); ++i)
         {
-            if (m_Widgets[i] == widget)
+            if (m_widgets[i] == widget)
             {
-                name = m_ObjName[i];
+                name = m_objName[i];
                 return true;
             }
         }
@@ -264,24 +215,24 @@ namespace tgui
     void Container::focusWidget(Widget *const widget)
     {
         // Loop all the widgets
-        for (unsigned int i = 0; i < m_Widgets.size(); ++i)
+        for (std::size_t i = 0; i < m_widgets.size(); ++i)
         {
             // Search for the widget that has to be focused
-            if (m_Widgets[i].get() == widget)
+            if (m_widgets[i].get() == widget)
             {
                 // Only continue when the widget wasn't already focused
-                if (m_FocusedWidget != widget)
+                if (m_focusedWidget != i+1)
                 {
                     // Unfocus the currently focused widget
-                    if (m_FocusedWidget)
+                    if (m_focusedWidget)
                     {
-                        m_FocusedWidget->m_Focused = false;
-                        m_FocusedWidget->widgetUnfocused();
+                        m_widgets[m_focusedWidget-1]->m_focused = false;
+                        m_widgets[m_focusedWidget-1]->widgetUnfocused();
                     }
 
                     // Focus the new widget
-                    m_FocusedWidget = widget;
-                    widget->m_Focused = true;
+                    m_focusedWidget = i+1;
+                    widget->m_focused = true;
                     widget->widgetFocused();
                 }
 
@@ -294,58 +245,50 @@ namespace tgui
 
     void Container::focusNextWidget()
     {
-        // Find the focused widget in the list of widgets
-        unsigned int index = 0;
-        for (; index < m_Widgets.size(); ++index)
-        {
-            if (m_Widgets[index].get() == m_FocusedWidget)
-                break;
-        }
-
         // Loop all widgets behind the focused one
-        for (unsigned int i = index+1; i < m_Widgets.size(); ++i)
+        for (std::size_t i = m_focusedWidget; i < m_widgets.size(); ++i)
         {
             // If you are not allowed to focus the widget, then skip it
-            if (m_Widgets[i]->m_AllowFocus == true)
+            if (m_widgets[i]->m_allowFocus == true)
             {
                 // Make sure that the widget is visible and enabled
-                if ((m_Widgets[i]->m_Visible) && (m_Widgets[i]->m_Enabled))
+                if ((m_widgets[i]->m_visible) && (m_widgets[i]->m_enabled))
                 {
-                    if (m_FocusedWidget)
+                    if (m_focusedWidget)
                     {
                         // unfocus the current widget
-                        m_FocusedWidget->m_Focused = false;
-                        m_FocusedWidget->widgetUnfocused();
+                        m_widgets[m_focusedWidget-1]->m_focused = false;
+                        m_widgets[m_focusedWidget-1]->widgetUnfocused();
                     }
 
                     // Focus on the new widget
-                    m_FocusedWidget = m_Widgets[i].get();
-                    m_Widgets[i]->m_Focused = true;
-                    m_Widgets[i]->widgetFocused();
+                    m_focusedWidget = i+1;
+                    m_widgets[i]->m_focused = true;
+                    m_widgets[i]->widgetFocused();
                     return;
                 }
             }
         }
 
         // None of the widgets behind the focused one could be focused, so loop the ones before it
-        if (m_FocusedWidget)
+        if (m_focusedWidget)
         {
-            for (unsigned int i = 0; i < index; ++i)
+            for (std::size_t i = 0; i < m_focusedWidget - 1; ++i)
             {
                 // If you are not allowed to focus the widget, then skip it
-                if (m_Widgets[i]->m_AllowFocus == true)
+                if (m_widgets[i]->m_allowFocus == true)
                 {
                     // Make sure that the widget is visible and enabled
-                    if ((m_Widgets[i]->m_Visible) && (m_Widgets[i]->m_Enabled))
+                    if ((m_widgets[i]->m_visible) && (m_widgets[i]->m_enabled))
                     {
                         // unfocus the current widget
-                        m_FocusedWidget->m_Focused = false;
-                        m_FocusedWidget->widgetUnfocused();
+                        m_widgets[m_focusedWidget-1]->m_focused = false;
+                        m_widgets[m_focusedWidget-1]->widgetUnfocused();
 
                         // Focus on the new widget
-                        m_FocusedWidget = m_Widgets[i].get();
-                        m_Widgets[i]->m_Focused = true;
-                        m_Widgets[i]->widgetFocused();
+                        m_focusedWidget = i+1;
+                        m_widgets[i]->m_focused = true;
+                        m_widgets[i]->widgetFocused();
 
                         return;
                     }
@@ -358,33 +301,25 @@ namespace tgui
 
     void Container::focusPreviousWidget()
     {
-        // Find the focused widget in the list of widgets
-        unsigned int index = 0;
-        for (; index < m_Widgets.size(); ++index)
-        {
-            if (m_Widgets[index].get() == m_FocusedWidget)
-                break;
-        }
-
         // Loop the widgets before the focused one
-        if (m_FocusedWidget)
+        if (m_focusedWidget)
         {
-            for (unsigned int i = index; i > 0; --i)
+            for (std::size_t i = m_focusedWidget - 1; i > 0; --i)
             {
                 // If you are not allowed to focus the widget, then skip it
-                if (m_Widgets[i-1]->m_AllowFocus == true)
+                if (m_widgets[i-1]->m_allowFocus == true)
                 {
                     // Make sure that the widget is visible and enabled
-                    if ((m_Widgets[i-1]->m_Visible) && (m_Widgets[i-1]->m_Enabled))
+                    if ((m_widgets[i-1]->m_visible) && (m_widgets[i-1]->m_enabled))
                     {
                         // unfocus the current widget
-                        m_FocusedWidget->m_Focused = false;
-                        m_FocusedWidget->widgetUnfocused();
+                        m_widgets[m_focusedWidget-1]->m_focused = false;
+                        m_widgets[m_focusedWidget-1]->widgetUnfocused();
 
                         // Focus on the new widget
-                        m_FocusedWidget = m_Widgets[i-1].get();
-                        m_Widgets[i-1]->m_Focused = true;
-                        m_Widgets[i-1]->widgetFocused();
+                        m_focusedWidget = i;
+                        m_widgets[i-1]->m_focused = true;
+                        m_widgets[i-1]->widgetFocused();
 
                         return;
                     }
@@ -393,25 +328,25 @@ namespace tgui
         }
 
         // None of the widgets before the focused one could be focused, so loop all widgets behind the focused one
-        for (unsigned int i = m_Widgets.size(); i > index+1; --i)
+        for (std::size_t i = m_widgets.size(); i > m_focusedWidget; --i)
         {
             // If you are not allowed to focus the widget, then skip it
-            if (m_Widgets[i-1]->m_AllowFocus == true)
+            if (m_widgets[i-1]->m_allowFocus == true)
             {
                 // Make sure that the widget is visible and enabled
-                if ((m_Widgets[i-1]->m_Visible) && (m_Widgets[i-1]->m_Enabled))
+                if ((m_widgets[i-1]->m_visible) && (m_widgets[i-1]->m_enabled))
                 {
-                    if (m_FocusedWidget)
+                    if (m_focusedWidget)
                     {
                         // unfocus the current widget
-                        m_FocusedWidget->m_Focused = false;
-                        m_FocusedWidget->widgetUnfocused();
+                        m_widgets[m_focusedWidget-1]->m_focused = false;
+                        m_widgets[m_focusedWidget-1]->widgetUnfocused();
                     }
 
                     // Focus on the new widget
-                    m_FocusedWidget = m_Widgets[i-1].get();
-                    m_Widgets[i-1]->m_Focused = true;
-                    m_Widgets[i-1]->widgetFocused();
+                    m_focusedWidget = i;
+                    m_widgets[i-1]->m_focused = true;
+                    m_widgets[i-1]->widgetFocused();
                     return;
                 }
             }
@@ -422,11 +357,11 @@ namespace tgui
 
     void Container::unfocusWidgets()
     {
-        if (m_FocusedWidget)
+        if (m_focusedWidget)
         {
-            m_FocusedWidget->m_Focused = false;
-            m_FocusedWidget->widgetUnfocused();
-            m_FocusedWidget = nullptr;
+            m_widgets[m_focusedWidget-1]->m_focused = false;
+            m_widgets[m_focusedWidget-1]->widgetUnfocused();
+            m_focusedWidget = 0;
         }
     }
 
@@ -435,10 +370,10 @@ namespace tgui
     void Container::uncheckRadioButtons()
     {
         // Loop through all radio buttons and uncheck them
-        for (unsigned int i = 0; i < m_Widgets.size(); ++i)
+        for (std::size_t i = 0; i < m_widgets.size(); ++i)
         {
-            if (m_Widgets[i]->m_Callback.widgetType == Type_RadioButton)
-                static_cast<RadioButton::Ptr>(m_Widgets[i])->uncheck();
+            if (m_widgets[i]->m_callback.widgetType == "RadioButton")
+                std::static_pointer_cast<RadioButton>(m_widgets[i])->uncheck();
         }
     }
 
@@ -447,22 +382,24 @@ namespace tgui
     void Container::moveWidgetToFront(Widget *const widget)
     {
         // Loop through all widgets
-        for (unsigned int i = 0; i < m_Widgets.size(); ++i)
+        for (std::size_t i = 0; i < m_widgets.size(); ++i)
         {
             // Check if the widget is found
-            if (m_Widgets[i].get() == widget)
+            if (m_widgets[i].get() == widget)
             {
                 // Copy the widget
-                m_Widgets.push_back(m_Widgets[i]);
-                m_ObjName.push_back(m_ObjName[i]);
+                m_widgets.push_back(m_widgets[i]);
+                m_objName.push_back(m_objName[i]);
 
-                // Focus the widget if no other widget was focused
-                if (m_FocusedWidget == nullptr)
-                    m_FocusedWidget = widget;
+                // Focus the correct widget
+                if ((m_focusedWidget == 0) || (m_focusedWidget == i+1))
+                    m_focusedWidget = m_widgets.size()-1;
+                else if (m_focusedWidget > i+1)
+                    --m_focusedWidget;
 
                 // Remove the old widget
-                m_Widgets.erase(m_Widgets.begin() + i);
-                m_ObjName.erase(m_ObjName.begin() + i);
+                m_widgets.erase(m_widgets.begin() + i);
+                m_objName.erase(m_objName.begin() + i);
 
                 break;
             }
@@ -474,20 +411,26 @@ namespace tgui
     void Container::moveWidgetToBack(Widget *const widget)
     {
         // Loop through all widgets
-        for (unsigned int i = 0; i < m_Widgets.size(); ++i)
+        for (std::size_t i = 0; i < m_widgets.size(); ++i)
         {
             // Check if the widget is found
-            if (m_Widgets[i].get() == widget)
+            if (m_widgets[i].get() == widget)
             {
                 // Copy the widget
-                Widget::Ptr obj = m_Widgets[i];
-                std::string name = m_ObjName[i];
-                m_Widgets.insert(m_Widgets.begin(), obj);
-                m_ObjName.insert(m_ObjName.begin(), name);
+                Widget::Ptr obj = m_widgets[i];
+                std::string name = m_objName[i];
+                m_widgets.insert(m_widgets.begin(), obj);
+                m_objName.insert(m_objName.begin(), name);
+
+                // Focus the correct widget
+                if (m_focusedWidget == i + 1)
+                    m_focusedWidget = 1;
+                else if (m_focusedWidget)
+                    ++m_focusedWidget;
 
                 // Remove the old widget
-                m_Widgets.erase(m_Widgets.begin() + i + 1);
-                m_ObjName.erase(m_ObjName.begin() + i + 1);
+                m_widgets.erase(m_widgets.begin() + i + 1);
+                m_objName.erase(m_objName.begin() + i + 1);
 
                 break;
             }
@@ -496,369 +439,53 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void Container::setTransparency(unsigned char transparency)
+    void Container::setOpacity(float opacity)
     {
-        Widget::setTransparency(transparency);
+        Widget::setOpacity(opacity);
 
-        for (unsigned int i = 0; i < m_Widgets.size(); ++i)
-            m_Widgets[i]->setTransparency(transparency);
+        for (std::size_t i = 0; i < m_widgets.size(); ++i)
+            m_widgets[i]->setOpacity(opacity);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void Container::bindGlobalCallback(std::function<void(const Callback&)> func)
+    void Container::loadWidgetsFromFile(const std::string& filename)
     {
-        m_GlobalCallbackFunctions.push_back(func);
+        std::ifstream in{filename};
+        if (!in.is_open())
+            throw Exception{"Failed to open '" + filename + "' to load the widgets from it."};
+
+        std::stringstream stream;
+        stream << in.rdbuf();
+        WidgetLoader::load(std::static_pointer_cast<Container>(shared_from_this()), stream);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void Container::unbindGlobalCallback()
+    void Container::saveWidgetsToFile(const std::string& filename)
     {
-        m_GlobalCallbackFunctions.clear();
+        std::stringstream stream;
+        WidgetSaver::save(std::static_pointer_cast<Container>(shared_from_this()), stream);
+
+        std::ofstream out{filename};
+        if (!out.is_open())
+            throw Exception{"Failed to open '" + filename + "' for saving the widgets to it."};
+
+        out << stream.rdbuf();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool Container::loadWidgetsFromFile(const std::string& filename)
+    void Container::loadWidgetsFromStream(std::stringstream& stream)
     {
-        #define COMPARE_WIDGET(length, name, widgetName) \
-            if (line.substr(0, length).compare(name) == 0) \
-            { \
-                line.erase(0, length); \
-              \
-                widgetPtr.push_back(widgetName::Ptr(*static_cast<Container*>(widgetPtr.back()), line).get()); \
-                progress.push(0); \
-            }
-
-        std::stack<unsigned int> progress;
-        std::list<Widget*> widgetPtr;
-
-        // Open the file
-        std::ifstream m_File(getResourcePath() + filename);
-
-        // Check if the file was not opened
-        if (m_File.is_open() == false)
-            return false;
-
-        // Stop reading when we reach the end of the file or when something went wrong
-        bool failed = false;
-        while (!m_File.eof() && !failed)
-        {
-            std::string line;
-            std::getline(m_File, line);
-
-            if (!line.empty())
-            {
-                // Search for a quote
-                std::string::size_type quotePos1 = line.find('"');
-
-                // Check if the quote was found or not
-                if (quotePos1 == std::string::npos)
-                {
-                    // Remove all spaces and tabs from the whole line
-                    line.erase(std::remove(line.begin(), line.end(), ' '), line.end());
-                    line.erase(std::remove(line.begin(), line.end(), '\t'), line.end());
-                    line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
-
-                    // Convert the whole line to lowercase
-                    line = toLower(line);
-                }
-                else // A quote was found
-                {
-                    // Only remove spaces and tabs until the quote
-                    line.erase(std::remove(line.begin(), line.begin() + quotePos1, ' '), line.begin() + quotePos1);
-                    quotePos1 = line.find('"');
-                    line.erase(std::remove(line.begin(), line.begin() + quotePos1, '\t'), line.begin() + quotePos1);
-                    quotePos1 = line.find('"');
-
-                    // Convert the part before the quote to lowercase
-                    line = toLower(line.substr(0, quotePos1)) + line.substr(quotePos1);
-
-                    // Search for a second quote
-                    std::string::size_type quotePos2 = line.find('"', quotePos1 + 1);
-
-                    // There must always be a second quote
-                    if (quotePos2 != std::string::npos)
-                    {
-                        // Remove all spaces and tabs after the quote
-                        line.erase(std::remove(line.begin() + quotePos2, line.end(), ' '), line.end());
-                        line.erase(std::remove(line.begin() + quotePos2, line.end(), '\t'), line.end());
-                        line.erase(std::remove(line.begin() + quotePos2, line.end(), '\r'), line.end());
-
-                        // Search for the quote again, because the position might have changed
-                        quotePos2 = line.find('"', quotePos1 + 1);
-
-                        // Search for backslashes between the quotes
-                        std::string::size_type backslashPos = line.find('\\', quotePos1);
-                        while (backslashPos < quotePos2)
-                        {
-                            // Check for special characters
-                            if (line[backslashPos + 1] == 'n')
-                            {
-                                line[backslashPos] = '\n';
-                                line.erase(backslashPos + 1, 1);
-                                --quotePos2;
-                            }
-                            else if (line[backslashPos + 1] == 't')
-                            {
-                                line[backslashPos] = '\t';
-                                line.erase(backslashPos + 1, 1);
-                                --quotePos2;
-                            }
-                            else if (line[backslashPos + 1] == '\\')
-                            {
-                                line.erase(backslashPos + 1, 1);
-                                --quotePos2;
-                            }
-                            else if (line[backslashPos + 1] == '"')
-                            {
-                                line[backslashPos] = '"';
-                                line.erase(backslashPos + 1, 1);
-
-                                // Find the next quote
-                                quotePos2 = line.find('"', backslashPos + 1);
-                                if (quotePos2 == std::string::npos)
-                                {
-                                    failed = true;
-                                    break;
-                                }
-                            }
-
-                            // Find the next backslash
-                            backslashPos = line.find('\\', backslashPos + 1);
-                        }
-
-                        // There may never be more than two quotes
-                        if (line.find('"', quotePos2 + 1) != std::string::npos)
-                            failed = true;
-
-                        // Convert the part behind the quote to lowercase
-                        line = line.substr(0, quotePos2 + 1) + toLower(line.substr(quotePos2 + 1));
-
-                        // Remove the quotes from the string
-                        line.erase(quotePos1, 1);
-                        line.erase(quotePos2 - 1, 1);
-                    }
-                    else // The second quote is missing
-                        failed = true;
-                }
-            }
-
-            // Only continue when the line hasn't become empty and nothing went wrong so far
-            if (!line.empty() && !failed)
-            {
-                // Check if this is the first line
-                if (progress.empty())
-                {
-                    // The first line should contain the beginning of the window section
-                    if (line.substr(0, 7).compare("window:") == 0)
-                    {
-                        widgetPtr.push_back(this);
-                        progress.push(0);
-                        continue;
-                    }
-                    else // The first line is wrong
-                    {
-                        failed = true;
-                        break;
-                    }
-                }
-
-                // Check for opening and closing brackets
-                if (progress.top() == 0)
-                {
-                    if (line.compare("{") == 0)
-                    {
-                        progress.pop();
-                        progress.push(1);
-                        continue;
-                    }
-                    else
-                    {
-                        failed = true;
-                        break;
-                    }
-                }
-                else
-                {
-                    if (line.compare("}") == 0)
-                    {
-                        widgetPtr.pop_back();
-                        progress.pop();
-                        continue;
-                    }
-                }
-
-                // The line doesn't contain a '}', so check if it contains another widget
-                bool widgetFound = true;
-				auto pos = line.find_first_of(':');
-				if (pos != std::string::npos){
-					std::string nazwa = line.substr(0, pos);
-					line.erase(0, pos+1);
-					auto obiekt = TGUI_WidgetFactory.createWidget(nazwa, static_cast<Container*>(widgetPtr.back()), line);
-					if (obiekt != nullptr){
-						widgetPtr.push_back(obiekt);
-						progress.push(0);
-					}
-					else{
-						widgetFound = false;
-					}
-
-				}
-				else{
-					widgetFound = false;
-				}
-
-
-                // The line didn't contain a bracket or a new widget, so it must contain a property
-                if (!widgetFound)
-                {
-                    std::string::size_type equalSignPosition = line.find('=');
-                    if (equalSignPosition == std::string::npos)
-                    {
-                        failed = true;
-                        break;
-                    }
-
-                    if (!widgetPtr.back()->setProperty(line.substr(0, equalSignPosition), line.substr(equalSignPosition + 1)))
-                        failed = true;
-                }
-            }
-        }
-
-        m_File.close();
-
-        if (failed)
-            return false;
-
-        return true;
-
-        #undef COMPARE_WIDGET
+        WidgetLoader::load(std::static_pointer_cast<Container>(shared_from_this()), stream);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool Container::saveWidgetsToFile(const std::string& filename)
+    void Container::saveWidgetsToStream(std::stringstream& stream)
     {
-        std::string tabs;
-
-        // Open the file
-        std::ofstream m_File(filename);
-
-        // Check if the file was not opened
-        if (m_File.is_open() == false)
-            return false;
-
-        m_File << tabs << "Window:" << std::endl;
-        m_File << tabs << "{" << std::endl;
-        tabs += "\t";
-
-        std::function< void (const std::vector<sf::String>&, const std::vector<Widget::Ptr>&) > saveWidgets;
-        saveWidgets = [this, &m_File, &tabs, &saveWidgets] (const std::vector<sf::String>& widgetName, const std::vector<Widget::Ptr>& widgets)
-        {
-            auto nameIt = widgetName.cbegin();
-            for (auto widgetIt = widgets.cbegin(); widgetIt != widgets.cend(); ++widgetIt, ++nameIt)
-            {
-                switch ((*widgetIt)->getWidgetType())
-                {
-                    case Type_Tab:              m_File << tabs << "Tab: "; break;
-                    case Type_Grid:             m_File << tabs << "Grid: "; break;
-                    case Type_Panel:            m_File << tabs << "Panel: "; break;
-                    case Type_Label:            m_File << tabs << "Label: "; break;
-                    case Type_Button:           m_File << tabs << "Button: "; break;
-                    case Type_Slider:           m_File << tabs << "Slider: "; break;
-                    case Type_Picture:          m_File << tabs << "Picture: "; break;
-                    case Type_ListBox:          m_File << tabs << "ListBox: "; break;
-                    case Type_EditBox:          m_File << tabs << "EditBox: "; break;
-                    case Type_TextBox:          m_File << tabs << "TextBox: "; break;
-                    case Type_ChatBox:          m_File << tabs << "ChatBox: "; break;
-                    case Type_MenuBar:          m_File << tabs << "MenuBar: "; break;
-                    case Type_Checkbox:         m_File << tabs << "Checkbox: "; break;
-                    case Type_ComboBox:         m_File << tabs << "ComboBox: "; break;
-                    case Type_Slider2d:         m_File << tabs << "Slider2d: "; break;
-                    case Type_Scrollbar:        m_File << tabs << "Scrollbar: "; break;
-                    case Type_LoadingBar:       m_File << tabs << "LoadingBar: "; break;
-                    case Type_SpinButton:       m_File << tabs << "SpinButton: "; break;
-                    case Type_RadioButton:      m_File << tabs << "RadioButton: "; break;
-                    case Type_ChildWindow:      m_File << tabs << "ChildWindow: "; break;
-                    case Type_SpriteSheet:      m_File << tabs << "SpriteSheet: "; break;
-                    case Type_AnimatedPicture:  m_File << tabs << "AnimatedPicture: "; break;
-				    case Type_KontrolkaObiektu: m_File << tabs << "KontrolkaObiektu: "; break;
-                    default:
-                        continue;
-                }
-                m_File << "\"" << nameIt->toAnsiString() << "\"" << std::endl;
-
-                m_File << tabs << "{" << std::endl;
-                tabs += "\t";
-
-                std::string value;
-                if ((*widgetIt)->getProperty("Filename", value))
-                {
-                    m_File << tabs << "Filename = \"" << value << "\"" << std::endl;
-                }
-                else if ((*widgetIt)->getProperty("ConfigFile", value))
-                {
-                    m_File << tabs << "ConfigFile = \"" << value << "\"" << std::endl;
-                }
-
-                auto properties = (*widgetIt)->getPropertyList();
-                for (auto propertyIt = properties.cbegin(); propertyIt != properties.cend(); ++propertyIt)
-                {
-                    if ((propertyIt->first != "Filename") && (propertyIt->first != "ConfigFile"))
-                    {
-                        (*widgetIt)->getProperty(propertyIt->first, value);
-
-                        if (propertyIt->second == "string")
-                            m_File << tabs << propertyIt->first << " = \"" << value << "\"" << std::endl;
-                        else
-                        {
-                            if (!value.empty())
-                                m_File << tabs << propertyIt->first << " = " << value << std::endl;
-                        }
-                    }
-                }
-
-                if ((*widgetIt)->m_ContainerWidget)
-                {
-                    m_File << std::endl;
-                    saveWidgets(Container::Ptr(*widgetIt)->getWidgetNames(), Container::Ptr(*widgetIt)->getWidgets());
-                }
-
-                tabs.erase(tabs.length()-1);
-                m_File << tabs << "}" << std::endl << std::endl;
-            }
-        };
-
-        saveWidgets(m_ObjName, m_Widgets);
-
-        tabs.erase(tabs.length()-1);
-        m_File << tabs << "}" << std::endl;
-
-        return true;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    sf::Vector2f Container::getWidgetsOffset() const
-    {
-        return sf::Vector2f(0, 0);
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void Container::addChildCallback(const Callback& callback)
-    {
-        // If there is no global callback function then send the callback to the parent
-        if (m_GlobalCallbackFunctions.empty())
-            m_Parent->addChildCallback(callback);
-        else
-        {
-            // Loop through all callback functions and call them
-            for (auto it = m_GlobalCallbackFunctions.cbegin(); it != m_GlobalCallbackFunctions.cend(); ++it)
-                (*it)(callback);
-        }
+        WidgetSaver::save(std::static_pointer_cast<Container>(shared_from_this()), stream);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -944,14 +571,12 @@ namespace tgui
 
     void Container::mouseNotOnWidget()
     {
-        if (m_MouseHover == true)
+        if (m_mouseHover == true)
         {
             mouseLeftWidget();
 
-            for (unsigned int i = 0; i < m_Widgets.size(); ++i)
-                m_Widgets[i]->mouseNotOnWidget();
-
-            m_MouseHover = false;
+            for (std::size_t i = 0; i < m_widgets.size(); ++i)
+                m_widgets[i]->mouseNotOnWidget();
         }
     }
 
@@ -961,8 +586,8 @@ namespace tgui
     {
         Widget::mouseNoLongerDown();
 
-        for (unsigned int i=0; i<m_Widgets.size(); ++i)
-            m_Widgets[i]->mouseNoLongerDown();
+        for (std::size_t i = 0; i < m_widgets.size(); ++i)
+            m_widgets[i]->mouseNoLongerDown();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -974,29 +599,44 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void Container::initialize(Container *const parent)
+    Widget::Ptr Container::askToolTip(sf::Vector2f mousePos)
     {
-        m_Parent = parent;
-        setGlobalFont(m_Parent->getGlobalFont());
+        if (mouseOnWidget(mousePos.x, mousePos.y))
+        {
+            Widget::Ptr toolTip = nullptr;
+
+            mousePos -= getPosition() + getWidgetsOffset();
+
+            Widget::Ptr widget = mouseOnWhichWidget(mousePos.x, mousePos.y);
+            if (widget)
+            {
+                toolTip = widget->askToolTip(mousePos);
+                if (toolTip)
+                    return toolTip;
+            }
+
+            if (m_toolTip)
+                return getToolTip();
+        }
+
+        return nullptr;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void Container::update()
+    void Container::update(sf::Time elapsedTime)
     {
+        Widget::update(elapsedTime);
+
         // Loop through all widgets
-        for (unsigned int i = 0; i < m_Widgets.size(); ++i)
+        for (std::size_t i = 0; i < m_widgets.size(); ++i)
         {
-            // Check if the widget is a container or a widget that uses the time
-            if (m_Widgets[i]->m_AnimatedWidget)
-            {
-                // Update the elapsed time
-                m_Widgets[i]->m_AnimationTimeElapsed += m_AnimationTimeElapsed;
-                m_Widgets[i]->update();
-            }
+            // Update the elapsed time in widgets that need it
+            if (m_widgets[i]->isVisible())
+                m_widgets[i]->update(elapsedTime);
         }
 
-        m_AnimationTimeElapsed = sf::Time();
+        m_animationTimeElapsed = {};
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1004,29 +644,32 @@ namespace tgui
     bool Container::handleEvent(sf::Event& event)
     {
         // Check if a mouse button has moved
-        if (event.type == sf::Event::MouseMoved)
+        if ((event.type == sf::Event::MouseMoved) || ((event.type == sf::Event::TouchMoved) && (event.touch.finger == 0)))
         {
+            float mouseX = (event.type == sf::Event::MouseMoved) ? static_cast<float>(event.mouseMove.x) : static_cast<float>(event.touch.x);
+            float mouseY = (event.type == sf::Event::MouseMoved) ? static_cast<float>(event.mouseMove.y) : static_cast<float>(event.touch.y);
+
             // Loop through all widgets
-            for (unsigned int i=0; i<m_Widgets.size(); ++i)
+            for (std::size_t i = 0; i < m_widgets.size(); ++i)
             {
                 // Check if the mouse went down on the widget
-                if (m_Widgets[i]->m_MouseDown)
+                if (m_widgets[i]->m_mouseDown)
                 {
                     // Some widgets should always receive mouse move events while dragging them, even if the mouse is no longer on top of them.
-                    if ((m_Widgets[i]->m_DraggableWidget) || (m_Widgets[i]->m_ContainerWidget))
+                    if ((m_widgets[i]->m_draggableWidget) || (m_widgets[i]->m_containerWidget))
                     {
-                        m_Widgets[i]->mouseMoved(static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y));
+                        m_widgets[i]->mouseMoved(mouseX, mouseY);
                         return true;
                     }
                 }
             }
 
             // Check if the mouse is on top of a widget
-            Widget::Ptr widget = mouseOnWhichWidget(static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y));
+            Widget::Ptr widget = mouseOnWhichWidget(mouseX, mouseY);
             if (widget != nullptr)
             {
                 // Send the event to the widget
-                widget->mouseMoved(static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y));
+                widget->mouseMoved(mouseX, mouseY);
                 return true;
             }
 
@@ -1034,34 +677,37 @@ namespace tgui
         }
 
         // Check if a mouse button was pressed
-        else if (event.type == sf::Event::MouseButtonPressed)
+        else if ((event.type == sf::Event::MouseButtonPressed) || ((event.type == sf::Event::TouchBegan) && (event.touch.finger == 0)))
         {
+            float mouseX = (event.type == sf::Event::MouseButtonPressed) ? static_cast<float>(event.mouseButton.x) : static_cast<float>(event.touch.x);
+            float mouseY = (event.type == sf::Event::MouseButtonPressed) ? static_cast<float>(event.mouseButton.y) : static_cast<float>(event.touch.y);
+
             // Check if the left mouse was pressed
             if (event.mouseButton.button == sf::Mouse::Left)
             {
                 // Check if the mouse is on top of a widget
-                Widget::Ptr widget = mouseOnWhichWidget(static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y));
+                Widget::Ptr widget = mouseOnWhichWidget(mouseX, mouseY);
                 if (widget != nullptr)
                 {
                     // Focus the widget
                     focusWidget(widget.get());
 
                     // Check if the widget is a container
-                    if (widget->m_ContainerWidget)
+                    if (widget->m_containerWidget)
                     {
                         // If another widget was focused then unfocus it now
-                        if ((m_FocusedWidget) && (m_FocusedWidget != widget.get()))
+                        if ((m_focusedWidget) && (m_widgets[m_focusedWidget-1] != widget))
                         {
-                            m_FocusedWidget->m_Focused = false;
-                            m_FocusedWidget->widgetUnfocused();
-                            m_FocusedWidget = nullptr;
+                            m_widgets[m_focusedWidget-1]->m_focused = false;
+                            m_widgets[m_focusedWidget-1]->widgetUnfocused();
+                            m_focusedWidget = 0;
                         }
                     }
 
-                    widget->leftMousePressed(static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y));
+                    widget->leftMousePressed(mouseX, mouseY);
                     return true;
                 }
-                else // The mouse didn't went down on a widget, so unfocus the focused widget
+                else // The mouse did not went down on a widget, so unfocus the focused widget
                     unfocusWidgets();
             }
 
@@ -1069,18 +715,21 @@ namespace tgui
         }
 
         // Check if a mouse button was released
-        else if (event.type == sf::Event::MouseButtonReleased)
+        else if ((event.type == sf::Event::MouseButtonReleased) || ((event.type == sf::Event::TouchEnded) && (event.touch.finger == 0)))
         {
+            float mouseX = (event.type == sf::Event::MouseButtonReleased) ? static_cast<float>(event.mouseButton.x) : static_cast<float>(event.touch.x);
+            float mouseY = (event.type == sf::Event::MouseButtonReleased) ? static_cast<float>(event.mouseButton.y) : static_cast<float>(event.touch.y);
+
             // Check if the left mouse was released
             if (event.mouseButton.button == sf::Mouse::Left)
             {
                 // Check if the mouse is on top of a widget
-                Widget::Ptr widget = mouseOnWhichWidget(static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y));
+                Widget::Ptr widget = mouseOnWhichWidget(mouseX, mouseY);
                 if (widget != nullptr)
-                    widget->leftMouseReleased(static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y));
+                    widget->leftMouseReleased(mouseX, mouseY);
 
                 // Tell all the other widgets that the mouse has gone up
-                for (std::vector<Widget::Ptr>::iterator it = m_Widgets.begin(); it != m_Widgets.end(); ++it)
+                for (std::vector<Widget::Ptr>::iterator it = m_widgets.begin(); it != m_widgets.end(); ++it)
                 {
                     if (*it != widget)
                         (*it)->mouseNoLongerDown();
@@ -1100,10 +749,17 @@ namespace tgui
             if (event.key.code != sf::Keyboard::Unknown)
             {
                 // Check if there is a focused widget
-                if (m_FocusedWidget)
+                if (m_focusedWidget)
                 {
+                #ifdef SFML_SYSTEM_ANDROID
+                    // Map delete to backspace on android
+                    if (event.key.code == sf::Keyboard::Delete)
+                        event.key.code = sf::Keyboard::BackSpace;
+                #endif
+
                     // Tell the widget that the key was pressed
-                    m_FocusedWidget->keyPressed(event.key);
+                    m_widgets[m_focusedWidget-1]->keyPressed(event.key);
+
                     return true;
                 }
             }
@@ -1128,9 +784,9 @@ namespace tgui
             if ((event.text.unicode >= 32) && (event.text.unicode != 127))
             {
                 // Tell the widget that the key was pressed
-                if (m_FocusedWidget)
+                if (m_focusedWidget)
                 {
-                    m_FocusedWidget->textEntered(event.text.unicode);
+                    m_widgets[m_focusedWidget-1]->textEntered(event.text.unicode);
                     return true;
                 }
             }
@@ -1164,37 +820,29 @@ namespace tgui
         if (TGUI_TabKeyUsageEnabled == false)
             return false;
 
-        // Find the focused widget in the list of widgets
-        unsigned int index = 0;
-        for (; index < m_Widgets.size(); ++index)
-        {
-            if (m_Widgets[index].get() == m_FocusedWidget)
-                break;
-        }
-
         // Loop through all widgets
-        for (unsigned int i = index+1; i < m_Widgets.size(); ++i)
+        for (std::size_t i = m_focusedWidget; i < m_widgets.size(); ++i)
         {
             // If you are not allowed to focus the widget, then skip it
-            if (m_Widgets[i]->m_AllowFocus == true)
+            if (m_widgets[i]->m_allowFocus == true)
             {
                 // Make sure that the widget is visible and enabled
-                if ((m_Widgets[i]->m_Visible) && (m_Widgets[i]->m_Enabled))
+                if ((m_widgets[i]->m_visible) && (m_widgets[i]->m_enabled))
                 {
                     // Container widgets can only be focused it they contain focusable widgets
-                    if ((!m_Widgets[i]->m_ContainerWidget) || (Container::Ptr(m_Widgets[i])->focusNextWidgetInContainer()))
+                    if ((!m_widgets[i]->m_containerWidget) || (std::static_pointer_cast<Container>(m_widgets[i])->focusNextWidgetInContainer()))
                     {
-                        if (m_FocusedWidget)
+                        if (m_focusedWidget > 0)
                         {
                             // Unfocus the current widget
-                            m_FocusedWidget->m_Focused = false;
-                            m_FocusedWidget->widgetUnfocused();
+                            m_widgets[m_focusedWidget-1]->m_focused = false;
+                            m_widgets[m_focusedWidget-1]->widgetUnfocused();
                         }
 
                         // Focus on the new widget
-                        m_FocusedWidget = m_Widgets[i].get();
-                        m_Widgets[i]->m_Focused = true;
-                        m_Widgets[i]->widgetFocused();
+                        m_focusedWidget = i+1;
+                        m_widgets[i]->m_focused = true;
+                        m_widgets[i]->widgetFocused();
 
                         return true;
                     }
@@ -1216,68 +864,60 @@ namespace tgui
             return false;
 
         // Check if a container is focused
-        if (m_FocusedWidget)
+        if (m_focusedWidget)
         {
-            if (m_FocusedWidget->m_ContainerWidget)
+            if (m_widgets[m_focusedWidget-1]->m_containerWidget)
             {
                 // Focus the next widget in container
-                if (static_cast<Container*>(m_FocusedWidget)->focusNextWidgetInContainer())
+                if (std::static_pointer_cast<Container>(m_widgets[m_focusedWidget-1])->focusNextWidgetInContainer())
                     return true;
             }
         }
 
-        // Find the focused widget in the list of widgets
-        unsigned int index = 0;
-        for (; index < m_Widgets.size(); ++index)
-        {
-            if (m_Widgets[index].get() == m_FocusedWidget)
-                break;
-        }
-
         // Loop all widgets behind the focused one
-        for (unsigned int i = index+1; i < m_Widgets.size(); ++i)
+        for (std::size_t i = m_focusedWidget; i < m_widgets.size(); ++i)
         {
             // If you are not allowed to focus the widget, then skip it
-            if (m_Widgets[i]->m_AllowFocus == true)
+            if (m_widgets[i]->m_allowFocus == true)
             {
                 // Make sure that the widget is visible and enabled
-                if ((m_Widgets[i]->m_Visible) && (m_Widgets[i]->m_Enabled))
+                if ((m_widgets[i]->m_visible) && (m_widgets[i]->m_enabled))
                 {
-                    if (m_FocusedWidget)
+                    if (m_focusedWidget)
                     {
                         // unfocus the current widget
-                        m_FocusedWidget->m_Focused = false;
-                        m_FocusedWidget->widgetUnfocused();
+                        m_widgets[m_focusedWidget-1]->m_focused = false;
+                        m_widgets[m_focusedWidget-1]->widgetUnfocused();
                     }
 
                     // Focus on the new widget
-                    m_FocusedWidget = m_Widgets[i].get();
-                    m_Widgets[i]->m_Focused = true;
-                    m_Widgets[i]->widgetFocused();
+                    m_focusedWidget = i+1;
+                    m_widgets[i]->m_focused = true;
+                    m_widgets[i]->widgetFocused();
                     return true;
                 }
             }
         }
 
         // None of the widgets behind the focused one could be focused, so loop the ones before it
-        if (m_FocusedWidget)
+        if (m_focusedWidget)
         {
-            for (unsigned int i = 0; i < index; ++i)
+            for (std::size_t i = 0; i < m_focusedWidget-1; ++i)
             {
                 // If you are not allowed to focus the widget, then skip it
-                if (m_Widgets[i]->m_AllowFocus == true)
+                if (m_widgets[i]->m_allowFocus == true)
                 {
                     // Make sure that the widget is visible and enabled
-                    if ((m_Widgets[i]->m_Visible) && (m_Widgets[i]->m_Enabled))
+                    if ((m_widgets[i]->m_visible) && (m_widgets[i]->m_enabled))
                     {
                         // unfocus the current widget
-                        m_FocusedWidget->m_Focused = false;
-                        m_FocusedWidget->widgetUnfocused();
+                        m_widgets[m_focusedWidget-1]->m_focused = false;
+                        m_widgets[m_focusedWidget-1]->widgetUnfocused();
 
                         // Focus on the new widget
-                        m_FocusedWidget = m_Widgets[i].get();
-                        m_Widgets[i]->m_Focused = true;
-                        m_Widgets[i]->widgetFocused();
+                        m_focusedWidget = i+1;
+                        m_widgets[i]->m_focused = true;
+                        m_widgets[i]->widgetFocused();
                         return true;
                     }
                 }
@@ -1285,9 +925,9 @@ namespace tgui
         }
 
         // If the currently focused container widget is the only widget to focus, then focus its next child widget
-        if ((m_FocusedWidget) && (m_FocusedWidget->m_ContainerWidget))
+        if ((m_focusedWidget) && (m_widgets[m_focusedWidget-1]->m_containerWidget))
         {
-            static_cast<Container*>(m_FocusedWidget)->tabKeyPressed();
+            std::static_pointer_cast<Container>(m_widgets[m_focusedWidget-1])->tabKeyPressed();
             return true;
         }
 
@@ -1302,10 +942,10 @@ namespace tgui
         Widget::Ptr widget = nullptr;
 
         // Loop through all widgets
-        for (std::vector<Widget::Ptr>::reverse_iterator it = m_Widgets.rbegin(); it != m_Widgets.rend(); ++it)
+        for (std::vector<Widget::Ptr>::reverse_iterator it = m_widgets.rbegin(); it != m_widgets.rend(); ++it)
         {
             // Check if the widget is visible and enabled
-            if (((*it)->m_Visible) && ((*it)->m_Enabled))
+            if (((*it)->m_visible) && ((*it)->m_enabled))
             {
                 if (widgetFound == false)
                 {
@@ -1329,39 +969,25 @@ namespace tgui
     void Container::drawWidgetContainer(sf::RenderTarget* target, const sf::RenderStates& states) const
     {
         // Draw all widgets when they are visible
-        for (unsigned int i = 0; i < m_Widgets.size(); ++i)
+        for (std::size_t i = 0; i < m_widgets.size(); ++i)
         {
-            if (m_Widgets[i]->m_Visible)
-                m_Widgets[i]->draw(*target, states);
+            if (m_widgets[i]->m_visible)
+                m_widgets[i]->draw(*target, states);
         }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void GuiContainer::unbindGlobalCallback()
+    GuiContainer::GuiContainer()
     {
-        m_GlobalCallbackFunctions.erase(++m_GlobalCallbackFunctions.begin(), m_GlobalCallbackFunctions.end());
+        m_callback.widgetType = "GuiContainer";
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void GuiContainer::setSize(float, float)
+    void GuiContainer::setSize(const Layout2d&)
     {
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    sf::Vector2f GuiContainer::getSize() const
-    {
-        return sf::Vector2f(m_Window->getSize());
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    GuiContainer* GuiContainer::clone()
-    {
-        return nullptr;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

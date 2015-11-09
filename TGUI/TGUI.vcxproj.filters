@@ -15,91 +15,64 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\TGUI\AnimatedPicture.cpp">
+    <ClCompile Include="src\TGUI\Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\Button.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TGUI\Callback.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TGUI\ChatBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TGUI\Checkbox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TGUI\ChildWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TGUI\ClickableWidget.cpp">
+    <ClCompile Include="src\TGUI\BoxLayout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\TGUI\Clipboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\ComboBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TGUI\ConfigFile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\TGUI\Container.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\EditBox.cpp">
+    <ClCompile Include="src\TGUI\Font.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\Grid.cpp">
+    <ClCompile Include="src\TGUI\Global.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\TGUI\Gui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\Label.cpp">
+    <ClCompile Include="src\TGUI\HorizontalLayout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\ListBox.cpp">
+    <ClCompile Include="src\TGUI\Layout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\LoadingBar.cpp">
+    <ClCompile Include="src\TGUI\Loading\DataIO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\MenuBar.cpp">
+    <ClCompile Include="src\TGUI\Loading\Deserializer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\MessageBox.cpp">
+    <ClCompile Include="src\TGUI\Loading\ObjectConverter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\Panel.cpp">
+    <ClCompile Include="src\TGUI\Loading\Serializer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\Picture.cpp">
+    <ClCompile Include="src\TGUI\Loading\Theme.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\RadioButton.cpp">
+    <ClCompile Include="src\TGUI\Loading\ThemeLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\Scrollbar.cpp">
+    <ClCompile Include="src\TGUI\Loading\WidgetConverter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\Slider.cpp">
+    <ClCompile Include="src\TGUI\Loading\WidgetLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\Slider2d.cpp">
+    <ClCompile Include="src\TGUI\Loading\WidgetSaver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\SpinButton.cpp">
+    <ClCompile Include="src\TGUI\Signal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\SpriteSheet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TGUI\Tab.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TGUI\TextBox.cpp">
+    <ClCompile Include="src\TGUI\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\TGUI\TextureManager.cpp">
@@ -108,120 +81,168 @@
     <ClCompile Include="src\TGUI\Transformable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\TGUI\VerticalLayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\TGUI\Widget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\Knob.cpp">
+    <ClCompile Include="src\TGUI\Widgets\Button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\WidgetFactory.cpp">
+    <ClCompile Include="src\TGUI\Widgets\Canvas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\Global.cpp">
+    <ClCompile Include="src\TGUI\Widgets\ChatBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\Canvas.cpp">
+    <ClCompile Include="src\TGUI\Widgets\CheckBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\ChildWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\ClickableWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\ComboBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\EditBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\extra\AnimatedPicture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\extra\Slider2d.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\extra\SpriteSheet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\Grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\Knob.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\Label.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\ListBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\MenuBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\MessageBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\Panel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\Picture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\ProgressBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\RadioButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\Scrollbar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\Slider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\SpinButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\Tab.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\TextBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TGUI\Widgets\ToolTip.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\TGUI\AnimatedPicture.hpp">
+    <ClInclude Include="include\TGUI\Animation.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\TGUI\Borders.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\Button.hpp">
+    <ClInclude Include="include\TGUI\BoxLayout.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\TGUI\Callback.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\ChatBox.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\TGUI\Checkbox.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\TGUI\ChildWindow.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\TGUI\ClickableWidget.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\TGUI\Clipboard.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\TGUI\ComboBox.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\TGUI\Config.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\ConfigFile.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\TGUI\Container.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\EditBox.hpp">
+    <ClInclude Include="include\TGUI\Exception.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\Grid.hpp">
+    <ClInclude Include="include\TGUI\Font.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Global.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\TGUI\Gui.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\Knob.hpp">
+    <ClInclude Include="include\TGUI\HorizontalLayout.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\Label.hpp">
+    <ClInclude Include="include\TGUI\Layout.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\ListBox.hpp">
+    <ClInclude Include="include\TGUI\Loading\DataIO.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\LoadingBar.hpp">
+    <ClInclude Include="include\TGUI\Loading\Deserializer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\MenuBar.hpp">
+    <ClInclude Include="include\TGUI\Loading\ObjectConverter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\MessageBox.hpp">
+    <ClInclude Include="include\TGUI\Loading\Serializer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\Panel.hpp">
+    <ClInclude Include="include\TGUI\Loading\Theme.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\Picture.hpp">
+    <ClInclude Include="include\TGUI\Loading\ThemeLoader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\RadioButton.hpp">
+    <ClInclude Include="include\TGUI\Loading\WidgetConverter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\Scrollbar.hpp">
+    <ClInclude Include="include\TGUI\Loading\WidgetLoader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\SharedWidgetPtr.hpp">
+    <ClInclude Include="include\TGUI\Loading\WidgetSaver.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\Slider.hpp">
+    <ClInclude Include="include\TGUI\Signal.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\Slider2d.hpp">
+    <ClInclude Include="include\TGUI\Texture.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\SpinButton.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\TGUI\SpriteSheet.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\TGUI\Tab.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\TGUI\TextBox.hpp">
+    <ClInclude Include="include\TGUI\TextureData.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\TGUI\TextureManager.hpp">
@@ -233,25 +254,92 @@
     <ClInclude Include="include\TGUI\Transformable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\TGUI\VerticalLayout.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\TGUI\Widget.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\WidgetFactory.h">
+    <ClInclude Include="include\TGUI\Widgets\Button.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\Global.hpp">
+    <ClInclude Include="include\TGUI\Widgets\Canvas.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TGUI\Canvas.hpp">
+    <ClInclude Include="include\TGUI\Widgets\ChatBox.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="include\TGUI\SharedWidgetPtr.inl">
+    <ClInclude Include="include\TGUI\Widgets\CheckBox.hpp">
       <Filter>Header Files</Filter>
-    </None>
-    <None Include="include\TGUI\Config.hpp.in">
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\ChildWindow.hpp">
       <Filter>Header Files</Filter>
-    </None>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\ClickableWidget.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\ComboBox.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\EditBox.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\extra\AnimatedPicture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\extra\Slider2d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\extra\SpriteSheet.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\Grid.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\Knob.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\Label.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\ListBox.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\MenuBar.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\MessageBox.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\Panel.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\Picture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\ProgressBar.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\RadioButton.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\Scrollbar.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\Slider.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\SpinButton.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\Tab.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\TextBox.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TGUI\Widgets\ToolTip.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
