@@ -6,7 +6,7 @@
 
 namespace SpEx{
 
-	void Konsola::callback(const tgui::Callback& callback, tgui::ChatBox::Ptr chatbox) const{
+	void Konsola::callback(tgui::ChatBox::Ptr chatbox, const tgui::Callback& callback) const{
 		std::string polecenie = ((tgui::EditBox*)callback.widget)->getText();
 		chatbox->addLine(SLog::Log::pobierzInstancje().pobierzDateCzas() + " -> " + polecenie, sf::Color(0x0a, 0xd7, 0xb8, 255));
 		((tgui::EditBox*)callback.widget)->setText("");
@@ -94,24 +94,22 @@ namespace SpEx{
 		sf::RenderWindow window(sf::VideoMode(650, 400), "Konsola",sf::Style::Titlebar);
 		tgui::Gui gui(window);
 
-		if (gui.setGlobalFont("resource/consola.ttf") == false){
-			inicjalizacja_.set_value(false);
-			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE,STyp::Tekst(),-1,STyp::Tekst("Blad inicjalizacji."),STyp::Tekst("Nie udalo sie ustawic czcionki")));
-			return;
-		}
+		gui.setFont("resource/consola.ttf");
 
-		tgui::ChatBox::Ptr chatbox(gui);
-		chatbox->load("widgets/Black.conf");
+		tgui::ChatBox::Ptr chatbox = std::make_shared<tgui::ChatBox>();
+		//chatbox->load("widgets/Black.conf");
 		chatbox->setPosition(0, 0);
 		chatbox->setSize(650, 372);
 		chatbox->setTextSize(14);
 		chatbox->setLineLimit(100);
+		gui.add(chatbox);
 
-		tgui::EditBox::Ptr editBox(gui);
-		editBox->load("widgets/Black.conf");
+		tgui::EditBox::Ptr editBox = std::make_shared<tgui::EditBox>();
+		//editBox->load("widgets/Black.conf");
 		editBox->setPosition(0, 372);
 		editBox->setSize(650, 28);
-		editBox->bindCallbackEx(std::bind(&SpEx::Konsola::callback, this, std::placeholders::_1, chatbox), tgui::EditBox::ReturnKeyPressed);
+		editBox->connectEx("ReturnKeyPressed", &SpEx::Konsola::callback, this, chatbox);
+		gui.add(editBox);
 		
 		inicjalizacja_.set_value(true);
 

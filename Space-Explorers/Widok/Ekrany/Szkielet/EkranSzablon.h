@@ -1,7 +1,7 @@
 #pragma once
 #include "Kontroler\MaszynaStanow\Stan.h"
 #include "TGUI\Gui.hpp"
-#include "Widok\Tgui\LogListGui.h"
+//#include "Widok\Tgui\LogListGui.h"
 
 namespace SpEx{
 	/**
@@ -90,7 +90,7 @@ namespace SpEx{
 		*/
 		virtual void clear();
 
-		tgui::LogListGui::Ptr oknoKomunikatow_ = nullptr; /// WskaŸnik na okno komunikatów.
+		//tgui::LogListGui::Ptr oknoKomunikatow_ = nullptr; /// WskaŸnik na okno komunikatów.
 
 		/**
 		* \brief Metoda tworz¹ca tekstowy opis obiektu.

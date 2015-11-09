@@ -1,7 +1,6 @@
 #pragma once
 #include "Kontroler\MaszynaStanow\MaszynaStanow.h"
 #include <TGUI\TGUI.hpp>
-#include "Widok\Tgui\LogListGui.h"
 
 namespace SpEx{
 
@@ -79,12 +78,12 @@ namespace SpEx{
 		* \param[inout] widzet - Wskaünik na widøet.
 		* \param[in] zdarzenie - Identyfikator zdarzenia.
 		* \param[in] numer - Dodatkowy numer pomocniczy.
-		* \param[in] akcja - Numer akcji widøeta.
+		* \param[in] akcje - Lista nazw akcji widøeta oddzielone spacjami.
 		* \author Daniel Wojdak
 		* \version 1
 		* \date 08-07-2014
 		*/
-		static void bindCallbackEvent(const tgui::Widget::Ptr widzet, unsigned int zdarzenie, unsigned int numer, unsigned int akcja);
+		static void bindCallbackEvent(const tgui::Widget::Ptr widzet, unsigned int zdarzenie, unsigned int numer, const std::string& akcje);
 
 	private:
 

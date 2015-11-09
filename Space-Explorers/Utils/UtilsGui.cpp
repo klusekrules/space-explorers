@@ -16,9 +16,9 @@ namespace SpEx{
 		MaszynaStanow::pobierzInstancje().kolejkujZdarzenie(zdarzenie);
 	}
 
-	void UtilsGui::bindCallbackEvent(const tgui::Widget::Ptr widzet, unsigned int zdarzenie, unsigned int numer, unsigned int akcja){
-		if (!(akcja == 0 || zdarzenie == 0) && widzet != nullptr){
-			widzet->bindCallbackEx(std::bind(&UtilsGui::callback, std::placeholders::_1, zdarzenie, numer), akcja);
+	void UtilsGui::bindCallbackEvent(const tgui::Widget::Ptr widzet, unsigned int zdarzenie, unsigned int numer, const std::string& akcje){
+		if (!(akcje.empty() || zdarzenie == 0) && widzet != nullptr){
+			widzet->connectEx(akcje, std::bind(&UtilsGui::callback, std::placeholders::_1, zdarzenie, numer));
 		}
 	}
 }

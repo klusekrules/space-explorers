@@ -3,7 +3,7 @@
 #include "Logger\Log.h"
 #include "Szkielet\EkranSzablon.h"
 #include "Kontroler\Wielowatkowosc\Zadanie.h"
-#include "Widok\Tgui\LogListGui.h"
+//#include "Widok\Tgui\LogListGui.h"
 #include <future>
 
 namespace SpEx{

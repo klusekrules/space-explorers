@@ -23,18 +23,18 @@ namespace SpEx{
 				if (!czcionka.empty()){
 					sf::Font czcionka_;
 					czcionka_.loadFromFile(czcionka);
-					interfejs_.setGlobalFont(czcionka_);
+					interfejs_.setFont(czcionka_);
 				}
 
-				if (!interfejs_.loadWidgetsFromFile(konfiguracja)){
+				/*if (!interfejs_.loadWidgetsFromFile(konfiguracja)){
 					throw SpEx::BladKonfiguracjiEkranu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), id_, KOMUNIKAT_BLAD_PLIKU(konfiguracja));
-				}
+				}*/
 
 				std::string nazwaOknaKomunikatow = XmlBO::WczytajAtrybut(wezel, ATRYBUT_XML_OKNO_KOMUNIKATOW, std::string());
 
-				if (!nazwaOknaKomunikatow.empty()){
+				/*if (!nazwaOknaKomunikatow.empty()){
 					oknoKomunikatow_ = interfejs_.get<tgui::LogListGui>(nazwaOknaKomunikatow);
-				}
+				}*/
 
 				XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_KONTROLKA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 					std::string nazwa = XmlBO::WczytajAtrybut(element, ATRYBUT_XML_NAZWA, std::string());
@@ -55,7 +55,7 @@ namespace SpEx{
 	
 	void EkranSzablon::clear(){
 		interfejs_.removeAllWidgets();
-		interfejs_.setGlobalFont(sf::Font());
+		interfejs_.setFont(sf::Font());
 	}
 
 	void EkranSzablon::odbierz(Stan& stan, const sf::Event& zdarzenie){
@@ -79,14 +79,14 @@ namespace SpEx{
 				std::string nazwa = XmlBO::WczytajAtrybut(element, ATRYBUT_XML_NAZWA, std::string());
 				std::string wartosc = XmlBO::WczytajAtrybut(element, ATRYBUT_XML_WARTOSC, std::string());
 				if (!(nazwa.empty() || wartosc.empty())){
-					if (!kontrolka->setProperty(nazwa, wartosc)){
+					/*if (!kontrolka->setProperty(nazwa, wartosc)){
 						throw SpEx::BladKonfiguracjiEkranu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), id_, KOMUNIKAT_BLAD_WLASCIWOSCI(nazwa, wartosc));
-					}
+					}*/
 				}
 				return true;
 			}));
 			XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_AKCJA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
-				unsigned int akcja = XmlBO::WczytajAtrybut<unsigned int>(element, ATRYBUT_XML_IDENTYFIKATOR, 0);
+				std::string akcja = XmlBO::WczytajAtrybut(element, ATRYBUT_XML_IDENTYFIKATOR, std::string());
 				unsigned int numer = XmlBO::WczytajAtrybut<unsigned int>(element, ATRYBUT_XML_NUMER, 0);
 				unsigned int zdarzenie = XmlBO::WczytajAtrybut<unsigned int>(element, ATRYBUT_XML_ID_ZDARZENIA, 0);
 				UtilsGui::bindCallbackEvent(kontrolka, zdarzenie, numer, akcja);				

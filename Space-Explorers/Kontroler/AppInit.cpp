@@ -2,6 +2,7 @@
 
 #include <io.h>
 #include <WinSock2.h>
+#include <fstream>
 
 #include "Model\ZmianaPoziomObiektu.h"
 
@@ -10,9 +11,6 @@
 #include "Utils\StaleUstawienAplikacji.h"
 
 #include "TGUI\TGUI.hpp"
-#include "Widok\Tgui\ListaObiektowGui.h"
-#include "Widok\Tgui\ListaSurowcowGui.h"
-#include "Widok\Tgui\LogListGui.h"
 #include "Widok\Konsola\Konsola.h"
 
 #include "Wyjatki\BladKonfiguracjiAplikacji.h"
@@ -158,10 +156,10 @@ namespace SpEx{
 	}
 	
 	void Aplikacja::rejestrujKontrolkiDoTGUI(){
-		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listasurowcowgui", tgui::ListaSurowcowGui::createWidget);
+		/*tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listasurowcowgui", tgui::ListaSurowcowGui::createWidget);
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listaobiektowgui", tgui::ListaObiektowGui::createWidget);
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("kontrolkaobiektu", tgui::KontrolkaObiektu::createWidget);
-		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("loglistgui", tgui::LogListGui::createWidget);
+		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("loglistgui", tgui::LogListGui::createWidget);*/
 	}
 
 	void Aplikacja::rejestrujParametryKonsoli(){
@@ -306,7 +304,7 @@ namespace SpEx{
 		sfile << ustawienia_[ATRYBUT_PRZEDROSTEK_PLIKU_LOGOW] << s << ".log";
 		std::string filename = sfile.str();
 		logger_.dodajGniazdoWyjsciowe([filename](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{
-			static std::fstream plik(filename, std::ios_base::app);
+			static std::fstream plik(filename, std::fstream::app);
 			std::string sTyp;
 			switch (typ)
 			{

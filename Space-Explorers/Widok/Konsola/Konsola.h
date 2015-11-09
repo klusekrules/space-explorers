@@ -26,7 +26,7 @@ namespace SpEx{
 		virtual ~Konsola();
 	private:
 		void wykonajPolecenie(const std::string& polecenie) const;
-		void callback(const tgui::Callback& callback, tgui::ChatBox::Ptr chatbox) const;
+		void callback(tgui::ChatBox::Ptr chatbox, const tgui::Callback& callback) const;
 
 		struct Komunikat{
 			std::string komunikat_;

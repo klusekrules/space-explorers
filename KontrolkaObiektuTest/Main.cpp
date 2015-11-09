@@ -10,7 +10,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Window");
 	
 	tgui::Gui gui(window);
-	gui.setGlobalFont("resource\\arial.ttf");
+	gui.setFont("resource\\arial.ttf");
 	
 	while (window.isOpen())
 	{
