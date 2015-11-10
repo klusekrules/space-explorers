@@ -1133,7 +1133,7 @@ namespace tgui
 
             case sf::Keyboard::A:
             {
-                if (event.control)
+                if (event.control && !event.alt && !event.shift && !event.system)
                 {
                     m_selStart = {0, 0};
                     m_selEnd = sf::Vector2<std::size_t>(m_lines[m_lines.size()-1].getSize(), m_lines.size()-1);
@@ -1145,7 +1145,7 @@ namespace tgui
 
             case sf::Keyboard::C:
             {
-                if (event.control)
+                if (event.control && !event.alt && !event.shift && !event.system)
                     Clipboard::set(m_textSelection1.getString() + m_textSelection2.getString());
 
                 break;
@@ -1153,7 +1153,7 @@ namespace tgui
 
             case sf::Keyboard::X:
             {
-                if (event.control && !m_readOnly)
+                if (event.control && !event.alt && !event.shift && !event.system && !m_readOnly)
                 {
                     Clipboard::set(m_textSelection1.getString() + m_textSelection2.getString());
                     deleteSelectedCharacters();
@@ -1164,7 +1164,7 @@ namespace tgui
 
             case sf::Keyboard::V:
             {
-                if (event.control && !m_readOnly)
+                if (event.control && !event.alt && !event.shift && !event.system && !m_readOnly)
                 {
                     sf::String clipboardContents = Clipboard::get();
 
