@@ -96,16 +96,17 @@ namespace SpEx{
 
 		gui.setFont("resource/consola.ttf");
 
-		tgui::ChatBox::Ptr chatbox = std::make_shared<tgui::ChatBox>();
-		//chatbox->load("widgets/Black.conf");
+		tgui::Theme::Ptr theme = std::make_shared<tgui::Theme>("widgets/Black.txt");
+		
+		tgui::ChatBox::Ptr chatbox = theme->load("ChatBox");
 		chatbox->setPosition(0, 0);
 		chatbox->setSize(650, 372);
 		chatbox->setTextSize(14);
 		chatbox->setLineLimit(100);
+		chatbox->setLinesStartFromTop();
 		gui.add(chatbox);
 
-		tgui::EditBox::Ptr editBox = std::make_shared<tgui::EditBox>();
-		//editBox->load("widgets/Black.conf");
+		tgui::EditBox::Ptr editBox = theme->load("EditBox");
 		editBox->setPosition(0, 372);
 		editBox->setSize(650, 28);
 		editBox->connectEx("ReturnKeyPressed", &SpEx::Konsola::callback, this, chatbox);
