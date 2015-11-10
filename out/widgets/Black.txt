@@ -9,8 +9,8 @@ Button {
 
 ChatBox {
     BackgroundImage : "Black.png" Part(0, 154, 48, 48) Middle(16, 16, 16, 16);
-    Scrollbar       : "Scrollbar";
-    Padding         : (3, 3, 3, 3);
+    Scrollbar       : none;
+    Padding         : (10, 10, 10, 10);
 }
 
 Checkbox {
