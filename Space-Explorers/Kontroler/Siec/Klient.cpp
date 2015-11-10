@@ -20,8 +20,10 @@ namespace SpEx{
 	{
 
 		struct addrinfo *result = NULL;
-		if (getaddrinfo(opcje[ATRYBUT_ADRES_SERWERA].c_str(), nullptr, nullptr, &result)){
-			throw STyp::Wyjatek(EXCEPTION_PLACE);
+		int errorCode;
+		if (errorCode = getaddrinfo(opcje[ATRYBUT_ADRES_SERWERA].c_str(), nullptr, nullptr, &result)){
+			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(errorCode)));
+			return;
 		}
 		decltype(addr_) &sock = *((decltype(addr_)*)(result->ai_addr));
 		addr_.sin_family = AF_INET;
@@ -36,8 +38,10 @@ namespace SpEx{
 	{
 
 		struct addrinfo *result = NULL;
-		if (getaddrinfo(ip.c_str(), nullptr, nullptr, &result)){
-			throw STyp::Wyjatek(EXCEPTION_PLACE);
+		int errorCode;
+		if (errorCode = getaddrinfo(ip.c_str(), nullptr, nullptr, &result)){
+			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE,STyp::Tekst(),STyp::Identyfikator(errorCode)));
+			return;
 		}
 		decltype(addr_) &sock = *((decltype(addr_)*)(result->ai_addr));
 		addr_.sin_family = AF_INET;

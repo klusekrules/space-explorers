@@ -24,6 +24,7 @@ namespace SpEx{
 	}
 
 	int ProxyBOKlient::polaczDoSerwera(const char* ip, unsigned short port) {
+		int returnCode = RETURN_CODE_OK;
 		if (klient_ && !klient_->zakonczony()){
 			return RETURN_CODE_ISTNIEJE_POLACZENIE;
 		}
@@ -35,8 +36,12 @@ namespace SpEx{
 			klient_ = std::make_shared<Klient>(ip, port);
 		else
 			klient_ = std::make_shared<Klient>(Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji());
+		if (klient_->blad()) {
+			klient_->zakoncz();
+			returnCode = klient_->bladInfo().getNumerWyjaku()();
+		}
 		klient_->odblokuj();
-		return RETURN_CODE_OK;
+		return returnCode;
 	}
 
 	int ProxyBOKlient::rozlaczOdSerwera() {

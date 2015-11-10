@@ -67,7 +67,8 @@ namespace SpEx{
 	void Watek::funkcjaWatku(){
 		try{
 			std::lock_guard<std::mutex> blokada(wstrzymany_);
-			wykonuj();
+			if(!zakoncz_)
+				wykonuj();
 		}
 		catch (...){
 			zakonczony_ = true;
