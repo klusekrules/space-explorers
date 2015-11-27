@@ -555,6 +555,14 @@ namespace tgui
         virtual Widget::Ptr clone() = 0;
 
 
+		void *getAdditionalData() const{
+			return m_additionalData;
+		}
+
+		void setAdditionalData(void* data) {
+			m_additionalData = data;
+		}
+
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     protected:
 
@@ -653,6 +661,9 @@ namespace tgui
 
         // Show animations
         std::vector<std::shared_ptr<priv::Animation>> m_showAnimations;
+
+		//Additional data linked with widget.
+		void* m_additionalData = nullptr;
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
