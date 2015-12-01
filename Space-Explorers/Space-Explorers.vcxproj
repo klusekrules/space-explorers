@@ -442,9 +442,7 @@
     <ClInclude Include="Widok\Ekrany\Szkielet\EkranSzablon.h" />
     <ClInclude Include="Widok\Konsola\Konsola.h" />
     <ClInclude Include="Widok\SFML\RoundedRectangleShape.hpp" />
-    <ClInclude Include="Widok\Tgui\KontrolkaObiektu.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="Widok\Tgui\KontrolkaObiektu.h" />
     <ClInclude Include="Widok\Tgui\ListaObiektowGui.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
@@ -563,9 +561,7 @@
     <ClCompile Include="Widok\Ekrany\Szkielet\EkranSzablon.cpp" />
     <ClCompile Include="Widok\Konsola\Konsola.cpp" />
     <ClCompile Include="Widok\SFML\RoundedRectangleShape.cpp" />
-    <ClCompile Include="Widok\Tgui\KontrolkaObiektu.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="Widok\Tgui\KontrolkaObiektu.cpp" />
     <ClCompile Include="Widok\Tgui\ListaObiektowGui.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>

@@ -23,13 +23,19 @@ namespace tgui{
 	}
 
 	KontrolkaObiektu::KontrolkaObiektu(){
-		tlo_.data = nullptr;
-		m_Callback.widgetType = Type_KontrolkaObiektu;
-		m_ContainerWidget = false;
+		m_callback.widgetType = "KontrolkaObiektu";
+		m_draggableWidget = false;
+
+		m_panel->setBackgroundColor(sf::Color::Transparent);
+
+		m_renderer = std::make_shared<KontrolkaObiektuRenderer>(this);
+		reload();
+
+		setSize({ 200, 126 });
 	}
 
 	KontrolkaObiektu::KontrolkaObiektu(const KontrolkaObiektu& copy)
-		: Panel(copy), 
+		: Widget(copy),
 		rozmiarKontrolki_(copy.rozmiarKontrolki_), 
 		obrazRect_(copy.obrazRect_), 
 
@@ -61,18 +67,181 @@ namespace tgui{
 		czyProporcjonalny_(copy.czyProporcjonalny_)
 
 	{
-		obraz_ = this->get<Picture>("ObrazObiektu");
+		/*obraz_ = this->get<Picture>("ObrazObiektu");
 		nazwa_ = this->get<Label>("NazwaObiektu");
 		tresc_ = this->get<Label>("OpisObiektu");
 		rozbuduj_ = this->get<Button>("Rozbuduj");
 		zniszcz_ = this->get<Button>("Zburz");
 		czasRozbudowy_ = this->get<Label>("CzasRozbudowy");
-		czasZburzenia_ = this->get<Label>("CzasZburzenia");
+		czasZburzenia_ = this->get<Label>("CzasZburzenia");*/
+	}
+
+	KontrolkaObiektu & KontrolkaObiektu::operator=(const KontrolkaObiektu & right)
+	{
+		if (this != &right)
+		{
+			KontrolkaObiektu temp( right );
+			Widget::operator=(right);
+
+			/*std::swap(m_lineSpacing, temp.m_lineSpacing);
+			std::swap(m_textSize, temp.m_textSize);
+			std::swap(m_textColor, temp.m_textColor);
+			std::swap(m_maxLines, temp.m_maxLines);
+			std::swap(m_fullTextHeight, temp.m_fullTextHeight);
+			std::swap(m_linesStartFromTop, temp.m_linesStartFromTop);
+			std::swap(m_panel, temp.m_panel);
+			std::swap(m_scroll, temp.m_scroll);*/
+		}
+
+		return *this;
+	}
+
+	void KontrolkaObiektu::setPosition(const Layout2d& position)
+	{
+		Widget::setPosition(position);
+
+		getRenderer()->m_backgroundTexture.setPosition(getPosition());
+
+		updateRendering();
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	void KontrolkaObiektu::setSize(const Layout2d& size)
+	{
+		Widget::setSize(size);
+
+		getRenderer()->m_backgroundTexture.setSize(getSize());
+
+		//updatePosition();
+	}
+
+	/*
+	void KontrolkaObiektu::setSize(float width, float hight){
+
+		float absWidth = width;
+		float absHight = hight;
+
+		if (czyStalyRozmiar_){
+			absWidth = rozmiarKontrolki_.x;
+			absHight = rozmiarKontrolki_.y;
+		}else{
+			if (czyProporcjonalny_){
+				auto ratio = rozmiarKontrolki_.x / rozmiarKontrolki_.y;
+				if (absWidth / absHight > ratio ) {
+					absWidth = absHight * ratio;
+				}else{
+					if (absWidth / absHight < ratio){
+						absHight = absWidth / ratio;
+					}
+				}
+			}
+		}
+
+		Widget::setSize(absWidth, absHight);
+
+		obraz_->setPosition(obrazRect_.left * absWidth, obrazRect_.top * absHight);
+		if (obraz_->isLoaded())
+			obraz_->setSize(obrazRect_.width * absWidth, obrazRect_.height * absHight);
+
+		auto nazwaRect = pozycjonujLabel(nazwa_, nazwaRect_, absWidth, absHight, nazwaWyrownanieHoryzontalne_, nazwaWyrownanieWertykalne_);
+		nazwa_->setPosition(nazwaRect.left, nazwaRect.top);
+		nazwa_->setSize(nazwaRect.width, nazwaRect.height);
+
+		auto trescRect = pozycjonujLabel(tresc_, trescRect_, absWidth, absHight, trescWyrownanieHoryzontalne_, trescWyrownanieWertykalne_);
+		tresc_->setPosition(trescRect.left, trescRect.top);
+		tresc_->setSize(trescRect.width, trescRect.height);
+
+		auto czasRozbudowyRect = pozycjonujLabel(czasRozbudowy_, czasRozbudowyRect_, absWidth, absHight, czasRozbudowyWyrownanieHoryzontalne_,czasRozbudowyWyrownanieWertykalne_);
+		czasRozbudowy_->setPosition(czasRozbudowyRect.left, czasRozbudowyRect.top);
+		czasRozbudowy_->setSize(czasRozbudowyRect.width, czasRozbudowyRect.height);
+
+		auto czasZburzeniaRect = pozycjonujLabel(czasZburzenia_, czasZburzeniaRect_, absWidth, absHight, czasZburzeniaWyrownanieHoryzontalne_, czasZburzeniaWyrownanieWertykalne_);
+		czasZburzenia_->setPosition(czasZburzeniaRect.left, czasZburzeniaRect.top);
+		czasZburzenia_->setSize(czasZburzeniaRect.width, czasZburzeniaRect.height);
+
+		rozbuduj_->setPosition(rozbudujRect_.left * absWidth, rozbudujRect_.top * absHight);
+		rozbuduj_->setSize(rozbudujRect_.width * absWidth, rozbudujRect_.height * absHight);
+
+		zniszcz_->setPosition(zniszczRect_.left * absWidth, zniszczRect_.top * absHight);
+		zniszcz_->setSize(zniszczRect_.width * absWidth, zniszczRect_.height * absHight);
+		
+	}
+	*/
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	sf::Vector2f KontrolkaObiektu::getFullSize() const
+	{
+		return{ getSize().x + getRenderer()->m_borders.left + getRenderer()->m_borders.right,
+			getSize().y + getRenderer()->m_borders.top + getRenderer()->m_borders.bottom };
+	}
+
+	void KontrolkaObiektu::setFont(const Font& font)
+	{
+		Widget::setFont(font);
+
+		bool lineChanged = false;
+		for (auto& label : m_panel->getWidgets())
+		{
+			auto line = std::static_pointer_cast<Label>(label);
+			if (line->getFont() == nullptr)
+			{
+				line->setFont(font);
+				lineChanged = true;
+			}
+		}
+
+		if (lineChanged)
+		{
+			
+		}
+	}
+
+	void KontrolkaObiektu::updateRendering()
+	{
+		Padding padding = getRenderer()->getPadding();
+		Padding scaledPadding = padding;
+
+		auto& texture = getRenderer()->m_backgroundTexture;
+		if (texture.isLoaded())
+		{
+			switch (texture.getScalingType())
+			{
+			case Texture::ScalingType::Normal:
+				scaledPadding.left = padding.left * (texture.getSize().x / texture.getImageSize().x);
+				scaledPadding.right = padding.right * (texture.getSize().x / texture.getImageSize().x);
+				scaledPadding.top = padding.top * (texture.getSize().y / texture.getImageSize().y);
+				scaledPadding.bottom = padding.bottom * (texture.getSize().y / texture.getImageSize().y);
+				break;
+
+			case Texture::ScalingType::Horizontal:
+				scaledPadding.left = padding.left * (texture.getSize().y / texture.getImageSize().y);
+				scaledPadding.right = padding.right * (texture.getSize().y / texture.getImageSize().y);
+				scaledPadding.top = padding.top * (texture.getSize().y / texture.getImageSize().y);
+				scaledPadding.bottom = padding.bottom * (texture.getSize().y / texture.getImageSize().y);
+				break;
+
+			case Texture::ScalingType::Vertical:
+				scaledPadding.left = padding.left * (texture.getSize().x / texture.getImageSize().x);
+				scaledPadding.right = padding.right * (texture.getSize().x / texture.getImageSize().x);
+				scaledPadding.top = padding.top * (texture.getSize().x / texture.getImageSize().x);
+				scaledPadding.bottom = padding.bottom * (texture.getSize().x / texture.getImageSize().x);
+				break;
+
+			case Texture::ScalingType::NineSliceScaling:
+				break;
+			}
+		}
+
+		m_panel->setPosition({ getPosition().x + scaledPadding.left, getPosition().y + scaledPadding.top });
+		m_panel->setSize({ getSize().x - scaledPadding.left - scaledPadding.right, getSize().y - scaledPadding.top - scaledPadding.bottom });
+
 	}
 
 	sf::Rect<float> KontrolkaObiektu::pozycjonujLabel(Label::Ptr label, const sf::Rect<float>& rect, float width, float height, WYROWNANIE_HORYZONTALNE horyzontalne, WYROWNANIE_WERTYKALNE wertykalne ){
 		sf::Text text;
-		text.setFont(*label->getTextFont());
+		text.setFont(*label->getFont());
 		text.setCharacterSize(label->getTextSize());
 		text.setString(label->getText());
 		auto bounds = text.getLocalBounds();
@@ -116,11 +285,7 @@ namespace tgui{
 		return labelRect;
 	}
 
-	Widget* KontrolkaObiektu::createWidget(Container* container, const std::string& name){
-		return KontrolkaObiektu::Ptr(*container, name).get();
-	}
-	
-	void KontrolkaObiektu::initialize(Container *const container){
+	/*void KontrolkaObiektu::initialize(Container *const container){
 		Panel::setGlobalFont(container->getGlobalFont());
 		
 		obraz_ = Picture::Ptr(*this, "ObrazObiektu");
@@ -151,426 +316,71 @@ namespace tgui{
 
 		setSize(410.f, 110.f);
 	}
-
-	void KontrolkaObiektu::setTransparency(unsigned char transparency){
-		Panel::setBackgroundColor(sf::Color(255, 255, 255, transparency));
-		Panel::setTransparency(transparency);
-		obraz_->setTransparency(transparency);
-
-		nazwa_->setTransparency(transparency);
-		auto kolor = nazwa_->getTextColor();
-		kolor.a = transparency;
-		nazwa_->setTextColor(kolor);
-
-		tresc_->setTransparency(transparency);
-		kolor = tresc_->getTextColor();
-		kolor.a = transparency;
-		tresc_->setTextColor(kolor);
-
-		czasRozbudowy_->setTransparency(transparency);
-		kolor = czasRozbudowy_->getTextColor();
-		kolor.a = transparency;
-		czasRozbudowy_->setTextColor(kolor);
-
-		czasZburzenia_->setTransparency(transparency);
-		kolor = czasZburzenia_->getTextColor();
-		kolor.a = transparency;
-		czasZburzenia_->setTextColor(kolor);
-
-		rozbuduj_->setTransparency(transparency);
-		kolor = rozbuduj_->getTextColor();
-		kolor.a = transparency;
-		rozbuduj_->setTextColor(kolor);
-
-		zniszcz_->setTransparency(transparency);
-		kolor = zniszcz_->getTextColor();
-		kolor.a = transparency;
-		zniszcz_->setTextColor(kolor);
-
-	}
-
-	void KontrolkaObiektu::setSize(float width, float hight){
-
-		float absWidth = width;
-		float absHight = hight;
-
-		if (czyStalyRozmiar_){
-			absWidth = rozmiarKontrolki_.x;
-			absHight = rozmiarKontrolki_.y;
-		}else{
-			if (czyProporcjonalny_){
-				auto ratio = rozmiarKontrolki_.x / rozmiarKontrolki_.y;
-				if (absWidth / absHight > ratio ) {
-					absWidth = absHight * ratio;
-				}else{
-					if (absWidth / absHight < ratio){
-						absHight = absWidth / ratio;
-					}
-				}
-			}
-		}
-
-		Panel::setSize(absWidth, absHight);
-
-		obraz_->setPosition(obrazRect_.left * absWidth, obrazRect_.top * absHight);
-		if (obraz_->isLoaded())
-			obraz_->setSize(obrazRect_.width * absWidth, obrazRect_.height * absHight);
-
-		auto nazwaRect = pozycjonujLabel(nazwa_, nazwaRect_, absWidth, absHight, nazwaWyrownanieHoryzontalne_, nazwaWyrownanieWertykalne_);
-		nazwa_->setPosition(nazwaRect.left, nazwaRect.top);
-		nazwa_->setSize(nazwaRect.width, nazwaRect.height);
-
-		auto trescRect = pozycjonujLabel(tresc_, trescRect_, absWidth, absHight, trescWyrownanieHoryzontalne_, trescWyrownanieWertykalne_);
-		tresc_->setPosition(trescRect.left, trescRect.top);
-		tresc_->setSize(trescRect.width, trescRect.height);
-
-		auto czasRozbudowyRect = pozycjonujLabel(czasRozbudowy_, czasRozbudowyRect_, absWidth, absHight, czasRozbudowyWyrownanieHoryzontalne_,czasRozbudowyWyrownanieWertykalne_);
-		czasRozbudowy_->setPosition(czasRozbudowyRect.left, czasRozbudowyRect.top);
-		czasRozbudowy_->setSize(czasRozbudowyRect.width, czasRozbudowyRect.height);
-
-		auto czasZburzeniaRect = pozycjonujLabel(czasZburzenia_, czasZburzeniaRect_, absWidth, absHight, czasZburzeniaWyrownanieHoryzontalne_, czasZburzeniaWyrownanieWertykalne_);
-		czasZburzenia_->setPosition(czasZburzeniaRect.left, czasZburzeniaRect.top);
-		czasZburzenia_->setSize(czasZburzeniaRect.width, czasZburzeniaRect.height);
-
-		rozbuduj_->setPosition(rozbudujRect_.left * absWidth, rozbudujRect_.top * absHight);
-		rozbuduj_->setSize(rozbudujRect_.width * absWidth, rozbudujRect_.height * absHight);
-
-		zniszcz_->setPosition(zniszczRect_.left * absWidth, zniszczRect_.top * absHight);
-		zniszcz_->setSize(zniszczRect_.width * absWidth, zniszczRect_.height * absHight);
-		
-	}
-
-	KontrolkaObiektu* KontrolkaObiektu::clone(){
-		return new KontrolkaObiektu(*this);
-	}
-
-	bool KontrolkaObiektu::load(const std::string& configFileFilename){
-		// Don't continue when the config file was empty
-		if (configFileFilename.empty())
-			return true;
-
-		plikKonfiguracyjny_ = getResourcePath() + configFileFilename;
-
-		// Open the config file
-		ConfigFile configFile;
-		if (!configFile.open(plikKonfiguracyjny_))
+	*/
+	
+	void KontrolkaObiektu::reload(const std::string& primary, const std::string& secondary, bool force)
+	{
+		if (m_theme && primary != "")
 		{
-			TGUI_OUTPUT("TGUI error: Failed to open " + plikKonfiguracyjny_ + ".");
-			return false;
-		}
+			getRenderer()->setBorders({ 0, 0, 0, 0 });
+			getRenderer()->setPadding({ 0, 0, 0, 0 });
 
-		// Read the properties and their values (as strings)
-		std::vector<std::string> properties;
-		std::vector<std::string> values;
-		if (!configFile.read("KontrolkaObiektu", properties, values))
+			Widget::reload(primary, secondary, force);
+
+			if (force)
+			{
+				if (getRenderer()->m_backgroundTexture.isLoaded())
+					setSize(getRenderer()->m_backgroundTexture.getImageSize());
+			}
+
+			updateSize();
+		}
+		else // Load white theme
 		{
-			TGUI_OUTPUT("TGUI error: Failed to parse " + plikKonfiguracyjny_ + ".");
-			return false;
+			getRenderer()->setBorders({ 2, 2, 2, 2 });
+			getRenderer()->setPadding({ 2, 2, 2, 2 });
+			getRenderer()->setBackgroundColor({ 245, 245, 245 });
+			getRenderer()->setBorderColor({ 0, 0, 0 });
+			getRenderer()->setBackgroundTexture({});
 		}
-
-		// Close the config file
-		configFile.close();
-
-		// Find the folder that contains the config file
-		std::string configFileFolder = "";
-		std::string::size_type slashPos = plikKonfiguracyjny_.find_last_of("/\\");
-		if (slashPos != std::string::npos)
-			configFileFolder = plikKonfiguracyjny_.substr(0, slashPos + 1);
-
-
-		// Handle the read properties
-		for (unsigned int i = 0; i < properties.size(); ++i)
-		{
-			std::string property = properties[i];
-			std::string value = values[i];
-			//setTextColor(extractColor(value));
-			if (property == "background")
-			{				
-				if (!configFile.readTexture(value, configFileFolder, tlo_))
-				{
-					TGUI_OUTPUT("TGUI error: Failed to parse value for NormalImage in section Button in " + plikKonfiguracyjny_ + ".");
-					return false;
-				}
-				setBackgroundTexture(&(tlo_.data->texture));
-			}
-			else if (property == "titletextsize")
-			{
-				nazwa_->setTextSize(std::strtol(value.c_str(), nullptr, 10));
-			}
-			else if (property == "describetextsize")
-			{
-				tresc_->setTextSize(std::strtol(value.c_str(), nullptr, 10));
-			}
-			else if (property == "buttonrozbudujtextsize")
-			{
-				rozbuduj_->setTextSize(std::strtol(value.c_str(), nullptr, 10));
-			}
-			else if (property == "buttonzniszcztextsize")
-			{
-				zniszcz_->setTextSize(std::strtol(value.c_str(), nullptr, 10));
-			}
-			else if (property == "czasrozbudowytextsize")
-			{
-				czasRozbudowy_->setTextSize(std::strtol(value.c_str(), nullptr, 10));
-			}
-			else if (property == "czaszburzeniatextsize")
-			{
-				czasZburzenia_->setTextSize(std::strtol(value.c_str(), nullptr, 10));
-			}
-			else if (property == "titletextcolor")
-			{
-				nazwa_->setTextColor(extractColor(value));
-			}
-			else if (property == "describetextcolor")
-			{
-				tresc_->setTextColor(extractColor(value));
-			}
-			else if (property == "buttonrozbudujtextcolor")
-			{
-				rozbuduj_->setTextColor(extractColor(value));
-			}
-			else if (property == "buttonzniszcztextcolor")
-			{
-				zniszcz_->setTextColor(extractColor(value));
-			}
-			else if (property == "czasrozbudowytextcolor")
-			{
-				czasRozbudowy_->setTextColor(extractColor(value));
-			}
-			else if (property == "czaszburzeniatextcolor")
-			{
-				czasZburzenia_->setTextColor(extractColor(value));
-			}
-			else if (property == "titleconfig")
-			{
-				nazwa_->load(configFileFolder + value);
-			}
-			else if (property == "describeconfig")
-			{
-				tresc_->load(configFileFolder + value);
-			}
-			else if (property == "czasrozbudowyconfig")
-			{
-				czasRozbudowy_->load(configFileFolder + value);
-			}
-			else if (property == "czaszburzeniaconfig")
-			{
-				czasZburzenia_->load(configFileFolder + value);
-			}
-			else if (property == "buttonrozbudujconfig")
-			{
-				rozbuduj_->load(configFileFolder + value);
-			}
-			else if(property == "buttonzniszczconfig")
-			{
-				zniszcz_->load(configFileFolder + value);
-			}
-			else if(property == "size")
-			{
-				sf::Vector2u temp;
-				extractVector2u(value, temp);
-				rozmiarKontrolki_.x = static_cast<float>(temp.x);
-				rozmiarKontrolki_.y = static_cast<float>(temp.y);
-			}
-			else if (property == "picturerect")
-			{
-				Borders temp;
-				extractBorders(value, temp);
-				convertFromBorderToRect(temp, obrazRect_);
-			}
-			else if (property == "titlerect")
-			{
-				Borders temp;
-				extractBorders(value, temp);
-				convertFromBorderToRect(temp, nazwaRect_);
-			}
-			else if (property == "describerect")
-			{
-				Borders temp;
-				extractBorders(value, temp);
-				convertFromBorderToRect(temp, trescRect_);
-			}
-			else if (property == "buttonrozbudujrect")
-			{
-				Borders temp;
-				extractBorders(value, temp);
-				convertFromBorderToRect(temp, rozbudujRect_);
-			}
-			else if (property == "buttonzniszczrect")
-			{
-				Borders temp;
-				extractBorders(value, temp);
-				convertFromBorderToRect(temp, zniszczRect_);
-			}
-			else if (property == "czasrozbudowyrect")
-			{
-				Borders temp;
-				extractBorders(value, temp);
-				convertFromBorderToRect(temp, czasRozbudowyRect_);
-			}
-			else if (property == "czaszburzeniarect")
-			{
-				Borders temp;
-				extractBorders(value, temp);
-				convertFromBorderToRect(temp, czasZburzeniaRect_);
-			}
-			else if (property == "czaszburzeniatexthaling")
-			{
-				if ((value == "left") || (value == "Left"))
-					czasZburzeniaWyrownanieHoryzontalne_ = LEFT;
-				else if ((value == "center") || (value == "Center"))
-					czasZburzeniaWyrownanieHoryzontalne_ = CENTER;
-				else if ((value == "right") || (value == "Right"))
-					czasZburzeniaWyrownanieHoryzontalne_ = RIGHT;
-				else
-					TGUI_OUTPUT("TGUI error: Failed to parse 'czaszburzeniatexthaling' property.");
-			}
-			else if (property == "czaszburzeniatextvaling")
-			{
-				if ((value == "top") || (value == "Top"))
-					czasZburzeniaWyrownanieWertykalne_ = TOP;
-				else if ((value == "middle") || (value == "Middle"))
-					czasZburzeniaWyrownanieWertykalne_ = MIDDLE;
-				else if ((value == "bottom") || (value == "Bottom"))
-					czasZburzeniaWyrownanieWertykalne_ = BOTTOM;
-				else
-					TGUI_OUTPUT("TGUI error: Failed to parse 'czaszburzeniatextvaling' property.");
-			}
-			else if (property == "czasrozbudowytexthaling")
-			{
-				if ((value == "left") || (value == "Left"))
-					czasRozbudowyWyrownanieHoryzontalne_ = LEFT;
-				else if ((value == "center") || (value == "Center"))
-					czasRozbudowyWyrownanieHoryzontalne_ = CENTER;
-				else if((value == "right") || (value == "Right"))
-					czasRozbudowyWyrownanieHoryzontalne_ = RIGHT;
-				else 
-					TGUI_OUTPUT("TGUI error: Failed to parse 'czasrozbudowytexthaling' property.");
-			}
-			else if (property == "czasrozbudowytextvaling")
-			{
-				if ((value == "top") || (value == "Top"))
-					czasRozbudowyWyrownanieWertykalne_ = TOP;
-				else if ((value == "middle") || (value == "Middle"))
-					czasRozbudowyWyrownanieWertykalne_ = MIDDLE;
-				else if ((value == "bottom") || (value == "Bottom"))
-					czasRozbudowyWyrownanieWertykalne_ = BOTTOM;
-				else
-					TGUI_OUTPUT("TGUI error: Failed to parse 'czasrozbudowytextvaling' property.");
-			}
-			else if (property == "titletexthaling")
-			{
-				if ((value == "left") || (value == "Left"))
-					nazwaWyrownanieHoryzontalne_ = LEFT;
-				else if ((value == "center") || (value == "Center"))
-					nazwaWyrownanieHoryzontalne_ = CENTER;
-				else if ((value == "right") || (value == "Right"))
-					nazwaWyrownanieHoryzontalne_ = RIGHT;
-				else
-					TGUI_OUTPUT("TGUI error: Failed to parse 'titletexthaling' property.");
-			}
-			else if (property == "titletextvaling")
-			{
-				if ((value == "top") || (value == "Top"))
-					nazwaWyrownanieWertykalne_ = TOP;
-				else if ((value == "middle") || (value == "Middle"))
-					nazwaWyrownanieWertykalne_ = MIDDLE;
-				else if ((value == "bottom") || (value == "Bottom"))
-					nazwaWyrownanieWertykalne_ = BOTTOM;
-				else
-					TGUI_OUTPUT("TGUI error: Failed to parse 'titletextvaling' property.");
-			}
-			else if (property == "describetexthaling")
-			{
-				if ((value == "left") || (value == "Left"))
-					trescWyrownanieHoryzontalne_ = LEFT;
-				else if ((value == "center") || (value == "Center"))
-					trescWyrownanieHoryzontalne_ = CENTER;
-				else if ((value == "right") || (value == "Right"))
-					trescWyrownanieHoryzontalne_ = RIGHT;
-				else
-					TGUI_OUTPUT("TGUI error: Failed to parse 'describetexthaling' property.");
-			}
-			else if (property == "describetextvaling")
-			{
-				if ((value == "top") || (value == "Top"))
-					trescWyrownanieWertykalne_ = TOP;
-				else if ((value == "middle") || (value == "Middle"))
-					trescWyrownanieWertykalne_ = MIDDLE;
-				else if ((value == "bottom") || (value == "Bottom"))
-					trescWyrownanieWertykalne_ = BOTTOM;
-				else
-					TGUI_OUTPUT("TGUI error: Failed to parse 'describetextvaling' property.");
-			}
-			else if (property == "proportional")
-			{
-				if ((value == "true") || (value == "True"))
-					czyProporcjonalny_ = true;
-				else if ((value == "false") || (value == "False"))
-					czyProporcjonalny_ = false;
-				else
-					TGUI_OUTPUT("TGUI error: Failed to parse 'proportional' property.");
-			}
-			else if (property == "constsize")
-			{
-				if ((value == "true") || (value == "True"))
-					czyStalyRozmiar_ = true;
-				else if ((value == "false") || (value == "False"))
-					czyStalyRozmiar_ = false;
-				else
-					TGUI_OUTPUT("TGUI error: Failed to parse 'constsize' property.");
-			}
-			else
-				TGUI_OUTPUT("TGUI warning: Unrecognized property '" + property + "' in section KontrolkaObiektu in " + plikKonfiguracyjny_ + ".");
-		}
-
-		float percentLW = 100.f;
-		if (rozmiarKontrolki_.x > 0){
-			percentLW = rozmiarKontrolki_.x;
-		}
-
-		float percentTH = 100.f;
-		if (rozmiarKontrolki_.y > 0){
-			percentTH = rozmiarKontrolki_.y;
-		}
-
-		normalizujRect(obrazRect_, percentLW, percentTH);
-		normalizujRect(nazwaRect_, percentLW, percentTH);
-		normalizujRect(trescRect_, percentLW, percentTH);
-		normalizujRect(czasRozbudowyRect_, percentLW, percentTH);
-		normalizujRect(czasZburzeniaRect_, percentLW, percentTH);
-		normalizujRect(rozbudujRect_, percentLW, percentTH);
-		normalizujRect(zniszczRect_, percentLW, percentTH);
-
-		setSize(rozmiarKontrolki_.x, rozmiarKontrolki_.y);
-		return true;
 	}
-
-	const std::string& KontrolkaObiektu::getLoadedConfigFile() const{
-		return plikKonfiguracyjny_;
-	}
-
+	
 	const STyp::Identyfikator& KontrolkaObiektu::pobierzIdObiektu() const{
 		return idObiektu_;
 	}
 
+	bool KontrolkaObiektu::mouseOnWidget(float x, float y)
+	{
+		// Check if the mouse is on top of the list box
+		if (sf::FloatRect{ getPosition().x, getPosition().y, getSize().x, getSize().y }.contains(x, y))
+			return true;
+		else // The mouse is not on top of the list box
+		{
+			if (m_mouseHover)
+				mouseLeftWidget();
+
+			m_mouseHover = false;
+			return false;
+		}
+	}
+
 	bool KontrolkaObiektu::ustawDane(const SpEx::ObiektInfo& obj, const SpEx::Planeta& planeta){
-		obraz_->load(SpEx::Aplikacja::pobierzInstancje().pobierzZarzadceZasobow().pobierzAdresObrazka(obj.pobierzIdentyfikatorObrazka()));
+		obraz_->setTexture(SpEx::Aplikacja::pobierzInstancje().pobierzZarzadceZasobow().pobierzAdresObrazka(obj.pobierzIdentyfikatorObrazka()));
 		idObiektu_ = obj.pobierzIdentyfikator()();
 
-		rozbuduj_->unbindCallback(64);
+		rozbuduj_->disconnectAll();
 		if (idZdarzeniaBudowy_ != 0){
-			SpEx::UtilsGui::bindCallbackEvent(rozbuduj_, idZdarzeniaBudowy_, idObiektu_(), Button::LeftMouseClicked);
+			SpEx::UtilsGui::bindCallbackEvent(rozbuduj_, idZdarzeniaBudowy_, idObiektu_(), "Pressed");
 		}
 
-		zniszcz_->unbindCallback(64);
+		zniszcz_->disconnectAll();
 		if (idZdarzeniaBurzenia_ != 0){
-			SpEx::UtilsGui::bindCallbackEvent(zniszcz_, idZdarzeniaBurzenia_, idObiektu_(), Button::LeftMouseClicked);
+			SpEx::UtilsGui::bindCallbackEvent(zniszcz_, idZdarzeniaBurzenia_, idObiektu_(), "Pressed");
 		}
 
-		obraz_->unbindCallback(64);
+		obraz_->disconnectAll();
 		if (idZdarzeniaKlikniecia_ != 0){
-			SpEx::UtilsGui::bindCallbackEvent(obraz_, idZdarzeniaKlikniecia_, idObiektu_(), Button::LeftMouseClicked);
+			SpEx::UtilsGui::bindCallbackEvent(obraz_, idZdarzeniaKlikniecia_, idObiektu_(), "Pressed");
 		}
 
 		auto wsk = planeta.pobierzObiektJesliIstnieje<SpEx::Obiekt>(idObiektu_);
@@ -627,29 +437,36 @@ namespace tgui{
 		return true;
 	}
 
-	bool KontrolkaObiektu::setProperty(std::string property, const std::string& value){
-		if (property == "image"){
-			return obraz_->load(value);
+	void KontrolkaObiektuRenderer::setProperty(std::string property, const std::string& value){
+		property = toLower(property);
+
+		/*if (property == "image"){
+			obraz_->load(value);
 		}else if(property == "idzdarzeniabudowy"){
 			idZdarzeniaBudowy_ = std::strtol(value.c_str(), nullptr, 10);
-			return true;
+			true;
 		}
 		else if (property == "idzdarzeniaburzenia"){
 			idZdarzeniaBurzenia_ = std::strtol(value.c_str(), nullptr, 10);
-			return true;
+			true;
 		}
 		else if (property == "idzdarzeniaklikniecia"){
 			idZdarzeniaKlikniecia_ = std::strtol(value.c_str(), nullptr, 10);
-			return true;
+			true;
 		}
 		else if (property == "configfile"){
-			return load(value);
-		}else
-			return Panel::setProperty(property, value);
+			load(value);
+		}else*/
+			WidgetRenderer::setProperty(property, value);
 	}
 
-	bool KontrolkaObiektu::getProperty(std::string property, std::string& value) const{
-		if (property == "Image"){
+	void KontrolkaObiektuRenderer::setProperty(std::string property, ObjectConverter&& value) {
+		property = toLower(property);
+		WidgetRenderer::setProperty(property, std::move(value));
+	}
+
+	ObjectConverter KontrolkaObiektuRenderer::getProperty(std::string property) const{
+		/*if (property == "Image"){
 			value = obraz_->getLoadedFilename();
 			return true;
 		}else if (property == "ConfigFile"){
@@ -664,19 +481,95 @@ namespace tgui{
 		else if (property == "IdZdarzeniaKlikniecia"){
 			value = idZdarzeniaKlikniecia_;
 		}
-		else
-			return Panel::getProperty(property, value);
-		return true;
+		else*/
+			return WidgetRenderer::getProperty(property);
+		//return true;
 	}
 
-	std::list< std::pair<std::string, std::string> > KontrolkaObiektu::getPropertyList() const{
-		auto list = Panel::getPropertyList();
-		list.push_back(std::pair<std::string, std::string>("ConfigFile", "string"));
-		list.push_back(std::pair<std::string, std::string>("Image", "string"));
-		list.push_back(std::pair<std::string, std::string>("IdZdarzeniaBudowy", "int"));
-		list.push_back(std::pair<std::string, std::string>("IdZdarzeniaBurzenia", "int"));
-		list.push_back(std::pair<std::string, std::string>("IdZdarzeniaKlikniecia", "int"));
-		return list;
+	std::map<std::string, ObjectConverter> KontrolkaObiektuRenderer::getPropertyValuePairs() const{
+		auto map = WidgetRenderer::getPropertyValuePairs();
+		/*map.push_back(std::pair<std::string, std::string>("ConfigFile", "string"));
+		map.push_back(std::pair<std::string, std::string>("Image", "string"));
+		map.push_back(std::pair<std::string, std::string>("IdZdarzeniaBudowy", "int"));
+		map.push_back(std::pair<std::string, std::string>("IdZdarzeniaBurzenia", "int"));
+		map.push_back(std::pair<std::string, std::string>("IdZdarzeniaKlikniecia", "int"));*/
+		return map;
+	}
+
+	void tgui::KontrolkaObiektuRenderer::setBorderColor(const sf::Color & borderColor)
+	{
+		m_borderColor = borderColor;
+	}
+
+	void tgui::KontrolkaObiektuRenderer::setBackgroundColor(const sf::Color & backgroundColor)
+	{
+		m_backgroundColor = backgroundColor;
+	}
+
+	void tgui::KontrolkaObiektuRenderer::setBackgroundTexture(const Texture & texture)
+	{
+		m_backgroundTexture = texture;
+		if (m_backgroundTexture.isLoaded())
+		{
+			m_backgroundTexture.setPosition(m_kontrolkaObiektu->getPosition());
+			m_backgroundTexture.setSize(m_kontrolkaObiektu->getSize());
+			m_backgroundTexture.setColor({ 255, 255, 255, static_cast<sf::Uint8>(m_kontrolkaObiektu->getOpacity() * 255) });
+		}
+	}
+
+	void tgui::KontrolkaObiektuRenderer::setPadding(const Padding & padding)
+	{
+		WidgetPadding::setPadding(padding);
+
+		m_kontrolkaObiektu->updateRendering();
+	}
+
+	void tgui::KontrolkaObiektuRenderer::draw(sf::RenderTarget & target, sf::RenderStates states) const
+	{
+
+		if (m_backgroundTexture.isLoaded())
+			target.draw(m_backgroundTexture, states);
+		else
+		{
+			sf::RectangleShape background(m_kontrolkaObiektu->getSize());
+			background.setPosition(m_kontrolkaObiektu->getPosition());
+			background.setFillColor(calcColorOpacity(m_backgroundColor, m_kontrolkaObiektu->getOpacity()));
+			target.draw(background, states);
+		}
+
+		if (m_borders != Borders{ 0, 0, 0, 0 })
+		{
+			sf::Vector2f position = m_kontrolkaObiektu->getPosition();
+			sf::Vector2f size = m_kontrolkaObiektu->getSize();
+
+			// Draw left border
+			sf::RectangleShape border({ m_borders.left, size.y + m_borders.top });
+			border.setPosition({ position.x - m_borders.left, position.y - m_borders.top });
+			border.setFillColor(calcColorOpacity(m_borderColor, m_kontrolkaObiektu->getOpacity()));
+			target.draw(border, states);
+
+			// Draw top border
+			border.setSize({ size.x + m_borders.right, m_borders.top });
+			border.setPosition({ position.x, position.y - m_borders.top });
+			target.draw(border, states);
+
+			// Draw right border
+			border.setSize({ m_borders.right, size.y + m_borders.bottom });
+			border.setPosition({ position.x + size.x, position.y });
+			target.draw(border, states);
+
+			// Draw bottom border
+			border.setSize({ size.x + m_borders.left, m_borders.bottom });
+			border.setPosition({ position.x - m_borders.left, position.y + size.y });
+			target.draw(border, states);
+		}
+	}
+
+	std::shared_ptr<WidgetRenderer> tgui::KontrolkaObiektuRenderer::clone(Widget * widget)
+	{
+		auto renderer = std::shared_ptr<KontrolkaObiektuRenderer>(new KontrolkaObiektuRenderer{ *this });
+		renderer->m_kontrolkaObiektu = static_cast<KontrolkaObiektu*>(widget);
+		return renderer;
 	}
 
 	void KontrolkaObiektu::ustawShader(sf::Shader* shader){
@@ -687,7 +580,11 @@ namespace tgui{
 		if (shader_ != nullptr){
 			states.shader = shader_;
 		}
-		Panel::draw(target,states);
+		// Draw the background
+		getRenderer()->draw(target, states);
+
+		// Draw the panel
+		target.draw(*m_panel, states);
 	}
 
 };
