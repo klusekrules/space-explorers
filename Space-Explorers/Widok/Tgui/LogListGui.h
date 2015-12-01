@@ -91,7 +91,7 @@ namespace tgui{
 
 	protected:
 				
-		virtual Widget::Ptr clone() override
+		virtual Widget::Ptr clone() const override
 		{
 			return std::make_shared<LogListGui>(*this);
 		}
