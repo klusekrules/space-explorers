@@ -85,7 +85,7 @@ namespace tgui
     Grid::Ptr Grid::copy(Grid::ConstPtr grid)
     {
         if (grid)
-            return std::make_shared<Grid>(*grid);
+            return std::static_pointer_cast<Grid>(grid->clone());
         else
             return nullptr;
     }
@@ -134,7 +134,7 @@ namespace tgui
                         }
 
                         // Erase the last column if no other row is using it
-                        if (rowFound == false)
+                        if (!rowFound)
                             m_columnWidth.erase(m_columnWidth.end()-1);
                     }
 

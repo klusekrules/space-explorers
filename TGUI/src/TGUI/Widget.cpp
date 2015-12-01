@@ -53,6 +53,15 @@ namespace tgui
     Widget::~Widget()
     {
         detachTheme();
+
+        if (m_position.x.getImpl()->parentWidget == this)
+            m_position.x.getImpl()->parentWidget = nullptr;
+        if (m_position.y.getImpl()->parentWidget == this)
+            m_position.y.getImpl()->parentWidget = nullptr;
+        if (m_size.x.getImpl()->parentWidget == this)
+            m_size.x.getImpl()->parentWidget = nullptr;
+        if (m_size.y.getImpl()->parentWidget == this)
+            m_size.y.getImpl()->parentWidget = nullptr;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,6 +84,7 @@ namespace tgui
         m_font           {copy.m_font}
     {
         m_callback.widget = this;
+        m_callback.widgetType = copy.m_callback.widgetType;
 
         if (copy.m_toolTip != nullptr)
             m_toolTip = copy.m_toolTip->clone();
@@ -94,18 +104,19 @@ namespace tgui
             SignalWidgetBase::operator=(right);
             enable_shared_from_this::operator=(right);
 
-            m_enabled         = right.m_enabled;
-            m_visible         = right.m_visible;
-            m_parent          = right.m_parent;
-            m_opacity         = right.m_opacity;
-            m_mouseHover      = false;
-            m_mouseDown       = false;
-            m_focused         = false;
-            m_allowFocus      = right.m_allowFocus;
-            m_draggableWidget = right.m_draggableWidget;
-            m_containerWidget = right.m_containerWidget;
-            m_font            = right.m_font;
-            m_callback.widget = this;
+            m_enabled             = right.m_enabled;
+            m_visible             = right.m_visible;
+            m_parent              = right.m_parent;
+            m_opacity             = right.m_opacity;
+            m_mouseHover          = false;
+            m_mouseDown           = false;
+            m_focused             = false;
+            m_allowFocus          = right.m_allowFocus;
+            m_draggableWidget     = right.m_draggableWidget;
+            m_containerWidget     = right.m_containerWidget;
+            m_font                = right.m_font;
+            m_callback.widget     = this;
+            m_callback.widgetType = right.m_callback.widgetType;
 
             if (right.m_toolTip != nullptr)
                 m_toolTip = right.m_toolTip->clone();
@@ -171,7 +182,7 @@ namespace tgui
     sf::Vector2f Widget::getAbsolutePosition() const
     {
         if (m_parent)
-            return m_parent->getAbsolutePosition() + m_parent->getWidgetsOffset() + getPosition();
+            return m_parent->getAbsolutePosition() + m_parent->getChildWidgetsOffset() + getPosition();
         else
             return getPosition();
     }
@@ -207,7 +218,7 @@ namespace tgui
             case ShowAnimationType::SlideToRight:
             {
                 m_showAnimations.push_back(std::make_shared<priv::MoveAnimation>(shared_from_this(), sf::Vector2f{-getFullSize().x, getPosition().y}, getPosition(), duration));
-                setPosition({-getSize().x, getPosition().y});
+                setPosition({-getFullSize().x, getPosition().y});
                 break;
             }
             case ShowAnimationType::SlideToLeft:
@@ -224,8 +235,8 @@ namespace tgui
             }
             case ShowAnimationType::SlideToBottom:
             {
-                m_showAnimations.push_back(std::make_shared<priv::MoveAnimation>(shared_from_this(), sf::Vector2f{getPosition().x, -getFullSize().x}, getPosition(), duration));
-                setPosition({getPosition().x, -getSize().x});
+                m_showAnimations.push_back(std::make_shared<priv::MoveAnimation>(shared_from_this(), sf::Vector2f{getPosition().x, -getFullSize().y}, getPosition(), duration));
+                setPosition({getPosition().x, -getFullSize().y});
                 break;
             }
             case ShowAnimationType::SlideToTop:
@@ -298,7 +309,7 @@ namespace tgui
             }
             case ShowAnimationType::SlideToTop:
             {
-                m_showAnimations.push_back(std::make_shared<priv::MoveAnimation>(shared_from_this(), position, sf::Vector2f{position.x, -getFullSize().x}, duration, [=](){ hide(); setPosition(position); }));
+                m_showAnimations.push_back(std::make_shared<priv::MoveAnimation>(shared_from_this(), position, sf::Vector2f{position.x, -getFullSize().y}, duration, [=](){ hide(); setPosition(position); }));
                 break;
             }
         }
@@ -331,13 +342,14 @@ namespace tgui
     {
         if (m_parent)
             m_parent->focusWidget(this);
+            /// TODO: Use shared_from_this instead (forces all widgets, including internal ones to be shared pointers)
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void Widget::unfocus()
     {
-        if (m_focused)
+        if (m_focused && m_parent)
             m_parent->unfocusWidgets();
     }
 
@@ -357,14 +369,16 @@ namespace tgui
 
     void Widget::moveToFront()
     {
-        m_parent->moveWidgetToFront(this);
+        if (m_parent)
+            m_parent->moveWidgetToFront(this);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void Widget::moveToBack()
     {
-        m_parent->moveWidgetToBack(this);
+        if (m_parent)
+            m_parent->moveWidgetToBack(this);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -403,6 +417,20 @@ namespace tgui
         {
             m_theme->widgetDetached(this);
             m_theme = nullptr;
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Widget::setParent(Container* parent)
+    {
+        m_parent = parent;
+        if (m_parent)
+        {
+            m_position.x.getImpl()->recalculate();
+            m_position.y.getImpl()->recalculate();
+            m_size.x.getImpl()->recalculate();
+            m_size.y.getImpl()->recalculate();
         }
     }
 
@@ -481,7 +509,7 @@ namespace tgui
 
     void Widget::mouseNotOnWidget()
     {
-        if (m_mouseHover == true)
+        if (m_mouseHover)
             mouseLeftWidget();
     }
 
@@ -500,20 +528,6 @@ namespace tgui
             return getToolTip();
         else
             return nullptr;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void Widget::initialize(Container *const parent)
-    {
-        assert(parent);
-
-        m_parent = parent;
-
-        m_position.x.getImpl()->recalculate();
-        m_position.y.getImpl()->recalculate();
-        m_size.x.getImpl()->recalculate();
-        m_size.y.getImpl()->recalculate();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

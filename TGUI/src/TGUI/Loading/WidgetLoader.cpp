@@ -27,6 +27,7 @@
 #include <TGUI/Loading/WidgetLoader.hpp>
 #include <TGUI/Widgets/Button.hpp>
 #include <TGUI/Widgets/Canvas.hpp>
+#include <TGUI/Widgets/ChatBox.hpp>
 #include <TGUI/Widgets/CheckBox.hpp>
 #include <TGUI/Widgets/ChildWindow.hpp>
 #include <TGUI/Widgets/ComboBox.hpp>
@@ -58,21 +59,68 @@ namespace
             throw tgui::Exception{"Failed to parse boolean in '" + str + "'"};
     }
 
-    sf::Vector2f parseVector2f(std::string str)
+    tgui::Layout2d parseLayout(std::string str)
     {
-        if (str.empty() || str.front() != '(' || str.back() != ')')
-            throw tgui::Exception{"Failed to parse position '" + str + "'. Expected brackets."};
+        if (str.empty())
+            throw tgui::Exception{"Failed to parse layout. String was empty."};
 
-        str = str.substr(1, str.length()-2);
+        // Check if the layout is an (x, y) vector or a quoted string
+        if ((str.front() == '(') && (str.back() == ')'))
+        {
+            str = str.substr(1, str.length() - 2);
+            if (str.empty())
+                return {0, 0};
 
-        auto commaPos = str.find(',');
-        if (commaPos == std::string::npos)
-            throw tgui::Exception{"Failed to parse position '" + str + "'. Expected numbers separated with a comma."};
+            tgui::Layout x;
+            tgui::Layout y;
 
-        if (str.find(',', commaPos + 1) != std::string::npos)
-            throw tgui::Exception{"Failed to parse position '" + str + "'. Expected only one comma."};
+            auto commaPos = str.find(',');
+            if (commaPos == std::string::npos)
+                throw tgui::Exception{"Failed to parse layout '" + str + "'. Expected numbers separated with a comma."};
 
-        return {tgui::stof(str.substr(0, commaPos)), tgui::stof(str.substr(commaPos + 1))};
+            // Check if the first part is quoted
+            auto openingQuotePos = str.find('"');
+            if (commaPos > openingQuotePos)
+            {
+                auto closingQuotePos = str.find('"', openingQuotePos + 1);
+                if (closingQuotePos == std::string::npos)
+                    throw tgui::Exception{"Failed to parse layout '" + str + "'. Expected closing quote."};
+
+                // Make sure we didn't select a quote inside the string
+                if (commaPos < closingQuotePos)
+                {
+                    commaPos = str.find(',', closingQuotePos + 1);
+                    if (commaPos == std::string::npos)
+                        throw tgui::Exception{"Failed to parse layout '" + str + "'. Expected numbers separated with a comma."};
+                }
+
+                x = {str.substr(openingQuotePos + 1, closingQuotePos - openingQuotePos - 1)};
+            }
+            else // Normal value
+                x = {tgui::stof(tgui::trim(str.substr(0, commaPos)))};
+
+            // Check if the second part is quoted
+            openingQuotePos = str.find('"', commaPos + 1);
+            if (openingQuotePos != std::string::npos)
+            {
+                auto closingQuotePos = str.find('"', openingQuotePos + 1);
+                if (closingQuotePos == std::string::npos)
+                    throw tgui::Exception{"Failed to parse layout '" + str + "'. Expected closing quote."};
+
+                y = {str.substr(openingQuotePos + 1, closingQuotePos - openingQuotePos - 1)};
+            }
+            else // Normal value
+                y = {tgui::stof(tgui::trim(str.substr(commaPos + 1)))};
+
+            return {x, y};
+        }
+        else if ((str.front() == '"') && (str.back() == '"'))
+        {
+            str = str.substr(1, str.length() - 2);
+            return {str};
+        }
+        else
+            throw tgui::Exception{"Failed to parse layout '" + str + "'. Expected (x,y) or a quoted layout string."};
     }
 }
 
@@ -84,6 +132,9 @@ namespace tgui
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     #define DESERIALIZE_STRING(property) Deserializer::deserialize(ObjectConverter::Type::String, node->propertyValuePairs[property]->value).getString()
+
+    #define REMOVE_CHILD(childName) node->children.erase(std::remove_if(node->children.begin(), node->children.end(), \
+                                        [](std::shared_ptr<DataIO::Node> child){ return toLower(child->name) == childName; }), node->children.end());
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -108,9 +159,9 @@ namespace tgui
                 widget->disable();
         }
         if (node->propertyValuePairs["position"])
-            widget->setPosition(parseVector2f(node->propertyValuePairs["position"]->value));
+            widget->setPosition(parseLayout(node->propertyValuePairs["position"]->value));
         if (node->propertyValuePairs["size"])
-            widget->setSize(parseVector2f(node->propertyValuePairs["size"]->value));
+            widget->setSize(parseLayout(node->propertyValuePairs["size"]->value));
         if (node->propertyValuePairs["opacity"])
             widget->setOpacity(tgui::stof(node->propertyValuePairs["opacity"]->value));
 
@@ -124,6 +175,7 @@ namespace tgui
                     widget->getRenderer()->setProperty(pair.first, pair.second->value);
             }
         }
+        REMOVE_CHILD("renderer");
 
         return widget;
     }
@@ -137,28 +189,25 @@ namespace tgui
 
         for (auto& childNode : node->children)
         {
-            if (toLower(childNode->name) != "renderer")
+            auto nameSeparator = childNode->name.find('.');
+            auto widgetType = childNode->name.substr(0, nameSeparator);
+            auto& loadFunction = WidgetLoader::getLoadFunction(toLower(widgetType));
+            if (loadFunction)
             {
-                auto nameSeparator = childNode->name.find('.');
-                auto widgetType = childNode->name.substr(0, nameSeparator);
-                auto& loadFunction = WidgetLoader::getLoadFunction(toLower(widgetType));
-                if (loadFunction)
+                std::string className;
+                if (nameSeparator != std::string::npos)
                 {
-                    std::string className;
-                    if (nameSeparator != std::string::npos)
-                    {
-                        if ((childNode->name.size() >= nameSeparator + 2) && (childNode->name[nameSeparator+1] == '"') && (childNode->name.back() == '"'))
-                            className = Deserializer::deserialize(ObjectConverter::Type::String, childNode->name.substr(nameSeparator + 1)).getString();
-                        else
-                            className = childNode->name.substr(nameSeparator + 1);
-                    }
-
-                    tgui::Widget::Ptr childWidget = loadFunction(childNode);
-                    container->add(childWidget, className);
+                    if ((childNode->name.size() >= nameSeparator + 2) && (childNode->name[nameSeparator+1] == '"') && (childNode->name.back() == '"'))
+                        className = Deserializer::deserialize(ObjectConverter::Type::String, childNode->name.substr(nameSeparator + 1)).getString();
+                    else
+                        className = childNode->name.substr(nameSeparator + 1);
                 }
-                else
-                    throw Exception{"No load function exists for widget type '" + widgetType + "'."};
+
+                tgui::Widget::Ptr childWidget = loadFunction(childNode);
+                container->add(childWidget, className);
             }
+            else
+                throw Exception{"No load function exists for widget type '" + widgetType + "'."};
         }
 
         return container;
@@ -195,6 +244,63 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    TGUI_API Widget::Ptr loadChatBox(std::shared_ptr<DataIO::Node> node, Widget::Ptr widget = nullptr)
+    {
+        ChatBox::Ptr chatBox;
+        if (widget)
+            chatBox = std::static_pointer_cast<ChatBox>(widget);
+        else
+            chatBox = std::make_shared<ChatBox>();
+
+        loadWidget(node, chatBox);
+
+        if (node->propertyValuePairs["textsize"])
+            chatBox->setTextSize(tgui::stoi(node->propertyValuePairs["textsize"]->value));
+        if (node->propertyValuePairs["textcolor"])
+            chatBox->setTextColor(Deserializer::deserialize(ObjectConverter::Type::Color, node->propertyValuePairs["textcolor"]->value).getColor());
+
+        if (node->propertyValuePairs["linesstartfromtop"])
+        {
+            if (parseBoolean(node->propertyValuePairs["linesstartfromtop"]->value))
+                chatBox->setLinesStartFromTop(true);
+            else
+                chatBox->setLinesStartFromTop(false);
+        }
+
+        for (auto& childNode : node->children)
+        {
+            if (toLower(childNode->name) == "scrollbar")
+                chatBox->setScrollbar(std::static_pointer_cast<Scrollbar>(WidgetLoader::getLoadFunction("scrollbar")(childNode)));
+        }
+        REMOVE_CHILD("scrollbar");
+
+        for (auto& childNode : node->children)
+        {
+            if (toLower(childNode->name) == "line")
+            {
+                unsigned int lineTextSize = chatBox->getTextSize();
+                sf::Color lineTextColor = chatBox->getTextColor();
+
+                if (childNode->propertyValuePairs["textsize"])
+                    lineTextSize = tgui::stoi(childNode->propertyValuePairs["textsize"]->value);
+                if (childNode->propertyValuePairs["color"])
+                    lineTextColor = Deserializer::deserialize(ObjectConverter::Type::Color, childNode->propertyValuePairs["color"]->value).getColor();
+
+                if (childNode->propertyValuePairs["text"])
+                {
+                    chatBox->addLine(Deserializer::deserialize(ObjectConverter::Type::String, childNode->propertyValuePairs["text"]->value).getString(),
+                                     lineTextColor,
+                                     lineTextSize);
+                }
+            }
+        }
+        REMOVE_CHILD("line");
+
+        return chatBox;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     TGUI_API Widget::Ptr loadCheckBox(std::shared_ptr<DataIO::Node> node, Widget::Ptr widget = nullptr)
     {
         CheckBox::Ptr checkbox;
@@ -227,8 +333,6 @@ namespace tgui
         else
             childWindow = std::make_shared<ChildWindow>();
 
-        loadWidget(node, childWindow);
-
         if (node->propertyValuePairs["titlealignment"])
         {
             if (toLower(node->propertyValuePairs["titlealignment"]->value) == "left")
@@ -255,6 +359,9 @@ namespace tgui
             if (toLower(childNode->name) == "closebutton")
                 childWindow->setCloseButton(std::static_pointer_cast<Button>(WidgetLoader::getLoadFunction("button")(childNode)));
         }
+        REMOVE_CHILD("closebutton");
+
+        loadContainer(node, childWindow);
 
         return childWindow;
     }
@@ -284,6 +391,7 @@ namespace tgui
             if (toLower(childNode->name) == "listbox")
                 comboBox->setListBox(std::static_pointer_cast<ListBox>(WidgetLoader::getLoadFunction("listbox")(childNode)));
         }
+        REMOVE_CHILD("listbox");
 
         loadWidget(node, comboBox);
 
@@ -472,6 +580,7 @@ namespace tgui
             if (toLower(childNode->name) == "scrollbar")
                 listBox->setScrollbar(std::static_pointer_cast<Scrollbar>(WidgetLoader::getLoadFunction("scrollbar")(childNode)));
         }
+        REMOVE_CHILD("scrollbar");
 
         return listBox;
     }
@@ -496,9 +605,11 @@ namespace tgui
         else
             picture = std::make_shared<Picture>();
 
-        loadWidget(node, picture);
         if (node->propertyValuePairs["filename"])
             picture = std::make_shared<Picture>(DESERIALIZE_STRING("filename"));
+
+        loadWidget(node, picture);
+
         if (node->propertyValuePairs["smooth"])
             picture->setSmooth(parseBoolean(node->propertyValuePairs["smooth"]->value));
 
@@ -697,6 +808,7 @@ namespace tgui
             if (toLower(childNode->name) == "scrollbar")
                 textBox->setScrollbar(std::static_pointer_cast<Scrollbar>(WidgetLoader::getLoadFunction("scrollbar")(childNode)));
         }
+        REMOVE_CHILD("scrollbar");
 
         return textBox;
     }
@@ -717,6 +829,7 @@ namespace tgui
             {"container", std::bind(loadContainer, std::placeholders::_1, std::shared_ptr<Container>{})},
             {"button", std::bind(loadButton, std::placeholders::_1, std::shared_ptr<Button>{})},
             {"canvas", std::bind(loadCanvas, std::placeholders::_1, std::shared_ptr<Canvas>{})},
+            {"chatbox", std::bind(loadChatBox, std::placeholders::_1, std::shared_ptr<ChatBox>{})},
             {"checkbox", std::bind(loadCheckBox, std::placeholders::_1, std::shared_ptr<CheckBox>{})},
             {"childwindow", std::bind(loadChildWindow, std::placeholders::_1, std::shared_ptr<ChildWindow>{})},
             {"clickablewidget", std::bind(loadClickableWidget, std::placeholders::_1, std::shared_ptr<ClickableWidget>{})},

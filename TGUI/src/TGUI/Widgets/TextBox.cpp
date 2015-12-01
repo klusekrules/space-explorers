@@ -119,7 +119,7 @@ namespace tgui
     TextBox::Ptr TextBox::copy(TextBox::ConstPtr textBox)
     {
         if (textBox)
-            return std::make_shared<TextBox>(*textBox);
+            return std::static_pointer_cast<TextBox>(textBox->clone());
         else
             return nullptr;
     }
@@ -367,6 +367,13 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    sf::String TextBox::getSelectedText() const
+    {
+        return m_textSelection1.getString() + m_textSelection2.getString();
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     void TextBox::setTextSize(unsigned int size)
     {
         // Store the new text size
@@ -564,10 +571,7 @@ namespace tgui
                                 m_selStart.x = m_lines[m_selStart.y].getSize();
                             }
                             else
-                            {
-                                done = true;
                                 break;
-                            }
                         }
                     }
                     else
@@ -607,10 +611,7 @@ namespace tgui
                                 m_selEnd.x = 0;
                             }
                             else
-                            {
-                                done = true;
                                 break;
-                            }
                         }
                     }
                     else
@@ -652,7 +653,7 @@ namespace tgui
         if (m_scroll != nullptr)
         {
             // Only pass the event when the scrollbar still thinks the mouse is down
-            if (m_scroll->m_mouseDown == true)
+            if (m_scroll->m_mouseDown)
             {
                 // Don't continue when line height is 0
                 if (m_lineHeight == 0)
@@ -1614,12 +1615,6 @@ namespace tgui
 
     void TextBox::updateSelectionTexts()
     {
-        Padding padding = getRenderer()->getScaledPadding();
-
-        float maxLineWidth = std::max(0.f, getSize().x - padding.left - padding.right);
-        if (m_scroll && (!m_scroll->getAutoHide() || (m_scroll->getMaximum() > m_scroll->getLowValue())))
-            maxLineWidth = std::max(0.f, maxLineWidth - m_scroll->getSize().x);
-
         // If there is no selection then just put the whole text in m_textBeforeSelection
         if (m_selStart == m_selEnd)
         {
@@ -1744,22 +1739,20 @@ namespace tgui
 
     void TextBox::reload(const std::string& primary, const std::string& secondary, bool force)
     {
+        getRenderer()->setBorders(2, 2, 2, 2);
+        getRenderer()->setTextColor({0, 0, 0});
+        getRenderer()->setSelectedTextColor({255, 255, 255});
+        getRenderer()->setCaretColor({0, 0, 0});
+        getRenderer()->setBackgroundColor({255, 255, 255});
+        getRenderer()->setSelectedTextBackgroundColor({0, 110, 255});
+        getRenderer()->setBorderColor({0, 0, 0});
+        getRenderer()->setBackgroundTexture({});
+        getRenderer()->setCaretWidth(2);
+
         if (m_theme && primary != "")
         {
             getRenderer()->setBorders({0, 0, 0, 0});
             Widget::reload(primary, secondary, force);
-        }
-        else // Load white theme
-        {
-            getRenderer()->setBorders(2, 2, 2, 2);
-            getRenderer()->setTextColor({0, 0, 0});
-            getRenderer()->setSelectedTextColor({255, 255, 255});
-            getRenderer()->setCaretColor({0, 0, 0});
-            getRenderer()->setBackgroundColor({255, 255, 255});
-            getRenderer()->setSelectedTextBackgroundColor({0, 110, 255});
-            getRenderer()->setBorderColor({0, 0, 0});
-            getRenderer()->setBackgroundTexture({});
-            getRenderer()->setCaretWidth(2);
         }
     }
 

@@ -99,7 +99,7 @@ namespace tgui
     ListBox::Ptr ListBox::copy(ListBox::ConstPtr listBox)
     {
         if (listBox)
-            return std::make_shared<ListBox>(*listBox);
+            return std::static_pointer_cast<ListBox>(listBox->clone());
         else
             return nullptr;
     }
@@ -602,6 +602,8 @@ namespace tgui
     {
         Widget::setOpacity(opacity);
 
+        getRenderer()->m_backgroundTexture.setColor({255, 255, 255, static_cast<sf::Uint8>(m_opacity * 255)});
+
         if (m_scroll != nullptr)
             m_scroll->setOpacity(m_opacity);
 
@@ -941,6 +943,16 @@ namespace tgui
 
     void ListBox::reload(const std::string& primary, const std::string& secondary, bool force)
     {
+        getRenderer()->setBorders({2, 2, 2, 2});
+        getRenderer()->setBackgroundColor({245, 245, 245});
+        getRenderer()->setTextColorNormal({60, 60, 60});
+        getRenderer()->setTextColorHover({0, 0, 0});
+        getRenderer()->setHoverBackgroundColor({255, 255, 255});
+        getRenderer()->setSelectedBackgroundColor({0, 110, 255});
+        getRenderer()->setSelectedTextColor({255, 255, 255});
+        getRenderer()->setBorderColor({0, 0, 0});
+        getRenderer()->setBackgroundTexture({});
+
         if (m_theme && primary != "")
         {
             getRenderer()->setBorders({0, 0, 0, 0});
@@ -955,18 +967,6 @@ namespace tgui
             }
             else
                 updateSize();
-        }
-        else // Load white theme
-        {
-            getRenderer()->setBorders({2, 2, 2, 2});
-            getRenderer()->setBackgroundColor({245, 245, 245});
-            getRenderer()->setTextColorNormal({60, 60, 60});
-            getRenderer()->setTextColorHover({0, 0, 0});
-            getRenderer()->setHoverBackgroundColor({255, 255, 255});
-            getRenderer()->setSelectedBackgroundColor({0, 110, 255});
-            getRenderer()->setSelectedTextColor({255, 255, 255});
-            getRenderer()->setBorderColor({0, 0, 0});
-            getRenderer()->setBackgroundTexture({});
         }
     }
 

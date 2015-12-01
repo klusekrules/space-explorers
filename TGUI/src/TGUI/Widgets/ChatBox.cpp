@@ -55,7 +55,6 @@ namespace tgui
 
     ChatBox::ChatBox(const ChatBox& chatBoxToCopy) :
         Widget             {chatBoxToCopy},
-        m_lineSpacing      {chatBoxToCopy.m_lineSpacing},
         m_textSize         {chatBoxToCopy.m_textSize},
         m_textColor        {chatBoxToCopy.m_textColor},
         m_maxLines         {chatBoxToCopy.m_maxLines},
@@ -75,7 +74,6 @@ namespace tgui
             ChatBox temp{right};
             Widget::operator=(right);
 
-            std::swap(m_lineSpacing,       temp.m_lineSpacing);
             std::swap(m_textSize,          temp.m_textSize);
             std::swap(m_textColor,         temp.m_textColor);
             std::swap(m_maxLines,          temp.m_maxLines);
@@ -93,7 +91,7 @@ namespace tgui
     ChatBox::Ptr ChatBox::copy(ChatBox::ConstPtr chatBox)
     {
         if (chatBox)
-            return std::make_shared<ChatBox>(*chatBox);
+            return std::static_pointer_cast<ChatBox>(chatBox->clone());
         else
             return nullptr;
     }
@@ -180,7 +178,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    sf::String ChatBox::getLine(std::size_t lineIndex)
+    sf::String ChatBox::getLine(std::size_t lineIndex) const
     {
         if (lineIndex < m_panel->getWidgets().size())
         {
@@ -188,6 +186,42 @@ namespace tgui
         }
         else // Index too high
             return "";
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    sf::Color ChatBox::getLineColor(std::size_t lineIndex) const
+    {
+        if (lineIndex < m_panel->getWidgets().size())
+        {
+            return std::static_pointer_cast<Label>(m_panel->getWidgets()[lineIndex])->getTextColor();
+        }
+        else // Index too high
+            return m_textColor;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    unsigned int ChatBox::getLineTextSize(std::size_t lineIndex) const
+    {
+        if (lineIndex < m_panel->getWidgets().size())
+        {
+            return std::static_pointer_cast<Label>(m_panel->getWidgets()[lineIndex])->getTextSize();
+        }
+        else // Index too high
+            return m_textSize;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    std::shared_ptr<sf::Font> ChatBox::getLineFont(std::size_t lineIndex) const
+    {
+        if (lineIndex < m_panel->getWidgets().size())
+        {
+            return std::static_pointer_cast<Label>(m_panel->getWidgets()[lineIndex])->getFont();
+        }
+        else // Index too high
+            return getFont();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -281,19 +315,6 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ChatBox::setLineSpacing(unsigned int lineSpacing)
-    {
-        if (m_lineSpacing != lineSpacing)
-        {
-            m_lineSpacing = lineSpacing;
-
-            recalculateFullTextHeight();
-            updateDisplayedText();
-        }
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     void ChatBox::setScrollbar(Scrollbar::Ptr scrollbar)
     {
         m_scroll = scrollbar;
@@ -329,6 +350,13 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    bool ChatBox::getLinesStartFromTop() const
+    {
+        return m_linesStartFromTop;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     void ChatBox::setOpacity(float opacity)
     {
         Widget::setOpacity(opacity);
@@ -344,6 +372,14 @@ namespace tgui
     sf::Vector2f ChatBox::getWidgetOffset() const
     {
         return {getRenderer()->getBorders().left, getRenderer()->getBorders().top};
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void ChatBox::setParent(Container* parent)
+    {
+        Widget::setParent(parent);
+        m_panel->setParent(parent);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -398,7 +434,7 @@ namespace tgui
         if (m_scroll && getFont())
         {
             // Only pass the event when the scrollbar still thinks the mouse is down
-            if (m_scroll->m_mouseDown == true)
+            if (m_scroll->m_mouseDown)
             {
                 // Remember the old scrollbar value
                 unsigned int oldValue = m_scroll->getValue();
@@ -644,6 +680,12 @@ namespace tgui
 
     void ChatBox::reload(const std::string& primary, const std::string& secondary, bool force)
     {
+        getRenderer()->setBorders({2, 2, 2, 2});
+        getRenderer()->setPadding({2, 2, 2, 2});
+        getRenderer()->setBackgroundColor({245, 245, 245});
+        getRenderer()->setBorderColor({0, 0, 0});
+        getRenderer()->setBackgroundTexture({});
+
         if (m_theme && primary != "")
         {
             getRenderer()->setBorders({0, 0, 0, 0});
@@ -658,14 +700,6 @@ namespace tgui
             }
 
             updateSize();
-        }
-        else // Load white theme
-        {
-            getRenderer()->setBorders({2, 2, 2, 2});
-            getRenderer()->setPadding({2, 2, 2, 2});
-            getRenderer()->setBackgroundColor({245, 245, 245});
-            getRenderer()->setBorderColor({0, 0, 0});
-            getRenderer()->setBackgroundTexture({});
         }
     }
 

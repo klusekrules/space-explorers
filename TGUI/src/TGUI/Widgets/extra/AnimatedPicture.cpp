@@ -45,7 +45,7 @@ namespace ext
     AnimatedPicture::Ptr AnimatedPicture::copy(AnimatedPicture::ConstPtr picture)
     {
         if (picture)
-            return std::make_shared<AnimatedPicture>(*picture);
+            return std::static_pointer_cast<AnimatedPicture>(picture->clone());
         else
             return nullptr;
     }
@@ -191,7 +191,7 @@ namespace ext
     void AnimatedPicture::update(sf::Time elapsedTime)
     {
         // Only continue when you are playing
-        if (m_playing == false)
+        if (!m_playing)
             return;
 
         Widget::update(elapsedTime);
@@ -211,7 +211,7 @@ namespace ext
                 else
                 {
                     // If looping is enabled then stat over
-                    if (m_looping == true)
+                    if (m_looping)
                         m_currentFrame = 0;
                     else
                     {

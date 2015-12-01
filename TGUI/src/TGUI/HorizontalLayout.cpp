@@ -14,10 +14,10 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    HorizontalLayout::Ptr HorizontalLayout::copy(ConstPtr layout)
+    HorizontalLayout::Ptr HorizontalLayout::copy(HorizontalLayout::ConstPtr layout)
     {
         if (layout)
-            return std::make_shared<HorizontalLayout>(*layout);
+            return std::static_pointer_cast<HorizontalLayout>(layout->clone());
         else
             return nullptr;
     }
@@ -38,15 +38,15 @@ namespace tgui
         const float sumFixedSize = std::accumulate(m_widgetsFixedSizes.begin(), m_widgetsFixedSizes.end(), 0.f);
         for (unsigned int i = 0; i < m_layoutWidgets.size(); ++i)
         {
-            m_layoutWidgets[i]->setPosition((m_size.x - sumFixedSize) * currentRatio + currentOffset, 0.f);
+            m_layoutWidgets[i]->setPosition((getSize().x - sumFixedSize) * currentRatio + currentOffset, 0.f);
             if (m_widgetsFixedSizes[i])
             {
-                m_layoutWidgets[i]->setSize(m_widgetsFixedSizes[i], m_size.y);
+                m_layoutWidgets[i]->setSize(m_widgetsFixedSizes[i], getSize().y);
                 currentOffset += m_widgetsFixedSizes[i];
             }
             else
             {
-                m_layoutWidgets[i]->setSize((m_size.x - sumFixedSize) * m_widgetsRatio[i] / sumRatio, m_size.y);
+                m_layoutWidgets[i]->setSize((getSize().x - sumFixedSize) * m_widgetsRatio[i] / sumRatio, getSize().y);
                 currentRatio += m_widgetsRatio[i] / sumRatio;
             }
 
@@ -61,13 +61,6 @@ namespace tgui
                 }
             }
         }
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    tgui::Widget::Ptr HorizontalLayout::clone()
-    {
-        return std::make_shared<HorizontalLayout>(*this);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

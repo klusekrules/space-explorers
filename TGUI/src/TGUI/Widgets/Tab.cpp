@@ -54,7 +54,7 @@ namespace tgui
     Tab::Ptr Tab::copy(Tab::ConstPtr tab)
     {
         if (tab)
-            return std::make_shared<Tab>(*tab);
+            return std::static_pointer_cast<Tab>(tab->clone());
         else
             return nullptr;
     }
@@ -70,12 +70,15 @@ namespace tgui
         auto textureNormalIt = getRenderer()->m_texturesNormal.begin();
         auto textureSelectedIt = getRenderer()->m_texturesSelected.begin();
         auto tabTextIt = m_tabTexts.begin();
-        for (auto tabWidthIt = m_tabWidth.cbegin(); tabWidthIt != m_tabWidth.cend(); ++tabWidthIt, ++textureNormalIt, ++textureSelectedIt, ++tabTextIt)
+        for (auto tabWidthIt = m_tabWidth.cbegin(); tabWidthIt != m_tabWidth.cend(); ++tabWidthIt, ++tabTextIt)
         {
             if (getRenderer()->m_textureNormal.isLoaded() && getRenderer()->m_textureSelected.isLoaded())
             {
                 textureNormalIt->setPosition({positionX, getPosition().y});
                 textureSelectedIt->setPosition({positionX, getPosition().y});
+
+                textureNormalIt++;
+                textureSelectedIt++;
             }
 
             tabTextIt->setPosition({positionX + getRenderer()->m_distanceToSide + ((*tabWidthIt - (2 * getRenderer()->m_distanceToSide) - tabTextIt->getSize().x) / 2.0f),
@@ -103,6 +106,8 @@ namespace tgui
         // Recalculate the size when auto sizing
         if (m_requestedTextSize == 0)
             setTextSize(0);
+        else
+            recalculateTabsWidth();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -460,7 +465,7 @@ namespace tgui
 
         auto textureNormalIt = getRenderer()->m_texturesNormal.begin();
         auto textureSelectedIt = getRenderer()->m_texturesSelected.begin();
-        for (unsigned int i = 0; i < m_tabWidth.size(); ++i, ++textureNormalIt, ++textureSelectedIt)
+        for (unsigned int i = 0; i < m_tabWidth.size(); ++i)
         {
             if (m_maximumTabWidth)
                 m_tabWidth[i] = std::min(m_tabTexts[i].getSize().x + (2 * getRenderer()->m_distanceToSide), m_maximumTabWidth);
@@ -471,6 +476,9 @@ namespace tgui
             {
                 textureNormalIt->setSize({m_tabWidth[i], m_tabHeight});
                 textureSelectedIt->setSize({m_tabWidth[i], m_tabHeight});
+
+                textureNormalIt++;
+                textureSelectedIt++;
             }
 
             m_width += m_tabWidth[i];
@@ -487,6 +495,15 @@ namespace tgui
 
     void Tab::reload(const std::string& primary, const std::string& secondary, bool force)
     {
+        getRenderer()->setBorders({2, 2, 2, 2});
+        getRenderer()->setBackgroundColor({255, 255, 255});
+        getRenderer()->setSelectedBackgroundColor({0, 110, 255});
+        getRenderer()->setTextColor({0, 0, 0});
+        getRenderer()->setSelectedTextColor({255, 255, 255});
+        getRenderer()->setBorderColor({0, 0, 0});
+        getRenderer()->setNormalTexture({});
+        getRenderer()->setSelectedTexture({});
+
         if (m_theme && primary != "")
         {
             getRenderer()->setBorders({0, 0, 0, 0});
@@ -497,17 +514,6 @@ namespace tgui
                 if (getRenderer()->m_textureNormal.isLoaded() && getRenderer()->m_textureSelected.isLoaded())
                     setTabHeight(getRenderer()->m_textureNormal.getSize().y);
             }
-        }
-        else // Load white theme
-        {
-            getRenderer()->setBorders({2, 2, 2, 2});
-            getRenderer()->setBackgroundColor({255, 255, 255});
-            getRenderer()->setSelectedBackgroundColor({0, 110, 255});
-            getRenderer()->setTextColor({0, 0, 0});
-            getRenderer()->setSelectedTextColor({255, 255, 255});
-            getRenderer()->setBorderColor({0, 0, 0});
-            getRenderer()->setNormalTexture({});
-            getRenderer()->setSelectedTexture({});
         }
     }
 
@@ -567,10 +573,7 @@ namespace tgui
 
             // Reset the old clipping area when needed
             if (clippingRequired)
-            {
-                clippingRequired = false;
                 glScissor(scissor[0], scissor[1], scissor[2], scissor[3]);
-            }
 
             accumulatedTabWidth += m_tabWidth[i] + ((getRenderer()->getBorders().left + getRenderer()->getBorders().right) / 2.0f);
         }
@@ -814,7 +817,7 @@ namespace tgui
         float positionX = m_tab->getPosition().x;
         auto textureNormalIt = m_texturesNormal.cbegin();
         auto textureSelectedIt = m_texturesSelected.cbegin();
-        for (unsigned int i = 0; i < m_tab->m_tabTexts.size(); ++i, ++textureNormalIt, ++textureSelectedIt)
+        for (unsigned int i = 0; i < m_tab->m_tabTexts.size(); ++i)
         {
             if (m_textureNormal.isLoaded() && m_textureSelected.isLoaded())
             {
@@ -822,6 +825,9 @@ namespace tgui
                     target.draw(*textureSelectedIt, states);
                 else
                     target.draw(*textureNormalIt, states);
+
+                textureNormalIt++;
+                textureSelectedIt++;
             }
             else // There are no textures
             {

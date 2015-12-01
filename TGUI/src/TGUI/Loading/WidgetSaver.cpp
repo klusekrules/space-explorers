@@ -26,6 +26,7 @@
 #include <TGUI/Loading/Serializer.hpp>
 #include <TGUI/Loading/WidgetSaver.hpp>
 #include <TGUI/Widgets/Button.hpp>
+#include <TGUI/Widgets/ChatBox.hpp>
 #include <TGUI/Widgets/ChildWindow.hpp>
 #include <TGUI/Widgets/ComboBox.hpp>
 #include <TGUI/Widgets/EditBox.hpp>
@@ -42,6 +43,30 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+namespace
+{
+    std::string emitLayout(tgui::Layout2d layout)
+    {
+        std::string str;
+        str += "(";
+
+        if (layout.x.getImpl()->operation == tgui::LayoutImpl::Operation::String)
+            str += "\"" + layout.x.getImpl()->stringExpression + "\"";
+        else
+            str += tgui::to_string(layout.x.getValue());
+
+        str += ", ";
+
+        if (layout.y.getImpl()->operation == tgui::LayoutImpl::Operation::String)
+            str += "\"" + layout.y.getImpl()->stringExpression + "\"";
+        else
+            str += tgui::to_string(layout.y.getValue());
+
+        str += ")";
+        return str;
+    }
+}
+
 // Hidden functions
 namespace tgui
 {
@@ -55,7 +80,7 @@ namespace tgui
     {
         std::string widgetName;
         if (widget->getParent())
-            widget->getParent()->getWidgetName(widget, widgetName);
+            widgetName = widget->getParent()->getWidgetName(widget);
 
         auto node = std::make_shared<DataIO::Node>();
         if (widgetName.empty())
@@ -68,9 +93,9 @@ namespace tgui
         if (!widget->isEnabled())
             SET_PROPERTY("Enabled", "false");
         if (widget->getPosition() != sf::Vector2f{})
-            SET_PROPERTY("Position", "(" + tgui::to_string(widget->getPosition().x) + ", " + tgui::to_string(widget->getPosition().y) + ")");
+            SET_PROPERTY("Position", emitLayout(widget->getPositionLayout()));
         if (widget->getSize() != sf::Vector2f{})
-            SET_PROPERTY("Size", "(" + tgui::to_string(widget->getSize().x) + ", " + tgui::to_string(widget->getSize().y) + ")");
+            SET_PROPERTY("Size", emitLayout(widget->getSizeLayout()));
         if (widget->getOpacity() != 255)
             SET_PROPERTY("Opacity", tgui::to_string(widget->getOpacity()));
 
@@ -106,23 +131,6 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    TGUI_API std::shared_ptr<DataIO::Node> saveGuiContainer(GuiContainer::Ptr container)
-    {
-        auto node = std::make_shared<DataIO::Node>();
-        for (auto& child : container->getWidgets())
-        {
-            auto& saveFunction = WidgetSaver::getSaveFunction(toLower(child->getWidgetType()));
-            if (saveFunction)
-                node->children.emplace_back(saveFunction(WidgetConverter{child}));
-            else
-                throw Exception{"No save function exists for widget type '" + child->getWidgetType() + "'."};
-        }
-
-        return node;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     TGUI_API std::shared_ptr<DataIO::Node> saveButton(Button::Ptr button)
     {
         auto node = saveWidget(button);
@@ -136,9 +144,54 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    TGUI_API std::shared_ptr<DataIO::Node> saveChatBox(ChatBox::Ptr chatBox)
+    {
+        auto node = saveWidget(chatBox);
+
+        unsigned int textSize = chatBox->getTextSize();
+        sf::Color textColor = chatBox->getTextColor();
+
+        SET_PROPERTY("TextSize", tgui::to_string(textSize));
+        SET_PROPERTY("TextColor", Serializer::serialize(textColor));
+
+        if (chatBox->getLinesStartFromTop())
+            SET_PROPERTY("LinesStartFromTop", "true");
+        else
+            SET_PROPERTY("LinesStartFromTop", "false");
+
+        for (std::size_t i = 0; i < chatBox->getLineAmount(); ++i)
+        {
+            unsigned int lineTextSize = chatBox->getLineTextSize(i);
+            sf::Color lineTextColor = chatBox->getLineColor(i);
+
+            auto lineNode = std::make_shared<DataIO::Node>();
+            lineNode->parent = node.get();
+            lineNode->name = "Line";
+
+            lineNode->propertyValuePairs["Text"] = std::make_shared<DataIO::ValueNode>(lineNode.get(), Serializer::serialize(chatBox->getLine(i)));
+            if (lineTextSize != textSize)
+                lineNode->propertyValuePairs["TextSize"] = std::make_shared<DataIO::ValueNode>(lineNode.get(), tgui::to_string(lineTextSize));
+            if (lineTextColor != textColor)
+                lineNode->propertyValuePairs["Color"] = std::make_shared<DataIO::ValueNode>(lineNode.get(), Serializer::serialize(lineTextColor));
+
+            node->children.push_back(lineNode);
+        }
+
+        if (chatBox->getScrollbar())
+        {
+            node->children.push_back(WidgetSaver::getSaveFunction("scrollbar")(tgui::WidgetConverter{chatBox->getScrollbar()}));
+            node->children.back()->parent = node.get();
+            node->children.back()->name = "Scrollbar";
+        }
+
+        return node;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     TGUI_API std::shared_ptr<DataIO::Node> saveChildWindow(ChildWindow::Ptr childWindow)
     {
-        auto node = saveWidget(childWindow);
+        auto node = saveContainer(childWindow);
 
         if (childWindow->getTitleAlignment() == ChildWindow::TitleAlignment::Left)
             SET_PROPERTY("TitleAlignment", "Left");
@@ -464,9 +517,9 @@ namespace tgui
         {
             {"widget", saveWidget},
             {"container", saveContainer},
-            {"guicontainer", saveGuiContainer},
             {"button", saveButton},
             {"canvas", saveWidget},
+            {"chatbox", saveChatBox},
             {"checkbox", saveRadioButton},
             {"clickablewidget", saveWidget},
             {"childwindow", saveChildWindow},
@@ -490,11 +543,17 @@ namespace tgui
 
     void WidgetSaver::save(Container::Ptr widget, std::stringstream& stream)
     {
-        auto& saveFunction = m_saveFunctions[toLower(widget->getWidgetType())];
-        if (saveFunction)
-            DataIO::emit(saveFunction(WidgetConverter{widget}), stream);
-        else
-            throw Exception{"No save function exists for widget type '" + widget->getWidgetType() + "'."};
+        auto node = std::make_shared<DataIO::Node>();
+        for (auto& child : widget->getWidgets())
+        {
+            auto& saveFunction = WidgetSaver::getSaveFunction(toLower(child->getWidgetType()));
+            if (saveFunction)
+                node->children.emplace_back(saveFunction(WidgetConverter{child}));
+            else
+                throw Exception{"No save function exists for widget type '" + child->getWidgetType() + "'."};
+        }
+
+        DataIO::emit(node, stream);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -62,7 +62,7 @@ namespace tgui
     EditBox::Ptr EditBox::copy(EditBox::ConstPtr editBox)
     {
         if (editBox)
-            return std::make_shared<EditBox>(*editBox);
+            return std::static_pointer_cast<EditBox>(editBox->clone());
         else
             return nullptr;
     }
@@ -300,7 +300,7 @@ namespace tgui
         m_limitTextWidth = limitWidth;
 
         // Check if the width is being limited
-        if (m_limitTextWidth == true)
+        if (m_limitTextWidth)
         {
             // Now check if the text fits into the EditBox
             float width = getVisibleEditBoxWidth();
@@ -344,7 +344,7 @@ namespace tgui
         m_textFull.setString(m_displayedText);
 
         // Check if scrolling is enabled
-        if (m_limitTextWidth == false)
+        if (!m_limitTextWidth)
         {
             // Find out the position of the caret
             float caretPosition = m_textFull.findCharacterPos(m_selEnd).x;
@@ -916,6 +916,22 @@ namespace tgui
 
     void EditBox::reload(const std::string& primary, const std::string& secondary, bool force)
     {
+        m_textBeforeSelection.setColor({0, 0, 0});
+        m_textSelection.setColor({255, 255, 255});
+        m_textAfterSelection.setColor({0, 0, 0});
+        m_defaultText.setColor({160, 160, 160});
+        m_caret.setFillColor({0, 0, 0});
+        m_selectedTextBackground.setFillColor({0, 110, 255});
+
+        getRenderer()->setBorders({2, 2, 2, 2});
+        getRenderer()->setPadding({4, 2, 4, 2});
+        getRenderer()->setBorderColor({0, 0, 0});
+        getRenderer()->setBackgroundColorNormal({245, 245, 245});
+        getRenderer()->setBackgroundColorHover({255, 255, 255});
+        getRenderer()->setNormalTexture({});
+        getRenderer()->setHoverTexture({});
+        getRenderer()->setFocusTexture({});
+
         if (m_theme && primary != "")
         {
             getRenderer()->setBorders({0, 0, 0, 0});
@@ -929,24 +945,6 @@ namespace tgui
 
             // Call setText to re-position the text
             setText(m_text);
-        }
-        else // Load white theme
-        {
-            m_textBeforeSelection.setColor({0, 0, 0});
-            m_textSelection.setColor({255, 255, 255});
-            m_textAfterSelection.setColor({0, 0, 0});
-            m_defaultText.setColor({160, 160, 160});
-            m_caret.setFillColor({0, 0, 0});
-            m_selectedTextBackground.setFillColor({0, 110, 255});
-
-            getRenderer()->setBorders({2, 2, 2, 2});
-            getRenderer()->setPadding({4, 2, 4, 2});
-            getRenderer()->setBorderColor({0, 0, 0});
-            getRenderer()->setBackgroundColorNormal({245, 245, 245});
-            getRenderer()->setBackgroundColorHover({255, 255, 255});
-            getRenderer()->setNormalTexture({});
-            getRenderer()->setHoverTexture({});
-            getRenderer()->setFocusTexture({});
         }
     }
 

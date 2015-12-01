@@ -52,7 +52,7 @@ namespace tgui
     ChildWindow::Ptr ChildWindow::copy(ChildWindow::ConstPtr childWindow)
     {
         if (childWindow)
-            return std::make_shared<ChildWindow>(*childWindow);
+            return std::static_pointer_cast<ChildWindow>(childWindow->clone());
         else
             return nullptr;
     }
@@ -251,7 +251,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    sf::Vector2f ChildWindow::getWidgetsOffset() const
+    sf::Vector2f ChildWindow::getChildWidgetsOffset() const
     {
         return {getRenderer()->m_borders.left, getRenderer()->m_borders.top + getRenderer()->m_titleBarHeight};
     }
@@ -301,7 +301,7 @@ namespace tgui
         m_mouseDown = true;
 
         // Move the child window to the front
-        m_parent->moveWidgetToFront(this);
+        moveToFront();
 
         m_callback.mouse.x = static_cast<int>(x - getPosition().x);
         m_callback.mouse.y = static_cast<int>(y - getPosition().y);
@@ -334,8 +334,8 @@ namespace tgui
             // Check if the mouse is on top of the borders
             if ((sf::FloatRect{getPosition().x, getPosition().y, getSize().x + getRenderer()->getBorders().left + getRenderer()->getBorders().right,
                                getSize().y + getRenderer()->getBorders().top + getRenderer()->getBorders().bottom + getRenderer()->m_titleBarHeight}.contains(x, y))
-             && (sf::FloatRect{getPosition().x + getRenderer()->getBorders().left, getPosition().y + getRenderer()->m_titleBarHeight + getRenderer()->getBorders().top,
-                               getSize().x, getSize().y}.contains(x, y) == false))
+             && (!sf::FloatRect{getPosition().x + getRenderer()->getBorders().left, getPosition().y + getRenderer()->m_titleBarHeight + getRenderer()->getBorders().top,
+                                getSize().x, getSize().y}.contains(x, y)))
             {
                 // Don't send the event to the widgets
                 return;
@@ -356,7 +356,7 @@ namespace tgui
         if (sf::FloatRect{getPosition().x, getPosition().y, getSize().x + getRenderer()->getBorders().left + getRenderer()->getBorders().right, getRenderer()->m_titleBarHeight}.contains(x, y))
         {
             // Check if the close button was clicked
-            if (m_closeButton->m_mouseDown == true)
+            if (m_closeButton->m_mouseDown)
             {
                 m_closeButton->m_mouseDown = false;
 
@@ -390,8 +390,8 @@ namespace tgui
             // Check if the mouse is on top of the borders
             if ((sf::FloatRect{getPosition().x, getPosition().y, getSize().x + getRenderer()->m_borders.left + getRenderer()->m_borders.right,
                                getSize().y + getRenderer()->m_borders.top + getRenderer()->m_borders.bottom + getRenderer()->m_titleBarHeight}.contains(x, y))
-             && (sf::FloatRect{getPosition().x + getRenderer()->m_borders.left, getPosition().y + getRenderer()->m_titleBarHeight + getRenderer()->m_borders.top,
-                               getSize().x, getSize().y}.contains(x, y) == false))
+             && (!sf::FloatRect{getPosition().x + getRenderer()->m_borders.left, getPosition().y + getRenderer()->m_titleBarHeight + getRenderer()->m_borders.top,
+                                getSize().x, getSize().y}.contains(x, y)))
             {
                 // Tell the widgets about that the mouse was released
                 for (unsigned int i = 0; i < m_widgets.size(); ++i)
@@ -436,8 +436,8 @@ namespace tgui
             // Check if the mouse is on top of the borders
             if ((sf::FloatRect{getPosition().x, getPosition().y, getSize().x + getRenderer()->m_borders.left + getRenderer()->m_borders.right,
                                getSize().y + getRenderer()->m_borders.top + getRenderer()->m_borders.bottom + getRenderer()->m_titleBarHeight}.contains(x, y))
-             && (sf::FloatRect{getPosition().x + getRenderer()->m_borders.left, getPosition().y + getRenderer()->m_titleBarHeight + getRenderer()->m_borders.top,
-                               getSize().x, getSize().y}.contains(x, y) == false))
+             && (!sf::FloatRect{getPosition().x + getRenderer()->m_borders.left, getPosition().y + getRenderer()->m_titleBarHeight + getRenderer()->m_borders.top,
+                                getSize().x, getSize().y}.contains(x, y)))
             {
                 // Don't send the event to the widgets
                 return;
@@ -468,6 +468,18 @@ namespace tgui
 
     void ChildWindow::reload(const std::string& primary, const std::string& secondary, bool force)
     {
+        m_closeButton->reload();
+        m_closeButton->getRenderer()->setBorders({1, 1, 1, 1});
+
+        getRenderer()->setTitleBarHeight(20);
+        getRenderer()->setDistanceToSide(3);
+        getRenderer()->setBorders({1, 1, 1, 1});
+        getRenderer()->setTitleBarColor({255, 255, 255});
+        getRenderer()->setTitleColor({0, 0, 0});
+        getRenderer()->setBackgroundColor({230, 230, 230});
+        getRenderer()->setBorderColor({0, 0, 0});
+        getRenderer()->setTitleBarTexture({});
+
         if (m_theme && primary != "")
         {
             getRenderer()->setBorders({0, 0, 0, 0});
@@ -484,20 +496,6 @@ namespace tgui
                         m_closeButton->setSize(m_closeButton->getRenderer()->m_textureNormal.getImageSize());
                 }
             }
-        }
-        else // Load white theme
-        {
-            m_closeButton->reload();
-            m_closeButton->getRenderer()->setBorders({1, 1, 1, 1});
-
-            getRenderer()->setTitleBarHeight(20);
-            getRenderer()->setDistanceToSide(3);
-            getRenderer()->setBorders({1, 1, 1, 1});
-            getRenderer()->setTitleBarColor({255, 255, 255});
-            getRenderer()->setTitleColor({0, 0, 0});
-            getRenderer()->setBackgroundColor({230, 230, 230});
-            getRenderer()->setBorderColor({0, 0, 0});
-            getRenderer()->setTitleBarTexture({});
         }
 
         if (!m_closeButton->getRenderer()->m_textureNormal.isLoaded())
@@ -554,7 +552,7 @@ namespace tgui
         glGetIntegerv(GL_SCISSOR_BOX, scissor);
 
         // Check if there is a title
-        if (m_titleText.getText().isEmpty() == false)
+        if (!m_titleText.getText().isEmpty())
         {
             // Calculate the clipping area
             GLint scissorLeft = std::max(static_cast<GLint>(topLeftTitleBarPosition.x * scaleViewX), scissor[0]);
@@ -755,8 +753,6 @@ namespace tgui
             return m_distanceToSide;
         else if (property == "titlebarheight")
             return m_titleBarHeight;
-        else if (property == "closebutton")
-            return m_closeButtonClassName;
         else
             return WidgetRenderer::getProperty(property);
     }
@@ -771,9 +767,6 @@ namespace tgui
             pairs["TitleBarImage"] = m_textureTitleBar;
         else
             pairs["TitleBarColor"] = m_titleBarColor;
-
-        if (!m_closeButtonClassName.isEmpty())
-            pairs["CloseButton"] = m_closeButtonClassName;
 
         pairs["BackgroundColor"] = m_backgroundColor;
         pairs["TitleColor"] = m_titleColor;
@@ -795,18 +788,16 @@ namespace tgui
 
     void ChildWindowRenderer::setTitleBarHeight(float height)
     {
+        m_titleBarHeight = height;
+
         // Set the size of the close button
-        if (m_titleBarHeight)
+        if (m_textureTitleBar.isLoaded() && m_childWindow->m_closeButton->getRenderer()->m_textureNormal.isLoaded())
         {
-            m_childWindow->m_closeButton->setSize({m_childWindow->m_closeButton->getSize().x * (height / m_titleBarHeight),
-                                                   m_childWindow->m_closeButton->getSize().y * (height / m_titleBarHeight)});
+            m_childWindow->m_closeButton->setSize(m_childWindow->m_closeButton->getRenderer()->m_textureNormal.getImageSize().x * (height / m_textureTitleBar.getImageSize().y),
+                                                  m_childWindow->m_closeButton->getRenderer()->m_textureNormal.getImageSize().y * (height / m_textureTitleBar.getImageSize().y));
         }
         else
-        {
             m_childWindow->m_closeButton->setSize({height * 0.8f, height * 0.8f});
-        }
-
-        m_titleBarHeight = height;
 
         // Set the size of the text in the title bar
         m_childWindow->m_titleText.setTextSize(findBestTextSize(m_childWindow->getFont(), m_titleBarHeight * 0.85f));
@@ -872,6 +863,8 @@ namespace tgui
             m_textureTitleBar.setSize({m_childWindow->getSize().x + m_borders.left + m_borders.right, m_titleBarHeight});
             m_textureTitleBar.setColor({255, 255, 255, static_cast<sf::Uint8>(m_childWindow->getOpacity() * 255)});
         }
+
+        setTitleBarHeight(m_titleBarHeight);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

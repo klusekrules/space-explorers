@@ -92,7 +92,7 @@ namespace tgui
     MessageBox::Ptr MessageBox::copy(MessageBox::ConstPtr messageBox)
     {
         if (messageBox)
-            return std::make_shared<MessageBox>(*messageBox);
+            return std::static_pointer_cast<MessageBox>(messageBox->clone());
         else
             return nullptr;
     }
@@ -214,9 +214,7 @@ namespace tgui
         ChildWindow::reload(primary, secondary, force);
 
         if (!m_theme || primary == "")
-        {
             getRenderer()->setTextColor({0, 0, 0});
-        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

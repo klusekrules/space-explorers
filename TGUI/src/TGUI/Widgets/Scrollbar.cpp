@@ -50,7 +50,7 @@ namespace tgui
     Scrollbar::Ptr Scrollbar::copy(Scrollbar::ConstPtr scrollbar)
     {
         if (scrollbar)
-            return std::make_shared<Scrollbar>(*scrollbar);
+            return std::static_pointer_cast<Scrollbar>(scrollbar->clone());
         else
             return nullptr;
     }
@@ -307,7 +307,7 @@ namespace tgui
     bool Scrollbar::mouseOnWidget(float x, float y)
     {
         // Don't make any calculations when no scrollbar is needed
-        if ((m_maximum <= m_lowValue) && (m_autoHide == true))
+        if ((m_maximum <= m_lowValue) && m_autoHide)
             return false;
 
         // Check if the mouse is on top of the scrollbar
@@ -368,7 +368,7 @@ namespace tgui
             m_mouseDownOnThumb = false;
 
         // Refresh the scrollbar value
-        if (m_mouseDownOnArrow == false)
+        if (!m_mouseDownOnArrow)
             mouseMoved(x, y);
     }
 
@@ -674,6 +674,21 @@ namespace tgui
 
     void Scrollbar::reload(const std::string& primary, const std::string& secondary, bool force)
     {
+        getRenderer()->setTrackColorNormal({245, 245, 245});
+        getRenderer()->setTrackColorHover({255, 255, 255});
+        getRenderer()->setThumbColorNormal({220, 220, 220});
+        getRenderer()->setThumbColorHover({210, 210, 210});
+        getRenderer()->setArrowColorNormal({60, 60, 60});
+        getRenderer()->setArrowColorHover({0, 0, 0});
+        getRenderer()->setTrackTexture({});
+        getRenderer()->setTrackHoverTexture({});
+        getRenderer()->setThumbTexture({});
+        getRenderer()->setThumbHoverTexture({});
+        getRenderer()->setArrowUpTexture({});
+        getRenderer()->setArrowDownTexture({});
+        getRenderer()->setArrowUpHoverTexture({});
+        getRenderer()->setArrowDownHoverTexture({});
+
         if (m_theme && primary != "")
         {
             Widget::reload(primary, secondary, force);
@@ -702,23 +717,6 @@ namespace tgui
                         setSize({trackSize.x + arrowsHeight, trackSize.y});
                 }
             }
-        }
-        else // Load white theme
-        {
-            getRenderer()->setTrackColorNormal({245, 245, 245});
-            getRenderer()->setTrackColorHover({255, 255, 255});
-            getRenderer()->setThumbColorNormal({220, 220, 220});
-            getRenderer()->setThumbColorHover({210, 210, 210});
-            getRenderer()->setArrowColorNormal({60, 60, 60});
-            getRenderer()->setArrowColorHover({0, 0, 0});
-            getRenderer()->setTrackTexture({});
-            getRenderer()->setTrackHoverTexture({});
-            getRenderer()->setThumbTexture({});
-            getRenderer()->setThumbHoverTexture({});
-            getRenderer()->setArrowUpTexture({});
-            getRenderer()->setArrowDownTexture({});
-            getRenderer()->setArrowUpHoverTexture({});
-            getRenderer()->setArrowDownHoverTexture({});
         }
     }
 

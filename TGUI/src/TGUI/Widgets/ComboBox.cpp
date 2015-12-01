@@ -87,7 +87,7 @@ namespace tgui
     ComboBox::Ptr ComboBox::copy(ComboBox::ConstPtr comboBox)
     {
         if (comboBox)
-            return std::make_shared<ComboBox>(*comboBox);
+            return std::static_pointer_cast<ComboBox>(comboBox->clone());
         else
             return nullptr;
     }
@@ -415,6 +415,7 @@ namespace tgui
 
         m_listBox->setOpacity(m_opacity);
 
+        getRenderer()->m_backgroundTexture.setColor({255, 255, 255, static_cast<sf::Uint8>(m_opacity * 255)});
         getRenderer()->m_textureArrowUpNormal.setColor({255, 255, 255, static_cast<sf::Uint8>(m_opacity * 255)});
         getRenderer()->m_textureArrowDownNormal.setColor({255, 255, 255, static_cast<sf::Uint8>(m_opacity * 255)});
         getRenderer()->m_textureArrowUpHover.setColor({255, 255, 255, static_cast<sf::Uint8>(m_opacity * 255)});
@@ -519,6 +520,21 @@ namespace tgui
 
     void ComboBox::reload(const std::string& primary, const std::string& secondary, bool force)
     {
+        m_listBox->reload();
+        getRenderer()->setBorders({2, 2, 2, 2});
+        getRenderer()->setBackgroundColor({245, 245, 245});
+        getRenderer()->setArrowBackgroundColorNormal({245, 245, 245});
+        getRenderer()->setArrowBackgroundColorHover({255, 255, 255});
+        getRenderer()->setArrowColorNormal({60, 60, 60});
+        getRenderer()->setArrowColorHover({0, 0, 0});
+        getRenderer()->setTextColor({0, 0, 0});
+        getRenderer()->setBorderColor({0, 0, 0});
+        getRenderer()->setBackgroundTexture({});
+        getRenderer()->setArrowUpTexture({});
+        getRenderer()->setArrowDownTexture({});
+        getRenderer()->setArrowUpHoverTexture({});
+        getRenderer()->setArrowDownHoverTexture({});
+
         if (m_theme && primary != "")
         {
             getRenderer()->setBorders({0, 0, 0, 0});
@@ -531,23 +547,6 @@ namespace tgui
             }
 
             updateSize();
-        }
-        else // Load white theme
-        {
-            m_listBox->reload();
-            getRenderer()->setBorders({2, 2, 2, 2});
-            getRenderer()->setBackgroundColor({245, 245, 245});
-            getRenderer()->setArrowBackgroundColorNormal({245, 245, 245});
-            getRenderer()->setArrowBackgroundColorHover({255, 255, 255});
-            getRenderer()->setArrowColorNormal({60, 60, 60});
-            getRenderer()->setArrowColorHover({0, 0, 0});
-            getRenderer()->setTextColor({0, 0, 0});
-            getRenderer()->setBorderColor({0, 0, 0});
-            getRenderer()->setBackgroundTexture({});
-            getRenderer()->setArrowUpTexture({});
-            getRenderer()->setArrowDownTexture({});
-            getRenderer()->setArrowUpHoverTexture({});
-            getRenderer()->setArrowDownHoverTexture({});
         }
     }
 
@@ -614,7 +613,7 @@ namespace tgui
 
     void ComboBox::listBoxUnfocusedCallbackFunction()
     {
-        if (m_mouseHover == false)
+        if (!m_mouseHover)
             hideListBox();
     }
 

@@ -54,7 +54,7 @@ namespace tgui
     Label::Ptr Label::copy(Label::ConstPtr label)
     {
         if (label)
-            return std::make_shared<Label>(*label);
+            return std::static_pointer_cast<Label>(label->clone());
         else
             return nullptr;
     }
@@ -204,6 +204,15 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    void Label::setParent(Container* parent)
+    {
+        bool autoSize = getAutoSize();
+        Widget::setParent(parent);
+        setAutoSize(autoSize);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     void Label::leftMouseReleased(float x, float y)
     {
         bool mouseDown = m_mouseDown;
@@ -230,27 +239,14 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void Label::initialize(Container *const parent)
-    {
-        bool autoSize = getAutoSize();
-        Widget::initialize(parent);
-        setAutoSize(autoSize);
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     void Label::reload(const std::string& primary, const std::string& secondary, bool force)
     {
+        getRenderer()->setBackgroundColor(sf::Color::Transparent);
+        getRenderer()->setTextColor({60, 60, 60});
+        getRenderer()->setBorderColor({0, 0, 0});
+
         if (m_theme && primary != "")
-        {
             Widget::reload(primary, secondary, force);
-        }
-        else // Load white theme
-        {
-            getRenderer()->setBackgroundColor(sf::Color::Transparent);
-            getRenderer()->setTextColor({60, 60, 60});
-            getRenderer()->setBorderColor({0, 0, 0});
-        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -382,10 +378,6 @@ namespace tgui
 
     void Label::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
-        // When there is no text then there is nothing to draw
-        if (m_text.getString().isEmpty())
-            return;
-
         if (m_autoSize)
         {
             // Draw the background

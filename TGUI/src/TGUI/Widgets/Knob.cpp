@@ -53,7 +53,7 @@ namespace tgui
     Knob::Ptr Knob::copy(Knob::ConstPtr knob)
     {
         if (knob)
-            return std::make_shared<Knob>(*knob);
+            return std::static_pointer_cast<Knob>(knob->clone());
         else
             return nullptr;
     }
@@ -435,6 +435,14 @@ namespace tgui
 
     void Knob::reload(const std::string& primary, const std::string& secondary, bool force)
     {
+        getRenderer()->setBorders(5, 5, 5, 5);
+        getRenderer()->setBackgroundColor({255, 255, 255});
+        getRenderer()->setThumbColor({0, 0, 0});
+        getRenderer()->setBorderColor({0, 0, 0});
+        getRenderer()->setImageRotation(0);
+        getRenderer()->setBackgroundTexture({});
+        getRenderer()->setForegroundTexture({});
+
         if (m_theme && primary != "")
         {
             getRenderer()->setBorders({0, 0, 0, 0});
@@ -450,16 +458,6 @@ namespace tgui
             }
 
             recalculateRotation();
-        }
-        else // Load white theme
-        {
-            getRenderer()->setBorders(5, 5, 5, 5);
-            getRenderer()->setBackgroundColor({255, 255, 255});
-            getRenderer()->setThumbColor({0, 0, 0});
-            getRenderer()->setBorderColor({0, 0, 0});
-            getRenderer()->setImageRotation(0);
-            getRenderer()->setBackgroundTexture({});
-            getRenderer()->setForegroundTexture({});
         }
     }
 

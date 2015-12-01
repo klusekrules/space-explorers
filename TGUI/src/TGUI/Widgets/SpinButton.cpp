@@ -50,7 +50,7 @@ namespace tgui
     SpinButton::Ptr SpinButton::copy(SpinButton::ConstPtr spinButton)
     {
         if (spinButton)
-            return std::make_shared<SpinButton>(*spinButton);
+            return std::static_pointer_cast<SpinButton>(spinButton->clone());
         else
             return nullptr;
     }
@@ -233,8 +233,8 @@ namespace tgui
             if (m_mouseDownOnTopArrow)
             {
                 // Check if the mouse went up on the same arrow
-                if (((m_verticalScroll == true)  && (sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y / 2.f}.contains(x, y)))
-                 || ((m_verticalScroll == false) && (sf::FloatRect{getPosition().x, getPosition().y, getSize().x / 2.f, getSize().y}.contains(x, y) == false)))
+                if ((m_verticalScroll && (sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y / 2.f}.contains(x, y)))
+                 || (!m_verticalScroll && (!sf::FloatRect{getPosition().x, getPosition().y, getSize().x / 2.f, getSize().y}.contains(x, y))))
                 {
                     // Increment the value
                     if (m_value < m_maximum)
@@ -248,8 +248,8 @@ namespace tgui
             else // The mouse went down on the bottom/left arrow
             {
                 // Check if the mouse went up on the same arrow
-                if (((m_verticalScroll == true)  && (sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y / 2.f}.contains(x, y) == false))
-                 || ((m_verticalScroll == false) && (sf::FloatRect{getPosition().x, getPosition().y, getSize().x / 2.f, getSize().y}.contains(x, y))))
+                if ((m_verticalScroll && (!sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y / 2.f}.contains(x, y)))
+                 || (!m_verticalScroll && (sf::FloatRect{getPosition().x, getPosition().y, getSize().x / 2.f, getSize().y}.contains(x, y))))
                 {
                     // Decrement the value
                     if (m_value > m_minimum)
@@ -299,6 +299,18 @@ namespace tgui
 
     void SpinButton::reload(const std::string& primary, const std::string& secondary, bool force)
     {
+        getRenderer()->setBorders({2, 2, 2, 2});
+        getRenderer()->setBackgroundColorNormal({245, 245, 245});
+        getRenderer()->setBackgroundColorHover({255, 255, 255});
+        getRenderer()->setArrowColorNormal({60, 60, 60});
+        getRenderer()->setArrowColorHover({0, 0, 0});
+        getRenderer()->setBorderColor({0, 0, 0});
+        getRenderer()->setSpaceBetweenArrows(2);
+        getRenderer()->setArrowUpTexture({});
+        getRenderer()->setArrowDownTexture({});
+        getRenderer()->setArrowUpHoverTexture({});
+        getRenderer()->setArrowDownHoverTexture({});
+
         if (m_theme && primary != "")
         {
             getRenderer()->setSpaceBetweenArrows(0);
@@ -314,20 +326,6 @@ namespace tgui
                              getRenderer()->m_textureArrowUpNormal.getSize().y + getRenderer()->m_textureArrowDownNormal.getSize().y});
                 }
             }
-        }
-        else // Load white theme
-        {
-            getRenderer()->setBorders({2, 2, 2, 2});
-            getRenderer()->setBackgroundColorNormal({245, 245, 245});
-            getRenderer()->setBackgroundColorHover({255, 255, 255});
-            getRenderer()->setArrowColorNormal({60, 60, 60});
-            getRenderer()->setArrowColorHover({0, 0, 0});
-            getRenderer()->setBorderColor({0, 0, 0});
-            getRenderer()->setSpaceBetweenArrows(2);
-            getRenderer()->setArrowUpTexture({});
-            getRenderer()->setArrowDownTexture({});
-            getRenderer()->setArrowUpHoverTexture({});
-            getRenderer()->setArrowDownHoverTexture({});
         }
     }
 

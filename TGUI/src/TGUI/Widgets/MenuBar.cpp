@@ -52,7 +52,7 @@ namespace tgui
     MenuBar::Ptr MenuBar::copy(MenuBar::ConstPtr menuBar)
     {
         if (menuBar)
-            return std::make_shared<MenuBar>(*menuBar);
+            return std::static_pointer_cast<MenuBar>(menuBar->clone());
         else
             return nullptr;
     }
@@ -274,6 +274,16 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    void MenuBar::setParent(Container* parent)
+    {
+        Widget::setParent(parent);
+
+        if (getSize().x == 0)
+            setSize(bindWidth(m_parent->shared_from_this()), m_size.y);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     bool MenuBar::mouseOnWidget(float x, float y)
     {
         // Check if the mouse is on top of the menu bar
@@ -452,16 +462,6 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void MenuBar::initialize(Container *const parent)
-    {
-        Widget::initialize(parent);
-
-        if (getSize().x == 0)
-            setSize(bindWidth(m_parent->shared_from_this()), m_size.y);
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     void MenuBar::mouseLeftWidget()
     {
         // Menu items which are selected on mouse hover should not remain selected now that the mouse has left
@@ -497,20 +497,18 @@ namespace tgui
 
     void MenuBar::reload(const std::string& primary, const std::string& secondary, bool force)
     {
+        getRenderer()->setBackgroundColor({255, 255, 255});
+        getRenderer()->setTextColor({0, 0, 0});
+        getRenderer()->setSelectedBackgroundColor({0, 110, 255});
+        getRenderer()->setSelectedTextColor({255, 255, 255});
+        getRenderer()->setBackgroundTexture({});
+        getRenderer()->setItemBackgroundTexture({});
+        getRenderer()->setSelectedItemBackgroundTexture({});
+        getRenderer()->setDistanceToSide(4);
+
         if (m_theme && primary != "")
         {
             Widget::reload(primary, secondary, force);
-        }
-        else // Load white theme
-        {
-            getRenderer()->setBackgroundColor({255, 255, 255});
-            getRenderer()->setTextColor({0, 0, 0});
-            getRenderer()->setSelectedBackgroundColor({0, 110, 255});
-            getRenderer()->setSelectedTextColor({255, 255, 255});
-            getRenderer()->setBackgroundTexture({});
-            getRenderer()->setItemBackgroundTexture({});
-            getRenderer()->setSelectedItemBackgroundTexture({});
-            getRenderer()->setDistanceToSide(4);
         }
     }
 

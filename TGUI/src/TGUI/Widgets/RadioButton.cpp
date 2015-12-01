@@ -56,7 +56,7 @@ namespace tgui
     RadioButton::Ptr RadioButton::copy(RadioButton::ConstPtr radioButton)
     {
         if (radioButton)
-            return std::make_shared<RadioButton>(*radioButton);
+            return std::static_pointer_cast<RadioButton>(radioButton->clone());
         else
             return nullptr;
     }
@@ -130,7 +130,7 @@ namespace tgui
 
     void RadioButton::check()
     {
-        if (m_checked == false)
+        if (!m_checked)
         {
             // Tell our parent that all the radio buttons should be unchecked
             if (m_parent)
@@ -231,7 +231,7 @@ namespace tgui
                 return true;
         }
 
-        if (m_mouseHover == true)
+        if (m_mouseHover)
             mouseLeftWidget();
 
         return false;
@@ -273,6 +273,21 @@ namespace tgui
 
     void RadioButton::reload(const std::string& primary, const std::string& secondary, bool force)
     {
+        getRenderer()->setPadding({3, 3, 3, 3});
+        getRenderer()->setTextColorNormal({60, 60, 60});
+        getRenderer()->setTextColorHover({0, 0, 0});
+        getRenderer()->setBackgroundColorNormal({60,  60,  60});
+        getRenderer()->setBackgroundColorHover({0, 0, 0});
+        getRenderer()->setForegroundColorNormal({245, 245, 245});
+        getRenderer()->setForegroundColorHover({255, 255, 255});
+        getRenderer()->setCheckColorNormal({60,  60,  60});
+        getRenderer()->setCheckColorHover({0, 0, 0});
+        getRenderer()->setUncheckedTexture({});
+        getRenderer()->setCheckedTexture({});
+        getRenderer()->setUncheckedHoverTexture({});
+        getRenderer()->setCheckedHoverTexture({});
+        getRenderer()->setFocusedTexture({});
+
         if (m_theme && primary != "")
         {
             Widget::reload(primary, secondary, force);
@@ -286,23 +301,6 @@ namespace tgui
                 if (getRenderer()->m_textureUnchecked.isLoaded())
                     setSize(getRenderer()->m_textureUnchecked.getImageSize());
             }
-        }
-        else // Load white theme
-        {
-            getRenderer()->setPadding({3, 3, 3, 3});
-            getRenderer()->setTextColorNormal({60, 60, 60});
-            getRenderer()->setTextColorHover({0, 0, 0});
-            getRenderer()->setBackgroundColorNormal({60,  60,  60});
-            getRenderer()->setBackgroundColorHover({0, 0, 0});
-            getRenderer()->setForegroundColorNormal({245, 245, 245});
-            getRenderer()->setForegroundColorHover({255, 255, 255});
-            getRenderer()->setCheckColorNormal({60,  60,  60});
-            getRenderer()->setCheckColorHover({0, 0, 0});
-            getRenderer()->setUncheckedTexture({});
-            getRenderer()->setCheckedTexture({});
-            getRenderer()->setUncheckedHoverTexture({});
-            getRenderer()->setCheckedHoverTexture({});
-            getRenderer()->setFocusedTexture({});
         }
     }
 
