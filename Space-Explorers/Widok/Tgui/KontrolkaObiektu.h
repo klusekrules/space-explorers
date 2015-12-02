@@ -140,8 +140,6 @@ namespace tgui{
 
 		void updateRendering();
 
-		sf::Rect<float> pozycjonujLabel(Label::Ptr, const sf::Rect<float>&, float width, float height, WYROWNANIE_HORYZONTALNE horyzontalne, WYROWNANIE_WERTYKALNE wertykalne);
-		
 		STyp::Identyfikator idObiektu_ = -1; /// Identyfikator obiektu gry wyœiwetlanego w kontrolce.
 		Picture::Ptr obraz_; /// Obraz obiektu gry.
 		Label::Ptr nazwa_; /// Nazwa obiektu gry.
@@ -152,50 +150,11 @@ namespace tgui{
 		Label::Ptr czasZburzenia_; /// Czas burzenia obiektu gry.
 		sf::Shader* shader_ = nullptr; /// WskaŸnik na u¿yte shader'y.
 
-		sf::Vector2f rozmiarKontrolki_; /// Rozmiar kontrolki.
-		sf::Rect<float> obrazRect_; /// Rozmiar pola obrazka obiektu gry.
-		sf::Rect<float> nazwaRect_; /// Rozmiar pola nazwy obiektu gry.
-		sf::Rect<float> trescRect_; /// Rozmiar pola treœci obiektu gry.
-		sf::Rect<float> rozbudujRect_; /// Rozmiar przycisku budowy obiektu gry.
-		sf::Rect<float> zniszczRect_; /// Rozmiar przycisku burzenia obiektu gry.
-		sf::Rect<float> czasRozbudowyRect_; /// Rozmiar pola czasu budowy obiektu gry.
-		sf::Rect<float> czasZburzeniaRect_; /// Rozmiar pola czasu burzenia obiektu gry.
-
-		WYROWNANIE_WERTYKALNE czasRozbudowyWyrownanieWertykalne_ = MIDDLE; /// Wyrównanie w pionie pola czasu budowy obiektu gry.
-		WYROWNANIE_HORYZONTALNE czasRozbudowyWyrownanieHoryzontalne_ = LEFT; /// Wyrównanie w poziomie pola czasu budowy obiektu gry.
-
-		WYROWNANIE_WERTYKALNE czasZburzeniaWyrownanieWertykalne_ = MIDDLE; /// Wyrównanie w pionie czasu burzenia obiektu gry.
-		WYROWNANIE_HORYZONTALNE czasZburzeniaWyrownanieHoryzontalne_ = LEFT; /// Wyrównanie w poziomie czasu burzenia obiektu gry.
-
-		WYROWNANIE_WERTYKALNE nazwaWyrownanieWertykalne_ = MIDDLE;  /// Wyrównanie w pionie napisu nazwy obiektu gry.
-		WYROWNANIE_HORYZONTALNE nazwaWyrownanieHoryzontalne_ = LEFT; /// Wyrównanie w poziomie napisu nazwy obiektu gry.
-
-		WYROWNANIE_WERTYKALNE trescWyrownanieWertykalne_ = MIDDLE; /// Wyrównanie w pionie napisu opisuj¹cego obiekt gry.
-		WYROWNANIE_HORYZONTALNE trescWyrownanieHoryzontalne_ = LEFT; /// Wyrównanie w poziomie napisu opisuj¹cego obiekt gry.
-
-		bool czyStalyRozmiar_ = false; /// Flaga informuj¹ca czy kontrolka ma sta³y rozmiar.
-		bool czyProporcjonalny_ = true; /// Flaga informuj¹ca czy kontrolka zachowuje proporcje przy zmianie rozmiaru. 
-
 		int idZdarzeniaBudowy_ = 0; /// Numer zdarzenia klikniêcia na przycisk budowy obiektu gry.
 		int idZdarzeniaBurzenia_ = 0; /// Numer zdarzenia klikniêcia na przycisk burzenia obiektu gry.
 		int idZdarzeniaKlikniecia_ = 0; /// Numer zdarzenia klikniêcia na obrazek obiektu gry.
 
-
-		//unsigned int m_lineSpacing = 0;
-		//unsigned int m_textSize = 18;
-		//sf::Color m_textColor = sf::Color::Black;
-
-		//std::size_t m_maxLines = 0;
-
-		//float m_fullTextHeight = 0;
-
-		//bool m_linesStartFromTop = false;
-
-		// The panel containing the labels
 		Panel::Ptr m_panel = std::make_shared<Panel>();
-
-		// The scrollbar
-		//Scrollbar::Ptr m_scroll = std::make_shared<Scrollbar>();
 
 		friend class KontrolkaObiektuRenderer;
 

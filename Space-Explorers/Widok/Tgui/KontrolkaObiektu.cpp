@@ -36,36 +36,10 @@ namespace tgui{
 
 	KontrolkaObiektu::KontrolkaObiektu(const KontrolkaObiektu& copy)
 		: Widget(copy),
-		rozmiarKontrolki_(copy.rozmiarKontrolki_), 
-		obrazRect_(copy.obrazRect_), 
-
-		nazwaRect_(copy.nazwaRect_),
-		nazwaWyrownanieHoryzontalne_(copy.nazwaWyrownanieHoryzontalne_),
-		nazwaWyrownanieWertykalne_(copy.nazwaWyrownanieWertykalne_),
-
-		trescRect_(copy.trescRect_),
-		trescWyrownanieHoryzontalne_(copy.trescWyrownanieHoryzontalne_),
-		trescWyrownanieWertykalne_(copy.trescWyrownanieWertykalne_),
-		
-		czasRozbudowyRect_(copy.czasRozbudowyRect_),
-		czasRozbudowyWyrownanieHoryzontalne_(copy.czasRozbudowyWyrownanieHoryzontalne_),
-		czasRozbudowyWyrownanieWertykalne_(copy.czasRozbudowyWyrownanieWertykalne_),
-
-		czasZburzeniaRect_(copy.czasZburzeniaRect_),
-		czasZburzeniaWyrownanieHoryzontalne_(copy.czasZburzeniaWyrownanieHoryzontalne_),
-		czasZburzeniaWyrownanieWertykalne_(copy.czasZburzeniaWyrownanieWertykalne_),
-		
-		rozbudujRect_(copy.rozbudujRect_),
 		idZdarzeniaBudowy_(copy.idZdarzeniaBudowy_),
-
-		zniszczRect_(copy.zniszczRect_),
 		idZdarzeniaBurzenia_(copy.idZdarzeniaBurzenia_),
-
 		idZdarzeniaKlikniecia_(copy.idZdarzeniaKlikniecia_),
-		idObiektu_(copy.idObiektu_),
-		czyStalyRozmiar_(copy.czyStalyRozmiar_),
-		czyProporcjonalny_(copy.czyProporcjonalny_)
-
+		idObiektu_(copy.idObiektu_)
 	{
 		/*obraz_ = this->get<Picture>("ObrazObiektu");
 		nazwa_ = this->get<Label>("NazwaObiektu");
@@ -104,8 +78,6 @@ namespace tgui{
 
 		updateRendering();
 	}
-
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	void KontrolkaObiektu::setSize(const Layout2d& size)
 	{
@@ -168,9 +140,7 @@ namespace tgui{
 		
 	}
 	*/
-
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+	
 	sf::Vector2f KontrolkaObiektu::getFullSize() const
 	{
 		return{ getSize().x + getRenderer()->m_borders.left + getRenderer()->m_borders.right,
@@ -239,7 +209,7 @@ namespace tgui{
 
 	}
 
-	sf::Rect<float> KontrolkaObiektu::pozycjonujLabel(Label::Ptr label, const sf::Rect<float>& rect, float width, float height, WYROWNANIE_HORYZONTALNE horyzontalne, WYROWNANIE_WERTYKALNE wertykalne ){
+	/*sf::Rect<float> KontrolkaObiektu::pozycjonujLabel(Label::Ptr label, const sf::Rect<float>& rect, float width, float height, WYROWNANIE_HORYZONTALNE horyzontalne, WYROWNANIE_WERTYKALNE wertykalne ){
 		sf::Text text;
 		text.setFont(*label->getFont());
 		text.setCharacterSize(label->getTextSize());
@@ -283,7 +253,7 @@ namespace tgui{
 			break;
 		}
 		return labelRect;
-	}
+	}*/
 
 	/*void KontrolkaObiektu::initialize(Container *const container){
 		Panel::setGlobalFont(container->getGlobalFont());
@@ -320,6 +290,12 @@ namespace tgui{
 	
 	void KontrolkaObiektu::reload(const std::string& primary, const std::string& secondary, bool force)
 	{
+		getRenderer()->setBorders({ 2, 2, 2, 2 });
+		getRenderer()->setPadding({ 2, 2, 2, 2 });
+		getRenderer()->setBackgroundColor({ 245, 245, 245 });
+		getRenderer()->setBorderColor({ 245, 0, 0 });
+		getRenderer()->setBackgroundTexture({"widgets\\tlo.png"});
+
 		if (m_theme && primary != "")
 		{
 			getRenderer()->setBorders({ 0, 0, 0, 0 });
@@ -335,27 +311,16 @@ namespace tgui{
 
 			updateSize();
 		}
-		else // Load white theme
-		{
-			getRenderer()->setBorders({ 2, 2, 2, 2 });
-			getRenderer()->setPadding({ 2, 2, 2, 2 });
-			getRenderer()->setBackgroundColor({ 245, 245, 245 });
-			getRenderer()->setBorderColor({ 0, 0, 0 });
-			getRenderer()->setBackgroundTexture({});
-		}
 	}
 	
 	const STyp::Identyfikator& KontrolkaObiektu::pobierzIdObiektu() const{
 		return idObiektu_;
 	}
 
-	bool KontrolkaObiektu::mouseOnWidget(float x, float y)
-	{
-		// Check if the mouse is on top of the list box
+	bool KontrolkaObiektu::mouseOnWidget(float x, float y){
 		if (sf::FloatRect{ getPosition().x, getPosition().y, getSize().x, getSize().y }.contains(x, y))
 			return true;
-		else // The mouse is not on top of the list box
-		{
+		else{
 			if (m_mouseHover)
 				mouseLeftWidget();
 
