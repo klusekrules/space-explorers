@@ -129,28 +129,28 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	Label::Ptr ChatBox::addLine(const sf::String& text)
+    void ChatBox::addLine(const sf::String& text)
     {
-        return addLine(text, m_textColor, m_textSize);
+        addLine(text, m_textColor, m_textSize);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	Label::Ptr ChatBox::addLine(const sf::String& text, const sf::Color& color)
+    void ChatBox::addLine(const sf::String& text, const sf::Color& color)
     {
-        return addLine(text, color, m_textSize);
+        addLine(text, color, m_textSize);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	Label::Ptr ChatBox::addLine(const sf::String& text, unsigned int textSize)
+    void ChatBox::addLine(const sf::String& text, unsigned int textSize)
     {
-        return addLine(text, m_textColor, textSize);
+        addLine(text, m_textColor, textSize);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	Label::Ptr ChatBox::addLine(const sf::String& text, const sf::Color& color, unsigned int textSize, const Font& font)
+    void ChatBox::addLine(const sf::String& text, const sf::Color& color, unsigned int textSize, const Font& font)
     {
         // Remove the top line if you exceed the maximum
         if ((m_maxLines > 0) && (m_maxLines < m_panel->getWidgets().size() + 1))
@@ -173,7 +173,6 @@ namespace tgui
             m_scroll->setValue(m_scroll->getMaximum() - m_scroll->getLowValue());
 
         updateDisplayedText();
-		return label;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -321,8 +320,8 @@ namespace tgui
 
         if (m_scroll)
         {
-            m_scroll->setSize({m_scroll->getSize().x, getSize().y});
-            m_scroll->setLowValue(static_cast<unsigned int>(getSize().y));
+            m_scroll->setSize({m_scroll->getSize().x, m_panel->getSize().y});
+            m_scroll->setLowValue(static_cast<unsigned int>(m_panel->getSize().y));
         }
 
         recalculateFullTextHeight();
