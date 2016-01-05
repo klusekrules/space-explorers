@@ -17,8 +17,8 @@ namespace tgui{
 		public ChatBox
 	{
 	public:
-		typedef std::shared_ptr<LogListGui> Ptr; ///< Shared widget pointer
-		typedef std::shared_ptr<const LogListGui> ConstPtr; ///< Shared constant widget pointer
+		typedef std::shared_ptr<LogListGui> Ptr;
+		typedef std::shared_ptr<const LogListGui> ConstPtr;
 
 		/**
 		* \brief Klasa opisuj¹ca typ kounikatu w logach.
@@ -96,8 +96,9 @@ namespace tgui{
 			return std::make_shared<LogListGui>(*this);
 		}
 		
-		std::vector<MessageTypeDescription> opisTypowKomunikatow_; /// Lista opisów typów komunikatów
+		std::vector<MessageTypeDescription> opisTypowKomunikatow_; /// Lista dostêpnych opisów komunikatów.
 		
+		std::vector<MessageType> powiazaniaKontrolek_; /// Lista powi¹zañ opisów komunikatów z kontrolkami wyœwietlaj¹cymi.
 	};
 
 };

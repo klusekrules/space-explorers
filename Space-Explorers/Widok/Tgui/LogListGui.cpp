@@ -34,20 +34,23 @@ namespace tgui {
 	bool LogListGui::addMessage(MessageType number, std::string text) {
 		if (number >= opisTypowKomunikatow_.size())
 			return false;
-			
+
 		auto & widgets = m_panel->getWidgets();
 		auto size = widgets.size();
 		for (decltype(size) n = 0; n < size; ++n) {
 			auto label = std::static_pointer_cast<Label>(widgets[n]);
-			MessageType position = ((MessageType)label->getAdditionalData());
+			MessageType position = powiazaniaKontrolek_[n];
 			if (position < opisTypowKomunikatow_.size()){
 				label->setTextColor(opisTypowKomunikatow_[position].drugiKolor_);
 				label->setTextSize(opisTypowKomunikatow_[position].drugiRozmiarCzcionki_);
 			}
 		}
 
-		auto label = addLine(text, opisTypowKomunikatow_[number].pierwszyKolor_, opisTypowKomunikatow_[number].pierwszyRozmiarCzcionki_);
-		label->setAdditionalData((void*)number);
+		addLine(text, opisTypowKomunikatow_[number].pierwszyKolor_, opisTypowKomunikatow_[number].pierwszyRozmiarCzcionki_);
+		powiazaniaKontrolek_.push_back(number);
+		if (powiazaniaKontrolek_.size() > m_panel->getWidgets().size()) {
+			powiazaniaKontrolek_.erase(powiazaniaKontrolek_.begin());
+		}
 		return true;
 	}
 
