@@ -8,6 +8,7 @@ namespace tgui{
 	void convertFromBorderToRect(const Borders&, sf::Rect<float>&);
 	void normalizujRect(sf::Rect<float>&, float leftWidth, float topHeight);
 
+	class KontrolkaObiektuRenderer;
 
 	/**
 	* \brief Klasa kontrolki obiektu.
@@ -18,9 +19,6 @@ namespace tgui{
 	* \version 2
 	* \date 30-09-2014
 	*/
-
-	class KontrolkaObiektuRenderer;
-
 	class KontrolkaObiektu :
 		public Widget
 	{

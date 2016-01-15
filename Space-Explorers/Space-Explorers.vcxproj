@@ -451,6 +451,7 @@
     </ClInclude>
     <ClInclude Include="Widok\Tgui\LogListGui.h" />
     <ClInclude Include="Widok\Tgui\PomocniczeTypyTGUI.h" />
+    <ClInclude Include="Widok\Tgui\SurowiecGui.h" />
     <ClInclude Include="Wyjatki\BladKonfiguracjiAplikacji.h" />
     <ClInclude Include="Wyjatki\BladKonfiguracjiEkranu.h" />
     <ClInclude Include="Wyjatki\BladStukturyStanu.h" />
@@ -569,6 +570,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Widok\Tgui\LogListGui.cpp" />
+    <ClCompile Include="Widok\Tgui\SurowiecGui.cpp" />
     <ClCompile Include="Wyjatki\BladKonfiguracjiAplikacji.cpp" />
     <ClCompile Include="Wyjatki\BladKonfiguracjiEkranu.cpp" />
     <ClCompile Include="Wyjatki\BladStukturyStanu.cpp" />

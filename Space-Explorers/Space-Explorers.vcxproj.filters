@@ -340,6 +340,9 @@
     <ClCompile Include="Kontroler\Siec\RPC\ListaPlikowRPC.cpp">
       <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClCompile>
+    <ClCompile Include="Widok\Tgui\SurowiecGui.cpp">
+      <Filter>SourceFile\Widok\TGUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model\Flota.h">
@@ -713,6 +716,9 @@
     </ClInclude>
     <ClInclude Include="Utils\Zlecenia.h">
       <Filter>SourceFile\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Widok\Tgui\SurowiecGui.h">
+      <Filter>SourceFile\Widok\TGUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
