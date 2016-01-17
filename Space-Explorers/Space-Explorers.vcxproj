@@ -442,13 +442,13 @@
     <ClInclude Include="Widok\Ekrany\Szkielet\EkranSzablon.h" />
     <ClInclude Include="Widok\Konsola\Konsola.h" />
     <ClInclude Include="Widok\SFML\RoundedRectangleShape.hpp" />
+    <ClInclude Include="Widok\Tgui\BazowyRenderer.h" />
+    <ClInclude Include="Widok\Tgui\BazowyWidzet.h" />
     <ClInclude Include="Widok\Tgui\KontrolkaObiektu.h" />
     <ClInclude Include="Widok\Tgui\ListaObiektowGui.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="Widok\Tgui\ListaSurowcowGui.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="Widok\Tgui\ListaSurowcowGui.h" />
     <ClInclude Include="Widok\Tgui\LogListGui.h" />
     <ClInclude Include="Widok\Tgui\PomocniczeTypyTGUI.h" />
     <ClInclude Include="Widok\Tgui\SurowiecGui.h" />
@@ -562,13 +562,13 @@
     <ClCompile Include="Widok\Ekrany\Szkielet\EkranSzablon.cpp" />
     <ClCompile Include="Widok\Konsola\Konsola.cpp" />
     <ClCompile Include="Widok\SFML\RoundedRectangleShape.cpp" />
+    <ClCompile Include="Widok\Tgui\BazowyRenderer.cpp" />
+    <ClCompile Include="Widok\Tgui\BazowyWidzet.cpp" />
     <ClCompile Include="Widok\Tgui\KontrolkaObiektu.cpp" />
     <ClCompile Include="Widok\Tgui\ListaObiektowGui.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Widok\Tgui\ListaSurowcowGui.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="Widok\Tgui\ListaSurowcowGui.cpp" />
     <ClCompile Include="Widok\Tgui\LogListGui.cpp" />
     <ClCompile Include="Widok\Tgui\SurowiecGui.cpp" />
     <ClCompile Include="Wyjatki\BladKonfiguracjiAplikacji.cpp" />

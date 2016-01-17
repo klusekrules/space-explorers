@@ -22,7 +22,7 @@ namespace tgui{
 		rect.height /= topHeight;
 	}
 
-	KontrolkaObiektu::KontrolkaObiektu(){
+	KontrolkaObiektu::KontrolkaObiektu() : BazowyWidzet() {
 		m_callback.widgetType = "KontrolkaObiektu";
 		m_draggableWidget = false;
 
@@ -35,7 +35,7 @@ namespace tgui{
 	}
 
 	KontrolkaObiektu::KontrolkaObiektu(const KontrolkaObiektu& copy)
-		: Widget(copy),
+		: BazowyWidzet(copy),
 		idZdarzeniaBudowy_(copy.idZdarzeniaBudowy_),
 		idZdarzeniaBurzenia_(copy.idZdarzeniaBurzenia_),
 		idZdarzeniaKlikniecia_(copy.idZdarzeniaKlikniecia_),
@@ -55,7 +55,7 @@ namespace tgui{
 		if (this != &right)
 		{
 			KontrolkaObiektu temp( right );
-			Widget::operator=(right);
+			BazowyWidzet::operator=(right);
 
 			/*std::swap(m_lineSpacing, temp.m_lineSpacing);
 			std::swap(m_textSize, temp.m_textSize);
@@ -69,25 +69,7 @@ namespace tgui{
 
 		return *this;
 	}
-
-	void KontrolkaObiektu::setPosition(const Layout2d& position)
-	{
-		Widget::setPosition(position);
-
-		getRenderer()->m_backgroundTexture.setPosition(getPosition());
-
-		updateRendering();
-	}
-
-	void KontrolkaObiektu::setSize(const Layout2d& size)
-	{
-		Widget::setSize(size);
-
-		getRenderer()->m_backgroundTexture.setSize(getSize());
-
-		//updatePosition();
-	}
-
+	
 	/*
 	void KontrolkaObiektu::setSize(float width, float hight){
 
@@ -139,77 +121,8 @@ namespace tgui{
 		zniszcz_->setSize(zniszczRect_.width * absWidth, zniszczRect_.height * absHight);
 		
 	}
-	*/
 	
-	sf::Vector2f KontrolkaObiektu::getFullSize() const
-	{
-		return{ getSize().x + getRenderer()->m_borders.left + getRenderer()->m_borders.right,
-			getSize().y + getRenderer()->m_borders.top + getRenderer()->m_borders.bottom };
-	}
-
-	void KontrolkaObiektu::setFont(const Font& font)
-	{
-		Widget::setFont(font);
-
-		bool lineChanged = false;
-		for (auto& label : m_panel->getWidgets())
-		{
-			auto line = std::static_pointer_cast<Label>(label);
-			if (line->getFont() == nullptr)
-			{
-				line->setFont(font);
-				lineChanged = true;
-			}
-		}
-
-		if (lineChanged)
-		{
-			
-		}
-	}
-
-	void KontrolkaObiektu::updateRendering()
-	{
-		Padding padding = getRenderer()->getPadding();
-		Padding scaledPadding = padding;
-
-		auto& texture = getRenderer()->m_backgroundTexture;
-		if (texture.isLoaded())
-		{
-			switch (texture.getScalingType())
-			{
-			case Texture::ScalingType::Normal:
-				scaledPadding.left = padding.left * (texture.getSize().x / texture.getImageSize().x);
-				scaledPadding.right = padding.right * (texture.getSize().x / texture.getImageSize().x);
-				scaledPadding.top = padding.top * (texture.getSize().y / texture.getImageSize().y);
-				scaledPadding.bottom = padding.bottom * (texture.getSize().y / texture.getImageSize().y);
-				break;
-
-			case Texture::ScalingType::Horizontal:
-				scaledPadding.left = padding.left * (texture.getSize().y / texture.getImageSize().y);
-				scaledPadding.right = padding.right * (texture.getSize().y / texture.getImageSize().y);
-				scaledPadding.top = padding.top * (texture.getSize().y / texture.getImageSize().y);
-				scaledPadding.bottom = padding.bottom * (texture.getSize().y / texture.getImageSize().y);
-				break;
-
-			case Texture::ScalingType::Vertical:
-				scaledPadding.left = padding.left * (texture.getSize().x / texture.getImageSize().x);
-				scaledPadding.right = padding.right * (texture.getSize().x / texture.getImageSize().x);
-				scaledPadding.top = padding.top * (texture.getSize().x / texture.getImageSize().x);
-				scaledPadding.bottom = padding.bottom * (texture.getSize().x / texture.getImageSize().x);
-				break;
-
-			case Texture::ScalingType::NineSliceScaling:
-				break;
-			}
-		}
-
-		m_panel->setPosition({ getPosition().x + scaledPadding.left, getPosition().y + scaledPadding.top });
-		m_panel->setSize({ getSize().x - scaledPadding.left - scaledPadding.right, getSize().y - scaledPadding.top - scaledPadding.bottom });
-
-	}
-
-	/*sf::Rect<float> KontrolkaObiektu::pozycjonujLabel(Label::Ptr label, const sf::Rect<float>& rect, float width, float height, WYROWNANIE_HORYZONTALNE horyzontalne, WYROWNANIE_WERTYKALNE wertykalne ){
+	sf::Rect<float> KontrolkaObiektu::pozycjonujLabel(Label::Ptr label, const sf::Rect<float>& rect, float width, float height, WYROWNANIE_HORYZONTALNE horyzontalne, WYROWNANIE_WERTYKALNE wertykalne ){
 		sf::Text text;
 		text.setFont(*label->getFont());
 		text.setCharacterSize(label->getTextSize());
@@ -402,154 +315,12 @@ namespace tgui{
 		return true;
 	}
 
-	void KontrolkaObiektuRenderer::setProperty(std::string property, const std::string& value){
-		property = toLower(property);
-
-		/*if (property == "image"){
-			obraz_->load(value);
-		}else if(property == "idzdarzeniabudowy"){
-			idZdarzeniaBudowy_ = std::strtol(value.c_str(), nullptr, 10);
-			true;
-		}
-		else if (property == "idzdarzeniaburzenia"){
-			idZdarzeniaBurzenia_ = std::strtol(value.c_str(), nullptr, 10);
-			true;
-		}
-		else if (property == "idzdarzeniaklikniecia"){
-			idZdarzeniaKlikniecia_ = std::strtol(value.c_str(), nullptr, 10);
-			true;
-		}
-		else if (property == "configfile"){
-			load(value);
-		}else*/
-			WidgetRenderer::setProperty(property, value);
-	}
-
-	void KontrolkaObiektuRenderer::setProperty(std::string property, ObjectConverter&& value) {
-		property = toLower(property);
-		WidgetRenderer::setProperty(property, std::move(value));
-	}
-
-	ObjectConverter KontrolkaObiektuRenderer::getProperty(std::string property) const{
-		/*if (property == "Image"){
-			value = obraz_->getLoadedFilename();
-			return true;
-		}else if (property == "ConfigFile"){
-			value = plikKonfiguracyjny_;
-			return true;
-		}else if(property == "IdZdarzeniaBudowy"){
-			value = idZdarzeniaBudowy_;
-		}
-		else if (property == "IdZdarzeniaBurzenia"){
-			value = idZdarzeniaBurzenia_;
-		}
-		else if (property == "IdZdarzeniaKlikniecia"){
-			value = idZdarzeniaKlikniecia_;
-		}
-		else*/
-			return WidgetRenderer::getProperty(property);
-		//return true;
-	}
-
-	std::map<std::string, ObjectConverter> KontrolkaObiektuRenderer::getPropertyValuePairs() const{
-		auto map = WidgetRenderer::getPropertyValuePairs();
-		/*map.push_back(std::pair<std::string, std::string>("ConfigFile", "string"));
-		map.push_back(std::pair<std::string, std::string>("Image", "string"));
-		map.push_back(std::pair<std::string, std::string>("IdZdarzeniaBudowy", "int"));
-		map.push_back(std::pair<std::string, std::string>("IdZdarzeniaBurzenia", "int"));
-		map.push_back(std::pair<std::string, std::string>("IdZdarzeniaKlikniecia", "int"));*/
-		return map;
-	}
-
-	void tgui::KontrolkaObiektuRenderer::setBorderColor(const sf::Color & borderColor)
-	{
-		m_borderColor = borderColor;
-	}
-
-	void tgui::KontrolkaObiektuRenderer::setBackgroundColor(const sf::Color & backgroundColor)
-	{
-		m_backgroundColor = backgroundColor;
-	}
-
-	void tgui::KontrolkaObiektuRenderer::setBackgroundTexture(const Texture & texture)
-	{
-		m_backgroundTexture = texture;
-		if (m_backgroundTexture.isLoaded())
-		{
-			m_backgroundTexture.setPosition(m_kontrolkaObiektu->getPosition());
-			m_backgroundTexture.setSize(m_kontrolkaObiektu->getSize());
-			m_backgroundTexture.setColor({ 255, 255, 255, static_cast<sf::Uint8>(m_kontrolkaObiektu->getOpacity() * 255) });
-		}
-	}
-
-	void tgui::KontrolkaObiektuRenderer::setPadding(const Padding & padding)
-	{
-		WidgetPadding::setPadding(padding);
-
-		m_kontrolkaObiektu->updateRendering();
-	}
-
-	void tgui::KontrolkaObiektuRenderer::draw(sf::RenderTarget & target, sf::RenderStates states) const
-	{
-
-		if (m_backgroundTexture.isLoaded())
-			target.draw(m_backgroundTexture, states);
-		else
-		{
-			sf::RectangleShape background(m_kontrolkaObiektu->getSize());
-			background.setPosition(m_kontrolkaObiektu->getPosition());
-			background.setFillColor(calcColorOpacity(m_backgroundColor, m_kontrolkaObiektu->getOpacity()));
-			target.draw(background, states);
-		}
-
-		if (m_borders != Borders{ 0, 0, 0, 0 })
-		{
-			sf::Vector2f position = m_kontrolkaObiektu->getPosition();
-			sf::Vector2f size = m_kontrolkaObiektu->getSize();
-
-			// Draw left border
-			sf::RectangleShape border({ m_borders.left, size.y + m_borders.top });
-			border.setPosition({ position.x - m_borders.left, position.y - m_borders.top });
-			border.setFillColor(calcColorOpacity(m_borderColor, m_kontrolkaObiektu->getOpacity()));
-			target.draw(border, states);
-
-			// Draw top border
-			border.setSize({ size.x + m_borders.right, m_borders.top });
-			border.setPosition({ position.x, position.y - m_borders.top });
-			target.draw(border, states);
-
-			// Draw right border
-			border.setSize({ m_borders.right, size.y + m_borders.bottom });
-			border.setPosition({ position.x + size.x, position.y });
-			target.draw(border, states);
-
-			// Draw bottom border
-			border.setSize({ size.x + m_borders.left, m_borders.bottom });
-			border.setPosition({ position.x - m_borders.left, position.y + size.y });
-			target.draw(border, states);
-		}
-	}
-
 	std::shared_ptr<WidgetRenderer> tgui::KontrolkaObiektuRenderer::clone(Widget * widget)
 	{
 		auto renderer = std::shared_ptr<KontrolkaObiektuRenderer>(new KontrolkaObiektuRenderer{ *this });
-		renderer->m_kontrolkaObiektu = static_cast<KontrolkaObiektu*>(widget);
+		renderer->kontrolka_ = static_cast<KontrolkaObiektu*>(widget);
 		return renderer;
 	}
 
-	void KontrolkaObiektu::ustawShader(sf::Shader* shader){
-		shader_ = shader;
-	}
-	
-	void KontrolkaObiektu::draw(sf::RenderTarget& target, sf::RenderStates states) const{
-		if (shader_ != nullptr){
-			states.shader = shader_;
-		}
-		// Draw the background
-		getRenderer()->draw(target, states);
-
-		// Draw the panel
-		target.draw(*m_panel, states);
-	}
 
 };

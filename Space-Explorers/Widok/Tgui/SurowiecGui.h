@@ -4,6 +4,7 @@
 #include <mutex>
 #include <unordered_map>
 #include "Model\ObiektInfo.h"
+#include "BazowyRenderer.h"
 
 namespace tgui {
 
@@ -19,7 +20,7 @@ namespace tgui {
 	* \date 01-10-2014
 	*/
 	class SurowiecGui :
-		public Widget
+		public BazowyWidzet
 	{
 	public:
 		typedef std::shared_ptr<SurowiecGui> Ptr; ///< Shared widget pointer
@@ -49,20 +50,6 @@ namespace tgui {
 			return std::static_pointer_cast<SurowiecGuiRenderer>(m_renderer);
 		}
 
-		virtual void setPosition(const Layout2d& position) override;
-		using Transformable::setPosition;
-
-		void setSize(const Layout2d& size) override;
-		using Transformable::setSize;
-
-		virtual sf::Vector2f getFullSize() const override;
-
-		void setFont(const Font& font);
-
-		std::shared_ptr<sf::Font> getTextFont(){
-			return m_panel->getFont();
-		}
-		
 		/**
 		* \brief Domyœlny destruktor.
 		*
@@ -113,23 +100,9 @@ namespace tgui {
 		*/
 		void setTextColor(sf::Color kolor);
 
-		bool mouseOnWidget(float x, float y) override;
 	protected:
 
-		/**
-		* \brief Metoda rysuj¹ca kontrolkê.
-		*
-		* Metoda rysuje kontrolkê.
-		* \param[in] target - kontekst na którym ma byæ rysowana kontrolka.
-		* \param[in] states - dodatkowy stan kontekstu rysowania kontrolki.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 30-09-2014
-		*/
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
-		virtual Widget::Ptr clone() const override
-		{
+		Widget::Ptr clone() const override{
 			return std::make_shared<SurowiecGui>(*this);
 		}
 
@@ -137,53 +110,25 @@ namespace tgui {
 
 	private:
 
-		void updateRendering();
-
 		std::string plikKonfiguracyjny_ = ""; /// Adres pliku konfiguracyjnego.
 		Label::Ptr tekst_; /// Prezentowany tekst.
 		STyp::Identyfikator idObiektu_; /// Identyfikator reprezentowanego obiektu.
 
-		Panel::Ptr m_panel = std::make_shared<Panel>();
-
 		friend class SurowiecGuiRenderer;
 	};
 
-	class SurowiecGuiRenderer : public WidgetRenderer, public WidgetBorders, public WidgetPadding
+	class SurowiecGuiRenderer : public BazowyRenderer
 	{
 	public:
-		SurowiecGuiRenderer(SurowiecGui* kontrolka) : m_surowceGui(kontrolka) {}
-
-		virtual void setProperty(std::string property, const std::string& value) override;
-		virtual void setProperty(std::string property, ObjectConverter&& value) override;
-
-		virtual ObjectConverter getProperty(std::string property) const override;
-
-		virtual std::map<std::string, ObjectConverter> getPropertyValuePairs() const override;
-		void setBorderColor(const sf::Color& borderColor);
-		void setBackgroundColor(const sf::Color& backgroundColor);
-
-
-		void setBackgroundTexture(const Texture& texture);
-		void setPadding(const Padding& padding) override;
-		using WidgetPadding::setPadding;
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		using BazowyRenderer::BazowyRenderer;
 
 	private:
-
-		virtual std::shared_ptr<WidgetRenderer> clone(Widget* widget) override;
-
+		std::shared_ptr<WidgetRenderer> clone(Widget* widget) override;
 		SurowiecGuiRenderer(const SurowiecGuiRenderer&) = default;
 		SurowiecGuiRenderer& operator=(const SurowiecGuiRenderer&) = delete;
 
 	protected:
-
-		SurowiecGui* m_surowceGui;
-
-		sf::Color m_borderColor;
-		sf::Color m_backgroundColor;
-
-		Texture m_backgroundTexture;
-
+		
 		friend class SurowiecGui;
 	};
 };

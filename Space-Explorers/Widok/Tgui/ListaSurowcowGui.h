@@ -5,8 +5,9 @@
 #include <unordered_map>
 #include "Model\ObiektInfo.h"
 #include "SurowiecGui.h"
-namespace tgui{
 
+namespace tgui{
+	class ListaSurowcowGuiRenderer;
 	/**
 	* \brief Klasa listy kontrolek surowców.
 	*
@@ -17,10 +18,12 @@ namespace tgui{
 	* \date 01-10-2014
 	*/
 	class ListaSurowcowGui :
-		public Widget
+		public BazowyWidzet
 	{
 	public:
-				
+		typedef std::shared_ptr<SurowiecGui> Ptr; ///< Shared widget pointer
+		typedef std::shared_ptr<const SurowiecGui> ConstPtr; ///< Shared constant widget pointer
+
 		/**
 		* \brief Domyœlny konstruktor.
 		*
@@ -38,7 +41,13 @@ namespace tgui{
 		* \date 01-10-2014
 		*/
 		ListaSurowcowGui(const ListaSurowcowGui& zrodlowy);
-		
+
+		ListaSurowcowGui& operator= (const SurowiecGui& right);
+
+		std::shared_ptr<ListaSurowcowGuiRenderer> getRenderer() const {
+			return std::static_pointer_cast<ListaSurowcowGuiRenderer>(m_renderer);
+		}
+
 		/**
 		* \brief Domyœlny destruktor.
 		*
@@ -100,5 +109,22 @@ namespace tgui{
 		SurowiecGui::Ptr szablonKontrolki_; /// WskaŸnik na szablon kontrolki obiektu.
 		std::vector<SurowiecGui::Ptr> kontrolki_; /// Kontener z kontrolkami obiektów.
 
+		friend class ListaSurowcowGuiRenderer;
 	};
+
+	class ListaSurowcowGuiRenderer : public BazowyRenderer
+	{
+	public:
+		using BazowyRenderer::BazowyRenderer;
+
+	private:
+		std::shared_ptr<WidgetRenderer> clone(Widget* widget) override;
+		ListaSurowcowGuiRenderer(const ListaSurowcowGuiRenderer&) = default;
+		ListaSurowcowGuiRenderer& operator=(const ListaSurowcowGuiRenderer&) = delete;
+
+	protected:
+
+		friend class ListaSurowcowGui;
+	};
+	
 };

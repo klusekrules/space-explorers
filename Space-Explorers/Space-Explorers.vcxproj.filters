@@ -343,6 +343,12 @@
     <ClCompile Include="Widok\Tgui\SurowiecGui.cpp">
       <Filter>SourceFile\Widok\TGUI</Filter>
     </ClCompile>
+    <ClCompile Include="Widok\Tgui\BazowyRenderer.cpp">
+      <Filter>SourceFile\Widok\TGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Widok\Tgui\BazowyWidzet.cpp">
+      <Filter>SourceFile\Widok\TGUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model\Flota.h">
@@ -718,6 +724,12 @@
       <Filter>SourceFile\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Widok\Tgui\SurowiecGui.h">
+      <Filter>SourceFile\Widok\TGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Widok\Tgui\BazowyRenderer.h">
+      <Filter>SourceFile\Widok\TGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Widok\Tgui\BazowyWidzet.h">
       <Filter>SourceFile\Widok\TGUI</Filter>
     </ClInclude>
   </ItemGroup>

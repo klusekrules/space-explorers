@@ -2,6 +2,7 @@
 #include <TGUI\TGUI.hpp>
 #include "PomocniczeTypyTGUI.h"
 #include "Model\ObiektInfo.h"
+#include "BazowyRenderer.h"
 
 namespace tgui{
 
@@ -20,7 +21,7 @@ namespace tgui{
 	* \date 30-09-2014
 	*/
 	class KontrolkaObiektu :
-		public Widget
+		public BazowyWidzet
 	{
 	public:
 		typedef std::shared_ptr<KontrolkaObiektu> Ptr; ///< Shared widget pointer
@@ -54,21 +55,6 @@ namespace tgui{
 			return std::static_pointer_cast<KontrolkaObiektuRenderer>(m_renderer);
 		}
 
-		virtual void setPosition(const Layout2d& position) override;
-		using Transformable::setPosition;
-		
-		void setSize(const Layout2d& size) override;
-		using Transformable::setSize;
-		
-		virtual sf::Vector2f getFullSize() const override;
-
-		void setFont(const Font& font);
-
-		std::shared_ptr<sf::Font> getTextFont()
-		{
-			return m_panel->getFont();
-		}
-
 		/**
 		* \brief Domyœlny destruktor.
 		*
@@ -100,44 +86,18 @@ namespace tgui{
 		*/
 		const STyp::Identyfikator& pobierzIdObiektu() const;
 
-		/**
-		* \brief Metoda ustawiaj¹ca shader dla kontrolki.
-		*
-		* Metoda ustawia shader dla kontrolki
-		* \param[in] shader - wskaŸnik na shader jaki ma zostaæ przypisany do kontrolki.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 30-09-2014
-		*/
-		void ustawShader(sf::Shader* shader = nullptr);
+		bool mouseOnWidget(float x, float y) override;
 
-		virtual bool mouseOnWidget(float x, float y) override;
-			
 	protected:
 
-		/**
-		* \brief Metoda rysuj¹ca kontrolkê.
-		*
-		* Metoda rysuje kontrolkê.
-		* \param[in] target - kontekst na którym ma byæ rysowana kontrolka.
-		* \param[in] states - dodatkowy stan kontekstu rysowania kontrolki.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 30-09-2014
-		*/
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
-		virtual Widget::Ptr clone() const override
-		{
+		virtual Widget::Ptr clone() const override{
 			return std::make_shared<KontrolkaObiektu>(*this);
 		}
 
 		virtual void reload(const std::string& primary = "", const std::string& secondary = "", bool force = false) override;
 
 	private:
-
-		void updateRendering();
-
+		
 		STyp::Identyfikator idObiektu_ = -1; /// Identyfikator obiektu gry wyœiwetlanego w kontrolce.
 		Picture::Ptr obraz_; /// Obraz obiektu gry.
 		Label::Ptr nazwa_; /// Nazwa obiektu gry.
@@ -146,55 +106,25 @@ namespace tgui{
 		Button::Ptr zniszcz_; /// Przycisk burzenia obiektu gry.
 		Label::Ptr czasRozbudowy_; /// Czas rozbudowy obiektu gry.
 		Label::Ptr czasZburzenia_; /// Czas burzenia obiektu gry.
-		sf::Shader* shader_ = nullptr; /// WskaŸnik na u¿yte shader'y.
 
 		int idZdarzeniaBudowy_ = 0; /// Numer zdarzenia klikniêcia na przycisk budowy obiektu gry.
 		int idZdarzeniaBurzenia_ = 0; /// Numer zdarzenia klikniêcia na przycisk burzenia obiektu gry.
 		int idZdarzeniaKlikniecia_ = 0; /// Numer zdarzenia klikniêcia na obrazek obiektu gry.
-
-		Panel::Ptr m_panel = std::make_shared<Panel>();
-
+		
 		friend class KontrolkaObiektuRenderer;
 
 	};
 
 	
-	class KontrolkaObiektuRenderer : public WidgetRenderer, public WidgetBorders, public WidgetPadding
+	class KontrolkaObiektuRenderer : public BazowyRenderer
 	{
 	public:
-		KontrolkaObiektuRenderer(KontrolkaObiektu* kontrolka) : m_kontrolkaObiektu(kontrolka) {}
-
-		virtual void setProperty(std::string property, const std::string& value) override;
-		virtual void setProperty(std::string property, ObjectConverter&& value) override;
-
-		virtual ObjectConverter getProperty(std::string property) const override;
-
-		virtual std::map<std::string, ObjectConverter> getPropertyValuePairs() const override;
-		void setBorderColor(const sf::Color& borderColor);
-		void setBackgroundColor(const sf::Color& backgroundColor);
-
-
-		void setBackgroundTexture(const Texture& texture);
-		void setPadding(const Padding& padding) override;
-		using WidgetPadding::setPadding;
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-
+		using BazowyRenderer::BazowyRenderer;
 	private:
-
 		virtual std::shared_ptr<WidgetRenderer> clone(Widget* widget) override;
-
 		KontrolkaObiektuRenderer(const KontrolkaObiektuRenderer&) = default;
 		KontrolkaObiektuRenderer& operator=(const KontrolkaObiektuRenderer&) = delete;
-
 	protected:
-
-		KontrolkaObiektu* m_kontrolkaObiektu;
-
-		sf::Color m_borderColor;
-		sf::Color m_backgroundColor;
-
-		Texture m_backgroundTexture;
-
 		friend class KontrolkaObiektu;
 	};
 };
