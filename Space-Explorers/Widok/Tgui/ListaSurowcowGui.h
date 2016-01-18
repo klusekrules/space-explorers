@@ -42,7 +42,7 @@ namespace tgui{
 		*/
 		ListaSurowcowGui(const ListaSurowcowGui& zrodlowy);
 
-		ListaSurowcowGui& operator= (const SurowiecGui& right);
+		ListaSurowcowGui& operator= (const ListaSurowcowGui& right);
 
 		std::shared_ptr<ListaSurowcowGuiRenderer> getRenderer() const {
 			return std::static_pointer_cast<ListaSurowcowGuiRenderer>(m_renderer);

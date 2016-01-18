@@ -445,9 +445,7 @@
     <ClInclude Include="Widok\Tgui\BazowyRenderer.h" />
     <ClInclude Include="Widok\Tgui\BazowyWidzet.h" />
     <ClInclude Include="Widok\Tgui\KontrolkaObiektu.h" />
-    <ClInclude Include="Widok\Tgui\ListaObiektowGui.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="Widok\Tgui\ListaObiektowGui.h" />
     <ClInclude Include="Widok\Tgui\ListaSurowcowGui.h" />
     <ClInclude Include="Widok\Tgui\LogListGui.h" />
     <ClInclude Include="Widok\Tgui\PomocniczeTypyTGUI.h" />
@@ -565,9 +563,7 @@
     <ClCompile Include="Widok\Tgui\BazowyRenderer.cpp" />
     <ClCompile Include="Widok\Tgui\BazowyWidzet.cpp" />
     <ClCompile Include="Widok\Tgui\KontrolkaObiektu.cpp" />
-    <ClCompile Include="Widok\Tgui\ListaObiektowGui.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="Widok\Tgui\ListaObiektowGui.cpp" />
     <ClCompile Include="Widok\Tgui\ListaSurowcowGui.cpp" />
     <ClCompile Include="Widok\Tgui\LogListGui.cpp" />
     <ClCompile Include="Widok\Tgui\SurowiecGui.cpp" />

@@ -77,8 +77,7 @@ namespace tgui {
 		tekst_->setTextColor(color);
 	}
 		
-	std::shared_ptr<WidgetRenderer> tgui::SurowiecGuiRenderer::clone(Widget * widget)
-	{
+	std::shared_ptr<WidgetRenderer> tgui::SurowiecGuiRenderer::clone(Widget * widget){
 		auto renderer = std::shared_ptr<SurowiecGuiRenderer>(new SurowiecGuiRenderer{ *this });
 		renderer->kontrolka_ = static_cast<BazowyWidzet*>(widget);
 		return renderer;

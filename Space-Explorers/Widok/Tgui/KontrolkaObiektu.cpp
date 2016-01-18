@@ -307,7 +307,6 @@ namespace tgui{
 						opisObiektu += "\n[ ObiektInfo ID: " + element->pobierzIdentyfikator().napis() + " ] : " + std::to_string(element->pobierzIlosc()());
 				}
 			}
-
 			tresc_->setText(opisObiektu);
 			czasRozbudowy_->setText(SpEx::Utils::konwersja(obj.pobierzCzasBudowy(parametry)));
 			nazwa_->setText(obj.pobierzNazwe()());
@@ -315,8 +314,7 @@ namespace tgui{
 		return true;
 	}
 
-	std::shared_ptr<WidgetRenderer> tgui::KontrolkaObiektuRenderer::clone(Widget * widget)
-	{
+	std::shared_ptr<WidgetRenderer> tgui::KontrolkaObiektuRenderer::clone(Widget * widget){
 		auto renderer = std::shared_ptr<KontrolkaObiektuRenderer>(new KontrolkaObiektuRenderer{ *this });
 		renderer->kontrolka_ = static_cast<KontrolkaObiektu*>(widget);
 		return renderer;

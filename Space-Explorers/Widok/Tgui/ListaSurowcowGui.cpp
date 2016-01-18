@@ -31,6 +31,32 @@ namespace tgui {
 			element->setTransparency(transparency);
 		}
 	}*/
+
+	ListaSurowcowGui::ListaSurowcowGui(const ListaSurowcowGui& o)
+		:BazowyWidzet(o), plikKonfiguracyjny_(o.plikKonfiguracyjny_)
+	{
+		/*tekst_ = this->get<Label>("Nazwa");*/
+	}
+
+	ListaSurowcowGui& ListaSurowcowGui::operator=(const ListaSurowcowGui & right)
+	{
+		if (this != &right)
+		{
+			ListaSurowcowGui temp(right);
+			BazowyWidzet::operator=(right);
+
+			/*std::swap(m_lineSpacing, temp.m_lineSpacing);
+			std::swap(m_textSize, temp.m_textSize);
+			std::swap(m_textColor, temp.m_textColor);
+			std::swap(m_maxLines, temp.m_maxLines);
+			std::swap(m_fullTextHeight, temp.m_fullTextHeight);
+			std::swap(m_linesStartFromTop, temp.m_linesStartFromTop);
+			std::swap(m_panel, temp.m_panel);
+			std::swap(m_scroll, temp.m_scroll);*/
+		}
+
+		return *this;
+	}
 	
 	const std::string& ListaSurowcowGui::getLoadedConfigFile() const{
 		return plikKonfiguracyjny_;
@@ -49,27 +75,25 @@ namespace tgui {
 				element->ustawDane(*((iter++)->second));
 		}
 		else{
-
 			// Usuniêcie niepotrzebnych okien
 			for (auto iter = kontrolki_.begin(); iter != kontrolki_.end();){
 				if (listaObj.find((*iter)->pobierzIdObiektu()) != listaObj.end()){
 					++iter;
-				}
-				else{
+				}else{
 					std::lock_guard<std::mutex> lock(zmianaDanych_);
-					/// todo: this->remove(*iter);
+					m_panel->remove(*iter);
 					iter = kontrolki_.erase(iter);
 				}
 			}
-
 			// Dodanie brakuj¹cych elementów oraz uaktualnienie obecnych.
 			auto iter = kontrolki_.begin();
 			for (auto &id : listaObj){
 				if (iter == kontrolki_.end() || (*iter)->pobierzIdObiektu() != id.first){
 					std::lock_guard<std::mutex> lock(zmianaDanych_);
-					/// todo: auto widget = this->copy(szablonKontrolki_, id.second->pobierzSurowceInfo().pobierzNazwe()());
-					///idget->show();
-					///iter = kontrolki_.emplace(iter, widget);
+					auto widget = std::make_shared<SurowiecGui>(*szablonKontrolki_);
+					m_panel->add(widget,id.second->pobierzSurowceInfo().pobierzNazwe()());
+					widget->show();
+					iter = kontrolki_.emplace(iter, widget);
 				}
 				if (iter != kontrolki_.end()){
 					(*iter)->ustawDane(*id.second);
@@ -87,11 +111,9 @@ namespace tgui {
 			element->setPosition(positionX, 0.f);
 			positionX += temp.x + 20;
 		}
-		
 	}
 
-	std::shared_ptr<WidgetRenderer> ListaSurowcowGuiRenderer::clone(Widget * widget)
-	{
+	std::shared_ptr<WidgetRenderer> ListaSurowcowGuiRenderer::clone(Widget * widget){
 		auto renderer = std::shared_ptr<ListaSurowcowGuiRenderer>(new ListaSurowcowGuiRenderer{ *this });
 		renderer->kontrolka_ = static_cast<BazowyWidzet*>(widget);
 		return renderer;

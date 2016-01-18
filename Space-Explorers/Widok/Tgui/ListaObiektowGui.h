@@ -17,24 +17,13 @@ namespace tgui{
 	* \date 01-10-2014
 	*/
 	class ListaObiektowGui :
-		public Panel
+		public BazowyWidzet
 	{
 	public:
+		friend class ListaObiektowGuiRenderer;
 
-		/**
-		* \brief Metoda tworzy kontrolkê.
-		*
-		* Metoda tworzy obiekt klasy ListaObiektowGui.
-		* \param[in] kontener - WskaŸnik do kontenera, w którym ma znajdowaæ siê stworzony obiekt.
-		* \param[in] nazwa - Nazwa nowo stworzonego obiektu.
-		* \return WskaŸnik na nowo stworzony obiekt.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 01-10-2014
-		*/
-		static Widget* createWidget(Container* kontener, const std::string& nazwa);
-
-		typedef SharedWidgetPtr<ListaObiektowGui> Ptr;/// Inteligentny wskaŸnik na obiekt kontrolki.
+		typedef std::shared_ptr<ListaObiektowGui> Ptr; ///< Shared widget pointer
+		typedef std::shared_ptr<const ListaObiektowGui> ConstPtr; ///< Shared constant widget pointer
 
 		/**
 		* \brief Domyœlny konstruktor.
@@ -53,6 +42,15 @@ namespace tgui{
 		* \date 01-10-2014
 		*/
 		ListaObiektowGui(const ListaObiektowGui& zrodlowy);
+
+		ListaObiektowGui& operator= (const ListaObiektowGui& right);
+
+		std::shared_ptr<ListaObiektowGuiRenderer> getRenderer() const {
+			return std::static_pointer_cast<ListaObiektowGuiRenderer>(m_renderer);
+		}
+		void setPosition(const Layout2d& position) override;
+
+		void setSize(const Layout2d& size) override;
 
 		/**
 		* \brief Domyœlny destruktor.
@@ -84,30 +82,6 @@ namespace tgui{
 		void aktualizacjaDanych(const SpEx::Planeta& planeta);
 
 		/**
-		* \brief Metoda ustawiaj¹ca rozmiar kontrolki.
-		*
-		* Metoda ustawia rozmiar kontrolki
-		* \param[in] szerokosc - szerokoœæ kontrolki.
-		* \param[in] wysokosc - wysokoœæ kontrolki.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 01-10-2014
-		*/
-		void setSize(float szerokosc, float wysokosc) override;
-		
-		/**
-		* \brief Metoda ustawiaj¹ca pozycjê kontrolki.
-		*
-		* Metoda ustawia pozycjê kontrolki
-		* \param[in] x - pozycja x kontrolki.
-		* \param[in] y - pozycja y kontrolki.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 01-10-2014
-		*/
-		void setPosition(float x, float y) override;
-
-		/**
 		* \brief Metoda wczytuj¹ca parametry kontrolki.
 		*
 		* Metoda wczytuje parametry kontrolki
@@ -131,17 +105,6 @@ namespace tgui{
 		int pobierzTypObiektu() const;
 
 		/**
-		* \brief Metoda tworz¹ca kopiê obiektu.
-		*
-		* Metoda tworzy kopiê obiektu.
-		* \return WskaŸnik na skopiowany obiekt.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 01-10-2014
-		*/
-		ListaObiektowGui* clone() override;
-
-		/**
 		* \brief Metoda zwracaj¹ca adres pliku konfiguracynego.
 		*
 		* Metoda zwraca adres pliku konfiguracyjnego, z którego zosta³y zaczytane parametry kontrolki.
@@ -152,42 +115,6 @@ namespace tgui{
 		*/
 		const std::string& getLoadedConfigFile() const;
 
-		/**
-		* \brief Metoda ustawiaj¹ca wartoœæ w³aœciwoœci.
-		*
-		* Metoda ustawia wartoœæ w³aœciwoœci zgodnie z danymi przekazanymi w parametrach.
-		* \param[in] wlasciwosc - Nazwa w³aœciwoœci kontrolki.
-		* \param[in] wartosc - Wartoœæ w³aœciwoœci kontrolki.
-		* \return Zwracana jest wartoœæ true je¿eli uda siê ustawiæ wartoœæ. W przeciwnym wypadku jest zwracana wartoœæ false.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 01-10-2014
-		*/
-		bool setProperty(std::string wlasciwosc, const std::string& wartosc) override;
-
-		/**
-		* \brief Metoda pobieraj¹ca wartoœæ w³aœciwoœci.
-		*
-		* Metoda pobiera wartoœæ w³aœciwoœci.
-		* \param[in] wlasciwosc - Nazwa w³aœciwoœci kontrolki.
-		* \param[out] wartosc - Wartoœæ w³aœciwoœci kontrolki.
-		* \return Zwracana jest wartoœæ true je¿eli uda siê pobraæ wartoœæ. W przeciwnym wypadku jest zwracana wartoœæ false.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 01-10-2014
-		*/
-		bool getProperty(std::string wlasciwosc, std::string& wartosc) const override;
-
-		/**
-		* \brief Metoda zwracaj¹ca listê w³aœciwoœci.
-		*
-		* Metoda zwraca listê w³aœciwoœci jakie mo¿na ustawiæ w kontrolce.
-		* \return Lista w³aœciwoœci.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 01-10-2014
-		*/
-		std::list< std::pair<std::string, std::string> > getPropertyList() const override;
 	protected:
 
 		/**
@@ -252,17 +179,6 @@ namespace tgui{
 		*/
 		void uaktualnijSuwak(float wysokosc, bool czyResetSuwaka);
 
-		/**
-		* \brief Metoda inicjalizuj¹ca obiekt.
-		*
-		* Metoda inicjalizuje obiekt kontrolki podstawowymi parametrami.
-		* \param[in] kontener - WskaŸnik na kontener, w którym ma znajdowaæ siê obiekt.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 01-10-2014
-		*/
-		void initialize(Container *const kontener) override;
-
 		std::string plikKonfiguracyjny_ = ""; /// Adres pliku konfiguracyjnego.
 
 		Scrollbar::Ptr suwak_; /// WskaŸnik na kontrolkê suwaka.
@@ -277,5 +193,20 @@ namespace tgui{
 		int typObiektu_ = 0; /// Typ wyœiwetlanych obiektów.
 		bool pokazSuwak_ = false; /// Flaga informuj¹ca czy suwak ma byæ widoczny
 		bool czyAutoRozmiar_ = true; /// Automatyczne wyliczanie rozmiarów.
+	};
+
+	class ListaObiektowGuiRenderer : public BazowyRenderer
+	{
+	public:
+		using BazowyRenderer::BazowyRenderer;
+
+	private:
+		std::shared_ptr<WidgetRenderer> clone(Widget* widget) override;
+		ListaObiektowGuiRenderer(const ListaObiektowGuiRenderer&) = default;
+		ListaObiektowGuiRenderer& operator=(const ListaObiektowGuiRenderer&) = delete;
+
+	protected:
+
+		friend class ListaObiektowGui;
 	};
 };
