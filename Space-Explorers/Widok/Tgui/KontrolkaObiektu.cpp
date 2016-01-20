@@ -29,9 +29,7 @@ namespace tgui{
 		m_panel->setBackgroundColor(sf::Color::Transparent);
 
 		m_renderer = std::make_shared<KontrolkaObiektuRenderer>(this);
-		reload();
-
-		setSize({ 200, 126 });
+		reload("","",true);
 	}
 
 	KontrolkaObiektu::KontrolkaObiektu(const KontrolkaObiektu& copy)
@@ -54,7 +52,6 @@ namespace tgui{
 	{
 		if (this != &right)
 		{
-			KontrolkaObiektu temp( right );
 			BazowyWidzet::operator=(right);
 
 			/*std::swap(m_lineSpacing, temp.m_lineSpacing);
@@ -201,29 +198,29 @@ namespace tgui{
 	}
 	*/
 	
-	void KontrolkaObiektu::reload(const std::string& primary, const std::string& secondary, bool force)
-	{
-		getRenderer()->setBorders({ 2, 2, 2, 2 });
-		getRenderer()->setPadding({ 2, 2, 2, 2 });
-		getRenderer()->setBackgroundColor({ 245, 245, 245 });
-		getRenderer()->setBorderColor({ 245, 0, 0 });
-		getRenderer()->setBackgroundTexture({"widgets\\tlo.png"});
+	void KontrolkaObiektu::reload(const std::string& primary, const std::string& secondary, bool force){
+		auto renderer = getRenderer();
+		renderer->setBorders({ 2, 2, 2, 2 });
+		renderer->setPadding({ 2, 2, 2, 2 });
+		renderer->setBackgroundColor({ 245, 245, 245 });
+		renderer->setBorderColor({ 245, 0, 0 });
+		renderer->setBackgroundTexture({"widgets\\tlo.png"});
 
 		if (m_theme && primary != "")
 		{
-			getRenderer()->setBorders({ 0, 0, 0, 0 });
-			getRenderer()->setPadding({ 0, 0, 0, 0 });
+			renderer->setBorders({ 0, 0, 0, 0 });
+			renderer->setPadding({ 0, 0, 0, 0 });
 
 			Widget::reload(primary, secondary, force);
-
-			if (force)
-			{
-				if (getRenderer()->m_backgroundTexture.isLoaded())
-					setSize(getRenderer()->m_backgroundTexture.getImageSize());
-			}
-
-			updateSize();
 		}
+
+		if (force)
+		{
+			if (renderer->m_backgroundTexture.isLoaded())
+				setSize(renderer->m_backgroundTexture.getImageSize());
+		}
+
+		updateSize();
 	}
 	
 	const STyp::Identyfikator& KontrolkaObiektu::pobierzIdObiektu() const{

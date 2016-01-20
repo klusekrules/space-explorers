@@ -4,31 +4,19 @@
 namespace tgui {
 
 	BazowyWidzet::BazowyWidzet(const BazowyWidzet& o)
-		:Widget(o)
+		: Widget(o), m_panel(o.m_panel)
 	{}
 
-	BazowyWidzet& BazowyWidzet::operator=(const BazowyWidzet & right)
-	{
-		if (this != &right)
-		{
-			BazowyWidzet temp(right);
+	BazowyWidzet& BazowyWidzet::operator=(const BazowyWidzet & right){
+		if (this != &right){
 			Widget::operator=(right);
-
-			/*std::swap(m_lineSpacing, temp.m_lineSpacing);
-			std::swap(m_textSize, temp.m_textSize);
-			std::swap(m_textColor, temp.m_textColor);
-			std::swap(m_maxLines, temp.m_maxLines);
-			std::swap(m_fullTextHeight, temp.m_fullTextHeight);
-			std::swap(m_linesStartFromTop, temp.m_linesStartFromTop);
-			std::swap(m_panel, temp.m_panel);
-			std::swap(m_scroll, temp.m_scroll);*/
+			m_panel = Panel::copy(right.m_panel);
 		}
 
 		return *this;
 	}
 
-	void BazowyWidzet::setPosition(const Layout2d& position)
-	{
+	void BazowyWidzet::setPosition(const Layout2d& position){
 		Widget::setPosition(position);
 
 		getRenderer()->m_backgroundTexture.setPosition(getPosition());
@@ -36,17 +24,15 @@ namespace tgui {
 		updateRendering();
 	}
 
-	void BazowyWidzet::setSize(const Layout2d& size)
-	{
+	void BazowyWidzet::setSize(const Layout2d& size){
 		Widget::setSize(size);
-
+		m_panel->setSize(size);
 		getRenderer()->m_backgroundTexture.setSize(getSize());
 
 		//updatePosition();
 	}
 
-	sf::Vector2f BazowyWidzet::getFullSize() const
-	{
+	sf::Vector2f BazowyWidzet::getFullSize() const{
 		return{ getSize().x + getRenderer()->m_borders.left + getRenderer()->m_borders.right,
 			getSize().y + getRenderer()->m_borders.top + getRenderer()->m_borders.bottom };
 	}
@@ -55,26 +41,15 @@ namespace tgui {
 	{
 		Widget::setFont(font);
 
-		bool lineChanged = false;
-		for (auto& label : m_panel->getWidgets())
-		{
-			auto line = std::static_pointer_cast<Label>(label);
-			if (line->getFont() == nullptr)
-			{
-				line->setFont(font);
-				lineChanged = true;
-			}
+		for (auto& widzet : m_panel->getWidgets()){
+			widzet->setFont(font);
 		}
 
-		if (lineChanged)
-		{
-
-		}
 	}
 
 
 	void BazowyWidzet::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-		if (getRenderer()->getShader() != nullptr) {
+		if (getRenderer()->getShader() != nullptr){
 			states.shader = getRenderer()->getShader();
 		}
 		// Draw the background
@@ -90,10 +65,8 @@ namespace tgui {
 		Padding scaledPadding = padding;
 
 		auto& texture = getRenderer()->m_backgroundTexture;
-		if (texture.isLoaded())
-		{
-			switch (texture.getScalingType())
-			{
+		if (texture.isLoaded()){
+			switch (texture.getScalingType()){
 			case Texture::ScalingType::Normal:
 				scaledPadding.left = padding.left * (texture.getSize().x / texture.getImageSize().x);
 				scaledPadding.right = padding.right * (texture.getSize().x / texture.getImageSize().x);
@@ -127,23 +100,15 @@ namespace tgui {
 
 	void BazowyWidzet::reload(const std::string& primary, const std::string& secondary, bool force)
 	{
-		getRenderer()->setBorders({ 2, 2, 2, 2 });
-		getRenderer()->setPadding({ 2, 2, 2, 2 });
-		getRenderer()->setBackgroundColor({ 245, 245, 245 });
-		getRenderer()->setBorderColor({ 245, 0, 0 });
-		getRenderer()->setBackgroundTexture({ "widgets\\tlo.png" });
-
-		if (m_theme && primary != "")
-		{
-			getRenderer()->setBorders({ 0, 0, 0, 0 });
-			getRenderer()->setPadding({ 0, 0, 0, 0 });
-
+		auto renderer = getRenderer();
+		renderer->setBackgroundColor({ 0, 0, 0 ,0 });
+		
+		if (m_theme && primary != ""){
 			Widget::reload(primary, secondary, force);
 
-			if (force)
-			{
-				if (getRenderer()->m_backgroundTexture.isLoaded())
-					setSize(getRenderer()->m_backgroundTexture.getImageSize());
+			if (force){
+				if (renderer->m_backgroundTexture.isLoaded())
+					setSize(renderer->m_backgroundTexture.getImageSize());
 			}
 
 			updateSize();

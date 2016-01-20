@@ -5,6 +5,7 @@
 #include "Kontroler\Aplikacja.h"
 #include "Widok\Konsola\Konsola.h"
 #include "Export.h"
+#include "Utils\UtilsGui.h"
 
 namespace SpEx{
 
@@ -45,6 +46,10 @@ namespace SpEx{
 	}
 
 	int ProxyBOSerwer::rejestrujMetodyKonsoli(){
+
+		Aplikacja::pobierzInstancje().konsola_->rejestrujPolecenie("test", Konsola::OpcjePolecenia("Test kontrolek", [&](std::string) {
+			UtilsGui::oknotestowe();
+		}));
 
 		Aplikacja::pobierzInstancje().konsola_->rejestrujPolecenie("zamknij", Konsola::OpcjePolecenia("zamykanie aplikacji", [&](std::string){
 			posptrzataj();

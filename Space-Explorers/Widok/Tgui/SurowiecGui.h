@@ -31,7 +31,7 @@ namespace tgui {
 		*
 		* Domyœlny konstruktor.
 		*/
-		SurowiecGui() = default;
+		SurowiecGui();
 
 		/**
 		* \brief Konstruktor kopiuj¹cy.
@@ -45,11 +45,7 @@ namespace tgui {
 		SurowiecGui(const SurowiecGui& zrodlowy);
 		
 		SurowiecGui& operator= (const SurowiecGui& right);
-
-		std::shared_ptr<SurowiecGuiRenderer> getRenderer() const{
-			return std::static_pointer_cast<SurowiecGuiRenderer>(m_renderer);
-		}
-
+		
 		/**
 		* \brief Domyœlny destruktor.
 		*
@@ -89,6 +85,7 @@ namespace tgui {
 		* \date 01-10-2014
 		*/
 		void setTextSize(unsigned int rozmiar);
+
 		/**
 		* \brief Metoda ustawiaj¹ca kolor tekstu.
 		*
@@ -100,17 +97,20 @@ namespace tgui {
 		*/
 		void setTextColor(sf::Color kolor);
 
-	protected:
+		std::shared_ptr<SurowiecGuiRenderer> getRenderer() const {
+			return std::static_pointer_cast<SurowiecGuiRenderer>(m_renderer);
+		}
 
-		Widget::Ptr clone() const override{
+		Widget::Ptr clone() const override {
 			return std::make_shared<SurowiecGui>(*this);
 		}
 
-		virtual void reload(const std::string& primary = "", const std::string& secondary = "", bool force = false) override;
+	protected:
+
+		void reload(const std::string& primary = "", const std::string& secondary = "", bool force = false) override;
 
 	private:
 
-		std::string plikKonfiguracyjny_ = ""; /// Adres pliku konfiguracyjnego.
 		Label::Ptr tekst_; /// Prezentowany tekst.
 		STyp::Identyfikator idObiektu_; /// Identyfikator reprezentowanego obiektu.
 

@@ -50,11 +50,6 @@ namespace tgui{
 		
 		KontrolkaObiektu& operator= (const KontrolkaObiektu& right);
 
-		std::shared_ptr<KontrolkaObiektuRenderer> getRenderer() const
-		{
-			return std::static_pointer_cast<KontrolkaObiektuRenderer>(m_renderer);
-		}
-
 		/**
 		* \brief Domyœlny destruktor.
 		*
@@ -87,14 +82,18 @@ namespace tgui{
 		const STyp::Identyfikator& pobierzIdObiektu() const;
 
 		bool mouseOnWidget(float x, float y) override;
+		
+		std::shared_ptr<KontrolkaObiektuRenderer> getRenderer() const {
+			return std::static_pointer_cast<KontrolkaObiektuRenderer>(m_renderer);
+		}
 
-	protected:
-
-		virtual Widget::Ptr clone() const override{
+		Widget::Ptr clone() const override {
 			return std::make_shared<KontrolkaObiektu>(*this);
 		}
 
-		virtual void reload(const std::string& primary = "", const std::string& secondary = "", bool force = false) override;
+	protected:
+		
+		void reload(const std::string& primary = "", const std::string& secondary = "", bool force = false) override;
 
 	private:
 		
@@ -121,7 +120,7 @@ namespace tgui{
 	public:
 		using BazowyRenderer::BazowyRenderer;
 	private:
-		virtual std::shared_ptr<WidgetRenderer> clone(Widget* widget) override;
+		std::shared_ptr<WidgetRenderer> clone(Widget* widget) override;
 		KontrolkaObiektuRenderer(const KontrolkaObiektuRenderer&) = default;
 		KontrolkaObiektuRenderer& operator=(const KontrolkaObiektuRenderer&) = delete;
 	protected:

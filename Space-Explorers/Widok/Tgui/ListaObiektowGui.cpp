@@ -18,6 +18,25 @@ namespace tgui {
 		}
 	}
 
+	ListaObiektowGui & ListaObiektowGui::operator=(const ListaObiektowGui & right)
+	{
+		if (this != &right)
+		{
+			BazowyWidzet::operator=(right);
+
+			/*std::swap(m_lineSpacing, temp.m_lineSpacing);
+			std::swap(m_textSize, temp.m_textSize);
+			std::swap(m_textColor, temp.m_textColor);
+			std::swap(m_maxLines, temp.m_maxLines);
+			std::swap(m_fullTextHeight, temp.m_fullTextHeight);
+			std::swap(m_linesStartFromTop, temp.m_linesStartFromTop);
+			std::swap(m_panel, temp.m_panel);
+			std::swap(m_scroll, temp.m_scroll);*/
+		}
+
+		return *this;
+	}
+
 	void ListaObiektowGui::aktualizacjaDanych(const SpEx::Planeta& planeta){
 		std::vector<STyp::Identyfikator> listaId;
 		auto listaObj = SpEx::Aplikacja::pobierzInstancje().pobierzGre().pobierzDostepneObiektyInfo(planeta, pobierzTypObiektu(), listaId);

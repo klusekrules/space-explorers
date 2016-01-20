@@ -42,7 +42,6 @@ namespace tgui {
 	{
 		if (this != &right)
 		{
-			ListaSurowcowGui temp(right);
 			BazowyWidzet::operator=(right);
 
 			/*std::swap(m_lineSpacing, temp.m_lineSpacing);

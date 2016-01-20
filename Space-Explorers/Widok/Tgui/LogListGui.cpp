@@ -16,7 +16,6 @@ namespace tgui {
 	{
 		if (this != &right)
 		{
-			LogListGui temp{ right };
 			ChatBox::operator=(right);
 		}
 

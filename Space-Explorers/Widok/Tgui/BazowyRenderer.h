@@ -29,6 +29,8 @@ namespace tgui {
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	protected:
+		void copyParameters(const BazowyRenderer&);
+
 		BazowyRenderer(const BazowyRenderer&) = default;
 
 		BazowyWidzet *kontrolka_;
@@ -40,6 +42,9 @@ namespace tgui {
 
 		Texture m_backgroundTexture;
 
+	/*private:
+
+		std::shared_ptr<WidgetRenderer> clone(Widget* widget) override;*/
 	};
 
 };

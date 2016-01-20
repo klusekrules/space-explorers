@@ -3,7 +3,7 @@
 namespace tgui {
 
 	BazowyRenderer::BazowyRenderer(BazowyWidzet* kontrolka) 
-		: kontrolka_(kontrolka)
+		: kontrolka_(kontrolka), shader_(nullptr)
 	{}
 
 
@@ -135,10 +135,26 @@ namespace tgui {
 		}
 	}
 
+	void BazowyRenderer::copyParameters(const BazowyRenderer & object){
+		WidgetBorders::operator=(object);
+		WidgetPadding::operator=(object);
+		shader_ = object.shader_;
+		m_borderColor = object.m_borderColor;
+		m_backgroundColor = object.m_backgroundColor;
+		m_backgroundTexture = object.m_backgroundTexture;
+	}
+	
 	void BazowyRenderer::setShader(const sf::Shader* shader) {
 		shader_ = shader;
 	}
+
 	const sf::Shader* BazowyRenderer::getShader() const {
 		return shader_;
 	}
+
+	/*std::shared_ptr<WidgetRenderer> tgui::BazowyRenderer::clone(Widget * widget) {
+		auto renderer = std::shared_ptr<BazowyRenderer>(new BazowyRenderer{ *this });
+		renderer->kontrolka_ = static_cast<BazowyWidzet*>(widget);
+		return renderer;
+	}*/
 };

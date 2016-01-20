@@ -85,6 +85,7 @@ namespace SpEx{
 		*/
 		static void bindCallbackEvent(const tgui::Widget::Ptr widzet, unsigned int zdarzenie, unsigned int numer, const std::string& akcje);
 
+		static void oknotestowe();
 	private:
 
 		/**

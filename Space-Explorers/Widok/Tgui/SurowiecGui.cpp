@@ -5,27 +5,34 @@ namespace tgui {
 	// SurowiecGui
 	//-------------
 
-	SurowiecGui::SurowiecGui(const SurowiecGui& o)
-		:BazowyWidzet(o), plikKonfiguracyjny_(o.plikKonfiguracyjny_), idObiektu_(o.idObiektu_)
+	SurowiecGui::SurowiecGui()
+		:BazowyWidzet()
 	{
-		/*tekst_ = this->get<Label>("Nazwa");*/
+		m_callback.widgetType = "KontrolkaObiektu";
+		m_draggableWidget = false;
+
+		tekst_ = std::make_shared<Label>();
+		tekst_->setAutoSize(true);
+		tekst_->setTextSize(14);
+		tekst_->setTextColor({255,255,255});
+		m_panel->add(tekst_,"Nazwa");
+		tekst_->setPosition({"w > &.w ? 0 : (&.w - w) / 2"}, { "h > &.h ? 0 : (&.h - h) / 2" });
+		m_panel->setBackgroundColor(sf::Color::Transparent);
+
+		m_renderer = std::make_shared<SurowiecGuiRenderer>(this);
+		reload("","",true);
 	}
 
-	SurowiecGui& SurowiecGui::operator=(const SurowiecGui & right)
+	SurowiecGui::SurowiecGui(const SurowiecGui& o)
+		:BazowyWidzet(o), idObiektu_(o.idObiektu_)
 	{
-		if (this != &right)
-		{
-			SurowiecGui temp(right);
-			BazowyWidzet::operator=(right);
+		tekst_ = m_panel->get<Label>("Nazwa");
+	}
 
-			/*std::swap(m_lineSpacing, temp.m_lineSpacing);
-			std::swap(m_textSize, temp.m_textSize);
-			std::swap(m_textColor, temp.m_textColor);
-			std::swap(m_maxLines, temp.m_maxLines);
-			std::swap(m_fullTextHeight, temp.m_fullTextHeight);
-			std::swap(m_linesStartFromTop, temp.m_linesStartFromTop);
-			std::swap(m_panel, temp.m_panel);
-			std::swap(m_scroll, temp.m_scroll);*/
+	SurowiecGui& SurowiecGui::operator=(const SurowiecGui & right){
+		if (this != &right){
+			BazowyWidzet::operator=(right);
+			tekst_ = m_panel->get<Label>("Nazwa");
 		}
 
 		return *this;
@@ -35,29 +42,22 @@ namespace tgui {
 		return idObiektu_;
 	}
 	
-	void SurowiecGui::reload(const std::string& primary, const std::string& secondary, bool force)
-	{
-		getRenderer()->setBorders({ 2, 2, 2, 2 });
-		getRenderer()->setPadding({ 2, 2, 2, 2 });
-		getRenderer()->setBackgroundColor({ 245, 245, 245 });
-		getRenderer()->setBorderColor({ 245, 0, 0 });
-		getRenderer()->setBackgroundTexture({ "widgets\\tlo.png" });
+	void SurowiecGui::reload(const std::string& primary, const std::string& secondary, bool force){
+		auto renderer = getRenderer();
+		renderer->setBorders({ 0, 0, 0, 0 });
+		renderer->setPadding({ 0, 0, 0, 0 });
+		renderer->setBackgroundTexture({ "widgets\\tlo_surowce.png" });
 
-		if (m_theme && primary != "")
-		{
-			getRenderer()->setBorders({ 0, 0, 0, 0 });
-			getRenderer()->setPadding({ 0, 0, 0, 0 });
-
-			Widget::reload(primary, secondary, force);
-
-			if (force)
-			{
-				if (getRenderer()->m_backgroundTexture.isLoaded())
-					setSize(getRenderer()->m_backgroundTexture.getImageSize());
-			}
-
-			updateSize();
+		if (m_theme && primary != ""){
+			BazowyWidzet::reload(primary, secondary, force);
 		}
+
+		if (force) {
+			if (renderer->m_backgroundTexture.isLoaded())
+				setSize(renderer->m_backgroundTexture.getImageSize());
+		}
+
+		updateSize();
 	}
 
 	void SurowiecGui::ustawDane(const SpEx::Obiekt& obiekt) {
@@ -65,8 +65,7 @@ namespace tgui {
 		idObiektu_ = obiekt.pobierzIdentyfikator();
 		napis += obiekt.pobierzObiektInfo().pobierzNazwe()() + "\n" + std::to_string(obiekt.pobierzIlosc()());
 		tekst_->setText(napis);
-		auto size = tekst_->getSize();
-		setSize(size.x, size.y);
+		updateSize(true);
 	}
 
 	void SurowiecGui::setTextSize(unsigned int size) {

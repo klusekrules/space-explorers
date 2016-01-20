@@ -82,18 +82,6 @@ namespace tgui{
 		void aktualizacjaDanych(const SpEx::Planeta& planeta);
 
 		/**
-		* \brief Metoda wczytuj¹ca parametry kontrolki.
-		*
-		* Metoda wczytuje parametry kontrolki
-		* \param[in] adresPlikuKonfiguracyjnego - adres pliku konfiguracyjnego.
-		* \return Zwracana jest wartoœæ true, je¿eli uda siê poprawnie wczytaæ parametry kontrolki. Zwracana jest wartoœæ false w przeciwnym przypadku.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 01-10-2014
-		*/
-		bool load(const std::string& configFileFilename);
-		
-		/**
 		* \brief Metoda pobiera typ wyœwietlanych obiektów.
 		*
 		* Metoda pobiera typ obiektów jakie s¹ wyœwietlane w kontrolce.
