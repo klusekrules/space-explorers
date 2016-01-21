@@ -24,7 +24,19 @@ namespace tgui {
 	{
 		auto node = saveBazowyWidzet(widget);
 		
-		SET_PROPERTY("IdObiektu", tgui::to_string(widget->pobierzIdObiektu()));
+		SET_PROPERTY("IdentyfikatorObiektu", tgui::to_string(widget->pobierzIdObiektu()));
+
+		return node;
+	}
+
+	std::shared_ptr<DataIO::Node> saveKontrolkaObiektu(KontrolkaObiektu::Ptr widget)
+	{
+		auto node = saveBazowyWidzet(widget);
+
+		SET_PROPERTY("IdentyfikatorObiektu", tgui::to_string(widget->pobierzIdObiektu()));
+		SET_PROPERTY("IdentyfikatorZdarzeniaBudowy", tgui::to_string(widget->pobierzIdentyfikatorZdarzeniaBudowy()));
+		SET_PROPERTY("IdentyfikatorZdarzeniaBurzenia", tgui::to_string(widget->pobierzIdentyfikatorZdarzeniaBurzenia()));
+		SET_PROPERTY("IdentyfikatorZdarzeniaKlikniecia", tgui::to_string(widget->pobierzIdentyfikatorZdarzeniaKlikniecia()));
 
 		return node;
 	}

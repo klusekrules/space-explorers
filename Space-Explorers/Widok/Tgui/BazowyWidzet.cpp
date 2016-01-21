@@ -29,10 +29,10 @@ namespace tgui {
 
 	void BazowyWidzet::setSize(const Layout2d& size){
 		Widget::setSize(size);
-		m_panel->setSize(size);
+
 		getRenderer()->m_backgroundTexture.setSize(getSize());
 
-		//updatePosition();
+		updateRendering();
 	}
 
 	sf::Vector2f BazowyWidzet::getFullSize() const{

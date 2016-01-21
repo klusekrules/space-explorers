@@ -53,6 +53,10 @@ namespace tgui{
 		if (this != &right)
 		{
 			BazowyWidzet::operator=(right);
+			idZdarzeniaBudowy_ = right.idZdarzeniaBudowy_;
+			idZdarzeniaBurzenia_ = right.idZdarzeniaBurzenia_;
+			idZdarzeniaKlikniecia_ = right.idZdarzeniaKlikniecia_;
+			idObiektu_ = right.idObiektu_;
 
 			/*std::swap(m_lineSpacing, temp.m_lineSpacing);
 			std::swap(m_textSize, temp.m_textSize);

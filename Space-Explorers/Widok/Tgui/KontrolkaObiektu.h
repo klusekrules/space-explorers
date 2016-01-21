@@ -80,6 +80,15 @@ namespace tgui{
 		* \date 30-09-2014
 		*/
 		const STyp::Identyfikator& pobierzIdObiektu() const;
+		int pobierzIdentyfikatorZdarzeniaBudowy() const {
+			return idZdarzeniaBudowy_;
+		}
+		int pobierzIdentyfikatorZdarzeniaBurzenia() const {
+			return idZdarzeniaBurzenia_;
+		}
+		int pobierzIdentyfikatorZdarzeniaKlikniecia() const {
+			return idZdarzeniaKlikniecia_;
+		}
 
 		bool mouseOnWidget(float x, float y) override;
 		
