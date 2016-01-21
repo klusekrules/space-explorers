@@ -53,16 +53,14 @@ namespace tgui {
 		}
 		else*/
 		return WidgetRenderer::getProperty(property);
-		//return true;
 	}
 
 	std::map<std::string, ObjectConverter> BazowyRenderer::getPropertyValuePairs() const {
 		auto map = WidgetRenderer::getPropertyValuePairs();
-		/*map.push_back(std::pair<std::string, std::string>("ConfigFile", "string"));
-		map.push_back(std::pair<std::string, std::string>("Image", "string"));
-		map.push_back(std::pair<std::string, std::string>("IdZdarzeniaBudowy", "int"));
-		map.push_back(std::pair<std::string, std::string>("IdZdarzeniaBurzenia", "int"));
-		map.push_back(std::pair<std::string, std::string>("IdZdarzeniaKlikniecia", "int"));*/
+		map["BackgroundColor"] = m_backgroundColor;
+		map["BorderColor"] = m_borderColor;
+		map["Texture"] = m_backgroundTexture;
+		map["Shader"] = !!shader_;
 		return map;
 	}
 
@@ -151,10 +149,4 @@ namespace tgui {
 	const sf::Shader* BazowyRenderer::getShader() const {
 		return shader_;
 	}
-
-	/*std::shared_ptr<WidgetRenderer> tgui::BazowyRenderer::clone(Widget * widget) {
-		auto renderer = std::shared_ptr<BazowyRenderer>(new BazowyRenderer{ *this });
-		renderer->kontrolka_ = static_cast<BazowyWidzet*>(widget);
-		return renderer;
-	}*/
 };

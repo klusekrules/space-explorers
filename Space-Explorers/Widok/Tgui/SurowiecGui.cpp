@@ -8,7 +8,7 @@ namespace tgui {
 	SurowiecGui::SurowiecGui()
 		:BazowyWidzet()
 	{
-		m_callback.widgetType = "KontrolkaObiektu";
+		m_callback.widgetType = "SurowiecGui";
 		m_draggableWidget = false;
 
 		tekst_ = std::make_shared<Label>();

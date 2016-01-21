@@ -5,7 +5,10 @@ namespace tgui {
 
 	BazowyWidzet::BazowyWidzet(const BazowyWidzet& o)
 		: Widget(o), m_panel(o.m_panel)
-	{}
+	{
+		m_callback.widgetType = "BazowyWidzet";
+		m_draggableWidget = false;
+	}
 
 	BazowyWidzet& BazowyWidzet::operator=(const BazowyWidzet & right){
 		if (this != &right){

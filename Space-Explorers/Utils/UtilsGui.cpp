@@ -53,13 +53,14 @@ namespace SpEx{
 		tgui::SurowiecGui::Ptr button = std::make_shared<tgui::SurowiecGui>();
 		gui.add(button,"MojPrzycisk");
 		
-		tgui::KontrolkaObiektu::Ptr kontrolka = std::make_shared<tgui::KontrolkaObiektu>();
+		/*tgui::KontrolkaObiektu::Ptr kontrolka = std::make_shared<tgui::KontrolkaObiektu>();
 		gui.add(kontrolka, "Moja kontrolka");
-		kontrolka->setPosition(100,100);
-		gui.setFont("resource/consola.ttf");
-
+		kontrolka->setPosition(100,100);*/
+		gui.setFont("resource\\consola.ttf");
 		button->ustawDane(*ptr);
-	
+		button->setPosition(10,20);
+
+		gui.saveWidgetsToFile("resource\\temp.txt");
 		while (window.isOpen())
 		{
 			sf::Event event;

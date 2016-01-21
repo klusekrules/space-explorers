@@ -12,6 +12,7 @@
 
 #include "TGUI\TGUI.hpp"
 #include "Widok\Konsola\Konsola.h"
+#include "Widok\Tgui\MySaver.h"
 
 #include "Wyjatki\BladKonfiguracjiAplikacji.h"
 
@@ -156,6 +157,9 @@ namespace SpEx{
 	}
 	
 	void Aplikacja::rejestrujKontrolkiDoTGUI(){
+		tgui::WidgetSaver::setSaveFunction("BazowyWidzet", tgui::saveBazowyWidzet);
+		tgui::WidgetSaver::setSaveFunction("SurowiecGui", tgui::saveSurowiecGui);
+		
 		/*tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listasurowcowgui", tgui::ListaSurowcowGui::createWidget);
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("listaobiektowgui", tgui::ListaObiektowGui::createWidget);
 		tgui::TGUI_WidgetFactory.RejestrujKreatorWidzetu("kontrolkaobiektu", tgui::KontrolkaObiektu::createWidget);

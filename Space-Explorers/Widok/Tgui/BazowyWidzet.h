@@ -1,16 +1,16 @@
 #pragma once
-#include "TGUI\TGUI.hpp"
+#include <TGUI\TGUI.hpp>
 
 namespace tgui {
 
 	class BazowyWidzet :
 		public Widget
 	{
-		typedef std::shared_ptr<BazowyWidzet> Ptr; ///< Shared widget pointer
-		typedef std::shared_ptr<const BazowyWidzet> ConstPtr; ///< Shared constant widget pointer
-
 		friend class BazowyRenderer;
 	public:
+		typedef std::shared_ptr<BazowyWidzet> Ptr; ///< Shared widget pointer
+		typedef std::shared_ptr<const BazowyWidzet> ConstPtr; ///< Shared constant widget pointer
+		
 		BazowyWidzet() = default;
 
 		BazowyWidzet(const BazowyWidzet& zrodlowy);
@@ -51,5 +51,6 @@ namespace tgui {
 
 		virtual void updateRendering();
 
+		friend class std::shared_ptr<DataIO::Node> saveBazowyWidzet(BazowyWidzet::Ptr widget);
 	};
 };

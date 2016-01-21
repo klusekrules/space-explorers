@@ -349,6 +349,12 @@
     <ClCompile Include="Widok\Tgui\BazowyWidzet.cpp">
       <Filter>SourceFile\Widok\TGUI</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\FromTGUI.cpp">
+      <Filter>SourceFile\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Widok\Tgui\MySaver.cpp">
+      <Filter>SourceFile\Widok\TGUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model\Flota.h">
@@ -730,6 +736,12 @@
       <Filter>SourceFile\Widok\TGUI</Filter>
     </ClInclude>
     <ClInclude Include="Widok\Tgui\BazowyWidzet.h">
+      <Filter>SourceFile\Widok\TGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\FromTGUI.h">
+      <Filter>SourceFile\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Widok\Tgui\MySaver.h">
       <Filter>SourceFile\Widok\TGUI</Filter>
     </ClInclude>
   </ItemGroup>

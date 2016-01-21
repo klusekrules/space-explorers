@@ -432,6 +432,7 @@
     <ClInclude Include="Testy\ZapisStanuGryTest.h" />
     <ClInclude Include="Testy\ZleceniaTest.h" />
     <ClInclude Include="Utils\DefinicjeWezlowXML.h" />
+    <ClInclude Include="Utils\FromTGUI.h" />
     <ClInclude Include="Utils\StackThrow.h" />
     <ClInclude Include="Utils\StaleUstawienAplikacji.h" />
     <ClInclude Include="Utils\Utils.h" />
@@ -448,6 +449,7 @@
     <ClInclude Include="Widok\Tgui\ListaObiektowGui.h" />
     <ClInclude Include="Widok\Tgui\ListaSurowcowGui.h" />
     <ClInclude Include="Widok\Tgui\LogListGui.h" />
+    <ClInclude Include="Widok\Tgui\MySaver.h" />
     <ClInclude Include="Widok\Tgui\PomocniczeTypyTGUI.h" />
     <ClInclude Include="Widok\Tgui\SurowiecGui.h" />
     <ClInclude Include="Wyjatki\BladKonfiguracjiAplikacji.h" />
@@ -552,6 +554,7 @@
     <ClCompile Include="Testy\WymaganiaTest.cpp" />
     <ClCompile Include="Testy\ZapisStanuGryTest.cpp" />
     <ClCompile Include="Testy\ZleceniaTest.cpp" />
+    <ClCompile Include="Utils\FromTGUI.cpp" />
     <ClCompile Include="Utils\StackThrow.cpp" />
     <ClCompile Include="Utils\Utils.cpp" />
     <ClCompile Include="Utils\UtilsGui.cpp" />
@@ -566,6 +569,7 @@
     <ClCompile Include="Widok\Tgui\ListaObiektowGui.cpp" />
     <ClCompile Include="Widok\Tgui\ListaSurowcowGui.cpp" />
     <ClCompile Include="Widok\Tgui\LogListGui.cpp" />
+    <ClCompile Include="Widok\Tgui\MySaver.cpp" />
     <ClCompile Include="Widok\Tgui\SurowiecGui.cpp" />
     <ClCompile Include="Wyjatki\BladKonfiguracjiAplikacji.cpp" />
     <ClCompile Include="Wyjatki\BladKonfiguracjiEkranu.cpp" />
