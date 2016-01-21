@@ -64,7 +64,7 @@ namespace SpEx{
 			logger.dodajPole("first", element.first);
 			std::stringstream streamKreator;
 			streamKreator.imbue(std::locale("C"));
-			streamKreator << "0x" << std::hex << (unsigned int)(element.second);
+			streamKreator << "0x" << std::hex << static_cast<void*>(element.second);
 			logger.dodajPole("second", "SpEx::Fabrykator::KreatorSkryptu", streamKreator.str());
 			logger.zakonczPodKlase();
 		}
@@ -75,7 +75,7 @@ namespace SpEx{
 			logger.dodajPole("first", element.first);
 			std::stringstream streamKreator;
 			streamKreator.imbue(std::locale("C"));
-			streamKreator << "0x" << std::hex << (unsigned int)(element.second);
+			streamKreator << "0x" << std::hex << static_cast<void*>(element.second);
 			logger.dodajPole("second", "SpEx::Fabrykator::KreatorMetodyRPC", streamKreator.str());
 			logger.zakonczPodKlase();
 		}
