@@ -40,7 +40,7 @@ namespace SpEx{
 		* \version 1
 		* \date 10-07-2014
 		*/
-		virtual ~Watek(void);
+		virtual ~Watek() = default;
 
 		/**
 		* \brief Metoda oczekuj¹ca na zkoñczenie w¹tku.
@@ -118,6 +118,7 @@ namespace SpEx{
 		STyp::Wyjatek bladInfo_; /// Wyj¹tek jaki zosta³ ustawiony przez w¹tek.
 
 		std::atomic<int> kodPowrotu_;
+		std::unique_ptr<std::thread> uchwyt_; /// WskaŸnik na obiekt w¹tku.
 
 		/**
 		* \brief Metoda ustawiaj¹ca wyj¹tek.
@@ -152,7 +153,6 @@ namespace SpEx{
 		* \date 10-07-2014
 		*/
 		const std::atomic<bool>& czyZakonczyc() const;
-		std::thread* uchwyt_; /// WskaŸnik na obiekt w¹tku.
 
 		/**
 		* \brief Metoda techniczna wywo³uj¹ca g³ówn¹ funkcjê w¹tku.

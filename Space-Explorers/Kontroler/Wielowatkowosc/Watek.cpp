@@ -7,7 +7,7 @@ namespace SpEx{
 	{
 		if (wstrzymany)
 			wstrzymany_.lock();
-		uchwyt_ = new std::thread(&Watek::funkcjaWatku, this);
+		uchwyt_ = std::make_unique<std::thread>(&Watek::funkcjaWatku, this);
 	}
 
 	void Watek::odblokuj(){
@@ -21,12 +21,7 @@ namespace SpEx{
 		}
 		return false;
 	}
-
-	Watek::~Watek(void)
-	{
-		delete uchwyt_;
-	}
-
+	
 	void Watek::zakoncz(){
 		zakoncz_ = true;
 	}
@@ -72,9 +67,7 @@ namespace SpEx{
 		}
 		catch (...){
 			zakonczony_ = true;
-			ExitThread(-1);
 		}
 		zakonczony_ = true;
-		ExitThread(ERROR_SUCCESS);
 	}
 };
