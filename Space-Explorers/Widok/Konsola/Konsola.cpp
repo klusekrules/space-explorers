@@ -142,8 +142,4 @@ namespace SpEx{
 			window.display();
 		}
 	}
-
-	Konsola::~Konsola()
-	{
-	}
 }

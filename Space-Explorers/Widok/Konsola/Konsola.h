@@ -23,7 +23,7 @@ namespace SpEx{
 		bool czekajNaInicjalizacje();
 		void rejestrujPolecenie(const std::string&, const OpcjePolecenia&);
 		void Konsola::logujListePolecen() const;
-		virtual ~Konsola();
+		virtual ~Konsola() = default;
 	private:
 		void wykonajPolecenie(const std::string& polecenie) const;
 		void callback(tgui::ChatBox::Ptr chatbox, const tgui::Callback& callback) const;
