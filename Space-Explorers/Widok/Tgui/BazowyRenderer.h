@@ -10,7 +10,6 @@ namespace tgui {
 		friend class BazowyWidzet;
 
 		BazowyRenderer(BazowyWidzet* kontrolka);
-		BazowyRenderer& operator=(const BazowyRenderer&) = delete;
 
 		void setProperty(std::string property, const std::string& value) override;
 		void setProperty(std::string property, ObjectConverter&& value) override;
@@ -30,9 +29,7 @@ namespace tgui {
 
 	protected:
 		void copyParameters(const BazowyRenderer&);
-
-		BazowyRenderer(const BazowyRenderer&) = default;
-
+		
 		BazowyWidzet *kontrolka_;
 
 		const sf::Shader* shader_;

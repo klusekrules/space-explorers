@@ -118,7 +118,7 @@ namespace tgui {
 		}
 	}
 
-	bool BazowyWidzet::mouseOnWidget(float, float) {
+	bool BazowyWidzet::mouseOnWidget(float, float) const {
 		/// TODO: implementacja metody
 		return false;
 	}

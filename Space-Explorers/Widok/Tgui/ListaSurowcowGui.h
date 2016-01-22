@@ -119,8 +119,6 @@ namespace tgui{
 
 	private:
 		std::shared_ptr<WidgetRenderer> clone(Widget* widget) override;
-		ListaSurowcowGuiRenderer(const ListaSurowcowGuiRenderer&) = default;
-		ListaSurowcowGuiRenderer& operator=(const ListaSurowcowGuiRenderer&) = delete;
 
 	protected:
 

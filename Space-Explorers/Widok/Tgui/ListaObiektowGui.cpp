@@ -301,7 +301,7 @@ namespace tgui {
 	}
 
 	std::shared_ptr<WidgetRenderer> ListaObiektowGuiRenderer::clone(Widget * widget){
-		auto renderer = std::shared_ptr<ListaObiektowGuiRenderer>(new ListaObiektowGuiRenderer{ *this });
+		auto renderer = std::make_shared<ListaObiektowGuiRenderer>(*this);
 		renderer->kontrolka_ = static_cast<BazowyWidzet*>(widget);
 		return renderer;
 	}

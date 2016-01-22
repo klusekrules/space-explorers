@@ -45,18 +45,14 @@ namespace SpEx{
 
 		sf::RenderWindow window{ { 800, 600 }, "Okno Testowe" };
 		tgui::Gui gui{ window }; // Create the gui and attach it to the window
-		tgui::Label::Ptr label = std::make_shared<tgui::Label>();
-		gui.add(label, "Label");
-		label->setText("Moj tekst");
-		label->setTextColor({255,255,255});
-		label->setPosition(200, 0);
+		
 		tgui::SurowiecGui::Ptr button = std::make_shared<tgui::SurowiecGui>();
 		gui.add(button,"MojPrzycisk");
 		
 		tgui::KontrolkaObiektu::Ptr kontrolka = std::make_shared<tgui::KontrolkaObiektu>();
 		gui.add(kontrolka, "Moja kontrolka");
-		kontrolka->setPosition(150,150);
 		gui.setFont("resource\\consola.ttf");
+		kontrolka->setPosition(150, 150);
 		button->ustawDane(*ptr);
 		button->setPosition(10,20);
 

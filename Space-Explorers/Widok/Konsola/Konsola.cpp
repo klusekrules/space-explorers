@@ -25,7 +25,11 @@ namespace SpEx{
 		if (!nazwa.empty()){
 			auto metoda = poleceniaKonsoli_.find(nazwa);
 			if (metoda != poleceniaKonsoli_.end()){
-				metoda->second.funkcja_(parametry);
+				try {
+					metoda->second.funkcja_(parametry);
+				}catch (tgui::Exception& e) {
+					log_.loguj(SLog::Log::Error, std::string("Wykryto wyj¹tek: ") + e.what());
+				}
 			} else{
 				if (log_.czyLogiOdblokowane(SLog::Log::Warning)){
 					log_.loguj(SLog::Log::Warning, "Nierozpoznane polecenie: " + nazwa);

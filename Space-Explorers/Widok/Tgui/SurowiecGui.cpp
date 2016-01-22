@@ -77,7 +77,7 @@ namespace tgui {
 	}
 		
 	std::shared_ptr<WidgetRenderer> tgui::SurowiecGuiRenderer::clone(Widget * widget){
-		auto renderer = std::shared_ptr<SurowiecGuiRenderer>(new SurowiecGuiRenderer{ *this });
+		auto renderer = std::make_shared<SurowiecGuiRenderer>(*this);
 		renderer->kontrolka_ = static_cast<BazowyWidzet*>(widget);
 		return renderer;
 	}

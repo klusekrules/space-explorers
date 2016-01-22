@@ -85,11 +85,8 @@ namespace tgui {
 		}
 	}
 
-	void BazowyRenderer::setPadding(const Padding & padding)
-	{
+	void BazowyRenderer::setPadding(const Padding & padding){
 		WidgetPadding::setPadding(padding);
-
-		kontrolka_->updateRendering();
 	}
 
 	void BazowyRenderer::draw(sf::RenderTarget & target, sf::RenderStates states) const

@@ -9,6 +9,12 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	// Create the window
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Window");
 	
+	tgui::Panel::Ptr m_panel = std::make_shared<tgui::Panel>();
+	tgui::Label::Ptr nazwa_ = std::make_shared<tgui::Label>();
+	m_panel->add(nazwa_, "NazwaObiektu");
+	nazwa_->setSize({ "{ ( &.w - &.h - 20 ) * 0.715 , ( &.h - 11 ) * 0.15 }" });
+	m_panel->setSize(410, 110);
+
 	tgui::Gui gui(window);
 	gui.setFont("resource\\arial.ttf");
 	

@@ -124,8 +124,6 @@ namespace tgui {
 
 	private:
 		std::shared_ptr<WidgetRenderer> clone(Widget* widget) override;
-		SurowiecGuiRenderer(const SurowiecGuiRenderer&) = default;
-		SurowiecGuiRenderer& operator=(const SurowiecGuiRenderer&) = delete;
 
 	protected:
 		

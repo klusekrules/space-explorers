@@ -27,6 +27,61 @@ namespace tgui{
 		m_draggableWidget = false;
 
 		m_panel->setBackgroundColor(sf::Color::Transparent);
+		
+		obraz_ = std::make_shared<Picture>();
+		m_panel->add(obraz_, "ObrazObiektu");
+		obraz_->setTexture("resource\\Brak_obrazka.png");
+		obraz_->setSize({"&.h-10"},{"&.h-10"});
+		obraz_->setPosition(5,5);
+				
+		nazwa_ = std::make_shared<Label>();
+		m_panel->add(nazwa_,"NazwaObiektu");
+		nazwa_->setTextSize(14);
+		nazwa_->setTextColor({ 255,0,0 });
+		nazwa_->setSize(208, 15);
+		//nazwa_->setSize({ "{ ( &.w - &.h - 20 ) * 0.715 , ( &.h - 11 ) * 0.15 }" });
+		nazwa_->setPosition(110, 3);
+		//nazwa_->setPosition({"{ &.h , 3 }"});
+		nazwa_->setText("Nazwa Obiektu");
+
+		tresc_ = std::make_shared<Label>();
+		m_panel->add(tresc_,"OpisObiektu");
+		tresc_->setTextSize(14);
+		tresc_->setTextColor({ 255,255,255 });
+		tresc_->setSize(208,75);//tresc_->setSize({ "{(&.w-&.h-20)*0.715,(&.h-11)*0.85}" });
+		tresc_->setPosition(110,22);//tresc_->setPosition({ "{&.h,(&.h-11)*0.15) + 7}" });
+		tresc_->setText("Opis Obiektu\nw wielu liniach.\nKoniec Opisu.");
+		
+		czasRozbudowy_ = std::make_shared<Label>();
+		m_panel->add(czasRozbudowy_, "CzasRozbudowy");
+		czasRozbudowy_->setTextSize(14);
+		czasRozbudowy_->setTextColor({ 255,255,255 });
+		czasRozbudowy_->setSize(83,15);//czasRozbudowy_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.15}" });
+		czasRozbudowy_->setPosition(323,8);//czasRozbudowy_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+5,3+(&.h-10)*0.05}" });
+		czasRozbudowy_->setText("Czas rozbudowy");
+		
+		czasZburzenia_ = std::make_shared<Label>();
+		m_panel->add(czasZburzenia_, "CzasZburzenia");
+		czasZburzenia_->setTextSize(14);
+		czasZburzenia_->setTextColor({ 255,255,255 });
+		czasZburzenia_->setSize(83, 15);//czasZburzenia_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.15}" });
+		czasZburzenia_->setPosition(323, 57);//czasZburzenia_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+5,7+(&.h-10)*0.5}" });
+		czasZburzenia_->setText("Czas burzenia");
+
+		rozbuduj_ = std::make_shared<Button>();
+		m_panel->add(rozbuduj_,"Rozbuduj");
+		rozbuduj_->setTextSize(14);
+		rozbuduj_->setSize(83, 20);//rozbuduj_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.3}" });
+		rozbuduj_->setPosition(323,25);//rozbuduj_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+5,3+(&.h-10)*0.2}" });
+		rozbuduj_->setText("Buduj");
+
+		zniszcz_ = std::make_shared<Button>();
+		m_panel->add(zniszcz_,"Zburz");
+		zniszcz_->setTextSize(14);
+		zniszcz_->setSize(83, 20);//zniszcz_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.3}" });
+		zniszcz_->setPosition(323,74);//zniszcz_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+5,7+(&.h-10)*0.65}" });
+		zniszcz_->setText("Zburz");
+		
 
 		m_renderer = std::make_shared<KontrolkaObiektuRenderer>(this);
 		reload("","",true);
@@ -39,13 +94,13 @@ namespace tgui{
 		idZdarzeniaKlikniecia_(copy.idZdarzeniaKlikniecia_),
 		idObiektu_(copy.idObiektu_)
 	{
-		/*obraz_ = this->get<Picture>("ObrazObiektu");
-		nazwa_ = this->get<Label>("NazwaObiektu");
-		tresc_ = this->get<Label>("OpisObiektu");
-		rozbuduj_ = this->get<Button>("Rozbuduj");
-		zniszcz_ = this->get<Button>("Zburz");
-		czasRozbudowy_ = this->get<Label>("CzasRozbudowy");
-		czasZburzenia_ = this->get<Label>("CzasZburzenia");*/
+		obraz_ = m_panel->get<Picture>("ObrazObiektu");
+		nazwa_ = m_panel->get<Label>("NazwaObiektu");
+		tresc_ = m_panel->get<Label>("OpisObiektu");
+		rozbuduj_ = m_panel->get<Button>("Rozbuduj");
+		zniszcz_ = m_panel->get<Button>("Zburz");
+		czasRozbudowy_ = m_panel->get<Label>("CzasRozbudowy");
+		czasZburzenia_ = m_panel->get<Label>("CzasZburzenia");
 	}
 
 	KontrolkaObiektu & KontrolkaObiektu::operator=(const KontrolkaObiektu & right)
@@ -57,20 +112,37 @@ namespace tgui{
 			idZdarzeniaBurzenia_ = right.idZdarzeniaBurzenia_;
 			idZdarzeniaKlikniecia_ = right.idZdarzeniaKlikniecia_;
 			idObiektu_ = right.idObiektu_;
-
-			/*std::swap(m_lineSpacing, temp.m_lineSpacing);
-			std::swap(m_textSize, temp.m_textSize);
-			std::swap(m_textColor, temp.m_textColor);
-			std::swap(m_maxLines, temp.m_maxLines);
-			std::swap(m_fullTextHeight, temp.m_fullTextHeight);
-			std::swap(m_linesStartFromTop, temp.m_linesStartFromTop);
-			std::swap(m_panel, temp.m_panel);
-			std::swap(m_scroll, temp.m_scroll);*/
+			obraz_ = m_panel->get<Picture>("ObrazObiektu");
+			nazwa_ = m_panel->get<Label>("NazwaObiektu");
+			tresc_ = m_panel->get<Label>("OpisObiektu");
+			rozbuduj_ = m_panel->get<Button>("Rozbuduj");
+			zniszcz_ = m_panel->get<Button>("Zburz");
+			czasRozbudowy_ = m_panel->get<Label>("CzasRozbudowy");
+			czasZburzenia_ = m_panel->get<Label>("CzasZburzenia");
 		}
 
 		return *this;
 	}
-	
+
+	void KontrolkaObiektu::reload(const std::string& primary, const std::string& secondary, bool force) {
+		auto renderer = getRenderer();
+		renderer->setBorders({ 0, 0, 0, 0 });
+		renderer->setPadding({ 0, 0, 0, 0 });
+		renderer->setBackgroundTexture({ "widgets\\tlo.png" });
+
+		if (m_theme && primary != "")
+		{
+			BazowyWidzet::reload(primary, secondary, force);
+		}
+
+		if (force)
+		{
+			if (renderer->m_backgroundTexture.isLoaded())
+				setSize(renderer->m_backgroundTexture.getImageSize());
+		}
+
+		updateSize();
+	}
 	/*
 	void KontrolkaObiektu::setSize(float width, float hight){
 
@@ -202,37 +274,13 @@ namespace tgui{
 	}
 	*/
 	
-	void KontrolkaObiektu::reload(const std::string& primary, const std::string& secondary, bool force){
-		auto renderer = getRenderer();
-		renderer->setBorders({ 2, 2, 2, 2 });
-		renderer->setPadding({ 2, 2, 2, 2 });
-		renderer->setBackgroundColor({ 245, 245, 245 });
-		renderer->setBorderColor({ 245, 0, 0 });
-		renderer->setBackgroundTexture({"widgets\\tlo.png"});
-
-		if (m_theme && primary != "")
-		{
-			renderer->setBorders({ 0, 0, 0, 0 });
-			renderer->setPadding({ 0, 0, 0, 0 });
-
-			Widget::reload(primary, secondary, force);
-		}
-
-		if (force)
-		{
-			if (renderer->m_backgroundTexture.isLoaded())
-				setSize(renderer->m_backgroundTexture.getImageSize());
-		}
-
-		updateSize();
-	}
-	
 	const STyp::Identyfikator& KontrolkaObiektu::pobierzIdObiektu() const{
 		return idObiektu_;
 	}
 
-	bool KontrolkaObiektu::mouseOnWidget(float x, float y){
-		if (sf::FloatRect{ getPosition().x, getPosition().y, getSize().x, getSize().y }.contains(x, y))
+	bool KontrolkaObiektu::mouseOnWidget(float x, float y) const{
+		return sf::FloatRect{ getPosition().x, getPosition().y, getSize().x, getSize().y }.contains(x, y);
+		/*if (sf::FloatRect{ getPosition().x, getPosition().y, getSize().x, getSize().y }.contains(x, y))
 			return true;
 		else{
 			if (m_mouseHover)
@@ -240,7 +288,7 @@ namespace tgui{
 
 			m_mouseHover = false;
 			return false;
-		}
+		}*/
 	}
 
 	bool KontrolkaObiektu::ustawDane(const SpEx::ObiektInfo& obj, const SpEx::Planeta& planeta){
@@ -316,7 +364,7 @@ namespace tgui{
 	}
 
 	std::shared_ptr<WidgetRenderer> tgui::KontrolkaObiektuRenderer::clone(Widget * widget){
-		auto renderer = std::shared_ptr<KontrolkaObiektuRenderer>(new KontrolkaObiektuRenderer{ *this });
+		auto renderer = std::make_shared<KontrolkaObiektuRenderer>(*this);
 		renderer->kontrolka_ = static_cast<KontrolkaObiektu*>(widget);
 		return renderer;
 	}

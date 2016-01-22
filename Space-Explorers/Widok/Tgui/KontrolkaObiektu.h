@@ -80,6 +80,7 @@ namespace tgui{
 		* \date 30-09-2014
 		*/
 		const STyp::Identyfikator& pobierzIdObiektu() const;
+
 		int pobierzIdentyfikatorZdarzeniaBudowy() const {
 			return idZdarzeniaBudowy_;
 		}
@@ -90,7 +91,7 @@ namespace tgui{
 			return idZdarzeniaKlikniecia_;
 		}
 
-		bool mouseOnWidget(float x, float y) override;
+		bool mouseOnWidget(float x, float y) const override;
 		
 		std::shared_ptr<KontrolkaObiektuRenderer> getRenderer() const {
 			return std::static_pointer_cast<KontrolkaObiektuRenderer>(m_renderer);
@@ -130,8 +131,6 @@ namespace tgui{
 		using BazowyRenderer::BazowyRenderer;
 	private:
 		std::shared_ptr<WidgetRenderer> clone(Widget* widget) override;
-		KontrolkaObiektuRenderer(const KontrolkaObiektuRenderer&) = default;
-		KontrolkaObiektuRenderer& operator=(const KontrolkaObiektuRenderer&) = delete;
 	protected:
 		friend class KontrolkaObiektu;
 	};

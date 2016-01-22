@@ -190,8 +190,6 @@ namespace tgui{
 
 	private:
 		std::shared_ptr<WidgetRenderer> clone(Widget* widget) override;
-		ListaObiektowGuiRenderer(const ListaObiektowGuiRenderer&) = default;
-		ListaObiektowGuiRenderer& operator=(const ListaObiektowGuiRenderer&) = delete;
 
 	protected:
 

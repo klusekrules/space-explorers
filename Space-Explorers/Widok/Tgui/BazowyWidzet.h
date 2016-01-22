@@ -31,7 +31,7 @@ namespace tgui {
 			return m_panel->getFont();
 		}
 
-		bool mouseOnWidget(float x, float y) override;
+		bool mouseOnWidget(float x, float y) const override;
 
 		std::shared_ptr<BazowyRenderer> getRenderer() const {
 			return std::static_pointer_cast<BazowyRenderer>(m_renderer);
