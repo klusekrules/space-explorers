@@ -319,8 +319,10 @@
     <ClInclude Include="include\TGUI\BoxLayout.hpp" />
     <ClInclude Include="include\TGUI\Callback.hpp" />
     <ClInclude Include="include\TGUI\Clipboard.hpp" />
+    <ClInclude Include="include\TGUI\Color.hpp" />
     <ClInclude Include="include\TGUI\Config.hpp" />
     <ClInclude Include="include\TGUI\Container.hpp" />
+    <ClInclude Include="include\TGUI\DefaultFont.hpp" />
     <ClInclude Include="include\TGUI\Exception.hpp" />
     <ClInclude Include="include\TGUI\Font.hpp" />
     <ClInclude Include="include\TGUI\Global.hpp" />

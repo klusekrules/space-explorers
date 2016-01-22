@@ -304,20 +304,13 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool Scrollbar::mouseOnWidget(float x, float y)
+    bool Scrollbar::mouseOnWidget(float x, float y) const
     {
         // Don't make any calculations when no scrollbar is needed
         if ((m_maximum <= m_lowValue) && m_autoHide)
             return false;
 
-        // Check if the mouse is on top of the scrollbar
-        if (sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y}.contains(x, y))
-            return true;
-
-        if (m_mouseHover)
-            mouseLeftWidget();
-
-        return false;
+        return sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y}.contains(x, y);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -451,9 +444,6 @@ namespace tgui
         // The thumb might have been dragged between two values
         if (m_mouseDown)
             updatePosition();
-
-        // The mouse is no longer down
-        m_mouseDown = false;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -931,7 +921,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ScrollbarRenderer::setTrackColor(const sf::Color& color)
+    void ScrollbarRenderer::setTrackColor(const Color& color)
     {
         setTrackColorNormal(color);
         setTrackColorHover(color);
@@ -939,21 +929,21 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ScrollbarRenderer::setTrackColorNormal(const sf::Color& color)
+    void ScrollbarRenderer::setTrackColorNormal(const Color& color)
     {
         m_trackColorNormal = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ScrollbarRenderer::setTrackColorHover(const sf::Color& color)
+    void ScrollbarRenderer::setTrackColorHover(const Color& color)
     {
         m_trackColorHover = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ScrollbarRenderer::setThumbColor(const sf::Color& color)
+    void ScrollbarRenderer::setThumbColor(const Color& color)
     {
         setThumbColorNormal(color);
         setThumbColorHover(color);
@@ -961,21 +951,21 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ScrollbarRenderer::setThumbColorNormal(const sf::Color& color)
+    void ScrollbarRenderer::setThumbColorNormal(const Color& color)
     {
         m_thumbColorNormal = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ScrollbarRenderer::setThumbColorHover(const sf::Color& color)
+    void ScrollbarRenderer::setThumbColorHover(const Color& color)
     {
         m_thumbColorHover = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ScrollbarRenderer::setArrowBackgroundColor(const sf::Color& color)
+    void ScrollbarRenderer::setArrowBackgroundColor(const Color& color)
     {
         setArrowBackgroundColorNormal(color);
         setArrowBackgroundColorHover(color);
@@ -983,21 +973,21 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ScrollbarRenderer::setArrowBackgroundColorNormal(const sf::Color& color)
+    void ScrollbarRenderer::setArrowBackgroundColorNormal(const Color& color)
     {
         m_arrowBackgroundColorNormal = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ScrollbarRenderer::setArrowBackgroundColorHover(const sf::Color& color)
+    void ScrollbarRenderer::setArrowBackgroundColorHover(const Color& color)
     {
         m_arrowBackgroundColorHover = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ScrollbarRenderer::setArrowColor(const sf::Color& color)
+    void ScrollbarRenderer::setArrowColor(const Color& color)
     {
         setArrowColorNormal(color);
         setArrowColorHover(color);
@@ -1005,14 +995,14 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ScrollbarRenderer::setArrowColorNormal(const sf::Color& color)
+    void ScrollbarRenderer::setArrowColorNormal(const Color& color)
     {
         m_arrowColorNormal = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ScrollbarRenderer::setArrowColorHover(const sf::Color& color)
+    void ScrollbarRenderer::setArrowColorHover(const Color& color)
     {
         m_arrowColorHover = color;
     }
@@ -1257,7 +1247,7 @@ namespace tgui
 
     std::shared_ptr<WidgetRenderer> ScrollbarRenderer::clone(Widget* widget)
     {
-        auto renderer = std::shared_ptr<ScrollbarRenderer>(new ScrollbarRenderer{*this});
+        auto renderer = std::make_shared<ScrollbarRenderer>(*this);
         renderer->m_scrollbar = static_cast<Scrollbar*>(widget);
         return renderer;
     }

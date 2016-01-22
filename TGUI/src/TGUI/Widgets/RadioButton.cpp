@@ -212,7 +212,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool RadioButton::mouseOnWidget(float x, float y)
+    bool RadioButton::mouseOnWidget(float x, float y) const
     {
         if (m_allowTextClick)
         {
@@ -230,9 +230,6 @@ namespace tgui
             if (sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y}.contains(x, y))
                 return true;
         }
-
-        if (m_mouseHover)
-            mouseLeftWidget();
 
         return false;
     }
@@ -519,7 +516,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void RadioButtonRenderer::setTextColor(const sf::Color& color)
+    void RadioButtonRenderer::setTextColor(const Color& color)
     {
         setTextColorNormal(color);
         setTextColorHover(color);
@@ -527,7 +524,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void RadioButtonRenderer::setTextColorNormal(const sf::Color& color)
+    void RadioButtonRenderer::setTextColorNormal(const Color& color)
     {
         m_textColorNormal = color;
 
@@ -537,7 +534,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void RadioButtonRenderer::setTextColorHover(const sf::Color& color)
+    void RadioButtonRenderer::setTextColorHover(const Color& color)
     {
         m_textColorHover = color;
 
@@ -547,7 +544,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void RadioButtonRenderer::setBackgroundColor(const sf::Color& color)
+    void RadioButtonRenderer::setBackgroundColor(const Color& color)
     {
         setBackgroundColorNormal(color);
         setBackgroundColorHover(color);
@@ -555,21 +552,21 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void RadioButtonRenderer::setBackgroundColorNormal(const sf::Color& color)
+    void RadioButtonRenderer::setBackgroundColorNormal(const Color& color)
     {
         m_backgroundColorNormal = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void RadioButtonRenderer::setBackgroundColorHover(const sf::Color& color)
+    void RadioButtonRenderer::setBackgroundColorHover(const Color& color)
     {
         m_backgroundColorHover = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void RadioButtonRenderer::setForegroundColor(const sf::Color& color)
+    void RadioButtonRenderer::setForegroundColor(const Color& color)
     {
         setForegroundColorNormal(color);
         setForegroundColorHover(color);
@@ -577,21 +574,21 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void RadioButtonRenderer::setForegroundColorNormal(const sf::Color& color)
+    void RadioButtonRenderer::setForegroundColorNormal(const Color& color)
     {
         m_foregroundColorNormal = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void RadioButtonRenderer::setForegroundColorHover(const sf::Color& color)
+    void RadioButtonRenderer::setForegroundColorHover(const Color& color)
     {
         m_foregroundColorHover = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void RadioButtonRenderer::setCheckColor(const sf::Color& color)
+    void RadioButtonRenderer::setCheckColor(const Color& color)
     {
         setCheckColorNormal(color);
         setCheckColorHover(color);
@@ -599,14 +596,14 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void RadioButtonRenderer::setCheckColorNormal(const sf::Color& color)
+    void RadioButtonRenderer::setCheckColorNormal(const Color& color)
     {
         m_checkColorNormal = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void RadioButtonRenderer::setCheckColorHover(const sf::Color& color)
+    void RadioButtonRenderer::setCheckColorHover(const Color& color)
     {
         m_checkColorHover = color;
     }
@@ -748,7 +745,7 @@ namespace tgui
 
     std::shared_ptr<WidgetRenderer> RadioButtonRenderer::clone(Widget* widget)
     {
-        auto renderer = std::shared_ptr<RadioButtonRenderer>(new RadioButtonRenderer{*this});
+        auto renderer = std::make_shared<RadioButtonRenderer>(*this);
         renderer->m_radioButton = static_cast<RadioButton*>(widget);
         return renderer;
     }

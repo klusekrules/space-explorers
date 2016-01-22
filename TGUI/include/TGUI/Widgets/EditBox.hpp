@@ -28,6 +28,8 @@
 
 #include <TGUI/Widgets/ClickableWidget.hpp>
 
+#include <regex>
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace tgui
@@ -60,20 +62,27 @@ namespace tgui
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// @brief The text alignment
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        struct Alignment
+        enum class Alignment
         {
-            /// @brief The text alignment
-            enum Alignments
-            {
-                /// Put the text on the left side (default)
-                Left,
+            /// Put the text on the left side (default)
+            Left,
 
-                /// Center the text
-                Center,
+            /// Center the text
+            Center,
 
-                /// Put the text on the right side (e.g. for numbers)
-                Right
-            };
+            /// Put the text on the right side (e.g. for numbers)
+            Right
+        };
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// @brief Predefined input validators
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        struct Validator
+        {
+            static std::string Int;   ///< Accept negative and positive integers
+            static std::string UInt;  ///< Accept only positive integers
+            static std::string Float; ///< Accept decimal numbers
         };
 
 
@@ -298,7 +307,7 @@ namespace tgui
         /// @param alignment  The new text alignment
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setAlignment(Alignment::Alignments alignment);
+        void setAlignment(Alignment alignment);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -307,7 +316,7 @@ namespace tgui
         /// @return Text alignment
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Alignment::Alignments getAlignment()
+        Alignment getAlignment()
         {
             return m_textAlignment;
         }
@@ -370,28 +379,36 @@ namespace tgui
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// @brief Changes whether the edit box accepts all characters or only numeric input.
+        /// @brief Define how the text input should look like
         ///
-        /// @param numbersOnly  Should the edit box only accept numbers?
+        /// @param regex  Valid regular expression for std::regex to match on text changes
         ///
-        /// By default the edit box accepts all text characters.
+        /// When the regex does not match when calling the setText function then the edit box contents will be cleared.
+        /// When it does not match when the user types a character in the edit box, then the input character is rejected.
         ///
+        /// Examples:
+        /// @code
+        /// edit1->setInputValidator(tgui::EditBox::Validator::Int);
+        /// edit2->setInputValidator("[a-zA-Z][a-zA-Z0-9]*");
+        /// @endcode
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setNumbersOnly(bool numbersOnly = true);
+        void setInputValidator(const std::string& regex = ".*");
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// @brief Returns whether the edit box accepts all characters or only numeric input.
+        /// @brief Returns the regex to which the text is matched
         ///
-        /// @return Should the edit box only accept numbers?
-        ///
-        /// By default the edit box accepts all text characters.
+        /// @return Regex to match the text with on every text change
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        bool isNumbersOnly()
-        {
-            return m_numbersOnly;
-        }
+        const std::string& getInputValidator();
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// @brief Selects the entire text in the edit box
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        void selectText();
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -524,11 +541,14 @@ namespace tgui
         sf::String    m_displayedText;
         sf::String    m_text;
 
+        std::string   m_regexString = ".*";
+        std::regex    m_regex = std::regex{m_regexString};
+
         // This will store the size of the text ( 0 to auto size )
         unsigned int  m_textSize = 0;
 
         // The text alignment
-        Alignment::Alignments m_textAlignment = Alignment::Left;
+        Alignment m_textAlignment = Alignment::Left;
 
         // The selection
         std::size_t   m_selChars = 0;
@@ -561,7 +581,6 @@ namespace tgui
         // Is there a possibility that the user is going to double click?
         bool m_possibleDoubleClick = false;
 
-        bool m_numbersOnly = false;
 
         friend class EditBoxRenderer;
 
@@ -648,12 +667,21 @@ namespace tgui
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// @brief This will change the width of the caret.
+        ///
+        /// @param width  New width of the caret
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        void setCaretWidth(float width);
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// @brief Set the text color that will be used inside the edit box.
         ///
         /// @param textColor  The new text color.
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setTextColor(const sf::Color& textColor);
+        void setTextColor(const Color& textColor);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -662,7 +690,7 @@ namespace tgui
         /// @param selectedTextColor  The new text color.
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setSelectedTextColor(const sf::Color& selectedTextColor);
+        void setSelectedTextColor(const Color& selectedTextColor);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -671,7 +699,7 @@ namespace tgui
         /// @param selectedTextBackgroundColor  The new background color.
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setSelectedTextBackgroundColor(const sf::Color& selectedTextBackgroundColor);
+        void setSelectedTextBackgroundColor(const Color& selectedTextBackgroundColor);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -680,7 +708,7 @@ namespace tgui
         /// @param defaultTextColor  The new default text color.
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setDefaultTextColor(const sf::Color& defaultTextColor);
+        void setDefaultTextColor(const Color& defaultTextColor);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -696,7 +724,7 @@ namespace tgui
         /// @see setTextColorHover
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setBackgroundColor(const sf::Color& color);
+        void setBackgroundColor(const Color& color);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -707,7 +735,7 @@ namespace tgui
         /// Note that this color is ignored when you set an image as background.
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setBackgroundColorNormal(const sf::Color& color);
+        void setBackgroundColorNormal(const Color& color);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -718,7 +746,7 @@ namespace tgui
         /// Note that this color is ignored when you set an image as background.
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setBackgroundColorHover(const sf::Color& color);
+        void setBackgroundColorHover(const Color& color);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -727,7 +755,7 @@ namespace tgui
         /// @param caretColor  The color of the blinking caret
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setCaretColor(const sf::Color& caretColor);
+        void setCaretColor(const Color& caretColor);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -736,7 +764,7 @@ namespace tgui
         /// @param color  New border color
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setBorderColor(const sf::Color& color);
+        void setBorderColor(const Color& color);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

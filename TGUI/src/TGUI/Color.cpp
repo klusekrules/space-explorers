@@ -23,7 +23,8 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include <TGUI/Widgets/ClickableWidget.hpp>
+#include <TGUI/Color.hpp>
+#include <TGUI/Loading/Deserializer.hpp>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -31,68 +32,37 @@ namespace tgui
 {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    ClickableWidget::ClickableWidget(const Layout2d& size)
-    {
-        m_callback.widgetType = "ClickableWidget";
-
-        addSignal<sf::Vector2f>("MousePressed");
-        addSignal<sf::Vector2f>("MouseReleased");
-        addSignal<sf::Vector2f>("Clicked");
-
-        setSize(size);
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    ClickableWidget::ClickableWidget(const Layout& width, const Layout& height) :
-        ClickableWidget{Layout2d{width, height}}
+    Color::Color(const sf::Color& color) :
+        m_color{color}
     {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    ClickableWidget::Ptr ClickableWidget::copy(ClickableWidget::ConstPtr widget)
+    Color::Color(sf::Uint8 red, sf::Uint8 green, sf::Uint8 blue, sf::Uint8 alpha) :
+        m_color{red, green, blue, alpha}
     {
-        if (widget)
-            return std::static_pointer_cast<ClickableWidget>(widget->clone());
-        else
-            return nullptr;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool ClickableWidget::mouseOnWidget(float x, float y) const
+    Color::Color(const char* string) :
+        Color{std::string{string}}
     {
-        return sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y}.contains(x, y);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ClickableWidget::leftMousePressed(float x, float y)
+    Color::Color(const std::string& string) :
+        m_color{Deserializer::deserialize(tgui::ObjectConverter::Type::Color, string).getColor()}
     {
-        m_mouseDown = true;
-
-        m_callback.mouse.x = static_cast<int>(x - getPosition().x);
-        m_callback.mouse.y = static_cast<int>(y - getPosition().y);
-        sendSignal("MousePressed", sf::Vector2f{x - getPosition().x, y - getPosition().y});
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ClickableWidget::leftMouseReleased(float x, float y)
+    Color::operator sf::Color() const
     {
-        m_callback.mouse.x = static_cast<int>(x - getPosition().x);
-        m_callback.mouse.y = static_cast<int>(y - getPosition().y);
-        sendSignal("MouseReleased", sf::Vector2f{x - getPosition().x, y - getPosition().y});
-
-        if (m_mouseDown)
-            sendSignal("Clicked", sf::Vector2f{x - getPosition().x, y - getPosition().y});
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void ClickableWidget::draw(sf::RenderTarget&, sf::RenderStates) const
-    {
+        return m_color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

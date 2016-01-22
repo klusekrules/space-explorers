@@ -455,6 +455,8 @@ namespace tgui
         if (m_scroll != nullptr)
             m_scroll->setOpacity(m_opacity);
 
+        getRenderer()->m_backgroundTexture.setColor({255, 255, 255, static_cast<sf::Uint8>(m_opacity * 255)});
+
         m_textBeforeSelection.setColor(calcColorOpacity(getRenderer()->m_textColor, getOpacity()));
         m_textAfterSelection1.setColor(calcColorOpacity(getRenderer()->m_textColor, getOpacity()));
         m_textAfterSelection2.setColor(calcColorOpacity(getRenderer()->m_textColor, getOpacity()));
@@ -471,22 +473,9 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool TextBox::mouseOnWidget(float x, float y)
+    bool TextBox::mouseOnWidget(float x, float y) const
     {
-        // Pass the event to the scrollbar (if there is one)
-        if (m_scroll != nullptr)
-            m_scroll->mouseOnWidget(x, y);
-
-        // Check if the mouse is on top of the text box
-        if (sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y}.contains(x, y))
-            return true;
-        else // The mouse is not on top of the text box
-        {
-            if (m_mouseHover)
-                mouseLeftWidget();
-
-            return false;
-        }
+        return sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y}.contains(x, y);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -693,8 +682,6 @@ namespace tgui
                 }
             }
         }
-
-        m_mouseDown = false;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -760,7 +747,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void TextBox::mouseNotOnWidget()
+    void TextBox::mouseNoLongerOnWidget()
     {
         if (m_mouseHover)
             mouseLeftWidget();
@@ -773,7 +760,7 @@ namespace tgui
 
     void TextBox::mouseNoLongerDown()
     {
-        m_mouseDown = false;
+        Widget::mouseNoLongerDown();
 
         if (m_scroll != nullptr)
             m_scroll->m_mouseDown = false;
@@ -1986,14 +1973,14 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void TextBoxRenderer::setBackgroundColor(const sf::Color& color)
+    void TextBoxRenderer::setBackgroundColor(const Color& color)
     {
         m_backgroundColor = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void TextBoxRenderer::setTextColor(const sf::Color& color)
+    void TextBoxRenderer::setTextColor(const Color& color)
     {
         m_textColor = color;
         m_textBox->m_textBeforeSelection.setColor(calcColorOpacity(m_textColor, m_textBox->getOpacity()));
@@ -2003,7 +1990,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void TextBoxRenderer::setSelectedTextColor(const sf::Color& color)
+    void TextBoxRenderer::setSelectedTextColor(const Color& color)
     {
         m_selectedTextColor = color;
         m_textBox->m_textSelection1.setColor(calcColorOpacity(m_selectedTextColor, m_textBox->getOpacity()));
@@ -2012,21 +1999,21 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void TextBoxRenderer::setSelectedTextBackgroundColor(const sf::Color& color)
+    void TextBoxRenderer::setSelectedTextBackgroundColor(const Color& color)
     {
         m_selectedTextBgrColor = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void TextBoxRenderer::setBorderColor(const sf::Color& borderColor)
+    void TextBoxRenderer::setBorderColor(const Color& borderColor)
     {
         m_borderColor = borderColor;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void TextBoxRenderer::setCaretColor(const sf::Color& caretColor)
+    void TextBoxRenderer::setCaretColor(const Color& caretColor)
     {
         m_caretColor = caretColor;
     }
@@ -2148,7 +2135,7 @@ namespace tgui
 
     std::shared_ptr<WidgetRenderer> TextBoxRenderer::clone(Widget* widget)
     {
-        auto renderer = std::shared_ptr<TextBoxRenderer>(new TextBoxRenderer{*this});
+        auto renderer = std::make_shared<TextBoxRenderer>(*this);
         renderer->m_textBox = static_cast<TextBox*>(widget);
         return renderer;
     }

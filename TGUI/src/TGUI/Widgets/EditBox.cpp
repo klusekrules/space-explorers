@@ -38,6 +38,12 @@ namespace tgui
 {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    std::string EditBox::Validator::Int   = "[+-]?[0-9]*";
+    std::string EditBox::Validator::UInt  = "[0-9]*";
+    std::string EditBox::Validator::Float = "[+-]?[0-9]*\\.?[0-9]*";
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     EditBox::EditBox()
     {
         m_callback.widgetType = "EditBox";
@@ -151,13 +157,15 @@ namespace tgui
             m_defaultText.setCharacterSize(m_textSize);
         }
 
-        // Change the text
-        m_text = text;
-        m_displayedText = text;
+        // Change the text if allowed
+        if (m_regexString == ".*")
+            m_text = text;
+        else if (std::regex_match(text.toAnsiString(), m_regex))
+            m_text = text.toAnsiString(); // Unicode is not supported when using regex because it can't be checked
+        else // Clear the text
+            m_text = "";
 
-        // If the edit box only accepts numbers then remove all other characters
-        if (m_numbersOnly)
-            setNumbersOnly(true);
+        m_displayedText = m_text;
 
         // If there is a character limit then check if it is exeeded
         if ((m_maxChars > 0) && (m_displayedText.getSize() > m_maxChars))
@@ -287,7 +295,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void EditBox::setAlignment(Alignment::Alignments alignment)
+    void EditBox::setAlignment(Alignment alignment)
     {
         m_textAlignment = alignment;
         setText(m_text);
@@ -374,40 +382,35 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void EditBox::setNumbersOnly(bool numbersOnly)
+    void EditBox::setInputValidator(const std::string& regex)
     {
-        m_numbersOnly = numbersOnly;
+        m_regexString = regex;
+        m_regex = m_regexString;
 
-        // Remove all letters from the edit box if needed
-        if (numbersOnly && !m_text.isEmpty())
-        {
-            sf::String newText;
-            bool commaFound = false;
-
-            if ((m_text[0] == '+') || (m_text[0] == '-'))
-                newText += m_text[0];
-
-            for (std::size_t i = 0; i < m_text.getSize(); ++i)
-            {
-                if (!commaFound)
-                {
-                    if ((m_text[i] == ',') || (m_text[i] == '.'))
-                    {
-                        newText += m_text[i];
-                        commaFound = true;
-                    }
-                }
-
-                if ((m_text[i] >= '0') && (m_text[i] <= '9'))
-                    newText += m_text[i];
-            }
-
-            // When the text changed then reposition the text
-            if (newText != m_text)
-                setText(newText);
-        }
+        setText(m_text);
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    const std::string& EditBox::getInputValidator()
+    {
+        return m_regexString;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void EditBox::selectText()
+    {
+        m_selStart = 0;
+        m_selEnd = m_text.getSize();
+        m_selChars = m_text.getSize();
+
+        m_textBeforeSelection.setString("");
+        m_textSelection.setString(m_displayedText);
+        m_textAfterSelection.setString("");
+
+        recalculateTextPositions();
+    }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -791,15 +794,7 @@ namespace tgui
                 }
                 else if (event.code == sf::Keyboard::A)
                 {
-                    m_selStart = 0;
-                    m_selEnd = m_text.getSize();
-                    m_selChars = m_text.getSize();
-
-                    m_textBeforeSelection.setString("");
-                    m_textSelection.setString(m_displayedText);
-                    m_textAfterSelection.setString("");
-
-                    recalculateTextPositions();
+                    selectText();
                 }
             }
         }
@@ -809,37 +804,15 @@ namespace tgui
 
     void EditBox::textEntered(sf::Uint32 key)
     {
-        // If only numbers are supported then make sure the input is valid
-        if (m_numbersOnly)
+        // Only add the character when the regex matches
+        if (m_regexString != ".*")
         {
-            if ((key < '0') || (key > '9'))
-            {
-                if ((key == '-') || (key == '+'))
-                {
-                    if ((m_selStart == 0) || (m_selEnd == 0))
-                    {
-                        if (!m_text.isEmpty())
-                        {
-                            // You can't have multiple + and - characters after each other
-                            if ((m_text[0] == '-') || (m_text[0] == '+'))
-                                return;
-                        }
-                    }
-                    else // + and - symbols are only allowed at the beginning of the line
-                        return;
-                }
-                else if ((key == ',') || (key == '.'))
-                {
-                    // Only one comma is allowed
-                    for (auto it = m_text.begin(); it != m_text.end(); ++it)
-                    {
-                        if ((*it == ',') || (*it == '.'))
-                            return;
-                    }
-                }
-                else // Character not accepted
-                    return;
-            }
+            sf::String text = m_text;
+            text.insert(m_selEnd, key);
+
+            // The character has to match the regex
+            if (!std::regex_match(text.toAnsiString(), m_regex))
+                return;
         }
 
         // If there are selected characters then delete them first
@@ -1249,6 +1222,8 @@ namespace tgui
             setPadding(Deserializer::deserialize(ObjectConverter::Type::Borders, value).getBorders());
         else if (property == "borders")
             setBorders(Deserializer::deserialize(ObjectConverter::Type::Borders, value).getBorders());
+        else if (property == "caretwidth")
+            m_editBox->setCaretWidth(Deserializer::deserialize(ObjectConverter::Type::Number, value).getNumber());
         else if (property == "textcolor")
             setTextColor(Deserializer::deserialize(ObjectConverter::Type::Color, value).getColor());
         else if (property == "selectedtextcolor")
@@ -1326,6 +1301,11 @@ namespace tgui
             else
                 WidgetRenderer::setProperty(property, std::move(value));
         }
+        else if (value.getType() == ObjectConverter::Type::Number)
+        {
+            if (property == "caretwidth")
+                m_editBox->setCaretWidth(value.getNumber());
+        }
         else
             WidgetRenderer::setProperty(property, std::move(value));
     }
@@ -1340,6 +1320,8 @@ namespace tgui
             return m_padding;
         else if (property == "borders")
             return m_borders;
+        else if (property == "caretwidth")
+            return m_editBox->getCaretWidth();
         else if (property == "textcolor")
             return m_textColor;
         else if (property == "selectedtextcolor")
@@ -1388,6 +1370,7 @@ namespace tgui
             pairs["BackgroundColorHover"] = m_backgroundColorHover;
         }
 
+        pairs["CaretWidth"] = m_editBox->getCaretWidth();
         pairs["TextColor"] = m_textColor;
         pairs["SelectedTextColor"] = m_selectedTextColor;
         pairs["SelectedTextBackgroundColor"] = m_selectedTextBackgroundColor;
@@ -1416,7 +1399,14 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void EditBoxRenderer::setTextColor(const sf::Color& textColor)
+    void EditBoxRenderer::setCaretWidth(float width)
+    {
+        m_editBox->setCaretWidth(width);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void EditBoxRenderer::setTextColor(const Color& textColor)
     {
         m_textColor = textColor;
         m_editBox->m_textBeforeSelection.setColor(calcColorOpacity(m_textColor, m_editBox->getOpacity()));
@@ -1425,7 +1415,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void EditBoxRenderer::setSelectedTextColor(const sf::Color& selectedTextColor)
+    void EditBoxRenderer::setSelectedTextColor(const Color& selectedTextColor)
     {
         m_selectedTextColor = selectedTextColor;
         m_editBox->m_textSelection.setColor(calcColorOpacity(m_selectedTextColor, m_editBox->getOpacity()));
@@ -1433,15 +1423,15 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void EditBoxRenderer::setSelectedTextBackgroundColor(const sf::Color& selectedTextBackgroundColor)
+    void EditBoxRenderer::setSelectedTextBackgroundColor(const Color& selectedTextBackgroundColor)
     {
         m_selectedTextBackgroundColor = selectedTextBackgroundColor;
         m_editBox->m_selectedTextBackground.setFillColor(calcColorOpacity(m_selectedTextBackgroundColor, m_editBox->getOpacity()));
     }
 
-     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void EditBoxRenderer::setDefaultTextColor(const sf::Color& defaultTextColor)
+    void EditBoxRenderer::setDefaultTextColor(const Color& defaultTextColor)
     {
         m_defaultTextColor = defaultTextColor;
         m_editBox->m_defaultText.setColor(calcColorOpacity(m_defaultTextColor, m_editBox->getOpacity()));
@@ -1449,7 +1439,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void EditBoxRenderer::setBackgroundColor(const sf::Color& color)
+    void EditBoxRenderer::setBackgroundColor(const Color& color)
     {
         setBackgroundColorNormal(color);
         setBackgroundColorHover(color);
@@ -1457,21 +1447,21 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void EditBoxRenderer::setBackgroundColorNormal(const sf::Color& color)
+    void EditBoxRenderer::setBackgroundColorNormal(const Color& color)
     {
         m_backgroundColorNormal = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void EditBoxRenderer::setBackgroundColorHover(const sf::Color& color)
+    void EditBoxRenderer::setBackgroundColorHover(const Color& color)
     {
         m_backgroundColorHover = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void EditBoxRenderer::setCaretColor(const sf::Color& caretColor)
+    void EditBoxRenderer::setCaretColor(const Color& caretColor)
     {
         m_caretColor = caretColor;
         m_editBox->m_caret.setFillColor(calcColorOpacity(m_caretColor, m_editBox->getOpacity()));
@@ -1479,7 +1469,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void EditBoxRenderer::setBorderColor(const sf::Color& color)
+    void EditBoxRenderer::setBorderColor(const Color& color)
     {
         m_borderColor = color;
     }
@@ -1626,7 +1616,7 @@ namespace tgui
 
     std::shared_ptr<WidgetRenderer> EditBoxRenderer::clone(Widget* widget)
     {
-        auto renderer = std::shared_ptr<EditBoxRenderer>(new EditBoxRenderer{*this});
+        auto renderer = std::make_shared<EditBoxRenderer>(*this);
         renderer->m_editBox = static_cast<EditBox*>(widget);
         return renderer;
     }

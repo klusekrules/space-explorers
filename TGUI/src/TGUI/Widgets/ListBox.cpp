@@ -620,20 +620,9 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool ListBox::mouseOnWidget(float x, float y)
+    bool ListBox::mouseOnWidget(float x, float y) const
     {
-        // Pass the event to the scrollbar (if there is one)
-        if (m_scroll != nullptr)
-            m_scroll->mouseOnWidget(x, y);
-
-        // Check if the mouse is on top of the list box
-        if (sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y}.contains(x, y))
-            return true;
-        else // The mouse is not on top of the list box
-        {
-            mouseNotOnWidget();
-            return false;
-        }
+        return sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y}.contains(x, y);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -730,8 +719,6 @@ namespace tgui
 
         if (m_mouseDown)
         {
-            m_mouseDown = false;
-
             if (m_selectedItem >= 0)
             {
                 m_callback.text  = m_items[m_selectedItem].getText();
@@ -901,7 +888,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ListBox::mouseNotOnWidget()
+    void ListBox::mouseNoLongerOnWidget()
     {
         if (m_mouseHover)
             mouseLeftWidget();
@@ -922,8 +909,9 @@ namespace tgui
 
     void ListBox::mouseNoLongerDown()
     {
+        Widget::mouseNoLongerDown();
         if (m_scroll != nullptr)
-            m_scroll->m_mouseDown = false;
+            m_scroll->mouseNoLongerDown();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1243,14 +1231,14 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ListBoxRenderer::setBackgroundColor(const sf::Color& backgroundColor)
+    void ListBoxRenderer::setBackgroundColor(const Color& backgroundColor)
     {
         m_backgroundColor = backgroundColor;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ListBoxRenderer::setTextColor(const sf::Color& color)
+    void ListBoxRenderer::setTextColor(const Color& color)
     {
         setTextColorNormal(color);
         setTextColorHover(color);
@@ -1258,7 +1246,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ListBoxRenderer::setTextColorNormal(const sf::Color& color)
+    void ListBoxRenderer::setTextColorNormal(const Color& color)
     {
         m_textColor = color;
         m_listBox->updateItemColors();
@@ -1266,7 +1254,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ListBoxRenderer::setTextColorHover(const sf::Color& color)
+    void ListBoxRenderer::setTextColorHover(const Color& color)
     {
         m_hoverTextColor = color;
         m_listBox->updateItemColors();
@@ -1274,21 +1262,21 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ListBoxRenderer::setHoverBackgroundColor(const sf::Color& hoverBackgroundColor)
+    void ListBoxRenderer::setHoverBackgroundColor(const Color& hoverBackgroundColor)
     {
         m_hoverBackgroundColor = hoverBackgroundColor;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ListBoxRenderer::setSelectedBackgroundColor(const sf::Color& selectedBackgroundColor)
+    void ListBoxRenderer::setSelectedBackgroundColor(const Color& selectedBackgroundColor)
     {
         m_selectedBackgroundColor = selectedBackgroundColor;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ListBoxRenderer::setSelectedTextColor(const sf::Color& selectedTextColor)
+    void ListBoxRenderer::setSelectedTextColor(const Color& selectedTextColor)
     {
         m_selectedTextColor = selectedTextColor;
         m_listBox->updateItemColors();
@@ -1296,7 +1284,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ListBoxRenderer::setBorderColor(const sf::Color& borderColor)
+    void ListBoxRenderer::setBorderColor(const Color& borderColor)
     {
         m_borderColor = borderColor;
     }
@@ -1421,7 +1409,7 @@ namespace tgui
 
     std::shared_ptr<WidgetRenderer> ListBoxRenderer::clone(Widget* widget)
     {
-        auto renderer = std::shared_ptr<ListBoxRenderer>(new ListBoxRenderer{*this});
+        auto renderer = std::make_shared<ListBoxRenderer>(*this);
         renderer->m_listBox = static_cast<ListBox*>(widget);
         return renderer;
     }

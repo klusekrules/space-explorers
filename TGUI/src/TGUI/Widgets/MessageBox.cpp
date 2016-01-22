@@ -302,7 +302,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void MessageBoxRenderer::setTextColor(const sf::Color& color)
+    void MessageBoxRenderer::setTextColor(const Color& color)
     {
         m_messageBox->m_label->setTextColor(color);
     }
@@ -311,7 +311,7 @@ namespace tgui
 
     std::shared_ptr<WidgetRenderer> MessageBoxRenderer::clone(Widget* widget)
     {
-        auto renderer = std::shared_ptr<MessageBoxRenderer>(new MessageBoxRenderer{*this});
+        auto renderer = std::make_shared<MessageBoxRenderer>(*this);
         renderer->m_messageBox = static_cast<MessageBox*>(widget);
         return renderer;
     }

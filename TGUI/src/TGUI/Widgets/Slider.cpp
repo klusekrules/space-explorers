@@ -257,25 +257,15 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool Slider::mouseOnWidget(float x, float y)
+    bool Slider::mouseOnWidget(float x, float y) const
     {
         // Check if the mouse is on top of the thumb
         if (sf::FloatRect(m_thumb.left, m_thumb.top, m_thumb.width, m_thumb.height).contains(x, y))
-        {
-            m_mouseDownOnThumb = true;
-            m_mouseDownOnThumbPos.x = x - m_thumb.left;
-            m_mouseDownOnThumbPos.y = y - m_thumb.top;
             return true;
-        }
-        else // The mouse is not on top of the thumb
-            m_mouseDownOnThumb = false;
 
         // Check if the mouse is on top of the track
         if (sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y}.contains(x, y))
             return true;
-
-        if (m_mouseHover)
-            mouseLeftWidget();
 
         return false;
     }
@@ -297,8 +287,6 @@ namespace tgui
         // The thumb might have been dragged between two values
         if (m_mouseDown)
             updatePosition();
-
-        m_mouseDown = false;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -364,6 +352,18 @@ namespace tgui
                 getRenderer()->m_textureThumbNormal.setPosition({m_thumb.left, m_thumb.top});
                 getRenderer()->m_textureThumbHover.setPosition({m_thumb.left, m_thumb.top});
             }
+        }
+        else // Normal mouse move
+        {
+            // Set some variables so that when the mouse goes down we know whether it is on the track or not
+            if (sf::FloatRect(m_thumb.left, m_thumb.top, m_thumb.width, m_thumb.height).contains(x, y))
+            {
+                m_mouseDownOnThumb = true;
+                m_mouseDownOnThumbPos.x = x - m_thumb.left;
+                m_mouseDownOnThumbPos.y = y - m_thumb.top;
+            }
+            else // The mouse is not on top of the thumb
+                m_mouseDownOnThumb = false;
         }
     }
 
@@ -587,7 +587,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void SliderRenderer::setTrackColor(const sf::Color& color)
+    void SliderRenderer::setTrackColor(const Color& color)
     {
         setTrackColorNormal(color);
         setTrackColorHover(color);
@@ -595,21 +595,21 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void SliderRenderer::setTrackColorNormal(const sf::Color& color)
+    void SliderRenderer::setTrackColorNormal(const Color& color)
     {
         m_trackColorNormal = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void SliderRenderer::setTrackColorHover(const sf::Color& color)
+    void SliderRenderer::setTrackColorHover(const Color& color)
     {
         m_trackColorHover = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void SliderRenderer::setThumbColor(const sf::Color& color)
+    void SliderRenderer::setThumbColor(const Color& color)
     {
         setThumbColorNormal(color);
         setThumbColorHover(color);
@@ -617,21 +617,21 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void SliderRenderer::setThumbColorNormal(const sf::Color& color)
+    void SliderRenderer::setThumbColorNormal(const Color& color)
     {
         m_thumbColorNormal = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void SliderRenderer::setThumbColorHover(const sf::Color& color)
+    void SliderRenderer::setThumbColorHover(const Color& color)
     {
         m_thumbColorHover = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void SliderRenderer::setBorderColor(const sf::Color& color)
+    void SliderRenderer::setBorderColor(const Color& color)
     {
         m_borderColor = color;
     }
@@ -774,7 +774,7 @@ namespace tgui
 
     std::shared_ptr<WidgetRenderer> SliderRenderer::clone(Widget* widget)
     {
-        auto renderer = std::shared_ptr<SliderRenderer>(new SliderRenderer{*this});
+        auto renderer = std::make_shared<SliderRenderer>(*this);
         renderer->m_slider = static_cast<Slider*>(widget);
         return renderer;
     }

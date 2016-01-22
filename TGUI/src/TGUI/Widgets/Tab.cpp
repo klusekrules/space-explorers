@@ -423,15 +423,9 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool Tab::mouseOnWidget(float x, float y)
+    bool Tab::mouseOnWidget(float x, float y) const
     {
-        if (sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y}.contains(x, y))
-            return true;
-
-        if (m_mouseHover)
-            mouseLeftWidget();
-
-        return false;
+        return sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y}.contains(x, y);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -709,7 +703,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void TabRenderer::setTextColor(const sf::Color& color)
+    void TabRenderer::setTextColor(const Color& color)
     {
         m_textColor = color;
 
@@ -722,7 +716,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void TabRenderer::setSelectedTextColor(const sf::Color& color)
+    void TabRenderer::setSelectedTextColor(const Color& color)
     {
         m_selectedTextColor = color;
 
@@ -741,21 +735,21 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void TabRenderer::setBackgroundColor(const sf::Color& color)
+    void TabRenderer::setBackgroundColor(const Color& color)
     {
         m_backgroundColor = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void TabRenderer::setSelectedBackgroundColor(const sf::Color& color)
+    void TabRenderer::setSelectedBackgroundColor(const Color& color)
     {
         m_selectedBackgroundColor = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void TabRenderer::setBorderColor(const sf::Color& color)
+    void TabRenderer::setBorderColor(const Color& color)
     {
         m_borderColor = color;
     }
@@ -888,7 +882,7 @@ namespace tgui
 
     std::shared_ptr<WidgetRenderer> TabRenderer::clone(Widget* widget)
     {
-        auto renderer = std::shared_ptr<TabRenderer>(new TabRenderer{*this});
+        auto renderer = std::make_shared<TabRenderer>(*this);
         renderer->m_tab = static_cast<Tab*>(widget);
         return renderer;
     }

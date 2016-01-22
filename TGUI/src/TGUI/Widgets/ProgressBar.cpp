@@ -497,7 +497,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ProgressBarRenderer::setTextColor(const sf::Color& color)
+    void ProgressBarRenderer::setTextColor(const Color& color)
     {
         setTextColorBack(color);
         setTextColorFront(color);
@@ -505,7 +505,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ProgressBarRenderer::setTextColorBack(const sf::Color& color)
+    void ProgressBarRenderer::setTextColorBack(const Color& color)
     {
         m_textColorBack = color;
         m_progressBar->m_textBack.setTextColor(calcColorOpacity(m_textColorBack, m_progressBar->getOpacity()));
@@ -513,7 +513,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ProgressBarRenderer::setTextColorFront(const sf::Color& color)
+    void ProgressBarRenderer::setTextColorFront(const Color& color)
     {
         m_textColorFront = color;
         m_progressBar->m_textFront.setTextColor(calcColorOpacity(m_textColorFront, m_progressBar->getOpacity()));
@@ -521,21 +521,21 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ProgressBarRenderer::setBackgroundColor(const sf::Color& color)
+    void ProgressBarRenderer::setBackgroundColor(const Color& color)
     {
         m_backgroundColor = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ProgressBarRenderer::setForegroundColor(const sf::Color& color)
+    void ProgressBarRenderer::setForegroundColor(const Color& color)
     {
         m_foregroundColor = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ProgressBarRenderer::setBorderColor(const sf::Color& color)
+    void ProgressBarRenderer::setBorderColor(const Color& color)
     {
         m_borderColor = color;
     }
@@ -787,7 +787,7 @@ namespace tgui
 
     std::shared_ptr<WidgetRenderer> ProgressBarRenderer::clone(Widget* widget)
     {
-        auto renderer = std::shared_ptr<ProgressBarRenderer>(new ProgressBarRenderer{*this});
+        auto renderer = std::make_shared<ProgressBarRenderer>(*this);
         renderer->m_progressBar = static_cast<ProgressBar*>(widget);
         return renderer;
     }

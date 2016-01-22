@@ -307,7 +307,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ChatBox::setTextColor(const sf::Color& color)
+    void ChatBox::setTextColor(const Color& color)
     {
         m_textColor = color;
     }
@@ -383,23 +383,9 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool ChatBox::mouseOnWidget(float x, float y)
+    bool ChatBox::mouseOnWidget(float x, float y) const
     {
-        // Pass the event to the scrollbar (if there is one)
-        if (m_scroll != nullptr)
-            m_scroll->mouseOnWidget(x, y);
-
-        // Check if the mouse is on top of the list box
-        if (sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y}.contains(x, y))
-            return true;
-        else // The mouse is not on top of the list box
-        {
-            if (m_mouseHover)
-                mouseLeftWidget();
-
-            m_mouseHover = false;
-            return false;
-        }
+        return sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y}.contains(x, y);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -469,8 +455,6 @@ namespace tgui
                 }
             }
         }
-
-        m_mouseDown = false;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -507,7 +491,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ChatBox::mouseNotOnWidget()
+    void ChatBox::mouseNoLongerOnWidget()
     {
         if (m_mouseHover)
             mouseLeftWidget();
@@ -520,7 +504,7 @@ namespace tgui
 
     void ChatBox::mouseNoLongerDown()
     {
-        m_mouseDown = false;
+        Widget::mouseNoLongerDown();
 
         if (m_scroll != nullptr)
             m_scroll->m_mouseDown = false;
@@ -840,14 +824,14 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ChatBoxRenderer::setBorderColor(const sf::Color& borderColor)
+    void ChatBoxRenderer::setBorderColor(const Color& borderColor)
     {
         m_borderColor = borderColor;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ChatBoxRenderer::setBackgroundColor(const sf::Color& backgroundColor)
+    void ChatBoxRenderer::setBackgroundColor(const Color& backgroundColor)
     {
         m_backgroundColor = backgroundColor;
     }
@@ -920,7 +904,7 @@ namespace tgui
 
     std::shared_ptr<WidgetRenderer> ChatBoxRenderer::clone(Widget* widget)
     {
-        auto renderer = std::shared_ptr<ChatBoxRenderer>(new ChatBoxRenderer{*this});
+        auto renderer = std::make_shared<ChatBoxRenderer>(*this);
         renderer->m_chatBox = static_cast<ChatBox*>(widget);
         return renderer;
     }

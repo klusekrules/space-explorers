@@ -425,8 +425,6 @@ namespace tgui
             editBox->limitTextWidth(parseBoolean(node->propertyValuePairs["textwidthlimited"]->value));
         if (node->propertyValuePairs["caretwidth"])
             editBox->setCaretWidth(tgui::stof(node->propertyValuePairs["caretwidth"]->value));
-        if (node->propertyValuePairs["numbersonly"])
-            editBox->setNumbersOnly(parseBoolean(node->propertyValuePairs["numbersonly"]->value));
         if (node->propertyValuePairs["passwordcharacter"])
         {
             std::string pass = DESERIALIZE_STRING("passwordcharacter");
@@ -443,6 +441,17 @@ namespace tgui
                 editBox->setAlignment(EditBox::Alignment::Right);
             else
                 throw Exception{"Failed to parse Alignment property. Only the values Left, Center and Right are correct."};
+        }
+        if (node->propertyValuePairs["inputvalidator"])
+        {
+            if (toLower(node->propertyValuePairs["inputvalidator"]->value) == "int")
+                editBox->setInputValidator(EditBox::Validator::Int);
+            else if (toLower(node->propertyValuePairs["inputvalidator"]->value) == "uint")
+                editBox->setInputValidator(EditBox::Validator::UInt);
+            else if (toLower(node->propertyValuePairs["inputvalidator"]->value) == "float")
+                editBox->setInputValidator(EditBox::Validator::Float);
+            else
+                editBox->setInputValidator(DESERIALIZE_STRING("inputvalidator"));
         }
 
         return editBox;
@@ -507,6 +516,17 @@ namespace tgui
             }
 
             label->setTextStyle(style);
+        }
+
+        if (node->propertyValuePairs["alignment"])
+        {
+            std::string alignment = toLower(DESERIALIZE_STRING("alignment"));
+            if (alignment == "right")
+                label->setAlignment(Label::Alignment::Right);
+            else if (alignment == "center")
+                label->setAlignment(Label::Alignment::Center);
+            else if (alignment != "left")
+                throw Exception{"Failed to parse Alignment property, found unknown value."};
         }
 
         if (node->propertyValuePairs["text"])

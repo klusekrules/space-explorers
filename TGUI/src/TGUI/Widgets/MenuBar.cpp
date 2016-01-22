@@ -284,7 +284,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool MenuBar::mouseOnWidget(float x, float y)
+    bool MenuBar::mouseOnWidget(float x, float y) const
     {
         // Check if the mouse is on top of the menu bar
         if (sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y}.contains(x, y))
@@ -312,9 +312,6 @@ namespace tgui
                     return true;
             }
         }
-
-        if (m_mouseHover)
-            mouseLeftWidget();
 
         return false;
     }
@@ -457,7 +454,10 @@ namespace tgui
 
     void MenuBar::mouseNoLongerDown()
     {
-        closeVisibleMenu();
+        if (!m_mouseDown)
+            closeVisibleMenu();
+
+        Widget::mouseNoLongerDown();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -648,14 +648,14 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void MenuBarRenderer::setBackgroundColor(const sf::Color& backgroundColor)
+    void MenuBarRenderer::setBackgroundColor(const Color& backgroundColor)
     {
         m_backgroundColor = backgroundColor;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void MenuBarRenderer::setTextColor(const sf::Color& textColor)
+    void MenuBarRenderer::setTextColor(const Color& textColor)
     {
         m_textColor = textColor;
 
@@ -673,14 +673,14 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void MenuBarRenderer::setSelectedBackgroundColor(const sf::Color& selectedBackgroundColor)
+    void MenuBarRenderer::setSelectedBackgroundColor(const Color& selectedBackgroundColor)
     {
         m_selectedBackgroundColor = selectedBackgroundColor;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void MenuBarRenderer::setSelectedTextColor(const sf::Color& selectedTextColor)
+    void MenuBarRenderer::setSelectedTextColor(const Color& selectedTextColor)
     {
         m_selectedTextColor = selectedTextColor;
 
@@ -845,7 +845,7 @@ namespace tgui
 
     std::shared_ptr<WidgetRenderer> MenuBarRenderer::clone(Widget* widget)
     {
-        auto renderer = std::shared_ptr<MenuBarRenderer>(new MenuBarRenderer{*this});
+        auto renderer = std::make_shared<MenuBarRenderer>(*this);
         renderer->m_menuBar = static_cast<MenuBar*>(widget);
         return renderer;
     }

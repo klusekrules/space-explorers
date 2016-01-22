@@ -433,19 +433,12 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool ComboBox::mouseOnWidget(float x, float y)
+    bool ComboBox::mouseOnWidget(float x, float y) const
     {
-        // Check if the mouse is on top of the combo box
-        if ((x > getPosition().x - getRenderer()->getBorders().left) && (x < getPosition().x + getSize().x + getRenderer()->getBorders().right)
-         && (y > getPosition().y - getRenderer()->getBorders().top) && (y < getPosition().y + getSize().y + getRenderer()->getBorders().bottom))
-        {
-            return true;
-        }
-
-        if (m_mouseHover)
-            mouseLeftWidget();
-
-        return false;
+        return sf::FloatRect{getPosition().x - getRenderer()->getBorders().left,
+                             getPosition().y - getRenderer()->getBorders().top,
+                             getSize().x + getRenderer()->getBorders().left + getRenderer()->getBorders().right,
+                             getSize().y + getRenderer()->getBorders().top + getRenderer()->getBorders().bottom}.contains(x, y);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -481,13 +474,6 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ComboBox::leftMouseReleased(float, float)
-    {
-        m_mouseDown = false;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     void ComboBox::mouseWheelMoved(int delta, int, int)
     {
         // The list isn't visible
@@ -507,13 +493,6 @@ namespace tgui
                     m_listBox->setSelectedItemByIndex(static_cast<std::size_t>(m_listBox->m_selectedItem-1));
             }
         }
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void ComboBox::mouseNoLongerDown()
-    {
-        m_mouseDown = false;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -880,14 +859,14 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ComboBoxRenderer::setBackgroundColor(const sf::Color& backgroundColor)
+    void ComboBoxRenderer::setBackgroundColor(const Color& backgroundColor)
     {
         getListBox()->setBackgroundColor(backgroundColor);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ComboBoxRenderer::setArrowBackgroundColor(const sf::Color& color)
+    void ComboBoxRenderer::setArrowBackgroundColor(const Color& color)
     {
         setArrowBackgroundColorNormal(color);
         setArrowBackgroundColorHover(color);
@@ -895,21 +874,21 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ComboBoxRenderer::setArrowBackgroundColorNormal(const sf::Color& color)
+    void ComboBoxRenderer::setArrowBackgroundColorNormal(const Color& color)
     {
         m_arrowBackgroundColorNormal = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ComboBoxRenderer::setArrowBackgroundColorHover(const sf::Color& color)
+    void ComboBoxRenderer::setArrowBackgroundColorHover(const Color& color)
     {
         m_arrowBackgroundColorHover = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ComboBoxRenderer::setArrowColor(const sf::Color& color)
+    void ComboBoxRenderer::setArrowColor(const Color& color)
     {
         setArrowColorNormal(color);
         setArrowColorHover(color);
@@ -917,21 +896,21 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ComboBoxRenderer::setArrowColorNormal(const sf::Color& color)
+    void ComboBoxRenderer::setArrowColorNormal(const Color& color)
     {
         m_arrowColorNormal = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ComboBoxRenderer::setArrowColorHover(const sf::Color& color)
+    void ComboBoxRenderer::setArrowColorHover(const Color& color)
     {
         m_arrowColorHover = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ComboBoxRenderer::setTextColor(const sf::Color& textColor)
+    void ComboBoxRenderer::setTextColor(const Color& textColor)
     {
         m_textColor = textColor;
         m_comboBox->m_text.setTextColor(calcColorOpacity(m_textColor, m_comboBox->getOpacity()));
@@ -939,7 +918,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ComboBoxRenderer::setBorderColor(const sf::Color& borderColor)
+    void ComboBoxRenderer::setBorderColor(const Color& borderColor)
     {
         getListBox()->setBorderColor(borderColor);
     }
@@ -1188,7 +1167,7 @@ namespace tgui
 
     std::shared_ptr<WidgetRenderer> ComboBoxRenderer::clone(Widget* widget)
     {
-        auto renderer = std::shared_ptr<ComboBoxRenderer>(new ComboBoxRenderer{*this});
+        auto renderer = std::make_shared<ComboBoxRenderer>(*this);
         renderer->m_comboBox = static_cast<ComboBox*>(widget);
         return renderer;
     }

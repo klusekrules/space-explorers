@@ -223,7 +223,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool Knob::mouseOnWidget(float x, float y)
+    bool Knob::mouseOnWidget(float x, float y) const
     {
         // Check if the mouse is on top of the widget
         if (sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y}.contains(x, y))
@@ -242,9 +242,6 @@ namespace tgui
                 return (distance <= std::min(getSize().x, getSize().y));
             }
         }
-
-        if (m_mouseHover)
-            mouseLeftWidget();
 
         return false;
     }
@@ -591,21 +588,21 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void KnobRenderer::setBackgroundColor(const sf::Color& color)
+    void KnobRenderer::setBackgroundColor(const Color& color)
     {
         m_backgroundColor = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void KnobRenderer::setThumbColor(const sf::Color& color)
+    void KnobRenderer::setThumbColor(const Color& color)
     {
         m_thumbColor = color;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void KnobRenderer::setBorderColor(const sf::Color& color)
+    void KnobRenderer::setBorderColor(const Color& color)
     {
         m_borderColor = color;
     }
@@ -675,7 +672,7 @@ namespace tgui
 
     std::shared_ptr<WidgetRenderer> KnobRenderer::clone(Widget* widget)
     {
-        auto renderer = std::shared_ptr<KnobRenderer>(new KnobRenderer{*this});
+        auto renderer = std::make_shared<KnobRenderer>(*this);
         renderer->m_knob = static_cast<Knob*>(widget);
         return renderer;
     }

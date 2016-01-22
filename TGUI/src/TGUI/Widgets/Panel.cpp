@@ -66,25 +66,9 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool Panel::mouseOnWidget(float x, float y)
+    bool Panel::mouseOnWidget(float x, float y) const
     {
-        // Check if the mouse is inside the panel
-        if (sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y}.contains(x, y))
-        {
-            m_mouseHover = true;
-            return true;
-        }
-
-        if (m_mouseHover)
-        {
-            mouseLeftWidget();
-
-            // Tell the widgets inside the panel that the mouse is no longer on top of them
-            for (unsigned int i = 0; i < m_widgets.size(); ++i)
-                m_widgets[i]->mouseNotOnWidget();
-        }
-
-        return false;
+        return sf::FloatRect{getPosition().x, getPosition().y, getSize().x, getSize().y}.contains(x, y);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -226,7 +210,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void PanelRenderer::setBackgroundColor(const sf::Color& color)
+    void PanelRenderer::setBackgroundColor(const Color& color)
     {
         m_panel->setBackgroundColor(color);
     }
@@ -235,7 +219,7 @@ namespace tgui
 
     std::shared_ptr<WidgetRenderer> PanelRenderer::clone(Widget* widget)
     {
-        auto renderer = std::shared_ptr<PanelRenderer>(new PanelRenderer{*this});
+        auto renderer = std::make_shared<PanelRenderer>(*this);
         renderer->m_panel = static_cast<Panel*>(widget);
         return renderer;
     }
