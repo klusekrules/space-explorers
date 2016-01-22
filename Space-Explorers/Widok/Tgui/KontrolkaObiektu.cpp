@@ -27,7 +27,8 @@ namespace tgui{
 		m_draggableWidget = false;
 
 		m_panel->setBackgroundColor(sf::Color::Transparent);
-		
+		m_panel->setSize(410, 110);
+
 		obraz_ = std::make_shared<Picture>();
 		m_panel->add(obraz_, "ObrazObiektu");
 		obraz_->setTexture("resource\\Brak_obrazka.png");
@@ -38,48 +39,46 @@ namespace tgui{
 		m_panel->add(nazwa_,"NazwaObiektu");
 		nazwa_->setTextSize(14);
 		nazwa_->setTextColor({ 255,0,0 });
-		nazwa_->setSize(208, 15);
-		//nazwa_->setSize({ "{ ( &.w - &.h - 20 ) * 0.715 , ( &.h - 11 ) * 0.15 }" });
-		nazwa_->setPosition(110, 3);
-		//nazwa_->setPosition({"{ &.h , 3 }"});
+		nazwa_->setSize({ "{ ( &.w - &.h - 20 ) * 0.715 , ( &.h - 11 ) * 0.15 }" });
+		nazwa_->setPosition({"{ &.h , 3 }"});
 		nazwa_->setText("Nazwa Obiektu");
 
 		tresc_ = std::make_shared<Label>();
 		m_panel->add(tresc_,"OpisObiektu");
 		tresc_->setTextSize(14);
 		tresc_->setTextColor({ 255,255,255 });
-		tresc_->setSize(208,75);//tresc_->setSize({ "{(&.w-&.h-20)*0.715,(&.h-11)*0.85}" });
-		tresc_->setPosition(110,22);//tresc_->setPosition({ "{&.h,(&.h-11)*0.15) + 7}" });
+		tresc_->setSize({ "{(&.w-&.h-20)*0.715,(&.h-11)*0.85}" });
+		tresc_->setPosition({ "{&.h,((&.h-11)*0.15) + 7}" });
 		tresc_->setText("Opis Obiektu\nw wielu liniach.\nKoniec Opisu.");
 		
 		czasRozbudowy_ = std::make_shared<Label>();
 		m_panel->add(czasRozbudowy_, "CzasRozbudowy");
 		czasRozbudowy_->setTextSize(14);
 		czasRozbudowy_->setTextColor({ 255,255,255 });
-		czasRozbudowy_->setSize(83,15);//czasRozbudowy_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.15}" });
-		czasRozbudowy_->setPosition(323,8);//czasRozbudowy_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+5,3+(&.h-10)*0.05}" });
+		czasRozbudowy_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.15}" });
+		czasRozbudowy_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+15,3+(&.h-10)*0.05}" });
 		czasRozbudowy_->setText("Czas rozbudowy");
 		
 		czasZburzenia_ = std::make_shared<Label>();
 		m_panel->add(czasZburzenia_, "CzasZburzenia");
 		czasZburzenia_->setTextSize(14);
 		czasZburzenia_->setTextColor({ 255,255,255 });
-		czasZburzenia_->setSize(83, 15);//czasZburzenia_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.15}" });
-		czasZburzenia_->setPosition(323, 57);//czasZburzenia_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+5,7+(&.h-10)*0.5}" });
+		czasZburzenia_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.15}" });
+		czasZburzenia_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+15,7+(&.h-10)*0.5}" });
 		czasZburzenia_->setText("Czas burzenia");
 
 		rozbuduj_ = std::make_shared<Button>();
 		m_panel->add(rozbuduj_,"Rozbuduj");
 		rozbuduj_->setTextSize(14);
-		rozbuduj_->setSize(83, 20);//rozbuduj_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.3}" });
-		rozbuduj_->setPosition(323,25);//rozbuduj_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+5,3+(&.h-10)*0.2}" });
+		rozbuduj_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.3}" });
+		rozbuduj_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+15,3+(&.h-10)*0.2}" });
 		rozbuduj_->setText("Buduj");
 
 		zniszcz_ = std::make_shared<Button>();
 		m_panel->add(zniszcz_,"Zburz");
 		zniszcz_->setTextSize(14);
-		zniszcz_->setSize(83, 20);//zniszcz_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.3}" });
-		zniszcz_->setPosition(323,74);//zniszcz_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+5,7+(&.h-10)*0.65}" });
+		zniszcz_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.3}" });
+		zniszcz_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+15,7+(&.h-10)*0.65}" });
 		zniszcz_->setText("Zburz");
 		
 
