@@ -176,6 +176,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\include;$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>true</SDLCheck>
       <DisableSpecificWarnings>4244;4127;4503</DisableSpecificWarnings>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -264,6 +265,7 @@
     <ClCompile Include="src\TGUI\Animation.cpp" />
     <ClCompile Include="src\TGUI\BoxLayout.cpp" />
     <ClCompile Include="src\TGUI\Clipboard.cpp" />
+    <ClCompile Include="src\TGUI\Color.cpp" />
     <ClCompile Include="src\TGUI\Container.cpp" />
     <ClCompile Include="src\TGUI\Font.cpp" />
     <ClCompile Include="src\TGUI\Global.cpp" />

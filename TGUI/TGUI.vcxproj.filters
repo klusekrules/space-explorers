@@ -168,6 +168,9 @@
     <ClCompile Include="src\TGUI\Widgets\ToolTip.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\TGUI\Color.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\TGUI\Animation.hpp">
