@@ -449,6 +449,7 @@
     <ClInclude Include="Widok\Tgui\ListaObiektowGui.h" />
     <ClInclude Include="Widok\Tgui\ListaSurowcowGui.h" />
     <ClInclude Include="Widok\Tgui\LogListGui.h" />
+    <ClInclude Include="Widok\Tgui\MyLoader.h" />
     <ClInclude Include="Widok\Tgui\MySaver.h" />
     <ClInclude Include="Widok\Tgui\PomocniczeTypyTGUI.h" />
     <ClInclude Include="Widok\Tgui\SurowiecGui.h" />
@@ -569,6 +570,7 @@
     <ClCompile Include="Widok\Tgui\ListaObiektowGui.cpp" />
     <ClCompile Include="Widok\Tgui\ListaSurowcowGui.cpp" />
     <ClCompile Include="Widok\Tgui\LogListGui.cpp" />
+    <ClCompile Include="Widok\Tgui\MyLoader.cpp" />
     <ClCompile Include="Widok\Tgui\MySaver.cpp" />
     <ClCompile Include="Widok\Tgui\SurowiecGui.cpp" />
     <ClCompile Include="Wyjatki\BladKonfiguracjiAplikacji.cpp" />

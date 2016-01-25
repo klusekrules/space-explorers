@@ -13,6 +13,7 @@
 #include "TGUI\TGUI.hpp"
 #include "Widok\Konsola\Konsola.h"
 #include "Widok\Tgui\MySaver.h"
+#include "Widok\Tgui\MyLoader.h"
 
 #include "Wyjatki\BladKonfiguracjiAplikacji.h"
 
@@ -159,7 +160,10 @@ namespace SpEx{
 	void Aplikacja::rejestrujKontrolkiDoTGUI(){
 		tgui::WidgetSaver::setSaveFunction("BazowyWidzet", tgui::saveBazowyWidzet);
 		tgui::WidgetSaver::setSaveFunction("SurowiecGui", tgui::saveSurowiecGui);
-		tgui::WidgetSaver::setSaveFunction("KontrolkaObiektu", tgui::saveKontrolkaObiektu);		
+		tgui::WidgetSaver::setSaveFunction("KontrolkaObiektu", tgui::saveKontrolkaObiektu);
+		tgui::WidgetLoader::setLoadFunction("BazowyWidzet", std::bind(tgui::loadBazowyWidzet, std::placeholders::_1, std::shared_ptr<tgui::BazowyWidzet>{}));
+		tgui::WidgetLoader::setLoadFunction("SurowiecGui", std::bind(tgui::loadSurowiecGui, std::placeholders::_1, std::shared_ptr<tgui::SurowiecGui>{}));
+		tgui::WidgetLoader::setLoadFunction("KontrolkaObiektu", std::bind(tgui::loadKontrolkaObiektu, std::placeholders::_1, std::shared_ptr<tgui::KontrolkaObiektu>{}));
 	}
 
 	void Aplikacja::rejestrujParametryKonsoli(){

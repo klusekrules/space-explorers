@@ -23,8 +23,8 @@ namespace tgui {
 		void setPadding(const Padding& padding) override;
 		using WidgetPadding::setPadding;
 
-		void setShader(const sf::Shader*);
-		const sf::Shader* getShader() const;
+		void setShader(std::shared_ptr<sf::Shader>);
+		std::shared_ptr<sf::Shader> getShader() const;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	protected:
@@ -32,7 +32,7 @@ namespace tgui {
 		
 		BazowyWidzet *kontrolka_;
 
-		const sf::Shader* shader_;
+		std::shared_ptr<sf::Shader> shader_;
 
 		sf::Color m_borderColor;
 		sf::Color m_backgroundColor;

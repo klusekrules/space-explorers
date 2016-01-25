@@ -6,79 +6,94 @@ namespace tgui {
 		: kontrolka_(kontrolka), shader_(nullptr)
 	{}
 
-
 	void BazowyRenderer::setProperty(std::string property, const std::string& value) {
 		property = toLower(property);
-
-		/*if (property == "image"){
-		obraz_->load(value);
-		}else if(property == "idzdarzeniabudowy"){
-		idZdarzeniaBudowy_ = std::strtol(value.c_str(), nullptr, 10);
-		true;
-		}
-		else if (property == "idzdarzeniaburzenia"){
-		idZdarzeniaBurzenia_ = std::strtol(value.c_str(), nullptr, 10);
-		true;
-		}
-		else if (property == "idzdarzeniaklikniecia"){
-		idZdarzeniaKlikniecia_ = std::strtol(value.c_str(), nullptr, 10);
-		true;
-		}
-		else if (property == "configfile"){
-		load(value);
-		}else*/
-		WidgetRenderer::setProperty(property, value);
+		if (property == "borders")
+			setBorders(Deserializer::deserialize(ObjectConverter::Type::Borders, value).getBorders());
+		else if (property == "padding")
+			setPadding(Deserializer::deserialize(ObjectConverter::Type::Borders, value).getBorders());
+		else if (property == "backgroundcolor")
+			setBackgroundColor(Deserializer::deserialize(ObjectConverter::Type::Color, value).getColor());
+		else if (property == "bordercolor")
+			setBorderColor(Deserializer::deserialize(ObjectConverter::Type::Color, value).getColor());
+		else if (property == "backgroundimage")
+			setBackgroundTexture(Deserializer::deserialize(ObjectConverter::Type::Texture, value).getTexture());
+		else if (property == "shader") {
+			shader_ = std::make_shared<sf::Shader>();
+			shader_->loadFromFile(value, sf::Shader::Type::Fragment);
+			shader_->setParameter("texture", sf::Shader::CurrentTexture);
+		}else
+			WidgetRenderer::setProperty(property, value);
 	}
 
 	void BazowyRenderer::setProperty(std::string property, ObjectConverter&& value) {
 		property = toLower(property);
-		WidgetRenderer::setProperty(property, std::move(value));
+
+		if (value.getType() == ObjectConverter::Type::Borders){
+			if (property == "borders")
+				setBorders(value.getBorders());
+			else if (property == "padding")
+				setPadding(value.getBorders());
+		}else if (value.getType() == ObjectConverter::Type::Color){
+			if (property == "backgroundcolor")
+				setBackgroundColor(value.getColor());
+			else if (property == "bordercolor")
+				setBorderColor(value.getColor());
+		}else if (value.getType() == ObjectConverter::Type::Texture){
+			if (property == "backgroundimage")
+				setBackgroundTexture(value.getTexture());
+		}else if (value.getType() == ObjectConverter::Type::String) {
+			if (property == "shader")
+				shader_ = std::make_shared<sf::Shader>();
+				shader_->loadFromFile(value.getString(), sf::Shader::Type::Fragment);
+				shader_->setParameter("texture", sf::Shader::CurrentTexture);
+		}else
+			WidgetRenderer::setProperty(property, std::move(value));
 	}
 
 	ObjectConverter BazowyRenderer::getProperty(std::string property) const {
-		/*if (property == "Image"){
-		value = obraz_->getLoadedFilename();
-		return true;
-		}else if (property == "ConfigFile"){
-		value = plikKonfiguracyjny_;
-		return true;
-		}else if(property == "IdZdarzeniaBudowy"){
-		value = idZdarzeniaBudowy_;
-		}
-		else if (property == "IdZdarzeniaBurzenia"){
-		value = idZdarzeniaBurzenia_;
-		}
-		else if (property == "IdZdarzeniaKlikniecia"){
-		value = idZdarzeniaKlikniecia_;
-		}
-		else*/
-		return WidgetRenderer::getProperty(property);
+		property = toLower(property);
+
+		if (property == "borders")
+			return m_borders;
+		else if (property == "padding")
+			return m_padding;
+		else if (property == "backgroundcolor")
+			return m_backgroundColor;
+		else if (property == "Shader")
+			return !!shader_;
+		else if (property == "bordercolor")
+			return m_borderColor;
+		else if (property == "backgroundimage")
+			return m_backgroundTexture;
+		else
+			return WidgetRenderer::getProperty(property);
 	}
 
 	std::map<std::string, ObjectConverter> BazowyRenderer::getPropertyValuePairs() const {
 		auto map = WidgetRenderer::getPropertyValuePairs();
-		map["BackgroundColor"] = m_backgroundColor;
+		if (m_backgroundTexture.isLoaded())
+			map["BackgroundImage"] = m_backgroundTexture;
+        else
+			map["BackgroundColor"] = m_backgroundColor;
 		map["BorderColor"] = m_borderColor;
-		map["Texture"] = m_backgroundTexture;
 		map["Shader"] = !!shader_;
+		map["Borders"] = m_borders;
+		map["Padding"] = m_padding;
 		return map;
 	}
 
-	void tgui::BazowyRenderer::setBorderColor(const sf::Color & borderColor)
-	{
+	void tgui::BazowyRenderer::setBorderColor(const sf::Color & borderColor){
 		m_borderColor = borderColor;
 	}
 
-	void tgui::BazowyRenderer::setBackgroundColor(const sf::Color & backgroundColor)
-	{
+	void tgui::BazowyRenderer::setBackgroundColor(const sf::Color & backgroundColor){
 		m_backgroundColor = backgroundColor;
 	}
 
-	void BazowyRenderer::setBackgroundTexture(const Texture & texture)
-	{
+	void BazowyRenderer::setBackgroundTexture(const Texture & texture){
 		m_backgroundTexture = texture;
-		if (m_backgroundTexture.isLoaded())
-		{
+		if (m_backgroundTexture.isLoaded()){
 			m_backgroundTexture.setPosition(kontrolka_->getPosition());
 			m_backgroundTexture.setSize(kontrolka_->getSize());
 			m_backgroundTexture.setColor({ 255, 255, 255, static_cast<sf::Uint8>(kontrolka_->getOpacity() * 255) });
@@ -89,9 +104,7 @@ namespace tgui {
 		WidgetPadding::setPadding(padding);
 	}
 
-	void BazowyRenderer::draw(sf::RenderTarget & target, sf::RenderStates states) const
-	{
-
+	void BazowyRenderer::draw(sf::RenderTarget & target, sf::RenderStates states) const{
 		if (m_backgroundTexture.isLoaded())
 			target.draw(m_backgroundTexture, states);
 		else
@@ -139,11 +152,11 @@ namespace tgui {
 		m_backgroundTexture = object.m_backgroundTexture;
 	}
 	
-	void BazowyRenderer::setShader(const sf::Shader* shader) {
+	void BazowyRenderer::setShader(std::shared_ptr<sf::Shader> shader) {
 		shader_ = shader;
 	}
 
-	const sf::Shader* BazowyRenderer::getShader() const {
+	std::shared_ptr<sf::Shader> BazowyRenderer::getShader() const {
 		return shader_;
 	}
 };

@@ -111,16 +111,22 @@ namespace tgui {
 
 	private:
 
+		void ustawKontrolkeLabel(Label::Ptr);
+		
 		Label::Ptr tekst_; /// Prezentowany tekst.
 		STyp::Identyfikator idObiektu_; /// Identyfikator reprezentowanego obiektu.
 
 		friend class SurowiecGuiRenderer;
+		friend Widget::Ptr loadSurowiecGui(std::shared_ptr<DataIO::Node>, Widget::Ptr);
 	};
 
 	class SurowiecGuiRenderer : public BazowyRenderer
 	{
 	public:
 		using BazowyRenderer::BazowyRenderer;
+
+		void setProperty(std::string property, const std::string& value) override;
+		void setProperty(std::string property, ObjectConverter&& value) override;
 
 	private:
 		std::shared_ptr<WidgetRenderer> clone(Widget* widget) override;

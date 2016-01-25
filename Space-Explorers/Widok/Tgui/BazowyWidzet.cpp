@@ -53,7 +53,7 @@ namespace tgui {
 
 	void BazowyWidzet::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 		if (getRenderer()->getShader() != nullptr){
-			states.shader = getRenderer()->getShader();
+			states.shader = getRenderer()->getShader().get();
 		}
 		// Draw the background
 		getRenderer()->draw(target, states);

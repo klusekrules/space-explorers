@@ -37,6 +37,13 @@ namespace tgui {
 
 		return *this;
 	}
+
+	void SurowiecGui::ustawKontrolkeLabel(Label::Ptr ptr) {
+		m_panel->remove(tekst_);
+		tekst_ = ptr;
+		if (tekst_)
+			m_panel->add(tekst_);
+	}
 		
 	const STyp::Identyfikator& SurowiecGui::pobierzIdObiektu() const {
 		return idObiektu_;
@@ -76,7 +83,42 @@ namespace tgui {
 		tekst_->setTextColor(color);
 	}
 		
-	std::shared_ptr<WidgetRenderer> tgui::SurowiecGuiRenderer::clone(Widget * widget){
+	void SurowiecGuiRenderer::setProperty(std::string property, const std::string& value) {
+		property = toLower(property);
+
+		if (property == "label"){
+			if (toLower(value) == "none")
+				static_cast<SurowiecGui*>(kontrolka_)->ustawKontrolkeLabel(nullptr);
+			else{
+				if (kontrolka_->getTheme() == nullptr)
+					throw Exception{ "Failed to load Label, SurowiecGui has no connected theme to load the Label with" };
+
+				static_cast<SurowiecGui*>(kontrolka_)->ustawKontrolkeLabel(kontrolka_->getTheme()->internalLoad(kontrolka_->getPrimaryLoadingParameter(), value));
+			}
+		}else
+			BazowyRenderer::setProperty(property, value);
+	}
+
+	void SurowiecGuiRenderer::setProperty(std::string property, ObjectConverter&& value) {
+		property = toLower(property);
+
+		if (value.getType() == ObjectConverter::Type::String){
+			if (property == "label"){
+				if (toLower(value.getString()) == "none")
+					static_cast<SurowiecGui*>(kontrolka_)->ustawKontrolkeLabel(nullptr);
+				else{
+					if (kontrolka_->getTheme() == nullptr)
+						throw Exception{ "Failed to load Label, SurowiecGui has no connected theme to load the Label with" };
+
+					static_cast<SurowiecGui*>(kontrolka_)->ustawKontrolkeLabel(kontrolka_->getTheme()->internalLoad(kontrolka_->getPrimaryLoadingParameter(), value.getString()));
+				}
+			}else
+				BazowyRenderer::setProperty(property, std::move(value));
+		}else
+			BazowyRenderer::setProperty(property, std::move(value));
+	}
+
+	std::shared_ptr<WidgetRenderer> SurowiecGuiRenderer::clone(Widget * widget){
 		auto renderer = std::make_shared<SurowiecGuiRenderer>(*this);
 		renderer->kontrolka_ = static_cast<BazowyWidzet*>(widget);
 		return renderer;

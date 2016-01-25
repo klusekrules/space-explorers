@@ -51,6 +51,7 @@ namespace tgui {
 
 		virtual void updateRendering();
 
-		friend class std::shared_ptr<DataIO::Node> saveBazowyWidzet(BazowyWidzet::Ptr widget);
+		friend std::shared_ptr<DataIO::Node> saveBazowyWidzet(BazowyWidzet::Ptr widget);
+		friend Widget::Ptr loadBazowyWidzet(std::shared_ptr<DataIO::Node> node, Widget::Ptr widget);
 	};
 };
