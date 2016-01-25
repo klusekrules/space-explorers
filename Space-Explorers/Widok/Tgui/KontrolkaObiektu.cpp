@@ -8,20 +8,6 @@
 
 namespace tgui{
 	
-	void convertFromBorderToRect(const Borders& borders, sf::Rect<float>& rectangle){
-		rectangle.left = static_cast<float>(borders.left);
-		rectangle.top = static_cast<float>(borders.top);
-		rectangle.width = static_cast<float>(borders.right);
-		rectangle.height = static_cast<float>(borders.bottom);
-	}
-
-	void normalizujRect(sf::Rect<float>& rect, float leftWidth, float topHeight){
-		rect.left /= leftWidth;
-		rect.width /= leftWidth;
-		rect.top /= topHeight;
-		rect.height /= topHeight;
-	}
-
 	KontrolkaObiektu::KontrolkaObiektu() : BazowyWidzet() {
 		m_callback.widgetType = "KontrolkaObiektu";
 		m_draggableWidget = false;
@@ -129,149 +115,17 @@ namespace tgui{
 		renderer->setPadding({ 0, 0, 0, 0 });
 		renderer->setBackgroundTexture({ "widgets\\tlo.png" });
 
-		if (m_theme && primary != "")
-		{
+		if (m_theme && primary != ""){
 			BazowyWidzet::reload(primary, secondary, force);
 		}
 
-		if (force)
-		{
+		if (force){
 			if (renderer->m_backgroundTexture.isLoaded())
 				setSize(renderer->m_backgroundTexture.getImageSize());
 		}
 
 		updateSize();
 	}
-	/*
-	void KontrolkaObiektu::setSize(float width, float hight){
-
-		float absWidth = width;
-		float absHight = hight;
-
-		if (czyStalyRozmiar_){
-			absWidth = rozmiarKontrolki_.x;
-			absHight = rozmiarKontrolki_.y;
-		}else{
-			if (czyProporcjonalny_){
-				auto ratio = rozmiarKontrolki_.x / rozmiarKontrolki_.y;
-				if (absWidth / absHight > ratio ) {
-					absWidth = absHight * ratio;
-				}else{
-					if (absWidth / absHight < ratio){
-						absHight = absWidth / ratio;
-					}
-				}
-			}
-		}
-
-		Widget::setSize(absWidth, absHight);
-
-		obraz_->setPosition(obrazRect_.left * absWidth, obrazRect_.top * absHight);
-		if (obraz_->isLoaded())
-			obraz_->setSize(obrazRect_.width * absWidth, obrazRect_.height * absHight);
-
-		auto nazwaRect = pozycjonujLabel(nazwa_, nazwaRect_, absWidth, absHight, nazwaWyrownanieHoryzontalne_, nazwaWyrownanieWertykalne_);
-		nazwa_->setPosition(nazwaRect.left, nazwaRect.top);
-		nazwa_->setSize(nazwaRect.width, nazwaRect.height);
-
-		auto trescRect = pozycjonujLabel(tresc_, trescRect_, absWidth, absHight, trescWyrownanieHoryzontalne_, trescWyrownanieWertykalne_);
-		tresc_->setPosition(trescRect.left, trescRect.top);
-		tresc_->setSize(trescRect.width, trescRect.height);
-
-		auto czasRozbudowyRect = pozycjonujLabel(czasRozbudowy_, czasRozbudowyRect_, absWidth, absHight, czasRozbudowyWyrownanieHoryzontalne_,czasRozbudowyWyrownanieWertykalne_);
-		czasRozbudowy_->setPosition(czasRozbudowyRect.left, czasRozbudowyRect.top);
-		czasRozbudowy_->setSize(czasRozbudowyRect.width, czasRozbudowyRect.height);
-
-		auto czasZburzeniaRect = pozycjonujLabel(czasZburzenia_, czasZburzeniaRect_, absWidth, absHight, czasZburzeniaWyrownanieHoryzontalne_, czasZburzeniaWyrownanieWertykalne_);
-		czasZburzenia_->setPosition(czasZburzeniaRect.left, czasZburzeniaRect.top);
-		czasZburzenia_->setSize(czasZburzeniaRect.width, czasZburzeniaRect.height);
-
-		rozbuduj_->setPosition(rozbudujRect_.left * absWidth, rozbudujRect_.top * absHight);
-		rozbuduj_->setSize(rozbudujRect_.width * absWidth, rozbudujRect_.height * absHight);
-
-		zniszcz_->setPosition(zniszczRect_.left * absWidth, zniszczRect_.top * absHight);
-		zniszcz_->setSize(zniszczRect_.width * absWidth, zniszczRect_.height * absHight);
-		
-	}
-	
-	sf::Rect<float> KontrolkaObiektu::pozycjonujLabel(Label::Ptr label, const sf::Rect<float>& rect, float width, float height, WYROWNANIE_HORYZONTALNE horyzontalne, WYROWNANIE_WERTYKALNE wertykalne ){
-		sf::Text text;
-		text.setFont(*label->getFont());
-		text.setCharacterSize(label->getTextSize());
-		text.setString(label->getText());
-		auto bounds = text.getLocalBounds();
-		bounds.width += bounds.left;
-		bounds.height += bounds.top;
-		sf::Rect<float> labelRect(rect.left*width, rect.top*height, rect.width*width, rect.height*height);
-		switch (horyzontalne)
-		{
-		case tgui::LEFT:
-			break;
-		case tgui::CENTER:
-			if (labelRect.width >= bounds.width){
-				labelRect.left += (labelRect.width - bounds.width) / 2;
-				labelRect.width = bounds.width;
-			}
-			break;
-		case tgui::RIGHT:
-			if (labelRect.width >= bounds.width){
-				labelRect.left += labelRect.width - bounds.width;
-				labelRect.width = bounds.width;
-			}			
-			break;
-		}
-		switch (wertykalne)
-		{
-		case tgui::TOP:
-			break;
-		case tgui::MIDDLE:
-			if (labelRect.height >= bounds.height){
-				labelRect.top += (labelRect.height - bounds.height) / 2;
-				labelRect.height = bounds.height;
-			}
-			break;
-		case tgui::BOTTOM:
-			if (labelRect.height >= bounds.height){
-				labelRect.top += labelRect.height - bounds.height;
-				labelRect.height = bounds.height;
-			}
-			break;
-		}
-		return labelRect;
-	}*/
-
-	/*void KontrolkaObiektu::initialize(Container *const container){
-		Panel::setGlobalFont(container->getGlobalFont());
-		
-		obraz_ = Picture::Ptr(*this, "ObrazObiektu");
-				
-		nazwa_ = Label::Ptr(*this, "NazwaObiektu");
-		nazwa_->setTextSize(11);
-		nazwa_->setText("Nazwa");
-		
-		tresc_ = Label::Ptr(*this, "OpisObiektu");
-		tresc_->setTextSize(10);
-		tresc_->setText("Opis \nWieloliniowy.");
-
-		czasRozbudowy_ = Label::Ptr(*this, "CzasRozbudowy");
-		czasRozbudowy_->setTextSize(11);
-		czasRozbudowy_->setText("00:00:00");
-
-		czasZburzenia_ = Label::Ptr(*this, "CzasZburzenia");
-		czasZburzenia_->setTextSize(11);
-		czasZburzenia_->setText("00:00:00");
-		
-		rozbuduj_ = Button::Ptr(*this, "Rozbuduj");
-		rozbuduj_->setTextSize(10);
-		rozbuduj_->setText("Rozbuduj");
-		
-		zniszcz_ = Button::Ptr(*this, "Zburz");
-		zniszcz_->setTextSize(10);
-		zniszcz_->setText("Zburz");
-
-		setSize(410.f, 110.f);
-	}
-	*/
 	
 	const STyp::Identyfikator& KontrolkaObiektu::pobierzIdObiektu() const{
 		return idObiektu_;
@@ -362,7 +216,206 @@ namespace tgui{
 		return true;
 	}
 
-	std::shared_ptr<WidgetRenderer> tgui::KontrolkaObiektuRenderer::clone(Widget * widget){
+	void KontrolkaObiektu::ustawKontrolkeObrazuObiektu(Picture::Ptr ptr) {
+		m_panel->remove(obraz_);
+		obraz_ = ptr;
+		if (obraz_)
+			m_panel->add(obraz_);
+	}
+	void KontrolkaObiektu::ustawKontrolkeNazwaObiektu(Label::Ptr ptr) {
+		m_panel->remove(nazwa_);
+		nazwa_ = ptr;
+		if (nazwa_)
+			m_panel->add(nazwa_);
+	}
+	void KontrolkaObiektu::ustawKontrolkeOpisObiektu(Label::Ptr ptr) {
+		m_panel->remove(tresc_);
+		tresc_ = ptr;
+		if (tresc_)
+			m_panel->add(tresc_);
+	}
+	void KontrolkaObiektu::ustawKontrolkeRozbudujObiekt(Button::Ptr ptr) {
+		m_panel->remove(rozbuduj_);
+		rozbuduj_ = ptr;
+		if (rozbuduj_)
+			m_panel->add(rozbuduj_);
+	}
+	void KontrolkaObiektu::ustawKontrolkeZburzObiekt(Button::Ptr ptr) {
+		m_panel->remove(zniszcz_);
+		zniszcz_ = ptr;
+		if (zniszcz_)
+			m_panel->add(zniszcz_);
+	}
+	void KontrolkaObiektu::ustawKontrolkeCzasBudowyObiektu(Label::Ptr ptr) {
+		m_panel->remove(czasRozbudowy_);
+		czasRozbudowy_ = ptr;
+		if (czasRozbudowy_)
+			m_panel->add(czasRozbudowy_);
+	}
+	void KontrolkaObiektu::ustawKontrolkeCzasBurzeniaObiektu(Label::Ptr ptr) {
+		m_panel->remove(czasZburzenia_);
+		czasZburzenia_ = ptr;
+		if (czasZburzenia_)
+			m_panel->add(czasZburzenia_);
+	}
+
+	void KontrolkaObiektuRenderer::setProperty(std::string property, const std::string& value) {
+		property = toLower(property);
+
+		if (property == "ObrazObiektu") {
+			if (toLower(value) == "none")
+				static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeObrazuObiektu(nullptr);
+			else {
+				if (kontrolka_->getTheme() == nullptr)
+					throw Exception{ "Failed to load Picture, KontrolkaObiektu has no connected theme to load the Picture with" };
+
+				static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeObrazuObiektu(kontrolka_->getTheme()->internalLoad(kontrolka_->getPrimaryLoadingParameter(), value));
+			}
+		}
+		else if(property == "NazwaObiektu") {
+			if (toLower(value) == "none")
+				static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeOpisObiektu(nullptr);
+			else {
+				if (kontrolka_->getTheme() == nullptr)
+					throw Exception{ "Failed to load Label, KontrolkaObiektu has no connected theme to load the Label with" };
+
+				static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeOpisObiektu(kontrolka_->getTheme()->internalLoad(kontrolka_->getPrimaryLoadingParameter(), value));
+			}
+		}
+		else if (property == "OpisObiektu") {
+			if (toLower(value) == "none")
+				static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeOpisObiektu(nullptr);
+			else {
+				if (kontrolka_->getTheme() == nullptr)
+					throw Exception{ "Failed to load Label, KontrolkaObiektu has no connected theme to load the Label with" };
+
+				static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeOpisObiektu(kontrolka_->getTheme()->internalLoad(kontrolka_->getPrimaryLoadingParameter(), value));
+			}
+		}
+		else if (property == "Rozbuduj") {
+			if (toLower(value) == "none")
+				static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeRozbudujObiekt(nullptr);
+			else {
+				if (kontrolka_->getTheme() == nullptr)
+					throw Exception{ "Failed to load Button, KontrolkaObiektu has no connected theme to load the Button with" };
+
+				static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeRozbudujObiekt(kontrolka_->getTheme()->internalLoad(kontrolka_->getPrimaryLoadingParameter(), value));
+			}
+		}
+		else if (property == "Zburz") {
+			if (toLower(value) == "none")
+				static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeZburzObiekt(nullptr);
+			else {
+				if (kontrolka_->getTheme() == nullptr)
+					throw Exception{ "Failed to load Button, KontrolkaObiektu has no connected theme to load the Button with" };
+
+				static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeZburzObiekt(kontrolka_->getTheme()->internalLoad(kontrolka_->getPrimaryLoadingParameter(), value));
+			}
+		}
+		else if (property == "CzasRozbudowy") {
+			if (toLower(value) == "none")
+				static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeCzasBudowyObiektu(nullptr);
+			else {
+				if (kontrolka_->getTheme() == nullptr)
+					throw Exception{ "Failed to load Label, KontrolkaObiektu has no connected theme to load the Label with" };
+
+				static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeCzasBudowyObiektu(kontrolka_->getTheme()->internalLoad(kontrolka_->getPrimaryLoadingParameter(), value));
+			}
+		}
+		else if (property == "CzasZburzenia") {
+			if (toLower(value) == "none")
+				static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeCzasBurzeniaObiektu(nullptr);
+			else {
+				if (kontrolka_->getTheme() == nullptr)
+					throw Exception{ "Failed to load Label, KontrolkaObiektu has no connected theme to load the Label with" };
+
+				static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeCzasBurzeniaObiektu(kontrolka_->getTheme()->internalLoad(kontrolka_->getPrimaryLoadingParameter(), value));
+			}
+		}
+		else
+			BazowyRenderer::setProperty(property, value);
+	}
+
+	void KontrolkaObiektuRenderer::setProperty(std::string property, ObjectConverter&& value) {
+		property = toLower(property);
+
+		if (value.getType() == ObjectConverter::Type::String) {
+			if (property == "ObrazObiektu") {
+				if (toLower(value.getString()) == "none")
+					static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeObrazuObiektu(nullptr);
+				else{
+					if (kontrolka_->getTheme() == nullptr)
+						throw Exception{ "Failed to load Picture, KontrolkaObiektu has no connected theme to load the Picture with" };
+
+					static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeObrazuObiektu(kontrolka_->getTheme()->internalLoad(kontrolka_->getPrimaryLoadingParameter(), value.getString()));
+				}
+			}
+			else if (property == "NazwaObiektu") {
+				if (toLower(value.getString()) == "none")
+					static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeOpisObiektu(nullptr);
+				else {
+					if (kontrolka_->getTheme() == nullptr)
+						throw Exception{ "Failed to load Label, KontrolkaObiektu has no connected theme to load the Label with" };
+
+					static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeOpisObiektu(kontrolka_->getTheme()->internalLoad(kontrolka_->getPrimaryLoadingParameter(), value.getString()));
+				}
+			}
+			else if (property == "OpisObiektu") {
+				if (toLower(value.getString()) == "none")
+					static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeOpisObiektu(nullptr);
+				else {
+					if (kontrolka_->getTheme() == nullptr)
+						throw Exception{ "Failed to load Label, KontrolkaObiektu has no connected theme to load the Label with" };
+
+					static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeOpisObiektu(kontrolka_->getTheme()->internalLoad(kontrolka_->getPrimaryLoadingParameter(), value.getString()));
+				}
+			}
+			else if (property == "Rozbuduj") {
+				if (toLower(value.getString()) == "none")
+					static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeRozbudujObiekt(nullptr);
+				else {
+					if (kontrolka_->getTheme() == nullptr)
+						throw Exception{ "Failed to load Button, KontrolkaObiektu has no connected theme to load the Button with" };
+
+					static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeRozbudujObiekt(kontrolka_->getTheme()->internalLoad(kontrolka_->getPrimaryLoadingParameter(), value.getString()));
+				}
+			}
+			else if (property == "Zburz") {
+				if (toLower(value.getString()) == "none")
+					static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeZburzObiekt(nullptr);
+				else {
+					if (kontrolka_->getTheme() == nullptr)
+						throw Exception{ "Failed to load Button, KontrolkaObiektu has no connected theme to load the Button with" };
+
+					static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeZburzObiekt(kontrolka_->getTheme()->internalLoad(kontrolka_->getPrimaryLoadingParameter(), value.getString()));
+				}
+			}
+			else if (property == "CzasRozbudowy") {
+				if (toLower(value.getString()) == "none")
+					static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeCzasBudowyObiektu(nullptr);
+				else {
+					if (kontrolka_->getTheme() == nullptr)
+						throw Exception{ "Failed to load Label, KontrolkaObiektu has no connected theme to load the Label with" };
+
+					static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeCzasBudowyObiektu(kontrolka_->getTheme()->internalLoad(kontrolka_->getPrimaryLoadingParameter(), value.getString()));
+				}
+			}
+			else if (property == "CzasZburzenia") {
+				if (toLower(value.getString()) == "none")
+					static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeCzasBurzeniaObiektu(nullptr);
+				else {
+					if (kontrolka_->getTheme() == nullptr)
+						throw Exception{ "Failed to load Label, KontrolkaObiektu has no connected theme to load the Label with" };
+
+					static_cast<KontrolkaObiektu*>(kontrolka_)->ustawKontrolkeCzasBurzeniaObiektu(kontrolka_->getTheme()->internalLoad(kontrolka_->getPrimaryLoadingParameter(), value.getString()));
+				}
+			}else
+				BazowyRenderer::setProperty(property, std::move(value));
+		}else
+			BazowyRenderer::setProperty(property, std::move(value));
+	}
+
+	std::shared_ptr<WidgetRenderer> KontrolkaObiektuRenderer::clone(Widget * widget){
 		auto renderer = std::make_shared<KontrolkaObiektuRenderer>(*this);
 		renderer->kontrolka_ = static_cast<KontrolkaObiektu*>(widget);
 		return renderer;

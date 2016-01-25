@@ -67,7 +67,7 @@ namespace tgui {
 					widget->show();
 					iter = kontrolki_.emplace(iter, widget);
 					if (shader_)
-						(*iter)->getRenderer()->setShader(shader_.get());					
+						(*iter)->getRenderer()->setShader(shader_);					
 				}
 				if (iter != kontrolki_.end()){
 					(*iter)->ustawDane(*listaObj.at(id), planeta);

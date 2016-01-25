@@ -30,6 +30,10 @@ namespace SpEx{
 	}
 
 	void UtilsGui::oknotestowe(){
+
+		sf::RenderWindow window{ { 800, 600 }, "Okno Testowe" };
+		tgui::Gui gui{ window }; // Create the gui and attach it to the window
+/*
 		SPar::ParserDokumentXml root;
 		auto surowiec = TestyUtilsBO::tworzSurowiec(*root.tworzElement("test"),
 			STyp::Identyfikator(1),
@@ -43,20 +47,17 @@ namespace SpEx{
 		SurowceInfo info(surowiec);
 		auto ptr = info.tworzEgzemplarz(STyp::Ilosc(1500));
 
-		sf::RenderWindow window{ { 800, 600 }, "Okno Testowe" };
-		tgui::Gui gui{ window }; // Create the gui and attach it to the window
-		
 		tgui::SurowiecGui::Ptr button = std::make_shared<tgui::SurowiecGui>();
 		gui.add(button,"MojPrzycisk");
 		
 		tgui::KontrolkaObiektu::Ptr kontrolka = std::make_shared<tgui::KontrolkaObiektu>();
-		gui.add(kontrolka, "Moja kontrolka");
+		gui.add(kontrolka, "MojaKontrolka");
 		gui.setFont("resource\\consola.ttf");
 		kontrolka->setPosition(150, 150);
 		button->ustawDane(*ptr);
-		button->setPosition(10,20);
+		button->setPosition(10,20);*/
 
-		gui.saveWidgetsToFile("resource\\temp.txt");
+		gui.loadWidgetsFromFile("resource\\temp.txt");
 		while (window.isOpen())
 		{
 			sf::Event event;
@@ -73,6 +74,6 @@ namespace SpEx{
 			window.display();
 		}
 
-		delete ptr;
+		//delete ptr;
 	}
 }

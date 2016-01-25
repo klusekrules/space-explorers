@@ -5,10 +5,7 @@
 #include "BazowyRenderer.h"
 
 namespace tgui{
-
-	void convertFromBorderToRect(const Borders&, sf::Rect<float>&);
-	void normalizujRect(sf::Rect<float>&, float leftWidth, float topHeight);
-
+	
 	class KontrolkaObiektuRenderer;
 
 	/**
@@ -106,6 +103,14 @@ namespace tgui{
 		void reload(const std::string& primary = "", const std::string& secondary = "", bool force = false) override;
 
 	private:
+
+		void ustawKontrolkeObrazuObiektu(Picture::Ptr);
+		void ustawKontrolkeNazwaObiektu(Label::Ptr);
+		void ustawKontrolkeOpisObiektu(Label::Ptr);
+		void ustawKontrolkeRozbudujObiekt(Button::Ptr);
+		void ustawKontrolkeZburzObiekt(Button::Ptr);
+		void ustawKontrolkeCzasBudowyObiektu(Label::Ptr);
+		void ustawKontrolkeCzasBurzeniaObiektu(Label::Ptr);
 		
 		STyp::Identyfikator idObiektu_ = -1; /// Identyfikator obiektu gry wyœiwetlanego w kontrolce.
 		Picture::Ptr obraz_; /// Obraz obiektu gry.
@@ -122,6 +127,8 @@ namespace tgui{
 		
 		friend class KontrolkaObiektuRenderer;
 
+		friend Widget::Ptr loadKontrolkaObiektu(std::shared_ptr<DataIO::Node>, Widget::Ptr);
+
 	};
 
 	
@@ -131,6 +138,8 @@ namespace tgui{
 		using BazowyRenderer::BazowyRenderer;
 	private:
 		std::shared_ptr<WidgetRenderer> clone(Widget* widget) override;
+		void setProperty(std::string property, const std::string& value) override;
+		void setProperty(std::string property, ObjectConverter&& value) override;
 	protected:
 		friend class KontrolkaObiektu;
 	};

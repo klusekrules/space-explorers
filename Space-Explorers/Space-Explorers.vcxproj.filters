@@ -355,6 +355,9 @@
     <ClCompile Include="Widok\Tgui\MySaver.cpp">
       <Filter>SourceFile\Widok\TGUI</Filter>
     </ClCompile>
+    <ClCompile Include="Widok\Tgui\MyLoader.cpp">
+      <Filter>SourceFile\Widok\TGUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model\Flota.h">
@@ -742,6 +745,9 @@
       <Filter>SourceFile\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Widok\Tgui\MySaver.h">
+      <Filter>SourceFile\Widok\TGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Widok\Tgui\MyLoader.h">
       <Filter>SourceFile\Widok\TGUI</Filter>
     </ClInclude>
   </ItemGroup>
