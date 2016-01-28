@@ -196,12 +196,7 @@ namespace tgui
             {
                 std::string className;
                 if (nameSeparator != std::string::npos)
-                {
-                    if ((childNode->name.size() >= nameSeparator + 2) && (childNode->name[nameSeparator+1] == '"') && (childNode->name.back() == '"'))
-                        className = Deserializer::deserialize(ObjectConverter::Type::String, childNode->name.substr(nameSeparator + 1)).getString();
-                    else
-                        className = childNode->name.substr(nameSeparator + 1);
-                }
+                    className = Deserializer::deserialize(ObjectConverter::Type::String, childNode->name.substr(nameSeparator + 1)).getString();
 
                 tgui::Widget::Ptr childWidget = loadFunction(childNode);
                 container->add(childWidget, className);
@@ -566,7 +561,7 @@ namespace tgui
                 if (node->propertyValuePairs["items"]->valueList.size() != node->propertyValuePairs["itemids"]->valueList.size())
                     throw Exception{"Amounts of values for 'Items' differs from the amount in 'ItemIds'"};
 
-                for (unsigned int i = 0; i < node->propertyValuePairs["items"]->valueList.size(); ++i)
+                for (std::size_t i = 0; i < node->propertyValuePairs["items"]->valueList.size(); ++i)
                 {
                     listBox->addItem(Deserializer::deserialize(ObjectConverter::Type::String, node->propertyValuePairs["items"]->valueList[i]).getString(),
                                      Deserializer::deserialize(ObjectConverter::Type::String, node->propertyValuePairs["itemids"]->valueList[i]).getString());
@@ -887,12 +882,7 @@ namespace tgui
             {
                 std::string className;
                 if (nameSeparator != std::string::npos)
-                {
-                    if ((node->name.size() >= nameSeparator + 2) && (node->name[nameSeparator+1] == '"') && (node->name.back() == '"'))
-                        className = Deserializer::deserialize(ObjectConverter::Type::String, node->name.substr(nameSeparator + 1)).getString();
-                    else
-                        className = node->name.substr(nameSeparator + 1);
-                }
+                    className = Deserializer::deserialize(ObjectConverter::Type::String, node->name.substr(nameSeparator + 1)).getString();
 
                 tgui::Widget::Ptr widget = loadFunction(node);
                 parent->add(widget, className);
