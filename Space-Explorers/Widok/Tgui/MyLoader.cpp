@@ -57,7 +57,7 @@ namespace tgui {
 
 		for (auto& childNode : node->children){
 			if (toLower(childNode->name) == "panel"){
-				widgetPtr->m_panel = std::static_pointer_cast<Panel>(WidgetLoader::getLoadFunction("Panel")(node));
+				widgetPtr->m_panel = std::static_pointer_cast<Panel>(WidgetLoader::getLoadFunction("Panel")(childNode));
 			}
 		}
 		REMOVE_CHILD("panel");
