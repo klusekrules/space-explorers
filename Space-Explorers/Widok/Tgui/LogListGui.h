@@ -29,42 +29,22 @@ namespace tgui{
 		* \date 30-09-2014
 		*/
 		struct MessageTypeDescription{
-
-			/**
-			* \brief Konstruktor obiektu.
-			*
-			* Konstruktor obiektu.
-			* \param[in] pierwszyKolor - Pierwszy kolor komunikatu.
-			* \param[in] drugiKolor - Drugi kolor komunikatu.
-			* \param[in] pierwszyRozmiarCzcionki - Pierwszy rozmiar czcionki komunikatu.
-			* \param[in] drugiRozmiarCzcionki - Drugi rozmiar czcionki komunikatu.
-			* \author Daniel Wojdak
-			* \version 2
-			* \date 30-09-2014
-			*/
-			MessageTypeDescription(const sf::Color& pierwszyKolor, const sf::Color& drugiKolor, unsigned int pierwszyRozmiarCzcionki, unsigned int drugiRozmiarCzcionki)
-				: pierwszyKolor_(pierwszyKolor), drugiKolor_(drugiKolor), pierwszyRozmiarCzcionki_(pierwszyRozmiarCzcionki), drugiRozmiarCzcionki_(drugiRozmiarCzcionki)
-			{
-			}
-			
-			sf::Color pierwszyKolor_; /// Pierwszy kolor komunikatu.
-			sf::Color drugiKolor_; /// Drugi kolor komunikatu.
-			unsigned int pierwszyRozmiarCzcionki_; /// Pierwszy rozmiar czcionki komunikatu.
-			unsigned int drugiRozmiarCzcionki_; /// Drugi rozmiar czcionki komunikatu.
+			Color pierwszyKolor_ = Color(0, 0, 0); /// Pierwszy kolor komunikatu.
+			Color drugiKolor_ = Color(0, 0, 0); /// Drugi kolor komunikatu.
+			unsigned int pierwszyRozmiarCzcionki_ = 0; /// Pierwszy rozmiar czcionki komunikatu.
+			unsigned int drugiRozmiarCzcionki_ = 0; /// Drugi rozmiar czcionki komunikatu.
 		};
+
+		typedef std::vector<MessageTypeDescription>::size_type MessageType; /// Typ okreœlaj¹cy numer u¿ytego komunikatu.
 
 		LogListGui();
 
-
 		LogListGui(const LogListGui& copy);
-
 
 		LogListGui& operator= (const LogListGui& right);
 
 		static LogListGui::Ptr copy(LogListGui::ConstPtr chatBox);
 
-		typedef std::vector<MessageTypeDescription>::size_type MessageType; /// Typ okreœlaj¹cy numer u¿ytego komunikatu.
-		
 		/**
 		* \brief Metoda dodaj¹ca komunikat do listy.
 		*
@@ -88,17 +68,21 @@ namespace tgui{
 		*/
 		void clear();
 
-
 	protected:
+
+		bool wczytajOpisyTypowKomunikatow(const std::string &plik);
+		const std::string& pobierzPlikOpisowTypowKomunikatow() const;
 				
-		virtual Widget::Ptr clone() const override
-		{
+		virtual Widget::Ptr clone() const override{
 			return std::make_shared<LogListGui>(*this);
 		}
-		
+		std::string plikOpisowTypowKomunikatow_;
+
 		std::vector<MessageTypeDescription> opisTypowKomunikatow_; /// Lista dostêpnych opisów komunikatów.
 		
 		std::vector<MessageType> powiazaniaKontrolek_; /// Lista powi¹zañ opisów komunikatów z kontrolkami wyœwietlaj¹cymi.
-	};
 
+		friend std::shared_ptr<DataIO::Node> saveLogListGui(LogListGui::Ptr);
+		friend Widget::Ptr loadLogListGui(std::shared_ptr<DataIO::Node>, Widget::Ptr);
+	};
 };
