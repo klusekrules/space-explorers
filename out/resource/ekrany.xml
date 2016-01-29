@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SpaceGame>
+<Space-Explorers>
   <EkranStartowy id="0" stanWejsciowy="2" zdarzenieWyjscia="0x1" konfiguracja="resource\pusteOkno.wdg"/>
   <Ekran id="1" czcionka="resource\arial.ttf" konfiguracja="resource\menu.wdg">
     <Kontrolka nazwa="zamknij">
@@ -42,4 +42,4 @@
       <Akcja id="256" idZdarzenia="3"/>
     </Kontrolka>
   </Ekran>
-</SpaceGame>
+</Space-Explorers>
