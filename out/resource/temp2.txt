@@ -1,0 +1,186 @@
+SurowiecGui."MojPrzycisk" {
+    IdentyfikatorObiektu: 18446744072867401165;
+    Position: (10, 20);
+    Size: (120, 64);
+
+    Renderer {
+        BackgroundImage: "widgets\tlo_surowce.png";
+        BorderColor: Black;
+        Borders: (0, 0, 0, 0);
+        Padding: (0, 0, 0, 0);
+        Shader: 1;
+    }
+
+    Panel {
+        Position: (10, 20);
+        Size: (120, 64);
+    
+        Renderer {
+            BackgroundColor: Transparent;
+        }
+    
+        Label."Nazwa" {
+            AutoSize: true;
+            Position: ("w > &.w ? 0 : (&.w - w) / 2", "h > &.h ? 0 : (&.h - h) / 2");
+            Size: (88, 32);
+            Text: "Metal\n1500,000000";
+            TextSize: 14;
+        
+            Renderer {
+                BackgroundColor: Transparent;
+                BorderColor: Black;
+                Borders: (0, 0, 0, 0);
+                Padding: (0, 0, 0, 0);
+                TextColor: White;
+            }
+        }
+    }
+}
+
+KontrolkaObiektu."MojaKontrolka" {
+    IdentyfikatorObiektu: 18446744073709551615;
+    IdentyfikatorZdarzeniaBudowy: 0;
+    IdentyfikatorZdarzeniaBurzenia: 0;
+    IdentyfikatorZdarzeniaKlikniecia: 0;
+    Position: (150, 220);
+    Size: (410, 110);
+
+    Renderer {
+        BackgroundImage: "widgets\tlo.png";
+        BorderColor: Black;
+        Borders: (0, 0, 0, 0);
+        Padding: (0, 0, 0, 0);
+        Shader: 1;
+    }
+
+    Panel {
+        Position: (150, 220);
+        Size: (410, 110);
+    
+        Renderer {
+            BackgroundColor: Transparent;
+        }
+    
+        Picture."ObrazObiektu" {
+            Filename: "resource\\Brak_obrazka.png";
+            Position: (5, 5);
+            Size: ("&.h-10", "&.h-10");
+        }
+    
+        Label."NazwaObiektu" {
+            MaximumTextWidth: 200.2;
+            Position: ("&.h", "3");
+            Size: ("( &.w - &.h - 20 ) * 0.715", "( &.h - 11 ) * 0.15");
+            Text: "Nazwa Obiektu";
+            TextSize: 14;
+        
+            Renderer {
+                BackgroundColor: Transparent;
+                BorderColor: Black;
+                Borders: (0, 0, 0, 0);
+                Padding: (0, 0, 0, 0);
+                TextColor: Red;
+            }
+        }
+    
+        Label."OpisObiektu" {
+            MaximumTextWidth: 200.2;
+            Position: ("&.h", "((&.h-11)*0.15) + 7");
+            Size: ("(&.w-&.h-20)*0.715", "(&.h-11)*0.85");
+            Text: "Opis Obiektu\nw wielu liniach.\nKoniec Opisu.";
+            TextSize: 14;
+        
+            Renderer {
+                BackgroundColor: Transparent;
+                BorderColor: Black;
+                Borders: (0, 0, 0, 0);
+                Padding: (0, 0, 0, 0);
+                TextColor: White;
+            }
+        }
+    
+        Label."CzasRozbudowy" {
+            MaximumTextWidth: 79.8;
+            Position: ("&.h+(&.w-&.h-20)*0.715+15", "3+(&.h-10)*0.05");
+            Size: ("(&.w-&.h-20)*0.285", "(&.h-10)*0.15");
+            Text: "Czas rozbudowy";
+            TextSize: 14;
+        
+            Renderer {
+                BackgroundColor: Transparent;
+                BorderColor: Black;
+                Borders: (0, 0, 0, 0);
+                Padding: (0, 0, 0, 0);
+                TextColor: White;
+            }
+        }
+    
+        Label."CzasZburzenia" {
+            MaximumTextWidth: 79.8;
+            Position: ("&.h+(&.w-&.h-20)*0.715+15", "7+(&.h-10)*0.5");
+            Size: ("(&.w-&.h-20)*0.285", "(&.h-10)*0.15");
+            Text: "Czas burzenia";
+            TextSize: 14;
+        
+            Renderer {
+                BackgroundColor: Transparent;
+                BorderColor: Black;
+                Borders: (0, 0, 0, 0);
+                Padding: (0, 0, 0, 0);
+                TextColor: White;
+            }
+        }
+    
+        Button."Rozbuduj" {
+            Position: ("&.h+(&.w-&.h-20)*0.715+15", "3+(&.h-10)*0.2");
+            Size: ("(&.w-&.h-20)*0.285", "(&.h-10)*0.3");
+            Text: "Buduj";
+            TextSize: 14;
+        
+            Renderer {
+                BackgroundColorDown: White;
+                BackgroundColorHover: White;
+                BackgroundColorNormal: #F5F5F5;
+                BorderColor: Black;
+                Borders: (2, 2, 2, 2);
+                TextColorDown: Black;
+                TextColorHover: Black;
+                TextColorNormal: #3C3C3C;
+            }
+        }
+    
+        Button."Zburz" {
+            Position: ("&.h+(&.w-&.h-20)*0.715+15", "7+(&.h-10)*0.65");
+            Size: ("(&.w-&.h-20)*0.285", "(&.h-10)*0.3");
+            Text: "Zburz";
+            TextSize: 14;
+        
+            Renderer {
+                BackgroundColorDown: White;
+                BackgroundColorHover: White;
+                BackgroundColorNormal: #F5F5F5;
+                BorderColor: Black;
+                Borders: (2, 2, 2, 2);
+                TextColorDown: Black;
+                TextColorHover: Black;
+                TextColorNormal: #3C3C3C;
+            }
+        }
+    }
+}
+
+LogListGui."Log" {
+    LinesStartFromTop: true;
+    Position: (200, 0);
+    Size: (500, 200);
+    TextColor: Black;
+    TextSize: 14;
+	MessageTypeFile: resource\loglist.xml;
+
+    Renderer {
+        BackgroundImage: "widgets/Black.png" Part(0, 154, 48, 48) Middle(16, 16, 16, 16);
+        BorderColor: Black;
+        Borders: (0, 0, 0, 0);
+        Padding: (10, 10, 10, 10);
+    }
+}

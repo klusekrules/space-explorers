@@ -3,7 +3,7 @@
 #include "Parser\XmlBO.h"
 #include "Logger\Logger.h"
 
-#define XML_WEZEL_GLOWNY "SpaceGame"
+#define XML_WEZEL_GLOWNY "Space-Explorers"
 #define XML_WEZEL_OPCJA "opcja"
 
 #define XML_OPCJA_ATRYBUT_NAZWA "nazwa"
