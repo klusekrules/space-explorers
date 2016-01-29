@@ -38,7 +38,7 @@ namespace tgui {
 		auto size = widgets.size();
 		for (decltype(size) n = 0; n < size; ++n) {
 			auto label = std::static_pointer_cast<Label>(widgets[n]);
-			MessageType position = powiazaniaKontrolek_[n];
+			MessageType position = powiazaniaKontrolek_[ this->m_newLinesBelowOthers ? n : (size-1) - n ];
 			if (position < opisTypowKomunikatow_.size()) {
 				label->setTextColor(opisTypowKomunikatow_[position].drugiKolor_);
 				label->setTextSize(opisTypowKomunikatow_[position].drugiRozmiarCzcionki_);

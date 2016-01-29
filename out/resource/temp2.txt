@@ -171,6 +171,7 @@ KontrolkaObiektu."MojaKontrolka" {
 
 LogListGui."Log" {
     LinesStartFromTop: true;
+	NewLinesBelowOthers: false;
     Position: (200, 0);
     Size: (500, 200);
     TextColor: Black;
