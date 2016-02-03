@@ -5,7 +5,12 @@
 namespace SPar{
 
 	std::shared_ptr<ParserElement> ParserDokumentXml::pobierzElement(const char* nazwa){
-		return std::make_shared<ParserElementXml>(dokument_.FirstChildElement(nazwa));
+		auto ptr = dokument_.FirstChildElement(nazwa);
+		if (ptr) {
+			return std::make_shared<ParserElementXml>(ptr);
+		}
+		return nullptr;
+		
 	}
 
 	std::shared_ptr<ParserElement> ParserDokumentXml::tworzElement(const char* nazwa){

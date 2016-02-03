@@ -1,29 +1,29 @@
 #include "LogListGui.h"
+#include "Parser\ParserDokumentXml.h"
+#include "Utils\DefinicjeWezlowXML.h"
+#include "Parser\XmlBO.h"
 
 namespace tgui {
 
-	LogListGui::LogListGui() :
-		ChatBox()
+	LogListGui::LogListGui() 
+		: ChatBox()
 	{
+		m_callback.widgetType = "LogListGui";
 	}
 
-	LogListGui::LogListGui(const LogListGui& logList) :
-		ChatBox{ logList }
-	{
-	}
+	LogListGui::LogListGui(const LogListGui& logList) 		
+		: ChatBox{ logList }
+	{}
 
-	LogListGui& LogListGui::operator= (const LogListGui& right)
-	{
-		if (this != &right)
-		{
+	LogListGui& LogListGui::operator= (const LogListGui& right) {
+		if (this != &right){
 			ChatBox::operator=(right);
 		}
 
 		return *this;
 	}
 
-	LogListGui::Ptr LogListGui::copy(LogListGui::ConstPtr logList)
-	{
+	LogListGui::Ptr LogListGui::copy(LogListGui::ConstPtr logList) {
 		if (logList)
 			return std::make_shared<LogListGui>(*logList);
 		else
@@ -38,8 +38,8 @@ namespace tgui {
 		auto size = widgets.size();
 		for (decltype(size) n = 0; n < size; ++n) {
 			auto label = std::static_pointer_cast<Label>(widgets[n]);
-			MessageType position = powiazaniaKontrolek_[n];
-			if (position < opisTypowKomunikatow_.size()){
+			MessageType position = powiazaniaKontrolek_[ this->m_newLinesBelowOthers ? n : (size-1) - n ];
+			if (position < opisTypowKomunikatow_.size()) {
 				label->setTextColor(opisTypowKomunikatow_[position].drugiKolor_);
 				label->setTextSize(opisTypowKomunikatow_[position].drugiRozmiarCzcionki_);
 			}
@@ -54,6 +54,40 @@ namespace tgui {
 	}
 
 	void LogListGui::clear() {
-		m_panel->removeAllWidgets();
+		removeAllLines();
+	}
+
+	bool LogListGui::wczytajOpisyTypowKomunikatow(const std::string &plik) {
+		plikOpisowTypowKomunikatow_ = plik;
+		if (plikOpisowTypowKomunikatow_.empty()) {
+			opisTypowKomunikatow_.clear();
+			powiazaniaKontrolek_.clear();
+			clear();
+			return true;
+		}
+		else {
+			auto dokumentGry = std::make_shared<SPar::ParserDokumentXml>();
+			if (!dokumentGry->odczytaj(plikOpisowTypowKomunikatow_.c_str())) {
+				return false;
+			}
+			return XmlBO::ForEach<NOTHROW>(dokumentGry->pobierzElement(WEZEL_XML_ROOT), WEZEL_XML_TYP, XmlBO::OperacjaWezla(
+				[&](XmlBO::ElementWezla typ)->bool {
+					MessageTypeDescription opis;
+					opis.pierwszyKolor_ = XmlBO::WczytajAtrybut<std::string>(typ, ATRYBUT_XML_GLOWNY_KOLOR, std::string());
+					opis.drugiKolor_ = XmlBO::WczytajAtrybut<std::string>(typ, ATRYBUT_XML_PODRZEDNY_KOLOR, std::string());
+					opis.pierwszyRozmiarCzcionki_ = XmlBO::WczytajAtrybut<unsigned int>(typ, ATRYBUT_XML_GLOWNY_ROZMIAR_CZCIONKI, 0);
+					opis.drugiRozmiarCzcionki_ = XmlBO::WczytajAtrybut<unsigned int>(typ, ATRYBUT_XML_PODRZEDNY_ROZMIAR_CZCIONKI, 0);
+					if (opis.drugiRozmiarCzcionki_ != 0 && opis.pierwszyRozmiarCzcionki_ != 0) {
+						opisTypowKomunikatow_.push_back(opis);
+						return true;
+					}
+					return false;
+				}
+			));
+		}
+	}
+
+	const std::string& LogListGui::pobierzPlikOpisowTypowKomunikatow() const {
+		return plikOpisowTypowKomunikatow_;
 	}
 }

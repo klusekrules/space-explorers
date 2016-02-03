@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SpaceGame>  
+<Space-Explorers>  
   <!-- Ustawienia regionalne jakie są używane w aplikacji.
   WARN: O tych ustawień zależy sposób interpretacji liczb. Należy zwrócic uwagę czy separator dzięsiętny w plikach danych jest zgodny z separaterem używanym w wybranych utawieniach regionalnych.
   -->
@@ -50,4 +50,4 @@
   
   <opcja nazwa="portSerwera" wartosc="15015"/>
   <opcja nazwa="adresSerwera" wartosc="localhost"/>
-</SpaceGame>
+</Space-Explorers>

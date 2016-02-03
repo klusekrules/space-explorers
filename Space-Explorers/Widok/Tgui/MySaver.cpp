@@ -41,4 +41,16 @@ namespace tgui {
 		return node;
 	}
 
+	std::shared_ptr<DataIO::Node> saveLogListGui(LogListGui::Ptr widget) {
+		auto node = std::make_shared<DataIO::Node>();
+		auto& savewidget = WidgetSaver::getSaveFunction(toLower("ChatBox"));
+		if (savewidget)
+			node = savewidget(WidgetConverter{ widget });
+		else
+			throw Exception{ "No save function exists for widget type 'ChatBox'." };
+
+		SET_PROPERTY("MessageTypeFile", tgui::to_string(widget->pobierzPlikOpisowTypowKomunikatow()));
+		return node;
+	}
+
 };

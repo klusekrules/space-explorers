@@ -4,20 +4,17 @@
 
 namespace tgui {
 
-	TGUI_API Widget::Ptr copyloadWidget(std::shared_ptr<DataIO::Node> node, Widget::Ptr widget)
-	{
+	Widget::Ptr copyloadWidget(std::shared_ptr<DataIO::Node> node, Widget::Ptr widget){
 		assert(widget != nullptr);
 
-		if (node->propertyValuePairs["visible"])
-		{
+		if (node->propertyValuePairs["visible"]){
 			bool visible = parseBoolean(node->propertyValuePairs["visible"]->value);
 			if (visible)
 				widget->show();
 			else
 				widget->hide();
 		}
-		if (node->propertyValuePairs["enabled"])
-		{
+		if (node->propertyValuePairs["enabled"]){
 			bool enabled = parseBoolean(node->propertyValuePairs["enabled"]->value);
 			if (enabled)
 				widget->enable();
@@ -33,10 +30,8 @@ namespace tgui {
 
 		/// TODO: Font and ToolTip (and Theme?)
 
-		for (auto& childNode : node->children)
-		{
-			if (toLower(childNode->name) == "renderer")
-			{
+		for (auto& childNode : node->children){
+			if (toLower(childNode->name) == "renderer"){
 				for (auto& pair : childNode->propertyValuePairs)
 					widget->getRenderer()->setProperty(pair.first, pair.second->value);
 			}
@@ -46,6 +41,60 @@ namespace tgui {
 		return widget;
 	}
 
+	Widget::Ptr copyloadChatBox(std::shared_ptr<DataIO::Node> node, Widget::Ptr widget = nullptr)
+	{
+		ChatBox::Ptr chatBox;
+		if (widget)
+			chatBox = std::static_pointer_cast<ChatBox>(widget);
+		else
+			chatBox = std::make_shared<ChatBox>();
+
+		copyloadWidget(node, chatBox);
+
+		if (node->propertyValuePairs["textsize"])
+			chatBox->setTextSize(tgui::stoi(node->propertyValuePairs["textsize"]->value));
+		if (node->propertyValuePairs["textcolor"])
+			chatBox->setTextColor(Deserializer::deserialize(ObjectConverter::Type::Color, node->propertyValuePairs["textcolor"]->value).getColor());
+
+		for (auto& childNode : node->children)
+		{
+			if (toLower(childNode->name) == "scrollbar")
+				chatBox->setScrollbar(std::static_pointer_cast<Scrollbar>(WidgetLoader::getLoadFunction("scrollbar")(childNode)));
+		}
+		REMOVE_CHILD("scrollbar");
+
+		for (auto& childNode : node->children)
+		{
+			if (toLower(childNode->name) == "line")
+			{
+				unsigned int lineTextSize = chatBox->getTextSize();
+				sf::Color lineTextColor = chatBox->getTextColor();
+
+				if (childNode->propertyValuePairs["textsize"])
+					lineTextSize = tgui::stoi(childNode->propertyValuePairs["textsize"]->value);
+				if (childNode->propertyValuePairs["color"])
+					lineTextColor = Deserializer::deserialize(ObjectConverter::Type::Color, childNode->propertyValuePairs["color"]->value).getColor();
+
+				if (childNode->propertyValuePairs["text"])
+				{
+					chatBox->addLine(Deserializer::deserialize(ObjectConverter::Type::String, childNode->propertyValuePairs["text"]->value).getString(),
+						lineTextColor,
+						lineTextSize);
+				}
+			}
+		}
+		REMOVE_CHILD("line");
+
+		if (node->propertyValuePairs["linesstartfromtop"])
+			chatBox->setLinesStartFromTop(parseBoolean(node->propertyValuePairs["linesstartfromtop"]->value));
+
+		// This has to be parsed after the lines have been added
+		if (node->propertyValuePairs["newlinesbelowothers"])
+			chatBox->setNewLinesBelowOthers(parseBoolean(node->propertyValuePairs["newlinesbelowothers"]->value));
+
+		return chatBox;
+	}
+
 	Widget::Ptr loadBazowyWidzet(std::shared_ptr<DataIO::Node> node, Widget::Ptr widget = nullptr) {
 		BazowyWidzet::Ptr widgetPtr;
 		if (widget)
@@ -53,7 +102,7 @@ namespace tgui {
 		else
 			widgetPtr = std::make_shared<BazowyWidzet>();
 
-		copyloadWidget(node, widget);
+		copyloadWidget(node, widgetPtr);
 
 		for (auto& childNode : node->children){
 			if (toLower(childNode->name) == "panel"){
@@ -74,8 +123,8 @@ namespace tgui {
 				
 		loadBazowyWidzet(node, widgetPtr);
 
-		if (node->propertyValuePairs["IdentyfikatorObiektu"])
-			widgetPtr->idObiektu_(tgui::stoi(node->propertyValuePairs["IdentyfikatorObiektu"]->value));
+		if (node->propertyValuePairs["identyfikatorobiektu"])
+			widgetPtr->idObiektu_(tgui::stoi(node->propertyValuePairs["identyfikatorobiektu"]->value));
 
 		widgetPtr->tekst_ = widgetPtr->m_panel->get<Label>("Nazwa");
 
@@ -91,14 +140,14 @@ namespace tgui {
 
 		loadBazowyWidzet(node, widgetPtr);
 
-		if (node->propertyValuePairs["IdentyfikatorObiektu"])
-			widgetPtr->idObiektu_(tgui::stoi(node->propertyValuePairs["IdentyfikatorObiektu"]->value));
-		if (node->propertyValuePairs["IdentyfikatorZdarzeniaBudowy"])
-			widgetPtr->idZdarzeniaBudowy_ = tgui::stoi(node->propertyValuePairs["IdentyfikatorZdarzeniaBudowy"]->value);
-		if (node->propertyValuePairs["IdentyfikatorZdarzeniaBurzenia"])
-			widgetPtr->idZdarzeniaBurzenia_ = tgui::stoi(node->propertyValuePairs["IdentyfikatorZdarzeniaBurzenia"]->value);
-		if (node->propertyValuePairs["IdentyfikatorZdarzeniaKlikniecia"])
-			widgetPtr->idZdarzeniaKlikniecia_ = tgui::stoi(node->propertyValuePairs["IdentyfikatorZdarzeniaKlikniecia"]->value);
+		if (node->propertyValuePairs["identyfikatorobiektu"])
+			widgetPtr->idObiektu_(tgui::stoi(node->propertyValuePairs["identyfikatorobiektu"]->value));
+		if (node->propertyValuePairs["identyfikatorzdarzeniabudowy"])
+			widgetPtr->idZdarzeniaBudowy_ = tgui::stoi(node->propertyValuePairs["identyfikatorzdarzeniabudowy"]->value);
+		if (node->propertyValuePairs["identyfikatorzdarzeniaburzenia"])
+			widgetPtr->idZdarzeniaBurzenia_ = tgui::stoi(node->propertyValuePairs["identyfikatorzdarzeniaburzenia"]->value);
+		if (node->propertyValuePairs["identyfikatorzdarzeniaklikniecia"])
+			widgetPtr->idZdarzeniaKlikniecia_ = tgui::stoi(node->propertyValuePairs["identyfikatorzdarzeniaklikniecia"]->value);
 
 		widgetPtr->obraz_ = widgetPtr->m_panel->get<Picture>("ObrazObiektu");
 		widgetPtr->nazwa_ = widgetPtr->m_panel->get<Label>("NazwaObiektu");
@@ -107,6 +156,21 @@ namespace tgui {
 		widgetPtr->zniszcz_ = widgetPtr->m_panel->get<Button>("Zburz");
 		widgetPtr->czasRozbudowy_ = widgetPtr->m_panel->get<Label>("CzasRozbudowy");
 		widgetPtr->czasZburzenia_ = widgetPtr->m_panel->get<Label>("CzasZburzenia");
+
+		return widgetPtr;
+	}
+
+	Widget::Ptr loadLogListGui(std::shared_ptr<DataIO::Node> node, Widget::Ptr widget) {
+		LogListGui::Ptr widgetPtr;
+		if (widget)
+			widgetPtr = std::static_pointer_cast<LogListGui>(widget);
+		else
+			widgetPtr = std::make_shared<LogListGui>();
+
+		copyloadChatBox(node, widgetPtr);
+
+		if (node->propertyValuePairs["messagetypefile"])
+			widgetPtr->wczytajOpisyTypowKomunikatow(node->propertyValuePairs["messagetypefile"]->value);
 
 		return widgetPtr;
 	}

@@ -5,6 +5,7 @@
 #include "Testy\Szkielet\TestyUtilsBO.h"
 #include "Parser\ParserDokumentXml.h"
 #include "Parser\ParserElementXml.h"
+#include "Widok\Tgui\LogListGui.h"
 
 namespace SpEx{
 
@@ -56,8 +57,27 @@ namespace SpEx{
 		kontrolka->setPosition(150, 150);
 		button->ustawDane(*ptr);
 		button->setPosition(10,20);*/
+		gui.setFont("resource/consola.ttf");
 
-		gui.loadWidgetsFromFile("resource\\temp.txt");
+		//tgui::Theme::Ptr theme = std::make_shared<tgui::Theme>("widgets/Black.txt");
+		
+		gui.loadWidgetsFromFile("resource\\temp2.txt");
+		/*
+		tgui::ChatBox::Ptr chatbox = theme->load("ChatBox");
+		chatbox->setPosition(200, 0);
+		chatbox->setTextSize(14);
+		chatbox->setLineLimit(4);
+		chatbox->setLinesStartFromTop();
+		gui.add(chatbox);*/
+
+		tgui::LogListGui::Ptr ptr_= gui.get<tgui::LogListGui>("Log");
+		ptr_->addMessage(0, "Napis1");
+		ptr_->addMessage(0, "Napis2");
+		ptr_->addMessage(0, "Napis3");
+		ptr_->addMessage(0, "Napis4");
+
+		//gui.saveWidgetsToFile("resource\\temp2.txt");
+
 		while (window.isOpen())
 		{
 			sf::Event event;
@@ -74,6 +94,5 @@ namespace SpEx{
 			window.display();
 		}
 
-		//delete ptr;
 	}
 }

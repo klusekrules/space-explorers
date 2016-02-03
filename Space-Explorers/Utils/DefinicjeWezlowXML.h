@@ -119,3 +119,11 @@
 
 #define WARTOSC_ATRYBUTU_XML_NASTEPNY "nastepny"
 #define WARTOSC_ATRYBUTU_XML_BRAT "brat"
+
+//--- LogListGui ---
+#define WEZEL_XML_TYP "Typ"
+#define ATRYBUT_XML_GLOWNY_KOLOR "glownyKolor"
+#define ATRYBUT_XML_PODRZEDNY_KOLOR "podrzednyKolor"
+#define ATRYBUT_XML_GLOWNY_ROZMIAR_CZCIONKI "glownyRozmiarCzcionki"
+#define ATRYBUT_XML_PODRZEDNY_ROZMIAR_CZCIONKI "podrzednyRozmiarCzcionki"
+//--- LogListGui ---
