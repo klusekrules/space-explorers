@@ -95,15 +95,25 @@ namespace tgui {
 			for (auto &id : listaObj){
 				if (iter == kontrolki_.end() || (*iter)->pobierzIdObiektu() != id.first){
 					std::lock_guard<std::mutex> lock(zmianaDanych_);
-					auto widget = std::make_shared<SurowiecGui>(*szablonKontrolki_);
-					m_panel->add(widget,id.second->pobierzSurowceInfo().pobierzNazwe()());
+					auto widget = std::static_pointer_cast<tgui::SurowiecGui>(szablonKontrolki_->clone());
+					auto nazwa = id.second->pobierzSurowceInfo().pobierzNazwe()();
+					m_panel->add(widget,nazwa);
+					widget->ustawDane(*id.second);
 					widget->show();
-					iter = kontrolki_.emplace(iter, widget);
+					if (iter == kontrolki_.end()) {
+						kontrolki_.emplace_back(widget);
+						iter = kontrolki_.end();
+						continue;
+					}else {
+						auto nIter = kontrolki_.emplace(iter, widget);
+						iter = nIter;
+					}
+				}else{
+					if (iter != kontrolki_.end()) {
+						(*iter)->ustawDane(*id.second);
+					}
 				}
-				if (iter != kontrolki_.end()){
-					(*iter)->ustawDane(*id.second);
-					++iter;
-				}
+				++iter;
 			}
 		}
 		odswiezPozycje();
@@ -120,6 +130,7 @@ namespace tgui {
 
 	void ListaSurowcowGui::stworzDomyslnySzablonKontrolki(){
 		szablonKontrolki_ = std::make_shared<SurowiecGui>();
+		szablonKontrolki_->hide();
 	}
 
 	void ListaSurowcowGui::wyczyscDane(){

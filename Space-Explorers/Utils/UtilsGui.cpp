@@ -64,25 +64,11 @@ namespace SpEx{
 
 		auto lista = std::make_shared<tgui::ListaSurowcowGui>();
 
-		//auto surowiec = std::make_shared<tgui::SurowiecGui>();
-		//gui.add(surowiec, "surowiec");
-
 		lista->aktualizacjaDanych(*ptrPlaneta);
-
+		
 		gui.add(lista, "ListaSurowcow");
-		/*
-		tgui::ChatBox::Ptr chatbox = theme->load("ChatBox");
-		chatbox->setPosition(200, 0);
-		chatbox->setTextSize(14);
-		chatbox->setLineLimit(4);
-		chatbox->setLinesStartFromTop();
-		gui.add(chatbox);*/
-
-		/*tgui::LogListGui::Ptr ptr_= gui.get<tgui::LogListGui>("Log");
-		ptr_->addMessage(0, "Napis1");
-		ptr_->addMessage(0, "Napis2");
-		ptr_->addMessage(0, "Napis3");
-		ptr_->addMessage(0, "Napis4");*/
+		
+		lista->aktualizacjaDanych(*ptrPlaneta);
 
 		//gui.saveWidgetsToFile("resource\\temp2.txt");
 

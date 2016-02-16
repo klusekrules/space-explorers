@@ -4,7 +4,7 @@
 namespace tgui {
 
 	BazowyWidzet::BazowyWidzet(const BazowyWidzet& o)
-		: Widget(o), m_panel(o.m_panel)
+		: Widget(o), m_panel(Panel::copy(o.m_panel))
 	{
 		m_callback.widgetType = "BazowyWidzet";
 		m_draggableWidget = false;
@@ -15,7 +15,6 @@ namespace tgui {
 			Widget::operator=(right);
 			m_panel = Panel::copy(right.m_panel);
 		}
-
 		return *this;
 	}
 
@@ -40,14 +39,9 @@ namespace tgui {
 			getSize().y + getRenderer()->m_borders.top + getRenderer()->m_borders.bottom };
 	}
 
-	void BazowyWidzet::setFont(const Font& font)
-	{
+	void BazowyWidzet::setFont(const Font& font){
 		Widget::setFont(font);
-
-		for (auto& widzet : m_panel->getWidgets()){
-			widzet->setFont(font);
-		}
-
+		m_panel->setFont(font);
 	}
 
 
