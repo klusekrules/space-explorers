@@ -32,41 +32,45 @@ namespace tgui {
 		}
 	}*/
 
-	ListaSurowcowGui::ListaSurowcowGui(const ListaSurowcowGui& o)
-		:BazowyWidzet(o), plikKonfiguracyjny_(o.plikKonfiguracyjny_)
+
+
+
+	
+
+	ListaSurowcowGui::ListaSurowcowGui()
 	{
-		/*tekst_ = this->get<Label>("Nazwa");*/
+		m_callback.widgetType = "ListaSurowcowGui";
+		m_draggableWidget = false;
+
+		m_panel->setBackgroundColor(sf::Color::White);
+		m_panel->setSize(410, 110);
+
+		m_renderer = std::make_shared<ListaSurowcowGuiRenderer>(this);
+		reload("", "", true);
 	}
 
-	ListaSurowcowGui& ListaSurowcowGui::operator=(const ListaSurowcowGui & right)
-	{
-		if (this != &right)
-		{
+	ListaSurowcowGui::ListaSurowcowGui(const ListaSurowcowGui& o)
+		: BazowyWidzet(o)
+	{}
+
+	ListaSurowcowGui& ListaSurowcowGui::operator=(const ListaSurowcowGui & right){
+		if (this != &right){
 			BazowyWidzet::operator=(right);
-
-			/*std::swap(m_lineSpacing, temp.m_lineSpacing);
-			std::swap(m_textSize, temp.m_textSize);
-			std::swap(m_textColor, temp.m_textColor);
-			std::swap(m_maxLines, temp.m_maxLines);
-			std::swap(m_fullTextHeight, temp.m_fullTextHeight);
-			std::swap(m_linesStartFromTop, temp.m_linesStartFromTop);
-			std::swap(m_panel, temp.m_panel);
-			std::swap(m_scroll, temp.m_scroll);*/
 		}
-
 		return *this;
 	}
 	
-	const std::string& ListaSurowcowGui::getLoadedConfigFile() const{
-		return plikKonfiguracyjny_;
-	}
-
 	void ListaSurowcowGui::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 		std::lock_guard<std::mutex> lock(zmianaDanych_);
 		BazowyWidzet::draw(target, states);
 	}
 
 	void ListaSurowcowGui::aktualizacjaDanych(const SpEx::Planeta& planeta){
+		if (szablonKontrolki_ == nullptr) {
+			wyczyscDane();
+			stworzDomyslnySzablonKontrolki();
+		}
+
 		auto listaObj = planeta.pobierzSurowce();
 		if (kontrolki_.size() == listaObj.size()){ // Je¿eli iloœæ kontrolek jest taka sama, jak iloœæ obiektów to tylko aktualizujemy dane.
 			auto iter = listaObj.begin();
@@ -112,9 +116,20 @@ namespace tgui {
 		}
 	}
 
+	void ListaSurowcowGui::stworzDomyslnySzablonKontrolki(){
+		szablonKontrolki_ = std::make_shared<SurowiecGui>();
+	}
+
+	void ListaSurowcowGui::wyczyscDane(){
+		std::lock_guard<std::mutex> lock(zmianaDanych_);
+		m_panel->removeAllWidgets();
+		szablonKontrolki_ = nullptr;
+		kontrolki_.clear();
+	}
+
 	std::shared_ptr<WidgetRenderer> ListaSurowcowGuiRenderer::clone(Widget * widget){
 		auto renderer = std::make_shared<ListaSurowcowGuiRenderer>(*this);
-		renderer->kontrolka_ = static_cast<BazowyWidzet*>(widget);
+		renderer->kontrolka_ = static_cast<ListaSurowcowGui*>(widget);
 		return renderer;
 	}
 

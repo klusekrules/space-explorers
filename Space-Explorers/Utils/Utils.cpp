@@ -1,7 +1,9 @@
 #include "Utils.h"
+#include <direct.h>
 #include "Kontroler\Aplikacja.h"
 #include "Kontroler\Zarzadca\Fabrykator.h"
-#include <direct.h>
+#include "Utils\DefinicjeWezlowXML.h"
+#include "Model\GeneratorUkladow.h"
 
 namespace SpEx{
 
@@ -99,5 +101,21 @@ namespace SpEx{
 			}
 		} while (pos != std::string::npos);
 		return true;
+	}
+
+	void Utils::generujSzablonPlikuGry(std::shared_ptr<SPar::ParserDokument>& ptr){
+		auto generator = ptr->tworzElement(WEZEL_XML_ROOT)->tworzElement(WEZEL_XML_GRA)->tworzElement(WEZEL_XML_ZARZADCA)->tworzElement(WEZEL_XML_GENERATOR_UKLADOW);
+		
+		auto licznik_planeta = generator->tworzElement(WEZEL_XML_LICZNIK);
+		licznik_planeta->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR,"")->ustawWartoscInt64(GeneratorUkladow::LICZNIK_PLANET_ID());
+		licznik_planeta->tworzAtrybut(ATRYBUT_XML_ILOSC, "0");		
+
+		auto licznik_uklad = generator->tworzElement(WEZEL_XML_LICZNIK);
+		licznik_uklad->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, "")->ustawWartoscInt64(GeneratorUkladow::LICZNIK_UKLADOW_ID());
+		licznik_uklad->tworzAtrybut(ATRYBUT_XML_ILOSC, "0");
+
+		auto licznik_galaktyka = generator->tworzElement(WEZEL_XML_LICZNIK);
+		licznik_galaktyka->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, "")->ustawWartoscInt64(GeneratorUkladow::LICZNIK_GALAKTYK_ID());
+		licznik_galaktyka->tworzAtrybut(ATRYBUT_XML_ILOSC, "0");
 	}
 }

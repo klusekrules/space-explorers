@@ -1,11 +1,15 @@
 #include "UtilsGui.h"
 #include "Widok\Tgui\SurowiecGui.h"
+#include "Widok\Tgui\ListaSurowcowGui.h"
 #include "Model\SurowceInfo.h"
 #include "Widok\Tgui\KontrolkaObiektu.h"
 #include "Testy\Szkielet\TestyUtilsBO.h"
 #include "Parser\ParserDokumentXml.h"
 #include "Parser\ParserElementXml.h"
 #include "Widok\Tgui\LogListGui.h"
+#include "Kontroler\Aplikacja.h"
+#include "Kontroler\Gra.h"
+#include "Model\Planeta.h"
 
 namespace SpEx{
 
@@ -34,34 +38,37 @@ namespace SpEx{
 
 		sf::RenderWindow window{ { 800, 600 }, "Okno Testowe" };
 		tgui::Gui gui{ window }; // Create the gui and attach it to the window
-/*
-		SPar::ParserDokumentXml root;
-		auto surowiec = TestyUtilsBO::tworzSurowiec(*root.tworzElement("test"),
-			STyp::Identyfikator(1),
-			STyp::Tekst("Metal"),
-			STyp::Tekst("BrakObrazka"),
-			STyp::Tekst("Opis metalu."),
-			STyp::Masa(3),
-			STyp::Objetosc(1),
-			STyp::Bool(true));
 
-		SurowceInfo info(surowiec);
-		auto ptr = info.tworzEgzemplarz(STyp::Ilosc(1500));
-
-		tgui::SurowiecGui::Ptr button = std::make_shared<tgui::SurowiecGui>();
-		gui.add(button,"MojPrzycisk");
+		auto& app = SpEx::Aplikacja::pobierzInstancje();
 		
-		tgui::KontrolkaObiektu::Ptr kontrolka = std::make_shared<tgui::KontrolkaObiektu>();
-		gui.add(kontrolka, "MojaKontrolka");
-		gui.setFont("resource\\consola.ttf");
-		kontrolka->setPosition(150, 150);
-		button->ustawDane(*ptr);
-		button->setPosition(10,20);*/
+		//app.pobierzGre().generujNowaGalaktyke();
+
+		
+		auto ptrPlaneta = app.pobierzGre().pobierzPlanete(0);
+
+		/*if (ptrPlaneta) {
+			auto ptrA = std::shared_ptr<SpEx::Surowce>(app.pobierzGre().pobierzObiektInfo<SpEx::SurowceInfo>(1).tworzEgzemplarz(STyp::Ilosc(500)));
+			ptrPlaneta->dodajObiekt<SpEx::Surowce>(ptrA);
+			auto ptrB = std::shared_ptr<SpEx::Surowce>(app.pobierzGre().pobierzObiektInfo<SpEx::SurowceInfo>(2).tworzEgzemplarz(STyp::Ilosc(1500)));
+			ptrPlaneta->dodajObiekt<SpEx::Surowce>(ptrB);
+			auto ptrC = std::shared_ptr<SpEx::Surowce>(app.pobierzGre().pobierzObiektInfo<SpEx::SurowceInfo>(3).tworzEgzemplarz(STyp::Ilosc(5500)));
+			ptrPlaneta->dodajObiekt<SpEx::Surowce>(ptrC);
+		}*/
+
+		//app.zapiszGre();
+
 		gui.setFont("resource/consola.ttf");
 
 		//tgui::Theme::Ptr theme = std::make_shared<tgui::Theme>("widgets/Black.txt");
 		
-		gui.loadWidgetsFromFile("resource\\temp2.txt");
+		//gui.loadWidgetsFromFile("resource\\temp2.txt");
+
+		auto lista = std::make_shared<tgui::ListaSurowcowGui>();
+
+		lista->aktualizacjaDanych(*ptrPlaneta);
+		lista->setPosition(100, 340);
+
+		gui.add(lista, "ListaSurowcow");
 		/*
 		tgui::ChatBox::Ptr chatbox = theme->load("ChatBox");
 		chatbox->setPosition(200, 0);
@@ -70,11 +77,11 @@ namespace SpEx{
 		chatbox->setLinesStartFromTop();
 		gui.add(chatbox);*/
 
-		tgui::LogListGui::Ptr ptr_= gui.get<tgui::LogListGui>("Log");
+		/*tgui::LogListGui::Ptr ptr_= gui.get<tgui::LogListGui>("Log");
 		ptr_->addMessage(0, "Napis1");
 		ptr_->addMessage(0, "Napis2");
 		ptr_->addMessage(0, "Napis3");
-		ptr_->addMessage(0, "Napis4");
+		ptr_->addMessage(0, "Napis4");*/
 
 		//gui.saveWidgetsToFile("resource\\temp2.txt");
 
