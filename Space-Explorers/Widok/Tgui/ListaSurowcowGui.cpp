@@ -38,15 +38,17 @@ namespace tgui {
 	
 
 	ListaSurowcowGui::ListaSurowcowGui()
+		: BazowyWidzet()
 	{
 		m_callback.widgetType = "ListaSurowcowGui";
 		m_draggableWidget = false;
-
+		
 		m_panel->setBackgroundColor(sf::Color::White);
-		m_panel->setSize(410, 110);
 
 		m_renderer = std::make_shared<ListaSurowcowGuiRenderer>(this);
 		reload("", "", true);
+
+		setSize(600, 200);
 	}
 
 	ListaSurowcowGui::ListaSurowcowGui(const ListaSurowcowGui& o)

@@ -43,7 +43,6 @@ namespace SpEx{
 		
 		//app.pobierzGre().generujNowaGalaktyke();
 
-		
 		auto ptrPlaneta = app.pobierzGre().pobierzPlanete(0);
 
 		/*if (ptrPlaneta) {
@@ -65,8 +64,10 @@ namespace SpEx{
 
 		auto lista = std::make_shared<tgui::ListaSurowcowGui>();
 
+		//auto surowiec = std::make_shared<tgui::SurowiecGui>();
+		//gui.add(surowiec, "surowiec");
+
 		lista->aktualizacjaDanych(*ptrPlaneta);
-		lista->setPosition(100, 340);
 
 		gui.add(lista, "ListaSurowcow");
 		/*
