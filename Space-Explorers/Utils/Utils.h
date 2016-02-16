@@ -2,6 +2,7 @@
 #include <string>
 #include <algorithm>
 #include <vector>
+#include "Parser\ParserInterfejs.h"
 #include "Zmiana\ZmianaInterfejs.h"
 #include "Model\PodstawoweParametry.h"
 #include "Logger\Log.h"
@@ -159,6 +160,8 @@ namespace SpEx{
 		static std::vector < SLog::Log::TypLogow > dekodujListeTypowLogow(const std::string& str);
 
 		static bool tworzSciezke(const std::string& path);
+
+		static void generujSzablonPlikuGry(std::shared_ptr<SPar::ParserDokument>& ptr);
 
 	};
 }

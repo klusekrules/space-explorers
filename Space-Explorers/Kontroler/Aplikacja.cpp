@@ -73,7 +73,7 @@ namespace SpEx{
 	bool Aplikacja::wczytajGre(std::shared_ptr<SPar::ParserElement> root){
 		auto dokumentGry = std::make_shared<SPar::ParserDokumentXml>();
 		if (!dokumentGry->odczytaj(ustawienia_[ATRYBUT_PLIK_GRY].c_str())){
-			dokumentGry->tworzElement(WEZEL_XML_ROOT)->tworzElement(WEZEL_XML_GRA);
+			Utils::generujSzablonPlikuGry(std::static_pointer_cast<SPar::ParserDokument>(dokumentGry));
 			if (!dokumentGry->zapisz(ustawienia_[ATRYBUT_PLIK_GRY].c_str())){
 				return false;
 			}
@@ -120,33 +120,26 @@ namespace SpEx{
 
 	bool Aplikacja::zapiszGre(){
 		std::locale::global(std::locale("C"));
+		bool retVal = false;
 		try{
 			auto dokumentGry = std::make_shared<SPar::ParserDokumentXml>();
 			auto wezel = dokumentGry->tworzElement(WEZEL_XML_ROOT);
-			if (!wezel){
-				return false;
-			}
+			if (wezel) {
+				if (instancjaGry_)
+					instancjaGry_->zapiszGracza();
 
-			if (instancjaGry_){
-				if(!instancjaGry_->zapiszGracza())
-					return false;
-			}
+				zarzadcaUzytkownikow_->zapiszDane();
 
-			if (!zarzadcaUzytkownikow_->zapiszDane())
-				return false;
-
-			if (zarzadcaLokacji_->zapisz(wezel->tworzElement(WEZEL_XML_GRA))){
-				std::locale::global(std::locale(ustawienia_[ATRYBUT_JEZYK_APLIKACJI]));
-				return dokumentGry->zapisz(ustawienia_[ATRYBUT_PLIK_GRY].c_str());
-			}
-			
+				if (zarzadcaLokacji_->zapisz(wezel->tworzElement(WEZEL_XML_GRA)))
+					retVal = dokumentGry->zapisz(ustawienia_[ATRYBUT_PLIK_GRY].c_str());
+			}			
 		}
 		catch (...){
 			std::locale::global(std::locale(ustawienia_[ATRYBUT_JEZYK_APLIKACJI]));
 			throw;
 		}
 		std::locale::global(std::locale(ustawienia_[ATRYBUT_JEZYK_APLIKACJI]));
-		return false;
+		return retVal;
 	}
 
 	Aplikacja::~Aplikacja()
