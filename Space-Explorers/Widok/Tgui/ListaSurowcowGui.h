@@ -29,7 +29,7 @@ namespace tgui{
 		*
 		* Domyœlny konstruktor.
 		*/
-		ListaSurowcowGui() = default;
+		ListaSurowcowGui();
 
 		/**
 		* \brief Konstruktor kopiuj¹cy.
@@ -65,19 +65,7 @@ namespace tgui{
 		* \date 01-10-2014
 		*/
 		void aktualizacjaDanych(const SpEx::Planeta& planeta);
-
-		
-		/**
-		* \brief Metoda zwracaj¹ca adres pliku konfiguracynego.
-		*
-		* Metoda zwraca adres pliku konfiguracyjnego, z którego zosta³y zaczytane parametry kontrolki.
-		* \return Adres pliku konfiguracyjnego.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 01-10-2014
-		*/
-		const std::string& getLoadedConfigFile() const;
-		
+				
 	protected:
 
 		/**
@@ -104,8 +92,11 @@ namespace tgui{
 		*/
 		void odswiezPozycje();
 
+		void stworzDomyslnySzablonKontrolki();
+
+		void wyczyscDane();
+
 		mutable std::mutex zmianaDanych_; /// Muteks dostêpu do modyfikacji danych kontrolek.
-		std::string plikKonfiguracyjny_ = ""; /// Adres pliku konfiguracyjnego.
 		SurowiecGui::Ptr szablonKontrolki_; /// WskaŸnik na szablon kontrolki obiektu.
 		std::vector<SurowiecGui::Ptr> kontrolki_; /// Kontener z kontrolkami obiektów.
 
@@ -116,12 +107,9 @@ namespace tgui{
 	{
 	public:
 		using BazowyRenderer::BazowyRenderer;
-
 	private:
 		std::shared_ptr<WidgetRenderer> clone(Widget* widget) override;
-
 	protected:
-
 		friend class ListaSurowcowGui;
 	};
 	
