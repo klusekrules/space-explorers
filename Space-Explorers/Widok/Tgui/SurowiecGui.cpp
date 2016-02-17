@@ -38,6 +38,13 @@ namespace tgui {
 		return *this;
 	}
 
+	SurowiecGui::Ptr SurowiecGui::copy(SurowiecGui::ConstPtr surowiecGui){
+		if (surowiecGui)
+			return std::static_pointer_cast<SurowiecGui>(surowiecGui->clone());
+		else
+			return nullptr;
+	}
+
 	void SurowiecGui::ustawKontrolkeLabel(Label::Ptr ptr) {
 		m_panel->remove(tekst_);
 		tekst_ = ptr;

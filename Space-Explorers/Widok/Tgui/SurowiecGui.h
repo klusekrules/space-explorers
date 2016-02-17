@@ -45,6 +45,8 @@ namespace tgui {
 		SurowiecGui(const SurowiecGui& zrodlowy);
 		
 		SurowiecGui& operator= (const SurowiecGui& right);
+
+		static SurowiecGui::Ptr copy(SurowiecGui::ConstPtr surowiecGui);
 		
 		/**
 		* \brief Domyœlny destruktor.

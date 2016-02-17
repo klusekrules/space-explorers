@@ -2,6 +2,10 @@
 #include "BazowyRenderer.h"
 
 namespace tgui {
+	BazowyWidzet::BazowyWidzet(){
+		m_callback.widgetType = "BazowyWidzet";
+		m_draggableWidget = false;
+	}
 
 	BazowyWidzet::BazowyWidzet(const BazowyWidzet& o)
 		: Widget(o), m_panel(Panel::copy(o.m_panel))
@@ -16,6 +20,13 @@ namespace tgui {
 			m_panel = Panel::copy(right.m_panel);
 		}
 		return *this;
+	}
+
+	BazowyWidzet::Ptr BazowyWidzet::copy(BazowyWidzet::ConstPtr bazowyWidzet){
+		if (bazowyWidzet)
+			return std::static_pointer_cast<BazowyWidzet>(bazowyWidzet->clone());
+		else
+			return nullptr;
 	}
 
 	void BazowyWidzet::setPosition(const Layout2d& position){
@@ -43,8 +54,7 @@ namespace tgui {
 		Widget::setFont(font);
 		m_panel->setFont(font);
 	}
-
-
+	
 	void BazowyWidzet::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 		if (getRenderer()->getShader() != nullptr){
 			states.shader = getRenderer()->getShader().get();
@@ -85,7 +95,7 @@ namespace tgui {
 				scaledPadding.bottom = padding.bottom * (texture.getSize().x / texture.getImageSize().x);
 				break;
 
-			case Texture::ScalingType::NineSliceScaling:
+			case Texture::ScalingType::NineSlice:
 				break;
 			}
 		}
@@ -115,6 +125,12 @@ namespace tgui {
 	bool BazowyWidzet::mouseOnWidget(float, float) const {
 		/// TODO: implementacja metody
 		return false;
+	}
+
+	void BazowyWidzet::setParent(Container* parent)
+	{
+		Widget::setParent(parent);
+		m_panel->setParent(parent);
 	}
 
 };

@@ -11,12 +11,14 @@ namespace tgui {
 		typedef std::shared_ptr<BazowyWidzet> Ptr; ///< Shared widget pointer
 		typedef std::shared_ptr<const BazowyWidzet> ConstPtr; ///< Shared constant widget pointer
 		
-		BazowyWidzet() = default;
+		BazowyWidzet();
 
 		BazowyWidzet(const BazowyWidzet& zrodlowy);
 
 		BazowyWidzet& operator= (const BazowyWidzet& right);
 		
+		static BazowyWidzet::Ptr copy(BazowyWidzet::ConstPtr bazowyWidzet);
+
 		void setPosition(const Layout2d& position) override;
 		using Transformable::setPosition;
 
@@ -32,6 +34,8 @@ namespace tgui {
 		}
 
 		bool mouseOnWidget(float x, float y) const override;
+
+		void setParent(Container* parent) override;
 
 		std::shared_ptr<BazowyRenderer> getRenderer() const {
 			return std::static_pointer_cast<BazowyRenderer>(m_renderer);

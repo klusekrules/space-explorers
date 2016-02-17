@@ -32,11 +32,6 @@ namespace tgui {
 		}
 	}*/
 
-
-
-
-	
-
 	ListaSurowcowGui::ListaSurowcowGui()
 		: BazowyWidzet()
 	{
@@ -53,11 +48,14 @@ namespace tgui {
 
 	ListaSurowcowGui::ListaSurowcowGui(const ListaSurowcowGui& o)
 		: BazowyWidzet(o)
-	{}
+	{
+		//todo
+	}
 
 	ListaSurowcowGui& ListaSurowcowGui::operator=(const ListaSurowcowGui & right){
 		if (this != &right){
 			BazowyWidzet::operator=(right);
+			//todo
 		}
 		return *this;
 	}
@@ -95,7 +93,7 @@ namespace tgui {
 			for (auto &id : listaObj){
 				if (iter == kontrolki_.end() || (*iter)->pobierzIdObiektu() != id.first){
 					std::lock_guard<std::mutex> lock(zmianaDanych_);
-					auto widget = std::static_pointer_cast<tgui::SurowiecGui>(szablonKontrolki_->clone());
+					auto widget = SurowiecGui::copy(szablonKontrolki_);
 					auto nazwa = id.second->pobierzSurowceInfo().pobierzNazwe()();
 					m_panel->add(widget,nazwa);
 					widget->ustawDane(*id.second);
