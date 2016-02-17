@@ -253,6 +253,8 @@ namespace tgui
             chatBox->setTextSize(tgui::stoi(node->propertyValuePairs["textsize"]->value));
         if (node->propertyValuePairs["textcolor"])
             chatBox->setTextColor(Deserializer::deserialize(ObjectConverter::Type::Color, node->propertyValuePairs["textcolor"]->value).getColor());
+        if (node->propertyValuePairs["linelimit"])
+            chatBox->setLineLimit(tgui::stoi(node->propertyValuePairs["linelimit"]->value));
 
         for (auto& childNode : node->children)
         {
@@ -512,15 +514,26 @@ namespace tgui
             label->setTextStyle(style);
         }
 
-        if (node->propertyValuePairs["alignment"])
+        if (node->propertyValuePairs["horizontalalignment"])
         {
-            std::string alignment = toLower(DESERIALIZE_STRING("alignment"));
+            std::string alignment = toLower(DESERIALIZE_STRING("horizontalalignment"));
             if (alignment == "right")
-                label->setAlignment(Label::Alignment::Right);
+                label->setHorizontalAlignment(Label::HorizontalAlignment::Right);
             else if (alignment == "center")
-                label->setAlignment(Label::Alignment::Center);
+                label->setHorizontalAlignment(Label::HorizontalAlignment::Center);
             else if (alignment != "left")
-                throw Exception{"Failed to parse Alignment property, found unknown value."};
+                throw Exception{"Failed to parse HorizontalAlignment property, found unknown value."};
+        }
+
+        if (node->propertyValuePairs["verticalalignment"])
+        {
+            std::string alignment = toLower(DESERIALIZE_STRING("verticalalignment"));
+            if (alignment == "bottom")
+                label->setVerticalAlignment(Label::VerticalAlignment::Bottom);
+            else if (alignment == "center")
+                label->setVerticalAlignment(Label::VerticalAlignment::Center);
+            else if (alignment != "top")
+                throw Exception{"Failed to parse VerticalAlignment property, found unknown value."};
         }
 
         if (node->propertyValuePairs["text"])

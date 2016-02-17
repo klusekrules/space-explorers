@@ -148,11 +148,11 @@ namespace tgui
     {
         auto node = saveWidget(chatBox);
 
-        unsigned int textSize = chatBox->getTextSize();
-        sf::Color textColor = chatBox->getTextColor();
+        SET_PROPERTY("TextSize", tgui::to_string(chatBox->getTextSize()));
+        SET_PROPERTY("TextColor", Serializer::serialize(chatBox->getTextColor()));
 
-        SET_PROPERTY("TextSize", tgui::to_string(textSize));
-        SET_PROPERTY("TextColor", Serializer::serialize(textColor));
+        if (chatBox->getLineLimit())
+            SET_PROPERTY("LineLimit", tgui::to_string(chatBox->getLineLimit()));
 
         if (chatBox->getLinesStartFromTop())
             SET_PROPERTY("LinesStartFromTop", "true");
@@ -174,9 +174,9 @@ namespace tgui
             lineNode->name = "Line";
 
             lineNode->propertyValuePairs["Text"] = std::make_shared<DataIO::ValueNode>(lineNode.get(), Serializer::serialize(chatBox->getLine(i)));
-            if (lineTextSize != textSize)
+            if (lineTextSize != chatBox->getTextSize())
                 lineNode->propertyValuePairs["TextSize"] = std::make_shared<DataIO::ValueNode>(lineNode.get(), tgui::to_string(lineTextSize));
-            if (lineTextColor != textColor)
+            if (lineTextColor != chatBox->getTextColor())
                 lineNode->propertyValuePairs["Color"] = std::make_shared<DataIO::ValueNode>(lineNode.get(), Serializer::serialize(lineTextColor));
 
             node->children.push_back(lineNode);
@@ -319,10 +319,15 @@ namespace tgui
                 SET_PROPERTY("TextStyle", style.substr(3));
         }
 
-        if (label->getAlignment() == Label::Alignment::Center)
-            SET_PROPERTY("Alignment", "Center");
-        else if (label->getAlignment() == Label::Alignment::Right)
-            SET_PROPERTY("Alignment", "Right");
+        if (label->getHorizontalAlignment() == Label::HorizontalAlignment::Center)
+            SET_PROPERTY("HorizontalAlignment", "Center");
+        else if (label->getHorizontalAlignment() == Label::HorizontalAlignment::Right)
+            SET_PROPERTY("HorizontalAlignment", "Right");
+
+        if (label->getVerticalAlignment() == Label::VerticalAlignment::Center)
+            SET_PROPERTY("VerticalAlignment", "Center");
+        else if (label->getVerticalAlignment() == Label::VerticalAlignment::Bottom)
+            SET_PROPERTY("VerticalAlignment", "Bottom");
 
         if (!label->getText().isEmpty())
             SET_PROPERTY("Text", Serializer::serialize(label->getText()));
