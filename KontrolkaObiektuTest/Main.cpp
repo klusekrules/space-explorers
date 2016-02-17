@@ -9,15 +9,37 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	// Create the window
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Window");
 	
-	tgui::Panel::Ptr m_panel = std::make_shared<tgui::Panel>();
-	tgui::Label::Ptr nazwa_ = std::make_shared<tgui::Label>();
-	m_panel->add(nazwa_, "NazwaObiektu");
-	m_panel->setSize(410, 110);
-	nazwa_->setSize({ "{ ( &.w - &.h - 20 ) * 0.715 , ( &.h - 11 ) * 0.15 }" });
+	tgui::Panel::Ptr m_panel_1 = std::make_shared<tgui::Panel>();
+	tgui::Panel::Ptr m_panel_4 = std::make_shared<tgui::Panel>();
+	tgui::Label::Ptr nazwa_1 = std::make_shared<tgui::Label>();
+	
 
+	nazwa_1->setAutoSize(true);
+	nazwa_1->setTextSize(14);
+	nazwa_1->setTextColor({ 255,255,255 });
+	m_panel_1->add(nazwa_1, "Nazwa");
+	nazwa_1->setPosition({ "w > &.w ? 0 : (&.w - w) / 2" }, { "h > &.h ? 0 : (&.h - h) / 2" });
+	m_panel_1->setBackgroundColor(sf::Color::Transparent);
+	
+	tgui::Panel::Ptr m_panel_2 = tgui::Panel::copy(m_panel_1);
+	tgui::Panel::Ptr m_panel_3 = tgui::Panel::copy(m_panel_1);
+	tgui::Label::Ptr nazwa_2 = m_panel_2->get<tgui::Label>("Nazwa");
+	tgui::Label::Ptr nazwa_3 = m_panel_3->get<tgui::Label>("Nazwa");
+
+	m_panel_4->add(m_panel_1, "1");
+	m_panel_4->add(m_panel_2, "2");
+	m_panel_4->add(m_panel_3, "3");
 
 	tgui::Gui gui(window);
 	gui.setFont("resource\\arial.ttf");
+
+	nazwa_1->setText("Text");
+	nazwa_2->setText("Text");
+	nazwa_3->setText("Text");
+
+	gui.add(m_panel_4, "4");
+
+	nazwa_3->setText("Text2");
 	
 	while (window.isOpen())
 	{
