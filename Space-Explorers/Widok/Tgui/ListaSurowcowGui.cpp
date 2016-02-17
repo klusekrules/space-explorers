@@ -38,7 +38,7 @@ namespace tgui {
 		m_callback.widgetType = "ListaSurowcowGui";
 		m_draggableWidget = false;
 		
-		m_panel->setBackgroundColor(sf::Color::White);
+		m_panel->setBackgroundColor(sf::Color::Transparent);
 
 		m_renderer = std::make_shared<ListaSurowcowGuiRenderer>(this);
 		reload("", "", true);
@@ -93,7 +93,10 @@ namespace tgui {
 			for (auto &id : listaObj){
 				if (iter == kontrolki_.end() || (*iter)->pobierzIdObiektu() != id.first){
 					std::lock_guard<std::mutex> lock(zmianaDanych_);
-					auto widget = SurowiecGui::copy(szablonKontrolki_);
+					//--- Workaround ---
+					//How should works: auto widget = SurowiecGui::copy(szablonKontrolki_);
+					auto widget = std::make_shared<SurowiecGui>();
+					//---           ---
 					auto nazwa = id.second->pobierzSurowceInfo().pobierzNazwe()();
 					m_panel->add(widget,nazwa);
 					widget->ustawDane(*id.second);
