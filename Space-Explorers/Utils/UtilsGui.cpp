@@ -68,8 +68,6 @@ namespace SpEx{
 		
 		gui.add(lista, "ListaSurowcow");
 		
-		lista->aktualizacjaDanych(*ptrPlaneta);
-
 		//gui.saveWidgetsToFile("resource\\temp2.txt");
 
 		while (window.isOpen())
