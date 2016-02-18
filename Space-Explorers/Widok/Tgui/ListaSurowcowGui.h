@@ -21,8 +21,8 @@ namespace tgui{
 		public BazowyWidzet
 	{
 	public:
-		typedef std::shared_ptr<SurowiecGui> Ptr; ///< Shared widget pointer
-		typedef std::shared_ptr<const SurowiecGui> ConstPtr; ///< Shared constant widget pointer
+		typedef std::shared_ptr<ListaSurowcowGui> Ptr; ///< Shared widget pointer
+		typedef std::shared_ptr<const ListaSurowcowGui> ConstPtr; ///< Shared constant widget pointer
 
 		/**
 		* \brief Domyœlny konstruktor.
@@ -43,6 +43,8 @@ namespace tgui{
 		ListaSurowcowGui(const ListaSurowcowGui& zrodlowy);
 
 		ListaSurowcowGui& operator= (const ListaSurowcowGui& right);
+
+		static ListaSurowcowGui::Ptr copy(ListaSurowcowGui::ConstPtr widget);
 
 		std::shared_ptr<ListaSurowcowGuiRenderer> getRenderer() const {
 			return std::static_pointer_cast<ListaSurowcowGuiRenderer>(m_renderer);

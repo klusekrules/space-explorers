@@ -43,21 +43,38 @@ namespace tgui {
 		m_renderer = std::make_shared<ListaSurowcowGuiRenderer>(this);
 		reload("", "", true);
 
-		setSize(600, 200);
+		setSize(400, 64);
 	}
 
 	ListaSurowcowGui::ListaSurowcowGui(const ListaSurowcowGui& o)
-		: BazowyWidzet(o)
+		: BazowyWidzet(o), szablonKontrolki_(SurowiecGui::copy(o.szablonKontrolki_)), kontrolki_()
 	{
-		//todo
+		for (auto& widget : m_panel->getWidgets() ) {
+			if (widget->getWidgetType() == "SurowiecGui") {
+				kontrolki_.push_back( std::static_pointer_cast<SurowiecGui>(widget));
+			}
+		}
 	}
 
 	ListaSurowcowGui& ListaSurowcowGui::operator=(const ListaSurowcowGui & right){
 		if (this != &right){
 			BazowyWidzet::operator=(right);
-			//todo
+			szablonKontrolki_ = SurowiecGui::copy(right.szablonKontrolki_);
+			kontrolki_.clear();
+			for (auto& widget : m_panel->getWidgets()) {
+				if (widget->getWidgetType() == "SurowiecGui") {
+					kontrolki_.push_back(std::static_pointer_cast<SurowiecGui>(widget));
+				}
+			}
 		}
 		return *this;
+	}
+
+	ListaSurowcowGui::Ptr ListaSurowcowGui::copy(ListaSurowcowGui::ConstPtr widget) {
+		if (widget)
+			return std::static_pointer_cast<ListaSurowcowGui>(widget->clone());
+		else
+			return nullptr;
 	}
 	
 	void ListaSurowcowGui::draw(sf::RenderTarget& target, sf::RenderStates states) const{

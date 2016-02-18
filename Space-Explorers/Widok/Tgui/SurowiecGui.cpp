@@ -23,8 +23,9 @@ namespace tgui {
 		reload("","",true);
 	}
 
-	SurowiecGui::SurowiecGui(const SurowiecGui& o)
-		:BazowyWidzet(o), idObiektu_(o.idObiektu_)
+	SurowiecGui::SurowiecGui(const SurowiecGui& copy)
+		: BazowyWidzet(copy),
+		idObiektu_(copy.idObiektu_)
 	{
 		tekst_ = m_panel->get<Label>("Nazwa");
 	}
@@ -32,9 +33,9 @@ namespace tgui {
 	SurowiecGui& SurowiecGui::operator=(const SurowiecGui & right){
 		if (this != &right){
 			BazowyWidzet::operator=(right);
+			idObiektu_ = right.idObiektu_;
 			tekst_ = m_panel->get<Label>("Nazwa");
 		}
-
 		return *this;
 	}
 
