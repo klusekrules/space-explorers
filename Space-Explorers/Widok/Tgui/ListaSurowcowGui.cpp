@@ -93,10 +93,7 @@ namespace tgui {
 			for (auto &id : listaObj){
 				if (iter == kontrolki_.end() || (*iter)->pobierzIdObiektu() != id.first){
 					std::lock_guard<std::mutex> lock(zmianaDanych_);
-					//--- Workaround ---
-					//How should works: auto widget = SurowiecGui::copy(szablonKontrolki_);
-					auto widget = std::make_shared<SurowiecGui>();
-					//---           ---
+					auto widget = SurowiecGui::copy(szablonKontrolki_);
 					auto nazwa = id.second->pobierzSurowceInfo().pobierzNazwe()();
 					m_panel->add(widget,nazwa);
 					widget->ustawDane(*id.second);
