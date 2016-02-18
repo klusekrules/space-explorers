@@ -9,10 +9,7 @@ namespace tgui {
 
 	BazowyWidzet::BazowyWidzet(const BazowyWidzet& o)
 		: Widget(o), m_panel(Panel::copy(o.m_panel))
-	{
-		m_callback.widgetType = "BazowyWidzet";
-		m_draggableWidget = false;
-	}
+	{}
 
 	BazowyWidzet& BazowyWidzet::operator=(const BazowyWidzet & right){
 		if (this != &right){
@@ -32,7 +29,8 @@ namespace tgui {
 	void BazowyWidzet::setPosition(const Layout2d& position){
 		Widget::setPosition(position);
 
-		getRenderer()->m_backgroundTexture.setPosition(getPosition());
+		if (getRenderer()->m_backgroundTexture.isLoaded())
+			getRenderer()->m_backgroundTexture.setPosition(getPosition());
 
 		updateRendering();
 	}
@@ -40,7 +38,8 @@ namespace tgui {
 	void BazowyWidzet::setSize(const Layout2d& size){
 		Widget::setSize(size);
 
-		getRenderer()->m_backgroundTexture.setSize(getSize());
+		if(getRenderer()->m_backgroundTexture.isLoaded())
+			getRenderer()->m_backgroundTexture.setSize(getSize());
 
 		updateRendering();
 	}
