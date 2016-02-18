@@ -103,6 +103,8 @@ namespace tgui{
 		std::vector<SurowiecGui::Ptr> kontrolki_; /// Kontener z kontrolkami obiektów.
 
 		friend class ListaSurowcowGuiRenderer;
+		friend std::shared_ptr<DataIO::Node> saveListaSurowcowGui(ListaSurowcowGui::Ptr);
+		friend Widget::Ptr loadListaSurowcowGui(std::shared_ptr<DataIO::Node>, Widget::Ptr);
 	};
 
 	class ListaSurowcowGuiRenderer : public BazowyRenderer

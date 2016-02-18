@@ -1,6 +1,7 @@
 #include "MySaver.h"
 #include "Utils\FromTGUI.h"
 #include <TGUI\TGUI.hpp>
+#include "MyLoader.h"
 
 namespace tgui {
 
@@ -56,17 +57,14 @@ namespace tgui {
 		if (node->propertyValuePairs["textcolor"])
 			chatBox->setTextColor(Deserializer::deserialize(ObjectConverter::Type::Color, node->propertyValuePairs["textcolor"]->value).getColor());
 
-		for (auto& childNode : node->children)
-		{
+		for (auto& childNode : node->children){
 			if (toLower(childNode->name) == "scrollbar")
 				chatBox->setScrollbar(std::static_pointer_cast<Scrollbar>(WidgetLoader::getLoadFunction("scrollbar")(childNode)));
 		}
 		REMOVE_CHILD("scrollbar");
 
-		for (auto& childNode : node->children)
-		{
-			if (toLower(childNode->name) == "line")
-			{
+		for (auto& childNode : node->children){
+			if (toLower(childNode->name) == "line"){
 				unsigned int lineTextSize = chatBox->getTextSize();
 				sf::Color lineTextColor = chatBox->getTextColor();
 
@@ -171,6 +169,31 @@ namespace tgui {
 
 		if (node->propertyValuePairs["messagetypefile"])
 			widgetPtr->wczytajOpisyTypowKomunikatow(node->propertyValuePairs["messagetypefile"]->value);
+
+		return widgetPtr;
+	}
+
+	Widget::Ptr loadListaSurowcowGui(std::shared_ptr<DataIO::Node> node, Widget::Ptr widget)
+	{
+		ListaSurowcowGui::Ptr widgetPtr;
+		if (widget)
+			widgetPtr = std::static_pointer_cast<ListaSurowcowGui>(widget);
+		else
+			widgetPtr = std::make_shared<ListaSurowcowGui>();
+
+		loadBazowyWidzet(node, widgetPtr);
+
+		for (auto& childNode : node->children){
+			if (toLower(childNode->name) == toLower("SurowiecGui"))
+				widgetPtr->szablonKontrolki_ = std::static_pointer_cast<SurowiecGui>(WidgetLoader::getLoadFunction(toLower("SurowiecGui"))(childNode));
+		}
+		REMOVE_CHILD(toLower("SurowiecGui"));
+
+		for (auto& ref : widgetPtr->m_panel->getWidgets()) {
+			if (ref->getWidgetType() == "SurowiecGui") {
+				widgetPtr->kontrolki_.push_back(std::static_pointer_cast<SurowiecGui>(ref));
+			}
+		}
 
 		return widgetPtr;
 	}

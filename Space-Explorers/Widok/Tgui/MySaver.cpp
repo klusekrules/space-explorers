@@ -15,7 +15,7 @@ namespace tgui {
 		if (savePanel)
 			node->children.emplace_back(savePanel(WidgetConverter{ widget->m_panel }));
 		else
-			throw Exception{ "No save function exists for widget type 'Widget'." };
+			throw Exception{ "No save function exists for widget type 'Panel'." };
 
 		return node;
 	}
@@ -50,6 +50,19 @@ namespace tgui {
 			throw Exception{ "No save function exists for widget type 'ChatBox'." };
 
 		SET_PROPERTY("MessageTypeFile", tgui::to_string(widget->pobierzPlikOpisowTypowKomunikatow()));
+		return node;
+	}
+
+	std::shared_ptr<DataIO::Node> saveListaSurowcowGui(ListaSurowcowGui::Ptr widget)
+	{
+		auto node = saveBazowyWidzet(widget);
+
+		auto& saveSzablon = WidgetSaver::getSaveFunction(toLower("SurowiecGui"));
+		if (saveSzablon)
+			node->children.emplace_back(saveSzablon(WidgetConverter{ widget->szablonKontrolki_ }));
+		else
+			throw Exception{ "No save function exists for widget type 'SurowiecGui'." };
+
 		return node;
 	}
 

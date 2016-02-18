@@ -4,10 +4,12 @@
 #include "SurowiecGui.h"
 #include "KontrolkaObiektu.h"
 #include "LogListGui.h"
+#include "ListaSurowcowGui.h"
 
 namespace tgui {
 	std::shared_ptr<DataIO::Node> saveBazowyWidzet(BazowyWidzet::Ptr widget);
 	std::shared_ptr<DataIO::Node> saveSurowiecGui(SurowiecGui::Ptr widget);
 	std::shared_ptr<DataIO::Node> saveKontrolkaObiektu(KontrolkaObiektu::Ptr widget);
 	std::shared_ptr<DataIO::Node> saveLogListGui(LogListGui::Ptr widget);
+	std::shared_ptr<DataIO::Node> saveListaSurowcowGui(ListaSurowcowGui::Ptr widget);
 };
