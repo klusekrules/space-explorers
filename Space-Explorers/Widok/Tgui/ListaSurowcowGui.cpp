@@ -2,35 +2,6 @@
 #include "Model\Planeta.h"
 #include "Model\SurowceInfo.h"
 namespace tgui {
-	
-	/*ListaSurowcowGui::ListaSurowcowGui(const ListaSurowcowGui& o)
-		: plikKonfiguracyjny_(o.plikKonfiguracyjny_), Panel(o)
-	{
-		szablonKontrolki_ = this->get<SurowiecGui>("Szablon");
-		for (auto e : o.kontrolki_){
-			std::string nazwa;
-			if (o.getWidgetName(e, nazwa)){
-				if (!nazwa.empty()){
-					kontrolki_.push_back(this->get<SurowiecGui>(nazwa));
-				}
-			}
-		}
-	}*/
-
-	/*void ListaSurowcowGui::initialize(Container *const container){
-		Panel::setGlobalFont(container->getGlobalFont());
-		szablonKontrolki_ = SurowiecGui::Ptr(*this, "Szablon");
-		szablonKontrolki_->hide();
-	}
-
-	void ListaSurowcowGui::setTransparency(unsigned char transparency){
-		Panel::setBackgroundColor(sf::Color(255, 255, 255, transparency));
-		Panel::setTransparency(transparency);
-		szablonKontrolki_->setTransparency(transparency);
-		for (auto &element : kontrolki_){
-			element->setTransparency(transparency);
-		}
-	}*/
 
 	ListaSurowcowGui::ListaSurowcowGui()
 		: BazowyWidzet()
