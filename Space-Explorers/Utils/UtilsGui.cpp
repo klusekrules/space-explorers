@@ -1,6 +1,7 @@
 #include "UtilsGui.h"
 #include "Widok\Tgui\SurowiecGui.h"
 #include "Widok\Tgui\ListaSurowcowGui.h"
+#include "Widok\Tgui\ListaObiektowGui.h"
 #include "Model\SurowceInfo.h"
 #include "Widok\Tgui\KontrolkaObiektu.h"
 #include "Testy\Szkielet\TestyUtilsBO.h"
@@ -60,17 +61,17 @@ namespace SpEx{
 
 		//tgui::Theme::Ptr theme = std::make_shared<tgui::Theme>("widgets/Black.txt");
 		
-		gui.loadWidgetsFromFile("resource\\temp2.txt");
+		//gui.loadWidgetsFromFile("resource\\temp2.txt");
 
-		/*auto lista = std::make_shared<tgui::ListaSurowcowGui>();
+		auto lista = std::make_shared<tgui::ListaObiektowGui>();
 
+		lista->ustawTypObiektu(SpEx::Info::BUDYNEK);
 		lista->aktualizacjaDanych(*ptrPlaneta);
 		
-		gui.add(lista, "ListaSurowcow");
+		gui.add(lista, "ListaObiektow");
 
-		lista->setPosition(0,400);
-		
-		gui.saveWidgetsToFile("resource\\temp2.txt");*/
+	
+		//gui.saveWidgetsToFile("resource\\temp2.txt");
 
 		while (window.isOpen())
 		{

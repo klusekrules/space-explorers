@@ -121,9 +121,8 @@ namespace tgui {
 		}
 	}
 
-	bool BazowyWidzet::mouseOnWidget(float, float) const {
-		/// TODO: implementacja metody
-		return false;
+	bool BazowyWidzet::mouseOnWidget(float x, float y) const {
+		return sf::FloatRect{ getPosition().x, getPosition().y, getSize().x, getSize().y }.contains(x, y);
 	}
 
 	void BazowyWidzet::setParent(Container* parent)

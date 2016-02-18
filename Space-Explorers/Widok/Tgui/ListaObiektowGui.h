@@ -30,7 +30,7 @@ namespace tgui{
 		*
 		* Domyœlny konstruktor.
 		*/
-		ListaObiektowGui() = default;
+		ListaObiektowGui();
 
 		/**
 		* \brief Konstruktor kopiuj¹cy.
@@ -45,12 +45,17 @@ namespace tgui{
 
 		ListaObiektowGui& operator= (const ListaObiektowGui& right);
 
+		static ListaObiektowGui::Ptr copy(ListaObiektowGui::ConstPtr widget);
+
 		std::shared_ptr<ListaObiektowGuiRenderer> getRenderer() const {
 			return std::static_pointer_cast<ListaObiektowGuiRenderer>(m_renderer);
 		}
+
 		void setPosition(const Layout2d& position) override;
+		using Transformable::setPosition;
 
 		void setSize(const Layout2d& size) override;
+		using Transformable::setSize;
 
 		/**
 		* \brief Domyœlny destruktor.
@@ -91,6 +96,8 @@ namespace tgui{
 		* \date 01-10-2014
 		*/
 		int pobierzTypObiektu() const;
+
+		void ustawTypObiektu(int typ);
 
 		/**
 		* \brief Metoda zwracaj¹ca adres pliku konfiguracynego.
@@ -166,6 +173,10 @@ namespace tgui{
 		* \date 01-10-2014
 		*/
 		void uaktualnijSuwak(float wysokosc, bool czyResetSuwaka);
+
+		void stworzDomyslnySzablonKontrolki();
+
+		void wyczyscDane();
 
 		std::string plikKonfiguracyjny_ = ""; /// Adres pliku konfiguracyjnego.
 

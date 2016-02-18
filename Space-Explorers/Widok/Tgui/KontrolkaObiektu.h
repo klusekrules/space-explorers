@@ -47,6 +47,8 @@ namespace tgui{
 		
 		KontrolkaObiektu& operator= (const KontrolkaObiektu& right);
 
+		static KontrolkaObiektu::Ptr copy(KontrolkaObiektu::ConstPtr widget);
+
 		/**
 		* \brief Domyœlny destruktor.
 		*

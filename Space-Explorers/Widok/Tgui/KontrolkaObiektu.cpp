@@ -88,8 +88,7 @@ namespace tgui{
 		czasZburzenia_ = m_panel->get<Label>("CzasZburzenia");
 	}
 
-	KontrolkaObiektu & KontrolkaObiektu::operator=(const KontrolkaObiektu & right)
-	{
+	KontrolkaObiektu & KontrolkaObiektu::operator=(const KontrolkaObiektu & right){
 		if (this != &right)
 		{
 			BazowyWidzet::operator=(right);
@@ -107,6 +106,13 @@ namespace tgui{
 		}
 
 		return *this;
+	}
+
+	KontrolkaObiektu::Ptr KontrolkaObiektu::copy(KontrolkaObiektu::ConstPtr widget){
+		if (widget)
+			return std::static_pointer_cast<KontrolkaObiektu>(widget->clone());
+		else
+			return nullptr;
 	}
 
 	void KontrolkaObiektu::reload(const std::string& primary, const std::string& secondary, bool force) {
