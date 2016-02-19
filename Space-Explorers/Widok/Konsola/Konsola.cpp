@@ -104,56 +104,78 @@ namespace SpEx{
 	}
 
 	void Konsola::wykonuj(){
-		sf::RenderWindow window(sf::VideoMode(650, 400), "Konsola",sf::Style::Titlebar);
-		tgui::Gui gui(window);
+		try {
+			std::unique_ptr<sf::RenderWindow> ptrWindow = nullptr;
+			std::unique_ptr<tgui::Gui> ptrGUI = nullptr;
+			tgui::ChatBox::Ptr chatbox = nullptr;
+			try {
+				ptrWindow = std::make_unique<sf::RenderWindow>(sf::VideoMode(650, 400), "Konsola", sf::Style::Titlebar);
+				ptrGUI = std::make_unique<tgui::Gui>(*ptrWindow);
 
-		gui.setFont("resource/consola.ttf");
+				ptrGUI->setFont("resource/consola.ttf");
 
-		tgui::Theme::Ptr theme = std::make_shared<tgui::Theme>("widgets/Black.txt");
-		
-		tgui::ChatBox::Ptr chatbox = theme->load("ChatBox");
-		chatbox->setPosition(0, 0);
-		chatbox->setSize(650, 372);
-		chatbox->setTextSize(14);
-		chatbox->setLineLimit(100);
-		chatbox->setLinesStartFromTop();
-		gui.add(chatbox);
+				tgui::Theme::Ptr theme = std::make_shared<tgui::Theme>("widgets/Black.txt");
 
-		tgui::EditBox::Ptr editBox = theme->load("EditBox");
-		editBox->setPosition(0, 372);
-		editBox->setSize(650, 28);
-		editBox->connectEx("ReturnKeyPressed", &SpEx::Konsola::callback, this, chatbox);
-		gui.add(editBox);
-		gui.focusWidget(editBox);
-		
-		inicjalizacja_.set_value(true);
+				chatbox = theme->load("ChatBox");
+				chatbox->setPosition(0, 0);
+				chatbox->setSize(650, 372);
+				chatbox->setTextSize(14);
+				chatbox->setLineLimit(100);
+				chatbox->setLinesStartFromTop();
+				ptrGUI->add(chatbox);
 
-		while (window.isOpen() && !czyZakonczyc())
-		{
-			sf::Event event;
-			while (window.pollEvent(event))
-			{
-				if (event.type == sf::Event::Closed)
-					window.close();
-
-				if (event.type == sf::Event::MouseButtonPressed)
-					SetActiveWindow(window.getSystemHandle());
-
-				gui.handleEvent(event);
+				tgui::EditBox::Ptr editBox = theme->load("EditBox");
+				editBox->setPosition(0, 372);
+				editBox->setSize(650, 28);
+				editBox->connectEx("ReturnKeyPressed", &SpEx::Konsola::callback, this, chatbox);
+				ptrGUI->add(editBox);
+				ptrGUI->focusWidget(editBox);
+				inicjalizacja_.set_value(true);
+			}catch (...) {
+				inicjalizacja_.set_value(false);
+				throw;
 			}
 
+			while (ptrWindow->isOpen() && !czyZakonczyc())
 			{
-				std::lock_guard<std::mutex> lock(muxLista_);
-				if (!lista_.empty()){
-					auto& element = lista_.front();
-					chatbox->addLine(element.komunikat_,element.kolor_);
-					lista_.pop_front();
+				sf::Event event;
+				while (ptrWindow->pollEvent(event))
+				{
+					if (event.type == sf::Event::Closed)
+						ptrWindow->close();
+
+					if (event.type == sf::Event::MouseButtonPressed)
+						SetActiveWindow(ptrWindow->getSystemHandle());
+
+					ptrGUI->handleEvent(event);
 				}
-			}
 
-			window.clear();
-			gui.draw();
-			window.display();
+				{
+					std::lock_guard<std::mutex> lock(muxLista_);
+					if (!lista_.empty()) {
+						auto& element = lista_.front();
+						chatbox->addLine(element.komunikat_, element.kolor_);
+						lista_.pop_front();
+					}
+				}
+
+				ptrWindow->clear();
+				ptrGUI->draw();
+				ptrWindow->display();
+			}
 		}
+		catch (STyp::Wyjatek& e) {
+			ustawBlad(e);
+		}
+		catch (tgui::Exception& e) {
+			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE,STyp::Tekst(),STyp::Identyfikator(-1), STyp::Tekst("tgui::Exception"), STyp::Tekst(e.what())));
+		}
+		catch (std::exception& e) {
+			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(-1), STyp::Tekst("std::exception"), STyp::Tekst(e.what())));
+		}
+		catch (...) {
+			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(-1), STyp::Tekst("Critical!!"), STyp::Tekst("Unrecognize Exception!")));
+		}
+
 	}
 }

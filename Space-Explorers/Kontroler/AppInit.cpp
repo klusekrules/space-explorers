@@ -338,7 +338,9 @@ namespace SpEx{
 	void Aplikacja::konfigurujKonsole(){		
 		if (czyKonsola_){
 			konsola_ = std::make_shared<Konsola>(logger_);
-			konsola_->czekajNaInicjalizacje();
+			if (!konsola_->czekajNaInicjalizacje()) {
+				throw konsola_->bladInfo();
+			}
 		} else{
 			konsola_ = nullptr;
 		}
