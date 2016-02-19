@@ -18,53 +18,66 @@ namespace tgui{
 		obraz_ = std::make_shared<Picture>();
 		m_panel->add(obraz_, "ObrazObiektu");
 		obraz_->setTexture("resource\\Brak_obrazka.png");
-		obraz_->setSize({"&.h-10"},{"&.h-10"});
+		//Zbyt niska wydajnoœæ: obraz_->setSize({"&.h-10"},{"&.h-10"});
+		obraz_->setSize(100, 100);
 		obraz_->setPosition(5,5);
 				
 		nazwa_ = std::make_shared<Label>();
 		m_panel->add(nazwa_,"NazwaObiektu");
 		nazwa_->setTextSize(14);
 		nazwa_->setTextColor({ 255,0,0 });
-		nazwa_->setSize({ "{ ( &.w - &.h - 20 ) * 0.715 , ( &.h - 11 ) * 0.15 }" });
-		nazwa_->setPosition({"{ &.h , 3 }"});
+		//Zbyt niska wydajnoœæ: nazwa_->setSize({ "{ ( &.w - &.h - 20 ) * 0.715 , ( &.h - 11 ) * 0.15 }" });
+		//Zbyt niska wydajnoœæ: nazwa_->setPosition({ "{ &.h , 3 }" });
+		nazwa_->setSize(280*0.715,99*0.15);
+		nazwa_->setPosition(110,3);
 		nazwa_->setText("Nazwa Obiektu");
 
 		tresc_ = std::make_shared<Label>();
 		m_panel->add(tresc_,"OpisObiektu");
 		tresc_->setTextSize(14);
 		tresc_->setTextColor({ 255,255,255 });
-		tresc_->setSize({ "{(&.w-&.h-20)*0.715,(&.h-11)*0.85}" });
-		tresc_->setPosition({ "{&.h,((&.h-11)*0.15) + 7}" });
+		//Zbyt niska wydajnoœæ: tresc_->setSize({ "{(&.w-&.h-20)*0.715,(&.h-11)*0.85}" });
+		//Zbyt niska wydajnoœæ: tresc_->setPosition({ "{&.h,((&.h-11)*0.15) + 7}" });
+		tresc_->setSize(280 * 0.715, 99 * 0.85);
+		tresc_->setPosition(110, 99 * 0.15 + 7);
 		tresc_->setText("Opis Obiektu\nw wielu liniach.\nKoniec Opisu.");
 		
 		czasRozbudowy_ = std::make_shared<Label>();
 		m_panel->add(czasRozbudowy_, "CzasRozbudowy");
 		czasRozbudowy_->setTextSize(14);
 		czasRozbudowy_->setTextColor({ 255,255,255 });
-		czasRozbudowy_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.15}" });
-		czasRozbudowy_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+15,3+(&.h-10)*0.05}" });
+		//Zbyt niska wydajnoœæ: czasRozbudowy_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.15}" });
+		//Zbyt niska wydajnoœæ: czasRozbudowy_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+15,3+(&.h-10)*0.05}" });
+		czasRozbudowy_->setSize(280 * 0.285,15);
+		czasRozbudowy_->setPosition(110 + 280 * 0.715 + 15, 8);
 		czasRozbudowy_->setText("Czas rozbudowy");
 		
 		czasZburzenia_ = std::make_shared<Label>();
 		m_panel->add(czasZburzenia_, "CzasZburzenia");
 		czasZburzenia_->setTextSize(14);
 		czasZburzenia_->setTextColor({ 255,255,255 });
-		czasZburzenia_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.15}" });
-		czasZburzenia_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+15,7+(&.h-10)*0.5}" });
+		//Zbyt niska wydajnoœæ: czasZburzenia_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.15}" });
+		//Zbyt niska wydajnoœæ: czasZburzenia_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+15,7+(&.h-10)*0.5}" });
+		czasZburzenia_->setSize(280 * 0.285, 15);
+		czasZburzenia_->setPosition(110 + 280 * 0.715 + 15,57);
 		czasZburzenia_->setText("Czas burzenia");
 
 		rozbuduj_ = std::make_shared<Button>();
 		m_panel->add(rozbuduj_,"Rozbuduj");
 		rozbuduj_->setTextSize(14);
-		rozbuduj_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.3}" });
-		rozbuduj_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+15,3+(&.h-10)*0.2}" });
+		//Zbyt niska wydajnoœæ: rozbuduj_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.3}" });
+		//Zbyt niska wydajnoœæ: rozbuduj_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+15,3+(&.h-10)*0.2}" });
+		rozbuduj_->setSize(280 * 0.285, 30);
+		rozbuduj_->setPosition(110 + 280 * 0.715 + 15, 23);
 		rozbuduj_->setText("Buduj");
 
 		zniszcz_ = std::make_shared<Button>();
 		m_panel->add(zniszcz_,"Zburz");
 		zniszcz_->setTextSize(14);
-		zniszcz_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.3}" });
-		zniszcz_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+15,7+(&.h-10)*0.65}" });
+		//Zbyt niska wydajnoœæ: zniszcz_->setSize({ "{(&.w-&.h-20)*0.285,(&.h-10)*0.3}" });
+		//Zbyt niska wydajnoœæ: zniszcz_->setPosition({ "{&.h+(&.w-&.h-20)*0.715+15,7+(&.h-10)*0.65}" });
+		zniszcz_->setSize(280 * 0.285, 30);
+		zniszcz_->setPosition(110 + 280 * 0.715 + 15, 72);
 		zniszcz_->setText("Zburz");
 		
 
