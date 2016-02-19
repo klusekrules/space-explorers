@@ -115,6 +115,7 @@ namespace SpEx{
 		editBox->setSize(650, 28);
 		editBox->connectEx("ReturnKeyPressed", &SpEx::Konsola::callback, this, chatbox);
 		gui.add(editBox);
+		gui.focusWidget(editBox);
 		
 		inicjalizacja_.set_value(true);
 
