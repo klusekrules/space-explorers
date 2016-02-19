@@ -27,8 +27,17 @@ namespace SpEx{
 			if (metoda != poleceniaKonsoli_.end()){
 				try {
 					metoda->second.funkcja_(parametry);
-				}catch (tgui::Exception& e) {
-					log_.loguj(SLog::Log::Error, std::string("Wykryto wyj¹tek: ") + e.what());
+				}catch (STyp::Wyjatek& e) {
+					log_.loguj(SLog::Log::Error, std::string("Wykryto wyj¹tek (STyp::Wyjatek): ") + e.what());
+				}
+				catch (tgui::Exception& e) {
+					log_.loguj(SLog::Log::Error, std::string("Wykryto wyj¹tek (tgui::Exception): ") + e.what());
+				}
+				catch (std::exception& e) {
+					log_.loguj(SLog::Log::Error, std::string("Wykryto wyj¹tek (std::exception): ") + e.what());
+				}
+				catch (...) {
+					log_.loguj(SLog::Log::Error, std::string("Wykryto nieznany wyj¹tek!"));
 				}
 			} else{
 				if (log_.czyLogiOdblokowane(SLog::Log::Warning)){
