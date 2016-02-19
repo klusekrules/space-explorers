@@ -20,8 +20,9 @@ namespace tgui {
 			setBackgroundTexture(Deserializer::deserialize(ObjectConverter::Type::Texture, value).getTexture());
 		else if (property == "shader") {
 			shader_ = std::make_shared<sf::Shader>();
-			shader_->loadFromFile(value, sf::Shader::Type::Fragment);
-			shader_->setParameter("texture", sf::Shader::CurrentTexture);
+			if (!shader_->loadFromFile(Deserializer::deserialize(ObjectConverter::Type::String, value).getString(), sf::Shader::Type::Fragment)) {
+				shader_ = nullptr;
+			}
 		}else
 			WidgetRenderer::setProperty(property, value);
 	}
@@ -45,8 +46,9 @@ namespace tgui {
 		}else if (value.getType() == ObjectConverter::Type::String) {
 			if (property == "shader")
 				shader_ = std::make_shared<sf::Shader>();
-				shader_->loadFromFile(value.getString(), sf::Shader::Type::Fragment);
-				shader_->setParameter("texture", sf::Shader::CurrentTexture);
+				if (!shader_->loadFromFile(value.getString(), sf::Shader::Type::Fragment)) {
+					shader_ = nullptr;
+				}
 		}else
 			WidgetRenderer::setProperty(property, std::move(value));
 	}
@@ -77,7 +79,7 @@ namespace tgui {
         else
 			map["BackgroundColor"] = m_backgroundColor;
 		map["BorderColor"] = m_borderColor;
-		map["Shader"] = !!shader_;
+		map["Shader"] = !!shader_; // TODO: Dodanie klasy przechowuj¹cej adres do shadera.
 		map["Borders"] = m_borders;
 		map["Padding"] = m_padding;
 		return map;
@@ -142,16 +144,7 @@ namespace tgui {
 			target.draw(border, states);
 		}
 	}
-
-	void BazowyRenderer::copyParameters(const BazowyRenderer & object){
-		WidgetBorders::operator=(object);
-		WidgetPadding::operator=(object);
-		shader_ = object.shader_;
-		m_borderColor = object.m_borderColor;
-		m_backgroundColor = object.m_backgroundColor;
-		m_backgroundTexture = object.m_backgroundTexture;
-	}
-	
+		
 	void BazowyRenderer::setShader(std::shared_ptr<sf::Shader> shader) {
 		shader_ = shader;
 	}

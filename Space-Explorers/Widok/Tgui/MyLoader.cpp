@@ -197,4 +197,55 @@ namespace tgui {
 
 		return widgetPtr;
 	}
+
+	Widget::Ptr loadListaObiektowGui(std::shared_ptr<DataIO::Node> node, Widget::Ptr widget)
+	{
+		ListaObiektowGui::Ptr widgetPtr;
+		if (widget)
+			widgetPtr = std::static_pointer_cast<ListaObiektowGui>(widget);
+		else
+			widgetPtr = std::make_shared<ListaObiektowGui>();
+
+		loadBazowyWidzet(node, widgetPtr);
+
+		if (node->propertyValuePairs[toLower("SzerokoscSuwaka")])
+			widgetPtr->szerokoscSuwaka_ = tgui::stof(node->propertyValuePairs[toLower("SzerokoscSuwaka")]->value);
+		if (node->propertyValuePairs[toLower("OdstepMiedzyKontrolkami")])
+			widgetPtr->odstepMiedzyKontrolkami_ = tgui::stof(node->propertyValuePairs[toLower("OdstepMiedzyKontrolkami")]->value);
+		
+		if (node->propertyValuePairs[toLower("MnoznikRolki")])
+			widgetPtr->mnoznikRolki_ = tgui::stoi(node->propertyValuePairs[toLower("MnoznikRolki")]->value);
+		if (node->propertyValuePairs[toLower("TypObiektu")])
+			widgetPtr->typObiektu_ = tgui::stoi(node->propertyValuePairs[toLower("TypObiektu")]->value);
+
+		if (node->propertyValuePairs[toLower("PokazSuwak")])
+			widgetPtr->pokazSuwak_ = parseBoolean(node->propertyValuePairs[toLower("PokazSuwak")]->value);
+		if (node->propertyValuePairs[toLower("AutoRozmiar")])
+			widgetPtr->czyAutoRozmiar_ = parseBoolean(node->propertyValuePairs[toLower("AutoRozmiar")]->value);
+		
+		if (widgetPtr->pokazSuwak_)
+			widgetPtr->suwak_->show();
+		else
+			widgetPtr->suwak_->hide();
+
+		for (auto& childNode : node->children) {
+			if (toLower(childNode->name) == toLower("KontrolkaObiektu"))
+				widgetPtr->szablonKontrolki_ = std::static_pointer_cast<KontrolkaObiektu>(WidgetLoader::getLoadFunction(toLower("KontrolkaObiektu"))(childNode));
+			else if (toLower(childNode->name) == toLower("Scrollbar"))
+				widgetPtr->suwak_ = std::static_pointer_cast<Scrollbar>(WidgetLoader::getLoadFunction(toLower("Scrollbar"))(childNode));
+		}
+		REMOVE_CHILD(toLower("KontrolkaObiektu"));
+		REMOVE_CHILD(toLower("Scrollbar"));
+
+		for (auto& ref : widgetPtr->m_panel->getWidgets()) {
+			if (ref->getWidgetType() == "KontrolkaObiektu") {
+				widgetPtr->kontrolki_.push_back(std::static_pointer_cast<KontrolkaObiektu>(ref));
+			}
+		}
+		if(widgetPtr->suwak_)
+			widgetPtr->suwak_->connectEx("ValueChanged", std::bind(&ListaObiektowGui::scrollbarValueChanged, widgetPtr, std::placeholders::_1));
+
+		widgetPtr->uaktualnijShader();
+		return widgetPtr;
+	}
 };

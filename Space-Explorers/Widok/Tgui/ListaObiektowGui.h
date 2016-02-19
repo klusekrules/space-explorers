@@ -98,18 +98,7 @@ namespace tgui{
 		int pobierzTypObiektu() const;
 
 		void ustawTypObiektu(int typ);
-
-		/**
-		* \brief Metoda zwracaj¹ca adres pliku konfiguracynego.
-		*
-		* Metoda zwraca adres pliku konfiguracyjnego, z którego zosta³y zaczytane parametry kontrolki.
-		* \return Adres pliku konfiguracyjnego.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 01-10-2014
-		*/
-		const std::string& getLoadedConfigFile() const;
-
+		
 	protected:
 
 		/**
@@ -178,32 +167,33 @@ namespace tgui{
 
 		void wyczyscDane();
 
-		std::string plikKonfiguracyjny_ = ""; /// Adres pliku konfiguracyjnego.
+		void uaktualnijShader();
 
 		Scrollbar::Ptr suwak_; /// WskaŸnik na kontrolkê suwaka.
 		KontrolkaObiektu::Ptr szablonKontrolki_; /// WskaŸnik na szablon kontrolki obiektu.
 		std::vector<KontrolkaObiektu::Ptr> kontrolki_; /// Kontener z kontrolkami obiektów.
-		std::shared_ptr<sf::Shader> shader_ = nullptr;
 		mutable std::mutex zmianaDanych_; /// Muteks dostêpu do modyfikacji iloœci kontrolek.
-		Borders margines_; /// Wewnêtrzne marginesy kontrolki.
 		float szerokoscSuwaka_ = 20.f; /// Szerokoœæ suwaka
 		float odstepMiedzyKontrolkami_ = 0.0f; /// Odstêp pomiêdzy poszczególnymi kontrolkami.
 		int mnoznikRolki_ = 15; /// Mno¿nik rolki przy wyliczaniu przesuniêcia kontrolek.
 		int typObiektu_ = 0; /// Typ wyœiwetlanych obiektów.
 		bool pokazSuwak_ = false; /// Flaga informuj¹ca czy suwak ma byæ widoczny
 		bool czyAutoRozmiar_ = true; /// Automatyczne wyliczanie rozmiarów.
+
+		friend std::shared_ptr<DataIO::Node> saveListaObiektowGui(ListaObiektowGui::Ptr widget);
+		friend Widget::Ptr loadListaObiektowGui(std::shared_ptr<DataIO::Node>, Widget::Ptr);
 	};
 
 	class ListaObiektowGuiRenderer : public BazowyRenderer
 	{
 	public:
 		using BazowyRenderer::BazowyRenderer;
-
+		void setProperty(std::string property, const std::string& value) override;
+		void setProperty(std::string property, ObjectConverter&& value) override;
 	private:
 		std::shared_ptr<WidgetRenderer> clone(Widget* widget) override;
 
 	protected:
-
 		friend class ListaObiektowGui;
 	};
 };

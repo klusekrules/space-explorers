@@ -5,6 +5,7 @@
 #include "KontrolkaObiektu.h"
 #include "LogListGui.h"
 #include "ListaSurowcowGui.h"
+#include "ListaObiektowGui.h"
 
 namespace tgui {
 	Widget::Ptr loadBazowyWidzet(std::shared_ptr<DataIO::Node>, Widget::Ptr);
@@ -12,4 +13,5 @@ namespace tgui {
 	Widget::Ptr loadKontrolkaObiektu(std::shared_ptr<DataIO::Node>, Widget::Ptr);
 	Widget::Ptr loadLogListGui(std::shared_ptr<DataIO::Node>, Widget::Ptr);
 	Widget::Ptr loadListaSurowcowGui(std::shared_ptr<DataIO::Node>, Widget::Ptr);
+	Widget::Ptr loadListaObiektowGui(std::shared_ptr<DataIO::Node>, Widget::Ptr);
 };

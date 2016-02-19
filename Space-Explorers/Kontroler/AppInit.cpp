@@ -163,11 +163,13 @@ namespace SpEx{
 		tgui::WidgetSaver::setSaveFunction("KontrolkaObiektu", tgui::saveKontrolkaObiektu);
 		tgui::WidgetSaver::setSaveFunction("LogListGui", tgui::saveLogListGui);
 		tgui::WidgetSaver::setSaveFunction("ListaSurowcowGui", tgui::saveListaSurowcowGui);
+		tgui::WidgetSaver::setSaveFunction("ListaObiektowGui", tgui::saveListaObiektowGui);
 		tgui::WidgetLoader::setLoadFunction("BazowyWidzet", std::bind(tgui::loadBazowyWidzet, std::placeholders::_1, std::shared_ptr<tgui::BazowyWidzet>{}));
 		tgui::WidgetLoader::setLoadFunction("SurowiecGui", std::bind(tgui::loadSurowiecGui, std::placeholders::_1, std::shared_ptr<tgui::SurowiecGui>{}));
 		tgui::WidgetLoader::setLoadFunction("KontrolkaObiektu", std::bind(tgui::loadKontrolkaObiektu, std::placeholders::_1, std::shared_ptr<tgui::KontrolkaObiektu>{}));
 		tgui::WidgetLoader::setLoadFunction("LogListGui", std::bind(tgui::loadLogListGui, std::placeholders::_1, std::shared_ptr<tgui::LogListGui>{}));
 		tgui::WidgetLoader::setLoadFunction("ListaSurowcowGui", std::bind(tgui::loadListaSurowcowGui, std::placeholders::_1, std::shared_ptr<tgui::ListaSurowcowGui>{}));
+		tgui::WidgetLoader::setLoadFunction("ListaObiektowGui", std::bind(tgui::loadListaObiektowGui, std::placeholders::_1, std::shared_ptr<tgui::ListaObiektowGui>{}));
 	}
 
 	void Aplikacja::rejestrujParametryKonsoli(){

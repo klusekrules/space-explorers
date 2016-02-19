@@ -66,4 +66,28 @@ namespace tgui {
 		return node;
 	}
 
+	std::shared_ptr<DataIO::Node> saveListaObiektowGui(ListaObiektowGui::Ptr widget){
+		auto node = saveBazowyWidzet(widget);
+		SET_PROPERTY("MnoznikRolki", tgui::to_string(widget->mnoznikRolki_));
+		SET_PROPERTY("SzerokoscSuwaka", tgui::to_string(widget->szerokoscSuwaka_));
+		SET_PROPERTY("OdstepMiedzyKontrolkami", tgui::to_string(widget->odstepMiedzyKontrolkami_));
+		SET_PROPERTY("TypObiektu", tgui::to_string(widget->typObiektu_));
+		SET_PROPERTY("PokazSuwak", tgui::to_string(widget->pokazSuwak_));
+		SET_PROPERTY("AutoRozmiar", tgui::to_string(widget->czyAutoRozmiar_));
+
+		auto& saveSzablon = WidgetSaver::getSaveFunction(toLower("KontrolkaObiektu"));
+		if (saveSzablon)
+			node->children.emplace_back(saveSzablon(WidgetConverter{ widget->szablonKontrolki_ }));
+		else
+			throw Exception{ "No save function exists for widget type 'KontrolkaObiektu'." };
+
+		auto& saveSuwak = WidgetSaver::getSaveFunction(toLower("Scrollbar"));
+		if (saveSuwak)
+			node->children.emplace_back(saveSuwak(WidgetConverter{ widget->suwak_ }));
+		else
+			throw Exception{ "No save function exists for widget type 'Scrollbar'." };
+
+		return node;
+	}
+
 };

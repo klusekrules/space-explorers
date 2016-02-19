@@ -61,17 +61,17 @@ namespace SpEx{
 
 		//tgui::Theme::Ptr theme = std::make_shared<tgui::Theme>("widgets/Black.txt");
 		
-		//gui.loadWidgetsFromFile("resource\\temp2.txt");
+		gui.loadWidgetsFromFile("resource\\temp2.txt");
 
-		auto lista = std::make_shared<tgui::ListaObiektowGui>();
+		/*auto lista = std::make_shared<tgui::ListaObiektowGui>();
 
 		lista->ustawTypObiektu(SpEx::Info::BUDYNEK);
 		lista->aktualizacjaDanych(*ptrPlaneta);
 		
 		gui.add(lista, "ListaObiektow");
-
+		lista->setPosition(10, 200);
 	
-		//gui.saveWidgetsToFile("resource\\temp2.txt");
+		gui.saveWidgetsToFile("resource\\temp2.txt");*/
 
 		while (window.isOpen())
 		{

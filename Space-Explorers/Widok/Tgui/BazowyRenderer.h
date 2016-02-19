@@ -28,8 +28,6 @@ namespace tgui {
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	protected:
-		void copyParameters(const BazowyRenderer&);
-		
 		BazowyWidzet *kontrolka_;
 
 		std::shared_ptr<sf::Shader> shader_;
@@ -39,9 +37,6 @@ namespace tgui {
 
 		Texture m_backgroundTexture;
 
-	/*private:
-
-		std::shared_ptr<WidgetRenderer> clone(Widget* widget) override;*/
 	};
 
 };
