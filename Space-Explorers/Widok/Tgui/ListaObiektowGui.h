@@ -183,7 +183,6 @@ namespace tgui{
 		Scrollbar::Ptr suwak_; /// WskaŸnik na kontrolkê suwaka.
 		KontrolkaObiektu::Ptr szablonKontrolki_; /// WskaŸnik na szablon kontrolki obiektu.
 		std::vector<KontrolkaObiektu::Ptr> kontrolki_; /// Kontener z kontrolkami obiektów.
-		std::shared_ptr<sf::Shader> shader_ = nullptr; /// WskaŸnika na obiekt shader'ów.
 		mutable std::mutex zmianaDanych_; /// Muteks dostêpu do modyfikacji iloœci kontrolek.
 		Borders margines_; /// Wewnêtrzne marginesy kontrolki.
 		float szerokoscSuwaka_ = 20.f; /// Szerokoœæ suwaka
