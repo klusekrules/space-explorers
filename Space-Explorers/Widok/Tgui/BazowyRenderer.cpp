@@ -19,8 +19,8 @@ namespace tgui {
 		else if (property == "backgroundimage")
 			setBackgroundTexture(Deserializer::deserialize(ObjectConverter::Type::Texture, value).getTexture());
 		else if (property == "shader") {
-			shader_ = std::make_shared<sf::Shader>();
-			if (!shader_->loadFromFile(Deserializer::deserialize(ObjectConverter::Type::String, value).getString(), sf::Shader::Type::Fragment)) {
+			shader_ = std::make_shared<sf::SpShader>();
+			if (!shader_->loadFromParam(value)) {
 				shader_ = nullptr;
 			}
 		}else
@@ -45,8 +45,8 @@ namespace tgui {
 				setBackgroundTexture(value.getTexture());
 		}else if (value.getType() == ObjectConverter::Type::String) {
 			if (property == "shader")
-				shader_ = std::make_shared<sf::Shader>();
-				if (!shader_->loadFromFile(value.getString(), sf::Shader::Type::Fragment)) {
+				shader_ = std::make_shared<sf::SpShader>();
+				if (!shader_->loadFromParam(value.getString())) {
 					shader_ = nullptr;
 				}
 		}else
@@ -62,8 +62,12 @@ namespace tgui {
 			return m_padding;
 		else if (property == "backgroundcolor")
 			return m_backgroundColor;
-		else if (property == "Shader")
-			return !!shader_;
+		else if (property == "Shader") {
+			if (shader_)
+				return shader_->getParamString();
+			else
+				return "none";
+		}
 		else if (property == "bordercolor")
 			return m_borderColor;
 		else if (property == "backgroundimage")
@@ -79,7 +83,12 @@ namespace tgui {
         else
 			map["BackgroundColor"] = m_backgroundColor;
 		map["BorderColor"] = m_borderColor;
-		map["Shader"] = !!shader_; // TODO: Dodanie klasy przechowuj¹cej adres do shadera.
+
+		if (shader_)
+			map["Shader"] = shader_->getParamString();
+		else
+			map["Shader"] = sf::String("none");
+
 		map["Borders"] = m_borders;
 		map["Padding"] = m_padding;
 		return map;
@@ -145,11 +154,11 @@ namespace tgui {
 		}
 	}
 		
-	void BazowyRenderer::setShader(std::shared_ptr<sf::Shader> shader) {
+	void BazowyRenderer::setShader(std::shared_ptr<sf::SpShader> shader) {
 		shader_ = shader;
 	}
 
-	std::shared_ptr<sf::Shader> BazowyRenderer::getShader() const {
+	std::shared_ptr<sf::SpShader> BazowyRenderer::getShader() const {
 		return shader_;
 	}
 };

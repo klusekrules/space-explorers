@@ -412,7 +412,7 @@ ListaObiektowGui."ListaObiektow" {
         BorderColor: Black;
         Borders: (0, 0, 0, 0);
         Padding: (0, 0, 0, 0);
-        Shader: "resource\\simple.frag";
+        Shader: Fragment "resource\\simple.frag";
     }
 
     Panel {

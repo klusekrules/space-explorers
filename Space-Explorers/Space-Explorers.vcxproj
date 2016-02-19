@@ -147,7 +147,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.4;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\Algorytmy\Headers\;$(SolutionDir)\Narzedzia\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.4;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)SFML\src;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\Algorytmy\Headers\;$(SolutionDir)\Narzedzia\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;PLUGIN_IMPORT;ZMIANA_IMPORT;PARSER_IMPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;ALGORYTMY_IMPORT;NARZEDZIA_IMPORT;TESTS;SPACE_EXPLORERS_API_EXPORT;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
@@ -183,7 +183,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.4;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\Algorytmy\Headers\;$(SolutionDir)\Narzedzia\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.4;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)SFML\src;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\Algorytmy\Headers\;$(SolutionDir)\Narzedzia\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;PLUGIN_IMPORT;ZMIANA_IMPORT;PARSER_IMPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;ALGORYTMY_IMPORT;NARZEDZIA_IMPORT;TESTS;SPACE_EXPLORERS_API_EXPORT;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
@@ -212,7 +212,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.4;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\Algorytmy\Headers\;$(SolutionDir)\Narzedzia\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.4;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)SFML\src;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\Algorytmy\Headers\;$(SolutionDir)\Narzedzia\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;PLUGIN_IMPORT;ZMIANA_IMPORT;PARSER_IMPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;ALGORYTMY_IMPORT;NARZEDZIA_IMPORT;TESTS;SPACE_EXPLORERS_API_EXPORT;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
@@ -242,7 +242,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.4;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\Algorytmy\Headers\;$(SolutionDir)\Narzedzia\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.4;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)SFML\src;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\Algorytmy\Headers\;$(SolutionDir)\Narzedzia\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;PLUGIN_IMPORT;ZMIANA_IMPORT;PARSER_IMPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;ALGORYTMY_IMPORT;NARZEDZIA_IMPORT;TESTS;SPACE_EXPLORERS_API_EXPORT;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
@@ -275,7 +275,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.4;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\Narzedzia\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;$(ProjectDir);$(SolutionDir)\Algorytmy\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.4;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)SFML\src;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\Narzedzia\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;$(ProjectDir);$(SolutionDir)\Algorytmy\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;PLUGIN_IMPORT;ZMIANA_IMPORT;PARSER_IMPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;ALGORYTMY_IMPORT;NARZEDZIA_IMPORT;TESTS;SPACE_EXPLORERS_API_EXPORT;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -307,7 +307,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.4;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\Narzedzia\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;$(ProjectDir);$(SolutionDir)\Algorytmy\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TGUI\include;$(SolutionDir)LuaJIT-2.0.4;$(SolutionDir)SFML\include;$(SolutionDir)\Logger\Headers\;$(SolutionDir)\Parser\Headers\;$(SolutionDir)\Zmiana\Headers\;$(SolutionDir)\TypyProste\Headers\;$(SolutionDir)SFML\src;$(SolutionDir)\Plugin\Headers\;$(SolutionDir)\Narzedzia\Headers\;$(SolutionDir)\zlib\zlib-win64\include\;$(ProjectDir);$(SolutionDir)\Algorytmy\Headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;PLUGIN_IMPORT;ZMIANA_IMPORT;PARSER_IMPORT;LOGGER_IMPORT;TYPY_PROSTE_IMPORT;ALGORYTMY_IMPORT;NARZEDZIA_IMPORT;TESTS;SPACE_EXPLORERS_API_EXPORT;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -443,6 +443,7 @@
     <ClInclude Include="Widok\Ekrany\Szkielet\EkranSzablon.h" />
     <ClInclude Include="Widok\Konsola\Konsola.h" />
     <ClInclude Include="Widok\SFML\RoundedRectangleShape.hpp" />
+    <ClInclude Include="Widok\SFML\SpShader.h" />
     <ClInclude Include="Widok\Tgui\BazowyRenderer.h" />
     <ClInclude Include="Widok\Tgui\BazowyWidzet.h" />
     <ClInclude Include="Widok\Tgui\KontrolkaObiektu.h" />
@@ -564,6 +565,7 @@
     <ClCompile Include="Widok\Ekrany\Szkielet\EkranSzablon.cpp" />
     <ClCompile Include="Widok\Konsola\Konsola.cpp" />
     <ClCompile Include="Widok\SFML\RoundedRectangleShape.cpp" />
+    <ClCompile Include="Widok\SFML\SpShader.cpp" />
     <ClCompile Include="Widok\Tgui\BazowyRenderer.cpp" />
     <ClCompile Include="Widok\Tgui\BazowyWidzet.cpp" />
     <ClCompile Include="Widok\Tgui\KontrolkaObiektu.cpp" />
