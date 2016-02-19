@@ -9,16 +9,18 @@ namespace tgui {
 		m_callback.widgetType = "ListaObiektowGui";
 		m_draggableWidget = false;
 		mnoznikRolki_ = 6;
-		m_panel->setBackgroundColor(sf::Color::White);
+		m_panel->setBackgroundColor(sf::Color::Transparent);
 		
-		auto renderer = std::make_shared<ListaObiektowGuiRenderer>(this);
-		m_renderer = renderer;
+		m_renderer = std::make_shared<ListaObiektowGuiRenderer>(this);
+
+		Texture tex("resource\\White.bmp");
+		getRenderer()->setBackgroundTexture(tex);
 
 		if (sf::Shader::isAvailable()) {
-			auto shader = std::make_shared<sf::Shader>();
-			shader->loadFromFile("resource\\simple.frag", sf::Shader::Type::Fragment);
-			shader->setParameter("texture", sf::Shader::CurrentTexture);
-			renderer->setShader(shader);
+			shader_ = std::make_shared<sf::Shader>();
+			shader_->loadFromFile("resource\\simple.frag", sf::Shader::Type::Fragment);
+			shader_->setParameter("texture", sf::Shader::CurrentTexture);
+			getRenderer()->setShader(shader_);
 		}
 
 		suwak_ = std::make_shared<Scrollbar>();
@@ -122,6 +124,20 @@ namespace tgui {
 	void ListaObiektowGui::stworzDomyslnySzablonKontrolki() {
 		szablonKontrolki_ = std::make_shared<KontrolkaObiektu>();
 		szablonKontrolki_->hide();
+
+		if (shader_ && szablonKontrolki_) {
+			auto size = szablonKontrolki_->getSize();
+			auto pSize = BazowyWidzet::getSize();
+			auto pozycja = BazowyWidzet::getPosition();
+			GLint viewport[4];
+			GLfloat upBorder, downBorder;
+			glGetIntegerv(GL_VIEWPORT, viewport);
+			downBorder = (float)viewport[3] - (pozycja.y + pSize.y);
+			upBorder = (float)viewport[3] - pozycja.y;
+			shader_->setParameter("zakres", size.y);
+			shader_->setParameter("upMargin", upBorder - size.y);
+			shader_->setParameter("downMargin", downBorder + size.y); 
+		}
 	}
 
 	void ListaObiektowGui::wyczyscDane() {
@@ -196,8 +212,7 @@ namespace tgui {
 
 	void ListaObiektowGui::setPosition(const Layout2d& position){
 		BazowyWidzet::setPosition(position);
-		auto shader = getRenderer()->getShader();
-		if (shader){
+		if (shader_ && szablonKontrolki_){
 			auto size = szablonKontrolki_->getSize();
 			auto pSize = BazowyWidzet::getSize();
 			auto pozycja = BazowyWidzet::getPosition();
@@ -206,9 +221,9 @@ namespace tgui {
 			glGetIntegerv(GL_VIEWPORT, viewport);
 			downBorder = (float)viewport[3] - (pozycja.y + pSize.y);
 			upBorder = (float)viewport[3] - pozycja.y;
-			shader->setParameter("zakres", size.y);
-			shader->setParameter("upMargin", upBorder - size.y);
-			shader->setParameter("downMargin", downBorder + size.y);
+			shader_->setParameter("zakres", size.y);
+			shader_->setParameter("upMargin", upBorder - size.y);
+			shader_->setParameter("downMargin", downBorder + size.y);
 		}
 	}
 
@@ -228,8 +243,7 @@ namespace tgui {
 		
 		przeliczPozycjeKontrolek(0,true);
 		uaktualnijSuwak(newSize.y.getValue(),false);
-		auto shader = getRenderer()->getShader();
-		if (shader && szablonKontrolki_){
+		if (shader_ && szablonKontrolki_){
 			auto size = szablonKontrolki_->getSize();
 			auto pozycja = BazowyWidzet::getPosition();
 			GLint viewport[4];
@@ -237,9 +251,9 @@ namespace tgui {
 			glGetIntegerv(GL_VIEWPORT, viewport);
 			downBorder = (float)viewport[3] - (pozycja.y + newSize.y.getValue());
 			upBorder = (float)viewport[3] - pozycja.y;
-			shader->setParameter("zakres", size.y);
-			shader->setParameter("upMargin", upBorder - size.y);
-			shader->setParameter("downMargin", downBorder + size.y);
+			shader_->setParameter("zakres", size.y);
+			shader_->setParameter("upMargin", upBorder - size.y);
+			shader_->setParameter("downMargin", downBorder + size.y);
 		}
 	}
 	void ListaObiektowGui::mouseWheelMoved(int delta, int x, int y){

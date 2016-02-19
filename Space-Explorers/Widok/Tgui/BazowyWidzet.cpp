@@ -55,13 +55,14 @@ namespace tgui {
 	}
 	
 	void BazowyWidzet::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-		// Draw the background
-		getRenderer()->draw(target, states);
 
 		if (getRenderer()->getShader() != nullptr) {
 			states.shader = getRenderer()->getShader().get();
 		}
 
+		// Draw the background
+		getRenderer()->draw(target, states);
+		
 		// Draw the panel
 		target.draw(*m_panel, states);
 	}

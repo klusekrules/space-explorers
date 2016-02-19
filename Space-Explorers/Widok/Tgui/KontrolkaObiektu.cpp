@@ -70,6 +70,9 @@ namespace tgui{
 		rozbuduj_->setSize(280 * 0.285, 30);
 		rozbuduj_->setPosition(110 + 280 * 0.715 + 15, 23);
 		rozbuduj_->setText("Buduj");
+		rozbuduj_->getRenderer()->setBorders({ 0,0,0,0 });
+		rozbuduj_->getRenderer()->setTextColorNormal("#BEBEBE");
+		rozbuduj_->getRenderer()->setProperty("NormalImage", "\"widgets\\Black.png\" Part(0, 64, 45, 50) Middle(10, 0, 25, 50)");
 
 		zniszcz_ = std::make_shared<Button>();
 		m_panel->add(zniszcz_,"Zburz");
@@ -79,6 +82,9 @@ namespace tgui{
 		zniszcz_->setSize(280 * 0.285, 30);
 		zniszcz_->setPosition(110 + 280 * 0.715 + 15, 72);
 		zniszcz_->setText("Zburz");
+		zniszcz_->getRenderer()->setBorders({ 0,0,0,0 });
+		zniszcz_->getRenderer()->setTextColorNormal("#BEBEBE");
+		zniszcz_->getRenderer()->setProperty("NormalImage", "\"widgets\\Black.png\" Part(0, 64, 45, 50) Middle(10, 0, 25, 50)");
 		
 
 		m_renderer = std::make_shared<KontrolkaObiektuRenderer>(this);
