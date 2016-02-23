@@ -104,13 +104,20 @@ namespace SpEx{
 		return inicjalizacjaWynik_.get();
 	}
 
+	bool Konsola::przesunNaWierch() const{
+		if (ptrWindow) {
+			return BringWindowToTop(ptrWindow->getSystemHandle());
+		}
+		return false;
+	}
+
 	void Konsola::wykonuj(){
 		try {
-			std::unique_ptr<sf::RenderWindow> ptrWindow = nullptr;
 			std::unique_ptr<tgui::Gui> ptrGUI = nullptr;
 			tgui::ChatBox::Ptr chatbox = nullptr;
 			try {
 				ptrWindow = std::make_unique<sf::RenderWindow>(sf::VideoMode(650, 400), "Konsola", sf::Style::Titlebar);
+				ptrWindow->setPosition(sf::Vector2i(10,10));
 				ptrGUI = std::make_unique<tgui::Gui>(*ptrWindow);
 
 				ptrGUI->setFont("resource/consola.ttf");

@@ -21,6 +21,7 @@ namespace SpEx{
 		void wykonuj() override;
 		void dodajKomunikat(const std::string&, const sf::Color&);
 		bool czekajNaInicjalizacje();
+		bool przesunNaWierch() const;
 		void rejestrujPolecenie(const std::string&, const OpcjePolecenia&);
 		void Konsola::logujListePolecen() const;
 		virtual ~Konsola() = default;
@@ -34,6 +35,7 @@ namespace SpEx{
 		};
 
 		std::map< std::string, OpcjePolecenia> poleceniaKonsoli_;
+		std::unique_ptr<sf::RenderWindow> ptrWindow = nullptr;
 
 		std::list<Komunikat> lista_;
 		std::mutex muxLista_;

@@ -161,8 +161,12 @@ namespace SpEx{
 		if (wlaczone)
 			przejdzDoNastepnegoStanu();
 
-		if (watekGraficzny_)
+		if (watekGraficzny_) {
 			watekGraficzny_->uruchom();
+			if (Aplikacja::pobierzInstancje().konsola_) {
+				Aplikacja::pobierzInstancje().konsola_->przesunNaWierch();
+			}
+		}
 #ifdef _FPS_COUNT
 		FPSCounter fpsCounter;
 #endif
