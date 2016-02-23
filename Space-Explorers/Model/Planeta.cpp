@@ -110,7 +110,7 @@ namespace SpEx{
 	}
 
 	Planeta::Indeks Planeta::dodajFlote(){
-		auto flota = std::make_shared< Flota >(STyp::Identyfikator(static_cast<STyp::Identyfikator::nazwa_typu>(licznikIdentyfikatorowFloty_()())), STyp::Identyfikator(), STyp::Identyfikator(), Flota::CelPodrozy::Transport);
+		auto flota = std::make_shared< Flota >(STyp::Identyfikator(static_cast<STyp::Identyfikator::nazwa_typu>(licznikIdentyfikatorowFloty_()())), STyp::Identyfikator(-1), STyp::Identyfikator(-1), Flota::CelPodrozy::Transport);
 		listaFlot_.insert(std::make_pair(flota->pobierzIdentyfikator(), flota));
 		return flota->pobierzIdentyfikator();
 	}
