@@ -49,5 +49,5 @@
   <opcja nazwa="plikAutoryzacji" wartosc="hash.xml"/>
   
   <opcja nazwa="portSerwera" wartosc="15015"/>
-  <opcja nazwa="adresSerwera" wartosc="localhost"/>
+  <opcja nazwa="adresSerwera" wartosc="127.0.0.1"/>
 </Space-Explorers>
