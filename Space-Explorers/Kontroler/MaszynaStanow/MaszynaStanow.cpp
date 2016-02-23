@@ -274,9 +274,11 @@ namespace SpEx{
 	}
 
 	void MaszynaStanow::inicjujZamykanie(){
-		if (watekGraficzny_)
-			watekGraficzny_->zakmnij();
-		wlaczone = false;
+		if (wlaczone) {
+			if (watekGraficzny_)
+				watekGraficzny_->zakmnij();
+			wlaczone = false;
+		}
 	}
 
 	void MaszynaStanow::dodajZadanie(Zadanie& zadanie){
