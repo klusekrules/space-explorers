@@ -10,6 +10,7 @@
 #include "Utils\Utils.h"
 #include "Utils\DefinicjeWezlowXML.h"
 #include "Utils\StackThrow.h"
+#include "Widok\Konsola\Konsola.h"
 
 namespace SpEx{
 	MaszynaStanow::StanDlaSkryptu::StanDlaSkryptu()
@@ -184,7 +185,13 @@ namespace SpEx{
 			}
 #endif
 		}
-		
+
+		if (Aplikacja::pobierzInstancje().konsola_) {
+			if (Aplikacja::pobierzInstancje().konsola_->blad()) {
+				throw Aplikacja::pobierzInstancje().konsola_->bladInfo();
+			}
+		}
+
 		if (watekGraficzny_){
 			watekGraficzny_->czekajNaZakonczenie();
 			if (watekGraficzny_->blad()){

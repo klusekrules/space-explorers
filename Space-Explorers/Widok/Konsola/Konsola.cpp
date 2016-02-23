@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include "Kontroler\Aplikacja.h"
 #include "Utils\Utils.h"
+#include "Kontroler\MaszynaStanow\MaszynaStanow.h"
 
 namespace SpEx{
 
@@ -176,6 +177,6 @@ namespace SpEx{
 		catch (...) {
 			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(-1), STyp::Tekst("Critical!!"), STyp::Tekst("Unrecognize Exception!")));
 		}
-
+		SpEx::MaszynaStanow::pobierzInstancje().inicjujZamykanie();
 	}
 }
