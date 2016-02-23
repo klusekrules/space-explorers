@@ -14,6 +14,8 @@
 #include "Utils\DefinicjeWezlowXML.h"
 #include "IProxyBO.h"
 #include "Widok\Konsola\Konsola.h"
+#include "Widok\Tgui\ListaObiektowGui.h"
+#include "Widok\Tgui\ListaSurowcowGui.h"
 
 extern "C"{
 
@@ -316,7 +318,7 @@ extern "C"{
 		auto widget = ekranPtr->pobierzGUI().get<tgui::Widget>(kontrolka);
 		if (!widget)
 			return false;
-		return false;//widget->setProperty(nazwaWlasciwosci,value);
+		return false;//TODO: obs³uga w³aœciwoœci - widget->setProperty(nazwaWlasciwosci,value);
 	}
 
 	SPACE_EXPLORERS_API const char * __cdecl pobierzNazweAktualnegoGracza(){
@@ -358,10 +360,10 @@ extern "C"{
 				auto &planeta = gra.pobierzUzytkownika().pobierzPlanete();
 				auto ekran = oknoGry->pobierzEkran(idEkranu);
 				if (ekran){
-					/*auto kontrolka = ekran->pobierzGUI().get<tgui::ListaObiektowGui>(nazwaKontrolki);
+					auto kontrolka = ekran->pobierzGUI().get<tgui::ListaObiektowGui>(nazwaKontrolki);
 					if (kontrolka != nullptr){
 						kontrolka->aktualizacjaDanych(planeta);
-					}*/
+					}
 				}
 			}
 		}
@@ -386,10 +388,10 @@ extern "C"{
 				auto &planeta = gra.pobierzUzytkownika().pobierzPlanete();
 				auto ekran = oknoGry->pobierzEkran(idEkranu);
 				if (ekran){
-					/*auto kontrolka = ekran->pobierzGUI().get<tgui::ListaSurowcowGui>(nazwaKontrolki);
+					auto kontrolka = ekran->pobierzGUI().get<tgui::ListaSurowcowGui>(nazwaKontrolki);
 					if (kontrolka != nullptr){
 						kontrolka->aktualizacjaDanych(planeta);
-					}*/
+					}
 				}
 			}
 		}
