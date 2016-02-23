@@ -1,98 +1,90 @@
-Window:
-{
-	Picture: "tlo"
-	{
-		Filename = "resource\space.jpg"
-	}
-	
-	Picture: "logo"
-	{
-		Filename = "resource\SpaceExplorers_logo_640x348.png"
-		Left = 10
-		Top = 10
-		Width = 192
-		Height = 104
-		Smooth = true
-	}
-	
-	Button: "testowanie"
-	{
-		ConfigFile = "widgets\Black.conf"
-		Left = 630
-		Top = 30
-		Width = 150
-		Height = 30
-		Visible = true
-		Enabled = true
-		Transparency = 255
-		CallbackId = 0
-		Text = "Testowanie"
-		TextColor = (200,200,200,255)
-		TextSize = 15
-	}
-	
-	Button: "wczytywanie"
-	{
-		ConfigFile = "widgets\Black.conf"
-		Left = 630
-		Top = 70
-		Width = 150
-		Height = 30
-		Visible = true
-		Enabled = true
-		Transparency = 255
-		CallbackId = 0
-		Text = "Wczytaj dane"
-		TextColor = (200,200,200,255)
-		TextSize = 15
-	}
+Picture."tlo"{
+	Filename: "resource\\space.jpg";
+}
 
-	Button: "przeladujOkno"
-	{
-		ConfigFile = "widgets\Black.conf"
-		Left = 630
-		Top = 110
-		Width = 150
-		Height = 30
-		Visible = true
-		Enabled = true
-		Transparency = 255
-		CallbackId = 0
-		Text = "Prze³aduj listê obiektów"
-		TextColor = (200,200,200,255)
-		TextSize = 15
-	}
-	
-	Button: "listaobiektow"
-	{
-		ConfigFile = "widgets\Black.conf"
-		Left = 630
-		Top = 150
-		Width = 150
-		Height = 30
-		Visible = true
-		Enabled = true
-		Transparency = 255
-		CallbackId = 0
-		Text = "Lista obiektów"
-		TextColor = (200,200,200,255)
-		TextSize = 15
-	}
+Picture."logo"{
+	Filename: "resource\\SpaceExplorers_logo_640x348.png";
+	Size: (192, 104);
+    Position: (10, 10);
+	Smooth: true;
+}
 
-	Button: "zamknij"
-	{
-		ConfigFile = "widgets\Black.conf"
-		Left = 630
-		Top = 190
-		Width = 150
-		Height = 30
-		Visible = true
-		Enabled = true
-		Transparency = 255
-		CallbackId = 0
-		Text = "Zamknij"
-		TextColor = (200,200,200,255)
-		TextSize = 15
-	}
+Button."testowanie" {
+	Position: (630, 30);
+	Size: (150, 30);
+	Text: "Testowanie";
+	TextSize: 15;
 
+	Renderer {
+		BorderColor: Black;
+		Borders: (0, 0, 0, 0);
+		NormalImage: "widgets\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+		TextColorDown: Black;
+		TextColorHover: Black;
+		TextColorNormal: #BEBEBE;
+	}
+}
+
+Button."wczytywanie" {
+	Position: (630, 70);
+	Size: (150, 30);
+	Text: "Wczytaj dane";
+	TextSize: 15;
+
+	Renderer {
+		BorderColor: Black;
+		Borders: (0, 0, 0, 0);
+		NormalImage: "widgets\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+		TextColorDown: Black;
+		TextColorHover: Black;
+		TextColorNormal: #BEBEBE;
+	}
+}
+
+Button."przeladujOkno" {
+	Position: (630, 110);
+	Size: (150, 30);
+	Text: "Prze³aduj listê obiektów";
+	TextSize: 15;
+
+	Renderer {
+		BorderColor: Black;
+		Borders: (0, 0, 0, 0);
+		NormalImage: "widgets\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+		TextColorDown: Black;
+		TextColorHover: Black;
+		TextColorNormal: #BEBEBE;
+	}
+}
+
+Button."listaobiektow" {
+	Position: (630, 150);
+	Size: (150, 30);
+	Text: "Lista obiektów";
+	TextSize: 15;
+
+	Renderer {
+		BorderColor: Black;
+		Borders: (0, 0, 0, 0);
+		NormalImage: "widgets\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+		TextColorDown: Black;
+		TextColorHover: Black;
+		TextColorNormal: #BEBEBE;
+	}
+}
+
+Button."zamknij" {
+	Position: (630, 190);
+	Size: (150, 30);
+	Text: "Zamknij";
+	TextSize: 15;
+
+	Renderer {
+		BorderColor: Black;
+		Borders: (0, 0, 0, 0);
+		NormalImage: "widgets\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+		TextColorDown: Black;
+		TextColorHover: Black;
+		TextColorNormal: #BEBEBE;
+	}
 }

@@ -149,7 +149,7 @@ namespace SpEx{
 
 	private:
 
-		sf::RenderWindow oknoGlowne_; /// G³ówne okno aplikacji.
+		std::shared_ptr<sf::RenderWindow> oknoGlowne_; /// G³ówne okno aplikacji.
 		sf::Shader testShadera_; /// Testowy shader
 
 		std::atomic_bool przetwarzanie_; /// Informacja o wykonywaniu pêtli g³ównej w¹tku.

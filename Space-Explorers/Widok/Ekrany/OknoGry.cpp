@@ -17,7 +17,7 @@
 #define GL_SHADING_LANGUAGE_VERSION       0x8B8C
 namespace SpEx{
 	OknoGry::OknoGry(bool wstrzymany)
-		: Watek(wstrzymany)
+		: Watek(wstrzymany), oknoGlowne_(nullptr)
 	{
 		przetwarzanie_ = true;
 		inicjalizacjaWynik_ = inicjalizacja_.get_future();
@@ -107,7 +107,14 @@ namespace SpEx{
 			std::lock_guard<std::mutex> blokada(mutexUruchom_);
 
 			Stan::KrokCzasu accumulator;
-			oknoGlowne_.setVisible(true);
+
+			{
+				auto zerowanie = std::chrono::high_resolution_clock::now();
+				accumulator = zerowanie - zerowanie;
+			}
+
+			if(oknoGlowne_)
+				oknoGlowne_->setVisible(true);
 #ifdef _FPS_COUNT
 			FPSCounter fpsCounter;
 #endif
@@ -154,7 +161,8 @@ namespace SpEx{
 				}
 #endif
 			}
-			oknoGlowne_.close();
+			if(oknoGlowne_)
+				oknoGlowne_->close();
 		}
 		catch (STyp::Wyjatek& e){
 			ustawBlad(e);
@@ -176,14 +184,12 @@ namespace SpEx{
 		std::lock_guard<std::mutex> blokada(mutexInicjalizacja_);
 		przetwarzanie_ = false;
 		logujInfo();
-		oknoGlowne_.create(sf::VideoMode(800, 500), "Space-Explorers", sf::Style::None);
-		oknoGlowne_.setVisible(false);
-		oknoGlowne_.setVerticalSyncEnabled(true);
-
-		oknoGlowne_.setVisible(false);
-
-		SetWindowLong(oknoGlowne_.getSystemHandle(), GWL_EXSTYLE, GetWindowLong(oknoGlowne_.getSystemHandle(), GWL_EXSTYLE) | WS_EX_LAYERED);
-		if (!SetLayeredWindowAttributes(oknoGlowne_.getSystemHandle(), NULL, 0, LWA_ALPHA)){
+		oknoGlowne_ = std::make_shared<sf::RenderWindow>(sf::VideoMode(800, 500), "Space-Explorers" , sf::Style::None);
+		oknoGlowne_->setVisible(false);
+		oknoGlowne_->setVerticalSyncEnabled(true);
+		
+		SetWindowLong(oknoGlowne_->getSystemHandle(), GWL_EXSTYLE, GetWindowLong(oknoGlowne_->getSystemHandle(), GWL_EXSTYLE) | WS_EX_LAYERED);
+		if (!SetLayeredWindowAttributes(oknoGlowne_->getSystemHandle(), NULL, 0, LWA_ALPHA)){
 #ifndef LOG_OFF_ALL
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Nie dziala przezroczstosc.");
 #endif
@@ -220,11 +226,14 @@ namespace SpEx{
 		}
 #ifndef LOG_OFF_ALL
 		char* p = (char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
-		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, p ? p : "");
+		if(p)
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, p);
 		p = (char*)glGetString(GL_VERSION);
-		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, p ? p : "");
+		if (p)
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, p);
 		p = (char*)glGetString(GL_VENDOR);
-		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, p ? p : "");
+		if (p)
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, p);
 #endif
 	}
 
@@ -234,9 +243,9 @@ namespace SpEx{
 		if (!zasob)
 			throw NieznalezionoPliku(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), STyp::Tekst("Nie udalo sie wczytac dokumentu xml: KonfiguracjaOknaGry"));
 		auto wezel = (*zasob)()->pobierzElement(nullptr);
-		if (wezel){
+		if (wezel&& oknoGlowne_){
 			XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_EKRAN_STARTOWY, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
-				auto ptr = std::make_shared<EkranStartowy>(oknoGlowne_, element); 
+				auto ptr = std::make_shared<EkranStartowy>(*oknoGlowne_, element); 
 				if (listaEkranow_.find(ptr->pobierzId()) != listaEkranow_.end())
 					throw PowtorzenieIdObiektu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), ptr->pobierzId(), KOMUNIKAT_POWTORZENIE_OBIEKTU(EkranStartowy));
 				listaEkranow_.insert(std::make_pair(ptr->pobierzId(), ptr));
@@ -247,7 +256,7 @@ namespace SpEx{
 				auto ptr = std::make_shared<EkranSzablon>(element);
 				if (listaEkranow_.find(ptr->pobierzId()) != listaEkranow_.end())
 					throw PowtorzenieIdObiektu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), ptr->pobierzId(), KOMUNIKAT_POWTORZENIE_OBIEKTU(EkranSzablon));
-				ptr->podlacz(oknoGlowne_);
+				ptr->podlacz(*oknoGlowne_);
 				listaEkranow_.insert(std::make_pair(ptr->pobierzId(), ptr));
 				return true;
 			}));
@@ -256,9 +265,11 @@ namespace SpEx{
 	}
 	
 	void OknoGry::usunWszystkieEkrany(){
-		for (auto ekran : listaEkranow_){
-			ekran.second->odlacz(oknoGlowne_);
-			ekran.second->clear();
+		if (oknoGlowne_) {
+			for (auto ekran : listaEkranow_) {
+				ekran.second->odlacz(*oknoGlowne_);
+				ekran.second->clear();
+			}
 		}
 	}
 	
@@ -271,9 +282,9 @@ namespace SpEx{
 				throw NieznalezionoPliku(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), STyp::Tekst("Nie udalo sie wczytac dokumentu xml: KonfiguracjaOknaGry"));
 			auto wezel = (*zasob)()->pobierzElement(nullptr);
 			auto okno = XmlBO::ZnajdzWezelJezeli<NOTHROW>(wezel, WEZEL_XML_EKRAN, ATRYBUT_XML_IDENTYFIKATOR, std::to_string(id()));
-			if (okno){
+			if (okno && oknoGlowne_){
 				auto ptr = std::make_shared<EkranSzablon>(okno);
-				ptr->podlacz(oknoGlowne_);
+				ptr->podlacz(*oknoGlowne_);
 				iter->second = ptr;
 			}
 		}
@@ -281,25 +292,27 @@ namespace SpEx{
 	
 	void OknoGry::obslugaZdarzen(Stan& stan){
 		sf::Event zdarzenie;
-		while (oknoGlowne_.pollEvent(zdarzenie))
-		{
-			switch (zdarzenie.type){
-			case sf::Event::Closed:
-				MaszynaStanow::pobierzInstancje().inicjujZamykanie();
-				break;
-			case sf::Event::MouseButtonPressed:
-				SetActiveWindow(oknoGlowne_.getSystemHandle());
-				break;
-			case sf::Event::Resized:
+		if (oknoGlowne_) {
+			while (oknoGlowne_->pollEvent(zdarzenie))
 			{
-				sf::FloatRect visibleArea(0, 0, static_cast<float>(zdarzenie.size.width), static_cast<float>(zdarzenie.size.height));
-				oknoGlowne_.setView(sf::View(visibleArea));
-			}
+				switch (zdarzenie.type) {
+				case sf::Event::Closed:
+					MaszynaStanow::pobierzInstancje().inicjujZamykanie();
+					break;
+				case sf::Event::MouseButtonPressed:
+					SetActiveWindow(oknoGlowne_->getSystemHandle());
+					break;
+				case sf::Event::Resized:
+				{
+					sf::FloatRect visibleArea(0, 0, static_cast<float>(zdarzenie.size.width), static_cast<float>(zdarzenie.size.height));
+					oknoGlowne_->setView(sf::View(visibleArea));
+				}
 				break;
-			}
+				}
 
-			for (auto ekran : stosEkranow_)
-				ekran->odbierz(stan, zdarzenie);
+				for (auto ekran : stosEkranow_)
+					ekran->odbierz(stan, zdarzenie);
+			}
 		}
 	}
 
@@ -315,13 +328,14 @@ namespace SpEx{
 	}
 
 	void OknoGry::odmaluj(){
-		sf::RenderStates states;
-		oknoGlowne_.clear(sf::Color(255, 255, 255, 0));
+		if (oknoGlowne_) {
+			oknoGlowne_->clear(sf::Color(255, 255, 255, 0));
 
-		for (auto ekran : stosEkranow_)
-			oknoGlowne_.draw(*ekran);
+			for (auto ekran : stosEkranow_)
+				ekran->pobierzGUI().draw();
 
-		oknoGlowne_.display();
+			oknoGlowne_->display();
+		}
 	}
 
 	void OknoGry::zakmnij(){

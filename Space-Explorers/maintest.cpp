@@ -26,6 +26,7 @@ void main( int argv , char* argc[] ){
 		*/
 	}
 	catch (STyp::Wyjatek& wyjatek){
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, wyjatek);
 		MessageBox(
 			nullptr,
 			wyjatek.getTresc()().c_str(),
@@ -34,6 +35,7 @@ void main( int argv , char* argc[] ){
 			);
 	}
 	catch (std::exception& exception){
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, exception.what());
 		MessageBox(
 			nullptr,
 			exception.what(),
@@ -42,6 +44,7 @@ void main( int argv , char* argc[] ){
 			);
 	}
 	catch (...){
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Unknown Exception!");
 		MessageBox(
 			nullptr,
 			"Unknown Exception!",

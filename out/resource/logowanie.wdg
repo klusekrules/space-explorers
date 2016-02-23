@@ -1,115 +1,95 @@
-Window:
-{
-	Picture: "tlo"
-	{
-		Filename = "resource\space.jpg"
-	}
-	
-	Label: "testowanie"
-	{
-		ConfigFile = "widgets\Black.conf"
-		Left = 260
-		Top = 30
-		Visible = true
-		Enabled = true
-		Transparency = 255
-		CallbackId = 0
-		Text = "Logowanie"
-		TextColor = (50,128,50)
-		BackgroundColor = (0,0,0,0)
-		AutoSize = true
-		TextSize = 60
-	}
-	
-	Editbox: "login"
-	{
-		ConfigFile = widgets\Black.conf
-		Left = 300
-		Top = 170
-		Width = 200
-		Height = 40
-		Visible = true
-		Enabled = true
-		Transparency = 255
-		CallbackId = 0
-		TextSize = 25
-	}
-	
-	Editbox: "pass"
-	{
-		ConfigFile = widgets\Black.conf
-		Left = 300
-		Top = 220
-		Width = 200
-		Height = 40
-		Visible = true
-		Enabled = true
-		Transparency = 255
-		CallbackId = 0
-		TextSize = 25
-		PasswordCharacter = #
-	}
-	
-	Button: "nowygracz"
-	{
-		ConfigFile = "widgets\Black.conf"
-		Left = 245
-		Top = 270
-		Width = 150
-		Height = 40
-		Visible = true
-		Enabled = true
-		Transparency = 255
-		CallbackId = 0
-		Text = "Nowy gracz"
-		TextColor = (200,200,200,255)
-		TextSize = 25
-	}
-	
-	Button: "zaloguj"
-	{
-		ConfigFile = "widgets\Black.conf"
-		Left = 405
-		Top = 270
-		Width = 150
-		Height = 40
-		Visible = true
-		Enabled = true
-		Transparency = 255
-		CallbackId = 0
-		Text = "Zaloguj"
-		TextColor = (200,200,200,255)
-		TextSize = 25
-	}
-	
-	LogListGui: "komunikaty"
-	{
-		ConfigFile = "widgets\Black.conf"
-		Left = 0
-		Top = 330
-		Width = 800
-		Height = 120
-		Visible = true
-		Enabled = true
-		Transparency = 255
-		CallbackId = 0
-		BackgroundColor = (255,255,255,0)
-	}
-	
-	Button: "zamknij"
-	{
-		ConfigFile = "widgets\Black.conf"
-		Left = 630
-		Top = 440
-		Width = 150
-		Height = 40
-		Visible = true
-		Enabled = true
-		Transparency = 255
-		CallbackId = 0
-		Text = "Zamknij"
-		TextColor = (200,200,200,255)
-		TextSize = 25
-	}
+Picture."tlo" {
+	Filename: "resource\\space.jpg";
+}
 
+Label."Naglowek" {
+	AutoSize: true;
+	Position: (260,30);
+	Text: "Logowanie";
+	TextSize: 60;
+
+	Renderer {
+		BackgroundColor: Transparent;
+		BorderColor: Black;
+		Borders: (0, 0, 0, 0);
+		Padding: (0, 0, 0, 0);
+		TextColor: (50,128,50);
+	}
+}
+
+Editbox."login" {
+	Position: (300, 170);
+	Size: (200, 40);
+	TextSize: 25;
+
+	Renderer {
+		BorderColor: Black;
+		Borders: (0, 0, 0, 0);
+		Padding: (3, 3, 3, 3);
+		NormalImage: "widgets\Black.png" Part(0, 154, 48, 48) Middle(16, 16, 16, 16);
+		TextColor: (190, 190, 190);
+	}
+}
+
+Editbox."pass" {
+	Position: (300, 220);
+	Size: (200, 40);
+	TextSize: 25;
+	PasswordCharacter: "#";
+
+	Renderer {
+		BorderColor: Black;
+		Borders: (0, 0, 0, 0);
+		Padding: (3, 3, 3, 3);
+		NormalImage: "widgets\Black.png" Part(0, 154, 48, 48) Middle(16, 16, 16, 16);
+		TextColor: (190, 190, 190);
+	}
+}
+
+Button."nowygracz" {
+	Position: (245, 270);
+	Size: (150, 40);
+	Text: "Nowy gracz";
+	TextSize: 25;
+
+	Renderer {
+		BorderColor: Black;
+		Borders: (0, 0, 0, 0);
+		NormalImage: "widgets\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+		TextColorDown: Black;
+		TextColorHover: Black;
+		TextColorNormal: #BEBEBE;
+	}
+}
+
+Button."zaloguj" {
+	Position: (405, 270);
+	Size: (150, 40);
+	Text: "Zaloguj";
+	TextSize: 25;
+
+	Renderer {
+		BorderColor: Black;
+		Borders: (0, 0, 0, 0);
+		NormalImage: "widgets\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+		TextColorDown: Black;
+		TextColorHover: Black;
+		TextColorNormal: #BEBEBE;
+	}
+}
+
+Button."zamknij" {
+	Position: (630, 440);
+	Size: (150, 40);
+	Text: "Zamknij";
+	TextSize: 25;
+
+	Renderer {
+		BorderColor: Black;
+		Borders: (0, 0, 0, 0);
+		NormalImage: "widgets\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+		TextColorDown: Black;
+		TextColorHover: Black;
+		TextColorNormal: #BEBEBE;
+	}
 }

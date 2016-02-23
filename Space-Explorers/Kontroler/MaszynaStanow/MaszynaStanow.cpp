@@ -31,7 +31,7 @@ namespace SpEx{
 	}
 
 	MaszynaStanow::MaszynaStanow()
-		: watekGraficzny_(nullptr), stan_(nullptr), stanNastepny_(nullptr), pulaWatkow_()
+		: watekGraficzny_(std::make_shared<OknoGry>(true)), stan_(nullptr), stanNastepny_(nullptr), pulaWatkow_()
 	{
 	}
 
@@ -322,21 +322,18 @@ namespace SpEx{
 		poprawne_poprzedni_ = true;
 		poprzedni_.idStanu_ = z.id_();
 		poprzedni_.numer_ = z.numer_;
-		//poprzedni_.dt_ = z.dt_.count();
 	}
 
 	void MaszynaStanow::StanDlaSkryptu::ustawAktualny(const Stan& z){
 		poprawne_aktualny_ = true;
 		aktualny_.idStanu_ = z.id_();
 		aktualny_.numer_ = z.numer_;
-		//aktualny_.dt_ = z.dt_.count();
 	}
 
 	void MaszynaStanow::StanDlaSkryptu::ustawNastepny(const Stan& z){
 		poprawne_nastepny_ = true;
 		nastepny_.idStanu_ = z.id_();
 		nastepny_.numer_ = z.numer_;
-		//nastepny_.dt_ = z.dt_.count();
 	}
 
 	std::string MaszynaStanow::napis() const{

@@ -47,10 +47,11 @@ namespace SpEx{
 	void Aplikacja::start(){
 		if (proxy_){
 
-			proxy_->rejestrujMetodyKonsoli();
+			if(konsola_)
+				proxy_->rejestrujMetodyKonsoli();
 
-			SpEx::MaszynaStanow::pobierzInstancje().inicjalizuj();
-			
+			SpEx::MaszynaStanow::pobierzInstancje().inicjalizuj(); 
+						
 			switch (proxy_->pobierzTrybAplikacji())
 			{
 			case TrybAplikacji::Serwer:

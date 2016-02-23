@@ -7,7 +7,7 @@
 #include "Utils\StackThrow.h"
 
 #define KOMUNIKAT_BRAK_PLIKU STyp::Tekst("Brak pliku konfiguracyjengo dla okna szablonowego, nie zaimplementowano innego sposobu opisu okna.")
-#define KOMUNIKAT_BLAD_PLIKU(plik) STyp::Tekst("Nie powiod³o sie konfigurowanie okna na podstawie pliku konfiguracyjnego o nazwie: " + (plik))
+#define KOMUNIKAT_BLAD_PLIKU(plik, komunikat) STyp::Tekst("Nie powiod³o sie konfigurowanie okna na podstawie pliku konfiguracyjnego o nazwie: " + (plik) + ". W pliku wykryto nastêpuj¹cy b³¹d: " + (komunikat) )
 #define KOMUNIKAT_BLAD_WLASCIWOSCI(nazwa,wartosc) STyp::Tekst("Nie uda³o siê ustawiæ w³aœciwoœci: " + (nazwa) + " = " + (wartosc) + ".")
 
 namespace SpEx{
@@ -26,9 +26,12 @@ namespace SpEx{
 					interfejs_.setFont(czcionka_);
 				}
 
-				/*if (!interfejs_.loadWidgetsFromFile(konfiguracja)){
-					throw SpEx::BladKonfiguracjiEkranu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), id_, KOMUNIKAT_BLAD_PLIKU(konfiguracja));
-				}*/
+				try {
+					interfejs_.loadWidgetsFromFile(konfiguracja);
+				}
+				catch (tgui::Exception &e) {
+					throw SpEx::BladKonfiguracjiEkranu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), id_, KOMUNIKAT_BLAD_PLIKU(konfiguracja, e.what()));
+				}
 
 				std::string nazwaOknaKomunikatow = XmlBO::WczytajAtrybut(wezel, ATRYBUT_XML_OKNO_KOMUNIKATOW, std::string());
 
@@ -79,9 +82,7 @@ namespace SpEx{
 				std::string nazwa = XmlBO::WczytajAtrybut(element, ATRYBUT_XML_NAZWA, std::string());
 				std::string wartosc = XmlBO::WczytajAtrybut(element, ATRYBUT_XML_WARTOSC, std::string());
 				if (!(nazwa.empty() || wartosc.empty())){
-					/*if (!kontrolka->setProperty(nazwa, wartosc)){
-						throw SpEx::BladKonfiguracjiEkranu(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), id_, KOMUNIKAT_BLAD_WLASCIWOSCI(nazwa, wartosc));
-					}*/
+					kontrolka->getRenderer()->setProperty(nazwa, wartosc);
 				}
 				return true;
 			}));
