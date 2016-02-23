@@ -57,6 +57,43 @@ Button."zamknij" {
 	}
 }
 
+LogListGui."komunikaty" {
+    LinesStartFromTop: true;
+    MessageTypeFile: resource\loglist.xml;
+    NewLinesBelowOthers: false;
+    Position: (630, 200);
+    Size: (150, 240);
+    TextColor: Black;
+    TextSize: 14;
+
+    Renderer {
+        BackgroundImage: "widgets/Black.png" Part(0, 154, 48, 48) Middle(16, 16, 16, 16);
+        BorderColor: Black;
+        Borders: (0, 0, 0, 0);
+        Padding: (10, 10, 10, 10);
+    }
+
+    Scrollbar {
+        ArrowScrollAmount: 1;
+        AutoHide: true;
+        LowValue: 90;
+        Maximum: 52;
+        Position: (674, 10);
+        Size: (16, 90);
+        Value: 0;
+    
+        Renderer {
+            ArrowBackgroundColorHover: White;
+            ArrowBackgroundColorNormal: #F5F5F5;
+            ArrowColorHover: Black;
+            ArrowColorNormal: #3C3C3C;
+            ThumbColorHover: #D2D2D2;
+            ThumbColorNormal: #DCDCDC;
+            TrackColorHover: White;
+            TrackColorNormal: #F5F5F5;
+        }
+    }
+}
 
 ListaSurowcowGui."ListaSurowcow" {
     Position: (200, 100);

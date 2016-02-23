@@ -42,14 +42,9 @@ namespace SpEx{
 	}
 
 	void OknoGry::wyswietlWiadomoscWGUI(unsigned int typ, const std::string& tresc){
-		for (auto& ekran : stosEkranow_){
-			if (ekran){
-				//if (!!ekran->oknoKomunikatow_){
-				//	ekran->oknoKomunikatow_->addMessage(typ,tresc);
-					break;
-				//}
-			}
-		}
+		for (auto& ekran : stosEkranow_)
+			if (ekran && ekran->dodajWiadomoscGui(typ, tresc))
+				break;
 	}
 
 	OknoGry::EkranPtr OknoGry::pobierzEkran(const STyp::Identyfikator& ekranId){

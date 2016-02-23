@@ -35,9 +35,9 @@ namespace SpEx{
 
 				std::string nazwaOknaKomunikatow = XmlBO::WczytajAtrybut(wezel, ATRYBUT_XML_OKNO_KOMUNIKATOW, std::string());
 
-				/*if (!nazwaOknaKomunikatow.empty()){
+				if (!nazwaOknaKomunikatow.empty()){
 					oknoKomunikatow_ = interfejs_.get<tgui::LogListGui>(nazwaOknaKomunikatow);
-				}*/
+				}
 
 				XmlBO::ForEach<SpEx::STACKTHROW>(wezel, WEZEL_XML_KONTROLKA, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 					std::string nazwa = XmlBO::WczytajAtrybut(element, ATRYBUT_XML_NAZWA, std::string());
@@ -109,5 +109,11 @@ namespace SpEx{
 		SLog::Logger logger(NAZWAKLASY(EkranSzablon));
 		logger.dodajPole(NAZWAPOLA(id_),id_);
 		return logger.napis();
+	}
+	bool SpEx::EkranSzablon::dodajWiadomoscGui(unsigned int typ, const std::string & tresc){
+		if(oknoKomunikatow_ == nullptr)
+			return false;
+
+		return oknoKomunikatow_->addMessage(typ,tresc);
 	}
 };

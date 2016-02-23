@@ -1,7 +1,7 @@
 #pragma once
 #include "Kontroler\MaszynaStanow\Stan.h"
 #include "TGUI\Gui.hpp"
-//#include "Widok\Tgui\LogListGui.h"
+#include "Widok\Tgui\LogListGui.h"
 
 namespace SpEx{
 	/**
@@ -90,8 +90,6 @@ namespace SpEx{
 		*/
 		virtual void clear();
 
-		//tgui::LogListGui::Ptr oknoKomunikatow_ = nullptr; /// WskaŸnik na okno komunikatów.
-
 		/**
 		* \brief Metoda tworz¹ca tekstowy opis obiektu.
 		*
@@ -102,6 +100,8 @@ namespace SpEx{
 		* \date 27-11-2014
 		*/
 		std::string napis() const override;
+
+		bool dodajWiadomoscGui(unsigned int, const std::string&);
 
 	protected:
 
@@ -126,6 +126,7 @@ namespace SpEx{
 
 		STyp::Identyfikator id_; /// Identyfikator ekranu.
 		mutable tgui::Gui interfejs_; /// Interfejs GUI na którym tworzone s¹ kontrolki.
+		tgui::LogListGui::Ptr oknoKomunikatow_ = nullptr; /// WskaŸnik na okno komunikatów.
 		
 	};
 };
