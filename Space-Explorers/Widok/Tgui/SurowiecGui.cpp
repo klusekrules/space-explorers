@@ -61,7 +61,7 @@ namespace tgui {
 		auto renderer = getRenderer();
 		renderer->setBorders({ 0, 0, 0, 0 });
 		renderer->setPadding({ 0, 0, 0, 0 });
-		renderer->setBackgroundTexture({ "widgets\\tlo_surowce.png" });
+		renderer->setBackgroundColor(sf::Color::White);
 
 		if (m_theme && primary != ""){
 			BazowyWidzet::reload(primary, secondary, force);

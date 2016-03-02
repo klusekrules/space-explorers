@@ -9,25 +9,9 @@ namespace tgui {
 		m_callback.widgetType = "ListaObiektowGui";
 		m_draggableWidget = false;
 		mnoznikRolki_ = 6;
-		m_panel->setBackgroundColor(sf::Color::Transparent);
-		
+		m_panel->setBackgroundColor(sf::Color::Transparent);		
 		m_renderer = std::make_shared<ListaObiektowGuiRenderer>(this);
-
-		getRenderer()->setBackgroundTexture(Texture("resource\\White.bmp"));
-
-		if (sf::Shader::isAvailable()) 
-			getRenderer()->setProperty("shader", "resource\\simple.frag");
-
-		suwak_ = std::make_shared<Scrollbar>();
-		suwak_->connectEx("ValueChanged",std::bind(&ListaObiektowGui::scrollbarValueChanged, this, std::placeholders::_1));
-
-		if (pokazSuwak_)
-			suwak_->show();
-		else
-			suwak_->hide();
-
-		reload("", "", true);
-		setSize(430.f, 350.f);
+		suwak_ = nullptr;
 	}
 
 	ListaObiektowGui::ListaObiektowGui(const ListaObiektowGui& o)
@@ -35,7 +19,7 @@ namespace tgui {
 		, szerokoscSuwaka_(o.szerokoscSuwaka_), odstepMiedzyKontrolkami_(o.odstepMiedzyKontrolkami_)
 		, mnoznikRolki_(o.mnoznikRolki_), typObiektu_(o.typObiektu_), pokazSuwak_(o.pokazSuwak_), czyAutoRozmiar_(o.czyAutoRozmiar_)
 	{
-		suwak_ = m_panel->get<Scrollbar>("PasekPrzewijania");
+		suwak_ = Scrollbar::copy(o.suwak_);
 		for (auto& widget : m_panel->getWidgets()) {
 			if (widget->getWidgetType() == "KontrolkaObiektu") {
 				kontrolki_.push_back(std::static_pointer_cast<KontrolkaObiektu>(widget));
@@ -54,7 +38,7 @@ namespace tgui {
 			pokazSuwak_ = right.pokazSuwak_;
 			czyAutoRozmiar_ = right.czyAutoRozmiar_;
 			szablonKontrolki_ = KontrolkaObiektu::copy(right.szablonKontrolki_);
-			suwak_ = m_panel->get<Scrollbar>("PasekPrzewijania"); 
+			suwak_ = Scrollbar::copy(right.suwak_);
 			for (auto& widget : m_panel->getWidgets()) {
 				if (widget->getWidgetType() == "KontrolkaObiektu") {
 					kontrolki_.push_back(std::static_pointer_cast<KontrolkaObiektu>(widget));
@@ -134,9 +118,10 @@ namespace tgui {
 
 	void ListaObiektowGui::wyczyscDane() {
 		std::lock_guard<std::mutex> lock(zmianaDanych_);
-		m_panel->removeAllWidgets();
 		szablonKontrolki_ = nullptr;
+		suwak_ = nullptr;
 		kontrolki_.clear();
+		m_panel->removeAllWidgets();
 	}
 
 	void ListaObiektowGui::uaktualnijShader(){

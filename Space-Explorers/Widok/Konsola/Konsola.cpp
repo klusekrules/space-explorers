@@ -120,15 +120,15 @@ namespace SpEx{
 				ptrWindow->setPosition(sf::Vector2i(10,10));
 				ptrGUI = std::make_unique<tgui::Gui>(*ptrWindow);
 
-				ptrGUI->setFont("resource/consola.ttf");
+				ptrGUI->setFont("Serwer/resources/consola.ttf");
 
-				tgui::Theme::Ptr theme = std::make_shared<tgui::Theme>("widgets/Black.txt");
+				tgui::Theme::Ptr theme = std::make_shared<tgui::Theme>("Serwer/resources/Black.txt");
 
 				chatbox = theme->load("ChatBox");
 				chatbox->setPosition(0, 0);
 				chatbox->setSize(650, 372);
 				chatbox->setTextSize(14);
-				chatbox->setLineLimit(100);
+				chatbox->setLineLimit(25);
 				chatbox->setLinesStartFromTop();
 				ptrGUI->add(chatbox);
 

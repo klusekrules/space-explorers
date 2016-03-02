@@ -206,6 +206,8 @@ namespace tgui {
 		else
 			widgetPtr = std::make_shared<ListaObiektowGui>();
 
+		widgetPtr->wyczyscDane();
+
 		loadBazowyWidzet(node, widgetPtr);
 
 		if (node->propertyValuePairs[toLower("SzerokoscSuwaka")])
@@ -223,11 +225,6 @@ namespace tgui {
 		if (node->propertyValuePairs[toLower("AutoRozmiar")])
 			widgetPtr->czyAutoRozmiar_ = parseBoolean(node->propertyValuePairs[toLower("AutoRozmiar")]->value);
 		
-		if (widgetPtr->pokazSuwak_)
-			widgetPtr->suwak_->show();
-		else
-			widgetPtr->suwak_->hide();
-
 		for (auto& childNode : node->children) {
 			if (toLower(childNode->name) == toLower("KontrolkaObiektu"))
 				widgetPtr->szablonKontrolki_ = std::static_pointer_cast<KontrolkaObiektu>(WidgetLoader::getLoadFunction(toLower("KontrolkaObiektu"))(childNode));
@@ -242,9 +239,14 @@ namespace tgui {
 				widgetPtr->kontrolki_.push_back(std::static_pointer_cast<KontrolkaObiektu>(ref));
 			}
 		}
-		if(widgetPtr->suwak_)
+		
+		if (widgetPtr->suwak_) {
+			if (widgetPtr->pokazSuwak_)
+				widgetPtr->suwak_->show();
+			else
+				widgetPtr->suwak_->hide();
 			widgetPtr->suwak_->connectEx("ValueChanged", std::bind(&ListaObiektowGui::scrollbarValueChanged, widgetPtr, std::placeholders::_1));
-
+		}
 		widgetPtr->uaktualnijShader();
 		return widgetPtr;
 	}

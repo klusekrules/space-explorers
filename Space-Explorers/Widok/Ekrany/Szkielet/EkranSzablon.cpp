@@ -21,9 +21,7 @@ namespace SpEx{
 			}
 			else{
 				if (!czcionka.empty()){
-					sf::Font czcionka_;
-					czcionka_.loadFromFile(czcionka);
-					interfejs_.setFont(czcionka_);
+					interfejs_.setFont(czcionka);
 				}
 
 				try {
@@ -58,7 +56,6 @@ namespace SpEx{
 	
 	void EkranSzablon::clear(){
 		interfejs_.removeAllWidgets();
-		interfejs_.setFont(sf::Font());
 	}
 
 	void EkranSzablon::odbierz(Stan& stan, const sf::Event& zdarzenie){

@@ -83,6 +83,7 @@ namespace SpEx{
 
 	void OknoGry::wykonuj(){
 		if (!przetwarzanie_){
+			inicjalizacja_.set_value(false);
 			return;
 		}
 		try{
@@ -156,8 +157,6 @@ namespace SpEx{
 				}
 #endif
 			}
-			if(oknoGlowne_)
-				oknoGlowne_->close();
 		}
 		catch (STyp::Wyjatek& e){
 			ustawBlad(e);
@@ -173,6 +172,10 @@ namespace SpEx{
 		}
 
 		usunWszystkieEkrany();
+		stosEkranow_.clear();
+		listaZadan_.clear();
+		if (oknoGlowne_)
+			oknoGlowne_->close();
 	}
 
 	bool OknoGry::inicjalizacja(){
@@ -266,6 +269,7 @@ namespace SpEx{
 				ekran.second->clear();
 			}
 		}
+		listaEkranow_.clear();
 	}
 	
 	void OknoGry::przeladujEkran(const STyp::Identyfikator& id){

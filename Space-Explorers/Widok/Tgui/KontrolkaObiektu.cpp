@@ -17,7 +17,7 @@ namespace tgui{
 
 		obraz_ = std::make_shared<Picture>();
 		m_panel->add(obraz_, "ObrazObiektu");
-		obraz_->setTexture("resource\\Brak_obrazka.png");
+		//obraz_->setTexture("resource\\Brak_obrazka.png");
 		//Zbyt niska wydajnoœæ: obraz_->setSize({"&.h-10"},{"&.h-10"});
 		obraz_->setSize(100, 100);
 		obraz_->setPosition(5,5);
@@ -72,7 +72,7 @@ namespace tgui{
 		rozbuduj_->setText("Buduj");
 		rozbuduj_->getRenderer()->setBorders({ 0,0,0,0 });
 		rozbuduj_->getRenderer()->setTextColorNormal("#BEBEBE");
-		rozbuduj_->getRenderer()->setProperty("NormalImage", "\"widgets\\Black.png\" Part(0, 64, 45, 50) Middle(10, 0, 25, 50)");
+		//rozbuduj_->getRenderer()->setProperty("NormalImage", "\"widgets\\Black.png\" Part(0, 64, 45, 50) Middle(10, 0, 25, 50)");
 
 		zniszcz_ = std::make_shared<Button>();
 		m_panel->add(zniszcz_,"Zburz");
@@ -84,7 +84,7 @@ namespace tgui{
 		zniszcz_->setText("Zburz");
 		zniszcz_->getRenderer()->setBorders({ 0,0,0,0 });
 		zniszcz_->getRenderer()->setTextColorNormal("#BEBEBE");
-		zniszcz_->getRenderer()->setProperty("NormalImage", "\"widgets\\Black.png\" Part(0, 64, 45, 50) Middle(10, 0, 25, 50)");
+		//zniszcz_->getRenderer()->setProperty("NormalImage", "\"widgets\\Black.png\" Part(0, 64, 45, 50) Middle(10, 0, 25, 50)");
 		
 
 		m_renderer = std::make_shared<KontrolkaObiektuRenderer>(this);
@@ -138,8 +138,7 @@ namespace tgui{
 		auto renderer = getRenderer();
 		renderer->setBorders({ 0, 0, 0, 0 });
 		renderer->setPadding({ 0, 0, 0, 0 });
-		renderer->setBackgroundTexture({ "widgets\\tlo.png" });
-
+		
 		if (m_theme && primary != ""){
 			BazowyWidzet::reload(primary, secondary, force);
 		}

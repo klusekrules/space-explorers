@@ -3,37 +3,37 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerWorkingDirectory>$(SolutionDir)out\</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>-O options_test.xml -T Klient</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-O Klient\options.xml -T Klient</LocalDebuggerCommandArguments>
     <LocalDebuggerCommand>SpaceExplorers-$(PlatformTarget)-$(Configuration).exe</LocalDebuggerCommand>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">
     <LocalDebuggerWorkingDirectory>$(SolutionDir)out\</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>-O options_test.xml -T Klient</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-O Klient\options.xml -T Klient</LocalDebuggerCommandArguments>
     <LocalDebuggerCommand>SpaceExplorers-$(PlatformTarget)-$(Configuration).exe</LocalDebuggerCommand>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerWorkingDirectory>$(SolutionDir)out\</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>-O options_test.xml -T Klient</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-O Klient\options.xml -T Klient</LocalDebuggerCommandArguments>
     <LocalDebuggerCommand>SpaceExplorers-$(PlatformTarget)-$(Configuration).exe</LocalDebuggerCommand>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">
     <LocalDebuggerWorkingDirectory>$(SolutionDir)out\</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>-O options_test.xml -T Klient</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-O Klient\options.xml -T Klient</LocalDebuggerCommandArguments>
     <LocalDebuggerCommand>SpaceExplorers-$(PlatformTarget)-$(Configuration).exe</LocalDebuggerCommand>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerWorkingDirectory>$(SolutionDir)out\</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>-O options_test.xml -T Klient</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-O Klient\options.xml -T Klient</LocalDebuggerCommandArguments>
     <LocalDebuggerCommand>SpaceExplorers-$(PlatformTarget)-$(Configuration).exe</LocalDebuggerCommand>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerWorkingDirectory>$(SolutionDir)out\</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>-O options_test.xml -T Klient</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-O Klient\options.xml -T Klient</LocalDebuggerCommandArguments>
     <LocalDebuggerCommand>SpaceExplorers-$(PlatformTarget)-$(Configuration).exe</LocalDebuggerCommand>
   </PropertyGroup>
 </Project>
