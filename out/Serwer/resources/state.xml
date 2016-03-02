@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MaszynaStanow idStanuPoczatkowego="2" pulaWatkow="4">
+  <Stan id="0x1" typSkryptu="lua" file="Serwer\scripts\test.lua" funcIn="ustawOknoMenu" funcOut="wyjscieZeStanu" instancja="wspolna">
+    <Zdarzenie id="0x6" typSkryptu="lua" file="Serwer\scripts\test.lua" funcInside="przeladujOknoListeObiektow"/>
+    <Zdarzenie id="0x5" stanNastepny="0x6" numerNastepny="0x1"/>
+    <Zdarzenie id="0x4" stanNastepny="0x4" numerNastepny="0x0"/>
+    <Zdarzenie id="0x3" typSkryptu="dll" file="Serwer\scripts\TestSkryptuDll.dll" funcInside="zamknijAplikacjeSkryptDll"/>
+    <Zdarzenie id="0x2" stanNastepny="0x3" numerNastepny="0x0"/>
+    <Zdarzenie id="0x1" typSkryptu="lua" file="Serwer\scripts\test.lua" funcInside="przejdzDoZamykania"/>
+  </Stan>
+  <Stan id="0x2" typSkryptu="lua" file="Serwer\scripts\test.lua" funcIn="stanPoczatkowy" funcOut="wyjscieZeStanu">
+    <Zdarzenie id="0x1" stanNastepny="0x5" numerNastepny="0x0"/>
+  </Stan>
+  <Stan id="0x3" typSkryptu="lua" file="Serwer\scripts\test.lua" funcIn="wlaczTestowanie" funcInside="testy" funcOut="wyjscieZeStanu" instancja="wspolna">
+    <Zdarzenie id="0x1" stanNastepny="0x1" numerNastepny="0x0"/>
+  </Stan>
+  <Stan id="0x4" typSkryptu="lua" file="Serwer\scripts\test.lua" funcIn="ustawOknoListy" funcOut="wyjscieZeStanu">
+    <Zdarzenie id="0x1" stanNastepny="0x1" numerNastepny="0x0"/>
+    <Zdarzenie id="0x2" typSkryptu="lua" file="Serwer\scripts\test.lua" funcInside="rozbuduj"/>
+    <Zdarzenie id="0x3" typSkryptu="lua" file="Serwer\scripts\test.lua" funcInside="zniszcz"/>
+    <Zdarzenie id="0x4" typSkryptu="lua" file="Serwer\scripts\test.lua" funcInside="info"/>
+    <Zdarzenie id="0x6" stanNastepny="0x6" numerNastepny="0x4"/>
+  </Stan>
+  <Stan id="0x5" typSkryptu="lua" file="Serwer\scripts\test.lua" funcIn="ustawOknoLogowania" funcOut="wyjscieZeStanu">
+	  <Zdarzenie id="0x1" typSkryptu="dll" file="Serwer\scripts\TestSkryptuDll.dll" funcInside="zamknijAplikacjeSkryptDll"/>
+	  <Zdarzenie id="0x2" typSkryptu="lua" file="Serwer\scripts\test.lua" funcInside="tworzGracza"/>
+	  <Zdarzenie id="0x3" typSkryptu="lua" file="Serwer\scripts\test.lua" funcInside="zaloguj"/>
+	  <Zdarzenie id="0x4" stanNastepny="0x1" numerNastepny="0x0"/>
+  </Stan>
+  <Stan id="0x6" typSkryptu="lua" file="Serwer\scripts\test.lua" funcIn="ustawOknoPonownegoLogowania" funcOut="wyjdzOknoPonownegoLogowania">
+    <Zdarzenie id="0x1" typSkryptu="dll" file="Serwer\scripts\TestSkryptuDll.dll" funcInside="zamknijAplikacjeSkryptDll"/>
+    <Zdarzenie id="0x2"/>
+    <Zdarzenie id="0x3" typSkryptu="lua" file="Serwer\scripts\test.lua" funcInside="ponownieZaloguj" instancja="wspolna"/>
+    <Zdarzenie id="0x4" typSkryptu="lua" file="Serwer\scripts\test.lua" funcInside="powrotDoOkna" numerNastepny="0x0"/>
+  </Stan>
+</MaszynaStanow>

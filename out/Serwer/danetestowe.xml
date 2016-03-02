@@ -1,0 +1,150 @@
+<Space-Explorers>
+    <SurowceInfo id="1" nazwa="Metal" obrazek="BrakObrazka" masa="3" objetosc="1" typ="1">
+        Opis metalu.
+        <Zmiana id="8" for="Czas">
+            <Param id="0" wspolczynnik="1"/>
+        </Zmiana>
+    </SurowceInfo>
+    <SurowceInfo id="2" nazwa="Krysztal" obrazek="BrakObrazka" masa="2" objetosc="1.3" typ="1">
+        Opis kryszta³u.
+        <Zmiana id="8" for="Czas">
+            <Param id="0" wspolczynnik="2"/>
+        </Zmiana>
+    </SurowceInfo>
+    <SurowceInfo id="3" nazwa="Deuter" obrazek="BrakObrazka" masa="1" objetosc="3" typ="1">
+        Opis deuteru.
+        <Zmiana id="8" for="Czas">
+            <Param id="0" wspolczynnik="0.1"/>
+        </Zmiana>
+    </SurowceInfo>
+    <SurowceInfo id="4" nazwa="Energia" obrazek="BrakObrazka" masa="0" objetosc="0" typ="0">
+        Opis energii.
+    </SurowceInfo>
+    <StatekInfo id="5" nazwa="Ma³y transportowiec" obrazek="BrakObrazka" masa="560" powierzchnia="120" hangar="1">
+        Opis ma³ego transportowca.
+        <JednostkaAtakujacaInfo atak="50" pancerz="130" oslona="40"/>
+        <JednostkaLatajacaInfo rodzajSilnikaId="1" mocSilnika="500" zuzyciePaliwa="300" masaSilnika="40" sprawnoscSilnika="0.7"/>
+        <HangarInfo pojemnoscMaksymalna="0"/>
+        <LadowniaInfo pojemnoscMaksymalna="500"/>
+        <Kryterium id="1" ilosc="2000"/>
+        <Kryterium id="2" ilosc="2000"/>
+        <Kryterium id="9" poziom="3"/>
+    </StatekInfo>
+    <StatekInfo id="6" nazwa="Du¿y transportowiec" obrazek="BrakObrazka" masa="1680" powierzchnia="300" hangar="1">
+        Opis du¿ego transportowca.
+        <JednostkaAtakujacaInfo atak="100" pancerz="195" oslona="160"/>
+        <JednostkaLatajacaInfo rodzajSilnikaId="1" mocSilnika="2000" zuzyciePaliwa="900" masaSilnika="136" sprawnoscSilnika="0.75"/>
+        <HangarInfo pojemnoscMaksymalna="0"/>
+        <LadowniaInfo pojemnoscMaksymalna="2500"/>
+        <Kryterium id="1" ilosc="6000"/>
+        <Kryterium id="2" ilosc="6000"/>
+        <Kryterium id="9" poziom="3"/>
+        <Kryterium id="10" poziom="5"/>
+    </StatekInfo>
+    <StatekInfo id="7" nazwa="Myœliwiec" obrazek="BrakObrazka" masa="900" powierzchnia="200" hangar="1">
+        Opis myœliwca.
+        <JednostkaAtakujacaInfo atak="200" pancerz="160" oslona="200"/>
+        <JednostkaLatajacaInfo rodzajSilnikaId="2" mocSilnika="1500" zuzyciePaliwa="400" masaSilnika="80" sprawnoscSilnika="0.72"/>
+        <HangarInfo pojemnoscMaksymalna="0"/>
+        <LadowniaInfo pojemnoscMaksymalna="100"/>
+        <Kryterium id="1" ilosc="3000"/>
+        <Kryterium id="2" ilosc="1000"/>
+    </StatekInfo>
+    <StatekInfo id="8" nazwa="Transporter" obrazek="BrakObrazka" masa="10000" powierzchnia="20000" hangar="0">
+        Opis transportera.
+        <JednostkaAtakujacaInfo atak="300" pancerz="1500" oslona="2000"/>
+        <JednostkaLatajacaInfo rodzajSilnikaId="4" mocSilnika="5000" zuzyciePaliwa="1000" masaSilnika="150" sprawnoscSilnika="0.86"/>
+        <HangarInfo pojemnoscMaksymalna="18000"/>
+        <LadowniaInfo pojemnoscMaksymalna="8000"/>
+        <Kryterium id="1" ilosc="25000"/>
+        <Kryterium id="2" ilosc="20000"/>
+        <Kryterium id="3" ilosc="5000"/>
+    </StatekInfo>
+    <TechnologiaInfo id="9" nazwa="Technologia komputerowa" obrazek="BrakObrazka">
+        Opis technologii komputerowej.
+        <Kryterium id="10" poziom="2"/>
+    </TechnologiaInfo>
+    <TechnologiaInfo id="10" nazwa="Technologia energetyczna" obrazek="BrakObrazka">
+        Opis technologii energetycznej.
+    </TechnologiaInfo>
+    <BudynekInfo id="11" nazwa="Kopalnia metalu" obrazek="BrakObrazka" powierzchnia="1200">
+        Opis kopalni metalu.
+        <Kryterium id="1" ilosc="60">
+            <Zmiana id="4">
+                <Param id="1" wspolczynnik="1"/>
+                <Param id="2" wspolczynnik="2"/>
+            </Zmiana>
+        </Kryterium>
+        <Kryterium id="2" ilosc="24">
+            <Zmiana id="4">
+                <Param id="1" wspolczynnik="1"/>
+                <Param id="2" wspolczynnik="2"/>
+            </Zmiana>
+        </Kryterium>
+        <Zmiana id="7" for="Czas">
+            <Param id="0" wspolczynnik="2"/>
+            <Zmiana id="6">
+                <Param id="13" wspolczynnik="0"/>
+            </Zmiana>
+        </Zmiana>
+        <Produkcja id="1" ilosc="50"/>
+        <Zapotrzebowanie id="4" ilosc="120"/>
+    </BudynekInfo>
+    <BudynekInfo id="12" nazwa="Elektrownia s³oneczna" obrazek="BrakObrazka" powierzchnia="2500">
+        Opis elektrowni s³onecznej.
+        <Kryterium id="1" ilosc="40">
+            <Zmiana id="4">
+                <Param id="1" wspolczynnik="1"/>
+                <Param id="2" wspolczynnik="2"/>
+            </Zmiana>
+        </Kryterium>
+        <Kryterium id="2" ilosc="13">
+            <Zmiana id="4">
+                <Param id="1" wspolczynnik="1"/>
+                <Param id="2" wspolczynnik="2"/>
+            </Zmiana>
+        </Kryterium>
+        <Zmiana id="7" for="Czas">
+            <Param id="0" wspolczynnik="2"/>
+            <Zmiana id="6">
+                <Param id="13" wspolczynnik="0"/>
+            </Zmiana>
+        </Zmiana>
+        <Produkcja id="4" ilosc="320"/>
+    </BudynekInfo>
+    <BudynekInfo id="13" nazwa="Fabryka robotów" obrazek="BrakObrazka" powierzchnia="500">
+        Opis fabryki robotów.
+        <Kryterium id="1" ilosc="200">
+            <Zmiana id="4">
+                <Param id="1" wspolczynnik="1"/>
+                <Param id="2" wspolczynnik="2"/>
+            </Zmiana>
+        </Kryterium>
+        <Kryterium id="2" ilosc="140">
+            <Zmiana id="4">
+                <Param id="1" wspolczynnik="1"/>
+                <Param id="2" wspolczynnik="2"/>
+            </Zmiana>
+        </Kryterium>
+        <Kryterium id="11" poziom="3"/>
+        <Kryterium id="12" poziom="2"/>
+        <Zmiana id="7" for="Czas">
+            <Param id="0" wspolczynnik="2"/>
+            <Zmiana id="6">
+                <Param id="13" wspolczynnik="0"/>
+            </Zmiana>
+        </Zmiana>
+    </BudynekInfo>
+    <ObronaInfo id="14" nazwa="Wyrzutnia rakiet" obrazek="BrakObrazka" powierzchnia="2.31">
+        Opis wyrzutni rakiet.
+        <JednostkaAtakujacaInfo atak="90" pancerz="120" oslona="10"/>
+        <Kryterium id="1" ilosc="2000"/>
+    </ObronaInfo>
+    <ObronaInfo id="15" nazwa="Dzia³o laserowe" obrazek="BrakObrazka" powierzchnia="4.62">
+        Opis dzia³a laserowego.
+        <JednostkaAtakujacaInfo atak="80" pancerz="60" oslona="30"/>
+        <Kryterium id="1" ilosc="1500"/>
+        <Kryterium id="2" ilosc="500"/>
+        <Kryterium id="3" ilosc="100"/>
+    </ObronaInfo>
+</Space-Explorers>
