@@ -315,6 +315,7 @@ namespace SpEx{
 		std::string filename = sfile.str();
 		logger_.dodajGniazdoWyjsciowe([filename](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{
 			static std::fstream plik(filename, std::fstream::app);
+			static std::mutex criticalSection;
 			std::string sTyp;
 			switch (typ)
 			{
@@ -330,7 +331,9 @@ namespace SpEx{
 			default:
 				break;
 			}
-			plik << czas << sTyp << komunikat << std::endl;
+
+			std::lock_guard<std::mutex> lock(criticalSection);
+			plik << czas << sTyp << komunikat << std::endl << std::flush;
 		});
 
 	}
