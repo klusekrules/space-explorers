@@ -127,18 +127,7 @@ namespace tgui{
 		* \date 01-10-2014
 		*/
 		void mouseWheelMoved(int delta, int x, int y) override;
-
-		/**
-		* \brief Metoda obs³uguj¹ca zdarzenie zmiany pozycji suwaka.
-		*
-		* Metoda wywo³ywana po zmianie pozycji suwaka.
-		* \param[in] callback - Kontekst zdarzenia.
-		* \author Daniel Wojdak
-		* \version 2
-		* \date 01-10-2014
-		*/
-		void scrollbarValueChanged(const tgui::Callback& callback);
-
+		
 		/**
 		* \brief Metoda przeliczaj¹ca pozycjê kontrolek.
 		*
@@ -165,19 +154,17 @@ namespace tgui{
 
 		void stworzDomyslnySzablonKontrolki();
 
-		void wyczyscDane();
+		void uaktualnijShader() const;
 
-		void uaktualnijShader();
-
-		Scrollbar::Ptr suwak_; /// WskaŸnik na kontrolkê suwaka.
+		int wartosc_suwaka_ = 0;
+		int wartosc_suwaka_min = 0;
+		int wartosc_suwaka_max = 0;
 		KontrolkaObiektu::Ptr szablonKontrolki_; /// WskaŸnik na szablon kontrolki obiektu.
 		std::vector<KontrolkaObiektu::Ptr> kontrolki_; /// Kontener z kontrolkami obiektów.
 		mutable std::mutex zmianaDanych_; /// Muteks dostêpu do modyfikacji iloœci kontrolek.
-		float szerokoscSuwaka_ = 20.f; /// Szerokoœæ suwaka
 		float odstepMiedzyKontrolkami_ = 0.0f; /// Odstêp pomiêdzy poszczególnymi kontrolkami.
 		int mnoznikRolki_ = 15; /// Mno¿nik rolki przy wyliczaniu przesuniêcia kontrolek.
 		int typObiektu_ = 0; /// Typ wyœiwetlanych obiektów.
-		bool pokazSuwak_ = false; /// Flaga informuj¹ca czy suwak ma byæ widoczny
 		bool czyAutoRozmiar_ = true; /// Automatyczne wyliczanie rozmiarów.
 
 		friend std::shared_ptr<DataIO::Node> saveListaObiektowGui(ListaObiektowGui::Ptr widget);

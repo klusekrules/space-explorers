@@ -205,13 +205,9 @@ namespace tgui {
 			widgetPtr = std::static_pointer_cast<ListaObiektowGui>(widget);
 		else
 			widgetPtr = std::make_shared<ListaObiektowGui>();
-
-		widgetPtr->wyczyscDane();
-
+		
 		loadBazowyWidzet(node, widgetPtr);
 
-		if (node->propertyValuePairs[toLower("SzerokoscSuwaka")])
-			widgetPtr->szerokoscSuwaka_ = tgui::stof(node->propertyValuePairs[toLower("SzerokoscSuwaka")]->value);
 		if (node->propertyValuePairs[toLower("OdstepMiedzyKontrolkami")])
 			widgetPtr->odstepMiedzyKontrolkami_ = tgui::stof(node->propertyValuePairs[toLower("OdstepMiedzyKontrolkami")]->value);
 		
@@ -220,34 +216,20 @@ namespace tgui {
 		if (node->propertyValuePairs[toLower("TypObiektu")])
 			widgetPtr->typObiektu_ = tgui::stoi(node->propertyValuePairs[toLower("TypObiektu")]->value);
 
-		if (node->propertyValuePairs[toLower("PokazSuwak")])
-			widgetPtr->pokazSuwak_ = parseBoolean(node->propertyValuePairs[toLower("PokazSuwak")]->value);
 		if (node->propertyValuePairs[toLower("AutoRozmiar")])
 			widgetPtr->czyAutoRozmiar_ = parseBoolean(node->propertyValuePairs[toLower("AutoRozmiar")]->value);
 		
 		for (auto& childNode : node->children) {
 			if (toLower(childNode->name) == toLower("KontrolkaObiektu"))
 				widgetPtr->szablonKontrolki_ = std::static_pointer_cast<KontrolkaObiektu>(WidgetLoader::getLoadFunction(toLower("KontrolkaObiektu"))(childNode));
-			else if (toLower(childNode->name) == toLower("Scrollbar"))
-				widgetPtr->suwak_ = std::static_pointer_cast<Scrollbar>(WidgetLoader::getLoadFunction(toLower("Scrollbar"))(childNode));
 		}
 		REMOVE_CHILD(toLower("KontrolkaObiektu"));
-		REMOVE_CHILD(toLower("Scrollbar"));
 
 		for (auto& ref : widgetPtr->m_panel->getWidgets()) {
 			if (ref->getWidgetType() == "KontrolkaObiektu") {
 				widgetPtr->kontrolki_.push_back(std::static_pointer_cast<KontrolkaObiektu>(ref));
 			}
 		}
-		
-		if (widgetPtr->suwak_) {
-			if (widgetPtr->pokazSuwak_)
-				widgetPtr->suwak_->show();
-			else
-				widgetPtr->suwak_->hide();
-			widgetPtr->suwak_->connectEx("ValueChanged", std::bind(&ListaObiektowGui::scrollbarValueChanged, widgetPtr, std::placeholders::_1));
-		}
-		widgetPtr->uaktualnijShader();
 		return widgetPtr;
 	}
 };

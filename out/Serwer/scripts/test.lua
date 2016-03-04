@@ -15,7 +15,7 @@ listaObiektow = Kontrolka(3,"ListaObiektow")
 function stanPoczatkowy ()
 	wejscieDoStanu()
 	gui:wyczyscEkrany()
-	-- app:zaladujGre("Serwer\\danetestowe.xml")
+	app:zaladujGre("Serwer\\danetestowe.xml")
 	app:loguj("Ustawianie okna o id 0")
 	if Ekran(0):wstaw() == true then
 		app:loguj("Ustawianiono")
@@ -85,12 +85,12 @@ function wyjdzOknoPonownegoLogowania ()
 end
 
 function ustawOknoListy()
-	listaObiektow:aktualizujDaneObiektow()
-	listaSurowcow:aktualizujDaneSurowcow()
 	wejscieDoStanu()
 	gui:wyczyscEkrany()
 	app:loguj("Ustawianie okna o id 3")
-	if Ekran(3):wstaw() == true then	
+	if Ekran(3):wstaw() == true then
+		listaObiektow:aktualizujDaneObiektow()
+		listaSurowcow:aktualizujDaneSurowcow()
 		app:loguj("Ustawianiono")
 	else
 		app:loguj("Nieustawianiono")
@@ -143,7 +143,7 @@ function wlaczTestowanie ()
 		app:loguj("Nieustawianiono")
 	end
 	
-	-- ffi.C.zlecZadanie("lua\\test.lua","testy");
+	ffi.C.zlecZadanie("lua\\test.lua","testy");
 end
 
 function testy ()

@@ -13,7 +13,7 @@ Picture."logo" {
 Label."testowanie" {
 	AutoSize: true;
 	Position: (280,30);
-	Text: "Lista obiekt√≥w";
+	Text: "Lista obiektÛw";
 	TextSize: 60;
 
 		Renderer {
@@ -28,7 +28,7 @@ Label."testowanie" {
 Button."przeladujOkno" {
 	Position: (630, 110);
 	Size: (150, 30);
-	Text: "Prze≈Çaduj dane";
+	Text: "Prze≥aduj dane";
 	TextSize: 15;
 
 	Renderer {
@@ -154,11 +154,9 @@ ListaSurowcowGui."ListaSurowcow" {
 ListaObiektowGui."ListaObiektow" {
     AutoRozmiar: 1;
     MnoznikRolki: 6;
-    OdstepMiedzyKontrolkami: 0;
-    PokazSuwak: 0;
+    OdstepMiedzyKontrolkami: 5;
     Position: (10, 140);
     Size: (500, 350);
-    SzerokoscSuwaka: 20;
     TypObiektu: 1;
 
     Renderer {
@@ -166,6 +164,7 @@ ListaObiektowGui."ListaObiektow" {
         BorderColor: Black;
         Borders: (0, 0, 0, 0);
         Padding: (0, 0, 0, 0);
+		Shader: Fragment "Serwer\\resources\\simple.frag";
     }
 	
     Panel {
@@ -177,7 +176,7 @@ ListaObiektowGui."ListaObiektow" {
         }		
     }   
 	
-	KontrolkaObiektu."Szablon" {
+	KontrolkaObiektu {
 		IdentyfikatorObiektu: 18446744073709551615;
 		IdentyfikatorZdarzeniaBudowy: 0;
 		IdentyfikatorZdarzeniaBurzenia: 0;
@@ -302,25 +301,4 @@ ListaObiektowGui."ListaObiektow" {
 			}
 		}
 	}
-	
-	Scrollbar."PasekPrzewijania" {
-		ArrowScrollAmount: 1;
-		AutoHide: true;
-		LowValue: 350;
-		Maximum: 441;
-		Size: (16, 160);
-		Value: 0;
-		Visible: false;
-	
-		Renderer {
-			ArrowBackgroundColorHover: White;
-			ArrowBackgroundColorNormal: #F5F5F5;
-			ArrowColorHover: Black;
-			ArrowColorNormal: #3C3C3C;
-			ThumbColorHover: #D2D2D2;
-			ThumbColorNormal: #DCDCDC;
-			TrackColorHover: White;
-			TrackColorNormal: #F5F5F5;
-		}
-	}	
 }
