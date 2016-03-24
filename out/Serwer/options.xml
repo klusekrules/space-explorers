@@ -21,7 +21,7 @@
   <opcja nazwa="formatDatyWNazwiePliku" wartosc="%Y-%m-%d"/>
   
   <!--prefixPlikuLogow - przedrostek w nazwie plik dodany przed datą wyświetloną podanym wyżej formacie.-->
-  <opcja nazwa="prefixPlikuLogow" wartosc="space-explorers-"/>
+  <opcja nazwa="prefixPlikuLogow" wartosc="Serwer\\space-explorers-"/>
   
   <!-- WARN: Plik tworzony jest raz na początku działania aplikacji. W przypadku zmiany daty nie jest tworzony nowy, dopuki aplikacja nie zostanie uruchomiona ponownie. -->
   <!--

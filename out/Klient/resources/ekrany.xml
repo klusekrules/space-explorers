@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Space-Explorers>
-  <EkranStartowy id="0" stanWejsciowy="2" zdarzenieWyjscia="0x1" konfiguracja="resource\pusteOkno.wdg"/>
-  <Ekran id="1" czcionka="resource\arial.ttf" konfiguracja="resource\menu.wdg">
+  <EkranStartowy id="0" stanWejsciowy="2" zdarzenieWyjscia="0x1" konfiguracja="Klient\resources\pusteOkno.wdg"/>
+  <Ekran id="1" czcionka="Klient\resources\arial.ttf" konfiguracja="Klient\resources\menu.wdg">
     <Kontrolka nazwa="zamknij">
       <Akcja id="Pressed" idZdarzenia="1"/>
     </Kontrolka>
@@ -18,9 +18,9 @@
       <Akcja id="Pressed" idZdarzenia="6"/>
     </Kontrolka>
   </Ekran>
-  <Ekran id="2" czcionka="resource\arial.ttf" konfiguracja="resource\testowanie.wdg">
+  <Ekran id="2" czcionka="Klient\resources\arial.ttf" konfiguracja="Klient\resources\testowanie.wdg">
   </Ekran>
-  <Ekran id="3" czcionka="resource\arial.ttf" konfiguracja="resource\lista.wdg" oknoKomunikatow="komunikaty">
+  <Ekran id="3" czcionka="Klient\resources\arial.ttf" konfiguracja="Klient\resources\lista.wdg" oknoKomunikatow="komunikaty">
     <Kontrolka nazwa="zamknij">
       <Akcja id="Pressed" idZdarzenia="1"/>
     </Kontrolka>
@@ -28,7 +28,7 @@
       <Akcja id="Pressed" idZdarzenia="6"/>
     </Kontrolka>
   </Ekran>
-  <Ekran id="4" czcionka="resource\arial.ttf" konfiguracja="resource\logowanie.wdg" oknoKomunikatow="komunikaty">
+  <Ekran id="4" czcionka="Klient\resources\arial.ttf" konfiguracja="Klient\resources\logowanie.wdg" oknoKomunikatow="komunikaty">
     <Kontrolka nazwa="zamknij">
       <Akcja id="Pressed" idZdarzenia="1"/>
     </Kontrolka>

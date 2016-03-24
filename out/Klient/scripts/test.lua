@@ -1,5 +1,5 @@
-require "aplikacja"
-require "gui"
+require "Klient\\scripts\\aplikacja"
+require "Klient\\scripts\\gui"
 local przeprowadzonoTesty = false
 -- Komentarz lua
 --[[ 

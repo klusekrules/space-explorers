@@ -23,7 +23,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerWorkingDirectory>$(SolutionDir)out\</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>-O Serwer\options.xml -T Serwer -NoConsola</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-O Serwer\options.xml -T Serwer</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">
     <LocalDebuggerWorkingDirectory>$(SolutionDir)out\</LocalDebuggerWorkingDirectory>

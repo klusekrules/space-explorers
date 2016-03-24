@@ -1,9 +1,9 @@
 Picture."tlo"{
-	Filename: "resource\\space.jpg";
+	Filename: "Klient\\resources\\space.jpg";
 }
 
 Picture."logo"{
-	Filename: "resource\\SpaceExplorers_logo_640x348.png";
+	Filename: "Klient\\resources\\SpaceExplorers_logo_640x348.png";
 	Position: (10,10);
 	Size: (192,104);
 	Smooth: true;

@@ -1,9 +1,9 @@
 Picture."tlo"{
-	Filename: "resource\\space.jpg";
+	Filename: "Klient\\resources\\space.jpg";
 }
 
 Picture."logo"{
-	Filename: "resource\\SpaceExplorers_logo_640x348.png";
+	Filename: "Klient\\resources\\SpaceExplorers_logo_640x348.png";
 	Size: (192, 104);
     Position: (10, 10);
 	Smooth: true;
@@ -18,7 +18,7 @@ Button."testowanie" {
 	Renderer {
 		BorderColor: Black;
 		Borders: (0, 0, 0, 0);
-		NormalImage: "widgets\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+		NormalImage: "Klient\\resources\\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
 		TextColorDown: Black;
 		TextColorHover: Black;
 		TextColorNormal: #BEBEBE;
@@ -34,7 +34,7 @@ Button."wczytywanie" {
 	Renderer {
 		BorderColor: Black;
 		Borders: (0, 0, 0, 0);
-		NormalImage: "widgets\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+		NormalImage: "Klient\\resources\\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
 		TextColorDown: Black;
 		TextColorHover: Black;
 		TextColorNormal: #BEBEBE;
@@ -50,7 +50,7 @@ Button."przeladujOkno" {
 	Renderer {
 		BorderColor: Black;
 		Borders: (0, 0, 0, 0);
-		NormalImage: "widgets\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+		NormalImage: "Klient\\resources\\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
 		TextColorDown: Black;
 		TextColorHover: Black;
 		TextColorNormal: #BEBEBE;
@@ -66,7 +66,7 @@ Button."listaobiektow" {
 	Renderer {
 		BorderColor: Black;
 		Borders: (0, 0, 0, 0);
-		NormalImage: "widgets\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+		NormalImage: "Klient\\resources\\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
 		TextColorDown: Black;
 		TextColorHover: Black;
 		TextColorNormal: #BEBEBE;
@@ -82,7 +82,7 @@ Button."zamknij" {
 	Renderer {
 		BorderColor: Black;
 		Borders: (0, 0, 0, 0);
-		NormalImage: "widgets\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+		NormalImage: "Klient\\resources\\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
 		TextColorDown: Black;
 		TextColorHover: Black;
 		TextColorNormal: #BEBEBE;

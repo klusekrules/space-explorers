@@ -16,6 +16,7 @@
 #include "Widok\Konsola\Konsola.h"
 #include "Widok\Tgui\ListaObiektowGui.h"
 #include "Widok\Tgui\ListaSurowcowGui.h"
+#include "KodyPowrotu.h"
 
 extern "C"{
 
@@ -164,7 +165,7 @@ extern "C"{
 				if (!(nazwa->getText().isEmpty() || hash.empty())){
 					SHA3 sha3(hash);
 					hash = sha3.pobierzNapis<Hex>();
-					if (SpEx::Aplikacja::pobierzInstancje().pobierzGre().logowanie(nazwa->getText(), hash)){
+					if (SpEx::Aplikacja::pobierzInstancje().proxy_->zaloguj(nazwa->getText().toAnsiString().c_str(), hash.c_str()) == RETURN_CODE_OK) {
 						return true;
 					}
 					else{

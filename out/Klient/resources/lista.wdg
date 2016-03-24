@@ -1,9 +1,9 @@
 Picture."tlo" {
-	Filename: "resource\\space.jpg";
+	Filename: "Klient\\resources\\space.jpg";
 }
 
 Picture."logo" {
-	Filename: "resource\\SpaceExplorers_logo_640x348.png";
+	Filename: "Klient\\resources\\SpaceExplorers_logo_640x348.png";
 	Position: (10,10);
 	Size: (192,104);
 	Smooth: true;
@@ -34,7 +34,7 @@ Button."przeladujOkno" {
 	Renderer {
 		BorderColor: Black;
 		Borders: (0, 0, 0, 0);
-		NormalImage: "widgets\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+		NormalImage: "Klient\\resources\\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
 		TextColorDown: Black;
 		TextColorHover: Black;
 		TextColorNormal: #BEBEBE;
@@ -50,7 +50,7 @@ Button."zamknij" {
 	Renderer {
 		BorderColor: Black;
 		Borders: (0, 0, 0, 0);
-		NormalImage: "widgets\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+		NormalImage: "Klient\\resources\\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
 		TextColorDown: Black;
 		TextColorHover: Black;
 		TextColorNormal: #BEBEBE;
@@ -59,7 +59,7 @@ Button."zamknij" {
 
 LogListGui."komunikaty" {
     LinesStartFromTop: true;
-    MessageTypeFile: resource\loglist.xml;
+    MessageTypeFile: Klient\\resources\\loglist.xml;
     NewLinesBelowOthers: false;
     Position: (630, 200);
     Size: (150, 240);
@@ -67,7 +67,7 @@ LogListGui."komunikaty" {
     TextSize: 14;
 
     Renderer {
-        BackgroundImage: "widgets/Black.png" Part(0, 154, 48, 48) Middle(16, 16, 16, 16);
+        BackgroundImage: "Klient\\resources\\Black.png" Part(0, 154, 48, 48) Middle(16, 16, 16, 16);
         BorderColor: Black;
         Borders: (0, 0, 0, 0);
         Padding: (10, 10, 10, 10);
@@ -121,7 +121,7 @@ ListaSurowcowGui."ListaSurowcow" {
         Visible: false;
     
         Renderer {
-            BackgroundImage: "widgets\tlo_surowce.png";
+            BackgroundImage: "Klient\\resources\\tlo_surowce.png";
             BorderColor: Black;
             Borders: (0, 0, 0, 0);
             Padding: (0, 0, 0, 0);
@@ -162,11 +162,11 @@ ListaObiektowGui."ListaObiektow" {
     TypObiektu: 1;
 
     Renderer {
-        BackgroundImage: "resource\\FFFFFF-0.png";
+        BackgroundImage: "Klient\\resources\\FFFFFF-0.png";
         BorderColor: Black;
         Borders: (0, 0, 0, 0);
         Padding: (0, 0, 0, 0);
-        Shader: Fragment "resource\\simple.frag";
+        Shader: Fragment "Klient\\resources\\simple.frag";
     }
 
     Panel {
@@ -187,7 +187,7 @@ ListaObiektowGui."ListaObiektow" {
         Visible: false;
     
         Renderer {
-            BackgroundImage: "widgets\tlo.png";
+            BackgroundImage: "Klient\\resources\\tlo.png";
             BorderColor: Black;
             Borders: (0, 0, 0, 0);
             Padding: (0, 0, 0, 0);
@@ -201,7 +201,7 @@ ListaObiektowGui."ListaObiektow" {
             }
         
             Picture."ObrazObiektu" {
-                Filename: "resource\\Brak_obrazka.png";
+                Filename: "Klient\\resources\\Brak_obrazka.png";
                 Position: (5, 5);
                 Size: (100, 100);
             }
@@ -279,7 +279,7 @@ ListaObiektowGui."ListaObiektow" {
                 Renderer {
                     BorderColor: Black;
                     Borders: (0, 0, 0, 0);
-                    NormalImage: "widgets\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+                    NormalImage: "Klient\\resources\\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
                     TextColorDown: Black;
                     TextColorHover: Black;
                     TextColorNormal: #BEBEBE;
@@ -295,33 +295,12 @@ ListaObiektowGui."ListaObiektow" {
                 Renderer {
                     BorderColor: Black;
                     Borders: (0, 0, 0, 0);
-                    NormalImage: "widgets\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+                    NormalImage: "Klient\\resources\\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
                     TextColorDown: Black;
                     TextColorHover: Black;
                     TextColorNormal: #BEBEBE;
                 }
             }
-        }
-    }
-
-    Scrollbar {
-        ArrowScrollAmount: 1;
-        AutoHide: true;
-        LowValue: 350;
-        Maximum: 441;
-        Size: (16, 160);
-        Value: 0;
-        Visible: false;
-    
-        Renderer {
-            ArrowBackgroundColorHover: White;
-            ArrowBackgroundColorNormal: #F5F5F5;
-            ArrowColorHover: Black;
-            ArrowColorNormal: #3C3C3C;
-            ThumbColorHover: #D2D2D2;
-            ThumbColorNormal: #DCDCDC;
-            TrackColorHover: White;
-            TrackColorNormal: #F5F5F5;
         }
     }
 }

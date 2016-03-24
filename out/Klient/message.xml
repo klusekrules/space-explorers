@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1250"?>
+<SpaceGame>
+  
+  <ZbiorWiadomosci>
+    <Wiadomosc id="ID" tytul="Tytuł">Treść wiadomości</Wiadomosc>
+  </ZbiorWiadomosci>
+  
+  <ZbiorKomunikatow>
+    <Komunikat id="ID">Treść Komunikatu</Komunikat>
+  </ZbiorKomunikatow>
+  
+</SpaceGame>

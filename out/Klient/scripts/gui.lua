@@ -1,6 +1,6 @@
-local ffi = require "interfejs"
+local ffi = require "Klient\\scripts\\interfejs"
 
-require "class"
+require "Klient\\scripts\\class"
 
 Gui = class()
 
