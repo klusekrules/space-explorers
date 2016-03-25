@@ -84,7 +84,7 @@ namespace ParserTesty
 		TEST_METHOD_INITIALIZE(Inicjalizacja){
 			FILE *fpXml;
 			Assert::IsTrue(fopen_s(&fpXml, nazwaPlikuXml_.c_str(), "w+") == 0, L"Nie uda³o siê otworzyæ pliku do zapisu.", LINE_INFO());
-			fprintf(fpXml, "<root> <Element atrybut=\"Napis\"> <Dziecko id=\"1\"/> <Dziecko id=\"2\"/> <Dziecko id=\"3\"/> </Element> </root>");
+			fprintf(fpXml, "<root> <Element atrybut=\"Napis\"> <Dziecko id=\"1\"/> <Dziecko id=\"2\"/> <Dziecko id=\"3\"/> <TestBool id=\"true\"/></Element> </root>");
 			fclose(fpXml);
 			bool ret = dokumentXml_.odczytaj(nazwaPlikuXml_.c_str());
 			if (!ret){
@@ -102,6 +102,22 @@ namespace ParserTesty
 				log.loguj(SLog::Log::Error, dokumentJson_.error());
 			}
 			Assert::IsTrue(ret, L"Nie uda³o siê wczytaæ pliku.", LINE_INFO());
+		}
+
+		BEGIN_TEST_METHOD_ATTRIBUTE(STD_TEST)
+			TEST_OWNER(L"Parser")
+			TEST_PRIORITY(2)
+		END_TEST_METHOD_ATTRIBUTE()
+
+		TEST_METHOD(STD_TEST) {
+			std::string sDouble = " 3.14";
+			std::string invalidDouble = " n3.14";
+			Assert::AreEqual(3.14, std::stod(sDouble));
+			size_t index = 0;
+			Assert::ExpectException<std::invalid_argument>([&]()->void { std::stod(invalidDouble, &index); });
+			log.loguj(SLog::Log::Debug, std::to_string(index));
+			Assert::ExpectException<std::invalid_argument>([&]()->void { std::stod("", &index); }); 
+			log.loguj(SLog::Log::Debug, std::to_string(index));
 		}
 
 		BEGIN_TEST_METHOD_ATTRIBUTE(Parser_XML_Sprawdzanie_Zawartosci)
@@ -193,6 +209,9 @@ namespace ParserTesty
 			Assert::ExpectException<SPar::WyjatekParser>([&]()->void { XmlBO::WczytajAtrybut<THROW>(nullptr, "id", id2); });
 			Assert::ExpectException<SPar::WyjatekParser>([&]()->void { XmlBO::WczytajAtrybut<THROW>(dziecko3, "", id2); });
 			Assert::AreNotEqual(3, id2());
+			auto testBool = XmlBO::ZnajdzWezel<NOTHROW>(element, "TestBool");
+			Assert::IsNotNull(testBool.get());
+			Assert::IsTrue(XmlBO::WczytajAtrybut<bool>(testBool, "id", false));
 		}
 
 		BEGIN_TEST_METHOD_ATTRIBUTE(JSON_Test)

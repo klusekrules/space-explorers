@@ -65,7 +65,7 @@ namespace TypyProsteTesty
 			STyp::Tekst varE;
 			Assert::AreNotEqual<STyp::Tekst::nazwa_typu>(wartoscA, varE(), L"Nie poprawne dzia³anie klasy STyp::Tekst.", LINE_INFO());
 			varE = std::move(varB);
-			Assert::AreEqual<STyp::Tekst::nazwa_typu>(wartoscA, varB(), L"Nie poprawne dzia³anie klasy STyp::Tekst.", LINE_INFO());
+			Assert::AreNotEqual<STyp::Tekst::nazwa_typu>(wartoscA, varB(), L"Nie poprawne dzia³anie klasy STyp::Tekst.", LINE_INFO());
 			Assert::AreEqual<STyp::Tekst::nazwa_typu>(wartoscA, varE(), L"Nie poprawne dzia³anie klasy STyp::Tekst.", LINE_INFO());
 		}
 
