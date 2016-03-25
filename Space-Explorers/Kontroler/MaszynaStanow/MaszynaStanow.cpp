@@ -41,8 +41,9 @@ namespace SpEx{
 			auto zasob = SpEx::Aplikacja::pobierzInstancje().pobierzZarzadceZasobow().pobierzZasob<XmlModul>("KonfiguracjaMaszStanow");
 			if (!zasob)
 				throw NieznalezionoPliku(EXCEPTION_PLACE, Utils::pobierzDebugInfo(), STyp::Tekst("Nie udalo sie wczytac dokumentu xml: KonfiguracjaMaszStanow"));
-			auto root = (*zasob)()->pobierzElement(nullptr);
+			auto root = (*zasob)()->pobierzElement(nullptr); 
 			XmlBO::WczytajAtrybut<SpEx::STACKTHROW>(root, ATRYBUT_XML_STAN_POCZATKOWY, idStanuPoczatkowy_);
+			inicjalizujOknoGlowne_ = XmlBO::WczytajAtrybut<bool>(root, ATRYBUT_XML_WLACZ_OKNO_GLOWNE, false);
 			pulaWatkow_.ustawLiczbeWatkow(XmlBO::WczytajAtrybut<unsigned char>(root, ATRYBUT_XML_PULA_WATKOW, 4));
 			XmlBO::ForEach<SpEx::STACKTHROW>(root, WEZEL_XML_STAN, XmlBO::OperacjaWezla([&](XmlBO::ElementWezla element)->bool{
 				auto stan = std::make_shared<StanInfo>(element);

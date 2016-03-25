@@ -12,6 +12,13 @@ pass = Kontrolka(4,"pass")
 listaSurowcow = Kontrolka(3,"ListaSurowcow")
 listaObiektow = Kontrolka(3,"ListaObiektow")
 -- Ustawianie Okna
+
+function listaPolecen()
+	if app:tryb() == "Serwer" then
+		app:listaPolecen()
+	end
+end
+
 function stanPoczatkowy ()
 	wejscieDoStanu()
 	gui:wyczyscEkrany()

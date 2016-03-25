@@ -357,6 +357,7 @@ namespace SpEx{
 
 		std::map<STyp::Identyfikator, std::shared_ptr<StanInfo> > wszystkieStany_; /// Lista wszystkich stanów.
 		STyp::Identyfikator idStanuPoczatkowy_; /// Stan pocz¹tkowy aplikacji.
+		bool inicjalizujOknoGlowne_;
 
 		Stan stan_; /// Aktualny stan aplikacji.
 		OknoGry::StosEkranow stosEkranow_; /// Stos ekranów.

@@ -99,6 +99,7 @@
 #define ATRYBUT_XML_EKRAN_STAN_WEJSCIOWY "stanWejsciowy"
 #define ATRYBUT_XML_EKRAN_ZDARZENIE_WYJSCIA "zdarzenieWyjscia"
 #define ATRYBUT_XML_STAN_POCZATKOWY "idStanuPoczatkowego"
+#define ATRYBUT_XML_WLACZ_OKNO_GLOWNE "wlaczOknoGlowne"
 #define ATRYBUT_XML_PULA_WATKOW "pulaWatkow"
 #define ATRYBUT_XML_KONFIGURACJA "konfiguracja"
 #define ATRYBUT_XML_OKNO_KOMUNIKATOW "oknoKomunikatow"
