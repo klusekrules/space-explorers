@@ -1,5 +1,5 @@
 #include "ParserAtrybutJSON.h"
-
+#include "WyjatekParser.h"
 #include <string>
 
 namespace SPar{
@@ -40,7 +40,7 @@ namespace SPar{
 	const char* ParserAtrybutJSON::pobierzWartosc() const{
 		if (iterator_ != end_)
 			return iterator_->asCString();
-		return nullptr;
+		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
 	bool ParserAtrybutJSON::ustawWartoscBool(bool wartosc) const{
@@ -54,7 +54,7 @@ namespace SPar{
 	bool ParserAtrybutJSON::pobierzWartoscBool() const{
 		if (iterator_ != end_)
 			return iterator_->asBool();
-		return false;
+		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
 	bool ParserAtrybutJSON::pobierzWartoscBool(bool & wartosc) const{
@@ -76,7 +76,7 @@ namespace SPar{
 	int ParserAtrybutJSON::pobierzWartoscInt() const{
 		if (iterator_ != end_)
 			return iterator_->asInt();
-		return 0;
+		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
 	bool ParserAtrybutJSON::pobierzWartoscInt(int & wartosc) const{
@@ -98,7 +98,7 @@ namespace SPar{
 	unsigned int ParserAtrybutJSON::pobierzWartoscUnsignedInt() const{
 		if (iterator_ != end_)
 			return iterator_->asUInt();
-		return 0;
+		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
 	bool ParserAtrybutJSON::pobierzWartoscUnsignedInt(unsigned int & wartosc) const {
@@ -120,7 +120,7 @@ namespace SPar{
 	__int64 ParserAtrybutJSON::pobierzWartoscInt64() const{
 		if (iterator_ != end_)
 			return iterator_->asInt64();
-		return 0;
+		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
 	bool ParserAtrybutJSON::pobierzWartoscInt64(__int64 & wartosc) const {
@@ -142,7 +142,7 @@ namespace SPar{
 	unsigned __int64 ParserAtrybutJSON::pobierzWartoscUnsignedInt64() const{
 		if (iterator_ != end_)
 			return iterator_->asUInt64();
-		return 0;
+		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
 	bool ParserAtrybutJSON::pobierzWartoscUnsignedInt64(unsigned __int64 & wartosc) const {
@@ -164,7 +164,7 @@ namespace SPar{
 	float ParserAtrybutJSON::pobierzWartoscFloat() const{
 		if (iterator_ != end_)
 			return iterator_->asFloat();
-		return 0;
+		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
 	bool ParserAtrybutJSON::pobierzWartoscFloat(float & wartosc) const {
@@ -186,7 +186,7 @@ namespace SPar{
 	double ParserAtrybutJSON::pobierzWartoscDouble() const{
 		if (iterator_ != end_)
 			return iterator_->asDouble();
-		return 0;
+		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
 	bool ParserAtrybutJSON::pobierzWartoscDouble(double & wartosc) const {
@@ -206,7 +206,10 @@ namespace SPar{
 	}
 
 	long double ParserAtrybutJSON::pobierzWartoscLongDouble() const{
-		return std::stold(iterator_->asString());
+		if (iterator_ != end_) {
+			return std::stold(iterator_->asString());
+		}
+		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
 	bool ParserAtrybutJSON::pobierzWartoscLongDouble(long double & wartosc) const {

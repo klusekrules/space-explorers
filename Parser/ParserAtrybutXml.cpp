@@ -1,4 +1,5 @@
 #include "ParserAtrybutXml.h"
+#include "WyjatekParser.h"
 #include <string>
 
 namespace SPar{
@@ -40,7 +41,7 @@ namespace SPar{
 	const char* ParserAtrybutXml::pobierzWartosc() const{
 		if (atrybut_)
 			return atrybut_->Value();
-		return nullptr;
+		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
 	bool ParserAtrybutXml::ustawWartoscBool(bool wartosc) const{
@@ -54,7 +55,7 @@ namespace SPar{
 	bool ParserAtrybutXml::pobierzWartoscBool() const{
 		if (atrybut_)
 			return atrybut_->BoolValue();
-		return false;
+		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
 	bool ParserAtrybutXml::pobierzWartoscBool(bool & wartosc) const{
@@ -75,7 +76,7 @@ namespace SPar{
 	int ParserAtrybutXml::pobierzWartoscInt() const{
 		if (atrybut_)
 			return atrybut_->IntValue();
-		return 0;
+		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
 	bool ParserAtrybutXml::pobierzWartoscInt(int & wartosc) const{
@@ -96,7 +97,7 @@ namespace SPar{
 	unsigned int ParserAtrybutXml::pobierzWartoscUnsignedInt() const{
 		if (atrybut_)
 			return atrybut_->UnsignedValue();
-		return 0;
+		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
 	bool ParserAtrybutXml::pobierzWartoscUnsignedInt(unsigned int & wartosc) const{
@@ -120,7 +121,7 @@ namespace SPar{
 		if (atrybut_) {
 			return _strtoi64(atrybut_->Value(), nullptr, 10);
 		}
-		return _strtoi64("", nullptr, 10);
+		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
 	bool ParserAtrybutXml::pobierzWartoscInt64(__int64 & wartosc) const{
@@ -145,7 +146,7 @@ namespace SPar{
 		if (atrybut_) {
 			return _strtoui64(atrybut_->Value(), nullptr, 10);
 		}
-		return _strtoui64("", nullptr, 10);
+		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
 	bool ParserAtrybutXml::pobierzWartoscUnsignedInt64(unsigned __int64 & wartosc) const{
@@ -167,7 +168,7 @@ namespace SPar{
 	float ParserAtrybutXml::pobierzWartoscFloat() const{
 		if (atrybut_)
 			return atrybut_->FloatValue();
-		return 0;
+		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
 	bool ParserAtrybutXml::pobierzWartoscFloat(float & wartosc) const{
@@ -188,7 +189,7 @@ namespace SPar{
 	double ParserAtrybutXml::pobierzWartoscDouble() const{
 		if (atrybut_)
 			return atrybut_->DoubleValue();
-		return 0;
+		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
 	bool ParserAtrybutXml::pobierzWartoscDouble(double & wartosc) const{
@@ -207,7 +208,10 @@ namespace SPar{
 	}
 
 	long double ParserAtrybutXml::pobierzWartoscLongDouble() const{
-		return std::stold(atrybut_->Value());
+		if (element_ && atrybut_) {
+			return std::stold(atrybut_->Value());
+		}
+		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
 	bool ParserAtrybutXml::pobierzWartoscLongDouble(long double & wartosc) const{
