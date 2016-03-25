@@ -109,7 +109,7 @@ namespace SPar{
 		return false;
 	}
 
-	bool ParserAtrybutJSON::ustawWartoscInt64(__int64 wartosc){
+	bool ParserAtrybutJSON::ustawWartoscLongLong(long long wartosc){
 		if (iterator_ != end_){
 			*iterator_ = wartosc;
 			return true;
@@ -117,13 +117,13 @@ namespace SPar{
 		return false;
 	}
 
-	__int64 ParserAtrybutJSON::pobierzWartoscInt64() const{
+	long long ParserAtrybutJSON::pobierzWartoscLongLong() const{
 		if (iterator_ != end_)
 			return iterator_->asInt64();
 		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
-	bool ParserAtrybutJSON::pobierzWartoscInt64(__int64 & wartosc) const {
+	bool ParserAtrybutJSON::pobierzWartoscLongLong(long long & wartosc) const {
 		if (iterator_ != end_ && iterator_->isInt64()) {
 			wartosc = iterator_->asInt64();
 			return true;
@@ -131,7 +131,7 @@ namespace SPar{
 		return false;
 	}
 
-	bool ParserAtrybutJSON::ustawWartoscUnsignedInt64(unsigned __int64 wartosc){
+	bool ParserAtrybutJSON::ustawWartoscUnsignedLongLong(unsigned long long wartosc){
 		if (iterator_ != end_){
 			*iterator_ = wartosc;
 			return true;
@@ -139,13 +139,13 @@ namespace SPar{
 		return false;
 	}
 
-	unsigned __int64 ParserAtrybutJSON::pobierzWartoscUnsignedInt64() const{
+	unsigned long long ParserAtrybutJSON::pobierzWartoscUnsignedLongLong() const{
 		if (iterator_ != end_)
 			return iterator_->asUInt64();
 		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
-	bool ParserAtrybutJSON::pobierzWartoscUnsignedInt64(unsigned __int64 & wartosc) const {
+	bool ParserAtrybutJSON::pobierzWartoscUnsignedLongLong(unsigned long long & wartosc) const {
 		if (iterator_ != end_ && iterator_->isUInt64()) {
 			wartosc = iterator_->asUInt64();
 			return true;

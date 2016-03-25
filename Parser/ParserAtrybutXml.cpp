@@ -107,51 +107,47 @@ namespace SPar{
 		return false;
 	}
 
-	bool ParserAtrybutXml::ustawWartoscInt64(__int64 wartosc){
+	bool ParserAtrybutXml::ustawWartoscLongLong(long long wartosc){
 		if (element_ && atrybut_){
-			char temp[22];
-			_i64toa_s(wartosc, temp, 22, 10);
-			element_->SetAttribute(atrybut_->Name(), temp);
+			element_->SetAttribute(atrybut_->Name(), std::to_string(wartosc).c_str());
 			return true;
 		}
 		return false;
 	}
 
-	__int64 ParserAtrybutXml::pobierzWartoscInt64() const{
+	long long ParserAtrybutXml::pobierzWartoscLongLong() const{
 		if (atrybut_) {
-			return _strtoi64(atrybut_->Value(), nullptr, 10);
+			return std::stoll(atrybut_->Value());
 		}
 		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
-	bool ParserAtrybutXml::pobierzWartoscInt64(__int64 & wartosc) const{
+	bool ParserAtrybutXml::pobierzWartoscLongLong(long long & wartosc) const{
 		if (atrybut_) {
-			wartosc = _strtoi64(atrybut_->Value(), nullptr, 10);
+			wartosc = std::stoll(atrybut_->Value());
 			return true;
 		}
 		return false;
 	}
 
-	bool ParserAtrybutXml::ustawWartoscUnsignedInt64(unsigned __int64 wartosc){
+	bool ParserAtrybutXml::ustawWartoscUnsignedLongLong(unsigned long long wartosc){
 		if (element_ && atrybut_){
-			char temp[22];
-			_ui64toa_s(wartosc, temp, 22, 10);
-			element_->SetAttribute(atrybut_->Name(), temp);
+			element_->SetAttribute(atrybut_->Name(), std::to_string(wartosc).c_str());
 			return true;
 		}
 		return false;
 	}
 
-	unsigned __int64 ParserAtrybutXml::pobierzWartoscUnsignedInt64() const{
+	unsigned long long ParserAtrybutXml::pobierzWartoscUnsignedLongLong() const{
 		if (atrybut_) {
-			return _strtoui64(atrybut_->Value(), nullptr, 10);
+			return std::stoull(atrybut_->Value());
 		}
 		throw WyjatekParser(EXCEPTION_PLACE, std::string(), this, STyp::Tekst(" => iterator_ == end_"));
 	}
 
-	bool ParserAtrybutXml::pobierzWartoscUnsignedInt64(unsigned __int64 & wartosc) const{
+	bool ParserAtrybutXml::pobierzWartoscUnsignedLongLong(unsigned long long & wartosc) const{
 		if (atrybut_) {
-			wartosc = _strtoui64(atrybut_->Value(), nullptr, 10);
+			wartosc = std::stoull(atrybut_->Value());
 			return true;
 		}
 		return false;

@@ -174,7 +174,7 @@ namespace SPar{
 		* \param[in] wartosc - Nowa wartoœæ atrybutu.
 		* \return Zwracana jest wartoœæ true, je¿eli uda siê ustawiæ wartoœæ atrybutu. Zwracana jest wartoœæ false w przeciwnym wypadku.
 		*/
-		virtual bool ustawWartoscInt64(__int64 wartosc) = 0;
+		virtual bool ustawWartoscLongLong(long long wartosc) = 0;
 
 		/**
 		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
@@ -182,7 +182,7 @@ namespace SPar{
 		* Metoda pobieraj¹ca wartoœæ atrybutu.
 		* \return Aktualna wartoœæ atrybutu.
 		*/
-		virtual __int64 pobierzWartoscInt64() const = 0;
+		virtual long long pobierzWartoscLongLong() const = 0;
 
 		/**
 		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
@@ -191,7 +191,7 @@ namespace SPar{
 		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
 		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
 		*/
-		virtual bool pobierzWartoscInt64(__int64 &wartosc) const = 0;
+		virtual bool pobierzWartoscLongLong(long long &wartosc) const = 0;
 
 		/**
 		* \brief Metoda ustawiaj¹ca wartoœæ atrybutu.
@@ -200,7 +200,7 @@ namespace SPar{
 		* \param[in] wartosc - Nowa wartoœæ atrybutu.
 		* \return Zwracana jest wartoœæ true, je¿eli uda siê ustawiæ wartoœæ atrybutu. Zwracana jest wartoœæ false w przeciwnym wypadku.
 		*/
-		virtual bool ustawWartoscUnsignedInt64(unsigned __int64 wartosc) = 0;
+		virtual bool ustawWartoscUnsignedLongLong(unsigned long long wartosc) = 0;
 
 		/**
 		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
@@ -208,7 +208,7 @@ namespace SPar{
 		* Metoda pobieraj¹ca wartoœæ atrybutu.
 		* \return Aktualna wartoœæ atrybutu.
 		*/
-		virtual unsigned __int64 pobierzWartoscUnsignedInt64() const = 0;
+		virtual unsigned long long pobierzWartoscUnsignedLongLong() const = 0;
 
 		/**
 		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
@@ -217,7 +217,7 @@ namespace SPar{
 		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
 		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
 		*/
-		virtual bool pobierzWartoscUnsignedInt64(unsigned __int64 &wartosc) const = 0;
+		virtual bool pobierzWartoscUnsignedLongLong(unsigned long long &wartosc) const = 0;
 
 		/**
 		* \brief Metoda ustawiaj¹ca wartoœæ atrybutu.

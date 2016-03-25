@@ -8,7 +8,7 @@ namespace SPar{
 	*
 	* Klasa implementuj¹ca interfejs klasy ParserAtrybut dla formatu typu JSON.
 	* \author Daniel Wojdak
-	* \version 2
+	* \version 3
 	* \date 25-03-2016
 	*/
 	class PARSER_API ParserAtrybutJSON :
@@ -202,10 +202,10 @@ namespace SPar{
 		* \param[in] wartosc - Nowa wartoœæ atrybutu.
 		* \return Zwracana jest wartoœæ true, je¿eli uda siê ustawiæ wartoœæ atrybutu. Zwracana jest wartoœæ false w przeciwnym wypadku.
 		* \author Daniel Wojdak
-		* \version 1
-		* \date 25-06-2014
+		* \version 2
+		* \date 25-03-2016
 		*/
-		bool ustawWartoscInt64(__int64 wartosc) override;
+		bool ustawWartoscLongLong(long long wartosc) override;
 
 		/**
 		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
@@ -213,10 +213,10 @@ namespace SPar{
 		* Metoda pobieraj¹ca wartoœæ atrybutu.
 		* \return Aktualna wartoœæ atrybutu.
 		* \author Daniel Wojdak
-		* \version 1
-		* \date 25-06-2014
+		* \version 2
+		* \date 25-03-2016
 		*/
-		__int64 pobierzWartoscInt64() const override;
+		long long pobierzWartoscLongLong() const override;
 
 		/**
 		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
@@ -225,10 +225,10 @@ namespace SPar{
 		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
 		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
 		* \author Daniel Wojdak
-		* \version 1
+		* \version 2
 		* \date 25-03-2016
 		*/
-		bool pobierzWartoscInt64(__int64 &wartosc) const override;
+		bool pobierzWartoscLongLong(long long &wartosc) const override;
 
 		/**
 		* \brief Metoda ustawiaj¹ca wartoœæ atrybutu.
@@ -237,10 +237,10 @@ namespace SPar{
 		* \param[in] wartosc - Nowa wartoœæ atrybutu.
 		* \return Zwracana jest wartoœæ true, je¿eli uda siê ustawiæ wartoœæ atrybutu. Zwracana jest wartoœæ false w przeciwnym wypadku.
 		* \author Daniel Wojdak
-		* \version 1
-		* \date 25-06-2014
+		* \version 2
+		* \date 25-03-2016
 		*/
-		bool ustawWartoscUnsignedInt64(unsigned __int64 wartosc) override;
+		bool ustawWartoscUnsignedLongLong(unsigned long long wartosc) override;
 
 		/**
 		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
@@ -248,10 +248,10 @@ namespace SPar{
 		* Metoda pobieraj¹ca wartoœæ atrybutu.
 		* \return Aktualna wartoœæ atrybutu.
 		* \author Daniel Wojdak
-		* \version 1
-		* \date 25-06-2014
+		* \version 2
+		* \date 25-03-2016
 		*/
-		unsigned __int64 pobierzWartoscUnsignedInt64() const override;
+		unsigned long long pobierzWartoscUnsignedLongLong() const override;
 
 		/**
 		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
@@ -260,10 +260,10 @@ namespace SPar{
 		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
 		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
 		* \author Daniel Wojdak
-		* \version 1
+		* \version 2
 		* \date 25-03-2016
 		*/
-		bool pobierzWartoscUnsignedInt64(unsigned __int64 &wartosc) const override;
+		bool pobierzWartoscUnsignedLongLong(unsigned long long &wartosc) const override;
 
 		/**
 		* \brief Metoda ustawiaj¹ca wartoœæ atrybutu.
