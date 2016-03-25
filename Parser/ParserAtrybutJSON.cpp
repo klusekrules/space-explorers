@@ -43,6 +43,28 @@ namespace SPar{
 		return nullptr;
 	}
 
+	bool ParserAtrybutJSON::ustawWartoscBool(bool wartosc) const{
+		if (iterator_ != end_) {
+			*iterator_ = wartosc;
+			return true;
+		}
+		return false;
+	}
+
+	bool ParserAtrybutJSON::pobierzWartoscBool() const{
+		if (iterator_ != end_)
+			return iterator_->asBool();
+		return false;
+	}
+
+	bool ParserAtrybutJSON::pobierzWartoscBool(bool & wartosc) const{
+		if (iterator_ != end_ && iterator_->isConvertibleTo(Json::booleanValue)) {
+			wartosc = iterator_->asBool();
+			return true;
+		}
+		return false;
+	}
+
 	bool ParserAtrybutJSON::ustawWartoscInt(int wartosc){
 		if (iterator_ != end_){
 			*iterator_ = wartosc;
@@ -55,6 +77,14 @@ namespace SPar{
 		if (iterator_ != end_)
 			return iterator_->asInt();
 		return 0;
+	}
+
+	bool ParserAtrybutJSON::pobierzWartoscInt(int & wartosc) const{
+		if (iterator_ != end_ && iterator_->isConvertibleTo(Json::intValue)) {
+			wartosc = iterator_->asInt();
+			return true;
+		}
+		return false;
 	}
 
 	bool ParserAtrybutJSON::ustawWartoscUnsignedInt(unsigned int wartosc){
@@ -71,6 +101,14 @@ namespace SPar{
 		return 0;
 	}
 
+	bool ParserAtrybutJSON::pobierzWartoscUnsignedInt(unsigned int & wartosc) const {
+		if (iterator_ != end_ && iterator_->isConvertibleTo(Json::uintValue)) {
+			wartosc = iterator_->asUInt();
+			return true;
+		}
+		return false;
+	}
+
 	bool ParserAtrybutJSON::ustawWartoscInt64(__int64 wartosc){
 		if (iterator_ != end_){
 			*iterator_ = wartosc;
@@ -83,6 +121,14 @@ namespace SPar{
 		if (iterator_ != end_)
 			return iterator_->asInt64();
 		return 0;
+	}
+
+	bool ParserAtrybutJSON::pobierzWartoscInt64(__int64 & wartosc) const {
+		if (iterator_ != end_ && iterator_->isInt64()) {
+			wartosc = iterator_->asInt64();
+			return true;
+		}
+		return false;
 	}
 
 	bool ParserAtrybutJSON::ustawWartoscUnsignedInt64(unsigned __int64 wartosc){
@@ -99,6 +145,14 @@ namespace SPar{
 		return 0;
 	}
 
+	bool ParserAtrybutJSON::pobierzWartoscUnsignedInt64(unsigned __int64 & wartosc) const {
+		if (iterator_ != end_ && iterator_->isUInt64()) {
+			wartosc = iterator_->asUInt64();
+			return true;
+		}
+		return false;
+	}
+
 	bool ParserAtrybutJSON::ustawWartoscFloat(float wartosc){
 		if (iterator_ != end_){
 			*iterator_ = wartosc;
@@ -111,6 +165,14 @@ namespace SPar{
 		if (iterator_ != end_)
 			return iterator_->asFloat();
 		return 0;
+	}
+
+	bool ParserAtrybutJSON::pobierzWartoscFloat(float & wartosc) const {
+		if (iterator_ != end_ && iterator_->isConvertibleTo(Json::realValue)) {
+			wartosc = iterator_->asFloat();
+			return true;
+		}
+		return false;
 	}
 
 	bool ParserAtrybutJSON::ustawWartoscDouble(double wartosc){
@@ -127,6 +189,14 @@ namespace SPar{
 		return 0;
 	}
 
+	bool ParserAtrybutJSON::pobierzWartoscDouble(double & wartosc) const {
+		if (iterator_ != end_ && iterator_->isConvertibleTo(Json::realValue)) {
+			wartosc = iterator_->asDouble();
+			return true;
+		}
+		return false;
+	}
+
 	bool ParserAtrybutJSON::ustawWartoscLongDouble(long double wartosc){
 		if (iterator_ != end_){
 			*iterator_ = std::to_string(wartosc);
@@ -137,6 +207,14 @@ namespace SPar{
 
 	long double ParserAtrybutJSON::pobierzWartoscLongDouble() const{
 		return std::stold(iterator_->asString());
+	}
+
+	bool ParserAtrybutJSON::pobierzWartoscLongDouble(long double & wartosc) const {
+		if (iterator_ != end_ && iterator_->isConvertibleTo(Json::stringValue)) {
+			wartosc = std::stold(iterator_->asString());
+			return true;
+		}
+		return false;
 	}
 
 	ParserAtrybutJSON::operator bool()const{

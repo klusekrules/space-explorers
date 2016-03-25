@@ -510,6 +510,32 @@ public:
 		}
 		return domyslnaWartosc;
 	}
+
+	/**
+	* \brief Metoda wczytuj¹ca dane z atrybutu wez³a.
+	*
+	* Metoda wczytuje dane z atrybutu o podanej nazwie z podanego wêz³a.
+	* \param[in] wezel - Wêze³, w którego bêdize pobrany atrybut.
+	* \param[in] nazwa - Nazwa atrybutu.
+	* \param[in] domyslnaWartosc - Domyœlna wartoœæ zwrócowa w przypadku b³êdu.
+	* \return Wczytana wartoœæ lub domyœlna w przypadku wyst¹pienia b³êdu.
+	* \author Daniel Wojdak
+	* \version 1
+	* \date 25-03-2016
+	*/
+	template< >
+	static bool WczytajAtrybut<bool>(ElementWezla wezel, const std::string& nazwa, bool domyslnaWartosc) {
+		if (!wezel)
+			return domyslnaWartosc;
+		auto ptr = wezel->pobierzAtrybut(nazwa.c_str());
+		if (!ptr)
+			return domyslnaWartosc;
+		bool ret = domyslnaWartosc;
+		if (ptr->pobierzWartoscBool(ret)) {
+			return ret;
+		}
+		return domyslnaWartosc;
+	}
 };
 
 /**

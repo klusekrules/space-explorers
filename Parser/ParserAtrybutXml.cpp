@@ -43,6 +43,27 @@ namespace SPar{
 		return nullptr;
 	}
 
+	bool ParserAtrybutXml::ustawWartoscBool(bool wartosc) const{
+		if (element_ && atrybut_) {
+			element_->SetAttribute(atrybut_->Name(), wartosc);
+			return true;
+		}
+		return false;
+	}
+
+	bool ParserAtrybutXml::pobierzWartoscBool() const{
+		if (atrybut_)
+			return atrybut_->BoolValue();
+		return false;
+	}
+
+	bool ParserAtrybutXml::pobierzWartoscBool(bool & wartosc) const{
+		if (atrybut_) {
+			return atrybut_->QueryBoolValue(&wartosc) == tinyxml2::XML_NO_ERROR;
+		}
+		return false;
+	}
+
 	bool ParserAtrybutXml::ustawWartoscInt(int wartosc){
 		if (element_ && atrybut_){
 			element_->SetAttribute(atrybut_->Name(), wartosc);
@@ -55,6 +76,13 @@ namespace SPar{
 		if (atrybut_)
 			return atrybut_->IntValue();
 		return 0;
+	}
+
+	bool ParserAtrybutXml::pobierzWartoscInt(int & wartosc) const{
+		if (atrybut_) {
+			return atrybut_->QueryIntValue(&wartosc) == tinyxml2::XML_NO_ERROR;
+		}
+		return false;
 	}
 
 	bool ParserAtrybutXml::ustawWartoscUnsignedInt(unsigned int wartosc){
@@ -71,6 +99,13 @@ namespace SPar{
 		return 0;
 	}
 
+	bool ParserAtrybutXml::pobierzWartoscUnsignedInt(unsigned int & wartosc) const{
+		if (atrybut_) {
+			return atrybut_->QueryUnsignedValue(&wartosc) == tinyxml2::XML_NO_ERROR;
+		}
+		return false;
+	}
+
 	bool ParserAtrybutXml::ustawWartoscInt64(__int64 wartosc){
 		if (element_ && atrybut_){
 			char temp[22];
@@ -82,7 +117,18 @@ namespace SPar{
 	}
 
 	__int64 ParserAtrybutXml::pobierzWartoscInt64() const{
-		return std::stoll(atrybut_->Value(), nullptr, 10);
+		if (atrybut_) {
+			return _strtoi64(atrybut_->Value(), nullptr, 10);
+		}
+		return _strtoi64("", nullptr, 10);
+	}
+
+	bool ParserAtrybutXml::pobierzWartoscInt64(__int64 & wartosc) const{
+		if (atrybut_) {
+			wartosc = _strtoi64(atrybut_->Value(), nullptr, 10);
+			return true;
+		}
+		return false;
 	}
 
 	bool ParserAtrybutXml::ustawWartoscUnsignedInt64(unsigned __int64 wartosc){
@@ -96,7 +142,18 @@ namespace SPar{
 	}
 
 	unsigned __int64 ParserAtrybutXml::pobierzWartoscUnsignedInt64() const{
-		return std::stoull(atrybut_->Value(), nullptr, 10);
+		if (atrybut_) {
+			return _strtoui64(atrybut_->Value(), nullptr, 10);
+		}
+		return _strtoui64("", nullptr, 10);
+	}
+
+	bool ParserAtrybutXml::pobierzWartoscUnsignedInt64(unsigned __int64 & wartosc) const{
+		if (atrybut_) {
+			wartosc = _strtoui64(atrybut_->Value(), nullptr, 10);
+			return true;
+		}
+		return false;
 	}
 
 	bool ParserAtrybutXml::ustawWartoscFloat(float wartosc){
@@ -113,6 +170,13 @@ namespace SPar{
 		return 0;
 	}
 
+	bool ParserAtrybutXml::pobierzWartoscFloat(float & wartosc) const{
+		if (atrybut_) {
+			return atrybut_->QueryFloatValue(&wartosc) == tinyxml2::XML_NO_ERROR;
+		}
+		return false;
+	}
+
 	bool ParserAtrybutXml::ustawWartoscDouble(double wartosc){
 		if (element_ && atrybut_){
 			element_->SetAttribute(atrybut_->Name(), wartosc);
@@ -127,6 +191,13 @@ namespace SPar{
 		return 0;
 	}
 
+	bool ParserAtrybutXml::pobierzWartoscDouble(double & wartosc) const{
+		if (atrybut_) {
+			return atrybut_->QueryDoubleValue(&wartosc) == tinyxml2::XML_NO_ERROR;
+		}
+		return false;
+	}
+
 	bool ParserAtrybutXml::ustawWartoscLongDouble(long double wartosc){
 		if (element_ && atrybut_){
 			element_->SetAttribute(atrybut_->Name(), std::to_string(wartosc).c_str());
@@ -137,6 +208,14 @@ namespace SPar{
 
 	long double ParserAtrybutXml::pobierzWartoscLongDouble() const{
 		return std::stold(atrybut_->Value());
+	}
+
+	bool ParserAtrybutXml::pobierzWartoscLongDouble(long double & wartosc) const{
+		if (atrybut_) {
+			wartosc = std::stold(atrybut_->Value());
+			return true;
+		}
+		return false;
 	}
 
 	ParserAtrybutXml::operator bool()const{

@@ -9,8 +9,8 @@ namespace SPar{
 	*
 	* Klasa implementuj¹ca interfejs klasy ParserAtrybut dla formatu typu XML.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 25-06-2014
+	* \version 2
+	* \date 25-03-2016
 	*/
 	class PARSER_API ParserAtrybutXml :
 		public ParserAtrybut
@@ -93,6 +93,40 @@ namespace SPar{
 		const char* pobierzWartosc( ) const override;
 
 		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \return Aktualna wartoœæ atrybutu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-03-2016
+		*/
+		bool ustawWartoscBool(bool wartosc) const override;
+
+		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \return Aktualna wartoœæ atrybutu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-03-2016
+		*/
+		bool pobierzWartoscBool() const override;
+
+		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
+		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-03-2016
+		*/
+		bool pobierzWartoscBool(bool &wartosc) const override;
+		
+		/**
 		* \brief Metoda ustawiaj¹ca wartoœæ atrybutu.
 		*
 		* Metoda ustawia now¹ wartoœæ atrybutu na podan¹ w parametrze.
@@ -114,6 +148,18 @@ namespace SPar{
 		* \date 25-06-2014
 		*/
 		int pobierzWartoscInt( ) const override;
+
+		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
+		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-03-2016
+		*/
+		bool pobierzWartoscInt(int &wartosc) const override;
 
 		/**
 		* \brief Metoda ustawiaj¹ca wartoœæ atrybutu.
@@ -139,6 +185,18 @@ namespace SPar{
 		unsigned int pobierzWartoscUnsignedInt() const override;
 
 		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
+		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-03-2016
+		*/
+		bool pobierzWartoscUnsignedInt(unsigned int &wartosc) const override;
+
+		/**
 		* \brief Metoda ustawiaj¹ca wartoœæ atrybutu.
 		*
 		* Metoda ustawia now¹ wartoœæ atrybutu na podan¹ w parametrze.
@@ -160,6 +218,18 @@ namespace SPar{
 		* \date 25-06-2014
 		*/
 		__int64 pobierzWartoscInt64() const override;
+		
+		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
+		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-03-2016
+		*/
+		bool pobierzWartoscInt64(__int64 &wartosc) const override;
 
 		/**
 		* \brief Metoda ustawiaj¹ca wartoœæ atrybutu.
@@ -185,6 +255,18 @@ namespace SPar{
 		unsigned __int64 pobierzWartoscUnsignedInt64() const override;
 
 		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
+		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-03-2016
+		*/
+		bool pobierzWartoscUnsignedInt64(unsigned __int64 &wartosc) const override;
+
+		/**
 		* \brief Metoda ustawiaj¹ca wartoœæ atrybutu.
 		*
 		* Metoda ustawia now¹ wartoœæ atrybutu na podan¹ w parametrze.
@@ -206,6 +288,18 @@ namespace SPar{
 		* \date 25-06-2014
 		*/
 		float pobierzWartoscFloat() const override;
+
+		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
+		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-03-2016
+		*/
+		bool pobierzWartoscFloat(float &wartosc) const override;
 
 		/**
 		* \brief Metoda ustawiaj¹ca wartoœæ atrybutu.
@@ -231,6 +325,18 @@ namespace SPar{
 		double pobierzWartoscDouble() const override;
 
 		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
+		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-03-2016
+		*/
+		bool pobierzWartoscDouble(double &wartosc) const override;
+
+		/**
 		* \brief Metoda ustawiaj¹ca wartoœæ atrybutu.
 		*
 		* Metoda ustawia now¹ wartoœæ atrybutu na podan¹ w parametrze.
@@ -252,6 +358,18 @@ namespace SPar{
 		* \date 25-06-2014
 		*/
 		long double pobierzWartoscLongDouble() const override;
+
+		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
+		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
+		* \author Daniel Wojdak
+		* \version 1
+		* \date 25-03-2016
+		*/
+		bool pobierzWartoscLongDouble(long double &wartosc) const override;
 
 		/**
 		* \brief Metoda pobieraj¹ca informacje o poprawnoœci obiektu.

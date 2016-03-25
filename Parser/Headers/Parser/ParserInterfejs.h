@@ -91,6 +91,31 @@ namespace SPar{
 		virtual const char* pobierzWartosc() const = 0;
 
 		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \return Aktualna wartoœæ atrybutu.
+		*/
+		virtual bool ustawWartoscBool(bool wartosc) const = 0;
+
+		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \return Aktualna wartoœæ atrybutu.
+		*/
+		virtual bool pobierzWartoscBool() const = 0;
+
+		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
+		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
+		*/
+		virtual bool pobierzWartoscBool(bool &wartosc) const = 0;
+		
+		/**
 		* \brief Metoda ustawiaj¹ca wartoœæ atrybutu.
 		*
 		* Metoda ustawia now¹ wartoœæ atrybutu na podan¹ w parametrze.
@@ -106,6 +131,15 @@ namespace SPar{
 		* \return Aktualna wartoœæ atrybutu.
 		*/
 		virtual int pobierzWartoscInt() const = 0;
+
+		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
+		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
+		*/
+		virtual bool pobierzWartoscInt(int &wartosc) const = 0;
 
 		/**
 		* \brief Metoda ustawiaj¹ca wartoœæ atrybutu.
@@ -125,6 +159,15 @@ namespace SPar{
 		virtual unsigned int pobierzWartoscUnsignedInt() const = 0;
 
 		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
+		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
+		*/
+		virtual bool pobierzWartoscUnsignedInt(unsigned int &wartosc) const = 0;
+
+		/**
 		* \brief Metoda ustawiaj¹ca wartoœæ atrybutu.
 		*
 		* Metoda ustawia now¹ wartoœæ atrybutu na podan¹ w parametrze.
@@ -140,6 +183,15 @@ namespace SPar{
 		* \return Aktualna wartoœæ atrybutu.
 		*/
 		virtual __int64 pobierzWartoscInt64() const = 0;
+
+		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
+		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
+		*/
+		virtual bool pobierzWartoscInt64(__int64 &wartosc) const = 0;
 
 		/**
 		* \brief Metoda ustawiaj¹ca wartoœæ atrybutu.
@@ -159,6 +211,15 @@ namespace SPar{
 		virtual unsigned __int64 pobierzWartoscUnsignedInt64() const = 0;
 
 		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
+		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
+		*/
+		virtual bool pobierzWartoscUnsignedInt64(unsigned __int64 &wartosc) const = 0;
+
+		/**
 		* \brief Metoda ustawiaj¹ca wartoœæ atrybutu.
 		*
 		* Metoda ustawia now¹ wartoœæ atrybutu na podan¹ w parametrze.
@@ -174,6 +235,15 @@ namespace SPar{
 		* \return Aktualna wartoœæ atrybutu.
 		*/
 		virtual float pobierzWartoscFloat() const = 0;
+
+		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
+		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
+		*/
+		virtual bool pobierzWartoscFloat(float &wartosc) const = 0;
 
 		/**
 		* \brief Metoda ustawiaj¹ca wartoœæ atrybutu.
@@ -193,6 +263,15 @@ namespace SPar{
 		virtual double pobierzWartoscDouble() const = 0;
 
 		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
+		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
+		*/
+		virtual bool pobierzWartoscDouble(double &wartosc) const = 0;
+
+		/**
 		* \brief Metoda ustawiaj¹ca wartoœæ atrybutu.
 		*
 		* Metoda ustawia now¹ wartoœæ atrybutu na podan¹ w parametrze.
@@ -208,6 +287,15 @@ namespace SPar{
 		* \return Aktualna wartoœæ atrybutu.
 		*/
 		virtual long double pobierzWartoscLongDouble() const = 0;
+
+		/**
+		* \brief Metoda pobieraj¹ca wartoœæ atrybutu.
+		*
+		* Metoda pobieraj¹ca wartoœæ atrybutu.
+		* \param[out] wartosc - Parametr do którego zostanie zapisana odczytana wartoœæ.
+		* \return True jeœli wartoœæ zosta³a odczyta poprawnie, false w przypadku b³êdu.
+		*/
+		virtual bool pobierzWartoscLongDouble(long double &wartosc) const = 0;
 
 		/**
 		* \brief Metoda pobieraj¹ca informacje o poprawnoœci obiektu.
