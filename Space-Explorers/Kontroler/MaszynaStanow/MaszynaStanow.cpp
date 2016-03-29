@@ -32,7 +32,7 @@ namespace SpEx{
 	}
 
 	MaszynaStanow::MaszynaStanow()
-		: watekGraficzny_(std::make_shared<OknoGry>(true)), stan_(nullptr), stanNastepny_(nullptr), pulaWatkow_()
+		: watekGraficzny_(std::make_shared<OknoGry>(true)), stan_(nullptr), stanNastepny_(nullptr), pulaWatkow_(), inicjalizujOknoGlowne_(false)
 	{
 	}
 
@@ -51,7 +51,7 @@ namespace SpEx{
 				return true;
 			}));
 			walidujStany();
-			if (watekGraficzny_){
+			if (inicjalizujOknoGlowne_ && watekGraficzny_){
 				watekGraficzny_->zatrzymajPoInicjalizacji();
 				watekGraficzny_->odblokuj();
 			}
@@ -88,7 +88,7 @@ namespace SpEx{
 	}
 
 	bool MaszynaStanow::kolejkujEkran(int id){
-		if (watekGraficzny_){
+		if (inicjalizujOknoGlowne_ && watekGraficzny_){
 			std::lock_guard<std::recursive_mutex> blokada(mutexStanu_);
 			auto ptr = watekGraficzny_->pobierzEkran(STyp::Identyfikator(id));
 			if (ptr != nullptr){
@@ -154,7 +154,7 @@ namespace SpEx{
 		Stan s(wszystkieStany_.at(idStanuPoczatkowy_));
 		ustawNastepnyStan(s);
 
-		if (watekGraficzny_)
+		if (inicjalizujOknoGlowne_ && watekGraficzny_)
 			wlaczone = watekGraficzny_->czekajNaInicjalizacje();
 		else
 			wlaczone = true;
@@ -162,7 +162,7 @@ namespace SpEx{
 		if (wlaczone)
 			przejdzDoNastepnegoStanu();
 
-		if (watekGraficzny_) {
+		if (inicjalizujOknoGlowne_ && watekGraficzny_) {
 			watekGraficzny_->uruchom();
 			if (Aplikacja::pobierzInstancje().konsola_) {
 				Aplikacja::pobierzInstancje().konsola_->przesunNaWierch();
@@ -198,6 +198,10 @@ namespace SpEx{
 		}
 
 		if (watekGraficzny_){
+			if (!inicjalizujOknoGlowne_) {
+				watekGraficzny_->zakmnij();
+				watekGraficzny_->odblokuj();
+			}
 			watekGraficzny_->czekajNaZakonczenie();
 			if (watekGraficzny_->blad()){
 				throw watekGraficzny_->bladInfo();
@@ -269,7 +273,10 @@ namespace SpEx{
 	}
 
 	std::shared_ptr<OknoGry> MaszynaStanow::pobierzOknoGry(){
-		return watekGraficzny_;
+		if (inicjalizujOknoGlowne_) {
+			return watekGraficzny_;
+		}
+		return nullptr;
 	}
 
 	void MaszynaStanow::ustawNastepnyStan(Stan& stan){
@@ -280,8 +287,12 @@ namespace SpEx{
 
 	void MaszynaStanow::inicjujZamykanie(){
 		if (wlaczone) {
-			if (watekGraficzny_)
+			if (watekGraficzny_) {
 				watekGraficzny_->zakmnij();
+				if (!inicjalizujOknoGlowne_) {
+					watekGraficzny_->odblokuj();
+				}
+			}
 			wlaczone = false;
 		}
 	}
@@ -355,6 +366,11 @@ namespace SpEx{
 		logger.dodajPole(NAZWAPOLA(stanDlaSkryptu_), stanDlaSkryptu_);
 		logger.dodajPole(NAZWAPOLA(stan_), stan_);
 		logger.dodajPole(NAZWAPOLA(idStanuPoczatkowy_), idStanuPoczatkowy_);
+
+		std::stringstream streamInicjalizujOknoGlowne;
+		streamInicjalizujOknoGlowne.imbue(std::locale());
+		streamInicjalizujOknoGlowne << std::boolalpha << inicjalizujOknoGlowne_;
+		logger.dodajPole(NAZWAPOLA(inicjalizujOknoGlowne_), NAZWAKLASY2(inicjalizujOknoGlowne_), streamInicjalizujOknoGlowne.str());
 		logger.dodajPole(NAZWAPOLA(stanNastepny_), stanNastepny_);
 		logger.dodajPole(NAZWAPOLA(watekGraficzny_), watekGraficzny_);
 

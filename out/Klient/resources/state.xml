@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MaszynaStanow idStanuPoczatkowego="2" pulaWatkow="4">
+<MaszynaStanow idStanuPoczatkowego="2" wlaczOknoGlowne="true" pulaWatkow="4">
   <Stan id="0x1" typSkryptu="lua" file="Klient\scripts\test.lua" funcIn="ustawOknoMenu" funcOut="wyjscieZeStanu" instancja="wspolna">
     <Zdarzenie id="0x6" typSkryptu="lua" file="Klient\scripts\test.lua" funcInside="przeladujOknoListeObiektow"/>
     <Zdarzenie id="0x5" stanNastepny="0x6" numerNastepny="0x1"/>
