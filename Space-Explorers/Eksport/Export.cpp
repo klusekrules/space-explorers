@@ -319,7 +319,14 @@ extern "C"{
 		auto widget = ekranPtr->pobierzGUI().get<tgui::Widget>(kontrolka);
 		if (!widget)
 			return false;
-		return false;//TODO: obs³uga w³aœciwoœci - widget->setProperty(nazwaWlasciwosci,value);
+		try {
+			widget->getRenderer()->setProperty(nazwaWlasciwosci, value);
+		}
+		catch (tgui::Exception& e) {
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, e.what());			
+			return false;
+		}
+		return true;
 	}
 
 	SPACE_EXPLORERS_API const char * __cdecl pobierzNazweAktualnegoGracza(){
