@@ -4,7 +4,9 @@
 #define STRINGIZE2(s) #s
 #define STRINGIZE(s) STRINGIZE2(s)
 
-#define VER_FILE_DESCRIPTION_STR    "Built " TIMESTAMP " from " GIT_VERSION 
+#define VER_FILE_COMMENTS_STR    "Build " TIMESTAMP " from " GIT_VERSION 
+
+#define VER_FILE_DESCRIPTION_STR "Space Explorers"
 
 #define VER_FILE_VERSION            VERSION_MAJOR, VERSION_MINOR, VERSION_REVISION, VERSION_BUILD
 #define VER_FILE_VERSION_STR        GIT_VERSION
@@ -26,7 +28,7 @@
 #endif
 #define VER_INTERNAL_NAME_STR       VER_ORIGINAL_FILENAME_STR
  
-#define VER_COPYRIGHT_STR           "Copyright (C) 2012-2013"
+#define VER_COPYRIGHT_STR           "Copyright (C) 2012-2016"
 
 #define VER_COMPANY_NAME_STR        "N/A"
 
