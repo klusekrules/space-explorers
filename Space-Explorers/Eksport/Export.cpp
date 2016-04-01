@@ -308,6 +308,10 @@ extern "C"{
 
 	SPACE_EXPLORERS_API bool __cdecl ustawWlasciwosc(int ekran, const char *kontrolka, const char *nazwaWlasciwosci, const char *nowaWartosc){
 
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "ustawWlasciwosc -> Funkcjonalnoœæ czasowo wy³¹czona.");
+		return false;
+
+		/*
 		auto oknoGry = SpEx::MaszynaStanow::pobierzInstancje().pobierzOknoGry();
 		if (!kontrolka || !nazwaWlasciwosci || !oknoGry)
 			return false;
@@ -334,6 +338,7 @@ extern "C"{
 			return false;
 		}
 		return true;
+		*/
 	}
 
 	SPACE_EXPLORERS_API const char * __cdecl pobierzNazweAktualnegoGracza(){
