@@ -7,7 +7,7 @@ namespace SpEx{
 		logger_.loguj(SLog::Log::Info, "Start aplikacji Space-Explorers.");
 
 		logger_.loguj(SLog::Log::Info, VER_PRODUCTNAME_STR);
-		logger_.loguj(SLog::Log::Info, VER_FILE_DESCRIPTION_STR);
+		logger_.loguj(SLog::Log::Info, VER_FILE_COMMENTS_STR);
 		logger_.loguj(SLog::Log::Info, VER_COPYRIGHT_STR);
 		logger_.loguj(SLog::Log::Info, VER_COMPANY_NAME_STR);
 #endif
