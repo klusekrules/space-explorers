@@ -164,6 +164,13 @@ namespace SpEx {
 		bool zaladujOpcje();
 
 		/**
+		* \brief Metoda wcztuj¹ca opcje aplikacji.
+		*
+		* \return true je¿eli uda siê wczytaæ opcje, false w przeciwnym wypadku.
+		*/
+		bool sprawdzDostepLokalizacji();
+
+		/**
 		* \brief Metoda przetwarzaj¹ca argumenty linii komend
 		*
 		* Metoda odczytuje i przetwarza wszysktie argumenty przekazane w linii komend. Ustawia odpowiednie opcje programu.

@@ -43,7 +43,8 @@
 #define KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plik) STyp::Tekst("Nie powiod³o siê wczytywanie pliku konfiguracyjnego: " + plik)
 #define KOMUNIKAT_BLAD_FORMATU_DATY STyp::Tekst("Nie poprawny format daty u¿ytej w nazwie pliku logów.")
 #define KOMUNIKAT_BLAD_FORMATU_DATY_LOGOW(format) STyp::Tekst("Nie poprawny format daty logów: " + format )
-#define KOMUNIKAT_BLAD_LADOWANIA_OPCJI STyp::Tekst("Podczas przetwa¿ania pliku z opcjami wyst¹pi³ b³¹d.")
+#define KOMUNIKAT_BLAD_LADOWANIA_OPCJI STyp::Tekst("Podczas przetwa¿ania ustawieñ wyst¹pi³ b³¹d.")
+#define KOMUNIKAT_BLAD_DOSTEPNOSCI_LOKALIZACJI STyp::Tekst("Podczas sprawdzania dostêpnoœci lokalizacji wyst¹pi³ b³¹d.")
 #define KOMUNIKAT_BLAD_REJESTRACJI_ZMIANY_POZIOMU STyp::Tekst("Nie powiod³a siê rejestracja zmiany sparawdzaj¹cej poziom obiektu.")
 #define KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DOMYSLNYCH STyp::Tekst("Nie powiod³a siê rejestracja domyœlnych obiektów zmiany.")
 #define KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DODATKOWYCH STyp::Tekst("Nie powiod³a siê rejestracja dodatkowych obiektów zmiany.")
@@ -114,11 +115,11 @@ namespace SpEx{
 			ustawienia_[ATRYBUT_JEZYK_APLIKACJI] = ATRYBUT_JEZYK_APLIKACJI_DOMYSLNY;
 		}
 
-		konfigurujLogger();
-		
-		if (!zaladujOpcje()){
+		if (!zaladujOpcje()) {
 			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_LADOWANIA_OPCJI);
 		}
+
+		konfigurujLogger();
 
 		ustawPlikLogow();
 
@@ -134,6 +135,11 @@ namespace SpEx{
 #ifndef LOG_OFF_ALL
 		logApInfo();
 #endif
+
+		if (!sprawdzDostepLokalizacji()) {
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_DOSTEPNOSCI_LOKALIZACJI);
+		}
+		
 
 		inicjalizujWinsock();
 
@@ -276,23 +282,34 @@ namespace SpEx{
 	}
 
 	bool Aplikacja::zaladujOpcje(){
-		try{
-			std::locale pl(ustawienia_[ATRYBUT_JEZYK_APLIKACJI]);
-			std::locale::global(pl);
+		std::locale pl(ustawienia_[ATRYBUT_JEZYK_APLIKACJI]);
+		std::locale::global(pl);
 #if !(defined(LOG_OFF_ALL) || defined(LOG_OFF_DEBUG))
-			logger_.loguj(SLog::Log::Debug, std::string("Separator u³amka: ") + std::use_facet<std::numpunct<char>>(pl).decimal_point());
+		logger_.loguj(SLog::Log::Debug, std::string("Separator u³amka: ") + std::use_facet<std::numpunct<char>>(pl).decimal_point());
 #endif
+		return true;
+	}
+
+	bool Aplikacja::sprawdzDostepLokalizacji(){
+		try {
 			auto nazwaPlikuDanych_ = ustawienia_[ATRYBUT_PLIK_DANYCH];
-			if (_access(nazwaPlikuDanych_.c_str(), 0) == -1){ // Sprawdzenie czy folder istnieje
-				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_PLIKU_DANYCH(nazwaPlikuDanych_));
+			if (!nazwaPlikuDanych_.empty()) {
+				if (_access(nazwaPlikuDanych_.c_str(), 0) == -1) { // Sprawdzenie czy plik istnieje
+					throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_PLIKU_DANYCH(nazwaPlikuDanych_));
+				}
+			}
+			else {
+#if !(defined(LOG_OFF_ALL) || defined(LOG_OFF_DEBUG))
+				logger_.loguj(SLog::Log::Warning, "Brak pliku danych.");
+#endif
 			}
 
 			auto folderPluginow_ = ustawienia_[ATRYBUT_FOLDER_PLUGINOW];
-			if (_access(folderPluginow_.c_str(), 0) == -1){ // Sprawdzenie czy folder istnieje
+			if (_access(folderPluginow_.c_str(), 0) == -1) { // Sprawdzenie czy folder istnieje
 				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folderPluginow_));
 			}
 		}
-		catch (std::exception &e){
+		catch (std::exception &e) {
 #ifndef LOG_OFF_ALL
 			logger_.loguj(SLog::Log::Error, e.what());
 #endif
@@ -307,7 +324,7 @@ namespace SpEx{
 		localtime_s(&timeinfo, &t);
 		char s[20];
 		if (strftime(s, 20, ustawienia_[ATRYBUT_FORMAT_DATY_LOGOW].c_str(), &timeinfo) == 0){
-			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_FORMATU_DATY);
+			strftime(s, 20, "%Y-%m-%d", &timeinfo);
 		}
 
 		std::stringstream sfile;
