@@ -7,12 +7,14 @@
 #include "Export.h"
 #include "Kontroler\Siec\RPC\StaleRPC.h"
 #include "Kontroler\Siec\RPC\ListaPlikowRPC.h"
+#include "Kontroler\Siec\RPC\PobierzPlikRPC.h"
 #include "Kontroler\Siec\RPC\InicjujLogowanieRPC.h"
 #include "Kontroler\Siec\RPC\PotwierdzLogowanieRPC.h"
 #include "Kontroler\Siec\RPC\SprawdzSumyKontrolneRPC.h"
 #include "Kontroler\Zarzadca\Fabrykator.h"
 #include "Algorytmy\SHA3.h"
 #include "Algorytmy\Hex.h"
+#include "Utils\StaleUstawienAplikacji.h"
 
 namespace SpEx{
 	int ProxyBOKlient::uruchomSerwer(){
@@ -207,5 +209,22 @@ namespace SpEx{
 
 	TrybAplikacji ProxyBOKlient::pobierzTrybAplikacji(){
 		return TrybAplikacji::Klient;
+	}
+
+	int ProxyBOKlient::pobierzPlikiGry()
+	{
+		if (!klient_)
+			return RETURN_CODE_BRAK_POLACZENIA;
+
+		auto listaplikow = SpEx::Aplikacja::pobierzInstancje().pobierzFabrykator().tworzMetodeRPC<SpEx::PobierzPlikRPC>(*klient_);
+		if (!listaplikow) {
+			return RETURN_CODE_BRAK_METOD;
+		}
+
+		listaplikow->obiektParametrow()["Plik"] = ATRYBUT_PLIK_DANYCH;
+
+		listaplikow->wykonajMetode();
+
+		return RETURN_CODE_OK;
 	}
 }

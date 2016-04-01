@@ -361,6 +361,15 @@
     <ClCompile Include="Widok\SFML\SpShader.cpp">
       <Filter>SourceFile\Widok\SFML</Filter>
     </ClCompile>
+    <ClCompile Include="Kontroler\Siec\RPC\PobierzPlikRPC.cpp">
+      <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\RAW\SerwerRaw.cpp">
+      <Filter>SourceFile\Kontroler\Network\RAW</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\RAW\KlientRaw.cpp">
+      <Filter>SourceFile\Kontroler\Network\RAW</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model\Flota.h">
@@ -756,6 +765,15 @@
     <ClInclude Include="Widok\SFML\SpShader.h">
       <Filter>SourceFile\Widok\SFML</Filter>
     </ClInclude>
+    <ClInclude Include="Kontroler\Siec\RPC\PobierzPlikRPC.h">
+      <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\RAW\KlientRaw.h">
+      <Filter>SourceFile\Kontroler\Network\RAW</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\RAW\SerwerRaw.h">
+      <Filter>SourceFile\Kontroler\Network\RAW</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFile">
@@ -916,6 +934,9 @@
     </Filter>
     <Filter Include="SourceFile\Wyjatki\DomysleWartosci">
       <UniqueIdentifier>{6f405ef5-dac8-4c81-a144-5dde19dd7b2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Kontroler\Network\RAW">
+      <UniqueIdentifier>{420b570b-fc9c-4458-a0b0-cde94987b174}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

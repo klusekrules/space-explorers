@@ -35,7 +35,7 @@ namespace SpEx{
 		struct sockaddr_in addr;
 		int addrSize = sizeof(addr);
 		SOCKET gniazdoKlienta = INVALID_SOCKET;
-		u_long iMode = 1;
+		u_long iMode = 1; //Nonblock
 		int nError = 0;
 		ioctlsocket(gniazdo_, FIONBIO, &iMode);
 

@@ -33,6 +33,8 @@ namespace SpEx{
 
 		TrybAplikacji pobierzTrybAplikacji() override;
 
+		int pobierzPlikiGry() override;
+
 	private:
 		std::shared_ptr<Serwer> serwer_;
 

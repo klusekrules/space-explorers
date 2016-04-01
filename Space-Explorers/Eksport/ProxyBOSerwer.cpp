@@ -110,4 +110,8 @@ namespace SpEx{
 	TrybAplikacji ProxyBOSerwer::pobierzTrybAplikacji(){
 		return TrybAplikacji::Serwer;
 	}
+
+	int ProxyBOSerwer::pobierzPlikiGry(){
+		return RETURN_CODE_NIEODPOWIEDNI_TRYB_APLIKACJI;
+	}
 }

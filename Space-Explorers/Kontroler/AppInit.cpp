@@ -32,6 +32,7 @@
 #include "Siec\RPC\PotwierdzLogowanieRPC.h"
 #include "Siec\RPC\SprawdzSumyKontrolneRPC.h"
 #include "Siec\RPC\ListaPlikowRPC.h"
+#include "Siec\RPC\PobierzPlikRPC.h"
 
 #include "Eksport\Export.h"
 #include "Eksport\KodyPowrotu.h"
@@ -392,6 +393,7 @@ namespace SpEx{
 		fabrykator_->rejestrujMetodeRPC<PotwierdzLogowanieRPC>();
 		fabrykator_->rejestrujMetodeRPC<SprawdzSumyKontrolneRPC>();
 		fabrykator_->rejestrujMetodeRPC<ListaPlikowRPC>();
+		fabrykator_->rejestrujMetodeRPC<PobierzPlikRPC>();
 	}
 
 	void Aplikacja::rejestrujTypySkryptow(){

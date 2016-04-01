@@ -2,8 +2,6 @@
 #include "Logger\Logger.h"
 #include "StaleRPC.h"
 
-#define METODA_RPC_RESULT "result"
-
 namespace SpEx{
 
 	const std::string PotwierdzLogowanieRPC::NazwaTypu_ = "PotwierdzLogowanie";
@@ -12,12 +10,12 @@ namespace SpEx{
 		std::string autoryzacja, instancja;
 		klient_.autoryzujMetode(instancja, autoryzacja);
 		if (autoryzacja_ == autoryzacja && instancja_ == instancja){
-			odpowiedz[METODA_RPC_RESULT] = true;
+			odpowiedz[METODA_RPC_RETURN] = true;
 			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Udane logowanie u¿ytkownika (nn) dla ip " + klient_.pobierzIP());
 			}
 		} else{
-			odpowiedz[METODA_RPC_RESULT] = false;
+			odpowiedz[METODA_RPC_RETURN] = false;
 			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Nie udana próba logowania u¿ytkownika (nn) dla ip " + klient_.pobierzIP());
 			}
@@ -25,8 +23,8 @@ namespace SpEx{
 	}
 	
 	bool PotwierdzLogowanieRPC::obslugaOdpowiedzi(const Json::Value & odpowiedz) {
-		if (odpowiedz[METODA_RPC_RESULT].isBool()){
-			return odpowiedz[METODA_RPC_RESULT].asBool();
+		if (odpowiedz[METODA_RPC_RETURN].isBool()){
+			return odpowiedz[METODA_RPC_RETURN].asBool();
 		}
 		if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nie udane logowanie. B³êdne dane.");

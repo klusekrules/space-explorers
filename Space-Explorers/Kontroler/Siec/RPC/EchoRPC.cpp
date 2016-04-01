@@ -14,11 +14,11 @@ namespace SpEx{
 		}
 
 		parametry_["Echo"] = "Do klienta";
-		odpowiedz["rezultat"] = "Odpowiedü serwera na komunikat Echo.";		
+		odpowiedz[METODA_RPC_RETURN] = "Odpowiedü serwera na komunikat Echo.";
 	}
 
 	bool EchoRPC::obslugaOdpowiedzi(const Json::Value & odpowiedz){
-		auto value = odpowiedz["rezultat"];
+		auto value = odpowiedz[METODA_RPC_RETURN];
 
 		if (!parametry_["Echo"].empty()){
 			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Debug)){

@@ -26,5 +26,7 @@ namespace SpEx{
 		virtual int sprawdzPoprawnoscPlikow() = 0;
 
 		virtual TrybAplikacji pobierzTrybAplikacji() = 0;
+
+		virtual int pobierzPlikiGry() = 0;
 	};
 };
