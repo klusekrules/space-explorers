@@ -165,11 +165,18 @@ extern "C"{
 				if (!(nazwa->getText().isEmpty() || hash.empty())){
 					SHA3 sha3(hash);
 					hash = sha3.pobierzNapis<Hex>();
-					if (SpEx::Aplikacja::pobierzInstancje().proxy_->zaloguj(nazwa->getText().toAnsiString().c_str(), hash.c_str()) == RETURN_CODE_OK) {
-						return true;
+					auto retCode = SpEx::Aplikacja::pobierzInstancje().proxy_->polaczDoSerwera(nullptr, 0);
+					if (retCode == RETURN_CODE_OK || retCode == RETURN_CODE_ISTNIEJE_POLACZENIE) {
+						retCode = SpEx::Aplikacja::pobierzInstancje().proxy_->zaloguj(nazwa->getText().toAnsiString().c_str(), hash.c_str());
+						if (retCode == RETURN_CODE_OK) {
+							return true;
+						}
+						else {
+							SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "Nie uda³o siê zalogowaæ!");
+						}
 					}
-					else{
-						SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "Nie uda³o siê zalogowaæ!");
+					else {
+						SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "Nie uda³o siê po³¹czyæ z serwerem!");
 					}
 				}
 				else{
