@@ -16,12 +16,14 @@ namespace SpEx {
 		XmlBO::WczytajAtrybut<STACKTHROW>(wezel, ATRYBUT_XML_ADRES_OBRAZKA, nazwaObrazka);
 
 		idObrazka_ = Aplikacja::pobierzInstancje().pobierzZarzadceZasobow().pobierzIdentyfikator(nazwaObrazka());
-		auto tablicaZnakow = wezel->pobierzTekst();
-		if (tablicaZnakow){
-			ustawOpis(std::string(tablicaZnakow));
-		}
-		else{
-			ustawOpis(std::string());
+
+		auto opis = wezel->pobierzElement(WEZEL_XML_OPIS);
+
+		if (opis) {
+			auto tablicaZnakow = opis->pobierzTekst();
+			if (tablicaZnakow) {
+				ustawOpis(std::string(tablicaZnakow));
+			}
 		}
 	}
 

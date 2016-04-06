@@ -1,5 +1,6 @@
 #pragma once
 #define WEZEL_XML_ROOT "Space-Explorers"
+#define WEZEL_XML_OPIS "Opis"
 #define WEZEL_XML_LICZNIK "Licznik"
 #define WEZEL_XML_BUDYNEK "Budynek"
 #define WEZEL_XML_LADOWNIA "Ladownia"
