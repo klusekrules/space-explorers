@@ -119,6 +119,146 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lua", "Lua", "{B95E6E1F-69B
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lua", "LuaJIT-2.0.4\Lua.vcxproj", "{49570CCE-01D4-4FD1-9E53-1232DBA28E14}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Konfiguracja", "Konfiguracja", "{0D81AE5F-4B96-4CB2-979B-87DEBE905319}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Serwer", "Serwer", "{7DBF6BAB-4EC3-4A4A-86C4-77CEF605A6F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Czcionki", "Czcionki", "{F1CD535B-DA8A-424D-9920-CAE9EDCD2389}"
+	ProjectSection(SolutionItems) = preProject
+		out\Serwer\resources\arial.ttf = out\Serwer\resources\arial.ttf
+		out\Serwer\resources\consola.ttf = out\Serwer\resources\consola.ttf
+		out\Serwer\resources\TransformersMovie.ttf = out\Serwer\resources\TransformersMovie.ttf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ikony", "Ikony", "{97D90086-AE11-4BFC-9244-3088EFB3E9E4}"
+	ProjectSection(SolutionItems) = preProject
+		out\Serwer\resources\Ikona.ico = out\Serwer\resources\Ikona.ico
+		out\Serwer\resources\IkonaBlue.ico = out\Serwer\resources\IkonaBlue.ico
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Obrazy", "Obrazy", "{5A8C39E2-1669-47FC-9DD2-64E0946972D6}"
+	ProjectSection(SolutionItems) = preProject
+		out\Serwer\resources\background.jpg = out\Serwer\resources\background.jpg
+		out\Serwer\resources\Black.png = out\Serwer\resources\Black.png
+		out\Serwer\resources\Brak_obrazka.png = out\Serwer\resources\Brak_obrazka.png
+		out\Serwer\resources\FFFFFF-0.png = out\Serwer\resources\FFFFFF-0.png
+		out\Serwer\resources\space.jpg = out\Serwer\resources\space.jpg
+		out\Serwer\resources\Space_start_screen.png = out\Serwer\resources\Space_start_screen.png
+		out\Serwer\resources\SpaceExplorers_logo_640x348.bmp = out\Serwer\resources\SpaceExplorers_logo_640x348.bmp
+		out\Serwer\resources\SpaceExplorers_logo_640x348.png = out\Serwer\resources\SpaceExplorers_logo_640x348.png
+		out\Serwer\resources\tlo.png = out\Serwer\resources\tlo.png
+		out\Serwer\resources\tlo_surowce.png = out\Serwer\resources\tlo_surowce.png
+		out\Serwer\resources\White.bmp = out\Serwer\resources\White.bmp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ekrany", "Ekrany", "{7674A636-3FF2-4A39-A6CD-AEC1C1D43557}"
+	ProjectSection(SolutionItems) = preProject
+		out\Serwer\resources\lista.wdg = out\Serwer\resources\lista.wdg
+		out\Serwer\resources\logowanie.wdg = out\Serwer\resources\logowanie.wdg
+		out\Serwer\resources\menu.wdg = out\Serwer\resources\menu.wdg
+		out\Serwer\resources\pusteOkno.wdg = out\Serwer\resources\pusteOkno.wdg
+		out\Serwer\resources\testowanie.wdg = out\Serwer\resources\testowanie.wdg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dane", "Dane", "{6C384B52-C6EA-440B-9AF9-551E1AE2E20F}"
+	ProjectSection(SolutionItems) = preProject
+		out\Serwer\danetestowe.xml = out\Serwer\danetestowe.xml
+		out\Serwer\data.xml = out\Serwer\data.xml
+		out\Serwer\message.xml = out\Serwer\message.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{ADFD2F20-CE78-4188-9759-08167E6CEF89}"
+	ProjectSection(SolutionItems) = preProject
+		out\Serwer\resources\ekrany.xml = out\Serwer\resources\ekrany.xml
+		out\Serwer\resources\loglist.xml = out\Serwer\resources\loglist.xml
+		out\Serwer\options.xml = out\Serwer\options.xml
+		out\Serwer\powiazania.xml = out\Serwer\powiazania.xml
+		out\Serwer\resources\state.xml = out\Serwer\resources\state.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TGUI", "TGUI", "{E9BC6036-896E-4086-97B2-11378B71D830}"
+	ProjectSection(SolutionItems) = preProject
+		out\Serwer\resources\Black.txt = out\Serwer\resources\Black.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Skrypty", "Skrypty", "{CDB52975-6837-401B-ABE0-17EE6931022F}"
+	ProjectSection(SolutionItems) = preProject
+		out\Serwer\scripts\aplikacja.lua = out\Serwer\scripts\aplikacja.lua
+		out\Serwer\scripts\class.lua = out\Serwer\scripts\class.lua
+		out\Serwer\scripts\gui.lua = out\Serwer\scripts\gui.lua
+		out\Serwer\scripts\interfejs.lua = out\Serwer\scripts\interfejs.lua
+		out\Serwer\scripts\test.lua = out\Serwer\scripts\test.lua
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Klient", "Klient", "{2F686B93-1F94-491D-A737-8D0D5877A626}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{F2B9A077-6310-4E49-BB49-3E752859AF33}"
+	ProjectSection(SolutionItems) = preProject
+		out\Klient\resources\ekrany.xml = out\Klient\resources\ekrany.xml
+		out\Klient\resources\loglist.xml = out\Klient\resources\loglist.xml
+		out\Klient\options.xml = out\Klient\options.xml
+		out\Klient\powiazania.xml = out\Klient\powiazania.xml
+		out\Klient\resources\state.xml = out\Klient\resources\state.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TGUI", "TGUI", "{EAC15819-D3C6-4995-B905-CED279592F2A}"
+	ProjectSection(SolutionItems) = preProject
+		out\Klient\resources\Black.txt = out\Klient\resources\Black.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dane", "Dane", "{0CFA2975-F51C-422B-9381-E392BA85B42E}"
+	ProjectSection(SolutionItems) = preProject
+		out\Klient\danetestowe.xml = out\Klient\danetestowe.xml
+		out\Klient\data.xml = out\Klient\data.xml
+		out\Klient\message.xml = out\Klient\message.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Czcionki", "Czcionki", "{D941B1C7-271B-4120-8B31-1B60757E52D4}"
+	ProjectSection(SolutionItems) = preProject
+		out\Klient\resources\arial.ttf = out\Klient\resources\arial.ttf
+		out\Klient\resources\consola.ttf = out\Klient\resources\consola.ttf
+		out\Klient\resources\TransformersMovie.ttf = out\Klient\resources\TransformersMovie.ttf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ekrany", "Ekrany", "{53067ABD-F30C-4DC2-A9DC-56AFA3D326FC}"
+	ProjectSection(SolutionItems) = preProject
+		out\Klient\resources\lista.wdg = out\Klient\resources\lista.wdg
+		out\Klient\resources\logowanie.wdg = out\Klient\resources\logowanie.wdg
+		out\Klient\resources\menu.wdg = out\Klient\resources\menu.wdg
+		out\Klient\resources\pusteOkno.wdg = out\Klient\resources\pusteOkno.wdg
+		out\Klient\resources\testowanie.wdg = out\Klient\resources\testowanie.wdg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ikony", "Ikony", "{6AD47719-551A-4CD2-AD9C-E78F981C571D}"
+	ProjectSection(SolutionItems) = preProject
+		out\Klient\resources\Ikona.ico = out\Klient\resources\Ikona.ico
+		out\Klient\resources\IkonaBlue.ico = out\Klient\resources\IkonaBlue.ico
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Obrazy", "Obrazy", "{B1CD8D70-01F9-4E85-A494-6C3954D3A638}"
+	ProjectSection(SolutionItems) = preProject
+		out\Klient\resources\background.jpg = out\Klient\resources\background.jpg
+		out\Klient\resources\Black.png = out\Klient\resources\Black.png
+		out\Klient\resources\Brak_obrazka.png = out\Klient\resources\Brak_obrazka.png
+		out\Klient\resources\FFFFFF-0.png = out\Klient\resources\FFFFFF-0.png
+		out\Klient\resources\space.jpg = out\Klient\resources\space.jpg
+		out\Klient\resources\Space_start_screen.png = out\Klient\resources\Space_start_screen.png
+		out\Klient\resources\SpaceExplorers_logo_640x348.bmp = out\Klient\resources\SpaceExplorers_logo_640x348.bmp
+		out\Klient\resources\SpaceExplorers_logo_640x348.png = out\Klient\resources\SpaceExplorers_logo_640x348.png
+		out\Klient\resources\tlo.png = out\Klient\resources\tlo.png
+		out\Klient\resources\tlo_surowce.png = out\Klient\resources\tlo_surowce.png
+		out\Klient\resources\White.bmp = out\Klient\resources\White.bmp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Skrypty", "Skrypty", "{EDF08B4D-0AD1-4F94-BF35-ED50238A7DF1}"
+	ProjectSection(SolutionItems) = preProject
+		out\Klient\scripts\aplikacja.lua = out\Klient\scripts\aplikacja.lua
+		out\Klient\scripts\class.lua = out\Klient\scripts\class.lua
+		out\Klient\scripts\gui.lua = out\Klient\scripts\gui.lua
+		out\Klient\scripts\interfejs.lua = out\Klient\scripts\interfejs.lua
+		out\Klient\scripts\test.lua = out\Klient\scripts\test.lua
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -425,5 +565,23 @@ Global
 		{19F18051-7941-4A7E-8459-A3E3C6D46A0B} = {BD843C91-A252-49A7-8F49-D2BCE4D45099}
 		{B95E6E1F-69B8-410F-9D4A-4FD2F7262208} = {490B1D53-AD4D-4B75-814F-6E340F26D7BF}
 		{49570CCE-01D4-4FD1-9E53-1232DBA28E14} = {B95E6E1F-69B8-410F-9D4A-4FD2F7262208}
+		{7DBF6BAB-4EC3-4A4A-86C4-77CEF605A6F3} = {0D81AE5F-4B96-4CB2-979B-87DEBE905319}
+		{F1CD535B-DA8A-424D-9920-CAE9EDCD2389} = {7DBF6BAB-4EC3-4A4A-86C4-77CEF605A6F3}
+		{97D90086-AE11-4BFC-9244-3088EFB3E9E4} = {7DBF6BAB-4EC3-4A4A-86C4-77CEF605A6F3}
+		{5A8C39E2-1669-47FC-9DD2-64E0946972D6} = {7DBF6BAB-4EC3-4A4A-86C4-77CEF605A6F3}
+		{7674A636-3FF2-4A39-A6CD-AEC1C1D43557} = {7DBF6BAB-4EC3-4A4A-86C4-77CEF605A6F3}
+		{6C384B52-C6EA-440B-9AF9-551E1AE2E20F} = {ADFD2F20-CE78-4188-9759-08167E6CEF89}
+		{ADFD2F20-CE78-4188-9759-08167E6CEF89} = {7DBF6BAB-4EC3-4A4A-86C4-77CEF605A6F3}
+		{E9BC6036-896E-4086-97B2-11378B71D830} = {ADFD2F20-CE78-4188-9759-08167E6CEF89}
+		{CDB52975-6837-401B-ABE0-17EE6931022F} = {7DBF6BAB-4EC3-4A4A-86C4-77CEF605A6F3}
+		{2F686B93-1F94-491D-A737-8D0D5877A626} = {0D81AE5F-4B96-4CB2-979B-87DEBE905319}
+		{F2B9A077-6310-4E49-BB49-3E752859AF33} = {2F686B93-1F94-491D-A737-8D0D5877A626}
+		{EAC15819-D3C6-4995-B905-CED279592F2A} = {F2B9A077-6310-4E49-BB49-3E752859AF33}
+		{0CFA2975-F51C-422B-9381-E392BA85B42E} = {F2B9A077-6310-4E49-BB49-3E752859AF33}
+		{D941B1C7-271B-4120-8B31-1B60757E52D4} = {2F686B93-1F94-491D-A737-8D0D5877A626}
+		{53067ABD-F30C-4DC2-A9DC-56AFA3D326FC} = {2F686B93-1F94-491D-A737-8D0D5877A626}
+		{6AD47719-551A-4CD2-AD9C-E78F981C571D} = {2F686B93-1F94-491D-A737-8D0D5877A626}
+		{B1CD8D70-01F9-4E85-A494-6C3954D3A638} = {2F686B93-1F94-491D-A737-8D0D5877A626}
+		{EDF08B4D-0AD1-4F94-BF35-ED50238A7DF1} = {2F686B93-1F94-491D-A737-8D0D5877A626}
 	EndGlobalSection
 EndGlobal
