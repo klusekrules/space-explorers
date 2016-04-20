@@ -350,6 +350,7 @@
     <ClInclude Include="Kontroler\MaszynaStanow\ZdarzenieInfo.h" />
     <ClInclude Include="Kontroler\Siec\DaneTCP.h" />
     <ClInclude Include="Kontroler\Siec\Klient.h" />
+    <ClInclude Include="Kontroler\Siec\Nasluchiwacz.h" />
     <ClInclude Include="Kontroler\Siec\RAW\KlientRaw.h" />
     <ClInclude Include="Kontroler\Siec\RAW\SerwerRaw.h" />
     <ClInclude Include="Kontroler\Siec\RPC\EchoRPC.h" />
@@ -361,6 +362,7 @@
     <ClInclude Include="Kontroler\Siec\RPC\SprawdzSumyKontrolneRPC.h" />
     <ClInclude Include="Kontroler\Siec\RPC\StaleRPC.h" />
     <ClInclude Include="Kontroler\Siec\Serwer.h" />
+    <ClInclude Include="Kontroler\Siec\SocketBase.h" />
     <ClInclude Include="Kontroler\Wielowatkowosc\MenadzerWatkow.h" />
     <ClInclude Include="Kontroler\Wielowatkowosc\Watek.h" />
     <ClInclude Include="Kontroler\Wielowatkowosc\WatekZarzadzany.h" />
@@ -483,6 +485,7 @@
     <ClCompile Include="Kontroler\MaszynaStanow\ZdarzenieInfo.cpp" />
     <ClCompile Include="Kontroler\Siec\DaneTCP.cpp" />
     <ClCompile Include="Kontroler\Siec\Klient.cpp" />
+    <ClCompile Include="Kontroler\Siec\Nasluchiwacz.cpp" />
     <ClCompile Include="Kontroler\Siec\RAW\KlientRaw.cpp" />
     <ClCompile Include="Kontroler\Siec\RAW\SerwerRaw.cpp" />
     <ClCompile Include="Kontroler\Siec\RPC\EchoRPC.cpp" />
@@ -493,6 +496,7 @@
     <ClCompile Include="Kontroler\Siec\RPC\PotwierdzLogowanieRPC.cpp" />
     <ClCompile Include="Kontroler\Siec\RPC\SprawdzSumyKontrolneRPC.cpp" />
     <ClCompile Include="Kontroler\Siec\Serwer.cpp" />
+    <ClCompile Include="Kontroler\Siec\SocketBase.cpp" />
     <ClCompile Include="Kontroler\Wielowatkowosc\MenadzerWatkow.cpp" />
     <ClCompile Include="Kontroler\Wielowatkowosc\Watek.cpp" />
     <ClCompile Include="Kontroler\Wielowatkowosc\WatekZarzadzany.cpp" />

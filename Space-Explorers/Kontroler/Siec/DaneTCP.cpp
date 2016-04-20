@@ -173,7 +173,7 @@ namespace SpEx{
 			if (rezultat <= 0){
 				if (rezultat == 0){
 					if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){
-						SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie: " + ref_.pobierzIP());
+						SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie: " + ref_.pobierzAdres());
 					}
 					return RPC_ERROR_CONNECTION_CLOSED;
 				} else{
@@ -202,7 +202,7 @@ namespace SpEx{
 				if (rezultat <= 0){
 					if (rezultat == 0){
 						if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){
-							SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie: " + ref_.pobierzIP());
+							SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie: " + ref_.pobierzAdres());
 						}
 						return RPC_ERROR_CONNECTION_CLOSED;
 					} else{
@@ -245,7 +245,7 @@ namespace SpEx{
 			int error = 0;
 			if (rezultat == 0){
 				if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){
-					SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie: " + ref_.pobierzIP());
+					SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie: " + ref_.pobierzAdres());
 					error = RPC_ERROR_CONNECTION_CLOSED;
 				}
 			} else{
@@ -264,7 +264,7 @@ namespace SpEx{
 				int error = 0;
 				if (rezultat == 0){
 					if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){
-						SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie: " + ref_.pobierzIP());
+						SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie: " + ref_.pobierzAdres());
 						error = RPC_ERROR_CONNECTION_CLOSED;
 					}
 				} else{

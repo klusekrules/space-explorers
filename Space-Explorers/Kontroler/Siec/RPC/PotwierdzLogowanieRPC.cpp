@@ -12,12 +12,12 @@ namespace SpEx{
 		if (autoryzacja_ == autoryzacja && instancja_ == instancja){
 			odpowiedz[METODA_RPC_RETURN] = true;
 			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Udane logowanie u¿ytkownika (nn) dla ip " + klient_.pobierzIP());
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Udane logowanie u¿ytkownika (nn) dla ip " + klient_.pobierzAdres());
 			}
 		} else{
 			odpowiedz[METODA_RPC_RETURN] = false;
 			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Nie udana próba logowania u¿ytkownika (nn) dla ip " + klient_.pobierzIP());
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Nie udana próba logowania u¿ytkownika (nn) dla ip " + klient_.pobierzAdres());
 			}
 		}
 	}

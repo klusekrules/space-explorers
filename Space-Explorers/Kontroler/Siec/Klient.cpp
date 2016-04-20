@@ -7,6 +7,7 @@
 #include "TypyProste\Wyjatek.h"
 #include "zlib.h"
 #include "DaneTCP.h"
+#include "Utils\Utils.h"
 
 #define ROZMIAR_BUFORA 1024
 #define ATRYBUT_PORT_SERWERA "portSerwera"
@@ -16,46 +17,26 @@
 
 namespace SpEx{
 	Klient::Klient(const UstawieniaAplikacji& opcje)
-		: Watek(true)
+		: Watek(true), SocketBase(opcje)
 	{
-
-		struct addrinfo *result = NULL;
-		int errorCode;
-		if (errorCode = getaddrinfo(opcje[ATRYBUT_ADRES_SERWERA].c_str(), nullptr, nullptr, &result)){
-			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(errorCode)));
-			return;
-		}
-		decltype(addr_) &sock = *((decltype(addr_)*)(result->ai_addr));
-		addr_.sin_family = AF_INET;
-		addr_.sin_port = htons(stoi(opcje[ATRYBUT_PORT_SERWERA], nullptr, 10));
-		addr_.sin_addr.s_addr = sock.sin_addr.s_addr;
-		gniazdo_ = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+		ustawAdres(opcje[ATRYBUT_ADRES_SERWERA]);
+		ustawPort(stoi(opcje[ATRYBUT_PORT_SERWERA], nullptr, 10));
+		socket();
 		funkcja_ = std::bind(&Klient::pracujJakoKlient, this);
 	}
 
 	Klient::Klient(const std::string& ip, unsigned short port)
 		: Watek(true)
 	{
-
-		struct addrinfo *result = NULL;
-		int errorCode;
-		if (errorCode = getaddrinfo(ip.c_str(), nullptr, nullptr, &result)){
-			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE,STyp::Tekst(),STyp::Identyfikator(errorCode)));
-			return;
-		}
-		decltype(addr_) &sock = *((decltype(addr_)*)(result->ai_addr));
-		addr_.sin_family = AF_INET;
-		addr_.sin_port = htons(port);
-		addr_.sin_addr.s_addr = sock.sin_addr.s_addr;
-		gniazdo_ = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+		ustawAdres(ip);
+		ustawPort(port);
+		socket();
 		funkcja_ = std::bind(&Klient::pracujJakoKlient, this);
 	}
 
 	Klient::Klient(SOCKET gniazdo, struct sockaddr_in &addr)
-		: Watek(true)
+		: Watek(true) , SocketBase(gniazdo, addr)
 	{
-		gniazdo_ = gniazdo;
-		addr_ = addr;
 		funkcja_ = std::bind(&Klient::pracujJakoSerwer, this);
 	}
 
@@ -96,10 +77,10 @@ namespace SpEx{
 	void Klient::pracujJakoKlient(){
 
 		// £¹czenie siê z serwerem
-		if (SOCKET_ERROR == connect(gniazdo_, (struct sockaddr*) &addr_, sizeof(addr_))){
-			auto error = WSAGetLastError();
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Klient::pracujJakoKlient() -> B³¹d funkcji connect: " + std::to_string(error));
+		int error = connect();
+		if (error != ERROR_SUCCESS){
 			zakoncz();
+			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(Utils::pobierzDebugInfo()), STyp::Identyfikator(error), STyp::Tekst("B³¹d funkcji connect: "), STyp::Tekst("Klient::pracujJakoKlient() -> B³¹d funkcji connect: " + std::to_string(error))));
 			ustawKodPowrotu(error);
 			return;
 		}
@@ -119,16 +100,14 @@ namespace SpEx{
 
 			// Dzia³ania w przypadku braku oczekuj¹cych ¿¹dañ.
 			if (zadanie_ == nullptr){
-				u_long iModeNonBlock = 1;
-				u_long iModeBlock = 0;
-				ioctlsocket(gniazdo_, FIONBIO, &iModeNonBlock);
-				auto rezultat = recv(gniazdo_, nullptr, 0, 0);
+				switchToNonBlockingMode();
+				auto rezultat = receive(nullptr, 0, 0);
 				int er = WSAGetLastError();
-				ioctlsocket(gniazdo_, FIONBIO, &iModeBlock);
+				switchToBlockingMode();
 				if (rezultat <= 0){
 					if (rezultat == 0){
 						if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning))
-							SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie: " + pobierzIP());
+							SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie: " + pobierzAdres());
 						er = RPC_ERROR_CONNECTION_CLOSED;
 					} else{
 						if (WSAEWOULDBLOCK == er){
@@ -176,28 +155,13 @@ namespace SpEx{
 				zadanie->zakonczenie_->set_value(false);
 			listaZadan_.clear();
 		}
-		zamknijPolaczenie();		
+		shutdown();		
 	}
 	
-	int Klient::odbierz(char* bufor, int rozmiar, int flagi) const{
-		return recv(gniazdo_, bufor, rozmiar, flagi);
-	}
-
-	int Klient::wyslij(const char* wiadomosc, int dlugosc, int flagi) const{
-		return send(gniazdo_, wiadomosc, dlugosc, flagi);
-	}
-
 	const std::atomic<bool>& Klient::czyCzekaNaZakonczenie() const{
 		return czyZakonczyc();
 	}
 	
-	std::string Klient::pobierzIP() const{
-		char ip[IP_BUFOR_K_ROZMIAR];
-		ZeroMemory(ip, IP_BUFOR_K_ROZMIAR);
-		InetNtop(AF_INET, (void*)&addr_.sin_addr, ip, IP_BUFOR_K_ROZMIAR);
-		return std::move(std::string(ip));
-	}
-
 	void Klient::pracujJakoSerwer(){
 		while (!czyZakonczyc()){
 			DaneTCP dane(*this);
@@ -219,24 +183,23 @@ namespace SpEx{
 				break;
 			}
 		}
-		zamknijPolaczenie();
+		shutdown();
 	}
 	
 	void Klient::autoryzujMetode(std::string& instancja, std::string& autoryzacja) const{
 		instancja = instancja_;
 		autoryzacja = autoryzacja_;
 	}
-
-	void Klient::zamknijPolaczenie(){
-		if (gniazdo_ != INVALID_SOCKET){
-			shutdown(gniazdo_, SD_SEND);
-			closesocket(gniazdo_);
-			gniazdo_ = INVALID_SOCKET;
-		}
+	
+	int Klient::odbierz(char *dane, int dlugosc, int flagi) const{
+		return receive(dane, dlugosc, flagi);
 	}
 
-	Klient::~Klient()
-	{
-		zamknijPolaczenie();
+	int Klient::wyslij(const char * dane, int dlugosc, int flagi) const{
+		return send(dane, dlugosc, flagi);
+	}
+
+	Klient::~Klient(){
+		shutdown();
 	}
 }

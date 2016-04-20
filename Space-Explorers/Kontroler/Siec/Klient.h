@@ -5,11 +5,13 @@
 #include <future>
 #include <list>
 #include "Model\Uzytkownik.h"
+#include "SocketBase.h"
 
 namespace SpEx{
 
 	class Klient :
-		public Watek
+		public Watek,
+		public SocketBase
 	{
 	public:
 		// Konstruktor po stronie klienta.
@@ -21,15 +23,9 @@ namespace SpEx{
 		// Konstruktor po stronie serwera.
 		Klient(SOCKET gniazdo, struct sockaddr_in &addr);
 
-		void zamknijPolaczenie();
-		
 		std::future<bool> dodajZadanie(std::shared_ptr<std::promise<bool> >, std::shared_ptr<const std::string>, std::shared_ptr<std::string>, int);
 
 		void autoryzujMetode(std::string& instancja, std::string& autoryzacja) const;
-		
-		int odbierz(char*bufor, int rozmiar, int flagi = 0) const;
-
-		int wyslij(const char* wiadomosc, int dlugosc, int flagi = 0) const;
 
 		bool czyAutoryzowany()const;
 
@@ -41,13 +37,12 @@ namespace SpEx{
 		
 		const std::atomic<bool>& czyCzekaNaZakonczenie() const;
 
-		std::string pobierzIP() const;
-
+		int odbierz(char*, int, int = 0) const;
+		int wyslij(const char*, int, int = 0) const;
+		
 		virtual ~Klient();
 	private:
 		
-		SOCKET gniazdo_ = INVALID_SOCKET;
-		struct sockaddr_in addr_;
 		std::function<void(void)> funkcja_;
 
 		std::string hash_;

@@ -72,7 +72,6 @@ void KomunikacjaSieciowaTest::testSumyKontrolnej(){
 
 void KomunikacjaSieciowaTest::koniecTestow() {
 
-	klient_->zamknijPolaczenie();
 	klient_->zakoncz();
 	klient_->czekajNaZakonczenie();
 	serwer_->zakoncz();

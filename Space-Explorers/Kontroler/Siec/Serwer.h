@@ -1,5 +1,6 @@
 #pragma once
 #include "Kontroler\Wielowatkowosc\Watek.h"
+#include "Nasluchiwacz.h"
 #include "Narzedzia\UstawieniaAplikacji.h"
 #include <WinSock2.h>
 #include "Klient.h"
@@ -7,14 +8,15 @@
 
 namespace SpEx{
 	class Serwer :
-		public Watek
+		public Nasluchiwacz
 	{
 	public:
 		Serwer(const UstawieniaAplikacji& opcje);
-		virtual ~Serwer();
+		virtual ~Serwer() = default;
 	private:
 		SOCKET gniazdo_;
 		void wykonuj() override;
+		bool polaczeniePrzychodzace(SOCKET, struct sockaddr_in&) override;
 		std::list<Klient> polaczenia_;
 	};
 }

@@ -370,6 +370,12 @@
     <ClCompile Include="Kontroler\Siec\RAW\KlientRaw.cpp">
       <Filter>SourceFile\Kontroler\Network\RAW</Filter>
     </ClCompile>
+    <ClCompile Include="Kontroler\Siec\Nasluchiwacz.cpp">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\SocketBase.cpp">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model\Flota.h">
@@ -773,6 +779,12 @@
     </ClInclude>
     <ClInclude Include="Kontroler\Siec\RAW\SerwerRaw.h">
       <Filter>SourceFile\Kontroler\Network\RAW</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\Nasluchiwacz.h">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\SocketBase.h">
+      <Filter>SourceFile\Kontroler\Network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

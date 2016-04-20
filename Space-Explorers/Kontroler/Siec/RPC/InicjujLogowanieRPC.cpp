@@ -34,14 +34,14 @@ namespace SpEx{
 			if (!hash.empty()){
 				klient_.ustawKlucz(hash);
 				if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
-					SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Inicjalizacja logowania u퓓tkownika " + login.asString() + " dla ip " + klient_.pobierzIP());
+					SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Inicjalizacja logowania u퓓tkownika " + login.asString() + " dla ip " + klient_.pobierzAdres());
 				}
 			} else{
 				SHA3 fakeSha(std::to_string(Utils::pobierzLiczbeLosowa()));
 				std::string fakehash(std::move(fakeSha.pobierzNapis<Hex>()));
 				klient_.ustawKlucz(fakehash);
 				if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
-					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Brak u퓓tkownika o podanym loginie: " + login.asString() + " dla ip " + klient_.pobierzIP());
+					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Brak u퓓tkownika o podanym loginie: " + login.asString() + " dla ip " + klient_.pobierzAdres());
 					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Fake hash: " + fakehash);
 				}
 			}
