@@ -55,8 +55,10 @@ void SpEx::Nasluchiwacz::wykonuj(){
 	struct sockaddr_in addr;
 	SOCKET gniazdoKlienta = INVALID_SOCKET;
 
+	SLog::Log::pobierzInstancje().loguj(SLog::Log::Info,"Rozpoczêto nas³uchiwanie.");
+
 	while (!czyZakonczyc()) {
-		error = accept(gniazdo_,addr);
+		error = accept(gniazdoKlienta,addr);
 		//TODO: Lepsza obs³uga b³êdów. Czêœæ b³êdów nie powinna przerywaæ dzia³ania pêtli.
 		if (error != WSAEWOULDBLOCK && gniazdoKlienta == INVALID_SOCKET) {
 			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(Utils::pobierzDebugInfo()), STyp::Identyfikator(error), STyp::Tekst("B³¹d odbierania po³¹czenia"), STyp::Tekst("B³¹d funkcji accept: " + std::to_string(error))));

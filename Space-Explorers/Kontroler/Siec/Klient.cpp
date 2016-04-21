@@ -21,7 +21,12 @@ namespace SpEx{
 	{
 		ustawAdres(opcje[ATRYBUT_ADRES_SERWERA]);
 		ustawPort(stoi(opcje[ATRYBUT_PORT_SERWERA], nullptr, 10));
-		socket();
+		int error = socket();
+		if (error != ERROR_SUCCESS) {
+			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(Utils::pobierzDebugInfo()), STyp::Identyfikator(error), STyp::Tekst("B³¹d funkcji socket: "), STyp::Tekst("Klient::Klient() -> B³¹d funkcji socket: " + std::to_string(error))));
+			ustawKodPowrotu(error);
+			return;
+		}
 		funkcja_ = std::bind(&Klient::pracujJakoKlient, this);
 	}
 

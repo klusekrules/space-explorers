@@ -101,8 +101,8 @@ int SpEx::SocketBase::socket(){
 		int errorCode = getaddrinfo(ip_.c_str(), nullptr, nullptr, &result);
 		if (errorCode)
 			return errorCode;
-		decltype(addr_) &sock = *((decltype(addr_)*)(result->ai_addr));
-		addr_.sin_addr.s_addr = sock.sin_addr.s_addr;
+		decltype(addr) &sock = *((decltype(addr)*)(result->ai_addr));
+		addr.sin_addr.s_addr = sock.sin_addr.s_addr;
 	}
 	gniazdo_ = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (gniazdo_ == INVALID_SOCKET) {
