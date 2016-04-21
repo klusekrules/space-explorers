@@ -1,22 +1,21 @@
 #pragma once
 #include "Kontroler\Wielowatkowosc\Watek.h"
+#include "Kontroler\Siec\Nasluchiwacz.h"
 #include <WinSock2.h>
 
 namespace SpEx {
 	class SerwerRaw :
-		public Watek
+		public Nasluchiwacz
 	{
 	public:
 		SerwerRaw(const std::string&,FILE*);
-		u_short getPort() const;
 		virtual ~SerwerRaw();
 	private:
-		SOCKET gniazdo_;
-		u_short port_;
+		int error_;
 		FILE* fp_;
 		std::string nazwaPliku_;
-		void wykonuj() override;
-		bool SendData(SOCKET,void*, int) const;
-		bool SendFile(SOCKET) const;
+		bool SendData(SOCKET, void*, int);
+		bool SendFile(SOCKET);
+		bool polaczeniePrzychodzace(SOCKET, struct sockaddr_in&) override;
 	};
 }

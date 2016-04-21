@@ -4,52 +4,18 @@
 
 namespace SpEx {
 	SerwerRaw::SerwerRaw(const std::string& nazwaPliku, FILE* fp)
-		: Watek(true), fp_(fp), nazwaPliku_(nazwaPliku), gniazdo_(INVALID_SOCKET), port_(0)
+		: Nasluchiwacz(), fp_(fp), nazwaPliku_(nazwaPliku)
 	{
 		if (fp_ == nullptr) {
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Brak pliku!");
 			return;
 		}
-		struct sockaddr_in addr;
-		addr.sin_family = AF_INET;
-		addr.sin_port = 0;
-		addr.sin_addr.s_addr = INADDR_ANY;
-		gniazdo_ = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-
-		if (INVALID_SOCKET == gniazdo_) {
-			auto error = WSAGetLastError();
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji socket: " + std::to_string(error));
-		}
-
-		if (SOCKET_ERROR == bind(gniazdo_, (struct sockaddr*) &addr, sizeof(addr))) {
-			auto error = WSAGetLastError();
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji bind: " + std::to_string(error));
-		}
-
-		if (SOCKET_ERROR == listen(gniazdo_, SOMAXCONN)) {
-			auto error = WSAGetLastError();
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji listen: " + std::to_string(error));
-			return;
-		}
-		struct sockaddr_in sin;
-		socklen_t len = sizeof(sin);
-		if (SOCKET_ERROR == getsockname(gniazdo_, (struct sockaddr *)&sin, &len)) {
-			auto error = WSAGetLastError();
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji getsockname: " + std::to_string(error));
-		}
-		else
-			port_ = ntohs(sin.sin_port);
-
 	}
 
-	u_short SerwerRaw::getPort() const{
-		return port_;
-	}
-
-	bool SerwerRaw::SendData(SOCKET sock, void *buf, int buflen) const {
+	bool SerwerRaw::SendData(SOCKET sock, void *buf, int buflen) {
 		char *pbuf = (char *)buf;
 		while (buflen > 0) {
-			int num = send(sock, pbuf, buflen, 0);
+			int num = ::send(sock, pbuf, buflen, 0);
 			if (num == SOCKET_ERROR) {				
 				auto ret = WSAGetLastError();
 				if (ret == WSAEWOULDBLOCK) {
@@ -63,7 +29,7 @@ namespace SpEx {
 		return true;
 	}
 	
-	bool SerwerRaw::SendFile(SOCKET sock) const {
+	bool SerwerRaw::SendFile(SOCKET sock) {
 		fseek(fp_, 0, SEEK_END);
 		long filesize = ftell(fp_);
 		rewind(fp_);
@@ -87,50 +53,23 @@ namespace SpEx {
 		return true;
 	}
 
-	void SerwerRaw::wykonuj() {
-		if (fp_ == nullptr) {
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Brak pliku!");
-			return;
+	bool SerwerRaw::polaczeniePrzychodzace(SOCKET gniazdo, sockaddr_in &)
+	{
+		if (!SendFile(gniazdo)) {
+			auto error = WSAGetLastError();
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d wysy³ania pliku: " + std::to_string(error));
 		}
 
-		struct sockaddr_in addr;
-		int addrSize = sizeof(addr);
-		SOCKET gniazdoKlienta = INVALID_SOCKET;
-		u_long iMode = 1; //Nonblock
-		int nError = 0;
-		ioctlsocket(gniazdo_, FIONBIO, &iMode);
-
-		while (!czyZakonczyc()) {
-			gniazdoKlienta = accept(gniazdo_, (struct sockaddr*) &addr, &addrSize);
-			nError = WSAGetLastError();
-			if (nError != WSAEWOULDBLOCK && gniazdoKlienta == INVALID_SOCKET) {
-				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d funkcji listen: " + std::to_string(nError));
-				break;
-			}
-			if (gniazdoKlienta != INVALID_SOCKET) {
-				if (!SendFile(gniazdoKlienta)) {
-					auto error = WSAGetLastError();
-					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d wysy³ania pliku: " + std::to_string(error));
-				}
-				shutdown(gniazdoKlienta, SD_SEND);
-				closesocket(gniazdoKlienta);
-				zakoncz();
-			}
-			else {
-				std::this_thread::sleep_for(std::chrono::milliseconds(100));
-			}
-		}
-		
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Wys³ano plik: " + nazwaPliku_);
+		::shutdown(gniazdo, SD_SEND);
+		closesocket(gniazdo);
+		zakoncz();
+		return false;
 	}
 
-	SerwerRaw::~SerwerRaw()
-	{
+	SerwerRaw::~SerwerRaw(){
 		if (fp_ != nullptr) {
 			fclose(fp_);
-		}
-		if (gniazdo_ != INVALID_SOCKET) {
-			shutdown(gniazdo_, SD_SEND);
-			closesocket(gniazdo_);
 		}
 	}
 }

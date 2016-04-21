@@ -8,12 +8,14 @@ namespace SpEx {
 		: public SocketBase, public Watek
 	{
 	public:
-		Nasluchiwacz() = default;
+		Nasluchiwacz();
 		Nasluchiwacz(const UstawieniaAplikacji& opcje);
-		void wykonuj() override;
 		virtual ~Nasluchiwacz();
-		virtual bool polaczeniePrzychodzace(SOCKET, struct sockaddr_in&) = 0;
+	protected:
+		void wykonuj() override;
 	private:
+		virtual bool polaczeniePrzychodzace(SOCKET, struct sockaddr_in&) = 0;
+		void init();
 		int port_ = 0;
 		int maxIloscPolaczen_ = SOMAXCONN;
 		SOCKET gniazdo_ = INVALID_SOCKET;

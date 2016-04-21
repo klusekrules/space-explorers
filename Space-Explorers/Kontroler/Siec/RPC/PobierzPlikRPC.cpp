@@ -35,7 +35,7 @@ namespace SpEx {
 			}
 			auto ptr = new SerwerRaw(nazwaPlikuDanych_, fp);
 			odpowiedz["NazwaPliku"] = nazwaPlikuDanych_;
-			odpowiedz["Port"] = ptr->getPort();
+			odpowiedz["Port"] = ptr->pobierzPort();
 			ptr->odblokuj();
 			odpowiedz[METODA_RPC_RETURN] = true;
 		}
