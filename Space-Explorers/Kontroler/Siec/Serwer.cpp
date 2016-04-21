@@ -26,6 +26,7 @@ namespace SpEx{
 
 	bool Serwer::polaczeniePrzychodzace(SOCKET gniazdoKlienta, sockaddr_in & addr){
 		polaczenia_.emplace_back(gniazdoKlienta, addr);
+		polaczenia_.back().odblokuj();
 		return true;
 	}
 }

@@ -90,6 +90,8 @@ namespace SpEx{
 			return;
 		}
 
+		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Ustanowiono po³¹czenie.");
+
 		// Pêtla wysy³aj¹ca ¿¹dania do serwera.
 		while (!czyZakonczyc()){
 			std::shared_ptr<Zadanie> zadanie_ = nullptr;
