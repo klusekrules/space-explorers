@@ -51,6 +51,11 @@ namespace SpEx {
 		KlientRaw plik(odpowiedz["NazwaPliku"].asString(),fp,"127.0.0.1", odpowiedz["Port"].asInt());
 		plik.odblokuj();
 		plik.czekajNaZakonczenie();
+		int kod = plik.kodPowrotu();		
+		if (kod != ERROR_SUCCESS) {
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d pobierania pliku: " + std::to_string(kod));
+			return false;
+		}		
 		return true;
 	}
 

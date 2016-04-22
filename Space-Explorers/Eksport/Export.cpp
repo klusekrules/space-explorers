@@ -169,8 +169,8 @@ extern "C"{
 					if (retCode == RETURN_CODE_OK || retCode == RETURN_CODE_ISTNIEJE_POLACZENIE) {
 						retCode = SpEx::Aplikacja::pobierzInstancje().proxy_->zaloguj(nazwa->getText().toAnsiString().c_str(), hash.c_str());
 						if (retCode == RETURN_CODE_OK) {
-							SpEx::Aplikacja::pobierzInstancje().proxy_->pobierzPlikiGry();
-							return true;
+							retCode = SpEx::Aplikacja::pobierzInstancje().proxy_->pobierzPlikiGry();
+							return (retCode == RETURN_CODE_OK);
 						}
 						else {
 							SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "Nie uda³o siê zalogowaæ!");

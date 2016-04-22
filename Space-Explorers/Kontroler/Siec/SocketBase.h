@@ -27,6 +27,7 @@ namespace SpEx {
 		int listen();
 		int portUpdate();
 		int accept(SOCKET&, struct sockaddr_in& );
+		int acceptWithTimeout(SOCKET&, struct sockaddr_in&, long seconds);
 		int connect();
 		void shutdown();
 		int receive(char*, int, int = 0) const;

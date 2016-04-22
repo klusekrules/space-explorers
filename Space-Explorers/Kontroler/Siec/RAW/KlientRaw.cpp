@@ -76,7 +76,6 @@ namespace SpEx {
 #endif
 			return;
 		}
-
 		int error = connect();
 		if (error != ERROR_SUCCESS) {
 #ifndef LOG_OFF_ALL
@@ -98,6 +97,7 @@ namespace SpEx {
 #ifndef LOG_OFF_ALL
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Pobrano plik: " + nazwaPliku_);
 #endif
+		ustawKodPowrotu(ERROR_SUCCESS);
 	}
 
 	KlientRaw::~KlientRaw(){

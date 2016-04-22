@@ -10,6 +10,9 @@ namespace SpEx {
 	public:
 		Nasluchiwacz();
 		Nasluchiwacz(const UstawieniaAplikacji& opcje);
+		void ustawAcceptTimeout(long timeout);
+		long pobierzAcceptTimeout()const;
+
 		virtual ~Nasluchiwacz();
 	protected:
 		void wykonuj() override;
@@ -17,6 +20,7 @@ namespace SpEx {
 		virtual bool polaczeniePrzychodzace(SOCKET, struct sockaddr_in&) = 0;
 		void init();
 		int port_ = 0;
+		long acceptTimeout_ = 0;
 		int maxIloscPolaczen_ = SOMAXCONN;
 		SOCKET gniazdo_ = INVALID_SOCKET;
 	};

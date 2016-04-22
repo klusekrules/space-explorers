@@ -82,7 +82,7 @@ namespace SpEx{
 				kolor = sf::Color::Yellow;
 				break;
 			case SLog::Log::Error: sTyp = " [ERROR] ";
-				kolor = sf::Color::Red;
+				kolor = sf::Color(255,51,51);
 				break;
 			case SLog::Log::All:
 			default:

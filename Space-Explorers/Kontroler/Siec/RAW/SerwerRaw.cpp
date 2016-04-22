@@ -15,6 +15,7 @@ namespace SpEx {
 			return;
 		}
 #endif
+		ustawAcceptTimeout(10);
 	}
 
 	bool SerwerRaw::SendData(SOCKET sock, void *buf, int buflen) {

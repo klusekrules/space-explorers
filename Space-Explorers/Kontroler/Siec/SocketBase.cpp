@@ -142,6 +142,29 @@ int SpEx::SocketBase::accept(SOCKET & gniazdo, struct sockaddr_in& addr){
 	return WSAGetLastError();
 }
 
+int SpEx::SocketBase::acceptWithTimeout(SOCKET & gniazdo, sockaddr_in & addr, long seconds){
+	int iResult;
+	struct timeval tv;
+	fd_set rfds;
+	FD_ZERO(&rfds);
+	FD_SET(gniazdo_, &rfds);
+
+	tv.tv_sec = (long)seconds;
+	tv.tv_usec = 0;
+
+	iResult = select(gniazdo_ +1, &rfds, nullptr, nullptr, &tv);
+	if (iResult > 0)
+	{
+		return accept(gniazdo, addr);
+	}
+	if (iResult == 0) {
+		gniazdo = INVALID_SOCKET;
+		return ERROR_SUCCESS;
+	}
+	gniazdo = INVALID_SOCKET;
+	return WSAGetLastError();
+}
+
 int SpEx::SocketBase::connect(){
 	if (SOCKET_ERROR == ::connect(gniazdo_, (struct sockaddr*) &addr_, sizeof(addr_))) {
 		return WSAGetLastError();

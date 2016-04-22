@@ -18,6 +18,14 @@ SpEx::Nasluchiwacz::Nasluchiwacz(const UstawieniaAplikacji & opcje)
 	init();
 }
 
+void SpEx::Nasluchiwacz::ustawAcceptTimeout(long timeout){
+	acceptTimeout_ = timeout;
+}
+
+long SpEx::Nasluchiwacz::pobierzAcceptTimeout() const{
+	return acceptTimeout_;
+}
+
 void SpEx::Nasluchiwacz::wykonuj(){
 	int error = 0;
 
@@ -27,7 +35,15 @@ void SpEx::Nasluchiwacz::wykonuj(){
 	SLog::Log::pobierzInstancje().loguj(SLog::Log::Info,"Rozpoczêto nas³uchiwanie.");
 
 	while (!czyZakonczyc()) {
-		error = accept(gniazdoKlienta,addr);
+		if (acceptTimeout_ > 0) {
+			switchToBlockingMode();
+			error = acceptWithTimeout(gniazdoKlienta, addr, acceptTimeout_);
+			if (error == 0 && gniazdoKlienta == INVALID_SOCKET) {
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "SpEx::Nasluchiwacz::wykonuj -> acceptWithTimeout -> Timeout!");
+			}
+			switchToNonBlockingMode();
+		} else
+			error = accept(gniazdoKlienta,addr);
 		//TODO: Lepsza obs³uga b³êdów. Czêœæ b³êdów nie powinna przerywaæ dzia³ania pêtli.
 		if (error != WSAEWOULDBLOCK && gniazdoKlienta == INVALID_SOCKET) {
 			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(Utils::pobierzDebugInfo()), STyp::Identyfikator(error), STyp::Tekst("B³¹d odbierania po³¹czenia"), STyp::Tekst("B³¹d funkcji accept: " + std::to_string(error))));
@@ -44,6 +60,7 @@ void SpEx::Nasluchiwacz::wykonuj(){
 			std::this_thread::sleep_for(std::chrono::milliseconds(100));
 		}
 	}
+	shutdown();
 	SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Zakoñczono nas³uchiwanie.");
 
 }

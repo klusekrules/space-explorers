@@ -223,8 +223,8 @@ namespace SpEx{
 
 		listaplikow->obiektParametrow()["Plik"] = ATRYBUT_PLIK_DANYCH;
 
-		listaplikow->wykonajMetode();
+		int ret = listaplikow->wykonajMetode();
 
-		return RETURN_CODE_OK;
+		return ret;
 	}
 }
