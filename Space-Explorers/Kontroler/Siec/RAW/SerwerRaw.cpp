@@ -37,13 +37,20 @@ namespace SpEx {
 	}
 	
 	bool SerwerRaw::SendFile(SOCKET sock) {
+		if (fp_ == nullptr) {
+			error_ = EOF;
+			return false;
+		}
+
 		fseek(fp_, 0, SEEK_END);
 		long filesize = ftell(fp_);
 		rewind(fp_);
+
 		if (filesize == EOF) {
 			error_ = EOF;
 			return false;
 		}
+
 		long fsize = htonl(filesize);
 		if(!SendData(sock,&fsize, sizeof(fsize)))
 			return false;
