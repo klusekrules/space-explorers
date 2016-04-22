@@ -1,26 +1,33 @@
 #include "SerwerRaw.h"
-#include "Logger\Log.h"
 #include <Ws2tcpip.h>
+
+#ifndef LOG_OFF_ALL
+#include "Logger\Log.h"
+#endif
 
 namespace SpEx {
 	SerwerRaw::SerwerRaw(const std::string& nazwaPliku, FILE* fp)
 		: Nasluchiwacz(), fp_(fp), nazwaPliku_(nazwaPliku)
 	{
+#ifndef LOG_OFF_ALL
 		if (fp_ == nullptr) {
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Brak pliku!");
 			return;
 		}
+#endif
 	}
 
 	bool SerwerRaw::SendData(SOCKET sock, void *buf, int buflen) {
-		char *pbuf = (char *)buf;
+		char *pbuf = (char *)buf; 
+		int num = 0;
 		while (buflen > 0) {
-			int num = ::send(sock, pbuf, buflen, 0);
-			if (num == SOCKET_ERROR) {				
-				auto ret = WSAGetLastError();
-				if (ret == WSAEWOULDBLOCK) {
+			num = ::send(sock, pbuf, buflen, 0);
+			if (num == SOCKET_ERROR) {
+				int error = WSAGetLastError();
+				if (error == WSAEWOULDBLOCK) {
 					continue;
 				}
+				error_ = error;
 				return false;
 			}
 			pbuf += num;
@@ -33,8 +40,10 @@ namespace SpEx {
 		fseek(fp_, 0, SEEK_END);
 		long filesize = ftell(fp_);
 		rewind(fp_);
-		if (filesize == EOF)
+		if (filesize == EOF) {
+			error_ = EOF;
 			return false;
+		}
 		long fsize = htonl(filesize);
 		if(!SendData(sock,&fsize, sizeof(fsize)))
 			return false;
@@ -43,8 +52,10 @@ namespace SpEx {
 			do{
 				size_t num = min(filesize, sizeof(buffer));
 				num = fread(buffer, 1, num, fp_);
-				if (num < 1)
+				if (num < 1) {
+					error_ = 0;
 					return false;
+				}
 				if (!SendData(sock,buffer, num))
 					return false;
 				filesize -= num;
@@ -53,14 +64,16 @@ namespace SpEx {
 		return true;
 	}
 
-	bool SerwerRaw::polaczeniePrzychodzace(SOCKET gniazdo, sockaddr_in &)
-	{
+	bool SerwerRaw::polaczeniePrzychodzace(SOCKET gniazdo, sockaddr_in &){
+#ifndef LOG_OFF_ALL
 		if (!SendFile(gniazdo)) {
-			auto error = WSAGetLastError();
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d wysy³ania pliku: " + std::to_string(error));
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d wysy³ania pliku: " + std::to_string(error_));
+		} else {
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Wys³ano plik: " + nazwaPliku_);
 		}
-
-		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Wys³ano plik: " + nazwaPliku_);
+#else
+		SendFile(gniazdo);
+#endif
 		::shutdown(gniazdo, SD_SEND);
 		closesocket(gniazdo);
 		zakoncz();

@@ -1,15 +1,21 @@
 #include "KlientRaw.h"
-#include "Logger\Log.h"
 #include <Ws2tcpip.h>
+
+#ifndef LOG_OFF_ALL
+#include "Logger\Log.h"
+#endif
 
 namespace SpEx {
 	KlientRaw::KlientRaw(const std::string& nazwaPliku, FILE* fp, const std::string& ip, u_short port)
 		: Watek(true), fp_(fp), nazwaPliku_(nazwaPliku)
 	{
 		if (fp_ == nullptr) {
+#ifndef LOG_OFF_ALL
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Brak pliku!");
+#endif
 			return;
 		}
+		
 		ustawAdres(ip);
 		ustawPort(port);
 		socket();
@@ -20,10 +26,11 @@ namespace SpEx {
 		while (buflen > 0){
 			int num = receive(pbuf, buflen);
 			if (num == SOCKET_ERROR){
-				error_ = WSAGetLastError();
-				if (error_ == WSAEWOULDBLOCK){
+				int error = WSAGetLastError();
+				if (error == WSAEWOULDBLOCK){
 					continue;
 				}
+				error_ = error;
 				return false;
 			}
 			else if (num == 0) {
@@ -64,26 +71,33 @@ namespace SpEx {
 
 	void KlientRaw::wykonuj() {
 		if (fp_ == nullptr) {
+#ifndef LOG_OFF_ALL
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Brak pliku!");
+#endif
 			return;
 		}
 
 		int error = connect();
 		if (error != ERROR_SUCCESS) {
+#ifndef LOG_OFF_ALL
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "KlientRaw::wykonuj() -> B³¹d funkcji connect: " + std::to_string(error));
+#endif
 			zakoncz();
 			ustawKodPowrotu(error);
 			return;
 		}
 		
 		if (!RecvFile()) {
-			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "KlientRaw::wykonuj() -> B³¹d funkcji RecvFile: " + std::to_string(error));
+#ifndef LOG_OFF_ALL
+			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "KlientRaw::wykonuj() -> B³¹d funkcji RecvFile: " + std::to_string(error_));
+#endif
 			zakoncz();
-			ustawKodPowrotu(error);
+			ustawKodPowrotu(error_);
 			return;
 		}
-
+#ifndef LOG_OFF_ALL
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Pobrano plik: " + nazwaPliku_);
+#endif
 	}
 
 	KlientRaw::~KlientRaw(){
