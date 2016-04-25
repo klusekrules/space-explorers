@@ -7,7 +7,7 @@
 
 namespace SpEx {
 	KlientRaw::KlientRaw(const std::string& nazwaPliku, FILE* fp, const std::string& ip, u_short port)
-		: Watek(true), fp_(fp), nazwaPliku_(nazwaPliku)
+		: Watek("KlientRaw",true), fp_(fp), nazwaPliku_(nazwaPliku)
 	{
 		if (fp_ == nullptr) {
 #ifndef LOG_OFF_ALL

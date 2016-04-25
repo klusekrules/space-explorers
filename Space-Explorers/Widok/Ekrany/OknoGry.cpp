@@ -17,7 +17,7 @@
 #define GL_SHADING_LANGUAGE_VERSION       0x8B8C
 namespace SpEx{
 	OknoGry::OknoGry(bool wstrzymany)
-		: Watek(wstrzymany), oknoGlowne_(nullptr)
+		: Watek("OknoGry",wstrzymany), oknoGlowne_(nullptr)
 	{
 		przetwarzanie_ = true;
 		inicjalizacjaWynik_ = inicjalizacja_.get_future();

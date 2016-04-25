@@ -17,7 +17,7 @@
 
 namespace SpEx{
 	Klient::Klient(const UstawieniaAplikacji& opcje)
-		: Watek(true), SocketBase(opcje)
+		: Watek("Klient", true), SocketBase(opcje)
 	{
 		ustawAdres(opcje[ATRYBUT_ADRES_SERWERA]);
 		ustawPort(stoi(opcje[ATRYBUT_PORT_SERWERA], nullptr, 10));
@@ -31,7 +31,7 @@ namespace SpEx{
 	}
 
 	Klient::Klient(const std::string& ip, unsigned short port)
-		: Watek(true)
+		: Watek("Klient", true)
 	{
 		ustawAdres(ip);
 		ustawPort(port);
@@ -40,7 +40,7 @@ namespace SpEx{
 	}
 
 	Klient::Klient(SOCKET gniazdo, struct sockaddr_in &addr)
-		: Watek(true) , SocketBase(gniazdo, addr)
+		: Watek("Klient", true) , SocketBase(gniazdo, addr)
 	{
 		funkcja_ = std::bind(&Klient::pracujJakoSerwer, this);
 	}

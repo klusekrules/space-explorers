@@ -30,7 +30,7 @@ namespace SpEx{
 		* \version 1
 		* \date 10-07-2014
 		*/
-		Watek(bool wstrzymany);
+		Watek(std::string nazwa, bool wstrzymany);
 
 		/**
 		* \brief Destruktor.
@@ -106,6 +106,7 @@ namespace SpEx{
 		*/
 		const STyp::Wyjatek& bladInfo() const;
 
+		const std::string pobierzNazweWatku() const;
 
 		const std::atomic<int>& kodPowrotu() const;
 
@@ -119,6 +120,8 @@ namespace SpEx{
 
 		std::atomic<int> kodPowrotu_;
 		std::unique_ptr<std::thread> uchwyt_; /// Wskaünik na obiekt wπtku.
+
+		std::string nazwaWatku_; /// Nazwa wπtku
 
 		/**
 		* \brief Metoda ustawiajπca wyjπtek.

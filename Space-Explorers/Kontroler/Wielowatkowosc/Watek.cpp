@@ -2,8 +2,8 @@
 #include <Windows.h>
 namespace SpEx{
 
-	Watek::Watek(bool wstrzymany)
-		: zakonczony_(false), zakoncz_(false), blad_(false), bladInfo_(EXCEPTION_PLACE, STyp::Tekst()), kodPowrotu_(0)
+	Watek::Watek(std::string nazwa, bool wstrzymany)
+		: nazwaWatku_(nazwa), zakonczony_(false), zakoncz_(false), blad_(false), bladInfo_(EXCEPTION_PLACE, STyp::Tekst()), kodPowrotu_(0)
 	{
 		if (wstrzymany)
 			wstrzymany_.lock();
@@ -40,6 +40,10 @@ namespace SpEx{
 	
 	const STyp::Wyjatek& Watek::bladInfo() const{
 		return bladInfo_;
+	}
+
+	const std::string Watek::pobierzNazweWatku() const{
+		return nazwaWatku_;
 	}
 
 	const std::atomic<int>& Watek::kodPowrotu() const{

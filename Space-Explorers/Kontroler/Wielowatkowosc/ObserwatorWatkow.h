@@ -2,6 +2,7 @@
 #include "Watek.h"
 #include "Narzedzia\Singleton.h"
 #include <list>
+#include <vector>
 #include <memory>
 
 namespace SpEx {
@@ -25,6 +26,7 @@ namespace SpEx {
 		void wykonuj() override;
 		void dodajWatek( std::shared_ptr<Watek> &watek);
 		std::list<std::shared_ptr<Watek>> listaWatkow_;
+		std::vector<std::shared_ptr<Watek>> doUsuniecia_;
 		std::mutex synchronize_;
 	};
 }

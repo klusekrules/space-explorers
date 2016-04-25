@@ -65,7 +65,7 @@ namespace SpEx{
 	}
 
 	Konsola::Konsola(SLog::Log& log)
-		: Watek(true), log_(log)
+		: Watek("Konsola", true), log_(log)
 	{
 		log.dodajGniazdoWyjsciowe([this](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{
 			std::string sTyp;

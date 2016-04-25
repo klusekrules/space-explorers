@@ -7,13 +7,13 @@
 #define IP_BUFOR_K_ROZMIAR 20
 
 SpEx::Nasluchiwacz::Nasluchiwacz()
-	: SocketBase(), Watek(true)
+	: SocketBase(), Watek("Nasluchiwacz", true)
 {
 	init();
 }
 
 SpEx::Nasluchiwacz::Nasluchiwacz(const UstawieniaAplikacji & opcje)
-	: SocketBase(opcje) ,Watek(true)
+	: SocketBase(opcje) ,Watek("Nasluchiwacz", true)
 {
 	init();
 }

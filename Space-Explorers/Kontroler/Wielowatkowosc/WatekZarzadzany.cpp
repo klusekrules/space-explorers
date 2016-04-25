@@ -2,7 +2,7 @@
 
 namespace SpEx{
 	WatekZarzadzany::WatekZarzadzany(std::future<bool> wykonuj)
-		: Watek(true), nastepneNoweZadanie_(std::move(wykonuj))
+		: Watek("WatekZarzadzany", true), nastepneNoweZadanie_(std::move(wykonuj))
 	{
 	}
 
