@@ -364,6 +364,7 @@
     <ClInclude Include="Kontroler\Siec\Serwer.h" />
     <ClInclude Include="Kontroler\Siec\SocketBase.h" />
     <ClInclude Include="Kontroler\Wielowatkowosc\MenadzerWatkow.h" />
+    <ClInclude Include="Kontroler\Wielowatkowosc\ObserwatorWatkow.h" />
     <ClInclude Include="Kontroler\Wielowatkowosc\Watek.h" />
     <ClInclude Include="Kontroler\Wielowatkowosc\WatekZarzadzany.h" />
     <ClInclude Include="Kontroler\Wielowatkowosc\Zadanie.h" />
@@ -498,6 +499,7 @@
     <ClCompile Include="Kontroler\Siec\Serwer.cpp" />
     <ClCompile Include="Kontroler\Siec\SocketBase.cpp" />
     <ClCompile Include="Kontroler\Wielowatkowosc\MenadzerWatkow.cpp" />
+    <ClCompile Include="Kontroler\Wielowatkowosc\ObserwatorWatkow.cpp" />
     <ClCompile Include="Kontroler\Wielowatkowosc\Watek.cpp" />
     <ClCompile Include="Kontroler\Wielowatkowosc\WatekZarzadzany.cpp" />
     <ClCompile Include="Kontroler\Wielowatkowosc\Zadanie.cpp" />

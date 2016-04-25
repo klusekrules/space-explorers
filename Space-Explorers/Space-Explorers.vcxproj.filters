@@ -376,6 +376,9 @@
     <ClCompile Include="Kontroler\Siec\SocketBase.cpp">
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClCompile>
+    <ClCompile Include="Kontroler\Wielowatkowosc\ObserwatorWatkow.cpp">
+      <Filter>SourceFile\Kontroler\MultiThreading</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model\Flota.h">
@@ -785,6 +788,9 @@
     </ClInclude>
     <ClInclude Include="Kontroler\Siec\SocketBase.h">
       <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Wielowatkowosc\ObserwatorWatkow.h">
+      <Filter>SourceFile\Kontroler\MultiThreading</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

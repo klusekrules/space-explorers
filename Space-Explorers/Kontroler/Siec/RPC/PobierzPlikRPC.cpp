@@ -5,6 +5,7 @@
 #include "..\RAW\SerwerRaw.h"
 #include "..\RAW\KlientRaw.h"
 #include "Kontroler\Aplikacja.h"
+#include "Kontroler\Wielowatkowosc\ObserwatorWatkow.h"
 
 namespace SpEx {
 
@@ -33,7 +34,7 @@ namespace SpEx {
 				odpowiedz[METODA_RPC_RETURN] = false;
 				return;
 			}
-			auto ptr = new SerwerRaw(nazwaPlikuDanych_, fp);
+			auto ptr = ObserwatorWatkow::make_thread<SerwerRaw>(nazwaPlikuDanych_, fp);
 			odpowiedz["NazwaPliku"] = nazwaPlikuDanych_;
 			odpowiedz["Port"] = ptr->pobierzPort();
 			ptr->odblokuj();
@@ -48,10 +49,10 @@ namespace SpEx {
 			return false;
 		}
 		FILE* fp = fopen("daneTestMetody.xml","wb");
-		KlientRaw plik(odpowiedz["NazwaPliku"].asString(),fp,"127.0.0.1", odpowiedz["Port"].asInt());
-		plik.odblokuj();
-		plik.czekajNaZakonczenie();
-		int kod = plik.kodPowrotu();		
+		auto plik = ObserwatorWatkow::make_thread<KlientRaw>(odpowiedz["NazwaPliku"].asString(),fp,"127.0.0.1", odpowiedz["Port"].asInt());
+		plik->odblokuj();
+		plik->czekajNaZakonczenie();
+		int kod = plik->kodPowrotu();
 		if (kod != ERROR_SUCCESS) {
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d pobierania pliku: " + std::to_string(kod));
 			return false;
