@@ -40,6 +40,8 @@
 #include "Eksport\ProxyBOKlient.h"
 #include "Eksport\ProxyBOSerwer.h"
 
+#include "Kontroler\Wielowatkowosc\ObserwatorWatkow.h"
+
 #define KOMUNIKAT_BLAD_PRZETWARZANIA_ARGUMENTU STyp::Tekst("Podczas przetwarzabua argumentów wyst¹pi³ b³¹d.")
 #define KOMUNIKAT_BLAD_PLIKU_KONFIGURACYJNEGO(plik) STyp::Tekst("Nie powiod³o siê wczytywanie pliku konfiguracyjnego: " + plik)
 #define KOMUNIKAT_BLAD_FORMATU_DATY STyp::Tekst("Nie poprawny format daty u¿ytej w nazwie pliku logów.")
@@ -358,7 +360,7 @@ namespace SpEx{
 		
 	void Aplikacja::konfigurujKonsole(){		
 		if (czyKonsola_){
-			konsola_ = std::make_shared<Konsola>(logger_);
+			konsola_ = ObserwatorWatkow::make_thread<Konsola>(logger_);
 			if (!konsola_->czekajNaInicjalizacje()) {
 				throw konsola_->bladInfo();
 			}

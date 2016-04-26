@@ -14,12 +14,12 @@ namespace SpEx {
 	public:
 
 		template < class T, typename... Args>
-		static std::shared_ptr<T> make_thread(Args... args) {
-			auto ptr = std::make_shared<T>(args...);
+		static std::shared_ptr<T> make_thread(Args&&... args) {
+			auto ptr = std::make_shared<T>(std::move(args)...);
 			ObserwatorWatkow::pobierzInstancje().dodajWatek(std::static_pointer_cast<Watek>(ptr));
 			return ptr;
 		}
-
+		
 	private:
 		ObserwatorWatkow();
 		virtual ~ObserwatorWatkow() = default;

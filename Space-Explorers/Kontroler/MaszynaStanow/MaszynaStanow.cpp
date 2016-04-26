@@ -11,6 +11,7 @@
 #include "Utils\DefinicjeWezlowXML.h"
 #include "Utils\StackThrow.h"
 #include "Widok\Konsola\Konsola.h"
+#include "Kontroler\Wielowatkowosc\ObserwatorWatkow.h"
 
 namespace SpEx{
 	MaszynaStanow::StanDlaSkryptu::StanDlaSkryptu()
@@ -32,7 +33,7 @@ namespace SpEx{
 	}
 
 	MaszynaStanow::MaszynaStanow()
-		: watekGraficzny_(std::make_shared<OknoGry>(true)), stan_(nullptr), stanNastepny_(nullptr), pulaWatkow_(), inicjalizujOknoGlowne_(false)
+		: watekGraficzny_(ObserwatorWatkow::make_thread<OknoGry>(true)), stan_(nullptr), stanNastepny_(nullptr), pulaWatkow_(), inicjalizujOknoGlowne_(false)
 	{
 	}
 

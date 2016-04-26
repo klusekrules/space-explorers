@@ -1,9 +1,11 @@
 #include "MenadzerWatkow.h"
+#include "ObserwatorWatkow.h"
+
 namespace SpEx{
 	MenadzerWatkow::ElementListy::ElementListy()
 		: sygnal_()
 	{
-		watek_ = std::make_shared<WatekZarzadzany>(sygnal_.get_future());
+		watek_ = ObserwatorWatkow::make_thread<WatekZarzadzany>(std::move(sygnal_.get_future()));
 		watek_->odblokuj();
 	}
 
