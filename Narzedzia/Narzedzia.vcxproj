@@ -238,6 +238,7 @@
     <ClInclude Include="Headers\Narzedzia\Operacja.h" />
     <ClInclude Include="Headers\Narzedzia\Serializacja.h" />
     <ClInclude Include="Headers\Narzedzia\Singleton.h" />
+    <ClInclude Include="Headers\Narzedzia\Stale.h" />
     <ClInclude Include="Headers\Narzedzia\SumaKontrolnaPliku.h" />
     <ClInclude Include="Headers\Narzedzia\UstawieniaAplikacji.h" />
     <ClInclude Include="Headers\Narzedzia\XmlModul.h" />

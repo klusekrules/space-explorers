@@ -75,6 +75,9 @@
     <ClInclude Include="Headers\Narzedzia\NarzedziaSymbol.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\Narzedzia\Stale.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratorIdentyfikatorow.cpp">

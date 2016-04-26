@@ -7,3 +7,8 @@
 #define ATRYBUT_JEZYK_APLIKACJI_DOMYSLNY "Polish"
 #define ATRYBUT_PLIK_DANYCH "plikDanych"
 #define ATRYBUT_PLIK_GRY "plikGry"
+#define ATRYBUT_POWIAZANIA_ZASOBOW "powiazaniaZasobow"
+#define ATRYBUT_GLOWNY_FOLDER_GRY "glownyFolderGry"
+#define ATRYBUT_FOLDER_PLIKU_UZYTKOWNIKA "folderPlikowUzytkownikow"
+#define ATRYBUT_PLIK_AUTORYZACJI "plikAutoryzacji"
+#define ATRYBUT_FOLDER_PLIKU_UKLADU "folderPlikowOpisuUkladow"

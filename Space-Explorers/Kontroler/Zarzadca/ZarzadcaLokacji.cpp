@@ -6,8 +6,7 @@
 #include <direct.h>
 #include "Utils\Utils.h"
 #include "Wyjatki\BladKonfiguracjiAplikacji.h"
-
-#define ATRYBUT_FOLDER_PLIKU_UKLADU "folderPlikowOpisuUkladow"
+#include "Narzedzia\Stale.h"
 
 #define KOMUNIKAT_BLAD_BRAK_DOSTEPU_DO_FOLDERU(folder) STyp::Tekst("Brak praw dostêpu do folderu :" + folder)
 #define KOMUNIKAT_BLAD_TWORZEZNIA_FOLDERU(folder) STyp::Tekst("B³ad tworzenia folderu :" + folder)
@@ -251,6 +250,8 @@ namespace SpEx {
 	}
 
 	void ZarzadcaLokacji::inicjalizuj(const UstawieniaAplikacji& ustawienia){
+		if (!ustawienia[ATRYBUT_GLOWNY_FOLDER_GRY].empty())
+			folderPlikuUkladu_ += ustawienia[ATRYBUT_GLOWNY_FOLDER_GRY] + "\\";
 		folderPlikuUkladu_ = ustawienia[ATRYBUT_FOLDER_PLIKU_UKLADU];
 		if (_access(folderPlikuUkladu_.c_str(), 0) == -1){
 			if (!Utils::tworzSciezke(folderPlikuUkladu_)){
@@ -287,7 +288,7 @@ namespace SpEx {
 			str.rozpocznijPodKlase("Element");
 			str.dodajPole("Id", uklad.first);
 			str.dodajPole("Galaktyka Id", uklad.second.idGalaktyki_);
-			str.dodajPole("Flaga inicjalizacji", NAZWAKLASY2(uklad.second.flaga_inicjalizacji_ukladu._Opaque), std::to_string((int)(uklad.second.flaga_inicjalizacji_ukladu._Opaque)));
+			str.dodajPole("Flaga inicjalizacji", NAZWAKLASY2(uklad.second.flaga_inicjalizacji_ukladu._Opaque), std::to_string((unsigned long long)(uklad.second.flaga_inicjalizacji_ukladu._Opaque)));
 			if (uklad.second.uklad_ != nullptr)
 				str.dodajPole("UkladPtr", *(uklad.second.uklad_));
 			else
@@ -303,7 +304,7 @@ namespace SpEx {
 			str.rozpocznijPodKlase("Element");
 			str.dodajPole("Id", uklad.first);
 			str.dodajPole("Uklad Id", uklad.second.idUkladu_);
-			str.dodajPole("Flaga inicjalizacji", NAZWAKLASY2(uklad.second.flaga_inicjalizacji_ukladu._Opaque), std::to_string((int)(uklad.second.flaga_inicjalizacji_ukladu._Opaque)));
+			str.dodajPole("Flaga inicjalizacji", NAZWAKLASY2(uklad.second.flaga_inicjalizacji_ukladu._Opaque), std::to_string((unsigned long long)(uklad.second.flaga_inicjalizacji_ukladu._Opaque)));
 			std::stringstream streamWolna;
 			streamWolna.imbue(std::locale());
 			streamWolna << std::boolalpha << uklad.second.wolna_;

@@ -440,7 +440,6 @@
     <ClInclude Include="Utils\DefinicjeWezlowXML.h" />
     <ClInclude Include="Utils\FromTGUI.h" />
     <ClInclude Include="Utils\StackThrow.h" />
-    <ClInclude Include="Utils\StaleUstawienAplikacji.h" />
     <ClInclude Include="Utils\Utils.h" />
     <ClInclude Include="Utils\UtilsGui.h" />
     <ClInclude Include="Utils\Zlecenia.h" />

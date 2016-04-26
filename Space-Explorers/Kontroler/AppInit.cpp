@@ -8,7 +8,7 @@
 
 #include "Utils\DefinicjeWezlowXML.h"
 #include "Utils\Utils.h"
-#include "Utils\StaleUstawienAplikacji.h"
+#include "Narzedzia\Stale.h"
 
 #include "TGUI\TGUI.hpp"
 #include "Widok\Konsola\Konsola.h"
@@ -295,7 +295,10 @@ namespace SpEx{
 
 	bool Aplikacja::sprawdzDostepLokalizacji(){
 		try {
-			auto nazwaPlikuDanych_ = ustawienia_[ATRYBUT_PLIK_DANYCH];
+			std::string nazwaPlikuDanych_;
+			if (!ustawienia_[ATRYBUT_GLOWNY_FOLDER_GRY].empty())
+				nazwaPlikuDanych_ += ustawienia_[ATRYBUT_GLOWNY_FOLDER_GRY] + "\\";
+			nazwaPlikuDanych_ += ustawienia_[ATRYBUT_PLIK_DANYCH];
 			if (!nazwaPlikuDanych_.empty()) {
 				if (_access(nazwaPlikuDanych_.c_str(), 0) == -1) { // Sprawdzenie czy plik istnieje
 					throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_PLIKU_DANYCH(nazwaPlikuDanych_));
@@ -307,7 +310,10 @@ namespace SpEx{
 #endif
 			}
 
-			auto folderPluginow_ = ustawienia_[ATRYBUT_FOLDER_PLUGINOW];
+			std::string folderPluginow_;
+			if (!ustawienia_[ATRYBUT_GLOWNY_FOLDER_GRY].empty())
+				folderPluginow_ += ustawienia_[ATRYBUT_GLOWNY_FOLDER_GRY] + "\\";
+			folderPluginow_ += ustawienia_[ATRYBUT_FOLDER_PLUGINOW];
 			if (_access(folderPluginow_.c_str(), 0) == -1) { // Sprawdzenie czy folder istnieje
 				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folderPluginow_));
 			}
@@ -331,6 +337,9 @@ namespace SpEx{
 		}
 
 		std::stringstream sfile;
+		if (!ustawienia_[ATRYBUT_GLOWNY_FOLDER_GRY].empty()) {
+			sfile << ustawienia_[ATRYBUT_GLOWNY_FOLDER_GRY] << "\\";
+		}
 		sfile << ustawienia_[ATRYBUT_PRZEDROSTEK_PLIKU_LOGOW] << s << ".log";
 		std::string filename = sfile.str();
 		logger_.dodajGniazdoWyjsciowe([filename](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{

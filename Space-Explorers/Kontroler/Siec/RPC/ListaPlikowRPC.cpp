@@ -5,7 +5,7 @@
 #include "Narzedzia\SumaKontrolnaPliku.h"
 #include "Kontroler\Zarzadca\ZarzadcaPluginow.h"
 #include "StaleRPC.h"
-#include "Utils\StaleUstawienAplikacji.h"
+#include "Narzedzia\Stale.h"
 
 #define LISTA_PLIKOW "lista"
 namespace SpEx{

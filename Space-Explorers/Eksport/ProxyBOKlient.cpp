@@ -14,7 +14,7 @@
 #include "Kontroler\Zarzadca\Fabrykator.h"
 #include "Algorytmy\SHA3.h"
 #include "Algorytmy\Hex.h"
-#include "Utils\StaleUstawienAplikacji.h"
+#include "Narzedzia\Stale.h"
 
 namespace SpEx{
 	int ProxyBOKlient::uruchomSerwer(){

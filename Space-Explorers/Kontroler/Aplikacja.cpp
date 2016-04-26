@@ -6,7 +6,7 @@
 
 #include "Utils\DefinicjeWezlowXML.h"
 #include "Utils\Utils.h"
-#include "Utils\StaleUstawienAplikacji.h"
+#include "Narzedzia\Stale.h"
 
 #include "Widok\Konsola\Konsola.h"
 
@@ -73,9 +73,13 @@ namespace SpEx{
 		
 	bool Aplikacja::wczytajGre(std::shared_ptr<SPar::ParserElement> root){
 		auto dokumentGry = std::make_shared<SPar::ParserDokumentXml>();
-		if (!dokumentGry->odczytaj(ustawienia_[ATRYBUT_PLIK_GRY].c_str())){
+		std::string plikGry;
+		if (!ustawienia_[ATRYBUT_PLIK_GRY].empty())
+			plikGry += ustawienia_[ATRYBUT_GLOWNY_FOLDER_GRY] + "\\";
+		plikGry += ustawienia_[ATRYBUT_PLIK_GRY];
+		if (!dokumentGry->odczytaj(plikGry.c_str())){
 			Utils::generujSzablonPlikuGry(std::static_pointer_cast<SPar::ParserDokument>(dokumentGry));
-			if (!dokumentGry->zapisz(ustawienia_[ATRYBUT_PLIK_GRY].c_str())){
+			if (!dokumentGry->zapisz(plikGry.c_str())){
 				return false;
 			}
 		}
@@ -122,6 +126,10 @@ namespace SpEx{
 	bool Aplikacja::zapiszGre(){
 		std::locale::global(std::locale("C"));
 		bool retVal = false;
+		std::string plikGry;
+		if (!ustawienia_[ATRYBUT_PLIK_GRY].empty())
+			plikGry += ustawienia_[ATRYBUT_GLOWNY_FOLDER_GRY] + "\\";
+		plikGry += ustawienia_[ATRYBUT_PLIK_GRY];
 		try{
 			auto dokumentGry = std::make_shared<SPar::ParserDokumentXml>();
 			auto wezel = dokumentGry->tworzElement(WEZEL_XML_ROOT);
@@ -132,7 +140,7 @@ namespace SpEx{
 				zarzadcaUzytkownikow_->zapiszDane();
 
 				if (zarzadcaLokacji_->zapisz(wezel->tworzElement(WEZEL_XML_GRA)))
-					retVal = dokumentGry->zapisz(ustawienia_[ATRYBUT_PLIK_GRY].c_str());
+					retVal = dokumentGry->zapisz(plikGry.c_str());
 			}			
 		}
 		catch (...){

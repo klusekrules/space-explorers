@@ -705,9 +705,6 @@
     <ClInclude Include="Utils\StackThrow.h">
       <Filter>SourceFile\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\StaleUstawienAplikacji.h">
-      <Filter>SourceFile\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\DefinicjeWezlowXML.h">
       <Filter>SourceFile\Utils</Filter>
     </ClInclude>

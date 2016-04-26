@@ -5,6 +5,7 @@
 #include "DllModule.h"
 #include "XmlModul.h"
 #include "SumaKontrolnaPliku.h"
+#include "Stale.h"
 
 #define WEZEL_XML_LOKALIZACJA_ZASOBU "LokalizacjaZasobu"
 #define ATRYBUT_XML_LOKALIZACJA "lokalizacja"
@@ -28,16 +29,17 @@
 #define TYTUL_BLAD_ZASOBU STyp::Tekst("B³¹d tworzenia zasobu!")
 #define KOMUNIKAT_BLAD_ZASOBU( a ) STyp::Tekst("Próba wczytania typu, który nie jest obs³ugiwany. Parametr: " + a )
 
-#define ATRYBUT_POWIAZANIA_ZASOBOW "powiazaniaZasobow"
-
 namespace SpEx{
 
 	bool ZarzadcaZasobow::inicjalizuj(const UstawieniaAplikacji& ustawienia){
 		
-		auto plik = ustawienia[ATRYBUT_POWIAZANIA_ZASOBOW];
+		std::string plik;
+		if(!ustawienia[ATRYBUT_GLOWNY_FOLDER_GRY].empty())
+			plik += ustawienia[ATRYBUT_GLOWNY_FOLDER_GRY] + "\\";
+		plik += ustawienia[ATRYBUT_POWIAZANIA_ZASOBOW];
 		auto dokument = std::make_shared<SPar::ParserDokumentXml>();
 		if (!dokument->odczytaj(plik.c_str())){
-			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst()/*Utils::pobierzDebugInfo()*/, STyp::Identyfikator(-1), TYTUL_BLAD_OTWIERANIA_PLIKU, KOMUNIKAT_BLAD_OTWIERANIA_PLIKU(plik));
+			throw STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(-1), TYTUL_BLAD_OTWIERANIA_PLIKU, KOMUNIKAT_BLAD_OTWIERANIA_PLIKU(plik));
 		}
 
 		auto wezel = dokument->pobierzElement(nullptr);
@@ -246,12 +248,12 @@ namespace SpEx{
 
 			std::stringstream streamWeakPtr;
 			streamWeakPtr.imbue(std::locale("C"));
-			streamWeakPtr << "0x" << std::hex << (unsigned int)(element.second.weakptr_._Get());
+			streamWeakPtr << "0x" << std::hex << (unsigned __int64)(element.second.weakptr_._Get());
 			logger.dodajPole("weakptr_", NAZWAKLASY2(element.second.weakptr_), streamWeakPtr.str());
 			
 			std::stringstream streamSharedPtr;
 			streamSharedPtr.imbue(std::locale("C"));
-			streamSharedPtr << "0x" << std::hex << (unsigned int)(element.second.sharedptr_._Get());
+			streamSharedPtr << "0x" << std::hex << (unsigned __int64)(element.second.sharedptr_._Get());
 			logger.dodajPole("sharedptr_", NAZWAKLASY2(element.second.sharedptr_), streamSharedPtr.str());
 
 			std::stringstream streamCached;

@@ -5,6 +5,8 @@
   -->
   <opcja nazwa="locale" wartosc="Polish"/>
   
+  <opcja nazwa="glownyFolderGry" wartosc="Klient"/>
+  
   <!-- Opis Konfiguracji loggera. -->
   
   <!-- numerFormatuDaty - dopuszczalne wartosci = [0, 1, 2] -->  
@@ -14,7 +16,7 @@
   <opcja nazwa="formatDatyWNazwiePliku" wartosc="%Y-%m-%d"/>
   
   <!--prefixPlikuLogow - przedrostek w nazwie plik dodany przed datą wyświetloną podanym wyżej formacie.-->
-  <opcja nazwa="prefixPlikuLogow" wartosc="Klient\\space-explorers-"/>
+  <opcja nazwa="prefixPlikuLogow" wartosc="space-explorers-"/>
   
   <!-- WARN: Plik tworzony jest raz na początku działania aplikacji. W przypadku zmiany daty nie jest tworzony nowy, dopuki aplikacja nie zostanie uruchomiona ponownie. -->
   <!--
@@ -39,15 +41,13 @@
   <!--opcja nazwa="plikDanych" wartosc="Klient\\danetestowe.xml"/-->
   
   <!-- Względny adres folderu, w którym znajduja się pliki dll z pluginami. W podfolderze tej ścieżki są wyszukiwane i wczytywane zmiany. -->
-  <opcja nazwa="plugins" wartosc="Klient\\plugins\\"/>
+  <opcja nazwa="plugins" wartosc="plugins\\"/>
 
-  <opcja nazwa="powiazaniaZasobow" wartosc="Klient\\powiazania.xml"/>
+  <opcja nazwa="powiazaniaZasobow" wartosc="powiazania.xml"/>
  
-  <opcja nazwa="plikGry" wartosc="Klient\\save\\gra.xml"/>
-  <opcja nazwa="plikStanow" wartosc="Klient\\resources\\state.xml"/>
-  <opcja nazwa="plikOkien" wartosc="Klient\\resources\\ekrany.xml"/>
-  <opcja nazwa="folderPlikowUzytkownikow" wartosc="Klient\\save\\"/>
-  <opcja nazwa="folderPlikowOpisuUkladow" wartosc="Klient\\save\\uklad\\"/>
+  <opcja nazwa="plikGry" wartosc="save\\gra.xml"/>
+  <opcja nazwa="folderPlikowUzytkownikow" wartosc="save\\"/>
+  <opcja nazwa="folderPlikowOpisuUkladow" wartosc="save\\uklad\\"/>
   <opcja nazwa="plikAutoryzacji" wartosc="hash.xml"/>
   
   <opcja nazwa="portSerwera" wartosc="15015"/>

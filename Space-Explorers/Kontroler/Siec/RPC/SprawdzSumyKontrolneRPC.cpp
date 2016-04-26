@@ -5,7 +5,7 @@
 #include "Narzedzia\SumaKontrolnaPliku.h"
 #include "Kontroler\Zarzadca\ZarzadcaPluginow.h"
 #include "StaleRPC.h"
-#include "Utils\StaleUstawienAplikacji.h"
+#include "Narzedzia\Stale.h"
 #include "Algorytmy\base64.h"
 
 #define LISTA_PLIKOW "lista"
