@@ -485,7 +485,7 @@
     <ClCompile Include="Kontroler\MaszynaStanow\Stan.cpp" />
     <ClCompile Include="Kontroler\MaszynaStanow\StanInfo.cpp" />
     <ClCompile Include="Kontroler\MaszynaStanow\ZdarzenieInfo.cpp" />
-    <ClCompile Include="Kontroler\Siec\DaneJOSN.cpp" />
+    <ClCompile Include="Kontroler\Siec\DaneJSON.cpp" />
     <ClCompile Include="Kontroler\Siec\Klient.cpp" />
     <ClCompile Include="Kontroler\Siec\Kompresja.cpp" />
     <ClCompile Include="Kontroler\Siec\Nasluchiwacz.cpp" />

@@ -382,7 +382,7 @@
     <ClCompile Include="Kontroler\Siec\Kompresja.cpp">
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClCompile>
-    <ClCompile Include="Kontroler\Siec\DaneJOSN.cpp">
+    <ClCompile Include="Kontroler\Siec\DaneJSON.cpp">
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClCompile>
   </ItemGroup>
