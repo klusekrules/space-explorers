@@ -1,4 +1,4 @@
-#include "DaneTCP.h"
+#include "DaneJSON.h"
 #include "zlib.h"
 #include "RPC\StaleRPC.h"
 #include "Kontroler\Aplikacja.h"
@@ -7,17 +7,17 @@
 #include "Kontroler\Zarzadca\Fabrykator.h"
 
 namespace SpEx{
-	DaneTCP::DaneTCP(Klient& ref)
+	DaneJSON::DaneJSON(Klient& ref)
 		: ref_(ref), flagi_(0), odbierz_(wyslij_)
 	{
 	}
 
-	DaneTCP::DaneTCP(Klient& ref, const std::string& wyslij, std::string& odbierz, int flagi)
+	DaneJSON::DaneJSON(Klient& ref, const std::string& wyslij, std::string& odbierz, int flagi)
 		: ref_(ref), odbierz_(odbierz), wyslij_(wyslij), flagi_(flagi), error_(0)
 	{	
 	}
 
-	int DaneTCP::odbierz(){
+	int DaneJSON::odbierz(){
 		int error = odbierzWewnetrzna();
 		if (error==RPC_OK){
 			error = przetworzPoOdebraniu();			
@@ -36,7 +36,7 @@ namespace SpEx{
 		return error;
 	}
 
-	int DaneTCP::wyslij(){
+	int DaneJSON::wyslij(){
 		if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Debug)){
 			Json::Value root;
 			Json::Reader reader;
@@ -56,7 +56,7 @@ namespace SpEx{
 		return wyslijWewnetrzna();
 	}
 
-	int DaneTCP::wykonajMetode(){
+	int DaneJSON::wykonajMetode(){
 		Json::Value root;
 		Json::Reader reader; 
 		int error = RPC_OK;
@@ -125,7 +125,7 @@ namespace SpEx{
 		
 	}
 
-	void DaneTCP::dodajKomunikatBledu(int blad, Json::Value& root){
+	void DaneJSON::dodajKomunikatBledu(int blad, Json::Value& root){
 		switch (blad){
 		case RPC_ERROR_EXCEPTION:
 			root[METODA_RPC_ERROR][METODA_RPC_TYPE] = TYPE_RPC_E_EXCEPTION;
@@ -161,7 +161,7 @@ namespace SpEx{
 		}
 	}
 
-	int DaneTCP::odbierzWewnetrzna(){
+	int DaneJSON::odbierzWewnetrzna(){
 		u_int64 rozmiar = 0;
 		u_int64 header = 0;
 		int rezultat = 0;
@@ -233,7 +233,7 @@ namespace SpEx{
 			return RPC_ERROR_NO_DATA;
 	}
 
-	int DaneTCP::wyslijWewnetrzna(){
+	int DaneJSON::wyslijWewnetrzna(){
 		int rezultat = 0;
 		u_int64 header = 0;
 		u_int64 rozmiar = wyslij_.size();
@@ -281,15 +281,15 @@ namespace SpEx{
 		return RPC_OK;
 	}
 
-	void DaneTCP::wlaczKompresje(){
+	void DaneJSON::wlaczKompresje(){
 		flagi_ |= 0x1;
 	}
 
-	void DaneTCP::wlaczAutoryzacje(){
+	void DaneJSON::wlaczAutoryzacje(){
 		flagi_ |= 0x2;
 	}
 
-	int DaneTCP::kompresja(){
+	int DaneJSON::kompresja(){
 		auto rozmiar = wyslij_.size();
 		auto bound = compressBound(rozmiar);
 		uLongf after = bound;
@@ -333,7 +333,7 @@ namespace SpEx{
 		return error_;
 	}
 
-	int DaneTCP::dekompresja(){
+	int DaneJSON::dekompresja(){
 
 		uLongf unSize = odbierz_.size() - 4;
 		uLongf rozmiar = ((u_char)odbierz_[0] << 24) | ((u_char)odbierz_[1] << 16) | ((u_char)odbierz_[2] << 8) | (u_char)odbierz_[3];
@@ -377,7 +377,7 @@ namespace SpEx{
 		return error_;
 	}
 
-	int DaneTCP::szyfrowanie(const std::string& klucz){
+	int DaneJSON::szyfrowanie(const std::string& klucz){
 
 		std::string vektor(SLog::Log::pobierzInstancje().pobierzDateCzas());
 		VMPC_MAC szyfr;
@@ -398,7 +398,7 @@ namespace SpEx{
 		return RPC_OK;
 	}
 
-	int DaneTCP::deszyfrowanie(const std::string& klucz){
+	int DaneJSON::deszyfrowanie(const std::string& klucz){
 		VMPC_MAC szyfr;
 		SHA3 skrotKlucza(klucz);
 		auto firstWektor = odbierz_.begin() + 20;
@@ -418,7 +418,7 @@ namespace SpEx{
 		return RPC_OK;
 	}
 
-	int DaneTCP::przygotujDoWyslania(){
+	int DaneJSON::przygotujDoWyslania(){
 		error_ = RPC_OK;
 		if (flagi_ & 0x1){
 			error_ = kompresja();
@@ -440,7 +440,7 @@ namespace SpEx{
 		return error_;
 	}
 
-	int DaneTCP::przetworzPoOdebraniu(){
+	int DaneJSON::przetworzPoOdebraniu(){
 		error_ = RPC_OK;
 		if (flagi_ & 0x2){
 			if (ref_.czyAutoryzowany()){

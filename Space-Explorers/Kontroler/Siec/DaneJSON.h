@@ -2,10 +2,10 @@
 #include "RPC\MetodaRPC.h"
 
 namespace SpEx{
-	class DaneTCP{
+	class DaneJSON {
 	public:
-		DaneTCP(Klient&);
-		DaneTCP(Klient&, const std::string&, std::string&, int);
+		DaneJSON(Klient&);
+		DaneJSON(Klient&, const std::string&, std::string&, int);
 
 		int odbierz();
 		int wyslij();
@@ -14,7 +14,7 @@ namespace SpEx{
 		
 		void wlaczKompresje();
 		void wlaczAutoryzacje();
-		~DaneTCP() = default;
+		~DaneJSON() = default;
 	private:
 
 		int odbierzWewnetrzna();

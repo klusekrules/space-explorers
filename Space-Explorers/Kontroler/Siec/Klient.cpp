@@ -6,7 +6,7 @@
 #include <Ws2tcpip.h>
 #include "TypyProste\Wyjatek.h"
 #include "zlib.h"
-#include "DaneTCP.h"
+#include "DaneJSON.h"
 #include "Utils\Utils.h"
 
 #define ROZMIAR_BUFORA 1024
@@ -131,7 +131,7 @@ namespace SpEx{
 			}
 
 			//Proces obs³ugi ¿¹dania.
-			DaneTCP dane(*this, *(zadanie_->zadanie_), *(zadanie_->rezultat_), zadanie_->flagi_);
+			DaneJSON dane(*this, *(zadanie_->zadanie_), *(zadanie_->rezultat_), zadanie_->flagi_);
 			int error = RPC_OK;
 
 			// Wysy³anie ¿¹dania do serwera.
@@ -171,7 +171,7 @@ namespace SpEx{
 	
 	void Klient::pracujJakoSerwer(){
 		while (!czyZakonczyc()){
-			DaneTCP dane(*this);
+			DaneJSON dane(*this);
 			int error = dane.odbierz();
 			if (error != RPC_OK){
 				if (error != RPC_ERROR_CONNECTION_CLOSED)

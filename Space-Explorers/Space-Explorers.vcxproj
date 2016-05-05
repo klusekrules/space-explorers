@@ -348,8 +348,9 @@
     <ClInclude Include="Kontroler\MaszynaStanow\StanInfo.h" />
     <ClInclude Include="Kontroler\MaszynaStanow\Zdarzenie.h" />
     <ClInclude Include="Kontroler\MaszynaStanow\ZdarzenieInfo.h" />
-    <ClInclude Include="Kontroler\Siec\DaneTCP.h" />
+    <ClInclude Include="Kontroler\Siec\DaneJSON.h" />
     <ClInclude Include="Kontroler\Siec\Klient.h" />
+    <ClInclude Include="Kontroler\Siec\Kompresja.h" />
     <ClInclude Include="Kontroler\Siec\Nasluchiwacz.h" />
     <ClInclude Include="Kontroler\Siec\RAW\KlientRaw.h" />
     <ClInclude Include="Kontroler\Siec\RAW\SerwerRaw.h" />
@@ -363,6 +364,7 @@
     <ClInclude Include="Kontroler\Siec\RPC\StaleRPC.h" />
     <ClInclude Include="Kontroler\Siec\Serwer.h" />
     <ClInclude Include="Kontroler\Siec\SocketBase.h" />
+    <ClInclude Include="Kontroler\Siec\Szyfrowanie.h" />
     <ClInclude Include="Kontroler\Wielowatkowosc\MenadzerWatkow.h" />
     <ClInclude Include="Kontroler\Wielowatkowosc\ObserwatorWatkow.h" />
     <ClInclude Include="Kontroler\Wielowatkowosc\Watek.h" />
@@ -483,8 +485,9 @@
     <ClCompile Include="Kontroler\MaszynaStanow\Stan.cpp" />
     <ClCompile Include="Kontroler\MaszynaStanow\StanInfo.cpp" />
     <ClCompile Include="Kontroler\MaszynaStanow\ZdarzenieInfo.cpp" />
-    <ClCompile Include="Kontroler\Siec\DaneTCP.cpp" />
+    <ClCompile Include="Kontroler\Siec\DaneJOSN.cpp" />
     <ClCompile Include="Kontroler\Siec\Klient.cpp" />
+    <ClCompile Include="Kontroler\Siec\Kompresja.cpp" />
     <ClCompile Include="Kontroler\Siec\Nasluchiwacz.cpp" />
     <ClCompile Include="Kontroler\Siec\RAW\KlientRaw.cpp" />
     <ClCompile Include="Kontroler\Siec\RAW\SerwerRaw.cpp" />
@@ -497,6 +500,7 @@
     <ClCompile Include="Kontroler\Siec\RPC\SprawdzSumyKontrolneRPC.cpp" />
     <ClCompile Include="Kontroler\Siec\Serwer.cpp" />
     <ClCompile Include="Kontroler\Siec\SocketBase.cpp" />
+    <ClCompile Include="Kontroler\Siec\Szyfrowanie.cpp" />
     <ClCompile Include="Kontroler\Wielowatkowosc\MenadzerWatkow.cpp" />
     <ClCompile Include="Kontroler\Wielowatkowosc\ObserwatorWatkow.cpp" />
     <ClCompile Include="Kontroler\Wielowatkowosc\Watek.cpp" />

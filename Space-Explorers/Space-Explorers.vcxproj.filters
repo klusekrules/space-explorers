@@ -253,9 +253,6 @@
     <ClCompile Include="Kontroler\Siec\RPC\MetodaRPC.cpp">
       <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClCompile>
-    <ClCompile Include="Kontroler\Siec\DaneTCP.cpp">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClCompile>
     <ClCompile Include="Kontroler\Siec\Klient.cpp">
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClCompile>
@@ -378,6 +375,15 @@
     </ClCompile>
     <ClCompile Include="Kontroler\Wielowatkowosc\ObserwatorWatkow.cpp">
       <Filter>SourceFile\Kontroler\MultiThreading</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\Szyfrowanie.cpp">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\Kompresja.cpp">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\DaneJOSN.cpp">
+      <Filter>SourceFile\Kontroler\Network</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -636,9 +642,6 @@
     <ClInclude Include="Kontroler\Siec\RPC\StaleRPC.h">
       <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClInclude>
-    <ClInclude Include="Kontroler\Siec\DaneTCP.h">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClInclude>
     <ClInclude Include="Kontroler\Siec\Klient.h">
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClInclude>
@@ -788,6 +791,15 @@
     </ClInclude>
     <ClInclude Include="Kontroler\Wielowatkowosc\ObserwatorWatkow.h">
       <Filter>SourceFile\Kontroler\MultiThreading</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\Kompresja.h">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\Szyfrowanie.h">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\DaneJSON.h">
+      <Filter>SourceFile\Kontroler\Network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
