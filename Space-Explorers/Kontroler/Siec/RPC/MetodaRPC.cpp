@@ -204,10 +204,15 @@ namespace SpEx{
 
 	bool MetodaRPC::obsluzMetode(Json::Value & root){
 		Json::Value result(Json::objectValue);
-		obslugaZadania(root, result);		
+		obslugaZadania(root, result);
 		czas_odpowiedzi_ = SLog::Log::pobierzInstancje().pobierzDateCzas();
 		(*this) >> root;
 		root[METODA_RPC_METODA][METODA_RPC_RETURN] = result;
+		if (typBledu_ == TYPE_RPC_E_SPECIALIZED_BY_METHOD) {
+			root[METODA_RPC_ERROR][METODA_RPC_TYPE] = typBledu_;
+			root[METODA_RPC_ERROR][METODA_RPC_KOMUNIKAT] = komuniaktBledu_;
+			root[METODA_RPC_ERROR][METODA_RPC_NUMER] = numerBledu_;
+		}
 		return true;
 	}
 
@@ -245,7 +250,13 @@ namespace SpEx{
 			numerBledu_ = throwNode[METODA_RPC_NUMER].asInt();
 		}
 
-		return RPC_ERROR_METHOD_THROW;
+		return typBledu_ == TYPE_RPC_E_SPECIALIZED_BY_METHOD ? RPC_OK : RPC_ERROR_METHOD_THROW;
+	}
+
+	void MetodaRPC::ustawBlad(int numer, std::string tresc){
+		typBledu_ = TYPE_RPC_E_SPECIALIZED_BY_METHOD;
+		komuniaktBledu_ = tresc;
+		numerBledu_ = numer;
 	}
 
 	int MetodaRPC::wykonajMetode_impl(){

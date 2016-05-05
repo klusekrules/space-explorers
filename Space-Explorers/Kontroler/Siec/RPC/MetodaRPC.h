@@ -59,6 +59,8 @@ namespace SpEx{
 
 		int obslugaWyjatku(const Json::Value&);
 
+		void ustawBlad(int,std::string);
+
 		static int sprawdzMetode(const Json::Value&, bool);
 		static int sprawdzMetodeUprzywilejowana(const Json::Value&);
 		static int sprawdzAutoryzacje(const Json::Value&);
