@@ -252,7 +252,7 @@ namespace SpEx {
 	void ZarzadcaLokacji::inicjalizuj(const UstawieniaAplikacji& ustawienia){
 		if (!ustawienia[ATRYBUT_GLOWNY_FOLDER_GRY].empty())
 			folderPlikuUkladu_ += ustawienia[ATRYBUT_GLOWNY_FOLDER_GRY] + "\\";
-		folderPlikuUkladu_ = ustawienia[ATRYBUT_FOLDER_PLIKU_UKLADU];
+		folderPlikuUkladu_ += ustawienia[ATRYBUT_FOLDER_PLIKU_UKLADU];
 		if (_access(folderPlikuUkladu_.c_str(), 0) == -1){
 			if (!Utils::tworzSciezke(folderPlikuUkladu_)){
 				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, STyp::Tekst(""), KOMUNIKAT_BLAD_TWORZEZNIA_FOLDERU(folderPlikuUkladu_));

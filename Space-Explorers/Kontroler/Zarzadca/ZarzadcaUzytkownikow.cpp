@@ -10,7 +10,7 @@ namespace SpEx{
 	bool ZarzadcaUzytkownikow::inicjalizuj(const UstawieniaAplikacji& ustawienia){
 		if (!ustawienia[ATRYBUT_GLOWNY_FOLDER_GRY].empty())
 			folderPlikowUzytkownika_ += ustawienia[ATRYBUT_GLOWNY_FOLDER_GRY] + "\\";
-		folderPlikowUzytkownika_ = ustawienia[ATRYBUT_FOLDER_PLIKU_UZYTKOWNIKA];
+		folderPlikowUzytkownika_ += ustawienia[ATRYBUT_FOLDER_PLIKU_UZYTKOWNIKA];
 		plikAutoryzacji_ = ustawienia[ATRYBUT_PLIK_AUTORYZACJI];
 		auto plikAutoryzacji = (folderPlikowUzytkownika_ + plikAutoryzacji_);
 		if (_access(plikAutoryzacji.c_str(), 0) == -1){

@@ -4,6 +4,8 @@
 #include "Kontroler\Zarzadca\Fabrykator.h"
 #include "Utils\DefinicjeWezlowXML.h"
 #include "Model\GeneratorUkladow.h"
+#include "Narzedzia\Stale.h"
+#include "Eksport\IProxyBO.h"
 
 namespace SpEx{
 
@@ -117,5 +119,28 @@ namespace SpEx{
 		auto licznik_galaktyka = generator->tworzElement(WEZEL_XML_LICZNIK);
 		licznik_galaktyka->tworzAtrybut(ATRYBUT_XML_IDENTYFIKATOR, "")->ustawWartoscLongLong(GeneratorUkladow::LICZNIK_GALAKTYK_ID());
 		licznik_galaktyka->tworzAtrybut(ATRYBUT_XML_ILOSC, "0");
+	}
+
+	std::string Utils::adresPliku(const std::string & identyfikator){
+		if (identyfikator == ATRYBUT_PLIK_DANYCH) {
+			std::string adres;
+			std::string plikDanych;
+			std::string glownyFolder = Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji()[ATRYBUT_GLOWNY_FOLDER_GRY];
+			if (!glownyFolder.empty())
+				adres += glownyFolder + "\\";
+
+			plikDanych = Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji()[ATRYBUT_PLIK_DANYCH];
+			if (plikDanych.empty()) {
+				if (Aplikacja::pobierzInstancje().proxy_->pobierzTrybAplikacji() == TrybAplikacji::Serwer) {
+					return std::string();
+				} else {
+					plikDanych = "daneGry.xml";
+				}
+			}
+
+			adres += plikDanych;
+			return std::move(adres);
+		}
+		return std::string();
 	}
 }

@@ -163,5 +163,7 @@ namespace SpEx{
 
 		static void generujSzablonPlikuGry(std::shared_ptr<SPar::ParserDokument>& ptr);
 
+		static std::string adresPliku(const std::string& identyfikator);
+
 	};
 }

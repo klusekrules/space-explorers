@@ -301,7 +301,23 @@ namespace SpEx{
 			nazwaPlikuDanych_ += ustawienia_[ATRYBUT_PLIK_DANYCH];
 			if (!nazwaPlikuDanych_.empty()) {
 				if (_access(nazwaPlikuDanych_.c_str(), 0) == -1) { // Sprawdzenie czy plik istnieje
-					throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_PLIKU_DANYCH(nazwaPlikuDanych_));
+					if (proxy_ && proxy_->pobierzTrybAplikacji() == TrybAplikacji::Serwer) {
+						throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_PLIKU_DANYCH(nazwaPlikuDanych_));
+					}
+					else {
+						switch (errno) {
+						case EACCES:
+						case EINVAL:
+						default:
+							throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_PLIKU_DANYCH(nazwaPlikuDanych_));
+							break;
+						case ENOENT:
+#if !(defined(LOG_OFF_ALL) || defined(LOG_OFF_DEBUG))
+							logger_.loguj(SLog::Log::Warning, "Brak pliku danych.");
+#endif
+							break;
+						}
+					}
 				}
 			}
 			else {
