@@ -385,6 +385,18 @@
     <ClCompile Include="Kontroler\Siec\DaneJSON.cpp">
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClCompile>
+    <ClCompile Include="Kontroler\Siec\DaneTCP.cpp">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\DaneRAW.cpp">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\DaneZPamieci.cpp">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\DaneZPliku.cpp">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model\Flota.h">
@@ -799,6 +811,24 @@
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Siec\DaneJSON.h">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\DaneTCP.h">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\IGniazdo.h">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\IDane.h">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\DaneRAW.h">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\DaneZPamieci.h">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\DaneZPliku.h">
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClInclude>
   </ItemGroup>

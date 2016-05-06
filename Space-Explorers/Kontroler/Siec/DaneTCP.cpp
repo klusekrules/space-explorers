@@ -1,0 +1,69 @@
+#include "DaneTCP.h"
+#include <WinSock2.h>
+#include <vector>
+#include "Logger\Log.h"
+#include "RPC\StaleRPC.h"
+#include <chrono>
+#include <thread>
+
+int SpEx::DaneTCP::wyslij(){
+	int rezultat = 0;
+	u_int64 header = 0;
+		
+	header = htonll(flagi_);
+
+	gniazdo_.ustawWarunekOczekiwania(warunek_);
+	rezultat = gniazdo_.wyslij((char*)&header, sizeof(u_int64));
+	gniazdo_.ustawWarunekOczekiwania(nullptr);
+
+	if (warunek_())
+		return RPC_ERROR_CONNECTION_CLOSED;
+
+	if (rezultat != ERROR_SUCCESS)
+		return rezultat;
+	
+	gniazdo_.ustawWarunekOczekiwania(warunek_);
+	rezultat = gniazdo_.wyslij(dane_);
+	gniazdo_.ustawWarunekOczekiwania(nullptr);
+
+	if (warunek_())
+		return RPC_ERROR_CONNECTION_CLOSED;
+
+	if (rezultat != ERROR_SUCCESS)
+		return rezultat;
+
+	return RPC_OK;
+}
+
+int SpEx::DaneTCP::odbierz(){
+	u_int64 header = 0;
+	int rezultat = 0;
+	
+	gniazdo_.ustawWarunekOczekiwania(warunek_);
+	rezultat = gniazdo_.odbierz((char*)&header, sizeof(u_int64)); 
+	gniazdo_.ustawWarunekOczekiwania(nullptr);
+
+	if (warunek_())
+		return RPC_ERROR_CONNECTION_CLOSED;
+
+	if (rezultat != ERROR_SUCCESS)
+		return rezultat;
+
+	flagi_ = ntohll(header);
+	dane_.ustawFlagi(flagi_);
+
+	gniazdo_.ustawWarunekOczekiwania(warunek_);
+	rezultat = gniazdo_.odbierz(dane_);
+	gniazdo_.ustawWarunekOczekiwania(nullptr);
+	
+	if (warunek_())
+		return RPC_ERROR_CONNECTION_CLOSED;
+
+	if (rezultat != ERROR_SUCCESS)
+		return rezultat;
+	
+	if (dane_.rozmiar() > 0)
+		return RPC_OK;
+	else
+		return RPC_ERROR_NO_DATA;
+}
