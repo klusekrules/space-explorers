@@ -26,7 +26,7 @@ namespace SpEx {
 		* \version 1
 		* \date 06-05-2016
 		*/
-		virtual int wyslij(const char* dane, int rozmiar, int flagi = 0) = 0;
+		//virtual int wyslij(const char* dane, int rozmiar, int flagi = 0) = 0;
 
 		/**
 		* \brief Odbieranie danych z gniazda.
@@ -40,7 +40,7 @@ namespace SpEx {
 		* \version 1
 		* \date 06-05-2016
 		*/
-		virtual int odbierz(char* dane, int rozmiar, int flagi = 0) = 0;
+		//virtual int odbierz(char* dane, int rozmiar, int flagi = 0) = 0;
 
 		/**
 		* \brief Wysy³anie danych przez gniazdo.
@@ -53,7 +53,7 @@ namespace SpEx {
 		* \version 1
 		* \date 06-05-2016
 		*/
-		virtual int wyslij(IDane & dane, int flagi = 0) = 0;
+		int wyslij(IDane & dane, int flagi = 0);
 
 		/**
 		* \brief Odbieranie danych z gniazda.
@@ -66,7 +66,7 @@ namespace SpEx {
 		* \version 1
 		* \date 06-05-2016
 		*/
-		virtual int odbierz(IDane &dane, int flagi = 0) = 0;
+		int odbierz(IDane &dane, int flagi = 0);
 
 		/**
 		* \brief Pobieranie IP gniazda.
@@ -77,7 +77,7 @@ namespace SpEx {
 		* \version 1
 		* \date 06-05-2016
 		*/
-		virtual unsigned int pobierzIP() const = 0;
+		unsigned int pobierzIP() const;
 
 		/**
 		* \brief Metoda ustawia warunek oczekiwania.
@@ -88,6 +88,6 @@ namespace SpEx {
 		* \version 1
 		* \date 06-05-2016
 		*/
-		virtual void ustawWarunekOczekiwania( std::function <bool(void)> warunek ) = 0;
+		void ustawWarunekOczekiwania( std::function <bool(void)> warunek );
 	};
 }
