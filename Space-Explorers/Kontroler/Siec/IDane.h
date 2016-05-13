@@ -11,6 +11,7 @@ namespace SpEx {
 	* \date 06-05-2016
 	*/
 	class IDane {
+		friend class GniazdoWinSock;
 	public:
 
 		virtual ~IDane() = default;
@@ -51,33 +52,17 @@ namespace SpEx {
 		* \date 06-05-2016
 		*/
 		virtual unsigned __int64 rozmiar() const = 0;
-
-		/**
-		* \brief Wprowadzenie danych do kontenera
-		*
-		* Metoda dodaje wprowadza dane przekazane w parametrach do kontenera wewnêtrzenego.
-		* \param[in] dane - Dane do przekazania.
-		* \param[in] rozmiar - Rozmiar przekazanych danych.
-		* \return Status zakoñczenia metody.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 06-05-2016
-		*/
-		virtual int wez(const char * dane, unsigned __int64 rozmiar) = 0;
-
-		/**
-		* \brief Pobranie danych z kontenera.
-		*
-		* Metoda wystawia dane z kontenera.
-		* \param[inout] rozmiar - Rozmiar przekazanych danych.
-		* \return WskaŸnik do przekazanych danych.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 06-05-2016
-		*/
-		virtual int daj(const char ** dane, unsigned __int64& rozmiar) = 0;
-
+		
 	protected:
-		unsigned __int64 flagi_;
+		unsigned __int64 flagi_; //Flagi steruj¹ce danymi.
+
+		virtual int wyslij(GniazdoWinSock& e, int flagi) = 0;
+
+		virtual int odbierz(GniazdoWinSock& e, int flagi) = 0;
+
+		int SendData(GniazdoWinSock& e, char* buf, int buflen, int flagi);
+
+		int RecvData(GniazdoWinSock& e, char* buf, int buflen, int flagi);
+
 	};
 }

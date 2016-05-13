@@ -74,7 +74,7 @@ namespace SpEx{
 							//Pobieranie flag steruj¹cych dla pakietu zwrotnego.
 							flagi_ = metodaRPC->pobierzFlagi();
 						} else{
-							error = RPC_ERROR_PROCOSSING_METHOD;
+							error = SOCK_PROCCESSING_BREAK;
 						}
 					}
 					catch (STyp::Wyjatek& wyjatek){
@@ -143,7 +143,7 @@ namespace SpEx{
 			root[METODA_RPC_ERROR][METODA_RPC_KOMUNIKAT] = "B³¹d parsowania.";
 			root[METODA_RPC_ERROR][METODA_RPC_NUMER] = blad;
 			break;
-		case RPC_ERROR_PROCOSSING_METHOD:
+		case SOCK_PROCCESSING_BREAK:
 			root[METODA_RPC_ERROR][METODA_RPC_TYPE] = TYPE_RPC_E_ERROR;
 			root[METODA_RPC_ERROR][METODA_RPC_KOMUNIKAT] = "Przetwarznie metody zwróci³o b³¹d.";
 			root[METODA_RPC_ERROR][METODA_RPC_NUMER] = blad;
@@ -175,7 +175,7 @@ namespace SpEx{
 					if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){
 						SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie: " + ref_.pobierzAdres());
 					}
-					return RPC_ERROR_CONNECTION_CLOSED;
+					return SOCK_CONNECTION_CLOSED;
 				} else{
 					if (WSAEWOULDBLOCK == WSAGetLastError()){
 						std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -204,7 +204,7 @@ namespace SpEx{
 						if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){
 							SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie: " + ref_.pobierzAdres());
 						}
-						return RPC_ERROR_CONNECTION_CLOSED;
+						return SOCK_CONNECTION_CLOSED;
 					} else{
 						if (WSAEWOULDBLOCK == WSAGetLastError()){
 							std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -225,7 +225,7 @@ namespace SpEx{
 		std::string s(bufor.begin(), bufor.end());
 		odbierz_ = std::move(s);
 		if (ref_.czyCzekaNaZakonczenie())
-			return RPC_ERROR_CONNECTION_CLOSED;
+			return SOCK_CONNECTION_CLOSED;
 
 		if (rozmiar > 0)
 			return RPC_OK;
@@ -246,7 +246,7 @@ namespace SpEx{
 			if (rezultat == 0){
 				if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){
 					SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie: " + ref_.pobierzAdres());
-					error = RPC_ERROR_CONNECTION_CLOSED;
+					error = SOCK_CONNECTION_CLOSED;
 				}
 			} else{
 				if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
@@ -265,7 +265,7 @@ namespace SpEx{
 				if (rezultat == 0){
 					if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning)){
 						SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie: " + ref_.pobierzAdres());
-						error = RPC_ERROR_CONNECTION_CLOSED;
+						error = SOCK_CONNECTION_CLOSED;
 					}
 				} else{
 					if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){

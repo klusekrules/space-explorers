@@ -1,11 +1,13 @@
 #include "DaneZPliku.h"
-#include <winerror.h>
+#include <Ws2tcpip.h>
+#include "GniazdoWinSock.h"
+#include "RPC\StaleRPC.h"
 
 SpEx::DaneZPliku::DaneZPliku(const std::string & adresPliku)
 	: plik_ (nullptr)
 {
 	if (!adresPliku.empty()) {
-
+		fopen(adresPliku.c_str(),"rw");
 	}
 }
 
@@ -18,38 +20,61 @@ unsigned __int64 SpEx::DaneZPliku::rozmiar() const{
 	return rozmiar_;
 }
 
-int SpEx::DaneZPliku::wez(const char * dane, unsigned __int64 rozmiar){
-	if (plik_ == nullptr)
-		return ERROR_FILE_NOT_FOUND;
+int SpEx::DaneZPliku::wyslij(GniazdoWinSock & e, int flagi){
+	if (plik_ == nullptr) {
+		return EOF;
+	}
 
-	int offset = 0;
-	do {
-		size_t written = fwrite(&dane[offset], sizeof(char), rozmiar - offset, plik_);
-		if (written == 0) {
-			return ferror(plik_);
-		}
-		offset += written;
-		rozmiar_ += written;
-	} while (offset < rozmiar);
-	return ERROR_SUCCESS;
+	fseek(plik_, 0, SEEK_END);
+	long filesize = ftell(plik_);
+	rewind(plik_);
+
+	if (filesize == EOF) {
+		return EOF;
+	}
+
+	long fsize = htonl(filesize);
+	int error;
+	if (! (error = SendData(e, (char*)&fsize, sizeof(fsize), flagi)))
+		return error;
+	if (filesize > 0) {
+		char buffer[ROZMIAR_BUFFORA];
+		do {
+			size_t num = min(filesize, sizeof(buffer));
+			num = fread(buffer, 1, num, plik_);
+			if (num < 1) {
+				return EOF;
+			}
+			if (!(error = SendData(e, buffer, num, flagi)))
+				return error;
+			filesize -= num;
+		} while (filesize > 0 && e.sprawdzWarunek());
+	}
+	return e.sprawdzWarunek() ? ERROR_SUCCESS : SOCK_PROCCESSING_BREAK;
 }
 
-int SpEx::DaneZPliku::daj(const char ** dane, unsigned __int64 & rozmiar){
-	if (plik_ == nullptr)
-		return ERROR_FILE_NOT_FOUND;
-
-	size_t num;
-	if (rozmiar != 0) {
-		num = fread(&dane, 1, rozmiar, plik_);
-	} else {
-		num = fread(buffor_, 1, ROZMIAR_BUFFORA, plik_);
+int SpEx::DaneZPliku::odbierz(GniazdoWinSock & e, int flagi){
+	long filesize;
+	int error;
+	if (!(error = RecvData(e,(char*)&filesize, sizeof(filesize), flagi)))
+		return error;
+	filesize = ntohl(filesize);
+	if (filesize > 0) {
+		char buffer[ROZMIAR_BUFFORA];
+		do {
+			int num = min(filesize, sizeof(buffer));
+			if (!(error = RecvData(e, buffer, num, flagi)))
+				return error;
+			int offset = 0;
+			do {
+				size_t written = fwrite(&buffer[offset], sizeof(char), num - offset, plik_);
+				if (written == 0) {
+					return ferror(plik_);
+				}
+				offset += written;
+			} while (offset < num && e.sprawdzWarunek());
+			filesize -= num;
+		} while (filesize > 0 && e.sprawdzWarunek());
 	}
-
-	if (num==0) {
-		return ferror(plik_);
-	}
-
-	rozmiar = num;
-
-	return ERROR_SUCCESS;
+	return e.sprawdzWarunek() ? ERROR_SUCCESS : SOCK_PROCCESSING_BREAK;
 }

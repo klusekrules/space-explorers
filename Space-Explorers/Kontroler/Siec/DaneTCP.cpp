@@ -17,7 +17,7 @@ int SpEx::DaneTCP::wyslij(){
 	gniazdo_.ustawWarunekOczekiwania(nullptr);
 
 	if (warunek_())
-		return RPC_ERROR_CONNECTION_CLOSED;
+		return SOCK_CONNECTION_CLOSED;
 
 	if (rezultat != ERROR_SUCCESS)
 		return rezultat;
@@ -27,7 +27,7 @@ int SpEx::DaneTCP::wyslij(){
 	gniazdo_.ustawWarunekOczekiwania(nullptr);
 
 	if (warunek_())
-		return RPC_ERROR_CONNECTION_CLOSED;
+		return SOCK_CONNECTION_CLOSED;
 
 	if (rezultat != ERROR_SUCCESS)
 		return rezultat;
@@ -44,7 +44,7 @@ int SpEx::DaneTCP::odbierz(){
 	gniazdo_.ustawWarunekOczekiwania(nullptr);
 
 	if (warunek_())
-		return RPC_ERROR_CONNECTION_CLOSED;
+		return SOCK_CONNECTION_CLOSED;
 
 	if (rezultat != ERROR_SUCCESS)
 		return rezultat;
@@ -57,7 +57,7 @@ int SpEx::DaneTCP::odbierz(){
 	gniazdo_.ustawWarunekOczekiwania(nullptr);
 	
 	if (warunek_())
-		return RPC_ERROR_CONNECTION_CLOSED;
+		return SOCK_CONNECTION_CLOSED;
 
 	if (rezultat != ERROR_SUCCESS)
 		return rezultat;

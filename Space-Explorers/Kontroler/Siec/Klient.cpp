@@ -115,7 +115,7 @@ namespace SpEx{
 					if (rezultat == 0){
 						if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Warning))
 							SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie: " + pobierzAdres());
-						er = RPC_ERROR_CONNECTION_CLOSED;
+						er = SOCK_CONNECTION_CLOSED;
 					} else{
 						if (WSAEWOULDBLOCK == er){
 							std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -174,7 +174,7 @@ namespace SpEx{
 			DaneJSON dane(*this);
 			int error = dane.odbierz();
 			if (error != RPC_OK){
-				if (error != RPC_ERROR_CONNECTION_CLOSED)
+				if (error != SOCK_CONNECTION_CLOSED)
 					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Klient::pracujJakoSerwer() -> B³¹d podczas odbierania danych: " + std::to_string(error));
 				break;
 			}

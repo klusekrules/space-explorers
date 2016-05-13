@@ -397,6 +397,9 @@
     <ClCompile Include="Kontroler\Siec\DaneZPliku.cpp">
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClCompile>
+    <ClCompile Include="Kontroler\Siec\IDane.cpp">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model\Flota.h">
@@ -816,9 +819,6 @@
     <ClInclude Include="Kontroler\Siec\DaneTCP.h">
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClInclude>
-    <ClInclude Include="Kontroler\Siec\IGniazdo.h">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClInclude>
     <ClInclude Include="Kontroler\Siec\IDane.h">
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClInclude>
@@ -829,6 +829,9 @@
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Siec\DaneZPliku.h">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\GniazdoWinSock.h">
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClInclude>
   </ItemGroup>

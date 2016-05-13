@@ -353,8 +353,8 @@
     <ClInclude Include="Kontroler\Siec\DaneTCP.h" />
     <ClInclude Include="Kontroler\Siec\DaneZPamieci.h" />
     <ClInclude Include="Kontroler\Siec\DaneZPliku.h" />
+    <ClInclude Include="Kontroler\Siec\GniazdoWinSock.h" />
     <ClInclude Include="Kontroler\Siec\IDane.h" />
-    <ClInclude Include="Kontroler\Siec\IGniazdo.h" />
     <ClInclude Include="Kontroler\Siec\Klient.h" />
     <ClInclude Include="Kontroler\Siec\Kompresja.h" />
     <ClInclude Include="Kontroler\Siec\Nasluchiwacz.h" />
@@ -496,6 +496,7 @@
     <ClCompile Include="Kontroler\Siec\DaneTCP.cpp" />
     <ClCompile Include="Kontroler\Siec\DaneZPamieci.cpp" />
     <ClCompile Include="Kontroler\Siec\DaneZPliku.cpp" />
+    <ClCompile Include="Kontroler\Siec\IDane.cpp" />
     <ClCompile Include="Kontroler\Siec\Klient.cpp" />
     <ClCompile Include="Kontroler\Siec\Kompresja.cpp" />
     <ClCompile Include="Kontroler\Siec\Nasluchiwacz.cpp" />

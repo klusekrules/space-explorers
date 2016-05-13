@@ -1,17 +1,18 @@
 #pragma once
 #include "IDane.h"
 #include <functional>
+#include <WinSock2.h>
 
 namespace SpEx {
 	/**
-	* \brief Interfejs klasy zarz¹dzaj¹cej gniazdami sieciowymi.
+	* \brief Klasa opakowuj¹ce interfejs wysy³ania danych przez gniazda sieciowe.
 	*
-	* Klasa abstrakcyjna zawieraj¹ca metody ogólne do zarz¹dania gniazdami sieciowymi.
+	* Klasa zawiera metody u³atwiaj¹ce wysy³anie danych z ró¿nych Ÿróde³ przez gniazda sieciowe.
 	* \author Daniel Wojdak
-	* \version 1
-	* \date 06-05-2016
+	* \version 2
+	* \date 10-05-2016
 	*/
-	class IGniazdo {
+	class GniazdoWinSock {
 	public:
 
 		/**
@@ -26,7 +27,9 @@ namespace SpEx {
 		* \version 1
 		* \date 06-05-2016
 		*/
-		//virtual int wyslij(const char* dane, int rozmiar, int flagi = 0) = 0;
+		int wyslij(const char* dane, int rozmiar, int flagi = 0) {
+			return send(gniazdo_, dane, rozmiar, flagi);
+		}
 
 		/**
 		* \brief Odbieranie danych z gniazda.
@@ -40,7 +43,9 @@ namespace SpEx {
 		* \version 1
 		* \date 06-05-2016
 		*/
-		//virtual int odbierz(char* dane, int rozmiar, int flagi = 0) = 0;
+		int odbierz(char* dane, int rozmiar, int flagi = 0) {
+			return recv(gniazdo_, dane, rozmiar, flagi);
+		}
 
 		/**
 		* \brief Wysy³anie danych przez gniazdo.
@@ -50,10 +55,12 @@ namespace SpEx {
 		* \param[in] flagi - Flagi przekazywane do funkcji wysy³aj¹cej.
 		* \return Status zakoñczenia metody.
 		* \author Daniel Wojdak
-		* \version 1
-		* \date 06-05-2016
+		* \version 2
+		* \date 10-05-2016
 		*/
-		int wyslij(IDane & dane, int flagi = 0);
+		inline int wyslij(IDane & dane, int flagi = 0) {
+			return dane.wyslij(*this, flagi);
+		}
 
 		/**
 		* \brief Odbieranie danych z gniazda.
@@ -63,10 +70,12 @@ namespace SpEx {
 		* \param[in] flagi - Flagi przekazywane do funkcji odbieraj¹cej.
 		* \return Status zakoñczenia metody.
 		* \author Daniel Wojdak
-		* \version 1
-		* \date 06-05-2016
+		* \version 2
+		* \date 10-05-2016
 		*/
-		int odbierz(IDane &dane, int flagi = 0);
+		inline int odbierz(IDane &dane, int flagi = 0) {
+			return dane.odbierz(*this,flagi);
+		}
 
 		/**
 		* \brief Pobieranie IP gniazda.
@@ -77,7 +86,9 @@ namespace SpEx {
 		* \version 1
 		* \date 06-05-2016
 		*/
-		unsigned int pobierzIP() const;
+		unsigned int pobierzIP() const {
+			return addr_.sin_addr.S_un.S_addr;
+		}
 
 		/**
 		* \brief Metoda ustawia warunek oczekiwania.
@@ -88,6 +99,16 @@ namespace SpEx {
 		* \version 1
 		* \date 06-05-2016
 		*/
-		void ustawWarunekOczekiwania( std::function <bool(void)> warunek );
+		void ustawWarunekOczekiwania(std::function <bool(void)> warunek) {
+			warunek_ = warunek;
+		}
+
+		inline bool sprawdzWarunek() {
+			return warunek_ == nullptr || warunek_();
+		}
+	private:
+		SOCKET gniazdo_; // Uchwyt gniazda.
+		struct sockaddr_in addr_; // Struktura opisuj¹ca gniazdo.
+		std::function <bool(void)> warunek_; // Dodatkowy warunek przerwania pêtli pobieraj¹cej lub wysy³aj¹cej dane.
 	};
 }

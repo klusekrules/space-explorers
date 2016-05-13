@@ -12,11 +12,12 @@ namespace SpEx {
 		DaneZPliku(const std::string& adresPliku);
 		virtual ~DaneZPliku();
 		unsigned __int64 rozmiar() const override;
-		int wez(const char * dane, unsigned __int64 rozmiar) override;
-		int daj(const char ** dane, unsigned __int64& rozmiar) override;
 	protected:
 		FILE * plik_;
 		unsigned __int64 rozmiar_;
-		char buffor_[ROZMIAR_BUFFORA];
+
+		int wyslij(GniazdoWinSock& e, int flagi) override;
+		int odbierz(GniazdoWinSock& e, int flagi) override;
+
 	};
 }
