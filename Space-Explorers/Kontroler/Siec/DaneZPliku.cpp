@@ -7,11 +7,15 @@
 #include "Szyfrowanie.h"
 #include <zlib.h>
 
-SpEx::DaneZPliku::DaneZPliku(const std::string & adresPliku)
-	: plik_ (nullptr)
+#include "Utils\Utils.h"
+
+SpEx::DaneZPliku::DaneZPliku(Klient& ref,const std::string & adresPliku)
+	: ref_(ref), plik_ (nullptr)
 {
 	if (!adresPliku.empty()) {
-		fopen(adresPliku.c_str(),"rw");
+		SpEx::Utils::tworzSciezke(adresPliku);
+		plik_ = fopen(adresPliku.c_str(),"ab+");
+		adresPliku_ = adresPliku;
 	}
 }
 
@@ -28,37 +32,68 @@ int SpEx::DaneZPliku::przygotujDane(){
 	if ((flagi_ & 0xFFFFFFFF00000000) >> 32 != FLAGA_WERSJA)
 		return SOCK_PROTOCOL_MISMATCH;
 	if (received_) {
+		fseek(plik_, 0, SEEK_SET);
+		char buffer[L_tmpnam];
 		if (flagi_ & FLAGA_SZYFROWANIE) {
-			FILE* out_;
-			Szyfrowanie szyfr("",plik_,plik_);
+			tmpnam(buffer);
+			FILE* out = fopen(buffer, "ab+");
+			Szyfrowanie szyfr(ref_.pobierzKlucz(),plik_,out);
 			int ret = szyfr.deszyfrowanie(); 
-			if (ret != ERROR_SUCCESS)
+			if (ret != ERROR_SUCCESS) {
+				fclose(out);
+				remove(buffer);
 				return ret;
+			}
+			fclose(plik_);
+			remove(adresPliku_.c_str());
+			rename(buffer, adresPliku_.c_str());
+			plik_ = out;
+			fseek(plik_,0,SEEK_SET);
 		}
 
 		if (flagi_ & FLAGA_KOMPRESJA) {
-			FILE* out_;
-			Kompresja dane(plik_, out_);
+			tmpnam(buffer);
+			FILE* out = fopen(buffer, "ab+");
+			Kompresja dane(plik_, out);
 			int ret = dane.dekompresja();
-			if (ret != ERROR_SUCCESS)
-				return ret;			
-		}
-	}
-	else {
-		if (flagi_ & FLAGA_KOMPRESJA) {
-			FILE* out_;
-			Kompresja dane(plik_, out_);
-			int ret = dane.kompresja();
-			if (ret != ERROR_SUCCESS)
+			if (ret != ERROR_SUCCESS) {
+				fclose(out);
+				remove(buffer);
 				return ret;
+			}
+			fclose(plik_);
+			remove(adresPliku_.c_str());
+			rename(buffer, adresPliku_.c_str());
+			plik_ = out;
+			fseek(plik_, 0, SEEK_SET);
+		}
+	} else {
+		fseek(plik_, 0, SEEK_SET);
+
+		if (flagi_ & FLAGA_KOMPRESJA) {
+			FILE* out = tmpfile();
+			Kompresja dane(plik_, out);
+			int ret = dane.kompresja();
+			if (ret != ERROR_SUCCESS) {
+				fclose(out);
+				return ret;
+			}
+			fclose(plik_);
+			plik_ = out;
+			fseek(plik_,0,SEEK_SET);
 		}
 
 		if (flagi_ & FLAGA_SZYFROWANIE) {
-			FILE* out_;
-			Szyfrowanie szyfr("", plik_, plik_);
+			FILE* out = tmpfile();
+			Szyfrowanie szyfr(ref_.pobierzKlucz(), plik_, out);
 			int ret = szyfr.szyfrowanie();
-			if (ret != ERROR_SUCCESS)
+			if (ret != ERROR_SUCCESS) {
+				fclose(out);
 				return ret;
+			}
+			fclose(plik_);
+			plik_ = out;
+			fseek(plik_, 0, SEEK_SET);
 		}
 
 	}
