@@ -2,42 +2,64 @@
 #include "zlib.h"
 #include <assert.h>
 #include <WinSock2.h>
+#include "RPC\StaleRPC.h"
+
 #define CHUNK 262144
 
-SpEx::Komperesja::Komperesja(FILE * plik)
-	: plik_(plik), dane_(nullptr)
+SpEx::Kompresja::Kompresja(FILE * in, FILE* out)
+	: plikin_(in),plikout_(out), danein_(nullptr), daneout_(nullptr)
 {
 }
 
-SpEx::Komperesja::Komperesja(std::string * dane)
-	: dane_(dane), plik_(nullptr)
+SpEx::Kompresja::Kompresja(const std::string & in, std::string & out)
+	: danein_(&in), daneout_(&out), plikin_(nullptr), plikout_(nullptr)
 {
 }
 
-SpEx::Komperesja::~Komperesja(){
+SpEx::Kompresja::~Kompresja(){
 }
 
-int SpEx::Komperesja::kompresja(){
-	if (plik_ != nullptr)
+int SpEx::Kompresja::kompresja(){
+	if (plikin_ != nullptr && plikout_ != nullptr)
 		return kompresja_file_impl();
-	if (dane_ != nullptr)
+	if (danein_ != nullptr && daneout_ != nullptr)
 		return kompresja_mem_impl();
+	return ERROR_UNIDENTIFYING_COMPRESION_DATA_SOURCE;
 }
 
-int SpEx::Komperesja::kompresja_mem_impl(){
-	auto rozmiar = dane_->size();
+int SpEx::Kompresja::kompresja_mem_impl(){
+	auto rozmiar = danein_->size();
 	auto bound = compressBound(rozmiar);
 	uLongf after = bound;
 	std::string out;
 	out.resize(after, 0);
-	return compress((Bytef*)out.data(), &after, (const Bytef*)dane_->data(), rozmiar);
+	switch (compress((Bytef*)out.data(), &after, (const Bytef*)danein_->data(), rozmiar))
+	{
+	case Z_OK:
+	{
+		std::string temp;
+		temp.push_back((rozmiar >> 24) & 0xff);
+		temp.push_back((rozmiar >> 16) & 0xff);
+		temp.push_back((rozmiar >> 8) & 0xff);
+		temp.push_back(rozmiar & 0xff);
+		(*daneout_) = std::move(temp + out);
+	}
+	break;
+	case Z_MEM_ERROR:
+		return ERROR_COMPRESION_Z_MEM_ERROR;
+		break;
+	case Z_BUF_ERROR:
+		return ERROR_COMPRESION_Z_BUF_ERROR;
+		break;
+	default:
+		return ERROR_UNIDENTIFYING;
+		break;
+	}
+	return ERROR_SUCCESS;
 }
 
-int SpEx::Komperesja::kompresja_file_impl(){
-
-	FILE* dest;
-	int level;// The compression level must be Z_DEFAULT_COMPRESSION, or between 0 and 9: 1 gives best speed, 9 gives best compression, 0 gives no compression at all (the input data is simply copied a block at a time). Z_DEFAULT_COMPRESSION requests a default compromise between speed and compression (currently equivalent to level 6). 
-
+int SpEx::Kompresja::kompresja_file_impl(){
+	int level = Z_DEFAULT_COMPRESSION;// The compression level must be Z_DEFAULT_COMPRESSION, or between 0 and 9: 1 gives best speed, 9 gives best compression, 0 gives no compression at all (the input data is simply copied a block at a time). Z_DEFAULT_COMPRESSION requests a default compromise between speed and compression (currently equivalent to level 6). 
 	int ret, flush;
 	unsigned have;
 	z_stream strm;
@@ -55,12 +77,12 @@ int SpEx::Komperesja::kompresja_file_impl(){
 	/* compress until end of file */
 	do {
 
-		strm.avail_in = fread(in, 1, CHUNK, plik_);
-		if (ferror(plik_)) {
+		strm.avail_in = fread(in, 1, CHUNK, plikin_);
+		if (ferror(plikin_)) {
 			(void)deflateEnd(&strm);
 			return Z_ERRNO;
 		}
-		flush = feof(plik_) ? Z_FINISH : Z_NO_FLUSH;
+		flush = feof(plikin_) ? Z_FINISH : Z_NO_FLUSH;
 		strm.next_in = in;
 		/* run deflate() on input until output buffer not full, finish
 		compression if all of source has been read in */
@@ -71,7 +93,7 @@ int SpEx::Komperesja::kompresja_file_impl(){
 			ret = deflate(&strm, flush);    /* no bad return value */
 			assert(ret != Z_STREAM_ERROR);  /* state not clobbered */
 			have = CHUNK - strm.avail_out;
-			if (fwrite(out, 1, have, dest) != have || ferror(dest)) {
+			if (fwrite(out, 1, have, plikout_) != have || ferror(plikout_)) {
 				(void)deflateEnd(&strm);
 				return Z_ERRNO;
 			}
@@ -85,24 +107,22 @@ int SpEx::Komperesja::kompresja_file_impl(){
 	return Z_OK;
 }
 
-int SpEx::Komperesja::dekompresja(){
-	if (plik_ != nullptr)
+int SpEx::Kompresja::dekompresja(){
+	if (plikin_ != nullptr && plikout_ != nullptr)
 		return dekompresja_file_impl();
-	if (dane_ != nullptr)
+	if (danein_ != nullptr && daneout_ != nullptr)
 		return dekompresja_mem_impl();
+	return ERROR_UNIDENTIFYING_DECOMPRESION_DATA_SOURCE;
 }
 
-int SpEx::Komperesja::dekompresja_mem_impl(){
-	uLongf unSize = dane_->size() - 4;
-	uLongf rozmiar = ((u_char)(*dane_)[0] << 24) | ((u_char)(*dane_)[1] << 16) | ((u_char)(*dane_)[2] << 8) | (u_char)(*dane_)[3];
-	std::string out;
-	out.resize(rozmiar, 0);
-	return uncompress((Bytef*)out.data(), &rozmiar, (Bytef*)&dane_->data()[4], unSize);
+int SpEx::Kompresja::dekompresja_mem_impl(){
+	uLongf unSize = danein_->size() - 4;
+	uLongf rozmiar = ((u_char)(*danein_)[0] << 24) | ((u_char)(*danein_)[1] << 16) | ((u_char)(*danein_)[2] << 8) | (u_char)(*danein_)[3];
+	daneout_->resize(rozmiar, 0);
+	return uncompress((Bytef*)daneout_->data(), &rozmiar, (Bytef*)&danein_->data()[4], unSize);
 }
 
-int SpEx::Komperesja::dekompresja_file_impl(){
-	FILE* dest;
-
+int SpEx::Kompresja::dekompresja_file_impl(){
 	int ret;
 	unsigned have;
 	z_stream strm;
@@ -121,8 +141,8 @@ int SpEx::Komperesja::dekompresja_file_impl(){
 
 	/* decompress until deflate stream ends or end of file */
 	do {
-		strm.avail_in = fread(in, 1, CHUNK, plik_);
-		if (ferror(plik_)) {
+		strm.avail_in = fread(in, 1, CHUNK, plikin_);
+		if (ferror(plikin_)) {
 			(void)inflateEnd(&strm);
 			return Z_ERRNO;
 		}
@@ -145,7 +165,7 @@ int SpEx::Komperesja::dekompresja_file_impl(){
 				return ret;
 			}
 			have = CHUNK - strm.avail_out;
-			if (fwrite(out, 1, have, dest) != have || ferror(dest)) {
+			if (fwrite(out, 1, have, plikout_) != have || ferror(plikout_)) {
 				(void)inflateEnd(&strm);
 				return Z_ERRNO;
 			}

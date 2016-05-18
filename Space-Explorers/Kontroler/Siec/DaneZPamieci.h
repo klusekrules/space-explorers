@@ -12,6 +12,7 @@ namespace SpEx {
 		DaneZPamieci() = default;
 		virtual ~DaneZPamieci() = default;
 		unsigned __int64 rozmiar() const override;
+		int przygotujDane() override;
 	protected:
 		std::vector<char> buffor_;
 

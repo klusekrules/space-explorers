@@ -1,5 +1,9 @@
 #pragma once
 
+#define FLAGA_KOMPRESJA		0x1
+#define FLAGA_SZYFROWANIE	0x2
+#define FLAGA_WERSJA		0x1
+
 namespace SpEx {
 
 	/**
@@ -52,6 +56,8 @@ namespace SpEx {
 		* \date 06-05-2016
 		*/
 		virtual unsigned __int64 rozmiar() const = 0;
+
+		virtual int przygotujDane() = 0;
 		
 	protected:
 		unsigned __int64 flagi_; //Flagi steruj¹ce danymi.

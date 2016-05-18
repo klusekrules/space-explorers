@@ -3,6 +3,10 @@
 #include "GniazdoWinSock.h"
 #include "RPC\StaleRPC.h"
 
+#include "Kompresja.h"
+#include "Szyfrowanie.h"
+#include <zlib.h>
+
 SpEx::DaneZPliku::DaneZPliku(const std::string & adresPliku)
 	: plik_ (nullptr)
 {
@@ -20,11 +24,52 @@ unsigned __int64 SpEx::DaneZPliku::rozmiar() const{
 	return rozmiar_;
 }
 
+int SpEx::DaneZPliku::przygotujDane(){
+	if ((flagi_ & 0xFFFFFFFF00000000) >> 32 != FLAGA_WERSJA)
+		return SOCK_PROTOCOL_MISMATCH;
+	if (received_) {
+		if (flagi_ & FLAGA_SZYFROWANIE) {
+			FILE* out_;
+			Szyfrowanie szyfr("",plik_,plik_);
+			int ret = szyfr.deszyfrowanie(); 
+			if (ret != ERROR_SUCCESS)
+				return ret;
+		}
+
+		if (flagi_ & FLAGA_KOMPRESJA) {
+			FILE* out_;
+			Kompresja dane(plik_, out_);
+			int ret = dane.dekompresja();
+			if (ret != ERROR_SUCCESS)
+				return ret;			
+		}
+	}
+	else {
+		if (flagi_ & FLAGA_KOMPRESJA) {
+			FILE* out_;
+			Kompresja dane(plik_, out_);
+			int ret = dane.kompresja();
+			if (ret != ERROR_SUCCESS)
+				return ret;
+		}
+
+		if (flagi_ & FLAGA_SZYFROWANIE) {
+			FILE* out_;
+			Szyfrowanie szyfr("", plik_, plik_);
+			int ret = szyfr.szyfrowanie();
+			if (ret != ERROR_SUCCESS)
+				return ret;
+		}
+
+	}
+	return ERROR_SUCCESS;
+}
+
 int SpEx::DaneZPliku::wyslij(GniazdoWinSock & e, int flagi){
 	if (plik_ == nullptr) {
 		return EOF;
 	}
-
+	received_ = false;
 	fseek(plik_, 0, SEEK_END);
 	long filesize = ftell(plik_);
 	rewind(plik_);
@@ -56,6 +101,7 @@ int SpEx::DaneZPliku::wyslij(GniazdoWinSock & e, int flagi){
 int SpEx::DaneZPliku::odbierz(GniazdoWinSock & e, int flagi){
 	long filesize;
 	int error;
+	received_ = true;
 	if (!(error = RecvData(e,(char*)&filesize, sizeof(filesize), flagi)))
 		return error;
 	filesize = ntohl(filesize);

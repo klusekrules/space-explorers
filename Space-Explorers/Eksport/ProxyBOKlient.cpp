@@ -131,7 +131,7 @@ namespace SpEx{
 				Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, "Brak po³¹czenia");
 				break;
 			case RPC_ERROR_SENDING_FAIL:
-				if (klient_->kodPowrotu() == RPC_ERROR_DECRYPTION_FAIL){
+				if (klient_->kodPowrotu() == ERROR_DECRYPTION_FAIL){
 					Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Error, "Niepoprawny login lub has³o!");
 					if (rozlaczOdSerwera() == RETURN_CODE_OK){
 						Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie!");						

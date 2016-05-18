@@ -9,8 +9,14 @@
 int SpEx::DaneTCP::wyslij(){
 	int rezultat = 0;
 	u_int64 header = 0;
-		
-	header = htonll(flagi_);
+
+	rezultat = dane_.przygotujDane();
+
+	if (rezultat != ERROR_SUCCESS) {
+		return rezultat;
+	}
+
+	header = htonll(dane_.pobierzFlagi());
 
 	gniazdo_.ustawWarunekOczekiwania(warunek_);
 	rezultat = gniazdo_.wyslij((char*)&header, sizeof(u_int64));
@@ -32,7 +38,7 @@ int SpEx::DaneTCP::wyslij(){
 	if (rezultat != ERROR_SUCCESS)
 		return rezultat;
 
-	return RPC_OK;
+	return ERROR_SUCCESS;
 }
 
 int SpEx::DaneTCP::odbierz(){
@@ -48,9 +54,8 @@ int SpEx::DaneTCP::odbierz(){
 
 	if (rezultat != ERROR_SUCCESS)
 		return rezultat;
-
-	flagi_ = ntohll(header);
-	dane_.ustawFlagi(flagi_);
+	
+	dane_.ustawFlagi(ntohll(header));
 
 	gniazdo_.ustawWarunekOczekiwania(warunek_);
 	rezultat = gniazdo_.odbierz(dane_);
@@ -63,7 +68,7 @@ int SpEx::DaneTCP::odbierz(){
 		return rezultat;
 	
 	if (dane_.rozmiar() > 0)
-		return RPC_OK;
+		return dane_.przygotujDane();
 	else
-		return RPC_ERROR_NO_DATA;
+		return ERROR_LACK_OF_DATA;
 }

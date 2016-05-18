@@ -230,7 +230,7 @@ namespace SpEx{
 		if (rozmiar > 0)
 			return RPC_OK;
 		else
-			return RPC_ERROR_NO_DATA;
+			return ERROR_LACK_OF_DATA;
 	}
 
 	int DaneJSON::wyslijWewnetrzna(){
@@ -312,19 +312,19 @@ namespace SpEx{
 			}
 			break;
 		case Z_MEM_ERROR:
-			error_ = RPC_ERROR_COMPRESION_Z_MEM_ERROR;
+			error_ = ERROR_COMPRESION_Z_MEM_ERROR;
 			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d kompresji danych: Z_MEM_ERROR");
 			}
 			break;
 		case Z_BUF_ERROR:
-			error_ = RPC_ERROR_COMPRESION_Z_BUF_ERROR;
+			error_ = ERROR_COMPRESION_Z_BUF_ERROR;
 			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d kompresji danych: Z_BUF_ERROR");
 			}
 			break;
 		default:
-			error_ = RPC_ERROR_UNIDENTIFYING;
+			error_ = ERROR_UNIDENTIFYING;
 			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d kompresji danych: Niezidentyfikowany.");
 			}
@@ -350,25 +350,25 @@ namespace SpEx{
 			}
 			break;
 		case Z_MEM_ERROR:
-			error_ = RPC_ERROR_COMPRESION_Z_MEM_ERROR;
+			error_ = ERROR_COMPRESION_Z_MEM_ERROR;
 			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d dekompresji danych: Z_MEM_ERROR");
 			}
 			break; 
 		case Z_BUF_ERROR:
-			error_ = RPC_ERROR_COMPRESION_Z_BUF_ERROR;
+			error_ = ERROR_COMPRESION_Z_BUF_ERROR;
 			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d dekompresji danych: Z_BUF_ERROR");
 			}
 			break;
 		case Z_DATA_ERROR:
-			error_ = RPC_ERROR_COMPRESION_Z_DATA_ERROR;
+			error_ = ERROR_COMPRESION_Z_DATA_ERROR;
 			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d dekompresji danych: Z_DATA_ERROR");
 			}
 			break;
 		default:
-			error_ = RPC_ERROR_UNIDENTIFYING;
+			error_ = ERROR_UNIDENTIFYING;
 			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Error)){
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d dekompresji danych: Niezidentyfikowany");
 			}
@@ -394,7 +394,7 @@ namespace SpEx{
 		std::string vectorS(vektorV.begin(), vektorV.end());
 		wyslij_ = macS + vectorS + wyslij_;
 		if (wyslij_.empty())
-			return RPC_ERROR_NO_DATA;
+			return ERROR_LACK_OF_DATA;
 		return RPC_OK;
 	}
 
@@ -412,9 +412,9 @@ namespace SpEx{
 		szyfr.DecryptMAC(odbierz_);
 		
 		if (odbierz_.empty())
-			return RPC_ERROR_NO_DATA;
+			return ERROR_LACK_OF_DATA;
 		if (szyfr.OutputMAC() != macVO)
-			return RPC_ERROR_DECRYPTION_FAIL;
+			return ERROR_DECRYPTION_FAIL;
 		return RPC_OK;
 	}
 

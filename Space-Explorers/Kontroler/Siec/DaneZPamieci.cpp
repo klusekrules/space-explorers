@@ -3,8 +3,16 @@
 #include "GniazdoWinSock.h"
 #include "RPC\StaleRPC.h"
 
+#include "Kompresja.h"
+#include "Szyfrowanie.h"
+
 unsigned __int64 SpEx::DaneZPamieci::rozmiar() const{
 	return buffor_.size();
+}
+
+int SpEx::DaneZPamieci::przygotujDane(){
+
+	return 0;
 }
 
 int SpEx::DaneZPamieci::wyslij(GniazdoWinSock & e, int flagi){

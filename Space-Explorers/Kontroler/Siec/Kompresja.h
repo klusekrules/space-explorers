@@ -3,19 +3,21 @@
 #include <string>
 
 namespace SpEx {
-	class Komperesja {
+	class Kompresja {
 	public:
-		Komperesja(FILE*);
-		Komperesja(std::string*);
-		~Komperesja();
-	private:
+		Kompresja(FILE*,FILE*);
+		Kompresja(const std::string &, std::string &);
 		int kompresja();
+		int dekompresja();
+		~Kompresja();
+	private:
 		int kompresja_mem_impl();
 		int kompresja_file_impl();
-		int dekompresja();
 		int dekompresja_mem_impl();
 		int dekompresja_file_impl();
-		std::string* dane_ = nullptr;
-		FILE* plik_ = nullptr;
+		const std::string* danein_;
+		std::string* daneout_;
+		FILE* plikin_ = nullptr;
+		FILE* plikout_ = nullptr;
 	};
 }
