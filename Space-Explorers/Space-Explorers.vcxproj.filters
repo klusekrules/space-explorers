@@ -397,9 +397,6 @@
     <ClCompile Include="Kontroler\Siec\DaneZPliku.cpp">
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClCompile>
-    <ClCompile Include="Kontroler\Siec\IDane.cpp">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model\Flota.h">

@@ -52,6 +52,8 @@ namespace SpEx{
 				parametry_[LISTA_PLIKOW][a++] = plik;
 			}
 		}
+		wlaczAutoryzacje();
+		wlaczKompresje();
 		return true;
 	}
 

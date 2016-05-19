@@ -19,7 +19,7 @@ namespace SpEx{
 
 		using MetodaRPC::MetodaRPC;
 
-		bool przygotowanieDoWyslania() override{ return true; }
+		bool przygotowanieDoWyslania() override { wlaczAutoryzacje(); wlaczKompresje(); return true; }
 		void obslugaZadania(const Json::Value &, Json::Value&) override;
 		bool obslugaOdpowiedzi(const Json::Value &) override;
 

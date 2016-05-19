@@ -22,6 +22,7 @@ namespace SpEx{
 			}
 		}
 		return false;
+		wlaczKompresje();
 	}
 
 	void InicjujLogowanieRPC::obslugaZadania(const Json::Value & zadanie, Json::Value& odpowiedz){
@@ -57,7 +58,7 @@ namespace SpEx{
 			klient_.autoryzujMetode(instancja_, autoryzacja_);
 			odpowiedz[METODA_RPC_AUTORYZACJA] = autoryzacja_;
 			odpowiedz[METODA_RPC_INSTANCJA] = instancja_;
-			flagi_ |= FLAGA_SZYFROWANIE;
+			wlaczAutoryzacje(); 
 		}		
 	}
 	

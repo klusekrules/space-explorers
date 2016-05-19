@@ -496,7 +496,6 @@
     <ClCompile Include="Kontroler\Siec\DaneTCP.cpp" />
     <ClCompile Include="Kontroler\Siec\DaneZPamieci.cpp" />
     <ClCompile Include="Kontroler\Siec\DaneZPliku.cpp" />
-    <ClCompile Include="Kontroler\Siec\IDane.cpp" />
     <ClCompile Include="Kontroler\Siec\Klient.cpp" />
     <ClCompile Include="Kontroler\Siec\Kompresja.cpp" />
     <ClCompile Include="Kontroler\Siec\Nasluchiwacz.cpp" />

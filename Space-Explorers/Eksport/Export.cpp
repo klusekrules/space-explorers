@@ -169,8 +169,14 @@ extern "C"{
 					if (retCode == RETURN_CODE_OK || retCode == RETURN_CODE_ISTNIEJE_POLACZENIE) {
 						retCode = SpEx::Aplikacja::pobierzInstancje().proxy_->zaloguj(nazwa->getText().toAnsiString().c_str(), hash.c_str());
 						if (retCode == RETURN_CODE_OK) {
-							retCode = SpEx::Aplikacja::pobierzInstancje().proxy_->pobierzPlikiGry();
-							return (retCode == RETURN_CODE_OK);
+							retCode = SpEx::Aplikacja::pobierzInstancje().proxy_->sprawdzPoprawnoscPlikow();
+							if (retCode == RETURN_CODE_OK) {
+								retCode = SpEx::Aplikacja::pobierzInstancje().proxy_->pobierzPlikiGry();
+								return (retCode == RETURN_CODE_OK);
+							}
+							else {
+								SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "B³¹d sprawdzania plików.");
+							}
 						}
 						else {
 							SpEx::UtilsGui::wyswietlWiadomoscWGUI(0, "Nie uda³o siê zalogowaæ!");

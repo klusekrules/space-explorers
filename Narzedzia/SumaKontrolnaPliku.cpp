@@ -8,7 +8,8 @@ namespace SpEx{
 	SumaKontrolnaPliku::SumaKontrolnaPliku(const std::string& plik)
 		: Zasob(plik), fp_(fopen(plik.c_str(), "rb")), sumaKontrolna_(fp_)
 	{
-		fclose(fp_);
+		if(fp_ != nullptr)
+			fclose(fp_);
 		fp_ = nullptr;
 	}
 	
