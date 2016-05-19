@@ -25,6 +25,9 @@ namespace SpEx{
 
 		int wykonajMetode();
 
+		void wlaczKompresje();
+		void wlaczAutoryzacje();
+
 		Json::Value& obiektParametrow();
 
 		bool obsluzMetode(Json::Value&);

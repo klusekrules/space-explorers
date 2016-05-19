@@ -78,9 +78,9 @@ int SpEx::DaneZPamieci::wyslij(GniazdoWinSock & e, int flagi){
 	received_ = false;
 	long fsize = htonl(buffor_.size());
 	int error;
-	if (!(error = SendData(e, (char*)&fsize, sizeof(fsize), flagi)))
+	if (error = e.wyslij((char*)&fsize, sizeof(fsize), flagi))
 		return error;
-	if (!(error = SendData(e, &buffor_[0], buffor_.size(), flagi)))
+	if (error = e.wyslij(&buffor_[0], buffor_.size(), flagi))
 		return error;		
 	return e.sprawdzWarunek() ? ERROR_SUCCESS : SOCK_PROCCESSING_BREAK;
 }
@@ -89,11 +89,11 @@ int SpEx::DaneZPamieci::odbierz(GniazdoWinSock & e, int flagi){
 	long size;
 	int error;
 	received_ = true;
-	if (!(error = RecvData(e, (char*)&size, sizeof(size), flagi)))
+	if (error = e.odbierz((char*)&size, sizeof(size), flagi))
 		return error;
 	size = ntohl(size);
 	buffor_.resize(size);
-	if (!(error = RecvData(e, &buffor_[0], buffor_.size(), flagi)))
+	if (error = e.odbierz(&buffor_[0], buffor_.size(), flagi))
 		return error;
 	return e.sprawdzWarunek() ? ERROR_SUCCESS : SOCK_PROCCESSING_BREAK;
 }

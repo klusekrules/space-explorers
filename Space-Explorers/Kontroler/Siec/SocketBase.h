@@ -5,6 +5,7 @@
 namespace SpEx {
 	class SocketBase
 	{
+		friend class GniazdoWinSock;
 	public:
 		SocketBase() = default;
 		SocketBase(SOCKET, struct sockaddr_in&);

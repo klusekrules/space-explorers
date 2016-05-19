@@ -12,19 +12,11 @@ namespace SpEx{
 
 		int wykonajMetode();
 		
-		void wlaczKompresje();
-		void wlaczAutoryzacje();
 		~DaneJSON() = default;
 	private:
 
 		int odbierzWewnetrzna();
 		int wyslijWewnetrzna();
-		int przygotujDoWyslania();
-		int przetworzPoOdebraniu();
-		int kompresja();
-		int dekompresja();
-		int szyfrowanie(const std::string& klucz);
-		int deszyfrowanie(const std::string& klucz);
 		void dodajKomunikatBledu(int, Json::Value&);
 
 		Klient & ref_;

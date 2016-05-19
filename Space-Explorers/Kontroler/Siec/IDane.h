@@ -65,10 +65,6 @@ namespace SpEx {
 		virtual int wyslij(GniazdoWinSock& e, int flagi) = 0;
 
 		virtual int odbierz(GniazdoWinSock& e, int flagi) = 0;
-
-		int SendData(GniazdoWinSock& e, char* buf, int buflen, int flagi);
-
-		int RecvData(GniazdoWinSock& e, char* buf, int buflen, int flagi);
-
+		
 	};
 }

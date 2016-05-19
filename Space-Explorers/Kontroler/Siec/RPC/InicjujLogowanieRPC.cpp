@@ -57,7 +57,7 @@ namespace SpEx{
 			klient_.autoryzujMetode(instancja_, autoryzacja_);
 			odpowiedz[METODA_RPC_AUTORYZACJA] = autoryzacja_;
 			odpowiedz[METODA_RPC_INSTANCJA] = instancja_;
-			flagi_ |= RPC_FLAG_AUTHORIZATION;
+			flagi_ |= FLAGA_SZYFROWANIE;
 		}		
 	}
 	

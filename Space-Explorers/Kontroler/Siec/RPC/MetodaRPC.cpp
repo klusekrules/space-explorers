@@ -227,6 +227,14 @@ namespace SpEx{
 		return ret;
 	}
 
+	void MetodaRPC::wlaczKompresje() {
+		flagi_ |= FLAGA_KOMPRESJA;
+	}
+
+	void MetodaRPC::wlaczAutoryzacje() {
+		flagi_ |= FLAGA_SZYFROWANIE;
+	}
+
 	int MetodaRPC::obslugaWyjatku(const Json::Value& root){
 		const auto &  throwNode = root[METODA_RPC_ERROR];
 		if (throwNode.isNull())

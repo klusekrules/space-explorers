@@ -115,7 +115,7 @@ int SpEx::DaneZPliku::wyslij(GniazdoWinSock & e, int flagi){
 
 	long fsize = htonl(filesize);
 	int error;
-	if (! (error = SendData(e, (char*)&fsize, sizeof(fsize), flagi)))
+	if (error = e.wyslij((const char*)&fsize, sizeof(fsize), flagi))
 		return error;
 	if (filesize > 0) {
 		char buffer[ROZMIAR_BUFFORA];
@@ -125,7 +125,7 @@ int SpEx::DaneZPliku::wyslij(GniazdoWinSock & e, int flagi){
 			if (num < 1) {
 				return EOF;
 			}
-			if (!(error = SendData(e, buffer, num, flagi)))
+			if (error = e.wyslij(buffer, num, flagi))
 				return error;
 			filesize -= num;
 		} while (filesize > 0 && e.sprawdzWarunek());
@@ -137,14 +137,14 @@ int SpEx::DaneZPliku::odbierz(GniazdoWinSock & e, int flagi){
 	long filesize;
 	int error;
 	received_ = true;
-	if (!(error = RecvData(e,(char*)&filesize, sizeof(filesize), flagi)))
+	if (error = e.odbierz((char*)&filesize, sizeof(filesize), flagi))
 		return error;
 	filesize = ntohl(filesize);
 	if (filesize > 0) {
 		char buffer[ROZMIAR_BUFFORA];
 		do {
 			int num = min(filesize, sizeof(buffer));
-			if (!(error = RecvData(e, buffer, num, flagi)))
+			if (error = e.odbierz(buffer, num, flagi))
 				return error;
 			int offset = 0;
 			do {

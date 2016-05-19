@@ -2,6 +2,8 @@
 #include "IDane.h"
 #include <functional>
 #include <WinSock2.h>
+#include "SocketBase.h"
+#include "RPC\StaleRPC.h"
 
 namespace SpEx {
 	/**
@@ -13,6 +15,7 @@ namespace SpEx {
 	* \date 10-05-2016
 	*/
 	class GniazdoWinSock {
+		friend class Klient;
 	public:
 
 		/**
@@ -28,7 +31,20 @@ namespace SpEx {
 		* \date 06-05-2016
 		*/
 		int wyslij(const char* dane, int rozmiar, int flagi = 0) {
-			return send(gniazdo_, dane, rozmiar, flagi);
+			int num = 0;
+			while (rozmiar > 0 && sprawdzWarunek()) {
+				num = SendData(dane, rozmiar, flagi);
+				if (num == SOCKET_ERROR) {
+					int error = WSAGetLastError();
+					if (error == WSAEWOULDBLOCK) {
+						continue;
+					}
+					return error;
+				}
+				dane += num;
+				rozmiar -= num;
+			}
+			return sprawdzWarunek() ? ERROR_SUCCESS : SOCK_PROCCESSING_BREAK;
 		}
 
 		/**
@@ -44,7 +60,22 @@ namespace SpEx {
 		* \date 06-05-2016
 		*/
 		int odbierz(char* dane, int rozmiar, int flagi = 0) {
-			return recv(gniazdo_, dane, rozmiar, flagi);
+			while (rozmiar > 0 && sprawdzWarunek()) {
+				int num = RecvData(dane, rozmiar, flagi);
+				if (num == SOCKET_ERROR) {
+					int error = WSAGetLastError();
+					if (error == WSAEWOULDBLOCK) {
+						continue;
+					}
+					return error;
+				}
+				else if (num == 0) {
+					return SOCK_CONNECTION_CLOSED;
+				}
+				dane += num;
+				rozmiar -= num;
+			}
+			return sprawdzWarunek() ? ERROR_SUCCESS : SOCK_PROCCESSING_BREAK;
 		}
 
 		/**
@@ -86,8 +117,8 @@ namespace SpEx {
 		* \version 1
 		* \date 06-05-2016
 		*/
-		unsigned int pobierzIP() const {
-			return addr_.sin_addr.S_un.S_addr;
+		std::string pobierzIP() const {
+			return gniazdo_.pobierzAdres();
 		}
 
 		/**
@@ -107,8 +138,18 @@ namespace SpEx {
 			return warunek_ == nullptr || warunek_();
 		}
 	private:
-		SOCKET gniazdo_; // Uchwyt gniazda.
-		struct sockaddr_in addr_; // Struktura opisuj¹ca gniazdo.
+
+		int SendData(const char* buf, int buflen, int flagi) {
+			return gniazdo_.send(buf, buflen, flagi);
+			
+		}
+
+		int RecvData(char* buf, int buflen, int flagi) {
+			return gniazdo_.receive(buf, buflen, flagi);			
+		}
+
+		GniazdoWinSock(SocketBase& gniazdo) : gniazdo_(gniazdo) {}
+		SocketBase& gniazdo_; // Klasa ogs³uguj¹ca gniazdo
 		std::function <bool(void)> warunek_; // Dodatkowy warunek przerwania pêtli pobieraj¹cej lub wysy³aj¹cej dane.
 	};
 }

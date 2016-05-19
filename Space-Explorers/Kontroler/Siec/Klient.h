@@ -6,6 +6,7 @@
 #include <list>
 #include "Model\Uzytkownik.h"
 #include "SocketBase.h"
+#include "GniazdoWinSock.h"
 
 namespace SpEx{
 
@@ -37,9 +38,8 @@ namespace SpEx{
 		
 		const std::atomic<bool>& czyCzekaNaZakonczenie() const;
 
-		int odbierz(char*, int, int = 0) const;
-		int wyslij(const char*, int, int = 0) const;
-		
+		GniazdoWinSock pobierzGniazdo();
+
 		virtual ~Klient();
 	private:
 		

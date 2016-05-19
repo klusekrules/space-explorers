@@ -22,7 +22,7 @@ int SpEx::DaneTCP::wyslij(){
 	rezultat = gniazdo_.wyslij((char*)&header, sizeof(u_int64));
 	gniazdo_.ustawWarunekOczekiwania(nullptr);
 
-	if (warunek_())
+	if (warunek_ && !warunek_())
 		return SOCK_CONNECTION_CLOSED;
 
 	if (rezultat != ERROR_SUCCESS)
@@ -32,7 +32,7 @@ int SpEx::DaneTCP::wyslij(){
 	rezultat = gniazdo_.wyslij(dane_);
 	gniazdo_.ustawWarunekOczekiwania(nullptr);
 
-	if (warunek_())
+	if (warunek_ && !warunek_())
 		return SOCK_CONNECTION_CLOSED;
 
 	if (rezultat != ERROR_SUCCESS)
@@ -49,7 +49,7 @@ int SpEx::DaneTCP::odbierz(){
 	rezultat = gniazdo_.odbierz((char*)&header, sizeof(u_int64)); 
 	gniazdo_.ustawWarunekOczekiwania(nullptr);
 
-	if (warunek_())
+	if (warunek_ && !warunek_())
 		return SOCK_CONNECTION_CLOSED;
 
 	if (rezultat != ERROR_SUCCESS)
@@ -61,7 +61,7 @@ int SpEx::DaneTCP::odbierz(){
 	rezultat = gniazdo_.odbierz(dane_);
 	gniazdo_.ustawWarunekOczekiwania(nullptr);
 	
-	if (warunek_())
+	if (warunek_ && !warunek_())
 		return SOCK_CONNECTION_CLOSED;
 
 	if (rezultat != ERROR_SUCCESS)

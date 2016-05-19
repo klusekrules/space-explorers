@@ -198,12 +198,8 @@ namespace SpEx{
 		autoryzacja = autoryzacja_;
 	}
 	
-	int Klient::odbierz(char *dane, int dlugosc, int flagi) const{
-		return receive(dane, dlugosc, flagi);
-	}
-
-	int Klient::wyslij(const char * dane, int dlugosc, int flagi) const{
-		return send(dane, dlugosc, flagi);
+	GniazdoWinSock Klient::pobierzGniazdo(){
+		return std::move(GniazdoWinSock(*this));
 	}
 
 	Klient::~Klient(){
