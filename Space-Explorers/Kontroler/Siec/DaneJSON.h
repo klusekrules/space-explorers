@@ -14,9 +14,6 @@ namespace SpEx{
 		
 		~DaneJSON() = default;
 	private:
-
-		int odbierzWewnetrzna();
-		int wyslijWewnetrzna();
 		void dodajKomunikatBledu(int, Json::Value&);
 
 		Klient & ref_;

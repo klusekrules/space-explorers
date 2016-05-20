@@ -32,8 +32,15 @@ namespace SpEx {
 		int acceptWithTimeout(SOCKET&, struct sockaddr_in&, long seconds);
 		int connect();
 		void shutdown();
-		int receive(char*, int, int = 0) const;
-		int send(const char*, int, int = 0) const;
+
+		inline int SpEx::SocketBase::receive(char* bufor, int rozmiar, int flagi = 0) const {
+			return recv(gniazdo_, bufor, rozmiar, flagi);
+		}
+
+		inline int SpEx::SocketBase::send(const char* wiadomosc, int dlugosc, int flagi = 0) const {
+			return ::send(gniazdo_, wiadomosc, dlugosc, flagi);
+		}
+
 
 	private:
 		int port_ = 0;

@@ -178,7 +178,6 @@ namespace SpEx{
 					SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie (nn) ["+ std::to_string(error) +"]: " + pobierzAdres());
 				else
 					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Klient::pracujJakoSerwer() -> B³¹d podczas odbierania danych: " + std::to_string(error));
-					
 				break;
 			}
 

@@ -349,7 +349,6 @@
     <ClInclude Include="Kontroler\MaszynaStanow\Zdarzenie.h" />
     <ClInclude Include="Kontroler\MaszynaStanow\ZdarzenieInfo.h" />
     <ClInclude Include="Kontroler\Siec\DaneJSON.h" />
-    <ClInclude Include="Kontroler\Siec\DaneRAW.h" />
     <ClInclude Include="Kontroler\Siec\DaneTCP.h" />
     <ClInclude Include="Kontroler\Siec\DaneZPamieci.h" />
     <ClInclude Include="Kontroler\Siec\DaneZPliku.h" />
@@ -492,10 +491,10 @@
     <ClCompile Include="Kontroler\MaszynaStanow\StanInfo.cpp" />
     <ClCompile Include="Kontroler\MaszynaStanow\ZdarzenieInfo.cpp" />
     <ClCompile Include="Kontroler\Siec\DaneJSON.cpp" />
-    <ClCompile Include="Kontroler\Siec\DaneRAW.cpp" />
     <ClCompile Include="Kontroler\Siec\DaneTCP.cpp" />
     <ClCompile Include="Kontroler\Siec\DaneZPamieci.cpp" />
     <ClCompile Include="Kontroler\Siec\DaneZPliku.cpp" />
+    <ClCompile Include="Kontroler\Siec\GniazdoWinSock.cpp" />
     <ClCompile Include="Kontroler\Siec\Klient.cpp" />
     <ClCompile Include="Kontroler\Siec\Kompresja.cpp" />
     <ClCompile Include="Kontroler\Siec\Nasluchiwacz.cpp" />

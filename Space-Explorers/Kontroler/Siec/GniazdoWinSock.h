@@ -30,22 +30,7 @@ namespace SpEx {
 		* \version 1
 		* \date 06-05-2016
 		*/
-		int wyslij(const char* dane, int rozmiar, int flagi = 0) {
-			int num = 0;
-			while (rozmiar > 0 && sprawdzWarunek()) {
-				num = SendData(dane, rozmiar, flagi);
-				if (num == SOCKET_ERROR) {
-					int error = WSAGetLastError();
-					if (error == WSAEWOULDBLOCK) {
-						continue;
-					}
-					return error;
-				}
-				dane += num;
-				rozmiar -= num;
-			}
-			return sprawdzWarunek() ? ERROR_SUCCESS : SOCK_PROCCESSING_BREAK;
-		}
+		int wyslij(const char* dane, int rozmiar, int flagi = 0);
 
 		/**
 		* \brief Odbieranie danych z gniazda.
@@ -59,24 +44,7 @@ namespace SpEx {
 		* \version 1
 		* \date 06-05-2016
 		*/
-		int odbierz(char* dane, int rozmiar, int flagi = 0) {
-			while (rozmiar > 0 && sprawdzWarunek()) {
-				int num = RecvData(dane, rozmiar, flagi);
-				if (num == SOCKET_ERROR) {
-					int error = WSAGetLastError();
-					if (error == WSAEWOULDBLOCK) {
-						continue;
-					}
-					return error;
-				}
-				else if (num == 0) {
-					return SOCK_CONNECTION_CLOSED;
-				}
-				dane += num;
-				rozmiar -= num;
-			}
-			return sprawdzWarunek() ? ERROR_SUCCESS : SOCK_PROCCESSING_BREAK;
-		}
+		int odbierz(char* dane, int rozmiar, int flagi = 0);
 
 		/**
 		* \brief Wysy³anie danych przez gniazdo.
@@ -109,19 +77,6 @@ namespace SpEx {
 		}
 
 		/**
-		* \brief Pobieranie IP gniazda.
-		*
-		* Metoda zwraca IP powi¹zane z gniazdem.
-		* \return IP gniazda.
-		* \author Daniel Wojdak
-		* \version 1
-		* \date 06-05-2016
-		*/
-		std::string pobierzIP() const {
-			return gniazdo_.pobierzAdres();
-		}
-
-		/**
 		* \brief Metoda ustawia warunek oczekiwania.
 		*
 		* Metoda ustawia warunek oczekiwania na gnieŸdzie.
@@ -130,25 +85,23 @@ namespace SpEx {
 		* \version 1
 		* \date 06-05-2016
 		*/
-		void ustawWarunekOczekiwania(std::function <bool(void)> warunek) {
-			warunek_ = warunek;
-		}
+		void ustawWarunekOczekiwania(std::function <bool(void)> warunek);
 
 		inline bool sprawdzWarunek() {
 			return warunek_ == nullptr || warunek_();
 		}
 	private:
 
-		int SendData(const char* buf, int buflen, int flagi) {
+		inline int SendData(const char* buf, int buflen, int flagi) {
 			return gniazdo_.send(buf, buflen, flagi);
 			
 		}
 
-		int RecvData(char* buf, int buflen, int flagi) {
+		inline int RecvData(char* buf, int buflen, int flagi) {
 			return gniazdo_.receive(buf, buflen, flagi);			
 		}
 
-		GniazdoWinSock(SocketBase& gniazdo) : gniazdo_(gniazdo) {}
+		GniazdoWinSock(SocketBase& gniazdo);
 		SocketBase& gniazdo_; // Klasa ogs³uguj¹ca gniazdo
 		std::function <bool(void)> warunek_; // Dodatkowy warunek przerwania pêtli pobieraj¹cej lub wysy³aj¹cej dane.
 	};

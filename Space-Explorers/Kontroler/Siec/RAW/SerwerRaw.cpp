@@ -17,8 +17,10 @@ namespace SpEx {
 	
 	bool SerwerRaw::polaczeniePrzychodzace(SOCKET soc, sockaddr_in &addr ){
 		SocketBase base(soc, addr);
+
 		DaneZPliku dane(ref_,nazwaPliku_);
 		dane.ustawFlagi((unsigned __int64)FLAGA_WERSJA << 32 | FLAGA_SZYFROWANIE | FLAGA_KOMPRESJA);
+
 		auto gniazdo = std::move(base.pobierzGniazdo());
 		DaneTCP::Warunek warunek([&]()->bool { return !this->czyZakonczyc(); });
 		DaneTCP tcp(gniazdo, dane, warunek);

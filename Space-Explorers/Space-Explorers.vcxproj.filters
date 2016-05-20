@@ -388,13 +388,13 @@
     <ClCompile Include="Kontroler\Siec\DaneTCP.cpp">
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClCompile>
-    <ClCompile Include="Kontroler\Siec\DaneRAW.cpp">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClCompile>
     <ClCompile Include="Kontroler\Siec\DaneZPamieci.cpp">
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Siec\DaneZPliku.cpp">
+      <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\GniazdoWinSock.cpp">
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClCompile>
   </ItemGroup>
@@ -817,9 +817,6 @@
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Siec\IDane.h">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Kontroler\Siec\DaneRAW.h">
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClInclude>
     <ClInclude Include="Kontroler\Siec\DaneZPamieci.h">

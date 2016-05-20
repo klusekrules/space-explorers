@@ -6,6 +6,11 @@
 #include <chrono>
 #include <thread>
 
+SpEx::DaneTCP::DaneTCP(GniazdoWinSock & gniazdo, IDane & dane, Warunek & warunek)
+	: gniazdo_(gniazdo), dane_(dane), warunek_(warunek)
+{
+}
+
 int SpEx::DaneTCP::wyslij(){
 	int rezultat = 0;
 	u_int64 header = 0;

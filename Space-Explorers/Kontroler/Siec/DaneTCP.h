@@ -7,8 +7,7 @@ namespace SpEx {
 	public:
 		typedef std::function <bool(void)> Warunek;
 
-		DaneTCP(GniazdoWinSock& gniazdo, IDane& dane, Warunek& warunek)
-			: gniazdo_(gniazdo), dane_(dane), warunek_(warunek) {}
+		DaneTCP(GniazdoWinSock& gniazdo, IDane& dane, Warunek& warunek);			
 
 		int wyslij();
 		int odbierz();

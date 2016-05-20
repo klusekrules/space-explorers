@@ -20,7 +20,16 @@ namespace SpEx{
 	}
 
 	int DaneJSON::odbierz(){
-		int error = odbierzWewnetrzna();
+		DaneZPamieci dane(ref_);
+		auto gniazdo = std::move(ref_.pobierzGniazdo());
+		DaneTCP::Warunek warunek([&]()->bool { return !ref_.czyCzekaNaZakonczenie(); });
+		DaneTCP tcp(gniazdo, dane, warunek);
+
+		int error = tcp.odbierz();
+
+		if (error == ERROR_SUCCESS)
+			odbierz_ = std::move(dane.pobierzBufor());
+
 		if (error==RPC_OK){
 			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Debug)){
 				Json::Value root;
@@ -46,7 +55,16 @@ namespace SpEx{
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Debug, "Wys³ano :\n" + writer.write(root));
 			}
 		}
-		return wyslijWewnetrzna();
+
+		DaneZPamieci dane(ref_, std::move(wyslij_));
+
+		dane.ustawFlagi(flagi_);
+
+		auto gniazdo = std::move(ref_.pobierzGniazdo());
+		DaneTCP::Warunek warunek([&]()->bool { return !ref_.czyCzekaNaZakonczenie(); });
+		DaneTCP tcp(gniazdo, dane, warunek);
+
+		return tcp.wyslij();
 	}
 
 	int DaneJSON::wykonajMetode(){
@@ -153,32 +171,5 @@ namespace SpEx{
 			break;
 		}
 	}
-
-	int DaneJSON::odbierzWewnetrzna(){
-
-		DaneZPamieci dane(ref_);
-		auto gniazdo = std::move(ref_.pobierzGniazdo());
-		DaneTCP::Warunek warunek([&]()->bool { return !ref_.czyCzekaNaZakonczenie(); });
-		DaneTCP tcp(gniazdo, dane, warunek);
 		
-		int ret = tcp.odbierz();
-
-		if (ret == ERROR_SUCCESS)
-			odbierz_ = std::move(dane.pobierzBufor());
-		return ret;
-	}
-
-	int DaneJSON::wyslijWewnetrzna(){
-
-		DaneZPamieci dane(ref_, std::move(wyslij_));
-
-		dane.ustawFlagi(flagi_);
-
-		auto gniazdo = std::move(ref_.pobierzGniazdo());
-		DaneTCP::Warunek warunek([&]()->bool { return !ref_.czyCzekaNaZakonczenie(); });
-		DaneTCP tcp(gniazdo, dane, warunek);
-
-		return tcp.wyslij();
-	}
-	
 }

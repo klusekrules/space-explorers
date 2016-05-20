@@ -9,7 +9,7 @@ namespace SpEx {
 		Kompresja(const std::string &, std::string &);
 		int kompresja();
 		int dekompresja();
-		~Kompresja();
+		~Kompresja() = default;
 	private:
 		int kompresja_mem_impl();
 		int kompresja_file_impl();

@@ -79,14 +79,6 @@ SpEx::GniazdoWinSock SpEx::SocketBase::pobierzGniazdo() {
 	return std::move(SpEx::GniazdoWinSock(*this));
 }
 
-int SpEx::SocketBase::receive(char* bufor, int rozmiar, int flagi) const {
-	return recv(gniazdo_, bufor, rozmiar, flagi);
-}
-
-int SpEx::SocketBase::send(const char* wiadomosc, int dlugosc, int flagi) const {
-	return ::send(gniazdo_, wiadomosc, dlugosc, flagi);
-}
-
 std::string SpEx::SocketBase::translateIP(sockaddr_in & in){
 	char ip[IP_BUFOR_K_ROZMIAR];
 	ZeroMemory(ip, IP_BUFOR_K_ROZMIAR);
