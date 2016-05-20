@@ -95,6 +95,8 @@ namespace SpEx{
 
 			// Pobieranie kolejnego stopnia œcie¿ki
 			pos = path.find_first_of("\\/", pos);
+			if (pos == std::string::npos)
+				return true;
 			std::string folder = path.substr(0, pos);
 
 			// Tworzenie œcie¿ki
