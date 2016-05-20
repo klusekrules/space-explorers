@@ -174,8 +174,11 @@ namespace SpEx{
 			DaneJSON dane(*this);
 			int error = dane.odbierz();
 			if (error != RPC_OK){
-				if (error != SOCK_CONNECTION_CLOSED)
+				if (error != SOCK_CONNECTION_CLOSED  || error != WSAECONNRESET || error != WSAECONNABORTED || error != WSAENETRESET || error != WSAENETUNREACH || error != WSAENETDOWN)
+					SLog::Log::pobierzInstancje().loguj(SLog::Log::Warning, "Zamkniêto po³¹czenie (nn) ["+ std::to_string(error) +"]: " + pobierzAdres());
+				else
 					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Klient::pracujJakoSerwer() -> B³¹d podczas odbierania danych: " + std::to_string(error));
+					
 				break;
 			}
 
