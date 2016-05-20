@@ -197,10 +197,6 @@ namespace SpEx{
 		instancja = instancja_;
 		autoryzacja = autoryzacja_;
 	}
-	
-	GniazdoWinSock Klient::pobierzGniazdo(){
-		return std::move(GniazdoWinSock(*this));
-	}
 
 	Klient::~Klient(){
 		shutdown();

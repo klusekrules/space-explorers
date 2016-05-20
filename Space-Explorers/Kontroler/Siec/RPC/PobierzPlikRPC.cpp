@@ -15,7 +15,7 @@ namespace SpEx {
 
 	void PobierzPlikRPC::obslugaZadania(const Json::Value & zadanie, Json::Value& odpowiedz) {
 		auto nazwaPliku = parametry_["Plik"];
-		FILE *fp = nullptr;
+		
 		if (!nazwaPliku.isString() || nazwaPliku.asString().empty()) {
 			SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Brak pliku do wys³ania.");
 			ustawBlad(1, "Brak pliku do wys³ania.");
@@ -23,12 +23,14 @@ namespace SpEx {
 		}else {
 			auto nazwaPlikuDanych_ = Utils::adresPliku(nazwaPliku.asString());
 			if (!nazwaPlikuDanych_.empty()) {
+
 				if (_access(nazwaPlikuDanych_.c_str(), 0) == -1) {
 					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Brak pliku do wys³ania.");
 					ustawBlad(2, "Brak pliku do wys³ania.");
 					odpowiedz[METODA_RPC_RETURN] = false;
 					return;
 				}
+				FILE *fp = nullptr;
 				fp = fopen(nazwaPlikuDanych_.c_str(), "rb");
 				if (fp == nullptr) {
 					SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nie uda³o siê otworzyæ pliku do wys³ania. Numer b³êdu: " + std::to_string(errno));
@@ -36,13 +38,14 @@ namespace SpEx {
 					odpowiedz[METODA_RPC_RETURN] = false;		
 					return;
 				}
+				fclose(fp);
 			}else{
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "Nie ma pliku o podanej nazwie.");
 				ustawBlad(4, "Nie ma pliku o podanej nazwie.");
 				odpowiedz[METODA_RPC_RETURN] = false;
 				return;
 			}
-			auto ptr = ObserwatorWatkow::make_thread<SerwerRaw>(nazwaPlikuDanych_, fp);
+			auto ptr = ObserwatorWatkow::make_thread<SerwerRaw>(klient_,nazwaPlikuDanych_);
 			odpowiedz["NazwaPliku"] = nazwaPlikuDanych_;
 			odpowiedz["Port"] = ptr->pobierzPort();
 			ptr->odblokuj();
@@ -57,9 +60,7 @@ namespace SpEx {
 			return false;
 		}
 		std::string adresPliku = Utils::adresPliku(parametry_["Plik"].asString());
-
-		FILE* fp = fopen(adresPliku.c_str(),"wb");
-		auto plik = ObserwatorWatkow::make_thread<KlientRaw>(odpowiedz["NazwaPliku"].asString(),fp,std::string("127.0.0.1"), odpowiedz["Port"].asInt());
+		auto plik = ObserwatorWatkow::make_thread<KlientRaw>(klient_, adresPliku,std::string("127.0.0.1"), odpowiedz["Port"].asInt());
 		plik->odblokuj();
 		plik->czekajNaZakonczenie();
 		int kod = plik->kodPowrotu();

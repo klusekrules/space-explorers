@@ -37,9 +37,7 @@ namespace SpEx{
 		const std::string& pobierzKlucz() const;
 		
 		const std::atomic<bool>& czyCzekaNaZakonczenie() const;
-
-		GniazdoWinSock pobierzGniazdo();
-
+		
 		virtual ~Klient();
 	private:
 		

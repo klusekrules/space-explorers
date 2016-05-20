@@ -1,6 +1,7 @@
 #include "SocketBase.h"
 #include <Ws2tcpip.h>
 #include <thread>
+#include "GniazdoWinSock.h"
 
 #define ATRYBUT_PORT_SERWERA "portSerwera"
 #define ATRYBUT_LIMIT_POLACZEN "limitPolaczen"
@@ -72,6 +73,10 @@ int SpEx::SocketBase::switchToBlockingMode(){
 
 SpEx::SocketBase::~SocketBase() {
 	shutdown();
+}
+
+SpEx::GniazdoWinSock SpEx::SocketBase::pobierzGniazdo() {
+	return std::move(SpEx::GniazdoWinSock(*this));
 }
 
 int SpEx::SocketBase::receive(char* bufor, int rozmiar, int flagi) const {

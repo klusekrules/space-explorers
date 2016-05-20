@@ -115,6 +115,56 @@ void VMPC_MAC::DecryptMAC(std::string& Data)
 	}
 }
 
+void VMPC_MAC::EncryptMAC(Bufor & Data){
+	auto Len = Data.size();
+	for (unsigned int x = 0; x<Len; x++)
+	{
+		s = P[(s + P[n]) & 255];
+
+		Data[x] ^= P[(P[P[s]] + 1) & 255];
+
+		m4 = P[(m4 + m3) & 255];
+		m3 = P[(m3 + m2) & 255];
+		m2 = P[(m2 + m1) & 255];
+		m1 = P[(m1 + s + Data[x]) & 255];
+
+		MAC[mn] ^= m1;
+		MAC[mn + 1] ^= m2;
+		MAC[mn + 2] ^= m3;
+		MAC[mn + 3] ^= m4;
+
+		unsigned char t = P[n];  P[n] = P[s];  P[s] = t;
+
+		mn = (mn + 4) & 31;
+		n++;
+	}
+}
+
+void VMPC_MAC::DecryptMAC(Bufor & Data){
+	auto Len = Data.size();
+	for (unsigned int x = 0; x<Len; x++)
+	{
+		s = P[(s + P[n]) & 255];
+
+		m4 = P[(m4 + m3) & 255];
+		m3 = P[(m3 + m2) & 255];
+		m2 = P[(m2 + m1) & 255];
+		m1 = P[(m1 + s + Data[x]) & 255];
+
+		MAC[mn] ^= m1;
+		MAC[mn + 1] ^= m2;
+		MAC[mn + 2] ^= m3;
+		MAC[mn + 3] ^= m4;
+
+		Data[x] ^= P[(P[P[s]] + 1) & 255];
+
+		unsigned char t = P[n];  P[n] = P[s];  P[s] = t;
+
+		mn = (mn + 4) & 31;
+		n++;
+	}
+}
+
 const VMPC_MAC::Bufor& VMPC_MAC::OutputMAC()
 {
 	for (unsigned int x = 1; x <= 24; x++)

@@ -13,6 +13,8 @@ public:
 	
 	void EncryptMAC(std::string& Data);
 	void DecryptMAC(std::string& Data);
+	void EncryptMAC(Bufor& Data);
+	void DecryptMAC(Bufor& Data);
 	const Bufor& OutputMAC();
 private:
 	Bufor P;

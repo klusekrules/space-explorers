@@ -155,24 +155,21 @@ int SpEx::Szyfrowanie::deszyfrowanie_file_impl(){
 		return error;
 	}
 
-	std::string macV;
+	VMPC_MAC::Bufor macV;
 	macV.resize(20, 0);
-	auto read_macV = fread(&macV[0], 1, 20, plikin_); 
+	auto read_macV = fread(macV.data(), 1, 20, plikin_); 
 	error = ferror(plikin_);
 	if (error) {
 		return error;
 	}
 
-	std::string vektorV;
+	VMPC_MAC::Bufor vektorV;
 	vektorV.resize(skrotKlucza_.pobierzKontener().size(), 0);
-	auto read_vectorV = fread(&vektorV[0], 1, skrotKlucza_.pobierzKontener().size(), plikin_);
+	auto read_vectorV = fread(vektorV.data(), 1, skrotKlucza_.pobierzKontener().size(), plikin_);
 	error = ferror(plikin_);
 	if (error) {
 		return error;
 	}
-
-	VMPC_MAC::Bufor macVO(macV.begin(), macV.end());
-	VMPC_MAC::Bufor vektorVO(vektorV.begin(), vektorV.end());
 
 	fseek(plikin_, 0, SEEK_SET);
 	error = ferror(plikin_);
@@ -180,9 +177,9 @@ int SpEx::Szyfrowanie::deszyfrowanie_file_impl(){
 		return error;
 	}
 
-	szyfr.InitKey(skrotKlucza_.pobierzKontener(), vektorVO);
+	szyfr.InitKey(skrotKlucza_.pobierzKontener(), vektorV);
 
-	std::string dane;
+	VMPC_MAC::Bufor dane;
 	dane.resize(CHUNK, 0);
 	bool endWhile = false;
 	do {
@@ -191,7 +188,7 @@ int SpEx::Szyfrowanie::deszyfrowanie_file_impl(){
 			endWhile = true;
 		}
 
-		auto read_size = fread(&dane[0], 1, dane.size(), plikin_);
+		auto read_size = fread(dane.data(), 1, dane.size(), plikin_);
 		error = ferror(plikin_);
 		if (error) {
 			return error;
@@ -201,7 +198,7 @@ int SpEx::Szyfrowanie::deszyfrowanie_file_impl(){
 			return ERROR_LACK_OF_DATA;
 
 		szyfr.DecryptMAC(dane);
-		auto write_size = fwrite(&dane[0], 1, dane.size(), plikout_);
+		auto write_size = fwrite(dane.data(), 1, dane.size(), plikout_);
 		error = ferror(plikout_);
 		if (write_size != dane.size() || error) {
 			if (error)
@@ -213,7 +210,7 @@ int SpEx::Szyfrowanie::deszyfrowanie_file_impl(){
 
 	} while (!endWhile && dateSize > 0);
 
-	if (szyfr.OutputMAC() != macVO)
+	if (szyfr.OutputMAC() != macV)
 		return ERROR_DECRYPTION_FAIL;
 	return ERROR_SUCCESS;
 }

@@ -15,7 +15,7 @@ namespace SpEx {
 	* \date 10-05-2016
 	*/
 	class GniazdoWinSock {
-		friend class Klient;
+		friend class SocketBase;
 	public:
 
 		/**

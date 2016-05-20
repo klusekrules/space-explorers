@@ -20,6 +20,7 @@ namespace SpEx {
 		int switchToBlockingMode();
 		virtual ~SocketBase();
 
+		GniazdoWinSock pobierzGniazdo();
 		static std::string translateIP(struct sockaddr_in&);
 
 	protected:

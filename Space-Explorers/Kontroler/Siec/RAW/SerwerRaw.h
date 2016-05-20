@@ -2,20 +2,18 @@
 #include "Kontroler\Wielowatkowosc\Watek.h"
 #include "Kontroler\Siec\Nasluchiwacz.h"
 #include <WinSock2.h>
+#include "../Klient.h"
 
 namespace SpEx {
 	class SerwerRaw :
 		public Nasluchiwacz
 	{
 	public:
-		SerwerRaw(const std::string&,FILE*);
-		virtual ~SerwerRaw();
+		SerwerRaw(Klient& ref, const std::string&);
+		virtual ~SerwerRaw() = default;
 	private:
-		int error_;
-		FILE* fp_;
 		std::string nazwaPliku_;
-		bool SendData(SOCKET, void*, int);
-		bool SendFile(SOCKET);
+		Klient& ref_;
 		bool polaczeniePrzychodzace(SOCKET, struct sockaddr_in&) override;
 	};
 }
