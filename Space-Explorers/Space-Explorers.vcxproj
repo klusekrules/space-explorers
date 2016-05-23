@@ -445,6 +445,7 @@
     <ClInclude Include="Testy\ZapisStanuGryTest.h" />
     <ClInclude Include="Testy\ZleceniaTest.h" />
     <ClInclude Include="Utils\DefinicjeWezlowXML.h" />
+    <ClInclude Include="Utils\FinalAction.h" />
     <ClInclude Include="Utils\FromTGUI.h" />
     <ClInclude Include="Utils\StackThrow.h" />
     <ClInclude Include="Utils\Utils.h" />

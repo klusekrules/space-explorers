@@ -18,5 +18,6 @@ namespace SpEx{
 		void wykonuj() override;
 		bool polaczeniePrzychodzace(SOCKET, struct sockaddr_in&) override;
 		std::list<Klient> polaczenia_;
+		void clear();
 	};
 }
