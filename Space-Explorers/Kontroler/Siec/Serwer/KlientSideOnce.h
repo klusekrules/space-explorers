@@ -2,18 +2,18 @@
 #include "Kontroler\Wielowatkowosc\Watek.h"
 #include "Kontroler\Siec\SocketBase.h"
 #include <WinSock2.h>
-#include "../Klient.h"
+#include "BaseSide.h"
 
 namespace SpEx {
-	class KlientRaw :
+	class KlientSideOnce :
 		public Watek,
 		public SocketBase
 	{
 	public:
-		KlientRaw(Klient& ref, const std::string&, const std::string&, u_short);
-		virtual ~KlientRaw() = default;
+		KlientSideOnce(BaseSide& ref, const std::string&, const std::string&, u_short);
+		virtual ~KlientSideOnce() = default;
 	private:
-		Klient& ref_;
+		BaseSide& ref_;
 		std::string nazwaPliku_;
 		void wykonuj() override;
 	};

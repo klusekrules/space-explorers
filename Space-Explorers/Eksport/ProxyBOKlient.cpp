@@ -1,7 +1,6 @@
 #include "ProxyBOKlient.h"
 #include "KodyPowrotu.h"
-#include "Kontroler\Siec\Serwer.h"
-#include "Kontroler\Siec\Klient.h"
+#include "Kontroler\Siec\Serwer\KlientSideMulti.h"
 #include "Kontroler\Aplikacja.h"
 #include "Widok\Konsola\Konsola.h"
 #include "Export.h"
@@ -35,9 +34,9 @@ namespace SpEx{
 			klient_->czekajNaZakonczenie();
 		}
 		if (ip != nullptr)
-			klient_ = std::make_shared<Klient>(ip, port);
+			klient_ = std::make_shared<KlientSideMulti>(ip, port);
 		else
-			klient_ = std::make_shared<Klient>(Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji());
+			klient_ = std::make_shared<KlientSideMulti>(Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji());
 		if (klient_->blad()) {
 			klient_->zakoncz();
 			returnCode = klient_->bladInfo().getNumerWyjaku()();

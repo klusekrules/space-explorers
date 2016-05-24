@@ -6,17 +6,17 @@
 #include "Kompresja.h"
 #include "Szyfrowanie.h"
 
-SpEx::DaneZPamieci::DaneZPamieci(Klient & ref, const std::string& dane)
+SpEx::DaneZPamieci::DaneZPamieci(BaseSide & ref, const std::string& dane)
 	:ref_(ref),buffor_(dane)
 {
 }
 
-SpEx::DaneZPamieci::DaneZPamieci(Klient & ref, std::string&& dane)
+SpEx::DaneZPamieci::DaneZPamieci(BaseSide & ref, std::string&& dane)
 	: ref_(ref), buffor_(std::move(dane))
 {
 }
 
-SpEx::DaneZPamieci::DaneZPamieci(Klient & ref)
+SpEx::DaneZPamieci::DaneZPamieci(BaseSide & ref)
 	: ref_(ref)
 {
 }

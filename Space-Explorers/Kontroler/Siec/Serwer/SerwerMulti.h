@@ -1,23 +1,23 @@
 #pragma once
 #include "Kontroler\Wielowatkowosc\Watek.h"
-#include "Nasluchiwacz.h"
+#include "..\Nasluchiwacz.h"
 #include "Narzedzia\UstawieniaAplikacji.h"
 #include <WinSock2.h>
-#include "Klient.h"
+#include "SerwerSideMulti.h"
 #include <list>
 
 namespace SpEx{
-	class Serwer :
+	class SerwerMulti :
 		public Nasluchiwacz
 	{
 	public:
-		Serwer(const UstawieniaAplikacji& opcje);
-		virtual ~Serwer() = default;
+		SerwerMulti(const UstawieniaAplikacji& opcje);
+		virtual ~SerwerMulti() = default;
 	private:
 		SOCKET gniazdo_;
 		void wykonuj() override;
 		bool polaczeniePrzychodzace(SOCKET, struct sockaddr_in&) override;
-		std::list<Klient> polaczenia_;
+		std::list<SerwerSideMulti> polaczenia_;
 		void clear();
 	};
 }

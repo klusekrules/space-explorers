@@ -7,6 +7,7 @@
 #include "Algorytmy\Hex.h"
 #include "Kontroler\Zarzadca\Fabrykator.h"
 #include "Kontroler\Siec\RPC\SprawdzSumyKontrolneRPC.h"
+#include "Kontroler\Siec\Serwer\KlientSideMulti.h"
 
 void KomunikacjaSieciowaTest::startTestow() {
 	if (serwer_ != nullptr)
@@ -14,8 +15,8 @@ void KomunikacjaSieciowaTest::startTestow() {
 	if (klient_ != nullptr)
 		delete klient_;
 
-	serwer_ = new SpEx::Serwer(SpEx::Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji());
-	klient_ = new SpEx::Klient(SpEx::Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji());
+	serwer_ = new SpEx::SerwerMulti(SpEx::Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji());
+	klient_ = new SpEx::KlientSideMulti(SpEx::Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji());
 
 	serwer_->odblokuj();
 	klient_->odblokuj();

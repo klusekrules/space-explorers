@@ -2,7 +2,7 @@
 #include <string>
 #include <map>
 #include "Parser\json\json.h"
-#include "Kontroler\Siec\Klient.h"
+#include "Kontroler\Siec\Serwer\KlientSideMulti.h"
 #include "Logger\LoggerInterface.h"
 
 namespace SpEx{
@@ -12,7 +12,7 @@ namespace SpEx{
 	public:
 		friend class std::_Ref_count_obj<MetodaRPC>;
 		friend class Fabrykator;
-		friend class Klient;
+		friend class KlientSideMulti;
 
 		static int sprawdzCRC(Json::Value&);
 		static void dodajCRC(Json::Value&);
@@ -35,7 +35,7 @@ namespace SpEx{
 		std::string napis() const override;
 				
 	protected:
-		MetodaRPC(Klient&);
+		MetodaRPC(KlientSideMulti&);
 
 		virtual bool inicjuj();
 		virtual bool inicjuj(const Json::Value&);
@@ -56,7 +56,7 @@ namespace SpEx{
 
 		Json::Value parametry_;
 		int flagi_;
-		Klient& klient_;
+		KlientSideMulti& klient_;
 		
 		int wykonajMetode_impl();
 

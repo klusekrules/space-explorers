@@ -9,7 +9,7 @@
 
 #include "Utils\Utils.h"
 
-SpEx::DaneZPliku::DaneZPliku(Klient& ref,const std::string & adresPliku)
+SpEx::DaneZPliku::DaneZPliku(BaseSide& ref,const std::string & adresPliku)
 	: ref_(ref), plik_ (nullptr)
 {
 	if (!adresPliku.empty()) {

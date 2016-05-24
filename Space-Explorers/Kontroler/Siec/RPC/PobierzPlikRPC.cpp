@@ -2,8 +2,8 @@
 #include "PobierzPlikRPC.h"
 #include "Logger\Logger.h"
 #include "StaleRPC.h"
-#include "..\RAW\SerwerRaw.h"
-#include "..\RAW\KlientRaw.h"
+#include "..\Serwer\SerwerOnce.h"
+#include "..\Serwer\KlientSideOnce.h"
 #include "Kontroler\Aplikacja.h"
 #include "Kontroler\Wielowatkowosc\ObserwatorWatkow.h"
 #include "Narzedzia\Stale.h"
@@ -45,7 +45,7 @@ namespace SpEx {
 				odpowiedz[METODA_RPC_RETURN] = false;
 				return;
 			}
-			auto ptr = ObserwatorWatkow::make_thread<SerwerRaw>(klient_,nazwaPlikuDanych_);
+			auto ptr = ObserwatorWatkow::make_thread<SerwerOnce>(klient_,nazwaPlikuDanych_);
 			odpowiedz["NazwaPliku"] = nazwaPlikuDanych_;
 			odpowiedz["Port"] = ptr->pobierzPort();
 			ptr->odblokuj();
@@ -60,7 +60,7 @@ namespace SpEx {
 			return false;
 		}
 		std::string adresPliku = Utils::adresPliku(parametry_["Plik"].asString());
-		auto plik = ObserwatorWatkow::make_thread<KlientRaw>(klient_, adresPliku,std::string("127.0.0.1"), odpowiedz["Port"].asInt());
+		auto plik = ObserwatorWatkow::make_thread<KlientSideOnce>(klient_, adresPliku,std::string("127.0.0.1"), odpowiedz["Port"].asInt());
 		plik->odblokuj();
 		plik->czekajNaZakonczenie();
 		int kod = plik->kodPowrotu();

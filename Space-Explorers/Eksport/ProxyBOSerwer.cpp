@@ -1,7 +1,6 @@
 #include "ProxyBOSerwer.h"
 #include "KodyPowrotu.h"
-#include "Kontroler\Siec\Serwer.h"
-#include "Kontroler\Siec\Klient.h"
+#include "Kontroler\Siec\Serwer\SerwerMulti.h"
 #include "Kontroler\Aplikacja.h"
 #include "Widok\Konsola\Konsola.h"
 #include "Export.h"
@@ -18,7 +17,7 @@ namespace SpEx{
 			return RETURN_CODE_SERWER_JUZ_JEST_WLACZONY;
 		}
 		
-		serwer_ = std::make_shared<Serwer>(Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji());
+		serwer_ = std::make_shared<SerwerMulti>(Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji());
 		serwer_->odblokuj();
 		return RETURN_CODE_OK;
 	}

@@ -7,22 +7,15 @@
 #define ATRYBUT_LIMIT_POLACZEN "limitPolaczen"
 #define IP_BUFOR_K_ROZMIAR 20
 
-SpEx::SocketBase::SocketBase(const UstawieniaAplikacji & opcje) {
-	auto& port = opcje[ATRYBUT_PORT_SERWERA];
-	if (!port.empty()) {
-		port_ = std::stoi(port, nullptr, 10);
-	}
-	
-	auto& maksymalnaIloscPolaczen = opcje[ATRYBUT_LIMIT_POLACZEN];
-	if (!maksymalnaIloscPolaczen.empty()) {
-		limitPolaczen_ = std::stoi(maksymalnaIloscPolaczen, nullptr, 10);
-	}
-}
-
 SpEx::SocketBase::SocketBase(SOCKET gniazdo, struct sockaddr_in& info)
 	: port_(0), gniazdo_(gniazdo), addr_(info)
 {
 	portUpdate();
+}
+
+SpEx::SocketBase::SocketBase(int port, int limit)
+	: port_(port), limitPolaczen_(limit)
+{
 }
 
 int SpEx::SocketBase::pobierzPort(){

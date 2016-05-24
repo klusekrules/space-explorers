@@ -1,4 +1,4 @@
-#include "SerwerRaw.h"
+#include "SerwerOnce.h"
 #include <Ws2tcpip.h>
 
 #ifndef LOG_OFF_ALL
@@ -9,13 +9,13 @@
 #include "../DaneZPliku.h"
 
 namespace SpEx {
-	SerwerRaw::SerwerRaw(Klient& ref,const std::string& nazwaPliku)
+	SerwerOnce::SerwerOnce(BaseSide& ref,const std::string& nazwaPliku)
 		: Nasluchiwacz(), ref_(ref), nazwaPliku_(nazwaPliku)
 	{
 		ustawAcceptTimeout(10);
 	}
 	
-	bool SerwerRaw::polaczeniePrzychodzace(SOCKET soc, sockaddr_in &addr ){
+	bool SerwerOnce::polaczeniePrzychodzace(SOCKET soc, sockaddr_in &addr ){
 		SocketBase base(soc, addr);
 
 		DaneZPliku dane(ref_,nazwaPliku_);

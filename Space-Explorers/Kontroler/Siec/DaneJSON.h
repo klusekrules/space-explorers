@@ -4,8 +4,8 @@
 namespace SpEx{
 	class DaneJSON {
 	public:
-		DaneJSON(Klient&);
-		DaneJSON(Klient&, const std::string&, std::string&, int);
+		DaneJSON(KlientSideMulti&);
+		DaneJSON(KlientSideMulti&, const std::string&, std::string&, int);
 
 		int odbierz();
 		int wyslij();
@@ -16,7 +16,7 @@ namespace SpEx{
 	private:
 		void dodajKomunikatBledu(int, Json::Value&);
 
-		Klient & ref_;
+		KlientSideMulti & ref_;
 		u_int64 flagi_;
 		std::string wyslij_;
 		std::string& odbierz_;

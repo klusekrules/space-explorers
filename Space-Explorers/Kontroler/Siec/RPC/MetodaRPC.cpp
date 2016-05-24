@@ -9,7 +9,7 @@
 
 namespace SpEx{
 
-	MetodaRPC::MetodaRPC(Klient& klient)
+	MetodaRPC::MetodaRPC(KlientSideMulti& klient)
 		: klient_(klient), flagi_(0)
 	{}
 

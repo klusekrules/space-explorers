@@ -9,7 +9,7 @@
 #include "Utils\StackThrow.h"
 
 namespace SpEx{
-	std::shared_ptr<MetodaRPC> Fabrykator::tworzMetodeRPC(const Json::Value & root, Klient& klient) const{
+	std::shared_ptr<MetodaRPC> Fabrykator::tworzMetodeRPC(const Json::Value & root, KlientSideMulti& klient) const{
 		if (root.isObject()){
 			auto value = root[METODA_RPC_METODA][METODA_RPC_NAZWA];
 			if (value.isString()){

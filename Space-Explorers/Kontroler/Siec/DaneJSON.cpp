@@ -9,12 +9,12 @@
 #include "DaneTCP.h"
 
 namespace SpEx{
-	DaneJSON::DaneJSON(Klient& ref)
+	DaneJSON::DaneJSON(KlientSideMulti& ref)
 		: ref_(ref), flagi_((unsigned __int64)FLAGA_WERSJA << 32), odbierz_(wyslij_)
 	{
 	}
 
-	DaneJSON::DaneJSON(Klient& ref, const std::string& wyslij, std::string& odbierz, int flagi)
+	DaneJSON::DaneJSON(KlientSideMulti& ref, const std::string& wyslij, std::string& odbierz, int flagi)
 		: ref_(ref), odbierz_(odbierz), wyslij_(wyslij), flagi_( (unsigned __int64)FLAGA_WERSJA << 32 | flagi), error_(0)
 	{	
 	}

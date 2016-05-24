@@ -1,6 +1,6 @@
 #pragma once
-#include "Narzedzia\UstawieniaAplikacji.h"
 #include <WinSock2.h>
+#include <string>
 
 namespace SpEx {
 	class SocketBase
@@ -9,7 +9,7 @@ namespace SpEx {
 	public:
 		SocketBase() = default;
 		SocketBase(SOCKET, struct sockaddr_in&);
-		SocketBase(const UstawieniaAplikacji& opcje);
+		SocketBase(int port, int limit = SOMAXCONN);
 		int pobierzPort();
 		void ustawPort(int);
 		const std::string & pobierzAdres();

@@ -3,7 +3,7 @@
 #include <memory>
 
 namespace SpEx{
-	class Serwer;
+	class SerwerMulti;
 };
 
 namespace SpEx{
@@ -36,7 +36,7 @@ namespace SpEx{
 		int pobierzPlikiGry() override;
 
 	private:
-		std::shared_ptr<Serwer> serwer_;
+		std::shared_ptr<SerwerMulti> serwer_;
 
 	};
 }

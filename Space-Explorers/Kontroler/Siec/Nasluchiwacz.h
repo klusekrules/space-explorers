@@ -9,7 +9,7 @@ namespace SpEx {
 	{
 	public:
 		Nasluchiwacz();
-		Nasluchiwacz(const UstawieniaAplikacji& opcje);
+		Nasluchiwacz(int port, int limit, long timeout = 0);
 		void ustawAcceptTimeout(long timeout);
 		long pobierzAcceptTimeout()const;
 

@@ -1,4 +1,4 @@
-#include "KlientRaw.h"
+#include "KlientSideOnce.h"
 #include <Ws2tcpip.h>
 
 #ifndef LOG_OFF_ALL
@@ -8,15 +8,14 @@
 #include "../DaneZPliku.h"
 
 namespace SpEx {
-	KlientRaw::KlientRaw(Klient& ref, const std::string& nazwaPliku, const std::string& ip, u_short port)
-		: Watek("KlientRaw",true), nazwaPliku_(nazwaPliku), ref_(ref)
+	KlientSideOnce::KlientSideOnce(BaseSide& ref, const std::string& nazwaPliku, const std::string& ip, u_short port)
+		: Watek("KlientSideOnce",true), nazwaPliku_(nazwaPliku), ref_(ref), SocketBase(port,1)
 	{		
 		ustawAdres(ip);
-		ustawPort(port);
 		socket();
 	}
 	
-	void KlientRaw::wykonuj() {
+	void KlientSideOnce::wykonuj() {
 		int error = connect();
 		if (error != ERROR_SUCCESS) {
 #ifndef LOG_OFF_ALL
@@ -40,9 +39,6 @@ namespace SpEx {
 			ustawKodPowrotu(error);
 			return;
 		}
-#ifndef LOG_OFF_ALL
-		SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "Pobrano plik: " + nazwaPliku_);
-#endif
 		ustawKodPowrotu(ERROR_SUCCESS);
 	}
 }

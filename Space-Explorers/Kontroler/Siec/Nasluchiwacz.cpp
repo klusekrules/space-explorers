@@ -12,8 +12,8 @@ SpEx::Nasluchiwacz::Nasluchiwacz()
 	init();
 }
 
-SpEx::Nasluchiwacz::Nasluchiwacz(const UstawieniaAplikacji & opcje)
-	: SocketBase(opcje) ,Watek("Nasluchiwacz", true)
+SpEx::Nasluchiwacz::Nasluchiwacz(int port, int limit, long timeout)
+	: SocketBase(port,limit), Watek("Nasluchiwacz", true), acceptTimeout_(timeout)
 {
 	init();
 }

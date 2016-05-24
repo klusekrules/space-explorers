@@ -6,7 +6,7 @@
 
 namespace SpEx{
 	class MetodaRPC;
-	class Klient;
+	class KlientSideMulti;
 	/**
 	* \brief Klasa przechowuj¹ca obiekty fabryk.
 	*
@@ -23,7 +23,7 @@ namespace SpEx{
 		typedef std::shared_ptr<Skrypt>(*KreatorSkryptu)(XmlBO::ElementWezla wezel); /// Nag³ówek metody tworz¹cej skrypt.
 
 		typedef STyp::Tekst IdentyfikatorMetoryRPC;
-		typedef std::shared_ptr<MetodaRPC>(*KreatorMetodyRPC)(const Json::Value &, Klient&);
+		typedef std::shared_ptr<MetodaRPC>(*KreatorMetodyRPC)(const Json::Value &, KlientSideMulti&);
 
 		/**
 		* \brief Konstruktor.
@@ -103,10 +103,10 @@ namespace SpEx{
 		*/
 		SZmi::ZmianaFabryka& pobierzFabrykeZmian();
 
-		std::shared_ptr<MetodaRPC> tworzMetodeRPC(const Json::Value &, Klient&) const;
+		std::shared_ptr<MetodaRPC> tworzMetodeRPC(const Json::Value &, KlientSideMulti&) const;
 		
 		template <class T_>
-		inline std::shared_ptr<T_> tworzMetodeRPC(Klient& klient){
+		inline std::shared_ptr<T_> tworzMetodeRPC(KlientSideMulti& klient){
 			if (SLog::Log::pobierzInstancje().czyLogiOdblokowane(SLog::Log::Info)){
 				SLog::Log::pobierzInstancje().loguj(SLog::Log::Info, "MetodaRPC -> " + typename T_::NazwaTypu_);
 			}
@@ -155,7 +155,7 @@ namespace SpEx{
 		}
 
 		template <class T_>
-		static std::shared_ptr<SpEx::MetodaRPC> tworz(const Json::Value & metoda, Klient& klient){
+		static std::shared_ptr<SpEx::MetodaRPC> tworz(const Json::Value & metoda, KlientSideMulti& klient){
 			auto ptr = std::make_shared<T_>(klient);			
 			if ( (*ptr) << metoda && ptr->inicjuj(metoda)){
 				return std::move(ptr);

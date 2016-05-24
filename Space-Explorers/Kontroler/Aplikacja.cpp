@@ -10,8 +10,6 @@
 
 #include "Widok\Konsola\Konsola.h"
 
-#include "Siec\Serwer.h"
-#include "Siec\Klient.h"
 #include "Zarzadca\Fabrykator.h"
 #include "Narzedzia\ZarzadcaZasobow.h"
 #include "Zarzadca\ZarzadcaPluginow.h"

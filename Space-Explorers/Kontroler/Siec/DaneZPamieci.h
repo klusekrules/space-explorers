@@ -1,7 +1,7 @@
 #pragma once
 #include "IDane.h"
 #include <vector>
-#include "Klient.h"
+#include "Serwer\BaseSide.h"
 
 #define ROZMIAR_BUFFORA 1500
 
@@ -10,9 +10,9 @@ namespace SpEx {
 		: public IDane
 	{
 	public:
-		DaneZPamieci(Klient&);
-		DaneZPamieci(Klient&,const std::string & dane);
-		DaneZPamieci(Klient&, std::string && dane);
+		DaneZPamieci(BaseSide&);
+		DaneZPamieci(BaseSide&,const std::string & dane);
+		DaneZPamieci(BaseSide&, std::string && dane);
 		virtual ~DaneZPamieci() = default;
 		unsigned __int64 rozmiar() const override;
 		int przygotujDane() override;
@@ -20,7 +20,7 @@ namespace SpEx {
 
 	protected:
 		std::string buffor_;
-		Klient& ref_;
+		BaseSide& ref_;
 		bool received_ = false;
 		int wyslij(GniazdoWinSock& e, int flagi) override;
 		int odbierz(GniazdoWinSock& e, int flagi) override;

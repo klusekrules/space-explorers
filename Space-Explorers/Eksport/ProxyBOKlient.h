@@ -3,7 +3,7 @@
 #include <memory>
 
 namespace SpEx{
-	class Klient;
+	class KlientSideMulti;
 };
 
 namespace SpEx{
@@ -36,6 +36,6 @@ namespace SpEx{
 		int pobierzPlikiGry() override;
 
 	private:
-		std::shared_ptr<Klient> klient_;
+		std::shared_ptr<KlientSideMulti> klient_;
 	};
 }

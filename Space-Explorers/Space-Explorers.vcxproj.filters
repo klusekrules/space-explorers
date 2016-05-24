@@ -253,12 +253,6 @@
     <ClCompile Include="Kontroler\Siec\RPC\MetodaRPC.cpp">
       <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClCompile>
-    <ClCompile Include="Kontroler\Siec\Klient.cpp">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="Kontroler\Siec\Serwer.cpp">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClCompile>
     <ClCompile Include="Kontroler\Wielowatkowosc\MenadzerWatkow.cpp">
       <Filter>SourceFile\Kontroler\MultiThreading</Filter>
     </ClCompile>
@@ -361,12 +355,6 @@
     <ClCompile Include="Kontroler\Siec\RPC\PobierzPlikRPC.cpp">
       <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClCompile>
-    <ClCompile Include="Kontroler\Siec\RAW\SerwerRaw.cpp">
-      <Filter>SourceFile\Kontroler\Network\RAW</Filter>
-    </ClCompile>
-    <ClCompile Include="Kontroler\Siec\RAW\KlientRaw.cpp">
-      <Filter>SourceFile\Kontroler\Network\RAW</Filter>
-    </ClCompile>
     <ClCompile Include="Kontroler\Siec\Nasluchiwacz.cpp">
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClCompile>
@@ -396,6 +384,24 @@
     </ClCompile>
     <ClCompile Include="Kontroler\Siec\GniazdoWinSock.cpp">
       <Filter>SourceFile\Kontroler\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\Serwer\BaseSide.cpp">
+      <Filter>SourceFile\Kontroler\Network\Serwer</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\Serwer\KlientSideOnce.cpp">
+      <Filter>SourceFile\Kontroler\Network\Serwer</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\Serwer\SerwerMulti.cpp">
+      <Filter>SourceFile\Kontroler\Network\Serwer</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\Serwer\SerwerOnce.cpp">
+      <Filter>SourceFile\Kontroler\Network\Serwer</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\Serwer\KlientSideMulti.cpp">
+      <Filter>SourceFile\Kontroler\Network\Serwer</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\Serwer\SerwerSideMulti.cpp">
+      <Filter>SourceFile\Kontroler\Network\Serwer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -654,12 +660,6 @@
     <ClInclude Include="Kontroler\Siec\RPC\StaleRPC.h">
       <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClInclude>
-    <ClInclude Include="Kontroler\Siec\Klient.h">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Kontroler\Siec\Serwer.h">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClInclude>
     <ClInclude Include="Kontroler\Wielowatkowosc\MenadzerWatkow.h">
       <Filter>SourceFile\Kontroler\MultiThreading</Filter>
     </ClInclude>
@@ -789,12 +789,6 @@
     <ClInclude Include="Kontroler\Siec\RPC\PobierzPlikRPC.h">
       <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClInclude>
-    <ClInclude Include="Kontroler\Siec\RAW\KlientRaw.h">
-      <Filter>SourceFile\Kontroler\Network\RAW</Filter>
-    </ClInclude>
-    <ClInclude Include="Kontroler\Siec\RAW\SerwerRaw.h">
-      <Filter>SourceFile\Kontroler\Network\RAW</Filter>
-    </ClInclude>
     <ClInclude Include="Kontroler\Siec\Nasluchiwacz.h">
       <Filter>SourceFile\Kontroler\Network</Filter>
     </ClInclude>
@@ -830,6 +824,24 @@
     </ClInclude>
     <ClInclude Include="Utils\FinalAction.h">
       <Filter>SourceFile\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\Serwer\BaseSide.h">
+      <Filter>SourceFile\Kontroler\Network\Serwer</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\Serwer\KlientSideOnce.h">
+      <Filter>SourceFile\Kontroler\Network\Serwer</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\Serwer\SerwerMulti.h">
+      <Filter>SourceFile\Kontroler\Network\Serwer</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\Serwer\SerwerOnce.h">
+      <Filter>SourceFile\Kontroler\Network\Serwer</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\Serwer\KlientSideMulti.h">
+      <Filter>SourceFile\Kontroler\Network\Serwer</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\Serwer\SerwerSideMulti.h">
+      <Filter>SourceFile\Kontroler\Network\Serwer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -968,8 +980,8 @@
     <Filter Include="SourceFile\Wyjatki\DomysleWartosci">
       <UniqueIdentifier>{6f405ef5-dac8-4c81-a144-5dde19dd7b2b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SourceFile\Kontroler\Network\RAW">
-      <UniqueIdentifier>{420b570b-fc9c-4458-a0b0-cde94987b174}</UniqueIdentifier>
+    <Filter Include="SourceFile\Kontroler\Network\Serwer">
+      <UniqueIdentifier>{662ae967-dbf1-4b3c-9b05-9b8615ae46a8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
