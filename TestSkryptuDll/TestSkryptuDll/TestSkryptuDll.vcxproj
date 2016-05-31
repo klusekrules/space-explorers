@@ -149,6 +149,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)out\</AdditionalLibraryDirectories>
       <AdditionalDependencies>SpaceExplorers-$(PlatformTarget)-$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)afterTestSkryptuDll.bat</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">
     <ClCompile>
@@ -166,6 +169,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)out\</AdditionalLibraryDirectories>
       <AdditionalDependencies>SpaceExplorers-$(PlatformTarget)-$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)afterTestSkryptuDll.bat</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -183,6 +189,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)out\</AdditionalLibraryDirectories>
       <AdditionalDependencies>SpaceExplorers-$(PlatformTarget)-$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)afterTestSkryptuDll.bat</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">
     <ClCompile>
@@ -200,6 +209,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)out\</AdditionalLibraryDirectories>
       <AdditionalDependencies>SpaceExplorers-$(PlatformTarget)-$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)afterTestSkryptuDll.bat</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -220,6 +232,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)out\</AdditionalLibraryDirectories>
       <AdditionalDependencies>SpaceExplorers-$(PlatformTarget)-$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)afterTestSkryptuDll.bat</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -240,6 +255,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)out\</AdditionalLibraryDirectories>
       <AdditionalDependencies>SpaceExplorers-$(PlatformTarget)-$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)afterTestSkryptuDll.bat</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />

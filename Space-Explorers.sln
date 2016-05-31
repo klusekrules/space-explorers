@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Space-Explorers", "Space-Explorers\Space-Explorers.vcxproj", "{A8B6EFB3-277C-42D6-A05E-78516E547F38}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -120,6 +120,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lua", "LuaJIT-2.0.4\Lua.vcxproj", "{49570CCE-01D4-4FD1-9E53-1232DBA28E14}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Konfiguracja", "Konfiguracja", "{0D81AE5F-4B96-4CB2-979B-87DEBE905319}"
+	ProjectSection(SolutionItems) = preProject
+		afterTestSkryptuDll.bat = afterTestSkryptuDll.bat
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Serwer", "Serwer", "{7DBF6BAB-4EC3-4A4A-86C4-77CEF605A6F3}"
 EndProject
