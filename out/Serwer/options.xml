@@ -50,4 +50,6 @@
   
   <opcja nazwa="portSerwera" wartosc="15015"/>
   <opcja nazwa="adresSerwera" wartosc="127.0.0.1"/>
+  <opcja nazwa="limitPolaczenOczekujacych" wartosc="10"/>
+  <opcja nazwa="limitPolaczenAktywnych" wartosc="20"/>
 </Space-Explorers>

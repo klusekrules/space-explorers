@@ -16,6 +16,8 @@ SpEx::SocketBase::SocketBase(SOCKET gniazdo, struct sockaddr_in& info)
 SpEx::SocketBase::SocketBase(int port, int limit)
 	: port_(port), limitPolaczen_(limit)
 {
+	if (limitPolaczen_ <= 0)
+		limitPolaczen_ = SOMAXCONN;
 }
 
 int SpEx::SocketBase::pobierzPort(){

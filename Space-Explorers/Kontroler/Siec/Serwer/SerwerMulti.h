@@ -14,6 +14,7 @@ namespace SpEx{
 		SerwerMulti(const UstawieniaAplikacji& opcje);
 		virtual ~SerwerMulti() = default;
 	private:
+		size_t limit_;
 		SOCKET gniazdo_;
 		void wykonuj() override;
 		bool polaczeniePrzychodzace(SOCKET, struct sockaddr_in&) override;
