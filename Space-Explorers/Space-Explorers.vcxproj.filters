@@ -355,35 +355,8 @@
     <ClCompile Include="Kontroler\Siec\RPC\PobierzPlikRPC.cpp">
       <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClCompile>
-    <ClCompile Include="Kontroler\Siec\Nasluchiwacz.cpp">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="Kontroler\Siec\SocketBase.cpp">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClCompile>
     <ClCompile Include="Kontroler\Wielowatkowosc\ObserwatorWatkow.cpp">
       <Filter>SourceFile\Kontroler\MultiThreading</Filter>
-    </ClCompile>
-    <ClCompile Include="Kontroler\Siec\Szyfrowanie.cpp">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="Kontroler\Siec\Kompresja.cpp">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="Kontroler\Siec\DaneJSON.cpp">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="Kontroler\Siec\DaneTCP.cpp">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="Kontroler\Siec\DaneZPamieci.cpp">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="Kontroler\Siec\DaneZPliku.cpp">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="Kontroler\Siec\GniazdoWinSock.cpp">
-      <Filter>SourceFile\Kontroler\Network</Filter>
     </ClCompile>
     <ClCompile Include="Kontroler\Siec\Serwer\BaseSide.cpp">
       <Filter>SourceFile\Kontroler\Network\Serwer</Filter>
@@ -402,6 +375,33 @@
     </ClCompile>
     <ClCompile Include="Kontroler\Siec\Serwer\SerwerSideMulti.cpp">
       <Filter>SourceFile\Kontroler\Network\Serwer</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\DaneJSON.cpp">
+      <Filter>SourceFile\Kontroler\Network\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\DaneTCP.cpp">
+      <Filter>SourceFile\Kontroler\Network\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\DaneZPamieci.cpp">
+      <Filter>SourceFile\Kontroler\Network\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\DaneZPliku.cpp">
+      <Filter>SourceFile\Kontroler\Network\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\GniazdoWinSock.cpp">
+      <Filter>SourceFile\Kontroler\Network\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\Kompresja.cpp">
+      <Filter>SourceFile\Kontroler\Network\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\Nasluchiwacz.cpp">
+      <Filter>SourceFile\Kontroler\Network\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\SocketBase.cpp">
+      <Filter>SourceFile\Kontroler\Network\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Kontroler\Siec\Szyfrowanie.cpp">
+      <Filter>SourceFile\Kontroler\Network\Framework</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -789,38 +789,8 @@
     <ClInclude Include="Kontroler\Siec\RPC\PobierzPlikRPC.h">
       <Filter>SourceFile\Kontroler\Network\MetodyRPC</Filter>
     </ClInclude>
-    <ClInclude Include="Kontroler\Siec\Nasluchiwacz.h">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Kontroler\Siec\SocketBase.h">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClInclude>
     <ClInclude Include="Kontroler\Wielowatkowosc\ObserwatorWatkow.h">
       <Filter>SourceFile\Kontroler\MultiThreading</Filter>
-    </ClInclude>
-    <ClInclude Include="Kontroler\Siec\Kompresja.h">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Kontroler\Siec\Szyfrowanie.h">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Kontroler\Siec\DaneJSON.h">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Kontroler\Siec\DaneTCP.h">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Kontroler\Siec\IDane.h">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Kontroler\Siec\DaneZPamieci.h">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Kontroler\Siec\DaneZPliku.h">
-      <Filter>SourceFile\Kontroler\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Kontroler\Siec\GniazdoWinSock.h">
-      <Filter>SourceFile\Kontroler\Network</Filter>
     </ClInclude>
     <ClInclude Include="Utils\FinalAction.h">
       <Filter>SourceFile\Utils</Filter>
@@ -842,6 +812,36 @@
     </ClInclude>
     <ClInclude Include="Kontroler\Siec\Serwer\SerwerSideMulti.h">
       <Filter>SourceFile\Kontroler\Network\Serwer</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\DaneJSON.h">
+      <Filter>SourceFile\Kontroler\Network\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\DaneTCP.h">
+      <Filter>SourceFile\Kontroler\Network\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\DaneZPamieci.h">
+      <Filter>SourceFile\Kontroler\Network\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\DaneZPliku.h">
+      <Filter>SourceFile\Kontroler\Network\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\GniazdoWinSock.h">
+      <Filter>SourceFile\Kontroler\Network\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\IDane.h">
+      <Filter>SourceFile\Kontroler\Network\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\Kompresja.h">
+      <Filter>SourceFile\Kontroler\Network\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\Nasluchiwacz.h">
+      <Filter>SourceFile\Kontroler\Network\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\SocketBase.h">
+      <Filter>SourceFile\Kontroler\Network\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Kontroler\Siec\Szyfrowanie.h">
+      <Filter>SourceFile\Kontroler\Network\Framework</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -982,6 +982,9 @@
     </Filter>
     <Filter Include="SourceFile\Kontroler\Network\Serwer">
       <UniqueIdentifier>{662ae967-dbf1-4b3c-9b05-9b8615ae46a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFile\Kontroler\Network\Framework">
+      <UniqueIdentifier>{d9c34c7f-9d90-483e-a800-621d009fa86e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
