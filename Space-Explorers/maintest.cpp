@@ -1,5 +1,5 @@
 #include "Kontroler\Aplikacja.h"
-#include "Kontroler\MaszynaStanow\MaszynaStanow.h"
+#include "TypyProste\Wyjatek.h"
 
 #ifdef TESTS
 #define _CRTDBG_MAP_ALLOC
@@ -15,7 +15,7 @@ void main( int argv , char* argc[] ){
 	_CrtSetReportFile(_CRT_ERROR, hLogFile);
 	_CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_FILE);
 	_CrtSetReportFile(_CRT_ASSERT, hLogFile);
-	
+
 	try{
 		SpEx::Aplikacja::iloscArgumentow = argv;
 		SpEx::Aplikacja::argumenty = argc;
@@ -52,6 +52,7 @@ void main( int argv , char* argc[] ){
 			MB_ICONERROR
 			);
 	}
+	
 }
 
 #endif

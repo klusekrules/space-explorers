@@ -118,7 +118,7 @@ namespace SpEx{
 			* \date 09-07-2014
 			*/
 			void ustawNowyNumerNastepny(int numer);
-
+			
 			/**
 			* \brief Metoda tworz¹ca tekstowy opis obiektu.
 			*
@@ -216,6 +216,8 @@ namespace SpEx{
 		* \date 09-07-2014
 		*/
 		void start();
+		
+		void wyczysc();
 		
 		/**
 		* \brief Metoda pobieraj¹ca stos ekranów oraz aktualny stan.

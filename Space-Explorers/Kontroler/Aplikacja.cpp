@@ -21,6 +21,8 @@
 #include "Parser\ParserDokumentXml.h"
 #include "Eksport\IProxyBO.h"
 
+#include "Kontroler\Wielowatkowosc\ObserwatorWatkow.h"
+
 namespace SpEx{
 
 	int Aplikacja::iloscArgumentow = 0;
@@ -62,6 +64,7 @@ namespace SpEx{
 				break;
 			case TrybAplikacji::Invalid:
 				logger_.loguj(SLog::Log::Info, "Tryb dzia³ania aplikacji: Invalid");
+				SpEx::MaszynaStanow::pobierzInstancje().wyczysc();
 				break;
 			default:
 				break;
@@ -155,6 +158,9 @@ namespace SpEx{
 			konsola_->zakoncz();
 			konsola_->czekajNaZakonczenie();
 		}
+
+		SpEx::ObserwatorWatkow::pobierzInstancje().wylaczJakPuste();
+		SpEx::ObserwatorWatkow::pobierzInstancje().czekajNaZakonczenie();
 
 		WSACleanup();
 	}

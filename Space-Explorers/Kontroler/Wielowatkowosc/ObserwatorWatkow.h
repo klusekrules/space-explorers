@@ -19,12 +19,15 @@ namespace SpEx {
 			ObserwatorWatkow::pobierzInstancje().dodajWatek(std::static_pointer_cast<Watek>(ptr));
 			return ptr;
 		}
+
+		void wylaczJakPuste();
 		
 	private:
 		ObserwatorWatkow();
 		virtual ~ObserwatorWatkow() = default;
 		void wykonuj() override;
 		void dodajWatek( std::shared_ptr<Watek> &watek);
+		bool wylaczJakPuste_ = false;
 		std::list<std::shared_ptr<Watek>> listaWatkow_;
 		std::vector<std::shared_ptr<Watek>> doUsuniecia_;
 		std::mutex synchronize_;

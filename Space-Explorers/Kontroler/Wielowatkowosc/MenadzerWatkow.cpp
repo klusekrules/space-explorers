@@ -45,4 +45,10 @@ namespace SpEx{
 		pulaWatkow_[numerWatku_].dodajZadanie(zadanie);
 		numerWatku_ = (numerWatku_ + 1) % pulaWatkow_.size();
 	}
+
+	void MenadzerWatkow::wyczysc(){
+		std::lock_guard<std::mutex> blokada(mutaxPuliWatkow_);
+		numerWatku_ = 0;
+		pulaWatkow_.clear();
+	}
 };

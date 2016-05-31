@@ -12,6 +12,7 @@
 #include "Utils\StackThrow.h"
 #include "Widok\Konsola\Konsola.h"
 #include "Kontroler\Wielowatkowosc\ObserwatorWatkow.h"
+#include "Utils\FinalAction.h"
 
 namespace SpEx{
 	MaszynaStanow::StanDlaSkryptu::StanDlaSkryptu()
@@ -55,6 +56,14 @@ namespace SpEx{
 			if (inicjalizujOknoGlowne_ && watekGraficzny_){
 				watekGraficzny_->zatrzymajPoInicjalizacji();
 				watekGraficzny_->odblokuj();
+			}
+			else {
+				if (watekGraficzny_) {
+					watekGraficzny_->zakmnij();
+					watekGraficzny_->odblokuj();
+					watekGraficzny_->czekajNaZakonczenie();
+					watekGraficzny_ = nullptr;
+				}
 			}
 		}
 		catch (...){
@@ -152,6 +161,21 @@ namespace SpEx{
 	}
 
 	void MaszynaStanow::start(){
+		auto wyczyscPuleWatkow = finally([&]()->void { pulaWatkow_.wyczysc(); });
+
+		auto wyczyscWatekGraficzny = finally([&]()->void {
+			if (watekGraficzny_) {
+				if (!inicjalizujOknoGlowne_) {
+					watekGraficzny_->zakmnij();
+					watekGraficzny_->odblokuj();
+				}
+				watekGraficzny_->czekajNaZakonczenie();
+				if (watekGraficzny_->blad()) {
+					throw watekGraficzny_->bladInfo();
+				}
+			}
+		});
+
 		Stan s(wszystkieStany_.at(idStanuPoczatkowy_));
 		ustawNastepnyStan(s);
 
@@ -191,20 +215,25 @@ namespace SpEx{
 			}
 #endif
 		}
-
+		
 		if (Aplikacja::pobierzInstancje().konsola_) {
 			if (Aplikacja::pobierzInstancje().konsola_->blad()) {
 				throw Aplikacja::pobierzInstancje().konsola_->bladInfo();
 			}
 		}
 
-		if (watekGraficzny_){
+	}
+
+	void SpEx::MaszynaStanow::wyczysc(){
+		pulaWatkow_.wyczysc();
+
+		if (watekGraficzny_) {
 			if (!inicjalizujOknoGlowne_) {
 				watekGraficzny_->zakmnij();
 				watekGraficzny_->odblokuj();
 			}
 			watekGraficzny_->czekajNaZakonczenie();
-			if (watekGraficzny_->blad()){
+			if (watekGraficzny_->blad()) {
 				throw watekGraficzny_->bladInfo();
 			}
 		}

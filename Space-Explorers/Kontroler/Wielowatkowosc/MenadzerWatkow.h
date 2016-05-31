@@ -109,6 +109,8 @@ namespace SpEx{
 		*/
 		void dodajZadanie(Zadanie& zadanie);
 
+		void wyczysc();
+
 		/**
 		* \brief Domyœlny destruktor.
 		*

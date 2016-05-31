@@ -7,6 +7,10 @@ SpEx::ObserwatorWatkow::ObserwatorWatkow()
 	odblokuj();
 }
 
+void SpEx::ObserwatorWatkow::wylaczJakPuste() {
+	wylaczJakPuste_ = true;
+}
+
 void SpEx::ObserwatorWatkow::wykonuj(){
 	while (!czyZakonczyc()) {
 
@@ -29,6 +33,11 @@ void SpEx::ObserwatorWatkow::wykonuj(){
 			watek->czekajNaZakonczenie();
 		}
 
+		{
+			std::lock_guard<std::mutex> temp(synchronize_);
+			if (listaWatkow_.empty() && wylaczJakPuste_)
+				break;
+		}
 	}
 }
 
