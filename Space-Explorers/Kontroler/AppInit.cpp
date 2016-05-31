@@ -52,7 +52,7 @@
 #define KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DOMYSLNYCH STyp::Tekst("Nie powiod³a siê rejestracja domyœlnych obiektów zmiany.")
 #define KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DODATKOWYCH STyp::Tekst("Nie powiod³a siê rejestracja dodatkowych obiektów zmiany.")
 #define KOMUNIKAT_BLAD_BRAK_PLIKU_DANYCH(plik) STyp::Tekst("Plik : " + plik + " z danymi programu nie zosta³ znaleziony!")
-#define KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folder) STyp::Tekst("Folder :" + folder + " nie zosta³ znaleziony!")
+#define KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folder) STyp::Tekst("Folder: " + folder + " nie zosta³ znaleziony!")
 #define KOMUNIKAT_BLAD_INICJALIZACJI_WINSOCK STyp::Tekst("B³¹d inicjalizcji biblioteki winsock!")
 #define KOMUNIKAT_BLAD_NIE_USTAWIONO_TRYBU_APLIKACJI STyp::Tekst("Nie ustawiono trybu aplikacji!")
 
@@ -331,7 +331,11 @@ namespace SpEx{
 				folderPluginow_ += ustawienia_[ATRYBUT_GLOWNY_FOLDER_GRY] + "\\";
 			folderPluginow_ += ustawienia_[ATRYBUT_FOLDER_PLUGINOW];
 			if (_access(folderPluginow_.c_str(), 0) == -1) { // Sprawdzenie czy folder istnieje
-				throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folderPluginow_));
+				if(!Utils::tworzSciezke(folderPluginow_))
+					throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folderPluginow_));
+				else
+					logger_.loguj(SLog::Log::Warning, "Utworzono folder: " + folderPluginow_);
+
 			}
 		}
 		catch (std::exception &e) {
