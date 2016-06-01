@@ -128,8 +128,9 @@ namespace SpEx{
 				chatbox->setPosition(0, 0);
 				chatbox->setSize(650, 372);
 				chatbox->setTextSize(14);
-				chatbox->setLineLimit(25);
+				chatbox->setLineLimit(80);
 				chatbox->setLinesStartFromTop();
+
 				ptrGUI->add(chatbox);
 
 				tgui::EditBox::Ptr editBox = theme->load("EditBox");

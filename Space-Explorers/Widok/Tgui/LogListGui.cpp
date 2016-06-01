@@ -34,20 +34,20 @@ namespace tgui {
 		if (number >= opisTypowKomunikatow_.size())
 			return false;
 
-		auto & widgets = m_panel->getWidgets();
+		auto & widgets = m_lines;
 		auto size = widgets.size();
 		for (decltype(size) n = 0; n < size; ++n) {
-			auto label = std::static_pointer_cast<Label>(widgets[n]);
+			auto& label = widgets[n];
 			MessageType position = powiazaniaKontrolek_[ this->m_newLinesBelowOthers ? n : (size-1) - n ];
 			if (position < opisTypowKomunikatow_.size()) {
-				label->setTextColor(opisTypowKomunikatow_[position].drugiKolor_);
-				label->setTextSize(opisTypowKomunikatow_[position].drugiRozmiarCzcionki_);
+				label.text.setColor(opisTypowKomunikatow_[position].drugiKolor_);
+				label.text.setCharacterSize(opisTypowKomunikatow_[position].drugiRozmiarCzcionki_);
 			}
 		}
 
 		addLine(text, opisTypowKomunikatow_[number].pierwszyKolor_, opisTypowKomunikatow_[number].pierwszyRozmiarCzcionki_);
 		powiazaniaKontrolek_.push_back(number);
-		if (powiazaniaKontrolek_.size() > m_panel->getWidgets().size()) {
+		if (powiazaniaKontrolek_.size() > m_lines.size()) {
 			powiazaniaKontrolek_.erase(powiazaniaKontrolek_.begin());
 		}
 		return true;

@@ -111,15 +111,6 @@
     <ClCompile Include="src\TGUI\Widgets\EditBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TGUI\Widgets\extra\AnimatedPicture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TGUI\Widgets\extra\Slider2d.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TGUI\Widgets\extra\SpriteSheet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\TGUI\Widgets\Grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -285,15 +276,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\TGUI\Widgets\EditBox.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\TGUI\Widgets\extra\AnimatedPicture.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\TGUI\Widgets\extra\Slider2d.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\TGUI\Widgets\extra\SpriteSheet.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\TGUI\Widgets\Grid.hpp">

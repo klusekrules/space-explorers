@@ -295,9 +295,6 @@
     <ClCompile Include="src\TGUI\Widgets\ClickableWidget.cpp" />
     <ClCompile Include="src\TGUI\Widgets\ComboBox.cpp" />
     <ClCompile Include="src\TGUI\Widgets\EditBox.cpp" />
-    <ClCompile Include="src\TGUI\Widgets\extra\AnimatedPicture.cpp" />
-    <ClCompile Include="src\TGUI\Widgets\extra\Slider2d.cpp" />
-    <ClCompile Include="src\TGUI\Widgets\extra\SpriteSheet.cpp" />
     <ClCompile Include="src\TGUI\Widgets\Grid.cpp" />
     <ClCompile Include="src\TGUI\Widgets\Knob.cpp" />
     <ClCompile Include="src\TGUI\Widgets\Label.cpp" />
@@ -356,9 +353,6 @@
     <ClInclude Include="include\TGUI\Widgets\ClickableWidget.hpp" />
     <ClInclude Include="include\TGUI\Widgets\ComboBox.hpp" />
     <ClInclude Include="include\TGUI\Widgets\EditBox.hpp" />
-    <ClInclude Include="include\TGUI\Widgets\extra\AnimatedPicture.hpp" />
-    <ClInclude Include="include\TGUI\Widgets\extra\Slider2d.hpp" />
-    <ClInclude Include="include\TGUI\Widgets\extra\SpriteSheet.hpp" />
     <ClInclude Include="include\TGUI\Widgets\Grid.hpp" />
     <ClInclude Include="include\TGUI\Widgets\Knob.hpp" />
     <ClInclude Include="include\TGUI\Widgets\Label.hpp" />
