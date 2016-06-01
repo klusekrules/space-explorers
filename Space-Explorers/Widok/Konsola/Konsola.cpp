@@ -119,27 +119,20 @@ namespace SpEx{
 				ptrWindow = std::make_unique<sf::RenderWindow>(sf::VideoMode(650, 400), "Konsola", sf::Style::Titlebar);
 				ptrWindow->setPosition(sf::Vector2i(10,10));
 				ptrGUI = std::make_unique<tgui::Gui>(*ptrWindow);
-
 				ptrGUI->setFont("Serwer/resources/consola.ttf");
+				ptrGUI->loadWidgetsFromFile("Serwer/resources/konsola.wdg");
+				tgui::EditBox::Ptr editBox = ptrGUI->get<tgui::EditBox>("polecenia");
+				chatbox = ptrGUI->get<tgui::ChatBox>("logi");
 
-				tgui::Theme::Ptr theme = std::make_shared<tgui::Theme>("Serwer/resources/Black.txt");
-
-				chatbox = theme->load("ChatBox");
-				chatbox->setPosition(0, 0);
-				chatbox->setSize(650, 372);
-				chatbox->setTextSize(14);
-				chatbox->setLineLimit(80);
-				chatbox->setLinesStartFromTop();
-
-				ptrGUI->add(chatbox);
-
-				tgui::EditBox::Ptr editBox = theme->load("EditBox");
-				editBox->setPosition(0, 372);
-				editBox->setSize(650, 28);
-				editBox->connectEx("ReturnKeyPressed", &SpEx::Konsola::callback, this, chatbox);
-				ptrGUI->add(editBox);
-				ptrGUI->focusWidget(editBox);
-				inicjalizacja_.set_value(true);
+				if (editBox == nullptr || chatbox == nullptr) {
+					zakoncz();
+					inicjalizacja_.set_value(false);
+					ustawKodPowrotu(-1);
+				}else{
+					editBox->connectEx("ReturnKeyPressed", &SpEx::Konsola::callback, this, chatbox);
+					ptrGUI->focusWidget(editBox);
+					inicjalizacja_.set_value(true);
+				}
 			}catch (...) {
 				inicjalizacja_.set_value(false);
 				throw;
@@ -172,19 +165,24 @@ namespace SpEx{
 				ptrGUI->draw();
 				ptrWindow->display();
 			}
+
+			ustawKodPowrotu(ERROR_SUCCESS);
 		}
 		catch (STyp::Wyjatek& e) {
 			ustawBlad(e);
+			ustawKodPowrotu(-2);
 		}
 		catch (tgui::Exception& e) {
 			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE,STyp::Tekst(),STyp::Identyfikator(-1), STyp::Tekst("tgui::Exception"), STyp::Tekst(e.what())));
+			ustawKodPowrotu(-3);
 		}
 		catch (std::exception& e) {
 			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(-1), STyp::Tekst("std::exception"), STyp::Tekst(e.what())));
+			ustawKodPowrotu(-4);
 		}
 		catch (...) {
 			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(-1), STyp::Tekst("Critical!!"), STyp::Tekst("Unrecognize Exception!")));
+			ustawKodPowrotu(-5);
 		}
-		SpEx::MaszynaStanow::pobierzInstancje().inicjujZamykanie();
 	}
 }
