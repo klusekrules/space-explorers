@@ -156,6 +156,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Obrazy", "Obrazy", "{5A8C39
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ekrany", "Ekrany", "{7674A636-3FF2-4A39-A6CD-AEC1C1D43557}"
 	ProjectSection(SolutionItems) = preProject
+		out\Serwer\resources\konsola.wdg = out\Serwer\resources\konsola.wdg
 		out\Serwer\resources\lista.wdg = out\Serwer\resources\lista.wdg
 		out\Serwer\resources\logowanie.wdg = out\Serwer\resources\logowanie.wdg
 		out\Serwer\resources\menu.wdg = out\Serwer\resources\menu.wdg
@@ -225,6 +226,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Czcionki", "Czcionki", "{D9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ekrany", "Ekrany", "{53067ABD-F30C-4DC2-A9DC-56AFA3D326FC}"
 	ProjectSection(SolutionItems) = preProject
+		out\Klient\resources\konsola.wdg = out\Klient\resources\konsola.wdg
 		out\Klient\resources\lista.wdg = out\Klient\resources\lista.wdg
 		out\Klient\resources\logowanie.wdg = out\Klient\resources\logowanie.wdg
 		out\Klient\resources\menu.wdg = out\Klient\resources\menu.wdg

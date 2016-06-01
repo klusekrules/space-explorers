@@ -389,7 +389,7 @@ namespace SpEx{
 		
 	void Aplikacja::konfigurujKonsole(){		
 		if (czyKonsola_){
-			konsola_ = ObserwatorWatkow::make_thread<Konsola>(logger_);
+			konsola_ = ObserwatorWatkow::make_thread<Konsola>(logger_,ustawienia_);
 			if (!konsola_->czekajNaInicjalizacje()) {
 				throw konsola_->bladInfo();
 			}

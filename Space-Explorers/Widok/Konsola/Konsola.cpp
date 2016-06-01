@@ -5,6 +5,18 @@
 #include "Utils\Utils.h"
 #include "Kontroler\MaszynaStanow\MaszynaStanow.h"
 
+#define KOMUNIKAT_BLAD_POBIERANIA_EKRANOW(editbox,chatbox) STyp::Tekst("Nie znaleziono conajmniej jednej z kontrolek: Editbox = " + editbox + " , Chatbox = " + chatbox)
+
+#define PLIK_WDG "plikWdgKonsoli"
+#define PLIK_FONT "plikCzcionkiKonsoli"
+#define NAZWA_EDITBOX "nazwaKontrolkiEditboxKonsoli"
+#define NAZWA_CHATBOX "nazwaKontrolkiChatboxKonsoli"
+#define TYTUL_OKNA "tytulOknaKonsoli"
+#define SZEROKOSC_OKNA "szerokoscOknaKonsoli"
+#define WYSOKOSC_OKNA "wysokoscOknaKonsoli"
+#define POZYCJA_X_OKNA "pozycjaXOknaKonsoli"
+#define POZYCJA_Y_OKNA "pozycjaYOknaKonsoli"
+
 namespace SpEx{
 
 	void Konsola::callback(tgui::ChatBox::Ptr chatbox, const tgui::Callback& callback) const{
@@ -64,9 +76,20 @@ namespace SpEx{
 		}
 	}
 
-	Konsola::Konsola(SLog::Log& log)
+	Konsola::Konsola(SLog::Log& log, UstawieniaAplikacji& ustawienia)
 		: Watek("Konsola", true), log_(log)
 	{
+
+		plikWdg_ = ustawienia[PLIK_WDG];
+		plikCzcionki_ = ustawienia[PLIK_FONT];
+		nazwaEditbox_ = ustawienia[NAZWA_EDITBOX];
+		nazwaChatbox_ = ustawienia[NAZWA_CHATBOX];
+		tytulOkna_ = ustawienia[TYTUL_OKNA];
+		szerokoscOkna_ = std::stoul(ustawienia[SZEROKOSC_OKNA]);
+		wysokoscOkna_ = std::stoul(ustawienia[WYSOKOSC_OKNA]);
+		pozycjaX_ = std::stoi(ustawienia[POZYCJA_X_OKNA]);
+		pozycjaY_ = std::stoi(ustawienia[POZYCJA_Y_OKNA]);
+
 		log.dodajGniazdoWyjsciowe([this](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{
 			std::string sTyp;
 			sf::Color kolor;
@@ -116,18 +139,19 @@ namespace SpEx{
 			std::unique_ptr<tgui::Gui> ptrGUI = nullptr;
 			tgui::ChatBox::Ptr chatbox = nullptr;
 			try {
-				ptrWindow = std::make_unique<sf::RenderWindow>(sf::VideoMode(650, 400), "Konsola", sf::Style::Titlebar);
-				ptrWindow->setPosition(sf::Vector2i(10,10));
+				ptrWindow = std::make_unique<sf::RenderWindow>(sf::VideoMode(szerokoscOkna_, wysokoscOkna_), tytulOkna_, sf::Style::Titlebar);
+				ptrWindow->setPosition(sf::Vector2i(pozycjaX_,pozycjaY_));
 				ptrGUI = std::make_unique<tgui::Gui>(*ptrWindow);
-				ptrGUI->setFont("Serwer/resources/consola.ttf");
-				ptrGUI->loadWidgetsFromFile("Serwer/resources/konsola.wdg");
-				tgui::EditBox::Ptr editBox = ptrGUI->get<tgui::EditBox>("polecenia");
-				chatbox = ptrGUI->get<tgui::ChatBox>("logi");
+				ptrGUI->setFont(plikCzcionki_);
+				ptrGUI->loadWidgetsFromFile(plikWdg_);
+				tgui::EditBox::Ptr editBox = ptrGUI->get<tgui::EditBox>(nazwaEditbox_);
+				chatbox = ptrGUI->get<tgui::ChatBox>(nazwaChatbox_);
 
 				if (editBox == nullptr || chatbox == nullptr) {
 					zakoncz();
+					ustawKodPowrotu(WDG_WIDGETS_DONT_FIND);
+					ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(WDG_WIDGETS_DONT_FIND), STyp::Tekst("Brak kontrolek"),KOMUNIKAT_BLAD_POBIERANIA_EKRANOW(nazwaEditbox_, nazwaChatbox_)));
 					inicjalizacja_.set_value(false);
-					ustawKodPowrotu(-1);
 				}else{
 					editBox->connectEx("ReturnKeyPressed", &SpEx::Konsola::callback, this, chatbox);
 					ptrGUI->focusWidget(editBox);
@@ -170,19 +194,19 @@ namespace SpEx{
 		}
 		catch (STyp::Wyjatek& e) {
 			ustawBlad(e);
-			ustawKodPowrotu(-2);
+			ustawKodPowrotu(WDG_THROW_STYP);
 		}
 		catch (tgui::Exception& e) {
-			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE,STyp::Tekst(),STyp::Identyfikator(-1), STyp::Tekst("tgui::Exception"), STyp::Tekst(e.what())));
-			ustawKodPowrotu(-3);
+			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE,STyp::Tekst(),STyp::Identyfikator(WDG_THROW_TGUI), STyp::Tekst("tgui::Exception"), STyp::Tekst(e.what())));
+			ustawKodPowrotu(WDG_THROW_TGUI);
 		}
 		catch (std::exception& e) {
-			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(-1), STyp::Tekst("std::exception"), STyp::Tekst(e.what())));
-			ustawKodPowrotu(-4);
+			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(WDG_THROW_STD), STyp::Tekst("std::exception"), STyp::Tekst(e.what())));
+			ustawKodPowrotu(WDG_THROW_STD);
 		}
 		catch (...) {
-			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(-1), STyp::Tekst("Critical!!"), STyp::Tekst("Unrecognize Exception!")));
-			ustawKodPowrotu(-5);
+			ustawBlad(STyp::Wyjatek(EXCEPTION_PLACE, STyp::Tekst(), STyp::Identyfikator(WDG_THROW_UNKNOWN), STyp::Tekst("Critical!!"), STyp::Tekst("Unrecognize Exception!")));
+			ustawKodPowrotu(WDG_THROW_UNKNOWN);
 		}
 	}
 }

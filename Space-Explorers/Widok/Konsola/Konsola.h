@@ -1,8 +1,15 @@
 #pragma once
 #include "Kontroler\Wielowatkowosc\Watek.h"
+#include "Narzedzia\UstawieniaAplikacji.h"
 #include "Logger\Log.h"
 #include "TGUI\TGUI.hpp"
 #include <future>
+
+#define WDG_WIDGETS_DONT_FIND -1
+#define WDG_THROW_STYP -2
+#define WDG_THROW_TGUI -3
+#define WDG_THROW_STD -4
+#define WDG_THROW_UNKNOWN -5
 
 namespace SpEx{
 	class Konsola :
@@ -17,7 +24,7 @@ namespace SpEx{
 			std::function<void(std::string)> funkcja_;
 		};
 		
-		Konsola(SLog::Log& log);
+		Konsola(SLog::Log& log, UstawieniaAplikacji& ustawienia);
 		void wykonuj() override;
 		void dodajKomunikat(const std::string&, const sf::Color&);
 		bool czekajNaInicjalizacje();
@@ -42,5 +49,16 @@ namespace SpEx{
 		std::promise<bool> inicjalizacja_; /// Przypisanie informacji o wyniku inicjalizacji.
 		std::future<bool> inicjalizacjaWynik_; /// Wynik inicjalizacji.
 		SLog::Log& log_;
+
+		//Parametry konfiguracyjne.
+		std::string plikWdg_;
+		std::string plikCzcionki_;
+		std::string nazwaEditbox_;
+		std::string nazwaChatbox_;
+		std::string tytulOkna_;
+		unsigned int szerokoscOkna_ = 650;
+		unsigned int wysokoscOkna_ = 400;
+		int pozycjaX_ = 10;
+		int pozycjaY_ = 10;
 	};
 }

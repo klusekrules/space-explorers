@@ -1,0 +1,57 @@
+ChatBox."logi"{
+    LineLimit: 80;
+    LinesStartFromTop: true;
+    NewLinesBelowOthers: true;
+    Size: (650, 372);
+    TextColor: Black;
+    TextSize: 14;
+
+    Renderer {
+        BackgroundImage: "Serwer/resources/Black.png" Part(0, 154, 48, 48) Middle(16, 16, 16, 16);
+        BorderColor: Black;
+        Borders: (0, 0, 0, 0);
+        Padding: (10, 10, 10, 10);
+    }
+
+    Scrollbar {
+        ArrowScrollAmount: 1;
+        AutoHide: true;
+        LowValue: 352;
+        Maximum: 1;
+        Position: (620, 10);
+        Size: (20, 352);
+        Value: 0;
+    
+        Renderer {
+            ArrowDownHoverImage: "Serwer/resources/Black.png" Part(183, 174, 20, 20) Middle(0, 1, 20, 19);
+            ArrowDownImage: "Serwer/resources/Black.png" Part(163, 174, 20, 20) Middle(0, 1, 20, 19);
+            ArrowUpHoverImage: "Serwer/resources/Black.png" Part(183, 154, 20, 20) Middle(0, 0, 20, 19);
+            ArrowUpImage: "Serwer/resources/Black.png" Part(163, 154, 20, 20) Middle(0, 0, 20, 19);
+            ThumbHoverImage: "Serwer/resources/Black.png" Part(143, 174, 20, 20);
+            ThumbImage: "Serwer/resources/Black.png" Part(143, 154, 20, 20);
+            TrackHoverImage: "Serwer/resources/Black.png" Part(123, 174, 20, 20);
+            TrackImage: "Serwer/resources/Black.png" Part(123, 154, 20, 20);
+        }
+    }
+}
+
+EditBox."polecenia" {
+    CaretWidth: 1;
+    Position: (0, 372);
+    Size: (650, 28);
+    TextSize: 16;
+
+    Renderer {
+        BorderColor: Black;
+        Borders: (0, 0, 0, 0);
+        CaretColor: #6E6EFF;
+        CaretWidth: 1;
+        DefaultTextColor: #787878;
+        HoverImage: "Serwer/resources/Black.png" Part(0, 114, 60, 40) Middle(15, 0, 30, 40);
+        NormalImage: "Serwer/resources/Black.png" Part(0, 114, 60, 40) Middle(15, 0, 30, 40);
+        Padding: (6, 4, 6, 4);
+        SelectedTextBackgroundColor: #0A6EFF;
+        SelectedTextColor: White;
+        TextColor: #BEBEBE;
+    }
+}

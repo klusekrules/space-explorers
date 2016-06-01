@@ -52,4 +52,16 @@
   <opcja nazwa="adresSerwera" wartosc="127.0.0.1"/>
   <opcja nazwa="limitPolaczenOczekujacych" wartosc="10"/>
   <opcja nazwa="limitPolaczenAktywnych" wartosc="20"/>
+  
+  <!-- Konfiguracja okna konsoli -->
+  <opcja nazwa="plikWdgKonsoli" wartosc="Serwer/resources/konsola.wdg"/>
+  <opcja nazwa="plikCzcionkiKonsoli" wartosc="Serwer/resources/consola.ttf"/>
+  <opcja nazwa="nazwaKontrolkiEditboxKonsoli" wartosc="polecenia"/>
+  <opcja nazwa="nazwaKontrolkiChatboxKonsoli" wartosc="logi"/>
+  <opcja nazwa="tytulOknaKonsoli" wartosc="Konsola"/>
+  <opcja nazwa="szerokoscOknaKonsoli" wartosc="650"/>
+  <opcja nazwa="wysokoscOknaKonsoli" wartosc="400"/>
+  <opcja nazwa="pozycjaXOknaKonsoli" wartosc="10"/>
+  <opcja nazwa="pozycjaYOknaKonsoli" wartosc="10"/>
+  
 </Space-Explorers>
