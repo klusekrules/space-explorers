@@ -327,9 +327,9 @@ namespace SpEx{
 			}
 
 			std::string folderPluginow_;
-			if (!ustawienia_[ATRYBUT_GLOWNY_FOLDER_GRY].empty())
-				folderPluginow_ += ustawienia_[ATRYBUT_GLOWNY_FOLDER_GRY] + "\\";
-			folderPluginow_ += ustawienia_[ATRYBUT_FOLDER_PLUGINOW];
+			//if (!ustawienia_[ATRYBUT_GLOWNY_FOLDER_GRY].empty())
+			//	folderPluginow_ += ustawienia_[ATRYBUT_GLOWNY_FOLDER_GRY] + "\\";
+			folderPluginow_ = ustawienia_[ATRYBUT_FOLDER_PLUGINOW];
 			if (_access(folderPluginow_.c_str(), 0) == -1) { // Sprawdzenie czy folder istnieje
 				if(!Utils::tworzSciezke(folderPluginow_))
 					throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folderPluginow_));

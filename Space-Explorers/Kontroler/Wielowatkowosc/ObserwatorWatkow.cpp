@@ -31,7 +31,11 @@ void SpEx::ObserwatorWatkow::wykonuj(){
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 		for (auto &watek : doUsuniecia_) {
 			watek->czekajNaZakonczenie();
+			if (watek->blad()) {
+				SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, "B³¹d w¹tku: " + watek->pobierzNazweWatku() + "\n" + watek->bladInfo().napis());
+			}
 		}
+		doUsuniecia_.clear();
 
 		{
 			std::lock_guard<std::mutex> temp(synchronize_);

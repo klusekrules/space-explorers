@@ -1,0 +1,79 @@
+Drzewo plików instalatora:
+out:.
+|
++---bin
+|       algorytmy-x64-Debug.dll
+|       logger-x64-Debug.dll
+|       narzedzia-x64-Debug.dll
+|       parser-x64-Debug.dll
+|       SpaceExplorers-x64-Debug.exe
+|       typy-proste-x64-Debug.dll
+|       zmiana-x64-Debug.dll
+|
++---klient
+|   +---konfiguracja 
+|   |       ekrany.xml
+|   |       powiazania.xml
+|   |       state.xml
+|   |       message.xml
+|   |       options.xml
+|   |
+|   +---lokalny
+|   |       danetestowe.xml
+|   |
+|   \---logi
+|
++---serwer
+|   +---konfiguracja
+|   |       ekrany.xml
+|   |       powiazania.xml
+|   |       state.xml
+|   |       message.xml
+|   |       options.xml
+|   |
+|   +---lokalny
+|   |       danetestowe.xml
+|   |
+|   \---logi
+|
++---dodatki
+|   test-zmiana-x64-d.dll
+|
++---zasoby
+|       arial.ttf
+|       consola.ttf
+|       simple.frag
+|       Brak_obrazka.png
+|       space.jpg
+|       SpaceExplorers_logo_640x348.png
+|       Black.png
+|       loglist.xml
+|       tlo_surowce.png
+|       FFFFFF-0.png
+|       tlo.png
+|       IkonaBlue.ico
+|       Space_start_screen.png
+|
++---ekrany
+|       lista.wdg
+|       pusteOkno.wdg
+|       konsola.wdg
+|       logowanie.wdg
+|       menu.wdg
+|       testowanie.wdg
+|
++---skrypty
+|       aplikacja.lua
+|       class.lua
+|       gui.lua
+|       interfejs.lua
+|       test.lua
+|       TestSkryptuDll.dll
+|
+\---dokumentacja
+    +---biblioteki
+	|       SpaceExplorers-x64-Debug.lib
+	|       narzedzia-x64-Debug.lib
+	|       algorytmy-x64-Debug.lib
+	+---schematy
+	\---plikiNaglowkowe

@@ -1,0 +1,306 @@
+Picture."tlo" {
+	Filename: "zasoby\\space.jpg";
+}
+
+Picture."logo" {
+	Filename: "zasoby\\SpaceExplorers_logo_640x348.png";
+	Position: (10,10);
+	Size: (192,104);
+	Smooth: true;
+}
+
+
+Label."testowanie" {
+	AutoSize: true;
+	Position: (280,30);
+	Text: "Lista obiektów";
+	TextSize: 60;
+
+		Renderer {
+			BackgroundColor: Transparent;
+			BorderColor: Black;
+			Borders: (0, 0, 0, 0);
+			Padding: (0, 0, 0, 0);
+			TextColor: (0,128,0,255);
+		}
+}
+
+Button."przeladujOkno" {
+	Position: (630, 110);
+	Size: (150, 30);
+	Text: "Prze³aduj dane";
+	TextSize: 15;
+
+	Renderer {
+		BorderColor: Black;
+		Borders: (0, 0, 0, 0);
+		NormalImage: "zasoby\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+		TextColorDown: Black;
+		TextColorHover: Black;
+		TextColorNormal: #BEBEBE;
+	}
+}
+
+Button."zamknij" {
+	Position: (630, 150);
+	Size: (150, 30);
+	Text: "Zamknij";
+	TextSize: 15;
+
+	Renderer {
+		BorderColor: Black;
+		Borders: (0, 0, 0, 0);
+		NormalImage: "zasoby\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+		TextColorDown: Black;
+		TextColorHover: Black;
+		TextColorNormal: #BEBEBE;
+	}
+}
+
+LogListGui."komunikaty" {
+    LinesStartFromTop: true;
+    MessageTypeFile: zasoby\loglist.xml;
+    NewLinesBelowOthers: false;
+    Position: (630, 200);
+    Size: (150, 240);
+    TextColor: Black;
+    TextSize: 14;
+
+    Renderer {
+        BackgroundImage: "zasoby\Black.png" Part(0, 154, 48, 48) Middle(16, 16, 16, 16);
+        BorderColor: Black;
+        Borders: (0, 0, 0, 0);
+        Padding: (10, 10, 10, 10);
+    }
+
+    Scrollbar {
+        ArrowScrollAmount: 1;
+        AutoHide: true;
+        LowValue: 90;
+        Maximum: 52;
+        Position: (674, 10);
+        Size: (16, 90);
+        Value: 0;
+    
+        Renderer {
+            ArrowBackgroundColorHover: White;
+            ArrowBackgroundColorNormal: #F5F5F5;
+            ArrowColorHover: Black;
+            ArrowColorNormal: #3C3C3C;
+            ThumbColorHover: #D2D2D2;
+            ThumbColorNormal: #DCDCDC;
+            TrackColorHover: White;
+            TrackColorNormal: #F5F5F5;
+        }
+    }
+}
+
+ListaSurowcowGui."ListaSurowcow" {
+    Position: (200, 100);
+    Size: (400, 40);
+
+    Renderer {
+        BackgroundColor: Transparent;
+        BorderColor: Black;
+        Borders: (0, 0, 0, 0);
+        Padding: (0, 0, 0, 0);
+    }
+
+    Panel {
+        Position: (200, 100);
+        Size: (400, 40);
+    
+        Renderer {
+            BackgroundColor: Transparent;
+        }
+    }
+
+    SurowiecGui {
+        IdentyfikatorObiektu: -1;
+        Size: (120, 40);
+        Visible: false;
+    
+        Renderer {
+            BackgroundImage: "zasoby\tlo_surowce.png";
+            BorderColor: Black;
+            Borders: (0, 0, 0, 0);
+            Padding: (0, 0, 0, 0);
+        }
+    
+        Panel {
+            Size: (120, 40);
+        
+            Renderer {
+                BackgroundColor: Transparent;
+            }
+        
+            Label."Nazwa" {
+                AutoSize: true;
+                Position: ("w > &.w ? 0 : (&.w - w) / 2", "h > &.h ? 0 : (&.h - h) / 2");
+                TextSize: 14;
+            
+                Renderer {
+                    BackgroundColor: Transparent;
+                    BorderColor: Black;
+                    Borders: (0, 0, 0, 0);
+                    Padding: (0, 0, 0, 0);
+                    TextColor: White;
+                }
+            }
+        }
+    }
+}
+
+ListaObiektowGui."ListaObiektow" {
+    AutoRozmiar: 1;
+    MnoznikRolki: 6;
+    OdstepMiedzyKontrolkami: 0;
+    PokazSuwak: 0;
+    Position: (10, 140);
+    Size: (500, 350);
+    SzerokoscSuwaka: 20;
+    TypObiektu: 1;
+
+    Renderer {
+        BackgroundImage: "zasoby\FFFFFF-0.png";
+        BorderColor: Black;
+        Borders: (0, 0, 0, 0);
+        Padding: (0, 0, 0, 0);
+        Shader: Fragment "zasoby\simple.frag";
+    }
+
+    Panel {
+        Position: (10, 140);
+        Size: (500, 350);
+    
+        Renderer {
+            BackgroundColor: Transparent;
+        }
+    }
+
+    KontrolkaObiektu {
+        IdentyfikatorObiektu: 18446744073709551615;
+        IdentyfikatorZdarzeniaBudowy: 0;
+        IdentyfikatorZdarzeniaBurzenia: 0;
+        IdentyfikatorZdarzeniaKlikniecia: 0;
+        Size: (410, 110);
+        Visible: false;
+    
+        Renderer {
+            BackgroundImage: "zasoby\tlo.png";
+            BorderColor: Black;
+            Borders: (0, 0, 0, 0);
+            Padding: (0, 0, 0, 0);
+        }
+    
+        Panel {
+            Size: (410, 110);
+        
+            Renderer {
+                BackgroundColor: Transparent;
+            }
+        
+            Picture."ObrazObiektu" {
+                Filename: "zasoby\\Brak_obrazka.png";
+                Position: (5, 5);
+                Size: (100, 100);
+            }
+        
+            Label."NazwaObiektu" {
+                MaximumTextWidth: 200.2;
+                Position: (110, 3);
+                Size: (200.2, 14.85);
+                Text: "Nazwa Obiektu";
+                TextSize: 14;
+            
+                Renderer {
+                    BackgroundColor: Transparent;
+                    BorderColor: Black;
+                    Borders: (0, 0, 0, 0);
+                    Padding: (0, 0, 0, 0);
+                    TextColor: Red;
+                }
+            }
+        
+            Label."OpisObiektu" {
+                MaximumTextWidth: 200.2;
+                Position: (110, 21.85);
+                Size: (200.2, 84.15);
+                Text: "Opis Obiektu\nw wielu liniach.\nKoniec Opisu.";
+                TextSize: 14;
+            
+                Renderer {
+                    BackgroundColor: Transparent;
+                    BorderColor: Black;
+                    Borders: (0, 0, 0, 0);
+                    Padding: (0, 0, 0, 0);
+                    TextColor: White;
+                }
+            }
+        
+            Label."CzasRozbudowy" {
+                MaximumTextWidth: 79.8;
+                Position: (325.2, 8);
+                Size: (79.8, 15);
+                Text: "Czas rozbudowy";
+                TextSize: 14;
+            
+                Renderer {
+                    BackgroundColor: Transparent;
+                    BorderColor: Black;
+                    Borders: (0, 0, 0, 0);
+                    Padding: (0, 0, 0, 0);
+                    TextColor: White;
+                }
+            }
+        
+            Label."CzasZburzenia" {
+                MaximumTextWidth: 79.8;
+                Position: (325.2, 57);
+                Size: (79.8, 15);
+                Text: "Czas burzenia";
+                TextSize: 14;
+            
+                Renderer {
+                    BackgroundColor: Transparent;
+                    BorderColor: Black;
+                    Borders: (0, 0, 0, 0);
+                    Padding: (0, 0, 0, 0);
+                    TextColor: White;
+                }
+            }
+        
+            Button."Rozbuduj" {
+                Position: (325.2, 23);
+                Size: (79.8, 30);
+                Text: "Buduj";
+                TextSize: 14;
+            
+                Renderer {
+                    BorderColor: Black;
+                    Borders: (0, 0, 0, 0);
+                    NormalImage: "zasoby\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+                    TextColorDown: Black;
+                    TextColorHover: Black;
+                    TextColorNormal: #BEBEBE;
+                }
+            }
+        
+            Button."Zburz" {
+                Position: (325.2, 72);
+                Size: (79.8, 30);
+                Text: "Zburz";
+                TextSize: 14;
+            
+                Renderer {
+                    BorderColor: Black;
+                    Borders: (0, 0, 0, 0);
+                    NormalImage: "zasoby\Black.png" Part(0, 64, 45, 50) Middle(10, 0, 25, 50);
+                    TextColorDown: Black;
+                    TextColorHover: Black;
+                    TextColorNormal: #BEBEBE;
+                }
+            }
+        }
+    }
+}

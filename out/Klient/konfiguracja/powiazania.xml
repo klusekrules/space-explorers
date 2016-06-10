@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Space-Explorers>
+  <LokalizacjaZasobu nazwa="StartScreen" lokalizacja="zasoby\\Space_start_screen.png" />
+  <LokalizacjaZasobu nazwa="BrakObrazka" lokalizacja="zasoby\\Brak_obrazka.png" />
+  <LokalizacjaZasobu nazwa="KonfiguracjaMaszStanow" lokalizacja="Klient\\konfiguracja\\state.xml" />
+  <LokalizacjaZasobu nazwa="KonfiguracjaOknaGry" lokalizacja="Klient\\konfiguracja\\ekrany.xml" />
+</Space-Explorers>

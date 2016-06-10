@@ -1,309 +1,338 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
-     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
-     xmlns:game="http://schemas.microsoft.com/wix/GamingExtension">
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <!-- xmlns:game="http://schemas.microsoft.com/wix/GamingExtension" -->
   <?include definicje.wxi ?>
-  <Product Name='Space-Explorers 0.0.6' Id='C5D410BC-EB65-48AD-966D-24830261DF12' UpgradeCode='90B73C3B-7192-4C3F-A82B-CB7A2C07F571'
+  <Product Name='Space-Explorers 0.0.6' Id='{69A94C86-BB5D-4039-92C6-F391C08526DC}' UpgradeCode='{CED84B90-554A-4462-B088-766A444C3FDA}'
     Language='1045' Codepage='1250' Version='0.0.6' Manufacturer='Daniel Wojdak'>
-    
+
     <Package Id='*' Keywords='Installer' Description="Space-Explorers 0.0.6 Instalator"
       Comments='Komentarz' Manufacturer='Daniel Wojdak' InstallScope='perMachine'
       InstallerVersion='405' Languages='1045' Compressed='yes' SummaryCodepage='1250' Platform='$(var.Platforma)'/>
-    <Icon Id="ikona.ico" SourceFile="..\out\resource\IkonaBlue.ico"/>
+    <Icon Id="ikona.ico" SourceFile="..\out\zasoby\IkonaBlue.ico"/>
     <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' DiskPrompt='CD-ROM #1'/>
     <Property Id="ARPPRODUCTICON" Value="ikona.ico" />
     <Property Id='DiskPrompt' Value="Space-Explorers 0.0.6 Installation [1]" />
     <Directory Id='TARGETDIR' Name='SourceDir'>
-
       <Directory Id='$(var.ProgramFiles)' Name="PFiles">
-        <Directory Id='DANIEL_WOJDAK' Name='Daniel Wojdak'>
-          <Directory Id='SPACE_EXPLORERS' Name='Space-Explorers'>
-            <Directory Id='DOC_DIR' Name='doc'>
-              <Directory Id='LIB_DIR' Name='bin'/>
+        <Directory Id='KATALOGSPACEEXLORERS' Name='Space-Explorers'>          
+          <Component Id="KatalogSpaceExplorersUprawnienia" Guid="{FF3790E7-757E-4DAD-ACE7-A819C253F578}">
+            <CreateFolder>
+              <util:PermissionEx User="Users" GenericAll="yes"/>
+            </CreateFolder>
+          </Component>          
+          <Component Id="KatalogSpaceExplorersUsuwanieKomponent" Guid="{7849E820-0473-47DF-B5EB-BE588183CEAF}">
+            <RemoveFolder Id='KatalogSpaceExplorersUsuwanie' On='uninstall' />
+            <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
+          </Component>
+          <Directory Id='KatalogDokumentacja' Name='dokumentacja'>
+            <Directory Id='KatalogBiblioteki' Name='biblioteki'>
+              <Component Id='PlikSpaceExplorersLibKomponent' Guid='{6EEEB92C-A2EF-4875-A2E2-A4DC7CB2A097}'>
+                <File Id='PlikSpaceExplorersLib' Source='..\out\bin\SpaceExplorers-$(var.Platforma)-$(var.Configuration).lib' KeyPath='yes' 
+                      Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+              </Component>
+              <Component Id='PlikNarzedziaLibKomponent' Guid='{B91BCE4B-9B61-4AC0-889F-D82B2D9CF06A}'>
+                <File Id='PlikNarzedziaLib' Source='..\out\bin\narzedzia-$(var.Platforma)-$(var.Configuration).lib' KeyPath='yes'
+                      Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+              </Component>
+              <Component Id='PlikAlgorytmyLibKomponent' Guid='{070E6659-9D2A-472D-935A-E22C0D719BE5}'>
+                <File Id='PlikAlgorytmyLib' Source='..\out\bin\algorytmy-$(var.Platforma)-$(var.Configuration).lib' KeyPath='yes'
+                      Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+              </Component>
             </Directory>
-            <Directory Id='ERRORS_DIR' Name='errors'>
-                  <Component Id="ERRORS_DIR_COMP" Guid="{CA52CDAB-8491-4C41-B627-F708F2385328}">
-                    <CreateFolder />
-                  </Component>
-                </Directory>
-            <Directory Id='INSTALL_DIR' Name='bin'>
-              <Directory Id='LUA_DIR' Name='lua'/>
-              <Directory Id='DLL_DIR' Name='dll'/>
-              <Directory Id='WIDGETS_DIR' Name='widgets'/>
-              <Directory Id='RESOURCE_DIR' Name='resource'/>
-                
-              <Directory Id='PLUGINS_DIR' Name='plugins'>
-                <Directory Id='ZMIANA_DIR' Name='$(var.FolderZmian)'/>
-              </Directory>
-                
-              <Directory Id='SAVE_DIR' Name='save' >
-                <Directory Id='UKLAD_DIR' Name='uklad'>
-                  <Component Id="UKLAD_DIR_COMP" Guid="6310BA6A-54AB-4F7C-8A8F-1506409296CD">
-                    <CreateFolder />
-                  </Component>
-                </Directory>
-              </Directory>
-        
+            <Directory Id='KatalogSchematy' Name='schematy'>
+              <Component Id='PlikSchematDanychXsdKomponent' Guid='{5D235FB6-DBC8-4F91-900F-26A8F56BC53B}'>
+                <File Id='PlikSchematDanychXsd' Source='..\doc\dataSchema.xsd' Name='SchematDanych.xsd' KeyPath='yes' Vital='yes'/>
+              </Component>
+              <Component Id='PlikSchematStanuGryXsdKomponent' Guid='{87BE97A6-8134-4043-BD57-2C2875973F77}'>
+                <File Id='PlikSchematStanuGryXsd' Source='..\doc\saveSchema.xsd' Name='SchematStanuGry.xsd' KeyPath='yes' Vital='yes'/>
+              </Component>
+              <Component Id='PlikSchematUzytkownikaXsdKomponent' Guid='{880146CF-1E42-49CE-AB4D-35E3BE4037AC}'>
+                <File Id='PlikSchematUzytkownikaXsd' Source='..\doc\userSchema.xsd' Name='SchematUzytkownika.xsd' KeyPath='yes' Vital='yes'/>
+              </Component>
+              <Component Id='PlikSchematUkladuSlonecznegoXsdKomponent' Guid='{263CEFCD-3BC8-4CBF-838D-A842DB385606}'>
+                <File Id='PlikSchematUkladuSlonecznegoXsd' Source='..\doc\saveSchema.xsd' Name='SchematUkladuSlonecznego.xsd' KeyPath='yes' Vital='yes'/>
+              </Component>
             </Directory>
+            <Directory Id='KatalogPlikiNaglowkowe' Name='plikiNaglowkowe'>
+              <Component Id="KatalogPlikiNaglowkoweKomponent" Guid="{4B538089-585B-4D0B-9FB7-70EF4C8C9C85}" KeyPath='yes'>
+                <CreateFolder />
+              </Component>
+            </Directory>
+          </Directory>
+          <Directory Id='KatalogSerwera' Name='serwer'>
+            <Directory Id='KatalogSerweraKonfiguracja' Name='konfiguracja'>
+              <Component Id='PlikSerweraEkranyXmlKomponent' Guid='{067223A1-3751-49DD-BE75-08078959EF51}' Win64='$(var.isPlatformx64)'>
+                <File Id='PlikSerweraEkranyXml' Source='..\out\serwer\konfiguracja\ekrany.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+              </Component>
+              <Component Id='PlikSerweraPowiazaniaXmlKomponent' Guid='{52CB78D1-44DA-4DAA-912F-C82AD2C9D5A9}' Win64='$(var.isPlatformx64)'>
+                <File Id='PlikSerweraPowiazaniaXml' Source='..\out\serwer\konfiguracja\powiazania.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+              </Component>
+              <Component Id='PlikSerweraStateXmlKomponent' Guid='{7C4DD57C-6976-4CFC-A83F-AA09254867FC}' Win64='$(var.isPlatformx64)'>
+                <File Id='PlikSerweraStateXml' Source='..\out\serwer\konfiguracja\state.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+              </Component>
+              <Component Id='PlikSerweraOptionsXmlKomponent' Guid='{6CA1A724-29C9-4221-A7BE-B71B843609AD}' Win64='$(var.isPlatformx64)'>
+                <File Id='PlikSerweraOptionsXml' Source='..\out\serwer\konfiguracja\options.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+              </Component>
+              <Component Id='PlikSerweraMessageXmlKomponent' Guid='{4DDB1E91-63C9-4347-8421-F93BF79D9322}' Win64='$(var.isPlatformx64)'>
+                <File Id='PlikSerweraMessageXml' Source='..\out\serwer\konfiguracja\message.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+              </Component>
+            </Directory>
+            <Directory Id='KatalogSerweraLokalny' Name='lokalny'>
+              <Component Id='PlikSerweraDaneTestoweXmlKomponent' Guid='{534CE2B9-818C-48AC-9557-423B081AF04C}' Win64='$(var.isPlatformx64)'>
+                <File Id='PlikSerweraDaneTestoweXml' Source='..\out\serwer\lokalny\danetestowe.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+              </Component>
+            </Directory>            
+            <Directory Id='KatalogSerweraLogiAplikacji' Name='logi'>
+              <Component Id="KatalogSerweraLogiAplikacjiKomponent" Guid="{A67B9BB0-F01A-4B85-90F4-290BE6D5D252}" KeyPath='yes'>
+                <CreateFolder />
+              </Component>
+            </Directory>
+          </Directory>
+          <Directory Id='KatalogKlienta' Name='klient'>
+            <Directory Id='KatalogKlientaKonfiguracja' Name='konfiguracja'>
+              <Component Id='PlikKlientaEkranyXmlKomponent' Guid='{64512560-2D85-42C2-A50A-3A8265191A89}' Win64='$(var.isPlatformx64)'>
+                <File Id='PlikKlientaEkranyXml' Source='..\out\klient\konfiguracja\ekrany.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+              </Component>
+              <Component Id='PlikKlientaPowiazaniaXmlKomponent' Guid='{5190C83D-CFDB-4D9F-9A2E-853F8BCC19F5}' Win64='$(var.isPlatformx64)'>
+                <File Id='PlikKlientaPowiazaniaXml' Source='..\out\klient\konfiguracja\powiazania.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+              </Component>
+              <Component Id='PlikKlientaStateXmlKomponent' Guid='{CB43DDDC-FA18-4D05-B28F-E814F60346B8}' Win64='$(var.isPlatformx64)'>
+                <File Id='PlikKlientaStateXml' Source='..\out\klient\konfiguracja\state.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+              </Component>
+              <Component Id='PlikKlientaOptionsXmlKomponent' Guid='{FBD80F77-1FCB-4AEC-8295-F32CB527411A}' Win64='$(var.isPlatformx64)'>
+                <File Id='PlikKlientaOptionsXml' Source='..\out\klient\konfiguracja\options.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+              </Component>
+              <Component Id='PlikKlientaMessageXmlKomponent' Guid='{45759FAE-99F9-430F-9CB9-AE7A70CDCD22}' Win64='$(var.isPlatformx64)'>
+                <File Id='PlikKlientaMessageXml' Source='..\out\klient\konfiguracja\message.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+              </Component>
+            </Directory>
+            <Directory Id='KatalogKlientaLoKalny' Name='lokalny'/>
+            <Directory Id='KatalogKlientaLogiAplikacji' Name='logi'>
+              <Component Id="KatalogKlientaLogiAplikacjiKomponent" Guid="{1DCD918D-F305-4FA5-AAA5-6A47DD4B1986}" KeyPath='yes'>
+                <CreateFolder />
+              </Component>
+            </Directory>
+          </Directory>
+          <Directory Id='KatalogDodatki' Name='dodatki'>
+            <Component Id='PlikTestZmianyDllKomponent' Guid='{DAA516BF-F747-42A9-846B-26DA98055CB4}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikTestZmianyDll' Source='..\out\dodatki\test-zmiana-$(var.Platforma)-$(var.KonfiguracjaShort).dll' 
+                    ProcessorArchitecture='$(var.Platforma)' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+          </Directory>
+          
+          <Directory Id='KatalogZasoby' Name='zasoby'>
+            <Component Id='CzcionkaArialKomponent' Guid='{D45ACF68-9246-4EF8-B155-7510AF93CBE6}' Win64='$(var.isPlatformx64)'>
+              <File Id='CzcionkaArial' Source='..\out\zasoby\arial.ttf' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+            <Component Id='CzcionkaConsolaKomponent' Guid='{DC6E9F77-5366-4ED8-B2D6-1339B54040C5}' Win64='$(var.isPlatformx64)'>
+              <File Id='CzcionkaConsola' Source='..\out\zasoby\consola.ttf' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+            <Component Id='PlikSimpleFragKomponent' Guid='{889E2A2F-1483-4B18-91A6-71DF7EE45F43}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikSimpleFrag' Source='..\out\zasoby\simple.frag' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>          
+            <Component Id='PlikBrakObrazkaKomponent' Guid='{8E22F9F2-9FD3-45FD-B867-BBFB7C80F0C8}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikBrakObrazka' Source='..\out\zasoby\Brak_obrazka.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+            <Component Id='PlikSpaceJpgKomponent' Guid='{4ACFB8C4-7769-4F90-9631-1B2A5B7237C2}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikSpaceJpg' Source='..\out\zasoby\space.jpg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+            <Component Id='PlikLogoPngKomponent' Guid='{FF911705-4970-4294-9190-E6014FC275CF}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikLogoPng' Source='..\out\zasoby\SpaceExplorers_logo_640x348.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+            <Component Id='PlikBlackPngKomponent' Guid='{039760AC-4CA2-4441-A88F-8CF8EC42B11B}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikBlackPng' Source='..\out\zasoby\Black.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+            <Component Id='PlikLogListXmlKomponent' Guid='{8B73CCC7-702C-4F50-BFF0-EA82A57A1B7B}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikLogListXml' Source='..\out\zasoby\loglist.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+            <Component Id='PlikTloSurowcePngKomponent' Guid='{9E80B946-0E16-4BD6-83C8-27F90FECED46}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikTloSurowcePng' Source='..\out\zasoby\tlo_surowce.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+            <Component Id='PlikFFFFFF0PngKomponent' Guid='{AB294D18-717D-496D-8187-C4563224C7AA}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikFFFFFF0Png' Source='..\out\zasoby\FFFFFF-0.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+            <Component Id='PlikTloPngKomponent' Guid='{479A16CB-8831-449A-93EE-0DBCBBFD829D}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikTloPng' Source='..\out\zasoby\tlo.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+            <Component Id='PlikIkonaBlueIcoKomponent' Guid='{DF8804BE-C3E5-488E-850E-4F51BDD6FF42}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikIkonaBlueIco' Source='..\out\zasoby\IkonaBlue.ico' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+            <Component Id='PlikStartScreenPngKomponent' Guid='{4EBF4445-63F6-45AC-AC2A-D296C1894BE5}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikStartScreenPng' Source='..\out\zasoby\Space_start_screen.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+          </Directory>
+          
+          <Directory Id='KatalogEkrany' Name='ekrany'>
+            <Component Id='PlikEkranListaKomponent' Guid='{6BE57AF1-770B-4DCA-B91D-24202EDA6156}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikEkranLista' Source='..\out\ekrany\lista.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+            <Component Id='PlikEkranPustyKomponent' Guid='{FBE9C143-67BA-45A4-BE95-E7B2A7A7FED0}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikEkranPusty' Source='..\out\ekrany\pusteOkno.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+            <Component Id='PlikEkranKonsolaKomponent' Guid='{1BF16B54-3EF5-49F0-B6D4-2A67297B3299}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikEkranKonsola' Source='..\out\ekrany\konsola.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+            <Component Id='PlikEkranLogowanieKomponent' Guid='{BA5A60B3-7DDB-41D0-92B1-31527DFD07B1}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikEkranLogowanie' Source='..\out\ekrany\logowanie.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+            <Component Id='PlikEkranMenuKomponent' Guid='{110A37FC-6CF1-44F1-9616-0CBA2BEC1307}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikEkranMenu' Source='..\out\ekrany\menu.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+            <Component Id='PlikEkranTestowanieKomponent' Guid='{564C13AD-A5EC-432F-949C-E711D2422F04}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikEkranTestowanie' Source='..\out\ekrany\testowanie.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+          </Directory>
+          
+          <Directory Id='KatalogSkrypty' Name='skrypty'>
+            <Component Id='PlikTestLuaKomponent' Guid='{5EA8B685-4FA2-49D8-B5CD-5ABE7B8CF214}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikTestLua' Source='..\out\skrypty\test.lua' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+
+            <Component Id='PlikInterfejsLuaKomponent' Guid='{BA7B7962-E2EA-41D6-BC82-9FE8BEC80717}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikInterfejsLua' Source='..\out\skrypty\interfejs.lua' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+
+            <Component Id='PlikClassLuaKomponent' Guid='{246143CE-9E49-48CB-A34B-571AFE8A2CB9}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikClassLua' Source='..\out\skrypty\class.lua' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+
+            <Component Id='PlikGuiLuaKomponent' Guid='{618A3BD4-13D4-460F-A322-B0377FBB3EEF}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikGuiLua' Source='..\out\skrypty\gui.lua' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+
+            <Component Id='PlikAplikacjaLuaKomponent' Guid='{6968B6E7-D511-41D3-9DA8-CADB78003131}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikAplikacjaLua' Source='..\out\skrypty\aplikacja.lua' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+
+            <Component Id='PlikTestSkryptuDllKomponent' Guid='{20A925BB-8B1B-42B0-8869-445D4856403A}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikTestSkryptuDll' Source='..\out\skrypty\TestSkryptuDll.dll' KeyPath='yes' Vital='yes' Checksum='yes'/>
+            </Component>
+          </Directory>
+
+          <Directory Id='KatalogBin' Name='bin'>
+            <Component Id='SpaceExplorersExeKomponent' Guid='{9D1AFABF-F924-4213-97FA-189A3B3568F9}' Win64='$(var.isPlatformx64)'>
+              <File Id='SpaceExplorersExe' Source='..\out\bin\SpaceExplorers-$(var.Platforma)-$(var.Configuration).exe' KeyPath='yes' Vital='yes'
+                    Checksum='yes' ProcessorArchitecture='$(var.Platforma)'>
+                <Shortcut Id="SpaceExplorersExeSkrotMenuKlient" Directory="ProgramMenuDir" Name="Space-Explorers Klient" WorkingDirectory='KATALOGSPACEEXLORERS'
+                          Advertise="yes" Arguments="-O Klient\konfiguracja\options.xml -T Klient" Icon="ikona.ico"/>
+                <Shortcut Id="SpaceExplorersExeSkrotMenuSerwer" Directory="ProgramMenuDir" Name="Space-Explorers Serwer" WorkingDirectory='KATALOGSPACEEXLORERS'
+                          Advertise="yes" Arguments="-O Serwer\konfiguracja\options.xml -T Serwer" Icon="ikona.ico"/>
+                <Shortcut Id="SpaceExplorersExeSkrotPulpitKlient" Directory="DesktopFolder" Name="Space-Explorers Klient" WorkingDirectory='KATALOGSPACEEXLORERS'
+                          Advertise="yes" Arguments="-O Klient\konfiguracja\options.xml -T Klient" Icon="ikona.ico"/>
+                <Shortcut Id="SpaceExplorersExeSkrotPulpitSerwer" Directory="DesktopFolder" Name="Space-Explorers Serwer" WorkingDirectory='KATALOGSPACEEXLORERS'
+                          Advertise="yes" Arguments="-O Serwer\konfiguracja\options.xml -T Serwer" Icon="ikona.ico"/>
+                <!--game:Game Id="{312026C1-94A6-4C5D-89B5-76F310F3B734}">
+                  <game:PlayTask Name="Graj" Arguments="-O $(var.PlikOpcji)"/>
+                  <game:SupportTask Name="Strona domowa" Address="http://klusekrules.github.io/space-explorers/"/>
+                </game:Game-->
+              </File>
+            </Component>
+
+            <Component Id='PlikLoggerDllKomponent' Guid='{167F5E68-D0A4-40E4-B1A2-34EC8012FB24}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikLoggerDll' Source='..\out\bin\logger-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes'
+                    ProcessorArchitecture='$(var.Platforma)'/>
+            </Component>
+            <Component Id='PlikZmianaDllKomponent' Guid='{3ADD9D0C-DD33-448A-8686-749E8D6002D7}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikZmianaDll' Source='..\out\bin\zmiana-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes'
+                    ProcessorArchitecture='$(var.Platforma)'/>
+            </Component>
+            <Component Id='PlikParserDllKomponent' Guid='{57583659-81DA-4468-AE47-E5243270C730}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikParserDll' Source='..\out\bin\parser-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes'
+                    ProcessorArchitecture='$(var.Platforma)'/>
+            </Component>
+            <Component Id='PlikTypyProsteDllKomponent' Guid='{177070A0-EE7C-49DB-8F7B-33740C3E9466}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikTypyProsteDll' Source='..\out\bin\typy-proste-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes'
+                    Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+            </Component>
+            <Component Id='PlikAlgorytmyDllKomponent' Guid='{AEFFEEDF-8C0D-4014-A72F-17F23B45E2A4}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikAlgorytmyDll' Source='..\out\bin\algorytmy-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes'
+                    Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+            </Component>
+            <Component Id='PlikNarzedziaDllKomponent' Guid='{BCBD9A6E-7099-4CE2-86CD-2886E3D64A2D}' Win64='$(var.isPlatformx64)'>
+              <File Id='PlikNarzedziaDll' Source='..\out\bin\narzedzia-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes'
+                    Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
+            </Component>
           </Directory>
         </Directory>
       </Directory>
 
       <Directory Id="ProgramMenuFolder" Name="Programs">
-        <Directory Id="ProgramMenuDir" Name="Space-Explorers"/>
+        <Directory Id="ProgramMenuDir" Name="Space-Explorers">
+          <Component Id="ProgramMenuDirUsuwanieKomponent" Guid="{0FF2B874-B38E-44F6-AB75-E1F5E298A320}">
+            <RemoveFolder Id='ProgramMenuDirUsuwanie' On='uninstall' />
+            <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
+          </Component>
+        </Directory>
       </Directory>
-
       <Directory Id="DesktopFolder" Name="Desktop" />
-
     </Directory>
-
-    <DirectoryRef Id='INSTALL_DIR'>
-      <Component Id="INSTALLFOLDER_Permission" Guid="{FF3790E7-757E-4DAD-ACE7-A819C253F578}">
-            <CreateFolder>
-                <util:PermissionEx User="Users" GenericAll="yes"/>
-            </CreateFolder>
-      </Component>
-      <Component Id='SPACE_EXPLORERS_COM' Guid='5BE847C4-843E-4D82-93EF-16190F994885' Win64='$(var.isPlatformx64)'>
-        <File Id='SPACE_EXPLORERS_EXE' Source='..\out\SpaceExplorers-$(var.Platforma)-$(var.Configuration).exe' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'>
-          <Shortcut Id="MENU_SHORTCUT_SPACE_EXPLORERS_EXE" Directory="ProgramMenuDir" Name="Space-Explorers"
-              WorkingDirectory='INSTALL_DIR' Advertise="yes" Arguments="-O $(var.PlikOpcji)" Icon="ikona.ico"/>
-          <Shortcut Id="DESKTOP_SHORTCUT_SPACE_EXPLORERS_EXE" Directory="DesktopFolder" Name="Space-Explorers"
-            WorkingDirectory='INSTALL_DIR' Advertise="yes" Arguments="-O $(var.PlikOpcji)" Icon="ikona.ico"/>
-          <game:Game Id="{312026C1-94A6-4C5D-89B5-76F310F3B734}">
-            <game:PlayTask Name="Graj" Arguments="-O $(var.PlikOpcji)"/>
-            <game:SupportTask Name="Strona domowa" Address="http://klusekrules.github.io/space-explorers/"/>
-          </game:Game>
-        </File>
-      </Component>
-      <Component Id='CONFIG_XML' Guid='71AFE2C6-5700-4DC5-BB15-2539017DF28B'>
-        <File Id='CONFIG_XML_FILE' Source='..\out\options_test.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>      
-      <Component Id='DANE_TESTOWE_COMP' Guid='{32750E86-5BC2-45DA-8004-99B972CFFDF2}'>
-        <File Id='DANE_TESTOWE_FILE' Source='..\out\danetestowe.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-      <Component Id='DATA_XML' Guid='7C5B3D1A-409B-4158-9F33-46606E344BF2'>
-        <File Id='DATA_XML_FILE' Source='..\out\test.xml' KeyPath='yes' Vital='yes'/>
-      </Component>
-      <Component Id='POZWIAZANIA_XML_COMP' Guid='{9BD28ACA-2256-4ADE-A18F-EC04A3B008A7}'>
-        <File Id='POZWIAZANIA_XML_FILE' Source='..\out\powiazania.xml' KeyPath='yes' Vital='yes'/>
-      </Component>
-      <Component Id='LOGGER_DLL' Guid='07CEBB01-446A-4BB8-8A5C-49CAC8354360' Win64='$(var.isPlatformx64)'>
-        <File Id='LOGGER_DLL_FILE' Source='..\out\logger-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
-      </Component>
-      <Component Id='ZMIANA_DLL' Guid='C9CDD52F-E2F0-49F4-8804-97CDB1DFA530' Win64='$(var.isPlatformx64)'>
-        <File Id='ZMIANA_DLL_FILE' Source='..\out\zmiana-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
-      </Component>
-      <Component Id='PARSER_DLL' Guid='{3C25F409-4B45-486F-9BAD-70E8646C3DAC}' Win64='$(var.isPlatformx64)'>
-        <File Id='PARSER_DLL_FILE' Source='..\out\parser-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
-      </Component>
-      <Component Id='TYPY_DLL' Guid='{5E69159D-4A74-43CB-A593-75F1BFD4150C}' Win64='$(var.isPlatformx64)'>
-        <File Id='TYPY_DLL_FILE' Source='..\out\typy-proste-$(var.Platforma)-$(var.Configuration).dll' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
-      </Component>
-    </DirectoryRef>
     
     <DirectoryRef Id="TARGETDIR">
       <Merge Id="VCRedist" SourceFile="Microsoft_VC140_$(var.CRTName)CRT_$(var.Platforma).msm" DiskId="1" Language="0"/>
     </DirectoryRef>
 
-    <DirectoryRef Id='DOC_DIR'>
-      <Component Id='DOC_DATA_SHEMA_COMP' Guid='D41EB417-BC64-46AA-9AD6-2080E8B5C620'>
-        <File Id='DOC_DATA_SHEMA_FILE' Source='..\doc\dataSchema.xsd' Name='SchematDanych.xsd' KeyPath='yes' Vital='yes'/>
-      </Component>
-      <Component Id='DOC_SAVE_SHEMA_COMP' Guid='3D5D189F-67F4-4237-BB32-901DEBA86855'>
-        <File Id='DOC_SAVE_SHEMA_FILE' Source='..\doc\saveSchema.xsd' Name='SchematStanuGry.xsd' KeyPath='yes' Vital='yes'/>
-      </Component>
-      <Component Id='DOC_USER_SHEMA_COMP' Guid='17C3EF77-4D13-4DFF-90A5-A78B03DAD795'>
-        <File Id='DOC_USER_SHEMA_FILE' Source='..\doc\userSchema.xsd' Name='SchematUzytkownika.xsd' KeyPath='yes' Vital='yes'/>
-      </Component>
-      <Component Id='DOC_UKLAD_SHEMA_COMP' Guid='C0E893B5-D97D-4B4B-ABC2-3463E39C20FC'>
-        <File Id='DOC_UKLAD_SHEMA_FILE' Source='..\doc\saveSchema.xsd' Name='SchematUkladuSlonecznego.xsd' KeyPath='yes' Vital='yes'/>
-      </Component>
-    </DirectoryRef>
-
-    <DirectoryRef Id='LIB_DIR'>
-      <Component Id='SPACE_EXPLORERS_LIB_COMP' Guid='{00A6CCFA-9FAD-454D-A7CD-F3EFC3304590}'>
-        <File Id='SPACE_EXPLORERS_LIB' Source='..\out\SpaceExplorers-$(var.Platforma)-$(var.Configuration).lib' KeyPath='yes' Vital='yes' Checksum='yes' ProcessorArchitecture='$(var.Platforma)'/>
-      </Component>
-    </DirectoryRef>
-    
-    <DirectoryRef Id='ZMIANA_DIR'>
-      <Component Id='ZMIANA_TEST_DLL' Guid='5BB3843E-C319-4D3E-8896-92C9B1BDCED6' Win64='$(var.isPlatformx64)'>
-        <File Id='ZMIANA_TEST_DLL_FILE' Source='..\out\plugins\$(var.FolderZmian)\test-zmiana-$(var.Platforma)-$(var.KonfiguracjaShort).dll' ProcessorArchitecture='$(var.Platforma)' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-    </DirectoryRef>
-      
-    <DirectoryRef Id="ProgramMenuDir">
-      <Component Id="ProgramMenuDir" Guid="ABB83391-1450-4BB1-B391-1353AA8111D4">
-        <RemoveFolder Id='ProgramMenuDir' On='uninstall' />
-        <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
-      </Component>
-    </DirectoryRef>
-    
-     <DirectoryRef Id="SPACE_EXPLORERS">
-      <Component Id="SPACE_EXPLORERS_REM" Guid="D2920ACC-823F-430C-90EC-E07FC8EB400E">
-        <RemoveFolder Id='SPACE_EXPLORERS_REM_FOL' On='uninstall' />
-        <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
-      </Component>
-    </DirectoryRef>
-
-    <DirectoryRef Id='RESOURCE_DIR'>
-      <Component Id='RESOURCE_DIR_BACKGROUND_FILE_COMP' Guid='{0C4245A3-396F-4BC5-8FBD-95EFEFCD5FF8}' Win64='$(var.isPlatformx64)'>
-        <File Id='RESOURCE_BACKGROUND_FILE' Source='..\out\resource\background.jpg' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-      
-      <Component Id='RESOURCE_DIR_FONT_FILE_COMP' Guid='{7C45A208-EA2A-45F7-802C-780A3453E9F8}' Win64='$(var.isPlatformx64)'>
-        <File Id='RESOURCE_FONT_FILE' Source='..\out\resource\arial.ttf' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-      
-      <Component Id='CONSOLA_FONT_FILE_COMP' Guid='{515130DE-AB3F-46B6-8992-9CEB2B72B595}' Win64='$(var.isPlatformx64)'>
-        <File Id='CONSOLA_FONT_FILE' Source='..\out\resource\consola.ttf' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-
-      <Component Id='MENU_WDG_FILE_COMP' Guid='{A3A08A7C-7758-4608-BFDE-BFE9EF5EECAC}' Win64='$(var.isPlatformx64)'>
-        <File Id='MENU_WDG_FILE' Source='..\out\resource\menu.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-
-      <Component Id='EKRANY_XML_FILE_COMP' Guid='{7ED8FF88-D1E4-4040-833D-8B95383A3F18}' Win64='$(var.isPlatformx64)'>
-        <File Id='EKRANY_XML_FILE' Source='..\out\resource\ekrany.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-
-      <Component Id='PUSTE_OKNO_WDG_FILE_COMP' Guid='{6140D9A0-4D3F-41BB-ACD0-10ABEFB1C53E}' Win64='$(var.isPlatformx64)'>
-        <File Id='PUSTE_OKNO_WDG_FILE' Source='..\out\resource\pusteOkno.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-
-      <Component Id='SIMPLE_FRAG_FILE_COMP' Guid='{889E2A2F-1483-4B18-91A6-71DF7EE45F43}' Win64='$(var.isPlatformx64)'>
-        <File Id='SIMPLE_FRAG_FILE' Source='..\out\resource\simple.frag' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-
-      <Component Id='SPACE_JPG_FILE_COMP' Guid='{FB93388F-E47B-4103-BA3D-09F31297595B}' Win64='$(var.isPlatformx64)'>
-        <File Id='SPACE_JPG_FILE' Source='..\out\resource\space.jpg' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-
-      <Component Id='SPACE_START_SCREEN_PNG_FILE_COMP' Guid='{F75DDDDF-5BCB-43D5-AE51-E24FC72CDC09}' Win64='$(var.isPlatformx64)'>
-        <File Id='SPACE_START_SCREEN_PNG_FILE' Source='..\out\resource\Space_start_screen.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-      
-      <Component Id='LOGO_FILE_COMP' Guid='{F95CDC9E-A539-4093-9BC4-3E53F3DA6118}' Win64='$(var.isPlatformx64)'>
-        <File Id='LOGO_FILE' Source='..\out\resource\SpaceExplorers_logo_640x348.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-      
-      <Component Id='STATE_XML_FILE_COMP' Guid='{AC12E434-3822-46FF-A5F6-9EF8497D6DBA}' Win64='$(var.isPlatformx64)'>
-        <File Id='STATE_XML_FILE' Source='..\out\resource\state.xml' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-      
-      <Component Id='TESTOWANIE_WDG_FILE_COMP' Guid='{F0A8104D-A726-43AD-8781-4B00B080ECB0}' Win64='$(var.isPlatformx64)'>
-        <File Id='TESTOWANIE_WDG_FILE' Source='..\out\resource\testowanie.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-      
-     <Component Id='BRAK_OBRAZKA_PNG_COMP' Guid='{8E22F9F2-9FD3-45FD-B867-BBFB7C80F0C8}' Win64='$(var.isPlatformx64)'>
-        <File Id='BRAK_OBRAZKA_PNG_FILE' Source='..\out\resource\Brak_obrazka.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-      
-     <Component Id='OKNO_LISTY_COMP' Guid='{C1207F94-CE35-496D-8993-998E494F7E00}' Win64='$(var.isPlatformx64)'>
-        <File Id='OKNO_LISTY_FILE' Source='..\out\resource\lista.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-
-      <Component Id='OKNO_LOGOWANIA_COMP' Guid='{8E9A4902-AD3A-4240-8967-888BBEA6F0F5}' Win64='$(var.isPlatformx64)'>
-        <File Id='OKNO_LOGOWANIA_FILE' Source='..\out\resource\logowanie.wdg' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-      
-    </DirectoryRef>
-
-    <DirectoryRef Id='LUA_DIR'>
-      <Component Id='TEST_LUA_FILE_COMP' Guid='{A76FB252-9319-449A-B07B-846E90C6DF31}' Win64='$(var.isPlatformx64)'>
-        <File Id='TEST_LUA_FILE' Source='..\out\lua\test.lua' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-
-      <Component Id='INTERFEJS_LUA_FILE_COMP' Guid='{A177967B-FBB9-4738-8284-6B0D22D304EA}' Win64='$(var.isPlatformx64)'>
-        <File Id='INTERFEJS_LUA_FILE' Source='..\out\lua\interfejs.lua' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-
-      <Component Id='CLASS_LUA_FILE_COMP' Guid='{BDE3256E-A66C-40DA-AA70-A4A387E4A083}' Win64='$(var.isPlatformx64)'>
-        <File Id='CLASS_LUA_FILE' Source='..\out\lua\class.lua' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-
-      <Component Id='GUI_LUA_FILE_COMP' Guid='{984B8F93-AFCF-4F8B-871C-F56B895213F9}' Win64='$(var.isPlatformx64)'>
-        <File Id='GUI_LUA_FILE' Source='..\out\lua\gui.lua' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-
-      <Component Id='APLIKACJA_LUA_FILE_COMP' Guid='{A5BF57DD-DB05-46E1-8516-761DFAED7BFE}' Win64='$(var.isPlatformx64)'>
-        <File Id='APLIKACJA_LUA_FILE' Source='..\out\lua\aplikacja.lua' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-    </DirectoryRef>
-
-    <DirectoryRef Id='WIDGETS_DIR'>
-      <Component Id='BLACK_CONF_FILE_COMP' Guid='{87521D7F-1201-4CA8-B61C-BCFAA6328FD5}' Win64='$(var.isPlatformx64)'>
-        <File Id='BLACK_CONF_FILE' Source='..\out\widgets\Black.conf' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-
-      <Component Id='BLACK_PNG_FILE_COMP' Guid='{9B28AAD0-EE18-4742-9AA6-799777BAC0C3}' Win64='$(var.isPlatformx64)'>
-        <File Id='BLACK_PNG_FILE' Source='..\out\widgets\Black.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-
-      <Component Id='LOG_LIST_GUI_CONF_FILE_COMP' Guid='{F10C4524-88A2-455A-8698-F3FF47FBDEF1}' Win64='$(var.isPlatformx64)'>
-        <File Id='LOG_LIST_GUI_CONF_FILE' Source='..\out\widgets\LogListGui.conf' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-
-      <Component Id='TLO_PNG_FILE_COMP' Guid='{644918D0-ECCC-4E64-BC2A-BF5BC980A86C}' Win64='$(var.isPlatformx64)'>
-        <File Id='TLO_PNG_FILE' Source='..\out\widgets\tlo.png' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-    </DirectoryRef>
-
-    <DirectoryRef Id='DLL_DIR'>
-      <Component Id='DLL_TEST_SKRYPTU_COMP' Guid='{0D5B4AB5-C43C-4B30-96E1-7AD1DF3AC6E8}' Win64='$(var.isPlatformx64)'>
-        <File Id='DLL_TEST_SKRYPTU_FILE' Source='..\out\dll\TestSkryptuDll.dll' KeyPath='yes' Vital='yes' Checksum='yes'/>
-      </Component>
-    </DirectoryRef>
-    
     <Feature Id='Complete' Title='Space-Explorers 0.0.6' Description='Moja aplikacja'
-      Display='expand' Level='1' AllowAdvertise='no' ConfigurableDirectory="SPACE_EXPLORERS" >
-      <ComponentRef Id="INSTALLFOLDER_Permission"/>
-      <ComponentRef Id='SPACE_EXPLORERS_COM' />
-      <ComponentRef Id='CONFIG_XML' />
-      <ComponentRef Id='DATA_XML' />
-      <ComponentRef Id='LOGGER_DLL' />
-      <ComponentRef Id='ZMIANA_DLL' />
-      <ComponentRef Id='PARSER_DLL' />
-      <ComponentRef Id='TYPY_DLL' />
-      <ComponentRef Id='ZMIANA_TEST_DLL' />
-      <ComponentRef Id='ProgramMenuDir' />
-      <ComponentRef Id='SPACE_EXPLORERS_REM' />
-      <ComponentRef Id='DOC_DATA_SHEMA_COMP' />
-      <ComponentRef Id='DOC_SAVE_SHEMA_COMP' />
-      <ComponentRef Id='DOC_USER_SHEMA_COMP' />
-      <ComponentRef Id='DOC_UKLAD_SHEMA_COMP' />
-      <ComponentRef Id='UKLAD_DIR_COMP' />
-      <ComponentRef Id='RESOURCE_DIR_BACKGROUND_FILE_COMP' />
-      <ComponentRef Id='RESOURCE_DIR_FONT_FILE_COMP' />
-      <ComponentRef Id='CONSOLA_FONT_FILE_COMP' />
-      <ComponentRef Id='TEST_LUA_FILE_COMP' />
-      <ComponentRef Id='INTERFEJS_LUA_FILE_COMP' />
-      <ComponentRef Id='CLASS_LUA_FILE_COMP' />
-      <ComponentRef Id='GUI_LUA_FILE_COMP' />
-      <ComponentRef Id='APLIKACJA_LUA_FILE_COMP' />
-      <ComponentRef Id='MENU_WDG_FILE_COMP' />
-      <ComponentRef Id='EKRANY_XML_FILE_COMP' />
-      <ComponentRef Id='PUSTE_OKNO_WDG_FILE_COMP' />
-      <ComponentRef Id='SIMPLE_FRAG_FILE_COMP' />
-      <ComponentRef Id='SPACE_JPG_FILE_COMP' />
-      <ComponentRef Id='SPACE_START_SCREEN_PNG_FILE_COMP' />
-      <ComponentRef Id='LOGO_FILE_COMP' />
-      <ComponentRef Id='STATE_XML_FILE_COMP' />
-      <ComponentRef Id='TESTOWANIE_WDG_FILE_COMP' />
-      <ComponentRef Id='BLACK_CONF_FILE_COMP' />
-      <ComponentRef Id='LOG_LIST_GUI_CONF_FILE_COMP' />
-      <ComponentRef Id='BLACK_PNG_FILE_COMP' />
-      <ComponentRef Id='BRAK_OBRAZKA_PNG_COMP' />
-      <ComponentRef Id='OKNO_LISTY_COMP' />
-      <ComponentRef Id='OKNO_LOGOWANIA_COMP' />
-      <ComponentRef Id='TLO_PNG_FILE_COMP' />
-      <ComponentRef Id='DANE_TESTOWE_COMP' />
-      <ComponentRef Id='DLL_TEST_SKRYPTU_COMP' />
-      <ComponentRef Id='POZWIAZANIA_XML_COMP' />
-      <ComponentRef Id='SPACE_EXPLORERS_LIB_COMP' />
-      <ComponentRef Id='ERRORS_DIR_COMP' />
+      Display='expand' Level='1' AllowAdvertise='no' ConfigurableDirectory="KATALOGSPACEEXLORERS" >
+      <ComponentRef Id="KatalogSpaceExplorersUprawnienia"/>
+      <ComponentRef Id="KatalogSpaceExplorersUsuwanieKomponent"/>
+      <ComponentRef Id="PlikSpaceExplorersLibKomponent"/>
+      <ComponentRef Id="PlikNarzedziaLibKomponent"/>
+      <ComponentRef Id="PlikAlgorytmyLibKomponent"/>
+      <ComponentRef Id="PlikSchematDanychXsdKomponent"/>
+      <ComponentRef Id="PlikSchematStanuGryXsdKomponent"/>
+      <ComponentRef Id="PlikSchematUzytkownikaXsdKomponent"/>
+      <ComponentRef Id="PlikSchematUkladuSlonecznegoXsdKomponent"/>
+      <ComponentRef Id="KatalogPlikiNaglowkoweKomponent"/>
+      <ComponentRef Id="PlikSerweraEkranyXmlKomponent"/>
+      <ComponentRef Id="PlikSerweraPowiazaniaXmlKomponent"/>
+      <ComponentRef Id="PlikSerweraStateXmlKomponent"/>
+      <ComponentRef Id="PlikSerweraOptionsXmlKomponent"/>
+      <ComponentRef Id="PlikSerweraMessageXmlKomponent"/>
+      <ComponentRef Id="PlikSerweraDaneTestoweXmlKomponent"/>
+      <ComponentRef Id="KatalogSerweraLogiAplikacjiKomponent"/>
+      <ComponentRef Id="PlikKlientaEkranyXmlKomponent"/>
+      <ComponentRef Id="PlikKlientaPowiazaniaXmlKomponent"/>
+      <ComponentRef Id="PlikKlientaStateXmlKomponent"/>
+      <ComponentRef Id="PlikKlientaOptionsXmlKomponent"/>
+      <ComponentRef Id="PlikKlientaMessageXmlKomponent"/>
+      <ComponentRef Id="KatalogKlientaLogiAplikacjiKomponent"/>
+      <ComponentRef Id="PlikTestZmianyDllKomponent"/>
+      <ComponentRef Id="CzcionkaArialKomponent"/>
+      <ComponentRef Id="CzcionkaConsolaKomponent"/>
+      <ComponentRef Id="PlikSimpleFragKomponent"/>
+      <ComponentRef Id="PlikBrakObrazkaKomponent"/>
+      <ComponentRef Id="PlikSpaceJpgKomponent"/>
+      <ComponentRef Id="PlikLogoPngKomponent"/>
+      <ComponentRef Id="PlikBlackPngKomponent"/>
+      <ComponentRef Id="PlikLogListXmlKomponent"/>
+      <ComponentRef Id="PlikTloSurowcePngKomponent"/>
+      <ComponentRef Id="PlikFFFFFF0PngKomponent"/>
+      <ComponentRef Id="PlikTloPngKomponent"/>
+      <ComponentRef Id="PlikIkonaBlueIcoKomponent"/>
+      <ComponentRef Id="PlikStartScreenPngKomponent"/>
+      <ComponentRef Id="PlikEkranListaKomponent"/>
+      <ComponentRef Id="PlikEkranPustyKomponent"/>
+      <ComponentRef Id="PlikEkranKonsolaKomponent"/>
+      <ComponentRef Id="PlikEkranLogowanieKomponent"/>
+      <ComponentRef Id="PlikEkranMenuKomponent"/>
+      <ComponentRef Id="PlikEkranTestowanieKomponent"/>
+      <ComponentRef Id="PlikTestLuaKomponent"/>
+      <ComponentRef Id="PlikInterfejsLuaKomponent"/>
+      <ComponentRef Id="PlikClassLuaKomponent"/>
+      <ComponentRef Id="PlikGuiLuaKomponent"/>
+      <ComponentRef Id="PlikAplikacjaLuaKomponent"/>
+      <ComponentRef Id="PlikTestSkryptuDllKomponent"/>
+      <ComponentRef Id="SpaceExplorersExeKomponent"/>
+      <ComponentRef Id="PlikLoggerDllKomponent"/>
+      <ComponentRef Id="PlikZmianaDllKomponent"/>
+      <ComponentRef Id="PlikParserDllKomponent"/>
+      <ComponentRef Id="PlikTypyProsteDllKomponent"/>
+      <ComponentRef Id="PlikAlgorytmyDllKomponent"/>
+      <ComponentRef Id="PlikNarzedziaDllKomponent"/>
+      <ComponentRef Id="ProgramMenuDirUsuwanieKomponent"/>
     </Feature>
-    
+
     <Feature Id="VCRedist" Title="Visual C++ 14.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
       <MergeRef Id="VCRedist"/>
     </Feature>
@@ -318,12 +347,12 @@
       <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="UserRegistrationDlg">1</Publish-->
     </UI>
     <Property Id="PIDTemplate"><![CDATA[12345<##### ##### ##### ##### #####>@@@@@]]></Property>
-    <Property Id="WIXUI_INSTALLDIR" Value="SPACE_EXPLORERS" />
+    <Property Id="WIXUI_INSTALLDIR" Value="KATALOGSPACEEXLORERS" />
     <WixVariable Id="WixUILicenseRtf" Value="..\doc\gpl-3.0.rtf" />
     <!--WixVariable Id="WixUIBannerBmp" Value="Logo.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="LogoSide.Bmp" /-->
   </Product>
-  
+
   <Fragment>
     <UI>
       <Dialog Id="UserRegistrationDlg" Width="370" Height="270" Title="!(loc.UserRegistrationDlg_Title)" NoMinimize="yes">

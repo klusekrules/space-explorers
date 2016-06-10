@@ -170,9 +170,6 @@ namespace SpEx{
 					watekGraficzny_->odblokuj();
 				}
 				watekGraficzny_->czekajNaZakonczenie();
-				if (watekGraficzny_->blad()) {
-					throw watekGraficzny_->bladInfo();
-				}
 			}
 		});
 
