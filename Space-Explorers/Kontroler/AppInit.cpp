@@ -52,7 +52,7 @@
 #define KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DOMYSLNYCH STyp::Tekst("Nie powiod³a siê rejestracja domyœlnych obiektów zmiany.")
 #define KOMUNIKAT_BLAD_REJESTRACJI_ZMIAN_DODATKOWYCH STyp::Tekst("Nie powiod³a siê rejestracja dodatkowych obiektów zmiany.")
 #define KOMUNIKAT_BLAD_BRAK_PLIKU_DANYCH(plik) STyp::Tekst("Plik : " + plik + " z danymi programu nie zosta³ znaleziony!")
-#define KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folder) STyp::Tekst("Folder: " + folder + " nie zosta³ znaleziony!")
+#define KOMUNIKAT_BLAD_BRAK_FOLDERU(folder) STyp::Tekst("Folder: " + folder + " nie zosta³ znaleziony!")
 #define KOMUNIKAT_BLAD_INICJALIZACJI_WINSOCK STyp::Tekst("B³¹d inicjalizcji biblioteki winsock!")
 #define KOMUNIKAT_BLAD_NIE_USTAWIONO_TRYBU_APLIKACJI STyp::Tekst("Nie ustawiono trybu aplikacji!")
 
@@ -197,6 +197,11 @@ namespace SpEx{
 			return false;
 		}));
 
+		parametryUruchomieniowe_.emplace("-UT", OpcjeParametru(0, [&](std::vector<char*>)->bool {
+			ustawienia_["Testowanie"]="1";
+			return true;
+		}));
+
 		parametryUruchomieniowe_.emplace("-T", OpcjeParametru(1, [&](std::vector<char*> lista)->bool{
 			if (lista.size() == 0)
 				return false;
@@ -332,7 +337,7 @@ namespace SpEx{
 			folderPluginow_ = ustawienia_[ATRYBUT_FOLDER_PLUGINOW];
 			if (_access(folderPluginow_.c_str(), 0) == -1) { // Sprawdzenie czy folder istnieje
 				if(!Utils::tworzSciezke(folderPluginow_))
-					throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_FOLDERU_PLUGINOW(folderPluginow_));
+					throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_FOLDERU(folderPluginow_));
 				else
 					logger_.loguj(SLog::Log::Warning, "Utworzono folder: " + folderPluginow_);
 
@@ -360,6 +365,11 @@ namespace SpEx{
 		if (!ustawienia_[ATRYBUT_GLOWNY_FOLDER_GRY].empty()) {
 			sfile << ustawienia_[ATRYBUT_GLOWNY_FOLDER_GRY] << "\\";
 		}
+
+		if (!Utils::tworzSciezke(sfile.str())) {
+			throw BladKonfiguracjiAplikacji(EXCEPTION_PLACE, pobierzDebugInfo(), KOMUNIKAT_BLAD_BRAK_FOLDERU(sfile.str()));
+		}
+
 		sfile << ustawienia_[ATRYBUT_PRZEDROSTEK_PLIKU_LOGOW] << s << ".log";
 		std::string filename = sfile.str();
 		logger_.dodajGniazdoWyjsciowe([filename](SLog::Log::TypLogow typ, const std::string& czas, const std::string& komunikat)->void{
