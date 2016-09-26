@@ -330,6 +330,8 @@
     <ClCompile Include="Wyjatek.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\TypyProste\CallbackRef.h" />
+    <ClInclude Include="Headers\TypyProste\RefGen.h" />
     <ClInclude Include="Headers\TypyProste\TypyProste.h" />
     <ClInclude Include="Headers\TypyProste\TypyProsteBO.h" />
     <ClInclude Include="Headers\TypyProste\Wyjatek.h" />

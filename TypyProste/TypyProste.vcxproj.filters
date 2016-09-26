@@ -29,5 +29,11 @@
     <ClInclude Include="Headers\TypyProste\Wyjatek.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\TypyProste\RefGen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\TypyProste\CallbackRef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
