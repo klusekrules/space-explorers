@@ -122,10 +122,10 @@ namespace tgui {
 			glGetIntegerv(GL_VIEWPORT, viewport);
 			downBorder = (float)viewport[3] - (pozycja.y + pSize.y);
 			upBorder = (float)viewport[3] - pozycja.y;
-			shader->setParameter("zakres", size.y);
-			shader->setParameter("upMargin", upBorder - size.y);
-			shader->setParameter("downMargin", downBorder + size.y); 
-			shader->setParameter("texture", sf::Shader::CurrentTexture);
+			shader->setUniform("zakres", size.y);
+			shader->setUniform("upMargin", upBorder - size.y);
+			shader->setUniform("downMargin", downBorder + size.y);
+			shader->setUniform("texture", sf::Shader::CurrentTexture);
 		}
 	}
 
@@ -174,7 +174,7 @@ namespace tgui {
 		}
 		else{
 			wartosc_suwaka_min = 0;
-			wartosc_suwaka_max = insideHight + 1.f - hight;
+			wartosc_suwaka_max = static_cast<int>(insideHight + 1.f - hight);
 			if (czyResetSuwaka)
 				wartosc_suwaka_ = wartosc_suwaka_min;
 			else{

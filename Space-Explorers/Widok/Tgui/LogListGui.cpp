@@ -40,7 +40,7 @@ namespace tgui {
 			auto& label = widgets[n];
 			MessageType position = powiazaniaKontrolek_[ this->m_newLinesBelowOthers ? n : (size-1) - n ];
 			if (position < opisTypowKomunikatow_.size()) {
-				label.text.setColor(opisTypowKomunikatow_[position].drugiKolor_);
+				label.text.setFillColor(opisTypowKomunikatow_[position].drugiKolor_);
 				label.text.setCharacterSize(opisTypowKomunikatow_[position].drugiRozmiarCzcionki_);
 			}
 		}

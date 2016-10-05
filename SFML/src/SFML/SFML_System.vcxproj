@@ -269,6 +269,7 @@
     <ClCompile Include="System\Win32\ThreadLocalImpl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\SFML\System\NativeActivity.hpp" />
     <ClInclude Include="System\Win32\ClockImpl.hpp" />
     <ClInclude Include="System\Win32\MutexImpl.hpp" />
     <ClInclude Include="System\Win32\SleepImpl.hpp" />

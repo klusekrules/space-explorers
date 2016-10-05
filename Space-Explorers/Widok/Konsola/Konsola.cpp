@@ -129,7 +129,7 @@ namespace SpEx{
 
 	bool Konsola::przesunNaWierch() const{
 		if (ptrWindow) {
-			return BringWindowToTop(ptrWindow->getSystemHandle());
+			return BringWindowToTop(ptrWindow->getSystemHandle()) == TRUE;
 		}
 		return false;
 	}

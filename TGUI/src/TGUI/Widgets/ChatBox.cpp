@@ -28,6 +28,8 @@
 #include <TGUI/Widgets/ChatBox.hpp>
 #include <TGUI/Loading/Theme.hpp>
 
+#include <SFML/OpenGL.hpp>
+
 #include <cassert>
 #include <cmath>
 
@@ -154,7 +156,12 @@ namespace tgui
         if (line.font == nullptr)
             line.font = getFont();
 
+
+#if SFML_VERSION_MAJOR > 2 || (SFML_VERSION_MAJOR == 2 && SFML_VERSION_MINOR >= 4)
+        line.text.setFillColor(color);
+#else
         line.text.setColor(color);
+#endif
         line.text.setCharacterSize(textSize);
         line.text.setString(text);
         if (line.font != nullptr)
@@ -167,15 +174,7 @@ namespace tgui
         else
             m_lines.push_front(std::move(line));
 
-        // Scroll down when there is a scrollbar and it is at the bottom
-        if (m_scroll && m_newLinesBelowOthers && (m_scroll->getValue() == m_scroll->getMaximum() - m_scroll->getLowValue()))
-        {
-            recalculateFullTextHeight();
-            m_scroll->setValue(m_scroll->getMaximum() - m_scroll->getLowValue());
-        }
-        else
-            recalculateFullTextHeight();
-
+        recalculateFullTextHeight();
         updateDisplayedText();
     }
 
@@ -393,7 +392,11 @@ namespace tgui
         Widget::setOpacity(opacity);
 
         for (auto& line : m_lines)
+#if SFML_VERSION_MAJOR > 2 || (SFML_VERSION_MAJOR == 2 && SFML_VERSION_MINOR >= 4)
+            line.text.setFillColor({line.text.getFillColor().r, line.text.getFillColor().g, line.text.getFillColor().b, static_cast<sf::Uint8>(opacity * 255)});
+#else
             line.text.setColor({line.text.getColor().r, line.text.getColor().g, line.text.getColor().b, static_cast<sf::Uint8>(opacity * 255)});
+#endif
 
         if (m_scroll != nullptr)
             m_scroll->setOpacity(m_opacity);
@@ -692,15 +695,7 @@ namespace tgui
         for (auto& line : m_lines)
             recalculateLineText(line);
 
-        // Scroll down when there is a scrollbar and it is at the bottom
-        if (m_scroll && m_newLinesBelowOthers && (m_scroll->getValue() == m_scroll->getMaximum() - m_scroll->getLowValue()))
-        {
-            recalculateFullTextHeight();
-            m_scroll->setValue(m_scroll->getMaximum() - m_scroll->getLowValue());
-        }
-        else
-            recalculateFullTextHeight();
-
+        recalculateFullTextHeight();
         updateDisplayedText();
     }
 
@@ -717,7 +712,20 @@ namespace tgui
 
         // Set the maximum of the scrollbar when there is one
         if (m_scroll != nullptr)
+        {
+            unsigned int oldMaximum = m_scroll->getMaximum();
             m_scroll->setMaximum(static_cast<unsigned int>(m_fullTextHeight));
+
+            // Scroll down to the last item when there is a scrollbar and it is at the bottom
+            if (m_newLinesBelowOthers)
+            {
+                if (((oldMaximum >= m_scroll->getLowValue()) && (m_scroll->getValue() == oldMaximum - m_scroll->getLowValue()))
+                 || ((oldMaximum <= m_scroll->getLowValue()) && (m_scroll->getMaximum() > m_scroll->getLowValue())))
+                {
+                    m_scroll->setValue(m_scroll->getMaximum() - m_scroll->getLowValue());
+                }
+            }
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -807,9 +815,43 @@ namespace tgui
         // Draw the background
         getRenderer()->draw(target, states);
 
+        const sf::View& view = target.getView();
+
+        // Calculate the scale factor of the view
+        float scaleViewX = target.getSize().x / view.getSize().x;
+        float scaleViewY = target.getSize().y / view.getSize().y;
+
+        // Get the global position
+        Padding padding = getRenderer()->getScaledPadding();
+        sf::Vector2f topLeftPosition = {((getAbsolutePosition().x + padding.left - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
+                                        ((getAbsolutePosition().y + padding.top - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top)};
+        sf::Vector2f bottomRightPosition = {(getAbsolutePosition().x + getSize().x - padding.right - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width + (view.getSize().x * view.getViewport().left),
+                                            (getAbsolutePosition().y + getSize().y - padding.bottom - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height + (view.getSize().y * view.getViewport().top)};
+
+        // Get the old clipping area
+        GLint scissor[4];
+        glGetIntegerv(GL_SCISSOR_BOX, scissor);
+
+        // Calculate the clipping area
+        GLint scissorLeft = std::max(static_cast<GLint>(topLeftPosition.x * scaleViewX), scissor[0]);
+        GLint scissorTop = std::max(static_cast<GLint>(topLeftPosition.y * scaleViewY), static_cast<GLint>(target.getSize().y) - scissor[1] - scissor[3]);
+        GLint scissorRight = std::min(static_cast<GLint>(bottomRightPosition.x * scaleViewX), scissor[0] + scissor[2]);
+        GLint scissorBottom = std::min(static_cast<GLint>(bottomRightPosition.y * scaleViewY), static_cast<GLint>(target.getSize().y) - scissor[1]);
+
+        if (scissorRight < scissorLeft)
+            scissorRight = scissorLeft;
+        else if (scissorBottom < scissorTop)
+            scissorTop = scissorBottom;
+
+        // Set the clipping area
+        glScissor(scissorLeft, target.getSize().y - scissorBottom, scissorRight - scissorLeft, scissorBottom - scissorTop);
+
         // Draw the text
         for (auto& line : m_lines)
             target.draw(line.text, states);
+
+        // Reset the old clipping area
+        glScissor(scissor[0], scissor[1], scissor[2], scissor[3]);
 
         // Draw the scrollbar if there is one
         if (m_scroll != nullptr)

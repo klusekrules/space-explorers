@@ -135,7 +135,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\freetype2;$(SolutionDir)SFML\extlibs\headers\jpeg;$(SolutionDir)SFML\extlibs\headers;$(SolutionDir)SFML\extlibs\headers\stb_image</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE /wd4996 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -154,7 +154,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\freetype2;$(SolutionDir)SFML\extlibs\headers\jpeg;$(SolutionDir)SFML\extlibs\headers;$(SolutionDir)SFML\extlibs\headers\stb_image</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE /wd4996 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -173,7 +173,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\freetype2;$(SolutionDir)SFML\extlibs\headers\jpeg;$(SolutionDir)SFML\extlibs\headers;$(SolutionDir)SFML\extlibs\headers\stb_image</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE /wd4996 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -194,7 +194,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\freetype2;$(SolutionDir)SFML\extlibs\headers\jpeg;$(SolutionDir)SFML\extlibs\headers;$(SolutionDir)SFML\extlibs\headers\stb_image</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE /wd4996 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -217,7 +217,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\freetype2;$(SolutionDir)SFML\extlibs\headers\jpeg;$(SolutionDir)SFML\extlibs\headers;$(SolutionDir)SFML\extlibs\headers\stb_image</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE /wd4996 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -240,7 +240,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\freetype2;$(SolutionDir)SFML\extlibs\headers\jpeg;$(SolutionDir)SFML\extlibs\headers;$(SolutionDir)SFML\extlibs\headers\stb_image</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE /wd4996 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -263,6 +263,7 @@
     <ClCompile Include="Graphics\GLCheck.cpp" />
     <ClCompile Include="Graphics\GLExtensions.cpp" />
     <ClCompile Include="Graphics\GLLoader.cpp" />
+    <ClCompile Include="Graphics\Glsl.cpp" />
     <ClCompile Include="Graphics\Image.cpp" />
     <ClCompile Include="Graphics\ImageLoader.cpp" />
     <ClCompile Include="Graphics\RectangleShape.cpp" />
@@ -286,6 +287,7 @@
     <ClCompile Include="Graphics\View.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\SFML\Graphics\Glsl.hpp" />
     <ClInclude Include="Graphics\GLCheck.hpp" />
     <ClInclude Include="Graphics\GLExtensions.hpp" />
     <ClInclude Include="Graphics\GLLoader.hpp" />
@@ -302,6 +304,9 @@
     <ProjectReference Include="SFML_Window.vcxproj">
       <Project>{ece7a458-22f2-406c-991e-36d0e579e457}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\include\SFML\Graphics\Glsl.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
