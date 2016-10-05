@@ -313,15 +313,13 @@ namespace SpEx{
 	}
 
 	void MaszynaStanow::inicjujZamykanie(){
-		if (wlaczone) {
-			if (watekGraficzny_) {
-				watekGraficzny_->zakmnij();
-				if (!inicjalizujOknoGlowne_) {
-					watekGraficzny_->odblokuj();
-				}
+		if (watekGraficzny_) {
+			watekGraficzny_->zakmnij();
+			if (!inicjalizujOknoGlowne_) {
+				watekGraficzny_->odblokuj();
 			}
-			wlaczone = false;
 		}
+		wlaczone = false;
 	}
 
 	void MaszynaStanow::dodajZadanie(Zadanie& zadanie){

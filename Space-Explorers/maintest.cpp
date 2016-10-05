@@ -1,10 +1,12 @@
 #include "Kontroler\Aplikacja.h"
 #include "TypyProste\Wyjatek.h"
+#include <fstream>
 
 #ifdef TESTS
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
 #include "Testy\Szkielet\TestyJednostkowe.h"
+#include "Eksport\Export.h"
 
 void main( int argv , char* argc[] ){
 	HANDLE hLogFile = CreateFile("mem_leak.txt", GENERIC_WRITE, FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
@@ -19,11 +21,17 @@ void main( int argv , char* argc[] ){
 	try{
 		SpEx::Aplikacja::iloscArgumentow = argv;
 		SpEx::Aplikacja::argumenty = argc;
-		SpEx::Aplikacja::pobierzInstancje().start();
-		/*
-		std::fstream plik("zrzut.txt", std::ios_base::app);
-		plik << SpEx::Aplikacja::pobierzInstancje().pobierzDebugInfo();
-		*/
+
+		if (SpEx::Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji()["Testowanie"].length()) {
+			testyJednostkowe();
+			zamknijAplikacje();
+		}else
+			SpEx::Aplikacja::pobierzInstancje().start();
+		
+		if (SpEx::Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji()["Zrzut"].length()) {
+			std::fstream plik("zrzut.txt", std::ios_base::app);
+			plik << SpEx::Aplikacja::pobierzInstancje().pobierzDebugInfo();
+		}
 	}
 	catch (STyp::Wyjatek& wyjatek){
 		SLog::Log::pobierzInstancje().loguj(SLog::Log::Error, wyjatek);
