@@ -135,7 +135,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\freetype2;$(SolutionDir)SFML\extlibs\headers\jpeg;$(SolutionDir)SFML\extlibs\headers;$(SolutionDir)SFML\extlibs\headers\stb_image</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE /wd4312 /wd4267 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -154,7 +154,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\freetype2;$(SolutionDir)SFML\extlibs\headers\jpeg;$(SolutionDir)SFML\extlibs\headers;$(SolutionDir)SFML\extlibs\headers\stb_image</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE /wd4312 /wd4267 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -173,7 +173,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\freetype2;$(SolutionDir)SFML\extlibs\headers\jpeg;$(SolutionDir)SFML\extlibs\headers;$(SolutionDir)SFML\extlibs\headers\stb_image</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE /wd4312 /wd4267 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -194,7 +194,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\freetype2;$(SolutionDir)SFML\extlibs\headers\jpeg;$(SolutionDir)SFML\extlibs\headers;$(SolutionDir)SFML\extlibs\headers\stb_image</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE /wd4312 /wd4267 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -217,7 +217,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\freetype2;$(SolutionDir)SFML\extlibs\headers\jpeg;$(SolutionDir)SFML\extlibs\headers;$(SolutionDir)SFML\extlibs\headers\stb_image</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE /wd4312 /wd4267 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -240,7 +240,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\src;$(SolutionDir)SFML\include;$(SolutionDir)SFML\extlibs\headers\freetype2;$(SolutionDir)SFML\extlibs\headers\jpeg;$(SolutionDir)SFML\extlibs\headers;$(SolutionDir)SFML\extlibs\headers\stb_image</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/D_CRT_SECURE_NO_DEPRECATE /wd4312 /wd4267 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
