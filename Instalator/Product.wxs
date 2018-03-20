@@ -269,7 +269,7 @@
     </Directory>
     
     <DirectoryRef Id="TARGETDIR">
-      <Merge Id="VCRedist" SourceFile="Microsoft_VC140_$(var.CRTName)CRT_$(var.Platforma).msm" DiskId="1" Language="0"/>
+      <Merge Id="VCRedist" SourceFile="Microsoft_VC141_$(var.CRTName)CRT_$(var.Platforma).msm" DiskId="1" Language="0"/>
     </DirectoryRef>
 
     <Feature Id='Complete' Title='Space-Explorers 0.0.6' Description='Moja aplikacja'

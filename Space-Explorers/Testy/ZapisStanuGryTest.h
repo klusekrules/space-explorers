@@ -16,6 +16,6 @@ public:
 	virtual ~ZapisStanuGryTest(void) = default;
 private:
 	STyp::Ilosc p_a;
-	int ptr_a;
+	unsigned long long ptr_a;
 };
 

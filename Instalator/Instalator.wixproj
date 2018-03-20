@@ -72,6 +72,10 @@
     <Content Include="Microsoft_VC140_CRT_x86.msm" />
     <Content Include="Microsoft_VC140_DebugCRT_x64.msm" />
     <Content Include="Microsoft_VC140_DebugCRT_x86.msm" />
+    <Content Include="Microsoft_VC141_CRT_x64.msm" />
+    <Content Include="Microsoft_VC141_CRT_x86.msm" />
+    <Content Include="Microsoft_VC141_DebugCRT_x64.msm" />
+    <Content Include="Microsoft_VC141_DebugCRT_x86.msm" />
     <None Include="Microsoft_VC110_CRT_x64.msm" />
     <None Include="Microsoft_VC110_CRT_x86.msm" />
   </ItemGroup>

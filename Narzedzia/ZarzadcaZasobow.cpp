@@ -246,14 +246,9 @@ namespace SpEx{
 			logger.dodajPole("Identyfikator", element.first);
 			logger.rozpocznijPodKlase("SpEx::ZarzadcaZasobow::WpisZasobu");
 
-			std::stringstream streamWeakPtr;
-			streamWeakPtr.imbue(std::locale("C"));
-			streamWeakPtr << "0x" << std::hex << (unsigned __int64)(element.second.weakptr_._Get());
-			logger.dodajPole("weakptr_", NAZWAKLASY2(element.second.weakptr_), streamWeakPtr.str());
-			
 			std::stringstream streamSharedPtr;
 			streamSharedPtr.imbue(std::locale("C"));
-			streamSharedPtr << "0x" << std::hex << (unsigned __int64)(element.second.sharedptr_._Get());
+			streamSharedPtr << "0x" << std::hex << (unsigned __int64)(element.second.sharedptr_.get());
 			logger.dodajPole("sharedptr_", NAZWAKLASY2(element.second.sharedptr_), streamSharedPtr.str());
 
 			std::stringstream streamCached;

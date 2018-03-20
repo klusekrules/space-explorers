@@ -113,7 +113,7 @@ namespace SpEx{
 			if (planeta.second){
 				std::stringstream streamPlanetaPtr;
 				streamPlanetaPtr.imbue(std::locale("C"));
-				streamPlanetaPtr << "0x" << std::hex << (unsigned __int64)(planeta.second._Get());
+				streamPlanetaPtr << "0x" << std::hex << (unsigned __int64)(planeta.second.get());
 				str.dodajPole("second", NAZWAKLASY(Planeta), streamPlanetaPtr.str());
 			}else{
 				str.dodajPole("second", NAZWAKLASY(Planeta), "nullptr");
