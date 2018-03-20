@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2017 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -27,8 +27,6 @@
 #include <TGUI/Loading/Theme.hpp>
 #include <TGUI/Widgets/MenuBar.hpp>
 
-#include <SFML/OpenGL.hpp>
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace tgui
@@ -45,6 +43,13 @@ namespace tgui
         reload();
 
         setSize({0, 20});
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    MenuBar::Ptr MenuBar::create()
+    {
+        return std::make_shared<MenuBar>();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -157,6 +162,16 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    bool MenuBar::addMenuItem(const sf::String& text)
+    {
+        if (!m_menus.empty())
+            return addMenuItem(m_menus.back().text.getText(), text);
+        else
+            return false;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     bool MenuBar::removeMenu(const sf::String& menu)
     {
         // Search for the menu
@@ -244,6 +259,25 @@ namespace tgui
     void MenuBar::setMinimumSubMenuWidth(float minimumWidth)
     {
         m_minimumSubMenuWidth = minimumWidth;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void MenuBar::closeMenu()
+    {
+        // Check if there is still a menu open
+        if (m_visibleMenu != -1)
+        {
+            // If an item in that menu was selected then unselect it first
+            if (m_menus[m_visibleMenu].selectedMenuItem != -1)
+            {
+                m_menus[m_visibleMenu].menuItems[m_menus[m_visibleMenu].selectedMenuItem].setTextColor(calcColorOpacity(getRenderer()->m_textColor, getOpacity()));
+                m_menus[m_visibleMenu].selectedMenuItem = -1;
+            }
+
+            m_menus[m_visibleMenu].text.setTextColor(calcColorOpacity(getRenderer()->m_textColor, getOpacity()));
+            m_visibleMenu = -1;
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -378,7 +412,7 @@ namespace tgui
                                std::vector<sf::String>{m_menus[m_visibleMenu].text.getText(), m_menus[m_visibleMenu].menuItems[selectedMenuItem].getText()},
                                m_menus[m_visibleMenu].menuItems[selectedMenuItem].getText());
 
-                    closeVisibleMenu();
+                    closeMenu();
                 }
             }
         }
@@ -417,7 +451,7 @@ namespace tgui
                         else // The menu isn't open yet
                         {
                             // If there is another menu open then close it first
-                            closeVisibleMenu();
+                            closeMenu();
 
                             // If this menu can be opened then do so
                             if (!m_menus[i].menuItems.empty())
@@ -455,7 +489,7 @@ namespace tgui
     void MenuBar::mouseNoLongerDown()
     {
         if (!m_mouseDown)
-            closeVisibleMenu();
+            closeMenu();
 
         Widget::mouseNoLongerDown();
     }
@@ -472,25 +506,6 @@ namespace tgui
         }
 
         Widget::mouseLeftWidget();
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void MenuBar::closeVisibleMenu()
-    {
-        // Check if there is still a menu open
-        if (m_visibleMenu != -1)
-        {
-            // If an item in that menu was selected then unselect it first
-            if (m_menus[m_visibleMenu].selectedMenuItem != -1)
-            {
-                m_menus[m_visibleMenu].menuItems[m_menus[m_visibleMenu].selectedMenuItem].setTextColor(calcColorOpacity(getRenderer()->m_textColor, getOpacity()));
-                m_menus[m_visibleMenu].selectedMenuItem = -1;
-            }
-
-            m_menus[m_visibleMenu].text.setTextColor(calcColorOpacity(getRenderer()->m_textColor, getOpacity()));
-            m_visibleMenu = -1;
-        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

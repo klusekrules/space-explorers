@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2017 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -72,7 +72,6 @@ namespace
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
-// Hidden functions
 namespace tgui
 {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,7 +82,21 @@ namespace tgui
             return std::shared_ptr<sf::Font>();
 
         auto font = std::make_shared<sf::Font>();
-        font->loadFromFile(Deserializer::deserialize(ObjectConverter::Type::String, value).getString());
+
+        sf::String filename = Deserializer::deserialize(ObjectConverter::Type::String, value).getString();
+        if (filename.isEmpty())
+            return std::shared_ptr<sf::Font>();
+
+        // Load the font but insert the resource path into the filename unless the filename is an absolute path
+    #ifdef SFML_SYSTEM_WINDOWS
+        if ((filename.getSize() <= 1) || ((filename[0] != '/') && (filename[0] != '\\') && (filename[1] != ':')))
+    #else
+        if (filename[0] != '/')
+    #endif
+            font->loadFromFile(getResourcePath() + filename);
+        else
+            font->loadFromFile(filename);
+
         return font;
     }
 
@@ -326,7 +339,7 @@ namespace tgui
             std::advance(c, closeBracketPos - (c - value.begin()) + 1);
         }
 
-        return tgui::Texture{getResourcePath() + filename, partRect, middleRect};
+        return tgui::Texture{filename, partRect, middleRect};
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

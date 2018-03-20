@@ -255,7 +255,9 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Window\Clipboard.cpp" />
     <ClCompile Include="Window\Context.cpp" />
+    <ClCompile Include="Window\Cursor.cpp" />
     <ClCompile Include="Window\GlContext.cpp" />
     <ClCompile Include="Window\GlResource.cpp" />
     <ClCompile Include="Window\Joystick.cpp" />
@@ -266,6 +268,8 @@
     <ClCompile Include="window\SensorManager.cpp" />
     <ClCompile Include="window\Touch.cpp" />
     <ClCompile Include="Window\VideoMode.cpp" />
+    <ClCompile Include="Window\Win32\ClipboardImpl.cpp" />
+    <ClCompile Include="Window\Win32\CursorImpl.cpp" />
     <ClCompile Include="Window\Win32\InputImpl.cpp" />
     <ClCompile Include="Window\Win32\JoystickImpl.cpp" />
     <ClCompile Include="Window\Win32\SensorImpl.cpp" />
@@ -277,6 +281,10 @@
     <ClCompile Include="Window\WindowImpl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\SFML\Window\Clipboard.hpp" />
+    <ClInclude Include="..\..\include\SFML\Window\Cursor.hpp" />
+    <ClInclude Include="Window\ClipboardImpl.hpp" />
+    <ClInclude Include="Window\CursorImpl.hpp" />
     <ClInclude Include="Window\GlContext.hpp" />
     <ClInclude Include="Window\InputImpl.hpp" />
     <ClInclude Include="Window\JoystickImpl.hpp" />
@@ -284,6 +292,8 @@
     <ClInclude Include="window\SensorImpl.hpp" />
     <ClInclude Include="window\SensorManager.hpp" />
     <ClInclude Include="Window\VideoModeImpl.hpp" />
+    <ClInclude Include="Window\Win32\ClipboardImpl.hpp" />
+    <ClInclude Include="Window\Win32\CursorImpl.hpp" />
     <ClInclude Include="Window\Win32\InputImpl.hpp" />
     <ClInclude Include="Window\Win32\JoystickImpl.hpp" />
     <ClInclude Include="Window\Win32\SensorImpl.hpp" />

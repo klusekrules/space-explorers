@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2017 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -25,8 +25,25 @@
 
 #include <TGUI/Widgets/ChildWindow.hpp>
 #include <TGUI/Loading/Theme.hpp>
+#include <TGUI/Clipping.hpp>
 
-#include <SFML/OpenGL.hpp>
+#include <limits>
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+namespace
+{
+    float clamp(float value, float lower, float upper)
+    {
+        if (value < lower)
+            return lower;
+
+        if (value > upper)
+            return upper;
+
+        return value;
+    }
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -50,6 +67,15 @@ namespace tgui
         reload();
 
         setSize(400, 300);
+        m_minimumSize = {0, 0};
+        m_maximumSize = {std::numeric_limits<float>::infinity(), std::numeric_limits<float>::infinity()};
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    ChildWindow::Ptr ChildWindow::create()
+    {
+        return std::make_shared<ChildWindow>();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -171,6 +197,46 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    void ChildWindow::setMaximumSize(sf::Vector2f size)
+    {
+        if ((size.x < getSize().x) || (size.y < getSize().y))
+        {
+            // The window is currently larger than the new maximum size, lets downsize
+            setSize(std::min(size.x, getSize().x), std::min(size.y, getSize().y));
+        }
+
+        m_maximumSize = size;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    sf::Vector2f ChildWindow::getMaximumSize() const
+    {
+        return m_maximumSize;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void ChildWindow::setMinimumSize(sf::Vector2f size)
+    {
+        if ((size.x > getSize().x) || (size.y > getSize().y))
+        {
+            // The window is currently smaller than the new minimum size, lets upsize
+            setSize(std::max(size.x, getSize().x), std::max(size.y, getSize().y));
+        }
+
+        m_minimumSize = size;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    sf::Vector2f ChildWindow::getMinimumSize() const
+    {
+        return m_minimumSize;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     void ChildWindow::setFont(const Font& font)
     {
         Container::setFont(font);
@@ -235,7 +301,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void ChildWindow::setTitleButtons(TitleButtons buttons)
+    void ChildWindow::setTitleButtons(unsigned int buttons)
     {
         m_titleButtons = buttons;
 
@@ -275,7 +341,8 @@ namespace tgui
 
     void ChildWindow::destroy()
     {
-        m_parent->remove(shared_from_this());
+        if (m_parent)
+            m_parent->remove(shared_from_this());
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -574,26 +641,21 @@ namespace tgui
 
             if ((m_resizeDirection & ResizeLeft) != 0)
             {
-                float diff = x - getPosition().x;
-                if (getSize().x - diff >= minimumWidth)
-                {
-                    setPosition(getPosition().x + diff, getPosition().y);
-                    setSize(getSize().x - diff, getSize().y);
-                }
-                else
-                {
-                    setPosition(getPosition().x + getSize().x - minimumWidth, getPosition().y);
-                    setSize(minimumWidth, getSize().y);
-                }
+                const float diff = clamp(x - getPosition().x, getSize().x - m_maximumSize.x, getSize().x - std::max(minimumWidth, m_minimumSize.x));
+
+                setPosition(getPosition().x + diff, getPosition().y);
+                setSize(getSize().x - diff, getSize().y);
             }
             else if ((m_resizeDirection & ResizeRight) != 0)
             {
-                setSize(std::max(minimumWidth, x - (getPosition().x + getRenderer()->m_borders.left)), getSize().y);
+                const float newX = std::max(0.f, x - (getPosition().x + getRenderer()->m_borders.left));
+                setSize(clamp(newX, std::max(minimumWidth, m_minimumSize.x), m_maximumSize.x), getSize().y);
             }
 
             if ((m_resizeDirection & ResizeBottom) != 0)
             {
-                setSize(getSize().x, std::max(0.f, y - (getPosition().y + getRenderer()->m_titleBarHeight + getRenderer()->m_borders.top)));
+                const float newY = std::max(0.f, y - (getPosition().y + getRenderer()->m_titleBarHeight + getRenderer()->m_borders.top));
+                setSize(getSize().x, clamp(newY, m_minimumSize.y, m_maximumSize.y));
             }
         }
 
@@ -741,31 +803,6 @@ namespace tgui
         if (m_iconTexture.isLoaded())
             target.draw(m_iconTexture, states);
 
-        // Calculate the scale factor of the view
-        const sf::View& view = target.getView();
-        float scaleViewX = target.getSize().x / view.getSize().x;
-        float scaleViewY = target.getSize().y / view.getSize().y;
-
-        // Get the global position
-        sf::Vector2f topLeftPanelPosition = {((getAbsolutePosition().x + getRenderer()->m_borders.left - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
-                                             ((getAbsolutePosition().y + getRenderer()->m_titleBarHeight + getRenderer()->m_borders.top - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top)};
-        sf::Vector2f bottomRightPanelPosition = {(getAbsolutePosition().x + getSize().x + getRenderer()->m_borders.left - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width + (view.getSize().x * view.getViewport().left),
-                                                 (getAbsolutePosition().y + getRenderer()->m_titleBarHeight + getSize().y + getRenderer()->m_borders.top - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height + (view.getSize().y * view.getViewport().top)};
-
-        sf::Vector2f topLeftTitleBarPosition;
-        sf::Vector2f bottomRightTitleBarPosition;
-
-        if (m_iconTexture.isLoaded())
-        {
-            topLeftTitleBarPosition = {((getAbsolutePosition().x + 2*getRenderer()->m_distanceToSide + m_iconTexture.getSize().x - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
-                                       ((getAbsolutePosition().y - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top)};
-        }
-        else
-        {
-            topLeftTitleBarPosition = {((getAbsolutePosition().x + getRenderer()->m_distanceToSide - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
-                                       ((getAbsolutePosition().y - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top)};
-        }
-
         float buttonOffsetX = 0;
         for (const auto& button : {m_closeButton, m_maximizeButton, m_minimizeButton})
         {
@@ -776,36 +813,21 @@ namespace tgui
         if (buttonOffsetX > 0)
             buttonOffsetX += getRenderer()->m_distanceToSide;
 
-        bottomRightTitleBarPosition = {(getAbsolutePosition().x + getSize().x + getRenderer()->m_borders.left + getRenderer()->m_borders.right - getRenderer()->m_distanceToSide - buttonOffsetX
-                                        - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width + (view.getSize().x * view.getViewport().left),
-                                       (getAbsolutePosition().y + getRenderer()->m_titleBarHeight - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height + (view.getSize().y * view.getViewport().top)};
-
-        // Get the old clipping area
-        GLint scissor[4];
-        glGetIntegerv(GL_SCISSOR_BOX, scissor);
-
         // Check if there is a title
         if (!m_titleText.getText().isEmpty())
         {
-            // Calculate the clipping area
-            GLint scissorLeft = std::max(static_cast<GLint>(topLeftTitleBarPosition.x * scaleViewX), scissor[0]);
-            GLint scissorTop = std::max(static_cast<GLint>(topLeftTitleBarPosition.y * scaleViewY), static_cast<GLint>(target.getSize().y) - scissor[1] - scissor[3]);
-            GLint scissorRight = std::min(static_cast<GLint>(bottomRightTitleBarPosition.x * scaleViewX), scissor[0] + scissor[2]);
-            GLint scissorBottom = std::min(static_cast<GLint>(bottomRightTitleBarPosition.y * scaleViewY), static_cast<GLint>(target.getSize().y) - scissor[1]);
+            sf::Vector2f clippingTopLeft = {getPosition().x + getRenderer()->m_distanceToSide, getPosition().y};
+            sf::Vector2f clippingBottomRight = {getPosition().x + getRenderer()->m_borders.left + getSize().x - getRenderer()->m_distanceToSide - buttonOffsetX,
+                                                getPosition().y + getRenderer()->m_titleBarHeight};
 
-            if (scissorRight < scissorLeft)
-                scissorRight = scissorLeft;
-            else if (scissorBottom < scissorTop)
-                scissorTop = scissorBottom;
+            if (m_iconTexture.isLoaded())
+                clippingTopLeft.x += getRenderer()->m_distanceToSide + m_iconTexture.getSize().x;
 
-            // Set the clipping area
-            glScissor(scissorLeft, target.getSize().y - scissorBottom, scissorRight - scissorLeft, scissorBottom - scissorTop);
+            // Set the clipping for all draw calls that happen until this clipping object goes out of scope
+            Clipping clipping{target, states, clippingTopLeft, clippingBottomRight - clippingTopLeft};
 
             // Draw the text in the title bar
             target.draw(m_titleText, states);
-
-            // Reset the old clipping area
-            glScissor(scissor[0], scissor[1], scissor[2], scissor[3]);
         }
 
 
@@ -819,25 +841,11 @@ namespace tgui
             target.draw(background, states);
         }
 
-        // Calculate the clipping area
-        GLint scissorLeft = std::max(static_cast<GLint>(topLeftPanelPosition.x * scaleViewX), scissor[0]);
-        GLint scissorTop = std::max(static_cast<GLint>(topLeftPanelPosition.y * scaleViewY), static_cast<GLint>(target.getSize().y) - scissor[1] - scissor[3]);
-        GLint scissorRight = std::min(static_cast<GLint>(bottomRightPanelPosition.x * scaleViewX), scissor[0] + scissor[2]);
-        GLint scissorBottom = std::min(static_cast<GLint>(bottomRightPanelPosition.y * scaleViewY), static_cast<GLint>(target.getSize().y) - scissor[1]);
-
-        if (scissorRight < scissorLeft)
-            scissorRight = scissorLeft;
-        else if (scissorBottom < scissorTop)
-            scissorTop = scissorBottom;
-
-        // Set the clipping area
-        glScissor(scissorLeft, target.getSize().y - scissorBottom, scissorRight - scissorLeft, scissorBottom - scissorTop);
+        // Set the clipping for all draw calls that happen until this clipping object goes out of scope
+        Clipping clipping{target, states, {}, getSize()};
 
         // Draw the widgets in the child window
         drawWidgetContainer(&target, states);
-
-        // Reset the old clipping area
-        glScissor(scissor[0], scissor[1], scissor[2], scissor[3]);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

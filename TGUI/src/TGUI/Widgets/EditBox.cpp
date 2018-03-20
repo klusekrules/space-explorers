@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2017 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -27,8 +27,7 @@
 #include <TGUI/Widgets/EditBox.hpp>
 #include <TGUI/Loading/Theme.hpp>
 #include <TGUI/Clipboard.hpp>
-
-#include <SFML/OpenGL.hpp>
+#include <TGUI/Clipping.hpp>
 
 #include <cmath>
 
@@ -61,6 +60,13 @@ namespace tgui
         reload();
 
         setSize({240, 30});
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    EditBox::Ptr EditBox::create()
+    {
+        return std::make_shared<EditBox>();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -374,6 +380,13 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    std::size_t EditBox::getCaretPosition() const
+    {
+        return m_selEnd;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     void EditBox::setCaretWidth(float width)
     {
         m_caret.setPosition(m_caret.getPosition().x + ((m_caret.getSize().x - width) / 2.0f), m_caret.getPosition().y);
@@ -403,13 +416,7 @@ namespace tgui
     {
         m_selStart = 0;
         m_selEnd = m_text.getSize();
-        m_selChars = m_text.getSize();
-
-        m_textBeforeSelection.setString("");
-        m_textSelection.setString(m_displayedText);
-        m_textAfterSelection.setString("");
-
-        recalculateTextPositions();
+        updateSelection();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -474,12 +481,7 @@ namespace tgui
             // Select the whole text
             m_selStart = 0;
             m_selEnd = m_text.getSize();
-            m_selChars = m_text.getSize();
-
-            // Change the texts
-            m_textBeforeSelection.setString("");
-            m_textSelection.setString(m_displayedText);
-            m_textAfterSelection.setString("");
+            updateSelection();
         }
         else // No double clicking
         {
@@ -495,8 +497,6 @@ namespace tgui
         m_callback.mouse.x = static_cast<int>(x - getPosition().x);
         m_callback.mouse.y = static_cast<int>(y - getPosition().y);
         sendSignal("MousePressed", sf::Vector2f{x - getPosition().x, y - getPosition().y});
-
-        recalculateTextPositions();
 
         // The caret should be visible
         m_caretVisible = true;
@@ -565,51 +565,7 @@ namespace tgui
                 m_selEnd = findCaretPosition(x - getPosition().x - getRenderer()->getScaledPadding().left);
             }
 
-            // Check if we are selecting text from left to right
-            if (m_selEnd > m_selStart)
-            {
-                // There is no need to redo everything when nothing changed
-                if (m_selChars != (m_selEnd - m_selStart))
-                {
-                    // Adjust the number of characters that are selected
-                    m_selChars = m_selEnd - m_selStart;
-
-                    // Change our three texts
-                    m_textBeforeSelection.setString(m_displayedText.toWideString().substr(0, m_selStart));
-                    m_textSelection.setString(m_displayedText.toWideString().substr(m_selStart, m_selChars));
-                    m_textAfterSelection.setString(m_displayedText.toWideString().substr(m_selEnd));
-
-                    recalculateTextPositions();
-                }
-            }
-            else if (m_selEnd < m_selStart)
-            {
-                // There is no need to redo everything when nothing changed
-                if (m_selChars != (m_selStart - m_selEnd))
-                {
-                    // Adjust the number of characters that are selected
-                    m_selChars = m_selStart - m_selEnd;
-
-                    // Change our three texts
-                    m_textBeforeSelection.setString(m_displayedText.toWideString().substr(0, m_selEnd));
-                    m_textSelection.setString(m_displayedText.toWideString().substr(m_selEnd, m_selChars));
-                    m_textAfterSelection.setString(m_displayedText.toWideString().substr(m_selStart));
-
-                    recalculateTextPositions();
-                }
-            }
-            else if (m_selChars > 0)
-            {
-                // Adjust the number of characters that are selected
-                m_selChars = 0;
-
-                // Change our three texts
-                m_textBeforeSelection.setString(m_displayedText);
-                m_textSelection.setString("");
-                m_textAfterSelection.setString("");
-
-                recalculateTextPositions();
-            }
+            updateSelection();
         }
     }
 
@@ -620,20 +576,31 @@ namespace tgui
         // Check if one of the correct keys was pressed
         if (event.code == sf::Keyboard::Left)
         {
-            // Check if we have selected some text
-            if (m_selChars > 0)
+            if (event.shift)
             {
-                // We will not move the caret, but just undo the selection
-                if (m_selStart < m_selEnd)
-                    setCaretPosition(m_selStart);
-                else
-                    setCaretPosition(m_selEnd);
-            }
-            else // When we did not select any text
-            {
-                // Move the caret to the left
                 if (m_selEnd > 0)
-                    setCaretPosition(m_selEnd - 1);
+                {
+                    m_selEnd--;
+                    updateSelection();
+                }
+            }
+            else // Shift key is not being held down
+            {
+                // Check if we have selected some text
+                if (m_selChars > 0)
+                {
+                    // We will not move the caret, but just undo the selection
+                    if (m_selStart < m_selEnd)
+                        setCaretPosition(m_selStart);
+                    else
+                        setCaretPosition(m_selEnd);
+                }
+                else // When we did not select any text
+                {
+                    // Move the caret to the left
+                    if (m_selEnd > 0)
+                        setCaretPosition(m_selEnd - 1);
+                }
             }
 
             // Our caret has moved, it should be visible
@@ -642,20 +609,31 @@ namespace tgui
         }
         else if (event.code == sf::Keyboard::Right)
         {
-            // Check if we have selected some text
-            if (m_selChars > 0)
+            if (event.shift)
             {
-                // We will not move the caret, but just undo the selection
-                if (m_selStart < m_selEnd)
-                    setCaretPosition(m_selEnd);
-                else
-                    setCaretPosition(m_selStart);
-            }
-            else // When we did not select any text
-            {
-                // Move the caret to the right
                 if (m_selEnd < m_displayedText.getSize())
-                    setCaretPosition(m_selEnd + 1);
+                {
+                    m_selEnd++;
+                    updateSelection();
+                }
+            }
+            else // Shift key is not being held down
+            {
+                // Check if we have selected some text
+                if (m_selChars > 0)
+                {
+                    // We will not move the caret, but just undo the selection
+                    if (m_selStart < m_selEnd)
+                        setCaretPosition(m_selEnd);
+                    else
+                        setCaretPosition(m_selStart);
+                }
+                else // When we did not select any text
+                {
+                    // Move the caret to the right
+                    if (m_selEnd < m_displayedText.getSize())
+                        setCaretPosition(m_selEnd + 1);
+                }
             }
 
             // Our caret has moved, it should be visible
@@ -664,8 +642,16 @@ namespace tgui
         }
         else if (event.code == sf::Keyboard::Home)
         {
-            // Set the caret to the beginning of the text
-            setCaretPosition(0);
+            if (event.shift)
+            {
+                m_selEnd = 0;
+                updateSelection();
+            }
+            else // Shift key is not being held down
+            {
+                // Set the caret to the beginning of the text
+                setCaretPosition(0);
+            }
 
             // Our caret has moved, it should be visible
             m_caretVisible = true;
@@ -673,8 +659,16 @@ namespace tgui
         }
         else if (event.code == sf::Keyboard::End)
         {
-            // Set the caret behind the text
-            setCaretPosition(m_text.getSize());
+            if (event.shift)
+            {
+                m_selEnd = m_text.getSize();
+                updateSelection();
+            }
+            else // Shift key is not being held down
+            {
+                // Set the caret behind the text
+                setCaretPosition(m_text.getSize());
+            }
 
             // Our caret has moved, it should be visible
             m_caretVisible = true;
@@ -954,87 +948,63 @@ namespace tgui
         if (m_displayedText.isEmpty())
             return 0;
 
-        // Find out what the first visible character is
-        std::size_t firstVisibleChar;
-        if (m_textCropPosition)
-        {
-            // Start searching near the caret to quickly find the character even in a very long string
-            firstVisibleChar = m_selEnd;
+        // Take the part outside the edit box into account when the text does not fit inside it
+        posX += m_textCropPosition;
 
-            // Go backwards to find the character
-            while (m_textFull.findCharacterPos(firstVisibleChar-1).x > m_textCropPosition)
-                --firstVisibleChar;
-        }
-        else // If the first part is visible then the first character is also visible
-            firstVisibleChar = 0;
-
-        sf::String tempString;
-        float textWidthWithoutLastChar;
-        float fullTextWidth;
-        float halfOfLastCharWidth;
-        std::size_t lastVisibleChar;
-        float width = getVisibleEditBoxWidth();
-
-        // Find out how many pixels the text is moved
-        float pixelsToMove = 0;
+        // If the text is centered or aligned to the right then the position has to be corrected when the edit box is not entirely full
         if (m_textAlignment != Alignment::Left)
         {
-            // Calculate the text width
+            float editBoxWidth = getVisibleEditBoxWidth();
             float textWidth = m_textFull.findCharacterPos(m_displayedText.getSize()).x;
 
-            // Check if a layout would make sense
-            if (textWidth < width)
+            if (textWidth < editBoxWidth)
             {
                 // Set the number of pixels to move
                 if (m_textAlignment == Alignment::Center)
-                    pixelsToMove = (width - textWidth) / 2.f;
+                    posX -= (editBoxWidth - textWidth) / 2.f;
                 else // if (textAlignment == Alignment::Right)
-                    pixelsToMove = width - textWidth;
+                    posX -= editBoxWidth - textWidth;
             }
         }
 
-        // Find out what the last visible character is, starting from the caret
-        lastVisibleChar = m_selEnd;
+        float width = 0;
+        sf::Uint32 prevChar = 0;
+        unsigned int textSize = getTextSize();
+        bool bold = false; /// TODO: (getRenderer()->getTextStyle() & sf::Text::Bold) != 0;
 
-        // Go forward to find the character
-        while (m_textFull.findCharacterPos(lastVisibleChar+1).x < m_textCropPosition + width)
+        std::size_t index;
+        for (index = 0; index < m_text.getSize(); ++index)
         {
-            if (lastVisibleChar == m_displayedText.getSize())
-                break;
-
-            ++lastVisibleChar;
-        }
-
-        // Set the first part of the text
-        tempString = m_displayedText.toWideString().substr(0, firstVisibleChar);
-        m_textFull.setString(tempString);
-
-        // Calculate the first position
-        fullTextWidth = m_textFull.findCharacterPos(firstVisibleChar).x;
-
-        // for all the other characters, check where you have clicked.
-        for (std::size_t i = firstVisibleChar; i < lastVisibleChar; ++i)
-        {
-            // Add the next character to the temporary string
-            tempString += m_displayedText[i];
-            m_textFull.setString(tempString);
-
-            // Make some calculations
-            textWidthWithoutLastChar = fullTextWidth;
-            fullTextWidth = m_textFull.findCharacterPos(i + 1).x;
-            halfOfLastCharWidth = (fullTextWidth - textWidthWithoutLastChar) / 2.0f;
-
-            // Check if you have clicked on the first halve of that character
-            if (posX < textWidthWithoutLastChar + pixelsToMove + halfOfLastCharWidth - m_textCropPosition)
+            float charWidth;
+            sf::Uint32 curChar = m_text[index];
+            if (curChar == '\n')
             {
-                m_textFull.setString(m_displayedText);
-                return i;
+                // This should not happen as edit box is for single line text, but lets try the next line anyway since we haven't found the position yet
+                width = 0;
+                prevChar = 0;
+                continue;
             }
+            else if (curChar == '\t')
+                charWidth = static_cast<float>(getFont()->getGlyph(' ', textSize, bold).advance) * 4;
+            else
+                charWidth = static_cast<float>(getFont()->getGlyph(curChar, textSize, bold).advance);
+
+            float kerning = static_cast<float>(getFont()->getKerning(prevChar, curChar, textSize));
+            if (width + charWidth < posX)
+                width += charWidth + kerning;
+            else
+            {
+                // If the mouse is on the second halve of the character then the caret should be on the right of it
+                if (width + charWidth - posX < charWidth / 2.f)
+                    index++;
+
+                break;
+            }
+
+            prevChar = curChar;
         }
 
-        // If you pass here then you clicked behind all the characters
-        m_textFull.setString(m_displayedText);
-        return lastVisibleChar;
+        return index;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1149,6 +1119,82 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    void EditBox::updateSelection()
+    {
+        bool recalculationNeeded = false;
+
+        // Check if we are selecting text from left to right
+        if (m_selEnd > m_selStart)
+        {
+            // There is no need to redo everything when nothing changed
+            if (m_selChars != (m_selEnd - m_selStart))
+            {
+                // Adjust the number of characters that are selected
+                m_selChars = m_selEnd - m_selStart;
+
+                // Change our three texts
+                m_textBeforeSelection.setString(m_displayedText.toWideString().substr(0, m_selStart));
+                m_textSelection.setString(m_displayedText.toWideString().substr(m_selStart, m_selChars));
+                m_textAfterSelection.setString(m_displayedText.toWideString().substr(m_selEnd));
+
+                recalculationNeeded = true;
+            }
+        }
+        else if (m_selEnd < m_selStart)
+        {
+            // There is no need to redo everything when nothing changed
+            if (m_selChars != (m_selStart - m_selEnd))
+            {
+                // Adjust the number of characters that are selected
+                m_selChars = m_selStart - m_selEnd;
+
+                // Change our three texts
+                m_textBeforeSelection.setString(m_displayedText.toWideString().substr(0, m_selEnd));
+                m_textSelection.setString(m_displayedText.toWideString().substr(m_selEnd, m_selChars));
+                m_textAfterSelection.setString(m_displayedText.toWideString().substr(m_selStart));
+
+                recalculationNeeded = true;
+            }
+        }
+        else if (m_selChars > 0)
+        {
+            // Adjust the number of characters that are selected
+            m_selChars = 0;
+
+            // Change our three texts
+            m_textBeforeSelection.setString(m_displayedText);
+            m_textSelection.setString("");
+            m_textAfterSelection.setString("");
+
+            recalculationNeeded = true;
+        }
+
+        if (recalculationNeeded)
+        {
+            // Check if scrolling is enabled
+            if (!m_limitTextWidth)
+            {
+                // Find out the position of the caret
+                float caretPosition = m_textFull.findCharacterPos(m_selEnd).x;
+
+                if (m_selEnd == m_displayedText.getSize())
+                    caretPosition += m_textFull.getCharacterSize() / 10.f;
+
+                // If the caret is too far on the right then adjust the cropping
+                if (m_textCropPosition + getVisibleEditBoxWidth() < caretPosition)
+                    m_textCropPosition = static_cast<unsigned int>(caretPosition - getVisibleEditBoxWidth());
+
+                // If the caret is too far on the left then adjust the cropping
+                if (m_textCropPosition > caretPosition)
+                    m_textCropPosition = static_cast<unsigned int>(caretPosition);
+            }
+
+            recalculateTextPositions();
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     void EditBox::update(sf::Time elapsedTime)
     {
         Widget::update(elapsedTime);
@@ -1174,36 +1220,9 @@ namespace tgui
         // Draw the background
         getRenderer()->draw(target, states);
 
-        // Calculate the scale factor of the view
-        const sf::View& view = target.getView();
-        float scaleViewX = target.getSize().x / view.getSize().x;
-        float scaleViewY = target.getSize().y / view.getSize().y;
-
+        // Set the clipping for all draw calls that happen until this clipping object goes out of scope
         Padding padding = getRenderer()->getScaledPadding();
-
-        // Get the global position
-        sf::Vector2f topLeftPosition = {((getAbsolutePosition().x + padding.left - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
-                                        ((getAbsolutePosition().y + padding.top - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top)};
-        sf::Vector2f bottomRightPosition = {(getAbsolutePosition().x + getSize().x - padding.right - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width + (view.getSize().x * view.getViewport().left),
-                                            (getAbsolutePosition().y + getSize().y - padding.bottom - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height + (view.getSize().y * view.getViewport().top)};
-
-        // Get the old clipping area
-        GLint scissor[4];
-        glGetIntegerv(GL_SCISSOR_BOX, scissor);
-
-        // Calculate the clipping area
-        GLint scissorLeft = std::max(static_cast<GLint>(topLeftPosition.x * scaleViewX), scissor[0]);
-        GLint scissorTop = std::max(static_cast<GLint>(topLeftPosition.y * scaleViewY), static_cast<GLint>(target.getSize().y) - scissor[1] - scissor[3]);
-        GLint scissorRight = std::min(static_cast<GLint>(bottomRightPosition.x * scaleViewX), scissor[0] + scissor[2]);
-        GLint scissorBottom = std::min(static_cast<GLint>(bottomRightPosition.y * scaleViewY), static_cast<GLint>(target.getSize().y) - scissor[1]);
-
-        if (scissorRight < scissorLeft)
-            scissorRight = scissorLeft;
-        else if (scissorBottom < scissorTop)
-            scissorTop = scissorBottom;
-
-        // Set the clipping area
-        glScissor(scissorLeft, target.getSize().y - scissorBottom, scissorRight - scissorLeft, scissorBottom - scissorTop);
+        Clipping clipping{target, states, {getPosition().x + padding.left, getPosition().y + padding.top}, {getSize().x - padding.left - padding.right, getSize().y - padding.top - padding.bottom}};
 
         if ((m_textBeforeSelection.getString() != "") || (m_textSelection.getString() != ""))
         {
@@ -1225,9 +1244,6 @@ namespace tgui
         // Draw the caret
         if ((m_focused) && (m_caretVisible))
             target.draw(m_caret, states);
-
-        // Reset the old clipping area
-        glScissor(scissor[0], scissor[1], scissor[2], scissor[3]);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1542,6 +1558,13 @@ namespace tgui
             m_textureFocused.setSize(m_editBox->getSize());
             m_textureFocused.setColor({m_textureFocused.getColor().r, m_textureFocused.getColor().g, m_textureFocused.getColor().b, static_cast<sf::Uint8>(m_editBox->getOpacity() * 255)});
         }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void EditBoxRenderer::setDefaultTextStyle(sf::Uint32 style)
+    {
+        m_editBox->m_defaultText.setStyle(style);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

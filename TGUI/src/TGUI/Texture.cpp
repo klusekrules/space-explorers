@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2017 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -25,8 +25,7 @@
 
 #include <TGUI/Texture.hpp>
 #include <TGUI/Global.hpp>
-
-#include <SFML/OpenGL.hpp>
+#include <TGUI/Clipping.hpp>
 
 #include <cassert>
 
@@ -117,12 +116,31 @@ namespace tgui
 
     void Texture::load(const sf::String& id, const sf::IntRect& partRect, const sf::IntRect& middleRect)
     {
+        if (id.isEmpty())
+        {
+            *this = Texture{};
+            return;
+        }
+
         if (m_loaded && (m_destructCallback != nullptr))
             m_destructCallback(getData());
 
         m_loaded = false;
-        if (!m_textureLoader(*this, id, partRect))
-            throw Exception{"Failed to load '" + id + "'"};
+
+    #ifdef SFML_SYSTEM_WINDOWS
+        if ((id.getSize() <= 1) || ((id[0] != '/') && (id[0] != '\\') && (id[1] != ':')))
+    #else
+        if (id[0] != '/')
+    #endif
+        {
+            if (!m_textureLoader(*this, getResourcePath() + id, partRect))
+                throw Exception{"Failed to load '" + getResourcePath() + id + "'"};
+        }
+        else
+        {
+            if (!m_textureLoader(*this, id, partRect))
+                throw Exception{"Failed to load '" + id + "'"};
+        }
 
         m_id = id;
         setTexture(m_data, middleRect);
@@ -195,8 +213,6 @@ namespace tgui
         {
             m_size.x = std::max(size.x, 0.f);
             m_size.y = std::max(size.y, 0.f);
-
-            setOrigin(std::min(m_size.x, m_size.y) / 2.0f, std::min(m_size.x, m_size.y) / 2.0f);
 
             updateVertices();
         }
@@ -504,7 +520,15 @@ namespace tgui
 
     void Texture::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
-        states.transform.translate(getOrigin());
+        // A rotation can cause the image to be shifted, so we move it upfront so that it ends at the correct location
+        if (getRotation() != 0)
+        {
+            sf::Vector2f pos = {getTransform().transformRect(sf::FloatRect({}, getSize())).left,
+                                getTransform().transformRect(sf::FloatRect({}, getSize())).top};
+
+            states.transform.translate(getPosition() - pos);
+        }
+
         states.transform *= getTransform();
 
         if (m_loaded)
@@ -516,44 +540,10 @@ namespace tgui
             }
             else
             {
-                const sf::View& view = target.getView();
+                Clipping clipping{target, states, sf::Vector2f{m_textureRect.left, m_textureRect.top}, sf::Vector2f{m_textureRect.width, m_textureRect.height}};
 
-                // Calculate the scale factor of the view
-                float scaleViewX = target.getSize().x / view.getSize().x;
-                float scaleViewY = target.getSize().y / view.getSize().y;
-
-/// TODO: Check this code! Other places don't use transformPoint
-                // Get the global position
-                sf::Vector2f topLeftPosition = states.transform.transformPoint(((m_textureRect.left - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
-                                                                               ((m_textureRect.top - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top));
-                sf::Vector2f bottomRightPosition = states.transform.transformPoint((m_textureRect.left + m_textureRect.width - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width + (view.getSize().x * view.getViewport().left),
-                                                                                   (m_textureRect.top + m_textureRect.height - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height + (view.getSize().y * view.getViewport().top));
-
-                // Get the old clipping area
-                GLint scissor[4];
-                glGetIntegerv(GL_SCISSOR_BOX, scissor);
-
-                // Calculate the clipping area
-                GLint scissorLeft = std::max(static_cast<GLint>(topLeftPosition.x * scaleViewX), scissor[0]);
-                GLint scissorTop = std::max(static_cast<GLint>(topLeftPosition.y * scaleViewY), static_cast<GLint>(target.getSize().y) - scissor[1] - scissor[3]);
-                GLint scissorRight = std::min(static_cast<GLint>(bottomRightPosition.x * scaleViewX), scissor[0] + scissor[2]);
-                GLint scissorBottom = std::min(static_cast<GLint>(bottomRightPosition.y * scaleViewY), static_cast<GLint>(target.getSize().y) - scissor[1]);
-
-                // If the object outside the window then don't draw anything
-                if (scissorRight < scissorLeft)
-                    scissorRight = scissorLeft;
-                else if (scissorBottom < scissorTop)
-                    scissorTop = scissorBottom;
-
-                // Set the clipping area
-                glScissor(scissorLeft, target.getSize().y - scissorBottom, scissorRight - scissorLeft, scissorBottom - scissorTop);
-
-                // Draw the texture
                 states.texture = &m_data->texture;
                 target.draw(m_vertices.data(), m_vertices.size(), sf::PrimitiveType::TrianglesStrip, states);
-
-                // Reset the old clipping area
-                glScissor(scissor[0], scissor[1], scissor[2], scissor[3]);
             }
         }
     }

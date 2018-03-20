@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2017 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -90,6 +90,15 @@ namespace tgui
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// @brief Creates a new child window widget
+        ///
+        /// @return The new child window
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        static ChildWindow::Ptr create();
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// @brief Makes a copy of another child window
         ///
         /// @param childWindow  The other child window
@@ -149,6 +158,52 @@ namespace tgui
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         virtual sf::Vector2f getFullSize() const override;
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// @brief Sets the maximum size of the child window.
+        ///
+        /// @param size   Sets the new maximum size of the child window
+        ///
+        /// This function sets the maximum size of the window excluding borders and titlebar.
+        /// If the window is larger than the new maximum size, it will automatically be resized down.
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        void setMaximumSize(sf::Vector2f size);
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// @brief Returns the maximum size of the child window.
+        ///
+        /// @return Maximum size of the child window
+        ///
+        /// The size returned by this function is the maximum size of the child window, excluding the title bar and the borders.
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        sf::Vector2f getMaximumSize() const;
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// @brief Sets the minimum size of the child window.
+        ///
+        /// @param size   Sets the new minimum size of the child window
+        ///
+        /// This function sets the minimum size of the window excluding borders and titlebar.
+        /// If the window is smaller than the new minimum size, it will automatically be resized up.
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        void setMinimumSize(sf::Vector2f size);
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// @brief Returns the minimum size of the child window.
+        ///
+        /// @return Minimum size of the child window
+        ///
+        /// The size returned by this function is the minimum size of the child window, excluding the title bar and the borders.
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        sf::Vector2f getMinimumSize() const;
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -224,7 +279,7 @@ namespace tgui
         /// childWindow->setTitleButtons(ChildWindow::TitleButtons::Minimize | ChildWindow::TitleButtons::Close);
         /// @endcode
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        void setTitleButtons(TitleButtons buttons);
+        void setTitleButtons(unsigned int buttons);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -233,7 +288,7 @@ namespace tgui
         /// @return Which buttons are available in the title bar
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        TitleButtons getTitleButtons() const
+        unsigned int getTitleButtons() const
         {
             return m_titleButtons;
         }
@@ -502,8 +557,10 @@ namespace tgui
 
         Label          m_titleText;
         sf::Vector2f   m_draggingPosition;
+        sf::Vector2f   m_maximumSize;
+        sf::Vector2f   m_minimumSize;
         TitleAlignment m_titleAlignment = TitleAlignment::Center;
-        TitleButtons   m_titleButtons = TitleButtons::Close;
+        unsigned int   m_titleButtons = TitleButtons::Close;
         sf::String     m_closeButtonText = "x";
         sf::String     m_minimizeButtonText = "-";
         sf::String     m_maximizeButtonText = "+";

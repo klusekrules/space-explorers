@@ -267,6 +267,7 @@
     <ClCompile Include="src\TGUI\Animation.cpp" />
     <ClCompile Include="src\TGUI\BoxLayout.cpp" />
     <ClCompile Include="src\TGUI\Clipboard.cpp" />
+    <ClCompile Include="src\TGUI\Clipping.cpp" />
     <ClCompile Include="src\TGUI\Color.cpp" />
     <ClCompile Include="src\TGUI\Container.cpp" />
     <ClCompile Include="src\TGUI\Font.cpp" />
@@ -296,6 +297,10 @@
     <ClCompile Include="src\TGUI\Widgets\ChildWindow.cpp" />
     <ClCompile Include="src\TGUI\Widgets\ClickableWidget.cpp" />
     <ClCompile Include="src\TGUI\Widgets\ComboBox.cpp" />
+    <ClCompile Include="src\TGUI\Widgets\devel\RichTextLabel.cpp" />
+    <ClCompile Include="src\TGUI\Widgets\devel\Table.cpp" />
+    <ClCompile Include="src\TGUI\Widgets\devel\TableItem.cpp" />
+    <ClCompile Include="src\TGUI\Widgets\devel\TableRow.cpp" />
     <ClCompile Include="src\TGUI\Widgets\EditBox.cpp" />
     <ClCompile Include="src\TGUI\Widgets\Grid.cpp" />
     <ClCompile Include="src\TGUI\Widgets\Knob.cpp" />
@@ -354,6 +359,10 @@
     <ClInclude Include="include\TGUI\Widgets\ChildWindow.hpp" />
     <ClInclude Include="include\TGUI\Widgets\ClickableWidget.hpp" />
     <ClInclude Include="include\TGUI\Widgets\ComboBox.hpp" />
+    <ClInclude Include="include\TGUI\Widgets\devel\RichTextLabel.hpp" />
+    <ClInclude Include="include\TGUI\Widgets\devel\Table.hpp" />
+    <ClInclude Include="include\TGUI\Widgets\devel\TableItem.hpp" />
+    <ClInclude Include="include\TGUI\Widgets\devel\TableRow.hpp" />
     <ClInclude Include="include\TGUI\Widgets\EditBox.hpp" />
     <ClInclude Include="include\TGUI\Widgets\Grid.hpp" />
     <ClInclude Include="include\TGUI\Widgets\Knob.hpp" />

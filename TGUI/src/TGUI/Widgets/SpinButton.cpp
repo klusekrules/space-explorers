@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2017 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -43,6 +43,18 @@ namespace tgui
         reload();
 
         setSize(20, 42);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    SpinButton::Ptr SpinButton::create(int minimum, int maximum)
+    {
+        auto spinButton = std::make_shared<SpinButton>();
+
+        spinButton->setMinimum(minimum);
+        spinButton->setMaximum(maximum);
+
+        return spinButton;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

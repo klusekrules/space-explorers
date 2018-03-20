@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2017 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -49,6 +49,13 @@ namespace tgui
         reload();
 
         setSize({24, 24});
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    RadioButton::Ptr RadioButton::create()
+    {
+        return std::make_shared<RadioButton>();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -140,7 +147,7 @@ namespace tgui
             m_checked = true;
 
             m_callback.checked = true;
-            sendSignal("Checked", m_checked);
+            sendSignal("Checked", static_cast<int>(m_checked));
         }
     }
 
@@ -153,7 +160,7 @@ namespace tgui
             m_checked = false;
 
             m_callback.checked = false;
-            sendSignal("Unchecked", m_checked);
+            sendSignal("Unchecked", static_cast<int>(m_checked));
         }
     }
 

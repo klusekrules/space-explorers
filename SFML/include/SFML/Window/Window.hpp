@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2016 Laurent Gomila (laurent@sfml-dev.org)
+// Copyright (C) 2007-2018 Laurent Gomila (laurent@sfml-dev.org)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -28,16 +28,17 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <SFML/Window/Export.hpp>
 #include <SFML/Window/ContextSettings.hpp>
+#include <SFML/Window/Cursor.hpp>
+#include <SFML/Window/Export.hpp>
+#include <SFML/Window/GlResource.hpp>
 #include <SFML/Window/VideoMode.hpp>
 #include <SFML/Window/WindowHandle.hpp>
 #include <SFML/Window/WindowStyle.hpp>
-#include <SFML/Window/GlResource.hpp>
 #include <SFML/System/Clock.hpp>
-#include <SFML/System/Vector2.hpp>
 #include <SFML/System/NonCopyable.hpp>
 #include <SFML/System/String.hpp>
+#include <SFML/System/Vector2.hpp>
 
 
 namespace sf
@@ -354,14 +355,31 @@ public:
     /// If set, grabs the mouse cursor inside this window's client
     /// area so it may no longer be moved outside its bounds.
     /// Note that grabbing is only active while the window has
-    /// focus and calling this function for fullscreen windows
-    /// won't have any effect (fullscreen windows always grab the
-    /// cursor).
+    /// focus.
     ///
     /// \param grabbed True to enable, false to disable
     ///
     ////////////////////////////////////////////////////////////
     void setMouseCursorGrabbed(bool grabbed);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Set the displayed cursor to a native system cursor
+    ///
+    /// Upon window creation, the arrow cursor is used by default.
+    ///
+    /// \warning The cursor must not be destroyed while in use by
+    ///          the window.
+    ///
+    /// \warning Features related to Cursor are not supported on
+    ///          iOS and Android.
+    ///
+    /// \param cursor Native system cursor type to display
+    ///
+    /// \see sf::Cursor::loadFromSystem
+    /// \see sf::Cursor::loadFromPixels
+    ///
+    ////////////////////////////////////////////////////////////
+    void setMouseCursor(const Cursor& cursor);
 
     ////////////////////////////////////////////////////////////
     /// \brief Enable or disable automatic key-repeat

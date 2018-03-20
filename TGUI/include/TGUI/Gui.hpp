@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2017 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -461,8 +461,10 @@ namespace tgui
         // The sfml window or other target to draw on
         sf::RenderTarget* m_window;
 
+    #if SFML_VERSION_MAJOR == 2 && SFML_VERSION_MINOR < 5
         // Does m_Window contains a sf::RenderWindow?
         bool m_accessToWindow;
+    #endif
 
         // Internal container to store all widgets
         GuiContainer::Ptr m_container = std::make_shared<GuiContainer>();

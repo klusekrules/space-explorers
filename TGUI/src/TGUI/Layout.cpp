@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2017 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -156,10 +156,16 @@ namespace tgui
             value = operands[0]->value * operands[1]->value;
             break;
         case Operation::Divides:
-            value = operands[0]->value / operands[1]->value;
+            if (operands[1]->value != 0)
+                value = operands[0]->value / operands[1]->value;
+            else
+                value = 0;
             break;
         case Operation::Modulus:
-            value = std::fmod(operands[0]->value, operands[1]->value);
+            if (operands[1]->value != 0)
+                value = std::fmod(operands[0]->value, operands[1]->value);
+            else
+                value = 0;
             break;
         case Operation::And:
             value = operands[0]->value && operands[1]->value;
@@ -197,7 +203,9 @@ namespace tgui
         }
 
         // Alert the widgets that are using this layout
-        for (auto& attachedLayout : attachedLayouts)
+        // Make a copy of the set first as this object may be destroyed while updating the widgets in which case we may no longer access the set
+        auto attachedLayoutsCopy = attachedLayouts;
+        for (auto& attachedLayout : attachedLayoutsCopy)
             attachedLayout->update();
     }
 
@@ -500,7 +508,13 @@ namespace tgui
                 if ((multiplyPos == std::string::npos) || (multiplyPos < dividePos))
                 {
                     if ((modulusPos == std::string::npos) || (modulusPos < dividePos))
-                        return parseLayoutString(expression.substr(0, dividePos)) / parseLayoutString(expression.substr(dividePos + 1));
+                    {
+                        const float divisor = parseLayoutString(expression.substr(dividePos + 1));
+                        if (divisor != 0)
+                            return parseLayoutString(expression.substr(0, dividePos)) / divisor;
+                        else
+                            return 0;
+                    }
                 }
             }
             if (modulusPos != std::string::npos)
@@ -508,7 +522,13 @@ namespace tgui
                 if ((multiplyPos == std::string::npos) || (multiplyPos < modulusPos))
                 {
                     if ((dividePos == std::string::npos) || (dividePos < modulusPos))
-                        return std::fmod(parseLayoutString(expression.substr(0, modulusPos)),  parseLayoutString(expression.substr(modulusPos + 1)));
+                    {
+                        const float divisor = parseLayoutString(expression.substr(modulusPos + 1));
+                        if (divisor != 0)
+                            return std::fmod(parseLayoutString(expression.substr(0, modulusPos)), divisor);
+                        else
+                            return 0;
+                    }
                 }
             }
         }
@@ -654,7 +674,6 @@ namespace tgui
     Layout::Layout()
     {
         m_impl->value = 0;
-        m_impl->attachedLayouts.insert(this);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -670,7 +689,6 @@ namespace tgui
     {
         m_impl->stringExpression = expression;
         m_impl->operation = LayoutImpl::Operation::String;
-        m_impl->attachedLayouts.insert(this);
         m_impl->recalculate();
     }
 
@@ -679,14 +697,6 @@ namespace tgui
     Layout::Layout(const Layout& copy)
     {
         m_impl = copy.m_impl;
-        m_impl->attachedLayouts.insert(this);
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    Layout::~Layout()
-    {
-        m_impl->attachedLayouts.erase(this);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -695,9 +705,8 @@ namespace tgui
     {
         if (&right != this)
         {
-            m_impl->attachedLayouts.erase(this);
-            right.m_impl->attachedLayouts.insert(this);
             m_impl = right.m_impl;
+            m_callbackFunction = nullptr;
         }
 
         return *this;

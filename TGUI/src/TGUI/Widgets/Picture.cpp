@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2017 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -56,9 +56,23 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    Picture::Ptr Picture::create(const char* filename, bool fullyClickable)
+    {
+        return std::make_shared<Picture>(filename, fullyClickable);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    Picture::Ptr Picture::create(const Texture& texture, bool fullyClickable)
+    {
+        return std::make_shared<Picture>(texture, fullyClickable);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     void Picture::setTexture(const sf::String& filename, bool fullyClickable)
     {
-        m_loadedFilename = getResourcePath() + filename;
+        m_loadedFilename = filename;
 
         setTexture(Texture{filename}, fullyClickable);
     }

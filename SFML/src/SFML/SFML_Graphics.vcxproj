@@ -284,10 +284,38 @@
     <ClCompile Include="Graphics\Transformable.cpp" />
     <ClCompile Include="Graphics\Vertex.cpp" />
     <ClCompile Include="Graphics\VertexArray.cpp" />
+    <ClCompile Include="Graphics\VertexBuffer.cpp" />
     <ClCompile Include="Graphics\View.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\SFML\Graphics\BlendMode.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\CircleShape.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\Color.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\ConvexShape.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\Drawable.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\Export.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\Font.hpp" />
     <ClInclude Include="..\..\include\SFML\Graphics\Glsl.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\Glyph.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\Image.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\PrimitiveType.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\Rect.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\RectangleShape.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\RenderStates.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\RenderTarget.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\RenderTexture.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\RenderWindow.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\Shader.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\Shape.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\Sprite.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\Text.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\Texture.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\Transform.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\Transformable.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\Vertex.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\VertexArray.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\VertexBuffer.hpp" />
+    <ClInclude Include="..\..\include\SFML\Graphics\View.hpp" />
     <ClInclude Include="Graphics\GLCheck.hpp" />
     <ClInclude Include="Graphics\GLExtensions.hpp" />
     <ClInclude Include="Graphics\GLLoader.hpp" />
@@ -307,6 +335,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\include\SFML\Graphics\Glsl.inl" />
+    <None Include="..\..\include\SFML\Graphics\Rect.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

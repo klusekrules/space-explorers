@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2017 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -46,6 +46,13 @@ namespace tgui
         reload();
 
         setSize(140, 140);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    Knob::Ptr Knob::create()
+    {
+        return std::make_shared<Knob>();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -420,12 +427,6 @@ namespace tgui
         {
             m_angle = (((m_value - m_minimum) / static_cast<float>(m_maximum - m_minimum)) * allowedAngle) + m_startRotation;
         }
-
-        // Give the image the correct rotation
-        if (getRenderer()->m_imageRotation > m_angle)
-            getRenderer()->m_foregroundTexture.setRotation(getRenderer()->m_imageRotation - m_angle);
-        else
-            getRenderer()->m_foregroundTexture.setRotation(360 - m_angle + getRenderer()->m_imageRotation);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -647,6 +648,13 @@ namespace tgui
         if (m_backgroundTexture.isLoaded() && m_foregroundTexture.isLoaded())
         {
             target.draw(m_backgroundTexture, states);
+
+            // Give the foreground image the correct rotation
+            float angle = -(m_imageRotation + m_knob->m_angle);
+            auto center = m_foregroundTexture.getPosition();
+            center += m_foregroundTexture.getSize() / 2.f;
+            states.transform.rotate(angle, center);
+
             target.draw(m_foregroundTexture, states);
         }
         else

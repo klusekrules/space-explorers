@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2017 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -64,7 +64,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool Signal::isEmpty()
+    bool Signal::isEmpty() const
     {
         return m_functions.empty();
     }
@@ -73,7 +73,9 @@ namespace tgui
 
     void Signal::operator()(unsigned int)
     {
-        for (auto& function : m_functions)
+        // Copy the functions in case one of the functions destroys the widget to which this Signal instance belongs
+        auto functions = m_functions;
+        for (const auto& function : functions)
             function.second();
     }
 

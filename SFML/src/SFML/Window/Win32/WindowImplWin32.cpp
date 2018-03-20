@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2016 Laurent Gomila (laurent@sfml-dev.org)
+// Copyright (C) 2007-2018 Laurent Gomila (laurent@sfml-dev.org)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -39,7 +39,9 @@
 #include <GL/gl.h>
 #include <SFML/System/Err.hpp>
 #include <SFML/System/Utf.hpp>
+#include <Dbt.h>
 #include <vector>
+#include <cstring>
 
 // MinGW lacks the definition of some Win32 constants
 #ifndef XBUTTON1
@@ -55,17 +57,17 @@
     #define MAPVK_VK_TO_VSC (0)
 #endif
 
-
 namespace
 {
-    unsigned int               windowCount      = 0;
+    unsigned int               windowCount      = 0; // Windows owned by SFML
+    unsigned int               handleCount      = 0; // All window handles
     const wchar_t*             className        = L"SFML_Window";
     sf::priv::WindowImplWin32* fullscreenWindow = NULL;
 
     void setProcessDpiAware()
     {
         // Try SetProcessDpiAwareness first
-        HINSTANCE shCoreDll = LoadLibrary("Shcore.dll");
+        HINSTANCE shCoreDll = LoadLibraryW(L"Shcore.dll");
 
         if (shCoreDll)
         {
@@ -100,7 +102,7 @@ namespace
 
         // Fall back to SetProcessDPIAware if SetProcessDpiAwareness
         // is not available on this system
-        HINSTANCE user32Dll = LoadLibrary("user32.dll");
+        HINSTANCE user32Dll = LoadLibraryW(L"user32.dll");
 
         if (user32Dll)
         {
@@ -126,7 +128,8 @@ namespace priv
 WindowImplWin32::WindowImplWin32(WindowHandle handle) :
 m_handle          (handle),
 m_callback        (0),
-m_cursor          (NULL),
+m_cursorVisible   (true), // might need to call GetCursorInfo
+m_lastCursor      (LoadCursor(NULL, IDC_ARROW)),
 m_icon            (NULL),
 m_keyRepeatEnabled(true),
 m_lastSize        (0, 0),
@@ -141,6 +144,12 @@ m_cursorGrabbed   (false)
 
     if (m_handle)
     {
+        // If we're the first window handle, we only need to poll for joysticks when WM_DEVICECHANGE message is received
+        if (handleCount == 0)
+            JoystickImpl::setLazyUpdates(true);
+
+        ++handleCount;
+
         // We change the event procedure of the control (it is important to save the old one)
         SetWindowLongPtrW(m_handle, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
         m_callback = SetWindowLongPtrW(m_handle, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&WindowImplWin32::globalOnEvent));
@@ -152,14 +161,15 @@ m_cursorGrabbed   (false)
 WindowImplWin32::WindowImplWin32(VideoMode mode, const String& title, Uint32 style, const ContextSettings& /*settings*/) :
 m_handle          (NULL),
 m_callback        (0),
-m_cursor          (NULL),
+m_cursorVisible   (true), // might need to call GetCursorInfo
+m_lastCursor      (LoadCursor(NULL, IDC_ARROW)),
 m_icon            (NULL),
 m_keyRepeatEnabled(true),
 m_lastSize        (mode.width, mode.height),
 m_resizing        (false),
 m_surrogate       (0),
 m_mouseInside     (false),
-m_fullscreen      (style & Style::Fullscreen),
+m_fullscreen      ((style & Style::Fullscreen) != 0),
 m_cursorGrabbed   (m_fullscreen)
 {
     // Set that this process is DPI aware and can handle DPI scaling
@@ -202,6 +212,19 @@ m_cursorGrabbed   (m_fullscreen)
     // Create the window
     m_handle = CreateWindowW(className, title.toWideString().c_str(), win32Style, left, top, width, height, NULL, NULL, GetModuleHandle(NULL), this);
 
+    // Register to receive device interface change notifications (used for joystick connection handling)
+    DEV_BROADCAST_HDR deviceBroadcastHeader = {sizeof(DEV_BROADCAST_HDR), DBT_DEVTYP_DEVICEINTERFACE, 0};
+    RegisterDeviceNotification(m_handle, &deviceBroadcastHeader, DEVICE_NOTIFY_WINDOW_HANDLE | DEVICE_NOTIFY_ALL_INTERFACE_CLASSES);
+
+    // If we're the first window handle, we only need to poll for joysticks when WM_DEVICECHANGE message is received
+    if (m_handle)
+    {
+        if (handleCount == 0)
+            JoystickImpl::setLazyUpdates(true);
+
+        ++handleCount;
+    }
+
     // By default, the OS limits the size of the window the the desktop size,
     // we have to resize it after creation to apply the real size
     setSize(Vector2u(mode.width, mode.height));
@@ -218,9 +241,20 @@ m_cursorGrabbed   (m_fullscreen)
 ////////////////////////////////////////////////////////////
 WindowImplWin32::~WindowImplWin32()
 {
+    // TODO should we restore the cursor shape and visibility?
+
     // Destroy the custom icon, if any
     if (m_icon)
         DestroyIcon(m_icon);
+
+    // If it's the last window handle we have to poll for joysticks again
+    if (m_handle)
+    {
+        --handleCount;
+
+        if (handleCount == 0)
+            JoystickImpl::setLazyUpdates(false);
+    }
 
     if (!m_callback)
     {
@@ -360,12 +394,14 @@ void WindowImplWin32::setVisible(bool visible)
 ////////////////////////////////////////////////////////////
 void WindowImplWin32::setMouseCursorVisible(bool visible)
 {
-    if (visible)
-        m_cursor = LoadCursor(NULL, IDC_ARROW);
-    else
-        m_cursor = NULL;
-
-    SetCursor(m_cursor);
+    // Don't call twice ShowCursor with the same parameter value;
+    // we don't want to increment/decrement the internal counter
+    // more than once.
+    if (visible != m_cursorVisible)
+    {
+        m_cursorVisible = visible;
+        ShowCursor(visible);
+    }
 }
 
 
@@ -374,6 +410,14 @@ void WindowImplWin32::setMouseCursorGrabbed(bool grabbed)
 {
     m_cursorGrabbed = grabbed;
     grabCursor(m_cursorGrabbed);
+}
+
+
+////////////////////////////////////////////////////////////
+void WindowImplWin32::setMouseCursor(const CursorImpl& cursor)
+{
+    m_lastCursor = cursor.m_cursor;
+    SetCursor(m_lastCursor);
 }
 
 
@@ -538,7 +582,7 @@ void WindowImplWin32::processEvent(UINT message, WPARAM wParam, LPARAM lParam)
         {
             // The mouse has moved, if the cursor is in our window we must refresh the cursor
             if (LOWORD(lParam) == HTCLIENT)
-                SetCursor(m_cursor);
+                SetCursor(m_lastCursor);
 
             break;
         }
@@ -684,10 +728,10 @@ void WindowImplWin32::processEvent(UINT message, WPARAM wParam, LPARAM lParam)
             {
                 Event event;
                 event.type        = Event::KeyPressed;
-                event.key.alt     = HIWORD(GetAsyncKeyState(VK_MENU))    != 0;
-                event.key.control = HIWORD(GetAsyncKeyState(VK_CONTROL)) != 0;
-                event.key.shift   = HIWORD(GetAsyncKeyState(VK_SHIFT))   != 0;
-                event.key.system  = HIWORD(GetAsyncKeyState(VK_LWIN)) || HIWORD(GetAsyncKeyState(VK_RWIN));
+                event.key.alt     = HIWORD(GetKeyState(VK_MENU))    != 0;
+                event.key.control = HIWORD(GetKeyState(VK_CONTROL)) != 0;
+                event.key.shift   = HIWORD(GetKeyState(VK_SHIFT))   != 0;
+                event.key.system  = HIWORD(GetKeyState(VK_LWIN)) || HIWORD(GetKeyState(VK_RWIN));
                 event.key.code    = virtualKeyCodeToSF(wParam, lParam);
                 pushEvent(event);
             }
@@ -700,10 +744,10 @@ void WindowImplWin32::processEvent(UINT message, WPARAM wParam, LPARAM lParam)
         {
             Event event;
             event.type        = Event::KeyReleased;
-            event.key.alt     = HIWORD(GetAsyncKeyState(VK_MENU))    != 0;
-            event.key.control = HIWORD(GetAsyncKeyState(VK_CONTROL)) != 0;
-            event.key.shift   = HIWORD(GetAsyncKeyState(VK_SHIFT))   != 0;
-            event.key.system  = HIWORD(GetAsyncKeyState(VK_LWIN)) || HIWORD(GetAsyncKeyState(VK_RWIN));
+            event.key.alt     = HIWORD(GetKeyState(VK_MENU))    != 0;
+            event.key.control = HIWORD(GetKeyState(VK_CONTROL)) != 0;
+            event.key.shift   = HIWORD(GetKeyState(VK_SHIFT))   != 0;
+            event.key.system  = HIWORD(GetKeyState(VK_LWIN)) || HIWORD(GetKeyState(VK_RWIN));
             event.key.code    = virtualKeyCodeToSF(wParam, lParam);
             pushEvent(event);
             break;
@@ -934,6 +978,20 @@ void WindowImplWin32::processEvent(UINT message, WPARAM wParam, LPARAM lParam)
             event.mouseMove.x = x;
             event.mouseMove.y = y;
             pushEvent(event);
+            break;
+        }
+        case WM_DEVICECHANGE:
+        {
+            // Some sort of device change has happened, update joystick connections
+            if ((wParam == DBT_DEVICEARRIVAL) || (wParam == DBT_DEVICEREMOVECOMPLETE))
+            {
+                // Some sort of device change has happened, update joystick connections if it is a device interface
+                DEV_BROADCAST_HDR* deviceBroadcastHeader = reinterpret_cast<DEV_BROADCAST_HDR*>(lParam);
+
+                if (deviceBroadcastHeader && (deviceBroadcastHeader->dbch_devicetype == DBT_DEVTYP_DEVICEINTERFACE))
+                    JoystickImpl::updateConnections();
+            }
+
             break;
         }
     }

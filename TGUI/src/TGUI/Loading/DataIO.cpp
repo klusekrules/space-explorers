@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2017 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -109,8 +109,17 @@ namespace tgui
             }
         }
 
-        if (!error.empty()) {
-            throw Exception{"Error while parsing input. " + error};
+        if (!error.empty())
+        {
+            if (stream.tellg() != std::stringstream::pos_type(-1))
+            {
+                std::string str = stream.str();
+                auto position = static_cast<std::iterator_traits<std::string::const_iterator>::difference_type>(stream.tellg());
+                std::size_t lineNumber = std::count(str.begin(), str.begin() + position, '\n') + 1;
+                throw Exception{"Error while parsing input at line " + tgui::to_string(lineNumber) + ". " + error};
+            }
+            else
+                throw Exception{"Error while parsing input. " + error};
         }
 
         return root;

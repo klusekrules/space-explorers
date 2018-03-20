@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus's Graphical User Interface
-// Copyright (C) 2012-2015 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2017 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -47,6 +47,15 @@ namespace tgui
     ClickableWidget::ClickableWidget(const Layout& width, const Layout& height) :
         ClickableWidget{Layout2d{width, height}}
     {
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    ClickableWidget::Ptr ClickableWidget::create(Layout2d size)
+    {
+        auto widget = std::make_shared<ClickableWidget>();
+        widget->setSize(size);
+        return widget;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
