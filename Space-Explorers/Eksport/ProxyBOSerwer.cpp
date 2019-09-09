@@ -2,6 +2,7 @@
 #include "KodyPowrotu.h"
 #include "Kontroler\Siec\Serwer\SerwerMulti.h"
 #include "Kontroler\Aplikacja.h"
+#include "Kontroler\Zarzadca\ZarzadcaLokacji.h"
 #include "Widok\Konsola\Konsola.h"
 #include "Export.h"
 #include "Utils\UtilsGui.h"
@@ -17,6 +18,14 @@ namespace SpEx{
 			return RETURN_CODE_SERWER_JUZ_JEST_WLACZONY;
 		}
 		
+		if (Aplikacja::pobierzInstancje().pobierzZarzadceLokacji().pobierzIloscGalaktyk() == 0) {
+			Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Info, "Wykryto brak galaktyki. Rozpoczêcie generowania galaktyki.");
+			if (Aplikacja::pobierzInstancje().pobierzZarzadceLokacji().generujNowaGalaktyke())
+				Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Info, "Uda³o siê wygenerowaæ galaktykê.");
+			else
+				Aplikacja::pobierzInstancje().logger_.loguj(SLog::Log::Info, "B³¹d podczas generowania galaktyki.");
+		}
+
 		serwer_ = std::make_shared<SerwerMulti>(Aplikacja::pobierzInstancje().pobierzUstawieniaAplikacji());
 		serwer_->odblokuj();
 		return RETURN_CODE_OK;
